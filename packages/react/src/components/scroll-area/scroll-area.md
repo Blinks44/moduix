@@ -16,16 +16,16 @@ The wrapper follows Ark UI React `@ark-ui/react/scroll-area`. Preserve the Ark p
 `Root`, `RootProvider`, `Viewport`, `Content`, `Scrollbar`, `Thumb`, and `Corner`.
 
 Ark owns measurement, overflow state, scrollbar interaction, thumb sizing, edge state, and the
-imperative API returned by `useScrollArea()`. Advanced Ark state access stays available directly
-from `@ark-ui/react/scroll-area`. Do not reintroduce legacy props such as
+imperative API returned by `useScrollArea()`. Do not reintroduce legacy props such as
 `scrollbars`, `overflowEdgeThreshold`, `keepMounted`, or `render`.
 
 ## Current behavior contract
 
-`ScrollArea` is the styled root and is equivalent to `ScrollArea.Root`. It accepts one local sugar
-prop, `fade?: boolean`, which adds a top and bottom viewport mask driven by Ark vertical overflow
-measurements. It does not render viewport, content, scrollbar, thumb, or corner parts
-automatically. Consumers compose the Ark tree explicitly:
+`ScrollArea` is the styled root and is equivalent to `ScrollArea.Root`. It accepts `fade?: boolean`,
+which adds a top and bottom viewport mask driven by Ark vertical overflow measurements, and
+`variant?: 'hover' | 'always'`, which controls whether overflowing scrollbar tracks remain visible
+at rest. It does not render viewport, content, scrollbar, thumb, or corner parts automatically.
+Consumers compose the Ark tree explicitly:
 
 ```tsx
 import { ScrollArea } from '@moduix/react';
@@ -45,7 +45,8 @@ export function Example() {
 }
 ```
 
-The package exports `ScrollArea` plus the local `fade` root prop types.
+The package exports `ScrollArea`, `useScrollArea`, and the local root prop types. The hook is also
+available as `ScrollArea.useScrollArea` for a single namespace import.
 
 ## Anatomy and exported parts
 
@@ -59,15 +60,16 @@ ScrollArea / ScrollArea.Root
 └─ ScrollArea.Corner
 ```
 
-| Export                           | `data-slot`                 | Notes                                                |
-| -------------------------------- | --------------------------- | ---------------------------------------------------- |
-| `ScrollArea` / `ScrollArea.Root` | `scroll-area-root`          | Ark root and state owner.                            |
-| `ScrollArea.RootProvider`        | `scroll-area-root-provider` | Root for an external Ark `useScrollArea()` instance. |
-| `ScrollArea.Viewport`            | `scroll-area-viewport`      | Native scroll container and focus target.            |
-| `ScrollArea.Content`             | `scroll-area-content`       | Measured content wrapper.                            |
-| `ScrollArea.Scrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.            |
-| `ScrollArea.Thumb`               | `scroll-area-thumb`         | Draggable thumb.                                     |
-| `ScrollArea.Corner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.             |
+| Export                           | `data-slot`                 | Notes                                                       |
+| -------------------------------- | --------------------------- | ----------------------------------------------------------- |
+| `ScrollArea` / `ScrollArea.Root` | `scroll-area-root`          | Ark root and state owner.                                   |
+| `ScrollArea.RootProvider`        | `scroll-area-root-provider` | Root for an external `ScrollArea.useScrollArea()` instance. |
+| `ScrollArea.Viewport`            | `scroll-area-viewport`      | Native scroll container and focus target.                   |
+| `ScrollArea.Content`             | `scroll-area-content`       | Measured content wrapper.                                   |
+| `ScrollArea.Scrollbar`           | `scroll-area-scrollbar`     | One scrollbar track; vertical by default.                   |
+| `ScrollArea.Thumb`               | `scroll-area-thumb`         | Draggable thumb.                                            |
+| `ScrollArea.Corner`              | `scroll-area-corner`        | Bottom-end filler for two-axis overflow.                    |
+| `ScrollArea.useScrollArea`       | —                           | Ark state hook for `RootProvider` composition.              |
 
 No flat part aliases such as `ScrollAreaRoot` or `ScrollAreaViewport` are exported.
 
@@ -93,8 +95,8 @@ Render one `ScrollArea.Scrollbar` for each axis consumers need. Horizontal scrol
 </ScrollArea>
 ```
 
-Use `ScrollArea.RootProvider` with Ark `useScrollArea()` when controls outside the root need to
-call methods such as `scrollToEdge`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for
+Use `ScrollArea.RootProvider` with `ScrollArea.useScrollArea()` when controls outside the root need
+to call methods such as `scrollToEdge`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for
 the same state instance.
 
 ## Upstream feature coverage
@@ -104,8 +106,10 @@ the same state instance.
 - Horizontal: supported by rendering only a horizontal scrollbar.
 - Both directions: supported by rendering both vertical and horizontal scrollbars.
 - Nested: supported by rendering complete independent scroll area trees.
-- Root provider: supported through `ScrollArea.RootProvider` plus Ark `useScrollArea()`.
+- Root provider: supported through `ScrollArea.RootProvider` plus `ScrollArea.useScrollArea()`.
 - Vertical fade mask sugar: supported through `fade` on `ScrollArea` and `ScrollArea.RootProvider`.
+- Scrollbar visibility sugar: `variant="hover"` is the default and `variant="always"` keeps
+  overflowing tracks visible and interactive at rest.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, content, scrollbar, and thumb IDs.
 - Advanced Ark context reads stay available directly from `@ark-ui/react/scroll-area`.
@@ -126,7 +130,7 @@ Relevant Ark attributes and variables:
 | Corner                                     | `data-state="hidden" \| "visible"`                                                                                                 | Corner visibility state.          |
 | Root                                       | `--corner-width`, `--corner-height`, `--thumb-width`, `--thumb-height`                                                             | Ark measurements consumed by CSS. |
 | Viewport                                   | `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`, `--scroll-area-overflow-y-start`, `--scroll-area-overflow-y-end` | Edge overflow distances.          |
-| Root, RootProvider                         | `data-fade`                                                                                                                        | Added by Moduix `fade` sugar.     |
+| Root, RootProvider                         | `data-fade`, `data-variant="hover" \| "always"`                                                                                    | Added by Moduix sugar.            |
 
 The viewport CSS must keep `scrollbar-width: none` and `::-webkit-scrollbar { display: none; }`,
 which Ark documents as required styling for hiding native scrollbars.
@@ -138,33 +142,36 @@ state attributes and measurements.
 
 Primary CSS variables:
 
-| Variable                             | Default                                           |
-| ------------------------------------ | ------------------------------------------------- |
-| `--scroll-area-width`                | `100%`                                            |
-| `--scroll-area-height`               | `100%`                                            |
-| `--scroll-area-bg`                   | `transparent`                                     |
-| `--scroll-area-color`                | `var(--color-foreground)`                         |
-| `--scroll-area-radius`               | `var(--radius-md)`                                |
-| `--scroll-area-content-padding`      | `0`                                               |
-| `--scroll-area-fade-size`            | `var(--spacing-10)`                               |
-| `--scroll-area-fade-start-size`      | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-fade-end-size`        | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-scrollbar-size`       | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-margin`     | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-bg`         | `transparent`                                     |
-| `--scroll-area-thumb-bg`             | `var(--color-border)`                             |
-| `--scroll-area-thumb-hover-increase` | `2px`                                             |
-| `--scroll-area-thumb-min-size`       | `1.5rem`                                          |
-| `--scroll-area-corner-bg`            | `var(--scroll-area-scrollbar-bg, transparent)`    |
+| Variable                               | Default                                           |
+| -------------------------------------- | ------------------------------------------------- |
+| `--scroll-area-width`                  | `100%`                                            |
+| `--scroll-area-height`                 | `100%`                                            |
+| `--scroll-area-bg`                     | `transparent`                                     |
+| `--scroll-area-color`                  | `var(--color-foreground)`                         |
+| `--scroll-area-radius`                 | `var(--radius-md)`                                |
+| `--scroll-area-content-padding`        | `0`                                               |
+| `--scroll-area-fade-size`              | `var(--spacing-10)`                               |
+| `--scroll-area-fade-start-size`        | `var(--scroll-area-fade-size, var(--spacing-10))` |
+| `--scroll-area-fade-end-size`          | `var(--scroll-area-fade-size, var(--spacing-10))` |
+| `--scroll-area-scrollbar-size`         | `var(--spacing-1)`                                |
+| `--scroll-area-scrollbar-margin`       | `var(--spacing-1)`                                |
+| `--scroll-area-scrollbar-bg`           | `transparent`                                     |
+| `--scroll-area-thumb-bg`               | `var(--color-border)`                             |
+| `--scroll-area-thumb-hover-increase`   | `2px`                                             |
+| `--scroll-area-thumb-hover-transition` | `var(--transition-fast)`                          |
+| `--scroll-area-thumb-min-size`         | `1.5rem`                                          |
+| `--scroll-area-corner-bg`              | `var(--scroll-area-scrollbar-bg, transparent)`    |
 
 Use classes on individual parts for axis-specific customization. The bundled CSS hides each
-scrollbar when its matching Ark overflow attribute is absent. The thumb grows by `2px` across the
-track on hover and while dragging without changing its default `var(--color-border)` color.
+scrollbar when its matching Ark overflow attribute is absent. `variant="always"` keeps matching
+overflowing tracks visible and interactive. The thumb grows by `2px` across the track on hover and
+while dragging with a fast transition; customize its timing with
+`--scroll-area-thumb-hover-transition`.
 
 ## Intentional sugar and differences from upstream
 
-- Moduix adds default classes, `data-slot` hooks, CSS variables, visual scrollbar styling, and the
-  optional vertical `fade` mask sugar.
+- Moduix adds default classes, `data-slot` hooks, CSS variables, visual scrollbar styling, optional
+  vertical `fade` mask sugar, and `variant="always"` for persistently visible tracks.
 - Moduix does not copy Ark demo colors; it maps the behavior to Moduix tokens.
 - The old legacy high-level conveniences were removed except for the narrower `fade?: boolean`
   contract: `scrollbars`, automatic child wrapping, flat aliases, `overflowEdgeThreshold`,
@@ -175,8 +182,9 @@ track on hover and while dragging without changing its default `var(--color-bord
 
 - Keep the wrapper thin. Do not add automatic structural rendering; examples should teach explicit
   Ark composition instead.
-- Keep `fade`, but do not re-export Ark hooks, contexts, or duplicate Ark type aliases from the
-  moduix barrel.
+- Keep `fade` vertical-only and `variant` limited to scrollbar visibility. Do not add automatic
+  structural rendering or re-export additional Ark contexts and type aliases without a documented
+  consumer need.
 - Keep docs examples aligned with Ark's five official React examples: basic, horizontal, both
   directions, nested, and root provider.
 - Preserve required viewport native-scrollbar hiding styles.
@@ -186,6 +194,10 @@ track on hover and while dragging without changing its default `var(--color-bord
 
 ## Local changelog
 
+- 2026-07-11: Made the 2px scrollbar growth use the fast transition token to avoid visibly stepped
+  width and height interpolation; `--scroll-area-thumb-hover-transition` customizes the timing.
+- 2026-07-11: Added `variant="always"` for persistently visible scrollbar tracks and exposed
+  `useScrollArea` as `ScrollArea.useScrollArea` and a named package export for RootProvider usage.
 - 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, visible scroll
   parts, and the local `fade` sugar. Advanced Ark hooks and context access now come directly from
   `@ark-ui/react/scroll-area`.

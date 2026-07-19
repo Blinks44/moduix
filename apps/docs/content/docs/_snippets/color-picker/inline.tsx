@@ -10,26 +10,14 @@ export function InlineColorPickerDemo() {
         <ColorPicker.Label>Inline color</ColorPicker.Label>
         <ColorPicker.ValueText format="hex" />
       </div>
-      <ColorPicker.Area>
-        <ColorPicker.AreaBackground />
-        <ColorPicker.AreaThumb />
-      </ColorPicker.Area>
-      <ColorPicker.ChannelSlider channel="hue">
-        <ColorPicker.ChannelSliderTrack />
-        <ColorPicker.ChannelSliderThumb />
-      </ColorPicker.ChannelSlider>
-      <ColorPicker.ChannelSlider channel="alpha">
-        <ColorPicker.TransparencyGrid />
-        <ColorPicker.ChannelSliderTrack />
-        <ColorPicker.ChannelSliderThumb />
-      </ColorPicker.ChannelSlider>
+      <ColorPicker.Area />
+      <ColorPicker.Sliders />
       <ColorPicker.View format="rgba">
         <div className="color-picker-input-row">
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

@@ -9,18 +9,6 @@
   gap: var(--spacing-2);
 }
 
-.linkBadge {
-  &:hover {
-    --badge-border-color: var(--color-primary);
-    --badge-color: var(--color-primary);
-  }
-
-  &:focus-visible {
-    outline: var(--border-width-md) solid var(--color-ring);
-    outline-offset: var(--spacing-1);
-  }
-}
-
 .constrained {
   max-width: 14rem;
 }

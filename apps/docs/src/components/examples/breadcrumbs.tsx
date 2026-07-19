@@ -1,6 +1,13 @@
+import { Breadcrumbs, Menu } from '@moduix/react';
+import { Minus as SeparatorMarkIcon } from 'lucide-react';
 import type { ComponentProps, CSSProperties } from 'react';
-import { Breadcrumbs, Menu, SeparatorMarkIcon } from '@moduix/react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+
+const basicItems = [
+  { href: '/', label: 'Home' },
+  { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
+  { label: 'Go Developer' },
+] as const;
 
 const collapsedItems = [
   { href: '/docs', label: 'Docs' },
@@ -23,15 +30,6 @@ const separatorIconStyle = {
   height: '0.25rem',
 };
 
-const collapsedMenuTriggerStyle = {
-  minWidth: 'auto',
-  minHeight: 'auto',
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  color: 'inherit',
-};
-
 const collapsedMenuContentStyle: CssVariables = {
   '--menu-popup-min-width': '8rem',
   '--menu-item-font-size': 'var(--text-xs)',
@@ -49,7 +47,11 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
   ['--breadcrumbs-font-size', 'var(--text-sm)', 'Controls breadcrumbs font size.'],
   ['--breadcrumbs-gap', 'var(--spacing-1)', 'Controls spacing between breadcrumb parts.'],
-  ['--breadcrumbs-item-max-width', '16rem', 'Controls max width of each breadcrumb item.'],
+  [
+    '--breadcrumbs-item-max-width',
+    '16rem',
+    'Controls the primary truncation width of the current page breadcrumb item.',
+  ],
   [
     '--breadcrumbs-item-padding-x',
     '0.25rem',
@@ -94,19 +96,7 @@ export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs {...props}>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path items={basicItems} />
       </Breadcrumbs>
     </div>
   );
@@ -123,8 +113,14 @@ export function BreadcrumbsCollapsedExample() {
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Menu positioning={{ placement: 'bottom-start' }}>
-              <Menu.Trigger aria-label="Show hidden path items" style={collapsedMenuTriggerStyle}>
-                <Breadcrumbs.Ellipsis />
+              <Menu.Trigger asChild>
+                <button
+                  type="button"
+                  aria-label="Show hidden path items"
+                  className="collapsed-menu-trigger"
+                >
+                  <Breadcrumbs.Ellipsis />
+                </button>
               </Menu.Trigger>
               <Menu.Positioner>
                 <Menu.Content style={collapsedMenuContentStyle}>
@@ -155,23 +151,10 @@ export function BreadcrumbsCustomSeparatorExample() {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
-          </Breadcrumbs.Separator>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator>
-            <SeparatorMarkIcon style={separatorIconStyle} />
-          </Breadcrumbs.Separator>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path
+          items={basicItems}
+          separator={<SeparatorMarkIcon style={separatorIconStyle} />}
+        />
       </Breadcrumbs>
     </div>
   );
@@ -181,24 +164,20 @@ export function BreadcrumbsLongLabelExample() {
   return (
     <div style={previewContainerStyle}>
       <Breadcrumbs style={longLabelStyle}>
-        <Breadcrumbs.List>
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Link href="/docs/breadcrumbs">Breadcrumbs</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-          <Breadcrumbs.Separator />
-          <Breadcrumbs.Item>
-            <Breadcrumbs.Page>
-              <span title="Go lang developer to production team with cross-functional ownership and platform support">
-                Go lang developer to production team with cross-functional ownership and platform
-                support
-              </span>
-            </Breadcrumbs.Page>
-          </Breadcrumbs.Item>
-        </Breadcrumbs.List>
+        <Breadcrumbs.Path
+          items={[
+            { href: '/', label: 'Home' },
+            { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },
+            {
+              label: (
+                <span title="Go lang developer to production team with cross-functional ownership and platform support">
+                  Go lang developer to production team with cross-functional ownership and platform
+                  support
+                </span>
+              ),
+            },
+          ]}
+        />
       </Breadcrumbs>
     </div>
   );
@@ -235,6 +214,43 @@ export function BreadcrumbsFrameworkLinkExample() {
           <Breadcrumbs.Separator />
           <Breadcrumbs.Item>
             <Breadcrumbs.Page>Go Developer</Breadcrumbs.Page>
+          </Breadcrumbs.Item>
+        </Breadcrumbs.List>
+      </Breadcrumbs>
+    </div>
+  );
+}
+
+export function BreadcrumbsAdvancedCustomizationExample() {
+  return (
+    <div style={previewContainerStyle}>
+      <Breadcrumbs style={longLabelStyle}>
+        <Breadcrumbs.List>
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Link asChild>
+              <a href="/" data-framework-link>
+                Home
+              </a>
+            </Breadcrumbs.Link>
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Separator />
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Link asChild>
+              <a href="/docs" data-framework-link>
+                Docs
+              </a>
+            </Breadcrumbs.Link>
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Separator>
+            <SeparatorMarkIcon style={separatorIconStyle} />
+          </Breadcrumbs.Separator>
+          <Breadcrumbs.Item>
+            <Breadcrumbs.Page>
+              <span title="Go lang developer to production team with cross-functional ownership and platform support">
+                Go lang developer to production team with cross-functional ownership and platform
+                support
+              </span>
+            </Breadcrumbs.Page>
           </Breadcrumbs.Item>
         </Breadcrumbs.List>
       </Breadcrumbs>

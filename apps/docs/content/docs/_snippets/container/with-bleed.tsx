@@ -15,9 +15,9 @@ export function ContainerBleedDemo() {
         {bleedContent.title}
       </Heading>
       <Text tone="muted">{bleedContent.description}</Text>
-      <Bleed.Root inline="md">
+      <Bleed inline="md">
         <div className="bleedSurface">{bleedContent.callout}</div>
-      </Bleed.Root>
+      </Bleed>
     </Container>
   );
 }

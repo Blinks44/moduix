@@ -17,17 +17,11 @@ export function OpenControlledColorPickerDemo() {
       <ColorPicker.Label>Open controlled</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
       <button type="button" onClick={() => setOpen((current) => !current)}>

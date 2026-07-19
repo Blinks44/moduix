@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import { ark } from '@ark-ui/react/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -6,11 +6,16 @@ import {
   type ListboxRootProps,
   type ListboxRootProviderComponent,
   type ListboxRootProviderProps,
+  useListbox,
+  useListboxContext,
+  useListboxItemContext,
 } from '@ark-ui/react/listbox';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, SearchIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './Listbox.module.css';
 
 const ListboxRoot = forwardRef(function ListboxRoot<T extends CollectionItem>(
@@ -68,6 +73,42 @@ const ListboxInput = forwardRef<
     />
   );
 });
+
+function ListboxFilter({ className, children, ...props }: ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="listbox-filter"
+      className={clsx(styles.filter, normalizeClassName(className))}
+      {...props}
+    >
+      <SearchIcon data-slot="listbox-filter-icon" className={styles.filterIcon} />
+      {children}
+    </div>
+  );
+}
+
+const ListboxClearTrigger = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(
+  function ListboxClearTrigger(
+    { 'aria-label': ariaLabel = 'Clear search', className, children, type = 'button', ...props },
+    ref,
+  ) {
+    return (
+      <ark.button
+        ref={ref}
+        asChild
+        data-slot="listbox-clear-trigger"
+        type={type}
+        aria-label={ariaLabel}
+        className={clsx(styles.clearTrigger, normalizeClassName(className))}
+        {...props}
+      >
+        <CloseButton.Root aria-label={ariaLabel} type={type}>
+          {children}
+        </CloseButton.Root>
+      </ark.button>
+    );
+  },
+);
 
 const ListboxContent = forwardRef<
   ComponentRef<typeof ListboxPrimitive.Content>,
@@ -218,6 +259,8 @@ const Listbox = Object.assign(ListboxRoot, {
   RootProvider: ListboxRootProvider,
   Label: ListboxLabel,
   Input: ListboxInput,
+  Filter: ListboxFilter,
+  ClearTrigger: ListboxClearTrigger,
   Content: ListboxContent,
   Empty: ListboxEmpty,
   ItemGroup: ListboxItemGroup,
@@ -226,9 +269,14 @@ const Listbox = Object.assign(ListboxRoot, {
   ItemText: ListboxItemText,
   ItemIndicator: ListboxItemIndicator,
   ValueText: ListboxValueText,
+  Context: ListboxPrimitive.Context,
+  ItemContext: ListboxPrimitive.ItemContext,
   ItemTextContent: ListboxItemTextContent,
   ItemTextIcon: ListboxItemTextIcon,
   ItemTextLabel: ListboxItemTextLabel,
+  useListbox,
+  useListboxContext,
+  useListboxItemContext,
 });
 
-export { Listbox };
+export { Listbox, useListbox, useListboxContext, useListboxItemContext };

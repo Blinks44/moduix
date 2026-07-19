@@ -11,16 +11,17 @@ Resizable layout primitive for dividing an interface into horizontal or vertical
 
 ## Upstream model to preserve
 
-`Splitter` is a thin wrapper over Ark UI's splitter primitive and preserves the Ark part tree, percentage-based panel sizing, constraints, collapse/expand behavior, keyboard resizing, root-provider pattern, and shared registry support for nested multi-drag layouts.
+`Splitter` is a thin wrapper over Ark UI's splitter primitive and preserves the Ark part tree, percentage- and CSS-length panel sizing, constraints, collapse/expand behavior, keyboard resizing, root-provider pattern, and shared registry support for nested multi-drag layouts.
 
 The upstream model is:
 
 - `Root` owns `panels`, `defaultSize` / `size`, orientation, resize callbacks, ids, keyboard step, nonce, and optional `registry`.
 - `Panel` renders each resizable region and requires a stable `id` matching the `panels` array.
 - `ResizeTrigger` connects two adjacent panels with an id such as `"a:b"` and renders the accessible window-splitter handle.
-- `ResizeTriggerIndicator` is an optional visual child of `ResizeTrigger`.
-- `RootProvider` preserves the Ark externally-owned state path. Other Ark state helpers stay
-  upstream-only and are imported directly from `@ark-ui/react/splitter` when needed.
+- `ResizeTriggerIndicator` is the default visual child of `ResizeTrigger`; passing trigger children
+  replaces it.
+- `RootProvider`, `useSplitter`, `useSplitterContext`, and `createSplitterRegistry` preserve the
+  Ark externally-owned state and advanced layout paths through moduix exports.
 
 ## Current behavior contract
 
@@ -28,8 +29,9 @@ The upstream model is:
 
 `Splitter.Root` and `Splitter.RootProvider` add a default inline sizing style that resolves `--splitter-width` and `--splitter-height`. This keeps moduix sizing variables effective because Ark's root props include inline `width: 100%` and `height: 100%`.
 
-`Splitter` keeps the visual root/part namespace plus `RootProvider`. moduix does not re-export Ark
-hooks, context parts, registry helpers, layout helpers, or Ark type aliases from this wrapper.
+`Splitter` keeps the visual root/part namespace plus `RootProvider`, `useSplitter`,
+`useSplitterContext`, `createSplitterRegistry`, and `SplitterPanelData`. moduix does not translate
+their Ark contracts or add local state management.
 
 ## Anatomy and exported parts
 
@@ -37,7 +39,7 @@ hooks, context parts, registry helpers, layout helpers, or Ark type aliases from
 Splitter / Splitter.Root
 ├─ Splitter.Panel id="a"
 ├─ Splitter.ResizeTrigger id="a:b"
-│  └─ Splitter.ResizeTriggerIndicator (optional)
+│  └─ Splitter.ResizeTriggerIndicator (default, customizable)
 └─ Splitter.Panel id="b"
 
 Splitter.RootProvider
@@ -50,7 +52,7 @@ Splitter.RootProvider
 | `Splitter.RootProvider`           | `data-slot="splitter-root-provider"`            | Renders from `useSplitter()` state.                     |
 | `Splitter.Panel`                  | `data-slot="splitter-panel"`                    | Resizable region, id must match a panel entry.          |
 | `Splitter.ResizeTrigger`          | `data-slot="splitter-resize-trigger"`           | Accessible button handle between adjacent panels.       |
-| `Splitter.ResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Optional visual indicator inside a resize trigger.      |
+| `Splitter.ResizeTriggerIndicator` | `data-slot="splitter-resize-trigger-indicator"` | Default visual indicator; custom children replace it.   |
 
 ## Composition
 
@@ -63,33 +65,32 @@ Splitter.RootProvider
   defaultSize={[40, 60]}
 >
   <Splitter.Panel id="a">A</Splitter.Panel>
-  <Splitter.ResizeTrigger id="a:b">
-    <Splitter.ResizeTriggerIndicator />
-  </Splitter.ResizeTrigger>
+  <Splitter.ResizeTrigger id="a:b" />
   <Splitter.Panel id="b">B</Splitter.Panel>
 </Splitter>
 ```
 
 Use `size` with `onResize(details)` for controlled layouts. Use `onResizeStart`, `onResizeEnd`, `onCollapse`, and `onExpand` with the original Ark detail objects. Use `orientation="vertical"` for stacked panels and keep a stable root height.
 
-Import `Splitter as ArkSplitter`, `useSplitterContext()`, or `useSplitter()` directly from
-`@ark-ui/react/splitter` when child UI needs imperative methods such as `resizePanel`,
-`collapsePanel`, `expandPanel`, `setSizes`, and `resetSizes`. Use `useSplitter()` plus
-`Splitter.RootProvider` when state must be created outside the rendered part tree.
+Import `useSplitterContext()` or `useSplitter()` from `@moduix/react` when child UI needs imperative
+methods such as `resizePanel`, `collapsePanel`, `expandPanel`, `setSizes`, and `resetSizes`. Use
+`useSplitter()` plus `Splitter.RootProvider` when state must be created outside the rendered part
+tree.
 
 For nested splitters that should resize together at handle intersections, create a shared registry
-with `createSplitterRegistry()` from `@ark-ui/react/splitter` and pass it to each root.
+with `createSplitterRegistry()` from `@moduix/react` and pass it to each root.
 
 ## Upstream feature coverage
 
 The wrapper supports the Ark examples for basic usage, vertical orientation, collapsible panels,
 multiple panels, root-provider usage, resize indicator, dynamic collapsible behavior, and
-nested/shared registry layouts. Context and hook-based state access still work through direct Ark
-imports paired with the moduix visual parts.
+nested/shared registry layouts. Context and hook-based state access are available from the moduix
+package barrel.
 
 Zag notes preserved by the wrapper:
 
-- `defaultSize` and controlled `size` are percentage arrays and should total `100`.
+- Numeric `defaultSize` and controlled `size` values are percentage arrays and should total `100`;
+  Ark also supports CSS lengths for initial and constraint sizes.
 - `panels` defines constraints such as `minSize`, `maxSize`, `collapsible`, and `collapsedSize`.
 - `keyboardResizeBy` configures arrow-key resize distance.
 - `nonce` is passed through for the cursor stylesheet Ark injects.
@@ -117,23 +118,34 @@ Refs are forwarded to the actual Ark-rendered root, panel, trigger, and indicato
 
 Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
 
-The root defaults to inline `width: var(--splitter-width, 100%)` and `height: var(--splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger contributes only a `1px` divider to layout; its transparent hit area overlaps the divider, and the line shifts slightly toward `--color-muted-foreground` on hover and drag by default. Keyboard focus keeps the idle divider color unless consumers override `--splitter-resize-trigger-line-color-focus`, while the indicator can still show focus through its own shadow token. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
+The root defaults to inline `width: var(--splitter-width, 100%)` and `height: var(--splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow; dragging slightly scales the indicator and raises its shadow; release returns to idle. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
 
-All public `--splitter-*` variables used by the component are declared in `src/lib/moduix/styles/theme.css`. Common overrides include `--splitter-height`, `--splitter-bg`, `--splitter-border-color`, `--splitter-radius`, `--splitter-shadow`, `--splitter-panel-bg`, `--splitter-panel-min-height`, `--splitter-panel-min-height-vertical`, `--splitter-panel-padding`, `--splitter-resize-trigger-size`, `--splitter-resize-trigger-line-color`, `--splitter-resize-trigger-line-color-hover`, `--splitter-resize-trigger-line-color-focus`, `--splitter-resize-trigger-line-color-dragging`, `--splitter-resize-trigger-indicator-bg`, `--splitter-resize-trigger-indicator-bg-dragging`, `--splitter-resize-trigger-indicator-border-color`, `--splitter-resize-trigger-indicator-border-color-dragging`, `--splitter-resize-trigger-indicator-shadow`, and `--splitter-resize-trigger-indicator-shadow-dragging`.
+All public `--splitter-*` variables used by the component are declared in `src/lib/moduix/styles/theme.css`. Common overrides include `--splitter-height`, `--splitter-bg`, `--splitter-border-color`, `--splitter-radius`, `--splitter-shadow`, `--splitter-panel-bg`, `--splitter-panel-min-height`, `--splitter-panel-min-height-vertical`, `--splitter-panel-padding`, `--splitter-resize-trigger-size`, `--splitter-resize-trigger-line-thickness`, `--splitter-resize-trigger-line-color`, `--splitter-resize-trigger-line-color-hover`, `--splitter-resize-trigger-line-color-dragging`, `--splitter-resize-trigger-indicator-bg`, `--splitter-resize-trigger-indicator-bg-dragging`, `--splitter-resize-trigger-indicator-border-color`, `--splitter-resize-trigger-indicator-border-color-hover`, `--splitter-resize-trigger-indicator-border-color-dragging`, `--splitter-resize-trigger-indicator-shadow`, `--splitter-resize-trigger-indicator-shadow-hover`, and `--splitter-resize-trigger-indicator-shadow-dragging`.
 
 ## Intentional sugar and differences from upstream
 
-moduix adds visual defaults and `data-slot` hooks only. It does not add shortcut props, hidden panel composition, custom callbacks, local controlled/uncontrolled state, or inferred trigger ids.
+moduix adds visual defaults, `data-slot` hooks, and a default `ResizeTriggerIndicator` when the
+trigger has no children. Passing children replaces that default while preserving the lower-level Ark
+composition. moduix does not add custom callbacks, local controlled/uncontrolled state, or inferred
+trigger ids.
 
-moduix keeps only the visual wrapper namespace plus `RootProvider`. Ark context parts, hooks,
-registry helpers, layout helpers, and types are imported from `@ark-ui/react/splitter` directly in
-advanced workflows.
+moduix exposes `RootProvider`, `useSplitter`, `useSplitterContext`, `createSplitterRegistry`, and
+`SplitterPanelData` for normal advanced workflows. Other Ark-only helpers remain direct escape
+hatches.
 
 ## Agent notes
 
-Keep `ResizeTriggerIndicator` optional and inside `ResizeTrigger`; it depends on trigger props context from Ark. Do not render both `Root` and `RootProvider` for one splitter instance. Keep `panels` ids synchronized with rendered `Panel` ids and adjacent trigger ids.
+Keep `ResizeTriggerIndicator` inside `ResizeTrigger`; it depends on trigger props context from Ark.
+Do not render both `Root` and `RootProvider` for one splitter instance. Keep `panels` ids synchronized
+with rendered `Panel` ids and adjacent trigger ids.
 
 ## Local changelog
+
+- 2026-07-11: Made the visible divider thinner and added restrained indicator feedback for hover and dragging.
+
+- 2026-07-11: Made the resize indicator the default trigger content, exposed normal advanced Ark
+  helpers through moduix, and added visible default keyboard focus styling. Sidebar opts out of the
+  default indicator to preserve its neutral divider.
 
 - 2026-07-03: Removed Ark context parts, hooks, registry/layout helpers, and type re-exports from
   the public moduix surface while keeping `Splitter.RootProvider` for externally owned Ark state.

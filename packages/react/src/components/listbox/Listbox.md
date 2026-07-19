@@ -26,19 +26,29 @@ rendering, value arrays, highlighted value control, selection modes, callback de
 - `orientation="horizontal"` changes both layout and keyboard navigation.
 - `onValueChange(details)`, `onHighlightChange(details)`, and `onSelect(details)` expose Ark detail
   objects unchanged.
+- `Listbox.Filter` is the recommended visual wrapper for filtering. It renders the moduix search
+  icon and joins with an immediately following `Listbox.Content` as one surface.
+- `Listbox.Input` remains available as a separately styled Ark input for fully custom filter
+  layouts.
+- `Listbox.ClearTrigger` is a regular `button` with a default close icon and `type="button"`.
+  Consumers own filter text and collection updates, so they render it only for a non-empty query and
+  clear both values in its `onClick` handler.
 - `Listbox.ItemIndicator` renders the moduix `CheckIcon` when children are omitted.
 - Items reserve indicator space by default, so selecting an item does not shift item text.
 - Pointer hover and keyboard highlight share the same accent affordance by default.
 - `Listbox.ItemTextContent`, `Listbox.ItemTextIcon`, and `Listbox.ItemTextLabel` are moduix span
   helpers for richer item text layout.
-- Advanced state hooks and context parts are imported directly from `@ark-ui/react/listbox`.
+- `useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context`, and
+  `Listbox.ItemContext` are available from moduix for advanced state and context composition.
 
 ## Anatomy and exported parts
 
 ```text
 Listbox / Listbox.Root
 ├─ Listbox.Label
-├─ Listbox.Input (optional)
+├─ Listbox.Filter (optional)
+│  ├─ Listbox.Input
+│  └─ Listbox.ClearTrigger (when the query is non-empty)
 ├─ Listbox.Content
 │  ├─ Listbox.Empty
 │  ├─ Listbox.ItemGroup
@@ -52,23 +62,25 @@ Listbox / Listbox.Root
 └─ Listbox.ValueText
 ```
 
-| Export                     | `data-slot`                 | Notes                          |
-| -------------------------- | --------------------------- | ------------------------------ |
-| `Listbox` / `Listbox.Root` | `listbox-root`              | Ark root with moduix styling.  |
-| `Listbox.RootProvider`     | `listbox-root-provider`     | RootProvider styled like root. |
-| `Listbox.Label`            | `listbox-label`             | Accessible label.              |
-| `Listbox.Input`            | `listbox-input`             | Optional filtering input.      |
-| `Listbox.Content`          | `listbox-content`           | Focusable listbox content.     |
-| `Listbox.Empty`            | `listbox-empty`             | Empty-state content.           |
-| `Listbox.ItemGroup`        | `listbox-item-group`        | Group wrapper.                 |
-| `Listbox.ItemGroupLabel`   | `listbox-item-group-label`  | Group label.                   |
-| `Listbox.Item`             | `listbox-item`              | Selectable collection item.    |
-| `Listbox.ItemText`         | `listbox-item-text`         | Item label text.               |
-| `Listbox.ItemIndicator`    | `listbox-item-indicator`    | Default check icon.            |
-| `Listbox.ValueText`        | `listbox-value-text`        | Selected value summary.        |
-| `Listbox.ItemTextContent`  | `listbox-item-text-content` | Moduix span helper.            |
-| `Listbox.ItemTextIcon`     | `listbox-item-text-icon`    | Moduix span helper.            |
-| `Listbox.ItemTextLabel`    | `listbox-item-text-label`   | Moduix span helper.            |
+| Export                     | `data-slot`                 | Notes                                   |
+| -------------------------- | --------------------------- | --------------------------------------- |
+| `Listbox` / `Listbox.Root` | `listbox-root`              | Ark root with moduix styling.           |
+| `Listbox.RootProvider`     | `listbox-root-provider`     | RootProvider styled like root.          |
+| `Listbox.Label`            | `listbox-label`             | Accessible label.                       |
+| `Listbox.Filter`           | `listbox-filter`            | Search icon and unified filter surface. |
+| `Listbox.Input`            | `listbox-input`             | Filter input, normally inside `Filter`. |
+| `Listbox.ClearTrigger`     | `listbox-clear-trigger`     | Consumer-wired query reset button.      |
+| `Listbox.Content`          | `listbox-content`           | Focusable listbox content.              |
+| `Listbox.Empty`            | `listbox-empty`             | Empty-state content.                    |
+| `Listbox.ItemGroup`        | `listbox-item-group`        | Group wrapper.                          |
+| `Listbox.ItemGroupLabel`   | `listbox-item-group-label`  | Group label.                            |
+| `Listbox.Item`             | `listbox-item`              | Selectable collection item.             |
+| `Listbox.ItemText`         | `listbox-item-text`         | Item label text.                        |
+| `Listbox.ItemIndicator`    | `listbox-item-indicator`    | Default check icon.                     |
+| `Listbox.ValueText`        | `listbox-value-text`        | Selected value summary.                 |
+| `Listbox.ItemTextContent`  | `listbox-item-text-content` | Moduix span helper.                     |
+| `Listbox.ItemTextIcon`     | `listbox-item-text-icon`    | Moduix span helper.                     |
+| `Listbox.ItemTextLabel`    | `listbox-item-text-label`   | Moduix span helper.                     |
 
 ## Composition
 
@@ -100,12 +112,17 @@ export function ListboxDemo() {
 }
 ```
 
+For the standard search appearance, wrap `Listbox.Input` in `Listbox.Filter` immediately before
+`Listbox.Content`. Consumers can instead render `Listbox.Input` directly when the search field and
+results should remain visually separate or need a custom wrapper.
+
 ## Upstream feature coverage
 
 - Basic, controlled, root provider, disabled item, multiple selection, extended selection,
   grouping, horizontal orientation, grid collection, filtering, select all, and value text are
   represented in docs.
-- Filtering is composed with `Listbox.Input` and `useListCollection`.
+- Filtering can use the unified `Listbox.Filter` composition or a direct `Listbox.Input`, with
+  `useListCollection` in either case.
 - Grid layout is supported by passing an Ark grid collection; `Listbox.Content` uses Ark
   `data-layout="grid"` and `--column-count`.
 
@@ -114,6 +131,10 @@ export function ListboxDemo() {
 - Keep `Listbox.Label` connected to `Listbox.Content`; Ark owns the ARIA listbox pattern.
 - `Listbox.Content` manages active descendant focus, keyboard navigation, Home/End, typeahead, and
   orientation-specific arrow keys.
+- `Listbox.Filter` is a visual wrapper only. It does not own input state or filtering, so its
+  optional `Listbox.ClearTrigger` must reset the external query and call the collection filter.
+- `Listbox.ClearTrigger` is semantic button content with an accessible `Clear search` label by
+  default. Its standard rendering uses `CloseButton`, while custom content remains supported.
 - Preserve Ark state attributes: `data-orientation`, `data-disabled`, `data-empty`,
   `data-activedescendant`, `data-layout`, item `data-value`, `data-selected`,
   `data-state="checked" | "unchecked"`, and `data-highlighted`.
@@ -126,12 +147,16 @@ export function ListboxDemo() {
 
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - Default root width is `16rem` through `--listbox-width`.
-- `Listbox.Content` is the main interactive surface and keeps its border stable on focus.
+- `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
+  content provides the visible boundary and divider between the input and results.
+- `Listbox.Filter` deliberately has no focus treatment. Its input keeps the base border but leaves
+  its outline transparent on `:focus-visible`; the clear button uses the shared `CloseButton`
+  focus ring.
 - `Listbox.Content` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
-- `Listbox.Input` is optional and only needed for filtering scenarios.
-- `Listbox.Input` is styled with the same token shape as the standalone `Input`, while preserving
-  Ark's listbox input behavior.
+- `Listbox.Input` is optional and only needed for filtering scenarios. Its default border matches
+  `Listbox.Content`; used directly, `:focus-visible` animates only its outline color. Inside
+  `Listbox.Filter`, it keeps that border and suppresses the outline.
 - `Listbox.ItemIndicator` is hidden by Ark when the item is unchecked.
 - `Listbox.Content[data-layout='grid']` uses Ark's `--column-count` CSS variable.
 - Grid items collapse the indicator column and should normally show selection through the neutral
@@ -141,6 +166,11 @@ export function ListboxDemo() {
 ## Intentional sugar and differences from upstream
 
 - Default selected indicator icon is added for `Listbox.ItemIndicator`.
+- `Listbox.Filter` and `Listbox.ClearTrigger` add search-field visuals only. `Listbox.Input` also
+  remains available without `Filter` for custom layouts; both paths keep filtering state and
+  collection updates explicit through the existing Ark input and collection APIs.
+- `Listbox.ClearTrigger` composes the shared `CloseButton` for its default icon, interaction, and
+  focus styling without taking ownership of the consumer-managed filter reset.
 - `ItemTextContent`, `ItemTextIcon`, and `ItemTextLabel` are local leaf helpers only; they do not
   replace Ark item composition.
 - No convenience wrapper hides Ark parts; consumers compose the content and items directly.
@@ -153,8 +183,16 @@ export function ListboxDemo() {
 
 ## Local changelog
 
-- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
-  Kept `RootProvider`, the callable root, and the visible listbox parts.
+- 2026-07-17: Composed the standard filter clear action with `CloseButton` and mapped existing
+  Listbox tokens to the shared button styling.
+
+- 2026-07-17: Added the unified `Listbox.Filter` and `Listbox.ClearTrigger` defaults, including
+  search and clear icons, a filter/content divider, and styling tokens. Documented the direct
+  `Listbox.Input` alternative, aligned Filter with the content background, and removed its outer
+  focus ring. Standalone inputs retain their default border and animate their outline color on
+  focus, while Filter preserves its input border and suppresses the outline.
+- 2026-07-10: Re-exported Listbox state and context surfaces from moduix so `RootProvider`, select-all,
+  and item-level customization do not require direct Ark Listbox imports. Collection helpers remain Ark imports.
 - 2026-06-26: Simplified listbox spacing defaults to existing spacing tokens, changed content max
   height to `14rem`, removed the docs-only filter input focus override, and aligned the public
   docs composition section with the current Ark-backed contract.

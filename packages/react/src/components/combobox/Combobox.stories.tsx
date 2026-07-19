@@ -1,9 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useMemo, useState } from 'react';
-import { Combobox } from './Combobox';
+import { Combobox, useCombobox } from './Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {
@@ -36,10 +35,9 @@ function ComboboxPopup({ items }: { items: Array<{ label: string; value: string 
         <Combobox.Empty>No options found.</Combobox.Empty>
         <Combobox.List>
           {items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
           ))}
         </Combobox.List>
       </Combobox.Content>
@@ -123,10 +121,9 @@ function GroupedStory() {
             <Combobox.ItemGroup key={continent}>
               <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                <Combobox.Option key={item.value} item={item}>
+                  {item.label}
+                </Combobox.Option>
               ))}
             </Combobox.ItemGroup>
           ))}

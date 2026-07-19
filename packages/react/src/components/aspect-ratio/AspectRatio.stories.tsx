@@ -20,89 +20,50 @@ type Story = StoryObj<typeof meta>;
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
 
-export const Video: Story = {
+export const Image: Story = {
   render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container}>
+      <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+    </AspectRatio>
   ),
 };
 
-export const Square: Story = {
+export const EmbeddedContent: Story = {
   render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={1}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container}>
+      <iframe
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="Video embed"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        className={styles.frame}
+      />
+    </AspectRatio>
   ),
 };
 
-export const Portrait: Story = {
+export const ShadcnMigration: Story = {
   render: () => (
-    <div className={styles.containerNarrow}>
-      <AspectRatio ratio={9 / 16}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  ),
-};
-
-export const Photo: Story = {
-  render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={4 / 3}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  ),
-};
-
-export const CustomRatio: Story = {
-  render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={2}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  ),
-};
-
-export const GenericContent: Story = {
-  render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9}>
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Video embed"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={`${styles.container} ${styles.migrationFrame}`}>
+      <img src={imageUrl} alt="Mountain landscape" className={styles.fillImage} />
+    </AspectRatio>
   ),
 };
 
 export const AsChild: Story = {
   render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9} asChild>
-        <figure>
-          <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-        </figure>
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container} asChild>
+      <figure className={styles.figure}>
+        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+      </figure>
+    </AspectRatio>
   ),
 };
 
 export const CustomRadius: Story = {
   render: () => (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9} className={styles.roundedFrame}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={`${styles.container} ${styles.roundedFrame}`}>
+      <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+    </AspectRatio>
   ),
 };

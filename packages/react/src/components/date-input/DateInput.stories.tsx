@@ -1,13 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  DateInputSegmentContext,
-  type DateInputDateValue,
-  useDateInput,
-} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Field } from '../field';
-import { DateInput } from './DateInput';
+import { DateInput, type DateInputDateValue, useDateInput } from './DateInput';
 import storyStyles from './DateInput.stories.module.css';
 
 const meta = {
@@ -23,24 +18,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function DateInputSegments({ index }: { index?: number }) {
-  return (
-    <DateInput.SegmentGroup index={index}>
-      <DateInputSegmentContext>
-        {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInputSegmentContext>
-    </DateInput.SegmentGroup>
-  );
-}
-
 export const Basic: Story = {
   render: () => (
     <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date">
       <DateInput.Label>Release date</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   ),
 };
@@ -54,9 +38,8 @@ export const Controlled: Story = {
         <DateInput value={value} onValueChange={(details) => setValue(details.value)}>
           <DateInput.Label>Controlled date</DateInput.Label>
           <DateInput.Control>
-            <DateInputSegments />
+            <DateInput.Segments />
           </DateInput.Control>
-          <DateInput.HiddenInput />
         </DateInput>
         <span className={storyStyles.hint}>Current value: {value[0]?.toString() ?? 'empty'}</span>
       </div>
@@ -68,16 +51,15 @@ export const Range: Story = {
   render: () => (
     <DateInput
       selectionMode="range"
+      names={['check-in', 'check-out']}
       defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
     >
       <DateInput.Label>Travel dates</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments index={0} />
+        <DateInput.Segments index={0} />
         <DateInput.Separator>to</DateInput.Separator>
-        <DateInputSegments index={1} />
+        <DateInput.Segments index={1} />
       </DateInput.Control>
-      <DateInput.HiddenInput index={0} name="check-in" />
-      <DateInput.HiddenInput index={1} name="check-out" />
     </DateInput>
   ),
 };
@@ -92,9 +74,8 @@ export const MinMaxAndUnavailable: Story = {
     >
       <DateInput.Label>Booking date</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   ),
 };
@@ -102,20 +83,18 @@ export const MinMaxAndUnavailable: Story = {
 export const DisabledAndReadOnly: Story = {
   render: () => (
     <div className={storyStyles.stack}>
-      <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DateInput disabled name="disabled-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Disabled date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="disabled-date" />
       </DateInput>
 
-      <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DateInput readOnly name="read-only-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Read-only date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="read-only-date" />
       </DateInput>
     </div>
   ),
@@ -126,13 +105,13 @@ export const Granularity: Story = {
     <DateInput
       granularity="minute"
       hourCycle={24}
+      name="scheduled-at"
       defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
     >
       <DateInput.Label>Date and time</DateInput.Label>
       <DateInput.Control>
-        <DateInputSegments />
+        <DateInput.Segments />
       </DateInput.Control>
-      <DateInput.HiddenInput name="scheduled-at" />
     </DateInput>
   ),
 };
@@ -140,12 +119,11 @@ export const Granularity: Story = {
 export const WithFieldValidation: Story = {
   render: () => (
     <Field invalid>
-      <DateInput required invalid>
+      <DateInput required invalid name="deadline">
         <DateInput.Label>Deadline</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="deadline" />
       </DateInput>
       <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
     </Field>
@@ -154,16 +132,15 @@ export const WithFieldValidation: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const dateInput = useDateInput({ defaultValue: [today('UTC')] });
+    const dateInput = useDateInput({ defaultValue: [today('UTC')], name: 'report-date' });
 
     return (
       <div className={storyStyles.stack}>
         <DateInput.RootProvider value={dateInput}>
           <DateInput.Label>Report date</DateInput.Label>
           <DateInput.Control>
-            <DateInputSegments />
+            <DateInput.Segments />
           </DateInput.Control>
-          <DateInput.HiddenInput name="report-date" />
         </DateInput.RootProvider>
         <button type="button" onClick={() => dateInput.clearValue()}>
           Clear
@@ -179,14 +156,13 @@ export const CustomStyling: Story = {
       <DateInput.Label>Styled date</DateInput.Label>
       <DateInput.Control className={storyStyles.customControl}>
         <DateInput.SegmentGroup>
-          <DateInputSegmentContext>
+          <DateInput.SegmentContext>
             {(segment) => (
               <DateInput.Segment segment={segment} className={storyStyles.customSegment} />
             )}
-          </DateInputSegmentContext>
+          </DateInput.SegmentContext>
         </DateInput.SegmentGroup>
       </DateInput.Control>
-      <DateInput.HiddenInput />
     </DateInput>
   ),
 };

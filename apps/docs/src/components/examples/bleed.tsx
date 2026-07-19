@@ -1,5 +1,5 @@
 import { Bleed, Text } from '@moduix/react';
-import type { CssProperty } from '../preview';
+import type { CssProperty } from '../mdx/preview';
 
 const basicContent = {
   before: 'Container content stays constrained.',
@@ -21,6 +21,11 @@ const blockContent = {
 
 const semanticContent = {
   caption: 'Full-width media with a constrained parent.',
+};
+
+const customStylingContent = {
+  shell: 'Nested shell content stays constrained.',
+  surface: 'This bleed matches the shell width instead of the viewport.',
 };
 
 export const bleedCssProperties: CssProperty[] = [
@@ -118,6 +123,19 @@ export function BleedBlockExample() {
         <Text>{blockContent.surface}</Text>
       </Bleed>
       <Text tone="muted">{blockContent.after}</Text>
+    </div>
+  );
+}
+
+export function BleedCustomStylingExample() {
+  return (
+    <div className="bleed-demo-shell">
+      <div className="bleed-demo-shell-content">
+        <Text tone="muted">{customStylingContent.shell}</Text>
+        <Bleed className="bleed-demo-custom-surface">
+          <Text weight="semibold">{customStylingContent.surface}</Text>
+        </Bleed>
+      </div>
     </div>
   );
 }

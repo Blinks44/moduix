@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Clipboard as ClipboardPrimitive } from '@ark-ui/react/clipboard';
+import { Clipboard as ClipboardPrimitive, useClipboard } from '@ark-ui/react/clipboard';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, CopyIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -135,6 +135,17 @@ const ClipboardValueText = forwardRef<
   );
 });
 
+const ClipboardCopyText = forwardRef<
+  ComponentRef<typeof ClipboardPrimitive.Indicator>,
+  ComponentProps<typeof ClipboardPrimitive.Indicator>
+>(function ClipboardCopyText({ copied = 'Copied', children = 'Copy', ...props }, ref) {
+  return (
+    <ClipboardIndicator ref={ref} data-slot="clipboard-copy-text" copied={copied} {...props}>
+      {children}
+    </ClipboardIndicator>
+  );
+});
+
 const Clipboard = Object.assign(ClipboardRoot, {
   Root: ClipboardRoot,
   RootProvider: ClipboardRootProvider,
@@ -143,7 +154,9 @@ const Clipboard = Object.assign(ClipboardRoot, {
   Input: ClipboardInput,
   Trigger: ClipboardTrigger,
   Indicator: ClipboardIndicator,
+  CopyText: ClipboardCopyText,
   ValueText: ClipboardValueText,
+  useClipboard,
 });
 
 export { Clipboard };

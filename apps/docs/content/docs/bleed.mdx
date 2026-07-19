@@ -51,7 +51,7 @@ break out of a constrained container while staying in normal document flow.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-bleed" />
+<ShadcnInstall packageName="bleed" />
 
 ## Anatomy
 
@@ -111,41 +111,6 @@ needs different full-bleed math than the default viewport-based values.
 
 ## Examples
 
-### Inline Amounts
-
-Use `inline` to choose how far content escapes the container on the inline axis.
-
-<Preview>
-  <BleedDocs.BleedInlineAmountsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/bleed/inline-amounts.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .bleed-demo-container {
-        display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-        flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) dashed var(--color-border);
-      }
-
-      .bleed-demo-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
-        text-align: center;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Block Bleed
 
 Use `block` when a surface should also escape vertical container padding.
@@ -165,6 +130,86 @@ Use `block` when a surface should also escape vertical container padding.
         flex-direction: column;
         gap: var(--spacing-4);
         padding: var(--spacing-6);
+        border: var(--border-width-sm) dashed var(--color-border);
+      }
+
+      .bleed-demo-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-muted);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Custom Styling
+
+Use local `--bleed-inline-full` overrides when a nested shell should bleed to its own boundaries
+instead of the viewport.
+
+<Preview>
+  <BleedDocs.BleedCustomStylingExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/bleed/custom-styling.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .bleed-demo-shell {
+        width: min(34rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-6);
+        background-color: var(--color-muted);
+      }
+
+      .bleed-demo-shell-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-bg);
+      }
+
+      .bleed-demo-custom-surface {
+        --bleed-inline-full: calc(var(--spacing-4) * -1);
+        --bleed-inline-full-size: calc(100% + var(--spacing-8));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--spacing-4);
+        background-color: var(--color-accent);
+        color: var(--color-accent-contrast);
+        text-align: center;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Inline Amounts
+
+Use `inline` to choose how far content escapes the container on the inline axis.
+
+<Preview>
+  <BleedDocs.BleedInlineAmountsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/bleed/inline-amounts.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .bleed-demo-container {
+        display: flex;
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+        padding: var(--spacing-4);
         border: var(--border-width-sm) dashed var(--color-border);
       }
 
@@ -226,7 +271,7 @@ Use `asChild` when the escaping content has a more specific semantic role.
 
 ## Styling
 
-`Bleed.Root` exposes a small CSS variable contract and stable root data attributes. Use variables when
+`Bleed` exposes a small CSS variable contract and stable root data attributes. Use variables when
 the layout math needs to change, and use `className` for the visual surface inside the bleed.
 
 ### CSS Properties

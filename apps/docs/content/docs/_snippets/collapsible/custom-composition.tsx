@@ -1,11 +1,12 @@
 //#region demo
-import { ChevronDownIcon, Collapsible } from '@moduix/react';
+import { Collapsible } from '@moduix/react';
+import { ChevronDown as ChevronDownIcon } from 'lucide-react';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
 export function CustomCompositionCollapsibleDemo() {
   return (
-    <Collapsible>
+    <Collapsible className="collapsible-root">
       <Collapsible.Trigger asChild>
         <button type="button" className="collapsible-custom-trigger">
           Styled recovery keys
@@ -15,13 +16,13 @@ export function CustomCompositionCollapsibleDemo() {
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-custom-content-body">
+        <Collapsible.Body className="collapsible-custom-content-body">
           <ul className="collapsible-keys-list">
             {recoveryKeys.map((key) => (
               <li key={key}>{key}</li>
             ))}
           </ul>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

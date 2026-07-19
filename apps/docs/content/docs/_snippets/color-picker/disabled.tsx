@@ -9,13 +9,8 @@ export function DisabledColorPickerDemo() {
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

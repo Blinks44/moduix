@@ -1,7 +1,7 @@
-import { Button, PlusIcon, Spinner } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
+import { Button, Spinner } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
 import { useRef, useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './button.module.css';
 
 const buttonLabels = {
@@ -40,7 +40,7 @@ export const buttonCssProperties: CssPropertyInput[] = [
   ['--button-default-bg', 'var(--color-primary)', 'Controls default variant background.'],
   [
     '--button-default-bg-hover',
-    'var(--color-foreground)',
+    'color-mix(in srgb, var(--button-default-bg, var(--color-primary)) 88%, black)',
     'Controls default variant hover background.',
   ],
   [
@@ -227,7 +227,7 @@ export function ButtonIconExample() {
   return (
     <div className={styles.row}>
       <Button>
-        <PlusIcon />
+        <PlusIcon data-icon="inline-start" />
         {buttonLabels.create}
       </Button>
       <Button size="icon-md" variant="outline" aria-label={buttonLabels.favorite}>
@@ -235,7 +235,7 @@ export function ButtonIconExample() {
       </Button>
       <Button variant="link">
         {buttonLabels.link}
-        <ArrowUpRightIcon />
+        <ArrowUpRightIcon data-icon="inline-end" />
       </Button>
     </div>
   );
@@ -280,8 +280,7 @@ export function ButtonLoadingExample() {
 
   return (
     <Button
-      disabled={pending}
-      aria-busy={pending || undefined}
+      loading={pending}
       onClick={() => {
         setPending(true);
         setTimeout(() => setPending(false), 1800);
@@ -289,7 +288,7 @@ export function ButtonLoadingExample() {
     >
       {pending ? (
         <>
-          <Spinner decorative size="sm" />
+          <Spinner decorative size="sm" data-icon="inline-start" />
           {buttonLabels.loading}
         </>
       ) : (

@@ -43,7 +43,7 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-container" />
+<ShadcnInstall packageName="container" />
 
 This install path also pulls in the shared moduix foundation files that `Container` depends on, such
 as styles, icons, and small utilities.
@@ -103,37 +103,6 @@ The custom path here is small:
 
 ## Examples
 
-### Sizes
-
-Use `size` to choose the content column width. `full` fills the available inline space while
-preserving the selected gutter.
-
-<Preview>
-  <ContainerDocs.ContainerSizesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/container/sizes.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stack {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        gap: var(--spacing-4);
-      }
-
-      .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
 ### Gutters
 
 Use `gutter` to control responsive inline padding.
@@ -185,6 +154,37 @@ Use `asChild` when the layout wrapper should also describe document structure.
 
       .container > * {
         max-width: 42rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sizes
+
+Use `size` to choose the content column width. `full` fills the available inline space while
+preserving the selected gutter.
+
+<Preview>
+  <ContainerDocs.ContainerSizesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/container/sizes.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stack {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+
+      .container {
+        padding-block: var(--spacing-4);
+        border-block: var(--border-width-sm) dashed var(--color-border);
+        background-color: var(--color-muted);
       }
     `}
 

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker, Select } from '@moduix/react';
+import { parseDate } from '@ark-ui/react/date-picker';
+import { DatePicker } from '@moduix/react';
 
 const maxSelectedDates = 3;
 export function MultipleDatePickerDemo() {
@@ -15,7 +15,7 @@ export function MultipleDatePickerDemo() {
     >
       <DatePicker.Label>Meeting days</DatePicker.Label>
       <DatePicker.Control>
-        <ArkDatePicker.Context>
+        <DatePicker.Context>
           {(datePicker) => (
             <div className="date-picker-selected-dates">
               {datePicker.value.length > 0 ? (
@@ -40,44 +40,14 @@ export function MultipleDatePickerDemo() {
               )}
             </div>
           )}
-        </ArkDatePicker.Context>
+        </DatePicker.Context>
         <DatePicker.ClearTrigger aria-label="Clear dates" />
         <DatePicker.Trigger aria-label="Open calendar" />
       </DatePicker.Control>
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="day">
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.ViewTrigger />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-            <ArkDatePicker.Context>
-              {(datePicker) => (
-                <DatePicker.Table>
-                  <DatePicker.TableHead>
-                    <DatePicker.TableRow>
-                      {datePicker.weekDays.map((weekDay) => (
-                        <DatePicker.TableHeader key={weekDay.value.toString()}>
-                          {weekDay.short}
-                        </DatePicker.TableHeader>
-                      ))}
-                    </DatePicker.TableRow>
-                  </DatePicker.TableHead>
-                  <DatePicker.TableBody>
-                    {datePicker.weeks.map((week) => (
-                      <DatePicker.TableRow key={week[0]?.toString()}>
-                        {week.map((day) => (
-                          <DatePicker.TableCell key={day.toString()} value={day}>
-                            <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
-                          </DatePicker.TableCell>
-                        ))}
-                      </DatePicker.TableRow>
-                    ))}
-                  </DatePicker.TableBody>
-                </DatePicker.Table>
-              )}
-            </ArkDatePicker.Context>
+            <DatePicker.DayTable />
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>

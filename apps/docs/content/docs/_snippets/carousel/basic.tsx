@@ -22,23 +22,20 @@ const slides = [
 export function TravelCarousel() {
   return (
     <Carousel slideCount={slides.length}>
+      <Carousel.ItemGroup aria-label="Travel gallery">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <img src={slide.src} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Travel gallery">
-          {slides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <img src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
 
-      <Carousel.IndicatorGroup>
-        {slides.map((slide, index) => (
-          <Carousel.Indicator key={slide.id} index={index} />
-        ))}
-      </Carousel.IndicatorGroup>
+      <Carousel.Indicators />
 
       <Carousel.ProgressText />
     </Carousel>

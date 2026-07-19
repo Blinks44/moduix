@@ -1,0 +1,184 @@
+---
+title: Formisch
+description: Integrate moduix native and compound controls with Formisch and Valibot.
+icon: Braces
+---
+
+import * as FormsDocs from '@/components/examples/forms';
+
+# Formisch
+
+Formisch is schema-first: pass a Valibot schema to `useForm`, then render fields with its headless
+`Field` component. Spread `field.props` onto native controls and use `field.input` with
+`field.onChange` for Ark compound controls.
+
+```bash
+npm install @formisch/react valibot
+```
+
+## Mapping
+
+| Control                                         | Formisch wiring                                                                     |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `field.props`, then pass `value={field.input}` to keep the field controlled. |
+| `Select`, `Combobox`                            | Read `field.input` and map the component detail back through `field.onChange`.      |
+| `Checkbox`                                      | Map `details.checked === true` through `field.onChange`.                            |
+| Automatic native controls                       | Keep state on the component root; do not add another hidden input.                  |
+
+Use `Field` from Formisch as `FormischField` beside moduix `Field`. The Valibot schema provides
+the validation messages, and its field paths remain type-safe.
+
+## Validation and reset
+
+The Valibot schema is Formisch's single validation source; no resolver is required. `validate`
+chooses the first validation (`"submit"`, `"blur"`, `"input"`, or `"initial"`), while
+`revalidate` chooses when Formisch validates again after that first run. The example validates on
+submit, then revalidates edited values on input: errors appear after the first submit and clear as
+the user corrects the field.
+
+`field.errors` is either `null` or an array of messages. Use that result for `Field invalid` and
+render it with `Field.ErrorText`; the same field context supplies the invalid state to Ark-aware
+controls. Formisch's `Form` prevents the browser's default submission and adds `noValidate`, so
+Formisch owns the validation flow. To restore `initialInput`, call Formisch's `reset(form)` instead
+of only resetting the native DOM form, so its controlled field state resets too.
+
+## Complete form
+
+This form uses Formisch validation on submit and revalidates edited values on input. Native
+`Field.Input` and `Field.Textarea` receive Formisch props directly; `Select`, `Combobox`, and
+`Checkbox` map their Ark callback details to the Formisch field state.
+
+<Preview>
+  <FormsDocs.FormischExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/formisch/complete-form.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--spacing-4);
+      }
+
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        --select-width: 100%;
+        --combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+## Repeated fields
+
+Use `FieldArray` to render an editable list and Formisch's `insert` and `remove` helpers to change
+it. `fieldArray.items` provides stable IDs for React keys; the index belongs only in the path to
+the current item's field. Use a `Fieldset` when the list needs a shared label or group-level error.
+The fragment belongs inside a `Form` that uses the `form` created here.
+
+```tsx
+import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
+import { Button, Field } from '@moduix/react';
+import * as v from 'valibot';
+
+const formSchema = v.object({
+  name: v.pipe(v.string(), v.minLength(1, 'Enter a project name.')),
+  emails: v.array(
+    v.object({
+      address: v.pipe(v.string(), v.email('Enter a valid email address.')),
+    }),
+  ),
+});
+
+const form = useForm({
+  schema: formSchema,
+  initialInput: { name: '', emails: [{ address: '' }] },
+});
+
+<FieldArray of={form} path={['emails']}>
+  {(fieldArray) => (
+    <>
+      {fieldArray.items.map((item, index) => (
+        <FormischField key={item} of={form} path={['emails', index, 'address']}>
+          {(field) => (
+            <Field invalid={field.errors !== null}>
+              <Field.Label>Email {index + 1}</Field.Label>
+              <Field.Input type="email" {...field.props} value={field.input} />
+              <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
+              <Button type="button" onClick={() => remove(form, { path: ['emails'], at: index })}>
+                Remove email
+              </Button>
+            </Field>
+          )}
+        </FormischField>
+      ))}
+
+      <Button
+        type="button"
+        onClick={() => insert(form, { path: ['emails'], initialInput: { address: '' } })}
+      >
+        Add email
+      </Button>
+    </>
+  )}
+</FieldArray>;
+```
+
+In an app that imports both libraries, alias Formisch's `Field` as `FormischField` so it stays
+distinct from moduix `Field`, as in the complete example above.
+
+## Errors returned by the server
+
+Call `setErrors` after the request: use a `path` for a field-specific message and omit it for a
+form-level message. The form below uses the same schema as the array fragment, so `name` is a valid
+field path. Clear errors from the preceding request before submitting again, then render field
+errors with the same `field.errors` mapping used for Valibot errors. For an item in an array, the
+path follows the same structure, for example `['emails', index, 'address']`.
+
+```tsx
+import { Form, setErrors } from '@formisch/react';
+
+<Form
+  of={form}
+  onSubmit={async (values) => {
+    setErrors(form, { path: ['name'], errors: null });
+    setErrors(form, { errors: null });
+
+    const result = await createProject(values);
+
+    if (result.nameError) {
+      setErrors(form, { path: ['name'], errors: [result.nameError] });
+    }
+
+    if (result.message) {
+      setErrors(form, { errors: [result.message] });
+    }
+  }}
+>
+  {form.errors ? <p role="alert">{form.errors[0]}</p> : null}
+  {/* Fields */}
+</Form>;
+```
+
+## Behavioral notes
+
+- `field.props` is for native input events and attributes. Spread it onto `Field.Input` or
+  `Field.Textarea`, then provide `value={field.input}` so the rendered control reflects Formisch
+  state.
+- Ark compound controls use detail callbacks rather than native change events. Read
+  `field.input`, then convert the detail to the field value with `field.onChange`, as the
+  `Select`, `Combobox`, and `Checkbox` fields do in the example.
+- Keep `name`, `form`, and special form options on the moduix root for controls that render their
+  native form input automatically. Do not add another hidden input for the same Formisch field.

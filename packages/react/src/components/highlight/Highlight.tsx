@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react';
 import { Highlight as HighlightPrimitive } from '@ark-ui/react/highlight';
 import { clsx } from 'clsx';
+import type { ComponentProps } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Highlight.module.css';
 

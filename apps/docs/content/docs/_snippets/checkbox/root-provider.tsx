@@ -1,6 +1,5 @@
 //#region demo
-import { useCheckbox } from '@ark-ui/react/checkbox';
-import { Checkbox } from '@moduix/react';
+import { Checkbox, useCheckbox } from '@moduix/react';
 
 const _initialChecked = true;
 
@@ -10,11 +9,8 @@ export function RootProviderCheckboxDemo() {
   return (
     <>
       <Checkbox.RootProvider value={checkbox}>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.RootProvider>
       <button type="button" onClick={() => checkbox.setChecked(!checkbox.checked)}>
         {checkbox.checked ? 'Uncheck' : 'Check'}

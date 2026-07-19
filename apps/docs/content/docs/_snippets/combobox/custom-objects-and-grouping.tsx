@@ -41,10 +41,9 @@ export function GroupedComboboxDemo() {
             <Combobox.ItemGroup key={continent}>
               <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Item key={item.code} item={item}>
-                  <Combobox.ItemText>{item.country}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                <Combobox.Option key={item.code} item={item}>
+                  {item.country}
+                </Combobox.Option>
               ))}
             </Combobox.ItemGroup>
           ))}

@@ -1,6 +1,6 @@
 ---
 name: upstream-library-docs
-description: Use when component work needs current Ark UI, Chakra UI, or shadcn reference material from online sources.
+description: Use when component work needs current Ark UI, Chakra UI, or shadcn behavior, APIs, composition patterns, or migration references from online sources.
 ---
 
 # Skill: upstream-library-docs
@@ -25,6 +25,10 @@ and keep local contracts aligned with the versions in use.
 - Use Ark UI for primitive behavior, accessibility, state, lifecycle, part naming, and low-level API.
 - Use Chakra UI for the higher-level Ark-aligned composition model, overlay ergonomics, and recipe-level defaults.
 - Use shadcn for docs ergonomics, example flow, and narrow convenience patterns, not as the source of truth for hidden structural composition.
+- Resolve disagreements in that order: preserve Ark behavior, prefer Chakra-like ergonomics where they remain Ark-shaped,
+  then use shadcn only to identify migration friction or a small convenience opportunity.
+- Do not copy shadcn aliases, event translations, wrapper anatomy, or state management only to make the API familiar.
+- If no matching shadcn component exists, continue from Ark, Chakra, and established moduix patterns.
 - Do not rely on local snapshots.
 - If an upstream source is unavailable, stop and report it instead of guessing.
 

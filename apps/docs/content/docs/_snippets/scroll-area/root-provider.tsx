@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useScrollArea } from '@ark-ui/react/scroll-area';
 import { Button, ScrollArea } from '@moduix/react';
 
 const sections = [
@@ -16,7 +15,7 @@ const sections = [
 ];
 
 export function RootProviderScrollAreaDemo() {
-  const scrollArea = useScrollArea();
+  const scrollArea = ScrollArea.useScrollArea();
   return (
     <div className="providerStack">
       <div className="actions">

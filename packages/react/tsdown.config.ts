@@ -11,9 +11,6 @@ export default defineConfig({
   unbundle: true,
   platform: 'browser',
   target: 'es2023',
-  deps: {
-    onlyBundle: ['@zag-js/splitter', '@zag-js/types'],
-  },
   css: {
     inject: true,
   },

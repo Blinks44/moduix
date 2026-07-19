@@ -17,6 +17,9 @@ Ark UI does not ship a dedicated card primitive. Moduix builds this component wi
 
 Use the callable `<Card />` root with namespaced parts for the standard card composition.
 
+If you are moving from shadcn, the mental model stays the same. The main API change is
+`CardContent` becoming `Card.Body`, while the other parts stay namespaced under `Card`.
+
 <Preview>
   <CardDocs.CardExample />
 
@@ -35,12 +38,13 @@ Use the callable `<Card />` root with namespaced parts for the standard card com
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-card" />
+<ShadcnInstall packageName="card" />
 
 ## Anatomy
 
 ```text
 Card.Root
+├─ Card.Media (optional moduix sugar)
 ├─ Card.Header
 │  ├─ Card.Title
 │  ├─ Card.Description
@@ -51,22 +55,24 @@ Card.Root
 
 `Card` and `Card.Root` are the same root component.
 
-| Part                 | Role                                                                          |
-| -------------------- | ----------------------------------------------------------------------------- |
-| `Card` / `Card.Root` | Root surface with `size`, `variant`, and `asChild`.                           |
-| `Card.Header`        | Header layout for title, description, and an optional trailing action.        |
-| `Card.Body`          | Main content area.                                                            |
-| `Card.Footer`        | Wrapping action or metadata row.                                              |
-| `Card.Title`         | Heading part. Defaults to `h3`; use `asChild` for another heading level.      |
-| `Card.Description`   | Supporting text.                                                              |
-| `Card.Action`        | moduix header-side layout slot.                                               |
-| `Card.Link`          | moduix overlay link for a navigable card that also contains separate actions. |
+| Part                 | Role                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------- |
+| `Card` / `Card.Root` | Root surface with `size`, `variant`, and `asChild`.                                     |
+| `Card.Media`         | Optional edge-to-edge media wrapper with predictable top-radius clipping.               |
+| `Card.Header`        | Header layout for title, description, and an optional trailing action.                  |
+| `Card.Body`          | Main content area.                                                                      |
+| `Card.Footer`        | Wrapping action or metadata row.                                                        |
+| `Card.Title`         | Heading part. Defaults to `h3`; use `asChild` for another heading level.                |
+| `Card.Description`   | Supporting text.                                                                        |
+| `Card.Action`        | moduix header-side layout slot.                                                         |
+| `Card.Link`          | moduix stretched overlay link for a navigable card that also contains separate actions. |
 
 ## Composition
 
 ### Recommended composition
 
 Use `<Card />`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, and `Card.Footer`.
+Wrap leading media in `Card.Media` when it should bleed to the card edges without custom clipping.
 The root defaults to `size="md"` and `variant="outline"`.
 
 ### When to go custom
@@ -75,7 +81,15 @@ Use `asChild` when one semantic child should own a part's DOM node. Ark composit
 one child. A linked root must not contain nested buttons, inputs, or links.
 
 Use `Card.Link` inside the title when the card needs an overlay navigation target and also contains
-independent controls. `Card.Action` only provides layout and does not create ARIA relationships.
+independent controls. `Card.Link` is the stretched-link pattern for cards: it keeps the visible link
+in the title, then extends the hit area across the card while separate controls stay interactive.
+`Card.Action` only provides layout and does not create ARIA relationships.
+
+| Situation                                                                                 | Recommended API                                                |
+| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| The whole card is one link and there are no nested controls.                              | `Card asChild` with an `<a>` root                              |
+| The card should navigate, but it also contains buttons, menus, or other separate actions. | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
+| The card is only a grouped surface and does not navigate.                                 | Plain `Card` composition without link sugar                    |
 
 ### Default props
 
@@ -88,111 +102,29 @@ independent controls. `Card.Action` only provides layout and does not create ARI
 
 - The root renders a presentational `div` by default and forwards its ref to the rendered element.
 - All parts accept native props, `className`, `style`, and Ark factory `asChild`.
+- `Card.Media` is optional sugar. Omit it when you need fully custom media framing or non-leading placement.
 - `Card.Title` renders `h3` by default.
 - Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
 - `Card.Body` resets first and last direct-child margins.
+- `--card-spacing`, `--card-spacing-sm`, and `--card-spacing-lg` control shared inset and section spacing without replacing the narrower `--card-*` overrides.
 
 ## Examples
 
-### Variants
+### Header Action
 
-Use the Chakra-aligned variants to communicate surface hierarchy.
+`Card.Action` is moduix sugar for a compact trailing status or control.
 
 <Preview>
-  <CardDocs.CardVariantsExample />
+  <CardDocs.CardWithActionExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/card/variants.tsx#demo</include>
+  <include lang="tsx">./_snippets/card/header-action.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
   {`
-      .cards {
-        display: grid;
-        gap: var(--spacing-4);
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .card {
-        width: 100%;
-      }
-    `}
-
-</Preview.CSS>
-</Preview>
-
-### Sizes
-
-Use `sm`, `md`, and `lg` to change card padding and title scale.
-
-<Preview>
-  <CardDocs.CardSizesExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/card/sizes.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .cards {
-        display: grid;
-        gap: var(--spacing-4);
-        width: min(28rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .card {
-        width: 100%;
-      }
-    `}
-
-</Preview.CSS>
-</Preview>
-
-### Within Form
-
-Compose the root as a form when the card groups related fields and actions.
-
-<Preview>
-  <CardDocs.CardFormExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/card/within-form.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      form [data-slot="card-body"] {
-        display: grid;
-        gap: var(--spacing-3);
-      }
-
-      form label {
-        display: grid;
-        gap: var(--spacing-1);
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### With Image
-
-Place media before the named parts when it should span the card width.
-
-<Preview>
-  <CardDocs.CardWithImageExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/card/with-image.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .image {
-        aspect-ratio: 16 / 9;
-        display: block;
-        width: 100%;
-        object-fit: cover;
+      [data-slot="card-action"] {
+        align-self: start;
       }
     `}
 </Preview.CSS>
@@ -233,6 +165,100 @@ Use consumer layout CSS to create a horizontal card without adding a presentatio
   </Preview.CSS>
 </Preview>
 
+### Overlay Link
+
+Use `Card.Link` when navigation and independent actions must coexist.
+
+<Preview>
+  <CardDocs.CardLinkWithActionsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/overlay-link.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      [data-slot="card-link"]:focus-visible::after {
+        outline-color: var(--color-ring);
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Root as Link
+
+Use `asChild` when the entire card is one navigation target and contains no nested controls.
+
+<Preview>
+  <CardDocs.CardAsLinkExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/root-as-link.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      a[data-slot="card-root"] {
+        text-decoration: none;
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Sizes
+
+Use `sm`, `md`, and `lg` to change card padding and title scale.
+
+<Preview>
+  <CardDocs.CardSizesExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/sizes.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .cards {
+        display: grid;
+        gap: var(--spacing-4);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .card {
+        width: 100%;
+      }
+    `}
+
+</Preview.CSS>
+</Preview>
+
+### Variants
+
+Use the Chakra-aligned variants to communicate surface hierarchy.
+
+<Preview>
+  <CardDocs.CardVariantsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/card/variants.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .cards {
+        display: grid;
+        gap: var(--spacing-4);
+        width: min(28rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .card {
+        width: 100%;
+      }
+    `}
+
+</Preview.CSS>
+</Preview>
+
 ### With Avatar
 
 Compose profile media inside the header when identity is the card's subject.
@@ -266,63 +292,110 @@ Compose profile media inside the header when identity is the card's subject.
   </Preview.CSS>
 </Preview>
 
-### Header Action
+### With Image
 
-`Card.Action` is moduix sugar for a compact trailing status or control.
+Use `Card.Media` when leading media should span the card width with predictable clipping.
 
 <Preview>
-  <CardDocs.CardWithActionExample />
+  <CardDocs.CardWithImageExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/card/header-action.tsx#demo</include>
+  <include lang="tsx">./_snippets/card/with-image.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
   {`
-      [data-slot="card-action"] {
-        align-self: start;
+      .image {
+        aspect-ratio: 16 / 9;
+        display: block;
+        width: 100%;
+        object-fit: cover;
       }
     `}
 </Preview.CSS>
 </Preview>
 
-### Root as Link
+### Within Form
 
-Use `asChild` when the entire card is one navigation target and contains no nested controls.
+Compose the root as a form when the card groups related fields and actions.
 
 <Preview>
-  <CardDocs.CardAsLinkExample />
+  <CardDocs.CardFormExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/card/root-as-link.tsx#demo</include>
+  <include lang="tsx">./_snippets/card/within-form.tsx#demo</include>
 </Preview.Code>
 
-<Preview.CSS>
-  {`
-      a[data-slot="card-root"] {
-        text-decoration: none;
+  <Preview.CSS>
+    {`
+      form [data-slot="card-body"] {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+
+      form label {
+        display: grid;
+        gap: var(--spacing-1);
       }
     `}
-</Preview.CSS>
+
+  </Preview.CSS>
 </Preview>
 
-### Overlay Link
+### Advanced Customization
 
-Use `Card.Link` when navigation and independent actions must coexist.
+Bypass `Card.Media` when you need fully custom media framing and want to restyle the card with low-level hooks.
 
 <Preview>
-  <CardDocs.CardLinkWithActionsExample />
+  <CardDocs.CardAdvancedCustomizationExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/card/overlay-link.tsx#demo</include>
+  <include lang="tsx">./_snippets/card/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
   {`
-      [data-slot="card-link"]:focus-visible::after {
-        outline-color: var(--color-ring);
+      .card {
+        width: min(24rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .mediaShell {
+        overflow: hidden;
+        border-start-start-radius: var(--card-radius);
+        border-start-end-radius: var(--card-radius);
+      }
+
+      .image {
+        aspect-ratio: 16 / 9;
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .capacity {
+        display: grid;
+        gap: var(--spacing-2);
+        color: var(--color-foreground);
+        font-size: var(--text-2xl);
+        font-weight: var(--weight-semibold);
+        line-height: var(--line-height-text-2xl);
+      }
+
+      .capacityBar {
+        height: 0.5rem;
+        overflow: hidden;
+        border-radius: var(--radius-full);
+        background-color: var(--color-muted);
+      }
+
+      .capacityFill {
+        width: 64%;
+        height: 100%;
+        border-radius: inherit;
+        background-color: var(--color-primary);
       }
     `}
+
 </Preview.CSS>
 </Preview>
 
@@ -335,8 +408,8 @@ Use `Card.Link` when navigation and independent actions must coexist.
 ### Styling hooks
 
 - Every part exposes `data-scope="card"` and a matching `data-part`.
-- Stable moduix hooks are `data-slot="card-root"`, `card-header`, `card-body`, `card-footer`,
-  `card-title`, `card-description`, `card-action`, and `card-link`.
+- Stable moduix hooks are `data-slot="card-root"`, `card-media`, `card-header`, `card-body`,
+  `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
 - The root exposes `data-size="sm | md | lg"` and
   `data-variant="elevated | outline | subtle"`.
 - Card has no interactive state attributes because it does not own state or behavior.

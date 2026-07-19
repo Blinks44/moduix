@@ -1,9 +1,8 @@
-import { RatingGroup as RatingGroupPrimitive, useRatingGroup } from '@ark-ui/react/rating-group';
-import { Button, Field, RatingGroup } from '@moduix/react';
+import { Button, Field, RatingGroup, useRatingGroup } from '@moduix/react';
 import { Heart as HeartIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const ratingGroupExampleCss = `
   .rating-group-stack {
@@ -46,36 +45,6 @@ export const ratingGroupCustomIconCss = `
   }
 `;
 
-export const ratingGroupItemsData = `function RatingGroupItems() {
-  return (
-    <RatingGroupPrimitive.Context>
-      {({ items }) =>
-        items.map((item) => (
-          <RatingGroup.Item key={item} index={item}>
-            <RatingGroup.ItemIndicator />
-          </RatingGroup.Item>
-        ))
-      }
-    </RatingGroupPrimitive.Context>
-  );
-}`;
-
-export const ratingGroupCustomIconData = `function RatingGroupHeartItems() {
-  return (
-    <RatingGroupPrimitive.Context>
-      {({ items }) =>
-        items.map((item) => (
-          <RatingGroup.Item key={item} index={item}>
-            <RatingGroup.ItemIndicator className="rating-group-custom-icon">
-              <HeartIcon />
-            </RatingGroup.ItemIndicator>
-          </RatingGroup.Item>
-        ))
-      }
-    </RatingGroupPrimitive.Context>
-  );
-}`;
-
 export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--rating-group-active-color', 'var(--color-primary)', 'Controls highlighted star color.'],
   ['--rating-group-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
@@ -84,13 +53,9 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--opacity-disabled)',
     'Controls disabled label and control opacity.',
   ],
-  ['--rating-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
-  [
-    '--rating-group-focus-ring-offset',
-    'var(--border-width-sm)',
-    'Controls item focus ring offset.',
-  ],
-  ['--rating-group-focus-ring-width', 'var(--border-width-sm)', 'Controls item focus ring width.'],
+  ['--rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
+  ['--rating-group-focus-ring-offset', '0', 'Controls item focus ring offset.'],
+  ['--rating-group-focus-ring-width', '0', 'Controls item focus ring width.'],
   ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
   ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],
   ['--rating-group-icon-size-xs', '0.875rem', 'Controls icon size for `xs`.'],
@@ -120,36 +85,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function RatingGroupItems() {
-  return (
-    <RatingGroupPrimitive.Context>
-      {({ items }) =>
-        items.map((item) => (
-          <RatingGroup.Item key={item} index={item}>
-            <RatingGroup.ItemIndicator />
-          </RatingGroup.Item>
-        ))
-      }
-    </RatingGroupPrimitive.Context>
-  );
-}
-
-function RatingGroupHeartItems() {
-  return (
-    <RatingGroupPrimitive.Context>
-      {({ items }) =>
-        items.map((item) => (
-          <RatingGroup.Item key={item} index={item}>
-            <RatingGroup.ItemIndicator className="rating-group-custom-icon">
-              <HeartIcon />
-            </RatingGroup.ItemIndicator>
-          </RatingGroup.Item>
-        ))
-      }
-    </RatingGroupPrimitive.Context>
-  );
-}
-
 export function RatingGroupCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={ratingGroupCssPropertiesReference} />;
 }
@@ -159,8 +94,7 @@ export function RatingGroupExample(props: ComponentProps<typeof RatingGroup>) {
     <RatingGroup defaultValue={4} {...props}>
       <RatingGroup.Label>Overall satisfaction</RatingGroup.Label>
       <RatingGroup.Control>
-        <RatingGroupItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroup.Items />
       </RatingGroup.Control>
     </RatingGroup>
   );
@@ -174,8 +108,7 @@ export function ControlledRatingGroupExample() {
       <RatingGroup value={value} onValueChange={(details) => setValue(details.value)}>
         <RatingGroup.Label>Support quality</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <span className="rating-group-hint">Current value: {value}</span>
@@ -183,7 +116,7 @@ export function ControlledRatingGroupExample() {
   );
 }
 
-export function RootProviderRatingGroupExample() {
+export function AdvancedCustomizationRatingGroupExample() {
   const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
 
   return (
@@ -192,8 +125,7 @@ export function RootProviderRatingGroupExample() {
       <RatingGroup.RootProvider value={ratingGroup}>
         <RatingGroup.Label>Product quality</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup.RootProvider>
     </div>
@@ -206,8 +138,7 @@ export function WithFieldRatingGroupExample() {
       <RatingGroup defaultValue={4} required>
         <RatingGroup.Label>Experience score</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
@@ -221,8 +152,7 @@ export function HalfRatingGroupExample() {
     <RatingGroup allowHalf defaultValue={3.5}>
       <RatingGroup.Label>Average delivery score</RatingGroup.Label>
       <RatingGroup.Control>
-        <RatingGroupItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroup.Items />
       </RatingGroup.Control>
     </RatingGroup>
   );
@@ -239,8 +169,7 @@ export function FormRatingGroupExample() {
       <RatingGroup name="review" defaultValue={4} required>
         <RatingGroup.Label>Review score</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <Button type="submit">Submit</Button>
@@ -254,15 +183,13 @@ export function DisabledRatingGroupExample() {
       <RatingGroup defaultValue={4} disabled>
         <RatingGroup.Label>Disabled rating</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <RatingGroup defaultValue={2} readOnly>
         <RatingGroup.Label>Read-only rating</RatingGroup.Label>
         <RatingGroup.Control>
-          <RatingGroupItems />
-          <RatingGroup.HiddenInput />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
     </div>
@@ -274,27 +201,27 @@ export function RatingGroupSizesExample() {
     <div className="rating-group-stack">
       <RatingGroup defaultValue={3} size="xs" aria-label="Extra-small rating">
         <RatingGroup.Control>
-          <RatingGroupItems />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <RatingGroup defaultValue={3} size="sm" aria-label="Small rating">
         <RatingGroup.Control>
-          <RatingGroupItems />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <RatingGroup defaultValue={3} size="md" aria-label="Medium rating">
         <RatingGroup.Control>
-          <RatingGroupItems />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <RatingGroup defaultValue={3} size="lg" aria-label="Large rating">
         <RatingGroup.Control>
-          <RatingGroupItems />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
       <RatingGroup defaultValue={3} size="xl" aria-label="Extra-large rating">
         <RatingGroup.Control>
-          <RatingGroupItems />
+          <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
     </div>
@@ -306,8 +233,11 @@ export function CustomIconRatingGroupExample() {
     <RatingGroup defaultValue={3}>
       <RatingGroup.Label>Checklist score</RatingGroup.Label>
       <RatingGroup.Control>
-        <RatingGroupHeartItems />
-        <RatingGroup.HiddenInput />
+        <RatingGroup.Items>
+          <RatingGroup.ItemIndicator className="rating-group-custom-icon">
+            <HeartIcon />
+          </RatingGroup.ItemIndicator>
+        </RatingGroup.Items>
       </RatingGroup.Control>
     </RatingGroup>
   );

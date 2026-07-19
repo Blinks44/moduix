@@ -253,8 +253,9 @@ const TableEmpty = forwardRef<HTMLTableCellElement, TableEmptyProps>(function Ta
     <ark.tr
       data-scope="table"
       data-part="row"
+      data-empty
       data-slot="table-row"
-      className={clsx(styles.row, styles.emptyRow)}
+      className={styles.row}
     >
       <ark.td
         ref={ref}

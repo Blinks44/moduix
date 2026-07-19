@@ -30,6 +30,7 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 - `decorative` defaults to `false`.
 - Non-decorative spinners render `role="status"` and default to `aria-label="Loading"` unless `aria-label` or `aria-labelledby` is provided.
 - Decorative spinners render `role="presentation"` and `aria-hidden="true"`.
+- `Spinner` owns its status semantics and `data-scope`, `data-part`, `data-slot`, and `data-size` styling hooks; native props cannot override them.
 - Custom `children` replace the default ring while keeping the built-in indicator wrapper.
 - `asChild` makes the single child the root; that child must render its own indicator contents.
 - Motion is disabled under `prefers-reduced-motion`.
@@ -142,6 +143,7 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
+- 2026-07-11: Protected status semantics and stable styling hooks from conflicting native props.
 - 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer
   props from `Spinner` directly to keep the public surface smaller.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified `asChild` examples to reuse public data hooks, aligned docs API text, and removed non-token ring thickness overrides from examples.

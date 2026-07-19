@@ -45,7 +45,6 @@ export function SelectFormUsageDemo() {
             ))}
           </Select.Content>
         </Select.Positioner>
-        <Select.HiddenSelect />
       </Select>
       <button type="submit">Submit</button>
     </form>

@@ -1,8 +1,7 @@
-import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
-import { Field, FileUpload, Textarea } from '@moduix/react';
+import { Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './file-upload.module.css';
 
 export const fileUploadExampleCss = `
@@ -33,6 +32,10 @@ export const fileUploadExampleCss = `
     display: grid;
     justify-items: center;
     gap: var(--spacing-1);
+  }
+
+  .file-upload-dropzone-content [data-slot='file-upload-trigger'] {
+    margin-top: var(--spacing-2);
   }
 
   .file-upload-dropzone-title {
@@ -269,7 +272,7 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'Controls preview item vertical padding.',
   ],
   ['--file-upload-item-preview-radius', 'var(--radius-sm)', 'Controls preview box radius.'],
-  ['--file-upload-item-preview-size', '2rem', 'Controls preview box size.'],
+  ['--file-upload-item-preview-size', 'var(--spacing-10)', 'Controls preview box size.'],
   ['--file-upload-item-radius', 'var(--radius-md)', 'Controls item radius.'],
   ['--file-upload-item-row-gap', 'var(--spacing-1)', 'Controls item row gap.'],
   [
@@ -377,40 +380,50 @@ function getInitialFiles() {
   return [new File(['Welcome to moduix'], 'README.md', { type: 'text/plain' })];
 }
 
-function AcceptedFileItems() {
-  return (
-    <ArkFileUpload.Context>
-      {({ acceptedFiles }) =>
-        acceptedFiles.map((file) => (
-          <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemName />
-            <FileUpload.ItemSizeText />
-            <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-          </FileUpload.Item>
-        ))
-      }
-    </ArkFileUpload.Context>
-  );
+function getPreviewFiles() {
+  return [
+    new File(
+      [
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" fill="#dbeafe"/><circle cx="78" cy="86" r="28" fill="#60a5fa"/><path d="M0 190l68-66 45 42 35-30 92 92v12H0z" fill="#2563eb"/></svg>`,
+      ],
+      'workspace.svg',
+      { type: 'image/svg+xml' },
+    ),
+    new File(['Project brief'], 'project-brief.pdf', { type: 'application/pdf' }),
+  ];
 }
 
-function CompactAcceptedFileItems() {
+const isImageFile = (file: File) =>
+  file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+
+function AcceptedFileItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
+            {isImageFile(file) ? (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewImage />
+              </FileUpload.ItemPreview>
+            ) : (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewIcon />
+              </FileUpload.ItemPreview>
+            )}
             <FileUpload.ItemName />
+            <FileUpload.ItemMetadata file={file} />
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
 function RejectedFileItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ rejectedFiles }) =>
         rejectedFiles.map(({ file, errors }) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -420,7 +433,7 @@ function RejectedFileItems() {
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
@@ -430,9 +443,8 @@ function FileUploadTriggerExample(props: ComponentProps<typeof FileUpload.Root>)
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -450,9 +462,39 @@ function FileUploadDropzoneExample(props: ComponentProps<typeof FileUpload.Root>
         </div>
       </FileUpload.Dropzone>
       <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
+    </FileUpload.Root>
+  );
+}
+
+export function FileUploadAdvancedCustomizationExample() {
+  return (
+    <FileUpload.Root className={styles.demo} maxFiles={5}>
+      <FileUpload.Label>Project files</FileUpload.Label>
+      <FileUpload.Dropzone disableClick>
+        <FileUpload.DropzoneIcon />
+        <div className={styles.dropzoneContent}>
+          <span className={styles.dropzoneTitle}>Drag and drop files here</span>
+          <span className={styles.dropzoneDescription}>or browse from your device</span>
+          <FileUpload.Trigger>Browse files</FileUpload.Trigger>
+        </div>
+      </FileUpload.Dropzone>
+      <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
+    </FileUpload.Root>
+  );
+}
+
+export function FileUploadPreviewExample() {
+  return (
+    <FileUpload.Root className={styles.demo} defaultAcceptedFiles={getPreviewFiles()} maxFiles={4}>
+      <FileUpload.Label>Project attachments</FileUpload.Label>
+      <FileUpload.Trigger>Add files</FileUpload.Trigger>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
     </FileUpload.Root>
   );
 }
@@ -480,7 +522,6 @@ export function FileUploadAcceptedTypesExample() {
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -503,7 +544,6 @@ export function FileUploadRejectedFilesExample() {
       <FileUpload.ItemGroup type="rejected">
         <RejectedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -524,12 +564,11 @@ export function FileUploadErrorHandlingExample() {
         <FileUpload.Label>Images</FileUpload.Label>
         <FileUpload.Trigger>Select images</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
         <FileUpload.ItemGroup type="rejected">
           <RejectedFileItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <p className={styles.state}>{message || 'No files selected'}</p>
     </div>
@@ -563,9 +602,8 @@ export function FileUploadClearTriggerExample() {
         <FileUpload.ClearTrigger>Clear files</FileUpload.ClearTrigger>
       </div>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -577,9 +615,8 @@ export function FileUploadWithFieldExample() {
         <FileUpload.Label>Required attachments</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>
@@ -598,9 +635,8 @@ export function FileUploadFormExample() {
         <FileUpload.Label>Project assets</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <CompactAcceptedFileItems />
+          <FileUpload.Items />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <button className={styles.submit} type="submit">
         Submit
@@ -620,9 +656,8 @@ export function FileUploadRootProviderExample() {
         onPaste={(event) => fileUpload.setClipboardFiles(event.clipboardData)}
       />
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.RootProvider>
   );
 }
@@ -633,7 +668,7 @@ export function FileUploadDirectoryExample() {
       <FileUpload.Label>Folder</FileUpload.Label>
       <FileUpload.Trigger>Choose folder</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <ArkFileUpload.Context>
+        <FileUpload.Context>
           {({ acceptedFiles }) =>
             acceptedFiles.map((file) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
@@ -643,9 +678,8 @@ export function FileUploadDirectoryExample() {
               </FileUpload.Item>
             ))
           }
-        </ArkFileUpload.Context>
+        </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -665,7 +699,6 @@ export function FileUploadMediaCaptureExample() {
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -682,9 +715,8 @@ export function FileUploadTransformFilesExample() {
       <FileUpload.Label>Images</FileUpload.Label>
       <FileUpload.Trigger>Choose images</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactAcceptedFileItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }

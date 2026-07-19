@@ -10,11 +10,7 @@ export function ControlledNumberInputDemo() {
     <div>
       <NumberInput value={value} onValueChange={(details) => setValue(details.value)}>
         <NumberInput.Label>Controlled value</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger />
-          <NumberInput.Input />
-          <NumberInput.IncrementTrigger />
-        </NumberInput.Control>
+        <NumberInput.Field />
       </NumberInput>
       <div className="number-input-state">Current value: {value || 'empty'}</div>
     </div>

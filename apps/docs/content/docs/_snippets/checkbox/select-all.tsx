@@ -19,12 +19,8 @@ export function CheckboxSelectAllDemo() {
       checked={indeterminate ? 'indeterminate' : allSelected}
       onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
     >
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-        <Checkbox.Indicator indeterminate />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Select all</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

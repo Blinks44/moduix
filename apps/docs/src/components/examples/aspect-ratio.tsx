@@ -1,5 +1,4 @@
 import { AspectRatio, Card } from '@moduix/react';
-import { CSSPropertiesReferenceTable } from '../preview';
 import styles from './aspect-ratio.module.css';
 
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
@@ -16,7 +15,7 @@ export const aspectRatioCssProperties = [
   },
 ];
 
-export const aspectRatioImageCss = `
+export const aspectRatioBasicCss = `
 .aspect-ratio-demo {
   width: min(30rem, calc(100vw - var(--spacing-8)));
 }
@@ -24,15 +23,9 @@ export const aspectRatioImageCss = `
 .aspect-ratio-demo__image {
   object-fit: cover;
 }
-`;
 
-export const aspectRatioNarrowImageCss = `
-.aspect-ratio-demo {
-  width: min(15rem, calc(100vw - var(--spacing-8)));
-}
-
-.aspect-ratio-demo__image {
-  object-fit: cover;
+.aspect-ratio-demo__figure {
+  margin: 0;
 }
 `;
 
@@ -85,7 +78,7 @@ export const aspectRatioGridCss = `
 }
 `;
 
-export const aspectRatioFrameCss = `
+export const aspectRatioEmbedCss = `
 .aspect-ratio-demo {
   width: min(30rem, calc(100vw - var(--spacing-8)));
 }
@@ -95,61 +88,26 @@ export const aspectRatioFrameCss = `
 }
 `;
 
-export const aspectRatioRoundedCss = `
+export const aspectRatioMigrationCss = `
 .aspect-ratio-demo {
   width: min(30rem, calc(100vw - var(--spacing-8)));
+  background: var(--color-muted);
 }
 
-.aspect-ratio-demo__rounded {
-  --aspect-ratio-radius: var(--radius-xl);
-}
-
-.aspect-ratio-demo__image {
+.aspect-ratio-demo__fill-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 `;
 
-export function AspectRatioCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={aspectRatioCssProperties} />;
-}
-
 export function AspectRatioExample() {
   return (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  );
-}
-
-export function AspectRatioSquareExample() {
-  return (
-    <div className={styles.container}>
-      <AspectRatio ratio={1}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  );
-}
-
-export function AspectRatioPortraitExample() {
-  return (
-    <div className={styles.narrowContainer}>
-      <AspectRatio ratio={9 / 16}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
-  );
-}
-
-export function AspectRatioPhotoExample() {
-  return (
-    <div className={styles.container}>
-      <AspectRatio ratio={4 / 3}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container}>
+      <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
+    </AspectRatio>
   );
 }
 
@@ -191,50 +149,34 @@ export function AspectRatioCardGridExample() {
   );
 }
 
-export function AspectRatioCustomRatioExample() {
+export function AspectRatioEmbedExample() {
   return (
-    <div className={styles.container}>
-      <AspectRatio ratio={2}>
-        <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container}>
+      <iframe
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="Video embed"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        className={styles.frame}
+      />
+    </AspectRatio>
   );
 }
 
-export function AspectRatioEmbedExample() {
+export function AspectRatioShadcnMigrationExample() {
   return (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9}>
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Video embed"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          className={styles.frame}
-        />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className={styles.container}>
+      <img src={imageUrl} alt="Mountain landscape" className={styles.fillImage} />
+    </AspectRatio>
   );
 }
 
 export function AspectRatioAsChildExample() {
   return (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9} asChild>
-        <figure>
-          <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-        </figure>
-      </AspectRatio>
-    </div>
-  );
-}
-
-export function AspectRatioCustomRadiusExample() {
-  return (
-    <div className={styles.container}>
-      <AspectRatio ratio={16 / 9} className={styles.roundedFrame}>
+    <AspectRatio ratio={16 / 9} className={styles.container} asChild>
+      <figure className={styles.figure}>
         <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
-      </AspectRatio>
-    </div>
+      </figure>
+    </AspectRatio>
   );
 }

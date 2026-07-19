@@ -1,12 +1,20 @@
 @layer ui.components {
   @keyframes date-picker-content-open {
     from {
-      opacity: var(--date-picker-content-closed-opacity, 0);
-      transform: scale(var(--date-picker-content-closed-scale, var(--scale-popup)));
+      opacity: var(--date-picker-content-closed-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(--popup-motion-starting-translate-x, 0)
+        var(--popup-motion-starting-translate-y, 0);
+      transform: scale(
+        var(
+          --date-picker-content-closed-scale,
+          var(--popup-motion-starting-scale, var(--scale-popup))
+        )
+      );
     }
 
     to {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
   }
@@ -14,12 +22,19 @@
   @keyframes date-picker-content-closed {
     from {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
 
     to {
-      opacity: var(--date-picker-content-closed-opacity, 0);
-      transform: scale(var(--date-picker-content-closed-scale, var(--scale-popup)));
+      opacity: var(--date-picker-content-closed-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--popup-motion-ending-translate-x, 0) var(--popup-motion-ending-translate-y, 0);
+      transform: scale(
+        var(
+          --date-picker-content-closed-scale,
+          var(--popup-motion-ending-scale, var(--scale-popup))
+        )
+      );
     }
   }
 
@@ -127,7 +142,6 @@
   .trigger,
   .navTrigger,
   .viewTrigger,
-  .clearTrigger,
   .presetTrigger {
     box-sizing: border-box;
     display: inline-flex;
@@ -180,8 +194,7 @@
     }
   }
 
-  .trigger,
-  .clearTrigger {
+  .trigger {
     position: absolute;
     top: 50%;
     width: var(--date-picker-action-size, 1.5rem);
@@ -194,10 +207,38 @@
   }
 
   .clearTrigger {
+    --close-button-size: var(--date-picker-action-size, 1.5rem);
+    --close-button-icon-size: var(--date-picker-icon-size, 1rem);
+    --close-button-radius: var(--date-picker-action-radius, var(--radius-sm));
+    --close-button-bg: var(--date-picker-action-bg, transparent);
+    --close-button-bg-hover: var(--date-picker-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--date-picker-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--date-picker-action-color-hover, var(--color-foreground));
+    --close-button-disabled-opacity: var(--date-picker-disabled-opacity, var(--opacity-disabled));
+    --close-button-focus-ring-width: var(
+      --date-picker-action-focus-ring-width,
+      var(--border-width-sm)
+    );
+    --close-button-focus-ring-color: var(--date-picker-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--date-picker-action-focus-ring-offset, 0);
+    --close-button-transition: var(--date-picker-transition, var(--transition-default));
+
+    position: absolute;
+    top: 50%;
     right: calc(
       var(--date-picker-trigger-offset-right, 0.5rem) + var(--date-picker-action-size, 1.5rem) +
         var(--date-picker-action-gap, 0.125rem)
     );
+    transform: translateY(-50%);
+
+    &[data-focus] {
+      outline: var(--close-button-focus-ring-width) solid var(--close-button-focus-ring-color);
+      outline-offset: var(--close-button-focus-ring-offset);
+    }
+
+    &[hidden] {
+      display: none;
+    }
   }
 
   .positioner {
@@ -228,11 +269,21 @@
     overscroll-behavior: contain;
 
     &[data-state='open'] {
-      animation: date-picker-content-open var(--date-picker-transition, var(--transition-default));
+      animation: date-picker-content-open
+        var(
+          --date-picker-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
 
     &[data-state='closed'] {
-      animation: date-picker-content-closed var(--date-picker-transition, var(--transition-default));
+      animation: date-picker-content-closed
+        var(
+          --date-picker-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
       pointer-events: none;
     }
   }

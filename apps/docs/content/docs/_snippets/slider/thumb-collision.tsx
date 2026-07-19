@@ -14,12 +14,7 @@ export function ThumbCollisionSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Minimum linked value">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-        <Slider.Thumb index={1} aria-label="Maximum linked value">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
     </Slider>
   );

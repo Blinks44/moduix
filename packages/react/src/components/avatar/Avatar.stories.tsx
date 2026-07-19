@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useAvatar } from '@ark-ui/react/avatar';
-import { useState } from 'react';
+import { type ImgHTMLAttributes, useState } from 'react';
 import { ComputerIcon } from '@/icons/demo';
-import { Avatar } from './Avatar';
 import styles from './Avatar.stories.module.css';
+import { Avatar, useAvatar, useAvatarContext } from './index';
 
 const meta = {
   title: 'Components/Avatar',
@@ -19,15 +18,29 @@ type Story = StoryObj<typeof meta>;
 
 const imageUrl = 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
 
+function AvatarCustomImage(props: ImgHTMLAttributes<HTMLImageElement>) {
+  const avatar = useAvatarContext();
+  const { hidden, ...imageProps } = avatar.getImageProps();
+
+  return (
+    <img
+      {...imageProps}
+      {...props}
+      className={styles.customImage}
+      style={{ visibility: hidden ? 'hidden' : 'visible' }}
+    />
+  );
+}
+
 function StatusChangeAvatar() {
   const [status, setStatus] = useState('idle');
 
   return (
     <div className={styles.statusStory}>
-      <Avatar.Root onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+      <Avatar onStatusChange={(details) => setStatus(details.status)}>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={imageUrl} alt="Alex T." />
-      </Avatar.Root>
+      </Avatar>
       <span className={styles.statusLabel}>status: {status}</span>
     </div>
   );
@@ -43,7 +56,7 @@ function RootProviderAvatar() {
         Change avatar
       </button>
       <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={`${imageUrl}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
     </div>
@@ -53,10 +66,10 @@ function RootProviderAvatar() {
 export const Basic: Story = {
   render: () => {
     return (
-      <Avatar.Root>
-        <Avatar.Fallback>LT</Avatar.Fallback>
+      <Avatar>
+        <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={imageUrl} alt="Alex T." />
-      </Avatar.Root>
+      </Avatar>
     );
   },
 };
@@ -65,21 +78,21 @@ export const FallbackOnly: Story = {
   render: () => {
     return (
       <div className={styles.fallbackRow}>
-        <Avatar.Root size="xs">
+        <Avatar size="xs">
           <Avatar.Fallback>XS</Avatar.Fallback>
-        </Avatar.Root>
-        <Avatar.Root size="sm">
+        </Avatar>
+        <Avatar size="sm">
           <Avatar.Fallback>SM</Avatar.Fallback>
-        </Avatar.Root>
-        <Avatar.Root>
+        </Avatar>
+        <Avatar>
           <Avatar.Fallback>MD</Avatar.Fallback>
-        </Avatar.Root>
-        <Avatar.Root size="lg">
+        </Avatar>
+        <Avatar size="lg">
           <Avatar.Fallback>LG</Avatar.Fallback>
-        </Avatar.Root>
-        <Avatar.Root size="xl">
+        </Avatar>
+        <Avatar size="xl">
           <Avatar.Fallback>XL</Avatar.Fallback>
-        </Avatar.Root>
+        </Avatar>
       </div>
     );
   },
@@ -88,12 +101,12 @@ export const FallbackOnly: Story = {
 export const AsChildComposition: Story = {
   render: () => {
     return (
-      <Avatar.Root asChild size="xl" className={styles.linkAvatar}>
+      <Avatar asChild size="xl" className={styles.linkAvatar}>
         <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-          <Avatar.Fallback className={styles.linkAvatarFallback}>LT</Avatar.Fallback>
+          <Avatar.Fallback className={styles.linkAvatarFallback} name="Alex T." />
           <Avatar.Image className={styles.linkAvatarImage} src={imageUrl} alt="" />
         </a>
-      </Avatar.Root>
+      </Avatar>
     );
   },
 };
@@ -106,13 +119,24 @@ export const RootProvider: Story = {
   render: () => <RootProviderAvatar />,
 };
 
+export const CustomImage: Story = {
+  render: () => {
+    return (
+      <Avatar>
+        <Avatar.Fallback name="Alex T." />
+        <AvatarCustomImage src={imageUrl} alt="Alex T." />
+      </Avatar>
+    );
+  },
+};
+
 export const ImageError: Story = {
   render: () => {
     return (
-      <Avatar.Root>
-        <Avatar.Fallback>NA</Avatar.Fallback>
+      <Avatar>
+        <Avatar.Fallback name="No Avatar" />
         <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
-      </Avatar.Root>
+      </Avatar>
     );
   },
 };
@@ -120,11 +144,11 @@ export const ImageError: Story = {
 export const FallbackIcon: Story = {
   render: () => {
     return (
-      <Avatar.Root size="lg" className={styles.iconAvatar}>
+      <Avatar size="lg" className={styles.iconAvatar}>
         <Avatar.Fallback>
           <ComputerIcon className={styles.iconAvatarGlyph} />
         </Avatar.Fallback>
-      </Avatar.Root>
+      </Avatar>
     );
   },
 };

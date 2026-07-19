@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useToggleGroup } from '@ark-ui/react/toggle-group';
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup, useToggleGroup } from '@moduix/react';
 import styles from './toggle-group.module.css';
 
 const alignmentItems = [

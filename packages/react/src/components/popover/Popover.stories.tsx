@@ -297,7 +297,7 @@ export const Nested: Story = {
             <Popover.Description>Nested popovers keep independent state.</Popover.Description>
           </Popover.Header>
           <Popover.Body className={storyStyles.nestedBody}>
-            <Popover positioning={{ placement: 'right', gutter: 8 }}>
+            <Popover portalled={false} positioning={{ placement: 'right', gutter: 8 }}>
               <Popover.Trigger asChild>
                 <Button variant="outline">Advanced</Button>
               </Popover.Trigger>

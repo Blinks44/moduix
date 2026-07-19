@@ -201,8 +201,8 @@ resolve: {
   </Tab>
 </Tabs>
 
-Create `components.json` in the project root with the following content. This is the current
-workaround while `shadcn` custom registry base init still fails for this setup:
+Create `components.json` in the project root with the following content. The `registries` entry
+lets the shadcn CLI resolve the moduix hosted registry:
 
 ```json
 {
@@ -226,55 +226,57 @@ workaround while `shadcn` custom registry base init still fails for this setup:
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
 }
 ```
 
-This gives the `shadcn` CLI the aliases and project metadata it needs to place generated files in
+This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in
 `src/components` and `src/lib` instead of a literal `@` directory.
 
 ### 2. Install components with shadcn
 
-Install registry items from the moduix GitHub registry:
+Install registry items from the moduix hosted registry:
 
 <Tabs items={['npm', 'pnpm', 'bun', 'deno', 'aube']}>
   <Tab value="npm">
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/react-button
-npx shadcn@latest add Blinks44/moduix/react-accordion
+npx shadcn@latest add @moduix-react/button
+npx shadcn@latest add @moduix-react/accordion
 ```
 
   </Tab>
   <Tab value="pnpm">
 
 ```bash
-pnpm dlx shadcn@latest add Blinks44/moduix/react-button
-pnpm dlx shadcn@latest add Blinks44/moduix/react-accordion
+pnpm dlx shadcn@latest add @moduix-react/button
+pnpm dlx shadcn@latest add @moduix-react/accordion
 ```
 
   </Tab>
   <Tab value="bun">
 
 ```bash
-bunx shadcn@latest add Blinks44/moduix/react-button
-bunx shadcn@latest add Blinks44/moduix/react-accordion
+bunx shadcn@latest add @moduix-react/button
+bunx shadcn@latest add @moduix-react/accordion
 ```
 
   </Tab>
   <Tab value="deno">
 
 ```bash
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-button
-deno x -A npm:shadcn@latest add Blinks44/moduix/react-accordion
+deno x -A npm:shadcn@latest add @moduix-react/button
+deno x -A npm:shadcn@latest add @moduix-react/accordion
 ```
 
   </Tab>
   <Tab value="aube">
 
 ```bash
-aubx shadcn@latest add Blinks44/moduix/react-button
-aubx shadcn@latest add Blinks44/moduix/react-accordion
+aubx shadcn@latest add @moduix-react/button
+aubx shadcn@latest add @moduix-react/accordion
 ```
 
   </Tab>

@@ -37,7 +37,7 @@ Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-kbd" />
+<ShadcnInstall packageName="kbd" />
 
 ## Anatomy
 
@@ -78,21 +78,30 @@ composition behavior. The child must be one element and must preserve keyboard-i
 
 ## Examples
 
-### Single Key
+### Compact Density
 
-Use `Kbd` directly when the UI refers to one key.
+Use local CSS variables for one-off density or tone changes instead of extra component props.
 
 <Preview>
-  <KbdDocs.KbdSingleKeyExample />
+  <KbdDocs.KbdDenseExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/kbd/single-key.tsx#demo</include>
+  <include lang="tsx">./_snippets/kbd/compact-density.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
     {`
-      [data-scope="kbd"][data-part="root"] {
-        vertical-align: middle;
+      .kbd-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .kbd-demo-dense {
+        --kbd-height: 1.25rem;
+        --kbd-min-width: 1.25rem;
+        --kbd-padding-x: var(--spacing-1);
       }
     `}
 
@@ -155,30 +164,21 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 
 </Preview>
 
-### Compact Density
+### Single Key
 
-Use local CSS variables for one-off density or tone changes instead of extra component props.
+Use `Kbd` directly when the UI refers to one key.
 
 <Preview>
-  <KbdDocs.KbdDenseExample />
+  <KbdDocs.KbdSingleKeyExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/kbd/compact-density.tsx#demo</include>
+  <include lang="tsx">./_snippets/kbd/single-key.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
     {`
-      .kbd-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--spacing-2);
-      }
-
-      .kbd-demo-dense {
-        --kbd-height: 1.25rem;
-        --kbd-min-width: 1.25rem;
-        --kbd-padding-x: var(--spacing-1);
+      [data-scope="kbd"][data-part="root"] {
+        vertical-align: middle;
       }
     `}
 

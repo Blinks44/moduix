@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { CSSProperties } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 
@@ -31,7 +31,6 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
   const rootStyle: CSSProperties = {
     display: 'grid',
     gridTemplateColumns,
-    ...style,
   };
 
   if (gap != null) {
@@ -45,6 +44,8 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
   if (columnGap != null) {
     rootStyle.columnGap = columnGap;
   }
+
+  Object.assign(rootStyle, style);
 
   return (
     <ark.div

@@ -14,7 +14,6 @@ export function RadioGroupAsChildDemo() {
           <label className="radio-card-item">
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </label>
         </RadioGroup.Item>
       ))}

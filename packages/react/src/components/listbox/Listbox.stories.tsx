@@ -1,13 +1,12 @@
 import type { ListCollection } from '@ark-ui/react/collection';
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   createGridCollection,
   createListCollection,
   useListCollection,
 } from '@ark-ui/react/collection';
-import { useListbox as useArkListbox } from '@ark-ui/react/listbox';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Listbox } from './Listbox';
+import { Listbox, useListbox } from './Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {
@@ -171,7 +170,7 @@ export const Controlled: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const listbox = useArkListbox({ collection: countries, defaultValue: ['ca'] });
+    const listbox = useListbox({ collection: countries, defaultValue: ['ca'] });
 
     return (
       <div className={styles.stack}>
@@ -234,6 +233,44 @@ export const Grouped: Story = {
 };
 
 export const Filtering: Story = {
+  render: () => {
+    const [filterText, setFilterText] = useState('');
+    const { collection, filter } = useListCollection<OptionItem>({
+      initialItems: frameworkItems,
+      filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
+    });
+
+    return (
+      <Listbox collection={collection} typeahead={false}>
+        <Listbox.Label>Select framework</Listbox.Label>
+        <Listbox.Filter>
+          <Listbox.Input
+            placeholder="Search frameworks..."
+            value={filterText}
+            onChange={(event) => {
+              setFilterText(event.target.value);
+              filter(event.target.value);
+            }}
+          />
+          {filterText ? (
+            <Listbox.ClearTrigger
+              onClick={() => {
+                setFilterText('');
+                filter('');
+              }}
+            />
+          ) : null}
+        </Listbox.Filter>
+        <Listbox.Content>
+          <OptionItems collection={collection} />
+          <Listbox.Empty>No frameworks found</Listbox.Empty>
+        </Listbox.Content>
+      </Listbox>
+    );
+  },
+};
+
+export const StandaloneInput: Story = {
   render: () => {
     const { collection, filter } = useListCollection<OptionItem>({
       initialItems: frameworkItems,

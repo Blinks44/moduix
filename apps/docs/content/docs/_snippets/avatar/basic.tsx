@@ -7,7 +7,7 @@ const avatarImage =
 export function AvatarDemo() {
   return (
     <Avatar>
-      <Avatar.Fallback>LT</Avatar.Fallback>
+      <Avatar.Fallback name="Alex T." />
       <Avatar.Image src={avatarImage} alt="Alex T." />
     </Avatar>
   );

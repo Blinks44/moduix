@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -6,26 +5,51 @@ import {
   type SelectRootProps as ArkSelectRootProps,
   type SelectRootProviderComponent as ArkSelectRootProviderComponent,
   type SelectRootProviderProps as ArkSelectRootProviderProps,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
 } from '@ark-ui/react/select';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
-import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import styles from './Select.module.css';
 
-type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & OverlayPortalProps;
+type SelectNativeFormControl = 'select' | 'input';
+type SelectRootOwnProps = OverlayPortalProps & {
+  nativeFormControl?: SelectNativeFormControl;
+};
+type SelectRootProps<T extends CollectionItem> = ArkSelectRootProps<T> & SelectRootOwnProps;
 type SelectRootProviderProps<T extends CollectionItem> = ArkSelectRootProviderProps<T> &
-  OverlayPortalProps;
-type SelectRootComponent = ArkSelectRootComponent<OverlayPortalProps>;
-type SelectRootProviderComponent = ArkSelectRootProviderComponent<OverlayPortalProps>;
+  SelectRootOwnProps;
+type SelectRootComponent = ArkSelectRootComponent<SelectRootOwnProps>;
+type SelectRootProviderComponent = ArkSelectRootProviderComponent<SelectRootOwnProps>;
+type SelectFieldProps = Omit<
+  ComponentProps<typeof SelectPrimitive.Control>,
+  'asChild' | 'children'
+> & {
+  clearLabel?: string;
+  indicator?: ReactNode;
+  placeholder?: ComponentProps<typeof SelectPrimitive.ValueText>['placeholder'];
+};
 
 const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: SelectRootProps<T>,
+  {
+    asChild,
+    children,
+    className,
+    nativeFormControl = 'select',
+    portalled,
+    portalRef,
+    ...props
+  }: SelectRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -34,14 +58,25 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
         ref={ref}
         data-slot="select-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        asChild={asChild}
         {...props}
-      />
+      >
+        {withNativeFormControl(children, asChild, nativeFormControl)}
+      </SelectPrimitive.Root>
     </OverlayPortalProvider>
   );
 }) as SelectRootComponent;
 
 const SelectRootProvider = forwardRef(function SelectRootProvider<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: SelectRootProviderProps<T>,
+  {
+    asChild,
+    children,
+    className,
+    nativeFormControl = 'select',
+    portalled,
+    portalRef,
+    ...props
+  }: SelectRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -50,8 +85,11 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
         ref={ref}
         data-slot="select-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
+        asChild={asChild}
         {...props}
-      />
+      >
+        {withNativeFormControl(children, asChild, nativeFormControl)}
+      </SelectPrimitive.RootProvider>
     </OverlayPortalProvider>
   );
 }) as SelectRootProviderComponent;
@@ -116,15 +154,49 @@ const SelectValueText = forwardRef<
 const SelectClearTrigger = forwardRef<
   ComponentRef<typeof SelectPrimitive.ClearTrigger>,
   ComponentProps<typeof SelectPrimitive.ClearTrigger>
->(function SelectClearTrigger({ className, children, ...props }, ref) {
+>(function SelectClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <SelectPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="select-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </SelectPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <SelectPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="select-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+        aria-labelledby={ariaLabelledBy}
+      >
+        {children}
+      </CloseButton.Root>
     </SelectPrimitive.ClearTrigger>
   );
 });
@@ -154,6 +226,22 @@ function SelectIndicators({ className, ...props }: ComponentProps<'div'>) {
     />
   );
 }
+
+const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, SelectFieldProps>(
+  function SelectField({ clearLabel, indicator, placeholder, ...props }, ref) {
+    return (
+      <SelectControl ref={ref} {...props}>
+        <SelectTrigger>
+          <SelectValueText placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectIndicators>
+          {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
+          <SelectIndicator>{indicator}</SelectIndicator>
+        </SelectIndicators>
+      </SelectControl>
+    );
+  },
+);
 
 const SelectPositioner = forwardRef<
   ComponentRef<typeof SelectPrimitive.Positioner>,
@@ -271,19 +359,53 @@ const SelectItemIndicator = forwardRef<
   );
 });
 
-const SelectHiddenSelect = forwardRef<
-  ComponentRef<typeof SelectPrimitive.HiddenSelect>,
-  ComponentProps<typeof SelectPrimitive.HiddenSelect>
->(function SelectHiddenSelect({ className, ...props }, ref) {
+function withNativeFormControl(
+  children: ReactNode,
+  asChild: boolean | undefined,
+  nativeFormControl: SelectNativeFormControl,
+) {
+  const formControl = <SelectFormControl nativeFormControl={nativeFormControl} />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {formControl}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, formControl);
+}
+
+function SelectFormControl({ nativeFormControl }: { nativeFormControl: SelectNativeFormControl }) {
+  const select = useSelectContext();
+
+  if (nativeFormControl === 'select') {
+    return <SelectPrimitive.HiddenSelect data-slot="select-hidden-select" />;
+  }
+
+  const hiddenSelectProps = select.getHiddenSelectProps();
+
   return (
-    <SelectPrimitive.HiddenSelect
-      ref={ref}
-      data-slot="select-hidden-select"
-      className={normalizeClassName(className)}
-      {...props}
-    />
+    <>
+      {select.value.map((value) => (
+        <input
+          key={value}
+          type="hidden"
+          data-slot="select-hidden-input"
+          name={hiddenSelectProps.name}
+          form={hiddenSelectProps.form}
+          autoComplete={hiddenSelectProps.autoComplete}
+          disabled={hiddenSelectProps.disabled}
+          value={value}
+        />
+      ))}
+    </>
   );
-});
+}
 
 function SelectItemTextContent({ className, ...props }: ComponentProps<'span'>) {
   return (
@@ -318,8 +440,14 @@ function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
 const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,
   RootProvider: SelectRootProvider,
+  Context: SelectPrimitive.Context,
+  ItemContext: SelectPrimitive.ItemContext,
+  useSelect,
+  useSelectContext,
+  useSelectItemContext,
   Label: SelectLabel,
   Control: SelectControl,
+  Field: SelectField,
   Trigger: SelectTrigger,
   ValueText: SelectValueText,
   ClearTrigger: SelectClearTrigger,
@@ -333,7 +461,6 @@ const Select = Object.assign(SelectRoot, {
   Item: SelectItem,
   ItemText: SelectItemText,
   ItemIndicator: SelectItemIndicator,
-  HiddenSelect: SelectHiddenSelect,
   ItemTextContent: SelectItemTextContent,
   ItemTextIcon: SelectItemTextIcon,
   ItemTextLabel: SelectItemTextLabel,

@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { QrCode as QrCodePrimitive } from '@ark-ui/react/qr-code';
+import { QrCode as QrCodePrimitive, useQrCode } from '@ark-ui/react/qr-code';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './QrCode.module.css';
@@ -98,4 +98,4 @@ const QrCode = Object.assign(QrCodeRoot, {
   DownloadTrigger: QrCodeDownloadTrigger,
 });
 
-export { QrCode };
+export { QrCode, useQrCode };

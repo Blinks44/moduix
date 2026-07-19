@@ -24,15 +24,11 @@ export function MultiplePanelsSplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
       <Splitter.Panel id="b" className="splitter-panel">
         B
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
       <Splitter.Panel id="c" className="splitter-panel">
         C
       </Splitter.Panel>

@@ -1,16 +1,7 @@
 @layer ui.storybook {
   .demoRoot {
-    width: 22rem;
-
-    @media (min-width: 32rem) {
-      width: 32rem;
-    }
-  }
-
-  .panelContent {
-    display: grid;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3);
+    width: 100%;
+    max-width: 22rem;
   }
 
   .state {

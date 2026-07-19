@@ -15,9 +15,10 @@ Upstream docs:
 
 There is no dedicated Ark `List` primitive or component page. The wrapper should stay aligned with Ark's factory-based composition model:
 
-- `List` is a thin Ark factory wrapper over `ark.ul` / `ark.ol`, with `asChild` support for
-  custom host-element replacement.
-- `List.Item` is a thin `ark.li` wrapper with the same `asChild` composition path.
+- `List` is a thin Ark factory wrapper over `ark.ul` / `ark.ol`, with `asChild` support for a
+  single replacement `<ul>` or `<ol>` host.
+- `List.Item` is a thin `ark.li` wrapper with the same `asChild` composition path for a single
+  replacement `<li>` host.
 - Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
 - Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
 
@@ -26,7 +27,9 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 - `List` defaults to a semantic `<ul>`.
 - Ordered lists use narrow host sugar: render `<List as="ol" start={...}>` for native ordered
   semantics and ordered-list props.
-- `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path.
+- `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path. Its
+  child must preserve the corresponding semantic host (`ul`/`ol` for `List`, `li` for `List.Item`)
+  and forward the ref.
 - `List.Item` is the public item part. The flat `ListItem` export was removed during the Ark migration.
 - `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
 - Native list props remain available on the rendered host element:
@@ -137,6 +140,8 @@ export function OrderedListDemo() {
 
 ## Local changelog
 
+- 2026-07-10: Clarified the semantic and ref-forwarding requirements for `asChild`; docs and stories
+  now reserve it for custom `ul`/`ol` or `li` components rather than ordinary styling.
 - 2026-07-03: Removed redundant exported list prop and token type aliases from the public surface.
 - 2026-06-26: Reintroduced narrow `as="ul" | "ol"` host sugar so ordered lists can use
   `<List as="ol" start={...}>`, while keeping `asChild` as the custom-host escape hatch.

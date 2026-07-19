@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FloatingPanel as ArkFloatingPanel } from '@ark-ui/react/floating-panel';
 import { Button, FloatingPanel } from '@moduix/react';
 
 const defaultSize = {
@@ -19,13 +18,13 @@ export function ContextFloatingPanelDemo() {
       <FloatingPanel.Trigger asChild>
         <Button>Open context panel</Button>
       </FloatingPanel.Trigger>
-      <ArkFloatingPanel.Context>
+      <FloatingPanel.Context>
         {(panel) => (
           <span>
             open: {String(panel.open)}, dragging: {String(panel.dragging)}
           </span>
         )}
-      </ArkFloatingPanel.Context>
+      </FloatingPanel.Context>
       <FloatingPanel.Positioner>
         <FloatingPanel.Content>
           <FloatingPanel.DragTrigger>
@@ -37,12 +36,13 @@ export function ContextFloatingPanelDemo() {
               <FloatingPanel.Control>
                 <FloatingPanel.StageTrigger stage="minimized" />
                 <FloatingPanel.StageTrigger stage="maximized" />
+                <FloatingPanel.StageTrigger stage="default" />
                 <FloatingPanel.CloseIcon />
               </FloatingPanel.Control>
             </FloatingPanel.Header>
           </FloatingPanel.DragTrigger>
           <FloatingPanel.Body>
-            Ark FloatingPanel.Context exposes the panel API to descendants.
+            FloatingPanel.Context exposes the panel API to descendants.
           </FloatingPanel.Body>
           <FloatingPanel.ResizeTriggerGroup />
         </FloatingPanel.Content>

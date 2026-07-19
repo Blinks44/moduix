@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Menu as ArkMenu } from '@ark-ui/react/menu';
 import { Button, Menu } from '@moduix/react';
 
 export function ItemContextMenuDemo() {
@@ -16,7 +15,7 @@ export function ItemContextMenuDemo() {
       <Menu.Positioner>
         <Menu.Content className="menu-content">
           <Menu.Item value="profile">
-            <ArkMenu.ItemContext>
+            <Menu.ItemContext>
               {(item) => (
                 <span
                   style={{
@@ -26,7 +25,7 @@ export function ItemContextMenuDemo() {
                   Profile Settings
                 </span>
               )}
-            </ArkMenu.ItemContext>
+            </Menu.ItemContext>
           </Menu.Item>
         </Menu.Content>
       </Menu.Positioner>

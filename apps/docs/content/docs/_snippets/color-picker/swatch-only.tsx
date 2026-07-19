@@ -9,14 +9,9 @@ export function SwatchOnlyColorPickerDemo() {
       <ColorPicker.Label>Brand color</ColorPicker.Label>
       <ColorPicker.SwatchGroup>
         {swatches.map((color) => (
-          <ColorPicker.SwatchTrigger key={color} value={color}>
-            <ColorPicker.Swatch value={color}>
-              <ColorPicker.SwatchIndicator />
-            </ColorPicker.Swatch>
-          </ColorPicker.SwatchTrigger>
+          <ColorPicker.SwatchTrigger key={color} value={color} />
         ))}
       </ColorPicker.SwatchGroup>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

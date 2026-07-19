@@ -2,7 +2,6 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select as ArkSelect } from '@ark-ui/react/select';
 import { Select } from '@moduix/react';
 
 const languages = createListCollection({
@@ -49,7 +48,7 @@ export function SelectSelectAllDemo() {
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
-          <ArkSelect.Context>
+          <Select.Context>
             {(select) => (
               <button
                 className="select-bulk-action"
@@ -62,7 +61,7 @@ export function SelectSelectAllDemo() {
                 Select all
               </button>
             )}
-          </ArkSelect.Context>
+          </Select.Context>
           {languages.items.map((item) => (
             <Select.Item key={item.value} item={item}>
               <Select.ItemText>{item.label}</Select.ItemText>
@@ -71,7 +70,6 @@ export function SelectSelectAllDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

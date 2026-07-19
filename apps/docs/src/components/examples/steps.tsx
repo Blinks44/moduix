@@ -1,8 +1,7 @@
-import { useSteps } from '@ark-ui/react/steps';
 import { Steps } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './steps.module.css';
 
 const stepsItems = [
@@ -359,7 +358,7 @@ export function ControlledStepsExample() {
 }
 
 export function RootProviderStepsExample() {
-  const steps = useSteps({ count: stepsItems.length });
+  const steps = Steps.useSteps({ count: stepsItems.length });
 
   return (
     <div className={styles.stack}>

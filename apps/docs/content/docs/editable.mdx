@@ -20,9 +20,9 @@ import * as EditableDocs from '@/components/examples/editable';
 
 ## Basic
 
-Use Ark-style parts: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input`,
-`Editable.Preview`, and optional control triggers. The wrapper adds styling, `data-slot`
-attributes, and default icons for edit, submit, and cancel triggers.
+Use Ark-style parts: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input`, and
+`Editable.Preview`. Add `Editable.Controls` for the standard edit, submit, and cancel flow.
+The wrapper adds styling, `data-slot` attributes, and default trigger icons.
 The moduix default enters edit mode on double-click to reduce accidental edits.
 
 <Preview>
@@ -37,7 +37,7 @@ The moduix default enters edit mode on double-click to reduce accidental edits.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-editable" />
+<ShadcnInstall packageName="editable" />
 
 ## Anatomy
 
@@ -47,7 +47,7 @@ Editable.Root
 ├─ Editable.Area
 │  ├─ Editable.Input
 │  └─ Editable.Preview
-├─ Editable.Control
+├─ Editable.Control or Editable.Controls
 │  ├─ Editable.EditTrigger
 │  ├─ Editable.SubmitTrigger
 │  └─ Editable.CancelTrigger
@@ -65,6 +65,7 @@ Editable.RootProvider
 | `Editable.Input`             | Text input shown while editing.                        |
 | `Editable.Preview`           | Read-mode text or placeholder shown outside edit mode. |
 | `Editable.Control`           | Optional wrapper for edit, submit, and cancel buttons. |
+| `Editable.Controls`          | Standard edit, submit, and cancel control flow.        |
 | `Editable.EditTrigger`       | Button that enters edit mode.                          |
 | `Editable.SubmitTrigger`     | Button that commits the value.                         |
 | `Editable.CancelTrigger`     | Button that reverts the value.                         |
@@ -73,17 +74,17 @@ Editable.RootProvider
 
 ### Recommended composition
 
-Keep `Input` and `Preview` as siblings inside `Area`, and place `Control` after `Area` so the
-default styles render trigger buttons on the right and vertically centered for single-line inputs.
-Textarea compositions use the same structure and can set `--editable-control-align: start` to keep
-controls aligned to the top of the multiline surface.
+Keep `Input` and `Preview` as siblings inside `Area`, and place `Controls` after `Area` for the
+standard trigger flow. It renders trigger buttons on the right and vertically centered for
+single-line inputs. Textarea compositions use the same structure and can set
+`--editable-control-align: start` to keep controls aligned to the top of the multiline surface.
 
 ### When to go custom
 
-Import Ark `Editable.Context` or `useEditableContext()` directly from
-`@ark-ui/react/editable` when reusable child parts or inline state reads need editable state.
-Use Ark `useEditable()` with `Editable.RootProvider` when state or methods must be owned outside
-the rendered editable tree. Use `asChild` for a semantic custom input host, such as a textarea.
+Use moduix `Editable.Context` or `useEditableContext()` when reusable child parts or inline state
+reads need editable state. Use moduix `useEditable()` with `Editable.RootProvider` when state or
+methods must be owned outside the rendered editable tree. Use `asChild` for a semantic custom input
+host, such as a textarea.
 
 ### Default props
 
@@ -119,67 +120,6 @@ Control the value with `value` and `onValueChange` when application state is the
   
 </Preview>
 
-### Root Provider
-
-Use Ark `useEditable()` and `Editable.RootProvider` when external controls need access to the
-editable state methods. Pass `activationMode: 'dblclick'` to the hook if you want the same default
-activation behavior as the moduix root component.
-
-<Preview>
-  <EditableDocs.RootProviderEditableExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/editable/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Context
-
-Use Ark `Editable.Context` for one-off state reads inside the part tree, such as swapping controls
-for editing hints, while keeping the moduix visual parts for the actual UI.
-
-<Preview>
-  <EditableDocs.ContextEditableExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/editable/context.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Custom Controls
-
-Use Ark `Editable.Context` to show edit, submit, or cancel controls based on the current edit
-state. This example sets `submitMode="none"` so explicit controls own commit and revert.
-
-<Preview>
-  <EditableDocs.EditableControlsExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/editable/custom-controls.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Textarea
-
-Render `Editable.Input` as a textarea for multi-line content. Keep the child semantic and place
-textarea-only sizing in CSS.
-
-<Preview>
-  <EditableDocs.TextareaEditableExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/editable/textarea.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Field
 
 Wrap the editable with `Field` when validation state and error text live outside the editable
@@ -207,6 +147,51 @@ default.
 
   <Preview.Code>
   <include lang="tsx">./_snippets/editable/guides.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider
+
+Use moduix `useEditable()` and `Editable.RootProvider` when external controls need access to the
+editable state methods. Pass `activationMode: 'dblclick'` to the hook if you want the same default
+activation behavior as the moduix root component.
+
+<Preview>
+  <EditableDocs.RootProviderEditableExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Textarea
+
+Render `Editable.Input` as a textarea for multi-line content. Keep the child semantic and place
+textarea-only sizing in CSS.
+
+<Preview>
+  <EditableDocs.TextareaEditableExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/textarea.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Advanced Customization
+
+Bypass `Editable.Controls` when a custom state-dependent layout needs `Editable.Context` directly.
+
+<Preview>
+  <EditableDocs.AdvancedEditableCustomizationExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/editable/advanced-customization.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{EditableDocs.editableExampleCss}</Preview.CSS>
   

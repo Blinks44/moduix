@@ -7,11 +7,8 @@ export function CheckboxFieldDemo() {
   return (
     <Field className="checkbox-field">
       <Checkbox required name="terms" value="accepted">
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Accept terms</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox>
       <Field.HelperText>Required to continue.</Field.HelperText>
       <Field.ErrorText>Please accept the terms.</Field.ErrorText>

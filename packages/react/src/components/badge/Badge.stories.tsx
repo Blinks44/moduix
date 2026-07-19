@@ -17,9 +17,14 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] satisfies NonNullable<
-  ComponentProps<typeof Badge>['variant']
->[];
+const variants = [
+  'default',
+  'secondary',
+  'destructive',
+  'outline',
+  'ghost',
+  'link',
+] satisfies NonNullable<ComponentProps<typeof Badge>['variant']>[];
 
 export const Basic: Story = {
   args: {
@@ -78,16 +83,22 @@ export const WithIcon: Story = {
           Read more
           <ChevronRightIcon />
         </Badge.Root>
+        <Badge.Root asChild variant="link">
+          <a href="#badge-link-story">
+            Styling guide
+            <ChevronRightIcon />
+          </a>
+        </Badge.Root>
       </div>
     );
   },
 };
 
-export const AsChild: Story = {
+export const Link: Story = {
   render: () => {
     return (
-      <Badge.Root asChild variant="outline">
-        <a href="#badge-composition">Open badge composition guidance</a>
+      <Badge.Root asChild variant="link">
+        <a href="#badge-link-story">Open badge composition guidance</a>
       </Badge.Root>
     );
   },

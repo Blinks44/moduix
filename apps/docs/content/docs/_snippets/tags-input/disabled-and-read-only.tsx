@@ -13,44 +13,18 @@ export function StateTagsInput() {
       <TagsInput disabled defaultValue={['disabled']}>
         <TagsInput.Label>Disabled</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) =>
-              tagsInput.value.map((item, index) => (
-                <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-                  <TagsInput.ItemPreview>
-                    <TagsInput.ItemText>{item}</TagsInput.ItemText>
-                    <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-                  </TagsInput.ItemPreview>
-                  <TagsInput.ItemInput />
-                </TagsInput.Item>
-              ))
-            }
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Unavailable" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
 
       <TagsInput readOnly defaultValue={['read-only']}>
         <TagsInput.Label>Read-only</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) =>
-              tagsInput.value.map((item, index) => (
-                <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-                  <TagsInput.ItemPreview>
-                    <TagsInput.ItemText>{item}</TagsInput.ItemText>
-                    <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-                  </TagsInput.ItemPreview>
-                  <TagsInput.ItemInput />
-                </TagsInput.Item>
-              ))
-            }
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Read-only" />
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
     </>
   );

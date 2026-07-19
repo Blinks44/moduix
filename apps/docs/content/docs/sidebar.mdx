@@ -28,10 +28,10 @@ state contract remains Ark-shaped.
 
 Render the navigation panel, the real Ark resize handle, and the main inset explicitly. The default
 panel ids and constraints make the common left-sidebar layout work without configuration. The
-example keeps the layout and navigation structure visible and composes Tooltip directly around each
-icon button.
+example also shows the blessed collapsed-rail pattern: compose `Sidebar.Tooltip` around icon menu
+buttons instead of repeating raw Tooltip anatomy or teaching Sidebar to own popup state.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.BasicSidebarExample />
 
   <Preview.Code>
@@ -42,7 +42,7 @@ icon button.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-sidebar" />
+<ShadcnInstall packageName="sidebar" />
 
 ## Anatomy
 
@@ -50,17 +50,24 @@ icon button.
 Sidebar / Sidebar.Root
 ├─ Sidebar.Panel[id="sidebar"]
 │  ├─ Sidebar.Header
-│  │  └─ Sidebar.Label
+│  │  ├─ Sidebar.Label
+│  │  └─ Sidebar.Input
 │  ├─ Sidebar.Content
 │  │  └─ Sidebar.Group
 │  │     ├─ Sidebar.GroupLabel
-│  │     └─ Sidebar.Menu
-│  │        └─ Sidebar.MenuItem
-│  │           ├─ Sidebar.MenuButton
-│  │           └─ Sidebar.MenuSub
-│  │              └─ Sidebar.MenuSubItem
-│  │                 └─ Sidebar.MenuSubButton
+│  │     ├─ Sidebar.GroupAction
+│  │     └─ Sidebar.GroupContent
+│  │        └─ Sidebar.Menu
+│  │           └─ Sidebar.MenuItem
+│  │              ├─ Sidebar.Tooltip
+│  │              │  └─ Sidebar.MenuButton
+│  │              ├─ Sidebar.MenuAction
+│  │              ├─ Sidebar.MenuBadge
+│  │              └─ Sidebar.MenuSub
+│  │                 └─ Sidebar.MenuSubItem
+│  │                    └─ Sidebar.MenuSubButton
 │  └─ Sidebar.Footer
+│     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
 ├─ Sidebar.Trigger
 └─ Sidebar.Inset[id="content"]
@@ -74,10 +81,17 @@ Sidebar / Sidebar.Root
 | `Sidebar.ResizeTrigger`                 | Accessible neutral pointer and keyboard resize line.      |
 | `Sidebar.Trigger`                       | Side-aware floating collapse/expand control.              |
 | `Sidebar.Label`                         | Text removed from layout in the collapsed icon rail.      |
+| `Sidebar.Input`                         | Full-width search or filter field styled for sidebar use. |
 | `Sidebar.Header` / `Content` / `Footer` | Fixed top, scrolling middle, and fixed bottom regions.    |
-| `Sidebar.Group`                         | Semantic navigation section with an optional label.       |
+| `Sidebar.Separator`                     | Sidebar-tinted divider between sections or footer blocks. |
+| `Sidebar.Group`                         | Semantic navigation section with an optional heading.     |
+| `Sidebar.GroupAction`                   | Compact action button aligned with a group heading.       |
+| `Sidebar.GroupContent`                  | Body wrapper under a group heading.                       |
 | `Sidebar.Menu` / `MenuItem`             | Navigation list and positioned list item.                 |
+| `Sidebar.Tooltip`                       | Collapsed-only label helper with side-aware placement.    |
 | `Sidebar.MenuButton`                    | Button or `asChild` link with active and size states.     |
+| `Sidebar.MenuAction`                    | Trailing icon action for a menu item.                     |
+| `Sidebar.MenuBadge`                     | Trailing count or status pill for a menu item.            |
 | `Sidebar.MenuSub`                       | Nested navigation list with item and link parts.          |
 
 ## Composition
@@ -88,8 +102,16 @@ Keep every layout part as a root child. For a left sidebar, render `Panel`, `Res
 `Trigger`, then `Inset`. For a right sidebar, render `Inset`, `Trigger`, `ResizeTrigger`, then
 `Panel`. The trigger has zero effective flex width and stays centered above the resize line without
 being clipped by either panel. Use `Collapsible` for nested menu items and `Menu + Avatar` for
-account actions. Compose Tooltip directly around icon menu buttons when the collapsed rail needs
-visible hover labels.
+account actions. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge`, and
+`Separator` cover the repeated app-shell affordances without introducing extra sidebar state.
+Compose `Sidebar.Tooltip` around icon menu buttons when the collapsed rail needs visible hover
+labels. Treat the following as the official migration recipes:
+
+1. **Collapsed rail labels:** `Sidebar.Tooltip` around `Sidebar.MenuButton`.
+2. **Responsive shell:** desktop `Sidebar` + compact-screen `Drawer` that reuses the visual sidebar
+   parts.
+3. **Persistence:** keep width in controlled `size`, update it from `onResize(details)`, and persist
+   it from `onResizeEnd(details)` in app state or storage.
 
 `Sidebar` is the short root form and is equivalent to `Sidebar.Root`.
 
@@ -100,11 +122,17 @@ CSS-length layout does not fit. Use `useSidebar()` for `collapsed`, `state`, `si
 `toggleSidebar`. Use `Splitter` directly when an application needs the lower-level provider,
 registry, multiple-panel, or complete context APIs.
 
-Keep the default `"sidebar"` and `"content"` ids when overriding panel constraints. Use `Splitter`
-directly when a layout needs custom ids or more than two panels.
+`panelId` changes the default navigation id together with the matching resize handle; the inset id
+remains `"content"`. Use `Splitter` directly when a layout needs a custom inset id or more than
+two panels.
 
 Use `asChild` on menu buttons and sub-buttons to compose router links. Keep one semantic child that
 accepts the merged props and ref.
+
+Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and
+`useSidebar()`. Reuse the visual parts (`Header`, `Input`, `Content`, `Footer`, `Group`, `Menu`,
+and related item parts) inside a `Drawer` when compact screens need an overlay path instead of a
+collapsible rail.
 
 ### Default props
 
@@ -121,8 +149,10 @@ accepts the merged props and ref.
 
 ### Behavioral notes
 
-Ark accepts percentage and CSS length panel sizes. `Trigger` reports `aria-expanded`, calls the
-consumer `onClick` first, and skips its default toggle when that handler calls `preventDefault()`.
+Ark accepts percentage and CSS length panel sizes. CSS lengths are measured on the client, so
+server-rendered layouts can shift after hydration; use percentages when stable SSR layout matters.
+`Trigger` reports `aria-expanded`, calls the consumer `onClick` first, and skips its default toggle
+when that handler calls `preventDefault()`.
 
 Ark preserves pointer dragging, arrow-key resizing, focus state, and callback detail objects:
 `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`, and `onExpand(details)`.
@@ -138,19 +168,81 @@ temporary layout override while the fix is pending.
 
 ## Examples
 
-### Nested Navigation and Account Menu
+### Custom Scroll Area
 
-Compose Collapsible and Menu directly inside the semantic Sidebar parts. Their state, focus, popup
-positioning, and animation remain owned by the corresponding moduix primitives. The expanded
-project list and additional navigation groups also demonstrate scrolling inside `Sidebar.Content`.
+Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Content` when the
+application needs a styled thumb and optional edge fade. Disable the outer overflow so the
+`ScrollArea.Viewport` remains the only scroll container.
 
-<Preview>
+<Preview clientOnly>
+  <SidebarDocs.ScrollAreaSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/custom-scroll-area.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarScrollAreaCss}</Preview.CSS>
+</Preview>
+
+### Mobile Drawer Navigation
+
+Use `Drawer` for compact-screen overlay navigation and reuse the Sidebar visual parts inside the
+drawer body. Keep `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and `useSidebar()` on the desktop
+path only. This is the recommended mobile half of the responsive sidebar recipe.
+
+<Preview clientOnly>
+  <SidebarDocs.MobileDrawerSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/mobile-drawer-navigation.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarDrawerCss}</Preview.CSS>
+</Preview>
+
+### Persisted Desktop Layout
+
+Keep desktop width outside the component by controlling `size`, mirroring live drag updates from
+`onResize(details)`, and persisting the last settled width from `onResizeEnd(details)`. This keeps
+Splitter as the source of layout truth while making sidebar migration feel as sticky as shadcn.
+
+<Preview clientOnly>
+  <SidebarDocs.PersistedSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/persisted-layout.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
+</Preview>
+
+### Recommended App Shell
+
+Compose `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible`, and `Menu` directly inside
+the semantic Sidebar parts. Their state, focus, popup positioning, and animation remain owned by the
+corresponding moduix primitives. The expanded project list and additional navigation groups also
+demonstrate scrolling inside `Sidebar.Content`. `Sidebar.Tooltip` keeps the collapsed icon-rail path
+compact without introducing a sidebar-owned tooltip manager.
+
+<Preview clientOnly>
   <SidebarDocs.InteractiveSidebarExample />
 
   <Preview.Code>
   <include lang="tsx">./_snippets/sidebar/nested-navigation-and-account-menu.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
+</Preview>
+
+### Right Sidebar
+
+Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that order.
+Sidebar chooses the matching panel model, trigger id, floating position, and chevron direction. The
+Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
+
+<Preview clientOnly>
+  <SidebarDocs.RightSidebarExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/sidebar/right-sidebar.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
 
 ### Workspace Select
@@ -160,7 +252,7 @@ and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no
 The example combines the workspace switcher with regular navigation, a scrollable content region,
 and an account menu.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.WorkspaceSelectSidebarExample />
 
   <Preview.Code>
@@ -169,47 +261,17 @@ and an account menu.
   <Preview.CSS>{SidebarDocs.sidebarExampleCss}</Preview.CSS>
 </Preview>
 
-### Custom Sizes
+### Advanced Customization
 
-Keep the standard `"sidebar"` and `"content"` ids and pass normal Ark panel data to customize
-constraints while preserving controlled size and resize callbacks. The complete navigation remains
-usable while dragging between the custom minimum and maximum widths.
+Bypass Sidebar's default panel constraints by passing Ark `panels` directly while keeping the
+explicit Sidebar composition. Use `Splitter` instead when the layout also needs custom inset ids,
+more than two panels, or provider and registry APIs.
 
-<Preview>
+<Preview clientOnly>
   <SidebarDocs.CustomSizesSidebarExample />
 
   <Preview.Code>
   <include lang="tsx">./_snippets/sidebar/custom-sizes.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
-</Preview>
-
-### Custom Scroll Area
-
-Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Content` when the
-application needs a styled thumb and optional edge fade. Disable the outer overflow so the
-`ScrollArea.Viewport` remains the only scroll container.
-
-<Preview>
-  <SidebarDocs.ScrollAreaSidebarExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/custom-scroll-area.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SidebarDocs.sidebarScrollAreaCss}</Preview.CSS>
-</Preview>
-
-### Right Sidebar
-
-Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` in that order.
-Sidebar chooses the matching panel model, trigger id, floating position, and chevron direction. The
-Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
-
-<Preview>
-  <SidebarDocs.RightSidebarExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/sidebar/right-sidebar.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SidebarDocs.sidebarSimpleCss}</Preview.CSS>
 </Preview>
@@ -222,13 +284,14 @@ with a visually-hidden pattern, hide nested menus, and center SVG and `data-side
 Labels remain available to assistive technology without taking flex space. Mark non-SVG anchors
 such as Avatar, a Select workspace mark, or a brand mark with `data-sidebar-icon`; its own
 dimensions are preserved. Put collapsible text, values, badges, and indicators in `Sidebar.Label`
-when they should leave the visual layout in the collapsed rail.
+when they should leave the visual layout in the collapsed rail. Trailing group and menu affordances
+hide automatically in the collapsed icon-only state.
 
 Panel widths are Ark state rather than visual CSS. Override `panels`, `defaultSize`, and controlled
-`size` to customize the expanded, minimum, maximum, and collapsed widths while keeping the standard
-panel ids. Use `Splitter` directly for custom ids or more than two panels. Use the public
-`--sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's vertical
-offset.
+`size` to customize the expanded, minimum, maximum, and collapsed widths. `panelId` changes the
+default navigation id; use `Splitter` directly for a custom inset id or more than two panels. Use
+the public `--sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's
+vertical offset.
 
 The resize UI is intentionally only a line. It uses the shared Splitter default: the idle color
 matches the border, while hover and drag shift it slightly toward `--color-muted-foreground`.
@@ -247,11 +310,13 @@ feedback.
 
 ### Styling hooks
 
-Every semantic part accepts `className` and exposes `data-scope="sidebar"`, `data-part`, and a stable
-`data-slot="sidebar-*"` hook. Ark-backed parts retain `data-scope="splitter"` and Splitter state
-attributes.
+Every semantic part accepts `className` and exposes a stable `data-slot="sidebar-*"` hook. The
+Sidebar-owned shell parts also expose `data-scope="sidebar"` and `data-part`, while `Sidebar.Input`
+and `Sidebar.Separator` intentionally keep the underlying primitive scopes. Ark-backed layout parts
+retain Splitter state attributes.
 
 `Sidebar.Panel` adds `data-state="expanded"` or `"collapsed"`. Root, panel, inset, resize trigger,
-and floating trigger expose `data-side`. `MenuButton` and `MenuSubButton` expose `data-active` and
-`data-size` is exposed by `MenuButton`. Resize state remains available through Ark's `data-focus`,
+and floating trigger expose `data-side`. `MenuButton` and `MenuSubButton` expose `data-active`,
+`MenuButton` exposes `data-size`, and the extra shell parts keep stable `data-slot="sidebar-*"`
+hooks for custom layout or theme work. Resize state remains available through Ark's `data-focus`,
 `data-dragging`, `data-disabled`, and `data-orientation`.

@@ -14,9 +14,7 @@ export function SliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Volume">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
     </Slider>
   );

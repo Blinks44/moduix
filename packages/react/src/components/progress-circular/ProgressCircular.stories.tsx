@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useProgress } from '@ark-ui/react/progress';
 import { useState } from 'react';
 import { Slider } from '../slider';
 import { ProgressCircular } from './ProgressCircular';
@@ -24,10 +23,7 @@ type Story = StoryObj<typeof meta>;
 function CircularParts() {
   return (
     <div className={styles.circleContainer}>
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
+      <ProgressCircular.Ring />
       <ProgressCircular.ValueText />
     </div>
   );
@@ -69,9 +65,7 @@ export const Controlled: Story = {
             <Slider.Track>
               <Slider.Range />
             </Slider.Track>
-            <Slider.Thumb index={0} aria-label="Progress value">
-              <Slider.HiddenInput />
-            </Slider.Thumb>
+            <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
           </Slider.Control>
         </Slider>
       </div>
@@ -132,7 +126,7 @@ export const ValueText: Story = {
 
 export const RootProvider: Story = {
   render: () => {
-    const progress = useProgress({ defaultValue: 58 });
+    const progress = ProgressCircular.useProgress({ defaultValue: 58 });
 
     return (
       <ProgressCircular.RootProvider value={progress}>

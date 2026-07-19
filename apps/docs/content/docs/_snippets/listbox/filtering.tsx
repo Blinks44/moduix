@@ -3,6 +3,7 @@
 
 import { useListCollection } from '@ark-ui/react/collection';
 import { Listbox } from '@moduix/react';
+import { useState } from 'react';
 
 const frameworks = [
   {
@@ -48,6 +49,7 @@ const frameworks = [
 ];
 
 export function FilteringListboxDemo() {
+  const [filterText, setFilterText] = useState('');
   const { collection, filter } = useListCollection({
     initialItems: frameworks,
     filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
@@ -55,10 +57,24 @@ export function FilteringListboxDemo() {
   return (
     <Listbox collection={collection} typeahead={false}>
       <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Input
-        placeholder="Filter frameworks"
-        onChange={(event) => filter(event.target.value)}
-      />
+      <Listbox.Filter>
+        <Listbox.Input
+          placeholder="Search frameworks..."
+          value={filterText}
+          onChange={(event) => {
+            setFilterText(event.target.value);
+            filter(event.target.value);
+          }}
+        />
+        {filterText ? (
+          <Listbox.ClearTrigger
+            onClick={() => {
+              setFilterText('');
+              filter('');
+            }}
+          />
+        ) : null}
+      </Listbox.Filter>
       <Listbox.Content>
         {collection.items.map((item) => (
           <Listbox.Item key={item.value} item={item}>

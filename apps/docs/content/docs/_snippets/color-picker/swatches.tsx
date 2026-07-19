@@ -9,30 +9,18 @@ export function SwatchesColorPickerDemo() {
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <ColorPicker.SwatchGroup>
             {swatches.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
+              <ColorPicker.SwatchTrigger key={color} value={color} />
             ))}
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

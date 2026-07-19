@@ -1,9 +1,8 @@
-import type { ComponentProps } from 'react';
-import { useScrollArea } from '@ark-ui/react/scroll-area';
 import { Button, ScrollArea } from '@moduix/react';
+import type { ComponentProps } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './scroll-area.module.css';
 
 export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
@@ -68,6 +67,11 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
     '--scroll-area-thumb-hover-increase',
     '2px',
     'Controls how much the thumb grows across its track on hover and drag.',
+  ],
+  [
+    '--scroll-area-thumb-hover-transition',
+    'var(--transition-fast)',
+    'Controls the hover and drag growth timing without slowing the scrollbar response.',
   ],
   ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-thumb-radius', 'var(--radius-full)', 'Controls the thumb border radius.'],
@@ -138,6 +142,10 @@ export function FadeScrollAreaExample() {
   return <ScrollAreaExample fade />;
 }
 
+export function AlwaysVisibleScrollAreaExample() {
+  return <ScrollAreaExample variant="always" />;
+}
+
 export function BothDirectionsScrollAreaExample() {
   return (
     <ScrollArea className={styles.root}>
@@ -196,7 +204,7 @@ export function NestedScrollAreaExample() {
 }
 
 export function RootProviderScrollAreaExample() {
-  const scrollArea = useScrollArea();
+  const scrollArea = ScrollArea.useScrollArea();
 
   return (
     <div className={styles.providerStack}>

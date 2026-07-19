@@ -1,6 +1,9 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { ImageCropper as ImageCropperPrimitive } from '@ark-ui/react/image-cropper';
+import {
+  ImageCropper as ImageCropperPrimitive,
+  useImageCropper,
+} from '@ark-ui/react/image-cropper';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ImageCropper.module.css';
@@ -103,15 +106,35 @@ const ImageCropperHandle = forwardRef<
   );
 });
 
+const ImageCropperCropArea = forwardRef<
+  ComponentRef<typeof ImageCropperPrimitive.Selection>,
+  ComponentProps<typeof ImageCropperPrimitive.Selection> & {
+    gridClassName?: string;
+    handleClassName?: string;
+  }
+>(function ImageCropperCropArea({ gridClassName, handleClassName, ...props }, ref) {
+  return (
+    <ImageCropperSelection ref={ref} {...props}>
+      <ImageCropperGrid axis="horizontal" className={gridClassName} />
+      <ImageCropperGrid axis="vertical" className={gridClassName} />
+      {ImageCropperPrimitive.handles.map((position) => (
+        <ImageCropperHandle key={position} position={position} className={handleClassName} />
+      ))}
+    </ImageCropperSelection>
+  );
+});
+
 const ImageCropper = Object.assign(ImageCropperRoot, {
   Root: ImageCropperRoot,
   RootProvider: ImageCropperRootProvider,
+  Context: ImageCropperPrimitive.Context,
   Viewport: ImageCropperViewport,
   Image: ImageCropperImage,
   Selection: ImageCropperSelection,
   Grid: ImageCropperGrid,
   Handle: ImageCropperHandle,
+  CropArea: ImageCropperCropArea,
   handles: ImageCropperPrimitive.handles,
 });
 
-export { ImageCropper };
+export { ImageCropper, useImageCropper };

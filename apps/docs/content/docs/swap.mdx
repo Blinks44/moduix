@@ -1,0 +1,152 @@
+---
+title: Swap
+description: Animate between two layered visual states while preserving the surrounding control's semantics.
+icon: Component
+---
+
+import * as SwapDocs from '@/components/examples/swap';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+
+## Basic
+
+Use `swap` to choose the visible indicator. The first example mirrors the Ark icon pattern with
+Lucide icons, while the button remains responsible for its accessible name and click behavior.
+
+<Preview>
+  <SwapDocs.SwapIconExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/swap/icons.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="swap" />
+
+This install path also pulls in the shared moduix foundation styles that provide the default
+fade-and-scale transition.
+
+## Anatomy
+
+```text
+Swap / Swap.Root
+├─ Swap.Indicator type="off"
+└─ Swap.Indicator type="on"
+```
+
+| Part                 | Role                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| `Swap` / `Swap.Root` | Owns the Ark `swap` state and layers both visual states.         |
+| `Swap.RootProvider`  | Uses state created with `Swap.useSwap()` outside the subtree.    |
+| `Swap.Indicator`     | Renders one `on` or `off` visual state with Presence attributes. |
+
+## Composition
+
+### How it works
+
+`Swap` is a presentational primitive, not an interactive control. It renders its `off` and `on`
+indicators in the same one-cell grid and `swap` decides which one is visible. Ark keeps the exiting
+indicator mounted long enough for its CSS exit animation, exposing `data-state="open"` and
+`data-state="closed"` for each phase.
+
+This solves visual replacement without hand-writing the layering and presence lifecycle: an upload
+icon can become a checkmark, an empty label can become a text label, or one compact visual state can
+become another. Keep semantics outside it: the parent button, link, or status surface owns the event,
+focus, and accessible name.
+
+### Recommended composition
+
+Keep `Swap` focused on visual replacement. Put it inside a semantic button, link, or status
+surface; that parent owns events, focus handling, and accessible naming.
+
+Use `Swap.RootProvider` with `Swap.useSwap()` when the state needs to be created outside the
+rendered subtree. `useSwapContext()` is also available from `moduix` for context-aware children.
+
+### Behavioral notes
+
+- `swap` is a controlled boolean. `Swap` does not react to hover or clicks by itself.
+- Each indicator receives Ark `data-state="open" | "closed"` while transitioning.
+- Both states can be present during an exit animation. Mark visual indicators `aria-hidden="true"`
+  and name the surrounding control explicitly when their content is only decorative.
+- `lazyMount` and `unmountOnExit` retain their Ark behavior for controlling inactive DOM nodes.
+
+## Examples
+
+### Button content
+
+`Swap` works with any layered content, not only icons. This button replaces both its icon and text,
+while its host smoothly animates to the width of the active label.
+
+<Preview>
+  <SwapDocs.SwapButtonExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/swap/button.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SwapDocs.swapButtonCss}</Preview.CSS>
+</Preview>
+
+### Rotate
+
+Override the default fade-and-scale animation with a rotate transition by targeting Ark's
+`data-state` on the indicators. The recipe retains a reduced-motion fallback.
+
+<Preview>
+  <SwapDocs.SwapRotateExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/swap/rotate.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SwapDocs.swapRotateCss}</Preview.CSS>
+</Preview>
+
+### 3D flip
+
+Set `perspective` on the swap root and use `rotateY` keyframes for a physical card-flip effect.
+
+<Preview>
+  <SwapDocs.SwapFlipExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/swap/flip.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SwapDocs.swapFlipCss}</Preview.CSS>
+</Preview>
+
+### Expandable download button
+
+The download icon is kept outside `Swap`, so it has one continuous position while the button and its
+label grow. `Swap` only replaces an empty indicator with the text label. The recipe expands for both
+pointer hover and keyboard focus, while touch users still get a compact, explicitly labelled action.
+
+<Preview>
+  <SwapDocs.SwapExpandableButtonExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/swap/expandable-button.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{SwapDocs.swapExpandableButtonCss}</Preview.CSS>
+</Preview>
+
+## Styling
+
+### CSS Properties
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+
+### Styling hooks
+
+- `Swap.Root` -> `data-slot="swap-root"`
+- `Swap.RootProvider` -> `data-slot="swap-root-provider"`
+- `Swap.Indicator` -> `data-slot="swap-indicator"`
+- Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
+- Ark adds `data-state="open" | "closed"` to indicators; moduix uses those attributes for its
+  default enter and exit animations.

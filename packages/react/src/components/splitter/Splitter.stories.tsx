@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { createSplitterRegistry, useSplitter } from '@ark-ui/react/splitter';
 import { useState } from 'react';
 import { Button } from '../button';
-import { Splitter } from './Splitter';
+import { createSplitterRegistry, Splitter, useSplitter } from './Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [
@@ -31,9 +30,7 @@ export const Basic: Story = {
       <Splitter.Panel id="a" className={styles.panel}>
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className={styles.panel}>
         B
       </Splitter.Panel>
@@ -52,9 +49,7 @@ export const Vertical: Story = {
       <Splitter.Panel id="a" className={styles.panel}>
         Top
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className={styles.panel}>
         Bottom
       </Splitter.Panel>
@@ -77,9 +72,7 @@ export const Controlled: Story = {
           <Splitter.Panel id="a" className={styles.panel}>
             A
           </Splitter.Panel>
-          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
+          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
           <Splitter.Panel id="b" className={styles.panel}>
             B
           </Splitter.Panel>
@@ -103,9 +96,7 @@ export const Collapsible: Story = {
       <Splitter.Panel id="sidebar" className={styles.panel}>
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className={styles.panel}>
         Content
       </Splitter.Panel>
@@ -127,15 +118,11 @@ export const MultiplePanels: Story = {
       <Splitter.Panel id="a" className={styles.panel}>
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
       <Splitter.Panel id="b" className={styles.panel}>
         B
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
       <Splitter.Panel id="c" className={styles.panel}>
         C
       </Splitter.Panel>
@@ -157,9 +144,7 @@ export const RootProvider: Story = {
           <Splitter.Panel id="a" className={styles.panel}>
             A
           </Splitter.Panel>
-          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
+          <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
           <Splitter.Panel id="b" className={styles.panel}>
             B
           </Splitter.Panel>
@@ -186,9 +171,7 @@ export const Nested: Story = {
         <Splitter.Panel id="left" className={styles.panel}>
           Left
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
         <Splitter.Panel id="right">
           <Splitter
             orientation="vertical"
@@ -202,9 +185,7 @@ export const Nested: Story = {
             <Splitter.Panel id="top" className={styles.panel}>
               Top
             </Splitter.Panel>
-            <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels">
-              <Splitter.ResizeTriggerIndicator />
-            </Splitter.ResizeTrigger>
+            <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
             <Splitter.Panel id="bottom" className={styles.panel}>
               Bottom
             </Splitter.Panel>
@@ -221,9 +202,7 @@ export const CustomStyling: Story = {
       <Splitter.Panel id="a" className={styles.panel}>
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className={styles.panel}>
         B
       </Splitter.Panel>

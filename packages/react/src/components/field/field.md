@@ -24,7 +24,7 @@ libraries or app state decide when the field is invalid.
 `Field` is the default root and also exposes the Ark namespace as static properties. Every DOM part
 is a thin Ark wrapper with moduix styling, `className`, and stable `data-slot` hooks. `Field.Item`
 wraps Ark's provider-only `Item` with a small `<div data-slot="field-item">` so grouped rows keep a
-style hook.
+style hook. `Field.Context`, `useField`, and `useFieldContext` are exported for normal state access.
 
 ## Anatomy and exported parts
 
@@ -44,6 +44,7 @@ style hook.
 | ------------------------- | ------------------------- | -------------------------- |
 | `Field` / `Field.Root`    | `Field.Root`              | `field-root`               |
 | `Field.RootProvider`      | `Field.RootProvider`      | `field-root-provider`      |
+| `Field.Context`           | `Field.Context`           | renderless                 |
 | `Field.Item`              | `Field.Item` + local div  | `field-item`               |
 | `Field.Label`             | `Field.Label`             | `field-label`              |
 | `Field.Input`             | `Field.Input`             | `field-input`              |
@@ -72,9 +73,8 @@ export function NameField() {
 }
 ```
 
-Use `Field.RootProvider` with `useField()` from `@ark-ui/react/field` when state must be created
-outside the rendered tree. Do not render `Field.Root` and `Field.RootProvider` for the same field
-instance.
+Use `Field.RootProvider` with `useField()` from `@moduix/react` when state must be created outside
+the rendered tree. Do not render `Field.Root` and `Field.RootProvider` for the same field instance.
 
 ## Upstream feature coverage
 
@@ -87,7 +87,8 @@ Covered Ark examples:
 - checkbox composition via `Field` + `Checkbox`
 - radio group composition via `Field` + `RadioGroup`
 - read-only root state via `readOnly`
-- root provider via Ark `useField` and `Field.RootProvider`
+- root provider via moduix `useField` and `Field.RootProvider`
+- context access via `Field.Context` or moduix `useFieldContext`
 - item-target label wiring via `Field.Item value` and root `target`
 
 Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`, `touched`, or
@@ -117,10 +118,13 @@ contract. `--field-label-gap` defaults to `var(--spacing-2)`.
 
 `Field` is callable as the root for brevity and exposes `.Root` for Ark namespace parity.
 `Field.Item` adds a local wrapper div because Ark's `Item` only provides nested field context and
-does not render a styleable row.
+does not render a styleable row. `Field.Context`, `useField`, and `useFieldContext` are re-exported
+without changing their Ark state contracts.
 
-No legacy compatibility aliases or Ark state hooks are exported. Consumers must use Ark names:
-`Field.Input`, `Field.HelperText`, `Field.ErrorText`, `Field.Textarea`, and `Field.Select`.
+No legacy compatibility aliases are exported. `useField` is available from `@moduix/react` for
+`Field.RootProvider`, while `Field.Context` and `useFieldContext` cover state inside the tree.
+Consumers keep Ark part names such as `Field.Input`, `Field.HelperText`, `Field.ErrorText`,
+`Field.Textarea`, and `Field.Select`.
 
 ## Agent notes
 
@@ -130,6 +134,10 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-07-12: Added moduix `Field.Context` and `useFieldContext` exports alongside `useField`, and
+  made the component-local index a re-export-only barrel.
+- 2026-07-10: Re-exported `useField` for the supported `RootProvider` composition path and restored
+  the native select affordance by leaving browser appearance intact.
 - 2026-07-02: Simplified the public surface to match other Ark-backed wrappers; kept callable root,
   `RootProvider`, and visual parts while removing re-exported Ark hooks, context parts, and type
   aliases from `moduix`.

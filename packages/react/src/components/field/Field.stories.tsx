@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useField } from '@ark-ui/react/field';
 import { useState } from 'react';
 import { Checkbox } from '../checkbox';
 import { RadioGroup } from '../radio-group';
-import { Field } from './Field';
+import { Field, useField } from './Field';
 
 const meta = {
   title: 'Components/Field',
@@ -126,7 +125,6 @@ export const WithCheckbox: Story = {
     return (
       <Field required>
         <Checkbox.Root>
-          <Checkbox.HiddenInput />
           <Checkbox.Control>
             <Checkbox.Indicator />
           </Checkbox.Control>
@@ -146,12 +144,10 @@ export const WithRadioGroup: Story = {
         <Field.Label>Account type</Field.Label>
         <RadioGroup defaultValue="team" aria-label="Account type">
           <RadioGroup.Item value="personal">
-            <RadioGroup.ItemHiddenInput />
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
           </RadioGroup.Item>
           <RadioGroup.Item value="team">
-            <RadioGroup.ItemHiddenInput />
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
           </RadioGroup.Item>

@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Field as FieldPrimitive } from '@ark-ui/react/field';
+import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Field.module.css';
@@ -99,7 +99,7 @@ const FieldSelect = forwardRef<
     <FieldPrimitive.Select
       ref={ref}
       data-slot="field-select"
-      className={clsx(styles.control, styles.select, normalizeClassName(className))}
+      className={clsx(styles.control, normalizeClassName(className))}
       {...props}
     />
   );
@@ -158,6 +158,7 @@ const Field = Object.assign(FieldRoot, {
   HelperText: FieldHelperText,
   ErrorText: FieldErrorText,
   RequiredIndicator: FieldRequiredIndicator,
+  Context: FieldPrimitive.Context,
 });
 
-export { Field };
+export { Field, useField, useFieldContext };

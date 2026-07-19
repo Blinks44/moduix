@@ -13,19 +13,10 @@ export function ControlledTagsInput() {
     <TagsInput value={value} onValueChange={handleValueChange}>
       <TagsInput.Label>Skills</TagsInput.Label>
       <TagsInput.Control>
-        {value.map((item, index) => (
-          <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-            <TagsInput.ItemPreview>
-              <TagsInput.ItemText>{item}</TagsInput.ItemText>
-              <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-            </TagsInput.ItemPreview>
-            <TagsInput.ItemInput />
-          </TagsInput.Item>
-        ))}
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add skill" />
         <TagsInput.ClearTrigger aria-label="Clear skills" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

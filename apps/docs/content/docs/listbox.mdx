@@ -1,6 +1,6 @@
 ---
 title: Listbox
-description: Ark UI listbox composition for visible single, multiple, and extended selection.
+description: Ark UI listbox composition for visible single, multiple, and extended selection with filtering.
 icon: Component
 ---
 
@@ -35,14 +35,16 @@ Pass a `collection`, render `Content`, and pass each item through `Listbox.Item 
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-listbox" />
+<ShadcnInstall packageName="listbox" />
 
 ## Anatomy
 
 ```text
 Listbox / Listbox.Root
 ├─ Listbox.Label
-├─ Listbox.Input
+├─ Listbox.Filter
+│  ├─ Listbox.Input
+│  └─ Listbox.ClearTrigger
 ├─ Listbox.Content
 │  ├─ Listbox.Empty
 │  ├─ Listbox.ItemGroup
@@ -61,7 +63,9 @@ Listbox / Listbox.Root
 | `Listbox` / `Listbox.Root` | Owns collection, selected values, highlighted item, and mode. |
 | `Listbox.RootProvider`     | Renders a listbox tree from state returned by `useListbox`.   |
 | `Listbox.Label`            | Accessible label for the listbox content.                     |
-| `Listbox.Input`            | Optional filter input connected to the same listbox state.    |
+| `Listbox.Filter`           | Default search field with an icon; place it before `Content`. |
+| `Listbox.Input`            | Filter input, normally composed inside `Filter`.              |
+| `Listbox.ClearTrigger`     | Consumer-wired query reset button with a default close icon.  |
 | `Listbox.Content`          | Focusable listbox surface with keyboard navigation.           |
 | `Listbox.Empty`            | Empty-state content for filtered collections.                 |
 | `Listbox.ItemGroup`        | Group wrapper for related collection items.                   |
@@ -79,12 +83,16 @@ Render the Ark part tree directly: `Listbox` owns the collection, `Listbox.Conte
 keyboard navigation, and each `Listbox.Item` receives the original collection item through `item`.
 Use `Listbox.ItemIndicator` when rows should reserve selected-state space.
 
+For filtering, place `Listbox.Input` inside `Listbox.Filter` immediately before `Listbox.Content`.
+`Filter` provides the default search icon and joins the input with results into one bordered surface.
+
 ### When to go custom
 
 Use `asChild` only when a custom element can keep the required listbox semantics and receive Ark's
-props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use Ark
+props. Use `ids` when listbox parts need stable IDs for composition with surrounding UI. Use moduix
 `useListbox` with `Listbox.RootProvider` when state must be controlled outside the rendered tree;
-do not render `Listbox.Root` for the same state instance.
+do not render `Listbox.Root` for the same state instance. Render `Listbox.Input` directly when a
+filter field should remain visually separate from the list or sit in custom surrounding UI.
 
 ### Default props
 
@@ -110,8 +118,10 @@ selected keys and `details.items` for selected collection items.
 `highlightedValue`, `defaultHighlightedValue`, and `onHighlightChange(details)` control active
 descendant movement. `onSelect(details)` fires for item selection with the selected value.
 
-`Listbox.Input` is only needed for filtering. Set `typeahead={false}` when text input owns search
-so typeahead and filtering do not compete.
+`Listbox.Input` is only needed for filtering. Put it in `Listbox.Filter` for the default search
+appearance, or render it directly for a separate input. Set `typeahead={false}` so typeahead and
+filtering do not compete. Filtering state remains explicit: render `Listbox.ClearTrigger` for a
+non-empty query and clear the query plus the collection filter in its `onClick` handler.
 
 Ark owns the ARIA listbox pattern, active-descendant focus management, keyboard navigation,
 typeahead, Home/End behavior, disabled item handling, and orientation-specific arrow keys. Keep
@@ -126,26 +136,11 @@ Control the selected string array from React state and update it from `details.v
 <Preview>
   <ListboxDocs.ControlledListboxExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/listbox/controlled.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-item"][data-selected] { color: var(--listbox-item-selected-color); }`}</Preview.CSS>
-  
-</Preview>
+<Preview.CSS>{`[data-slot="listbox-item"][data-selected] { color: var(--listbox-item-selected-color); }`}</Preview.CSS>
 
-### Root Provider
-
-Use Ark `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
-listbox API.
-
-<Preview>
-  <ListboxDocs.RootProviderListboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
-  
 </Preview>
 
 ### Disabled Item
@@ -162,17 +157,48 @@ Disable individual items through the collection item `disabled` field or `isItem
   
 </Preview>
 
-### Multiple
+### Extended Selection
 
-Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
+Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
 
 <Preview>
-  <ListboxDocs.MultipleListboxExample />
+  <ListboxDocs.ExtendedSelectListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/multiple.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/extended-selection.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
+  
+</Preview>
+
+### Filtering
+
+Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and forms one surface
+with the following `Content`; turn off typeahead when text input owns search.
+
+<Preview>
+  <ListboxDocs.FilteringListboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/listbox/filtering.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Grid
+
+Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout="grid"` and the
+`--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
+inline check indicator to keep cells compact.
+
+<Preview>
+  <ListboxDocs.GridListboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/listbox/grid.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
+[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
+[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
   
 </Preview>
 
@@ -187,20 +213,6 @@ Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
   <include lang="tsx">./_snippets/listbox/grouping.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-item-group-label"] { color: var(--listbox-item-group-label-color); }`}</Preview.CSS>
-  
-</Preview>
-
-### Extended Selection
-
-Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
-
-<Preview>
-  <ListboxDocs.ExtendedSelectListboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/extended-selection.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</Preview.CSS>
   
 </Preview>
 
@@ -233,33 +245,30 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
   
 </Preview>
 
-### Grid
+### Multiple
 
-Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout="grid"` and the
-`--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
-inline check indicator to keep cells compact.
+Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
 <Preview>
-  <ListboxDocs.GridListboxExample />
+  <ListboxDocs.MultipleListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/grid.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/multiple.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
-[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
-[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</Preview.CSS>
+  <Preview.CSS>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</Preview.CSS>
   
 </Preview>
 
-### Filtering
+### Root Provider
 
-Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input owns search.
+Use moduix `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
+listbox API.
 
 <Preview>
-  <ListboxDocs.FilteringListboxExample />
+  <ListboxDocs.RootProviderListboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/listbox/filtering.tsx#demo</include>
+  <include lang="tsx">./_snippets/listbox/root-provider.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</Preview.CSS>
   
@@ -267,7 +276,7 @@ Use `Listbox.Input` with `useListCollection`. Turn off typeahead when text input
 
 ### Select All
 
-Use Ark `useListboxContext` inside a child component to implement select-all controls.
+Use moduix `useListboxContext` inside a child component to implement select-all controls.
 
 <Preview>
   <ListboxDocs.SelectAllListboxExample />
@@ -277,6 +286,20 @@ Use Ark `useListboxContext` inside a child component to implement select-all con
 </Preview.Code>
   <Preview.CSS>{`[data-slot="listbox-root"] { width: var(--listbox-width); }`}</Preview.CSS>
   
+</Preview>
+
+### Standalone Filter Input
+
+Render `Listbox.Input` directly when the filter and results should stay as separate surfaces. Its
+default border matches `Listbox.Content`; keyboard focus animates only its outline color.
+
+<Preview>
+  <ListboxDocs.StandaloneFilterInputListboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/listbox/standalone-filter-input.tsx#demo</include>
+</Preview.Code>
+
 </Preview>
 
 ### Value Text
@@ -314,6 +337,7 @@ Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
   item group, item group label, item, item text, item indicator, value text, and empty.
 - State hooks: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
   `data-activedescendant`, `data-value`, `data-selected`, `data-state`, and `data-highlighted`.
-- Moduix hooks: `data-slot="listbox-root"`, `listbox-label`, `listbox-input`,
-  `listbox-content`, `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`,
-  `listbox-item`, `listbox-item-text`, `listbox-item-indicator`, and `listbox-value-text`.
+- Moduix hooks: `data-slot="listbox-root"`, `listbox-label`, `listbox-filter`,
+  `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`, `listbox-content`,
+  `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`, `listbox-item`,
+  `listbox-item-text`, `listbox-item-indicator`, and `listbox-value-text`.

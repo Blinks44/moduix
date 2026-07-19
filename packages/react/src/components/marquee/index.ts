@@ -1,1 +1,1 @@
-export { Marquee } from './Marquee';
+export { Marquee, useMarquee } from './Marquee';

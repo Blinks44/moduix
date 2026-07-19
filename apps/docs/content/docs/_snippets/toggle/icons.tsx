@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { CheckIcon, Toggle } from '@moduix/react';
-import { Bell as BellIcon, Star as StarIcon } from 'lucide-react';
+import { Toggle } from '@moduix/react';
+import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 import styles from './toggle.module.css';
 
 const size = 'icon-md';

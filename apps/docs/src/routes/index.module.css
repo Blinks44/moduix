@@ -8,6 +8,7 @@
   position: relative;
   display: flex;
   flex: 1;
+  flex-direction: column;
   min-height: auto;
   overflow: hidden;
   background:
@@ -52,11 +53,7 @@
         transparent 1px
       );
     background-size: 64px 64px;
-    mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 72%, transparent);
-  }
-
-  @media (min-width: 901px) {
-    min-height: calc(100svh - 64px);
+    mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
   }
 }
 
@@ -87,7 +84,7 @@
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  gap: clamp(2rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 4rem);
   width: min(100% - 24px, 28rem);
   margin: 0 auto;
   padding: 2.5rem 0 2rem;
@@ -99,8 +96,80 @@
 
   @media (min-width: 901px) {
     grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.78fr);
+    width: min(1200px, calc(100% - 40px));
+    padding: clamp(2.75rem, 5vw, 4.5rem) 0;
+  }
+}
+
+.dataTableSection {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 24px, 28rem);
+  margin: 0 auto;
+  padding: 1.5rem 0 3.5rem;
+
+  @media (min-width: 521px) {
+    width: min(100% - 32px, 42rem);
+    padding: 2rem 0 4.5rem;
+  }
+
+  @media (min-width: 901px) {
     width: min(1180px, calc(100% - 40px));
-    padding: clamp(3rem, 7vw, 6rem) 0;
+    padding: 1rem 0 clamp(5rem, 9vw, 8rem);
+  }
+}
+
+.dataTableIntro {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  & h2 {
+    max-width: 34rem;
+    margin: 0.5rem 0 0;
+    color: var(--color-fd-foreground);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+
+  & p {
+    max-width: 38rem;
+    margin: 0.85rem 0 0;
+    color: var(--color-fd-muted-foreground);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  @media (width < 42rem) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.sectionEyebrow {
+  color: color-mix(in oklab, var(--color-fd-primary) 76%, var(--color-fd-foreground));
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tableLink {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-fd-foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-fd-primary);
   }
 }
 

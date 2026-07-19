@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { ChevronDownIcon, ChevronUpIcon, NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react';
+import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
 
 export function CustomIconsNumberInputDemo() {
   return (

@@ -88,11 +88,23 @@
     transform-origin: var(--transform-origin);
 
     &[data-state='open'] {
-      animation: tour-content-in var(--tour-transition, var(--transition-default)) both;
+      animation: tour-content-in
+        var(
+          --tour-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        )
+        both;
     }
 
     &[data-state='closed'] {
-      animation: tour-content-out var(--tour-transition, var(--transition-default)) both;
+      animation: tour-content-out
+        var(
+          --tour-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        )
+        both;
     }
 
     &[data-type='dialog'] {
@@ -149,8 +161,8 @@
   .closeTrigger {
     box-sizing: border-box;
     position: absolute;
-    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-2));
-    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-2));
+    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-4));
+    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-4));
     display: inline-flex;
     width: var(--tour-close-trigger-size, 1.75rem);
     height: var(--tour-close-trigger-size, 1.75rem);
@@ -166,8 +178,8 @@
     cursor: pointer;
 
     :where(svg) {
-      width: var(--tour-close-trigger-icon-size, 0.875rem);
-      height: var(--tour-close-trigger-icon-size, 0.875rem);
+      width: var(--tour-close-trigger-icon-size, 0.75rem);
+      height: var(--tour-close-trigger-icon-size, 0.75rem);
     }
 
     @media (hover: hover) {
@@ -190,7 +202,7 @@
   .closeIcon {
     --close-button-size: var(--tour-close-trigger-size, 1.75rem);
     --close-button-radius: var(--tour-close-trigger-radius, var(--radius-md));
-    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.875rem);
+    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.75rem);
     --close-button-bg: var(--tour-close-trigger-bg, transparent);
     --close-button-bg-hover: var(--tour-close-trigger-bg-hover, var(--color-accent));
     --close-button-color: var(--tour-close-trigger-color, var(--color-muted-foreground));
@@ -198,14 +210,10 @@
       --tour-close-trigger-color-hover,
       var(--tour-color, var(--color-popover-foreground))
     );
-    --close-button-focus-ring-width: var(--tour-focus-ring-width, var(--border-width-sm));
     --close-button-focus-ring-color: var(--tour-focus-ring-color, var(--color-ring));
-    --close-button-focus-ring-offset: calc(
-      var(--tour-focus-ring-width, var(--border-width-sm)) * -1
-    );
     position: absolute;
-    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-2));
-    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-2));
+    inset-block-start: var(--tour-close-trigger-offset, var(--spacing-4));
+    inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-4));
   }
 
   .control {
@@ -296,18 +304,25 @@
 
   @keyframes tour-content-in {
     from {
-      opacity: var(--tour-content-starting-opacity, 0);
-      translate: var(--tour-content-starting-translate-x, 0)
-        var(--tour-content-starting-translate-y, 0);
-      scale: var(--tour-content-starting-scale, var(--scale-popup));
+      opacity: var(--tour-content-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(
+          --tour-content-starting-translate-x,
+          var(--popup-motion-starting-translate-x, 0)
+        )
+        var(--tour-content-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+      scale: var(
+        --tour-content-starting-scale,
+        var(--popup-motion-starting-scale, var(--scale-popup))
+      );
     }
   }
 
   @keyframes tour-content-out {
     to {
-      opacity: var(--tour-content-ending-opacity, 0);
-      translate: var(--tour-content-ending-translate-x, 0) var(--tour-content-ending-translate-y, 0);
-      scale: var(--tour-content-ending-scale, var(--scale-popup));
+      opacity: var(--tour-content-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--tour-content-ending-translate-x, var(--popup-motion-ending-translate-x, 0))
+        var(--tour-content-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      scale: var(--tour-content-ending-scale, var(--popup-motion-ending-scale, var(--scale-popup)));
     }
   }
 }

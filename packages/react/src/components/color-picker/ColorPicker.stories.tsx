@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useColorPicker } from '@ark-ui/react/color-picker';
 import { useState } from 'react';
-import { ColorPicker, parseColor } from './ColorPicker';
+import { ColorPicker, parseColor, useColorPicker } from './ColorPicker';
 import styles from './ColorPicker.stories.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
@@ -25,44 +24,22 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <div className={styles.sliderGroup}>
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-            <div className={styles.channelSliders}>
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-            </div>
+            <ColorPicker.Sliders />
           </div>
           <ColorPicker.SwatchGroup>
             {swatchList.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
+              <ColorPicker.SwatchTrigger key={color} value={color} />
             ))}
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </>
   );
 }
@@ -74,23 +51,10 @@ function InlinePicker() {
         <ColorPicker.Label>Inline color</ColorPicker.Label>
         <ColorPicker.ValueText format="hex" />
       </div>
-      <ColorPicker.Area>
-        <ColorPicker.AreaBackground />
-        <ColorPicker.AreaThumb />
-      </ColorPicker.Area>
+      <ColorPicker.Area />
       <div className={styles.sliderGroup}>
         <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-        <div className={styles.channelSliders}>
-          <ColorPicker.ChannelSlider channel="hue">
-            <ColorPicker.ChannelSliderTrack />
-            <ColorPicker.ChannelSliderThumb />
-          </ColorPicker.ChannelSlider>
-          <ColorPicker.ChannelSlider channel="alpha">
-            <ColorPicker.TransparencyGrid />
-            <ColorPicker.ChannelSliderTrack />
-            <ColorPicker.ChannelSliderThumb />
-          </ColorPicker.ChannelSlider>
-        </div>
+        <ColorPicker.Sliders />
       </div>
       <ColorPicker.View format="rgba">
         <div className={styles.inputRow}>
@@ -98,7 +62,34 @@ function InlinePicker() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
+    </ColorPicker.Root>
+  );
+}
+
+function CompactTriggerPicker() {
+  return (
+    <ColorPicker.Root className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
+          <span className={styles.triggerValue}>
+            <span className={styles.triggerValueSwatch}>
+              <ColorPicker.TransparencyGrid />
+              <ColorPicker.ValueSwatch />
+            </span>
+            <ColorPicker.ValueText format="hex" />
+          </span>
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area />
+          <div className={styles.sliderGroup}>
+            <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
+            <ColorPicker.Sliders />
+          </div>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
     </ColorPicker.Root>
   );
 }
@@ -129,6 +120,10 @@ export const Controlled: Story = {
 
 export const Inline: Story = {
   render: () => <InlinePicker />,
+};
+
+export const CompactTrigger: Story = {
+  render: () => <CompactTriggerPicker />,
 };
 
 export const RootProvider: Story = {

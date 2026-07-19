@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useFieldset } from '@ark-ui/react/fieldset';
 import { Checkbox } from '../checkbox';
 import { Field } from '../field';
 import { RadioGroup } from '../radio-group';
-import { Fieldset } from './Fieldset';
+import { Fieldset, useFieldset } from './Fieldset';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {
@@ -40,7 +39,7 @@ export const Invalid: Story = {
   render: () => (
     <Fieldset invalid>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field.Root>
+      <Field.Root invalid>
         <Field.Label>Email</Field.Label>
         <Field.Input type="email" defaultValue="invalid-address" />
       </Field.Root>
@@ -74,14 +73,12 @@ export const WithCheckbox: Story = {
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Product updates</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
       <Checkbox.Root>
         <Checkbox.Control>
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Checkbox.Label>Marketing emails</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
     </Fieldset>
   ),
@@ -96,7 +93,6 @@ export const WithRadioGroup: Story = {
           <RadioGroup.Item key={value} value={value}>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{value.toUpperCase()}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </RadioGroup.Item>
         ))}
       </RadioGroup>
@@ -111,7 +107,7 @@ function RootProviderDemo() {
   return (
     <Fieldset.RootProvider value={fieldset}>
       <Fieldset.Legend>External state</Fieldset.Legend>
-      <Field.Root>
+      <Field.Root invalid>
         <Field.Label>Project name</Field.Label>
         <Field.Input defaultValue="" />
       </Field.Root>

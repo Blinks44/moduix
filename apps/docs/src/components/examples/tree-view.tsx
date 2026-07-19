@@ -1,24 +1,22 @@
-import type { ReactNode } from 'react';
 import {
+  Button,
+  TreeView,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
+  createTreeCollection,
   useTreeView,
   useTreeViewNodeContext,
-} from '@ark-ui/react/tree-view';
-import {
-  CheckIcon,
-  Button,
-  FileIcon,
-  FolderIcon,
-  FolderOpenIcon,
-  IndeterminateIcon,
-  RestartIcon,
-  TreeView,
-  createTreeCollection,
 } from '@moduix/react';
+import {
+  File as FileIcon,
+  Folder as FolderIcon,
+  FolderOpen as FolderOpenIcon,
+  RotateCcw as RestartIcon,
+} from 'lucide-react';
+import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tree-view.module.css';
 
 interface FileNode {
@@ -127,9 +125,7 @@ const disabledCollection = createFilesCollection({
 function Checkbox() {
   return (
     <TreeView.NodeCheckbox>
-      <TreeView.NodeCheckboxIndicator indeterminate={<IndeterminateIcon />}>
-        <CheckIcon />
-      </TreeView.NodeCheckboxIndicator>
+      <TreeView.NodeCheckboxIndicator />
     </TreeView.NodeCheckbox>
   );
 }
@@ -356,8 +352,8 @@ export const treeViewExampleCss = `
   }
 `;
 
-const treeViewCoreImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`;
+const treeViewCoreImportsCode = `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`;
 
 const treeViewDataSetupCode = `interface FileNode {
   id: string;
@@ -445,17 +441,15 @@ const treeViewCoreSetupCode = `${treeViewDataSetupCode}
 
 ${treeViewBaseNodeSetupCode}`;
 
-const treeViewCheckboxImportsCode = `import { useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { CheckIcon, FileIcon, FolderIcon, FolderOpenIcon, IndeterminateIcon, TreeView, createTreeCollection } from "@moduix/react";`;
+const treeViewCheckboxImportsCode = `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`;
 
 const treeViewCheckboxSetupCode = `${treeViewDataSetupCode}
 
 function NodeCheckbox() {
   return (
     <TreeView.NodeCheckbox>
-      <TreeView.NodeCheckboxIndicator indeterminate={<IndeterminateIcon />}>
-        <CheckIcon />
-      </TreeView.NodeCheckboxIndicator>
+      <TreeView.NodeCheckboxIndicator />
     </TreeView.NodeCheckbox>
   );
 }
@@ -748,8 +742,8 @@ export const treeViewDisabledCode = createTreeViewCode({
 });
 
 export const treeViewExpandCollapseCode = createTreeViewCode({
-  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { Button, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
   onToggle,
@@ -810,9 +804,9 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewAsyncCode = createTreeViewCode({
-  imports: `import { type TreeViewLoadChildrenDetails, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { useState } from "react";
+import { TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
@@ -905,8 +899,8 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewRootProviderCode = createTreeViewCode({
-  imports: `import { useTreeView, useTreeViewNodeContext, type TreeViewNodeProviderProps } from "@ark-ui/react/tree-view";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } from "@moduix/react";`,
+  imports: `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   demo: `export function RootProviderTreeDemo() {
   const treeView = useTreeView({ collection, defaultSelectedValue: ["README.md"] });
 
@@ -921,7 +915,7 @@ import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, createTreeCollection } 
 }`,
 });
 
-export const treeViewLinksCode = createTreeViewCode({
+export const treeViewAdvancedCustomizationCode = createTreeViewCode({
   imports: treeViewCoreImportsCode,
   setup: treeViewLinksSetupCode,
   extraSetup: `const linksCollection = createTreeCollection<FileNode>({
@@ -943,7 +937,7 @@ export const treeViewLinksCode = createTreeViewCode({
     ],
   },
 });`,
-  demo: `export function LinksTreeDemo() {
+  demo: `export function AdvancedCustomizationTreeDemo() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={["docs"]}>
       <TreeView.Label>Documentation</TreeView.Label>
@@ -992,7 +986,7 @@ export const treeViewAsyncData = `const asyncResponse = {
   ],
 };`;
 
-export const treeViewLinksData = `const linksCollection = createTreeCollection({
+export const treeViewAdvancedCustomizationData = `const linksCollection = createTreeCollection({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
   rootNode: {
@@ -1013,16 +1007,151 @@ export const treeViewLinksData = `const linksCollection = createTreeCollection({
 });`;
 
 const treeViewOverrideCssProperties: CssPropertyInput[] = [
-  ['--tree-view-width', '20rem', 'Controls the root width.'],
-  ['--tree-view-color', 'var(--color-foreground)', 'Controls text and icon color.'],
-  ['--tree-view-indent', '1rem', 'Controls nested row indentation.'],
-  ['--tree-view-item-min-height', '2rem', 'Controls branch and item row height.'],
-  ['--tree-view-item-hover-bg', 'var(--color-accent)', 'Controls row hover background.'],
-  ['--tree-view-item-selected-bg', 'var(--color-accent)', 'Controls selected row background.'],
-  ['--tree-view-focus-ring-color', 'var(--color-ring)', 'Controls row and checkbox focus rings.'],
+  ['--tree-view-checkbox-bg', 'var(--color-background)', 'Customizes tree view checkbox bg.'],
+  [
+    '--tree-view-checkbox-border-color',
+    'var(--color-border)',
+    'Customizes tree view checkbox border color.',
+  ],
+  [
+    '--tree-view-checkbox-border-width',
+    'var(--border-width-sm)',
+    'Customizes tree view checkbox border width.',
+  ],
+  [
+    '--tree-view-checkbox-checked-bg',
+    'var(--color-primary)',
+    'Customizes tree view checkbox checked bg.',
+  ],
+  [
+    '--tree-view-checkbox-color',
+    'var(--color-primary-foreground)',
+    'Customizes tree view checkbox color.',
+  ],
+  [
+    '--tree-view-checkbox-focus-ring-offset',
+    'var(--border-width-sm)',
+    'Customizes tree view checkbox focus ring offset.',
+  ],
+  ['--tree-view-checkbox-icon-size', '0.75rem', 'Customizes tree view checkbox icon size.'],
+  ['--tree-view-checkbox-radius', 'var(--radius-xs)', 'Customizes tree view checkbox radius.'],
   ['--tree-view-checkbox-size', '1rem', 'Controls node checkbox size.'],
-  ['--tree-view-node-icon-size', '1rem', 'Controls file and folder icon size.'],
+  ['--tree-view-color', 'var(--color-foreground)', 'Controls text and icon color.'],
+  [
+    '--tree-view-content-transition-duration',
+    '150ms',
+    'Customizes tree view content transition duration.',
+  ],
+  [
+    '--tree-view-disabled-opacity',
+    'var(--opacity-disabled)',
+    'Customizes tree view disabled opacity.',
+  ],
+  ['--tree-view-focus-ring-color', 'var(--color-ring)', 'Controls row and checkbox focus rings.'],
+  [
+    '--tree-view-focus-ring-width',
+    'var(--border-width-sm)',
+    'Customizes tree view focus ring width.',
+  ],
+  ['--tree-view-indent', '1rem', 'Controls nested row indentation.'],
   ['--tree-view-indent-guide-color', 'var(--color-border)', 'Controls branch guide color.'],
+  [
+    '--tree-view-indent-guide-width',
+    'var(--border-width-sm)',
+    'Customizes tree view indent guide width.',
+  ],
+  ['--tree-view-indicator-color', 'currentColor', 'Customizes tree view indicator color.'],
+  ['--tree-view-indicator-icon-size', '0.875rem', 'Customizes tree view indicator icon size.'],
+  ['--tree-view-indicator-size', '1rem', 'Customizes tree view indicator size.'],
+  ['--tree-view-item-bg', 'transparent', 'Customizes tree view item bg.'],
+  ['--tree-view-item-border-color', 'transparent', 'Customizes tree view item border color.'],
+  ['--tree-view-item-border-width', '0', 'Customizes tree view item border width.'],
+  [
+    '--tree-view-item-color',
+    'var(--tree-view-color, var(--color-foreground))',
+    'Customizes tree view item color.',
+  ],
+  [
+    '--tree-view-item-disabled-color',
+    'var(--color-muted-foreground)',
+    'Customizes tree view item disabled color.',
+  ],
+  ['--tree-view-item-font-size', 'var(--text-sm)', 'Customizes tree view item font size.'],
+  ['--tree-view-item-gap', 'var(--spacing-2)', 'Customizes tree view item gap.'],
+  ['--tree-view-item-hover-bg', 'var(--color-accent)', 'Controls row hover background.'],
+  [
+    '--tree-view-item-hover-color',
+    'var(--color-accent-foreground)',
+    'Customizes tree view item hover color.',
+  ],
+  [
+    '--tree-view-item-line-height',
+    'var(--line-height-text-sm)',
+    'Customizes tree view item line height.',
+  ],
+  ['--tree-view-item-min-height', '2rem', 'Controls branch and item row height.'],
+  ['--tree-view-item-padding-x', 'var(--spacing-2)', 'Customizes tree view item padding x.'],
+  ['--tree-view-item-padding-y', 'var(--spacing-1)', 'Customizes tree view item padding y.'],
+  ['--tree-view-item-radius', 'var(--radius-sm)', 'Customizes tree view item radius.'],
+  ['--tree-view-item-selected-bg', 'var(--color-accent)', 'Controls selected row background.'],
+  [
+    '--tree-view-item-selected-color',
+    'var(--color-accent-foreground)',
+    'Customizes tree view item selected color.',
+  ],
+  ['--tree-view-item-text-gap', 'var(--spacing-2)', 'Customizes tree view item text gap.'],
+  [
+    '--tree-view-label-color',
+    'var(--tree-view-color, var(--color-foreground))',
+    'Customizes tree view label color.',
+  ],
+  ['--tree-view-label-font-size', 'var(--text-sm)', 'Customizes tree view label font size.'],
+  [
+    '--tree-view-label-font-weight',
+    'var(--weight-medium)',
+    'Customizes tree view label font weight.',
+  ],
+  [
+    '--tree-view-label-line-height',
+    'var(--line-height-text-sm)',
+    'Customizes tree view label line height.',
+  ],
+  ['--tree-view-max-width', '100%', 'Customizes tree view max width.'],
+  ['--tree-view-node-icon-size', '1rem', 'Controls file and folder icon size.'],
+  [
+    '--tree-view-rename-input-bg',
+    'var(--color-background)',
+    'Customizes tree view rename input bg.',
+  ],
+  [
+    '--tree-view-rename-input-border-color',
+    'var(--color-ring)',
+    'Customizes tree view rename input border color.',
+  ],
+  [
+    '--tree-view-rename-input-border-width',
+    'var(--border-width-sm)',
+    'Customizes tree view rename input border width.',
+  ],
+  [
+    '--tree-view-rename-input-color',
+    'var(--color-foreground)',
+    'Customizes tree view rename input color.',
+  ],
+  [
+    '--tree-view-rename-input-padding-x',
+    'var(--spacing-1)',
+    'Customizes tree view rename input padding x.',
+  ],
+  ['--tree-view-rename-input-padding-y', '0', 'Customizes tree view rename input padding y.'],
+  [
+    '--tree-view-rename-input-radius',
+    'var(--radius-xs)',
+    'Customizes tree view rename input radius.',
+  ],
+  ['--tree-view-root-gap', 'var(--spacing-2)', 'Customizes tree view root gap.'],
+  ['--tree-view-transition', 'var(--transition-default)', 'Customizes tree view transition.'],
+  ['--tree-view-width', '20rem', 'Controls the root width.'],
 ];
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -1268,7 +1397,7 @@ export function RootProviderTreeViewExample() {
   );
 }
 
-export function LinksTreeViewExample() {
+export function AdvancedCustomizationTreeViewExample() {
   return (
     <TreeView collection={linksCollection} defaultExpandedValue={['docs']} className={styles.root}>
       <TreeView.Label>Documentation</TreeView.Label>

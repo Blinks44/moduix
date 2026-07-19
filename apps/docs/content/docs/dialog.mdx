@@ -32,7 +32,7 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Dialog.Backdrop`,
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-dialog" />
+<ShadcnInstall packageName="dialog" />
 
 ## Anatomy
 
@@ -51,7 +51,7 @@ Dialog.Root
          └─ Dialog.Footer (moduix layout sugar)
 
 Dialog.RootProvider
-└─ the same automatically portalled content tree connected to Ark useDialog()
+└─ the same automatically portalled content tree connected to moduix useDialog()
 ```
 
 | Part                     | Role                                                             |
@@ -64,10 +64,10 @@ Dialog.RootProvider
 | `Dialog.Title`           | Accessible dialog title.                                         |
 | `Dialog.Description`     | Accessible supporting description.                               |
 | `Dialog.CloseTrigger`    | Closes the dialog.                                               |
-| `Dialog.RootProvider`    | Connects parts to state created with Ark `useDialog()`.          |
+| `Dialog.RootProvider`    | Connects parts to state created with moduix `useDialog()`.       |
 
-Import Ark `useDialog()` and `useDialogContext()` directly from `@ark-ui/react/dialog` when dialog
-state must live outside the rendered tree or be read inside reusable children.
+Import `useDialog()` and `useDialogContext()` from `@moduix/react` when dialog state must live
+outside the rendered tree or be read inside reusable children.
 
 ## Composition
 
@@ -86,8 +86,8 @@ Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic
 Use `open` with `onOpenChange(details)` for React-controlled state. The callback receives an Ark
 detail object, so read `details.open`.
 
-Use Ark `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the rendered
-dialog tree. Do not render `Dialog.Root` for the same store.
+Use moduix `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the
+rendered dialog tree. Do not render `Dialog.Root` for the same store.
 
 Use `ids` when separately composed parts need stable shared accessibility IDs. Use
 `initialFocusEl` and `finalFocusEl` for explicit focus targets. `role="alertdialog"` models
@@ -110,42 +110,15 @@ when JavaScript-driven exit animation needs to control mounted state.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
   `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
 - `Dialog.Title` or root `aria-label` is required for an accessible name.
+- Keep every rendered close part id unique. The canonical Basic composition uses one
+  `Dialog.CloseIcon`; if a dialog needs multiple close controls, give the additional parts explicit
+  unique `id` values.
 - Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
   scale the parent down and offset it downward so the active nested dialog still reads as layered.
 - Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
-  confirmation uses two Ark `useDialog()` stores and intercepts the parent store's `onOpenChange`.
+  confirmation uses two moduix `useDialog()` stores and intercepts the parent store's `onOpenChange`.
 
 ## Examples
-
-### Controlled
-
-Use the Ark detail object when synchronizing dialog state with React.
-
-<Preview>
-  <DialogDocs.ControlledDialogExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/dialog/controlled.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
-</Preview>
-
-### Root Provider and Ark Context Hooks
-
-Create state with Ark `useDialog()` when controls live outside the dialog, and read dialog state in
-child components with Ark `useDialogContext()`.
-
-<Preview>
-  <div className="dialog-stack">
-    <DialogDocs.RootProviderDialogExample />
-    <DialogDocs.ContextDialogExample />
-  </div>
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/dialog/root-provider-and-ark-context-hooks.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
-  
-</Preview>
 
 ### Alert Dialog
 
@@ -156,6 +129,30 @@ trigger.
   <DialogDocs.AlertDialogExample />
   <Preview.Code>
     <include lang="tsx">./_snippets/dialog/alert-dialog.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+### Confirmation
+
+Intercept the parent dialog close request when unsaved changes should be confirmed first.
+
+<Preview>
+  <DialogDocs.ConfirmationDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/confirmation.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+### Controlled
+
+Use the Ark detail object when synchronizing dialog state with React.
+
+<Preview>
+  <DialogDocs.ControlledDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/controlled.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
@@ -178,18 +175,6 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
   
 </Preview>
 
-### Non-Modal
-
-Set `modal={false}` and omit the backdrop when outside interaction should remain available.
-
-<Preview>
-  <DialogDocs.NonModalDialogExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/dialog/non-modal.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
-</Preview>
-
 ### Inside and Outside Scroll
 
 Scroll the body for a fixed header/footer layout, or scroll the positioner when content should
@@ -208,15 +193,40 @@ extend beyond the viewport.
   
 </Preview>
 
+### Multiple Triggers
+
+Give each trigger a `value` and react to `onTriggerValueChange(details)` when one dialog edits
+different records.
+
+<Preview>
+  <DialogDocs.MultipleTriggersDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/multiple-triggers.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
 ### Nested
 
-Use separate Ark `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
+Use separate moduix `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
 variables to the parent content; moduix uses them for a receding parent effect that stacks downward.
 
 <Preview>
   <DialogDocs.NestedDialogExample />
   <Preview.Code>
     <include lang="tsx">./_snippets/dialog/nested.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
+</Preview>
+
+### Non-Modal
+
+Set `modal={false}` and omit the backdrop when outside interaction should remain available.
+
+<Preview>
+  <DialogDocs.NonModalDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/dialog/non-modal.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
@@ -233,29 +243,33 @@ Control `open` from a menu item when a contextual action needs a confirmation di
   <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
-### Multiple Triggers
+### Root Provider and Context
 
-Give each trigger a `value` and react to `onTriggerValueChange(details)` when one dialog edits
-different records.
+Create state with moduix `useDialog()` when controls live outside the dialog, and read dialog state
+in child components with moduix `useDialogContext()`.
 
 <Preview>
-  <DialogDocs.MultipleTriggersDialogExample />
+  <div className="dialog-stack">
+    <DialogDocs.RootProviderDialogExample />
+    <DialogDocs.ContextDialogExample />
+  </div>
+
   <Preview.Code>
-    <include lang="tsx">./_snippets/dialog/multiple-triggers.tsx#demo</include>
+    <include lang="tsx">./_snippets/dialog/root-provider-and-ark-context-hooks.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
-### Confirmation
+### Advanced Customization
 
-Intercept the parent dialog close request when unsaved changes should be confirmed first.
+Bypass `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control of every
+Ark dialog part.
 
 <Preview>
-  <DialogDocs.ConfirmationDialogExample />
+  <DialogDocs.AdvancedCustomizationDialogExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/dialog/confirmation.tsx#demo</include>
+    <include lang="tsx">./_snippets/dialog/advanced-customization.tsx#demo</include>
   </Preview.Code>
-  <Preview.CSS>{DialogDocs.dialogExampleCss}</Preview.CSS>
 </Preview>
 
 ## Styling

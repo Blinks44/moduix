@@ -21,7 +21,7 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
 
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
 - Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
-- Keeps the ratio expressed as a plain numeric `style.aspectRatio` value instead of preset aliases.
+- Keeps the ratio expressed as a plain numeric prop instead of preset aliases or ratio-name sugar.
 
 ## Current behavior contract
 
@@ -29,11 +29,12 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
   namespace consistency.
 - `ratio` is a required `number` applied to the CSS `aspect-ratio` property. Consumers must pass a
   finite value greater than zero for valid CSS behavior.
+- Root sizing is meant to live on the root itself through `className` or `style`.
 - Root supports Ark factory polymorphism via `asChild`.
 - Root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
   `data-slot="aspect-ratio-root"`.
-- The resolved ratio is applied through inline `style.aspectRatio`; consumer `style` still wins if
-  it overrides `aspectRatio`.
+- The resolved ratio is written to an internal CSS custom property and consumed by the root
+  `aspect-ratio` rule; consumer `style.aspectRatio` or root CSS can still override it.
 - Direct `img`, `video`, `iframe`, `canvas`, and `svg` children automatically fill the frame.
 - Root default styles keep `position: relative`, `overflow: hidden`, and a moduix radius token.
 
@@ -59,12 +60,14 @@ import { AspectRatio } from '@moduix/react';
 
 export function AspectRatioExample() {
   return (
-    <AspectRatio ratio={16 / 9}>
+    <AspectRatio ratio={16 / 9} className="media-frame">
       <img src="/hero.jpg" alt="Hero" style={{ objectFit: 'cover' }} />
     </AspectRatio>
   );
 }
 ```
+
+Apply width or max-width to the root itself instead of introducing an extra wrapper only for sizing.
 
 Use `asChild` with exactly one child when another semantic element must own the rendered DOM node:
 
@@ -116,6 +119,9 @@ Primary CSS variable:
 
 ## Local changelog
 
+- 2026-07-07: Moved ratio handling from inline `style.aspectRatio` to an internal CSS custom
+  property so consumer CSS can override the root ratio more easily, and updated docs/examples to
+  size the root directly and show the shadcn-style `Image fill` path.
 - 2026-07-02: Removed the duplicate root prop type from the public moduix surface while preserving
   the callable root, `AspectRatio.Root`, `asChild`, refs, numeric ratio contract, and styled media
   frame behavior.

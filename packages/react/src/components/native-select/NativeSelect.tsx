@@ -1,21 +1,26 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Field as FieldPrimitive } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './NativeSelect.module.css';
 
+type NativeSelectRootProps = ComponentProps<typeof FieldPrimitive.Select> & {
+  controlProps?: ComponentProps<'span'>;
+};
+
 const NativeSelectRoot = forwardRef<
   ComponentRef<typeof FieldPrimitive.Select>,
-  ComponentProps<typeof FieldPrimitive.Select>
->(function NativeSelectRoot({ className, ...props }, ref) {
+  NativeSelectRootProps
+>(function NativeSelectRoot({ className, controlProps, ...props }, ref) {
   return (
     <span
+      {...controlProps}
       data-scope="native-select"
       data-part="control"
       data-slot="native-select-control"
-      className={styles.control}
+      className={clsx(styles.control, normalizeClassName(controlProps?.className))}
     >
       <FieldPrimitive.Select
         {...props}

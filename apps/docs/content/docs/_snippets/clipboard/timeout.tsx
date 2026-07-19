@@ -10,8 +10,9 @@ export function TimeoutClipboardDemo() {
       <Clipboard.Label>Five second copied state</Clipboard.Label>
       <Clipboard.Control>
         <Clipboard.Input readOnly />
-        <Clipboard.Trigger aria-label="Copy workspace secret">
+        <Clipboard.Trigger>
           <Clipboard.Indicator />
+          <Clipboard.CopyText />
         </Clipboard.Trigger>
       </Clipboard.Control>
     </Clipboard>

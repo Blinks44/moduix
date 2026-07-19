@@ -23,13 +23,7 @@ export function EventsImageCropperDemo() {
       >
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
       <output className="cropper-output">

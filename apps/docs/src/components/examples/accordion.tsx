@@ -1,13 +1,12 @@
-import { useAccordion } from '@ark-ui/react/accordion';
-import { Accordion, Slider } from '@moduix/react';
+import { Accordion, Slider, useAccordion } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 
 export const accordionExampleCss = `
-  .accordion-panel-content {
-    display: grid;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3);
+  [data-slot='accordion-root'],
+  [data-slot='accordion-root-provider'] {
+    width: 100%;
+    max-width: 22rem;
   }
 
   .accordion-provider-stack {
@@ -94,6 +93,12 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'Controls the separator width between accordion items.',
   ],
   [
+    '--accordion-item-body-gap',
+    'var(--spacing-3)',
+    'Controls spacing between elements in item body.',
+  ],
+  ['--accordion-item-body-padding', 'var(--spacing-3)', 'Controls item body padding.'],
+  [
     '--accordion-item-content-closed-opacity',
     '0.01',
     'Controls content opacity at the closed end of the animation.',
@@ -139,7 +144,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--accordion-trigger-padding-x', 'var(--spacing-3)', 'Controls trigger horizontal padding.'],
   ['--accordion-trigger-padding-y', 'var(--spacing-2)', 'Controls trigger vertical padding.'],
-  ['--accordion-width', '22rem', 'Controls the default accordion width.'],
+  ['--accordion-width', '100%', 'Controls the default accordion width.'],
 ];
 
 function AccordionItems({
@@ -158,7 +163,7 @@ function AccordionItems({
         <Accordion.ItemIndicator className={iconClassName}>{icon}</Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
-        <div className="accordion-panel-content">{item.description}</div>
+        <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
   ));
@@ -173,10 +178,6 @@ export function AccordionExample({ className, ...props }: ComponentProps<typeof 
       </Accordion.Root>
     </>
   );
-}
-
-export function MultipleAccordionExample() {
-  return <AccordionExample multiple defaultValue={['what-is-ark-ui', 'can-i-use-it']} />;
 }
 
 export function ControlledAccordionExample() {
@@ -229,6 +230,10 @@ export function LazyMountAccordionExample() {
   );
 }
 
+export function MultipleAccordionExample() {
+  return <AccordionExample multiple defaultValue={['what-is-ark-ui', 'can-i-use-it']} />;
+}
+
 export function RootProviderAccordionExample() {
   const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
 
@@ -245,7 +250,7 @@ export function RootProviderAccordionExample() {
   );
 }
 
-export function WithSliderAccordionExample() {
+export function AdvancedCustomizationAccordionExample() {
   return (
     <>
       <style>{accordionExampleCss}</style>
@@ -257,7 +262,7 @@ export function WithSliderAccordionExample() {
               <Accordion.ItemIndicator />
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
-              <div className="accordion-panel-content">
+              <Accordion.ItemBody>
                 <span>{item.description}</span>
                 <Slider defaultValue={[40]}>
                   <Slider.Label>{item.title} priority</Slider.Label>
@@ -265,12 +270,10 @@ export function WithSliderAccordionExample() {
                     <Slider.Track>
                       <Slider.Range />
                     </Slider.Track>
-                    <Slider.Thumb index={0}>
-                      <Slider.HiddenInput />
-                    </Slider.Thumb>
+                    <Slider.Thumb index={0}></Slider.Thumb>
                   </Slider.Control>
                 </Slider>
-              </div>
+              </Accordion.ItemBody>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}

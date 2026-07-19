@@ -34,6 +34,8 @@ the library `CloseButton` as the default close trigger surface.
   `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, `Toast.CloseTrigger`, and
   `Toast.Toaster`.
 - `Toaster` and `createToaster` are also exported as standalone names for ergonomic imports.
+- `Toaster` renders the standard moduix toast when no render prop is passed: non-null title and
+  description, an action when present, and `CloseTrigger` unless `closable: false` is set.
 - `Toast.Title` renders `toast.title` from Ark context when `children` is omitted. Passing `null`
   intentionally renders no title content.
 - `Toast.Description` renders `toast.description` from Ark context when `children` is omitted.
@@ -87,16 +89,7 @@ export function ToastExample() {
       >
         Schedule meeting
       </Button>
-      <Toaster toaster={toaster}>
-        {(toast) => (
-          <Toast key={toast.id}>
-            <Toast.Title />
-            <Toast.Description />
-            {toast.action ? <Toast.ActionTrigger>{toast.action.label}</Toast.ActionTrigger> : null}
-            {toast.closable !== false ? <Toast.CloseTrigger /> : null}
-          </Toast>
-        )}
-      </Toaster>
+      <Toaster toaster={toaster} />
     </>
   );
 }
@@ -104,7 +97,8 @@ export function ToastExample() {
 
 ## Upstream feature coverage
 
-- `Anatomy`: preserved through Ark-shaped parts and the required `Toaster` render prop.
+- `Anatomy`: preserved through Ark-shaped parts and an optional `Toaster` render prop for advanced
+  customization.
 - `Setup`: preserved through `createToaster(options)`.
 - `Basic`: supported through `toaster.create(options)`.
 - `Types`: supported through `success`, `error`, `warning`, and `info` store methods plus
@@ -185,6 +179,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   `CloseButton`; toast-specific `--toast-close-*` variables only override that shared baseline.
 - `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
   standalone component.
+- Omitting `Toaster` children opts into the standard moduix renderer. Pass the Ark render prop to
+  customize the layout, individual parts, or close icon.
 - `Toaster` owns portal transport directly and keeps toast anatomy independent from mounting.
 - moduix does not re-export Ark toast context helpers or toast type aliases; import those directly
   from Ark when a custom child part or app-level typing needs them.
@@ -204,6 +200,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 - 2026-07-03: Removed public re-exports of Ark toast context helpers and type aliases so moduix
   keeps the toaster wiring and visual parts public without mirroring Ark's advanced state API.
+- 2026-07-12: Added the default `Toaster` renderer for the standard title, description, action,
+  and close-control layout; custom render props remain the advanced path.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Re-exported Ark toaster creation/prop types directly, allowed explicit `null`

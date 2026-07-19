@@ -19,7 +19,7 @@ control defaults.
 There is no Ark UI `Lightbox` primitive. The wrapper follows `@ark-ui/react/dialog` directly and
 keeps its `Root`, `RootProvider`, `Trigger`, `Backdrop`, `Positioner`, `Content`, `Title`,
 `Description`, and `CloseTrigger` contracts. `RootProvider` remains the moduix bridge for Ark
-state created with `useDialog()`.
+state created with `useLightbox()`.
 
 Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boundary.
 
@@ -60,7 +60,7 @@ Lightbox.Root
          └─ Lightbox.Footer (moduix)
 
 Lightbox.RootProvider
-└─ the same part tree connected to Ark useDialog()
+└─ the same part tree connected to useLightbox()
 ```
 
 Stable slots are `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
@@ -101,7 +101,8 @@ export function LightboxDemo() {
 
 Use `asChild` with one semantic child. An image alone is not an interactive trigger; wrap it in a
 button. Use `Lightbox.RootProvider` instead of `Lightbox.Root` when state comes from
-Ark `useDialog()`. When the close control should stay pinned to the viewport corner, render
+`useLightbox()`. Read child state with `useLightboxContext()`; both APIs are available from
+`@moduix/react` and on the `Lightbox` namespace. When the close control should stay pinned to the viewport corner, render
 `Lightbox.CloseIcon` as a sibling of `Lightbox.Content` inside `Lightbox.Positioner` so it does
 not inherit content transforms.
 
@@ -141,6 +142,8 @@ preloads the resolved full-size source on pointer hover or keyboard focus.
   intentionally not duplicated here.
 - `Lightbox.Image closeOnClick` closes through Dialog context after the native image `onClick`
   handler unless that handler calls `event.preventDefault()`.
+- `useLightbox` and `useLightboxContext` re-export Ark's state hooks unchanged through the moduix
+  package and `Lightbox` namespace for the normal `RootProvider` and child-state paths.
 
 ## Accessibility and state
 
@@ -156,6 +159,9 @@ Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|close
 `--nested-layer-count`; `Lightbox.Backdrop` preserves `--layer-index`.
 
 ## Defaults and styling
+
+Content motion falls back to the shared `--popup-motion-*` tokens; `--lightbox-*` content-motion
+variables remain the more specific override. Backdrop motion remains separate.
 
 Moduix styles a zoom cursor on the trigger, a blurred backdrop, a centered positioner, transparent
 content, constrained image/video media, state-driven motion, and a fixed close icon anchored to the
@@ -176,8 +182,8 @@ ratio, viewport height, gap, track background, and thumbnail sizing/state.
 - `Lightbox.Bind` is narrow zero-render sugar for binding image selection to CMS or external DOM.
   Consumers keep ownership of image state and the complete overlay composition.
 - `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer` provide only layout and stable slots.
-- moduix does not re-export Ark dialog hooks, contexts, or detail-object types from `Lightbox`;
-  import advanced state APIs from `@ark-ui/react/dialog` when needed.
+- `useLightbox` and `useLightboxContext` are direct Ark hook re-exports for the normal advanced
+  state path; they do not alter callback detail objects or dialog state behavior.
 - Structured image data and slide state stay consumer-owned.
 - `Lightbox.CloseIcon` composes Ark `CloseTrigger` with the library `CloseButton.Root` and defaults
   its label to `"Close image"`.
@@ -194,6 +200,9 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
+- 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox
+  namespace so `RootProvider` and context examples no longer require direct Ark imports.
 - 2026-07-05: Added a library-colored focus-visible outline to `Lightbox.Trigger` after focus
   restoration and exposed `--lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
 - 2026-07-05: Changed `Lightbox.Gallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `Lightbox.Content`.

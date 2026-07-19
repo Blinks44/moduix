@@ -10,11 +10,8 @@ const _labels = {
 export function CheckboxReadOnlyDemo() {
   return (
     <Checkbox readOnly defaultChecked>
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      <Checkbox.Control />
       <Checkbox.Label>Preserve existing setting</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

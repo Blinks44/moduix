@@ -12,9 +12,7 @@ import * as RatingGroupDocs from '@/components/examples/rating-group';
 
 ## Basic
 
-Use the short root form with Ark-style child parts: `RatingGroup.Label`, `RatingGroup.Control`,
-Ark `RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
-`RatingGroup.HiddenInput`.
+Use the short root form with `RatingGroup.Label`, `RatingGroup.Control`, and `RatingGroup.Items`.
 
 <Preview>
   <RatingGroupDocs.RatingGroupExample />
@@ -28,7 +26,7 @@ Ark `RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-rating-group" />
+<ShadcnInstall packageName="rating-group" />
 
 ## Anatomy
 
@@ -36,42 +34,45 @@ Ark `RatingGroup.Context`, `RatingGroup.Item`, `RatingGroup.ItemIndicator`, and
 RatingGroup.Root
 ├─ RatingGroup.Label
 └─ RatingGroup.Control
-   ├─ ArkRatingGroup.Context (optional)
+   ├─ RatingGroup.Items (recommended)
    │  └─ RatingGroup.Item[index]
-   │     ├─ ArkRatingGroup.ItemContext (optional)
    │     └─ RatingGroup.ItemIndicator
-   └─ RatingGroup.HiddenInput
+   ├─ RatingGroup.Context (advanced, optional)
+   │  └─ RatingGroup.Item[index]
+   │     └─ RatingGroup.ItemIndicator
+   └─ the native form input (advanced custom item tree)
 
 RatingGroup.RootProvider
-└─ same part tree connected to an Ark useRatingGroup() store
+└─ same part tree connected to a moduix useRatingGroup() store
 ```
 
-| Part                               | Role                                                         |
-| ---------------------------------- | ------------------------------------------------------------ |
-| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state.    |
-| `RatingGroup.RootProvider`         | Connects parts to state created with Ark `useRatingGroup()`. |
-| `RatingGroup.Label`                | Accessible label for the rating group.                       |
-| `RatingGroup.Control`              | Groups the interactive rating items.                         |
-| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.             |
-| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.            |
-| `RatingGroup.HiddenInput`          | Ark hidden input synchronized with the rating value.         |
+| Part                               | Role                                                      |
+| ---------------------------------- | --------------------------------------------------------- |
+| `RatingGroup` / `RatingGroup.Root` | Controls rating value, keyboard behavior, and form state. |
+| `RatingGroup.RootProvider`         | Connects parts to state created with `useRatingGroup()`.  |
+| `RatingGroup.Context`              | Render-prop access to current root state.                 |
+| `RatingGroup.ItemContext`          | Render-prop access to current item state.                 |
+| `RatingGroup.Label`                | Accessible label for the rating group.                    |
+| `RatingGroup.Control`              | Groups the interactive rating items.                      |
+| `RatingGroup.Items`                | Renders Ark items and default stars.                      |
+| `RatingGroup.Item`                 | One selectable rating item; requires an `index`.          |
+| `RatingGroup.ItemIndicator`        | Moduix star visual that follows Ark item context.         |
 
 ## Composition
 
 ### Recommended composition
 
 `RatingGroup` is the short root form. It owns Ark value state, hover state, focus movement, labels,
-form integration, and keyboard behavior. Use Ark `RatingGroup.Context` to map generated item
-indexes into `RatingGroup.Item`.
-
-Render `RatingGroup.HiddenInput` inside the control whenever the rating should submit with a
-native form or reset with the form.
+form integration, and keyboard behavior. Use `RatingGroup.Items` for standard generated star
+items. The root renders the synchronized native form input automatically. Pass a custom
+`RatingGroup.ItemIndicator` as its child to change the icon while retaining the same item behavior.
 
 ### When to go custom
 
-Use Ark `RatingGroup.ItemContext` or `useRatingGroupItemContext()` when custom item visuals need
-`highlighted`, `checked`, or `half` state. Use `RatingGroup.RootProvider` with Ark
-`useRatingGroup()` when rating state must be created outside the rendered subtree.
+Use moduix `RatingGroup.Context`, `RatingGroup.ItemContext`, or `useRatingGroupItemContext()` when a
+custom item tree needs `highlighted`, `checked`, or `half` state. The root renders its native form input automatically. Use
+`RatingGroup.RootProvider` with moduix `useRatingGroup()` when rating state must be created outside
+the rendered subtree.
 
 All Ark parts support `asChild`. Keep the child a single semantic element that can preserve the
 part's focus and interaction behavior.
@@ -82,6 +83,7 @@ part's focus and interaction behavior.
 | --------------------------- | ------- | ----------------------------------------------------- |
 | `count`                     | `5`     | Ark item count.                                       |
 | `size`                      | `md`    | Moduix styling size: `xs`, `sm`, `md`, `lg`, or `xl`. |
+| `RatingGroup.Items`         | —       | Renders default items.                                |
 | `RatingGroup.ItemIndicator` | star    | Renders moduix star foreground/background by default. |
 
 ### Behavioral notes
@@ -90,7 +92,7 @@ part's focus and interaction behavior.
 - `onValueChange` receives Ark details; read the value from `details.value`.
 - `onHoverChange` receives Ark hover details.
 - `allowHalf` enables half-step pointer selection and half-star rendering.
-- `name`, `form`, and `required` work with `RatingGroup.HiddenInput`.
+- `name`, `form`, and `required` work with the native form input rendered automatically by the root.
 - `disabled` and `readOnly` are handled by Ark and reflected through data attributes.
 
 ## Examples
@@ -109,16 +111,32 @@ Use controlled mode when the selected score drives surrounding UI or must be res
   
 </Preview>
 
-### Root Provider
+### Custom Icon
 
-Create rating state with Ark `useRatingGroup()` when other UI needs direct access to the same Ark
-store.
+Pass a custom `RatingGroup.ItemIndicator` into `RatingGroup.Items` when every item should use the
+same icon. The indicator still receives Ark-driven `data-highlighted` and `data-half` attributes
+for styling.
 
 <Preview>
-  <RatingGroupDocs.RootProviderRatingGroupExample />
+  <RatingGroupDocs.CustomIconRatingGroupExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/rating-group/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/rating-group/custom-icon.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{RatingGroupDocs.ratingGroupCustomIconCss}</Preview.CSS>
+  
+</Preview>
+
+### Disabled and Readonly
+
+Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
+changes.
+
+<Preview>
+  <RatingGroupDocs.DisabledRatingGroupExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/rating-group/disabled-and-readonly.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{RatingGroupDocs.ratingGroupExampleCss}</Preview.CSS>
   
@@ -139,24 +157,10 @@ state should be shared with form copy.
   
 </Preview>
 
-### Half Rating
-
-Set `allowHalf` when the rating should support half-step selection and display.
-
-<Preview>
-  <RatingGroupDocs.HalfRatingGroupExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/rating-group/half-rating.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{RatingGroupDocs.ratingGroupExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Forms
 
-Pass `name` and render `RatingGroup.HiddenInput` when the selected value should be included in
-`FormData`.
+Pass `name` when the selected value should be included in `FormData`; `RatingGroup.Items` renders
+the synchronized input.
 
 <Preview>
   <RatingGroupDocs.FormRatingGroupExample />
@@ -168,16 +172,15 @@ Pass `name` and render `RatingGroup.HiddenInput` when the selected value should 
   
 </Preview>
 
-### Disabled and Readonly
+### Half Rating
 
-Use `disabled` to remove interaction. Use `readOnly` to keep the score visible while preventing
-changes.
+Set `allowHalf` when the rating should support half-step selection and display.
 
 <Preview>
-  <RatingGroupDocs.DisabledRatingGroupExample />
+  <RatingGroupDocs.HalfRatingGroupExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/rating-group/disabled-and-readonly.tsx#demo</include>
+  <include lang="tsx">./_snippets/rating-group/half-rating.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{RatingGroupDocs.ratingGroupExampleCss}</Preview.CSS>
   
@@ -197,18 +200,19 @@ Use the moduix `size` prop when the same Ark rating behavior needs to fit a diff
   
 </Preview>
 
-### Custom Icon
+### Advanced Customization
 
-Pass children to `RatingGroup.ItemIndicator` when each rating item should use a different icon. The
-indicator still receives Ark-driven `data-highlighted` and `data-half` attributes for styling.
+Use `RatingGroup.RootProvider` with moduix `useRatingGroup()` when state must be created outside the
+rendered subtree. This bypasses the normal root state setup while keeping the convenient
+`RatingGroup.Items` renderer.
 
 <Preview>
-  <RatingGroupDocs.CustomIconRatingGroupExample />
+  <RatingGroupDocs.AdvancedCustomizationRatingGroupExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/rating-group/custom-icon.tsx#demo</include>
+  <include lang="tsx">./_snippets/rating-group/advanced-customization.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{RatingGroupDocs.ratingGroupCustomIconCss}</Preview.CSS>
+  <Preview.CSS>{RatingGroupDocs.ratingGroupExampleCss}</Preview.CSS>
   
 </Preview>
 

@@ -45,7 +45,7 @@ Dialog.Root
          └─ Dialog.Footer
 
 Dialog.RootProvider
-└─ the same part tree connected to Ark useDialog()
+└─ the same part tree connected to moduix useDialog()
 ```
 
 Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
@@ -77,7 +77,7 @@ export function DialogDemo() {
 ```
 
 Use `asChild` with one semantic child. Use `Dialog.RootProvider` instead of `Dialog.Root` when the
-same state instance comes from Ark `useDialog()`.
+same state instance comes from moduix `useDialog()`.
 
 ## Upstream feature coverage
 
@@ -114,6 +114,9 @@ rendered `CloseButton.Root`.
 
 ## Defaults and styling
 
+Content motion falls back to the shared `--popup-motion-*` tokens; `--dialog-*` content-motion
+variables remain the more specific override. Backdrop motion remains separate.
+
 Moduix supplies visual defaults for native trigger/close buttons, backdrop, centered positioner,
 content surface, typography, layout helpers, motion, and close icon.
 
@@ -131,8 +134,8 @@ the content's block-start/inline-end corner by default, including when it is com
 - `Dialog.CloseIcon` composes Ark `CloseTrigger` with the moduix close button and defaults its
   accessible label to `"Close dialog"`.
 - `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` are native layout helpers.
-- moduix keeps `RootProvider`, but does not re-export Ark `Dialog.Context`, state hooks, or Ark
-  type aliases. Advanced consumers import those directly from `@ark-ui/react/dialog`.
+- moduix exports Ark's `useDialog` and `useDialogContext` hooks alongside `Dialog`, so provider and
+  context workflows stay on the moduix public surface. Direct Ark imports remain escape hatches.
 - `Dialog.Trigger` and `Dialog.CloseTrigger` receive moduix button styling only when they render
   their native button. `asChild` leaves the child component's visual styling in control.
 - Legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
@@ -142,10 +145,15 @@ the content's block-start/inline-end corner by default, including when it is com
 ## Agent notes
 
 Do not introduce a convenience component that hides `Backdrop`, `Positioner`, or `Content`. Keep
-Ark callback detail objects and `RootProvider`, but leave advanced context and hook APIs to Ark.
+Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext` unchanged.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
+- 2026-07-12: Kept one close part in the canonical Basic composition so Ark's generated
+  close-trigger id is not duplicated within the dialog.
+- 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use
+  the moduix package surface.
 - 2026-07-02: Removed `Dialog.Context`, Ark dialog hooks, and duplicate Ark type exports from the
   moduix surface. Kept `RootProvider`, structural parts, and existing dialog-specific sugar.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

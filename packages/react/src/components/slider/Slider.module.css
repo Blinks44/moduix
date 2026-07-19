@@ -103,13 +103,16 @@
       background-color var(--slider-transition, var(--transition-default)),
       box-shadow var(--slider-transition, var(--transition-default));
 
+    &[data-dragging] {
+      border-color: var(--slider-focus-ring-color, var(--color-ring));
+      box-shadow:
+        0 0 0 var(--border-width-sm) var(--slider-focus-ring-color, var(--color-ring)),
+        var(--slider-thumb-shadow-dragging, var(--shadow-md));
+    }
+
     &:focus-visible {
       border-color: var(--slider-focus-ring-color, var(--color-ring));
       box-shadow: 0 0 0 var(--border-width-sm) var(--slider-focus-ring-color, var(--color-ring));
-    }
-
-    &[data-dragging] {
-      box-shadow: var(--slider-thumb-shadow-dragging, var(--shadow-md));
     }
 
     &[data-disabled] {

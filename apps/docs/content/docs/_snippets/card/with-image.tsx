@@ -12,7 +12,9 @@ const product = {
 export function CardWithImageDemo() {
   return (
     <Card>
-      <img className="image" src={product.image} alt={product.imageAlt} />
+      <Card.Media>
+        <img className="image" src={product.image} alt={product.imageAlt} />
+      </Card.Media>
       <Card.Header>
         <Card.Title>{product.title}</Card.Title>
         <Card.Description>{product.description}</Card.Description>

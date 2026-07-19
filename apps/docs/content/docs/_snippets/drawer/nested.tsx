@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useDrawer } from '@ark-ui/react/drawer';
-import { Button, Drawer } from '@moduix/react';
+import { Button, Drawer, useDrawer } from '@moduix/react';
 
 const items = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
 const snapPoints = [0.42, 1];

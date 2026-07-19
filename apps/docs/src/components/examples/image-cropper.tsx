@@ -1,18 +1,16 @@
-import type { ComponentProps } from 'react';
-import { ImageCropper as ArkImageCropper, useImageCropper } from '@ark-ui/react/image-cropper';
+import { Button, ImageCropper, useImageCropper } from '@moduix/react';
 import {
-  Button,
-  FlipHorizontalIcon,
-  ImageCropper,
-  RestartIcon,
-  RotateCcwIcon,
-  RotateCwIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
-} from '@moduix/react';
+  FlipHorizontal as FlipHorizontalIcon,
+  RotateCcw as RestartIcon,
+  RotateCcw as RotateCcwIcon,
+  RotateCw as RotateCwIcon,
+  ZoomIn as ZoomInIcon,
+  ZoomOut as ZoomOutIcon,
+} from 'lucide-react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -239,6 +237,23 @@ function ImageCropperCanvas(props: Omit<ImageCropperRootProps, 'children'>) {
     <ImageCropper {...props}>
       <ImageCropper.Viewport>
         <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
+        <ImageCropper.CropArea />
+      </ImageCropper.Viewport>
+    </ImageCropper>
+  );
+}
+
+type ImageCropperRootProps = ComponentProps<typeof ImageCropper.Root>;
+
+export function ImageCropperExample() {
+  return <ImageCropperCanvas />;
+}
+
+export function AdvancedCustomizationImageCropperExample() {
+  return (
+    <ImageCropper>
+      <ImageCropper.Viewport>
+        <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
         <ImageCropper.Selection>
           <ImageCropper.Grid axis="horizontal" />
           <ImageCropper.Grid axis="vertical" />
@@ -249,12 +264,6 @@ function ImageCropperCanvas(props: Omit<ImageCropperRootProps, 'children'>) {
       </ImageCropper.Viewport>
     </ImageCropper>
   );
-}
-
-type ImageCropperRootProps = ComponentProps<typeof ImageCropper.Root>;
-
-export function ImageCropperExample() {
-  return <ImageCropperCanvas />;
 }
 
 export function AspectRatioImageCropperExample() {
@@ -339,7 +348,7 @@ export function TransformImageCropperExample() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ArkImageCropper.Context>
+        <ImageCropper.Context>
           {(context) => (
             <div className="cropper-toolbar">
               <button
@@ -392,16 +401,10 @@ export function TransformImageCropperExample() {
               </button>
             </div>
           )}
-        </ArkImageCropper.Context>
+        </ImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
       <output className="cropper-output">
@@ -440,13 +443,7 @@ export function CropPreviewImageCropperExample() {
       <ImageCropper.RootProvider value={imageCropper}>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper.RootProvider>
       <Button type="button" onClick={handleCrop}>
@@ -483,13 +480,7 @@ export function RootProviderImageCropperExample() {
       <ImageCropper.RootProvider value={imageCropper}>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper.RootProvider>
       <button

@@ -1,36 +1,49 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { FileUpload as FileUploadPrimitive } from '@ark-ui/react/file-upload';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
+import {
+  FileUpload as FileUploadPrimitive,
+  useFileUpload,
+  useFileUploadContext,
+} from '@ark-ui/react/file-upload';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
-import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
+import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
 
 const FileUploadRoot = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.Root>,
   ComponentProps<typeof FileUploadPrimitive.Root>
->(function FileUploadRoot({ className, ...props }, ref) {
+>(function FileUploadRoot({ asChild, children, className, ...props }, ref) {
   return (
     <FileUploadPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="file-upload-root"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </FileUploadPrimitive.Root>
   );
 });
 
 const FileUploadRootProvider = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.RootProvider>,
   ComponentProps<typeof FileUploadPrimitive.RootProvider>
->(function FileUploadRootProvider({ className, ...props }, ref) {
+>(function FileUploadRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <FileUploadPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="file-upload-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </FileUploadPrimitive.RootProvider>
   );
 });
 
@@ -62,16 +75,16 @@ const FileUploadDropzone = forwardRef<
   );
 });
 
-function FileUploadDropzoneIcon({ className, children, ...props }: ComponentProps<'span'>) {
+function FileUploadDropzoneIcon({ className, children, ...props }: HTMLArkProps<'span'>) {
   return (
-    <span
+    <ark.span
       aria-hidden="true"
       data-slot="file-upload-dropzone-icon"
       className={clsx(styles.dropzoneIcon, normalizeClassName(className))}
       {...props}
     >
       {children ?? <UploadIcon />}
-    </span>
+    </ark.span>
   );
 }
 
@@ -89,14 +102,22 @@ const FileUploadTrigger = forwardRef<
   );
 });
 
-const FileUploadHiddenInput = forwardRef<
-  ComponentRef<typeof FileUploadPrimitive.HiddenInput>,
-  ComponentProps<typeof FileUploadPrimitive.HiddenInput>
->(function FileUploadHiddenInput(props, ref) {
-  return (
-    <FileUploadPrimitive.HiddenInput ref={ref} data-slot="file-upload-hidden-input" {...props} />
-  );
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <FileUploadPrimitive.HiddenInput data-slot="file-upload-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const FileUploadItemGroup = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemGroup>,
@@ -154,6 +175,26 @@ const FileUploadItemPreviewImage = forwardRef<
   );
 });
 
+function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<typeof FileIcon>) {
+  return (
+    <FileIcon
+      data-slot="file-upload-item-preview-icon"
+      className={clsx(styles.itemPreviewIcon, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}
+
+function getFileTypeLabel(file: File) {
+  const extension = file.name.split('.').pop();
+
+  return extension ? extension.toUpperCase() : file.type || 'FILE';
+}
+
+function isImageFile(file: File) {
+  return file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+}
+
 const FileUploadItemName = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemName>,
   ComponentProps<typeof FileUploadPrimitive.ItemName>
@@ -182,6 +223,23 @@ const FileUploadItemSizeText = forwardRef<
   );
 });
 
+function FileUploadItemMetadata({
+  file,
+  className,
+  ...props
+}: HTMLArkProps<'div'> & { file: File }) {
+  return (
+    <ark.div
+      data-slot="file-upload-item-metadata"
+      className={clsx(styles.itemMetadata, normalizeClassName(className))}
+      {...props}
+    >
+      <ark.span>{getFileTypeLabel(file)}</ark.span>
+      <FileUploadItemSizeText />
+    </ark.div>
+  );
+}
+
 const FileUploadItemDeleteTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemDeleteTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ItemDeleteTrigger>
@@ -198,18 +256,74 @@ const FileUploadItemDeleteTrigger = forwardRef<
   );
 });
 
+function FileUploadItems() {
+  const { acceptedFiles } = useFileUploadContext();
+
+  return acceptedFiles.map((file) => (
+    <FileUploadItem key={`${file.name}-${file.size}`} file={file}>
+      {isImageFile(file) ? (
+        <FileUploadItemPreview>
+          <FileUploadItemPreviewImage />
+        </FileUploadItemPreview>
+      ) : (
+        <FileUploadItemPreview>
+          <FileUploadItemPreviewIcon />
+        </FileUploadItemPreview>
+      )}
+      <FileUploadItemName />
+      <FileUploadItemMetadata file={file} />
+      <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+    </FileUploadItem>
+  ));
+}
+
 const FileUploadClearTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ClearTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ClearTrigger>
->(function FileUploadClearTrigger({ className, children, ...props }, ref) {
+>(function FileUploadClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(
+    styles.clearTrigger,
+    children != null && styles.clearTriggerWithContent,
+    normalizeClassName(className),
+  );
+
+  if (asChild) {
+    return (
+      <FileUploadPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="file-upload-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </FileUploadPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <FileUploadPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="file-upload-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+        {children ?? <CloseIcon />}
+      </CloseButton.Root>
     </FileUploadPrimitive.ClearTrigger>
   );
 });
@@ -217,19 +331,22 @@ const FileUploadClearTrigger = forwardRef<
 const FileUpload = Object.assign(FileUploadRoot, {
   Root: FileUploadRoot,
   RootProvider: FileUploadRootProvider,
+  Context: FileUploadPrimitive.Context,
   Label: FileUploadLabel,
   Dropzone: FileUploadDropzone,
   DropzoneIcon: FileUploadDropzoneIcon,
   Trigger: FileUploadTrigger,
-  HiddenInput: FileUploadHiddenInput,
   ItemGroup: FileUploadItemGroup,
   Item: FileUploadItem,
+  Items: FileUploadItems,
   ItemPreview: FileUploadItemPreview,
   ItemPreviewImage: FileUploadItemPreviewImage,
+  ItemPreviewIcon: FileUploadItemPreviewIcon,
   ItemName: FileUploadItemName,
+  ItemMetadata: FileUploadItemMetadata,
   ItemSizeText: FileUploadItemSizeText,
   ItemDeleteTrigger: FileUploadItemDeleteTrigger,
   ClearTrigger: FileUploadClearTrigger,
 });
 
-export { FileUpload };
+export { FileUpload, useFileUpload, useFileUploadContext };

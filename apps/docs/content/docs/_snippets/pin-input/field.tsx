@@ -11,16 +11,8 @@ export function FieldPinInput() {
       <PinInput count={6}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          {Array.from(
-            {
-              length: 6,
-            },
-            (_, index) => (
-              <PinInput.Input key={index} index={index} />
-            ),
-          )}
+          <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <Field.HelperText>Additional info</Field.HelperText>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>

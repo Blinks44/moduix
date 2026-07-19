@@ -42,9 +42,7 @@ export function PositioningTooltipDemo() {
         <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
           <Button>Hover or focus</Button>
         </Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Placement: {placement}</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Placement: {placement}</Tooltip.Body>
       </Tooltip>
     </div>
   );

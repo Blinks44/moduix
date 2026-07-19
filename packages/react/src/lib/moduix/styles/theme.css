@@ -112,6 +112,18 @@
   --popup-separator-margin-x-start: initial; /* 1rem */
   --popup-separator-margin-y: initial; /* 0.375rem */
 
+  /* Shared Popup Motion */
+  --popup-motion-duration: initial; /* component default */
+  --popup-motion-easing: initial; /* component default */
+  --popup-motion-starting-opacity: initial; /* component default */
+  --popup-motion-starting-scale: initial; /* component default */
+  --popup-motion-starting-translate-x: initial; /* component default */
+  --popup-motion-starting-translate-y: initial; /* component default */
+  --popup-motion-ending-opacity: initial; /* component default */
+  --popup-motion-ending-scale: initial; /* component default */
+  --popup-motion-ending-translate-x: initial; /* component default */
+  --popup-motion-ending-translate-y: initial; /* component default */
+
   /* AspectRatio */
   --aspect-ratio-radius: initial; /* var(--radius-md) */
 
@@ -131,6 +143,8 @@
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
+  --accordion-item-body-gap: initial; /* var(--spacing-3) */
+  --accordion-item-body-padding: initial; /* var(--spacing-3) */
   --accordion-item-content-closed-opacity: initial; /* 0.01 */
   --accordion-item-content-color: initial; /* var(--color-muted-foreground) */
   --accordion-item-content-font-size: initial; /* var(--text-md) */
@@ -145,7 +159,7 @@
   --accordion-trigger-line-height: initial; /* var(--line-height-text-md) */
   --accordion-trigger-padding-x: initial; /* var(--spacing-3) */
   --accordion-trigger-padding-y: initial; /* var(--spacing-2) */
-  --accordion-width: initial; /* 22rem */
+  --accordion-width: initial; /* 100% */
   /* AngleSlider */
   --angle-slider-color: initial; /* var(--color-foreground) */
   --angle-slider-center-dot-color: initial; /* var(--angle-slider-color) */
@@ -193,6 +207,8 @@
   --alert-border-width: initial; /* var(--border-width-sm) */
   --alert-color: initial; /* var(--alert-color-default, var(--color-card-foreground)) */
   --alert-content-gap: initial; /* var(--spacing-1) */
+  --alert-actions-gap: initial; /* var(--spacing-2) */
+  --alert-actions-margin-top: initial; /* var(--spacing-2) */
   --alert-description-color: initial; /* var(--color-muted-foreground) */
   --alert-description-font-size: initial; /* var(--text-sm) */
   --alert-description-line-height: initial; /* var(--line-height-text-sm) */
@@ -200,7 +216,7 @@
   --alert-indicator-color: initial; /* var(--alert-indicator-color-default, currentColor) */
   --alert-indicator-offset: initial; /* 0.125rem */
   --alert-indicator-size: initial; /* 1rem */
-  --alert-padding: initial; /* var(--spacing-4) */
+  --alert-padding: initial; /* var(--spacing-3) */
   --alert-radius: initial; /* var(--radius-lg) */
   --alert-shadow: initial; /* none */
   --alert-title-color: initial; /* var(--alert-color, var(--alert-color-default)) */
@@ -361,6 +377,9 @@
   --card-padding: initial; /* var(--spacing-6) */
   --card-padding-lg: initial; /* var(--spacing-8) */
   --card-padding-sm: initial; /* var(--spacing-4) */
+  --card-spacing: initial; /* var(--card-padding, var(--spacing-6)) */
+  --card-spacing-lg: initial; /* var(--card-spacing, var(--card-padding-lg, var(--spacing-8))) */
+  --card-spacing-sm: initial; /* var(--card-spacing, var(--card-padding-sm, var(--spacing-4))) */
   --card-radius: initial; /* var(--radius-lg) */
   --card-shadow: initial; /* none */
   --card-title-color: initial; /* currentColor */
@@ -412,7 +431,7 @@
   /* Clipboard */
   --clipboard-color: initial; /* var(--color-foreground) */
   --clipboard-width: initial; /* 100% */
-  --clipboard-max-width: initial; /* 20rem */
+  --clipboard-max-width: initial; /* none */
   --clipboard-gap: initial; /* 0.375rem */
   --clipboard-control-gap: initial; /* var(--spacing-2) */
   --clipboard-label-color: initial; /* currentColor */
@@ -473,13 +492,15 @@
   --close-button-transition: initial; /* var(--transition-default) */
 
   /* Collapsible */
+  --collapsible-body-gap: initial; /* var(--spacing-2) */
+  --collapsible-body-padding: initial; /* var(--spacing-2) */
   --collapsible-color: initial; /* var(--color-foreground) */
   --collapsible-disabled-opacity: initial; /* var(--opacity-disabled) */
   --collapsible-focus-ring-color: initial; /* var(--color-ring) */
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
   --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
   --collapsible-max-width: initial; /* 100% */
-  --collapsible-indicator-open-transform: initial; /* rotate(90deg) */
+  --collapsible-indicator-open-transform: initial; /* rotate(180deg) */
   --collapsible-indicator-size: initial; /* 0.75rem */
   --collapsible-indicator-transition: initial; /* var(--transition-default) */
   --collapsible-content-closed-opacity: initial; /* 0.01 */
@@ -499,7 +520,7 @@
   --collapsible-trigger-padding-y: initial; /* var(--spacing-1) */
   --collapsible-trigger-radius: initial; /* 0 */
   --collapsible-trigger-transition: initial; /* var(--transition-default) */
-  --collapsible-width: initial; /* 14rem */
+  --collapsible-width: initial; /* 100% */
 
   /* Combobox */
   --combobox-action-bg: initial; /* transparent */
@@ -538,7 +559,9 @@
   --combobox-highlight-color: initial; /* var(--color-accent-foreground) */
   --combobox-icon-color: initial; /* var(--color-muted-foreground) */
   --combobox-icon-size: initial; /* 1rem */
-  --combobox-input-padding-x-end: initial; /* 4.25rem */
+  --combobox-input-padding-x-end: initial; /* 0.875rem */
+  --combobox-input-padding-x-end-with-clear: initial; /* 4.375rem */
+  --combobox-input-padding-x-end-with-trigger: initial; /* 2.75rem */
   --combobox-input-padding-x-start: initial; /* 0.875rem */
   --combobox-input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --combobox-invalid-color: initial; /* var(--color-destructive) */
@@ -635,6 +658,7 @@
   --color-picker-max-width: initial; /* 100% */
   --color-picker-radius: initial; /* var(--radius-md) */
   --color-picker-root-gap: initial; /* var(--spacing-2) */
+  --color-picker-sliders-gap: initial; /* var(--spacing-2) */
   --color-picker-swatch-border-color: initial; /* color-mix(in oklab, black 14%, transparent) */
   --color-picker-swatch-border-width: initial; /* var(--border-width-sm) */
   --color-picker-swatch-gap: initial; /* var(--spacing-2) */
@@ -652,6 +676,9 @@
   --color-picker-thumb-shadow: initial; /* var(--shadow-sm) */
   --color-picker-thumb-size: initial; /* 1rem */
   --color-picker-transition: initial; /* var(--transition-default) */
+  --color-picker-trigger-fit-content-gap: initial; /* var(--spacing-2) */
+  --color-picker-trigger-fit-content-padding-x: initial; /* var(--spacing-3) */
+  --color-picker-trigger-fit-content-swatch-size: initial; /* 1rem */
   --color-picker-trigger-padding: initial; /* var(--spacing-1) */
   --color-picker-trigger-size: initial; /* var(--size-lg) */
   --color-picker-value-text-color: initial; /* var(--color-picker-color) */
@@ -674,14 +701,7 @@
   --command-palette-clear-bg-hover: initial; /* var(--color-accent) */
   --command-palette-clear-radius: initial; /* var(--radius-md) */
   --command-palette-clear-size: initial; /* var(--size-sm) */
-  --command-palette-close-icon-bg: initial; /* transparent */
-  --command-palette-close-icon-color: initial; /* var(--command-palette-muted-color, var(--color-muted-foreground)) */
-  --command-palette-close-icon-glyph-size: initial; /* var(--command-palette-icon-size, 1rem) */
-  --command-palette-close-icon-radius: initial; /* var(--command-palette-clear-radius, var(--radius-md)) */
-  --command-palette-close-icon-size: initial; /* var(--command-palette-clear-size, var(--size-sm)) */
-  --command-palette-close-offset: initial; /* var(--spacing-3) */
   --command-palette-color: initial; /* var(--color-popover-foreground) */
-  --command-palette-content-gap: initial; /* var(--spacing-3) */
   --command-palette-content-ending-opacity: initial; /* 0 */
   --command-palette-content-ending-scale: initial; /* var(--scale-popup) */
   --command-palette-content-ending-translate-x: initial; /* 0 */
@@ -690,8 +710,11 @@
   --command-palette-content-starting-scale: initial; /* var(--scale-popup) */
   --command-palette-content-starting-translate-x: initial; /* 0 */
   --command-palette-content-starting-translate-y: initial; /* -0.75rem */
-  --command-palette-control-padding-x: initial; /* var(--spacing-4) */
-  --command-palette-control-padding-y: initial; /* var(--spacing-3) */
+  --command-palette-control-margin-bottom: initial; /* var(--spacing-2) */
+  --command-palette-control-margin-x: initial; /* var(--spacing-4) */
+  --command-palette-control-margin-y: initial; /* var(--spacing-2) */
+  --command-palette-control-padding-x: initial; /* var(--spacing-3) */
+  --command-palette-control-padding-y: initial; /* var(--spacing-1) */
   --command-palette-divider-color: initial; /* var(--color-border) */
   --command-palette-divider-width: initial; /* var(--border-width-sm) */
   --command-palette-description-color: initial; /* var(--color-muted-foreground) */
@@ -717,18 +740,23 @@
   --command-palette-group-label-padding-y: initial; /* var(--spacing-1) */
   --command-palette-group-padding-bottom: initial; /* var(--spacing-2) */
   --command-palette-header-gap: initial; /* var(--spacing-1) */
-  --command-palette-header-padding-inline-end: initial; /* calc(var(--command-palette-header-padding-x, var(--spacing-4)) + var(--command-palette-close-icon-size, var(--command-palette-clear-size, var(--size-sm))) + var(--spacing-3)) */
   --command-palette-header-padding-x: initial; /* var(--spacing-4) */
   --command-palette-header-padding-y: initial; /* var(--spacing-4) */
   --command-palette-highlight-bg: initial; /* var(--color-accent) */
   --command-palette-highlight-color: initial; /* var(--color-foreground) */
   --command-palette-icon-size: initial; /* 1rem */
-  --command-palette-input-control-height: initial; /* var(--size-md) */
-  --command-palette-input-font-size: initial; /* var(--text-lg) */
+  --command-palette-input-bg: initial; /* var(--color-background) */
+  --command-palette-input-border-color: initial; /* var(--color-border) */
+  --command-palette-input-border-color-invalid: initial; /* var(--color-destructive) */
+  --command-palette-input-border-width: initial; /* var(--border-width-sm) */
+  --command-palette-input-color: initial; /* var(--color-foreground) */
+  --command-palette-input-control-height: initial; /* var(--size-sm) */
+  --command-palette-input-font-size: initial; /* var(--text-sm) */
   --command-palette-input-gap: initial; /* var(--spacing-2) */
-  --command-palette-input-height: initial; /* 4rem */
-  --command-palette-input-line-height: initial; /* var(--line-height-text-lg) */
+  --command-palette-input-height: initial; /* var(--size-md) */
+  --command-palette-input-line-height: initial; /* var(--line-height-text-sm) */
   --command-palette-input-placeholder-color: initial; /* var(--color-muted-foreground) */
+  --command-palette-input-radius: initial; /* var(--radius-md) */
   --command-palette-item-color: initial; /* var(--command-palette-color) */
   --command-palette-item-description-font-size: initial; /* var(--text-xs) */
   --command-palette-item-description-line-height: initial; /* var(--line-height-text-xs) */
@@ -814,6 +842,7 @@
   --date-input-border-width: initial; /* var(--border-width-sm) */
   --date-input-color: initial; /* var(--color-foreground) */
   --date-input-control-height: initial; /* var(--size-lg) */
+  --date-input-control-width: initial; /* 100% */
   --date-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --date-input-focus-ring-color: initial; /* var(--color-ring) */
   --date-input-focus-ring-offset: initial; /* -1px */
@@ -839,7 +868,7 @@
   --date-input-segment-radius: initial; /* var(--radius-sm) */
   --date-input-separator-color: initial; /* var(--color-muted-foreground) */
   --date-input-transition: initial; /* var(--transition-default) */
-  --date-input-width: initial; /* auto */
+  --date-input-width: initial; /* 100% */
 
   /* DatePicker */
   --date-picker-action-bg: initial; /* transparent */
@@ -1216,7 +1245,7 @@
   --file-upload-item-preview-min-height: initial; /* 3rem */
   --file-upload-item-preview-padding-y: initial; /* var(--spacing-2) */
   --file-upload-item-preview-radius: initial; /* var(--radius-sm) */
-  --file-upload-item-preview-size: initial; /* 2rem */
+  --file-upload-item-preview-size: initial; /* var(--spacing-10) */
   --file-upload-item-radius: initial; /* var(--radius-md) */
   --file-upload-item-row-gap: initial; /* var(--spacing-1) */
   --file-upload-item-size-color: initial; /* var(--color-muted-foreground) */
@@ -1415,6 +1444,9 @@
   --highlight-padding-y: initial; /* 0.0625rem */
   --highlight-radius: initial; /* var(--radius-xs) */
   --highlight-shadow: initial; /* none */
+
+  /* Image */
+  --image-radius: initial; /* var(--radius-md) */
 
   /* ImageCropper */
   --image-cropper-border-color: initial; /* var(--color-border) */
@@ -1691,6 +1723,16 @@
   --listbox-empty-line-height: initial; /* var(--line-height-text-sm) */
   --listbox-empty-padding-x: initial; /* var(--spacing-3) */
   --listbox-empty-padding-y: initial; /* var(--spacing-3) */
+  --listbox-filter-action-bg: initial; /* transparent */
+  --listbox-filter-action-bg-hover: initial; /* var(--color-muted) */
+  --listbox-filter-action-color-hover: initial; /* var(--color-foreground) */
+  --listbox-filter-action-radius: initial; /* var(--radius-sm) */
+  --listbox-filter-action-size: initial; /* 1.5rem */
+  --listbox-filter-height: initial; /* var(--listbox-input-height, var(--size-lg)) */
+  --listbox-filter-icon-color: initial; /* var(--color-muted-foreground) */
+  --listbox-filter-icon-size: initial; /* 1rem */
+  --listbox-filter-input-padding-x: initial; /* var(--spacing-2) */
+  --listbox-filter-padding-x: initial; /* var(--spacing-3) */
   --listbox-focus-ring-color: initial; /* var(--color-ring) */
   --listbox-focus-ring-width: initial; /* var(--border-width-sm) */
   --listbox-grid-gap: initial; /* var(--spacing-1) */
@@ -2225,9 +2267,9 @@
   --rating-group-active-color: initial; /* var(--color-primary) */
   --rating-group-color: initial; /* var(--color-muted-foreground) */
   --rating-group-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --rating-group-focus-ring-color: initial; /* var(--color-ring) */
-  --rating-group-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --rating-group-focus-ring-width: initial; /* var(--border-width-sm) */
+  --rating-group-focus-ring-color: initial; /* transparent */
+  --rating-group-focus-ring-offset: initial; /* 0 */
+  --rating-group-focus-ring-width: initial; /* 0 */
   --rating-group-gap: initial; /* var(--spacing-1) */
   --rating-group-root-gap: initial; /* var(--spacing-1) */
   --rating-group-icon-size-xs: initial; /* 0.875rem */
@@ -2264,6 +2306,7 @@
   --scroll-area-scrollbar-visible-opacity: initial; /* 1 */
   --scroll-area-thumb-bg: initial; /* var(--color-border) */
   --scroll-area-thumb-hover-increase: initial; /* 2px */
+  --scroll-area-thumb-hover-transition: initial; /* var(--transition-fast) */
   --scroll-area-thumb-min-size: initial; /* 1.5rem */
   --scroll-area-thumb-radius: initial; /* var(--radius-full) */
   --scroll-area-transition: initial; /* var(--transition-default) */
@@ -2378,6 +2421,7 @@
   --sidebar-group-label-line-height: initial; /* var(--line-height-text-xs) */
   --sidebar-group-label-padding-x: initial; /* var(--spacing-2) */
   --sidebar-group-label-text-transform: initial; /* none */
+  --sidebar-group-action-size: initial; /* 1.5rem */
   --sidebar-group-padding: initial; /* var(--spacing-3) */
   --sidebar-header-footer-padding: initial; /* var(--spacing-3) */
   --sidebar-height: initial; /* 100dvh */
@@ -2396,6 +2440,9 @@
   --sidebar-menu-button-padding-y: initial; /* var(--spacing-1) */
   --sidebar-menu-button-radius: initial; /* var(--radius-md) */
   --sidebar-menu-gap: initial; /* var(--spacing-1) */
+  --sidebar-menu-action-size: initial; /* 1.5rem */
+  --sidebar-menu-badge-min-width: initial; /* 1.5rem */
+  --sidebar-menu-badge-padding-x: initial; /* var(--spacing-1) */
   --sidebar-menu-sub-border-width: initial; /* var(--border-width-sm) */
   --sidebar-menu-sub-button-font-size: initial; /* var(--text-sm) */
   --sidebar-menu-sub-button-gap: initial; /* var(--spacing-2) */
@@ -2446,20 +2493,21 @@
   --splitter-resize-trigger-indicator-bg-dragging: initial; /* var(--splitter-resize-trigger-indicator-bg, var(--color-background)) */
   --splitter-resize-trigger-indicator-border-color: initial; /* var(--color-border) */
   --splitter-resize-trigger-indicator-border-color-dragging: initial; /* var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) */
+  --splitter-resize-trigger-indicator-border-color-hover: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
   --splitter-resize-trigger-indicator-border-width: initial; /* var(--border-width-sm) */
   --splitter-resize-trigger-indicator-height: initial; /* 1.5rem */
   --splitter-resize-trigger-indicator-radius: initial; /* var(--radius-full) */
   --splitter-resize-trigger-indicator-shadow: initial; /* var(--shadow-sm) */
   --splitter-resize-trigger-indicator-shadow-dragging: initial; /* var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm)) */
-  --splitter-resize-trigger-indicator-shadow-focus: initial; /* var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm)) */
+  --splitter-resize-trigger-indicator-shadow-hover: initial; /* var(--shadow-md) */
   --splitter-resize-trigger-indicator-width: initial; /* 0.375rem */
   --splitter-resize-trigger-line-color: initial; /* var(--color-border) */
   --splitter-resize-trigger-line-color-dragging: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
-  --splitter-resize-trigger-line-color-focus: initial; /* var(--splitter-resize-trigger-line-color, var(--color-border)) */
   --splitter-resize-trigger-line-color-hover: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
   --splitter-resize-trigger-line-length: initial; /* 100% */
   --splitter-resize-trigger-line-radius: initial; /* var(--radius-full) */
   --splitter-resize-trigger-line-size: initial; /* 1px */
+  --splitter-resize-trigger-line-thickness: initial; /* 0.5px */
   --splitter-resize-trigger-size: initial; /* 0.625rem */
   --splitter-shadow: initial; /* var(--shadow-sm) */
   --splitter-transition: initial; /* var(--transition-default) */
@@ -2748,6 +2796,13 @@
   --switch-width-lg: initial; /* 3.25rem */
   --switch-width-xl: initial; /* 3.75rem */
 
+  /* Swap */
+  --swap-enter-starting-opacity: initial; /* 0 */
+  --swap-enter-starting-scale: initial; /* 0.92 */
+  --swap-exit-ending-opacity: initial; /* 0 */
+  --swap-exit-ending-scale: initial; /* 0.92 */
+  --swap-transition: initial; /* var(--transition-default) */
+
   /* Tag */
   --tag-bg: initial; /* var(--color-primary) */
   --tag-border-color: initial; /* transparent */
@@ -2771,7 +2826,6 @@
   --tag-close-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --tag-close-trigger-focus-ring-color: initial; /* var(--color-ring) */
   --tag-close-trigger-focus-ring-offset: initial; /* 0 */
-  --tag-close-trigger-focus-ring-offset-color: initial; /* transparent */
   --tag-close-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
   --tag-close-trigger-icon-size: initial; /* 0.625rem */
   --tag-close-trigger-radius: initial; /* var(--radius-full) */
@@ -3202,8 +3256,8 @@
   --tour-close-trigger-bg-hover: initial; /* var(--color-accent) */
   --tour-close-trigger-color: initial; /* var(--color-muted-foreground) */
   --tour-close-trigger-color-hover: initial; /* var(--tour-color, var(--color-popover-foreground)) */
-  --tour-close-trigger-icon-size: initial; /* 0.875rem */
-  --tour-close-trigger-offset: initial; /* var(--spacing-2) */
+  --tour-close-trigger-icon-size: initial; /* 0.75rem */
+  --tour-close-trigger-offset: initial; /* var(--spacing-4) */
   --tour-close-trigger-radius: initial; /* var(--radius-md) */
   --tour-close-trigger-size: initial; /* 1.75rem */
   --tour-color: initial; /* var(--color-popover-foreground) */
@@ -3254,13 +3308,13 @@
   --toggle-border-width: initial; /* var(--border-width-sm) */
   --toggle-color: initial; /* var(--color-foreground) */
   --toggle-content-gap: initial; /* var(--spacing-2) */
-  --toggle-default-bg: initial; /* var(--color-background) */
+  --toggle-default-bg: initial; /* var(--color-secondary) */
   --toggle-default-bg-active: initial; /* var(--color-accent) */
   --toggle-default-bg-hover: initial; /* var(--color-accent) */
   --toggle-default-bg-pressed: initial; /* var(--color-primary) */
-  --toggle-default-border-color: initial; /* var(--color-border) */
+  --toggle-default-border-color: initial; /* var(--color-secondary) */
   --toggle-default-border-color-pressed: initial; /* var(--color-primary) */
-  --toggle-default-color: initial; /* var(--color-foreground) */
+  --toggle-default-color: initial; /* var(--color-secondary-foreground) */
   --toggle-default-color-pressed: initial; /* var(--color-primary-foreground) */
   --toggle-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toggle-focus-ring-color: initial; /* var(--color-ring) */

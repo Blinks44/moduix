@@ -1,1 +1,1 @@
-export { Toggle } from './Toggle';
+export { Toggle, useToggleContext } from './Toggle';

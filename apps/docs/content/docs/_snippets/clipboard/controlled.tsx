@@ -13,8 +13,9 @@ export function ControlledClipboardDemo() {
       <Clipboard.Label>Share URL</Clipboard.Label>
       <Clipboard.Control>
         <Clipboard.Input />
-        <Clipboard.Trigger aria-label="Copy URL">
+        <Clipboard.Trigger>
           <Clipboard.Indicator />
+          <Clipboard.CopyText />
         </Clipboard.Trigger>
       </Clipboard.Control>
     </Clipboard>

@@ -2,8 +2,7 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { useListbox } from '@ark-ui/react/listbox';
-import { Button, Listbox } from '@moduix/react';
+import { Button, Listbox, useListbox } from '@moduix/react';
 
 const priorities = createListCollection({
   items: [

@@ -8,6 +8,7 @@ import styles from './Button.module.css';
 const ButtonRoot = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
+    loading?: boolean;
     variant?:
       | 'default'
       | 'outline'
@@ -17,6 +18,8 @@ const ButtonRoot = forwardRef<
       | 'ghost'
       | 'link';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon-md' | 'icon-lg';
+    'data-scope'?: string;
+    'data-part'?: string;
     'data-slot'?: string;
   }
 >(function ButtonRoot(
@@ -24,31 +27,41 @@ const ButtonRoot = forwardRef<
     asChild,
     className,
     disabled,
+    loading = false,
     size = 'md',
     type,
+    'data-scope': dataScope = 'button',
+    'data-part': dataPart = 'root',
     'data-slot': dataSlot,
     variant = 'default',
+    'aria-busy': ariaBusy,
     'aria-disabled': ariaDisabled,
     ...props
   },
   ref,
 ) {
-  const isDisabled = disabled || ariaDisabled === true || ariaDisabled === 'true';
+  const nativeDisabled = asChild ? undefined : loading || disabled;
+  const resolvedAriaBusy = loading ? true : ariaBusy;
+  const resolvedAriaDisabled = loading ? true : ariaDisabled;
+  const isDisabled =
+    disabled || loading || resolvedAriaDisabled === true || resolvedAriaDisabled === 'true';
 
   return (
     <ark.button
       ref={ref}
       asChild={asChild}
       type={asChild ? type : (type ?? 'button')}
-      disabled={disabled}
-      aria-disabled={ariaDisabled}
+      disabled={nativeDisabled}
+      aria-busy={resolvedAriaBusy}
+      aria-disabled={resolvedAriaDisabled}
       {...props}
-      data-scope="button"
-      data-part="root"
+      data-scope={dataScope}
+      data-part={dataPart}
       data-slot={dataSlot ?? 'button-root'}
       data-variant={variant}
       data-size={size}
       data-disabled={isDisabled ? '' : undefined}
+      data-loading={loading ? '' : undefined}
       className={clsx(styles.root, normalizeClassName(className))}
     />
   );

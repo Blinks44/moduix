@@ -31,6 +31,7 @@ const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRo
     <ark.span
       ref={ref}
       asChild={asChild}
+      {...props}
       data-scope="spinner"
       data-part="root"
       data-slot="spinner-root"
@@ -40,7 +41,6 @@ const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRo
       aria-label={accessibleLabel}
       aria-labelledby={decorative ? undefined : ariaLabelledBy}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     >
       {asChild ? (
         children

@@ -13,10 +13,3 @@
 
   max-width: 32rem;
 }
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  margin-block-start: var(--spacing-2);
-  gap: var(--spacing-2);
-}

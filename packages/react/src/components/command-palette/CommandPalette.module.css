@@ -71,21 +71,7 @@
   }
 
   .content {
-    --command-palette-close-icon-size-effective: var(
-      --command-palette-close-icon-size,
-      var(--command-palette-clear-size, var(--size-sm))
-    );
-    --command-palette-close-offset-effective: var(--command-palette-close-offset, var(--spacing-3));
-    --command-palette-header-padding-inline-end-effective: var(
-      --command-palette-header-padding-inline-end,
-      calc(
-        var(--command-palette-header-padding-x, var(--spacing-4)) +
-          var(--command-palette-close-icon-size-effective) +
-          var(--command-palette-close-offset-effective)
-      )
-    );
     box-sizing: border-box;
-    position: relative;
     display: flex;
     width: min(
       var(--command-palette-width, 37.5rem),
@@ -109,12 +95,20 @@
 
     &[data-state='open'] {
       animation: command-palette-content-in
-        var(--command-palette-transition, var(--transition-default));
+        var(
+          --command-palette-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
 
     &[data-state='closed'] {
       animation: command-palette-content-out
-        var(--command-palette-transition, var(--transition-default));
+        var(
+          --command-palette-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
       animation-fill-mode: forwards;
     }
   }
@@ -124,7 +118,6 @@
     gap: var(--command-palette-header-gap, var(--spacing-1));
     padding: var(--command-palette-header-padding-y, var(--spacing-4))
       var(--command-palette-header-padding-x, var(--spacing-4)) 0;
-    padding-inline-end: var(--command-palette-header-padding-inline-end-effective);
   }
 
   .title {
@@ -145,69 +138,23 @@
     line-height: var(--command-palette-description-line-height, var(--line-height-text-sm));
   }
 
-  .closeTrigger,
   .clearTrigger {
-    box-sizing: border-box;
-    display: inline-flex;
-    width: var(--command-palette-clear-size, var(--size-sm));
-    height: var(--command-palette-clear-size, var(--size-sm));
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    border: 0;
-    border-radius: var(--command-palette-clear-radius, var(--radius-md));
-    padding: 0;
-    background: transparent;
-    color: var(--command-palette-muted-color, var(--color-muted-foreground));
-    cursor: pointer;
-    transition:
-      background-color var(--transition-default),
-      color var(--transition-default);
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--command-palette-clear-bg-hover, var(--color-accent));
-        color: var(--command-palette-color, var(--color-popover-foreground));
-      }
-    }
-
-    &:focus-visible {
-      outline: var(--command-palette-focus-ring-width, var(--border-width-sm)) solid
-        var(--command-palette-focus-ring-color, var(--color-ring));
-      outline-offset: var(--command-palette-focus-ring-offset, var(--border-width-sm));
-    }
-  }
-
-  .closeTrigger {
-    position: absolute;
-    top: var(--command-palette-close-offset-effective);
-    right: var(--command-palette-close-offset-effective);
-    z-index: 1;
-  }
-
-  .closeIcon {
-    --close-button-size: var(--command-palette-close-icon-size-effective);
-    --close-button-radius: var(
-      --command-palette-close-icon-radius,
-      var(--command-palette-clear-radius, var(--radius-md))
-    );
-    --close-button-icon-size: var(
-      --command-palette-close-icon-glyph-size,
-      var(--command-palette-icon-size, 1rem)
-    );
-    --close-button-bg: var(--command-palette-close-icon-bg, transparent);
+    --close-button-size: var(--command-palette-clear-size, var(--size-sm));
+    --close-button-radius: var(--command-palette-clear-radius, var(--radius-md));
+    --close-button-icon-size: var(--command-palette-icon-size, 1rem);
+    --close-button-bg: transparent;
     --close-button-bg-hover: var(--command-palette-clear-bg-hover, var(--color-accent));
-    --close-button-color: var(
-      --command-palette-close-icon-color,
-      var(--command-palette-muted-color, var(--color-muted-foreground))
-    );
+    --close-button-color: var(--command-palette-muted-color, var(--color-muted-foreground));
     --close-button-color-hover: var(--command-palette-color, var(--color-popover-foreground));
+    --close-button-focus-ring-width: var(
+      --command-palette-focus-ring-width,
+      var(--border-width-sm)
+    );
     --close-button-focus-ring-color: var(--command-palette-focus-ring-color, var(--color-ring));
-    position: absolute;
-    top: var(--command-palette-close-offset-effective);
-    right: var(--command-palette-close-offset-effective);
-    z-index: 1;
+    --close-button-focus-ring-offset: var(
+      --command-palette-focus-ring-offset,
+      var(--border-width-sm)
+    );
   }
 
   .body {
@@ -237,26 +184,39 @@
     flex: 0 0 auto;
     align-items: center;
     gap: var(--command-palette-input-gap, var(--spacing-2));
-    min-height: var(--command-palette-input-height, 4rem);
-    padding: var(--command-palette-control-padding-y, var(--spacing-3))
-      var(--command-palette-control-padding-x, var(--spacing-4));
-    border-bottom: var(--command-palette-divider-width, var(--border-width-sm)) solid
-      var(--command-palette-divider-color, var(--color-border));
+    min-height: var(--command-palette-input-height, var(--size-md));
+    margin: var(--command-palette-control-margin-y, var(--spacing-2))
+      var(--command-palette-control-margin-x, var(--spacing-4))
+      var(--command-palette-control-margin-bottom, var(--spacing-2));
+    border: var(--command-palette-input-border-width, var(--border-width-sm)) solid
+      var(--command-palette-input-border-color, var(--color-border));
+    border-radius: var(--command-palette-input-radius, var(--radius-md));
+    padding: var(--command-palette-control-padding-y, var(--spacing-1))
+      var(--command-palette-control-padding-x, var(--spacing-3));
+    background-color: var(--command-palette-input-bg, var(--color-background));
+    color: var(--command-palette-input-color, var(--color-foreground));
+    transition:
+      background-color var(--transition-default),
+      border-color var(--transition-default);
+
+    &:has(.input:is([data-invalid], [aria-invalid='true'])) {
+      border-color: var(--command-palette-input-border-color-invalid, var(--color-destructive));
+    }
   }
 
   .input {
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--command-palette-input-control-height, var(--size-md));
+    height: var(--command-palette-input-control-height, var(--size-sm));
     margin: 0;
     border: 0;
     padding: 0;
     background: transparent;
     color: inherit;
     font: inherit;
-    font-size: var(--command-palette-input-font-size, var(--text-lg));
-    line-height: var(--command-palette-input-line-height, var(--line-height-text-lg));
+    font-size: var(--command-palette-input-font-size, var(--text-sm));
+    line-height: var(--command-palette-input-line-height, var(--line-height-text-sm));
     outline: 0;
 
     &::placeholder {
@@ -506,19 +466,40 @@
 
   @keyframes command-palette-content-in {
     from {
-      opacity: var(--command-palette-content-starting-opacity, 0);
-      translate: var(--command-palette-content-starting-translate-x, 0)
-        var(--command-palette-content-starting-translate-y, -0.75rem);
-      scale: var(--command-palette-content-starting-scale, var(--scale-popup));
+      opacity: var(
+        --command-palette-content-starting-opacity,
+        var(--popup-motion-starting-opacity, 0)
+      );
+      translate: var(
+          --command-palette-content-starting-translate-x,
+          var(--popup-motion-starting-translate-x, 0)
+        )
+        var(
+          --command-palette-content-starting-translate-y,
+          var(--popup-motion-starting-translate-y, -0.75rem)
+        );
+      scale: var(
+        --command-palette-content-starting-scale,
+        var(--popup-motion-starting-scale, var(--scale-popup))
+      );
     }
   }
 
   @keyframes command-palette-content-out {
     to {
-      opacity: var(--command-palette-content-ending-opacity, 0);
-      translate: var(--command-palette-content-ending-translate-x, 0)
-        var(--command-palette-content-ending-translate-y, -0.75rem);
-      scale: var(--command-palette-content-ending-scale, var(--scale-popup));
+      opacity: var(--command-palette-content-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(
+          --command-palette-content-ending-translate-x,
+          var(--popup-motion-ending-translate-x, 0)
+        )
+        var(
+          --command-palette-content-ending-translate-y,
+          var(--popup-motion-ending-translate-y, -0.75rem)
+        );
+      scale: var(
+        --command-palette-content-ending-scale,
+        var(--popup-motion-ending-scale, var(--scale-popup))
+      );
     }
   }
 }

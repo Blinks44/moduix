@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: var(--clipboard-gap, 0.375rem);
     width: var(--clipboard-width, 100%);
-    max-width: var(--clipboard-max-width, 20rem);
+    max-width: var(--clipboard-max-width, none);
     color: var(--clipboard-color, var(--color-foreground));
   }
 

@@ -4,7 +4,7 @@ description: Shared design tokens and global CSS variables used across moduix co
 icon: Palette
 ---
 
-import { TokensOverview } from '@/components/tokens-overview';
+import { TokensOverview } from '@/components/docs/tokens-overview';
 
 # Tokens
 
@@ -24,25 +24,28 @@ The reset stays optional in both paths. Import `@moduix/react/reset.css` or
 Some variables intentionally sit above individual components. Changing them updates multiple
 components at once until a component-specific `--<component>-*` variable overrides the fallback.
 
-| Variable group                                                                           | What it changes                       | Common consumers                                                          |
-| ---------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------- |
-| <code>--backdrop-bg</code><br /><code>--backdrop-filter</code>                           | Default backdrop color and blur       | Combobox, CommandPalette, Dialog, Drawer, Lightbox, Menu, Popover, Select |
-| <code>--duration-\*</code><br /><code>--ease-\*</code><br /><code>--transition-\*</code> | Shared motion timing and easing       | Controls, overlays, tabs, accordions, inputs, toasts                      |
-| <code>--scale-popup</code><br /><code>--scale-dropdown</code>                            | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, Select, Combobox                   |
-| <code>--popup-\*</code>                                                                  | Shared popup list density and spacing | Menu, Select, Combobox, CommandPalette                                    |
+| Variable group                                                                           | What it changes                       | Common consumers                                                                |
+| ---------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
+| <code>--backdrop-bg</code><br /><code>--backdrop-filter</code>                           | Default backdrop color and blur       | Command Palette, Dialog, Drawer, Lightbox, Tour                                 |
+| <code>--duration-\*</code><br /><code>--ease-\*</code><br /><code>--transition-\*</code> | Shared motion timing and easing       | Controls, overlays, tabs, accordions, inputs, toasts                            |
+| <code>--popup-motion-\*</code>                                                           | Popup content timing and phase motion | Popover, Menu, Tooltip, Hover Card, Floating Panel, modal surfaces, and pickers |
+| <code>--scale-popup</code><br /><code>--scale-dropdown</code>                            | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, Select, Combobox                         |
+| <code>--popup-\*</code>                                                                  | Shared popup list density and spacing | Menu, Select, Combobox, CommandPalette                                          |
 
 Use these tokens when you want a broad visual shift across the system. Use component-specific
 tokens like `--dialog-backdrop-bg` or `--popover-transition` when a single component should opt out.
 
 The quick table above is the cross-component index. The detailed overview below keeps the same
 tokens in their native sections: motion in `Motion`, scale in `Elevation & Layers`, and shared
-backdrop/popup defaults in `Shared Component Defaults`.
+backdrop, popup, and popup-motion defaults in `Shared Component Defaults`.
 
 ```css
 :root {
   --backdrop-bg: oklch(0.12 0.03 250 / 0.34);
   --transition-default: 240ms cubic-bezier(0.22, 1, 0.36, 1);
   --scale-popup: 0.96;
+  --popup-motion-duration: 220ms;
+  --popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .command-surface {
@@ -54,8 +57,9 @@ backdrop/popup defaults in `Shared Component Defaults`.
 
 ## Override Scope
 
-Set tokens globally in `:root`, inside `.dark`, or on any parent container that wraps moduix
-components.
+Set project-wide tokens in `:root`. A value on `.dark` or another parent container inherits only
+into components rendered below that element; default portalled overlays need the value on the
+document root, `body`, or a portal container in that scope.
 
 ```css
 :root {

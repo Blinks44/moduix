@@ -17,9 +17,7 @@ export function WithinFixedTooltipDemo() {
         }}
       >
         <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Positioned from a fixed container.</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
       </Tooltip>
     </div>
   );

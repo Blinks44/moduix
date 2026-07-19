@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { ComponentRef, CSSProperties } from 'react';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentRef, CSSProperties, Ref } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Text.module.css';
@@ -30,7 +30,7 @@ type TextProps = HTMLArkProps<'p'> & {
   lineClamp?: number;
 };
 
-const TextRoot = forwardRef<ComponentRef<typeof ark.p>, TextProps>(function TextRoot(
+const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
   {
     as,
     asChild,
@@ -56,7 +56,7 @@ const TextRoot = forwardRef<ComponentRef<typeof ark.p>, TextProps>(function Text
 
   return (
     <Element
-      ref={ref}
+      ref={ref as Ref<ComponentRef<typeof ark.p>>}
       asChild={asChild}
       {...props}
       data-scope="text"

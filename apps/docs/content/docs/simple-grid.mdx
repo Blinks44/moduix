@@ -1,5 +1,5 @@
 ---
-title: SimpleGrid
+title: Simple Grid
 description: An Ark-aligned equal-column grid that can adapt automatically to its available width.
 icon: Component
 ---
@@ -48,7 +48,7 @@ internally.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-simple-grid" />
+<ShadcnInstall packageName="simple-grid" />
 
 ## Anatomy
 
@@ -99,7 +99,7 @@ when `grid-template-columns` is owned by the stylesheet.
 
 ### Behavioral notes
 
-- `columns` and `minChildWidth` are mutually exclusive.
+- When both layout props are provided, `minChildWidth` takes priority over `columns`.
 - `columns={3}` creates three equal tracks with no child wrappers.
 - `minChildWidth={160}` creates as many tracks as fit and treats the number as `160px`.
 - The auto-fit mode guards against overflow when the grid becomes narrower than

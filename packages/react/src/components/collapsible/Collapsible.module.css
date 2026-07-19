@@ -30,7 +30,7 @@
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--collapsible-width, 14rem);
+    width: var(--collapsible-width, 100%);
     max-width: var(--collapsible-max-width, 100%);
     min-width: 0;
     flex-direction: column;
@@ -108,7 +108,7 @@
     }
 
     &[data-state='open'] {
-      transform: var(--collapsible-indicator-open-transform, rotate(90deg));
+      transform: var(--collapsible-indicator-open-transform, rotate(180deg));
     }
 
     &[data-disabled] {
@@ -142,5 +142,12 @@
         --collapsible-content-closed-opacity: var(--collapsible-content-open-opacity, 1);
       }
     }
+  }
+
+  .body {
+    display: grid;
+    gap: var(--collapsible-body-gap, var(--spacing-2));
+    min-width: 0;
+    padding: var(--collapsible-body-padding, var(--spacing-2));
   }
 }

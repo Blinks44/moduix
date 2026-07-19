@@ -34,7 +34,7 @@ styles only the matched ranges; it does not render a wrapper element around the 
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-highlight" />
+<ShadcnInstall packageName="highlight" />
 
 ## Anatomy
 
@@ -59,9 +59,9 @@ container. It is equivalent to `<Highlight.Root>`.
 
 ### When to go custom
 
-Stay on the moduix component when repeated `<mark>` styling is enough. Drop to Ark's
-`useHighlight` utility directly when you need chunk-by-chunk rendering or a different element per
-match instead of native `<mark>`.
+`Highlight` intentionally renders native `<mark>` elements for matched ranges and does not expose a
+chunk renderer. When a different element or per-match rendering is required, compose that markup
+directly instead of adding a second rendering API to `Highlight`.
 
 ### Default props
 
@@ -95,15 +95,15 @@ Control the query from React state when users are filtering or searching visible
   </Preview.Code>
 </Preview>
 
-### Multiple Queries
+### Exact Match
 
-Pass a string array when several search terms should be highlighted in one pass.
+Enable `exactMatch` when partial-word hits are too noisy for the current search flow.
 
 <Preview>
-  <HighlightDocs.HighlightMultipleQueriesExample />
+  <HighlightDocs.HighlightExactMatchExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/highlight/multiple-queries.tsx#demo</include>
+    <include lang="tsx">./_snippets/highlight/exact-match.tsx#demo</include>
   </Preview.Code>
 </Preview>
 
@@ -131,15 +131,15 @@ Use `matchAll` when every occurrence should stay visible instead of highlighting
   </Preview.Code>
 </Preview>
 
-### Exact Match
+### Multiple Queries
 
-Enable `exactMatch` when partial-word hits are too noisy for the current search flow.
+Pass a string array when several search terms should be highlighted in one pass.
 
 <Preview>
-  <HighlightDocs.HighlightExactMatchExample />
+  <HighlightDocs.HighlightMultipleQueriesExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/highlight/exact-match.tsx#demo</include>
+    <include lang="tsx">./_snippets/highlight/multiple-queries.tsx#demo</include>
   </Preview.Code>
 </Preview>
 

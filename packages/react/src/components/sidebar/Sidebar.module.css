@@ -17,6 +17,7 @@
   }
 
   .panel {
+    position: relative;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -39,7 +40,8 @@
       }
 
       .content {
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
         scrollbar-gutter: auto;
         scrollbar-width: none;
       }
@@ -58,6 +60,12 @@
       }
 
       .menuSub {
+        display: none;
+      }
+
+      .groupAction,
+      .menuAction,
+      .menuBadge {
         display: none;
       }
 
@@ -203,7 +211,6 @@
   }
 
   .group {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--sidebar-group-gap, var(--spacing-1));
@@ -219,6 +226,67 @@
     font-weight: var(--sidebar-group-label-font-weight, var(--weight-medium));
     line-height: var(--sidebar-group-label-line-height, var(--line-height-text-xs));
     text-transform: var(--sidebar-group-label-text-transform, none);
+  }
+
+  .groupAction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--sidebar-group-action-size, 1.5rem);
+    height: var(--sidebar-group-action-size, 1.5rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--sidebar-menu-button-radius, var(--radius-md));
+    background-color: transparent;
+    color: var(--sidebar-muted-color, var(--color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--sidebar-transition, var(--transition-default)),
+      color var(--sidebar-transition, var(--transition-default));
+
+    > svg {
+      width: var(--sidebar-icon-size, 1rem);
+      height: var(--sidebar-icon-size, 1rem);
+    }
+
+    &:focus-visible {
+      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
+        var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--sidebar-accent-bg, var(--color-accent));
+        color: var(--sidebar-accent-color, var(--color-accent-foreground));
+      }
+    }
+  }
+
+  .group:has(.groupAction) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--sidebar-gap, var(--spacing-2));
+    row-gap: var(--sidebar-group-gap, var(--spacing-1));
+  }
+
+  .group:has(.groupAction) .groupLabel {
+    grid-column: 1;
+  }
+
+  .group:has(.groupAction) .groupAction {
+    grid-column: 2;
+    align-self: center;
+  }
+
+  .groupContent {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .group:has(.groupAction) .groupContent {
+    grid-column: 1 / -1;
   }
 
   .menu,
@@ -330,7 +398,88 @@
     justify-content: flex-start;
   }
 
+  .menuAction {
+    position: absolute;
+    inset-block-start: calc(
+      (var(--sidebar-menu-button-height, var(--size-md)) - var(--sidebar-menu-action-size, 1.5rem)) /
+        2
+    );
+    inset-inline-end: var(--sidebar-menu-button-padding-x, var(--spacing-2));
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--sidebar-menu-action-size, 1.5rem);
+    height: var(--sidebar-menu-action-size, 1.5rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--sidebar-menu-button-radius, var(--radius-md));
+    background-color: transparent;
+    color: var(--sidebar-muted-color, var(--color-muted-foreground));
+    appearance: none;
+    cursor: pointer;
+    transition:
+      background-color var(--sidebar-transition, var(--transition-default)),
+      color var(--sidebar-transition, var(--transition-default));
+
+    > svg {
+      width: var(--sidebar-icon-size, 1rem);
+      height: var(--sidebar-icon-size, 1rem);
+    }
+
+    &:focus-visible {
+      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
+        var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--sidebar-accent-bg, var(--color-accent));
+        color: var(--sidebar-accent-color, var(--color-accent-foreground));
+      }
+    }
+  }
+
+  .menuBadge {
+    position: absolute;
+    inset-block-start: calc(
+      (var(--sidebar-menu-button-height, var(--size-md)) -
+          var(--sidebar-menu-badge-min-width, 1.5rem)) /
+        2
+    );
+    inset-inline-end: var(--sidebar-menu-button-padding-x, var(--spacing-2));
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--sidebar-menu-badge-min-width, 1.5rem);
+    min-height: var(--sidebar-menu-badge-min-width, 1.5rem);
+    padding-inline: var(--sidebar-menu-badge-padding-x, var(--spacing-1));
+    border-radius: var(--radius-full);
+    background-color: var(--sidebar-accent-bg, var(--color-accent));
+    color: var(--sidebar-accent-color, var(--color-accent-foreground));
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .menuItem:has(.menuAction) .menuButton,
+  .menuItem:has(.menuBadge) .menuButton {
+    padding-inline-end: calc(
+      var(--sidebar-menu-action-size, 1.5rem) +
+        var(--sidebar-menu-button-padding-x, var(--spacing-2)) * 2
+    );
+  }
+
+  .panel[data-state='collapsed'] .menuItem:has(.menuAction) .menuButton,
+  .panel[data-state='collapsed'] .menuItem:has(.menuBadge) .menuButton {
+    padding-inline-end: 0;
+  }
+
   .menuSub {
+    box-sizing: border-box;
+    width: auto;
     margin-block-start: var(--sidebar-menu-sub-margin-y, var(--spacing-1));
     margin-inline-start: var(--sidebar-menu-sub-margin-x, var(--spacing-4));
     padding-inline-start: var(--sidebar-menu-sub-padding-x, var(--spacing-2));
@@ -346,10 +495,20 @@
     line-height: var(--sidebar-menu-sub-button-line-height, var(--line-height-text-sm));
   }
 
+  .input {
+    width: 100%;
+  }
+
+  .separator {
+    --separator-color: var(--sidebar-border-color, var(--color-border));
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .panel,
     .trigger,
+    .groupAction,
     .menuButton,
+    .menuAction,
     .menuSubButton {
       transition: none;
     }

@@ -25,9 +25,7 @@ export function VerticalSplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         Top
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className="splitter-panel">
         Bottom
       </Splitter.Panel>

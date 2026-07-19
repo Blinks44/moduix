@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useToggleGroup } from '@ark-ui/react/toggle-group';
 import { Fragment, useState } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { ToggleGroup } from './ToggleGroup';
+import { ToggleGroup, useToggleGroup } from './ToggleGroup';
 import storyStyles from './ToggleGroup.stories.module.css';
 
 const meta = {

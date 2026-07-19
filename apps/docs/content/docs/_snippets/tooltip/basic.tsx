@@ -16,9 +16,7 @@ export function TooltipDemo() {
           </span>
         </Button>
       </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>Notifications</Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>Notifications</Tooltip.Body>
     </Tooltip>
   );
 }

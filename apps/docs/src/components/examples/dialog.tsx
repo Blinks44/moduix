@@ -1,9 +1,8 @@
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { Button, Dialog, Menu, ScrollArea } from '@moduix/react';
+import { Button, Dialog, Menu, ScrollArea, useDialog, useDialogContext } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const dialogExampleCss = `
   .dialog-stack {
@@ -240,14 +239,31 @@ export function DialogExample() {
             <Dialog.CloseIcon />
             <Dialog.Description>You are all caught up. Good job!</Dialog.Description>
           </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <Button variant="outline">Close</Button>
-            </Dialog.CloseTrigger>
-          </Dialog.Footer>
         </DialogSurface>
       </Dialog.Root>
     </>
+  );
+}
+
+export function AdvancedCustomizationDialogExample() {
+  return (
+    <Dialog>
+      <Dialog.Trigger asChild>
+        <Button>Open custom dialog</Button>
+      </Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Custom content layout</Dialog.Title>
+          <Dialog.Description>
+            Compose the Ark parts directly when the layout helpers do not fit.
+          </Dialog.Description>
+          <Dialog.CloseTrigger asChild>
+            <Button variant="outline">Close</Button>
+          </Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
   );
 }
 

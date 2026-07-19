@@ -13,6 +13,48 @@
   font-weight: var(--weight-semibold);
 }
 
+.headerStack {
+  display: grid;
+  gap: var(--spacing-3);
+  width: 100%;
+}
+
+.footerStack {
+  display: grid;
+  width: 100%;
+}
+
+.mobileTrigger {
+  margin-block-end: var(--spacing-4);
+}
+
+.mobileDrawer {
+  --drawer-padding-x: 0;
+  --drawer-padding-y: var(--spacing-3);
+  --sidebar-section-border-width: var(--border-width-sm);
+  width: min(20rem, calc(100vw - 2rem));
+  max-width: 20rem;
+}
+
+.mobileDrawerHeader {
+  padding-inline: var(--spacing-3);
+}
+
+.mobileDrawerBody {
+  display: flex;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.mobileSurface {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--color-card);
+}
+
 .brandMark {
   display: grid;
   flex: none;

@@ -16,7 +16,7 @@ with Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) for behavior.
 
 ## Basic
 
-Use the explicit dialog structure and place `CommandPalette.Combobox` inside `CommandPalette.Body`. `CommandPalette.CloseIcon`, `Header`, and `Body` are the recommended thin helpers for the palette chrome, while the collection stays outside the rendered tree to match Ark Combobox examples.
+Use `CommandPalette.Panel` for the standard dialog shell and place `CommandPalette.Combobox` inside it. `CommandPalette.Search` renders the input-like search row with a clear button that appears after typing and clears the search query, while the collection stays outside the rendered tree to match Ark Combobox examples.
 
 <Preview>
   <CommandPaletteDocs.CommandPaletteExample />
@@ -36,59 +36,50 @@ Use the explicit dialog structure and place `CommandPalette.Combobox` inside `Co
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-command-palette" />
+<ShadcnInstall packageName="command-palette" />
 
 ## Anatomy
 
 ```text
 CommandPalette / CommandPalette.Root
 ├─ CommandPalette.Trigger
-└─ Overlay subtree (automatically portalled)
-   ├─ CommandPalette.Backdrop
-   └─ CommandPalette.Positioner
-      └─ CommandPalette.Content
-         ├─ CommandPalette.CloseIcon
-         ├─ CommandPalette.Header
-         │  ├─ CommandPalette.Title
-         │  └─ CommandPalette.Description
-         └─ CommandPalette.Body
-            └─ CommandPalette.Combobox
-               ├─ CommandPalette.Control
-               │  ├─ CommandPalette.Input
-               │  └─ CommandPalette.ClearTrigger
-               ├─ CommandPalette.List
-               │  ├─ CommandPalette.Empty
-               │  └─ CommandPalette.ItemGroup
-               │     ├─ CommandPalette.ItemGroupLabel
-               │     └─ CommandPalette.Item
-               │        ├─ CommandPalette.ItemIcon
-               │        ├─ CommandPalette.ItemText
-               │        ├─ CommandPalette.ItemMeta
-               │        └─ CommandPalette.ItemIndicator
-               └─ CommandPalette.Footer
+└─ CommandPalette.Panel
+   └─ CommandPalette.Combobox
+      ├─ CommandPalette.Search
+      ├─ CommandPalette.List
+      │  ├─ CommandPalette.Empty
+      │  └─ CommandPalette.ItemGroup
+      │     ├─ CommandPalette.ItemGroupLabel
+      │     └─ CommandPalette.Item
+      │        ├─ CommandPalette.ItemIcon
+      │        ├─ CommandPalette.ItemText
+      │        ├─ CommandPalette.ItemMeta
+      │        └─ CommandPalette.ItemIndicator
+      └─ CommandPalette.Footer
 ```
 
-| Part                                                                  | Role                                                                 |
-| --------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `CommandPalette` / `CommandPalette.Root`                              | Ark Dialog root plus optional global shortcut listener.              |
-| `CommandPalette.Trigger`                                              | Ark Dialog trigger; use `asChild` for custom trigger hosts.          |
-| `CommandPalette.Backdrop`                                             | Ark Dialog backdrop with `data-state` animations.                    |
-| `CommandPalette.Positioner`                                           | Ark Dialog positioner for viewport alignment and scroll containment. |
-| `CommandPalette.Content`                                              | Ark Dialog content and visual palette surface.                       |
-| `CommandPalette.CloseTrigger` / `CloseIcon`                           | Low-level dismiss trigger and the shared icon-only close helper.     |
-| `CommandPalette.Header` / `Title` / `Description`                     | Recommended title chrome and accessible dialog labeling.             |
-| `CommandPalette.Body`                                                 | Layout boundary for the combobox region inside the dialog content.   |
-| `CommandPalette.Combobox`                                             | Ark Combobox root for command search state and selection.            |
-| `CommandPalette.Control`                                              | Ark Combobox control around the search input and clear trigger.      |
-| `CommandPalette.Input`                                                | Ark Combobox input.                                                  |
-| `CommandPalette.ClearTrigger`                                         | Ark Combobox clear trigger with a default icon.                      |
-| `CommandPalette.List`                                                 | Ark Combobox content/listbox with an internal moduix `ScrollArea`.   |
-| `CommandPalette.Empty`                                                | Ark Combobox empty state.                                            |
-| `CommandPalette.ItemGroup` / `ItemGroupLabel`                         | Ark Combobox grouped result sections.                                |
-| `CommandPalette.Item`                                                 | Ark Combobox item with highlighted, checked, and disabled state.     |
-| `CommandPalette.ItemText` / `ItemIndicator`                           | Ark text plus the selected-state indicator slot.                     |
-| `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta` | Moduix visual leaf parts for command rows and trailing metadata.     |
-| `CommandPalette.Footer` / `Kbd`                                       | Footer/status area and a command-scoped wrapper around Moduix `Kbd`. |
+| Part                                                                  | Role                                                                                  |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `CommandPalette` / `CommandPalette.Root`                              | Ark Dialog root plus optional global shortcut listener.                               |
+| `CommandPalette.Trigger`                                              | Ark Dialog trigger; use `asChild` for custom trigger hosts.                           |
+| `CommandPalette.Backdrop`                                             | Ark Dialog backdrop with `data-state` animations.                                     |
+| `CommandPalette.Positioner`                                           | Ark Dialog positioner for viewport alignment and scroll containment.                  |
+| `CommandPalette.Content`                                              | Ark Dialog content and visual palette surface.                                        |
+| `CommandPalette.Panel`                                                | Convenience shell for the standard backdrop, positioner, content, and body structure. |
+| `CommandPalette.Header` / `Title` / `Description`                     | Optional custom chrome and Ark Dialog title/description parts.                        |
+| `CommandPalette.Body`                                                 | Layout boundary for the combobox region inside the dialog content.                    |
+| `CommandPalette.Combobox`                                             | Ark Combobox root for command search state and selection.                             |
+| `CommandPalette.Control`                                              | Ark Combobox control around the search input and clear trigger.                       |
+| `CommandPalette.Input`                                                | Ark Combobox input.                                                                   |
+| `CommandPalette.Search`                                               | Convenience search row that renders `Control`, `Input`, and `ClearTrigger`.           |
+| `CommandPalette.ClearTrigger`                                         | Clears the typed search query and appears while the query is non-empty.               |
+| `CommandPalette.List`                                                 | Ark Combobox content/listbox with an internal moduix `ScrollArea`.                    |
+| `CommandPalette.Empty`                                                | Ark Combobox empty state.                                                             |
+| `CommandPalette.ItemGroup` / `ItemGroupLabel`                         | Ark Combobox grouped result sections.                                                 |
+| `CommandPalette.Item`                                                 | Ark Combobox item with highlighted, checked, and disabled state.                      |
+| `CommandPalette.ItemText` / `ItemIndicator`                           | Ark text plus the selected-state indicator slot.                                      |
+| `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta` | Moduix visual leaf parts for command rows and trailing metadata.                      |
+| `CommandPalette.Footer` / `Kbd`                                       | Footer/status area and a command-scoped wrapper around Moduix `Kbd`.                  |
 
 ## Composition
 
@@ -96,51 +87,31 @@ The root portals `Backdrop` and `Positioner` automatically. Use `portalled={fals
 
 ### Recommended composition
 
-Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Keep `Backdrop`, `Positioner`, and `Content` explicit so overlay structure stays overrideable, then use `CloseIcon`, `Header`, and `Body` for the repeated palette chrome around the combobox.
+Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Use `CommandPalette.Panel` for the repeated overlay chrome and `CommandPalette.Search` for the standard input-like search row, including its clear action.
 
 ### When to go custom
 
-Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `CommandPalette.Title` or `aria-label` on the root to provide the dialog name. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them.
+Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`, and `ClearTrigger` directly when you need custom overlay structure or search controls. Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `aria-label` on the root for the recommended palette label, or render `CommandPalette.Title` in a custom composition when you need visible dialog chrome. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them.
 
 ### Default props
 
-| Prop                                        | Default         | Notes                                                                     |
-| ------------------------------------------- | --------------- | ------------------------------------------------------------------------- |
-| `CommandPalette.shortcut`                   | `false`         | Pass `alt+k` or another primary modifier plus key to enable the listener. |
-| `CommandPalette.shortcutTarget`             | `document`      | Used only when `shortcut` is enabled; `null` skips listener registration. |
-| `CommandPalette.lazyMount`                  | `true`          | Defers dialog DOM until the palette is opened.                            |
-| `CommandPalette.unmountOnExit`              | `true`          | Keeps exit animation mounted, then unmounts after it completes.           |
-| `CommandPalette.Combobox.open`              | `true`          | Keeps the listbox visible while the dialog is mounted.                    |
-| `CommandPalette.Combobox.inputBehavior`     | `autohighlight` | Highlights the first matching command as the user types.                  |
-| `CommandPalette.Combobox.selectionBehavior` | `preserve`      | Keeps typed search text instead of replacing it with the selected item.   |
-| `CommandPalette.Combobox.disableLayer`      | `true`          | Avoids adding an extra dismissable layer inside the dialog.               |
-| `CommandPalette.Combobox.closeOnSelect`     | `true`          | Also closes the dialog after Ark Combobox selection.                      |
+| Prop                                        | Default         | Notes                                                                            |
+| ------------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
+| `CommandPalette.shortcut`                   | `false`         | Pass `alt+k` or another primary modifier plus key to enable the toggle listener. |
+| `CommandPalette.shortcutTarget`             | `document`      | Used only when `shortcut` is enabled; `null` skips listener registration.        |
+| `CommandPalette.lazyMount`                  | `true`          | Defers dialog DOM until the palette is opened.                                   |
+| `CommandPalette.unmountOnExit`              | `true`          | Keeps exit animation mounted, then unmounts after it completes.                  |
+| `CommandPalette.Combobox.open`              | `true`          | Keeps the listbox visible while the dialog is mounted.                           |
+| `CommandPalette.Combobox.inputBehavior`     | `autohighlight` | Highlights the first matching command as the user types.                         |
+| `CommandPalette.Combobox.selectionBehavior` | `preserve`      | Keeps typed search text instead of replacing it with the selected item.          |
+| `CommandPalette.Combobox.disableLayer`      | `true`          | Avoids adding an extra dismissable layer inside the dialog.                      |
+| `CommandPalette.Combobox.closeOnSelect`     | `true`          | Also closes the dialog after Ark Combobox selection.                             |
 
 ### Behavioral notes
 
-The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. When enabled, it ignores `input`, `textarea`, `select`, and `contenteditable` targets. `alt+k` is the recommended docs shortcut because Fumadocs reserves `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
+The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. It accepts one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`; supported modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`. When enabled, it ignores `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because Fumadocs reserves `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette.ClearTrigger` clears `inputValue`, rather than the Combobox selection value, and stays hidden while the search is empty. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
 
 ## Examples
-
-### Item Actions
-
-Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
-
-<Preview>
-  <CommandPaletteDocs.CommandPaletteActionsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/command-palette/item-actions.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .commandPalette {
-        --command-palette-highlight-bg: var(--color-accent);
-      }
-    `}
-</Preview.CSS>
-</Preview>
 
 ### Controlled Open State
 
@@ -168,6 +139,40 @@ Enable the listener when a palette should open from a global command key. The li
 </Preview.Code>
 
   <Preview.CSS>{`[data-slot="command-palette-trigger"] { min-width: 9rem; }`}</Preview.CSS>
+</Preview>
+
+### Item Actions
+
+Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
+
+<Preview>
+  <CommandPaletteDocs.CommandPaletteActionsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/command-palette/item-actions.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .commandPalette {
+        --command-palette-highlight-bg: var(--color-accent);
+      }
+    `}
+</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Panel` and `Search` when the palette needs custom dialog chrome or search controls. The explicit parts retain the same Dialog and Combobox behavior.
+
+<Preview>
+  <CommandPaletteDocs.AdvancedCommandPaletteExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/command-palette/advanced-customization.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.commandPalette { --command-palette-width: 34rem; }`}</Preview.CSS>
 </Preview>
 
 ## Styling

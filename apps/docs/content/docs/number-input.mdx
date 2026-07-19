@@ -12,8 +12,7 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 ## Basic
 
-Use Ark-style parts: `NumberInput.Root`, `NumberInput.Label`, `NumberInput.Control`,
-`NumberInput.Input`, `NumberInput.IncrementTrigger`, and `NumberInput.DecrementTrigger`.
+Use `NumberInput.Field` for the standard input and trigger group.
 
 <Preview>
   <NumberInputDocs.NumberInputExample />
@@ -22,37 +21,38 @@ Use Ark-style parts: `NumberInput.Root`, `NumberInput.Label`, `NumberInput.Contr
   <include lang="tsx">./_snippets/number-input/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-number-input" />
+<ShadcnInstall packageName="number-input" />
 
 ## Anatomy
 
 ```text
 NumberInput.Root
 ├─ NumberInput.Label
+├─ NumberInput.Scrubber (optional)
+├─ NumberInput.Field (recommended)
 ├─ NumberInput.Control
-│  ├─ NumberInput.Scrubber (optional)
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
 └─ NumberInput.ValueText (optional)
 
 NumberInput.RootProvider
-└─ same part tree connected to state created with Ark `useNumberInput()`
+└─ same part tree connected to state created with `useNumberInput()`
 ```
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
 | `NumberInput` / `NumberInput.Root` | Controls number input state, parsing, formatting, keyboard behavior.   |
-| `NumberInput.RootProvider`         | Connects parts to state created with Ark `useNumberInput()`.           |
+| `NumberInput.RootProvider`         | Connects parts to state created with `useNumberInput()`.               |
+| `NumberInput.Context`              | Provides formatted and numeric values plus imperative state methods.   |
 | `NumberInput.Label`                | Accessible label associated with the managed input.                    |
 | `NumberInput.Scrubber`             | Optional drag target that changes the value through pointer movement.  |
 | `NumberInput.Control`              | Structural wrapper for input and increment/decrement triggers.         |
+| `NumberInput.Field`                | Renders the default control, input, and trigger group.                 |
 | `NumberInput.DecrementTrigger`     | Button that decreases the current value. Defaults to the moduix minus. |
 | `NumberInput.Input`                | Editable numeric text input managed by Ark UI.                         |
 | `NumberInput.IncrementTrigger`     | Button that increases the current value. Defaults to the moduix plus.  |
@@ -64,17 +64,24 @@ NumberInput.RootProvider
 
 `NumberInput.Root` owns parsing, range checks, keyboard increment/decrement, spin-on-press, mouse
 wheel changes, scrubber interaction, and formatting. Use `NumberInput` as the short root form and
-compose the visible parts explicitly.
+use `NumberInput.Field` for the default visible parts.
 
 Use string values for `value` and `defaultValue`. Ark reports changes through
 `onValueChange(details)`, where `details.value` is the string value and `details.valueAsNumber` is
 the parsed number.
+
+### When to go custom
+
+Use `NumberInput.Control` with its individual parts when the trigger order, icons, or input styling
+must differ from the default `NumberInput.Field`. Use `NumberInput.Scrubber` alongside the field for
+drag-to-change input.
 
 ### Default props
 
 | Prop                               | Default | Notes                                                        |
 | ---------------------------------- | ------- | ------------------------------------------------------------ |
 | `NumberInput` / `NumberInput.Root` | —       | No additional behavioral defaults; Ark defaults apply.       |
+| `NumberInput.Field`                | —       | Renders the default control, input, and trigger group.       |
 | `NumberInput.DecrementTrigger`     | —       | Renders the moduix minus icon when no children are provided. |
 | `NumberInput.IncrementTrigger`     | —       | Renders the moduix plus icon when no children are provided.  |
 
@@ -85,7 +92,9 @@ the parsed number.
 - `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` pass directly to Ark.
 - `onValueInvalid(details)` reports `rangeUnderflow` or `rangeOverflow` when the value exceeds configured bounds.
 - Use `ids` when external labels or descriptions need stable element IDs.
-- All exported parts support `asChild` for custom host composition.
+- Ark-backed parts support `asChild` for custom host composition; `NumberInput.Field` intentionally
+  renders its fixed three-part structure and forwards its ref to `NumberInput.Control`.
+- `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` are available from `@moduix/react`.
 
 ## Examples
 
@@ -100,98 +109,7 @@ Keep controlled state as a string and read `details.value` in `onValueChange`.
   <include lang="tsx">./_snippets/number-input/controlled.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Min and Max
-
-Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions.
-
-<Preview>
-  <NumberInputDocs.MinMaxNumberInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/min-and-max.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Precision
-
-Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
-fraction digits.
-
-<Preview>
-  <NumberInputDocs.FractionDigitsNumberInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/precision.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Scrubbing
-
-Render `NumberInput.Scrubber` when pointer dragging should change the value.
-
-<Preview>
-  <NumberInputDocs.NumberInputScrubberExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/scrubbing.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Value text
-
-Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable input.
-
-<Preview>
-  <NumberInputDocs.ValueTextNumberInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/value-text.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Mouse Wheel
-
-Set `allowMouseWheel` when wheel-based value changes are intentional for the workflow.
-
-<Preview>
-  <NumberInputDocs.MouseWheelNumberInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/mouse-wheel.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Formatting
-
-Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
-
-<Preview>
-  <NumberInputDocs.FormattedNumberInputExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/number-input/formatting.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  <Preview.CSS>{NumberInputDocs.numberInputControlledCss}</Preview.CSS>
   
 </Preview>
 
@@ -206,13 +124,64 @@ Compose with `Field` when form state, error text, and accessibility metadata sho
   <include lang="tsx">./_snippets/number-input/field.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
-  
+</Preview>
+
+### Formatting
+
+Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
+
+<Preview>
+  <NumberInputDocs.FormattedNumberInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/formatting.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+### Min and Max
+
+Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions.
+
+<Preview>
+  <NumberInputDocs.MinMaxNumberInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/min-and-max.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+### Mouse Wheel
+
+Set `allowMouseWheel` when wheel-based value changes are intentional for the workflow.
+
+<Preview>
+  <NumberInputDocs.MouseWheelNumberInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/mouse-wheel.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+### Precision
+
+Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
+fraction digits.
+
+<Preview>
+  <NumberInputDocs.FractionDigitsNumberInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/precision.tsx#demo</include>
+</Preview.Code>
+
 </Preview>
 
 ### Root Provider
 
-Use Ark `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
+Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
 rendered part tree.
 
 <Preview>
@@ -222,13 +191,40 @@ rendered part tree.
   <include lang="tsx">./_snippets/number-input/root-provider.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  <Preview.CSS>{NumberInputDocs.numberInputRootProviderCss}</Preview.CSS>
   
 </Preview>
 
-### Custom Icons
+### Scrubbing
 
-The trigger parts render moduix plus and minus icons by default. Provide children to replace them.
+Render `NumberInput.Scrubber` when pointer dragging should change the value.
+
+<Preview>
+  <NumberInputDocs.NumberInputScrubberExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/scrubbing.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+### Value text
+
+Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable input.
+
+<Preview>
+  <NumberInputDocs.ValueTextNumberInputExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/number-input/value-text.tsx#demo</include>
+</Preview.Code>
+
+</Preview>
+
+### Advanced Customization
+
+Bypass `NumberInput.Field` and compose the low-level parts when the trigger icons or input styling
+must be customized.
 
 <Preview>
   <NumberInputDocs.CustomIconsNumberInputExample />
@@ -237,9 +233,11 @@ The trigger parts render moduix plus and minus icons by default. Provide childre
   <include lang="tsx">./_snippets/number-input/custom-icons.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{NumberInputDocs.numberInputExampleCss}</Preview.CSS>
+  <Preview.CSS>{NumberInputDocs.numberInputAdvancedCustomizationCss}</Preview.CSS>
   
 </Preview>
+
+## Styling
 
 ### CSS Properties
 

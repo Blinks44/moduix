@@ -13,8 +13,7 @@ export function PendingButton() {
 
   return (
     <Button
-      disabled={pending}
-      aria-busy={pending || undefined}
+      loading={pending}
       onClick={() => {
         setPending(true);
         setTimeout(() => setPending(false), delay);
@@ -22,7 +21,7 @@ export function PendingButton() {
     >
       {pending ? (
         <>
-          <Spinner decorative size="sm" />
+          <Spinner decorative size="sm" data-icon="inline-start" />
           {labels.pending}
         </>
       ) : (

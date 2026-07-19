@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Button, PlusIcon, Tooltip } from '@moduix/react';
-import { Info as InfoIcon, Share as ShareIcon } from 'lucide-react';
+import { Button, Tooltip } from '@moduix/react';
+import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from './tooltip-demo.module.css';
 
@@ -44,15 +44,13 @@ export function MultipleTriggersTooltipDemo() {
           </Tooltip.Trigger>
         ))}
       </div>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          {activeTool ? (
-            <>
-              {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
-            </>
-          ) : null}
-        </Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>
+        {activeTool ? (
+          <>
+            {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
+          </>
+        ) : null}
+      </Tooltip.Body>
     </Tooltip>
   );
 }

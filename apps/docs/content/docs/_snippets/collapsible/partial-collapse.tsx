@@ -9,17 +9,17 @@ const paragraphs = [
 
 export function PartialCollapseCollapsibleDemo() {
   return (
-    <Collapsible collapsedHeight="3rem">
+    <Collapsible className="collapsible-root" collapsedHeight="3rem">
       <Collapsible.Trigger>
         Read more
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-content-body">
+        <Collapsible.Body>
           {paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

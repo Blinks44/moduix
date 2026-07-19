@@ -25,17 +25,22 @@ render it inline, or pass `portalRef` to target a custom container. The structur
 explicit and independently styleable.
 
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
-  `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`, and
-  `ItemIndicator`.
-- `Combobox.RootProvider` renders the styled root for state created with Ark `useCombobox`.
+  `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`,
+  `ItemIndicator`, and `Option`.
+- `Combobox.RootProvider` renders the styled root for state created with moduix `useCombobox`.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
 - `onValueChange`, `onInputValueChange`, `onOpenChange`, and `onHighlightChange` preserve Ark detail
   objects without remapping.
-- Context parts, hooks, and types are imported directly from `@ark-ui/react/combobox`. Import
-  collection helpers from `@ark-ui/react/collection` and `useFilter` from
-  `@ark-ui/react/locale`.
-- `Combobox.Trigger`, `Combobox.ClearTrigger`, and `Combobox.ItemIndicator` provide default moduix
-  icons when children are omitted.
+- `Combobox.Context`, `useCombobox`, and `useComboboxContext` are exported by moduix. Import
+  collection helpers from `@ark-ui/react/collection` and `useFilter` from `@ark-ui/react/locale`;
+  Ark-only item hooks and type aliases remain advanced escape hatches.
+- `Combobox.Trigger` and `Combobox.ItemIndicator` provide default moduix icons when children are
+  omitted. `Combobox.ClearTrigger` composes Ark clearing behavior with the shared
+  `CloseButton.Root` by default.
+- `Combobox.Option` is the recommended row helper for simple list options. It renders
+  `Combobox.Item`, wraps its children in `Combobox.ItemText`, and includes `Combobox.ItemIndicator`.
+  Pass `indicator={false}` to hide the indicator or `indicator={<Icon />}` to replace the default
+  check icon.
 
 ## Anatomy and exported parts
 
@@ -54,13 +59,15 @@ Combobox.Root
          │  └─ Combobox.Item
          │     ├─ Combobox.ItemText
          │     └─ Combobox.ItemIndicator
+         │  └─ Combobox.Option
          └─ Combobox.ItemGroup
             ├─ Combobox.ItemGroupLabel
             └─ Combobox.Item
 ```
 
 All styled parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts state created
-with Ark `useCombobox` and keeps the same root styling and portal contract.
+with moduix `useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over
+the existing item parts and does not add a new styling hook.
 
 ## Composition
 
@@ -94,15 +101,36 @@ export function ComboboxExample() {
           <Combobox.Empty>No fruits found.</Combobox.Empty>
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item.value} item={item}>
+                {item.label}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>
       </Combobox.Positioner>
     </Combobox.Root>
+  );
+}
+```
+
+For repeated consumer flows, a small local popup helper is the preferred way to remove boilerplate
+without changing the public component contract:
+
+```tsx
+function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
+  return (
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
   );
 }
 ```
@@ -117,17 +145,15 @@ export function ComboboxExample() {
 - Async search: replace collection items and handle `details.reason` from
   `onInputValueChange`.
 - Creatable values: preserved through `allowCustomValue`.
-- Provider state: Ark `useCombobox` plus moduix `RootProvider`.
-- Context state remains available directly from `@ark-ui/react/combobox`.
+- Provider state: moduix `useCombobox` plus `Combobox.RootProvider`.
+- Context state: moduix `Combobox.Context` or `useComboboxContext`.
 - Virtualization: preserved through `scrollToIndexFn` and collection-driven item rendering.
 - Form integration: preserved through Ark root props such as `name` and `form`. The current
   `@ark-ui/react` Combobox package does not expose a `HiddenInput` part.
-- Ark `Field.Root` context is preserved by the primitive. The current moduix `Field` wrapper is
-  still legacy, so consumers that need Ark field-context inheritance must compose with
-  `@ark-ui/react/field` until that component is migrated.
-- The dedicated Field example is deferred to the moduix Field migration, and matching-text
-  highlighting remains ordinary composition because moduix does not currently ship an Ark
-  Highlight wrapper.
+- Ark `Field.Root` context is preserved by the primitive. Compose with the Ark-backed moduix
+  `Field.Root` when the combobox should inherit field state.
+- Matching-text highlighting remains ordinary composition because moduix does not currently ship
+  an Ark Highlight wrapper.
 
 ## Accessibility and state
 
@@ -143,10 +169,14 @@ export function ComboboxExample() {
 
 ## Defaults and styling
 
+- Content motion falls back to the shared `--popup-motion-*` tokens. `--combobox-transition` and
+  closed-state variables remain the more specific override.
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
 - The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
   the field surface; hovering `ClearTrigger` highlights only that action.
 - `className` is accepted on every visual part.
+- `Combobox.ClearTrigger` maps its component tokens to `CloseButton.Root`; use `asChild` with one
+  semantic child when the clear control needs a custom host or visual treatment.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
 - Public component variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
@@ -156,24 +186,63 @@ export function ComboboxExample() {
 
 ## Intentional sugar and differences from upstream
 
-- moduix ships default icons for `Trigger`, `ClearTrigger`, and `ItemIndicator`.
-- moduix keeps `RootProvider`, but does not re-export Ark context parts, state hooks, or Ark type
-  aliases. Advanced consumers import those directly from `@ark-ui/react/combobox`.
+- moduix ships default icons for `Trigger` and `ItemIndicator`, and composes `ClearTrigger` with the
+  shared `CloseButton.Root` without nesting buttons.
+- moduix ships `Option` as row-level sugar for the common `Item`/`ItemText`/`ItemIndicator`
+  composition. It keeps the same ref target as `Item`, but does not support `asChild` because it
+  always renders the nested text and indicator parts. Its `indicator` prop only controls the nested
+  `ItemIndicator`.
+- moduix exports `RootProvider`, `Context`, `useCombobox`, and `useComboboxContext` for the normal
+  state path. Ark-only item-context hooks and type aliases remain direct advanced imports.
+- moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
+  Keep state collection-first and hide repeated popup structure in local helpers when needed.
+- moduix does not ship combobox-owned chip parts. For richer multi-value controls, compose
+  `Combobox` with controlled tags or with `TagsInput` when the chips must live inside one field.
 - Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
   backdrop, status, row, separator, collection render props, and chip parts.
 - Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
   `openOnInputClick`, and converted callback signatures.
 
+## Migration notes
+
+Common `shadcn` migration points:
+
+- `items` on the root becomes `createListCollection()` or `useListCollection()`, then pass
+  `collection` to `Combobox.Root`.
+- `itemToStringValue` becomes `itemToString` and usually `itemToValue` on the Ark collection.
+- `showClear` becomes an explicit `Combobox.ClearTrigger`.
+- Plain `ComboboxItem` rows usually become `Combobox.Option`; keep `Combobox.Item` when a row needs
+  `asChild`, nonstandard layout, or custom indicator placement.
+- Built-in chip surfaces become controlled `value` plus consumer-owned tag rendering, or
+  `TagsInput` composition when the chips must live in the same field shell.
+- Hidden popup wrappers such as `ComboboxContent` become explicit `Positioner` and `Content`.
+
 ## Agent notes
 
 - Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep `collection` required and callbacks Ark-shaped.
+- Prefer `Option` in simple list examples. Use `indicator={false}` or `indicator={<Icon />}` for
+  indicator-only changes, but keep raw `Item`, `ItemText`, and `ItemIndicator` visible when rows
+  need `asChild`, nonstandard layout, or custom indicator placement.
+- Keep input action spacing dependent on the rendered trigger/clear controls.
 - Do not reintroduce combobox-owned chips; multiple-value rendering belongs in consumer composition
   through controlled state.
 - Keep generic inference on the callable root, `Root`, and `RootProvider`.
 
 ## Local changelog
 
+- 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped combobox action
+  tokens to the shared close-button visual contract.
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-12: Exported `Combobox.Context`, `useCombobox`, and `useComboboxContext` from the moduix
+  implementation so normal provider and context paths no longer require direct Ark imports.
+- 2026-07-10: Restricted `Combobox.Option` to simple rows by excluding `asChild`; use
+  `Combobox.Item` for custom semantic elements and row layouts. Reordered public examples and added
+  an explicit advanced-customization path.
+- 2026-07-08: Added `Combobox.Option` as a narrow row helper for simple options, including
+  indicator replacement/removal, updated the recommended composition to use it, made input
+  end-padding depend on whether `Trigger` and `ClearTrigger` are rendered, documented the preferred
+  local popup-helper pattern, and added explicit migration notes for users moving from shadcn.
 - 2026-07-03: Synchronized field interaction styling with Select: open popups retain the focus ring,
   and clear-action hover no longer highlights the whole field surface.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix

@@ -45,7 +45,7 @@ hosts use `asChild`.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-popover" />
+<ShadcnInstall packageName="popover" />
 
 ## Anatomy
 
@@ -138,55 +138,24 @@ the default portalled behavior with `lazyMount` and `unmountOnExit` to avoid sta
 
 ## Examples
 
-### Controlled
+### Anchor
 
-Use Ark's details object when synchronizing open state with surrounding UI.
-
-<Preview>
-  <PopoverDocs.ControlledPopoverExample />
-  <Preview.Code>
-  <include lang="tsx">./_snippets/popover/controlled.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      [data-slot="popover-content"] {
-        max-width: 20rem;
-      }
-
-      .stack {
-        display: grid;
-        gap: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use `usePopover` with `RootProvider` when controls outside the rendered popover tree need its state
-or methods.
+Use `Anchor` when a different element should provide the positioning reference.
 
 <Preview>
-  <PopoverDocs.RootProviderPopoverExample />
+  <PopoverDocs.AnchorPopoverExample />
   <Preview.Code>
-  <include lang="tsx">./_snippets/popover/root-provider.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/popover/anchor.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>
     {`
-      [data-slot="popover-content"] {
-        max-width: 20rem;
-      }
-
-      .stack {
-        display: grid;
-        gap: var(--spacing-3);
+      .input {
+        min-height: var(--size-lg);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-md);
       }
     `}
-
   </Preview.CSS>
-  
 </Preview>
 
 ### Arrow
@@ -207,24 +176,6 @@ Render `Arrow` to get the default Moduix-styled `ArrowTip`.
   </Preview.CSS>
 </Preview>
 
-### Placement
-
-Set placement and offsets through Ark's `positioning` object.
-
-<Preview>
-  <PopoverDocs.PositioningPopoverExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/popover/placement.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>
-    {`
-      [data-slot="popover-content"] {
-        transform-origin: var(--transform-origin);
-      }
-    `}
-  </Preview.CSS>
-</Preview>
-
 ### Close Behavior
 
 Disable outside or Escape dismissal only when the workflow provides an explicit close action.
@@ -240,6 +191,30 @@ Disable outside or Escape dismissal only when the workflow provides an explicit 
         margin-inline-start: auto;
       }
     `}
+  </Preview.CSS>
+</Preview>
+
+### Controlled
+
+Use Ark's details object when synchronizing open state with surrounding UI.
+
+<Preview>
+  <PopoverDocs.ControlledPopoverExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/popover/controlled.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        max-width: 20rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
   </Preview.CSS>
 </Preview>
 
@@ -269,8 +244,8 @@ focus target.
 <Preview>
   <PopoverDocs.ModalPopoverExample />
   <Preview.Code>
-  <include lang="tsx">./_snippets/popover/modal.tsx#demo</include>
-</Preview.Code>
+    <include lang="tsx">./_snippets/popover/modal.tsx#demo</include>
+  </Preview.Code>
   <Preview.CSS>
     {`
       .input {
@@ -286,26 +261,92 @@ focus target.
     `}
 
   </Preview.CSS>
-  
 </Preview>
 
-### Anchor
+### Multiple Triggers
 
-Use `Anchor` when a different element should provide the positioning reference.
+Give each trigger a `value` when one popover surface should react to the trigger that opened it.
 
 <Preview>
-  <PopoverDocs.AnchorPopoverExample />
+  <PopoverDocs.MultipleTriggersPopoverExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/popover/anchor.tsx#demo</include>
+    <include lang="tsx">./_snippets/popover/multiple-triggers.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
-      .input {
-        min-height: var(--size-lg);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
+      .triggerGroup {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
       }
     `}
+  </Preview.CSS>
+</Preview>
+
+### Nested
+
+Nested popovers keep independent state and expose Ark's nested-layer data attributes. Render the
+nested popover inline so it remains within its parent overlay.
+
+<Preview>
+  <PopoverDocs.NestedPopoverExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/popover/nested.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"][data-nested] {
+        --popover-shadow: var(--shadow-xl);
+      }
+
+      .nestedBody {
+        margin-top: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Placement
+
+Set placement and offsets through Ark's `positioning` object.
+
+<Preview>
+  <PopoverDocs.PositioningPopoverExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/popover/placement.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        transform-origin: var(--transform-origin);
+      }
+    `}
+  </Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use `usePopover` with `RootProvider` when controls outside the rendered popover tree need its state
+or methods.
+
+<Preview>
+  <PopoverDocs.RootProviderPopoverExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/popover/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>
+    {`
+      [data-slot="popover-content"] {
+        max-width: 20rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
   </Preview.CSS>
 </Preview>
 
@@ -326,47 +367,30 @@ Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the
   </Preview.CSS>
 </Preview>
 
-### Nested
+### Advanced Customization
 
-Nested popovers keep independent state and expose Ark's nested-layer data attributes.
-
-<Preview>
-  <PopoverDocs.NestedPopoverExample />
-  <Preview.Code>
-  <include lang="tsx">./_snippets/popover/nested.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>
-    {`
-      [data-slot="popover-content"][data-nested] {
-        --popover-shadow: var(--shadow-xl);
-      }
-
-      .nestedBody {
-        margin-top: var(--spacing-3);
-      }
-    `}
-
-  </Preview.CSS>
-  
-</Preview>
-
-### Multiple Triggers
-
-Give each trigger a `value` when one popover surface should react to the trigger that opened it.
+Bypass the layout helpers when the popup needs its own header and arrow treatment; the Ark parts
+remain explicit and independently styleable.
 
 <Preview>
-  <PopoverDocs.MultipleTriggersPopoverExample />
+  <PopoverDocs.AdvancedCustomizationPopoverExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/popover/multiple-triggers.tsx#demo</include>
+    <include lang="tsx">./_snippets/popover/advanced-customization.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>
     {`
-      .triggerGroup {
+      .customArrow {
+        --arrow-background: var(--color-accent);
+      }
+
+      .customHeader {
         display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-2);
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-3);
       }
     `}
+
   </Preview.CSS>
 </Preview>
 

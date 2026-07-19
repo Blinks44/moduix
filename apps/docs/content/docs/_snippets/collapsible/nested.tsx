@@ -5,13 +5,13 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export function NestedCollapsibleDemo() {
   return (
-    <Collapsible>
+    <Collapsible className="collapsible-root">
       <Collapsible.Trigger>
         Account security
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className="collapsible-nested-content">
+        <Collapsible.Body className="collapsible-nested-content">
           <p>Security options for this account.</p>
           <Collapsible className="collapsible-nested-root">
             <Collapsible.Trigger>
@@ -19,16 +19,16 @@ export function NestedCollapsibleDemo() {
               <Collapsible.Indicator />
             </Collapsible.Trigger>
             <Collapsible.Content>
-              <div className="collapsible-content-body">
+              <Collapsible.Body>
                 <ul className="collapsible-keys-list">
                   {recoveryKeys.map((key) => (
                     <li key={key}>{key}</li>
                   ))}
                 </ul>
-              </div>
+              </Collapsible.Body>
             </Collapsible.Content>
           </Collapsible>
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   );

@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSegmentGroup } from '@ark-ui/react/segment-group';
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup, useSegmentGroup } from '@moduix/react';
 
-const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
+const frameworks = [
+  { value: 'React', label: 'React' },
+  { value: 'Solid', label: 'Solid' },
+  { value: 'Svelte', label: 'Svelte' },
+  { value: 'Vue', label: 'Vue' },
+];
 
 export function SegmentGroupRootProviderDemo() {
   const segmentGroup = useSegmentGroup({
@@ -14,13 +18,7 @@ export function SegmentGroupRootProviderDemo() {
     <div className="segment-stack">
       <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
         <SegmentGroup.Indicator />
-        {frameworks.map((framework) => (
-          <SegmentGroup.Item key={framework} value={framework}>
-            <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-            <SegmentGroup.ItemControl />
-            <SegmentGroup.ItemHiddenInput />
-          </SegmentGroup.Item>
-        ))}
+        <SegmentGroup.Items items={frameworks} />
       </SegmentGroup.RootProvider>
       <button
         className="segment-button"

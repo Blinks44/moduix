@@ -1,7 +1,7 @@
 import { Field, PinInput, usePinInput } from '@moduix/react';
 import { useId, useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './pin-input.module.css';
 
 export const pinInputCount = 6;
@@ -66,7 +66,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PinInputSlots({ indexes = pinInputIndexes }: { indexes?: number[] }) {
+function PinInputSlots({ indexes }: { indexes: number[] }) {
   return indexes.map((index) => <PinInput.Input key={index} index={index} />);
 }
 
@@ -75,9 +75,8 @@ export function PinInputExample() {
     <PinInput count={pinInputCount}>
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -87,9 +86,8 @@ export function PinInputPlaceholderExample() {
     <PinInput count={pinInputCount} placeholder="*">
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -108,9 +106,8 @@ export function PinInputBlurOnCompleteExample() {
       >
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className={styles.hint}>Completed value: {completedValue || 'empty'}</span>
     </div>
@@ -122,9 +119,8 @@ export function PinInputOtpModeExample() {
     <PinInput count={pinInputCount} otp name="verificationCode">
       <PinInput.Label>One-time code</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots />
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -134,9 +130,8 @@ export function PinInputMaskedExample() {
     <PinInput count={4} mask>
       <PinInput.Label>PIN</PinInput.Label>
       <PinInput.Control>
-        <PinInputSlots indexes={shortPinInputIndexes} />
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -156,9 +151,8 @@ export function PinInputChangeEventsExample() {
       >
         <PinInput.Label>Invite code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className={styles.hint}>Current value: {value.join('') || 'empty'}</span>
     </div>
@@ -174,7 +168,6 @@ export function PinInputGroupedLayoutExample() {
         <PinInput.Separator />
         <PinInputSlots indexes={[3, 4, 5]} />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }
@@ -185,9 +178,8 @@ export function PinInputFieldExample() {
       <PinInput count={pinInputCount}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <Field.HelperText>Additional info</Field.HelperText>
       <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
@@ -212,9 +204,8 @@ export function PinInputRootProviderExample() {
       <PinInput.RootProvider value={pinInput}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
-          <PinInputSlots />
+          <PinInputSlots indexes={pinInputIndexes} />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput.RootProvider>
     </div>
   );

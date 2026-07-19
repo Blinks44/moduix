@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTabs } from '@ark-ui/react/tabs';
 import * as React from 'react';
 import { HandshakeIcon, MapIcon, PresentIcon } from '@/icons/demo';
-import { Tabs } from './Tabs';
+import { Tabs, useTabs } from './Tabs';
 import styles from './Tabs.stories.module.css';
 
 const meta = {

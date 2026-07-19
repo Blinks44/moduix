@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useRadioGroup } from '@ark-ui/react/radio-group';
 import { useState } from 'react';
+import { Field } from '../field';
 import { Fieldset } from '../fieldset';
-import { RadioGroup } from './RadioGroup';
+import { RadioGroup, useRadioGroup } from './RadioGroup';
 import styles from './RadioGroup.stories.module.css';
 
 const meta = {
@@ -27,8 +27,19 @@ function RadioItems({ items = frameworks }: { items?: readonly string[] }) {
         <RadioGroup.Item key={item} value={item}>
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
+      ))}
+    </>
+  );
+}
+
+function RadioOptions({ items = frameworks }: { items?: readonly string[] }) {
+  return (
+    <>
+      {items.map((item) => (
+        <RadioGroup.Option key={item} value={item}>
+          {item}
+        </RadioGroup.Option>
       ))}
     </>
   );
@@ -38,7 +49,7 @@ export const Basic: Story = {
   render: () => (
     <RadioGroup defaultValue="React">
       <RadioGroup.Label>Framework</RadioGroup.Label>
-      <RadioItems />
+      <RadioOptions />
     </RadioGroup>
   ),
 };
@@ -109,7 +120,6 @@ export const Sizes: Story = {
         <RadioGroup.Item key={size} value={size}>
           <RadioGroup.ItemControl size={size} />
           <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -142,7 +152,6 @@ export const CustomStyling: Story = {
         <RadioGroup.Item key={item} value={item} className={styles.customItem}>
           <RadioGroup.ItemControl className={styles.customControl} />
           <RadioGroup.ItemText className={styles.customText}>{item}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
         </RadioGroup.Item>
       ))}
     </RadioGroup>
@@ -158,7 +167,6 @@ export const AsChild: Story = {
           <label className={styles.cardItem}>
             <RadioGroup.ItemControl />
             <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
-            <RadioGroup.ItemHiddenInput />
           </label>
         </RadioGroup.Item>
       ))}
@@ -186,5 +194,18 @@ export const WithFieldset: Story = {
         <RadioItems />
       </RadioGroup>
     </Fieldset>
+  ),
+};
+
+export const WithField: Story = {
+  render: () => (
+    <Field.Root invalid>
+      <Field.Label>Account type</Field.Label>
+      <RadioGroup required name="account-type">
+        <RadioOptions items={['Personal', 'Team']} />
+      </RadioGroup>
+      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
+      <Field.ErrorText>Choose an account type.</Field.ErrorText>
+    </Field.Root>
   ),
 };

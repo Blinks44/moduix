@@ -7,19 +7,8 @@ export function SliderOnlyColorPickerDemo() {
   return (
     <ColorPicker inline defaultValue={parseColor('#2563eb')}>
       <ColorPicker.Label>Channels</ColorPicker.Label>
-      <ColorPicker.Area>
-        <ColorPicker.AreaBackground />
-        <ColorPicker.AreaThumb />
-      </ColorPicker.Area>
-      <ColorPicker.ChannelSlider channel="hue">
-        <ColorPicker.ChannelSliderTrack />
-        <ColorPicker.ChannelSliderThumb />
-      </ColorPicker.ChannelSlider>
-      <ColorPicker.ChannelSlider channel="alpha">
-        <ColorPicker.TransparencyGrid />
-        <ColorPicker.ChannelSliderTrack />
-        <ColorPicker.ChannelSliderThumb />
-      </ColorPicker.ChannelSlider>
+      <ColorPicker.Area />
+      <ColorPicker.Sliders />
     </ColorPicker>
   );
 }

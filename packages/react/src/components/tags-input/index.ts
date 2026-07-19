@@ -1,1 +1,1 @@
-export { TagsInput } from './TagsInput';
+export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext } from './TagsInput';

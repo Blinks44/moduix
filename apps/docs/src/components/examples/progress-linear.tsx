@@ -1,8 +1,7 @@
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressLinear, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const progressLinearExampleCss = `
   .progress-linear-stack {
@@ -164,9 +163,7 @@ export function ControlledProgressLinearExample() {
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Progress value">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
+          <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
         </Slider.Control>
       </Slider>
     </div>
@@ -226,7 +223,7 @@ export function ValueTextProgressLinearExample() {
 }
 
 export function RootProviderProgressLinearExample() {
-  const progress = useProgress({ defaultValue: 58 });
+  const progress = ProgressLinear.useProgress({ defaultValue: 58 });
 
   return (
     <ProgressLinear.RootProvider value={progress}>

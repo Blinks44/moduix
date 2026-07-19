@@ -1,7 +1,9 @@
+import { Tag } from '@moduix/react';
+import { Check as CheckIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import { CheckIcon, Tag } from '@moduix/react';
-import type { CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import { useState } from 'react';
+import type { CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tag.module.css';
 
 type TagVariant = ComponentProps<typeof Tag>['variant'];
@@ -122,13 +124,21 @@ export function TagSizesExample() {
 }
 
 export function RemovableTagExample() {
+  const [visibleTags, setVisibleTags] = useState(removableTags);
+
   return (
     <div className={styles.row}>
-      {removableTags.map((tag) => (
+      {visibleTags.map((tag) => (
         <Tag key={tag.label} variant={tag.variant}>
           <Tag.Label>{tag.label}</Tag.Label>
           <Tag.EndElement>
-            <Tag.CloseTrigger disabled={tag.disabled} aria-label={`Remove ${tag.label} tag`} />
+            <Tag.CloseTrigger
+              disabled={tag.disabled}
+              aria-label={`Remove ${tag.label} tag`}
+              onClick={() => {
+                setVisibleTags((tags) => tags.filter((item) => item.label !== tag.label));
+              }}
+            />
           </Tag.EndElement>
         </Tag>
       ))}

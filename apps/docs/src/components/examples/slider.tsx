@@ -1,8 +1,7 @@
-import { useSlider, useSliderContext } from '@ark-ui/react/slider';
-import { Button, Slider } from '@moduix/react';
+import { Button, Slider, useSlider, useSliderContext } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './slider.module.css';
 
 export const sliderOverrideCssProperties: CssPropertyInput[] = [
@@ -176,7 +175,6 @@ export function SliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Volume">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -196,10 +194,8 @@ export function RangeSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum price">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Maximum price">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
       <Slider.ValueText />
@@ -221,7 +217,6 @@ export function MinMaxSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Offset">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -244,7 +239,6 @@ export function StepSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Precision">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -270,7 +264,6 @@ export function ControlledSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Brightness">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -302,7 +295,6 @@ export function EventsSliderDemo() {
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb index={0} aria-label="Gain">
-            <Slider.HiddenInput />
           </Slider.Thumb>
         </Slider.Control>
       </Slider>
@@ -327,7 +319,6 @@ export function VerticalSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Output">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -350,7 +341,6 @@ export function CenterOriginSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Balance">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -373,7 +363,6 @@ export function MarksSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Progress">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
       <Slider.MarkerGroup>
@@ -401,7 +390,6 @@ export function DraggingIndicatorSliderDemo() {
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Gain">
           <Slider.DraggingIndicator />
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -424,7 +412,6 @@ export function ThumbAlignmentSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Centered thumb">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -447,10 +434,8 @@ export function ThumbCollisionSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum linked value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Maximum linked value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -473,10 +458,8 @@ export function ThumbOverlapSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Minimum gap start">
-          <Slider.HiddenInput />
         </Slider.Thumb>
         <Slider.Thumb index={1} aria-label="Minimum gap end">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -499,7 +482,6 @@ export function DisabledSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Notifications">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -508,8 +490,7 @@ export function DisabledSliderDemo() {
 `;
 
 export const sliderContextCode = `
-import { useSliderContext } from "@ark-ui/react/slider";
-import { Slider } from "@moduix/react";
+import { Slider, useSliderContext } from "@moduix/react";
 
 function SliderStatus() {
   const slider = useSliderContext();
@@ -531,7 +512,6 @@ export function ContextSliderDemo() {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Context value">
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -540,8 +520,7 @@ export function ContextSliderDemo() {
 `;
 
 export const sliderRootProviderCode = `
-import { useSlider } from "@ark-ui/react/slider";
-import { Button, Slider } from "@moduix/react";
+import { Button, Slider, useSlider } from "@moduix/react";
 
 export function RootProviderSliderDemo() {
   const slider = useSlider({ defaultValue: [40] });
@@ -557,7 +536,6 @@ export function RootProviderSliderDemo() {
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb index={0} aria-label="Volume">
-            <Slider.HiddenInput />
           </Slider.Thumb>
         </Slider.Control>
       </Slider.RootProvider>
@@ -604,17 +582,13 @@ function SliderHeader({ label }: { label: string }) {
   );
 }
 
-function SliderControlExample({ thumbs = 1 }: { thumbs?: number }) {
+function SliderControlExample() {
   return (
     <Slider.Control>
       <Slider.Track>
         <Slider.Range />
       </Slider.Track>
-      {Array.from({ length: thumbs }, (_, index) => (
-        <Slider.Thumb key={index} index={index} aria-label={`Value ${index + 1}`}>
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-      ))}
+      <Slider.Thumbs />
     </Slider.Control>
   );
 }
@@ -632,7 +606,7 @@ export function RangeSliderExample() {
   return (
     <Slider defaultValue={[30, 60]}>
       <Slider.Label>Price range</Slider.Label>
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
       <Slider.ValueText />
     </Slider>
   );
@@ -735,7 +709,6 @@ export function DraggingIndicatorSliderExample() {
         </Slider.Track>
         <Slider.Thumb index={0} aria-label="Gain">
           <Slider.DraggingIndicator />
-          <Slider.HiddenInput />
         </Slider.Thumb>
       </Slider.Control>
     </Slider>
@@ -755,7 +728,7 @@ export function ThumbCollisionSliderExample() {
   return (
     <Slider defaultValue={[25, 60]} thumbCollisionBehavior="push">
       <SliderHeader label="Linked range" />
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
     </Slider>
   );
 }
@@ -764,7 +737,7 @@ export function ThumbOverlapSliderExample() {
   return (
     <Slider defaultValue={[25, 60]} minStepsBetweenThumbs={5}>
       <SliderHeader label="Minimum gap" />
-      <SliderControlExample thumbs={2} />
+      <SliderControlExample />
     </Slider>
   );
 }
@@ -799,6 +772,20 @@ export function RootProviderSliderExample() {
         <SliderControlExample />
       </Slider.RootProvider>
     </div>
+  );
+}
+
+export function AdvancedCustomizationSliderExample() {
+  return (
+    <Slider defaultValue={[40]}>
+      <SliderHeader label="Volume" />
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumb index={0} aria-label="Volume"></Slider.Thumb>
+      </Slider.Control>
+    </Slider>
   );
 }
 

@@ -162,7 +162,7 @@
     background-color: var(--tree-view-indent-guide-color, var(--color-border));
     inset-inline-start: calc(
       var(--tree-view-item-padding-x, var(--spacing-2)) +
-        (((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem))) +
+        ((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem)) +
         (var(--tree-view-indicator-size, 1rem) / 2)
     );
   }

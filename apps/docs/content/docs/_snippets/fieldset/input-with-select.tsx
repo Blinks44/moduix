@@ -29,7 +29,12 @@ export function PhoneInput() {
     <Fieldset className="fieldset">
       <Fieldset.Legend>Mobile number</Fieldset.Legend>
       <div className="phone-input">
-        <Select className="country-code" collection={countryCodes} defaultValue={['+1']}>
+        <Select
+          className="country-code"
+          collection={countryCodes}
+          defaultValue={['+1']}
+          name="countryCode"
+        >
           <Select.Label>Code</Select.Label>
           <Select.Control>
             <Select.Trigger>
@@ -49,7 +54,6 @@ export function PhoneInput() {
               ))}
             </Select.Content>
           </Select.Positioner>
-          <Select.HiddenSelect name="countryCode" />
         </Select>
         <Field>
           <Field.Label>Phone</Field.Label>

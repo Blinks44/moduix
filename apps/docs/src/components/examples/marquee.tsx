@@ -1,9 +1,8 @@
+import { Button, Marquee, useMarquee } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import { useMarquee } from '@ark-ui/react/marquee';
-import { Button, Marquee } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './marquee.module.css';
 
 export const marqueeExampleCss = `

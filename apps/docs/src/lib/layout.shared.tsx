@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { ModuixLogo } from '@/components/ModuixLogo';
+import { ModuixLogo } from '@/components/brand/moduix-logo';
 import { gitConfig } from './shared';
 
 export function baseOptions(): BaseLayoutProps {

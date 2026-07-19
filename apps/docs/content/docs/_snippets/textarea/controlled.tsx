@@ -6,21 +6,18 @@ import { useState } from 'react';
 import styles from '@/components/examples/textarea.module.css';
 
 export function TextareaControlledDemo() {
-  function ControlledTextarea() {
-    const [value, setValue] = useState('');
-    return (
-      <Field className={styles.field}>
-        <Field.Label>Feedback</Field.Label>
-        <Textarea
-          value={value}
-          onChange={(event) => setValue(event.currentTarget.value)}
-          placeholder="Type to control value"
-        />
-      </Field>
-    );
-  }
+  const [value, setValue] = useState('');
 
-  return null;
+  return (
+    <Field className={styles.field}>
+      <Field.Label>Feedback</Field.Label>
+      <Textarea
+        value={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        placeholder="Type to control value"
+      />
+    </Field>
+  );
 }
 
 //#endregion

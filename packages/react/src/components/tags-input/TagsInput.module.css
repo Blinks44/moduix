@@ -256,52 +256,13 @@
       --tags-input-trigger-focus-ring-width,
       var(--border-width-sm)
     );
+    --close-button-focus-ring-offset: var(--tags-input-trigger-focus-ring-offset, 2px);
+    --close-button-transition: var(--tags-input-transition, var(--transition-default));
+    --close-button-disabled-opacity: var(--tags-input-disabled-opacity, var(--opacity-disabled));
 
-    display: inline-flex;
     flex: none;
-    align-items: center;
-    justify-content: center;
-    width: var(--tags-input-clear-trigger-size, 1.5rem);
-    height: var(--tags-input-clear-trigger-size, 1.5rem);
     margin-inline-start: auto;
-    border: 0;
-    border-radius: var(--tags-input-clear-trigger-radius, var(--radius-sm));
-    padding: 0;
-    background-color: var(--tags-input-clear-trigger-bg, transparent);
     align-self: center;
-    color: var(--tags-input-clear-trigger-color, var(--color-muted-foreground));
-    cursor: pointer;
-    outline: 0;
-    transition:
-      background-color var(--tags-input-transition, var(--transition-default)),
-      color var(--tags-input-transition, var(--transition-default)),
-      opacity var(--tags-input-transition, var(--transition-default)),
-      outline-color var(--tags-input-transition, var(--transition-default));
-
-    & > svg {
-      width: var(--tags-input-clear-trigger-icon-size, 0.75rem);
-      height: var(--tags-input-clear-trigger-icon-size, 0.75rem);
-      flex: none;
-      pointer-events: none;
-    }
-
-    &:hover {
-      background-color: var(--tags-input-clear-trigger-bg-hover, var(--color-muted));
-      color: var(--tags-input-clear-trigger-color-hover, var(--color-foreground));
-    }
-
-    &:focus-visible {
-      outline: var(--tags-input-trigger-focus-ring-width, var(--border-width-sm)) solid
-        var(--tags-input-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: var(--tags-input-trigger-focus-ring-offset, 2px);
-    }
-
-    &[data-disabled],
-    &:disabled {
-      cursor: default;
-      opacity: var(--tags-input-disabled-opacity, var(--opacity-disabled));
-      pointer-events: none;
-    }
 
     &[data-readonly] {
       display: none;

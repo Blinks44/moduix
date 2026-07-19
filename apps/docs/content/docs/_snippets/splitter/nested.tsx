@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { createSplitterRegistry } from '@ark-ui/react/splitter';
-import { Splitter } from '@moduix/react';
+import { createSplitterRegistry, Splitter } from '@moduix/react';
 import { useState } from 'react';
 
 const horizontalPanels = [
@@ -39,9 +38,7 @@ export function NestedSplitterDemo() {
       <Splitter.Panel id="left" className="splitter-panel">
         Left
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
       <Splitter.Panel id="right">
         <Splitter
           orientation="vertical"
@@ -52,9 +49,7 @@ export function NestedSplitterDemo() {
           <Splitter.Panel id="top" className="splitter-panel">
             Top
           </Splitter.Panel>
-          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
+          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
           <Splitter.Panel id="bottom" className="splitter-panel">
             Bottom
           </Splitter.Panel>

@@ -59,10 +59,6 @@
     }
 
     &:focus-visible {
-      border-color: var(
-        --listbox-input-focus-ring-color,
-        var(--listbox-focus-ring-color, var(--color-ring))
-      );
       outline-color: var(
         --listbox-input-focus-ring-color,
         var(--listbox-focus-ring-color, var(--color-ring))
@@ -74,6 +70,70 @@
       opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
       cursor: default;
     }
+  }
+
+  .filter {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+
+    &:has(+ .content) .input {
+      border-bottom: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .filter + .content {
+    margin-top: calc(-1 * var(--listbox-root-gap, var(--spacing-3)));
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .filterIcon {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    inset-inline-start: var(--listbox-filter-padding-x, var(--spacing-3));
+    width: var(--listbox-filter-icon-size, 1rem);
+    height: var(--listbox-filter-icon-size, 1rem);
+    color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .filter .input {
+    min-height: var(--listbox-filter-height, var(--listbox-input-height, var(--size-lg)));
+    padding-inline-start: calc(
+      var(--listbox-filter-padding-x, var(--spacing-3)) + var(--listbox-filter-icon-size, 1rem) +
+        var(--listbox-filter-input-padding-x, var(--spacing-2))
+    );
+    padding-inline-end: calc(
+      var(--listbox-filter-padding-x, var(--spacing-3)) +
+        var(--listbox-filter-action-size, 1.5rem) +
+        var(--listbox-filter-input-padding-x, var(--spacing-2))
+    );
+    background-color: var(--listbox-bg, var(--color-background));
+
+    &:focus-visible {
+      outline-color: transparent;
+    }
+  }
+
+  .clearTrigger {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    inset-inline-end: var(--listbox-filter-padding-x, var(--spacing-3));
+    transform: translateY(-50%);
+    --close-button-size: var(--listbox-filter-action-size, 1.5rem);
+    --close-button-radius: var(--listbox-filter-action-radius, var(--radius-sm));
+    --close-button-bg: var(--listbox-filter-action-bg, transparent);
+    --close-button-bg-hover: var(--listbox-filter-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--listbox-filter-action-color-hover, var(--color-foreground));
+    --close-button-icon-size: var(--listbox-filter-icon-size, 1rem);
+    --close-button-transition: var(--listbox-transition, var(--transition-default));
   }
 
   .content {

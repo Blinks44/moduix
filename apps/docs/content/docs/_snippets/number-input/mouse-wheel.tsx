@@ -7,11 +7,7 @@ export function MouseWheelNumberInputDemo() {
   return (
     <NumberInput defaultValue="5" allowMouseWheel>
       <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
     </NumberInput>
   );
 }

@@ -1,0 +1,207 @@
+---
+title: Data Table
+description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table.
+icon: TableProperties
+---
+
+import * as DataTableDocs from '@/components/examples/data-table';
+
+# Data Table
+
+`Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
+styled `Table` parts for markup, then use TanStack Table to model the data-grid state. The product
+feature owns its records and controls table state when that state drives a route or server query.
+Each product has different columns, filters, row actions, and server contracts, so keep that
+behavior close to the feature that needs it.
+
+## Installation
+
+Install TanStack Table in the application that owns the data-grid behavior:
+
+```bash
+npm install @tanstack/react-table
+```
+
+`Table` already comes from `@moduix/react`. It deliberately does not include TanStack Table, so
+applications that only need a semantic table do not pay for data-grid logic.
+
+## Basic
+
+Define typed `ColumnDef` entries, create a table instance with `getCoreRowModel()`, and map its
+header groups and visible cells into the moduix table anatomy. Use `flexRender` for headers and
+cells: column definitions may contain plain values or React render functions.
+
+<Preview clientOnly>
+  <DataTableDocs.BasicDataTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/data-table/basic.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .data-table {
+        width: min(48rem, 100%);
+      }
+
+      .data-table-table {
+        min-width: 32rem;
+        table-layout: fixed;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+Keep the columns alongside the feature's data type. This is the natural place for formatting,
+numeric alignment, row actions, and business-specific filter definitions.
+
+## Keep data and columns stable
+
+The examples define `payments` and `columns` outside their components, so TanStack Table receives
+the same references between renders. When data or columns depend on props or state, use `useMemo`
+for the resulting array instead of creating it inline in the component or passing `data.filter(...)`
+directly to `useReactTable`. New references make TanStack Table recalculate and can cause React
+render loops. See the TanStack [FAQ](https://tanstack.com/table/latest/docs/faq) for the full
+explanation.
+
+## Stable column widths
+
+Use native `Table.ColumnGroup` and `Table.Column htmlWidth` for columns whose width should stay
+stable. Combine them with `table-layout: fixed` on the table root: the remaining column takes the
+available space, while a changing sort icon cannot resize its column.
+
+## Sorting, filtering, pagination, and selection
+
+Add only the TanStack row models the table needs. The example below controls sorting and column
+filters in React state, filters the email column, selects rows by their stable payment IDs, and
+paginates five rows at a time.
+
+<Preview clientOnly>
+  <DataTableDocs.InteractiveDataTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/data-table/sorting-filtering-and-pagination.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .data-table {
+        display: grid;
+        width: min(48rem, 100%);
+        gap: var(--spacing-4);
+      }
+
+      .data-table-toolbar,
+      .data-table-pagination,
+      .data-table-pagination > div {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+
+      .data-table-toolbar,
+      .data-table-pagination {
+        justify-content: space-between;
+      }
+
+      .data-table-toolbar > input {
+        max-width: 18rem;
+      }
+
+      .data-table-table {
+        min-width: 38rem;
+        table-layout: fixed;
+      }
+
+      .data-table-selection-column {
+        text-align: center;
+      }
+
+      .data-table [data-slot='table-row'][data-selected] {
+        background-color: var(--color-muted);
+      }
+
+      .data-table-toolbar > span,
+      .data-table-pagination > span {
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+For a sortable header, render a real button inside `Table.ColumnHeader`. The example uses Lucide
+icons with a consistent size and sets `aria-sort="none" | "ascending" | "descending"` on sortable
+column headers. The selection column uses moduix `Checkbox` with the built-in indeterminate state
+for the current page.
+
+## Server data
+
+When the API filters, sorts, or paginates records, keep those values in the feature's query state.
+Pass the returned page to TanStack Table and turn off the corresponding client-side transforms.
+This configuration replaces the client-side row models from the interactive example:
+
+```tsx
+const table = useReactTable({
+  data: response.rows,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  manualFiltering: true,
+  manualPagination: true,
+  manualSorting: true,
+  rowCount: response.rowCount,
+  onColumnFiltersChange: setColumnFilters,
+  onPaginationChange: setPagination,
+  onSortingChange: setSorting,
+  state: { columnFilters, pagination, sorting },
+});
+```
+
+Do not add `getFilteredRowModel`, `getSortedRowModel`, or `getPaginationRowModel` for the matching
+server-owned behavior: TanStack assumes that `response.rows` already reflects the query. Pass
+`pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also turns
+off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or sort
+changes; otherwise the API can return an empty page. See TanStack's
+[filtering](https://tanstack.com/table/latest/docs/guide/global-filtering),
+[sorting](https://tanstack.com/table/latest/docs/guide/sorting), and
+[pagination](https://tanstack.com/table/latest/docs/guide/pagination) guides for the query layer.
+
+## Add features deliberately
+
+TanStack Table is headless. Choose the state and row models for the behavior that belongs to this
+specific data view instead of turning every grid feature on by default.
+
+| Need              | Add to this table                                                                                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Row actions       | Render a `Menu` in an actions column; action handlers stay with the product feature.                                                                                                                          |
+| Row selection     | Control `rowSelection`, configure `getRowId` with a durable record ID, and render moduix `Checkbox` controls in a selection column.                                                                           |
+| Column visibility | Control `columnVisibility` and expose `column.toggleVisibility()` through a `Menu`.                                                                                                                           |
+| Server data       | Keep query state in the route or data layer. Use `manualFiltering`, `manualSorting`, and `manualPagination` only for the transforms owned by the API, then pass response rows with `rowCount` or `pageCount`. |
+| Large datasets    | Add virtualization to the table body only after measuring; keep the native `table`, `thead`, `tbody`, `tr`, `th`, and `td` semantics intact.                                                                  |
+
+The TanStack Table [row models guide](https://tanstack.com/table/latest/docs/guide/row-models) lists
+the available client-side transforms. Their [row selection guide](https://tanstack.com/table/latest/docs/guide/row-selection)
+explains controlled selection state and page-level selection, while the [React adapter](https://tanstack.com/table/latest/docs/framework/react/react-table)
+documents `useReactTable`. The moduix [Table](/docs/table) page documents the rendered structure
+and its styling hooks.
+
+With `manualPagination`, keep the full `rowSelection` state for actions that span pages. TanStack's
+selected-row models can only return records currently supplied to the table, even when the selection
+state also contains IDs from other pages.
+
+## Reuse after the pattern stabilizes
+
+If the same product table appears in more than one place, extract its columns, toolbar, or
+pagination controls into local feature components. Keep the resulting API product-specific:
+`PaymentsTable` is more maintainable than a broad `DataTable` wrapper that attempts to predict every
+filter, server response, action, or selection rule.
+
+## Accessibility
+
+Keep the native table parts in the rendered output. Use `Table.ColumnHeader` for headers,
+`Table.Cell` for data, and a short caption when the surrounding heading does not identify the data.
+Interactive controls inside cells need descriptive accessible names, and sortable headers should
+expose their current direction through `aria-sort`. The filter input and selection controls in the
+interactive example have explicit accessible names rather than relying on placeholder or icon text.

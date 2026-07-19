@@ -1,11 +1,17 @@
-import { useSegmentGroup } from '@ark-ui/react/segment-group';
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup, useSegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
-const frameworks = ['React', 'Solid', 'Svelte', 'Vue'] as const;
-const views = ['List', 'Board', 'Calendar'] as const;
+const frameworkItems = ['React', 'Solid', 'Svelte', 'Vue'].map((value) => ({
+  value,
+  label: value,
+}));
+const disabledFrameworkItems = frameworkItems.map((item) => ({
+  ...item,
+  disabled: item.value === 'Svelte',
+}));
+const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: value }));
 
 export const segmentGroupFrameworksData = `
 const frameworks = ["React", "Solid", "Svelte", "Vue"];
@@ -171,31 +177,11 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function FrameworkItems({
-  items = frameworks,
-  disabledItem,
-}: {
-  items?: readonly string[];
-  disabledItem?: string;
-}) {
-  return (
-    <>
-      {items.map((framework) => (
-        <SegmentGroup.Item key={framework} value={framework} disabled={framework === disabledItem}>
-          <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
-      ))}
-    </>
-  );
-}
-
 export function SegmentGroupExample() {
   return (
     <SegmentGroup aria-label="Framework" defaultValue="React">
       <SegmentGroup.Indicator />
-      <FrameworkItems />
+      <SegmentGroup.Items items={frameworkItems} />
     </SegmentGroup>
   );
 }
@@ -211,7 +197,7 @@ export function ControlledSegmentGroupExample() {
         onValueChange={(details) => setValue(details.value)}
       >
         <SegmentGroup.Indicator />
-        <FrameworkItems />
+        <SegmentGroup.Items items={frameworkItems} />
       </SegmentGroup>
       <output className="segment-output">selected: {value ?? 'none'}</output>
     </div>
@@ -225,7 +211,7 @@ export function SegmentGroupRootProviderExample() {
     <div className="segment-stack">
       <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
         <SegmentGroup.Indicator />
-        <FrameworkItems />
+        <SegmentGroup.Items items={frameworkItems} />
       </SegmentGroup.RootProvider>
       <button
         className="segment-button"
@@ -243,7 +229,7 @@ export function DisabledSegmentGroupExample() {
   return (
     <SegmentGroup aria-label="Framework" defaultValue="React">
       <SegmentGroup.Indicator />
-      <FrameworkItems disabledItem="Svelte" />
+      <SegmentGroup.Items items={disabledFrameworkItems} />
     </SegmentGroup>
   );
 }
@@ -274,7 +260,7 @@ export function VerticalSegmentGroupExample() {
       className="segment-vertical"
     >
       <SegmentGroup.Indicator />
-      <FrameworkItems items={views} />
+      <SegmentGroup.Items items={viewItems} />
     </SegmentGroup>
   );
 }
@@ -292,7 +278,7 @@ export function FormSegmentGroupExample() {
     <form className="segment-form" onSubmit={handleSubmit}>
       <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
         <SegmentGroup.Indicator />
-        <FrameworkItems />
+        <SegmentGroup.Items items={frameworkItems} />
       </SegmentGroup>
       <button className="segment-button" type="submit">
         Submit
@@ -306,7 +292,7 @@ export function InvalidSegmentGroupExample() {
   return (
     <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
       <SegmentGroup.Indicator />
-      <FrameworkItems />
+      <SegmentGroup.Items items={frameworkItems} />
     </SegmentGroup>
   );
 }
@@ -324,7 +310,6 @@ export function SegmentGroupAsChildExample() {
             <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
             <span className="segment-card-description">{description}</span>
             <SegmentGroup.ItemControl />
-            <SegmentGroup.ItemHiddenInput />
           </label>
         </SegmentGroup.Item>
       ))}

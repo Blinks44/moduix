@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useSliderContext } from '@ark-ui/react/slider';
-import { Slider } from '@moduix/react';
+import { Slider, useSliderContext } from '@moduix/react';
 
 function SliderStatus() {
   const slider = useSliderContext();
@@ -22,9 +21,7 @@ export function ContextSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Context value">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
     </Slider>
   );

@@ -35,7 +35,7 @@ Items use stable `value` identifiers for selection and typeahead.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-menu" />
+<ShadcnInstall packageName="menu" />
 
 ## Anatomy
 
@@ -128,10 +128,37 @@ Nested menus are regular `Menu` roots inside the parent content. The nested root
 - `Menu.RadioItemGroup.onValueChange` receives `details.value`.
 - `Menu.RootProvider` must be used with a `useMenu` instance instead of rendering a second `Menu`
   root for the same state.
+- Roots portal `Menu.Positioner` automatically. Use `portalled={false}` to keep a menu within a
+  dialog or scroll container, and pair it with `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`
+  when the container scrolls.
 - `Menu.Indicator` mirrors Ark's indicator part. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`,
   `Menu.ItemShortcut`, and item text helpers are moduix leaf sugar only.
 
 ## Examples
+
+### Checkbox Items
+
+Checkbox items keep boolean state while preserving menu navigation and typeahead.
+
+<Preview>
+  <MenuDocs.CheckboxItemsMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/checkbox-items.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Context Menu
+
+Use `Menu.ContextTrigger` for right-click and long-press context menus.
+
+<Preview>
+  <MenuDocs.ContextMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/context-menu.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
 
 ### Controlled
 
@@ -141,19 +168,6 @@ Control `open` with `onOpenChange(details)` when another control needs to drive 
   <MenuDocs.ControlledMenuExample />
   <Preview.Code>
     <include lang="tsx">./_snippets/menu/controlled.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
-</Preview>
-
-### Root Provider
-
-Use Ark `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu
-API.
-
-<Preview>
-  <MenuDocs.RootProviderMenuExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/menu/root-provider.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
@@ -170,50 +184,26 @@ Use `Menu.ItemGroup` and `Menu.ItemGroupLabel` to organize related menu rows.
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Links
+### Indicator Placement
 
-Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
+moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for layout control.
 
 <Preview>
-  <MenuDocs.LinkItemsMenuExample />
+  <MenuDocs.IndicatorRightMenuExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/menu/links.tsx#demo</include>
+    <include lang="tsx">./_snippets/menu/indicator-placement.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Checkbox Items
+### Item Context
 
-Checkbox items keep boolean state while preserving menu navigation and typeahead.
-
-<Preview>
-  <MenuDocs.CheckboxItemsMenuExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/menu/checkbox-items.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
-</Preview>
-
-### Radio Items
-
-Use `Menu.RadioItemGroup` for one selected value inside a menu.
+Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
 
 <Preview>
-  <MenuDocs.RadioItemsMenuExample />
+  <MenuDocs.ItemContextMenuExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/menu/radio-items.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
-</Preview>
-
-### Context Menu
-
-Use `Menu.ContextTrigger` for right-click and long-press context menus.
-
-<Preview>
-  <MenuDocs.ContextMenuExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/menu/context-menu.tsx#demo</include>
+    <include lang="tsx">./_snippets/menu/item-context.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
@@ -231,14 +221,27 @@ is present.
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Nested
+### Links
 
-Render a nested `Menu` and open it from `Menu.TriggerItem`.
+Use `Menu.Item asChild` for anchors so the link itself receives menu semantics.
 
 <Preview>
-  <MenuDocs.NestedMenuExample />
+  <MenuDocs.LinkItemsMenuExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/menu/nested.tsx#demo</include>
+    <include lang="tsx">./_snippets/menu/links.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Menu in Dialog
+
+Keep the popup inside a dialog or scroll container with `portalled={false}`. Use fixed positioning
+and `hideWhenDetached` when the container scrolls.
+
+<Preview>
+  <MenuDocs.MenuInDialogExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/menu-in-dialog.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
@@ -255,6 +258,42 @@ Pass a `value` to each `Menu.Trigger` when one menu is shared across multiple tr
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
+### Nested
+
+Render a nested `Menu` and open it from `Menu.TriggerItem`.
+
+<Preview>
+  <MenuDocs.NestedMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/nested.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Radio Items
+
+Use `Menu.RadioItemGroup` for one selected value inside a menu.
+
+<Preview>
+  <MenuDocs.RadioItemsMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/radio-items.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use `useMenu` and `Menu.RootProvider` when code outside the rendered tree needs access to the menu API.
+
+<Preview>
+  <MenuDocs.RootProviderMenuExample />
+  <Preview.Code>
+    <include lang="tsx">./_snippets/menu/root-provider.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
+</Preview>
+
 ### Select Event
 
 Use root `onSelect(details)` when the menu should react to any item selection.
@@ -267,26 +306,15 @@ Use root `onSelect(details)` when the menu should react to any item selection.
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>
 
-### Item Context
+### Advanced Customization
 
-Use Ark `Menu.ItemContext` for inline access to item state such as `highlighted`.
-
-<Preview>
-  <MenuDocs.ItemContextMenuExample />
-  <Preview.Code>
-    <include lang="tsx">./_snippets/menu/item-context.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
-</Preview>
-
-### Indicator Placement
-
-moduix adds `indicator="start" | "end" | "none"` on checkbox and radio rows for layout control.
+Bypass the default indicator and leaf helpers when a menu needs fully custom item content, an arrow,
+or a link host; the Ark structural parts stay explicit.
 
 <Preview>
-  <MenuDocs.IndicatorRightMenuExample />
+  <MenuDocs.AdvancedCustomizationMenuExample />
   <Preview.Code>
-    <include lang="tsx">./_snippets/menu/indicator-placement.tsx#demo</include>
+    <include lang="tsx">./_snippets/menu/advanced-customization.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{MenuDocs.menuExampleCss}</Preview.CSS>
 </Preview>

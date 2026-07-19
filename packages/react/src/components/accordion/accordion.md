@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/accordion
+- Chakra UI: https://chakra-ui.com/docs/components/accordion
 
 ## Purpose
 
@@ -23,9 +24,9 @@ variables, and stable `data-slot` hooks.
 ## Current behavior contract
 
 - Uses Ark composition: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
-  `Accordion.ItemIndicator`, and `Accordion.ItemContent`.
-- Supports Ark external state ownership through `Accordion.RootProvider`; import `useAccordion()`
-  directly from `@ark-ui/react/accordion`.
+  `Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
+- Supports Ark external state ownership through `Accordion.RootProvider` and the moduix-exported
+  `useAccordion()`.
 - Supports Ark controlled and uncontrolled state with `value`, `defaultValue`, and
   `onValueChange(details)`.
 - Supports Ark root behavior props such as `multiple`, `collapsible`, `disabled`, `orientation`,
@@ -33,6 +34,7 @@ variables, and stable `data-slot` hooks.
 - Uses Ark content animation measurement via `--height` for vertical accordions and `--width`
   for horizontal accordions.
 - `Accordion.ItemIndicator` renders `PlusIcon` by default when no children are passed.
+- `Accordion.ItemBody` provides the default inner spacing wrapper for panel content.
 
 ## Anatomy and exported parts
 
@@ -42,6 +44,7 @@ Accordion.Root
    ├─ Accordion.ItemTrigger
    │  └─ Accordion.ItemIndicator
    └─ Accordion.ItemContent
+      └─ Accordion.ItemBody
 
 Accordion.RootProvider
 └─ same item tree connected to a useAccordion() store
@@ -57,6 +60,7 @@ Every exported part accepts `className` and receives a stable `data-slot`:
 | `Accordion.ItemTrigger`   | `accordion-item-trigger`   | Styled Ark trigger button.                     |
 | `Accordion.ItemIndicator` | `accordion-item-indicator` | Defaults to `PlusIcon` when no children exist. |
 | `Accordion.ItemContent`   | `accordion-item-content`   | Styled Ark content with Ark size animation.    |
+| `Accordion.ItemBody`      | `accordion-item-body`      | Default inner spacing wrapper for panel body.  |
 
 ## Composition
 
@@ -78,7 +82,7 @@ export function AccordionExample() {
             <Accordion.ItemIndicator />
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
-            <div className="panelContent">{item.description}</div>
+            <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
           </Accordion.ItemContent>
         </Accordion.Item>
       ))}
@@ -91,11 +95,11 @@ export function AccordionExample() {
 
 - `Anatomy`: preserved directly through the exported Ark-shaped parts.
 - `Controlled`: preserved through `value`, `defaultValue`, and `onValueChange(details)`.
-- `Root Provider`: preserved through Ark `useAccordion()` and `Accordion.RootProvider`.
+- `Root Provider`: preserved through moduix `useAccordion()` and `Accordion.RootProvider`.
 - `Multiple` and `Collapsible`: preserved on `Accordion.Root`.
 - `Lazy Mount`: preserved through `lazyMount` and `unmountOnExit`.
-- `Context` and `Item State`: available directly from `@ark-ui/react/accordion`, not re-exported
-  by moduix.
+- `Context` and `Item State`: available directly from `@ark-ui/react/accordion`. moduix only
+  re-exports `useAccordion()` for the `RootProvider` path.
 - `With Slider`: preserved as normal nested composition; nested Ark widgets keep their own part tree,
   keyboard behavior, and hidden inputs inside `Accordion.ItemContent`.
 - `Content Animation`: preserved through Ark `--height` and `--width` measurement rather than a custom sizing model.
@@ -108,6 +112,7 @@ export function AccordionExample() {
 - All exported parts support Ark `asChild` for DOM ownership changes.
 - Ark callback and focus shapes remain unchanged, including `onValueChange(details)` and
   `onFocusChange(details)`.
+- `useAccordion()` is exported from `@moduix/react` for the recommended `RootProvider` path.
 - `RootProvider` must receive the return value from `useAccordion()` and must not be combined with
   `Accordion.Root` for the same accordion instance.
 - Ark content sizing variables remain available, especially `--height` and `--width`.
@@ -118,7 +123,7 @@ Primary CSS variables:
 
 | Variable                               | Default                         |
 | -------------------------------------- | ------------------------------- |
-| `--accordion-width`                    | `22rem`                         |
+| `--accordion-width`                    | `100%`                          |
 | `--accordion-max-width`                | `100%`                          |
 | `--accordion-horizontal-width`         | `auto`                          |
 | `--accordion-horizontal-height`        | `20rem`                         |
@@ -128,6 +133,8 @@ Primary CSS variables:
 | `--accordion-trigger-bg`               | `var(--color-muted)`            |
 | `--accordion-trigger-bg-hover`         | `var(--color-accent)`           |
 | `--accordion-icon-open-transform`      | `rotate(45deg) scale(1.1)`      |
+| `--accordion-item-body-gap`            | `var(--spacing-3)`              |
+| `--accordion-item-body-padding`        | `var(--spacing-3)`              |
 | `--accordion-item-content-color`       | `var(--color-muted-foreground)` |
 | `--accordion-item-content-transition`  | `var(--transition-default)`     |
 
@@ -135,9 +142,10 @@ Primary CSS variables:
 
 - moduix ships pre-styled defaults; Ark is intentionally unstyled.
 - `Accordion.ItemIndicator` defaults to `PlusIcon` when children are not provided.
+- `Accordion.ItemBody` removes the need for per-example inner content wrappers just to add spacing.
 - `Accordion.RootProvider` shares the same default root styling as `Accordion.Root`.
-- Ark context parts, state hooks, and type aliases are imported directly from
-  `@ark-ui/react/accordion`.
+- `useAccordion()` is re-exported from moduix for provider-driven composition, while Ark context
+  parts, remaining state hooks, and type aliases stay on `@ark-ui/react/accordion`.
 - Horizontal orientation gets a row layout, opposite-side trigger text rotation, trigger width
   defaults, and `--width`-based content animation in addition to Ark's horizontal keyboard behavior.
 
@@ -146,9 +154,15 @@ Primary CSS variables:
 - Preserve Ark keyboard navigation, focus behavior, and value lifecycle.
 - Keep `onValueChange` Ark-style (`details.value`) instead of converting to a custom callback shape.
 - Keep `Accordion.ItemContent` animation based on Ark `--height` and `--width`.
+- Keep spacing on `Accordion.ItemBody`, not on `Accordion.ItemContent`, so Ark size measurement stays reliable.
+- Preserve the moduix `useAccordion()` re-export because docs and `RootProvider` examples depend on it.
 
 ## Local changelog
 
+- 2026-07-06: Added `Accordion.ItemBody` as a thin inner spacing wrapper, moved default panel spacing
+  into the component CSS contract, and migrated stories/docs away from ad-hoc content wrapper divs.
+- 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow,
+  reordered docs examples, and documented `Accordion.ItemBody` as a moduix-owned styling hook.
 - 2026-07-02: Removed duplicate Ark type exports, context parts, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every styled visual part, the default indicator,
   and horizontal-layout sugar.

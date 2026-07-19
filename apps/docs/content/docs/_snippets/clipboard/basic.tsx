@@ -7,8 +7,9 @@ export function ClipboardDemo() {
       <Clipboard.Label>Copy this link</Clipboard.Label>
       <Clipboard.Control>
         <Clipboard.Input readOnly />
-        <Clipboard.Trigger aria-label="Copy link">
+        <Clipboard.Trigger>
           <Clipboard.Indicator />
+          <Clipboard.CopyText />
         </Clipboard.Trigger>
       </Clipboard.Control>
     </Clipboard>

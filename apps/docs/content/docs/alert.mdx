@@ -13,8 +13,8 @@ Ark UI does not ship a dedicated `alert` primitive. Moduix builds this component
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
 
-Public parts are `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`, and
-`Alert.Description`.
+Public parts are `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
+`Alert.Description`, and `Alert.Actions`.
 
 ## Choosing the right component
 
@@ -26,8 +26,8 @@ document flow.
 
 ## Basic
 
-Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`. Add
-`Alert.Indicator` only when the message benefits from a leading visual cue.
+Start with `Alert`, `Alert.Title`, and `Alert.Description`. Add `Alert.Indicator` when the
+message benefits from a leading visual cue.
 
 <Preview>
   <AlertDocs.AlertExample />
@@ -40,7 +40,7 @@ Start with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description`
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-alert" />
+<ShadcnInstall packageName="alert" />
 
 This install path also pulls in the shared moduix foundation files that `Alert` depends on, such
 as styles, icons, and small utilities.
@@ -48,37 +48,43 @@ as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-Alert.Root
+Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-└─ Alert.Content
+├─ Alert.Title
+├─ Alert.Description
+└─ Alert.Content (optional)
    ├─ Alert.Title
-   └─ Alert.Description
+   ├─ Alert.Description
+   ├─ Alert.Actions (optional)
+   └─ Extra custom blocks
 ```
 
-| Part                | `data-part`   | Role                                                         |
-| ------------------- | ------------- | ------------------------------------------------------------ |
-| `Alert.Root`        | `root`        | Root slot. Applies status styles and semantics.              |
-| `Alert.Indicator`   | `indicator`   | Optional indicator slot. Sizes child SVG icons consistently. |
-| `Alert.Content`     | `content`     | Text content wrapper for title and description.              |
-| `Alert.Title`       | `title`       | Alert heading slot. Renders `h3` by default.                 |
-| `Alert.Description` | `description` | Supporting message slot.                                     |
+| Part                   | Role                                                          | `data-part`   |
+| ---------------------- | ------------------------------------------------------------- | ------------- |
+| `Alert` / `Alert.Root` | Root slot. Applies status styles and semantics.               | `root`        |
+| `Alert.Indicator`      | Optional indicator slot. Sizes child SVG icons consistently.  | `indicator`   |
+| `Alert.Content`        | Optional content-column wrapper for grouped text and actions. | `content`     |
+| `Alert.Title`          | Alert title slot. Renders `p` by default.                     | `title`       |
+| `Alert.Description`    | Supporting message slot.                                      | `description` |
+| `Alert.Actions`        | Optional wrapping row for action elements inside content.     | `actions`     |
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `Alert.Root`, `Alert.Content`, `Alert.Title`, and `Alert.Description` for most inline
-feedback messages.
+Use `Alert`, `Alert.Title`, and `Alert.Description` directly for the common inline message path.
 
 Use `status` for intent: `neutral`, `info`, `success`, `warning`, or `error`.
 
-Keep text, links, and extra actions inside `Alert.Content`. The component intentionally avoids
-special-purpose action props or slot bags.
+Add `Alert.Indicator` when the alert needs an explicit visual cue. The component intentionally
+avoids special-purpose action props or slot bags.
 
 ### When to go custom
 
-Switch to custom composition only when the alert needs extra inline controls, local dismiss state,
-or a different rendered element through Ark `asChild`.
+Add `Alert.Content` when the alert text needs to stay in one column with extra inline controls,
+local dismiss state, or additional custom blocks. Use `Alert.Actions` for a wrapped action row
+inside that content column, and `Alert.Title asChild` when the document outline needs a different
+heading element.
 
 Use `Alert.Title asChild` when the document outline needs a different heading element:
 
@@ -98,38 +104,30 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 ### Behavioral notes
 
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
-- `Alert.Title` renders `h3` by default and uses Ark `asChild` for heading polymorphism.
-- `Alert.Indicator` defaults to `aria-hidden="true"`, so essential meaning should stay in the
-  title or description.
+- `Alert.Indicator` defaults to `aria-hidden="true"`.
+- `Alert.Title` renders `p` by default and uses Ark `asChild` for heading polymorphism.
+- Essential meaning should stay in the title or description, because the indicator stays
+  `aria-hidden`.
+- `Alert.Content` is optional. Use it when title, description, and extra controls should share one
+  content column beside the indicator.
+- `Alert.Actions` is optional. Use it when buttons or links should share the default wrapped action
+  row styling.
 - The component is intentionally presentational. It does not manage dismiss state, focus, or
   keyboard behavior for embedded actions.
 
 ## Examples
 
-### With Icon
+### Custom Heading
 
-Place a moduix icon or custom SVG inside `Alert.Indicator`.
+Use `asChild` on `Alert.Title` when the alert should participate in a specific document outline.
 
 <Preview>
-  <AlertDocs.AlertWithIconExample />
+  <AlertDocs.AlertHeadingExample />
 
   <Preview.Code>
-    <include lang="tsx">./_snippets/alert/with-icon.tsx#demo</include>
+    <include lang="tsx">./_snippets/alert/custom-heading.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
-</Preview>
-
-### Statuses
-
-Use statuses for neutral, informational, success, warning, and error states.
-
-<Preview>
-  <AlertDocs.AlertStatusesExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/alert/statuses.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AlertDocs.alertStatusesCss}</Preview.CSS>
 </Preview>
 
 ### Error
@@ -146,10 +144,38 @@ emphasis.
   <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Statuses
 
-Compose extra controls inside `Alert.Content` when the message needs a recovery path or follow-up
-action. Keep dismiss state in the consuming component when a local alert should be hidden.
+Use `Alert.Indicator` with your chosen icon for neutral, informational, success, warning, and
+error states.
+
+<Preview>
+  <AlertDocs.AlertStatusesExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/alert/statuses.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AlertDocs.alertStatusesCss}</Preview.CSS>
+</Preview>
+
+### With Icon
+
+Place a moduix icon or custom SVG inside `Alert.Indicator`.
+
+<Preview>
+  <AlertDocs.AlertWithIconExample />
+
+  <Preview.Code>
+    <include lang="tsx">./_snippets/alert/with-icon.tsx#demo</include>
+  </Preview.Code>
+  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass ad hoc layout wrappers and use `Alert.Actions` when the message needs a recovery path or
+follow-up controls inside `Alert.Content`. Keep dismiss state in the consuming component when a
+local alert should be hidden.
 
 <Preview>
   <AlertDocs.AlertActionsExample />
@@ -158,19 +184,6 @@ action. Keep dismiss state in the consuming component when a local alert should 
     <include lang="tsx">./_snippets/alert/custom-composition.tsx#demo</include>
   </Preview.Code>
   <Preview.CSS>{AlertDocs.alertCustomCompositionCss}</Preview.CSS>
-</Preview>
-
-### Custom Heading
-
-Use `asChild` on `Alert.Title` when the alert should participate in a specific document outline.
-
-<Preview>
-  <AlertDocs.AlertHeadingExample />
-
-  <Preview.Code>
-    <include lang="tsx">./_snippets/alert/custom-heading.tsx#demo</include>
-  </Preview.Code>
-  <Preview.CSS>{AlertDocs.alertExampleCss}</Preview.CSS>
 </Preview>
 
 ## Styling
@@ -194,7 +207,7 @@ Built-in statuses also read shared palette tokens:
 ### Styling hooks
 
 - Stable `data-slot` selectors: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
-  and `alert-description`
+  `alert-description`, and `alert-actions`
 - Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`,
-  `title`, or `description`
+  `title`, `description`, or `actions`
 - `Alert.Root` writes the selected status to `data-status`

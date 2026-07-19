@@ -1,9 +1,9 @@
+import { createListCollection } from '@ark-ui/react/collection';
+import { Checkbox, Field, NativeSelect, RadioGroup, Select, useField } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import { useField } from '@ark-ui/react/field';
-import { Checkbox, Field, RadioGroup } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './field.module.css';
 
 export const fieldOverrideCssProperties: CssPropertyInput[] = [
@@ -126,6 +126,10 @@ export const fieldCurrencyOptions = [
   { label: 'GBP', value: 'GBP' },
 ];
 
+const fieldPriorities = createListCollection({
+  items: fieldPriorityOptions,
+});
+
 export function FieldExample(props: ComponentProps<typeof Field>) {
   return (
     <Field required className={styles.field} {...props}>
@@ -188,11 +192,11 @@ export function FieldTextareaAutoresizeExample() {
   );
 }
 
-export function FieldSelectExample() {
+export function FieldNativeSelectExample() {
   return (
     <Field required className={styles.field}>
       <Field.Label>Priority</Field.Label>
-      <Field.Select defaultValue="">
+      <NativeSelect defaultValue="" name="priority">
         <option value="" disabled>
           Select priority
         </option>
@@ -201,7 +205,36 @@ export function FieldSelectExample() {
             {option.label}
           </option>
         ))}
-      </Field.Select>
+      </NativeSelect>
+      <Field.HelperText>Used for triage queues.</Field.HelperText>
+    </Field>
+  );
+}
+
+export function FieldSelectExample() {
+  return (
+    <Field required className={styles.field}>
+      <Select collection={fieldPriorities} name="priority">
+        <Select.Label>Priority</Select.Label>
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select priority" />
+          </Select.Trigger>
+          <Select.Indicators>
+            <Select.Indicator />
+          </Select.Indicators>
+        </Select.Control>
+        <Select.Positioner>
+          <Select.Content>
+            {fieldPriorities.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select>
       <Field.HelperText>Used for triage queues.</Field.HelperText>
     </Field>
   );
@@ -211,10 +244,7 @@ export function FieldCheckboxExample() {
   return (
     <Field required className={styles.field}>
       <Checkbox.Root>
-        <Checkbox.HiddenInput />
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Accept support access</Checkbox.Label>
       </Checkbox.Root>
       <Field.HelperText>Required before the team can inspect workspace data.</Field.HelperText>
@@ -229,12 +259,10 @@ export function FieldRadioGroupExample() {
       <Field.Label>Account type</Field.Label>
       <RadioGroup defaultValue="team" aria-label="Account type">
         <RadioGroup.Item value="personal">
-          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>Personal account</RadioGroup.ItemText>
         </RadioGroup.Item>
         <RadioGroup.Item value="team">
-          <RadioGroup.ItemHiddenInput />
           <RadioGroup.ItemControl />
           <RadioGroup.ItemText>Team account</RadioGroup.ItemText>
         </RadioGroup.Item>

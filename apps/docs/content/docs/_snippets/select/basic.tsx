@@ -25,15 +25,7 @@ export function SelectDemo() {
   return (
     <Select collection={fruits}>
       <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-        </Select.Trigger>
-        <Select.Indicators>
-          <Select.ClearTrigger aria-label="Clear selection" />
-          <Select.Indicator />
-        </Select.Indicators>
-      </Select.Control>
+      <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
       <Select.Positioner>
         <Select.Content>
           <Select.ItemGroup>
@@ -47,7 +39,6 @@ export function SelectDemo() {
           </Select.ItemGroup>
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

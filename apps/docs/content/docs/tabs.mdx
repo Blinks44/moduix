@@ -30,13 +30,13 @@ Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`,
   <include lang="tsx">./_snippets/tabs/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-tabs" />
+<ShadcnInstall packageName="tabs" />
 
 ## Anatomy
 
@@ -55,7 +55,7 @@ Tabs.RootProvider
 | Part                 | Role                                                            |
 | -------------------- | --------------------------------------------------------------- |
 | `Tabs` / `Tabs.Root` | Controls selected value, focus movement, orientation, and mode. |
-| `Tabs.RootProvider`  | Connects parts to state created with Ark `useTabs()`.           |
+| `Tabs.RootProvider`  | Connects parts to state created with moduix `useTabs()`.        |
 | `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
 | `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
 | `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
@@ -63,7 +63,7 @@ Tabs.RootProvider
 
 ## Composition
 
-### Recommended Composition
+### Recommended composition
 
 `Tabs.Root` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
 `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
@@ -72,15 +72,15 @@ Tabs.RootProvider
 Keep the Ark part tree visible. `Tabs.Indicator` is optional and should be rendered explicitly when
 you want the active-trigger indicator.
 
-### When To Go Custom
+### When to go custom
 
 Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
 must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
 
-Use Ark `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
+Use moduix `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
 tree. Do not render `Tabs.Root` around the same state instance.
 
-### Default Props
+### Default props
 
 | Prop                       | Default      | Notes                                                        |
 | -------------------------- | ------------ | ------------------------------------------------------------ |
@@ -91,7 +91,7 @@ tree. Do not render `Tabs.Root` around the same state instance.
 | `Tabs.Root.lazyMount`      | `false`      | Defers content mounting until selected.                      |
 | `Tabs.Root.unmountOnExit`  | `false`      | Removes inactive content when combined with lazy paths.      |
 
-### Behavioral Notes
+### Behavioral notes
 
 - `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
 - `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
@@ -113,6 +113,21 @@ Control the selected tab from React state when the active panel coordinates with
 
   <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
   
+</Preview>
+
+### Custom Icons
+
+Compose icons and labels directly inside `Tabs.Trigger`.
+
+<Preview>
+  <TabsDocs.IconTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/custom-icons.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+
 </Preview>
 
 ### Disabled Tab
@@ -160,6 +175,22 @@ Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the
   
 </Preview>
 
+### Line
+
+Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
+trigger.
+
+<Preview>
+  <TabsDocs.LineTabsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tabs/line.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
+  
+</Preview>
+
 ### Links
 
 Use `asChild` when triggers should render anchors or router links.
@@ -191,22 +222,6 @@ Enter, or Space.
   
 </Preview>
 
-### Root Provider
-
-Create state with Ark `useTabs()` when the selected value must be read before rendering the part
-tree.
-
-<Preview>
-  <TabsDocs.RootProviderTabsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tabs/root-provider.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Vertical
 
 Use `orientation="vertical"` when the trigger list should sit beside the active content.
@@ -222,31 +237,16 @@ Use `orientation="vertical"` when the trigger list should sit beside the active 
   
 </Preview>
 
-### Line
+### Advanced Customization
 
-Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
-trigger.
-
-<Preview>
-  <TabsDocs.LineTabsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tabs/line.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Custom Icons
-
-Compose icons and labels directly inside `Tabs.Trigger`.
+Create external state with moduix `useTabs()` when the selected value must be read before rendering
+the part tree or controlled by adjacent UI.
 
 <Preview>
-  <TabsDocs.IconTabsExample />
+  <TabsDocs.RootProviderTabsExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tabs/custom-icons.tsx#demo</include>
+  <include lang="tsx">./_snippets/tabs/root-provider.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{TabsDocs.tabsExampleCss}</Preview.CSS>
@@ -268,7 +268,7 @@ Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-s
   </Tabs>
 </div>
 
-### Styling Hooks
+### Styling hooks
 
 Use the part that owns the visual concern:
 

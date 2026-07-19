@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useImageCropper } from '@ark-ui/react/image-cropper';
-import { Button, ImageCropper } from '@moduix/react';
+import { Button, ImageCropper, useImageCropper } from '@moduix/react';
 import { useState } from 'react';
 
 const sampleImage =
@@ -25,13 +24,7 @@ export function CropPreviewImageCropperDemo() {
       <ImageCropper.RootProvider value={imageCropper}>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper.RootProvider>
       <Button type="button" onClick={handleCrop}>

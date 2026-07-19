@@ -6,7 +6,7 @@ import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Badge.module.css';
 
 type BadgeRootProps = HTMLArkProps<'span'> & {
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost';
+  variant?: 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 };
 
 const BadgeRoot = forwardRef<ComponentRef<typeof ark.span>, BadgeRootProps>(function BadgeRoot(

@@ -1,5 +1,4 @@
 //#region demo
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
 import { Button, Carousel } from '@moduix/react';
 
 const slides = [
@@ -33,13 +32,13 @@ const slides = [
 export function ScrollToCarousel() {
   return (
     <Carousel slideCount={slides.length}>
-      <ArkCarousel.Context>
+      <Carousel.Context>
         {(api) => (
           <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
             Go to slide 4
           </Button>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
 
       <Carousel.ItemGroup aria-label="Scroll to gallery">
         {slides.map((slide, index) => (
@@ -53,6 +52,8 @@ export function ScrollToCarousel() {
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
+
+      <Carousel.Indicators />
     </Carousel>
   );
 }

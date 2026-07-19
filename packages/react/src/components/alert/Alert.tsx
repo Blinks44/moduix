@@ -5,12 +5,14 @@ import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Alert.module.css';
 
+type AlertStatus = 'neutral' | 'info' | 'success' | 'warning' | 'error';
+
 type AlertRootProps = HTMLArkProps<'div'> & {
-  status?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
+  status?: AlertStatus;
 };
 
 const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function AlertRoot(
-  { className, role, status = 'neutral', ...props },
+  { children, className, role, status = 'neutral', ...props },
   ref,
 ) {
   return (
@@ -23,7 +25,9 @@ const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(funct
       data-status={status}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {children}
+    </ark.div>
   );
 });
 
@@ -58,12 +62,12 @@ const AlertContent = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'
   },
 );
 
-const AlertTitle = forwardRef<ComponentRef<typeof ark.h3>, HTMLArkProps<'h3'>>(function AlertTitle(
+const AlertTitle = forwardRef<ComponentRef<typeof ark.p>, HTMLArkProps<'p'>>(function AlertTitle(
   { className, ...props },
   ref,
 ) {
   return (
-    <ark.h3
+    <ark.p
       ref={ref}
       data-scope="alert"
       data-part="title"
@@ -89,12 +93,28 @@ const AlertDescription = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'
   },
 );
 
+const AlertActions = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function AlertActions({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="alert"
+        data-part="actions"
+        data-slot="alert-actions"
+        className={clsx(styles.actions, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
 const Alert = Object.assign(AlertRoot, {
   Root: AlertRoot,
   Indicator: AlertIndicator,
   Content: AlertContent,
   Title: AlertTitle,
   Description: AlertDescription,
+  Actions: AlertActions,
 });
 
 export { Alert };

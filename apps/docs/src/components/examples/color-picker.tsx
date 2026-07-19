@@ -1,8 +1,7 @@
-import { useColorPicker } from '@ark-ui/react/color-picker';
-import { ColorPicker, Dialog, Field, parseColor } from '@moduix/react';
+import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './color-picker.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];
@@ -54,13 +53,6 @@ export const colorPickerExampleCss = `
     gap: var(--spacing-3);
   }
 
-  .color-picker-channel-sliders {
-    display: flex;
-    min-width: 0;
-    flex: 1;
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
 `;
 
 export const colorPickerInlineCss = `
@@ -75,6 +67,34 @@ export const colorPickerInlineCss = `
     display: flex;
     min-width: 0;
     gap: var(--spacing-2);
+  }
+
+  .color-picker-control-swatch {
+    position: relative;
+    display: grid;
+    width: var(--size-lg);
+    height: var(--size-lg);
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-border);
+  }
+
+  .color-picker-trigger-value {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .color-picker-trigger-value-swatch {
+    position: relative;
+    display: grid;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-border);
   }
 `;
 
@@ -175,6 +195,11 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     '--color-picker-channel-slider-height',
     'var(--spacing-3)',
     'Controls horizontal channel slider height.',
+  ],
+  [
+    '--color-picker-sliders-gap',
+    'var(--spacing-2)',
+    'Controls the gap between the default hue and alpha sliders.',
   ],
   [
     '--color-picker-channel-slider-label-color',
@@ -318,6 +343,21 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ['--color-picker-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
   ['--color-picker-thumb-size', '1rem', 'Controls area and slider thumb size.'],
   ['--color-picker-transition', 'var(--transition-default)', 'Controls transition timing.'],
+  [
+    '--color-picker-trigger-fit-content-gap',
+    'var(--spacing-2)',
+    'Controls content gap for fit-content triggers.',
+  ],
+  [
+    '--color-picker-trigger-fit-content-padding-x',
+    'var(--spacing-3)',
+    'Controls inline padding for fit-content triggers.',
+  ],
+  [
+    '--color-picker-trigger-fit-content-swatch-size',
+    '1rem',
+    'Controls direct swatch size inside fit-content triggers.',
+  ],
   ['--color-picker-trigger-padding', 'var(--spacing-1)', 'Controls trigger swatch padding.'],
   ['--color-picker-trigger-size', 'var(--size-lg)', 'Controls the trigger swatch button size.'],
   ['--color-picker-value-text-color', 'var(--color-picker-color)', 'Controls value text color.'],
@@ -351,17 +391,7 @@ function PickerPopup({ colors = swatches }: { colors?: string[] }) {
         </ColorPicker.Area>
         <div className={styles.sliderGroup}>
           <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-          <div className={styles.channelSliders}>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-            <ColorPicker.ChannelSlider channel="alpha">
-              <ColorPicker.TransparencyGrid />
-              <ColorPicker.ChannelSliderTrack />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-          </div>
+          <ColorPicker.Sliders />
         </div>
         <ColorPicker.SwatchGroup>
           {colors.map((color) => (
@@ -377,20 +407,15 @@ function PickerPopup({ colors = swatches }: { colors?: string[] }) {
   );
 }
 
-function PickerField({ colors = swatches }: { colors?: string[] }) {
+function PickerField() {
   return (
     <>
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
-      <PickerPopup colors={colors} />
-      <ColorPicker.HiddenInput />
+      <PickerPopup />
     </>
   );
 }
@@ -407,12 +432,65 @@ export function ColorPickerExample() {
   );
 }
 
+export function AdvancedCustomizationColorPickerExample() {
+  return (
+    <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker">
+          <ColorPicker.TransparencyGrid />
+          <ColorPicker.ValueSwatch />
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <ColorPicker.ChannelSlider channel="hue">
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+          <ColorPicker.ChannelSlider channel="alpha">
+            <ColorPicker.TransparencyGrid />
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
+    </ColorPicker.Root>
+  );
+}
+
 export function ControlledColorPickerExample() {
   const [value, setValue] = useState(() => parseColor('#16a34a'));
 
   return (
     <ColorPicker.Root value={value} onValueChange={(details) => setValue(details.value)}>
-      <PickerField />
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker" />
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <ColorPicker.ChannelSlider channel="hue">
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+          <ColorPicker.ChannelSlider channel="alpha">
+            <ColorPicker.TransparencyGrid />
+            <ColorPicker.ChannelSliderTrack />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
     </ColorPicker.Root>
   );
 }
@@ -420,7 +498,11 @@ export function ControlledColorPickerExample() {
 export function DisabledColorPickerExample() {
   return (
     <ColorPicker.Root disabled defaultValue={parseColor('#64748b')}>
-      <PickerField />
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker" />
+      </ColorPicker.Control>
     </ColorPicker.Root>
   );
 }
@@ -437,7 +519,11 @@ export function FormUsageColorPickerExample() {
       }}
     >
       <ColorPicker.Root name="accent" defaultValue={parseColor('#eb5e41')}>
-        <PickerField />
+        <ColorPicker.Label>Color</ColorPicker.Label>
+        <ColorPicker.Control>
+          <ColorPicker.ChannelInput channel="hex" />
+          <ColorPicker.Trigger aria-label="Open color picker" />
+        </ColorPicker.Control>
       </ColorPicker.Root>
       <button className={styles.submitButton} type="submit">
         Submit
@@ -453,9 +539,31 @@ export function InputOnlyColorPickerExample() {
       <ColorPicker.Label>Hex color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
+        <div className={styles.controlSwatch}>
+          <ColorPicker.TransparencyGrid />
+          <ColorPicker.ValueSwatch />
+        </div>
       </ColorPicker.Control>
-      <ColorPicker.HiddenInput />
+    </ColorPicker.Root>
+  );
+}
+
+export function CompactTriggerColorPickerExample() {
+  return (
+    <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
+          <span className={styles.triggerValue}>
+            <span className={styles.triggerValueSwatch}>
+              <ColorPicker.TransparencyGrid />
+              <ColorPicker.ValueSwatch />
+            </span>
+            <ColorPicker.ValueText format="hex" />
+          </span>
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <PickerPopup />
     </ColorPicker.Root>
   );
 }
@@ -484,7 +592,28 @@ export function SliderOnlyColorPickerExample() {
 export function SwatchesColorPickerExample() {
   return (
     <ColorPicker.Root defaultValue={parseColor('#f97316')} closeOnSelect>
-      <PickerField colors={compactSwatches} />
+      <ColorPicker.Label>Color</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker" />
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+          <ColorPicker.SwatchGroup>
+            {compactSwatches.map((color) => (
+              <ColorPicker.SwatchTrigger key={color} value={color}>
+                <ColorPicker.Swatch value={color}>
+                  <ColorPicker.SwatchIndicator />
+                </ColorPicker.Swatch>
+              </ColorPicker.SwatchTrigger>
+            ))}
+          </ColorPicker.SwatchGroup>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
     </ColorPicker.Root>
   );
 }
@@ -502,7 +631,6 @@ export function SwatchOnlyColorPickerExample() {
           </ColorPicker.SwatchTrigger>
         ))}
       </ColorPicker.SwatchGroup>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -546,7 +674,6 @@ export function InlineColorPickerExample() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -563,12 +690,16 @@ export function OpenControlledColorPickerExample() {
       <ColorPicker.Label>Open controlled</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
-      <PickerPopup />
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
       <button type="button" onClick={() => setOpen((current) => !current)}>
         {open ? 'Close' : 'Open'}
       </button>
@@ -585,7 +716,18 @@ export function RootProviderColorPickerExample() {
         <ColorPicker.Label>Provider color</ColorPicker.Label>
         <ColorPicker.ValueText format="hex" />
       </div>
-      <PickerField />
+      <ColorPicker.Control>
+        <ColorPicker.ChannelInput channel="hex" />
+        <ColorPicker.Trigger aria-label="Open color picker" />
+      </ColorPicker.Control>
+      <ColorPicker.Positioner>
+        <ColorPicker.Content>
+          <ColorPicker.Area>
+            <ColorPicker.AreaBackground />
+            <ColorPicker.AreaThumb />
+          </ColorPicker.Area>
+        </ColorPicker.Content>
+      </ColorPicker.Positioner>
     </ColorPicker.RootProvider>
   );
 }
@@ -624,7 +766,6 @@ export function FormatColorPickerExample() {
           <ColorPicker.ChannelInput channel="lightness" />
         </div>
       </ColorPicker.View>
-      <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
 }
@@ -636,13 +777,8 @@ export function FieldStateColorPickerExample() {
         <ColorPicker.Label>Accent color</ColorPicker.Label>
         <ColorPicker.Control>
           <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.ChannelInput channel="alpha" />
-          <ColorPicker.Trigger aria-label="Open color picker">
-            <ColorPicker.TransparencyGrid />
-            <ColorPicker.ValueSwatch />
-          </ColorPicker.Trigger>
+          <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker.Root>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>
@@ -660,11 +796,23 @@ export function InsideDialogColorPickerExample() {
           <Dialog.CloseIcon />
           <Dialog.Title>Choose a color</Dialog.Title>
           <Dialog.Description>
-            Wrap the color picker positioner in a portal so its popover layers correctly.
+            The color picker positioner is portalled automatically for correct layering.
           </Dialog.Description>
           <div className={styles.dialogBody}>
             <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
-              <PickerField colors={compactSwatches} />
+              <ColorPicker.Label>Color</ColorPicker.Label>
+              <ColorPicker.Control>
+                <ColorPicker.ChannelInput channel="hex" />
+                <ColorPicker.Trigger aria-label="Open color picker" />
+              </ColorPicker.Control>
+              <ColorPicker.Positioner>
+                <ColorPicker.Content>
+                  <ColorPicker.Area>
+                    <ColorPicker.AreaBackground />
+                    <ColorPicker.AreaThumb />
+                  </ColorPicker.Area>
+                </ColorPicker.Content>
+              </ColorPicker.Positioner>
             </ColorPicker.Root>
           </div>
         </Dialog.Content>

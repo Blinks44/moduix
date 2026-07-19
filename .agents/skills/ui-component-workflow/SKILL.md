@@ -1,6 +1,6 @@
 ---
 name: ui-component-workflow
-description: Use for work in packages/react, including component implementation, API changes, stories, exports, and local component docs.
+description: Use for implementation, UX/API review, behavior, composition, stories, exports, and local docs of components in packages/react.
 ---
 
 # Skill: ui-component-workflow
@@ -34,11 +34,49 @@ markdown together. Check public docs/examples when the change is user-facing.
 - Preserve the current public contract unless the task explicitly changes it: meaningful parts, controlled/uncontrolled
   behavior, refs, `asChild`, `HiddenInput`, provider/context hooks, and stable `data-slot` hooks should not disappear
   silently.
+- If consumer-facing stories or docs need an Ark context, item context, state hook, or context hook as part of the
+  normal advanced path, expose that state surface through the moduix component namespace or package barrel instead of
+  teaching consumers to import `ArkComponent.Context` from `@ark-ui/react/*`. Keep direct Ark imports only for rare
+  escape hatches that are intentionally outside the moduix API.
 - When the current moduix API exports `RootProvider`, `Context`, `ItemContext`, `useComponent`, or `use*Context`,
   keep that surface aligned unless the task intentionally simplifies it everywhere.
 - Preserve the callable `Object.assign` root pattern so both `<Component>` and `<Component.Root>` keep working when
   that is already part of the contract.
 - Prefer removing duplicated private plumbing before removing meaningful public structure or escape hatches.
+
+### Native Form-Control Ownership
+
+When moduix intentionally makes Ark's native form-control part an implementation detail:
+
+- Render the required native control on every public composition path: `Root`, `RootProvider`, or each `Item` when
+  submission is item-based. Choose placement before editing; do not rely on consumers to add a hidden child.
+- Preserve controlled and uncontrolled state, `name`, `form`, validity, native reset synchronization, refs, `ids`,
+  provider/context hooks, `asChild`, and useful `data-slot` hooks. Verify that automatic insertion still gives
+  `asChild` one valid semantic child.
+- Keep the implementation component-local and Ark-shaped. Do not scan consumer children for a hidden part or add a
+  shared compatibility registry.
+- Move configuration that cannot be inferred into semantic public props: for example, distinct names for range fields,
+  a lightweight form-control mode for virtualized collections, or a serializer for structured values.
+- Remove a public `HiddenInput`, `HiddenSelect`, or `ItemHiddenInput` part only as an intentional documented API
+  change, including its namespace export and obsolete styling when nothing else needs them.
+
+## UX and API Decisions
+
+- For review-only requests, report findings ordered by consumer impact and do not edit files.
+- For implementation requests, make the smallest changes that improve comprehension, composition, styling, or migration
+  ergonomics without weakening Ark contracts.
+- Evaluate upstream references in this order: Ark for behavior, Chakra for Ark-aligned ergonomics, then shadcn for
+  migration friction and example readability. Classify differences as `keep`, `simplify`, `add sugar`, `document`, or
+  `reject` before changing the API.
+- Prefer narrow convenience parts that remove repeated boilerplate while leaving lower-level composition available.
+- Do not add compatibility aliases, renamed event props, value translators, hidden state machines, or shadcn-shaped
+  wrapper trees only to reduce migration effort.
+- Avoid nested prop bags such as `inputProps` or `triggerProps` by default. Use one only for a fixed structure and a
+  small recurring prop subset when explicit composition would be less clear.
+- Reject prop-heavy convenience components that hide portal, positioning, parsing, focus, or other behavior already
+  owned by Ark or Zag.
+- Keep every convenience part stylable: accept `className` on meaningful visual roots and retain useful Ark data
+  attributes, CSS variables, stable `data-slot` hooks, or exported lower-level parts for deeper customization.
 
 ## Typing Rules
 

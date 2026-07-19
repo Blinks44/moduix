@@ -1,7 +1,7 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Timer as TimerPrimitive } from '@ark-ui/react/timer';
+import { Timer as TimerPrimitive, useTimer, useTimerContext } from '@ark-ui/react/timer';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactNode } from 'react';
+import { Fragment, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Timer.module.css';
 
@@ -103,6 +103,27 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
+function TimerSegments({
+  className,
+  separator = ':',
+  types,
+}: {
+  className?: string;
+  separator?: ReactNode;
+  types: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+}) {
+  return (
+    <TimerArea className={className}>
+      {types.map((type, index) => (
+        <Fragment key={`${type}-${index}`}>
+          <TimerItem type={type} />
+          {index < types.length - 1 && <TimerSeparator>{separator}</TimerSeparator>}
+        </Fragment>
+      ))}
+    </TimerArea>
+  );
+}
+
 const Timer = Object.assign(TimerRoot, {
   Root: TimerRoot,
   RootProvider: TimerRootProvider,
@@ -111,6 +132,8 @@ const Timer = Object.assign(TimerRoot, {
   Separator: TimerSeparator,
   Control: TimerControl,
   ActionTrigger: TimerActionTrigger,
+  Context: TimerPrimitive.Context,
+  Segments: TimerSegments,
 });
 
-export { Timer };
+export { Timer, useTimer, useTimerContext };

@@ -36,7 +36,7 @@ Use a few line skeletons for the common text-loading case.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-skeleton" />
+<ShadcnInstall packageName="skeleton" />
 
 ## Anatomy
 
@@ -111,6 +111,38 @@ Use a larger block plus shorter text lines to reserve card layout while content 
 
 </Preview>
 
+### Loaded Content
+
+Use `loading` to keep the same host in place while switching from placeholder to real content.
+
+<Preview>
+  <SkeletonDocs.SkeletonLoadedExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/skeleton/loaded-content.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .loadedContent {
+        display: grid;
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        min-height: 4.5rem;
+        gap: var(--spacing-1);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+      }
+
+      .loadedGrid {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}
+
+</Preview.CSS>
+
+</Preview>
+
 ### Media Object
 
 Use `boxSize` with a full radius for avatar placeholders, then compose text lines beside it.
@@ -154,27 +186,6 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
 
 </Preview>
 
-### Variants
-
-Use `variant` to choose between pulse and static placeholder rendering.
-
-<Preview>
-  <SkeletonDocs.SkeletonVariantsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/skeleton/variants.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .stack {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
 ### Static
 
 Pass `variant="none"` when the loading state is dense or motion should stay quieter.
@@ -196,41 +207,30 @@ Pass `variant="none"` when the loading state is dense or motion should stay quie
 
 </Preview>
 
-### Loaded Content
+### Variants
 
-Use `loading` to keep the same host in place while switching from placeholder to real content.
+Use `variant` to choose between pulse and static placeholder rendering.
 
 <Preview>
-  <SkeletonDocs.SkeletonLoadedExample />
+  <SkeletonDocs.SkeletonVariantsExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/skeleton/loaded-content.tsx#demo</include>
+  <include lang="tsx">./_snippets/skeleton/variants.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
   {`
-      .loadedContent {
-        display: grid;
+      .stack {
         width: min(20rem, calc(100vw - var(--spacing-8)));
-        min-height: 4.5rem;
-        gap: var(--spacing-1);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-      }
-
-      .loadedGrid {
-        display: grid;
-        gap: var(--spacing-3);
       }
     `}
-
 </Preview.CSS>
 
 </Preview>
 
-### Custom Host
+### Advanced Customization
 
-Use `asChild` when a semantic element such as `section` should own the DOM node.
+Use `asChild` when a semantic element such as `section` should own the DOM node instead of the default `div` host.
 
 <Preview>
   <SkeletonDocs.SkeletonAsChildExample />

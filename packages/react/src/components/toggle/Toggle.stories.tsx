@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ComponentProps } from 'react';
 import { BellIcon, StarIcon } from '@/icons/demo';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { Toggle } from './Toggle';
+import { Toggle, useToggleContext } from './Toggle';
 import storyStyles from './Toggle.stories.module.css';
 
 function FavoriteToggle(props: ComponentProps<typeof Toggle>) {
@@ -12,6 +12,12 @@ function FavoriteToggle(props: ComponentProps<typeof Toggle>) {
       Favorite
     </Toggle>
   );
+}
+
+function ToggleStateLabel() {
+  const toggle = useToggleContext();
+
+  return <span>{toggle.pressed ? 'Notifications on' : 'Notifications off'}</span>;
 }
 
 const meta = {
@@ -115,6 +121,17 @@ export const Indicator: Story = {
         <Toggle.Indicator fallback={<StarIcon />}>
           <CheckIcon />
         </Toggle.Indicator>
+      </Toggle>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <Toggle defaultPressed>
+        <BellIcon />
+        <ToggleStateLabel />
       </Toggle>
     );
   },

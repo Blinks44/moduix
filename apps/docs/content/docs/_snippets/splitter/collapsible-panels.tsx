@@ -23,9 +23,7 @@ export function CollapsibleSplitterDemo() {
       <Splitter.Panel id="sidebar" className="splitter-panel">
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className="splitter-panel">
         Content
       </Splitter.Panel>

@@ -1,5 +1,5 @@
-import { Menu, PlusIcon, SplitButton } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
+import { Menu, SplitButton } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from './split-button.module.css';
 
@@ -72,16 +72,23 @@ function SplitButtonMenuItems({ includeSeparator = true }: { includeSeparator?: 
 }
 
 export function SplitButtonExample() {
+  const [status, setStatus] = useState('Ready to save.');
+
   return (
-    <SplitButton>
-      <SplitButton.Action>Save Changes</SplitButton.Action>
-      <SplitButton.Trigger />
-      <SplitButton.Positioner>
-        <SplitButton.Content>
-          <SplitButtonMenuItems />
-        </SplitButton.Content>
-      </SplitButton.Positioner>
-    </SplitButton>
+    <div>
+      <SplitButton>
+        <SplitButton.Action onClick={() => setStatus('Changes saved.')}>
+          Save Changes
+        </SplitButton.Action>
+        <SplitButton.Trigger />
+        <SplitButton.Positioner>
+          <SplitButton.Content>
+            <SplitButtonMenuItems />
+          </SplitButton.Content>
+        </SplitButton.Positioner>
+      </SplitButton>
+      <p aria-live="polite">{status}</p>
+    </div>
   );
 }
 

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aspect-ratio",
+  "title": "AspectRatio",
+  "description": "moduix React AspectRatio component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/aspect-ratio/AspectRatio.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef, type ComponentRef, type CSSProperties } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './AspectRatio.module.css';\n\ntype AspectRatioRootProps = HTMLArkProps<'div'> & {\n  ratio: number;\n};\n\nconst AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRootProps>(\n  function AspectRatioRoot({ ratio, className, style, ...props }, ref) {\n    return (\n      <ark.div\n        ref={ref}\n        data-scope=\"aspect-ratio\"\n        data-part=\"root\"\n        data-slot=\"aspect-ratio-root\"\n        className={clsx(styles.root, normalizeClassName(className))}\n        style={{ '--aspect-ratio-value': ratio, ...style } as CSSProperties}\n        {...props}\n      />\n    );\n  },\n);\n\nconst AspectRatio = Object.assign(AspectRatioRoot, {\n  Root: AspectRatioRoot,\n});\n\nexport { AspectRatio };",
+      "type": "registry:component",
+      "target": "@components/moduix/aspect-ratio/AspectRatio.tsx"
+    },
+    {
+      "path": "packages/react/src/components/aspect-ratio/AspectRatio.module.css",
+      "content": "@layer ui.components {\n  .root {\n    --aspect-ratio-value: 1;\n    position: relative;\n    width: 100%;\n    aspect-ratio: var(--aspect-ratio-value);\n    overflow: hidden;\n    border-radius: var(--aspect-ratio-radius, var(--radius-md));\n\n    & > :where(img, video, iframe, canvas, svg) {\n      display: block;\n      width: 100%;\n      height: 100%;\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/aspect-ratio/AspectRatio.module.css"
+    },
+    {
+      "path": "packages/react/src/components/aspect-ratio/index.ts",
+      "content": "export { AspectRatio } from './AspectRatio';",
+      "type": "registry:component",
+      "target": "@components/moduix/aspect-ratio/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

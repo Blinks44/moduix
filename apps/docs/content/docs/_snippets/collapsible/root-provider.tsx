@@ -1,6 +1,5 @@
 //#region demo
-import { useCollapsible } from '@ark-ui/react/collapsible';
-import { Collapsible } from '@moduix/react';
+import { Collapsible, useCollapsible } from '@moduix/react';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
@@ -12,19 +11,19 @@ export function RootProviderCollapsibleDemo() {
       <output>
         open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
       </output>
-      <Collapsible.RootProvider value={collapsible}>
+      <Collapsible.RootProvider value={collapsible} className="collapsible-root">
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <div className="collapsible-content-body">
+          <Collapsible.Body>
             <ul className="collapsible-keys-list">
               {recoveryKeys.map((key) => (
                 <li key={key}>{key}</li>
               ))}
             </ul>
-          </div>
+          </Collapsible.Body>
         </Collapsible.Content>
       </Collapsible.RootProvider>
     </div>

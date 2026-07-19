@@ -19,12 +19,23 @@ export default defineConfig(({ command }) => {
       mdx(),
       tailwindcss(),
       tanstackStart({
+        pages: [
+          { path: '/' },
+          { path: '/llms.txt' },
+          { path: '/llms-full.txt' },
+          { path: '/sitemap.xml' },
+        ],
         prerender: {
           enabled: !isDev,
-          // Reduce flakiness of local prerender crawler in CI/local runs.
           concurrency: 1,
-          retryCount: 5,
-          retryDelay: 250,
+          failOnError: true,
+          filter: ({ path: pagePath }) =>
+            pagePath === '/' ||
+            pagePath === '/docs' ||
+            pagePath === '/llms.txt' ||
+            pagePath === '/llms-full.txt' ||
+            pagePath === '/sitemap.xml' ||
+            pagePath.startsWith('/docs/'),
         },
       }),
       react(),
@@ -41,6 +52,11 @@ export default defineConfig(({ command }) => {
     },
     environments: {
       ssr: {
+        build: {
+          rolldownOptions: {
+            input: './src/server-entry/index.ts',
+          },
+        },
         optimizeDeps: {
           include: [
             'fumadocs-ui/components/dialog/search-default',

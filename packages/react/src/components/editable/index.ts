@@ -1,1 +1,1 @@
-export { Editable } from './Editable';
+export { Editable, useEditable, useEditableContext } from './Editable';

@@ -12,8 +12,9 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 
 ## Basic
 
-Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Clipboard.Control`,
-`Clipboard.Input`, `Clipboard.Trigger`, and `Clipboard.Indicator`.
+Start with the short `Clipboard` root, pair the value field with `Clipboard.Trigger`, and use
+`Clipboard.Indicator` plus `Clipboard.CopyText` for an obvious copy action without adding a custom
+label layer.
 
 <Preview>
   <ClipboardDocs.ClipboardExample />
@@ -27,7 +28,7 @@ Use the Ark composition path directly: `Clipboard.Root`, `Clipboard.Label`, `Cli
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-clipboard" />
+<ShadcnInstall packageName="clipboard" />
 
 This install path also pulls in the shared moduix foundation files that `Clipboard` depends on,
 such as styles, icons, and small utilities.
@@ -40,52 +41,60 @@ Clipboard.Root | Clipboard.RootProvider
 ├─ Clipboard.Control
 │  ├─ Clipboard.Input or Clipboard.ValueText
 │  └─ Clipboard.Trigger
-│     └─ Clipboard.Indicator (optional)
+│     ├─ Clipboard.Indicator (optional)
+│     └─ Clipboard.CopyText (optional)
 ```
 
-| Part                           | Role                                                            |
-| ------------------------------ | --------------------------------------------------------------- |
-| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.   |
-| `Clipboard.RootProvider`       | Injects Ark `useClipboard()` state created outside the subtree. |
-| `Clipboard.Label`              | Accessible label for the clipboard value.                       |
-| `Clipboard.Control`            | Layout row for value surface and trigger.                       |
-| `Clipboard.Input`              | Editable or read-only text field for the current value.         |
-| `Clipboard.Trigger`            | Button that copies the current value.                           |
-| `Clipboard.Indicator`          | Copy-state icon slot. moduix defaults to copy and check icons.  |
-| `Clipboard.ValueText`          | Text-only value surface when an input is not the right control. |
+| Part                           | Role                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.         |
+| `Clipboard.RootProvider`       | Injects `Clipboard.useClipboard()` state created outside the subtree. |
+| `Clipboard.Label`              | Accessible label for the clipboard value.                             |
+| `Clipboard.Control`            | Layout row for value surface and trigger.                             |
+| `Clipboard.Input`              | Editable or read-only text field for the current value.               |
+| `Clipboard.Trigger`            | Button that copies the current value.                                 |
+| `Clipboard.Indicator`          | Copy-state icon slot. moduix defaults to copy and check icons.        |
+| `Clipboard.CopyText`           | Copy-state text slot. moduix defaults to `Copy` and `Copied`.         |
+| `Clipboard.ValueText`          | Text-only value surface when an input is not the right control.       |
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `Clipboard.Root`, `Clipboard.Label`, `Clipboard.Control`, `Clipboard.Input`,
+Stay with `Clipboard`, `Clipboard.Label`, `Clipboard.Control`, `Clipboard.Input`,
 `Clipboard.Trigger`, and `Clipboard.Indicator` for the normal Ark path.
+
+`Clipboard` is the short root form and is equivalent to `Clipboard.Root`.
 
 Use `value`, `defaultValue`, `onValueChange(details)`, `onStatusChange(details)`, `timeout`, and
 `ids` exactly as Ark defines them. moduix does not remap callback payloads or rename props on this
 surface.
 
-`Clipboard.Indicator` is the only sugar layer: it renders the moduix copy icon by default and swaps
-to the check icon while copied state is active.
+`Clipboard.Indicator` and `Clipboard.CopyText` are the two narrow sugar layers: they render moduix
+copy/check icons and `Copy`/`Copied` text by default while keeping the Ark trigger structure
+explicit.
 
 ### When to go custom
 
 Use `Clipboard.ValueText` when the value should be displayed as text instead of inside an input.
 
-Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created outside
-the rendered subtree. Ark context and state hooks remain available directly from
+Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created
+outside the rendered subtree. Ark context hooks remain available directly from
 `@ark-ui/react/clipboard`.
 
-Use `asChild` on the Ark parts only when another element must own the rendered node. Keep the Ark
-part tree visible instead of hiding it behind a convenience wrapper.
+Use `asChild` on `Clipboard.Input` and `Clipboard.Trigger` when another element must own the
+rendered node, such as moduix `Input` or `Button` during a migration from a shadcn-style field plus
+button layout. Keep the Ark part tree visible instead of hiding it behind a convenience wrapper.
 
 ### Default props
 
-| Prop                    | Default | Values / Notes                                       |
-| ----------------------- | ------- | ---------------------------------------------------- |
-| `timeout`               | `3000`  | Ark copied-state timeout in milliseconds             |
-| `copied`                | —       | `Clipboard.Indicator` defaults to moduix `CheckIcon` |
-| `children` on indicator | —       | `Clipboard.Indicator` defaults to moduix `CopyIcon`  |
+| Prop                 | Default  | Values / Notes                                       |
+| -------------------- | -------- | ---------------------------------------------------- |
+| `timeout`            | `3000`   | Ark copied-state timeout in milliseconds             |
+| `Indicator.copied`   | —        | `Clipboard.Indicator` defaults to moduix `CheckIcon` |
+| `Indicator.children` | —        | `Clipboard.Indicator` defaults to moduix `CopyIcon`  |
+| `CopyText.copied`    | `Copied` | `Clipboard.CopyText` copied-state label              |
+| `CopyText.children`  | `Copy`   | `Clipboard.CopyText` idle label                      |
 
 ### Behavioral notes
 
@@ -93,8 +102,10 @@ part tree visible instead of hiding it behind a convenience wrapper.
 - `onStatusChange(details)` follows Ark copy-status details and is the right hook for analytics,
   counters, or adjacent feedback.
 - Ark applies `data-copied` to the relevant parts while copied state is active. By default moduix
-  keeps the input and trigger visually stable and only swaps the indicator, while `data-copied`
-  remains available for opt-in custom styling.
+  keeps the input and trigger visually stable and only swaps `Indicator` or `CopyText`, while
+  `data-copied` remains available for opt-in custom styling.
+- `Clipboard` no longer caps field width by default. Set `--clipboard-max-width` when a specific
+  maximum width belongs to the layout.
 - The old `CopyButton` API was removed. There is no `copiedDuration`, `copyLabels`, `onCopy`, or
   `onCopyError` alias layer on `Clipboard`.
 
@@ -129,6 +140,35 @@ introducing a separate clipboard abstraction.
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
+### Custom copy text
+
+Override `Clipboard.CopyText` when the trigger should use product-specific idle or copied labels.
+
+<Preview>
+  <ClipboardDocs.CustomCopyTextClipboardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/custom-copy-text.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside
+the rendered tree but the visible parts should stay Ark-shaped.
+
+<Preview>
+  <ClipboardDocs.RootProviderClipboardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/clipboard/root-provider.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
+</Preview>
+
 ### Timeout
 
 Set `timeout` when copied state should remain visible for longer than the Ark default.
@@ -157,16 +197,16 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
 </Preview>
 
-### Root Provider
+### Advanced Customization
 
-Use Ark `useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside the
-rendered tree but the visible parts should stay Ark-shaped.
+Use `asChild` to replace the default input and trigger elements while retaining the explicit Ark
+composition and moduix copy-state parts.
 
 <Preview>
-  <ClipboardDocs.RootProviderClipboardExample />
+  <ClipboardDocs.AsChildClipboardExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/clipboard/root-provider.tsx#demo</include>
+  <include lang="tsx">./_snippets/clipboard/as-child.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{ClipboardDocs.clipboardExampleCss}</Preview.CSS>
@@ -187,6 +227,7 @@ rendered tree but the visible parts should stay Ark-shaped.
 - `Clipboard.Input` -> `data-slot="clipboard-input"`
 - `Clipboard.Trigger` -> `data-slot="clipboard-trigger"`
 - `Clipboard.Indicator` -> `data-slot="clipboard-indicator"`
+- `Clipboard.CopyText` -> `data-slot="clipboard-copy-text"`
 - `Clipboard.ValueText` -> `data-slot="clipboard-value-text"`
 - Ark adds `data-copied` to `Root`, `Label`, `Control`, `Input`, and `Trigger` while copied state is active.
 - Ark adds `data-readonly` to `Clipboard.Input` when the input is read-only.

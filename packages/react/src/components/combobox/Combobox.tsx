@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -6,16 +5,20 @@ import {
   type ComboboxRootProps as ArkComboboxRootProps,
   type ComboboxRootProviderComponent as ArkComboboxRootProviderComponent,
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
+  useCombobox,
+  useComboboxContext,
 } from '@ark-ui/react/combobox';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
-import { CheckIcon, ChevronUpDownIcon, CloseIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, ChevronUpDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
   OverlayPortalProvider,
   type OverlayPortalProps,
 } from '@/lib/moduix/overlayPortal';
+import { CloseButton } from '../close-button';
 import styles from './Combobox.module.css';
 
 type ComboboxRootProps<T extends CollectionItem> = ArkComboboxRootProps<T> & OverlayPortalProps;
@@ -100,15 +103,49 @@ const ComboboxInput = forwardRef<
 const ComboboxClearTrigger = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.ClearTrigger>,
   ComponentProps<typeof ComboboxPrimitive.ClearTrigger>
->(function ComboboxClearTrigger({ className, children, ...props }, ref) {
+>(function ComboboxClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <ComboboxPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="combobox-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </ComboboxPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <ComboboxPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="combobox-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
     >
-      {children ?? <CloseIcon />}
+      <CloseButton.Root
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear selection' : undefined)}
+        aria-labelledby={ariaLabelledBy}
+      >
+        {children}
+      </CloseButton.Root>
     </ComboboxPrimitive.ClearTrigger>
   );
 });
@@ -259,6 +296,25 @@ const ComboboxItemIndicator = forwardRef<
   );
 });
 
+type ComboboxOptionProps = Omit<
+  ComponentProps<typeof ComboboxPrimitive.Item>,
+  'asChild' | 'children'
+> & {
+  children: ReactNode;
+  indicator?: ReactNode | false;
+};
+
+const ComboboxOption = forwardRef<ComponentRef<typeof ComboboxPrimitive.Item>, ComboboxOptionProps>(
+  function ComboboxOption({ children, indicator, ...props }, ref) {
+    return (
+      <ComboboxItem ref={ref} {...props}>
+        <ComboboxItemText>{children}</ComboboxItemText>
+        {indicator !== false ? <ComboboxItemIndicator>{indicator}</ComboboxItemIndicator> : null}
+      </ComboboxItem>
+    );
+  },
+);
+
 const Combobox = Object.assign(ComboboxRoot, {
   Root: ComboboxRoot,
   RootProvider: ComboboxRootProvider,
@@ -276,6 +332,8 @@ const Combobox = Object.assign(ComboboxRoot, {
   Item: ComboboxItem,
   ItemText: ComboboxItemText,
   ItemIndicator: ComboboxItemIndicator,
+  Option: ComboboxOption,
+  Context: ComboboxPrimitive.Context,
 });
 
-export { Combobox };
+export { Combobox, useCombobox, useComboboxContext };

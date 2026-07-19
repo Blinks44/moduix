@@ -27,7 +27,7 @@ Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-steps" />
+<ShadcnInstall packageName="steps" />
 
 ## Anatomy
 
@@ -45,13 +45,13 @@ Steps.Root
 └─ Steps.NextTrigger
 
 Steps.RootProvider
-└─ same part tree connected to an Ark useSteps() store
+└─ same part tree connected to a Steps.useSteps() store
 ```
 
 | Part                                | Role                                                                       |
 | ----------------------------------- | -------------------------------------------------------------------------- |
 | `Steps` / `Steps.Root`              | Controls step state, orientation, linear navigation, validation, and IDs.  |
-| `Steps.RootProvider`                | Connects parts to state created with Ark `useSteps()`.                     |
+| `Steps.RootProvider`                | Connects parts to state created with `Steps.useSteps()`.                   |
 | `Steps.Progress`                    | Optional progressbar that reads Ark's `--percent` root variable.           |
 | `Steps.List`                        | Tablist that owns step triggers.                                           |
 | `Steps.Item`                        | One zero-based step item with a required `index`.                          |
@@ -62,9 +62,8 @@ Steps.RootProvider
 | `Steps.CompletedContent`            | Tabpanel shown when the current step equals `count`.                       |
 | `Steps.PrevTrigger` / `NextTrigger` | Buttons wired to Ark's previous and next actions.                          |
 
-Advanced Ark state helpers such as `useSteps`, `useStepsContext`, `useStepsItemContext`,
-`Steps.Context`, and `Steps.ItemContext` are imported directly from `@ark-ui/react/steps` when
-needed.
+Use `Steps.useSteps()` with `Steps.RootProvider` for externally owned state. Other advanced Ark
+state helpers remain available directly from `@ark-ui/react/steps` as escape hatches.
 
 ## Composition
 
@@ -72,7 +71,7 @@ needed.
 
 `Steps.Root` owns the state machine. Use `count`, `defaultStep`, `step`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, and `ids` directly on the root. Step items and panels use zero-based `index` values.
 
-Use `Steps.RootProvider` with Ark `useSteps()` when external controls need direct access to `value`,
+Use `Steps.RootProvider` with `Steps.useSteps()` when external controls need direct access to `value`,
 `setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`, `percent`, and item-state helpers. Do not
 render `Steps.Root` and `Steps.RootProvider` for the same store.
 
@@ -116,9 +115,24 @@ Control `step` from React state when the active step must stay synchronized with
   
 </Preview>
 
+### Progress
+
+Add `Steps.Progress` when the flow should expose a progressbar in addition to the step list.
+
+<Preview>
+  <StepsDocs.ProgressStepsExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/steps/progress.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{StepsDocs.progressStepsCss}</Preview.CSS>
+
+</Preview>
+
 ### Root Provider
 
-Use Ark `useSteps()` with `Steps.RootProvider` when controls outside the rendered tree need access to the same Ark store.
+Use `Steps.useSteps()` with `Steps.RootProvider` when controls outside the rendered tree need access to the same Ark store.
 
 <Preview>
   <StepsDocs.RootProviderStepsExample />
@@ -146,9 +160,9 @@ Set `orientation="vertical"` when the step list should stack beside the active c
   
 </Preview>
 
-### Custom Composition
+### Advanced Customization
 
-Use `asChild` when a step trigger should render as another semantic element, such as an anchor or router link.
+Bypass the default button host with `asChild` when a trigger must render as an anchor or router link. Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
 <Preview>
   <StepsDocs.AsChildStepsExample />
@@ -158,21 +172,6 @@ Use `asChild` when a step trigger should render as another semantic element, suc
 </Preview.Code>
 
   <Preview.CSS>{StepsDocs.asChildStepsCss}</Preview.CSS>
-  
-</Preview>
-
-### Progress
-
-Add `Steps.Progress` when the flow should expose a progressbar in addition to the step list.
-
-<Preview>
-  <StepsDocs.ProgressStepsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/steps/progress.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{StepsDocs.progressStepsCss}</Preview.CSS>
   
 </Preview>
 

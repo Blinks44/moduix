@@ -12,7 +12,7 @@ Ark UI does not ship a dedicated `stack` primitive. Moduix builds this component
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
-informs only the layout prop vocabulary and separator pattern.
+informs only the layout prop vocabulary.
 
 ## Basic
 
@@ -42,13 +42,12 @@ common alignment.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-stack" />
+<ShadcnInstall packageName="stack" />
 
 ## Anatomy
 
-`Stack` renders one Ark-aligned root flex wrapper. It owns direction, gap, common alignment,
-optional separators, and a small amount of responsive sugar, while broader layout rules stay in
-local CSS.
+`Stack` renders one Ark-aligned root flex wrapper. It owns direction, gap, common alignment, and a
+small amount of responsive sugar, while broader layout rules stay in local CSS.
 
 ```text
 Stack / Stack.Root
@@ -68,8 +67,8 @@ Use the short `<Stack>` form for normal `div` output. Use `Stack.Root` only when
 consistency helps next to multipart components.
 
 Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout. Use `fill` when a
-nested stack should grow as a flex item. Use `separator` for a repeated node between children.
-Use `asChild` when the stack should render as a semantic element.
+nested stack should grow as a flex item. Compose the moduix `Separator` directly when a layout needs
+a visual divider. Use `asChild` when the stack should render as a semantic element.
 
 ### When to go custom
 
@@ -90,7 +89,6 @@ properties.
 | `justify`   | browser default | Any valid `justify-content` value                       |
 | `wrap`      | browser default | Any valid `flex-wrap` value                             |
 | `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
-| `separator` | -               | React node rendered between children                    |
 | `asChild`   | `false`         | Ark factory composition with one semantic child element |
 
 ### Behavioral notes
@@ -99,7 +97,7 @@ properties.
 - `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
   provided.
 - `fill` affects the stack as a flex item, not its children.
-- `separator` is rendered exactly as provided and should be marked `aria-hidden` when decorative.
+- `Separator` is an ordinary child; mark decorative dividers with `aria-hidden`.
 - `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
 - `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for
   Ark-style styling.
@@ -107,92 +105,6 @@ properties.
   state.
 
 ## Examples
-
-### Row Layout
-
-Use `direction="row"` and alignment props for inline layouts.
-
-<Preview>
-  <StackDocs.StackRowExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/stack/row-layout.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
-### Wrapped Items
-
-Use `wrap="wrap"` when items should flow to the next line.
-
-<Preview>
-  <StackDocs.StackWrapExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/stack/wrapped-items.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .wrap {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .pill {
-        padding-inline: var(--spacing-3);
-        padding-block: var(--spacing-2);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-full);
-        background-color: var(--color-muted);
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
-### Separator
-
-Pass a `Separator` node when a horizontal or vertical stack needs a repeated visual divider between
-children.
-
-<Preview>
-  <StackDocs.StackSeparatorExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/stack/separator.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
-      }
-
-    `}
-
-  </Preview.CSS>
-
-</Preview>
 
 ### Growing Child Stack
 
@@ -219,6 +131,27 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
 
 </Preview>
 
+### Loading Layout
+
+Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
+
+<Preview>
+  <StackDocs.StackSkeletonExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/loading-layout.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .skeletonCard {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
 ### Responsive Direction
 
 Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
@@ -228,6 +161,31 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 
 <Preview.Code>
   <include lang="tsx">./_snippets/stack/responsive-direction.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Row Layout
+
+Use `direction="row"` and alignment props for inline layouts.
+
+<Preview>
+  <StackDocs.StackRowExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/row-layout.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -269,24 +227,64 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
 
 </Preview>
 
-### Loading Layout
+### Separator
 
-Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
+Compose `Separator` directly when a horizontal or vertical stack needs a repeated visual divider
+between children. `gap` applies to every child, including each divider.
 
 <Preview>
-  <StackDocs.StackSkeletonExample />
+  <StackDocs.StackSeparatorExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/stack/loading-layout.tsx#demo</include>
+  <include lang="tsx">./_snippets/stack/separator.tsx#demo</include>
 </Preview.Code>
 
-<Preview.CSS>
-  {`
-      .skeletonCard {
+  <Preview.CSS>
+    {`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
+### Wrapped Items
+
+Use `wrap="wrap"` when items should flow to the next line.
+
+<Preview>
+  <StackDocs.StackWrapExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/stack/wrapped-items.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .wrap {
         width: min(20rem, calc(100vw - var(--spacing-8)));
       }
+
+      .pill {
+        padding-inline: var(--spacing-3);
+        padding-block: var(--spacing-2);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-full);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
     `}
-</Preview.CSS>
+
+  </Preview.CSS>
 
 </Preview>
 

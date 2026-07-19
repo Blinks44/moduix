@@ -1,8 +1,8 @@
-import { CheckIcon, Toggle } from '@moduix/react';
-import { Bell as BellIcon, Star as StarIcon } from 'lucide-react';
+import { Toggle, useToggleContext } from '@moduix/react';
+import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './toggle.module.css';
 
 export const toggleBasicCss = `
@@ -49,23 +49,17 @@ export const toggleCustomCss = `
 }
 `;
 
-export const toggleAsChildCss = `
-.customButton {
-  border-style: dashed;
-}
-`;
-
 export const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-border-width', 'var(--border-width-sm)', 'Controls toggle border width.'],
   ['--toggle-color', 'var(--color-foreground)', 'Controls base toggle text and icon color.'],
   ['--toggle-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
-  ['--toggle-default-bg', 'var(--color-background)', 'Controls default variant background.'],
+  ['--toggle-default-bg', 'var(--color-secondary)', 'Controls default variant background.'],
   ['--toggle-default-bg-active', 'var(--color-accent)', 'Controls default active background.'],
   ['--toggle-default-bg-hover', 'var(--color-accent)', 'Controls default hover background.'],
   ['--toggle-default-bg-pressed', 'var(--color-primary)', 'Controls pressed background.'],
   [
     '--toggle-default-border-color',
-    'var(--color-border)',
+    'var(--color-secondary)',
     'Controls default variant border color.',
   ],
   [
@@ -73,7 +67,11 @@ export const toggleOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-primary)',
     'Controls pressed border color.',
   ],
-  ['--toggle-default-color', 'var(--color-foreground)', 'Controls default variant text color.'],
+  [
+    '--toggle-default-color',
+    'var(--color-secondary-foreground)',
+    'Controls default variant text color.',
+  ],
   [
     '--toggle-default-color-pressed',
     'var(--color-primary-foreground)',
@@ -236,10 +234,25 @@ export function ToggleIndicatorExample() {
 export function ToggleAsChildExample() {
   return (
     <Toggle asChild variant="outline" defaultPressed>
-      <button type="button" className={styles.customButton}>
+      <button type="button">
         <CheckIcon />
-        Custom button
+        Save to favorites
       </button>
+    </Toggle>
+  );
+}
+
+function ToggleStateLabel() {
+  const toggle = useToggleContext();
+
+  return <span>{toggle.pressed ? 'Notifications on' : 'Notifications off'}</span>;
+}
+
+export function ToggleAdvancedCustomizationExample() {
+  return (
+    <Toggle defaultPressed>
+      <BellIcon />
+      <ToggleStateLabel />
     </Toggle>
   );
 }

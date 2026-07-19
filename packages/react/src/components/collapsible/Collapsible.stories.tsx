@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useCollapsible } from '@ark-ui/react/collapsible';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Collapsible } from './Collapsible';
+import { Collapsible, useCollapsible } from './Collapsible';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {
@@ -38,7 +37,9 @@ export const Basic: Story = {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <RecoveryKeys />
+        <Collapsible.Body>
+          <RecoveryKeys />
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),
@@ -52,7 +53,9 @@ export const DefaultOpen: Story = {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <RecoveryKeys />
+        <Collapsible.Body>
+          <RecoveryKeys />
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),
@@ -73,7 +76,9 @@ export const Controlled: Story = {
           <Collapsible.Indicator />
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <RecoveryKeys />
+          <Collapsible.Body>
+            <RecoveryKeys />
+          </Collapsible.Body>
         </Collapsible.Content>
         <div className={styles.status}>Current state: {open ? 'open' : 'closed'}</div>
       </Collapsible>
@@ -89,7 +94,9 @@ export const Disabled: Story = {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <RecoveryKeys />
+        <Collapsible.Body>
+          <RecoveryKeys />
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),
@@ -103,7 +110,9 @@ export const LazyMount: Story = {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <RecoveryKeys />
+        <Collapsible.Body>
+          <RecoveryKeys />
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),
@@ -117,7 +126,9 @@ export const PartialCollapse: Story = {
         <Collapsible.Indicator />
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <RecoveryKeys />
+        <Collapsible.Body>
+          <RecoveryKeys />
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),
@@ -136,7 +147,9 @@ export const RootProvider: Story = {
             <Collapsible.Indicator />
           </Collapsible.Trigger>
           <Collapsible.Content>
-            <RecoveryKeys />
+            <Collapsible.Body>
+              <RecoveryKeys />
+            </Collapsible.Body>
           </Collapsible.Content>
         </Collapsible.RootProvider>
       </div>
@@ -156,9 +169,9 @@ export const CustomComposition: Story = {
         </button>
       </Collapsible.Trigger>
       <Collapsible.Content className={styles.customContent}>
-        <div className={styles.customContentBody}>
+        <Collapsible.Body className={styles.customContentBody}>
           <RecoveryKeys />
-        </div>
+        </Collapsible.Body>
       </Collapsible.Content>
     </Collapsible>
   ),

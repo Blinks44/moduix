@@ -1,9 +1,20 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentRef } from 'react';
+import { Fragment, forwardRef, type ComponentRef, type Key, type ReactNode } from 'react';
+import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Breadcrumbs.module.css';
+
+type BreadcrumbsPathItem = {
+  href?: string;
+  key?: Key;
+  label: ReactNode;
+};
+type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'children'> & {
+  items: readonly BreadcrumbsPathItem[];
+  separator?: ReactNode;
+};
 
 const BreadcrumbsRoot = forwardRef<ComponentRef<typeof ark.nav>, HTMLArkProps<'nav'>>(
   function BreadcrumbsRoot({ className, 'aria-label': ariaLabel = 'Breadcrumb', ...props }, ref) {
@@ -82,11 +93,31 @@ const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'
   },
 );
 
+function BreadcrumbsPath({ items, separator, ...props }: BreadcrumbsPathProps) {
+  return (
+    <BreadcrumbsList {...props}>
+      {items.map((item, index) => {
+        const isLastItem = index === items.length - 1;
+
+        return (
+          <Fragment key={item.key ?? item.href ?? index}>
+            <BreadcrumbsItem>
+              {item.href && !isLastItem ? (
+                <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
+              ) : (
+                <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
+              )}
+            </BreadcrumbsItem>
+            {!isLastItem ? <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator> : null}
+          </Fragment>
+        );
+      })}
+    </BreadcrumbsList>
+  );
+}
+
 const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProps<'li'>>(
-  function BreadcrumbsSeparator(
-    { className, children = '/', role = 'presentation', ...props },
-    ref,
-  ) {
+  function BreadcrumbsSeparator({ className, children, role = 'presentation', ...props }, ref) {
     return (
       <ark.li
         ref={ref}
@@ -98,7 +129,7 @@ const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProp
         className={clsx(styles.separator, normalizeClassName(className))}
         {...props}
       >
-        {children}
+        {children ?? <ChevronRightIcon className={styles.separatorIcon} />}
       </ark.li>
     );
   },
@@ -127,6 +158,7 @@ const Breadcrumbs = Object.assign(BreadcrumbsRoot, {
   List: BreadcrumbsList,
   Item: BreadcrumbsItem,
   Link: BreadcrumbsLink,
+  Path: BreadcrumbsPath,
   Page: BreadcrumbsPage,
   Separator: BreadcrumbsSeparator,
   Ellipsis: BreadcrumbsEllipsis,

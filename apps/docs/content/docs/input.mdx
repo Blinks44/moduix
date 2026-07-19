@@ -46,7 +46,7 @@ Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and f
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-input" />
+<ShadcnInstall packageName="input" />
 
 ## Anatomy
 
@@ -115,28 +115,6 @@ Use the native change event when React owns the current value.
 
 </Preview>
 
-### Field State
-
-Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
-connects the error text.
-
-<Preview>
-  <InputDocs.InputFieldValidationExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/input/field-state.tsx#demo</include>
-</Preview.Code>
-
-<Preview.CSS>
-  {`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}
-</Preview.CSS>
-
-</Preview>
-
 ### Disabled and Readonly
 
 Use native props directly or place them on `Field.Root` when the full field should share state.
@@ -160,16 +138,16 @@ Use native props directly or place them on `Field.Root` when the full field shou
 
 </Preview>
 
-### Native Attributes
+### Field State
 
-Native attributes continue to control browser validation, keyboard, autocomplete, and form
-submission. Use `htmlSize` only for character-based width.
+Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
+connects the error text.
 
 <Preview>
-  <InputDocs.InputNativeAttributesExample />
+  <InputDocs.InputFieldValidationExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/input/native-attributes.tsx#demo</include>
+  <include lang="tsx">./_snippets/input/field-state.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -182,15 +160,16 @@ submission. Use `htmlSize` only for character-based width.
 
 </Preview>
 
-### As Child
+### Native Attributes
 
-Use `asChild` for a custom input host while preserving one semantic, focusable input element.
+Native attributes continue to control browser validation, keyboard, autocomplete, and form
+submission. Use `htmlSize` only for character-based width.
 
 <Preview>
-  <InputDocs.InputAsChildExample />
+  <InputDocs.InputNativeAttributesExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/input/as-child.tsx#demo</include>
+  <include lang="tsx">./_snippets/input/native-attributes.tsx#demo</include>
 </Preview.Code>
 
 <Preview.CSS>
@@ -242,6 +221,28 @@ no field context to supply ids or helper/error relationships.
   {`
       .input-demo-standalone {
         max-width: 14rem;
+      }
+    `}
+</Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Use `asChild` only when a custom input host must own the rendered node; preserve one semantic,
+focusable input element that can receive the forwarded props and ref.
+
+<Preview>
+  <InputDocs.InputAsChildExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/input/as-child.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>
+  {`
+      .input-demo-field {
+        width: min(14rem, 100%);
       }
     `}
 </Preview.CSS>

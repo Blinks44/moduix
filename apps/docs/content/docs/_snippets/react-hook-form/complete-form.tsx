@@ -106,7 +106,6 @@ export function ProjectForm() {
                       ))}
                     </Select.Content>
                   </Select.Positioner>
-                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{fieldState.error?.message}</Field.ErrorText>
               </Field>
@@ -144,10 +143,9 @@ export function ProjectForm() {
                       <Combobox.Empty>No reviewers found.</Combobox.Empty>
                       <Combobox.List>
                         {collection.items.map((item) => (
-                          <Combobox.Item key={item.value} item={item}>
-                            <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                            <Combobox.ItemIndicator />
-                          </Combobox.Item>
+                          <Combobox.Option key={item.value} item={item}>
+                            {item.label}
+                          </Combobox.Option>
                         ))}
                       </Combobox.List>
                     </Combobox.Content>
@@ -175,12 +173,11 @@ export function ProjectForm() {
                 name={field.name}
                 checked={field.value}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
+                ref={field.ref}
+                onBlur={field.onBlur}
               >
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput ref={field.ref} onBlur={field.onBlur} />
               </Checkbox>
             )}
           />

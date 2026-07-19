@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { FileUpload as ArkFileUpload, useFileUpload } from '@ark-ui/react/file-upload';
 import { useState } from 'react';
 import { Field } from '../field';
-import { FileUpload } from './FileUpload';
+import { FileUpload, useFileUpload } from './FileUpload';
 import styles from './FileUpload.stories.module.css';
 
 const meta = {
@@ -24,54 +23,31 @@ const initialFiles = [
   new File(['{}'], 'package.json', { type: 'application/json' }),
 ];
 
-function FileIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M4 1.75h5l3 3v9.5H4z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <path d="M9 1.75V5h3" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-    </svg>
-  );
-}
+const isImageFile = (file: File) =>
+  file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
 
 function FileUploadItems() {
   return (
-    <ArkFileUpload.Context>
+    <FileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemPreview type="image/*">
-              <FileUpload.ItemPreviewImage />
-            </FileUpload.ItemPreview>
-            <FileUpload.ItemPreview type=".*">
-              <FileIcon className={styles.fileIcon} />
-            </FileUpload.ItemPreview>
+            {isImageFile(file) ? (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewImage />
+              </FileUpload.ItemPreview>
+            ) : (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewIcon />
+              </FileUpload.ItemPreview>
+            )}
             <FileUpload.ItemName />
-            <FileUpload.ItemSizeText />
+            <FileUpload.ItemMetadata file={file} />
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
           </FileUpload.Item>
         ))
       }
-    </ArkFileUpload.Context>
-  );
-}
-
-function CompactFileUploadItems() {
-  return (
-    <ArkFileUpload.Context>
-      {({ acceptedFiles }) =>
-        acceptedFiles.map((file) => (
-          <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
-            <FileUpload.ItemName />
-            <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-          </FileUpload.Item>
-        ))
-      }
-    </ArkFileUpload.Context>
+    </FileUpload.Context>
   );
 }
 
@@ -81,9 +57,8 @@ function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
-        <CompactFileUploadItems />
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   );
 }
@@ -107,7 +82,6 @@ export const Dropzone: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };
@@ -152,12 +126,12 @@ export const RejectedFiles: Story = {
         <FileUploadItems />
       </FileUpload.ItemGroup>
       <FileUpload.ItemGroup type="rejected">
-        <ArkFileUpload.Context>
+        <FileUpload.Context>
           {({ rejectedFiles }) =>
             rejectedFiles.map(({ file, errors }) => (
               <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
                 <FileUpload.ItemPreview type=".*">
-                  <FileIcon className={styles.fileIcon} />
+                  <FileUpload.ItemPreviewIcon />
                 </FileUpload.ItemPreview>
                 <div>
                   <FileUpload.ItemName />
@@ -167,9 +141,8 @@ export const RejectedFiles: Story = {
               </FileUpload.Item>
             ))
           }
-        </ArkFileUpload.Context>
+        </FileUpload.Context>
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };
@@ -183,7 +156,6 @@ export const WithField: Story = {
         <FileUpload.ItemGroup>
           <FileUploadItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.Root>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>
@@ -209,7 +181,6 @@ export const RootProvider: Story = {
         <FileUpload.ItemGroup>
           <FileUploadItems />
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload.RootProvider>
     );
   },
@@ -230,7 +201,6 @@ export const CustomStyling: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-      <FileUpload.HiddenInput />
     </FileUpload.Root>
   ),
 };

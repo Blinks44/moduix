@@ -1,5 +1,5 @@
-import type { ReactNode, RefObject } from 'react';
 import { Portal } from '@ark-ui/react/portal';
+import type { ReactNode, RefObject } from 'react';
 import { createContext, useContext } from 'react';
 
 type OverlayPortalProps = {

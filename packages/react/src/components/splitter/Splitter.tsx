@@ -1,6 +1,12 @@
-import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
-import { Splitter as SplitterPrimitive } from '@ark-ui/react/splitter';
+import type { SplitterPanelData } from '@ark-ui/react/splitter';
+import {
+  createSplitterRegistry,
+  Splitter as SplitterPrimitive,
+  useSplitter,
+  useSplitterContext,
+} from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, CSSProperties } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Splitter.module.css';
@@ -54,20 +60,6 @@ const SplitterPanel = forwardRef<
   );
 });
 
-const SplitterResizeTrigger = forwardRef<
-  ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
-  ComponentProps<typeof SplitterPrimitive.ResizeTrigger>
->(function SplitterResizeTrigger({ className, ...props }, ref) {
-  return (
-    <SplitterPrimitive.ResizeTrigger
-      ref={ref}
-      data-slot="splitter-resize-trigger"
-      className={clsx(styles.resizeTrigger, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
-
 const SplitterResizeTriggerIndicator = forwardRef<
   ComponentRef<typeof SplitterPrimitive.ResizeTriggerIndicator>,
   ComponentProps<typeof SplitterPrimitive.ResizeTriggerIndicator>
@@ -82,6 +74,22 @@ const SplitterResizeTriggerIndicator = forwardRef<
   );
 });
 
+const SplitterResizeTrigger = forwardRef<
+  ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
+  ComponentProps<typeof SplitterPrimitive.ResizeTrigger>
+>(function SplitterResizeTrigger({ children, className, ...props }, ref) {
+  return (
+    <SplitterPrimitive.ResizeTrigger
+      ref={ref}
+      data-slot="splitter-resize-trigger"
+      className={clsx(styles.resizeTrigger, normalizeClassName(className))}
+      {...props}
+    >
+      {children === undefined ? <SplitterResizeTriggerIndicator /> : children}
+    </SplitterPrimitive.ResizeTrigger>
+  );
+});
+
 const Splitter = Object.assign(SplitterRoot, {
   Root: SplitterRoot,
   RootProvider: SplitterRootProvider,
@@ -90,4 +98,10 @@ const Splitter = Object.assign(SplitterRoot, {
   ResizeTriggerIndicator: SplitterResizeTriggerIndicator,
 });
 
-export { Splitter };
+export {
+  createSplitterRegistry,
+  Splitter,
+  type SplitterPanelData,
+  useSplitter,
+  useSplitterContext,
+};

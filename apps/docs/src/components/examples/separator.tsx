@@ -1,13 +1,14 @@
-import type { ComponentProps } from 'react';
 import { Separator } from '@moduix/react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps } from 'react';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './separator.module.css';
 
 export const separatorSections = ['Account settings', 'Billing details'];
 export const separatorNavigationItems = ['Home', 'Pricing', 'Sign in'];
 export const separatorVariantItems = ['solid', 'dashed', 'dotted'] as const;
 export const separatorSizeItems = ['xs', 'sm', 'md', 'lg'] as const;
+export const separatorDecorativeSections = ['Personal details', 'Notifications'];
 export const separatorNativeRuleLabels = ['Before native rule', 'After native rule'];
 export const separatorStepLabels = ['Completed profile', 'Next step: billing details'];
 
@@ -53,6 +54,18 @@ export function SeparatorExample(props: ComponentProps<typeof Separator>) {
         <span className={styles.text}>{separatorSections[0]}</span>
         <Separator {...props} />
         <span className={styles.text}>{separatorSections[1]}</span>
+      </div>
+    </div>
+  );
+}
+
+export function DecorativeSeparatorExample() {
+  return (
+    <div className={styles.card}>
+      <div className={styles.stack}>
+        <span className={styles.text}>{separatorDecorativeSections[0]}</span>
+        <Separator role="presentation" />
+        <span className={styles.text}>{separatorDecorativeSections[1]}</span>
       </div>
     </div>
   );

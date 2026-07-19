@@ -1,7 +1,7 @@
 //#region demo
 import { Badge } from '@moduix/react';
 
-const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost'] as const;
+const variants = ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] as const;
 
 export function BadgeVariantsDemo() {
   return (

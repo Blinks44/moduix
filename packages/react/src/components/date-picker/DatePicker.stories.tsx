@@ -1,18 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { createListCollection } from '@ark-ui/react/collection';
-import {
-  DatePicker as ArkDatePicker,
-  parseDate,
-  useDatePicker,
-  type DateValue,
-  type UseDatePickerReturn,
-} from '@ark-ui/react/date-picker';
+import { parseDate, type DateValue } from '@ark-ui/react/date-picker';
 import { today } from '@internationalized/date';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Button } from '../button';
 import { Field } from '../field';
 import { Select } from '../select';
-import { DatePicker } from './DatePicker';
+import { DatePicker, useDatePicker } from './DatePicker';
 import storyStyles from './DatePicker.stories.module.css';
 
 type DatePickerSelectItem = {
@@ -52,30 +46,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const DatePickerContext = ArkDatePicker.Context;
-
-function DatePickerField({
-  placeholder = 'Select date',
-  indexes,
-}: {
-  placeholder?: string;
-  indexes?: [number, number];
-}) {
-  return (
-    <DatePicker.Control>
-      {indexes ? (
-        <>
-          <DatePicker.Input index={indexes[0]} placeholder="Start date" />
-          <DatePicker.Input index={indexes[1]} placeholder="End date" />
-        </>
-      ) : (
-        <DatePicker.Input placeholder={placeholder} />
-      )}
-      <DatePicker.ClearTrigger aria-label="Clear date" />
-      <DatePicker.Trigger aria-label="Open calendar" />
-    </DatePicker.Control>
-  );
-}
+const DatePickerContext = DatePicker.Context;
 
 function formatSelectedDate(date: DateValue) {
   return date.toDate('UTC').toLocaleDateString('en-US', {
@@ -121,32 +92,19 @@ function MultipleDatePickerField() {
   );
 }
 
-type DatePickerOffset = ReturnType<UseDatePickerReturn['getOffset']>;
-
-function DatePickerDayTable({
-  showHeader = true,
-  showWeekNumbers = false,
-  offset,
-}: {
-  showHeader?: boolean;
-  showWeekNumbers?: boolean;
-  offset?: DatePickerOffset;
-}) {
+function AdvancedDatePickerDayTable() {
   return (
     <DatePickerContext>
       {(datePicker) => (
         <>
-          {showHeader ? (
-            <DatePicker.ViewControl>
-              <DatePicker.PrevTrigger />
-              <DatePicker.ViewTrigger />
-              <DatePicker.NextTrigger />
-            </DatePicker.ViewControl>
-          ) : null}
+          <DatePicker.ViewControl>
+            <DatePicker.PrevTrigger />
+            <DatePicker.ViewTrigger />
+            <DatePicker.NextTrigger />
+          </DatePicker.ViewControl>
           <DatePicker.Table>
             <DatePicker.TableHead>
               <DatePicker.TableRow>
-                {showWeekNumbers ? <DatePicker.WeekNumberHeaderCell /> : null}
                 {datePicker.weekDays.map((weekDay) => (
                   <DatePicker.TableHeader key={weekDay.value.toString()}>
                     {weekDay.short}
@@ -155,22 +113,10 @@ function DatePickerDayTable({
               </DatePicker.TableRow>
             </DatePicker.TableHead>
             <DatePicker.TableBody>
-              {(offset?.weeks ?? datePicker.weeks).map((week) => (
+              {datePicker.weeks.map((week) => (
                 <DatePicker.TableRow key={week[0]?.toString()}>
-                  {showWeekNumbers ? (
-                    <DatePicker.WeekNumberCell
-                      week={week}
-                      weekIndex={datePicker.weeks.indexOf(week)}
-                    >
-                      {datePicker.getWeekNumber(week)}
-                    </DatePicker.WeekNumberCell>
-                  ) : null}
                   {week.map((day) => (
-                    <DatePicker.TableCell
-                      key={day.toString()}
-                      value={day}
-                      visibleRange={offset?.visibleRange}
-                    >
+                    <DatePicker.TableCell key={day.toString()} value={day}>
                       <DatePicker.TableCellTrigger>{day.day}</DatePicker.TableCellTrigger>
                     </DatePicker.TableCell>
                   ))}
@@ -250,7 +196,7 @@ function DatePickerViews({ showWeekNumbers = false }: { showWeekNumbers?: boolea
   return (
     <>
       <DatePicker.View view="day">
-        <DatePickerDayTable showWeekNumbers={showWeekNumbers} />
+        <DatePicker.DayTable showWeekNumbers={showWeekNumbers} />
       </DatePicker.View>
       <DatePicker.View view="month">
         <DatePickerMonthTable />
@@ -432,7 +378,7 @@ export const Basic: Story = {
   render: () => (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} name="release-date">
       <DatePicker.Label>Release date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   ),
@@ -446,7 +392,7 @@ export const Controlled: Story = {
       <div className={storyStyles.stack}>
         <DatePicker value={value} onValueChange={(details) => setValue(details.value)}>
           <DatePicker.Label>Controlled date</DatePicker.Label>
-          <DatePickerField />
+          <DatePicker.Field />
           <DatePickerPopup />
         </DatePicker>
         <span className={storyStyles.hint}>Current value: {value[0]?.toString() ?? 'empty'}</span>
@@ -462,7 +408,7 @@ export const Range: Story = {
       defaultValue={[parseDate('2026-06-22'), parseDate('2026-06-26')]}
     >
       <DatePicker.Label>Travel dates</DatePicker.Label>
-      <DatePickerField indexes={[0, 1]} />
+      <DatePicker.RangeField />
       <DatePickerPopup />
     </DatePicker>
   ),
@@ -487,7 +433,7 @@ export const MultipleMonths: Story = {
   render: () => (
     <DatePicker defaultValue={[parseDate('2026-06-22')]} numOfMonths={2}>
       <DatePicker.Label>Planning window</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePicker.Positioner>
         <MultipleMonthsDatePickerContent />
       </DatePicker.Positioner>
@@ -499,7 +445,7 @@ export const MonthAndYearSelect: Story = {
   render: () => (
     <DatePicker defaultValue={[parseDate('2026-06-22')]}>
       <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.ViewControl className={storyStyles.monthYearControl}>
@@ -510,7 +456,7 @@ export const MonthAndYearSelect: Story = {
             </div>
           </DatePicker.ViewControl>
           <DatePicker.View view="day">
-            <DatePickerDayTable showHeader={false} />
+            <DatePicker.DayTable showHeader={false} />
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>
@@ -527,7 +473,7 @@ export const MinMaxAndUnavailable: Story = {
       isDateUnavailable={(date) => date.day === 25}
     >
       <DatePicker.Label>Booking date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
     </DatePicker>
   ),
@@ -552,7 +498,7 @@ export const Presets: Story = {
   render: () => (
     <DatePicker selectionMode="range">
       <DatePicker.Label>Preset range</DatePicker.Label>
-      <DatePickerField indexes={[0, 1]} />
+      <DatePicker.RangeField />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <div className={storyStyles.presets}>
@@ -571,7 +517,7 @@ export const WithFieldValidation: Story = {
     <Field invalid>
       <DatePicker required invalid>
         <DatePicker.Label>Deadline</DatePicker.Label>
-        <DatePickerField />
+        <DatePicker.Field />
         <DatePickerPopup />
       </DatePicker>
       <Field.ErrorText>Choose a valid deadline.</Field.ErrorText>
@@ -587,7 +533,7 @@ export const RootProvider: Story = {
       <div className={storyStyles.stack}>
         <DatePicker.RootProvider value={datePicker}>
           <DatePicker.Label>Report date</DatePicker.Label>
-          <DatePickerField />
+          <DatePicker.Field />
           <DatePickerPopup />
         </DatePicker.RootProvider>
         <Button size="sm" variant="secondary" onClick={() => datePicker.clearValue()}>
@@ -602,8 +548,28 @@ export const CustomStyling: Story = {
   render: () => (
     <DatePicker className={storyStyles.customRoot} defaultValue={[parseDate('2026-06-22')]}>
       <DatePicker.Label>Styled date</DatePicker.Label>
-      <DatePickerField />
+      <DatePicker.Field />
       <DatePickerPopup />
+    </DatePicker>
+  ),
+};
+
+export const AdvancedCustomization: Story = {
+  render: () => (
+    <DatePicker defaultValue={[parseDate('2026-06-22')]}>
+      <DatePicker.Label>Advanced date</DatePicker.Label>
+      <DatePicker.Control>
+        <DatePicker.Input placeholder="Select date" />
+        <DatePicker.ClearTrigger aria-label="Clear date" />
+        <DatePicker.Trigger aria-label="Open calendar" />
+      </DatePicker.Control>
+      <DatePicker.Positioner>
+        <DatePicker.Content>
+          <DatePicker.View view="day">
+            <AdvancedDatePickerDayTable />
+          </DatePicker.View>
+        </DatePicker.Content>
+      </DatePicker.Positioner>
     </DatePicker>
   ),
 };

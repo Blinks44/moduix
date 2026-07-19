@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react';
 //#region demo
 import { Checkbox } from '@moduix/react';
+import type { ComponentProps } from 'react';
 
 const _icon = 'custom plus';
 
@@ -26,7 +26,6 @@ export function CheckboxCustomIndicatorDemo() {
         </Checkbox.Indicator>
       </Checkbox.Control>
       <Checkbox.Label>Use a custom indicator icon</Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox>
   );
 }

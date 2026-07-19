@@ -26,8 +26,8 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-The component exports thin styled wrappers over Ark parts. Advanced state hooks and context parts
-are imported directly from `@ark-ui/react/menu`.
+The component exports thin styled wrappers over Ark parts. `useMenu` and `Menu.ItemContext` are
+available from the moduix package surface for the normal provider and item-state paths.
 
 Breaking legacy APIs were removed:
 
@@ -101,7 +101,7 @@ export function Example() {
 }
 ```
 
-Use `Menu.RootProvider` with Ark `useMenu()` only when state must be controlled from outside the
+Use `Menu.RootProvider` with moduix `useMenu()` only when state must be controlled from outside the
 tree. Do not render `Menu` and `Menu.RootProvider` for the same state instance.
 
 ## Upstream feature coverage
@@ -110,7 +110,8 @@ Supported Ark examples and guides:
 
 - basic button-triggered menus with `Positioner` and `Content`
 - controlled `open` state and `onOpenChange(details)`
-- `RootProvider` and Ark `useMenu`
+- `RootProvider` and moduix `useMenu`
+- `Menu.ItemContext` for inline item state
 - item grouping and labels
 - link items through `Menu.Item asChild`
 - checkbox items and `onCheckedChange(checked)`
@@ -134,6 +135,9 @@ Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigg
 `Menu.Content` targets the menu content element, and item refs target their item elements.
 
 ## Defaults and styling
+
+Content motion falls back to the shared `--popup-motion-*` tokens; `--menu-*` motion variables
+remain the more specific override.
 
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
@@ -169,10 +173,14 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
 `Positioner` or `Arrow` internally; only portal transport belongs to the root.
 
-Advanced state access belongs to Ark imports. Do not re-export `useMenu`, `useMenuContext`,
-`useMenuItemContext`, `Menu.Context`, or `Menu.ItemContext` from moduix.
+Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
+examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Local changelog
+
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-10: Exported `useMenu` and `Menu.ItemContext` through moduix so normal provider and
+  item-state examples do not require direct Ark imports.
 
 - 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
   Kept `RootProvider`, the callable root, visible menu parts, and leaf sugar like `tone`,

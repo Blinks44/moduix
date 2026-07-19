@@ -2,30 +2,20 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { ArrowRight, Code2, Component, Layers3, PackageCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, Component, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { FrameworkSupport } from '@/components/framework-support';
+import { HomeDataTable } from '@/components/home/data-table';
+import { FrameworkSupport } from '@/components/home/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
+import { getCanonicalUrl } from '@/lib/seo';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/')({
   component: Home,
+  head: () => ({
+    links: [{ rel: 'canonical', href: getCanonicalUrl('/') }],
+  }),
 });
-
-const highlights = [
-  {
-    icon: Layers3,
-    label: 'Composable primitives',
-  },
-  {
-    icon: Code2,
-    label: 'Typed parts API',
-  },
-  {
-    icon: PackageCheck,
-    label: 'Shadcn-like composition',
-  },
-];
 
 const workspaceOptions = [
   { label: 'Design system', value: 'design-system' },
@@ -63,24 +53,10 @@ function Home() {
                 Open documentation
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <Link
-                to="/docs/$"
-                params={{
-                  _splat: 'accordion',
-                }}
-                className={styles.secondary}
-              >
+              <Link to="/docs/components" className={styles.secondary}>
                 Components
                 <Component size={18} aria-hidden="true" />
               </Link>
-            </div>
-            <div className={styles.highlights} aria-label="Library highlights">
-              {highlights.map(({ icon: Icon, label }) => (
-                <div className={styles.highlight} key={label}>
-                  <Icon size={16} aria-hidden="true" />
-                  <span>{label}</span>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -100,6 +76,30 @@ function Home() {
               <div className={styles.menuLine} />
             </div>
           </div>
+        </section>
+
+        <section className={styles.dataTableSection} aria-labelledby="component-table-title">
+          <div className={styles.dataTableIntro}>
+            <div>
+              <span className={styles.sectionEyebrow}>Composition in practice</span>
+              <h2 id="component-table-title">A few components, working together.</h2>
+              <p>
+                Search, selection, menus, and a wide table stay small and composable—ready for a
+                product screen rather than a marketing mockup.
+              </p>
+            </div>
+            <Link
+              to="/docs/$"
+              params={{
+                _splat: 'data-table',
+              }}
+              className={styles.tableLink}
+            >
+              Explore the table pattern
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <HomeDataTable />
         </section>
       </div>
     </HomeLayout>
@@ -173,7 +173,6 @@ function HomeShowcase() {
               >
                 <Switch.Control />
                 <Switch.Label>Auto-review before release</Switch.Label>
-                <Switch.HiddenInput />
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
                 <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
@@ -278,7 +277,6 @@ function HomeShowcase() {
                   ))}
                 </Select.Content>
               </Select.Positioner>
-              <Select.HiddenSelect />
             </Select>
           </div>
           <div className={styles.miniStats}>

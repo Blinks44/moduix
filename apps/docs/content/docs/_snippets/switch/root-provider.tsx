@@ -4,8 +4,7 @@
 const defaultChecked = true;
 const externalCommand = 'Toggle externally';
 
-import { useSwitch } from '@ark-ui/react/switch';
-import { Button, Switch } from '@moduix/react';
+import { Button, Switch, useSwitch } from '@moduix/react';
 import styles from './switch-demo.module.css';
 
 export function SwitchRootProviderDemo() {
@@ -19,7 +18,6 @@ export function SwitchRootProviderDemo() {
       <Switch.RootProvider value={switchApi}>
         <Switch.Control />
         <Switch.Label>External state owner</Switch.Label>
-        <Switch.HiddenInput />
       </Switch.RootProvider>
     </div>
   );

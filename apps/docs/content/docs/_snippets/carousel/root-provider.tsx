@@ -35,22 +35,18 @@ export function RootProviderCarousel() {
 
   return (
     <Carousel.RootProvider value={carousel}>
+      <Carousel.ItemGroup aria-label="Root provider gallery">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <img src={slide.src} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Root provider gallery">
-          {slides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <img src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <Carousel.IndicatorGroup>
-        {slides.map((_, index) => (
-          <Carousel.Indicator key={index} index={index} />
-        ))}
-      </Carousel.IndicatorGroup>
+      <Carousel.Indicators />
     </Carousel.RootProvider>
   );
 }

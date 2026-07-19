@@ -1,1 +1,1 @@
-export { SegmentGroup } from './SegmentGroup';
+export { SegmentGroup, useSegmentGroup } from './SegmentGroup';

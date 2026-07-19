@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Toggle as TogglePrimitive } from '@ark-ui/react/toggle';
+import { Toggle as TogglePrimitive, ToggleContext, useToggleContext } from '@ark-ui/react/toggle';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Toggle.module.css';
@@ -44,6 +44,7 @@ const ToggleIndicator = forwardRef<
 const Toggle = Object.assign(ToggleRoot, {
   Root: ToggleRoot,
   Indicator: ToggleIndicator,
+  Context: ToggleContext,
 });
 
-export { Toggle };
+export { Toggle, useToggleContext };

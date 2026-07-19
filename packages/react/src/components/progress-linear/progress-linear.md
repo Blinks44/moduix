@@ -27,9 +27,10 @@ text, track, or range. Consumers compose the Ark-shaped part tree explicitly.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
 
-`ProgressLinear.RootProvider` is preserved for externally owned Ark progress state. Import
-`useProgress()` and related advanced state APIs directly from `@ark-ui/react/progress` when you
-need them.
+`ProgressLinear.RootProvider` is preserved for externally owned Ark progress state. Create that
+state with `ProgressLinear.useProgress()`. `ProgressLinear.Context` and
+`ProgressLinear.useProgressContext()` expose state below a root/provider without a direct Ark
+import.
 
 ## Anatomy and exported parts
 
@@ -42,13 +43,15 @@ ProgressLinear / ProgressLinear.Root
 └─ ProgressLinear.View
 
 ProgressLinear.RootProvider
-└─ same part tree connected to useProgress() from @ark-ui/react/progress
+└─ same part tree connected to ProgressLinear.useProgress()
 ```
 
 - `ProgressLinear` / `ProgressLinear.Root`: `data-slot="progress-linear-root"`; owns Ark state,
   ids, formatting, `data-value`, `data-max`, `data-state`, and `data-orientation`.
 - `ProgressLinear.RootProvider`: `data-slot="progress-linear-root-provider"`; connects parts to
-  an external `useProgress()` store.
+  an external `ProgressLinear.useProgress()` store.
+- `ProgressLinear.Context`: render-prop access to the current progress state.
+- `ProgressLinear.useProgressContext()`: hook access to state below a root/provider.
 - `ProgressLinear.Label`: `data-slot="progress-linear-label"`; visible label.
 - `ProgressLinear.ValueText`: `data-slot="progress-linear-value-text"`; formatted value text with
   Ark live-region behavior.
@@ -127,13 +130,16 @@ replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
 ## Agent notes
 
 Do not add hidden structural wrappers for label, value text, track, or range. Do not remap Ark
-callback detail objects or replace `RootProvider` with a local state layer. Keep advanced Ark
-state APIs out of the moduix surface; consumers can import them from Ark directly when needed.
-When changing styling hooks or CSS variables, update docs examples, this file, `theme.css`, and
-the registry output.
+callback detail objects or replace `RootProvider` with a local state layer. Keep normal
+state/provider examples on the `ProgressLinear` namespace; direct Ark imports are only an advanced
+escape hatch. When changing styling hooks or CSS variables, update docs examples, this file,
+`theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
+  `ProgressLinear` namespace so normal provider/state composition stays on moduix without a
+  duplicate named hook export.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
   moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
   state usage to direct Ark imports.

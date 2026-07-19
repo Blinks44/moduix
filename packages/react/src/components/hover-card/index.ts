@@ -1,1 +1,1 @@
-export { HoverCard } from './HoverCard';
+export { HoverCard, useHoverCard, useHoverCardContext } from './HoverCard';

@@ -13,16 +13,10 @@ export function DisabledAngleSliderDemo() {
       className="docs-angle-slider-disabled"
     >
       <AngleSlider.Label>Rotation</AngleSlider.Label>
-      <AngleSlider.Control>
-        <AngleSlider.MarkerGroup>
-          {markerValues.map((value) => (
-            <AngleSlider.Marker key={value} value={value} />
-          ))}
-        </AngleSlider.MarkerGroup>
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
+      <AngleSlider.Dial>
+        <AngleSlider.Marks values={markerValues} />
+      </AngleSlider.Dial>
       <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

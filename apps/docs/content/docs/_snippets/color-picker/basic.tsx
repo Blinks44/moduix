@@ -9,44 +9,22 @@ export function ColorPickerDemo() {
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
-        <ColorPicker.ChannelInput channel="alpha" />
-        <ColorPicker.Trigger aria-label="Open color picker">
-          <ColorPicker.TransparencyGrid />
-          <ColorPicker.ValueSwatch />
-        </ColorPicker.Trigger>
+        <ColorPicker.Trigger aria-label="Open color picker" />
       </ColorPicker.Control>
       <ColorPicker.Positioner>
         <ColorPicker.Content>
-          <ColorPicker.Area>
-            <ColorPicker.AreaBackground />
-            <ColorPicker.AreaThumb />
-          </ColorPicker.Area>
+          <ColorPicker.Area />
           <div className="color-picker-slider-group">
             <ColorPicker.EyeDropperTrigger aria-label="Pick color from screen" />
-            <div className="color-picker-channel-sliders">
-              <ColorPicker.ChannelSlider channel="hue">
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-              <ColorPicker.ChannelSlider channel="alpha">
-                <ColorPicker.TransparencyGrid />
-                <ColorPicker.ChannelSliderTrack />
-                <ColorPicker.ChannelSliderThumb />
-              </ColorPicker.ChannelSlider>
-            </div>
+            <ColorPicker.Sliders />
           </div>
           <ColorPicker.SwatchGroup>
             {swatches.map((color) => (
-              <ColorPicker.SwatchTrigger key={color} value={color}>
-                <ColorPicker.Swatch value={color}>
-                  <ColorPicker.SwatchIndicator />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
+              <ColorPicker.SwatchTrigger key={color} value={color} />
             ))}
           </ColorPicker.SwatchGroup>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-      <ColorPicker.HiddenInput />
     </ColorPicker>
   );
 }

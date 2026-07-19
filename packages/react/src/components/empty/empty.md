@@ -4,7 +4,9 @@ Upstream docs:
 
 - Ark UI: no dedicated Empty primitive; use https://ark-ui.com/docs/guides/composition and
   https://ark-ui.com/docs/guides/styling plus https://ark-ui.com/docs/guides/ref
-- Chakra UI: no dedicated recipe used for this wrapper
+- Chakra UI: https://chakra-ui.com/docs/components/empty-state provides an `EmptyState` reference
+  composition. Moduix intentionally keeps `Empty.Icon` as a root sibling rather than nesting it in
+  `Empty.Content`.
 
 ## Purpose
 

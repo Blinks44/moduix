@@ -1,20 +1,9 @@
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressCircular, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
-export const progressCircularExampleCss = `
-  .progress-circular-stack {
-    display: grid;
-    justify-items: center;
-    gap: var(--spacing-4);
-  }
-
-  .progress-circular-slider {
-    width: 12rem;
-  }
-
+const progressCircularCircleExampleCss = `
   .progress-circular-circle-container {
     position: relative;
     display: inline-grid;
@@ -28,8 +17,27 @@ export const progressCircularExampleCss = `
   .progress-circular-circle-container [data-slot="progress-circular-value-text"] {
     grid-area: 1 / 1;
   }
+`;
 
-  .progress-circular-context,
+export const progressCircularBasicExampleCss = progressCircularCircleExampleCss;
+
+export const progressCircularControlledExampleCss = `
+  .progress-circular-stack {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .progress-circular-slider {
+    width: 12rem;
+  }
+
+  ${progressCircularCircleExampleCss}
+`;
+
+export const progressCircularStateViewsExampleCss = `
+  ${progressCircularCircleExampleCss}
+
   .progress-circular-state {
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
@@ -131,6 +139,15 @@ function normalizeCssProperty(property: CssPropertyInput) {
 function ProgressCircularParts() {
   return (
     <div className="progress-circular-circle-container">
+      <ProgressCircular.Ring />
+      <ProgressCircular.ValueText />
+    </div>
+  );
+}
+
+function ProgressCircularAdvancedParts() {
+  return (
+    <div className="progress-circular-circle-container">
       <ProgressCircular.Circle>
         <ProgressCircular.CircleTrack />
         <ProgressCircular.CircleRange />
@@ -173,9 +190,7 @@ export function ControlledProgressCircularExample() {
           <Slider.Track>
             <Slider.Range />
           </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Progress value">
-            <Slider.HiddenInput />
-          </Slider.Thumb>
+          <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
         </Slider.Control>
       </Slider>
     </div>
@@ -226,12 +241,12 @@ export function ValueTextProgressCircularExample() {
 }
 
 export function RootProviderProgressCircularExample() {
-  const progress = useProgress({ defaultValue: 58 });
+  const progress = ProgressCircular.useProgress({ defaultValue: 58 });
 
   return (
     <ProgressCircular.RootProvider value={progress}>
       <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
-      <ProgressCircularParts />
+      <ProgressCircularAdvancedParts />
     </ProgressCircular.RootProvider>
   );
 }
@@ -240,7 +255,7 @@ export function StateViewsProgressCircularExample() {
   return (
     <ProgressCircular defaultValue={null}>
       <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-      <ProgressCircularParts />
+      <ProgressCircularAdvancedParts />
       <ProgressCircular.View className="progress-circular-state" state="indeterminate">
         {progressCircularStateMessages.indeterminate}
       </ProgressCircular.View>

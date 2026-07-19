@@ -11,12 +11,7 @@ export function RangeSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Minimum price">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
-        <Slider.Thumb index={1} aria-label="Maximum price">
-          <Slider.HiddenInput />
-        </Slider.Thumb>
+        <Slider.Thumbs />
       </Slider.Control>
       <Slider.ValueText />
     </Slider>

@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, type ComponentRef } from 'react';
+import { forwardRef, type ComponentRef, type CSSProperties } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './AspectRatio.module.css';
 
@@ -18,7 +18,7 @@ const AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRoot
         data-part="root"
         data-slot="aspect-ratio-root"
         className={clsx(styles.root, normalizeClassName(className))}
-        style={{ aspectRatio: ratio, ...style }}
+        style={{ '--aspect-ratio-value': ratio, ...style } as CSSProperties}
         {...props}
       />
     );

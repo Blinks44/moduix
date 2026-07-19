@@ -29,6 +29,10 @@
   display: grid;
   justify-items: center;
   gap: var(--spacing-1);
+
+  & [data-slot='file-upload-trigger'] {
+    margin-top: var(--spacing-2);
+  }
 }
 
 .dropzoneTitle {

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Timer as TimerPrimitive, useTimer } from '@ark-ui/react/timer';
 import { useState, type ComponentProps } from 'react';
 import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
-import { Timer } from './Timer';
+import { Timer, useTimer } from './Timer';
 import styles from './Timer.stories.module.css';
 
 const meta = {
@@ -34,20 +33,6 @@ function TimerItemGroup({
       <Timer.Item type={type} />
       <span className={styles.itemLabel}>{label}</span>
     </span>
-  );
-}
-
-function TimerValue() {
-  return (
-    <Timer.Area>
-      <TimerItemGroup type="days" label="days" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="hours" label="hours" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="minutes" label="minutes" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="seconds" label="seconds" />
-    </Timer.Area>
   );
 }
 
@@ -84,7 +69,7 @@ export const Basic: Story = {
   render: (args) => {
     return (
       <Timer.Root {...args}>
-        <TimerValue />
+        <Timer.Segments types={['days', 'hours', 'minutes', 'seconds']} />
         <TimerControls />
       </Timer.Root>
     );
@@ -166,9 +151,9 @@ export const RootProvider: Story = {
 
     return (
       <Timer.RootProvider value={timer}>
-        <TimerPrimitive.Context>
+        <Timer.Context>
           {(api) => <p className={styles.status}>Progress: {api.progressPercent.toFixed(0)}%</p>}
-        </TimerPrimitive.Context>
+        </Timer.Context>
         <ShortTimerValue />
         <TimerControls />
       </Timer.RootProvider>

@@ -1,6 +1,8 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Accordion as AccordionPrimitive } from '@ark-ui/react/accordion';
+import { Accordion as AccordionPrimitive, useAccordion } from '@ark-ui/react/accordion';
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -92,6 +94,21 @@ const AccordionItemContent = forwardRef<
   );
 });
 
+const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function AccordionItemBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="accordion"
+        data-part="item-body"
+        data-slot="accordion-item-body"
+        className={clsx(styles.itemBody, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
 const Accordion = Object.assign(AccordionRoot, {
   Root: AccordionRoot,
   RootProvider: AccordionRootProvider,
@@ -99,6 +116,7 @@ const Accordion = Object.assign(AccordionRoot, {
   ItemTrigger: AccordionItemTrigger,
   ItemIndicator: AccordionItemIndicator,
   ItemContent: AccordionItemContent,
+  ItemBody: AccordionItemBody,
 });
 
-export { Accordion };
+export { Accordion, useAccordion };

@@ -1,36 +1,41 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Field } from '@moduix/react';
+import { createListCollection } from '@ark-ui/react/collection';
+import { Field, Select } from '@moduix/react';
 
-const priorityOptions = [
-  {
-    label: 'Low',
-    value: 'low',
-  },
-  {
-    label: 'Normal',
-    value: 'normal',
-  },
-  {
-    label: 'High',
-    value: 'high',
-  },
-];
+const priorities = createListCollection({
+  items: [
+    { label: 'Low', value: 'low' },
+    { label: 'Normal', value: 'normal' },
+    { label: 'High', value: 'high' },
+  ],
+});
+
 export function SelectFieldDemo() {
   return (
     <Field required>
-      <Field.Label>Priority</Field.Label>
-      <Field.Select defaultValue="">
-        <option value="" disabled>
-          Select priority
-        </option>
-        {priorityOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </Field.Select>
+      <Select collection={priorities} name="priority">
+        <Select.Label>Priority</Select.Label>
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select priority" />
+          </Select.Trigger>
+          <Select.Indicators>
+            <Select.Indicator />
+          </Select.Indicators>
+        </Select.Control>
+        <Select.Positioner>
+          <Select.Content>
+            {priorities.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select>
       <Field.HelperText>Used for triage queues.</Field.HelperText>
     </Field>
   );

@@ -28,7 +28,7 @@ parts. This is the recommended path for invoices, summaries, and admin-style rea
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
     `}
@@ -38,7 +38,7 @@ parts. This is the recommended path for invoices, summaries, and admin-style rea
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-table" />
+<ShadcnInstall packageName="table" />
 
 ## Anatomy
 
@@ -96,29 +96,30 @@ layout component or shell markup.
 
 `Table` intentionally does not own sorting, filtering, selection, pagination, or row action state.
 Treat it as the visual and semantic primitive that higher-level table abstractions can build on.
+For TanStack Table state and rendering, follow the [Data Table](/docs/data-table) composition guide.
 
 ### Default props
 
 All parts accept `className` and their matching native element props.
 
-| Component            | Prop               | Default    | Notes                                                  |
-| -------------------- | ------------------ | ---------- | ------------------------------------------------------ |
-| `Table`              | `interactive`      | `false`    | Enables body-row hover highlighting.                   |
-| `Table`              | `showColumnBorder` | `false`    | Adds borders between visible columns.                  |
-| `Table`              | `size`             | `'md'`     | Supports `'sm'`, `'md'`, and `'lg'`.                   |
-| `Table`              | `stickyHeader`     | `false`    | Makes `Table.Header` sticky inside a scroll container. |
-| `Table`              | `striped`          | `false`    | Zebra-stripes even body rows, excluding empty rows.    |
-| `Table`              | `variant`          | `'line'`   | Supports `'line'` and `'outline'`.                     |
-| `Table.Caption`      | `side`             | `'bottom'` | Supports `'top'` and `'bottom'`.                       |
-| `Table.Column`       | `htmlWidth`        | —          | Maps to the native `width` attribute on `col`.         |
-| `Table.ColumnHeader` | `numeric`          | `false`    | Right-aligns content and uses tabular nums.            |
-| `Table.Cell`         | `numeric`          | `false`    | Right-aligns content and uses tabular nums.            |
-| `Table.Empty`        | `colSpan`          | required   | Must match the current body column count.              |
+| Component            | Prop               | Default    | Notes                                                   |
+| -------------------- | ------------------ | ---------- | ------------------------------------------------------- |
+| `Table`              | `interactive`      | `false`    | Enables body-row hover highlighting.                    |
+| `Table`              | `showColumnBorder` | `false`    | Adds borders between visible columns.                   |
+| `Table`              | `size`             | `'md'`     | Supports `'sm'`, `'md'`, and `'lg'`.                    |
+| `Table`              | `stickyHeader`     | `false`    | Makes `Table.Header` sticky inside a scroll container.  |
+| `Table`              | `striped`          | `false`    | Zebra-stripes even body rows, excluding empty rows.     |
+| `Table`              | `variant`          | `'line'`   | Supports `'line'` and `'outline'`.                      |
+| `Table.Caption`      | `side`             | `'bottom'` | Supports `'top'` and `'bottom'`.                        |
+| `Table.Column`       | `htmlWidth`        | —          | Maps to the native `width` attribute on `col`.          |
+| `Table.ColumnHeader` | `numeric`          | `false`    | Aligns content to the inline end and uses tabular nums. |
+| `Table.Cell`         | `numeric`          | `false`    | Aligns content to the inline end and uses tabular nums. |
+| `Table.Empty`        | `colSpan`          | required   | Must match the current body column count.               |
 
 ### Behavioral notes
 
 - `Table.Empty` renders a full table row for the empty state, so pass the body column count through
-  `colSpan`.
+  `colSpan`. Its row exposes `data-empty` and does not receive striped or interactive-hover styles.
 - Header and body rows render a shared bottom divider. The last body row drops its border.
 - Body rows get a subtle hover background only when `interactive` is set.
 - `Table.Caption` inherits muted typography and adds inline padding so it does not sit flush against
@@ -141,84 +142,11 @@ totals or summaries.
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
       .table {
         min-width: 40rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Numeric Columns
-
-Use `numeric` on both the header and the cells for the common aligned-metrics case.
-
-<Preview>
-  <TableDocs.NumericTableExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/table/numeric-columns.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Striped Rows
-
-Use `striped` when long read-only bodies need stronger row separation without switching to a more
-opinionated table abstraction.
-
-<Preview>
-  <TableDocs.StripedTableExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/table/striped-rows.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Sizes and Variants
-
-Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
-native root instead of adding extra state.
-
-<Preview>
-  <TableDocs.TableSizesAndVariantsExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/table/sizes-and-variants.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
       }
     `}
 
@@ -240,38 +168,11 @@ column separation needs to be visible.
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
       .table {
         min-width: 40rem;
-      }
-    `}
-
-  </Preview.CSS>
-</Preview>
-
-### Sticky Header and Column
-
-Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
-vertically scrolling table needs persistent context.
-
-<Preview>
-  <TableDocs.StickyTableExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/table/sticky-header-and-column.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .stickyShell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
-        max-height: 18rem;
-      }
-
-      .wideTable {
-        min-width: 56rem;
       }
     `}
 
@@ -292,7 +193,7 @@ Use `Table.Empty` when a body would otherwise render no rows.
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
       .table {
@@ -317,12 +218,37 @@ Use `Table.Empty` when a body would otherwise render no rows.
   <Preview.CSS>
     {`
       .card {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
       .cardContent {
         min-width: 0;
         padding-top: 0;
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Numeric Columns
+
+Use `numeric` on both the header and the cells for the common aligned-metrics case.
+
+<Preview>
+  <TableDocs.NumericTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/numeric-columns.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, 100%);
       }
 
       .table {
@@ -348,7 +274,7 @@ Use the last column for row-specific actions when the dataset needs lightweight 
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
       }
 
       .table {
@@ -379,30 +305,75 @@ Use the last column for row-specific actions when the dataset needs lightweight 
   </Preview.CSS>
 </Preview>
 
-### Custom Composition
+### Sizes and Variants
 
-Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior.
+Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
+native root instead of adding extra state.
 
 <Preview>
-  <TableDocs.CustomCompositionTableExample />
+  <TableDocs.TableSizesAndVariantsExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/table/custom-composition.tsx#demo</include>
+  <include lang="tsx">./_snippets/table/sizes-and-variants.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
     {`
       .shell {
-        width: min(44rem, calc(100vw - var(--spacing-8)));
-        overflow-x: auto;
-        padding: var(--spacing-3);
-        border: var(--border-width-sm) dashed var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+        width: min(44rem, 100%);
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Sticky Header and Column
+
+Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
+vertically scrolling table needs persistent context.
+
+<Preview>
+  <TableDocs.StickyTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/sticky-header-and-column.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .stickyShell {
+        width: min(44rem, 100%);
+        max-height: 18rem;
+      }
+
+      .wideTable {
+        min-width: 56rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Striped Rows
+
+Use `striped` when long read-only bodies need stronger row separation without switching to a more
+opinionated table abstraction.
+
+<Preview>
+  <TableDocs.StripedTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/striped-rows.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, 100%);
       }
 
       .table {
-        min-width: 34rem;
+        min-width: 40rem;
       }
     `}
 
@@ -429,13 +400,43 @@ and lightweight.
         --scroll-area-radius: var(--radius-lg);
         --scroll-area-bg: var(--color-card);
 
-        width: min(44rem, calc(100vw - var(--spacing-8)));
+        width: min(44rem, 100%);
         border: var(--border-width-sm) solid var(--color-border);
         border-radius: var(--radius-lg);
       }
 
       .wideTable {
         min-width: 56rem;
+      }
+    `}
+
+  </Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior. This bypasses the convenience shell while keeping the native table composition explicit.
+
+<Preview>
+  <TableDocs.CustomCompositionTableExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/table/custom-composition.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .shell {
+        width: min(44rem, 100%);
+        overflow-x: auto;
+        padding: var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+      }
+
+      .table {
+        min-width: 34rem;
       }
     `}
 
@@ -468,6 +469,7 @@ Use the part that owns the visual concern:
   `table-column-header`, `table-cell`, and `table-empty` for part-level targeting
 - `data-side="top" | "bottom"` on `Table.Caption` for caption placement styling
 - `data-numeric` on `Table.ColumnHeader` and `Table.Cell` for numeric-column targeting
+- `data-empty` on the row generated by `Table.Empty` for empty-row targeting
 - `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
   `data-show-column-border` on `Table` for root-level state styling
 - `data-sticky="start" | "end"` on `Table.ColumnHeader` and `Table.Cell` for sticky columns

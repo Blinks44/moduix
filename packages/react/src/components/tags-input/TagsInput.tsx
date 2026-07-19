@@ -1,7 +1,12 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { TagsInput as TagsInputPrimitive } from '@ark-ui/react/tags-input';
+import {
+  TagsInput as TagsInputPrimitive,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+} from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
@@ -10,28 +15,34 @@ import styles from './TagsInput.module.css';
 const TagsInputRoot = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.Root>,
   ComponentProps<typeof TagsInputPrimitive.Root>
->(function TagsInputRoot({ className, ...props }, ref) {
+>(function TagsInputRoot({ asChild, children, className, ...props }, ref) {
   return (
     <TagsInputPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="tags-input-root"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </TagsInputPrimitive.Root>
   );
 });
 
 const TagsInputRootProvider = forwardRef<
   ComponentRef<typeof TagsInputPrimitive.RootProvider>,
   ComponentProps<typeof TagsInputPrimitive.RootProvider>
->(function TagsInputRootProvider({ className, ...props }, ref) {
+>(function TagsInputRootProvider({ asChild, children, className, ...props }, ref) {
   return (
     <TagsInputPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="tags-input-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </TagsInputPrimitive.RootProvider>
   );
 });
 
@@ -165,11 +176,11 @@ const TagsInputClearTrigger = forwardRef<
 ) {
   const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
 
-  if (asChild || children != null) {
+  if (asChild) {
     return (
       <TagsInputPrimitive.ClearTrigger
         ref={ref}
-        asChild={asChild}
+        asChild
         data-slot="tags-input-clear-trigger"
         className={triggerClassName}
         aria-label={ariaLabel}
@@ -192,35 +203,65 @@ const TagsInputClearTrigger = forwardRef<
       <CloseButton.Root
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear tags' : undefined)}
         aria-labelledby={ariaLabelledBy}
-      />
+      >
+        {children}
+      </CloseButton.Root>
     </TagsInputPrimitive.ClearTrigger>
   );
 });
 
-const TagsInputHiddenInput = forwardRef<
-  ComponentRef<typeof TagsInputPrimitive.HiddenInput>,
-  ComponentProps<typeof TagsInputPrimitive.HiddenInput>
->(function TagsInputHiddenInput(props, ref) {
-  return (
-    <TagsInputPrimitive.HiddenInput ref={ref} data-slot="tags-input-hidden-input" {...props} />
-  );
-});
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <TagsInputPrimitive.HiddenInput data-slot="tags-input-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
 
 const TagsInputContext = TagsInputPrimitive.Context;
+
+function TagsInputItems() {
+  return (
+    <TagsInputContext>
+      {(tagsInput) =>
+        tagsInput.value.map((value, index) => (
+          <TagsInputItem key={`${value}-${index}`} index={index} value={value}>
+            <TagsInputItemPreview>
+              <TagsInputItemText>{value}</TagsInputItemText>
+              <TagsInputItemDeleteTrigger aria-label={`Remove ${value}`} />
+            </TagsInputItemPreview>
+            <TagsInputItemInput />
+          </TagsInputItem>
+        ))
+      }
+    </TagsInputContext>
+  );
+}
+
 const TagsInput = Object.assign(TagsInputRoot, {
   Root: TagsInputRoot,
   RootProvider: TagsInputRootProvider,
   Label: TagsInputLabel,
   Control: TagsInputControl,
   Item: TagsInputItem,
+  ItemContext: TagsInputPrimitive.ItemContext,
   ItemPreview: TagsInputItemPreview,
   ItemText: TagsInputItemText,
   ItemDeleteTrigger: TagsInputItemDeleteTrigger,
   ItemInput: TagsInputItemInput,
   Input: TagsInputInput,
   ClearTrigger: TagsInputClearTrigger,
-  HiddenInput: TagsInputHiddenInput,
   Context: TagsInputContext,
+  Items: TagsInputItems,
 });
 
-export { TagsInput };
+export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext };

@@ -17,6 +17,7 @@ export function NestedPopoverDemo() {
           </Popover.Header>
           <Popover.Body className="nestedBody">
             <Popover
+              portalled={false}
               positioning={{
                 placement: 'right',
                 gutter: 8,

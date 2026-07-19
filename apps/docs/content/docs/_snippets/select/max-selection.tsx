@@ -71,7 +71,6 @@ export function SelectMaxSelectionDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

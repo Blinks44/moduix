@@ -18,11 +18,8 @@ export function CheckboxGroupWithFormDemo() {
       <Checkbox.Group defaultValue={['react']} name="framework">
         {options.map((option) => (
           <Checkbox key={option.value} value={option.value}>
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
+            <Checkbox.Control />
             <Checkbox.Label>{option.label}</Checkbox.Label>
-            <Checkbox.HiddenInput />
           </Checkbox>
         ))}
       </Checkbox.Group>

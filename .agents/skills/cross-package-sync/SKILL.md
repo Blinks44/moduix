@@ -22,6 +22,10 @@ Use this skill when work spans `packages/react` and `apps/docs`.
   variables should match the shipped wrapper.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
 - Remove docs for deleted props, types, styling hooks, feature flags, and outdated examples in the same task.
+- When a native form-control part becomes internal, remove it from package/site examples and public anatomy, then
+  state that moduix renders it automatically. Document and demonstrate any semantic migration props that replace
+  manual configuration, such as range field names, virtualized collection form mode, or structured-value
+  serialization.
 - Teach the recommended default path first. Keep lower-level composition as the advanced path.
 - Reuse `docs-workflow/SKILL.md` for component-page structure, preview, Ark alignment, and CSS-variable doc rules
   instead of redefining them here.

@@ -16,7 +16,6 @@ export function ControlledSwitchDemo() {
       <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
         <Switch.Control />
         <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <span className={styles.hint}>Current value: {String(checked)}</span>
     </div>

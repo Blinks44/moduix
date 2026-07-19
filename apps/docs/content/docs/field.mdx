@@ -36,7 +36,7 @@ Start with Ark parts: `Field`, `Field.Label`, one control part, and optional hel
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-field" />
+<ShadcnInstall packageName="field" />
 
 ## Anatomy
 
@@ -55,6 +55,7 @@ Field
 | ------------------------- | --------------------------------------------------------------- |
 | `Field` / `Field.Root`    | Root context and default `<div role="group">`.                  |
 | `Field.RootProvider`      | Root powered by a `useField()` instance owned outside the tree. |
+| `Field.Context`           | Renderless access to the current field state.                   |
 | `Field.Label`             | Label linked to the current control id.                         |
 | `Field.Input`             | Native input wired with field ARIA and state props.             |
 | `Field.Textarea`          | Native textarea; supports Ark `autoresize`.                     |
@@ -86,87 +87,14 @@ rendered node.
 ### Behavioral notes
 
 - `Field.ErrorText` is absent from the DOM until the root is `invalid`.
-- `Field.RootProvider` must receive state from `useField()` imported from `@ark-ui/react/field`
+- `Field.RootProvider` must receive state from `useField()` imported from `@moduix/react`
   and should not be nested inside `Field.Root` for the same field instance.
+- Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
+  current field state. Direct Ark imports are only for lower-level APIs not exported by moduix.
 - `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
   their own native form parts.
 
 ## Examples
-
-### Invalid
-
-Set `invalid` on the root when validation is owned by application state or a form library.
-
-<Preview>
-  <FieldDocs.FieldInvalidExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/invalid.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Controlled Invalid
-
-Derive `invalid` from local state when the field should update as the user types.
-
-<Preview>
-  <FieldDocs.FieldControlledInvalidExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/controlled-invalid.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Textarea
-
-Use `Field.Textarea` when the field owns a multiline native textarea.
-
-<Preview>
-  <FieldDocs.FieldTextareaExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/textarea.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Textarea Autoresize
-
-Pass `autoresize` to let Ark keep the textarea height in sync with its content.
-
-<Preview>
-  <FieldDocs.FieldTextareaAutoresizeExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/textarea-autoresize.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Select
-
-Use `Field.Select` for native select controls that should receive field ids and state props.
-
-<Preview>
-  <FieldDocs.FieldSelectExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/select.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
 
 ### Checkbox
 
@@ -184,28 +112,52 @@ around a single checkbox control.
   
 </Preview>
 
-### Item Target
+### Controlled Invalid
 
-Use `Field.Item value` with root `target` when one field label should point to a specific control
-inside a grouped control row.
+Derive `invalid` from local state when the field should update as the user types.
 
 <Preview>
-  <FieldDocs.FieldItemExample />
+  <FieldDocs.FieldControlledInvalidExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/field/item-target.tsx#demo</include>
+  <include lang="tsx">./_snippets/field/controlled-invalid.tsx#demo</include>
 </Preview.Code>
+</Preview>
 
-  <Preview.CSS>
-    {`
-      .inlineControls {
-        display: grid;
-        grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr);
-        gap: var(--spacing-2);
-      }
-    `}
-  </Preview.CSS>
-  
+### Disabled
+
+Set `disabled` on the root to propagate disabled state to Ark field parts.
+
+<Preview>
+  <FieldDocs.FieldDisabledExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/disabled.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Invalid
+
+Set `invalid` on the root when validation is owned by application state or a form library.
+
+<Preview>
+  <FieldDocs.FieldInvalidExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/invalid.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Native Select
+
+Use `NativeSelect` for a browser-native select with the field's label, state, and description wiring.
+
+<Preview>
+  <FieldDocs.FieldNativeSelectExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/native-select.tsx#demo</include>
+</Preview.Code>
 </Preview>
 
 ### RadioGroup
@@ -219,40 +171,6 @@ the whole choice set instead of individual native radio inputs.
 <Preview.Code>
   <include lang="tsx">./_snippets/field/radiogroup.tsx#demo</include>
 </Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use `useField` with `Field.RootProvider` when the field state must be owned outside the rendered
-tree.
-
-<Preview>
-  <FieldDocs.FieldRootProviderExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/root-provider.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
-</Preview>
-
-### Disabled
-
-Set `disabled` on the root to propagate disabled state to Ark field parts.
-
-<Preview>
-  <FieldDocs.FieldDisabledExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/field/disabled.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
 </Preview>
 
 ### Read Only
@@ -265,9 +183,66 @@ Set `readOnly` on the root when the control value can be copied but not edited.
 <Preview.Code>
   <include lang="tsx">./_snippets/field/read-only.tsx#demo</include>
 </Preview.Code>
+</Preview>
 
-  <Preview.CSS>{`.field { width: fit-content; max-width: min(20rem, 100%); }`}</Preview.CSS>
-  
+### Select
+
+Use the composed `Select` when the native control is not enough and you need searchable or custom option UI.
+
+<Preview>
+  <FieldDocs.FieldSelectExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/select.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Textarea
+
+Use `Field.Textarea` when the field owns a multiline native textarea.
+
+<Preview>
+  <FieldDocs.FieldTextareaExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Textarea Autoresize
+
+Pass `autoresize` to let Ark keep the textarea height in sync with its content.
+
+<Preview>
+  <FieldDocs.FieldTextareaAutoresizeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/textarea-autoresize.tsx#demo</include>
+</Preview.Code>
+</Preview>
+
+### Advanced Customization
+
+Use `Field.Item` with root `target` when one label should point to a control inside a grouped row.
+
+<Preview>
+  <FieldDocs.FieldItemExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/item-target.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--spacing-2); }`}</Preview.CSS>
+</Preview>
+
+Use `useField` with `Field.RootProvider` when state must be owned outside the rendered tree.
+
+<Preview>
+  <FieldDocs.FieldRootProviderExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/field/root-provider.tsx#demo</include>
+</Preview.Code>
 </Preview>
 
 ## Styling

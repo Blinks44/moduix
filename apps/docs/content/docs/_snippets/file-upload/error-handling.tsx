@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FileUpload as ArkFileUpload } from '@ark-ui/react/file-upload';
 import { FileUpload } from '@moduix/react';
 import { useState } from 'react';
 
@@ -23,7 +22,7 @@ export function ErrorHandlingFileUploadDemo() {
         <FileUpload.Label>Images</FileUpload.Label>
         <FileUpload.Trigger>Select images</FileUpload.Trigger>
         <FileUpload.ItemGroup>
-          <ArkFileUpload.Context>
+          <FileUpload.Context>
             {({ acceptedFiles }) =>
               acceptedFiles.map((file) => (
                 <FileUpload.Item key={file.name} file={file}>
@@ -32,10 +31,10 @@ export function ErrorHandlingFileUploadDemo() {
                 </FileUpload.Item>
               ))
             }
-          </ArkFileUpload.Context>
+          </FileUpload.Context>
         </FileUpload.ItemGroup>
         <FileUpload.ItemGroup type="rejected">
-          <ArkFileUpload.Context>
+          <FileUpload.Context>
             {({ rejectedFiles }) =>
               rejectedFiles.map(({ file, errors }) => (
                 <FileUpload.Item key={file.name} file={file}>
@@ -45,9 +44,8 @@ export function ErrorHandlingFileUploadDemo() {
                 </FileUpload.Item>
               ))
             }
-          </ArkFileUpload.Context>
+          </FileUpload.Context>
         </FileUpload.ItemGroup>
-        <FileUpload.HiddenInput />
       </FileUpload>
       <p className="file-upload-state">{message || 'No files selected'}</p>
     </div>

@@ -15,12 +15,10 @@ export function ReadOnlySwitchDemo() {
       <Switch readOnly>
         <Switch.Control />
         <Switch.Label>Managed by policy</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
       <Switch defaultChecked readOnly>
         <Switch.Control />
         <Switch.Label>Always on</Switch.Label>
-        <Switch.HiddenInput />
       </Switch>
     </div>
   );

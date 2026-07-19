@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Button, Toast, Toaster, createToaster } from '@moduix/react';
+import { Button, Toaster, createToaster } from '@moduix/react';
 import { useRef } from 'react';
 
 const toaster = createToaster({
@@ -38,14 +38,7 @@ export function App() {
       >
         Mark as sent
       </Button>
-      <Toaster toaster={toaster}>
-        {(toast) => (
-          <Toast key={toast.id}>
-            <Toast.Title />
-            <Toast.Description />
-          </Toast>
-        )}
-      </Toaster>
+      <Toaster toaster={toaster} />
     </>
   );
 }

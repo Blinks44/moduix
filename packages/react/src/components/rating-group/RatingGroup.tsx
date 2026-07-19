@@ -1,10 +1,12 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   RatingGroup as RatingGroupPrimitive,
+  useRatingGroup,
+  useRatingGroupContext,
   useRatingGroupItemContext,
 } from '@ark-ui/react/rating-group';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
 import { RatingStarIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './RatingGroup.module.css';
@@ -24,30 +26,36 @@ type RatingGroupItemIndicatorProps = ComponentProps<'span'>;
 const RatingGroupRoot = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.Root>,
   RatingGroupRootProps
->(function RatingGroupRoot({ className, size = 'md', ...props }, ref) {
+>(function RatingGroupRoot({ asChild, children, className, size = 'md', ...props }, ref) {
   return (
     <RatingGroupPrimitive.Root
       ref={ref}
+      asChild={asChild}
       data-slot="rating-group-root"
       data-size={size}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </RatingGroupPrimitive.Root>
   );
 });
 
 const RatingGroupRootProvider = forwardRef<
   ComponentRef<typeof RatingGroupPrimitive.RootProvider>,
   RatingGroupRootProviderProps
->(function RatingGroupRootProvider({ className, size = 'md', ...props }, ref) {
+>(function RatingGroupRootProvider({ asChild, children, className, size = 'md', ...props }, ref) {
   return (
     <RatingGroupPrimitive.RootProvider
       ref={ref}
+      asChild={asChild}
       data-slot="rating-group-root-provider"
       data-size={size}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild)}
+    </RatingGroupPrimitive.RootProvider>
   );
 });
 
@@ -117,26 +125,52 @@ const RatingGroupItemIndicator = forwardRef<HTMLSpanElement, RatingGroupItemIndi
   },
 );
 
-const RatingGroupHiddenInput = forwardRef<
-  ComponentRef<typeof RatingGroupPrimitive.HiddenInput>,
-  ComponentProps<typeof RatingGroupPrimitive.HiddenInput>
->(function RatingGroupHiddenInput(props, ref) {
+function withHiddenInput(children: ReactNode, asChild?: boolean) {
+  const hiddenInput = <RatingGroupPrimitive.HiddenInput data-slot="rating-group-hidden-input" />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
+
+function RatingGroupItems({ children }: { children?: ReactNode }) {
   return (
-    <RatingGroupPrimitive.HiddenInput ref={ref} data-slot="rating-group-hidden-input" {...props} />
+    <>
+      <RatingGroupPrimitive.Context>
+        {({ items }) =>
+          items.map((item) => (
+            <RatingGroupItem key={item} index={item}>
+              {children ?? <RatingGroupItemIndicator />}
+            </RatingGroupItem>
+          ))
+        }
+      </RatingGroupPrimitive.Context>
+    </>
   );
-});
+}
 
 const RatingGroup = Object.assign(RatingGroupRoot, {
   Root: RatingGroupRoot,
   RootProvider: RatingGroupRootProvider,
+  Context: RatingGroupPrimitive.Context,
   Label: RatingGroupLabel,
   Control: RatingGroupControl,
   Item: RatingGroupItem,
+  ItemContext: RatingGroupPrimitive.ItemContext,
   ItemIndicator: RatingGroupItemIndicator,
-  HiddenInput: RatingGroupHiddenInput,
+  Items: RatingGroupItems,
 });
 
-export { RatingGroup };
+export { RatingGroup, useRatingGroup, useRatingGroupContext, useRatingGroupItemContext };
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,

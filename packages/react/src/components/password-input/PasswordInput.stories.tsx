@@ -20,12 +20,7 @@ export const Basic: Story = {
   render: () => (
     <PasswordInput>
       <PasswordInput.Label>Password</PasswordInput.Label>
-      <PasswordInput.Control>
-        <PasswordInput.Input placeholder="Enter your password" />
-        <PasswordInput.VisibilityTrigger>
-          <PasswordInput.Indicator />
-        </PasswordInput.VisibilityTrigger>
-      </PasswordInput.Control>
+      <PasswordInput.Field />
     </PasswordInput>
   ),
 };

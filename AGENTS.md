@@ -14,6 +14,7 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
 - For component work in `packages/react`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
+- When the user explicitly asks to create or update a changeset, apply `.agents/skills/changeset-workflow/SKILL.md`.
 - For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
 - For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
@@ -62,9 +63,9 @@ If a task spans UI and docs, apply skills in this order:
   the repo root.
 - After changes to a component in `packages/react`, update that component's local `.md` file in
   `packages/react/src/components` when behavior, API, styling contract, or recommended usage changed.
-- The root `registry.json` is the source of truth for the shadcn/GitHub registry. Source files in
+- `registry/registry.json` is the source manifest for the hosted React registry. Source files in
   registry items point directly at `packages/react/src/...`.
-- `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
+- `npm run build:registry` generates the deployed JSON artifacts into `apps/docs/public/r/react`.
 - Consumer registry targets remain namespaced under `@components/moduix/*` and `@lib/moduix/*`.
 - In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
 

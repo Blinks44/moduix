@@ -35,16 +35,16 @@ semantic trigger element.
 <Preview>
   <LightboxDocs.LightboxExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/lightbox/basic.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{LightboxDocs.lightboxBasicCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-lightbox" />
+<ShadcnInstall packageName="lightbox" />
 
 ## Anatomy
 
@@ -65,13 +65,13 @@ Lightbox / Lightbox.Root
          └─ Lightbox.Footer (optional)
 
 Lightbox.RootProvider
-└─ the same part tree connected to Ark useDialog()
+└─ the same part tree connected to useLightbox()
 ```
 
 | Part                         | Role                                                                           |
 | ---------------------------- | ------------------------------------------------------------------------------ |
 | `Lightbox` / `Lightbox.Root` | Ark Dialog root for open state, focus lifecycle, dismissal, and accessibility. |
-| `Lightbox.RootProvider`      | Provider for state created with Ark `useDialog()`.                             |
+| `Lightbox.RootProvider`      | Provider for state created with `useLightbox()`.                               |
 | `Lightbox.Trigger`           | Ark trigger. Use `asChild` for custom semantic buttons or links.               |
 | `Lightbox.Backdrop`          | Modal backdrop with Ark `data-state` and layer variables.                      |
 | `Lightbox.Positioner`        | Fixed centered overlay container.                                              |
@@ -132,8 +132,9 @@ Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
 `onOpenChange` and `onTriggerValueChange` keep Ark detail-object callback shapes. Read
 `details.open` for controlled open state and `details.value` for multiple-trigger galleries.
 
-Use Ark `useDialog()` with `Lightbox.RootProvider` when controls live outside the rendered root.
-Read dialog state in child components with Ark `useDialogContext()`.
+Use `useLightbox()` with `Lightbox.RootProvider` when controls live outside the rendered root.
+Read dialog state in child components with `useLightboxContext()`. Both are available from
+`@moduix/react` and on the `Lightbox` namespace.
 
 `Lightbox.Image closeOnClick` is the supported image-preview shortcut when the image itself should
 dismiss the overlay. `Lightbox.Bind` is the zero-render binding helper for CMS or third-party
@@ -146,51 +147,6 @@ Other inherited Dialog props pass through unchanged, including `id`, `ids`, `ini
 `skipAnimationOnMount`, and outside-interaction callbacks.
 
 ## Examples
-
-### Controlled
-
-Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state with React.
-
-<Preview>
-  <LightboxDocs.ControlledLightboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/controlled.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Multiple Triggers
-
-Use `Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The component does
-not maintain a hidden image registry.
-
-<Preview>
-  <LightboxDocs.MultipleTriggersLightboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/multiple-triggers.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Gallery
-
-When a CMS or API gives you a structured array of images, keep that array in React state and
-compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger value` to choose the initial
-slide and keep `Carousel` page state in sync as the user navigates.
-
-<Preview>
-  <LightboxDocs.GalleryLightboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/gallery.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
-  
-</Preview>
 
 ### Bind CMS Content
 
@@ -207,10 +163,39 @@ Lightbox. If your server already returns a real image array, prefer the
 <Preview>
   <LightboxDocs.BoundLightboxExample />
 
-  <Preview.Code>
+<Preview.Code>
   <include lang="tsx">./_snippets/lightbox/bind-cms-content.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+<Preview.CSS>{LightboxDocs.lightboxBindCmsContentCss}</Preview.CSS>
+
+</Preview>
+
+### Click to Close Image
+
+Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismiss the overlay. The
+close icon remains available and keeps the same Ark close semantics.
+
+<Preview>
+  <LightboxDocs.ClickToCloseLightboxExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/click-to-close-image.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{LightboxDocs.lightboxClickToCloseImageCss}</Preview.CSS>
+
+</Preview>
+
+### Controlled
+
+Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state with React.
+
+<Preview>
+  <LightboxDocs.ControlledLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/controlled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxControlledCss}</Preview.CSS>
   
 </Preview>
 
@@ -225,37 +210,23 @@ stable element ids for external accessibility composition.
   <Preview.Code>
   <include lang="tsx">./_snippets/lightbox/focus-and-ids.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  <Preview.CSS>{LightboxDocs.lightboxFocusAndIdsCss}</Preview.CSS>
   
 </Preview>
 
-### Non Modal
+### Gallery
 
-Set `modal={false}` for rare previews that should leave the page interactive. Pair it with
-`trapFocus={false}` and `preventScroll={false}` when the background needs to remain reachable.
-
-<Preview>
-  <LightboxDocs.NonModalLightboxExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/non-modal.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider and Context
-
-Create state with Ark `useDialog()` when the opener is outside the root. Read inline state with
-Ark `useDialogContext()` inside a child component.
+When a CMS or API gives you a structured array of images, keep that array in React state and
+compose `Carousel` inside `Lightbox.Gallery`. Use `Lightbox.Trigger value` to choose the initial
+slide and keep `Carousel` page state in sync as the user navigates.
 
 <Preview>
-  <LightboxDocs.RootProviderLightboxExample />
+  <LightboxDocs.GalleryLightboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/root-provider-and-context.tsx#demo</include>
+  <include lang="tsx">./_snippets/lightbox/gallery.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  <Preview.CSS>{LightboxDocs.lightboxGalleryExampleCss}</Preview.CSS>
   
 </Preview>
 
@@ -270,22 +241,67 @@ Use Ark presence props for heavy media. `lazyMount` delays rendering until the f
   <Preview.Code>
   <include lang="tsx">./_snippets/lightbox/lazy-mount.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  <Preview.CSS>{LightboxDocs.lightboxLazyMountCss}</Preview.CSS>
   
 </Preview>
 
-### Click To Close Image
+### Multiple Triggers
 
-Use `Lightbox.Image closeOnClick` when clicking the previewed image should dismiss the overlay. The
-close icon remains available and keeps the same Ark close semantics.
+Use `Trigger.value` and `onTriggerValueChange(details)` for gallery thumbnails. The component does
+not maintain a hidden image registry.
 
 <Preview>
-  <LightboxDocs.ClickToCloseLightboxExample />
+  <LightboxDocs.MultipleTriggersLightboxExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/lightbox/click-to-close-image.tsx#demo</include>
+  <include lang="tsx">./_snippets/lightbox/multiple-triggers.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{LightboxDocs.lightboxExampleCss}</Preview.CSS>
+  <Preview.CSS>{LightboxDocs.lightboxMultipleTriggersCss}</Preview.CSS>
+  
+</Preview>
+
+### Non Modal
+
+Set `modal={false}` for rare previews that should leave the page interactive. Ark disables focus
+trapping and scroll prevention for this mode.
+
+<Preview>
+  <LightboxDocs.NonModalLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/non-modal.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxNonModalCss}</Preview.CSS>
+  
+</Preview>
+
+### Root Provider and Context
+
+Create state with `useLightbox()` when the opener is outside the root. Read inline state with
+`useLightboxContext()` inside a child component.
+
+<Preview>
+  <LightboxDocs.RootProviderLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/root-provider-and-context.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxRootProviderCss}</Preview.CSS>
+  
+</Preview>
+
+### Advanced Customization
+
+Bypass the optional layout helpers when the media surface needs custom slot classes and token
+overrides; `Backdrop`, `Positioner`, and `Content` stay explicit.
+
+<Preview>
+  <LightboxDocs.CustomizedLightboxExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/lightbox/advanced-customization.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{LightboxDocs.lightboxAdvancedCustomizationCss}</Preview.CSS>
   
 </Preview>
 

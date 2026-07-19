@@ -3,8 +3,6 @@
 
 import { Field, PasswordInput } from '@moduix/react';
 
-const required = true;
-
 export function PasswordInputWithFieldDemo() {
   return (
     <Field className="password-input-demo-field" invalid>

@@ -1,8 +1,7 @@
-import { useAngleSlider } from '@ark-ui/react/angle-slider';
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider, useAngleSlider } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
@@ -12,9 +11,27 @@ export const angleSliderBasicCss = `
   }
 `;
 
+export const angleSliderWithMarksCss = `
+  .docs-angle-slider-with-marks {
+    --angle-slider-size: 9rem;
+  }
+`;
+
 export const angleSliderControlledCss = `
   .docs-angle-slider-controlled {
     --angle-slider-indicator-bg: var(--color-chart-2);
+    --angle-slider-size: 9rem;
+  }
+`;
+
+export const angleSliderFormCss = `
+  .docs-angle-slider-form {
+    --angle-slider-size: 9rem;
+  }
+`;
+
+export const angleSliderInvalidCss = `
+  .docs-angle-slider-invalid {
     --angle-slider-size: 9rem;
   }
 `;
@@ -179,25 +196,21 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function AngleSliderMarkers() {
+function AngleSliderMarkedParts() {
   return (
-    <AngleSlider.MarkerGroup>
-      {markerValues.map((value) => (
-        <AngleSlider.Marker key={value} value={value} />
-      ))}
-    </AngleSlider.MarkerGroup>
+    <>
+      <AngleSlider.Dial>
+        <AngleSlider.Marks values={markerValues} />
+      </AngleSlider.Dial>
+      <AngleSlider.ValueText />
+    </>
   );
 }
 
-function AngleSliderParts() {
+function AngleSliderFormParts() {
   return (
     <>
-      <AngleSlider.Control>
-        <AngleSliderMarkers />
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
-      <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
+      <AngleSliderMarkedParts />
     </>
   );
 }
@@ -210,14 +223,25 @@ export function AngleSliderExample() {
   return (
     <>
       <style>{angleSliderBasicCss}</style>
-      <AngleSlider.Root
+      <AngleSlider defaultValue={135} aria-label="Rotation" className="docs-angle-slider-basic">
+        <AngleSlider.Dial />
+      </AngleSlider>
+    </>
+  );
+}
+
+export function AngleSliderWithMarksExample() {
+  return (
+    <>
+      <style>{angleSliderWithMarksCss}</style>
+      <AngleSlider
         defaultValue={135}
         aria-label="Rotation"
-        className="docs-angle-slider-basic"
+        className="docs-angle-slider-with-marks"
       >
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
     </>
   );
 }
@@ -228,15 +252,49 @@ export function ControlledAngleSliderExample() {
   return (
     <>
       <style>{angleSliderControlledCss}</style>
-      <AngleSlider.Root
+      <AngleSlider
         value={value}
         aria-label="Heading"
         className="docs-angle-slider-controlled"
         onValueChange={(details) => setValue(details.value)}
       >
         <AngleSlider.Label>Heading</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
+    </>
+  );
+}
+
+export function FormAngleSliderExample() {
+  return (
+    <>
+      <style>{angleSliderFormCss}</style>
+      <AngleSlider
+        defaultValue={135}
+        aria-label="Rotation"
+        name="rotation"
+        className="docs-angle-slider-form"
+      >
+        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSliderFormParts />
+      </AngleSlider>
+    </>
+  );
+}
+
+export function InvalidAngleSliderExample() {
+  return (
+    <>
+      <style>{angleSliderInvalidCss}</style>
+      <AngleSlider
+        defaultValue={315}
+        invalid
+        aria-label="Invalid heading"
+        className="docs-angle-slider-invalid"
+      >
+        <AngleSlider.Label>Heading</AngleSlider.Label>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
     </>
   );
 }
@@ -245,15 +303,15 @@ export function SteppedAngleSliderExample() {
   return (
     <>
       <style>{angleSliderStepCss}</style>
-      <AngleSlider.Root
+      <AngleSlider
         defaultValue={60}
         step={15}
         aria-label="Snap angle"
         className="docs-angle-slider-step"
       >
         <AngleSlider.Label>15 Step</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
     </>
   );
 }
@@ -262,15 +320,15 @@ export function DisabledAngleSliderExample() {
   return (
     <>
       <style>{angleSliderDisabledCss}</style>
-      <AngleSlider.Root
+      <AngleSlider
         defaultValue={45}
         disabled
         aria-label="Disabled rotation"
         className="docs-angle-slider-disabled"
       >
         <AngleSlider.Label>Rotation</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
     </>
   );
 }
@@ -279,15 +337,15 @@ export function ReadOnlyAngleSliderExample() {
   return (
     <>
       <style>{angleSliderReadOnlyCss}</style>
-      <AngleSlider.Root
+      <AngleSlider
         defaultValue={300}
         readOnly
         aria-label="Locked angle"
         className="docs-angle-slider-readonly"
       >
         <AngleSlider.Label>Locked angle</AngleSlider.Label>
-        <AngleSliderParts />
-      </AngleSlider.Root>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
     </>
   );
 }
@@ -301,7 +359,7 @@ export function RootProviderAngleSliderExample() {
       <div className="docs-angle-slider-provider-layout">
         <AngleSlider.RootProvider value={angleSlider} className="docs-angle-slider-provider">
           <AngleSlider.Label>Rotation</AngleSlider.Label>
-          <AngleSliderParts />
+          <AngleSliderMarkedParts />
         </AngleSlider.RootProvider>
         <button
           type="button"
@@ -311,6 +369,30 @@ export function RootProviderAngleSliderExample() {
           Set to 90°
         </button>
       </div>
+    </>
+  );
+}
+
+export function AdvancedCustomizationAngleSliderExample() {
+  return (
+    <>
+      <style>{angleSliderWithMarksCss}</style>
+      <AngleSlider
+        defaultValue={135}
+        aria-label="Rotation"
+        className="docs-angle-slider-with-marks"
+      >
+        <AngleSlider.Label>Rotation</AngleSlider.Label>
+        <AngleSlider.Control>
+          <AngleSlider.MarkerGroup>
+            {markerValues.map((value) => (
+              <AngleSlider.Marker key={value} value={value} />
+            ))}
+          </AngleSlider.MarkerGroup>
+          <AngleSlider.Thumb />
+        </AngleSlider.Control>
+        <AngleSlider.ValueText />
+      </AngleSlider>
     </>
   );
 }

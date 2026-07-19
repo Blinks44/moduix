@@ -49,9 +49,9 @@
     }
 
     &[data-variant='default'] {
-      border-color: var(--toggle-default-border-color, var(--color-border));
-      background-color: var(--toggle-default-bg, var(--color-background));
-      color: var(--toggle-default-color, var(--toggle-color, var(--color-foreground)));
+      border-color: var(--toggle-default-border-color, var(--color-secondary));
+      background-color: var(--toggle-default-bg, var(--color-secondary));
+      color: var(--toggle-default-color, var(--toggle-color, var(--color-secondary-foreground)));
 
       @media (hover: hover) {
         &[data-state='off']:not([data-disabled]):hover {

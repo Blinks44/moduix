@@ -161,7 +161,9 @@
   }
 
   .itemGroup {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
     gap: var(--file-upload-item-group-gap, var(--spacing-2));
     width: 100%;
     margin: 0;
@@ -188,6 +190,7 @@
       var(--file-upload-item-padding-x, var(--spacing-3));
     background-color: var(--file-upload-item-bg, var(--color-background));
     color: var(--file-upload-item-color, var(--color-foreground));
+    flex: 1 0 100%;
 
     &[data-type='rejected'] {
       border-color: var(--file-upload-invalid-color, var(--color-destructive));
@@ -210,8 +213,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--file-upload-item-preview-size, 2rem);
-    height: var(--file-upload-item-preview-size, 2rem);
+    width: var(--file-upload-item-preview-size, var(--spacing-10));
+    height: var(--file-upload-item-preview-size, var(--spacing-10));
     border-radius: var(--file-upload-item-preview-radius, var(--radius-sm));
     background-color: var(--file-upload-item-preview-bg, var(--color-muted));
     color: var(--file-upload-item-preview-color, var(--color-muted-foreground));
@@ -224,6 +227,26 @@
     object-fit: cover;
   }
 
+  .itemPreviewIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .itemMetadata {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--file-upload-item-row-gap, var(--spacing-1));
+    color: var(--file-upload-item-size-color, var(--color-muted-foreground));
+    font-size: var(--file-upload-item-size-font-size, var(--text-xs));
+    line-height: var(--file-upload-item-size-line-height, var(--line-height-text-xs));
+
+    & > [data-slot='file-upload-item-size-text']::before {
+      margin-right: var(--file-upload-item-row-gap, var(--spacing-1));
+      content: '·';
+    }
+  }
+
   .itemName {
     grid-column: 1;
     min-width: 0;
@@ -231,9 +254,11 @@
     font-size: var(--file-upload-item-name-font-size, var(--text-sm));
     font-weight: var(--file-upload-item-name-font-weight, var(--weight-medium));
     line-height: var(--file-upload-item-name-line-height, var(--line-height-text-sm));
+    display: -webkit-box;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
 
   .item:has([data-slot='file-upload-item-preview']) .itemName {
@@ -251,8 +276,11 @@
     grid-column: 2;
   }
 
-  .itemDeleteTrigger,
-  .clearTrigger {
+  .item:has([data-slot='file-upload-item-preview']) .itemMetadata {
+    grid-column: 2;
+  }
+
+  .itemDeleteTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -311,14 +339,66 @@
     grid-column: 3;
   }
 
+  .item:has([data-slot='file-upload-item-preview-image']) {
+    flex: 0 1 min(100%, 10rem);
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    align-items: start;
+    min-height: 0;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemPreview {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemName {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemMetadata {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .item:has([data-slot='file-upload-item-preview-image']) .itemDeleteTrigger {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: center;
+  }
+
   .clearTrigger {
     align-self: flex-start;
+    --close-button-size: var(--file-upload-action-size, 2rem);
+    --close-button-radius: var(--file-upload-action-radius, var(--radius-sm));
+    --close-button-bg: var(--file-upload-action-bg, transparent);
+    --close-button-bg-hover: var(--file-upload-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--file-upload-clear-trigger-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--file-upload-action-color-hover, var(--color-foreground));
+    --close-button-icon-size: var(--file-upload-action-icon-size, 1rem);
+    --close-button-transition: var(--file-upload-transition, var(--transition-default));
+    --close-button-focus-ring-width: var(--file-upload-focus-ring-width, var(--border-width-md));
+    --close-button-focus-ring-color: var(--file-upload-focus-ring-color, var(--color-ring));
+    --close-button-focus-ring-offset: var(--file-upload-focus-ring-offset, var(--border-width-sm));
+    --close-button-disabled-opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
+  }
+
+  .clearTriggerWithContent {
     gap: var(--file-upload-clear-trigger-gap, var(--spacing-2));
     width: auto;
     padding-inline: var(--file-upload-clear-trigger-padding-x, var(--spacing-2));
-    color: var(--file-upload-clear-trigger-color, var(--color-muted-foreground));
     font: inherit;
     font-size: var(--file-upload-clear-trigger-font-size, var(--text-sm));
     line-height: var(--file-upload-clear-trigger-line-height, var(--line-height-text-sm));
+  }
+
+  .clearTrigger[data-readonly] {
+    pointer-events: none;
+    opacity: var(--file-upload-disabled-opacity, var(--opacity-disabled));
   }
 }

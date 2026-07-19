@@ -1,7 +1,7 @@
-import type { ComponentProps } from 'react';
 import { Bleed, Container, Heading, Text } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './container.module.css';
 
 export const containerOverrideCssProperties = [
@@ -150,9 +150,9 @@ export function ContainerBleedExample() {
           {bleedContent.title}
         </Heading>
         <Text tone="muted">{bleedContent.description}</Text>
-        <Bleed.Root inline="md">
+        <Bleed inline="md">
           <div className={styles.bleedSurface}>{bleedContent.callout}</div>
-        </Bleed.Root>
+        </Bleed>
       </Container>
     </div>
   );

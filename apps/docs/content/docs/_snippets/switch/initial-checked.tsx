@@ -10,7 +10,6 @@ export function InitialCheckedSwitchDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <Switch.Label>Start enabled</Switch.Label>
-      <Switch.HiddenInput />
     </Switch>
   );
 }

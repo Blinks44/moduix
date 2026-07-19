@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { Children, Fragment, forwardRef, type CSSProperties, type ReactNode } from 'react';
+import { forwardRef, type CSSProperties } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Stack.module.css';
 
@@ -19,41 +19,16 @@ type StackRootProps = HTMLArkProps<'div'> & {
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
   fill?: boolean;
-  separator?: ReactNode;
 };
 
 const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
-  {
-    asChild,
-    children,
-    className,
-    style,
-    direction,
-    gap,
-    align,
-    justify,
-    wrap,
-    fill,
-    separator,
-    ...props
-  },
+  { asChild, children, className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
 ) {
   const mobileDirection =
     typeof direction === 'string' ? direction : (direction?.mobile ?? direction?.desktop);
   const desktopDirection =
     typeof direction === 'string' ? direction : (direction?.desktop ?? direction?.mobile);
-  const childArray = separator == null ? undefined : Children.toArray(children);
-  const content =
-    childArray == null
-      ? children
-      : childArray.map((child, index) => (
-          <Fragment key={index}>
-            {index > 0 ? separator : null}
-            {child}
-          </Fragment>
-        ));
-
   return (
     <ark.div
       {...props}
@@ -76,7 +51,7 @@ const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
         } as CSSProperties
       }
     >
-      {content}
+      {children}
     </ark.div>
   );
 });

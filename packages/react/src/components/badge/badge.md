@@ -8,8 +8,8 @@ Upstream docs:
 
 ## Purpose
 
-`Badge` is a compact, non-interactive label for short metadata such as status, category, version,
-or small counts.
+`Badge` is a compact presentational label for short metadata such as status, category, version, or
+small counts.
 
 Ark UI does not ship a dedicated `Badge` primitive, so moduix models the component as an Ark-style
 factory wrapper with explicit parts.
@@ -26,7 +26,10 @@ factory wrapper with explicit parts.
 - `Badge.Dot` is the optional decorative indicator part.
 - `Badge.Root` accepts Ark factory span props plus local `variant`.
 - `Badge.Dot` accepts Ark factory span props and renders `aria-hidden="true"` by default.
-- `Badge` remains presentational. It does not add focus, keyboard, disabled, or controlled state.
+- `Badge` remains presentational. It does not add managed state, disabled state, controlled
+  behavior, or button/link semantics of its own.
+- Semantic links and buttons rendered through `asChild` inherit default cursor, hover, and
+  focus-visible styling from the root class.
 - Badge numbers use tabular figures, and badge text is not user-selectable by default.
 
 ## Anatomy and exported parts
@@ -73,6 +76,7 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 - `Styling`: follows Ark `data-scope` / `data-part` targeting and accepts `className`.
 - `Chakra Badge examples`: variants and inline icons are covered; sizing remains a CSS-variable
   contract instead of a local `size` prop.
+- `shadcn Link`: covered by `variant="link"` together with Ark factory `asChild`.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Badge` component
   page for this wrapper to mirror.
 - `Stateful or interactive patterns`: intentionally unsupported; `Badge` stays presentational.
@@ -89,18 +93,18 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
   - `data-part="dot"`
   - `data-slot="badge-dot"`
 - `Badge.Dot` is hidden from assistive technology by default with `aria-hidden="true"`.
-- `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep their native
-  keyboard and accessibility behavior and must provide their own interaction-specific focus and
-  hover styling.
+- `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep
+  their native keyboard and accessibility behavior while inheriting the badge root's default
+  cursor, hover, and focus-visible styling.
 - Long labels stay on one line and are clipped with ellipsis. Add `title` when users need the full
   value.
 
 ## Defaults and styling
 
-| Entry     | Default   | Values / Notes                                            |
-| --------- | --------- | --------------------------------------------------------- |
-| `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost` |
-| `asChild` | `false`   | Ark factory composition on `Badge.Root`                   |
+| Entry     | Default   | Values / Notes                                                    |
+| --------- | --------- | ----------------------------------------------------------------- |
+| `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
+| `asChild` | `false`   | Ark factory composition on `Badge.Root`                           |
 
 Public CSS variables:
 
@@ -124,7 +128,8 @@ Public CSS variables:
 ## Intentional sugar and differences from upstream
 
 - Ark UI has no dedicated `Badge` primitive here; moduix uses Ark factory parts.
-- moduix adds the local `variant` styling API and ships pre-styled defaults.
+- moduix adds the local `variant` styling API and ships pre-styled defaults, including a `link`
+  tone for shadcn-style inline actions.
 - moduix adds the decorative `Badge.Dot` part; Chakra's upstream recipe is single-part.
 - moduix exposes sizing through CSS variables rather than Chakra's `size` recipe prop.
 - moduix keeps the part surface narrow and does not add interactive or stateful behavior.
@@ -132,12 +137,17 @@ Public CSS variables:
 ## Agent notes
 
 - Keep `Badge` presentational.
-- If the component needs interaction, prefer a dedicated interactive component. When `asChild` is
-  appropriate, use one semantic interactive child and preserve visible focus treatment.
+- Keep the base mental model presentational: `Badge` does not own interaction. When `asChild` is
+  appropriate, use one semantic interactive child and preserve the default focus treatment on the
+  rendered host.
 - Keep direct child icon sizing tied to `--badge-icon-size` and `currentColor`.
 
 ## Local changelog
 
+- 2026-07-07: Added the `link` variant and default interactive host styling for `asChild` links and
+  buttons, then aligned docs and stories around the new recommended path.
+- 2026-07-09: Clarified the presentational `asChild` contract, promoted `<Badge>` as the default
+  docs path, and added public custom-styling guidance.
 - 2026-07-02: Removed redundant public Badge prop and variant type aliases while preserving the
   callable root, `Badge.Dot`, Ark factory composition, refs, variants, and styling contract.
 - 2026-06-24: Reconfirmed the local Ark factory contract, aligned docs around the `Badge` root

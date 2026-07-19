@@ -40,8 +40,8 @@ export function Example() {
 }
 ```
 
-The package exports `Marquee` plus its visible parts. Advanced state hooks and context access are
-imported directly from `@ark-ui/react/marquee`.
+The package exports `Marquee`, its visible parts, and `useMarquee`. Context access remains available
+directly from `@ark-ui/react/marquee` as an escape hatch.
 
 ## Anatomy and exported parts
 
@@ -84,7 +84,7 @@ shorter than the viewport, and `side="top" | "bottom"` for vertical marquees.
 </Marquee>
 ```
 
-Use `Marquee.RootProvider` with Ark `useMarquee()` when controls outside the root need to call
+Use `Marquee.RootProvider` with moduix `useMarquee()` when controls outside the root need to call
 `pause()`, `resume()`, `togglePause()`, or `restart()`. Do not render `Marquee` and
 `Marquee.RootProvider` for the same state instance.
 
@@ -96,12 +96,13 @@ Use `Marquee.RootProvider` with Ark `useMarquee()` when controls outside the roo
 - Vertical: supported through `side="top"` or `side="bottom"`.
 - Speed and delay: supported through `speed` and `delay`.
 - Pause on interaction: supported through `pauseOnInteraction`, hover, and focus.
-- Programmatic control: supported through Ark `useMarquee` and `Marquee.RootProvider`.
+- Programmatic control: supported through moduix `useMarquee` and `Marquee.RootProvider`.
 - Finite loops: supported through `loopCount`, `onLoopComplete`, and `onComplete`.
 - Edge fades: supported through `Marquee.Edge side="start|end|top|bottom"`.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, and content IDs.
-- Advanced state reads stay available directly from `@ark-ui/react/marquee`.
+- `useMarquee` is available from moduix; advanced context reads stay available directly from
+  `@ark-ui/react/marquee`.
 
 ## Props and callbacks
 
@@ -193,11 +194,13 @@ content animation when Ark sets `data-paused` on the root and disables animation
 - Keep the wrapper thin. Do not add automatic structural rendering for viewport/content/items.
 - Keep keyframe names local to the CSS module and tied to Ark `--marquee-translate`.
 - Keep pause callbacks and controlled state detail objects in Ark's original shape.
-- Keep advanced Ark hooks and context APIs out of the moduix surface; consumers can import them
-  directly from Ark when needed.
+- Keep `useMarquee` available from moduix for `RootProvider` composition. Advanced context APIs stay
+  direct Ark escape hatches.
 
 ## Local changelog
 
+- 2026-07-10: Re-exported `useMarquee` from moduix so `RootProvider` examples stay within the public
+  package surface.
 - 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
   Kept `RootProvider`, the callable root, visible parts, and edge fade sugar.
 - 2026-06-22: Added `Marquee` as an Ark UI-backed component with root shortcut, provider/context

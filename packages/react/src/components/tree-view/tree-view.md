@@ -30,8 +30,8 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
   uncontrolled behavior intact.
 - `TreeView.BranchIndicator`, `TreeView.BranchTrigger`, `TreeView.ItemIndicator`, and
   `TreeView.NodeCheckboxIndicator` render moduix default icons when children are omitted.
-- `RootProvider` stays available, but advanced hooks such as `useTreeView` and
-  `useTreeViewNodeContext` should be imported directly from `@ark-ui/react/tree-view`.
+- `RootProvider`, `useTreeView`, `useTreeViewNodeContext`, `TreeViewNodeProviderProps`, and
+  `TreeViewLoadChildrenDetails` are re-exported from `@moduix/react` with their Ark contracts.
 
 ## Anatomy and exported parts
 
@@ -78,13 +78,8 @@ TreeView / TreeView.Root
 ## Composition
 
 ```tsx
-import {
-  FileIcon,
-  FolderIcon,
-  FolderOpenIcon,
-  TreeView,
-  createTreeCollection,
-} from '@moduix/react';
+import { TreeView, createTreeCollection, useTreeViewNodeContext } from '@moduix/react';
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from 'lucide-react';
 
 const collection = createTreeCollection({
   nodeToValue: (node) => node.id,
@@ -171,18 +166,23 @@ function TreeNodeContent({ node, indexPath }) {
 
 ## Intentional sugar and differences from upstream
 
-- Default icons are added for branch indicators, item indicators, and checkbox indicators.
+- Default icons are added for branch indicators, item indicators, and checkbox indicators; use an
+  empty `NodeCheckboxIndicator` unless the checked or indeterminate icons need customization.
 - File/folder icons are exported from the shared icon pack for examples and consumer convenience.
 - No convenience wrapper hides Ark recursive rendering; consumers keep the explicit `NodeProvider`
   and branch/item composition.
 
 ## Agent notes
 
-- Keep docs imports from `@moduix/react`, not local component paths.
+- Keep docs imports from `@moduix/react`, including TreeView hooks and types; direct Ark imports are
+  escape hatches only.
 - Keep `NodeProvider` unstyled; it is the context boundary and does not render a public styling slot.
 - When registry-shipped tree-view source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-12: Re-exported the TreeView hooks and normal recursive-renderer types from moduix, and
+  documented the default checkbox-indicator icons as the recommended path.
 
 - 2026-07-03: Removed moduix re-exports for `TreeView.Context`, `TreeView.NodeContext`,
   `useTreeView`, context hooks, and duplicate Ark types. Keep `RootProvider`, recursive

@@ -1,8 +1,7 @@
-import { useCheckbox } from '@ark-ui/react/checkbox';
-import { Checkbox, Field, Fieldset } from '@moduix/react';
+import { Checkbox, Field, Fieldset, useCheckbox } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './checkbox.module.css';
 
 const notificationOptions = [
@@ -214,7 +213,7 @@ function CheckboxItem({
   customStyled = false,
   ...props
 }: ComponentProps<typeof Checkbox.Root> & {
-  indicator?: 'default' | 'dual' | 'custom';
+  indicator?: 'default' | 'custom';
   customStyled?: boolean;
 }) {
   return (
@@ -224,30 +223,22 @@ function CheckboxItem({
           <Checkbox.Indicator>
             <CustomPlusIcon className={styles.customIndicatorIcon} />
           </Checkbox.Indicator>
-        ) : (
-          <>
-            <Checkbox.Indicator />
-            {indicator === 'dual' ? <Checkbox.Indicator indeterminate /> : null}
-          </>
-        )}
+        ) : null}
       </Checkbox.Control>
       <Checkbox.Label className={customStyled ? styles.customLabel : undefined}>
         {children}
       </Checkbox.Label>
-      <Checkbox.HiddenInput />
     </Checkbox.Root>
   );
 }
 
 function FrameworkCheckboxes({
   options = frameworkOptions,
-  indicator,
 }: {
   options?: typeof frameworkOptions;
-  indicator?: 'default' | 'dual';
 }) {
   return options.map((option) => (
-    <CheckboxItem key={option.value} value={option.value} indicator={indicator}>
+    <CheckboxItem key={option.value} value={option.value}>
       {option.label}
     </CheckboxItem>
   ));
@@ -262,11 +253,7 @@ export function CheckboxDefaultCheckedExample() {
 }
 
 export function CheckboxIndeterminateExample() {
-  return (
-    <CheckboxItem checked="indeterminate" indicator="dual">
-      Select all team members
-    </CheckboxItem>
-  );
+  return <CheckboxItem checked="indeterminate">Select all team members</CheckboxItem>;
 }
 
 export function CheckboxSizesExample() {
@@ -325,11 +312,8 @@ export function CheckboxRootProviderExample() {
   return (
     <div className={styles.stack}>
       <Checkbox.RootProvider value={checkbox}>
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.RootProvider>
       <button
         type="button"
@@ -346,11 +330,8 @@ export function CheckboxWithFieldExample() {
   return (
     <Field className={styles.field}>
       <Checkbox.Root required name="terms" value="accepted">
-        <Checkbox.Control>
-          <Checkbox.Indicator />
-        </Checkbox.Control>
+        <Checkbox.Control />
         <Checkbox.Label>Accept terms</Checkbox.Label>
-        <Checkbox.HiddenInput />
       </Checkbox.Root>
       <Field.HelperText>Required to continue.</Field.HelperText>
       <Field.ErrorText>Please accept the terms.</Field.ErrorText>
@@ -456,7 +437,6 @@ export function CheckboxGroupSelectAllExample() {
     <div className={styles.wrapper}>
       <CheckboxItem
         checked={indeterminate ? 'indeterminate' : allSelected}
-        indicator="dual"
         onCheckedChange={(details) => setValue(details.checked === true ? allValues : [])}
       >
         Select all

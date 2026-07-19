@@ -16,16 +16,10 @@ export function ControlledAngleSliderDemo() {
       onValueChange={(details) => setValue(details.value)}
     >
       <AngleSlider.Label>Heading</AngleSlider.Label>
-      <AngleSlider.Control>
-        <AngleSlider.MarkerGroup>
-          {markerValues.map((markerValue) => (
-            <AngleSlider.Marker key={markerValue} value={markerValue} />
-          ))}
-        </AngleSlider.MarkerGroup>
-        <AngleSlider.Thumb />
-      </AngleSlider.Control>
+      <AngleSlider.Dial>
+        <AngleSlider.Marks values={markerValues} />
+      </AngleSlider.Dial>
       <AngleSlider.ValueText />
-      <AngleSlider.HiddenInput />
     </AngleSlider>
   );
 }

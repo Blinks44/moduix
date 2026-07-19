@@ -11,13 +11,7 @@ export function SizeLimitImageCropperDemo() {
     <ImageCropper minWidth={96} minHeight={72} maxWidth={320} maxHeight={240}>
       <ImageCropper.Viewport>
         <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-        <ImageCropper.Selection>
-          <ImageCropper.Grid axis="horizontal" />
-          <ImageCropper.Grid axis="vertical" />
-          {ImageCropper.handles.map((position) => (
-            <ImageCropper.Handle key={position} position={position} />
-          ))}
-        </ImageCropper.Selection>
+        <ImageCropper.CropArea />
       </ImageCropper.Viewport>
     </ImageCropper>
   );

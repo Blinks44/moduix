@@ -1,7 +1,7 @@
-import type { ComponentProps } from 'react';
 import { Badge, Button, Card, Input } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps } from 'react';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './card.module.css';
 
 export const cardOverrideCssProperties: CssProperty[] = [
@@ -14,6 +14,21 @@ export const cardOverrideCssProperties: CssProperty[] = [
     name: '--card-bg',
     defaultValue: 'var(--color-card)',
     description: 'Controls card background color.',
+  },
+  {
+    name: '--card-spacing',
+    defaultValue: 'falls back to size-specific card padding',
+    description: 'Controls shared card inset and section spacing.',
+  },
+  {
+    name: '--card-spacing-lg',
+    defaultValue: 'falls back to `--card-spacing` then `var(--spacing-8)`',
+    description: 'Controls large-card shared inset and section spacing.',
+  },
+  {
+    name: '--card-spacing-sm',
+    defaultValue: 'falls back to `--card-spacing` then `var(--spacing-4)`',
+    description: 'Controls compact-card shared inset and section spacing.',
   },
   {
     name: '--card-border-color',
@@ -278,11 +293,13 @@ export function CardWithActionExample() {
 export function CardWithImageExample() {
   return (
     <Card className={styles.card}>
-      <img
-        alt="A warehouse with neatly stacked delivery boxes."
-        className={styles.image}
-        src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
-      />
+      <Card.Media>
+        <img
+          alt="A warehouse with neatly stacked delivery boxes."
+          className={styles.image}
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
+        />
+      </Card.Media>
       <Card.Header>
         <Card.Title>Warehouse capacity</Card.Title>
         <Card.Description>North region allocation for the next planning cycle.</Card.Description>
@@ -398,6 +415,34 @@ export function CardLinkWithActionsExample() {
           <div>
             <span className={styles.statValue}>99.97%</span>
             <span className={styles.statLabel}>service uptime</span>
+          </div>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+}
+
+export function CardAdvancedCustomizationExample() {
+  return (
+    <Card className={styles.customCard}>
+      <div className={styles.mediaShell}>
+        <img
+          alt="A warehouse with neatly stacked delivery boxes."
+          className={styles.image}
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80"
+        />
+      </div>
+      <Card.Header>
+        <Card.Title asChild>
+          <h2>System load</h2>
+        </Card.Title>
+        <Card.Description>Bypasses `Card.Media` to fully control media framing.</Card.Description>
+      </Card.Header>
+      <Card.Body>
+        <div className={styles.capacity}>
+          <span>64%</span>
+          <div className={styles.capacityBar}>
+            <div className={styles.capacityFill} />
           </div>
         </div>
       </Card.Body>

@@ -1,7 +1,6 @@
 //#region demo
 import { createListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
-import { Combobox } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -30,10 +29,9 @@ export function RootProviderComboboxDemo() {
           <Combobox.Content>
             <Combobox.List>
               {collection.items.map((item) => (
-                <Combobox.Item key={item.value} item={item}>
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                <Combobox.Option key={item.value} item={item}>
+                  {item.label}
+                </Combobox.Option>
               ))}
             </Combobox.List>
           </Combobox.Content>

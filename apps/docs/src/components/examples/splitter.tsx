@@ -1,12 +1,13 @@
 import {
+  Button,
   createSplitterRegistry,
-  useSplitter,
+  Splitter,
   type SplitterPanelData,
-} from '@ark-ui/react/splitter';
-import { Button, Splitter } from '@moduix/react';
+  useSplitter,
+} from '@moduix/react';
 import { useEffect, useRef, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './splitter.module.css';
 
 const panels: SplitterPanelData[] = [
@@ -143,9 +144,7 @@ export function SplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className="splitter-panel">
         B
       </Splitter.Panel>
@@ -168,9 +167,7 @@ export function VerticalSplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         Top
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className="splitter-panel">
         Bottom
       </Splitter.Panel>
@@ -197,9 +194,7 @@ export function ControlledSplitterDemo() {
         <Splitter.Panel id="a" className="splitter-panel">
           A
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
         <Splitter.Panel id="b" className="splitter-panel">
           B
         </Splitter.Panel>
@@ -219,9 +214,7 @@ export function CollapsibleSplitterDemo() {
       <Splitter.Panel id="sidebar" className="splitter-panel">
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className="splitter-panel">
         Content
       </Splitter.Panel>
@@ -239,15 +232,11 @@ export function MultiplePanelsSplitterDemo() {
       <Splitter.Panel id="a" className="splitter-panel">
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
       <Splitter.Panel id="b" className="splitter-panel">
         B
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
       <Splitter.Panel id="c" className="splitter-panel">
         C
       </Splitter.Panel>
@@ -257,8 +246,7 @@ export function MultiplePanelsSplitterDemo() {
 `;
 
 export const splitterRootProviderCode = `
-import { useSplitter } from "@ark-ui/react/splitter";
-import { Button, Splitter } from "@moduix/react";
+import { Button, Splitter, useSplitter } from "@moduix/react";
 
 export function RootProviderSplitterDemo() {
   const splitter = useSplitter({ panels, defaultSize: [50, 50] });
@@ -273,9 +261,7 @@ export function RootProviderSplitterDemo() {
         <Splitter.Panel id="a" className="splitter-panel">
           A
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
         <Splitter.Panel id="b" className="splitter-panel">
           B
         </Splitter.Panel>
@@ -286,29 +272,8 @@ export function RootProviderSplitterDemo() {
 }
 `;
 
-export const splitterResizeIndicatorCode = `
-import { Splitter } from "@moduix/react";
-
-export function ResizeIndicatorSplitterDemo() {
-  return (
-    <Splitter panels={panels} defaultSize={[40, 60]} className="splitter-demo">
-      <Splitter.Panel id="a" className="splitter-panel">
-        A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b" className="splitter-panel">
-        B
-      </Splitter.Panel>
-    </Splitter>
-  );
-}
-`;
-
 export const splitterDynamicCollapsibleCode = `
-import { useSplitter } from "@ark-ui/react/splitter";
-import { Splitter } from "@moduix/react";
+import { Splitter, useSplitter } from "@moduix/react";
 import { useEffect, useRef, useState } from "react";
 
 export function DynamicCollapsibleSplitterDemo() {
@@ -342,9 +307,7 @@ export function DynamicCollapsibleSplitterDemo() {
       <Splitter.Panel id="sidebar" className="splitter-panel">
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className="splitter-panel">
         Content
       </Splitter.Panel>
@@ -354,8 +317,7 @@ export function DynamicCollapsibleSplitterDemo() {
 `;
 
 export const splitterNestedCode = `
-import { createSplitterRegistry } from "@ark-ui/react/splitter";
-import { Splitter } from "@moduix/react";
+import { createSplitterRegistry, Splitter } from "@moduix/react";
 import { useState } from "react";
 
 export function NestedSplitterDemo() {
@@ -371,9 +333,7 @@ export function NestedSplitterDemo() {
       <Splitter.Panel id="left" className="splitter-panel">
         Left
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
       <Splitter.Panel id="right">
         <Splitter
           orientation="vertical"
@@ -384,9 +344,7 @@ export function NestedSplitterDemo() {
           <Splitter.Panel id="top" className="splitter-panel">
             Top
           </Splitter.Panel>
-          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
+          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
           <Splitter.Panel id="bottom" className="splitter-panel">
             Bottom
           </Splitter.Panel>
@@ -426,7 +384,12 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'var(--radius-full)',
     'Controls the visible splitter line radius.',
   ],
-  ['--splitter-resize-trigger-line-size', '1px', 'Controls the visible splitter line thickness.'],
+  ['--splitter-resize-trigger-line-size', '1px', 'Controls the splitter layout divider size.'],
+  [
+    '--splitter-resize-trigger-line-thickness',
+    '0.5px',
+    'Controls the visual splitter line thickness without changing layout.',
+  ],
   [
     '--splitter-resize-trigger-line-color',
     'var(--color-border)',
@@ -436,11 +399,6 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     '--splitter-resize-trigger-line-color-dragging',
     'color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground))',
     'Controls the splitter line color while dragging.',
-  ],
-  [
-    '--splitter-resize-trigger-line-color-focus',
-    'var(--splitter-resize-trigger-line-color, var(--color-border))',
-    'Controls the splitter line color while keyboard-focused.',
   ],
   [
     '--splitter-resize-trigger-line-color-hover',
@@ -472,6 +430,11 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'var(--splitter-resize-trigger-indicator-border-color, var(--color-border))',
     'Controls the handle indicator border color while dragging.',
   ],
+  [
+    '--splitter-resize-trigger-indicator-border-color-hover',
+    'color-mix(in oklab, var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%, var(--color-muted-foreground))',
+    'Controls the handle indicator border color on hover.',
+  ],
   ['--splitter-resize-trigger-indicator-height', '1.5rem', 'Controls the handle indicator length.'],
   [
     '--splitter-resize-trigger-indicator-radius',
@@ -489,9 +452,9 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'Controls the handle indicator shadow while dragging.',
   ],
   [
-    '--splitter-resize-trigger-indicator-shadow-focus',
-    'var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))',
-    'Controls the handle indicator focus shadow.',
+    '--splitter-resize-trigger-indicator-shadow-hover',
+    'var(--shadow-md)',
+    'Controls the handle indicator shadow on hover.',
   ],
   [
     '--splitter-resize-trigger-indicator-width',
@@ -520,9 +483,7 @@ export function BasicSplitterExample() {
       <Splitter.Panel id="a" className={styles.panel}>
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className={styles.panel}>
         B
       </Splitter.Panel>
@@ -541,9 +502,7 @@ export function VerticalSplitterExample() {
       <Splitter.Panel id="a" className={styles.panel}>
         Top
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
       <Splitter.Panel id="b" className={styles.panel}>
         Bottom
       </Splitter.Panel>
@@ -565,9 +524,7 @@ export function ControlledSplitterExample() {
         <Splitter.Panel id="a" className={styles.panel}>
           A
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
         <Splitter.Panel id="b" className={styles.panel}>
           B
         </Splitter.Panel>
@@ -590,9 +547,7 @@ export function CollapsibleSplitterExample() {
       <Splitter.Panel id="sidebar" className={styles.panel}>
         Sidebar
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className={styles.panel}>
         Content
       </Splitter.Panel>
@@ -606,15 +561,11 @@ export function MultiplePanelsSplitterExample() {
       <Splitter.Panel id="a" className={styles.panel}>
         A
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels A and B" />
       <Splitter.Panel id="b" className={styles.panel}>
         B
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="b:c" aria-label="Resize panels B and C" />
       <Splitter.Panel id="c" className={styles.panel}>
         C
       </Splitter.Panel>
@@ -635,31 +586,13 @@ export function RootProviderSplitterExample() {
         <Splitter.Panel id="a" className={styles.panel}>
           A
         </Splitter.Panel>
-        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-          <Splitter.ResizeTriggerIndicator />
-        </Splitter.ResizeTrigger>
+        <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels" />
         <Splitter.Panel id="b" className={styles.panel}>
           B
         </Splitter.Panel>
       </Splitter.RootProvider>
       <output className={styles.status}>Sizes: {splitter.getSizes().join(' / ')}</output>
     </div>
-  );
-}
-
-export function ResizeIndicatorSplitterExample() {
-  return (
-    <Splitter panels={panels} defaultSize={[40, 60]} className={styles.demo}>
-      <Splitter.Panel id="a" className={styles.panel}>
-        A
-      </Splitter.Panel>
-      <Splitter.ResizeTrigger id="a:b" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
-      <Splitter.Panel id="b" className={styles.panel}>
-        B
-      </Splitter.Panel>
-    </Splitter>
   );
 }
 
@@ -699,9 +632,7 @@ export function DynamicCollapsibleSplitterExample() {
         <span>Sidebar</span>
         <span className={styles.status}>{isCompact ? 'Collapsed' : 'Expanded'}</span>
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="sidebar:content" aria-label="Resize panels" />
       <Splitter.Panel id="content" className={styles.panel}>
         Content
       </Splitter.Panel>
@@ -725,9 +656,7 @@ export function NestedSplitterExample() {
       <Splitter.Panel id="left" className={styles.panel}>
         Left
       </Splitter.Panel>
-      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels">
-        <Splitter.ResizeTriggerIndicator />
-      </Splitter.ResizeTrigger>
+      <Splitter.ResizeTrigger id="left:right" aria-label="Resize panels" />
       <Splitter.Panel id="right">
         <Splitter
           orientation="vertical"
@@ -741,9 +670,7 @@ export function NestedSplitterExample() {
           <Splitter.Panel id="top" className={styles.panel}>
             Top
           </Splitter.Panel>
-          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels">
-            <Splitter.ResizeTriggerIndicator />
-          </Splitter.ResizeTrigger>
+          <Splitter.ResizeTrigger id="top:bottom" aria-label="Resize panels" />
           <Splitter.Panel id="bottom" className={styles.panel}>
             Bottom
           </Splitter.Panel>

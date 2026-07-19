@@ -1,15 +1,19 @@
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,
   createTreeCollection,
   type TreeNode,
+  type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProviderProps,
   type TreeViewRootComponent,
   type TreeViewRootProps,
   type TreeViewRootProviderComponent,
   type TreeViewRootProviderProps,
+  useTreeView,
+  useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -286,4 +290,12 @@ const TreeView = Object.assign(TreeViewRoot, {
   NodeRenameInput: TreeViewNodeRenameInput,
 });
 
-export { TreeView, createFileTreeCollection, createTreeCollection };
+export {
+  TreeView,
+  createFileTreeCollection,
+  createTreeCollection,
+  useTreeView,
+  useTreeViewNodeContext,
+  type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProviderProps,
+};

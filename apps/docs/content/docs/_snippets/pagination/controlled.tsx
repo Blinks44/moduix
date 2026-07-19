@@ -17,19 +17,7 @@ export function ControlledPaginationDemo() {
         onPageChange={(details) => setPage(details.page)}
       >
         <Pagination.PrevTrigger />
-        <Pagination.Context>
-          {(pagination) =>
-            pagination.pages.map((page, index) =>
-              page.type === 'page' ? (
-                <Pagination.Item key={index} {...page}>
-                  {page.value}
-                </Pagination.Item>
-              ) : (
-                <Pagination.Ellipsis key={index} index={index} />
-              ),
-            )
-          }
-        </Pagination.Context>
+        <Pagination.Items />
         <Pagination.NextTrigger />
       </Pagination>
       <p className="pagination-muted">Current page: {page}</p>

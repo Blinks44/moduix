@@ -1,14 +1,13 @@
-import type { ReactNode } from 'react';
 import {
   createGridCollection,
   createListCollection,
   useListCollection,
 } from '@ark-ui/react/collection';
-import { useListbox, useListboxContext } from '@ark-ui/react/listbox';
-import { Button, Listbox } from '@moduix/react';
+import { Button, Listbox, useListbox, useListboxContext } from '@moduix/react';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './listbox.module.css';
 
 interface OptionItem {
@@ -141,9 +140,17 @@ const filterItems: OptionItem[] = [
 ];
 
 export const listboxOverrideCssProperties: CssPropertyInput[] = [
-  ['--listbox-bg', 'var(--color-background)', 'Controls input and content background.'],
-  ['--listbox-border-color', 'var(--color-border)', 'Controls input and content border color.'],
-  ['--listbox-border-width', 'var(--border-width-sm)', 'Controls input and content border width.'],
+  ['--listbox-bg', 'var(--color-background)', 'Controls content and unified filter background.'],
+  [
+    '--listbox-border-color',
+    'var(--color-border)',
+    'Controls content and filter fallback border color.',
+  ],
+  [
+    '--listbox-border-width',
+    'var(--border-width-sm)',
+    'Controls content and filter fallback border width.',
+  ],
   ['--listbox-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--listbox-content-max-height', '14rem', 'Controls content maximum height.'],
   ['--listbox-content-padding-y', 'var(--spacing-1)', 'Controls content vertical padding.'],
@@ -153,6 +160,32 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
   ['--listbox-empty-line-height', 'var(--line-height-text-sm)', 'Controls empty line height.'],
   ['--listbox-empty-padding-x', 'var(--spacing-3)', 'Controls empty horizontal padding.'],
   ['--listbox-empty-padding-y', 'var(--spacing-3)', 'Controls empty vertical padding.'],
+  ['--listbox-filter-action-bg', 'transparent', 'Controls clear button background.'],
+  [
+    '--listbox-filter-action-bg-hover',
+    'var(--color-muted)',
+    'Controls clear button hover background.',
+  ],
+  [
+    '--listbox-filter-action-color-hover',
+    'var(--color-foreground)',
+    'Controls clear button hover color.',
+  ],
+  ['--listbox-filter-action-radius', 'var(--radius-sm)', 'Controls clear button radius.'],
+  ['--listbox-filter-action-size', '1.5rem', 'Controls clear button box size.'],
+  ['--listbox-filter-height', 'var(--listbox-input-height)', 'Controls search field height.'],
+  [
+    '--listbox-filter-icon-color',
+    'var(--color-muted-foreground)',
+    'Controls search and clear icon color.',
+  ],
+  ['--listbox-filter-icon-size', '1rem', 'Controls search and clear icon size.'],
+  [
+    '--listbox-filter-input-padding-x',
+    'var(--spacing-2)',
+    'Controls text padding inside the search field.',
+  ],
+  ['--listbox-filter-padding-x', 'var(--spacing-3)', 'Controls search field edge padding.'],
   ['--listbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   ['--listbox-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
   ['--listbox-grid-gap', 'var(--spacing-1)', 'Controls grid content gap.'],
@@ -178,28 +211,28 @@ export const listboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--listbox-horizontal-gap', 'var(--spacing-2)', 'Controls horizontal item gap.'],
   ['--listbox-horizontal-item-width', '11rem', 'Controls horizontal item width.'],
-  ['--listbox-input-height', 'var(--size-lg)', 'Controls filter input height.'],
-  ['--listbox-input-bg', 'var(--color-background)', 'Controls filter input background.'],
+  ['--listbox-input-height', 'var(--size-lg)', 'Controls Listbox input height.'],
+  ['--listbox-input-bg', 'var(--color-background)', 'Controls standalone input background.'],
   [
     '--listbox-input-border-color',
     'var(--listbox-border-color)',
-    'Controls filter input border color.',
+    'Controls Listbox input border color.',
   ],
   [
     '--listbox-input-border-width',
     'var(--listbox-border-width)',
-    'Controls filter input border width.',
+    'Controls Listbox input border width.',
   ],
-  ['--listbox-input-color', 'var(--listbox-color)', 'Controls filter input text color.'],
+  ['--listbox-input-color', 'var(--listbox-color)', 'Controls Listbox input text color.'],
   [
     '--listbox-input-focus-ring-color',
     'var(--listbox-focus-ring-color)',
-    'Controls filter input focus ring color.',
+    'Controls standalone input focus ring color.',
   ],
   [
     '--listbox-input-focus-ring-width',
     'var(--listbox-focus-ring-width)',
-    'Controls filter input focus ring width.',
+    'Controls standalone input focus ring width.',
   ],
   ['--listbox-input-font-size', 'var(--text-md)', 'Controls filter input font size.'],
   [
@@ -452,6 +485,47 @@ export function GridListboxExample() {
 }
 
 export function FilteringListboxExample() {
+  const [filterText, setFilterText] = useState('');
+  const { collection, filter } = useListCollection<OptionItem>({
+    initialItems: filterItems,
+    filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
+  });
+
+  return (
+    <Listbox collection={collection} className={styles.root} typeahead={false}>
+      <Listbox.Label>Select framework</Listbox.Label>
+      <Listbox.Filter>
+        <Listbox.Input
+          placeholder="Search frameworks..."
+          value={filterText}
+          onChange={(event) => {
+            setFilterText(event.target.value);
+            filter(event.target.value);
+          }}
+        />
+        {filterText ? (
+          <Listbox.ClearTrigger
+            onClick={() => {
+              setFilterText('');
+              filter('');
+            }}
+          />
+        ) : null}
+      </Listbox.Filter>
+      <Listbox.Content>
+        {collection.items.map((item) => (
+          <Listbox.Item key={item.value} item={item}>
+            <Listbox.ItemText>{item.label}</Listbox.ItemText>
+            <Listbox.ItemIndicator />
+          </Listbox.Item>
+        ))}
+        <Listbox.Empty>No frameworks found</Listbox.Empty>
+      </Listbox.Content>
+    </Listbox>
+  );
+}
+
+export function StandaloneFilterInputListboxExample() {
   const { collection, filter } = useListCollection<OptionItem>({
     initialItems: filterItems,
     filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),

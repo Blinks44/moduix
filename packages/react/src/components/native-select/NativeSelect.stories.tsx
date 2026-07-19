@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: () => (
-    <NativeSelect defaultValue="">
+    <NativeSelect defaultValue="" aria-label="Framework">
       <option value="" disabled>
         Choose framework
       </option>
@@ -34,6 +34,40 @@ export const Disabled: Story = {
       <option value="react">React</option>
       <option value="vue">Vue</option>
     </NativeSelect>
+  ),
+};
+
+export const Grouping: Story = {
+  render: () => (
+    <NativeSelect defaultValue="" aria-label="Framework">
+      <option value="" disabled>
+        Choose framework
+      </option>
+      <optgroup label="UI libraries">
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+      </optgroup>
+      <optgroup label="Meta-frameworks">
+        <option value="next">Next.js</option>
+        <option value="sveltekit">SvelteKit</option>
+      </optgroup>
+    </NativeSelect>
+  ),
+};
+
+export const Invalid: Story = {
+  render: () => (
+    <Field.Root invalid>
+      <Field.Label>Framework</Field.Label>
+      <NativeSelect defaultValue="" name="framework">
+        <option value="" disabled>
+          Choose framework
+        </option>
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+      </NativeSelect>
+      <Field.ErrorText>Choose a framework.</Field.ErrorText>
+    </Field.Root>
   ),
 };
 

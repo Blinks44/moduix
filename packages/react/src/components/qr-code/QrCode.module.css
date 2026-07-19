@@ -14,8 +14,9 @@
   .frame {
     box-sizing: border-box;
     display: block;
-    width: var(--qr-code-size, 8rem);
-    height: var(--qr-code-size, 8rem);
+    width: min(var(--qr-code-size, 8rem), 100%);
+    aspect-ratio: 1;
+    height: auto;
     color: inherit;
     fill: var(--qr-code-fill, currentColor);
   }

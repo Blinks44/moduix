@@ -4,7 +4,12 @@
 import { SegmentGroup } from '@moduix/react';
 import { useState } from 'react';
 
-const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
+const frameworks = [
+  { value: 'React', label: 'React' },
+  { value: 'Solid', label: 'Solid' },
+  { value: 'Svelte', label: 'Svelte' },
+  { value: 'Vue', label: 'Vue' },
+];
 
 export function ConditionalSegmentGroupDemo() {
   const [visible, setVisible] = useState(true);
@@ -20,13 +25,7 @@ export function ConditionalSegmentGroupDemo() {
       {visible ? (
         <SegmentGroup aria-label="Framework" defaultValue="React">
           <SegmentGroup.Indicator />
-          {frameworks.map((framework) => (
-            <SegmentGroup.Item key={framework} value={framework}>
-              <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-              <SegmentGroup.ItemControl />
-              <SegmentGroup.ItemHiddenInput />
-            </SegmentGroup.Item>
-          ))}
+          <SegmentGroup.Items items={frameworks} />
         </SegmentGroup>
       ) : null}
     </div>

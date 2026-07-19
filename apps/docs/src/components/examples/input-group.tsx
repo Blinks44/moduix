@@ -1,7 +1,7 @@
 import { Field, InputGroup } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],

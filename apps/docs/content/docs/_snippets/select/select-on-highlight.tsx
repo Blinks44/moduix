@@ -2,7 +2,6 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { useSelect } from '@ark-ui/react/select';
 import { Select } from '@moduix/react';
 
 const fruits = createListCollection({
@@ -51,7 +50,7 @@ const fruits = createListCollection({
 });
 
 export function SelectSelectOnHighlightDemo() {
-  const select = useSelect({
+  const select = Select.useSelect({
     collection: fruits,
     onHighlightChange({ highlightedValue }) {
       if (highlightedValue) select.selectValue(highlightedValue);
@@ -80,7 +79,6 @@ export function SelectSelectOnHighlightDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select.RootProvider>
   );
 }

@@ -1,11 +1,9 @@
 import { useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import { useTagsInput } from '@ark-ui/react/tags-input';
-import { Combobox, Field, TagsInput } from '@moduix/react';
-import { useId, useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import { Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
+import { useId, useState, type ComponentProps, type FormEvent } from 'react';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tags-input.module.css';
 
 export const initialTags = ['React', 'TypeScript'];
@@ -203,30 +201,15 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function TagsInputItems({ value }: { value: string[] }) {
-  return value.map((item, index) => (
-    <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-      <TagsInput.ItemPreview>
-        <TagsInput.ItemText>{item}</TagsInput.ItemText>
-        <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-      </TagsInput.ItemPreview>
-      <TagsInput.ItemInput />
-    </TagsInput.Item>
-  ));
-}
-
 export function TagsInputExample() {
   return (
     <TagsInput defaultValue={initialTags} name="frameworks">
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -243,11 +226,10 @@ export function TagsInputControlledExample() {
       <TagsInput value={value} onValueChange={handleValueChange}>
         <TagsInput.Label>Skills</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInputItems value={value} />
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add skill" />
           <TagsInput.ClearTrigger aria-label="Clear skills" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
     </div>
@@ -278,13 +260,10 @@ export function TagsInputControlledInputExample() {
       >
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Input value: {inputValue || 'empty'}</span>
     </div>
@@ -296,13 +275,10 @@ export function TagsInputDelimiterPasteExample() {
     <TagsInput defaultValue={pastedTags} delimiter={/[,;\s]/} addOnPaste>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Comma, semicolon, or space" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -325,13 +301,10 @@ export function TagsInputValidationExample() {
       >
         <TagsInput.Label>Labels</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add unique label" />
           <TagsInput.ClearTrigger aria-label="Clear labels" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <span className={styles.hint}>Last invalid reason: {invalidReason}</span>
     </div>
@@ -343,13 +316,10 @@ export function TagsInputAllowDuplicatesExample() {
     <TagsInput allowDuplicates defaultValue={['React', 'React']}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -359,13 +329,10 @@ export function TagsInputMaxOverflowExample() {
     <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -379,13 +346,10 @@ export function TagsInputSanitizeBlurExample() {
     >
       <TagsInput.Label>Topics</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Blur to add" />
         <TagsInput.ClearTrigger aria-label="Clear topics" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -420,22 +384,20 @@ export function TagsInputComboboxExample() {
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInputItems value={tagsInput.value} />
+          <TagsInput.Items />
           <Combobox.Input asChild>
             <TagsInput.Input placeholder="Add framework" />
           </Combobox.Input>
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
       <Combobox.Positioner>
         <Combobox.Content className={styles.comboboxContent}>
           <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
           {collection.items.map((item) => (
-            <Combobox.Item key={item} item={item} className={styles.comboboxItem}>
-              <Combobox.ItemText>{item}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item} item={item} className={styles.comboboxItem}>
+              {item}
+            </Combobox.Option>
           ))}
         </Combobox.Content>
       </Combobox.Positioner>
@@ -449,17 +411,38 @@ export function TagsInputFieldExample() {
       <TagsInput defaultValue={['api']} name="topics">
         <TagsInput.Label>Topics</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add topic" />
           <TagsInput.ClearTrigger aria-label="Clear topics" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <Field.HelperText>Add at least one topic.</Field.HelperText>
       <Field.ErrorText>Topics are required.</Field.ErrorText>
     </Field>
+  );
+}
+
+export function TagsInputFormExample() {
+  const [submittedValue, setSubmittedValue] = useState('');
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
+  }
+
+  return (
+    <form className={styles.stack} onSubmit={handleSubmit}>
+      <TagsInput defaultValue={initialTags} name="frameworks">
+        <TagsInput.Label>Frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInput.Items />
+          <TagsInput.Input placeholder="Add framework" />
+          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+        </TagsInput.Control>
+      </TagsInput>
+      <button type="submit">Submit</button>
+      <output className={styles.hint}>Submitted value: {submittedValue || 'none'}</output>
+    </form>
   );
 }
 
@@ -469,23 +452,17 @@ export function TagsInputStateExample() {
       <TagsInput disabled defaultValue={['disabled']}>
         <TagsInput.Label>Disabled</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Unavailable" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
       <TagsInput readOnly defaultValue={['read-only']}>
         <TagsInput.Label>Read-only</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInput.Context>
-            {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-          </TagsInput.Context>
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Read-only" />
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput>
     </div>
   );
@@ -496,13 +473,10 @@ export function TagsInputDisableEditingExample() {
     <TagsInput editable={false} defaultValue={initialTags}>
       <TagsInput.Label>Frameworks</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) => <TagsInputItems value={tagsInput.value} />}
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Add framework" />
         <TagsInput.ClearTrigger aria-label="Clear frameworks" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }
@@ -527,11 +501,10 @@ export function TagsInputRootProviderExample() {
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
-          <TagsInputItems value={tagsInput.value} />
+          <TagsInput.Items />
           <TagsInput.Input placeholder="Add framework" />
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
-        <TagsInput.HiddenInput />
       </TagsInput.RootProvider>
     </div>
   );

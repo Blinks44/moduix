@@ -38,7 +38,7 @@ tied to the document outline.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-heading" />
+<ShadcnInstall packageName="heading" />
 
 ## Anatomy
 
@@ -94,51 +94,6 @@ the content is body copy or general typography rather than a document heading.
 
 ## Examples
 
-### Semantic Level and Visual Size
-
-Keep document structure and visual emphasis independent by choosing a semantic level and applying an
-explicit visual size.
-
-<Preview>
-  <HeadingDocs.HeadingSemanticLevelExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/heading/semantic-level-and-visual-size.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .demo {
-        max-width: 28rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
-### Custom Host
-
-Use `asChild` for Ark factory composition when a semantic heading element must be supplied directly.
-
-<Preview>
-  <HeadingDocs.HeadingCustomHostExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/heading/custom-host.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .customHost {
-        max-width: 28rem;
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
 ### Heading Levels
 
 Use `as` for `h2` through `h6`. The default visual scale follows the actual heading element.
@@ -158,6 +113,29 @@ Use `as` for `h2` through `h6`. The default visual scale follows the actual head
         max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
+### Semantic Level and Visual Size
+
+Keep document structure and visual emphasis independent by choosing a semantic level and applying an
+explicit visual size.
+
+<Preview>
+  <HeadingDocs.HeadingSemanticLevelExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/semantic-level-and-visual-size.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .demo {
+        max-width: 28rem;
       }
     `}
 
@@ -210,6 +188,29 @@ Use `weight` for the built-in typography emphasis presets.
         max-width: min(32rem, calc(100vw - var(--spacing-8)));
         flex-direction: column;
         gap: var(--spacing-3);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
+### Advanced Customization
+
+Use `asChild` only when a semantic heading element must own the DOM node while receiving the
+component props, class name, data attributes, and forwarded ref.
+
+<Preview>
+  <HeadingDocs.HeadingCustomHostExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/heading/custom-host.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .customHost {
+        max-width: 28rem;
       }
     `}
 

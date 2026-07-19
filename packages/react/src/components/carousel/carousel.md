@@ -24,36 +24,40 @@ variables, and stable `data-slot` hooks.
 ## Current behavior contract
 
 - Uses Ark composition directly: `Carousel.Root`, `Carousel.RootProvider`, `Carousel.Control`,
-  `Carousel.ItemGroup`, `Carousel.Item`, `Carousel.PrevTrigger`, `Carousel.NextTrigger`,
-  `Carousel.IndicatorGroup`, `Carousel.Indicator`, `Carousel.AutoplayTrigger`,
-  `Carousel.AutoplayIndicator`, and `Carousel.ProgressText`.
-- Context parts, hooks, and types are imported directly from `@ark-ui/react/carousel`.
+  `Carousel.Context`, `Carousel.ItemGroup`, `Carousel.Item`, `Carousel.PrevTrigger`,
+  `Carousel.NextTrigger`, `Carousel.Indicators`, `Carousel.IndicatorGroup`, `Carousel.Indicator`,
+  `Carousel.AutoplayTrigger`, `Carousel.AutoplayIndicator`, and `Carousel.ProgressText`.
+- Keeps the callable root pattern, so `<Carousel />` and `<Carousel.Root />` are equivalent.
+- `Carousel.Context` is re-exported for runtime carousel API access. Hooks and type aliases are still
+  imported directly from `@ark-ui/react/carousel`.
 - Keeps Ark controlled and uncontrolled paging unchanged: `page`, `defaultPage`, and
   `onPageChange(details)`.
 - Keeps Ark behavior props unchanged: `loop`, `autoplay`, `autoSize`, `slidesPerPage`,
   `slidesPerMove`, `spacing`, `padding`, `allowMouseDrag`, `orientation`, and `snapType`.
 - Styles `Carousel.Control` as a real flex container instead of overlaying triggers on top of the
-  track. This supports Ark layouts where `ItemGroup` is placed inside `Control`.
+  track. The recommended path keeps `ItemGroup` as a sibling and uses `Control` as a toolbar.
 - Ships left and right chevrons as default trigger content. When the default icons are used inside a
   vertical carousel, moduix rotates them to the Ark-style up and down directions.
 
 ## Anatomy and exported parts
 
 ```text
-Carousel.Root
+Carousel / Carousel.Root
+├─ Carousel.ItemGroup
+│  └─ Carousel.Item
 ├─ Carousel.Control
 │  ├─ Carousel.PrevTrigger
-│  ├─ Carousel.ItemGroup
-│  │  └─ Carousel.Item
 │  └─ Carousel.NextTrigger
-├─ Carousel.IndicatorGroup
-│  └─ Carousel.Indicator
+├─ Carousel.Indicators
+│  └─ Carousel.IndicatorGroup
+│     └─ Carousel.Indicator
 ├─ Carousel.AutoplayTrigger (optional)
 ├─ Carousel.AutoplayIndicator (optional)
 └─ Carousel.ProgressText (optional)
 ```
 
-Every styled part accepts `className` and receives a stable `data-slot`:
+Every styled part accepts `className` and receives a stable `data-slot`. `Carousel.Indicators`
+also accepts `indicatorClassName` for its generated `Carousel.Indicator` items:
 
 | Part                         | `data-slot`                   | Notes                                             |
 | ---------------------------- | ----------------------------- | ------------------------------------------------- |
@@ -64,6 +68,7 @@ Every styled part accepts `className` and receives a stable `data-slot`:
 | `Carousel.Item`              | `carousel-item`               | Styled Ark item.                                  |
 | `Carousel.PrevTrigger`       | `carousel-prev-trigger`       | Defaults to a moduix left chevron.                |
 | `Carousel.NextTrigger`       | `carousel-next-trigger`       | Defaults to a moduix right chevron.               |
+| `Carousel.Indicators`        | `carousel-indicator-group`    | Default page indicator sugar based on context.    |
 | `Carousel.IndicatorGroup`    | `carousel-indicator-group`    | Styled Ark indicator group.                       |
 | `Carousel.Indicator`         | `carousel-indicator`          | Styled Ark indicator button.                      |
 | `Carousel.AutoplayTrigger`   | `carousel-autoplay-trigger`   | Styled Ark autoplay trigger.                      |
@@ -77,38 +82,33 @@ import { Carousel } from '@moduix/react';
 
 export function BasicCarousel() {
   return (
-    <Carousel.Root slideCount={slides.length}>
+    <Carousel slideCount={slides.length}>
+      <Carousel.ItemGroup aria-label="Gallery">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <img src={slide.src} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Gallery">
-          {slides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <img src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
 
-      <Carousel.IndicatorGroup>
-        {slides.map((_, index) => (
-          <Carousel.Indicator key={index} index={index} />
-        ))}
-      </Carousel.IndicatorGroup>
+      <Carousel.Indicators />
 
       <Carousel.ProgressText />
-    </Carousel.Root>
+    </Carousel>
   );
 }
 ```
 
-Use Ark `Carousel.Context` directly when the number of page snap points depends on runtime layout,
-such as `autoSize`, `slidesPerPage > 1`, or custom `scrollToIndex` controls:
+Use `Carousel.Context` when you want to bypass `Carousel.Indicators` and render a custom pager from
+runtime `pageSnapPoints`, such as thumbnail navigation or a mixed toolbar:
 
 ```tsx
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
-
-<ArkCarousel.Context>
+<Carousel.Context>
   {(api) => (
     <Carousel.IndicatorGroup>
       {api.pageSnapPoints.map((_, index) => (
@@ -116,8 +116,14 @@ import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
       ))}
     </Carousel.IndicatorGroup>
   )}
-</ArkCarousel.Context>;
+</Carousel.Context>
 ```
+
+`Carousel.Control` supports two recommended layouts:
+
+- Render `ItemGroup` separately and use `Control` as a companion toolbar for triggers, indicators, or
+  autoplay controls. This is the default path.
+- Place `ItemGroup` inside `Control` only when a compact inline layout is the real design goal.
 
 Use `Carousel.RootProvider` with Ark `useCarousel()` only when carousel state must be created
 outside the rendered subtree.
@@ -131,12 +137,14 @@ introducing another render prop.
 - `Controlled`: preserved through `page` and `onPageChange(details)`.
 - `Root Provider`: preserved through `Carousel.RootProvider` and Ark `useCarousel()`.
 - `Autoplay`: preserved through the Ark `autoplay` prop and autoplay parts.
-- `Pause on Hover`: not built in, matching Ark; consumers use Ark `Carousel.Context` and
+- `Pause on Hover`: not built in, matching Ark; consumers use `Carousel.Context` and
   `api.pause()` or `api.play()`.
+- `Indicators`: `Carousel.Indicators` renders the default pager from runtime `pageSnapPoints`,
+  including multi-slide and auto-size layouts.
 - `Thumbnail Indicators`: preserved by rendering custom content inside `Carousel.Indicator`.
 - `Vertical`: preserved through `orientation="vertical"`.
 - `Dynamic`: preserved through controlled page flow and `slideCount`.
-- `Scroll to Slide`: preserved through Ark `Carousel.Context` and `api.scrollToIndex(index)`.
+- `Scroll to Slide`: preserved through `Carousel.Context` and `api.scrollToIndex(index)`.
 - `Slides Per Page`: preserved through `slidesPerPage` and `api.pageSnapPoints`.
 - `Spacing`: preserved through `spacing`.
 - `Variable Sizes`: preserved through `autoSize` and per-item snap alignment.
@@ -155,56 +163,67 @@ introducing another render prop.
   - `--slide-item-size`
 - Ark callback and API shapes remain unchanged, including `onPageChange(details)`,
   `onAutoplayStatusChange(details)`, and `onDragStatusChange(details)`.
-- Ark context parts, state hooks, and type aliases are not re-exported from moduix.
+- `Carousel.Context` is re-exported from moduix. Ark state hooks and type aliases are still imported
+  directly from `@ark-ui/react/carousel`.
 
 ## Defaults and styling
 
 Primary theme variables:
 
-| Variable                                | Default                                                                     |
-| --------------------------------------- | --------------------------------------------------------------------------- |
-| `--carousel-control-bg`                 | `color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)`    |
-| `--carousel-control-bg-hover`           | `var(--color-accent)`                                                       |
-| `--carousel-control-border-color`       | `color-mix(in oklab, var(--color-border) 88%, black 12%)`                   |
-| `--carousel-control-border-color-hover` | `color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)` |
-| `--carousel-control-color`              | `var(--color-foreground)`                                                   |
-| `--carousel-control-color-hover`        | `var(--color-accent-foreground)`                                            |
-| `--carousel-control-shadow`             | `var(--shadow-sm)`                                                          |
-| `--carousel-control-shadow-hover`       | `var(--shadow-md)`                                                          |
-| `--carousel-control-size`               | `2.5rem`                                                                    |
-| `--carousel-focus-ring-color`           | `var(--color-ring)`                                                         |
-| `--carousel-focus-ring-offset`          | `2px`                                                                       |
-| `--carousel-focus-ring-width`           | `var(--border-width-md)`                                                    |
-| `--carousel-gap`                        | `var(--spacing-3)`                                                          |
-| `--carousel-height`                     | `24rem`                                                                     |
-| `--carousel-indicator-bg`               | `color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)`  |
-| `--carousel-indicator-bg-current`       | `var(--color-primary)`                                                      |
-| `--carousel-indicator-bg-hover`         | `color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)`  |
-| `--carousel-indicator-gap`              | `var(--spacing-2)`                                                          |
-| `--carousel-indicator-size`             | `0.5rem`                                                                    |
-| `--carousel-progress-text-color`        | `var(--color-muted-foreground)`                                             |
-| `--carousel-progress-text-font-size`    | `var(--text-sm)`                                                            |
-| `--carousel-track-radius`               | `var(--radius-xl)`                                                          |
+| Variable                                | Default                                                                     | Notes                                              |
+| --------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------- |
+| `--carousel-control-bg`                 | `color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)`    | Trigger and autoplay button background.            |
+| `--carousel-control-bg-hover`           | `var(--color-accent)`                                                       | Trigger and autoplay button hover background.      |
+| `--carousel-control-border-color`       | `color-mix(in oklab, var(--color-border) 88%, black 12%)`                   | Trigger and autoplay button border.                |
+| `--carousel-control-border-color-hover` | `color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)` | Trigger and autoplay button hover border.          |
+| `--carousel-control-color`              | `var(--color-foreground)`                                                   | Trigger and autoplay button icon or text color.    |
+| `--carousel-control-color-hover`        | `var(--color-accent-foreground)`                                            | Trigger and autoplay button hover icon/text.       |
+| `--carousel-control-shadow`             | `var(--shadow-sm)`                                                          | Trigger and autoplay button shadow.                |
+| `--carousel-control-shadow-hover`       | `var(--shadow-md)`                                                          | Trigger and autoplay button hover shadow.          |
+| `--carousel-control-size`               | `2.5rem`                                                                    | Trigger size.                                      |
+| `--carousel-focus-ring-color`           | `var(--color-ring)`                                                         | Focus ring color for triggers and indicators.      |
+| `--carousel-focus-ring-offset`          | `2px`                                                                       | Focus ring offset.                                 |
+| `--carousel-focus-ring-width`           | `var(--border-width-md)`                                                    | Focus ring width.                                  |
+| `--carousel-gap`                        | `var(--spacing-3)`                                                          | Gap between carousel parts.                        |
+| `--carousel-height`                     | `24rem`                                                                     | Vertical-only root height. No effect horizontally. |
+| `--carousel-indicator-bg`               | `color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)`  | Idle indicator color.                              |
+| `--carousel-indicator-bg-current`       | `var(--color-primary)`                                                      | Active indicator color.                            |
+| `--carousel-indicator-bg-hover`         | `color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)`  | Indicator hover color.                             |
+| `--carousel-indicator-gap`              | `var(--spacing-2)`                                                          | Gap between indicators.                            |
+| `--carousel-indicator-size`             | `0.5rem`                                                                    | Base indicator size.                               |
+| `--carousel-progress-text-color`        | `var(--color-muted-foreground)`                                             | Progress text color.                               |
+| `--carousel-progress-text-font-size`    | `var(--text-sm)`                                                            | Progress text font size.                           |
+| `--carousel-track-radius`               | `var(--radius-xl)`                                                          | Scroll track radius.                               |
 
 ## Intentional sugar and differences from upstream
 
 - moduix ships styled controls, indicators, and progress text; Ark is intentionally unstyled.
+- moduix adds `Carousel.Indicators` as narrow sugar for the default page-dot pager while keeping
+  `IndicatorGroup` and `Indicator` public for custom layouts. `className` styles the generated
+  group, and `indicatorClassName` styles each generated indicator.
 - moduix favors an explicit flex layout for `Control` instead of absolute-position trigger chrome.
 - The default trigger icons are moduix chevrons, not Ark example icons.
+- moduix re-exports `Carousel.Context` to keep runtime API access on the same namespace as the
+  styled parts.
 - `data-pressed` on autoplay controls and `data-readonly` or disabled indicators receive moduix
   visual state defaults.
-- moduix keeps `RootProvider`, but advanced Ark context parts, state hooks, and type aliases are
-  imported directly from `@ark-ui/react/carousel`.
+- moduix keeps `RootProvider`, but Ark state hooks and type aliases are still imported directly from
+  `@ark-ui/react/carousel`.
 
 ## Agent notes
 
 - Keep Ark callback and state shapes untouched, especially `onPageChange(details)`.
 - Do not reintroduce the old native-scroll-only wrapper contract.
 - Keep `Carousel.Control` structural. Do not hide `ItemGroup`, `IndicatorGroup`, or autoplay parts
-  behind convenience wrappers.
+  behind broad convenience wrappers. `Carousel.Indicators` is the limit of the intended sugar here.
 
 ## Local changelog
 
+- 2026-07-09: Added `Carousel.Indicators`, moved the recommended composition to `ItemGroup` plus a
+  sibling `Control` toolbar, and reserved manual `IndicatorGroup` rendering for advanced
+  customization.
+- 2026-07-07: Re-exported `Carousel.Context`, simplified advanced examples around context usage, and
+  documented the two supported `Control` layout patterns plus vertical-only height behavior.
 - 2026-07-02: Removed duplicate Ark type exports, `Context`, and state hooks from the moduix
   surface. Kept `RootProvider`, the callable root, every visual part, and default trigger icons.
 - 2026-06-18: Adopted Ark UI `Carousel` naming, paging, autoplay, and provider contracts, and

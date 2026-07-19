@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
+import { forwardRef } from 'react';
 import { List } from './List';
 import storyStyles from './List.stories.module.css';
 
@@ -7,6 +9,19 @@ const defaultItems = [
   'Keep spacing and typography on the library scale.',
   'Style markers with CSS variables or native ::marker selectors.',
 ];
+
+const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <li
+      ref={ref}
+      {...props}
+      className={className ? `${storyStyles.accentItem} ${className}` : storyStyles.accentItem}
+    />
+  );
+});
 
 const meta = {
   title: 'Components/List',
@@ -95,23 +110,17 @@ export const NativeItems: Story = {
 };
 
 export const CustomItemComposition: Story = {
-  name: 'Custom Item Composition',
+  name: 'Advanced Customization',
   render: () => (
     <List className={storyStyles.accentList}>
       <List.Item asChild>
-        <li className={storyStyles.accentItem}>
-          Native markers stay available for per-item styling.
-        </li>
+        <AccentListItem>Native markers stay available for per-item styling.</AccentListItem>
       </List.Item>
       <List.Item asChild>
-        <li className={storyStyles.accentItem}>
-          Root CSS variables still control spacing and indentation.
-        </li>
+        <AccentListItem>Root CSS variables still control spacing and indentation.</AccentListItem>
       </List.Item>
       <List.Item asChild>
-        <li className={storyStyles.accentItem}>
-          asChild keeps the slot contract while handing markup to the caller.
-        </li>
+        <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
       </List.Item>
     </List>
   ),

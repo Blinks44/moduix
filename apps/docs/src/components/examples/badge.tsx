@@ -1,11 +1,19 @@
+import { Badge } from '@moduix/react';
+import { ChevronRight as ChevronRightIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import { Badge, ChevronRightIcon } from '@moduix/react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './badge.module.css';
 
 type BadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;
 
-const variants: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline', 'ghost'];
+const variants: BadgeVariant[] = [
+  'default',
+  'secondary',
+  'destructive',
+  'outline',
+  'ghost',
+  'link',
+];
 const basicBadgeLabel = 'New';
 const statusBadges = [
   { label: 'Online', variant: 'default' },
@@ -90,20 +98,20 @@ export function BadgeWithIconExample() {
         {iconBadgeLabels.details}
         <ChevronRightIcon />
       </Badge>
-      <Badge variant="outline">
-        {iconBadgeLabels.more}
-        <ChevronRightIcon />
+      <Badge asChild variant="link">
+        <a href={badgeLink.href}>
+          {iconBadgeLabels.more}
+          <ChevronRightIcon />
+        </a>
       </Badge>
     </div>
   );
 }
 
-export function BadgeAsChildExample() {
+export function BadgeLinkExample() {
   return (
-    <Badge asChild variant="outline">
-      <a className={styles.linkBadge} href={badgeLink.href}>
-        {badgeLink.label}
-      </a>
+    <Badge asChild variant="link">
+      <a href={badgeLink.href}>{badgeLink.label}</a>
     </Badge>
   );
 }

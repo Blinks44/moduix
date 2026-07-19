@@ -73,7 +73,6 @@ export function NativeForm() {
                   ))}
                 </Select.Content>
               </Select.Positioner>
-              <Select.HiddenSelect />
             </Select>
           </Field>
 
@@ -97,10 +96,9 @@ export function NativeForm() {
                   <Combobox.Empty>No reviewers found.</Combobox.Empty>
                   <Combobox.List>
                     {collection.items.map((item) => (
-                      <Combobox.Item key={item.value} item={item}>
-                        <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                        <Combobox.ItemIndicator />
-                      </Combobox.Item>
+                      <Combobox.Option key={item.value} item={item}>
+                        {item.label}
+                      </Combobox.Option>
                     ))}
                   </Combobox.List>
                 </Combobox.Content>
@@ -114,11 +112,8 @@ export function NativeForm() {
           </Field>
 
           <Checkbox name="notifications">
-            <Checkbox.Control>
-              <Checkbox.Indicator />
-            </Checkbox.Control>
+            <Checkbox.Control />
             <Checkbox.Label>Send status notifications</Checkbox.Label>
-            <Checkbox.HiddenInput />
           </Checkbox>
         </Card.Body>
 

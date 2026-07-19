@@ -1,9 +1,9 @@
 import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
-import type { ReactNode } from 'react';
 import { Button, Tour, useTour, waitForElement, waitForEvent, waitForPromise } from '@moduix/react';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tour.module.css';
 
 const baseActions = [
@@ -120,17 +120,13 @@ function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourRe
       <Tour.Positioner>
         <Tour.Content>
           <Tour.Arrow />
-          <Tour.CloseIcon className={styles.closeIcon} />
+          <Tour.CloseIcon />
           <Tour.Title />
           <Tour.Description />
           {children}
           <Tour.ProgressText />
           <Tour.Control>
-            <Tour.Actions>
-              {(actions) =>
-                actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-              }
-            </Tour.Actions>
+            <Tour.ActionList />
           </Tour.Control>
         </Tour.Content>
       </Tour.Positioner>
@@ -151,6 +147,39 @@ export function TourExample() {
         <Button variant="outline">Save</Button>
       </div>
       <TourOverlay tour={tour} />
+    </div>
+  );
+}
+
+export function AdvancedCustomizationTourExample() {
+  const tour = useTour({ steps: createBasicSteps('tour-advanced-upload') });
+
+  return (
+    <div className={styles.demo}>
+      <Button onClick={() => tour.start()}>Start custom tour</Button>
+      <Button id="tour-advanced-upload" variant="outline">
+        Upload
+      </Button>
+      <Tour tour={tour} lazyMount unmountOnExit>
+        <Tour.Backdrop />
+        <Tour.Spotlight />
+        <Tour.Positioner>
+          <Tour.Content>
+            <Tour.Arrow />
+            <Tour.CloseIcon />
+            <Tour.Title />
+            <Tour.Description />
+            <Tour.ProgressText />
+            <Tour.Control>
+              <Tour.Actions>
+                {(actions) =>
+                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
+                }
+              </Tour.Actions>
+            </Tour.Control>
+          </Tour.Content>
+        </Tour.Positioner>
+      </Tour>
     </div>
   );
 }

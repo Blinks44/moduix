@@ -10,16 +10,8 @@ export function PlaceholderPinInput() {
     <PinInput count={6} placeholder="*">
       <PinInput.Label>Verification code</PinInput.Label>
       <PinInput.Control>
-        {Array.from(
-          {
-            length: 6,
-          },
-          (_, index) => (
-            <PinInput.Input key={index} index={index} />
-          ),
-        )}
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

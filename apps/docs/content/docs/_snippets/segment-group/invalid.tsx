@@ -3,19 +3,18 @@
 
 import { SegmentGroup } from '@moduix/react';
 
-const frameworks = ['React', 'Solid', 'Svelte', 'Vue'];
+const frameworks = [
+  { value: 'React', label: 'React' },
+  { value: 'Solid', label: 'Solid' },
+  { value: 'Svelte', label: 'Svelte' },
+  { value: 'Vue', label: 'Vue' },
+];
 
 export function InvalidSegmentGroupDemo() {
   return (
     <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
       <SegmentGroup.Indicator />
-      {frameworks.map((framework) => (
-        <SegmentGroup.Item key={framework} value={framework}>
-          <SegmentGroup.ItemText>{framework}</SegmentGroup.ItemText>
-          <SegmentGroup.ItemControl />
-          <SegmentGroup.ItemHiddenInput />
-        </SegmentGroup.Item>
-      ))}
+      <SegmentGroup.Items items={frameworks} />
     </SegmentGroup>
   );
 }

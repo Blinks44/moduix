@@ -58,8 +58,8 @@ bundle, so moduix does not ship duplicate React or Ark UI runtimes.
 
 ### shadcn copy-owned install
 
-`shadcn` can install selected moduix components from the GitHub registry directly into your project.
-The files become part of your codebase instead of staying in `node_modules`.
+`shadcn` can install selected moduix components from the hosted registry directly into your
+project. The files become part of your codebase instead of staying in `node_modules`.
 
 Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
 `tsconfig.app.json`, and mirror it in your bundler config.
@@ -88,13 +88,15 @@ Create `components.json` in the project root when your app does not already have
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
 }
 ```
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/react-button
-npx shadcn@latest add Blinks44/moduix/react-accordion
+npx shadcn@latest add @moduix-react/button
+npx shadcn@latest add @moduix-react/accordion
 ```
 
 The registry install also pulls in the shared moduix foundation files those components need, such as
@@ -137,7 +139,7 @@ import '@moduix/react/style.css';
 Then import and compose the components you need:
 
 ```tsx
-import { Button, Dialog, Portal } from '@moduix/react';
+import { Button, Dialog } from '@moduix/react';
 
 export function Example() {
   return (
@@ -145,14 +147,12 @@ export function Example() {
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content>
-            <Dialog.Title>Project settings</Dialog.Title>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>
+          <Dialog.Title>Project settings</Dialog.Title>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 }
@@ -176,7 +176,7 @@ attributes for targeted styling. Theme values are regular CSS custom properties:
 Library CSS is organized with cascade layers:
 
 ```css
-@layer ui.reset, ui.tokens, ui.components;
+@layer ui.reset, ui.tokens, ui.base, ui.components;
 ```
 
 This keeps defaults predictable while still letting application styles override tokens,
@@ -190,7 +190,7 @@ QrCode, Select, Tabs, Toast, Tooltip, TreeView, and supporting layout and displa
 
 ## Documentation
 
-- Documentation: https://moduix.blinks44.workers.dev/
+- Documentation: https://moduix.dev/
 - npm package: https://www.npmjs.com/package/@moduix/react
 - React package README: `packages/react/README.md`
 - Docs app README: `apps/docs/README.md`

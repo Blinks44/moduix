@@ -16,6 +16,7 @@ Skills are intentionally composable:
 - `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks
 - `.agents/skills/css-authoring/SKILL.md` - CSS, CSS Modules, and selector-structure rules
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
+- `.agents/skills/changeset-workflow/SKILL.md` - opt-in workflow for creating or updating `.changeset/*.md` release notes
 - `.agents/skills/tanstack-intent/SKILL.md` - workflow for loading version-matched TanStack skills in `apps/docs`
 - `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Ark UI, Chakra UI, and shadcn references
 - `.agents/skills/ui-component-workflow/SKILL.md` - workflow for `packages/react` component implementation and API changes

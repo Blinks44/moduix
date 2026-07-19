@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Timer as TimerPrimitive, useTimer } from '@ark-ui/react/timer';
-import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from '@moduix/react';
+import { Timer, useTimer } from '@moduix/react';
+import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export function RootProviderTimerDemo() {
   const timer = useTimer({
@@ -10,9 +10,9 @@ export function RootProviderTimerDemo() {
   });
   return (
     <Timer.RootProvider value={timer}>
-      <TimerPrimitive.Context>
+      <Timer.Context>
         {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-      </TimerPrimitive.Context>
+      </Timer.Context>
       <Timer.Area>
         <span className="timer-item-group">
           <Timer.Item type="hours" />

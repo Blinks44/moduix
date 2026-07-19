@@ -32,15 +32,16 @@ const slides = [
 export function ThumbnailIndicatorCarousel() {
   return (
     <Carousel slideCount={slides.length}>
+      <Carousel.ItemGroup aria-label="Gallery with thumbnails">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <img src={slide.src} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Gallery with thumbnails">
-          {slides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <img src={slide.src} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
 

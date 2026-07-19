@@ -10,16 +10,8 @@ export function OtpModePinInput() {
     <PinInput count={6} otp name="verificationCode">
       <PinInput.Label>One-time code</PinInput.Label>
       <PinInput.Control>
-        {Array.from(
-          {
-            length: 6,
-          },
-          (_, index) => (
-            <PinInput.Input key={index} index={index} />
-          ),
-        )}
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

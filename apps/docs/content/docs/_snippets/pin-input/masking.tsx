@@ -10,11 +10,8 @@ export function MaskedPinInput() {
     <PinInput count={4} mask>
       <PinInput.Label>PIN</PinInput.Label>
       <PinInput.Control>
-        {[0, 1, 2, 3].map((index) => (
-          <PinInput.Input key={index} index={index} />
-        ))}
+        <PinInput.Inputs />
       </PinInput.Control>
-      <PinInput.HiddenInput />
     </PinInput>
   );
 }

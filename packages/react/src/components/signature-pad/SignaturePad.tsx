@@ -1,38 +1,47 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   SignaturePad as SignaturePadPrimitive,
   useSignaturePad,
+  useSignaturePadContext,
 } from '@ark-ui/react/signature-pad';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, forwardRef } from 'react';
+import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import { CloseButton } from '../close-button';
 import styles from './SignaturePad.module.css';
 
 const SignaturePadRoot = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.Root>,
-  ComponentProps<typeof SignaturePadPrimitive.Root>
->(function SignaturePadRoot({ className, ...props }, ref) {
+  ComponentProps<typeof SignaturePadPrimitive.Root> & SignaturePadFormProps
+>(function SignaturePadRoot({ asChild, children, className, getFormValue, ...props }, ref) {
   return (
     <SignaturePadPrimitive.Root
       ref={ref}
       data-slot="signature-pad-root"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild, getFormValue)}
+    </SignaturePadPrimitive.Root>
   );
 });
 
 const SignaturePadRootProvider = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.RootProvider>,
-  ComponentProps<typeof SignaturePadPrimitive.RootProvider>
->(function SignaturePadRootProvider({ className, ...props }, ref) {
+  ComponentProps<typeof SignaturePadPrimitive.RootProvider> & SignaturePadFormProps
+>(function SignaturePadRootProvider({ asChild, children, className, getFormValue, ...props }, ref) {
   return (
     <SignaturePadPrimitive.RootProvider
       ref={ref}
       data-slot="signature-pad-root-provider"
       className={clsx(styles.root, normalizeClassName(className))}
+      asChild={asChild}
       {...props}
-    />
+    >
+      {withHiddenInput(children, asChild, getFormValue)}
+    </SignaturePadPrimitive.RootProvider>
   );
 });
 
@@ -95,39 +104,107 @@ const SignaturePadGuide = forwardRef<
 const SignaturePadClearTrigger = forwardRef<
   ComponentRef<typeof SignaturePadPrimitive.ClearTrigger>,
   ComponentProps<typeof SignaturePadPrimitive.ClearTrigger>
->(function SignaturePadClearTrigger({ className, ...props }, ref) {
+>(function SignaturePadClearTrigger(
+  {
+    asChild,
+    className,
+    children,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    ...props
+  },
+  ref,
+) {
+  const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+
+  if (asChild) {
+    return (
+      <SignaturePadPrimitive.ClearTrigger
+        ref={ref}
+        asChild
+        data-slot="signature-pad-clear-trigger"
+        className={triggerClassName}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        {...props}
+      >
+        {children}
+      </SignaturePadPrimitive.ClearTrigger>
+    );
+  }
+
   return (
     <SignaturePadPrimitive.ClearTrigger
       ref={ref}
+      asChild
       data-slot="signature-pad-clear-trigger"
-      className={clsx(styles.clearTrigger, normalizeClassName(className))}
+      className={triggerClassName}
       {...props}
-    />
+    >
+      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+        {children ?? <RotateCcwIcon aria-hidden="true" />}
+      </CloseButton.Root>
+    </SignaturePadPrimitive.ClearTrigger>
   );
 });
 
-const SignaturePadHiddenInput = forwardRef<
-  ComponentRef<typeof SignaturePadPrimitive.HiddenInput>,
-  ComponentProps<typeof SignaturePadPrimitive.HiddenInput>
->(function SignaturePadHiddenInput(props, ref) {
+type SignaturePadFormProps = {
+  getFormValue?: (paths: string[]) => string;
+};
+
+function withHiddenInput(
+  children: ReactNode,
+  asChild: boolean | undefined,
+  getFormValue: SignaturePadFormProps['getFormValue'],
+) {
+  const hiddenInput = <SignaturePadFormInput getFormValue={getFormValue} />;
+
+  if (!asChild) {
+    return (
+      <>
+        {children}
+        {hiddenInput}
+      </>
+    );
+  }
+
+  const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
+
+  return cloneElement(child, {}, child.props.children, hiddenInput);
+}
+
+function SignaturePadFormInput({ getFormValue }: SignaturePadFormProps) {
+  const signaturePad = useSignaturePadContext();
+
   return (
     <SignaturePadPrimitive.HiddenInput
-      ref={ref}
       data-slot="signature-pad-hidden-input"
-      {...props}
+      value={getFormValue?.(signaturePad.paths) ?? signaturePad.paths.join(' ')}
     />
   );
-});
+}
+
+function SignaturePadCanvas({ className }: { className?: string }) {
+  return (
+    <SignaturePadControl className={className}>
+      <SignaturePadSegment />
+      <SignaturePadClearTrigger>
+        <RotateCcwIcon aria-hidden="true" />
+      </SignaturePadClearTrigger>
+      <SignaturePadGuide />
+    </SignaturePadControl>
+  );
+}
 
 const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
   Label: SignaturePadLabel,
   Control: SignaturePadControl,
+  Canvas: SignaturePadCanvas,
   Segment: SignaturePadSegment,
   Guide: SignaturePadGuide,
   ClearTrigger: SignaturePadClearTrigger,
-  HiddenInput: SignaturePadHiddenInput,
 });
 
-export { SignaturePad, useSignaturePad };
+export { SignaturePad, useSignaturePad, useSignaturePadContext };

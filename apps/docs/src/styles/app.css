@@ -61,6 +61,8 @@ html > body[data-scroll-lock] {
 }
 
 #nd-home-layout {
+  --fd-layout-width: calc(1200px + (var(--spacing) * 4 * 2));
+
   #nd-nav {
     position: absolute;
     width: 100%;

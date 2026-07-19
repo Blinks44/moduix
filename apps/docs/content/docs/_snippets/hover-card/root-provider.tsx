@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useHoverCard } from '@ark-ui/react/hover-card';
-import { HoverCard } from '@moduix/react';
+import { HoverCard, useHoverCard } from '@moduix/react';
 
 export function RootProviderHoverCard() {
   const hoverCard = useHoverCard();

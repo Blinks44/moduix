@@ -68,32 +68,32 @@ Steps.Root
 └─ Steps.NextTrigger
 
 Steps.RootProvider
-└─ same part tree connected to Ark useSteps()
+└─ same part tree connected to Steps.useSteps()
 ```
 
-| Export                   | `data-slot`               | Notes                                                                             |
-| ------------------------ | ------------------------- | --------------------------------------------------------------------------------- |
-| `Steps` / `Steps.Root`   | `steps-root`              | Root Ark state machine and default export shape.                                  |
-| `Steps.RootProvider`     | `steps-root-provider`     | Uses an Ark `useSteps()` store; do not pair with `Steps.Root` for the same store. |
-| `Steps.List`             | `steps-list`              | Ark tablist.                                                                      |
-| `Steps.Item`             | `steps-item`              | Requires zero-based `index`.                                                      |
-| `Steps.Trigger`          | `steps-trigger`           | Ark tab button, supports `asChild`.                                               |
-| `Steps.Indicator`        | `steps-indicator`         | Defaults to number/check icon when children are omitted.                          |
-| `Steps.Separator`        | `steps-separator`         | Real Ark connector part.                                                          |
-| `Steps.Content`          | `steps-content`           | Ark tabpanel for a matching `index`.                                              |
-| `Steps.CompletedContent` | `steps-completed-content` | Ark tabpanel for completion state.                                                |
-| `Steps.PrevTrigger`      | `steps-prev-trigger`      | Previous-step button.                                                             |
-| `Steps.NextTrigger`      | `steps-next-trigger`      | Next-step button.                                                                 |
-| `Steps.Progress`         | `steps-progress`          | Progressbar using Ark `--percent`.                                                |
+| Export                   | `data-slot`               | Notes                                                                              |
+| ------------------------ | ------------------------- | ---------------------------------------------------------------------------------- |
+| `Steps` / `Steps.Root`   | `steps-root`              | Root Ark state machine and default export shape.                                   |
+| `Steps.RootProvider`     | `steps-root-provider`     | Uses a `Steps.useSteps()` store; do not pair with `Steps.Root` for the same store. |
+| `Steps.List`             | `steps-list`              | Ark tablist.                                                                       |
+| `Steps.Item`             | `steps-item`              | Requires zero-based `index`.                                                       |
+| `Steps.Trigger`          | `steps-trigger`           | Ark tab button, supports `asChild`.                                                |
+| `Steps.Indicator`        | `steps-indicator`         | Defaults to number/check icon when children are omitted.                           |
+| `Steps.Separator`        | `steps-separator`         | Real Ark connector part.                                                           |
+| `Steps.Content`          | `steps-content`           | Ark tabpanel for a matching `index`.                                               |
+| `Steps.CompletedContent` | `steps-completed-content` | Ark tabpanel for completion state.                                                 |
+| `Steps.PrevTrigger`      | `steps-prev-trigger`      | Previous-step button.                                                              |
+| `Steps.NextTrigger`      | `steps-next-trigger`      | Next-step button.                                                                  |
+| `Steps.Progress`         | `steps-progress`          | Progressbar using Ark `--percent`.                                                 |
 
-Advanced Ark state helpers such as `useSteps`, `useStepsContext`, `useStepsItemContext`,
-`Steps.Context`, and `Steps.ItemContext` are imported directly from `@ark-ui/react/steps` when
-needed.
+`Steps.useSteps()` creates state for `Steps.RootProvider`. Other advanced Ark state helpers, such
+as `useStepsContext`, `useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext`, remain
+direct `@ark-ui/react/steps` escape hatches.
 
 ## Composition
 
 Use `Steps.Root` or the short `Steps` root for normal usage. Use `Steps.RootProvider` only when
-state is created outside with Ark `useSteps()`.
+state is created outside with `Steps.useSteps()`.
 
 Use `asChild` instead of the removed legacy `render` prop:
 
@@ -116,9 +116,9 @@ Supported upstream behavior includes controlled/uncontrolled state, completion s
 
 Ark provides `role="tablist"` on `Steps.List`, `role="tab"` on triggers, `role="tabpanel"` on content, `aria-controls`, `aria-labelledby`, `aria-current="step"`, `aria-selected`, `aria-orientation`, and disabled state for previous/next triggers.
 
-Use Ark state hooks directly from `@ark-ui/react/steps` for inline root reads, item state, and
-externally owned state. Callback payloads stay Ark-shaped, such as `onStepChange(details)` with
-`details.step`.
+Use `Steps.useSteps()` for externally owned state. Use Ark state hooks directly from
+`@ark-ui/react/steps` for inline root reads and item state. Callback payloads stay Ark-shaped,
+such as `onStepChange(details)` with `details.step`.
 
 Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"` on triggers and content, `data-skippable`, `data-complete` on progress, and Ark `--percent` on the root.
 
@@ -136,12 +136,13 @@ This migration intentionally removes the old `Stepper` contract: no flat part ex
 
 ## Agent notes
 
-Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
+Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `Steps.useSteps()` is the moduix-owned state factory for `RootProvider`; other Ark state helpers remain escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
 
 When changing styling hooks or variables, update `Steps.module.css`, `theme.css`, stories, docs examples, `apps/docs/content/docs/steps.mdx`, and this file together.
 
 ## Local changelog
 
+- 2026-07-11: Exposed `Steps.useSteps()` for the documented `RootProvider` path so consumers do not need a mixed moduix/Ark import for externally owned state.
 - 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider` and visual
   parts, removed re-exported Ark state APIs/types, and pointed advanced state imports to
   `@ark-ui/react/steps`.

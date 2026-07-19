@@ -1,5 +1,6 @@
 //#region demo
-import { Button, Carousel, PlusIcon } from '@moduix/react';
+import { Button, Carousel } from '@moduix/react';
+import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const slides = [
@@ -51,11 +52,7 @@ export function DynamicSlidesCarousel() {
         </Carousel.ItemGroup>
         <Carousel.Control>
           <Carousel.PrevTrigger />
-          <Carousel.IndicatorGroup>
-            {visibleSlides.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
+          <Carousel.Indicators />
           <Carousel.NextTrigger />
         </Carousel.Control>
       </Carousel>

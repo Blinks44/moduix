@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { Tag } from './Tag';
 import styles from './Tag.stories.module.css';
@@ -20,6 +21,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const variants = ['default', 'secondary', 'outline', 'ghost', 'destructive'] as const;
+const removableTags: {
+  label: string;
+  variant: (typeof variants)[number];
+  disabled?: boolean;
+}[] = [
+  { label: 'TypeScript', variant: 'default' },
+  { label: 'Design review', variant: 'secondary' },
+  { label: 'Needs approval', variant: 'outline', disabled: true },
+];
 
 export const Basic: Story = {};
 
@@ -54,26 +64,24 @@ export const Sizes: Story = {
 
 export const Removable: Story = {
   render: () => {
+    const [tags, setTags] = useState(removableTags);
+
     return (
       <div className={styles.row}>
-        <Tag>
-          <Tag.Label>TypeScript</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger />
-          </Tag.EndElement>
-        </Tag>
-        <Tag variant="secondary">
-          <Tag.Label>Design review</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger aria-label="Remove design review tag" />
-          </Tag.EndElement>
-        </Tag>
-        <Tag variant="outline">
-          <Tag.Label>Needs approval</Tag.Label>
-          <Tag.EndElement>
-            <Tag.CloseTrigger disabled />
-          </Tag.EndElement>
-        </Tag>
+        {tags.map((tag) => (
+          <Tag key={tag.label} variant={tag.variant}>
+            <Tag.Label>{tag.label}</Tag.Label>
+            <Tag.EndElement>
+              <Tag.CloseTrigger
+                disabled={tag.disabled}
+                aria-label={`Remove ${tag.label} tag`}
+                onClick={() => {
+                  setTags((tags) => tags.filter((item) => item.label !== tag.label));
+                }}
+              />
+            </Tag.EndElement>
+          </Tag>
+        ))}
       </div>
     );
   },
@@ -95,7 +103,7 @@ export const WithLeadingIcon: Story = {
           </Tag.StartElement>
           <Tag.Label>Deployed</Tag.Label>
           <Tag.EndElement>
-            <Tag.CloseTrigger />
+            <Tag.CloseTrigger aria-label="Remove deployed tag" />
           </Tag.EndElement>
         </Tag>
       </div>
@@ -111,7 +119,7 @@ export const TruncatedLabel: Story = {
           Ready for stakeholder review after legal approval
         </Tag.Label>
         <Tag.EndElement>
-          <Tag.CloseTrigger />
+          <Tag.CloseTrigger aria-label="Remove long tag" />
         </Tag.EndElement>
       </Tag>
     );
@@ -140,7 +148,7 @@ export const CustomStyling: Story = {
           </Tag.StartElement>
           <Tag.Label>Priority</Tag.Label>
           <Tag.EndElement>
-            <Tag.CloseTrigger />
+            <Tag.CloseTrigger aria-label="Remove priority tag" />
           </Tag.EndElement>
         </Tag>
         <Tag className={styles.customOutline} variant="outline">

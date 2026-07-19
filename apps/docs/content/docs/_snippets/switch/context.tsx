@@ -4,8 +4,7 @@
 const enabledLabel = 'Feature is enabled';
 const disabledLabel = 'Feature is disabled';
 
-import { useSwitchContext } from '@ark-ui/react/switch';
-import { Switch } from '@moduix/react';
+import { Switch, useSwitchContext } from '@moduix/react';
 
 function SwitchContextLabel() {
   const switchApi = useSwitchContext();
@@ -18,7 +17,6 @@ export function SwitchContextDemo() {
     <Switch defaultChecked>
       <Switch.Control />
       <SwitchContextLabel />
-      <Switch.HiddenInput />
     </Switch>
   );
 }

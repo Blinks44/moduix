@@ -24,12 +24,16 @@ factory and Chakra's Alert part contract.
 ## Current behavior contract
 
 - Public API is part-first: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
-  `Alert.Description`.
-- The callable `Alert` export remains the root part itself, but docs and examples should use
-  explicit part names.
+  `Alert.Description`, and `Alert.Actions`.
+- The callable `Alert` export remains the root part itself. Runnable docs/examples use the short
+  `<Alert>` root form, while anatomy and API notes may still refer to `Alert.Root`.
 - `Alert.Root` defaults `status` to `'neutral'`.
 - `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
-- `Alert.Title` renders an `h3` by default.
+- `Alert.Content` is optional for the simple title/description path and stays available for grouped
+  text and actions.
+- `Alert.Actions` provides a stylable wrapped action row for buttons or links inside
+  `Alert.Content`.
+- `Alert.Title` renders a `p` by default.
 - All exported parts accept `className`.
 - All exported parts accept Ark `asChild`.
 - Refs forward to each rendered DOM part.
@@ -43,22 +47,27 @@ factory and Chakra's Alert part contract.
 ## Anatomy and exported parts
 
 ```text
-Alert.Root
+Alert / Alert.Root
 ├─ Alert.Indicator (optional)
-└─ Alert.Content
+├─ Alert.Title
+├─ Alert.Description
+└─ Alert.Content (optional)
    ├─ Alert.Title
-   └─ Alert.Description
+   ├─ Alert.Description
+   ├─ Alert.Actions (optional)
+   └─ Extra custom blocks
 ```
 
 Every exported part accepts `className` and receives stable hooks:
 
-| Part                | `data-part`   | `data-slot`         | Notes                                                           |
-| ------------------- | ------------- | ------------------- | --------------------------------------------------------------- |
-| `Alert.Root`        | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                   |
-| `Alert.Indicator`   | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                               |
-| `Alert.Content`     | `content`     | `alert-content`     | Expands to full width when no indicator is rendered.            |
-| `Alert.Title`       | `title`       | `alert-title`       | Renders `h3` by default and supports `asChild`.                 |
-| `Alert.Description` | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks. |
+| Part                   | `data-part`   | `data-slot`         | Notes                                                           |
+| ---------------------- | ------------- | ------------------- | --------------------------------------------------------------- |
+| `Alert` / `Alert.Root` | `root`        | `alert-root`        | Exposes `data-status` and auto role behavior.                   |
+| `Alert.Indicator`      | `indicator`   | `alert-indicator`   | Defaults to `aria-hidden="true"`.                               |
+| `Alert.Content`        | `content`     | `alert-content`     | Optional content-column wrapper for grouped text and actions.   |
+| `Alert.Title`          | `title`       | `alert-title`       | Renders `p` by default and supports `asChild`.                  |
+| `Alert.Description`    | `description` | `alert-description` | Styled description wrapper with margin resets for child blocks. |
+| `Alert.Actions`        | `actions`     | `alert-actions`     | Optional wrapped action row with default spacing hooks.         |
 
 ## Composition
 
@@ -71,16 +80,17 @@ export function AlertDemo() {
       <Alert.Indicator>
         <InfoIcon />
       </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>Storage is almost full</Alert.Title>
-        <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
-      </Alert.Content>
+      <Alert.Title>Storage is almost full</Alert.Title>
+      <Alert.Description>Archive old uploads or upgrade the plan.</Alert.Description>
     </Alert>
   );
 }
 ```
 
-Use `asChild` on `Alert.Title` when the document outline needs a different heading element:
+Use `Alert.Content` when title, description, and extra controls should stay grouped in one content
+column beside the indicator. Use `Alert.Actions` when buttons or links should share the default
+wrapped action-row layout. Use `asChild` on `Alert.Title` when the document outline needs a
+different heading element:
 
 ```tsx
 <Alert.Title asChild>
@@ -96,6 +106,7 @@ Use `asChild` on `Alert.Title` when the document outline needs a different headi
 - `Styling`: follows Ark `data-scope` / `data-part` targeting and moduix `data-slot` hooks.
 - `Status semantics`: moduix adds a focused status surface with `neutral`, `info`, `success`,
   `warning`, and `error`.
+- `Action-row sugar`: moduix adds `Alert.Actions` as a thin stylable wrapper for grouped actions.
 - `Heading composition`: preserved through `Alert.Title asChild` for document outline control.
 - `Variants`, `sizes`, and recipe palettes`: intentionally not exposed; moduix keeps one visual
   recipe instead of Chakra's broader styling matrix.
@@ -113,6 +124,8 @@ Use `asChild` on `Alert.Title` when the document outline needs a different headi
   `aria-hidden="true"`, so essential meaning must stay in title or description text.
 - `Alert.Content`, `Alert.Title`, and `Alert.Description` write matching `data-scope="alert"`,
   `data-part`, and `data-slot` attributes.
+- `Alert.Actions` writes `data-part="actions"` and `data-slot="alert-actions"` for targeted action
+  row styling.
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
 - All exported parts support Ark `asChild`.
 - `asChild` requires one semantic child; interactive children keep their own native keyboard and
@@ -134,6 +147,8 @@ Extends Ark `div` props and supports `asChild`.
 
 | Variable                          | Default/fallback                                           |
 | --------------------------------- | ---------------------------------------------------------- |
+| `--alert-actions-gap`             | `var(--spacing-2)`                                         |
+| `--alert-actions-margin-top`      | `var(--spacing-2)`                                         |
 | `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               |
 | `--alert-border-color`            | `var(--alert-border-color-default, var(--color-border))`   |
 | `--alert-border-width`            | `var(--border-width-sm)`                                   |
@@ -146,7 +161,7 @@ Extends Ark `div` props and supports `asChild`.
 | `--alert-indicator-color`         | `var(--alert-indicator-color-default, currentColor)`       |
 | `--alert-indicator-offset`        | `0.125rem`                                                 |
 | `--alert-indicator-size`          | `1rem`                                                     |
-| `--alert-padding`                 | `var(--spacing-4)`                                         |
+| `--alert-padding`                 | `var(--spacing-3)`                                         |
 | `--alert-radius`                  | `var(--radius-lg)`                                         |
 | `--alert-shadow`                  | `none`                                                     |
 | `--alert-title-color`             | `var(--alert-color, var(--alert-color-default))`           |
@@ -167,8 +182,10 @@ Built-in statuses derive their accents from shared palette tokens:
   for the parts.
 - moduix keeps one visual recipe instead of Chakra's `variant`, `size`, and palette props.
 - moduix introduces the focused `status` API and automatic role defaulting for that status.
-- `Alert.Content` is the only composition surface for actions and dismiss controls; no action slot
-  or close state is built into the component.
+- `Alert.Content` is optional for the simple title/description path and remains the grouping surface
+  for actions and dismiss controls; no action slot or close state is built into the component.
+- `Alert.Actions` is narrow sugar for the common wrapped action row. It does not inject buttons,
+  dismissal logic, positioning, or hidden layout behavior outside its own container.
 
 ## Agent notes
 
@@ -176,9 +193,16 @@ Built-in statuses derive their accents from shared palette tokens:
   explanations.
 - Do not add local dismiss, keyboard, or focus behavior to the alert wrapper; compose interactive
   controls inside `Alert.Content`.
+- Keep `Alert.Actions` thin and stylable. Do not grow it into an action API with special button
+  props or close behavior.
 
 ## Local changelog
 
+- 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
+  short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.
+- 2026-07-06: Made `Alert.Content` optional for the simple title/description path, changed
+  `Alert.Title` to render `p` by default, and tightened the default root padding to
+  `var(--spacing-3)`.
 - 2026-07-02: Simplified the public type surface by removing Alert prop and status aliases; preserved
   callable-root composition, all visual parts, statuses, automatic roles, refs, `asChild`, and
   styling hooks.

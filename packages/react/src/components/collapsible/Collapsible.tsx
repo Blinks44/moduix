@@ -1,8 +1,9 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Collapsible as CollapsiblePrimitive } from '@ark-ui/react/collapsible';
+import { Collapsible as CollapsiblePrimitive, useCollapsible } from '@ark-ui/react/collapsible';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
-import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
+import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Collapsible.module.css';
 
@@ -60,7 +61,7 @@ const CollapsibleIndicator = forwardRef<
       className={clsx(styles.indicator, normalizeClassName(className))}
       {...props}
     >
-      {children ?? <ChevronRightIcon />}
+      {children ?? <ChevronDownIcon />}
     </CollapsiblePrimitive.Indicator>
   );
 });
@@ -79,12 +80,28 @@ const CollapsibleContent = forwardRef<
   );
 });
 
+const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function CollapsibleBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="collapsible"
+        data-part="body"
+        data-slot="collapsible-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
 const Collapsible = Object.assign(CollapsibleRoot, {
   Root: CollapsibleRoot,
   RootProvider: CollapsibleRootProvider,
   Trigger: CollapsibleTrigger,
   Indicator: CollapsibleIndicator,
   Content: CollapsibleContent,
+  Body: CollapsibleBody,
 });
 
-export { Collapsible };
+export { Collapsible, useCollapsible };

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "moduix React Input component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/input/Input.tsx",
+      "content": "import { Field as FieldPrimitive } from '@ark-ui/react/field';\nimport { clsx } from 'clsx';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Input.module.css';\n\nconst InputRoot = forwardRef<\n  ComponentRef<typeof FieldPrimitive.Input>,\n  Omit<ComponentProps<typeof FieldPrimitive.Input>, 'size'> & {\n    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n    htmlSize?: ComponentProps<'input'>['size'];\n  }\n>(function InputRoot({ className, size = 'md', htmlSize, ...props }, ref) {\n  return (\n    <FieldPrimitive.Input\n      ref={ref}\n      data-scope=\"field\"\n      data-part=\"input\"\n      data-slot=\"input-root\"\n      data-size={size}\n      className={clsx(styles.root, normalizeClassName(className))}\n      size={htmlSize}\n      {...props}\n    />\n  );\n});\n\nconst Input = Object.assign(InputRoot, {\n  Root: InputRoot,\n});\n\nexport { Input };",
+      "type": "registry:component",
+      "target": "@components/moduix/input/Input.tsx"
+    },
+    {
+      "path": "packages/react/src/components/input/Input.module.css",
+      "content": "@layer ui.components {\n  .root {\n    box-sizing: border-box;\n    width: var(--input-width, 100%);\n    max-width: var(--input-max-width, none);\n    min-height: var(--input-height, var(--input-height-md, var(--size-lg)));\n    margin: 0;\n    border: var(--input-border-width, var(--border-width-sm)) var(--input-border-style, solid)\n      var(--input-border-color, var(--color-border));\n    border-radius: var(--input-radius, var(--radius-md));\n    padding: var(--input-padding-y, var(--input-padding-y-md, var(--spacing-2)))\n      var(--input-padding-x, var(--input-padding-x-md, var(--spacing-3)));\n    background-color: var(--input-bg, var(--color-background));\n    color: var(--input-color, var(--color-foreground));\n    font: inherit;\n    font-size: var(--input-font-size, var(--input-font-size-md, var(--text-md)));\n    line-height: var(--input-line-height, var(--input-line-height-md, var(--line-height-text-md)));\n    outline: var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) solid\n      transparent;\n    outline-offset: var(\n      --input-focus-ring-offset,\n      calc(0px - var(--input-border-width, var(--border-width-sm)))\n    );\n    transition:\n      border-color var(--input-transition, var(--transition-default)),\n      outline-color var(--input-transition, var(--transition-default)),\n      opacity var(--input-transition, var(--transition-default));\n\n    &::placeholder {\n      color: var(--input-placeholder-color, var(--color-muted-foreground));\n    }\n\n    &:focus-visible {\n      outline-color: var(--input-focus-ring-color, var(--color-ring));\n    }\n\n    &:is([data-invalid], [aria-invalid='true']) {\n      border-color: var(--input-border-color-invalid, var(--color-destructive));\n\n      &:focus-visible {\n        outline-color: var(--input-border-color-invalid, var(--color-destructive));\n      }\n    }\n\n    &:is([data-disabled], :disabled) {\n      pointer-events: none;\n      opacity: var(--input-disabled-opacity, var(--opacity-disabled));\n    }\n\n    &:is(:read-only, [data-readonly]) {\n      background-color: var(--input-readonly-bg, var(--input-bg, var(--color-background)));\n      color: var(--input-readonly-color, var(--input-color, var(--color-foreground)));\n    }\n\n    &[data-size='xs'] {\n      --input-height: var(--input-height-xs, var(--size-xs));\n      --input-padding-x: var(--input-padding-x-xs, var(--spacing-2));\n      --input-padding-y: var(--input-padding-y-xs, var(--spacing-1));\n      --input-font-size: var(--input-font-size-xs, var(--text-xs));\n      --input-line-height: var(--input-line-height-xs, var(--line-height-text-xs));\n    }\n\n    &[data-size='sm'] {\n      --input-height: var(--input-height-sm, var(--size-sm));\n      --input-padding-x: var(--input-padding-x-sm, var(--spacing-2));\n      --input-padding-y: var(--input-padding-y-sm, var(--spacing-1));\n      --input-font-size: var(--input-font-size-sm, var(--text-sm));\n      --input-line-height: var(--input-line-height-sm, var(--line-height-text-sm));\n    }\n\n    &[data-size='lg'] {\n      --input-height: var(--input-height-lg, var(--size-xl));\n      --input-padding-x: var(--input-padding-x-lg, var(--spacing-4));\n      --input-padding-y: var(--input-padding-y-lg, var(--spacing-2));\n      --input-font-size: var(--input-font-size-lg, var(--text-lg));\n      --input-line-height: var(--input-line-height-lg, var(--line-height-text-lg));\n    }\n\n    &[data-size='xl'] {\n      --input-height: var(--input-height-xl, 3.5rem);\n      --input-padding-x: var(--input-padding-x-xl, var(--spacing-4));\n      --input-padding-y: var(--input-padding-y-xl, var(--spacing-3));\n      --input-font-size: var(--input-font-size-xl, var(--text-lg));\n      --input-line-height: var(--input-line-height-xl, var(--line-height-text-lg));\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/input/Input.module.css"
+    },
+    {
+      "path": "packages/react/src/components/input/index.ts",
+      "content": "export { Input } from './Input';",
+      "type": "registry:component",
+      "target": "@components/moduix/input/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

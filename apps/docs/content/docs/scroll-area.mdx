@@ -55,7 +55,7 @@ top and bottom mask to the viewport using Ark overflow measurements.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-scroll-area" />
+<ShadcnInstall packageName="scroll-area" />
 
 ## Anatomy
 
@@ -69,42 +69,47 @@ ScrollArea
 └─ ScrollArea.Corner
 ```
 
-| Part                             | Role                                                        |
-| -------------------------------- | ----------------------------------------------------------- |
-| `ScrollArea` / `ScrollArea.Root` | State owner and outer positioning box.                      |
-| `ScrollArea.RootProvider`        | Root that receives an Ark `useScrollArea()` state object.   |
-| `ScrollArea.Viewport`            | Native scroll viewport and focus target.                    |
-| `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                   |
-| `ScrollArea.Scrollbar`           | Custom scrollbar track for one axis.                        |
-| `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                         |
-| `ScrollArea.Corner`              | Bottom-end intersection filler when both axes can overflow. |
+| Part                             | Role                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `ScrollArea` / `ScrollArea.Root` | State owner and outer positioning box.                          |
+| `ScrollArea.RootProvider`        | Root that receives a `ScrollArea.useScrollArea()` state object. |
+| `ScrollArea.Viewport`            | Native scroll viewport and focus target.                        |
+| `ScrollArea.Content`             | Inner content wrapper measured by Ark UI.                       |
+| `ScrollArea.Scrollbar`           | Custom scrollbar track for one axis.                            |
+| `ScrollArea.Thumb`               | Draggable thumb inside a scrollbar.                             |
+| `ScrollArea.Corner`              | Bottom-end intersection filler when both axes can overflow.     |
 
 ## Composition
 
-### Default props
-
-| Prop                                                 | Default    | Notes                                                                                  |
-| ---------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `fade` on `ScrollArea` and `ScrollArea.RootProvider` | `false`    | Adds a top and bottom viewport mask driven by Ark `--scroll-area-overflow-y-*` values. |
-| `orientation` on `ScrollArea.Scrollbar`              | `vertical` | Set `orientation="horizontal"` for a horizontal track.                                 |
-| `asChild`                                            | `false`    | Available on each Ark part for single-child host composition.                          |
-| `ids` on `ScrollArea`                                | generated  | Use when separate code needs stable root, viewport, content, scrollbar, or thumb IDs.  |
+### Recommended composition
 
 `ScrollArea` is the styled root. It does not render viewport, content, or scrollbar parts for you;
 compose the Ark parts explicitly so each structural node remains configurable.
 
-### State access
+### When to go custom
 
-Use Ark `useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need to call
-the scroll area API. Advanced Ark context reads stay available directly from
+Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need
+to call the scroll area API. Advanced Ark context reads stay available directly from
 `@ark-ui/react/scroll-area`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same
 state object.
 
-### Behavior notes
+### Default props
+
+| Prop                                                    | Default    | Notes                                                                                  |
+| ------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| `fade` on `ScrollArea` and `ScrollArea.RootProvider`    | `false`    | Adds a top and bottom viewport mask driven by Ark `--scroll-area-overflow-y-*` values. |
+| `variant` on `ScrollArea` and `ScrollArea.RootProvider` | `hover`    | Use `always` to keep overflowing scrollbar tracks visible and interactive.             |
+| `orientation` on `ScrollArea.Scrollbar`                 | `vertical` | Set `orientation="horizontal"` for a horizontal track.                                 |
+| `asChild`                                               | `false`    | Available on each Ark part for single-child host composition.                          |
+| `ids` on `ScrollArea`                                   | generated  | Use when separate code needs stable root, viewport, content, scrollbar, or thumb IDs.  |
+
+### Behavioral notes
 
 - Render one `ScrollArea.Scrollbar` per axis you want to expose.
 - Ark adds `data-overflow-x` and `data-overflow-y`; moduix hides scrollbar tracks until the matching
   axis actually overflows.
+- Set `variant="always"` when the matching overflowing scrollbar should remain visible and
+  interactive at rest.
 - The viewport CSS hides native browser scrollbars with `scrollbar-width: none` and the WebKit
   scrollbar rule required by Ark UI.
 - The ref on `ScrollArea` points to the root element; the ref on `ScrollArea.Viewport` points to the
@@ -112,51 +117,15 @@ state object.
 
 ## Examples
 
-### Horizontal
+### Always Visible
 
-Use a horizontal scrollbar when the content is intentionally wider than the frame.
-
-<Preview>
-  <ScrollAreaDocs.HorizontalScrollAreaExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/scroll-area/horizontal.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>
-    {`
-      .horizontalRoot {
-        --scroll-area-width: 24rem;
-        --scroll-area-height: auto;
-        max-width: calc(100vw - 2rem);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-      }
-
-      .wideParagraph {
-        width: 50rem;
-        margin: 0;
-        padding: var(--spacing-3);
-        padding-bottom: var(--spacing-6);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-      }
-    `}
-
-  </Preview.CSS>
-
-</Preview>
-
-### Fade
-
-Use `fade` when long vertical content should hint that more content exists above and below the
-current viewport without introducing another wrapper.
+Use `variant="always"` in dense panels when the scrollbar should stay discoverable without hover.
 
 <Preview>
-  <ScrollAreaDocs.FadeScrollAreaExample />
+  <ScrollAreaDocs.AlwaysVisibleScrollAreaExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/scroll-area/fade.tsx#demo</include>
+  <include lang="tsx">./_snippets/scroll-area/always-visible.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>
@@ -164,7 +133,6 @@ current viewport without introducing another wrapper.
       .root {
         --scroll-area-width: 24rem;
         --scroll-area-height: 13rem;
-        --scroll-area-fade-size: var(--spacing-8);
         max-width: calc(100vw - 2rem);
         border: var(--border-width-sm) solid var(--color-border);
         border-radius: var(--radius-lg);
@@ -234,6 +202,83 @@ Render vertical and horizontal scrollbars when content can overflow on both axes
 
 </Preview>
 
+### Fade
+
+Use `fade` when long vertical content should hint that more content exists above and below the
+current viewport without introducing another wrapper.
+
+<Preview>
+  <ScrollAreaDocs.FadeScrollAreaExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/fade.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .root {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: 13rem;
+        --scroll-area-fade-size: var(--spacing-8);
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .textContent {
+        display: grid;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3);
+        padding-right: var(--spacing-6);
+      }
+
+      .paragraph {
+        margin: 0;
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
+### Horizontal
+
+Use a horizontal scrollbar when the content is intentionally wider than the frame.
+
+<Preview>
+  <ScrollAreaDocs.HorizontalScrollAreaExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/scroll-area/horizontal.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>
+    {`
+      .horizontalRoot {
+        --scroll-area-width: 24rem;
+        --scroll-area-height: auto;
+        max-width: calc(100vw - 2rem);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .wideParagraph {
+        width: 50rem;
+        margin: 0;
+        padding: var(--spacing-3);
+        padding-bottom: var(--spacing-6);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}
+
+  </Preview.CSS>
+
+</Preview>
+
 ### Nested
 
 Nested scroll areas use the same composition. Keep each root, viewport, content, and scrollbar tree
@@ -284,8 +329,8 @@ complete so Ark can measure each area independently.
 
 ### Root Provider
 
-Use Ark `useScrollArea()` with `ScrollArea.RootProvider` when external controls need access to the
-scrolling API.
+Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when external controls need access
+to the scrolling API.
 
 <Preview>
   <ScrollAreaDocs.RootProviderScrollAreaExample />
@@ -338,8 +383,9 @@ scrolling API.
 
 Use CSS variables on the root when scrollbar thickness, focus ring treatment, or surface styling
 needs to change without replacing the structure. The default thumb keeps the border token color and
-grows by `2px` across its track on hover or drag; customize that amount with
-`--scroll-area-thumb-hover-increase`.
+grows by `2px` across its track on hover or drag; customize the amount with
+`--scroll-area-thumb-hover-increase` and the timing with
+`--scroll-area-thumb-hover-transition`.
 
 ### CSS Properties
 
@@ -356,7 +402,8 @@ grows by `2px` across its track on hover or drag; customize that amount with
 - `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`,
   `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb`, and `scroll-area-corner` are
   the stable Moduix hooks.
-- `data-fade` is added by the `fade` prop on `ScrollArea` and `ScrollArea.RootProvider`.
+- `data-fade` is added by the `fade` prop and `data-variant="hover" | "always"` by the `variant`
+  prop on `ScrollArea` and `ScrollArea.RootProvider`.
 - Ark adds `data-scope="scroll-area"` and `data-part` for every part.
 - `data-overflow-x` and `data-overflow-y` are present when the measured content overflows on the
   corresponding axis.

@@ -8,11 +8,9 @@ const image = {
 
 export function AspectRatioDemo() {
   return (
-    <div className="aspect-ratio-demo">
-      <AspectRatio ratio={16 / 9}>
-        <img src={image.src} alt={image.alt} className="aspect-ratio-demo__image" />
-      </AspectRatio>
-    </div>
+    <AspectRatio ratio={16 / 9} className="aspect-ratio-demo">
+      <img src={image.src} alt={image.alt} className="aspect-ratio-demo__image" />
+    </AspectRatio>
   );
 }
 //#endregion

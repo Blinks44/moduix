@@ -1,8 +1,8 @@
-import type { ComponentProps } from 'react';
 import { Button, Empty } from '@moduix/react';
 import { Computer as ComputerIcon, Map as MapIcon } from 'lucide-react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './empty.module.css';
 
 const deploymentEmpty = {
@@ -201,6 +201,26 @@ export function EmptyWithoutIconExample() {
       </Empty.Content>
       <Empty.Actions>
         <Button variant="outline">{searchResultsEmpty.action}</Button>
+      </Empty.Actions>
+    </Empty>
+  );
+}
+
+export function EmptyAdvancedCustomizationExample() {
+  return (
+    <Empty className={styles.empty}>
+      <Empty.Content>
+        <Empty.Title asChild>
+          <h2>Create your first project</h2>
+        </Empty.Title>
+        <Empty.Description>
+          <p>
+            Start from a template or <strong>build a workspace from scratch</strong> for your team.
+          </p>
+        </Empty.Description>
+      </Empty.Content>
+      <Empty.Actions>
+        <Button>Create project</Button>
       </Empty.Actions>
     </Empty>
   );

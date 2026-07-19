@@ -8,7 +8,7 @@ export function AvatarLinkDemo() {
   return (
     <Avatar asChild size="xl" className="docs-avatar-link">
       <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className="docs-avatar-link-fallback">LT</Avatar.Fallback>
+        <Avatar.Fallback className="docs-avatar-link-fallback" name="Alex T." />
         <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
       </a>
     </Avatar>

@@ -1,13 +1,8 @@
-import {
-  DateInputSegmentContext,
-  type DateInputDateValue,
-  useDateInput,
-} from '@ark-ui/react/date-input';
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
-import { DateInput, Field } from '@moduix/react';
+import { DateInput, type DateInputDateValue, Field, useDateInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const centeredExampleStyle = {
   width: 'fit-content',
@@ -53,6 +48,13 @@ export const dateInputExampleCss = `
   .date-input-custom-segment {
     --date-input-segment-bg-focus: color-mix(in oklab, var(--color-primary) 14%, transparent);
     --date-input-segment-color-focus: var(--color-foreground);
+  }
+
+  .date-input-day-segment {
+    --date-input-segment-bg-focus: color-mix(in oklab, var(--color-primary) 18%, transparent);
+    --date-input-segment-color-focus: var(--color-primary);
+
+    font-weight: var(--weight-semibold);
   }
 
   .date-input-field-preview {
@@ -111,6 +113,11 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
     name: '--date-input-control-height',
     defaultValue: 'var(--size-lg)',
     description: 'Controls the minimum control height.',
+  },
+  {
+    name: '--date-input-control-width',
+    defaultValue: '100%',
+    description: 'Controls the visual control width.',
   },
   {
     name: '--date-input-disabled-opacity',
@@ -239,7 +246,7 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--date-input-width',
-    defaultValue: 'auto',
+    defaultValue: '100%',
     description: 'Controls root width.',
   },
 ];
@@ -248,25 +255,14 @@ export function DateInputCssPropertiesPanel(_context: CSSPropertiesEditorContext
   return <CSSPropertiesReferenceTable properties={dateInputOverrideCssProperties} />;
 }
 
-function DateInputSegments({ index }: { index?: number }) {
-  return (
-    <DateInput.SegmentGroup index={index}>
-      <DateInputSegmentContext>
-        {(segment) => <DateInput.Segment segment={segment} />}
-      </DateInputSegmentContext>
-    </DateInput.SegmentGroup>
-  );
-}
-
 export function DateInputExample(props: ComponentProps<typeof DateInput>) {
   return (
     <div style={centeredExampleStyle}>
       <DateInput defaultValue={[new CalendarDate(2026, 6, 22)]} name="release-date" {...props}>
         <DateInput.Label>Release date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput />
       </DateInput>
     </div>
   );
@@ -280,9 +276,8 @@ export function ControlledDateInputExample() {
       <DateInput value={value} onValueChange={(details) => setValue(details.value)}>
         <DateInput.Label>Controlled date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput />
       </DateInput>
       <div className="date-input-state">Current value: {value[0]?.toString() ?? 'empty'}</div>
     </div>
@@ -294,16 +289,15 @@ export function RangeDateInputExample() {
     <div style={centeredExampleStyle}>
       <DateInput
         selectionMode="range"
+        names={['check-in', 'check-out']}
         defaultValue={[new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)]}
       >
         <DateInput.Label>Travel dates</DateInput.Label>
         <DateInput.Control className="date-input-range-control">
-          <DateInputSegments index={0} />
+          <DateInput.Segments index={0} />
           <DateInput.Separator>to</DateInput.Separator>
-          <DateInputSegments index={1} />
+          <DateInput.Segments index={1} />
         </DateInput.Control>
-        <DateInput.HiddenInput index={0} name="check-in" />
-        <DateInput.HiddenInput index={1} name="check-out" />
       </DateInput>
     </div>
   );
@@ -320,9 +314,8 @@ export function MinMaxDateInputExample() {
       >
         <DateInput.Label>Booking date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput />
       </DateInput>
     </div>
   );
@@ -331,20 +324,18 @@ export function MinMaxDateInputExample() {
 export function DisabledReadOnlyDateInputExample() {
   return (
     <div className="date-input-state-grid">
-      <DateInput disabled defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DateInput disabled name="disabled-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Disabled date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="disabled-date" />
       </DateInput>
 
-      <DateInput readOnly defaultValue={[new CalendarDate(2026, 6, 22)]}>
+      <DateInput readOnly name="read-only-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
         <DateInput.Label>Read-only date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="read-only-date" />
       </DateInput>
     </div>
   );
@@ -356,9 +347,8 @@ export function LocaleDateInputExample() {
       <DateInput locale="de-DE" defaultValue={[new CalendarDate(2026, 12, 5)]}>
         <DateInput.Label>German locale</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput />
       </DateInput>
     </div>
   );
@@ -370,13 +360,37 @@ export function GranularityDateInputExample() {
       <DateInput
         granularity="minute"
         hourCycle={24}
+        name="scheduled-at"
         defaultValue={[new CalendarDateTime(2026, 12, 5, 14, 30)]}
       >
         <DateInput.Label>Date and time</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="scheduled-at" />
+      </DateInput>
+    </div>
+  );
+}
+
+export function AdvancedCustomizationDateInputExample() {
+  return (
+    <div style={centeredExampleStyle}>
+      <DateInput name="custom-date" defaultValue={[new CalendarDate(2026, 6, 22)]}>
+        <DateInput.Label>Custom segments</DateInput.Label>
+        <DateInput.Control className="date-input-custom-control">
+          <DateInput.SegmentGroup>
+            <DateInput.SegmentContext>
+              {(segment) => (
+                <DateInput.Segment
+                  segment={segment}
+                  className={
+                    segment.type === 'day' ? 'date-input-day-segment' : 'date-input-custom-segment'
+                  }
+                />
+              )}
+            </DateInput.SegmentContext>
+          </DateInput.SegmentGroup>
+        </DateInput.Control>
       </DateInput>
     </div>
   );
@@ -386,12 +400,11 @@ export function DateInputFieldExample() {
   return (
     <div className="date-input-field-preview">
       <Field invalid>
-        <DateInput required invalid>
+        <DateInput required invalid name="deadline">
           <DateInput.Label>Deadline</DateInput.Label>
           <DateInput.Control>
-            <DateInputSegments />
+            <DateInput.Segments />
           </DateInput.Control>
-          <DateInput.HiddenInput name="deadline" />
         </DateInput>
         <Field.ErrorText>Enter a valid deadline.</Field.ErrorText>
       </Field>
@@ -400,16 +413,15 @@ export function DateInputFieldExample() {
 }
 
 export function RootProviderDateInputExample() {
-  const dateInput = useDateInput({ defaultValue: [today('UTC')] });
+  const dateInput = useDateInput({ defaultValue: [today('UTC')], name: 'report-date' });
 
   return (
     <div>
       <DateInput.RootProvider value={dateInput}>
         <DateInput.Label>Report date</DateInput.Label>
         <DateInput.Control>
-          <DateInputSegments />
+          <DateInput.Segments />
         </DateInput.Control>
-        <DateInput.HiddenInput name="report-date" />
       </DateInput.RootProvider>
       <div className="date-input-root-provider-actions">
         <button type="button" onClick={() => dateInput.clearValue()}>

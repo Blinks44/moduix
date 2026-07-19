@@ -2,20 +2,19 @@
 //#region demo
 
 import { Separator } from '@moduix/react';
-import styles from './separator-demo.module.css';
 
 const navigationItems = ['Home', 'Pricing', 'Sign in'];
 
 export function VerticalSeparatorDemo() {
   return (
-    <nav className={styles.nav} aria-label="Main navigation">
+    <nav className="nav" aria-label="Main navigation">
       {navigationItems.slice(0, 2).map((item) => (
-        <a key={item} href="#" className={styles.link}>
+        <a key={item} href="#" className="link">
           {item}
         </a>
       ))}
       <Separator orientation="vertical" />
-      <a href="#" className={styles.link}>
+      <a href="#" className="link">
         {navigationItems[2]}
       </a>
     </nav>

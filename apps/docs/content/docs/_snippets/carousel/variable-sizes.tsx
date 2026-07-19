@@ -1,5 +1,4 @@
 //#region demo
-import { Carousel as ArkCarousel } from '@ark-ui/react/carousel';
 import { Carousel } from '@moduix/react';
 
 const slides = [
@@ -50,15 +49,7 @@ export function VariableSizeCarousel() {
         ))}
       </Carousel.ItemGroup>
 
-      <ArkCarousel.Context>
-        {(api) => (
-          <Carousel.IndicatorGroup>
-            {api.pageSnapPoints.map((_, index) => (
-              <Carousel.Indicator key={index} index={index} />
-            ))}
-          </Carousel.IndicatorGroup>
-        )}
-      </ArkCarousel.Context>
+      <Carousel.Indicators />
     </Carousel>
   );
 }

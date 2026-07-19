@@ -22,13 +22,13 @@ Start with `TreeView`, pass a `createTreeCollection` result, and render each rec
   <include lang="tsx">./_snippets/tree-view/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-tree-view" />
+<ShadcnInstall packageName="tree-view" />
 
 ## Anatomy
 
@@ -77,17 +77,17 @@ Start with `TreeView`, pass a `createTreeCollection` result, and render each rec
 
 ## Composition
 
-### Recommended Composition
+### Recommended composition
 
 Keep the recursive `NodeProvider` visible. It is how Ark connects each node to the collection,
 keyboard focus, selection, expansion, loading, checking, and rename state.
 
-### When To Go Custom
+### When to go custom
 
 Use `asChild` on `TreeView.Item` when a leaf should be a link or another semantic element. The child
 must be a single element that can receive Ark props and preserve the tree interaction semantics.
 
-### Default Props
+### Default props
 
 | Prop            | Default    | Notes                                               |
 | --------------- | ---------- | --------------------------------------------------- |
@@ -97,7 +97,7 @@ must be a single element that can receive Ark props and preserve the tree intera
 | `lazyMount`     | `false`    | Passed through to Ark render strategy.              |
 | `unmountOnExit` | `false`    | Passed through to Ark render strategy.              |
 
-### Behavioral Notes
+### Behavioral notes
 
 `expandedValue`, `selectedValue`, `checkedValue`, and `focusedValue` are controlled arrays or strings
 using Ark detail callbacks. `loadChildren` returns child nodes asynchronously and
@@ -107,14 +107,47 @@ using Ark detail callbacks. `loadChildren` returns child nodes asynchronously an
 Keyboard navigation, roving focus, typeahead, branch expansion, checkbox state, disabled nodes, and
 inline rename handling come from Ark UI. Import advanced hooks and generic types such as
 `useTreeView`, `useTreeViewNodeContext`, `TreeViewNodeProviderProps`, and
-`TreeViewLoadChildrenDetails` directly from `@ark-ui/react/tree-view` when building typed local
-wrappers around the recursive node renderer.
+`TreeViewLoadChildrenDetails` from `@moduix/react` when building typed local wrappers around the
+recursive node renderer.
 
 Mutation and virtualized rendering stay regular Ark collection patterns: replace the collection after
 editing node data, or render the visible recursive nodes inside `TreeView.Tree` without adding a
 moduix-specific prop.
 
 ## Examples
+
+### Async Loading
+
+Use `loadChildren` for branches whose children are not present yet, then replace local collection
+state with the collection from `onLoadChildrenComplete`.
+
+<Preview>
+  <TreeViewDocs.AsyncTreeViewExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/async-loading.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Checkbox Tree
+
+Add `NodeCheckbox` inside branch controls and items when users need checked, unchecked, and
+indeterminate node state. `NodeCheckboxIndicator` already renders the default checked and mixed
+icons, so provide children only to customize them.
+
+<Preview>
+  <TreeViewDocs.CheckboxTreeViewExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/tree-view/checkbox-tree.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+  
+</Preview>
 
 ### Controlled Expanded
 
@@ -127,8 +160,8 @@ Control expanded branch values with `expandedValue` and update from `details.exp
   <include lang="tsx">./_snippets/tree-view/controlled-expanded.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
+
 </Preview>
 
 ### Controlled Selected
@@ -140,22 +173,6 @@ Control selected nodes with `selectedValue` and update from `details.selectedVal
 
 <Preview.Code>
   <include lang="tsx">./_snippets/tree-view/controlled-selected.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Checkbox Tree
-
-Add `NodeCheckbox` inside branch controls and items when users need checked, unchecked, and
-indeterminate node state.
-
-<Preview>
-  <TreeViewDocs.CheckboxTreeViewExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tree-view/checkbox-tree.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
@@ -209,22 +226,6 @@ Filter the Ark collection before rendering. The recursive node composition stays
   
 </Preview>
 
-### Async Loading
-
-Use `loadChildren` for branches whose children are not present yet, then replace local collection
-state with the collection from `onLoadChildrenComplete`.
-
-<Preview>
-  <TreeViewDocs.AsyncTreeViewExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/tree-view/async-loading.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
-  
-</Preview>
-
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when branch content should mount only while it is visible.
@@ -271,15 +272,16 @@ Use Ark `useTreeView` with `TreeView.RootProvider` when state must be owned outs
   
 </Preview>
 
-### Links
+### Advanced Customization
 
-Use `asChild` on `TreeView.Item` to make leaf rows real links while preserving tree behavior.
+Use `asChild` on `TreeView.Item` to render leaf rows as real links while preserving tree behavior.
+This bypasses the default item element but keeps the recursive collection composition explicit.
 
 <Preview>
-  <TreeViewDocs.LinksTreeViewExample />
+  <TreeViewDocs.AdvancedCustomizationTreeViewExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/tree-view/links.tsx#demo</include>
+  <include lang="tsx">./_snippets/tree-view/advanced-customization.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{TreeViewDocs.treeViewExampleCss}</Preview.CSS>
@@ -301,7 +303,7 @@ data attributes and moduix `data-slot` hooks.
   </Tabs>
 </div>
 
-### Styling Hooks
+### Styling hooks
 
 - `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`,
   `tree-view-tree`, `tree-view-branch`, `tree-view-branch-control`,

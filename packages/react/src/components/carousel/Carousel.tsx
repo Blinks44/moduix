@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import { Carousel as CarouselPrimitive } from '@ark-ui/react/carousel';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -144,6 +144,25 @@ const CarouselIndicator = forwardRef<
   );
 });
 
+const CarouselIndicators = forwardRef<
+  ComponentRef<typeof CarouselPrimitive.IndicatorGroup>,
+  ComponentProps<typeof CarouselPrimitive.IndicatorGroup> & {
+    indicatorClassName?: string;
+  }
+>(function CarouselIndicators({ className, indicatorClassName, ...props }, ref) {
+  return (
+    <CarouselPrimitive.Context>
+      {(api) => (
+        <CarouselIndicatorGroup ref={ref} className={className} {...props}>
+          {api.pageSnapPoints.map((_, index) => (
+            <CarouselIndicator key={index} index={index} className={indicatorClassName} />
+          ))}
+        </CarouselIndicatorGroup>
+      )}
+    </CarouselPrimitive.Context>
+  );
+});
+
 const CarouselAutoplayTrigger = forwardRef<
   ComponentRef<typeof CarouselPrimitive.AutoplayTrigger>,
   ComponentProps<typeof CarouselPrimitive.AutoplayTrigger>
@@ -189,6 +208,7 @@ const CarouselProgressText = forwardRef<
 const Carousel = Object.assign(CarouselRoot, {
   Root: CarouselRoot,
   RootProvider: CarouselRootProvider,
+  Context: CarouselPrimitive.Context,
   Control: CarouselControl,
   ItemGroup: CarouselItemGroup,
   Item: CarouselItem,
@@ -196,6 +216,7 @@ const Carousel = Object.assign(CarouselRoot, {
   NextTrigger: CarouselNextTrigger,
   IndicatorGroup: CarouselIndicatorGroup,
   Indicator: CarouselIndicator,
+  Indicators: CarouselIndicators,
   AutoplayTrigger: CarouselAutoplayTrigger,
   AutoplayIndicator: CarouselAutoplayIndicator,
   ProgressText: CarouselProgressText,

@@ -14,9 +14,7 @@ export function ControlledTooltipDemo() {
       </Button>
       <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-        <Tooltip.Positioner>
-          <Tooltip.Content>Open: {String(open)}</Tooltip.Content>
-        </Tooltip.Positioner>
+        <Tooltip.Body>Open: {String(open)}</Tooltip.Body>
       </Tooltip>
     </div>
   );

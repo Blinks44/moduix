@@ -18,16 +18,8 @@ export function ChangeEventsPinInput() {
       >
         <PinInput.Label>Invite code</PinInput.Label>
         <PinInput.Control>
-          {Array.from(
-            {
-              length: 6,
-            },
-            (_, index) => (
-              <PinInput.Input key={index} index={index} />
-            ),
-          )}
+          <PinInput.Inputs />
         </PinInput.Control>
-        <PinInput.HiddenInput />
       </PinInput>
       <span className="hint">Current value: {value.join('') || 'empty'}</span>
     </div>

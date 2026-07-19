@@ -1,10 +1,11 @@
-import type { ComponentProps } from 'react';
-import { Carousel as ArkCarousel, useCarousel } from '@ark-ui/react/carousel';
-import { Button, Carousel, PlusIcon } from '@moduix/react';
+import { useCarousel } from '@ark-ui/react/carousel';
+import { Button, Carousel } from '@moduix/react';
 import { clsx } from 'clsx';
+import { Plus as PlusIcon } from 'lucide-react';
+import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './carousel.module.css';
 
 const gallerySlides = [
@@ -226,30 +227,6 @@ function ImageSlide({
   );
 }
 
-function SlideIndicators({ slides }: { slides: readonly unknown[] }) {
-  return (
-    <Carousel.IndicatorGroup>
-      {slides.map((_, index) => (
-        <Carousel.Indicator key={index} index={index} />
-      ))}
-    </Carousel.IndicatorGroup>
-  );
-}
-
-function PageIndicators() {
-  return (
-    <ArkCarousel.Context>
-      {(api) => (
-        <Carousel.IndicatorGroup>
-          {api.pageSnapPoints.map((_, index) => (
-            <Carousel.Indicator key={index} index={index} />
-          ))}
-        </Carousel.IndicatorGroup>
-      )}
-    </ArkCarousel.Context>
-  );
-}
-
 export function CarouselCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
@@ -270,56 +247,56 @@ export function CarouselExample({
   const slides = gallerySlides.slice(0, slideCount);
 
   return (
-    <Carousel.Root slideCount={slideCount} className={clsx(styles.carousel, className)} {...props}>
-      <Carousel.Control>
+    <Carousel slideCount={slideCount} className={clsx(styles.carousel, className)} {...props}>
+      <Carousel.ItemGroup aria-label="Featured travel gallery">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Featured travel gallery">
-          {slides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <ImageSlide src={slide.image} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <SlideIndicators slides={slides} />
+      <Carousel.Indicators />
       <Carousel.ProgressText />
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function ControlledCarouselExample() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   return (
-    <Carousel.Root
+    <Carousel
       slideCount={gallerySlides.length}
       page={page}
       onPageChange={(details) => setPage(details.page)}
       className={styles.carousel}
     >
-      <Carousel.Control>
+      <Carousel.ItemGroup aria-label="Controlled travel gallery">
+        {gallerySlides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Controlled travel gallery">
-          {gallerySlides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <ImageSlide src={slide.image} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
       <div className={styles.statusRow}>
-        <SlideIndicators slides={gallerySlides} />
+        <Carousel.Indicators />
         <output className={styles.output}>Page {page + 1}</output>
       </div>
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function AutoplayCarouselExample() {
   return (
-    <Carousel.Root
+    <Carousel
       autoplay={{ delay: 3500 }}
       loop
       slideCount={gallerySlides.length}
@@ -339,75 +316,74 @@ export function AutoplayCarouselExample() {
         </Carousel.AutoplayTrigger>
         <Carousel.NextTrigger />
       </Carousel.Control>
-    </Carousel.Root>
+      <Carousel.Indicators />
+    </Carousel>
   );
 }
 
 export function LoopCarouselExample() {
   return (
-    <Carousel.Root loop slideCount={gallerySlides.length} className={styles.carousel}>
-      <Carousel.Control>
+    <Carousel loop slideCount={gallerySlides.length} className={styles.carousel}>
+      <Carousel.ItemGroup aria-label="Looping travel gallery">
+        {gallerySlides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Looping travel gallery">
-          {gallerySlides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <ImageSlide src={slide.image} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <SlideIndicators slides={gallerySlides} />
+      <Carousel.Indicators />
       <Carousel.ProgressText />
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function MouseDragCarouselExample() {
   return (
-    <Carousel.Root allowMouseDrag slideCount={gallerySlides.length} className={styles.carousel}>
-      <Carousel.Control>
+    <Carousel allowMouseDrag slideCount={gallerySlides.length} className={styles.carousel}>
+      <Carousel.ItemGroup aria-label="Mouse draggable travel gallery">
+        {gallerySlides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Mouse draggable travel gallery">
-          {gallerySlides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <ImageSlide src={slide.image} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <SlideIndicators slides={gallerySlides} />
+      <Carousel.Indicators />
       <Carousel.ProgressText />
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function PauseOnHoverCarouselExample() {
   return (
-    <Carousel.Root autoplay loop slideCount={gallerySlides.length} className={styles.carousel}>
-      <ArkCarousel.Context>
-        {({ isPlaying }) => (
-          <p className={styles.statusText}>Autoplay: {isPlaying ? 'playing' : 'paused'}</p>
-        )}
-      </ArkCarousel.Context>
-      <ArkCarousel.Context>
+    <Carousel autoplay loop slideCount={gallerySlides.length} className={styles.carousel}>
+      <Carousel.Context>
         {(api) => (
-          <Carousel.ItemGroup
-            aria-label="Pause on hover travel gallery"
-            onPointerOver={() => api.pause()}
-            onPointerLeave={() => api.play()}
-          >
-            {gallerySlides.map((slide, index) => (
-              <Carousel.Item key={slide.id} index={index}>
-                <ImageSlide src={slide.image} alt={slide.alt} />
-              </Carousel.Item>
-            ))}
-          </Carousel.ItemGroup>
+          <>
+            <p className={styles.statusText}>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
+            <Carousel.ItemGroup
+              aria-label="Pause on hover travel gallery"
+              onPointerOver={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              {gallerySlides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <ImageSlide src={slide.image} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+          </>
         )}
-      </ArkCarousel.Context>
-      <SlideIndicators slides={gallerySlides} />
-    </Carousel.Root>
+      </Carousel.Context>
+      <Carousel.Indicators />
+    </Carousel>
   );
 }
 
@@ -422,7 +398,7 @@ export function DynamicSlidesCarouselExample() {
 
   return (
     <div className={styles.exampleStack}>
-      <Carousel.Root
+      <Carousel
         slideCount={slides.length}
         page={page}
         onPageChange={(details) => setPage(details.page)}
@@ -437,10 +413,10 @@ export function DynamicSlidesCarouselExample() {
         </Carousel.ItemGroup>
         <Carousel.Control>
           <Carousel.PrevTrigger />
-          <SlideIndicators slides={slides} />
+          <Carousel.Indicators />
           <Carousel.NextTrigger />
         </Carousel.Control>
-      </Carousel.Root>
+      </Carousel>
       <Button onClick={handleAddSlide} disabled={count === gallerySlides.length} variant="outline">
         <PlusIcon />
         Add slide
@@ -456,18 +432,18 @@ export function RootProviderCarouselExample() {
     <div className={styles.exampleStack}>
       <output className={styles.output}>Page {carousel.page + 1}</output>
       <Carousel.RootProvider value={carousel} className={styles.carousel}>
-        <Carousel.Control>
+        <Carousel.ItemGroup aria-label="Root provider travel gallery">
+          {gallerySlides.map((slide, index) => (
+            <Carousel.Item key={slide.id} index={index}>
+              <ImageSlide src={slide.image} alt={slide.alt} />
+            </Carousel.Item>
+          ))}
+        </Carousel.ItemGroup>
+        <Carousel.Control className={styles.compactControls}>
           <Carousel.PrevTrigger />
-          <Carousel.ItemGroup aria-label="Root provider travel gallery">
-            {gallerySlides.map((slide, index) => (
-              <Carousel.Item key={slide.id} index={index}>
-                <ImageSlide src={slide.image} alt={slide.alt} />
-              </Carousel.Item>
-            ))}
-          </Carousel.ItemGroup>
           <Carousel.NextTrigger />
         </Carousel.Control>
-        <SlideIndicators slides={gallerySlides} />
+        <Carousel.Indicators />
       </Carousel.RootProvider>
     </div>
   );
@@ -475,8 +451,8 @@ export function RootProviderCarouselExample() {
 
 export function ScrollToCarouselExample() {
   return (
-    <Carousel.Root slideCount={gallerySlides.length} className={styles.carousel}>
-      <ArkCarousel.Context>
+    <Carousel slideCount={gallerySlides.length} className={styles.carousel}>
+      <Carousel.Context>
         {(api) => (
           <div className={styles.toolbar}>
             <Button onClick={() => api.scrollToIndex(3)} variant="outline">
@@ -484,7 +460,7 @@ export function ScrollToCarouselExample() {
             </Button>
           </div>
         )}
-      </ArkCarousel.Context>
+      </Carousel.Context>
       <Carousel.ItemGroup aria-label="Scroll to travel gallery">
         {gallerySlides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -496,14 +472,14 @@ export function ScrollToCarouselExample() {
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />
       </Carousel.Control>
-      <SlideIndicators slides={gallerySlides} />
-    </Carousel.Root>
+      <Carousel.Indicators />
+    </Carousel>
   );
 }
 
 export function SlidesPerPageCarouselExample() {
   return (
-    <Carousel.Root
+    <Carousel
       slideCount={gallerySlides.length}
       slidesPerPage={2}
       spacing="var(--spacing-3)"
@@ -520,14 +496,14 @@ export function SlidesPerPageCarouselExample() {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <PageIndicators />
-    </Carousel.Root>
+      <Carousel.Indicators />
+    </Carousel>
   );
 }
 
 export function SpacingCarouselExample() {
   return (
-    <Carousel.Root
+    <Carousel
       slideCount={gallerySlides.length}
       slidesPerPage={1.5}
       spacing="3rem"
@@ -543,25 +519,25 @@ export function SpacingCarouselExample() {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <PageIndicators />
+        <Carousel.Indicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function ThumbnailIndicatorCarouselExample() {
   return (
-    <Carousel.Root slideCount={gallerySlides.length} className={styles.carousel}>
-      <Carousel.Control>
+    <Carousel slideCount={gallerySlides.length} className={styles.carousel}>
+      <Carousel.ItemGroup aria-label="Travel gallery with thumbnail indicators">
+        {gallerySlides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
         <Carousel.PrevTrigger />
-        <Carousel.ItemGroup aria-label="Travel gallery with thumbnail indicators">
-          {gallerySlides.map((slide, index) => (
-            <Carousel.Item key={slide.id} index={index}>
-              <ImageSlide src={slide.image} alt={slide.alt} />
-            </Carousel.Item>
-          ))}
-        </Carousel.ItemGroup>
         <Carousel.NextTrigger />
       </Carousel.Control>
       <Carousel.IndicatorGroup className={styles.thumbnailGroup}>
@@ -571,13 +547,13 @@ export function ThumbnailIndicatorCarouselExample() {
           </Carousel.Indicator>
         ))}
       </Carousel.IndicatorGroup>
-    </Carousel.Root>
+    </Carousel>
   );
 }
 
 export function VariableSizeCarouselExample() {
   return (
-    <Carousel.Root
+    <Carousel
       autoSize
       padding="var(--spacing-4)"
       spacing="var(--spacing-3)"
@@ -600,14 +576,14 @@ export function VariableSizeCarouselExample() {
           </Carousel.Item>
         ))}
       </Carousel.ItemGroup>
-      <PageIndicators />
-    </Carousel.Root>
+      <Carousel.Indicators />
+    </Carousel>
   );
 }
 
 export function VerticalCarouselExample() {
   return (
-    <Carousel.Root
+    <Carousel
       orientation="vertical"
       slideCount={gallerySlides.length}
       className={clsx(styles.carousel, styles.verticalCarousel)}
@@ -621,9 +597,53 @@ export function VerticalCarouselExample() {
       </Carousel.ItemGroup>
       <Carousel.Control>
         <Carousel.PrevTrigger />
-        <SlideIndicators slides={gallerySlides} />
+        <Carousel.Indicators />
         <Carousel.NextTrigger />
       </Carousel.Control>
-    </Carousel.Root>
+    </Carousel>
+  );
+}
+
+export function AdvancedCustomizationCarouselExample() {
+  return (
+    <Carousel
+      slideCount={gallerySlides.length}
+      slidesPerPage={2}
+      spacing="var(--spacing-3)"
+      className={clsx(styles.carousel, styles.wideCarousel)}
+    >
+      <Carousel.Context>
+        {(api) => (
+          <>
+            <div className={styles.toolbar}>
+              <Button
+                onClick={() => {
+                  api.scrollTo(1);
+                }}
+                variant="outline"
+              >
+                Go to slide 4
+              </Button>
+            </div>
+            <Carousel.Control>
+              <Carousel.PrevTrigger />
+              <Carousel.IndicatorGroup>
+                {api.pageSnapPoints.map((_, index) => (
+                  <Carousel.Indicator key={index} index={index} />
+                ))}
+              </Carousel.IndicatorGroup>
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </>
+        )}
+      </Carousel.Context>
+      <Carousel.ItemGroup aria-label="Advanced customization travel gallery">
+        {gallerySlides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} className={styles.shortSlide} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+    </Carousel>
   );
 }

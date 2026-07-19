@@ -12,9 +12,7 @@ export function FieldEditableDemo() {
           <Editable.Input />
           <Editable.Preview />
         </Editable.Area>
-        <Editable.Control>
-          <Editable.EditTrigger />
-        </Editable.Control>
+        <Editable.Controls />
       </Editable>
       <Field.ErrorText>Bio is required.</Field.ErrorText>
     </Field>

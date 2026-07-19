@@ -1,9 +1,9 @@
+import { Button, Field, SignaturePad, useSignaturePad } from '@moduix/react';
+import { RotateCcw as RotateCcwIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import { useSignaturePadContext } from '@ark-ui/react/signature-pad';
-import { Button, Field, RotateCcwIcon, SignaturePad, useSignaturePad } from '@moduix/react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './signature-pad.module.css';
 
 const initialSignaturePaths = [
@@ -212,13 +212,7 @@ function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
       {...props}
     >
       <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Control>
-        <SignaturePad.Segment />
-        <SignaturePad.ClearTrigger>
-          <RotateCcwIcon aria-hidden="true" />
-        </SignaturePad.ClearTrigger>
-        <SignaturePad.Guide />
-      </SignaturePad.Control>
+      <SignaturePad.Canvas />
     </SignaturePad>
   );
 }
@@ -269,12 +263,6 @@ export function DrawingSignaturePadExample() {
   return <SignaturePadParts drawing={{ fill: '#2563eb', size: 4, simulatePressure: false }} />;
 }
 
-function SignaturePadHiddenValue() {
-  const signaturePad = useSignaturePadContext();
-
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
-}
-
 export function FieldSignaturePadExample() {
   return (
     <Field className={styles.field} invalid required>
@@ -286,18 +274,40 @@ export function FieldSignaturePadExample() {
         }}
       >
         <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Control>
-          <SignaturePad.Segment />
-          <SignaturePad.ClearTrigger>
-            <RotateCcwIcon aria-hidden="true" />
-          </SignaturePad.ClearTrigger>
-          <SignaturePad.Guide />
-        </SignaturePad.Control>
-        <SignaturePadHiddenValue />
+        <SignaturePad.Canvas />
       </SignaturePad>
       <Field.HelperText>Use pointer or touch input to add a signature.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
     </Field>
+  );
+}
+
+export function FormSerializationSignaturePadExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  return (
+    <form
+      className={styles.stack}
+      onSubmit={(event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        setSubmitted(String(data.get('signature') ?? ''));
+      }}
+    >
+      <SignaturePad
+        name="signature"
+        getFormValue={(paths) => JSON.stringify(paths)}
+        translations={{
+          control: 'Signature drawing area',
+          clearTrigger: 'Clear signature',
+        }}
+      >
+        <SignaturePad.Label>Sign below</SignaturePad.Label>
+        <SignaturePad.Canvas />
+      </SignaturePad>
+      <button type="submit">Submit</button>
+      <output className={styles.status}>{submitted}</output>
+    </form>
   );
 }
 
@@ -313,15 +323,24 @@ export function RootProviderSignaturePadExample() {
     <div className={styles.stack}>
       <SignaturePad.RootProvider value={signaturePad}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Control>
-          <SignaturePad.Segment />
-          <SignaturePad.ClearTrigger>
-            <RotateCcwIcon aria-hidden="true" />
-          </SignaturePad.ClearTrigger>
-          <SignaturePad.Guide />
-        </SignaturePad.Control>
+        <SignaturePad.Canvas />
       </SignaturePad.RootProvider>
       <output className={styles.status}>Paths: {signaturePad.paths.length}</output>
     </div>
+  );
+}
+
+export function AdvancedCustomizationSignaturePadExample() {
+  return (
+    <SignaturePad>
+      <SignaturePad.Label>Sign below</SignaturePad.Label>
+      <SignaturePad.Control>
+        <SignaturePad.Segment />
+        <SignaturePad.ClearTrigger>
+          <RotateCcwIcon aria-hidden="true" />
+        </SignaturePad.ClearTrigger>
+        <SignaturePad.Guide />
+      </SignaturePad.Control>
+    </SignaturePad>
   );
 }

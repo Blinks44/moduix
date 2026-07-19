@@ -17,8 +17,14 @@ export function BreadcrumbsCollapsedDemo() {
         <Breadcrumbs.Separator />
         <Breadcrumbs.Item>
           <Menu positioning={{ placement: 'bottom-start' }}>
-            <Menu.Trigger aria-label="Show hidden path items" className="collapsed-menu-trigger">
-              <Breadcrumbs.Ellipsis />
+            <Menu.Trigger asChild>
+              <button
+                type="button"
+                aria-label="Show hidden path items"
+                className="collapsed-menu-trigger"
+              >
+                <Breadcrumbs.Ellipsis />
+              </button>
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content className="collapsed-menu-content">

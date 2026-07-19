@@ -7,11 +7,7 @@ export function ValueTextNumberInputDemo() {
   return (
     <NumberInput defaultValue="42">
       <NumberInput.Label>Value preview</NumberInput.Label>
-      <NumberInput.Control>
-        <NumberInput.DecrementTrigger />
-        <NumberInput.Input />
-        <NumberInput.IncrementTrigger />
-      </NumberInput.Control>
+      <NumberInput.Field />
       <NumberInput.ValueText />
     </NumberInput>
   );

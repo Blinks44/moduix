@@ -12,23 +12,10 @@ export function SanitizeBlurTagsInput() {
     >
       <TagsInput.Label>Topics</TagsInput.Label>
       <TagsInput.Control>
-        <TagsInput.Context>
-          {(tagsInput) =>
-            tagsInput.value.map((item, index) => (
-              <TagsInput.Item key={`${item}-${index}`} index={index} value={item}>
-                <TagsInput.ItemPreview>
-                  <TagsInput.ItemText>{item}</TagsInput.ItemText>
-                  <TagsInput.ItemDeleteTrigger aria-label={`Remove ${item}`} />
-                </TagsInput.ItemPreview>
-                <TagsInput.ItemInput />
-              </TagsInput.Item>
-            ))
-          }
-        </TagsInput.Context>
+        <TagsInput.Items />
         <TagsInput.Input placeholder="Blur to add" />
         <TagsInput.ClearTrigger aria-label="Clear topics" />
       </TagsInput.Control>
-      <TagsInput.HiddenInput />
     </TagsInput>
   );
 }

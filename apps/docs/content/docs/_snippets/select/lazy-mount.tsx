@@ -72,7 +72,6 @@ export function SelectLazyMountDemo() {
           ))}
         </Select.Content>
       </Select.Positioner>
-      <Select.HiddenSelect />
     </Select>
   );
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { DatePicker as ArkDatePicker, type DateValue } from '@ark-ui/react/date-picker';
+import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
 import { DatePicker } from '@moduix/react';
 
@@ -14,11 +14,7 @@ export function YearPickerDemo() {
   return (
     <DatePicker defaultView="year" minView="year" format={format} parse={parse}>
       <DatePicker.Label>Year</DatePicker.Label>
-      <DatePicker.Control>
-        <DatePicker.Input placeholder="yyyy" />
-        <DatePicker.ClearTrigger aria-label="Clear year" />
-        <DatePicker.Trigger aria-label="Open calendar" />
-      </DatePicker.Control>
+      <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
       <DatePicker.Positioner>
         <DatePicker.Content>
           <DatePicker.View view="year">
@@ -27,7 +23,7 @@ export function YearPickerDemo() {
               <DatePicker.ViewTrigger />
               <DatePicker.NextTrigger />
             </DatePicker.ViewControl>
-            <ArkDatePicker.Context>
+            <DatePicker.Context>
               {(datePicker) => (
                 <DatePicker.Table columns={4}>
                   <DatePicker.TableBody>
@@ -53,7 +49,7 @@ export function YearPickerDemo() {
                   </DatePicker.TableBody>
                 </DatePicker.Table>
               )}
-            </ArkDatePicker.Context>
+            </DatePicker.Context>
           </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>

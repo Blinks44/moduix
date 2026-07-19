@@ -22,13 +22,13 @@ store with `Toaster`.
   <include lang="tsx">./_snippets/toast/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
-  
+<Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-toast" />
+<ShadcnInstall packageName="toast" />
 
 ## Anatomy
 
@@ -68,9 +68,14 @@ and the `Alt+T` focus hotkey.
 Use `Toast` as the short root form in application code. It is equivalent to `Toast.Root` and keeps
 the Ark namespace available for the child parts.
 
+With no render prop, `Toaster` renders the moduix default toast: title and description only when
+present, its action when provided, and a close button unless `closable: false` is set. This is the
+recommended path for standard application feedback.
+
 ### When to go custom
 
-Use the `Toaster` render prop when each toast needs custom layout, icons, or conditional controls.
+Use the `Toaster` render prop when each toast needs custom layout, icons, or controls that differ
+from the default. For example, use it to replace the default close icon.
 Keep `Toast.Root` as the outer item so Ark can preserve stacking, height measurement, dismiss
 lifecycle, pausing, keyboard focus, and type/state attributes.
 
@@ -90,7 +95,7 @@ advanced state hook to Ark.
 | `createToaster.hotkey`          | `["altKey", "KeyT"]` | Moves focus to the toast group.                                                            |
 | `createToaster.offsets`         | `"1rem"`             | Safe-edge offset for the toast group.                                                      |
 | `createToaster.overlap`         | `false`              | Ark stack mode. Use `true` for overlapped stacks.                                          |
-| `createToaster.pauseOnPageIdle` | `true`               | Pauses timers while the page is idle.                                                      |
+| `createToaster.pauseOnPageIdle` | `false`              | Set to `true` to pause timers while the page is idle.                                      |
 | `createToaster.placement`       | `"bottom"`           | Use Ark placements: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
 | `createToaster.removeDelay`     | `200`                | Keeps closed toasts mounted long enough for exit transitions.                              |
 
@@ -124,6 +129,22 @@ Use `action: { label, onClick }` when the toast should expose one direct follow-
 
   <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
   
+</Preview>
+
+### Always Expanded
+
+Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
+overlapping stack. This is an additional Ark store configuration, not a separate component mode.
+
+<Preview>
+  <ToastDocs.ExpandedToastExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/toast/always-expanded.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
+
 </Preview>
 
 ### Duration
@@ -219,29 +240,13 @@ change in place.
   
 </Preview>
 
-### Always Expanded
+### Advanced Customization
 
-Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
-overlapping stack. This is an additional Ark store configuration, not a separate component mode.
-
-<Preview>
-  <ToastDocs.ExpandedToastExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/toast/always-expanded.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{ToastDocs.toastExampleCss}</Preview.CSS>
-  
-</Preview>
-
-### Custom Composition
-
-Customize the render prop when the toast surface needs icons, a different internal layout, or
+This bypasses the default `Toaster` renderer to add an icon, replace the close icon, and use
 component-specific CSS variables.
 
 <Preview>
-  <ToastDocs.CustomToastExample />
+  <ToastDocs.AdvancedToastExample />
 
 <Preview.Code>
   <include lang="tsx">./_snippets/toast/custom-composition.tsx#demo</include>

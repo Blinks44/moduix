@@ -1,12 +1,17 @@
 @layer ui.components {
   @keyframes select-content-open {
     from {
-      opacity: var(--select-content-closed-opacity, 0);
-      transform: scale(var(--select-content-closed-scale, var(--scale-popup)));
+      opacity: var(--select-content-closed-opacity, var(--popup-motion-starting-opacity, 0));
+      translate: var(--popup-motion-starting-translate-x, 0)
+        var(--popup-motion-starting-translate-y, 0);
+      transform: scale(
+        var(--select-content-closed-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+      );
     }
 
     to {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
   }
@@ -14,12 +19,16 @@
   @keyframes select-content-closed {
     from {
       opacity: 1;
+      translate: 0 0;
       transform: scale(1);
     }
 
     to {
-      opacity: var(--select-content-closed-opacity, 0);
-      transform: scale(var(--select-content-closed-scale, var(--scale-popup)));
+      opacity: var(--select-content-closed-opacity, var(--popup-motion-ending-opacity, 0));
+      translate: var(--popup-motion-ending-translate-x, 0) var(--popup-motion-ending-translate-y, 0);
+      transform: scale(
+        var(--select-content-closed-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+      );
     }
   }
 
@@ -149,8 +158,7 @@
     transform: translateY(-50%);
   }
 
-  .indicator,
-  .clearTrigger {
+  .indicator {
     box-sizing: border-box;
     display: inline-flex;
     width: var(--select-action-size, 1.5rem);
@@ -191,16 +199,19 @@
   }
 
   .clearTrigger {
-    cursor: pointer;
+    --close-button-size: var(--select-action-size, 1.5rem);
+    --close-button-icon-size: var(--select-icon-size, 1rem);
+    --close-button-radius: var(--select-action-radius, var(--radius-sm));
+    --close-button-bg: var(--select-action-bg, transparent);
+    --close-button-bg-hover: var(--select-action-bg-hover, var(--color-muted));
+    --close-button-color: var(--select-icon-color, var(--color-muted-foreground));
+    --close-button-color-hover: var(--select-action-color-hover, var(--color-foreground));
+    --close-button-transition: var(--select-transition, var(--transition-default));
+
     pointer-events: auto;
 
-    &:not(:is([disabled], [data-disabled])) {
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--select-action-bg-hover, var(--color-muted));
-          color: var(--select-action-color-hover, var(--color-foreground));
-        }
-      }
+    &[hidden] {
+      display: none;
     }
   }
 
@@ -231,11 +242,21 @@
     scroll-padding-block: var(--select-content-padding-y, var(--spacing-1));
 
     &[data-state='open'] {
-      animation: select-content-open var(--select-transition, var(--transition-default));
+      animation: select-content-open
+        var(
+          --select-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
     }
 
     &[data-state='closed'] {
-      animation: select-content-closed var(--select-transition, var(--transition-default));
+      animation: select-content-closed
+        var(
+          --select-transition,
+          var(--popup-motion-duration, var(--duration-normal))
+            var(--popup-motion-easing, var(--ease-in-out))
+        );
       pointer-events: none;
     }
   }

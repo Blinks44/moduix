@@ -1,7 +1,7 @@
-import type { ComponentProps } from 'react';
 import { Heading } from '@moduix/react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { ComponentProps } from 'react';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './heading.module.css';
 
 export const headingLevels = [

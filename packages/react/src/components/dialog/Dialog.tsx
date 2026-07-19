@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Dialog as DialogPrimitive } from '@ark-ui/react/dialog';
+import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -186,5 +186,5 @@ const Dialog = Object.assign(DialogRoot, {
   Footer: DialogFooter,
 });
 
-export { Dialog };
+export { Dialog, useDialog, useDialogContext };
 export type { DialogRootProps, DialogRootProviderProps };

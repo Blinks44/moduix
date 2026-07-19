@@ -1,6 +1,6 @@
 //#region demo
-import { Button, PlusIcon } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
+import { Button } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
 
 const labels = {
   create: 'Create Item',
@@ -12,7 +12,7 @@ export function ButtonIconsDemo() {
   return (
     <div className="button-demo-row">
       <Button>
-        <PlusIcon />
+        <PlusIcon data-icon="inline-start" />
         {labels.create}
       </Button>
       <Button size="icon-md" variant="outline" aria-label={labels.favorite}>
@@ -20,7 +20,7 @@ export function ButtonIconsDemo() {
       </Button>
       <Button variant="link">
         {labels.docs}
-        <ArrowUpRightIcon />
+        <ArrowUpRightIcon data-icon="inline-end" />
       </Button>
     </div>
   );

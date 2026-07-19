@@ -1,9 +1,8 @@
 import type { LightboxImageSelectDetails } from '@moduix/react';
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
-import { Carousel, Lightbox } from '@moduix/react';
+import { Carousel, Lightbox, useLightbox, useLightboxContext } from '@moduix/react';
 import { useRef, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const images = [
   {
@@ -29,19 +28,15 @@ const images = [
   },
 ];
 
-export const lightboxExampleCss = `
-  .lightbox-trigger,
-  .lightbox-gallery-trigger {
+const lightboxTriggerCss = `
+  .lightbox-trigger {
     display: block;
     margin: 0;
     border: 0;
+    border-radius: var(--radius-md);
     padding: 0;
     background: transparent;
     cursor: zoom-in;
-  }
-
-  .lightbox-trigger {
-    border-radius: var(--radius-md);
   }
 
   .lightbox-trigger img {
@@ -52,13 +47,17 @@ export const lightboxExampleCss = `
     border-radius: inherit;
     object-fit: cover;
   }
+`;
 
+const lightboxStackCss = `
   .lightbox-stack {
     display: grid;
     justify-items: center;
     gap: var(--spacing-3);
   }
+`;
 
+const lightboxButtonCss = `
   .lightbox-button {
     border: 0;
     border-radius: var(--radius-md);
@@ -67,7 +66,9 @@ export const lightboxExampleCss = `
     color: var(--color-foreground);
     font: inherit;
   }
+`;
 
+const lightboxGalleryCss = `
   .lightbox-gallery {
     display: grid;
     width: min(36rem, calc(100vw - var(--spacing-10)));
@@ -76,8 +77,14 @@ export const lightboxExampleCss = `
   }
 
   .lightbox-gallery-trigger {
+    display: block;
+    margin: 0;
     width: 100%;
+    border: 0;
     border-radius: var(--radius-sm);
+    padding: 0;
+    background: transparent;
+    cursor: zoom-in;
   }
 
   .lightbox-gallery-trigger img {
@@ -87,7 +94,9 @@ export const lightboxExampleCss = `
     border-radius: inherit;
     object-fit: cover;
   }
+`;
 
+const lightboxStatusCss = `
   .lightbox-status {
     position: absolute;
     inset-block-end: var(--spacing-3);
@@ -99,7 +108,9 @@ export const lightboxExampleCss = `
     color: white;
     font-size: var(--text-sm);
   }
+`;
 
+const lightboxCustomizationCss = `
   .lightbox-custom-backdrop {
     --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
   }
@@ -116,6 +127,18 @@ export const lightboxExampleCss = `
     --lightbox-close-icon-radius: var(--radius-md);
   }
 `;
+
+export const lightboxBasicCss = lightboxTriggerCss;
+export const lightboxBindCmsContentCss = lightboxGalleryCss;
+export const lightboxClickToCloseImageCss = lightboxButtonCss;
+export const lightboxControlledCss = `${lightboxStackCss}${lightboxButtonCss}`;
+export const lightboxFocusAndIdsCss = `${lightboxStackCss}${lightboxButtonCss}${lightboxStatusCss}`;
+export const lightboxGalleryExampleCss = lightboxGalleryCss;
+export const lightboxLazyMountCss = lightboxButtonCss;
+export const lightboxMultipleTriggersCss = lightboxGalleryCss;
+export const lightboxNonModalCss = `${lightboxStackCss}${lightboxButtonCss}`;
+export const lightboxRootProviderCss = `${lightboxStackCss}${lightboxButtonCss}${lightboxStatusCss}`;
+export const lightboxAdvancedCustomizationCss = `${lightboxButtonCss}${lightboxCustomizationCss}`;
 
 export const lightboxImagesData = `
   const images = [
@@ -145,42 +168,126 @@ export const lightboxEmptyData = '// No additional data is required.';
 export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Backdrop fill.'],
   ['--lightbox-backdrop-blur', '4px', 'Backdrop blur radius.'],
+  ['--lightbox-backdrop-ending-blur', 'none', 'Customizes lightbox backdrop ending blur.'],
+  ['--lightbox-backdrop-ending-opacity', '0', 'Customizes lightbox backdrop ending opacity.'],
+  ['--lightbox-backdrop-starting-blur', 'none', 'Customizes lightbox backdrop starting blur.'],
+  ['--lightbox-backdrop-starting-opacity', '0', 'Customizes lightbox backdrop starting opacity.'],
   ['--lightbox-backdrop-transition', 'var(--transition-default)', 'Backdrop motion timing.'],
-  ['--lightbox-positioner-padding', 'var(--spacing-4)', 'Viewport edge padding.'],
-  ['--lightbox-content-max-width', '80vw', 'Maximum content width.'],
-  ['--lightbox-content-max-height', '80dvh', 'Maximum content height.'],
-  ['--lightbox-transition', '220ms ease', 'Content motion timing.'],
-  ['--lightbox-gallery-max-width', '72rem', 'Maximum gallery width.'],
-  ['--lightbox-gallery-aspect-ratio', '16 / 10', 'Gallery viewport aspect ratio.'],
-  ['--lightbox-gallery-track-max-height', '68dvh', 'Maximum gallery viewport height.'],
-  ['--lightbox-gallery-gap', 'var(--spacing-4)', 'Space between carousel parts.'],
+  ['--lightbox-close-icon-bg', 'var(--color-background)', 'Close control background.'],
+  ['--lightbox-close-icon-bg-hover', 'var(--color-muted)', 'Close control hover background.'],
   [
-    '--lightbox-gallery-track-bg',
-    'color-mix(in oklab, black 88%, var(--color-background) 12%)',
-    'Gallery viewport background.',
+    '--lightbox-close-icon-color',
+    'var(--color-foreground)',
+    'Customizes lightbox close icon color.',
   ],
-  ['--lightbox-gallery-thumbnail-width', '5rem', 'Thumbnail indicator width.'],
-  ['--lightbox-gallery-thumbnail-height', '3rem', 'Thumbnail indicator height.'],
-  ['--lightbox-gallery-thumbnail-radius', 'var(--radius-md)', 'Thumbnail indicator corner radius.'],
-  ['--lightbox-gallery-thumbnail-opacity', '0.65', 'Idle thumbnail opacity.'],
-  ['--lightbox-gallery-thumbnail-opacity-hover', '0.9', 'Hovered thumbnail opacity.'],
+  [
+    '--lightbox-close-icon-color-hover',
+    'var(--color-foreground)',
+    'Customizes lightbox close icon color hover.',
+  ],
+  [
+    '--lightbox-close-icon-focus-ring-color',
+    'var(--color-ring)',
+    'Customizes lightbox close icon focus ring color.',
+  ],
+  ['--lightbox-close-icon-glyph-size', '0.875rem', 'Close glyph size.'],
+  [
+    '--lightbox-close-icon-inset-block-start',
+    'var(--spacing-4)',
+    'Customizes lightbox close icon inset block start.',
+  ],
+  [
+    '--lightbox-close-icon-inset-inline-end',
+    'var(--spacing-4)',
+    'Customizes lightbox close icon inset inline end.',
+  ],
+  ['--lightbox-close-icon-radius', 'var(--radius-sm)', 'Close control radius.'],
+  ['--lightbox-close-icon-size', '2rem', 'Close control size.'],
+  ['--lightbox-content-gap', 'var(--spacing-3)', 'Customizes lightbox content gap.'],
+  ['--lightbox-content-ending-opacity', '0', 'Customizes lightbox content ending opacity.'],
+  ['--lightbox-content-ending-scale', '0.82', 'Customizes lightbox content ending scale.'],
+  ['--lightbox-content-ending-translate-x', '0', 'Customizes lightbox content ending translate x.'],
+  ['--lightbox-content-ending-translate-y', '0', 'Customizes lightbox content ending translate y.'],
+  ['--lightbox-content-max-height', '80dvh', 'Maximum content height.'],
+  ['--lightbox-content-max-width', '80vw', 'Maximum content width.'],
+  ['--lightbox-content-starting-opacity', '0', 'Customizes lightbox content starting opacity.'],
+  ['--lightbox-content-starting-scale', '0.82', 'Customizes lightbox content starting scale.'],
+  [
+    '--lightbox-content-starting-translate-x',
+    '0',
+    'Customizes lightbox content starting translate x.',
+  ],
+  [
+    '--lightbox-content-starting-translate-y',
+    '0',
+    'Customizes lightbox content starting translate y.',
+  ],
+  [
+    '--lightbox-description-color',
+    'var(--color-muted-foreground)',
+    'Customizes lightbox description color.',
+  ],
+  [
+    '--lightbox-description-font-size',
+    'var(--text-sm)',
+    'Customizes lightbox description font size.',
+  ],
+  [
+    '--lightbox-description-line-height',
+    'var(--line-height-text-sm)',
+    'Customizes lightbox description line height.',
+  ],
+  ['--lightbox-footer-color', 'var(--color-muted-foreground)', 'Customizes lightbox footer color.'],
+  ['--lightbox-footer-font-size', 'var(--text-sm)', 'Customizes lightbox footer font size.'],
+  ['--lightbox-footer-gap', 'var(--spacing-2)', 'Customizes lightbox footer gap.'],
+  ['--lightbox-footer-justify', 'flex-end', 'Customizes lightbox footer justify.'],
+  [
+    '--lightbox-footer-line-height',
+    'var(--line-height-text-sm)',
+    'Customizes lightbox footer line height.',
+  ],
+  ['--lightbox-gallery-aspect-ratio', '16 / 10', 'Gallery viewport aspect ratio.'],
+  ['--lightbox-gallery-gap', 'var(--spacing-4)', 'Space between carousel parts.'],
+  ['--lightbox-gallery-max-width', '72rem', 'Maximum gallery width.'],
   [
     '--lightbox-gallery-thumbnail-border-color',
     'var(--color-primary)',
     'Current thumbnail border color.',
   ],
-  ['--lightbox-media-max-width', '80vw', 'Maximum media width.'],
+  ['--lightbox-gallery-thumbnail-height', '3rem', 'Thumbnail indicator height.'],
+  ['--lightbox-gallery-thumbnail-opacity', '0.65', 'Idle thumbnail opacity.'],
+  ['--lightbox-gallery-thumbnail-opacity-hover', '0.9', 'Hovered thumbnail opacity.'],
+  ['--lightbox-gallery-thumbnail-radius', 'var(--radius-md)', 'Thumbnail indicator corner radius.'],
+  ['--lightbox-gallery-thumbnail-width', '5rem', 'Thumbnail indicator width.'],
+  [
+    '--lightbox-gallery-track-bg',
+    'color-mix(in oklab, black 88%, var(--color-background) 12%)',
+    'Gallery viewport background.',
+  ],
+  ['--lightbox-gallery-track-max-height', '68dvh', 'Maximum gallery viewport height.'],
+  ['--lightbox-header-gap', 'var(--spacing-1)', 'Customizes lightbox header gap.'],
+  ['--lightbox-body-gap', 'var(--spacing-3)', 'Customizes lightbox body gap.'],
   ['--lightbox-media-max-height', '80dvh', 'Maximum media height.'],
+  ['--lightbox-media-max-width', '80vw', 'Maximum media width.'],
   ['--lightbox-media-radius', 'var(--radius-md)', 'Media corner radius.'],
   ['--lightbox-media-shadow', 'var(--shadow-lg)', 'Media shadow.'],
-  ['--lightbox-close-icon-size', '2rem', 'Close control size.'],
-  ['--lightbox-close-icon-glyph-size', '0.875rem', 'Close glyph size.'],
-  ['--lightbox-close-icon-radius', 'var(--radius-sm)', 'Close control radius.'],
-  ['--lightbox-close-icon-bg', 'var(--color-background)', 'Close control background.'],
-  ['--lightbox-close-icon-bg-hover', 'var(--color-muted)', 'Close control hover background.'],
-  ['--lightbox-trigger-focus-ring-width', 'var(--border-width-md)', 'Trigger focus ring width.'],
+  ['--lightbox-positioner-padding', 'var(--spacing-4)', 'Viewport edge padding.'],
+  ['--lightbox-title-color', 'var(--color-foreground)', 'Customizes lightbox title color.'],
+  ['--lightbox-title-font-size', 'var(--text-md)', 'Customizes lightbox title font size.'],
+  [
+    '--lightbox-title-font-weight',
+    'var(--weight-semibold)',
+    'Customizes lightbox title font weight.',
+  ],
+  [
+    '--lightbox-title-line-height',
+    'var(--line-height-text-md)',
+    'Customizes lightbox title line height.',
+  ],
   ['--lightbox-trigger-focus-ring-color', 'var(--color-ring)', 'Trigger focus ring color.'],
   ['--lightbox-trigger-focus-ring-offset', '2px', 'Trigger focus ring offset.'],
+  ['--lightbox-trigger-focus-ring-width', 'var(--border-width-md)', 'Trigger focus ring width.'],
+  ['--lightbox-transition', '220ms ease', 'Content motion timing.'],
 ];
 
 export function LightboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -226,7 +333,7 @@ function LightboxSurface({
 export function LightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxBasicCss}</style>
       <Lightbox>
         <Lightbox.Trigger asChild>
           <button type="button" className="lightbox-trigger">
@@ -244,7 +351,7 @@ export function ControlledLightboxExample() {
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxControlledCss}</style>
       <span>{open ? 'Open' : 'Closed'}</span>
       <Lightbox open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Lightbox.Trigger className="lightbox-button">Open controlled lightbox</Lightbox.Trigger>
@@ -257,7 +364,7 @@ export function ControlledLightboxExample() {
 export function ClickToCloseLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxClickToCloseImageCss}</style>
       <Lightbox>
         <Lightbox.Trigger className="lightbox-button">
           Open click-to-close lightbox
@@ -273,7 +380,7 @@ export function MultipleTriggersLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxMultipleTriggersCss}</style>
       <Lightbox
         onTriggerValueChange={(details) => {
           setActiveImage(images.find((image) => image.id === details.value) ?? images[0]);
@@ -300,7 +407,7 @@ export function GalleryLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxGalleryExampleCss}</style>
       <Lightbox
         onTriggerValueChange={(details) => {
           const nextIndex = images.findIndex((image) => image.id === details.value);
@@ -359,7 +466,7 @@ export function BoundLightboxExample() {
 
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxBindCmsContentCss}</style>
       <div ref={rootRef} className="lightbox-gallery">
         {images.map((image) => (
           <button key={image.id} type="button" className="lightbox-gallery-trigger">
@@ -389,7 +496,7 @@ export function FocusLightboxExample() {
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxFocusAndIdsCss}</style>
       <button ref={triggerRef} type="button" className="lightbox-button">
         Focus returns here
       </button>
@@ -418,8 +525,8 @@ export function FocusLightboxExample() {
 export function NonModalLightboxExample() {
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
-      <Lightbox modal={false} trapFocus={false} preventScroll={false}>
+      <style>{lightboxNonModalCss}</style>
+      <Lightbox modal={false}>
         <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
         <LightboxSurface src={images[2].src} alt={images[2].alt} />
       </Lightbox>
@@ -431,11 +538,11 @@ export function NonModalLightboxExample() {
 }
 
 export function RootProviderLightboxExample() {
-  const lightbox = useDialog();
+  const lightbox = useLightbox();
 
   return (
     <div className="lightbox-stack">
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxRootProviderCss}</style>
       <button type="button" className="lightbox-button" onClick={() => lightbox.setOpen(true)}>
         Lightbox is {lightbox.open ? 'open' : 'closed'}
       </button>
@@ -454,7 +561,7 @@ export function RootProviderLightboxExample() {
 }
 
 function LightboxStatus() {
-  const dialog = useDialogContext();
+  const dialog = useLightboxContext();
 
   return <span className="lightbox-status">Preview is {dialog.open ? 'open' : 'closed'}</span>;
 }
@@ -462,7 +569,7 @@ function LightboxStatus() {
 export function LazyMountLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxLazyMountCss}</style>
       <Lightbox lazyMount unmountOnExit>
         <Lightbox.Trigger className="lightbox-button">Open lazy lightbox</Lightbox.Trigger>
         <LightboxSurface src={images[0].src} alt={images[0].alt} />
@@ -474,7 +581,7 @@ export function LazyMountLightboxExample() {
 export function CustomizedLightboxExample() {
   return (
     <>
-      <style>{lightboxExampleCss}</style>
+      <style>{lightboxAdvancedCustomizationCss}</style>
       <Lightbox>
         <Lightbox.Trigger className="lightbox-button">Open styled lightbox</Lightbox.Trigger>
         <Lightbox.Backdrop className="lightbox-custom-backdrop" />

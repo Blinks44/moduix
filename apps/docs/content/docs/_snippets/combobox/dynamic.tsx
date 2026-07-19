@@ -30,10 +30,9 @@ export function DynamicComboboxDemo() {
         <Combobox.Content>
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item} item={item}>
-                <Combobox.ItemText>{item}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item} item={item}>
+                {item}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>

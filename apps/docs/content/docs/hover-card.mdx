@@ -23,13 +23,13 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
   <include lang="tsx">./_snippets/hover-card/basic.tsx#demo</include>
 </Preview.Code>
 
-  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
-  
+<Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+
 </Preview>
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-hover-card" />
+<ShadcnInstall packageName="hover-card" />
 
 ## Anatomy
 
@@ -43,13 +43,13 @@ HoverCard / HoverCard.Root
             └─ HoverCard.ArrowTip
 
 HoverCard.RootProvider
-└─ same part tree connected to an Ark useHoverCard() store
+└─ same part tree connected to a moduix useHoverCard() store
 ```
 
 | Part                           | Role                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------ |
 | `HoverCard` / `HoverCard.Root` | Root state, delays, positioning, ids, presence, and outside interaction. |
-| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by Ark `useHoverCard`.     |
+| `HoverCard.RootProvider`       | Renders a hover card tree from state returned by moduix `useHoverCard`.  |
 | `HoverCard.Trigger`            | Hover and focus target. Use `asChild` for links or custom hosts.         |
 | `HoverCard.Positioner`         | Floating layer that exposes Ark positioning CSS variables.               |
 | `HoverCard.Content`            | Visible popup surface and dismissable layer.                             |
@@ -70,9 +70,8 @@ controlled state, lazy mounting, and presence on `HoverCard`; style and animate 
 
 Use `asChild` on `HoverCard.Trigger` when the trigger should be a real link or your own semantic
 button. Use `HoverCard.ArrowTip` directly when the default arrow tip needs custom markup. Use
-`HoverCard.RootProvider` only when state created with Ark `useHoverCard()` must be shared outside
-the rendered tree. For inline state reads, import Ark `HoverCard.Context` or `useHoverCardContext`
-directly from `@ark-ui/react/hover-card`.
+`HoverCard.RootProvider` with moduix `useHoverCard()` when state must be shared outside the rendered
+tree. Use `HoverCard.Context` or `useHoverCardContext()` for inline state reads.
 
 ### Default props
 
@@ -92,7 +91,25 @@ old boolean callback shape. Multiple triggers use `Trigger value` plus `onTrigge
 `ids` can pin trigger, content, positioner, and arrow IDs for composed accessibility. Animations are
 tied to `data-state='open' | 'closed'`; `present` is available for externally controlled presence.
 
+Hover cards are for supplementary previews only. Keep the information required to understand or
+complete a task visible without opening the card.
+
 ## Examples
+
+### Context
+
+Use `HoverCard.Context` to read state inline while keeping the moduix part tree for the visible
+structure.
+
+<Preview>
+  <HoverCardDocs.ContextHoverCardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/context.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`[data-slot="hover-card-trigger"] svg { width: 1em; height: 1em; }`}</Preview.CSS>
+
+</Preview>
 
 ### Controlled
 
@@ -105,21 +122,6 @@ Control the open state with `open` and `onOpenChange(details)`.
   <include lang="tsx">./_snippets/hover-card/controlled.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{`[data-slot="hover-card-trigger"][data-state="open"] { text-decoration-color: currentColor; }`}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Create the machine state with Ark `useHoverCard()` when external controls need to read or update
-it.
-
-<Preview>
-  <HoverCardDocs.RootProviderHoverCardExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/hover-card/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
   
 </Preview>
 
@@ -137,33 +139,33 @@ Tune hover timing with `openDelay` and `closeDelay` on the root.
   
 </Preview>
 
-### Positioning
+### Dialog
 
-Pass Ark positioning options through the `positioning` prop.
+Render the hover card inline inside a dialog so it stays in the dialog's overlay layer. By default,
+Dialog focuses the first interactive element, which can be the hover-card trigger and open the card
+after `openDelay`. Keep that behavior when the preview should open with the dialog. Pass
+`initialFocusEl` to focus another element when the card should remain closed until hover or focus.
 
 <Preview>
-  <HoverCardDocs.PositioningHoverCardExample />
+  <HoverCardDocs.DialogHoverCardExample />
 
-  <Preview.Code>
-  <include lang="tsx">./_snippets/hover-card/positioning.tsx#demo</include>
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/dialog.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-min-width: 12rem; }`}</Preview.CSS>
-  
+
 </Preview>
 
-### Context
+### Disabled
 
-For inline state reads, import Ark `HoverCard.Context` directly and keep the moduix part tree for
-the visible structure.
+Set `disabled` to prevent the card from opening while preserving the trigger's visible content.
 
 <Preview>
-  <HoverCardDocs.ContextHoverCardExample />
+  <HoverCardDocs.DisabledHoverCardExample />
 
-  <Preview.Code>
-  <include lang="tsx">./_snippets/hover-card/context.tsx#demo</include>
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/disabled.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{`[data-slot="hover-card-trigger"] svg { width: 1em; height: 1em; }`}</Preview.CSS>
-  
+
 </Preview>
 
 ### Multiple Triggers
@@ -179,6 +181,35 @@ Share one content surface across trigger values with `Trigger value` and
 </Preview.Code>
   <Preview.CSS>{`[data-slot="hover-card-trigger"][data-current] { font-weight: var(--weight-semibold); }`}</Preview.CSS>
   
+</Preview>
+
+### Positioning
+
+Pass Ark positioning options through the `positioning` prop.
+
+<Preview>
+  <HoverCardDocs.PositioningHoverCardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/positioning.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-min-width: 12rem; }`}</Preview.CSS>
+
+</Preview>
+
+### Root Provider
+
+Create the state with moduix `useHoverCard()` when controls outside the card need to read or update
+it.
+
+<Preview>
+  <HoverCardDocs.RootProviderHoverCardExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/hover-card/root-provider.tsx#demo</include>
+</Preview.Code>
+<Preview.CSS>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</Preview.CSS>
+
 </Preview>
 
 ## Styling

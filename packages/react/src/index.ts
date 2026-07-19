@@ -1,4 +1,3 @@
-export * from './lib/moduix/icons/ui';
 export { Portal } from '@ark-ui/react/portal';
 
 export * from './components/aspect-ratio';
@@ -31,6 +30,7 @@ export * from './components/fieldset';
 export * from './components/floating-panel';
 export * from './components/heading';
 export * from './components/highlight';
+export * from './components/image';
 export * from './components/image-cropper';
 export * from './components/input';
 export * from './components/input-group';
@@ -67,6 +67,7 @@ export * from './components/spinner';
 export * from './components/split-button';
 export * from './components/stack';
 export * from './components/steps';
+export * from './components/swap';
 export * from './components/switch';
 export * from './components/tag';
 export * from './components/tags-input';

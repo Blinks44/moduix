@@ -1,4 +1,3 @@
-import type { ComponentProps, ComponentRef } from 'react';
 import {
   Tour as TourPrimitive,
   useTour,
@@ -8,6 +7,7 @@ import {
   waitForPromise,
 } from '@ark-ui/react/tour';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -231,6 +231,18 @@ const TourActionTrigger = forwardRef<
 
 const TourActions = TourPrimitive.Actions;
 
+function TourActionList({ className }: { className?: string }) {
+  return (
+    <TourPrimitive.Actions>
+      {(actions) =>
+        actions.map((action) => (
+          <TourActionTrigger key={action.label} action={action} className={className} />
+        ))
+      }
+    </TourPrimitive.Actions>
+  );
+}
+
 const Tour = Object.assign(TourRoot, {
   Root: TourRoot,
   Backdrop: TourBackdrop,
@@ -246,6 +258,7 @@ const Tour = Object.assign(TourRoot, {
   CloseIcon: TourCloseIcon,
   Control: TourControl,
   Actions: TourActions,
+  ActionList: TourActionList,
   ActionTrigger: TourActionTrigger,
 });
 

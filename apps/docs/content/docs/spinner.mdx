@@ -32,7 +32,7 @@ states. The default path announces loading automatically with `role="status"` an
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-spinner" />
+<ShadcnInstall packageName="spinner" />
 
 ## Anatomy
 
@@ -85,6 +85,8 @@ root props into the single child, so the child owns its visual contents.
   `data-slot="spinner-root"`, and `data-size`.
 - Non-decorative spinners render with `role="status"`.
 - `decorative={true}` switches the root to `role="presentation"` and `aria-hidden="true"`.
+- `Spinner` owns these semantics and its `data-scope`, `data-part`, `data-slot`, and `data-size`
+  hooks, so native props cannot override them.
 - The rotating wrapper is `data-scope="spinner"`, `data-part="indicator"`, and
   `data-slot="spinner-indicator"`.
 - Custom `children` replace only the default ring. The wrapper still owns sizing and rotation.
@@ -93,6 +95,22 @@ root props into the single child, so the child owns its visual contents.
 - Spinner motion is disabled automatically under `prefers-reduced-motion`.
 
 ## Examples
+
+### Custom Indicator
+
+Pass custom `children` when the default ring should be replaced but the size and status behavior
+should stay the same.
+
+<Preview>
+  <SpinnerDocs.SpinnerCustomIndicatorExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/spinner/custom-indicator.tsx#demo</include>
+</Preview.Code>
+
+<Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
+
+</Preview>
 
 ### Inline Loading Text
 
@@ -124,10 +142,10 @@ Use smaller sizes inside compact controls and larger sizes for standalone loadin
   
 </Preview>
 
-### As Child
+### Advanced Customization
 
-Use `asChild` when another semantic element needs to become the spinner root. The child receives the
-root attributes and class name, so it must render the visual indicator itself.
+Use `asChild` only when the root host itself must change. This bypasses the default root host, so the
+single child receives its attributes and class name and must render the visual indicator itself.
 
 <Preview>
   <SpinnerDocs.SpinnerAsChildExample />
@@ -137,22 +155,6 @@ root attributes and class name, so it must render the visual indicator itself.
 </Preview.Code>
 
   <Preview.CSS>{SpinnerDocs.spinnerAsChildCss}</Preview.CSS>
-  
-</Preview>
-
-### Custom Indicator
-
-Pass custom `children` when the default ring should be replaced but the size and status behavior
-should stay the same.
-
-<Preview>
-  <SpinnerDocs.SpinnerCustomIndicatorExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/spinner/custom-indicator.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{`/* No extra styles required. */`}</Preview.CSS>
   
 </Preview>
 

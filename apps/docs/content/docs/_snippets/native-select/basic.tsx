@@ -25,7 +25,7 @@ const frameworkOptions = [
 
 export function NativeSelectDemo() {
   return (
-    <NativeSelect defaultValue="">
+    <NativeSelect defaultValue="" aria-label="Framework">
       {frameworkOptions.map((option) => (
         <option key={option.value} value={option.value} disabled={option.disabled}>
           {option.label}

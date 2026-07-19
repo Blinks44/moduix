@@ -3,16 +3,23 @@
   "ignorePatterns": ["**/*.gen.ts", "wrangler.jsonc", "package-lock.json"],
   "singleQuote": true,
   "semi": true,
-  "experimentalSortImports": {
+  "sortImports": {
+    "internalPattern": ["@/", "components/", "data/", "icons/", "lib/"],
+    "newlinesBetween": false,
+    "sortSideEffects": true,
     "groups": [
-      "type-import",
-      ["value-builtin", "value-external"],
-      "type-internal",
-      "value-internal",
-      ["type-parent", "type-sibling", "type-index"],
-      ["value-parent", "value-sibling", "value-index"],
+      ["type-builtin", "value-builtin", "type-external", "value-external"],
+      ["type-internal", "value-internal"],
+      [
+        "type-parent",
+        "value-parent",
+        "type-sibling",
+        "value-sibling",
+        "type-index",
+        "value-index",
+        "style"
+      ],
       "unknown"
-    ],
-    "newlinesBetween": false
+    ]
   }
 }

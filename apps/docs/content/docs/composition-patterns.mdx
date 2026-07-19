@@ -18,6 +18,20 @@ That gives you a predictable customization ladder:
 These patterns stay the same whether you consume `@moduix/react` or install source through the
 registry.
 
+## Install with shadcn when you want to own the code
+
+Use the npm package when you want package-managed updates, imports from `@moduix/react`, and styles
+from `@moduix/react/style.css`.
+
+Use the `shadcn` registry when you want the component source files inside your application. It writes
+the selected component and its required moduix styles, icons, and utilities into your project, so you
+can change them directly and import them from `@/components/moduix/*`.
+
+Copy-owned components do not receive package updates automatically. When a newer moduix version is
+available, add it through `shadcn`, then review and merge the resulting diff on your terms. Follow the
+[Quick start](/docs/quick-start#install-components-into-your-project) for the one-time registry setup
+and component commands.
+
 ## Start from the documented part tree
 
 Start with the component page's anatomy before creating wrappers. Use `className`, CSS variables,
@@ -47,6 +61,9 @@ the state object lives outside the rendered subtree.
 
 ## What the structural parts are for
 
+Not every primitive exposes every part below. Start from the component page's anatomy, then keep the
+parts it documents visible when your product needs to override them.
+
 | Part         | Responsibility                                                                 |
 | ------------ | ------------------------------------------------------------------------------ |
 | `Backdrop`   | Provides modal separation and outside-interaction targeting.                   |
@@ -63,6 +80,8 @@ Use `asChild` when a moduix part should attach its behavior to an existing seman
 
 ```tsx
 import { Button, Popover } from '@moduix/react';
+// shadcn copy-owned: import { Button } from '@/components/moduix/button';
+// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
 
 export function FiltersPopover() {
   return (
@@ -81,10 +100,10 @@ export function FiltersPopover() {
 Keep a single semantic child that can receive Ark props. If the child component swallows refs,
 event handlers, or attributes, `asChild` will not behave correctly.
 
-## Share `ids` when composed parts should read as one control
+## Share `ids` only for cross-primitive relationships
 
-When two primitives must point at the same trigger or description node, share IDs instead of
-hand-writing aria relationships.
+Most compositions wire their own relationships automatically. When two primitives must point at the
+same trigger or description node, share IDs instead of hand-writing aria relationships.
 
 ```tsx
 import { Avatar, Tooltip } from '@moduix/react';
@@ -94,17 +113,15 @@ export function AssigneeTooltip() {
   const id = useId();
 
   return (
-    <Tooltip.Root ids={{ trigger: id }}>
+    <Tooltip ids={{ trigger: id }}>
       <Tooltip.Trigger asChild>
-        <Avatar.Root ids={{ root: id }}>
+        <Avatar ids={{ root: id }}>
           <Avatar.Image src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
-          <Avatar.Fallback>SA</Avatar.Fallback>
-        </Avatar.Root>
+          <Avatar.Fallback name="Segun Adebayo" />
+        </Avatar>
       </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>Segun Adebayo is online</Tooltip.Content>
-      </Tooltip.Positioner>
-    </Tooltip.Root>
+      <Tooltip.Body>Segun Adebayo is online</Tooltip.Body>
+    </Tooltip>
   );
 }
 ```
@@ -119,6 +136,7 @@ stable local API.
 
 ```tsx
 import { Dialog as DialogBase } from '@moduix/react';
+// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
 
 export const Dialog = DialogBase.Root;
 export const DialogTrigger = DialogBase.Trigger;
@@ -132,7 +150,8 @@ export const DialogCloseTrigger = DialogBase.CloseTrigger;
 
 This is the lowest-risk customization path:
 
-- consumers import from your product layer instead of directly from `moduix`
+- consumers import from your product layer instead of directly from `@moduix/react` or
+  `@/components/moduix/*`
 - Ark behavior stays untouched
 - moving from package usage to copy-owned usage stays straightforward
 - wrappers can be added later only where they are actually needed
@@ -147,34 +166,36 @@ styling. Keep the structure visible, and forward the rest of the props unchanged
     <Tab value="Code">
 
 ```tsx
-import type { ComponentProps, ReactNode } from 'react';
+import type { DialogBackdropProps, DialogContentProps } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
 import { Dialog as DialogBase } from '@moduix/react';
+// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
 import styles from './ProductDialog.module.css';
 
 export const Dialog = DialogBase.Root;
 export const DialogTrigger = DialogBase.Trigger;
+export const DialogPositioner = DialogBase.Positioner;
 
-export function DialogContent({ className, ...props }: ComponentProps<typeof DialogBase.Content>) {
+export function DialogContent({ className, ...props }: DialogContentProps) {
   return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
 }
 
-export function DialogBackdrop({
-  className,
-  ...props
-}: ComponentProps<typeof DialogBase.Backdrop>) {
+export function DialogBackdrop({ className, ...props }: DialogBackdropProps) {
   return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
 }
 
-export function ProductDialog({ children }: { children: ReactNode }) {
+export function DeleteProjectDialog() {
   return (
-    <DialogBase.Root>
-      <DialogBase.Trigger>Open</DialogBase.Trigger>
+    <Dialog>
+      <DialogTrigger>Delete project</DialogTrigger>
       <DialogBackdrop />
-      <DialogBase.Positioner>
-        <DialogContent>{children}</DialogContent>
-      </DialogBase.Positioner>
-    </DialogBase.Root>
+      <DialogPositioner>
+        <DialogContent>
+          <h2>Delete this project?</h2>
+          <p>This cannot be undone.</p>
+        </DialogContent>
+      </DialogPositioner>
+    </Dialog>
   );
 }
 ```
@@ -213,6 +234,24 @@ Use component state helpers only when state needs to live outside the rendered s
 - `Component.Context` for one-off inline reads
 - `useComponentContext()` inside descendants that already live under the root
 - `useComponent()` plus `Component.RootProvider` when state is created outside the rendered tree
+
+```tsx
+import { Dialog, useDialog } from '@moduix/react';
+
+export function DialogFromExternalState() {
+  const dialog = useDialog();
+
+  return (
+    <Dialog.RootProvider value={dialog}>
+      <Dialog.Trigger>Open dialog</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>State is owned by useDialog().</Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog.RootProvider>
+  );
+}
+```
 
 Do not render `Root` and `RootProvider` for the same state instance.
 

@@ -14,13 +14,8 @@ export function FieldStateColorPickerDemo() {
         <ColorPicker.Label>Accent color</ColorPicker.Label>
         <ColorPicker.Control>
           <ColorPicker.ChannelInput channel="hex" />
-          <ColorPicker.ChannelInput channel="alpha" />
-          <ColorPicker.Trigger aria-label="Open color picker">
-            <ColorPicker.TransparencyGrid />
-            <ColorPicker.ValueSwatch />
-          </ColorPicker.Trigger>
+          <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
-        <ColorPicker.HiddenInput />
       </ColorPicker>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>

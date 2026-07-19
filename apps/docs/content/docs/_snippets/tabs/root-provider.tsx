@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useTabs } from '@ark-ui/react/tabs';
-import { Tabs } from '@moduix/react';
+import { Tabs, useTabs } from '@moduix/react';
 
 const items = [
   {

@@ -75,21 +75,25 @@ export function Example() {
 ## Upstream feature coverage
 
 Covered Ark examples: basic composition, controlled `open` with `onOpenChange(details)`,
-`RootProvider` with Ark `useHoverCard`, `openDelay`/`closeDelay`, `positioning`, and multiple
-triggers through `Trigger value` plus `onTriggerValueChange(details)`. Ark `Context`,
-`useHoverCard`, `useHoverCardContext`, and event/detail types are intentionally not re-exported
-from moduix; import them from `@ark-ui/react/hover-card` for advanced workflows.
+`RootProvider` with moduix `useHoverCard`, `openDelay`/`closeDelay`, `disabled`, `positioning`, and
+multiple triggers through `Trigger value` plus `onTriggerValueChange(details)`. Moduix re-exports
+`useHoverCard` and `useHoverCardContext`, and exposes Ark `Context` as `HoverCard.Context`. Event
+and detail types remain available from Ark for rare type-level escape hatches.
 
 ## Accessibility and state
 
 Ark owns hover/focus behavior, dismissable layer behavior, controlled/uncontrolled state, ids, and
-keyboard/focus lifecycle. `asChild` must receive a single semantic child that can preserve the
+keyboard/focus lifecycle. Use the card only for supplementary previews: required information must
+remain available without it. `asChild` must receive a single semantic child that can preserve the
 trigger behavior. Styling should target Ark `data-scope="hover-card"`, `data-part`, `data-state`,
 `data-placement`, `data-side`, `data-value`, `data-current`, and moduix `data-slot` hooks. For
-advanced state reads or external state ownership, use Ark `Context`, `useHoverCard`, or
-`useHoverCardContext` directly from `@ark-ui/react/hover-card`.
+advanced state reads or external state ownership, use `HoverCard.Context`, `useHoverCard`, or
+`useHoverCardContext` from `@moduix/react`.
 
 ## Defaults and styling
+
+Content motion falls back to the shared `--popup-motion-*` tokens; `--hover-card-*` motion
+variables remain the more specific override.
 
 Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, and `ArrowTip`.
 Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`. Positioning and
@@ -100,19 +104,27 @@ and `--arrow-offset`. Public theme variables use the `--hover-card-*` prefix.
 ## Intentional sugar and differences from upstream
 
 `HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. The root owns the portal
-boundary. `RootProvider` stays public, but Ark `Context`, hooks, and utility types are no longer
-re-exported from moduix. No legacy `PreviewCard*` aliases are exported.
+boundary. Use `portalled={false}` for a hover card inside a dialog or another overlay that must keep
+its positioner in the parent layer. Dialog auto-focus can focus a hover-card trigger and open the
+card after `openDelay`; use Dialog `initialFocusEl` to choose another initial target when needed.
+`HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` are moduix-owned paths to the
+corresponding Ark state surfaces. No legacy `PreviewCard*` aliases are exported.
 
 ## Agent notes
 
 Keep popup structure explicit. Do not reintroduce `HoverCardContent` sugar that hides positioner
 and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `render`,
 `Popup`, `Viewport`, or `Backdrop` compatibility.
-Keep `RootProvider` compatible with Ark-owned state, but keep Ark context hooks and utility types
-out of the moduix public surface.
+Keep `RootProvider` compatible with Ark-owned state. Preserve the moduix context and hook exports;
+Ark utility types remain direct-import escape hatches.
 
 ## Local changelog
 
+- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-10: Exposed `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` through
+  moduix; documented disabled state, overlay nesting, and the supplementary-content constraint.
+- 2026-07-10: Documented how Dialog initial focus can intentionally open a nested hover card or
+  keep it closed until hover or focus.
 - 2026-07-03: Removed moduix re-exports of Ark hover-card context hooks and utility types; kept
   `RootProvider`, explicit structure, root refs, and root `data-slot` hooks.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.

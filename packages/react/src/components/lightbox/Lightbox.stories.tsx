@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useDialog, useDialogContext } from '@ark-ui/react/dialog';
 import { useRef, useState } from 'react';
-import type { LightboxImageSelectDetails } from './Lightbox';
 import { Carousel } from '../carousel';
-import { Lightbox } from './Lightbox';
+import type { LightboxImageSelectDetails } from './Lightbox';
+import { Lightbox, useLightbox, useLightboxContext } from './Lightbox';
 import styles from './Lightbox.stories.module.css';
 
 const images = [
@@ -57,7 +56,7 @@ function ClickToCloseLightboxSurface({ src, alt }: { src: string; alt: string })
 }
 
 function LightboxStatus() {
-  const dialog = useDialogContext();
+  const dialog = useLightboxContext();
 
   return <span className={styles.status}>Preview is {dialog.open ? 'open' : 'closed'}</span>;
 }
@@ -132,7 +131,7 @@ export const MultipleTriggers: Story = {
 
 export const RootProviderAndContext: Story = {
   render: () => {
-    const lightbox = useDialog();
+    const lightbox = useLightbox();
 
     return (
       <div className={styles.stack}>
@@ -146,7 +145,7 @@ export const RootProviderAndContext: Story = {
             <Lightbox.Content aria-label={images[2].alt}>
               <Lightbox.Header>
                 <Lightbox.Title>{images[2].alt}</Lightbox.Title>
-                <Lightbox.Description>State comes from Ark useDialog.</Lightbox.Description>
+                <Lightbox.Description>State comes from useLightbox.</Lightbox.Description>
               </Lightbox.Header>
               <Lightbox.Body>
                 <Lightbox.Image src={images[2].src} alt={images[2].alt} />

@@ -1,6 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { Progress as ProgressPrimitive } from '@ark-ui/react/progress';
+import {
+  Progress as ProgressPrimitive,
+  useProgress,
+  useProgressContext,
+} from '@ark-ui/react/progress';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './ProgressCircular.module.css';
@@ -103,6 +107,23 @@ const ProgressCircularCircleRange = forwardRef<
   );
 });
 
+type ProgressCircularRingProps = Omit<
+  ComponentProps<typeof ProgressPrimitive.Circle>,
+  'asChild' | 'children'
+>;
+
+const ProgressCircularRing = forwardRef<
+  ComponentRef<typeof ProgressPrimitive.Circle>,
+  ProgressCircularRingProps
+>(function ProgressCircularRing(props, ref) {
+  return (
+    <ProgressCircularCircle ref={ref} {...props}>
+      <ProgressCircularCircleTrack />
+      <ProgressCircularCircleRange />
+    </ProgressCircularCircle>
+  );
+});
+
 const ProgressCircularView = forwardRef<
   ComponentRef<typeof ProgressPrimitive.View>,
   ComponentProps<typeof ProgressPrimitive.View>
@@ -120,12 +141,16 @@ const ProgressCircularView = forwardRef<
 const ProgressCircular = Object.assign(ProgressCircularRoot, {
   Root: ProgressCircularRoot,
   RootProvider: ProgressCircularRootProvider,
+  Context: ProgressPrimitive.Context,
   Label: ProgressCircularLabel,
   ValueText: ProgressCircularValueText,
   Circle: ProgressCircularCircle,
   CircleTrack: ProgressCircularCircleTrack,
   CircleRange: ProgressCircularCircleRange,
+  Ring: ProgressCircularRing,
   View: ProgressCircularView,
+  useProgress,
+  useProgressContext,
 });
 
 export { ProgressCircular };

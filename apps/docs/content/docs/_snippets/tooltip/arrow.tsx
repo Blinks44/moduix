@@ -7,12 +7,10 @@ export function ArrowTooltipDemo() {
   return (
     <Tooltip>
       <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          <Tooltip.Arrow />
-          Tooltip with arrow
-        </Tooltip.Content>
-      </Tooltip.Positioner>
+      <Tooltip.Body>
+        <Tooltip.Arrow />
+        Tooltip with arrow
+      </Tooltip.Body>
     </Tooltip>
   );
 }

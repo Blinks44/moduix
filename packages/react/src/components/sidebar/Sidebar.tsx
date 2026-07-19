@@ -1,13 +1,14 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
-import type { SplitterPanelData } from '@ark-ui/react/splitter';
-import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { ark } from '@ark-ui/react/factory';
-import { useSplitterContext } from '@ark-ui/react/splitter';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef, MouseEvent } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { ChevronLeftIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
-import { Splitter } from '../splitter';
+import { Input } from '../input';
+import { Separator } from '../separator';
+import { Splitter, type SplitterPanelData, useSplitterContext } from '../splitter';
+import { Tooltip } from '../tooltip';
 import styles from './Sidebar.module.css';
 
 type SidebarSide = 'left' | 'right';
@@ -58,6 +59,11 @@ function getDefaultSidebarSize(side: SidebarSide): SidebarDefaultSize {
   return defaultSize;
 }
 
+function getDefaultPanels(side: SidebarSide, panelId: string) {
+  const panels = defaultPanelsBySide[side];
+  return panels.map((panel) => (panel.id === 'sidebar' ? { ...panel, id: panelId } : panel));
+}
+
 function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, panelId: string) {
   if (splitter.isPanelCollapsed(panelId)) {
     splitter.expandPanel(panelId);
@@ -77,7 +83,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
         <Splitter.Root
           {...props}
           ref={ref}
-          panels={panels ?? defaultPanelsBySide[side]}
+          panels={panels ?? getDefaultPanels(side, panelId)}
           defaultSize={defaultSize ?? getDefaultSidebarSize(side)}
           orientation="horizontal"
           data-side={side}
@@ -144,11 +150,11 @@ const SidebarResizeTrigger = forwardRef<
   ComponentRef<typeof Splitter.ResizeTrigger>,
   SidebarResizeTriggerProps
 >(function SidebarResizeTrigger(
-  { className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
+  { children, className, id, 'aria-label': ariaLabel = 'Resize sidebar', ...props },
   ref,
 ) {
-  const { side } = useContext(SidebarConfigContext);
-  const resolvedId = id ?? (side === 'left' ? 'sidebar:content' : 'content:sidebar');
+  const { panelId, side } = useContext(SidebarConfigContext);
+  const resolvedId = id ?? (side === 'left' ? `${panelId}:content` : `content:${panelId}`);
 
   return (
     <Splitter.ResizeTrigger
@@ -159,7 +165,9 @@ const SidebarResizeTrigger = forwardRef<
       data-side={side}
       data-slot="sidebar-resize-trigger"
       className={clsx(styles.resizeTrigger, normalizeClassName(className))}
-    />
+    >
+      {children === undefined ? null : children}
+    </Splitter.ResizeTrigger>
   );
 });
 
@@ -302,6 +310,37 @@ const SidebarGroupLabel = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(
   },
 );
 
+const SidebarGroupAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
+  function SidebarGroupAction({ className, type = 'button', ...props }, ref) {
+    return (
+      <ark.button
+        ref={ref}
+        type={type}
+        data-scope="sidebar"
+        data-part="group-action"
+        data-slot="sidebar-group-action"
+        className={clsx(styles.groupAction, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
+const SidebarGroupContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function SidebarGroupContent({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="sidebar"
+        data-part="group-content"
+        data-slot="sidebar-group-content"
+        className={clsx(styles.groupContent, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
 const SidebarMenu = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function SidebarMenu(
   { className, ...props },
   ref,
@@ -367,6 +406,38 @@ const SidebarMenuButton = forwardRef<
   );
 });
 
+const SidebarMenuAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
+  function SidebarMenuAction({ className, type = 'button', ...props }, ref) {
+    return (
+      <ark.button
+        ref={ref}
+        type={type}
+        data-scope="sidebar"
+        data-part="menu-action"
+        data-slot="sidebar-menu-action"
+        className={clsx(styles.menuAction, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
+const SidebarMenuBadge = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function SidebarMenuBadge(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      ref={ref}
+      data-scope="sidebar"
+      data-part="menu-badge"
+      data-slot="sidebar-menu-badge"
+      className={clsx(styles.menuBadge, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
 const SidebarMenuSub = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function SidebarMenuSub(
   { className, ...props },
   ref,
@@ -421,6 +492,63 @@ const SidebarMenuSubButton = forwardRef<
   );
 });
 
+const SidebarTooltip = function SidebarTooltip({
+  children,
+  content,
+  openDelay = 200,
+  closeDelay = 0,
+  positioning,
+  ...props
+}: Omit<ComponentProps<typeof Tooltip>, 'children' | 'disabled' | 'positioning'> & {
+  children: ComponentProps<typeof Tooltip.Trigger>['children'];
+  content: ComponentProps<typeof Tooltip.Content>['children'];
+  positioning?: ComponentProps<typeof Tooltip>['positioning'];
+}) {
+  const { collapsed, side } = useSidebar();
+
+  return (
+    <Tooltip
+      {...props}
+      openDelay={openDelay}
+      closeDelay={closeDelay}
+      disabled={!collapsed}
+      positioning={{ placement: side === 'left' ? 'right' : 'left', gutter: 8, ...positioning }}
+    >
+      <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
+      <Tooltip.Positioner>
+        <Tooltip.Content>{content}</Tooltip.Content>
+      </Tooltip.Positioner>
+    </Tooltip>
+  );
+};
+
+const SidebarInput = forwardRef<ComponentRef<typeof Input.Root>, ComponentProps<typeof Input.Root>>(
+  function SidebarInput({ className, ...props }, ref) {
+    return (
+      <Input.Root
+        ref={ref}
+        data-slot="sidebar-input"
+        className={clsx(styles.input, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
+
+const SidebarSeparator = forwardRef<
+  ComponentRef<typeof Separator.Root>,
+  ComponentProps<typeof Separator.Root>
+>(function SidebarSeparator({ className, ...props }, ref) {
+  return (
+    <Separator.Root
+      ref={ref}
+      data-slot="sidebar-separator"
+      className={clsx(styles.separator, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
 const Sidebar = Object.assign(SidebarRoot, {
   Root: SidebarRoot,
   Panel: SidebarPanel,
@@ -428,14 +556,21 @@ const Sidebar = Object.assign(SidebarRoot, {
   ResizeTrigger: SidebarResizeTrigger,
   Trigger: SidebarTrigger,
   Label: SidebarLabel,
+  Input: SidebarInput,
   Header: SidebarHeader,
   Content: SidebarContent,
   Footer: SidebarFooter,
+  Separator: SidebarSeparator,
   Group: SidebarGroup,
   GroupLabel: SidebarGroupLabel,
+  GroupAction: SidebarGroupAction,
+  GroupContent: SidebarGroupContent,
   Menu: SidebarMenu,
   MenuItem: SidebarMenuItem,
+  Tooltip: SidebarTooltip,
   MenuButton: SidebarMenuButton,
+  MenuAction: SidebarMenuAction,
+  MenuBadge: SidebarMenuBadge,
   MenuSub: SidebarMenuSub,
   MenuSubItem: SidebarMenuSubItem,
   MenuSubButton: SidebarMenuSubButton,

@@ -81,8 +81,8 @@
     touch-action: none;
     transition:
       opacity var(--scroll-area-transition, var(--transition-default)),
-      width var(--scroll-area-transition, var(--transition-slow)),
-      height var(--scroll-area-transition, var(--transition-slow));
+      width var(--scroll-area-thumb-hover-transition, var(--transition-fast)),
+      height var(--scroll-area-thumb-hover-transition, var(--transition-fast));
 
     &::before {
       content: '';
@@ -156,6 +156,11 @@
 
     &[data-scrolling] {
       transition-duration: 0ms;
+    }
+
+    .root[data-variant='always'] & {
+      opacity: var(--scroll-area-scrollbar-visible-opacity, 1);
+      pointer-events: auto;
     }
   }
 

@@ -2,11 +2,16 @@
   "pages": [
     "---Overview---",
     "index",
+    "components",
+    "changelog",
+    "external:[Sparkles][llms.txt](/llms.txt)",
     "quick-start",
     "tokens",
     "---Guides---",
     "animations",
     "composition-patterns",
+    "data-table",
+    "styling",
     "utilities",
     "---Collections---",
     "collections",
@@ -18,6 +23,7 @@
     "forms",
     "react-hook-form",
     "tanstack-form",
+    "formisch",
     "---Components---",
     "..."
   ]

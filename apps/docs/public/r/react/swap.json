@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "swap",
+  "title": "Swap",
+  "description": "moduix React Swap component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/swap/Swap.tsx",
+      "content": "import { Swap as SwapPrimitive, useSwap, useSwapContext } from '@ark-ui/react/swap';\nimport { clsx } from 'clsx';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Swap.module.css';\n\nconst SwapRoot = forwardRef<\n  ComponentRef<typeof SwapPrimitive.Root>,\n  ComponentProps<typeof SwapPrimitive.Root>\n>(function SwapRoot({ className, ...props }, ref) {\n  return (\n    <SwapPrimitive.Root\n      ref={ref}\n      data-slot=\"swap-root\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst SwapRootProvider = forwardRef<\n  ComponentRef<typeof SwapPrimitive.RootProvider>,\n  ComponentProps<typeof SwapPrimitive.RootProvider>\n>(function SwapRootProvider({ className, ...props }, ref) {\n  return (\n    <SwapPrimitive.RootProvider\n      ref={ref}\n      data-slot=\"swap-root-provider\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst SwapIndicator = forwardRef<\n  ComponentRef<typeof SwapPrimitive.Indicator>,\n  ComponentProps<typeof SwapPrimitive.Indicator>\n>(function SwapIndicator({ className, ...props }, ref) {\n  return (\n    <SwapPrimitive.Indicator\n      ref={ref}\n      data-slot=\"swap-indicator\"\n      className={clsx(styles.indicator, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst Swap = Object.assign(SwapRoot, {\n  Root: SwapRoot,\n  RootProvider: SwapRootProvider,\n  Indicator: SwapIndicator,\n  useSwap,\n});\n\nexport { Swap, useSwapContext };",
+      "type": "registry:component",
+      "target": "@components/moduix/swap/Swap.tsx"
+    },
+    {
+      "path": "packages/react/src/components/swap/Swap.module.css",
+      "content": "@layer ui.components {\n  .root {\n    display: inline-grid;\n    grid-template-areas: 'swap';\n    place-items: center;\n    vertical-align: middle;\n  }\n\n  .indicator {\n    display: inline-flex;\n    grid-area: swap;\n    align-items: center;\n    justify-content: center;\n    color: inherit;\n\n    &[data-state='open'] {\n      animation: swap-enter var(--swap-transition, var(--transition-default));\n    }\n\n    &[data-state='closed'] {\n      animation: swap-exit var(--swap-transition, var(--transition-default));\n    }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    .indicator[data-state] {\n      animation-duration: 1ms;\n      animation-delay: 0ms;\n    }\n  }\n\n  @keyframes swap-enter {\n    from {\n      opacity: var(--swap-enter-starting-opacity, 0);\n      transform: scale(var(--swap-enter-starting-scale, 0.92));\n    }\n  }\n\n  @keyframes swap-exit {\n    to {\n      opacity: var(--swap-exit-ending-opacity, 0);\n      transform: scale(var(--swap-exit-ending-scale, 0.92));\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/swap/Swap.module.css"
+    },
+    {
+      "path": "packages/react/src/components/swap/index.ts",
+      "content": "export { Swap, useSwapContext } from './Swap';",
+      "type": "registry:component",
+      "target": "@components/moduix/swap/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

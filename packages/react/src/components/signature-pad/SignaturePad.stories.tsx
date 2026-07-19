@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
-import { useSignaturePadContext } from '@ark-ui/react/signature-pad';
 import { useState } from 'react';
-import { RotateCcwIcon } from '@/lib/moduix/icons/ui';
 import { Field } from '../field';
 import { SignaturePad, useSignaturePad } from './SignaturePad';
 import styles from './SignaturePad.stories.module.css';
@@ -19,23 +17,11 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function SignaturePadHiddenValue() {
-  const signaturePad = useSignaturePadContext();
-
-  return <SignaturePad.HiddenInput value={signaturePad.paths.join(' ')} />;
-}
-
 function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
   return (
     <SignaturePad {...props}>
       <SignaturePad.Label>Sign below</SignaturePad.Label>
-      <SignaturePad.Control>
-        <SignaturePad.Segment />
-        <SignaturePad.ClearTrigger>
-          <RotateCcwIcon aria-hidden="true" />
-        </SignaturePad.ClearTrigger>
-        <SignaturePad.Guide />
-      </SignaturePad.Control>
+      <SignaturePad.Canvas />
     </SignaturePad>
   );
 }
@@ -64,16 +50,9 @@ export const ImagePreview: Story = {
 export const WithField: Story = {
   render: () => (
     <Field className={styles.field} invalid required>
-      <SignaturePad name="signature">
+      <SignaturePad name="signature" getFormValue={(paths) => paths.join(' ')}>
         <SignaturePad.Label>Sign below</SignaturePad.Label>
-        <SignaturePad.Control>
-          <SignaturePad.Segment />
-          <SignaturePad.ClearTrigger>
-            <RotateCcwIcon aria-hidden="true" />
-          </SignaturePad.ClearTrigger>
-          <SignaturePad.Guide />
-        </SignaturePad.Control>
-        <SignaturePadHiddenValue />
+        <SignaturePad.Canvas />
       </SignaturePad>
       <Field.HelperText>Use a pointer or touch input to sign.</Field.HelperText>
       <Field.ErrorText>Signature is required.</Field.ErrorText>
@@ -89,13 +68,7 @@ export const RootProvider: Story = {
       <div className={styles.preview}>
         <SignaturePad.RootProvider value={signaturePad} className={styles.custom}>
           <SignaturePad.Label>Sign below</SignaturePad.Label>
-          <SignaturePad.Control>
-            <SignaturePad.Segment />
-            <SignaturePad.ClearTrigger>
-              <RotateCcwIcon aria-hidden="true" />
-            </SignaturePad.ClearTrigger>
-            <SignaturePad.Guide />
-          </SignaturePad.Control>
+          <SignaturePad.Canvas />
         </SignaturePad.RootProvider>
         <output className={styles.status}>Paths: {signaturePad.paths.length}</output>
       </div>

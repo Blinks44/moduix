@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { HoverCard as HoverCardPrimitive } from '@ark-ui/react/hover-card';
 import { HoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 export function ContextHoverCard() {
   return (
     <HoverCard>
-      <HoverCardPrimitive.Context>
+      <HoverCard.Context>
         {(context) => (
           <HoverCard.Trigger asChild>
             <a href="#profile">
@@ -16,7 +15,7 @@ export function ContextHoverCard() {
             </a>
           </HoverCard.Trigger>
         )}
-      </HoverCardPrimitive.Context>
+      </HoverCard.Context>
       <HoverCard.Positioner>
         <HoverCard.Content>
           <HoverCard.Arrow />

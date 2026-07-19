@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useTooltipContext } from '@ark-ui/react/tooltip';
-import { Tooltip } from '@moduix/react';
+import { Tooltip, useTooltipContext } from '@moduix/react';
 
 function TooltipStateContent() {
   const tooltip = useTooltipContext();

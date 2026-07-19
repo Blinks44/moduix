@@ -13,8 +13,9 @@ import {
 } from 'fumadocs-ui/layouts/docs/page';
 import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
-import { useMDXComponents } from '@/components/mdx';
+import { useMDXComponents } from '@/components/mdx/components';
 import { baseOptions } from '@/lib/layout.shared';
+import { createSeoMeta, getCanonicalUrl } from '@/lib/seo';
 import { gitConfig } from '@/lib/shared';
 import { slugsToMarkdownPath, source } from '@/lib/source';
 
@@ -26,6 +27,20 @@ export const Route = createFileRoute('/docs/$')({
     await clientLoader.preload(data.path);
     return data;
   },
+  head: ({ loaderData }) =>
+    loaderData
+      ? {
+          meta: createSeoMeta({
+            title: `${loaderData.title} — moduix`,
+            description:
+              loaderData.description ??
+              'Accessible moduix documentation and React component examples.',
+            pathname: loaderData.url,
+            type: 'article',
+          }),
+          links: [{ rel: 'canonical', href: getCanonicalUrl(loaderData.url) }],
+        }
+      : {},
 });
 
 const serverLoader = createServerFn({
@@ -37,6 +52,9 @@ const serverLoader = createServerFn({
     if (!page) throw notFound();
 
     return {
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
       path: page.path,
       markdownUrl: slugsToMarkdownPath(page.slugs).url,
       pageTree: await source.serializePageTree(source.getPageTree()),

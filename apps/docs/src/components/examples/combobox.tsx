@@ -1,13 +1,14 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
-import { useCombobox } from '@ark-ui/react/combobox';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './combobox.module.css';
+
+export { TagsInputComboboxExample as ComboboxWithTagsInputExample } from './tags-input';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -85,10 +86,9 @@ function Popup({ items }: { items: Array<{ label: string; value: string }> }) {
         <Combobox.Empty>No options found.</Combobox.Empty>
         <Combobox.List>
           {items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-              <Combobox.ItemIndicator />
-            </Combobox.Item>
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
           ))}
         </Combobox.List>
       </Combobox.Content>
@@ -170,10 +170,9 @@ export function GroupedComboboxExample() {
             <Combobox.ItemGroup key={continent}>
               <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
               {items.map((item) => (
-                <Combobox.Item key={item.code} item={item}>
-                  <Combobox.ItemText>{item.country}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </Combobox.Item>
+                <Combobox.Option key={item.code} item={item}>
+                  {item.country}
+                </Combobox.Option>
               ))}
             </Combobox.ItemGroup>
           ))}
@@ -262,10 +261,9 @@ export function AsyncSearchComboboxExample() {
           ) : null}
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item.value} item={item}>
+                {item.label}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>
@@ -351,7 +349,7 @@ export function InlineAutocompleteComboboxExample() {
   );
 }
 
-export function LinksComboboxExample() {
+export function AdvancedCustomizationComboboxExample() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
     initialItems: developerResources,
@@ -415,10 +413,9 @@ export function DynamicComboboxExample() {
         <Combobox.Content>
           <Combobox.List>
             {collection.items.map((item) => (
-              <Combobox.Item key={item} item={item}>
-                <Combobox.ItemText>{item}</Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
+              <Combobox.Option key={item} item={item}>
+                {item}
+              </Combobox.Option>
             ))}
           </Combobox.List>
         </Combobox.Content>
@@ -640,11 +637,11 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ['--combobox-action-radius', 'var(--radius-sm)', 'Controls action radius.'],
   ['--combobox-action-size', '1.5rem', 'Controls action size.'],
   ['--combobox-bg', 'var(--color-background)', 'Controls control background.'],
-  ['--combobox-bg-active', 'var(--color-muted)', 'Controls control background when open.'],
-  ['--combobox-bg-hover', 'var(--color-accent)', 'Controls control background on hover.'],
   ['--combobox-border-color', 'var(--color-border)', 'Controls control border color.'],
   ['--combobox-border-width', 'var(--border-width-sm)', 'Controls control border width.'],
   ['--combobox-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--combobox-bg-active', 'var(--color-muted)', 'Controls control background when open.'],
+  ['--combobox-bg-hover', 'var(--color-accent)', 'Controls control background on hover.'],
   ['--combobox-content-bg', 'var(--color-popover)', 'Controls content background.'],
   ['--combobox-content-border-color', 'var(--color-border)', 'Controls content border color.'],
   ['--combobox-content-border-width', 'var(--border-width-sm)', 'Controls content border width.'],
@@ -672,7 +669,17 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--combobox-icon-color', 'var(--color-muted-foreground)', 'Controls action icon color.'],
   ['--combobox-icon-size', '1rem', 'Controls action icon size.'],
-  ['--combobox-input-padding-x-end', '4.25rem', 'Controls input trailing padding.'],
+  ['--combobox-input-padding-x-end', '0.875rem', 'Controls input trailing padding.'],
+  [
+    '--combobox-input-padding-x-end-with-clear',
+    '4.375rem',
+    'Customizes combobox input padding x end with clear.',
+  ],
+  [
+    '--combobox-input-padding-x-end-with-trigger',
+    '2.75rem',
+    'Customizes combobox input padding x end with trigger.',
+  ],
   ['--combobox-input-padding-x-start', '0.875rem', 'Controls input leading padding.'],
   [
     '--combobox-input-placeholder-color',
@@ -711,8 +718,8 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--combobox-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
   ['--combobox-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
-  ['--combobox-item-indicator-size', '0.75rem', 'Controls item indicator size.'],
   ['--combobox-item-inset-x', 'var(--spacing-2)', 'Controls item horizontal inset.'],
+  ['--combobox-item-indicator-size', '0.75rem', 'Controls item indicator size.'],
   ['--combobox-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
   ['--combobox-item-min-height', '2rem', 'Controls item minimum height.'],
   ['--combobox-item-padding-x', '0.625rem', 'Controls item horizontal padding.'],

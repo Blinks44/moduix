@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useSteps } from '@ark-ui/react/steps';
 import { useState } from 'react';
 import { Steps } from './Steps';
 
@@ -110,7 +109,7 @@ export const Controlled: Story = {
 
 export const RootProvider: Story = {
   render: function RootProviderStory() {
-    const steps = useSteps({ count: items.length });
+    const steps = Steps.useSteps({ count: items.length });
 
     return (
       <div style={{ display: 'grid', gap: 'var(--spacing-3)' }}>

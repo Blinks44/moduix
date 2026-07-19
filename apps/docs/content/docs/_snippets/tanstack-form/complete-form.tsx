@@ -114,7 +114,6 @@ export function ProjectForm() {
                       ))}
                     </Select.Content>
                   </Select.Positioner>
-                  <Select.HiddenSelect />
                 </Select>
                 <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
               </Field>
@@ -150,10 +149,9 @@ export function ProjectForm() {
                       <Combobox.Empty>No reviewers found.</Combobox.Empty>
                       <Combobox.List>
                         {collection.items.map((item) => (
-                          <Combobox.Item key={item.value} item={item}>
-                            <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                            <Combobox.ItemIndicator />
-                          </Combobox.Item>
+                          <Combobox.Option key={item.value} item={item}>
+                            {item.label}
+                          </Combobox.Option>
                         ))}
                       </Combobox.List>
                     </Combobox.Content>
@@ -186,21 +184,19 @@ export function ProjectForm() {
                 name={field.name}
                 checked={field.state.value}
                 onCheckedChange={(details) => field.handleChange(details.checked === true)}
+                onBlur={field.handleBlur}
               >
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Control />
                 <Checkbox.Label>Send status notifications</Checkbox.Label>
-                <Checkbox.HiddenInput onBlur={field.handleBlur} />
               </Checkbox>
             )}
           </form.Field>
         </Card.Body>
 
         <Card.Footer>
-          <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
-            {([canSubmit, isSubmitting]) => (
-              <Button className="submit" type="submit" disabled={!canSubmit}>
+          <form.Subscribe selector={(state) => [state.isSubmitting] as const}>
+            {([isSubmitting]) => (
+              <Button className="submit" type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

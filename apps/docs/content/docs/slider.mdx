@@ -21,8 +21,8 @@ input.
 
 ## Basic
 
-`Slider` is the styled Ark root. Compose the Ark parts explicitly and keep a `Slider.HiddenInput`
-inside each thumb when the value should participate in forms and resets.
+`Slider.Thumbs` is the recommended way to render one styled thumb for every value. Every thumb,
+including an explicit `Slider.Thumb`, renders its native form input automatically.
 
 <Preview>
   <SliderDocs.SliderExample />
@@ -36,7 +36,7 @@ inside each thumb when the value should participate in forms and resets.
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-slider" />
+<ShadcnInstall packageName="slider" />
 
 ## Anatomy
 
@@ -47,9 +47,10 @@ Slider / Slider.Root
 ├─ Slider.Control
 │  ├─ Slider.Track
 │  │  └─ Slider.Range
-│  └─ Slider.Thumb[index]
-│     ├─ Slider.DraggingIndicator
-│     └─ Slider.HiddenInput
+│  └─ Slider.Thumbs
+│     └─ Slider.Thumb[index]
+│        ├─ Slider.DraggingIndicator
+│        └─ native input (automatic)
 └─ Slider.MarkerGroup
    └─ Slider.Marker[value]
 ```
@@ -64,7 +65,7 @@ Slider / Slider.Root
 | `Slider.Track`                         | Full visual rail.                                           |
 | `Slider.Range`                         | Filled portion from the configured origin to the value.     |
 | `Slider.Thumb`                         | Focusable slider handle.                                    |
-| `Slider.HiddenInput`                   | Native input for form submission and reset behavior.        |
+| `Slider.Thumbs`                        | Moduix helper that renders a thumb per value.               |
 | `Slider.MarkerGroup` / `Slider.Marker` | Optional tick mark group and individual mark.               |
 | `Slider.DraggingIndicator`             | Optional value bubble while dragging.                       |
 
@@ -72,16 +73,17 @@ Slider / Slider.Root
 
 ### Recommended composition
 
-Use the explicit Ark part tree: root, label, optional value text, control, track, range, one thumb
-per value, and `HiddenInput` inside each thumb when forms or resets matter.
+Use the Ark part tree: root, label, optional value text, control, track, range, and `Slider.Thumbs`.
+It creates one thumb per value; each thumb appends its native form input automatically.
 
 `Slider` is the short root form and is equivalent to `Slider.Root`.
 
 ### When to go custom
 
 Use `asChild` when a part must render a custom host element, but keep a single semantic child that
-can receive Ark props. For advanced state access, import `useSliderContext` or `useSlider` directly
-from `@ark-ui/react/slider` and pair them with `Slider.RootProvider`.
+can receive Ark props. Use explicit `Slider.Thumb` for custom thumb children, labels, or ordering;
+it retains the automatic native form input. For advanced state access, import `useSliderContext` or `useSlider`
+from `@moduix/react` and pair them with `Slider.RootProvider`.
 
 ### Default props
 
@@ -107,64 +109,22 @@ objects. Use `details.value` to read the array.
 `Slider.Label`, `aria-label`, or `aria-labelledby`. Horizontal sliders use left/right arrow keys;
 vertical sliders use up/down arrow keys. Home and End move to bounds.
 
-Keep `Slider.HiddenInput` inside every `Slider.Thumb` when native form submission, form
-association, or form reset synchronization matters. `disabled`, `invalid`, `readOnly`, `name`,
+Every `Slider.Thumb` renders its native form input automatically for form submission, association,
+and reset synchronization. `disabled`, `invalid`, `readOnly`, `name`,
 `form`, `ids`, `aria-label`, `aria-labelledby`, and `getAriaValueText(details)` pass through to
 Ark.
 
 ## Examples
 
-### Range
+### Center Origin
 
-Pass an array with one value per thumb and render matching `Slider.Thumb` parts.
-
-<Preview>
-  <SliderDocs.RangeSliderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/slider/range.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
-  
-</Preview>
-
-### Min and Max
-
-Use `min` and `max` for domains that do not start at `0` or end at `100`.
+Set `origin="center"` when the selected value represents a positive or negative offset.
 
 <Preview>
-  <SliderDocs.MinMaxSliderExample />
+  <SliderDocs.CenterOriginSliderExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/slider/min-and-max.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
-  
-</Preview>
-
-### Step
-
-Use `step` for fractional or constrained increments.
-
-<Preview>
-  <SliderDocs.StepSliderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/slider/step.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
-</Preview>
-
-### Controlled
-
-Control the value from React state by storing Ark's `details.value` array.
-
-<Preview>
-  <SliderDocs.ControlledSliderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/slider/controlled.tsx#demo</include>
+  <include lang="tsx">./_snippets/slider/center-origin.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
   
@@ -182,35 +142,59 @@ committed.
   <include lang="tsx">./_snippets/slider/change-events.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderEventsCss}</Preview.CSS>
-  
 </Preview>
 
-### Vertical
+### Context
 
-Set `orientation="vertical"` and give the root a stable height.
+Use moduix `useSliderContext` inside a child component when you need inline reads of slider state
+such as `value`, `dragging`, and focus state.
 
 <Preview>
-  <SliderDocs.VerticalSliderExample />
+  <SliderDocs.ContextSliderExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/slider/vertical.tsx#demo</include>
+  <include lang="tsx">./_snippets/slider/context.tsx#demo</include>
 </Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderVerticalCss}</Preview.CSS>
-  
+  <Preview.CSS>{SliderDocs.sliderContextCss}</Preview.CSS>
 </Preview>
 
-### Center Origin
+### Controlled
 
-Set `origin="center"` when the selected value represents a positive or negative offset.
+Control the value from React state by storing Ark's `details.value` array.
 
 <Preview>
-  <SliderDocs.CenterOriginSliderExample />
+  <SliderDocs.ControlledSliderExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/slider/center-origin.tsx#demo</include>
+  <include lang="tsx">./_snippets/slider/controlled.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
+</Preview>
+
+### Disabled
+
+Use `disabled` to keep the value visible while preventing interaction.
+
+<Preview>
+  <SliderDocs.DisabledSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/disabled.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
+</Preview>
+
+### Dragging Indicator
+
+Place `Slider.DraggingIndicator` inside a thumb to show the active value while dragging.
+
+<Preview>
+  <SliderDocs.DraggingIndicatorSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/dragging-indicator.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
 </Preview>
 
 ### Marks
@@ -225,21 +209,58 @@ Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks exp
   <include lang="tsx">./_snippets/slider/marks.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
 </Preview>
 
-### Dragging Indicator
+### Min and Max
 
-Place `Slider.DraggingIndicator` inside a thumb to show the active value while dragging.
+Use `min` and `max` for domains that do not start at `0` or end at `100`.
 
 <Preview>
-  <SliderDocs.DraggingIndicatorSliderExample />
+  <SliderDocs.MinMaxSliderExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/slider/dragging-indicator.tsx#demo</include>
+  <include lang="tsx">./_snippets/slider/min-and-max.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
-  
+</Preview>
+
+### Range
+
+Pass an array with one value per thumb. `Slider.Thumbs` creates the matching thumb and input parts.
+
+<Preview>
+  <SliderDocs.RangeSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/range.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderNoCss}</Preview.CSS>
+</Preview>
+
+### Root Provider
+
+Use moduix `useSlider` with `Slider.RootProvider` when state must be owned outside the rendered tree.
+
+<Preview>
+  <SliderDocs.RootProviderSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/root-provider.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderStackCss}</Preview.CSS>
+</Preview>
+
+### Step
+
+Use `step` for fractional or constrained increments.
+
+<Preview>
+  <SliderDocs.StepSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/step.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
 </Preview>
 
 ### Thumb Alignment
@@ -253,7 +274,6 @@ Use `thumbAlignment="center"` when the thumb should extend beyond the track edge
   <include lang="tsx">./_snippets/slider/thumb-alignment.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
 </Preview>
 
 ### Thumb Collision
@@ -267,7 +287,6 @@ Use `thumbCollisionBehavior="push"` or `"swap"` to change how range thumbs behav
   <include lang="tsx">./_snippets/slider/thumb-collision.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
 </Preview>
 
 ### Thumb Overlap
@@ -281,51 +300,32 @@ Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs.
   <include lang="tsx">./_snippets/slider/thumb-overlap.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
 </Preview>
 
-### Disabled
+### Vertical
 
-Use `disabled` to keep the value visible while preventing interaction.
+Set `orientation="vertical"` and give the root a stable height.
 
 <Preview>
-  <SliderDocs.DisabledSliderExample />
+  <SliderDocs.VerticalSliderExample />
 
   <Preview.Code>
-  <include lang="tsx">./_snippets/slider/disabled.tsx#demo</include>
+  <include lang="tsx">./_snippets/slider/vertical.tsx#demo</include>
+</Preview.Code>
+  <Preview.CSS>{SliderDocs.sliderVerticalCss}</Preview.CSS>
+</Preview>
+
+### Advanced Customization
+
+Bypass `Slider.Thumbs` when individual thumbs need custom children, accessible names, or ordering.
+
+<Preview>
+  <SliderDocs.AdvancedCustomizationSliderExample />
+
+  <Preview.Code>
+  <include lang="tsx">./_snippets/slider/advanced-customization.tsx#demo</include>
 </Preview.Code>
   <Preview.CSS>{SliderDocs.sliderHeaderCss}</Preview.CSS>
-  
-</Preview>
-
-### Context
-
-Use Ark's `useSliderContext` hook inside a child component when you need inline reads of slider
-state such as `value`, `dragging`, and focus state.
-
-<Preview>
-  <SliderDocs.ContextSliderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/slider/context.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderContextCss}</Preview.CSS>
-  
-</Preview>
-
-### Root Provider
-
-Use Ark's `useSlider` hook with `Slider.RootProvider` when state must be owned outside the rendered
-tree.
-
-<Preview>
-  <SliderDocs.RootProviderSliderExample />
-
-  <Preview.Code>
-  <include lang="tsx">./_snippets/slider/root-provider.tsx#demo</include>
-</Preview.Code>
-  <Preview.CSS>{SliderDocs.sliderStackCss}</Preview.CSS>
-  
 </Preview>
 
 ## Styling
@@ -355,3 +355,6 @@ Important Ark state hooks include `data-orientation`, `data-disabled`, `data-inv
 `data-state="open | closed"`. Ark runtime CSS variables include `--slider-thumb-width`,
 `--slider-thumb-height`, `--slider-thumb-transform`, `--slider-range-start`,
 `--slider-range-end`, `--translate-x`, and `--translate-y`.
+
+The default thumb focus ring uses `:focus-visible` for keyboard focus and Ark `data-dragging` while
+the thumb is pressed. It is removed after pointer release.

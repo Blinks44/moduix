@@ -1,9 +1,8 @@
-import type { ComponentProps } from 'react';
 import { createListCollection } from '@ark-ui/react/collection';
-import { useFieldset } from '@ark-ui/react/fieldset';
-import { Checkbox, Field, Fieldset, Select } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import { Checkbox, Field, Fieldset, Select, useFieldset } from '@moduix/react';
+import type { ComponentProps } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './fieldset.module.css';
 
 export const fieldsetExampleCss = `
@@ -191,11 +190,8 @@ export function FieldsetCheckboxExample() {
       <Fieldset.Legend>Email preferences</Fieldset.Legend>
       {preferences.map((preference) => (
         <Checkbox key={preference.value} value={preference.value}>
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
+          <Checkbox.Control />
           <Checkbox.Label>{preference.label}</Checkbox.Label>
-          <Checkbox.HiddenInput />
         </Checkbox>
       ))}
     </Fieldset>
@@ -208,7 +204,7 @@ export function FieldsetRootProviderExample() {
   return (
     <Fieldset.RootProvider value={fieldset} className={styles.fieldset}>
       <Fieldset.Legend>Contact details</Fieldset.Legend>
-      <Field>
+      <Field invalid>
         <Field.Label>Email</Field.Label>
         <Field.Input type="email" defaultValue="invalid-address" />
       </Field>
@@ -222,7 +218,12 @@ export function FieldsetPhoneInputExample() {
     <Fieldset className={styles.fieldset}>
       <Fieldset.Legend>Mobile number</Fieldset.Legend>
       <div className={styles.phoneInput}>
-        <Select className={styles.countryCode} collection={countryCodes} defaultValue={['+1']}>
+        <Select
+          className={styles.countryCode}
+          collection={countryCodes}
+          defaultValue={['+1']}
+          name="countryCode"
+        >
           <Select.Label>Code</Select.Label>
           <Select.Control>
             <Select.Trigger>
@@ -242,7 +243,6 @@ export function FieldsetPhoneInputExample() {
               ))}
             </Select.Content>
           </Select.Positioner>
-          <Select.HiddenSelect name="countryCode" />
         </Select>
         <Field>
           <Field.Label>Phone</Field.Label>

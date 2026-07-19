@@ -41,6 +41,12 @@
   object-fit: cover;
 }
 
+.mediaShell {
+  overflow: hidden;
+  border-start-start-radius: var(--card-radius);
+  border-start-end-radius: var(--card-radius);
+}
+
 .horizontalCard {
   display: grid;
   width: min(40rem, calc(100vw - var(--spacing-8)));

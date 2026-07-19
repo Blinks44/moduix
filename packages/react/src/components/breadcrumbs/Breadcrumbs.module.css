@@ -25,7 +25,7 @@
   .item[data-scope='breadcrumbs'][data-part='item'] {
     display: inline-flex;
     min-width: 0;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     align-items: center;
   }
 
@@ -78,6 +78,12 @@
     font-size: var(--breadcrumbs-separator-font-size, 0.875em);
     line-height: 1;
     user-select: none;
+  }
+
+  .separatorIcon {
+    width: 1em;
+    height: 1em;
+    flex: none;
   }
 
   .ellipsis[data-scope='breadcrumbs'][data-part='ellipsis'] {

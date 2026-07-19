@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { useProgress } from '@ark-ui/react/progress';
 import { ProgressLinear } from '@moduix/react';
 
 const defaultValue = 58;
 
 export function RootProviderProgressLinearDemo() {
-  const progress = useProgress({
+  const progress = ProgressLinear.useProgress({
     defaultValue: 58,
   });
   return (

@@ -1,8 +1,11 @@
-import type { TreeViewNodeProviderProps } from '@ark-ui/react/tree-view';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTreeViewNodeContext } from '@ark-ui/react/tree-view';
 import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
-import { TreeView, createTreeCollection } from './TreeView';
+import {
+  TreeView,
+  createTreeCollection,
+  type TreeViewNodeProviderProps,
+  useTreeViewNodeContext,
+} from './TreeView';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {

@@ -1,8 +1,7 @@
-import { FloatingPanel as ArkFloatingPanel, useFloatingPanel } from '@ark-ui/react/floating-panel';
 import { Button, FloatingPanel } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './floating-panel.module.css';
 
 const DEFAULT_SIZE = { width: 360, height: 260 };
@@ -11,7 +10,11 @@ const DEFAULT_POSITION = { x: 160, y: 140 };
 export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-behind-opacity', '0.55', 'Opacity when another panel is topmost.'],
   ['--floating-panel-bg', 'var(--color-popover)', 'Panel surface background.'],
-  ['--floating-panel-body-color', 'var(--floating-panel-color)', 'Body text color.'],
+  [
+    '--floating-panel-body-color',
+    'var(--floating-panel-color, var(--color-popover-foreground))',
+    'Body text color.',
+  ],
   ['--floating-panel-body-font-size', 'var(--text-sm)', 'Body text size.'],
   ['--floating-panel-body-line-height', 'var(--line-height-text-sm)', 'Body line height.'],
   ['--floating-panel-body-padding', 'var(--spacing-4)', 'Body padding.'],
@@ -36,10 +39,47 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-ending-translate-y', '0', 'Exit vertical offset.'],
   ['--floating-panel-focus-ring-color', 'var(--color-ring)', 'Focus ring color.'],
   ['--floating-panel-focus-ring-width', 'var(--border-width-sm)', 'Focus ring width.'],
+  [
+    '--floating-panel-footer-border-color',
+    'var(--floating-panel-border-color, var(--color-border))',
+    'Customizes floating panel footer border color.',
+  ],
+  [
+    '--floating-panel-footer-border-width',
+    'var(--border-width-sm)',
+    'Customizes floating panel footer border width.',
+  ],
+  [
+    '--floating-panel-footer-color',
+    'var(--color-muted-foreground)',
+    'Customizes floating panel footer color.',
+  ],
+  [
+    '--floating-panel-footer-font-size',
+    'var(--text-xs)',
+    'Customizes floating panel footer font size.',
+  ],
+  ['--floating-panel-footer-gap', 'var(--spacing-2)', 'Customizes floating panel footer gap.'],
+  ['--floating-panel-footer-justify', 'flex-end', 'Customizes floating panel footer justify.'],
+  [
+    '--floating-panel-footer-line-height',
+    'var(--line-height-text-xs)',
+    'Customizes floating panel footer line height.',
+  ],
+  [
+    '--floating-panel-footer-padding-x',
+    'var(--spacing-3)',
+    'Customizes floating panel footer padding x.',
+  ],
+  [
+    '--floating-panel-footer-padding-y',
+    'var(--spacing-2)',
+    'Customizes floating panel footer padding y.',
+  ],
   ['--floating-panel-header-bg', 'var(--color-muted)', 'Header background.'],
   [
     '--floating-panel-header-border-color',
-    'var(--floating-panel-border-color)',
+    'var(--floating-panel-border-color, var(--color-border))',
     'Header border color.',
   ],
   ['--floating-panel-header-border-width', 'var(--border-width-sm)', 'Header border width.'],
@@ -59,7 +99,11 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-starting-scale', 'var(--scale-popup)', 'Enter animation scale.'],
   ['--floating-panel-starting-translate-x', '0', 'Enter horizontal offset.'],
   ['--floating-panel-starting-translate-y', '0', 'Enter vertical offset.'],
-  ['--floating-panel-title-color', 'var(--floating-panel-color)', 'Title color.'],
+  [
+    '--floating-panel-title-color',
+    'var(--floating-panel-color, var(--color-popover-foreground))',
+    'Title color.',
+  ],
   ['--floating-panel-title-font-size', 'var(--text-sm)', 'Title text size.'],
   ['--floating-panel-title-font-weight', 'var(--weight-semibold)', 'Title weight.'],
   ['--floating-panel-title-gap', 'var(--spacing-2)', 'Title inline gap.'],
@@ -68,7 +112,7 @@ export const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
   ['--floating-panel-trigger-bg', 'var(--color-background)', 'Default trigger background.'],
   [
     '--floating-panel-trigger-bg-active',
-    'var(--floating-panel-trigger-bg-hover)',
+    'var(--floating-panel-trigger-bg-hover, var(--color-accent))',
     'Open trigger background.',
   ],
   ['--floating-panel-trigger-bg-hover', 'var(--color-accent)', 'Default trigger hover background.'],
@@ -110,11 +154,13 @@ export function FloatingPanelCssPropertiesPanel() {
 }
 
 function FloatingPanelSurface({
+  autoFocus,
   title,
   children,
   className,
   footer,
 }: {
+  autoFocus?: boolean;
   title: string;
   children?: ReactNode;
   className?: string;
@@ -122,7 +168,7 @@ function FloatingPanelSurface({
 }) {
   return (
     <FloatingPanel.Positioner>
-      <FloatingPanel.Content className={className}>
+      <FloatingPanel.Content autoFocus={autoFocus} className={className}>
         <FloatingPanel.DragTrigger>
           <FloatingPanel.Header>
             <FloatingPanel.Title>
@@ -132,6 +178,7 @@ function FloatingPanelSurface({
             <FloatingPanel.Control>
               <FloatingPanel.StageTrigger stage="minimized" />
               <FloatingPanel.StageTrigger stage="maximized" />
+              <FloatingPanel.StageTrigger stage="default" />
               <FloatingPanel.CloseIcon />
             </FloatingPanel.Control>
           </FloatingPanel.Header>
@@ -150,10 +197,7 @@ export function FloatingPanelExample() {
       <FloatingPanel.Trigger asChild>
         <Button>Open panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanelSurface
-        title="Inspector"
-        footer="Esc closes the panel without hiding the resize handles."
-      >
+      <FloatingPanelSurface title="Inspector" footer="Resize from any edge.">
         <div className={styles.bodyStack}>
           <p>Drag the header to move this panel and resize it from any edge.</p>
           <div className={styles.metricGrid}>
@@ -238,6 +282,23 @@ export function ControlledSizeFloatingPanelExample() {
   );
 }
 
+export function EscapeDismissFloatingPanelExample() {
+  return (
+    <FloatingPanel defaultSize={DEFAULT_SIZE}>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanelSurface
+        autoFocus
+        title="Escape dismiss"
+        footer="Esc closes the focused topmost panel."
+      >
+        <p>The content receives focus on open so Escape dismisses the panel immediately.</p>
+      </FloatingPanelSurface>
+    </FloatingPanel>
+  );
+}
+
 export function AnchorPositionFloatingPanelExample() {
   return (
     <FloatingPanel
@@ -260,6 +321,34 @@ export function AnchorPositionFloatingPanelExample() {
   );
 }
 
+export function AdvancedCustomizationFloatingPanelExample() {
+  return (
+    <FloatingPanel defaultSize={DEFAULT_SIZE}>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open custom panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanel.Positioner>
+        <FloatingPanel.Content>
+          <FloatingPanel.DragTrigger>
+            <FloatingPanel.Header>
+              <FloatingPanel.Title>Custom resize handles</FloatingPanel.Title>
+              <FloatingPanel.Control>
+                <FloatingPanel.CloseIcon />
+              </FloatingPanel.Control>
+            </FloatingPanel.Header>
+          </FloatingPanel.DragTrigger>
+          <FloatingPanel.Body>
+            Only the right, bottom, and bottom-right handles are rendered in this composition.
+          </FloatingPanel.Body>
+          <FloatingPanel.ResizeTrigger axis="e" />
+          <FloatingPanel.ResizeTrigger axis="s" />
+          <FloatingPanel.ResizeTrigger axis="se" />
+        </FloatingPanel.Content>
+      </FloatingPanel.Positioner>
+    </FloatingPanel>
+  );
+}
+
 export function ContextFloatingPanelExample() {
   return (
     <FloatingPanel defaultSize={DEFAULT_SIZE}>
@@ -267,13 +356,13 @@ export function ContextFloatingPanelExample() {
         <FloatingPanel.Trigger asChild>
           <Button>Open context panel</Button>
         </FloatingPanel.Trigger>
-        <ArkFloatingPanel.Context>
+        <FloatingPanel.Context>
           {(panel) => (
             <span className={styles.status}>
               open: {String(panel.open)}, dragging: {String(panel.dragging)}
             </span>
           )}
-        </ArkFloatingPanel.Context>
+        </FloatingPanel.Context>
       </div>
       <FloatingPanelSurface title="Context state">
         <p>Ark FloatingPanel.Context exposes the panel API to descendants.</p>
@@ -283,7 +372,7 @@ export function ContextFloatingPanelExample() {
 }
 
 export function RootProviderFloatingPanelExample() {
-  const panel = useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
+  const panel = FloatingPanel.useFloatingPanel({ defaultSize: DEFAULT_SIZE, persistRect: true });
 
   return (
     <div className={styles.stack}>

@@ -29,7 +29,7 @@ informational. The root is visually neutral by default, so the basic example onl
 
 ## Install with shadcn
 
-<ShadcnInstall packageName="react-marquee" />
+<ShadcnInstall packageName="marquee" />
 
 ## Anatomy
 
@@ -42,7 +42,7 @@ Marquee / Marquee.Root
 └─ Marquee.Edge
 
 Marquee.RootProvider
-└─ same part tree connected to useMarquee()
+└─ same part tree connected to moduix useMarquee()
 ```
 
 | Part                       | Role                                                                  |
@@ -63,7 +63,7 @@ animation keyframes and state hooks, while item visuals and root framing stay in
 
 ### When to go custom
 
-Use `Marquee.Edge` when the content should fade into the page background. Use Ark `useMarquee()` with
+Use `Marquee.Edge` when the content should fade into the page background. Use moduix `useMarquee()` with
 `Marquee.RootProvider` when controls outside the marquee need the API: `pause()`, `resume()`,
 `togglePause()`, and `restart()`. Do not render `Marquee` and `Marquee.RootProvider` for the same
 state object.
@@ -125,47 +125,32 @@ between duplicated content instances.
   
 </Preview>
 
-### Reverse
+### Edges
 
-Use `reverse` when the content should move opposite the configured side without changing
-orientation.
+Add `Marquee.Edge` on the sides that should fade into the page background. The edge part is
+decorative and does not receive pointer events.
 
 <Preview>
-  <MarqueeDocs.ReverseMarqueeExample />
+  <MarqueeDocs.EdgesMarqueeExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/marquee/reverse.tsx#demo</include>
+  <include lang="tsx">./_snippets/marquee/edges.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
   
 </Preview>
 
-### Vertical
+### Finite Loops
 
-Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
-`--marquee-vertical-height` by default so the viewport has a stable block size.
-
-<Preview>
-  <MarqueeDocs.VerticalMarqueeExample />
-
-<Preview.Code>
-  <include lang="tsx">./_snippets/marquee/vertical.tsx#demo</include>
-</Preview.Code>
-
-  <Preview.CSS>{MarqueeDocs.marqueeVerticalCss}</Preview.CSS>
-  
-</Preview>
-
-### Speed
-
-Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
+Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
+after the final loop.
 
 <Preview>
-  <MarqueeDocs.SpeedMarqueeExample />
+  <MarqueeDocs.FiniteLoopsMarqueeExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/marquee/speed.tsx#demo</include>
+  <include lang="tsx">./_snippets/marquee/finite-loops.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
@@ -189,8 +174,8 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
 
 ### Programmatic Control
 
-Use Ark `useMarquee()` and `Marquee.RootProvider` when external controls need to pause, resume, or
-restart playback.
+Use moduix `useMarquee()` and `Marquee.RootProvider` when external controls need to pause, resume,
+or restart playback.
 
 <Preview>
   <MarqueeDocs.ProgrammaticMarqueeExample />
@@ -203,35 +188,50 @@ restart playback.
   
 </Preview>
 
-### Finite Loops
+### Reverse
 
-Set `loopCount` for finite playback. `onLoopComplete` fires after each loop and `onComplete` fires
-after the final loop.
+Use `reverse` when the content should move opposite the configured side without changing
+orientation.
 
 <Preview>
-  <MarqueeDocs.FiniteLoopsMarqueeExample />
+  <MarqueeDocs.ReverseMarqueeExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/marquee/finite-loops.tsx#demo</include>
+  <include lang="tsx">./_snippets/marquee/reverse.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
   
 </Preview>
 
-### Edges
+### Speed
 
-Add `Marquee.Edge` on the sides that should fade into the page background. The edge part is
-decorative and does not receive pointer events.
+Control motion with `speed`, measured in pixels per second. Lower values are easier to read.
 
 <Preview>
-  <MarqueeDocs.EdgesMarqueeExample />
+  <MarqueeDocs.SpeedMarqueeExample />
 
 <Preview.Code>
-  <include lang="tsx">./_snippets/marquee/edges.tsx#demo</include>
+  <include lang="tsx">./_snippets/marquee/speed.tsx#demo</include>
 </Preview.Code>
 
   <Preview.CSS>{MarqueeDocs.marqueeExampleCss}</Preview.CSS>
+  
+</Preview>
+
+### Vertical
+
+Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
+`--marquee-vertical-height` by default so the viewport has a stable block size.
+
+<Preview>
+  <MarqueeDocs.VerticalMarqueeExample />
+
+<Preview.Code>
+  <include lang="tsx">./_snippets/marquee/vertical.tsx#demo</include>
+</Preview.Code>
+
+  <Preview.CSS>{MarqueeDocs.marqueeVerticalCss}</Preview.CSS>
   
 </Preview>
 

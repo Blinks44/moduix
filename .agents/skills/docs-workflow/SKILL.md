@@ -85,8 +85,9 @@ Inside `## Styling`, always use:
   - Document preserved Ark callback shapes, `ref` targets, form context, `HiddenInput`, provider/context patterns,
     `asChild`, `ids`, and moduix sugar here when relevant.
 - `Examples`: start where `Basic` stops. Move into narrower, more specific, or more advanced cases.
-  - For Ark-backed components, order examples to follow the relevant Ark docs topics first, then add moduix-only sugar
-    or styling examples.
+  - Order feature examples alphabetically by heading so pages remain predictable.
+  - When an example intentionally shows the full low-level Ark composition behind recommended moduix sugar, title it
+    `Advanced Customization`, place it last, and make the lead-in say which convenience part it bypasses.
   - Every example heading must be followed by a short explanatory lead-in before the preview. Do not render a preview
     immediately under the heading.
 - `Styling`: only when the component has a meaningful styling contract.
@@ -151,6 +152,9 @@ Inside `## Styling`, always use:
   - `asChild` composition and single semantic child constraints
   - shared `ids` props for cross-component accessibility composition
   - `Component.Context`, `use*Context`, and `RootProvider` state access patterns
+  - For context, item context, state hooks, and context hooks used in consumer-facing examples, prefer the moduix
+    namespace or package-barrel export. Do not teach `ArkComponent.Context` imports as the primary path unless the
+    wrapper intentionally leaves that surface outside moduix.
   - CSS animations on Ark state attributes and `present` for JavaScript exit animations
   - `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
     hooks
@@ -183,7 +187,7 @@ Dialog-like components:
 
 ## Registry Docs
 
-- Keep the full shadcn/GitHub registry setup flow in `quick-start.mdx`, not on every component page.
+- Keep the full hosted shadcn registry setup flow in `quick-start.mdx`, not on every component page.
 - On component pages, put `Install with shadcn` immediately after `Basic` and show only the `add` commands.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned when install flow, token entrypoints, or ownership guidance changes.
-- Treat `registry.json` as the source of truth. `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
+- Treat `registry/registry.json` as the source manifest. `npm run build:registry` generates JSON artifacts into `apps/docs/public/r/react`.

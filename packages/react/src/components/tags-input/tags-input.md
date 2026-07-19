@@ -24,12 +24,16 @@ controlled and uncontrolled `value` / `inputValue`, `validate`, `delimiter`,
 
 ## Current behavior contract
 
-`TagsInput` is the default root and `TagsInput.Root` is the same component. It renders only the Ark
-root; consumers compose the label, control, items, input, clear trigger, and hidden input explicitly.
+`TagsInput` is the default root and `TagsInput.Root` is the same component. Consumers compose the
+label, control, input, and clear trigger; `Root` and `RootProvider` render the native form input
+internally.
+`TagsInput.Items` renders the standard editable item tree from root context, while explicit item
+parts remain available for custom tags.
 `TagsInput.ItemDeleteTrigger` provides the compact tag-level `CloseIcon` when no children are
-passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default through Ark
-`asChild`, so clearing all tags has the larger library close affordance without nesting buttons.
-`HiddenInput` should be mounted when native form submission and reset behavior matter.
+passed. `TagsInput.ClearTrigger` composes the shared `CloseButton.Root` by default through Ark
+`asChild`, including when custom icon children are passed, so clearing all tags has the library
+close affordance without nesting buttons.
+Use root props such as `name` and `form` to configure native form participation.
 
 ## Anatomy and exported parts
 
@@ -37,23 +41,10 @@ passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default t
 <TagsInput>
   <TagsInput.Label />
   <TagsInput.Control>
-    <TagsInput.Context>
-      {(tagsInput) =>
-        tagsInput.value.map((value, index) => (
-          <TagsInput.Item key={value} index={index} value={value}>
-            <TagsInput.ItemPreview>
-              <TagsInput.ItemText />
-              <TagsInput.ItemDeleteTrigger />
-            </TagsInput.ItemPreview>
-            <TagsInput.ItemInput />
-          </TagsInput.Item>
-        ))
-      }
-    </TagsInput.Context>
+    <TagsInput.Items />
     <TagsInput.Input />
     <TagsInput.ClearTrigger />
   </TagsInput.Control>
-  <TagsInput.HiddenInput />
 </TagsInput>
 ```
 
@@ -63,24 +54,25 @@ passed. `TagsInput.ClearTrigger` uses the shared `CloseButton.Root` by default t
 | `TagsInput.RootProvider`      | `data-slot="tags-input-root-provider"`; external Ark state.     |
 | `TagsInput.Label`             | `data-slot="tags-input-label"`; accessible label.               |
 | `TagsInput.Control`           | `data-slot="tags-input-control"`; input shell and tag wrapper.  |
+| `TagsInput.Items`             | Default editable item tree rendered from `TagsInput.Context`.   |
 | `TagsInput.Item`              | `data-slot="tags-input-item"`; requires `index` and `value`.    |
+| `TagsInput.ItemContext`       | Ark render-prop state for the current item.                     |
 | `TagsInput.ItemPreview`       | `data-slot="tags-input-item-preview"`; visible tag surface.     |
 | `TagsInput.ItemText`          | `data-slot="tags-input-item-text"`; rendered tag text.          |
 | `TagsInput.ItemDeleteTrigger` | `data-slot="tags-input-item-delete-trigger"`; removes one tag.  |
 | `TagsInput.ItemInput`         | `data-slot="tags-input-item-input"`; edit-mode input for a tag. |
 | `TagsInput.Input`             | `data-slot="tags-input-input"`; entry input for new tags.       |
 | `TagsInput.ClearTrigger`      | `data-slot="tags-input-clear-trigger"`; clears all tags.        |
-| `TagsInput.HiddenInput`       | `data-slot="tags-input-hidden-input"`; native form value input. |
 | `TagsInput.Context`           | Ark root render-prop context.                                   |
 
 ## Composition
 
-Use explicit Ark composition by default. Map `tagsInput.value` from `TagsInput.Context`, pass
-`index` and `value` to each `TagsInput.Item`, render `ItemPreview`, `ItemText`,
-`ItemDeleteTrigger`, and keep `ItemInput` inside the item so edit mode works. Keep `TagsInput.Input`
-inside `Control` for entry and render `HiddenInput` for forms.
+Use `TagsInput.Items` inside `Control` for the standard editable tag tree. Keep
+`TagsInput.Input` inside `Control` for entry. The root renders its native form input automatically. For custom tag
+content or actions, map `tagsInput.value` from `TagsInput.Context`, pass `index` and `value` to each
+`TagsInput.Item`, and keep `ItemInput` inside the item so edit mode works.
 
-Use `RootProvider` plus Ark `useTagsInput` only when state or imperative methods like `addValue`,
+Use `RootProvider` plus moduix `useTagsInput` only when state or imperative methods like `addValue`,
 `setValue`, `clearValue`, or `focus` must be controlled outside the component tree. Use `ids` to
 share an input/control between `TagsInput` and other Ark primitives such as `Combobox`, and compose
 the shared text field with `Combobox.Input asChild` around `TagsInput.Input`.
@@ -121,20 +113,31 @@ Important hooks:
 
 ## Intentional sugar and differences from upstream
 
-The wrapper adds moduix classes, `data-slot` hooks, a default compact close icon for item deletion,
-the shared `CloseButton.Root` for clearing all tags, and default input/tag styling. It does not add
-a high-level tag renderer or prop aliases; consumers keep the Ark part tree visible.
+The wrapper adds moduix classes, `data-slot` hooks, `TagsInput.Items` as a fixed standard item
+renderer, a default compact close icon for item deletion, the shared `CloseButton.Root` for clearing
+all tags, and default input/tag styling. `ClearTrigger asChild` leaves the child in control of its
+own host and visual treatment. `Items` has no prop bags; use lower-level parts when item structure
+needs customization.
 
 ## Agent notes
 
 Keep docs, examples, registry metadata, and generated registry artifacts in sync with the namespace
-API. Do not replace Ark detail objects with positional callbacks. Do not remove `HiddenInput` from
-form examples. `TagsInput.Context` stays because ordinary uncontrolled composition needs it, but
-other Ark hooks and item-level context should be imported from `@ark-ui/react/tags-input` when
-needed.
+API. Do not replace Ark detail objects with positional callbacks. `TagsInput.Context` and
+`TagsInput.ItemContext` stay because custom composition
+needs them; `useTagsInput`, `useTagsInputContext`, and `useTagsInputItemContext` are moduix exports
+for normal provider and state access.
 
 ## Local changelog
 
+- 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every
+  non-`asChild` clear action uses the shared visual contract.
+- 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
+
+- 2026-07-12: Exposed `ItemContext`, `useTagsInput()`, `useTagsInputContext()`, and
+  `useTagsInputItemContext()` through moduix so provider and custom-item examples avoid direct Ark
+  imports.
+- 2026-07-11: Added `TagsInput.Items` as the recommended standard item renderer; explicit item
+  composition remains the advanced customization path.
 - 2026-07-03: Removed moduix re-exports for Ark tags-input hooks, item context, and type aliases.
   `TagsInput.Context` stays for ordinary uncontrolled composition, and `RootProvider` still accepts
   state created with direct Ark imports.

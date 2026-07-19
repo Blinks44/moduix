@@ -8,11 +8,9 @@ export function RadioGroupSizesDemo() {
     <RadioGroup defaultValue="md">
       <RadioGroup.Label>Control Size</RadioGroup.Label>
       {['xs', 'sm', 'md', 'lg', 'xl'].map((size) => (
-        <RadioGroup.Item key={size} value={size}>
-          <RadioGroup.ItemControl size={size} />
-          <RadioGroup.ItemText>{size.toUpperCase()}</RadioGroup.ItemText>
-          <RadioGroup.ItemHiddenInput />
-        </RadioGroup.Item>
+        <RadioGroup.Option key={size} value={size} size={size}>
+          {size.toUpperCase()}
+        </RadioGroup.Option>
       ))}
     </RadioGroup>
   );

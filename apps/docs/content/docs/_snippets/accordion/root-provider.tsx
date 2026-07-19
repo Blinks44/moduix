@@ -1,6 +1,5 @@
 //#region demo
-import { useAccordion } from '@ark-ui/react/accordion';
-import { Accordion } from '@moduix/react';
+import { Accordion, useAccordion } from '@moduix/react';
 
 const items = [
   {
@@ -35,7 +34,7 @@ export function RootProviderAccordionDemo() {
               <Accordion.ItemIndicator />
             </Accordion.ItemTrigger>
             <Accordion.ItemContent>
-              <div className="accordion-panel-content">{item.description}</div>
+              <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}

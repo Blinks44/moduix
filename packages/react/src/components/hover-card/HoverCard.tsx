@@ -1,6 +1,10 @@
-import type { ComponentProps, ComponentRef } from 'react';
-import { HoverCard as HoverCardPrimitive } from '@ark-ui/react/hover-card';
+import {
+  HoverCard as HoverCardPrimitive,
+  useHoverCard,
+  useHoverCardContext,
+} from '@ark-ui/react/hover-card';
 import { clsx } from 'clsx';
+import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -113,6 +117,7 @@ const HoverCard = Object.assign(HoverCardRoot, {
   Content: HoverCardContent,
   Arrow: HoverCardArrow,
   ArrowTip: HoverCardArrowTip,
+  Context: HoverCardPrimitive.Context,
 });
 
-export { HoverCard };
+export { HoverCard, useHoverCard, useHoverCardContext };

@@ -147,6 +147,16 @@
   --popover-content-ending-translate-y: -0.5rem;
 }
 
+.softPopPopup {
+  --popover-transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --popover-content-starting-opacity: 0;
+  --popover-content-ending-opacity: 0;
+  --popover-content-starting-scale: 0.88;
+  --popover-content-ending-scale: 0.94;
+  --popover-content-starting-translate-y: 0.25rem;
+  --popover-content-ending-translate-y: 0.25rem;
+}
+
 .playgroundTrigger {
   position: relative;
   z-index: calc(var(--z-popup) + 1);

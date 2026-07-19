@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
+import { ImageCropper } from '@moduix/react';
 import {
-  ImageCropper as ArkImageCropper,
-  FlipHorizontalIcon,
-  ImageCropper,
-  RestartIcon,
-  RotateCcwIcon,
-  RotateCwIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
-} from '@moduix/react';
+  FlipHorizontal as FlipHorizontalIcon,
+  RotateCcw as RestartIcon,
+  RotateCcw as RotateCcwIcon,
+  RotateCw as RotateCwIcon,
+  ZoomIn as ZoomInIcon,
+  ZoomOut as ZoomOutIcon,
+} from 'lucide-react';
 import { useState } from 'react';
 
 const sampleImage =
@@ -30,7 +29,7 @@ export function TransformImageCropperDemo() {
         onRotationChange={(details) => setRotation(details.rotation)}
         onFlipChange={(details) => setFlip(details.flip)}
       >
-        <ArkImageCropper.Context>
+        <ImageCropper.Context>
           {(context) => (
             <div className="cropper-toolbar">
               <button
@@ -83,16 +82,10 @@ export function TransformImageCropperDemo() {
               </button>
             </div>
           )}
-        </ArkImageCropper.Context>
+        </ImageCropper.Context>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
-          <ImageCropper.Selection>
-            <ImageCropper.Grid axis="horizontal" />
-            <ImageCropper.Grid axis="vertical" />
-            {ImageCropper.handles.map((position) => (
-              <ImageCropper.Handle key={position} position={position} />
-            ))}
-          </ImageCropper.Selection>
+          <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
       <output className="cropper-output">

@@ -43,12 +43,17 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 
 - `ref` behavior for the root, trigger, input, or control parts that consumers or form libraries should target.
 - `Field.Root` / `Fieldset.Root` context integration for `disabled`, `invalid`, `required`, and `readOnly`.
-- `HiddenInput` requirements for native form submission and form reset synchronization.
+- Native form-control ownership for submission and reset synchronization: state whether the consumer composes the
+  Ark hidden part or moduix renders it automatically. For automatic controls, document their placement, `name`/
+  `form` behavior, and any semantic replacement props; do not list removed hidden parts as public anatomy.
 - `asChild` and `ark` factory composition paths, including the single-child and semantic-element constraints.
 - `ids` usage when the component composes with another Ark component and shared accessibility IDs are required.
 - `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
 - If upstream exposes those provider/context/hook patterns, also document whether they are exported from the package
   barrel and available to consumers importing from `moduix`.
+- If public docs or examples rely on an upstream context, item context, state hook, or context hook for normal advanced
+  usage, document the moduix-owned export path and avoid presenting `ArkComponent.Context` imports as the primary
+  consumer API. Direct Ark imports are acceptable only for rare escape hatches intentionally left outside the wrapper.
 - `present`, lazy mounting, and CSS exit-animation behavior when the component mounts and unmounts content.
 - `data-scope`, `data-part`, `data-state`, other Ark state attributes, Ark CSS variables, and moduix `data-slot`
   hooks that consumers can target.
@@ -106,7 +111,11 @@ but do not omit them.
 - `Accessibility and state`: capture refs, callback shapes, form context, `HiddenInput`, state hooks, data attributes, and CSS variables when exposed.
 - `Defaults and styling`: document theme tokens, Ark CSS variables, animation/state hooks, and styling hooks.
 - `Intentional sugar and differences from upstream`: isolate everything moduix adds, renames, removes, or constrains.
+- For each convenience part, explain the boilerplate it removes, the lower-level composition it preserves, and the
+  available styling path (`className`, data attributes, CSS variables, `data-slot`, or exported parts).
 - `Agent notes`: keep only preservation notes that matter for future implementation work.
+- When moduix internalizes an Ark native control, record the preserved form behavior and the intentional API difference
+  from Ark in `Current behavior contract`, `Composition`, and `Intentional sugar and differences from upstream`.
 - `Local changelog`: keep a short dated changelog at the end of the file.
 
 ## Changelog

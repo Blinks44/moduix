@@ -17,7 +17,8 @@ commit and revert behavior, `Field` / `Fieldset` context integration, `RootProvi
 `asChild` support.
 
 Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Area`, `Input`, `Preview`,
-`Control`, `EditTrigger`, `SubmitTrigger`, and `CancelTrigger`.
+`Control`, `EditTrigger`, `SubmitTrigger`, and `CancelTrigger`. moduix also exports the
+`Controls` convenience part, `Context`, `useEditable`, and `useEditableContext`.
 
 ## Current behavior contract
 
@@ -42,7 +43,7 @@ Editable.Root
 ├─ Editable.Area
 │  ├─ Editable.Input
 │  └─ Editable.Preview
-├─ Editable.Control
+├─ Editable.Control or Editable.Controls
 │  ├─ Editable.EditTrigger
 │  ├─ Editable.SubmitTrigger
 │  └─ Editable.CancelTrigger
@@ -60,17 +61,17 @@ Editable.RootProvider
 | `Editable.Input`             | `editable-input`          | Managed text input; can render a textarea.         |
 | `Editable.Preview`           | `editable-preview`        | Read-mode value or placeholder text.               |
 | `Editable.Control`           | `editable-control`        | Optional wrapper for edit, submit, cancel buttons. |
+| `Editable.Controls`          | `editable-control`        | Convenience control that swaps default triggers.   |
 | `Editable.EditTrigger`       | `editable-edit-trigger`   | Renders a pencil icon when children are omitted.   |
 | `Editable.SubmitTrigger`     | `editable-submit-trigger` | Renders a check icon when children are omitted.    |
 | `Editable.CancelTrigger`     | `editable-cancel-trigger` | Renders a close icon when children are omitted.    |
 
-Exported values: `Editable`.
+Exported values: `Editable`, `useEditable`, and `useEditableContext`.
 
 ## Composition
 
 ```tsx
 import { Editable } from '@moduix/react';
-import { Editable as EditablePrimitive } from '@ark-ui/react/editable';
 
 export function NameEditable() {
   return (
@@ -80,20 +81,7 @@ export function NameEditable() {
         <Editable.Input />
         <Editable.Preview />
       </Editable.Area>
-      <Editable.Control>
-        <EditablePrimitive.Context>
-          {(editable) =>
-            editable.editing ? (
-              <>
-                <Editable.SubmitTrigger />
-                <Editable.CancelTrigger />
-              </>
-            ) : (
-              <Editable.EditTrigger />
-            )
-          }
-        </EditablePrimitive.Context>
-      </Editable.Control>
+      <Editable.Controls />
     </Editable>
   );
 }
@@ -120,7 +108,7 @@ export function ControlledNameEditable() {
 }
 ```
 
-Use `Editable.RootProvider` only with state created by Ark `useEditable()`; do not also render
+Use `Editable.RootProvider` only with state created by moduix `useEditable()`; do not also render
 `Editable.Root` for the same state instance.
 
 ## Upstream feature coverage
@@ -128,9 +116,10 @@ Use `Editable.RootProvider` only with state created by Ark `useEditable()`; do n
 - Basic composition: supported through `Editable`, `Label`, `Area`, `Input`, and `Preview`.
 - Controlled value: supported through `value` and `onValueChange`.
 - Controlled edit state: supported through `edit` and `onEditChange`.
-- Root provider: supported through Ark `useEditable()` and `Editable.RootProvider`.
-- Context access and custom controls: supported through Ark `Editable.Context` /
+- Root provider: supported through moduix `useEditable()` and `Editable.RootProvider`.
+- Context access and custom controls: supported through moduix `Editable.Context` /
   `useEditableContext()` together with the moduix trigger parts.
+- Default controls: `Editable.Controls` swaps the edit trigger for submit and cancel triggers.
 - Textarea: supported with `Editable.Input asChild` and a semantic `<textarea />`.
 - Field integration: preserved through Ark field context and the moduix `Field` wrapper.
 - Guides: `autoResize`, `maxLength`, `activationMode`, `submitMode`, `placeholder`,
@@ -183,23 +172,23 @@ Public CSS variables:
 ## Intentional sugar and differences from upstream
 
 moduix adds visual defaults, stable `data-slot` hooks, default trigger icons, right-side control
-layout with configurable vertical alignment, and `activationMode="dblclick"` on `Editable.Root`.
-When state is owned outside the tree, import Ark `useEditable()` / `Editable.Context` directly and
-pass `activationMode: 'dblclick'` there if you want the same default activation behavior. moduix
-does not add variants, sizes, slot prop bags, class-name maps, callback adapters, or high-level
-props over Ark behavior.
+layout with configurable vertical alignment, `activationMode="dblclick"` on `Editable.Root`, and
+`Editable.Controls` for the standard trigger flow. `Editable.Context`, `useEditable`, and
+`useEditableContext` are re-exported through moduix for advanced state access. moduix does not add
+variants, sizes, callback adapters, or high-level state props over Ark behavior.
 
 ## Agent notes
 
-Keep `RootProvider`, but do not re-export Ark context parts, hooks, or duplicate type aliases from
-the moduix barrel. Do not style root-level disabled or invalid attributes for `Editable`; Ark emits
-those states on the concrete parts. The area invalid border intentionally follows `Input` /
-`Preview` invalid state with `:has(...)`. Docs examples must import from `moduix`, not from the
-component file. Registry source paths are under
+Keep `RootProvider`, `Context`, `useEditable`, and `useEditableContext` aligned with Ark. Do not
+style root-level disabled or invalid attributes for `Editable`; Ark emits those states on the
+concrete parts. The area invalid border intentionally follows `Input` / `Preview` invalid state
+with `:has(...)`. Docs examples must import from `moduix`, not from the component file. Registry source paths are under
 `packages/react/src/components/editable`.
 
 ## Local changelog
 
+- 2026-07-10: Added `Editable.Controls` for the standard trigger flow and re-exported context
+  surfaces through moduix for advanced compositions.
 - 2026-07-02: Removed `Editable.Context`, `useEditable`, `useEditableContext`, and duplicate Ark
   type re-exports from the moduix surface. `RootProvider` remains, and advanced state access now
   imports directly from `@ark-ui/react/editable`.
