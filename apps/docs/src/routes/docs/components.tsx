@@ -5,21 +5,19 @@ import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page';
 import { ComponentGallery, componentGalleryToc } from '@/components/docs/component-gallery';
 import { baseOptions } from '@/lib/layout.shared';
-import { siteUrl } from '@/lib/shared';
+import { createSeoMeta, getCanonicalUrl } from '@/lib/seo';
 import { source } from '@/lib/source';
 
 export const Route = createFileRoute('/docs/components')({
   component: ComponentsPage,
   loader: () => loadComponents(),
   head: () => ({
-    meta: [
-      { title: 'Components — moduix' },
-      {
-        name: 'description',
-        content: 'Browse moduix React components by product need.',
-      },
-    ],
-    links: [{ rel: 'canonical', href: `${siteUrl}/docs/components` }],
+    meta: createSeoMeta({
+      title: 'Components — moduix',
+      description: 'Browse moduix React components by product need.',
+      pathname: '/docs/components',
+    }),
+    links: [{ rel: 'canonical', href: getCanonicalUrl('/docs/components') }],
   }),
 });
 

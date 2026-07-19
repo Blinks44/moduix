@@ -19,7 +19,12 @@ export default defineConfig(({ command }) => {
       mdx(),
       tailwindcss(),
       tanstackStart({
-        pages: [{ path: '/' }, { path: '/llms.txt' }, { path: '/llms-full.txt' }],
+        pages: [
+          { path: '/' },
+          { path: '/llms.txt' },
+          { path: '/llms-full.txt' },
+          { path: '/sitemap.xml' },
+        ],
         prerender: {
           enabled: !isDev,
           concurrency: 1,
@@ -29,6 +34,7 @@ export default defineConfig(({ command }) => {
             pagePath === '/docs' ||
             pagePath === '/llms.txt' ||
             pagePath === '/llms-full.txt' ||
+            pagePath === '/sitemap.xml' ||
             pagePath.startsWith('/docs/'),
         },
       }),

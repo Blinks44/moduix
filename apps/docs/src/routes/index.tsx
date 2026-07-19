@@ -7,13 +7,13 @@ import { useState } from 'react';
 import { HomeDataTable } from '@/components/home/data-table';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
-import { siteUrl } from '@/lib/shared';
+import { getCanonicalUrl } from '@/lib/seo';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/')({
   component: Home,
   head: () => ({
-    links: [{ rel: 'canonical', href: siteUrl }],
+    links: [{ rel: 'canonical', href: getCanonicalUrl('/') }],
   }),
 });
 

@@ -15,7 +15,8 @@ import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import { useMDXComponents } from '@/components/mdx/components';
 import { baseOptions } from '@/lib/layout.shared';
-import { gitConfig, siteUrl } from '@/lib/shared';
+import { createSeoMeta, getCanonicalUrl } from '@/lib/seo';
+import { gitConfig } from '@/lib/shared';
 import { slugsToMarkdownPath, source } from '@/lib/source';
 
 export const Route = createFileRoute('/docs/$')({
@@ -29,11 +30,15 @@ export const Route = createFileRoute('/docs/$')({
   head: ({ loaderData }) =>
     loaderData
       ? {
-          meta: [
-            { title: `${loaderData.title} — moduix` },
-            { name: 'description', content: loaderData.description },
-          ],
-          links: [{ rel: 'canonical', href: `${siteUrl}${loaderData.url}` }],
+          meta: createSeoMeta({
+            title: `${loaderData.title} — moduix`,
+            description:
+              loaderData.description ??
+              'Accessible moduix documentation and React component examples.',
+            pathname: loaderData.url,
+            type: 'article',
+          }),
+          links: [{ rel: 'canonical', href: getCanonicalUrl(loaderData.url) }],
         }
       : {},
 });
