@@ -521,7 +521,7 @@ function ColumnVisibilityMenu({
 }
 
 function RowActions({ id, name }: { id: string; name: string }) {
-  const installCommand = `npx shadcn@latest add Blinks44/moduix/react-${id}`;
+  const installCommand = `npx shadcn@latest add @moduix-react/${id}`;
 
   return (
     <Menu positioning={{ placement: 'bottom-end', gutter: 8 }}>

@@ -58,8 +58,8 @@ bundle, so moduix does not ship duplicate React or Ark UI runtimes.
 
 ### shadcn copy-owned install
 
-`shadcn` can install selected moduix components from the GitHub registry directly into your project.
-The files become part of your codebase instead of staying in `node_modules`.
+`shadcn` can install selected moduix components from the hosted registry directly into your
+project. The files become part of your codebase instead of staying in `node_modules`.
 
 Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
 `tsconfig.app.json`, and mirror it in your bundler config.
@@ -88,13 +88,15 @@ Create `components.json` in the project root when your app does not already have
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
 }
 ```
 
 ```bash
-npx shadcn@latest add Blinks44/moduix/react-button
-npx shadcn@latest add Blinks44/moduix/react-accordion
+npx shadcn@latest add @moduix-react/button
+npx shadcn@latest add @moduix-react/accordion
 ```
 
 The registry install also pulls in the shared moduix foundation files those components need, such as

@@ -10,7 +10,7 @@
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
     "build:react": "turbo run build -F @moduix/react",
-    "build:registry": "shadcn registry validate && rm -rf packages/react/registry/default && shadcn build registry.json --output packages/react/registry/default && oxfmt",
+    "build:registry": "shadcn registry validate registry/registry.json && rm -rf apps/docs/public/r/react && shadcn build registry/registry.json --output apps/docs/public/r/react && oxfmt",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "npm run build:react && changeset publish",

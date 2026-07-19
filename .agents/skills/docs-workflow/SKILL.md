@@ -187,7 +187,7 @@ Dialog-like components:
 
 ## Registry Docs
 
-- Keep the full shadcn/GitHub registry setup flow in `quick-start.mdx`, not on every component page.
+- Keep the full hosted shadcn registry setup flow in `quick-start.mdx`, not on every component page.
 - On component pages, put `Install with shadcn` immediately after `Basic` and show only the `add` commands.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned when install flow, token entrypoints, or ownership guidance changes.
-- Treat `registry.json` as the source of truth. `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
+- Treat `registry/registry.json` as the source manifest. `npm run build:registry` generates JSON artifacts into `apps/docs/public/r/react`.

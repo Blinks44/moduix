@@ -63,9 +63,9 @@ If a task spans UI and docs, apply skills in this order:
   the repo root.
 - After changes to a component in `packages/react`, update that component's local `.md` file in
   `packages/react/src/components` when behavior, API, styling contract, or recommended usage changed.
-- The root `registry.json` is the source of truth for the shadcn/GitHub registry. Source files in
+- `registry/registry.json` is the source manifest for the hosted React registry. Source files in
   registry items point directly at `packages/react/src/...`.
-- `npm run build:registry` generates JSON artifacts into `packages/react/registry/default`.
+- `npm run build:registry` generates the deployed JSON artifacts into `apps/docs/public/r/react`.
 - Consumer registry targets remain namespaced under `@components/moduix/*` and `@lib/moduix/*`.
 - In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
 
