@@ -165,6 +165,7 @@ export function SelectDemo() {
   field surface; hovering `ClearTrigger` highlights only that action.
 - `Select.ClearTrigger` maps select action tokens to `CloseButton.Root`; use `asChild` with one
   semantic child when the clear control needs a custom host or visual treatment.
+- Trigger indicators are positioned at the logical inline end, so they follow RTL text flow.
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
@@ -195,6 +196,7 @@ export function SelectDemo() {
 
 ## Local changelog
 
+- 2026-07-19: Positioned trigger indicators with a logical inline-end property for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped select action
   tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

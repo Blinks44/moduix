@@ -183,7 +183,7 @@
   }
 
   .trigger {
-    right: var(--combobox-action-offset-right, 0.5rem);
+    inset-inline-end: var(--combobox-action-offset-right, 0.5rem);
   }
 
   .clearTrigger {
@@ -201,7 +201,7 @@
 
     position: absolute;
     top: 50%;
-    right: calc(
+    inset-inline-end: calc(
       var(--combobox-action-offset-right, 0.5rem) + var(--combobox-action-size, 1.5rem) +
         var(--combobox-action-gap, 0.125rem)
     );

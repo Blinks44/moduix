@@ -177,6 +177,7 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - `className` is accepted on every visual part.
 - `Combobox.ClearTrigger` maps its component tokens to `CloseButton.Root`; use `asChild` with one
   semantic child when the clear control needs a custom host or visual treatment.
+- Trigger and clear actions are positioned at the logical inline end, so they follow RTL text flow.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
 - Public component variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
@@ -231,6 +232,7 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-19: Positioned trigger and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped combobox action
   tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

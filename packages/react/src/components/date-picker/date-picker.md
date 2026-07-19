@@ -204,6 +204,8 @@ are selected.
 `DatePicker.ClearTrigger` maps date-picker action tokens to `CloseButton.Root`; use `asChild` with
 one semantic child when the clear control needs a custom host or visual treatment.
 
+The calendar and clear actions use logical inline-end positioning, so they follow RTL text flow.
+
 ## Intentional sugar and differences from upstream
 
 - `DatePicker.Field` renders `Control`, one `Input`, `ClearTrigger`, and `Trigger` for the standard
@@ -236,6 +238,7 @@ one semantic child when the clear control needs a custom host or visual treatmen
 
 ## Local changelog
 
+- 2026-07-19: Positioned calendar and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped date-picker
   action tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

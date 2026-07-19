@@ -1,4 +1,5 @@
 export { Portal } from '@ark-ui/react/portal';
+export { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
 
 export * from './components/aspect-ratio';
 export * from './components/accordion';

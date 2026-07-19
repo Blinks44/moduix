@@ -104,15 +104,15 @@
   }
 
   .decrementTrigger {
-    border-radius: var(--number-input-radius, var(--radius-md)) 0 0
-      var(--number-input-radius, var(--radius-md));
-    border-right: 0;
+    border-start-start-radius: var(--number-input-radius, var(--radius-md));
+    border-end-start-radius: var(--number-input-radius, var(--radius-md));
+    border-inline-end: 0;
   }
 
   .incrementTrigger {
-    border-radius: 0 var(--number-input-radius, var(--radius-md))
-      var(--number-input-radius, var(--radius-md)) 0;
-    border-left: 0;
+    border-start-end-radius: var(--number-input-radius, var(--radius-md));
+    border-end-end-radius: var(--number-input-radius, var(--radius-md));
+    border-inline-start: 0;
   }
 
   .input {
@@ -129,8 +129,7 @@
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
     border-bottom: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
-    border-left: 0;
-    border-right: 0;
+    border-inline: 0;
     border-radius: 0;
     padding: var(--number-input-input-padding-y, 0.5rem)
       var(--number-input-input-padding-x, 0.75rem);

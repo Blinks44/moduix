@@ -1,0 +1,98 @@
+---
+title: Right-to-left (RTL)
+description: Configure document direction and Ark locale once for Arabic, Hebrew, and other RTL interfaces.
+icon: Languages
+---
+
+# Right-to-left (RTL)
+
+RTL needs two small pieces of configuration: the browser's document direction and Ark's locale
+context. Set `dir="rtl"` on the document root, then wrap the app with the moduix
+`LocaleProvider`.
+
+```tsx
+import type { ReactNode } from 'react';
+import { LocaleProvider } from '@moduix/react';
+
+export function Document({ children }: { children: ReactNode }) {
+  return (
+    <html lang="ar" dir="rtl">
+      <body>
+        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+`LocaleProvider` derives Ark's `dir` value from the locale, so locale-aware primitives and Ark
+formatters use the same source of truth. The native `dir` attribute is still required: it controls
+text flow and CSS logical properties in the browser.
+
+## Component example
+
+Use the provider once near the application root; individual moduix components do not need a
+special RTL prop.
+
+```tsx
+import { createListCollection } from '@ark-ui/react/collection';
+import { Button, LocaleProvider, Select } from '@moduix/react';
+
+const cities = createListCollection({
+  items: [
+    { label: 'القاهرة', value: 'cairo' },
+    { label: 'الإسكندرية', value: 'alexandria' },
+  ],
+});
+
+export function ArabicPreferences() {
+  return (
+    <div dir="rtl" lang="ar">
+      <LocaleProvider locale="ar-EG">
+        <Select collection={cities}>
+          <Select.Label>المدينة</Select.Label>
+          <Select.Field placeholder="اختر مدينة" />
+          <Select.Positioner>
+            <Select.Content>
+              <Select.ItemGroup>
+                {cities.items.map((city) => (
+                  <Select.Item key={city.value} item={city}>
+                    <Select.ItemText>{city.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.ItemGroup>
+            </Select.Content>
+          </Select.Positioner>
+        </Select>
+        <Button>حفظ</Button>
+      </LocaleProvider>
+    </div>
+  );
+}
+```
+
+For portalled overlays, set `dir` on `<html>` or use a portal container inside the RTL subtree.
+That keeps the overlay's text, inline positioning, and tokens in the same scope as its trigger.
+
+## Styling contract
+
+New moduix styles use logical CSS properties whenever a rule means “start” or “end”: for example,
+`padding-inline`, `inset-inline-end`, `border-inline-start`, and `text-align: start`. This lets the
+same component layout follow the surrounding direction.
+
+Keep physical `left` and `right` only where they mean actual screen geometry, such as Ark indicator
+coordinates, a resize edge, or an explicit swipe direction. Do not replace those values blindly:
+they describe a measured position or gesture, not reading order.
+
+## Check before release
+
+Test the interface with an RTL locale after changing layout code, especially:
+
+- inputs with clear or action buttons;
+- select, combobox, and date-picker triggers;
+- portalled dialogs, popovers, menus, and tooltips;
+- keyboard navigation and visible focus order.
+
+Ark owns primitive direction behavior. See the [Ark Locale documentation](https://ark-ui.com/docs/utilities/locale)
+for the provider API and locale context details.

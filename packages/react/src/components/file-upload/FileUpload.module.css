@@ -242,7 +242,7 @@
     line-height: var(--file-upload-item-size-line-height, var(--line-height-text-xs));
 
     & > [data-slot='file-upload-item-size-text']::before {
-      margin-right: var(--file-upload-item-row-gap, var(--spacing-1));
+      margin-inline-end: var(--file-upload-item-row-gap, var(--spacing-1));
       content: '·';
     }
   }

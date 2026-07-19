@@ -203,7 +203,7 @@
   }
 
   .trigger {
-    right: var(--date-picker-trigger-offset-right, 0.5rem);
+    inset-inline-end: var(--date-picker-trigger-offset-right, 0.5rem);
   }
 
   .clearTrigger {
@@ -225,7 +225,7 @@
 
     position: absolute;
     top: 50%;
-    right: calc(
+    inset-inline-end: calc(
       var(--date-picker-trigger-offset-right, 0.5rem) + var(--date-picker-action-size, 1.5rem) +
         var(--date-picker-action-gap, 0.125rem)
     );

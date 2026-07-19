@@ -140,6 +140,9 @@ the structural props of `NumberInput.Control`, including `className`, but intent
 support `asChild`. Use the lower-level parts to customize its input or triggers. Trigger parts render
 the moduix minus or plus icon when `children` is omitted.
 
+The control group uses logical inline borders and corner radii, so decrement and increment controls
+follow the surrounding text direction.
+
 Public CSS variables:
 
 - Layout: `--number-input-gap`, `--number-input-width`, `--number-input-max-width`,
@@ -184,6 +187,7 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 
 ## Local changelog
 
+- 2026-07-19: Switched control borders and corner radii to logical inline properties for RTL.
 - 2026-07-10: Added `NumberInput.Field` and moduix exports for Ark state access; corrected disabled
   opacity so it is applied only once by the root.
 - 2026-07-03: Removed moduix re-exports of Ark number-input state helpers and the renderless

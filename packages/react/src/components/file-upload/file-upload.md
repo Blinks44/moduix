@@ -138,6 +138,7 @@ export function FileUploadDemo() {
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
 - Public component tokens live under `--file-upload-*` in `packages/react/src/lib/moduix/styles/theme.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
+- The item metadata separator uses logical inline spacing, so its rhythm follows RTL text flow.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.
 - No Ark runtime CSS variables are required by this primitive.
 
@@ -168,6 +169,7 @@ export function FileUploadDemo() {
 
 ## Local changelog
 
+- 2026-07-19: Switched item-metadata separator spacing to a logical inline property for RTL.
 - 2026-07-19: Increased the default file-row preview box to `var(--spacing-10)` (2.5rem) and clamped item names to
   one line.
 

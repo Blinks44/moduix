@@ -149,7 +149,7 @@
   .indicators {
     position: absolute;
     top: 50%;
-    right: var(--select-action-offset-right, 0.5rem);
+    inset-inline-end: var(--select-action-offset-right, 0.5rem);
     display: inline-flex;
     align-items: center;
     gap: var(--select-action-gap, 0.125rem);
