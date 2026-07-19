@@ -1,0 +1,85 @@
+---
+title: AI
+description: Give an AI assistant the right moduix context before it writes code.
+icon: Sparkles
+---
+
+# AI
+
+moduix is designed to stay understandable to both people and AI assistants. Give the assistant the
+smallest relevant documentation first, then ask it to work with the public component API that your
+project already uses.
+
+## Choose the right context
+
+| What you need                                    | Give the assistant                               |
+| ------------------------------------------------ | ------------------------------------------------ |
+| A product overview or a component discovery task | [`llms.txt`](/llms.txt)                          |
+| Help with one component, guide, or error         | That page's **Copy Markdown** or **Open** action |
+| A broad repository-level review                  | [`llms-full.txt`](/llms-full.txt)                |
+
+Every MDX documentation page has a canonical Markdown URL such as
+`https://moduix.dev/docs/button.md`. It contains the page content without the docs interface, so it
+is the best default context for a focused implementation or debugging task.
+
+## Ask about the current page
+
+Open **Open** below a page title, then choose an AI client such as ChatGPT, Claude, Cursor, or
+Scira. Use **View as Markdown** or **Copy Markdown** when the assistant needs the page content
+instead of the documentation interface.
+
+Use the URL, then explain your goal in concrete terms. For example:
+
+```text
+Read https://moduix.dev/docs/dialog.md. Add a confirmation dialog to our delete action.
+We use @moduix/react as a package. Keep the Ark composition explicit and make the trigger a button.
+```
+
+## Install components with an AI assistant
+
+Tell the assistant which moduix ownership model the project uses before it writes imports or install
+commands:
+
+| Project model              | Tell the assistant to use                                                             |
+| -------------------------- | ------------------------------------------------------------------------------------- |
+| Package-managed components | `@moduix/react` imports and `@moduix/react/style.css`                                 |
+| Copy-owned components      | `npx shadcn@latest add @moduix-react/<component>` and the project's `components.json` |
+
+For a copy-owned project, the assistant should read the component page and inspect
+`components.json` before adding a registry item. The [Quick start](/docs/quick-start) guide has the
+full hosted registry configuration.
+
+## Use the shadcn MCP server
+
+The shadcn MCP server can search and install items from a configured moduix registry. Initialize it
+inside the consuming project, then restart your AI client:
+
+```bash
+npx shadcn@latest mcp init
+```
+
+Keep the `@moduix-react` entry in `components.json`. Once it is configured, prompts such as these
+work well:
+
+```text
+Find the moduix component for an editable text field and show its documentation first.
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```text
+Add @moduix-react/dialog to this copy-owned project, then use it for a confirmation flow.
+```
+
+See the [shadcn MCP documentation](https://ui.shadcn.com/docs/mcp) for client-specific setup.
+
+## Review generated code
+
+Treat generated code as a draft. Before merging it, check that it:
+
+- uses the documented moduix parts and callback detail objects instead of invented aliases;
+- keeps the correct package or registry ownership model;
+- passes your normal typecheck, tests, and accessibility review.
+
+For changes to copy-owned components, inspect updates with the `shadcn` CLI before merging them.
+The [Updating and migration](/docs/updating) guide explains that workflow.

@@ -7,32 +7,31 @@ icon: Moon
 # Dark mode
 
 moduix ships light tokens by default and a dark token set behind the `dark` class. Import the
-foundation stylesheet once, then add or remove that class where your application owns its theme.
+foundation stylesheet once. Your application owns the theme preference and moduix responds to the
+resolved theme.
 
 ```tsx
-import type { ReactNode } from 'react';
-
 import '@moduix/react/style.css';
 ```
 
 ## Apply the theme at the document root
 
-Put `dark` on `<html>` for an application-wide theme. This is the recommended setup because
-portalled components such as Dialog, Popover, and Select also inherit the same tokens.
+When your theme solution resolves dark mode, it should put `dark` on `<html>`; remove the class
+for light mode. Most theme solutions do this automatically. moduix does not require a provider,
+store a preference, or choose a theme package, so it works with the solution your application
+already uses.
 
-```tsx
-import type { ReactNode } from 'react';
-
-export function Document({ children, theme }: { children: ReactNode; theme: 'light' | 'dark' }) {
-  return <html className={theme === 'dark' ? 'dark' : undefined}>{children}</html>;
-}
+```html
+<!-- Dark theme -->
+<html class="dark"></html>
 ```
 
-The class can be toggled by any theme solution. moduix does not add a provider or persist a user
-preference for you.
+Use the document root for an application-wide theme. Portalled components such as Dialog, Popover,
+and Select also inherit the same tokens there.
 
-If your app renders on the server, put the resolved class on the first HTML response. It prevents a
-brief light theme before client JavaScript applies the saved preference.
+If your app renders on the server, use its early theme mechanism so the resolved class is present
+before the page becomes visible. It prevents a brief light theme before client JavaScript applies a
+saved preference.
 
 ## Scope a preview or embedded surface
 
