@@ -34,6 +34,10 @@ export const fileUploadExampleCss = `
     gap: var(--spacing-1);
   }
 
+  .file-upload-dropzone-content [data-slot='file-upload-trigger'] {
+    margin-top: var(--spacing-2);
+  }
+
   .file-upload-dropzone-title {
     color: var(--color-foreground);
     font-size: var(--text-sm);
@@ -268,7 +272,7 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'Controls preview item vertical padding.',
   ],
   ['--file-upload-item-preview-radius', 'var(--radius-sm)', 'Controls preview box radius.'],
-  ['--file-upload-item-preview-size', '2rem', 'Controls preview box size.'],
+  ['--file-upload-item-preview-size', 'var(--spacing-10)', 'Controls preview box size.'],
   ['--file-upload-item-radius', 'var(--radius-md)', 'Controls item radius.'],
   ['--file-upload-item-row-gap', 'var(--spacing-1)', 'Controls item row gap.'],
   [
@@ -376,14 +380,39 @@ function getInitialFiles() {
   return [new File(['Welcome to moduix'], 'README.md', { type: 'text/plain' })];
 }
 
+function getPreviewFiles() {
+  return [
+    new File(
+      [
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><rect width="240" height="240" fill="#dbeafe"/><circle cx="78" cy="86" r="28" fill="#60a5fa"/><path d="M0 190l68-66 45 42 35-30 92 92v12H0z" fill="#2563eb"/></svg>`,
+      ],
+      'workspace.svg',
+      { type: 'image/svg+xml' },
+    ),
+    new File(['Project brief'], 'project-brief.pdf', { type: 'application/pdf' }),
+  ];
+}
+
+const isImageFile = (file: File) =>
+  file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+
 function AcceptedFileItems() {
   return (
     <FileUpload.Context>
       {({ acceptedFiles }) =>
         acceptedFiles.map((file) => (
           <FileUpload.Item key={`${file.name}-${file.size}`} file={file}>
+            {isImageFile(file) ? (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewImage />
+              </FileUpload.ItemPreview>
+            ) : (
+              <FileUpload.ItemPreview>
+                <FileUpload.ItemPreviewIcon />
+              </FileUpload.ItemPreview>
+            )}
             <FileUpload.ItemName />
-            <FileUpload.ItemSizeText />
+            <FileUpload.ItemMetadata file={file} />
             <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
           </FileUpload.Item>
         ))
@@ -453,6 +482,18 @@ export function FileUploadAdvancedCustomizationExample() {
       </FileUpload.Dropzone>
       <FileUpload.ItemGroup>
         <AcceptedFileItems />
+      </FileUpload.ItemGroup>
+    </FileUpload.Root>
+  );
+}
+
+export function FileUploadPreviewExample() {
+  return (
+    <FileUpload.Root className={styles.demo} defaultAcceptedFiles={getPreviewFiles()} maxFiles={4}>
+      <FileUpload.Label>Project attachments</FileUpload.Label>
+      <FileUpload.Trigger>Add files</FileUpload.Trigger>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
       </FileUpload.ItemGroup>
     </FileUpload.Root>
   );

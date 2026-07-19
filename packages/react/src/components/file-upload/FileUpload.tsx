@@ -1,3 +1,5 @@
+import type { HTMLArkProps } from '@ark-ui/react/factory';
+import { ark } from '@ark-ui/react/factory';
 import {
   FileUpload as FileUploadPrimitive,
   useFileUpload,
@@ -6,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { CloseIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
+import { CloseIcon, FileIcon, TrashIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
 import styles from './FileUpload.module.css';
@@ -73,16 +75,16 @@ const FileUploadDropzone = forwardRef<
   );
 });
 
-function FileUploadDropzoneIcon({ className, children, ...props }: ComponentProps<'span'>) {
+function FileUploadDropzoneIcon({ className, children, ...props }: HTMLArkProps<'span'>) {
   return (
-    <span
+    <ark.span
       aria-hidden="true"
       data-slot="file-upload-dropzone-icon"
       className={clsx(styles.dropzoneIcon, normalizeClassName(className))}
       {...props}
     >
       {children ?? <UploadIcon />}
-    </span>
+    </ark.span>
   );
 }
 
@@ -173,6 +175,26 @@ const FileUploadItemPreviewImage = forwardRef<
   );
 });
 
+function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<typeof FileIcon>) {
+  return (
+    <FileIcon
+      data-slot="file-upload-item-preview-icon"
+      className={clsx(styles.itemPreviewIcon, normalizeClassName(className))}
+      {...props}
+    />
+  );
+}
+
+function getFileTypeLabel(file: File) {
+  const extension = file.name.split('.').pop();
+
+  return extension ? extension.toUpperCase() : file.type || 'FILE';
+}
+
+function isImageFile(file: File) {
+  return file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+}
+
 const FileUploadItemName = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemName>,
   ComponentProps<typeof FileUploadPrimitive.ItemName>
@@ -201,6 +223,23 @@ const FileUploadItemSizeText = forwardRef<
   );
 });
 
+function FileUploadItemMetadata({
+  file,
+  className,
+  ...props
+}: HTMLArkProps<'div'> & { file: File }) {
+  return (
+    <ark.div
+      data-slot="file-upload-item-metadata"
+      className={clsx(styles.itemMetadata, normalizeClassName(className))}
+      {...props}
+    >
+      <ark.span>{getFileTypeLabel(file)}</ark.span>
+      <FileUploadItemSizeText />
+    </ark.div>
+  );
+}
+
 const FileUploadItemDeleteTrigger = forwardRef<
   ComponentRef<typeof FileUploadPrimitive.ItemDeleteTrigger>,
   ComponentProps<typeof FileUploadPrimitive.ItemDeleteTrigger>
@@ -222,7 +261,17 @@ function FileUploadItems() {
 
   return acceptedFiles.map((file) => (
     <FileUploadItem key={`${file.name}-${file.size}`} file={file}>
+      {isImageFile(file) ? (
+        <FileUploadItemPreview>
+          <FileUploadItemPreviewImage />
+        </FileUploadItemPreview>
+      ) : (
+        <FileUploadItemPreview>
+          <FileUploadItemPreviewIcon />
+        </FileUploadItemPreview>
+      )}
       <FileUploadItemName />
+      <FileUploadItemMetadata file={file} />
       <FileUploadItemDeleteTrigger aria-label={`Remove ${file.name}`} />
     </FileUploadItem>
   ));
@@ -292,7 +341,9 @@ const FileUpload = Object.assign(FileUploadRoot, {
   Items: FileUploadItems,
   ItemPreview: FileUploadItemPreview,
   ItemPreviewImage: FileUploadItemPreviewImage,
+  ItemPreviewIcon: FileUploadItemPreviewIcon,
   ItemName: FileUploadItemName,
+  ItemMetadata: FileUploadItemMetadata,
   ItemSizeText: FileUploadItemSizeText,
   ItemDeleteTrigger: FileUploadItemDeleteTrigger,
   ClearTrigger: FileUploadClearTrigger,

@@ -39,8 +39,10 @@ FileUpload.Root | FileUpload.RootProvider
 │  └─ FileUpload.Context
 │     └─ FileUpload.Item[file]
 │        ├─ FileUpload.ItemPreview[type]
-│        │  └─ FileUpload.ItemPreviewImage
+│        │  ├─ FileUpload.ItemPreviewImage
+│        │  └─ FileUpload.ItemPreviewIcon
 │        ├─ FileUpload.ItemName
+│        ├─ FileUpload.ItemMetadata[file]
 │        ├─ FileUpload.ItemSizeText
 │        └─ FileUpload.ItemDeleteTrigger
 ├─ FileUpload.ClearTrigger
@@ -56,10 +58,12 @@ FileUpload.Root | FileUpload.RootProvider
 - `FileUpload.Trigger` -> `data-slot="file-upload-trigger"`
 - `FileUpload.ItemGroup` -> `data-slot="file-upload-item-group"`
 - `FileUpload.Item` -> `data-slot="file-upload-item"`
-- `FileUpload.Items` -> renders compact accepted-file rows with existing item slots
+- `FileUpload.Items` -> renders image cards and file rows with a preview, name, metadata, and delete control
 - `FileUpload.ItemPreview` -> `data-slot="file-upload-item-preview"`
 - `FileUpload.ItemPreviewImage` -> `data-slot="file-upload-item-preview-image"`
+- `FileUpload.ItemPreviewIcon` -> `data-slot="file-upload-item-preview-icon"`
 - `FileUpload.ItemName` -> `data-slot="file-upload-item-name"`
+- `FileUpload.ItemMetadata` -> `data-slot="file-upload-item-metadata"`; renders file type and `ItemSizeText`
 - `FileUpload.ItemSizeText` -> `data-slot="file-upload-item-size-text"`
 - `FileUpload.ItemDeleteTrigger` -> `data-slot="file-upload-item-delete-trigger"`
 - `FileUpload.ClearTrigger` -> `data-slot="file-upload-clear-trigger"`
@@ -87,6 +91,9 @@ export function FileUploadDemo() {
 ## Upstream feature coverage
 
 - Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, and `Item`.
+- File previews: `Items` shows image thumbnails and a generic file icon by default. `ItemPreview.type` is a regular
+  expression predicate, so custom composition must render one matching preview per file rather than a matching part
+  plus the `type=".*"` fallback.
 - Clear trigger: supported with `ClearTrigger`; its default path composes Ark behavior with
   `CloseButton` and uses the standard close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
@@ -119,9 +126,12 @@ export function FileUploadDemo() {
 
 ## Defaults and styling
 
-- `className` is supported on every visual part. `Items` intentionally has no configuration surface: its rows retain
-  the existing `data-slot` hooks and CSS variables, while custom rows use the explicit context composition.
+- `className` is supported on every visual part. `Items` intentionally has no configuration surface: image files are
+  compact vertical cards with a thumbnail, name, and metadata; other files are horizontal rows with an icon, name,
+  type, and localized size. Custom rows use the explicit context composition.
 - `DropzoneIcon` defaults to the moduix `UploadIcon` when children are omitted.
+- `ItemPreview` defaults to `var(--spacing-10)` (2.5rem) square for a file row; item names clamp to one line so
+  long names do not increase row height.
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
 - `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` when
   children are omitted; text children retain the expanded action layout.
@@ -135,14 +145,18 @@ export function FileUploadDemo() {
 
 - moduix adds styling defaults and stable `data-slot` attributes.
 - moduix adds a decorative `DropzoneIcon` helper for upload surfaces.
+- moduix adds `ItemPreviewIcon` and includes image and fallback previews in `Items`; explicit `ItemPreview` matching
+  remains available for MIME-specific previews such as videos and PDFs.
 - moduix adds default icons for dropzone and delete triggers, and composes the shared `CloseButton`
   for the clear trigger.
 - The wrapper renders the native form input internally. `ItemGroup` and `Item` remain explicit so
   consumers choose how to show accepted and rejected files.
 - Callback details and validation errors are not renamed.
 - moduix re-exports Ark context and state hooks through its package barrel, and exposes `Context` on the namespace.
-- `Items` is a compact accepted-file list for common attachment flows; it renders `Item`, `ItemName`, and the default
-  icon-only `ItemDeleteTrigger`. Use the explicit `Context` composition for previews, rejected files, or custom rows.
+- `Items` is an accepted-file list for common attachment flows; it renders an image card or file row using
+  `ItemPreview`, `ItemName`, `ItemMetadata`, and the default icon-only `ItemDeleteTrigger`. Use the explicit
+  `Context` composition for MIME-specific previews, rejected files, or custom rows; select exactly one preview per
+  file so a fallback does not overlap a matching image preview.
 
 ## Agent notes
 
@@ -153,6 +167,16 @@ export function FileUploadDemo() {
   styling contract changes.
 
 ## Local changelog
+
+- 2026-07-19: Increased the default file-row preview box to `var(--spacing-10)` (2.5rem) and clamped item names to
+  one line.
+
+- 2026-07-19: Fixed default and documentation preview composition to render one image or fallback preview per file.
+
+- 2026-07-19: Added `ItemMetadata` and redesigned default accepted files as image cards or metadata-rich file rows.
+
+- 2026-07-19: Added default image and generic-file previews to `Items`, plus `ItemPreviewIcon` for explicit
+  MIME-matched preview composition.
 
 - 2026-07-17: Composed the default clear trigger with `CloseButton`, preserving Ark state,
   translations, and `asChild` composition while mapping clear-action tokens to the shared styles.

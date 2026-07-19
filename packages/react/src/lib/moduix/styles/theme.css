@@ -1245,7 +1245,7 @@
   --file-upload-item-preview-min-height: initial; /* 3rem */
   --file-upload-item-preview-padding-y: initial; /* var(--spacing-2) */
   --file-upload-item-preview-radius: initial; /* var(--radius-sm) */
-  --file-upload-item-preview-size: initial; /* 2rem */
+  --file-upload-item-preview-size: initial; /* var(--spacing-10) */
   --file-upload-item-radius: initial; /* var(--radius-md) */
   --file-upload-item-row-gap: initial; /* var(--spacing-1) */
   --file-upload-item-size-color: initial; /* var(--color-muted-foreground) */
