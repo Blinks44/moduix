@@ -1,6 +1,7 @@
-import { Badge, ChevronRightIcon } from '@moduix/react';
+import { Badge } from '@moduix/react';
+import { ChevronRight as ChevronRightIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './badge.module.css';
 
 type BadgeVariant = NonNullable<ComponentProps<typeof Badge>['variant']>;

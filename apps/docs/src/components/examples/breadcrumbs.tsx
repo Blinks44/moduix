@@ -1,6 +1,7 @@
-import { Breadcrumbs, Menu, SeparatorMarkIcon } from '@moduix/react';
+import { Breadcrumbs, Menu } from '@moduix/react';
+import { Minus as SeparatorMarkIcon } from 'lucide-react';
 import type { ComponentProps, CSSProperties } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 
 const basicItems = [
   { href: '/', label: 'Home' },

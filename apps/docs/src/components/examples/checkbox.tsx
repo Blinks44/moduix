@@ -1,7 +1,7 @@
 import { Checkbox, Field, Fieldset, useCheckbox } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './checkbox.module.css';
 
 const notificationOptions = [

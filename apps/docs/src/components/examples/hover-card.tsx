@@ -1,8 +1,8 @@
 import { Dialog, HoverCard, useHoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import './hover-card.css';
 
 type Profile = {

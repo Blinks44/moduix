@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { ImageCropper, RestartIcon, useImageCropper } from '@moduix/react';
+import { ImageCropper, useImageCropper } from '@moduix/react';
+import { RotateCcw as RestartIcon } from 'lucide-react';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';

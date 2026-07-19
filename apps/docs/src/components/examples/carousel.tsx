@@ -1,10 +1,11 @@
 import { useCarousel } from '@ark-ui/react/carousel';
-import { Button, Carousel, PlusIcon } from '@moduix/react';
+import { Button, Carousel } from '@moduix/react';
 import { clsx } from 'clsx';
+import { Plus as PlusIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './carousel.module.css';
 
 const gallerySlides = [

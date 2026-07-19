@@ -1,7 +1,7 @@
 import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './color-picker.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];

@@ -1,6 +1,6 @@
 import { Accordion, Slider, useAccordion } from '@moduix/react';
 import { useState, type ComponentProps, type ReactNode } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 
 export const accordionExampleCss = `
   [data-slot='accordion-root'],

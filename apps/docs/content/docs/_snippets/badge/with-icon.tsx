@@ -1,5 +1,6 @@
 //#region demo
-import { Badge, ChevronRightIcon } from '@moduix/react';
+import { Badge } from '@moduix/react';
+import { ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 const labels = {
   release: 'Release',

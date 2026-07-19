@@ -13,8 +13,8 @@ import {
 } from '@internationalized/date';
 import { Button, DatePicker, Field, Select, useDatePicker } from '@moduix/react';
 import { useState, type ChangeEvent } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 type DatePickerSelectItem = {
   label: string;

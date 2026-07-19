@@ -1,5 +1,5 @@
 import { Bleed, Text } from '@moduix/react';
-import type { CssProperty } from '../preview';
+import type { CssProperty } from '../mdx/preview';
 
 const basicContent = {
   before: 'Container content stays constrained.',

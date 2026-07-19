@@ -1,8 +1,8 @@
-import { CheckIcon, Toggle, useToggleContext } from '@moduix/react';
-import { Bell as BellIcon, Star as StarIcon } from 'lucide-react';
+import { Toggle, useToggleContext } from '@moduix/react';
+import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './toggle.module.css';
 
 export const toggleBasicCss = `

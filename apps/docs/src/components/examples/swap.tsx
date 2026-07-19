@@ -9,7 +9,7 @@ import {
   RefreshCw as RefreshCwIcon,
 } from 'lucide-react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './swap.module.css';
 
 export const swapExpandableButtonCss = `

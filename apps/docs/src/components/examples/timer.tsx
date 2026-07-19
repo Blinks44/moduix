@@ -1,7 +1,8 @@
-import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from '@moduix/react';
+import { Timer, useTimer } from '@moduix/react';
+import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const timerExampleCss = `
   .timer-note {
@@ -130,7 +131,8 @@ function normalizeCssProperty(property: CssPropertyInput) {
 }
 
 export const timerBasicCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { Timer } from "@moduix/react";
+  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
 
   export function TimerDemo() {
     return (
@@ -176,7 +178,8 @@ export const timerBasicCode = `
 `;
 
 export const timerCountdownCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { Timer } from "@moduix/react";
+  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
 
   export function CountdownTimerDemo() {
     return (
@@ -209,7 +212,8 @@ export const timerCountdownCode = `
 `;
 
 export const timerIntervalCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { Timer } from "@moduix/react";
+  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
 
   export function IntervalTimerDemo() {
     return (
@@ -242,7 +246,8 @@ export const timerIntervalCode = `
 `;
 
 export const timerEventsCode = `
-  import { PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { Timer } from "@moduix/react";
+  import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
   import { useState } from "react";
 
   export function EventsTimerDemo() {
@@ -278,7 +283,8 @@ export const timerEventsCode = `
 `;
 
 export const timerPomodoroCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer } from "@moduix/react";
+  import { Timer } from "@moduix/react";
+  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
   import { useState } from "react";
 
   export function PomodoroTimerDemo() {
@@ -321,7 +327,8 @@ export const timerPomodoroCode = `
 `;
 
 export const timerRootProviderCode = `
-  import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from "@moduix/react";
+  import { Timer, useTimer } from "@moduix/react";
+  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
 
   export function RootProviderTimerDemo() {
     const timer = useTimer({ targetMs: 60 * 60 * 1000 });

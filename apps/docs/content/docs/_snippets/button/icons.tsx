@@ -1,6 +1,6 @@
 //#region demo
-import { Button, PlusIcon } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
+import { Button } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
 
 const labels = {
   create: 'Create Item',

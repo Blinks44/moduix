@@ -1,6 +1,6 @@
 import { Button, Popover } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './animations.module.css';
 
 export const animationMotionCssProperties: CssPropertyInput[] = [

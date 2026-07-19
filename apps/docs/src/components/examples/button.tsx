@@ -1,7 +1,7 @@
-import { Button, PlusIcon, Spinner } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Star as StarIcon } from 'lucide-react';
+import { Button, Spinner } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
 import { useRef, useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './button.module.css';
 
 const buttonLabels = {

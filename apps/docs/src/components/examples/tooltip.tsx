@@ -1,8 +1,13 @@
-import { Button, PlusIcon, Tooltip, useTooltip, useTooltipContext } from '@moduix/react';
-import { Bell as BellIcon, Info as InfoIcon, Share as ShareIcon } from 'lucide-react';
+import { Button, Tooltip, useTooltip, useTooltipContext } from '@moduix/react';
+import {
+  Bell as BellIcon,
+  Info as InfoIcon,
+  Plus as PlusIcon,
+  Share as ShareIcon,
+} from 'lucide-react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tooltip.module.css';
 
 export const tooltipPlacements = ['top', 'right', 'bottom', 'left'] as const;

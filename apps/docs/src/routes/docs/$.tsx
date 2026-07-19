@@ -13,7 +13,7 @@ import {
 } from 'fumadocs-ui/layouts/docs/page';
 import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
-import { useMDXComponents } from '@/components/mdx';
+import { useMDXComponents } from '@/components/mdx/components';
 import { baseOptions } from '@/lib/layout.shared';
 import { gitConfig, siteUrl } from '@/lib/shared';
 import { slugsToMarkdownPath, source } from '@/lib/source';

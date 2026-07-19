@@ -1,7 +1,7 @@
 import { List } from '@moduix/react';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { CSSPropertiesReferenceTable } from '../preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const basicItems = [
   'Use semantic list markup for grouped content.',

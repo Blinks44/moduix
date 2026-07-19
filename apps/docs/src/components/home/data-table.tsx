@@ -23,7 +23,7 @@ import {
   Search,
 } from 'lucide-react';
 import { useState } from 'react';
-import styles from './home-data-table.module.css';
+import styles from './data-table.module.css';
 
 type ComponentRow = {
   category: string;

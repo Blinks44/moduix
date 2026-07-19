@@ -1,8 +1,8 @@
-import { Alert, Button, CheckIcon } from '@moduix/react';
-import { Info as InfoIcon } from 'lucide-react';
+import { Alert, Button } from '@moduix/react';
+import { Check as CheckIcon, Info as InfoIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './alert.module.css';
 
 const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;

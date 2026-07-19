@@ -2,8 +2,8 @@ import { Tabs, useTabs } from '@moduix/react';
 import { clsx } from 'clsx';
 import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tabs.module.css';
 
 const tabsItems = [

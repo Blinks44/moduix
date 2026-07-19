@@ -1,6 +1,6 @@
 import { Field, NativeSelect } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './native-select.module.css';
 
 const nativeSelectCssProperties: CssProperty[] = [

@@ -15,7 +15,8 @@ const collection = createTreeCollection({
 });
 
 createTreeViewCode({
-  imports: `import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
+  imports: `import { Button, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
   onToggle,

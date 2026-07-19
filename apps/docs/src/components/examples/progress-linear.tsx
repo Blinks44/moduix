@@ -1,7 +1,7 @@
 import { ProgressLinear, Slider } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const progressLinearExampleCss = `
   .progress-linear-stack {

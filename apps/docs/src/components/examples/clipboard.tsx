@@ -1,8 +1,8 @@
 import { useClipboard } from '@ark-ui/react/clipboard';
 import { Button, Clipboard, Input } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const clipboardBasicData = `
   const clipboardValue = "https://moduix.dev/docs/clipboard";

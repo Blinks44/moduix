@@ -2,8 +2,8 @@ import type { DrawerTriggerValueChangeDetails } from '@ark-ui/react/drawer';
 import { Button, Drawer, ScrollArea, useDrawer } from '@moduix/react';
 import { useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './drawer.module.css';
 
 const DEFAULT_DEMO_SNAP_POINT = 0.3;

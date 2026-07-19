@@ -1,7 +1,7 @@
 import { Spinner } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './spinner.module.css';
 
 export const spinnerInlineCss = `

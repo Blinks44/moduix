@@ -1,7 +1,7 @@
 import { Button, Slider, useSlider, useSliderContext } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './slider.module.css';
 
 export const sliderOverrideCssProperties: CssPropertyInput[] = [

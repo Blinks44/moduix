@@ -1,6 +1,6 @@
 import { Highlight, Input, Text } from '@moduix/react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
 import styles from './highlight.module.css';
 
 export const highlightCssProperties: CssPropertyInput[] = [

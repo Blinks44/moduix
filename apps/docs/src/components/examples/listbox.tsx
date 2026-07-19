@@ -6,8 +6,8 @@ import {
 import { Button, Listbox, useListbox, useListboxContext } from '@moduix/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './listbox.module.css';
 
 interface OptionItem {

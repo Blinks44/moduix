@@ -78,14 +78,8 @@ TreeView / TreeView.Root
 ## Composition
 
 ```tsx
-import {
-  FileIcon,
-  FolderIcon,
-  FolderOpenIcon,
-  TreeView,
-  createTreeCollection,
-  useTreeViewNodeContext,
-} from '@moduix/react';
+import { TreeView, createTreeCollection, useTreeViewNodeContext } from '@moduix/react';
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from 'lucide-react';
 
 const collection = createTreeCollection({
   nodeToValue: (node) => node.id,

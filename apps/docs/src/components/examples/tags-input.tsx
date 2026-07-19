@@ -2,8 +2,8 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
 import { useId, useState, type ComponentProps, type FormEvent } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tags-input.module.css';
 
 export const initialTags = ['React', 'TypeScript'];

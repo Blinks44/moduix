@@ -1,8 +1,8 @@
 import { CalendarDate, CalendarDateTime, today } from '@internationalized/date';
 import { DateInput, type DateInputDateValue, Field, useDateInput } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const centeredExampleStyle = {
   width: 'fit-content',

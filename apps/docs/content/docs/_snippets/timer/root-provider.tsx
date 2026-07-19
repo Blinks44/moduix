@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { PauseIcon, PlayIcon, RotateCcwIcon, Timer, useTimer } from '@moduix/react';
+import { Timer, useTimer } from '@moduix/react';
+import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export function RootProviderTimerDemo() {
   const timer = useTimer({

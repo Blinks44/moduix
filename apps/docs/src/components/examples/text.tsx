@@ -1,6 +1,6 @@
 import { Text } from '@moduix/react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './text.module.css';
 
 export const textOverrideCssProperties: CssPropertyInput[] = [

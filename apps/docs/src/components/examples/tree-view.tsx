@@ -1,9 +1,5 @@
 import {
   Button,
-  FileIcon,
-  FolderIcon,
-  FolderOpenIcon,
-  RestartIcon,
   TreeView,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
@@ -11,10 +7,16 @@ import {
   useTreeView,
   useTreeViewNodeContext,
 } from '@moduix/react';
+import {
+  File as FileIcon,
+  Folder as FolderIcon,
+  FolderOpen as FolderOpenIcon,
+  RotateCcw as RestartIcon,
+} from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tree-view.module.css';
 
 interface FileNode {
@@ -350,7 +352,8 @@ export const treeViewExampleCss = `
   }
 `;
 
-const treeViewCoreImportsCode = `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`;
+const treeViewCoreImportsCode = `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`;
 
 const treeViewDataSetupCode = `interface FileNode {
   id: string;
@@ -438,7 +441,8 @@ const treeViewCoreSetupCode = `${treeViewDataSetupCode}
 
 ${treeViewBaseNodeSetupCode}`;
 
-const treeViewCheckboxImportsCode = `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`;
+const treeViewCheckboxImportsCode = `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`;
 
 const treeViewCheckboxSetupCode = `${treeViewDataSetupCode}
 
@@ -738,7 +742,8 @@ export const treeViewDisabledCode = createTreeViewCode({
 });
 
 export const treeViewExpandCollapseCode = createTreeViewCode({
-  imports: `import { Button, FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
+  imports: `import { Button, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
   onToggle,
@@ -800,7 +805,8 @@ ${treeViewCoreImportsCode}`,
 
 export const treeViewAsyncCode = createTreeViewCode({
   imports: `import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`,
+import { TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,
@@ -893,7 +899,8 @@ ${treeViewCoreImportsCode}`,
 });
 
 export const treeViewRootProviderCode = createTreeViewCode({
-  imports: `import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";`,
+  imports: `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   demo: `export function RootProviderTreeDemo() {
   const treeView = useTreeView({ collection, defaultSelectedValue: ["README.md"] });
 

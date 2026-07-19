@@ -1,6 +1,6 @@
 import { Badge, Button, Card, Menu, ScrollArea, Table } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './table.module.css';
 
 const invoices = [

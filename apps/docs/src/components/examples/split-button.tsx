@@ -1,5 +1,5 @@
-import { Menu, PlusIcon, SplitButton } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
+import { Menu, SplitButton } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from './split-button.module.css';
 

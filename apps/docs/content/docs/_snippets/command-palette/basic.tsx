@@ -1,8 +1,8 @@
 //#region demo
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, CommandPalette, PlusIcon } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Bell as BellIcon } from 'lucide-react';
+import { Button, CommandPalette } from '@moduix/react';
+import { ArrowUpRight as ArrowUpRightIcon, Bell as BellIcon, Plus as PlusIcon } from 'lucide-react';
 
 const commandItems = [
   {

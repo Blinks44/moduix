@@ -1,8 +1,9 @@
-import { Button, Field, RotateCcwIcon, SignaturePad, useSignaturePad } from '@moduix/react';
+import { Button, Field, SignaturePad, useSignaturePad } from '@moduix/react';
+import { RotateCcw as RotateCcwIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './signature-pad.module.css';
 
 const initialSignaturePaths = [

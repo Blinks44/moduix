@@ -1,5 +1,6 @@
 //#region demo
-import { Breadcrumbs, SeparatorMarkIcon } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react';
+import { Minus as SeparatorMarkIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 
 const separatorIconStyle = {

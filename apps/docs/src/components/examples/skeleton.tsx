@@ -1,7 +1,7 @@
 import { Skeleton, Stack } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './skeleton.module.css';
 
 const skeletonCssProperties: CssPropertyInput[] = [

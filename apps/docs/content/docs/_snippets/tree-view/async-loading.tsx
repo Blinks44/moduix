@@ -15,7 +15,8 @@ const asyncResponse = {
 
 createTreeViewCode({
   imports: `import { useState } from "react";
-import { FileIcon, FolderIcon, FolderOpenIcon, TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";`,
+import { TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
   nodeToString: (node) => node.name,

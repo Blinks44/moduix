@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Menu, PlusIcon, SplitButton } from '@moduix/react';
+import { Menu, SplitButton } from '@moduix/react';
+import { Plus as PlusIcon } from 'lucide-react';
 
 export function SplitButtonIconsDemo() {
   return (

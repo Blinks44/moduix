@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { RotateCcwIcon, SignaturePad } from '@moduix/react';
+import { SignaturePad } from '@moduix/react';
+import { RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export function AdvancedCustomizationSignaturePadDemo() {
   return (

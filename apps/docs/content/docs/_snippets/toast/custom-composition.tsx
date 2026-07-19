@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { Button, CloseIcon, Toast, Toaster, createToaster } from '@moduix/react';
-import { Info as InfoIcon } from 'lucide-react';
+import { Button, Toast, Toaster, createToaster } from '@moduix/react';
+import { Info as InfoIcon, X as CloseIcon } from 'lucide-react';
 import styles from './toast.module.css';
 
 const toaster = createToaster({

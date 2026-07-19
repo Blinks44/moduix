@@ -1,7 +1,8 @@
-import { ChevronDownIcon, Collapsible, useCollapsible } from '@moduix/react';
+import { Collapsible, useCollapsible } from '@moduix/react';
+import { ChevronDown as ChevronDownIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const collapsibleExampleCss = `
   .collapsible-root {

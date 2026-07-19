@@ -1,7 +1,7 @@
 import { SegmentGroup, useSegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const frameworkItems = ['React', 'Solid', 'Svelte', 'Vue'].map((value) => ({
   value,

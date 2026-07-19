@@ -3,7 +3,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { useFumadocsLoader } from 'fumadocs-core/source/client';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page';
-import { ComponentGallery, componentGalleryToc } from '@/components/component-gallery';
+import { ComponentGallery, componentGalleryToc } from '@/components/docs/component-gallery';
 import { baseOptions } from '@/lib/layout.shared';
 import { siteUrl } from '@/lib/shared';
 import { source } from '@/lib/source';

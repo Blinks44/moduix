@@ -1,7 +1,7 @@
 import { AngleSlider, useAngleSlider } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 

@@ -78,7 +78,8 @@ export function ToggleDemo() {
 Changing inline content with Ark `Indicator`:
 
 ```tsx
-import { CheckIcon, StarIcon, Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react';
+import { Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 
 export function FavoriteToggleDemo() {
   return (

@@ -1,8 +1,8 @@
 import type { LightboxImageSelectDetails } from '@moduix/react';
 import { Carousel, Lightbox, useLightbox, useLightboxContext } from '@moduix/react';
 import { useRef, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const images = [
   {

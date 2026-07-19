@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
+import { ImageCropper } from '@moduix/react';
 import {
-  FlipHorizontalIcon,
-  ImageCropper,
-  RestartIcon,
-  RotateCcwIcon,
-  RotateCwIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
-} from '@moduix/react';
+  FlipHorizontal as FlipHorizontalIcon,
+  RotateCcw as RestartIcon,
+  RotateCcw as RotateCcwIcon,
+  RotateCw as RotateCwIcon,
+  ZoomIn as ZoomInIcon,
+  ZoomOut as ZoomOutIcon,
+} from 'lucide-react';
 import { useState } from 'react';
 
 const sampleImage =

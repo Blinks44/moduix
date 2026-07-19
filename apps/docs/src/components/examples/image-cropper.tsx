@@ -1,18 +1,16 @@
+import { Button, ImageCropper, useImageCropper } from '@moduix/react';
 import {
-  Button,
-  FlipHorizontalIcon,
-  ImageCropper,
-  RestartIcon,
-  RotateCcwIcon,
-  RotateCwIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
-  useImageCropper,
-} from '@moduix/react';
+  FlipHorizontal as FlipHorizontalIcon,
+  RotateCcw as RestartIcon,
+  RotateCcw as RotateCcwIcon,
+  RotateCw as RotateCwIcon,
+  ZoomIn as ZoomInIcon,
+  ZoomOut as ZoomOutIcon,
+} from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';

@@ -2,8 +2,8 @@ import { Avatar, useAvatar, useAvatarContext } from '@moduix/react';
 import { Computer as ComputerIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { type ImgHTMLAttributes, useState } from 'react';
-import type { CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const avatarImage =
   'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';

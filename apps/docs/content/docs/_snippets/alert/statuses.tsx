@@ -1,6 +1,6 @@
 //#region demo
-import { Alert, CheckIcon } from '@moduix/react';
-import { Info as InfoIcon } from 'lucide-react';
+import { Alert } from '@moduix/react';
+import { Check as CheckIcon, Info as InfoIcon } from 'lucide-react';
 
 const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
 

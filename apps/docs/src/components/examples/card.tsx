@@ -1,7 +1,7 @@
 import { Badge, Button, Card, Input } from '@moduix/react';
 import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './card.module.css';
 
 export const cardOverrideCssProperties: CssProperty[] = [

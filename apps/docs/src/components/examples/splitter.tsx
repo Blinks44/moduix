@@ -6,8 +6,8 @@ import {
   useSplitter,
 } from '@moduix/react';
 import { useEffect, useRef, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './splitter.module.css';
 
 const panels: SplitterPanelData[] = [

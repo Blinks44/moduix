@@ -1,8 +1,8 @@
 import { Button, Popover, usePopover } from '@moduix/react';
 import { Bell as BellIcon } from 'lucide-react';
 import * as React from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './popover.module.css';
 
 export const popoverOverrideCssProperties: CssPropertyInput[] = [

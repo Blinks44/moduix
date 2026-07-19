@@ -1,8 +1,9 @@
-import { CheckIcon, Tag } from '@moduix/react';
+import { Tag } from '@moduix/react';
+import { Check as CheckIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './tag.module.css';
 
 type TagVariant = ComponentProps<typeof Tag>['variant'];

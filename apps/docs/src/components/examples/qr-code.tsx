@@ -1,7 +1,7 @@
 import { Button, QrCode, useQrCode } from '@moduix/react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './qr-code.module.css';
 
 type ErrorLevel = 'L' | 'M' | 'Q' | 'H';

@@ -2,8 +2,8 @@ import { Button, Dialog, Menu, useMenu } from '@moduix/react';
 import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './menu.module.css';
 
 export const menuItemsData = `const fileItems = [

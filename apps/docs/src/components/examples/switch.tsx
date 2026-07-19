@@ -1,7 +1,7 @@
 import { Button, Field, Switch, useSwitch, useSwitchContext } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './switch.module.css';
 
 export const switchSizeOptions = [

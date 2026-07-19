@@ -1,8 +1,8 @@
 import { Button, Dialog, Menu, ScrollArea, useDialog, useDialogContext } from '@moduix/react';
 import { useRef, useState, type ReactNode } from 'react';
 import { insideScrollSections } from '@/data/insideScrollSections';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 export const dialogExampleCss = `
   .dialog-stack {

@@ -1,8 +1,8 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Pagination, Select } from '@moduix/react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const users = [
   { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },

@@ -1,8 +1,8 @@
 import { Button, Empty } from '@moduix/react';
 import { Computer as ComputerIcon, Map as MapIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './empty.module.css';
 
 const deploymentEmpty = {

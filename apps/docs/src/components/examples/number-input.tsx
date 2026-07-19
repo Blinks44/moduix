@@ -1,7 +1,8 @@
-import { ChevronDownIcon, ChevronUpIcon, Field, NumberInput, useNumberInput } from '@moduix/react';
+import { Field, NumberInput, useNumberInput } from '@moduix/react';
+import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 
 const centeredExampleStyle = {
   width: 'fit-content',

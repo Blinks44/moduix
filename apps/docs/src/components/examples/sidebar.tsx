@@ -32,8 +32,8 @@ import {
   Users as UsersIcon,
 } from 'lucide-react';
 import { useEffect, useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './sidebar.module.css';
 
 const workspaces = createListCollection({

@@ -1,7 +1,7 @@
 import { Field, PinInput, usePinInput } from '@moduix/react';
 import { useId, useState } from 'react';
-import type { CssPropertyInput } from '../preview';
-import { CSSPropertiesReferenceTable } from '../preview';
+import type { CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './pin-input.module.css';
 
 export const pinInputCount = 6;

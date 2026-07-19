@@ -1,5 +1,6 @@
 //#region demo
-import { Button, Carousel, PlusIcon } from '@moduix/react';
+import { Button, Carousel } from '@moduix/react';
+import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const slides = [

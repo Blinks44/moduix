@@ -1,10 +1,15 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, CommandPalette, PlusIcon } from '@moduix/react';
-import { ArrowUpRight as ArrowUpRightIcon, Bell as BellIcon, Star as StarIcon } from 'lucide-react';
+import { Button, CommandPalette } from '@moduix/react';
+import {
+  ArrowUpRight as ArrowUpRightIcon,
+  Bell as BellIcon,
+  Plus as PlusIcon,
+  Star as StarIcon,
+} from 'lucide-react';
 import * as React from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 
 type CommandItem = {
   id: string;

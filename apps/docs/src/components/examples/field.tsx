@@ -2,8 +2,8 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Checkbox, Field, NativeSelect, RadioGroup, Select, useField } from '@moduix/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
 import styles from './field.module.css';
 
 export const fieldOverrideCssProperties: CssPropertyInput[] = [
