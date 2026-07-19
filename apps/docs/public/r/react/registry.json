@@ -2201,6 +2201,44 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Login simple",
+      "description": "A copy-owned email and password sign-in form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/login-simple.tsx",
+          "target": "@components/blocks/login-simple.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/login-simple.module.css",
+          "target": "@components/blocks/login-simple.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "A copy-owned account creation form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/sign-up.tsx",
+          "target": "@components/blocks/sign-up.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/sign-up.module.css",
+          "target": "@components/blocks/sign-up.module.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

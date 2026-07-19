@@ -35,7 +35,13 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
   );
 }
 
-function ShadcnInstall({ packageName }: { packageName: string }) {
+function ShadcnInstall({
+  packageName,
+  itemLabel = 'component',
+}: {
+  packageName: string;
+  itemLabel?: string;
+}) {
   const registryItem = `@moduix-react/${packageName}`;
   const sharedCodeBlockProps = {
     highlighter: getDocsShikiHighlighter,
@@ -48,7 +54,7 @@ function ShadcnInstall({ packageName }: { packageName: string }) {
   return (
     <>
       <p>
-        If you want the component to become part of your own project source instead of staying in{' '}
+        If you want this {itemLabel} to become part of your own project source instead of staying in{' '}
         <code>node_modules</code>, install it from the moduix hosted registry:
       </p>
 
