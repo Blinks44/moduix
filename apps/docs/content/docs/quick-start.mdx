@@ -12,13 +12,15 @@ moduix supports two installation paths today:
 - Install components into your own project with `shadcn` when you want direct ownership over the
   source.
 
+Neither path is preferred. Choose the ownership model that fits your project.
+
 The current package target is `@moduix/react`, but the composition model and styling guidance in
 these docs are written to stay useful as moduix grows beyond one framework package.
 
-| Choose this path            | When it fits best                                                                                                                        |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want the fastest setup, updates through package management, imports from `@moduix/react`, and styles from `@moduix/react/style.css`. |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.                   |
+| Choose this path            | When it fits best                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| npm package                 | You want updates through package management, imports from `@moduix/react`, and styles from `@moduix/react/style.css`.  |
+| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`. |
 
 ## Install As A Package
 

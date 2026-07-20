@@ -1,0 +1,4 @@
+interface:
+  display_name: 'moduix'
+  short_description: 'Build moduix UI with your ownership model'
+  default_prompt: 'Use $moduix to add a moduix component while preserving the project’s chosen ownership model.'

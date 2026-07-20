@@ -40,14 +40,27 @@ We use @moduix/react as a package. Keep the Ark composition explicit and make th
 Tell the assistant which moduix ownership model the project uses before it writes imports or install
 commands:
 
-| Project model              | Tell the assistant to use                                                             |
-| -------------------------- | ------------------------------------------------------------------------------------- |
-| Package-managed components | `@moduix/react` imports and `@moduix/react/style.css`                                 |
-| Copy-owned components      | `npx shadcn@latest add @moduix-react/<component>` and the project's `components.json` |
+| Project model              | Tell the assistant to use                                                                    |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| Package-managed components | `@moduix/react` imports and `@moduix/react/style.css`                                        |
+| Copy-owned components      | The configured `@moduix-react` registry, the project's `components.json`, and its CLI runner |
 
 For a copy-owned project, the assistant should read the component page and inspect
 `components.json` before adding a registry item. The [Quick start](/docs/quick-start) guide has the
 full hosted registry configuration.
+
+## Use the moduix Skill
+
+Install the public Skill with Skills.sh:
+
+```bash
+npx skills add https://github.com/Blinks44/moduix --skill moduix
+```
+
+The installer configures the Skill for a supported agent. Before changing code, it inspects existing
+imports and `components.json`, then uses canonical docs, shadcn discovery, and safe diff checks for
+copy-owned updates. Package-managed and shadcn copy-owned installation remain equal choices. Invoke
+it as `$moduix` in skill-aware agents.
 
 ## Use the shadcn MCP server
 
