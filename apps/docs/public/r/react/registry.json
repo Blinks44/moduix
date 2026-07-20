@@ -2317,6 +2317,25 @@
       ]
     },
     {
+      "name": "mobile-drawer-navigation",
+      "type": "registry:block",
+      "title": "Mobile drawer navigation",
+      "description": "A copy-owned mobile navigation shell with an accessible side drawer.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.tsx",
+          "target": "@components/blocks/mobile-drawer-navigation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.module.css",
+          "target": "@components/blocks/mobile-drawer-navigation.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "sidebar-dashboard",
       "type": "registry:block",
       "title": "Sidebar dashboard",
