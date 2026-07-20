@@ -102,7 +102,9 @@ Keep every layout part as a root child. For a left sidebar, render `Panel`, `Res
 `Trigger`, then `Inset`. For a right sidebar, render `Inset`, `Trigger`, `ResizeTrigger`, then
 `Panel`. The trigger has zero effective flex width and stays centered above the resize line without
 being clipped by either panel. Use `Collapsible` for nested menu items and `Menu + Avatar` for
-account actions. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge`, and
+account actions. Add `Menu.Indicator` directly inside `Sidebar.MenuButton`; Sidebar places it at
+the inline end and hides it in the collapsed rail. `Input`, `GroupAction`, `GroupContent`,
+`MenuAction`, `MenuBadge`, and
 `Separator` cover the repeated app-shell affordances without introducing extra sidebar state.
 Compose `Sidebar.Tooltip` around icon menu buttons when the collapsed rail needs visible hover
 labels. Treat the following as the official migration recipes:

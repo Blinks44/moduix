@@ -2277,6 +2277,63 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "A copy-owned six-digit email verification form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/verification-code.tsx",
+          "target": "@components/blocks/verification-code.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/verification-code.module.css",
+          "target": "@components/blocks/verification-code.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "A copy-owned application header with navigation, notifications, and account actions.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/app-header.tsx",
+          "target": "@components/blocks/app-header.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/app-header.module.css",
+          "target": "@components/blocks/app-header.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "A copy-owned desktop dashboard shell with collapsible and resizable moduix navigation.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/sidebar-dashboard.tsx",
+          "target": "@components/blocks/sidebar-dashboard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/sidebar-dashboard.module.css",
+          "target": "@components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

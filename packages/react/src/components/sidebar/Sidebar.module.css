@@ -389,7 +389,8 @@
       min-height: var(--sidebar-menu-button-height-lg, var(--size-lg));
     }
 
-    > [data-slot='collapsible-indicator'] {
+    > [data-slot='collapsible-indicator'],
+    > [data-slot='menu-indicator'] {
       margin-inline-start: auto;
     }
   }

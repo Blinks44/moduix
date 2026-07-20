@@ -179,8 +179,14 @@ export function WorkspaceSidebar() {
                 <Menu.Item value="settings">Account settings</Menu.Item>
                 <Menu.Separator />
                 <Menu.Item value="sign-out" tone="destructive">
-                  <LogOut />
-                  Sign out
+                  <Menu.ItemText>
+                    <Menu.ItemTextContent>
+                      <Menu.ItemTextIcon>
+                        <LogOut />
+                      </Menu.ItemTextIcon>
+                      <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                    </Menu.ItemTextContent>
+                  </Menu.ItemText>
                 </Menu.Item>
               </Menu.Content>
             </Menu.Positioner>

@@ -1,0 +1,37 @@
+---
+title: App header
+description: A copy-owned application header with primary navigation, notifications, and an account menu.
+icon: PanelTop
+---
+
+import { AppHeaderPreview } from '@/components/blocks/app-header-preview';
+
+# App header
+
+Add a compact application header with navigation, unread notifications, and account actions. The
+menus are fully interactive; replace the example anchors and menu items with your routes and data.
+
+<Preview clientOnly>
+  <AppHeaderPreview />
+
+<Preview.Code>
+  <include lang="tsx">../../src/components/blocks/app-header.tsx</include>
+</Preview.Code>
+
+<Preview.CSS>
+  <include lang="css">../../src/components/blocks/app-header.module.css</include>
+</Preview.CSS>
+
+</Preview>
+
+## Install
+
+<ShadcnInstall packageName="app-header" itemLabel="block" />
+
+The command copies `app-header.tsx` and `app-header.module.css` into your configured components
+directory, and installs `@moduix/react` and `lucide-react` when needed.
+
+## Use in a route
+
+Keep the header copy-owned: replace the navigation anchors, notification data, and menu actions with
+your routes and application state. The block works independently or above the Sidebar dashboard.

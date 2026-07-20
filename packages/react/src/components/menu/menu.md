@@ -158,6 +158,7 @@ Public `--menu-*` variables are declared in `packages/react/src/lib/moduix/style
 moduix adds leaf-level styling helpers only:
 
 - `Menu.TriggerIcon` defaults to `ChevronDownIcon`
+- `Menu.Indicator` defaults to `ChevronDownIcon` and sizes a direct custom SVG to its icon box
 - `Menu.TriggerItemIcon` defaults to `ChevronRightIcon`
 - `Menu.ItemIndicator` defaults to `CheckIcon`
 - `Menu.ItemShortcut`, `Menu.ItemTextContent`, `Menu.ItemTextIcon`, and `Menu.ItemTextLabel` support

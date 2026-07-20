@@ -75,7 +75,8 @@
     color: var(--menu-trigger-icon-color, currentColor);
   }
 
-  .iconSvg {
+  .iconSvg,
+  .indicator > svg {
     width: 100%;
     height: 100%;
   }

@@ -122,25 +122,43 @@ export function AppSidebar() {
                       <strong>Alex Morgan</strong>
                       <span>alex@acme.dev</span>
                     </Sidebar.Label>
-                    <Sidebar.Label className="app-account-chevron">
+                    <Menu.Indicator>
                       <ChevronsUpDown />
-                    </Sidebar.Label>
+                    </Menu.Indicator>
                   </Sidebar.MenuButton>
                 </Menu.Trigger>
                 <Menu.Positioner>
                   <Menu.Content className="app-account-menu">
                     <Menu.Item value="profile">
-                      <Pencil />
-                      Profile
+                      <Menu.ItemText>
+                        <Menu.ItemTextContent>
+                          <Menu.ItemTextIcon>
+                            <Pencil />
+                          </Menu.ItemTextIcon>
+                          <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+                        </Menu.ItemTextContent>
+                      </Menu.ItemText>
                     </Menu.Item>
                     <Menu.Item value="settings">
-                      <RotateCcw />
-                      Settings
+                      <Menu.ItemText>
+                        <Menu.ItemTextContent>
+                          <Menu.ItemTextIcon>
+                            <RotateCcw />
+                          </Menu.ItemTextIcon>
+                          <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
+                        </Menu.ItemTextContent>
+                      </Menu.ItemText>
                     </Menu.Item>
                     <Menu.Separator />
                     <Menu.Item value="sign-out" tone="destructive">
-                      <LogOut />
-                      Sign out
+                      <Menu.ItemText>
+                        <Menu.ItemTextContent>
+                          <Menu.ItemTextIcon>
+                            <LogOut />
+                          </Menu.ItemTextIcon>
+                          <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                        </Menu.ItemTextContent>
+                      </Menu.ItemText>
                     </Menu.Item>
                   </Menu.Content>
                 </Menu.Positioner>

@@ -88,7 +88,7 @@ function WorkspaceSelect() {
           <Sidebar.Label className={styles.workspaceLabel}>
             <Select.ValueText placeholder="Select workspace" />
           </Sidebar.Label>
-          <Sidebar.Label className={styles.accountChevron}>
+          <Sidebar.Label className={styles.selectIndicator}>
             <Select.Indicator />
           </Sidebar.Label>
         </Sidebar.MenuButton>
@@ -124,9 +124,9 @@ function AccountMenu() {
             <strong>Alex Morgan</strong>
             <span>alex@acme.dev</span>
           </Sidebar.Label>
-          <Sidebar.Label className={styles.accountChevron}>
+          <Menu.Indicator>
             <ChevronUpDownIcon />
-          </Sidebar.Label>
+          </Menu.Indicator>
         </Sidebar.MenuButton>
       </Menu.Trigger>
       <Menu.Positioner>
