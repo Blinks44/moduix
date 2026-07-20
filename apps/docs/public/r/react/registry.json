@@ -2239,6 +2239,44 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "A copy-owned password reset request form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/forgot-password.tsx",
+          "target": "@components/blocks/forgot-password.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/forgot-password.module.css",
+          "target": "@components/blocks/forgot-password.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "A copy-owned new password form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/reset-password.tsx",
+          "target": "@components/blocks/reset-password.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/reset-password.module.css",
+          "target": "@components/blocks/reset-password.module.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }

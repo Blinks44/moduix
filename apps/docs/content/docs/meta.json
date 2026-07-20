@@ -11,6 +11,8 @@
     "blocks",
     "login-simple",
     "sign-up",
+    "forgot-password",
+    "reset-password",
     "---Guides---",
     "ai",
     "animations",
