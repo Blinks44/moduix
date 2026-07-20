@@ -2372,6 +2372,25 @@
           "type": "registry:file"
         }
       ]
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload manager",
+      "description": "A copy-owned attachment manager with drag-and-drop, validation, removal, and clear actions.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/file-upload-manager.tsx",
+          "target": "@components/blocks/file-upload-manager.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/file-upload-manager.module.css",
+          "target": "@components/blocks/file-upload-manager.module.css",
+          "type": "registry:file"
+        }
+      ]
     }
   ]
 }
