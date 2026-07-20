@@ -86,6 +86,14 @@
   --y: initial;
   --z-index: initial;
 
+  /* Typeset */
+  --typeset-font-body: initial; /* inherit */
+  --typeset-font-heading: initial; /* var(--font-sans) */
+  --typeset-font-mono: initial; /* var(--font-mono) */
+  --typeset-flow: initial; /* 1.25em */
+  --typeset-leading: initial; /* 1.75 */
+  --typeset-size: initial; /* 1em */
+
   /* Shared Backdrop */
   --backdrop-bg: initial; /* var(--color-overlay) */
   --backdrop-filter: initial; /* blur(4px) */

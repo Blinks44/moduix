@@ -161,6 +161,21 @@ export function Example() {
 `style.css` ships the shared design tokens and base styles. Component imports still bring along only
 the component CSS they use.
 
+Optional presets are separate CSS files. Import one after `style.css`, then put its name on the
+document root:
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+```html
+<html data-moduix-theme="soft"></html>
+```
+
+Available presets are `dense`, `soft`, and `contrast`. See https://moduix.dev/docs/themes for the
+recommended use cases and copy-owned registry installation.
+
 ## Styling
 
 Components accept `className` where customization is expected and expose stable `data-slot`

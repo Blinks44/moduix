@@ -1,0 +1,28 @@
+.article {
+  width: min(42rem, 100%);
+}
+
+.reading {
+  --typeset-flow: 1.75em;
+  --typeset-leading: 1.9;
+  --typeset-size: 1.125rem;
+}
+
+.chat {
+  --typeset-flow: 0.875em;
+  --typeset-leading: 1.6;
+
+  width: min(32rem, 100%);
+}
+
+.wideTable {
+  min-width: 36rem;
+}
+
+.excluded {
+  margin-block-start: var(--typeset-flow, 1.25em);
+  padding: var(--spacing-4);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-muted);
+}

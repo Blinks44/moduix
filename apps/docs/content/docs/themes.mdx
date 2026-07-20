@@ -1,0 +1,92 @@
+---
+title: Themes
+description: Start from a curated moduix token preset, then keep the CSS in your project.
+icon: Palette
+---
+
+import { ThemePresets } from '@/components/docs/theme-presets';
+import { ClientOnly } from '@tanstack/react-router';
+
+# Themes
+
+moduix presets are plain CSS token overrides. `Calm` is the default foundation; `Dense`, `Soft`,
+and `Contrast` are optional starting points. They change semantic colors, radius, spacing, control
+sizes, shadows, and the Sidebar tokens without changing component APIs or adding a theme runtime.
+
+<ClientOnly fallback={<ThemePresets />}>
+  <ThemePresets />
+</ClientOnly>
+
+## Choose a preset
+
+| Preset   | Best for                                                                    |
+| -------- | --------------------------------------------------------------------------- |
+| Calm     | The balanced default for most product interfaces.                           |
+| Dense    | Admin tools, tables, and information-heavy workflows.                       |
+| Soft     | Consumer-facing products that benefit from more space and rounded surfaces. |
+| Contrast | Technical interfaces where stronger borders and focus clarity matter.       |
+
+The first release deliberately excludes a visual builder, shareable preset codes, and chart colors.
+The CSS remains small, readable, and owned by your application.
+
+## Use with the npm package
+
+Import the foundation first, then one preset. Put `data-moduix-theme` on `<html>` so portalled
+components inherit the same tokens. Keep `dark` on that element when the application is in dark
+mode.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```html
+<html data-moduix-theme="soft" class="dark"></html>
+```
+
+Choose one of these paths instead of `soft.css`:
+
+```text
+@moduix/react/presets/dense.css
+@moduix/react/presets/contrast.css
+```
+
+## Use with the hosted registry
+
+Install one copy-owned preset, then import its generated CSS after the foundation stylesheet.
+
+```bash
+npx shadcn@latest add @moduix-react/theme-dense
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+import '@/lib/moduix/presets/dense.css';
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```html
+<html data-moduix-theme="dense"></html>
+```
+
+Replace `dense` with `soft` or `contrast` to use another preset.
+
+## Customize a preset
+
+The preset is only a layer of CSS variables. Override its semantic tokens in your own stylesheet
+after the preset import; component aliases and the full token reference remain available.
+
+```css
+[data-moduix-theme='soft'] {
+  --primary: oklch(0.5 0.17 285);
+  --radius: 0.875rem;
+}
+```
+
+Use [Tokens](/docs/tokens) for the complete reference and [Dark mode](/docs/dark-mode) for the
+application-owned light/dark switch.

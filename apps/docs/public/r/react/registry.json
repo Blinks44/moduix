@@ -140,6 +140,51 @@
       ]
     },
     {
+      "name": "theme-contrast",
+      "type": "registry:theme",
+      "title": "Contrast theme",
+      "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/contrast.css",
+          "target": "@lib/moduix/presets/contrast.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "theme-dense",
+      "type": "registry:theme",
+      "title": "Dense theme",
+      "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/dense.css",
+          "target": "@lib/moduix/presets/dense.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "theme-soft",
+      "type": "registry:theme",
+      "title": "Soft theme",
+      "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/soft.css",
+          "target": "@lib/moduix/presets/soft.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:item",
       "title": "Accordion",
@@ -2073,6 +2118,31 @@
         {
           "path": "packages/react/src/components/timer/index.ts",
           "target": "@components/moduix/timer/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typeset",
+      "type": "registry:item",
+      "title": "Typeset",
+      "description": "moduix React Typeset component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/typeset/Typeset.tsx",
+          "target": "@components/moduix/typeset/Typeset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/typeset/Typeset.module.css",
+          "target": "@components/moduix/typeset/Typeset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/typeset/index.ts",
+          "target": "@components/moduix/typeset/index.ts",
           "type": "registry:component"
         }
       ]
