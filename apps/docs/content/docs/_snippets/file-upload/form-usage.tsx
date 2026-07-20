@@ -1,13 +1,22 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { FileUpload } from '@moduix/react';
+import { Button, FileUpload } from '@moduix/react';
+import { useState } from 'react';
 
 const name = 'project-assets';
 const maxFiles = 3;
 export function FileUploadFormDemo() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
   return (
-    <form className="file-upload-stack" onSubmit={(event) => event.preventDefault()}>
+    <form
+      className="file-upload-stack"
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSubmitted(`${new FormData(event.currentTarget).getAll(name).length} file(s) submitted`);
+      }}
+    >
       <FileUpload
         className="file-upload-demo file-upload-simple-demo"
         name={name}
@@ -28,9 +37,10 @@ export function FileUploadFormDemo() {
           </FileUpload.Context>
         </FileUpload.ItemGroup>
       </FileUpload>
-      <button className="file-upload-submit" type="submit">
+      <Button className="file-upload-submit" type="submit">
         Submit
-      </button>
+      </Button>
+      <output className="file-upload-state">{submitted}</output>
     </form>
   );
 }

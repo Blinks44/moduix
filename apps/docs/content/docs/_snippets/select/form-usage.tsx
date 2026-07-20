@@ -2,7 +2,9 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Button, Select } from '@moduix/react';
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 
 const themes = createListCollection({
   items: [
@@ -22,18 +24,24 @@ const themes = createListCollection({
 });
 
 export function SelectFormUsageDemo() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    setSubmitted(String(data.get('theme') ?? ''));
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="select-form" onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select theme" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
             <Select.Indicator />
-          </Select.Indicators>
+          </Select.Trigger>
+          <Select.ClearTrigger aria-label="Clear selection" />
         </Select.Control>
         <Select.Positioner>
           <Select.Content>
@@ -46,7 +54,10 @@ export function SelectFormUsageDemo() {
           </Select.Content>
         </Select.Positioner>
       </Select>
-      <button type="submit">Submit</button>
+      <div className="select-form-actions">
+        <Button type="submit">Submit</Button>
+        <output className="select-form-output">Submitted: {submitted}</output>
+      </div>
     </form>
   );
 }

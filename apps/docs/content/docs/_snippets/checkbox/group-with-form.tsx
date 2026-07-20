@@ -1,5 +1,6 @@
 //#region demo
-import { Checkbox } from '@moduix/react';
+import { Button, Checkbox } from '@moduix/react';
+import { useState } from 'react';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -8,11 +9,16 @@ const options = [
 ];
 
 export function CheckboxGroupWithFormDemo() {
+  const [submitted, setSubmitted] = useState('framework: []');
+
   return (
     <form
+      className="checkbox-stack"
       onSubmit={(event) => {
         event.preventDefault();
-        console.log(new FormData(event.currentTarget).getAll('framework'));
+        setSubmitted(
+          `framework: ${JSON.stringify(new FormData(event.currentTarget).getAll('framework'))}`,
+        );
       }}
     >
       <Checkbox.Group defaultValue={['react']} name="framework">
@@ -23,7 +29,8 @@ export function CheckboxGroupWithFormDemo() {
           </Checkbox>
         ))}
       </Checkbox.Group>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
+      <output className="checkbox-result">{submitted}</output>
     </form>
   );
 }

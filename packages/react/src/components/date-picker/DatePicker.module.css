@@ -120,14 +120,6 @@
     &:is([disabled], [data-disabled], [readonly], [data-readonly]) {
       cursor: default;
     }
-
-    .control:not([data-disabled], [data-readonly]) & {
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--date-picker-bg-hover, var(--color-accent));
-        }
-      }
-    }
   }
 
   .control:has(.input + .input) .input {
@@ -463,12 +455,6 @@
     &:focus {
       border-color: var(--date-picker-focus-ring-color, var(--color-ring));
       outline-color: var(--date-picker-focus-ring-color, var(--color-ring));
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--date-picker-select-bg-hover, var(--color-accent));
-      }
     }
   }
 

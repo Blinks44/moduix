@@ -118,6 +118,7 @@ shared invalid/disabled/required state.
 
 ## Local changelog
 
+- 2026-07-20: Removed the native field hover surface and aligned the decorative indicator's spacing and local hover treatment with `Select`; platform interaction stays on the native select.
 - 2026-06-30: Added the native select wrapper with Field integration, shared Select control styles,
   the shared `ChevronDownIcon`, and token-based indicator spacing.
 - 2026-07-10: Added `controlProps` for styling the shared select-and-indicator layout and documented

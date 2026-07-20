@@ -1,4 +1,4 @@
-import { Checkbox, Field, Fieldset, useCheckbox } from '@moduix/react';
+import { Button, Checkbox, Field, Fieldset, useCheckbox } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -354,9 +354,9 @@ export function CheckboxWithFormExample() {
       <CheckboxItem name="terms" value="accepted">
         I agree to the terms and conditions
       </CheckboxItem>
-      <button type="submit" className={styles.submit}>
+      <Button type="submit" className={styles.submit}>
         Submit
-      </button>
+      </Button>
       <span className={styles.hint}>{result}</span>
     </form>
   );
@@ -464,9 +464,9 @@ export function CheckboxGroupWithFormExample() {
       <Checkbox.Group defaultValue={['react']} name="framework">
         <FrameworkCheckboxes />
       </Checkbox.Group>
-      <button type="submit" className={styles.submit}>
+      <Button type="submit" className={styles.submit}>
         Submit
-      </button>
+      </Button>
       <span className={styles.hint}>{result}</span>
     </form>
   );

@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
+import { Button, Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
 import { useId, useState, type ComponentProps, type FormEvent } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -425,10 +425,10 @@ export function TagsInputFieldExample() {
 export function TagsInputFormExample() {
   const [submittedValue, setSubmittedValue] = useState('');
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
-  }
+  };
 
   return (
     <form className={styles.stack} onSubmit={handleSubmit}>
@@ -440,7 +440,7 @@ export function TagsInputFormExample() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
       <output className={styles.hint}>Submitted value: {submittedValue || 'none'}</output>
     </form>
   );

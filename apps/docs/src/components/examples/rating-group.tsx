@@ -159,11 +159,14 @@ export function HalfRatingGroupExample() {
 }
 
 export function FormRatingGroupExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
   return (
     <form
       className="rating-group-stack"
       onSubmit={(event) => {
         event.preventDefault();
+        setSubmitted(String(new FormData(event.currentTarget).get('review') ?? ''));
       }}
     >
       <RatingGroup name="review" defaultValue={4} required>
@@ -173,6 +176,7 @@ export function FormRatingGroupExample() {
         </RatingGroup.Control>
       </RatingGroup>
       <Button type="submit">Submit</Button>
+      <output className="rating-group-hint">Submitted: {submitted}</output>
     </form>
   );
 }

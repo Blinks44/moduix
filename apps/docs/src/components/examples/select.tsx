@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field, Select } from '@moduix/react';
+import { Button, Field, Select } from '@moduix/react';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
@@ -345,6 +345,7 @@ export function FormSelectExample() {
 
   return (
     <form
+      className="select-form"
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -363,8 +364,10 @@ export function FormSelectExample() {
           ))}
         </SelectPopupContent>
       </Select>
-      <button type="submit">Submit</button>
-      <output>{submitted}</output>
+      <div className="select-form-actions">
+        <Button type="submit">Submit</Button>
+        <output className="select-form-output">Submitted: {submitted}</output>
+      </div>
     </form>
   );
 }
@@ -374,6 +377,7 @@ export function NativeFormControlSelectExample() {
 
   return (
     <form
+      className="select-form"
       onSubmit={(event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -392,8 +396,10 @@ export function NativeFormControlSelectExample() {
           ))}
         </SelectPopupContent>
       </Select>
-      <button type="submit">Submit</button>
-      <output>{submitted}</output>
+      <div className="select-form-actions">
+        <Button type="submit">Submit</Button>
+        <output className="select-form-output">Submitted: {submitted}</output>
+      </div>
     </form>
   );
 }

@@ -1,4 +1,4 @@
-import { SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { Button, SegmentGroup, useSegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -30,12 +30,6 @@ export const segmentGroupExampleCss = `
 
 .segment-button {
   width: fit-content;
-  min-height: 2rem;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding-inline: var(--spacing-3);
-  background: var(--color-background);
-  color: var(--color-foreground);
 }
 
 .segment-output {
@@ -280,9 +274,9 @@ export function FormSegmentGroupExample() {
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworkItems} />
       </SegmentGroup>
-      <button className="segment-button" type="submit">
+      <Button className="segment-button" type="submit">
         Submit
-      </button>
+      </Button>
       <output className="segment-output">submitted: {submitted}</output>
     </form>
   );

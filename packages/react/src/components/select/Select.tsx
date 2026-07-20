@@ -233,11 +233,9 @@ const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, Sel
       <SelectControl ref={ref} {...props}>
         <SelectTrigger>
           <SelectValueText placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectIndicators>
-          {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
           <SelectIndicator>{indicator}</SelectIndicator>
-        </SelectIndicators>
+        </SelectTrigger>
+        {clearLabel && <SelectClearTrigger aria-label={clearLabel} />}
       </SelectControl>
     );
   },

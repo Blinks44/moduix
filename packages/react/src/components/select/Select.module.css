@@ -71,6 +71,7 @@
   }
 
   .trigger {
+    position: relative;
     box-sizing: border-box;
     display: inline-flex;
     width: 100%;
@@ -105,7 +106,6 @@
     }
 
     &[data-state='open'] {
-      background-color: var(--select-bg-active, var(--color-muted));
       border-color: var(--select-focus-ring-color, var(--color-ring));
       outline-color: var(--select-focus-ring-color, var(--color-ring));
     }
@@ -123,14 +123,6 @@
     .control[data-invalid] & {
       border-color: var(--select-invalid-color, var(--color-destructive));
       outline-color: var(--select-invalid-color, var(--color-destructive));
-    }
-
-    .control:not([data-disabled]) & {
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--select-bg-hover, var(--color-accent));
-        }
-      }
     }
   }
 
@@ -198,6 +190,21 @@
     pointer-events: none;
   }
 
+  .trigger > .indicator {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--select-action-offset-right, 0.5rem);
+    pointer-events: auto;
+    transform: translateY(-50%);
+  }
+
+  .trigger > .indicator:not(:is([data-disabled], [disabled])):hover {
+    @media (hover: hover) {
+      background-color: var(--select-action-bg-hover, var(--color-muted));
+      color: var(--select-action-color-hover, var(--color-foreground));
+    }
+  }
+
   .clearTrigger {
     --close-button-size: var(--select-action-size, 1.5rem);
     --close-button-icon-size: var(--select-icon-size, 1rem);
@@ -213,6 +220,16 @@
     &[hidden] {
       display: none;
     }
+  }
+
+  .control > .clearTrigger {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: calc(
+      var(--select-action-offset-right, 0.5rem) + var(--select-action-size, 1.5rem) +
+        var(--select-action-gap, 0.125rem)
+    );
+    transform: translateY(-50%);
   }
 
   .positioner {

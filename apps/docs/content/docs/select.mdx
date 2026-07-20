@@ -53,10 +53,9 @@ Select / Select.Root
 ├─ Select.Label
 ├─ Select.Control / Select.Field
 │  ├─ Select.Trigger
-│  │  └─ Select.ValueText
-│  └─ Select.Indicators
-│     ├─ Select.ClearTrigger
-│     └─ Select.Indicator
+│  │  ├─ Select.ValueText
+│  │  └─ Select.Indicator
+│  └─ Select.ClearTrigger
 ├─ Overlay subtree (automatically portalled)
 │  └─ Select.Positioner
 │     └─ Select.Content
@@ -69,26 +68,26 @@ Select / Select.Root
 └─ native select (automatic)
 ```
 
-| Part                     | Role                                                                      |
-| ------------------------ | ------------------------------------------------------------------------- |
-| `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.        |
-| `Select.RootProvider`    | Renders a select tree from state returned by `useSelect`.                 |
-| `Select.Label`           | Accessible label inherited by the trigger and native select.              |
-| `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.        |
-| `Select.Field`           | Moduix helper that renders the standard control, trigger, and indicators. |
-| `Select.Trigger`         | Button that opens the popup and owns keyboard entry.                      |
-| `Select.ValueText`       | Placeholder or selected item labels.                                      |
-| `Select.ClearTrigger`    | Button that clears the current value.                                     |
-| `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.                   |
-| `Select.Indicators`      | Moduix wrapper that aligns clear and indicator buttons.                   |
-| `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.                |
-| `Select.Content`         | Popup surface and listbox container.                                      |
-| `Select.List`            | Optional list wrapper for virtualized or custom list layouts.             |
-| `Select.ItemGroup`       | Group wrapper for related collection items.                               |
-| `Select.ItemGroupLabel`  | Label for a collection group.                                             |
-| `Select.Item`            | Selectable row. Pass the collection item through `item`.                  |
-| `Select.ItemText`        | Text used for display and accessibility.                                  |
-| `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.              |
+| Part                     | Role                                                                   |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.     |
+| `Select.RootProvider`    | Renders a select tree from state returned by `useSelect`.              |
+| `Select.Label`           | Accessible label inherited by the trigger and native select.           |
+| `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.     |
+| `Select.Field`           | Moduix helper that renders the standard control, trigger, and actions. |
+| `Select.Trigger`         | Button that opens the popup and owns keyboard entry.                   |
+| `Select.ValueText`       | Placeholder or selected item labels.                                   |
+| `Select.ClearTrigger`    | Button that clears the current value.                                  |
+| `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.                |
+| `Select.Indicators`      | Optional layout helper for custom sibling-action composition.          |
+| `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.             |
+| `Select.Content`         | Popup surface and listbox container.                                   |
+| `Select.List`            | Optional list wrapper for virtualized or custom list layouts.          |
+| `Select.ItemGroup`       | Group wrapper for related collection items.                            |
+| `Select.ItemGroupLabel`  | Label for a collection group.                                          |
+| `Select.Item`            | Selectable row. Pass the collection item through `item`.               |
+| `Select.ItemText`        | Text used for display and accessibility.                               |
+| `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
 
 ## Composition
 
@@ -214,7 +213,25 @@ The root's automatic native select keeps native submission working. Read submitt
 <Preview.Code>
   <include lang="tsx">./_snippets/select/form-usage.tsx#demo</include>
 </Preview.Code>
-<Preview.CSS>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</Preview.CSS>
+<Preview.CSS>{`.select-form {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.select-form [data-slot="select-root"] {
+--select-width: 16rem;
+}
+
+.select-form-actions {
+display: flex;
+align-items: center;
+gap: var(--spacing-3);
+}
+
+.select-form-output {
+color: var(--color-muted-foreground);
+font-size: var(--text-sm);
+}`}</Preview.CSS>
 
 </Preview>
 

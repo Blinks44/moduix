@@ -67,14 +67,6 @@
 
 .submit {
   justify-self: start;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--spacing-2) var(--spacing-3);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font: inherit;
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
 }
 
 .customDropzone {

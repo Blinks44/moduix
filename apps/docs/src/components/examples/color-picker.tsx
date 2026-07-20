@@ -1,4 +1,4 @@
-import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
+import { Button, ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -508,7 +508,7 @@ export function DisabledColorPickerExample() {
 }
 
 export function FormUsageColorPickerExample() {
-  const [submitted, setSubmitted] = useState('');
+  const [submitted, setSubmitted] = useState('Nothing submitted');
 
   return (
     <form
@@ -525,10 +525,10 @@ export function FormUsageColorPickerExample() {
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
       </ColorPicker.Root>
-      <button className={styles.submitButton} type="submit">
+      <Button className={styles.submitButton} type="submit">
         Submit
-      </button>
-      {submitted ? <output>Submitted: {submitted}</output> : null}
+      </Button>
+      <output>Submitted: {submitted}</output>
     </form>
   );
 }

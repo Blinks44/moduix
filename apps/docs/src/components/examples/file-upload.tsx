@@ -1,4 +1,4 @@
-import { Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
+import { Button, Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -625,8 +625,18 @@ export function FileUploadWithFieldExample() {
 }
 
 export function FileUploadFormExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
   return (
-    <form className={styles.stack} onSubmit={(event) => event.preventDefault()}>
+    <form
+      className={styles.stack}
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSubmitted(
+          `${new FormData(event.currentTarget).getAll('project-assets').length} file(s) submitted`,
+        );
+      }}
+    >
       <FileUpload.Root
         className={`${styles.demo} ${styles.simpleDemo}`}
         name="project-assets"
@@ -638,9 +648,10 @@ export function FileUploadFormExample() {
           <FileUpload.Items />
         </FileUpload.ItemGroup>
       </FileUpload.Root>
-      <button className={styles.submit} type="submit">
+      <Button className={styles.submit} type="submit">
         Submit
-      </button>
+      </Button>
+      <output className={styles.state}>{submitted}</output>
     </form>
   );
 }

@@ -305,7 +305,7 @@ export function FormSerializationSignaturePadExample() {
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
       </SignaturePad>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
       <output className={styles.status}>{submitted}</output>
     </form>
   );

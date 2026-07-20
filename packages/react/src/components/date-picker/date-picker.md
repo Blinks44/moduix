@@ -238,6 +238,7 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 
 ## Local changelog
 
+- 2026-07-20: Removed hover surfaces from date inputs and native month/year selects; icon actions retain their local hover treatment.
 - 2026-07-19: Positioned calendar and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped date-picker
   action tokens to the shared close-button visual contract.

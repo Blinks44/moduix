@@ -534,8 +534,6 @@
   --combobox-border-color: initial; /* var(--color-border) */
   --combobox-border-width: initial; /* var(--border-width-sm) */
   --combobox-color: initial; /* var(--color-foreground) */
-  --combobox-bg-active: initial; /* var(--color-muted) */
-  --combobox-bg-hover: initial; /* var(--color-accent) */
   --combobox-content-bg: initial; /* var(--color-popover) */
   --combobox-content-border-color: initial; /* var(--color-border) */
   --combobox-content-border-width: initial; /* var(--border-width-sm) */
@@ -880,7 +878,6 @@
   --date-picker-action-radius: initial; /* var(--radius-sm) */
   --date-picker-action-size: initial; /* 1.5rem */
   --date-picker-bg: initial; /* var(--color-background) */
-  --date-picker-bg-hover: initial; /* var(--color-accent) */
   --date-picker-border-color: initial; /* var(--color-border) */
   --date-picker-border-width: initial; /* var(--border-width-sm) */
   --date-picker-color: initial; /* var(--color-foreground) */
@@ -933,7 +930,6 @@
   --date-picker-radius: initial; /* var(--radius-md) */
   --date-picker-root-gap: initial; /* var(--spacing-1) */
   --date-picker-select-bg: initial; /* var(--color-background) */
-  --date-picker-select-bg-hover: initial; /* var(--color-accent) */
   --date-picker-select-border-color: initial; /* var(--color-border) */
   --date-picker-select-border-width: initial; /* var(--border-width-sm) */
   --date-picker-select-color: initial; /* var(--color-foreground) */
@@ -2522,8 +2518,6 @@
   --select-action-radius: initial; /* var(--radius-sm) */
   --select-action-size: initial; /* 1.5rem */
   --select-bg: initial; /* var(--color-background) */
-  --select-bg-active: initial; /* var(--color-muted) */
-  --select-bg-hover: initial; /* var(--color-accent) */
   --select-border-color: initial; /* var(--color-border) */
   --select-border-width: initial; /* var(--border-width-sm) */
   --select-color: initial; /* var(--color-foreground) */

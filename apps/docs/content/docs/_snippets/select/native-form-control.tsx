@@ -2,7 +2,9 @@
 //#region demo
 
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Button, Select } from '@moduix/react';
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 
 const themes = createListCollection({
   items: [
@@ -13,8 +15,15 @@ const themes = createListCollection({
 });
 
 export function NativeFormControlSelectDemo() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(String(new FormData(event.currentTarget).get('theme') ?? ''));
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="select-form" onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" nativeFormControl="input" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>
@@ -37,7 +46,10 @@ export function NativeFormControlSelectDemo() {
           </Select.Content>
         </Select.Positioner>
       </Select>
-      <button type="submit">Submit</button>
+      <div className="select-form-actions">
+        <Button type="submit">Submit</Button>
+        <output className="select-form-output">Submitted: {submitted}</output>
+      </div>
     </form>
   );
 }

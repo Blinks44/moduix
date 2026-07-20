@@ -232,6 +232,7 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-20: Removed field hover and popup-open surfaces; clear and open actions retain their local hover treatment.
 - 2026-07-19: Positioned trigger and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped combobox action
   tokens to the shared close-button visual contract.
