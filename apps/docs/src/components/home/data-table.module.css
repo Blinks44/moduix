@@ -1,16 +1,12 @@
 .root {
   display: grid;
-  gap: 1rem;
+  gap: var(--spacing-4);
   padding: clamp(1rem, 2vw, 1.5rem);
-  border: 1px solid color-mix(in oklab, var(--color-fd-border) 82%, transparent);
-  border-radius: 0.9rem;
-  background: color-mix(in oklab, var(--color-fd-background) 76%, transparent);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
+  border: var(--border-width-sm) solid color-mix(in oklab, var(--color-border) 82%, transparent);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklab, var(--color-card) 76%, transparent);
+  box-shadow: var(--shadow-lg);
   backdrop-filter: blur(24px);
-
-  :global(.dark) & {
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
-  }
 }
 
 .toolbar,
@@ -40,9 +36,9 @@
 
 .selectionSummary,
 .pageSummary {
-  color: var(--color-fd-muted-foreground);
-  font-size: 0.8125rem;
-  line-height: 1.4;
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
   white-space: nowrap;
 }
 
@@ -55,7 +51,7 @@
   table-layout: fixed;
 
   [data-slot='table-row'][data-selected] {
-    background: color-mix(in oklab, var(--color-fd-primary) 7%, var(--color-fd-background));
+    background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
   }
 
   [data-slot='table-column-header'] > button {
@@ -68,19 +64,27 @@
   text-align: center;
 }
 
+.rowActionsTrigger {
+  --button-ghost-bg-hover: color-mix(
+    in oklab,
+    var(--color-foreground) 10%,
+    var(--color-background)
+  );
+}
+
 .componentName {
   display: grid;
   gap: 0.18rem;
 
   & strong {
-    color: var(--color-fd-foreground);
-    font-weight: 600;
+    color: var(--color-foreground);
+    font-weight: var(--weight-semibold);
   }
 
   & span {
-    color: var(--color-fd-muted-foreground);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    color: var(--color-muted-foreground);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: var(--text-xs);
   }
 }
 

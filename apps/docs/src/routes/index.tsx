@@ -4,7 +4,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { ArrowRight, Component, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { HomeDataTable } from '@/components/home/data-table';
+import { DataTable } from '@/components/home/data-table';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
 import { getCanonicalUrl } from '@/lib/seo';
@@ -99,7 +99,7 @@ function Home() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <HomeDataTable />
+          <DataTable />
         </section>
       </div>
     </HomeLayout>

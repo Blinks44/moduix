@@ -2336,6 +2336,25 @@
       ]
     },
     {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "A copy-owned TanStack Table with search, sorting, selection, column visibility, actions, and pagination.",
+      "dependencies": ["@moduix/react", "@tanstack/react-table", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/home/data-table.tsx",
+          "target": "@components/blocks/data-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/home/data-table.module.css",
+          "target": "@components/blocks/data-table.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "sidebar-dashboard",
       "type": "registry:block",
       "title": "Sidebar dashboard",
