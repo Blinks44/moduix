@@ -1,5 +1,17 @@
 # moduix
 
+## 2.1.0
+
+### Minor Changes
+
+- 3c2cf9a: Polish component sizing, popup density, focus treatments, and theming tokens across the React library.
+  Standardize primary controls around the medium size scale and popup items around the small size scale while preserving component-level override variables.
+
+### Patch Changes
+
+- 3c2cf9a: Add the Typeset component and curated CSS theme presets.
+- 3c2cf9a: Unify input action hover behavior and refine Select trigger composition.
+
 ## 2.0.0
 
 ### Major Changes
