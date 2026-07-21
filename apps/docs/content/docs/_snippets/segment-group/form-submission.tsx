@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { SegmentGroup } from '@moduix/react';
+import { Button, SegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
 
 const frameworks = [
@@ -25,9 +25,9 @@ export function FormSegmentGroupDemo() {
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />
       </SegmentGroup>
-      <button className="segment-button" type="submit">
+      <Button className="segment-button" type="submit">
         Submit
-      </button>
+      </Button>
       <output className="segment-output">submitted: {submitted}</output>
     </form>
   );

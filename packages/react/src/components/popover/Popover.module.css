@@ -5,9 +5,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--popover-control-height, var(--size-lg));
+    min-height: var(--popover-control-height, var(--size-md));
     margin: 0;
-    padding: var(--popover-control-padding-y, 0.5rem) var(--popover-control-padding-x, 0.875rem);
+    padding: var(--popover-control-padding-y, var(--spacing-1))
+      var(--popover-control-padding-x, var(--spacing-3-5));
     border: var(--popover-control-border-width, var(--border-width-sm)) solid
       var(--popover-control-border-color, var(--color-border));
     border-radius: var(--popover-control-radius, var(--radius-md));
@@ -41,13 +42,16 @@
     &:focus-visible {
       outline: var(
           --popover-focus-ring-width,
-          var(--popover-control-border-width, var(--border-width-sm))
+          var(--popover-control-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
         )
         solid var(--popover-focus-ring-color, var(--color-ring));
       outline-offset: calc(
         var(
             --popover-focus-ring-width,
-            var(--popover-control-border-width, var(--border-width-sm))
+            var(
+              --popover-control-border-width,
+              var(--focus-ring-inset-width, var(--border-width-sm))
+            )
           ) *
           -1
       );
@@ -67,7 +71,7 @@
   }
 
   .content {
-    --popover-close-icon-size-effective: var(--popover-close-icon-size, 1.75rem);
+    --popover-close-icon-size-effective: var(--popover-close-icon-size, var(--spacing-7));
     --popover-close-icon-offset-effective: var(--popover-close-icon-offset, var(--spacing-3));
     --popover-header-padding-inline-end-effective: var(
       --popover-header-padding-inline-end,
@@ -82,7 +86,7 @@
     max-width: min(var(--popover-max-width, 28rem), var(--available-width));
     max-height: min(var(--popover-max-height, 24rem), var(--available-height, 100dvh));
     overflow: visible;
-    padding: var(--popover-padding-y, 1rem) var(--popover-padding-x, 1rem);
+    padding: var(--popover-padding-y, var(--spacing-4)) var(--popover-padding-x, var(--spacing-4));
     border: 0;
     border-radius: var(--popover-radius, var(--radius-md));
     background-color: var(--popover-bg, var(--color-popover));
@@ -118,7 +122,7 @@
   }
 
   .arrow {
-    --arrow-size: var(--popover-arrow-size, 0.625rem);
+    --arrow-size: var(--popover-arrow-size, var(--spacing-2-5));
     --arrow-background: var(--popover-bg, var(--color-popover));
   }
 
@@ -147,7 +151,7 @@
   .closeIcon {
     --close-button-size: var(--popover-close-icon-size-effective);
     --close-button-radius: var(--popover-close-icon-radius, var(--radius-sm));
-    --close-button-icon-size: var(--popover-close-icon-glyph-size, 0.875rem);
+    --close-button-icon-size: var(--popover-close-icon-glyph-size, var(--spacing-3-5));
     --close-button-bg: var(--popover-close-icon-bg, transparent);
     --close-button-bg-hover: var(--popover-close-icon-bg-hover, var(--color-accent));
     --close-button-color: var(--popover-close-icon-color, var(--color-muted-foreground));

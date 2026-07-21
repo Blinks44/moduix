@@ -1,124 +1,45 @@
 ![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/apps/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Turborepo](https://img.shields.io/badge/Monorepo-Turborepo-EF4444)](https://turbo.build/)
 
-# moduix
+# @moduix/react
 
-React implementation of the moduix component system for product interfaces, built on top of
-[Ark UI](https://ark-ui.com/) primitives.
+Polished React components for product interfaces, built on
+[Ark UI](https://ark-ui.com/) and styled with native CSS.
 
-moduix gives you ready-made components with accessible behavior, native CSS styles, and a
-composition-first API. It supports two production workflows: install the package for managed
-updates, or copy registry component source when your application needs direct ownership.
+The package combines Ark's accessible interaction model with shadcn-inspired clarity: calm defaults,
+explicit named parts, consistent states, and a token-first theme contract. No styling framework is
+required.
 
-## Why It Exists
+[Documentation](https://moduix.dev/) ·
+[Quick start](https://moduix.dev/docs/quick-start) ·
+[Components](https://moduix.dev/docs/components) ·
+[Tokens](https://moduix.dev/docs/tokens)
 
-moduix is built for real product screens: predictable behavior, readable composition, small
-runtime surface, and CSS that can be owned by the application. The library is public and actively
-developed around Ark UI primitives, shadcn-compatible source delivery, and practical defaults for
-teams that need consistent interfaces.
+## Highlights
 
-## Principles
+- Ark-aligned composition, controlled and uncontrolled state, context, callbacks, and form behavior.
+- Consistent `36px` primary controls and `32px` popup rows through shared size tokens.
+- Native CSS, CSS Modules, cascade layers, semantic tokens, and component-level variables.
+- Stable moduix `data-slot` hooks alongside Ark part and state attributes.
+- Optional reset and curated `dense`, `soft`, and `contrast` presets.
+- React 18 and 19 support.
+- A matching hosted shadcn registry when source ownership is the better workflow.
 
-- **Ark UI underneath.** Components target Ark UI composition and accessibility primitives instead of
-  reimplementing low-level interaction behavior.
-- **Small dependency surface.** Ark UI is the only external UI primitive layer. The package
-  keeps the runtime stack intentionally small and does not bring a styling framework with it.
-- **Two installation paths.** Use moduix as an npm package, or copy component source into your
-  project when direct ownership is more important than package-managed updates.
-- **Composable API.** Components are exposed as named parts, so complex UI can be assembled
-  without hiding important structure.
-- **Native CSS.** Styles are distributed as CSS, use CSS custom properties, and are designed to
-  work with your existing styling approach.
-- **shadcn-compatible source delivery.** shadcn/ui remains a major inspiration for readable
-  component composition. moduix keeps that ownership model available through its registry.
+## Install
 
-## Installation
-
-moduix supports two installation paths:
-
-- Install the library as a regular npm package when you want package-managed updates.
-- Install component source into your own project with `shadcn` when you want direct ownership.
-
-| Choose this path            | When it fits best                                                                                                             |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want the fastest setup, package-managed updates, imports from `@moduix/react`, and styles from `@moduix/react/style.css`. |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`.        |
-
-### npm package
+Install the package and its Ark UI peer dependency:
 
 ```bash
 npm install @moduix/react @ark-ui/react
 ```
 
-`react`, `react-dom`, and `@ark-ui/react` are peer dependencies. They stay in your application
-bundle, so moduix does not ship duplicate React or Ark UI runtimes.
+`react`, `react-dom`, and `@ark-ui/react` are peer dependencies, so the package does not ship
+duplicate framework or primitive runtimes.
 
-### shadcn copy-owned install
-
-`shadcn` can install selected moduix components from the hosted registry directly into your
-project. The files become part of your codebase instead of staying in `node_modules`.
-
-Make sure your project resolves the `@/*` alias to `src/*` in both `tsconfig.json` and
-`tsconfig.app.json`, and mirror it in your bundler config.
-
-Create `components.json` in the project root when your app does not already have one:
-
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "src/index.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "rtl": false,
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
-  }
-}
-```
-
-```bash
-npx shadcn@latest add @moduix-react/button
-npx shadcn@latest add @moduix-react/accordion
-```
-
-The registry install also pulls in the shared moduix foundation files those components need, such as
-styles, icons, and small utilities.
-
-Import the generated foundation stylesheet once in your application entry point:
-
-```tsx
-import '@/lib/moduix/styles/style.css';
-```
-
-If you want the optional reset in the copy-owned path, import it explicitly before the main
-stylesheet:
-
-```tsx
-import '@/lib/moduix/styles/reset.css';
-import '@/lib/moduix/styles/style.css';
-```
-
-With the aliases above, generated files land in `src/components/moduix/*` and `src/lib/moduix/*`.
-
-## Usage
+## Add Styles
 
 Import the required foundation stylesheet once in your application entry point:
 
@@ -126,17 +47,19 @@ Import the required foundation stylesheet once in your application entry point:
 import '@moduix/react/style.css';
 ```
 
-This stylesheet is required. It provides the shared design tokens and base styles that component
-CSS depends on.
+This entrypoint provides shared design tokens and base styles. Component imports bring along their
+own CSS.
 
-If you want the optional reset, import it explicitly before the main stylesheet:
+The reset is optional and intentionally separate:
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-Then import and compose the components you need:
+## Use Components
+
+Import public components from the package barrel and compose their named parts:
 
 ```tsx
 import { Button, Dialog } from '@moduix/react';
@@ -145,12 +68,20 @@ export function Example() {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <Button>Open dialog</Button>
+        <Button>Open settings</Button>
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.Header>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <Dialog.Description>Update how this workspace behaves.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger asChild>
+              <Button variant="outline">Done</Button>
+            </Dialog.CloseTrigger>
+          </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>
     </Dialog.Root>
@@ -158,95 +89,92 @@ export function Example() {
 }
 ```
 
-`style.css` ships the shared design tokens and base styles. Component imports still bring along only
-the component CSS they use.
+moduix keeps important Ark anatomy visible. Higher-level convenience parts are documented as the
+recommended path where they exist, while low-level composition remains available for advanced
+cases.
 
-## Styling
+## Theme the System
 
-Components accept `className` where customization is expected and expose stable `data-slot`
-attributes for targeted styling. Theme values are regular CSS custom properties:
+Theme values are CSS custom properties. Change broad semantic decisions first and use component
+aliases for deliberate exceptions:
 
 ```css
 :root {
-  --color-primary: oklch(0.205 0 0);
-  --button-radius: 0.5rem;
+  --primary: oklch(0.52 0.18 145);
+  --radius: 0.75rem;
+  --size-md: 36px;
+  --size-sm: 32px;
+}
+
+.compact-toolbar {
+  --button-size-md: 32px;
 }
 ```
 
-Library CSS is organized with cascade layers:
+The token hierarchy is:
+
+1. theme primitives such as `--primary`, `--spacing-2`, `--size-md`, and `--radius`;
+2. semantic aliases such as `--color-primary`, `--spacing-md`, and `--radius-md`;
+3. shared family defaults such as `--popup-item-min-height` and `--focus-ring-width`;
+4. component aliases such as `--input-height` and `--select-item-min-height`.
+
+Library styles use predictable cascade layers:
 
 ```css
 @layer ui.reset, ui.tokens, ui.base, ui.components;
 ```
 
-This keeps defaults predictable while still letting application styles override tokens,
-classes, or component-level variables.
+Components also expose `className`, `data-slot`, and the Ark `data-scope`, `data-part`, and
+state attributes supported by their primitives.
 
-## What Is Included
+## Optional Presets
 
-The package exports composed components for common product UI needs, including Accordion, Avatar,
-Button, Checkbox, Combobox, Dialog, Drawer, Field, FileUpload, Menu, NumberInput, Popover,
-QrCode, Select, Tabs, Toast, Tooltip, TreeView, and supporting layout and display primitives.
+Import one preset after `style.css` and activate it on the document root:
 
-## Documentation
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
 
-- Documentation: https://moduix.dev/
-- npm package: https://www.npmjs.com/package/@moduix/react
-- React package README: `packages/react/README.md`
-- Docs app README: `apps/docs/README.md`
+```html
+<html data-moduix-theme="soft"></html>
+```
 
-## Repository Quick Start
+Available presets are `dense`, `soft`, and `contrast`. See
+[Themes](https://moduix.dev/docs/themes) before combining presets or creating a reusable custom
+theme.
 
-From the monorepo root:
+## Prefer to Own the Source?
+
+The moduix registry uses the shadcn distribution format while preserving the same Ark-aligned
+component contracts:
 
 ```bash
-npm install
-npm run build:react
-npm run dev
+npx shadcn@latest init
+npx shadcn@latest registry add '@moduix-react=https://moduix.dev/r/react/{name}.json'
+npx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
+
+Generated files are installed under `@/components/moduix/*` and `@/lib/moduix/*`. Read the
+[complete Quick Start](https://moduix.dev/docs/quick-start) for alias setup, registry inspection,
+dry runs, and generated stylesheet imports.
 
 ## Acknowledgements
 
-This project could not exist without the work of these teams and communities:
+- [Ark UI](https://ark-ui.com/) provides the primitive behavior and composition model.
+- [Chakra UI](https://chakra-ui.com/) informs Ark-aligned ergonomics and design-system craft.
+- [shadcn/ui](https://ui.shadcn.com/) inspires open-code delivery, beautiful defaults, and practical
+  documentation.
+- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) provide foundations
+  adapted by the optional reset.
 
-- [Ark UI](https://ark-ui.com/) for the composition and accessibility primitives now shaping the library contract.
-- [shadcn/ui](https://ui.shadcn.com/) for the API inspiration and the culture of practical,
-  readable component composition.
-- [Tailwind CSS](https://tailwindcss.com/) for the reset.css implementation.
-- [Fumadocs](https://fumadocs.dev/) for the documentation foundation.
-- [TanStack](https://tanstack.com/) for the application tooling used by the docs.
-- [Voidzero](https://voidzero.dev/) for the JavaScript tooling used by the workspace.
+## Links
 
-## Contributing
+- [Documentation](https://moduix.dev/)
+- [npm package](https://www.npmjs.com/package/@moduix/react)
+- [Source repository](https://github.com/Blinks44/moduix)
+- [Issues](https://github.com/Blinks44/moduix/issues)
 
-Contributions are welcome, especially bug reports, accessibility fixes, documentation
-improvements, and focused component improvements.
+## License
 
-Before opening a pull request:
-
-1. Install dependencies from the repository root:
-
-   ```bash
-   npm install
-   ```
-
-2. Build the React package when your change affects `packages/react` or documentation examples:
-
-   ```bash
-   npm run build:react
-   ```
-
-3. Run the required checks:
-
-   ```bash
-   npm run fmt:fix
-   npm run lint:check
-   npm run tsc:check
-   ```
-
-Keep pull requests small and specific. For component changes, update the related stories, exports,
-local component notes, public docs, and registry output so the package and docs stay in sync.
-
-Agent-facing repository guidance lives in `AGENTS.md` and `.agents/skills`. Generated or
-agent-assisted changes should still preserve the library's direct Ark-first component contracts,
-small APIs, and readable implementation style.
+[MIT](./LICENSE.md)

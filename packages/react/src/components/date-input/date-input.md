@@ -135,6 +135,8 @@ Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `labe
 
 ## Defaults and styling
 
+The segmented date control defaults to `--size-md` with `--spacing-1` block padding.
+
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 the control frame, segment focus, placeholder color, invalid state, disabled/readonly state, and
 presentational separators. Disabled inputs are visually muted; read-only inputs remain focusable and
@@ -181,6 +183,9 @@ segment shortcuts, or local event aliases.
 - Keep `@internationalized/date` examples in docs because Ark values are `DateValue` objects.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Reduced the default date control to `--size-md` and compacted its block padding.
 
 - 2026-07-13: Rendered native date inputs automatically and added `names` for range fields that
   require distinct form keys.

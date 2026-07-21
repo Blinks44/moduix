@@ -1,4 +1,5 @@
 export { Portal } from '@ark-ui/react/portal';
+export { LocaleProvider, useLocaleContext } from '@ark-ui/react/locale';
 
 export * from './components/aspect-ratio';
 export * from './components/accordion';
@@ -76,6 +77,7 @@ export * from './components/tabs';
 export * from './components/text';
 export * from './components/textarea';
 export * from './components/timer';
+export * from './components/typeset';
 export * from './components/toast';
 export * from './components/tooltip';
 export * from './components/tour';

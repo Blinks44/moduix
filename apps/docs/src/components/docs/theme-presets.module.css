@@ -1,0 +1,271 @@
+.root {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-fd-card);
+}
+
+.controls {
+  display: grid;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-fd-border);
+  background: color-mix(in oklab, var(--color-fd-muted) 52%, transparent);
+}
+
+.presetList {
+  display: grid;
+  gap: var(--spacing-2);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.presetButton,
+.modeList button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.presetButton {
+  display: grid;
+  gap: var(--spacing-1);
+  min-width: 0;
+  padding: var(--spacing-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-fd-muted-foreground);
+  text-align: left;
+  transition: var(--transition-fast);
+
+  &:hover {
+    background: var(--color-fd-accent);
+    color: var(--color-fd-accent-foreground);
+  }
+
+  &[data-active] {
+    border-color: var(--color-fd-border);
+    background: var(--color-fd-background);
+    color: var(--color-fd-foreground);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-fd-ring);
+    outline-offset: 2px;
+  }
+}
+
+.presetButton span {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-text-sm);
+}
+
+.presetButton small {
+  display: -webkit-box;
+  overflow: hidden;
+  color: inherit;
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.modeList {
+  display: flex;
+  width: fit-content;
+  overflow: hidden;
+  border: 1px solid var(--color-fd-border);
+  border-radius: var(--radius-md);
+  background: var(--color-fd-background);
+}
+
+.modeList button {
+  min-height: var(--size-sm);
+  padding-inline: var(--spacing-3);
+  background: transparent;
+  color: var(--color-fd-muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-text-sm);
+
+  &[data-active] {
+    background: var(--color-fd-primary);
+    color: var(--color-fd-primary-foreground);
+  }
+
+  &:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid var(--color-fd-ring);
+    outline-offset: -2px;
+  }
+}
+
+.preview {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-5);
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in oklab, var(--color-card) 86%, var(--color-muted));
+}
+
+.previewHeader > div {
+  display: grid;
+  gap: 1px;
+}
+
+.previewHeader span {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-xs);
+  text-transform: uppercase;
+}
+
+.previewHeader strong {
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  line-height: var(--line-height-text-md);
+}
+
+.previewMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+}
+
+.previewMeta > span {
+  display: inline-flex;
+  gap: var(--spacing-1);
+  align-items: baseline;
+  padding: var(--spacing-1) var(--spacing-2);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-text-xs);
+  text-transform: none;
+}
+
+.previewMeta > span strong {
+  color: var(--color-foreground);
+  font-size: inherit;
+  font-weight: var(--weight-medium);
+  line-height: inherit;
+}
+
+.previewCanvas {
+  display: grid;
+  min-height: 22rem;
+  place-items: center;
+  padding: clamp(var(--spacing-5), 7vw, var(--spacing-10));
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0 47%,
+      color-mix(in oklab, var(--color-primary) 10%, transparent) 47% 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--color-border) 55%, transparent) 0 1px,
+      transparent 1px 2.5rem
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-border) 55%, transparent) 0 1px,
+      transparent 1px 2.5rem
+    ),
+    var(--color-background);
+}
+
+.previewCard {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.previewBody {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--spacing-2);
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--line-height-text-sm);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.stats span {
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-text-xs);
+}
+
+@media (width < 48rem) {
+  .presetList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width < 30rem) {
+  .controls,
+  .previewHeader {
+    padding: var(--spacing-3);
+  }
+
+  .previewCanvas {
+    min-height: 20rem;
+    padding: var(--spacing-3);
+  }
+
+  .previewHeader {
+    align-items: flex-start;
+  }
+
+  .previewMeta {
+    justify-content: flex-start;
+  }
+}

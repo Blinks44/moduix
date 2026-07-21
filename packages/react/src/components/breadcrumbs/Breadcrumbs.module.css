@@ -34,7 +34,7 @@
     display: block;
     min-width: 0;
     max-width: 100%;
-    padding-inline: var(--breadcrumbs-item-padding-x, 0.25rem);
+    padding-inline: var(--breadcrumbs-item-padding-x, var(--spacing-1));
     white-space: nowrap;
   }
 
@@ -61,7 +61,8 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--breadcrumbs-focus-ring-width, var(--border-width-sm))
+      box-shadow: 0 0 0
+        var(--breadcrumbs-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
         var(--breadcrumbs-focus-ring-color, var(--color-ring));
     }
   }
@@ -81,8 +82,8 @@
   }
 
   .separatorIcon {
-    width: 1em;
-    height: 1em;
+    width: var(--breadcrumbs-separator-icon-size, 1em);
+    height: var(--breadcrumbs-separator-icon-size, 1em);
     flex: none;
   }
 
@@ -90,9 +91,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--breadcrumbs-ellipsis-size, 1rem);
-    min-height: var(--breadcrumbs-ellipsis-size, 1rem);
-    padding-inline: var(--breadcrumbs-item-padding-x, 0.25rem);
+    min-width: var(--breadcrumbs-ellipsis-size, var(--spacing-4));
+    min-height: var(--breadcrumbs-ellipsis-size, var(--spacing-4));
+    padding-inline: var(--breadcrumbs-item-padding-x, var(--spacing-1));
     color: var(--breadcrumbs-ellipsis-color, var(--color-muted-foreground));
     border-radius: var(--breadcrumbs-ellipsis-radius, var(--radius-sm));
   }

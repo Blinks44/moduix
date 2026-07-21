@@ -82,7 +82,7 @@
     &::after {
       position: absolute;
       z-index: 1;
-      width: var(--splitter-resize-trigger-size, 0.625rem);
+      width: var(--splitter-resize-trigger-size, var(--spacing-2-5));
       height: 100%;
       content: '';
     }
@@ -101,7 +101,7 @@
 
       &::after {
         width: 100%;
-        height: var(--splitter-resize-trigger-size, 0.625rem);
+        height: var(--splitter-resize-trigger-size, var(--spacing-2-5));
       }
     }
 
@@ -145,8 +145,8 @@
     inset-inline-start: 50%;
     z-index: 2;
     box-sizing: border-box;
-    width: var(--splitter-resize-trigger-indicator-width, 0.375rem);
-    height: var(--splitter-resize-trigger-indicator-height, 1.5rem);
+    width: var(--splitter-resize-trigger-indicator-width, var(--spacing-1-5));
+    height: var(--splitter-resize-trigger-indicator-height, var(--size-xs));
     border: var(--splitter-resize-trigger-indicator-border-width, var(--border-width-sm)) solid
       var(--splitter-resize-trigger-indicator-border-color, var(--color-border));
     border-radius: var(--splitter-resize-trigger-indicator-radius, var(--radius-full));
@@ -160,8 +160,8 @@
       transform var(--splitter-transition, var(--transition-default));
 
     &[data-orientation='vertical'] {
-      width: var(--splitter-resize-trigger-indicator-height, 1.5rem);
-      height: var(--splitter-resize-trigger-indicator-width, 0.375rem);
+      width: var(--splitter-resize-trigger-indicator-height, var(--size-xs));
+      height: var(--splitter-resize-trigger-indicator-width, var(--spacing-1-5));
     }
   }
 

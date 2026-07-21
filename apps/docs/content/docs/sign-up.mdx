@@ -1,0 +1,38 @@
+---
+title: Sign up
+description: A copy-owned account creation form built with moduix React components.
+icon: UserRoundPlus
+---
+
+import { SignUpPreview } from '@/components/blocks/sign-up-preview';
+
+# Sign up
+
+Create an account with native validation for name, email, passwords, and terms acceptance. The
+block deliberately leaves authentication and matching-password validation to your `onSubmit`
+handler.
+
+<Preview clientOnly>
+  <SignUpPreview />
+
+<Preview.Code>
+  <include lang="tsx">../../src/components/blocks/sign-up.tsx</include>
+</Preview.Code>
+
+<Preview.CSS>
+  <include lang="css">../../src/components/blocks/sign-up.module.css</include>
+</Preview.CSS>
+
+</Preview>
+
+## Install
+
+<ShadcnInstall packageName="sign-up" itemLabel="block" />
+
+The command copies `sign-up.tsx` and `sign-up.module.css` into your configured components directory
+and installs `@moduix/react` when needed.
+
+## Use in a route
+
+Render `SignUp` in the route that owns registration and pass its real submit handler. Replace the
+default `/terms`, `/privacy`, and `/sign-in` links with your application routes.

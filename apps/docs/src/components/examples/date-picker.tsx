@@ -106,7 +106,7 @@ export const datePickerExampleCss = `
     box-sizing: border-box;
     display: flex;
     width: 100%;
-    min-height: var(--date-picker-control-height, var(--size-lg));
+    min-height: var(--date-picker-control-height, var(--size-md));
     flex-wrap: wrap;
     align-items: center;
     gap: var(--spacing-1);
@@ -307,12 +307,12 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-action-focus-ring-offset', '0', 'Controls action focus ring offset.'],
   [
     '--date-picker-action-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls action focus ring width.',
   ],
-  ['--date-picker-action-gap', '0.125rem', 'Controls gap between input actions.'],
+  ['--date-picker-action-gap', 'var(--spacing-0-5)', 'Controls gap between input actions.'],
   ['--date-picker-action-radius', 'var(--radius-sm)', 'Controls action corner radius.'],
-  ['--date-picker-action-size', '1.5rem', 'Controls input action button size.'],
+  ['--date-picker-action-size', 'var(--size-xs)', 'Controls input action button size.'],
   ['--date-picker-bg', 'var(--color-background)', 'Controls input background.'],
   ['--date-picker-bg-hover', 'var(--color-accent)', 'Controls input hover background.'],
   ['--date-picker-border-color', 'var(--color-border)', 'Controls input border color.'],
@@ -331,19 +331,23 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-content-radius', 'var(--radius-md)', 'Controls popup corner radius.'],
   ['--date-picker-content-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
   ['--date-picker-content-width', '18.75rem', 'Controls default popup width.'],
-  ['--date-picker-control-height', 'var(--size-lg)', 'Controls input height.'],
+  ['--date-picker-control-height', 'var(--size-md)', 'Controls input height.'],
   ['--date-picker-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--date-picker-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--date-picker-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  [
+    '--date-picker-focus-ring-width',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--date-picker-font-size', 'var(--text-md)', 'Controls input font size.'],
   ['--date-picker-icon-color', 'var(--color-muted-foreground)', 'Controls trigger icon color.'],
-  ['--date-picker-icon-size', '1rem', 'Controls trigger icon size.'],
+  ['--date-picker-icon-size', 'var(--spacing-4)', 'Controls trigger icon size.'],
   ['--date-picker-inline-content-min-width', '18rem', 'Controls inline calendar minimum width.'],
   ['--date-picker-inline-content-shadow', 'none', 'Controls inline calendar shadow.'],
   ['--date-picker-input-min-width', '7.5rem', 'Controls the minimum width of each input.'],
   ['--date-picker-input-padding-x-end', '4.25rem', 'Controls input end padding around actions.'],
-  ['--date-picker-input-padding-x-start', '0.875rem', 'Controls input start padding.'],
-  ['--date-picker-input-padding-y', '0.5rem', 'Controls input vertical padding.'],
+  ['--date-picker-input-padding-x-start', 'var(--spacing-3-5)', 'Controls input start padding.'],
+  ['--date-picker-input-padding-y', 'var(--spacing-1)', 'Controls input vertical padding.'],
   ['--date-picker-input-gap', 'var(--spacing-2)', 'Controls gap between range inputs.'],
   ['--date-picker-invalid-color', 'var(--color-destructive)', 'Controls invalid border and ring.'],
   [
@@ -356,7 +360,7 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
   ['--date-picker-line-height', 'var(--line-height-text-md)', 'Controls input line height.'],
   ['--date-picker-max-width', '100%', 'Controls root maximum width.'],
-  ['--date-picker-nav-trigger-size', '2rem', 'Controls calendar nav button size.'],
+  ['--date-picker-nav-trigger-size', 'var(--size-sm)', 'Controls calendar nav button size.'],
   [
     '--date-picker-placeholder-color',
     'var(--color-muted-foreground)',
@@ -370,7 +374,7 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--date-picker-preset-trigger-color', 'var(--color-foreground)', 'Controls preset text color.'],
   ['--date-picker-preset-trigger-font-size', 'var(--text-sm)', 'Controls preset font size.'],
-  ['--date-picker-preset-trigger-height', '2rem', 'Controls preset button height.'],
+  ['--date-picker-preset-trigger-height', 'var(--size-sm)', 'Controls preset button height.'],
   [
     '--date-picker-preset-trigger-line-height',
     'var(--line-height-text-sm)',
@@ -413,11 +417,11 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--date-picker-select-color', 'var(--color-foreground)', 'Controls native select text.'],
   [
     '--date-picker-select-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls native select focus ring width.',
   ],
   ['--date-picker-select-font-size', 'var(--text-sm)', 'Controls native select font size.'],
-  ['--date-picker-select-height', '2rem', 'Controls native select height.'],
+  ['--date-picker-select-height', 'var(--size-sm)', 'Controls native select height.'],
   [
     '--date-picker-select-line-height',
     'var(--line-height-text-sm)',
@@ -428,7 +432,11 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--spacing-2)',
     'Controls native select horizontal padding.',
   ],
-  ['--date-picker-select-padding-y', '0.25rem', 'Controls native select vertical padding.'],
+  [
+    '--date-picker-select-padding-y',
+    'var(--spacing-1)',
+    'Controls native select vertical padding.',
+  ],
   ['--date-picker-select-radius', 'var(--radius-sm)', 'Controls native select radius.'],
   ['--date-picker-table-cell-bg', 'transparent', 'Controls calendar cell background.'],
   [
@@ -455,11 +463,11 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--date-picker-table-cell-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls calendar cell focus ring width.',
   ],
   ['--date-picker-table-cell-font-size', 'var(--text-sm)', 'Controls calendar cell font size.'],
-  ['--date-picker-table-cell-gap', '0.125rem', 'Controls calendar cell spacing.'],
+  ['--date-picker-table-cell-gap', 'var(--spacing-0-5)', 'Controls calendar cell spacing.'],
   [
     '--date-picker-table-cell-line-height',
     'var(--line-height-text-sm)',
@@ -483,7 +491,7 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-primary-foreground)',
     'Controls selected cell text.',
   ],
-  ['--date-picker-table-cell-size', '2.25rem', 'Controls calendar cell size.'],
+  ['--date-picker-table-cell-size', 'var(--size-sm)', 'Controls calendar cell size.'],
   [
     '--date-picker-table-cell-today-border-color',
     'var(--color-ring)',
@@ -516,7 +524,7 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-default)',
     'Controls interactive transition timing.',
   ],
-  ['--date-picker-trigger-offset-right', '0.5rem', 'Controls input action right offset.'],
+  ['--date-picker-trigger-offset-right', 'var(--spacing-2)', 'Controls input action right offset.'],
   ['--date-picker-view-control-gap', 'var(--spacing-2)', 'Controls calendar header control gap.'],
   ['--date-picker-view-gap', 'var(--spacing-3)', 'Controls calendar view gap.'],
   [
@@ -531,7 +539,7 @@ export const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls view trigger font weight.',
   ],
   ['--date-picker-view-trigger-gap', 'var(--spacing-2)', 'Controls view trigger content gap.'],
-  ['--date-picker-view-trigger-height', '2rem', 'Controls view trigger height.'],
+  ['--date-picker-view-trigger-height', 'var(--size-sm)', 'Controls view trigger height.'],
   [
     '--date-picker-view-trigger-line-height',
     'var(--line-height-text-sm)',

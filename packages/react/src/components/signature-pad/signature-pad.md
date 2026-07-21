@@ -101,6 +101,8 @@ Ark remains the source of its translated accessible label and its disabled/hidde
 
 All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
 
+The guide line and clear action use logical inline positioning, so their layout follows RTL text flow.
+
 ## Intentional sugar and differences from upstream
 
 moduix adds styled defaults, stable `data-slot` hooks, and `Canvas` for the fixed default drawing surface. The default clear control uses the shared `CloseButton`; use the exported Ark-shaped parts for custom structure, icons, or `asChild` composition. It does not rename Ark props, convert callback signatures, or add local state.
@@ -113,6 +115,8 @@ Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not re
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-19: Switched guide and clear-action positioning to logical inline properties for RTL.
 - 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,
   states, and custom composition while mapping signature-pad tokens to the shared styles.
 

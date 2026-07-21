@@ -43,7 +43,7 @@ export const timerCssProperties: CssPropertyInput[] = [
   ['--timer-area-font-weight', 'var(--weight-semibold)', 'Controls the time display font weight.'],
   [
     '--timer-area-line-height',
-    'var(--line-height-heading-sm)',
+    'var(--line-height-text-sm)',
     'Controls the time display line height.',
   ],
   ['--timer-item-color', 'currentColor', 'Controls time item color.'],
@@ -84,12 +84,12 @@ export const timerCssProperties: CssPropertyInput[] = [
   ],
   [
     '--timer-action-trigger-focus-ring-offset',
-    '-1px',
+    'var(--focus-ring-inset-offset)',
     'Controls action trigger focus ring offset.',
   ],
   [
     '--timer-action-trigger-focus-ring-width',
-    'var(--border-width-md)',
+    'var(--focus-ring-width, var(--border-width-md))',
     'Controls action trigger focus ring width.',
   ],
   ['--timer-action-trigger-font-size', 'var(--text-sm)', 'Controls action trigger font size.'],
@@ -100,14 +100,18 @@ export const timerCssProperties: CssPropertyInput[] = [
   ],
   ['--timer-action-trigger-gap', 'var(--spacing-2)', 'Controls action trigger content gap.'],
   ['--timer-action-trigger-height', 'var(--size-md)', 'Controls action trigger minimum height.'],
-  ['--timer-action-trigger-icon-size', '1rem', 'Controls icons inside action triggers.'],
+  [
+    '--timer-action-trigger-icon-size',
+    'var(--spacing-4)',
+    'Controls icons inside action triggers.',
+  ],
   [
     '--timer-action-trigger-line-height',
     'var(--line-height-text-sm)',
     'Controls action trigger line height.',
   ],
-  ['--timer-action-trigger-padding-x', '0.75rem', 'Controls horizontal trigger padding.'],
-  ['--timer-action-trigger-padding-y', '0.375rem', 'Controls vertical trigger padding.'],
+  ['--timer-action-trigger-padding-x', 'var(--spacing-3)', 'Controls horizontal trigger padding.'],
+  ['--timer-action-trigger-padding-y', 'var(--spacing-1-5)', 'Controls vertical trigger padding.'],
   ['--timer-action-trigger-radius', 'var(--radius-md)', 'Controls action trigger radius.'],
   [
     '--timer-action-trigger-transition',

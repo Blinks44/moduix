@@ -130,37 +130,37 @@ Controlled callbacks keep the Ark details object:
 
 Primary CSS variables:
 
-| Variable                                 | Default                         |
-| ---------------------------------------- | ------------------------------- |
-| `--collapsible-body-gap`                 | `var(--spacing-2)`              |
-| `--collapsible-body-padding`             | `var(--spacing-2)`              |
-| `--collapsible-color`                    | `var(--color-foreground)`       |
-| `--collapsible-width`                    | `100%`                          |
-| `--collapsible-max-width`                | `100%`                          |
-| `--collapsible-disabled-opacity`         | `var(--opacity-disabled)`       |
-| `--collapsible-focus-ring-color`         | `var(--color-ring)`             |
-| `--collapsible-focus-ring-offset`        | `var(--border-width-sm)`        |
-| `--collapsible-focus-ring-width`         | `var(--border-width-sm)`        |
-| `--collapsible-indicator-open-transform` | `rotate(180deg)`                |
-| `--collapsible-indicator-size`           | `0.75rem`                       |
-| `--collapsible-indicator-transition`     | `var(--transition-default)`     |
-| `--collapsible-content-color`            | `var(--color-muted-foreground)` |
-| `--collapsible-content-closed-opacity`   | `0.01`                          |
-| `--collapsible-content-font-size`        | `var(--text-sm)`                |
-| `--collapsible-content-line-height`      | `var(--line-height-text-sm)`    |
-| `--collapsible-content-open-opacity`     | `1`                             |
-| `--collapsible-content-transition`       | `var(--transition-default)`     |
-| `--collapsible-trigger-bg`               | `transparent`                   |
-| `--collapsible-trigger-bg-active`        | trigger hover background        |
-| `--collapsible-trigger-bg-hover`         | trigger background              |
-| `--collapsible-trigger-color`            | `var(--collapsible-color)`      |
-| `--collapsible-trigger-font-size`        | `var(--text-sm)`                |
-| `--collapsible-trigger-gap`              | `var(--spacing-2)`              |
-| `--collapsible-trigger-line-height`      | `var(--line-height-text-sm)`    |
-| `--collapsible-trigger-padding-x`        | `var(--spacing-2)`              |
-| `--collapsible-trigger-padding-y`        | `var(--spacing-1)`              |
-| `--collapsible-trigger-radius`           | `0`                             |
-| `--collapsible-trigger-transition`       | `var(--transition-default)`     |
+| Variable                                 | Default                                                 |
+| ---------------------------------------- | ------------------------------------------------------- |
+| `--collapsible-body-gap`                 | `var(--spacing-2)`                                      |
+| `--collapsible-body-padding`             | `var(--spacing-2)`                                      |
+| `--collapsible-color`                    | `var(--color-foreground)`                               |
+| `--collapsible-width`                    | `100%`                                                  |
+| `--collapsible-max-width`                | `100%`                                                  |
+| `--collapsible-disabled-opacity`         | `var(--opacity-disabled)`                               |
+| `--collapsible-focus-ring-color`         | `var(--color-ring)`                                     |
+| `--collapsible-focus-ring-offset`        | `var(--border-width-sm)`                                |
+| `--collapsible-focus-ring-width`         | `var(--focus-ring-inset-width, var(--border-width-sm))` |
+| `--collapsible-indicator-open-transform` | `rotate(180deg)`                                        |
+| `--collapsible-indicator-size`           | `var(--spacing-3)`                                      |
+| `--collapsible-indicator-transition`     | `var(--transition-default)`                             |
+| `--collapsible-content-color`            | `var(--color-muted-foreground)`                         |
+| `--collapsible-content-closed-opacity`   | `0.01`                                                  |
+| `--collapsible-content-font-size`        | `var(--text-sm)`                                        |
+| `--collapsible-content-line-height`      | `var(--line-height-text-sm)`                            |
+| `--collapsible-content-open-opacity`     | `1`                                                     |
+| `--collapsible-content-transition`       | `var(--transition-default)`                             |
+| `--collapsible-trigger-bg`               | `transparent`                                           |
+| `--collapsible-trigger-bg-active`        | trigger hover background                                |
+| `--collapsible-trigger-bg-hover`         | trigger background                                      |
+| `--collapsible-trigger-color`            | `var(--collapsible-color)`                              |
+| `--collapsible-trigger-font-size`        | `var(--text-sm)`                                        |
+| `--collapsible-trigger-gap`              | `var(--spacing-2)`                                      |
+| `--collapsible-trigger-line-height`      | `var(--line-height-text-sm)`                            |
+| `--collapsible-trigger-padding-x`        | `var(--spacing-2)`                                      |
+| `--collapsible-trigger-padding-y`        | `var(--spacing-1)`                                      |
+| `--collapsible-trigger-radius`           | `0`                                                     |
+| `--collapsible-trigger-transition`       | `var(--transition-default)`                             |
 
 ## Intentional sugar and differences from upstream
 
@@ -184,6 +184,7 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Re-exported `useCollapsible()` from moduix for the standard `RootProvider` path.
 
 - 2026-07-08: Added `Collapsible.Body` as the recommended inner layout wrapper, documented its

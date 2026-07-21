@@ -88,6 +88,8 @@ shared invalid/disabled/required state.
 
 ## Defaults and styling
 
+The single-select control defaults to `--size-md`; multi-select controls retain their content-driven height.
+
 - The default control width, height, border, radius, colors, focus ring, disabled opacity, and hover
   background use the same `--select-*` variables as `Select`.
 - Default control padding and indicator geometry use the shared 4px spacing scale.
@@ -118,6 +120,10 @@ shared invalid/disabled/required state.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Reduced the default single-select control to `--size-md`.
+
+- 2026-07-20: Removed the native field hover surface and aligned the decorative indicator's spacing and local hover treatment with `Select`; platform interaction stays on the native select.
 - 2026-06-30: Added the native select wrapper with Field integration, shared Select control styles,
   the shared `ChevronDownIcon`, and token-based indicator spacing.
 - 2026-07-10: Added `controlProps` for styling the shared select-and-indicator layout and documented

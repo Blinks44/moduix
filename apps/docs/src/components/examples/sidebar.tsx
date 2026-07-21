@@ -102,7 +102,7 @@ const sidebarCssDefaults = {
   '--sidebar-color': 'var(--color-card-foreground)',
   '--sidebar-disabled-opacity': 'var(--opacity-disabled)',
   '--sidebar-focus-ring-color': 'var(--color-ring)',
-  '--sidebar-focus-ring-offset': 'var(--spacing-1)',
+  '--sidebar-focus-ring-offset': 'var(--focus-ring-offset)',
   '--sidebar-focus-ring-width': 'var(--border-width-md)',
   '--sidebar-gap': 'var(--spacing-2)',
   '--sidebar-group-gap': 'var(--spacing-1)',
@@ -260,25 +260,43 @@ function SidebarNavigation() {
                     <strong>Alex Morgan</strong>
                     <span>alex@acme.dev</span>
                   </Sidebar.Label>
-                  <Sidebar.Label className="app-account-chevron">
+                  <Menu.Indicator>
                     <ChevronsUpDown />
-                  </Sidebar.Label>
+                  </Menu.Indicator>
                 </Sidebar.MenuButton>
               </Menu.Trigger>
               <Menu.Positioner>
                 <Menu.Content className="app-account-menu">
                   <Menu.Item value="profile">
-                    <Pencil />
-                    Profile
+                    <Menu.ItemText>
+                      <Menu.ItemTextContent>
+                        <Menu.ItemTextIcon>
+                          <Pencil />
+                        </Menu.ItemTextIcon>
+                        <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+                      </Menu.ItemTextContent>
+                    </Menu.ItemText>
                   </Menu.Item>
                   <Menu.Item value="settings">
-                    <RotateCcw />
-                    Settings
+                    <Menu.ItemText>
+                      <Menu.ItemTextContent>
+                        <Menu.ItemTextIcon>
+                          <RotateCcw />
+                        </Menu.ItemTextIcon>
+                        <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
+                      </Menu.ItemTextContent>
+                    </Menu.ItemText>
                   </Menu.Item>
                   <Menu.Separator />
                   <Menu.Item value="sign-out" tone="destructive">
-                    <LogOut />
-                    Sign out
+                    <Menu.ItemText>
+                      <Menu.ItemTextContent>
+                        <Menu.ItemTextIcon>
+                          <LogOut />
+                        </Menu.ItemTextIcon>
+                        <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                      </Menu.ItemTextContent>
+                    </Menu.ItemText>
                   </Menu.Item>
                 </Menu.Content>
               </Menu.Positioner>
@@ -385,20 +403,9 @@ export const sidebarExampleCss = `
   font-size: var(--text-xs);
 }
 
-.app-account-chevron {
-  display: inline-flex;
-  margin-inline-start: auto;
-}
-
 .app-account-menu {
   --menu-popup-min-width: 14rem;
   --menu-popup-max-width: 18rem;
-}
-
-.app-account-menu [data-part="item"] > svg {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
 }
 
 .app-footer-stack {
@@ -529,26 +536,11 @@ export const sidebarDrawerCss = `
   font-size: var(--text-xs);
 }
 
-.mobile-sidebar-surface .app-account-chevron {
-  display: inline-flex;
-  margin-inline-start: auto;
-}
-
-.mobile-sidebar-surface .app-account-chevron > svg {
-  width: 1rem;
-  height: 1rem;
-}
-
 .mobile-sidebar-surface .app-account-menu {
   --menu-popup-min-width: 14rem;
   --menu-popup-max-width: 18rem;
 }
 
-.mobile-sidebar-surface .app-account-menu [data-part="item"] > svg {
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-}
 `;
 
 export const sidebarRightCode = `
@@ -838,8 +830,14 @@ export function WorkspaceSidebar() {
                 <Menu.Item value="settings">Account settings</Menu.Item>
                 <Menu.Separator />
                 <Menu.Item value="sign-out" tone="destructive">
-                  <LogOut />
-                  Sign out
+                  <Menu.ItemText>
+                    <Menu.ItemTextContent>
+                      <Menu.ItemTextIcon>
+                        <LogOut />
+                      </Menu.ItemTextIcon>
+                      <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+                    </Menu.ItemTextContent>
+                  </Menu.ItemText>
                 </Menu.Item>
               </Menu.Content>
             </Menu.Positioner>
@@ -1077,7 +1075,7 @@ function WorkspaceSelect() {
           <Sidebar.Label className={styles.workspaceLabel}>
             <Select.ValueText placeholder="Select workspace" />
           </Sidebar.Label>
-          <Sidebar.Label className={styles.accountChevron}>
+          <Sidebar.Label className={styles.selectIndicator}>
             <Select.Indicator />
           </Sidebar.Label>
         </Sidebar.MenuButton>
@@ -1113,25 +1111,43 @@ function AccountMenu() {
             <strong>Alex Morgan</strong>
             <span>alex@acme.dev</span>
           </Sidebar.Label>
-          <Sidebar.Label className={styles.accountChevron}>
+          <Menu.Indicator>
             <ChevronUpDownIcon />
-          </Sidebar.Label>
+          </Menu.Indicator>
         </Sidebar.MenuButton>
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className={styles.accountMenu}>
           <Menu.Item value="profile">
-            <PencilIcon />
-            Profile
+            <Menu.ItemText>
+              <Menu.ItemTextContent>
+                <Menu.ItemTextIcon>
+                  <PencilIcon />
+                </Menu.ItemTextIcon>
+                <Menu.ItemTextLabel>Profile</Menu.ItemTextLabel>
+              </Menu.ItemTextContent>
+            </Menu.ItemText>
           </Menu.Item>
           <Menu.Item value="settings">
-            <RestartIcon />
-            Settings
+            <Menu.ItemText>
+              <Menu.ItemTextContent>
+                <Menu.ItemTextIcon>
+                  <RestartIcon />
+                </Menu.ItemTextIcon>
+                <Menu.ItemTextLabel>Settings</Menu.ItemTextLabel>
+              </Menu.ItemTextContent>
+            </Menu.ItemText>
           </Menu.Item>
           <Menu.Separator />
           <Menu.Item value="sign-out" tone="destructive">
-            <LogOutIcon />
-            Sign out
+            <Menu.ItemText>
+              <Menu.ItemTextContent>
+                <Menu.ItemTextIcon>
+                  <LogOutIcon />
+                </Menu.ItemTextIcon>
+                <Menu.ItemTextLabel>Sign out</Menu.ItemTextLabel>
+              </Menu.ItemTextContent>
+            </Menu.ItemText>
           </Menu.Item>
         </Menu.Content>
       </Menu.Positioner>

@@ -169,14 +169,29 @@ export const carouselOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--carousel-control-shadow', 'var(--shadow-sm)', 'Controls the trigger shadow.'],
   ['--carousel-control-shadow-hover', 'var(--shadow-md)', 'Controls the trigger hover shadow.'],
-  ['--carousel-control-size', '2.5rem', 'Controls trigger size.'],
+  [
+    '--carousel-autoplay-indicator-min-width',
+    'var(--spacing-4)',
+    'Controls the minimum status label width.',
+  ],
+  [
+    '--carousel-autoplay-trigger-min-width',
+    'calc(var(--size-md) + var(--spacing-3))',
+    'Controls the labelled autoplay trigger minimum width.',
+  ],
+  ['--carousel-control-icon-size', 'var(--spacing-4)', 'Controls trigger icon size.'],
+  ['--carousel-control-size', 'var(--size-md)', 'Controls trigger size.'],
   [
     '--carousel-focus-ring-color',
     'var(--color-ring)',
     'Controls focus ring color for triggers and indicators.',
   ],
-  ['--carousel-focus-ring-offset', '2px', 'Controls focus ring offset.'],
-  ['--carousel-focus-ring-width', 'var(--border-width-md)', 'Controls focus ring width.'],
+  ['--carousel-focus-ring-offset', 'var(--focus-ring-offset)', 'Controls focus ring offset.'],
+  [
+    '--carousel-focus-ring-width',
+    'var(--focus-ring-width, var(--border-width-md))',
+    'Controls focus ring width.',
+  ],
   ['--carousel-gap', 'var(--spacing-3)', 'Controls spacing between Ark parts.'],
   ['--carousel-height', '24rem', 'Controls the root height in vertical orientation.'],
   [
@@ -191,7 +206,7 @@ export const carouselOverrideCssProperties: CssPropertyInput[] = [
     'Controls indicator hover color.',
   ],
   ['--carousel-indicator-gap', 'var(--spacing-2)', 'Controls spacing between indicators.'],
-  ['--carousel-indicator-size', '0.5rem', 'Controls base indicator size.'],
+  ['--carousel-indicator-size', 'var(--spacing-2)', 'Controls base indicator size.'],
   [
     '--carousel-progress-text-color',
     'var(--color-muted-foreground)',

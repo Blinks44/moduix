@@ -47,7 +47,7 @@ export const progressLinearStateViewsData = `const defaultValue = null;`;
 
 export const progressLinearCssProperties: CssPropertyInput[] = [
   ['--progress-linear-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--progress-linear-gap', '0.5rem', 'Controls spacing between label/value and track.'],
+  ['--progress-linear-gap', 'var(--spacing-2)', 'Controls spacing between label/value and track.'],
   ['--progress-linear-height', '12rem', 'Controls vertical root height.'],
   ['--progress-linear-label-color', 'currentColor', 'Controls label text color.'],
   ['--progress-linear-label-font-size', 'var(--text-sm)', 'Controls label font size.'],

@@ -1,0 +1,129 @@
+.root {
+  --sidebar-width: min(100%, 64rem);
+  --sidebar-height: 38rem;
+  --sidebar-min-height: 30rem;
+  --sidebar-radius: var(--radius-lg);
+  --sidebar-shadow: var(--shadow-sm);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+  color: inherit;
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--size-sm);
+  height: var(--size-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-size: var(--text-xs);
+}
+
+.workspaceMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--size-sm);
+  height: var(--size-sm);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+.workspaceMenu {
+  --menu-popup-min-width: 14rem;
+}
+
+.content {
+  display: grid;
+  gap: var(--spacing-6);
+  min-height: 100%;
+  padding: var(--spacing-6);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+}
+
+.header h1,
+.header p {
+  margin: 0;
+}
+
+.header h1 {
+  margin-block-start: var(--spacing-1);
+  font-size: var(--text-2xl);
+  line-height: var(--line-height-text-2xl);
+}
+
+.eyebrow {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.header .description {
+  margin-block-start: var(--spacing-2);
+  color: var(--color-muted-foreground);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-4);
+}
+
+.metric {
+  display: grid;
+  gap: var(--spacing-2);
+  justify-items: center;
+  text-align: center;
+}
+
+.metric span {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+}
+
+.metric strong {
+  font-size: var(--text-3xl);
+  line-height: var(--line-height-text-3xl);
+}
+
+.activity {
+  align-self: start;
+}
+
+.activityBody {
+  display: grid;
+  gap: var(--spacing-1);
+}
+
+.activityBody strong {
+  color: var(--color-foreground);
+}
+
+@media (width < 40rem) {
+  .content {
+    padding: var(--spacing-4);
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}

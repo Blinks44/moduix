@@ -58,11 +58,11 @@ export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--rating-group-focus-ring-width', '0', 'Controls item focus ring width.'],
   ['--rating-group-gap', 'var(--spacing-1)', 'Controls gap between rating items.'],
   ['--rating-group-root-gap', 'var(--spacing-1)', 'Controls gap between label and control.'],
-  ['--rating-group-icon-size-xs', '0.875rem', 'Controls icon size for `xs`.'],
-  ['--rating-group-icon-size-sm', '1rem', 'Controls icon size for `sm`.'],
-  ['--rating-group-icon-size-md', '1.25rem', 'Controls icon size for `md`.'],
-  ['--rating-group-icon-size-lg', '1.5rem', 'Controls icon size for `lg`.'],
-  ['--rating-group-icon-size-xl', '1.75rem', 'Controls icon size for `xl`.'],
+  ['--rating-group-icon-size-xs', 'var(--spacing-3-5)', 'Controls icon size for `xs`.'],
+  ['--rating-group-icon-size-sm', 'var(--spacing-4)', 'Controls icon size for `sm`.'],
+  ['--rating-group-icon-size-md', 'var(--spacing-5)', 'Controls icon size for `md`.'],
+  ['--rating-group-icon-size-lg', 'var(--spacing-6)', 'Controls icon size for `lg`.'],
+  ['--rating-group-icon-size-xl', 'var(--spacing-7)', 'Controls icon size for `xl`.'],
   ['--rating-group-label-color', 'var(--color-foreground)', 'Controls label text color.'],
   ['--rating-group-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--rating-group-label-font-weight', 'var(--weight-semibold)', 'Controls label weight.'],
@@ -159,11 +159,14 @@ export function HalfRatingGroupExample() {
 }
 
 export function FormRatingGroupExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
   return (
     <form
       className="rating-group-stack"
       onSubmit={(event) => {
         event.preventDefault();
+        setSubmitted(String(new FormData(event.currentTarget).get('review') ?? ''));
       }}
     >
       <RatingGroup name="review" defaultValue={4} required>
@@ -173,6 +176,7 @@ export function FormRatingGroupExample() {
         </RatingGroup.Control>
       </RatingGroup>
       <Button type="submit">Submit</Button>
+      <output className="rating-group-hint">Submitted: {submitted}</output>
     </form>
   );
 }

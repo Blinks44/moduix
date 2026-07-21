@@ -113,7 +113,7 @@ Public CSS variables:
 | `--highlight-bg`          | `color-mix(in oklab, var(--color-warning) 40%, var(--color-accent))` |
 | `--highlight-color`       | `var(--color-foreground)`                                            |
 | `--highlight-font-weight` | `var(--weight-medium)`                                               |
-| `--highlight-padding-x`   | `0.25rem`                                                            |
+| `--highlight-padding-x`   | `var(--spacing-1)`                                                   |
 | `--highlight-padding-y`   | `0.0625rem`                                                          |
 | `--highlight-radius`      | `var(--radius-xs)`                                                   |
 | `--highlight-shadow`      | `none`                                                               |
@@ -134,6 +134,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-05: Added the moduix `Highlight` wrapper around Ark Highlight with shared mark styling,
   stable data hooks, Storybook coverage, local component documentation, and public docs.
 - 2026-07-10: Clarified that custom chunk rendering is outside the Highlight contract and aligned the

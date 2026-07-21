@@ -50,7 +50,8 @@
 
     &:focus-visible {
       border-color: var(--signature-pad-focus-border-color, var(--color-ring));
-      box-shadow: 0 0 0 var(--signature-pad-focus-ring-width, var(--border-width-md))
+      box-shadow: 0 0 0
+        var(--signature-pad-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
         var(--signature-pad-focus-ring-color, var(--color-ring));
     }
   }
@@ -61,9 +62,9 @@
 
   .guide {
     position: absolute;
-    right: var(--signature-pad-guide-inset-x, var(--spacing-6));
+    inset-inline-end: var(--signature-pad-guide-inset-x, var(--spacing-6));
     bottom: var(--signature-pad-guide-bottom, var(--spacing-8));
-    left: var(--signature-pad-guide-inset-x, var(--spacing-6));
+    inset-inline-start: var(--signature-pad-guide-inset-x, var(--spacing-6));
     border-bottom: var(--signature-pad-guide-border-width, var(--border-width-sm)) dashed
       var(--signature-pad-guide-color, var(--color-border));
     pointer-events: none;
@@ -76,7 +77,7 @@
   .clearTrigger {
     position: absolute;
     top: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
-    right: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
+    inset-inline-end: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
     border: var(--signature-pad-clear-trigger-border-width, 0) solid
       var(--signature-pad-clear-trigger-border-color, transparent);
     --close-button-size: var(--signature-pad-clear-trigger-size, var(--size-md));
@@ -88,11 +89,11 @@
       --signature-pad-clear-trigger-color-hover,
       var(--color-foreground)
     );
-    --close-button-icon-size: var(--signature-pad-clear-trigger-icon-size, 1rem);
+    --close-button-icon-size: var(--signature-pad-clear-trigger-icon-size, var(--spacing-4));
     --close-button-transition: var(--signature-pad-transition, var(--transition-default));
     --close-button-focus-ring-width: var(
       --signature-pad-clear-trigger-focus-ring-width,
-      var(--border-width-md)
+      var(--focus-ring-width, var(--border-width-md))
     );
     --close-button-focus-ring-color: var(
       --signature-pad-clear-trigger-focus-ring-color,

@@ -14,9 +14,9 @@ Many of these utilities use dedicated subpath imports:
 
 ```tsx
 import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react';
 import { ClientOnly } from '@ark-ui/react/client-only';
 import { EnvironmentProvider } from '@ark-ui/react/environment';
-import { LocaleProvider } from '@ark-ui/react/locale';
 import { Presence } from '@ark-ui/react/presence';
 ```
 
@@ -128,7 +128,7 @@ code.
 
 ```tsx
 import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@ark-ui/react/locale';
+import { LocaleProvider } from '@moduix/react';
 
 export function ActivityTimestamp() {
   return (
@@ -159,5 +159,6 @@ See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
 ## Contract boundary
 
 These utilities come from Ark UI, not from the moduix styled component layer. Ark owns their props,
-lifecycle details, accessibility behavior, and release cadence. moduix component pages call out the
-places where a utility is already part of a component contract.
+lifecycle details, accessibility behavior, and release cadence. `LocaleProvider` is also re-exported
+from `@moduix/react` so locale and direction have one stable moduix entrypoint. moduix component
+pages call out the places where a utility is already part of a component contract.

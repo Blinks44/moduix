@@ -3,9 +3,9 @@
     box-sizing: border-box;
     display: inline-flex;
     flex: none;
-    min-width: var(--kbd-min-width, var(--kbd-height, 1.5rem));
+    min-width: var(--kbd-min-width, var(--kbd-height, var(--size-xs)));
     max-width: 100%;
-    height: var(--kbd-height, 1.5rem);
+    height: var(--kbd-height, var(--size-xs));
     align-items: center;
     justify-content: center;
     overflow: hidden;

@@ -5,10 +5,10 @@
     align-items: center;
     justify-content: center;
     gap: var(--command-palette-trigger-gap, var(--spacing-2));
-    min-height: var(--command-palette-trigger-height, var(--size-lg));
+    min-height: var(--command-palette-trigger-height, var(--size-md));
     margin: 0;
-    padding: var(--command-palette-trigger-padding-y, 0.5rem)
-      var(--command-palette-trigger-padding-x, 0.875rem);
+    padding: var(--command-palette-trigger-padding-y, var(--spacing-1))
+      var(--command-palette-trigger-padding-x, var(--spacing-3-5));
     border: var(--command-palette-trigger-border-width, var(--border-width-sm)) solid
       var(--command-palette-trigger-border-color, var(--color-border));
     border-radius: var(--command-palette-trigger-radius, var(--radius-md));
@@ -31,9 +31,18 @@
     }
 
     &:focus-visible {
-      outline: var(--command-palette-focus-ring-width, var(--border-width-sm)) solid
-        var(--command-palette-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--command-palette-focus-ring-width, var(--border-width-sm)) * -1);
+      outline: var(
+          --command-palette-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
+        solid var(--command-palette-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(
+            --command-palette-focus-ring-width,
+            var(--focus-ring-inset-width, var(--border-width-sm))
+          ) *
+          -1
+      );
     }
   }
 
@@ -141,7 +150,7 @@
   .clearTrigger {
     --close-button-size: var(--command-palette-clear-size, var(--size-sm));
     --close-button-radius: var(--command-palette-clear-radius, var(--radius-md));
-    --close-button-icon-size: var(--command-palette-icon-size, 1rem);
+    --close-button-icon-size: var(--command-palette-icon-size, var(--spacing-4));
     --close-button-bg: transparent;
     --close-button-bg-hover: var(--command-palette-clear-bg-hover, var(--color-accent));
     --close-button-color: var(--command-palette-muted-color, var(--color-muted-foreground));
@@ -165,8 +174,8 @@
   }
 
   .iconSvg {
-    width: var(--command-palette-icon-size, 1rem);
-    height: var(--command-palette-icon-size, 1rem);
+    width: var(--command-palette-icon-size, var(--spacing-4));
+    height: var(--command-palette-icon-size, var(--spacing-4));
   }
 
   .combobox {
@@ -208,7 +217,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--command-palette-input-control-height, var(--size-sm));
+    height: var(--command-palette-input-control-height, auto);
     margin: 0;
     border: 0;
     padding: 0;
@@ -233,7 +242,7 @@
     padding: 0;
 
     &:not(:empty) {
-      padding: var(--command-palette-empty-padding-y, 0.75rem)
+      padding: var(--command-palette-empty-padding-y, var(--spacing-3))
         var(--command-palette-empty-padding-x, var(--spacing-4));
       color: var(--command-palette-muted-color, var(--color-muted-foreground));
       font-size: var(--command-palette-empty-font-size, var(--text-sm));
@@ -253,7 +262,7 @@
   .scrollArea {
     --scroll-area-radius: 0;
     --scroll-area-scrollbar-margin: var(--command-palette-scrollbar-margin, var(--spacing-1));
-    --scroll-area-scrollbar-size: var(--command-palette-scrollbar-size, 0.375rem);
+    --scroll-area-scrollbar-size: var(--command-palette-scrollbar-size, var(--spacing-1-5));
     --scroll-area-thumb-bg: var(--command-palette-scrollbar-thumb-bg, var(--color-border));
     --scroll-area-content-padding: var(--command-palette-list-padding-y, var(--spacing-2))
       calc(
@@ -300,13 +309,31 @@
     z-index: 1;
     display: block;
     margin: 0;
-    padding: var(--command-palette-group-label-padding-y, var(--spacing-1))
+    padding: var(
+        --command-palette-group-label-padding-y,
+        var(--popup-group-label-padding-y, var(--spacing-1))
+      )
       var(--command-palette-group-label-padding-x, var(--spacing-3));
     background-color: var(--command-palette-bg, var(--color-popover));
-    color: var(--command-palette-muted-color, var(--color-muted-foreground));
-    font-size: var(--command-palette-group-label-font-size, var(--text-xs));
-    font-weight: var(--command-palette-group-label-font-weight, var(--weight-semibold));
-    line-height: var(--command-palette-group-label-line-height, var(--line-height-text-xs));
+    color: var(
+      --command-palette-group-label-color,
+      var(
+        --popup-group-label-color,
+        var(--command-palette-muted-color, var(--color-muted-foreground))
+      )
+    );
+    font-size: var(
+      --command-palette-group-label-font-size,
+      var(--popup-group-label-font-size, var(--text-xs))
+    );
+    font-weight: var(
+      --command-palette-group-label-font-weight,
+      var(--popup-group-label-font-weight, var(--weight-regular))
+    );
+    line-height: var(
+      --command-palette-group-label-line-height,
+      var(--popup-group-label-line-height, var(--line-height-text-xs))
+    );
   }
 
   .item {
@@ -317,14 +344,20 @@
     grid-template-columns: auto minmax(0, 1fr) auto auto;
     align-items: center;
     gap: var(--command-palette-item-gap, var(--spacing-3));
-    min-height: var(--command-palette-item-min-height, 3rem);
-    padding: var(--command-palette-item-padding-y, var(--spacing-2))
-      var(--command-palette-item-padding-x, var(--spacing-3));
+    min-height: var(
+      --command-palette-item-min-height,
+      var(--popup-item-min-height, var(--size-sm))
+    );
+    padding: var(--command-palette-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)))
+      var(--command-palette-item-padding-x, var(--popup-item-padding-x-start, var(--spacing-3)));
     border-radius: var(--command-palette-item-radius, var(--radius-md));
     color: var(--command-palette-item-color, var(--command-palette-color, var(--color-foreground)));
     font: inherit;
-    font-size: var(--command-palette-item-font-size, var(--text-sm));
-    line-height: var(--command-palette-item-line-height, var(--line-height-text-sm));
+    font-size: var(--command-palette-item-font-size, var(--popup-item-font-size, var(--text-sm)));
+    line-height: var(
+      --command-palette-item-line-height,
+      var(--popup-item-line-height, var(--line-height-text-sm))
+    );
     outline: 0;
     cursor: default;
     user-select: none;
@@ -355,8 +388,8 @@
   .itemIcon,
   .itemIndicator {
     display: inline-flex;
-    width: var(--command-palette-item-icon-box-size, 2rem);
-    height: var(--command-palette-item-icon-box-size, 2rem);
+    width: var(--command-palette-item-icon-box-size, var(--spacing-8));
+    height: var(--command-palette-item-icon-box-size, var(--spacing-8));
     align-items: center;
     justify-content: center;
     border: var(--command-palette-item-icon-border-width, var(--border-width-sm)) solid
@@ -366,8 +399,8 @@
     color: var(--command-palette-item-icon-color, var(--color-muted-foreground));
 
     & > svg {
-      width: var(--command-palette-item-icon-size, 1rem);
-      height: var(--command-palette-item-icon-size, 1rem);
+      width: var(--command-palette-item-icon-size, var(--spacing-4));
+      height: var(--command-palette-item-icon-size, var(--spacing-4));
     }
   }
 
@@ -377,8 +410,8 @@
     justify-self: end;
 
     & > svg {
-      width: var(--command-palette-item-icon-size, 1rem);
-      height: var(--command-palette-item-icon-size, 1rem);
+      width: var(--command-palette-item-icon-size, var(--spacing-4));
+      height: var(--command-palette-item-icon-size, var(--spacing-4));
     }
   }
 

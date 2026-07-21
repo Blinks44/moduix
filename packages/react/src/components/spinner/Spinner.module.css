@@ -1,7 +1,7 @@
 @layer ui.components {
   .root,
   [data-scope='spinner'][data-part='root'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-md, 1.25rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-md, var(--spacing-5)));
 
     display: inline-flex;
     width: var(--_spinner-size);
@@ -43,22 +43,22 @@
 
   .root[data-size='xs'],
   [data-scope='spinner'][data-part='root'][data-size='xs'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-xs, 0.75rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xs, var(--spacing-3)));
   }
 
   .root[data-size='sm'],
   [data-scope='spinner'][data-part='root'][data-size='sm'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-sm, 1rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-sm, var(--spacing-4)));
   }
 
   .root[data-size='lg'],
   [data-scope='spinner'][data-part='root'][data-size='lg'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-lg, 1.75rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-lg, var(--spacing-7)));
   }
 
   .root[data-size='xl'],
   [data-scope='spinner'][data-part='root'][data-size='xl'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-xl, 2.25rem));
+    --_spinner-size: var(--spinner-size, var(--spinner-size-xl, var(--size-md)));
   }
 
   @media (prefers-reduced-motion: reduce) {

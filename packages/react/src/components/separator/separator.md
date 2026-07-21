@@ -108,14 +108,18 @@ The child must be a single semantic element that can carry the merged separator 
 
 Public CSS variables:
 
-| Variable                        | Default                                | Effect                                   |
-| ------------------------------- | -------------------------------------- | ---------------------------------------- |
-| `--separator-border-style`      | active `variant` style                 | Overrides the variant border style.      |
-| `--separator-color`             | `var(--color-border)`                  | Divider color.                           |
-| `--separator-length-horizontal` | `100%`                                 | Width for horizontal mode.               |
-| `--separator-length-vertical`   | `1em`                                  | Height for vertical mode.                |
-| `--separator-size-thickness`    | size-specific, `1px` for `size="sm"`   | Recipe thickness selected by `size`.     |
-| `--separator-thickness`         | `var(--separator-size-thickness, 1px)` | Consumer override for both orientations. |
+| Variable                        | Default                                                   | Effect                                   |
+| ------------------------------- | --------------------------------------------------------- | ---------------------------------------- |
+| `--separator-border-style`      | active `variant` style                                    | Overrides the variant border style.      |
+| `--separator-color`             | `var(--color-border)`                                     | Divider color.                           |
+| `--separator-length-horizontal` | `100%`                                                    | Width for horizontal mode.               |
+| `--separator-length-vertical`   | `1em`                                                     | Height for vertical mode.                |
+| `--separator-size-thickness`    | active size token                                         | Recipe thickness selected by `size`.     |
+| `--separator-thickness`         | `var(--separator-size-thickness, var(--border-width-sm))` | Consumer override for both orientations. |
+| `--separator-thickness-xs`      | `0.5px`                                                   | `xs` recipe thickness.                   |
+| `--separator-thickness-sm`      | `var(--border-width-sm)`                                  | `sm` recipe thickness.                   |
+| `--separator-thickness-md`      | `var(--border-width-md)`                                  | `md` recipe thickness.                   |
+| `--separator-thickness-lg`      | `3px`                                                     | `lg` recipe thickness.                   |
 
 ## Intentional sugar and differences from upstream
 
@@ -140,6 +144,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Removed public prop and option type aliases. The public surface is now only the
   callable root component with `.Root`.
 - 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,

@@ -177,6 +177,12 @@
   max-width: 43rem;
 }
 
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -189,7 +195,23 @@
   color: color-mix(in oklab, var(--color-fd-primary) 76%, var(--color-fd-foreground));
   font-size: 0.8125rem;
   font-weight: 500;
+  text-decoration: none;
   backdrop-filter: blur(12px);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-fd-primary) 46%, var(--color-fd-border));
+    background: color-mix(in oklab, var(--color-fd-primary) 8%, var(--color-fd-background));
+    color: var(--color-fd-foreground);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-fd-primary);
+    outline-offset: 3px;
+  }
 }
 
 .title {

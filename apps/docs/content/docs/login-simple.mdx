@@ -1,0 +1,38 @@
+---
+title: Login simple
+description: A copy-owned email and password sign-in form built with moduix React components.
+icon: LogIn
+---
+
+import { LoginSimplePreview } from '@/components/blocks/login-simple-preview';
+
+# Login simple
+
+A compact email-and-password form with native validation, a remember-me control, and clear account
+recovery links. It deliberately does not implement authentication: pass `onSubmit` to connect your
+own action or API.
+
+<Preview clientOnly>
+  <LoginSimplePreview />
+
+<Preview.Code>
+  <include lang="tsx">../../src/components/blocks/login-simple.tsx</include>
+</Preview.Code>
+
+<Preview.CSS>
+  <include lang="css">../../src/components/blocks/login-simple.module.css</include>
+</Preview.CSS>
+
+</Preview>
+
+## Install
+
+<ShadcnInstall packageName="login-simple" itemLabel="block" />
+
+The command copies `login-simple.tsx` and `login-simple.module.css` into your configured
+components directory and installs `@moduix/react` when needed.
+
+## Use in a route
+
+Render `LoginSimple` in the route that owns authentication and pass its real submit handler. Replace
+the default `/forgot-password` and `/sign-up` links with your application routes.

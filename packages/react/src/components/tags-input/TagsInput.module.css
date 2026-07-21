@@ -42,7 +42,7 @@
   .control {
     box-sizing: border-box;
     display: flex;
-    min-height: var(--tags-input-min-height, var(--input-height, var(--size-lg)));
+    min-height: var(--tags-input-min-height, var(--input-height, var(--size-md)));
     flex-wrap: wrap;
     align-items: center;
     gap: var(--tags-input-control-gap, var(--spacing-1));
@@ -51,12 +51,18 @@
       var(--input-border-style, solid)
       var(--tags-input-border-color, var(--input-border-color, var(--color-border)));
     border-radius: var(--tags-input-radius, var(--input-radius, var(--radius-md)));
-    padding: var(--tags-input-padding-y, 0.3125rem) var(--tags-input-padding-x, 0.5rem);
+    padding: var(--tags-input-padding-y, 0.3125rem) var(--tags-input-padding-x, var(--spacing-2));
     background-color: var(--tags-input-bg, var(--input-bg, var(--color-background)));
     color: var(--tags-input-color, var(--input-color, var(--color-foreground)));
     outline: var(
         --tags-input-focus-ring-width,
-        var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm)))
+        var(
+          --input-focus-ring-width,
+          var(
+            --tags-input-border-width,
+            var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+          )
+        )
       )
       solid transparent;
     outline-offset: var(
@@ -123,12 +129,12 @@
     max-width: 100%;
     align-items: center;
     gap: var(--tags-input-item-gap, var(--spacing-1));
-    min-height: var(--tags-input-item-height, 1.5rem);
+    min-height: var(--tags-input-item-height, var(--size-xs));
     border: var(--tags-input-item-border-width, var(--border-width-sm)) solid
       var(--tags-input-item-border-color, transparent);
     border-radius: var(--tags-input-item-radius, var(--radius-full));
-    padding-block: var(--tags-input-item-padding-y, 0.125rem);
-    padding-inline: var(--tags-input-item-padding-x, 0.5rem);
+    padding-block: var(--tags-input-item-padding-y, var(--spacing-0-5));
+    padding-inline: var(--tags-input-item-padding-x, var(--spacing-2));
     background-color: var(--tags-input-item-bg, var(--color-secondary));
     color: var(--tags-input-item-color, var(--color-secondary-foreground));
     font-size: var(--tags-input-item-font-size, var(--text-xs));
@@ -162,10 +168,10 @@
     box-sizing: border-box;
     flex: 1 1 var(--tags-input-input-min-width, 7rem);
     min-width: var(--tags-input-input-min-width, 7rem);
-    height: var(--tags-input-input-height, 1.5rem);
+    height: var(--tags-input-input-height, var(--size-xs));
     margin: 0;
     border: 0;
-    padding: 0 var(--tags-input-input-padding-x, 0.25rem);
+    padding: 0 var(--tags-input-input-padding-x, var(--spacing-1));
     background-color: transparent;
     color: inherit;
     font: inherit;
@@ -198,8 +204,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--tags-input-trigger-size, 1rem);
-    height: var(--tags-input-trigger-size, 1rem);
+    width: var(--tags-input-trigger-size, var(--spacing-4));
+    height: var(--tags-input-trigger-size, var(--spacing-4));
     border: 0;
     border-radius: var(--tags-input-trigger-radius, var(--radius-full));
     padding: 0;
@@ -214,8 +220,8 @@
       box-shadow var(--tags-input-transition, var(--transition-default));
 
     & > svg {
-      width: var(--tags-input-trigger-icon-size, 0.625rem);
-      height: var(--tags-input-trigger-icon-size, 0.625rem);
+      width: var(--tags-input-trigger-icon-size, var(--spacing-2-5));
+      height: var(--tags-input-trigger-icon-size, var(--spacing-2-5));
       flex: none;
       pointer-events: none;
     }
@@ -228,7 +234,11 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--tags-input-trigger-focus-ring-width, var(--border-width-sm))
+      box-shadow: 0 0 0
+        var(
+          --tags-input-trigger-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
         var(--tags-input-trigger-focus-ring-color, var(--color-ring));
     }
 
@@ -241,8 +251,8 @@
   }
 
   .clearTrigger {
-    --close-button-size: var(--tags-input-clear-trigger-size, 1.5rem);
-    --close-button-icon-size: var(--tags-input-clear-trigger-icon-size, 0.75rem);
+    --close-button-size: var(--tags-input-clear-trigger-size, var(--size-xs));
+    --close-button-icon-size: var(--tags-input-clear-trigger-icon-size, var(--spacing-3));
     --close-button-radius: var(--tags-input-clear-trigger-radius, var(--radius-sm));
     --close-button-bg: var(--tags-input-clear-trigger-bg, transparent);
     --close-button-bg-hover: var(--tags-input-clear-trigger-bg-hover, var(--color-muted));
@@ -256,7 +266,10 @@
       --tags-input-trigger-focus-ring-width,
       var(--border-width-sm)
     );
-    --close-button-focus-ring-offset: var(--tags-input-trigger-focus-ring-offset, 2px);
+    --close-button-focus-ring-offset: var(
+      --tags-input-trigger-focus-ring-offset,
+      var(--focus-ring-offset)
+    );
     --close-button-transition: var(--tags-input-transition, var(--transition-default));
     --close-button-disabled-opacity: var(--tags-input-disabled-opacity, var(--opacity-disabled));
 

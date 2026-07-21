@@ -251,7 +251,11 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'var(--spacing-4)',
     'Customizes command palette empty padding x.',
   ],
-  ['--command-palette-empty-padding-y', '0.75rem', 'Customizes command palette empty padding y.'],
+  [
+    '--command-palette-empty-padding-y',
+    'var(--spacing-3)',
+    'Customizes command palette empty padding y.',
+  ],
   [
     '--command-palette-focus-ring-color',
     'var(--color-ring)',
@@ -264,7 +268,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Customizes command palette focus ring width.',
   ],
   [
@@ -291,17 +295,17 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-group-gap', 'var(--spacing-1)', 'Customizes command palette group gap.'],
   [
     '--command-palette-group-label-font-size',
-    'var(--text-xs)',
+    'var(--popup-group-label-font-size, var(--text-xs))',
     'Customizes command palette group label font size.',
   ],
   [
     '--command-palette-group-label-font-weight',
-    'var(--weight-semibold)',
+    'var(--popup-group-label-font-weight, var(--weight-regular))',
     'Customizes command palette group label font weight.',
   ],
   [
     '--command-palette-group-label-line-height',
-    'var(--line-height-text-xs)',
+    'var(--popup-group-label-line-height, var(--line-height-text-xs))',
     'Customizes command palette group label line height.',
   ],
   [
@@ -311,7 +315,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-group-label-padding-y',
-    'var(--spacing-1)',
+    'var(--popup-group-label-padding-y, var(--spacing-1))',
     'Customizes command palette group label padding y.',
   ],
   [
@@ -340,7 +344,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-foreground)',
     'Customizes command palette highlight color.',
   ],
-  ['--command-palette-icon-size', '1rem', 'Customizes command palette icon size.'],
+  ['--command-palette-icon-size', 'var(--spacing-4)', 'Customizes command palette icon size.'],
   ['--command-palette-input-bg', 'var(--color-background)', 'Customizes command palette input bg.'],
   [
     '--command-palette-input-border-color',
@@ -364,7 +368,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-input-control-height',
-    'var(--size-sm)',
+    'auto',
     'Customizes command palette input control height.',
   ],
   [
@@ -406,7 +410,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-item-font-size',
-    'var(--text-sm)',
+    'var(--popup-item-font-size, var(--text-sm))',
     'Customizes command palette item font size.',
   ],
   ['--command-palette-item-gap', 'var(--spacing-3)', 'Customizes command palette item gap.'],
@@ -427,7 +431,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-item-icon-box-size',
-    '2rem',
+    'var(--spacing-8)',
     'Customizes command palette item icon box size.',
   ],
   [
@@ -440,7 +444,11 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'var(--radius-md)',
     'Customizes command palette item icon radius.',
   ],
-  ['--command-palette-item-icon-size', '1rem', 'Customizes command palette item icon size.'],
+  [
+    '--command-palette-item-icon-size',
+    'var(--spacing-4)',
+    'Customizes command palette item icon size.',
+  ],
   [
     '--command-palette-item-label-font-weight',
     'var(--weight-medium)',
@@ -448,7 +456,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-item-line-height',
-    'var(--line-height-text-sm)',
+    'var(--popup-item-line-height, var(--line-height-text-sm))',
     'Customizes command palette item line height.',
   ],
   [
@@ -461,15 +469,19 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'var(--line-height-text-xs)',
     'Customizes command palette item meta line height.',
   ],
-  ['--command-palette-item-min-height', '3rem', 'Customizes command palette item min height.'],
+  [
+    '--command-palette-item-min-height',
+    'var(--popup-item-min-height, var(--size-sm))',
+    'Customizes command palette item min height.',
+  ],
   [
     '--command-palette-item-padding-x',
-    'var(--spacing-3)',
+    'var(--popup-item-padding-x-start, var(--spacing-3))',
     'Customizes command palette item padding x.',
   ],
   [
     '--command-palette-item-padding-y',
-    'var(--spacing-2)',
+    'var(--popup-item-padding-y, var(--spacing-1))',
     'Customizes command palette item padding y.',
   ],
   ['--command-palette-item-radius', 'var(--radius-md)', 'Customizes command palette item radius.'],
@@ -550,7 +562,11 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'var(--spacing-1)',
     'Customizes command palette scrollbar margin.',
   ],
-  ['--command-palette-scrollbar-size', '0.375rem', 'Customizes command palette scrollbar size.'],
+  [
+    '--command-palette-scrollbar-size',
+    'var(--spacing-1-5)',
+    'Customizes command palette scrollbar size.',
+  ],
   [
     '--command-palette-scrollbar-thumb-bg',
     'var(--color-border)',
@@ -635,7 +651,7 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ['--command-palette-trigger-gap', 'var(--spacing-2)', 'Customizes command palette trigger gap.'],
   [
     '--command-palette-trigger-height',
-    'var(--size-lg)',
+    'var(--size-md)',
     'Customizes command palette trigger height.',
   ],
   [
@@ -645,12 +661,12 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--command-palette-trigger-padding-x',
-    '0.875rem',
+    'var(--spacing-3-5)',
     'Customizes command palette trigger padding x.',
   ],
   [
     '--command-palette-trigger-padding-y',
-    '0.5rem',
+    'var(--spacing-1)',
     'Customizes command palette trigger padding y.',
   ],
   [

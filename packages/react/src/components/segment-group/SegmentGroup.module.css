@@ -46,9 +46,9 @@
     align-items: center;
     justify-content: center;
     gap: var(--segment-group-item-gap, var(--spacing-2));
-    min-height: var(--segment-group-item-height, 2rem);
+    min-height: var(--segment-group-item-height, var(--size-sm));
     border-radius: var(--segment-group-item-radius, var(--radius-md));
-    padding-inline: var(--segment-group-item-padding-x, 0.875rem);
+    padding-inline: var(--segment-group-item-padding-x, var(--spacing-3-5));
     color: var(--segment-group-item-color, var(--color-muted-foreground));
     font-size: var(--segment-group-item-font-size, var(--text-sm));
     font-weight: var(--segment-group-item-font-weight, var(--weight-medium));
@@ -72,8 +72,11 @@
     }
 
     &[data-focus-visible] {
-      outline: var(--segment-group-focus-ring-width, var(--border-width-sm)) solid
-        var(--segment-group-focus-ring-color, var(--color-ring));
+      outline: var(
+          --segment-group-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
+        solid var(--segment-group-focus-ring-color, var(--color-ring));
       outline-offset: var(--segment-group-focus-ring-offset, var(--border-width-sm));
     }
 

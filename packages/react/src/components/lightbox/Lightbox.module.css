@@ -3,9 +3,12 @@
     cursor: zoom-in;
 
     &:focus-visible {
-      outline: var(--lightbox-trigger-focus-ring-width, var(--border-width-md)) solid
-        var(--lightbox-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: var(--lightbox-trigger-focus-ring-offset, 2px);
+      outline: var(
+          --lightbox-trigger-focus-ring-width,
+          var(--focus-ring-width, var(--border-width-md))
+        )
+        solid var(--lightbox-trigger-focus-ring-color, var(--color-ring));
+      outline-offset: var(--lightbox-trigger-focus-ring-offset, var(--focus-ring-offset));
     }
   }
 
@@ -168,7 +171,7 @@
     [data-slot='carousel-indicator']:has(img) {
       overflow: hidden;
       width: var(--lightbox-gallery-thumbnail-width, 5rem);
-      height: var(--lightbox-gallery-thumbnail-height, 3rem);
+      height: var(--lightbox-gallery-thumbnail-height, var(--size-xl));
       border: var(--border-width-sm) solid transparent;
       border-radius: var(--lightbox-gallery-thumbnail-radius, var(--radius-md));
       background: transparent;
@@ -187,7 +190,9 @@
         border-color: var(--lightbox-gallery-thumbnail-border-color, var(--color-primary));
         background: transparent;
         opacity: 1;
-        transform: translateY(-1px);
+        transform: translateY(
+          var(--lightbox-gallery-thumbnail-active-translate-y, calc(var(--border-width-sm) * -1))
+        );
       }
 
       img {
@@ -200,9 +205,9 @@
   }
 
   .closeIcon {
-    --close-button-size: var(--lightbox-close-icon-size, 2rem);
+    --close-button-size: var(--lightbox-close-icon-size, var(--spacing-8));
     --close-button-radius: var(--lightbox-close-icon-radius, var(--radius-sm));
-    --close-button-icon-size: var(--lightbox-close-icon-glyph-size, 0.875rem);
+    --close-button-icon-size: var(--lightbox-close-icon-glyph-size, var(--spacing-3-5));
     --close-button-color: var(--lightbox-close-icon-color, var(--color-foreground));
     --close-button-color-hover: var(--lightbox-close-icon-color-hover, var(--color-foreground));
     --close-button-bg: var(--lightbox-close-icon-bg, var(--color-background));

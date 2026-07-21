@@ -42,7 +42,7 @@
     display: flex;
     width: 100%;
     min-width: 0;
-    min-height: var(--tree-view-item-min-height, 2rem);
+    min-height: var(--tree-view-item-min-height, var(--size-sm));
     align-items: center;
     gap: var(--tree-view-item-gap, var(--spacing-2));
     border: var(--tree-view-item-border-width, 0) solid
@@ -58,8 +58,14 @@
     color: var(--tree-view-item-color, var(--tree-view-color, var(--color-foreground)));
     cursor: pointer;
     font: inherit;
-    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--tree-view-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --tree-view-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--tree-view-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+    );
     text-align: start;
     text-decoration: none;
     transition:
@@ -95,16 +101,16 @@
   .branchIndicator,
   .itemIndicator {
     display: inline-flex;
-    width: var(--tree-view-indicator-size, 1rem);
-    height: var(--tree-view-indicator-size, 1rem);
-    flex: 0 0 var(--tree-view-indicator-size, 1rem);
+    width: var(--tree-view-indicator-size, var(--spacing-4));
+    height: var(--tree-view-indicator-size, var(--spacing-4));
+    flex: 0 0 var(--tree-view-indicator-size, var(--spacing-4));
     align-items: center;
     justify-content: center;
     color: var(--tree-view-indicator-color, currentColor);
 
     & svg {
-      width: var(--tree-view-indicator-icon-size, 0.875rem);
-      height: var(--tree-view-indicator-icon-size, 0.875rem);
+      width: var(--tree-view-indicator-icon-size, var(--spacing-3-5));
+      height: var(--tree-view-indicator-icon-size, var(--spacing-3-5));
     }
   }
 
@@ -129,9 +135,9 @@
     white-space: nowrap;
 
     & svg {
-      width: var(--tree-view-node-icon-size, 1rem);
-      height: var(--tree-view-node-icon-size, 1rem);
-      flex: 0 0 var(--tree-view-node-icon-size, 1rem);
+      width: var(--tree-view-node-icon-size, var(--spacing-4));
+      height: var(--tree-view-node-icon-size, var(--spacing-4));
+      flex: 0 0 var(--tree-view-node-icon-size, var(--spacing-4));
     }
   }
 
@@ -163,16 +169,16 @@
     inset-inline-start: calc(
       var(--tree-view-item-padding-x, var(--spacing-2)) +
         ((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem)) +
-        (var(--tree-view-indicator-size, 1rem) / 2)
+        (var(--tree-view-indicator-size, var(--spacing-4)) / 2)
     );
   }
 
   .nodeCheckbox {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--tree-view-checkbox-size, 1rem);
-    height: var(--tree-view-checkbox-size, 1rem);
-    flex: 0 0 var(--tree-view-checkbox-size, 1rem);
+    width: var(--tree-view-checkbox-size, var(--spacing-4));
+    height: var(--tree-view-checkbox-size, var(--spacing-4));
+    flex: 0 0 var(--tree-view-checkbox-size, var(--spacing-4));
     align-items: center;
     justify-content: center;
     border: var(--tree-view-checkbox-border-width, var(--border-width-sm)) solid
@@ -180,7 +186,11 @@
     border-radius: var(--tree-view-checkbox-radius, var(--radius-xs));
     background-color: var(--tree-view-checkbox-bg, var(--color-background));
     color: var(--tree-view-checkbox-color, var(--color-primary-foreground));
-    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline: var(
+        --tree-view-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
     outline-offset: var(--tree-view-checkbox-focus-ring-offset, var(--border-width-sm));
     transition:
       background-color var(--tree-view-transition, var(--transition-default)),
@@ -203,8 +213,8 @@
     }
 
     & svg {
-      width: var(--tree-view-checkbox-icon-size, 0.75rem);
-      height: var(--tree-view-checkbox-icon-size, 0.75rem);
+      width: var(--tree-view-checkbox-icon-size, var(--spacing-3));
+      height: var(--tree-view-checkbox-icon-size, var(--spacing-3));
     }
   }
 
@@ -226,8 +236,14 @@
     background-color: var(--tree-view-rename-input-bg, var(--color-background));
     color: var(--tree-view-rename-input-color, var(--color-foreground));
     font: inherit;
-    outline: var(--tree-view-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--tree-view-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --tree-view-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--tree-view-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+    );
 
     &:focus-visible {
       outline-color: var(--tree-view-focus-ring-color, var(--color-ring));

@@ -161,6 +161,7 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Internalized Ark `HiddenInput` in `Root` and `RootProvider`; native submission and
   reset no longer require consumer composition.
 - 2026-07-09: Added `AngleSlider.Dial`, re-exported `useAngleSlider()` for the normal

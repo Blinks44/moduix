@@ -160,6 +160,10 @@ Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|close
 
 ## Defaults and styling
 
+The current gallery thumbnail uses
+`--lightbox-gallery-thumbnail-active-translate-y` with a one-border-width upward offset, so themes
+can tune or remove the selected-state lift without replacing the thumbnail selector.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--lightbox-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
@@ -200,6 +204,7 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox
   namespace so `RootProvider` and context examples no longer require direct Ark imports.

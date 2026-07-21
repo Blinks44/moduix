@@ -1,4 +1,4 @@
-import { SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { Button, SegmentGroup, useSegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -30,12 +30,6 @@ export const segmentGroupExampleCss = `
 
 .segment-button {
   width: fit-content;
-  min-height: 2rem;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding-inline: var(--spacing-3);
-  background: var(--color-background);
-  color: var(--color-foreground);
 }
 
 .segment-output {
@@ -117,7 +111,11 @@ export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls item focus ring offset.',
   ],
-  ['--segment-group-focus-ring-width', 'var(--border-width-sm)', 'Controls item focus ring width.'],
+  [
+    '--segment-group-focus-ring-width',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    'Controls item focus ring width.',
+  ],
   ['--segment-group-gap', 'var(--spacing-1)', 'Controls spacing between segment items.'],
   ['--segment-group-indicator-bg', 'var(--color-background)', 'Controls indicator background.'],
   ['--segment-group-indicator-radius', 'var(--radius-md)', 'Controls indicator radius.'],
@@ -143,11 +141,15 @@ export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--segment-group-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
   ['--segment-group-item-font-weight', 'var(--weight-medium)', 'Controls item font weight.'],
   ['--segment-group-item-gap', 'var(--spacing-2)', 'Controls spacing inside each item.'],
-  ['--segment-group-item-height', '2rem', 'Controls item minimum height.'],
+  ['--segment-group-item-height', 'var(--size-sm)', 'Controls item minimum height.'],
   ['--segment-group-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
-  ['--segment-group-item-padding-x', '0.875rem', 'Controls horizontal item padding.'],
+  ['--segment-group-item-padding-x', 'var(--spacing-3-5)', 'Controls horizontal item padding.'],
   ['--segment-group-item-radius', 'var(--radius-md)', 'Controls item radius.'],
-  ['--segment-group-label-color', 'var(--segment-group-color)', 'Controls label text color.'],
+  [
+    '--segment-group-label-color',
+    'var(--segment-group-color, var(--color-foreground))',
+    'Controls label text color.',
+  ],
   ['--segment-group-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--segment-group-label-font-weight', 'var(--weight-semibold)', 'Controls label font weight.'],
   [
@@ -280,9 +282,9 @@ export function FormSegmentGroupExample() {
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworkItems} />
       </SegmentGroup>
-      <button className="segment-button" type="submit">
+      <Button className="segment-button" type="submit">
         Submit
-      </button>
+      </Button>
       <output className="segment-output">submitted: {submitted}</output>
     </form>
   );

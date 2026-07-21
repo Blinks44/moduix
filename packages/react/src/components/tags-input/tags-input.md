@@ -98,6 +98,8 @@ Ark state attributes to preserve include `data-scope="tags-input"`, `data-part`,
 
 ## Defaults and styling
 
+The one-line control follows Input's `--size-md` default, while wrapping tag content may naturally increase its height.
+
 Styling targets Ark `data-scope="tags-input"` / `data-part` attributes plus stable moduix
 `data-slot` hooks. Public CSS variables are `--tags-input-*` and live in `theme.css`. Ark does not
 expose component-specific runtime CSS variables for this primitive.
@@ -128,6 +130,9 @@ needs them; `useTagsInput`, `useTagsInputContext`, and `useTagsInputItemContext`
 for normal provider and state access.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Aligned the default one-line control with the compact Input `md` baseline.
 
 - 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every
   non-`asChild` clear action uses the shared visual contract.

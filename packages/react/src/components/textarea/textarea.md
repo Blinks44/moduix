@@ -126,6 +126,7 @@ Public CSS variables from `theme.css`:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs
   snippet and example ordering with the public component page.
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.

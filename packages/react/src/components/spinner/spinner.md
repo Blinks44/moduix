@@ -121,12 +121,12 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 | `--spinner-radius`            | `var(--radius-full)`                                 |
 | `--spinner-ring-border-width` | `var(--border-width-md)`                             |
 | `--spinner-ring-track-color`  | `color-mix(in oklab, currentColor 22%, transparent)` |
-| `--spinner-size`              | `var(--spinner-size-md, 1.25rem)`                    |
-| `--spinner-size-xs`           | `0.75rem`                                            |
-| `--spinner-size-sm`           | `1rem`                                               |
-| `--spinner-size-md`           | `1.25rem`                                            |
-| `--spinner-size-lg`           | `1.75rem`                                            |
-| `--spinner-size-xl`           | `2.25rem`                                            |
+| `--spinner-size`              | `var(--spinner-size-md, var(--spacing-5))`           |
+| `--spinner-size-xs`           | `var(--spacing-3)`                                   |
+| `--spinner-size-sm`           | `var(--spacing-4)`                                   |
+| `--spinner-size-md`           | `var(--spacing-5)`                                   |
+| `--spinner-size-lg`           | `var(--spacing-7)`                                   |
+| `--spinner-size-xl`           | `var(--size-md)`                                     |
 
 ## Intentional sugar and differences from upstream
 
@@ -143,6 +143,7 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Protected status semantics and stable styling hooks from conflicting native props.
 - 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer
   props from `Spinner` directly to keep the public surface smaller.

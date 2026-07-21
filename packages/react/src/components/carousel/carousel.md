@@ -170,30 +170,33 @@ introducing another render prop.
 
 Primary theme variables:
 
-| Variable                                | Default                                                                     | Notes                                              |
-| --------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------- |
-| `--carousel-control-bg`                 | `color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)`    | Trigger and autoplay button background.            |
-| `--carousel-control-bg-hover`           | `var(--color-accent)`                                                       | Trigger and autoplay button hover background.      |
-| `--carousel-control-border-color`       | `color-mix(in oklab, var(--color-border) 88%, black 12%)`                   | Trigger and autoplay button border.                |
-| `--carousel-control-border-color-hover` | `color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)` | Trigger and autoplay button hover border.          |
-| `--carousel-control-color`              | `var(--color-foreground)`                                                   | Trigger and autoplay button icon or text color.    |
-| `--carousel-control-color-hover`        | `var(--color-accent-foreground)`                                            | Trigger and autoplay button hover icon/text.       |
-| `--carousel-control-shadow`             | `var(--shadow-sm)`                                                          | Trigger and autoplay button shadow.                |
-| `--carousel-control-shadow-hover`       | `var(--shadow-md)`                                                          | Trigger and autoplay button hover shadow.          |
-| `--carousel-control-size`               | `2.5rem`                                                                    | Trigger size.                                      |
-| `--carousel-focus-ring-color`           | `var(--color-ring)`                                                         | Focus ring color for triggers and indicators.      |
-| `--carousel-focus-ring-offset`          | `2px`                                                                       | Focus ring offset.                                 |
-| `--carousel-focus-ring-width`           | `var(--border-width-md)`                                                    | Focus ring width.                                  |
-| `--carousel-gap`                        | `var(--spacing-3)`                                                          | Gap between carousel parts.                        |
-| `--carousel-height`                     | `24rem`                                                                     | Vertical-only root height. No effect horizontally. |
-| `--carousel-indicator-bg`               | `color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)`  | Idle indicator color.                              |
-| `--carousel-indicator-bg-current`       | `var(--color-primary)`                                                      | Active indicator color.                            |
-| `--carousel-indicator-bg-hover`         | `color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)`  | Indicator hover color.                             |
-| `--carousel-indicator-gap`              | `var(--spacing-2)`                                                          | Gap between indicators.                            |
-| `--carousel-indicator-size`             | `0.5rem`                                                                    | Base indicator size.                               |
-| `--carousel-progress-text-color`        | `var(--color-muted-foreground)`                                             | Progress text color.                               |
-| `--carousel-progress-text-font-size`    | `var(--text-sm)`                                                            | Progress text font size.                           |
-| `--carousel-track-radius`               | `var(--radius-xl)`                                                          | Scroll track radius.                               |
+| Variable                                  | Default                                                                     | Notes                                              |
+| ----------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------- |
+| `--carousel-control-bg`                   | `color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)`    | Trigger and autoplay button background.            |
+| `--carousel-control-bg-hover`             | `var(--color-accent)`                                                       | Trigger and autoplay button hover background.      |
+| `--carousel-control-border-color`         | `color-mix(in oklab, var(--color-border) 88%, black 12%)`                   | Trigger and autoplay button border.                |
+| `--carousel-control-border-color-hover`   | `color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)` | Trigger and autoplay button hover border.          |
+| `--carousel-control-color`                | `var(--color-foreground)`                                                   | Trigger and autoplay button icon or text color.    |
+| `--carousel-control-color-hover`          | `var(--color-accent-foreground)`                                            | Trigger and autoplay button hover icon/text.       |
+| `--carousel-control-shadow`               | `var(--shadow-sm)`                                                          | Trigger and autoplay button shadow.                |
+| `--carousel-control-shadow-hover`         | `var(--shadow-md)`                                                          | Trigger and autoplay button hover shadow.          |
+| `--carousel-autoplay-indicator-min-width` | `var(--spacing-4)`                                                          | Minimum width reserved for autoplay status.        |
+| `--carousel-autoplay-trigger-min-width`   | `calc(var(--size-md) + var(--spacing-3))`                                   | Minimum width for the labelled autoplay trigger.   |
+| `--carousel-control-icon-size`            | `var(--spacing-4)`                                                          | Trigger icon size.                                 |
+| `--carousel-control-size`                 | `var(--size-md)`                                                            | Trigger size.                                      |
+| `--carousel-focus-ring-color`             | `var(--color-ring)`                                                         | Focus ring color for triggers and indicators.      |
+| `--carousel-focus-ring-offset`            | `var(--focus-ring-offset)`                                                  | Focus ring offset.                                 |
+| `--carousel-focus-ring-width`             | `var(--focus-ring-width, var(--border-width-md))`                           | Focus ring width.                                  |
+| `--carousel-gap`                          | `var(--spacing-3)`                                                          | Gap between carousel parts.                        |
+| `--carousel-height`                       | `24rem`                                                                     | Vertical-only root height. No effect horizontally. |
+| `--carousel-indicator-bg`                 | `color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)`  | Idle indicator color.                              |
+| `--carousel-indicator-bg-current`         | `var(--color-primary)`                                                      | Active indicator color.                            |
+| `--carousel-indicator-bg-hover`           | `color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)`  | Indicator hover color.                             |
+| `--carousel-indicator-gap`                | `var(--spacing-2)`                                                          | Gap between indicators.                            |
+| `--carousel-indicator-size`               | `var(--spacing-2)`                                                          | Base indicator size.                               |
+| `--carousel-progress-text-color`          | `var(--color-muted-foreground)`                                             | Progress text color.                               |
+| `--carousel-progress-text-font-size`      | `var(--text-sm)`                                                            | Progress text font size.                           |
+| `--carousel-track-radius`                 | `var(--radius-xl)`                                                          | Scroll track radius.                               |
 
 ## Intentional sugar and differences from upstream
 
@@ -219,6 +222,7 @@ Primary theme variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Carousel.Indicators`, moved the recommended composition to `ItemGroup` plus a
   sibling `Control` toolbar, and reserved manual `IndicatorGroup` rendering for advanced
   customization.

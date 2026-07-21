@@ -12,7 +12,7 @@
     width: var(--select-width, 14rem);
     max-width: var(--select-max-width, 100%);
     min-width: 0;
-    height: var(--select-control-height, var(--size-lg));
+    height: var(--select-control-height, var(--size-md));
     margin: 0;
     border: var(--select-border-width, var(--border-width-sm)) solid
       var(--select-border-color, var(--color-border));
@@ -27,8 +27,11 @@
     background-color: var(--select-bg, var(--color-background));
     color: var(--select-color, var(--color-foreground));
     font: inherit;
-    outline: var(--select-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--select-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      solid transparent;
+    outline-offset: calc(
+      var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+    );
     cursor: pointer;
     transition:
       background-color var(--select-transition, var(--transition-default)),
@@ -58,14 +61,6 @@
       appearance: auto;
     }
 
-    &:not(:disabled, [data-disabled]) {
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--select-bg-hover, var(--color-accent));
-        }
-      }
-    }
-
     @media (forced-colors: active) {
       padding-inline-end: var(--select-trigger-padding-x-start, var(--spacing-3));
       appearance: auto;
@@ -75,16 +70,22 @@
   .indicator {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--select-action-offset-right, var(--spacing-1));
+    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
     display: inline-flex;
     width: var(--select-action-size, var(--spacing-6));
     height: var(--select-action-size, var(--spacing-6));
     align-items: center;
     justify-content: center;
+    border-radius: var(--select-action-radius, var(--radius-sm));
+    background: var(--select-action-bg, transparent);
     color: var(--select-icon-color, var(--color-muted-foreground));
     line-height: 0;
     pointer-events: none;
     transform: translateY(-50%);
+    transition:
+      background-color var(--select-transition, var(--transition-default)),
+      color var(--select-transition, var(--transition-default)),
+      opacity var(--select-transition, var(--transition-default));
 
     & > svg {
       display: block;
@@ -99,6 +100,13 @@
 
   .root:is([data-disabled], :disabled) + .indicator {
     opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+  }
+
+  .root:not(:disabled, [data-disabled]):hover + .indicator {
+    @media (hover: hover) {
+      background-color: var(--select-action-bg-hover, var(--color-muted));
+      color: var(--select-action-color-hover, var(--color-foreground));
+    }
   }
 
   .root:is([multiple], [size]:not([size='1'])) + .indicator {

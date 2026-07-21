@@ -59,7 +59,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--accordion-focus-ring-width',
-    'var(--border-width-md)',
+    'var(--focus-ring-width, var(--border-width-md))',
     'Controls trigger focus ring outline width.',
   ],
   [
@@ -80,7 +80,7 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     'rotate(45deg) scale(1.1)',
     'Controls indicator transform when the item is open.',
   ],
-  ['--accordion-icon-size', '0.75rem', 'Controls indicator icon size.'],
+  ['--accordion-icon-size', 'var(--spacing-3)', 'Controls indicator icon size.'],
   ['--accordion-icon-transition', 'var(--transition-default)', 'Controls indicator transition.'],
   [
     '--accordion-item-border-color',

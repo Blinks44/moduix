@@ -135,10 +135,15 @@ The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also
 
 ## Defaults and styling
 
+The input and increment/decrement controls share the `--size-md` baseline; the text input uses `--spacing-1` block padding.
+
 All visual parts accept `className`; Ark parts also support `asChild`. `NumberInput.Field` accepts
 the structural props of `NumberInput.Control`, including `className`, but intentionally does not
 support `asChild`. Use the lower-level parts to customize its input or triggers. Trigger parts render
 the moduix minus or plus icon when `children` is omitted.
+
+The control group uses logical inline borders and corner radii, so decrement and increment controls
+follow the surrounding text direction.
 
 Public CSS variables:
 
@@ -184,6 +189,10 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Aligned the field and square stepper controls to `--size-md` and compacted input padding.
+
+- 2026-07-19: Switched control borders and corner radii to logical inline properties for RTL.
 - 2026-07-10: Added `NumberInput.Field` and moduix exports for Ark state access; corrected disabled
   opacity so it is applied only once by the root.
 - 2026-07-03: Removed moduix re-exports of Ark number-input state helpers and the renderless

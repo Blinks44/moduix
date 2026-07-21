@@ -5,9 +5,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--dialog-control-height, var(--size-lg));
+    min-height: var(--dialog-control-height, var(--size-md));
     margin: 0;
-    padding: var(--dialog-control-padding-y, 0.5rem) var(--dialog-control-padding-x, 0.875rem);
+    padding: var(--dialog-control-padding-y, var(--spacing-1))
+      var(--dialog-control-padding-x, var(--spacing-3-5));
     border: var(--dialog-control-border-width, var(--border-width-sm)) solid
       var(--dialog-control-border-color, var(--color-border));
     border-radius: var(--dialog-control-radius, var(--radius-md));
@@ -198,7 +199,7 @@
   }
 
   .closeIcon {
-    --close-button-size: var(--dialog-close-icon-size, 1.75rem);
+    --close-button-size: var(--dialog-close-icon-size, var(--spacing-7));
     --close-button-radius: var(--dialog-close-icon-radius, var(--radius-md));
     --close-button-color: var(
       --dialog-close-icon-color,
@@ -214,7 +215,7 @@
       --dialog-close-icon-focus-ring-color,
       var(--dialog-focus-ring-color, var(--color-ring))
     );
-    --close-button-icon-size: var(--dialog-close-icon-glyph-size, 0.75rem);
+    --close-button-icon-size: var(--dialog-close-icon-glyph-size, var(--spacing-3));
     position: absolute;
     z-index: 2;
     inset-block-start: var(--dialog-close-icon-inset-block-start, var(--spacing-4));

@@ -114,6 +114,8 @@ parts, plus runtime CSS variables on the root:
 
 ## Defaults and styling
 
+The download trigger follows Button's `--size-md` default; the visual QR overlay remains independently sized.
+
 Moduix adds default classes, stable `data-slot` hooks, SVG sizing, overlay styling, and a
 button-like default style for `DownloadTrigger`. The root has no border, background, padding, or
 radius by default.
@@ -127,7 +129,7 @@ Primary CSS variables:
 | `--qr-code-gap`                | `var(--spacing-3)`                                        |
 | `--qr-code-max-width`          | `100%`                                                    |
 | `--qr-code-size`               | `8rem` preferred frame width                              |
-| `--qr-code-overlay-size`       | `2.5rem`                                                  |
+| `--qr-code-overlay-size`       | `var(--size-lg)`                                          |
 | `--qr-code-overlay-padding`    | `var(--spacing-1)`                                        |
 | `--qr-code-overlay-radius`     | `var(--radius-sm)`                                        |
 | `--qr-code-overlay-bg`         | `var(--color-background)`                                 |
@@ -154,6 +156,9 @@ Primary CSS variables:
   import them from Ark directly when needed.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Aligned the default download trigger with the Button `md` baseline.
 
 - 2026-07-10: Re-exported `useQrCode()` through moduix for `RootProvider` usage and constrained
   the frame to its container width while retaining the `--qr-code-size` preferred width.

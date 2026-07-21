@@ -148,12 +148,12 @@ export const imageCropperOverrideCssProperties: CssPropertyInput[] = [
     'color-mix(in oklab, var(--color-muted) 72%, transparent)',
     'Controls the checkerboard tile color.',
   ],
-  ['--image-cropper-checker-size', '1rem', 'Controls the checkerboard tile size.'],
+  ['--image-cropper-checker-size', 'var(--spacing-4)', 'Controls the checkerboard tile size.'],
   ['--image-cropper-color', 'var(--color-foreground)', 'Controls inherited text color.'],
   ['--image-cropper-focus-ring-color', 'var(--color-ring)', 'Controls selection focus ring color.'],
   [
     '--image-cropper-focus-ring-width',
-    'var(--border-width-md)',
+    'var(--focus-ring-width, var(--border-width-md))',
     'Controls selection focus ring width.',
   ],
   ['--image-cropper-gap', 'var(--spacing-3)', 'Controls root layout gap.'],
@@ -174,7 +174,7 @@ export const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   ['--image-cropper-handle-edge-thickness', '0.2rem', 'Controls side handle thickness.'],
   ['--image-cropper-handle-radius', 'var(--radius-xs)', 'Controls corner handle radius.'],
   ['--image-cropper-handle-shadow', '0 1px 3px rgb(15 23 42 / 18%)', 'Controls handle shadow.'],
-  ['--image-cropper-handle-size', '0.75rem', 'Controls corner handle size.'],
+  ['--image-cropper-handle-size', 'var(--spacing-3)', 'Controls corner handle size.'],
   ['--image-cropper-max-width', '100%', 'Controls root maximum width.'],
   ['--image-cropper-radius', 'var(--radius-lg)', 'Controls viewport radius.'],
   [
@@ -211,7 +211,11 @@ export const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   ['--image-cropper-shadow', 'none', 'Controls viewport shadow.'],
   ['--image-cropper-transition', 'var(--transition-default)', 'Controls visual transitions.'],
   ['--image-cropper-viewport-bg', 'var(--color-background)', 'Controls viewport background.'],
-  ['--image-cropper-viewport-height', '20rem', 'Controls viewport height.'],
+  [
+    '--image-cropper-viewport-height',
+    'var(--image-cropper-viewport-min-height, 20rem)',
+    'Controls viewport height.',
+  ],
   ['--image-cropper-viewport-min-height', '20rem', 'Controls viewport minimum height.'],
   ['--image-cropper-width', '32rem', 'Controls root width.'],
 ];

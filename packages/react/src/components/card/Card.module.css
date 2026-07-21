@@ -193,7 +193,7 @@
     }
 
     &:focus-visible::after {
-      outline: var(--card-focus-ring-width, var(--border-width-md)) solid
+      outline: var(--card-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) solid
         var(--card-focus-ring-color, var(--color-ring));
       outline-offset: var(--card-focus-ring-offset, var(--border-width-sm));
     }

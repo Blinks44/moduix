@@ -60,7 +60,7 @@ export const clipboardExampleCss = `
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--size-lg);
+    min-height: var(--size-md);
     padding-inline: 1rem;
     border: var(--border-width-sm) solid var(--color-border);
     border-radius: var(--radius-md);
@@ -93,7 +93,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ['--clipboard-color', 'var(--color-foreground)', 'Controls the default text color of the root.'],
   ['--clipboard-width', '100%', 'Controls the root width.'],
   ['--clipboard-max-width', 'none', 'Controls the default maximum width.'],
-  ['--clipboard-gap', '0.375rem', 'Controls spacing between label and control.'],
+  ['--clipboard-gap', 'var(--spacing-1-5)', 'Controls spacing between label and control.'],
   [
     '--clipboard-control-gap',
     'var(--spacing-2)',
@@ -140,7 +140,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-input-focus-ring-width',
-    'var(--input-focus-ring-width, var(--border-width-sm))',
+    'var(--input-focus-ring-width, var(--clipboard-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))))',
     'Controls input focus ring width.',
   ],
   [
@@ -150,7 +150,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-input-height',
-    'var(--input-height-md, var(--size-lg))',
+    'var(--input-height-md, var(--size-md))',
     'Controls input minimum height.',
   ],
   [
@@ -160,12 +160,12 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-input-padding-x',
-    'var(--input-padding-x-md, 0.875rem)',
+    'var(--input-padding-x-md, var(--spacing-3-5))',
     'Controls input horizontal padding.',
   ],
   [
     '--clipboard-input-padding-y',
-    'var(--input-padding-y-md, 0.5rem)',
+    'var(--input-padding-y-md, var(--spacing-1))',
     'Controls input vertical padding.',
   ],
   [
@@ -225,7 +225,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-trigger-focus-ring-width',
-    'var(--button-focus-ring-width, var(--border-width-md))',
+    'var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))',
     'Controls trigger focus ring width.',
   ],
   [
@@ -245,7 +245,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-trigger-height',
-    'var(--button-size-md, var(--size-lg))',
+    'var(--button-size-md, var(--size-md))',
     'Controls trigger minimum height.',
   ],
   [
@@ -255,7 +255,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-trigger-padding-x',
-    'var(--button-padding-x-md, 1rem)',
+    'var(--button-padding-x-md, var(--spacing-4))',
     'Controls trigger horizontal padding.',
   ],
   [
@@ -265,7 +265,7 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--clipboard-indicator-size',
-    'var(--button-icon-size, 1rem)',
+    'var(--button-icon-size, var(--spacing-4))',
     'Controls idle and copied icon size.',
   ],
   [

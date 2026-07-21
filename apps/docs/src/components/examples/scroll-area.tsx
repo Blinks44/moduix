@@ -41,7 +41,7 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--scroll-area-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls the viewport focus ring width.',
   ],
   ['--scroll-area-height', '100%', 'Controls the root height.'],
@@ -73,7 +73,7 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
     'var(--transition-fast)',
     'Controls the hover and drag growth timing without slowing the scrollbar response.',
   ],
-  ['--scroll-area-thumb-min-size', '1.5rem', 'Controls the minimum draggable thumb size.'],
+  ['--scroll-area-thumb-min-size', 'var(--size-xs)', 'Controls the minimum draggable thumb size.'],
   ['--scroll-area-thumb-radius', 'var(--radius-full)', 'Controls the thumb border radius.'],
   ['--scroll-area-transition', 'var(--transition-default)', 'Controls scrollbar fade timing.'],
   ['--scroll-area-width', '100%', 'Controls the root width.'],

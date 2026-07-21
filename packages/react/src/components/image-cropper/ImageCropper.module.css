@@ -31,7 +31,8 @@
             25%,
           transparent 25%
         )
-        0 0 / var(--image-cropper-checker-size, 1rem) var(--image-cropper-checker-size, 1rem),
+        0 0 / var(--image-cropper-checker-size, var(--spacing-4))
+        var(--image-cropper-checker-size, var(--spacing-4)),
       linear-gradient(
           45deg,
           transparent 75%,
@@ -41,7 +42,8 @@
             )
             75%
         )
-        0 0 / var(--image-cropper-checker-size, 1rem) var(--image-cropper-checker-size, 1rem),
+        0 0 / var(--image-cropper-checker-size, var(--spacing-4))
+        var(--image-cropper-checker-size, var(--spacing-4)),
       linear-gradient(
           45deg,
           transparent 75%,
@@ -51,9 +53,10 @@
             )
             75%
         )
-        calc(var(--image-cropper-checker-size, 1rem) / -2)
-        calc(var(--image-cropper-checker-size, 1rem) / -2) / var(--image-cropper-checker-size, 1rem)
-        var(--image-cropper-checker-size, 1rem),
+        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2)
+        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2) /
+        var(--image-cropper-checker-size, var(--spacing-4))
+        var(--image-cropper-checker-size, var(--spacing-4)),
       linear-gradient(
           45deg,
           var(
@@ -63,9 +66,10 @@
             25%,
           var(--image-cropper-viewport-bg, var(--color-background)) 25%
         )
-        calc(var(--image-cropper-checker-size, 1rem) / -2)
-        calc(var(--image-cropper-checker-size, 1rem) / -2) / var(--image-cropper-checker-size, 1rem)
-        var(--image-cropper-checker-size, 1rem);
+        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2)
+        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2) /
+        var(--image-cropper-checker-size, var(--spacing-4))
+        var(--image-cropper-checker-size, var(--spacing-4));
     box-shadow: var(--image-cropper-shadow, none);
 
     &[data-disabled] {
@@ -108,7 +112,7 @@
         0 0 0 9999px var(--image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
         inset 0 0 0 var(--image-cropper-selection-inner-border-width, var(--border-width-sm))
           var(--image-cropper-selection-inner-border-color, rgb(255 255 255 / 64%)),
-        0 0 0 var(--image-cropper-focus-ring-width, var(--border-width-md))
+        0 0 0 var(--image-cropper-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
           var(--image-cropper-focus-ring-color, var(--color-ring));
     }
 
@@ -139,8 +143,8 @@
     position: absolute;
     z-index: 1;
     box-sizing: border-box;
-    width: var(--image-cropper-handle-size, 0.75rem);
-    height: var(--image-cropper-handle-size, 0.75rem);
+    width: var(--image-cropper-handle-size, var(--spacing-3));
+    height: var(--image-cropper-handle-size, var(--spacing-3));
     border: var(--image-cropper-handle-border-width, var(--border-width-sm)) solid
       var(--image-cropper-handle-border-color, rgb(255 255 255 / 88%));
     border-radius: var(--image-cropper-handle-radius, var(--radius-xs));

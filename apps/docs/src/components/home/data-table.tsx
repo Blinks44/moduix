@@ -1,5 +1,4 @@
 import { Badge, Button, Checkbox, InputGroup, Menu, Table } from '@moduix/react';
-import { Link } from '@tanstack/react-router';
 import {
   flexRender,
   getCoreRowModel,
@@ -24,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import styles from './data-table.module.css';
+import '@moduix/react/style.css';
 
 type ComponentRow = {
   category: string;
@@ -220,7 +220,7 @@ const componentRows: ComponentRow[] = [
 ];
 
 const columnWidths = {
-  actions: 56,
+  actions: 80,
   category: 148,
   installations: 116,
   name: 196,
@@ -335,7 +335,7 @@ const columns: ColumnDef<ComponentRow>[] = [
   },
 ];
 
-function HomeDataTable() {
+function DataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -521,37 +521,29 @@ function ColumnVisibilityMenu({
 }
 
 function RowActions({ id, name }: { id: string; name: string }) {
-  const installCommand = `npx shadcn@latest add @moduix-react/${id}`;
-
   return (
     <Menu positioning={{ placement: 'bottom-end', gutter: 8 }}>
       <Menu.Trigger asChild>
-        <Button type="button" variant="ghost" size="sm" aria-label={`Actions for ${name}`}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className={styles.rowActionsTrigger}
+          aria-label={`Actions for ${name}`}
+        >
           <Ellipsis size={16} aria-hidden="true" />
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
           <Menu.Item value="open-docs" asChild>
-            <Link to="/docs/$" params={{ _splat: id }}>
-              Open documentation
-            </Link>
+            <a href={`#${id}`}>Open details</a>
           </Menu.Item>
           <Menu.Item
-            value="copy-install"
-            onSelect={() => void navigator.clipboard.writeText(installCommand)}
+            value="copy-identifier"
+            onSelect={() => void navigator.clipboard.writeText(id)}
           >
-            Copy install command
-          </Menu.Item>
-          <Menu.Separator />
-          <Menu.Item value="view-source" asChild>
-            <a
-              href={`https://github.com/Blinks44/moduix/tree/main/packages/react/src/components/${id}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View source
-            </a>
+            Copy identifier
           </Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
@@ -571,4 +563,4 @@ function SortIcon({ direction }: { direction: false | 'asc' | 'desc' }) {
   return <ArrowUpDown size={16} aria-hidden="true" />;
 }
 
-export { HomeDataTable };
+export { DataTable };

@@ -5,18 +5,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--menu-trigger-gap, 0.5rem);
-    min-height: var(--menu-trigger-height, var(--size-lg));
+    gap: var(--menu-trigger-gap, var(--spacing-2));
+    min-height: var(--menu-trigger-height, var(--size-md));
     margin: 0;
-    padding: var(--menu-trigger-padding-y, 0.5rem) var(--menu-trigger-padding-x, 0.875rem);
+    padding: var(--menu-trigger-padding-y, var(--spacing-1))
+      var(--menu-trigger-padding-x, var(--spacing-4));
     border: var(--menu-trigger-border-width, var(--border-width-sm)) solid
       var(--menu-trigger-border-color, var(--color-border));
     border-radius: var(--menu-trigger-radius, var(--radius-md));
     background-color: var(--menu-trigger-bg, var(--color-background));
     color: var(--menu-trigger-color, var(--color-foreground));
     font: inherit;
-    font-size: var(--menu-trigger-font-size, var(--text-md));
-    line-height: var(--menu-trigger-line-height, var(--line-height-text-md));
+    font-size: var(--menu-trigger-font-size, var(--text-sm));
+    font-weight: var(--menu-trigger-font-weight, var(--weight-medium));
+    line-height: var(--menu-trigger-line-height, var(--line-height-text-sm));
     user-select: none;
     outline: 0;
     cursor: pointer;
@@ -69,13 +71,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--menu-trigger-icon-size, 1rem);
-    height: var(--menu-trigger-icon-size, 1rem);
+    width: var(--menu-trigger-icon-size, var(--spacing-4));
+    height: var(--menu-trigger-icon-size, var(--spacing-4));
     flex-shrink: 0;
     color: var(--menu-trigger-icon-color, currentColor);
   }
 
-  .iconSvg {
+  .iconSvg,
+  .indicator > svg {
     width: 100%;
     height: 100%;
   }
@@ -88,7 +91,7 @@
   }
 
   .content {
-    --arrow-size: var(--menu-arrow-size, 0.625rem);
+    --arrow-size: var(--menu-arrow-size, var(--spacing-2-5));
     --arrow-background: var(--menu-popup-bg, var(--color-popover));
 
     position: relative;
@@ -102,7 +105,7 @@
     max-width: min(var(--menu-popup-max-width, 20rem), var(--available-width, 100vw));
     max-height: min(var(--menu-popup-max-height, 24rem), var(--available-height, 100dvh));
     overflow: auto;
-    padding-block: var(--menu-popup-padding-y, 0.25rem);
+    padding-block: var(--menu-popup-padding-y, var(--popup-list-padding-y, var(--spacing-1)));
     border-radius: var(--menu-popup-radius, var(--radius-md));
     background-color: var(--menu-popup-bg, var(--color-popover));
     color: var(--menu-popup-color, var(--color-popover-foreground));
@@ -150,7 +153,7 @@
   .checkboxItem {
     position: relative;
     box-sizing: border-box;
-    min-height: var(--menu-item-height, var(--popup-item-min-height, 2rem));
+    min-height: var(--menu-item-height, var(--popup-item-min-height, var(--size-sm)));
     margin: 0;
     border: 0;
     border-radius: var(--menu-item-radius, var(--radius-sm));
@@ -225,9 +228,12 @@
     display: flex;
     align-items: center;
     gap: var(--menu-item-gap, var(--spacing-2));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
-    padding-inline: var(--menu-item-padding-x-start, var(--popup-item-padding-x-start, 1rem))
-      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    padding-inline: var(
+        --menu-item-padding-x-start,
+        var(--popup-item-padding-x-start, var(--spacing-3))
+      )
+      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, var(--spacing-3)));
   }
 
   .triggerItem {
@@ -235,16 +241,19 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--menu-trigger-item-gap, var(--spacing-3));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
-    padding-inline: var(--menu-item-padding-x-start, var(--popup-item-padding-x-start, 1rem))
-      var(--menu-trigger-item-padding-x-end, 1rem);
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    padding-inline: var(
+        --menu-item-padding-x-start,
+        var(--popup-item-padding-x-start, var(--spacing-3))
+      )
+      var(--menu-trigger-item-padding-x-end, var(--spacing-3));
   }
 
   .triggerItemIcon {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--menu-trigger-item-icon-size, 0.875rem);
-    height: var(--menu-trigger-item-icon-size, 0.875rem);
+    width: var(--menu-trigger-item-icon-size, var(--spacing-3-5));
+    height: var(--menu-trigger-item-icon-size, var(--spacing-3-5));
     flex-shrink: 0;
     color: currentColor;
   }
@@ -256,16 +265,29 @@
 
   .itemGroupLabel {
     margin: 0;
-    padding-block: var(--menu-group-label-padding-y, var(--popup-group-label-padding-y, 0.35rem));
+    padding-block: var(
+      --menu-group-label-padding-y,
+      var(--popup-group-label-padding-y, var(--spacing-1))
+    );
     padding-inline: var(
         --menu-group-label-padding-x-start,
-        var(--popup-group-label-padding-x-start, 0.625rem)
+        var(--popup-group-label-padding-x-start, var(--spacing-2-5))
       )
-      var(--menu-group-label-padding-x-end, var(--popup-group-label-padding-x-end, 0.75rem));
-    color: var(--menu-group-label-color, var(--color-muted-foreground));
+      var(
+        --menu-group-label-padding-x-end,
+        var(--popup-group-label-padding-x-end, var(--spacing-3))
+      );
+    color: var(
+      --menu-group-label-color,
+      var(--popup-group-label-color, var(--color-muted-foreground))
+    );
     font-size: var(
       --menu-group-label-font-size,
       var(--popup-group-label-font-size, var(--text-xs))
+    );
+    font-weight: var(
+      --menu-group-label-font-weight,
+      var(--popup-group-label-font-weight, var(--weight-regular))
     );
     line-height: var(
       --menu-group-label-line-height,
@@ -283,19 +305,22 @@
   .checkboxItem {
     display: grid;
     align-items: center;
-    gap: var(--menu-check-gap, var(--popup-check-gap, 0.5rem));
+    gap: var(--menu-check-gap, var(--popup-check-gap, var(--spacing-2)));
     grid-template-columns:
-      var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem))
+      var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)))
       minmax(0, 1fr);
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
-    padding-inline: var(--menu-check-padding-x-start, var(--popup-check-padding-x-start, 0.625rem))
-      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    padding-inline: var(
+        --menu-check-padding-x-start,
+        var(--popup-check-padding-x-start, var(--spacing-2-5))
+      )
+      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, var(--spacing-3)));
 
     &[data-indicator-position='none'] {
       grid-template-columns: minmax(0, 1fr);
       padding-inline-start: var(
         --menu-item-padding-x-start,
-        var(--popup-item-padding-x-start, 1rem)
+        var(--popup-item-padding-x-start, var(--spacing-3))
       );
 
       & > .itemIndicator {
@@ -310,7 +335,7 @@
     &[data-indicator-position='end'] {
       grid-template-columns:
         minmax(0, 1fr)
-        var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
+        var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
 
       & > .itemText {
         grid-column-start: 1;
@@ -341,8 +366,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
-    height: var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem));
+    width: var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
+    height: var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
     border: var(--menu-checkbox-indicator-border-width, 0) solid
       var(--menu-checkbox-indicator-border-color, currentColor);
     border-radius: var(--menu-checkbox-indicator-radius, var(--radius-xs));
@@ -378,8 +403,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--menu-item-text-icon-size, 1rem);
-    height: var(--menu-item-text-icon-size, 1rem);
+    width: var(--menu-item-text-icon-size, var(--spacing-4));
+    height: var(--menu-item-text-icon-size, var(--spacing-4));
     color: var(--menu-item-text-icon-color, currentColor);
   }
 
@@ -402,9 +427,15 @@
   .separator {
     box-sizing: border-box;
     height: var(--menu-separator-height, var(--border-width-sm));
-    margin-block: var(--menu-separator-margin-y, var(--popup-separator-margin-y, 0.375rem));
-    margin-inline: var(--menu-separator-margin-x-start, var(--popup-separator-margin-x-start, 1rem))
-      var(--menu-separator-margin-x-end, var(--popup-separator-margin-x-end, 1rem));
+    margin-block: var(
+      --menu-separator-margin-y,
+      var(--popup-separator-margin-y, var(--spacing-1-5))
+    );
+    margin-inline: var(
+        --menu-separator-margin-x-start,
+        var(--popup-separator-margin-x-start, var(--spacing-3))
+      )
+      var(--menu-separator-margin-x-end, var(--popup-separator-margin-x-end, var(--spacing-3)));
     border: 0;
     background-color: var(--menu-separator-color, var(--color-border));
   }

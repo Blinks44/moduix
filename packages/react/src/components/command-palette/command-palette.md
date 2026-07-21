@@ -137,6 +137,11 @@ Refs forward to the underlying Ark DOM parts. `CommandPalette.Input` is the inpu
 
 ## Defaults and styling
 
+The external trigger and search control use `--size-md`; single-line command items default to `--size-sm` with `--spacing-1` block padding.
+
+Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular weight,
+and `--spacing-1` block padding. Command-palette-specific variables still take precedence.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--command-palette-*` content
 motion variables remain the more specific override. Backdrop motion remains separate.
 
@@ -161,6 +166,11 @@ when a workflow needs them. Avoid duplicate command-palette re-exports with the 
 consumers should compose those Ark helpers directly.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized command group labels to the shared regular-weight popup-label contract.
+
+- 2026-07-21: Reduced the trigger and search control to the `md` baseline and compacted command items to `--size-sm`.
 
 - 2026-07-17: Removed `CloseTrigger`, `CloseIcon`, and `Panel.showCloseIcon` so command palettes
   rely on standard dialog dismissal instead of a visible close affordance. Reworked `ClearTrigger`

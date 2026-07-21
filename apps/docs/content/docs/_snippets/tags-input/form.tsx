@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars, no-unused-expressions */
 //#region demo
 
-import { TagsInput } from '@moduix/react';
+import { Button, TagsInput } from '@moduix/react';
+import type { FormEvent } from 'react';
 import { useState } from 'react';
 
 export function FormTagsInput() {
   const [submittedValue, setSubmittedValue] = useState('');
 
-  function handleSubmit(event) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -22,7 +23,7 @@ export function FormTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
       <output>Submitted value: {submittedValue || 'none'}</output>
     </form>
   );

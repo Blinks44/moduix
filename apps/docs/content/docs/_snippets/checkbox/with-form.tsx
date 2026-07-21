@@ -1,23 +1,28 @@
 //#region demo
-import { Checkbox } from '@moduix/react';
+import { Button, Checkbox } from '@moduix/react';
+import { useState } from 'react';
 
 const _name = 'terms';
 const _value = 'accepted';
 
 export function CheckboxWithFormDemo() {
+  const [submitted, setSubmitted] = useState('terms: none');
+
   return (
     <form
+      className="checkbox-stack"
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        console.log(formData.get('terms'));
+        setSubmitted(`terms: ${formData.get('terms') ?? 'none'}`);
       }}
     >
       <Checkbox name="terms" value="accepted">
         <Checkbox.Control />
         <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
       </Checkbox>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
+      <output className="checkbox-result">{submitted}</output>
     </form>
   );
 }

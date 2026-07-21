@@ -52,12 +52,12 @@ export const spinnerOverrideCssProperties: CssPropertyInput[] = [
     'color-mix(in oklab, currentColor 22%, transparent)',
     'Controls inactive ring stroke color.',
   ],
-  ['--spinner-size', 'var(--spinner-size-md, 1.25rem)', 'Controls spinner size override.'],
-  ['--spinner-size-xs', '0.75rem', 'Controls xs spinner size.'],
-  ['--spinner-size-sm', '1rem', 'Controls sm spinner size.'],
-  ['--spinner-size-md', '1.25rem', 'Controls md spinner size.'],
-  ['--spinner-size-lg', '1.75rem', 'Controls lg spinner size.'],
-  ['--spinner-size-xl', '2.25rem', 'Controls xl spinner size.'],
+  ['--spinner-size', 'var(--spinner-size-md, var(--spacing-5))', 'Controls spinner size override.'],
+  ['--spinner-size-xs', 'var(--spacing-3)', 'Controls xs spinner size.'],
+  ['--spinner-size-sm', 'var(--spacing-4)', 'Controls sm spinner size.'],
+  ['--spinner-size-md', 'var(--spacing-5)', 'Controls md spinner size.'],
+  ['--spinner-size-lg', 'var(--spacing-7)', 'Controls lg spinner size.'],
+  ['--spinner-size-xl', 'var(--size-md)', 'Controls xl spinner size.'],
 ];
 
 export function SpinnerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {

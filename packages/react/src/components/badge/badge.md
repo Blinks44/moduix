@@ -108,22 +108,26 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 
 Public CSS variables:
 
-| Variable               | Default                                            | Applies to   |
-| ---------------------- | -------------------------------------------------- | ------------ |
-| `--badge-bg`           | variant-specific background                        | `Badge.Root` |
-| `--badge-border-color` | `transparent`; `var(--color-border)` for `outline` | `Badge.Root` |
-| `--badge-border-width` | `var(--border-width-sm)`                           | `Badge.Root` |
-| `--badge-color`        | variant-specific foreground                        | `Badge.Root` |
-| `--badge-dot-size`     | `0.375rem`                                         | `Badge.Dot`  |
-| `--badge-font-size`    | `var(--text-xs)`                                   | `Badge.Root` |
-| `--badge-font-weight`  | `var(--weight-medium)`                             | `Badge.Root` |
-| `--badge-gap`          | `0.375rem`                                         | `Badge.Root` |
-| `--badge-height`       | `1.25rem`                                          | `Badge.Root` |
-| `--badge-icon-size`    | `0.75rem`                                          | child `svg`  |
-| `--badge-line-height`  | `var(--line-height-text-xs)`                       | `Badge.Root` |
-| `--badge-padding-x`    | `0.625rem`                                         | `Badge.Root` |
-| `--badge-padding-y`    | `0`                                                | `Badge.Root` |
-| `--badge-radius`       | `var(--radius-full)`                               | `Badge.Root` |
+| Variable                        | Default                                            | Applies to               |
+| ------------------------------- | -------------------------------------------------- | ------------------------ |
+| `--badge-bg`                    | variant-specific background                        | `Badge.Root`             |
+| `--badge-border-color`          | `transparent`; `var(--color-border)` for `outline` | `Badge.Root`             |
+| `--badge-border-width`          | `var(--border-width-sm)`                           | `Badge.Root`             |
+| `--badge-color`                 | variant-specific foreground                        | `Badge.Root`             |
+| `--badge-dot-size`              | `var(--spacing-1-5)`                               | `Badge.Dot`              |
+| `--badge-font-size`             | `var(--text-xs)`                                   | `Badge.Root`             |
+| `--badge-font-weight`           | `var(--weight-medium)`                             | `Badge.Root`             |
+| `--badge-focus-ring-color`      | `var(--color-ring)`                                | interactive `Badge.Root` |
+| `--badge-focus-ring-offset`     | `var(--focus-ring-offset)`                         | interactive `Badge.Root` |
+| `--badge-focus-ring-width`      | `var(--focus-ring-width, var(--border-width-md))`  | interactive `Badge.Root` |
+| `--badge-gap`                   | `var(--spacing-1-5)`                               | `Badge.Root`             |
+| `--badge-height`                | `1.25rem`                                          | `Badge.Root`             |
+| `--badge-icon-size`             | `var(--spacing-3)`                                 | child `svg`              |
+| `--badge-line-height`           | `var(--line-height-text-xs)`                       | `Badge.Root`             |
+| `--badge-link-underline-offset` | `0.15em`                                           | link `Badge.Root`        |
+| `--badge-padding-x`             | `var(--spacing-2-5)`                               | `Badge.Root`             |
+| `--badge-padding-y`             | `0`                                                | `Badge.Root`             |
+| `--badge-radius`                | `var(--radius-full)`                               | `Badge.Root`             |
 
 ## Intentional sugar and differences from upstream
 
@@ -143,6 +147,10 @@ Public CSS variables:
 - Keep direct child icon sizing tied to `--badge-icon-size` and `currentColor`.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Made the interactive `asChild` focus ring fully theme-overridable without changing
+  its visual default.
 
 - 2026-07-07: Added the `link` variant and default interactive host styling for `asChild` links and
   buttons, then aligned docs and stories around the new recommended path.

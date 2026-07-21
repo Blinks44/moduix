@@ -140,6 +140,51 @@
       ]
     },
     {
+      "name": "theme-contrast",
+      "type": "registry:theme",
+      "title": "Contrast theme",
+      "description": "High-clarity moduix tokens with stronger borders and focus states for technical interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/contrast.css'. Put data-moduix-theme=\"contrast\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/contrast.css",
+          "target": "@lib/moduix/presets/contrast.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "theme-dense",
+      "type": "registry:theme",
+      "title": "Dense theme",
+      "description": "Compact moduix tokens with a structured blue palette for admin and data-heavy interfaces.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/dense.css'. Put data-moduix-theme=\"dense\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/dense.css",
+          "target": "@lib/moduix/presets/dense.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "theme-soft",
+      "type": "registry:theme",
+      "title": "Soft theme",
+      "description": "Rounded moduix tokens with a warmer violet palette for product workflows.",
+      "docs": "Import '@/lib/moduix/styles/style.css' once, then import '@/lib/moduix/presets/soft.css'. Put data-moduix-theme=\"soft\" on the document root.",
+      "registryDependencies": ["@moduix-react/core"],
+      "files": [
+        {
+          "path": "packages/react/src/lib/moduix/presets/soft.css",
+          "target": "@lib/moduix/presets/soft.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
       "name": "accordion",
       "type": "registry:item",
       "title": "Accordion",
@@ -2078,6 +2123,31 @@
       ]
     },
     {
+      "name": "typeset",
+      "type": "registry:item",
+      "title": "Typeset",
+      "description": "moduix React Typeset component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/typeset/Typeset.tsx",
+          "target": "@components/moduix/typeset/Typeset.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/typeset/Typeset.module.css",
+          "target": "@components/moduix/typeset/Typeset.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/typeset/index.ts",
+          "target": "@components/moduix/typeset/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "toast",
       "type": "registry:item",
       "title": "Toast",
@@ -2199,6 +2269,196 @@
           "path": "packages/react/src/components/tour/index.ts",
           "target": "@components/moduix/tour/index.ts",
           "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "login-simple",
+      "type": "registry:block",
+      "title": "Login simple",
+      "description": "A copy-owned email and password sign-in form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/login-simple.tsx",
+          "target": "@components/blocks/login-simple.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/login-simple.module.css",
+          "target": "@components/blocks/login-simple.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sign-up",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "A copy-owned account creation form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/sign-up.tsx",
+          "target": "@components/blocks/sign-up.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/sign-up.module.css",
+          "target": "@components/blocks/sign-up.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "forgot-password",
+      "type": "registry:block",
+      "title": "Forgot password",
+      "description": "A copy-owned password reset request form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/forgot-password.tsx",
+          "target": "@components/blocks/forgot-password.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/forgot-password.module.css",
+          "target": "@components/blocks/forgot-password.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "reset-password",
+      "type": "registry:block",
+      "title": "Reset password",
+      "description": "A copy-owned new password form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/reset-password.tsx",
+          "target": "@components/blocks/reset-password.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/reset-password.module.css",
+          "target": "@components/blocks/reset-password.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "verification-code",
+      "type": "registry:block",
+      "title": "Verification code",
+      "description": "A copy-owned six-digit email verification form built with moduix React components.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/verification-code.tsx",
+          "target": "@components/blocks/verification-code.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/verification-code.module.css",
+          "target": "@components/blocks/verification-code.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "app-header",
+      "type": "registry:block",
+      "title": "App header",
+      "description": "A copy-owned application header with navigation, notifications, and account actions.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/app-header.tsx",
+          "target": "@components/blocks/app-header.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/app-header.module.css",
+          "target": "@components/blocks/app-header.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "mobile-drawer-navigation",
+      "type": "registry:block",
+      "title": "Mobile drawer navigation",
+      "description": "A copy-owned mobile navigation shell with an accessible side drawer.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.tsx",
+          "target": "@components/blocks/mobile-drawer-navigation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.module.css",
+          "target": "@components/blocks/mobile-drawer-navigation.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "A copy-owned TanStack Table with search, sorting, selection, column visibility, actions, and pagination.",
+      "dependencies": ["@moduix/react", "@tanstack/react-table", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/home/data-table.tsx",
+          "target": "@components/blocks/data-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/home/data-table.module.css",
+          "target": "@components/blocks/data-table.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-dashboard",
+      "type": "registry:block",
+      "title": "Sidebar dashboard",
+      "description": "A copy-owned desktop dashboard shell with collapsible and resizable moduix navigation.",
+      "dependencies": ["@moduix/react", "lucide-react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/sidebar-dashboard.tsx",
+          "target": "@components/blocks/sidebar-dashboard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/sidebar-dashboard.module.css",
+          "target": "@components/blocks/sidebar-dashboard.module.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "file-upload-manager",
+      "type": "registry:block",
+      "title": "File upload manager",
+      "description": "A copy-owned attachment manager with drag-and-drop, validation, removal, and clear actions.",
+      "dependencies": ["@moduix/react"],
+      "files": [
+        {
+          "path": "apps/docs/src/components/blocks/file-upload-manager.tsx",
+          "target": "@components/blocks/file-upload-manager.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "apps/docs/src/components/blocks/file-upload-manager.module.css",
+          "target": "@components/blocks/file-upload-manager.module.css",
+          "type": "registry:file"
         }
       ]
     }

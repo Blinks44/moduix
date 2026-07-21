@@ -11,7 +11,7 @@
     --splitter-panel-padding: 0;
     --splitter-panel-min-height: 0;
     --splitter-resize-trigger-line-color: var(--sidebar-border-color, var(--color-border));
-    --splitter-resize-trigger-size: var(--sidebar-resize-hit-area, 0.75rem);
+    --splitter-resize-trigger-size: var(--sidebar-resize-hit-area, var(--spacing-3));
 
     isolation: isolate;
   }
@@ -115,9 +115,9 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--sidebar-trigger-size, 1.75rem);
-    min-width: var(--sidebar-trigger-size, 1.75rem);
-    height: var(--sidebar-trigger-size, 1.75rem);
+    width: var(--sidebar-trigger-size, var(--spacing-7));
+    min-width: var(--sidebar-trigger-size, var(--spacing-7));
+    height: var(--sidebar-trigger-size, var(--spacing-7));
     padding: 0;
     border: 0;
     border-radius: var(--sidebar-trigger-radius, var(--radius-full));
@@ -131,14 +131,14 @@
       box-shadow var(--sidebar-transition, var(--transition-default));
 
     > svg {
-      width: var(--sidebar-icon-size, 1rem);
-      height: var(--sidebar-icon-size, 1rem);
+      width: var(--sidebar-icon-size, var(--spacing-4));
+      height: var(--sidebar-icon-size, var(--spacing-4));
     }
 
     &:focus-visible {
-      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
-        var(--sidebar-focus-ring-color, var(--color-ring));
-      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+      outline: var(--sidebar-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &:disabled,
@@ -160,7 +160,7 @@
     align-self: flex-start;
     z-index: 4;
     margin-block-start: var(--sidebar-trigger-offset-y, var(--spacing-4));
-    margin-inline: calc(var(--sidebar-trigger-size, 1.75rem) * -0.5);
+    margin-inline: calc(var(--sidebar-trigger-size, var(--spacing-7)) * -0.5);
     border: var(--sidebar-trigger-border-width, var(--border-width-sm)) solid
       var(--sidebar-trigger-border-color, var(--color-border));
     border-radius: var(--sidebar-trigger-radius, var(--radius-full));
@@ -232,8 +232,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--sidebar-group-action-size, 1.5rem);
-    height: var(--sidebar-group-action-size, 1.5rem);
+    width: var(--sidebar-group-action-size, var(--size-xs));
+    height: var(--sidebar-group-action-size, var(--size-xs));
     padding: 0;
     border: 0;
     border-radius: var(--sidebar-menu-button-radius, var(--radius-md));
@@ -246,14 +246,14 @@
       color var(--sidebar-transition, var(--transition-default));
 
     > svg {
-      width: var(--sidebar-icon-size, 1rem);
-      height: var(--sidebar-icon-size, 1rem);
+      width: var(--sidebar-icon-size, var(--spacing-4));
+      height: var(--sidebar-icon-size, var(--spacing-4));
     }
 
     &:focus-visible {
-      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
-        var(--sidebar-focus-ring-color, var(--color-ring));
-      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+      outline: var(--sidebar-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--focus-ring-offset));
     }
 
     @media (hover: hover) {
@@ -331,8 +331,8 @@
 
     > svg {
       flex: none;
-      width: var(--sidebar-icon-size, 1rem);
-      height: var(--sidebar-icon-size, 1rem);
+      width: var(--sidebar-icon-size, var(--spacing-4));
+      height: var(--sidebar-icon-size, var(--spacing-4));
     }
 
     > [data-sidebar-icon] {
@@ -347,9 +347,9 @@
     }
 
     &:focus-visible {
-      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
-        var(--sidebar-focus-ring-color, var(--color-ring));
-      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+      outline: var(--sidebar-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &:disabled,
@@ -389,7 +389,8 @@
       min-height: var(--sidebar-menu-button-height-lg, var(--size-lg));
     }
 
-    > [data-slot='collapsible-indicator'] {
+    > [data-slot='collapsible-indicator'],
+    > [data-slot='menu-indicator'] {
       margin-inline-start: auto;
     }
   }
@@ -401,7 +402,8 @@
   .menuAction {
     position: absolute;
     inset-block-start: calc(
-      (var(--sidebar-menu-button-height, var(--size-md)) - var(--sidebar-menu-action-size, 1.5rem)) /
+      (var(--sidebar-menu-button-height, var(--size-md)) -
+          var(--sidebar-menu-action-size, var(--size-xs))) /
         2
     );
     inset-inline-end: var(--sidebar-menu-button-padding-x, var(--spacing-2));
@@ -409,8 +411,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--sidebar-menu-action-size, 1.5rem);
-    height: var(--sidebar-menu-action-size, 1.5rem);
+    width: var(--sidebar-menu-action-size, var(--size-xs));
+    height: var(--sidebar-menu-action-size, var(--size-xs));
     padding: 0;
     border: 0;
     border-radius: var(--sidebar-menu-button-radius, var(--radius-md));
@@ -423,14 +425,14 @@
       color var(--sidebar-transition, var(--transition-default));
 
     > svg {
-      width: var(--sidebar-icon-size, 1rem);
-      height: var(--sidebar-icon-size, 1rem);
+      width: var(--sidebar-icon-size, var(--spacing-4));
+      height: var(--sidebar-icon-size, var(--spacing-4));
     }
 
     &:focus-visible {
-      outline: var(--sidebar-focus-ring-width, var(--border-width-md)) solid
-        var(--sidebar-focus-ring-color, var(--color-ring));
-      outline-offset: var(--sidebar-focus-ring-offset, var(--spacing-1));
+      outline: var(--sidebar-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--sidebar-focus-ring-color, var(--color-ring));
+      outline-offset: var(--sidebar-focus-ring-offset, var(--focus-ring-offset));
     }
 
     @media (hover: hover) {
@@ -467,7 +469,7 @@
   .menuItem:has(.menuAction) .menuButton,
   .menuItem:has(.menuBadge) .menuButton {
     padding-inline-end: calc(
-      var(--sidebar-menu-action-size, 1.5rem) +
+      var(--sidebar-menu-action-size, var(--size-xs)) +
         var(--sidebar-menu-button-padding-x, var(--spacing-2)) * 2
     );
   }

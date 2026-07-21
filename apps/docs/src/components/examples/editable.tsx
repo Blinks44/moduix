@@ -57,7 +57,7 @@ export const editableExampleCss = `
 export const editableNoData = `const data = null;`;
 
 export const editableOverrideCssProperties: CssPropertyInput[] = [
-  ['--editable-area-height', 'var(--size-lg)', 'Controls the editable surface minimum height.'],
+  ['--editable-area-height', 'var(--size-md)', 'Controls the editable surface minimum height.'],
   ['--editable-area-width', '100%', 'Controls the editable surface width.'],
   ['--editable-bg', 'var(--color-background)', 'Controls the editable surface background.'],
   ['--editable-border-color', 'var(--color-border)', 'Controls default border color.'],
@@ -75,7 +75,7 @@ export const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--editable-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
     '--editable-focus-ring-width',
-    'var(--editable-border-width, var(--border-width-sm))',
+    'var(--editable-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
     'Controls focus ring width.',
   ],
   ['--editable-font-size', 'var(--text-md)', 'Controls input and preview font size.'],
@@ -97,8 +97,8 @@ export const editableOverrideCssProperties: CssPropertyInput[] = [
     'Controls input and preview line height.',
   ],
   ['--editable-max-width', '100%', 'Controls root max width.'],
-  ['--editable-padding-x', '0.875rem', 'Controls horizontal surface padding.'],
-  ['--editable-padding-y', '0.5rem', 'Controls vertical surface padding.'],
+  ['--editable-padding-x', 'var(--spacing-3-5)', 'Controls horizontal surface padding.'],
+  ['--editable-padding-y', 'var(--spacing-1)', 'Controls vertical surface padding.'],
   ['--editable-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
   ['--editable-preview-min-height', '1lh', 'Controls preview minimum height.'],
   ['--editable-radius', 'var(--radius-md)', 'Controls editable surface corner radius.'],
@@ -116,11 +116,11 @@ export const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--editable-trigger-border-style', 'solid', 'Controls trigger border style.'],
   ['--editable-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
   ['--editable-trigger-color', 'var(--color-foreground)', 'Controls trigger icon color.'],
-  ['--editable-trigger-icon-size', '0.875rem', 'Controls default trigger icon size.'],
+  ['--editable-trigger-icon-size', 'var(--spacing-3-5)', 'Controls default trigger icon size.'],
   ['--editable-trigger-radius', 'var(--radius-sm)', 'Controls trigger corner radius.'],
   [
     '--editable-trigger-size',
-    'var(--editable-area-height, var(--size-lg))',
+    'var(--editable-area-height, var(--size-md))',
     'Controls trigger button size.',
   ],
   ['--editable-width', 'auto', 'Controls root width.'],

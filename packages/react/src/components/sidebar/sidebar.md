@@ -159,7 +159,7 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
     </Sidebar.Content>
     <Sidebar.Footer>
       <Sidebar.Separator />
-      {/* Menu + Avatar account control */}
+      {/* Menu + Avatar + Menu.Indicator account control */}
     </Sidebar.Footer>
   </Sidebar.Panel>
   <Sidebar.ResizeTrigger />
@@ -183,6 +183,10 @@ Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigge
 and the related item parts) inside a `Drawer` when compact screens need overlay navigation instead
 of a collapsible rail. Persisted desktop layout is a controlled-size recipe: mirror live drag
 updates from `onResize(details)` and save the settled width from `onResizeEnd(details)`.
+
+When `Menu.Trigger asChild` wraps `Sidebar.MenuButton`, render `Menu.Indicator` as the direct
+trailing child. Sidebar aligns it to the inline end and hides it with the rest of the trigger
+affordances in the collapsed rail.
 
 ## Upstream feature coverage
 
@@ -280,6 +284,7 @@ feedback.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made `panelId` update the default panel data and resize trigger id, documented
   CSS-length hydration behavior, and kept custom inset ids on the lower-level `Splitter` path.
 - 2026-07-06: Added `Sidebar.Tooltip` as the blessed collapsed-label helper and migrated sidebar

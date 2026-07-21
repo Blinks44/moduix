@@ -131,7 +131,7 @@ export const qrCodeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--qr-code-download-trigger-focus-ring-width',
-    'var(--button-focus-ring-width, var(--border-width-md))',
+    'var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))',
     'Controls download trigger focus ring width.',
   ],
   [
@@ -151,12 +151,12 @@ export const qrCodeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--qr-code-download-trigger-height',
-    'var(--button-size-md, var(--size-lg))',
+    'var(--button-size-md, var(--size-md))',
     'Controls download trigger minimum height.',
   ],
   [
     '--qr-code-download-trigger-icon-size',
-    'var(--button-icon-size, 1rem)',
+    'var(--button-icon-size, var(--spacing-4))',
     'Controls icon size inside the download trigger.',
   ],
   [
@@ -166,7 +166,7 @@ export const qrCodeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--qr-code-download-trigger-padding-x',
-    'var(--button-padding-x-md, 1rem)',
+    'var(--button-padding-x-md, var(--spacing-4))',
     'Controls download trigger inline padding.',
   ],
   [
@@ -181,9 +181,13 @@ export const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qr-code-overlay-color', 'var(--color-foreground)', 'Controls overlay text color.'],
   ['--qr-code-overlay-padding', 'var(--spacing-1)', 'Controls overlay padding.'],
   ['--qr-code-overlay-radius', 'var(--radius-sm)', 'Controls overlay radius.'],
-  ['--qr-code-overlay-size', '2.5rem', 'Controls overlay width and height.'],
+  ['--qr-code-overlay-size', 'var(--size-lg)', 'Controls overlay width and height.'],
   ['--qr-code-size', '8rem', 'Controls the preferred frame width.'],
-  ['--qr-code-transition', 'var(--transition-default)', 'Controls trigger transitions.'],
+  [
+    '--qr-code-transition',
+    'var(--button-transition, var(--transition-default))',
+    'Controls trigger transitions.',
+  ],
 ];
 
 const qrCodeCssPropertiesReference = qrCodeCssProperties.map(normalizeCssProperty);

@@ -1,7 +1,7 @@
 @layer ui.components {
   .root {
     padding-block: var(--highlight-padding-y, 0.0625rem);
-    padding-inline: var(--highlight-padding-x, 0.25rem);
+    padding-inline: var(--highlight-padding-x, var(--spacing-1));
     border-radius: var(--highlight-radius, var(--radius-xs));
     background-color: var(
       --highlight-bg,

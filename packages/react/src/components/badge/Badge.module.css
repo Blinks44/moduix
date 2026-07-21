@@ -6,13 +6,13 @@
     min-width: 0;
     align-items: center;
     justify-content: center;
-    gap: var(--badge-gap, 0.375rem);
+    gap: var(--badge-gap, var(--spacing-1-5));
     overflow: hidden;
     border: var(--badge-border-width, var(--border-width-sm)) solid
       var(--badge-border-color, transparent);
     border-radius: var(--badge-radius, var(--radius-full));
     padding-block: var(--badge-padding-y, 0);
-    padding-inline: var(--badge-padding-x, 0.625rem);
+    padding-inline: var(--badge-padding-x, var(--spacing-2-5));
     background-color: var(--badge-bg, var(--color-primary));
     color: var(--badge-color, var(--color-primary-foreground));
     font-size: var(--badge-font-size, var(--text-xs));
@@ -34,8 +34,9 @@
       cursor: pointer;
 
       &:focus-visible {
-        outline: var(--border-width-md) solid var(--color-ring);
-        outline-offset: var(--spacing-1);
+        outline: var(--badge-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+          solid var(--badge-focus-ring-color, var(--color-ring));
+        outline-offset: var(--badge-focus-ring-offset, var(--focus-ring-offset));
       }
 
       &[data-variant='default'],
@@ -62,8 +63,8 @@
     }
 
     & > svg {
-      width: var(--badge-icon-size, 0.75rem);
-      height: var(--badge-icon-size, 0.75rem);
+      width: var(--badge-icon-size, var(--spacing-3));
+      height: var(--badge-icon-size, var(--spacing-3));
       flex-shrink: 0;
       pointer-events: none;
     }
@@ -75,7 +76,7 @@
 
     &[data-variant='destructive'] {
       background-color: var(--badge-bg, var(--color-destructive));
-      color: var(--badge-color, var(--color-primary-foreground));
+      color: var(--badge-color, var(--color-destructive-foreground));
     }
 
     &[data-variant='outline'],
@@ -101,14 +102,14 @@
       color: var(--badge-color, var(--color-primary));
       text-decoration: underline;
       text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
-      text-underline-offset: 0.15em;
+      text-underline-offset: var(--badge-link-underline-offset, 0.15em);
       text-decoration-thickness: from-font;
     }
   }
 
   .dot {
-    width: var(--badge-dot-size, 0.375rem);
-    height: var(--badge-dot-size, 0.375rem);
+    width: var(--badge-dot-size, var(--spacing-1-5));
+    height: var(--badge-dot-size, var(--spacing-1-5));
     flex-shrink: 0;
     border-radius: 50%;
     background-color: currentColor;

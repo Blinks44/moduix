@@ -156,18 +156,18 @@ Public CSS variables:
 | `--switch-disabled-opacity`      | `var(--opacity-disabled)`                                 | Disabled root opacity.               |
 | `--switch-focus-ring-color`      | `var(--color-ring)`                                       | Focus ring color.                    |
 | `--switch-focus-ring-offset`     | `var(--border-width-sm)`                                  | Focus ring offset.                   |
-| `--switch-focus-ring-width`      | `var(--border-width-sm)`                                  | Focus ring width.                    |
+| `--switch-focus-ring-width`      | `var(--focus-ring-inset-width, var(--border-width-sm))`   | Focus ring width.                    |
 | `--switch-gap`                   | `var(--spacing-2)`                                        | Gap between control and label.       |
 | `--switch-height-xs`             | `1rem`                                                    | Control height for `size="xs"`.      |
 | `--switch-height-sm`             | `1.25rem`                                                 | Control height for `size="sm"`.      |
-| `--switch-height-md`             | `1.5rem`                                                  | Control height for `size="md"`.      |
+| `--switch-height-md`             | `var(--size-xs)`                                          | Control height for `size="md"`.      |
 | `--switch-height-lg`             | `1.75rem`                                                 | Control height for `size="lg"`.      |
-| `--switch-height-xl`             | `2rem`                                                    | Control height for `size="xl"`.      |
+| `--switch-height-xl`             | `var(--size-sm)`                                          | Control height for `size="xl"`.      |
 | `--switch-label-color`           | `var(--color-foreground)`                                 | Label text color.                    |
 | `--switch-label-font-size`       | `var(--text-sm)`                                          | Label font size.                     |
 | `--switch-label-font-weight`     | `var(--weight-medium)`                                    | Label font weight.                   |
 | `--switch-label-line-height`     | `var(--line-height-text-sm)`                              | Label line height.                   |
-| `--switch-padding`               | `0.125rem`                                                | Inner track padding.                 |
+| `--switch-padding`               | `var(--spacing-0-5)`                                      | Inner track padding.                 |
 | `--switch-radius`                | `var(--radius-full)`                                      | Control border radius.               |
 | `--switch-thumb-bg`              | `var(--color-background)`                                 | Shared thumb background fallback.    |
 | `--switch-thumb-bg-checked`      | `var(--switch-thumb-bg, var(--color-primary-foreground))` | Checked thumb background.            |
@@ -180,11 +180,11 @@ Public CSS variables:
 | `--switch-thumb-icon-size`       | `65%`                                                     | Custom thumb icon size.              |
 | `--switch-thumb-radius`          | `var(--radius-full)`                                      | Thumb border radius.                 |
 | `--switch-thumb-shadow`          | `var(--shadow-sm)`                                        | Thumb shadow.                        |
-| `--switch-thumb-size-xs`         | `0.75rem`                                                 | Thumb size for `size="xs"`.          |
-| `--switch-thumb-size-sm`         | `1rem`                                                    | Thumb size for `size="sm"`.          |
-| `--switch-thumb-size-md`         | `1.25rem`                                                 | Thumb size for `size="md"`.          |
-| `--switch-thumb-size-lg`         | `1.5rem`                                                  | Thumb size for `size="lg"`.          |
-| `--switch-thumb-size-xl`         | `1.75rem`                                                 | Thumb size for `size="xl"`.          |
+| `--switch-thumb-size-xs`         | `var(--spacing-3)`                                        | Thumb size for `size="xs"`.          |
+| `--switch-thumb-size-sm`         | `var(--spacing-4)`                                        | Thumb size for `size="sm"`.          |
+| `--switch-thumb-size-md`         | `var(--spacing-5)`                                        | Thumb size for `size="md"`.          |
+| `--switch-thumb-size-lg`         | `var(--size-xs)`                                          | Thumb size for `size="lg"`.          |
+| `--switch-thumb-size-xl`         | `var(--spacing-7)`                                        | Thumb size for `size="xl"`.          |
 | `--switch-thumb-transition`      | `var(--switch-transition, var(--transition-default))`     | Thumb movement transition timing.    |
 | `--switch-thumb-translate`       | `var(--switch-thumb-translate-default)`                   | Checked thumb translation distance.  |
 | `--switch-transition`            | `var(--transition-default)`                               | State transition timing.             |
@@ -219,6 +219,7 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-11: Re-exported Ark context and state hooks through moduix, and disabled hover styling

@@ -23,6 +23,19 @@ Panda CSS and Tailwind CSS are not dependencies of moduix or this documentation 
 below style the same `ProjectChecklist` in each tool, so only the authoring syntax changes. They
 are consumer snippets for applications where the respective tool is already configured.
 
+## Choose the smallest useful override
+
+| Goal                                             | Preferred surface                                           |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| Adopt a complete visual direction                | A curated [Theme preset](/docs/themes)                      |
+| Change a system-wide color, size, radius, or gap | A primitive or semantic token from [Tokens](/docs/tokens)   |
+| Keep a family of controls or popup rows aligned  | A shared family token such as `--popup-item-min-height`     |
+| Make one component intentionally different       | A documented `--<component>-*` alias                        |
+| Style one product composition                    | `className` on the rendered part, preferably with local CSS |
+
+This order keeps themes compact and component styling predictable. Prefer a high-level token when
+the decision should propagate; move closer to the rendered part only as the scope becomes local.
+
 ## Style the parts you render
 
 Start with `className` on the part that owns the visual change. This keeps the component anatomy

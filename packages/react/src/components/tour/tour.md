@@ -134,6 +134,7 @@ update `theme.css`, docs CSS properties, stories, and registry artifacts togethe
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-05: Added `Tour.CloseIcon` so guided-tour examples can use the same close-button helper pattern as the other overlay families.
 - 2026-07-12: Aligned `Tour.CloseIcon` fallback geometry and focus ring with `CloseButton` and the dialog overlay family.

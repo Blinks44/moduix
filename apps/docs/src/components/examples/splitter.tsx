@@ -377,7 +377,7 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ['--splitter-panel-radius', '0', 'Controls optional panel corner radius.'],
   ['--splitter-panel-shadow', 'none', 'Controls optional panel shadow.'],
   ['--splitter-resize-trigger-bg', 'transparent', 'Controls the resize trigger background.'],
-  ['--splitter-resize-trigger-size', '0.625rem', 'Controls the resize handle hit area.'],
+  ['--splitter-resize-trigger-size', 'var(--spacing-2-5)', 'Controls the resize handle hit area.'],
   ['--splitter-resize-trigger-line-length', '100%', 'Controls the visible splitter line length.'],
   [
     '--splitter-resize-trigger-line-radius',
@@ -435,7 +435,11 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
     'color-mix(in oklab, var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%, var(--color-muted-foreground))',
     'Controls the handle indicator border color on hover.',
   ],
-  ['--splitter-resize-trigger-indicator-height', '1.5rem', 'Controls the handle indicator length.'],
+  [
+    '--splitter-resize-trigger-indicator-height',
+    'var(--size-xs)',
+    'Controls the handle indicator length.',
+  ],
   [
     '--splitter-resize-trigger-indicator-radius',
     'var(--radius-full)',
@@ -448,7 +452,7 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--splitter-resize-trigger-indicator-shadow-dragging',
-    'var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm))',
+    'var(--shadow-md)',
     'Controls the handle indicator shadow while dragging.',
   ],
   [
@@ -458,7 +462,7 @@ export const splitterOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--splitter-resize-trigger-indicator-width',
-    '0.375rem',
+    'var(--spacing-1-5)',
     'Controls the handle indicator thickness.',
   ],
   ['--splitter-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],

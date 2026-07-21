@@ -112,12 +112,6 @@
 .accountMenu {
   --menu-popup-min-width: 14rem;
   --menu-popup-max-width: 18rem;
-
-  & [data-part='item'] > svg {
-    flex: none;
-    width: 1rem;
-    height: 1rem;
-  }
 }
 
 .accountMeta {
@@ -138,7 +132,7 @@
   }
 }
 
-.accountChevron {
+.selectIndicator {
   display: inline-flex;
   margin-inline-start: auto;
 

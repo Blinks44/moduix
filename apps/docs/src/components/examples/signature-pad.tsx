@@ -99,7 +99,7 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
   ['--signature-pad-control-width', '100%', 'Controls the drawing control width.'],
   [
     '--signature-pad-control-height',
-    'var(--signature-pad-height)',
+    'var(--signature-pad-height, 10rem)',
     'Controls the drawing control height.',
   ],
   ['--signature-pad-control-min-width', '0', 'Controls the drawing control minimum width.'],
@@ -117,7 +117,7 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
   ],
   [
     '--signature-pad-focus-ring-width',
-    'var(--border-width-md)',
+    'var(--focus-ring-width, var(--border-width-md))',
     'Controls the focused drawing area ring width.',
   ],
   ['--signature-pad-gap', 'var(--spacing-2)', 'Controls spacing between root parts.'],
@@ -138,7 +138,7 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
     'Controls label line height.',
   ],
   ['--signature-pad-radius', 'var(--radius-md)', 'Controls the drawing area radius.'],
-  ['--signature-pad-shadow', 'var(--shadow-xs)', 'Controls the drawing area shadow.'],
+  ['--signature-pad-shadow', 'var(--shadow-sm)', 'Controls the drawing area shadow.'],
   ['--signature-pad-stroke-color', 'var(--color-foreground)', 'Controls default path fill.'],
   ['--signature-pad-transition', 'var(--transition-default)', 'Controls state transitions.'],
   ['--signature-pad-clear-trigger-bg', 'transparent', 'Controls clear trigger background.'],
@@ -175,10 +175,14 @@ export const signaturePadCssProperties: CssPropertyInput[] = [
   ],
   [
     '--signature-pad-clear-trigger-focus-ring-width',
-    'var(--border-width-md)',
+    'var(--focus-ring-width, var(--border-width-md))',
     'Controls clear trigger focus ring width.',
   ],
-  ['--signature-pad-clear-trigger-icon-size', '1rem', 'Controls clear trigger icon size.'],
+  [
+    '--signature-pad-clear-trigger-icon-size',
+    'var(--spacing-4)',
+    'Controls clear trigger icon size.',
+  ],
   [
     '--signature-pad-clear-trigger-offset',
     'var(--spacing-2)',
@@ -305,7 +309,7 @@ export function FormSerializationSignaturePadExample() {
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
       </SignaturePad>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
       <output className={styles.status}>{submitted}</output>
     </form>
   );

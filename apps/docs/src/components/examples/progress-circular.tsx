@@ -77,7 +77,7 @@ const progressCircularStateMessages = {
 
 export const progressCircularCssProperties: CssPropertyInput[] = [
   ['--progress-circular-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--progress-circular-gap', '0.5rem', 'Controls spacing between label and circle.'],
+  ['--progress-circular-gap', 'var(--spacing-2)', 'Controls spacing between label and circle.'],
   ['--progress-circular-label-color', 'currentColor', 'Controls label text color.'],
   ['--progress-circular-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
   ['--progress-circular-label-font-weight', 'var(--weight-regular)', 'Controls label weight.'],
@@ -104,7 +104,7 @@ export const progressCircularCssProperties: CssPropertyInput[] = [
     'Controls circle range transition.',
   ],
   ['--progress-circular-root-width', 'max-content', 'Controls root width.'],
-  ['--progress-circular-size', '3rem', 'Controls SVG circle size.'],
+  ['--progress-circular-size', 'var(--size-xl)', 'Controls SVG circle size.'],
   ['--progress-circular-thickness', '0.4rem', 'Controls SVG stroke thickness.'],
   ['--progress-circular-track-bg', 'var(--color-muted)', 'Controls circle track color.'],
   ['--progress-circular-value-text-color', 'currentColor', 'Controls value text color.'],

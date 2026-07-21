@@ -8,10 +8,9 @@ import {
   DocsDescription,
   DocsPage,
   DocsTitle,
-  EditOnGitHub,
   MarkdownCopyButton,
+  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
-import { ExternalLinkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import { useMDXComponents } from '@/components/mdx/components';
 import { baseOptions } from '@/lib/layout.shared';
@@ -85,14 +84,7 @@ const clientLoader = browserCollections.docs.createClientLoader({
 
         <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
           <MarkdownCopyButton markdownUrl={markdownUrl} />
-          <EditOnGitHub href={markdownUrl}>
-            <ExternalLinkIcon className="size-3.5 max-sm:hidden" />
-            Open Markdown
-          </EditOnGitHub>
-          <EditOnGitHub href={githubUrl}>
-            <ExternalLinkIcon className="size-3.5 max-sm:hidden" />
-            Open in Github
-          </EditOnGitHub>
+          <ViewOptionsPopover markdownUrl={markdownUrl} githubUrl={githubUrl} />
         </div>
 
         <DocsBody>

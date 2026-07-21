@@ -111,7 +111,7 @@ export const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--date-input-control-height',
-    defaultValue: 'var(--size-lg)',
+    defaultValue: 'var(--size-md)',
     description: 'Controls the minimum control height.',
   },
   {

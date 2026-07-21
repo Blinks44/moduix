@@ -4,6 +4,7 @@ description: Build app-specific sortable, filterable, and paginated data tables 
 icon: TableProperties
 ---
 
+import { DataTable } from '@/components/home/data-table';
 import * as DataTableDocs from '@/components/examples/data-table';
 
 # Data Table
@@ -14,7 +15,31 @@ feature owns its records and controls table state when that state drives a route
 Each product has different columns, filters, row actions, and server contracts, so keep that
 behavior close to the feature that needs it.
 
-## Installation
+The copy-owned block below is the same interactive table shown on the home page. It includes
+search, sorting, column visibility, row selection, actions, and pagination; replace its example
+records and actions with your product data.
+
+<Preview clientOnly>
+  <DataTable />
+
+<Preview.Code>
+  <include lang="tsx">../../src/components/home/data-table.tsx</include>
+</Preview.Code>
+
+<Preview.CSS>
+  <include lang="css">../../src/components/home/data-table.module.css</include>
+</Preview.CSS>
+
+</Preview>
+
+## Install the block
+
+<ShadcnInstall packageName="data-table" itemLabel="block" />
+
+The command copies the JSX and CSS module into your components directory, and installs
+`@tanstack/react-table`, `@moduix/react`, and `lucide-react` when needed.
+
+## Build the pattern yourself
 
 Install TanStack Table in the application that owns the data-grid behavior:
 

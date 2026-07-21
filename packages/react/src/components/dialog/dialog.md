@@ -114,6 +114,8 @@ rendered `CloseButton.Root`.
 
 ## Defaults and styling
 
+Default dialog and close controls use `--size-md` with `--spacing-1` block padding.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--dialog-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
@@ -148,6 +150,9 @@ Do not introduce a convenience component that hides `Backdrop`, `Positioner`, or
 Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext` unchanged.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Reduced default dialog and close controls to `--size-md` and compacted their block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-12: Kept one close part in the canonical Basic composition so Ark's generated

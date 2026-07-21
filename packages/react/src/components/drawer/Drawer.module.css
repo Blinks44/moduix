@@ -5,9 +5,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--drawer-control-height, var(--size-lg));
+    min-height: var(--drawer-control-height, var(--size-md));
     margin: 0;
-    padding: var(--drawer-control-padding-y, 0.5rem) var(--drawer-control-padding-x, 0.875rem);
+    padding: var(--drawer-control-padding-y, var(--spacing-1))
+      var(--drawer-control-padding-x, var(--spacing-3-5));
     border: var(--drawer-control-border-width, var(--border-width-sm)) solid
       var(--drawer-control-border-color, var(--color-border));
     border-radius: var(--drawer-control-radius, var(--radius-md));
@@ -112,7 +113,7 @@
   }
 
   .content {
-    --drawer-bleed: var(--drawer-bleed-size, 3rem);
+    --drawer-bleed: var(--drawer-bleed-size, var(--size-xl));
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -359,7 +360,7 @@
   }
 
   .closeIcon {
-    --close-button-size: var(--drawer-close-icon-size, 1.75rem);
+    --close-button-size: var(--drawer-close-icon-size, var(--spacing-7));
     --close-button-radius: var(--drawer-close-icon-radius, var(--radius-md));
     --close-button-color: var(
       --drawer-close-icon-color,
@@ -375,7 +376,7 @@
       --drawer-close-icon-focus-ring-color,
       var(--drawer-focus-ring-color, var(--color-ring))
     );
-    --close-button-icon-size: var(--drawer-close-icon-glyph-size, 0.75rem);
+    --close-button-icon-size: var(--drawer-close-icon-glyph-size, var(--spacing-3));
   }
 
   .swipeArea {

@@ -1,11 +1,20 @@
 //#region demo
-import { ColorPicker, parseColor } from '@moduix/react';
+import { Button, ColorPicker, parseColor } from '@moduix/react';
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 
 const _fieldName = 'accent';
 
 export function FormUsageColorPickerDemo() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(String(new FormData(event.currentTarget).get('accent') ?? ''));
+  };
+
   return (
-    <form className="color-picker-form">
+    <form className="color-picker-form" onSubmit={handleSubmit}>
       <ColorPicker name="accent" defaultValue={parseColor('#eb5e41')}>
         <ColorPicker.Label>Color</ColorPicker.Label>
         <ColorPicker.Control>
@@ -13,9 +22,10 @@ export function FormUsageColorPickerDemo() {
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
       </ColorPicker>
-      <button className="color-picker-submit" type="submit">
+      <Button className="color-picker-submit" type="submit">
         Submit
-      </button>
+      </Button>
+      <output>Submitted: {submitted}</output>
     </form>
   );
 }

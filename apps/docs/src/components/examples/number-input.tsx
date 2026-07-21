@@ -91,7 +91,7 @@ export const numberInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--number-input-control-height',
-    defaultValue: 'var(--size-lg)',
+    defaultValue: 'var(--size-md)',
     description: 'Controls input and trigger height.',
   },
   {

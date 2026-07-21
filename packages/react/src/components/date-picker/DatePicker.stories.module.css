@@ -27,7 +27,7 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: var(--date-picker-control-height, var(--size-lg));
+  min-height: var(--date-picker-control-height, var(--size-md));
   flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-1);
@@ -35,7 +35,7 @@
     var(--date-picker-border-color, var(--color-border));
   border-radius: var(--date-picker-radius, var(--radius-md));
   padding-block: var(--spacing-1);
-  padding-inline: var(--date-picker-input-padding-x-start, 0.875rem)
+  padding-inline: var(--date-picker-input-padding-x-start, var(--spacing-3-5))
     var(--date-picker-input-padding-x-end, 4.25rem);
   background: var(--date-picker-bg, var(--color-background));
 }
@@ -109,13 +109,13 @@
 
 .monthSelect {
   --select-width: 100%;
-  --select-control-height: var(--date-picker-select-height, 2rem);
+  --select-control-height: var(--date-picker-select-height, var(--size-sm));
   min-width: 0;
 }
 
 .yearSelect {
   --select-width: 100%;
-  --select-control-height: var(--date-picker-select-height, 2rem);
+  --select-control-height: var(--date-picker-select-height, var(--size-sm));
   min-width: 0;
 }
 

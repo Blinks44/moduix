@@ -52,12 +52,12 @@ export const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--password-input-height',
-    defaultValue: 'var(--input-height, var(--input-height-md, var(--size-lg)))',
+    defaultValue: 'var(--input-height, var(--input-height-md, var(--size-md)))',
     description: 'Minimum height of the control shell.',
   },
   {
     name: '--password-input-icon-size',
-    defaultValue: 'var(--button-icon-size, 1rem)',
+    defaultValue: 'var(--button-icon-size, var(--spacing-4))',
     description: 'Icon size inside the visibility indicator.',
   },
   {

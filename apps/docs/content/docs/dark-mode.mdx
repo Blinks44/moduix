@@ -1,0 +1,89 @@
+---
+title: Dark mode
+description: Enable the built-in dark token theme without a separate component theme provider.
+icon: Moon
+---
+
+# Dark mode
+
+moduix ships light tokens by default and a dark token set behind the `dark` class. Import the
+foundation stylesheet once. Your application owns the theme preference and moduix responds to the
+resolved theme.
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+## Apply the theme at the document root
+
+When your theme solution resolves dark mode, it should put `dark` on `<html>`; remove the class
+for light mode. Most theme solutions do this automatically. moduix does not require a provider,
+store a preference, or choose a theme package, so it works with the solution your application
+already uses.
+
+```html
+<!-- Dark theme -->
+<html class="dark"></html>
+```
+
+Use the document root for an application-wide theme. Portalled components such as Dialog, Popover,
+and Select also inherit the same tokens there.
+
+If your app renders on the server, use its early theme mechanism so the resolved class is present
+before the page becomes visible. It prevents a brief light theme before client JavaScript applies a
+saved preference.
+
+## Combine dark mode with a preset
+
+Color mode and visual presets are separate layers. Keep `dark` and `data-moduix-theme` on the same
+root so regular and portalled components resolve the same palette, density, radius, and focus
+tokens.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/dense.css';
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```html
+<html class="dark" data-moduix-theme="dense"></html>
+```
+
+Changing color mode does not change density. The selected preset keeps its control and popup scale
+in both modes. See [Themes](/docs/themes) for the preset comparison and custom theme pattern.
+
+## Scope a preview or embedded surface
+
+You can place `dark` on a regular wrapper when only that subtree needs the dark tokens:
+
+```tsx
+<section className="dark">
+  <Card>Dark preview</Card>
+</section>
+```
+
+This is useful for a settings preview or an embedded widget. Portalled content is outside that
+wrapper, so keep the class on `<html>`, `body`, or your portal container when the subtree opens
+overlays.
+
+## Customize both themes
+
+Override the same semantic tokens in `:root` and `.dark`. Components read semantic aliases such as
+`--color-background`, `--color-foreground`, and `--color-border`, so the values stay consistent
+across the library.
+
+```css
+:root {
+  --background: oklch(0.99 0.004 285);
+  --primary: oklch(0.5 0.18 260);
+}
+
+.dark {
+  --background: oklch(0.16 0.01 285);
+  --primary: oklch(0.76 0.13 260);
+}
+```
+
+Use [Tokens](/docs/tokens) for the complete token reference and component pages for local visual
+overrides.

@@ -51,8 +51,16 @@ export const tableOverrideCssProperties: CssPropertyInput[] = [
   ['--table-cell-padding-x', 'var(--spacing-4)', 'Controls cell horizontal padding.'],
   ['--table-cell-padding-y', 'var(--spacing-3)', 'Controls cell vertical padding.'],
   ['--table-color', 'var(--color-foreground)', 'Controls table text color.'],
-  ['--table-column-border-color', 'var(--table-border-color)', 'Controls column border color.'],
-  ['--table-column-border-width', 'var(--table-border-width)', 'Controls column border width.'],
+  [
+    '--table-column-border-color',
+    'var(--table-border-color, var(--color-border))',
+    'Controls column border color.',
+  ],
+  [
+    '--table-column-border-width',
+    'var(--table-border-width, var(--border-width-sm))',
+    'Controls column border width.',
+  ],
   [
     '--table-column-header-color',
     'var(--color-muted-foreground)',
@@ -103,9 +111,17 @@ export const tableOverrideCssProperties: CssPropertyInput[] = [
     'background-color var(--transition-default)',
     'Controls body row hover transition.',
   ],
-  ['--table-sticky-column-bg', 'var(--color-card)', 'Controls sticky column background.'],
+  [
+    '--table-sticky-column-bg',
+    'var(--table-scroll-area-bg, var(--color-card))',
+    'Controls sticky column background.',
+  ],
   ['--table-sticky-column-z-index', '2', 'Controls sticky column stacking.'],
-  ['--table-sticky-header-bg', 'var(--color-card)', 'Controls sticky header background.'],
+  [
+    '--table-sticky-header-bg',
+    'var(--table-scroll-area-bg, var(--color-card))',
+    'Controls sticky header background.',
+  ],
   ['--table-sticky-header-z-index', '3', 'Controls sticky header stacking.'],
   ['--table-sticky-intersection-z-index', '4', 'Controls sticky header/column stacking.'],
 ] as const;

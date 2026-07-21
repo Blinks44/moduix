@@ -1,4 +1,4 @@
-import { ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
+import { Button, ColorPicker, Dialog, Field, parseColor, useColorPicker } from '@moduix/react';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -72,8 +72,8 @@ export const colorPickerInlineCss = `
   .color-picker-control-swatch {
     position: relative;
     display: grid;
-    width: var(--size-lg);
-    height: var(--size-lg);
+    width: var(--size-md);
+    height: var(--size-md);
     flex-shrink: 0;
     overflow: hidden;
     border-radius: var(--radius-md);
@@ -161,7 +161,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'Controls action button line height.',
   ],
   ['--color-picker-action-padding-x', 'var(--spacing-2)', 'Controls action button inline padding.'],
-  ['--color-picker-action-size', 'var(--size-lg)', 'Controls action button height.'],
+  ['--color-picker-action-size', 'var(--size-md)', 'Controls action button height.'],
   ['--color-picker-alpha-input-width', '4rem', 'Controls alpha input width.'],
   [
     '--color-picker-area-border-color',
@@ -276,10 +276,14 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-ring)',
     'Controls focused border and ring color.',
   ],
-  ['--color-picker-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
-  ['--color-picker-icon-size', '1rem', 'Controls action icon size.'],
+  [
+    '--color-picker-focus-ring-width',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
+  ['--color-picker-icon-size', 'var(--spacing-4)', 'Controls action icon size.'],
   ['--color-picker-input-font-size', 'var(--text-sm)', 'Controls channel input font size.'],
-  ['--color-picker-input-height', 'var(--size-lg)', 'Controls channel input height.'],
+  ['--color-picker-input-height', 'var(--size-md)', 'Controls channel input height.'],
   [
     '--color-picker-input-line-height',
     'var(--line-height-text-sm)',
@@ -310,9 +314,18 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--color-picker-swatch-gap', 'var(--spacing-2)', 'Controls swatch group gap.'],
   ['--color-picker-swatch-indicator-color', 'white', 'Controls checked swatch icon color.'],
-  ['--color-picker-swatch-indicator-size', '1rem', 'Controls checked swatch icon size.'],
+  [
+    '--color-picker-swatch-indicator-shadow',
+    'drop-shadow(0 1px 1px rgb(0 0 0 / 0.45))',
+    'Controls checked swatch icon contrast shadow.',
+  ],
+  [
+    '--color-picker-swatch-indicator-size',
+    'var(--spacing-4)',
+    'Controls checked swatch icon size.',
+  ],
   ['--color-picker-swatch-radius', 'var(--radius-sm)', 'Controls swatch corner radius.'],
-  ['--color-picker-swatch-size', '2rem', 'Controls swatch size.'],
+  ['--color-picker-swatch-size', 'var(--size-sm)', 'Controls swatch size.'],
   ['--color-picker-thumb-bg', 'var(--color-background)', 'Controls thumb fill color.'],
   [
     '--color-picker-thumb-focus-ring-width',
@@ -341,7 +354,7 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--color-picker-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
   ['--color-picker-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
-  ['--color-picker-thumb-size', '1rem', 'Controls area and slider thumb size.'],
+  ['--color-picker-thumb-size', 'var(--spacing-4)', 'Controls area and slider thumb size.'],
   ['--color-picker-transition', 'var(--transition-default)', 'Controls transition timing.'],
   [
     '--color-picker-trigger-fit-content-gap',
@@ -355,11 +368,11 @@ export const colorPickerOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--color-picker-trigger-fit-content-swatch-size',
-    '1rem',
+    'var(--spacing-4)',
     'Controls direct swatch size inside fit-content triggers.',
   ],
   ['--color-picker-trigger-padding', 'var(--spacing-1)', 'Controls trigger swatch padding.'],
-  ['--color-picker-trigger-size', 'var(--size-lg)', 'Controls the trigger swatch button size.'],
+  ['--color-picker-trigger-size', 'var(--size-md)', 'Controls the trigger swatch button size.'],
   ['--color-picker-value-text-color', 'var(--color-picker-color)', 'Controls value text color.'],
   ['--color-picker-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
   [
@@ -508,7 +521,7 @@ export function DisabledColorPickerExample() {
 }
 
 export function FormUsageColorPickerExample() {
-  const [submitted, setSubmitted] = useState('');
+  const [submitted, setSubmitted] = useState('Nothing submitted');
 
   return (
     <form
@@ -525,10 +538,10 @@ export function FormUsageColorPickerExample() {
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
       </ColorPicker.Root>
-      <button className={styles.submitButton} type="submit">
+      <Button className={styles.submitButton} type="submit">
         Submit
-      </button>
-      {submitted ? <output>Submitted: {submitted}</output> : null}
+      </Button>
+      <output>Submitted: {submitted}</output>
     </form>
   );
 }

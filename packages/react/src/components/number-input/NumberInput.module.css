@@ -41,16 +41,16 @@
   .incrementTrigger {
     --_number-input-focus-ring-width: var(
       --number-input-focus-ring-width,
-      var(--number-input-border-width, var(--border-width-sm))
+      var(--number-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
     );
 
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--number-input-control-height, var(--size-lg));
-    min-width: var(--number-input-control-height, var(--size-lg));
-    height: var(--number-input-control-height, var(--size-lg));
+    width: var(--number-input-control-height, var(--size-md));
+    min-width: var(--number-input-control-height, var(--size-md));
+    height: var(--number-input-control-height, var(--size-md));
     margin: 0;
     border: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
@@ -97,43 +97,42 @@
     }
 
     & > svg {
-      width: var(--number-input-icon-size, 0.875rem);
-      height: var(--number-input-icon-size, 0.875rem);
+      width: var(--number-input-icon-size, var(--spacing-3-5));
+      height: var(--number-input-icon-size, var(--spacing-3-5));
       flex-shrink: 0;
     }
   }
 
   .decrementTrigger {
-    border-radius: var(--number-input-radius, var(--radius-md)) 0 0
-      var(--number-input-radius, var(--radius-md));
-    border-right: 0;
+    border-start-start-radius: var(--number-input-radius, var(--radius-md));
+    border-end-start-radius: var(--number-input-radius, var(--radius-md));
+    border-inline-end: 0;
   }
 
   .incrementTrigger {
-    border-radius: 0 var(--number-input-radius, var(--radius-md))
-      var(--number-input-radius, var(--radius-md)) 0;
-    border-left: 0;
+    border-start-end-radius: var(--number-input-radius, var(--radius-md));
+    border-end-end-radius: var(--number-input-radius, var(--radius-md));
+    border-inline-start: 0;
   }
 
   .input {
     --_number-input-focus-ring-width: var(
       --number-input-focus-ring-width,
-      var(--number-input-border-width, var(--border-width-sm))
+      var(--number-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
     );
 
     box-sizing: border-box;
     width: var(--number-input-input-width, 6rem);
-    height: var(--number-input-control-height, var(--size-lg));
+    height: var(--number-input-control-height, var(--size-md));
     margin: 0;
     border-top: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
     border-bottom: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
-    border-left: 0;
-    border-right: 0;
+    border-inline: 0;
     border-radius: 0;
-    padding: var(--number-input-input-padding-y, 0.5rem)
-      var(--number-input-input-padding-x, 0.75rem);
+    padding: var(--number-input-input-padding-y, var(--spacing-1))
+      var(--number-input-input-padding-x, var(--spacing-3));
     background-color: var(--number-input-input-bg, var(--color-background));
     color: var(--number-input-input-color, var(--color-foreground));
     font: inherit;

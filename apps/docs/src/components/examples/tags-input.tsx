@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
+import { Button, Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
 import { useId, useState, type ComponentProps, type FormEvent } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -45,9 +45,9 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--color-foreground)',
     'Controls clear trigger hover color.',
   ],
-  ['--tags-input-clear-trigger-icon-size', '0.75rem', 'Controls clear trigger icon size.'],
+  ['--tags-input-clear-trigger-icon-size', 'var(--spacing-3)', 'Controls clear trigger icon size.'],
   ['--tags-input-clear-trigger-radius', 'var(--radius-sm)', 'Controls clear trigger radius.'],
-  ['--tags-input-clear-trigger-size', '1.5rem', 'Controls clear trigger size.'],
+  ['--tags-input-clear-trigger-size', 'var(--size-xs)', 'Controls clear trigger size.'],
   ['--tags-input-color', 'var(--input-color, var(--color-foreground))', 'Controls text color.'],
   ['--tags-input-control-gap', 'var(--spacing-1)', 'Controls spacing inside the control.'],
   ['--tags-input-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
@@ -58,12 +58,12 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   [
     '--tags-input-focus-ring-offset',
-    'var(--input-focus-ring-offset)',
+    'var(--input-focus-ring-offset, calc(0px - var(--tags-input-border-width, var(--input-border-width, var(--border-width-sm)))))',
     'Controls focus ring offset.',
   ],
   [
     '--tags-input-focus-ring-width',
-    'var(--input-focus-ring-width, var(--border-width-sm))',
+    'var(--input-focus-ring-width, var(--tags-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))))',
     'Controls focus ring width.',
   ],
   ['--tags-input-gap', 'var(--field-gap, var(--spacing-1))', 'Controls root vertical gap.'],
@@ -72,14 +72,14 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--input-font-size, var(--text-sm))',
     'Controls entry input font size.',
   ],
-  ['--tags-input-input-height', '1.5rem', 'Controls entry input height.'],
+  ['--tags-input-input-height', 'var(--size-xs)', 'Controls entry input height.'],
   [
     '--tags-input-input-line-height',
     'var(--input-line-height, var(--line-height-text-sm))',
     'Controls entry input line height.',
   ],
   ['--tags-input-input-min-width', '7rem', 'Controls entry input minimum width.'],
-  ['--tags-input-input-padding-x', '0.25rem', 'Controls entry input horizontal padding.'],
+  ['--tags-input-input-padding-x', 'var(--spacing-1)', 'Controls entry input horizontal padding.'],
   [
     '--tags-input-invalid-border-color',
     'var(--input-border-color-invalid, var(--color-destructive))',
@@ -97,7 +97,7 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ['--tags-input-item-font-size', 'var(--text-xs)', 'Controls tag font size.'],
   ['--tags-input-item-font-weight', 'var(--weight-medium)', 'Controls tag font weight.'],
   ['--tags-input-item-gap', 'var(--spacing-1)', 'Controls spacing inside each tag.'],
-  ['--tags-input-item-height', '1.5rem', 'Controls tag minimum height.'],
+  ['--tags-input-item-height', 'var(--size-xs)', 'Controls tag minimum height.'],
   [
     '--tags-input-item-highlight-ring-color',
     'var(--color-ring)',
@@ -110,8 +110,8 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ],
   ['--tags-input-item-input-width', '7rem', 'Controls edit input width.'],
   ['--tags-input-item-line-height', 'var(--line-height-text-xs)', 'Controls tag line height.'],
-  ['--tags-input-item-padding-x', '0.5rem', 'Controls tag horizontal padding.'],
-  ['--tags-input-item-padding-y', '0.125rem', 'Controls tag vertical padding.'],
+  ['--tags-input-item-padding-x', 'var(--spacing-2)', 'Controls tag horizontal padding.'],
+  ['--tags-input-item-padding-y', 'var(--spacing-0-5)', 'Controls tag vertical padding.'],
   ['--tags-input-item-radius', 'var(--radius-full)', 'Controls tag corner radius.'],
   [
     '--tags-input-label-color',
@@ -137,10 +137,10 @@ const tagsInputCssProperties: CssPropertyInput[] = [
   ['--tags-input-max-width', '24rem', 'Controls root max width.'],
   [
     '--tags-input-min-height',
-    'var(--input-height, var(--size-lg))',
+    'var(--input-height, var(--size-md))',
     'Controls control minimum height.',
   ],
-  ['--tags-input-padding-x', '0.5rem', 'Controls horizontal control padding.'],
+  ['--tags-input-padding-x', 'var(--spacing-2)', 'Controls horizontal control padding.'],
   ['--tags-input-padding-y', '0.3125rem', 'Controls vertical control padding.'],
   [
     '--tags-input-placeholder-color',
@@ -175,15 +175,19 @@ const tagsInputCssProperties: CssPropertyInput[] = [
     'var(--color-ring)',
     'Controls trigger focus ring color.',
   ],
-  ['--tags-input-trigger-focus-ring-offset', '2px', 'Controls clear trigger focus offset.'],
+  [
+    '--tags-input-trigger-focus-ring-offset',
+    'var(--focus-ring-offset)',
+    'Controls clear trigger focus offset.',
+  ],
   [
     '--tags-input-trigger-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls trigger focus ring width.',
   ],
-  ['--tags-input-trigger-icon-size', '0.625rem', 'Controls trigger icon size.'],
+  ['--tags-input-trigger-icon-size', 'var(--spacing-2-5)', 'Controls trigger icon size.'],
   ['--tags-input-trigger-radius', 'var(--radius-full)', 'Controls item delete trigger radius.'],
-  ['--tags-input-trigger-size', '1rem', 'Controls item delete trigger size.'],
+  ['--tags-input-trigger-size', 'var(--spacing-4)', 'Controls item delete trigger size.'],
   ['--tags-input-width', '100%', 'Controls root width.'],
 ];
 
@@ -425,10 +429,10 @@ export function TagsInputFieldExample() {
 export function TagsInputFormExample() {
   const [submittedValue, setSubmittedValue] = useState('');
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
-  }
+  };
 
   return (
     <form className={styles.stack} onSubmit={handleSubmit}>
@@ -440,7 +444,7 @@ export function TagsInputFormExample() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput>
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
       <output className={styles.hint}>Submitted value: {submittedValue || 'none'}</output>
     </form>
   );

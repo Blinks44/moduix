@@ -109,7 +109,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--collapsible-focus-ring-width',
-    'var(--border-width-sm)',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
     'Controls trigger focus ring width.',
   ],
   ['--collapsible-max-width', '100%', 'Controls root max width.'],
@@ -118,7 +118,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
     'rotate(180deg)',
     'Controls indicator transform while open.',
   ],
-  ['--collapsible-indicator-size', '0.75rem', 'Controls indicator size.'],
+  ['--collapsible-indicator-size', 'var(--spacing-3)', 'Controls indicator size.'],
   [
     '--collapsible-indicator-transition',
     'var(--transition-default)',

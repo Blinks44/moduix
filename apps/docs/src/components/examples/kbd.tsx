@@ -38,7 +38,7 @@ export const kbdOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-muted-foreground)',
     'Controls text separator color inside Kbd.Group.',
   ],
-  ['--kbd-height', '1.5rem', 'Controls key height.'],
+  ['--kbd-height', 'var(--size-xs)', 'Controls key height.'],
   ['--kbd-line-height', 'var(--line-height-text-xs)', 'Controls key line-height.'],
   ['--kbd-min-width', 'var(--kbd-height, 1.5rem)', 'Controls minimum key width.'],
   ['--kbd-padding-x', 'var(--spacing-2)', 'Controls horizontal key padding.'],

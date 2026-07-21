@@ -109,6 +109,7 @@ const categories = [
       'tag',
       'text',
       'timer',
+      'typeset',
     ],
   },
   {

@@ -148,6 +148,7 @@ this file, `theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
   `ProgressCircular` namespace so normal provider/state composition stays on moduix without a
   duplicate named hook export.

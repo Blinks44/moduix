@@ -6,7 +6,7 @@ import styles from './slider.module.css';
 
 export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-color', 'var(--color-foreground)', 'Controls the default slider text color.'],
-  ['--slider-control-size', '1.25rem', 'Controls the control hit area thickness.'],
+  ['--slider-control-size', 'var(--spacing-5)', 'Controls the control hit area thickness.'],
   ['--slider-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled slider opacity.'],
   [
     '--slider-dragging-indicator-bg',
@@ -35,7 +35,7 @@ export const sliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls dragging indicator corner radius.',
   ],
   ['--slider-focus-ring-color', 'var(--color-ring)', 'Controls thumb focus ring color.'],
-  ['--slider-gap', '0.5rem', 'Controls spacing between slider slots.'],
+  ['--slider-gap', 'var(--spacing-2)', 'Controls spacing between slider slots.'],
   ['--slider-height', '12rem', 'Controls vertical slider height.'],
   ['--slider-label-color', 'var(--slider-color)', 'Controls label text color.'],
   ['--slider-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
@@ -44,7 +44,7 @@ export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-marker-color', 'var(--color-muted-foreground)', 'Controls marker text color.'],
   ['--slider-marker-dot-bg', 'var(--color-border)', 'Controls inactive marker dot color.'],
   ['--slider-marker-dot-bg-active', 'var(--slider-range-bg)', 'Controls active marker dot color.'],
-  ['--slider-marker-dot-size', '0.25rem', 'Controls marker dot size.'],
+  ['--slider-marker-dot-size', 'var(--spacing-1)', 'Controls marker dot size.'],
   ['--slider-marker-font-size', 'var(--text-xs)', 'Controls marker font size.'],
   [
     '--slider-marker-group-margin-inline-start',
@@ -61,12 +61,12 @@ export const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--slider-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
   ['--slider-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
   ['--slider-thumb-shadow-dragging', 'var(--shadow-md)', 'Controls thumb shadow while dragging.'],
-  ['--slider-thumb-size', '1rem', 'Controls thumb width and height.'],
+  ['--slider-thumb-size', 'var(--spacing-4)', 'Controls thumb width and height.'],
   ['--slider-track-bg', 'var(--color-muted)', 'Controls track background color.'],
   ['--slider-track-border-color', 'var(--color-border)', 'Controls track border color.'],
   ['--slider-track-border-width', 'var(--border-width-sm)', 'Controls track border width.'],
   ['--slider-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
-  ['--slider-track-size', '0.375rem', 'Controls track thickness.'],
+  ['--slider-track-size', 'var(--spacing-1-5)', 'Controls track thickness.'],
   ['--slider-transition', 'var(--transition-default)', 'Controls thumb transition timing.'],
   ['--slider-value-text-color', 'var(--slider-color)', 'Controls value text color.'],
   ['--slider-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
@@ -87,10 +87,10 @@ export const sliderPlaygroundCssProperties: CssPropertyInput[] = [
   ['--slider-track-bg', 'var(--color-muted)', 'Controls track background color.'],
   ['--slider-track-border-color', 'var(--color-border)', 'Controls track border color.'],
   ['--slider-track-radius', 'var(--radius-full)', 'Controls track corner radius.'],
-  ['--slider-track-size', '0.375rem', 'Controls track thickness.'],
+  ['--slider-track-size', 'var(--spacing-1-5)', 'Controls track thickness.'],
   ['--slider-thumb-bg', 'var(--color-background)', 'Controls thumb background color.'],
   ['--slider-thumb-border-color', 'var(--color-border)', 'Controls thumb border color.'],
-  ['--slider-thumb-size', '1rem', 'Controls thumb width and height.'],
+  ['--slider-thumb-size', 'var(--spacing-4)', 'Controls thumb width and height.'],
 ];
 
 export const sliderMarks = [0, 25, 50, 75, 100];

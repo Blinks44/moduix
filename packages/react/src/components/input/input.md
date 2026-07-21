@@ -91,12 +91,14 @@ edit, submit, and cancel controls.
 
 ## Defaults and styling
 
+The default `md` input uses `--size-md` with `--spacing-1` block padding; explicit size variants and `--input-*` overrides remain available.
+
 - `size` defaults to `md`; native character width uses `htmlSize`.
 - `className` is merged with the moduix CSS module class.
 - Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
   native state selectors, and the public `--input-*` variables in `theme.css`.
 - Visual size defaults use the shared control scale: `xs` uses `--size-xs`, `sm` uses `--size-sm`,
-  `md` uses `--size-lg`, `lg` uses `--size-xl`, and `xl` uses `3.5rem`.
+  `md` uses `--size-md`, `lg` uses `--size-xl`, and `xl` uses an overrideable `3.5rem` fallback.
 - The component exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream
@@ -117,6 +119,9 @@ edit, submit, and cancel controls.
 - Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
 
 ## Local changelog
+
+- 2026-07-21: Normalized the complete input scale to `24/32/36/40/48px` tokens and compacted block
+  padding so typography no longer expands a selected size.
 
 - 2026-06-25: Added `Input.Root`, normalized `className`, simplified size token defaults, and
   refreshed docs examples for accessible standalone inputs.

@@ -151,6 +151,8 @@ export function AsChildToggleDemo() {
 
 ## Defaults and styling
 
+The default and `icon-md` toggle variants use `--size-md`; the default text toggle uses `--spacing-1` block padding.
+
 `Toggle` keeps moduix visual identity through CSS Modules and public `--toggle-*` variables. Style
 the component through `className`, `data-slot`, Ark data attributes, and CSS variables.
 
@@ -190,6 +192,10 @@ root at a non-shrinking square size.
 - `ToggleGroup` is a separate component family; do not make standalone `Toggle` depend on group context.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized the toggle scale to `24/32/36/40px` tokens, including icon-only sizes,
+  and compacted block padding so typography no longer expands a selected size.
 
 - 2026-06-29: Simplified variant/state CSS to target Ark `data-state` and `data-disabled`
   directly, kept pressed colors stable on hover, made icon-only sizes non-shrinking, and aligned

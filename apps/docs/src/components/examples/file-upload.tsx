@@ -1,4 +1,4 @@
-import { Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
+import { Button, Field, FileUpload, Textarea, useFileUpload } from '@moduix/react';
 import { useState, type ComponentProps } from 'react';
 import type { CssPropertyInput } from '../mdx/preview';
 import { CSSPropertiesReferenceTable } from '../mdx/preview';
@@ -25,7 +25,7 @@ export const fileUploadExampleCss = `
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-2);
-    --file-upload-action-size: var(--file-upload-trigger-height, var(--button-size-md, var(--size-lg)));
+    --file-upload-action-size: var(--file-upload-trigger-height, var(--button-size-md, var(--size-md)));
   }
 
   .file-upload-dropzone-content {
@@ -158,9 +158,9 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-foreground)',
     'Controls delete and clear button hover color.',
   ],
-  ['--file-upload-action-icon-size', '1rem', 'Controls delete and clear icon size.'],
+  ['--file-upload-action-icon-size', 'var(--spacing-4)', 'Controls delete and clear icon size.'],
   ['--file-upload-action-radius', 'var(--radius-sm)', 'Controls delete and clear button radius.'],
-  ['--file-upload-action-size', '2rem', 'Controls delete and clear button size.'],
+  ['--file-upload-action-size', 'var(--size-sm)', 'Controls delete and clear button size.'],
   [
     '--file-upload-clear-trigger-color',
     'var(--color-muted-foreground)',
@@ -219,10 +219,10 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls dropzone icon border width.',
   ],
-  ['--file-upload-dropzone-icon-box-size', '2.5rem', 'Controls dropzone icon box size.'],
+  ['--file-upload-dropzone-icon-box-size', 'var(--spacing-10)', 'Controls dropzone icon box size.'],
   ['--file-upload-dropzone-icon-color', 'var(--color-foreground)', 'Controls dropzone icon color.'],
   ['--file-upload-dropzone-icon-radius', 'var(--radius-full)', 'Controls dropzone icon radius.'],
-  ['--file-upload-dropzone-icon-size', '1rem', 'Controls dropzone icon size.'],
+  ['--file-upload-dropzone-icon-size', 'var(--spacing-4)', 'Controls dropzone icon size.'],
   ['--file-upload-dropzone-min-height', '8rem', 'Controls dropzone minimum height.'],
   ['--file-upload-dropzone-padding', 'var(--spacing-5)', 'Controls dropzone padding.'],
   ['--file-upload-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
@@ -231,7 +231,11 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'var(--border-width-sm)',
     'Controls action focus ring offset.',
   ],
-  ['--file-upload-focus-ring-width', 'var(--border-width-md)', 'Controls focus ring width.'],
+  [
+    '--file-upload-focus-ring-width',
+    'var(--focus-ring-width, var(--border-width-md))',
+    'Controls focus ring width.',
+  ],
   ['--file-upload-gap', 'var(--spacing-3)', 'Controls spacing between root children.'],
   [
     '--file-upload-invalid-color',
@@ -244,7 +248,8 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ['--file-upload-item-color', 'var(--color-foreground)', 'Controls item text color.'],
   ['--file-upload-item-gap', 'var(--spacing-3)', 'Controls item column gap.'],
   ['--file-upload-item-group-gap', 'var(--spacing-2)', 'Controls item group gap.'],
-  ['--file-upload-item-min-height', '2.5rem', 'Controls compact item minimum height.'],
+  ['--file-upload-image-item-max-width', '10rem', 'Controls compact image card width.'],
+  ['--file-upload-item-min-height', 'var(--size-md)', 'Controls compact item minimum height.'],
   ['--file-upload-item-name-color', 'currentColor', 'Controls file name color.'],
   ['--file-upload-item-name-font-size', 'var(--text-sm)', 'Controls file name font size.'],
   [
@@ -265,7 +270,16 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-muted-foreground)',
     'Controls preview icon color.',
   ],
-  ['--file-upload-item-preview-min-height', '3rem', 'Controls preview item minimum height.'],
+  [
+    '--file-upload-item-preview-icon-size',
+    'var(--spacing-4)',
+    'Controls fallback preview icon size.',
+  ],
+  [
+    '--file-upload-item-preview-min-height',
+    'var(--size-xl)',
+    'Controls preview item minimum height.',
+  ],
   [
     '--file-upload-item-preview-padding-y',
     'var(--spacing-2)',
@@ -339,7 +353,7 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--file-upload-trigger-height',
-    'var(--button-size-md, var(--size-lg))',
+    'var(--button-size-md, var(--size-md))',
     'Controls trigger height.',
   ],
   [
@@ -349,7 +363,7 @@ export const fileUploadOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--file-upload-trigger-padding-x',
-    'var(--button-padding-x-md, 1rem)',
+    'var(--button-padding-x-md, var(--spacing-4))',
     'Controls trigger horizontal padding.',
   ],
   [
@@ -625,8 +639,18 @@ export function FileUploadWithFieldExample() {
 }
 
 export function FileUploadFormExample() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
   return (
-    <form className={styles.stack} onSubmit={(event) => event.preventDefault()}>
+    <form
+      className={styles.stack}
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSubmitted(
+          `${new FormData(event.currentTarget).getAll('project-assets').length} file(s) submitted`,
+        );
+      }}
+    >
       <FileUpload.Root
         className={`${styles.demo} ${styles.simpleDemo}`}
         name="project-assets"
@@ -638,9 +662,10 @@ export function FileUploadFormExample() {
           <FileUpload.Items />
         </FileUpload.ItemGroup>
       </FileUpload.Root>
-      <button className={styles.submit} type="submit">
+      <Button className={styles.submit} type="submit">
         Submit
-      </button>
+      </Button>
+      <output className={styles.state}>{submitted}</output>
     </form>
   );
 }

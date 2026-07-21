@@ -2,9 +2,9 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { ArrowRight, Component, Sparkles } from 'lucide-react';
+import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { HomeDataTable } from '@/components/home/data-table';
+import { DataTable } from '@/components/home/data-table';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { baseOptions } from '@/lib/layout.shared';
 import { getCanonicalUrl } from '@/lib/seo';
@@ -31,15 +31,32 @@ function Home() {
         <div className={styles.spotlight} />
         <section className={styles.hero} aria-labelledby="home-title">
           <div className={styles.content}>
-            <div className={styles.badge}>
-              <Sparkles size={14} aria-hidden="true" />
-              Ark UI powered components
+            <div className={styles.badges} aria-label="Design foundations">
+              <a
+                className={styles.badge}
+                href="https://ark-ui.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Sparkles size={14} aria-hidden="true" />
+                Built on Ark UI
+              </a>
+              <a
+                className={styles.badge}
+                href="https://ui.shadcn.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Layers3 size={14} aria-hidden="true" />
+                shadcn-inspired
+              </a>
             </div>
             <h1 id="home-title" className={styles.title}>
               moduix
             </h1>
             <p className={styles.lead}>
-              A precise component system for teams shipping calm, consistent product interfaces.
+              Accessible React components with calm defaults, explicit composition, and a
+              token-first CSS foundation you can theme or own.
             </p>
             <FrameworkSupport />
             <div className={styles.actions}>
@@ -50,7 +67,7 @@ function Home() {
                 }}
                 className={styles.primary}
               >
-                Open documentation
+                Get started
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link to="/docs/components" className={styles.secondary}>
@@ -99,7 +116,7 @@ function Home() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <HomeDataTable />
+          <DataTable />
         </section>
       </div>
     </HomeLayout>

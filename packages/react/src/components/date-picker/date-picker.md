@@ -183,6 +183,8 @@ include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-fo
 
 ## Defaults and styling
 
+The text input defaults to `--size-md` with `--spacing-1` block padding. Calendar navigation, day cells, selects, view triggers, and preset triggers use `--size-sm`.
+
 Content motion falls back to the shared `--popup-motion-*` tokens. `--date-picker-transition` and
 closed-state variables remain the more specific override.
 
@@ -203,6 +205,8 @@ are selected.
 
 `DatePicker.ClearTrigger` maps date-picker action tokens to `CloseButton.Root`; use `asChild` with
 one semantic child when the clear control needs a custom host or visual treatment.
+
+The calendar and clear actions use logical inline-end positioning, so they follow RTL text flow.
 
 ## Intentional sugar and differences from upstream
 
@@ -236,6 +240,11 @@ one semantic child when the clear control needs a custom host or visual treatmen
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Reduced the input to `--size-md` and aligned calendar popup controls to `--size-sm`.
+
+- 2026-07-20: Removed hover surfaces from date inputs and native month/year selects; icon actions retain their local hover treatment.
+- 2026-07-19: Positioned calendar and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped date-picker
   action tokens to the shared close-button visual contract.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

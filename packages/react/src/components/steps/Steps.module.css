@@ -88,9 +88,9 @@
     }
 
     &:focus-visible .indicator {
-      outline: var(--steps-focus-ring-width, var(--border-width-sm)) solid
-        var(--steps-focus-ring-color, var(--color-ring));
-      outline-offset: var(--steps-focus-ring-offset, 2px);
+      outline: var(--steps-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--steps-focus-ring-color, var(--color-ring));
+      outline-offset: var(--steps-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &[data-incomplete] {
@@ -114,8 +114,8 @@
   .indicator {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--steps-indicator-size, 2rem);
-    height: var(--steps-indicator-size, 2rem);
+    width: var(--steps-indicator-size, var(--spacing-8));
+    height: var(--steps-indicator-size, var(--spacing-8));
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
@@ -134,8 +134,8 @@
       opacity var(--transition-default);
 
     :where(svg) {
-      width: var(--steps-indicator-icon-size, 0.875rem);
-      height: var(--steps-indicator-icon-size, 0.875rem);
+      width: var(--steps-indicator-icon-size, var(--spacing-3-5));
+      height: var(--steps-indicator-icon-size, var(--spacing-3-5));
     }
 
     &[data-current] {
@@ -161,7 +161,7 @@
     flex: 1 1 auto;
     height: var(--steps-separator-thickness, var(--border-width-sm));
     min-width: var(--steps-separator-min-width, var(--spacing-8));
-    margin-inline: var(--steps-separator-inset, 0.5rem);
+    margin-inline: var(--steps-separator-inset, var(--spacing-2));
     background-color: var(--steps-separator-color, var(--color-border));
     pointer-events: none;
 
@@ -171,9 +171,12 @@
 
     &[data-orientation='vertical'] {
       position: absolute;
-      top: calc(var(--steps-indicator-size, 2rem) + var(--steps-separator-inset, 0.5rem));
+      top: calc(
+        var(--steps-indicator-size, var(--spacing-8)) +
+          var(--steps-separator-inset, var(--spacing-2))
+      );
       bottom: calc(var(--steps-gap, var(--spacing-4)) * -1);
-      left: calc(var(--steps-indicator-size, 2rem) / 2);
+      left: calc(var(--steps-indicator-size, var(--spacing-8)) / 2);
       width: var(--steps-separator-thickness, var(--border-width-sm));
       min-width: 0;
       height: auto;
@@ -207,9 +210,9 @@
     }
 
     &:focus-visible {
-      outline: var(--steps-focus-ring-width, var(--border-width-sm)) solid
-        var(--steps-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--steps-focus-ring-offset, 2px) * -1);
+      outline: var(--steps-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--steps-focus-ring-color, var(--color-ring));
+      outline-offset: calc(var(--steps-focus-ring-offset, var(--focus-ring-offset)) * -1);
     }
   }
 
@@ -223,15 +226,15 @@
   .nextTrigger {
     box-sizing: border-box;
     display: inline-flex;
-    min-height: var(--steps-action-height, 2rem);
+    min-height: var(--steps-action-height, var(--size-sm));
     align-items: center;
     justify-content: center;
     gap: var(--steps-action-gap, var(--spacing-2));
     border: var(--steps-action-border-width, var(--border-width-sm)) solid
       var(--steps-action-border-color, var(--color-border));
     border-radius: var(--steps-action-radius, var(--radius-md));
-    padding-block: var(--steps-action-padding-y, 0.375rem);
-    padding-inline: var(--steps-action-padding-x, 0.75rem);
+    padding-block: var(--steps-action-padding-y, var(--spacing-1-5));
+    padding-inline: var(--steps-action-padding-x, var(--spacing-3));
     background-color: var(--steps-action-bg, var(--color-background));
     color: var(--steps-action-color, var(--color-foreground));
     font: inherit;
@@ -253,9 +256,9 @@
     }
 
     &:focus-visible {
-      outline: var(--steps-focus-ring-width, var(--border-width-sm)) solid
-        var(--steps-focus-ring-color, var(--color-ring));
-      outline-offset: var(--steps-focus-ring-offset, 2px);
+      outline: var(--steps-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--steps-focus-ring-color, var(--color-ring));
+      outline-offset: var(--steps-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &:is(:disabled, [data-disabled]) {

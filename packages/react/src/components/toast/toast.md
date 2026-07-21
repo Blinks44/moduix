@@ -137,32 +137,32 @@ export function ToastExample() {
 
 Primary CSS variables:
 
-| Variable                         | Default                           |
-| -------------------------------- | --------------------------------- |
-| `--toast-width`                  | `20rem`                           |
-| `--toast-viewport-inset`         | `1rem`                            |
-| `--toast-bg`                     | `var(--color-popover)`            |
-| `--toast-color`                  | `var(--color-popover-foreground)` |
-| `--toast-border-color`           | `var(--color-border)`             |
-| `--toast-border-width`           | `var(--border-width-sm)`          |
-| `--toast-radius`                 | `var(--radius-lg)`                |
-| `--toast-shadow`                 | `var(--shadow-lg)`                |
-| `--toast-padding`                | `1rem`                            |
-| `--toast-content-gap`            | `0.25rem`                         |
-| `--toast-title-font-size`        | `var(--text-sm)`                  |
-| `--toast-title-font-weight`      | `var(--weight-semibold)`          |
-| `--toast-description-color`      | `var(--color-muted-foreground)`   |
-| `--toast-action-bg-hover`        | `var(--color-accent)`             |
-| `--toast-action-gap`             | `var(--spacing-2)`                |
-| `--toast-action-min-height`      | `var(--size-xs)`                  |
-| `--toast-close-bg-hover`         | `var(--color-muted)`              |
-| `--toast-close-focus-ring-width` | `var(--border-width-md)`          |
-| `--toast-close-size`             | `28px`                            |
-| `--toast-close-icon-size`        | `12px`                            |
-| `--toast-transition`             | `400ms`                           |
-| `--toast-transition-out`         | `400ms`                           |
-| `--toast-opacity-transition-out` | `200ms`                           |
-| `--toast-z-index`                | `var(--z-toast)`                  |
+| Variable                         | Default                                           |
+| -------------------------------- | ------------------------------------------------- |
+| `--toast-width`                  | `20rem`                                           |
+| `--toast-viewport-inset`         | `var(--spacing-4)`                                |
+| `--toast-bg`                     | `var(--color-popover)`                            |
+| `--toast-color`                  | `var(--color-popover-foreground)`                 |
+| `--toast-border-color`           | `var(--color-border)`                             |
+| `--toast-border-width`           | `var(--border-width-sm)`                          |
+| `--toast-radius`                 | `var(--radius-lg)`                                |
+| `--toast-shadow`                 | `var(--shadow-lg)`                                |
+| `--toast-padding`                | `var(--spacing-4)`                                |
+| `--toast-content-gap`            | `var(--spacing-1)`                                |
+| `--toast-title-font-size`        | `var(--text-sm)`                                  |
+| `--toast-title-font-weight`      | `var(--weight-semibold)`                          |
+| `--toast-description-color`      | `var(--color-muted-foreground)`                   |
+| `--toast-action-bg-hover`        | `var(--color-accent)`                             |
+| `--toast-action-gap`             | `var(--spacing-2)`                                |
+| `--toast-action-min-height`      | `var(--size-xs)`                                  |
+| `--toast-close-bg-hover`         | `var(--color-muted)`                              |
+| `--toast-close-focus-ring-width` | `var(--focus-ring-width, var(--border-width-md))` |
+| `--toast-close-size`             | `var(--spacing-7)`                                |
+| `--toast-close-icon-size`        | `var(--spacing-3)`                                |
+| `--toast-transition`             | `400ms`                                           |
+| `--toast-transition-out`         | `400ms`                                           |
+| `--toast-opacity-transition-out` | `200ms`                                           |
+| `--toast-z-index`                | `var(--z-toast)`                                  |
 
 The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
 `data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
@@ -198,6 +198,7 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Removed public re-exports of Ark toast context helpers and type aliases so moduix
   keeps the toaster wiring and visual parts public without mirroring Ark's advanced state API.
 - 2026-07-12: Added the default `Toaster` renderer for the standard title, description, action,

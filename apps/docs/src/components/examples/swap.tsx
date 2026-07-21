@@ -17,8 +17,8 @@ export const swapExpandableButtonCss = `
     --compact-content-gap: 0;
     --compact-label-width: 0;
 
-    width: var(--button-size-icon-md, var(--size-lg));
-    min-width: var(--button-size-icon-md, var(--size-lg));
+    width: var(--button-size-icon-md, var(--size-md));
+    min-width: var(--button-size-icon-md, var(--size-md));
     overflow: hidden;
     transition:
       width var(--transition-default),

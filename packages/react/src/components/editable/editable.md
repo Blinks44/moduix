@@ -146,6 +146,8 @@ Ark also exposes `data-scope="editable"` and `data-part` attributes for part-lev
 
 ## Defaults and styling
 
+The editable area and its square edit trigger share the `--size-md` baseline; the area uses `--spacing-1` block padding.
+
 All exported parts accept `className`; Ark parts also support `asChild`. Trigger parts render the
 moduix pencil, check, or close icon when `children` is omitted.
 
@@ -186,6 +188,9 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
 `packages/react/src/components/editable`.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Aligned the editable area and its square trigger to `--size-md` and compacted area padding.
 
 - 2026-07-10: Added `Editable.Controls` for the standard trigger flow and re-exported context
   surfaces through moduix for advanced compositions.

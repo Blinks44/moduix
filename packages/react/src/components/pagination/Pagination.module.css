@@ -13,8 +13,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--pagination-item-size, var(--size-lg));
-    height: var(--pagination-item-size, var(--size-lg));
+    min-width: var(--pagination-item-size, var(--size-md));
+    height: var(--pagination-item-size, var(--size-md));
     border-radius: var(--pagination-item-radius, var(--radius-md));
     font-size: var(--pagination-font-size, var(--text-sm));
     font-weight: var(--pagination-font-weight, var(--weight-medium));
@@ -28,7 +28,7 @@
     gap: var(--pagination-trigger-gap, var(--spacing-2));
     border: var(--pagination-item-border-width, var(--border-width-sm)) solid
       var(--pagination-item-border-color, var(--color-border));
-    padding-inline: var(--pagination-item-padding-inline, 0.75rem);
+    padding-inline: var(--pagination-item-padding-inline, var(--spacing-3));
     background-color: var(--pagination-item-bg, var(--color-background));
     color: var(--pagination-item-color, var(--color-foreground));
     font-family: inherit;
@@ -49,9 +49,9 @@
 
     &:focus-visible,
     &[data-focus] {
-      outline: var(--pagination-focus-ring-width, var(--border-width-md)) solid
-        var(--pagination-focus-ring-color, var(--color-ring));
-      outline-offset: var(--pagination-focus-ring-offset, -1px);
+      outline: var(--pagination-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--pagination-focus-ring-color, var(--color-ring));
+      outline-offset: var(--pagination-focus-ring-offset, var(--focus-ring-inset-offset));
     }
 
     &:is([data-disabled], :disabled) {
@@ -61,8 +61,8 @@
 
     & svg {
       flex-shrink: 0;
-      width: var(--pagination-icon-size, 1rem);
-      height: var(--pagination-icon-size, 1rem);
+      width: var(--pagination-icon-size, var(--spacing-4));
+      height: var(--pagination-icon-size, var(--spacing-4));
     }
   }
 
@@ -79,11 +79,11 @@
   }
 
   .trigger {
-    padding-inline: max(var(--pagination-item-padding-inline, 0.75rem), var(--spacing-3));
+    padding-inline: max(var(--pagination-item-padding-inline, var(--spacing-3)), var(--spacing-3));
   }
 
   .iconTrigger {
-    width: var(--pagination-item-size, var(--size-lg));
+    width: var(--pagination-item-size, var(--size-md));
     padding-inline: 0;
   }
 
@@ -98,7 +98,7 @@
     justify-content: center;
 
     & svg + svg {
-      margin-inline-start: calc(var(--pagination-icon-size, 1rem) * -0.5);
+      margin-inline-start: calc(var(--pagination-icon-size, var(--spacing-4)) * -0.5);
     }
   }
 }

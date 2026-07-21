@@ -136,6 +136,7 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-11: Added `Option` for the common labelled-item path, re-exported `useRadioGroup` for

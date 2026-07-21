@@ -62,8 +62,8 @@
   }
 
   .closeIcon {
-    inline-size: var(--toast-close-icon-size, 12px);
-    block-size: var(--toast-close-icon-size, 12px);
+    inline-size: var(--toast-close-icon-size, var(--spacing-3));
+    block-size: var(--toast-close-icon-size, var(--spacing-3));
     flex: none;
   }
 }

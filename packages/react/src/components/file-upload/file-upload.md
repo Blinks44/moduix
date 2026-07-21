@@ -126,18 +126,24 @@ export function FileUploadDemo() {
 
 ## Defaults and styling
 
+The upload trigger and standard file rows follow the shared `--size-md` baseline; preview rows can
+grow with their content.
+
 - `className` is supported on every visual part. `Items` intentionally has no configuration surface: image files are
   compact vertical cards with a thumbnail, name, and metadata; other files are horizontal rows with an icon, name,
   type, and localized size. Custom rows use the explicit context composition.
 - `DropzoneIcon` defaults to the moduix `UploadIcon` when children are omitted.
 - `ItemPreview` defaults to `var(--spacing-10)` (2.5rem) square for a file row; item names clamp to one line so
   long names do not increase row height.
+- `--file-upload-item-preview-icon-size` controls fallback preview glyphs, while
+  `--file-upload-image-item-max-width` caps compact image cards without hard-wiring consumer layout.
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
 - `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` when
   children are omitted; text children retain the expanded action layout.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
 - Public component tokens live under `--file-upload-*` in `packages/react/src/lib/moduix/styles/theme.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
+- The item metadata separator uses logical inline spacing, so its rhythm follows RTL text flow.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.
 - No Ark runtime CSS variables are required by this primitive.
 
@@ -168,6 +174,10 @@ export function FileUploadDemo() {
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Aligned the default upload trigger with the Button `md` baseline.
+
+- 2026-07-19: Switched item-metadata separator spacing to a logical inline property for RTL.
 - 2026-07-19: Increased the default file-row preview box to `var(--spacing-10)` (2.5rem) and clamped item names to
   one line.
 

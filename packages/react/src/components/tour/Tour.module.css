@@ -62,7 +62,7 @@
 
   .content {
     --arrow-background: var(--tour-arrow-background, var(--tour-bg, var(--color-popover)));
-    --arrow-size: var(--tour-arrow-size, 0.625rem);
+    --arrow-size: var(--tour-arrow-size, var(--spacing-2-5));
 
     box-sizing: border-box;
     position: relative;
@@ -124,7 +124,7 @@
 
   .arrow {
     --arrow-background: var(--tour-arrow-background, var(--tour-bg, var(--color-popover)));
-    --arrow-size: var(--tour-arrow-size, 0.625rem);
+    --arrow-size: var(--tour-arrow-size, var(--spacing-2-5));
   }
 
   .arrowTip {
@@ -164,8 +164,8 @@
     inset-block-start: var(--tour-close-trigger-offset, var(--spacing-4));
     inset-inline-end: var(--tour-close-trigger-offset, var(--spacing-4));
     display: inline-flex;
-    width: var(--tour-close-trigger-size, 1.75rem);
-    height: var(--tour-close-trigger-size, 1.75rem);
+    width: var(--tour-close-trigger-size, var(--spacing-7));
+    height: var(--tour-close-trigger-size, var(--spacing-7));
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -178,8 +178,8 @@
     cursor: pointer;
 
     :where(svg) {
-      width: var(--tour-close-trigger-icon-size, 0.75rem);
-      height: var(--tour-close-trigger-icon-size, 0.75rem);
+      width: var(--tour-close-trigger-icon-size, var(--spacing-3));
+      height: var(--tour-close-trigger-icon-size, var(--spacing-3));
     }
 
     @media (hover: hover) {
@@ -193,16 +193,18 @@
     }
 
     &:focus-visible {
-      outline: var(--tour-focus-ring-width, var(--border-width-sm)) solid
-        var(--tour-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--tour-focus-ring-width, var(--border-width-sm)) * -1);
+      outline: var(--tour-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--tour-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--tour-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      );
     }
   }
 
   .closeIcon {
-    --close-button-size: var(--tour-close-trigger-size, 1.75rem);
+    --close-button-size: var(--tour-close-trigger-size, var(--spacing-7));
     --close-button-radius: var(--tour-close-trigger-radius, var(--radius-md));
-    --close-button-icon-size: var(--tour-close-trigger-icon-size, 0.75rem);
+    --close-button-icon-size: var(--tour-close-trigger-icon-size, var(--spacing-3));
     --close-button-bg: var(--tour-close-trigger-bg, transparent);
     --close-button-bg-hover: var(--tour-close-trigger-bg-hover, var(--color-accent));
     --close-button-color: var(--tour-close-trigger-color, var(--color-muted-foreground));
@@ -228,12 +230,12 @@
   .actionTrigger {
     box-sizing: border-box;
     display: inline-flex;
-    min-height: var(--tour-action-height, 2rem);
+    min-height: var(--tour-action-height, var(--size-sm));
     align-items: center;
     justify-content: center;
     gap: var(--tour-action-gap, var(--spacing-2));
-    padding-block: var(--tour-action-padding-y, 0.375rem);
-    padding-inline: var(--tour-action-padding-x, 0.75rem);
+    padding-block: var(--tour-action-padding-y, var(--spacing-1-5));
+    padding-inline: var(--tour-action-padding-x, var(--spacing-3));
     border: var(--tour-action-border-width, var(--border-width-sm)) solid
       var(--tour-action-border-color, var(--color-border));
     border-radius: var(--tour-action-radius, var(--radius-md));
@@ -276,9 +278,11 @@
     }
 
     &:focus-visible {
-      outline: var(--tour-focus-ring-width, var(--border-width-sm)) solid
-        var(--tour-focus-ring-color, var(--color-ring));
-      outline-offset: calc(var(--tour-focus-ring-width, var(--border-width-sm)) * -1);
+      outline: var(--tour-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--tour-focus-ring-color, var(--color-ring));
+      outline-offset: calc(
+        var(--tour-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      );
     }
 
     &[data-disabled],

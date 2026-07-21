@@ -181,41 +181,41 @@ Decision guide:
 
 Public CSS variables:
 
-| Variable                         | Default/fallback                | Applies to         |
-| -------------------------------- | ------------------------------- | ------------------ |
-| `--card-action-gap`              | `var(--spacing-2)`              | `Card.Action`      |
-| `--card-bg`                      | `var(--color-card)`             | `Card.Root`        |
-| `--card-spacing`                 | size-specific fallback          | `Card.Root`        |
-| `--card-spacing-lg`              | `var(--spacing-8)` fallback     | `Card.Root`        |
-| `--card-spacing-sm`              | `var(--spacing-4)` fallback     | `Card.Root`        |
-| `--card-body-color`              | `var(--color-muted-foreground)` | `Card.Body`        |
-| `--card-body-font-size`          | `var(--text-sm)`                | `Card.Body`        |
-| `--card-body-line-height`        | `var(--line-height-text-sm)`    | `Card.Body`        |
-| `--card-body-padding-top`        | `var(--spacing-4)`              | `Card.Body`        |
-| `--card-border-color`            | `var(--color-border)`           | `Card.Root`        |
-| `--card-border-width`            | `var(--border-width-sm)`        | `Card.Root`        |
-| `--card-color`                   | `var(--color-card-foreground)`  | `Card.Root`        |
-| `--card-description-color`       | `var(--color-muted-foreground)` | `Card.Description` |
-| `--card-description-font-size`   | `var(--text-sm)`                | `Card.Description` |
-| `--card-description-line-height` | `var(--line-height-text-sm)`    | `Card.Description` |
-| `--card-footer-gap`              | `var(--spacing-2)`              | `Card.Footer`      |
-| `--card-focus-ring-color`        | `var(--color-ring)`             | `Card.Link`        |
-| `--card-focus-ring-offset`       | `var(--border-width-sm)`        | `Card.Link`        |
-| `--card-focus-ring-width`        | `var(--border-width-md)`        | `Card.Link`        |
-| `--card-header-gap`              | `var(--spacing-1)`              | `Card.Header`      |
-| `--card-padding`                 | `var(--spacing-6)`              | `Card.Root`        |
-| `--card-padding-lg`              | `var(--spacing-8)`              | `Card.Root`        |
-| `--card-padding-sm`              | `var(--spacing-4)`              | `Card.Root`        |
-| `--card-radius`                  | `var(--radius-lg)`              | `Card.Root`        |
-| `--card-shadow`                  | `none`                          | `Card.Root`        |
-| `--card-title-color`             | `currentColor`                  | `Card.Title`       |
-| `--card-title-font-size`         | `var(--text-lg)`                | `Card.Title`       |
-| `--card-title-font-size-lg`      | `var(--text-xl)`                | `Card.Title`       |
-| `--card-title-font-size-sm`      | `var(--text-md)`                | `Card.Title`       |
-| `--card-title-font-weight`       | `var(--weight-semibold)`        | `Card.Title`       |
-| `--card-title-line-height`       | `var(--line-height-text-lg)`    | `Card.Title`       |
-| `--card-title-line-height-lg`    | `var(--line-height-text-xl)`    | `Card.Title`       |
-| `--card-title-line-height-sm`    | `var(--line-height-text-md)`    | `Card.Title`       |
+| Variable                         | Default/fallback                                                | Applies to         |
+| -------------------------------- | --------------------------------------------------------------- | ------------------ |
+| `--card-action-gap`              | `var(--spacing-2)`                                              | `Card.Action`      |
+| `--card-bg`                      | `var(--color-card)`                                             | `Card.Root`        |
+| `--card-spacing`                 | size-specific fallback                                          | `Card.Root`        |
+| `--card-spacing-lg`              | `var(--card-spacing, var(--card-padding-lg, var(--spacing-8)))` | `Card.Root`        |
+| `--card-spacing-sm`              | `var(--card-spacing, var(--card-padding-sm, var(--spacing-4)))` | `Card.Root`        |
+| `--card-body-color`              | `var(--color-muted-foreground)`                                 | `Card.Body`        |
+| `--card-body-font-size`          | `var(--text-sm)`                                                | `Card.Body`        |
+| `--card-body-line-height`        | `var(--line-height-text-sm)`                                    | `Card.Body`        |
+| `--card-body-padding-top`        | `var(--spacing-4)`                                              | `Card.Body`        |
+| `--card-border-color`            | `var(--color-border)`                                           | `Card.Root`        |
+| `--card-border-width`            | `var(--border-width-sm)`                                        | `Card.Root`        |
+| `--card-color`                   | `var(--color-card-foreground)`                                  | `Card.Root`        |
+| `--card-description-color`       | `var(--color-muted-foreground)`                                 | `Card.Description` |
+| `--card-description-font-size`   | `var(--text-sm)`                                                | `Card.Description` |
+| `--card-description-line-height` | `var(--line-height-text-sm)`                                    | `Card.Description` |
+| `--card-footer-gap`              | `var(--spacing-2)`                                              | `Card.Footer`      |
+| `--card-focus-ring-color`        | `var(--color-ring)`                                             | `Card.Link`        |
+| `--card-focus-ring-offset`       | `var(--border-width-sm)`                                        | `Card.Link`        |
+| `--card-focus-ring-width`        | `var(--focus-ring-width, var(--border-width-md))`               | `Card.Link`        |
+| `--card-header-gap`              | `var(--spacing-1)`                                              | `Card.Header`      |
+| `--card-padding`                 | `var(--spacing-6)`                                              | `Card.Root`        |
+| `--card-padding-lg`              | `var(--spacing-8)`                                              | `Card.Root`        |
+| `--card-padding-sm`              | `var(--spacing-4)`                                              | `Card.Root`        |
+| `--card-radius`                  | `var(--radius-lg)`                                              | `Card.Root`        |
+| `--card-shadow`                  | `none`                                                          | `Card.Root`        |
+| `--card-title-color`             | `currentColor`                                                  | `Card.Title`       |
+| `--card-title-font-size`         | `var(--text-lg)`                                                | `Card.Title`       |
+| `--card-title-font-size-lg`      | `var(--text-xl)`                                                | `Card.Title`       |
+| `--card-title-font-size-sm`      | `var(--text-md)`                                                | `Card.Title`       |
+| `--card-title-font-weight`       | `var(--weight-semibold)`                                        | `Card.Title`       |
+| `--card-title-line-height`       | `var(--line-height-text-lg)`                                    | `Card.Title`       |
+| `--card-title-line-height-lg`    | `var(--line-height-text-xl)`                                    | `Card.Title`       |
+| `--card-title-line-height-sm`    | `var(--line-height-text-md)`                                    | `Card.Title`       |
 
 ## Intentional sugar and differences from upstream
 
@@ -239,6 +239,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Card.Media` for predictable edge-to-edge leading media, introduced shared
   `--card-spacing*` hooks for shadcn-style spacing control, and moved public docs to an explicit
   sweet-path plus advanced-customization split.

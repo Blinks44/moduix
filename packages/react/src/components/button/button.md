@@ -122,6 +122,8 @@ equivalent labeling mechanism.
 
 ## Defaults and styling
 
+The default `md` and `icon-md` variants use `--size-md`; the `md` text button uses `--spacing-1` block padding.
+
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
 | `loading`   | `false`   | `boolean`                                                                                |
@@ -144,17 +146,17 @@ Primary CSS variables:
 | `--button-default-color`                            | `var(--color-primary-foreground)`                                               |
 | `--button-destructive-bg`                           | `var(--color-destructive)`                                                      |
 | `--button-destructive-border-color`                 | `var(--color-destructive)`                                                      |
-| `--button-destructive-color`                        | `var(--color-primary-foreground)`                                               |
+| `--button-destructive-color`                        | `var(--color-destructive-foreground)`                                           |
 | `--button-destructive-hover-brightness`             | `0.96`                                                                          |
 | `--button-destructive-outline-bg`                   | `var(--color-background)`                                                       |
 | `--button-destructive-outline-bg-hover`             | `var(--color-destructive)`                                                      |
 | `--button-destructive-outline-border-color`         | `var(--color-destructive)`                                                      |
 | `--button-destructive-outline-color`                | `var(--color-destructive)`                                                      |
-| `--button-destructive-outline-color-hover`          | `var(--button-destructive-color)`                                               |
+| `--button-destructive-outline-color-hover`          | `var(--button-destructive-color, var(--color-destructive-foreground))`          |
 | `--button-disabled-opacity`                         | `var(--opacity-disabled)`                                                       |
 | `--button-focus-ring-color`                         | `var(--color-ring)`                                                             |
-| `--button-focus-ring-offset`                        | `var(--button-border-width)`                                                    |
-| `--button-focus-ring-width`                         | `var(--border-width-md)`                                                        |
+| `--button-focus-ring-offset`                        | `var(--button-border-width, var(--border-width-sm))`                            |
+| `--button-focus-ring-width`                         | `var(--focus-ring-width, var(--border-width-md))`                               |
 | `--button-font-size`                                | `var(--text-sm)`                                                                |
 | `--button-font-size-xs` / `--button-line-height-xs` | `var(--text-xs)` / `var(--line-height-text-xs)`                                 |
 | `--button-font-size-lg` / `--button-line-height-lg` | `var(--text-md)` / `var(--line-height-text-md)`                                 |
@@ -164,7 +166,7 @@ Primary CSS variables:
 | `--button-ghost-bg-hover`                           | `var(--color-accent)`                                                           |
 | `--button-ghost-border-color`                       | `transparent`                                                                   |
 | `--button-ghost-color`                              | `var(--color-foreground)`                                                       |
-| `--button-icon-size`                                | `1rem`                                                                          |
+| `--button-icon-size`                                | `var(--spacing-4)`                                                              |
 | `--button-line-height`                              | `var(--line-height-text-sm)`                                                    |
 | `--button-link-color`                               | `var(--color-primary)`                                                          |
 | `--button-link-color-hover`                         | `var(--color-foreground)`                                                       |
@@ -174,24 +176,24 @@ Primary CSS variables:
 | `--button-outline-bg-hover`                         | `var(--color-accent)`                                                           |
 | `--button-outline-border-color`                     | `var(--color-border)`                                                           |
 | `--button-outline-color`                            | `var(--color-foreground)`                                                       |
-| `--button-padding-x-xs` / `--button-padding-y-xs`   | `0.625rem` / `0.25rem`                                                          |
-| `--button-padding-x-sm` / `--button-padding-y-sm`   | `0.75rem` / `0.375rem`                                                          |
-| `--button-padding-x-md` / `--button-padding-y-md`   | `1rem` / `0.5rem`                                                               |
-| `--button-padding-x-lg` / `--button-padding-y-lg`   | `1.25rem` / `0.625rem`                                                          |
-| `--button-padding-x-xl` / `--button-padding-y-xl`   | `1.5rem` / `0.75rem`                                                            |
+| `--button-padding-x-xs` / `--button-padding-y-xs`   | `var(--spacing-2-5)` / `var(--spacing-0-5)`                                     |
+| `--button-padding-x-sm` / `--button-padding-y-sm`   | `var(--spacing-3)` / `var(--spacing-1)`                                         |
+| `--button-padding-x-md` / `--button-padding-y-md`   | `var(--spacing-4)` / `var(--spacing-1)`                                         |
+| `--button-padding-x-lg` / `--button-padding-y-lg`   | `var(--spacing-5)` / `var(--spacing-1-5)`                                       |
+| `--button-padding-x-xl` / `--button-padding-y-xl`   | `var(--spacing-6)` / `var(--spacing-2)`                                         |
 | `--button-radius`                                   | `var(--radius-md)`                                                              |
 | `--button-secondary-bg`                             | `var(--color-secondary)`                                                        |
 | `--button-secondary-bg-hover`                       | `var(--color-accent)`                                                           |
 | `--button-secondary-border-color`                   | `var(--color-secondary)`                                                        |
 | `--button-secondary-color`                          | `var(--color-secondary-foreground)`                                             |
 | `--button-size-icon-sm`                             | `var(--size-sm)`                                                                |
-| `--button-size-icon-md`                             | `var(--size-lg)`                                                                |
-| `--button-size-icon-lg`                             | `var(--size-xl)`                                                                |
+| `--button-size-icon-md`                             | `var(--size-md)`                                                                |
+| `--button-size-icon-lg`                             | `var(--size-lg)`                                                                |
 | `--button-size-xs`                                  | `var(--size-xs)`                                                                |
 | `--button-size-sm`                                  | `var(--size-sm)`                                                                |
-| `--button-size-md`                                  | `var(--size-lg)`                                                                |
-| `--button-size-lg`                                  | `var(--size-xl)`                                                                |
-| `--button-size-xl`                                  | `3.5rem`                                                                        |
+| `--button-size-md`                                  | `var(--size-md)`                                                                |
+| `--button-size-lg`                                  | `var(--size-lg)`                                                                |
+| `--button-size-xl`                                  | `var(--size-xl)`                                                                |
 | `--button-transition`                               | `var(--transition-default)`                                                     |
 
 ## Intentional sugar and differences from upstream
@@ -224,6 +226,10 @@ Primary CSS variables:
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized the complete control scale to `24/32/36/40/48px` tokens, including icon
+  buttons, and compacted block padding so typography no longer expands a selected size.
 
 - 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
   trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable

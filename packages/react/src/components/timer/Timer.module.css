@@ -47,8 +47,8 @@
     border: var(--timer-action-trigger-border-width, var(--border-width-sm)) solid
       var(--timer-action-trigger-border-color, var(--color-border));
     border-radius: var(--timer-action-trigger-radius, var(--radius-md));
-    padding-block: var(--timer-action-trigger-padding-y, 0.375rem);
-    padding-inline: var(--timer-action-trigger-padding-x, 0.75rem);
+    padding-block: var(--timer-action-trigger-padding-y, var(--spacing-1-5));
+    padding-inline: var(--timer-action-trigger-padding-x, var(--spacing-3));
     background-color: var(--timer-action-trigger-bg, var(--color-background));
     color: var(--timer-action-trigger-color, var(--color-foreground));
     appearance: none;
@@ -72,9 +72,12 @@
     }
 
     &:focus-visible {
-      outline: var(--timer-action-trigger-focus-ring-width, var(--border-width-md)) solid
-        var(--timer-action-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: var(--timer-action-trigger-focus-ring-offset, -1px);
+      outline: var(
+          --timer-action-trigger-focus-ring-width,
+          var(--focus-ring-width, var(--border-width-md))
+        )
+        solid var(--timer-action-trigger-focus-ring-color, var(--color-ring));
+      outline-offset: var(--timer-action-trigger-focus-ring-offset, var(--focus-ring-inset-offset));
     }
 
     &:is(:disabled, [aria-disabled='true']) {
@@ -88,8 +91,8 @@
     }
 
     & :where(svg) {
-      width: var(--timer-action-trigger-icon-size, 1rem);
-      height: var(--timer-action-trigger-icon-size, 1rem);
+      width: var(--timer-action-trigger-icon-size, var(--spacing-4));
+      height: var(--timer-action-trigger-icon-size, var(--spacing-4));
       flex-shrink: 0;
     }
   }

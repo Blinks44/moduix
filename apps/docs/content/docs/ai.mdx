@@ -1,0 +1,161 @@
+---
+title: AI
+description: Give an AI assistant the right moduix context before it writes code.
+icon: Sparkles
+---
+
+# AI
+
+moduix is designed to stay understandable to both people and AI assistants. Give the assistant the
+smallest relevant documentation first, then ask it to work with the public component API that your
+project already uses.
+
+## Choose the right context
+
+| What you need                                    | Give the assistant                               |
+| ------------------------------------------------ | ------------------------------------------------ |
+| A product overview or a component discovery task | [`llms.txt`](/llms.txt)                          |
+| Help with one component, guide, or error         | That page's **Copy Markdown** or **Open** action |
+| A broad repository-level review                  | [`llms-full.txt`](/llms-full.txt)                |
+
+Every MDX documentation page has a canonical Markdown URL such as
+`https://moduix.dev/docs/button.md`. It contains the page content without the docs interface, so it
+is the best default context for a focused implementation or debugging task.
+
+## Ask about the current page
+
+Open **Open** below a page title, then choose an AI client such as ChatGPT, Claude, Cursor, or
+Scira. Use **View as Markdown** or **Copy Markdown** when the assistant needs the page content
+instead of the documentation interface.
+
+Use the URL, then explain your goal in concrete terms. For example:
+
+```text
+Read https://moduix.dev/docs/dialog.md. Add a confirmation dialog to our delete action.
+We use @moduix/react as a package. Keep the Ark composition explicit and make the trigger a button.
+```
+
+## Install components with an AI assistant
+
+Tell the assistant which moduix ownership model the project uses before it writes imports or install
+commands:
+
+| Project model              | Tell the assistant to use                                                                    |
+| -------------------------- | -------------------------------------------------------------------------------------------- |
+| Package-managed components | `@moduix/react` imports and `@moduix/react/style.css`                                        |
+| Copy-owned components      | The configured `@moduix-react` registry, the project's `components.json`, and its CLI runner |
+
+For a copy-owned project, the assistant should read the component page and inspect
+`components.json` before adding a registry item. The [Quick start](/docs/quick-start) guide has the
+full hosted registry configuration.
+
+## Use the moduix Skill
+
+Install the public Skill with Skills.sh:
+
+```bash
+npx skills add https://github.com/Blinks44/moduix --skill moduix
+```
+
+The installer configures the Skill for a supported agent. Before changing code, it inspects existing
+imports and `components.json`, then uses canonical docs, shadcn discovery, and safe diff checks for
+copy-owned updates. Package-managed and shadcn copy-owned installation remain equal choices. Invoke
+it as `$moduix` in skill-aware agents.
+
+## Use the shadcn MCP server
+
+The shadcn MCP server works with the existing moduix hosted registry. moduix does not run a
+separate MCP server: configure the registry in the consuming project, then let shadcn expose it to
+your AI client.
+
+### 1. Configure the registry
+
+The consuming project's `components.json` must contain the moduix registry URL:
+
+```json
+{
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
+}
+```
+
+See [Quick start](/docs/quick-start) for the complete `components.json` configuration.
+
+### 2. Connect your AI client
+
+For clients supported by the shadcn initializer, run it in the consuming project and choose the
+matching client. For example:
+
+```bash
+npx shadcn@latest mcp init --client cursor
+```
+
+Codex currently uses manual MCP configuration. Add the server to `~/.codex/config.toml`, then
+restart Codex:
+
+```toml
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+The [shadcn MCP guide](https://ui.shadcn.com/docs/mcp) has the current setup for Claude Code,
+Cursor, VS Code, Codex, and other supported clients.
+
+### 3. Discover before installing
+
+Ask the assistant to inspect the matching moduix item before it changes files. These prompts work
+for components, blocks, and themes:
+
+```text
+Find the moduix component for an editable text field. Show the component documentation and registry
+item before proposing code.
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```text
+Find a moduix sign-in block. Show its registry dependencies and responsive behavior, but do not
+install it yet.
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```text
+Find a high-contrast moduix theme. Show how it is applied before changing the project.
+```
+
+### 4. Review the CLI fallback
+
+Use the CLI when MCP is unavailable, or when you want a command-line review trail. For a
+copy-owned project, inspect the current configuration, search by product need, inspect the item,
+then preview changes:
+
+```bash
+npx shadcn@latest info --json
+npx shadcn@latest search @moduix-react -q "confirmation dialog"
+npx shadcn@latest view @moduix-react/dialog
+npx shadcn@latest add @moduix-react/dialog --dry-run
+```
+
+For an already-installed item, inspect the generated-file diff before updating it:
+
+```bash
+npx shadcn@latest add @moduix-react/dialog --diff src/components/moduix/dialog.tsx
+```
+
+Run `add` without preview flags only after the item, dependencies, target paths, and ownership
+model are correct. Do not use `--overwrite` without an explicit decision to replace local changes.
+
+## Review generated code
+
+Treat generated code as a draft. Before merging it, check that it:
+
+- uses the documented moduix parts and callback detail objects instead of invented aliases;
+- keeps the correct package or registry ownership model;
+- passes your normal typecheck, tests, and accessibility review.
+
+MCP can discover either ownership model, but only copy-owned projects should use registry `add`
+commands. Package-managed projects keep `@moduix/react` imports and update through their package
+manager. The [Updating and migration](/docs/updating) guide explains the copy-owned update workflow.

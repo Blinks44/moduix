@@ -143,6 +143,7 @@ Keep future additions as explicit parts or style hooks unless Ark adds new timer
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Added `Timer.Segments` and moduix-owned `useTimer`, `useTimerContext`, and
   `Timer.Context` exports for the documented advanced composition path.
 - 2026-06-29: Preserved Ark's action-trigger `hidden` state, aligned typography and focus styling,

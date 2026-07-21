@@ -141,6 +141,7 @@ with rendered `Panel` ids and adjacent trigger ids.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made the visible divider thinner and added restrained indicator feedback for hover and dragging.
 
 - 2026-07-11: Made the resize indicator the default trigger content, exposed normal advanced Ark
