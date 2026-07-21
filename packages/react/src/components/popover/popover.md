@@ -138,6 +138,8 @@ the Ark part.
 
 ## Defaults and styling
 
+Default popover and close controls use `--size-md` with `--spacing-1` block padding.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--popover-*` motion variables
 remain the more specific override.
 
@@ -172,6 +174,8 @@ runtime available-size and reference-size variables rather than duplicate measur
   barrel unless intentionally documented otherwise.
 
 ## Local changelog
+
+- 2026-07-21: Reduced default popover and close controls to `--size-md` and compacted their block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Nested examples now render inline, `Header` reserves close-icon space only when needed,

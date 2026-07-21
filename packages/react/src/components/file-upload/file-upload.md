@@ -126,6 +126,8 @@ export function FileUploadDemo() {
 
 ## Defaults and styling
 
+The upload trigger follows Button's `--size-md` default; file rows keep their independent content-oriented sizing.
+
 - `className` is supported on every visual part. `Items` intentionally has no configuration surface: image files are
   compact vertical cards with a thumbnail, name, and metadata; other files are horizontal rows with an icon, name,
   type, and localized size. Custom rows use the explicit context composition.
@@ -168,6 +170,8 @@ export function FileUploadDemo() {
   styling contract changes.
 
 ## Local changelog
+
+- 2026-07-21: Aligned the default upload trigger with the Button `md` baseline.
 
 - 2026-07-19: Switched item-metadata separator spacing to a logical inline property for RTL.
 - 2026-07-19: Increased the default file-row preview box to `var(--spacing-10)` (2.5rem) and clamped item names to

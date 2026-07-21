@@ -42,7 +42,7 @@
   .control {
     box-sizing: border-box;
     display: flex;
-    min-height: var(--tags-input-min-height, var(--input-height, var(--size-lg)));
+    min-height: var(--tags-input-min-height, var(--input-height, var(--size-md)));
     flex-wrap: wrap;
     align-items: center;
     gap: var(--tags-input-control-gap, var(--spacing-1));

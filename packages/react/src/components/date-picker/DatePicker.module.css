@@ -78,12 +78,12 @@
     flex: 1 1 0;
     width: 100%;
     min-width: min(var(--date-picker-input-min-width, 7.5rem), 100%);
-    height: var(--date-picker-control-height, var(--size-lg));
+    height: var(--date-picker-control-height, var(--size-md));
     margin: 0;
     border: var(--date-picker-border-width, var(--border-width-sm)) solid
       var(--date-picker-border-color, var(--color-border));
     border-radius: var(--date-picker-radius, var(--radius-md));
-    padding-block: var(--date-picker-input-padding-y, 0.5rem);
+    padding-block: var(--date-picker-input-padding-y, var(--spacing-1));
     padding-inline: var(--date-picker-input-padding-x-start, 0.875rem)
       var(--date-picker-input-padding-x-end, 4.25rem);
     background-color: var(--date-picker-bg, var(--color-background));
@@ -300,13 +300,13 @@
   }
 
   .navTrigger {
-    width: var(--date-picker-nav-trigger-size, 2rem);
-    height: var(--date-picker-nav-trigger-size, 2rem);
+    width: var(--date-picker-nav-trigger-size, var(--size-sm));
+    height: var(--date-picker-nav-trigger-size, var(--size-sm));
   }
 
   .viewTrigger {
     min-width: 0;
-    min-height: var(--date-picker-view-trigger-height, 2rem);
+    min-height: var(--date-picker-view-trigger-height, var(--size-sm));
     flex: 1;
     gap: var(--date-picker-view-trigger-gap, var(--spacing-2));
     padding-inline: var(--date-picker-view-trigger-padding-x, var(--spacing-2));
@@ -333,7 +333,7 @@
 
   .tableHeader,
   .weekNumberCell {
-    width: var(--date-picker-table-cell-size, 2.25rem);
+    width: var(--date-picker-table-cell-size, var(--size-sm));
     height: var(--date-picker-table-header-height, 1.75rem);
     color: var(--date-picker-table-header-color, var(--color-muted-foreground));
     font-size: var(--date-picker-table-header-font-size, var(--text-xs));
@@ -343,8 +343,8 @@
   }
 
   .tableCell {
-    width: var(--date-picker-table-cell-size, 2.25rem);
-    height: var(--date-picker-table-cell-size, 2.25rem);
+    width: var(--date-picker-table-cell-size, var(--size-sm));
+    height: var(--date-picker-table-cell-size, var(--size-sm));
     padding: 0;
     text-align: center;
   }
@@ -358,8 +358,8 @@
     box-sizing: border-box;
     display: inline-flex;
     width: 100%;
-    min-width: var(--date-picker-table-cell-size, 2.25rem);
-    height: var(--date-picker-table-cell-size, 2.25rem);
+    min-width: var(--date-picker-table-cell-size, var(--size-sm));
+    height: var(--date-picker-table-cell-size, var(--size-sm));
     align-items: center;
     justify-content: center;
     border: var(--date-picker-table-cell-border-width, 0) solid
@@ -433,7 +433,7 @@
     flex: 1 1 0;
     width: 100%;
     min-width: 0;
-    min-height: var(--date-picker-select-height, 2rem);
+    min-height: var(--date-picker-select-height, var(--size-sm));
     border: var(--date-picker-select-border-width, var(--border-width-sm)) solid
       var(--date-picker-select-border-color, var(--color-border));
     border-radius: var(--date-picker-select-radius, var(--radius-sm));
@@ -459,7 +459,7 @@
   }
 
   .presetTrigger {
-    min-height: var(--date-picker-preset-trigger-height, 2rem);
+    min-height: var(--date-picker-preset-trigger-height, var(--size-sm));
     padding-inline: var(--date-picker-preset-trigger-padding-x, var(--spacing-2));
     background-color: var(--date-picker-preset-trigger-bg, var(--color-muted));
     color: var(--date-picker-preset-trigger-color, var(--color-foreground));

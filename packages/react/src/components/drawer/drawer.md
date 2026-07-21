@@ -134,6 +134,8 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 
 ## Defaults and styling
 
+Default drawer and close controls use `--size-md` with `--spacing-1` block padding.
+
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
 uses moduix colors, spacing, radii, shadows, and motion tokens.
 
@@ -192,6 +194,8 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
 
 ## Local changelog
+
+- 2026-07-21: Reduced default drawer and close controls to `--size-md` and compacted their block padding.
 
 - 2026-07-10: Re-exported `useDrawer` from moduix so the standard `RootProvider` workflow no longer
   needs a direct Ark import.

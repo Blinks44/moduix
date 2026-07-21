@@ -133,6 +133,8 @@ Relevant Ark attributes and variables:
 
 ## Defaults and styling
 
+The styled tooltip trigger defaults to `--size-md` with `--spacing-1` block padding.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--tooltip-*` motion variables
 remain the more specific override.
 
@@ -166,6 +168,8 @@ access uses the moduix `useTooltip` and `useTooltipContext` exports; direct Ark 
 escape hatches only.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the styled tooltip trigger to `--size-md` and compacted its block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-07: Added `Tooltip.Body` as the default shortcut for `Tooltip.Positioner +

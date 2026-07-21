@@ -111,10 +111,10 @@
   --popup-highlight-radius: initial; /* var(--radius-sm) */
   --popup-item-font-size: initial; /* var(--text-sm) */
   --popup-item-line-height: initial; /* var(--line-height-text-sm) */
-  --popup-item-min-height: initial; /* 2rem */
+  --popup-item-min-height: initial; /* var(--size-sm) */
   --popup-item-padding-x-end: initial; /* 1rem */
   --popup-item-padding-x-start: initial; /* 1rem */
-  --popup-item-padding-y: initial; /* 0.5rem */
+  --popup-item-padding-y: initial; /* var(--spacing-1) */
   --popup-list-padding-y: initial; /* 0.25rem */
   --popup-separator-margin-x-end: initial; /* 1rem */
   --popup-separator-margin-x-start: initial; /* 1rem */

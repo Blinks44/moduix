@@ -123,6 +123,8 @@ State and attributes to preserve:
 
 ## Defaults and styling
 
+Page items, ellipses, and icon triggers default to `--size-md` through `--pagination-item-size`.
+
 Moduix adds visual defaults only:
 
 - default chevrons for previous/next triggers;
@@ -172,6 +174,8 @@ Keep `Pagination.Context` for custom item rendering and `Pagination.Items` for t
 list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
+
+- 2026-07-21: Reduced default pagination items and icon triggers to `--size-md`.
 
 - 2026-07-10: Added `Pagination.Items` for the standard page list and namespace re-exports for
   `usePagination()` and `usePaginationContext()`; documented the explicit `Context` map as the

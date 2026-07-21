@@ -183,6 +183,8 @@ include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-fo
 
 ## Defaults and styling
 
+The text input defaults to `--size-md` with `--spacing-1` block padding. Calendar navigation, day cells, selects, view triggers, and preset triggers use `--size-sm`.
+
 Content motion falls back to the shared `--popup-motion-*` tokens. `--date-picker-transition` and
 closed-state variables remain the more specific override.
 
@@ -237,6 +239,8 @@ The calendar and clear actions use logical inline-end positioning, so they follo
   objects.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the input to `--size-md` and aligned calendar popup controls to `--size-sm`.
 
 - 2026-07-20: Removed hover surfaces from date inputs and native month/year selects; icon actions retain their local hover treatment.
 - 2026-07-19: Positioned calendar and clear actions with logical inline-end properties for RTL.

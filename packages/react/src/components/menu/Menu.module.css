@@ -151,7 +151,7 @@
   .checkboxItem {
     position: relative;
     box-sizing: border-box;
-    min-height: var(--menu-item-height, var(--popup-item-min-height, 2rem));
+    min-height: var(--menu-item-height, var(--popup-item-min-height, var(--size-sm)));
     margin: 0;
     border: 0;
     border-radius: var(--menu-item-radius, var(--radius-sm));
@@ -226,7 +226,7 @@
     display: flex;
     align-items: center;
     gap: var(--menu-item-gap, var(--spacing-2));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
     padding-inline: var(--menu-item-padding-x-start, var(--popup-item-padding-x-start, 1rem))
       var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
   }
@@ -236,7 +236,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--menu-trigger-item-gap, var(--spacing-3));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
     padding-inline: var(--menu-item-padding-x-start, var(--popup-item-padding-x-start, 1rem))
       var(--menu-trigger-item-padding-x-end, 1rem);
   }
@@ -288,7 +288,7 @@
     grid-template-columns:
       var(--menu-check-indicator-size, var(--popup-check-indicator-size, 0.75rem))
       minmax(0, 1fr);
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, 0.5rem));
+    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
     padding-inline: var(--menu-check-padding-x-start, var(--popup-check-padding-x-start, 0.625rem))
       var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, 1rem));
 

@@ -123,7 +123,7 @@ export function SplitButtonExample() {
 ## Defaults and styling
 
 - Root `variant` defaults to `'default'`.
-- Root `size` defaults to `'md'`.
+- Root `size` defaults to `'md'`, which uses Button's `--size-md` baseline.
 - Root `positioning` defaults to `{ placement: 'bottom-end', gutter: 4 }`.
 - `Trigger` defaults to `ChevronDownIcon` and `aria-label="More actions"` when icon-only.
 - Root `variant` excludes `Button`'s `link` variant.
@@ -153,6 +153,8 @@ export function SplitButtonExample() {
 - Keep alternate actions on shared `Menu.*` rows rather than adding split-button-specific item parts.
 
 ## Local changelog
+
+- 2026-07-21: Documented that the default `md` action and trigger inherit Button's compact `--size-md` baseline.
 
 - 2026-07-07: Removed the trigger-level `asChild` escape hatch so `SplitButton.Trigger` keeps one
   stable Ark Menu trigger host instead of a nested `asChild` chain.

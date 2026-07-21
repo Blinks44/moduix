@@ -4,9 +4,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--floating-panel-trigger-height, var(--size-lg));
+    min-height: var(--floating-panel-trigger-height, var(--size-md));
     margin: 0;
-    padding: var(--floating-panel-trigger-padding-y, 0.5rem)
+    padding: var(--floating-panel-trigger-padding-y, var(--spacing-1))
       var(--floating-panel-trigger-padding-x, var(--spacing-3));
     border: var(--floating-panel-trigger-border-width, var(--border-width-sm)) solid
       var(--floating-panel-trigger-border-color, var(--color-border));

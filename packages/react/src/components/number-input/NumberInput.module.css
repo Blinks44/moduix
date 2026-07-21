@@ -48,9 +48,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--number-input-control-height, var(--size-lg));
-    min-width: var(--number-input-control-height, var(--size-lg));
-    height: var(--number-input-control-height, var(--size-lg));
+    width: var(--number-input-control-height, var(--size-md));
+    min-width: var(--number-input-control-height, var(--size-md));
+    height: var(--number-input-control-height, var(--size-md));
     margin: 0;
     border: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
@@ -123,7 +123,7 @@
 
     box-sizing: border-box;
     width: var(--number-input-input-width, 6rem);
-    height: var(--number-input-control-height, var(--size-lg));
+    height: var(--number-input-control-height, var(--size-md));
     margin: 0;
     border-top: var(--number-input-border-width, var(--border-width-sm))
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
@@ -131,7 +131,7 @@
       var(--number-input-border-style, solid) var(--number-input-border-color, var(--color-border));
     border-inline: 0;
     border-radius: 0;
-    padding: var(--number-input-input-padding-y, 0.5rem)
+    padding: var(--number-input-input-padding-y, var(--spacing-1))
       var(--number-input-input-padding-x, 0.75rem);
     background-color: var(--number-input-input-bg, var(--color-background));
     color: var(--number-input-input-color, var(--color-foreground));

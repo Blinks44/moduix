@@ -157,6 +157,8 @@ export function SelectDemo() {
 
 ## Defaults and styling
 
+The trigger defaults to `--size-md`. Single-line popup items default to `--size-sm` with `--spacing-1` block padding.
+
 - Content motion falls back to the shared `--popup-motion-*` tokens. `--select-transition` and
   closed-state variables remain the more specific override.
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
@@ -196,6 +198,8 @@ export function SelectDemo() {
 - When registry-shipped select source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default trigger to `--size-md` and compacted popup items to `--size-sm`.
 
 - 2026-07-20: Removed field hover and popup-open surfaces; `Select.Field` nests the indicator in the trigger for a precise icon hover target, while clear remains a sibling action.
 - 2026-07-19: Positioned trigger indicators with a logical inline-end property for RTL.

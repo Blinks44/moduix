@@ -4,7 +4,7 @@
     display: flex;
     width: var(--input-group-width, 100%);
     max-width: var(--input-group-max-width, none);
-    min-height: var(--input-group-height, var(--input-group-height-md, var(--size-lg)));
+    min-height: var(--input-group-height, var(--input-group-height-md, var(--size-md)));
     align-items: stretch;
     overflow: hidden;
     border: var(--input-group-border-width, var(--border-width-sm))
@@ -70,7 +70,7 @@
     }
 
     &[data-size='sm'] {
-      --input-group-height: var(--input-group-height-sm, 2rem);
+      --input-group-height: var(--input-group-height-sm, var(--size-sm));
       --input-group-addon-padding-x: var(--input-group-addon-padding-x-sm, 0.75rem);
       --input-group-font-size: var(--input-group-font-size-sm, var(--text-sm));
       --input-group-line-height: var(--input-group-line-height-sm, var(--line-height-text-sm));
@@ -79,12 +79,12 @@
     }
 
     &[data-size='md'] {
-      --input-group-height: var(--input-group-height-md, var(--size-lg));
+      --input-group-height: var(--input-group-height-md, var(--size-md));
       --input-group-addon-padding-x: var(--input-group-addon-padding-x-md, 0.875rem);
       --input-group-font-size: var(--input-group-font-size-md, var(--text-md));
       --input-group-line-height: var(--input-group-line-height-md, var(--line-height-text-md));
       --input-group-input-padding-x: var(--input-group-input-padding-x-md, 0.875rem);
-      --input-group-input-padding-y: var(--input-group-input-padding-y-md, 0.5rem);
+      --input-group-input-padding-y: var(--input-group-input-padding-y-md, var(--spacing-1));
     }
 
     &[data-size='lg'] {

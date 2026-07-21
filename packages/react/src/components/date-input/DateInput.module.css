@@ -24,11 +24,11 @@
     display: inline-flex;
     align-items: center;
     width: var(--date-input-control-width, 100%);
-    min-height: var(--date-input-control-height, var(--size-lg));
+    min-height: var(--date-input-control-height, var(--size-md));
     border: var(--date-input-border-width, var(--border-width-sm))
       var(--date-input-border-style, solid) var(--date-input-border-color, var(--color-border));
     border-radius: var(--date-input-radius, var(--radius-md));
-    padding: var(--date-input-padding-y, 0.5rem) var(--date-input-padding-x, 0.75rem);
+    padding: var(--date-input-padding-y, var(--spacing-1)) var(--date-input-padding-x, 0.75rem);
     background-color: var(--date-input-bg, var(--color-background));
     color: var(--date-input-color, var(--color-foreground));
     outline: var(

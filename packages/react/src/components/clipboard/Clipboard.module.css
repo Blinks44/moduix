@@ -26,12 +26,12 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    min-height: var(--clipboard-input-height, var(--input-height-md, var(--size-lg)));
+    min-height: var(--clipboard-input-height, var(--input-height-md, var(--size-md)));
     margin: 0;
     border: var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))
       solid var(--clipboard-input-border-color, var(--input-border-color, var(--color-border)));
     border-radius: var(--clipboard-input-radius, var(--input-radius, var(--radius-md)));
-    padding-block: var(--clipboard-input-padding-y, var(--input-padding-y-md, 0.5rem));
+    padding-block: var(--clipboard-input-padding-y, var(--input-padding-y-md, var(--spacing-1)));
     padding-inline: var(--clipboard-input-padding-x, var(--input-padding-x-md, 0.875rem));
     background-color: var(--clipboard-input-bg, var(--input-bg, var(--color-background)));
     color: var(--clipboard-input-color, var(--input-color, var(--color-foreground)));
@@ -102,7 +102,7 @@
     justify-content: center;
     flex-shrink: 0;
     gap: var(--clipboard-trigger-gap, var(--button-content-gap, var(--spacing-2)));
-    min-height: var(--clipboard-trigger-height, var(--button-size-md, var(--size-lg)));
+    min-height: var(--clipboard-trigger-height, var(--button-size-md, var(--size-md)));
     padding-inline: var(--clipboard-trigger-padding-x, var(--button-padding-x-md, 1rem));
     border: var(
         --clipboard-trigger-border-width,

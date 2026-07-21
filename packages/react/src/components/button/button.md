@@ -122,6 +122,8 @@ equivalent labeling mechanism.
 
 ## Defaults and styling
 
+The default `md` and `icon-md` variants use `--size-md`; the `md` text button uses `--spacing-1` block padding.
+
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
 | `loading`   | `false`   | `boolean`                                                                                |
@@ -224,6 +226,8 @@ Primary CSS variables:
 - Do not reintroduce Base button shims or converted prop names.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default `md` and `icon-md` controls to `--size-md` and compacted `md` padding.
 
 - 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
   trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable

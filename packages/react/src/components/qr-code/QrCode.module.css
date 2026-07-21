@@ -50,7 +50,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--qr-code-download-trigger-gap, var(--button-content-gap, var(--spacing-2)));
-    min-height: var(--qr-code-download-trigger-height, var(--button-size-md, var(--size-lg)));
+    min-height: var(--qr-code-download-trigger-height, var(--button-size-md, var(--size-md)));
     padding-inline: var(--qr-code-download-trigger-padding-x, var(--button-padding-x-md, 1rem));
     border: var(
         --qr-code-download-trigger-border-width,

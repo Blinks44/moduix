@@ -91,6 +91,8 @@ edit, submit, and cancel controls.
 
 ## Defaults and styling
 
+The default `md` input uses `--size-md` with `--spacing-1` block padding; explicit size variants and `--input-*` overrides remain available.
+
 - `size` defaults to `md`; native character width uses `htmlSize`.
 - `className` is merged with the moduix CSS module class.
 - Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
@@ -117,6 +119,8 @@ edit, submit, and cancel controls.
 - Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default `md` input control to `--size-md` and compacted its block padding.
 
 - 2026-06-25: Added `Input.Root`, normalized `className`, simplified size token defaults, and
   refreshed docs examples for accessible standalone inputs.

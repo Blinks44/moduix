@@ -13,8 +13,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--pagination-item-size, var(--size-lg));
-    height: var(--pagination-item-size, var(--size-lg));
+    min-width: var(--pagination-item-size, var(--size-md));
+    height: var(--pagination-item-size, var(--size-md));
     border-radius: var(--pagination-item-radius, var(--radius-md));
     font-size: var(--pagination-font-size, var(--text-sm));
     font-weight: var(--pagination-font-weight, var(--weight-medium));
@@ -83,7 +83,7 @@
   }
 
   .iconTrigger {
-    width: var(--pagination-item-size, var(--size-lg));
+    width: var(--pagination-item-size, var(--size-md));
     padding-inline: 0;
   }
 

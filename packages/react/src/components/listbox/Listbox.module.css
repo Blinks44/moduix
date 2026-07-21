@@ -25,12 +25,12 @@
   .input {
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--listbox-input-height, var(--size-lg));
+    min-height: var(--listbox-input-height, var(--size-md));
     margin: 0;
     border: var(--listbox-input-border-width, var(--listbox-border-width, var(--border-width-sm)))
       solid var(--listbox-input-border-color, var(--listbox-border-color, var(--color-border)));
     border-radius: var(--listbox-input-radius, var(--listbox-radius, var(--radius-md)));
-    padding: var(--listbox-input-padding-y, var(--spacing-2))
+    padding: var(--listbox-input-padding-y, var(--spacing-1))
       var(--listbox-input-padding-x, var(--spacing-3));
     background-color: var(--listbox-input-bg, var(--color-background));
     color: var(--listbox-input-color, var(--listbox-color, var(--color-foreground)));
@@ -103,7 +103,7 @@
   }
 
   .filter .input {
-    min-height: var(--listbox-filter-height, var(--listbox-input-height, var(--size-lg)));
+    min-height: var(--listbox-filter-height, var(--listbox-input-height, var(--size-md)));
     padding-inline-start: calc(
       var(--listbox-filter-padding-x, var(--spacing-3)) + var(--listbox-filter-icon-size, 1rem) +
         var(--listbox-filter-input-padding-x, var(--spacing-2))
@@ -209,14 +209,14 @@
     box-sizing: border-box;
     display: grid;
     width: calc(100% - var(--listbox-item-inset-x, var(--spacing-2)));
-    min-height: var(--listbox-item-min-height, 2rem);
+    min-height: var(--listbox-item-min-height, var(--size-sm));
     grid-template-columns: minmax(0, 1fr) var(--listbox-item-indicator-size, 1rem);
     align-items: center;
     gap: var(--listbox-item-gap, var(--spacing-2));
     margin-inline: calc(var(--listbox-item-inset-x, var(--spacing-2)) / 2);
     border: var(--listbox-item-border-width, 0) solid var(--listbox-item-border-color, transparent);
     border-radius: var(--listbox-item-radius, var(--radius-sm));
-    padding-block: var(--listbox-item-padding-y, var(--spacing-2));
+    padding-block: var(--listbox-item-padding-y, var(--spacing-1));
     padding-inline: var(--listbox-item-padding-x, var(--spacing-3));
     background-color: var(--listbox-item-bg, transparent);
     color: var(--listbox-item-color, var(--listbox-color, var(--color-foreground)));

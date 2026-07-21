@@ -86,7 +86,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--file-upload-trigger-gap, var(--button-content-gap, var(--spacing-2)));
-    min-height: var(--file-upload-trigger-height, var(--button-size-md, var(--size-lg)));
+    min-height: var(--file-upload-trigger-height, var(--button-size-md, var(--size-md)));
     border: var(
         --file-upload-trigger-border-width,
         var(--button-border-width, var(--border-width-sm))

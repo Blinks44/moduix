@@ -28,8 +28,8 @@
   .input {
     box-sizing: border-box;
     flex: none;
-    width: var(--pin-input-input-width, var(--pin-input-input-size, 2.5rem));
-    height: var(--pin-input-input-height, var(--pin-input-input-size, 2.5rem));
+    width: var(--pin-input-input-width, var(--pin-input-input-size, var(--size-md)));
+    height: var(--pin-input-input-height, var(--pin-input-input-size, var(--size-md)));
     margin: 0;
     border: var(--pin-input-border-width, var(--border-width-sm)) solid
       var(--pin-input-border-color, var(--color-border));

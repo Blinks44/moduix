@@ -136,6 +136,8 @@ Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigg
 
 ## Defaults and styling
 
+Single-line popup items default to `--size-sm` with `--spacing-1` block padding. The trigger remains independently configurable.
+
 Content motion falls back to the shared `--popup-motion-*` tokens; `--menu-*` motion variables
 remain the more specific override.
 
@@ -178,6 +180,8 @@ Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provid
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Local changelog
+
+- 2026-07-21: Compacted default popup items to `--size-sm` with `--spacing-1` block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Exported `useMenu` and `Menu.ItemContext` through moduix so normal provider and

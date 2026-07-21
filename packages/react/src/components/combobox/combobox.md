@@ -169,6 +169,8 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ## Defaults and styling
 
+The input control defaults to `--size-md`. Single-line popup options default to `--size-sm` with `--spacing-1` block padding.
+
 - Content motion falls back to the shared `--popup-motion-*` tokens. `--combobox-transition` and
   closed-state variables remain the more specific override.
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
@@ -231,6 +233,8 @@ Common `shadcn` migration points:
 - Keep generic inference on the callable root, `Root`, and `RootProvider`.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default input to `--size-md` and compacted popup options to `--size-sm`.
 
 - 2026-07-20: Removed field hover and popup-open surfaces; clear and open actions retain their local hover treatment.
 - 2026-07-19: Positioned trigger and clear actions with logical inline-end properties for RTL.

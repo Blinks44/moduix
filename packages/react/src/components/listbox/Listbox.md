@@ -145,6 +145,8 @@ results should remain visually separate or need a custom wrapper.
 
 ## Defaults and styling
 
+The input and filter default to `--size-md`. Single-line list items default to `--size-sm` with `--spacing-1` block padding.
+
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - Default root width is `16rem` through `--listbox-width`.
 - `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
@@ -182,6 +184,8 @@ results should remain visually separate or need a custom wrapper.
 - When registry-shipped listbox source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default input and filter to `--size-md` and compacted list items to `--size-sm`.
 
 - 2026-07-17: Composed the standard filter clear action with `CloseButton` and mapped existing
   Listbox tokens to the shared button styling.

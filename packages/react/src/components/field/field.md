@@ -106,6 +106,8 @@ Forwarded refs target the Ark DOM part. `Field.Root` and `Field.RootProvider` fo
 
 ## Defaults and styling
 
+`Field.Control` defaults to `--size-md` with `--spacing-1` block padding. Its `--field-control-*` variables continue to override that baseline.
+
 The wrapper preserves moduix visual defaults: compact vertical layout, tokenized control chrome,
 focus ring, disabled opacity, invalid border color, helper text, and destructive error text.
 
@@ -133,6 +135,8 @@ or delegated to form-specific components. If future controls need native form su
 their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
+
+- 2026-07-21: Reduced the default control to `--size-md` and compacted its block padding.
 
 - 2026-07-12: Added moduix `Field.Context` and `useFieldContext` exports alongside `useField`, and
   made the component-local index a re-export-only barrel.

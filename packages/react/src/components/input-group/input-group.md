@@ -106,6 +106,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 ## Defaults and styling
 
+The default `md` group uses `--size-md`; the `sm` variant uses `--size-sm`. The `md` input block padding is `--spacing-1`.
+
 - Group size defaults to `md` and is exposed as `data-size`.
 - `className` is supported on every exported part.
 - Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
@@ -127,6 +129,8 @@ should stay focused on ordinary input composition with addons, text, and actions
 - Keep `PasswordInput` behavior isolated until its separate Ark Password Input migration.
 
 ## Local changelog
+
+- 2026-07-21: Aligned the `md` and `sm` group heights with `--size-md` and `--size-sm`, and compacted `md` input padding.
 
 - 2026-07-10: Clarified that actions remain independently enabled in disabled fields and added
   disabled/read-only story coverage for the shared shell states.

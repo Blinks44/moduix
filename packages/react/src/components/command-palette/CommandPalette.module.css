@@ -5,9 +5,9 @@
     align-items: center;
     justify-content: center;
     gap: var(--command-palette-trigger-gap, var(--spacing-2));
-    min-height: var(--command-palette-trigger-height, var(--size-lg));
+    min-height: var(--command-palette-trigger-height, var(--size-md));
     margin: 0;
-    padding: var(--command-palette-trigger-padding-y, 0.5rem)
+    padding: var(--command-palette-trigger-padding-y, var(--spacing-1))
       var(--command-palette-trigger-padding-x, 0.875rem);
     border: var(--command-palette-trigger-border-width, var(--border-width-sm)) solid
       var(--command-palette-trigger-border-color, var(--color-border));
@@ -208,7 +208,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--command-palette-input-control-height, var(--size-sm));
+    height: var(--command-palette-input-control-height, auto);
     margin: 0;
     border: 0;
     padding: 0;
@@ -317,8 +317,8 @@
     grid-template-columns: auto minmax(0, 1fr) auto auto;
     align-items: center;
     gap: var(--command-palette-item-gap, var(--spacing-3));
-    min-height: var(--command-palette-item-min-height, 3rem);
-    padding: var(--command-palette-item-padding-y, var(--spacing-2))
+    min-height: var(--command-palette-item-min-height, var(--size-sm));
+    padding: var(--command-palette-item-padding-y, var(--spacing-1))
       var(--command-palette-item-padding-x, var(--spacing-3));
     border-radius: var(--command-palette-item-radius, var(--radius-md));
     color: var(--command-palette-item-color, var(--command-palette-color, var(--color-foreground)));

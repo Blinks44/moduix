@@ -135,6 +135,8 @@ The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also
 
 ## Defaults and styling
 
+The input and increment/decrement controls share the `--size-md` baseline; the text input uses `--spacing-1` block padding.
+
 All visual parts accept `className`; Ark parts also support `asChild`. `NumberInput.Field` accepts
 the structural props of `NumberInput.Control`, including `className`, but intentionally does not
 support `asChild`. Use the lower-level parts to customize its input or triggers. Trigger parts render
@@ -186,6 +188,8 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 `packages/react/src/components/number-input`.
 
 ## Local changelog
+
+- 2026-07-21: Aligned the field and square stepper controls to `--size-md` and compacted input padding.
 
 - 2026-07-19: Switched control borders and corner radii to logical inline properties for RTL.
 - 2026-07-10: Added `NumberInput.Field` and moduix exports for Ark state access; corrected disabled

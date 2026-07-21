@@ -76,7 +76,7 @@
     display: inline-flex;
     width: 100%;
     min-width: 0;
-    height: var(--select-control-height, var(--size-lg));
+    height: var(--select-control-height, var(--size-md));
     align-items: center;
     justify-content: flex-start;
     margin: 0;
@@ -311,14 +311,14 @@
     box-sizing: border-box;
     display: flex;
     width: calc(100% - var(--select-item-inset-x, var(--spacing-2)));
-    min-height: var(--select-item-min-height, 2rem);
+    min-height: var(--select-item-min-height, var(--size-sm));
     align-items: center;
     justify-content: space-between;
     gap: var(--select-item-gap, var(--spacing-2));
     margin-inline: calc(var(--select-item-inset-x, var(--spacing-2)) / 2);
     border: var(--select-item-border-width, 0) solid var(--select-item-border-color, transparent);
     border-radius: var(--select-item-radius, var(--radius-sm));
-    padding-block: var(--select-item-padding-y, var(--spacing-2));
+    padding-block: var(--select-item-padding-y, var(--spacing-1));
     padding-inline: var(--select-item-padding-x, 0.625rem);
     background-color: var(--select-item-bg, transparent);
     color: var(--select-item-color, var(--select-content-color, var(--color-foreground)));

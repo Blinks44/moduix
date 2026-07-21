@@ -5,9 +5,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--dialog-control-height, var(--size-lg));
+    min-height: var(--dialog-control-height, var(--size-md));
     margin: 0;
-    padding: var(--dialog-control-padding-y, 0.5rem) var(--dialog-control-padding-x, 0.875rem);
+    padding: var(--dialog-control-padding-y, var(--spacing-1))
+      var(--dialog-control-padding-x, 0.875rem);
     border: var(--dialog-control-border-width, var(--border-width-sm)) solid
       var(--dialog-control-border-color, var(--color-border));
     border-radius: var(--dialog-control-radius, var(--radius-md));

@@ -4,9 +4,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--tooltip-trigger-height, var(--size-lg));
+    min-height: var(--tooltip-trigger-height, var(--size-md));
     margin: 0;
-    padding: var(--tooltip-trigger-padding-y, 0.5rem) var(--tooltip-trigger-padding-x, 0.875rem);
+    padding: var(--tooltip-trigger-padding-y, var(--spacing-1))
+      var(--tooltip-trigger-padding-x, 0.875rem);
     border: var(--tooltip-trigger-border-width, var(--border-width-sm)) solid
       var(--tooltip-trigger-border-color, var(--color-border));
     border-radius: var(--tooltip-trigger-radius, var(--radius-md));

@@ -99,7 +99,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--combobox-control-height, var(--size-lg));
+    height: var(--combobox-control-height, var(--size-md));
     margin: 0;
     border: 0;
     border-radius: inherit;
@@ -293,7 +293,7 @@
     position: relative;
     display: flex;
     width: calc(100% - var(--combobox-item-inset-x, var(--spacing-2)));
-    min-height: var(--combobox-item-min-height, 2rem);
+    min-height: var(--combobox-item-min-height, var(--size-sm));
     align-items: center;
     justify-content: space-between;
     gap: var(--combobox-item-gap, var(--spacing-2));
@@ -301,7 +301,7 @@
     border: var(--combobox-item-border-width, 0) solid
       var(--combobox-item-border-color, transparent);
     border-radius: var(--combobox-item-radius, var(--radius-sm));
-    padding-block: var(--combobox-item-padding-y, var(--spacing-2));
+    padding-block: var(--combobox-item-padding-y, var(--spacing-1));
     padding-inline: var(--combobox-item-padding-x, 0.625rem);
     background-color: var(--combobox-item-bg, transparent);
     color: var(--combobox-item-color, var(--combobox-content-color, var(--color-foreground)));

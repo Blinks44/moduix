@@ -81,8 +81,8 @@
   .trigger {
     box-sizing: border-box;
     display: grid;
-    width: var(--color-picker-trigger-size, var(--size-lg));
-    height: var(--color-picker-trigger-size, var(--size-lg));
+    width: var(--color-picker-trigger-size, var(--size-md));
+    height: var(--color-picker-trigger-size, var(--size-md));
     flex-shrink: 0;
     place-items: center;
     overflow: hidden;
@@ -118,7 +118,7 @@
     &[data-fit-content] {
       display: inline-flex;
       width: auto;
-      min-width: var(--color-picker-trigger-size, var(--size-lg));
+      min-width: var(--color-picker-trigger-size, var(--size-md));
       padding-inline: var(--color-picker-trigger-fit-content-padding-x, var(--spacing-3));
       gap: var(--color-picker-trigger-fit-content-gap, var(--spacing-2));
     }
@@ -291,7 +291,7 @@
     box-sizing: border-box;
     width: 100%;
     min-width: 0;
-    height: var(--color-picker-input-height, var(--size-lg));
+    height: var(--color-picker-input-height, var(--size-md));
     margin: 0;
     border: var(--color-picker-border-width, var(--border-width-sm)) solid
       var(--color-picker-border-color, var(--color-border));
@@ -348,8 +348,8 @@
   .formatTrigger {
     box-sizing: border-box;
     display: inline-flex;
-    height: var(--color-picker-action-size, var(--size-lg));
-    min-width: var(--color-picker-action-size, var(--size-lg));
+    height: var(--color-picker-action-size, var(--size-md));
+    min-width: var(--color-picker-action-size, var(--size-md));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
@@ -430,8 +430,8 @@
     position: relative;
     box-sizing: border-box;
     display: grid;
-    width: var(--color-picker-swatch-size, 2rem);
-    height: var(--color-picker-swatch-size, 2rem);
+    width: var(--color-picker-swatch-size, var(--size-sm));
+    height: var(--color-picker-swatch-size, var(--size-sm));
     flex-shrink: 0;
     place-items: center;
     overflow: hidden;
