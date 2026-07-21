@@ -25,9 +25,12 @@ Read [references/discovery.md](references/discovery.md) for the docs, registry, 
 paths.
 
 1. Read the canonical moduix documentation page for the component, block, or guide.
-2. For copy-owned work, use the project's package runner with `shadcn@latest search @moduix-react`
-   and `shadcn@latest view @moduix-react/<item>` before adding an item.
-3. Use the configured shadcn MCP server for discovery when available; otherwise use the CLI.
+2. For copy-owned work, use the project's package runner with `shadcn@latest search @moduix-react
+-q "<product need>"` and `shadcn@latest view @moduix-react/<item>` before adding an item. Search
+   for the interface or workflow; moduix registry items include components, blocks, and themes.
+3. Use the configured shadcn MCP server for discovery when available; otherwise use the CLI. Do not
+   initialize MCP or change an AI client's configuration unless the user asks. The consumer setup is
+   documented at `https://moduix.dev/docs/ai.md`.
 4. Prefer documented components and blocks to custom markup when they fit the product need.
 
 ## Build and review
@@ -38,6 +41,7 @@ paths.
    selected model.
 3. Read existing copy-owned files before editing them. Do not overwrite local customizations without
    the user's direction.
-4. Before updating a copy-owned registry item, use `shadcn@latest add <item> --dry-run` and
-   `shadcn@latest add <item> --diff <file>`. Never use `--overwrite` without explicit approval.
+4. Before adding a copy-owned registry item, use `shadcn@latest add <item> --dry-run`. Before
+   updating an installed item, use `shadcn@latest add <item> --diff [path]`. Never use
+   `--overwrite` without explicit approval.
 5. Validate the consumer project with its normal typecheck, tests, and accessibility checks.

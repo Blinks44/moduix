@@ -64,27 +64,80 @@ it as `$moduix` in skill-aware agents.
 
 ## Use the shadcn MCP server
 
-The shadcn MCP server can search and install items from a configured moduix registry. Initialize it
-inside the consuming project, then restart your AI client:
+The shadcn MCP server works with the existing moduix hosted registry. moduix does not run a
+separate MCP server: configure the registry in the consuming project, then let shadcn expose it to
+your AI client.
 
-```bash
-npx shadcn@latest mcp init
+### 1. Configure the registry
+
+The consuming project's `components.json` must contain the moduix registry URL:
+
+```json
+{
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
+}
 ```
 
-Keep the `@moduix-react` entry in `components.json`. Once it is configured, prompts such as these
-work well:
+See [Quick start](/docs/quick-start) for the complete `components.json` configuration.
+
+### 2. Connect your AI client
+
+Initialize shadcn MCP in the consuming project, choosing the client that you use:
+
+```bash
+npx shadcn@latest mcp init --client codex
+```
+
+Replace `codex` with `claude`, `cursor`, `vscode`, or `opencode` when appropriate, then restart
+the client. The [shadcn registry MCP guide](https://ui.shadcn.com/docs/registry/mcp) has
+client-specific setup details.
+
+### 3. Discover before installing
+
+Ask the assistant to inspect the matching moduix item before it changes files. These prompts work
+for components, blocks, and themes:
 
 ```text
-Find the moduix component for an editable text field and show its documentation first.
+Find the moduix component for an editable text field. Show the component documentation and registry
+item before proposing code.
 ```
 
 <div className="h-4" aria-hidden="true" />
 
 ```text
-Add @moduix-react/dialog to this copy-owned project, then use it for a confirmation flow.
+Find a moduix sign-in block. Show its registry dependencies and responsive behavior, but do not
+install it yet.
 ```
 
-See the [shadcn MCP documentation](https://ui.shadcn.com/docs/mcp) for client-specific setup.
+<div className="h-4" aria-hidden="true" />
+
+```text
+Find a high-contrast moduix theme. Show how it is applied before changing the project.
+```
+
+### 4. Review the CLI fallback
+
+Use the CLI when MCP is unavailable, or when you want a command-line review trail. For a
+copy-owned project, inspect the current configuration, search by product need, inspect the item,
+then preview changes:
+
+```bash
+npx shadcn@latest info --json
+npx shadcn@latest search @moduix-react -q "confirmation dialog"
+npx shadcn@latest view @moduix-react/dialog
+npx shadcn@latest add @moduix-react/dialog --dry-run
+```
+
+For an already-installed item, inspect the generated-file diff before updating it:
+
+```bash
+npx shadcn@latest add @moduix-react/dialog --diff src/components/moduix/dialog.tsx
+```
+
+Run `add` without preview flags only after the item, dependencies, target paths, and ownership
+model are correct. Do not use `--overwrite` without an explicit decision to replace local changes.
 
 ## Review generated code
 
@@ -94,5 +147,6 @@ Treat generated code as a draft. Before merging it, check that it:
 - keeps the correct package or registry ownership model;
 - passes your normal typecheck, tests, and accessibility review.
 
-For changes to copy-owned components, inspect updates with the `shadcn` CLI before merging them.
-The [Updating and migration](/docs/updating) guide explains that workflow.
+MCP can discover either ownership model, but only copy-owned projects should use registry `add`
+commands. Package-managed projects keep `@moduix/react` imports and update through their package
+manager. The [Updating and migration](/docs/updating) guide explains the copy-owned update workflow.

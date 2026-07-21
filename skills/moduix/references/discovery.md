@@ -4,7 +4,8 @@
 
 - Use `https://moduix.dev/llms.txt` to discover components, blocks, themes, and guides.
 - Read `https://moduix.dev/docs/<slug>.md` before implementing a focused component or workflow.
-- Use `https://moduix.dev/r/react/<item>.json` only to inspect a copy-owned registry item.
+- Use `https://moduix.dev/r/react/registry.json` to inspect the copy-owned registry catalogue and
+  `https://moduix.dev/r/react/<item>.json` to inspect one item.
 
 ## Choose an existing building block first
 
@@ -15,6 +16,8 @@
 
 ## Copy-owned discovery
 
-With the configured project runner, use `shadcn@latest search @moduix-react -q "<query>"` to find
-items and `shadcn@latest view @moduix-react/<item>` to inspect one before adding it. Prefer the
-configured shadcn MCP server when it is available.
+Confirm the configured `@moduix-react` namespace with `shadcn@latest info --json`. Then use the
+project runner with `shadcn@latest search @moduix-react -q "<product need>"` to find items and
+`shadcn@latest view @moduix-react/<item>` to inspect one before adding it. Search the component,
+block, and theme catalogue by user-facing behavior. Prefer the configured shadcn MCP server when it
+is available; otherwise follow the same CLI workflow.

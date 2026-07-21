@@ -126,6 +126,11 @@ staying in `node_modules`.
 
 ### 1. Prepare the project for shadcn
 
+For an existing React project, first follow the [shadcn installation guide](https://ui.shadcn.com/docs/installation)
+for your bundler and run `shadcn init`. It creates the base styling and `components.json` that the
+CLI needs. Do not replace that generated configuration with the example below; add the moduix
+registry entry to it.
+
 Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
 
 #### Vite
@@ -206,31 +211,11 @@ resolve: {
   </Tab>
 </Tabs>
 
-Create `components.json` in the project root with the following content. The `registries` entry
-lets the shadcn CLI resolve the moduix hosted registry:
+After initialization, add the following `registries` entry to `components.json`. It lets the
+shadcn CLI resolve the moduix hosted registry:
 
 ```json
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "src/index.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "rtl": false,
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
   "registries": {
     "@moduix-react": "https://moduix.dev/r/react/{name}.json"
   }
@@ -240,7 +225,22 @@ lets the shadcn CLI resolve the moduix hosted registry:
 This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in
 `src/components` and `src/lib` instead of a literal `@` directory.
 
-### 2. Install components with shadcn
+### 2. Discover and preview before installing
+
+For a copy-owned project, inspect the current configuration and the item before writing files:
+
+```bash
+npx shadcn@latest info --json
+npx shadcn@latest search @moduix-react -q "confirmation dialog"
+npx shadcn@latest view @moduix-react/dialog
+npx shadcn@latest add @moduix-react/dialog --dry-run
+```
+
+Search by the interface you need rather than a familiar library name. The registry contains
+components, blocks, themes, and their declared dependencies. See the [AI guide](/docs/ai) to use
+the same discovery flow through shadcn MCP.
+
+### 3. Install components with shadcn
 
 Install registry items from the moduix hosted registry:
 
@@ -290,7 +290,7 @@ aubx shadcn@latest add @moduix-react/accordion
 The registry will also install the shared moduix foundation files those components need, including
 styles, icons, and small utilities.
 
-### 3. Add styles
+### 4. Add styles
 
 Import the generated foundation stylesheet from the files that `shadcn` added to your project:
 
@@ -309,7 +309,7 @@ import '@/lib/moduix/styles/style.css';
 The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
 update `components.json` and import the generated files from the matching paths.
 
-### 4. Use the generated files
+### 5. Use the generated files
 
 Import components from the generated files in your own project:
 
