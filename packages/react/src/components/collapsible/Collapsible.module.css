@@ -63,8 +63,11 @@
       color var(--collapsible-trigger-transition, var(--transition-default));
 
     &:focus-visible {
-      outline: var(--collapsible-focus-ring-width, var(--border-width-sm)) solid
-        var(--collapsible-focus-ring-color, var(--color-ring));
+      outline: var(
+          --collapsible-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
+        solid var(--collapsible-focus-ring-color, var(--color-ring));
       outline-offset: var(--collapsible-focus-ring-offset, var(--border-width-sm));
     }
 
@@ -97,8 +100,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--collapsible-indicator-size, 0.75rem);
-    height: var(--collapsible-indicator-size, 0.75rem);
+    width: var(--collapsible-indicator-size, var(--spacing-3));
+    height: var(--collapsible-indicator-size, var(--spacing-3));
     flex-shrink: 0;
     transition: transform var(--collapsible-indicator-transition, var(--transition-default));
 

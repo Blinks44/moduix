@@ -181,6 +181,7 @@ function TreeNodeContent({ node, indexPath }) {
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Re-exported the TreeView hooks and normal recursive-renderer types from moduix, and
   documented the default checkbox-indicator icons as the recommended path.
 

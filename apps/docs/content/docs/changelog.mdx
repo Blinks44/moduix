@@ -24,6 +24,29 @@ primitive model.
 - Default component icons are internal implementation details. Import application icons directly
   from your preferred library, such as `lucide-react`.
 
+### Themes
+
+v2 adds curated CSS token presets: `Calm`, `Dense`, `Soft`, and `Contrast`. They change semantic
+colors, spacing, control sizes, radius, shadows, and Sidebar tokens without a provider or theme
+runtime. `Calm` is the default foundation; import one of the other presets after `style.css` and set
+the theme on `<html>`:
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+<div className="h-4" aria-hidden="true" />
+
+```html
+<html data-moduix-theme="soft" class="dark"></html>
+```
+
+The `dark` class selects the dark values for the active preset. Themes remain ordinary CSS, so you
+can create a project-owned theme by defining the same semantic tokens after the foundation import.
+See [Themes](/docs/themes) for the complete custom-theme guide, all presets, and the hosted registry
+path.
+
 ### Migrating to v2
 
 1. Install the v2 package with its Ark UI peer dependency:

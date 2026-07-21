@@ -5,7 +5,7 @@
     flex-direction: column;
     min-width: 0;
     align-items: center;
-    gap: var(--angle-slider-gap, 0.75rem);
+    gap: var(--angle-slider-gap, var(--spacing-3));
     color: var(--angle-slider-color, var(--color-foreground));
 
     &[data-disabled] {
@@ -60,8 +60,8 @@
     &::before {
       position: absolute;
       z-index: 1;
-      width: var(--angle-slider-center-dot-size, 0.375rem);
-      height: var(--angle-slider-center-dot-size, 0.375rem);
+      width: var(--angle-slider-center-dot-size, var(--spacing-1-5));
+      height: var(--angle-slider-center-dot-size, var(--spacing-1-5));
       border-radius: inherit;
       background: var(
         --angle-slider-center-dot-color,
@@ -109,8 +109,8 @@
       top: var(--angle-slider-ring-thickness, 0.875rem);
       left: 50%;
       box-sizing: border-box;
-      width: var(--angle-slider-thumb-size, 1rem);
-      height: var(--angle-slider-thumb-size, 1rem);
+      width: var(--angle-slider-thumb-size, var(--spacing-4));
+      height: var(--angle-slider-thumb-size, var(--spacing-4));
       border: var(--angle-slider-thumb-border-width, var(--border-width-sm)) solid
         var(--angle-slider-thumb-border-color, var(--color-border));
       border-radius: var(--angle-slider-thumb-radius, var(--radius-full));
@@ -131,14 +131,14 @@
     &::after {
       position: absolute;
       top: calc(
-        var(--angle-slider-ring-thickness, 0.875rem) + var(--angle-slider-thumb-size, 1rem) +
-          0.25rem
+        var(--angle-slider-ring-thickness, 0.875rem) +
+          var(--angle-slider-thumb-size, var(--spacing-4)) + var(--spacing-1)
       );
       left: 50%;
       width: var(--angle-slider-thumb-line-width, 0.1875rem);
       height: calc(
-        50% - var(--angle-slider-ring-thickness, 0.875rem) - var(--angle-slider-thumb-size, 1rem) -
-          0.375rem
+        50% - var(--angle-slider-ring-thickness, 0.875rem) -
+          var(--angle-slider-thumb-size, var(--spacing-4)) - var(--spacing-1-5)
       );
       border-radius: var(--radius-full);
       background: linear-gradient(

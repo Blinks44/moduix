@@ -84,15 +84,22 @@
       var(--date-picker-border-color, var(--color-border));
     border-radius: var(--date-picker-radius, var(--radius-md));
     padding-block: var(--date-picker-input-padding-y, var(--spacing-1));
-    padding-inline: var(--date-picker-input-padding-x-start, 0.875rem)
+    padding-inline: var(--date-picker-input-padding-x-start, var(--spacing-3-5))
       var(--date-picker-input-padding-x-end, 4.25rem);
     background-color: var(--date-picker-bg, var(--color-background));
     color: inherit;
     font: inherit;
     font-size: var(--date-picker-font-size, var(--text-md));
     line-height: var(--date-picker-line-height, var(--line-height-text-md));
-    outline: var(--date-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--date-picker-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --date-picker-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--date-picker-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) *
+        -1
+    );
     transition:
       background-color var(--date-picker-transition, var(--transition-default)),
       border-color var(--date-picker-transition, var(--transition-default)),
@@ -124,7 +131,7 @@
 
   .control:has(.input + .input) .input {
     min-width: min(var(--date-picker-range-input-min-width, 7.5rem), 100%);
-    padding-inline-end: var(--date-picker-input-padding-x-start, 0.875rem);
+    padding-inline-end: var(--date-picker-input-padding-x-start, var(--spacing-3-5));
   }
 
   .control:has(.input + .input) .input:last-of-type {
@@ -148,7 +155,11 @@
     color: var(--date-picker-icon-color, var(--color-muted-foreground));
     font: inherit;
     line-height: 0;
-    outline: var(--date-picker-action-focus-ring-width, var(--border-width-sm)) solid transparent;
+    outline: var(
+        --date-picker-action-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
     outline-offset: var(--date-picker-action-focus-ring-offset, 0);
     cursor: pointer;
     transition:
@@ -159,8 +170,8 @@
 
     & > svg {
       display: block;
-      width: var(--date-picker-icon-size, 1rem);
-      height: var(--date-picker-icon-size, 1rem);
+      width: var(--date-picker-icon-size, var(--spacing-4));
+      height: var(--date-picker-icon-size, var(--spacing-4));
     }
 
     &:is(:focus-visible, [data-focus]) {
@@ -189,18 +200,18 @@
   .trigger {
     position: absolute;
     top: 50%;
-    width: var(--date-picker-action-size, 1.5rem);
-    height: var(--date-picker-action-size, 1.5rem);
+    width: var(--date-picker-action-size, var(--size-xs));
+    height: var(--date-picker-action-size, var(--size-xs));
     transform: translateY(-50%);
   }
 
   .trigger {
-    inset-inline-end: var(--date-picker-trigger-offset-right, 0.5rem);
+    inset-inline-end: var(--date-picker-trigger-offset-right, var(--spacing-2));
   }
 
   .clearTrigger {
-    --close-button-size: var(--date-picker-action-size, 1.5rem);
-    --close-button-icon-size: var(--date-picker-icon-size, 1rem);
+    --close-button-size: var(--date-picker-action-size, var(--size-xs));
+    --close-button-icon-size: var(--date-picker-icon-size, var(--spacing-4));
     --close-button-radius: var(--date-picker-action-radius, var(--radius-sm));
     --close-button-bg: var(--date-picker-action-bg, transparent);
     --close-button-bg-hover: var(--date-picker-action-bg-hover, var(--color-muted));
@@ -218,8 +229,9 @@
     position: absolute;
     top: 50%;
     inset-inline-end: calc(
-      var(--date-picker-trigger-offset-right, 0.5rem) + var(--date-picker-action-size, 1.5rem) +
-        var(--date-picker-action-gap, 0.125rem)
+      var(--date-picker-trigger-offset-right, var(--spacing-2)) +
+        var(--date-picker-action-size, var(--size-xs)) +
+        var(--date-picker-action-gap, var(--spacing-0-5))
     );
     transform: translateY(-50%);
 
@@ -327,7 +339,7 @@
   .table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: var(--date-picker-table-cell-gap, 0.125rem);
+    border-spacing: var(--date-picker-table-cell-gap, var(--spacing-0-5));
     table-layout: fixed;
   }
 
@@ -374,10 +386,17 @@
     font: inherit;
     font-size: var(--date-picker-table-cell-font-size, var(--text-sm));
     line-height: var(--date-picker-table-cell-line-height, var(--line-height-text-sm));
-    outline: var(--date-picker-table-cell-focus-ring-width, var(--border-width-sm)) solid
-      transparent;
+    outline: var(
+        --date-picker-table-cell-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
     outline-offset: calc(
-      var(--date-picker-table-cell-focus-ring-width, var(--border-width-sm)) * -1
+      var(
+          --date-picker-table-cell-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        ) *
+        -1
     );
     cursor: pointer;
     transition:
@@ -437,15 +456,25 @@
     border: var(--date-picker-select-border-width, var(--border-width-sm)) solid
       var(--date-picker-select-border-color, var(--color-border));
     border-radius: var(--date-picker-select-radius, var(--radius-sm));
-    padding-block: var(--date-picker-select-padding-y, 0.25rem);
+    padding-block: var(--date-picker-select-padding-y, var(--spacing-1));
     padding-inline: var(--date-picker-select-padding-x, var(--spacing-2));
     background-color: var(--date-picker-select-bg, var(--color-background));
     color: var(--date-picker-select-color, var(--color-foreground));
     font: inherit;
     font-size: var(--date-picker-select-font-size, var(--text-sm));
     line-height: var(--date-picker-select-line-height, var(--line-height-text-sm));
-    outline: var(--date-picker-select-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--date-picker-select-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --date-picker-select-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(
+          --date-picker-select-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        ) *
+        -1
+    );
     cursor: pointer;
     transition:
       background-color var(--date-picker-transition, var(--transition-default)),

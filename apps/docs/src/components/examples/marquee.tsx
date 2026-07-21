@@ -113,7 +113,7 @@ export const marqueeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--marquee-spacing',
-    'computed from `spacing` (default `1rem`)',
+    '1rem',
     'Runtime value from Ark that spaces repeated content instances and items.',
   ],
   [
@@ -121,7 +121,11 @@ export const marqueeCssProperties: CssPropertyInput[] = [
     'computed from measured content size and `side`',
     'Runtime value from Ark that drives the keyframe translate distance.',
   ],
-  ['--marquee-vertical-height', '15rem', 'Controls root height for vertical marquees.'],
+  [
+    '--marquee-vertical-height',
+    'var(--marquee-height, 15rem)',
+    'Controls root height for vertical marquees.',
+  ],
   ['--marquee-width', '100%', 'Controls root width.'],
 ];
 

@@ -190,7 +190,7 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
     'var(--color-ring)',
     'Customizes lightbox close icon focus ring color.',
   ],
-  ['--lightbox-close-icon-glyph-size', '0.875rem', 'Close glyph size.'],
+  ['--lightbox-close-icon-glyph-size', 'var(--spacing-3-5)', 'Close glyph size.'],
   [
     '--lightbox-close-icon-inset-block-start',
     'var(--spacing-4)',
@@ -202,7 +202,7 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
     'Customizes lightbox close icon inset inline end.',
   ],
   ['--lightbox-close-icon-radius', 'var(--radius-sm)', 'Close control radius.'],
-  ['--lightbox-close-icon-size', '2rem', 'Close control size.'],
+  ['--lightbox-close-icon-size', 'var(--spacing-8)', 'Close control size.'],
   ['--lightbox-content-gap', 'var(--spacing-3)', 'Customizes lightbox content gap.'],
   ['--lightbox-content-ending-opacity', '0', 'Customizes lightbox content ending opacity.'],
   ['--lightbox-content-ending-scale', '0.82', 'Customizes lightbox content ending scale.'],
@@ -250,11 +250,16 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--lightbox-gallery-gap', 'var(--spacing-4)', 'Space between carousel parts.'],
   ['--lightbox-gallery-max-width', '72rem', 'Maximum gallery width.'],
   [
+    '--lightbox-gallery-thumbnail-active-translate-y',
+    'calc(var(--border-width-sm) * -1)',
+    'Current thumbnail vertical lift.',
+  ],
+  [
     '--lightbox-gallery-thumbnail-border-color',
     'var(--color-primary)',
     'Current thumbnail border color.',
   ],
-  ['--lightbox-gallery-thumbnail-height', '3rem', 'Thumbnail indicator height.'],
+  ['--lightbox-gallery-thumbnail-height', 'var(--size-xl)', 'Thumbnail indicator height.'],
   ['--lightbox-gallery-thumbnail-opacity', '0.65', 'Idle thumbnail opacity.'],
   ['--lightbox-gallery-thumbnail-opacity-hover', '0.9', 'Hovered thumbnail opacity.'],
   ['--lightbox-gallery-thumbnail-radius', 'var(--radius-md)', 'Thumbnail indicator corner radius.'],
@@ -285,8 +290,16 @@ export const lightboxOverrideCssProperties: CssPropertyInput[] = [
     'Customizes lightbox title line height.',
   ],
   ['--lightbox-trigger-focus-ring-color', 'var(--color-ring)', 'Trigger focus ring color.'],
-  ['--lightbox-trigger-focus-ring-offset', '2px', 'Trigger focus ring offset.'],
-  ['--lightbox-trigger-focus-ring-width', 'var(--border-width-md)', 'Trigger focus ring width.'],
+  [
+    '--lightbox-trigger-focus-ring-offset',
+    'var(--focus-ring-offset)',
+    'Trigger focus ring offset.',
+  ],
+  [
+    '--lightbox-trigger-focus-ring-width',
+    'var(--focus-ring-width, var(--border-width-md))',
+    'Trigger focus ring width.',
+  ],
   ['--lightbox-transition', '220ms ease', 'Content motion timing.'],
 ];
 

@@ -129,6 +129,9 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - Content motion falls back to the shared `--popup-motion-*` tokens. `--color-picker-transition`
   and closed-state variables remain the more specific override.
 - moduix applies field, popup, color area, slider, swatch, focus ring, shadow, and motion defaults.
+- `--color-picker-swatch-indicator-shadow` exposes the contrast shadow behind the selected-swatch
+  glyph; its default remains a compact `drop-shadow(...)` because it follows the swatch color rather
+  than the rectangular surface shadow scale.
 - `className` is accepted on every visual part.
 - `Content` defaults to `16rem` wide and uses Ark `--available-height` and `--transform-origin`;
   do not default it to `--reference-width`, because the trigger swatch is intentionally narrow.
@@ -164,6 +167,7 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the square trigger, channel controls, and actions to `--size-md`; swatches now use `--size-sm`.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

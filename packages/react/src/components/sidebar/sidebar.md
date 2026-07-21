@@ -284,6 +284,7 @@ feedback.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made `panelId` update the default panel data and resize trigger id, documented
   CSS-length hydration behavior, and kept custom inset ids on the lower-level `Splitter` path.
 - 2026-07-06: Added `Sidebar.Tooltip` as the blessed collapsed-label helper and migrated sidebar

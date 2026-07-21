@@ -139,7 +139,7 @@ Public CSS variables:
 | `--empty-icon-bg`                 | `var(--color-muted)`                                             |
 | `--empty-icon-color`              | `var(--color-muted-foreground)`                                  |
 | `--empty-icon-padding`            | `var(--spacing-3)`                                               |
-| `--empty-icon-size`               | `1.5rem`                                                         |
+| `--empty-icon-size`               | `var(--spacing-6)`                                               |
 | `--empty-padding`                 | `var(--spacing-8)`                                               |
 | `--empty-radius`                  | `var(--radius-xl)`                                               |
 | `--empty-shadow`                  | `none`                                                           |
@@ -172,6 +172,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
   public docs with the required local-only Ark factory API reference text.
 - 2026-07-02: Removed redundant exported `Empty*Props` aliases; the public API now exposes only the

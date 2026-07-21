@@ -125,31 +125,32 @@ Every part accepts `className` and exposes both Ark-style data attributes and st
 
 Public CSS variables:
 
-| Variable                                   | Default                         |
-| ------------------------------------------ | ------------------------------- |
-| `--breadcrumbs-color`                      | `var(--color-muted-foreground)` |
-| `--breadcrumbs-ellipsis-color`             | `var(--color-muted-foreground)` |
-| `--breadcrumbs-ellipsis-radius`            | `var(--radius-sm)`              |
-| `--breadcrumbs-ellipsis-size`              | `1rem`                          |
-| `--breadcrumbs-focus-ring-color`           | `var(--color-ring)`             |
-| `--breadcrumbs-focus-ring-width`           | `var(--border-width-sm)`        |
-| `--breadcrumbs-font-size`                  | `var(--text-sm)`                |
-| `--breadcrumbs-gap`                        | `var(--spacing-1)`              |
-| `--breadcrumbs-item-max-width`             | `16rem`                         |
-| `--breadcrumbs-item-padding-x`             | `0.25rem`                       |
-| `--breadcrumbs-line-height`                | `var(--line-height-text-sm)`    |
-| `--breadcrumbs-link-color`                 | `var(--color-muted-foreground)` |
-| `--breadcrumbs-link-color-hover`           | `var(--color-foreground)`       |
-| `--breadcrumbs-link-radius`                | `var(--radius-sm)`              |
-| `--breadcrumbs-link-text-decoration`       | `none`                          |
-| `--breadcrumbs-link-text-decoration-hover` | `none`                          |
-| `--breadcrumbs-link-transition`            | `var(--transition-default)`     |
-| `--breadcrumbs-link-underline-offset`      | `0.2em`                         |
-| `--breadcrumbs-max-width`                  | `100%`                          |
-| `--breadcrumbs-page-color`                 | `var(--color-foreground)`       |
-| `--breadcrumbs-page-font-weight`           | `var(--weight-medium)`          |
-| `--breadcrumbs-separator-color`            | `var(--color-muted-foreground)` |
-| `--breadcrumbs-separator-font-size`        | `0.875em`                       |
+| Variable                                   | Default                                                 |
+| ------------------------------------------ | ------------------------------------------------------- |
+| `--breadcrumbs-color`                      | `var(--color-muted-foreground)`                         |
+| `--breadcrumbs-ellipsis-color`             | `var(--color-muted-foreground)`                         |
+| `--breadcrumbs-ellipsis-radius`            | `var(--radius-sm)`                                      |
+| `--breadcrumbs-ellipsis-size`              | `var(--spacing-4)`                                      |
+| `--breadcrumbs-focus-ring-color`           | `var(--color-ring)`                                     |
+| `--breadcrumbs-focus-ring-width`           | `var(--focus-ring-inset-width, var(--border-width-sm))` |
+| `--breadcrumbs-font-size`                  | `var(--text-sm)`                                        |
+| `--breadcrumbs-gap`                        | `var(--spacing-1)`                                      |
+| `--breadcrumbs-item-max-width`             | `16rem`                                                 |
+| `--breadcrumbs-item-padding-x`             | `var(--spacing-1)`                                      |
+| `--breadcrumbs-line-height`                | `var(--line-height-text-sm)`                            |
+| `--breadcrumbs-link-color`                 | `var(--color-muted-foreground)`                         |
+| `--breadcrumbs-link-color-hover`           | `var(--color-foreground)`                               |
+| `--breadcrumbs-link-radius`                | `var(--radius-sm)`                                      |
+| `--breadcrumbs-link-text-decoration`       | `none`                                                  |
+| `--breadcrumbs-link-text-decoration-hover` | `none`                                                  |
+| `--breadcrumbs-link-transition`            | `var(--transition-default)`                             |
+| `--breadcrumbs-link-underline-offset`      | `0.2em`                                                 |
+| `--breadcrumbs-max-width`                  | `100%`                                                  |
+| `--breadcrumbs-page-color`                 | `var(--color-foreground)`                               |
+| `--breadcrumbs-page-font-weight`           | `var(--weight-medium)`                                  |
+| `--breadcrumbs-separator-color`            | `var(--color-muted-foreground)`                         |
+| `--breadcrumbs-separator-font-size`        | `0.875em`                                               |
+| `--breadcrumbs-separator-icon-size`        | `1em`                                                   |
 
 Visible items can shrink when necessary, and the last item is capped by `--breadcrumbs-item-max-width`; link, page, and
 ellipsis text uses `text-overflow: ellipsis`.
@@ -177,6 +178,7 @@ ellipsis text uses `text-overflow: ellipsis`.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Allowed ancestor breadcrumb items to shrink in tight layouts and added a dedicated advanced-composition
   docs path alongside the shorthand-first examples.
 - 2026-07-07: Added `Breadcrumbs.Path` for common anchor-based trails, switched the default separator to a chevron icon,

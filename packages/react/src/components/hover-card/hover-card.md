@@ -120,6 +120,7 @@ Ark utility types remain direct-import escape hatches.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Exposed `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` through
   moduix; documented disabled state, overlay nesting, and the supplementary-content constraint.

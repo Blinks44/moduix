@@ -151,6 +151,7 @@ Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext`
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default dialog and close controls to `--size-md` and compacted their block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.

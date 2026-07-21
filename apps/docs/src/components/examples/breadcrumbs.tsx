@@ -42,9 +42,13 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ['--breadcrumbs-color', 'var(--color-muted-foreground)', 'Controls base breadcrumbs text color.'],
   ['--breadcrumbs-ellipsis-color', 'var(--color-muted-foreground)', 'Controls ellipsis color.'],
   ['--breadcrumbs-ellipsis-radius', 'var(--radius-sm)', 'Controls ellipsis radius.'],
-  ['--breadcrumbs-ellipsis-size', '1rem', 'Controls ellipsis size.'],
+  ['--breadcrumbs-ellipsis-size', 'var(--spacing-4)', 'Controls ellipsis size.'],
   ['--breadcrumbs-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--breadcrumbs-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  [
+    '--breadcrumbs-focus-ring-width',
+    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    'Controls focus ring width.',
+  ],
   ['--breadcrumbs-font-size', 'var(--text-sm)', 'Controls breadcrumbs font size.'],
   ['--breadcrumbs-gap', 'var(--spacing-1)', 'Controls spacing between breadcrumb parts.'],
   [
@@ -54,7 +58,7 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ],
   [
     '--breadcrumbs-item-padding-x',
-    '0.25rem',
+    'var(--spacing-1)',
     'Controls inline padding for links, page text, and ellipsis.',
   ],
   ['--breadcrumbs-line-height', 'var(--line-height-text-sm)', 'Controls breadcrumbs line height.'],
@@ -90,6 +94,7 @@ export const breadcrumbsCssProperties: CssPropertyInput[] = [
   ],
   ['--breadcrumbs-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
   ['--breadcrumbs-separator-font-size', '0.875em', 'Controls separator font size.'],
+  ['--breadcrumbs-separator-icon-size', '1em', 'Controls separator icon size.'],
 ];
 
 export function BreadcrumbsExample(props: ComponentProps<typeof Breadcrumbs>) {

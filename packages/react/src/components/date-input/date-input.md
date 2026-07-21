@@ -184,6 +184,7 @@ segment shortcuts, or local event aliases.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default date control to `--size-md` and compacted its block padding.
 
 - 2026-07-13: Rendered native date inputs automatically and added `names` for range fields that

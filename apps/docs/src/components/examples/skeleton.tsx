@@ -12,6 +12,7 @@ const skeletonCssProperties: CssPropertyInput[] = [
     'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
     'Controls skeleton background color.',
   ],
+  ['--skeleton-height', 'var(--spacing-4)', 'Controls default loading height.'],
 ];
 export const skeletonOverrideCssProperties = skeletonCssProperties;
 

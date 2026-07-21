@@ -180,6 +180,7 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default floating-panel trigger to `--size-md` and compacted its block padding.
 
 - 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.

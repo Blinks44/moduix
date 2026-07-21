@@ -147,6 +147,7 @@ disabled or `aria-disabled` states.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-17: Composed `Tag.CloseTrigger` with the shared `CloseButton` and mapped the existing
   `--tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.
 - 2026-07-11: Updated removable-tag examples to model parent-owned removal state and use specific

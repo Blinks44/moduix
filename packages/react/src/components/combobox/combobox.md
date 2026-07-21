@@ -171,6 +171,9 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 The input control defaults to `--size-md`. Single-line popup options default to `--size-sm` with `--spacing-1` block padding.
 
+Popup group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular
+weight, and `--spacing-1` block padding. Component-specific variables still take precedence.
+
 - Content motion falls back to the shared `--popup-motion-*` tokens. `--combobox-transition` and
   closed-state variables remain the more specific override.
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
@@ -233,6 +236,9 @@ Common `shadcn` migration points:
 - Keep generic inference on the callable root, `Root`, and `RootProvider`.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--spacing-1` contract.
 
 - 2026-07-21: Reduced the default input to `--size-md` and compacted popup options to `--size-sm`.
 

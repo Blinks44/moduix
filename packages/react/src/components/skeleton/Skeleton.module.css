@@ -6,7 +6,7 @@
     border-radius: var(--skeleton-border-radius, var(--radius-md));
 
     &[data-state='loading'] {
-      height: 1rem;
+      height: var(--skeleton-height, var(--spacing-4));
       animation: var(--skeleton-animation, var(--animation-pulse));
       background: var(
         --skeleton-bg,

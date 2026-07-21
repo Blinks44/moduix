@@ -142,6 +142,7 @@ When changing styling hooks or variables, update `Steps.module.css`, `theme.css`
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Exposed `Steps.useSteps()` for the documented `RootProvider` path so consumers do not need a mixed moduix/Ark import for externally owned state.
 - 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider` and visual
   parts, removed re-exported Ark state APIs/types, and pointed advanced state imports to

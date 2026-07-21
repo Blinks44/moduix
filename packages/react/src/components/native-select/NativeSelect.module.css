@@ -27,8 +27,11 @@
     background-color: var(--select-bg, var(--color-background));
     color: var(--select-color, var(--color-foreground));
     font: inherit;
-    outline: var(--select-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--select-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      solid transparent;
+    outline-offset: calc(
+      var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+    );
     cursor: pointer;
     transition:
       background-color var(--select-transition, var(--transition-default)),
@@ -67,7 +70,7 @@
   .indicator {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--select-action-offset-right, 0.5rem);
+    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
     display: inline-flex;
     width: var(--select-action-size, var(--spacing-6));
     height: var(--select-action-size, var(--spacing-6));

@@ -112,9 +112,9 @@ Public CSS variables:
 | `--kbd-font-weight`           | `var(--weight-medium)`                                                         | Root  |
 | `--kbd-group-gap`             | `var(--spacing-1)`                                                             | Group |
 | `--kbd-group-separator-color` | `var(--color-muted-foreground)`                                                | Group |
-| `--kbd-height`                | `1.5rem`                                                                       | Root  |
+| `--kbd-height`                | `var(--size-xs)`                                                               | Root  |
 | `--kbd-line-height`           | `var(--line-height-text-xs)`                                                   | Root  |
-| `--kbd-min-width`             | `var(--kbd-height, 1.5rem)`                                                    | Root  |
+| `--kbd-min-width`             | `var(--kbd-height, var(--size-xs))`                                            | Root  |
 | `--kbd-padding-x`             | `var(--spacing-2)`                                                             | Root  |
 | `--kbd-padding-y`             | `0`                                                                            | Root  |
 | `--kbd-radius`                | `var(--radius-sm)`                                                             | Root  |
@@ -137,6 +137,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
   no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing
   tokens.

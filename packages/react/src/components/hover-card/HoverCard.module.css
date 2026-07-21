@@ -4,7 +4,7 @@
 
     display: inline-flex;
     align-items: center;
-    gap: var(--hover-card-trigger-gap, 0.25rem);
+    gap: var(--hover-card-trigger-gap, var(--spacing-1));
     outline: 0;
     color: var(--hover-card-trigger-current-color);
     font: inherit;
@@ -38,9 +38,9 @@
 
     &:focus-visible {
       border-radius: var(--hover-card-trigger-focus-radius, var(--radius-xs));
-      outline: var(--hover-card-focus-ring-width, var(--border-width-sm)) solid
-        var(--hover-card-focus-ring-color, var(--color-ring));
-      outline-offset: var(--hover-card-trigger-focus-offset, 1px);
+      outline: var(--hover-card-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--hover-card-focus-ring-color, var(--color-ring));
+      outline-offset: var(--hover-card-trigger-focus-offset, var(--focus-ring-offset));
       text-decoration-line: none;
     }
 
@@ -97,7 +97,7 @@
   }
 
   .arrow {
-    --arrow-size: var(--hover-card-arrow-size, 0.625rem);
+    --arrow-size: var(--hover-card-arrow-size, var(--spacing-2-5));
     --arrow-background: var(--hover-card-bg, var(--color-popover));
   }
 

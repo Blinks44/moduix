@@ -84,15 +84,24 @@ See [Quick start](/docs/quick-start) for the complete `components.json` configur
 
 ### 2. Connect your AI client
 
-Initialize shadcn MCP in the consuming project, choosing the client that you use:
+For clients supported by the shadcn initializer, run it in the consuming project and choose the
+matching client. For example:
 
 ```bash
-npx shadcn@latest mcp init --client codex
+npx shadcn@latest mcp init --client cursor
 ```
 
-Replace `codex` with `claude`, `cursor`, `vscode`, or `opencode` when appropriate, then restart
-the client. The [shadcn registry MCP guide](https://ui.shadcn.com/docs/registry/mcp) has
-client-specific setup details.
+Codex currently uses manual MCP configuration. Add the server to `~/.codex/config.toml`, then
+restart Codex:
+
+```toml
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+The [shadcn MCP guide](https://ui.shadcn.com/docs/mcp) has the current setup for Claude Code,
+Cursor, VS Code, Codex, and other supported clients.
 
 ### 3. Discover before installing
 

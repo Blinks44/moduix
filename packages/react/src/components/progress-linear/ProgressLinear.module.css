@@ -3,7 +3,7 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--progress-linear-gap, 0.5rem);
+    gap: var(--progress-linear-gap, var(--spacing-2));
     width: var(--progress-linear-width, 12rem);
     color: var(--progress-linear-color, var(--color-foreground));
 

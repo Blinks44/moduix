@@ -4,7 +4,7 @@
     display: flex;
     min-width: 0;
     flex-direction: column;
-    gap: var(--tabs-gap, 0.75rem);
+    gap: var(--tabs-gap, var(--spacing-3));
     color: var(--tabs-color, var(--color-foreground));
 
     &[data-orientation='vertical'] {
@@ -21,9 +21,9 @@
     width: fit-content;
     max-width: 100%;
     align-items: stretch;
-    gap: var(--tabs-list-gap, 0.25rem);
-    padding: var(--tabs-list-padding-y, var(--tabs-list-padding, 0.25rem))
-      var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem));
+    gap: var(--tabs-list-gap, var(--spacing-1));
+    padding: var(--tabs-list-padding-y, var(--tabs-list-padding, var(--spacing-1)))
+      var(--tabs-list-padding-x, var(--tabs-list-padding, var(--spacing-1)));
     border: var(--tabs-list-border-width, var(--border-width-sm)) solid
       var(--tabs-list-border-color, var(--color-border));
     border-radius: var(--tabs-radius, var(--radius-lg));
@@ -56,13 +56,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--tabs-tab-content-gap, 0.5rem);
-    height: var(--tabs-tab-height, 2rem);
+    gap: var(--tabs-tab-content-gap, var(--spacing-2));
+    height: var(--tabs-tab-height, var(--size-sm));
     margin: 0;
     appearance: none;
     border: 0;
     border-radius: var(--tabs-tab-radius, var(--radius-md));
-    padding-inline: var(--tabs-tab-padding-x, 0.625rem);
+    padding-inline: var(--tabs-tab-padding-x, var(--spacing-2-5));
     background: none;
     color: var(--tabs-tab-color, var(--color-muted-foreground));
     font: inherit;
@@ -94,8 +94,8 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        outline: var(--tabs-focus-ring-width, var(--border-width-sm)) solid
-          var(--tabs-focus-ring-color, var(--color-ring));
+        outline: var(--tabs-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+          solid var(--tabs-focus-ring-color, var(--color-ring));
         outline-offset: var(--tabs-focus-ring-offset, 0);
       }
     }
@@ -108,8 +108,8 @@
     }
 
     & > svg {
-      width: var(--tabs-tab-icon-size, 1rem);
-      height: var(--tabs-tab-icon-size, 1rem);
+      width: var(--tabs-tab-icon-size, var(--spacing-4));
+      height: var(--tabs-tab-icon-size, var(--spacing-4));
       color: var(--tabs-tab-icon-color, currentColor);
       flex-shrink: 0;
     }
@@ -121,7 +121,7 @@
     top: 50%;
     left: var(--left, 0);
     width: var(--width, 0);
-    height: var(--tabs-indicator-size, 2rem);
+    height: var(--tabs-indicator-size, var(--spacing-8));
     border-radius: var(--tabs-indicator-radius, var(--radius-md));
     background-color: var(--tabs-indicator-bg, var(--color-background));
     box-shadow: var(--tabs-indicator-shadow, var(--shadow-sm));
@@ -135,7 +135,7 @@
     .root[data-variant='line'] & {
       top: auto;
       bottom: 0;
-      height: var(--tabs-line-indicator-size, 2px);
+      height: var(--tabs-line-indicator-size, var(--spacing-0-5));
       border-radius: var(--tabs-line-indicator-radius, var(--radius-full));
       background-color: var(
         --tabs-line-indicator-bg,
@@ -153,14 +153,16 @@
     &[data-orientation='vertical'] {
       top: var(--top, 0);
       left: 50%;
-      width: calc(100% - (var(--tabs-list-padding-x, var(--tabs-list-padding, 0.25rem)) * 2));
+      width: calc(
+        100% - (var(--tabs-list-padding-x, var(--tabs-list-padding, var(--spacing-1))) * 2)
+      );
       height: var(--height, 0);
       translate: -50% 0;
 
       .root[data-variant='line'] & {
         bottom: auto;
         left: 0;
-        width: var(--tabs-line-indicator-size, 2px);
+        width: var(--tabs-line-indicator-size, var(--spacing-0-5));
         translate: none;
       }
     }
@@ -175,16 +177,16 @@
       var(--tabs-border-color, var(--color-border));
     border-radius: var(--tabs-radius, var(--radius-lg));
     background-color: var(--tabs-bg, var(--color-background));
-    padding: var(--tabs-panel-padding, 1rem);
+    padding: var(--tabs-panel-padding, var(--spacing-4));
     color: var(--tabs-panel-color, var(--tabs-color, var(--color-foreground)));
     font-size: var(--tabs-panel-font-size, var(--text-sm));
     line-height: var(--tabs-panel-line-height, var(--line-height-text-sm));
     outline: 0;
 
     &:focus-visible {
-      outline: var(--tabs-focus-ring-width, var(--border-width-sm)) solid
-        var(--tabs-focus-ring-color, var(--color-ring));
-      outline-offset: var(--tabs-panel-focus-ring-offset, -1px);
+      outline: var(--tabs-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        solid var(--tabs-focus-ring-color, var(--color-ring));
+      outline-offset: var(--tabs-panel-focus-ring-offset, var(--focus-ring-inset-offset));
       border-radius: inherit;
     }
 

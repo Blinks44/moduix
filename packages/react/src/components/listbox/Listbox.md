@@ -147,6 +147,9 @@ results should remain visually separate or need a custom wrapper.
 
 The input and filter default to `--size-md`. Single-line list items default to `--size-sm` with `--spacing-1` block padding.
 
+Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular weight,
+and `--spacing-1` block padding. Listbox-specific variables still take precedence.
+
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - Default root width is `16rem` through `--listbox-width`.
 - `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
@@ -184,6 +187,9 @@ The input and filter default to `--size-md`. Single-line list items default to `
 - When registry-shipped listbox source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized group labels to the shared regular-weight popup-label contract.
 
 - 2026-07-21: Reduced the default input and filter to `--size-md` and compacted list items to `--size-sm`.
 

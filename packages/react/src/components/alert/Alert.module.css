@@ -69,16 +69,16 @@
 
   .indicator {
     display: inline-flex;
-    width: var(--alert-indicator-size, 1rem);
-    height: var(--alert-indicator-size, 1rem);
+    width: var(--alert-indicator-size, var(--spacing-4));
+    height: var(--alert-indicator-size, var(--spacing-4));
     align-items: center;
     justify-content: center;
     color: var(--alert-indicator-color, var(--alert-indicator-color-default, currentColor));
-    margin-block-start: var(--alert-indicator-offset, 0.125rem);
+    margin-block-start: var(--alert-indicator-offset, var(--spacing-0-5));
 
     & :where(svg) {
-      width: var(--alert-indicator-size, 1rem);
-      height: var(--alert-indicator-size, 1rem);
+      width: var(--alert-indicator-size, var(--spacing-4));
+      height: var(--alert-indicator-size, var(--spacing-4));
       flex-shrink: 0;
       pointer-events: none;
     }

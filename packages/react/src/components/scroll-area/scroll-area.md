@@ -159,7 +159,7 @@ Primary CSS variables:
 | `--scroll-area-thumb-bg`               | `var(--color-border)`                             |
 | `--scroll-area-thumb-hover-increase`   | `2px`                                             |
 | `--scroll-area-thumb-hover-transition` | `var(--transition-fast)`                          |
-| `--scroll-area-thumb-min-size`         | `1.5rem`                                          |
+| `--scroll-area-thumb-min-size`         | `var(--size-xs)`                                  |
 | `--scroll-area-corner-bg`              | `var(--scroll-area-scrollbar-bg, transparent)`    |
 
 Use classes on individual parts for axis-specific customization. The bundled CSS hides each
@@ -194,6 +194,7 @@ while dragging with a fast transition; customize its timing with
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made the 2px scrollbar growth use the fast transition token to avoid visibly stepped
   width and height interpolation; `--scroll-area-thumb-hover-transition` customizes the timing.
 - 2026-07-11: Added `variant="always"` for persistently visible scrollbar tracks and exposed

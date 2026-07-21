@@ -136,6 +136,7 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default control to `--size-md` and compacted its block padding.
 
 - 2026-07-12: Added moduix `Field.Context` and `useFieldContext` exports alongside `useField`, and

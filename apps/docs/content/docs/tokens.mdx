@@ -1,6 +1,6 @@
 ---
 title: Tokens
-description: Shared design tokens and global CSS variables used across moduix components.
+description: Theme moduix with semantic CSS tokens, shared component defaults, and local aliases.
 icon: Palette
 ---
 
@@ -22,6 +22,53 @@ The reset stays optional in both paths. Import `@moduix/react/reset.css` or
 For a curated starting point, use [Themes](/docs/themes). Presets override a small semantic token
 layer after `style.css`; this page remains the full reference for every token and component alias.
 
+## Token Model
+
+Tokens are layered so common changes stay small and intentional:
+
+| Layer                  | Examples                                            | Use it for                                                     |
+| ---------------------- | --------------------------------------------------- | -------------------------------------------------------------- |
+| Theme primitives       | `--primary`, `--spacing-2`, `--size-md`, `--radius` | Establishing the visual language of an application or preset.  |
+| Semantic aliases       | `--color-primary`, `--spacing-md`, `--radius-md`    | Reading resolved values in components and application styles.  |
+| Shared family defaults | `--popup-item-min-height`, `--focus-ring-width`     | Keeping related controls, popup rows, and states synchronized. |
+| Component aliases      | `--input-height`, `--select-item-min-height`        | Making a deliberate exception for one component or instance.   |
+
+Prefer the highest meaningful layer. Override `--primary` when the brand color changes,
+`--popup-item-min-height` when every menu-like surface needs a different density, and
+`--select-item-min-height` only when Select should intentionally diverge.
+
+Component aliases use fallback chains rather than copied values. A theme can therefore redefine a
+small group of primitives while typography, icon geometry, focus rings, and component dimensions
+continue to move together.
+
+## Density and Control Scale
+
+The default scale is compact without becoming cramped:
+
+| Token       | Default | Intended role                                                          |
+| ----------- | ------- | ---------------------------------------------------------------------- |
+| `--size-xs` | `24px`  | Small icon controls and compact actions.                               |
+| `--size-sm` | `32px`  | Popup rows and secondary compact controls.                             |
+| `--size-md` | `36px`  | Default inputs, buttons, triggers, pagination, and composite controls. |
+| `--size-lg` | `40px`  | Deliberately roomy controls.                                           |
+| `--size-xl` | `48px`  | Prominent controls and touch-oriented layouts.                         |
+
+Most primary controls resolve through `--size-md`; items inside menus, selects, comboboxes,
+command palettes, and similar popups resolve through `--size-sm`. This keeps a trigger and its
+popup visually related while giving the popup a slightly denser information rhythm.
+
+```css
+:root {
+  --size-md: 36px;
+  --size-sm: 32px;
+}
+
+[data-moduix-theme='compact'] {
+  --size-md: 34px;
+  --popup-item-min-height: 30px;
+}
+```
+
 ## Mass Style Overrides
 
 Some variables intentionally sit above individual components. Changing them updates multiple
@@ -34,6 +81,8 @@ components at once until a component-specific `--<component>-*` variable overrid
 | <code>--popup-motion-\*</code>                                                           | Popup content timing and phase motion | Popover, Menu, Tooltip, Hover Card, Floating Panel, modal surfaces, and pickers |
 | <code>--scale-popup</code><br /><code>--scale-dropdown</code>                            | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, Select, Combobox                         |
 | <code>--popup-\*</code>                                                                  | Shared popup list density and spacing | Menu, Select, Combobox, CommandPalette                                          |
+| <code>--spacing-\*</code><br /><code>--size-\*</code>                                    | Shared density and control scale      | Controls, icon geometry, popup rows, layout rhythm                              |
+| <code>--focus-ring-\*</code><br /><code>--color-ring</code>                              | Shared focus geometry and color       | Buttons, inputs, composite controls, popup triggers                             |
 
 Use these tokens when you want a broad visual shift across the system. Use component-specific
 tokens like `--dialog-backdrop-bg` or `--popover-transition` when a single component should opt out.
@@ -52,9 +101,13 @@ backdrop, popup, and popup-motion defaults in `Shared Component Defaults`.
 }
 
 .command-surface {
-  --popup-item-min-height: 2.25rem;
+  --popup-item-min-height: var(--size-sm);
 }
 ```
+
+Fractional spacing tokens such as `--spacing-1-5` and `--spacing-3-5` are derived from neighboring
+primitive steps. A density preset only needs to override the integer primitives; intermediate
+component padding, icon geometry, and focus offsets follow automatically.
 
 <TokensOverview />
 
@@ -72,8 +125,15 @@ document root, `body`, or a portal container in that scope.
 }
 
 .dense-panel {
-  --spacing-md: 8px;
-  --size-lg: 36px;
-  --popup-item-min-height: 1.75rem;
+  --spacing-1: 3px;
+  --spacing-2: 6px;
+  --spacing-3: 10px;
+  --size-sm: 30px;
+  --size-md: 34px;
 }
 ```
+
+For a reusable theme, keep overrides in a dedicated stylesheet loaded after `style.css`. Scope the
+file with an attribute such as `[data-moduix-theme='brand']` when multiple themes must coexist.
+Keep one-off component adjustments close to their feature so they do not silently become global
+design-system decisions.

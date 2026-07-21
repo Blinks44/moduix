@@ -6,7 +6,7 @@
     min-width: 0;
     box-sizing: border-box;
     align-items: center;
-    gap: var(--tag-gap, 0.375rem);
+    gap: var(--tag-gap, var(--spacing-1-5));
     border: var(--tag-border-width, var(--border-width-sm)) solid
       var(--tag-border-color, transparent);
     border-radius: var(--tag-radius, var(--radius-full));
@@ -15,9 +15,9 @@
     font-size: var(--tag-font-size, var(--text-xs));
     font-weight: var(--tag-font-weight, var(--weight-medium));
     line-height: var(--tag-line-height, var(--line-height-text-xs));
-    min-height: var(--tag-height-md, 1.5rem);
-    padding-block: var(--tag-padding-y-md, 0.125rem);
-    padding-inline: var(--tag-padding-x-md, 0.5rem);
+    min-height: var(--tag-height-md, var(--size-xs));
+    padding-block: var(--tag-padding-y-md, var(--spacing-0-5));
+    padding-inline: var(--tag-padding-x-md, var(--spacing-2));
     white-space: nowrap;
     vertical-align: middle;
     transition:
@@ -26,17 +26,17 @@
       border-color var(--tag-transition, var(--transition-default));
 
     > svg {
-      width: var(--tag-icon-size, 0.75rem);
-      height: var(--tag-icon-size, 0.75rem);
+      width: var(--tag-icon-size, var(--spacing-3));
+      height: var(--tag-icon-size, var(--spacing-3));
       flex-shrink: 0;
       pointer-events: none;
     }
 
     &[data-size='sm'] {
-      gap: var(--tag-gap-sm, 0.25rem);
+      gap: var(--tag-gap-sm, var(--spacing-1));
       min-height: var(--tag-height-sm, 1.25rem);
       padding-block: var(--tag-padding-y-sm, 0);
-      padding-inline: var(--tag-padding-x-sm, 0.375rem);
+      padding-inline: var(--tag-padding-x-sm, var(--spacing-1-5));
     }
 
     &[data-variant='secondary'] {
@@ -58,7 +58,7 @@
     &[data-variant='destructive'] {
       background-color: var(--tag-bg, var(--color-destructive));
       border-color: var(--tag-border-color, transparent);
-      color: var(--tag-color, var(--color-primary-foreground));
+      color: var(--tag-color, var(--color-destructive-foreground));
     }
   }
 
@@ -77,17 +77,17 @@
     justify-content: center;
 
     > svg {
-      width: var(--tag-icon-size, 0.75rem);
-      height: var(--tag-icon-size, 0.75rem);
+      width: var(--tag-icon-size, var(--spacing-3));
+      height: var(--tag-icon-size, var(--spacing-3));
       flex-shrink: 0;
       pointer-events: none;
     }
   }
 
   .closeTrigger {
-    --close-button-size: var(--tag-close-trigger-size, 1rem);
+    --close-button-size: var(--tag-close-trigger-size, var(--spacing-4));
     --close-button-radius: var(--tag-close-trigger-radius, var(--radius-full));
-    --close-button-icon-size: var(--tag-close-trigger-icon-size, 0.625rem);
+    --close-button-icon-size: var(--tag-close-trigger-icon-size, var(--spacing-2-5));
     --close-button-bg: var(--tag-close-trigger-bg, transparent);
     --close-button-bg-hover: var(
       --tag-close-trigger-bg-hover,
@@ -98,7 +98,7 @@
     --close-button-disabled-opacity: var(--tag-disabled-opacity, var(--opacity-disabled));
     --close-button-focus-ring-width: var(
       --tag-close-trigger-focus-ring-width,
-      var(--border-width-sm)
+      var(--focus-ring-inset-width, var(--border-width-sm))
     );
     --close-button-focus-ring-color: var(--tag-close-trigger-focus-ring-color, var(--color-ring));
     --close-button-focus-ring-offset: var(--tag-close-trigger-focus-ring-offset, 0);

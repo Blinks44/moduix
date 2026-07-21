@@ -116,6 +116,13 @@ const colorTokens = [
     dark: 'oklch(0.69 0.185 18)',
   },
   {
+    name: '--destructive-foreground',
+    alias: '--color-destructive-foreground',
+    label: 'Danger text',
+    light: 'oklch(0.982 0.003 285)',
+    dark: 'oklch(0.2 0.011 285)',
+  },
+  {
     name: '--success',
     alias: '--color-success',
     label: 'Success',
@@ -267,12 +274,18 @@ const colorTokenCount = colorTokens.length + chartTokens.length + sidebarTokens.
 
 const spacingTokens = [
   ['--spacing-0', '0px'],
+  ['--spacing-0-5', 'calc((var(--spacing-0) + var(--spacing-1)) / 2)'],
   ['--spacing-1', '4px'],
+  ['--spacing-1-5', 'calc((var(--spacing-1) + var(--spacing-2)) / 2)'],
   ['--spacing-2', '8px'],
+  ['--spacing-2-5', 'calc((var(--spacing-2) + var(--spacing-3)) / 2)'],
   ['--spacing-3', '12px'],
+  ['--spacing-3-5', 'calc((var(--spacing-3) + var(--spacing-4)) / 2)'],
   ['--spacing-4', '16px'],
+  ['--spacing-4-5', 'calc((var(--spacing-4) + var(--spacing-5)) / 2)'],
   ['--spacing-5', '20px'],
   ['--spacing-6', '24px'],
+  ['--spacing-7', 'calc((var(--spacing-6) + var(--spacing-8)) / 2)'],
   ['--spacing-8', '32px'],
   ['--spacing-10', '40px'],
 ];
@@ -306,11 +319,11 @@ const radiusTokens = [
 ];
 
 const typographyTokens = [
-  ['--text-xs', '11px', '--line-height-text-xs', '14px'],
-  ['--text-sm', '14px', '--line-height-text-sm', '22px'],
+  ['--text-xs', '12px', '--line-height-text-xs', '16px'],
+  ['--text-sm', '14px', '--line-height-text-sm', '20px'],
   ['--text-md', '16px', '--line-height-text-md', '24px'],
   ['--text-lg', '18px', '--line-height-text-lg', '28px'],
-  ['--text-xl', '20px', '--line-height-text-xl', '32px'],
+  ['--text-xl', '20px', '--line-height-text-xl', '28px'],
   ['--text-2xl', '24px', '--line-height-text-2xl', '32px'],
   ['--text-3xl', '30px', '--line-height-text-3xl', '36px'],
 ];
@@ -342,6 +355,10 @@ const borderTokens = [
   ['--border-width-sm', '1px'],
   ['--border-width-md', '2px'],
   ['--border-width-lg', '4px'],
+  ['--focus-ring-width', 'var(--border-width-md)'],
+  ['--focus-ring-inset-width', 'var(--border-width-sm)'],
+  ['--focus-ring-offset', 'var(--spacing-0-5)'],
+  ['--focus-ring-inset-offset', 'calc(var(--border-width-sm) * -1)'],
 ];
 
 const opacityTokens = [
@@ -413,26 +430,27 @@ const sharedBackdropTokens = [
 ];
 
 const sharedPopupTokens = [
-  ['--popup-check-gap', '0.5rem'],
-  ['--popup-check-indicator-size', '0.75rem'],
-  ['--popup-check-padding-x-start', '0.625rem'],
+  ['--popup-check-gap', 'var(--spacing-2)'],
+  ['--popup-check-indicator-size', 'var(--spacing-3)'],
+  ['--popup-check-padding-x-start', 'var(--spacing-2-5)'],
   ['--popup-group-label-font-size', 'var(--text-xs)'],
   ['--popup-group-label-line-height', 'var(--line-height-text-xs)'],
-  ['--popup-group-label-padding-x-end', '0.75rem'],
-  ['--popup-group-label-padding-x-start', '0.625rem'],
-  ['--popup-group-label-padding-y', '0.35rem'],
+  ['--popup-group-label-font-weight', 'var(--weight-regular)'],
+  ['--popup-group-label-padding-x-end', 'var(--spacing-3)'],
+  ['--popup-group-label-padding-x-start', 'var(--spacing-2-5)'],
+  ['--popup-group-label-padding-y', 'var(--spacing-1)'],
   ['--popup-highlight-inset-x', 'var(--spacing-1)'],
   ['--popup-highlight-radius', 'var(--radius-sm)'],
   ['--popup-item-font-size', 'var(--text-sm)'],
   ['--popup-item-line-height', 'var(--line-height-text-sm)'],
-  ['--popup-item-min-height', '2rem'],
-  ['--popup-item-padding-x-start', '1rem'],
-  ['--popup-item-padding-x-end', '1rem'],
-  ['--popup-item-padding-y', '0.5rem'],
-  ['--popup-list-padding-y', '0.25rem'],
-  ['--popup-separator-margin-x-start', '1rem'],
-  ['--popup-separator-margin-x-end', '1rem'],
-  ['--popup-separator-margin-y', '0.375rem'],
+  ['--popup-item-min-height', 'var(--size-sm)'],
+  ['--popup-item-padding-x-start', 'var(--spacing-3)'],
+  ['--popup-item-padding-x-end', 'var(--spacing-3)'],
+  ['--popup-item-padding-y', 'var(--spacing-1)'],
+  ['--popup-list-padding-y', 'var(--spacing-1)'],
+  ['--popup-separator-margin-x-start', 'var(--spacing-3)'],
+  ['--popup-separator-margin-x-end', 'var(--spacing-3)'],
+  ['--popup-separator-margin-y', 'var(--spacing-1-5)'],
 ];
 
 const sharedPopupMotionTokens = [

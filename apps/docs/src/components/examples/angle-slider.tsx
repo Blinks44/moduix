@@ -94,7 +94,7 @@ export const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'var(--angle-slider-color)',
     'Controls the center dot color.',
   ],
-  ['--angle-slider-center-dot-size', '0.375rem', 'Controls the center dot size.'],
+  ['--angle-slider-center-dot-size', 'var(--spacing-1-5)', 'Controls the center dot size.'],
   ['--angle-slider-control-bg', 'var(--color-background)', 'Controls the inner dial fill color.'],
   [
     '--angle-slider-control-border-color',
@@ -109,7 +109,11 @@ export const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   ['--angle-slider-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled dial opacity.'],
   ['--angle-slider-focus-ring-color', 'var(--color-ring)', 'Controls the focus ring color.'],
   ['--angle-slider-focus-ring-width', '0.1875rem', 'Controls the control focus ring width.'],
-  ['--angle-slider-gap', '0.75rem', 'Controls spacing between label, dial, and value text.'],
+  [
+    '--angle-slider-gap',
+    'var(--spacing-3)',
+    'Controls spacing between label, dial, and value text.',
+  ],
   [
     '--angle-slider-indicator-bg',
     'var(--color-primary)',
@@ -159,7 +163,7 @@ export const angleSliderOverrideCssProperties: CssPropertyInput[] = [
   ['--angle-slider-thumb-line-width', '0.1875rem', 'Controls the active line thickness.'],
   ['--angle-slider-thumb-radius', 'var(--radius-full)', 'Controls the thumb corner radius.'],
   ['--angle-slider-thumb-shadow', 'var(--shadow-sm)', 'Controls the thumb shadow.'],
-  ['--angle-slider-thumb-size', '1rem', 'Controls the thumb circle size.'],
+  ['--angle-slider-thumb-size', 'var(--spacing-4)', 'Controls the thumb circle size.'],
   ['--angle-slider-track-bg', 'var(--color-muted)', 'Controls the outer ring color.'],
   [
     '--angle-slider-track-border-color',

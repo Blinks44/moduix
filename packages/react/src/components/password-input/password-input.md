@@ -119,6 +119,7 @@ component and barrel exports in the same migration style.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default password control with the compact Input `md` baseline.
 
 - 2026-07-10: Added `PasswordInput.Field` as the default fixed visible-part composition; direct Ark

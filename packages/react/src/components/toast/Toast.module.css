@@ -12,10 +12,10 @@
     box-sizing: border-box;
     display: grid;
     width: var(--toast-width, 20rem);
-    max-width: calc(100vw - (var(--toast-viewport-inset, 1rem) * 2));
+    max-width: calc(100vw - (var(--toast-viewport-inset, var(--spacing-4)) * 2));
     min-height: var(--toast-min-height, 0);
     align-items: start;
-    gap: var(--toast-content-gap, 0.25rem);
+    gap: var(--toast-content-gap, var(--spacing-1));
     border: var(--toast-border-width, var(--border-width-sm)) solid
       var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
     border-radius: var(--toast-radius, var(--radius-lg));
@@ -23,8 +23,10 @@
     color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
     background-clip: padding-box;
     box-shadow: var(--toast-shadow, var(--shadow-lg));
-    padding: var(--toast-padding, 1rem);
-    padding-inline-end: calc(var(--toast-padding, 1rem) + var(--toast-close-size, 28px));
+    padding: var(--toast-padding, var(--spacing-4));
+    padding-inline-end: calc(
+      var(--toast-padding, var(--spacing-4)) + var(--toast-close-size, var(--spacing-7))
+    );
     pointer-events: auto;
     user-select: none;
     translate: var(--x) var(--y);
@@ -75,7 +77,7 @@
   .title {
     display: flex;
     align-items: center;
-    gap: var(--toast-title-gap, 0.5rem);
+    gap: var(--toast-title-gap, var(--spacing-2));
     margin: 0;
     color: inherit;
     font-size: var(--toast-title-font-size, var(--text-sm));
@@ -100,13 +102,14 @@
     justify-content: center;
     gap: var(--toast-action-gap, var(--spacing-2));
     min-height: var(--toast-action-min-height, var(--size-xs));
-    margin-top: var(--toast-action-margin-top, 0.5rem);
+    margin-top: var(--toast-action-margin-top, var(--spacing-2));
     border: var(--toast-action-border-width, var(--toast-border-width, var(--border-width-sm)))
       solid var(--toast-action-border-color, var(--toast-trigger-border-color-default));
     border-radius: var(--toast-action-radius, var(--radius-sm));
     background: var(--toast-action-bg, var(--toast-trigger-bg-default));
     color: var(--toast-action-color, var(--toast-trigger-color-default));
-    padding: var(--toast-action-padding-y, 0.25rem) var(--toast-action-padding-x, 0.5rem);
+    padding: var(--toast-action-padding-y, var(--spacing-1))
+      var(--toast-action-padding-x, var(--spacing-2));
     font: inherit;
     font-size: var(--toast-action-font-size, var(--text-xs));
     font-weight: var(--toast-action-font-weight, var(--weight-medium));
@@ -124,26 +127,35 @@
     }
 
     &:focus-visible {
-      outline: var(--toast-focus-ring-width, var(--border-width-sm)) solid
-        var(--toast-focus-ring-color, var(--toast-trigger-focus-ring-color-default));
+      outline: var(
+          --toast-focus-ring-width,
+          var(--toast-action-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        )
+        solid var(--toast-focus-ring-color, var(--toast-trigger-focus-ring-color-default));
       outline-offset: var(--toast-focus-ring-offset, 0);
     }
   }
 
   .closeTrigger {
     position: absolute;
-    inset-block-start: var(--toast-close-offset-top, 0.5rem);
-    inset-inline-end: var(--toast-close-offset-right, 0.5rem);
-    --close-button-size: var(--toast-close-size, 28px);
-    --close-button-icon-size: var(--toast-close-icon-size, 12px);
+    inset-block-start: var(--toast-close-offset-top, var(--spacing-2));
+    inset-inline-end: var(--toast-close-offset-right, var(--spacing-2));
+    --close-button-size: var(--toast-close-size, var(--spacing-7));
+    --close-button-icon-size: var(--toast-close-icon-size, var(--spacing-3));
     --close-button-radius: var(--toast-close-radius, var(--radius-sm));
     --close-button-bg: var(--toast-close-bg, transparent);
     --close-button-bg-hover: var(--toast-close-bg-hover, var(--color-muted));
     --close-button-color: var(--toast-close-color, var(--color-muted-foreground));
     --close-button-color-hover: var(--toast-close-color-hover, var(--color-foreground));
     --close-button-focus-ring-color: var(--toast-focus-ring-color, var(--color-ring));
-    --close-button-focus-ring-offset: var(--toast-close-focus-ring-offset, 2px);
-    --close-button-focus-ring-width: var(--toast-close-focus-ring-width, var(--border-width-md));
+    --close-button-focus-ring-offset: var(
+      --toast-close-focus-ring-offset,
+      var(--focus-ring-offset)
+    );
+    --close-button-focus-ring-width: var(
+      --toast-close-focus-ring-width,
+      var(--focus-ring-width, var(--border-width-md))
+    );
     --close-button-transition: var(--toast-close-transition, var(--transition-default));
   }
 

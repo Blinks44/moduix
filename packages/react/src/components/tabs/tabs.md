@@ -136,6 +136,7 @@ The root defaults to a column layout and switches to row layout for `orientation
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Removed moduix re-exports for Ark tabs hooks, context readers, and type aliases.
   `Tabs.RootProvider` stays, but advanced external state now comes from direct Ark imports.
 - 2026-07-11: Restored `useTabs` as a moduix package and namespace export for the documented

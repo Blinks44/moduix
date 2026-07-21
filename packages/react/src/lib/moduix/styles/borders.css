@@ -2,4 +2,9 @@
   --border-width-sm: 1px;
   --border-width-md: 2px;
   --border-width-lg: 4px;
+
+  --focus-ring-width: var(--border-width-md);
+  --focus-ring-inset-width: var(--border-width-sm);
+  --focus-ring-offset: var(--spacing-0-5);
+  --focus-ring-inset-offset: calc(var(--border-width-sm) * -1);
 }

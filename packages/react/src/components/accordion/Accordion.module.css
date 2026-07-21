@@ -115,8 +115,8 @@
     &:focus-visible {
       position: relative;
       z-index: 1;
-      outline: var(--accordion-focus-ring-width, var(--border-width-md)) solid
-        var(--accordion-focus-ring-color, var(--color-ring));
+      outline: var(--accordion-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--accordion-focus-ring-color, var(--color-ring));
       outline-offset: calc(var(--accordion-focus-ring-offset, var(--border-width-sm)) * -1);
     }
 
@@ -138,8 +138,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--accordion-icon-size, 0.75rem);
-    height: var(--accordion-icon-size, 0.75rem);
+    width: var(--accordion-icon-size, var(--spacing-3));
+    height: var(--accordion-icon-size, var(--spacing-3));
     flex-shrink: 0;
     transition: transform var(--accordion-icon-transition, var(--transition-default));
 

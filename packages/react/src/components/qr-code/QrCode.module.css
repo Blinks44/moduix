@@ -30,8 +30,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--qr-code-overlay-size, 2.5rem);
-    height: var(--qr-code-overlay-size, 2.5rem);
+    width: var(--qr-code-overlay-size, var(--size-lg));
+    height: var(--qr-code-overlay-size, var(--size-lg));
     padding: var(--qr-code-overlay-padding, var(--spacing-1));
     border-radius: var(--qr-code-overlay-radius, var(--radius-sm));
     background-color: var(--qr-code-overlay-bg, var(--color-background));
@@ -51,7 +51,10 @@
     justify-content: center;
     gap: var(--qr-code-download-trigger-gap, var(--button-content-gap, var(--spacing-2)));
     min-height: var(--qr-code-download-trigger-height, var(--button-size-md, var(--size-md)));
-    padding-inline: var(--qr-code-download-trigger-padding-x, var(--button-padding-x-md, 1rem));
+    padding-inline: var(
+      --qr-code-download-trigger-padding-x,
+      var(--button-padding-x-md, var(--spacing-4))
+    );
     border: var(
         --qr-code-download-trigger-border-width,
         var(--button-border-width, var(--border-width-sm))
@@ -94,8 +97,8 @@
   }
 
   .downloadTrigger :where(svg) {
-    width: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, 1rem));
-    height: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, 1rem));
+    width: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, var(--spacing-4)));
+    height: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, var(--spacing-4)));
     flex-shrink: 0;
   }
 
@@ -111,7 +114,7 @@
   .downloadTrigger:focus-visible {
     outline: var(
         --qr-code-download-trigger-focus-ring-width,
-        var(--button-focus-ring-width, var(--border-width-md))
+        var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
       )
       solid
       var(

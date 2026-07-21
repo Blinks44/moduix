@@ -34,7 +34,7 @@ export const hoverCardProfiles: Profile[] = [
 ];
 
 export const hoverCardOverrideCssProperties: CssPropertyInput[] = [
-  ['--hover-card-arrow-size', '0.625rem', 'Controls the Ark arrow size.'],
+  ['--hover-card-arrow-size', 'var(--spacing-2-5)', 'Controls the Ark arrow size.'],
   [
     '--hover-card-arrow-stroke-color',
     'var(--hover-card-border-color, var(--color-border))',
@@ -62,7 +62,11 @@ export const hoverCardOverrideCssProperties: CssPropertyInput[] = [
   ['--hover-card-content-starting-translate-y', '0', 'Controls the content y offset at entry.'],
   ['--hover-card-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   ['--hover-card-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
-  ['--hover-card-focus-ring-width', 'var(--border-width-sm)', 'Controls focus ring width.'],
+  [
+    '--hover-card-focus-ring-width',
+    'var(--focus-ring-width, var(--border-width-md))',
+    'Controls focus ring width.',
+  ],
   ['--hover-card-height', 'auto', 'Controls the content height.'],
   ['--hover-card-max-height', '24rem', 'Controls the content max height.'],
   ['--hover-card-max-width', '24rem', 'Controls the content max width.'],
@@ -75,23 +79,27 @@ export const hoverCardOverrideCssProperties: CssPropertyInput[] = [
   ['--hover-card-trigger-color', 'var(--color-primary)', 'Controls trigger text color.'],
   [
     '--hover-card-trigger-decoration-color',
-    'color-mix(in oklab, var(--hover-card-trigger-color), transparent 40%)',
+    'color-mix(in oklab, var(--hover-card-trigger-color, var(--color-primary)), transparent 40%)',
     'Controls trigger underline color.',
   ],
   [
     '--hover-card-trigger-decoration-color-hover',
-    'var(--hover-card-trigger-color)',
+    'var(--hover-card-trigger-color, var(--color-primary))',
     'Controls trigger underline color on hover.',
   ],
   [
     '--hover-card-trigger-decoration-color-open',
-    'var(--hover-card-trigger-color)',
+    'var(--hover-card-trigger-color, var(--color-primary))',
     'Controls trigger underline color while open.',
   ],
   ['--hover-card-trigger-decoration-thickness', '1px', 'Controls trigger underline thickness.'],
-  ['--hover-card-trigger-focus-offset', '1px', 'Controls trigger focus outline offset.'],
+  [
+    '--hover-card-trigger-focus-offset',
+    'var(--focus-ring-offset)',
+    'Controls trigger focus outline offset.',
+  ],
   ['--hover-card-trigger-focus-radius', 'var(--radius-xs)', 'Controls trigger focus radius.'],
-  ['--hover-card-trigger-gap', '0.25rem', 'Controls inline trigger content gap.'],
+  ['--hover-card-trigger-gap', 'var(--spacing-1)', 'Controls inline trigger content gap.'],
   ['--hover-card-trigger-underline-offset', '2px', 'Controls trigger underline offset.'],
   ['--hover-card-width', 'auto', 'Controls the content width.'],
 ];

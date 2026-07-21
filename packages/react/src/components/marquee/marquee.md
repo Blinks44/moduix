@@ -164,7 +164,7 @@ Primary CSS variables:
 | --------------------------- | ---------------------------------- |
 | `--marquee-width`           | `100%`                             |
 | `--marquee-height`          | `auto`                             |
-| `--marquee-vertical-height` | `15rem`                            |
+| `--marquee-vertical-height` | `var(--marquee-height, 15rem)`     |
 | `--marquee-color`           | `var(--color-foreground)`          |
 | `--marquee-edge-size`       | `20%`                              |
 | `--marquee-edge-color`      | `var(--color-background)`          |

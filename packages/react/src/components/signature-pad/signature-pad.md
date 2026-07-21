@@ -115,6 +115,7 @@ Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not re
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-19: Switched guide and clear-action positioning to logical inline properties for RTL.
 - 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,
   states, and custom composition while mapping signature-pad tokens to the shared styles.

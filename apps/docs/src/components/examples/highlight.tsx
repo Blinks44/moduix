@@ -19,7 +19,11 @@ export const highlightCssProperties: CssPropertyInput[] = [
     'var(--weight-medium)',
     'Controls the font weight of each matched mark.',
   ],
-  ['--highlight-padding-x', '0.25rem', 'Controls the inline padding of each matched mark.'],
+  [
+    '--highlight-padding-x',
+    'var(--spacing-1)',
+    'Controls the inline padding of each matched mark.',
+  ],
   ['--highlight-padding-y', '0.0625rem', 'Controls the block padding of each matched mark.'],
   ['--highlight-radius', 'var(--radius-xs)', 'Controls the corner radius of each matched mark.'],
   ['--highlight-shadow', 'none', 'Controls the box shadow of each matched mark.'],

@@ -15,17 +15,17 @@
     margin-inline-start: calc(var(--button-border-width, var(--border-width-sm)) * -1);
     border-start-start-radius: 0;
     border-end-start-radius: 0;
-    padding-inline: 0.75rem;
+    padding-inline: var(--split-button-trigger-padding-x-md, var(--spacing-3));
   }
 
   .trigger::before {
     content: '';
     position: absolute;
-    inset-block: 0.375rem;
-    inset-inline-start: 0;
-    width: 1px;
-    background-color: currentColor;
-    opacity: 0.16;
+    inset-block: var(--split-button-separator-inset, var(--spacing-1-5));
+    inset-inline-start: var(--split-button-separator-offset, 0);
+    width: var(--split-button-separator-width, var(--border-width-sm));
+    background-color: var(--split-button-separator-color, currentColor);
+    opacity: var(--split-button-separator-opacity, 0.16);
     pointer-events: none;
   }
 
@@ -35,18 +35,18 @@
   }
 
   .trigger[data-size='xs'] {
-    padding-inline: 0.5rem;
+    padding-inline: var(--split-button-trigger-padding-x-xs, var(--spacing-2));
   }
 
   .trigger[data-size='sm'] {
-    padding-inline: 0.625rem;
+    padding-inline: var(--split-button-trigger-padding-x-sm, var(--spacing-2-5));
   }
 
   .trigger[data-size='lg'] {
-    padding-inline: 0.875rem;
+    padding-inline: var(--split-button-trigger-padding-x-lg, var(--spacing-3-5));
   }
 
   .trigger[data-size='xl'] {
-    padding-inline: 1rem;
+    padding-inline: var(--split-button-trigger-padding-x-xl, var(--spacing-4));
   }
 }

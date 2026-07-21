@@ -120,6 +120,7 @@ The single-select control defaults to `--size-md`; multi-select controls retain 
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default single-select control to `--size-md`.
 
 - 2026-07-20: Removed the native field hover surface and aligned the decorative indicator's spacing and local hover treatment with `Select`; platform interaction stays on the native select.

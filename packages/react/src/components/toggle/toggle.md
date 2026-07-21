@@ -193,7 +193,9 @@ root at a non-shrinking square size.
 
 ## Local changelog
 
-- 2026-07-21: Reduced the default and `icon-md` toggle controls to `--size-md` and compacted default padding.
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized the toggle scale to `24/32/36/40px` tokens, including icon-only sizes,
+  and compacted block padding so typography no longer expands a selected size.
 
 - 2026-06-29: Simplified variant/state CSS to target Ark `data-state` and `data-disabled`
   directly, kept pressed colors stable on hover, made icon-only sizes non-shrinking, and aligned

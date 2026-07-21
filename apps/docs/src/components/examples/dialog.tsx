@@ -20,7 +20,7 @@ export const dialogExampleCss = `
 
   .dialog-input {
     width: 100%;
-    min-height: var(--size-lg);
+    min-height: var(--size-md);
     padding-inline: var(--spacing-3);
     border: var(--border-width-sm) solid var(--color-border);
     border-radius: var(--radius-md);
@@ -111,10 +111,10 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--dialog-close-icon-focus-ring-color',
-    'var(--dialog-focus-ring-color)',
+    'var(--dialog-focus-ring-color, var(--color-ring))',
     'Close icon focus ring color.',
   ],
-  ['--dialog-close-icon-glyph-size', '0.75rem', 'Close icon glyph size.'],
+  ['--dialog-close-icon-glyph-size', 'var(--spacing-3)', 'Close icon glyph size.'],
   ['--dialog-color', 'var(--color-popover-foreground)', 'Content text color.'],
   [
     '--dialog-close-icon-inset-block-start',
@@ -127,7 +127,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
     'Close icon inset from the inline end edge.',
   ],
   ['--dialog-close-icon-radius', 'var(--radius-md)', 'Close icon border radius.'],
-  ['--dialog-close-icon-size', '1.75rem', 'Close icon control size.'],
+  ['--dialog-close-icon-size', 'var(--spacing-7)', 'Close icon control size.'],
   ['--dialog-content-ending-translate-x', '0', 'Closing animation horizontal offset.'],
   ['--dialog-content-ending-translate-y', '0', 'Closing animation vertical offset.'],
   ['--dialog-content-margin', 'var(--spacing-4) 0 0', 'Body margin.'],
@@ -143,10 +143,10 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-control-border-width', 'var(--border-width-sm)', 'Native trigger border width.'],
   ['--dialog-control-color', 'var(--color-foreground)', 'Native trigger text color.'],
   ['--dialog-control-font-size', 'var(--text-md)', 'Native trigger font size.'],
-  ['--dialog-control-height', 'var(--size-lg)', 'Native trigger minimum height.'],
+  ['--dialog-control-height', 'var(--size-md)', 'Native trigger minimum height.'],
   ['--dialog-control-line-height', 'var(--line-height-text-md)', 'Native trigger line height.'],
-  ['--dialog-control-padding-x', '0.875rem', 'Native trigger horizontal padding.'],
-  ['--dialog-control-padding-y', '0.5rem', 'Native trigger vertical padding.'],
+  ['--dialog-control-padding-x', 'var(--spacing-3-5)', 'Native trigger horizontal padding.'],
+  ['--dialog-control-padding-y', 'var(--spacing-1)', 'Native trigger vertical padding.'],
   ['--dialog-control-radius', 'var(--radius-md)', 'Native trigger border radius.'],
   ['--dialog-description-color', 'var(--dialog-muted-color)', 'Description and body color.'],
   ['--dialog-description-font-size', 'var(--text-md)', 'Description and body font size.'],
@@ -158,7 +158,7 @@ export const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--dialog-focus-ring-color', 'var(--color-ring)', 'Native control focus ring color.'],
   [
     '--dialog-focus-ring-width',
-    'var(--dialog-control-border-width)',
+    'var(--dialog-control-border-width, var(--border-width-sm))',
     'Native control focus ring width.',
   ],
   ['--dialog-footer-gap', 'var(--spacing-2)', 'Footer action gap.'],

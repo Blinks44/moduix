@@ -2,11 +2,17 @@
   /* Primitives */
   --spacing-0: 0px;
   --spacing-1: 4px;
+  --spacing-0-5: calc((var(--spacing-0) + var(--spacing-1)) / 2);
   --spacing-2: 8px;
+  --spacing-1-5: calc((var(--spacing-1) + var(--spacing-2)) / 2);
   --spacing-3: 12px;
+  --spacing-2-5: calc((var(--spacing-2) + var(--spacing-3)) / 2);
   --spacing-4: 16px;
+  --spacing-3-5: calc((var(--spacing-3) + var(--spacing-4)) / 2);
   --spacing-5: 20px;
+  --spacing-4-5: calc((var(--spacing-4) + var(--spacing-5)) / 2);
   --spacing-6: 24px;
+  --spacing-7: calc((var(--spacing-6) + var(--spacing-8)) / 2);
   --spacing-8: 32px;
   --spacing-10: 40px;
 

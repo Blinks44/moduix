@@ -129,7 +129,7 @@ Primary CSS variables:
 | `--qr-code-gap`                | `var(--spacing-3)`                                        |
 | `--qr-code-max-width`          | `100%`                                                    |
 | `--qr-code-size`               | `8rem` preferred frame width                              |
-| `--qr-code-overlay-size`       | `2.5rem`                                                  |
+| `--qr-code-overlay-size`       | `var(--size-lg)`                                          |
 | `--qr-code-overlay-padding`    | `var(--spacing-1)`                                        |
 | `--qr-code-overlay-radius`     | `var(--radius-sm)`                                        |
 | `--qr-code-overlay-bg`         | `var(--color-background)`                                 |
@@ -157,6 +157,7 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default download trigger with the Button `md` baseline.
 
 - 2026-07-10: Re-exported `useQrCode()` through moduix for `RootProvider` usage and constrained

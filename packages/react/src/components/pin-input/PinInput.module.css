@@ -46,10 +46,10 @@
     font-variant-numeric: tabular-nums;
     outline: var(
         --pin-input-focus-ring-width,
-        var(--pin-input-border-width, var(--border-width-sm))
+        var(--pin-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
       )
       solid transparent;
-    outline-offset: var(--pin-input-focus-ring-offset, -1px);
+    outline-offset: var(--pin-input-focus-ring-offset, var(--focus-ring-inset-offset));
     transition:
       border-color var(--pin-input-transition, var(--transition-default)),
       outline-color var(--pin-input-transition, var(--transition-default)),
@@ -88,8 +88,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--pin-input-separator-width, var(--pin-input-separator-size, 1rem));
-    height: var(--pin-input-separator-height, var(--pin-input-separator-size, 1rem));
+    width: var(--pin-input-separator-width, var(--pin-input-separator-size, var(--spacing-4)));
+    height: var(--pin-input-separator-height, var(--pin-input-separator-size, var(--spacing-4)));
     color: var(--pin-input-separator-color, var(--color-muted-foreground));
     line-height: 1;
     pointer-events: none;

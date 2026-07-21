@@ -12,7 +12,7 @@ const nativeSelectCssProperties: CssProperty[] = [
   },
   {
     name: '--select-control-height',
-    defaultValue: 'var(--size-lg)',
+    defaultValue: 'var(--size-md)',
     description: 'Controls the single-select height.',
   },
   {

@@ -8,15 +8,19 @@
     border: var(--textarea-border-width, var(--border-width-sm)) var(--textarea-border-style, solid)
       var(--textarea-border-color, var(--color-border));
     border-radius: var(--textarea-radius, var(--radius-md));
-    padding: var(--textarea-padding-y, 0.5rem) var(--textarea-padding-x, 0.875rem);
+    padding: var(--textarea-padding-y, var(--spacing-2))
+      var(--textarea-padding-x, var(--spacing-3-5));
     background-color: var(--textarea-bg, var(--color-background));
     color: var(--textarea-color, var(--color-foreground));
     font: inherit;
     font-size: var(--textarea-font-size, var(--text-md));
     line-height: var(--textarea-line-height, var(--line-height-text-md));
-    outline: var(--textarea-focus-ring-width, var(--textarea-border-width, var(--border-width-sm)))
+    outline: var(
+        --textarea-focus-ring-width,
+        var(--textarea-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      )
       solid transparent;
-    outline-offset: var(--textarea-focus-ring-offset, -1px);
+    outline-offset: var(--textarea-focus-ring-offset, var(--focus-ring-inset-offset));
     resize: var(--textarea-resize, vertical);
     transition:
       border-color var(--textarea-transition, var(--transition-default)),

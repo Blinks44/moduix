@@ -14,7 +14,7 @@
   --weight-bold: 700;
 
   /* Font-size */
-  --text-xs: 11px;
+  --text-xs: 12px;
   --text-sm: 14px;
   --text-md: 16px;
   --text-lg: 18px;
@@ -23,11 +23,11 @@
   --text-3xl: 30px;
 
   /* Line-height */
-  --line-height-text-xs: 14px;
-  --line-height-text-sm: 22px;
+  --line-height-text-xs: 16px;
+  --line-height-text-sm: 20px;
   --line-height-text-md: 24px;
   --line-height-text-lg: 28px;
-  --line-height-text-xl: 32px;
+  --line-height-text-xl: 28px;
   --line-height-text-2xl: 32px;
   --line-height-text-3xl: 36px;
 

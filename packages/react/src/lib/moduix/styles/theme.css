@@ -99,26 +99,28 @@
   --backdrop-filter: initial; /* blur(4px) */
 
   /* Shared Popup */
-  --popup-check-gap: initial; /* 0.5rem */
-  --popup-check-indicator-size: initial; /* 0.75rem */
-  --popup-check-padding-x-start: initial; /* 0.625rem */
+  --popup-check-gap: initial; /* var(--spacing-2) */
+  --popup-check-indicator-size: initial; /* var(--spacing-3) */
+  --popup-check-padding-x-start: initial; /* var(--spacing-2-5) */
+  --popup-group-label-color: initial; /* var(--color-muted-foreground) */
   --popup-group-label-font-size: initial; /* var(--text-xs) */
+  --popup-group-label-font-weight: initial; /* var(--weight-regular) */
   --popup-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --popup-group-label-padding-x-end: initial; /* 0.75rem */
-  --popup-group-label-padding-x-start: initial; /* 0.625rem */
-  --popup-group-label-padding-y: initial; /* 0.35rem */
+  --popup-group-label-padding-x-end: initial; /* var(--spacing-3) */
+  --popup-group-label-padding-x-start: initial; /* var(--spacing-2-5) */
+  --popup-group-label-padding-y: initial; /* var(--spacing-1) */
   --popup-highlight-inset-x: initial; /* var(--spacing-1) */
   --popup-highlight-radius: initial; /* var(--radius-sm) */
   --popup-item-font-size: initial; /* var(--text-sm) */
   --popup-item-line-height: initial; /* var(--line-height-text-sm) */
   --popup-item-min-height: initial; /* var(--size-sm) */
-  --popup-item-padding-x-end: initial; /* 1rem */
-  --popup-item-padding-x-start: initial; /* 1rem */
+  --popup-item-padding-x-end: initial; /* var(--spacing-3) */
+  --popup-item-padding-x-start: initial; /* var(--spacing-3) */
   --popup-item-padding-y: initial; /* var(--spacing-1) */
-  --popup-list-padding-y: initial; /* 0.25rem */
-  --popup-separator-margin-x-end: initial; /* 1rem */
-  --popup-separator-margin-x-start: initial; /* 1rem */
-  --popup-separator-margin-y: initial; /* 0.375rem */
+  --popup-list-padding-y: initial; /* var(--spacing-1) */
+  --popup-separator-margin-x-end: initial; /* var(--spacing-3) */
+  --popup-separator-margin-x-start: initial; /* var(--spacing-3) */
+  --popup-separator-margin-y: initial; /* var(--spacing-1-5) */
 
   /* Shared Popup Motion */
   --popup-motion-duration: initial; /* component default */
@@ -140,14 +142,14 @@
   --accordion-disabled-opacity: initial; /* var(--opacity-disabled) */
   --accordion-focus-ring-color: initial; /* var(--color-ring) */
   --accordion-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --accordion-focus-ring-width: initial; /* var(--border-width-md) */
+  --accordion-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --accordion-horizontal-content-width: initial; /* 16rem */
   --accordion-horizontal-height: initial; /* 20rem */
   --accordion-horizontal-max-height: initial; /* 100% */
   --accordion-horizontal-trigger-width: initial; /* 2.5rem */
   --accordion-horizontal-width: initial; /* auto */
   --accordion-icon-open-transform: initial; /* rotate(45deg) scale(1.1) */
-  --accordion-icon-size: initial; /* 0.75rem */
+  --accordion-icon-size: initial; /* var(--spacing-3) */
   --accordion-icon-transition: initial; /* var(--transition-default) */
   --accordion-item-border-color: initial; /* var(--color-border) */
   --accordion-item-border-width: initial; /* var(--border-width-sm) */
@@ -171,14 +173,14 @@
   /* AngleSlider */
   --angle-slider-color: initial; /* var(--color-foreground) */
   --angle-slider-center-dot-color: initial; /* var(--angle-slider-color) */
-  --angle-slider-center-dot-size: initial; /* 0.375rem */
+  --angle-slider-center-dot-size: initial; /* var(--spacing-1-5) */
   --angle-slider-control-bg: initial; /* var(--color-background) */
   --angle-slider-control-border-color: initial; /* var(--color-border) */
   --angle-slider-control-border-width: initial; /* var(--border-width-sm) */
   --angle-slider-disabled-opacity: initial; /* var(--opacity-disabled) */
   --angle-slider-focus-ring-color: initial; /* var(--color-ring) */
   --angle-slider-focus-ring-width: initial; /* 0.1875rem */
-  --angle-slider-gap: initial; /* 0.75rem */
+  --angle-slider-gap: initial; /* var(--spacing-3) */
   --angle-slider-indicator-bg: initial; /* var(--color-primary) */
   --angle-slider-invalid-color: initial; /* var(--color-destructive) */
   --angle-slider-label-color: initial; /* var(--angle-slider-color) */
@@ -200,7 +202,7 @@
   --angle-slider-thumb-line-width: initial; /* 0.1875rem */
   --angle-slider-thumb-radius: initial; /* var(--radius-full) */
   --angle-slider-thumb-shadow: initial; /* var(--shadow-sm) */
-  --angle-slider-thumb-size: initial; /* 1rem */
+  --angle-slider-thumb-size: initial; /* var(--spacing-4) */
   --angle-slider-track-bg: initial; /* var(--color-muted) */
   --angle-slider-track-border-color: initial; /* var(--color-border) */
   --angle-slider-track-border-width: initial; /* var(--border-width-sm) */
@@ -222,8 +224,8 @@
   --alert-description-line-height: initial; /* var(--line-height-text-sm) */
   --alert-gap: initial; /* var(--spacing-3) */
   --alert-indicator-color: initial; /* var(--alert-indicator-color-default, currentColor) */
-  --alert-indicator-offset: initial; /* 0.125rem */
-  --alert-indicator-size: initial; /* 1rem */
+  --alert-indicator-offset: initial; /* var(--spacing-0-5) */
+  --alert-indicator-size: initial; /* var(--spacing-4) */
   --alert-padding: initial; /* var(--spacing-3) */
   --alert-radius: initial; /* var(--radius-lg) */
   --alert-shadow: initial; /* none */
@@ -249,14 +251,18 @@
   --badge-border-color: initial; /* transparent */
   --badge-border-width: initial; /* var(--border-width-sm) */
   --badge-color: initial; /* var(--color-primary-foreground) */
-  --badge-dot-size: initial; /* 0.375rem */
+  --badge-dot-size: initial; /* var(--spacing-1-5) */
   --badge-font-size: initial; /* var(--text-xs) */
   --badge-font-weight: initial; /* var(--weight-medium) */
-  --badge-gap: initial; /* 0.375rem */
+  --badge-focus-ring-color: initial; /* var(--color-ring) */
+  --badge-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --badge-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
+  --badge-gap: initial; /* var(--spacing-1-5) */
   --badge-height: initial; /* 1.25rem */
-  --badge-icon-size: initial; /* 0.75rem */
+  --badge-icon-size: initial; /* var(--spacing-3) */
   --badge-line-height: initial; /* var(--line-height-text-xs) */
-  --badge-padding-x: initial; /* 0.625rem */
+  --badge-link-underline-offset: initial; /* 0.15em */
+  --badge-padding-x: initial; /* var(--spacing-2-5) */
   --badge-padding-y: initial; /* 0 */
   --badge-radius: initial; /* var(--radius-full) */
   /* Bleed */
@@ -276,13 +282,13 @@
   --breadcrumbs-color: initial; /* var(--color-muted-foreground) */
   --breadcrumbs-ellipsis-color: initial; /* var(--color-muted-foreground) */
   --breadcrumbs-ellipsis-radius: initial; /* var(--radius-sm) */
-  --breadcrumbs-ellipsis-size: initial; /* 1rem */
+  --breadcrumbs-ellipsis-size: initial; /* var(--spacing-4) */
   --breadcrumbs-focus-ring-color: initial; /* var(--color-ring) */
-  --breadcrumbs-focus-ring-width: initial; /* var(--border-width-sm) */
+  --breadcrumbs-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --breadcrumbs-font-size: initial; /* var(--text-sm) */
   --breadcrumbs-gap: initial; /* var(--spacing-1) */
   --breadcrumbs-item-max-width: initial; /* 16rem */
-  --breadcrumbs-item-padding-x: initial; /* 0.25rem */
+  --breadcrumbs-item-padding-x: initial; /* var(--spacing-1) */
   --breadcrumbs-line-height: initial; /* var(--line-height-text-sm) */
   --breadcrumbs-link-color: initial; /* var(--color-muted-foreground) */
   --breadcrumbs-link-color-hover: initial; /* var(--color-foreground) */
@@ -296,27 +302,28 @@
   --breadcrumbs-page-font-weight: initial; /* var(--weight-medium) */
   --breadcrumbs-separator-color: initial; /* var(--color-muted-foreground) */
   --breadcrumbs-separator-font-size: initial; /* 0.875em */
+  --breadcrumbs-separator-icon-size: initial; /* 1em */
   /* Button */
   --button-border-width: initial; /* var(--border-width-sm) */
   --button-color: initial; /* var(--color-foreground) */
   --button-content-gap: initial; /* var(--spacing-2) */
   --button-default-bg: initial; /* var(--color-primary) */
-  --button-default-bg-hover: initial; /* var(--color-foreground) */
+  --button-default-bg-hover: initial; /* color-mix(in srgb, var(--button-default-bg, var(--color-primary)) 88%, black) */
   --button-default-border-color: initial; /* var(--color-primary) */
   --button-default-color: initial; /* var(--color-primary-foreground) */
   --button-destructive-bg: initial; /* var(--color-destructive) */
   --button-destructive-border-color: initial; /* var(--color-destructive) */
-  --button-destructive-color: initial; /* var(--color-primary-foreground) */
+  --button-destructive-color: initial; /* var(--color-destructive-foreground) */
   --button-destructive-hover-brightness: initial; /* 0.96 */
   --button-destructive-outline-bg: initial; /* var(--color-background) */
   --button-destructive-outline-bg-hover: initial; /* var(--color-destructive) */
   --button-destructive-outline-border-color: initial; /* var(--color-destructive) */
   --button-destructive-outline-color: initial; /* var(--color-destructive) */
-  --button-destructive-outline-color-hover: initial; /* var(--button-destructive-color) */
+  --button-destructive-outline-color-hover: initial; /* var(--button-destructive-color, var(--color-destructive-foreground)) */
   --button-disabled-opacity: initial; /* var(--opacity-disabled) */
   --button-focus-ring-color: initial; /* var(--color-ring) */
-  --button-focus-ring-offset: initial; /* var(--button-border-width) */
-  --button-focus-ring-width: initial; /* var(--border-width-md) */
+  --button-focus-ring-offset: initial; /* var(--button-border-width, var(--border-width-sm)) */
+  --button-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --button-font-size: initial; /* var(--text-sm) */
   --button-font-size-xs: initial; /* var(--text-xs) */
   --button-font-size-lg: initial; /* var(--text-md) */
@@ -326,7 +333,7 @@
   --button-ghost-bg-hover: initial; /* var(--color-accent) */
   --button-ghost-border-color: initial; /* transparent */
   --button-ghost-color: initial; /* var(--color-foreground) */
-  --button-icon-size: initial; /* 1rem */
+  --button-icon-size: initial; /* var(--spacing-4) */
   --button-line-height: initial; /* var(--line-height-text-sm) */
   --button-line-height-xs: initial; /* var(--line-height-text-xs) */
   --button-line-height-lg: initial; /* var(--line-height-text-md) */
@@ -339,29 +346,29 @@
   --button-outline-bg-hover: initial; /* var(--color-accent) */
   --button-outline-border-color: initial; /* var(--color-border) */
   --button-outline-color: initial; /* var(--color-foreground) */
-  --button-padding-x-xs: initial; /* 0.625rem */
-  --button-padding-x-sm: initial; /* 0.75rem */
-  --button-padding-x-md: initial; /* 1rem */
-  --button-padding-x-lg: initial; /* 1.25rem */
-  --button-padding-x-xl: initial; /* 1.5rem */
-  --button-padding-y-xs: initial; /* 0.25rem */
-  --button-padding-y-sm: initial; /* 0.375rem */
-  --button-padding-y-md: initial; /* 0.5rem */
-  --button-padding-y-lg: initial; /* 0.625rem */
-  --button-padding-y-xl: initial; /* 0.75rem */
+  --button-padding-x-xs: initial; /* var(--spacing-2-5) */
+  --button-padding-x-sm: initial; /* var(--spacing-3) */
+  --button-padding-x-md: initial; /* var(--spacing-4) */
+  --button-padding-x-lg: initial; /* var(--spacing-5) */
+  --button-padding-x-xl: initial; /* var(--spacing-6) */
+  --button-padding-y-xs: initial; /* var(--spacing-0-5) */
+  --button-padding-y-sm: initial; /* var(--spacing-1) */
+  --button-padding-y-md: initial; /* var(--spacing-1) */
+  --button-padding-y-lg: initial; /* var(--spacing-1-5) */
+  --button-padding-y-xl: initial; /* var(--spacing-2) */
   --button-radius: initial; /* var(--radius-md) */
   --button-secondary-bg: initial; /* var(--color-secondary) */
   --button-secondary-bg-hover: initial; /* var(--color-accent) */
   --button-secondary-border-color: initial; /* var(--color-secondary) */
   --button-secondary-color: initial; /* var(--color-secondary-foreground) */
   --button-size-icon-sm: initial; /* var(--size-sm) */
-  --button-size-icon-md: initial; /* var(--size-lg) */
-  --button-size-icon-lg: initial; /* var(--size-xl) */
+  --button-size-icon-md: initial; /* var(--size-md) */
+  --button-size-icon-lg: initial; /* var(--size-lg) */
   --button-size-xs: initial; /* var(--size-xs) */
   --button-size-sm: initial; /* var(--size-sm) */
-  --button-size-md: initial; /* var(--size-lg) */
-  --button-size-lg: initial; /* var(--size-xl) */
-  --button-size-xl: initial; /* 3.5rem */
+  --button-size-md: initial; /* var(--size-md) */
+  --button-size-lg: initial; /* var(--size-lg) */
+  --button-size-xl: initial; /* var(--size-xl) */
   --button-transition: initial; /* var(--transition-default) */
 
   /* Card */
@@ -380,7 +387,7 @@
   --card-footer-gap: initial; /* var(--spacing-2) */
   --card-focus-ring-color: initial; /* var(--color-ring) */
   --card-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --card-focus-ring-width: initial; /* var(--border-width-md) */
+  --card-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --card-header-gap: initial; /* var(--spacing-1) */
   --card-padding: initial; /* var(--spacing-6) */
   --card-padding-lg: initial; /* var(--spacing-8) */
@@ -409,27 +416,27 @@
   --checkbox-border-color-invalid: initial; /* var(--color-destructive) */
   --checkbox-border-width: initial; /* var(--border-width-sm) */
   --checkbox-color: initial; /* var(--color-primary-foreground) */
-  --checkbox-color-invalid: initial; /* var(--color-primary-foreground) */
+  --checkbox-color-invalid: initial; /* var(--color-destructive-foreground) */
   --checkbox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --checkbox-focus-ring-color: initial; /* var(--color-ring) */
   --checkbox-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --checkbox-focus-ring-width: initial; /* var(--border-width-sm) */
+  --checkbox-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --checkbox-gap: initial; /* var(--spacing-2) */
-  --checkbox-icon-size-xs: initial; /* 0.5rem */
-  --checkbox-icon-size-sm: initial; /* 0.625rem */
-  --checkbox-icon-size-md: initial; /* 0.75rem */
-  --checkbox-icon-size-lg: initial; /* 0.875rem */
-  --checkbox-icon-size-xl: initial; /* 1rem */
+  --checkbox-icon-size-xs: initial; /* var(--spacing-2) */
+  --checkbox-icon-size-sm: initial; /* var(--spacing-2-5) */
+  --checkbox-icon-size-md: initial; /* var(--spacing-3) */
+  --checkbox-icon-size-lg: initial; /* var(--spacing-3-5) */
+  --checkbox-icon-size-xl: initial; /* var(--spacing-4) */
   --checkbox-label-color: initial; /* var(--color-foreground) */
   --checkbox-label-font-size: initial; /* var(--text-sm) */
   --checkbox-label-font-weight: initial; /* var(--weight-medium) */
   --checkbox-label-line-height: initial; /* var(--line-height-text-sm) */
   --checkbox-radius: initial; /* var(--radius-xs) */
-  --checkbox-size-xs: initial; /* 0.875rem */
-  --checkbox-size-sm: initial; /* 1rem */
-  --checkbox-size-md: initial; /* 1.25rem */
-  --checkbox-size-lg: initial; /* 1.5rem */
-  --checkbox-size-xl: initial; /* 1.75rem */
+  --checkbox-size-xs: initial; /* var(--spacing-3-5) */
+  --checkbox-size-sm: initial; /* var(--spacing-4) */
+  --checkbox-size-md: initial; /* var(--spacing-5) */
+  --checkbox-size-lg: initial; /* var(--size-xs) */
+  --checkbox-size-xl: initial; /* var(--spacing-7) */
   --checkbox-transition: initial; /* var(--transition-default) */
 
   /* Checkbox.Group */
@@ -440,7 +447,7 @@
   --clipboard-color: initial; /* var(--color-foreground) */
   --clipboard-width: initial; /* 100% */
   --clipboard-max-width: initial; /* none */
-  --clipboard-gap: initial; /* 0.375rem */
+  --clipboard-gap: initial; /* var(--spacing-1-5) */
   --clipboard-control-gap: initial; /* var(--spacing-2) */
   --clipboard-label-color: initial; /* currentColor */
   --clipboard-label-font-size: initial; /* var(--text-sm) */
@@ -453,12 +460,12 @@
   --clipboard-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --clipboard-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
   --clipboard-input-focus-ring-offset: initial; /* var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm))) */
-  --clipboard-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--border-width-sm)) */
+  --clipboard-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--clipboard-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))))) */
   --clipboard-input-font-size: initial; /* var(--input-font-size-md, var(--text-md)) */
-  --clipboard-input-height: initial; /* var(--input-height-md, var(--size-lg)) */
+  --clipboard-input-height: initial; /* var(--input-height-md, var(--size-md)) */
   --clipboard-input-line-height: initial; /* var(--input-line-height-md, var(--line-height-text-md)) */
-  --clipboard-input-padding-x: initial; /* var(--input-padding-x-md, var(--spacing-3)) */
-  --clipboard-input-padding-y: initial; /* var(--input-padding-y-md, var(--spacing-2)) */
+  --clipboard-input-padding-x: initial; /* var(--input-padding-x-md, var(--spacing-3-5)) */
+  --clipboard-input-padding-y: initial; /* var(--input-padding-y-md, var(--spacing-1)) */
   --clipboard-input-placeholder-color: initial; /* var(--input-placeholder-color, var(--color-muted-foreground)) */
   --clipboard-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
   --clipboard-input-readonly-bg: initial; /* var(--input-readonly-bg, var(--clipboard-input-bg, var(--color-background))) */
@@ -470,15 +477,15 @@
   --clipboard-trigger-color: initial; /* var(--button-outline-color, var(--color-foreground)) */
   --clipboard-trigger-focus-ring-color: initial; /* var(--button-focus-ring-color, var(--color-ring)) */
   --clipboard-trigger-focus-ring-offset: initial; /* var(--clipboard-trigger-border-width, var(--button-border-width, var(--border-width-sm))) */
-  --clipboard-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--border-width-md)) */
+  --clipboard-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) */
   --clipboard-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
   --clipboard-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
   --clipboard-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
-  --clipboard-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
+  --clipboard-trigger-height: initial; /* var(--button-size-md, var(--size-md)) */
   --clipboard-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
-  --clipboard-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --clipboard-trigger-padding-x: initial; /* var(--button-padding-x-md, var(--spacing-4)) */
   --clipboard-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
-  --clipboard-indicator-size: initial; /* var(--button-icon-size, 1rem) */
+  --clipboard-indicator-size: initial; /* var(--button-icon-size, var(--spacing-4)) */
   --clipboard-value-text-color: initial; /* currentColor */
   --clipboard-value-text-font-size: initial; /* inherit */
   --clipboard-value-text-font-weight: initial; /* inherit */
@@ -492,11 +499,11 @@
   --close-button-color-hover: initial; /* var(--color-foreground) */
   --close-button-disabled-opacity: initial; /* var(--opacity-disabled) */
   --close-button-focus-ring-color: initial; /* var(--color-ring) */
-  --close-button-focus-ring-offset: initial; /* 2px */
-  --close-button-focus-ring-width: initial; /* var(--border-width-md) */
-  --close-button-icon-size: initial; /* 12px */
+  --close-button-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --close-button-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
+  --close-button-icon-size: initial; /* var(--spacing-3) */
   --close-button-radius: initial; /* var(--radius-sm) */
-  --close-button-size: initial; /* 28px */
+  --close-button-size: initial; /* var(--spacing-7) */
   --close-button-transition: initial; /* var(--transition-default) */
 
   /* Collapsible */
@@ -506,10 +513,10 @@
   --collapsible-disabled-opacity: initial; /* var(--opacity-disabled) */
   --collapsible-focus-ring-color: initial; /* var(--color-ring) */
   --collapsible-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --collapsible-focus-ring-width: initial; /* var(--border-width-sm) */
+  --collapsible-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --collapsible-max-width: initial; /* 100% */
   --collapsible-indicator-open-transform: initial; /* rotate(180deg) */
-  --collapsible-indicator-size: initial; /* 0.75rem */
+  --collapsible-indicator-size: initial; /* var(--spacing-3) */
   --collapsible-indicator-transition: initial; /* var(--transition-default) */
   --collapsible-content-closed-opacity: initial; /* 0.01 */
   --collapsible-content-color: initial; /* var(--color-muted-foreground) */
@@ -534,10 +541,10 @@
   --combobox-action-bg: initial; /* transparent */
   --combobox-action-bg-hover: initial; /* var(--color-muted) */
   --combobox-action-color-hover: initial; /* var(--color-foreground) */
-  --combobox-action-gap: initial; /* 0.125rem */
-  --combobox-action-offset-right: initial; /* 0.5rem */
+  --combobox-action-gap: initial; /* var(--spacing-0-5) */
+  --combobox-action-offset-right: initial; /* var(--spacing-2) */
   --combobox-action-radius: initial; /* var(--radius-sm) */
-  --combobox-action-size: initial; /* 1.5rem */
+  --combobox-action-size: initial; /* var(--size-xs) */
   --combobox-bg: initial; /* var(--color-background) */
   --combobox-border-color: initial; /* var(--color-border) */
   --combobox-border-width: initial; /* var(--border-width-sm) */
@@ -549,49 +556,49 @@
   --combobox-content-closed-scale: initial; /* var(--scale-popup) */
   --combobox-content-color: initial; /* var(--color-popover-foreground) */
   --combobox-content-max-height: initial; /* 24rem */
-  --combobox-content-padding-y: initial; /* var(--spacing-1) */
+  --combobox-content-padding-y: initial; /* var(--popup-list-padding-y, var(--spacing-1)) */
   --combobox-content-shadow: initial; /* var(--shadow-lg) */
-  --combobox-control-height: initial; /* var(--size-lg) */
+  --combobox-control-height: initial; /* var(--size-md) */
   --combobox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --combobox-empty-color: initial; /* var(--color-muted-foreground) */
   --combobox-empty-font-size: initial; /* var(--text-sm) */
   --combobox-empty-line-height: initial; /* var(--line-height-text-sm) */
-  --combobox-empty-padding-x: initial; /* 1rem */
-  --combobox-empty-padding-y: initial; /* 0.75rem */
+  --combobox-empty-padding-x: initial; /* var(--spacing-4) */
+  --combobox-empty-padding-y: initial; /* var(--spacing-3) */
   --combobox-focus-ring-color: initial; /* var(--color-ring) */
   --combobox-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --combobox-focus-ring-width: initial; /* var(--border-width-sm) */
+  --combobox-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --combobox-highlight-bg: initial; /* var(--color-accent) */
   --combobox-highlight-color: initial; /* var(--color-accent-foreground) */
   --combobox-icon-color: initial; /* var(--color-muted-foreground) */
-  --combobox-icon-size: initial; /* 1rem */
-  --combobox-input-padding-x-end: initial; /* 0.875rem */
+  --combobox-icon-size: initial; /* var(--spacing-4) */
+  --combobox-input-padding-x-end: initial; /* var(--spacing-3-5) */
   --combobox-input-padding-x-end-with-clear: initial; /* 4.375rem */
   --combobox-input-padding-x-end-with-trigger: initial; /* 2.75rem */
-  --combobox-input-padding-x-start: initial; /* 0.875rem */
+  --combobox-input-padding-x-start: initial; /* var(--spacing-3-5) */
   --combobox-input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --combobox-invalid-color: initial; /* var(--color-destructive) */
   --combobox-item-group-gap: initial; /* var(--spacing-2) */
-  --combobox-item-group-label-color: initial; /* var(--color-muted-foreground) */
-  --combobox-item-group-label-font-size: initial; /* var(--text-xs) */
-  --combobox-item-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --combobox-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --combobox-item-group-label-padding-x: initial; /* 0.625rem */
-  --combobox-item-group-label-padding-y: initial; /* 0.35rem */
+  --combobox-item-group-label-color: initial; /* var(--popup-group-label-color, var(--color-muted-foreground)) */
+  --combobox-item-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
+  --combobox-item-group-label-font-weight: initial; /* var(--popup-group-label-font-weight, var(--weight-regular)) */
+  --combobox-item-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
+  --combobox-item-group-label-padding-x: initial; /* var(--spacing-2-5) */
+  --combobox-item-group-label-padding-y: initial; /* var(--popup-group-label-padding-y, var(--spacing-1)) */
   --combobox-item-bg: initial; /* transparent */
   --combobox-item-border-color: initial; /* transparent */
   --combobox-item-border-width: initial; /* 0 */
   --combobox-item-checked-color: initial; /* var(--combobox-item-color) */
   --combobox-item-color: initial; /* var(--color-foreground) */
   --combobox-item-disabled-color: initial; /* var(--color-muted-foreground) */
-  --combobox-item-font-size: initial; /* var(--text-sm) */
+  --combobox-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --combobox-item-gap: initial; /* var(--spacing-2) */
   --combobox-item-inset-x: initial; /* var(--spacing-2) */
-  --combobox-item-indicator-size: initial; /* 0.75rem */
-  --combobox-item-line-height: initial; /* var(--line-height-text-sm) */
-  --combobox-item-min-height: initial; /* 2rem */
-  --combobox-item-padding-x: initial; /* 0.625rem */
-  --combobox-item-padding-y: initial; /* var(--spacing-2) */
+  --combobox-item-indicator-size: initial; /* var(--spacing-3) */
+  --combobox-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
+  --combobox-item-min-height: initial; /* var(--popup-item-min-height, var(--size-sm)) */
+  --combobox-item-padding-x: initial; /* var(--popup-item-padding-x-start, var(--spacing-3)) */
+  --combobox-item-padding-y: initial; /* var(--popup-item-padding-y, var(--spacing-1)) */
   --combobox-item-radius: initial; /* var(--radius-sm) */
   --combobox-label-color: initial; /* var(--combobox-color) */
   --combobox-label-font-size: initial; /* var(--text-sm) */
@@ -599,7 +606,7 @@
   --combobox-label-line-height: initial; /* var(--line-height-text-sm) */
   --combobox-max-width: initial; /* 100% */
   --combobox-radius: initial; /* var(--radius-md) */
-  --combobox-root-gap: initial; /* 0.375rem */
+  --combobox-root-gap: initial; /* var(--spacing-1-5) */
   --combobox-transition: initial; /* var(--transition-default) */
   --combobox-width: initial; /* 16rem */
 
@@ -612,7 +619,7 @@
   --color-picker-action-gap: initial; /* var(--spacing-2) */
   --color-picker-action-line-height: initial; /* var(--line-height-text-sm) */
   --color-picker-action-padding-x: initial; /* var(--spacing-2) */
-  --color-picker-action-size: initial; /* var(--size-lg) */
+  --color-picker-action-size: initial; /* var(--size-md) */
   --color-picker-alpha-input-width: initial; /* 4rem */
   --color-picker-area-border-color: initial; /* color-mix(in oklab, var(--color-border) 70%, transparent) */
   --color-picker-area-border-width: initial; /* var(--border-width-sm) */
@@ -650,10 +657,10 @@
   --color-picker-control-gap: initial; /* var(--spacing-2) */
   --color-picker-disabled-opacity: initial; /* var(--opacity-disabled) */
   --color-picker-focus-ring-color: initial; /* var(--color-ring) */
-  --color-picker-focus-ring-width: initial; /* var(--border-width-sm) */
-  --color-picker-icon-size: initial; /* 1rem */
+  --color-picker-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
+  --color-picker-icon-size: initial; /* var(--spacing-4) */
   --color-picker-input-font-size: initial; /* var(--text-sm) */
-  --color-picker-input-height: initial; /* var(--size-lg) */
+  --color-picker-input-height: initial; /* var(--size-md) */
   --color-picker-input-line-height: initial; /* var(--line-height-text-sm) */
   --color-picker-input-padding-x: initial; /* var(--spacing-3) */
   --color-picker-invalid-color: initial; /* var(--color-destructive) */
@@ -669,9 +676,10 @@
   --color-picker-swatch-border-width: initial; /* var(--border-width-sm) */
   --color-picker-swatch-gap: initial; /* var(--spacing-2) */
   --color-picker-swatch-indicator-color: initial; /* white */
-  --color-picker-swatch-indicator-size: initial; /* 1rem */
+  --color-picker-swatch-indicator-shadow: initial; /* drop-shadow(0 1px 1px rgb(0 0 0 / 0.45)) */
+  --color-picker-swatch-indicator-size: initial; /* var(--spacing-4) */
   --color-picker-swatch-radius: initial; /* var(--radius-sm) */
-  --color-picker-swatch-size: initial; /* 2rem */
+  --color-picker-swatch-size: initial; /* var(--size-sm) */
   --color-picker-thumb-bg: initial; /* var(--color-background) */
   --color-picker-thumb-focus-ring-width: initial; /* var(--border-width-lg) */
   --color-picker-thumb-inner-ring-color: initial; /* var(--color-background) */
@@ -680,13 +688,13 @@
   --color-picker-thumb-outer-ring-width: initial; /* var(--border-width-lg) */
   --color-picker-thumb-radius: initial; /* var(--radius-full) */
   --color-picker-thumb-shadow: initial; /* var(--shadow-sm) */
-  --color-picker-thumb-size: initial; /* 1rem */
+  --color-picker-thumb-size: initial; /* var(--spacing-4) */
   --color-picker-transition: initial; /* var(--transition-default) */
   --color-picker-trigger-fit-content-gap: initial; /* var(--spacing-2) */
   --color-picker-trigger-fit-content-padding-x: initial; /* var(--spacing-3) */
-  --color-picker-trigger-fit-content-swatch-size: initial; /* 1rem */
+  --color-picker-trigger-fit-content-swatch-size: initial; /* var(--spacing-4) */
   --color-picker-trigger-padding: initial; /* var(--spacing-1) */
-  --color-picker-trigger-size: initial; /* var(--size-lg) */
+  --color-picker-trigger-size: initial; /* var(--size-md) */
   --color-picker-value-text-color: initial; /* var(--color-picker-color) */
   --color-picker-value-text-font-size: initial; /* var(--text-sm) */
   --color-picker-value-text-line-height: initial; /* var(--line-height-text-sm) */
@@ -729,34 +737,35 @@
   --command-palette-empty-font-size: initial; /* var(--text-sm) */
   --command-palette-empty-line-height: initial; /* var(--line-height-text-sm) */
   --command-palette-empty-padding-x: initial; /* var(--spacing-4) */
-  --command-palette-empty-padding-y: initial; /* 0.75rem */
+  --command-palette-empty-padding-y: initial; /* var(--spacing-3) */
   --command-palette-focus-ring-color: initial; /* var(--color-ring) */
   --command-palette-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --command-palette-focus-ring-width: initial; /* var(--border-width-sm) */
+  --command-palette-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --command-palette-footer-font-size: initial; /* var(--text-xs) */
   --command-palette-footer-gap: initial; /* var(--spacing-3) */
   --command-palette-footer-line-height: initial; /* var(--line-height-text-xs) */
   --command-palette-footer-padding-x: initial; /* var(--spacing-4) */
   --command-palette-footer-padding-y: initial; /* var(--spacing-2) */
   --command-palette-group-gap: initial; /* var(--spacing-1) */
-  --command-palette-group-label-font-size: initial; /* var(--text-xs) */
-  --command-palette-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --command-palette-group-label-line-height: initial; /* var(--line-height-text-xs) */
+  --command-palette-group-label-color: initial; /* var(--popup-group-label-color, var(--color-muted-foreground)) */
+  --command-palette-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
+  --command-palette-group-label-font-weight: initial; /* var(--popup-group-label-font-weight, var(--weight-regular)) */
+  --command-palette-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
   --command-palette-group-label-padding-x: initial; /* var(--spacing-3) */
-  --command-palette-group-label-padding-y: initial; /* var(--spacing-1) */
+  --command-palette-group-label-padding-y: initial; /* var(--popup-group-label-padding-y, var(--spacing-1)) */
   --command-palette-group-padding-bottom: initial; /* var(--spacing-2) */
   --command-palette-header-gap: initial; /* var(--spacing-1) */
   --command-palette-header-padding-x: initial; /* var(--spacing-4) */
   --command-palette-header-padding-y: initial; /* var(--spacing-4) */
   --command-palette-highlight-bg: initial; /* var(--color-accent) */
   --command-palette-highlight-color: initial; /* var(--color-foreground) */
-  --command-palette-icon-size: initial; /* 1rem */
+  --command-palette-icon-size: initial; /* var(--spacing-4) */
   --command-palette-input-bg: initial; /* var(--color-background) */
   --command-palette-input-border-color: initial; /* var(--color-border) */
   --command-palette-input-border-color-invalid: initial; /* var(--color-destructive) */
   --command-palette-input-border-width: initial; /* var(--border-width-sm) */
   --command-palette-input-color: initial; /* var(--color-foreground) */
-  --command-palette-input-control-height: initial; /* var(--size-sm) */
+  --command-palette-input-control-height: initial; /* auto */
   --command-palette-input-font-size: initial; /* var(--text-sm) */
   --command-palette-input-gap: initial; /* var(--spacing-2) */
   --command-palette-input-height: initial; /* var(--size-md) */
@@ -766,22 +775,22 @@
   --command-palette-item-color: initial; /* var(--command-palette-color) */
   --command-palette-item-description-font-size: initial; /* var(--text-xs) */
   --command-palette-item-description-line-height: initial; /* var(--line-height-text-xs) */
-  --command-palette-item-font-size: initial; /* var(--text-sm) */
+  --command-palette-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --command-palette-item-gap: initial; /* var(--spacing-3) */
   --command-palette-item-icon-bg: initial; /* var(--color-muted) */
   --command-palette-item-icon-border-color: initial; /* var(--color-border) */
   --command-palette-item-icon-border-width: initial; /* var(--border-width-sm) */
-  --command-palette-item-icon-box-size: initial; /* 2rem */
+  --command-palette-item-icon-box-size: initial; /* var(--spacing-8) */
   --command-palette-item-icon-color: initial; /* var(--color-muted-foreground) */
   --command-palette-item-icon-radius: initial; /* var(--radius-md) */
-  --command-palette-item-icon-size: initial; /* 1rem */
+  --command-palette-item-icon-size: initial; /* var(--spacing-4) */
   --command-palette-item-label-font-weight: initial; /* var(--weight-medium) */
-  --command-palette-item-line-height: initial; /* var(--line-height-text-sm) */
+  --command-palette-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
   --command-palette-item-meta-font-size: initial; /* var(--text-xs) */
   --command-palette-item-meta-line-height: initial; /* var(--line-height-text-xs) */
-  --command-palette-item-min-height: initial; /* 3rem */
-  --command-palette-item-padding-x: initial; /* var(--spacing-3) */
-  --command-palette-item-padding-y: initial; /* var(--spacing-2) */
+  --command-palette-item-min-height: initial; /* var(--popup-item-min-height, var(--size-sm)) */
+  --command-palette-item-padding-x: initial; /* var(--popup-item-padding-x-start, var(--spacing-3)) */
+  --command-palette-item-padding-y: initial; /* var(--popup-item-padding-y, var(--spacing-1)) */
   --command-palette-item-radius: initial; /* var(--radius-md) */
   --command-palette-item-text-gap: initial; /* var(--spacing-1) */
   --command-palette-kbd-bg: initial; /* var(--color-muted) */
@@ -804,7 +813,7 @@
   --command-palette-positioner-padding: initial; /* 10dvh var(--spacing-4) var(--spacing-4) */
   --command-palette-radius: initial; /* var(--radius-lg) */
   --command-palette-scrollbar-margin: initial; /* var(--spacing-1) */
-  --command-palette-scrollbar-size: initial; /* 0.375rem */
+  --command-palette-scrollbar-size: initial; /* var(--spacing-1-5) */
   --command-palette-scrollbar-thumb-bg: initial; /* var(--color-border) */
   --command-palette-selected-color: initial; /* var(--command-palette-highlight-color) */
   --command-palette-separator-margin-x: initial; /* var(--spacing-2) */
@@ -823,17 +832,17 @@
   --command-palette-trigger-color: initial; /* var(--color-foreground) */
   --command-palette-trigger-font-size: initial; /* var(--text-md) */
   --command-palette-trigger-gap: initial; /* var(--spacing-2) */
-  --command-palette-trigger-height: initial; /* var(--size-lg) */
+  --command-palette-trigger-height: initial; /* var(--size-md) */
   --command-palette-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --command-palette-trigger-padding-x: initial; /* 0.875rem */
-  --command-palette-trigger-padding-y: initial; /* 0.5rem */
+  --command-palette-trigger-padding-x: initial; /* var(--spacing-3-5) */
+  --command-palette-trigger-padding-y: initial; /* var(--spacing-1) */
   --command-palette-trigger-radius: initial; /* var(--radius-md) */
   --command-palette-width: initial; /* 37.5rem */
 
   /* Container */
-  --container-gutter-lg: initial; /* clamp(1.5rem, 5vw, 3rem) */
-  --container-gutter-md: initial; /* clamp(1rem, 4vw, 2rem) */
-  --container-gutter-sm: initial; /* clamp(0.75rem, 3vw, 1.5rem) */
+  --container-gutter-lg: initial; /* clamp(var(--spacing-6), 5vw, 3rem) */
+  --container-gutter-md: initial; /* clamp(var(--spacing-4), 4vw, var(--spacing-8)) */
+  --container-gutter-sm: initial; /* clamp(var(--spacing-3), 3vw, var(--spacing-6)) */
   --container-max-width-xs: initial; /* 40rem */
   --container-max-width-sm: initial; /* 48rem */
   --container-max-width-md: initial; /* 64rem */
@@ -847,20 +856,20 @@
   --date-input-border-style: initial; /* solid */
   --date-input-border-width: initial; /* var(--border-width-sm) */
   --date-input-color: initial; /* var(--color-foreground) */
-  --date-input-control-height: initial; /* var(--size-lg) */
+  --date-input-control-height: initial; /* var(--size-md) */
   --date-input-control-width: initial; /* 100% */
   --date-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --date-input-focus-ring-color: initial; /* var(--color-ring) */
-  --date-input-focus-ring-offset: initial; /* -1px */
-  --date-input-focus-ring-width: initial; /* var(--date-input-border-width, var(--border-width-sm)) */
+  --date-input-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --date-input-focus-ring-width: initial; /* var(--date-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --date-input-gap: initial; /* var(--spacing-1) */
   --date-input-label-color: initial; /* var(--color-foreground) */
   --date-input-label-font-size: initial; /* var(--text-sm) */
   --date-input-label-font-weight: initial; /* var(--weight-medium) */
   --date-input-label-line-height: initial; /* var(--line-height-text-sm) */
   --date-input-max-width: initial; /* none */
-  --date-input-padding-x: initial; /* 0.75rem */
-  --date-input-padding-y: initial; /* 0.5rem */
+  --date-input-padding-x: initial; /* var(--spacing-3) */
+  --date-input-padding-y: initial; /* var(--spacing-1) */
   --date-input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --date-input-radius: initial; /* var(--radius-md) */
   --date-input-segment-bg-focus: initial; /* color-mix(in oklab, var(--color-ring) 18%, transparent) */
@@ -881,10 +890,10 @@
   --date-picker-action-bg-hover: initial; /* var(--color-muted) */
   --date-picker-action-color-hover: initial; /* var(--color-foreground) */
   --date-picker-action-focus-ring-offset: initial; /* 0 */
-  --date-picker-action-focus-ring-width: initial; /* var(--border-width-sm) */
-  --date-picker-action-gap: initial; /* 0.125rem */
+  --date-picker-action-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
+  --date-picker-action-gap: initial; /* var(--spacing-0-5) */
   --date-picker-action-radius: initial; /* var(--radius-sm) */
-  --date-picker-action-size: initial; /* 1.5rem */
+  --date-picker-action-size: initial; /* var(--size-xs) */
   --date-picker-bg: initial; /* var(--color-background) */
   --date-picker-border-color: initial; /* var(--color-border) */
   --date-picker-border-width: initial; /* var(--border-width-sm) */
@@ -902,19 +911,19 @@
   --date-picker-content-radius: initial; /* var(--radius-md) */
   --date-picker-content-shadow: initial; /* var(--shadow-lg) */
   --date-picker-content-width: initial; /* 18.75rem */
-  --date-picker-control-height: initial; /* var(--size-lg) */
+  --date-picker-control-height: initial; /* var(--size-md) */
   --date-picker-disabled-opacity: initial; /* var(--opacity-disabled) */
   --date-picker-focus-ring-color: initial; /* var(--color-ring) */
-  --date-picker-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --date-picker-font-size: initial; /* var(--text-md) */
   --date-picker-icon-color: initial; /* var(--color-muted-foreground) */
-  --date-picker-icon-size: initial; /* 1rem */
+  --date-picker-icon-size: initial; /* var(--spacing-4) */
   --date-picker-inline-content-min-width: initial; /* 18rem */
   --date-picker-inline-content-shadow: initial; /* none */
   --date-picker-input-min-width: initial; /* 7.5rem */
   --date-picker-input-padding-x-end: initial; /* 4.25rem */
-  --date-picker-input-padding-x-start: initial; /* 0.875rem */
-  --date-picker-input-padding-y: initial; /* 0.5rem */
+  --date-picker-input-padding-x-start: initial; /* var(--spacing-3-5) */
+  --date-picker-input-padding-y: initial; /* var(--spacing-1) */
   --date-picker-input-gap: initial; /* var(--spacing-2) */
   --date-picker-invalid-color: initial; /* var(--color-destructive) */
   --date-picker-label-color: initial; /* var(--date-picker-color, var(--color-foreground)) */
@@ -923,13 +932,13 @@
   --date-picker-label-line-height: initial; /* var(--line-height-text-sm) */
   --date-picker-line-height: initial; /* var(--line-height-text-md) */
   --date-picker-max-width: initial; /* 100% */
-  --date-picker-nav-trigger-size: initial; /* 2rem */
+  --date-picker-nav-trigger-size: initial; /* var(--size-sm) */
   --date-picker-placeholder-color: initial; /* var(--color-muted-foreground) */
   --date-picker-preset-trigger-bg: initial; /* var(--color-muted) */
   --date-picker-preset-trigger-bg-hover: initial; /* var(--color-accent) */
   --date-picker-preset-trigger-color: initial; /* var(--color-foreground) */
   --date-picker-preset-trigger-font-size: initial; /* var(--text-sm) */
-  --date-picker-preset-trigger-height: initial; /* 2rem */
+  --date-picker-preset-trigger-height: initial; /* var(--size-sm) */
   --date-picker-preset-trigger-line-height: initial; /* var(--line-height-text-sm) */
   --date-picker-preset-trigger-padding-x: initial; /* var(--spacing-2) */
   --date-picker-preset-trigger-selected-bg: initial; /* var(--color-primary) */
@@ -941,12 +950,12 @@
   --date-picker-select-border-color: initial; /* var(--color-border) */
   --date-picker-select-border-width: initial; /* var(--border-width-sm) */
   --date-picker-select-color: initial; /* var(--color-foreground) */
-  --date-picker-select-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-select-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --date-picker-select-font-size: initial; /* var(--text-sm) */
-  --date-picker-select-height: initial; /* 2rem */
+  --date-picker-select-height: initial; /* var(--size-sm) */
   --date-picker-select-line-height: initial; /* var(--line-height-text-sm) */
   --date-picker-select-padding-x: initial; /* var(--spacing-2) */
-  --date-picker-select-padding-y: initial; /* 0.25rem */
+  --date-picker-select-padding-y: initial; /* var(--spacing-1) */
   --date-picker-select-radius: initial; /* var(--radius-sm) */
   --date-picker-table-cell-bg: initial; /* transparent */
   --date-picker-table-cell-bg-hover: initial; /* var(--color-accent) */
@@ -955,9 +964,9 @@
   --date-picker-table-cell-color: initial; /* var(--date-picker-content-color, var(--color-foreground)) */
   --date-picker-table-cell-color-hover: initial; /* var(--color-accent-foreground) */
   --date-picker-table-cell-focus-ring-color: initial; /* var(--color-ring) */
-  --date-picker-table-cell-focus-ring-width: initial; /* var(--border-width-sm) */
+  --date-picker-table-cell-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --date-picker-table-cell-font-size: initial; /* var(--text-sm) */
-  --date-picker-table-cell-gap: initial; /* 0.125rem */
+  --date-picker-table-cell-gap: initial; /* var(--spacing-0-5) */
   --date-picker-table-cell-line-height: initial; /* var(--line-height-text-sm) */
   --date-picker-table-cell-muted-color: initial; /* var(--color-muted-foreground) */
   --date-picker-table-cell-radius: initial; /* var(--radius-sm) */
@@ -965,7 +974,7 @@
   --date-picker-table-cell-range-color: initial; /* var(--color-foreground) */
   --date-picker-table-cell-selected-bg: initial; /* var(--color-primary) */
   --date-picker-table-cell-selected-color: initial; /* var(--color-primary-foreground) */
-  --date-picker-table-cell-size: initial; /* 2.25rem */
+  --date-picker-table-cell-size: initial; /* var(--size-sm) */
   --date-picker-table-cell-today-border-color: initial; /* var(--color-ring) */
   --date-picker-table-cell-today-color: initial; /* var(--date-picker-table-cell-color, var(--color-foreground)) */
   --date-picker-table-header-color: initial; /* var(--color-muted-foreground) */
@@ -974,14 +983,14 @@
   --date-picker-table-header-height: initial; /* 1.75rem */
   --date-picker-table-header-line-height: initial; /* var(--line-height-text-xs) */
   --date-picker-transition: initial; /* var(--transition-default) */
-  --date-picker-trigger-offset-right: initial; /* 0.5rem */
+  --date-picker-trigger-offset-right: initial; /* var(--spacing-2) */
   --date-picker-view-control-gap: initial; /* var(--spacing-2) */
   --date-picker-view-gap: initial; /* var(--spacing-3) */
   --date-picker-view-trigger-color: initial; /* var(--color-foreground) */
   --date-picker-view-trigger-font-size: initial; /* var(--text-sm) */
   --date-picker-view-trigger-font-weight: initial; /* var(--weight-medium) */
   --date-picker-view-trigger-gap: initial; /* var(--spacing-2) */
-  --date-picker-view-trigger-height: initial; /* 2rem */
+  --date-picker-view-trigger-height: initial; /* var(--size-sm) */
   --date-picker-view-trigger-line-height: initial; /* var(--line-height-text-sm) */
   --date-picker-view-trigger-padding-x: initial; /* var(--spacing-2) */
   --date-picker-week-number-color: initial; /* var(--color-muted-foreground) */
@@ -1002,12 +1011,12 @@
   --dialog-close-icon-bg-hover: initial; /* var(--color-accent) */
   --dialog-close-icon-color: initial; /* var(--dialog-muted-color) */
   --dialog-close-icon-color-hover: initial; /* var(--dialog-close-icon-color, var(--dialog-color)) */
-  --dialog-close-icon-focus-ring-color: initial; /* var(--dialog-focus-ring-color) */
-  --dialog-close-icon-glyph-size: initial; /* 0.75rem */
+  --dialog-close-icon-focus-ring-color: initial; /* var(--dialog-focus-ring-color, var(--color-ring)) */
+  --dialog-close-icon-glyph-size: initial; /* var(--spacing-3) */
   --dialog-close-icon-inset-block-start: initial; /* var(--spacing-4) */
   --dialog-close-icon-inset-inline-end: initial; /* var(--spacing-4) */
   --dialog-close-icon-radius: initial; /* var(--radius-md) */
-  --dialog-close-icon-size: initial; /* 1.75rem */
+  --dialog-close-icon-size: initial; /* var(--spacing-7) */
   --dialog-color: initial; /* var(--color-popover-foreground) */
   --dialog-content-ending-opacity: initial; /* 0 */
   --dialog-content-ending-scale: initial; /* var(--scale-popup) */
@@ -1024,16 +1033,16 @@
   --dialog-control-border-width: initial; /* var(--border-width-sm) */
   --dialog-control-color: initial; /* var(--color-foreground) */
   --dialog-control-font-size: initial; /* var(--text-md) */
-  --dialog-control-height: initial; /* var(--size-lg) */
+  --dialog-control-height: initial; /* var(--size-md) */
   --dialog-control-line-height: initial; /* var(--line-height-text-md) */
-  --dialog-control-padding-x: initial; /* 0.875rem */
-  --dialog-control-padding-y: initial; /* 0.5rem */
+  --dialog-control-padding-x: initial; /* var(--spacing-3-5) */
+  --dialog-control-padding-y: initial; /* var(--spacing-1) */
   --dialog-control-radius: initial; /* var(--radius-md) */
   --dialog-description-color: initial; /* var(--dialog-muted-color) */
   --dialog-description-font-size: initial; /* var(--text-md) */
   --dialog-description-line-height: initial; /* var(--line-height-text-md) */
   --dialog-focus-ring-color: initial; /* var(--color-ring) */
-  --dialog-focus-ring-width: initial; /* var(--dialog-control-border-width) */
+  --dialog-focus-ring-width: initial; /* var(--dialog-control-border-width, var(--border-width-sm)) */
   --dialog-footer-gap: initial; /* var(--spacing-2) */
   --dialog-footer-margin-top: initial; /* var(--spacing-6) */
   --dialog-header-gap: initial; /* var(--spacing-1) */
@@ -1060,7 +1069,7 @@
   --drawer-backdrop-transition: initial; /* var(--transition-spring) */
   --drawer-bg: initial; /* var(--color-popover) */
   --drawer-body-margin-top: initial; /* var(--spacing-4) */
-  --drawer-bleed-size: initial; /* 3rem */
+  --drawer-bleed-size: initial; /* var(--size-xl) */
   --drawer-border-color: initial; /* var(--color-border) */
   --drawer-border-width: initial; /* var(--border-width-sm) */
   --drawer-color: initial; /* var(--color-popover-foreground) */
@@ -1069,25 +1078,25 @@
   --drawer-close-icon-color: initial; /* var(--drawer-description-color, var(--color-muted-foreground)) */
   --drawer-close-icon-color-hover: initial; /* var(--drawer-color, var(--color-popover-foreground)) */
   --drawer-close-icon-focus-ring-color: initial; /* var(--drawer-focus-ring-color, var(--color-ring)) */
-  --drawer-close-icon-glyph-size: initial; /* 0.75rem */
+  --drawer-close-icon-glyph-size: initial; /* var(--spacing-3) */
   --drawer-close-icon-radius: initial; /* var(--radius-md) */
-  --drawer-close-icon-size: initial; /* 1.75rem */
+  --drawer-close-icon-size: initial; /* var(--spacing-7) */
   --drawer-control-bg: initial; /* var(--color-background) */
   --drawer-control-bg-hover: initial; /* var(--color-accent) */
   --drawer-control-border-color: initial; /* var(--color-border) */
   --drawer-control-border-width: initial; /* var(--border-width-sm) */
   --drawer-control-color: initial; /* var(--color-foreground) */
   --drawer-control-font-size: initial; /* var(--text-md) */
-  --drawer-control-height: initial; /* var(--size-lg) */
+  --drawer-control-height: initial; /* var(--size-md) */
   --drawer-control-line-height: initial; /* var(--line-height-text-md) */
-  --drawer-control-padding-x: initial; /* 0.875rem */
-  --drawer-control-padding-y: initial; /* 0.5rem */
+  --drawer-control-padding-x: initial; /* var(--spacing-3-5) */
+  --drawer-control-padding-y: initial; /* var(--spacing-1) */
   --drawer-control-radius: initial; /* var(--radius-md) */
   --drawer-description-color: initial; /* var(--color-muted-foreground) */
   --drawer-description-font-size: initial; /* var(--text-md) */
   --drawer-description-line-height: initial; /* var(--line-height-text-md) */
   --drawer-focus-ring-color: initial; /* var(--color-ring) */
-  --drawer-focus-ring-width: initial; /* var(--drawer-control-border-width) */
+  --drawer-focus-ring-width: initial; /* var(--drawer-control-border-width, var(--border-width-sm)) */
   --drawer-footer-gap: initial; /* var(--spacing-2) */
   --drawer-footer-margin-top: initial; /* var(--spacing-6) */
   --drawer-grabber-indicator-bg: initial; /* var(--color-muted-foreground) */
@@ -1140,7 +1149,7 @@
   --empty-icon-bg: initial; /* var(--color-muted) */
   --empty-icon-color: initial; /* var(--color-muted-foreground) */
   --empty-icon-padding: initial; /* var(--spacing-3) */
-  --empty-icon-size: initial; /* 1.5rem */
+  --empty-icon-size: initial; /* var(--spacing-6) */
   --empty-padding: initial; /* var(--spacing-8) */
   --empty-radius: initial; /* var(--radius-xl) */
   --empty-shadow: initial; /* none */
@@ -1150,7 +1159,7 @@
   --empty-title-line-height: initial; /* var(--line-height-text-xl) */
 
   /* Editable */
-  --editable-area-height: initial; /* var(--size-lg) */
+  --editable-area-height: initial; /* var(--size-md) */
   --editable-area-width: initial; /* 100% */
   --editable-bg: initial; /* var(--color-background) */
   --editable-border-color: initial; /* var(--color-border) */
@@ -1162,7 +1171,7 @@
   --editable-control-gap: initial; /* var(--spacing-1) */
   --editable-disabled-opacity: initial; /* var(--opacity-disabled) */
   --editable-focus-ring-color: initial; /* var(--color-ring) */
-  --editable-focus-ring-width: initial; /* var(--editable-border-width, var(--border-width-sm)) */
+  --editable-focus-ring-width: initial; /* var(--editable-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --editable-font-size: initial; /* var(--text-md) */
   --editable-gap: initial; /* var(--spacing-1) */
   --editable-input-width: initial; /* 100% */
@@ -1174,8 +1183,8 @@
   --editable-label-line-height: initial; /* var(--line-height-text-sm) */
   --editable-line-height: initial; /* var(--line-height-text-md) */
   --editable-max-width: initial; /* 100% */
-  --editable-padding-x: initial; /* 0.875rem */
-  --editable-padding-y: initial; /* 0.5rem */
+  --editable-padding-x: initial; /* var(--spacing-3-5) */
+  --editable-padding-y: initial; /* var(--spacing-1) */
   --editable-placeholder-color: initial; /* var(--color-muted-foreground) */
   --editable-preview-min-height: initial; /* 1lh */
   --editable-radius: initial; /* var(--radius-md) */
@@ -1189,9 +1198,9 @@
   --editable-trigger-border-style: initial; /* solid */
   --editable-trigger-border-width: initial; /* var(--border-width-sm) */
   --editable-trigger-color: initial; /* var(--color-foreground) */
-  --editable-trigger-icon-size: initial; /* 0.875rem */
+  --editable-trigger-icon-size: initial; /* var(--spacing-3-5) */
   --editable-trigger-radius: initial; /* var(--radius-sm) */
-  --editable-trigger-size: initial; /* var(--editable-area-height, var(--size-lg)) */
+  --editable-trigger-size: initial; /* var(--editable-area-height, var(--size-md)) */
   --editable-width: initial; /* auto */
 
   /* FileUpload */
@@ -1199,9 +1208,9 @@
   --file-upload-action-bg-hover: initial; /* var(--color-muted) */
   --file-upload-action-color: initial; /* var(--color-muted-foreground) */
   --file-upload-action-color-hover: initial; /* var(--color-foreground) */
-  --file-upload-action-icon-size: initial; /* 1rem */
+  --file-upload-action-icon-size: initial; /* var(--spacing-4) */
   --file-upload-action-radius: initial; /* var(--radius-sm) */
-  --file-upload-action-size: initial; /* 2rem */
+  --file-upload-action-size: initial; /* var(--size-sm) */
   --file-upload-clear-trigger-color: initial; /* var(--color-muted-foreground) */
   --file-upload-clear-trigger-font-size: initial; /* var(--text-sm) */
   --file-upload-clear-trigger-gap: initial; /* var(--spacing-2) */
@@ -1220,15 +1229,15 @@
   --file-upload-dropzone-icon-bg: initial; /* var(--color-muted) */
   --file-upload-dropzone-icon-border-color: initial; /* var(--color-border) */
   --file-upload-dropzone-icon-border-width: initial; /* var(--border-width-sm) */
-  --file-upload-dropzone-icon-box-size: initial; /* 2.5rem */
+  --file-upload-dropzone-icon-box-size: initial; /* var(--spacing-10) */
   --file-upload-dropzone-icon-color: initial; /* var(--color-foreground) */
   --file-upload-dropzone-icon-radius: initial; /* var(--radius-full) */
-  --file-upload-dropzone-icon-size: initial; /* 1rem */
+  --file-upload-dropzone-icon-size: initial; /* var(--spacing-4) */
   --file-upload-dropzone-min-height: initial; /* 8rem */
   --file-upload-dropzone-padding: initial; /* var(--spacing-5) */
   --file-upload-focus-ring-color: initial; /* var(--color-ring) */
   --file-upload-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --file-upload-focus-ring-width: initial; /* var(--border-width-md) */
+  --file-upload-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --file-upload-gap: initial; /* var(--spacing-3) */
   --file-upload-invalid-color: initial; /* var(--color-destructive) */
   --file-upload-item-bg: initial; /* var(--color-background) */
@@ -1237,16 +1246,18 @@
   --file-upload-item-color: initial; /* var(--color-foreground) */
   --file-upload-item-gap: initial; /* var(--spacing-3) */
   --file-upload-item-group-gap: initial; /* var(--spacing-2) */
-  --file-upload-item-min-height: initial; /* 2.5rem */
+  --file-upload-item-min-height: initial; /* var(--size-md) */
   --file-upload-item-name-color: initial; /* currentColor */
   --file-upload-item-name-font-size: initial; /* var(--text-sm) */
   --file-upload-item-name-font-weight: initial; /* var(--weight-medium) */
   --file-upload-item-name-line-height: initial; /* var(--line-height-text-sm) */
   --file-upload-item-padding-x: initial; /* var(--spacing-3) */
   --file-upload-item-padding-y: initial; /* var(--spacing-2) */
+  --file-upload-image-item-max-width: initial; /* 10rem */
   --file-upload-item-preview-bg: initial; /* var(--color-muted) */
   --file-upload-item-preview-color: initial; /* var(--color-muted-foreground) */
-  --file-upload-item-preview-min-height: initial; /* 3rem */
+  --file-upload-item-preview-icon-size: initial; /* var(--spacing-4) */
+  --file-upload-item-preview-min-height: initial; /* var(--size-xl) */
   --file-upload-item-preview-padding-y: initial; /* var(--spacing-2) */
   --file-upload-item-preview-radius: initial; /* var(--radius-sm) */
   --file-upload-item-preview-size: initial; /* var(--spacing-10) */
@@ -1270,9 +1281,9 @@
   --file-upload-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
   --file-upload-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
   --file-upload-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
-  --file-upload-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
+  --file-upload-trigger-height: initial; /* var(--button-size-md, var(--size-md)) */
   --file-upload-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
-  --file-upload-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --file-upload-trigger-padding-x: initial; /* var(--button-padding-x-md, var(--spacing-4)) */
   --file-upload-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
   --file-upload-width: initial; /* 100% */
 
@@ -1285,10 +1296,10 @@
   --field-control-border-width: initial; /* var(--border-width-sm) */
   --field-control-color: initial; /* var(--color-foreground) */
   --field-control-font-size: initial; /* var(--text-md) */
-  --field-control-height: initial; /* var(--size-lg) */
+  --field-control-height: initial; /* var(--size-md) */
   --field-control-line-height: initial; /* var(--line-height-text-md) */
-  --field-control-padding-x: initial; /* 0.875rem */
-  --field-control-padding-y: initial; /* 0.5rem */
+  --field-control-padding-x: initial; /* var(--spacing-3-5) */
+  --field-control-padding-y: initial; /* var(--spacing-1) */
   --field-control-placeholder-color: initial; /* var(--color-muted-foreground) */
   --field-control-radius: initial; /* var(--radius-md) */
   --field-control-transition: initial; /* var(--transition-default) */
@@ -1301,8 +1312,8 @@
   --field-error-font-size: initial; /* var(--text-sm) */
   --field-error-line-height: initial; /* var(--line-height-text-sm) */
   --field-focus-ring-color: initial; /* var(--color-ring) */
-  --field-focus-ring-offset: initial; /* -1px */
-  --field-focus-ring-width: initial; /* var(--border-width-sm) */
+  --field-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --field-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --field-gap: initial; /* var(--spacing-1) */
   --field-item-gap: initial; /* var(--spacing-1) */
   --field-label-color: initial; /* var(--color-foreground) */
@@ -1354,18 +1365,18 @@
   --floating-panel-control-border-width: initial; /* var(--border-width-sm) */
   --floating-panel-control-color: initial; /* var(--color-foreground) */
   --floating-panel-control-gap: initial; /* var(--spacing-1) */
-  --floating-panel-control-icon-size: initial; /* 1rem */
+  --floating-panel-control-icon-size: initial; /* var(--spacing-4) */
   --floating-panel-control-radius: initial; /* var(--radius-sm) */
   --floating-panel-control-size: initial; /* var(--size-sm) */
   --floating-panel-disabled-opacity: initial; /* var(--opacity-disabled) */
   --floating-panel-drag-indicator-color: initial; /* var(--color-muted-foreground) */
-  --floating-panel-drag-indicator-size: initial; /* 1rem */
+  --floating-panel-drag-indicator-size: initial; /* var(--spacing-4) */
   --floating-panel-ending-opacity: initial; /* 0 */
   --floating-panel-ending-scale: initial; /* var(--scale-popup) */
   --floating-panel-ending-translate-x: initial; /* 0 */
   --floating-panel-ending-translate-y: initial; /* 0 */
   --floating-panel-focus-ring-color: initial; /* var(--color-ring) */
-  --floating-panel-focus-ring-width: initial; /* var(--border-width-sm) */
+  --floating-panel-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --floating-panel-footer-border-color: initial; /* var(--floating-panel-border-color, var(--color-border)) */
   --floating-panel-footer-border-width: initial; /* var(--border-width-sm) */
   --floating-panel-footer-color: initial; /* var(--color-muted-foreground) */
@@ -1386,9 +1397,9 @@
   --floating-panel-min-height: initial; /* 10rem */
   --floating-panel-min-width: initial; /* 16rem */
   --floating-panel-radius: initial; /* var(--radius-md) */
-  --floating-panel-resize-corner-size: initial; /* 0.75rem */
-  --floating-panel-resize-edge-inset: initial; /* 0.75rem */
-  --floating-panel-resize-edge-size: initial; /* 0.5rem */
+  --floating-panel-resize-corner-size: initial; /* var(--spacing-3) */
+  --floating-panel-resize-edge-inset: initial; /* var(--spacing-3) */
+  --floating-panel-resize-edge-size: initial; /* var(--spacing-2) */
   --floating-panel-shadow: initial; /* var(--shadow-lg) */
   --floating-panel-starting-opacity: initial; /* 0 */
   --floating-panel-starting-scale: initial; /* var(--scale-popup) */
@@ -1407,10 +1418,10 @@
   --floating-panel-trigger-border-width: initial; /* var(--border-width-sm) */
   --floating-panel-trigger-color: initial; /* var(--color-foreground) */
   --floating-panel-trigger-font-size: initial; /* var(--text-md) */
-  --floating-panel-trigger-height: initial; /* var(--size-lg) */
+  --floating-panel-trigger-height: initial; /* var(--size-md) */
   --floating-panel-trigger-line-height: initial; /* var(--line-height-text-md) */
   --floating-panel-trigger-padding-x: initial; /* var(--spacing-3) */
-  --floating-panel-trigger-padding-y: initial; /* 0.5rem */
+  --floating-panel-trigger-padding-y: initial; /* var(--spacing-1) */
   --floating-panel-trigger-radius: initial; /* var(--radius-md) */
   --floating-panel-width: initial; /* 100% */
   --floating-panel-z-index: initial; /* var(--z-popup) */
@@ -1444,7 +1455,7 @@
   --highlight-bg: initial; /* color-mix(in oklab, var(--color-warning) 40%, var(--color-accent)) */
   --highlight-color: initial; /* var(--color-foreground) */
   --highlight-font-weight: initial; /* var(--weight-medium) */
-  --highlight-padding-x: initial; /* 0.25rem */
+  --highlight-padding-x: initial; /* var(--spacing-1) */
   --highlight-padding-y: initial; /* 0.0625rem */
   --highlight-radius: initial; /* var(--radius-xs) */
   --highlight-shadow: initial; /* none */
@@ -1456,10 +1467,10 @@
   --image-cropper-border-color: initial; /* var(--color-border) */
   --image-cropper-border-width: initial; /* var(--border-width-sm) */
   --image-cropper-checker-color: initial; /* color-mix(in oklab, var(--color-muted) 72%, transparent) */
-  --image-cropper-checker-size: initial; /* 1rem */
+  --image-cropper-checker-size: initial; /* var(--spacing-4) */
   --image-cropper-color: initial; /* var(--color-foreground) */
   --image-cropper-focus-ring-color: initial; /* var(--color-ring) */
-  --image-cropper-focus-ring-width: initial; /* var(--border-width-md) */
+  --image-cropper-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --image-cropper-gap: initial; /* var(--spacing-3) */
   --image-cropper-grid-color: initial; /* rgb(255 255 255 / 62%) */
   --image-cropper-grid-width: initial; /* var(--border-width-sm) */
@@ -1470,7 +1481,7 @@
   --image-cropper-handle-edge-thickness: initial; /* 0.2rem */
   --image-cropper-handle-radius: initial; /* var(--radius-xs) */
   --image-cropper-handle-shadow: initial; /* 0 1px 3px rgb(15 23 42 / 18%) */
-  --image-cropper-handle-size: initial; /* 0.75rem */
+  --image-cropper-handle-size: initial; /* var(--spacing-3) */
   --image-cropper-max-width: initial; /* 100% */
   --image-cropper-radius: initial; /* var(--radius-lg) */
   --image-cropper-selection-border-color: initial; /* var(--color-primary) */
@@ -1497,38 +1508,38 @@
   --input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --input-focus-ring-color: initial; /* var(--color-ring) */
   --input-focus-ring-offset: initial; /* calc(0px - var(--input-border-width, var(--border-width-sm))) */
-  --input-focus-ring-width: initial; /* var(--input-border-width, var(--border-width-sm)) */
-  --input-font-size: initial; /* var(--text-md) */
+  --input-focus-ring-width: initial; /* var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
+  --input-font-size: initial; /* var(--input-font-size-md, var(--text-md)) */
   --input-font-size-xs: initial; /* var(--text-xs) */
   --input-font-size-sm: initial; /* var(--text-sm) */
   --input-font-size-md: initial; /* var(--text-md) */
   --input-font-size-lg: initial; /* var(--text-lg) */
   --input-font-size-xl: initial; /* var(--text-lg) */
-  --input-height: initial; /* var(--size-lg) */
+  --input-height: initial; /* var(--input-height-md, var(--size-md)) */
   --input-height-xs: initial; /* var(--size-xs) */
   --input-height-sm: initial; /* var(--size-sm) */
-  --input-height-md: initial; /* var(--size-lg) */
-  --input-height-lg: initial; /* var(--size-xl) */
-  --input-height-xl: initial; /* 3.5rem */
-  --input-line-height: initial; /* var(--line-height-text-md) */
+  --input-height-md: initial; /* var(--size-md) */
+  --input-height-lg: initial; /* var(--size-lg) */
+  --input-height-xl: initial; /* var(--size-xl) */
+  --input-line-height: initial; /* var(--input-line-height-md, var(--line-height-text-md)) */
   --input-line-height-xs: initial; /* var(--line-height-text-xs) */
   --input-line-height-sm: initial; /* var(--line-height-text-sm) */
   --input-line-height-md: initial; /* var(--line-height-text-md) */
   --input-line-height-lg: initial; /* var(--line-height-text-lg) */
   --input-line-height-xl: initial; /* var(--line-height-text-lg) */
   --input-max-width: initial; /* none */
-  --input-padding-x: initial; /* var(--spacing-3) */
+  --input-padding-x: initial; /* var(--input-padding-x-md, var(--spacing-3)) */
   --input-padding-x-xs: initial; /* var(--spacing-2) */
   --input-padding-x-sm: initial; /* var(--spacing-2) */
   --input-padding-x-md: initial; /* var(--spacing-3) */
   --input-padding-x-lg: initial; /* var(--spacing-4) */
   --input-padding-x-xl: initial; /* var(--spacing-4) */
-  --input-padding-y: initial; /* var(--spacing-2) */
-  --input-padding-y-xs: initial; /* var(--spacing-1) */
+  --input-padding-y: initial; /* var(--input-padding-y-md, var(--spacing-1)) */
+  --input-padding-y-xs: initial; /* var(--spacing-0-5) */
   --input-padding-y-sm: initial; /* var(--spacing-1) */
-  --input-padding-y-md: initial; /* var(--spacing-2) */
-  --input-padding-y-lg: initial; /* var(--spacing-2) */
-  --input-padding-y-xl: initial; /* var(--spacing-3) */
+  --input-padding-y-md: initial; /* var(--spacing-1) */
+  --input-padding-y-lg: initial; /* var(--spacing-1) */
+  --input-padding-y-xl: initial; /* var(--spacing-2) */
   --input-placeholder-color: initial; /* var(--color-muted-foreground) */
   --input-radius: initial; /* var(--radius-md) */
   --input-readonly-bg: initial; /* var(--input-bg, var(--color-background)) */
@@ -1540,49 +1551,49 @@
   --input-group-addon-bg: initial; /* var(--color-muted) */
   --input-group-addon-color: initial; /* var(--color-muted-foreground) */
   --input-group-addon-gap: initial; /* var(--spacing-2) */
-  --input-group-addon-padding-x: initial; /* 0.875rem */
-  --input-group-addon-padding-x-xs: initial; /* 0.625rem */
-  --input-group-addon-padding-x-sm: initial; /* 0.75rem */
-  --input-group-addon-padding-x-md: initial; /* 0.875rem */
-  --input-group-addon-padding-x-lg: initial; /* 1rem */
-  --input-group-addon-padding-x-xl: initial; /* 1.125rem */
+  --input-group-addon-padding-x: initial; /* var(--spacing-3-5) */
+  --input-group-addon-padding-x-xs: initial; /* var(--spacing-2-5) */
+  --input-group-addon-padding-x-sm: initial; /* var(--spacing-3) */
+  --input-group-addon-padding-x-md: initial; /* var(--spacing-3-5) */
+  --input-group-addon-padding-x-lg: initial; /* var(--spacing-4) */
+  --input-group-addon-padding-x-xl: initial; /* var(--spacing-4-5) */
   --input-group-bg: initial; /* var(--color-background) */
   --input-group-border-color: initial; /* var(--color-border) */
   --input-group-border-color-invalid: initial; /* var(--color-destructive) */
   --input-group-border-style: initial; /* solid */
   --input-group-border-width: initial; /* var(--border-width-sm) */
   --input-group-button-color: initial; /* var(--color-foreground) */
-  --input-group-button-focus-ring-offset: initial; /* -1px */
+  --input-group-button-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
   --input-group-color: initial; /* var(--color-foreground) */
   --input-group-disabled-opacity: initial; /* var(--opacity-disabled) */
   --input-group-focus-ring-color: initial; /* var(--color-ring) */
-  --input-group-focus-ring-offset: initial; /* -1px */
-  --input-group-focus-ring-width: initial; /* var(--input-group-border-width, var(--border-width-sm)) */
+  --input-group-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --input-group-focus-ring-width: initial; /* var(--input-group-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --input-group-font-size: initial; /* var(--text-md) */
   --input-group-font-size-xs: initial; /* var(--text-xs) */
   --input-group-font-size-sm: initial; /* var(--text-sm) */
   --input-group-font-size-md: initial; /* var(--text-md) */
   --input-group-font-size-lg: initial; /* var(--text-lg) */
   --input-group-font-size-xl: initial; /* var(--text-lg) */
-  --input-group-height: initial; /* var(--input-group-height-md, var(--size-lg)) */
-  --input-group-height-xs: initial; /* var(--size-sm) */
-  --input-group-height-sm: initial; /* 2rem */
-  --input-group-height-md: initial; /* var(--size-lg) */
-  --input-group-height-lg: initial; /* var(--size-xl) */
-  --input-group-height-xl: initial; /* 3rem */
-  --input-group-icon-size: initial; /* 1rem */
-  --input-group-input-padding-x: initial; /* 0.875rem */
-  --input-group-input-padding-x-xs: initial; /* 0.625rem */
-  --input-group-input-padding-x-sm: initial; /* 0.75rem */
-  --input-group-input-padding-x-md: initial; /* 0.875rem */
-  --input-group-input-padding-x-lg: initial; /* 1rem */
-  --input-group-input-padding-x-xl: initial; /* 1.125rem */
-  --input-group-input-padding-y: initial; /* 0.5rem */
-  --input-group-input-padding-y-xs: initial; /* 0.25rem */
+  --input-group-height: initial; /* var(--input-group-height-md, var(--size-md)) */
+  --input-group-height-xs: initial; /* var(--size-xs) */
+  --input-group-height-sm: initial; /* var(--size-sm) */
+  --input-group-height-md: initial; /* var(--size-md) */
+  --input-group-height-lg: initial; /* var(--size-lg) */
+  --input-group-height-xl: initial; /* var(--size-xl) */
+  --input-group-icon-size: initial; /* var(--spacing-4) */
+  --input-group-input-padding-x: initial; /* var(--spacing-3-5) */
+  --input-group-input-padding-x-xs: initial; /* var(--spacing-2-5) */
+  --input-group-input-padding-x-sm: initial; /* var(--spacing-3) */
+  --input-group-input-padding-x-md: initial; /* var(--spacing-3-5) */
+  --input-group-input-padding-x-lg: initial; /* var(--spacing-4) */
+  --input-group-input-padding-x-xl: initial; /* var(--spacing-4-5) */
+  --input-group-input-padding-y: initial; /* var(--spacing-2) */
+  --input-group-input-padding-y-xs: initial; /* var(--spacing-0-5) */
   --input-group-input-padding-y-sm: initial; /* 0.3125rem */
-  --input-group-input-padding-y-md: initial; /* 0.5rem */
-  --input-group-input-padding-y-lg: initial; /* 0.625rem */
-  --input-group-input-padding-y-xl: initial; /* 0.75rem */
+  --input-group-input-padding-y-md: initial; /* var(--spacing-1) */
+  --input-group-input-padding-y-lg: initial; /* var(--spacing-1) */
+  --input-group-input-padding-y-xl: initial; /* var(--spacing-2) */
   --input-group-line-height: initial; /* var(--line-height-text-md) */
   --input-group-line-height-xs: initial; /* var(--line-height-text-xs) */
   --input-group-line-height-sm: initial; /* var(--line-height-text-sm) */
@@ -1609,7 +1620,7 @@
   --kbd-font-weight: initial; /* var(--weight-medium) */
   --kbd-group-gap: initial; /* var(--spacing-1) */
   --kbd-group-separator-color: initial; /* var(--color-muted-foreground) */
-  --kbd-height: initial; /* 1.5rem */
+  --kbd-height: initial; /* var(--size-xs) */
   --kbd-line-height: initial; /* var(--line-height-text-xs) */
   --kbd-min-width: initial; /* var(--kbd-height, 1.5rem) */
   --kbd-padding-x: initial; /* var(--spacing-2) */
@@ -1630,11 +1641,11 @@
   --lightbox-close-icon-color: initial; /* var(--color-foreground) */
   --lightbox-close-icon-color-hover: initial; /* var(--color-foreground) */
   --lightbox-close-icon-focus-ring-color: initial; /* var(--color-ring) */
-  --lightbox-close-icon-glyph-size: initial; /* 0.875rem */
+  --lightbox-close-icon-glyph-size: initial; /* var(--spacing-3-5) */
   --lightbox-close-icon-inset-block-start: initial; /* var(--spacing-4) */
   --lightbox-close-icon-inset-inline-end: initial; /* var(--spacing-4) */
   --lightbox-close-icon-radius: initial; /* var(--radius-sm) */
-  --lightbox-close-icon-size: initial; /* 2rem */
+  --lightbox-close-icon-size: initial; /* var(--spacing-8) */
   --lightbox-content-gap: initial; /* var(--spacing-3) */
   --lightbox-content-ending-opacity: initial; /* 0 */
   --lightbox-content-ending-scale: initial; /* 0.82 */
@@ -1657,8 +1668,9 @@
   --lightbox-gallery-aspect-ratio: initial; /* 16 / 10 */
   --lightbox-gallery-gap: initial; /* var(--spacing-4) */
   --lightbox-gallery-max-width: initial; /* 72rem */
+  --lightbox-gallery-thumbnail-active-translate-y: initial; /* calc(var(--border-width-sm) * -1) */
   --lightbox-gallery-thumbnail-border-color: initial; /* var(--color-primary) */
-  --lightbox-gallery-thumbnail-height: initial; /* 3rem */
+  --lightbox-gallery-thumbnail-height: initial; /* var(--size-xl) */
   --lightbox-gallery-thumbnail-opacity: initial; /* 0.65 */
   --lightbox-gallery-thumbnail-opacity-hover: initial; /* 0.9 */
   --lightbox-gallery-thumbnail-radius: initial; /* var(--radius-md) */
@@ -1677,8 +1689,8 @@
   --lightbox-title-font-weight: initial; /* var(--weight-semibold) */
   --lightbox-title-line-height: initial; /* var(--line-height-text-md) */
   --lightbox-trigger-focus-ring-color: initial; /* var(--color-ring) */
-  --lightbox-trigger-focus-ring-offset: initial; /* 2px */
-  --lightbox-trigger-focus-ring-width: initial; /* var(--border-width-md) */
+  --lightbox-trigger-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --lightbox-trigger-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --lightbox-transition: initial; /* 220ms ease */
 
   /* List */
@@ -1720,7 +1732,7 @@
   --listbox-border-width: initial; /* var(--border-width-sm) */
   --listbox-color: initial; /* var(--color-foreground) */
   --listbox-content-max-height: initial; /* 14rem */
-  --listbox-content-padding-y: initial; /* var(--spacing-1) */
+  --listbox-content-padding-y: initial; /* var(--popup-list-padding-y, var(--spacing-1)) */
   --listbox-disabled-opacity: initial; /* var(--opacity-disabled) */
   --listbox-empty-color: initial; /* var(--color-muted-foreground) */
   --listbox-empty-font-size: initial; /* var(--text-sm) */
@@ -1731,14 +1743,14 @@
   --listbox-filter-action-bg-hover: initial; /* var(--color-muted) */
   --listbox-filter-action-color-hover: initial; /* var(--color-foreground) */
   --listbox-filter-action-radius: initial; /* var(--radius-sm) */
-  --listbox-filter-action-size: initial; /* 1.5rem */
-  --listbox-filter-height: initial; /* var(--listbox-input-height, var(--size-lg)) */
+  --listbox-filter-action-size: initial; /* var(--size-xs) */
+  --listbox-filter-height: initial; /* var(--listbox-input-height, var(--size-md)) */
   --listbox-filter-icon-color: initial; /* var(--color-muted-foreground) */
-  --listbox-filter-icon-size: initial; /* 1rem */
+  --listbox-filter-icon-size: initial; /* var(--spacing-4) */
   --listbox-filter-input-padding-x: initial; /* var(--spacing-2) */
   --listbox-filter-padding-x: initial; /* var(--spacing-3) */
   --listbox-focus-ring-color: initial; /* var(--color-ring) */
-  --listbox-focus-ring-width: initial; /* var(--border-width-sm) */
+  --listbox-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --listbox-grid-gap: initial; /* var(--spacing-1) */
   --listbox-grid-padding: initial; /* var(--spacing-2) */
   --listbox-grid-selected-bg: initial; /* var(--color-muted) */
@@ -1755,40 +1767,40 @@
   --listbox-input-border-width: initial; /* var(--listbox-border-width, var(--border-width-sm)) */
   --listbox-input-color: initial; /* var(--listbox-color, var(--color-foreground)) */
   --listbox-input-focus-ring-color: initial; /* var(--listbox-focus-ring-color, var(--color-ring)) */
-  --listbox-input-focus-ring-width: initial; /* var(--listbox-focus-ring-width, var(--border-width-sm)) */
+  --listbox-input-focus-ring-width: initial; /* var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --listbox-input-font-size: initial; /* var(--text-md) */
-  --listbox-input-height: initial; /* var(--size-lg) */
+  --listbox-input-height: initial; /* var(--size-md) */
   --listbox-input-line-height: initial; /* var(--line-height-text-md) */
   --listbox-input-padding-x: initial; /* var(--spacing-3) */
-  --listbox-input-padding-y: initial; /* var(--spacing-2) */
+  --listbox-input-padding-y: initial; /* var(--spacing-1) */
   --listbox-input-radius: initial; /* var(--listbox-radius, var(--radius-md)) */
   --listbox-item-bg: initial; /* transparent */
   --listbox-item-border-color: initial; /* transparent */
   --listbox-item-border-width: initial; /* 0 */
   --listbox-item-color: initial; /* var(--listbox-color, var(--color-foreground)) */
   --listbox-item-disabled-color: initial; /* var(--color-muted-foreground) */
-  --listbox-item-font-size: initial; /* var(--text-sm) */
+  --listbox-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --listbox-item-gap: initial; /* var(--spacing-2) */
   --listbox-item-group-gap: initial; /* var(--spacing-2) */
-  --listbox-item-group-label-color: initial; /* var(--color-muted-foreground) */
-  --listbox-item-group-label-font-size: initial; /* var(--text-xs) */
-  --listbox-item-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --listbox-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
+  --listbox-item-group-label-color: initial; /* var(--popup-group-label-color, var(--color-muted-foreground)) */
+  --listbox-item-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
+  --listbox-item-group-label-font-weight: initial; /* var(--popup-group-label-font-weight, var(--weight-regular)) */
+  --listbox-item-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
   --listbox-item-group-label-padding-x: initial; /* var(--spacing-2) */
-  --listbox-item-group-label-padding-y: initial; /* var(--spacing-1) */
+  --listbox-item-group-label-padding-y: initial; /* var(--popup-group-label-padding-y, var(--spacing-1)) */
   --listbox-item-indicator-color: initial; /* currentColor */
-  --listbox-item-indicator-icon-size: initial; /* 0.75rem */
-  --listbox-item-indicator-size: initial; /* 1rem */
+  --listbox-item-indicator-icon-size: initial; /* var(--spacing-3) */
+  --listbox-item-indicator-size: initial; /* var(--spacing-4) */
   --listbox-item-inset-x: initial; /* var(--spacing-2) */
-  --listbox-item-line-height: initial; /* var(--line-height-text-sm) */
-  --listbox-item-min-height: initial; /* 2rem */
-  --listbox-item-padding-x: initial; /* var(--spacing-3) */
-  --listbox-item-padding-y: initial; /* var(--spacing-2) */
+  --listbox-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
+  --listbox-item-min-height: initial; /* var(--popup-item-min-height, var(--size-sm)) */
+  --listbox-item-padding-x: initial; /* var(--popup-item-padding-x-start, var(--spacing-3)) */
+  --listbox-item-padding-y: initial; /* var(--popup-item-padding-y, var(--spacing-1)) */
   --listbox-item-radius: initial; /* var(--radius-sm) */
   --listbox-item-selected-color: initial; /* var(--listbox-item-color, var(--color-foreground)) */
   --listbox-item-text-content-gap: initial; /* var(--spacing-2) */
   --listbox-item-text-icon-color: initial; /* currentColor */
-  --listbox-item-text-icon-size: initial; /* 1rem */
+  --listbox-item-text-icon-size: initial; /* var(--spacing-4) */
   --listbox-label-color: initial; /* var(--listbox-color, var(--color-foreground)) */
   --listbox-label-font-size: initial; /* var(--text-sm) */
   --listbox-label-font-weight: initial; /* var(--weight-medium) */
@@ -1814,15 +1826,15 @@
   --marquee-loop-count: initial; /* 0 */
   --marquee-spacing: initial; /* 1rem */
   --marquee-translate: initial; /* computed by Ark from content size and side */
-  --marquee-vertical-height: initial; /* 15rem */
+  --marquee-vertical-height: initial; /* var(--marquee-height, 15rem) */
   --marquee-width: initial; /* 100% */
 
   /* Menu */
-  --menu-arrow-size: initial; /* 0.625rem */
+  --menu-arrow-size: initial; /* var(--spacing-2-5) */
   --menu-arrow-stroke-color: initial; /* var(--menu-popup-border-color) */
-  --menu-check-gap: initial; /* 0.5rem */
-  --menu-check-indicator-size: initial; /* 0.75rem */
-  --menu-check-padding-x-start: initial; /* 0.625rem */
+  --menu-check-gap: initial; /* var(--popup-check-gap, var(--spacing-2)) */
+  --menu-check-indicator-size: initial; /* var(--popup-check-indicator-size, var(--spacing-3)) */
+  --menu-check-padding-x-start: initial; /* var(--popup-check-padding-x-start, var(--spacing-2-5)) */
   --menu-checkbox-indicator-bg: initial; /* transparent */
   --menu-checkbox-indicator-bg-checked: initial; /* var(--menu-checkbox-indicator-bg) */
   --menu-checkbox-indicator-border-color: initial; /* currentColor */
@@ -1834,32 +1846,33 @@
   --menu-context-trigger-width: initial; /* 15rem */
   --menu-disabled-opacity: initial; /* var(--opacity-disabled) */
   --menu-focus-ring-color: initial; /* var(--color-ring) */
-  --menu-focus-ring-width: initial; /* var(--menu-trigger-border-width) */
-  --menu-group-label-color: initial; /* var(--color-muted-foreground) */
-  --menu-group-label-font-size: initial; /* var(--text-xs) */
-  --menu-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --menu-group-label-padding-x-end: initial; /* 0.75rem */
-  --menu-group-label-padding-x-start: initial; /* 0.625rem */
-  --menu-group-label-padding-y: initial; /* 0.35rem */
+  --menu-focus-ring-width: initial; /* var(--menu-trigger-border-width, var(--border-width-sm)) */
+  --menu-group-label-color: initial; /* var(--popup-group-label-color, var(--color-muted-foreground)) */
+  --menu-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
+  --menu-group-label-font-weight: initial; /* var(--popup-group-label-font-weight, var(--weight-regular)) */
+  --menu-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
+  --menu-group-label-padding-x-end: initial; /* var(--popup-group-label-padding-x-end, var(--spacing-3)) */
+  --menu-group-label-padding-x-start: initial; /* var(--popup-group-label-padding-x-start, var(--spacing-2-5)) */
+  --menu-group-label-padding-y: initial; /* var(--popup-group-label-padding-y, var(--spacing-1)) */
   --menu-group-padding-y: initial; /* 0 */
   --menu-highlight-bg: initial; /* var(--color-accent) */
   --menu-highlight-color: initial; /* var(--color-accent-foreground) */
-  --menu-highlight-inset-x: initial; /* var(--spacing-1) */
-  --menu-highlight-radius: initial; /* var(--radius-sm) */
+  --menu-highlight-inset-x: initial; /* var(--popup-highlight-inset-x, var(--spacing-1)) */
+  --menu-highlight-radius: initial; /* var(--popup-highlight-radius, var(--radius-sm)) */
   --menu-item-bg: initial; /* transparent */
   --menu-item-destructive-color: initial; /* var(--color-destructive) */
   --menu-item-destructive-highlight-bg: initial; /* color-mix(in oklab, var(--color-destructive) 12%, transparent) */
   --menu-item-destructive-highlight-color: initial; /* var(--menu-item-destructive-color, var(--color-destructive)) */
   --menu-item-bg-disabled: initial; /* var(--menu-item-bg) */
   --menu-item-disabled-color: initial; /* var(--color-muted-foreground) */
-  --menu-item-font-size: initial; /* var(--text-sm) */
+  --menu-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --menu-item-gap: initial; /* var(--spacing-2) */
-  --menu-item-height: initial; /* 2rem */
+  --menu-item-height: initial; /* var(--popup-item-min-height, var(--size-sm)) */
   --menu-item-indicator-color-checked: initial; /* currentColor */
-  --menu-item-line-height: initial; /* var(--line-height-text-sm) */
-  --menu-item-padding-x-end: initial; /* 1rem */
-  --menu-item-padding-x-start: initial; /* 1rem */
-  --menu-item-padding-y: initial; /* 0.5rem */
+  --menu-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
+  --menu-item-padding-x-end: initial; /* var(--popup-item-padding-x-end, var(--spacing-3)) */
+  --menu-item-padding-x-start: initial; /* var(--popup-item-padding-x-start, var(--spacing-3)) */
+  --menu-item-padding-y: initial; /* var(--popup-item-padding-y, var(--spacing-1)) */
   --menu-item-radius: initial; /* var(--radius-sm) */
   --menu-item-shortcut-color: initial; /* var(--color-muted-foreground) */
   --menu-item-shortcut-font-size: initial; /* var(--text-xs) */
@@ -1867,7 +1880,7 @@
   --menu-item-shortcut-padding-x-start: initial; /* var(--spacing-4) */
   --menu-item-text-content-gap: initial; /* var(--spacing-2) */
   --menu-item-text-icon-color: initial; /* currentColor */
-  --menu-item-text-icon-size: initial; /* 1rem */
+  --menu-item-text-icon-size: initial; /* var(--spacing-4) */
   --menu-popup-bg: initial; /* var(--color-popover) */
   --menu-popup-border-color: initial; /* var(--color-border) */
   --menu-popup-border-width: initial; /* var(--border-width-sm) */
@@ -1879,7 +1892,7 @@
   --menu-popup-max-height: initial; /* 24rem */
   --menu-popup-max-width: initial; /* 20rem */
   --menu-popup-min-width: initial; /* 12rem */
-  --menu-popup-padding-y: initial; /* 0.25rem */
+  --menu-popup-padding-y: initial; /* var(--popup-list-padding-y, var(--spacing-1)) */
   --menu-popup-radius: initial; /* var(--radius-md) */
   --menu-popup-shadow: initial; /* var(--shadow-lg) */
   --menu-popup-starting-opacity: initial; /* 0 */
@@ -1888,9 +1901,9 @@
   --menu-popup-starting-translate-y: initial; /* 0 */
   --menu-separator-color: initial; /* var(--color-border) */
   --menu-separator-height: initial; /* var(--border-width-sm) */
-  --menu-separator-margin-x-end: initial; /* 1rem */
-  --menu-separator-margin-x-start: initial; /* 1rem */
-  --menu-separator-margin-y: initial; /* 0.375rem */
+  --menu-separator-margin-x-end: initial; /* var(--popup-separator-margin-x-end, var(--spacing-3)) */
+  --menu-separator-margin-x-start: initial; /* var(--popup-separator-margin-x-start, var(--spacing-3)) */
+  --menu-separator-margin-y: initial; /* var(--popup-separator-margin-y, var(--spacing-1-5)) */
   --menu-submenu-open-bg: initial; /* var(--color-accent) */
   --menu-transition: initial; /* var(--transition-default) */
   --menu-trigger-bg: initial; /* var(--color-background) */
@@ -1899,17 +1912,18 @@
   --menu-trigger-border-color: initial; /* var(--color-border) */
   --menu-trigger-border-width: initial; /* var(--border-width-sm) */
   --menu-trigger-color: initial; /* var(--color-foreground) */
-  --menu-trigger-font-size: initial; /* var(--text-md) */
-  --menu-trigger-gap: initial; /* 0.5rem */
-  --menu-trigger-height: initial; /* var(--size-lg) */
+  --menu-trigger-font-size: initial; /* var(--text-sm) */
+  --menu-trigger-font-weight: initial; /* var(--weight-medium) */
+  --menu-trigger-gap: initial; /* var(--spacing-2) */
+  --menu-trigger-height: initial; /* var(--size-md) */
   --menu-trigger-icon-color: initial; /* currentColor */
-  --menu-trigger-icon-size: initial; /* 1rem */
+  --menu-trigger-icon-size: initial; /* var(--spacing-4) */
   --menu-trigger-item-gap: initial; /* var(--spacing-3) */
-  --menu-trigger-item-icon-size: initial; /* 0.875rem */
-  --menu-trigger-item-padding-x-end: initial; /* 1rem */
-  --menu-trigger-line-height: initial; /* var(--line-height-text-md) */
-  --menu-trigger-padding-x: initial; /* 0.875rem */
-  --menu-trigger-padding-y: initial; /* 0.5rem */
+  --menu-trigger-item-icon-size: initial; /* var(--spacing-3-5) */
+  --menu-trigger-item-padding-x-end: initial; /* var(--spacing-3) */
+  --menu-trigger-line-height: initial; /* var(--line-height-text-sm) */
+  --menu-trigger-padding-x: initial; /* var(--spacing-4) */
+  --menu-trigger-padding-y: initial; /* var(--spacing-1) */
   --menu-trigger-radius: initial; /* var(--radius-md) */
 
   /* NumberInput */
@@ -1921,18 +1935,18 @@
   --number-input-button-bg-active: initial; /* var(--number-input-button-bg-hover) */
   --number-input-button-bg-hover: initial; /* var(--color-accent) */
   --number-input-button-color: initial; /* var(--color-foreground) */
-  --number-input-control-height: initial; /* var(--size-lg) */
+  --number-input-control-height: initial; /* var(--size-md) */
   --number-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --number-input-focus-ring-color: initial; /* var(--color-ring) */
-  --number-input-focus-ring-width: initial; /* var(--number-input-border-width, var(--border-width-sm)) */
+  --number-input-focus-ring-width: initial; /* var(--number-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --number-input-gap: initial; /* var(--spacing-1) */
-  --number-input-icon-size: initial; /* 0.875rem */
+  --number-input-icon-size: initial; /* var(--spacing-3-5) */
   --number-input-input-bg: initial; /* var(--color-background) */
   --number-input-input-color: initial; /* var(--color-foreground) */
   --number-input-input-font-size: initial; /* var(--text-md) */
   --number-input-input-line-height: initial; /* var(--line-height-text-md) */
-  --number-input-input-padding-x: initial; /* 0.75rem */
-  --number-input-input-padding-y: initial; /* 0.5rem */
+  --number-input-input-padding-x: initial; /* var(--spacing-3) */
+  --number-input-input-padding-y: initial; /* var(--spacing-1) */
   --number-input-input-width: initial; /* 6rem */
   --number-input-label-color: initial; /* var(--color-foreground) */
   --number-input-label-font-size: initial; /* var(--text-sm) */
@@ -1956,16 +1970,16 @@
   --pin-input-color: initial; /* var(--color-foreground) */
   --pin-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --pin-input-focus-ring-color: initial; /* var(--color-ring) */
-  --pin-input-focus-ring-offset: initial; /* -1px */
-  --pin-input-focus-ring-width: initial; /* var(--pin-input-border-width, var(--border-width-sm)) */
+  --pin-input-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --pin-input-focus-ring-width: initial; /* var(--pin-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --pin-input-font-size: initial; /* var(--text-lg) */
   --pin-input-font-weight: initial; /* var(--weight-medium) */
   --pin-input-gap: initial; /* var(--spacing-2) */
-  --pin-input-input-height: initial; /* var(--pin-input-input-size, 2.5rem) */
+  --pin-input-input-height: initial; /* var(--pin-input-input-size, var(--size-md)) */
   --pin-input-input-padding-x: initial; /* 0 */
   --pin-input-input-padding-y: initial; /* 0 */
-  --pin-input-input-size: initial; /* 2.5rem */
-  --pin-input-input-width: initial; /* var(--pin-input-input-size, 2.5rem) */
+  --pin-input-input-size: initial; /* var(--size-md) */
+  --pin-input-input-width: initial; /* var(--pin-input-input-size, var(--size-md)) */
   --pin-input-label-color: initial; /* var(--color-foreground) */
   --pin-input-label-font-size: initial; /* var(--text-sm) */
   --pin-input-label-font-weight: initial; /* var(--weight-medium) */
@@ -1976,9 +1990,9 @@
   --pin-input-radius: initial; /* var(--radius-md) */
   --pin-input-root-gap: initial; /* var(--spacing-2) */
   --pin-input-separator-color: initial; /* var(--color-muted-foreground) */
-  --pin-input-separator-height: initial; /* var(--pin-input-separator-size, 1rem) */
-  --pin-input-separator-size: initial; /* 1rem */
-  --pin-input-separator-width: initial; /* var(--pin-input-separator-size, 1rem) */
+  --pin-input-separator-height: initial; /* var(--pin-input-separator-size, var(--spacing-4)) */
+  --pin-input-separator-size: initial; /* var(--spacing-4) */
+  --pin-input-separator-width: initial; /* var(--pin-input-separator-size, var(--spacing-4)) */
   --pin-input-transition: initial; /* var(--transition-default) */
   --pin-input-width: initial; /* auto */
 
@@ -1987,22 +2001,22 @@
   --password-input-border-color: initial; /* var(--input-border-color, var(--color-border)) */
   --password-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --password-input-disabled-opacity: initial; /* var(--opacity-disabled) */
-  --password-input-focus-ring-color: initial; /* var(--input-focus-ring-color) */
-  --password-input-font-size: initial; /* var(--input-font-size-md) */
+  --password-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
+  --password-input-font-size: initial; /* var(--input-font-size, var(--input-font-size-md, var(--text-md))) */
   --password-input-gap: initial; /* var(--field-gap, var(--spacing-1)) */
-  --password-input-height: initial; /* var(--input-height-md) */
-  --password-input-icon-size: initial; /* var(--button-icon-size, 1rem) */
+  --password-input-height: initial; /* var(--input-height, var(--input-height-md, var(--size-md))) */
+  --password-input-icon-size: initial; /* var(--button-icon-size, var(--spacing-4)) */
   --password-input-invalid-border-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
   --password-input-invalid-focus-ring-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
   --password-input-label-color: initial; /* var(--color-foreground) */
-  --password-input-label-font-size: initial; /* var(--text-sm) */
-  --password-input-label-font-weight: initial; /* var(--weight-medium) */
+  --password-input-label-font-size: initial; /* var(--field-label-font-size, var(--text-sm)) */
+  --password-input-label-font-weight: initial; /* var(--field-label-font-weight, var(--weight-medium)) */
   --password-input-label-gap: initial; /* var(--field-label-gap, var(--spacing-1)) */
-  --password-input-label-line-height: initial; /* var(--line-height-text-sm) */
-  --password-input-line-height: initial; /* var(--input-line-height-md) */
+  --password-input-label-line-height: initial; /* var(--field-label-line-height, var(--line-height-text-sm)) */
+  --password-input-line-height: initial; /* var(--input-line-height, var(--input-line-height-md, var(--line-height-text-md))) */
   --password-input-max-width: initial; /* 20rem */
   --password-input-padding-x: initial; /* var(--input-padding-x, var(--input-padding-x-md, var(--spacing-3))) */
-  --password-input-padding-y: initial; /* var(--input-padding-y, var(--input-padding-y-md, var(--spacing-2))) */
+  --password-input-padding-y: initial; /* var(--input-padding-y, var(--input-padding-y-md, var(--spacing-1))) */
   --password-input-placeholder-color: initial; /* var(--input-placeholder-color) */
   --password-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
   --password-input-readonly-bg: initial; /* var(--input-readonly-bg) */
@@ -2022,12 +2036,12 @@
   --pagination-disabled-opacity: initial; /* var(--opacity-disabled) */
   --pagination-ellipsis-color: initial; /* var(--color-muted-foreground) */
   --pagination-focus-ring-color: initial; /* var(--color-ring) */
-  --pagination-focus-ring-offset: initial; /* -1px */
-  --pagination-focus-ring-width: initial; /* var(--border-width-md) */
+  --pagination-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --pagination-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --pagination-font-size: initial; /* var(--text-sm) */
   --pagination-font-weight: initial; /* var(--weight-medium) */
   --pagination-gap: initial; /* var(--spacing-1) */
-  --pagination-icon-size: initial; /* 1rem */
+  --pagination-icon-size: initial; /* var(--spacing-4) */
   --pagination-item-bg: initial; /* var(--color-background) */
   --pagination-item-bg-hover: initial; /* var(--color-accent) */
   --pagination-item-bg-selected: initial; /* var(--color-foreground) */
@@ -2036,15 +2050,15 @@
   --pagination-item-border-width: initial; /* var(--border-width-sm) */
   --pagination-item-color: initial; /* var(--color-foreground) */
   --pagination-item-color-selected: initial; /* var(--color-background) */
-  --pagination-item-padding-inline: initial; /* 0.75rem */
+  --pagination-item-padding-inline: initial; /* var(--spacing-3) */
   --pagination-item-radius: initial; /* var(--radius-md) */
-  --pagination-item-size: initial; /* var(--size-lg) */
+  --pagination-item-size: initial; /* var(--size-md) */
   --pagination-line-height: initial; /* var(--line-height-text-sm) */
   --pagination-transition: initial; /* var(--transition-default) */
   --pagination-trigger-gap: initial; /* var(--spacing-2) */
 
   /* Popover */
-  --popover-arrow-size: initial; /* 0.625rem */
+  --popover-arrow-size: initial; /* var(--spacing-2-5) */
   --popover-arrow-stroke-color: initial; /* var(--popover-border-color) */
   --popover-bg: initial; /* var(--color-popover) */
   --popover-body-margin: initial; /* 0 */
@@ -2058,27 +2072,27 @@
   --popover-control-border-width: initial; /* var(--border-width-sm) */
   --popover-control-color: initial; /* var(--color-foreground) */
   --popover-control-font-size: initial; /* var(--text-md) */
-  --popover-control-height: initial; /* var(--size-lg) */
+  --popover-control-height: initial; /* var(--size-md) */
   --popover-control-line-height: initial; /* var(--line-height-text-md) */
-  --popover-control-padding-x: initial; /* 0.875rem */
-  --popover-control-padding-y: initial; /* 0.5rem */
+  --popover-control-padding-x: initial; /* var(--spacing-3-5) */
+  --popover-control-padding-y: initial; /* var(--spacing-1) */
   --popover-control-radius: initial; /* var(--radius-md) */
   --popover-close-icon-bg: initial; /* transparent */
   --popover-close-icon-bg-hover: initial; /* var(--color-accent) */
   --popover-close-icon-color: initial; /* var(--color-muted-foreground) */
   --popover-close-icon-color-hover: initial; /* var(--popover-color, var(--color-popover-foreground)) */
   --popover-close-icon-focus-ring-color: initial; /* var(--color-ring) */
-  --popover-close-icon-glyph-size: initial; /* 0.875rem */
+  --popover-close-icon-glyph-size: initial; /* var(--spacing-3-5) */
   --popover-close-icon-offset: initial; /* var(--spacing-3) */
   --popover-close-icon-radius: initial; /* var(--radius-sm) */
-  --popover-close-icon-size: initial; /* 1.75rem */
+  --popover-close-icon-size: initial; /* var(--spacing-7) */
   --popover-description-color: initial; /* var(--color-muted-foreground) */
   --popover-description-font-size: initial; /* var(--text-sm) */
   --popover-description-line-height: initial; /* var(--line-height-text-sm) */
   --popover-description-margin: initial; /* 0 */
   --popover-disabled-opacity: initial; /* var(--opacity-disabled) */
   --popover-focus-ring-color: initial; /* var(--color-ring) */
-  --popover-focus-ring-width: initial; /* var(--popover-control-border-width) */
+  --popover-focus-ring-width: initial; /* var(--popover-control-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --popover-footer-gap: initial; /* var(--spacing-2) */
   --popover-footer-justify: initial; /* flex-end */
   --popover-footer-margin: initial; /* var(--spacing-3) 0 0 */
@@ -2088,8 +2102,8 @@
   --popover-max-height: initial; /* 24rem */
   --popover-max-width: initial; /* 28rem */
   --popover-min-width: initial; /* 16rem */
-  --popover-padding-x: initial; /* 1rem */
-  --popover-padding-y: initial; /* 1rem */
+  --popover-padding-x: initial; /* var(--spacing-4) */
+  --popover-padding-y: initial; /* var(--spacing-4) */
   --popover-content-ending-opacity: initial; /* 0 */
   --popover-content-ending-scale: initial; /* var(--scale-popup) */
   --popover-content-ending-translate-x: initial; /* 0 */
@@ -2108,7 +2122,7 @@
   --popover-width: initial; /* auto */
 
   /* HoverCard */
-  --hover-card-arrow-size: initial; /* 0.625rem */
+  --hover-card-arrow-size: initial; /* var(--spacing-2-5) */
   --hover-card-arrow-stroke-color: initial; /* var(--hover-card-border-color, var(--color-border)) */
   --hover-card-bg: initial; /* var(--color-popover) */
   --hover-card-border-color: initial; /* var(--color-border) */
@@ -2124,7 +2138,7 @@
   --hover-card-content-starting-translate-y: initial; /* 0 */
   --hover-card-disabled-opacity: initial; /* var(--opacity-disabled) */
   --hover-card-focus-ring-color: initial; /* var(--color-ring) */
-  --hover-card-focus-ring-width: initial; /* var(--border-width-sm) */
+  --hover-card-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --hover-card-height: initial; /* auto */
   --hover-card-max-height: initial; /* 24rem */
   --hover-card-max-width: initial; /* 24rem */
@@ -2139,15 +2153,15 @@
   --hover-card-trigger-decoration-color-hover: initial; /* var(--hover-card-trigger-color, var(--color-primary)) */
   --hover-card-trigger-decoration-color-open: initial; /* var(--hover-card-trigger-color, var(--color-primary)) */
   --hover-card-trigger-decoration-thickness: initial; /* 1px */
-  --hover-card-trigger-focus-offset: initial; /* 1px */
+  --hover-card-trigger-focus-offset: initial; /* var(--focus-ring-offset) */
   --hover-card-trigger-focus-radius: initial; /* var(--radius-xs) */
-  --hover-card-trigger-gap: initial; /* 0.25rem */
+  --hover-card-trigger-gap: initial; /* var(--spacing-1) */
   --hover-card-trigger-underline-offset: initial; /* 2px */
   --hover-card-width: initial; /* auto */
 
   /* ProgressCircular */
   --progress-circular-color: initial; /* var(--color-foreground) */
-  --progress-circular-gap: initial; /* 0.5rem */
+  --progress-circular-gap: initial; /* var(--spacing-2) */
   --progress-circular-label-color: initial; /* currentColor */
   --progress-circular-label-font-size: initial; /* var(--text-sm) */
   --progress-circular-label-font-weight: initial; /* var(--weight-regular) */
@@ -2158,7 +2172,7 @@
   --progress-circular-range-linecap: initial; /* round */
   --progress-circular-range-transition: initial; /* var(--transition-default) */
   --progress-circular-root-width: initial; /* max-content */
-  --progress-circular-size: initial; /* 3rem */
+  --progress-circular-size: initial; /* var(--size-xl) */
   --progress-circular-thickness: initial; /* 0.4rem */
   --progress-circular-track-bg: initial; /* var(--color-muted) */
   --progress-circular-value-text-color: initial; /* currentColor */
@@ -2168,7 +2182,7 @@
 
   /* ProgressLinear */
   --progress-linear-color: initial; /* var(--color-foreground) */
-  --progress-linear-gap: initial; /* 0.5rem */
+  --progress-linear-gap: initial; /* var(--spacing-2) */
   --progress-linear-height: initial; /* 12rem */
   --progress-linear-label-color: initial; /* currentColor */
   --progress-linear-label-font-size: initial; /* var(--text-sm) */
@@ -2203,14 +2217,14 @@
   --qr-code-download-trigger-color: initial; /* var(--button-outline-color, var(--color-foreground)) */
   --qr-code-download-trigger-focus-ring-color: initial; /* var(--button-focus-ring-color, var(--color-ring)) */
   --qr-code-download-trigger-focus-ring-offset: initial; /* var(--qr-code-download-trigger-border-width, var(--button-border-width, var(--border-width-sm))) */
-  --qr-code-download-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--border-width-md)) */
+  --qr-code-download-trigger-focus-ring-width: initial; /* var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) */
   --qr-code-download-trigger-font-size: initial; /* var(--button-font-size, var(--text-sm)) */
   --qr-code-download-trigger-font-weight: initial; /* var(--button-font-weight, var(--weight-medium)) */
   --qr-code-download-trigger-gap: initial; /* var(--button-content-gap, var(--spacing-2)) */
-  --qr-code-download-trigger-height: initial; /* var(--button-size-md, var(--size-lg)) */
-  --qr-code-download-trigger-icon-size: initial; /* var(--button-icon-size, 1rem) */
+  --qr-code-download-trigger-height: initial; /* var(--button-size-md, var(--size-md)) */
+  --qr-code-download-trigger-icon-size: initial; /* var(--button-icon-size, var(--spacing-4)) */
   --qr-code-download-trigger-line-height: initial; /* var(--button-line-height, var(--line-height-text-sm)) */
-  --qr-code-download-trigger-padding-x: initial; /* var(--button-padding-x-md, 1rem) */
+  --qr-code-download-trigger-padding-x: initial; /* var(--button-padding-x-md, var(--spacing-4)) */
   --qr-code-download-trigger-radius: initial; /* var(--button-radius, var(--radius-md)) */
   --qr-code-fill: initial; /* currentColor */
   --qr-code-gap: initial; /* var(--spacing-3) */
@@ -2219,7 +2233,7 @@
   --qr-code-overlay-color: initial; /* var(--color-foreground) */
   --qr-code-overlay-padding: initial; /* var(--spacing-1) */
   --qr-code-overlay-radius: initial; /* var(--radius-sm) */
-  --qr-code-overlay-size: initial; /* 2.5rem */
+  --qr-code-overlay-size: initial; /* var(--size-lg) */
   --qr-code-size: initial; /* 8rem */
   --qr-code-transition: initial; /* var(--button-transition, var(--transition-default)) */
 
@@ -2233,26 +2247,26 @@
   --radio-disabled-opacity: initial; /* var(--opacity-disabled) */
   --radio-focus-ring-color: initial; /* var(--color-ring) */
   --radio-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --radio-focus-ring-width: initial; /* var(--border-width-sm) */
+  --radio-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --radio-gap: initial; /* var(--spacing-2) */
   --radio-indicator-border-color: initial; /* currentColor */
   --radio-indicator-border-width: initial; /* 0 */
   --radio-indicator-color: initial; /* var(--color-primary-foreground) */
   --radio-indicator-radius: initial; /* var(--radius-full) */
-  --radio-indicator-size-xs: initial; /* 0.25rem */
-  --radio-indicator-size-sm: initial; /* 0.375rem */
-  --radio-indicator-size-md: initial; /* 0.5rem */
-  --radio-indicator-size-lg: initial; /* 0.625rem */
-  --radio-indicator-size-xl: initial; /* 0.75rem */
+  --radio-indicator-size-xs: initial; /* var(--spacing-1) */
+  --radio-indicator-size-sm: initial; /* var(--spacing-1-5) */
+  --radio-indicator-size-md: initial; /* var(--spacing-2) */
+  --radio-indicator-size-lg: initial; /* var(--spacing-2-5) */
+  --radio-indicator-size-xl: initial; /* var(--spacing-3) */
   --radio-label-color: initial; /* var(--color-foreground) */
   --radio-label-font-size: initial; /* var(--text-sm) */
   --radio-label-font-weight: initial; /* var(--weight-medium) */
   --radio-label-line-height: initial; /* var(--line-height-text-sm) */
-  --radio-size-xs: initial; /* 0.875rem */
-  --radio-size-sm: initial; /* 1rem */
-  --radio-size-md: initial; /* 1.25rem */
-  --radio-size-lg: initial; /* 1.5rem */
-  --radio-size-xl: initial; /* 1.75rem */
+  --radio-size-xs: initial; /* var(--spacing-3-5) */
+  --radio-size-sm: initial; /* var(--spacing-4) */
+  --radio-size-md: initial; /* var(--spacing-5) */
+  --radio-size-lg: initial; /* var(--size-xs) */
+  --radio-size-xl: initial; /* var(--spacing-7) */
   --radio-transition: initial; /* var(--transition-default) */
 
   /* RadioGroup */
@@ -2276,11 +2290,11 @@
   --rating-group-focus-ring-width: initial; /* 0 */
   --rating-group-gap: initial; /* var(--spacing-1) */
   --rating-group-root-gap: initial; /* var(--spacing-1) */
-  --rating-group-icon-size-xs: initial; /* 0.875rem */
-  --rating-group-icon-size-sm: initial; /* 1rem */
-  --rating-group-icon-size-md: initial; /* 1.25rem */
-  --rating-group-icon-size-lg: initial; /* 1.5rem */
-  --rating-group-icon-size-xl: initial; /* 1.75rem */
+  --rating-group-icon-size-xs: initial; /* var(--spacing-3-5) */
+  --rating-group-icon-size-sm: initial; /* var(--spacing-4) */
+  --rating-group-icon-size-md: initial; /* var(--spacing-5) */
+  --rating-group-icon-size-lg: initial; /* var(--spacing-6) */
+  --rating-group-icon-size-xl: initial; /* var(--spacing-7) */
   --rating-group-label-color: initial; /* var(--color-foreground) */
   --rating-group-label-font-size: initial; /* var(--text-sm) */
   --rating-group-label-font-weight: initial; /* var(--weight-semibold) */
@@ -2296,22 +2310,22 @@
   --scroll-area-fade-size: initial; /* var(--spacing-10) */
   --scroll-area-fade-start-size: initial; /* var(--scroll-area-fade-size, var(--spacing-10)) */
   --scroll-area-focus-ring-color: initial; /* var(--color-ring) */
-  --scroll-area-focus-ring-offset: initial; /* calc(var(--scroll-area-focus-ring-width, var(--border-width-sm)) * -1) */
-  --scroll-area-focus-ring-width: initial; /* var(--border-width-sm) */
+  --scroll-area-focus-ring-offset: initial; /* calc(var(--scroll-area-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1) */
+  --scroll-area-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --scroll-area-height: initial; /* 100% */
   --scroll-area-radius: initial; /* var(--radius-md) */
   --scroll-area-scrollbar-bg: initial; /* transparent */
   --scroll-area-scrollbar-hidden-opacity: initial; /* 0 */
-  --scroll-area-scrollbar-hit-area-size: initial; /* 1.25rem */
-  --scroll-area-scrollbar-margin: initial; /* calc(var(--spacing-1) / 2) */
+  --scroll-area-scrollbar-hit-area-size: initial; /* var(--spacing-5) */
+  --scroll-area-scrollbar-margin: initial; /* var(--spacing-1) */
   --scroll-area-scrollbar-padding: initial; /* 0 */
   --scroll-area-scrollbar-radius: initial; /* var(--radius-md) */
-  --scroll-area-scrollbar-size: initial; /* 0.375rem */
+  --scroll-area-scrollbar-size: initial; /* var(--spacing-1) */
   --scroll-area-scrollbar-visible-opacity: initial; /* 1 */
   --scroll-area-thumb-bg: initial; /* var(--color-border) */
   --scroll-area-thumb-hover-increase: initial; /* 2px */
   --scroll-area-thumb-hover-transition: initial; /* var(--transition-fast) */
-  --scroll-area-thumb-min-size: initial; /* 1.5rem */
+  --scroll-area-thumb-min-size: initial; /* var(--size-xs) */
   --scroll-area-thumb-radius: initial; /* var(--radius-full) */
   --scroll-area-transition: initial; /* var(--transition-default) */
   --scroll-area-width: initial; /* 100% */
@@ -2321,8 +2335,12 @@
   --separator-color: initial; /* var(--color-border) */
   --separator-length-horizontal: initial; /* 100% */
   --separator-length-vertical: initial; /* 1em */
-  --separator-size-thickness: initial; /* 1px */
-  --separator-thickness: initial; /* var(--separator-size-thickness, 1px) */
+  --separator-size-thickness: initial; /* var(--border-width-sm) */
+  --separator-thickness: initial; /* var(--separator-size-thickness, var(--border-width-sm)) */
+  --separator-thickness-lg: initial; /* 3px */
+  --separator-thickness-md: initial; /* var(--border-width-md) */
+  --separator-thickness-sm: initial; /* var(--border-width-sm) */
+  --separator-thickness-xs: initial; /* 0.5px */
 
   /* SegmentGroup */
   --segment-group-bg: initial; /* var(--color-muted) */
@@ -2334,7 +2352,7 @@
   --segment-group-focus-ring-color: initial; /* var(--color-ring) */
   --segment-group-focus-ring-color-invalid: initial; /* var(--color-destructive) */
   --segment-group-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --segment-group-focus-ring-width: initial; /* var(--border-width-sm) */
+  --segment-group-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --segment-group-gap: initial; /* var(--spacing-1) */
   --segment-group-indicator-bg: initial; /* var(--color-background) */
   --segment-group-indicator-radius: initial; /* var(--radius-md) */
@@ -2348,9 +2366,9 @@
   --segment-group-item-font-size: initial; /* var(--text-sm) */
   --segment-group-item-font-weight: initial; /* var(--weight-medium) */
   --segment-group-item-gap: initial; /* var(--spacing-2) */
-  --segment-group-item-height: initial; /* 2rem */
+  --segment-group-item-height: initial; /* var(--size-sm) */
   --segment-group-item-line-height: initial; /* var(--line-height-text-sm) */
-  --segment-group-item-padding-x: initial; /* 0.875rem */
+  --segment-group-item-padding-x: initial; /* var(--spacing-3-5) */
   --segment-group-item-radius: initial; /* var(--radius-md) */
   --segment-group-label-color: initial; /* var(--segment-group-color, var(--color-foreground)) */
   --segment-group-label-font-size: initial; /* var(--text-sm) */
@@ -2373,8 +2391,8 @@
   --signature-pad-clear-trigger-color-hover: initial; /* var(--color-foreground) */
   --signature-pad-clear-trigger-focus-ring-color: initial; /* var(--color-ring) */
   --signature-pad-clear-trigger-focus-ring-offset: initial; /* var(--spacing-1) */
-  --signature-pad-clear-trigger-focus-ring-width: initial; /* var(--border-width-md) */
-  --signature-pad-clear-trigger-icon-size: initial; /* 1rem */
+  --signature-pad-clear-trigger-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
+  --signature-pad-clear-trigger-icon-size: initial; /* var(--spacing-4) */
   --signature-pad-clear-trigger-offset: initial; /* var(--spacing-2) */
   --signature-pad-clear-trigger-radius: initial; /* var(--radius-sm) */
   --signature-pad-clear-trigger-size: initial; /* var(--size-md) */
@@ -2386,7 +2404,7 @@
   --signature-pad-disabled-opacity: initial; /* var(--opacity-disabled) */
   --signature-pad-focus-border-color: initial; /* var(--color-ring) */
   --signature-pad-focus-ring-color: initial; /* var(--color-ring) */
-  --signature-pad-focus-ring-width: initial; /* var(--border-width-md) */
+  --signature-pad-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --signature-pad-gap: initial; /* var(--spacing-2) */
   --signature-pad-guide-border-width: initial; /* var(--border-width-sm) */
   --signature-pad-guide-bottom: initial; /* var(--spacing-8) */
@@ -2399,7 +2417,7 @@
   --signature-pad-label-line-height: initial; /* var(--line-height-text-sm) */
   --signature-pad-max-width: initial; /* 100% */
   --signature-pad-radius: initial; /* var(--radius-md) */
-  --signature-pad-shadow: initial; /* var(--shadow-xs) */
+  --signature-pad-shadow: initial; /* var(--shadow-sm) */
   --signature-pad-stroke-color: initial; /* var(--color-foreground) */
   --signature-pad-transition: initial; /* var(--transition-default) */
   --signature-pad-width: initial; /* 17.5rem */
@@ -2416,8 +2434,8 @@
   --sidebar-color: initial; /* var(--color-card-foreground) */
   --sidebar-disabled-opacity: initial; /* var(--opacity-disabled) */
   --sidebar-focus-ring-color: initial; /* var(--color-ring) */
-  --sidebar-focus-ring-offset: initial; /* var(--spacing-1) */
-  --sidebar-focus-ring-width: initial; /* var(--border-width-md) */
+  --sidebar-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --sidebar-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --sidebar-gap: initial; /* var(--spacing-2) */
   --sidebar-group-gap: initial; /* var(--spacing-1) */
   --sidebar-group-label-font-size: initial; /* var(--text-xs) */
@@ -2425,11 +2443,11 @@
   --sidebar-group-label-line-height: initial; /* var(--line-height-text-xs) */
   --sidebar-group-label-padding-x: initial; /* var(--spacing-2) */
   --sidebar-group-label-text-transform: initial; /* none */
-  --sidebar-group-action-size: initial; /* 1.5rem */
+  --sidebar-group-action-size: initial; /* var(--size-xs) */
   --sidebar-group-padding: initial; /* var(--spacing-3) */
   --sidebar-header-footer-padding: initial; /* var(--spacing-3) */
   --sidebar-height: initial; /* 100dvh */
-  --sidebar-icon-size: initial; /* 1rem */
+  --sidebar-icon-size: initial; /* var(--spacing-4) */
   --sidebar-inset-bg: initial; /* var(--color-background) */
   --sidebar-inset-color: initial; /* var(--color-foreground) */
   --sidebar-menu-button-border-width: initial; /* 0 */
@@ -2444,7 +2462,7 @@
   --sidebar-menu-button-padding-y: initial; /* var(--spacing-1) */
   --sidebar-menu-button-radius: initial; /* var(--radius-md) */
   --sidebar-menu-gap: initial; /* var(--spacing-1) */
-  --sidebar-menu-action-size: initial; /* 1.5rem */
+  --sidebar-menu-action-size: initial; /* var(--size-xs) */
   --sidebar-menu-badge-min-width: initial; /* 1.5rem */
   --sidebar-menu-badge-padding-x: initial; /* var(--spacing-1) */
   --sidebar-menu-sub-border-width: initial; /* var(--border-width-sm) */
@@ -2459,7 +2477,7 @@
   --sidebar-min-height: initial; /* 24rem */
   --sidebar-muted-color: initial; /* var(--color-muted-foreground) */
   --sidebar-radius: initial; /* 0 */
-  --sidebar-resize-hit-area: initial; /* 0.75rem */
+  --sidebar-resize-hit-area: initial; /* var(--spacing-3) */
   --sidebar-section-border-width: initial; /* 0 */
   --sidebar-shadow: initial; /* none */
   --sidebar-transition: initial; /* var(--transition-default) */
@@ -2469,8 +2487,20 @@
   --sidebar-trigger-offset-y: initial; /* var(--spacing-4) */
   --sidebar-trigger-radius: initial; /* var(--radius-full) */
   --sidebar-trigger-shadow: initial; /* var(--shadow-sm) */
-  --sidebar-trigger-size: initial; /* 1.75rem */
+  --sidebar-trigger-size: initial; /* var(--spacing-7) */
   --sidebar-width: initial; /* 100% */
+
+  /* SplitButton */
+  --split-button-separator-color: initial; /* currentColor */
+  --split-button-separator-inset: initial; /* var(--spacing-1-5) */
+  --split-button-separator-offset: initial; /* 0 */
+  --split-button-separator-opacity: initial; /* 0.16 */
+  --split-button-separator-width: initial; /* var(--border-width-sm) */
+  --split-button-trigger-padding-x-lg: initial; /* var(--spacing-3-5) */
+  --split-button-trigger-padding-x-md: initial; /* var(--spacing-3) */
+  --split-button-trigger-padding-x-sm: initial; /* var(--spacing-2-5) */
+  --split-button-trigger-padding-x-xl: initial; /* var(--spacing-4) */
+  --split-button-trigger-padding-x-xs: initial; /* var(--spacing-2) */
 
   /* Splitter */
   --splitter-bg: initial; /* var(--color-card) */
@@ -2499,12 +2529,12 @@
   --splitter-resize-trigger-indicator-border-color-dragging: initial; /* var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) */
   --splitter-resize-trigger-indicator-border-color-hover: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
   --splitter-resize-trigger-indicator-border-width: initial; /* var(--border-width-sm) */
-  --splitter-resize-trigger-indicator-height: initial; /* 1.5rem */
+  --splitter-resize-trigger-indicator-height: initial; /* var(--size-xs) */
   --splitter-resize-trigger-indicator-radius: initial; /* var(--radius-full) */
   --splitter-resize-trigger-indicator-shadow: initial; /* var(--shadow-sm) */
-  --splitter-resize-trigger-indicator-shadow-dragging: initial; /* var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm)) */
+  --splitter-resize-trigger-indicator-shadow-dragging: initial; /* var(--shadow-md) */
   --splitter-resize-trigger-indicator-shadow-hover: initial; /* var(--shadow-md) */
-  --splitter-resize-trigger-indicator-width: initial; /* 0.375rem */
+  --splitter-resize-trigger-indicator-width: initial; /* var(--spacing-1-5) */
   --splitter-resize-trigger-line-color: initial; /* var(--color-border) */
   --splitter-resize-trigger-line-color-dragging: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
   --splitter-resize-trigger-line-color-hover: initial; /* color-mix(in oklab, var(--splitter-resize-trigger-line-color, var(--color-border)) 72%, var(--color-muted-foreground)) */
@@ -2512,7 +2542,7 @@
   --splitter-resize-trigger-line-radius: initial; /* var(--radius-full) */
   --splitter-resize-trigger-line-size: initial; /* 1px */
   --splitter-resize-trigger-line-thickness: initial; /* 0.5px */
-  --splitter-resize-trigger-size: initial; /* 0.625rem */
+  --splitter-resize-trigger-size: initial; /* var(--spacing-2-5) */
   --splitter-shadow: initial; /* var(--shadow-sm) */
   --splitter-transition: initial; /* var(--transition-default) */
   --splitter-width: initial; /* 100% */
@@ -2521,10 +2551,10 @@
   --select-action-bg: initial; /* transparent */
   --select-action-bg-hover: initial; /* var(--color-muted) */
   --select-action-color-hover: initial; /* var(--color-foreground) */
-  --select-action-gap: initial; /* 0.125rem */
-  --select-action-offset-right: initial; /* 0.5rem */
+  --select-action-gap: initial; /* var(--spacing-0-5) */
+  --select-action-offset-right: initial; /* var(--spacing-2) */
   --select-action-radius: initial; /* var(--radius-sm) */
-  --select-action-size: initial; /* 1.5rem */
+  --select-action-size: initial; /* var(--size-xs) */
   --select-bg: initial; /* var(--color-background) */
   --select-border-color: initial; /* var(--color-border) */
   --select-border-width: initial; /* var(--border-width-sm) */
@@ -2536,16 +2566,16 @@
   --select-content-closed-scale: initial; /* var(--scale-popup) */
   --select-content-color: initial; /* var(--color-popover-foreground) */
   --select-content-max-height: initial; /* 24rem */
-  --select-content-padding-y: initial; /* var(--spacing-1) */
+  --select-content-padding-y: initial; /* var(--popup-list-padding-y, var(--spacing-1)) */
   --select-content-shadow: initial; /* var(--shadow-lg) */
-  --select-control-height: initial; /* var(--size-lg) */
+  --select-control-height: initial; /* var(--size-md) */
   --select-disabled-opacity: initial; /* var(--opacity-disabled) */
   --select-focus-ring-color: initial; /* var(--color-ring) */
-  --select-focus-ring-width: initial; /* var(--border-width-sm) */
+  --select-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --select-highlight-bg: initial; /* var(--color-accent) */
   --select-highlight-color: initial; /* var(--color-accent-foreground) */
   --select-icon-color: initial; /* var(--color-muted-foreground) */
-  --select-icon-size: initial; /* 1rem */
+  --select-icon-size: initial; /* var(--spacing-4) */
   --select-invalid-color: initial; /* var(--color-destructive) */
   --select-item-bg: initial; /* transparent */
   --select-item-border-color: initial; /* transparent */
@@ -2553,27 +2583,27 @@
   --select-item-checked-color: initial; /* var(--select-item-color) */
   --select-item-color: initial; /* var(--color-foreground) */
   --select-item-disabled-color: initial; /* var(--color-muted-foreground) */
-  --select-item-font-size: initial; /* var(--text-sm) */
+  --select-item-font-size: initial; /* var(--popup-item-font-size, var(--text-sm)) */
   --select-item-gap: initial; /* var(--spacing-2) */
   --select-item-group-gap: initial; /* var(--spacing-2) */
-  --select-item-group-label-color: initial; /* var(--color-muted-foreground) */
-  --select-item-group-label-font-size: initial; /* var(--text-xs) */
-  --select-item-group-label-font-weight: initial; /* var(--weight-semibold) */
-  --select-item-group-label-line-height: initial; /* var(--line-height-text-xs) */
-  --select-item-group-label-padding-x: initial; /* 0.625rem */
-  --select-item-group-label-padding-y: initial; /* 0.375rem */
+  --select-item-group-label-color: initial; /* var(--popup-group-label-color, var(--color-muted-foreground)) */
+  --select-item-group-label-font-size: initial; /* var(--popup-group-label-font-size, var(--text-xs)) */
+  --select-item-group-label-font-weight: initial; /* var(--popup-group-label-font-weight, var(--weight-regular)) */
+  --select-item-group-label-line-height: initial; /* var(--popup-group-label-line-height, var(--line-height-text-xs)) */
+  --select-item-group-label-padding-x: initial; /* var(--spacing-2-5) */
+  --select-item-group-label-padding-y: initial; /* var(--popup-group-label-padding-y, var(--spacing-1)) */
   --select-item-indicator-color: initial; /* currentColor */
-  --select-item-indicator-icon-size: initial; /* 0.75rem */
-  --select-item-indicator-size: initial; /* 0.875rem */
+  --select-item-indicator-icon-size: initial; /* var(--spacing-3) */
+  --select-item-indicator-size: initial; /* var(--spacing-3-5) */
   --select-item-inset-x: initial; /* var(--spacing-2) */
-  --select-item-line-height: initial; /* var(--line-height-text-sm) */
-  --select-item-min-height: initial; /* 2rem */
-  --select-item-padding-x: initial; /* 0.625rem */
-  --select-item-padding-y: initial; /* var(--spacing-2) */
+  --select-item-line-height: initial; /* var(--popup-item-line-height, var(--line-height-text-sm)) */
+  --select-item-min-height: initial; /* var(--popup-item-min-height, var(--size-sm)) */
+  --select-item-padding-x: initial; /* var(--popup-item-padding-x-start, var(--spacing-3)) */
+  --select-item-padding-y: initial; /* var(--popup-item-padding-y, var(--spacing-1)) */
   --select-item-radius: initial; /* var(--radius-sm) */
   --select-item-text-content-gap: initial; /* var(--spacing-2) */
   --select-item-text-icon-color: initial; /* currentColor */
-  --select-item-text-icon-size: initial; /* 1rem */
+  --select-item-text-icon-size: initial; /* var(--spacing-4) */
   --select-label-color: initial; /* var(--select-color) */
   --select-label-font-size: initial; /* var(--text-sm) */
   --select-label-font-weight: initial; /* var(--weight-medium) */
@@ -2581,15 +2611,15 @@
   --select-max-width: initial; /* 100% */
   --select-placeholder-color: initial; /* var(--color-muted-foreground) */
   --select-radius: initial; /* var(--radius-md) */
-  --select-root-gap: initial; /* 0.375rem */
+  --select-root-gap: initial; /* var(--spacing-1-5) */
   --select-transition: initial; /* var(--transition-default) */
   --select-trigger-padding-x-end: initial; /* 4.25rem */
-  --select-trigger-padding-x-start: initial; /* 0.875rem */
+  --select-trigger-padding-x-start: initial; /* var(--spacing-3-5) */
   --select-width: initial; /* 14rem */
 
   /* Slider */
   --slider-color: initial; /* var(--color-foreground) */
-  --slider-control-size: initial; /* 1.25rem */
+  --slider-control-size: initial; /* var(--spacing-5) */
   --slider-disabled-opacity: initial; /* var(--opacity-disabled) */
   --slider-dragging-indicator-bg: initial; /* var(--color-foreground) */
   --slider-dragging-indicator-color: initial; /* var(--color-background) */
@@ -2598,7 +2628,7 @@
   --slider-dragging-indicator-line-height: initial; /* 1 */
   --slider-dragging-indicator-radius: initial; /* var(--radius-sm) */
   --slider-focus-ring-color: initial; /* var(--color-ring) */
-  --slider-gap: initial; /* 0.5rem */
+  --slider-gap: initial; /* var(--spacing-2) */
   --slider-height: initial; /* 12rem */
   --slider-label-color: initial; /* var(--slider-color) */
   --slider-label-font-size: initial; /* var(--text-sm) */
@@ -2607,7 +2637,7 @@
   --slider-marker-color: initial; /* var(--color-muted-foreground) */
   --slider-marker-dot-bg: initial; /* var(--color-border) */
   --slider-marker-dot-bg-active: initial; /* var(--slider-range-bg) */
-  --slider-marker-dot-size: initial; /* 0.25rem */
+  --slider-marker-dot-size: initial; /* var(--spacing-1) */
   --slider-marker-font-size: initial; /* var(--text-xs) */
   --slider-marker-group-margin-inline-start: initial; /* var(--spacing-2) */
   --slider-marker-group-margin-top: initial; /* var(--spacing-2) */
@@ -2620,12 +2650,12 @@
   --slider-thumb-radius: initial; /* var(--radius-full) */
   --slider-thumb-shadow: initial; /* var(--shadow-sm) */
   --slider-thumb-shadow-dragging: initial; /* var(--shadow-md) */
-  --slider-thumb-size: initial; /* 1rem */
+  --slider-thumb-size: initial; /* var(--spacing-4) */
   --slider-track-bg: initial; /* var(--color-muted) */
   --slider-track-border-color: initial; /* var(--color-border) */
   --slider-track-border-width: initial; /* var(--border-width-sm) */
   --slider-track-radius: initial; /* var(--radius-full) */
-  --slider-track-size: initial; /* 0.375rem */
+  --slider-track-size: initial; /* var(--spacing-1-5) */
   --slider-transition: initial; /* var(--transition-default) */
   --slider-value-text-color: initial; /* var(--slider-color) */
   --slider-value-text-font-size: initial; /* var(--text-sm) */
@@ -2641,19 +2671,22 @@
   --carousel-control-border-color-hover: initial; /* color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%) */
   --carousel-control-color: initial; /* var(--color-foreground) */
   --carousel-control-color-hover: initial; /* var(--color-accent-foreground) */
+  --carousel-control-icon-size: initial; /* var(--spacing-4) */
   --carousel-control-shadow: initial; /* var(--shadow-sm) */
   --carousel-control-shadow-hover: initial; /* var(--shadow-md) */
-  --carousel-control-size: initial; /* 2.5rem */
+  --carousel-control-size: initial; /* var(--size-md) */
+  --carousel-autoplay-indicator-min-width: initial; /* var(--spacing-4) */
+  --carousel-autoplay-trigger-min-width: initial; /* calc(var(--size-md) + var(--spacing-3)) */
   --carousel-focus-ring-color: initial; /* var(--color-ring) */
-  --carousel-focus-ring-offset: initial; /* 2px */
-  --carousel-focus-ring-width: initial; /* var(--border-width-md) */
+  --carousel-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --carousel-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --carousel-gap: initial; /* var(--spacing-3) */
   --carousel-height: initial; /* 24rem */
   --carousel-indicator-bg: initial; /* color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%) */
   --carousel-indicator-bg-current: initial; /* var(--color-primary) */
   --carousel-indicator-bg-hover: initial; /* color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%) */
   --carousel-indicator-gap: initial; /* var(--spacing-2) */
-  --carousel-indicator-size: initial; /* 0.5rem */
+  --carousel-indicator-size: initial; /* var(--spacing-2) */
   --carousel-progress-text-color: initial; /* var(--color-muted-foreground) */
   --carousel-progress-text-font-size: initial; /* var(--text-sm) */
   --carousel-track-radius: initial; /* var(--radius-xl) */
@@ -2672,10 +2705,10 @@
   --steps-action-color: initial; /* var(--color-foreground) */
   --steps-action-font-size: initial; /* var(--text-sm) */
   --steps-action-gap: initial; /* var(--spacing-2) */
-  --steps-action-height: initial; /* 2rem */
+  --steps-action-height: initial; /* var(--size-sm) */
   --steps-action-line-height: initial; /* var(--line-height-text-sm) */
-  --steps-action-padding-x: initial; /* 0.75rem */
-  --steps-action-padding-y: initial; /* 0.375rem */
+  --steps-action-padding-x: initial; /* var(--spacing-3) */
+  --steps-action-padding-y: initial; /* var(--spacing-1-5) */
   --steps-action-radius: initial; /* var(--radius-md) */
   --steps-color: initial; /* var(--color-foreground) */
   --steps-completed-content-color: initial; /* var(--color-foreground) */
@@ -2690,8 +2723,8 @@
   --steps-content-radius: initial; /* var(--radius-md) */
   --steps-disabled-opacity: initial; /* var(--opacity-disabled) */
   --steps-focus-ring-color: initial; /* var(--color-ring) */
-  --steps-focus-ring-offset: initial; /* 2px */
-  --steps-focus-ring-width: initial; /* var(--border-width-sm) */
+  --steps-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --steps-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --steps-gap: initial; /* var(--spacing-4) */
   --steps-indicator-bg: initial; /* var(--color-background) */
   --steps-indicator-bg-complete: initial; /* var(--color-foreground) */
@@ -2707,9 +2740,9 @@
   --steps-indicator-color-hover: initial; /* var(--steps-indicator-color-current, var(--color-foreground)) */
   --steps-indicator-font-size: initial; /* var(--text-sm) */
   --steps-indicator-font-weight: initial; /* var(--weight-semibold) */
-  --steps-indicator-icon-size: initial; /* 0.875rem */
+  --steps-indicator-icon-size: initial; /* var(--spacing-3-5) */
   --steps-indicator-radius: initial; /* var(--radius-full) */
-  --steps-indicator-size: initial; /* 2rem */
+  --steps-indicator-size: initial; /* var(--spacing-8) */
   --steps-max-width: initial; /* 52rem */
   --steps-next-action-bg: initial; /* var(--color-foreground) */
   --steps-next-action-bg-hover: initial; /* var(--color-foreground) */
@@ -2722,7 +2755,7 @@
   --steps-root-gap: initial; /* var(--spacing-4) */
   --steps-separator-color: initial; /* var(--color-border) */
   --steps-separator-color-complete: initial; /* var(--color-foreground) */
-  --steps-separator-inset: initial; /* 0.5rem */
+  --steps-separator-inset: initial; /* var(--spacing-2) */
   --steps-separator-min-width: initial; /* var(--spacing-8) */
   --steps-separator-thickness: initial; /* var(--border-width-sm) */
   --steps-trigger-color-incomplete: initial; /* inherit */
@@ -2735,6 +2768,7 @@
   --skeleton-animation: initial; /* var(--animation-pulse) */
   --skeleton-border-radius: initial; /* var(--radius-md) */
   --skeleton-bg: initial; /* color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background)) */
+  --skeleton-height: initial; /* var(--spacing-4) */
 
   /* Spinner */
   --spinner-animation: initial; /* var(--animation-spin) */
@@ -2742,12 +2776,12 @@
   --spinner-radius: initial; /* var(--radius-full) */
   --spinner-ring-border-width: initial; /* var(--border-width-md) */
   --spinner-ring-track-color: initial; /* color-mix(in oklab, currentColor 22%, transparent) */
-  --spinner-size: initial; /* var(--spinner-size-md, 1.25rem) */
-  --spinner-size-xs: initial; /* 0.75rem */
-  --spinner-size-sm: initial; /* 1rem */
-  --spinner-size-md: initial; /* 1.25rem */
-  --spinner-size-lg: initial; /* 1.75rem */
-  --spinner-size-xl: initial; /* 2.25rem */
+  --spinner-size: initial; /* var(--spinner-size-md, var(--spacing-5)) */
+  --spinner-size-xs: initial; /* var(--spacing-3) */
+  --spinner-size-sm: initial; /* var(--spacing-4) */
+  --spinner-size-md: initial; /* var(--spacing-5) */
+  --spinner-size-lg: initial; /* var(--spacing-7) */
+  --spinner-size-xl: initial; /* var(--size-md) */
 
   /* Switch */
   --switch-bg: initial; /* var(--color-muted) */
@@ -2760,18 +2794,18 @@
   --switch-disabled-opacity: initial; /* var(--opacity-disabled) */
   --switch-focus-ring-color: initial; /* var(--color-ring) */
   --switch-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --switch-focus-ring-width: initial; /* var(--border-width-sm) */
+  --switch-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --switch-gap: initial; /* var(--spacing-2) */
   --switch-height-xs: initial; /* 1rem */
   --switch-height-sm: initial; /* 1.25rem */
-  --switch-height-md: initial; /* 1.5rem */
+  --switch-height-md: initial; /* var(--size-xs) */
   --switch-height-lg: initial; /* 1.75rem */
-  --switch-height-xl: initial; /* 2rem */
+  --switch-height-xl: initial; /* var(--size-sm) */
   --switch-label-color: initial; /* var(--color-foreground) */
   --switch-label-font-size: initial; /* var(--text-sm) */
   --switch-label-font-weight: initial; /* var(--weight-medium) */
   --switch-label-line-height: initial; /* var(--line-height-text-sm) */
-  --switch-padding: initial; /* 0.125rem */
+  --switch-padding: initial; /* var(--spacing-0-5) */
   --switch-radius: initial; /* var(--radius-full) */
   --switch-thumb-bg: initial; /* fallback for both states */
   --switch-thumb-bg-checked: initial; /* var(--switch-thumb-bg, var(--color-primary-foreground)) */
@@ -2784,11 +2818,11 @@
   --switch-thumb-icon-size: initial; /* 65% */
   --switch-thumb-radius: initial; /* var(--radius-full) */
   --switch-thumb-shadow: initial; /* var(--shadow-sm) */
-  --switch-thumb-size-xs: initial; /* 0.75rem */
-  --switch-thumb-size-sm: initial; /* 1rem */
-  --switch-thumb-size-md: initial; /* 1.25rem */
-  --switch-thumb-size-lg: initial; /* 1.5rem */
-  --switch-thumb-size-xl: initial; /* 1.75rem */
+  --switch-thumb-size-xs: initial; /* var(--spacing-3) */
+  --switch-thumb-size-sm: initial; /* var(--spacing-4) */
+  --switch-thumb-size-md: initial; /* var(--spacing-5) */
+  --switch-thumb-size-lg: initial; /* var(--size-xs) */
+  --switch-thumb-size-xl: initial; /* var(--spacing-7) */
   --switch-thumb-transition: initial; /* var(--switch-transition, var(--transition-default)) */
   --switch-thumb-translate: initial; /* var(--switch-thumb-translate-default) */
   --switch-transition: initial; /* var(--transition-default) */
@@ -2813,25 +2847,25 @@
   --tag-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tag-font-size: initial; /* var(--text-xs) */
   --tag-font-weight: initial; /* var(--weight-medium) */
-  --tag-gap: initial; /* 0.375rem */
-  --tag-gap-sm: initial; /* 0.25rem */
+  --tag-gap: initial; /* var(--spacing-1-5) */
+  --tag-gap-sm: initial; /* var(--spacing-1) */
   --tag-height-sm: initial; /* 1.25rem */
-  --tag-height-md: initial; /* 1.5rem */
-  --tag-icon-size: initial; /* 0.75rem */
+  --tag-height-md: initial; /* var(--size-xs) */
+  --tag-icon-size: initial; /* var(--spacing-3) */
   --tag-line-height: initial; /* var(--line-height-text-xs) */
-  --tag-padding-x-sm: initial; /* 0.375rem */
-  --tag-padding-x-md: initial; /* 0.5rem */
+  --tag-padding-x-sm: initial; /* var(--spacing-1-5) */
+  --tag-padding-x-md: initial; /* var(--spacing-2) */
   --tag-padding-y-sm: initial; /* 0 */
-  --tag-padding-y-md: initial; /* 0.125rem */
+  --tag-padding-y-md: initial; /* var(--spacing-0-5) */
   --tag-radius: initial; /* var(--radius-full) */
   --tag-close-trigger-bg: initial; /* transparent */
   --tag-close-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --tag-close-trigger-focus-ring-color: initial; /* var(--color-ring) */
   --tag-close-trigger-focus-ring-offset: initial; /* 0 */
-  --tag-close-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
-  --tag-close-trigger-icon-size: initial; /* 0.625rem */
+  --tag-close-trigger-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
+  --tag-close-trigger-icon-size: initial; /* var(--spacing-2-5) */
   --tag-close-trigger-radius: initial; /* var(--radius-full) */
-  --tag-close-trigger-size: initial; /* 1rem */
+  --tag-close-trigger-size: initial; /* var(--spacing-4) */
   --tag-transition: initial; /* var(--transition-default) */
 
   /* TagsInput */
@@ -2842,21 +2876,21 @@
   --tags-input-clear-trigger-bg-hover: initial; /* var(--color-muted) */
   --tags-input-clear-trigger-color: initial; /* var(--color-muted-foreground) */
   --tags-input-clear-trigger-color-hover: initial; /* var(--color-foreground) */
-  --tags-input-clear-trigger-icon-size: initial; /* 0.75rem */
+  --tags-input-clear-trigger-icon-size: initial; /* var(--spacing-3) */
   --tags-input-clear-trigger-radius: initial; /* var(--radius-sm) */
-  --tags-input-clear-trigger-size: initial; /* 1.5rem */
+  --tags-input-clear-trigger-size: initial; /* var(--size-xs) */
   --tags-input-color: initial; /* var(--input-color, var(--color-foreground)) */
   --tags-input-control-gap: initial; /* var(--spacing-1) */
   --tags-input-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tags-input-focus-ring-color: initial; /* var(--input-focus-ring-color, var(--color-ring)) */
-  --tags-input-focus-ring-offset: initial; /* var(--input-focus-ring-offset) */
-  --tags-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--border-width-sm)) */
+  --tags-input-focus-ring-offset: initial; /* var(--input-focus-ring-offset, calc(0px - var(--tags-input-border-width, var(--input-border-width, var(--border-width-sm))))) */
+  --tags-input-focus-ring-width: initial; /* var(--input-focus-ring-width, var(--tags-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm))))) */
   --tags-input-gap: initial; /* var(--field-gap, var(--spacing-1)) */
   --tags-input-input-font-size: initial; /* var(--input-font-size, var(--text-sm)) */
-  --tags-input-input-height: initial; /* 1.5rem */
+  --tags-input-input-height: initial; /* var(--size-xs) */
   --tags-input-input-line-height: initial; /* var(--input-line-height, var(--line-height-text-sm)) */
   --tags-input-input-min-width: initial; /* 7rem */
-  --tags-input-input-padding-x: initial; /* 0.25rem */
+  --tags-input-input-padding-x: initial; /* var(--spacing-1) */
   --tags-input-invalid-border-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
   --tags-input-invalid-focus-ring-color: initial; /* var(--input-border-color-invalid, var(--color-destructive)) */
   --tags-input-item-bg: initial; /* var(--color-secondary) */
@@ -2866,13 +2900,13 @@
   --tags-input-item-font-size: initial; /* var(--text-xs) */
   --tags-input-item-font-weight: initial; /* var(--weight-medium) */
   --tags-input-item-gap: initial; /* var(--spacing-1) */
-  --tags-input-item-height: initial; /* 1.5rem */
+  --tags-input-item-height: initial; /* var(--size-xs) */
   --tags-input-item-highlight-ring-color: initial; /* var(--color-ring) */
   --tags-input-item-highlight-ring-width: initial; /* var(--border-width-sm) */
   --tags-input-item-input-width: initial; /* 7rem */
   --tags-input-item-line-height: initial; /* var(--line-height-text-xs) */
-  --tags-input-item-padding-x: initial; /* 0.5rem */
-  --tags-input-item-padding-y: initial; /* 0.125rem */
+  --tags-input-item-padding-x: initial; /* var(--spacing-2) */
+  --tags-input-item-padding-y: initial; /* var(--spacing-0-5) */
   --tags-input-item-radius: initial; /* var(--radius-full) */
   --tags-input-label-color: initial; /* var(--field-label-color, var(--color-foreground)) */
   --tags-input-label-font-size: initial; /* var(--field-label-font-size, var(--text-sm)) */
@@ -2880,8 +2914,8 @@
   --tags-input-label-gap: initial; /* var(--field-label-gap, var(--spacing-1)) */
   --tags-input-label-line-height: initial; /* var(--field-label-line-height, var(--line-height-text-sm)) */
   --tags-input-max-width: initial; /* 24rem */
-  --tags-input-min-height: initial; /* var(--input-height, var(--size-lg)) */
-  --tags-input-padding-x: initial; /* 0.5rem */
+  --tags-input-min-height: initial; /* var(--input-height, var(--size-md)) */
+  --tags-input-padding-x: initial; /* var(--spacing-2) */
   --tags-input-padding-y: initial; /* 0.3125rem */
   --tags-input-placeholder-color: initial; /* var(--input-placeholder-color, var(--color-muted-foreground)) */
   --tags-input-radius: initial; /* var(--input-radius, var(--radius-md)) */
@@ -2892,11 +2926,11 @@
   --tags-input-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --tags-input-trigger-color: initial; /* currentColor */
   --tags-input-trigger-focus-ring-color: initial; /* var(--color-ring) */
-  --tags-input-trigger-focus-ring-offset: initial; /* 2px */
-  --tags-input-trigger-focus-ring-width: initial; /* var(--border-width-sm) */
-  --tags-input-trigger-icon-size: initial; /* 0.625rem */
+  --tags-input-trigger-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --tags-input-trigger-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
+  --tags-input-trigger-icon-size: initial; /* var(--spacing-2-5) */
   --tags-input-trigger-radius: initial; /* var(--radius-full) */
-  --tags-input-trigger-size: initial; /* 1rem */
+  --tags-input-trigger-size: initial; /* var(--spacing-4) */
   --tags-input-width: initial; /* 100% */
 
   /* Table */
@@ -2948,42 +2982,42 @@
   --tabs-color: initial; /* var(--color-foreground) */
   --tabs-focus-ring-color: initial; /* var(--color-ring) */
   --tabs-focus-ring-offset: initial; /* 0 */
-  --tabs-focus-ring-width: initial; /* var(--border-width-sm) */
-  --tabs-gap: initial; /* 0.75rem */
+  --tabs-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
+  --tabs-gap: initial; /* var(--spacing-3) */
   --tabs-indicator-bg: initial; /* var(--color-background) */
   --tabs-indicator-radius: initial; /* var(--radius-md) */
   --tabs-indicator-shadow: initial; /* var(--shadow-sm) */
-  --tabs-indicator-size: initial; /* 2rem */
+  --tabs-indicator-size: initial; /* var(--spacing-8) */
   --tabs-indicator-transition: initial; /* var(--transition-default) */
   --tabs-line-indicator-bg: initial; /* var(--tabs-tab-color-active, var(--color-foreground)) */
   --tabs-line-indicator-radius: initial; /* var(--radius-full) */
-  --tabs-line-indicator-size: initial; /* 2px */
+  --tabs-line-indicator-size: initial; /* var(--spacing-0-5) */
   --tabs-line-indicator-transition: initial; /* var(--transition-default) */
   --tabs-list-bg: initial; /* var(--color-muted) */
   --tabs-list-border-color: initial; /* var(--color-border) */
   --tabs-list-border-width: initial; /* var(--border-width-sm) */
-  --tabs-list-gap: initial; /* 0.25rem */
-  --tabs-list-padding: initial; /* 0.25rem */
-  --tabs-list-padding-x: initial; /* var(--tabs-list-padding, 0.25rem) */
-  --tabs-list-padding-y: initial; /* var(--tabs-list-padding, 0.25rem) */
+  --tabs-list-gap: initial; /* var(--spacing-1) */
+  --tabs-list-padding: initial; /* var(--spacing-1) */
+  --tabs-list-padding-x: initial; /* var(--tabs-list-padding, var(--spacing-1)) */
+  --tabs-list-padding-y: initial; /* var(--tabs-list-padding, var(--spacing-1)) */
   --tabs-panel-color: initial; /* var(--tabs-color, var(--color-foreground)) */
   --tabs-panel-font-size: initial; /* var(--text-sm) */
   --tabs-panel-line-height: initial; /* var(--line-height-text-sm) */
-  --tabs-panel-focus-ring-offset: initial; /* -1px */
-  --tabs-panel-padding: initial; /* 1rem */
+  --tabs-panel-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --tabs-panel-padding: initial; /* var(--spacing-4) */
   --tabs-radius: initial; /* var(--radius-lg) */
   --tabs-tab-color: initial; /* var(--color-muted-foreground) */
   --tabs-tab-color-active: initial; /* var(--color-foreground) */
   --tabs-tab-color-hover: initial; /* var(--tabs-tab-color-active, var(--color-foreground)) */
-  --tabs-tab-content-gap: initial; /* 0.5rem */
+  --tabs-tab-content-gap: initial; /* var(--spacing-2) */
   --tabs-tab-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tabs-tab-font-size: initial; /* var(--text-sm) */
   --tabs-tab-font-weight: initial; /* var(--weight-medium) */
-  --tabs-tab-height: initial; /* 2rem */
+  --tabs-tab-height: initial; /* var(--size-sm) */
   --tabs-tab-icon-color: initial; /* currentColor */
-  --tabs-tab-icon-size: initial; /* 1rem */
+  --tabs-tab-icon-size: initial; /* var(--spacing-4) */
   --tabs-tab-line-height: initial; /* var(--line-height-text-sm) */
-  --tabs-tab-padding-x: initial; /* 0.625rem */
+  --tabs-tab-padding-x: initial; /* var(--spacing-2-5) */
   --tabs-tab-radius: initial; /* var(--radius-md) */
   --tabs-tab-transition: initial; /* var(--transition-default) */
   --tabs-vertical-list-width: initial; /* 12rem */
@@ -3019,20 +3053,20 @@
   --tree-view-checkbox-checked-bg: initial; /* var(--color-primary) */
   --tree-view-checkbox-color: initial; /* var(--color-primary-foreground) */
   --tree-view-checkbox-focus-ring-offset: initial; /* var(--border-width-sm) */
-  --tree-view-checkbox-icon-size: initial; /* 0.75rem */
+  --tree-view-checkbox-icon-size: initial; /* var(--spacing-3) */
   --tree-view-checkbox-radius: initial; /* var(--radius-xs) */
-  --tree-view-checkbox-size: initial; /* 1rem */
+  --tree-view-checkbox-size: initial; /* var(--spacing-4) */
   --tree-view-color: initial; /* var(--color-foreground) */
   --tree-view-content-transition-duration: initial; /* 150ms */
   --tree-view-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tree-view-focus-ring-color: initial; /* var(--color-ring) */
-  --tree-view-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tree-view-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --tree-view-indent: initial; /* 1rem */
   --tree-view-indent-guide-color: initial; /* var(--color-border) */
   --tree-view-indent-guide-width: initial; /* var(--border-width-sm) */
   --tree-view-indicator-color: initial; /* currentColor */
-  --tree-view-indicator-icon-size: initial; /* 0.875rem */
-  --tree-view-indicator-size: initial; /* 1rem */
+  --tree-view-indicator-icon-size: initial; /* var(--spacing-3-5) */
+  --tree-view-indicator-size: initial; /* var(--spacing-4) */
   --tree-view-item-bg: initial; /* transparent */
   --tree-view-item-border-color: initial; /* transparent */
   --tree-view-item-border-width: initial; /* 0 */
@@ -3043,7 +3077,7 @@
   --tree-view-item-hover-bg: initial; /* var(--color-accent) */
   --tree-view-item-hover-color: initial; /* var(--color-accent-foreground) */
   --tree-view-item-line-height: initial; /* var(--line-height-text-sm) */
-  --tree-view-item-min-height: initial; /* 2rem */
+  --tree-view-item-min-height: initial; /* var(--size-sm) */
   --tree-view-item-padding-x: initial; /* var(--spacing-2) */
   --tree-view-item-padding-y: initial; /* var(--spacing-1) */
   --tree-view-item-radius: initial; /* var(--radius-sm) */
@@ -3055,7 +3089,7 @@
   --tree-view-label-font-weight: initial; /* var(--weight-medium) */
   --tree-view-label-line-height: initial; /* var(--line-height-text-sm) */
   --tree-view-max-width: initial; /* 100% */
-  --tree-view-node-icon-size: initial; /* 1rem */
+  --tree-view-node-icon-size: initial; /* var(--spacing-4) */
   --tree-view-rename-input-bg: initial; /* var(--color-background) */
   --tree-view-rename-input-border-color: initial; /* var(--color-ring) */
   --tree-view-rename-input-border-width: initial; /* var(--border-width-sm) */
@@ -3076,14 +3110,14 @@
   --textarea-color: initial; /* var(--color-foreground) */
   --textarea-disabled-opacity: initial; /* var(--opacity-disabled) */
   --textarea-focus-ring-color: initial; /* var(--color-ring) */
-  --textarea-focus-ring-offset: initial; /* -1px */
-  --textarea-focus-ring-width: initial; /* var(--textarea-border-width, var(--border-width-sm)) */
+  --textarea-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --textarea-focus-ring-width: initial; /* var(--textarea-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --textarea-font-size: initial; /* var(--text-md) */
   --textarea-line-height: initial; /* var(--line-height-text-md) */
   --textarea-max-width: initial; /* none */
   --textarea-min-height: initial; /* 6rem */
-  --textarea-padding-x: initial; /* 0.875rem */
-  --textarea-padding-y: initial; /* 0.5rem */
+  --textarea-padding-x: initial; /* var(--spacing-3-5) */
+  --textarea-padding-y: initial; /* var(--spacing-2) */
   --textarea-placeholder-color: initial; /* var(--color-muted-foreground) */
   --textarea-radius: initial; /* var(--radius-md) */
   --textarea-readonly-bg: initial; /* var(--textarea-bg, var(--color-background)) */
@@ -3100,22 +3134,22 @@
   --timer-action-trigger-color: initial; /* var(--color-foreground) */
   --timer-action-trigger-disabled-opacity: initial; /* var(--opacity-disabled) */
   --timer-action-trigger-focus-ring-color: initial; /* var(--color-ring) */
-  --timer-action-trigger-focus-ring-offset: initial; /* -1px */
-  --timer-action-trigger-focus-ring-width: initial; /* var(--border-width-md) */
+  --timer-action-trigger-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --timer-action-trigger-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --timer-action-trigger-font-size: initial; /* var(--text-sm) */
   --timer-action-trigger-font-weight: initial; /* var(--weight-medium) */
   --timer-action-trigger-gap: initial; /* var(--spacing-2) */
   --timer-action-trigger-height: initial; /* var(--size-md) */
-  --timer-action-trigger-icon-size: initial; /* 1rem */
+  --timer-action-trigger-icon-size: initial; /* var(--spacing-4) */
   --timer-action-trigger-line-height: initial; /* var(--line-height-text-sm) */
-  --timer-action-trigger-padding-x: initial; /* 0.75rem */
-  --timer-action-trigger-padding-y: initial; /* 0.375rem */
+  --timer-action-trigger-padding-x: initial; /* var(--spacing-3) */
+  --timer-action-trigger-padding-y: initial; /* var(--spacing-1-5) */
   --timer-action-trigger-radius: initial; /* var(--radius-md) */
   --timer-action-trigger-transition: initial; /* var(--transition-default) */
   --timer-area-font-size: initial; /* var(--text-2xl) */
   --timer-area-font-weight: initial; /* var(--weight-semibold) */
   --timer-area-gap: initial; /* var(--spacing-1) */
-  --timer-area-line-height: initial; /* var(--line-height-heading-sm) */
+  --timer-area-line-height: initial; /* var(--line-height-text-sm) */
   --timer-color: initial; /* var(--color-foreground) */
   --timer-control-gap: initial; /* var(--spacing-2) */
   --timer-gap: initial; /* var(--spacing-3) */
@@ -3135,10 +3169,10 @@
   --toast-action-font-weight: initial; /* var(--weight-medium) */
   --toast-action-gap: initial; /* var(--spacing-2) */
   --toast-action-line-height: initial; /* var(--line-height-text-xs) */
-  --toast-action-margin-top: initial; /* 0.5rem */
+  --toast-action-margin-top: initial; /* var(--spacing-2) */
   --toast-action-min-height: initial; /* var(--size-xs) */
-  --toast-action-padding-x: initial; /* 0.5rem */
-  --toast-action-padding-y: initial; /* 0.25rem */
+  --toast-action-padding-x: initial; /* var(--spacing-2) */
+  --toast-action-padding-y: initial; /* var(--spacing-1) */
   --toast-action-radius: initial; /* var(--radius-sm) */
   --toast-bg: initial; /* var(--color-popover) */
   --toast-border-color: initial; /* var(--color-border) */
@@ -3147,40 +3181,40 @@
   --toast-close-bg-hover: initial; /* var(--color-muted) */
   --toast-close-color: initial; /* var(--color-muted-foreground) */
   --toast-close-color-hover: initial; /* var(--color-foreground) */
-  --toast-close-focus-ring-offset: initial; /* 2px */
-  --toast-close-focus-ring-width: initial; /* var(--border-width-md) */
-  --toast-close-icon-size: initial; /* 12px */
-  --toast-close-offset-right: initial; /* 0.5rem */
-  --toast-close-offset-top: initial; /* 0.5rem */
+  --toast-close-focus-ring-offset: initial; /* var(--focus-ring-offset) */
+  --toast-close-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
+  --toast-close-icon-size: initial; /* var(--spacing-3) */
+  --toast-close-offset-right: initial; /* var(--spacing-2) */
+  --toast-close-offset-top: initial; /* var(--spacing-2) */
   --toast-close-radius: initial; /* var(--radius-sm) */
-  --toast-close-size: initial; /* 28px */
+  --toast-close-size: initial; /* var(--spacing-7) */
   --toast-close-transition: initial; /* var(--transition-default) */
   --toast-color: initial; /* var(--color-popover-foreground) */
-  --toast-content-gap: initial; /* 0.25rem */
+  --toast-content-gap: initial; /* var(--spacing-1) */
   --toast-description-color: initial; /* var(--color-muted-foreground) */
   --toast-description-font-size: initial; /* var(--text-sm) */
   --toast-description-line-height: initial; /* var(--line-height-text-sm) */
   --toast-focus-ring-color: initial; /* var(--color-ring) */
   --toast-focus-ring-offset: initial; /* 0 */
-  --toast-focus-ring-width: initial; /* var(--toast-border-width, var(--border-width-sm)) */
+  --toast-focus-ring-width: initial; /* var(--toast-action-border-width, var(--focus-ring-inset-width, var(--border-width-sm))) */
   --toast-min-height: initial; /* 0 */
-  --toast-padding: initial; /* 1rem */
+  --toast-padding: initial; /* var(--spacing-4) */
   --toast-radius: initial; /* var(--radius-lg) */
   --toast-shadow: initial; /* var(--shadow-lg) */
   --toast-title-font-size: initial; /* var(--text-sm) */
-  --toast-title-gap: initial; /* 0.5rem */
+  --toast-title-gap: initial; /* var(--spacing-2) */
   --toast-title-font-weight: initial; /* var(--weight-semibold) */
   --toast-title-line-height: initial; /* var(--line-height-text-sm) */
   --toast-transition: initial; /* 400ms */
   --toast-transition-out: initial; /* 400ms */
   --toast-opacity-transition-out: initial; /* 200ms */
-  --toast-viewport-inset: initial; /* 1rem */
+  --toast-viewport-inset: initial; /* var(--spacing-4) */
   --toast-width: initial; /* 20rem */
   --toast-z-index: initial; /* var(--z-toast) */
 
   /* Tooltip */
   --tooltip-arrow-background: initial; /* var(--tooltip-bg, var(--color-popover)) */
-  --tooltip-arrow-size: initial; /* 0.625rem */
+  --tooltip-arrow-size: initial; /* var(--spacing-2-5) */
   --tooltip-arrow-stroke-color: initial; /* var(--tooltip-border-color, var(--color-border)) */
   --tooltip-bg: initial; /* var(--color-popover) */
   --tooltip-border-color: initial; /* var(--color-border) */
@@ -3188,14 +3222,14 @@
   --tooltip-color: initial; /* var(--color-popover-foreground) */
   --tooltip-disabled-opacity: initial; /* var(--opacity-disabled) */
   --tooltip-focus-ring-color: initial; /* var(--color-ring) */
-  --tooltip-focus-ring-offset: initial; /* -1px */
-  --tooltip-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tooltip-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --tooltip-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --tooltip-font-size: initial; /* var(--text-sm) */
   --tooltip-line-height: initial; /* var(--line-height-text-sm) */
   --tooltip-max-height: initial; /* 24rem */
   --tooltip-max-width: initial; /* 20rem */
-  --tooltip-padding-x: initial; /* 0.5rem */
-  --tooltip-padding-y: initial; /* 0.25rem */
+  --tooltip-padding-x: initial; /* var(--spacing-2) */
+  --tooltip-padding-y: initial; /* var(--spacing-1) */
   --tooltip-popup-ending-opacity: initial; /* 0 */
   --tooltip-popup-ending-scale: initial; /* var(--scale-popup) */
   --tooltip-popup-ending-translate-x: initial; /* 0 */
@@ -3214,10 +3248,10 @@
   --tooltip-trigger-border-width: initial; /* var(--border-width-sm) */
   --tooltip-trigger-color: initial; /* var(--color-foreground) */
   --tooltip-trigger-font-size: initial; /* var(--text-sm) */
-  --tooltip-trigger-height: initial; /* var(--size-lg) */
+  --tooltip-trigger-height: initial; /* var(--size-md) */
   --tooltip-trigger-line-height: initial; /* var(--line-height-text-sm) */
-  --tooltip-trigger-padding-x: initial; /* 0.875rem */
-  --tooltip-trigger-padding-y: initial; /* 0.5rem */
+  --tooltip-trigger-padding-x: initial; /* var(--spacing-3-5) */
+  --tooltip-trigger-padding-y: initial; /* var(--spacing-1) */
   --tooltip-trigger-radius: initial; /* var(--radius-md) */
   --tooltip-z-index: initial; /* var(--z-popup) */
 
@@ -3230,10 +3264,10 @@
   --tour-action-font-size: initial; /* var(--text-sm) */
   --tour-action-font-weight: initial; /* var(--weight-medium) */
   --tour-action-gap: initial; /* var(--spacing-2) */
-  --tour-action-height: initial; /* 2rem */
+  --tour-action-height: initial; /* var(--size-sm) */
   --tour-action-line-height: initial; /* var(--line-height-text-sm) */
-  --tour-action-padding-x: initial; /* 0.75rem */
-  --tour-action-padding-y: initial; /* 0.375rem */
+  --tour-action-padding-x: initial; /* var(--spacing-3) */
+  --tour-action-padding-y: initial; /* var(--spacing-1-5) */
   --tour-action-primary-bg: initial; /* var(--color-primary) */
   --tour-action-primary-bg-hover: initial; /* color-mix(in oklab, var(--color-primary), black 12%) */
   --tour-action-primary-border-color: initial; /* var(--color-primary) */
@@ -3242,7 +3276,7 @@
   --tour-action-radius: initial; /* var(--radius-md) */
   --tour-action-transition: initial; /* var(--transition-default) */
   --tour-arrow-background: initial; /* var(--tour-bg, var(--color-popover)) */
-  --tour-arrow-size: initial; /* 0.625rem */
+  --tour-arrow-size: initial; /* var(--spacing-2-5) */
   --tour-arrow-stroke-color: initial; /* var(--tour-border-color, var(--color-border)) */
   --tour-backdrop-bg: initial; /* var(--backdrop-bg, var(--color-overlay)) */
   --tour-backdrop-blur: initial; /* 4px */
@@ -3258,10 +3292,10 @@
   --tour-close-trigger-bg-hover: initial; /* var(--color-accent) */
   --tour-close-trigger-color: initial; /* var(--color-muted-foreground) */
   --tour-close-trigger-color-hover: initial; /* var(--tour-color, var(--color-popover-foreground)) */
-  --tour-close-trigger-icon-size: initial; /* 0.75rem */
+  --tour-close-trigger-icon-size: initial; /* var(--spacing-3) */
   --tour-close-trigger-offset: initial; /* var(--spacing-4) */
   --tour-close-trigger-radius: initial; /* var(--radius-md) */
-  --tour-close-trigger-size: initial; /* 1.75rem */
+  --tour-close-trigger-size: initial; /* var(--spacing-7) */
   --tour-color: initial; /* var(--color-popover-foreground) */
   --tour-content-ending-opacity: initial; /* 0 */
   --tour-content-ending-scale: initial; /* var(--scale-popup) */
@@ -3282,7 +3316,7 @@
   --tour-floating-offset: initial; /* var(--spacing-6) */
   --tour-floating-width: initial; /* 22rem */
   --tour-focus-ring-color: initial; /* var(--color-ring) */
-  --tour-focus-ring-width: initial; /* var(--border-width-sm) */
+  --tour-focus-ring-width: initial; /* var(--focus-ring-inset-width, var(--border-width-sm)) */
   --tour-gap: initial; /* var(--spacing-1) */
   --tour-max-height: initial; /* 24rem */
   --tour-max-width: initial; /* calc(100vw - var(--spacing-8)) */
@@ -3320,8 +3354,8 @@
   --toggle-default-color-pressed: initial; /* var(--color-primary-foreground) */
   --toggle-disabled-opacity: initial; /* var(--opacity-disabled) */
   --toggle-focus-ring-color: initial; /* var(--color-ring) */
-  --toggle-focus-ring-offset: initial; /* -1px */
-  --toggle-focus-ring-width: initial; /* var(--border-width-md) */
+  --toggle-focus-ring-offset: initial; /* var(--focus-ring-inset-offset) */
+  --toggle-focus-ring-width: initial; /* var(--focus-ring-width, var(--border-width-md)) */
   --toggle-font-size-xs: initial; /* var(--text-xs) */
   --toggle-font-size-lg: initial; /* var(--text-md) */
   --toggle-font-size: initial; /* var(--text-sm) */
@@ -3333,7 +3367,7 @@
   --toggle-ghost-border-color: initial; /* transparent */
   --toggle-ghost-color: initial; /* var(--color-foreground) */
   --toggle-ghost-color-pressed: initial; /* var(--color-foreground) */
-  --toggle-icon-size: initial; /* 1rem */
+  --toggle-icon-size: initial; /* var(--spacing-4) */
   --toggle-line-height-xs: initial; /* var(--line-height-text-xs) */
   --toggle-line-height-lg: initial; /* var(--line-height-text-md) */
   --toggle-line-height: initial; /* var(--line-height-text-sm) */
@@ -3345,22 +3379,22 @@
   --toggle-outline-border-color-pressed: initial; /* var(--color-primary) */
   --toggle-outline-color: initial; /* var(--color-foreground) */
   --toggle-outline-color-pressed: initial; /* var(--color-primary-foreground) */
-  --toggle-padding-x-xs: initial; /* 0.625rem */
-  --toggle-padding-x-sm: initial; /* 0.75rem */
-  --toggle-padding-x-md: initial; /* 1rem */
-  --toggle-padding-x-lg: initial; /* 1.25rem */
-  --toggle-padding-y-xs: initial; /* 0.25rem */
-  --toggle-padding-y-sm: initial; /* 0.375rem */
-  --toggle-padding-y-md: initial; /* 0.5rem */
-  --toggle-padding-y-lg: initial; /* 0.625rem */
+  --toggle-padding-x-xs: initial; /* var(--spacing-2-5) */
+  --toggle-padding-x-sm: initial; /* var(--spacing-3) */
+  --toggle-padding-x-md: initial; /* var(--spacing-4) */
+  --toggle-padding-x-lg: initial; /* var(--spacing-5) */
+  --toggle-padding-y-xs: initial; /* var(--spacing-0-5) */
+  --toggle-padding-y-sm: initial; /* var(--spacing-1) */
+  --toggle-padding-y-md: initial; /* var(--spacing-1) */
+  --toggle-padding-y-lg: initial; /* var(--spacing-1-5) */
   --toggle-radius: initial; /* var(--radius-md) */
   --toggle-size-icon-sm: initial; /* var(--size-sm) */
-  --toggle-size-icon-md: initial; /* var(--size-lg) */
-  --toggle-size-icon-lg: initial; /* var(--size-xl) */
+  --toggle-size-icon-md: initial; /* var(--size-md) */
+  --toggle-size-icon-lg: initial; /* var(--size-lg) */
   --toggle-size-xs: initial; /* var(--size-xs) */
   --toggle-size-sm: initial; /* var(--size-sm) */
-  --toggle-size-md: initial; /* var(--size-lg) */
-  --toggle-size-lg: initial; /* var(--size-xl) */
+  --toggle-size-md: initial; /* var(--size-md) */
+  --toggle-size-lg: initial; /* var(--size-lg) */
   --toggle-transition: initial; /* var(--transition-default) */
 
   /* ToggleGroup */

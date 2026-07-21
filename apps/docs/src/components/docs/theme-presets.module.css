@@ -154,6 +154,36 @@
   line-height: var(--line-height-text-md);
 }
 
+.previewMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+}
+
+.previewMeta > span {
+  display: inline-flex;
+  gap: var(--spacing-1);
+  align-items: baseline;
+  padding: var(--spacing-1) var(--spacing-2);
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-text-xs);
+  text-transform: none;
+}
+
+.previewMeta > span strong {
+  color: var(--color-foreground);
+  font-size: inherit;
+  font-weight: var(--weight-medium);
+  line-height: inherit;
+}
+
 .previewCanvas {
   display: grid;
   min-height: 22rem;
@@ -179,6 +209,8 @@
 }
 
 .previewCard {
+  position: relative;
+  width: 100%;
   max-width: 28rem;
   box-shadow: var(--shadow-lg);
 }
@@ -227,5 +259,13 @@
   .previewCanvas {
     min-height: 20rem;
     padding: var(--spacing-3);
+  }
+
+  .previewHeader {
+    align-items: flex-start;
+  }
+
+  .previewMeta {
+    justify-content: flex-start;
   }
 }

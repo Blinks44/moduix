@@ -102,7 +102,7 @@ const sidebarCssDefaults = {
   '--sidebar-color': 'var(--color-card-foreground)',
   '--sidebar-disabled-opacity': 'var(--opacity-disabled)',
   '--sidebar-focus-ring-color': 'var(--color-ring)',
-  '--sidebar-focus-ring-offset': 'var(--spacing-1)',
+  '--sidebar-focus-ring-offset': 'var(--focus-ring-offset)',
   '--sidebar-focus-ring-width': 'var(--border-width-md)',
   '--sidebar-gap': 'var(--spacing-2)',
   '--sidebar-group-gap': 'var(--spacing-1)',

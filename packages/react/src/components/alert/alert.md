@@ -159,8 +159,8 @@ Extends Ark `div` props and supports `asChild`.
 | `--alert-description-line-height` | `var(--line-height-text-sm)`                               |
 | `--alert-gap`                     | `var(--spacing-3)`                                         |
 | `--alert-indicator-color`         | `var(--alert-indicator-color-default, currentColor)`       |
-| `--alert-indicator-offset`        | `0.125rem`                                                 |
-| `--alert-indicator-size`          | `1rem`                                                     |
+| `--alert-indicator-offset`        | `var(--spacing-0-5)`                                       |
+| `--alert-indicator-size`          | `var(--spacing-4)`                                         |
 | `--alert-padding`                 | `var(--spacing-3)`                                         |
 | `--alert-radius`                  | `var(--radius-lg)`                                         |
 | `--alert-shadow`                  | `none`                                                     |
@@ -198,6 +198,7 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.
 - 2026-07-06: Made `Alert.Content` optional for the simple title/description path, changed

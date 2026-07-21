@@ -131,11 +131,11 @@ Public CSS variables:
 | `--rating-group-focus-ring-width`  | `0`                             |
 | `--rating-group-gap`               | `var(--spacing-1)`              |
 | `--rating-group-root-gap`          | `var(--spacing-1)`              |
-| `--rating-group-icon-size-xs`      | `0.875rem`                      |
-| `--rating-group-icon-size-sm`      | `1rem`                          |
-| `--rating-group-icon-size-md`      | `1.25rem`                       |
-| `--rating-group-icon-size-lg`      | `1.5rem`                        |
-| `--rating-group-icon-size-xl`      | `1.75rem`                       |
+| `--rating-group-icon-size-xs`      | `var(--spacing-3-5)`            |
+| `--rating-group-icon-size-sm`      | `var(--spacing-4)`              |
+| `--rating-group-icon-size-md`      | `var(--spacing-5)`              |
+| `--rating-group-icon-size-lg`      | `var(--spacing-6)`              |
+| `--rating-group-icon-size-xl`      | `var(--spacing-7)`              |
 | `--rating-group-label-color`       | `var(--color-foreground)`       |
 | `--rating-group-label-font-size`   | `var(--text-sm)`                |
 | `--rating-group-label-font-weight` | `var(--weight-semibold)`        |
@@ -165,6 +165,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-18: Rating item focus rings are opt-in through `--rating-group-focus-ring-*`; the
   default has no visible outline.
 

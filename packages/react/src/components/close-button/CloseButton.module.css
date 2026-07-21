@@ -5,8 +5,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--close-button-size, 28px);
-    height: var(--close-button-size, 28px);
+    width: var(--close-button-size, var(--spacing-7));
+    height: var(--close-button-size, var(--spacing-7));
     margin: 0;
     padding: 0;
     border: none;
@@ -24,8 +24,8 @@
 
     & > svg {
       flex-shrink: 0;
-      width: var(--close-button-icon-size, 12px);
-      height: var(--close-button-icon-size, 12px);
+      width: var(--close-button-icon-size, var(--spacing-3));
+      height: var(--close-button-icon-size, var(--spacing-3));
     }
 
     @media (hover: hover) {
@@ -36,9 +36,9 @@
     }
 
     &:focus-visible {
-      outline: var(--close-button-focus-ring-width, var(--border-width-md)) solid
-        var(--close-button-focus-ring-color, var(--color-ring));
-      outline-offset: var(--close-button-focus-ring-offset, 2px);
+      outline: var(--close-button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--close-button-focus-ring-color, var(--color-ring));
+      outline-offset: var(--close-button-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &[data-disabled] {

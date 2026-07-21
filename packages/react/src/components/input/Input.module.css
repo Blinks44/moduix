@@ -15,8 +15,11 @@
     font: inherit;
     font-size: var(--input-font-size, var(--input-font-size-md, var(--text-md)));
     line-height: var(--input-line-height, var(--input-line-height-md, var(--line-height-text-md)));
-    outline: var(--input-focus-ring-width, var(--input-border-width, var(--border-width-sm))) solid
-      transparent;
+    outline: var(
+        --input-focus-ring-width,
+        var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      )
+      solid transparent;
     outline-offset: var(
       --input-focus-ring-offset,
       calc(0px - var(--input-border-width, var(--border-width-sm)))
@@ -55,7 +58,7 @@
     &[data-size='xs'] {
       --input-height: var(--input-height-xs, var(--size-xs));
       --input-padding-x: var(--input-padding-x-xs, var(--spacing-2));
-      --input-padding-y: var(--input-padding-y-xs, var(--spacing-1));
+      --input-padding-y: var(--input-padding-y-xs, var(--spacing-0-5));
       --input-font-size: var(--input-font-size-xs, var(--text-xs));
       --input-line-height: var(--input-line-height-xs, var(--line-height-text-xs));
     }
@@ -69,17 +72,17 @@
     }
 
     &[data-size='lg'] {
-      --input-height: var(--input-height-lg, var(--size-xl));
+      --input-height: var(--input-height-lg, var(--size-lg));
       --input-padding-x: var(--input-padding-x-lg, var(--spacing-4));
-      --input-padding-y: var(--input-padding-y-lg, var(--spacing-2));
+      --input-padding-y: var(--input-padding-y-lg, var(--spacing-1));
       --input-font-size: var(--input-font-size-lg, var(--text-lg));
       --input-line-height: var(--input-line-height-lg, var(--line-height-text-lg));
     }
 
     &[data-size='xl'] {
-      --input-height: var(--input-height-xl, 3.5rem);
+      --input-height: var(--input-height-xl, var(--size-xl));
       --input-padding-x: var(--input-padding-x-xl, var(--spacing-4));
-      --input-padding-y: var(--input-padding-y-xl, var(--spacing-3));
+      --input-padding-y: var(--input-padding-y-xl, var(--spacing-2));
       --input-font-size: var(--input-font-size-xl, var(--text-lg));
       --input-line-height: var(--input-line-height-xl, var(--line-height-text-lg));
     }

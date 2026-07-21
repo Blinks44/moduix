@@ -172,8 +172,8 @@ The trigger defaults to `--size-md`. Single-line popup items default to `--size-
 - `Select.Content` uses Ark `--reference-width`, `--available-width`, `--available-height`, and
   `--transform-origin`.
 - Open/closed animation is tied to Ark `data-state` attributes.
-- Group labels use a standard `0.375rem` vertical padding default through
-  `--select-item-group-label-padding-y`.
+- Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular
+  weight, and `--spacing-1` block padding. Select-specific variables still take precedence.
 - Public theme variables are documented in `apps/docs/src/components/examples/select.tsx`.
 
 ## Intentional sugar and differences from upstream
@@ -198,6 +198,9 @@ The trigger defaults to `--size-md`. Single-line popup items default to `--size-
 - When registry-shipped select source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--spacing-1` contract.
 
 - 2026-07-21: Reduced the default trigger to `--size-md` and compacted popup items to `--size-sm`.
 

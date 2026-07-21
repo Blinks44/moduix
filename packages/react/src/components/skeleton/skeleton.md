@@ -117,6 +117,7 @@ Public CSS variables:
 | `--skeleton-animation`     | `var(--animation-pulse)`                                                          | Pulse variant animation.                                      |
 | `--skeleton-border-radius` | `var(--radius-md)`                                                                | Root border radius when no inline `borderRadius` is provided. |
 | `--skeleton-bg`            | `color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))` | Loading surface color.                                        |
+| `--skeleton-height`        | `var(--spacing-4)`                                                                | Default loading height when no inline size is provided.       |
 
 ## Intentional sugar and differences from upstream
 
@@ -139,6 +140,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Stopped exporting `SkeletonRootProps` and `SkeletonVariant`; keep the public surface
   on the component itself and preserve the same runtime behavior.
 - 2026-06-27: Audited the Ark factory migration, simplified loading-state CSS, fixed the anatomy

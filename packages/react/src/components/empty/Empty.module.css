@@ -31,8 +31,8 @@
 
     &:where(svg),
     & :where(svg) {
-      width: var(--empty-icon-size, 1.5rem);
-      height: var(--empty-icon-size, 1.5rem);
+      width: var(--empty-icon-size, var(--spacing-6));
+      height: var(--empty-icon-size, var(--spacing-6));
       flex-shrink: 0;
       pointer-events: none;
     }

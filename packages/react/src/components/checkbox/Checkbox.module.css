@@ -47,14 +47,17 @@
     }
 
     &[data-focus-visible] {
-      outline: var(--checkbox-focus-ring-width, var(--border-width-sm)) solid
-        var(--checkbox-focus-ring-color, var(--color-ring));
+      outline: var(
+          --checkbox-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
+        solid var(--checkbox-focus-ring-color, var(--color-ring));
       outline-offset: var(--checkbox-focus-ring-offset, var(--border-width-sm));
     }
 
     &[data-invalid] {
       border-color: var(--checkbox-border-color-invalid, var(--color-destructive));
-      color: var(--checkbox-color-invalid, var(--color-primary-foreground));
+      color: var(--checkbox-color-invalid, var(--color-destructive-foreground));
 
       &[data-state='checked'],
       &[data-state='indeterminate'] {
@@ -75,28 +78,28 @@
   }
 
   .root[data-size='xs'] .control {
-    --_checkbox-size: var(--checkbox-size-xs, 0.875rem);
-    --_checkbox-icon-size: var(--checkbox-icon-size-xs, 0.5rem);
+    --_checkbox-size: var(--checkbox-size-xs, var(--spacing-3-5));
+    --_checkbox-icon-size: var(--checkbox-icon-size-xs, var(--spacing-2));
   }
 
   .root[data-size='sm'] .control {
-    --_checkbox-size: var(--checkbox-size-sm, 1rem);
-    --_checkbox-icon-size: var(--checkbox-icon-size-sm, 0.625rem);
+    --_checkbox-size: var(--checkbox-size-sm, var(--spacing-4));
+    --_checkbox-icon-size: var(--checkbox-icon-size-sm, var(--spacing-2-5));
   }
 
   .root[data-size='md'] .control {
-    --_checkbox-size: var(--checkbox-size-md, 1.25rem);
-    --_checkbox-icon-size: var(--checkbox-icon-size-md, 0.75rem);
+    --_checkbox-size: var(--checkbox-size-md, var(--spacing-5));
+    --_checkbox-icon-size: var(--checkbox-icon-size-md, var(--spacing-3));
   }
 
   .root[data-size='lg'] .control {
-    --_checkbox-size: var(--checkbox-size-lg, 1.5rem);
-    --_checkbox-icon-size: var(--checkbox-icon-size-lg, 0.875rem);
+    --_checkbox-size: var(--checkbox-size-lg, var(--size-xs));
+    --_checkbox-icon-size: var(--checkbox-icon-size-lg, var(--spacing-3-5));
   }
 
   .root[data-size='xl'] .control {
-    --_checkbox-size: var(--checkbox-size-xl, 1.75rem);
-    --_checkbox-icon-size: var(--checkbox-icon-size-xl, 1rem);
+    --_checkbox-size: var(--checkbox-size-xl, var(--spacing-7));
+    --_checkbox-icon-size: var(--checkbox-icon-size-xl, var(--spacing-4));
   }
 
   .indicator {

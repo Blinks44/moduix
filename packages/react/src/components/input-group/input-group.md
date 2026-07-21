@@ -130,7 +130,9 @@ The default `md` group uses `--size-md`; the `sm` variant uses `--size-sm`. The 
 
 ## Local changelog
 
-- 2026-07-21: Aligned the `md` and `sm` group heights with `--size-md` and `--size-sm`, and compacted `md` input padding.
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-21: Normalized the complete group scale to `24/32/36/40/48px` tokens and compacted input
+  padding so typography no longer expands a selected size.
 
 - 2026-07-10: Clarified that actions remain independently enabled in disabled fields and added
   disabled/read-only story coverage for the shared shell states.

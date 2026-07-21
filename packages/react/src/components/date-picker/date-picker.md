@@ -240,6 +240,7 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the input to `--size-md` and aligned calendar popup controls to `--size-sm`.
 
 - 2026-07-20: Removed hover surfaces from date inputs and native month/year selects; icon actions retain their local hover treatment.

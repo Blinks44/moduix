@@ -54,14 +54,15 @@
       var(--field-control-border-color, var(--color-border));
     border-radius: var(--field-control-radius, var(--radius-md));
     padding: var(--field-control-padding-y, var(--spacing-1))
-      var(--field-control-padding-x, 0.875rem);
+      var(--field-control-padding-x, var(--spacing-3-5));
     background-color: var(--field-control-bg, var(--color-background));
     color: var(--field-control-color, var(--color-foreground));
     font: inherit;
     font-size: var(--field-control-font-size, var(--text-md));
     line-height: var(--field-control-line-height, var(--line-height-text-md));
-    outline: var(--field-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: var(--field-focus-ring-offset, -1px);
+    outline: var(--field-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      solid transparent;
+    outline-offset: var(--field-focus-ring-offset, var(--focus-ring-inset-offset));
     transition:
       border-color var(--field-control-transition, var(--transition-default)),
       outline-color var(--field-control-transition, var(--transition-default)),

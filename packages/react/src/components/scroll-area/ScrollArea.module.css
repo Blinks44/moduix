@@ -49,9 +49,12 @@
     }
 
     &:focus-visible {
-      outline: var(--scroll-area-focus-ring-width, var(--border-width-sm)) solid
-        var(--scroll-area-focus-ring-color, var(--color-ring));
-      outline-offset: var(--scroll-area-focus-ring-offset, -1px);
+      outline: var(
+          --scroll-area-focus-ring-width,
+          var(--focus-ring-inset-width, var(--border-width-sm))
+        )
+        solid var(--scroll-area-focus-ring-color, var(--color-ring));
+      outline-offset: var(--scroll-area-focus-ring-offset, var(--focus-ring-inset-offset));
     }
   }
 
@@ -171,12 +174,12 @@
 
     &[data-orientation='vertical'] {
       width: 100%;
-      min-height: var(--scroll-area-thumb-min-size, 1.5rem);
+      min-height: var(--scroll-area-thumb-min-size, var(--size-xs));
     }
 
     &[data-orientation='horizontal'] {
       height: 100%;
-      min-width: var(--scroll-area-thumb-min-size, 1.5rem);
+      min-width: var(--scroll-area-thumb-min-size, var(--size-xs));
     }
   }
 

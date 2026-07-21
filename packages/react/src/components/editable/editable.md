@@ -189,6 +189,7 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the editable area and its square trigger to `--size-md` and compacted area padding.
 
 - 2026-07-10: Added `Editable.Controls` for the standard trigger flow and re-exported context

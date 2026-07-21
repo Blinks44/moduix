@@ -33,7 +33,7 @@
   .area {
     --_editable-focus-ring-width: var(
       --editable-focus-ring-width,
-      var(--editable-border-width, var(--border-width-sm))
+      var(--editable-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
     );
 
     box-sizing: border-box;
@@ -46,7 +46,8 @@
     border: var(--editable-border-width, var(--border-width-sm)) var(--editable-border-style, solid)
       var(--editable-border-color, var(--color-border));
     border-radius: var(--editable-radius, var(--radius-md));
-    padding: var(--editable-padding-y, var(--spacing-1)) var(--editable-padding-x, 0.875rem);
+    padding: var(--editable-padding-y, var(--spacing-1))
+      var(--editable-padding-x, var(--spacing-3-5));
     background-color: var(--editable-bg, var(--color-background));
     color: var(--editable-color, var(--color-foreground));
     outline: var(--_editable-focus-ring-width) solid transparent;
@@ -143,8 +144,11 @@
     padding: 0;
     background-color: var(--editable-trigger-bg, var(--color-background));
     color: var(--editable-trigger-color, var(--color-foreground));
-    outline: var(--editable-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(0px - var(--editable-focus-ring-width, var(--border-width-sm)));
+    outline: var(--editable-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      solid transparent;
+    outline-offset: calc(
+      0px - var(--editable-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+    );
     cursor: pointer;
     transition:
       background-color var(--editable-transition, var(--transition-default)),
@@ -177,8 +181,8 @@
     }
 
     & > svg {
-      width: var(--editable-trigger-icon-size, 0.875rem);
-      height: var(--editable-trigger-icon-size, 0.875rem);
+      width: var(--editable-trigger-icon-size, var(--spacing-3-5));
+      height: var(--editable-trigger-icon-size, var(--spacing-3-5));
       flex-shrink: 0;
     }
   }

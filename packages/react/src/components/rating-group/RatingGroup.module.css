@@ -6,23 +6,23 @@
     color: var(--rating-group-color, var(--color-muted-foreground));
 
     &[data-size='xs'] {
-      --_rating-group-icon-size: var(--rating-group-icon-size-xs, 0.875rem);
+      --_rating-group-icon-size: var(--rating-group-icon-size-xs, var(--spacing-3-5));
     }
 
     &[data-size='sm'] {
-      --_rating-group-icon-size: var(--rating-group-icon-size-sm, 1rem);
+      --_rating-group-icon-size: var(--rating-group-icon-size-sm, var(--spacing-4));
     }
 
     &[data-size='md'] {
-      --_rating-group-icon-size: var(--rating-group-icon-size-md, 1.25rem);
+      --_rating-group-icon-size: var(--rating-group-icon-size-md, var(--spacing-5));
     }
 
     &[data-size='lg'] {
-      --_rating-group-icon-size: var(--rating-group-icon-size-lg, 1.5rem);
+      --_rating-group-icon-size: var(--rating-group-icon-size-lg, var(--spacing-6));
     }
 
     &[data-size='xl'] {
-      --_rating-group-icon-size: var(--rating-group-icon-size-xl, 1.75rem);
+      --_rating-group-icon-size: var(--rating-group-icon-size-xl, var(--spacing-7));
     }
   }
 
@@ -85,8 +85,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, 1.25rem));
-    height: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, 1.25rem));
+    width: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, var(--spacing-5)));
+    height: var(--_rating-group-icon-size, var(--rating-group-icon-size-md, var(--spacing-5)));
     color: var(--rating-group-active-color, var(--color-primary));
 
     & > svg {

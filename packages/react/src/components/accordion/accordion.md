@@ -159,6 +159,7 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-06: Added `Accordion.ItemBody` as a thin inner spacing wrapper, moved default panel spacing
   into the component CSS contract, and migrated stories/docs away from ad-hoc content wrapper divs.
 - 2026-07-09: Re-exported `useAccordion()` from moduix for the recommended `RootProvider` flow,

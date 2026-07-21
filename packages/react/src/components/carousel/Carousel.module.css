@@ -65,8 +65,8 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    width: var(--carousel-control-size, 2.5rem);
-    height: var(--carousel-control-size, 2.5rem);
+    width: var(--carousel-control-size, var(--size-md));
+    height: var(--carousel-control-size, var(--size-md));
     border: var(--border-width-sm) solid
       var(--carousel-control-border-color, color-mix(in oklab, var(--color-border) 88%, black 12%));
     border-radius: var(--radius-full);
@@ -85,8 +85,8 @@
       transform var(--transition-fast);
 
     & svg {
-      width: 1rem;
-      height: 1rem;
+      width: var(--carousel-control-icon-size, var(--spacing-4));
+      height: var(--carousel-control-icon-size, var(--spacing-4));
     }
 
     &:not(:disabled, [data-disabled]):hover {
@@ -100,9 +100,9 @@
     }
 
     &:focus-visible {
-      outline: var(--carousel-focus-ring-width, var(--border-width-md)) solid
-        var(--carousel-focus-ring-color, var(--color-ring));
-      outline-offset: var(--carousel-focus-ring-offset, 2px);
+      outline: var(--carousel-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--carousel-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &:is(:disabled, [data-disabled]) {
@@ -147,8 +147,8 @@
   }
 
   .indicator {
-    width: var(--carousel-indicator-size, 0.5rem);
-    height: var(--carousel-indicator-size, 0.5rem);
+    width: var(--carousel-indicator-size, var(--spacing-2));
+    height: var(--carousel-indicator-size, var(--spacing-2));
     padding: 0;
     border: 0;
     border-radius: var(--radius-full);
@@ -172,13 +172,13 @@
     }
 
     &:focus-visible {
-      outline: var(--carousel-focus-ring-width, var(--border-width-md)) solid
-        var(--carousel-focus-ring-color, var(--color-ring));
-      outline-offset: var(--carousel-focus-ring-offset, 2px);
+      outline: var(--carousel-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        solid var(--carousel-focus-ring-color, var(--color-ring));
+      outline-offset: var(--carousel-focus-ring-offset, var(--focus-ring-offset));
     }
 
     &[data-current] {
-      width: calc(var(--carousel-indicator-size, 0.5rem) * 3);
+      width: calc(var(--carousel-indicator-size, var(--spacing-2)) * 3);
       background-color: var(--carousel-indicator-bg-current, var(--color-primary));
       opacity: 1;
     }
@@ -192,20 +192,20 @@
   .root[data-orientation='vertical'] > .indicatorGroup .indicator,
   .control[data-orientation='vertical'] > .indicatorGroup .indicator {
     &[data-current] {
-      width: var(--carousel-indicator-size, 0.5rem);
-      height: calc(var(--carousel-indicator-size, 0.5rem) * 3);
+      width: var(--carousel-indicator-size, var(--spacing-2));
+      height: calc(var(--carousel-indicator-size, var(--spacing-2)) * 3);
     }
   }
 
   .autoplayTrigger {
-    min-width: 3rem;
+    min-width: var(--carousel-autoplay-trigger-min-width, calc(var(--size-md) + var(--spacing-3)));
   }
 
   .autoplayIndicator {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 1rem;
+    min-width: var(--carousel-autoplay-indicator-min-width, var(--spacing-4));
     font-size: var(--text-xs);
     font-weight: var(--weight-medium);
     line-height: var(--line-height-text-xs);

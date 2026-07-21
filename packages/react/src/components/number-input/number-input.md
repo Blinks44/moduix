@@ -189,6 +189,7 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the field and square stepper controls to `--size-md` and compacted input padding.
 
 - 2026-07-19: Switched control borders and corner radii to logical inline properties for RTL.

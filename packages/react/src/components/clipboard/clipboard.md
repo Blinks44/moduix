@@ -137,6 +137,7 @@ The text input and copy trigger use the shared `--size-md` baseline; the input's
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default input and copy trigger to `--size-md` and compacted input padding.
 
 - 2026-07-09: Added `Clipboard.useClipboard()` for the public `RootProvider` path, documented `asChild` as advanced customization, and covered the copied state in Storybook.

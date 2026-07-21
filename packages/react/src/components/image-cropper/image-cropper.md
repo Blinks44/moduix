@@ -94,6 +94,7 @@ The sugar over Ark is styling, stable `data-slot` hooks, `ImageCropper.handles`,
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-10: Added `CropArea`, `ImageCropper.Context`, and `useImageCropper` as moduix-owned advanced surfaces.
 
 - 2026-07-03: Removed duplicate moduix exports for Ark image cropper hooks, context, and types;

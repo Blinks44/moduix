@@ -134,32 +134,32 @@ Moduix adds visual defaults only:
 
 Public CSS variables:
 
-| Variable                                  | Default                         |
-| ----------------------------------------- | ------------------------------- |
-| `--pagination-color`                      | `var(--color-foreground)`       |
-| `--pagination-disabled-opacity`           | `var(--opacity-disabled)`       |
-| `--pagination-ellipsis-color`             | `var(--color-muted-foreground)` |
-| `--pagination-focus-ring-color`           | `var(--color-ring)`             |
-| `--pagination-focus-ring-offset`          | `-1px`                          |
-| `--pagination-focus-ring-width`           | `var(--border-width-md)`        |
-| `--pagination-font-size`                  | `var(--text-sm)`                |
-| `--pagination-font-weight`                | `var(--weight-medium)`          |
-| `--pagination-gap`                        | `var(--spacing-1)`              |
-| `--pagination-icon-size`                  | `1rem`                          |
-| `--pagination-item-bg`                    | `var(--color-background)`       |
-| `--pagination-item-bg-hover`              | `var(--color-accent)`           |
-| `--pagination-item-bg-selected`           | `var(--color-foreground)`       |
-| `--pagination-item-border-color`          | `var(--color-border)`           |
-| `--pagination-item-border-color-selected` | `var(--color-foreground)`       |
-| `--pagination-item-border-width`          | `var(--border-width-sm)`        |
-| `--pagination-item-color`                 | `var(--color-foreground)`       |
-| `--pagination-item-color-selected`        | `var(--color-background)`       |
-| `--pagination-item-padding-inline`        | `0.75rem`                       |
-| `--pagination-item-radius`                | `var(--radius-md)`              |
-| `--pagination-item-size`                  | `var(--size-lg)`                |
-| `--pagination-line-height`                | `var(--line-height-text-sm)`    |
-| `--pagination-transition`                 | `var(--transition-default)`     |
-| `--pagination-trigger-gap`                | `var(--spacing-2)`              |
+| Variable                                  | Default                                           |
+| ----------------------------------------- | ------------------------------------------------- |
+| `--pagination-color`                      | `var(--color-foreground)`                         |
+| `--pagination-disabled-opacity`           | `var(--opacity-disabled)`                         |
+| `--pagination-ellipsis-color`             | `var(--color-muted-foreground)`                   |
+| `--pagination-focus-ring-color`           | `var(--color-ring)`                               |
+| `--pagination-focus-ring-offset`          | `var(--focus-ring-inset-offset)`                  |
+| `--pagination-focus-ring-width`           | `var(--focus-ring-width, var(--border-width-md))` |
+| `--pagination-font-size`                  | `var(--text-sm)`                                  |
+| `--pagination-font-weight`                | `var(--weight-medium)`                            |
+| `--pagination-gap`                        | `var(--spacing-1)`                                |
+| `--pagination-icon-size`                  | `var(--spacing-4)`                                |
+| `--pagination-item-bg`                    | `var(--color-background)`                         |
+| `--pagination-item-bg-hover`              | `var(--color-accent)`                             |
+| `--pagination-item-bg-selected`           | `var(--color-foreground)`                         |
+| `--pagination-item-border-color`          | `var(--color-border)`                             |
+| `--pagination-item-border-color-selected` | `var(--color-foreground)`                         |
+| `--pagination-item-border-width`          | `var(--border-width-sm)`                          |
+| `--pagination-item-color`                 | `var(--color-foreground)`                         |
+| `--pagination-item-color-selected`        | `var(--color-background)`                         |
+| `--pagination-item-padding-inline`        | `var(--spacing-3)`                                |
+| `--pagination-item-radius`                | `var(--radius-md)`                                |
+| `--pagination-item-size`                  | `var(--size-md)`                                  |
+| `--pagination-line-height`                | `var(--line-height-text-sm)`                      |
+| `--pagination-transition`                 | `var(--transition-default)`                       |
+| `--pagination-trigger-gap`                | `var(--spacing-2)`                                |
 
 ## Intentional sugar and differences from upstream
 
@@ -175,6 +175,7 @@ list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default pagination items and icon triggers to `--size-md`.
 
 - 2026-07-10: Added `Pagination.Items` for the standard page list and namespace re-exports for

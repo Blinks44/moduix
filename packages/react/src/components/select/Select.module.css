@@ -39,7 +39,7 @@
     max-width: var(--select-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    gap: var(--select-root-gap, 0.375rem);
+    gap: var(--select-root-gap, var(--spacing-1-5));
     color: var(--select-color, var(--color-foreground));
   }
 
@@ -83,17 +83,21 @@
     border: var(--select-border-width, var(--border-width-sm)) solid
       var(--select-border-color, var(--color-border));
     border-radius: var(--select-radius, var(--radius-md));
-    padding-inline: var(--select-trigger-padding-x-start, 0.875rem)
+    padding-inline: var(--select-trigger-padding-x-start, var(--spacing-3-5))
       calc(
-        var(--select-action-offset-right, 0.5rem) + var(--select-action-size, 1.5rem) +
-          var(--select-trigger-padding-x-start, 0.875rem)
+        var(--select-action-offset-right, var(--spacing-2)) +
+          var(--select-action-size, var(--size-xs)) +
+          var(--select-trigger-padding-x-start, var(--spacing-3-5))
       );
     background-color: var(--select-bg, var(--color-background));
     color: inherit;
     font: inherit;
     text-align: start;
-    outline: var(--select-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--select-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+      solid transparent;
+    outline-offset: calc(
+      var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+    );
     cursor: pointer;
     user-select: none;
     transition:
@@ -141,10 +145,10 @@
   .indicators {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--select-action-offset-right, 0.5rem);
+    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
     display: inline-flex;
     align-items: center;
-    gap: var(--select-action-gap, 0.125rem);
+    gap: var(--select-action-gap, var(--spacing-0-5));
     line-height: 0;
     pointer-events: none;
     transform: translateY(-50%);
@@ -153,8 +157,8 @@
   .indicator {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--select-action-size, 1.5rem);
-    height: var(--select-action-size, 1.5rem);
+    width: var(--select-action-size, var(--size-xs));
+    height: var(--select-action-size, var(--size-xs));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
@@ -172,8 +176,8 @@
 
     & > svg {
       display: block;
-      width: var(--select-icon-size, 1rem);
-      height: var(--select-icon-size, 1rem);
+      width: var(--select-icon-size, var(--spacing-4));
+      height: var(--select-icon-size, var(--spacing-4));
     }
 
     &[data-disabled],
@@ -193,7 +197,7 @@
   .trigger > .indicator {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--select-action-offset-right, 0.5rem);
+    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
     pointer-events: auto;
     transform: translateY(-50%);
   }
@@ -206,8 +210,8 @@
   }
 
   .clearTrigger {
-    --close-button-size: var(--select-action-size, 1.5rem);
-    --close-button-icon-size: var(--select-icon-size, 1rem);
+    --close-button-size: var(--select-action-size, var(--size-xs));
+    --close-button-icon-size: var(--select-icon-size, var(--spacing-4));
     --close-button-radius: var(--select-action-radius, var(--radius-sm));
     --close-button-bg: var(--select-action-bg, transparent);
     --close-button-bg-hover: var(--select-action-bg-hover, var(--color-muted));
@@ -226,8 +230,8 @@
     position: absolute;
     top: 50%;
     inset-inline-end: calc(
-      var(--select-action-offset-right, 0.5rem) + var(--select-action-size, 1.5rem) +
-        var(--select-action-gap, 0.125rem)
+      var(--select-action-offset-right, var(--spacing-2)) +
+        var(--select-action-size, var(--size-xs)) + var(--select-action-gap, var(--spacing-0-5))
     );
     transform: translateY(-50%);
   }
@@ -249,7 +253,7 @@
     border: var(--select-content-border-width, var(--border-width-sm)) solid
       var(--select-content-border-color, var(--color-border));
     border-radius: var(--select-radius, var(--radius-md));
-    padding-block: var(--select-content-padding-y, var(--spacing-1));
+    padding-block: var(--select-content-padding-y, var(--popup-list-padding-y, var(--spacing-1)));
     background-color: var(--select-content-bg, var(--color-popover));
     box-shadow: var(--select-content-shadow, var(--shadow-lg));
     color: var(--select-content-color, var(--color-popover-foreground));
@@ -298,12 +302,27 @@
   }
 
   .itemGroupLabel {
-    padding-block: var(--select-item-group-label-padding-y, 0.375rem);
-    padding-inline: var(--select-item-group-label-padding-x, 0.625rem);
-    color: var(--select-item-group-label-color, var(--color-muted-foreground));
-    font-size: var(--select-item-group-label-font-size, var(--text-xs));
-    font-weight: var(--select-item-group-label-font-weight, var(--weight-semibold));
-    line-height: var(--select-item-group-label-line-height, var(--line-height-text-xs));
+    padding-block: var(
+      --select-item-group-label-padding-y,
+      var(--popup-group-label-padding-y, var(--spacing-1))
+    );
+    padding-inline: var(--select-item-group-label-padding-x, var(--spacing-2-5));
+    color: var(
+      --select-item-group-label-color,
+      var(--popup-group-label-color, var(--color-muted-foreground))
+    );
+    font-size: var(
+      --select-item-group-label-font-size,
+      var(--popup-group-label-font-size, var(--text-xs))
+    );
+    font-weight: var(
+      --select-item-group-label-font-weight,
+      var(--popup-group-label-font-weight, var(--weight-regular))
+    );
+    line-height: var(
+      --select-item-group-label-line-height,
+      var(--popup-group-label-line-height, var(--line-height-text-xs))
+    );
   }
 
   .item {
@@ -311,20 +330,26 @@
     box-sizing: border-box;
     display: flex;
     width: calc(100% - var(--select-item-inset-x, var(--spacing-2)));
-    min-height: var(--select-item-min-height, var(--size-sm));
+    min-height: var(--select-item-min-height, var(--popup-item-min-height, var(--size-sm)));
     align-items: center;
     justify-content: space-between;
     gap: var(--select-item-gap, var(--spacing-2));
     margin-inline: calc(var(--select-item-inset-x, var(--spacing-2)) / 2);
     border: var(--select-item-border-width, 0) solid var(--select-item-border-color, transparent);
     border-radius: var(--select-item-radius, var(--radius-sm));
-    padding-block: var(--select-item-padding-y, var(--spacing-1));
-    padding-inline: var(--select-item-padding-x, 0.625rem);
+    padding-block: var(--select-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    padding-inline: var(
+      --select-item-padding-x,
+      var(--popup-item-padding-x-start, var(--spacing-3))
+    );
     background-color: var(--select-item-bg, transparent);
     color: var(--select-item-color, var(--select-content-color, var(--color-foreground)));
     font: inherit;
-    font-size: var(--select-item-font-size, var(--text-sm));
-    line-height: var(--select-item-line-height, var(--line-height-text-sm));
+    font-size: var(--select-item-font-size, var(--popup-item-font-size, var(--text-sm)));
+    line-height: var(
+      --select-item-line-height,
+      var(--popup-item-line-height, var(--line-height-text-sm))
+    );
     outline: 0;
     user-select: none;
     cursor: default;
@@ -355,16 +380,16 @@
 
   .itemIndicator {
     display: inline-flex;
-    width: var(--select-item-indicator-size, 0.875rem);
-    height: var(--select-item-indicator-size, 0.875rem);
+    width: var(--select-item-indicator-size, var(--spacing-3-5));
+    height: var(--select-item-indicator-size, var(--spacing-3-5));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     color: var(--select-item-indicator-color, currentColor);
 
     & > svg {
-      width: var(--select-item-indicator-icon-size, 0.75rem);
-      height: var(--select-item-indicator-icon-size, 0.75rem);
+      width: var(--select-item-indicator-icon-size, var(--spacing-3));
+      height: var(--select-item-indicator-icon-size, var(--spacing-3));
     }
   }
 
@@ -379,8 +404,8 @@
 
   .itemTextIcon {
     display: inline-flex;
-    width: var(--select-item-text-icon-size, 1rem);
-    height: var(--select-item-text-icon-size, 1rem);
+    width: var(--select-item-text-icon-size, var(--spacing-4));
+    height: var(--select-item-text-icon-size, var(--spacing-4));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;

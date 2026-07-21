@@ -93,8 +93,15 @@
     padding: var(--color-picker-trigger-padding, var(--spacing-1));
     background: var(--color-picker-control-bg, var(--color-background));
     color: var(--color-picker-color, var(--color-foreground));
-    outline: var(--color-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--color-picker-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --color-picker-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--color-picker-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) *
+        -1
+    );
     cursor: pointer;
     transition:
       border-color var(--color-picker-transition, var(--transition-default)),
@@ -126,8 +133,8 @@
     &[data-fit-content] [data-slot='color-picker-transparency-grid'],
     &[data-fit-content] [data-slot='color-picker-value-swatch'] {
       grid-area: auto;
-      width: var(--color-picker-trigger-fit-content-swatch-size, 1rem);
-      height: var(--color-picker-trigger-fit-content-swatch-size, 1rem);
+      width: var(--color-picker-trigger-fit-content-swatch-size, var(--spacing-4));
+      height: var(--color-picker-trigger-fit-content-swatch-size, var(--spacing-4));
       flex-shrink: 0;
     }
   }
@@ -204,8 +211,8 @@
 
   .thumb {
     box-sizing: border-box;
-    width: var(--color-picker-thumb-size, 1rem);
-    height: var(--color-picker-thumb-size, 1rem);
+    width: var(--color-picker-thumb-size, var(--spacing-4));
+    height: var(--color-picker-thumb-size, var(--spacing-4));
     border-radius: var(--color-picker-thumb-radius, var(--radius-full));
     background: var(--color-picker-thumb-bg, var(--color-background));
     box-shadow:
@@ -302,8 +309,15 @@
     font: inherit;
     font-size: var(--color-picker-input-font-size, var(--text-sm));
     line-height: var(--color-picker-input-line-height, var(--line-height-text-sm));
-    outline: var(--color-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--color-picker-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --color-picker-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--color-picker-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) *
+        -1
+    );
     transition:
       border-color var(--color-picker-transition, var(--transition-default)),
       outline-color var(--color-picker-transition, var(--transition-default));
@@ -364,8 +378,15 @@
     font: inherit;
     font-size: var(--color-picker-action-font-size, var(--text-sm));
     line-height: var(--color-picker-action-line-height, var(--line-height-text-sm));
-    outline: var(--color-picker-focus-ring-width, var(--border-width-sm)) solid transparent;
-    outline-offset: calc(var(--color-picker-focus-ring-width, var(--border-width-sm)) * -1);
+    outline: var(
+        --color-picker-focus-ring-width,
+        var(--focus-ring-inset-width, var(--border-width-sm))
+      )
+      solid transparent;
+    outline-offset: calc(
+      var(--color-picker-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) *
+        -1
+    );
     cursor: pointer;
     transition:
       border-color var(--color-picker-transition, var(--transition-default)),
@@ -374,8 +395,8 @@
       color var(--color-picker-transition, var(--transition-default));
 
     & > svg {
-      width: var(--color-picker-icon-size, 1rem);
-      height: var(--color-picker-icon-size, 1rem);
+      width: var(--color-picker-icon-size, var(--spacing-4));
+      height: var(--color-picker-icon-size, var(--spacing-4));
     }
 
     &:is(:focus-visible, [data-focus]) {
@@ -416,7 +437,8 @@
     cursor: pointer;
 
     &:focus-visible {
-      box-shadow: 0 0 0 var(--color-picker-focus-ring-width, var(--border-width-sm))
+      box-shadow: 0 0 0
+        var(--color-picker-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
         var(--color-picker-focus-ring-color, var(--color-ring));
     }
 
@@ -447,12 +469,12 @@
     align-items: center;
     justify-content: center;
     color: var(--color-picker-swatch-indicator-color, white);
-    filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.45));
+    filter: var(--color-picker-swatch-indicator-shadow, drop-shadow(0 1px 1px rgb(0 0 0 / 0.45)));
     pointer-events: none;
 
     & > svg {
-      width: var(--color-picker-swatch-indicator-size, 1rem);
-      height: var(--color-picker-swatch-indicator-size, 1rem);
+      width: var(--color-picker-swatch-indicator-size, var(--spacing-4));
+      height: var(--color-picker-swatch-indicator-size, var(--spacing-4));
     }
 
     [data-state='checked'] > &,

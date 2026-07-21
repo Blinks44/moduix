@@ -100,20 +100,20 @@ icon content because the single child is the composed root:
 
 Public CSS variables:
 
-| CSS variable                       | Default                         |
-| ---------------------------------- | ------------------------------- |
-| `--close-button-bg`                | `transparent`                   |
-| `--close-button-bg-hover`          | `var(--color-muted)`            |
-| `--close-button-color`             | `var(--color-muted-foreground)` |
-| `--close-button-color-hover`       | `var(--color-foreground)`       |
-| `--close-button-disabled-opacity`  | `var(--opacity-disabled)`       |
-| `--close-button-focus-ring-color`  | `var(--color-ring)`             |
-| `--close-button-focus-ring-offset` | `2px`                           |
-| `--close-button-focus-ring-width`  | `var(--border-width-md)`        |
-| `--close-button-icon-size`         | `12px`                          |
-| `--close-button-radius`            | `var(--radius-sm)`              |
-| `--close-button-size`              | `28px`                          |
-| `--close-button-transition`        | `var(--transition-default)`     |
+| CSS variable                       | Default                                           |
+| ---------------------------------- | ------------------------------------------------- |
+| `--close-button-bg`                | `transparent`                                     |
+| `--close-button-bg-hover`          | `var(--color-muted)`                              |
+| `--close-button-color`             | `var(--color-muted-foreground)`                   |
+| `--close-button-color-hover`       | `var(--color-foreground)`                         |
+| `--close-button-disabled-opacity`  | `var(--opacity-disabled)`                         |
+| `--close-button-focus-ring-color`  | `var(--color-ring)`                               |
+| `--close-button-focus-ring-offset` | `var(--focus-ring-offset)`                        |
+| `--close-button-focus-ring-width`  | `var(--focus-ring-width, var(--border-width-md))` |
+| `--close-button-icon-size`         | `var(--spacing-3)`                                |
+| `--close-button-radius`            | `var(--radius-sm)`                                |
+| `--close-button-size`              | `var(--spacing-7)`                                |
+| `--close-button-transition`        | `var(--transition-default)`                       |
 
 ## Intentional sugar and differences from upstream
 
@@ -134,6 +134,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-17: Preserved an Ark parent's data hooks when it composes `CloseButton`, so clear
   triggers can share the button styling without losing their own anatomy or disabled state.
 
