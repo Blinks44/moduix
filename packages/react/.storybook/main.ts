@@ -1,8 +1,16 @@
-import type { StorybookConfig } from '@storybook/react-vite';
+import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [],
-  framework: '@storybook/react-vite',
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: ['@storybook/addon-docs', 'storybook-addon-rslib'],
+  framework: {
+    name: 'storybook-react-rsbuild',
+    options: {},
+  },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    check: true,
+  },
 };
+
 export default config;

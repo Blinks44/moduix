@@ -175,7 +175,7 @@ const FileUploadItemPreviewImage = forwardRef<
   );
 });
 
-function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<typeof FileIcon>) {
+function FileUploadItemPreviewIcon({ className, ...props }: ComponentProps<'svg'>) {
   return (
     <FileIcon
       data-slot="file-upload-item-preview-icon"
