@@ -77,6 +77,13 @@ body {
   background-color: color-mix(in srgb, var(--rp-c-bg) 72%, transparent);
   -webkit-backdrop-filter: saturate(140%) blur(12px);
   backdrop-filter: saturate(140%) blur(12px);
+
+  .rp-link {
+    transition: color 0.3s;
+    &:hover {
+      color: var(--rp-c-text-2);
+    }
+  }
 }
 
 .moduix-nav-logo {

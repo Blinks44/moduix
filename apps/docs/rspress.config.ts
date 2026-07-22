@@ -1,6 +1,7 @@
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
+import { fileURLToPath } from 'node:url';
 
 const siteOrigin = 'https://moduix.dev';
 const siteTitle = 'moduix';
@@ -65,6 +66,11 @@ export default defineConfig({
       checkDeadLinks: {
         excludes: ['/llms.txt', '/llms-full.txt'],
       },
+    },
+  },
+  builderConfig: {
+    html: {
+      template: fileURLToPath(new URL('./index.html', import.meta.url)),
     },
   },
   plugins: [pluginPreview(), pluginSitemap()],

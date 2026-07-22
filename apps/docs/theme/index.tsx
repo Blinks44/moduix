@@ -193,6 +193,7 @@ export function Layout() {
         components={mdxComponents as unknown as Record<string, FC>}
         navTitle={<ModuixNavTitle />}
       />
+      <div id="__rspress_modal_container" />
     </>
   );
 }
