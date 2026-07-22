@@ -1,9 +1,5 @@
-import { Toggle, useToggleContext } from '@moduix/react';
-import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './toggle.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const toggleBasicCss = `
 .favoriteToggle {
@@ -36,20 +32,7 @@ export const toggleStackCss = `
 }
 `;
 
-export const toggleCustomCss = `
-.customToggle {
-  --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-  --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
-  --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
-  --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-  --toggle-outline-color: var(--color-primary);
-  --toggle-outline-bg-pressed: var(--color-primary);
-  --toggle-outline-border-color-pressed: var(--color-primary);
-  --toggle-outline-color-pressed: var(--color-primary-foreground);
-}
-`;
-
-export const toggleOverrideCssProperties: CssPropertyInput[] = [
+const toggleOverrideCssProperties: CssPropertyInput[] = [
   ['--toggle-border-width', 'var(--border-width-sm)', 'Controls toggle border width.'],
   ['--toggle-color', 'var(--color-foreground)', 'Controls base toggle text and icon color.'],
   ['--toggle-content-gap', 'var(--spacing-2)', 'Controls spacing between text and icons.'],
@@ -150,113 +133,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export function ToggleExample(props: ComponentProps<typeof Toggle>) {
-  return (
-    <Toggle defaultPressed {...props}>
-      <StarIcon />
-      Favorite
-    </Toggle>
-  );
-}
-
-export function ToggleVariantsExample() {
-  return (
-    <div className={styles.row}>
-      <Toggle>Default</Toggle>
-      <Toggle variant="outline">Outline</Toggle>
-      <Toggle variant="ghost">Ghost</Toggle>
-      <Toggle defaultPressed>Pressed</Toggle>
-    </div>
-  );
-}
-
-export function ToggleSizesExample() {
-  return (
-    <div className={styles.row}>
-      <Toggle size="xs">Extra-small</Toggle>
-      <Toggle size="sm">Small</Toggle>
-      <Toggle size="md">Medium</Toggle>
-      <Toggle size="lg">Large</Toggle>
-    </div>
-  );
-}
-
-export function ToggleIconExample() {
-  return (
-    <div className={styles.row}>
-      <Toggle variant="outline">
-        <BellIcon />
-        Alerts
-      </Toggle>
-      <Toggle size="icon-md" variant="outline" aria-label="Favorites">
-        <StarIcon />
-      </Toggle>
-      <Toggle size="icon-md" variant="ghost" aria-label="Enabled" defaultPressed>
-        <CheckIcon />
-      </Toggle>
-    </div>
-  );
-}
-
-export function ToggleDisabledExample() {
-  return (
-    <div className={styles.row}>
-      <Toggle disabled>Disabled</Toggle>
-      <Toggle defaultPressed disabled>
-        Pressed
-      </Toggle>
-    </div>
-  );
-}
-
-export function ControlledToggleExample() {
-  const [pressed, setPressed] = useState(false);
-
-  return (
-    <div className={styles.stack}>
-      <Toggle pressed={pressed} onPressedChange={setPressed}>
-        <BellIcon />
-        {pressed ? 'Notifications on' : 'Notifications off'}
-      </Toggle>
-      <span className={styles.hint}>Current value: {String(pressed)}</span>
-    </div>
-  );
-}
-
-export function ToggleIndicatorExample() {
-  return (
-    <Toggle aria-label="Favorite" size="icon-md" variant="outline">
-      <Toggle.Indicator fallback={<StarIcon />}>
-        <CheckIcon />
-      </Toggle.Indicator>
-    </Toggle>
-  );
-}
-
-export function ToggleAsChildExample() {
-  return (
-    <Toggle asChild variant="outline" defaultPressed>
-      <button type="button">
-        <CheckIcon />
-        Save to favorites
-      </button>
-    </Toggle>
-  );
-}
-
-function ToggleStateLabel() {
-  const toggle = useToggleContext();
-
-  return <span>{toggle.pressed ? 'Notifications on' : 'Notifications off'}</span>;
-}
-
-export function ToggleAdvancedCustomizationExample() {
-  return (
-    <Toggle defaultPressed>
-      <BellIcon />
-      <ToggleStateLabel />
-    </Toggle>
-  );
 }

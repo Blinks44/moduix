@@ -1,27 +1,11 @@
-import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
-import { Button, Toast, Toaster, createToaster } from '@moduix/react';
-import { Info as InfoIcon, X as CloseIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { ToastPlacement } from '@ark-ui/react/toast';
+import { Button, Toaster, createToaster } from '@moduix/react';
+import { useState } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 import styles from './toast.module.css';
-
-type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
 type ToastToaster = ReturnType<typeof createToaster>;
-
-const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
-const actionToaster = createToaster({ placement: 'bottom-end', gap: 24 });
-const durationToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
-const expandedToaster = createToaster({
-  placement: 'bottom-end',
-  overlap: false,
-  gap: 16,
-});
 const maxToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
-const promiseToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
-const typeToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
-const updateToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
-const customToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
 const placementToasters: Record<ToastPlacement, ToastToaster> = {
   'top-start': createToaster({ placement: 'top-start', overlap: true, gap: 16 }),
@@ -32,7 +16,7 @@ const placementToasters: Record<ToastPlacement, ToastToaster> = {
   'bottom-end': createToaster({ placement: 'bottom-end', overlap: true, gap: 16 }),
 };
 
-export const toastOverrideCssProperties: CssPropertyInput[] = [
+const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--toast-action-bg', 'transparent', 'Controls action button background.'],
   ['--toast-action-bg-hover', 'var(--color-accent)', 'Controls action hover background.'],
   ['--toast-action-border-color', 'var(--color-border)', 'Controls action border color.'],
@@ -141,136 +125,11 @@ export const toastExampleCss = `
 }
 `;
 
-export const toastBasicData = `
-const toaster = createToaster({
-  placement: "bottom-end",
-  overlap: true,
-  gap: 24,
-});
-`;
-
-export const toastPlacementData = `
-const placements = ["top-start", "top", "top-end", "bottom-start", "bottom", "bottom-end"];
-`;
-
-export const toastDurationData = `
-const durations = [
-  { label: "1s", value: 1000 },
-  { label: "3s", value: 3000 },
-  { label: "5s", value: 5000 },
-  { label: "Permanent", value: Infinity },
-];
-`;
-
-export const toastMaxData = `
-const toaster = createToaster({
-  max: 3,
-  overlap: true,
-  placement: "bottom-end",
-  gap: 16,
-});
-`;
-
-export const toastExpandedData = `
-const toaster = createToaster({
-  placement: "bottom-end",
-  overlap: false,
-  gap: 16,
-});
-`;
-
-export const toastPromiseData = `
-const uploadFile = () =>
-  new Promise<void>((resolve, reject) => {
-    window.setTimeout(() => {
-      Math.random() > 0.5 ? resolve() : reject(new Error("Upload failed"));
-    }, 2000);
-  });
-`;
-
-export const toastTypesData = `
-const types = ["success", "error", "warning", "info"];
-`;
-
 export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={toastOverrideCssProperties.map(normalizeCssProperty)}
     />
-  );
-}
-
-export function ToastExample() {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          basicToaster.create({
-            title: 'Scheduled for tomorrow',
-            description: 'Your meeting has been scheduled for tomorrow at 10am.',
-            type: 'info',
-          })
-        }
-      >
-        Schedule meeting
-      </Button>
-      <ToastRenderer toaster={basicToaster} />
-    </>
-  );
-}
-
-export function ActionToastExample() {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          actionToaster.create({
-            title: 'Event has been created',
-            description: 'We have sent you an email with the event details.',
-            type: 'info',
-            action: {
-              label: 'Undo',
-              onClick: () => actionToaster.info({ description: 'Event restored to draft.' }),
-            },
-          })
-        }
-      >
-        Create event
-      </Button>
-      <ToastRenderer toaster={actionToaster} />
-    </>
-  );
-}
-
-export function DurationToastExample() {
-  return (
-    <>
-      <div className={styles.typedActions}>
-        {[
-          { label: '1s', value: 1000 },
-          { label: '3s', value: 3000 },
-          { label: '5s', value: 5000 },
-          { label: 'Permanent', value: Infinity },
-        ].map((duration) => (
-          <Button
-            key={duration.label}
-            onClick={() =>
-              durationToaster.info({
-                title: 'Reminder set',
-                description:
-                  duration.value === Infinity
-                    ? 'This notification will stay until dismissed.'
-                    : `This notification will disappear in ${duration.label}.`,
-                duration: duration.value,
-              })
-            }
-          >
-            {duration.label}
-          </Button>
-        ))}
-      </div>
-      <ToastRenderer toaster={durationToaster} />
-    </>
   );
 }
 
@@ -305,24 +164,6 @@ export function MaxToastsToastExample() {
         </Button>
       </div>
       <ToastRenderer toaster={maxToaster} />
-    </>
-  );
-}
-
-export function ExpandedToastExample() {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          expandedToaster.info({
-            title: 'Expanded toast',
-            description: 'Each notification remains fully visible in the stack.',
-          })
-        }
-      >
-        Create expanded toast
-      </Button>
-      <ToastRenderer toaster={expandedToaster} />
     </>
   );
 }
@@ -365,124 +206,6 @@ export function PlacementToastExample() {
   );
 }
 
-export function PromiseToastExample() {
-  const handleUpload = () => {
-    promiseToaster.promise(uploadFile, {
-      loading: {
-        title: 'Uploading file...',
-        description: 'Please wait while we upload your document.',
-      },
-      success: {
-        title: 'Upload complete',
-        description: 'Your file has been uploaded successfully.',
-      },
-      error: {
-        title: 'Upload failed',
-        description: 'Could not upload the file. Please try again.',
-      },
-    });
-  };
-
-  return (
-    <>
-      <Button onClick={handleUpload}>Upload file</Button>
-      <ToastRenderer toaster={promiseToaster} />
-    </>
-  );
-}
-
-export function ToastTypesExample() {
-  return (
-    <>
-      <div className={styles.typedActions}>
-        {(['success', 'error', 'warning', 'info'] as ToastType[]).map((type) => (
-          <Button
-            key={type}
-            onClick={() =>
-              typeToaster[type]({
-                title: type === 'info' ? 'Update available' : `${type} toast`,
-                description: `This notification uses the ${type} status style.`,
-              })
-            }
-          >
-            {type}
-          </Button>
-        ))}
-      </div>
-      <ToastRenderer toaster={typeToaster} />
-    </>
-  );
-}
-
-export function UpdateToastExample() {
-  const idRef = useRef<string | undefined>(undefined);
-
-  return (
-    <>
-      <div className={styles.typedActions}>
-        <Button
-          onClick={() => {
-            idRef.current = updateToaster.create({
-              title: 'Sending message...',
-              description: 'Please wait while we deliver your message.',
-              type: 'loading',
-            });
-          }}
-        >
-          Send message
-        </Button>
-        <Button
-          onClick={() => {
-            if (!idRef.current) {
-              return;
-            }
-
-            updateToaster.update(idRef.current, {
-              title: 'Message sent',
-              description: 'Your message has been delivered successfully.',
-              type: 'success',
-            });
-          }}
-        >
-          Mark as sent
-        </Button>
-      </div>
-      <ToastRenderer toaster={updateToaster} />
-    </>
-  );
-}
-
-export function AdvancedToastExample() {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          customToaster.success({
-            title: 'Workspace synced',
-            description: 'Map edits are available to everyone.',
-          })
-        }
-      >
-        Create custom toast
-      </Button>
-      <Toaster toaster={customToaster}>
-        {(toast) => (
-          <Toast.Root key={toast.id} className={styles.customToast}>
-            <div className={styles.customContent}>
-              <InfoIcon className={styles.customIcon} />
-              <Toast.Title />
-              <Toast.Description />
-            </div>
-            <Toast.CloseTrigger>
-              <CloseIcon className={styles.closeIcon} />
-            </Toast.CloseTrigger>
-          </Toast.Root>
-        )}
-      </Toaster>
-    </>
-  );
-}
-
 function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
   return <Toaster toaster={toaster} />;
 }
@@ -494,14 +217,3 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
   return property;
 }
-
-const uploadFile = () =>
-  new Promise<void>((resolve, reject) => {
-    window.setTimeout(() => {
-      if (Math.random() > 0.5) {
-        resolve();
-      } else {
-        reject(new Error('Upload failed'));
-      }
-    }, 2000);
-  });

@@ -1,0 +1,205 @@
+---
+title: Editable
+component: editable
+description: Ark UI in-place text editing with preview, input, controls, and form state integration.
+---
+
+import * as EditableDocs from '@/components/examples/editable';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+
+## Choosing the right component
+
+- Choose **`Input`** or **`Textarea`** when the value should always look editable.
+- Choose **`Editable`** when the default surface is read-only text and editing is an intentional
+  interaction.
+- Use **`Field`** around `Editable` when helper text, error text, or shared form state needs to be
+  visible outside the editable part tree.
+
+## Basic
+
+Use Ark-style parts: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input`, and
+`Editable.Preview`. Add `Editable.Controls` for the standard edit, submit, and cancel flow.
+The wrapper adds styling, `data-slot` attributes, and default trigger icons.
+The moduix default enters edit mode on double-click to reduce accidental edits.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="editable" />
+
+## Anatomy
+
+```text
+Editable.Root
+├─ Editable.Label
+├─ Editable.Area
+│  ├─ Editable.Input
+│  └─ Editable.Preview
+├─ Editable.Control or Editable.Controls
+│  ├─ Editable.EditTrigger
+│  ├─ Editable.SubmitTrigger
+│  └─ Editable.CancelTrigger
+
+Editable.RootProvider
+└─ same part tree connected to Ark `useEditable()` state
+```
+
+| Part                         | Role                                                   |
+| ---------------------------- | ------------------------------------------------------ |
+| `Editable` / `Editable.Root` | Root state, callbacks, form props, and a11y wiring.    |
+| `Editable.RootProvider`      | Root powered by a `useEditable()` instance.            |
+| `Editable.Label`             | Accessible label linked to the editable input.         |
+| `Editable.Area`              | Shared surface for the input and preview parts.        |
+| `Editable.Input`             | Text input shown while editing.                        |
+| `Editable.Preview`           | Read-mode text or placeholder shown outside edit mode. |
+| `Editable.Control`           | Optional wrapper for edit, submit, and cancel buttons. |
+| `Editable.Controls`          | Standard edit, submit, and cancel control flow.        |
+| `Editable.EditTrigger`       | Button that enters edit mode.                          |
+| `Editable.SubmitTrigger`     | Button that commits the value.                         |
+| `Editable.CancelTrigger`     | Button that reverts the value.                         |
+
+## Composition
+
+### Recommended composition
+
+Keep `Input` and `Preview` as siblings inside `Area`, and place `Controls` after `Area` for the
+standard trigger flow. It renders trigger buttons on the right and vertically centered for
+single-line inputs. Textarea compositions use the same structure and can set
+`--editable-control-align: start` to keep controls aligned to the top of the multiline surface.
+
+### When to go custom
+
+Use moduix `Editable.Context` or `useEditableContext()` when reusable child parts or inline state
+reads need editable state. Use moduix `useEditable()` with `Editable.RootProvider` when state or
+methods must be owned outside the rendered editable tree. Use `asChild` for a semantic custom input
+host, such as a textarea.
+
+### Default props
+
+| Prop             | Default    | Notes                                                                                                                 |
+| ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
+| `activationMode` | `dblclick` | moduix uses double-click by default; pass `focus`, `click`, or `none` when a different Ark activation mode is needed. |
+| `selectOnFocus`  | `true`     | Ark selects input text when the input receives focus.                                                                 |
+| `submitMode`     | `both`     | `Enter` and blur commit by default; use `none` with explicit submit controls.                                         |
+
+### Behavioral notes
+
+`value` and `defaultValue` own the text value. `edit` and `defaultEdit` own edit mode. Ark callback
+props keep details objects, so `onValueChange`, `onValueCommit`, `onValueRevert`, and
+`onEditChange` receive the same payloads as Ark UI.
+
+`Enter` commits and `Escape` reverts. When `Editable.Input` renders a textarea through `asChild`,
+Cmd/Ctrl + Enter commits the value. `name` and `form` are forwarded to Ark for native form
+submission.
+
+## Examples
+
+### Controlled
+
+Control the value with `value` and `onValueChange` when application state is the source of truth.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/controlled.tsx"
+
+```
+
+### Field
+
+Wrap the editable with `Field` when validation state and error text live outside the editable
+surface.
+
+<style>{`
+  ${EditableDocs.editableExampleCss}
+
+  .centered-field-example {
+    --field-width: min(20rem, 100%);
+
+    margin-inline: auto;
+  }
+`}</style>
+
+```tsx preview file="./_snippets/editable/field.tsx"
+
+```
+
+### Guides
+
+Common Ark guides are forwarded through root props: activation mode, auto-resize, max length,
+mode-specific placeholders, and accessible control translations.
+This example switches `activationMode` to `click` to show how to opt out of the moduix double-click
+default.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/guides.tsx"
+
+```
+
+### Root Provider
+
+Use moduix `useEditable()` and `Editable.RootProvider` when external controls need access to the
+editable state methods. Pass `activationMode: 'dblclick'` to the hook if you want the same default
+activation behavior as the moduix root component.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/root-provider.tsx"
+
+```
+
+### Textarea
+
+Render `Editable.Input` as a textarea for multi-line content. Keep the child semantic and place
+textarea-only sizing in CSS.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/textarea.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Editable.Controls` when a custom state-dependent layout needs `Editable.Context` directly.
+
+<style>{EditableDocs.editableExampleCss}</style>
+
+```tsx preview file="./_snippets/editable/advanced-customization.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <EditableDocs.EditableCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="editable-root"`, `editable-root-provider`, `editable-label`, `editable-area`,
+  `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
+  `editable-submit-trigger`, and `editable-cancel-trigger`.
+- Ark also emits `data-scope="editable"` and `data-part` attributes for each primitive part.
+- State selectors include `data-focus` on `Label` and `Area`; `data-disabled` on `Area`, `Input`,
+  and `Preview`; `data-readonly` / `aria-readonly` on read-only controls; `data-invalid` on
+  `Label`, `Input`, and `Preview`; `data-required` on `Label`; `data-placeholder-shown` on `Area`
+  and `Preview`; and `data-autoresize` on `Input` and `Preview`.

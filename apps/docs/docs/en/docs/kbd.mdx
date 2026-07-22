@@ -1,0 +1,173 @@
+---
+title: Kbd
+component: kbd
+description: A compact keycap for keyboard shortcuts and command hints.
+---
+
+import * as KbdDocs from '@/components/examples/kbd';
+
+## API Reference
+
+Ark UI does not ship a dedicated kbd primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Start with `Kbd` for one key and `Kbd.Group` when several keys form one shortcut.
+
+<style>{`
+      .kbd-demo-shortcut {
+        display: inline-flex;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/kbd/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="kbd" />
+
+## Anatomy
+
+The normal consumer path is short:
+
+```text
+Kbd.Group
+├─ Kbd / Kbd.Root
+├─ +
+└─ Kbd / Kbd.Root
+```
+
+| Part               | Role                                                    |
+| ------------------ | ------------------------------------------------------- |
+| `Kbd` / `Kbd.Root` | Polymorphic keycap root; renders `kbd` by default.      |
+| `Kbd.Group`        | Polymorphic semantic wrapper for shortcut combinations. |
+
+## Composition
+
+### Recommended composition
+
+Use `Kbd` as the root shorthand and `Kbd.Group` for shortcut hints, command menus, and inline help.
+
+Both parts accept `HTMLArkProps<'kbd'>`, forward refs to the rendered element, and support `asChild`.
+There is no variant, size, separator, callback, or state API.
+
+### When to go custom
+
+Use `asChild` when an existing semantic `<kbd>` element must receive the moduix styles and Ark
+composition behavior. The child must be one element and must preserve keyboard-input semantics.
+
+### Behavioral notes
+
+- `Kbd`, `Kbd.Root`, and `Kbd.Group` are static shortcut labels, not interactive controls.
+- Separators such as `+`, `/`, or `then` stay in plain composition as normal text.
+- Add `aria-label` to `Kbd.Group` when abbreviations or symbols need a clearer spoken form.
+- The parts expose `data-scope="kbd"`, `data-part`, and stable `data-slot` attributes.
+
+## Examples
+
+### Compact Density
+
+Use local CSS variables for one-off density or tone changes instead of extra component props.
+
+<style>{`
+      .kbd-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+      }
+
+      .kbd-demo-dense {
+        --kbd-height: 1.25rem;
+        --kbd-min-width: 1.25rem;
+        --kbd-padding-x: var(--spacing-1);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/kbd/compact-density.tsx"
+
+```
+
+### Custom Element
+
+Use `asChild` to merge Kbd props into one semantic child when another layer owns the element.
+
+<style>{`
+      [data-slot="kbd-root"] {
+        cursor: default;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/kbd/custom-element.tsx"
+
+```
+
+### Shortcut List
+
+Use plain composition when shortcuts need to sit next to surrounding copy.
+
+<style>{`
+      .kbd-demo-shortcut-list {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+
+      .kbd-demo-shortcut-row {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+        gap: var(--spacing-3);
+        color: var(--color-muted-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/kbd/shortcut-list.tsx"
+
+```
+
+### Single Key
+
+Use `Kbd` directly when the UI refers to one key.
+
+<style>{`
+      [data-scope="kbd"][data-part="root"] {
+        vertical-align: middle;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/kbd/single-key.tsx"
+
+```
+
+## Styling
+
+Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable `data-slot` hooks, and the public
+`--kbd-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <KbdDocs.KbdCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="kbd-root"` targets the individual keycap element
+- `data-slot="kbd-group"` targets the inline semantic wrapper for grouped shortcuts
+- `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
+- `Kbd.Group` inherits text styles for separators, and `--kbd-group-separator-color` controls their color

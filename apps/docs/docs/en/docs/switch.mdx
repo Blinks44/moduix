@@ -1,0 +1,257 @@
+---
+title: Switch
+component: switch
+description: A composable Ark UI switch control for turning a setting on or off.
+---
+
+import * as SwitchDocs from '@/components/examples/switch';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+
+## Choosing the right component
+
+Use `Switch` for immediate on/off settings where changing the control should toggle one boolean
+state.
+
+- Choose **`Switch`** for settings such as notifications, reminders, or feature flags.
+- Choose **`Checkbox`** when the control behaves like a submitted selection rather than an immediate
+  setting toggle.
+- Choose **`RadioGroup`** when users must choose one option from several mutually exclusive values.
+
+## Basic
+
+Start with the Ark anatomy: root label, visual control, thumb, text label, and hidden input. The
+short `<Switch>` export is the same root part as `Switch.Root`.
+
+<style>{`
+      [data-slot="switch-root"] {
+        --switch-bg-checked: var(--color-primary);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/switch/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="switch" />
+
+## Anatomy
+
+```text
+Switch / Switch.Root
+├─ Switch.Control
+│  └─ Switch.Thumb
+├─ Switch.Label
+└─ native input (automatic)
+```
+
+| Part                     | Role                                                                 |
+| ------------------------ | -------------------------------------------------------------------- |
+| `Switch` / `Switch.Root` | Root label element. Owns checked state, ids, form props, and `size`. |
+| `Switch.Control`         | Visual track and focus ring target. Auto-renders `Switch.Thumb`.     |
+| `Switch.Thumb`           | Movable thumb for default visuals or custom thumb content.           |
+| `Switch.Label`           | Ark label text connected to the switch.                              |
+| `Switch.RootProvider`    | Root label driven by an external Ark `useSwitch()` state instance.   |
+
+`Switch.Context`, `useSwitchContext`, and `useSwitch` are exported from `@moduix/react` alongside
+the component.
+
+## Composition
+
+### Recommended composition
+
+Keep the visible Ark part tree explicit with `Switch.Control` and `Switch.Label`. `Switch.Root`
+renders its native form input automatically.
+
+`Switch.Control` renders the default `Switch.Thumb` when its children are omitted. Compose
+`Switch.Thumb` directly when the thumb needs custom content or styling.
+
+### When to go custom
+
+Use `asChild` only when the root must render a custom host element. Ark renders the root as a
+`label`; the direct `asChild` element must stay label-compatible so the switch keeps a valid
+accessible name.
+
+Use `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@moduix/react` when surrounding UI
+needs to read or own the Ark switch state.
+
+### Default props
+
+| Prop        | Default     | Notes                                       |
+| ----------- | ----------- | ------------------------------------------- |
+| `size`      | `md`        | moduix sugar: `xs`, `sm`, `md`, `lg`, `xl`. |
+| `value`     | `on`        | Ark hidden input value for form submission. |
+| `children`  | `undefined` | Compose Ark parts explicitly.               |
+| `className` | `undefined` | Applied to the Ark root label.              |
+
+### Behavioral notes
+
+- Use `defaultChecked` for uncontrolled mode and `checked` with
+  `onCheckedChange(details)` for controlled mode.
+- `details.checked` is the next boolean state. The old raw boolean callback is removed.
+- The root renders the native form input when the switch participates in native forms or form reset.
+- Use `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@moduix/react` for advanced state
+  reads instead of wrapper-level callback adapters.
+- Use `asChild` for a custom root host. The child must remain a single semantic label-compatible
+  element.
+
+## Examples
+
+### As Child
+
+Use `asChild` when a custom root element needs to own the DOM node while Ark keeps the switch
+behavior.
+
+<style>{`
+      .siblingRow {
+        display: flex;
+        align-items: center;
+        gap: var(--switch-gap, var(--spacing-2));
+      }
+
+      .label {
+        color: var(--switch-label-color, var(--color-foreground));
+        font-size: var(--switch-label-font-size, var(--text-sm));
+        font-weight: var(--switch-label-font-weight, var(--weight-medium));
+        line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/switch/as-child.tsx"
+
+```
+
+### Context
+
+Import `useSwitchContext` from `@moduix/react` when a nearby label or supporting element should
+read the live switch state.
+
+```tsx preview file="./_snippets/switch/context.tsx"
+
+```
+
+### Controlled
+
+Use controlled mode when the switch needs to coordinate with surrounding UI.
+
+<ExampleFrame clientOnly>
+  <SwitchDocs.ControlledSwitchExample />
+</ExampleFrame>
+
+```tsx
+const initialChecked = true;
+const onCheckedChange = (details) => setChecked(details.checked);
+
+import { Switch } from '@moduix/react';
+import { useState } from 'react';
+import styles from '@/components/examples/switch.module.css';
+
+export default function ControlledSwitchDemo() {
+  const [checked, setChecked] = useState(true);
+
+  return (
+    <div className={styles.stack}>
+      <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
+        <Switch.Control />
+        <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
+      </Switch>
+      <span className={styles.hint}>Current value: {String(checked)}</span>
+    </div>
+  );
+}
+```
+
+### Disabled
+
+Use `disabled` to prevent interaction while preserving the current visual state.
+
+```tsx preview file="./_snippets/switch/disabled.tsx"
+
+```
+
+### Form Integration
+
+Use `Field` with the native form input when the switch participates in form labeling, validation, or
+submission.
+
+```tsx preview file="./_snippets/switch/form-integration.tsx"
+
+```
+
+### Initial Checked
+
+Use `defaultChecked` when the first render should start enabled but the switch can manage itself
+afterward.
+
+```tsx preview file="./_snippets/switch/initial-checked.tsx"
+
+```
+
+### Read Only
+
+Use `readOnly` when the current state should stay visible but should not be changed by the user.
+
+```tsx preview file="./_snippets/switch/read-only.tsx"
+
+```
+
+### Root Provider
+
+Import `useSwitch` from `@moduix/react` and pair it with `Switch.RootProvider` when state must be
+owned outside the rendered switch tree.
+
+```tsx preview file="./_snippets/switch/root-provider.tsx"
+
+```
+
+### Sizes
+
+Use moduix `size` to match different form densities without changing the Ark part tree.
+
+```tsx preview file="./_snippets/switch/sizes.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Switch.Control`'s default thumb when the thumb needs custom content or styling.
+
+```tsx preview file="./_snippets/switch/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Style `Switch` through `className`, public `data-slot` hooks, Ark state attributes, and the public
+`--switch-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SwitchDocs.SwitchCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `Switch` and `Switch.RootProvider` expose `data-slot="switch-root"` /
+  `data-slot="switch-root-provider"` and write moduix `data-size`.
+- `Switch.Control` exposes `data-slot="switch-control"` and receives Ark state attributes such as
+  `data-state`, `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`,
+  `data-invalid`, and `data-required`.
+- `Switch.Thumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
+  thumb movement and custom content styling.
+- `Switch.Label` exposes `data-slot="switch-label"` for typography overrides.
+- the native form input exposes `data-slot="switch-hidden-input"` for inspection hooks, but it should
+  remain visually hidden by Ark.

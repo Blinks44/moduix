@@ -1,4 +1,4 @@
-![moduix banner](apps/docs/public/banner.png)
+![moduix banner](apps/docs/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)

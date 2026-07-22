@@ -1,7 +1,5 @@
-import { ProgressCircular, Slider } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const progressCircularCircleExampleCss = `
   .progress-circular-circle-container {
@@ -45,37 +43,7 @@ export const progressCircularStateViewsExampleCss = `
   }
 `;
 
-const progressCircularStateMessages = {
-  indeterminate: 'Waiting for source data',
-  loading: 'Transfer in progress',
-  complete: 'Export complete',
-};
-
-export const progressCircularBasicData = `const defaultValue = 42;`;
-
-export const progressCircularControlledData = `const initialValue = 42;`;
-
-export const progressCircularInitialValueData = `const defaultValue = 70;`;
-
-export const progressCircularMinMaxData = `
-const defaultValue = 420;
-const min = 200;
-const max = 800;
-`;
-
-export const progressCircularIndeterminateData = `const defaultValue = null;`;
-
-export const progressCircularRootProviderData = `const defaultValue = 58;`;
-
-export const progressCircularStateViewsData = `const defaultValue = null;
-
-const progressCircularStateMessages = {
-  indeterminate: 'Waiting for source data',
-  loading: 'Transfer in progress',
-  complete: 'Export complete',
-};`;
-
-export const progressCircularCssProperties: CssPropertyInput[] = [
+const progressCircularCssProperties: CssPropertyInput[] = [
   ['--progress-circular-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--progress-circular-gap', 'var(--spacing-2)', 'Controls spacing between label and circle.'],
   ['--progress-circular-label-color', 'currentColor', 'Controls label text color.'],
@@ -134,137 +102,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-function ProgressCircularParts() {
-  return (
-    <div className="progress-circular-circle-container">
-      <ProgressCircular.Ring />
-      <ProgressCircular.ValueText />
-    </div>
-  );
-}
-
-function ProgressCircularAdvancedParts() {
-  return (
-    <div className="progress-circular-circle-container">
-      <ProgressCircular.Circle>
-        <ProgressCircular.CircleTrack />
-        <ProgressCircular.CircleRange />
-      </ProgressCircular.Circle>
-      <ProgressCircular.ValueText />
-    </div>
-  );
-}
-
-export function ProgressCircularExample(props: ComponentProps<typeof ProgressCircular.Root>) {
-  return (
-    <ProgressCircular defaultValue={42} {...props}>
-      <ProgressCircular.Label>Export data</ProgressCircular.Label>
-      <ProgressCircularParts />
-    </ProgressCircular>
-  );
-}
-
-export function ControlledProgressCircularExample() {
-  const [value, setValue] = useState<number | null>(42);
-
-  return (
-    <div className="progress-circular-stack">
-      <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
-        <ProgressCircular.Label>Upload status</ProgressCircular.Label>
-        <ProgressCircularParts />
-      </ProgressCircular>
-      <Slider
-        className="progress-circular-slider"
-        min={0}
-        max={100}
-        value={[value ?? 0]}
-        onValueChange={(details) => {
-          setValue(details.value[0] ?? 0);
-        }}
-      >
-        <Slider.Label>Progress value</Slider.Label>
-        <Slider.ValueText />
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
-        </Slider.Control>
-      </Slider>
-    </div>
-  );
-}
-
-export function InitialValueProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={70}>
-      <ProgressCircular.Label>Import data</ProgressCircular.Label>
-      <ProgressCircularParts />
-    </ProgressCircular>
-  );
-}
-
-export function MinMaxProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={420} min={200} max={800}>
-      <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
-      <ProgressCircularParts />
-    </ProgressCircular>
-  );
-}
-
-export function IndeterminateProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={null}>
-      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-      <ProgressCircularParts />
-    </ProgressCircular>
-  );
-}
-
-export function ValueTextProgressCircularExample() {
-  return (
-    <ProgressCircular
-      translations={{
-        value({ value, max }) {
-          if (value === null) return 'Loading...';
-          return `${value} of ${max}`;
-        },
-      }}
-    >
-      <ProgressCircular.Label>Migration</ProgressCircular.Label>
-      <ProgressCircularParts />
-    </ProgressCircular>
-  );
-}
-
-export function RootProviderProgressCircularExample() {
-  const progress = ProgressCircular.useProgress({ defaultValue: 58 });
-
-  return (
-    <ProgressCircular.RootProvider value={progress}>
-      <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
-      <ProgressCircularAdvancedParts />
-    </ProgressCircular.RootProvider>
-  );
-}
-
-export function StateViewsProgressCircularExample() {
-  return (
-    <ProgressCircular defaultValue={null}>
-      <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-      <ProgressCircularAdvancedParts />
-      <ProgressCircular.View className="progress-circular-state" state="indeterminate">
-        {progressCircularStateMessages.indeterminate}
-      </ProgressCircular.View>
-      <ProgressCircular.View className="progress-circular-state" state="loading">
-        {progressCircularStateMessages.loading}
-      </ProgressCircular.View>
-      <ProgressCircular.View className="progress-circular-state" state="complete">
-        {progressCircularStateMessages.complete}
-      </ProgressCircular.View>
-    </ProgressCircular>
-  );
 }

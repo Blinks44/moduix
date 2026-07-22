@@ -2,8 +2,8 @@ import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
 import { Button, Tour, useTour, waitForElement, waitForEvent, waitForPromise } from '@moduix/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 import styles from './tour.module.css';
 
 const baseActions = [
@@ -134,56 +134,6 @@ function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourRe
   );
 }
 
-export function TourExample() {
-  const tour = useTour({ steps: createBasicSteps('tour-basic-upload') });
-
-  return (
-    <div className={styles.demo}>
-      <Button onClick={() => tour.start()}>Start tour</Button>
-      <div className={styles.toolbar}>
-        <Button id="tour-basic-upload" variant="outline">
-          Upload
-        </Button>
-        <Button variant="outline">Save</Button>
-      </div>
-      <TourOverlay tour={tour} />
-    </div>
-  );
-}
-
-export function AdvancedCustomizationTourExample() {
-  const tour = useTour({ steps: createBasicSteps('tour-advanced-upload') });
-
-  return (
-    <div className={styles.demo}>
-      <Button onClick={() => tour.start()}>Start custom tour</Button>
-      <Button id="tour-advanced-upload" variant="outline">
-        Upload
-      </Button>
-      <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Arrow />
-            <Tour.CloseIcon />
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
-            <Tour.Control>
-              <Tour.Actions>
-                {(actions) =>
-                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-                }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
-      </Tour>
-    </div>
-  );
-}
-
 export function MixedTypesTourExample() {
   const tour = useTour({ steps: mixedSteps });
 
@@ -248,7 +198,7 @@ export function ProgressTourExample() {
   const tour = useTour({ steps: progressSteps });
 
   return (
-    <div className={styles.demo}>
+    <div className={`${styles.demo} ${styles.centeredDemo}`}>
       <Button onClick={() => tour.start()}>Start progress tour</Button>
       <div className={styles.toolbar}>
         {['plan', 'review', 'ship'].map((item) => (
@@ -358,7 +308,7 @@ export function WaitForClickTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <div className={`${styles.demo} ${styles.centeredDemo}`}>
       <Button onClick={() => tour.start()}>Start click tour</Button>
       <Button id="tour-wait-click" variant="outline">
         Confirm action
@@ -495,7 +445,7 @@ export function AsyncStepTourExample() {
   );
 }
 
-export const tourCssProperties: CssPropertyInput[] = [
+const tourCssProperties: CssPropertyInput[] = [
   ['--tour-action-bg', 'var(--color-background)', 'Controls secondary action background.'],
   ['--tour-action-bg-hover', 'var(--color-accent)', 'Controls secondary action hover background.'],
   ['--tour-action-border-color', 'var(--color-border)', 'Controls secondary action border color.'],

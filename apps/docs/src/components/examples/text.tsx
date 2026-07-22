@@ -1,9 +1,7 @@
-import { Text } from '@moduix/react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './text.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const textOverrideCssProperties: CssPropertyInput[] = [
+const textOverrideCssProperties: CssPropertyInput[] = [
   ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
   ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
   ['--text-font-family', 'inherit', 'Controls text font family.'],
@@ -37,97 +35,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function TextExample() {
-  return (
-    <div className={styles.stack}>
-      <Text>Use text to describe interface state and supporting details.</Text>
-      <Text as="small" tone="muted">
-        Last updated 2 minutes ago
-      </Text>
-    </div>
-  );
-}
-
-export function TextElementsExample() {
-  return (
-    <div className={styles.stack}>
-      <Text>Paragraph text rendered as p.</Text>
-      <Text as="span">Inline text rendered as span.</Text>
-      <Text as="small" tone="muted">
-        Small supporting text rendered as small.
-      </Text>
-      <Text as="strong">Important text rendered as strong.</Text>
-      <Text as="em">Emphasized text rendered as em.</Text>
-      <Text as="div">Block text rendered as div.</Text>
-    </div>
-  );
-}
-
-export function TextCustomElementExample() {
-  return (
-    <Text asChild tone="primary" weight="medium">
-      <a className={styles.link} href="/docs">
-        Read the documentation
-      </a>
-    </Text>
-  );
-}
-
-export function TextSizesExample() {
-  return (
-    <div className={styles.stack}>
-      <Text size="xl">Extra-large text</Text>
-      <Text size="lg">Large text</Text>
-      <Text size="md">Medium text</Text>
-      <Text size="sm">Small text</Text>
-      <Text size="xs">Extra-small text</Text>
-    </div>
-  );
-}
-
-export function TextTonesExample() {
-  return (
-    <div className={styles.stack}>
-      <Text tone="default">Default tone</Text>
-      <Text tone="muted">Muted tone</Text>
-      <Text tone="subtle">Subtle tone</Text>
-      <Text tone="primary">Primary tone</Text>
-      <Text tone="destructive">Destructive tone</Text>
-    </div>
-  );
-}
-
-export function TextWeightsExample() {
-  return (
-    <div className={styles.stack}>
-      <Text weight="regular">Regular weight</Text>
-      <Text weight="medium">Medium weight</Text>
-      <Text weight="semibold">Semibold weight</Text>
-      <Text weight="bold">Bold weight</Text>
-    </div>
-  );
-}
-
-export function TextAlignExample() {
-  return (
-    <div className={styles.aligned}>
-      <Text align="left">Left aligned text.</Text>
-      <Text align="center">Center aligned text.</Text>
-      <Text align="right">Right aligned text.</Text>
-    </div>
-  );
-}
-
-export function TextTruncationExample() {
-  return (
-    <div className={styles.narrow}>
-      <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
-      <Text lineClamp={2}>
-        Longer interface copy can be clamped when it appears inside dense cards, tables, or
-        constrained previews where the surrounding layout owns disclosure.
-      </Text>
-    </div>
-  );
 }

@@ -1,0 +1,418 @@
+---
+title: Styling
+description: Style moduix components with CSS Modules, Panda CSS, or Tailwind CSS.
+---
+
+import { Accordion } from '@moduix/react';
+import styles from '@/components/examples/styling.module.css';
+
+# Styling
+
+moduix ships component styles and a shared CSS foundation, but it does not prescribe an authoring
+tool. Use CSS Modules, Panda CSS, Tailwind CSS, or another CSS strategy already used by your
+application. The component API stays the same.
+
+Import the foundation stylesheet once in your application entry point:
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+Panda CSS and Tailwind CSS are not dependencies of moduix or this documentation site. The examples
+below style the same `ProjectChecklist` in each tool, so only the authoring syntax changes. They
+are consumer snippets for applications where the respective tool is already configured.
+
+## Choose the smallest useful override
+
+| Goal                                             | Preferred surface                                           |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| Adopt a complete visual direction                | A curated [Theme preset](/docs/themes)                      |
+| Change a system-wide color, size, radius, or gap | A primitive or semantic token from [Tokens](/docs/tokens)   |
+| Keep a family of controls or popup rows aligned  | A shared family token such as `--popup-item-min-height`     |
+| Make one component intentionally different       | A documented `--<component>-*` alias                        |
+| Style one product composition                    | `className` on the rendered part, preferably with local CSS |
+
+This order keeps themes compact and component styling predictable. Prefer a high-level token when
+the decision should propagate; move closer to the rendered part only as the scope becomes local.
+
+## Style the parts you render
+
+Start with `className` on the part that owns the visual change. This keeps the component anatomy
+visible and the styles local to the product component. Use the documented Ark state attributes on
+that same part for stateful styling, and use public CSS variables when a component exposes the value
+you need to change.
+
+The panel below uses CSS Modules and styles each exported Accordion part directly.
+
+<section className={styles.example}>
+  <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
+    <Accordion.Item className={styles.item} value="outcome">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>01</span>
+          <span className={styles.title}>Define the project outcome</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>Write one sentence that makes the next decision obvious to everyone on the project.</p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+    <Accordion.Item className={styles.item} value="team">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>02</span>
+          <span className={styles.title}>Invite the people who need context</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>Give contributors a shared space for feedback, decisions, and the work in progress.</p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+    <Accordion.Item className={styles.item} value="ritual">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>03</span>
+          <span className={styles.title}>Create a weekly shipping ritual</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>
+            Turn progress into a short update so the team can spot risks before they become
+            blockers.
+          </p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+  </Accordion>
+</section>
+
+## CSS Modules
+
+CSS Modules are the dependency-free baseline. This `ProjectChecklist` keeps its styles attached
+directly to the parts it renders.
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
+    <Tab value="ProjectChecklist.tsx">
+
+```tsx
+import { Accordion } from '@moduix/react';
+import styles from './ProjectChecklist.module.css';
+
+export function ProjectChecklist() {
+  return (
+    <section className={styles.root}>
+      <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
+        <Accordion.Item className={styles.item} value="outcome">
+          <Accordion.ItemTrigger className={styles.trigger}>
+            <span className={styles.triggerCopy}>
+              <span className={styles.step}>01</span>
+              <span className={styles.title}>Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className={styles.indicator} />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className={styles.content}>
+            <Accordion.ItemBody className={styles.body}>
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
+  );
+}
+```
+
+    </Tab>
+    <Tab value="ProjectChecklist.module.css">
+
+```css
+.root {
+  --project-accent: color-mix(in oklab, #2563eb 80%, var(--color-foreground));
+  --project-accent-strong: color-mix(in oklab, #1d4ed8 80%, var(--color-foreground));
+  --project-surface: color-mix(in oklab, var(--project-accent) 8%, var(--color-card));
+
+  max-inline-size: 42rem;
+  padding: var(--spacing-3);
+  border: var(--border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 18%, var(--color-border));
+  border-radius: var(--radius-xl);
+  background: var(--project-surface);
+}
+
+.accordion {
+  gap: var(--spacing-3);
+}
+
+.item {
+  overflow: hidden;
+  border: var(--border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 20%, var(--color-border));
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  transition:
+    border-color var(--transition-default),
+    box-shadow var(--transition-default);
+
+  &[data-orientation='vertical']:not(:last-child) {
+    border-bottom: var(--border-width-sm) solid
+      color-mix(in oklab, var(--project-accent) 20%, var(--color-border));
+  }
+
+  &[data-state='open'] {
+    border-color: color-mix(in oklab, var(--project-accent) 46%, var(--color-border));
+    box-shadow: 0 1.25rem 2.5rem -2rem color-mix(in oklab, var(--project-accent) 58%, transparent);
+  }
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--spacing-3);
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-4);
+  background-color: color-mix(in oklab, var(--project-accent) 7%, var(--color-card));
+  color: var(--color-foreground);
+  font-weight: var(--weight-semibold);
+  text-align: left;
+  transition:
+    background-color var(--transition-default),
+    color var(--transition-default);
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--project-accent) 13%, var(--color-card));
+  }
+
+  &:focus-visible {
+    outline: var(--border-width-md) solid var(--color-ring);
+    outline-offset: calc(var(--border-width-sm) * -1);
+  }
+
+  &[data-state='open'] {
+    background-color: color-mix(in oklab, var(--project-accent) 17%, var(--color-card));
+    color: var(--project-accent-strong);
+  }
+}
+
+.triggerCopy {
+  display: flex;
+  gap: var(--spacing-3);
+  align-items: center;
+  min-width: 0;
+}
+
+.step {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: var(--border-width-sm) solid color-mix(in oklab, var(--project-accent) 32%, transparent);
+  border-radius: var(--radius-xl);
+  background: color-mix(in oklab, var(--project-accent) 15%, var(--color-card));
+  color: var(--project-accent-strong);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+.title {
+  min-width: 0;
+}
+
+.indicator {
+  flex: none;
+  color: var(--project-accent-strong);
+}
+
+.content {
+  border-block-start: var(--border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 18%, var(--color-border));
+  background: color-mix(in oklab, var(--project-accent) 5%, var(--color-card));
+  color: var(--color-foreground);
+}
+
+.body {
+  padding: var(--spacing-4);
+
+  & > p {
+    margin: 0;
+    color: color-mix(in oklab, var(--color-foreground) 92%, var(--project-accent));
+  }
+}
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+### When a wrapper hides the part
+
+Use a stable `data-slot` only when a product wrapper owns the composition but does not expose the
+part to its callers. It can still tune an internal trigger without depending on DOM order or generated
+class names:
+
+```css
+.root {
+  [data-slot='accordion-item-trigger'] {
+    padding-inline: var(--spacing-4);
+
+    &[data-state='open'] {
+      color: var(--color-primary);
+    }
+  }
+}
+```
+
+This is an escape hatch, not a replacement for `className`. For automatically portalled parts such
+as `Dialog.Content` or `Tooltip.Content`, put `className` on the portalled part itself.
+
+## Panda CSS
+
+In an application that already has Panda configured, generate classes for the same
+`ProjectChecklist` parts. The token names below belong to your Panda theme, not to moduix.
+
+```tsx
+import { Accordion } from '@moduix/react';
+import { css } from '../styled-system/css';
+
+const root = css({
+  maxW: '2xl',
+  p: '3',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'xl',
+  bg: 'blue.50',
+});
+const accordion = css({ display: 'flex', flexDirection: 'column', gap: '3' });
+const item = css({
+  overflow: 'hidden',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'lg',
+  bg: 'white',
+  transition: 'colors',
+  '&[data-state=open]': { borderColor: 'blue.500', boxShadow: 'lg' },
+});
+const trigger = css({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  gap: '3',
+  alignItems: 'center',
+  w: 'full',
+  px: '4',
+  py: '4',
+  bg: 'blue.50',
+  color: 'gray.950',
+  fontWeight: 'semibold',
+  textAlign: 'left',
+  transition: 'colors',
+  _hover: { bg: 'blue.100' },
+  _focusVisible: { outlineWidth: '2px', outlineColor: 'blue.500', outlineOffset: '-1px' },
+  '&[data-state=open]': { bg: 'blue.100', color: 'blue.700' },
+});
+const triggerCopy = css({ display: 'flex', gap: '3', alignItems: 'center', minW: '0' });
+const step = css({
+  display: 'grid',
+  flexShrink: '0',
+  placeItems: 'center',
+  w: '7',
+  h: '7',
+  borderWidth: '1px',
+  borderColor: 'blue.300',
+  borderRadius: 'xl',
+  bg: 'blue.100',
+  color: 'blue.700',
+  fontSize: 'xs',
+  fontWeight: 'semibold',
+});
+const title = css({ minW: '0' });
+const indicator = css({ flexShrink: '0', color: 'blue.700' });
+const content = css({
+  borderTopWidth: '1px',
+  borderColor: 'blue.200',
+  bg: 'blue.50',
+  color: 'gray.950',
+});
+const body = css({ px: '4', py: '4', color: 'gray.700', lineHeight: '6' });
+
+export function ProjectChecklist() {
+  return (
+    <section className={root}>
+      <Accordion className={accordion} collapsible defaultValue={['outcome']}>
+        <Accordion.Item className={item} value="outcome">
+          <Accordion.ItemTrigger className={trigger}>
+            <span className={triggerCopy}>
+              <span className={step}>01</span>
+              <span className={title}>Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className={indicator} />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className={content}>
+            <Accordion.ItemBody className={body}>
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
+  );
+}
+```
+
+## Tailwind CSS
+
+In an application that already uses Tailwind, apply utilities and state variants to the same
+`ProjectChecklist` parts. No moduix-specific Tailwind plugin or configuration is required.
+
+```tsx
+import { Accordion } from '@moduix/react';
+
+export function ProjectChecklist() {
+  return (
+    <section className="max-w-2xl rounded-xl border border-blue-200 bg-blue-50 p-3">
+      <Accordion className="flex flex-col gap-3" collapsible defaultValue={['outcome']}>
+        <Accordion.Item
+          className="overflow-hidden rounded-lg border border-blue-200 bg-white transition-[border-color,box-shadow] data-[state=open]:border-blue-500 data-[state=open]:shadow-lg"
+          value="outcome"
+        >
+          <Accordion.ItemTrigger className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 bg-blue-50 p-4 text-left font-semibold text-slate-950 transition-colors hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-1px] data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-xl border border-blue-300 bg-blue-100 text-xs font-semibold text-blue-700">
+                01
+              </span>
+              <span className="min-w-0">Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className="shrink-0 text-blue-700" />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className="border-t border-blue-200 bg-blue-50 text-slate-950">
+            <Accordion.ItemBody className="p-4 leading-6 text-slate-700">
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
+  );
+}
+```
+
+## Related
+
+- [Tokens](/docs/tokens) explains the shared CSS foundation and public variables.
+- [Composition Patterns](/docs/composition-patterns) explains how to keep product wrappers narrow.

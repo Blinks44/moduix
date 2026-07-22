@@ -1,5 +1,7 @@
-import { Card, Cards } from 'fumadocs-ui/components/card';
+import { usePages } from '@rspress/core/runtime';
 import { Component as ComponentIcon } from 'lucide-react';
+import { Card, Cards } from '../mdx/Components';
+import styles from './component-gallery.module.css';
 
 const categories = [
   {
@@ -127,52 +129,53 @@ const categories = [
       'swap',
     ],
   },
-];
+] as const;
 
-export const componentGalleryToc = categories.map((category) => ({
-  title: category.title,
-  url: `#${category.id}`,
-  depth: 2,
-}));
-
-export function ComponentGallery({
-  components,
-}: {
-  components: { description: string; slug: string; title: string; url: string }[];
-}) {
-  const categorizedSlugs = new Set(categories.flatMap((category) => category.slugs));
+export function ComponentGallery() {
+  const { pages } = usePages();
+  const components = pages
+    .filter(
+      (page) =>
+        page.routePath.startsWith('/docs/') && typeof page.frontmatter.component === 'string',
+    )
+    .map((page) => ({
+      description: page.description ?? '',
+      slug: page.routePath.split('/').filter(Boolean).at(-1) ?? '',
+      title: page.title,
+      url: page.routePath,
+    }))
+    .sort((left, right) => left.title.localeCompare(right.title));
+  const categorizedSlugs = new Set<string>(categories.flatMap((category) => [...category.slugs]));
   const uncategorized = components.filter((component) => !categorizedSlugs.has(component.slug));
 
   return (
-    <div className="not-prose mt-8 space-y-12">
-      <p className="text-sm text-fd-muted-foreground">
+    <div className={styles.gallery}>
+      <p className={styles.summary}>
         Browse {components.length} composable React components built on Ark UI. Every card leads to
-        usage guidance, live examples, and its install command.
+        usage guidance, a runnable example, and its install command.
       </p>
 
       {categories.map((category) => {
-        const items = components.filter((component) => category.slugs.includes(component.slug));
+        const slugs: readonly string[] = category.slugs;
+        const items = components.filter((component) => slugs.includes(component.slug));
 
         return (
-          <section key={category.title} aria-labelledby={category.id}>
-            <div className="mb-4 flex items-baseline justify-between gap-4">
+          <section key={category.id} aria-labelledby={category.id}>
+            <div className={styles.heading}>
               <div>
-                <h2 id={category.id} className="text-xl font-semibold">
-                  {category.title}
-                </h2>
-                <p className="mt-1 text-sm text-fd-muted-foreground">{category.description}</p>
+                <h2 id={category.id}>{category.title}</h2>
+                <p>{category.description}</p>
               </div>
-              <span className="text-sm tabular-nums text-fd-muted-foreground">{items.length}</span>
+              <span>{items.length}</span>
             </div>
-
             <Cards>
               {items.map((component) => (
                 <Card
                   key={component.slug}
-                  icon={<ComponentIcon />}
-                  title={component.title}
                   description={component.description}
                   href={component.url}
+                  icon={<ComponentIcon />}
+                  title={component.title}
                 />
               ))}
             </Cards>
@@ -181,29 +184,22 @@ export function ComponentGallery({
       })}
 
       {uncategorized.length > 0 ? (
-        <section aria-labelledby="other-components-title">
-          <div className="mb-4 flex items-baseline justify-between gap-4">
+        <section aria-labelledby="more-components-title">
+          <div className={styles.heading}>
             <div>
-              <h2 id="other-components-title" className="text-xl font-semibold">
-                More components
-              </h2>
-              <p className="mt-1 text-sm text-fd-muted-foreground">
-                Newly added components appear here until they receive a category.
-              </p>
+              <h2 id="more-components-title">More components</h2>
+              <p>New components remain visible here until they receive a category.</p>
             </div>
-            <span className="text-sm tabular-nums text-fd-muted-foreground">
-              {uncategorized.length}
-            </span>
+            <span>{uncategorized.length}</span>
           </div>
-
           <Cards>
             {uncategorized.map((component) => (
               <Card
                 key={component.slug}
-                icon={<ComponentIcon />}
-                title={component.title}
                 description={component.description}
                 href={component.url}
+                icon={<ComponentIcon />}
+                title={component.title}
               />
             ))}
           </Cards>

@@ -1,0 +1,235 @@
+---
+title: Tabs
+component: tabs
+description: A set of tab triggers that switch between related content panels on the same page.
+---
+
+import * as TabsDocs from '@/components/examples/tabs';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
+
+## Choosing the right component
+
+Use `Tabs` when users switch between mutually exclusive views that share one page region.
+
+- Choose **`Tabs`** when one selected trigger should reveal one selected content panel.
+- Choose **`Accordion`** when sections should stay stacked and expand independently.
+- Choose **`ToggleGroup`** when the control changes state or mode, but does not own panel content.
+
+## Basic
+
+Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and
+`Tabs.Content`. The short `<Tabs>` form is the same root component.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="tabs" />
+
+## Anatomy
+
+```text
+Tabs.Root
+├─ Tabs.List
+│  ├─ Tabs.Trigger[value]
+│  ├─ Tabs.Trigger[value]
+│  └─ Tabs.Indicator (optional)
+└─ Tabs.Content[value]
+
+Tabs.RootProvider
+└─ same part tree connected to a useTabs() store
+```
+
+| Part                 | Role                                                            |
+| -------------------- | --------------------------------------------------------------- |
+| `Tabs` / `Tabs.Root` | Controls selected value, focus movement, orientation, and mode. |
+| `Tabs.RootProvider`  | Connects parts to state created with moduix `useTabs()`.        |
+| `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
+| `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
+| `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
+| `Tabs.Content`       | Content region for the matching trigger value.                  |
+
+## Composition
+
+### Recommended composition
+
+`Tabs.Root` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
+`defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
+`orientation`, `loopFocus`, `deselectable`, `lazyMount`, `unmountOnExit`, `ids`, and `navigate`.
+
+Keep the Ark part tree visible. `Tabs.Indicator` is optional and should be rendered explicitly when
+you want the active-trigger indicator.
+
+### When to go custom
+
+Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
+must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
+
+Use moduix `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
+tree. Do not render `Tabs.Root` around the same state instance.
+
+### Default props
+
+| Prop                       | Default      | Notes                                                        |
+| -------------------------- | ------------ | ------------------------------------------------------------ |
+| `Tabs.variant`             | `default`    | moduix visual sugar: `default` or `line`.                    |
+| `Tabs.Root.activationMode` | `automatic`  | Focus selects automatically unless set to `manual`.          |
+| `Tabs.Root.orientation`    | `horizontal` | `horizontal` uses arrow left/right; `vertical` uses up/down. |
+| `Tabs.Root.loopFocus`      | `true`       | Roving focus wraps around the trigger list.                  |
+| `Tabs.Root.lazyMount`      | `false`      | Defers content mounting until selected.                      |
+| `Tabs.Root.unmountOnExit`  | `false`      | Removes inactive content when combined with lazy paths.      |
+
+### Behavioral notes
+
+- `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
+- `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
+- `Tabs.List` no longer auto-renders an indicator. Render `Tabs.Indicator` explicitly when needed.
+- Ark controls accessibility attributes, tabpanel relationships, roving focus, and disabled trigger behavior.
+
+## Examples
+
+### Controlled Value
+
+Control the selected tab from React state when the active panel coordinates with other UI.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/controlled-value.tsx"
+
+```
+
+### Custom Icons
+
+Compose icons and labels directly inside `Tabs.Trigger`.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/custom-icons.tsx"
+
+```
+
+### Disabled Tab
+
+Disable triggers that are visible but not available yet.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/disabled-tab.tsx"
+
+```
+
+### Indicator
+
+Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger highlight.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/indicator.tsx"
+
+```
+
+### Lazy Mount
+
+Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the DOM.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/lazy-mount.tsx"
+
+```
+
+### Line
+
+Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
+trigger.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/line.tsx"
+
+```
+
+### Links
+
+Use `asChild` when triggers should render anchors or router links.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/links.tsx"
+
+```
+
+### Manual Activation
+
+Set `activationMode="manual"` when arrow-key focus should move without selecting until click,
+Enter, or Space.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/manual-activation.tsx"
+
+```
+
+### Vertical
+
+Use `orientation="vertical"` when the trigger list should sit beside the active content.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/vertical.tsx"
+
+```
+
+### Advanced Customization
+
+Create external state with moduix `useTabs()` when the selected value must be read before rendering
+the part tree or controlled by adjacent UI.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+```tsx preview file="./_snippets/tabs/root-provider.tsx"
+
+```
+
+## Styling
+
+Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-scope` and
+`data-part` attributes, `data-variant`, and the public `--tabs-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TabsDocs.TabsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `Tabs.Root` for layout width, overall gap, orientation, and variant-level overrides
+- `Tabs.List` for list chrome, borders, background, and indicator container spacing
+- `Tabs.Trigger` for label layout, icon spacing, selected state, disabled state, and focus styling
+- `Tabs.Indicator` for custom indicator color, size, and transition behavior
+- `Tabs.Content` for content surface, padding, and focus styling
+
+The main public hooks include `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
+`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"`, and
+`data-slot="tabs-content"`.
+
+Useful Ark hooks include `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
+`data-disabled`, `data-focus`, and indicator variables `--left`, `--top`, `--width`, and `--height`.

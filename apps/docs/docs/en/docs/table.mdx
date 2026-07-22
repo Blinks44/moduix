@@ -1,0 +1,388 @@
+---
+title: Table
+component: table
+description: A native table primitive with small sugar for bordered overflow shells, numeric columns, captions, and empty states.
+---
+
+import * as TableDocs from '@/components/examples/table';
+
+## API Reference
+
+Ark UI does not ship a dedicated `table` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Start with `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body`, and the native row and cell
+parts. This is the recommended path for invoices, summaries, and admin-style read-only datasets.
+
+```tsx preview file="./_snippets/table/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="table" />
+
+## Anatomy
+
+The normal consumer path stays close to native table markup:
+
+```text
+Table.ScrollArea (optional)
+└─ Table
+   ├─ Table.ColumnGroup (optional)
+   │  └─ Table.Column
+   ├─ Table.Caption (optional)
+   ├─ Table.Header
+   │  └─ Table.Row
+   │     └─ Table.ColumnHeader
+   ├─ Table.Body
+   │  ├─ Table.Row
+   │  │  └─ Table.Cell
+   │  └─ Table.Empty (optional)
+   └─ Table.Footer (optional)
+```
+
+| Part                   | Role                                                                       |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `Table` / `Table.Root` | Native `table` root. Owns typography, dividers, and state attributes.      |
+| `Table.ScrollArea`     | Optional bordered overflow shell for the common “table in a surface” case. |
+| `Table.ColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
+| `Table.Column`         | Native `col` wrapper. Supports `htmlWidth`.                                |
+| `Table.Caption`        | Optional label above or below the table via `side`.                        |
+| `Table.Header`         | Native `thead` wrapper for column headers.                                 |
+| `Table.Body`           | Native `tbody` wrapper for body rows.                                      |
+| `Table.Footer`         | Native `tfoot` wrapper for summary rows.                                   |
+| `Table.Row`            | Native `tr` wrapper with divider behavior.                                 |
+| `Table.ColumnHeader`   | Native `th` wrapper. Supports `numeric`.                                   |
+| `Table.Cell`           | Native `td` wrapper. Supports `numeric`.                                   |
+| `Table.Empty`          | Convenience empty-state row inside `Table.Body`.                           |
+
+## Composition
+
+### Recommended composition
+
+Stay with `Table.ScrollArea` plus the semantic table parts for most read-only data views.
+
+Use `Table.ScrollArea` when you need the common bordered horizontal-scroll shell. Use `numeric` on
+`Table.ColumnHeader` and `Table.Cell` for amounts, counts, percentages, and latency columns. Use
+`Table.Caption` when the table needs a short label or summary, and `Table.Footer` when the last row
+represents totals or rollups. Use `striped`, `interactive`, `showColumnBorder`, `stickyHeader`,
+and `size` / `variant` when the table needs Chakra-style visual modes without adding data-grid
+state.
+
+### When to go custom
+
+Skip `Table.ScrollArea` when the surrounding layout already owns scrolling, padding, border, or
+surface styling. In that case, keep `Table` itself and move the wrapper concerns into your own
+layout component or shell markup.
+
+`Table` intentionally does not own sorting, filtering, selection, pagination, or row action state.
+Treat it as the visual and semantic primitive that higher-level table abstractions can build on.
+For TanStack Table state and rendering, follow the [Data Table](/docs/data-table) composition guide.
+
+### Default props
+
+All parts accept `className` and their matching native element props.
+
+| Component            | Prop               | Default    | Notes                                                   |
+| -------------------- | ------------------ | ---------- | ------------------------------------------------------- |
+| `Table`              | `interactive`      | `false`    | Enables body-row hover highlighting.                    |
+| `Table`              | `showColumnBorder` | `false`    | Adds borders between visible columns.                   |
+| `Table`              | `size`             | `'md'`     | Supports `'sm'`, `'md'`, and `'lg'`.                    |
+| `Table`              | `stickyHeader`     | `false`    | Makes `Table.Header` sticky inside a scroll container.  |
+| `Table`              | `striped`          | `false`    | Zebra-stripes even body rows, excluding empty rows.     |
+| `Table`              | `variant`          | `'line'`   | Supports `'line'` and `'outline'`.                      |
+| `Table.Caption`      | `side`             | `'bottom'` | Supports `'top'` and `'bottom'`.                        |
+| `Table.Column`       | `htmlWidth`        | —          | Maps to the native `width` attribute on `col`.          |
+| `Table.ColumnHeader` | `numeric`          | `false`    | Aligns content to the inline end and uses tabular nums. |
+| `Table.Cell`         | `numeric`          | `false`    | Aligns content to the inline end and uses tabular nums. |
+| `Table.Empty`        | `colSpan`          | required   | Must match the current body column count.               |
+
+### Behavioral notes
+
+- `Table.Empty` renders a full table row for the empty state, so pass the body column count through
+  `colSpan`. Its row exposes `data-empty` and does not receive striped or interactive-hover styles.
+- Header and body rows render a shared bottom divider. The last body row drops its border.
+- Body rows get a subtle hover background only when `interactive` is set.
+- `Table.Caption` inherits muted typography and adds inline padding so it does not sit flush against
+  the table edges.
+
+## Examples
+
+### Caption and Footer
+
+Use `Table.Caption side="top"` when the label reads better before the data, and `Table.Footer` for
+totals or summaries.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/caption-and-footer.tsx"
+
+```
+
+### Column Group and Borders
+
+Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showColumnBorder` when
+column separation needs to be visible.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/column-group-and-borders.tsx"
+
+```
+
+### Empty State
+
+Use `Table.Empty` when a body would otherwise render no rows.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/empty-state.tsx"
+
+```
+
+### Inside Card
+
+`Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
+
+<style>{`
+      .card {
+        width: min(44rem, 100%);
+      }
+
+      .cardContent {
+        min-width: 0;
+        padding-top: 0;
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/inside-card.tsx"
+
+```
+
+### Numeric Columns
+
+Use `numeric` on both the header and the cells for the common aligned-metrics case.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/numeric-columns.tsx"
+
+```
+
+### Row Actions With Menu
+
+Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
+`Menu` fits this case cleanly without changing the native table structure.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 44rem;
+      }
+
+      .actionsHead,
+      .actionsCell {
+        width: 1%;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .actionTrigger {
+        --button-size-icon-sm: 1.25rem;
+        --button-focus-ring-width: var(--border-width-sm);
+
+        margin-inline-start: auto;
+        border-radius: var(--radius-sm);
+      }
+
+      .actionEllipsis {
+        font-weight: var(--weight-medium);
+        line-height: 1;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/row-actions-with-menu.tsx"
+
+```
+
+### Sizes and Variants
+
+Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
+native root instead of adding extra state.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/sizes-and-variants.tsx"
+
+```
+
+### Sticky Header and Column
+
+Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
+vertically scrolling table needs persistent context.
+
+<style>{`
+      .stickyShell {
+        width: min(44rem, 100%);
+        max-height: 18rem;
+      }
+
+      .wideTable {
+        min-width: 56rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/sticky-header-and-column.tsx"
+
+```
+
+### Striped Rows
+
+Use `striped` when long read-only bodies need stronger row separation without switching to a more
+opinionated table abstraction.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+      }
+
+      .table {
+        min-width: 40rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/striped-rows.tsx"
+
+```
+
+### With ScrollArea
+
+Use `ScrollArea` directly when the table needs styled Ark scrollbar parts on both axes, fade
+behavior, or the scroll area API. Keep the `ScrollArea` structure explicit so the table stays native
+and lightweight.
+
+<style>{`
+      .scrollArea {
+        --scroll-area-height: 16rem;
+        --scroll-area-radius: var(--radius-lg);
+        --scroll-area-bg: var(--color-card);
+
+        width: min(44rem, 100%);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      .wideTable {
+        min-width: 56rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/with-scrollarea.tsx"
+
+```
+
+### Advanced Customization
+
+Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior. This bypasses the convenience shell while keeping the native table composition explicit.
+
+<style>{`
+      .shell {
+        width: min(44rem, 100%);
+        overflow-x: auto;
+        padding: var(--spacing-3);
+        border: var(--border-width-sm) dashed var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+      }
+
+      .table {
+        min-width: 34rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/table/custom-composition.tsx"
+
+```
+
+## Styling
+
+Style `Table` through `className`, the public `data-slot` hooks, `data-side` and `data-numeric`
+attributes, and the `--table-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TableDocs.TableCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `className` on `Table.ScrollArea` for shell-wide border, radius, and surface overrides
+- `className` on `Table` for table typography and width constraints
+- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`,
+  `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`,
+  `table-column-header`, `table-cell`, and `table-empty` for part-level targeting
+- `data-side="top" | "bottom"` on `Table.Caption` for caption placement styling
+- `data-numeric` on `Table.ColumnHeader` and `Table.Cell` for numeric-column targeting
+- `data-empty` on the row generated by `Table.Empty` for empty-row targeting
+- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header`, and
+  `data-show-column-border` on `Table` for root-level state styling
+- `data-sticky="start" | "end"` on `Table.ColumnHeader` and `Table.Cell` for sticky columns

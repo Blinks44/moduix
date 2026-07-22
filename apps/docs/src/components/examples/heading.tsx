@@ -1,35 +1,7 @@
-import { Heading } from '@moduix/react';
-import type { ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './heading.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const headingLevels = [
-  { level: 1, label: 'Heading level 1' },
-  { level: 2, label: 'Heading level 2' },
-  { level: 3, label: 'Heading level 3' },
-  { level: 4, label: 'Heading level 4' },
-  { level: 5, label: 'Heading level 5' },
-  { level: 6, label: 'Heading level 6' },
-] as const;
-
-export const headingSizes = [
-  { size: '2xl', label: 'Extra-large heading' },
-  { size: 'xl', label: 'Large heading' },
-  { size: 'lg', label: 'Medium-large heading' },
-  { size: 'md', label: 'Medium heading' },
-  { size: 'sm', label: 'Small heading' },
-  { size: 'xs', label: 'Extra-small heading' },
-] as const;
-
-export const headingWeights = [
-  { weight: 'regular', label: 'Regular weight' },
-  { weight: 'medium', label: 'Medium weight' },
-  { weight: 'semibold', label: 'Semibold weight' },
-  { weight: 'bold', label: 'Bold weight' },
-] as const;
-
-export const headingOverrideCssProperties = [
+const headingOverrideCssProperties = [
   {
     name: '--heading-color',
     defaultValue: 'var(--color-foreground)',
@@ -149,65 +121,4 @@ export const headingOverrideCssProperties = [
 
 export function HeadingCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={headingOverrideCssProperties} />;
-}
-
-export function HeadingExample(props: ComponentProps<typeof Heading>) {
-  return (
-    <Heading className={styles.demo} {...props}>
-      Build reliable interfaces
-    </Heading>
-  );
-}
-
-export function HeadingElementsExample() {
-  return (
-    <div className={styles.stack}>
-      <Heading>{headingLevels[0].label}</Heading>
-      <Heading as="h2">{headingLevels[1].label}</Heading>
-      <Heading as="h3">{headingLevels[2].label}</Heading>
-      <Heading as="h4">{headingLevels[3].label}</Heading>
-      <Heading as="h5">{headingLevels[4].label}</Heading>
-      <Heading as="h6">{headingLevels[5].label}</Heading>
-    </div>
-  );
-}
-
-export function HeadingSizesExample() {
-  return (
-    <div className={styles.stack}>
-      {headingSizes.map((item) => (
-        <Heading key={item.size} as="h2" size={item.size}>
-          {item.label}
-        </Heading>
-      ))}
-    </div>
-  );
-}
-
-export function HeadingWeightsExample() {
-  return (
-    <div className={styles.stack}>
-      {headingWeights.map((item) => (
-        <Heading key={item.weight} as="h2" weight={item.weight}>
-          {item.label}
-        </Heading>
-      ))}
-    </div>
-  );
-}
-
-export function HeadingSemanticLevelExample() {
-  return (
-    <Heading as="h2" size="2xl" className={styles.demo}>
-      Page title rendered as h2
-    </Heading>
-  );
-}
-
-export function HeadingCustomHostExample() {
-  return (
-    <Heading asChild size="xl" className={styles.customHost}>
-      <h2>Factory-composed heading</h2>
-    </Heading>
-  );
 }

@@ -1,7 +1,5 @@
-import { Field, NativeSelect } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './native-select.module.css';
+import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const nativeSelectCssProperties: CssProperty[] = [
   { name: '--select-width', defaultValue: '14rem', description: 'Controls the select width.' },
@@ -99,44 +97,4 @@ const nativeSelectCssProperties: CssProperty[] = [
 
 export function NativeSelectCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={nativeSelectCssProperties} />;
-}
-
-export function NativeSelectExample() {
-  return (
-    <NativeSelect defaultValue="">
-      <option value="" disabled>
-        Choose framework
-      </option>
-      <option value="react">React</option>
-      <option value="vue">Vue</option>
-      <option value="svelte">Svelte</option>
-    </NativeSelect>
-  );
-}
-
-export function NativeSelectFieldExample() {
-  return (
-    <Field.Root className={styles.field} invalid required>
-      <Field.Label>Framework</Field.Label>
-      <NativeSelect defaultValue="" name="framework">
-        <option value="" disabled>
-          Choose framework
-        </option>
-        <option value="react">React</option>
-        <option value="vue">Vue</option>
-        <option value="svelte">Svelte</option>
-      </NativeSelect>
-      <Field.ErrorText>Select a framework.</Field.ErrorText>
-    </Field.Root>
-  );
-}
-
-export function NativeSelectMultipleExample() {
-  return (
-    <NativeSelect defaultValue={['react', 'vue']} multiple size={3} aria-label="Frameworks">
-      <option value="react">React</option>
-      <option value="vue">Vue</option>
-      <option value="svelte">Svelte</option>
-    </NativeSelect>
-  );
 }

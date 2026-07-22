@@ -6,6 +6,10 @@
   gap: var(--spacing-4);
 }
 
+.centeredDemo {
+  align-items: center;
+}
+
 .toolbar {
   display: flex;
   flex-wrap: wrap;

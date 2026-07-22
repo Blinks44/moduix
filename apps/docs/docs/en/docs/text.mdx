@@ -1,0 +1,254 @@
+---
+title: Text
+component: text
+description: A typography root for body copy, inline text, supporting descriptions, semantic emphasis, and constrained previews.
+---
+
+import * as TextDocs from '@/components/examples/text';
+
+## API Reference
+
+Ark UI does not ship a dedicated `text` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Choosing the right component
+
+Use `Text` for body copy, helper copy, inline emphasis, and supporting UI text that should stay on
+the moduix text scale.
+
+- Choose **`Heading`** for document structure and heading hierarchy.
+- Choose **`Text`** when content should keep paragraph or inline semantics with body-text styling.
+- Choose local CSS when the concern is rich text layout, spacing, or disclosure around clamped text.
+
+## Basic
+
+Start with the default `p` root. Use `as` only when the semantic HTML tag should change while the
+same text styling contract stays in place.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="text" />
+
+## Anatomy
+
+`Text` renders one Ark factory root. The short `<Text>` form and `<Text.Root>` are equivalent.
+
+```text
+Text / Text.Root
+└─ text or inline content
+```
+
+| Part                 | Role                                                             |
+| -------------------- | ---------------------------------------------------------------- |
+| `Text` / `Text.Root` | Semantic text root with design-system typography and data hooks. |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<Text>` root for body copy and supporting text. It is equivalent to `<Text.Root>`,
+renders a `p` by default, and forwards the ref to the rendered `HTMLElement`.
+
+### When to go custom
+
+Use `as` for supported intrinsic tags when the semantic element should change. Use `asChild` when a
+single custom host element should receive the moduix class name, style, data attributes, and ref.
+Chakra's [Text](https://chakra-ui.com/docs/components/text) recipe informs the local size, weight,
+truncation, and line-clamp surface.
+
+### Default props
+
+| Prop        | Default         | Notes                                                   |
+| ----------- | --------------- | ------------------------------------------------------- |
+| `as`        | `p`             | `p`, `span`, `small`, `strong`, `em`, or `div`.         |
+| `asChild`   | `false`         | Uses the single child as the host element.              |
+| `size`      | Element-based   | `small` defaults to `sm`; other roots default to `md`.  |
+| `weight`    | Element-based   | `strong` defaults to `semibold`; others to `regular`.   |
+| `tone`      | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive`. |
+| `align`     | Unset (`start`) | `left`, `center`, or `right` when explicit.             |
+| `truncate`  | `false`         | Single-line CSS ellipsis.                               |
+| `lineClamp` | Unset           | Multi-line CSS clamp count.                             |
+
+### Behavioral notes
+
+`Text` has no state machine, controlled state, keyboard behavior, Field/Fieldset integration,
+HiddenInput, ids, context hooks, or RootProvider. `truncate` and `lineClamp` are visual CSS
+constraints; the surrounding layout owns any disclosure behavior.
+
+## Examples
+
+### Alignment
+
+Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
+
+<style>{`
+      .aligned {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/alignment.tsx"
+
+```
+
+### Semantics
+
+Use `as` for common semantic tags without leaving the typography scale.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/semantics.tsx"
+
+```
+
+### Size
+
+Use `size` when the visual hierarchy should shift without switching to a different typography
+component.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/size.tsx"
+
+```
+
+### Tone
+
+Use `tone` to match the role of the copy without local color classes.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/tone.tsx"
+
+```
+
+### Truncation
+
+Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews where the
+surrounding layout owns expansion or disclosure.
+
+<style>{`
+      .narrow {
+        display: flex;
+        width: min(18rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-4);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/truncation.tsx"
+
+```
+
+### Weight
+
+Use `weight` when the emphasis should stay within the same semantic element.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        flex-direction: column;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/weight.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` when the root should be a custom host element instead of one of the supported
+intrinsic `as` values. The child must be a single element that can accept the forwarded props and
+ref.
+
+<style>{`
+      .link {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/text/custom-composition.tsx"
+
+```
+
+## Styling
+
+Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS
+variables defined in `theme.css`.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TextDocs.TextCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-scope="text"` and `data-part="root"` identify the Ark-style root.
+- `data-slot="text-root"` is the stable moduix selector on the exported root.
+- `data-size` reflects the resolved visual size: `xs`, `sm`, `md`, `lg`, or `xl`.
+- `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
+- `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
+  `destructive`.
+- `data-align` appears only when `align` is explicitly set to `left`, `center`, or `right`.
+- `data-truncate` appears when single-line ellipsis is active.
+- `data-line-clamp` appears when `lineClamp` is active and sets `--text-line-clamp`.

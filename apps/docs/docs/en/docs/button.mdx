@@ -1,0 +1,230 @@
+---
+title: Button
+component: button
+description: A styled action control built with the Ark factory composition model.
+---
+
+import * as ButtonDocs from '@/components/examples/button';
+
+## API Reference
+
+Ark UI does not ship a dedicated `button` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Use the short `<Button />` form for normal actions. `Button.Root` is the equivalent namespaced
+form.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        justify-content: center;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="button" />
+
+## Anatomy
+
+`Button` is a single-part component.
+
+```text
+Button.Root
+└─ root[data-scope="button"][data-part="root"][data-slot="button-root"]
+   └─ children
+```
+
+| Part                     | Role                                          |
+| ------------------------ | --------------------------------------------- |
+| `Button` / `Button.Root` | Root interactive surface with moduix styling. |
+| `Button`                 | Callable alias of `Button.Root`.              |
+
+## Composition
+
+### Recommended composition
+
+Use a native root for actions. It defaults to `type="button"` to avoid accidental form submission;
+set `type="submit"` explicitly for a submit action.
+
+### Default props
+
+| Prop      | Default   | Values                                                                                   |
+| --------- | --------- | ---------------------------------------------------------------------------------------- |
+| `loading` | `false`   | `boolean`                                                                                |
+| `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
+| `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
+| `type`    | `button`  | Native roots only                                                                        |
+
+### When to go custom
+
+Use `asChild` when one semantic child should own the DOM node. Ark composition requires exactly one
+child. The default `type="button"` is not injected into an `asChild` target.
+
+When `Dialog.Trigger`, `Menu.Trigger`, or another Ark part composes Button as its child, the parent
+part's `data-scope` and `data-part` take precedence on the shared DOM node. Button retains its
+recipe classes and stable `data-slot`, and Ark continues to merge the trigger handlers and refs.
+
+Use a real anchor for navigation. `aria-disabled="true"` is presentational on links, so application
+code must also prevent navigation or activation. The same applies to `loading` on `asChild` hosts:
+moduix keeps `aria-busy`, `aria-disabled`, and `data-disabled` for state and styling, but it does
+not force a native `disabled` attribute onto a custom host.
+
+### Behavioral notes
+
+- Native attributes, events, `className`, and `style` pass through without callback translation.
+- The forwarded ref targets the rendered root.
+- Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
+- `loading` is narrow sugar: it sets `data-loading`, `aria-busy`, and the disabled styling path
+  while the spinner and label stay fully compositional.
+- Optional `data-icon="inline-start|inline-end"` hooks can be applied to child icons or spinners
+  when a consumer wants explicit inline icon styling hooks.
+- Direct child `svg` elements inherit `currentColor` and use `--button-icon-size`.
+- Icon-only buttons require an accessible name.
+- Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
+  intentionally outside this root-only moduix contract.
+
+## Examples
+
+### AsChild Link
+
+Use `asChild` for navigation so the anchor retains link semantics while receiving button styling.
+
+<style>{`
+      [data-slot="button-root"] {
+        text-decoration: none;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/as-child-link.tsx"
+
+```
+
+### Disabled
+
+Use native `disabled` for buttons. Composed links need both `aria-disabled` and application-level
+activation prevention.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/disabled.tsx"
+
+```
+
+### Icons
+
+Icons can appear before or after text. Optional `data-icon` hooks help consumers target inline
+start and end icons without adding button-level icon props.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/icons.tsx"
+
+```
+
+### Pending State
+
+Use `loading` for the state wiring while keeping the label, spinner, and async lifecycle explicit
+in product code. On `asChild` hosts, treat it as a busy plus visually-disabled state and still
+block activation in application code.
+
+<style>{`
+      [data-slot="button-root"][data-loading] {
+        cursor: progress;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/pending-state.tsx"
+
+```
+
+### Ref
+
+The forwarded ref points at the rendered root and can be used for imperative focus or measurement.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/ref.tsx"
+
+```
+
+### Sizes
+
+Text and icon-only sizes share the same root API.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/sizes.tsx"
+
+```
+
+### Variants
+
+Use variants to communicate action priority and intent.
+
+<style>{`
+      .button-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/button/variants.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
+
+### Styling hooks
+
+- `data-slot="button-root"` is the stable moduix selector.
+- Standalone roots default to `data-scope="button"` and `data-part="root"`. A composing Ark parent
+  may replace them with its own anatomy values.
+- `data-variant` and `data-size` reflect the active visual recipe.
+- `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
+- `data-loading` is present when `loading={true}`.
+- Child icons and spinners may opt into `data-icon="inline-start"` or `data-icon="inline-end"` for
+  explicit inline icon targeting.
+- `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.

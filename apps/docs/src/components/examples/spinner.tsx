@@ -1,8 +1,5 @@
-import { Spinner } from '@moduix/react';
-import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './spinner.module.css';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const spinnerInlineCss = `
   .inline {
@@ -24,25 +21,13 @@ export const spinnerRowCss = `
   }
 `;
 
-export const spinnerStylingCss = `
-  .brandSpinner {
-    --spinner-color: var(--color-primary);
-    --spinner-ring-border-width: var(--border-width-lg);
-    --spinner-ring-track-color: color-mix(
-      in oklab,
-      var(--color-primary) 22%,
-      transparent 40%
-    );
-  }
-`;
-
 export const spinnerAsChildCss = `
   .customSpinnerHost {
     color: var(--color-primary);
   }
 `;
 
-export const spinnerOverrideCssProperties: CssPropertyInput[] = [
+const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ['--spinner-animation', 'var(--animation-spin)', 'Controls indicator rotation animation.'],
   ['--spinner-color', 'currentColor', 'Controls spinner color.'],
   ['--spinner-radius', 'var(--radius-full)', 'Controls round spinner part radius.'],
@@ -72,60 +57,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function SpinnerExample(props: ComponentProps<typeof Spinner>) {
-  return <Spinner {...props} />;
-}
-
-export function SpinnerInlineExample() {
-  return (
-    <div className={styles.inline}>
-      <Spinner decorative size="sm" />
-      <span className={styles.muted}>Saving changes</span>
-    </div>
-  );
-}
-
-export function SpinnerSizesExample() {
-  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-
-  return (
-    <div className={styles.row}>
-      {sizes.map((size) => (
-        <Spinner key={size} decorative size={size} />
-      ))}
-    </div>
-  );
-}
-
-export function SpinnerCustomIndicatorExample() {
-  return (
-    <Spinner size="lg" aria-label="Syncing">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M12 3v4M12 17v4M3 12h4M17 12h4M5.64 5.64l2.83 2.83M15.53 15.53l2.83 2.83M18.36 5.64l-2.83 2.83M8.47 15.53l-2.83 2.83"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    </Spinner>
-  );
-}
-
-export function SpinnerStylingExample() {
-  return <Spinner decorative size="lg" className={styles.brandSpinner} />;
-}
-
-export function SpinnerAsChildExample() {
-  return (
-    <Spinner asChild size="lg" aria-label="Loading report">
-      <span className={styles.customSpinnerHost}>
-        <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
-          <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
-        </span>
-      </span>
-    </Spinner>
-  );
 }

@@ -1,0 +1,261 @@
+---
+title: Stack
+component: stack
+description: A small Ark-aligned flex layout primitive for vertical and horizontal composition.
+---
+
+import * as StackDocs from '@/components/examples/stack';
+
+## API Reference
+
+Ark UI does not ship a dedicated `stack` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
+informs only the layout prop vocabulary.
+
+## Basic
+
+Start with `Stack` when one flex container is enough and the layout only needs direction, gap, and
+common alignment.
+
+<style>{`
+      .panel {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="stack" />
+
+## Anatomy
+
+`Stack` renders one Ark-aligned root flex wrapper. It owns direction, gap, common alignment, and a
+small amount of responsive sugar, while broader layout rules stay in local CSS.
+
+```text
+Stack / Stack.Root
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
+   └─ children
+```
+
+| Part                   | Role                                                                |
+| ---------------------- | ------------------------------------------------------------------- |
+| `Stack` / `Stack.Root` | Root flex wrapper for direction, gap, alignment, and child spacing. |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<Stack>` form for normal `div` output. Use `Stack.Root` only when namespace
+consistency helps next to multipart components.
+
+Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout. Use `fill` when a
+nested stack should grow as a flex item. Compose the moduix `Separator` directly when a layout needs
+a visual divider. Use `asChild` when the stack should render as a semantic element.
+
+### When to go custom
+
+Switch to local CSS when the layout needs more than one flex container, more than the mobile/desktop
+direction switch, per-breakpoint gap changes, item-level layout rules, or styling that reads clearer
+in a stylesheet than in component props.
+
+Use `style` when one instance needs to override public `--stack-*` variables or computed flex
+properties.
+
+### Default props
+
+| Prop        | Default         | Notes                                                   |
+| ----------- | --------------- | ------------------------------------------------------- |
+| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`   |
+| `gap`       | browser default | CSS length (`number` = `px`)                            |
+| `align`     | browser default | Any valid `align-items` value                           |
+| `justify`   | browser default | Any valid `justify-content` value                       |
+| `wrap`      | browser default | Any valid `flex-wrap` value                             |
+| `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
+| `asChild`   | `false`         | Ark factory composition with one semantic child element |
+
+### Behavioral notes
+
+- `Stack` renders exactly one root and forwards Ark factory DOM props to that root.
+- `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
+  provided.
+- `fill` affects the stack as a flex item, not its children.
+- `Separator` is an ordinary child; mark decorative dividers with `aria-hidden`.
+- `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
+- `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for
+  Ark-style styling.
+- `Stack` does not add item wrappers, keyboard behavior, ARIA semantics, context hooks, or provider
+  state.
+
+## Examples
+
+### Growing Child Stack
+
+Use `fill` when a nested stack should take the remaining space in a flex row.
+
+<style>{`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/growing-child-stack.tsx"
+
+```
+
+### Loading Layout
+
+Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
+
+<style>{`
+      .skeletonCard {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/loading-layout.tsx"
+
+```
+
+### Responsive Direction
+
+Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
+
+<style>{`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/responsive-direction.tsx"
+
+```
+
+### Row Layout
+
+Use `direction="row"` and alignment props for inline layouts.
+
+<style>{`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/row-layout.tsx"
+
+```
+
+### Semantic Element
+
+Use Ark `asChild` when the layout wrapper should also describe document structure.
+
+<style>{`
+      .panel {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/semantic-element.tsx"
+
+```
+
+### Separator
+
+Compose `Separator` directly when a horizontal or vertical stack needs a repeated visual divider
+between children. `gap` applies to every child, including each divider.
+
+<style>{`
+      .row {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-background);
+      }
+
+    `}</style>
+
+```tsx preview file="./_snippets/stack/separator.tsx"
+
+```
+
+### Wrapped Items
+
+Use `wrap="wrap"` when items should flow to the next line.
+
+<style>{`
+      .wrap {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+
+      .pill {
+        padding-inline: var(--spacing-3);
+        padding-block: var(--spacing-2);
+        border: var(--border-width-sm) solid var(--color-border);
+        border-radius: var(--radius-full);
+        background-color: var(--color-muted);
+        color: var(--color-foreground);
+        font-size: var(--text-sm);
+        line-height: var(--line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/stack/wrapped-items.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+`Stack` exposes public CSS variables in `theme.css`. The `direction` and `fill` props write inline
+values for these variables when provided, and the `style` prop can still override them per instance.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <StackDocs.StackCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `className` styles the single root for width, padding, borders, backgrounds, and other surface
+  concerns.
+- `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
+- `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
+- `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`,
+  `flexWrap`, and any `--stack-*` variables written by props.
+- There are no state attributes, CSS animation variables, or `slotProps` maps in the public
+  contract.

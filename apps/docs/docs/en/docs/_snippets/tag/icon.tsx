@@ -1,0 +1,36 @@
+import { Tag } from '@moduix/react';
+import { Check as CheckIcon } from 'lucide-react';
+import styles from '@/components/examples/tag.module.css';
+
+const tags = [
+  {
+    label: 'Selected',
+    variant: 'default',
+    removable: false,
+  },
+  {
+    label: 'Deployed',
+    variant: 'outline',
+    removable: true,
+  },
+] as const;
+
+export default function TagWithIconDemo() {
+  return (
+    <div className={styles.row}>
+      {tags.map((tag) => (
+        <Tag key={tag.label} variant={tag.variant}>
+          <Tag.StartElement>
+            <CheckIcon />
+          </Tag.StartElement>
+          <Tag.Label>{tag.label}</Tag.Label>
+          {tag.removable ? (
+            <Tag.EndElement>
+              <Tag.CloseTrigger aria-label={`Remove ${tag.label} tag`} />
+            </Tag.EndElement>
+          ) : null}
+        </Tag>
+      ))}
+    </div>
+  );
+}

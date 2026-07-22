@@ -1,0 +1,95 @@
+.reference {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block: 1.5rem;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius-small);
+  background: var(--rp-c-bg-soft);
+  padding: 1rem;
+}
+
+.reference p {
+  margin: 0.25rem 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+}
+
+.reference a {
+  flex: none;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.5rem;
+  background: var(--rp-c-bg);
+  color: var(--rp-c-text-1);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.install {
+  margin-block: 1rem 1.5rem;
+}
+
+.cssProperties {
+  margin-block: 1.5rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 0.875rem;
+  margin-block: 1.5rem;
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  min-height: 8.5rem;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius-small);
+  background: color-mix(in srgb, var(--rp-c-bg-soft) 75%, transparent);
+  color: var(--rp-c-text-1);
+  padding: 1rem;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    background 160ms ease;
+
+  &:hover {
+    border-color: var(--rp-c-divider);
+    background: var(--rp-c-bg-soft);
+    transform: translateY(-1px);
+  }
+}
+
+.card > span:last-child {
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.cardIcon {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border-radius: 0.5rem;
+  background: var(--rp-c-bg-mute);
+  color: var(--rp-c-text-1);
+}
+
+.cardIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (max-width: 640px) {
+  .reference {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

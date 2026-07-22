@@ -1,18 +1,7 @@
-import { Separator } from '@moduix/react';
-import type { ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './separator.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const separatorSections = ['Account settings', 'Billing details'];
-export const separatorNavigationItems = ['Home', 'Pricing', 'Sign in'];
-export const separatorVariantItems = ['solid', 'dashed', 'dotted'] as const;
-export const separatorSizeItems = ['xs', 'sm', 'md', 'lg'] as const;
-export const separatorDecorativeSections = ['Personal details', 'Notifications'];
-export const separatorNativeRuleLabels = ['Before native rule', 'After native rule'];
-export const separatorStepLabels = ['Completed profile', 'Next step: billing details'];
-
-export const separatorOverrideCssProperties: CssPropertyInput[] = [
+const separatorOverrideCssProperties: CssPropertyInput[] = [
   [
     '--separator-border-style',
     'active variant style',
@@ -49,92 +38,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function SeparatorExample(props: ComponentProps<typeof Separator>) {
-  return (
-    <div className={styles.card}>
-      <div className={styles.stack}>
-        <span className={styles.text}>{separatorSections[0]}</span>
-        <Separator {...props} />
-        <span className={styles.text}>{separatorSections[1]}</span>
-      </div>
-    </div>
-  );
-}
-
-export function DecorativeSeparatorExample() {
-  return (
-    <div className={styles.card}>
-      <div className={styles.stack}>
-        <span className={styles.text}>{separatorDecorativeSections[0]}</span>
-        <Separator role="presentation" />
-        <span className={styles.text}>{separatorDecorativeSections[1]}</span>
-      </div>
-    </div>
-  );
-}
-
-export function VerticalSeparatorExample() {
-  return (
-    <nav className={styles.nav} aria-label="Main navigation">
-      {separatorNavigationItems.slice(0, 2).map((item) => (
-        <a key={item} href="#" className={styles.link}>
-          {item}
-        </a>
-      ))}
-      <Separator orientation="vertical" />
-      <a href="#" className={styles.link}>
-        {separatorNavigationItems[2]}
-      </a>
-    </nav>
-  );
-}
-
-export function SeparatorVariantsExample() {
-  return (
-    <div className={styles.section}>
-      {separatorVariantItems.map((variant) => (
-        <div key={variant} className={styles.exampleRow}>
-          <span className={styles.text}>{variant}</span>
-          <Separator variant={variant} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function SeparatorSizesExample() {
-  return (
-    <div className={styles.section}>
-      {separatorSizeItems.map((size) => (
-        <div key={size} className={styles.exampleRow}>
-          <span className={styles.text}>{size}</span>
-          <Separator size={size} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function SeparatorAsChildExample() {
-  return (
-    <div className={styles.section}>
-      <span className={styles.text}>{separatorNativeRuleLabels[0]}</span>
-      <Separator asChild>
-        <hr className={styles.nativeRule} />
-      </Separator>
-      <span className={styles.text}>{separatorNativeRuleLabels[1]}</span>
-    </div>
-  );
-}
-
-export function StyledSeparatorExample() {
-  return (
-    <div className={styles.section}>
-      <span className={styles.text}>{separatorStepLabels[0]}</span>
-      <Separator className={styles.customSeparator} />
-      <span className={styles.text}>{separatorStepLabels[1]}</span>
-    </div>
-  );
 }

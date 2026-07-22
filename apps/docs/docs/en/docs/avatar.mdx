@@ -1,0 +1,171 @@
+---
+title: Avatar
+component: avatar
+description: Compact identity media with Ark UI image loading and fallback behavior.
+---
+
+import * as AvatarDocs from '@/components/examples/avatar';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+
+## Basic
+
+Compose `Avatar`, `Avatar.Fallback`, and `Avatar.Image`. Keep the fallback mounted so Ark UI can
+switch between it and the image as loading state changes.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+```tsx preview file="./_snippets/avatar/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="avatar" />
+
+## Anatomy
+
+```text
+Avatar.Root | Avatar.RootProvider
+├─ Avatar.Fallback
+└─ Avatar.Image
+```
+
+| Part                     | Role                                                              |
+| ------------------------ | ----------------------------------------------------------------- |
+| `Avatar` / `Avatar.Root` | Creates and owns the Ark UI avatar state.                         |
+| `Avatar.RootProvider`    | Renders an avatar from externally created Ark UI state.           |
+| `Avatar.Fallback`        | Shows initials, an icon, or custom content until the image loads. |
+| `Avatar.Image`           | Shows the native image after a successful load.                   |
+
+## Composition
+
+### Recommended composition
+
+Use `Avatar` for the normal path. `Avatar.Root` remains available when you want the explicit
+Ark-aligned namespace. `onStatusChange(details)` reports the Ark loading state, while `ids`
+provides stable IDs for the root, image, and fallback. All DOM parts forward their refs and
+support Ark `asChild`.
+
+`Avatar.Image` renders an `img`, so provide meaningful `alt` text when the image conveys identity.
+Use `alt=""` when the surrounding link or button already has the accessible name.
+
+`Avatar.Fallback name="Alex T."` derives initials for the common case. Pass children when you need
+custom fallback content; explicit children take precedence over `name`.
+
+### When to go custom
+
+Use `useAvatar` from `@moduix/react` with `Avatar.RootProvider` when state must be created outside
+the rendered avatar. Do not render `Avatar.Root` around the same `RootProvider` state instance.
+
+For framework image components, use `useAvatarContext()` from `@moduix/react` and preserve Ark's
+hidden/visible behavior. Keep rarer Ark-only context surfaces and type aliases on
+`@ark-ui/react/avatar`.
+
+Use `asChild` with one semantic child when a link, button, or framework component must own a part's
+DOM node.
+
+### Default props
+
+| Surface                                         | Prop   | Default | Values                       |
+| ----------------------------------------------- | ------ | ------- | ---------------------------- |
+| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
+
+### Behavioral notes
+
+- Ark controls `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`.
+- `Avatar.Fallback` derives initials from `name` only when no children are provided.
+- `onStatusChange` receives a detail object; read the current value from `details.status`.
+- A missing or failed image keeps the fallback visible.
+- `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
+- `useAvatar` and `useAvatarContext` are available from `@moduix/react`.
+- Rarer Ark-only context parts and type aliases stay on `@ark-ui/react/avatar`.
+- moduix adds only visual defaults, stable `data-slot` hooks, CSS variables, and `size`.
+
+## Examples
+
+### Custom Fallback
+
+Fallback content can be an icon or another compact identity marker. Add an accessible name when
+the fallback itself conveys information that is not available in nearby text.
+
+<style>{AvatarDocs.avatarFallbackCss}</style>
+
+```tsx preview file="./_snippets/avatar/custom-fallback.tsx"
+
+```
+
+### Custom Image
+
+Use `useAvatarContext()` from moduix when a framework image component or custom renderer needs to
+participate in Ark's loading lifecycle.
+
+<style>{AvatarDocs.avatarCustomImageCss}</style>
+
+```tsx preview file="./_snippets/avatar/custom-image.tsx"
+
+```
+
+### Events
+
+Use `onStatusChange(details)` when surrounding UI needs to react to the image lifecycle.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+```tsx preview file="./_snippets/avatar/events.tsx"
+
+```
+
+### Root Provider
+
+Create state with `useAvatar` from moduix when controls outside the avatar need to coordinate with
+it, then render `Avatar.RootProvider` instead of `Avatar.Root`.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+```tsx preview file="./_snippets/avatar/root-provider.tsx"
+
+```
+
+### Sizes and Fallback Only
+
+The moduix `size` shortcut maps common design-token sizes onto either root component. A fallback-only
+avatar is valid when no image source exists.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+```tsx preview file="./_snippets/avatar/sizes-and-fallback-only.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` when the avatar itself is the interactive element. This bypasses the default root DOM
+node while keeping Ark state, fallback behavior, and part composition explicit.
+
+<style>{AvatarDocs.avatarCompositionCss}</style>
+
+```tsx preview file="./_snippets/avatar/custom-composition.tsx"
+
+```
+
+## Styling
+
+Use `className` and moduix CSS variables for visual changes. Use Ark data attributes when styles
+depend on image state.
+
+### CSS Properties
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+
+### Styling hooks
+
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, and `avatar-fallback`.
+- Ark anatomy hooks: `data-scope="avatar"` and
+  `data-part="root" | "image" | "fallback"`.
+- Ark image state: `data-state="visible" | "hidden"` on `Avatar.Image` and
+  `Avatar.Fallback`.
+- moduix size state: `data-size="xs" | "sm" | "md" | "lg" | "xl"` on
+  `Avatar.Root` and `Avatar.RootProvider`.

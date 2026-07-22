@@ -1,12 +1,5 @@
-import { Field, NumberInput, useNumberInput } from '@moduix/react';
-import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CssProperty } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const centeredExampleStyle = {
-  width: 'fit-content',
-} as const;
+import type { CssProperty } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const numberInputControlledCss = `
   .number-input-state {
@@ -46,9 +39,7 @@ export const numberInputAdvancedCustomizationCss = `
   }
 `;
 
-export const numberInputNoData = `const data = null;`;
-
-export const numberInputOverrideCssProperties: CssProperty[] = [
+const numberInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--number-input-border-color',
     defaultValue: 'var(--color-border)',
@@ -218,160 +209,4 @@ export const numberInputOverrideCssProperties: CssProperty[] = [
 
 export function NumberInputCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={numberInputOverrideCssProperties} />;
-}
-
-export function NumberInputExample(props: ComponentProps<typeof NumberInput>) {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="100" {...props}>
-        <NumberInput.Label>Amount</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function ControlledNumberInputExample() {
-  const [value, setValue] = useState('24');
-
-  return (
-    <div>
-      <NumberInput value={value} onValueChange={(details) => setValue(details.value)}>
-        <NumberInput.Label>Controlled value</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-      <div className="number-input-state">Current value: {value || 'empty'}</div>
-    </div>
-  );
-}
-
-export function MinMaxNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="10" min={0} max={20} step={2}>
-        <NumberInput.Label>Quantity (0-20, step 2)</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function FractionDigitsNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput
-        defaultValue="12.5"
-        step={0.25}
-        formatOptions={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
-      >
-        <NumberInput.Label>Hours</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function NumberInputScrubberExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="250">
-        <NumberInput.Label>Drag to scrub</NumberInput.Label>
-        <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function MouseWheelNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="5" allowMouseWheel>
-        <NumberInput.Label>Mouse wheel enabled</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function FormattedNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput
-        defaultValue="1250"
-        min={0}
-        step={50}
-        formatOptions={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
-      >
-        <NumberInput.Label>Price</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function NumberInputFieldExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <Field invalid>
-        <NumberInput min={1} max={10} required>
-          <NumberInput.Label>Items</NumberInput.Label>
-          <NumberInput.Field />
-        </NumberInput>
-        <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
-      </Field>
-    </div>
-  );
-}
-
-export function ValueTextNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="42">
-        <NumberInput.Label>Value preview</NumberInput.Label>
-        <NumberInput.Field />
-        <NumberInput.ValueText />
-      </NumberInput>
-    </div>
-  );
-}
-
-export function RootProviderNumberInputExample() {
-  const numberInput = useNumberInput({ defaultValue: '3', min: 1, max: 10 });
-
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput.RootProvider value={numberInput}>
-        <NumberInput.Label>Guests</NumberInput.Label>
-        <NumberInput.Field />
-      </NumberInput.RootProvider>
-      <div className="number-input-root-provider-actions">
-        <button type="button" onClick={() => numberInput.setToMin()}>
-          Min
-        </button>
-        <button type="button" onClick={() => numberInput.setToMax()}>
-          Max
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export function CustomIconsNumberInputExample() {
-  return (
-    <div style={centeredExampleStyle}>
-      <NumberInput defaultValue="8">
-        <NumberInput.Label>Floors</NumberInput.Label>
-        <NumberInput.Control>
-          <NumberInput.DecrementTrigger className="number-input-custom-button">
-            <ChevronDownIcon />
-          </NumberInput.DecrementTrigger>
-          <NumberInput.Input className="number-input-custom-input" />
-          <NumberInput.IncrementTrigger className="number-input-custom-button">
-            <ChevronUpIcon />
-          </NumberInput.IncrementTrigger>
-        </NumberInput.Control>
-      </NumberInput>
-    </div>
-  );
 }

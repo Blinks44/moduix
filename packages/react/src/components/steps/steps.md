@@ -138,7 +138,7 @@ This migration intentionally removes the old `Stepper` contract: no flat part ex
 
 Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `Steps.useSteps()` is the moduix-owned state factory for `RootProvider`; other Ark state helpers remain escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
 
-When changing styling hooks or variables, update `Steps.module.css`, `theme.css`, stories, docs examples, `apps/docs/content/docs/steps.mdx`, and this file together.
+When changing styling hooks or variables, update `Steps.module.css`, `theme.css`, stories, docs examples, `apps/docs/docs/en/docs/steps.mdx`, and this file together.
 
 ## Local changelog
 

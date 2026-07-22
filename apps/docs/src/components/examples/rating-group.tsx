@@ -1,8 +1,5 @@
-import { Button, Field, RatingGroup, useRatingGroup } from '@moduix/react';
-import { Heart as HeartIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const ratingGroupExampleCss = `
   .rating-group-stack {
@@ -45,7 +42,7 @@ export const ratingGroupCustomIconCss = `
   }
 `;
 
-export const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
+const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--rating-group-active-color', 'var(--color-primary)', 'Controls highlighted star color.'],
   ['--rating-group-color', 'var(--color-muted-foreground)', 'Controls empty star color.'],
   [
@@ -87,162 +84,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 export function RatingGroupCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={ratingGroupCssPropertiesReference} />;
-}
-
-export function RatingGroupExample(props: ComponentProps<typeof RatingGroup>) {
-  return (
-    <RatingGroup defaultValue={4} {...props}>
-      <RatingGroup.Label>Overall satisfaction</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items />
-      </RatingGroup.Control>
-    </RatingGroup>
-  );
-}
-
-export function ControlledRatingGroupExample() {
-  const [value, setValue] = useState(3);
-
-  return (
-    <div className="rating-group-stack">
-      <RatingGroup value={value} onValueChange={(details) => setValue(details.value)}>
-        <RatingGroup.Label>Support quality</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <span className="rating-group-hint">Current value: {value}</span>
-    </div>
-  );
-}
-
-export function AdvancedCustomizationRatingGroupExample() {
-  const ratingGroup = useRatingGroup({ count: 5, defaultValue: 3 });
-
-  return (
-    <div className="rating-group-stack">
-      <output className="rating-group-hint">Current value: {ratingGroup.value}</output>
-      <RatingGroup.RootProvider value={ratingGroup}>
-        <RatingGroup.Label>Product quality</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup.RootProvider>
-    </div>
-  );
-}
-
-export function WithFieldRatingGroupExample() {
-  return (
-    <Field className="rating-group-field">
-      <RatingGroup defaultValue={4} required>
-        <RatingGroup.Label>Experience score</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <Field.HelperText>Required score from 1 to 5.</Field.HelperText>
-      <Field.ErrorText>Choose a score before continuing.</Field.ErrorText>
-    </Field>
-  );
-}
-
-export function HalfRatingGroupExample() {
-  return (
-    <RatingGroup allowHalf defaultValue={3.5}>
-      <RatingGroup.Label>Average delivery score</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items />
-      </RatingGroup.Control>
-    </RatingGroup>
-  );
-}
-
-export function FormRatingGroupExample() {
-  const [submitted, setSubmitted] = useState('Nothing submitted');
-
-  return (
-    <form
-      className="rating-group-stack"
-      onSubmit={(event) => {
-        event.preventDefault();
-        setSubmitted(String(new FormData(event.currentTarget).get('review') ?? ''));
-      }}
-    >
-      <RatingGroup name="review" defaultValue={4} required>
-        <RatingGroup.Label>Review score</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <Button type="submit">Submit</Button>
-      <output className="rating-group-hint">Submitted: {submitted}</output>
-    </form>
-  );
-}
-
-export function DisabledRatingGroupExample() {
-  return (
-    <div className="rating-group-stack">
-      <RatingGroup defaultValue={4} disabled>
-        <RatingGroup.Label>Disabled rating</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <RatingGroup defaultValue={2} readOnly>
-        <RatingGroup.Label>Read-only rating</RatingGroup.Label>
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-    </div>
-  );
-}
-
-export function RatingGroupSizesExample() {
-  return (
-    <div className="rating-group-stack">
-      <RatingGroup defaultValue={3} size="xs" aria-label="Extra-small rating">
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <RatingGroup defaultValue={3} size="sm" aria-label="Small rating">
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <RatingGroup defaultValue={3} size="md" aria-label="Medium rating">
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <RatingGroup defaultValue={3} size="lg" aria-label="Large rating">
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-      <RatingGroup defaultValue={3} size="xl" aria-label="Extra-large rating">
-        <RatingGroup.Control>
-          <RatingGroup.Items />
-        </RatingGroup.Control>
-      </RatingGroup>
-    </div>
-  );
-}
-
-export function CustomIconRatingGroupExample() {
-  return (
-    <RatingGroup defaultValue={3}>
-      <RatingGroup.Label>Checklist score</RatingGroup.Label>
-      <RatingGroup.Control>
-        <RatingGroup.Items>
-          <RatingGroup.ItemIndicator className="rating-group-custom-icon">
-            <HeartIcon />
-          </RatingGroup.ItemIndicator>
-        </RatingGroup.Items>
-      </RatingGroup.Control>
-    </RatingGroup>
-  );
 }

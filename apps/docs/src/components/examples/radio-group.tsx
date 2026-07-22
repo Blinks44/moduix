@@ -1,13 +1,5 @@
-import { Field, Fieldset, RadioGroup, useRadioGroup } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const frameworks = ['React', 'Solid', 'Vue'] as const;
-
-export const radioGroupFrameworksData = `
-const frameworks = ["React", "Solid", "Vue"];
-`;
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const radioGroupExampleCss = `
 .radio-stack {
@@ -72,7 +64,7 @@ export const radioGroupIndicatorCss = `
 }
 `;
 
-export const radioGroupOverrideCssProperties: CssPropertyInput[] = [
+const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--radio-bg', 'var(--color-background)', 'Controls unchecked item control background.'],
   ['--radio-bg-checked', 'var(--color-primary)', 'Controls checked item control background.'],
   ['--radio-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background.'],
@@ -142,161 +134,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-function FrameworkItems({ items = frameworks }: { items?: readonly string[] }) {
-  return (
-    <>
-      {items.map((framework) => (
-        <RadioGroup.Option key={framework} value={framework}>
-          {framework}
-        </RadioGroup.Option>
-      ))}
-    </>
-  );
-}
-
-export function RadioGroupExample(props: ComponentProps<typeof RadioGroup>) {
-  return (
-    <RadioGroup defaultValue="React" {...props}>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <FrameworkItems />
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupInitialValueExample() {
-  return (
-    <RadioGroup defaultValue="Solid">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <FrameworkItems />
-    </RadioGroup>
-  );
-}
-
-export function ControlledRadioGroupExample() {
-  const [value, setValue] = useState<string | null>('React');
-
-  return (
-    <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <FrameworkItems />
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupRootProviderExample() {
-  const radioGroup = useRadioGroup({ defaultValue: 'React' });
-
-  return (
-    <div className="radio-stack">
-      <RadioGroup.RootProvider value={radioGroup}>
-        <RadioGroup.Label>Framework</RadioGroup.Label>
-        <FrameworkItems />
-      </RadioGroup.RootProvider>
-      <button className="radio-button" type="button" onClick={() => radioGroup.setValue('Solid')}>
-        Set to Solid
-      </button>
-    </div>
-  );
-}
-
-export function DisabledRadioGroupExample() {
-  return (
-    <RadioGroup defaultValue="React" disabled>
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <FrameworkItems />
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupOrientationExample() {
-  return (
-    <RadioGroup orientation="horizontal" defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      <div className="radio-inline-items">
-        <FrameworkItems />
-      </div>
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupFieldsetExample() {
-  return (
-    <Fieldset className="radio-fieldset">
-      <Fieldset.Legend>Select a framework</Fieldset.Legend>
-      <RadioGroup defaultValue="React">
-        <FrameworkItems />
-      </RadioGroup>
-    </Fieldset>
-  );
-}
-
-export function RadioGroupFieldExample() {
-  return (
-    <Field.Root invalid className="radio-field">
-      <Field.Label>Account type</Field.Label>
-      <RadioGroup required name="account-type">
-        <RadioGroup.Option value="personal">Personal account</RadioGroup.Option>
-        <RadioGroup.Option value="team">Team account</RadioGroup.Option>
-      </RadioGroup>
-      <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>
-      <Field.ErrorText>Choose an account type.</Field.ErrorText>
-    </Field.Root>
-  );
-}
-
-export function RadioGroupSizesExample() {
-  return (
-    <RadioGroup defaultValue="md">
-      <RadioGroup.Label>Control Size</RadioGroup.Label>
-      {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
-        <RadioGroup.Option key={size} value={size} size={size}>
-          {size.toUpperCase()}
-        </RadioGroup.Option>
-      ))}
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupAsChildExample() {
-  return (
-    <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      {frameworks.map((framework) => (
-        <RadioGroup.Item key={framework} value={framework} asChild>
-          <label className="radio-card-item">
-            <RadioGroup.ItemControl />
-            <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-          </label>
-        </RadioGroup.Item>
-      ))}
-    </RadioGroup>
-  );
-}
-
-export function RadioGroupIndicatorExample() {
-  return (
-    <div className="radio-indicator-stack">
-      <div>Framework</div>
-      <RadioGroup aria-label="Framework" defaultValue="React" className="radio-indicator-root">
-        <RadioGroup.Indicator className="radio-group-indicator" />
-        <FrameworkItems />
-      </RadioGroup>
-    </div>
-  );
-}
-
-export function RadioGroupAdvancedCustomizationExample() {
-  return (
-    <RadioGroup defaultValue="React">
-      <RadioGroup.Label>Framework</RadioGroup.Label>
-      {frameworks.map((framework) => (
-        <RadioGroup.Item key={framework} value={framework}>
-          <RadioGroup.ItemControl />
-          <RadioGroup.ItemText>{framework}</RadioGroup.ItemText>
-        </RadioGroup.Item>
-      ))}
-    </RadioGroup>
-  );
 }

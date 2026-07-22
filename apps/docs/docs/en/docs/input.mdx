@@ -1,0 +1,218 @@
+---
+title: Input
+component: input
+description: An Ark Field input wrapper with native events, form semantics, and moduix styling.
+---
+
+import * as InputDocs from '@/components/examples/input';
+
+## API Reference
+
+Ark UI does not ship a dedicated input primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to
+[Ark Field.Input](https://ark-ui.com/docs/components/field).
+
+## Choosing the right component
+
+- Choose **`Input`** for a plain single-line native input.
+- Choose **`InputGroup`** for inline addons, text, or actions.
+- Choose **`PasswordInput`** for the existing visibility-toggle wrapper.
+- Choose **`NumberInput`** for numeric parsing and stepping.
+- Choose **`Textarea`** for multi-line content.
+- Choose **`Editable`** for preview-first text that switches into edit mode.
+
+## Basic
+
+Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and form state.
+
+<style>{`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="input" />
+
+## Anatomy
+
+```text
+Field.Root (optional)
+└─ Input
+```
+
+| Part                   | Role                                                                  |
+| ---------------------- | --------------------------------------------------------------------- |
+| `Input` / `Input.Root` | Styled Ark `Field.Input` that renders the native single-line control. |
+
+## Composition
+
+### Recommended composition
+
+Render `Input` inside `Field` for labels, helper/error text, ids, and shared `disabled`, `invalid`,
+`required`, or `readOnly` state. `Fieldset` can provide disabled state to nested fields.
+
+Use native input props and events. Controlled inputs use `value` and `onChange(event)`;
+uncontrolled inputs use `defaultValue`.
+
+### When to go custom
+
+Use `asChild` when one semantic input element must own the rendered node. Ark merges the wrapper
+props, field props, class, and ref into that single child.
+
+For a control that is not input-compatible, do not force it through `Input`; compose it with a
+component that owns the correct Ark control primitive.
+
+### Default props
+
+| Prop       | Default | Notes                                                  |
+| ---------- | ------- | ------------------------------------------------------ |
+| `size`     | `md`    | Visual size: `xs`, `sm`, `md`, `lg`, or `xl`.          |
+| `htmlSize` | —       | Writes the native character-based `input[size]` value. |
+| `asChild`  | `false` | Merges props into one semantic child through Ark Slot. |
+
+### Behavioral notes
+
+- The ref points to the real `HTMLInputElement`.
+- No `HiddenInput` is needed because `Input` is the native form control.
+- Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
+- `Input` does not manage value, validity, focus, or keyboard navigation.
+
+## Examples
+
+### Controlled
+
+Use the native change event when React owns the current value.
+
+<style>{`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/controlled.tsx"
+
+```
+
+### Disabled and Readonly
+
+Use native props directly or place them on `Field.Root` when the full field should share state.
+
+<style>{`
+      .input-demo-stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
+
+```
+
+### Field State
+
+Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
+connects the error text.
+
+<style>{`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/field-state.tsx"
+
+```
+
+### Native Attributes
+
+Native attributes continue to control browser validation, keyboard, autocomplete, and form
+submission. Use `htmlSize` only for character-based width.
+
+<style>{`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/native-attributes.tsx"
+
+```
+
+### Sizes
+
+The moduix `size` prop changes visual density without replacing the native `size` attribute.
+
+<style>{`
+      .input-demo-stack {
+        display: grid;
+        gap: var(--spacing-3);
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/sizes.tsx"
+
+```
+
+### Standalone Input
+
+Outside `Field`, provide an accessible name explicitly. Native state props still work, but there is
+no field context to supply ids or helper/error relationships.
+
+<style>{`
+      .input-demo-standalone {
+        max-width: 14rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/standalone-input.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` only when a custom input host must own the rendered node; preserve one semantic,
+focusable input element that can receive the forwarded props and ref.
+
+<style>{`
+      .input-demo-field {
+        width: min(14rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/input/as-child.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <InputDocs.InputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="input-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` and `data-part="input"`
+- Ark `data-invalid`, `data-required`, and `data-readonly` inside `Field`
+- native `:disabled`, `:read-only`, `:focus-visible`, and `[aria-invalid="true"]`

@@ -1,0 +1,129 @@
+---
+title: Image
+component: image
+description: Responsive CDN-aware images with Unpic's generated srcset and sizes attributes.
+---
+
+import * as ImageDocs from '@/components/examples/image';
+
+## API Reference
+
+`Image` is a moduix-owned `<img>` wrapper around [Unpic React](https://unpic.pics/img/react/).
+Ark UI has no dedicated image primitive for this component.
+
+## Basic
+
+Use `Image` with a supported image CDN URL and provide dimensions for the default constrained
+layout. Unpic generates responsive `srcSet` and `sizes`, while the browser reserves the image space.
+
+<style>{ImageDocs.imageBasicCss}</style>
+
+```tsx preview file="./_snippets/image/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="image" />
+
+## Anatomy
+
+```text
+Image / Image.Root
+└─ img
+
+picture (native)
+├─ Image.Source
+└─ Image / Image.Root
+```
+
+| Part                   | Role                                                                  |
+| ---------------------- | --------------------------------------------------------------------- |
+| `Image` / `Image.Root` | Responsive native image; Unpic creates `srcSet`, `sizes`, and styles. |
+| `Image.Source`         | Responsive `<source>` for a native `<picture>` element.               |
+
+## Composition
+
+### Recommended composition
+
+`Image` is the short root form and is equivalent to `Image.Root`. Use `width` and `height` with
+the default `layout="constrained"` to preserve the asset's ratio and avoid layout shifts. For
+remote URLs from supported providers, Unpic detects the provider and generates transformed `srcSet`
+entries automatically.
+
+Use `priority` only for images that must load immediately, such as the primary above-the-fold hero.
+It sets eager loading and high fetch priority unless the corresponding native attributes are passed.
+
+### When to go custom
+
+Use native `<picture>` with `Image.Source` when art direction or media-specific sources are needed.
+Keep `Image` as the last child for the fallback image. Pass `fallback`, `options`, or `operations`
+when an otherwise unrecognized URL should use a specific Unpic provider.
+
+### Default props
+
+| Prop             | Default            | Notes                                            |
+| ---------------- | ------------------ | ------------------------------------------------ |
+| `layout`         | `constrained`      | Fits within supplied dimensions and scales down. |
+| `loading`        | `lazy`             | Becomes `eager` when `priority` is set.          |
+| `decoding`       | `async`            | Kept unless a native value is passed.            |
+| `objectFit`      | `cover`            | Applied by Unpic's generated inline styles.      |
+| `--image-radius` | `var(--radius-md)` | moduix's default visible radius.                 |
+
+### Behavioral notes
+
+- `fixed` keeps the requested pixel dimensions and can overflow a narrower parent, while
+  `fullWidth` fills its container width.
+- `alt` is required for meaningful images. Use `alt=""` for decorative images; Unpic then applies
+  `role="presentation"` unless you override the role.
+- Unpic generates `srcSet` from the source URL. Use `breakpoints` when its standard responsive
+  widths are not appropriate.
+- `background="auto"` creates a low-resolution background from supported providers. It remains
+  after loading, so use it only for opaque images or provide a deliberate background value instead.
+- `unstyled` disables Unpic's generated inline layout styles; moduix's display, radius, and
+  `data-slot` hooks remain available.
+
+## Examples
+
+### Art Direction
+
+Use `Image.Source` to choose a wider office view on larger screens and the portrait fallback on
+smaller screens. `Image.Source` must stay inside a native `<picture>` element.
+
+<style>{ImageDocs.imagePictureCss}</style>
+
+```tsx preview file="./_snippets/image/art-direction.tsx"
+
+```
+
+### Fixed
+
+Use `layout="fixed"` when the image must keep exact CSS-pixel dimensions. Ensure its parent has
+enough room, since fixed images do not shrink to fit a narrower container.
+
+```tsx preview file="./_snippets/image/fixed.tsx"
+
+```
+
+### Full Width
+
+Use `layout="fullWidth"` for a hero or media strip that should fill the width of its containing
+layout. Supply `height` when the crop height must remain fixed.
+
+<style>{ImageDocs.imageFullWidthCss}</style>
+
+```tsx preview file="./_snippets/image/full-width.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<CssPropertiesSection properties={ImageDocs.imageCssProperties} />
+
+### Styling hooks
+
+- `data-slot="image-root"` styles the rendered `<img>`.
+- `data-slot="image-source"` targets the source node inside a native `<picture>`.
+- `className` on `Image` is the recommended local styling path. The root is block-level by default.

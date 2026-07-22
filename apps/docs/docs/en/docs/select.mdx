@@ -1,0 +1,473 @@
+---
+title: Select
+component: select
+description: Ark UI select composition for choosing one or more values from a popup list.
+---
+
+import * as SelectDocs from '@/components/examples/select';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+
+## Choosing the right component
+
+Use `Select` when users choose from a fixed collection and the trigger should stay read-only.
+
+- Choose **`Combobox`** when typing is part of finding or creating the value.
+- Choose **`Select`** when the user picks from known values, including grouped or multiple values.
+
+## Basic
+
+Start with `Select`, pass a `collection`, render the visible field through `Label` and
+`Select.Field`, then render the popup structure explicitly. Pass `clearLabel` when the clear action
+is needed. The root renders its native select automatically for native form submission and browser
+autofill.
+
+<style>{`
+      [data-slot="select-root"] {
+        --select-width: 16rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/select/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="select" />
+
+## Anatomy
+
+```text
+Select / Select.Root
+├─ Select.Label
+├─ Select.Control / Select.Field
+│  ├─ Select.Trigger
+│  │  ├─ Select.ValueText
+│  │  └─ Select.Indicator
+│  └─ Select.ClearTrigger
+├─ Overlay subtree (automatically portalled)
+│  └─ Select.Positioner
+│     └─ Select.Content
+│        ├─ Select.List
+│        └─ Select.ItemGroup
+│           ├─ Select.ItemGroupLabel
+│           └─ Select.Item[item]
+│              ├─ Select.ItemText
+│              └─ Select.ItemIndicator
+└─ native select (automatic)
+```
+
+| Part                     | Role                                                                   |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `Select` / `Select.Root` | Root state, collection, selection, popup lifecycle, and form data.     |
+| `Select.RootProvider`    | Renders a select tree from state returned by `useSelect`.              |
+| `Select.Label`           | Accessible label inherited by the trigger and native select.           |
+| `Select.Control`         | Visual field wrapper that receives focus, invalid, and open state.     |
+| `Select.Field`           | Moduix helper that renders the standard control, trigger, and actions. |
+| `Select.Trigger`         | Button that opens the popup and owns keyboard entry.                   |
+| `Select.ValueText`       | Placeholder or selected item labels.                                   |
+| `Select.ClearTrigger`    | Button that clears the current value.                                  |
+| `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.                |
+| `Select.Indicators`      | Optional layout helper for custom sibling-action composition.          |
+| `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.             |
+| `Select.Content`         | Popup surface and listbox container.                                   |
+| `Select.List`            | Optional list wrapper for virtualized or custom list layouts.          |
+| `Select.ItemGroup`       | Group wrapper for related collection items.                            |
+| `Select.ItemGroupLabel`  | Label for a collection group.                                          |
+| `Select.Item`            | Selectable row. Pass the collection item through `item`.               |
+| `Select.ItemText`        | Text used for display and accessibility.                               |
+| `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
+
+## Composition
+
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
+### Recommended composition
+
+Use `Select.Field` for the standard read-only field. It renders `Control`, `Trigger`, `ValueText`,
+and the indicator; pass `clearLabel` to include a labeled clear action or `indicator={<Icon />}`
+to replace the default chevron. Keep the popup structure explicit with `Positioner` and `Content`.
+
+Use the explicit Ark part tree: root, label, control, trigger, value text, optional clear and
+indicator buttons, automatically portalled positioner/content, and items. The root renders its
+native select automatically.
+
+`Select` is the short root form and is equivalent to `Select.Root`.
+
+### When to go custom
+
+Use `asChild` when a part must render a custom host element, but keep a single semantic child that
+can receive Ark props. Use `Select.List` for custom list wrappers and virtualization paths; regular
+selects can render items directly in `Select.Content`.
+
+### Default props
+
+| Prop                    | Default | Notes                                                          |
+| ----------------------- | ------- | -------------------------------------------------------------- |
+| `closeOnSelect`         | `true`  | Closes the popup after item selection.                         |
+| `composite`             | `true`  | Allows composition with nested composite widgets.              |
+| `defaultValue`          | `[]`    | Values are string arrays, including single selection.          |
+| `lazyMount`             | `false` | Defers popup content mounting until opened.                    |
+| `loopFocus`             | `false` | Keeps arrow navigation from wrapping by default.               |
+| `multiple`              | `false` | Enables multiple values when set.                              |
+| `positioning`           | -       | Ark floating positioning options.                              |
+| `unmountOnExit`         | `false` | Removes popup content after close when set with lazy mounting. |
+| `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
+
+### Behavioral notes
+
+For external state and context reads, use `Select.useSelect`, `Select.Context`,
+`Select.ItemContext`, `Select.useSelectContext`, and `Select.useSelectItemContext`.
+
+`value`, `defaultValue`, and `onValueChange(details)` use string arrays. Read
+`details.value` for selected keys and `details.items` for the selected collection items.
+
+`onOpenChange(details)`, `onHighlightChange(details)`, and `onSelect(details)` keep Ark's detail
+object signatures. `Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and
+read-only state through Ark context.
+
+The root renders its native select automatically for native submission, autofill, and reset behavior.
+For very large virtualized collections, set `nativeFormControl="input"` to submit lightweight
+hidden inputs instead of rendering one native option per item. This mode deliberately omits native
+select autofill and progressive enhancement.
+
+## Examples
+
+### Controlled
+
+Control the selected string array from React state and update it from `details.value`.
+
+<style>{`[data-slot="select-root"] { --select-width: 14rem; }`}</style>
+
+```tsx preview file="./_snippets/select/controlled.tsx"
+
+```
+
+### Custom Item Layout
+
+Use the moduix leaf helpers inside `ItemText` when items need a stable icon and ellipsized label
+layout. These helpers are plain spans; selection behavior stays on Ark `Select.Item`.
+
+<style>{`[data-slot="select-item-text-content"] { gap: var(--spacing-2); }`}</style>
+
+```tsx preview file="./_snippets/select/custom-item-layout.tsx"
+
+```
+
+### Dynamic Items
+
+Recreate or update the collection when the available items change.
+
+<style>{`input + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</style>
+
+```tsx preview file="./_snippets/select/dynamic-items.tsx"
+
+```
+
+### Field
+
+Wrap `Select` in `Field.Root` when label, helper text, invalid, required, or disabled state belongs
+to a form field.
+
+<style>{`
+  .select-field-example {
+    --field-width: min(20rem, 100%);
+
+    margin-inline: auto;
+  }
+
+  [data-slot="select-label"][data-required]::after {
+    content: " *";
+  }
+`}</style>
+
+```tsx preview file="./_snippets/select/field.tsx"
+
+```
+
+### Form Usage
+
+The root's automatic native select keeps native submission working. Read submitted values from
+`FormData`.
+
+<style>{`.select-form {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.select-form [data-slot="select-root"] {
+--select-width: 16rem;
+}
+
+.select-form-actions {
+display: flex;
+align-items: center;
+gap: var(--spacing-3);
+}
+
+.select-form-output {
+color: var(--color-muted-foreground);
+font-size: var(--text-sm);
+}`}</style>
+
+```tsx preview file="./_snippets/select/form-usage.tsx"
+
+```
+
+### Grouping
+
+Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
+`ItemGroupLabel`.
+
+<style>{`[data-slot="select-item-group-label"] { color: var(--color-muted-foreground); }`}</style>
+
+```tsx preview file="./_snippets/select/grouping.tsx"
+
+```
+
+### Lazy Mount
+
+Use `lazyMount` and `unmountOnExit` when popup content should only exist while the select is used.
+
+<style>{`[data-slot="select-content"] { --select-content-closed-scale: 0.96; }`}</style>
+
+```tsx preview file="./_snippets/select/lazy-mount.tsx"
+
+```
+
+### Max Selection
+
+Limit multiple selection by rejecting oversized value arrays and marking remaining items disabled.
+
+<style>{`[data-slot="select-item"][data-disabled] { opacity: var(--opacity-disabled); }`}</style>
+
+<ExampleFrame clientOnly>
+  <SelectDocs.MaxSelectionSelectExample />
+</ExampleFrame>
+
+```tsx
+import { createListCollection } from '@ark-ui/react/collection';
+import { Select } from '@moduix/react';
+
+const value = ['javascript'];
+
+const collection = createListCollection({
+  items: [
+    {
+      label: 'C#',
+      value: 'csharp',
+      disabled: false,
+    },
+    {
+      label: 'Go',
+      value: 'go',
+      disabled: false,
+    },
+    {
+      label: 'JavaScript',
+      value: 'javascript',
+      disabled: false,
+    },
+    {
+      label: 'Python',
+      value: 'python',
+      disabled: false,
+    },
+    {
+      label: 'Rust',
+      value: 'rust',
+      disabled: false,
+    },
+    {
+      label: 'TypeScript',
+      value: 'typescript',
+      disabled: false,
+    },
+  ],
+});
+
+export default function SelectMaxSelectionDemo() {
+  return (
+    <Select
+      collection={collection}
+      multiple
+      value={value}
+      onValueChange={(details) => {
+        if (details.value.length <= 3) setValue(details.value);
+      }}
+    >
+      <Select.Label>Languages</Select.Label>
+      <Select.Control>
+        <Select.Trigger>
+          <Select.ValueText placeholder="Select up to 3" />
+        </Select.Trigger>
+        <Select.Indicators>
+          <Select.ClearTrigger aria-label="Clear selection" />
+          <Select.Indicator />
+        </Select.Indicators>
+      </Select.Control>
+      <Select.Positioner>
+        <Select.Content>
+          {collection.items.map((item) => (
+            <Select.Item key={item.value} item={item}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Positioner>
+    </Select>
+  );
+}
+```
+
+### Native Form Control
+
+Use `nativeFormControl="input"` when rendering a very large collection with virtualization. The
+selected values still submit through `FormData`, without creating native options for every item.
+
+<style>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</style>
+
+```tsx preview file="./_snippets/select/native-form-control.tsx"
+
+```
+
+### Multiple
+
+Set `multiple` to allow several selected values. `ValueText` renders the selected item labels from
+the collection.
+
+<style>{`[data-slot="select-item"][data-state="checked"] { font-weight: var(--weight-semibold); }`}</style>
+
+```tsx preview file="./_snippets/select/multiple.tsx"
+
+```
+
+### Overflow
+
+Use `positioning.fitViewport` and the exposed `--available-height` variable for long lists.
+
+<style>{`[data-slot="select-content"] { max-height: min(24rem, var(--available-height)); }`}</style>
+
+```tsx preview file="./_snippets/select/overflow.tsx"
+
+```
+
+### Root Provider
+
+Use Ark `useSelect` with `Select.RootProvider` when state needs to be read or controlled outside
+the rendered select tree.
+
+<style>{`
+  .select-provider-demo {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .select-provider-demo [data-slot="select-root-provider"] {
+    --select-width: 14rem;
+  }
+
+  .select-provider-demo output {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+`}</style>
+
+```tsx preview file="./_snippets/select/root-provider.tsx"
+
+```
+
+### Select All
+
+Read root state with Ark `Select.Context` and call `selectAll()` for bulk selection.
+
+<style>{`
+      .select-bulk-action {
+        display: flex;
+        width: calc(100% - var(--spacing-2));
+        min-height: var(--size-sm);
+        margin: 0 var(--spacing-1) var(--spacing-1);
+        align-items: center;
+        border: 0;
+        border-radius: var(--radius-sm);
+        padding-inline: var(--spacing-3);
+        background: transparent;
+        color: var(--color-muted-foreground);
+        font: inherit;
+        font-size: var(--text-sm);
+        cursor: pointer;
+      }
+
+      .select-bulk-action:hover {
+        background: var(--color-muted);
+        color: var(--color-foreground);
+      }
+
+      .select-bulk-action:focus-visible {
+        outline: var(--border-width-sm) solid var(--color-ring);
+        outline-offset: calc(var(--border-width-sm) * -1);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/select/select-all.tsx"
+
+```
+
+### Select On Highlight
+
+Use `onHighlightChange(details)` when moving through options should immediately update selection.
+
+<style>{`[data-slot="select-item"][data-highlighted] { color: var(--select-highlight-color); }`}</style>
+
+```tsx preview file="./_snippets/select/select-on-highlight.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Select.Field` when the trigger, value text, or indicator layout needs independent
+composition and styling.
+
+<style>{`[data-slot="select-trigger"] { justify-content: space-between; }`}</style>
+
+```tsx preview file="./_snippets/select/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Style `Select` through `className`, stable `data-slot="select-*"` hooks, Ark attributes, and the
+public `--select-*` CSS variables shown below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SelectDocs.SelectCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+`Select.Field` renders the existing `select-control`, `select-trigger`, `select-value-text`, and
+`select-indicators` slots, so it uses the same styling contract as explicit composition. Its
+`indicator` prop supplies the child of the existing `select-indicator` slot.
+
+- Root and root provider expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
+- Ark parts keep `data-scope="select"` and `data-part` for anatomy selectors.
+- State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
+  `data-disabled`, `data-readonly`, `data-placeholder-shown`, `data-highlighted`, and
+  `data-state="checked" | "unchecked"` on items.
+- `Select.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
+  `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.

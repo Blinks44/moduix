@@ -1,0 +1,18 @@
+import { Slider } from '@moduix/react';
+
+export default function CenterOriginSliderDemo() {
+  return (
+    <Slider min={-50} max={50} defaultValue={[20]} origin="center">
+      <div className="slider-header">
+        <Slider.Label>Balance</Slider.Label>
+        <Slider.ValueText />
+      </div>
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumbs />
+      </Slider.Control>
+    </Slider>
+  );
+}

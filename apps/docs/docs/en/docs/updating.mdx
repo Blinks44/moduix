@@ -1,0 +1,84 @@
+---
+title: Updating and migration
+description: Update the npm package or copy-owned registry components without losing local work.
+---
+
+# Updating and migration
+
+moduix supports two ownership models, and they update differently. First choose the path you use;
+do not overwrite copy-owned files as if they were a package dependency.
+
+| Installation path       | Update model                                                      |
+| ----------------------- | ----------------------------------------------------------------- |
+| `@moduix/react` package | Your package manager installs the new library version.            |
+| Hosted registry source  | Your app owns the files; inspect and merge each component update. |
+
+## Package-managed updates
+
+Read the [Changelog](/docs/changelog) before a major version, then update moduix and its Ark UI peer
+dependency together.
+
+```bash
+npm update @moduix/react @ark-ui/react
+```
+
+Run your normal typecheck and application tests afterwards. Component pages document the current
+composition, exposed parts, and styling variables when an update changes a component contract.
+
+## Copy-owned registry updates
+
+Registry components are source in your application. Use the shadcn CLI to inspect the latest item,
+review its diff, and merge it with your local customizations.
+
+```bash
+npx shadcn@latest view @moduix-react/button
+npx shadcn@latest add @moduix-react/button --dry-run
+npx shadcn@latest add @moduix-react/button --diff
+```
+
+After reviewing the diff, install the item into a branch or a clean working tree and merge the
+changes you want to keep:
+
+```bash
+npx shadcn@latest add @moduix-react/button
+```
+
+Repeat this for every component you own. The CLI also resolves the shared moduix foundation files
+and item dependencies, so keep `@/lib/moduix/styles/style.css` imported once in your application
+entry point.
+
+## Theme preset updates
+
+Package-managed presets ship with `@moduix/react`, so the package update also updates their token
+definitions. Review [Themes](/docs/themes) and [Tokens](/docs/tokens) when a release changes density
+or shared visual defaults.
+
+For a copy-owned preset, inspect it like any other registry item before merging the new CSS:
+
+```bash
+npx shadcn@latest view @moduix-react/theme-soft
+npx shadcn@latest add @moduix-react/theme-soft --dry-run
+npx shadcn@latest add @moduix-react/theme-soft --diff
+```
+
+Keep application overrides after the preset import. That preserves the cascade when the upstream
+preset gains a new token while your brand decisions continue to win.
+
+## Migrating to v2
+
+v2 replaces Base UI primitives with Ark UI. It is a major migration: component parts, context, and
+lower-level props now follow Ark contracts.
+
+1. Install v2 and the matching Ark UI peer dependency.
+
+   ```bash
+   npm install @moduix/react@2 @ark-ui/react
+   ```
+
+2. Review every used component page and recompose explicit parts where the old Base UI API had a
+   flatter structure or different names.
+3. Replace imports of moduix's former internal icons with icons owned by your application.
+4. For registry-owned files, use `add --diff` before merging an updated item.
+
+The [v2.0.0 changelog entry](/docs/changelog#v200--july-19-2026) records the complete breaking
+change summary and ongoing version policy.

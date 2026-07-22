@@ -1,53 +1,7 @@
-import { Button, Empty } from '@moduix/react';
-import { Computer as ComputerIcon, Map as MapIcon } from 'lucide-react';
-import type { ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './empty.module.css';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-const deploymentEmpty = {
-  title: 'No deployments yet',
-  description: 'Connect a repository to start tracking release status and deployment history.',
-  primaryAction: 'Connect repository',
-  secondaryAction: 'Read setup guide',
-};
-
-const savedPlacesEmpty = {
-  title: 'No saved places',
-  description: 'Save frequently used destinations to keep them close to your workspace.',
-};
-
-const searchResultsEmpty = {
-  title: 'No results found',
-  description: 'Try changing the search query or clearing one of the active filters.',
-  action: 'Clear filters',
-};
-
-export const emptyDeploymentData = `const emptyState = {
-  title: 'No deployments yet',
-  description: 'Connect a repository to start tracking release status and deployment history.',
-  primaryAction: 'Connect repository',
-  secondaryAction: 'Read setup guide',
-};`;
-
-export const emptySavedPlacesData = `const emptyState = {
-  title: 'No saved places',
-  description: 'Save frequently used destinations to keep them close to your workspace.',
-};`;
-
-export const emptySearchResultsData = `const emptyState = {
-  title: 'No results found',
-  description: 'Try changing the search query or clearing one of the active filters.',
-  action: 'Clear filters',
-};`;
-
-export const emptyTeamInviteData = `const emptyState = {
-  title: 'Invite your team',
-  description: 'Shared projects, comments, and approvals appear here after the first teammate joins.',
-  action: 'Send invite',
-};`;
-
-export const emptyOverrideCssProperties = [
+const emptyOverrideCssProperties = [
   {
     name: '--empty-actions-gap',
     defaultValue: 'var(--spacing-2)',
@@ -158,70 +112,4 @@ export const emptyOverrideCssProperties = [
 
 export function EmptyCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return <CSSPropertiesReferenceTable properties={emptyOverrideCssProperties} />;
-}
-
-export function EmptyExample(props: ComponentProps<typeof Empty>) {
-  return (
-    <Empty className={styles.empty} {...props}>
-      <Empty.Icon>
-        <ComputerIcon />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>{deploymentEmpty.title}</Empty.Title>
-        <Empty.Description>{deploymentEmpty.description}</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
-        <Button>{deploymentEmpty.primaryAction}</Button>
-        <Button variant="outline">{deploymentEmpty.secondaryAction}</Button>
-      </Empty.Actions>
-    </Empty>
-  );
-}
-
-export function EmptyWithoutActionsExample() {
-  return (
-    <Empty className={styles.empty}>
-      <Empty.Icon>
-        <MapIcon />
-      </Empty.Icon>
-      <Empty.Content>
-        <Empty.Title>{savedPlacesEmpty.title}</Empty.Title>
-        <Empty.Description>{savedPlacesEmpty.description}</Empty.Description>
-      </Empty.Content>
-    </Empty>
-  );
-}
-
-export function EmptyWithoutIconExample() {
-  return (
-    <Empty className={styles.empty}>
-      <Empty.Content>
-        <Empty.Title>{searchResultsEmpty.title}</Empty.Title>
-        <Empty.Description>{searchResultsEmpty.description}</Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
-        <Button variant="outline">{searchResultsEmpty.action}</Button>
-      </Empty.Actions>
-    </Empty>
-  );
-}
-
-export function EmptyAdvancedCustomizationExample() {
-  return (
-    <Empty className={styles.empty}>
-      <Empty.Content>
-        <Empty.Title asChild>
-          <h2>Create your first project</h2>
-        </Empty.Title>
-        <Empty.Description>
-          <p>
-            Start from a template or <strong>build a workspace from scratch</strong> for your team.
-          </p>
-        </Empty.Description>
-      </Empty.Content>
-      <Empty.Actions>
-        <Button>Create project</Button>
-      </Empty.Actions>
-    </Empty>
-  );
 }

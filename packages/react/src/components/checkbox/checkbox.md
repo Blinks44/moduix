@@ -176,7 +176,7 @@ export function CheckboxProviderDemo() {
 
 - moduix ships styled defaults; Ark is unstyled.
 - Public CSS variables are declared in `packages/react/src/lib/moduix/styles/theme.css` and
-  documented in `apps/docs/content/docs/checkbox.mdx`.
+  documented in `apps/docs/docs/en/docs/checkbox.mdx`.
 - Styling uses local classes plus Ark state data attributes. No legacy state selectors are used in
   `Checkbox.module.css`.
 - `Checkbox.Control` owns visual state styles for checked, indeterminate, invalid, disabled, hover,

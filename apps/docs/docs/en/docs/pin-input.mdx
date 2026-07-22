@@ -1,0 +1,251 @@
+---
+title: Pin Input
+component: pin-input
+description: Ark UI pin input composition for PINs and short verification codes.
+---
+
+import * as PinInputDocs from '@/components/examples/pin-input';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+
+## Choosing the right component
+
+Use `PinInput` when a short fixed-length value should be entered across separate one-character
+inputs.
+
+- Choose **`PinInput`** for one-time passwords, PINs, backup codes, and invite codes.
+- Choose **`Input`** when one plain text input is enough.
+- Choose **`PasswordInput`** when the value is one secret string with a visibility toggle.
+
+## Basic
+
+Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input for form
+submission and reset synchronization.
+
+<style>{`
+      [data-slot="pin-input-root"] {
+        --pin-input-root-gap: var(--spacing-2);
+      }
+
+      [data-slot="pin-input-control"] {
+        --pin-input-gap: var(--spacing-2);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/pin-input/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="pin-input" />
+
+## Anatomy
+
+```text
+PinInput / PinInput.Root
+├─ PinInput.Label
+├─ PinInput.Control
+│  ├─ PinInput.Input[index=0]
+│  ├─ PinInput.Input[index=1]
+│  └─ PinInput.Input[index=2]
+└─ native input (automatic)
+```
+
+| Part                           | Role                                                                  |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `PinInput` / `PinInput.Root`   | Root state machine, count, value array, validation, and form options. |
+| `PinInput.RootProvider`        | Renders a pin input from state returned by `usePinInput`.             |
+| `PinInput.Label`               | Accessible label for the pin input group.                             |
+| `PinInput.Control`             | Wrapper around the visible indexed inputs.                            |
+| `PinInput.Input`               | One visible character input. Pass a zero-based `index`.               |
+| `PinInput.Inputs`              | Renders the standard indexed inputs from the Ark context.             |
+| `PinInput.Separator`           | Moduix decorative grouping helper. Not an Ark primitive part.         |
+| `usePinInput` / `RootProvider` | External state ownership and imperative methods.                      |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<PinInput>` root form, render a visible `Label`, keep `Control` around `Inputs`, and
+The root renders the native form input whenever form submission, reset synchronization, or OTP autofill should keep
+working through the native input.
+
+### When to go custom
+
+Use explicit indexed `Input` parts for grouped layouts or per-input props. Reach for
+`PinInput.RootProvider` and `usePinInput` when state ownership needs to move outside the rendered
+tree. Keep Ark input indexes continuous across the full code.
+
+### Default props
+
+| Prop             | Default        | Notes                                                               |
+| ---------------- | -------------- | ------------------------------------------------------------------- |
+| `count`          | -              | Number of inputs. Pass it for SSR and indexed rendering.            |
+| `type`           | `numeric`      | `numeric`, `alphabetic`, or `alphanumeric`.                         |
+| `placeholder`    | `''` in moduix | Ark defaults to `○`; moduix hides it unless you pass `placeholder`. |
+| `otp`            | `false`        | Adds one-time-code autocomplete behavior when true.                 |
+| `mask`           | `false`        | Masks visible values like password inputs.                          |
+| `blurOnComplete` | `false`        | Blurs the last input after completion.                              |
+| `selectOnFocus`  | -              | Selects a focused input's current value when enabled.               |
+| `pattern`        | -              | Custom regular expression for accepted characters.                  |
+| `defaultValue`   | `[]`           | Uncontrolled value as a string array.                               |
+| `value`          | -              | Controlled value as a string array.                                 |
+
+### Behavioral notes
+
+`value` and `defaultValue` are string arrays. `onValueChange(details)` and
+`onValueComplete(details)` expose `details.value` and `details.valueAsString`.
+`onValueInvalid(details)` exposes the rejected `details.value` and `details.index`.
+
+Use `type` and `pattern` for value validation. `Field.Root` and `Fieldset.Root` can provide
+disabled, invalid, required, and read-only state through Ark context. Ark parts support `asChild`,
+and `ids` can be used when external labels or descriptions need stable element IDs.
+
+## Examples
+
+### Blur On Complete
+
+Set `blurOnComplete` when focus should leave the final input after all slots are filled.
+
+<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+
+```tsx preview file="./_snippets/pin-input/blur-on-complete.tsx"
+
+```
+
+### Change Events
+
+Control the value array from React state and read the Ark callback detail objects directly.
+
+<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+
+```tsx preview file="./_snippets/pin-input/change-events.tsx"
+
+```
+
+### Field
+
+Wrap `PinInput` in `Field` when label, helper text, invalid state, and error text should share Ark
+form accessibility wiring.
+
+<style>{`
+  .centered-field-example {
+    --field-width: fit-content;
+    --field-max-width: 100%;
+
+    margin-inline: auto;
+  }
+
+  [data-slot="pin-input-input"][data-invalid] {
+    border-color: var(--color-destructive);
+  }
+`}</style>
+
+```tsx preview file="./_snippets/pin-input/field.tsx"
+
+```
+
+### Grouped Layout
+
+Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes continuous.
+
+<style>{`
+      .customRoot {
+        --pin-input-separator-size: 1.5rem;
+        --pin-input-separator-color: var(--color-primary);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/pin-input/grouped-layout.tsx"
+
+```
+
+### Masking
+
+Use `mask` when the entered value is sensitive and should be visually obscured.
+
+<style>{`[data-slot="pin-input-input"] { font-variant-numeric: tabular-nums; }`}</style>
+
+```tsx preview file="./_snippets/pin-input/masking.tsx"
+
+```
+
+### OTP Mode
+
+Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP suggestions.
+
+<style>{`[data-slot="pin-input-control"] { display: inline-flex; }`}</style>
+
+```tsx preview file="./_snippets/pin-input/otp-mode.tsx"
+
+```
+
+### Placeholder
+
+Use `placeholder` to opt into visible placeholder characters for each input. moduix keeps the
+default placeholder empty.
+
+<style>{`
+      [data-slot="pin-input-input"]::placeholder {
+        color: var(--pin-input-placeholder-color);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/pin-input/placeholder.tsx"
+
+```
+
+### Advanced Customization
+
+Use `usePinInput` with `RootProvider` when state and imperative methods need to live outside the
+rendered tree. This example bypasses `Inputs` to show the full indexed Ark composition.
+
+<style>{`
+  .pin-input-provider-demo {
+    display: grid;
+    justify-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .actions {
+    display: inline-flex;
+    gap: var(--spacing-2);
+  }
+`}</style>
+
+```tsx preview file="./_snippets/pin-input/root-provider.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <PinInputDocs.PinInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Root and root provider expose `data-slot="pin-input-root"` and `data-slot="pin-input-root-provider"`.
+- Ark parts keep `data-scope="pin-input"` and `data-part="root" | "label" | "control" | "input"`.
+- Root state styling uses `data-disabled`, `data-invalid`, `data-complete`, and `data-readonly`.
+- Input state styling uses `data-disabled`, `data-invalid`, `data-complete`, `data-filled`, and
+  `data-index`.
+- `PinInput.Separator` exposes `data-slot="pin-input-separator"` and is decorative by default.
+
+## Accessibility
+
+Ark owns focus transfer, paste distribution, keyboard editing, hidden-input form data, and
+autocomplete behavior. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.

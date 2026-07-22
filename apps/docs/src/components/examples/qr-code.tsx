@@ -1,15 +1,5 @@
-import { Button, QrCode, useQrCode } from '@moduix/react';
-import { useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './qr-code.module.css';
-
-type ErrorLevel = 'L' | 'M' | 'Q' | 'H';
-
-const fillValues = [
-  { label: 'Primary', className: styles.brandFrame },
-  { label: 'Danger', className: styles.accentFrame },
-];
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const qrCodeExampleCss = `
   .qr-code-root {
@@ -66,25 +56,7 @@ export const qrCodeOverlayCss = `
   }
 `;
 
-export const qrCodeBasicData = `const qrValue = 'https://moduix.dev/docs/qr-code';`;
-
-export const qrCodeControlledData = `const destinations = [
-  'https://ark-ui.com',
-  'https://moduix.dev',
-];`;
-
-export const qrCodeErrorCorrectionData = `const errorLevels = ['L', 'M', 'Q', 'H'] as const;`;
-
-export const qrCodeFillData = `const fills = [
-  { label: 'Primary', className: 'qr-code-primary' },
-  { label: 'Danger', className: 'qr-code-danger' },
-];`;
-
-const qrValue = 'https://moduix.dev/docs/qr-code';
-const destinations = ['https://ark-ui.com', 'https://moduix.dev'];
-const errorLevels = ['L', 'M', 'Q', 'H'] as const;
-
-export const qrCodeCssProperties: CssPropertyInput[] = [
+const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qrcode-height', 'computed by Ark', 'Runtime height for the generated frame.'],
   ['--qrcode-pixel-size', 'computed by Ark', 'Runtime pixel size used by the generator.'],
   ['--qrcode-width', 'computed by Ark', 'Runtime width for the generated frame.'],
@@ -202,123 +174,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export function QrCodeExample() {
-  return (
-    <QrCode className={styles.root} defaultValue={qrValue}>
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-    </QrCode>
-  );
-}
-
-export function ControlledQrCodeExample() {
-  const [value, setValue] = useState(destinations[0]);
-
-  return (
-    <div className={styles.stack}>
-      <QrCode
-        className={styles.root}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
-      </QrCode>
-      <div className={styles.actions}>
-        {destinations.map((destination) => (
-          <Button
-            key={destination}
-            size="sm"
-            variant="outline"
-            onClick={() => setValue(destination)}
-          >
-            {new URL(destination).hostname}
-          </Button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function DownloadQrCodeExample() {
-  return (
-    <QrCode className={styles.root} defaultValue={qrValue}>
-      <QrCode.Frame>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
-        Download PNG
-      </QrCode.DownloadTrigger>
-    </QrCode>
-  );
-}
-
-export function ErrorCorrectionQrCodeExample() {
-  const [errorLevel, setErrorLevel] = useState('L' as ErrorLevel);
-
-  return (
-    <div className={styles.stack}>
-      <QrCode className={styles.root} defaultValue={qrValue} encoding={{ ecc: errorLevel }}>
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
-      </QrCode>
-      <div className={styles.actions}>
-        {errorLevels.map((level) => (
-          <Button
-            key={level}
-            size="sm"
-            variant={level === errorLevel ? 'default' : 'outline'}
-            onClick={() => setErrorLevel(level)}
-          >
-            {level}
-          </Button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function FillQrCodeExample() {
-  return (
-    <div className={styles.grid}>
-      {fillValues.map((fill) => (
-        <QrCode key={fill.label} className={styles.root} defaultValue={qrValue}>
-          <QrCode.Frame className={fill.className}>
-            <QrCode.Pattern />
-          </QrCode.Frame>
-        </QrCode>
-      ))}
-    </div>
-  );
-}
-
-export function OverlayQrCodeExample() {
-  return (
-    <QrCode className={styles.root} defaultValue={qrValue} encoding={{ ecc: 'H' }}>
-      <QrCode.Frame className={styles.brandFrame}>
-        <QrCode.Pattern />
-      </QrCode.Frame>
-      <QrCode.Overlay className={styles.overlay}>MX</QrCode.Overlay>
-    </QrCode>
-  );
-}
-
-export function RootProviderQrCodeExample() {
-  const qrCode = useQrCode({ value: qrValue });
-
-  return (
-    <div className={styles.stack}>
-      <QrCode.RootProvider value={qrCode} className={styles.root}>
-        <QrCode.Frame>
-          <QrCode.Pattern />
-        </QrCode.Frame>
-      </QrCode.RootProvider>
-      <output className={styles.status}>{qrCode.value}</output>
-    </div>
-  );
 }

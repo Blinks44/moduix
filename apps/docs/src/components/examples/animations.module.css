@@ -199,3 +199,24 @@
   font-size: var(--text-sm);
   line-height: var(--line-height-text-sm);
 }
+
+.motionPlayground {
+  margin-block: 1.5rem;
+}
+
+.motionPlayground > :first-child {
+  margin-block: 0;
+}
+
+.motionPanel {
+  max-height: 37.5rem;
+  overflow: auto;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius-small);
+  background: var(--rp-c-bg);
+  padding: 1rem;
+}
+
+.motionPanel + .motionPanel {
+  margin-top: 0.75rem;
+}

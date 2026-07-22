@@ -1,0 +1,15 @@
+import { PasswordInput } from '@moduix/react';
+
+export default function PasswordInputAutocompleteDemo() {
+  return (
+    <PasswordInput autoComplete="new-password" name="new-password">
+      <PasswordInput.Label>New password</PasswordInput.Label>
+      <PasswordInput.Control>
+        <PasswordInput.Input placeholder="Create a password" />
+        <PasswordInput.VisibilityTrigger>
+          <PasswordInput.Indicator />
+        </PasswordInput.VisibilityTrigger>
+      </PasswordInput.Control>
+    </PasswordInput>
+  );
+}

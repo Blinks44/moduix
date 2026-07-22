@@ -32,6 +32,3 @@ coverage/
 
 # Documentation/app artifacts
 apps/docs/.wrangler/
-
-# Generated files (rebuild instead of indexing)
-apps/docs/src/routeTree.gen.ts

@@ -1,0 +1,26 @@
+import { Button, DatePicker } from '@moduix/react';
+
+export default function SelectTodayDatePickerDemo() {
+  return (
+    <DatePicker>
+      <DatePicker.Label>Today shortcut</DatePicker.Label>
+      <DatePicker.Field />
+      <DatePicker.Positioner>
+        <DatePicker.Content>
+          <DatePicker.View view="day">
+            <DatePicker.DayTable />
+            <DatePicker.Context>
+              {(datePicker) => (
+                <div className="date-picker-today-row">
+                  <Button size="sm" variant="secondary" onClick={() => datePicker.selectToday()}>
+                    Today
+                  </Button>
+                </div>
+              )}
+            </DatePicker.Context>
+          </DatePicker.View>
+        </DatePicker.Content>
+      </DatePicker.Positioner>
+    </DatePicker>
+  );
+}

@@ -1,10 +1,7 @@
-import { Field, Textarea } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './textarea.module.css';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const textareaCssProperties: CssPropertyInput[] = [
+const textareaCssProperties: CssPropertyInput[] = [
   ['--textarea-bg', 'var(--color-background)', 'Controls the textarea background color.'],
   ['--textarea-border-color', 'var(--color-border)', 'Controls the textarea border color.'],
   [
@@ -56,79 +53,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function TextareaExample(props: ComponentProps<typeof Textarea>) {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Comment</Field.Label>
-      <Field.HelperText>Included in the issue summary visible to the whole team.</Field.HelperText>
-      <Textarea placeholder="Write a short comment" {...props} />
-    </Field>
-  );
-}
-
-export function ControlledTextareaExample() {
-  const [value, setValue] = useState('');
-
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Feedback</Field.Label>
-      <Textarea
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        placeholder="Type to control value"
-      />
-    </Field>
-  );
-}
-
-export function DisabledAndReadOnlyTextareaExample() {
-  return (
-    <div className={styles.stack}>
-      <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
-      <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
-    </div>
-  );
-}
-
-export function NativeAttributesTextareaExample() {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Notes</Field.Label>
-      <Textarea
-        name="notes"
-        rows={6}
-        maxLength={280}
-        spellCheck={false}
-        placeholder="Add enough context for the next person reading this."
-      />
-    </Field>
-  );
-}
-
-export function AutoResizeTextareaExample() {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Issue description</Field.Label>
-      <Textarea
-        autoresize
-        placeholder="Start typing a longer description. Height grows with content."
-      />
-    </Field>
-  );
-}
-
-export function FieldValidationTextareaExample() {
-  return (
-    <Field className={styles.field} invalid required>
-      <Field.Label>Details</Field.Label>
-      <Textarea minLength={10} placeholder="Add at least 10 characters" />
-      <Field.HelperText>
-        Include enough detail for the team to reproduce the issue.
-      </Field.HelperText>
-      <Field.ErrorText>Please provide details.</Field.ErrorText>
-      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
-    </Field>
-  );
 }

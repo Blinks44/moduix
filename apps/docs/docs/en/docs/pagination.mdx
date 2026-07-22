@@ -1,0 +1,232 @@
+---
+title: Pagination
+component: pagination
+description: Page navigation built on the Ark UI pagination primitive.
+---
+
+import * as PaginationDocs from '@/components/examples/pagination';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+
+## Basic
+
+Use `Pagination` as the short root form for Ark `Pagination.Root`. `Pagination.Items` renders the
+computed page buttons and ellipses.
+
+<style>{PaginationDocs.paginationBasicCss}</style>
+
+```tsx preview file="./_snippets/pagination/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="pagination" />
+
+## Anatomy
+
+```text
+Pagination.Root
+├─ Pagination.FirstTrigger (optional)
+├─ Pagination.PrevTrigger
+├─ Pagination.Items (recommended)
+├─ Pagination.Context (advanced render-prop access)
+│  ├─ Pagination.Item
+│  └─ Pagination.Ellipsis
+├─ Pagination.NextTrigger
+└─ Pagination.LastTrigger (optional)
+
+Pagination.RootProvider
+└─ same trigger, item, ellipsis, and context tree connected to usePagination()
+```
+
+| Part                              | Role                                                               |
+| --------------------------------- | ------------------------------------------------------------------ |
+| `Pagination` / `Pagination.Root`  | Navigation root that owns page and page-size state.                |
+| `Pagination.RootProvider`         | Connects parts to state created with `Pagination.usePagination()`. |
+| `Pagination.Items`                | Renders the standard computed page items and ellipses.             |
+| `Pagination.Context`              | Reads root state and helpers through an Ark render prop.           |
+| `Pagination.usePagination`        | Creates Ark pagination state outside the rendered root.            |
+| `Pagination.usePaginationContext` | Reads Ark pagination state from a descendant.                      |
+| `Pagination.Item`                 | Interactive page item. Receives `{ type: 'page', value }`.         |
+| `Pagination.Ellipsis`             | Non-interactive collapsed-range marker with a required `index`.    |
+| `Pagination.PrevTrigger`          | Moves to the previous page and disables itself at the start.       |
+| `Pagination.NextTrigger`          | Moves to the next page and disables itself at the end.             |
+| `Pagination.FirstTrigger`         | Moves to the first page and disables itself at the start.          |
+| `Pagination.LastTrigger`          | Moves to the last page and disables itself at the end.             |
+
+## Composition
+
+### Recommended composition
+
+`Pagination.Root` owns keyboard behavior, current page, page size, disabled trigger state, page range
+calculation, and accessible labels. Use `count` for the total number of data items, not the number
+of pages. Pair it with `pageSize` or `defaultPageSize` so Ark can calculate `totalPages`.
+
+Use `Pagination.Items` for the standard page list. It renders the current Ark `pages` array with
+`Pagination.Item` and `Pagination.Ellipsis`, preserving their selected state, labels, and handlers.
+
+### When to go custom
+
+Use `Pagination.Context` when page items or adjacent controls need custom rendering. When state
+must be created outside the rendered pagination tree, use `Pagination.usePagination()` with
+`Pagination.RootProvider`; use `Pagination.usePaginationContext()` from a descendant that needs the
+same state. Set `type="link"` and provide `getPageUrl(details)` when pagination should render
+navigational links.
+
+### Default props
+
+| Prop              | Default      | Notes                                                       |
+| ----------------- | ------------ | ----------------------------------------------------------- |
+| `aria-label`      | `Pagination` | Moduix root default for the navigation landmark.            |
+| `defaultPage`     | `1`          | Ark initial active page when uncontrolled.                  |
+| `defaultPageSize` | `10`         | Ark initial items per page when uncontrolled.               |
+| `siblingCount`    | `1`          | Ark pages shown beside the active page.                     |
+| `boundaryCount`   | `1`          | Ark pages shown at the beginning and end of the page range. |
+| `type`            | `button`     | Use `link` with `getPageUrl(details)` for anchors.          |
+
+### Behavioral notes
+
+Use `defaultPage` and `defaultPageSize` for uncontrolled state. Use `page`, `pageSize`,
+`onPageChange(details)`, and `onPageSizeChange(details)` for controlled state. Callback detail
+objects are the Ark objects; read `details.page` or `details.pageSize` without remapping. Ark
+preserves keyboard behavior, selected item semantics, disabled trigger state, `ids`, `asChild`,
+translations, and link URL generation.
+
+## Examples
+
+### Controlled
+
+Control the active page with Ark's `page` and `onPageChange(details)` props.
+
+<style>{PaginationDocs.paginationControlledCss}</style>
+
+```tsx preview file="./_snippets/pagination/controlled.tsx"
+
+```
+
+### Context
+
+Use `Pagination.Context` when custom controls need access to page helpers such as
+`goToFirstPage()` or `goToLastPage()`.
+
+<style>{PaginationDocs.paginationContextCss}</style>
+
+```tsx preview file="./_snippets/pagination/context.tsx"
+
+```
+
+### Data Slicing
+
+Read `pagination.slice(data)` from context when the current page should render a client-side slice
+of an array.
+
+<style>{PaginationDocs.paginationDataSlicingCss}</style>
+
+```tsx preview file="./_snippets/pagination/data-slicing.tsx"
+
+```
+
+### Link
+
+Use `type="link"` with `getPageUrl(details)` when page changes should be real navigation.
+
+<style>{PaginationDocs.paginationLinkCss}</style>
+
+```tsx preview file="./_snippets/pagination/link.tsx"
+
+```
+
+### Page Range
+
+Use `pagination.pageRange` when nearby UI should describe the visible item range.
+
+<style>{PaginationDocs.paginationPageRangeCss}</style>
+
+```tsx preview file="./_snippets/pagination/page-range.tsx"
+
+```
+
+### Page Size Control
+
+Call `pagination.setPageSize(nextSize)` from context to let a separate control update page size.
+
+<style>{PaginationDocs.paginationPageSizeControlExampleCss}</style>
+
+```tsx preview file="./_snippets/pagination/page-size-control.tsx"
+
+```
+
+### Root Provider
+
+Use `Pagination.usePagination()` with `Pagination.RootProvider` when state needs to be owned
+outside the rendered root.
+
+<style>{PaginationDocs.paginationRootProviderCss}</style>
+
+```tsx preview file="./_snippets/pagination/root-provider.tsx"
+
+```
+
+### Translations
+
+Use `translations` for accessible labels and adjust the computed window with `siblingCount`,
+`boundaryCount`, and page-size props.
+
+<style>{PaginationDocs.paginationTranslationsCss}</style>
+
+```tsx preview file="./_snippets/pagination/customized.tsx"
+
+```
+
+### With Edges
+
+Add `FirstTrigger` and `LastTrigger` when users need explicit jumps to the first and last page.
+
+<style>{PaginationDocs.paginationWithEdgesCss}</style>
+
+```tsx preview file="./_snippets/pagination/with-edges.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Pagination.Items` when page buttons or ellipses need custom content; pass each page object
+to `Pagination.Item` unchanged so Ark retains its state and accessibility behavior.
+
+<style>{PaginationDocs.paginationAdvancedCustomizationCss}</style>
+
+```tsx preview file="./_snippets/pagination/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Moduix keeps Ark's state attributes and adds stable `data-slot` hooks for local styling.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <PaginationDocs.PaginationCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-scope="pagination"` and `data-part="item"` on `Pagination.Item`
+- `data-scope="pagination"` and `data-part="prev-trigger"` on `Pagination.PrevTrigger`
+- `data-scope="pagination"` and `data-part="next-trigger"` on `Pagination.NextTrigger`
+- `data-scope="pagination"` and edge trigger parts on first and last triggers
+- `data-selected` on the active page item
+- `data-disabled` on unavailable triggers
+- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
+  `pagination-ellipsis`, and trigger-specific slots for Moduix overrides

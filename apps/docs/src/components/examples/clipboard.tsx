@@ -1,41 +1,12 @@
-import { useClipboard } from '@ark-ui/react/clipboard';
-import { Button, Clipboard, Input } from '@moduix/react';
-import { useState, type ReactNode } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-export const clipboardBasicData = `
-  const clipboardValue = "https://moduix.dev/docs/clipboard";
-  const clipboardLabel = "Copy this link";
-`;
-
-export const clipboardControlledData = `
-  const initialValue = "https://ark-ui.com";
-  const nextValue = "https://chakra-ui.com";
-`;
-
-export const clipboardCopyStatusData = `
-  const clipboardValue = "maps-platform-token";
-`;
-
-export const clipboardTimeoutData = `
-  const clipboardValue = "workspace-secret";
-  const copiedStateTimeout = 5000;
-`;
-
-export const clipboardValueTextData = `
-  const clipboardValue = "moduix/clipboard";
-`;
-
-export const clipboardRootProviderData = `
-  const clipboardValue = "https://moduix.dev/docs/clipboard";
-`;
-
-export const clipboardAsChildData = `
-  const clipboardValue = "https://moduix.dev/docs/clipboard";
-`;
+import type { CssPropertyInput } from '../mdx/reference';
 
 export const clipboardExampleCss = `
+  .rp-preview [data-scope='clipboard'][data-part='root'] {
+    --clipboard-max-width: 24rem;
+
+    margin-inline: auto;
+  }
+
   .clipboard-demo {
     width: min(24rem, 100%);
   }
@@ -54,6 +25,10 @@ export const clipboardExampleCss = `
     display: grid;
     justify-items: center;
     gap: var(--spacing-3);
+  }
+
+  .clipboard-status-stack {
+    text-align: center;
   }
 
   .clipboard-action-button {
@@ -282,198 +257,3 @@ export const clipboardOverrideCssProperties: CssPropertyInput[] = [
     'Controls input and trigger transition timing.',
   ],
 ];
-
-const clipboardCssPropertiesReference = clipboardOverrideCssProperties.map(normalizeCssProperty);
-
-export function ClipboardCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return <CSSPropertiesReferenceTable properties={clipboardCssPropertiesReference} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
-
-function ClipboardExampleFrame({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <style>{clipboardExampleCss}</style>
-      <div className="clipboard-demo">{children}</div>
-    </>
-  );
-}
-
-export function ClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard className="clipboard-demo-root" defaultValue="https://moduix.dev/docs/clipboard">
-        <Clipboard.Label>Copy this link</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function ControlledClipboardExample() {
-  const [value, setValue] = useState('https://ark-ui.com');
-
-  return (
-    <ClipboardExampleFrame>
-      <div className="clipboard-provider-stack">
-        <Clipboard
-          className="clipboard-demo-root"
-          value={value}
-          onValueChange={(details) => setValue(details.value)}
-        >
-          <Clipboard.Label>Share URL</Clipboard.Label>
-          <Clipboard.Control>
-            <Clipboard.Input />
-            <Clipboard.Trigger>
-              <Clipboard.Indicator />
-              <Clipboard.CopyText />
-            </Clipboard.Trigger>
-          </Clipboard.Control>
-        </Clipboard>
-
-        <button
-          className="clipboard-action-button"
-          onClick={() => setValue('https://chakra-ui.com')}
-        >
-          Change URL
-        </button>
-      </div>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function CopyStatusClipboardExample() {
-  const [copyCount, setCopyCount] = useState(0);
-
-  return (
-    <ClipboardExampleFrame>
-      <div className="clipboard-status-stack">
-        <Clipboard
-          className="clipboard-demo-root clipboard-demo-root--compact"
-          defaultValue="maps-platform-token"
-          onStatusChange={(details) => {
-            if (details.copied) {
-              setCopyCount((value) => value + 1);
-            }
-          }}
-        >
-          <Clipboard.Control>
-            <Clipboard.Trigger>
-              <Clipboard.Indicator />
-              <Clipboard.ValueText />
-            </Clipboard.Trigger>
-          </Clipboard.Control>
-        </Clipboard>
-        <p className="clipboard-status-text">Copied {copyCount} times</p>
-      </div>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function TimeoutClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard className="clipboard-demo-root" defaultValue="workspace-secret" timeout={5000}>
-        <Clipboard.Label>Five second copied state</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.CopyText />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function ValueTextClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard
-        className="clipboard-demo-root clipboard-demo-root--compact"
-        defaultValue="moduix/clipboard"
-      >
-        <Clipboard.Control>
-          <Clipboard.ValueText className="clipboard-value-text" />
-          <Clipboard.Trigger aria-label="Copy package name">
-            <Clipboard.Indicator />
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function RootProviderClipboardExample() {
-  const clipboard = useClipboard({ defaultValue: 'https://moduix.dev/docs/clipboard' });
-
-  return (
-    <ClipboardExampleFrame>
-      <div className="clipboard-provider-stack">
-        <p className="clipboard-status-text">Copied: {String(clipboard.copied)}</p>
-        <Clipboard.RootProvider className="clipboard-demo-root" value={clipboard}>
-          <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
-          <Clipboard.Control>
-            <Clipboard.Input readOnly />
-            <Clipboard.Trigger>
-              <Clipboard.Indicator />
-              <Clipboard.CopyText />
-            </Clipboard.Trigger>
-          </Clipboard.Control>
-        </Clipboard.RootProvider>
-      </div>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function AsChildClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard className="clipboard-demo-root" defaultValue="https://moduix.dev/docs/clipboard">
-        <Clipboard.Label>Reuse moduix Input and Button</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input asChild>
-            <Input readOnly />
-          </Clipboard.Input>
-          <Clipboard.Trigger asChild>
-            <Button variant="outline">
-              <Clipboard.Indicator />
-              <Clipboard.CopyText />
-            </Button>
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard>
-    </ClipboardExampleFrame>
-  );
-}
-
-export function CustomCopyTextClipboardExample() {
-  return (
-    <ClipboardExampleFrame>
-      <Clipboard className="clipboard-demo-root" defaultValue="workspace-secret">
-        <Clipboard.Label>Override copy labels</Clipboard.Label>
-        <Clipboard.Control>
-          <Clipboard.Input readOnly />
-          <Clipboard.Trigger>
-            <Clipboard.Indicator />
-            <Clipboard.CopyText copied="Copied!">Copy secret</Clipboard.CopyText>
-          </Clipboard.Trigger>
-        </Clipboard.Control>
-      </Clipboard>
-    </ClipboardExampleFrame>
-  );
-}

@@ -1,30 +1,7 @@
-import { Kbd } from '@moduix/react';
-import { Fragment } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './kbd.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-const kbdBasicData = {
-  label: 'Command K',
-  keys: ['Cmd', 'K'],
-};
-
-const kbdSingleKeyData = 'Esc';
-const kbdAsChildData = { label: 'Esc', title: 'Escape' };
-
-const kbdShortcutListData = [
-  { label: 'Command K', keys: ['Cmd', 'K'], description: 'Open command menu' },
-  {
-    label: 'Shift question mark',
-    keys: ['Shift', '?'],
-    description: 'Show shortcuts',
-  },
-  { label: 'Escape', keys: ['Esc'], description: 'Close overlay' },
-];
-
-const kbdDenseData = ['Esc', 'Ctrl', '/'];
-
-export const kbdOverrideCssProperties: CssPropertyInput[] = [
+const kbdOverrideCssProperties: CssPropertyInput[] = [
   ['--kbd-bg', 'var(--color-muted)', 'Controls key background color.'],
   ['--kbd-border-color', 'var(--color-border)', 'Controls key border color.'],
   ['--kbd-border-width', 'var(--border-width-sm)', 'Controls key border width.'],
@@ -61,63 +38,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function KbdExample() {
-  return (
-    <div className={styles.shortcut}>
-      <Kbd.Group aria-label={kbdBasicData.label}>
-        {kbdBasicData.keys.map((key, index) => (
-          <Fragment key={key}>
-            {index > 0 && '+'}
-            <Kbd>{key}</Kbd>
-          </Fragment>
-        ))}
-      </Kbd.Group>
-    </div>
-  );
-}
-
-export function KbdSingleKeyExample() {
-  return <Kbd>{kbdSingleKeyData}</Kbd>;
-}
-
-export function KbdShortcutListExample() {
-  return (
-    <div className={styles.shortcutList}>
-      {kbdShortcutListData.map((shortcut) => (
-        <div key={shortcut.label} className={styles.shortcutRow}>
-          <Kbd.Group aria-label={shortcut.label}>
-            {shortcut.keys.map((key, index) => (
-              <Fragment key={key}>
-                {index > 0 && '+'}
-                <Kbd>{key}</Kbd>
-              </Fragment>
-            ))}
-          </Kbd.Group>
-          {shortcut.description}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function KbdDenseExample() {
-  return (
-    <div className={styles.row}>
-      {kbdDenseData.map((key) => (
-        <Kbd key={key} className={styles.dense}>
-          {key}
-        </Kbd>
-      ))}
-    </div>
-  );
-}
-
-export function KbdAsChildExample() {
-  return (
-    <Kbd asChild>
-      <kbd title={kbdAsChildData.title}>{kbdAsChildData.label}</kbd>
-    </Kbd>
-  );
 }

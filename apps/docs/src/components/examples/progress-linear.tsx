@@ -1,7 +1,5 @@
-import { ProgressLinear, Slider } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const progressLinearExampleCss = `
   .progress-linear-stack {
@@ -17,35 +15,12 @@ export const progressLinearExampleCss = `
 export const progressLinearVerticalCss = `
   .progress-linear-vertical {
     --progress-linear-height: 10rem;
+
+    margin-inline: auto;
   }
 `;
 
-export const progressLinearBasicData = `const defaultValue = 24;`;
-
-export const progressLinearControlledData = `const initialValue = 45;`;
-
-export const progressLinearInitialValueData = `const defaultValue = 70;`;
-
-export const progressLinearMinMaxData = `
-const defaultValue = 420;
-const min = 200;
-const max = 800;
-`;
-
-export const progressLinearIndeterminateData = `const defaultValue = null;`;
-
-export const progressLinearVerticalData = `
-const defaultValue = 42;
-const orientation = 'vertical';
-`;
-
-export const progressLinearValueTextData = `const fallbackText = 'Loading...';`;
-
-export const progressLinearRootProviderData = `const defaultValue = 58;`;
-
-export const progressLinearStateViewsData = `const defaultValue = null;`;
-
-export const progressLinearCssProperties: CssPropertyInput[] = [
+const progressLinearCssProperties: CssPropertyInput[] = [
   ['--progress-linear-color', 'var(--color-foreground)', 'Controls root text color.'],
   ['--progress-linear-gap', 'var(--spacing-2)', 'Controls spacing between label/value and track.'],
   ['--progress-linear-height', '12rem', 'Controls vertical root height.'],
@@ -117,118 +92,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-function ProgressLinearParts() {
-  return (
-    <>
-      <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
-        <ProgressLinear.Range />
-      </ProgressLinear.Track>
-    </>
-  );
-}
-
-export function ProgressLinearExample(props: ComponentProps<typeof ProgressLinear.Root>) {
-  return (
-    <ProgressLinear defaultValue={24} {...props}>
-      <ProgressLinear.Label>Export data</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function ControlledProgressLinearExample() {
-  const [value, setValue] = useState<number | null>(45);
-
-  return (
-    <div className="progress-linear-stack">
-      <ProgressLinear value={value} onValueChange={(details) => setValue(details.value)}>
-        <ProgressLinear.Label>Upload status</ProgressLinear.Label>
-        <ProgressLinearParts />
-      </ProgressLinear>
-      <Slider
-        className="progress-linear-slider"
-        min={0}
-        max={100}
-        value={[value ?? 0]}
-        onValueChange={(details) => {
-          setValue(details.value[0] ?? 0);
-        }}
-      >
-        <Slider.Label>Progress value</Slider.Label>
-        <Slider.ValueText />
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
-        </Slider.Control>
-      </Slider>
-    </div>
-  );
-}
-
-export function InitialValueProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={70}>
-      <ProgressLinear.Label>Import data</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function MinMaxProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={420} min={200} max={800}>
-      <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function IndeterminateProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={null}>
-      <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function VerticalProgressLinearExample() {
-  return (
-    <ProgressLinear defaultValue={42} orientation="vertical" className="progress-linear-vertical">
-      <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function ValueTextProgressLinearExample() {
-  return (
-    <ProgressLinear
-      translations={{
-        value({ value, max }) {
-          if (value === null) return 'Loading...';
-          return `${value} of ${max} items loaded`;
-        },
-      }}
-    >
-      <ProgressLinear.Label>Migration</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear>
-  );
-}
-
-export function RootProviderProgressLinearExample() {
-  const progress = ProgressLinear.useProgress({ defaultValue: 58 });
-
-  return (
-    <ProgressLinear.RootProvider value={progress}>
-      <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
-      <ProgressLinearParts />
-    </ProgressLinear.RootProvider>
-  );
 }

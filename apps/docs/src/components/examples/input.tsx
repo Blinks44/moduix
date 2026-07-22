@@ -1,10 +1,7 @@
-import { Field, Input } from '@moduix/react';
-import type { ComponentProps } from 'react';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const inputOverrideCssProperties: CssPropertyInput[] = [
+const inputOverrideCssProperties: CssPropertyInput[] = [
   ['--input-bg', 'var(--color-background)', 'Controls the input background color.'],
   ['--input-border-color', 'var(--color-border)', 'Controls the input border color.'],
   [
@@ -102,99 +99,3 @@ const normalizeCssProperty = (property: CssPropertyInput) =>
   'name' in property
     ? property
     : { name: property[0], defaultValue: property[1], description: property[2] };
-
-export function InputExample(props: ComponentProps<typeof Input>) {
-  return (
-    <Field className="input-demo-field">
-      <Field.Label>Name</Field.Label>
-      <Field.HelperText>Used in your public workspace profile.</Field.HelperText>
-      <Input placeholder="Enter your name" {...props} />
-    </Field>
-  );
-}
-
-export function ControlledInputExample() {
-  const [value, setValue] = useState('');
-
-  return (
-    <Field className="input-demo-field">
-      <Field.Label>Username</Field.Label>
-      <Input
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        placeholder="Type to control value"
-      />
-    </Field>
-  );
-}
-
-export function InputSizesExample() {
-  return (
-    <div className="input-demo-stack">
-      <Input size="xs" aria-label="Extra-small input" placeholder="Extra-small input" />
-      <Input size="sm" aria-label="Small input" placeholder="Small input" />
-      <Input size="md" aria-label="Medium input" placeholder="Medium input" />
-      <Input size="lg" aria-label="Large input" placeholder="Large input" />
-      <Input size="xl" aria-label="Extra-large input" placeholder="Extra-large input" />
-    </div>
-  );
-}
-
-export function InputNativeAttributesExample() {
-  return (
-    <Field className="input-demo-field">
-      <Field.Label>Security code</Field.Label>
-      <Input
-        htmlSize={8}
-        inputMode="numeric"
-        maxLength={6}
-        name="security-code"
-        placeholder="000000"
-        type="text"
-        autoComplete="one-time-code"
-      />
-    </Field>
-  );
-}
-
-export function DisabledAndReadOnlyInputExample() {
-  return (
-    <div className="input-demo-stack">
-      <Input disabled aria-label="Disabled input" placeholder="Disabled input" />
-      <Input readOnly aria-label="Read-only workspace" value="Assigned workspace" />
-    </div>
-  );
-}
-
-export function InputFieldValidationExample() {
-  return (
-    <Field className="input-demo-field" invalid>
-      <Field.Label>Email</Field.Label>
-      <Input type="email" placeholder="name@example.com" />
-      <Field.ErrorText>Enter a valid email address.</Field.ErrorText>
-    </Field>
-  );
-}
-
-export function StandaloneInputExample() {
-  return (
-    <div className="input-demo-field">
-      <Input
-        className="input-demo-standalone"
-        aria-label="Search projects"
-        placeholder="Search projects"
-      />
-    </div>
-  );
-}
-
-export function InputAsChildExample() {
-  return (
-    <Field className="input-demo-field">
-      <Field.Label>Repository</Field.Label>
-      <Input asChild>
-        <input name="repository" placeholder="owner/project" />
-      </Input>
-    </Field>
-  );
-}

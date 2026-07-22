@@ -1,45 +1,36 @@
-# moduix docs
+# moduix documentation on Rspress
 
-`apps/docs` is the documentation site for the `moduix` component system. Today it documents the
-current shipped `@moduix/react` package and its registry install flow.
+This is the moduix documentation site built with Rspress.
 
-It contains user-facing guides, component pages, usage examples, install guidance, and API
-references for the current shipped library.
+## Commands
 
-Keep these pages synchronized with package behavior whenever install flow, composition guidance,
-or styling tokens change:
+Run commands from the monorepo root:
 
-- `content/docs/quick-start.mdx` for package install and `shadcn` registry setup
-- `content/docs/composition-patterns.mdx` for wrapper composition guidance
-- `content/docs/tokens.mdx` for shared token entrypoints and override scope
+```bash
+npm run dev --workspace moduix-docs
+npm run build:docs
+npm run tsc:check --workspace moduix-docs
+npm run deploy:docs
+```
 
-## Tech stack
+Rspress writes the production site to `apps/docs/doc_build`. The deploy command publishes that
+directory as Cloudflare Workers Static Assets.
 
-- TanStack Start
-- Fumadocs + MDX content
-- React + TypeScript
-
-## Project structure
+## Structure
 
 ```text
 apps/docs/
-  content/docs/     # MDX documentation pages
-  src/components/   # Site and live preview components
-  src/routes/       # Application routes
+  docs/en/              # English MDX pages, navigation metadata, and snippets
+  docs/public/          # Static and hosted registry assets shared by locales
+  i18n.json             # Locale-aware UI strings
+  src/components/       # Home, examples, blocks, and focused MDX support components
+  theme/                # Rspress theme wrapper and moduix visual tokens
+  rspress.config.ts     # Rspress and official plugin configuration
+  wrangler.jsonc        # Cloudflare Workers Static Assets deployment
 ```
 
-## Development
+The site uses Rspress search, navigation, outline, appearance switching, edit links, last-updated
+metadata, package-manager tabs, and tabs. Official plugins provide runnable component previews,
+per-page Markdown, `llms.txt`, `llms-full.txt`, and `sitemap.xml`.
 
-Before validating docs that depend on React package output, build the package from the monorepo root
-so docs use fresh declarations and compiled files:
-
-```bash
-npm run build:react
-```
-
-Use the already running project server during agent work. Start the docs server only when explicitly
-asked to run it:
-
-```bash
-npm --workspace moduix-docs run dev
-```
+See [MIGRATION.md](./MIGRATION.md) for the implementation report and deployment procedure.

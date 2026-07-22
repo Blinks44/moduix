@@ -1,0 +1,15 @@
+.palette {
+  --command-palette-width: 37.5rem;
+}
+
+.compactPalette {
+  --command-palette-width: 34rem;
+}
+
+.highlightPalette {
+  --command-palette-highlight-bg: var(--color-accent);
+}
+
+.shortcutTrigger {
+  min-width: 9rem;
+}

@@ -1,12 +1,4 @@
-import { Avatar, useAvatar, useAvatarContext } from '@moduix/react';
-import { Computer as ComputerIcon } from 'lucide-react';
-import type { ComponentProps } from 'react';
-import { type ImgHTMLAttributes, useState } from 'react';
-import type { CssProperty } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const avatarImage =
-  'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
+import type { CssProperty } from '../mdx/reference';
 
 export const avatarExampleCss = `
   .docs-avatar-row,
@@ -19,7 +11,7 @@ export const avatarExampleCss = `
   .docs-avatar-status {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--spacing-3);
   }
 
@@ -79,11 +71,6 @@ export const avatarCustomImageCss = `
     object-fit: cover;
     object-position: center;
   }
-`;
-
-export const avatarImageData = `
-  const avatarImage =
-    "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
 `;
 
 export const avatarCssProperties = [
@@ -148,135 +135,3 @@ export const avatarCssProperties = [
     description: 'Controls avatar width and height.',
   },
 ] satisfies CssProperty[];
-
-export function AvatarCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={avatarCssProperties} />;
-}
-
-export function AvatarExample(props: ComponentProps<typeof Avatar.Root>) {
-  return (
-    <Avatar {...props}>
-      <Avatar.Fallback name="Alex T." />
-      <Avatar.Image src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function AvatarFallbackOnlyExample() {
-  return (
-    <div className="docs-avatar-row">
-      <Avatar size="xs">
-        <Avatar.Fallback>XS</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="sm">
-        <Avatar.Fallback>SM</Avatar.Fallback>
-      </Avatar>
-      <Avatar>
-        <Avatar.Fallback>MD</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="lg">
-        <Avatar.Fallback>LG</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="xl">
-        <Avatar.Fallback>XL</Avatar.Fallback>
-      </Avatar>
-    </div>
-  );
-}
-
-export function AvatarCompositionExample() {
-  return (
-    <Avatar asChild size="xl" className="docs-avatar-link">
-      <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className="docs-avatar-link-fallback" name="Alex T." />
-        <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
-      </a>
-    </Avatar>
-  );
-}
-
-function AvatarCustomImage(props: ImgHTMLAttributes<HTMLImageElement>) {
-  const avatar = useAvatarContext();
-  const { hidden, ...imageProps } = avatar.getImageProps();
-
-  return (
-    <img
-      {...imageProps}
-      {...props}
-      className="docs-avatar-custom-image"
-      style={{ visibility: hidden ? 'hidden' : 'visible' }}
-    />
-  );
-}
-
-export function AvatarImageErrorExample() {
-  return (
-    <Avatar>
-      <Avatar.Fallback name="No Avatar" />
-      <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
-    </Avatar>
-  );
-}
-
-export function AvatarStatusExample() {
-  const [status, setStatus] = useState('idle');
-
-  return (
-    <div className="docs-avatar-status">
-      <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback name="Alex T." />
-        <Avatar.Image src={avatarImage} alt="Alex T." />
-      </Avatar>
-      <output className="text-sm text-muted-foreground">Status: {status}</output>
-    </div>
-  );
-}
-
-export function AvatarRootProviderExample() {
-  const [count, setCount] = useState(0);
-  const avatar = useAvatar();
-
-  return (
-    <div className="docs-avatar-provider">
-      <button
-        type="button"
-        className="docs-avatar-provider-button"
-        onClick={() => setCount(count + 1)}
-      >
-        Change avatar
-      </button>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback name="Alex T." />
-        <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
-      </Avatar.RootProvider>
-    </div>
-  );
-}
-
-export function AvatarCustomImageExample() {
-  return (
-    <Avatar>
-      <Avatar.Fallback name="Alex T." />
-      <AvatarCustomImage src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function CustomCompositionAvatarExample() {
-  return (
-    <Avatar size="lg" className="docs-avatar-ring">
-      <Avatar.Fallback className="docs-avatar-uppercase" name="Alex T." />
-      <Avatar.Image className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function AvatarCustomFallbackExample() {
-  return (
-    <Avatar size="lg" className="docs-avatar-icon">
-      <Avatar.Fallback role="img" aria-label="Workstation account">
-        <ComputerIcon className="docs-avatar-icon-glyph" />
-      </Avatar.Fallback>
-    </Avatar>
-  );
-}

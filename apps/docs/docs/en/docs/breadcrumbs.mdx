@@ -1,0 +1,232 @@
+---
+title: Breadcrumbs
+component: breadcrumbs
+description: Ark-native semantic path navigation with explicit parts and a narrow path shorthand.
+---
+
+import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
+
+## API Reference
+
+Ark UI does not ship a dedicated `breadcrumbs` primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Start with `Breadcrumbs.Path` when the application already knows the visible path. It renders the
+ordered list, items, links, current page, and default separators from a small `items` array.
+
+<style>{`
+      .breadcrumbs-preview {
+        max-width: min(34rem, 100%);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="breadcrumbs" />
+
+## Anatomy
+
+`Breadcrumbs` exposes Ark-aligned namespace parts.
+
+```text
+Breadcrumbs / Breadcrumbs.Root
+└─ Breadcrumbs.List
+   ├─ Breadcrumbs.Item
+   │  └─ Breadcrumbs.Link
+   ├─ Breadcrumbs.Separator
+   └─ Breadcrumbs.Item
+      └─ Breadcrumbs.Page
+```
+
+| Part                               | Role                                                              |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Root navigation region with default `aria-label`.                 |
+| `Breadcrumbs.List`                 | Ordered list of breadcrumb segments.                              |
+| `Breadcrumbs.Item`                 | List item wrapper for a segment.                                  |
+| `Breadcrumbs.Link`                 | Styled anchor for navigable segments; supports `asChild`.         |
+| `Breadcrumbs.Page`                 | Current page text with `aria-current="page"`.                     |
+| `Breadcrumbs.Separator`            | Presentational visual delimiter hidden from assistive technology. |
+| `Breadcrumbs.Ellipsis`             | Minimal collapsed marker for menu triggers.                       |
+
+`Breadcrumbs.Path` is a local shorthand that renders `Breadcrumbs.List`, `Breadcrumbs.Item`,
+`Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Separator` from an `items` array.
+
+## Composition
+
+### Recommended composition
+
+Use `Breadcrumbs.Path` for plain anchor-based trails. The last item becomes the current page, the
+default separator is a chevron, and `separator` can replace it for every visible gap.
+
+### When to go custom
+
+Use explicit parts when you need framework router links, a collapsed middle section, or different
+markup for specific items. Ark `asChild` still handles router links; the child must be a single
+semantic link that keeps the expected `href`, focus, and keyboard behavior.
+
+Compose with `Menu` when middle segments need to collapse behind an ellipsis trigger. Keep the Menu
+structure explicit: `Menu.Positioner`, `Menu.Content`, and `Menu.Item asChild`; Menu handles the
+portal boundary.
+
+### Default props
+
+| Surface                            | Default | Notes                                                  |
+| ---------------------------------- | ------- | ------------------------------------------------------ |
+| `Breadcrumbs` / `Breadcrumbs.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+| `Breadcrumbs.Path`                 | chevron | Renders chevron separators unless `separator` is set.  |
+
+### Behavioral notes
+
+- `Breadcrumbs` renders a `nav` landmark and defaults `aria-label` to `"Breadcrumb"`.
+- `Breadcrumbs.Path` renders an ordered list from `items`; the last item is always the current page.
+- `Breadcrumbs.Separator` is presentational and hidden from assistive technology.
+- `Breadcrumbs.Ellipsis` is hidden from assistive technology because the trigger owns the label.
+- The accessible label for a collapsed path belongs on the `Menu.Trigger`.
+- Any visible breadcrumb item can shrink when space gets tight; the current page remains the primary
+  truncation target through `--breadcrumbs-item-max-width`.
+- There are no controlled props, callbacks, context hooks, `RootProvider`, ids, `HiddenInput`, or
+  form-state integrations because Breadcrumbs owns no interactive or form state.
+
+## Examples
+
+### Collapsed Path
+
+Compose with the migrated Ark `Menu` parts when hidden middle segments need disclosure behavior. This
+stays on the explicit path because the trigger and menu content own real interaction.
+
+<style>{`
+      .collapsed-menu-trigger {
+        min-width: auto;
+        min-height: auto;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: var(--transition-default);
+      }
+
+      @media (hover: hover) {
+        .collapsed-menu-trigger:hover {
+          color: var(--color-foreground);
+          background: color-mix(in srgb, var(--color-muted) 70%, transparent);
+        }
+      }
+
+      .collapsed-menu-trigger:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 var(--border-width-sm) var(--color-ring);
+      }
+
+      .collapsed-menu-content {
+        --menu-popup-min-width: 8rem;
+        --menu-item-font-size: var(--text-xs);
+        --menu-item-padding-x-start: 0.5rem;
+        --menu-item-padding-x-end: 0.5rem;
+        --menu-item-padding-y: 0.25rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/collapsed-path.tsx"
+
+```
+
+### Custom Separator
+
+Replace the default chevron with an icon or symbol through `Breadcrumbs.Path` when every visible gap
+shares the same separator.
+
+<style>{`
+      .separator-icon {
+        color: currentColor;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/custom-separator.tsx"
+
+```
+
+### Framework Link
+
+Use Ark `asChild` when the app standardizes on framework links.
+
+<style>{`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/framework-link.tsx"
+
+```
+
+### Long Current Label
+
+Pass a React node as the last `Breadcrumbs.Path` label when the current page needs extra attributes
+such as `title`. Ancestor items can also shrink now, so long middle labels no longer force the trail
+to overflow as aggressively.
+
+<style>{`
+      .breadcrumbs-long-label {
+        --breadcrumbs-item-max-width: 12rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/long-current-label.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Breadcrumbs.Path` when one trail needs a mix of framework links, a custom separator, and a
+manually annotated current page label.
+
+<style>{`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+
+      .separator-icon {
+        color: currentColor;
+      }
+
+      .breadcrumbs-long-label {
+        --breadcrumbs-item-max-width: 12rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/breadcrumbs/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Each exported part has Ark-style `data-scope="breadcrumbs"` and `data-part` attributes plus stable
+Moduix `data-slot` hooks. Public `--breadcrumbs-*` variables cover layout, text treatment, focus
+ring, separators, and ellipsis sizing.
+
+### CSS Properties
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+
+### Styling hooks
+
+- `data-scope="breadcrumbs"` is present on every exported part.
+- `data-part="root"`, `list`, `item`, `link`, `page`, `separator`, and `ellipsis` follow the
+  Ark factory contract used by this component.
+- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
+  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable Moduix
+  selectors.
+- `Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Ellipsis` share the inline padding from
+  `--breadcrumbs-item-padding-x`.
+- Visible `Breadcrumbs.Item` parts can shrink to preserve the trail; the last visible item remains
+  the primary truncation target and uses `--breadcrumbs-item-max-width`.

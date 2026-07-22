@@ -1,50 +1,15 @@
-import { Alert, Button } from '@moduix/react';
-import { Check as CheckIcon, Info as InfoIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './alert.module.css';
-
-const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
-
-const basicAlert = {
-  title: 'Update available',
-  description: 'Install the latest version when your workflow allows it.',
-};
-
-const iconAlert = {
-  title: 'Workspace sync is active',
-  description: 'Changes are being synced across all connected devices.',
-};
-
-const errorAlert = {
-  title: 'Payment failed',
-  description: 'Your payment could not be processed. Check the payment method and try again.',
-};
-
-const actionAlert = {
-  title: 'Storage is almost full',
-  description:
-    'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
-  primaryAction: 'Review uploads',
-  secondaryAction: 'Dismiss',
-};
-
-const headingAlert = {
-  title: 'Billing issue',
-  description: 'Use asChild when the surrounding page needs a different heading level.',
-};
+import type { CssPropertyInput } from '../mdx/reference';
 
 export const alertExampleCss = `
   .alert-demo {
-    max-width: 32rem;
+    max-width: 24rem;
   }
 `;
 
 export const alertStatusesCss = `
   .alert-stack {
     display: grid;
-    width: min(38rem, 100%);
+    width: min(24rem, 100%);
     gap: var(--spacing-3);
   }
 `;
@@ -57,38 +22,9 @@ export const alertCustomCompositionCss = `
     --alert-radius: var(--radius-md);
     --alert-shadow: var(--shadow-sm);
 
-    max-width: 32rem;
+    max-width: 24rem;
   }
 `;
-
-export const alertBasicData = `const alert = {
-  title: 'Update available',
-  description: 'Install the latest version when your workflow allows it.',
-};`;
-
-export const alertIconData = `const alert = {
-  title: 'Workspace sync is active',
-  description: 'Changes are being synced across all connected devices.',
-};`;
-
-export const alertStatusesData = `const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;`;
-
-export const alertErrorData = `const alert = {
-  title: 'Payment failed',
-  description: 'Your payment could not be processed. Check the payment method and try again.',
-};`;
-
-export const alertActionsData = `const alert = {
-  title: 'Storage is almost full',
-  description: 'You are using 92% of the available storage. Archive old uploads or upgrade the plan.',
-  primaryAction: 'Review uploads',
-  secondaryAction: 'Dismiss',
-};`;
-
-export const alertHeadingData = `const alert = {
-  title: 'Billing issue',
-  description: 'Use asChild when the surrounding page needs a different heading level.',
-};`;
 
 export const alertCssProperties: CssPropertyInput[] = [
   ['--alert-actions-gap', 'var(--spacing-2)', 'Controls gap between action elements.'],
@@ -157,95 +93,3 @@ export const alertCssProperties: CssPropertyInput[] = [
     'Shared destructive palette token used by the error status.',
   ],
 ];
-
-export function AlertCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={alertCssProperties.map(normalizeCssProperty)} />;
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
-
-export function AlertExample(props: ComponentProps<typeof Alert.Root>) {
-  return (
-    <Alert className={styles.demo} {...props}>
-      <Alert.Title>{basicAlert.title}</Alert.Title>
-      <Alert.Description>{basicAlert.description}</Alert.Description>
-    </Alert>
-  );
-}
-
-export function AlertWithIconExample() {
-  return (
-    <Alert status="info" className={styles.demo}>
-      <Alert.Indicator>
-        <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Title>{iconAlert.title}</Alert.Title>
-      <Alert.Description>{iconAlert.description}</Alert.Description>
-    </Alert>
-  );
-}
-
-export function AlertStatusesExample() {
-  return (
-    <div className={styles.stack}>
-      {statuses.map((status) => (
-        <Alert key={status} status={status}>
-          <Alert.Indicator>{status === 'success' ? <CheckIcon /> : <InfoIcon />}</Alert.Indicator>
-          <Alert.Title>{status}</Alert.Title>
-          <Alert.Description>Use this alert for {status} feedback.</Alert.Description>
-        </Alert>
-      ))}
-    </div>
-  );
-}
-
-export function AlertErrorExample() {
-  return (
-    <Alert status="error" className={styles.demo}>
-      <Alert.Indicator>
-        <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Title>{errorAlert.title}</Alert.Title>
-      <Alert.Description>{errorAlert.description}</Alert.Description>
-    </Alert>
-  );
-}
-
-export function AlertActionsExample() {
-  const [visible, setVisible] = useState(true);
-
-  if (!visible) return null;
-
-  return (
-    <Alert status="warning" className={styles.customAlert}>
-      <Alert.Indicator>
-        <InfoIcon />
-      </Alert.Indicator>
-      <Alert.Content>
-        <Alert.Title>{actionAlert.title}</Alert.Title>
-        <Alert.Description>{actionAlert.description}</Alert.Description>
-        <Alert.Actions>
-          <Button size="sm">{actionAlert.primaryAction}</Button>
-          <Button size="sm" variant="outline" onClick={() => setVisible(false)}>
-            {actionAlert.secondaryAction}
-          </Button>
-        </Alert.Actions>
-      </Alert.Content>
-    </Alert>
-  );
-}
-
-export function AlertHeadingExample() {
-  return (
-    <Alert status="info" className={styles.demo}>
-      <Alert.Title asChild>
-        <h2>{headingAlert.title}</h2>
-      </Alert.Title>
-      <Alert.Description>{headingAlert.description}</Alert.Description>
-    </Alert>
-  );
-}

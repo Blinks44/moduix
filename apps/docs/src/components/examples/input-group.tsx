@@ -1,9 +1,7 @@
-import { Field, InputGroup } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
+const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
   [
     '--input-group-addon-color',
@@ -139,32 +137,6 @@ export const inputGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--input-group-width', '100%', 'Controls group width.'],
 ];
 
-export const inputGroupPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--input-group-addon-bg', 'var(--color-muted)', 'Controls addon background color.'],
-  ['--input-group-addon-color', 'var(--color-muted-foreground)', 'Controls addon color.'],
-  ['--input-group-bg', 'var(--color-background)', 'Controls group background color.'],
-  ['--input-group-border-color', 'var(--color-border)', 'Controls group border color.'],
-  ['--input-group-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  [
-    '--input-group-height',
-    'var(--input-group-height-md, var(--size-md))',
-    'Controls group height.',
-  ],
-  ['--input-group-input-padding-x', 'var(--spacing-3-5)', 'Controls input inline padding.'],
-  ['--input-group-radius', 'var(--radius-md)', 'Controls group border radius.'],
-  [
-    '--input-group-readonly-border-color',
-    'var(--input-group-border-color, var(--color-border))',
-    'Controls readonly shell border color.',
-  ],
-  [
-    '--input-group-readonly-bg',
-    'var(--input-group-bg, var(--color-background))',
-    'Controls readonly shell background color.',
-  ],
-  ['--input-group-separator-color', 'var(--color-border)', 'Controls separator color.'],
-];
-
 export function InputGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
@@ -173,130 +145,7 @@ export function InputGroupCssPropertiesPanel(_context: CSSPropertiesEditorContex
   );
 }
 
-export function InputGroupCssPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesEditor
-      properties={inputGroupPlaygroundCssProperties.map(normalizeCssProperty)}
-      values={values}
-      onChange={onChange}
-      onReset={onReset}
-    />
-  );
-}
-
 const normalizeCssProperty = (property: CssPropertyInput) =>
   'name' in property
     ? property
     : { name: property[0], defaultValue: property[1], description: property[2] };
-
-export function InputGroupExample(props: ComponentProps<typeof InputGroup>) {
-  return (
-    <Field className="input-group-demo-field">
-      <Field.Label>Workspace</Field.Label>
-      <InputGroup {...props}>
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="maps" />
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupWithActionExample() {
-  const [value, setValue] = useState('');
-
-  return (
-    <Field className="input-group-demo-field">
-      <Field.Label>Invite by email</Field.Label>
-      <InputGroup>
-        <InputGroup.Input
-          value={value}
-          onChange={(event) => setValue(event.currentTarget.value)}
-          type="email"
-          placeholder="name@example.com"
-        />
-        <InputGroup.Button disabled={!value}>Send</InputGroup.Button>
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupPrefixSuffixExample() {
-  return (
-    <Field className="input-group-demo-field">
-      <Field.Label>Monthly budget</Field.Label>
-      <InputGroup>
-        <InputGroup.Addon className="input-group-demo-currency">$</InputGroup.Addon>
-        <InputGroup.Input inputMode="decimal" placeholder="2500" />
-        <InputGroup.Text>USD</InputGroup.Text>
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupAsChildExample() {
-  return (
-    <Field className="input-group-demo-field">
-      <Field.Label>Repository</Field.Label>
-      <InputGroup asChild>
-        <div>
-          <InputGroup.Addon>moduix/</InputGroup.Addon>
-          <InputGroup.Input placeholder="components" />
-        </div>
-      </InputGroup>
-    </Field>
-  );
-}
-
-export function InputGroupSizesExample() {
-  return (
-    <div className="input-group-demo-stack">
-      <InputGroup size="xs">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="Extra-small group" />
-      </InputGroup>
-      <InputGroup size="sm">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="Small group" />
-      </InputGroup>
-      <InputGroup size="md">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="Medium group" />
-      </InputGroup>
-      <InputGroup size="lg">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="Large group" />
-      </InputGroup>
-      <InputGroup size="xl">
-        <InputGroup.Addon>@</InputGroup.Addon>
-        <InputGroup.Input placeholder="Extra-large group" />
-      </InputGroup>
-    </div>
-  );
-}
-
-export function DisabledInputGroupExample() {
-  return (
-    <InputGroup className="input-group-demo-group" role="group" aria-label="Workspace handle">
-      <InputGroup.Addon>@</InputGroup.Addon>
-      <InputGroup.Input disabled value="maps" />
-      <InputGroup.Button disabled>Copy</InputGroup.Button>
-    </InputGroup>
-  );
-}
-
-export function InputGroupFieldValidationExample() {
-  return (
-    <Field className="input-group-demo-field" invalid>
-      <Field.Label>Domain</Field.Label>
-      <InputGroup>
-        <InputGroup.Input placeholder="company" />
-        <InputGroup.Text>.test.com</InputGroup.Text>
-      </InputGroup>
-      <Field.ErrorText>Please enter a domain.</Field.ErrorText>
-    </Field>
-  );
-}

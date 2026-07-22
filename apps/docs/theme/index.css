@@ -1,0 +1,255 @@
+@import '../../../packages/react/src/lib/moduix/styles/fonts.css';
+@import '@moduix/react/reset.css';
+@import '@moduix/react/style.css';
+
+:root {
+  --rp-c-bg: oklch(0.982 0.003 285);
+  --rp-c-bg-soft: oklch(0.955 0.006 285);
+  --rp-c-bg-mute: oklch(0.925 0.008 285);
+  --rp-c-divider: oklch(0.52 0.012 285 / 42%);
+  --rp-c-divider-light: oklch(0.52 0.012 285 / 18%);
+  --rp-c-text-0: oklch(0.145 0.009 285);
+  --rp-c-text-1: oklch(0.175 0.01 285);
+  --rp-c-text-2: oklch(0.485 0.015 285);
+  --rp-c-link: var(--rp-c-text-1);
+  --rp-c-brand: var(--rp-c-text-1);
+  --rp-c-brand-dark: var(--rp-c-text-0);
+  --rp-c-brand-darker: var(--rp-c-text-0);
+  --rp-c-brand-light: var(--rp-c-text-2);
+  --rp-c-brand-lighter: var(--rp-c-bg-mute);
+  --rp-c-brand-tint: color-mix(in oklab, var(--rp-c-text-1) 8%, transparent);
+  --rp-c-text-code: oklch(0.39 0.035 285);
+  --moduix-doc-card: oklch(0.96 0.006 285);
+  --moduix-doc-secondary: oklch(0.95 0.008 285);
+  --rp-code-block-bg: var(--moduix-doc-card);
+  --rp-code-title-bg: var(--moduix-doc-secondary);
+  --rp-radius: 0.875rem;
+  --rp-radius-small: 0.625rem;
+  --rp-radius-large: 1.25rem;
+  --rp-home-hero-secondary-color: var(--rp-c-text-2);
+  --rp-nav-height: 56px;
+  --rp-sidebar-width: 272px;
+  --rp-content-padding-x: 32px;
+}
+
+.dark {
+  --rp-c-bg: oklch(0.155 0.008 285);
+  --rp-c-bg-soft: oklch(0.205 0.011 285);
+  --rp-c-bg-mute: oklch(0.245 0.013 285);
+  --rp-c-divider: oklch(0.72 0.014 285 / 32%);
+  --rp-c-divider-light: oklch(0.72 0.014 285 / 18%);
+  --rp-c-text-0: oklch(0.99 0.002 285);
+  --rp-c-text-1: oklch(0.968 0.003 285);
+  --rp-c-text-2: oklch(0.72 0.014 285);
+  --rp-c-link: var(--rp-c-text-1);
+  --rp-c-brand: var(--rp-c-text-1);
+  --rp-c-brand-dark: var(--rp-c-text-0);
+  --rp-c-brand-darker: var(--rp-c-text-0);
+  --rp-c-brand-light: var(--rp-c-text-2);
+  --rp-c-brand-lighter: var(--rp-c-bg-mute);
+  --rp-c-brand-tint: color-mix(in oklab, var(--rp-c-text-1) 10%, transparent);
+  --rp-c-text-code: oklch(0.82 0.025 285);
+  --moduix-doc-card: oklch(0.185 0.01 285);
+  --moduix-doc-secondary: oklch(0.215 0.011 285);
+
+  .rp-preview--internal__card,
+  .rp-tabs__label__item--selected {
+    background: var(--moduix-doc-card);
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  position: relative;
+  background: var(--rp-c-bg);
+
+  &:has(.moduix-home) .rp-nav {
+    background-color: color-mix(in srgb, var(--rp-c-bg) 58%, transparent);
+  }
+}
+
+#__rspress_root {
+  isolation: isolate;
+}
+
+.rp-nav {
+  border-bottom-color: color-mix(in srgb, var(--rp-c-divider-light) 72%, transparent);
+  background-color: color-mix(in srgb, var(--rp-c-bg) 72%, transparent);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  backdrop-filter: saturate(140%) blur(12px);
+}
+
+.moduix-nav-logo {
+  display: block;
+  width: 28px;
+  height: auto;
+  color: var(--rp-c-text-1);
+}
+
+.rp-nav .rp-search-button {
+  &:hover,
+  &:focus-visible {
+    border: 1px solid color-mix(in oklab, var(--rp-c-brand) 28%, var(--rp-c-bg));
+  }
+}
+
+.rp-search-panel__input-form {
+  border: 1px solid color-mix(in oklab, var(--rp-c-brand) 24%, var(--rp-c-bg));
+
+  &:focus-within {
+    border-color: color-mix(in oklab, var(--rp-c-brand) 34%, var(--rp-c-bg));
+  }
+}
+
+.rp-doc {
+  .moduix-doc-title,
+  h1:has(+ .moduix-doc-description) {
+    margin-bottom: 0.625rem;
+  }
+
+  .moduix-doc-description {
+    max-width: 48rem;
+    margin: 0 0 1rem;
+    color: var(--rp-c-text-2);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  & :not(:where(.rp-not-doc, .rp-not-doc *)):where(tbody) {
+    background: var(--moduix-doc-card);
+  }
+}
+
+.rp-doc-layout__sidebar {
+  background: var(--moduix-doc-card);
+}
+
+.rp-sidebar-item {
+  &.rp-sidebar-item--active,
+  &.rp-sidebar-item--active:hover {
+    background-color: color-mix(in oklab, var(--rp-c-text-1) 11%, var(--moduix-doc-card));
+    color: var(--rp-c-text-1);
+  }
+
+  &:has(.rp-sidebar-item__right img) {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+}
+
+.rp-sidebar-item__right {
+  &:has(img) {
+    order: -1;
+    flex: none;
+  }
+
+  img {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.rp-preview {
+  isolation: isolate;
+  margin-block: 1.5rem 1.75rem;
+
+  .rp-preview--internal__card {
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 18.75rem;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-color: var(--rp-c-divider-light);
+    border-radius: var(--rp-radius);
+    padding: 1.5rem;
+    background: #fff;
+  }
+
+  .rp-preview--internal__card__content {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: safe center;
+    gap: 0.75rem;
+    overflow: hidden;
+
+    > * {
+      min-width: 0;
+    }
+  }
+
+  .rp-preview-operations--web {
+    position: static;
+    flex: none;
+    align-self: center;
+    margin-block-start: 1rem;
+  }
+
+  .rp-preview-operations__button {
+    margin-left: 0;
+    border-color: var(--rp-c-divider-light);
+    background: var(--moduix-doc-secondary);
+  }
+
+  .rp-preview--internal__code .rp-codeblock {
+    margin: 0;
+    overflow: hidden;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+}
+
+.rp-codeblock__content :where(code) {
+  --rp-code-font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.rp-tabs {
+  .rp-tabs__content__item,
+  .rp-tabs__label__item--selected {
+    background: var(--moduix-doc-card);
+  }
+}
+
+.docs-reference {
+  font-size: initial;
+}
+
+.docs-reference-panel {
+  max-height: 37.5rem;
+  overflow: auto;
+
+  &.docs-reference-panel--compact {
+    max-height: 26.25rem;
+    border: 1px solid var(--rp-c-divider-light);
+    border-radius: var(--rp-radius-small);
+  }
+}
+
+.docs-reference-tabs,
+.docs-tabs {
+  margin-block: 0.75rem 0;
+}
+
+@media (width <= 768px) {
+  :root {
+    --rp-content-padding-x: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}

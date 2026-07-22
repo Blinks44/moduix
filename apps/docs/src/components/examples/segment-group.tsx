@@ -1,25 +1,5 @@
-import { Button, SegmentGroup, useSegmentGroup } from '@moduix/react';
-import { useState, type FormEvent } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const frameworkItems = ['React', 'Solid', 'Svelte', 'Vue'].map((value) => ({
-  value,
-  label: value,
-}));
-const disabledFrameworkItems = frameworkItems.map((item) => ({
-  ...item,
-  disabled: item.value === 'Svelte',
-}));
-const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: value }));
-
-export const segmentGroupFrameworksData = `
-const frameworks = ["React", "Solid", "Svelte", "Vue"];
-`;
-
-export const segmentGroupViewsData = `
-const views = ["List", "Board", "Calendar"];
-`;
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const segmentGroupExampleCss = `
 .segment-stack {
@@ -45,7 +25,7 @@ export const segmentGroupVerticalCss = `
 }
 `;
 
-export const segmentGroupFormCss = `
+const segmentGroupFormCss = `
 .segment-form {
   display: grid;
   gap: var(--spacing-3);
@@ -85,7 +65,7 @@ export const segmentGroupAsChildCss = `
 }
 `;
 
-export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
+const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--segment-group-bg', 'var(--color-muted)', 'Controls the root background.'],
   ['--segment-group-border-color', 'var(--color-border)', 'Controls the root border color.'],
   [
@@ -177,144 +157,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export function SegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function ControlledSegmentGroupExample() {
-  const [value, setValue] = useState<string | null>('React');
-
-  return (
-    <div className="segment-stack">
-      <SegmentGroup
-        aria-label="Framework"
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup>
-      <output className="segment-output">selected: {value ?? 'none'}</output>
-    </div>
-  );
-}
-
-export function SegmentGroupRootProviderExample() {
-  const segmentGroup = useSegmentGroup({ defaultValue: 'React' });
-
-  return (
-    <div className="segment-stack">
-      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup.RootProvider>
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => segmentGroup.setValue('Solid')}
-      >
-        Set to Solid
-      </button>
-      <output className="segment-output">selected: {segmentGroup.value ?? 'none'}</output>
-    </div>
-  );
-}
-
-export function DisabledSegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={disabledFrameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function ConditionalSegmentGroupExample() {
-  const [visible, setVisible] = useState(true);
-
-  return (
-    <div className="segment-stack">
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => setVisible((value) => !value)}
-      >
-        {visible ? 'Hide' : 'Show'}
-      </button>
-      {visible ? <SegmentGroupExample /> : null}
-    </div>
-  );
-}
-
-export function VerticalSegmentGroupExample() {
-  return (
-    <SegmentGroup
-      aria-label="View"
-      defaultValue="List"
-      orientation="vertical"
-      className="segment-vertical"
-    >
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={viewItems} />
-    </SegmentGroup>
-  );
-}
-
-export function FormSegmentGroupExample() {
-  const [submitted, setSubmitted] = useState('none');
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    setSubmitted(String(formData.get('framework') ?? 'none'));
-  };
-
-  return (
-    <form className="segment-form" onSubmit={handleSubmit}>
-      <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup>
-      <Button className="segment-button" type="submit">
-        Submit
-      </Button>
-      <output className="segment-output">submitted: {submitted}</output>
-    </form>
-  );
-}
-
-export function InvalidSegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function SegmentGroupAsChildExample() {
-  return (
-    <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
-      <SegmentGroup.Indicator />
-      {[
-        ['Monthly', 'Pay monthly'],
-        ['Annual', 'Save 20%'],
-      ].map(([item, description]) => (
-        <SegmentGroup.Item key={item} value={item} asChild>
-          <label className="segment-card-item">
-            <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
-            <span className="segment-card-description">{description}</span>
-            <SegmentGroup.ItemControl />
-          </label>
-        </SegmentGroup.Item>
-      ))}
-    </SegmentGroup>
-  );
 }

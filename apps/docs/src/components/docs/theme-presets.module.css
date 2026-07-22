@@ -1,17 +1,17 @@
 .root {
   display: grid;
   overflow: hidden;
-  border: 1px solid var(--color-fd-border);
+  border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--radius-lg);
-  background: var(--color-fd-card);
+  background: var(--rp-c-bg-soft);
 }
 
 .controls {
   display: grid;
   gap: var(--spacing-4);
   padding: var(--spacing-4);
-  border-bottom: 1px solid var(--color-fd-border);
-  background: color-mix(in oklab, var(--color-fd-muted) 52%, transparent);
+  border-bottom: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in oklab, var(--rp-c-bg-soft) 52%, transparent);
 }
 
 .presetList {
@@ -35,24 +35,24 @@
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   background: transparent;
-  color: var(--color-fd-muted-foreground);
+  color: var(--rp-c-text-2);
   text-align: left;
   transition: var(--transition-fast);
 
   &:hover {
-    background: var(--color-fd-accent);
-    color: var(--color-fd-accent-foreground);
+    background: var(--rp-c-bg-mute);
+    color: var(--rp-c-text-1);
   }
 
   &[data-active] {
-    border-color: var(--color-fd-border);
-    background: var(--color-fd-background);
-    color: var(--color-fd-foreground);
+    border-color: var(--rp-c-divider-light);
+    background: var(--rp-c-bg);
+    color: var(--rp-c-text-1);
     box-shadow: var(--shadow-sm);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-fd-ring);
+    outline: 2px solid var(--rp-c-text-2);
     outline-offset: 2px;
   }
 }
@@ -77,28 +77,28 @@
   display: flex;
   width: fit-content;
   overflow: hidden;
-  border: 1px solid var(--color-fd-border);
+  border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--radius-md);
-  background: var(--color-fd-background);
+  background: var(--rp-c-bg);
 }
 
 .modeList button {
   min-height: var(--size-sm);
   padding-inline: var(--spacing-3);
   background: transparent;
-  color: var(--color-fd-muted-foreground);
+  color: var(--rp-c-text-2);
   font-size: var(--text-sm);
   line-height: var(--line-height-text-sm);
 
   &[data-active] {
-    background: var(--color-fd-primary);
-    color: var(--color-fd-primary-foreground);
+    background: var(--rp-c-text-1);
+    color: var(--rp-c-bg);
   }
 
   &:focus-visible {
     position: relative;
     z-index: 1;
-    outline: 2px solid var(--color-fd-ring);
+    outline: 2px solid var(--rp-c-text-2);
     outline-offset: -2px;
   }
 }

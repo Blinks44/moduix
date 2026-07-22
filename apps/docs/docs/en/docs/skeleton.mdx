@@ -1,0 +1,220 @@
+---
+title: Skeleton
+component: skeleton
+description: A loading placeholder block for text, cards, media objects, and custom layouts.
+---
+
+import * as SkeletonDocs from '@/components/examples/skeleton';
+
+## API Reference
+
+Ark UI does not ship a dedicated skeleton primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Use a few line skeletons for the common text-loading case.
+
+<style>{`
+      .skeleton-stack {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="skeleton" />
+
+## Anatomy
+
+`Skeleton` is a single visual part. Layout stays in the surrounding markup.
+
+```text
+Skeleton.Root
+└─ children (optional, revealed when loading={false})
+```
+
+| Part                         | Role                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `Skeleton` / `Skeleton.Root` | Placeholder surface. Renders an Ark factory element and accepts `asChild` for custom hosts. |
+
+## Composition
+
+### Recommended composition
+
+Use `Skeleton` directly for text lines, cards, avatars, and media placeholders. It renders one
+decorative block while `loading` is true and reveals children when `loading` is false.
+
+`variant="pulse"` is the default. Use `variant="none"` when motion should stay quiet.
+Reduced-motion users always get a static surface.
+
+### When to go custom
+
+Use `asChild` when another semantic element must own the rendered node. Keep the child single and
+semantic, matching Ark's composition guidance.
+
+Use `width`, `height`, `boxSize`, and `borderRadius` for common dimensions. For more specialized
+surfaces, apply `className`, `style`, or the public CSS variables.
+
+### Default props
+
+| Prop           | Default                         | Notes                                                                                                       |
+| -------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `loading`      | `true`                          | Controls whether placeholder styles are active or children are shown normally.                              |
+| `variant`      | `pulse`                         | Supports `pulse` and `none`.                                                                                |
+| `height`       | `1rem` while loading            | Loading CSS sets the default placeholder height. Loaded content uses natural height unless a height is set. |
+| `width`        | `100%`                          | CSS sets the default root width. Numeric prop values become `px`.                                           |
+| `boxSize`      | -                               | Sets width and height together when that axis is not provided.                                              |
+| `borderRadius` | `var(--skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                                                 |
+
+### Behavioral notes
+
+- `Skeleton.Root` is the same component as `Skeleton`, provided for namespace consistency.
+- `loading={true}` sets `aria-hidden`, `data-state="loading"`, and `data-loading`.
+- `loading={false}` sets `data-state="loaded"` and lets children use their natural height unless `height`, `boxSize`, or `style.height` is set.
+- `variant` is styling-only; no internal timers or state management are added.
+- `asChild` comes from Ark factory composition and replaces legacy render-prop composition.
+
+## Examples
+
+### Card
+
+Use a larger block plus shorter text lines to reserve card layout while content is loading.
+
+<style>{`
+      .card {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/card.tsx"
+
+```
+
+### Loaded Content
+
+Use `loading` to keep the same host in place while switching from placeholder to real content.
+
+<style>{`
+      .loadedContent {
+        display: grid;
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+        min-height: 4.5rem;
+        gap: var(--spacing-1);
+        padding: var(--spacing-4);
+        border: var(--border-width-sm) solid var(--color-border);
+      }
+
+      .loadedGrid {
+        display: grid;
+        gap: var(--spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/loaded-content.tsx"
+
+```
+
+### Media Object
+
+Use `boxSize` with a full radius for avatar placeholders, then compose text lines beside it.
+
+<style>{`
+      .mediaObject {
+        width: min(24rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/media-object.tsx"
+
+```
+
+### Responsive Layout
+
+Keep responsive layout logic in wrapper markup while each `Skeleton` stays a visual building block.
+
+<style>{`
+      .layoutExample {
+        width: min(24rem, calc(100vw - var(--spacing-8)));
+        padding-block: var(--spacing-1);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/responsive-layout.tsx"
+
+```
+
+### Static
+
+Pass `variant="none"` when the loading state is dense or motion should stay quieter.
+
+<style>{`
+      .staticSkeleton {
+        max-width: calc(100vw - var(--spacing-8));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/static.tsx"
+
+```
+
+### Variants
+
+Use `variant` to choose between pulse and static placeholder rendering.
+
+<style>{`
+      .stack {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/variants.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` when a semantic element such as `section` should own the DOM node instead of the default `div` host.
+
+<style>{`
+      .asChild {
+        width: min(20rem, calc(100vw - var(--spacing-8)));
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/skeleton/custom-host.tsx"
+
+```
+
+## Styling
+
+`Skeleton` exposes Ark-style part and state hooks plus public `--skeleton-*` variables for color,
+radius, and motion.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SkeletonDocs.SkeletonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `[data-scope="skeleton"][data-part="root"]` targets the exported root.
+- `data-slot="skeleton-root"` is the stable moduix selector for the root.
+- `data-state="loading"` and `data-state="loaded"` reflect the `loading` prop.
+- `data-variant="pulse"` and `data-variant="none"` reflect the variant.
+- `data-loading` is present only while placeholder styles are active.

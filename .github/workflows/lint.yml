@@ -54,4 +54,4 @@ jobs:
         run: npm run build:registry
 
       - name: Check generated registry
-        run: git diff --exit-code -- apps/docs/public/r/react
+        run: git diff --exit-code -- apps/docs/docs/public/r/react

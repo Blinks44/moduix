@@ -1,8 +1,8 @@
-import { Dialog, HoverCard, useHoverCard } from '@moduix/react';
+import { HoverCard, useHoverCard } from '@moduix/react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import * as React from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 import './hover-card.css';
 
 type Profile = {
@@ -12,7 +12,7 @@ type Profile = {
   bio: string;
 };
 
-export const hoverCardProfiles: Profile[] = [
+const hoverCardProfiles: Profile[] = [
   {
     id: 'sarah',
     name: 'Sarah Chen',
@@ -33,7 +33,7 @@ export const hoverCardProfiles: Profile[] = [
   },
 ];
 
-export const hoverCardOverrideCssProperties: CssPropertyInput[] = [
+const hoverCardOverrideCssProperties: CssPropertyInput[] = [
   ['--hover-card-arrow-size', 'var(--spacing-2-5)', 'Controls the Ark arrow size.'],
   [
     '--hover-card-arrow-stroke-color',
@@ -249,51 +249,6 @@ export function MultipleTriggersHoverCardExample() {
       </p>
       {activeProfile ? <HoverCardSurface profile={activeProfile} /> : null}
     </HoverCard>
-  );
-}
-
-export function DisabledHoverCardExample() {
-  return (
-    <HoverCard disabled>
-      <p className="hover-card-example__paragraph">
-        Liked by{' '}
-        <HoverCard.Trigger asChild>
-          <a href="#profile">@sarah_chen</a>
-        </HoverCard.Trigger>{' '}
-        and 3 others
-      </p>
-      <HoverCardSurface profile={hoverCardProfiles[0]} />
-    </HoverCard>
-  );
-}
-
-export function DialogHoverCardExample() {
-  const titleRef = React.useRef<HTMLHeadingElement>(null);
-
-  return (
-    <Dialog initialFocusEl={() => titleRef.current}>
-      <Dialog.Trigger asChild>
-        <button type="button" className="hover-card-example__button">
-          View profile
-        </button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title ref={titleRef} tabIndex={-1}>
-              Profile
-            </Dialog.Title>
-          </Dialog.Header>
-          <HoverCard portalled={false}>
-            <HoverCard.Trigger asChild>
-              <a href="#profile">@sarah_chen</a>
-            </HoverCard.Trigger>
-            <HoverCardSurface profile={hoverCardProfiles[0]} />
-          </HoverCard>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
   );
 }
 

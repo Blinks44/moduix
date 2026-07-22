@@ -1,0 +1,36 @@
+---
+title: Mobile drawer navigation
+description: A copy-owned mobile navigation shell with a side drawer and responsive workspace content.
+---
+
+import { MobileDrawerNavigationPreview } from '@/components/blocks/mobile-drawer-navigation-preview';
+
+# Mobile drawer navigation
+
+Add a compact mobile navigation pattern with an edge-attached drawer. Navigation links close the
+drawer after selection, while the Drawer primitive keeps focus management, Escape, and backdrop
+behavior accessible.
+
+<ExampleFrame clientOnly>
+  <MobileDrawerNavigationPreview />
+</ExampleFrame>
+
+```tsx file="../../../src/components/blocks/mobile-drawer-navigation.tsx"
+
+```
+
+```css file="../../../src/components/blocks/mobile-drawer-navigation.module.css"
+
+```
+
+## Install
+
+<ShadcnInstall packageName="mobile-drawer-navigation" itemLabel="block" />
+
+The command copies the JSX and CSS module into your components directory, and installs
+`@moduix/react` and `lucide-react` when needed.
+
+## Use in a route
+
+Replace the example anchors and dashboard content with your routes and data. Keep each navigation
+link inside `Drawer.CloseTrigger` so a selection closes the mobile drawer automatically.
