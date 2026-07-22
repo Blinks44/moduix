@@ -185,9 +185,12 @@ body {
     justify-content: safe center;
     gap: 0.75rem;
     overflow: hidden;
+    flex-direction: column;
 
     > * {
       min-width: 0;
+      align-self: center;
+      justify-self: center;
     }
   }
 

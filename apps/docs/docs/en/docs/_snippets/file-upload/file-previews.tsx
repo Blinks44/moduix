@@ -1,5 +1,4 @@
 import { FileUpload } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const previewFiles = [
   new File(
@@ -14,14 +13,12 @@ const previewFiles = [
 
 export default function FileUploadPreviewDemo() {
   return (
-    <PreviewLayout maxWidth="24rem">
-      <FileUpload defaultAcceptedFiles={previewFiles} maxFiles={4}>
-        <FileUpload.Label>Project attachments</FileUpload.Label>
-        <FileUpload.Trigger>Add files</FileUpload.Trigger>
-        <FileUpload.ItemGroup>
-          <FileUpload.Items />
-        </FileUpload.ItemGroup>
-      </FileUpload>
-    </PreviewLayout>
+    <FileUpload defaultAcceptedFiles={previewFiles} maxFiles={4}>
+      <FileUpload.Label>Project attachments</FileUpload.Label>
+      <FileUpload.Trigger>Add files</FileUpload.Trigger>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
+    </FileUpload>
   );
 }

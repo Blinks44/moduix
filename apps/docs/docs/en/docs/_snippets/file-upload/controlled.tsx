@@ -1,6 +1,5 @@
 import { FileUpload } from '@moduix/react';
 import { useState } from 'react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const initialFiles = [
   new File(['Welcome to moduix'], 'README.md', {
@@ -10,30 +9,28 @@ const initialFiles = [
 export default function ControlledFileUploadDemo() {
   const [files, setFiles] = useState(initialFiles);
   return (
-    <PreviewLayout maxWidth="24rem">
-      <div className="file-upload-stack">
-        <FileUpload
-          className="file-upload-simple-demo"
-          acceptedFiles={files}
-          onFileChange={(details) => setFiles(details.acceptedFiles)}
-        >
-          <FileUpload.Label>Attachments</FileUpload.Label>
-          <FileUpload.Trigger>Choose files</FileUpload.Trigger>
-          <FileUpload.ItemGroup>
-            <FileUpload.Context>
-              {({ acceptedFiles }) =>
-                acceptedFiles.map((file) => (
-                  <FileUpload.Item key={file.name} file={file}>
-                    <FileUpload.ItemName />
-                    <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
-                  </FileUpload.Item>
-                ))
-              }
-            </FileUpload.Context>
-          </FileUpload.ItemGroup>
-        </FileUpload>
-        <p className="file-upload-state">Selected files: {files.length}</p>
-      </div>
-    </PreviewLayout>
+    <div className="file-upload-stack">
+      <FileUpload
+        className="file-upload-simple-demo"
+        acceptedFiles={files}
+        onFileChange={(details) => setFiles(details.acceptedFiles)}
+      >
+        <FileUpload.Label>Attachments</FileUpload.Label>
+        <FileUpload.Trigger>Choose files</FileUpload.Trigger>
+        <FileUpload.ItemGroup>
+          <FileUpload.Context>
+            {({ acceptedFiles }) =>
+              acceptedFiles.map((file) => (
+                <FileUpload.Item key={file.name} file={file}>
+                  <FileUpload.ItemName />
+                  <FileUpload.ItemDeleteTrigger aria-label={`Remove ${file.name}`} />
+                </FileUpload.Item>
+              ))
+            }
+          </FileUpload.Context>
+        </FileUpload.ItemGroup>
+      </FileUpload>
+      <p className="file-upload-state">Selected files: {files.length}</p>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import { Clipboard } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 export default function RootProviderClipboardDemo() {
   const clipboard = Clipboard.useClipboard({
@@ -7,7 +6,7 @@ export default function RootProviderClipboardDemo() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-2)" maxWidth="24rem">
+    <>
       <Clipboard.RootProvider value={clipboard}>
         <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
         <Clipboard.Control>
@@ -19,6 +18,6 @@ export default function RootProviderClipboardDemo() {
         </Clipboard.Control>
       </Clipboard.RootProvider>
       <p className="clipboard-status-text">Copied: {String(clipboard.copied)}</p>
-    </PreviewLayout>
+    </>
   );
 }

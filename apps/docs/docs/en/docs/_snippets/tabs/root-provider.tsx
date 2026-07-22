@@ -1,5 +1,4 @@
 import { Tabs, useTabs } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const items = [
   {
@@ -26,7 +25,7 @@ export default function RootProviderTabsDemo() {
     defaultValue: 'overview',
   });
   return (
-    <PreviewLayout gap="var(--moduix-spacing-3)" maxWidth="32rem">
+    <>
       <output className="tabs-demo-selected">selected: {tabs.value}</output>
       <Tabs.RootProvider value={tabs}>
         <Tabs.List>
@@ -43,6 +42,6 @@ export default function RootProviderTabsDemo() {
           </Tabs.Content>
         ))}
       </Tabs.RootProvider>
-    </PreviewLayout>
+    </>
   );
 }

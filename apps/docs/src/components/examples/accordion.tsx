@@ -4,7 +4,7 @@ export const accordionExampleCss = `
   [data-slot='accordion-root'],
   [data-slot='accordion-root-provider'] {
     width: 100%;
-    max-width: 22rem;
+    max-width: 24rem;
   }
 
   .accordion-provider-stack {

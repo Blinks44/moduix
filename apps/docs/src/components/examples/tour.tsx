@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
-import { PreviewLayout } from './preview-layout';
 import styles from './tour.module.css';
 
 const baseActions = [
@@ -139,13 +138,13 @@ export function MixedTypesTourExample() {
   const tour = useTour({ steps: mixedSteps });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start mixed tour</Button>
       <div id="tour-mixed-target" className={styles.target}>
         Target card
       </div>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -162,7 +161,7 @@ export function EventsTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start event tour</Button>
       <Button id="tour-events-upload" variant="outline">
         Upload
@@ -171,7 +170,7 @@ export function EventsTourExample() {
         {logs.length ? logs.map((log) => <div key={log}>{log}</div>) : 'No events yet'}
       </div>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -184,14 +183,14 @@ export function KeyboardTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start keyboard tour</Button>
       <Button id="tour-keyboard-upload" variant="outline">
         Upload
       </Button>
       <p className={styles.note}>Use Left and Right arrow keys while the tour content has focus.</p>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -199,7 +198,7 @@ export function ProgressTourExample() {
   const tour = useTour({ steps: progressSteps });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start progress tour</Button>
       <div className={styles.toolbar}>
         {['plan', 'review', 'ship'].map((item) => (
@@ -213,7 +212,7 @@ export function ProgressTourExample() {
           <div className={styles.progressFill} style={{ width: `${tour.getProgressPercent()}%` }} />
         </div>
       </TourOverlay>
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -227,14 +226,14 @@ export function SkipTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start optional tour</Button>
       <div id="tour-skip-feature" className={styles.target}>
         Optional feature
       </div>
       <output className={styles.note}>Status: {status}</output>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -269,14 +268,14 @@ export function WaitForInputTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start input tour</Button>
       <label className={styles.field}>
         Name
         <input id="tour-wait-name" className={styles.input} />
       </label>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -309,13 +308,13 @@ export function WaitForClickTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start click tour</Button>
       <Button id="tour-wait-click" variant="outline">
         Confirm action
       </Button>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -358,7 +357,7 @@ export function WaitForElementTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button
         onClick={() => {
           setItems(['Item 1', 'Item 2']);
@@ -386,7 +385,7 @@ export function WaitForElementTourExample() {
         ))}
       </div>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 
@@ -436,13 +435,13 @@ export function AsyncStepTourExample() {
   });
 
   return (
-    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
+    <>
       <Button onClick={() => tour.start()}>Start async tour</Button>
       <div id="tour-async-target" className={styles.target}>
         Async target
       </div>
       <TourOverlay tour={tour} />
-    </PreviewLayout>
+    </>
   );
 }
 

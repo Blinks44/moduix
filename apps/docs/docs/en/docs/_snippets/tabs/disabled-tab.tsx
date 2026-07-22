@@ -1,5 +1,4 @@
 import { Tabs } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const items = [
   {
@@ -23,22 +22,20 @@ const items = [
 
 export default function DisabledTabTabsDemo() {
   return (
-    <PreviewLayout maxWidth="32rem">
-      <Tabs defaultValue="overview">
-        <Tabs.List>
-          <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-          <Tabs.Trigger value="projects" disabled>
-            Projects
-          </Tabs.Trigger>
-          <Tabs.Trigger value="account">Account</Tabs.Trigger>
-        </Tabs.List>
+    <Tabs defaultValue="overview">
+      <Tabs.List>
+        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+        <Tabs.Trigger value="projects" disabled>
+          Projects
+        </Tabs.Trigger>
+        <Tabs.Trigger value="account">Account</Tabs.Trigger>
+      </Tabs.List>
 
-        {items.map((item) => (
-          <Tabs.Content key={item.value} value={item.value}>
-            {item.content}
-          </Tabs.Content>
-        ))}
-      </Tabs>
-    </PreviewLayout>
+      {items.map((item) => (
+        <Tabs.Content key={item.value} value={item.value}>
+          {item.content}
+        </Tabs.Content>
+      ))}
+    </Tabs>
   );
 }

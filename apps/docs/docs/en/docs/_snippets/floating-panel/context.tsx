@@ -1,5 +1,4 @@
 import { Button, FloatingPanel } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 export default function ContextFloatingPanelDemo() {
   return (
@@ -9,18 +8,16 @@ export default function ContextFloatingPanelDemo() {
         height: 260,
       }}
     >
-      <PreviewLayout gap="var(--moduix-spacing-2)">
-        <FloatingPanel.Trigger asChild>
-          <Button>Open context panel</Button>
-        </FloatingPanel.Trigger>
-        <FloatingPanel.Context>
-          {(panel) => (
-            <span>
-              open: {String(panel.open)}, dragging: {String(panel.dragging)}
-            </span>
-          )}
-        </FloatingPanel.Context>
-      </PreviewLayout>
+      <FloatingPanel.Trigger asChild>
+        <Button>Open context panel</Button>
+      </FloatingPanel.Trigger>
+      <FloatingPanel.Context>
+        {(panel) => (
+          <span>
+            open: {String(panel.open)}, dragging: {String(panel.dragging)}
+          </span>
+        )}
+      </FloatingPanel.Context>
       <FloatingPanel.Positioner>
         <FloatingPanel.Content>
           <FloatingPanel.DragTrigger>
