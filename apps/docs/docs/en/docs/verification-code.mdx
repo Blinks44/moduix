@@ -1,0 +1,40 @@
+---
+title: Verification code
+description: A copy-owned six-digit email verification form built with moduix React components.
+---
+
+import { VerificationCodePreview } from '@/components/blocks/verification-code-preview';
+
+# Verification code
+
+Verify an email with a six-digit one-time code. `PinInput` provides the native form input,
+keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the inline field error.
+
+<ExampleFrame clientOnly>
+  <VerificationCodePreview />
+</ExampleFrame>
+
+```tsx file="../../../src/components/blocks/verification-code.tsx"
+
+```
+
+```css file="../../../src/components/blocks/verification-code.module.css"
+
+```
+
+## Install
+
+<ShadcnInstall packageName="verification-code" itemLabel="block" />
+
+The command copies `verification-code.tsx` and `verification-code.module.css` into your configured
+components directory and installs `@moduix/react` when needed.
+
+## Use in a route
+
+Render `VerificationCode` after your application sends the email code and pass its real submit
+handler. `onSubmit` receives the native form event, so read `new FormData(event.currentTarget)`
+and verify the `code` value with your server. Replace the default `/sign-in` link with your
+application route.
+
+The preview intentionally has no verification server. After six digits it runs its empty submit
+handler; the installed block runs the handler you provide instead.

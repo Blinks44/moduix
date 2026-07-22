@@ -1,14 +1,14 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
-    width: var(--marquee-width, 100%);
-    height: var(--marquee-height, auto);
-    color: var(--marquee-color, var(--color-foreground));
+    width: var(--moduix-marquee-width, 100%);
+    height: var(--moduix-marquee-height, auto);
+    color: var(--moduix-marquee-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
-      height: var(--marquee-vertical-height, var(--marquee-height, 15rem));
+      height: var(--moduix-marquee-vertical-height, var(--moduix-marquee-height, 15rem));
     }
 
     &[data-paused] .content {
@@ -49,57 +49,57 @@
   }
 
   .edge {
-    z-index: var(--marquee-edge-z-index, 1);
+    z-index: var(--moduix-marquee-edge-z-index, 1);
     pointer-events: none;
 
     &[data-side='start'] {
-      width: var(--marquee-edge-size, 20%);
+      width: var(--moduix-marquee-edge-size, 20%);
       background: linear-gradient(
         to right,
-        var(--marquee-edge-color, var(--color-background)),
+        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
         transparent
       );
 
       &[dir='rtl'] {
         background: linear-gradient(
           to left,
-          var(--marquee-edge-color, var(--color-background)),
+          var(--moduix-marquee-edge-color, var(--moduix-color-background)),
           transparent
         );
       }
     }
 
     &[data-side='end'] {
-      width: var(--marquee-edge-size, 20%);
+      width: var(--moduix-marquee-edge-size, 20%);
       background: linear-gradient(
         to left,
-        var(--marquee-edge-color, var(--color-background)),
+        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
         transparent
       );
 
       &[dir='rtl'] {
         background: linear-gradient(
           to right,
-          var(--marquee-edge-color, var(--color-background)),
+          var(--moduix-marquee-edge-color, var(--moduix-color-background)),
           transparent
         );
       }
     }
 
     &[data-side='top'] {
-      height: var(--marquee-edge-size, 20%);
+      height: var(--moduix-marquee-edge-size, 20%);
       background: linear-gradient(
         to bottom,
-        var(--marquee-edge-color, var(--color-background)),
+        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
         transparent
       );
     }
 
     &[data-side='bottom'] {
-      height: var(--marquee-edge-size, 20%);
+      height: var(--moduix-marquee-edge-size, 20%);
       background: linear-gradient(
         to top,
-        var(--marquee-edge-color, var(--color-background)),
+        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
         transparent
       );
     }

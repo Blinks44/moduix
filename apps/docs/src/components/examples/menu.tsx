@@ -1,273 +1,376 @@
-import { Button, Dialog, Menu, useMenu } from '@moduix/react';
-import { Info as InfoIcon, Map as MapIcon } from 'lucide-react';
-import type { ComponentProps, ReactNode } from 'react';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './menu.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const menuItemsData = `const fileItems = [
-  { value: 'new-file', label: 'New File' },
-  { value: 'open', label: 'Open...' },
-  { value: 'save', label: 'Save' },
-  { value: 'save-as', label: 'Save As...' },
-];`;
+export const menuExampleCss = `
+  .menu-content {
+    --moduix-menu-popup-min-width: 13rem;
+  }
 
-export const menuMessagesData = `const messages = [
-  { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
-  { id: '2', sender: 'Bob Smith', preview: 'Meeting notes from today are attached.' },
-  { id: '3', sender: 'Carol Davis', preview: 'The deploy finished successfully!' },
-];`;
+  .menu-context-trigger {
+    --moduix-menu-trigger-bg-hover: var(--moduix-color-muted);
+    --moduix-menu-trigger-bg-active: var(--moduix-color-muted);
 
-export const menuExampleCss = `.menu-content {
-  --menu-popup-min-width: 13rem;
-}
+    width: 16rem;
+  }
 
-.menu-context-trigger {
-  width: 16rem;
-}`;
+  .menu-dialog-stack {
+    margin-block-start: var(--moduix-spacing-4);
+  }
 
-export const menuOverrideCssProperties: CssPropertyInput[] = [
-  ['--menu-arrow-size', 'var(--spacing-2-5)', 'Controls Ark arrow size.'],
+`;
+
+const menuOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-menu-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls Ark arrow size.'],
   [
-    '--menu-arrow-stroke-color',
-    'var(--menu-popup-border-color)',
+    '--moduix-menu-arrow-stroke-color',
+    'var(--moduix-menu-popup-border-color)',
     'Controls arrow tip stroke color.',
   ],
   [
-    '--menu-check-gap',
-    'var(--popup-check-gap, var(--spacing-2))',
+    '--moduix-menu-check-gap',
+    'var(--moduix-popup-check-gap, var(--moduix-spacing-2))',
     'Controls checkbox/radio indicator gap.',
   ],
   [
-    '--menu-check-indicator-size',
-    'var(--popup-check-indicator-size, var(--spacing-3))',
+    '--moduix-menu-check-indicator-size',
+    'var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3))',
     'Controls checkbox/radio indicator size.',
   ],
   [
-    '--menu-check-padding-x-start',
-    'var(--popup-check-padding-x-start, var(--spacing-2-5))',
+    '--moduix-menu-check-padding-x-start',
+    'var(--moduix-popup-check-padding-x-start, var(--moduix-spacing-2-5))',
     'Controls checkbox/radio start padding.',
   ],
-  ['--menu-checkbox-indicator-bg', 'transparent', 'Controls checkbox indicator background.'],
+  ['--moduix-menu-checkbox-indicator-bg', 'transparent', 'Controls checkbox indicator background.'],
   [
-    '--menu-checkbox-indicator-bg-checked',
-    'var(--menu-checkbox-indicator-bg)',
+    '--moduix-menu-checkbox-indicator-bg-checked',
+    'var(--moduix-menu-checkbox-indicator-bg)',
     'Controls checked checkbox indicator background.',
   ],
   [
-    '--menu-checkbox-indicator-border-color',
+    '--moduix-menu-checkbox-indicator-border-color',
     'currentColor',
     'Controls checkbox indicator border color.',
   ],
   [
-    '--menu-checkbox-indicator-border-color-checked',
-    'var(--menu-checkbox-indicator-border-color)',
+    '--moduix-menu-checkbox-indicator-border-color-checked',
+    'var(--moduix-menu-checkbox-indicator-border-color)',
     'Controls checked checkbox indicator border color.',
   ],
-  ['--menu-checkbox-indicator-border-width', '0', 'Controls checkbox indicator border width.'],
-  ['--menu-checkbox-indicator-radius', 'var(--radius-xs)', 'Controls checkbox indicator radius.'],
-  ['--menu-context-trigger-border-style', 'dashed', 'Controls context trigger border style.'],
-  ['--menu-context-trigger-height', '10rem', 'Controls context trigger height.'],
-  ['--menu-context-trigger-width', '15rem', 'Controls context trigger width.'],
-  ['--menu-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
-  ['--menu-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
-    '--menu-focus-ring-width',
-    'var(--menu-trigger-border-width, var(--border-width-sm))',
+    '--moduix-menu-checkbox-indicator-border-width',
+    '0',
+    'Controls checkbox indicator border width.',
+  ],
+  [
+    '--moduix-menu-checkbox-indicator-radius',
+    'var(--moduix-radius-xs)',
+    'Controls checkbox indicator radius.',
+  ],
+  [
+    '--moduix-menu-context-trigger-border-style',
+    'dashed',
+    'Controls context trigger border style.',
+  ],
+  ['--moduix-menu-context-trigger-height', '10rem', 'Controls context trigger height.'],
+  ['--moduix-menu-context-trigger-width', '15rem', 'Controls context trigger width.'],
+  [
+    '--moduix-menu-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled trigger opacity.',
+  ],
+  ['--moduix-menu-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-menu-focus-ring-width',
+    'var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm))',
     'Controls focus ring width.',
   ],
   [
-    '--menu-group-label-color',
-    'var(--popup-group-label-color, var(--color-muted-foreground))',
+    '--moduix-menu-group-label-color',
+    'var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))',
     'Controls group label color.',
   ],
   [
-    '--menu-group-label-font-size',
-    'var(--popup-group-label-font-size, var(--text-xs))',
+    '--moduix-menu-group-label-font-size',
+    'var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))',
     'Controls group label font size.',
   ],
   [
-    '--menu-group-label-font-weight',
-    'var(--popup-group-label-font-weight, var(--weight-regular))',
+    '--moduix-menu-group-label-font-weight',
+    'var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))',
     'Controls group label weight.',
   ],
   [
-    '--menu-group-label-line-height',
-    'var(--popup-group-label-line-height, var(--line-height-text-xs))',
+    '--moduix-menu-group-label-line-height',
+    'var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))',
     'Controls group label line height.',
   ],
   [
-    '--menu-group-label-padding-x-end',
-    'var(--popup-group-label-padding-x-end, var(--spacing-3))',
+    '--moduix-menu-group-label-padding-x-end',
+    'var(--moduix-popup-group-label-padding-x-end, var(--moduix-spacing-3))',
     'Controls group label end padding.',
   ],
   [
-    '--menu-group-label-padding-x-start',
-    'var(--popup-group-label-padding-x-start, var(--spacing-2-5))',
+    '--moduix-menu-group-label-padding-x-start',
+    'var(--moduix-popup-group-label-padding-x-start, var(--moduix-spacing-2-5))',
     'Controls group label start padding.',
   ],
   [
-    '--menu-group-label-padding-y',
-    'var(--popup-group-label-padding-y, var(--spacing-1))',
+    '--moduix-menu-group-label-padding-y',
+    'var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))',
     'Controls group label vertical padding.',
   ],
-  ['--menu-group-padding-y', '0', 'Controls group vertical padding.'],
-  ['--menu-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
-  ['--menu-highlight-color', 'var(--color-accent-foreground)', 'Controls highlighted item color.'],
+  ['--moduix-menu-group-padding-y', '0', 'Controls group vertical padding.'],
   [
-    '--menu-highlight-inset-x',
-    'var(--popup-highlight-inset-x, var(--spacing-1))',
+    '--moduix-menu-highlight-bg',
+    'var(--moduix-color-accent)',
+    'Controls highlighted item background.',
+  ],
+  [
+    '--moduix-menu-highlight-color',
+    'var(--moduix-color-accent-foreground)',
+    'Controls highlighted item color.',
+  ],
+  [
+    '--moduix-menu-highlight-inset-x',
+    'var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1))',
     'Controls highlight inline inset.',
   ],
   [
-    '--menu-highlight-radius',
-    'var(--popup-highlight-radius, var(--radius-sm))',
+    '--moduix-menu-highlight-radius',
+    'var(--moduix-popup-highlight-radius, var(--moduix-radius-sm))',
     'Controls highlight radius.',
   ],
-  ['--menu-item-bg', 'transparent', 'Controls item background.'],
-  ['--menu-item-bg-disabled', 'var(--menu-item-bg)', 'Controls disabled item background.'],
+  ['--moduix-menu-item-bg', 'transparent', 'Controls item background.'],
   [
-    '--menu-item-destructive-color',
-    'var(--color-destructive)',
+    '--moduix-menu-item-bg-disabled',
+    'var(--moduix-menu-item-bg)',
+    'Controls disabled item background.',
+  ],
+  [
+    '--moduix-menu-item-destructive-color',
+    'var(--moduix-color-destructive)',
     'Controls destructive item text color.',
   ],
   [
-    '--menu-item-destructive-highlight-bg',
-    'color-mix(in oklab, var(--color-destructive) 12%, transparent)',
+    '--moduix-menu-item-destructive-highlight-bg',
+    'color-mix(in oklab, var(--moduix-color-destructive) 12%, transparent)',
     'Controls destructive item highlight background.',
   ],
   [
-    '--menu-item-destructive-highlight-color',
-    'var(--menu-item-destructive-color, var(--color-destructive))',
+    '--moduix-menu-item-destructive-highlight-color',
+    'var(--moduix-menu-item-destructive-color, var(--moduix-color-destructive))',
     'Controls destructive item highlight text color.',
   ],
-  ['--menu-item-disabled-color', 'var(--color-muted-foreground)', 'Controls disabled item color.'],
   [
-    '--menu-item-font-size',
-    'var(--popup-item-font-size, var(--text-sm))',
+    '--moduix-menu-item-disabled-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls disabled item color.',
+  ],
+  [
+    '--moduix-menu-item-font-size',
+    'var(--moduix-popup-item-font-size, var(--moduix-text-sm))',
     'Controls item font size.',
   ],
-  ['--menu-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
+  ['--moduix-menu-item-gap', 'var(--moduix-spacing-2)', 'Controls item content gap.'],
   [
-    '--menu-item-height',
-    'var(--popup-item-min-height, var(--size-sm))',
+    '--moduix-menu-item-height',
+    'var(--moduix-popup-item-min-height, var(--moduix-size-sm))',
     'Controls item minimum height.',
   ],
-  ['--menu-item-indicator-color-checked', 'currentColor', 'Controls checked item indicator color.'],
   [
-    '--menu-item-line-height',
-    'var(--popup-item-line-height, var(--line-height-text-sm))',
+    '--moduix-menu-item-indicator-color-checked',
+    'currentColor',
+    'Controls checked item indicator color.',
+  ],
+  [
+    '--moduix-menu-item-line-height',
+    'var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))',
     'Controls item line height.',
   ],
   [
-    '--menu-item-padding-x-end',
-    'var(--popup-item-padding-x-end, var(--spacing-3))',
+    '--moduix-menu-item-padding-x-end',
+    'var(--moduix-popup-item-padding-x-end, var(--moduix-spacing-3))',
     'Controls item end padding.',
   ],
   [
-    '--menu-item-padding-x-start',
-    'var(--popup-item-padding-x-start, var(--spacing-3))',
+    '--moduix-menu-item-padding-x-start',
+    'var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))',
     'Controls item start padding.',
   ],
   [
-    '--menu-item-padding-y',
-    'var(--popup-item-padding-y, var(--spacing-1))',
+    '--moduix-menu-item-padding-y',
+    'var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))',
     'Controls item vertical padding.',
   ],
-  ['--menu-item-radius', 'var(--radius-sm)', 'Controls item border radius.'],
-  ['--menu-item-shortcut-color', 'var(--color-muted-foreground)', 'Controls shortcut color.'],
-  ['--menu-item-shortcut-font-size', 'var(--text-xs)', 'Controls shortcut font size.'],
+  ['--moduix-menu-item-radius', 'var(--moduix-radius-sm)', 'Controls item border radius.'],
   [
-    '--menu-item-shortcut-line-height',
-    'var(--line-height-text-xs)',
+    '--moduix-menu-item-shortcut-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls shortcut color.',
+  ],
+  [
+    '--moduix-menu-item-shortcut-font-size',
+    'var(--moduix-text-xs)',
+    'Controls shortcut font size.',
+  ],
+  [
+    '--moduix-menu-item-shortcut-line-height',
+    'var(--moduix-line-height-text-xs)',
     'Controls shortcut line height.',
   ],
-  ['--menu-item-shortcut-padding-x-start', 'var(--spacing-4)', 'Controls shortcut start padding.'],
-  ['--menu-item-text-content-gap', 'var(--spacing-2)', 'Controls item text content gap.'],
-  ['--menu-item-text-icon-color', 'currentColor', 'Controls item text icon color.'],
-  ['--menu-item-text-icon-size', 'var(--spacing-4)', 'Controls item text icon size.'],
-  ['--menu-popup-bg', 'var(--color-popover)', 'Controls popup background.'],
-  ['--menu-popup-border-color', 'var(--color-border)', 'Controls popup border color.'],
-  ['--menu-popup-border-width', 'var(--border-width-sm)', 'Controls popup border width.'],
-  ['--menu-popup-color', 'var(--color-popover-foreground)', 'Controls popup text color.'],
-  ['--menu-popup-ending-opacity', '0', 'Controls popup opacity at the end of exit transitions.'],
-  ['--menu-popup-ending-scale', 'var(--scale-popup)', 'Controls popup scale at exit.'],
-  ['--menu-popup-ending-translate-x', '0', 'Controls popup horizontal exit offset.'],
-  ['--menu-popup-ending-translate-y', '0', 'Controls popup vertical exit offset.'],
-  ['--menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
-  ['--menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
-  ['--menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
   [
-    '--menu-popup-padding-y',
-    'var(--popup-list-padding-y, var(--spacing-1))',
+    '--moduix-menu-item-shortcut-padding-x-start',
+    'var(--moduix-spacing-4)',
+    'Controls shortcut start padding.',
+  ],
+  [
+    '--moduix-menu-item-text-content-gap',
+    'var(--moduix-spacing-2)',
+    'Controls item text content gap.',
+  ],
+  ['--moduix-menu-item-text-icon-color', 'currentColor', 'Controls item text icon color.'],
+  ['--moduix-menu-item-text-icon-size', 'var(--moduix-spacing-4)', 'Controls item text icon size.'],
+  ['--moduix-menu-popup-bg', 'var(--moduix-color-popover)', 'Controls popup background.'],
+  [
+    '--moduix-menu-popup-border-color',
+    'var(--moduix-color-border)',
+    'Controls popup border color.',
+  ],
+  [
+    '--moduix-menu-popup-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls popup border width.',
+  ],
+  [
+    '--moduix-menu-popup-color',
+    'var(--moduix-color-popover-foreground)',
+    'Controls popup text color.',
+  ],
+  [
+    '--moduix-menu-popup-ending-opacity',
+    '0',
+    'Controls popup opacity at the end of exit transitions.',
+  ],
+  [
+    '--moduix-menu-popup-ending-scale',
+    'var(--moduix-scale-popup)',
+    'Controls popup scale at exit.',
+  ],
+  ['--moduix-menu-popup-ending-translate-x', '0', 'Controls popup horizontal exit offset.'],
+  ['--moduix-menu-popup-ending-translate-y', '0', 'Controls popup vertical exit offset.'],
+  ['--moduix-menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
+  ['--moduix-menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
+  ['--moduix-menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
+  [
+    '--moduix-menu-popup-padding-y',
+    'var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))',
     'Controls popup vertical padding.',
   ],
-  ['--menu-popup-radius', 'var(--radius-md)', 'Controls popup radius.'],
-  ['--menu-popup-shadow', 'var(--shadow-lg)', 'Controls popup shadow.'],
-  ['--menu-popup-starting-opacity', '0', 'Controls popup opacity at enter start.'],
-  ['--menu-popup-starting-scale', 'var(--scale-popup)', 'Controls popup scale at enter start.'],
-  ['--menu-popup-starting-translate-x', '0', 'Controls popup horizontal enter offset.'],
-  ['--menu-popup-starting-translate-y', '0', 'Controls popup vertical enter offset.'],
-  ['--menu-separator-color', 'var(--color-border)', 'Controls separator color.'],
-  ['--menu-separator-height', 'var(--border-width-sm)', 'Controls separator thickness.'],
+  ['--moduix-menu-popup-radius', 'var(--moduix-radius-md)', 'Controls popup radius.'],
+  ['--moduix-menu-popup-shadow', 'var(--moduix-shadow-lg)', 'Controls popup shadow.'],
+  ['--moduix-menu-popup-starting-opacity', '0', 'Controls popup opacity at enter start.'],
   [
-    '--menu-separator-margin-x-end',
-    'var(--popup-separator-margin-x-end, var(--spacing-3))',
+    '--moduix-menu-popup-starting-scale',
+    'var(--moduix-scale-popup)',
+    'Controls popup scale at enter start.',
+  ],
+  ['--moduix-menu-popup-starting-translate-x', '0', 'Controls popup horizontal enter offset.'],
+  ['--moduix-menu-popup-starting-translate-y', '0', 'Controls popup vertical enter offset.'],
+  ['--moduix-menu-separator-color', 'var(--moduix-color-border)', 'Controls separator color.'],
+  [
+    '--moduix-menu-separator-height',
+    'var(--moduix-border-width-sm)',
+    'Controls separator thickness.',
+  ],
+  [
+    '--moduix-menu-separator-margin-x-end',
+    'var(--moduix-popup-separator-margin-x-end, var(--moduix-spacing-3))',
     'Controls separator end margin.',
   ],
   [
-    '--menu-separator-margin-x-start',
-    'var(--popup-separator-margin-x-start, var(--spacing-3))',
+    '--moduix-menu-separator-margin-x-start',
+    'var(--moduix-popup-separator-margin-x-start, var(--moduix-spacing-3))',
     'Controls separator start margin.',
   ],
   [
-    '--menu-separator-margin-y',
-    'var(--popup-separator-margin-y, var(--spacing-1-5))',
+    '--moduix-menu-separator-margin-y',
+    'var(--moduix-popup-separator-margin-y, var(--moduix-spacing-1-5))',
     'Controls separator vertical margin.',
   ],
-  ['--menu-submenu-open-bg', 'var(--color-accent)', 'Controls open nested trigger background.'],
-  ['--menu-transition', 'var(--transition-default)', 'Controls menu transition duration/timing.'],
-  ['--menu-trigger-bg', 'var(--color-background)', 'Controls trigger background.'],
   [
-    '--menu-trigger-bg-active',
-    'var(--menu-trigger-bg-hover)',
+    '--moduix-menu-submenu-open-bg',
+    'var(--moduix-color-accent)',
+    'Controls open nested trigger background.',
+  ],
+  [
+    '--moduix-menu-transition',
+    'var(--moduix-transition-default)',
+    'Controls menu transition duration/timing.',
+  ],
+  ['--moduix-menu-trigger-bg', 'var(--moduix-color-background)', 'Controls trigger background.'],
+  [
+    '--moduix-menu-trigger-bg-active',
+    'var(--moduix-menu-trigger-bg-hover)',
     'Controls active trigger background.',
   ],
   [
-    '--menu-trigger-bg-hover',
+    '--moduix-menu-trigger-bg-hover',
     'no default (set explicitly when needed)',
     'Controls hover trigger background.',
   ],
-  ['--menu-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  ['--menu-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
-  ['--menu-trigger-color', 'var(--color-foreground)', 'Controls trigger color.'],
-  ['--menu-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
-  ['--menu-trigger-font-weight', 'var(--weight-medium)', 'Controls trigger font weight.'],
-  ['--menu-trigger-gap', 'var(--spacing-2)', 'Controls trigger content gap.'],
-  ['--menu-trigger-height', 'var(--size-md)', 'Controls trigger minimum height.'],
-  ['--menu-trigger-icon-color', 'currentColor', 'Controls trigger icon color.'],
-  ['--menu-trigger-icon-size', 'var(--spacing-4)', 'Controls trigger icon size.'],
-  ['--menu-trigger-item-gap', 'var(--spacing-3)', 'Controls nested trigger item gap.'],
-  ['--menu-trigger-item-icon-size', 'var(--spacing-3-5)', 'Controls nested trigger icon size.'],
-  ['--menu-trigger-item-padding-x-end', 'var(--spacing-3)', 'Controls nested trigger end padding.'],
-  ['--menu-trigger-line-height', 'var(--line-height-text-sm)', 'Controls trigger line height.'],
-  ['--menu-trigger-padding-x', 'var(--spacing-4)', 'Controls trigger horizontal padding.'],
-  ['--menu-trigger-padding-y', 'var(--spacing-1)', 'Controls trigger vertical padding.'],
-  ['--menu-trigger-radius', 'var(--radius-md)', 'Controls trigger radius.'],
-];
-
-const fileItems = [
-  { value: 'new-file', label: 'New File' },
-  { value: 'open', label: 'Open...' },
-  { value: 'save', label: 'Save' },
-  { value: 'save-as', label: 'Save As...' },
-];
-
-const messages = [
-  { id: '1', sender: 'Alice Johnson', preview: 'Hey, can you review the latest PR?' },
-  { id: '2', sender: 'Bob Smith', preview: 'Meeting notes from today are attached.' },
-  { id: '3', sender: 'Carol Davis', preview: 'The deploy finished successfully!' },
+  [
+    '--moduix-menu-trigger-border-color',
+    'var(--moduix-color-border)',
+    'Controls trigger border color.',
+  ],
+  [
+    '--moduix-menu-trigger-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls trigger border width.',
+  ],
+  ['--moduix-menu-trigger-color', 'var(--moduix-color-foreground)', 'Controls trigger color.'],
+  ['--moduix-menu-trigger-font-size', 'var(--moduix-text-sm)', 'Controls trigger font size.'],
+  [
+    '--moduix-menu-trigger-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls trigger font weight.',
+  ],
+  ['--moduix-menu-trigger-gap', 'var(--moduix-spacing-2)', 'Controls trigger content gap.'],
+  ['--moduix-menu-trigger-height', 'var(--moduix-size-md)', 'Controls trigger minimum height.'],
+  ['--moduix-menu-trigger-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  ['--moduix-menu-trigger-icon-size', 'var(--moduix-spacing-4)', 'Controls trigger icon size.'],
+  [
+    '--moduix-menu-trigger-item-gap',
+    'var(--moduix-spacing-3)',
+    'Controls nested trigger item gap.',
+  ],
+  [
+    '--moduix-menu-trigger-item-icon-size',
+    'var(--moduix-spacing-3-5)',
+    'Controls nested trigger icon size.',
+  ],
+  [
+    '--moduix-menu-trigger-item-padding-x-end',
+    'var(--moduix-spacing-3)',
+    'Controls nested trigger end padding.',
+  ],
+  [
+    '--moduix-menu-trigger-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls trigger line height.',
+  ],
+  [
+    '--moduix-menu-trigger-padding-x',
+    'var(--moduix-spacing-4)',
+    'Controls trigger horizontal padding.',
+  ],
+  [
+    '--moduix-menu-trigger-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls trigger vertical padding.',
+  ],
+  ['--moduix-menu-trigger-radius', 'var(--moduix-radius-md)', 'Controls trigger radius.'],
 ];
 
 export function MenuCssPropertiesPanel() {
@@ -280,463 +383,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-function MenuButtonTrigger(props: ComponentProps<typeof Menu.Trigger>) {
-  return (
-    <Menu.Trigger asChild {...props}>
-      <Button>{props.children}</Button>
-    </Menu.Trigger>
-  );
-}
-
-function PositionedContent({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <Menu.Positioner>
-      <Menu.Content className={className}>{children}</Menu.Content>
-    </Menu.Positioner>
-  );
-}
-
-export function MenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        File
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Arrow />
-        {fileItems.map((item) => (
-          <Menu.Item key={item.value} value={item.value}>
-            {item.label}
-          </Menu.Item>
-        ))}
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function ControlledMenuExample() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Menu open={open} onOpenChange={(details) => setOpen(details.open)}>
-      <Button onClick={() => setOpen((value) => !value)}>Toggle</Button>
-      <MenuButtonTrigger>
-        Actions
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Item value="edit">Edit</Menu.Item>
-        <Menu.Item value="duplicate">Duplicate</Menu.Item>
-        <Menu.Item value="archive">Archive</Menu.Item>
-        <Menu.Item value="delete" tone="destructive">
-          Delete
-        </Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function RootProviderMenuExample() {
-  const menu = useMenu();
-
-  return (
-    <Menu.RootProvider value={menu}>
-      <Button onClick={() => menu.api.setHighlightedValue('copy')}>Highlight Copy</Button>
-      <MenuButtonTrigger>
-        Edit
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Item value="cut">Cut</Menu.Item>
-        <Menu.Item value="copy">Copy</Menu.Item>
-        <Menu.Item value="paste">Paste</Menu.Item>
-        <Menu.Item value="delete" tone="destructive">
-          Delete
-        </Menu.Item>
-      </PositionedContent>
-    </Menu.RootProvider>
-  );
-}
-
-export function GroupMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Edit
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.ItemGroup>
-          <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
-          <Menu.Item value="cut">Cut</Menu.Item>
-          <Menu.Item value="copy">Copy</Menu.Item>
-          <Menu.Item value="paste">Paste</Menu.Item>
-        </Menu.ItemGroup>
-        <Menu.Separator />
-        <Menu.ItemGroup>
-          <Menu.ItemGroupLabel>Selection</Menu.ItemGroupLabel>
-          <Menu.Item value="select-all">Select All</Menu.Item>
-          <Menu.Item value="deselect">Deselect</Menu.Item>
-        </Menu.ItemGroup>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function LinkItemsMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Help
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Item value="docs" asChild>
-          <a href="#menu-docs">Documentation</a>
-        </Menu.Item>
-        <Menu.Item value="github" asChild>
-          <a href="https://github.com/Blinks44/moduix">GitHub</a>
-        </Menu.Item>
-        <Menu.Item value="changelog" asChild>
-          <a href="#menu-changelog">Changelog</a>
-        </Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function CheckboxItemsMenuExample() {
-  const [showToolbar, setShowToolbar] = useState(true);
-  const [showStatusBar, setShowStatusBar] = useState(false);
-
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        View
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.CheckboxItem checked={showToolbar} value="toolbar" onCheckedChange={setShowToolbar}>
-          <Menu.ItemIndicator />
-          <Menu.ItemText>Show Toolbar</Menu.ItemText>
-        </Menu.CheckboxItem>
-        <Menu.CheckboxItem
-          checked={showStatusBar}
-          value="statusbar"
-          onCheckedChange={setShowStatusBar}
-        >
-          <Menu.ItemIndicator />
-          <Menu.ItemText>Show Status Bar</Menu.ItemText>
-        </Menu.CheckboxItem>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function RadioItemsMenuExample() {
-  const [sortBy, setSortBy] = useState('date');
-
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Sort
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.ItemGroup>
-          <Menu.ItemGroupLabel>Sort By</Menu.ItemGroupLabel>
-          <Menu.RadioItemGroup value={sortBy} onValueChange={(details) => setSortBy(details.value)}>
-            <Menu.RadioItem value="name">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Name</Menu.ItemText>
-            </Menu.RadioItem>
-            <Menu.RadioItem value="date">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Date Modified</Menu.ItemText>
-            </Menu.RadioItem>
-            <Menu.RadioItem value="size">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Size</Menu.ItemText>
-            </Menu.RadioItem>
-            <Menu.RadioItem value="type">
-              <Menu.ItemIndicator />
-              <Menu.ItemText>Type</Menu.ItemText>
-            </Menu.RadioItem>
-          </Menu.RadioItemGroup>
-        </Menu.ItemGroup>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function ContextMenuExample() {
-  return (
-    <Menu>
-      <Menu.ContextTrigger className={styles.contextTrigger}>Right click here</Menu.ContextTrigger>
-      <PositionedContent>
-        <Menu.Item value="cut">Cut</Menu.Item>
-        <Menu.Item value="copy">Copy</Menu.Item>
-        <Menu.Item value="paste">Paste</Menu.Item>
-        <Menu.Item value="delete" tone="destructive">
-          Delete
-        </Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function ContextLazyMountMenuExample() {
-  return (
-    <Menu lazyMount unmountOnExit>
-      <Menu.ContextTrigger className={styles.contextTrigger}>
-        Right click lazy mounted content
-      </Menu.ContextTrigger>
-      <PositionedContent>
-        <Menu.Item value="cut">Cut</Menu.Item>
-        <Menu.Item value="copy">Copy</Menu.Item>
-        <Menu.Item value="paste">Paste</Menu.Item>
-        <Menu.Item value="delete" tone="destructive">
-          Delete
-        </Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function NestedMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        File
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Item value="new-file">New File</Menu.Item>
-        <Menu.Item value="open">Open...</Menu.Item>
-        <Menu>
-          <Menu.TriggerItem>
-            Share
-            <Menu.TriggerItemIcon />
-          </Menu.TriggerItem>
-          <PositionedContent>
-            <Menu.Item value="email">Email</Menu.Item>
-            <Menu.Item value="message">Message</Menu.Item>
-            <Menu.Item value="airdrop">AirDrop</Menu.Item>
-          </PositionedContent>
-        </Menu>
-        <Menu>
-          <Menu.TriggerItem>
-            Export
-            <Menu.TriggerItemIcon />
-          </Menu.TriggerItem>
-          <PositionedContent>
-            <Menu.Item value="pdf">PDF</Menu.Item>
-            <Menu.Item value="png">PNG</Menu.Item>
-            <Menu.Item value="svg">SVG</Menu.Item>
-          </PositionedContent>
-        </Menu>
-        <Menu.Separator />
-        <Menu.Item value="print">Print...</Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function MultipleTriggersMenuExample() {
-  return (
-    <Menu>
-      <div className={styles.messageList}>
-        {messages.map((message) => (
-          <div key={message.id} className={styles.messageItem}>
-            <div className={styles.messageContent}>
-              <div className={styles.messageSender}>{message.sender}</div>
-              <div className={styles.messagePreview}>{message.preview}</div>
-            </div>
-            <Menu.Trigger
-              value={message.id}
-              className={styles.messageAction}
-              aria-label="Open menu"
-            >
-              <MapIcon />
-            </Menu.Trigger>
-          </div>
-        ))}
-      </div>
-      <PositionedContent>
-        <Menu.Item value="reply">Reply</Menu.Item>
-        <Menu.Item value="forward">Forward</Menu.Item>
-        <Menu.Item value="archive">Archive</Menu.Item>
-        <Menu.Item value="delete" tone="destructive">
-          Delete
-        </Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function SelectEventMenuExample() {
-  const [selected, setSelected] = useState('Nothing selected');
-
-  return (
-    <div className={styles.selectEvent}>
-      <Menu onSelect={(details) => setSelected(details.value)}>
-        <MenuButtonTrigger>
-          Actions
-          <Menu.Indicator />
-        </MenuButtonTrigger>
-        <PositionedContent>
-          <Menu.Item value="edit">Edit</Menu.Item>
-          <Menu.Item value="duplicate">Duplicate</Menu.Item>
-          <Menu.Item value="archive">Archive</Menu.Item>
-        </PositionedContent>
-      </Menu>
-      <span>{selected}</span>
-    </div>
-  );
-}
-
-export function ItemContextMenuExample() {
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        Settings
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.Item value="profile">
-          <Menu.ItemContext>
-            {(item) => (
-              <span style={{ fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined }}>
-                Profile Settings
-              </span>
-            )}
-          </Menu.ItemContext>
-        </Menu.Item>
-        <Menu.Item value="preferences">Preferences</Menu.Item>
-        <Menu.Item value="notifications">Notifications</Menu.Item>
-        <Menu.Separator />
-        <Menu.Item value="logout">Log Out</Menu.Item>
-      </PositionedContent>
-    </Menu>
-  );
-}
-
-export function MenuInDialogExample() {
-  return (
-    <Dialog>
-      <Dialog.Trigger asChild>
-        <Button>Open dialog</Button>
-      </Dialog.Trigger>
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Project settings</Dialog.Title>
-            <Dialog.CloseIcon />
-            <Dialog.Description>Choose an action without leaving the dialog.</Dialog.Description>
-          </Dialog.Header>
-          <Menu portalled={false} positioning={{ strategy: 'fixed', hideWhenDetached: true }}>
-            <Menu.Trigger asChild>
-              <Button variant="outline">
-                Actions
-                <Menu.Indicator />
-              </Button>
-            </Menu.Trigger>
-            <Menu.Positioner>
-              <Menu.Content>
-                <Menu.Item value="rename">Rename project</Menu.Item>
-                <Menu.Item value="duplicate">Duplicate project</Menu.Item>
-                <Menu.Separator />
-                <Menu.Item value="archive" tone="destructive">
-                  Archive project
-                </Menu.Item>
-              </Menu.Content>
-            </Menu.Positioner>
-          </Menu>
-        </Dialog.Content>
-      </Dialog.Positioner>
-    </Dialog>
-  );
-}
-
-export function AdvancedCustomizationMenuExample() {
-  return (
-    <Menu positioning={{ placement: 'bottom-end', gutter: 12 }}>
-      <Menu.Trigger asChild>
-        <Button variant="outline">Project</Button>
-      </Menu.Trigger>
-      <Menu.Positioner>
-        <Menu.Content>
-          <Menu.Arrow>
-            <Menu.ArrowTip />
-          </Menu.Arrow>
-          <Menu.ItemGroup>
-            <Menu.ItemGroupLabel>Project</Menu.ItemGroupLabel>
-            <Menu.Item asChild value="overview">
-              <a href="#overview">Open overview</a>
-            </Menu.Item>
-            <Menu.Item value="duplicate">
-              <span>Duplicate project</span>
-              <span aria-hidden="true">⌘D</span>
-            </Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.Separator />
-          <Menu.Item value="archive" tone="destructive">
-            Archive project
-          </Menu.Item>
-        </Menu.Content>
-      </Menu.Positioner>
-    </Menu>
-  );
-}
-
-export function IndicatorRightMenuExample() {
-  const [showMinimap, setShowMinimap] = useState(true);
-  const [showSearch, setShowSearch] = useState(true);
-
-  return (
-    <Menu>
-      <MenuButtonTrigger>
-        View
-        <Menu.Indicator />
-      </MenuButtonTrigger>
-      <PositionedContent>
-        <Menu.CheckboxItem
-          checked={showMinimap}
-          value="minimap"
-          onCheckedChange={setShowMinimap}
-          indicator="end"
-        >
-          <Menu.ItemText>
-            <Menu.ItemTextContent>
-              <Menu.ItemTextIcon>
-                <InfoIcon />
-              </Menu.ItemTextIcon>
-              <Menu.ItemTextLabel>Minimap</Menu.ItemTextLabel>
-            </Menu.ItemTextContent>
-          </Menu.ItemText>
-          <Menu.ItemIndicator />
-        </Menu.CheckboxItem>
-        <Menu.CheckboxItem
-          checked={showSearch}
-          value="search"
-          onCheckedChange={setShowSearch}
-          indicator="end"
-        >
-          <Menu.ItemText>
-            <Menu.ItemTextContent>
-              <Menu.ItemTextIcon>
-                <MapIcon />
-              </Menu.ItemTextIcon>
-              <Menu.ItemTextLabel>Search</Menu.ItemTextLabel>
-            </Menu.ItemTextContent>
-          </Menu.ItemText>
-          <Menu.ItemIndicator />
-        </Menu.CheckboxItem>
-      </PositionedContent>
-    </Menu>
-  );
 }

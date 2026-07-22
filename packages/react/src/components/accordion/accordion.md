@@ -121,22 +121,22 @@ export function AccordionExample() {
 
 Primary CSS variables:
 
-| Variable                               | Default                         |
-| -------------------------------------- | ------------------------------- |
-| `--accordion-width`                    | `100%`                          |
-| `--accordion-max-width`                | `100%`                          |
-| `--accordion-horizontal-width`         | `auto`                          |
-| `--accordion-horizontal-height`        | `20rem`                         |
-| `--accordion-horizontal-max-height`    | `100%`                          |
-| `--accordion-horizontal-trigger-width` | `2.5rem`                        |
-| `--accordion-horizontal-content-width` | `16rem`                         |
-| `--accordion-trigger-bg`               | `var(--color-muted)`            |
-| `--accordion-trigger-bg-hover`         | `var(--color-accent)`           |
-| `--accordion-icon-open-transform`      | `rotate(45deg) scale(1.1)`      |
-| `--accordion-item-body-gap`            | `var(--spacing-3)`              |
-| `--accordion-item-body-padding`        | `var(--spacing-3)`              |
-| `--accordion-item-content-color`       | `var(--color-muted-foreground)` |
-| `--accordion-item-content-transition`  | `var(--transition-default)`     |
+| Variable                                      | Default                                |
+| --------------------------------------------- | -------------------------------------- |
+| `--moduix-accordion-width`                    | `100%`                                 |
+| `--moduix-accordion-max-width`                | `100%`                                 |
+| `--moduix-accordion-horizontal-width`         | `auto`                                 |
+| `--moduix-accordion-horizontal-height`        | `20rem`                                |
+| `--moduix-accordion-horizontal-max-height`    | `100%`                                 |
+| `--moduix-accordion-horizontal-trigger-width` | `2.5rem`                               |
+| `--moduix-accordion-horizontal-content-width` | `16rem`                                |
+| `--moduix-accordion-trigger-bg`               | `var(--moduix-color-muted)`            |
+| `--moduix-accordion-trigger-bg-hover`         | `var(--moduix-color-accent)`           |
+| `--moduix-accordion-icon-open-transform`      | `rotate(45deg) scale(1.1)`             |
+| `--moduix-accordion-item-body-gap`            | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-body-padding`        | `var(--moduix-spacing-3)`              |
+| `--moduix-accordion-item-content-color`       | `var(--moduix-color-muted-foreground)` |
+| `--moduix-accordion-item-content-transition`  | `var(--moduix-transition-default)`     |
 
 ## Intentional sugar and differences from upstream
 
@@ -172,7 +172,7 @@ Primary CSS variables:
   data attributes and `--height`-based content animation.
 - 2026-06-17: Removed flat named exports (`AccordionRoot`, `AccordionItem`, `AccordionItemTrigger`,
   `AccordionItemIndicator`, `AccordionItemContent`) to keep the public API Ark-shaped (`Accordion.*` only),
-  and removed legacy `--accordion-panel-*` theme tokens that were no longer used.
+  and removed legacy `--moduix-accordion-panel-*` theme tokens that were no longer used.
 - 2026-06-18: Exposed Ark `RootProvider`, `Context`, `ItemContext`, `useAccordion()`,
   `useAccordionContext()`, and `useAccordionItemContext()` through the moduix wrapper and updated
   docs examples to cover the full upstream Ark Accordion example set.

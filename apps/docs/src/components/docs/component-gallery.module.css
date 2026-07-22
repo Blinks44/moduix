@@ -1,0 +1,36 @@
+.gallery {
+  display: grid;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.summary,
+.heading p,
+.heading span {
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.heading h2,
+.heading p {
+  margin: 0;
+}
+
+.heading h2 {
+  font-size: 1.25rem;
+}
+
+.heading p {
+  margin-top: 0.25rem;
+}
+
+.heading span {
+  font-variant-numeric: tabular-nums;
+}

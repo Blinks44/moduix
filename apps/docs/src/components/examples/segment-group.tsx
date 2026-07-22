@@ -1,30 +1,10 @@
-import { Button, SegmentGroup, useSegmentGroup } from '@moduix/react';
-import { useState, type FormEvent } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const frameworkItems = ['React', 'Solid', 'Svelte', 'Vue'].map((value) => ({
-  value,
-  label: value,
-}));
-const disabledFrameworkItems = frameworkItems.map((item) => ({
-  ...item,
-  disabled: item.value === 'Svelte',
-}));
-const viewItems = ['List', 'Board', 'Calendar'].map((value) => ({ value, label: value }));
-
-export const segmentGroupFrameworksData = `
-const frameworks = ["React", "Solid", "Svelte", "Vue"];
-`;
-
-export const segmentGroupViewsData = `
-const views = ["List", "Board", "Calendar"];
-`;
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const segmentGroupExampleCss = `
 .segment-stack {
   display: grid;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
   justify-items: start;
 }
 
@@ -33,9 +13,13 @@ export const segmentGroupExampleCss = `
 }
 
 .segment-output {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
+}
+
+.segment-root-provider {
+  width: 100%;
 }
 `;
 
@@ -45,10 +29,10 @@ export const segmentGroupVerticalCss = `
 }
 `;
 
-export const segmentGroupFormCss = `
+const segmentGroupFormCss = `
 .segment-form {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   justify-items: start;
 }
 `;
@@ -64,103 +48,171 @@ export const segmentGroupAsChildCss = `
   min-height: 4.5rem;
   align-content: center;
   justify-items: start;
-  padding: var(--spacing-3);
+  padding: var(--moduix-spacing-3);
   white-space: normal;
 }
 
 .segment-card-title {
-  font-weight: var(--weight-semibold);
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .segment-card-description {
   position: relative;
   z-index: 1;
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 .segment-card-item[data-state="checked"] .segment-card-description {
-  color: var(--segment-group-item-color-checked, var(--color-foreground));
+  color: var(--moduix-segment-group-item-color-checked, var(--moduix-color-foreground));
 }
 `;
 
-export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
-  ['--segment-group-bg', 'var(--color-muted)', 'Controls the root background.'],
-  ['--segment-group-border-color', 'var(--color-border)', 'Controls the root border color.'],
+const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-segment-group-bg', 'var(--moduix-color-muted)', 'Controls the root background.'],
   [
-    '--segment-group-border-color-invalid',
-    'var(--color-destructive)',
+    '--moduix-segment-group-border-color',
+    'var(--moduix-color-border)',
+    'Controls the root border color.',
+  ],
+  [
+    '--moduix-segment-group-border-color-invalid',
+    'var(--moduix-color-destructive)',
     'Controls invalid root border color.',
   ],
-  ['--segment-group-border-width', 'var(--border-width-sm)', 'Controls the root border width.'],
-  ['--segment-group-color', 'var(--color-foreground)', 'Controls inherited group text color.'],
   [
-    '--segment-group-disabled-opacity',
-    'var(--opacity-disabled)',
+    '--moduix-segment-group-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls the root border width.',
+  ],
+  [
+    '--moduix-segment-group-color',
+    'var(--moduix-color-foreground)',
+    'Controls inherited group text color.',
+  ],
+  [
+    '--moduix-segment-group-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
     'Controls disabled root opacity.',
   ],
-  ['--segment-group-focus-ring-color', 'var(--color-ring)', 'Controls item focus ring color.'],
   [
-    '--segment-group-focus-ring-color-invalid',
-    'var(--color-destructive)',
+    '--moduix-segment-group-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls item focus ring color.',
+  ],
+  [
+    '--moduix-segment-group-focus-ring-color-invalid',
+    'var(--moduix-color-destructive)',
     'Controls invalid item focus ring color.',
   ],
   [
-    '--segment-group-focus-ring-offset',
-    'var(--border-width-sm)',
+    '--moduix-segment-group-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
     'Controls item focus ring offset.',
   ],
   [
-    '--segment-group-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-segment-group-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls item focus ring width.',
   ],
-  ['--segment-group-gap', 'var(--spacing-1)', 'Controls spacing between segment items.'],
-  ['--segment-group-indicator-bg', 'var(--color-background)', 'Controls indicator background.'],
-  ['--segment-group-indicator-radius', 'var(--radius-md)', 'Controls indicator radius.'],
-  ['--segment-group-indicator-shadow', 'var(--shadow-sm)', 'Controls indicator shadow.'],
   [
-    '--segment-group-indicator-transition-duration',
-    'var(--duration-normal)',
+    '--moduix-segment-group-gap',
+    'var(--moduix-spacing-1)',
+    'Controls spacing between segment items.',
+  ],
+  [
+    '--moduix-segment-group-indicator-bg',
+    'var(--moduix-color-background)',
+    'Controls indicator background.',
+  ],
+  [
+    '--moduix-segment-group-indicator-radius',
+    'var(--moduix-radius-md)',
+    'Controls indicator radius.',
+  ],
+  [
+    '--moduix-segment-group-indicator-shadow',
+    'var(--moduix-shadow-sm)',
+    'Controls indicator shadow.',
+  ],
+  [
+    '--moduix-segment-group-indicator-transition-duration',
+    'var(--moduix-duration-normal)',
     'Controls indicator movement duration.',
   ],
   [
-    '--segment-group-indicator-transition-timing-function',
-    'var(--ease-in-out)',
+    '--moduix-segment-group-indicator-transition-timing-function',
+    'var(--moduix-ease-in-out)',
     'Controls indicator movement easing.',
   ],
-  ['--segment-group-item-color', 'var(--color-muted-foreground)', 'Controls unchecked item text.'],
-  ['--segment-group-item-color-checked', 'var(--color-foreground)', 'Controls checked item text.'],
-  ['--segment-group-item-color-hover', 'var(--color-foreground)', 'Controls item hover text.'],
   [
-    '--segment-group-item-disabled-opacity',
-    'var(--opacity-disabled)',
+    '--moduix-segment-group-item-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls unchecked item text.',
+  ],
+  [
+    '--moduix-segment-group-item-color-checked',
+    'var(--moduix-color-foreground)',
+    'Controls checked item text.',
+  ],
+  [
+    '--moduix-segment-group-item-color-hover',
+    'var(--moduix-color-foreground)',
+    'Controls item hover text.',
+  ],
+  [
+    '--moduix-segment-group-item-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
     'Controls disabled item opacity.',
   ],
-  ['--segment-group-item-font-size', 'var(--text-sm)', 'Controls item font size.'],
-  ['--segment-group-item-font-weight', 'var(--weight-medium)', 'Controls item font weight.'],
-  ['--segment-group-item-gap', 'var(--spacing-2)', 'Controls spacing inside each item.'],
-  ['--segment-group-item-height', 'var(--size-sm)', 'Controls item minimum height.'],
-  ['--segment-group-item-line-height', 'var(--line-height-text-sm)', 'Controls item line height.'],
-  ['--segment-group-item-padding-x', 'var(--spacing-3-5)', 'Controls horizontal item padding.'],
-  ['--segment-group-item-radius', 'var(--radius-md)', 'Controls item radius.'],
+  ['--moduix-segment-group-item-font-size', 'var(--moduix-text-sm)', 'Controls item font size.'],
   [
-    '--segment-group-label-color',
-    'var(--segment-group-color, var(--color-foreground))',
+    '--moduix-segment-group-item-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls item font weight.',
+  ],
+  [
+    '--moduix-segment-group-item-gap',
+    'var(--moduix-spacing-2)',
+    'Controls spacing inside each item.',
+  ],
+  ['--moduix-segment-group-item-height', 'var(--moduix-size-sm)', 'Controls item minimum height.'],
+  [
+    '--moduix-segment-group-item-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls item line height.',
+  ],
+  [
+    '--moduix-segment-group-item-padding-x',
+    'var(--moduix-spacing-3-5)',
+    'Controls horizontal item padding.',
+  ],
+  ['--moduix-segment-group-item-radius', 'var(--moduix-radius-md)', 'Controls item radius.'],
+  [
+    '--moduix-segment-group-label-color',
+    'var(--moduix-segment-group-color, var(--moduix-color-foreground))',
     'Controls label text color.',
   ],
-  ['--segment-group-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--segment-group-label-font-weight', 'var(--weight-semibold)', 'Controls label font weight.'],
+  ['--moduix-segment-group-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
-    '--segment-group-label-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-segment-group-label-font-weight',
+    'var(--moduix-weight-semibold)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-segment-group-label-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls label line height.',
   ],
-  ['--segment-group-max-width', '100%', 'Controls root maximum width.'],
-  ['--segment-group-padding', 'var(--spacing-1)', 'Controls root padding.'],
-  ['--segment-group-radius', 'var(--radius-lg)', 'Controls root radius.'],
-  ['--segment-group-transition', 'var(--transition-default)', 'Controls item transitions.'],
+  ['--moduix-segment-group-max-width', '100%', 'Controls root maximum width.'],
+  ['--moduix-segment-group-padding', 'var(--moduix-spacing-1)', 'Controls root padding.'],
+  ['--moduix-segment-group-radius', 'var(--moduix-radius-lg)', 'Controls root radius.'],
+  [
+    '--moduix-segment-group-transition',
+    'var(--moduix-transition-default)',
+    'Controls item transitions.',
+  ],
 ];
 
 export function SegmentGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -177,144 +229,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export function SegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function ControlledSegmentGroupExample() {
-  const [value, setValue] = useState<string | null>('React');
-
-  return (
-    <div className="segment-stack">
-      <SegmentGroup
-        aria-label="Framework"
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup>
-      <output className="segment-output">selected: {value ?? 'none'}</output>
-    </div>
-  );
-}
-
-export function SegmentGroupRootProviderExample() {
-  const segmentGroup = useSegmentGroup({ defaultValue: 'React' });
-
-  return (
-    <div className="segment-stack">
-      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup.RootProvider>
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => segmentGroup.setValue('Solid')}
-      >
-        Set to Solid
-      </button>
-      <output className="segment-output">selected: {segmentGroup.value ?? 'none'}</output>
-    </div>
-  );
-}
-
-export function DisabledSegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={disabledFrameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function ConditionalSegmentGroupExample() {
-  const [visible, setVisible] = useState(true);
-
-  return (
-    <div className="segment-stack">
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => setVisible((value) => !value)}
-      >
-        {visible ? 'Hide' : 'Show'}
-      </button>
-      {visible ? <SegmentGroupExample /> : null}
-    </div>
-  );
-}
-
-export function VerticalSegmentGroupExample() {
-  return (
-    <SegmentGroup
-      aria-label="View"
-      defaultValue="List"
-      orientation="vertical"
-      className="segment-vertical"
-    >
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={viewItems} />
-    </SegmentGroup>
-  );
-}
-
-export function FormSegmentGroupExample() {
-  const [submitted, setSubmitted] = useState('none');
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    setSubmitted(String(formData.get('framework') ?? 'none'));
-  };
-
-  return (
-    <form className="segment-form" onSubmit={handleSubmit}>
-      <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworkItems} />
-      </SegmentGroup>
-      <Button className="segment-button" type="submit">
-        Submit
-      </Button>
-      <output className="segment-output">submitted: {submitted}</output>
-    </form>
-  );
-}
-
-export function InvalidSegmentGroupExample() {
-  return (
-    <SegmentGroup aria-label="Framework" name="framework" defaultValue="React" invalid required>
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworkItems} />
-    </SegmentGroup>
-  );
-}
-
-export function SegmentGroupAsChildExample() {
-  return (
-    <SegmentGroup aria-label="Billing cycle" defaultValue="Monthly">
-      <SegmentGroup.Indicator />
-      {[
-        ['Monthly', 'Pay monthly'],
-        ['Annual', 'Save 20%'],
-      ].map(([item, description]) => (
-        <SegmentGroup.Item key={item} value={item} asChild>
-          <label className="segment-card-item">
-            <SegmentGroup.ItemText className="segment-card-title">{item}</SegmentGroup.ItemText>
-            <span className="segment-card-description">{description}</span>
-            <SegmentGroup.ItemControl />
-          </label>
-        </SegmentGroup.Item>
-      ))}
-    </SegmentGroup>
-  );
 }

@@ -121,26 +121,26 @@ surface.
 
 Public CSS variables:
 
-| Variable                           | Default fallback                |
-| ---------------------------------- | ------------------------------- |
-| `--rating-group-active-color`      | `var(--color-primary)`          |
-| `--rating-group-color`             | `var(--color-muted-foreground)` |
-| `--rating-group-disabled-opacity`  | `var(--opacity-disabled)`       |
-| `--rating-group-focus-ring-color`  | `transparent`                   |
-| `--rating-group-focus-ring-offset` | `0`                             |
-| `--rating-group-focus-ring-width`  | `0`                             |
-| `--rating-group-gap`               | `var(--spacing-1)`              |
-| `--rating-group-root-gap`          | `var(--spacing-1)`              |
-| `--rating-group-icon-size-xs`      | `var(--spacing-3-5)`            |
-| `--rating-group-icon-size-sm`      | `var(--spacing-4)`              |
-| `--rating-group-icon-size-md`      | `var(--spacing-5)`              |
-| `--rating-group-icon-size-lg`      | `var(--spacing-6)`              |
-| `--rating-group-icon-size-xl`      | `var(--spacing-7)`              |
-| `--rating-group-label-color`       | `var(--color-foreground)`       |
-| `--rating-group-label-font-size`   | `var(--text-sm)`                |
-| `--rating-group-label-font-weight` | `var(--weight-semibold)`        |
-| `--rating-group-label-line-height` | `var(--line-height-text-sm)`    |
-| `--rating-group-transition`        | `var(--transition-default)`     |
+| Variable                                  | Default fallback                       |
+| ----------------------------------------- | -------------------------------------- |
+| `--moduix-rating-group-active-color`      | `var(--moduix-color-primary)`          |
+| `--moduix-rating-group-color`             | `var(--moduix-color-muted-foreground)` |
+| `--moduix-rating-group-disabled-opacity`  | `var(--moduix-opacity-disabled)`       |
+| `--moduix-rating-group-focus-ring-color`  | `transparent`                          |
+| `--moduix-rating-group-focus-ring-offset` | `0`                                    |
+| `--moduix-rating-group-focus-ring-width`  | `0`                                    |
+| `--moduix-rating-group-gap`               | `var(--moduix-spacing-1)`              |
+| `--moduix-rating-group-root-gap`          | `var(--moduix-spacing-1)`              |
+| `--moduix-rating-group-icon-size-xs`      | `var(--moduix-spacing-3-5)`            |
+| `--moduix-rating-group-icon-size-sm`      | `var(--moduix-spacing-4)`              |
+| `--moduix-rating-group-icon-size-md`      | `var(--moduix-spacing-5)`              |
+| `--moduix-rating-group-icon-size-lg`      | `var(--moduix-spacing-6)`              |
+| `--moduix-rating-group-icon-size-xl`      | `var(--moduix-spacing-7)`              |
+| `--moduix-rating-group-label-color`       | `var(--moduix-color-foreground)`       |
+| `--moduix-rating-group-label-font-size`   | `var(--moduix-text-sm)`                |
+| `--moduix-rating-group-label-font-weight` | `var(--moduix-weight-semibold)`        |
+| `--moduix-rating-group-label-line-height` | `var(--moduix-line-height-text-sm)`    |
+| `--moduix-rating-group-transition`        | `var(--moduix-transition-default)`     |
 
 ## Intentional sugar and differences from upstream
 
@@ -166,7 +166,7 @@ Public CSS variables:
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-18: Rating item focus rings are opt-in through `--rating-group-focus-ring-*`; the
+- 2026-07-18: Rating item focus rings are opt-in through `--moduix-rating-group-focus-ring-*`; the
   default has no visible outline.
 
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

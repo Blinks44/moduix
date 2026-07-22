@@ -135,7 +135,7 @@ Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `labe
 
 ## Defaults and styling
 
-The segmented date control defaults to `--size-md` with `--spacing-1` block padding.
+The segmented date control defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding.
 
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 the control frame, segment focus, placeholder color, invalid state, disabled/readonly state, and
@@ -144,21 +144,21 @@ non-editable.
 
 Public styling hooks:
 
-- Root: `--date-input-gap`, `--date-input-width`, `--date-input-max-width`,
-  `--date-input-disabled-opacity`
-- Label: `--date-input-label-color`, `--date-input-label-font-size`,
-  `--date-input-label-font-weight`, `--date-input-label-line-height`
-- Control: `--date-input-control-height`, `--date-input-border-width`,
-  `--date-input-control-width`, `--date-input-border-style`, `--date-input-border-color`,
-  `--date-input-border-color-invalid`, `--date-input-radius`, `--date-input-padding-x`, `--date-input-padding-y`,
-  `--date-input-bg`, `--date-input-color`, `--date-input-focus-ring-width`,
-  `--date-input-focus-ring-offset`, `--date-input-focus-ring-color`, `--date-input-transition`
-- Segment: `--date-input-segment-gap`, `--date-input-segment-min-width`,
-  `--date-input-segment-radius`, `--date-input-segment-padding-x`,
-  `--date-input-segment-padding-y`, `--date-input-segment-color`,
-  `--date-input-segment-bg-focus`, `--date-input-segment-color-focus`,
-  `--date-input-segment-line-height`, `--date-input-placeholder-color`,
-  `--date-input-separator-color`
+- Root: `--moduix-date-input-gap`, `--moduix-date-input-width`, `--moduix-date-input-max-width`,
+  `--moduix-date-input-disabled-opacity`
+- Label: `--moduix-date-input-label-color`, `--moduix-date-input-label-font-size`,
+  `--moduix-date-input-label-font-weight`, `--moduix-date-input-label-line-height`
+- Control: `--moduix-date-input-control-height`, `--moduix-date-input-border-width`,
+  `--moduix-date-input-control-width`, `--moduix-date-input-border-style`, `--moduix-date-input-border-color`,
+  `--moduix-date-input-border-color-invalid`, `--moduix-date-input-radius`, `--moduix-date-input-padding-x`, `--moduix-date-input-padding-y`,
+  `--moduix-date-input-bg`, `--moduix-date-input-color`, `--moduix-date-input-focus-ring-width`,
+  `--moduix-date-input-focus-ring-offset`, `--moduix-date-input-focus-ring-color`, `--moduix-date-input-transition`
+- Segment: `--moduix-date-input-segment-gap`, `--moduix-date-input-segment-min-width`,
+  `--moduix-date-input-segment-radius`, `--moduix-date-input-segment-padding-x`,
+  `--moduix-date-input-segment-padding-y`, `--moduix-date-input-segment-color`,
+  `--moduix-date-input-segment-bg-focus`, `--moduix-date-input-segment-color-focus`,
+  `--moduix-date-input-segment-line-height`, `--moduix-date-input-placeholder-color`,
+  `--moduix-date-input-separator-color`
 
 ## Intentional sugar and differences from upstream
 
@@ -185,7 +185,7 @@ segment shortcuts, or local event aliases.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default date control to `--size-md` and compacted its block padding.
+- 2026-07-21: Reduced the default date control to `--moduix-size-md` and compacted its block padding.
 
 - 2026-07-13: Rendered native date inputs automatically and added `names` for range fields that
   require distinct form keys.

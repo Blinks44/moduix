@@ -1,121 +1,154 @@
-import { Timer, useTimer } from '@moduix/react';
-import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const timerExampleCss = `
   .timer-note {
     margin: 0;
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
-    color: var(--color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
   }
 
   .timer-item-group {
     display: inline-grid;
     justify-items: center;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
   }
 
   .timer-item-label {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-regular);
-    line-height: var(--line-height-text-xs);
-    color: var(--color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-regular);
+    line-height: var(--moduix-line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
   }
 `;
 
-export const timerData = `const timerDurations = {
-  basic: 60 * 60 * 1000,
-  elapsedStart: 40 * 60 * 1000,
-  countdown: 10 * 60 * 1000,
-  pomodoroWork: 25 * 60 * 1000,
-  pomodoroBreak: 5 * 60 * 1000,
-};`;
-
-export const timerCssProperties: CssPropertyInput[] = [
-  ['--timer-color', 'var(--color-foreground)', 'Controls the timer text color.'],
-  ['--timer-gap', 'var(--spacing-3)', 'Controls the gap between timer sections.'],
-  ['--timer-width', 'max-content', 'Controls the timer root width.'],
-  ['--timer-area-gap', 'var(--spacing-1)', 'Controls the gap between time items.'],
-  ['--timer-area-font-size', 'var(--text-2xl)', 'Controls the time display font size.'],
-  ['--timer-area-font-weight', 'var(--weight-semibold)', 'Controls the time display font weight.'],
+const timerCssProperties: CssPropertyInput[] = [
+  ['--moduix-timer-color', 'var(--moduix-color-foreground)', 'Controls the timer text color.'],
+  ['--moduix-timer-gap', 'var(--moduix-spacing-3)', 'Controls the gap between timer sections.'],
+  ['--moduix-timer-width', 'max-content', 'Controls the timer root width.'],
+  ['--moduix-timer-area-gap', 'var(--moduix-spacing-1)', 'Controls the gap between time items.'],
   [
-    '--timer-area-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-timer-area-font-size',
+    'var(--moduix-text-2xl)',
+    'Controls the time display font size.',
+  ],
+  [
+    '--moduix-timer-area-font-weight',
+    'var(--moduix-weight-semibold)',
+    'Controls the time display font weight.',
+  ],
+  [
+    '--moduix-timer-area-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls the time display line height.',
   ],
-  ['--timer-item-color', 'currentColor', 'Controls time item color.'],
-  ['--timer-item-min-width', '2ch', 'Controls the minimum width of each time item.'],
-  ['--timer-item-text-align', 'center', 'Controls time item text alignment.'],
-  ['--timer-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
-  ['--timer-control-gap', 'var(--spacing-2)', 'Controls the gap between action triggers.'],
-  ['--timer-action-trigger-bg', 'var(--color-background)', 'Controls action trigger background.'],
+  ['--moduix-timer-item-color', 'currentColor', 'Controls time item color.'],
+  ['--moduix-timer-item-min-width', '2ch', 'Controls the minimum width of each time item.'],
+  ['--moduix-timer-item-text-align', 'center', 'Controls time item text alignment.'],
   [
-    '--timer-action-trigger-bg-hover',
-    'var(--color-accent)',
+    '--moduix-timer-separator-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls separator color.',
+  ],
+  [
+    '--moduix-timer-control-gap',
+    'var(--moduix-spacing-2)',
+    'Controls the gap between action triggers.',
+  ],
+  [
+    '--moduix-timer-action-trigger-bg',
+    'var(--moduix-color-background)',
+    'Controls action trigger background.',
+  ],
+  [
+    '--moduix-timer-action-trigger-bg-hover',
+    'var(--moduix-color-accent)',
     'Controls action trigger hover background.',
   ],
   [
-    '--timer-action-trigger-border-color',
-    'var(--color-border)',
+    '--moduix-timer-action-trigger-border-color',
+    'var(--moduix-color-border)',
     'Controls action trigger border color.',
   ],
   [
-    '--timer-action-trigger-border-width',
-    'var(--border-width-sm)',
+    '--moduix-timer-action-trigger-border-width',
+    'var(--moduix-border-width-sm)',
     'Controls action trigger border width.',
   ],
   [
-    '--timer-action-trigger-color',
-    'var(--color-foreground)',
+    '--moduix-timer-action-trigger-color',
+    'var(--moduix-color-foreground)',
     'Controls action trigger text color.',
   ],
   [
-    '--timer-action-trigger-disabled-opacity',
-    'var(--opacity-disabled)',
+    '--moduix-timer-action-trigger-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
     'Controls disabled action trigger opacity.',
   ],
   [
-    '--timer-action-trigger-focus-ring-color',
-    'var(--color-ring)',
+    '--moduix-timer-action-trigger-focus-ring-color',
+    'var(--moduix-color-ring)',
     'Controls action trigger focus ring color.',
   ],
   [
-    '--timer-action-trigger-focus-ring-offset',
-    'var(--focus-ring-inset-offset)',
+    '--moduix-timer-action-trigger-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls action trigger focus ring offset.',
   ],
   [
-    '--timer-action-trigger-focus-ring-width',
-    'var(--focus-ring-width, var(--border-width-md))',
+    '--moduix-timer-action-trigger-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls action trigger focus ring width.',
   ],
-  ['--timer-action-trigger-font-size', 'var(--text-sm)', 'Controls action trigger font size.'],
   [
-    '--timer-action-trigger-font-weight',
-    'var(--weight-medium)',
+    '--moduix-timer-action-trigger-font-size',
+    'var(--moduix-text-sm)',
+    'Controls action trigger font size.',
+  ],
+  [
+    '--moduix-timer-action-trigger-font-weight',
+    'var(--moduix-weight-medium)',
     'Controls action trigger font weight.',
   ],
-  ['--timer-action-trigger-gap', 'var(--spacing-2)', 'Controls action trigger content gap.'],
-  ['--timer-action-trigger-height', 'var(--size-md)', 'Controls action trigger minimum height.'],
   [
-    '--timer-action-trigger-icon-size',
-    'var(--spacing-4)',
+    '--moduix-timer-action-trigger-gap',
+    'var(--moduix-spacing-2)',
+    'Controls action trigger content gap.',
+  ],
+  [
+    '--moduix-timer-action-trigger-height',
+    'var(--moduix-size-md)',
+    'Controls action trigger minimum height.',
+  ],
+  [
+    '--moduix-timer-action-trigger-icon-size',
+    'var(--moduix-spacing-4)',
     'Controls icons inside action triggers.',
   ],
   [
-    '--timer-action-trigger-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-timer-action-trigger-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls action trigger line height.',
   ],
-  ['--timer-action-trigger-padding-x', 'var(--spacing-3)', 'Controls horizontal trigger padding.'],
-  ['--timer-action-trigger-padding-y', 'var(--spacing-1-5)', 'Controls vertical trigger padding.'],
-  ['--timer-action-trigger-radius', 'var(--radius-md)', 'Controls action trigger radius.'],
   [
-    '--timer-action-trigger-transition',
-    'var(--transition-default)',
+    '--moduix-timer-action-trigger-padding-x',
+    'var(--moduix-spacing-3)',
+    'Controls horizontal trigger padding.',
+  ],
+  [
+    '--moduix-timer-action-trigger-padding-y',
+    'var(--moduix-spacing-1-5)',
+    'Controls vertical trigger padding.',
+  ],
+  [
+    '--moduix-timer-action-trigger-radius',
+    'var(--moduix-radius-md)',
+    'Controls action trigger radius.',
+  ],
+  [
+    '--moduix-timer-action-trigger-transition',
+    'var(--moduix-transition-default)',
     'Controls action trigger transitions.',
   ],
 ];
@@ -132,391 +165,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export const timerBasicCode = `
-  import { Timer } from "@moduix/react";
-  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-
-  export function TimerDemo() {
-    return (
-      <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="days" />
-            <span className="timer-item-label">days</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="hours" />
-            <span className="timer-item-label">hours</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="resume">
-            <PlayIcon /> Resume
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer>
-    );
-  }
-`;
-
-export const timerCountdownCode = `
-  import { Timer } from "@moduix/react";
-  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-
-  export function CountdownTimerDemo() {
-    return (
-      <Timer countdown startMs={10 * 60 * 1000}>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer>
-    );
-  }
-`;
-
-export const timerIntervalCode = `
-  import { Timer } from "@moduix/react";
-  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-
-  export function IntervalTimerDemo() {
-    return (
-      <Timer interval={100} targetMs={60 * 1000}>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-          <Timer.Separator>.</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="milliseconds" />
-            <span className="timer-item-label">ms</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer>
-    );
-  }
-`;
-
-export const timerEventsCode = `
-  import { Timer } from "@moduix/react";
-  import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-  import { useState } from "react";
-
-  export function EventsTimerDemo() {
-    const [ticks, setTicks] = useState(0);
-    const [complete, setComplete] = useState(false);
-
-    return (
-      <Timer
-        targetMs={10 * 1000}
-        onTick={() => setTicks((value) => value + 1)}
-        onComplete={() => setComplete(true)}
-      >
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-        <p className="timer-note">
-          Ticks: {ticks} / {complete ? "Complete" : "Running target"}
-        </p>
-      </Timer>
-    );
-  }
-`;
-
-export const timerPomodoroCode = `
-  import { Timer } from "@moduix/react";
-  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-  import { useState } from "react";
-
-  export function PomodoroTimerDemo() {
-    const [mode, setMode] = useState("work" as "work" | "break");
-    const targetMs = mode === "work" ? 25 * 60 * 1000 : 5 * 60 * 1000;
-
-    return (
-      <Timer
-        key={mode}
-        countdown
-        startMs={targetMs}
-        onComplete={() => setMode((value) => (value === "work" ? "break" : "work"))}
-      >
-        <p className="timer-note">{mode === "work" ? "Focus session" : "Break session"}</p>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer>
-    );
-  }
-`;
-
-export const timerRootProviderCode = `
-  import { Timer, useTimer } from "@moduix/react";
-  import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from "lucide-react";
-
-  export function RootProviderTimerDemo() {
-    const timer = useTimer({ targetMs: 60 * 60 * 1000 });
-
-    return (
-      <Timer.RootProvider value={timer}>
-        <Timer.Context>
-          {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-        </Timer.Context>
-        <Timer.Area>
-          <span className="timer-item-group">
-            <Timer.Item type="hours" />
-            <span className="timer-item-label">hours</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="minutes" />
-            <span className="timer-item-label">minutes</span>
-          </span>
-          <Timer.Separator>:</Timer.Separator>
-          <span className="timer-item-group">
-            <Timer.Item type="seconds" />
-            <span className="timer-item-label">seconds</span>
-          </span>
-        </Timer.Area>
-        <Timer.Control>
-          <Timer.ActionTrigger action="start">
-            <PlayIcon /> Start
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="pause">
-            <PauseIcon /> Pause
-          </Timer.ActionTrigger>
-          <Timer.ActionTrigger action="reset">
-            <RotateCcwIcon /> Reset
-          </Timer.ActionTrigger>
-        </Timer.Control>
-      </Timer.RootProvider>
-    );
-  }
-`;
-
-function TimerItemGroup({
-  label,
-  type,
-}: {
-  label: string;
-  type: ComponentProps<typeof Timer.Item>['type'];
-}) {
-  return (
-    <span className="timer-item-group">
-      <Timer.Item type={type} />
-      <span className="timer-item-label">{label}</span>
-    </span>
-  );
-}
-
-function ShortTimerValue() {
-  return (
-    <Timer.Area>
-      <TimerItemGroup type="minutes" label="minutes" />
-      <Timer.Separator>:</Timer.Separator>
-      <TimerItemGroup type="seconds" label="seconds" />
-    </Timer.Area>
-  );
-}
-
-function TimerControls() {
-  return (
-    <Timer.Control>
-      <Timer.ActionTrigger action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="resume">
-        <PlayIcon /> Resume
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="pause">
-        <PauseIcon /> Pause
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  );
-}
-
-function TimerStartResetControls() {
-  return (
-    <Timer.Control>
-      <Timer.ActionTrigger action="start">
-        <PlayIcon /> Start
-      </Timer.ActionTrigger>
-      <Timer.ActionTrigger action="reset">
-        <RotateCcwIcon /> Reset
-      </Timer.ActionTrigger>
-    </Timer.Control>
-  );
-}
-
-export function TimerExample() {
-  return (
-    <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-      <Timer.Segments types={['days', 'hours', 'minutes', 'seconds']} />
-      <TimerControls />
-    </Timer>
-  );
-}
-
-export function CountdownTimerExample() {
-  return (
-    <Timer countdown startMs={10 * 60 * 1000}>
-      <ShortTimerValue />
-      <TimerControls />
-    </Timer>
-  );
-}
-
-export function IntervalTimerExample() {
-  return (
-    <Timer interval={100} targetMs={60 * 1000}>
-      <Timer.Area>
-        <TimerItemGroup type="seconds" label="seconds" />
-        <Timer.Separator>.</Timer.Separator>
-        <TimerItemGroup type="milliseconds" label="ms" />
-      </Timer.Area>
-      <TimerControls />
-    </Timer>
-  );
-}
-
-export function EventsTimerExample() {
-  const [ticks, setTicks] = useState(0);
-  const [complete, setComplete] = useState(false);
-
-  return (
-    <Timer
-      targetMs={10 * 1000}
-      onTick={() => setTicks((value) => value + 1)}
-      onComplete={() => setComplete(true)}
-    >
-      <Timer.Area>
-        <TimerItemGroup type="seconds" label="seconds" />
-      </Timer.Area>
-      <TimerStartResetControls />
-      <p className="timer-note">
-        Ticks: {ticks} / {complete ? 'Complete' : 'Running target'}
-      </p>
-    </Timer>
-  );
-}
-
-export function PomodoroTimerExample() {
-  const [mode, setMode] = useState<'work' | 'break'>('work');
-  const targetMs = mode === 'work' ? 25 * 60 * 1000 : 5 * 60 * 1000;
-
-  return (
-    <Timer
-      key={mode}
-      countdown
-      startMs={targetMs}
-      onComplete={() => setMode((value) => (value === 'work' ? 'break' : 'work'))}
-    >
-      <p className="timer-note">{mode === 'work' ? 'Focus session' : 'Break session'}</p>
-      <ShortTimerValue />
-      <TimerControls />
-    </Timer>
-  );
-}
-
-export function RootProviderTimerExample() {
-  const timer = useTimer({ targetMs: 60 * 60 * 1000 });
-
-  return (
-    <Timer.RootProvider value={timer}>
-      <Timer.Context>
-        {(api) => <p className="timer-note">Progress: {api.progressPercent.toFixed(0)}%</p>}
-      </Timer.Context>
-      <Timer.Area>
-        <TimerItemGroup type="hours" label="hours" />
-        <Timer.Separator>:</Timer.Separator>
-        <TimerItemGroup type="minutes" label="minutes" />
-        <Timer.Separator>:</Timer.Separator>
-        <TimerItemGroup type="seconds" label="seconds" />
-      </Timer.Area>
-      <TimerControls />
-    </Timer.RootProvider>
-  );
 }

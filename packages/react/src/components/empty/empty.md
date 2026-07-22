@@ -102,7 +102,7 @@ For a different heading level, use Ark factory composition:
   examples to cover.
 - Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
 - Ark `asChild`: supported on every part. Consumers must pass a single semantic child.
-- Ark styling: covered by `data-scope`, `data-part`, `className`, and public `--empty-*` variables.
+- Ark styling: covered by `data-scope`, `data-part`, `className`, and public `--moduix-empty-*` variables.
 - Ark state management, callbacks, context hooks, `RootProvider`, `ids`, `HiddenInput`, and form
   context: intentionally absent because the component has no interactive state.
 
@@ -123,30 +123,30 @@ surface colors, rounded icon container, and wrapping action row.
 
 Public CSS variables:
 
-| Variable                          | Default fallback                                                 |
-| --------------------------------- | ---------------------------------------------------------------- |
-| `--empty-actions-gap`             | `var(--spacing-2)`                                               |
-| `--empty-bg`                      | `color-mix(in oklab, var(--color-card) 92%, var(--color-muted))` |
-| `--empty-border-color`            | `var(--color-border)`                                            |
-| `--empty-border-width`            | `var(--border-width-sm)`                                         |
-| `--empty-color`                   | `var(--color-card-foreground)`                                   |
-| `--empty-content-gap`             | `var(--spacing-1)`                                               |
-| `--empty-content-max-width`       | `28rem`                                                          |
-| `--empty-description-color`       | `var(--color-muted-foreground)`                                  |
-| `--empty-description-font-size`   | `var(--text-sm)`                                                 |
-| `--empty-description-line-height` | `var(--line-height-text-sm)`                                     |
-| `--empty-gap`                     | `var(--spacing-4)`                                               |
-| `--empty-icon-bg`                 | `var(--color-muted)`                                             |
-| `--empty-icon-color`              | `var(--color-muted-foreground)`                                  |
-| `--empty-icon-padding`            | `var(--spacing-3)`                                               |
-| `--empty-icon-size`               | `var(--spacing-6)`                                               |
-| `--empty-padding`                 | `var(--spacing-8)`                                               |
-| `--empty-radius`                  | `var(--radius-xl)`                                               |
-| `--empty-shadow`                  | `none`                                                           |
-| `--empty-title-color`             | `currentColor`                                                   |
-| `--empty-title-font-size`         | `var(--text-xl)`                                                 |
-| `--empty-title-font-weight`       | `var(--weight-semibold)`                                         |
-| `--empty-title-line-height`       | `var(--line-height-text-xl)`                                     |
+| Variable                                 | Default fallback                                                               |
+| ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `--moduix-empty-actions-gap`             | `var(--moduix-spacing-2)`                                                      |
+| `--moduix-empty-bg`                      | `color-mix(in oklab, var(--moduix-color-card) 92%, var(--moduix-color-muted))` |
+| `--moduix-empty-border-color`            | `var(--moduix-color-border)`                                                   |
+| `--moduix-empty-border-width`            | `var(--moduix-border-width-sm)`                                                |
+| `--moduix-empty-color`                   | `var(--moduix-color-card-foreground)`                                          |
+| `--moduix-empty-content-gap`             | `var(--moduix-spacing-1)`                                                      |
+| `--moduix-empty-content-max-width`       | `28rem`                                                                        |
+| `--moduix-empty-description-color`       | `var(--moduix-color-muted-foreground)`                                         |
+| `--moduix-empty-description-font-size`   | `var(--moduix-text-sm)`                                                        |
+| `--moduix-empty-description-line-height` | `var(--moduix-line-height-text-sm)`                                            |
+| `--moduix-empty-gap`                     | `var(--moduix-spacing-4)`                                                      |
+| `--moduix-empty-icon-bg`                 | `var(--moduix-color-muted)`                                                    |
+| `--moduix-empty-icon-color`              | `var(--moduix-color-muted-foreground)`                                         |
+| `--moduix-empty-icon-padding`            | `var(--moduix-spacing-3)`                                                      |
+| `--moduix-empty-icon-size`               | `var(--moduix-spacing-6)`                                                      |
+| `--moduix-empty-padding`                 | `var(--moduix-spacing-8)`                                                      |
+| `--moduix-empty-radius`                  | `var(--moduix-radius-xl)`                                                      |
+| `--moduix-empty-shadow`                  | `none`                                                                         |
+| `--moduix-empty-title-color`             | `currentColor`                                                                 |
+| `--moduix-empty-title-font-size`         | `var(--moduix-text-xl)`                                                        |
+| `--moduix-empty-title-font-weight`       | `var(--moduix-weight-semibold)`                                                |
+| `--moduix-empty-title-line-height`       | `var(--moduix-line-height-text-xl)`                                            |
 
 ## Intentional sugar and differences from upstream
 
@@ -165,7 +165,7 @@ Public CSS variables:
   hooks, or built-in action props without a concrete product requirement.
 - Preserve `Empty.Description` as a `div`; replacing it with `p` makes block content composition
   error-prone.
-- If public `--empty-*` variables change, update `theme.css`, stories, docs examples, and the CSS
+- If public `--moduix-empty-*` variables change, update `theme.css`, stories, docs examples, and the CSS
   properties reference in the same task.
 - Registry consumers need `@ark-ui/react` because the shipped source imports
   `@ark-ui/react/factory`.

@@ -123,7 +123,7 @@ per-marker props, or custom ordering.
 - moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--angle-slider-*` variables are registered in `src/lib/moduix/styles/theme.css`.
+- Public `--moduix-angle-slider-*` variables are registered in `src/lib/moduix/styles/theme.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /

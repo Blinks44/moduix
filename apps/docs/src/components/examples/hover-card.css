@@ -1,20 +1,20 @@
 .hover-card-example__paragraph {
   max-width: 33rem;
   margin: 0;
-  color: var(--color-foreground);
-  font-size: var(--text-md);
-  line-height: var(--line-height-text-md);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-md);
+  line-height: var(--moduix-line-height-text-md);
 }
 
 .hover-card-example__paragraph [data-slot='hover-card-trigger'] {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-1);
-  padding: 0 var(--spacing-1);
-  border-radius: var(--radius-sm);
+  gap: var(--moduix-spacing-1);
+  padding: 0 var(--moduix-spacing-1);
+  border-radius: var(--moduix-radius-sm);
   background: color-mix(in oklab, currentColor, transparent 96%);
   text-decoration: none;
-  transition: background-color var(--transition-default);
+  transition: background-color var(--moduix-transition-default);
 
   @media (hover: hover) {
     &:hover {
@@ -35,32 +35,32 @@
 .hover-card-example__stack {
   display: grid;
   justify-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .hover-card-example__button {
-  min-height: var(--size-lg);
-  padding: 0 var(--spacing-4);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-background);
-  color: var(--color-foreground);
+  min-height: var(--moduix-size-lg);
+  padding: 0 var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+  color: var(--moduix-color-foreground);
   font: inherit;
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
   cursor: pointer;
   transition:
-    background-color var(--transition-default),
-    border-color var(--transition-default);
+    background-color var(--moduix-transition-default),
+    border-color var(--moduix-transition-default);
 }
 
 .hover-card-example__button:hover {
-  background: var(--color-accent);
+  background: var(--moduix-color-accent);
 }
 
 .hover-card-example__card {
   display: grid;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
   width: min(14rem, calc(100vw - 4rem));
 }
 
@@ -71,39 +71,43 @@
 }
 
 .hover-card-example__name {
-  color: var(--color-popover-foreground);
-  font-size: var(--text-md);
-  font-weight: var(--weight-bold);
-  line-height: var(--line-height-text-md);
+  color: var(--moduix-color-popover-foreground);
+  font-size: var(--moduix-text-md);
+  font-weight: var(--moduix-weight-bold);
+  line-height: var(--moduix-line-height-text-md);
 }
 
 .hover-card-example__username {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .hover-card-example__bio {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .hover-card-example__custom-trigger {
-  --hover-card-trigger-color: var(--color-foreground);
-  --hover-card-trigger-decoration-color: var(--color-border);
-  --hover-card-trigger-decoration-color-hover: var(--color-primary);
+  --moduix-hover-card-trigger-color: var(--moduix-color-foreground);
+  --moduix-hover-card-trigger-decoration-color: var(--moduix-color-border);
+  --moduix-hover-card-trigger-decoration-color-hover: var(--moduix-color-primary);
 }
 
 .hover-card-example__custom-content {
-  --hover-card-bg: var(--color-foreground);
-  --hover-card-color: var(--color-background);
-  --hover-card-border-color: color-mix(in oklab, var(--color-foreground), transparent 25%);
-  --hover-card-max-width: 17rem;
+  --moduix-hover-card-bg: var(--moduix-color-foreground);
+  --moduix-hover-card-color: var(--moduix-color-background);
+  --moduix-hover-card-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-foreground),
+    transparent 25%
+  );
+  --moduix-hover-card-max-width: 17rem;
 }
 
 .hover-card-example__custom-content .hover-card-example__name,
 .hover-card-example__custom-content .hover-card-example__username,
 .hover-card-example__custom-content .hover-card-example__bio {
-  color: var(--color-background);
+  color: var(--moduix-color-background);
 }

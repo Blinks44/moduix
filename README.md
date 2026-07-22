@@ -1,4 +1,4 @@
-![moduix banner](apps/docs/public/banner.png)
+![moduix banner](apps/docs/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
@@ -102,12 +102,10 @@ unused component styles can stay out of the consuming bundle.
 
 ## Copy-Owned Quick Start
 
-Initialize shadcn for your framework, register the moduix namespace, and add the components you
-need:
+Create the ready-to-use `components.json` from the [complete Quick Start](https://moduix.dev/docs/quick-start),
+then add the components you need:
 
 ```bash
-npx shadcn@latest init
-npx shadcn@latest registry add '@moduix-react=https://moduix.dev/r/react/{name}.json'
 npx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
@@ -126,24 +124,29 @@ registry inspection, dry runs, optional reset setup, and alternative package man
 
 ## Theming
 
-The default visual rhythm uses `--size-md: 36px` for primary controls and `--size-sm: 32px` for
+The default visual rhythm uses `--moduix-size-md: 36px` for primary controls and `--moduix-size-sm: 32px` for
 popup rows. Inputs, buttons, select and combobox triggers, date controls, pagination, and menu-like
 items resolve through that shared scale.
 
 Theme the system from broad decisions to narrow exceptions:
 
-1. Override primitives such as `--primary`, `--radius`, `--spacing-2`, and `--size-md`.
-2. Use shared family tokens such as `--popup-item-min-height` and `--focus-ring-width`.
-3. Reach for component aliases such as `--input-height` only when one component should diverge.
+1. Override primitives such as `--moduix-primary`, `--moduix-radius`, `--moduix-spacing-2`, and `--moduix-size-md`.
+2. Use shared family tokens such as `--moduix-popup-item-min-height` and `--moduix-focus-ring-width`.
+3. Reach for component aliases such as `--moduix-input-height` only when one component should diverge.
 
 ```css
 :root {
-  --primary: oklch(0.52 0.18 145);
-  --radius: 0.75rem;
-  --size-md: 36px;
-  --size-sm: 32px;
+  --moduix-primary: oklch(0.52 0.18 145);
+  --moduix-radius: 0.75rem;
+  --moduix-size-md: 36px;
+  --moduix-size-sm: 32px;
 }
 ```
+
+All moduix-owned variables use the `--moduix-*` namespace, so they do not replace tokens from an
+existing product design system. Map the tokens you want to share; for example,
+`--moduix-primary: var(--product-action-primary)`. Ark UI runtime variables remain unprefixed on
+the component parts that Ark controls.
 
 Components expose `className`, stable moduix `data-slot` hooks, and Ark `data-scope`,
 `data-part`, and state attributes where the underlying primitive provides them.
@@ -201,8 +204,7 @@ moduix is possible because of the work and ideas of these projects:
   documentation.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
-- [Fumadocs](https://fumadocs.dev/) and [TanStack](https://tanstack.com/) for the documentation
-  experience and application foundation.
+- [Rspress](https://rspress.rs/) for the documentation experience and application foundation.
 - [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
 
 ## Contributing

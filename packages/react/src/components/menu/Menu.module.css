@@ -1,68 +1,72 @@
-@layer ui.components {
+@layer moduix.components {
   .trigger,
   .contextTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--menu-trigger-gap, var(--spacing-2));
-    min-height: var(--menu-trigger-height, var(--size-md));
+    gap: var(--moduix-menu-trigger-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-menu-trigger-height, var(--moduix-size-md));
     margin: 0;
-    padding: var(--menu-trigger-padding-y, var(--spacing-1))
-      var(--menu-trigger-padding-x, var(--spacing-4));
-    border: var(--menu-trigger-border-width, var(--border-width-sm)) solid
-      var(--menu-trigger-border-color, var(--color-border));
-    border-radius: var(--menu-trigger-radius, var(--radius-md));
-    background-color: var(--menu-trigger-bg, var(--color-background));
-    color: var(--menu-trigger-color, var(--color-foreground));
+    padding: var(--moduix-menu-trigger-padding-y, var(--moduix-spacing-1))
+      var(--moduix-menu-trigger-padding-x, var(--moduix-spacing-4));
+    border: var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-menu-trigger-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-menu-trigger-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-menu-trigger-bg, var(--moduix-color-background));
+    color: var(--moduix-menu-trigger-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--menu-trigger-font-size, var(--text-sm));
-    font-weight: var(--menu-trigger-font-weight, var(--weight-medium));
-    line-height: var(--menu-trigger-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-menu-trigger-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-menu-trigger-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-menu-trigger-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
     outline: 0;
     cursor: pointer;
     transition:
-      background-color var(--menu-transition, var(--transition-default)),
-      border-color var(--menu-transition, var(--transition-default)),
-      color var(--menu-transition, var(--transition-default));
+      background-color var(--moduix-menu-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-menu-transition, var(--moduix-transition-default)),
+      color var(--moduix-menu-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--menu-trigger-bg-hover);
+        background-color: var(--moduix-menu-trigger-bg-hover);
       }
     }
 
     &:active {
-      background-color: var(--menu-trigger-bg-active, var(--menu-trigger-bg-hover));
+      background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
     &[data-state='open'] {
-      background-color: var(--menu-trigger-bg-active, var(--menu-trigger-bg-hover));
+      background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
     &:focus-visible {
       outline: var(
-          --menu-focus-ring-width,
-          var(--menu-trigger-border-width, var(--border-width-sm))
+          --moduix-menu-focus-ring-width,
+          var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm))
         )
-        solid var(--menu-focus-ring-color, var(--color-ring));
+        solid var(--moduix-menu-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(
-        var(--menu-focus-ring-width, var(--menu-trigger-border-width, var(--border-width-sm))) * -1
+        var(
+            --moduix-menu-focus-ring-width,
+            var(--moduix-menu-trigger-border-width, var(--moduix-border-width-sm))
+          ) *
+          -1
       );
     }
 
     &[data-disabled],
     &:disabled {
       pointer-events: none;
-      opacity: var(--menu-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-menu-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .contextTrigger {
-    width: var(--menu-context-trigger-width, 15rem);
-    min-height: var(--menu-context-trigger-height, 10rem);
-    border-style: var(--menu-context-trigger-border-style, dashed);
+    width: var(--moduix-menu-context-trigger-width, 15rem);
+    min-height: var(--moduix-menu-context-trigger-height, 10rem);
+    border-style: var(--moduix-menu-context-trigger-border-style, dashed);
   }
 
   .triggerIcon,
@@ -71,10 +75,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--menu-trigger-icon-size, var(--spacing-4));
-    height: var(--menu-trigger-icon-size, var(--spacing-4));
+    width: var(--moduix-menu-trigger-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-menu-trigger-icon-size, var(--moduix-spacing-4));
     flex-shrink: 0;
-    color: var(--menu-trigger-icon-color, currentColor);
+    color: var(--moduix-menu-trigger-icon-color, currentColor);
   }
 
   .iconSvg,
@@ -91,60 +95,69 @@
   }
 
   .content {
-    --arrow-size: var(--menu-arrow-size, var(--spacing-2-5));
-    --arrow-background: var(--menu-popup-bg, var(--color-popover));
+    --arrow-size: var(--moduix-menu-arrow-size, var(--moduix-spacing-2-5));
+    --arrow-background: var(--moduix-menu-popup-bg, var(--moduix-color-popover));
 
     position: relative;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-width: min(
-      max(var(--reference-width, 0px), var(--menu-popup-min-width, 12rem)),
+      max(var(--reference-width, 0px), var(--moduix-menu-popup-min-width, 12rem)),
       var(--available-width, 100vw)
     );
-    max-width: min(var(--menu-popup-max-width, 20rem), var(--available-width, 100vw));
-    max-height: min(var(--menu-popup-max-height, 24rem), var(--available-height, 100dvh));
+    max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
+    max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
     overflow: auto;
-    padding-block: var(--menu-popup-padding-y, var(--popup-list-padding-y, var(--spacing-1)));
-    border-radius: var(--menu-popup-radius, var(--radius-md));
-    background-color: var(--menu-popup-bg, var(--color-popover));
-    color: var(--menu-popup-color, var(--color-popover-foreground));
-    outline: var(--menu-popup-border-width, var(--border-width-sm)) solid
-      var(--menu-popup-border-color, var(--color-border));
-    box-shadow: var(--menu-popup-shadow, var(--shadow-lg));
+    padding-block: var(
+      --moduix-menu-popup-padding-y,
+      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
+    );
+    border-radius: var(--moduix-menu-popup-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-menu-popup-bg, var(--moduix-color-popover));
+    color: var(--moduix-menu-popup-color, var(--moduix-color-popover-foreground));
+    outline: var(--moduix-menu-popup-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-menu-popup-border-color, var(--moduix-color-border));
+    box-shadow: var(--moduix-menu-popup-shadow, var(--moduix-shadow-lg));
     transform-origin: var(--transform-origin);
-    z-index: calc(var(--z-popup) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
 
     &[data-state='open'] {
       animation: menuContentIn
         var(
-          --menu-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-menu-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
 
     &[data-state='closed'] {
       animation: menuContentOut
         var(
-          --menu-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-menu-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
   }
 
   .arrow {
-    --arrow-background: var(--menu-popup-bg, var(--color-popover));
+    --arrow-background: var(--moduix-menu-popup-bg, var(--moduix-color-popover));
 
     z-index: -1;
   }
 
   .arrowTip {
-    border-block-start: var(--menu-popup-border-width, var(--border-width-sm)) solid
-      var(--menu-arrow-stroke-color, var(--menu-popup-border-color, var(--color-border)));
-    border-inline-start: var(--menu-popup-border-width, var(--border-width-sm)) solid
-      var(--menu-arrow-stroke-color, var(--menu-popup-border-color, var(--color-border)));
+    border-block-start: var(--moduix-menu-popup-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-menu-arrow-stroke-color,
+        var(--moduix-menu-popup-border-color, var(--moduix-color-border))
+      );
+    border-inline-start: var(--moduix-menu-popup-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-menu-arrow-stroke-color,
+        var(--moduix-menu-popup-border-color, var(--moduix-color-border))
+      );
   }
 
   .item,
@@ -153,18 +166,24 @@
   .checkboxItem {
     position: relative;
     box-sizing: border-box;
-    min-height: var(--menu-item-height, var(--popup-item-min-height, var(--size-sm)));
+    min-height: var(
+      --moduix-menu-item-height,
+      var(--moduix-popup-item-min-height, var(--moduix-size-sm))
+    );
     margin: 0;
     border: 0;
-    border-radius: var(--menu-item-radius, var(--radius-sm));
+    border-radius: var(--moduix-menu-item-radius, var(--moduix-radius-sm));
     outline: 0;
-    background-color: var(--menu-item-bg, transparent);
+    background-color: var(--moduix-menu-item-bg, transparent);
     color: inherit;
     font: inherit;
-    font-size: var(--menu-item-font-size, var(--popup-item-font-size, var(--text-sm)));
+    font-size: var(
+      --moduix-menu-item-font-size,
+      var(--moduix-popup-item-font-size, var(--moduix-text-sm))
+    );
     line-height: var(
-      --menu-item-line-height,
-      var(--popup-item-line-height, var(--line-height-text-sm))
+      --moduix-menu-item-line-height,
+      var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))
     );
     text-decoration: none;
     user-select: none;
@@ -179,45 +198,48 @@
         position: absolute;
         inset-block: 0;
         inset-inline: var(
-          --menu-highlight-inset-x,
-          var(--popup-highlight-inset-x, var(--spacing-1))
+          --moduix-menu-highlight-inset-x,
+          var(--moduix-popup-highlight-inset-x, var(--moduix-spacing-1))
         );
         border-radius: var(
-          --menu-highlight-radius,
-          var(--popup-highlight-radius, var(--radius-sm))
+          --moduix-menu-highlight-radius,
+          var(--moduix-popup-highlight-radius, var(--moduix-radius-sm))
         );
-        background-color: var(--menu-submenu-open-bg, var(--color-accent));
+        background-color: var(--moduix-menu-submenu-open-bg, var(--moduix-color-accent));
       }
     }
 
     &[data-highlighted] {
-      color: var(--menu-highlight-color, var(--color-accent-foreground));
+      color: var(--moduix-menu-highlight-color, var(--moduix-color-accent-foreground));
     }
 
     &[data-highlighted]::before {
-      background-color: var(--menu-highlight-bg, var(--color-accent));
+      background-color: var(--moduix-menu-highlight-bg, var(--moduix-color-accent));
     }
 
     &[data-disabled] {
       pointer-events: none;
-      background-color: var(--menu-item-bg-disabled, var(--menu-item-bg, transparent));
-      color: var(--menu-item-disabled-color, var(--color-muted-foreground));
+      background-color: var(
+        --moduix-menu-item-bg-disabled,
+        var(--moduix-menu-item-bg, transparent)
+      );
+      color: var(--moduix-menu-item-disabled-color, var(--moduix-color-muted-foreground));
       cursor: default;
     }
 
     &[data-tone='destructive'] {
-      color: var(--menu-item-destructive-color, var(--color-destructive));
+      color: var(--moduix-menu-item-destructive-color, var(--moduix-color-destructive));
 
       &[data-highlighted] {
         color: var(
-          --menu-item-destructive-highlight-color,
-          var(--menu-item-destructive-color, var(--color-destructive))
+          --moduix-menu-item-destructive-highlight-color,
+          var(--moduix-menu-item-destructive-color, var(--moduix-color-destructive))
         );
 
         &::before {
           background-color: var(
-            --menu-item-destructive-highlight-bg,
-            color-mix(in oklab, var(--color-destructive) 12%, transparent)
+            --moduix-menu-item-destructive-highlight-bg,
+            color-mix(in oklab, var(--moduix-color-destructive) 12%, transparent)
           );
         }
       }
@@ -227,71 +249,80 @@
   .item {
     display: flex;
     align-items: center;
-    gap: var(--menu-item-gap, var(--spacing-2));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    gap: var(--moduix-menu-item-gap, var(--moduix-spacing-2));
+    padding-block: var(
+      --moduix-menu-item-padding-y,
+      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
+    );
     padding-inline: var(
-        --menu-item-padding-x-start,
-        var(--popup-item-padding-x-start, var(--spacing-3))
+        --moduix-menu-item-padding-x-start,
+        var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
       )
-      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, var(--spacing-3)));
+      var(
+        --moduix-menu-item-padding-x-end,
+        var(--moduix-popup-item-padding-x-end, var(--moduix-spacing-3))
+      );
   }
 
   .triggerItem {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--menu-trigger-item-gap, var(--spacing-3));
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
+    gap: var(--moduix-menu-trigger-item-gap, var(--moduix-spacing-3));
+    padding-block: var(
+      --moduix-menu-item-padding-y,
+      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
+    );
     padding-inline: var(
-        --menu-item-padding-x-start,
-        var(--popup-item-padding-x-start, var(--spacing-3))
+        --moduix-menu-item-padding-x-start,
+        var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
       )
-      var(--menu-trigger-item-padding-x-end, var(--spacing-3));
+      var(--moduix-menu-trigger-item-padding-x-end, var(--moduix-spacing-3));
   }
 
   .triggerItemIcon {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--menu-trigger-item-icon-size, var(--spacing-3-5));
-    height: var(--menu-trigger-item-icon-size, var(--spacing-3-5));
+    width: var(--moduix-menu-trigger-item-icon-size, var(--moduix-spacing-3-5));
+    height: var(--moduix-menu-trigger-item-icon-size, var(--moduix-spacing-3-5));
     flex-shrink: 0;
     color: currentColor;
   }
 
   .itemGroup {
     display: grid;
-    padding-block: var(--menu-group-padding-y, 0);
+    padding-block: var(--moduix-menu-group-padding-y, 0);
   }
 
   .itemGroupLabel {
     margin: 0;
     padding-block: var(
-      --menu-group-label-padding-y,
-      var(--popup-group-label-padding-y, var(--spacing-1))
+      --moduix-menu-group-label-padding-y,
+      var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
     );
     padding-inline: var(
-        --menu-group-label-padding-x-start,
-        var(--popup-group-label-padding-x-start, var(--spacing-2-5))
+        --moduix-menu-group-label-padding-x-start,
+        var(--moduix-popup-group-label-padding-x-start, var(--moduix-spacing-2-5))
       )
       var(
-        --menu-group-label-padding-x-end,
-        var(--popup-group-label-padding-x-end, var(--spacing-3))
+        --moduix-menu-group-label-padding-x-end,
+        var(--moduix-popup-group-label-padding-x-end, var(--moduix-spacing-3))
       );
     color: var(
-      --menu-group-label-color,
-      var(--popup-group-label-color, var(--color-muted-foreground))
+      --moduix-menu-group-label-color,
+      var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))
     );
     font-size: var(
-      --menu-group-label-font-size,
-      var(--popup-group-label-font-size, var(--text-xs))
+      --moduix-menu-group-label-font-size,
+      var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))
     );
     font-weight: var(
-      --menu-group-label-font-weight,
-      var(--popup-group-label-font-weight, var(--weight-regular))
+      --moduix-menu-group-label-font-weight,
+      var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))
     );
     line-height: var(
-      --menu-group-label-line-height,
-      var(--popup-group-label-line-height, var(--line-height-text-xs))
+      --moduix-menu-group-label-line-height,
+      var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))
     );
     user-select: none;
     cursor: default;
@@ -305,22 +336,31 @@
   .checkboxItem {
     display: grid;
     align-items: center;
-    gap: var(--menu-check-gap, var(--popup-check-gap, var(--spacing-2)));
+    gap: var(--moduix-menu-check-gap, var(--moduix-popup-check-gap, var(--moduix-spacing-2)));
     grid-template-columns:
-      var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)))
-      minmax(0, 1fr);
-    padding-block: var(--menu-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
-    padding-inline: var(
-        --menu-check-padding-x-start,
-        var(--popup-check-padding-x-start, var(--spacing-2-5))
+      var(
+        --moduix-menu-check-indicator-size,
+        var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3))
       )
-      var(--menu-item-padding-x-end, var(--popup-item-padding-x-end, var(--spacing-3)));
+      minmax(0, 1fr);
+    padding-block: var(
+      --moduix-menu-item-padding-y,
+      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
+    );
+    padding-inline: var(
+        --moduix-menu-check-padding-x-start,
+        var(--moduix-popup-check-padding-x-start, var(--moduix-spacing-2-5))
+      )
+      var(
+        --moduix-menu-item-padding-x-end,
+        var(--moduix-popup-item-padding-x-end, var(--moduix-spacing-3))
+      );
 
     &[data-indicator-position='none'] {
       grid-template-columns: minmax(0, 1fr);
       padding-inline-start: var(
-        --menu-item-padding-x-start,
-        var(--popup-item-padding-x-start, var(--spacing-3))
+        --moduix-menu-item-padding-x-start,
+        var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
       );
 
       & > .itemIndicator {
@@ -335,7 +375,10 @@
     &[data-indicator-position='end'] {
       grid-template-columns:
         minmax(0, 1fr)
-        var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
+        var(
+          --moduix-menu-check-indicator-size,
+          var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3))
+        );
 
       & > .itemText {
         grid-column-start: 1;
@@ -351,12 +394,12 @@
   .checkboxItem[data-state='checked'] {
     > .itemIndicator {
       background-color: var(
-        --menu-checkbox-indicator-bg-checked,
-        var(--menu-checkbox-indicator-bg, transparent)
+        --moduix-menu-checkbox-indicator-bg-checked,
+        var(--moduix-menu-checkbox-indicator-bg, transparent)
       );
       border-color: var(
-        --menu-checkbox-indicator-border-color-checked,
-        var(--menu-checkbox-indicator-border-color, currentColor)
+        --moduix-menu-checkbox-indicator-border-color-checked,
+        var(--moduix-menu-checkbox-indicator-border-color, currentColor)
       );
     }
   }
@@ -366,15 +409,21 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
-    height: var(--menu-check-indicator-size, var(--popup-check-indicator-size, var(--spacing-3)));
-    border: var(--menu-checkbox-indicator-border-width, 0) solid
-      var(--menu-checkbox-indicator-border-color, currentColor);
-    border-radius: var(--menu-checkbox-indicator-radius, var(--radius-xs));
-    background-color: var(--menu-checkbox-indicator-bg, transparent);
+    width: var(
+      --moduix-menu-check-indicator-size,
+      var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3))
+    );
+    height: var(
+      --moduix-menu-check-indicator-size,
+      var(--moduix-popup-check-indicator-size, var(--moduix-spacing-3))
+    );
+    border: var(--moduix-menu-checkbox-indicator-border-width, 0) solid
+      var(--moduix-menu-checkbox-indicator-border-color, currentColor);
+    border-radius: var(--moduix-menu-checkbox-indicator-radius, var(--moduix-radius-xs));
+    background-color: var(--moduix-menu-checkbox-indicator-bg, transparent);
 
     &[data-state='checked'] {
-      color: var(--menu-item-indicator-color-checked, currentColor);
+      color: var(--moduix-menu-item-indicator-color-checked, currentColor);
     }
   }
 
@@ -392,7 +441,7 @@
   .itemTextContent {
     display: inline-flex;
     align-items: center;
-    gap: var(--menu-item-text-content-gap, var(--spacing-2));
+    gap: var(--moduix-menu-item-text-content-gap, var(--moduix-spacing-2));
     max-width: 100%;
     min-width: 0;
     vertical-align: top;
@@ -403,9 +452,9 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: var(--menu-item-text-icon-size, var(--spacing-4));
-    height: var(--menu-item-text-icon-size, var(--spacing-4));
-    color: var(--menu-item-text-icon-color, currentColor);
+    width: var(--moduix-menu-item-text-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-menu-item-text-icon-size, var(--moduix-spacing-4));
+    color: var(--moduix-menu-item-text-icon-color, currentColor);
   }
 
   .itemTextLabel {
@@ -417,36 +466,51 @@
 
   .itemShortcut {
     margin-inline-start: auto;
-    padding-inline-start: var(--menu-item-shortcut-padding-x-start, var(--spacing-4));
-    color: var(--menu-item-shortcut-color, var(--color-muted-foreground));
-    font-size: var(--menu-item-shortcut-font-size, var(--text-xs));
-    line-height: var(--menu-item-shortcut-line-height, var(--line-height-text-xs));
+    padding-inline-start: var(--moduix-menu-item-shortcut-padding-x-start, var(--moduix-spacing-4));
+    color: var(--moduix-menu-item-shortcut-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-menu-item-shortcut-font-size, var(--moduix-text-xs));
+    line-height: var(--moduix-menu-item-shortcut-line-height, var(--moduix-line-height-text-xs));
     white-space: nowrap;
   }
 
   .separator {
     box-sizing: border-box;
-    height: var(--menu-separator-height, var(--border-width-sm));
+    height: var(--moduix-menu-separator-height, var(--moduix-border-width-sm));
     margin-block: var(
-      --menu-separator-margin-y,
-      var(--popup-separator-margin-y, var(--spacing-1-5))
+      --moduix-menu-separator-margin-y,
+      var(--moduix-popup-separator-margin-y, var(--moduix-spacing-1-5))
     );
     margin-inline: var(
-        --menu-separator-margin-x-start,
-        var(--popup-separator-margin-x-start, var(--spacing-3))
+        --moduix-menu-separator-margin-x-start,
+        var(--moduix-popup-separator-margin-x-start, var(--moduix-spacing-3))
       )
-      var(--menu-separator-margin-x-end, var(--popup-separator-margin-x-end, var(--spacing-3)));
+      var(
+        --moduix-menu-separator-margin-x-end,
+        var(--moduix-popup-separator-margin-x-end, var(--moduix-spacing-3))
+      );
     border: 0;
-    background-color: var(--menu-separator-color, var(--color-border));
+    background-color: var(--moduix-menu-separator-color, var(--moduix-color-border));
   }
 
   @keyframes menuContentIn {
     from {
-      opacity: var(--menu-popup-starting-opacity, var(--popup-motion-starting-opacity, 0));
-      translate: var(--menu-popup-starting-translate-x, var(--popup-motion-starting-translate-x, 0))
-        var(--menu-popup-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+      opacity: var(
+        --moduix-menu-popup-starting-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
+      translate: var(
+          --moduix-menu-popup-starting-translate-x,
+          var(--moduix-popup-motion-starting-translate-x, 0)
+        )
+        var(
+          --moduix-menu-popup-starting-translate-y,
+          var(--moduix-popup-motion-starting-translate-y, 0)
+        );
       transform: scale(
-        var(--menu-popup-starting-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+        var(
+          --moduix-menu-popup-starting-scale,
+          var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
+        )
       );
     }
 
@@ -465,11 +529,23 @@
     }
 
     to {
-      opacity: var(--menu-popup-ending-opacity, var(--popup-motion-ending-opacity, 0));
-      translate: var(--menu-popup-ending-translate-x, var(--popup-motion-ending-translate-x, 0))
-        var(--menu-popup-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      opacity: var(
+        --moduix-menu-popup-ending-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
+      translate: var(
+          --moduix-menu-popup-ending-translate-x,
+          var(--moduix-popup-motion-ending-translate-x, 0)
+        )
+        var(
+          --moduix-menu-popup-ending-translate-y,
+          var(--moduix-popup-motion-ending-translate-y, 0)
+        );
       transform: scale(
-        var(--menu-popup-ending-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+        var(
+          --moduix-menu-popup-ending-scale,
+          var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
+        )
       );
     }
   }

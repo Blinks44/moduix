@@ -1,0 +1,318 @@
+---
+title: Animations
+description: Motion recipes for overlays, pickers, disclosures, and swaps in moduix.
+---
+
+import * as AnimationDocs from '@/components/examples/animations';
+
+# Animations
+
+moduix has a shared popup-motion contract for the library's floating and modal content surfaces.
+Set its CSS variables once to give every supported popup the same duration, easing, fade, scale, or
+slide motion. Component-local motion variables remain available when one surface needs to differ.
+
+Ark state attributes trigger the animations and keep an exiting part mounted until its CSS animation
+completes.
+
+Shared `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*`, and `--moduix-scale-*` tokens affect many parts of
+the system. Use `--moduix-popup-motion-*` when only popup content should change across the project.
+
+When the operating system requests reduced motion, the foundation reduces shared duration tokens
+to `0.01ms` and disables the shared pulse, fade, slide, and spin animations. Components with
+specialized continuous motion, such as marquee and indeterminate progress, keep their own
+`prefers-reduced-motion` fallback.
+
+## Choose the motion API
+
+### Shared popup motion
+
+Use `*-starting-*` for entry and `*-ending-*` for exit. The shared variables apply to the following
+content parts: `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
+`FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`,
+`Tour.Content`, `Select.Content`, `Combobox.Content`, `DatePicker.Content`, and
+`ColorPicker.Content`.
+
+For example, this makes all supported popup content enter from and exit toward the left with one
+timing curve:
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+Use `:root` for the normal portalled overlay setup. A variable placed only on a local wrapper does
+not reach content portalled to `document.body`; it does work for a component rendered with
+`portalled={false}`.
+
+### Component-local overrides
+
+Component variables take precedence over the shared fallback. Use them for the one exception to a
+project-wide rule, and put the class on the visual part in the table. Anchored surfaces retain Ark's
+transform origin, so their scale-based recipes still open from the trigger side.
+
+| Surface         | Apply the class to       | Prefix                               |
+| --------------- | ------------------------ | ------------------------------------ |
+| Popover         | `Popover.Content`        | `--moduix-popover-content-*`         |
+| Menu            | `Menu.Content`           | `--moduix-menu-popup-*`              |
+| Tooltip         | `Tooltip.Content`        | `--moduix-tooltip-popup-*`           |
+| Hover Card      | `HoverCard.Content`      | `--moduix-hover-card-content-*`      |
+| Floating Panel  | `FloatingPanel.Content`  | `--moduix-floating-panel-*`          |
+| Dialog          | `Dialog.Content`         | `--moduix-dialog-content-*`          |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
+| Lightbox        | `Lightbox.Content`       | `--moduix-lightbox-content-*`        |
+| Tour            | `Tour.Content`           | `--moduix-tour-content-*`            |
+
+`Dialog`, `CommandPalette`, `Lightbox`, and `Tour` also expose `*-backdrop-*` variables on their
+`Backdrop` part. Backdrops deliberately stay outside the shared popup-motion contract: they accept
+only `opacity` and `blur`, while shared popup content accepts `opacity`, `scale`, and `translate-x`
+or `translate-y`.
+
+### Component-specific state motion
+
+These components keep separate motion systems and do not accept `--moduix-popup-motion-*`:
+
+| Component   | Visual part                            | Supported customization                                                                                   |
+| ----------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Accordion   | `Accordion.ItemContent`                | `--moduix-accordion-item-content-transition`, open and closed opacity                                     |
+| Collapsible | `Collapsible.Content`                  | `--moduix-collapsible-content-transition`, open and closed opacity                                        |
+| Drawer      | `Drawer.Content` and `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition`; direction and drag own the transform |
+| Swap        | `Swap.Indicator`                       | separate enter and exit opacity and scale variables                                                       |
+| Tree View   | `TreeView.BranchContent`               | `--moduix-tree-view-content-transition-duration`                                                          |
+
+Toast uses Ark runtime layout variables for stacking and dismissal. Keep its `--x`, `--y`, `--scale`,
+`--height`, and `--opacity` values intact; the recipes on this page are not a Toast API.
+
+## Live Preview
+
+The preview uses `Popover.Content` because it is the smallest popup surface in the library. The
+Playground writes shared variables at the root scope, so the same values apply to all 13 supported
+popup content surfaces.
+
+<AnimationDocs.AnimationMotionPlayground />
+
+```tsx file="./_snippets/animations/live-preview.tsx"
+
+```
+
+## Ready Recipes
+
+Put these variables on `:root` to apply the recipe to all 13 supported popup content surfaces. For
+one exception, use the matching component prefix from the component-local table instead.
+
+### Fade
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0;
+  --moduix-popup-motion-ending-translate-y: 0;
+}
+```
+
+### Slide Up
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0.75rem;
+  --moduix-popup-motion-ending-translate-y: 0.75rem;
+}
+```
+
+### Slide Down
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: -0.75rem;
+  --moduix-popup-motion-ending-translate-y: -0.75rem;
+}
+```
+
+### Slide Left
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: 0.75rem;
+  --moduix-popup-motion-ending-translate-x: 0.75rem;
+}
+```
+
+### Slide Right
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+### Zoom
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.94;
+  --moduix-popup-motion-ending-scale: 0.94;
+}
+```
+
+### Lift
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.96;
+  --moduix-popup-motion-ending-scale: 0.96;
+  --moduix-popup-motion-starting-translate-y: 0.5rem;
+  --moduix-popup-motion-ending-translate-y: 0.5rem;
+}
+```
+
+### Drop In
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.98;
+  --moduix-popup-motion-ending-scale: 0.98;
+  --moduix-popup-motion-starting-translate-y: -0.5rem;
+  --moduix-popup-motion-ending-translate-y: -0.5rem;
+}
+```
+
+### Soft Pop
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.88;
+  --moduix-popup-motion-ending-scale: 0.94;
+  --moduix-popup-motion-starting-translate-y: 0.25rem;
+  --moduix-popup-motion-ending-translate-y: 0.25rem;
+}
+```
+
+Use this for a deliberate, friendly emphasis on a short menu, tooltip, or confirmation surface.
+
+## Component Recipes
+
+### Glass Focus for modal backdrops
+
+Apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. Replace `dialog` with
+`command-palette`, `lightbox`, or `tour` for the matching modal family.
+
+```css
+.glassFocusBackdrop {
+  --moduix-dialog-backdrop-transition: 220ms var(--moduix-ease-out);
+  --moduix-dialog-backdrop-starting-opacity: 0;
+  --moduix-dialog-backdrop-ending-opacity: 0;
+  --moduix-dialog-backdrop-starting-blur: none;
+  --moduix-dialog-backdrop-ending-blur: none;
+}
+
+.glassFocusContent {
+  --moduix-dialog-transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-dialog-content-starting-opacity: 0;
+  --moduix-dialog-content-ending-opacity: 0;
+  --moduix-dialog-content-starting-scale: 0.96;
+  --moduix-dialog-content-ending-scale: 0.98;
+  --moduix-dialog-content-starting-translate-y: 0.75rem;
+  --moduix-dialog-content-ending-translate-y: 0.75rem;
+}
+```
+
+### Soft Scale for picker content
+
+Apply this class to `Select.Content`. For `Combobox`, `ColorPicker`, or `DatePicker`, replace the
+`select` prefix with `combobox`, `color-picker`, or `date-picker`.
+
+```css
+.softScalePicker {
+  --moduix-select-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-select-content-closed-opacity: 0;
+  --moduix-select-content-closed-scale: 0.96;
+}
+```
+
+### Relaxed disclosure
+
+Apply this class to `Accordion.ItemContent`. For `Collapsible.Content`, use the
+`--moduix-collapsible-content-*` prefix instead.
+
+```css
+.relaxedDisclosure {
+  --moduix-accordion-item-content-transition: 240ms var(--moduix-ease-out);
+  --moduix-accordion-item-content-closed-opacity: 0;
+}
+```
+
+### Emphasized swap
+
+Apply the class to `Swap.Indicator` when the outgoing item should recede and the next one should
+arrive with more energy.
+
+```css
+.emphasizedSwap {
+  --moduix-swap-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-swap-enter-starting-opacity: 0;
+  --moduix-swap-enter-starting-scale: 0.82;
+  --moduix-swap-exit-ending-opacity: 0;
+  --moduix-swap-exit-ending-scale: 1.08;
+}
+```
+
+### Recipe Gallery
+
+<ExampleFrame>
+  <AnimationDocs.MotionRecipesExample />
+</ExampleFrame>
+
+## Usage Rules
+
+- Put component-local motion variables on the visual part that owns the animation; set shared popup
+  variables on `:root` for default portalled overlays.
+- Keep entry and exit values symmetric unless asymmetric motion is intentional.
+- Set scale to `1` for pure fade or slide motion.
+- Use `--moduix-popup-motion-*` for one popup-content rule across the project; use a component-local
+  prefix only for the exception.
+- Do not replace Drawer transforms or Toast runtime layout variables: both are coordinated with
+  interaction and dismissal state.
+- Exit animation works by default. Use `present` only when JavaScript must explicitly own whether a
+  part is mounted; it is not needed for ordinary CSS recipes.
+
+## Related
+
+- [Tokens](/docs/tokens)
+- [Composition Patterns](/docs/composition-patterns)

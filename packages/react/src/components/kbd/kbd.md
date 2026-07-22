@@ -31,7 +31,7 @@ because the component is static.
 - `Kbd.Group` renders a semantic `<kbd>` wrapper for grouped shortcuts.
 - Separators remain plain composition; the component does not inject text or extra elements.
 - Every part supports `className`, native attributes, `asChild`, and a forwarded ref.
-- Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--kbd-*` variables.
+- Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--moduix-kbd-*` variables.
 
 ## Anatomy and exported parts
 
@@ -101,24 +101,24 @@ Stable styling hooks:
 
 Public CSS variables:
 
-| Variable                      | Default                                                                        | Part  |
-| ----------------------------- | ------------------------------------------------------------------------------ | ----- |
-| `--kbd-bg`                    | `var(--color-muted)`                                                           | Root  |
-| `--kbd-border-color`          | `var(--color-border)`                                                          | Root  |
-| `--kbd-border-width`          | `var(--border-width-sm)`                                                       | Root  |
-| `--kbd-color`                 | `var(--color-foreground)`                                                      | Root  |
-| `--kbd-font-family`           | `var(--font-mono)`                                                             | Root  |
-| `--kbd-font-size`             | `var(--text-xs)`                                                               | Root  |
-| `--kbd-font-weight`           | `var(--weight-medium)`                                                         | Root  |
-| `--kbd-group-gap`             | `var(--spacing-1)`                                                             | Group |
-| `--kbd-group-separator-color` | `var(--color-muted-foreground)`                                                | Group |
-| `--kbd-height`                | `var(--size-xs)`                                                               | Root  |
-| `--kbd-line-height`           | `var(--line-height-text-xs)`                                                   | Root  |
-| `--kbd-min-width`             | `var(--kbd-height, var(--size-xs))`                                            | Root  |
-| `--kbd-padding-x`             | `var(--spacing-2)`                                                             | Root  |
-| `--kbd-padding-y`             | `0`                                                                            | Root  |
-| `--kbd-radius`                | `var(--radius-sm)`                                                             | Root  |
-| `--kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--color-foreground) 12%, transparent)` | Root  |
+| Variable                             | Default                                                                               | Part  |
+| ------------------------------------ | ------------------------------------------------------------------------------------- | ----- |
+| `--moduix-kbd-bg`                    | `var(--moduix-color-muted)`                                                           | Root  |
+| `--moduix-kbd-border-color`          | `var(--moduix-color-border)`                                                          | Root  |
+| `--moduix-kbd-border-width`          | `var(--moduix-border-width-sm)`                                                       | Root  |
+| `--moduix-kbd-color`                 | `var(--moduix-color-foreground)`                                                      | Root  |
+| `--moduix-kbd-font-family`           | `var(--moduix-font-mono)`                                                             | Root  |
+| `--moduix-kbd-font-size`             | `var(--moduix-text-xs)`                                                               | Root  |
+| `--moduix-kbd-font-weight`           | `var(--moduix-weight-medium)`                                                         | Root  |
+| `--moduix-kbd-group-gap`             | `var(--moduix-spacing-1)`                                                             | Group |
+| `--moduix-kbd-group-separator-color` | `var(--moduix-color-muted-foreground)`                                                | Group |
+| `--moduix-kbd-height`                | `var(--moduix-size-xs)`                                                               | Root  |
+| `--moduix-kbd-line-height`           | `var(--moduix-line-height-text-xs)`                                                   | Root  |
+| `--moduix-kbd-min-width`             | `var(--moduix-kbd-height, var(--moduix-size-xs))`                                     | Root  |
+| `--moduix-kbd-padding-x`             | `var(--moduix-spacing-2)`                                                             | Root  |
+| `--moduix-kbd-padding-y`             | `0`                                                                                   | Root  |
+| `--moduix-kbd-radius`                | `var(--moduix-radius-sm)`                                                             | Root  |
+| `--moduix-kbd-shadow`                | `inset 0 -1px 0 color-mix(in oklab, var(--moduix-color-foreground) 12%, transparent)` | Root  |
 
 ## Intentional sugar and differences from upstream
 

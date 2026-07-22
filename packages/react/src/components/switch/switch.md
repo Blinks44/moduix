@@ -144,55 +144,55 @@ export function RootProviderSwitchDemo() {
 
 Public CSS variables:
 
-| Variable                         | Default fallback                                          | Purpose                              |
-| -------------------------------- | --------------------------------------------------------- | ------------------------------------ |
-| `--switch-bg`                    | `var(--color-muted)`                                      | Unchecked background.                |
-| `--switch-bg-checked`            | `var(--color-primary)`                                    | Checked background.                  |
-| `--switch-bg-checked-hover`      | `var(--switch-bg-checked, var(--color-primary))`          | Checked hover background.            |
-| `--switch-bg-hover`              | `var(--color-accent)`                                     | Unchecked hover background.          |
-| `--switch-border-color`          | `var(--color-border)`                                     | Unchecked border color.              |
-| `--switch-border-color-checked`  | `var(--color-primary)`                                    | Checked border color.                |
-| `--switch-border-width`          | `var(--border-width-sm)`                                  | Control border width.                |
-| `--switch-disabled-opacity`      | `var(--opacity-disabled)`                                 | Disabled root opacity.               |
-| `--switch-focus-ring-color`      | `var(--color-ring)`                                       | Focus ring color.                    |
-| `--switch-focus-ring-offset`     | `var(--border-width-sm)`                                  | Focus ring offset.                   |
-| `--switch-focus-ring-width`      | `var(--focus-ring-inset-width, var(--border-width-sm))`   | Focus ring width.                    |
-| `--switch-gap`                   | `var(--spacing-2)`                                        | Gap between control and label.       |
-| `--switch-height-xs`             | `1rem`                                                    | Control height for `size="xs"`.      |
-| `--switch-height-sm`             | `1.25rem`                                                 | Control height for `size="sm"`.      |
-| `--switch-height-md`             | `var(--size-xs)`                                          | Control height for `size="md"`.      |
-| `--switch-height-lg`             | `1.75rem`                                                 | Control height for `size="lg"`.      |
-| `--switch-height-xl`             | `var(--size-sm)`                                          | Control height for `size="xl"`.      |
-| `--switch-label-color`           | `var(--color-foreground)`                                 | Label text color.                    |
-| `--switch-label-font-size`       | `var(--text-sm)`                                          | Label font size.                     |
-| `--switch-label-font-weight`     | `var(--weight-medium)`                                    | Label font weight.                   |
-| `--switch-label-line-height`     | `var(--line-height-text-sm)`                              | Label line height.                   |
-| `--switch-padding`               | `var(--spacing-0-5)`                                      | Inner track padding.                 |
-| `--switch-radius`                | `var(--radius-full)`                                      | Control border radius.               |
-| `--switch-thumb-bg`              | `var(--color-background)`                                 | Shared thumb background fallback.    |
-| `--switch-thumb-bg-checked`      | `var(--switch-thumb-bg, var(--color-primary-foreground))` | Checked thumb background.            |
-| `--switch-thumb-bg-unchecked`    | `var(--switch-thumb-bg, var(--color-background))`         | Unchecked thumb background.          |
-| `--switch-thumb-border-color`    | `transparent`                                             | Thumb border color.                  |
-| `--switch-thumb-border-width`    | `0`                                                       | Thumb border width.                  |
-| `--switch-thumb-color`           | `var(--color-muted)`                                      | Shared thumb content color fallback. |
-| `--switch-thumb-color-checked`   | `var(--switch-thumb-color, var(--color-primary))`         | Checked thumb content color.         |
-| `--switch-thumb-color-unchecked` | `var(--switch-thumb-color, var(--color-muted))`           | Unchecked thumb content color.       |
-| `--switch-thumb-icon-size`       | `65%`                                                     | Custom thumb icon size.              |
-| `--switch-thumb-radius`          | `var(--radius-full)`                                      | Thumb border radius.                 |
-| `--switch-thumb-shadow`          | `var(--shadow-sm)`                                        | Thumb shadow.                        |
-| `--switch-thumb-size-xs`         | `var(--spacing-3)`                                        | Thumb size for `size="xs"`.          |
-| `--switch-thumb-size-sm`         | `var(--spacing-4)`                                        | Thumb size for `size="sm"`.          |
-| `--switch-thumb-size-md`         | `var(--spacing-5)`                                        | Thumb size for `size="md"`.          |
-| `--switch-thumb-size-lg`         | `var(--size-xs)`                                          | Thumb size for `size="lg"`.          |
-| `--switch-thumb-size-xl`         | `var(--spacing-7)`                                        | Thumb size for `size="xl"`.          |
-| `--switch-thumb-transition`      | `var(--switch-transition, var(--transition-default))`     | Thumb movement transition timing.    |
-| `--switch-thumb-translate`       | `var(--switch-thumb-translate-default)`                   | Checked thumb translation distance.  |
-| `--switch-transition`            | `var(--transition-default)`                               | State transition timing.             |
-| `--switch-width-xs`              | `1.75rem`                                                 | Control width for `size="xs"`.       |
-| `--switch-width-sm`              | `2.25rem`                                                 | Control width for `size="sm"`.       |
-| `--switch-width-md`              | `2.75rem`                                                 | Control width for `size="md"`.       |
-| `--switch-width-lg`              | `3.25rem`                                                 | Control width for `size="lg"`.       |
-| `--switch-width-xl`              | `3.75rem`                                                 | Control width for `size="xl"`.       |
+| Variable                                | Default fallback                                                        | Purpose                              |
+| --------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------ |
+| `--moduix-switch-bg`                    | `var(--moduix-color-muted)`                                             | Unchecked background.                |
+| `--moduix-switch-bg-checked`            | `var(--moduix-color-primary)`                                           | Checked background.                  |
+| `--moduix-switch-bg-checked-hover`      | `var(--moduix-switch-bg-checked, var(--moduix-color-primary))`          | Checked hover background.            |
+| `--moduix-switch-bg-hover`              | `var(--moduix-color-accent)`                                            | Unchecked hover background.          |
+| `--moduix-switch-border-color`          | `var(--moduix-color-border)`                                            | Unchecked border color.              |
+| `--moduix-switch-border-color-checked`  | `var(--moduix-color-primary)`                                           | Checked border color.                |
+| `--moduix-switch-border-width`          | `var(--moduix-border-width-sm)`                                         | Control border width.                |
+| `--moduix-switch-disabled-opacity`      | `var(--moduix-opacity-disabled)`                                        | Disabled root opacity.               |
+| `--moduix-switch-focus-ring-color`      | `var(--moduix-color-ring)`                                              | Focus ring color.                    |
+| `--moduix-switch-focus-ring-offset`     | `var(--moduix-border-width-sm)`                                         | Focus ring offset.                   |
+| `--moduix-switch-focus-ring-width`      | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))`   | Focus ring width.                    |
+| `--moduix-switch-gap`                   | `var(--moduix-spacing-2)`                                               | Gap between control and label.       |
+| `--moduix-switch-height-xs`             | `1rem`                                                                  | Control height for `size="xs"`.      |
+| `--moduix-switch-height-sm`             | `1.25rem`                                                               | Control height for `size="sm"`.      |
+| `--moduix-switch-height-md`             | `var(--moduix-size-xs)`                                                 | Control height for `size="md"`.      |
+| `--moduix-switch-height-lg`             | `1.75rem`                                                               | Control height for `size="lg"`.      |
+| `--moduix-switch-height-xl`             | `var(--moduix-size-sm)`                                                 | Control height for `size="xl"`.      |
+| `--moduix-switch-label-color`           | `var(--moduix-color-foreground)`                                        | Label text color.                    |
+| `--moduix-switch-label-font-size`       | `var(--moduix-text-sm)`                                                 | Label font size.                     |
+| `--moduix-switch-label-font-weight`     | `var(--moduix-weight-medium)`                                           | Label font weight.                   |
+| `--moduix-switch-label-line-height`     | `var(--moduix-line-height-text-sm)`                                     | Label line height.                   |
+| `--moduix-switch-padding`               | `var(--moduix-spacing-0-5)`                                             | Inner track padding.                 |
+| `--moduix-switch-radius`                | `var(--moduix-radius-full)`                                             | Control border radius.               |
+| `--moduix-switch-thumb-bg`              | `var(--moduix-color-background)`                                        | Shared thumb background fallback.    |
+| `--moduix-switch-thumb-bg-checked`      | `var(--moduix-switch-thumb-bg, var(--moduix-color-primary-foreground))` | Checked thumb background.            |
+| `--moduix-switch-thumb-bg-unchecked`    | `var(--moduix-switch-thumb-bg, var(--moduix-color-background))`         | Unchecked thumb background.          |
+| `--moduix-switch-thumb-border-color`    | `transparent`                                                           | Thumb border color.                  |
+| `--moduix-switch-thumb-border-width`    | `0`                                                                     | Thumb border width.                  |
+| `--moduix-switch-thumb-color`           | `var(--moduix-color-muted)`                                             | Shared thumb content color fallback. |
+| `--moduix-switch-thumb-color-checked`   | `var(--moduix-switch-thumb-color, var(--moduix-color-primary))`         | Checked thumb content color.         |
+| `--moduix-switch-thumb-color-unchecked` | `var(--moduix-switch-thumb-color, var(--moduix-color-muted))`           | Unchecked thumb content color.       |
+| `--moduix-switch-thumb-icon-size`       | `65%`                                                                   | Custom thumb icon size.              |
+| `--moduix-switch-thumb-radius`          | `var(--moduix-radius-full)`                                             | Thumb border radius.                 |
+| `--moduix-switch-thumb-shadow`          | `var(--moduix-shadow-sm)`                                               | Thumb shadow.                        |
+| `--moduix-switch-thumb-size-xs`         | `var(--moduix-spacing-3)`                                               | Thumb size for `size="xs"`.          |
+| `--moduix-switch-thumb-size-sm`         | `var(--moduix-spacing-4)`                                               | Thumb size for `size="sm"`.          |
+| `--moduix-switch-thumb-size-md`         | `var(--moduix-spacing-5)`                                               | Thumb size for `size="md"`.          |
+| `--moduix-switch-thumb-size-lg`         | `var(--moduix-size-xs)`                                                 | Thumb size for `size="lg"`.          |
+| `--moduix-switch-thumb-size-xl`         | `var(--moduix-spacing-7)`                                               | Thumb size for `size="xl"`.          |
+| `--moduix-switch-thumb-transition`      | `var(--moduix-switch-transition, var(--moduix-transition-default))`     | Thumb movement transition timing.    |
+| `--moduix-switch-thumb-translate`       | `var(--moduix-switch-thumb-translate-default)`                          | Checked thumb translation distance.  |
+| `--moduix-switch-transition`            | `var(--moduix-transition-default)`                                      | State transition timing.             |
+| `--moduix-switch-width-xs`              | `1.75rem`                                                               | Control width for `size="xs"`.       |
+| `--moduix-switch-width-sm`              | `2.25rem`                                                               | Control width for `size="sm"`.       |
+| `--moduix-switch-width-md`              | `2.75rem`                                                               | Control width for `size="md"`.       |
+| `--moduix-switch-width-lg`              | `3.25rem`                                                               | Control width for `size="lg"`.       |
+| `--moduix-switch-width-xl`              | `3.75rem`                                                               | Control width for `size="xl"`.       |
 
 Hover colors apply only when a switch is neither disabled nor read-only.
 
@@ -204,7 +204,7 @@ Hover colors apply only when a switch is neither disabled nor read-only.
   hidden inputs, and custom composition visible in consumer code.
 - moduix re-exports Ark state helpers through `Switch.Context`, `useSwitchContext`, and `useSwitch`
   without wrapping or translating their contracts.
-- Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--switch-*` variables are
+- Styling is not unstyled: CSS Modules, `data-slot`, `data-size`, and `--moduix-switch-*` variables are
   part of the public wrapper contract.
 - Flat legacy exports (`SwitchThumb`, `SwitchField`, `SwitchLabel`) and legacy host props
   (`render`, `nativeButton`) are intentionally removed.

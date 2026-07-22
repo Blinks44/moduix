@@ -1,0 +1,227 @@
+---
+title: Angle Slider
+component: angle-slider
+description: A circular control for selecting an angle from 0 to 360 degrees.
+---
+
+import * as AngleSliderDocs from '@/components/examples/angle-slider';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
+
+## Choosing the right component
+
+Use `AngleSlider` when users should manipulate a direction or rotation directly on a circular dial.
+
+- Choose **`AngleSlider`** for rotation, heading, spotlight direction, or other angular values.
+- Choose **`Slider`** when the value is better understood on a linear range.
+- Choose **`NumberInput`** when exact typed degree entry matters more than direct manipulation.
+
+## Basic
+
+Start with the smallest useful composition: `Dial`. Add a visible `Label` later, or keep
+`aria-label` on the root when the dial can stand alone.
+
+<style>{AngleSliderDocs.angleSliderBasicCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="angle-slider" />
+
+## Anatomy
+
+```text
+AngleSlider.Root
+├─ AngleSlider.Label
+├─ AngleSlider.Control
+│  ├─ AngleSlider.MarkerGroup
+│  │  └─ AngleSlider.Marker[value]
+│  └─ AngleSlider.Thumb
+└─ AngleSlider.ValueText
+```
+
+| Part                               | Role                                                                  |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `AngleSlider` / `AngleSlider.Root` | Owns uncontrolled or controlled slider state.                         |
+| `AngleSlider.RootProvider`         | Connects externally owned Ark state.                                  |
+| `AngleSlider.Label`                | Associates a visible label with the slider thumb.                     |
+| `AngleSlider.Control`              | Circular pointer interaction surface.                                 |
+| `AngleSlider.Dial`                 | Convenience wrapper that renders `Control` and `Thumb`.               |
+| `AngleSlider.MarkerGroup`          | Contains optional reference markers.                                  |
+| `AngleSlider.Marker`               | Positions a numeric marker and exposes its relation to current value. |
+| `AngleSlider.Marks`                | Convenience wrapper that renders `MarkerGroup` and `Marker` items.    |
+| `AngleSlider.Thumb`                | Focusable slider handle and rotating angle indicator.                 |
+| `AngleSlider.ValueText`            | Renders the current value as degree text.                             |
+
+## Composition
+
+### Recommended composition
+
+Start with `Dial`, then add only the parts that match the job:
+
+- add `Label` or keep `aria-label` for accessible naming
+- add `Marks` when users need reference points around the dial
+- add `ValueText` when the numeric angle should stay visible
+- set `name` when the angle should participate in native form submission
+
+### When to go custom
+
+Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` parts when the dial needs custom
+children, per-marker props, or nonstandard ordering. Use `useAngleSlider()` from `@moduix/react`
+with `AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
+Import context parts and uncommon state hooks directly from `@ark-ui/react/angle-slider` as an
+escape hatch. Do not render `Root` and `RootProvider` for the same state instance.
+
+Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
+keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
+shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
+
+### Default props
+
+| Prop           | Default | Notes                                      |
+| -------------- | ------- | ------------------------------------------ |
+| `defaultValue` | `0`     | Initial uncontrolled angle                 |
+| `step`         | `1`     | Keyboard and pointer value increment       |
+| `disabled`     | `false` | Prevents focus and interaction             |
+| `readOnly`     | `false` | Keeps the value visible but non-editable   |
+| `invalid`      | `false` | Exposes invalid state for ARIA and styling |
+
+### Behavioral notes
+
+- `value` is a single number; `onValueChange(details)` and `onValueChangeEnd(details)` preserve Ark
+  callback objects with `details.value` and `details.valueAsDegree`.
+- The thumb supports Ark slider keyboard behavior and pointer dragging around the circular control.
+- `AngleSlider.Marks` renders the same marker DOM and styling hooks as explicit `MarkerGroup` /
+  `Marker` composition.
+- `Root` and `RootProvider` render the native form input automatically. Set `name` for form
+  submission; reset synchronization remains active without adding another component part.
+- `ValueText` renders Ark's degree string when no custom children are provided.
+- `data-disabled`, `data-invalid`, `data-readonly`, marker `data-state`, `--value`, `--angle`,
+  `--marker-value`, and `--marker-display-value` remain available for styling.
+
+## Examples
+
+### Controlled
+
+Use controlled state when the angle must stay synchronized with application state.
+
+<style>{AngleSliderDocs.angleSliderControlledCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/controlled.tsx"
+
+```
+
+### Disabled
+
+Use `disabled` when the control must be unavailable and excluded from interaction.
+
+<style>{AngleSliderDocs.angleSliderDisabledCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/disabled.tsx"
+
+```
+
+### In a Form
+
+Add `name` when the angle must participate in native form submission or reset. moduix renders the
+native form input automatically.
+
+<style>{AngleSliderDocs.angleSliderFormCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/form.tsx"
+
+```
+
+### Invalid
+
+Use `invalid` when the selected angle fails validation and the dial should expose error styling and
+ARIA state without changing the interaction model.
+
+<style>{AngleSliderDocs.angleSliderInvalidCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/invalid.tsx"
+
+```
+
+### Read Only
+
+Use `readOnly` when the current value should remain focusable and visible without allowing edits.
+
+<style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/read-only.tsx"
+
+```
+
+### Root Provider
+
+Use `useAngleSlider()` from `@moduix/react` with `AngleSlider.RootProvider` when another control
+needs direct access to the same state machine.
+
+<style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/root-provider.tsx"
+
+```
+
+### Steps
+
+Use `step` to snap pointer and keyboard interaction to a discrete angular increment.
+
+<style>{AngleSliderDocs.angleSliderStepCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/steps.tsx"
+
+```
+
+### With Marks
+
+Use `AngleSlider.Marks` when the dial should show common reference angles without repeating
+`MarkerGroup` and `Marker` boilerplate. `AngleSlider.Dial` keeps the `Control` and `Thumb`
+composition in place.
+
+<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/with-marks.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `AngleSlider.Dial` and `AngleSlider.Marks` when the dial needs custom marker composition or
+extra children inside the control.
+
+<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+
+```tsx preview file="./_snippets/angle-slider/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Style the component through `className`, stable `data-slot="angle-slider-*"` hooks, Ark
+`data-scope="angle-slider"` / `data-part` attributes, state attributes, and the public CSS
+variables below.
+
+### CSS Properties
+
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
+
+### Styling hooks
+
+- `data-slot="angle-slider-root"` and `data-slot="angle-slider-root-provider"` own shared layout.
+- `data-slot="angle-slider-control"` owns the dial and receives `data-disabled`, `data-invalid`,
+  and `data-readonly`.
+- `data-slot="angle-slider-thumb"` owns the focusable rotating indicator and can be targeted with
+  `:focus-visible`.
+- `data-slot="angle-slider-marker"` exposes `data-value` and
+  `data-state="under-value | at-value | over-value"`.
+- `AngleSlider.Marks` renders the same `data-slot="angle-slider-marker-group"` and
+  `data-slot="angle-slider-marker"` hooks as the explicit marker parts.
+- Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
+  `--marker-display-value` are preserved.

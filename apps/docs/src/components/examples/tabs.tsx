@@ -1,151 +1,184 @@
-import { Tabs, useTabs } from '@moduix/react';
-import { clsx } from 'clsx';
-import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './tabs.module.css';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-const tabsItems = [
-  {
-    value: 'overview',
-    title: 'Overview',
-    content:
-      'Review project status, team velocity, workloads and activity highlights in one place.',
-  },
-  {
-    value: 'projects',
-    title: 'Projects',
-    content:
-      'Track active workstreams, owners and milestones across all departments and align delivery timelines.',
-  },
-  {
-    value: 'account',
-    title: 'Account',
-    content: 'Manage personal settings, team settings, notifications and access preferences.',
-  },
-];
-
-export const tabsItemsData = `const items = [
-  {
-    value: "overview",
-    title: "Overview",
-    content:
-      "Review project status, team velocity, workloads and activity highlights in one place.",
-  },
-  {
-    value: "projects",
-    title: "Projects",
-    content:
-      "Track active workstreams, owners and milestones across all departments and align delivery timelines.",
-  },
-  {
-    value: "account",
-    title: "Account",
-    content: "Manage personal settings, team settings, notifications and access preferences.",
-  },
-];`;
-
-export const tabsExampleCss = `.tabs-demo {
-  width: 22rem;
-}
-
-@media (min-width: 32rem) {
-  .tabs-demo {
-    width: 32rem;
+export const tabsExampleCss = `
+  .tabs-demo-selected {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
-}`;
+`;
 
-export const tabsOverrideCssProperties: CssPropertyInput[] = [
-  ['--tabs-bg', 'var(--color-background)', 'Controls the content background color.'],
-  ['--tabs-border-color', 'var(--color-border)', 'Controls the content border color.'],
-  ['--tabs-border-width', 'var(--border-width-sm)', 'Controls the content border width.'],
-  ['--tabs-color', 'var(--color-foreground)', 'Controls the root text color.'],
+const tabsOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-tabs-bg', 'var(--moduix-color-background)', 'Controls the content background color.'],
   [
-    '--tabs-focus-ring-color',
-    'var(--color-ring)',
+    '--moduix-tabs-border-color',
+    'var(--moduix-color-border)',
+    'Controls the content border color.',
+  ],
+  [
+    '--moduix-tabs-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls the content border width.',
+  ],
+  ['--moduix-tabs-color', 'var(--moduix-color-foreground)', 'Controls the root text color.'],
+  [
+    '--moduix-tabs-focus-ring-color',
+    'var(--moduix-color-ring)',
     'Controls trigger and content focus ring color.',
   ],
-  ['--tabs-focus-ring-offset', '0', 'Controls trigger focus ring offset.'],
+  ['--moduix-tabs-focus-ring-offset', '0', 'Controls trigger focus ring offset.'],
   [
-    '--tabs-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-tabs-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls trigger and content focus ring width.',
   ],
-  ['--tabs-gap', 'var(--spacing-3)', 'Controls spacing between the tab list and content.'],
-  ['--tabs-indicator-bg', 'var(--color-background)', 'Controls the indicator background.'],
-  ['--tabs-indicator-radius', 'var(--radius-md)', 'Controls the indicator radius.'],
-  ['--tabs-indicator-shadow', 'var(--shadow-sm)', 'Controls the filled indicator shadow.'],
-  ['--tabs-indicator-size', 'var(--spacing-8)', 'Controls the filled indicator thickness.'],
   [
-    '--tabs-indicator-transition',
-    'var(--transition-default)',
+    '--moduix-tabs-gap',
+    'var(--moduix-spacing-3)',
+    'Controls spacing between the tab list and content.',
+  ],
+  [
+    '--moduix-tabs-indicator-bg',
+    'var(--moduix-color-background)',
+    'Controls the indicator background.',
+  ],
+  ['--moduix-tabs-indicator-radius', 'var(--moduix-radius-md)', 'Controls the indicator radius.'],
+  [
+    '--moduix-tabs-indicator-shadow',
+    'var(--moduix-shadow-sm)',
+    'Controls the filled indicator shadow.',
+  ],
+  [
+    '--moduix-tabs-indicator-size',
+    'var(--moduix-spacing-8)',
+    'Controls the filled indicator thickness.',
+  ],
+  [
+    '--moduix-tabs-indicator-transition',
+    'var(--moduix-transition-default)',
     'Controls the filled indicator movement transition.',
   ],
   [
-    '--tabs-line-indicator-bg',
-    'var(--tabs-tab-color-active, var(--color-foreground))',
+    '--moduix-tabs-line-indicator-bg',
+    'var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground))',
     'Controls the line indicator color.',
   ],
-  ['--tabs-line-indicator-radius', 'var(--radius-full)', 'Controls the line indicator radius.'],
-  ['--tabs-line-indicator-size', 'var(--spacing-0-5)', 'Controls the line indicator thickness.'],
   [
-    '--tabs-line-indicator-transition',
-    'var(--transition-default)',
+    '--moduix-tabs-line-indicator-radius',
+    'var(--moduix-radius-full)',
+    'Controls the line indicator radius.',
+  ],
+  [
+    '--moduix-tabs-line-indicator-size',
+    'var(--moduix-spacing-0-5)',
+    'Controls the line indicator thickness.',
+  ],
+  [
+    '--moduix-tabs-line-indicator-transition',
+    'var(--moduix-transition-default)',
     'Controls the line indicator movement transition.',
   ],
-  ['--tabs-list-bg', 'var(--color-muted)', 'Controls the tab list background color.'],
-  ['--tabs-list-border-color', 'var(--color-border)', 'Controls the tab list border color.'],
-  ['--tabs-list-border-width', 'var(--border-width-sm)', 'Controls the tab list border width.'],
-  ['--tabs-list-gap', 'var(--spacing-1)', 'Controls spacing between triggers.'],
-  ['--tabs-list-padding', 'var(--spacing-1)', 'Controls the tab list padding.'],
+  ['--moduix-tabs-list-bg', 'var(--moduix-color-muted)', 'Controls the tab list background color.'],
   [
-    '--tabs-list-padding-x',
-    'var(--tabs-list-padding, var(--spacing-1))',
+    '--moduix-tabs-list-border-color',
+    'var(--moduix-color-border)',
+    'Controls the tab list border color.',
+  ],
+  [
+    '--moduix-tabs-list-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls the tab list border width.',
+  ],
+  ['--moduix-tabs-list-gap', 'var(--moduix-spacing-1)', 'Controls spacing between triggers.'],
+  ['--moduix-tabs-list-padding', 'var(--moduix-spacing-1)', 'Controls the tab list padding.'],
+  [
+    '--moduix-tabs-list-padding-x',
+    'var(--moduix-tabs-list-padding, var(--moduix-spacing-1))',
     'Controls the tab list horizontal padding.',
   ],
   [
-    '--tabs-list-padding-y',
-    'var(--tabs-list-padding, var(--spacing-1))',
+    '--moduix-tabs-list-padding-y',
+    'var(--moduix-tabs-list-padding, var(--moduix-spacing-1))',
     'Controls the tab list vertical padding.',
   ],
   [
-    '--tabs-panel-color',
-    'var(--tabs-color, var(--color-foreground))',
+    '--moduix-tabs-panel-color',
+    'var(--moduix-tabs-color, var(--moduix-color-foreground))',
     'Controls content text color.',
   ],
-  ['--tabs-panel-font-size', 'var(--text-sm)', 'Controls content text font size.'],
-  ['--tabs-panel-line-height', 'var(--line-height-text-sm)', 'Controls content line height.'],
+  ['--moduix-tabs-panel-font-size', 'var(--moduix-text-sm)', 'Controls content text font size.'],
   [
-    '--tabs-panel-focus-ring-offset',
-    'var(--focus-ring-inset-offset)',
+    '--moduix-tabs-panel-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls content line height.',
+  ],
+  [
+    '--moduix-tabs-panel-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls content focus ring offset.',
   ],
-  ['--tabs-panel-padding', 'var(--spacing-4)', 'Controls content padding.'],
-  ['--tabs-radius', 'var(--radius-lg)', 'Controls the tab list and content border radius.'],
-  ['--tabs-tab-color', 'var(--color-muted-foreground)', 'Controls inactive trigger text color.'],
-  ['--tabs-tab-color-active', 'var(--color-foreground)', 'Controls selected trigger text color.'],
+  ['--moduix-tabs-panel-padding', 'var(--moduix-spacing-4)', 'Controls content padding.'],
   [
-    '--tabs-tab-color-hover',
-    'var(--tabs-tab-color-active, var(--color-foreground))',
+    '--moduix-tabs-radius',
+    'var(--moduix-radius-lg)',
+    'Controls the tab list and content border radius.',
+  ],
+  [
+    '--moduix-tabs-tab-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls inactive trigger text color.',
+  ],
+  [
+    '--moduix-tabs-tab-color-active',
+    'var(--moduix-color-foreground)',
+    'Controls selected trigger text color.',
+  ],
+  [
+    '--moduix-tabs-tab-color-hover',
+    'var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground))',
     'Controls hovered trigger text color.',
   ],
   [
-    '--tabs-tab-content-gap',
-    'var(--spacing-2)',
+    '--moduix-tabs-tab-content-gap',
+    'var(--moduix-spacing-2)',
     'Controls spacing between trigger icon and label.',
   ],
-  ['--tabs-tab-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
-  ['--tabs-tab-font-size', 'var(--text-sm)', 'Controls trigger text font size.'],
-  ['--tabs-tab-font-weight', 'var(--weight-medium)', 'Controls trigger text font weight.'],
-  ['--tabs-tab-height', 'var(--size-sm)', 'Controls each trigger height.'],
-  ['--tabs-tab-icon-size', 'var(--spacing-4)', 'Controls trigger icon size.'],
-  ['--tabs-tab-icon-color', 'currentColor', 'Controls trigger icon color.'],
-  ['--tabs-tab-line-height', 'var(--line-height-text-sm)', 'Controls trigger text line height.'],
-  ['--tabs-tab-padding-x', 'var(--spacing-2-5)', 'Controls each trigger horizontal padding.'],
-  ['--tabs-tab-radius', 'var(--radius-md)', 'Controls each trigger border radius.'],
-  ['--tabs-tab-transition', 'var(--transition-default)', 'Controls trigger text color transition.'],
-  ['--tabs-vertical-list-width', '12rem', 'Controls the list width in vertical orientation.'],
+  [
+    '--moduix-tabs-tab-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled trigger opacity.',
+  ],
+  ['--moduix-tabs-tab-font-size', 'var(--moduix-text-sm)', 'Controls trigger text font size.'],
+  [
+    '--moduix-tabs-tab-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls trigger text font weight.',
+  ],
+  ['--moduix-tabs-tab-height', 'var(--moduix-size-sm)', 'Controls each trigger height.'],
+  ['--moduix-tabs-tab-icon-size', 'var(--moduix-spacing-4)', 'Controls trigger icon size.'],
+  ['--moduix-tabs-tab-icon-color', 'currentColor', 'Controls trigger icon color.'],
+  [
+    '--moduix-tabs-tab-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls trigger text line height.',
+  ],
+  [
+    '--moduix-tabs-tab-padding-x',
+    'var(--moduix-spacing-2-5)',
+    'Controls each trigger horizontal padding.',
+  ],
+  ['--moduix-tabs-tab-radius', 'var(--moduix-radius-md)', 'Controls each trigger border radius.'],
+  [
+    '--moduix-tabs-tab-transition',
+    'var(--moduix-transition-default)',
+    'Controls trigger text color transition.',
+  ],
+  [
+    '--moduix-tabs-vertical-list-width',
+    '12rem',
+    'Controls the list width in vertical orientation.',
+  ],
 ];
 
 export function TabsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -158,164 +191,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-function TabsItems() {
-  return (
-    <>
-      <Tabs.List>
-        {tabsItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
-            {item.title}
-          </Tabs.Trigger>
-        ))}
-        <Tabs.Indicator />
-      </Tabs.List>
-      {tabsItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          {item.content}
-        </Tabs.Content>
-      ))}
-    </>
-  );
-}
-
-export function TabsExample(props: ComponentProps<typeof Tabs>) {
-  const { className, ...restProps } = props;
-
-  return (
-    <Tabs defaultValue="overview" className={clsx(styles.demoRoot, className)} {...restProps}>
-      <TabsItems />
-    </Tabs>
-  );
-}
-
-export function ControlledTabsExample() {
-  const [value, setValue] = useState('projects');
-
-  return (
-    <TabsExample
-      value={value}
-      onValueChange={(details) => {
-        setValue(details.value);
-      }}
-    />
-  );
-}
-
-export function VerticalTabsExample() {
-  return <TabsExample orientation="vertical" />;
-}
-
-export function ManualActivationTabsExample() {
-  return <TabsExample activationMode="manual" />;
-}
-
-export function IndicatorTabsExample() {
-  return (
-    <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <Tabs.List>
-        {tabsItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
-            {item.title}
-          </Tabs.Trigger>
-        ))}
-        <Tabs.Indicator />
-      </Tabs.List>
-      {tabsItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          {item.content}
-        </Tabs.Content>
-      ))}
-    </Tabs>
-  );
-}
-
-export function LazyMountTabsExample() {
-  return (
-    <Tabs defaultValue="overview" lazyMount unmountOnExit className={styles.demoRoot}>
-      <TabsItems />
-    </Tabs>
-  );
-}
-
-export function LineTabsExample() {
-  return <TabsExample variant="line" />;
-}
-
-export function LinkTabsExample() {
-  return (
-    <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <Tabs.List>
-        {tabsItems.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value} asChild>
-            <a href={`#${item.value}`}>{item.title}</a>
-          </Tabs.Trigger>
-        ))}
-      </Tabs.List>
-      {tabsItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          <span id={item.value}>{item.content}</span>
-        </Tabs.Content>
-      ))}
-    </Tabs>
-  );
-}
-
-export function IconTabsExample() {
-  return (
-    <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <Tabs.List>
-        <Tabs.Trigger value="overview">
-          <HandshakeIcon />
-          <span>Overview</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="projects">
-          <PresentIcon />
-          <span>Projects</span>
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">
-          <MapIcon />
-          <span>Account</span>
-        </Tabs.Trigger>
-      </Tabs.List>
-      {tabsItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          {item.content}
-        </Tabs.Content>
-      ))}
-    </Tabs>
-  );
-}
-
-export function DisabledTabTabsExample() {
-  return (
-    <Tabs defaultValue="overview" className={styles.demoRoot}>
-      <Tabs.List>
-        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-        <Tabs.Trigger value="projects" disabled>
-          Projects
-        </Tabs.Trigger>
-        <Tabs.Trigger value="account">Account</Tabs.Trigger>
-      </Tabs.List>
-      {tabsItems.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          {item.content}
-        </Tabs.Content>
-      ))}
-    </Tabs>
-  );
-}
-
-export function RootProviderTabsExample() {
-  const tabs = useTabs({ defaultValue: 'overview' });
-
-  return (
-    <div className={styles.providerStack}>
-      <output>selected: {tabs.value}</output>
-      <Tabs.RootProvider value={tabs} className={styles.demoRoot}>
-        <TabsItems />
-      </Tabs.RootProvider>
-    </div>
-  );
 }

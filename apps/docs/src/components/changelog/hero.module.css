@@ -5,22 +5,22 @@
   margin: 0 0 2rem;
   padding: clamp(1.5rem, 5vw, 3rem);
   overflow: hidden;
-  border: 1px solid var(--color-fd-border);
+  border: 1px solid var(--rp-c-divider-light);
   border-radius: 0.85rem;
   background:
     linear-gradient(
       to right,
-      color-mix(in oklab, var(--color-fd-foreground) 6%, transparent) 1px,
+      color-mix(in oklab, var(--rp-c-text-1) 6%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--color-fd-foreground) 6%, transparent) 1px,
+      color-mix(in oklab, var(--rp-c-text-1) 6%, transparent) 1px,
       transparent 1px
     ),
-    var(--color-fd-card);
+    var(--rp-c-bg-soft);
   background-size: 3.5rem 3.5rem;
-  color: var(--color-fd-foreground);
+  color: var(--rp-c-text-1);
   text-align: center;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .eyebrow {
-  color: var(--color-fd-muted-foreground);
+  color: var(--rp-c-text-2);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -66,10 +66,10 @@
   gap: 0.5rem;
   min-height: 7rem;
   padding: clamp(0.5rem, 2vw, 0.75rem);
-  border: 1px solid color-mix(in oklab, var(--color-fd-border) 84%, transparent);
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 84%, transparent);
   border-radius: 0.75rem;
-  background: color-mix(in oklab, var(--color-fd-background) 78%, var(--color-fd-card));
-  box-shadow: 0 1rem 2.5rem color-mix(in oklab, var(--color-fd-foreground) 8%, transparent);
+  background: color-mix(in oklab, var(--rp-c-bg) 78%, var(--rp-c-bg-soft));
+  box-shadow: 0 1rem 2.5rem color-mix(in oklab, var(--rp-c-text-1) 8%, transparent);
 }
 
 .content > :only-child {
@@ -92,14 +92,14 @@
   flex: none;
   width: clamp(1.2rem, 5vw, 1.8rem);
   height: clamp(1.2rem, 5vw, 1.8rem);
-  color: var(--color-fd-muted-foreground);
+  color: var(--rp-c-text-2);
   stroke-width: 1.5;
 }
 
 .summary {
   max-width: 34rem;
   margin: 0.25rem auto 0;
-  color: var(--color-fd-muted-foreground);
+  color: var(--rp-c-text-2);
   font-size: 0.9rem;
   line-height: 1.5;
 }

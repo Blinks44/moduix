@@ -142,31 +142,31 @@ state attributes and measurements.
 
 Primary CSS variables:
 
-| Variable                               | Default                                           |
-| -------------------------------------- | ------------------------------------------------- |
-| `--scroll-area-width`                  | `100%`                                            |
-| `--scroll-area-height`                 | `100%`                                            |
-| `--scroll-area-bg`                     | `transparent`                                     |
-| `--scroll-area-color`                  | `var(--color-foreground)`                         |
-| `--scroll-area-radius`                 | `var(--radius-md)`                                |
-| `--scroll-area-content-padding`        | `0`                                               |
-| `--scroll-area-fade-size`              | `var(--spacing-10)`                               |
-| `--scroll-area-fade-start-size`        | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-fade-end-size`          | `var(--scroll-area-fade-size, var(--spacing-10))` |
-| `--scroll-area-scrollbar-size`         | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-margin`       | `var(--spacing-1)`                                |
-| `--scroll-area-scrollbar-bg`           | `transparent`                                     |
-| `--scroll-area-thumb-bg`               | `var(--color-border)`                             |
-| `--scroll-area-thumb-hover-increase`   | `2px`                                             |
-| `--scroll-area-thumb-hover-transition` | `var(--transition-fast)`                          |
-| `--scroll-area-thumb-min-size`         | `var(--size-xs)`                                  |
-| `--scroll-area-corner-bg`              | `var(--scroll-area-scrollbar-bg, transparent)`    |
+| Variable                                      | Default                                                         |
+| --------------------------------------------- | --------------------------------------------------------------- |
+| `--moduix-scroll-area-width`                  | `100%`                                                          |
+| `--moduix-scroll-area-height`                 | `100%`                                                          |
+| `--moduix-scroll-area-bg`                     | `transparent`                                                   |
+| `--moduix-scroll-area-color`                  | `var(--moduix-color-foreground)`                                |
+| `--moduix-scroll-area-radius`                 | `var(--moduix-radius-md)`                                       |
+| `--moduix-scroll-area-content-padding`        | `0`                                                             |
+| `--moduix-scroll-area-fade-size`              | `var(--moduix-spacing-10)`                                      |
+| `--moduix-scroll-area-fade-start-size`        | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))` |
+| `--moduix-scroll-area-fade-end-size`          | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))` |
+| `--moduix-scroll-area-scrollbar-size`         | `var(--moduix-spacing-1)`                                       |
+| `--moduix-scroll-area-scrollbar-margin`       | `var(--moduix-spacing-1)`                                       |
+| `--moduix-scroll-area-scrollbar-bg`           | `transparent`                                                   |
+| `--moduix-scroll-area-thumb-bg`               | `var(--moduix-color-border)`                                    |
+| `--moduix-scroll-area-thumb-hover-increase`   | `2px`                                                           |
+| `--moduix-scroll-area-thumb-hover-transition` | `var(--moduix-transition-fast)`                                 |
+| `--moduix-scroll-area-thumb-min-size`         | `var(--moduix-size-xs)`                                         |
+| `--moduix-scroll-area-corner-bg`              | `var(--moduix-scroll-area-scrollbar-bg, transparent)`           |
 
 Use classes on individual parts for axis-specific customization. The bundled CSS hides each
 scrollbar when its matching Ark overflow attribute is absent. `variant="always"` keeps matching
 overflowing tracks visible and interactive. The thumb grows by `2px` across the track on hover and
 while dragging with a fast transition; customize its timing with
-`--scroll-area-thumb-hover-transition`.
+`--moduix-scroll-area-thumb-hover-transition`.
 
 ## Intentional sugar and differences from upstream
 
@@ -196,7 +196,7 @@ while dragging with a fast transition; customize its timing with
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made the 2px scrollbar growth use the fast transition token to avoid visibly stepped
-  width and height interpolation; `--scroll-area-thumb-hover-transition` customizes the timing.
+  width and height interpolation; `--moduix-scroll-area-thumb-hover-transition` customizes the timing.
 - 2026-07-11: Added `variant="always"` for persistently visible scrollbar tracks and exposed
   `useScrollArea` as `ScrollArea.useScrollArea` and a named package export for RootProvider usage.
 - 2026-07-03: Simplified the public surface to the callable root, `RootProvider`, visible scroll

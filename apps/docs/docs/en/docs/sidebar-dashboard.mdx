@@ -1,0 +1,37 @@
+---
+title: Sidebar dashboard
+description: A copy-owned desktop dashboard shell with collapsible and resizable moduix navigation.
+---
+
+import { SidebarDashboardPreview } from '@/components/blocks/sidebar-dashboard-preview';
+
+# Sidebar dashboard
+
+Start a desktop workspace with a resizable navigation sidebar and a simple dashboard overview.
+`Sidebar` owns the collapse, keyboard resize, and collapsed-nav tooltips. The Projects item also
+demonstrates nested navigation, and the footer includes a workspace menu.
+
+<ExampleFrame clientOnly>
+  <SidebarDashboardPreview />
+</ExampleFrame>
+
+```tsx file="../../../src/components/blocks/sidebar-dashboard.tsx"
+
+```
+
+```css file="../../../src/components/blocks/sidebar-dashboard.module.css"
+
+```
+
+## Install
+
+<ShadcnInstall packageName="sidebar-dashboard" itemLabel="block" />
+
+The command copies `sidebar-dashboard.tsx` and `sidebar-dashboard.module.css` into your configured
+components directory, and installs `@moduix/react` and `lucide-react` when needed.
+
+## Use in a route
+
+Replace the example anchors, labels, and dashboard content with your routes and data. This block is
+desktop-first: account menus, notifications, and mobile drawer navigation remain separate blocks so
+you can compose them only when your application needs them.

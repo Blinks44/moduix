@@ -1,61 +1,61 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     margin: 0;
-    font-family: var(--text-font-family, inherit);
-    font-size: var(--text-font-size-md, var(--text-md));
-    font-weight: var(--text-font-weight-regular, var(--weight-regular));
-    line-height: var(--text-line-height-md, var(--line-height-text-md));
-    letter-spacing: var(--text-letter-spacing, 0);
-    color: var(--text-default-color, var(--color-foreground));
+    font-family: var(--moduix-text-font-family, inherit);
+    font-size: var(--moduix-text-font-size-md, var(--moduix-text-md));
+    font-weight: var(--moduix-text-font-weight-regular, var(--moduix-weight-regular));
+    line-height: var(--moduix-text-line-height-md, var(--moduix-line-height-text-md));
+    letter-spacing: var(--moduix-text-letter-spacing, 0);
+    color: var(--moduix-text-default-color, var(--moduix-color-foreground));
     text-align: start;
     overflow-wrap: break-word;
 
     &[data-size='xs'] {
-      font-size: var(--text-font-size-xs, var(--text-xs));
-      line-height: var(--text-line-height-xs, var(--line-height-text-xs));
+      font-size: var(--moduix-text-font-size-xs, var(--moduix-text-xs));
+      line-height: var(--moduix-text-line-height-xs, var(--moduix-line-height-text-xs));
     }
 
     &[data-size='sm'] {
-      font-size: var(--text-font-size-sm, var(--text-sm));
-      line-height: var(--text-line-height-sm, var(--line-height-text-sm));
+      font-size: var(--moduix-text-font-size-sm, var(--moduix-text-sm));
+      line-height: var(--moduix-text-line-height-sm, var(--moduix-line-height-text-sm));
     }
 
     &[data-size='lg'] {
-      font-size: var(--text-font-size-lg, var(--text-lg));
-      line-height: var(--text-line-height-lg, var(--line-height-text-lg));
+      font-size: var(--moduix-text-font-size-lg, var(--moduix-text-lg));
+      line-height: var(--moduix-text-line-height-lg, var(--moduix-line-height-text-lg));
     }
 
     &[data-size='xl'] {
-      font-size: var(--text-font-size-xl, var(--text-xl));
-      line-height: var(--text-line-height-xl, var(--line-height-text-xl));
+      font-size: var(--moduix-text-font-size-xl, var(--moduix-text-xl));
+      line-height: var(--moduix-text-line-height-xl, var(--moduix-line-height-text-xl));
     }
 
     &[data-weight='medium'] {
-      font-weight: var(--text-font-weight-medium, var(--weight-medium));
+      font-weight: var(--moduix-text-font-weight-medium, var(--moduix-weight-medium));
     }
 
     &[data-weight='semibold'] {
-      font-weight: var(--text-font-weight-semibold, var(--weight-semibold));
+      font-weight: var(--moduix-text-font-weight-semibold, var(--moduix-weight-semibold));
     }
 
     &[data-weight='bold'] {
-      font-weight: var(--text-font-weight-bold, var(--weight-bold));
+      font-weight: var(--moduix-text-font-weight-bold, var(--moduix-weight-bold));
     }
 
     &[data-tone='muted'] {
-      color: var(--text-muted-color, var(--color-muted-foreground));
+      color: var(--moduix-text-muted-color, var(--moduix-color-muted-foreground));
     }
 
     &[data-tone='subtle'] {
-      color: var(--text-subtle-color, var(--color-secondary-foreground));
+      color: var(--moduix-text-subtle-color, var(--moduix-color-secondary-foreground));
     }
 
     &[data-tone='primary'] {
-      color: var(--text-primary-color, var(--color-primary));
+      color: var(--moduix-text-primary-color, var(--moduix-color-primary));
     }
 
     &[data-tone='destructive'] {
-      color: var(--text-destructive-color, var(--color-destructive));
+      color: var(--moduix-text-destructive-color, var(--moduix-color-destructive));
     }
 
     &[data-align='left'] {
@@ -81,7 +81,7 @@
       overflow: hidden;
       white-space: normal;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: var(--text-line-clamp);
+      -webkit-line-clamp: var(--moduix-text-line-clamp);
     }
   }
 }

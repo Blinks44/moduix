@@ -1,0 +1,363 @@
+---
+title: Tooltip
+component: tooltip
+description: A label that provides information on hover or focus.
+---
+
+import * as TooltipDocs from '@/components/examples/tooltip';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+
+## Choosing the right component
+
+Use `Tooltip` for short, non-essential labels or hints that appear on hover or focus.
+
+- Choose **`Tooltip`** for compact labels and short contextual hints.
+- Choose **`Popover`** when the popup needs richer layout, actions, or interactive content.
+- Choose **`HoverCard`** when the popup should expose a richer preview surface tied to a trigger.
+
+## Basic
+
+Start with `Tooltip`, `Tooltip.Trigger`, and `Tooltip.Body`. `Tooltip.Body` is the narrow shortcut
+for the common `Tooltip.Positioner + Tooltip.Content` path. Keep an accessible name on the trigger
+itself: tooltips do not replace `aria-label` or visible text.
+
+<style>{`
+      .triggerContent {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="tooltip" />
+
+## Anatomy
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         └─ content
+```
+
+Add `Tooltip.Arrow` and `Tooltip.ArrowTip` inside the content when the popup should point back to
+the trigger. `Tooltip.Arrow` renders `Tooltip.ArrowTip` by default.
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         ├─ Tooltip.Arrow
+         │  └─ Tooltip.ArrowTip
+         └─ content
+```
+
+| Part                       | Role                                                                                        |
+| -------------------------- | ------------------------------------------------------------------------------------------- |
+| `Tooltip` / `Tooltip.Root` | Root state, controlled/uncontrolled open state, delays, positioning options, and lifecycle. |
+| `Tooltip.RootProvider`     | Renders a tooltip from a `useTooltip()` state object owned outside the tree.                |
+| `Tooltip.Body`             | Convenience wrapper that renders `Tooltip.Positioner` and `Tooltip.Content` together.       |
+| `Tooltip.Trigger`          | Interactive anchor element that opens the tooltip on hover or focus.                        |
+| `Tooltip.Positioner`       | Floating layout layer that consumes Ark positioning options and runtime CSS variables.      |
+| `Tooltip.Content`          | Visible tooltip surface.                                                                    |
+| `Tooltip.Arrow`            | Optional arrow wrapper.                                                                     |
+| `Tooltip.ArrowTip`         | Arrow tip element; rendered by default from `Tooltip.Arrow`.                                |
+
+## Composition
+
+The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
+### Recommended composition
+
+Use `Tooltip.Trigger` with `Tooltip.Body` for the common path. `Tooltip.Body` keeps the root-level
+positioning API intact and renders `Tooltip.Positioner` with `Tooltip.Content` for you. Moduix also
+keeps the explicit Ark parts available when you need full structural control.
+
+If you're moving from shadcn, `Tooltip.Body` is the closest equivalent to the common
+`TooltipContent` step, while the explicit Ark parts stay available for advanced structure.
+
+### When to go custom
+
+Use `asChild` on `Tooltip.Trigger` when the trigger should be a moduix `Button`, link, or another
+semantic control. The child must remain a single focusable element that can support the trigger
+interaction.
+
+Use `positioning` on `Tooltip` for placement, strategy, offset, collision behavior, and the rest of
+Ark's floating options. Use explicit `Tooltip.Positioner` and `Tooltip.Content` when you need
+positioner-specific styling, inline context consumers that should own the content part, or a lower
+level Ark-shaped structure. Use `ids` when separate tooltip parts need stable shared IDs.
+
+### Default props
+
+| Prop                   | Default | Notes                                                             |
+| ---------------------- | ------- | ----------------------------------------------------------------- |
+| `openDelay`            | `400`   | Delay before opening on hover or focus.                           |
+| `closeDelay`           | `150`   | Delay before closing after hover or focus leaves.                 |
+| `closeOnClick`         | `true`  | Closes when the trigger is clicked.                               |
+| `closeOnEscape`        | `true`  | Closes when Escape is pressed.                                    |
+| `closeOnPointerDown`   | `true`  | Closes on pointer down.                                           |
+| `closeOnScroll`        | `true`  | Closes on scroll.                                                 |
+| `interactive`          | `false` | Keeps the tooltip open while hovering content when set to `true`. |
+| `lazyMount`            | `false` | Defers mounting until the tooltip first opens.                    |
+| `unmountOnExit`        | `false` | Unmounts content after exit when enabled.                         |
+| `skipAnimationOnMount` | `false` | Allows the first presence animation unless explicitly skipped.    |
+
+### Behavioral notes
+
+- Controlled state uses Ark's `open` and `onOpenChange(details)` shape. Read `details.open`.
+- `defaultOpen` provides uncontrolled initial state, while `disabled` turns off tooltip
+  interaction without changing the trigger's own semantics.
+- Ark presence props such as `present`, `immediate`, `onExitComplete`, `lazyMount`, and
+  `unmountOnExit` pass through unchanged.
+- `Tooltip.RootProvider`, `useTooltip`, and `useTooltipContext` are available from `@moduix/react`
+  for external or inline advanced state access.
+- `Tooltip.Trigger` receives the moduix trigger skin only when `asChild` is not used. With
+  `asChild`, styling belongs to the child element.
+- `Tooltip.Body` forwards content props and children to `Tooltip.Content`. It does not introduce a
+  new DOM part or a separate positioning prop surface.
+- `Tooltip.Content` owns the visible surface and z-index. `Tooltip.Positioner` owns floating
+  layout and exposes Ark variables such as `--available-width`, `--available-height`, and
+  `--transform-origin`.
+- Ark emits `data-state="open" | "closed"` on trigger and content; `data-value`, `data-current`,
+  and `data-expanded` on trigger; and placement attributes such as `data-placement` and
+  `data-side` on content.
+
+## Examples
+
+### Arrow
+
+Render `Tooltip.Arrow` as the first child of `Tooltip.Content` when the surface needs a pointer.
+The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
+
+<style>{`      /* The default moduix tooltip styles are used. */`}</style>
+
+```tsx preview file="./_snippets/tooltip/arrow.tsx"
+
+```
+
+### Controlled
+
+Control open state with `open` and `onOpenChange(details)`.
+
+<style>{`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/controlled.tsx"
+
+```
+
+### Context
+
+Use moduix `useTooltipContext()` when content needs inline access to the current tooltip state.
+
+<style>{`      /* The default moduix tooltip styles are used. */`}</style>
+
+```tsx preview file="./_snippets/tooltip/context.tsx"
+
+```
+
+### Delay
+
+Use `openDelay` and `closeDelay` on the root to tune hover and focus timing.
+
+<style>{`      /* The default moduix tooltip styles are used. */`}</style>
+
+```tsx preview file="./_snippets/tooltip/delay.tsx"
+
+```
+
+### Multiple Triggers
+
+Use trigger `value` and `onTriggerValueChange(details)` to drive one tooltip from several
+triggers.
+
+<style>{`
+      .toolbar {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--moduix-border-width-sm);
+        padding: var(--moduix-spacing-1);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background: var(--moduix-color-muted);
+      }
+
+      .icon {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .shortcut {
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-xs);
+        line-height: var(--moduix-line-height-text-xs);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/multiple-triggers.tsx"
+
+```
+
+### Positioning
+
+Pass Ark positioning options to `Tooltip`, including placement and offset values.
+
+<style>{`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .sideButtons {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--moduix-spacing-1);
+        padding: var(--moduix-spacing-1);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background: var(--moduix-color-muted);
+      }
+
+      .sideButton {
+        min-width: 4.75rem;
+        min-height: 2rem;
+        padding: 0 var(--moduix-spacing-3);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-sm);
+        background: var(--moduix-color-background);
+        color: var(--moduix-color-foreground);
+        font: inherit;
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+        font-weight: var(--moduix-weight-medium);
+        text-transform: capitalize;
+        cursor: pointer;
+
+        &[data-active] {
+          background: var(--moduix-color-primary);
+          color: var(--moduix-color-primary-foreground);
+        }
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/positioning.tsx"
+
+```
+
+### Root Provider
+
+Use moduix `useTooltip()` with `Tooltip.RootProvider` when tooltip state must be owned outside the
+rendered tooltip subtree.
+
+<style>{`
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .output {
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/root-provider.tsx"
+
+```
+
+### Within Fixed Containers
+
+Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixed-position layout.
+
+<style>{`
+      .fixedContainer {
+        display: grid;
+        place-items: center;
+        min-width: 16rem;
+        min-height: 8rem;
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background: var(--moduix-color-muted);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tooltip/within-fixed-containers.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Tooltip.Body` when the positioner or content needs independent composition or styling.
+
+<style>{`      /* The default moduix tooltip styles are used. */`}</style>
+
+```tsx preview file="./_snippets/tooltip/advanced-customization.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TooltipDocs.TooltipCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Use the part that owns the visual concern:
+
+- `Tooltip.Body` does not create its own DOM node; style `Tooltip.Positioner` and
+  `Tooltip.Content` when you switch to the explicit path.
+- `Tooltip.Trigger` for trigger chrome, hover/open feedback, and focus styling.
+- `Tooltip.Positioner` for floating layout constraints.
+- `Tooltip.Content` for popup surface overrides.
+- `Tooltip.Arrow` and `Tooltip.ArrowTip` for arrow size, background, and stroke.
+
+The main public hooks are `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
+`data-slot="tooltip-content"`, `data-slot="tooltip-arrow"`, and
+`data-slot="tooltip-arrow-tip"`.
+
+Ark also adds `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`,
+`data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement`, and `data-side`
+on the relevant parts. The positioner exposes runtime CSS variables including
+`--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`,
+`--y`, `--z-index`, and `--transform-origin`.

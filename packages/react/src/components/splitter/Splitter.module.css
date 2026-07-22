@@ -1,17 +1,17 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     position: relative;
     box-sizing: border-box;
     display: flex;
-    min-width: var(--splitter-min-width, 0);
-    min-height: var(--splitter-min-height, 0);
+    min-width: var(--moduix-splitter-min-width, 0);
+    min-height: var(--moduix-splitter-min-height, 0);
     overflow: hidden;
-    border: var(--splitter-border-width, var(--border-width-sm)) solid
-      var(--splitter-border-color, var(--color-border));
-    border-radius: var(--splitter-radius, var(--radius-md));
-    background-color: var(--splitter-bg, var(--color-card));
-    color: var(--splitter-color, var(--color-foreground));
-    box-shadow: var(--splitter-shadow, var(--shadow-sm));
+    border: var(--moduix-splitter-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-splitter-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-splitter-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-splitter-bg, var(--moduix-color-card));
+    color: var(--moduix-splitter-color, var(--moduix-color-foreground));
+    box-shadow: var(--moduix-splitter-shadow, var(--moduix-shadow-sm));
 
     &[data-orientation='vertical'] {
       flex-direction: column;
@@ -28,16 +28,16 @@
 
   .panel {
     box-sizing: border-box;
-    min-width: var(--splitter-panel-min-width, 0);
-    min-height: var(--splitter-panel-min-height, 12.5rem);
-    padding: var(--splitter-panel-padding, var(--spacing-4));
+    min-width: var(--moduix-splitter-panel-min-width, 0);
+    min-height: var(--moduix-splitter-panel-min-height, 12.5rem);
+    padding: var(--moduix-splitter-panel-padding, var(--moduix-spacing-4));
     overflow: auto;
-    border: var(--splitter-panel-border-width, 0) solid
-      var(--splitter-panel-border-color, var(--color-border));
-    border-radius: var(--splitter-panel-radius, 0);
-    background-color: var(--splitter-panel-bg, var(--color-card));
-    color: var(--splitter-panel-color, var(--color-card-foreground));
-    box-shadow: var(--splitter-panel-shadow, none);
+    border: var(--moduix-splitter-panel-border-width, 0) solid
+      var(--moduix-splitter-panel-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-splitter-panel-radius, 0);
+    background-color: var(--moduix-splitter-panel-bg, var(--moduix-color-card));
+    color: var(--moduix-splitter-panel-color, var(--moduix-color-card-foreground));
+    box-shadow: var(--moduix-splitter-panel-shadow, none);
 
     &[data-dragging] {
       user-select: none;
@@ -45,7 +45,7 @@
   }
 
   .root[data-orientation='vertical'] > .panel {
-    min-height: var(--splitter-panel-min-height-vertical, 0);
+    min-height: var(--moduix-splitter-panel-min-height-vertical, 0);
   }
 
   .resizeTrigger {
@@ -53,36 +53,39 @@
     z-index: 1;
     box-sizing: border-box;
     display: flex;
-    flex: 0 0 var(--splitter-resize-trigger-line-size, 1px);
+    flex: 0 0 var(--moduix-splitter-resize-trigger-line-size, 1px);
     align-items: center;
     justify-content: center;
-    width: var(--splitter-resize-trigger-line-size, 1px);
-    min-width: var(--splitter-resize-trigger-line-size, 1px);
+    width: var(--moduix-splitter-resize-trigger-line-size, 1px);
+    min-width: var(--moduix-splitter-resize-trigger-line-size, 1px);
     padding: 0;
     border: 0;
-    background-color: var(--splitter-resize-trigger-bg, transparent);
+    background-color: var(--moduix-splitter-resize-trigger-bg, transparent);
     appearance: none;
     cursor: col-resize;
     outline: 0;
     touch-action: none;
-    transition: opacity var(--splitter-transition, var(--transition-default));
+    transition: opacity var(--moduix-splitter-transition, var(--moduix-transition-default));
 
     &::before {
       position: absolute;
-      width: var(--splitter-resize-trigger-line-thickness, 0.5px);
-      height: var(--splitter-resize-trigger-line-length, 100%);
-      border-radius: var(--splitter-resize-trigger-line-radius, var(--radius-full));
-      background-color: var(--splitter-resize-trigger-line-color, var(--color-border));
+      width: var(--moduix-splitter-resize-trigger-line-thickness, 0.5px);
+      height: var(--moduix-splitter-resize-trigger-line-length, 100%);
+      border-radius: var(--moduix-splitter-resize-trigger-line-radius, var(--moduix-radius-full));
+      background-color: var(
+        --moduix-splitter-resize-trigger-line-color,
+        var(--moduix-color-border)
+      );
       content: '';
       transition:
-        background-color var(--splitter-transition, var(--transition-default)),
-        opacity var(--splitter-transition, var(--transition-default));
+        background-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
+        opacity var(--moduix-splitter-transition, var(--moduix-transition-default));
     }
 
     &::after {
       position: absolute;
       z-index: 1;
-      width: var(--splitter-resize-trigger-size, var(--spacing-2-5));
+      width: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
       height: 100%;
       content: '';
     }
@@ -90,29 +93,29 @@
     &[data-orientation='vertical'] {
       width: 100%;
       min-width: 0;
-      height: var(--splitter-resize-trigger-line-size, 1px);
-      min-height: var(--splitter-resize-trigger-line-size, 1px);
+      height: var(--moduix-splitter-resize-trigger-line-size, 1px);
+      min-height: var(--moduix-splitter-resize-trigger-line-size, 1px);
       cursor: row-resize;
 
       &::before {
-        width: var(--splitter-resize-trigger-line-length, 100%);
-        height: var(--splitter-resize-trigger-line-thickness, 0.5px);
+        width: var(--moduix-splitter-resize-trigger-line-length, 100%);
+        height: var(--moduix-splitter-resize-trigger-line-thickness, 0.5px);
       }
 
       &::after {
         width: 100%;
-        height: var(--splitter-resize-trigger-size, var(--spacing-2-5));
+        height: var(--moduix-splitter-resize-trigger-size, var(--moduix-spacing-2-5));
       }
     }
 
     &[data-dragging] {
       &::before {
         background-color: var(
-          --splitter-resize-trigger-line-color-dragging,
+          --moduix-splitter-resize-trigger-line-color-dragging,
           color-mix(
             in oklab,
-            var(--splitter-resize-trigger-line-color, var(--color-border)) 72%,
-            var(--color-muted-foreground)
+            var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
+            var(--moduix-color-muted-foreground)
           )
         );
       }
@@ -120,7 +123,7 @@
 
     &[data-disabled] {
       cursor: default;
-      opacity: var(--splitter-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-splitter-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -128,11 +131,11 @@
     .resizeTrigger:hover:not(:disabled, [data-disabled]) {
       &::before {
         background-color: var(
-          --splitter-resize-trigger-line-color-hover,
+          --moduix-splitter-resize-trigger-line-color-hover,
           color-mix(
             in oklab,
-            var(--splitter-resize-trigger-line-color, var(--color-border)) 72%,
-            var(--color-muted-foreground)
+            var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
+            var(--moduix-color-muted-foreground)
           )
         );
       }
@@ -145,50 +148,66 @@
     inset-inline-start: 50%;
     z-index: 2;
     box-sizing: border-box;
-    width: var(--splitter-resize-trigger-indicator-width, var(--spacing-1-5));
-    height: var(--splitter-resize-trigger-indicator-height, var(--size-xs));
-    border: var(--splitter-resize-trigger-indicator-border-width, var(--border-width-sm)) solid
-      var(--splitter-resize-trigger-indicator-border-color, var(--color-border));
-    border-radius: var(--splitter-resize-trigger-indicator-radius, var(--radius-full));
-    background-color: var(--splitter-resize-trigger-indicator-bg, var(--color-background));
-    box-shadow: var(--splitter-resize-trigger-indicator-shadow, var(--shadow-sm));
+    width: var(--moduix-splitter-resize-trigger-indicator-width, var(--moduix-spacing-1-5));
+    height: var(--moduix-splitter-resize-trigger-indicator-height, var(--moduix-size-xs));
+    border: var(
+        --moduix-splitter-resize-trigger-indicator-border-width,
+        var(--moduix-border-width-sm)
+      )
+      solid var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border));
+    border-radius: var(
+      --moduix-splitter-resize-trigger-indicator-radius,
+      var(--moduix-radius-full)
+    );
+    background-color: var(
+      --moduix-splitter-resize-trigger-indicator-bg,
+      var(--moduix-color-background)
+    );
+    box-shadow: var(--moduix-splitter-resize-trigger-indicator-shadow, var(--moduix-shadow-sm));
     pointer-events: none;
     transform: translate(-50%, -50%);
     transition:
-      border-color var(--splitter-transition, var(--transition-default)),
-      box-shadow var(--splitter-transition, var(--transition-default)),
-      transform var(--splitter-transition, var(--transition-default));
+      border-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-splitter-transition, var(--moduix-transition-default)),
+      transform var(--moduix-splitter-transition, var(--moduix-transition-default));
 
     &[data-orientation='vertical'] {
-      width: var(--splitter-resize-trigger-indicator-height, var(--size-xs));
-      height: var(--splitter-resize-trigger-indicator-width, var(--spacing-1-5));
+      width: var(--moduix-splitter-resize-trigger-indicator-height, var(--moduix-size-xs));
+      height: var(--moduix-splitter-resize-trigger-indicator-width, var(--moduix-spacing-1-5));
     }
   }
 
   .resizeTrigger[data-dragging] .resizeTriggerIndicator {
     border-color: var(
-      --splitter-resize-trigger-indicator-border-color-dragging,
-      var(--splitter-resize-trigger-indicator-border-color, var(--color-border))
+      --moduix-splitter-resize-trigger-indicator-border-color-dragging,
+      var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
     );
     background-color: var(
-      --splitter-resize-trigger-indicator-bg-dragging,
-      var(--splitter-resize-trigger-indicator-bg, var(--color-background))
+      --moduix-splitter-resize-trigger-indicator-bg-dragging,
+      var(--moduix-splitter-resize-trigger-indicator-bg, var(--moduix-color-background))
     );
-    box-shadow: var(--splitter-resize-trigger-indicator-shadow-dragging, var(--shadow-md));
+    box-shadow: var(
+      --moduix-splitter-resize-trigger-indicator-shadow-dragging,
+      var(--moduix-shadow-md)
+    );
     transform: translate(-50%, -50%) scale(1.08);
   }
 
   @media (hover: hover) {
     .resizeTrigger:hover:not(:disabled, [data-disabled]) .resizeTriggerIndicator {
       border-color: var(
-        --splitter-resize-trigger-indicator-border-color-hover,
+        --moduix-splitter-resize-trigger-indicator-border-color-hover,
         color-mix(
           in oklab,
-          var(--splitter-resize-trigger-indicator-border-color, var(--color-border)) 72%,
-          var(--color-muted-foreground)
+          var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
+            72%,
+          var(--moduix-color-muted-foreground)
         )
       );
-      box-shadow: var(--splitter-resize-trigger-indicator-shadow-hover, var(--shadow-md));
+      box-shadow: var(
+        --moduix-splitter-resize-trigger-indicator-shadow-hover,
+        var(--moduix-shadow-md)
+      );
     }
   }
 

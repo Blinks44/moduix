@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sign-up",
+  "title": "Sign up",
+  "description": "A copy-owned account creation form built with moduix React components.",
+  "dependencies": ["@moduix/react"],
+  "files": [
+    {
+      "path": "apps/docs/src/components/blocks/sign-up.tsx",
+      "content": "import { Button, Card, Checkbox, Field, Input } from '@moduix/react';\nimport type { FormEventHandler } from 'react';\nimport styles from './sign-up.module.css';\nimport '@moduix/react/style.css';\n\nexport function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {\n  return (\n    <Card className={styles.root}>\n      <Card.Header className={styles.header}>\n        <Card.Title>Create your account</Card.Title>\n        <Card.Description>Start building with moduix in minutes.</Card.Description>\n      </Card.Header>\n\n      <Card.Body>\n        <form className={styles.form} onSubmit={onSubmit}>\n          <Field.Root required>\n            <Field.Label>Full name</Field.Label>\n            <Input name=\"name\" autoComplete=\"name\" placeholder=\"Alex Morgan\" />\n          </Field.Root>\n\n          <Field.Root required>\n            <Field.Label>Email address</Field.Label>\n            <Input name=\"email\" type=\"email\" autoComplete=\"email\" placeholder=\"you@example.com\" />\n          </Field.Root>\n\n          <Field.Root required>\n            <Field.Label>Password</Field.Label>\n            <Input name=\"password\" type=\"password\" autoComplete=\"new-password\" />\n          </Field.Root>\n\n          <Field.Root required>\n            <Field.Label>Confirm password</Field.Label>\n            <Input name=\"confirm-password\" type=\"password\" autoComplete=\"new-password\" />\n          </Field.Root>\n\n          <Checkbox name=\"terms\" required>\n            <Checkbox.Control />\n            <Checkbox.Label>\n              I agree to the{' '}\n              <a className={styles.link} href=\"/terms\">\n                Terms of service\n              </a>{' '}\n              and{' '}\n              <a className={styles.link} href=\"/privacy\">\n                Privacy policy\n              </a>\n              .\n            </Checkbox.Label>\n          </Checkbox>\n\n          <Button type=\"submit\" className={styles.submit}>\n            Create account\n          </Button>\n        </form>\n      </Card.Body>\n\n      <Card.Footer className={styles.footer}>\n        <p>\n          Already have an account?{' '}\n          <a className={styles.link} href=\"/sign-in\">\n            Sign in\n          </a>\n        </p>\n      </Card.Footer>\n    </Card>\n  );\n}",
+      "type": "registry:component",
+      "target": "@components/blocks/sign-up.tsx"
+    },
+    {
+      "path": "apps/docs/src/components/blocks/sign-up.module.css",
+      "content": ".root {\n  width: min(100%, 26rem);\n}\n\n.header {\n  display: flex;\n  flex-direction: column;\n  gap: var(--moduix-spacing-2);\n  text-align: center;\n}\n\n.form {\n  display: grid;\n  gap: var(--moduix-spacing-4);\n}\n\n.link {\n  color: var(--moduix-color-primary);\n  font-size: var(--moduix-text-sm);\n  font-weight: var(--moduix-weight-medium);\n  text-underline-offset: 0.2em;\n\n  &:hover {\n    color: var(--moduix-color-foreground);\n    text-decoration: underline;\n  }\n\n  &:focus-visible {\n    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);\n    outline-offset: var(--moduix-border-width-sm);\n    border-radius: var(--moduix-radius-xs);\n  }\n}\n\n.submit {\n  width: 100%;\n}\n\n.footer {\n  justify-content: center;\n  text-align: center;\n}\n\n.footer p {\n  margin: 0;\n  color: var(--moduix-color-muted-foreground);\n  font-size: var(--moduix-text-sm);\n}",
+      "type": "registry:file",
+      "target": "@components/blocks/sign-up.module.css"
+    }
+  ],
+  "type": "registry:block"
+}

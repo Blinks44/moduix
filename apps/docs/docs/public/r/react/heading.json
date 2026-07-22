@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heading",
+  "title": "Heading",
+  "description": "moduix React Heading component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/heading/Heading.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Heading.module.css';\n\ntype HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';\ntype HeadingWeight = 'regular' | 'medium' | 'semibold' | 'bold';\ntype HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';\ntype HeadingRootProps = HTMLArkProps<'h1'> & {\n  as?: HeadingElement;\n  size?: HeadingSize;\n  weight?: HeadingWeight;\n};\n\nconst elements = {\n  h1: ark.h1,\n  h2: ark.h2,\n  h3: ark.h3,\n  h4: ark.h4,\n  h5: ark.h5,\n  h6: ark.h6,\n} as const;\n\nconst HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function HeadingRoot(\n  { as, asChild, size, weight = 'semibold', className, ...props },\n  ref,\n) {\n  const Element = elements[as ?? 'h1'] as typeof ark.h1;\n\n  return (\n    <Element\n      ref={ref}\n      asChild={asChild}\n      data-scope=\"heading\"\n      data-part=\"root\"\n      data-slot=\"heading-root\"\n      data-size={size}\n      data-weight={weight}\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst Heading = Object.assign(HeadingRoot, {\n  Root: HeadingRoot,\n});\n\nexport { Heading };",
+      "type": "registry:component",
+      "target": "@components/moduix/heading/Heading.tsx"
+    },
+    {
+      "path": "packages/react/src/components/heading/Heading.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    --_heading-font-size: var(--moduix-heading-font-size-2xl, var(--moduix-text-3xl));\n    --_heading-line-height: var(\n      --moduix-heading-line-height-2xl,\n      var(--moduix-line-height-text-3xl)\n    );\n    --_heading-font-weight: var(\n      --moduix-heading-font-weight-semibold,\n      var(--moduix-weight-semibold)\n    );\n\n    margin: 0;\n    color: var(--moduix-heading-color, var(--moduix-color-foreground));\n    font-family: var(--moduix-heading-font-family, inherit);\n    font-size: var(--moduix-heading-font-size, var(--_heading-font-size));\n    font-weight: var(--moduix-heading-font-weight, var(--_heading-font-weight));\n    line-height: var(--moduix-heading-line-height, var(--_heading-line-height));\n    letter-spacing: var(--moduix-heading-letter-spacing, 0);\n    text-wrap: var(--moduix-heading-text-wrap, balance);\n    overflow-wrap: break-word;\n\n    &:is(h6):not([data-size]),\n    &[data-size='xs'] {\n      --_heading-font-size: var(--moduix-heading-font-size-xs, var(--moduix-text-sm));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-xs,\n        var(--moduix-line-height-text-sm)\n      );\n    }\n\n    &:is(h5):not([data-size]),\n    &[data-size='sm'] {\n      --_heading-font-size: var(--moduix-heading-font-size-sm, var(--moduix-text-md));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-sm,\n        var(--moduix-line-height-text-md)\n      );\n    }\n\n    &:is(h4):not([data-size]),\n    &[data-size='md'] {\n      --_heading-font-size: var(--moduix-heading-font-size-md, var(--moduix-text-lg));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-md,\n        var(--moduix-line-height-text-lg)\n      );\n    }\n\n    &:is(h3):not([data-size]),\n    &[data-size='lg'] {\n      --_heading-font-size: var(--moduix-heading-font-size-lg, var(--moduix-text-xl));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-lg,\n        var(--moduix-line-height-text-xl)\n      );\n    }\n\n    &:is(h2):not([data-size]),\n    &[data-size='xl'] {\n      --_heading-font-size: var(--moduix-heading-font-size-xl, var(--moduix-text-2xl));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-xl,\n        var(--moduix-line-height-text-2xl)\n      );\n    }\n\n    &[data-size='2xl'] {\n      --_heading-font-size: var(--moduix-heading-font-size-2xl, var(--moduix-text-3xl));\n      --_heading-line-height: var(\n        --moduix-heading-line-height-2xl,\n        var(--moduix-line-height-text-3xl)\n      );\n    }\n\n    &[data-weight='regular'] {\n      --_heading-font-weight: var(\n        --moduix-heading-font-weight-regular,\n        var(--moduix-weight-regular)\n      );\n    }\n\n    &[data-weight='medium'] {\n      --_heading-font-weight: var(--moduix-heading-font-weight-medium, var(--moduix-weight-medium));\n    }\n\n    &[data-weight='bold'] {\n      --_heading-font-weight: var(--moduix-heading-font-weight-bold, var(--moduix-weight-bold));\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/heading/Heading.module.css"
+    },
+    {
+      "path": "packages/react/src/components/heading/index.ts",
+      "content": "export * from './Heading';",
+      "type": "registry:component",
+      "target": "@components/moduix/heading/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

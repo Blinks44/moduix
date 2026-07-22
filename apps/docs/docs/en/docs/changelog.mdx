@@ -1,0 +1,85 @@
+---
+title: Changelog
+description: Product releases, breaking changes, and the supported moduix version policy.
+---
+
+import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
+
+<V2MigrationHero />
+
+## v2.0.0 — July 19, 2026
+
+moduix v2 moves the React component foundation from Base UI to Ark UI. This is an intentional major
+release: component composition, state access, and lower-level props now follow Ark UI's accessible
+primitive model.
+
+### What changed
+
+- Components with a dedicated primitive now use Ark UI for behavior and accessibility.
+- The public API follows Ark's part composition: roots, structural parts, `RootProvider`, contexts,
+  and callbacks keep the corresponding Ark contracts where they are exposed.
+- Native CSS and the package-or-copy installation paths remain. The hosted registry continues to
+  install self-contained component source.
+- Default component icons are internal implementation details. Import application icons directly
+  from your preferred library, such as `lucide-react`.
+
+### Themes
+
+v2 adds curated CSS token presets: `Calm`, `Dense`, `Soft`, and `Contrast`. They change semantic
+colors, spacing, control sizes, radius, shadows, and Sidebar tokens without a provider or theme
+runtime. `Calm` is the default foundation; import one of the other presets after `style.css` and set
+the theme on `<html>`:
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+```html
+<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
+```
+
+The `data-moduix-color-scheme` attribute selects the dark values for the active preset. Themes remain ordinary CSS, so you
+can create a project-owned theme by defining the same semantic tokens after the foundation import.
+See [Themes](/docs/themes) for the complete custom-theme guide, all presets, and the hosted registry
+path.
+
+### Migrating to v2
+
+1. Install the v2 package with its Ark UI peer dependency:
+
+   ```bash
+   npm install @moduix/react@2 @ark-ui/react
+   ```
+
+2. Review the v2 page for every used component. Recompose its explicit parts where the previous
+   Base UI API was flatter or used different names.
+3. Replace imports of moduix icons with an application-owned icon library:
+
+   ```tsx
+   import { Check as CheckIcon } from 'lucide-react';
+   import { Toggle } from '@moduix/react';
+   ```
+
+4. For copy-owned components, inspect changes before updating and merge the result into your source:
+
+   ```bash
+   npx shadcn@latest add @moduix-react/button --diff
+   ```
+
+For the permanent package and copy-owned update flow, see [Updating and migration](/docs/updating).
+
+### Breaking changes
+
+- Base UI-specific component APIs are removed.
+- `@moduix/react` no longer exports its internal default icons.
+- Copy-owned components must be reviewed and updated explicitly; they are source in your project,
+  not automatically updated package code.
+
+## Version and support policy
+
+moduix follows Semantic Versioning. Major releases may include breaking changes; minor releases add
+backwards-compatible features; patch releases contain backwards-compatible fixes.
+
+The latest major is actively supported. v2 supports React 18 and 19 with Ark UI v5. For each major
+release, this page records affected APIs, migration steps, and package or registry implications.

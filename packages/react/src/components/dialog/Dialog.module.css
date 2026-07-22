@@ -1,43 +1,46 @@
-@layer ui.components {
+@layer moduix.components {
   .trigger,
   .closeTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--dialog-control-height, var(--size-md));
+    min-height: var(--moduix-dialog-control-height, var(--moduix-size-md));
     margin: 0;
-    padding: var(--dialog-control-padding-y, var(--spacing-1))
-      var(--dialog-control-padding-x, var(--spacing-3-5));
-    border: var(--dialog-control-border-width, var(--border-width-sm)) solid
-      var(--dialog-control-border-color, var(--color-border));
-    border-radius: var(--dialog-control-radius, var(--radius-md));
-    background-color: var(--dialog-control-bg, var(--color-background));
-    color: var(--dialog-control-color, var(--color-foreground));
+    padding: var(--moduix-dialog-control-padding-y, var(--moduix-spacing-1))
+      var(--moduix-dialog-control-padding-x, var(--moduix-spacing-3-5));
+    border: var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-dialog-control-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-dialog-control-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-dialog-control-bg, var(--moduix-color-background));
+    color: var(--moduix-dialog-control-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--dialog-control-font-size, var(--text-md));
-    line-height: var(--dialog-control-line-height, var(--line-height-text-md));
+    font-size: var(--moduix-dialog-control-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-dialog-control-line-height, var(--moduix-line-height-text-md));
     cursor: pointer;
     user-select: none;
     transition:
-      background-color var(--transition-default),
-      border-color var(--transition-default),
-      color var(--transition-default);
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--dialog-control-bg-hover, var(--color-accent));
+        background-color: var(--moduix-dialog-control-bg-hover, var(--moduix-color-accent));
       }
     }
 
     &:focus-visible {
       outline: var(
-          --dialog-focus-ring-width,
-          var(--dialog-control-border-width, var(--border-width-sm))
+          --moduix-dialog-focus-ring-width,
+          var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm))
         )
-        solid var(--dialog-focus-ring-color, var(--color-ring));
+        solid var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(
-        var(--dialog-focus-ring-width, var(--dialog-control-border-width, var(--border-width-sm))) *
+        var(
+            --moduix-dialog-focus-ring-width,
+            var(--moduix-dialog-control-border-width, var(--moduix-border-width-sm))
+          ) *
           -1
       );
     }
@@ -45,63 +48,76 @@
     &[data-disabled],
     &[disabled] {
       pointer-events: none;
-      opacity: var(--opacity-disabled);
+      opacity: var(--moduix-opacity-disabled);
     }
   }
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
     inset: 0;
     min-height: 100dvh;
-    background-color: var(--dialog-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    backdrop-filter: var(--backdrop-filter, blur(var(--dialog-backdrop-blur, 4px)));
+    background-color: var(
+      --moduix-dialog-backdrop-bg,
+      var(--moduix-backdrop-bg, var(--moduix-color-overlay))
+    );
+    backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-dialog-backdrop-blur, 4px)));
 
     &[data-state='open'] {
-      animation: dialog-backdrop-in var(--dialog-backdrop-transition, var(--transition-default));
+      animation: dialog-backdrop-in
+        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default));
     }
 
     &[data-state='closed'] {
-      animation: dialog-backdrop-out var(--dialog-backdrop-transition, var(--transition-default));
+      animation: dialog-backdrop-out
+        var(--moduix-dialog-backdrop-transition, var(--moduix-transition-default));
     }
   }
 
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--z-modal) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
     inset: 0;
     display: grid;
     place-items: center;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable both-edges;
-    padding: var(--dialog-positioner-padding, var(--spacing-4));
+    padding: var(--moduix-dialog-positioner-padding, var(--moduix-spacing-4));
   }
 
   .content {
     box-sizing: border-box;
     position: relative;
     width: min(
-      var(--dialog-width, 28rem),
-      var(--dialog-max-width, calc(100vw - var(--spacing-8, 2rem)))
+      var(--moduix-dialog-width, 28rem),
+      var(--moduix-dialog-max-width, calc(100vw - var(--moduix-spacing-8, 2rem)))
     );
     max-width: 100%;
-    max-height: calc(100dvh - var(--spacing-8, 2rem));
-    padding: var(--dialog-padding, var(--spacing-6));
-    border: var(--dialog-border-width, var(--border-width-sm)) solid
-      var(--dialog-border-color, var(--color-border));
-    border-radius: var(--dialog-radius, var(--radius-lg));
+    max-height: calc(100dvh - var(--moduix-spacing-8, 2rem));
+    padding: var(--moduix-dialog-padding, var(--moduix-spacing-6));
+    border: var(--moduix-dialog-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-dialog-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-dialog-radius, var(--moduix-radius-lg));
     outline: 0;
-    background-color: var(--dialog-bg, var(--color-popover));
-    color: var(--dialog-color, var(--color-popover-foreground));
-    box-shadow: var(--dialog-shadow, var(--shadow-lg));
+    background-color: var(--moduix-dialog-bg, var(--moduix-color-popover));
+    color: var(--moduix-dialog-color, var(--moduix-color-popover-foreground));
+    box-shadow: var(--moduix-dialog-shadow, var(--moduix-shadow-lg));
     transform-origin: center top;
     scale: 1;
     translate: 0 0;
     transition:
-      scale var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default))),
-      translate var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+      scale
+        var(
+          --moduix-dialog-nested-transition,
+          var(--moduix-dialog-transition, var(--moduix-transition-default))
+        ),
+      translate
+        var(
+          --moduix-dialog-nested-transition,
+          var(--moduix-dialog-transition, var(--moduix-transition-default))
+        );
 
     &::after {
       content: '';
@@ -109,17 +125,23 @@
       z-index: 1;
       inset: 0;
       border-radius: inherit;
-      background-color: var(--dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
+      background-color: var(--moduix-dialog-nested-overlay-bg, rgb(0 0 0 / 0.05));
       opacity: 0;
       pointer-events: none;
       transition: opacity
-        var(--dialog-nested-transition, var(--dialog-transition, var(--transition-default)));
+        var(
+          --moduix-dialog-nested-transition,
+          var(--moduix-dialog-transition, var(--moduix-transition-default))
+        );
     }
 
     &[data-has-nested] {
-      scale: calc(1 - var(--dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
+      scale: calc(1 - var(--moduix-dialog-nested-scale-step, 0.05) * var(--nested-layer-count, 0));
       translate: 0
-        calc(var(--dialog-nested-translate-step, var(--spacing-10)) * var(--nested-layer-count, 0));
+        calc(
+          var(--moduix-dialog-nested-translate-step, var(--moduix-spacing-10)) *
+            var(--nested-layer-count, 0)
+        );
 
       &::after {
         opacity: 1;
@@ -129,18 +151,18 @@
     &[data-state='open'] {
       animation: dialog-content-in
         var(
-          --dialog-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-dialog-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
 
     &[data-state='closed'] {
       animation: dialog-content-out
         var(
-          --dialog-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-dialog-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
   }
@@ -149,7 +171,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    gap: var(--dialog-header-gap, var(--spacing-1));
+    gap: var(--moduix-dialog-header-gap, var(--moduix-spacing-1));
 
     & > [data-slot='dialog-title'] {
       grid-column: 1;
@@ -167,20 +189,23 @@
 
   .title {
     margin: 0;
-    color: var(--dialog-title-color, var(--dialog-color, var(--color-popover-foreground)));
-    font-size: var(--dialog-title-font-size, var(--text-lg));
-    font-weight: var(--dialog-title-font-weight, var(--weight-semibold));
-    line-height: var(--dialog-title-line-height, var(--line-height-text-lg));
+    color: var(
+      --moduix-dialog-title-color,
+      var(--moduix-dialog-color, var(--moduix-color-popover-foreground))
+    );
+    font-size: var(--moduix-dialog-title-font-size, var(--moduix-text-lg));
+    font-weight: var(--moduix-dialog-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-dialog-title-line-height, var(--moduix-line-height-text-lg));
   }
 
   .description,
   .body {
     color: var(
-      --dialog-description-color,
-      var(--dialog-muted-color, var(--color-muted-foreground))
+      --moduix-dialog-description-color,
+      var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground))
     );
-    font-size: var(--dialog-description-font-size, var(--text-md));
-    line-height: var(--dialog-description-line-height, var(--line-height-text-md));
+    font-size: var(--moduix-dialog-description-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-dialog-description-line-height, var(--moduix-line-height-text-md));
   }
 
   .description {
@@ -188,77 +213,101 @@
   }
 
   .body {
-    margin: var(--dialog-content-margin, var(--spacing-4) 0 0);
+    margin: var(--moduix-dialog-content-margin, var(--moduix-spacing-4) 0 0);
   }
 
   .footer {
     display: flex;
     justify-content: flex-end;
-    gap: var(--dialog-footer-gap, var(--spacing-2));
-    margin-top: var(--dialog-footer-margin-top, var(--spacing-6));
+    gap: var(--moduix-dialog-footer-gap, var(--moduix-spacing-2));
+    margin-top: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
   }
 
   .closeIcon {
-    --close-button-size: var(--dialog-close-icon-size, var(--spacing-7));
-    --close-button-radius: var(--dialog-close-icon-radius, var(--radius-md));
-    --close-button-color: var(
-      --dialog-close-icon-color,
-      var(--dialog-muted-color, var(--color-muted-foreground))
+    --moduix-close-button-size: var(--moduix-dialog-close-icon-size, var(--moduix-spacing-7));
+    --moduix-close-button-radius: var(--moduix-dialog-close-icon-radius, var(--moduix-radius-md));
+    --moduix-close-button-color: var(
+      --moduix-dialog-close-icon-color,
+      var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground))
     );
-    --close-button-color-hover: var(
-      --dialog-close-icon-color-hover,
-      var(--dialog-close-icon-color, var(--dialog-color, var(--color-popover-foreground)))
+    --moduix-close-button-color-hover: var(
+      --moduix-dialog-close-icon-color-hover,
+      var(
+        --moduix-dialog-close-icon-color,
+        var(--moduix-dialog-color, var(--moduix-color-popover-foreground))
+      )
     );
-    --close-button-bg: var(--dialog-close-icon-bg, transparent);
-    --close-button-bg-hover: var(--dialog-close-icon-bg-hover, var(--color-accent));
-    --close-button-focus-ring-color: var(
-      --dialog-close-icon-focus-ring-color,
-      var(--dialog-focus-ring-color, var(--color-ring))
+    --moduix-close-button-bg: var(--moduix-dialog-close-icon-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-dialog-close-icon-bg-hover,
+      var(--moduix-color-accent)
     );
-    --close-button-icon-size: var(--dialog-close-icon-glyph-size, var(--spacing-3));
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-dialog-close-icon-focus-ring-color,
+      var(--moduix-dialog-focus-ring-color, var(--moduix-color-ring))
+    );
+    --moduix-close-button-icon-size: var(
+      --moduix-dialog-close-icon-glyph-size,
+      var(--moduix-spacing-3)
+    );
     position: absolute;
     z-index: 2;
-    inset-block-start: var(--dialog-close-icon-inset-block-start, var(--spacing-4));
-    inset-inline-end: var(--dialog-close-icon-inset-inline-end, var(--spacing-4));
+    inset-block-start: var(--moduix-dialog-close-icon-inset-block-start, var(--moduix-spacing-4));
+    inset-inline-end: var(--moduix-dialog-close-icon-inset-inline-end, var(--moduix-spacing-4));
   }
 
   @keyframes dialog-backdrop-in {
     from {
-      opacity: var(--dialog-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--dialog-backdrop-starting-blur, none);
+      opacity: var(--moduix-dialog-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--moduix-dialog-backdrop-starting-blur, none);
     }
   }
 
   @keyframes dialog-backdrop-out {
     to {
-      opacity: var(--dialog-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--dialog-backdrop-ending-blur, none);
+      opacity: var(--moduix-dialog-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--moduix-dialog-backdrop-ending-blur, none);
     }
   }
 
   @keyframes dialog-content-in {
     from {
-      opacity: var(--dialog-content-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      opacity: var(
+        --moduix-dialog-content-starting-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
       translate: var(
-          --dialog-content-starting-translate-x,
-          var(--popup-motion-starting-translate-x, 0)
+          --moduix-dialog-content-starting-translate-x,
+          var(--moduix-popup-motion-starting-translate-x, 0)
         )
-        var(--dialog-content-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
+        var(
+          --moduix-dialog-content-starting-translate-y,
+          var(--moduix-popup-motion-starting-translate-y, 0)
+        );
       scale: var(
-        --dialog-content-starting-scale,
-        var(--popup-motion-starting-scale, var(--scale-popup))
+        --moduix-dialog-content-starting-scale,
+        var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
       );
     }
   }
 
   @keyframes dialog-content-out {
     to {
-      opacity: var(--dialog-content-ending-opacity, var(--popup-motion-ending-opacity, 0));
-      translate: var(--dialog-content-ending-translate-x, var(--popup-motion-ending-translate-x, 0))
-        var(--dialog-content-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
+      opacity: var(
+        --moduix-dialog-content-ending-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
+      translate: var(
+          --moduix-dialog-content-ending-translate-x,
+          var(--moduix-popup-motion-ending-translate-x, 0)
+        )
+        var(
+          --moduix-dialog-content-ending-translate-y,
+          var(--moduix-popup-motion-ending-translate-y, 0)
+        );
       scale: var(
-        --dialog-content-ending-scale,
-        var(--popup-motion-ending-scale, var(--scale-popup))
+        --moduix-dialog-content-ending-scale,
+        var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
       );
     }
   }

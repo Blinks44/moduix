@@ -5,35 +5,35 @@
 
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--size-lg);
+    min-height: var(--moduix-size-lg);
     padding-inline: 1rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     cursor: pointer;
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--color-ring);
-      outline-offset: calc(var(--border-width-sm) * -1);
+      outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+      outline-offset: calc(var(--moduix-border-width-sm) * -1);
     }
   }
 
   .status {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .valueText {
@@ -41,14 +41,18 @@
   }
 
   .customInput[data-copied] {
-    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
-    --clipboard-input-focus-ring-color: var(--color-primary);
+    border-color: color-mix(in srgb, var(--moduix-color-primary) 22%, var(--moduix-color-border));
+    --moduix-clipboard-input-focus-ring-color: var(--moduix-color-primary);
   }
 
   .customTrigger[data-copied] {
-    border-color: color-mix(in srgb, var(--color-primary) 22%, var(--color-border));
-    background-color: color-mix(in srgb, var(--color-primary) 4%, var(--color-background));
-    color: color-mix(in srgb, var(--color-primary) 70%, var(--color-foreground));
-    --clipboard-trigger-focus-ring-color: var(--color-primary);
+    border-color: color-mix(in srgb, var(--moduix-color-primary) 22%, var(--moduix-color-border));
+    background-color: color-mix(
+      in srgb,
+      var(--moduix-color-primary) 4%,
+      var(--moduix-color-background)
+    );
+    color: color-mix(in srgb, var(--moduix-color-primary) 70%, var(--moduix-color-foreground));
+    --moduix-clipboard-trigger-focus-ring-color: var(--moduix-color-primary);
   }
 }

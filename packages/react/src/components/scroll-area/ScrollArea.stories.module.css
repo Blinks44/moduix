@@ -1,11 +1,11 @@
-@layer ui.stories {
+@layer moduix.stories {
   .root,
   .horizontalRoot {
     width: 24rem;
     max-width: calc(100vw - 2rem);
     height: 13rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
   }
 
   .horizontalRoot {
@@ -14,23 +14,23 @@
 
   .textContent {
     display: grid;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3);
-    padding-right: var(--spacing-6);
+    gap: var(--moduix-spacing-3);
+    padding: var(--moduix-spacing-3);
+    padding-right: var(--moduix-spacing-6);
   }
 
   .paragraph,
   .wideParagraph {
     margin: 0;
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .wideParagraph {
     width: 50rem;
-    padding: var(--spacing-3);
-    padding-bottom: var(--spacing-6);
+    padding: var(--moduix-spacing-3);
+    padding-bottom: var(--moduix-spacing-6);
   }
 
   .gridContent {
@@ -38,28 +38,28 @@
     grid-template-columns: repeat(12, 5rem);
     grid-template-rows: repeat(8, 5rem);
     width: max-content;
-    gap: var(--spacing-2);
-    padding: var(--spacing-3);
+    gap: var(--moduix-spacing-2);
+    padding: var(--moduix-spacing-3);
   }
 
   .cell {
     display: grid;
     place-items: center;
-    border-radius: var(--radius-sm);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+    border-radius: var(--moduix-radius-sm);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
   }
 
   .providerStack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .actions {
     display: flex;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     justify-content: flex-end;
   }
 }

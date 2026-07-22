@@ -1,4 +1,4 @@
-![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/apps/docs/public/banner.png)
+![moduix banner](https://raw.githubusercontent.com/Blinks44/moduix/main/apps/docs/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
@@ -100,28 +100,28 @@ aliases for deliberate exceptions:
 
 ```css
 :root {
-  --primary: oklch(0.52 0.18 145);
-  --radius: 0.75rem;
-  --size-md: 36px;
-  --size-sm: 32px;
+  --moduix-primary: oklch(0.52 0.18 145);
+  --moduix-radius: 0.75rem;
+  --moduix-size-md: 36px;
+  --moduix-size-sm: 32px;
 }
 
 .compact-toolbar {
-  --button-size-md: 32px;
+  --moduix-button-size-md: 32px;
 }
 ```
 
 The token hierarchy is:
 
-1. theme primitives such as `--primary`, `--spacing-2`, `--size-md`, and `--radius`;
-2. semantic aliases such as `--color-primary`, `--spacing-md`, and `--radius-md`;
-3. shared family defaults such as `--popup-item-min-height` and `--focus-ring-width`;
-4. component aliases such as `--input-height` and `--select-item-min-height`.
+1. theme primitives such as `--moduix-primary`, `--moduix-spacing-2`, `--moduix-size-md`, and `--moduix-radius`;
+2. semantic aliases such as `--moduix-color-primary`, `--moduix-spacing-md`, and `--moduix-radius-md`;
+3. shared family defaults such as `--moduix-popup-item-min-height` and `--moduix-focus-ring-width`;
+4. component aliases such as `--moduix-input-height` and `--moduix-select-item-min-height`.
 
 Library styles use predictable cascade layers:
 
 ```css
-@layer ui.reset, ui.tokens, ui.base, ui.components;
+@layer moduix.reset, moduix.tokens, moduix.base, moduix.components;
 ```
 
 Components also expose `className`, `data-slot`, and the Ark `data-scope`, `data-part`, and
@@ -147,11 +147,10 @@ theme.
 ## Prefer to Own the Source?
 
 The moduix registry uses the shadcn distribution format while preserving the same Ark-aligned
-component contracts:
+component contracts. Create the ready-to-use `components.json` from the
+[complete Quick Start](https://moduix.dev/docs/quick-start), then add the components you need:
 
 ```bash
-npx shadcn@latest init
-npx shadcn@latest registry add '@moduix-react=https://moduix.dev/r/react/{name}.json'
 npx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 

@@ -108,18 +108,18 @@ The child must be a single semantic element that can carry the merged separator 
 
 Public CSS variables:
 
-| Variable                        | Default                                                   | Effect                                   |
-| ------------------------------- | --------------------------------------------------------- | ---------------------------------------- |
-| `--separator-border-style`      | active `variant` style                                    | Overrides the variant border style.      |
-| `--separator-color`             | `var(--color-border)`                                     | Divider color.                           |
-| `--separator-length-horizontal` | `100%`                                                    | Width for horizontal mode.               |
-| `--separator-length-vertical`   | `1em`                                                     | Height for vertical mode.                |
-| `--separator-size-thickness`    | active size token                                         | Recipe thickness selected by `size`.     |
-| `--separator-thickness`         | `var(--separator-size-thickness, var(--border-width-sm))` | Consumer override for both orientations. |
-| `--separator-thickness-xs`      | `0.5px`                                                   | `xs` recipe thickness.                   |
-| `--separator-thickness-sm`      | `var(--border-width-sm)`                                  | `sm` recipe thickness.                   |
-| `--separator-thickness-md`      | `var(--border-width-md)`                                  | `md` recipe thickness.                   |
-| `--separator-thickness-lg`      | `3px`                                                     | `lg` recipe thickness.                   |
+| Variable                               | Default                                                                 | Effect                                   |
+| -------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------- |
+| `--moduix-separator-border-style`      | active `variant` style                                                  | Overrides the variant border style.      |
+| `--moduix-separator-color`             | `var(--moduix-color-border)`                                            | Divider color.                           |
+| `--moduix-separator-length-horizontal` | `100%`                                                                  | Width for horizontal mode.               |
+| `--moduix-separator-length-vertical`   | `1em`                                                                   | Height for vertical mode.                |
+| `--moduix-separator-size-thickness`    | active size token                                                       | Recipe thickness selected by `size`.     |
+| `--moduix-separator-thickness`         | `var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))` | Consumer override for both orientations. |
+| `--moduix-separator-thickness-xs`      | `0.5px`                                                                 | `xs` recipe thickness.                   |
+| `--moduix-separator-thickness-sm`      | `var(--moduix-border-width-sm)`                                         | `sm` recipe thickness.                   |
+| `--moduix-separator-thickness-md`      | `var(--moduix-border-width-md)`                                         | `md` recipe thickness.                   |
+| `--moduix-separator-thickness-lg`      | `3px`                                                                   | `lg` recipe thickness.                   |
 
 ## Intentional sugar and differences from upstream
 
@@ -148,7 +148,7 @@ Public CSS variables:
 - 2026-07-03: Removed public prop and option type aliases. The public surface is now only the
   callable root component with `.Root`.
 - 2026-06-27: Re-audited the Ark factory contract, simplified size and variant CSS selectors,
-  made `--separator-border-style` a consumer override above the recipe variant, and aligned public
+  made `--moduix-separator-border-style` a consumer override above the recipe variant, and aligned public
   docs/examples with the local-only Ark factory API text.
 - 2026-06-20: Migrated from legacy to an Ark factory wrapper, added `Separator.Root`, `asChild`,
   `variant`, `size`, Ark-style data hooks, Chakra-informed ARIA semantics, and removed legacy

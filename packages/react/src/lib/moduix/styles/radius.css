@@ -1,11 +1,11 @@
 :root {
-  --radius: 0.625rem;
-  --radius-none: 0;
+  --moduix-radius: 0.625rem;
+  --moduix-radius-none: 0;
 
-  --radius-xs: calc(var(--radius) * 0.4);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.2);
-  --radius-full: 9999px;
+  --moduix-radius-xs: calc(var(--moduix-radius) * 0.4);
+  --moduix-radius-sm: calc(var(--moduix-radius) * 0.6);
+  --moduix-radius-md: calc(var(--moduix-radius) * 0.8);
+  --moduix-radius-lg: var(--moduix-radius);
+  --moduix-radius-xl: calc(var(--moduix-radius) * 1.2);
+  --moduix-radius-full: 9999px;
 }

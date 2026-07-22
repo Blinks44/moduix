@@ -1,0 +1,15 @@
+.palette {
+  --moduix-command-palette-width: 37.5rem;
+}
+
+.compactPalette {
+  --moduix-command-palette-width: 34rem;
+}
+
+.highlightPalette {
+  --moduix-command-palette-highlight-bg: var(--moduix-color-accent);
+}
+
+.shortcutTrigger {
+  min-width: 9rem;
+}

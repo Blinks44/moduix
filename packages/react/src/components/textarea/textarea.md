@@ -29,7 +29,7 @@ Chakra's Textarea recipe informs the public examples for helper text, error text
 - Accepts `ComponentProps<typeof FieldPrimitive.Textarea>` from Ark, including native textarea props and `autoresize`.
 - Uses native `onChange` for controlled usage; no `onValueChange` compatibility layer is provided.
 - Works standalone when consumers provide an accessible name, or inside moduix `Field` for labels, helper text, error text, and state inheritance.
-- Adds moduix visual defaults, `data-slot="textarea-root"`, and public `--textarea-*` CSS variables.
+- Adds moduix visual defaults, `data-slot="textarea-root"`, and public `--moduix-textarea-*` CSS variables.
 - Does not provide preview/edit controls; use `Editable` for inline read/edit workflows.
 
 ## Anatomy and exported parts
@@ -96,14 +96,14 @@ surface with edit, submit, and cancel controls.
 
 Public CSS variables from `theme.css`:
 
-| Group        | Variables                                                                                                                                                                                                                                 |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Layout       | `--textarea-width`, `--textarea-max-width`, `--textarea-min-height`                                                                                                                                                                       |
-| Spacing      | `--textarea-padding-x`, `--textarea-padding-y`                                                                                                                                                                                            |
-| Typography   | `--textarea-font-size`, `--textarea-line-height`                                                                                                                                                                                          |
-| Surface      | `--textarea-bg`, `--textarea-color`, `--textarea-placeholder-color`, `--textarea-radius`, `--textarea-readonly-bg`, `--textarea-readonly-color`                                                                                           |
-| Border/focus | `--textarea-border-width`, `--textarea-border-style`, `--textarea-border-color`, `--textarea-border-color-invalid`, `--textarea-focus-ring-width`, `--textarea-focus-ring-offset`, `--textarea-focus-ring-color`, `--textarea-transition` |
-| Interaction  | `--textarea-resize`, `--textarea-disabled-opacity`                                                                                                                                                                                        |
+| Group        | Variables                                                                                                                                                                                                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Layout       | `--moduix-textarea-width`, `--moduix-textarea-max-width`, `--moduix-textarea-min-height`                                                                                                                                                                                                          |
+| Spacing      | `--moduix-textarea-padding-x`, `--moduix-textarea-padding-y`                                                                                                                                                                                                                                      |
+| Typography   | `--moduix-textarea-font-size`, `--moduix-textarea-line-height`                                                                                                                                                                                                                                    |
+| Surface      | `--moduix-textarea-bg`, `--moduix-textarea-color`, `--moduix-textarea-placeholder-color`, `--moduix-textarea-radius`, `--moduix-textarea-readonly-bg`, `--moduix-textarea-readonly-color`                                                                                                         |
+| Border/focus | `--moduix-textarea-border-width`, `--moduix-textarea-border-style`, `--moduix-textarea-border-color`, `--moduix-textarea-border-color-invalid`, `--moduix-textarea-focus-ring-width`, `--moduix-textarea-focus-ring-offset`, `--moduix-textarea-focus-ring-color`, `--moduix-textarea-transition` |
+| Interaction  | `--moduix-textarea-resize`, `--moduix-textarea-disabled-opacity`                                                                                                                                                                                                                                  |
 
 ## Intentional sugar and differences from upstream
 

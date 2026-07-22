@@ -123,7 +123,7 @@ State and attributes to preserve:
 
 ## Defaults and styling
 
-Page items, ellipses, and icon triggers default to `--size-md` through `--pagination-item-size`.
+Page items, ellipses, and icon triggers default to `--moduix-size-md` through `--moduix-pagination-item-size`.
 
 Moduix adds visual defaults only:
 
@@ -134,32 +134,32 @@ Moduix adds visual defaults only:
 
 Public CSS variables:
 
-| Variable                                  | Default                                           |
-| ----------------------------------------- | ------------------------------------------------- |
-| `--pagination-color`                      | `var(--color-foreground)`                         |
-| `--pagination-disabled-opacity`           | `var(--opacity-disabled)`                         |
-| `--pagination-ellipsis-color`             | `var(--color-muted-foreground)`                   |
-| `--pagination-focus-ring-color`           | `var(--color-ring)`                               |
-| `--pagination-focus-ring-offset`          | `var(--focus-ring-inset-offset)`                  |
-| `--pagination-focus-ring-width`           | `var(--focus-ring-width, var(--border-width-md))` |
-| `--pagination-font-size`                  | `var(--text-sm)`                                  |
-| `--pagination-font-weight`                | `var(--weight-medium)`                            |
-| `--pagination-gap`                        | `var(--spacing-1)`                                |
-| `--pagination-icon-size`                  | `var(--spacing-4)`                                |
-| `--pagination-item-bg`                    | `var(--color-background)`                         |
-| `--pagination-item-bg-hover`              | `var(--color-accent)`                             |
-| `--pagination-item-bg-selected`           | `var(--color-foreground)`                         |
-| `--pagination-item-border-color`          | `var(--color-border)`                             |
-| `--pagination-item-border-color-selected` | `var(--color-foreground)`                         |
-| `--pagination-item-border-width`          | `var(--border-width-sm)`                          |
-| `--pagination-item-color`                 | `var(--color-foreground)`                         |
-| `--pagination-item-color-selected`        | `var(--color-background)`                         |
-| `--pagination-item-padding-inline`        | `var(--spacing-3)`                                |
-| `--pagination-item-radius`                | `var(--radius-md)`                                |
-| `--pagination-item-size`                  | `var(--size-md)`                                  |
-| `--pagination-line-height`                | `var(--line-height-text-sm)`                      |
-| `--pagination-transition`                 | `var(--transition-default)`                       |
-| `--pagination-trigger-gap`                | `var(--spacing-2)`                                |
+| Variable                                         | Default                                                         |
+| ------------------------------------------------ | --------------------------------------------------------------- |
+| `--moduix-pagination-color`                      | `var(--moduix-color-foreground)`                                |
+| `--moduix-pagination-disabled-opacity`           | `var(--moduix-opacity-disabled)`                                |
+| `--moduix-pagination-ellipsis-color`             | `var(--moduix-color-muted-foreground)`                          |
+| `--moduix-pagination-focus-ring-color`           | `var(--moduix-color-ring)`                                      |
+| `--moduix-pagination-focus-ring-offset`          | `var(--moduix-focus-ring-inset-offset)`                         |
+| `--moduix-pagination-focus-ring-width`           | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
+| `--moduix-pagination-font-size`                  | `var(--moduix-text-sm)`                                         |
+| `--moduix-pagination-font-weight`                | `var(--moduix-weight-medium)`                                   |
+| `--moduix-pagination-gap`                        | `var(--moduix-spacing-1)`                                       |
+| `--moduix-pagination-icon-size`                  | `var(--moduix-spacing-4)`                                       |
+| `--moduix-pagination-item-bg`                    | `var(--moduix-color-background)`                                |
+| `--moduix-pagination-item-bg-hover`              | `var(--moduix-color-accent)`                                    |
+| `--moduix-pagination-item-bg-selected`           | `var(--moduix-color-foreground)`                                |
+| `--moduix-pagination-item-border-color`          | `var(--moduix-color-border)`                                    |
+| `--moduix-pagination-item-border-color-selected` | `var(--moduix-color-foreground)`                                |
+| `--moduix-pagination-item-border-width`          | `var(--moduix-border-width-sm)`                                 |
+| `--moduix-pagination-item-color`                 | `var(--moduix-color-foreground)`                                |
+| `--moduix-pagination-item-color-selected`        | `var(--moduix-color-background)`                                |
+| `--moduix-pagination-item-padding-inline`        | `var(--moduix-spacing-3)`                                       |
+| `--moduix-pagination-item-radius`                | `var(--moduix-radius-md)`                                       |
+| `--moduix-pagination-item-size`                  | `var(--moduix-size-md)`                                         |
+| `--moduix-pagination-line-height`                | `var(--moduix-line-height-text-sm)`                             |
+| `--moduix-pagination-transition`                 | `var(--moduix-transition-default)`                              |
+| `--moduix-pagination-trigger-gap`                | `var(--moduix-spacing-2)`                                       |
 
 ## Intentional sugar and differences from upstream
 
@@ -176,7 +176,7 @@ list. Custom renderers must pass page objects directly into `Pagination.Item`.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default pagination items and icon triggers to `--size-md`.
+- 2026-07-21: Reduced default pagination items and icon triggers to `--moduix-size-md`.
 
 - 2026-07-10: Added `Pagination.Items` for the standard page list and namespace re-exports for
   `usePagination()` and `usePaginationContext()`; documented the explicit `Context` map as the

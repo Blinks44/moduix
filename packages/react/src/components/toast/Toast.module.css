@@ -1,31 +1,41 @@
-@layer ui.components {
+@layer moduix.components {
   .toaster {
-    z-index: var(--toast-z-index, var(--z-toast));
+    z-index: var(--moduix-toast-z-index, var(--moduix-z-toast));
   }
 
   .root {
-    --toast-trigger-bg-default: transparent;
-    --toast-trigger-bg-hover-default: var(--color-accent);
-    --toast-trigger-border-color-default: var(--color-border);
-    --toast-trigger-color-default: var(--color-foreground);
-    --toast-trigger-focus-ring-color-default: var(--color-ring);
+    --moduix-toast-trigger-bg-default: transparent;
+    --moduix-toast-trigger-bg-hover-default: var(--moduix-color-accent);
+    --moduix-toast-trigger-border-color-default: var(--moduix-color-border);
+    --moduix-toast-trigger-color-default: var(--moduix-color-foreground);
+    --moduix-toast-trigger-focus-ring-color-default: var(--moduix-color-ring);
     box-sizing: border-box;
     display: grid;
-    width: var(--toast-width, 20rem);
-    max-width: calc(100vw - (var(--toast-viewport-inset, var(--spacing-4)) * 2));
-    min-height: var(--toast-min-height, 0);
+    width: var(--moduix-toast-width, 20rem);
+    max-width: calc(100vw - (var(--moduix-toast-viewport-inset, var(--moduix-spacing-4)) * 2));
+    min-height: var(--moduix-toast-min-height, 0);
     align-items: start;
-    gap: var(--toast-content-gap, var(--spacing-1));
-    border: var(--toast-border-width, var(--border-width-sm)) solid
-      var(--toast-border-color, var(--toast-border-color-default, var(--color-border)));
-    border-radius: var(--toast-radius, var(--radius-lg));
-    background-color: var(--toast-bg, var(--toast-bg-default, var(--color-popover)));
-    color: var(--toast-color, var(--toast-color-default, var(--color-popover-foreground)));
+    gap: var(--moduix-toast-content-gap, var(--moduix-spacing-1));
+    border: var(--moduix-toast-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-toast-border-color,
+        var(--moduix-toast-border-color-default, var(--moduix-color-border))
+      );
+    border-radius: var(--moduix-toast-radius, var(--moduix-radius-lg));
+    background-color: var(
+      --moduix-toast-bg,
+      var(--moduix-toast-bg-default, var(--moduix-color-popover))
+    );
+    color: var(
+      --moduix-toast-color,
+      var(--moduix-toast-color-default, var(--moduix-color-popover-foreground))
+    );
     background-clip: padding-box;
-    box-shadow: var(--toast-shadow, var(--shadow-lg));
-    padding: var(--toast-padding, var(--spacing-4));
+    box-shadow: var(--moduix-toast-shadow, var(--moduix-shadow-lg));
+    padding: var(--moduix-toast-padding, var(--moduix-spacing-4));
     padding-inline-end: calc(
-      var(--toast-padding, var(--spacing-4)) + var(--toast-close-size, var(--spacing-7))
+      var(--moduix-toast-padding, var(--moduix-spacing-4)) +
+        var(--moduix-toast-close-size, var(--moduix-spacing-7))
     );
     pointer-events: auto;
     user-select: none;
@@ -36,63 +46,87 @@
     opacity: var(--opacity);
     will-change: translate, opacity, scale;
     transition:
-      translate var(--toast-transition, var(--duration-slow)),
-      scale var(--toast-transition, var(--duration-slow)),
-      opacity var(--toast-transition, var(--duration-slow)),
-      height var(--toast-transition, var(--duration-slow)),
-      box-shadow var(--transition-fast);
+      translate var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      scale var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      opacity var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      height var(--moduix-toast-transition, var(--moduix-duration-slow)),
+      box-shadow var(--moduix-transition-fast);
     transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
 
     &[data-state='closed'] {
       transition:
-        translate var(--toast-transition-out, var(--duration-slow)),
-        scale var(--toast-transition-out, var(--duration-slow)),
-        opacity var(--toast-opacity-transition-out, var(--duration-normal));
+        translate var(--moduix-toast-transition-out, var(--moduix-duration-slow)),
+        scale var(--moduix-toast-transition-out, var(--moduix-duration-slow)),
+        opacity var(--moduix-toast-opacity-transition-out, var(--moduix-duration-normal));
       transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
     }
 
     &[data-type='success'] {
-      --toast-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
-      --toast-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
-      --toast-color-default: var(--color-foreground);
-      --toast-description-color-default: var(--color-muted-foreground);
+      --moduix-toast-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-success) 10%,
+        var(--moduix-color-background)
+      );
+      --moduix-toast-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-success) 34%,
+        transparent
+      );
+      --moduix-toast-color-default: var(--moduix-color-foreground);
+      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
     }
 
     &[data-type='warning'] {
-      --toast-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
-      --toast-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
-      --toast-color-default: var(--color-foreground);
-      --toast-description-color-default: var(--color-muted-foreground);
+      --moduix-toast-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-warning) 13%,
+        var(--moduix-color-background)
+      );
+      --moduix-toast-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-warning) 38%,
+        transparent
+      );
+      --moduix-toast-color-default: var(--moduix-color-foreground);
+      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
     }
 
     &[data-type='destructive'],
     &[data-type='error'] {
-      --toast-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
-      --toast-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
-      --toast-color-default: var(--color-foreground);
-      --toast-description-color-default: var(--color-muted-foreground);
+      --moduix-toast-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-destructive) 9%,
+        var(--moduix-color-background)
+      );
+      --moduix-toast-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-destructive) 35%,
+        transparent
+      );
+      --moduix-toast-color-default: var(--moduix-color-foreground);
+      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
     }
   }
 
   .title {
     display: flex;
     align-items: center;
-    gap: var(--toast-title-gap, var(--spacing-2));
+    gap: var(--moduix-toast-title-gap, var(--moduix-spacing-2));
     margin: 0;
     color: inherit;
-    font-size: var(--toast-title-font-size, var(--text-sm));
-    font-weight: var(--toast-title-font-weight, var(--weight-semibold));
-    line-height: var(--toast-title-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-toast-title-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-toast-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-toast-title-line-height, var(--moduix-line-height-text-sm));
   }
 
   .description {
     margin: 0;
     color: var(
-      --toast-description-color,
-      var(--toast-description-color-default, var(--color-muted-foreground))
+      --moduix-toast-description-color,
+      var(--moduix-toast-description-color-default, var(--moduix-color-muted-foreground))
     );
-    font-size: var(--toast-description-font-size, var(--text-sm));
-    line-height: var(--toast-description-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-toast-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-toast-description-line-height, var(--moduix-line-height-text-sm));
   }
 
   .actionTrigger {
@@ -100,63 +134,83 @@
     width: max-content;
     align-items: center;
     justify-content: center;
-    gap: var(--toast-action-gap, var(--spacing-2));
-    min-height: var(--toast-action-min-height, var(--size-xs));
-    margin-top: var(--toast-action-margin-top, var(--spacing-2));
-    border: var(--toast-action-border-width, var(--toast-border-width, var(--border-width-sm)))
-      solid var(--toast-action-border-color, var(--toast-trigger-border-color-default));
-    border-radius: var(--toast-action-radius, var(--radius-sm));
-    background: var(--toast-action-bg, var(--toast-trigger-bg-default));
-    color: var(--toast-action-color, var(--toast-trigger-color-default));
-    padding: var(--toast-action-padding-y, var(--spacing-1))
-      var(--toast-action-padding-x, var(--spacing-2));
+    gap: var(--moduix-toast-action-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-toast-action-min-height, var(--moduix-size-xs));
+    margin-top: var(--moduix-toast-action-margin-top, var(--moduix-spacing-2));
+    border: var(
+        --moduix-toast-action-border-width,
+        var(--moduix-toast-border-width, var(--moduix-border-width-sm))
+      )
+      solid
+      var(--moduix-toast-action-border-color, var(--moduix-toast-trigger-border-color-default));
+    border-radius: var(--moduix-toast-action-radius, var(--moduix-radius-sm));
+    background: var(--moduix-toast-action-bg, var(--moduix-toast-trigger-bg-default));
+    color: var(--moduix-toast-action-color, var(--moduix-toast-trigger-color-default));
+    padding: var(--moduix-toast-action-padding-y, var(--moduix-spacing-1))
+      var(--moduix-toast-action-padding-x, var(--moduix-spacing-2));
     font: inherit;
-    font-size: var(--toast-action-font-size, var(--text-xs));
-    font-weight: var(--toast-action-font-weight, var(--weight-medium));
-    line-height: var(--toast-action-line-height, var(--line-height-text-xs));
+    font-size: var(--moduix-toast-action-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-toast-action-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-toast-action-line-height, var(--moduix-line-height-text-xs));
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
     transition:
-      background var(--transition-fast),
-      border-color var(--transition-fast),
-      color var(--transition-fast);
+      background var(--moduix-transition-fast),
+      border-color var(--moduix-transition-fast),
+      color var(--moduix-transition-fast);
 
     &:hover {
-      background: var(--toast-action-bg-hover, var(--toast-trigger-bg-hover-default));
+      background: var(--moduix-toast-action-bg-hover, var(--moduix-toast-trigger-bg-hover-default));
     }
 
     &:focus-visible {
       outline: var(
-          --toast-focus-ring-width,
-          var(--toast-action-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+          --moduix-toast-focus-ring-width,
+          var(
+            --moduix-toast-action-border-width,
+            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+          )
         )
-        solid var(--toast-focus-ring-color, var(--toast-trigger-focus-ring-color-default));
-      outline-offset: var(--toast-focus-ring-offset, 0);
+        solid
+        var(--moduix-toast-focus-ring-color, var(--moduix-toast-trigger-focus-ring-color-default));
+      outline-offset: var(--moduix-toast-focus-ring-offset, 0);
     }
   }
 
   .closeTrigger {
     position: absolute;
-    inset-block-start: var(--toast-close-offset-top, var(--spacing-2));
-    inset-inline-end: var(--toast-close-offset-right, var(--spacing-2));
-    --close-button-size: var(--toast-close-size, var(--spacing-7));
-    --close-button-icon-size: var(--toast-close-icon-size, var(--spacing-3));
-    --close-button-radius: var(--toast-close-radius, var(--radius-sm));
-    --close-button-bg: var(--toast-close-bg, transparent);
-    --close-button-bg-hover: var(--toast-close-bg-hover, var(--color-muted));
-    --close-button-color: var(--toast-close-color, var(--color-muted-foreground));
-    --close-button-color-hover: var(--toast-close-color-hover, var(--color-foreground));
-    --close-button-focus-ring-color: var(--toast-focus-ring-color, var(--color-ring));
-    --close-button-focus-ring-offset: var(
-      --toast-close-focus-ring-offset,
-      var(--focus-ring-offset)
+    inset-block-start: var(--moduix-toast-close-offset-top, var(--moduix-spacing-2));
+    inset-inline-end: var(--moduix-toast-close-offset-right, var(--moduix-spacing-2));
+    --moduix-close-button-size: var(--moduix-toast-close-size, var(--moduix-spacing-7));
+    --moduix-close-button-icon-size: var(--moduix-toast-close-icon-size, var(--moduix-spacing-3));
+    --moduix-close-button-radius: var(--moduix-toast-close-radius, var(--moduix-radius-sm));
+    --moduix-close-button-bg: var(--moduix-toast-close-bg, transparent);
+    --moduix-close-button-bg-hover: var(--moduix-toast-close-bg-hover, var(--moduix-color-muted));
+    --moduix-close-button-color: var(
+      --moduix-toast-close-color,
+      var(--moduix-color-muted-foreground)
     );
-    --close-button-focus-ring-width: var(
-      --toast-close-focus-ring-width,
-      var(--focus-ring-width, var(--border-width-md))
+    --moduix-close-button-color-hover: var(
+      --moduix-toast-close-color-hover,
+      var(--moduix-color-foreground)
     );
-    --close-button-transition: var(--toast-close-transition, var(--transition-default));
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-toast-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(
+      --moduix-toast-close-focus-ring-offset,
+      var(--moduix-focus-ring-offset)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-toast-close-focus-ring-width,
+      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+    );
+    --moduix-close-button-transition: var(
+      --moduix-toast-close-transition,
+      var(--moduix-transition-default)
+    );
   }
 
   @media (max-width: 40rem) {

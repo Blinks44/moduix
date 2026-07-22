@@ -1,36 +1,31 @@
 @layer ui.docs {
   .root {
-    --listbox-width: 16rem;
-    --listbox-root-gap: var(--spacing-3);
-    --listbox-content-max-height: 14rem;
-  }
-
-  .stack {
-    display: grid;
-    gap: var(--spacing-3);
+    --moduix-listbox-width: 16rem;
+    --moduix-listbox-root-gap: var(--moduix-spacing-3);
+    --moduix-listbox-content-max-height: 14rem;
   }
 
   .horizontalRoot {
-    --listbox-width: min(100%, 34rem);
-    --listbox-horizontal-content-max-height: none;
-    --listbox-horizontal-item-width: 10rem;
+    --moduix-listbox-width: min(100%, 34rem);
+    --moduix-listbox-horizontal-content-max-height: none;
+    --moduix-listbox-horizontal-item-width: 10rem;
   }
 
   .gridRoot {
-    --listbox-width: 16rem;
-    --listbox-grid-selected-bg: var(--color-muted);
-    --listbox-grid-selected-color: var(--color-foreground);
+    --moduix-listbox-width: 16rem;
+    --moduix-listbox-grid-selected-bg: var(--moduix-color-muted);
+    --moduix-listbox-grid-selected-color: var(--moduix-color-foreground);
   }
 
   .albumText {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
   }
 
   .artist {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 }

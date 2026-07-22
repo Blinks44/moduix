@@ -1,18 +1,18 @@
 .container,
 .paddedContainer {
   display: flex;
-  width: min(28rem, calc(100vw - var(--spacing-8)));
+  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
   flex-direction: column;
-  gap: var(--spacing-4);
-  border: var(--border-width-sm) dashed var(--color-border);
+  gap: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
 }
 
 .container {
-  padding: var(--spacing-4);
+  padding: var(--moduix-spacing-4);
 }
 
 .paddedContainer {
-  padding: var(--spacing-6);
+  padding: var(--moduix-spacing-6);
 }
 
 .bleed,
@@ -21,8 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--spacing-4);
-  background-color: var(--color-muted);
+  padding: var(--moduix-spacing-4);
+  background-color: var(--moduix-color-muted);
   text-align: center;
 }
 
@@ -30,20 +30,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-3);
-  padding: var(--spacing-4);
-  background-color: var(--color-muted);
+  gap: var(--moduix-spacing-3);
+  padding: var(--moduix-spacing-4);
+  background-color: var(--moduix-color-muted);
   text-align: center;
 }
 
 .media {
   width: min(28rem, 100%);
   min-height: 8rem;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--color-accent);
+  border-radius: var(--moduix-radius-md);
+  background:
+    linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
 }
 
 .customBleed {
-  --bleed-inline-full: calc(var(--spacing-4) * -1);
-  --bleed-inline-full-size: calc(100% + var(--spacing-8));
+  --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
+  --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
 }

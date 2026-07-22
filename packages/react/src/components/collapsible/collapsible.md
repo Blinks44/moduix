@@ -130,37 +130,37 @@ Controlled callbacks keep the Ark details object:
 
 Primary CSS variables:
 
-| Variable                                 | Default                                                 |
-| ---------------------------------------- | ------------------------------------------------------- |
-| `--collapsible-body-gap`                 | `var(--spacing-2)`                                      |
-| `--collapsible-body-padding`             | `var(--spacing-2)`                                      |
-| `--collapsible-color`                    | `var(--color-foreground)`                               |
-| `--collapsible-width`                    | `100%`                                                  |
-| `--collapsible-max-width`                | `100%`                                                  |
-| `--collapsible-disabled-opacity`         | `var(--opacity-disabled)`                               |
-| `--collapsible-focus-ring-color`         | `var(--color-ring)`                                     |
-| `--collapsible-focus-ring-offset`        | `var(--border-width-sm)`                                |
-| `--collapsible-focus-ring-width`         | `var(--focus-ring-inset-width, var(--border-width-sm))` |
-| `--collapsible-indicator-open-transform` | `rotate(180deg)`                                        |
-| `--collapsible-indicator-size`           | `var(--spacing-3)`                                      |
-| `--collapsible-indicator-transition`     | `var(--transition-default)`                             |
-| `--collapsible-content-color`            | `var(--color-muted-foreground)`                         |
-| `--collapsible-content-closed-opacity`   | `0.01`                                                  |
-| `--collapsible-content-font-size`        | `var(--text-sm)`                                        |
-| `--collapsible-content-line-height`      | `var(--line-height-text-sm)`                            |
-| `--collapsible-content-open-opacity`     | `1`                                                     |
-| `--collapsible-content-transition`       | `var(--transition-default)`                             |
-| `--collapsible-trigger-bg`               | `transparent`                                           |
-| `--collapsible-trigger-bg-active`        | trigger hover background                                |
-| `--collapsible-trigger-bg-hover`         | trigger background                                      |
-| `--collapsible-trigger-color`            | `var(--collapsible-color)`                              |
-| `--collapsible-trigger-font-size`        | `var(--text-sm)`                                        |
-| `--collapsible-trigger-gap`              | `var(--spacing-2)`                                      |
-| `--collapsible-trigger-line-height`      | `var(--line-height-text-sm)`                            |
-| `--collapsible-trigger-padding-x`        | `var(--spacing-2)`                                      |
-| `--collapsible-trigger-padding-y`        | `var(--spacing-1)`                                      |
-| `--collapsible-trigger-radius`           | `0`                                                     |
-| `--collapsible-trigger-transition`       | `var(--transition-default)`                             |
+| Variable                                        | Default                                                               |
+| ----------------------------------------------- | --------------------------------------------------------------------- |
+| `--moduix-collapsible-body-gap`                 | `var(--moduix-spacing-2)`                                             |
+| `--moduix-collapsible-body-padding`             | `var(--moduix-spacing-2)`                                             |
+| `--moduix-collapsible-color`                    | `var(--moduix-color-foreground)`                                      |
+| `--moduix-collapsible-width`                    | `100%`                                                                |
+| `--moduix-collapsible-max-width`                | `100%`                                                                |
+| `--moduix-collapsible-disabled-opacity`         | `var(--moduix-opacity-disabled)`                                      |
+| `--moduix-collapsible-focus-ring-color`         | `var(--moduix-color-ring)`                                            |
+| `--moduix-collapsible-focus-ring-offset`        | `var(--moduix-border-width-sm)`                                       |
+| `--moduix-collapsible-focus-ring-width`         | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
+| `--moduix-collapsible-indicator-open-transform` | `rotate(180deg)`                                                      |
+| `--moduix-collapsible-indicator-size`           | `var(--moduix-spacing-3)`                                             |
+| `--moduix-collapsible-indicator-transition`     | `var(--moduix-transition-default)`                                    |
+| `--moduix-collapsible-content-color`            | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-collapsible-content-closed-opacity`   | `0.01`                                                                |
+| `--moduix-collapsible-content-font-size`        | `var(--moduix-text-sm)`                                               |
+| `--moduix-collapsible-content-line-height`      | `var(--moduix-line-height-text-sm)`                                   |
+| `--moduix-collapsible-content-open-opacity`     | `1`                                                                   |
+| `--moduix-collapsible-content-transition`       | `var(--moduix-transition-default)`                                    |
+| `--moduix-collapsible-trigger-bg`               | `transparent`                                                         |
+| `--moduix-collapsible-trigger-bg-active`        | trigger hover background                                              |
+| `--moduix-collapsible-trigger-bg-hover`         | trigger background                                                    |
+| `--moduix-collapsible-trigger-color`            | `var(--moduix-collapsible-color)`                                     |
+| `--moduix-collapsible-trigger-font-size`        | `var(--moduix-text-sm)`                                               |
+| `--moduix-collapsible-trigger-gap`              | `var(--moduix-spacing-2)`                                             |
+| `--moduix-collapsible-trigger-line-height`      | `var(--moduix-line-height-text-sm)`                                   |
+| `--moduix-collapsible-trigger-padding-x`        | `var(--moduix-spacing-2)`                                             |
+| `--moduix-collapsible-trigger-padding-y`        | `var(--moduix-spacing-1)`                                             |
+| `--moduix-collapsible-trigger-radius`           | `0`                                                                   |
+| `--moduix-collapsible-trigger-transition`       | `var(--moduix-transition-default)`                                    |
 
 ## Intentional sugar and differences from upstream
 

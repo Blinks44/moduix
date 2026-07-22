@@ -1,51 +1,51 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     margin: 0;
 
     &[data-inline='xs'] {
-      margin-inline: calc(var(--bleed-inline-xs, var(--spacing-1)) * -1);
+      margin-inline: calc(var(--moduix-bleed-inline-xs, var(--moduix-spacing-1)) * -1);
     }
 
     &[data-inline='sm'] {
-      margin-inline: calc(var(--bleed-inline-sm, var(--spacing-2)) * -1);
+      margin-inline: calc(var(--moduix-bleed-inline-sm, var(--moduix-spacing-2)) * -1);
     }
 
     &[data-inline='md'] {
-      margin-inline: calc(var(--bleed-inline-md, var(--spacing-3)) * -1);
+      margin-inline: calc(var(--moduix-bleed-inline-md, var(--moduix-spacing-3)) * -1);
     }
 
     &[data-inline='lg'] {
-      margin-inline: calc(var(--bleed-inline-lg, var(--spacing-4)) * -1);
+      margin-inline: calc(var(--moduix-bleed-inline-lg, var(--moduix-spacing-4)) * -1);
     }
 
     &[data-inline='xl'] {
-      margin-inline: calc(var(--bleed-inline-xl, var(--spacing-6)) * -1);
+      margin-inline: calc(var(--moduix-bleed-inline-xl, var(--moduix-spacing-6)) * -1);
     }
 
     &[data-inline='full'] {
-      inline-size: var(--bleed-inline-full-size, 100vw);
-      margin-inline: var(--bleed-inline-full, calc(50% - 50vw));
+      inline-size: var(--moduix-bleed-inline-full-size, 100vw);
+      margin-inline: var(--moduix-bleed-inline-full, calc(50% - 50vw));
     }
 
     &[data-block='xs'] {
-      margin-block: calc(var(--bleed-block-xs, var(--spacing-1)) * -1);
+      margin-block: calc(var(--moduix-bleed-block-xs, var(--moduix-spacing-1)) * -1);
     }
 
     &[data-block='sm'] {
-      margin-block: calc(var(--bleed-block-sm, var(--spacing-2)) * -1);
+      margin-block: calc(var(--moduix-bleed-block-sm, var(--moduix-spacing-2)) * -1);
     }
 
     &[data-block='md'] {
-      margin-block: calc(var(--bleed-block-md, var(--spacing-3)) * -1);
+      margin-block: calc(var(--moduix-bleed-block-md, var(--moduix-spacing-3)) * -1);
     }
 
     &[data-block='lg'] {
-      margin-block: calc(var(--bleed-block-lg, var(--spacing-4)) * -1);
+      margin-block: calc(var(--moduix-bleed-block-lg, var(--moduix-spacing-4)) * -1);
     }
 
     &[data-block='xl'] {
-      margin-block: calc(var(--bleed-block-xl, var(--spacing-6)) * -1);
+      margin-block: calc(var(--moduix-bleed-block-xl, var(--moduix-spacing-6)) * -1);
     }
   }
 }

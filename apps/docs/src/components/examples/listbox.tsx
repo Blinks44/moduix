@@ -1,380 +1,350 @@
-import {
-  createGridCollection,
-  createListCollection,
-  useListCollection,
-} from '@ark-ui/react/collection';
-import { Button, Listbox, useListbox, useListboxContext } from '@moduix/react';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './listbox.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-interface OptionItem {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}
-
-interface RegionItem extends OptionItem {
-  region: string;
-}
-
-interface AlbumItem {
-  title: string;
-  artist: string;
-}
-
-const countries = createListCollection<OptionItem>({
-  items: [
-    { label: 'United States', value: 'us' },
-    { label: 'United Kingdom', value: 'uk' },
-    { label: 'Canada', value: 'ca' },
-    { label: 'Australia', value: 'au' },
-    { label: 'Germany', value: 'de' },
-    { label: 'France', value: 'fr' },
-    { label: 'Japan', value: 'jp' },
-  ],
-});
-
-const sizes = createListCollection<OptionItem>({
-  items: [
-    { label: 'Small', value: 'sm' },
-    { label: 'Medium', value: 'md' },
-    { label: 'Large', value: 'lg' },
-    { label: 'Extra Large', value: 'xl' },
-  ],
-});
-
-const priorities = createListCollection<OptionItem>({
-  items: [
-    { label: 'Low', value: 'low' },
-    { label: 'Medium', value: 'medium' },
-    { label: 'High', value: 'high' },
-    { label: 'Critical', value: 'critical' },
-  ],
-});
-
-const plans = createListCollection<OptionItem>({
-  items: [
-    { label: 'Free', value: 'free' },
-    { label: 'Pro', value: 'pro' },
-    { label: 'Enterprise', value: 'enterprise', disabled: true },
-    { label: 'Custom', value: 'custom' },
-  ],
-});
-
-const days = createListCollection<OptionItem>({
-  items: [
-    { label: 'Monday', value: 'mon' },
-    { label: 'Tuesday', value: 'tue' },
-    { label: 'Wednesday', value: 'wed' },
-    { label: 'Thursday', value: 'thu' },
-    { label: 'Friday', value: 'fri' },
-    { label: 'Saturday', value: 'sat' },
-    { label: 'Sunday', value: 'sun' },
-  ],
-});
-
-const regions = createListCollection<RegionItem>({
-  items: [
-    { label: 'New York', value: 'nyc', region: 'North America' },
-    { label: 'Los Angeles', value: 'lax', region: 'North America' },
-    { label: 'Toronto', value: 'yyz', region: 'North America' },
-    { label: 'London', value: 'lhr', region: 'Europe' },
-    { label: 'Paris', value: 'cdg', region: 'Europe' },
-    { label: 'Berlin', value: 'ber', region: 'Europe' },
-    { label: 'Tokyo', value: 'nrt', region: 'Asia Pacific' },
-    { label: 'Singapore', value: 'sin', region: 'Asia Pacific' },
-    { label: 'Sydney', value: 'syd', region: 'Asia Pacific' },
-  ],
-  groupBy: (item) => item.region,
-});
-
-const frameworks = createListCollection<OptionItem>({
-  items: [
-    { label: 'React', value: 'react' },
-    { label: 'Vue', value: 'vue' },
-    { label: 'Angular', value: 'angular' },
-    { label: 'Svelte', value: 'svelte' },
-    { label: 'Solid', value: 'solid' },
-    { label: 'Preact', value: 'preact' },
-  ],
-});
-
-const albums = createListCollection<AlbumItem>({
-  items: [
-    { title: 'Midnight Dreams', artist: 'Luna Ray' },
-    { title: 'Neon Skyline', artist: 'The Electric' },
-    { title: 'Acoustic Sessions', artist: 'Sarah Woods' },
-    { title: 'Urban Echoes', artist: 'Metro Collective' },
-    { title: 'Summer Vibes', artist: 'Coastal Waves' },
-  ],
-  itemToValue: (item) => item.title,
-  itemToString: (item) => item.title,
-});
-
-const colors = createGridCollection({
-  items: [
-    { label: 'Red', value: 'red' },
-    { label: 'Green', value: 'green' },
-    { label: 'Blue', value: 'blue' },
-    { label: 'Yellow', value: 'yellow' },
-    { label: 'Purple', value: 'purple' },
-    { label: 'Orange', value: 'orange' },
-  ],
-  columnCount: 3,
-});
-
-const filterItems: OptionItem[] = [
-  { label: 'React', value: 'react' },
-  { label: 'Vue', value: 'vue' },
-  { label: 'Angular', value: 'angular' },
-  { label: 'Svelte', value: 'svelte' },
-  { label: 'Solid', value: 'solid' },
-  { label: 'Next.js', value: 'nextjs' },
-  { label: 'Nuxt.js', value: 'nuxtjs' },
-  { label: 'Remix', value: 'remix' },
-  { label: 'Gatsby', value: 'gatsby' },
-  { label: 'Preact', value: 'preact' },
-];
-
-export const listboxOverrideCssProperties: CssPropertyInput[] = [
-  ['--listbox-bg', 'var(--color-background)', 'Controls content and unified filter background.'],
+const listboxOverrideCssProperties: CssPropertyInput[] = [
   [
-    '--listbox-border-color',
-    'var(--color-border)',
+    '--moduix-listbox-bg',
+    'var(--moduix-color-background)',
+    'Controls content and unified filter background.',
+  ],
+  [
+    '--moduix-listbox-border-color',
+    'var(--moduix-color-border)',
     'Controls content and filter fallback border color.',
   ],
   [
-    '--listbox-border-width',
-    'var(--border-width-sm)',
+    '--moduix-listbox-border-width',
+    'var(--moduix-border-width-sm)',
     'Controls content and filter fallback border width.',
   ],
-  ['--listbox-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--listbox-content-max-height', '14rem', 'Controls content maximum height.'],
+  ['--moduix-listbox-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
+  ['--moduix-listbox-content-max-height', '14rem', 'Controls content maximum height.'],
   [
-    '--listbox-content-padding-y',
-    'var(--popup-list-padding-y, var(--spacing-1))',
+    '--moduix-listbox-content-padding-y',
+    'var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))',
     'Controls content vertical padding.',
   ],
-  ['--listbox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--listbox-empty-color', 'var(--color-muted-foreground)', 'Controls empty message color.'],
-  ['--listbox-empty-font-size', 'var(--text-sm)', 'Controls empty message font size.'],
-  ['--listbox-empty-line-height', 'var(--line-height-text-sm)', 'Controls empty line height.'],
-  ['--listbox-empty-padding-x', 'var(--spacing-3)', 'Controls empty horizontal padding.'],
-  ['--listbox-empty-padding-y', 'var(--spacing-3)', 'Controls empty vertical padding.'],
-  ['--listbox-filter-action-bg', 'transparent', 'Controls clear button background.'],
   [
-    '--listbox-filter-action-bg-hover',
-    'var(--color-muted)',
+    '--moduix-listbox-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  [
+    '--moduix-listbox-empty-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls empty message color.',
+  ],
+  [
+    '--moduix-listbox-empty-font-size',
+    'var(--moduix-text-sm)',
+    'Controls empty message font size.',
+  ],
+  [
+    '--moduix-listbox-empty-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls empty line height.',
+  ],
+  [
+    '--moduix-listbox-empty-padding-x',
+    'var(--moduix-spacing-3)',
+    'Controls empty horizontal padding.',
+  ],
+  [
+    '--moduix-listbox-empty-padding-y',
+    'var(--moduix-spacing-3)',
+    'Controls empty vertical padding.',
+  ],
+  ['--moduix-listbox-filter-action-bg', 'transparent', 'Controls clear button background.'],
+  [
+    '--moduix-listbox-filter-action-bg-hover',
+    'var(--moduix-color-muted)',
     'Controls clear button hover background.',
   ],
   [
-    '--listbox-filter-action-color-hover',
-    'var(--color-foreground)',
+    '--moduix-listbox-filter-action-color-hover',
+    'var(--moduix-color-foreground)',
     'Controls clear button hover color.',
   ],
-  ['--listbox-filter-action-radius', 'var(--radius-sm)', 'Controls clear button radius.'],
-  ['--listbox-filter-action-size', 'var(--size-xs)', 'Controls clear button box size.'],
   [
-    '--listbox-filter-height',
-    'var(--listbox-input-height, var(--size-md))',
+    '--moduix-listbox-filter-action-radius',
+    'var(--moduix-radius-sm)',
+    'Controls clear button radius.',
+  ],
+  [
+    '--moduix-listbox-filter-action-size',
+    'var(--moduix-size-xs)',
+    'Controls clear button box size.',
+  ],
+  [
+    '--moduix-listbox-filter-height',
+    'var(--moduix-listbox-input-height, var(--moduix-size-md))',
     'Controls search field height.',
   ],
   [
-    '--listbox-filter-icon-color',
-    'var(--color-muted-foreground)',
+    '--moduix-listbox-filter-icon-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls search and clear icon color.',
   ],
-  ['--listbox-filter-icon-size', 'var(--spacing-4)', 'Controls search and clear icon size.'],
   [
-    '--listbox-filter-input-padding-x',
-    'var(--spacing-2)',
+    '--moduix-listbox-filter-icon-size',
+    'var(--moduix-spacing-4)',
+    'Controls search and clear icon size.',
+  ],
+  [
+    '--moduix-listbox-filter-input-padding-x',
+    'var(--moduix-spacing-2)',
     'Controls text padding inside the search field.',
   ],
-  ['--listbox-filter-padding-x', 'var(--spacing-3)', 'Controls search field edge padding.'],
-  ['--listbox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
-    '--listbox-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-listbox-filter-padding-x',
+    'var(--moduix-spacing-3)',
+    'Controls search field edge padding.',
+  ],
+  ['--moduix-listbox-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-listbox-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls focus ring width.',
   ],
-  ['--listbox-grid-gap', 'var(--spacing-1)', 'Controls grid content gap.'],
-  ['--listbox-grid-padding', 'var(--spacing-2)', 'Controls grid content padding.'],
-  ['--listbox-grid-selected-bg', 'var(--color-muted)', 'Controls selected grid item background.'],
+  ['--moduix-listbox-grid-gap', 'var(--moduix-spacing-1)', 'Controls grid content gap.'],
+  ['--moduix-listbox-grid-padding', 'var(--moduix-spacing-2)', 'Controls grid content padding.'],
   [
-    '--listbox-grid-selected-color',
-    'var(--color-foreground)',
+    '--moduix-listbox-grid-selected-bg',
+    'var(--moduix-color-muted)',
+    'Controls selected grid item background.',
+  ],
+  [
+    '--moduix-listbox-grid-selected-color',
+    'var(--moduix-color-foreground)',
     'Controls selected grid item text color.',
   ],
-  ['--listbox-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
   [
-    '--listbox-highlight-color',
-    'var(--color-accent-foreground)',
+    '--moduix-listbox-highlight-bg',
+    'var(--moduix-color-accent)',
+    'Controls highlighted item background.',
+  ],
+  [
+    '--moduix-listbox-highlight-color',
+    'var(--moduix-color-accent-foreground)',
     'Controls highlighted item text color.',
   ],
   [
-    '--listbox-hover-bg',
-    'var(--listbox-highlight-bg, var(--color-accent))',
+    '--moduix-listbox-hover-bg',
+    'var(--moduix-listbox-highlight-bg, var(--moduix-color-accent))',
     'Controls hovered item background.',
   ],
   [
-    '--listbox-hover-color',
-    'var(--listbox-highlight-color, var(--color-accent-foreground))',
+    '--moduix-listbox-hover-color',
+    'var(--moduix-listbox-highlight-color, var(--moduix-color-accent-foreground))',
     'Controls hovered item text color.',
   ],
   [
-    '--listbox-horizontal-content-max-height',
+    '--moduix-listbox-horizontal-content-max-height',
     'none',
     'Controls horizontal content maximum height.',
   ],
-  ['--listbox-horizontal-gap', 'var(--spacing-2)', 'Controls horizontal item gap.'],
-  ['--listbox-horizontal-item-width', '11rem', 'Controls horizontal item width.'],
-  ['--listbox-input-height', 'var(--size-md)', 'Controls Listbox input height.'],
-  ['--listbox-input-bg', 'var(--color-background)', 'Controls standalone input background.'],
+  ['--moduix-listbox-horizontal-gap', 'var(--moduix-spacing-2)', 'Controls horizontal item gap.'],
+  ['--moduix-listbox-horizontal-item-width', '11rem', 'Controls horizontal item width.'],
+  ['--moduix-listbox-input-height', 'var(--moduix-size-md)', 'Controls Listbox input height.'],
   [
-    '--listbox-input-border-color',
-    'var(--listbox-border-color, var(--color-border))',
+    '--moduix-listbox-input-bg',
+    'var(--moduix-color-background)',
+    'Controls standalone input background.',
+  ],
+  [
+    '--moduix-listbox-input-border-color',
+    'var(--moduix-listbox-border-color, var(--moduix-color-border))',
     'Controls Listbox input border color.',
   ],
   [
-    '--listbox-input-border-width',
-    'var(--listbox-border-width, var(--border-width-sm))',
+    '--moduix-listbox-input-border-width',
+    'var(--moduix-listbox-border-width, var(--moduix-border-width-sm))',
     'Controls Listbox input border width.',
   ],
   [
-    '--listbox-input-color',
-    'var(--listbox-color, var(--color-foreground))',
+    '--moduix-listbox-input-color',
+    'var(--moduix-listbox-color, var(--moduix-color-foreground))',
     'Controls Listbox input text color.',
   ],
   [
-    '--listbox-input-focus-ring-color',
-    'var(--listbox-focus-ring-color, var(--color-ring))',
+    '--moduix-listbox-input-focus-ring-color',
+    'var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring))',
     'Controls standalone input focus ring color.',
   ],
   [
-    '--listbox-input-focus-ring-width',
-    'var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
+    '--moduix-listbox-input-focus-ring-width',
+    'var(--moduix-listbox-focus-ring-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls standalone input focus ring width.',
   ],
-  ['--listbox-input-font-size', 'var(--text-md)', 'Controls filter input font size.'],
+  ['--moduix-listbox-input-font-size', 'var(--moduix-text-md)', 'Controls filter input font size.'],
   [
-    '--listbox-input-line-height',
-    'var(--line-height-text-md)',
+    '--moduix-listbox-input-line-height',
+    'var(--moduix-line-height-text-md)',
     'Controls filter input line height.',
   ],
-  ['--listbox-input-padding-x', 'var(--spacing-3)', 'Controls filter input horizontal padding.'],
-  ['--listbox-input-padding-y', 'var(--spacing-1)', 'Controls filter input vertical padding.'],
   [
-    '--listbox-input-radius',
-    'var(--listbox-radius, var(--radius-md))',
+    '--moduix-listbox-input-padding-x',
+    'var(--moduix-spacing-3)',
+    'Controls filter input horizontal padding.',
+  ],
+  [
+    '--moduix-listbox-input-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls filter input vertical padding.',
+  ],
+  [
+    '--moduix-listbox-input-radius',
+    'var(--moduix-listbox-radius, var(--moduix-radius-md))',
     'Controls filter input radius.',
   ],
-  ['--listbox-item-bg', 'transparent', 'Controls item background.'],
-  ['--listbox-item-border-color', 'transparent', 'Controls item border color.'],
-  ['--listbox-item-border-width', '0', 'Controls item border width.'],
+  ['--moduix-listbox-item-bg', 'transparent', 'Controls item background.'],
+  ['--moduix-listbox-item-border-color', 'transparent', 'Controls item border color.'],
+  ['--moduix-listbox-item-border-width', '0', 'Controls item border width.'],
   [
-    '--listbox-item-color',
-    'var(--listbox-color, var(--color-foreground))',
+    '--moduix-listbox-item-color',
+    'var(--moduix-listbox-color, var(--moduix-color-foreground))',
     'Controls item text color.',
   ],
   [
-    '--listbox-item-disabled-color',
-    'var(--color-muted-foreground)',
+    '--moduix-listbox-item-disabled-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls disabled item text color.',
   ],
   [
-    '--listbox-item-font-size',
-    'var(--popup-item-font-size, var(--text-sm))',
+    '--moduix-listbox-item-font-size',
+    'var(--moduix-popup-item-font-size, var(--moduix-text-sm))',
     'Controls item font size.',
   ],
-  ['--listbox-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
-  ['--listbox-item-group-gap', 'var(--spacing-2)', 'Controls gap between item groups.'],
+  ['--moduix-listbox-item-gap', 'var(--moduix-spacing-2)', 'Controls item content gap.'],
   [
-    '--listbox-item-group-label-color',
-    'var(--popup-group-label-color, var(--color-muted-foreground))',
+    '--moduix-listbox-item-group-gap',
+    'var(--moduix-spacing-2)',
+    'Controls gap between item groups.',
+  ],
+  [
+    '--moduix-listbox-item-group-label-color',
+    'var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))',
     'Controls group label color.',
   ],
   [
-    '--listbox-item-group-label-font-size',
-    'var(--popup-group-label-font-size, var(--text-xs))',
+    '--moduix-listbox-item-group-label-font-size',
+    'var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))',
     'Controls group label font size.',
   ],
   [
-    '--listbox-item-group-label-font-weight',
-    'var(--popup-group-label-font-weight, var(--weight-regular))',
+    '--moduix-listbox-item-group-label-font-weight',
+    'var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))',
     'Controls group label font weight.',
   ],
   [
-    '--listbox-item-group-label-line-height',
-    'var(--popup-group-label-line-height, var(--line-height-text-xs))',
+    '--moduix-listbox-item-group-label-line-height',
+    'var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))',
     'Controls group label line height.',
   ],
   [
-    '--listbox-item-group-label-padding-x',
-    'var(--spacing-2)',
+    '--moduix-listbox-item-group-label-padding-x',
+    'var(--moduix-spacing-2)',
     'Controls group label horizontal padding.',
   ],
   [
-    '--listbox-item-group-label-padding-y',
-    'var(--popup-group-label-padding-y, var(--spacing-1))',
+    '--moduix-listbox-item-group-label-padding-y',
+    'var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))',
     'Controls group label vertical padding.',
   ],
-  ['--listbox-item-indicator-color', 'currentColor', 'Controls selected indicator color.'],
-  ['--listbox-item-indicator-icon-size', 'var(--spacing-3)', 'Controls selected icon size.'],
-  ['--listbox-item-indicator-size', 'var(--spacing-4)', 'Controls selected indicator box size.'],
-  ['--listbox-item-inset-x', 'var(--spacing-2)', 'Controls item horizontal inset.'],
+  ['--moduix-listbox-item-indicator-color', 'currentColor', 'Controls selected indicator color.'],
   [
-    '--listbox-item-line-height',
-    'var(--popup-item-line-height, var(--line-height-text-sm))',
+    '--moduix-listbox-item-indicator-icon-size',
+    'var(--moduix-spacing-3)',
+    'Controls selected icon size.',
+  ],
+  [
+    '--moduix-listbox-item-indicator-size',
+    'var(--moduix-spacing-4)',
+    'Controls selected indicator box size.',
+  ],
+  ['--moduix-listbox-item-inset-x', 'var(--moduix-spacing-2)', 'Controls item horizontal inset.'],
+  [
+    '--moduix-listbox-item-line-height',
+    'var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))',
     'Controls item line height.',
   ],
   [
-    '--listbox-item-min-height',
-    'var(--popup-item-min-height, var(--size-sm))',
+    '--moduix-listbox-item-min-height',
+    'var(--moduix-popup-item-min-height, var(--moduix-size-sm))',
     'Controls item minimum height.',
   ],
   [
-    '--listbox-item-padding-x',
-    'var(--popup-item-padding-x-start, var(--spacing-3))',
+    '--moduix-listbox-item-padding-x',
+    'var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))',
     'Controls item horizontal padding.',
   ],
   [
-    '--listbox-item-padding-y',
-    'var(--popup-item-padding-y, var(--spacing-1))',
+    '--moduix-listbox-item-padding-y',
+    'var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))',
     'Controls item vertical padding.',
   ],
-  ['--listbox-item-radius', 'var(--radius-sm)', 'Controls item radius.'],
+  ['--moduix-listbox-item-radius', 'var(--moduix-radius-sm)', 'Controls item radius.'],
   [
-    '--listbox-item-selected-color',
-    'var(--listbox-item-color, var(--color-foreground))',
+    '--moduix-listbox-item-selected-color',
+    'var(--moduix-listbox-item-color, var(--moduix-color-foreground))',
     'Controls selected item color.',
   ],
-  ['--listbox-item-text-content-gap', 'var(--spacing-2)', 'Controls rich item text gap.'],
-  ['--listbox-item-text-icon-color', 'currentColor', 'Controls rich item icon color.'],
-  ['--listbox-item-text-icon-size', 'var(--spacing-4)', 'Controls rich item icon size.'],
   [
-    '--listbox-label-color',
-    'var(--listbox-color, var(--color-foreground))',
+    '--moduix-listbox-item-text-content-gap',
+    'var(--moduix-spacing-2)',
+    'Controls rich item text gap.',
+  ],
+  ['--moduix-listbox-item-text-icon-color', 'currentColor', 'Controls rich item icon color.'],
+  [
+    '--moduix-listbox-item-text-icon-size',
+    'var(--moduix-spacing-4)',
+    'Controls rich item icon size.',
+  ],
+  [
+    '--moduix-listbox-label-color',
+    'var(--moduix-listbox-color, var(--moduix-color-foreground))',
     'Controls label color.',
   ],
-  ['--listbox-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--listbox-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--listbox-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--listbox-max-width', '100%', 'Controls root maximum width.'],
-  ['--listbox-placeholder-color', 'var(--color-muted-foreground)', 'Controls input placeholder.'],
-  ['--listbox-radius', 'var(--radius-md)', 'Controls input and content radius.'],
-  ['--listbox-root-gap', 'var(--spacing-3)', 'Controls root internal gap.'],
-  ['--listbox-transition', 'var(--transition-default)', 'Controls interactive transitions.'],
-  ['--listbox-value-text-color', 'var(--color-muted-foreground)', 'Controls value text color.'],
-  ['--listbox-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
+  ['--moduix-listbox-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
-    '--listbox-value-text-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-listbox-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-listbox-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  ['--moduix-listbox-max-width', '100%', 'Controls root maximum width.'],
+  [
+    '--moduix-listbox-placeholder-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls input placeholder.',
+  ],
+  ['--moduix-listbox-radius', 'var(--moduix-radius-md)', 'Controls input and content radius.'],
+  ['--moduix-listbox-root-gap', 'var(--moduix-spacing-3)', 'Controls root internal gap.'],
+  [
+    '--moduix-listbox-transition',
+    'var(--moduix-transition-default)',
+    'Controls interactive transitions.',
+  ],
+  [
+    '--moduix-listbox-value-text-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls value text color.',
+  ],
+  [
+    '--moduix-listbox-value-text-font-size',
+    'var(--moduix-text-sm)',
+    'Controls value text font size.',
+  ],
+  [
+    '--moduix-listbox-value-text-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls value text line height.',
   ],
-  ['--listbox-width', '16rem', 'Controls root width.'],
+  ['--moduix-listbox-width', '16rem', 'Controls root width.'],
 ];
 
 export function ListboxCssPropertiesPanel() {
@@ -389,266 +359,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-function ListboxItems({ collection = countries }: { collection?: typeof countries }) {
-  return collection.items.map((item) => (
-    <Listbox.Item key={item.value} item={item}>
-      <Listbox.ItemText>{item.label}</Listbox.ItemText>
-      <Listbox.ItemIndicator />
-    </Listbox.Item>
-  ));
-}
-
-function Stack({ children }: { children: ReactNode }) {
-  return <div className={styles.stack}>{children}</div>;
-}
-
-export function ListboxExample() {
-  return (
-    <Listbox collection={countries} className={styles.root}>
-      <Listbox.Label>Select country</Listbox.Label>
-      <Listbox.Content>
-        <ListboxItems />
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function ControlledListboxExample() {
-  const [value, setValue] = useState<string[]>(['md']);
-
-  return (
-    <Stack>
-      <Listbox
-        collection={sizes}
-        className={styles.root}
-        value={value}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <Listbox.Label>Select size</Listbox.Label>
-        <Listbox.Content>
-          <ListboxItems collection={sizes} />
-        </Listbox.Content>
-      </Listbox>
-      <output>Selected: {value[0] ?? 'none'}</output>
-    </Stack>
-  );
-}
-
-export function RootProviderListboxExample() {
-  const listbox = useListbox({ collection: priorities });
-
-  return (
-    <Stack>
-      <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>
-      <Listbox.RootProvider value={listbox} className={styles.root}>
-        <Listbox.Label>Select priority</Listbox.Label>
-        <Listbox.Content>
-          <ListboxItems collection={priorities} />
-        </Listbox.Content>
-      </Listbox.RootProvider>
-    </Stack>
-  );
-}
-
-export function DisabledItemListboxExample() {
-  return (
-    <Listbox collection={plans} className={styles.root}>
-      <Listbox.Label>Select plan</Listbox.Label>
-      <Listbox.Content>
-        <ListboxItems collection={plans} />
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function MultipleListboxExample() {
-  return (
-    <Listbox
-      collection={days}
-      className={styles.root}
-      selectionMode="multiple"
-      defaultValue={['mon', 'wed', 'fri']}
-    >
-      <Listbox.Label>Select days</Listbox.Label>
-      <Listbox.Content>
-        <ListboxItems collection={days} />
-      </Listbox.Content>
-      <Listbox.ValueText />
-    </Listbox>
-  );
-}
-
-export function GroupedListboxExample() {
-  return (
-    <Listbox collection={regions} className={styles.root}>
-      <Listbox.Label>Select region</Listbox.Label>
-      <Listbox.Content>
-        {regions.group().map(([region, items]) => (
-          <Listbox.ItemGroup key={region} id={region}>
-            <Listbox.ItemGroupLabel>{region}</Listbox.ItemGroupLabel>
-            {items.map((item) => (
-              <Listbox.Item key={item.value} item={item}>
-                <Listbox.ItemText>{item.label}</Listbox.ItemText>
-                <Listbox.ItemIndicator />
-              </Listbox.Item>
-            ))}
-          </Listbox.ItemGroup>
-        ))}
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function ExtendedSelectListboxExample() {
-  return (
-    <Listbox collection={frameworks} className={styles.root} selectionMode="extended">
-      <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
-      <Listbox.Content>
-        <ListboxItems collection={frameworks} />
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function HorizontalListboxExample() {
-  return (
-    <Listbox collection={albums} orientation="horizontal" className={styles.horizontalRoot}>
-      <Listbox.Label>Select album</Listbox.Label>
-      <Listbox.Content>
-        {albums.items.map((item) => (
-          <Listbox.Item key={item.title} item={item}>
-            <Listbox.ItemText>
-              <Listbox.ItemTextContent className={styles.albumText}>
-                <Listbox.ItemTextLabel>{item.title}</Listbox.ItemTextLabel>
-                <span className={styles.artist}>{item.artist}</span>
-              </Listbox.ItemTextContent>
-            </Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
-        ))}
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function GridListboxExample() {
-  return (
-    <Listbox collection={colors} className={styles.gridRoot}>
-      <Listbox.Label>Pick a color</Listbox.Label>
-      <Listbox.Content>
-        {colors.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-          </Listbox.Item>
-        ))}
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function FilteringListboxExample() {
-  const [filterText, setFilterText] = useState('');
-  const { collection, filter } = useListCollection<OptionItem>({
-    initialItems: filterItems,
-    filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
-  });
-
-  return (
-    <Listbox collection={collection} className={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Filter>
-        <Listbox.Input
-          placeholder="Search frameworks..."
-          value={filterText}
-          onChange={(event) => {
-            setFilterText(event.target.value);
-            filter(event.target.value);
-          }}
-        />
-        {filterText ? (
-          <Listbox.ClearTrigger
-            onClick={() => {
-              setFilterText('');
-              filter('');
-            }}
-          />
-        ) : null}
-      </Listbox.Filter>
-      <Listbox.Content>
-        {collection.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
-        ))}
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-export function StandaloneFilterInputListboxExample() {
-  const { collection, filter } = useListCollection<OptionItem>({
-    initialItems: filterItems,
-    filter: (itemText, filterText) => itemText.toLowerCase().includes(filterText.toLowerCase()),
-  });
-
-  return (
-    <Listbox collection={collection} className={styles.root} typeahead={false}>
-      <Listbox.Label>Select framework</Listbox.Label>
-      <Listbox.Input
-        placeholder="Filter frameworks"
-        onChange={(event) => filter(event.target.value)}
-      />
-      <Listbox.Content>
-        {collection.items.map((item) => (
-          <Listbox.Item key={item.value} item={item}>
-            <Listbox.ItemText>{item.label}</Listbox.ItemText>
-            <Listbox.ItemIndicator />
-          </Listbox.Item>
-        ))}
-        <Listbox.Empty>No frameworks found</Listbox.Empty>
-      </Listbox.Content>
-    </Listbox>
-  );
-}
-
-function SelectAllListboxTrigger() {
-  const listbox = useListboxContext();
-  const allValues = days.items.map((item) => item.value);
-  const allSelected = listbox.value.length === allValues.length;
-
-  return (
-    <Button onClick={() => listbox.setValue(allSelected ? [] : allValues)}>
-      {allSelected ? 'Clear all' : 'Select all'}
-    </Button>
-  );
-}
-
-export function SelectAllListboxExample() {
-  return (
-    <Stack>
-      <Listbox collection={days} className={styles.root} selectionMode="multiple">
-        <Listbox.Label>Select days</Listbox.Label>
-        <SelectAllListboxTrigger />
-        <Listbox.Content>
-          <ListboxItems collection={days} />
-        </Listbox.Content>
-      </Listbox>
-    </Stack>
-  );
-}
-
-export function ValueTextListboxExample() {
-  return (
-    <Listbox collection={countries} className={styles.root} defaultValue={['ca']}>
-      <Listbox.Label>Select country</Listbox.Label>
-      <Listbox.Content>
-        <ListboxItems />
-      </Listbox.Content>
-      <Listbox.ValueText placeholder="No country selected" />
-    </Listbox>
-  );
 }

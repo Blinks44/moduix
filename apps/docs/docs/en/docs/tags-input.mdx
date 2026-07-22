@@ -1,0 +1,313 @@
+---
+title: Tags Input
+component: tags-input
+description: Ark UI tags input composition for entering, editing, validating, and submitting string tags.
+---
+
+import * as TagsInputDocs from '@/components/examples/tags-input';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+
+## Choosing the right component
+
+Use `TagsInput` when users need to build a list of editable string values inside one form control.
+
+- Choose **`TagsInput`** for labels, skills, filters, recipients, topics, and similar free-form string lists.
+- Choose **`Tag`** when the UI only displays an existing token and may offer a separate remove action.
+- Choose **`Combobox`** when users must choose from a known collection and filtering is the main interaction.
+
+## Basic
+
+Start with the root, label, control, `Items`, entry input, clear trigger, and the native form input for
+native form submission and reset synchronization. `Items` renders the standard editable tag anatomy;
+use explicit parts only when individual tags need customization.
+
+<style>{`
+      [data-slot="tags-input-control"] {
+        --moduix-tags-input-control-gap: var(--moduix-spacing-1);
+      }
+
+      .tags-input-form {
+        display: grid;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .tags-input-form output {
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+      }
+
+    `}</style>
+
+```tsx preview file="./_snippets/tags-input/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="tags-input" />
+
+## Anatomy
+
+```text
+TagsInput / TagsInput.Root
+├─ TagsInput.Label
+├─ TagsInput.Control
+│  ├─ TagsInput.Items
+│  └─ TagsInput.Item[index, value]
+│     ├─ TagsInput.ItemPreview
+│     │  ├─ TagsInput.ItemText
+│     │  └─ TagsInput.ItemDeleteTrigger
+│     └─ TagsInput.ItemInput
+│  ├─ TagsInput.Input
+│  └─ TagsInput.ClearTrigger
+└─ native input (automatic)
+```
+
+| Part                                   | Role                                                                 |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| `TagsInput` / `TagsInput.Root`         | Root state machine, value array, input value, validation, and forms. |
+| `TagsInput.RootProvider`               | Renders tags input from state returned by Ark `useTagsInput`.        |
+| `TagsInput.Label`                      | Accessible label for the tags input.                                 |
+| `TagsInput.Control`                    | Visible input shell containing tags, entry input, and clear trigger. |
+| `TagsInput.Items`                      | Default editable tag renderer for `TagsInput.Context` values.        |
+| `TagsInput.Item`                       | One tag item. Pass `index` and `value`.                              |
+| `TagsInput.ItemContext`                | Render-prop access to current item state.                            |
+| `TagsInput.ItemPreview`                | Visible tag surface outside edit mode.                               |
+| `TagsInput.ItemText`                   | Visible tag text.                                                    |
+| `TagsInput.ItemDeleteTrigger`          | Removes one tag; moduix supplies a compact default close icon.       |
+| `TagsInput.ItemInput`                  | Inline edit input for the tag.                                       |
+| `TagsInput.Input`                      | Entry input for new tags.                                            |
+| `TagsInput.ClearTrigger`               | Clears all tags; moduix uses the shared `CloseButton.Root` default.  |
+| `TagsInput.Context`                    | Inline access to Ark root state.                                     |
+| moduix `useTagsInput` + `RootProvider` | External state ownership and imperative methods.                     |
+
+## Composition
+
+### Recommended composition
+
+Use the short `<TagsInput>` root form. Render `TagsInput.Items` inside `Control` for the standard
+editable tag tree. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.
+
+### When to go custom
+
+Use explicit `TagsInput.Context` / `TagsInput.Item` composition when tags need custom content or
+actions. Use `TagsInput.RootProvider` with moduix `useTagsInput` when surrounding UI needs imperative
+methods such as `addValue`, `setValue`, `clearValue`, `setInputValue`, or `focus`. Use `ids` when
+composing `TagsInput` with another Ark primitive, such as a `Combobox`, and both primitives must
+share an input or control ID.
+
+### Default props
+
+| Prop                | Default    | Notes                                                                   |
+| ------------------- | ---------- | ----------------------------------------------------------------------- |
+| `defaultValue`      | `[]`       | Initial uncontrolled tag array.                                         |
+| `value`             | -          | Controlled tag array. Update from `onValueChange(details).value`.       |
+| `defaultInputValue` | `''`       | Initial uncontrolled entry input value.                                 |
+| `inputValue`        | -          | Controlled entry input value.                                           |
+| `delimiter`         | `','`      | Character or regex used for paste splitting and delimiter key handling. |
+| `max`               | `Infinity` | Maximum number of tags.                                                 |
+| `maxLength`         | -          | Maximum characters accepted by the entry input.                         |
+| `allowOverflow`     | `false`    | Allows values beyond `max` while marking the root invalid.              |
+| `allowDuplicates`   | `false`    | Allows adding the same string value more than once.                     |
+| `editable`          | `true`     | Lets focused or double-clicked tags enter edit mode.                    |
+| `addOnPaste`        | `false`    | Splits pasted input into tags using `delimiter`.                        |
+| `blurBehavior`      | -          | Use `"add"` to add the entry value on blur or `"clear"` to discard it.  |
+| `sanitizeValue`     | trim       | Normalizes each value before Ark validates and adds it.                 |
+
+### Behavioral notes
+
+`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)`, and
+`onValueInvalid(details)` expose Ark detail objects. `validate(details)` accepts or rejects the
+pending tag, and `sanitizeValue(value)` normalizes each tag before it is added.
+
+`Field.Root` and `Fieldset.Root` can provide disabled, invalid, required, and read-only state
+through Ark context. All exported Ark parts support `asChild`. The default clear trigger uses
+`CloseButton.Root` under Ark `asChild`, while item delete keeps a smaller tag-level icon button.
+
+## Examples
+
+### Allow Duplicates
+
+Set `allowDuplicates` when repeated values are meaningful, such as recipients or weighted labels.
+
+<style>{`[data-slot="tags-input-item-preview"] { max-width: 12rem; }`}</style>
+
+```tsx preview file="./_snippets/tags-input/allow-duplicates.tsx"
+
+```
+
+### Controlled
+
+Control the tag array when selected tags must drive surrounding UI or be reset from React state.
+
+<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/controlled.tsx"
+
+```
+
+### Controlled Input Value
+
+Control `inputValue` separately when another control should prefill or clear the entry input.
+
+<style>{`.actions { display: inline-flex; gap: var(--moduix-spacing-2); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/controlled-input-value.tsx"
+
+```
+
+### Delimiter and Paste
+
+Use `delimiter` with `addOnPaste` when pasted text should create multiple tags.
+
+<style>{`[data-slot="tags-input-input"] { min-width: 10rem; }`}</style>
+
+```tsx preview file="./_snippets/tags-input/delimiter-and-paste.tsx"
+
+```
+
+### Disable Editing
+
+Set `editable={false}` when existing tags should be removable but not editable in place.
+
+<style>{`[data-slot="tags-input-item-preview"] { user-select: none; }`}</style>
+
+```tsx preview file="./_snippets/tags-input/disable-editing.tsx"
+
+```
+
+### Disabled and Read-only
+
+Use `disabled` for a non-interactive control and `readOnly` when values remain visible but should
+not be edited.
+
+<style>{`.stack { display: grid; gap: var(--moduix-spacing-3); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/disabled-and-read-only.tsx"
+
+```
+
+### Field
+
+Wrap `TagsInput` in `Field` when label, helper text, invalid state, and error text should share Ark
+form accessibility wiring.
+
+<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--moduix-color-destructive); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/field.tsx"
+
+```
+
+### Form
+
+Pass `name` to the root to include the tag list in `FormData`; it renders the native form input
+automatically and keeps form reset in sync.
+
+```tsx preview file="./_snippets/tags-input/form.tsx"
+
+```
+
+### Max With Overflow
+
+Use `allowOverflow` with `max` when users may exceed the limit while the control reports invalid
+state.
+
+<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--moduix-color-destructive); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/max-with-overflow.tsx"
+
+```
+
+### Sanitize and Blur
+
+Use `sanitizeValue` to normalize incoming tags and `blurBehavior="add"` to commit the current input
+when focus leaves the control.
+
+<style>{`[data-slot="tags-input-item-text"] { text-transform: lowercase; }`}</style>
+
+```tsx preview file="./_snippets/tags-input/sanitize-and-blur.tsx"
+
+```
+
+### Validation and Max
+
+Use `validate`, `max`, and `onValueInvalid` to reject invalid values and surface validation state.
+Add `maxLength` when the entry input should stop accepting long tag values before validation runs.
+
+<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/validation-and-max.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Items` when each tag needs custom content or actions. The full Ark-shaped item tree stays
+available; the provider and combobox examples below are advanced integrations that intentionally use
+Ark hooks.
+
+```tsx preview file="./_snippets/tags-input/advanced-customization.tsx"
+
+```
+
+#### Root Provider
+
+Use moduix `useTagsInput` with `RootProvider` when state and imperative methods need to live outside
+the rendered tags input tree.
+
+<style>{`.actions { display: inline-flex; gap: var(--moduix-spacing-2); }`}</style>
+
+```tsx preview file="./_snippets/tags-input/root-provider.tsx"
+
+```
+
+#### With Combobox
+
+Compose `TagsInput` with `Combobox` when typed input should offer known options while still
+allowing custom tags.
+
+<style>{`
+      [data-slot="combobox-content"] {
+        min-width: var(--reference-width);
+        max-height: min(var(--available-height, 18rem), 18rem);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/tags-input/with-combobox.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TagsInputDocs.TagsInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Root and root provider expose `data-slot="tags-input-root"` and `data-slot="tags-input-root-provider"`.
+- Ark parts keep `data-scope="tags-input"` and `data-part` values from the upstream anatomy.
+- State styling uses `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`,
+  `data-required`, `data-value`, and `data-highlighted` on the parts where Ark emits them.
+- Delete and clear triggers expose stable `data-slot` hooks. Item delete uses a compact default
+  close icon; clear-all uses the shared `CloseButton.Root` default styling.
+- `TagsInput.ClearTrigger` stays anchored to the inline end of the control when tag rows wrap.
+
+## Accessibility
+
+Ark owns label wiring, tag highlighting, inline edit mode, Backspace/Delete removal, ArrowLeft and
+ArrowRight tag navigation, Enter-to-add and Enter-to-edit behavior, paste splitting, and hidden
+input form integration. The root renders its native form input automatically; configure form participation with root props such as `name` and `form`.

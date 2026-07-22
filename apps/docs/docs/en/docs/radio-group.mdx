@@ -1,0 +1,260 @@
+---
+title: Radio Group
+component: radio-group
+description: Ark UI radio-group composition for selecting one value from a visible set.
+---
+
+import * as RadioGroupDocs from '@/components/examples/radio-group';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Basic
+
+Use `RadioGroup.Option` for the common labelled-item path. It keeps the native hidden input in each
+item automatically.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="radio-group" />
+
+## Anatomy
+
+```text
+RadioGroup.Root
+├─ RadioGroup.Label
+├─ RadioGroup.Indicator (optional)
+└─ RadioGroup.Item[value]
+   ├─ RadioGroup.ItemControl
+   ├─ RadioGroup.ItemText
+   └─ the native form input
+
+RadioGroup.RootProvider
+└─ same item tree connected to a useRadioGroup() store
+
+RadioGroup.Option
+└─ RadioGroup.Item + ItemControl + ItemText + native input (automatic)
+```
+
+| Part                      | Role                                                        |
+| ------------------------- | ----------------------------------------------------------- |
+| `RadioGroup` / `.Root`    | Owns value state, keyboard navigation, orientation, forms.  |
+| `RadioGroup.RootProvider` | Connects parts to state created with Ark `useRadioGroup()`. |
+| `RadioGroup.Label`        | Accessible label for the group.                             |
+| `RadioGroup.Item`         | One selectable option; renders a `label` by default.        |
+| `RadioGroup.Option`       | Convenience item with control, text, and hidden input.      |
+| `RadioGroup.ItemControl`  | Visual radio control; supports the moduix `size` prop.      |
+| `RadioGroup.ItemText`     | Visible option text.                                        |
+| `RadioGroup.Indicator`    | Optional active-item indicator using Ark measurement vars.  |
+
+## Composition
+
+### Recommended composition
+
+Use `RadioGroup` as the short form for `RadioGroup.Root` and `RadioGroup.Option` for labelled
+items. The option accepts the Ark item props, `size`, and `className`; its class is applied to the
+underlying `Item`, so its nested parts remain targetable through their `data-slot` hooks.
+
+### When to go custom
+
+Use `RadioGroup.RootProvider` with `useRadioGroup()` from `@moduix/react` when state must be
+created outside the rendered group tree. Use the explicit `Item` tree when a custom layout or
+`RadioGroup.Item asChild` must own the item DOM node; the direct child must still be a semantic
+`label`.
+
+### Default props
+
+| Prop                          | Default | Notes                                                 |
+| ----------------------------- | ------- | ----------------------------------------------------- |
+| `RadioGroup.Option size`      | `md`    | Convenience control diameter and indicator-dot scale. |
+| `RadioGroup.ItemControl size` | `md`    | Moduix-only control diameter and indicator-dot scale. |
+
+### Behavioral notes
+
+`RadioGroup.Root` accepts Ark props such as `value`, `defaultValue`,
+`onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`,
+`required`, `ids`, and `asChild`.
+
+Each `RadioGroup.Item` renders its native form input automatically for native form submission,
+validation, and reset. Ark owns the controlled and uncontrolled value state, roving focus, keyboard
+navigation, and `onValueChange(details)` callback shape.
+
+`Field.Root` and `Fieldset.Root` state flows through to the group. Use `Field.Label`,
+`Field.HelperText`, and `Field.ErrorText` for visible form context; `Item` and `Option` retain
+native form submission and reset behavior automatically.
+
+## Examples
+
+### asChild
+
+Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM node.
+
+<style>{RadioGroupDocs.radioGroupAsChildCss}</style>
+
+```tsx preview file="./_snippets/radio-group/aschild.tsx"
+
+```
+
+### Controlled
+
+Use `value` with `onValueChange(details)` when selected value is owned by surrounding UI.
+
+<style>{`
+  ${RadioGroupDocs.radioGroupExampleCss}
+
+  .radio-group-controlled-demo {
+    display: grid;
+    justify-items: center;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .radio-group-controlled-demo output {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+  }
+`}</style>
+
+```tsx preview file="./_snippets/radio-group/controlled.tsx"
+
+```
+
+### Disabled
+
+Set `disabled` on the root to make every item unavailable while keeping the selected value visible.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/disabled.tsx"
+
+```
+
+### Indicator
+
+Render `RadioGroup.Indicator` when the active item needs an additional measured group highlight.
+Keep non-item content outside the same positioning context so the indicator tracks item geometry
+exactly.
+
+<style>{RadioGroupDocs.radioGroupIndicatorCss}</style>
+
+```tsx preview file="./_snippets/radio-group/indicator.tsx"
+
+```
+
+### Initial Value
+
+Set `defaultValue` when the initial checked item is known but the group can manage later updates.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/initial-value.tsx"
+
+```
+
+### Orientation
+
+Set `orientation="horizontal"` when arrow-key behavior and layout should follow a horizontal group.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/orientation.tsx"
+
+```
+
+### Root Provider
+
+Use `RootProvider` when a `useRadioGroup()` store needs to be shared with controls outside the radio
+tree.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/root-provider.tsx"
+
+```
+
+### Sizes
+
+Use the moduix `size` prop on `ItemControl` or `Option` when the radio control needs a different
+diameter.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/sizes.tsx"
+
+```
+
+### With Field
+
+Use `Field.Root` to provide a visible label, helper text, and validation message for a radio group.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/with-field.tsx"
+
+```
+
+### With Fieldset
+
+Wrap the group in `Fieldset` when several radio items share a form section legend.
+
+<style>{`
+  ${RadioGroupDocs.radioGroupExampleCss}
+
+  .centered-fieldset-example {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+`}</style>
+
+```tsx preview file="./_snippets/radio-group/with-fieldset.tsx"
+
+```
+
+### Advanced Customization
+
+Bypass `Option` and use the full Ark item tree when each nested part needs custom placement or
+styling.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+```tsx preview file="./_snippets/radio-group/advanced-customization.tsx"
+
+```
+
+## Styling
+
+Style `RadioGroup` through `className`, stable `data-slot="radio-group-*"` hooks, Ark
+`data-scope`, `data-part`, `data-state`, and the public `--moduix-radio-*` CSS variables below.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- Ark anatomy hooks: `data-scope="radio-group"` and `data-part` on root, label, item,
+  item-control, item-text, item-hidden-input, and indicator.
+- Ark state hooks: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`,
+  `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`,
+  `data-active`, and `data-orientation`.
+- Ark indicator variables: `--transition-property`, `--left`, `--top`, `--width`, and `--height`.
+- Moduix hooks: `data-slot="radio-group-root"`, `radio-group-label`,
+  `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`,
+  `radio-group-item-hidden-input`, and `radio-group-indicator`.

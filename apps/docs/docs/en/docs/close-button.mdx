@@ -1,0 +1,179 @@
+---
+title: Close Button
+component: close-button
+description: An icon-only button for dismissing overlays, notifications, and other closeable surfaces.
+---
+
+import * as CloseButtonDocs from '@/components/examples/close-button';
+
+## API Reference
+
+Ark UI does not ship a dedicated close-button primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Use `CloseButton` when the control itself performs a dismiss or close action. It provides
+button semantics and a default close glyph, but it does not manage overlay state by itself.
+
+<style>{`
+      .surface {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--moduix-spacing-4);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-popover);
+        color: var(--moduix-color-popover-foreground);
+        box-shadow: var(--moduix-shadow-sm);
+      }
+
+      .content {
+        display: grid;
+        gap: var(--moduix-spacing-1);
+        min-width: 0;
+      }
+
+      .title {
+        margin: 0;
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        font-weight: var(--moduix-weight-semibold);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+
+      .description {
+        margin: 0;
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/close-button/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="close-button" />
+
+This install path also pulls in the shared moduix foundation files that `Close Button` depends on,
+such as styles, icons, and small utilities.
+
+## Anatomy
+
+`CloseButton` exposes one Ark-style root part.
+
+```text
+CloseButton / CloseButton.Root
+└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
+   └─ CloseIcon (default) | custom children
+```
+
+| Part                               | Role                                                                     |
+| ---------------------------------- | ------------------------------------------------------------------------ |
+| `CloseButton` / `CloseButton.Root` | Interactive dismiss control built on button semantics and accessibility. |
+
+## Composition
+
+### Recommended composition
+
+Use `CloseButton` directly when a native button should own the close action. The wrapper
+forwards Ark factory button props, native attributes, event handlers, and refs.
+
+### When to go custom
+
+Use `asChild` when another button component must own the DOM node. Ark composition requires one
+child element, and that child must include its own icon content.
+
+If an overlay component already ships a close trigger, prefer that trigger so it can manage
+dismissal state and focus lifecycle.
+
+### Default props
+
+| Prop         | Default                                         | Values / Notes                             |
+| ------------ | ----------------------------------------------- | ------------------------------------------ |
+| `type`       | `button`                                        | Applied only to the native root            |
+| `aria-label` | `Close` only on the unlabeled default-icon path | Prefer a surface-specific label in real UI |
+| `children`   | `CloseIcon`                                     | Replaced by custom icon content            |
+| `asChild`    | `false`                                         | Ark factory single-child composition       |
+
+### Behavioral notes
+
+- `CloseButton` does not close anything by itself; wire `onClick` or use an overlay close
+  trigger.
+- Custom icon children need an accessible name through `aria-label` or `aria-labelledby`.
+- Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
+  targeting and suppress click activation.
+- The previous `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
+- `CloseButton.Root` is available as the equivalent Ark-aligned namespace form.
+
+## Examples
+
+### As Child
+
+Use `asChild` when an existing button component must own the rendered element while receiving the
+Close Button styling and data hooks.
+
+<style>{`
+      .asChildButton {
+        --moduix-close-button-size: 2.5rem;
+        --moduix-close-button-icon-size: 1.25rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/close-button/as-child.tsx"
+
+```
+
+### Custom Children
+
+Replace the default glyph through `children` while keeping the root button and styling contract.
+
+<style>{`
+      .customChildrenButton {
+        --moduix-close-button-size: 2.5rem;
+
+        width: auto;
+        padding-inline: var(--moduix-spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/close-button/custom-children.tsx"
+
+```
+
+### Disabled State
+
+Use native `disabled` for regular buttons or `aria-disabled="true"` when the control should remain
+discoverable while refusing activation.
+
+<style>{`
+      .disabledCloseButton {
+        --moduix-close-button-disabled-opacity: 0.5;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/close-button/disabled-state.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+
+### Styling hooks
+
+- `data-scope="close-button"` identifies the component family.
+- `data-part="root"` identifies the only exported part.
+- `data-slot="close-button-root"` provides the moduix slot hook.
+- `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
+- Direct nested SVG children inherit sizing from `--moduix-close-button-icon-size`.

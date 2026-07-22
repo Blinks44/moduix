@@ -1,16 +1,24 @@
 .empty,
 .customEmpty {
-  width: min(28rem, calc(100vw - var(--spacing-8)));
+  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .customEmpty {
-  --empty-bg: color-mix(in oklab, var(--color-primary) 8%, var(--color-card));
-  --empty-border-color: color-mix(in oklab, var(--color-primary) 28%, var(--color-border));
-  --empty-icon-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
-  --empty-icon-color: var(--color-primary);
-  --empty-shadow: var(--shadow-md);
+  --moduix-empty-bg: color-mix(in oklab, var(--moduix-color-primary) 8%, var(--moduix-color-card));
+  --moduix-empty-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 28%,
+    var(--moduix-color-border)
+  );
+  --moduix-empty-icon-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 14%,
+    var(--moduix-color-background)
+  );
+  --moduix-empty-icon-color: var(--moduix-color-primary);
+  --moduix-empty-shadow: var(--moduix-shadow-md);
 }
 
 .customIcon {
-  --empty-icon-size: 1.75rem;
+  --moduix-empty-icon-size: 1.75rem;
 }

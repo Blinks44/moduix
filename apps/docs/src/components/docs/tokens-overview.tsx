@@ -11,162 +11,162 @@ type ColorToken = {
 
 const colorTokens = [
   {
-    name: '--background',
-    alias: '--color-background',
+    name: '--moduix-background',
+    alias: '--moduix-color-background',
     label: 'Canvas',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.155 0.008 285)',
   },
   {
-    name: '--foreground',
-    alias: '--color-foreground',
+    name: '--moduix-foreground',
+    alias: '--moduix-color-foreground',
     label: 'Canvas text',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--card',
-    alias: '--color-card',
+    name: '--moduix-card',
+    alias: '--moduix-color-card',
     label: 'Raised surface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
-    name: '--card-foreground',
-    alias: '--color-card-foreground',
+    name: '--moduix-card-foreground',
+    alias: '--moduix-color-card-foreground',
     label: 'Raised text',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--popover',
-    alias: '--color-popover',
+    name: '--moduix-popover',
+    alias: '--moduix-color-popover',
     label: 'Layer surface',
     light: 'oklch(0.995 0.002 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
-    name: '--popover-foreground',
-    alias: '--color-popover-foreground',
+    name: '--moduix-popover-foreground',
+    alias: '--moduix-color-popover-foreground',
     label: 'Layer text',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--primary',
-    alias: '--color-primary',
+    name: '--moduix-primary',
+    alias: '--moduix-color-primary',
     label: 'Primary action',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.918 0.007 285)',
   },
   {
-    name: '--primary-foreground',
-    alias: '--color-primary-foreground',
+    name: '--moduix-primary-foreground',
+    alias: '--moduix-color-primary-foreground',
     label: 'Primary text',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
-    name: '--secondary',
-    alias: '--color-secondary',
+    name: '--moduix-secondary',
+    alias: '--moduix-color-secondary',
     label: 'Secondary fill',
     light: 'oklch(0.96 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
-    name: '--secondary-foreground',
-    alias: '--color-secondary-foreground',
+    name: '--moduix-secondary-foreground',
+    alias: '--moduix-color-secondary-foreground',
     label: 'Secondary text',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--muted',
-    alias: '--color-muted',
+    name: '--moduix-muted',
+    alias: '--moduix-color-muted',
     label: 'Subtle fill',
     light: 'oklch(0.955 0.006 285)',
     dark: 'oklch(0.255 0.012 285)',
   },
   {
-    name: '--muted-foreground',
-    alias: '--color-muted-foreground',
+    name: '--moduix-muted-foreground',
+    alias: '--moduix-color-muted-foreground',
     label: 'Subtle text',
     light: 'oklch(0.485 0.015 285)',
     dark: 'oklch(0.705 0.016 285)',
   },
   {
-    name: '--accent',
-    alias: '--color-accent',
+    name: '--moduix-accent',
+    alias: '--moduix-color-accent',
     label: 'Hover fill',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
-    name: '--accent-foreground',
-    alias: '--color-accent-foreground',
+    name: '--moduix-accent-foreground',
+    alias: '--moduix-color-accent-foreground',
     label: 'Hover text',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--destructive',
-    alias: '--color-destructive',
+    name: '--moduix-destructive',
+    alias: '--moduix-color-destructive',
     label: 'Danger',
     light: 'oklch(0.565 0.235 22)',
     dark: 'oklch(0.69 0.185 18)',
   },
   {
-    name: '--destructive-foreground',
-    alias: '--color-destructive-foreground',
+    name: '--moduix-destructive-foreground',
+    alias: '--moduix-color-destructive-foreground',
     label: 'Danger text',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
-    name: '--success',
-    alias: '--color-success',
+    name: '--moduix-success',
+    alias: '--moduix-color-success',
     label: 'Success',
     light: 'oklch(0.627 0.194 149.214)',
     dark: 'oklch(0.627 0.194 149.214)',
   },
   {
-    name: '--warning',
-    alias: '--color-warning',
+    name: '--moduix-warning',
+    alias: '--moduix-color-warning',
     label: 'Warning',
     light: 'oklch(0.795 0.184 86.047)',
     dark: 'oklch(0.795 0.184 86.047)',
   },
   {
-    name: '--border',
-    alias: '--color-border',
+    name: '--moduix-border',
+    alias: '--moduix-color-border',
     label: 'Borders',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
-    name: '--input',
-    alias: '--color-input',
+    name: '--moduix-input',
+    alias: '--moduix-color-input',
     label: 'Input border',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 17%)',
   },
   {
-    name: '--ring',
-    alias: '--color-ring',
+    name: '--moduix-ring',
+    alias: '--moduix-color-ring',
     label: 'Focus ring',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
   },
   {
-    name: '--overlay',
-    alias: '--color-overlay',
+    name: '--moduix-overlay',
+    alias: '--moduix-color-overlay',
     label: 'Backdrop base',
     light: 'oklch(0.175 0.014 285 / 0.2)',
     dark: 'oklch(0.105 0.012 285 / 0.74)',
   },
   {
-    name: '--overlay-foreground',
-    alias: '--color-overlay-foreground',
+    name: '--moduix-overlay-foreground',
+    alias: '--moduix-color-overlay-foreground',
     label: 'Soft overlay',
     light: 'oklch(0.175 0.014 285 / 0.07)',
     dark: 'oklch(0.968 0.003 285 / 0.09)',
@@ -175,36 +175,36 @@ const colorTokens = [
 
 const chartTokens = [
   {
-    name: '--chart-1',
-    alias: '--color-chart-1',
+    name: '--moduix-chart-1',
+    alias: '--moduix-color-chart-1',
     label: 'Chart 1',
     light: 'oklch(0.65 0.18 295)',
     dark: 'oklch(0.72 0.17 295)',
   },
   {
-    name: '--chart-2',
-    alias: '--color-chart-2',
+    name: '--moduix-chart-2',
+    alias: '--moduix-color-chart-2',
     label: 'Chart 2',
     light: 'oklch(0.7 0.14 175)',
     dark: 'oklch(0.76 0.13 175)',
   },
   {
-    name: '--chart-3',
-    alias: '--color-chart-3',
+    name: '--moduix-chart-3',
+    alias: '--moduix-color-chart-3',
     label: 'Chart 3',
     light: 'oklch(0.72 0.16 55)',
     dark: 'oklch(0.78 0.15 55)',
   },
   {
-    name: '--chart-4',
-    alias: '--color-chart-4',
+    name: '--moduix-chart-4',
+    alias: '--moduix-color-chart-4',
     label: 'Chart 4',
     light: 'oklch(0.6 0.2 350)',
     dark: 'oklch(0.67 0.19 350)',
   },
   {
-    name: '--chart-5',
-    alias: '--color-chart-5',
+    name: '--moduix-chart-5',
+    alias: '--moduix-color-chart-5',
     label: 'Chart 5',
     light: 'oklch(0.68 0.13 130)',
     dark: 'oklch(0.74 0.12 130)',
@@ -213,57 +213,57 @@ const chartTokens = [
 
 const sidebarTokens = [
   {
-    name: '--sidebar',
-    alias: '--color-sidebar',
+    name: '--moduix-sidebar',
+    alias: '--moduix-color-sidebar',
     label: 'Sidebar surface',
     light: 'oklch(0.975 0.005 285)',
     dark: 'oklch(0.2 0.011 285)',
   },
   {
-    name: '--sidebar-foreground',
-    alias: '--color-sidebar-foreground',
+    name: '--moduix-sidebar-foreground',
+    alias: '--moduix-color-sidebar-foreground',
     label: 'Sidebar text',
     light: 'oklch(0.175 0.01 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--sidebar-primary',
-    alias: '--color-sidebar-primary',
+    name: '--moduix-sidebar-primary',
+    alias: '--moduix-color-sidebar-primary',
     label: 'Sidebar primary',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.72 0.17 295)',
   },
   {
-    name: '--sidebar-primary-foreground',
-    alias: '--color-sidebar-primary-foreground',
+    name: '--moduix-sidebar-primary-foreground',
+    alias: '--moduix-color-sidebar-primary-foreground',
     label: 'Sidebar primary text',
     light: 'oklch(0.982 0.003 285)',
     dark: 'oklch(0.155 0.008 285)',
   },
   {
-    name: '--sidebar-accent',
-    alias: '--color-sidebar-accent',
+    name: '--moduix-sidebar-accent',
+    alias: '--moduix-color-sidebar-accent',
     label: 'Sidebar accent',
     light: 'oklch(0.95 0.01 285)',
     dark: 'oklch(0.29 0.015 285)',
   },
   {
-    name: '--sidebar-accent-foreground',
-    alias: '--color-sidebar-accent-foreground',
+    name: '--moduix-sidebar-accent-foreground',
+    alias: '--moduix-color-sidebar-accent-foreground',
     label: 'Sidebar accent text',
     light: 'oklch(0.235 0.016 285)',
     dark: 'oklch(0.968 0.003 285)',
   },
   {
-    name: '--sidebar-border',
-    alias: '--color-sidebar-border',
+    name: '--moduix-sidebar-border',
+    alias: '--moduix-color-sidebar-border',
     label: 'Sidebar border',
     light: 'oklch(0.905 0.008 285)',
     dark: 'oklch(1 0.004 285 / 13%)',
   },
   {
-    name: '--sidebar-ring',
-    alias: '--color-sidebar-ring',
+    name: '--moduix-sidebar-ring',
+    alias: '--moduix-color-sidebar-ring',
     label: 'Sidebar focus ring',
     light: 'oklch(0.62 0.035 285)',
     dark: 'oklch(0.585 0.038 285)',
@@ -273,197 +273,225 @@ const sidebarTokens = [
 const colorTokenCount = colorTokens.length + chartTokens.length + sidebarTokens.length;
 
 const spacingTokens = [
-  ['--spacing-0', '0px'],
-  ['--spacing-0-5', 'calc((var(--spacing-0) + var(--spacing-1)) / 2)'],
-  ['--spacing-1', '4px'],
-  ['--spacing-1-5', 'calc((var(--spacing-1) + var(--spacing-2)) / 2)'],
-  ['--spacing-2', '8px'],
-  ['--spacing-2-5', 'calc((var(--spacing-2) + var(--spacing-3)) / 2)'],
-  ['--spacing-3', '12px'],
-  ['--spacing-3-5', 'calc((var(--spacing-3) + var(--spacing-4)) / 2)'],
-  ['--spacing-4', '16px'],
-  ['--spacing-4-5', 'calc((var(--spacing-4) + var(--spacing-5)) / 2)'],
-  ['--spacing-5', '20px'],
-  ['--spacing-6', '24px'],
-  ['--spacing-7', 'calc((var(--spacing-6) + var(--spacing-8)) / 2)'],
-  ['--spacing-8', '32px'],
-  ['--spacing-10', '40px'],
+  ['--moduix-spacing-0', '0px'],
+  ['--moduix-spacing-0-5', 'calc((var(--moduix-spacing-0) + var(--moduix-spacing-1)) / 2)'],
+  ['--moduix-spacing-1', '4px'],
+  ['--moduix-spacing-1-5', 'calc((var(--moduix-spacing-1) + var(--moduix-spacing-2)) / 2)'],
+  ['--moduix-spacing-2', '8px'],
+  ['--moduix-spacing-2-5', 'calc((var(--moduix-spacing-2) + var(--moduix-spacing-3)) / 2)'],
+  ['--moduix-spacing-3', '12px'],
+  ['--moduix-spacing-3-5', 'calc((var(--moduix-spacing-3) + var(--moduix-spacing-4)) / 2)'],
+  ['--moduix-spacing-4', '16px'],
+  ['--moduix-spacing-4-5', 'calc((var(--moduix-spacing-4) + var(--moduix-spacing-5)) / 2)'],
+  ['--moduix-spacing-5', '20px'],
+  ['--moduix-spacing-6', '24px'],
+  ['--moduix-spacing-7', 'calc((var(--moduix-spacing-6) + var(--moduix-spacing-8)) / 2)'],
+  ['--moduix-spacing-8', '32px'],
+  ['--moduix-spacing-10', '40px'],
 ];
 
 const semanticSpacingTokens = [
-  ['--spacing-xs', 'var(--spacing-1)', '4px'],
-  ['--spacing-sm', 'var(--spacing-2)', '8px'],
-  ['--spacing-md', 'var(--spacing-3)', '12px'],
-  ['--spacing-lg', 'var(--spacing-4)', '16px'],
-  ['--spacing-xl', 'var(--spacing-5)', '20px'],
-  ['--spacing-2xl', 'var(--spacing-6)', '24px'],
+  ['--moduix-spacing-xs', 'var(--moduix-spacing-1)', '4px'],
+  ['--moduix-spacing-sm', 'var(--moduix-spacing-2)', '8px'],
+  ['--moduix-spacing-md', 'var(--moduix-spacing-3)', '12px'],
+  ['--moduix-spacing-lg', 'var(--moduix-spacing-4)', '16px'],
+  ['--moduix-spacing-xl', 'var(--moduix-spacing-5)', '20px'],
+  ['--moduix-spacing-2xl', 'var(--moduix-spacing-6)', '24px'],
 ];
 
 const sizeTokens = [
-  ['--size-xs', '24px'],
-  ['--size-sm', '32px'],
-  ['--size-md', '36px'],
-  ['--size-lg', '40px'],
-  ['--size-xl', '48px'],
+  ['--moduix-size-xs', '24px'],
+  ['--moduix-size-sm', '32px'],
+  ['--moduix-size-md', '36px'],
+  ['--moduix-size-lg', '40px'],
+  ['--moduix-size-xl', '48px'],
 ];
 
 const radiusTokens = [
-  ['--radius', '0.625rem'],
-  ['--radius-none', '0'],
-  ['--radius-xs', 'calc(var(--radius) * 0.4)'],
-  ['--radius-sm', 'calc(var(--radius) * 0.6)'],
-  ['--radius-md', 'calc(var(--radius) * 0.8)'],
-  ['--radius-lg', 'var(--radius)'],
-  ['--radius-xl', 'calc(var(--radius) * 1.2)'],
-  ['--radius-full', '9999px'],
+  ['--moduix-radius', '0.625rem'],
+  ['--moduix-radius-none', '0'],
+  ['--moduix-radius-xs', 'calc(var(--moduix-radius) * 0.4)'],
+  ['--moduix-radius-sm', 'calc(var(--moduix-radius) * 0.6)'],
+  ['--moduix-radius-md', 'calc(var(--moduix-radius) * 0.8)'],
+  ['--moduix-radius-lg', 'var(--moduix-radius)'],
+  ['--moduix-radius-xl', 'calc(var(--moduix-radius) * 1.2)'],
+  ['--moduix-radius-full', '9999px'],
 ];
 
 const typographyTokens = [
-  ['--text-xs', '12px', '--line-height-text-xs', '16px'],
-  ['--text-sm', '14px', '--line-height-text-sm', '20px'],
-  ['--text-md', '16px', '--line-height-text-md', '24px'],
-  ['--text-lg', '18px', '--line-height-text-lg', '28px'],
-  ['--text-xl', '20px', '--line-height-text-xl', '28px'],
-  ['--text-2xl', '24px', '--line-height-text-2xl', '32px'],
-  ['--text-3xl', '30px', '--line-height-text-3xl', '36px'],
+  ['--moduix-text-xs', '12px', '--moduix-line-height-text-xs', '16px'],
+  ['--moduix-text-sm', '14px', '--moduix-line-height-text-sm', '20px'],
+  ['--moduix-text-md', '16px', '--moduix-line-height-text-md', '24px'],
+  ['--moduix-text-lg', '18px', '--moduix-line-height-text-lg', '28px'],
+  ['--moduix-text-xl', '20px', '--moduix-line-height-text-xl', '28px'],
+  ['--moduix-text-2xl', '24px', '--moduix-line-height-text-2xl', '32px'],
+  ['--moduix-text-3xl', '30px', '--moduix-line-height-text-3xl', '36px'],
 ];
 
 const weightTokens = [
-  ['--weight-regular', '400'],
-  ['--weight-medium', '500'],
-  ['--weight-semibold', '600'],
-  ['--weight-bold', '700'],
+  ['--moduix-weight-regular', '400'],
+  ['--moduix-weight-medium', '500'],
+  ['--moduix-weight-semibold', '600'],
+  ['--moduix-weight-bold', '700'],
 ];
 
 const fontFamilyTokens = [
   [
-    '--font-sans',
+    '--moduix-font-sans',
     "'Noto Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
   ],
   [
-    '--font-mono',
+    '--moduix-font-mono',
     "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   ],
 ];
 
 const trackingTokens = [
-  ['--tracking-text-sm', '-0.01em'],
-  ['--tracking-text-xs', '-0.016em'],
+  ['--moduix-tracking-text-sm', '-0.01em'],
+  ['--moduix-tracking-text-xs', '-0.016em'],
 ];
 
 const borderTokens = [
-  ['--border-width-sm', '1px'],
-  ['--border-width-md', '2px'],
-  ['--border-width-lg', '4px'],
-  ['--focus-ring-width', 'var(--border-width-md)'],
-  ['--focus-ring-inset-width', 'var(--border-width-sm)'],
-  ['--focus-ring-offset', 'var(--spacing-0-5)'],
-  ['--focus-ring-inset-offset', 'calc(var(--border-width-sm) * -1)'],
+  ['--moduix-border-width-sm', '1px'],
+  ['--moduix-border-width-md', '2px'],
+  ['--moduix-border-width-lg', '4px'],
+  ['--moduix-focus-ring-width', 'var(--moduix-border-width-md)'],
+  ['--moduix-focus-ring-inset-width', 'var(--moduix-border-width-sm)'],
+  ['--moduix-focus-ring-offset', 'var(--moduix-spacing-0-5)'],
+  ['--moduix-focus-ring-inset-offset', 'calc(var(--moduix-border-width-sm) * -1)'],
 ];
 
 const opacityTokens = [
-  ['--opacity-disabled', '0.5'],
-  ['--opacity-loading', '0.85'],
-  ['--opacity-hover', '0.9'],
+  ['--moduix-opacity-disabled', '0.5'],
+  ['--moduix-opacity-loading', '0.85'],
+  ['--moduix-opacity-hover', '0.9'],
 ];
 
 const motionTokens = [
-  ['--duration-fast', '150ms'],
-  ['--duration-normal', '200ms'],
-  ['--duration-slow', '300ms'],
-  ['--duration-slower', '450ms'],
-  ['--ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
-  ['--ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
-  ['--ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
-  ['--ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
-  ['--ease-standard', 'ease'],
-  ['--ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
-  ['--transition-default', 'var(--duration-normal) var(--ease-in-out)'],
-  ['--transition-fast', 'var(--duration-fast) var(--ease-in-out)'],
-  ['--transition-slow', 'var(--duration-slow) var(--ease-in-out)'],
-  ['--transition-slower', 'var(--duration-slower) var(--ease-in-out)'],
-  ['--transition-spring', 'var(--duration-slower) var(--ease-spring)'],
-  ['--transition-emphasized', 'var(--duration-slower) var(--ease-emphasized)'],
+  ['--moduix-duration-fast', '150ms'],
+  ['--moduix-duration-normal', '200ms'],
+  ['--moduix-duration-slow', '300ms'],
+  ['--moduix-duration-slower', '450ms'],
+  ['--moduix-ease-in', 'cubic-bezier(0.4, 0, 1, 1)'],
+  ['--moduix-ease-out', 'cubic-bezier(0, 0, 0.2, 1)'],
+  ['--moduix-ease-in-out', 'cubic-bezier(0.4, 0, 0.2, 1)'],
+  ['--moduix-ease-spring', 'cubic-bezier(0.32, 0.72, 0, 1)'],
+  ['--moduix-ease-standard', 'ease'],
+  ['--moduix-ease-emphasized', 'cubic-bezier(0.22, 1, 0.36, 1)'],
+  ['--moduix-transition-default', 'var(--moduix-duration-normal) var(--moduix-ease-in-out)'],
+  ['--moduix-transition-fast', 'var(--moduix-duration-fast) var(--moduix-ease-in-out)'],
+  ['--moduix-transition-slow', 'var(--moduix-duration-slow) var(--moduix-ease-in-out)'],
+  ['--moduix-transition-slower', 'var(--moduix-duration-slower) var(--moduix-ease-in-out)'],
+  ['--moduix-transition-spring', 'var(--moduix-duration-slower) var(--moduix-ease-spring)'],
+  ['--moduix-transition-emphasized', 'var(--moduix-duration-slower) var(--moduix-ease-emphasized)'],
 ];
 
 const animationTokens = [
-  ['--animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
-  ['--animation-fade-in', 'moduix-fade-in var(--duration-normal) var(--ease-out)'],
-  ['--animation-fade-out', 'moduix-fade-out var(--duration-normal) var(--ease-in)'],
-  ['--animation-slide-up', 'moduix-slide-up var(--duration-normal) var(--ease-out)'],
-  ['--animation-slide-down', 'moduix-slide-down var(--duration-normal) var(--ease-out)'],
-  ['--animation-spin', 'moduix-spin 0.75s linear infinite'],
+  ['--moduix-animation-pulse', 'moduix-pulse 2.5s ease-in-out infinite'],
+  [
+    '--moduix-animation-fade-in',
+    'moduix-fade-in var(--moduix-duration-normal) var(--moduix-ease-out)',
+  ],
+  [
+    '--moduix-animation-fade-out',
+    'moduix-fade-out var(--moduix-duration-normal) var(--moduix-ease-in)',
+  ],
+  [
+    '--moduix-animation-slide-up',
+    'moduix-slide-up var(--moduix-duration-normal) var(--moduix-ease-out)',
+  ],
+  [
+    '--moduix-animation-slide-down',
+    'moduix-slide-down var(--moduix-duration-normal) var(--moduix-ease-out)',
+  ],
+  ['--moduix-animation-spin', 'moduix-spin 0.75s linear infinite'],
 ];
 
 const shadowTokens = [
-  ['--shadow-sm', '0 2px 4px 0 #0000001a, 0 1px 2px -1px #0000001a'],
-  ['--shadow-md', '0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a'],
-  ['--shadow-lg', '0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a'],
+  ['--moduix-shadow-sm', '0 2px 4px 0 #0000001a, 0 1px 2px -1px #0000001a'],
+  ['--moduix-shadow-md', '0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a'],
+  ['--moduix-shadow-lg', '0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a'],
 ];
 
 const transformTokens = [
-  ['--scale-popup', '0.9', 'Dialog, popover, tooltip, menu, hover card, toast, nav menu'],
-  ['--scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
+  ['--moduix-scale-popup', '0.9', 'Dialog, popover, tooltip, menu, hover card, toast, nav menu'],
+  ['--moduix-scale-dropdown', '0.95', 'Select, combobox, autocomplete'],
 ];
 
 const zIndexTokens = [
-  ['--z-default', '1'],
-  ['--z-xs', '5'],
-  ['--z-sm', '10'],
-  ['--z-md', '20'],
-  ['--z-lg', '30'],
-  ['--z-xl', '40'],
-  ['--z-backdrop', '40'],
-  ['--z-modal', '50'],
-  ['--z-popup', '60'],
-  ['--z-toast', '70'],
+  ['--moduix-z-default', '1'],
+  ['--moduix-z-xs', '5'],
+  ['--moduix-z-sm', '10'],
+  ['--moduix-z-md', '20'],
+  ['--moduix-z-lg', '30'],
+  ['--moduix-z-xl', '40'],
+  ['--moduix-z-backdrop', '40'],
+  ['--moduix-z-modal', '50'],
+  ['--moduix-z-popup', '60'],
+  ['--moduix-z-toast', '70'],
 ];
 
 const sharedBackdropTokens = [
-  ['--backdrop-bg', 'var(--color-overlay)', 'Global backdrop color fallback'],
-  ['--backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
-  ['--command-palette-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'CommandPalette'],
-  ['--dialog-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Dialog'],
-  ['--drawer-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Drawer'],
-  ['--lightbox-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Lightbox'],
-  ['--tour-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Tour'],
+  ['--moduix-backdrop-bg', 'var(--moduix-color-overlay)', 'Global backdrop color fallback'],
+  ['--moduix-backdrop-filter', 'blur(4px)', 'Global backdrop filter fallback'],
+  [
+    '--moduix-command-palette-backdrop-bg',
+    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
+    'CommandPalette',
+  ],
+  [
+    '--moduix-dialog-backdrop-bg',
+    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
+    'Dialog',
+  ],
+  [
+    '--moduix-drawer-backdrop-bg',
+    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
+    'Drawer',
+  ],
+  [
+    '--moduix-lightbox-backdrop-bg',
+    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
+    'Lightbox',
+  ],
+  ['--moduix-tour-backdrop-bg', 'var(--moduix-backdrop-bg, var(--moduix-color-overlay))', 'Tour'],
 ];
 
 const sharedPopupTokens = [
-  ['--popup-check-gap', 'var(--spacing-2)'],
-  ['--popup-check-indicator-size', 'var(--spacing-3)'],
-  ['--popup-check-padding-x-start', 'var(--spacing-2-5)'],
-  ['--popup-group-label-font-size', 'var(--text-xs)'],
-  ['--popup-group-label-line-height', 'var(--line-height-text-xs)'],
-  ['--popup-group-label-font-weight', 'var(--weight-regular)'],
-  ['--popup-group-label-padding-x-end', 'var(--spacing-3)'],
-  ['--popup-group-label-padding-x-start', 'var(--spacing-2-5)'],
-  ['--popup-group-label-padding-y', 'var(--spacing-1)'],
-  ['--popup-highlight-inset-x', 'var(--spacing-1)'],
-  ['--popup-highlight-radius', 'var(--radius-sm)'],
-  ['--popup-item-font-size', 'var(--text-sm)'],
-  ['--popup-item-line-height', 'var(--line-height-text-sm)'],
-  ['--popup-item-min-height', 'var(--size-sm)'],
-  ['--popup-item-padding-x-start', 'var(--spacing-3)'],
-  ['--popup-item-padding-x-end', 'var(--spacing-3)'],
-  ['--popup-item-padding-y', 'var(--spacing-1)'],
-  ['--popup-list-padding-y', 'var(--spacing-1)'],
-  ['--popup-separator-margin-x-start', 'var(--spacing-3)'],
-  ['--popup-separator-margin-x-end', 'var(--spacing-3)'],
-  ['--popup-separator-margin-y', 'var(--spacing-1-5)'],
+  ['--moduix-popup-check-gap', 'var(--moduix-spacing-2)'],
+  ['--moduix-popup-check-indicator-size', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-check-padding-x-start', 'var(--moduix-spacing-2-5)'],
+  ['--moduix-popup-group-label-font-size', 'var(--moduix-text-xs)'],
+  ['--moduix-popup-group-label-line-height', 'var(--moduix-line-height-text-xs)'],
+  ['--moduix-popup-group-label-font-weight', 'var(--moduix-weight-regular)'],
+  ['--moduix-popup-group-label-padding-x-end', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-group-label-padding-x-start', 'var(--moduix-spacing-2-5)'],
+  ['--moduix-popup-group-label-padding-y', 'var(--moduix-spacing-1)'],
+  ['--moduix-popup-highlight-inset-x', 'var(--moduix-spacing-1)'],
+  ['--moduix-popup-highlight-radius', 'var(--moduix-radius-sm)'],
+  ['--moduix-popup-item-font-size', 'var(--moduix-text-sm)'],
+  ['--moduix-popup-item-line-height', 'var(--moduix-line-height-text-sm)'],
+  ['--moduix-popup-item-min-height', 'var(--moduix-size-sm)'],
+  ['--moduix-popup-item-padding-x-start', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-item-padding-x-end', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-item-padding-y', 'var(--moduix-spacing-1)'],
+  ['--moduix-popup-list-padding-y', 'var(--moduix-spacing-1)'],
+  ['--moduix-popup-separator-margin-x-start', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-separator-margin-x-end', 'var(--moduix-spacing-3)'],
+  ['--moduix-popup-separator-margin-y', 'var(--moduix-spacing-1-5)'],
 ];
 
 const sharedPopupMotionTokens = [
-  ['--popup-motion-duration', 'component default', 'Content enter and exit duration'],
-  ['--popup-motion-easing', 'component default', 'Content enter and exit easing'],
-  ['--popup-motion-starting-opacity', 'component default', 'Entry opacity'],
-  ['--popup-motion-starting-scale', 'component default', 'Entry scale'],
-  ['--popup-motion-starting-translate-x', 'component default', 'Entry horizontal offset'],
-  ['--popup-motion-starting-translate-y', 'component default', 'Entry vertical offset'],
-  ['--popup-motion-ending-opacity', 'component default', 'Exit opacity'],
-  ['--popup-motion-ending-scale', 'component default', 'Exit scale'],
-  ['--popup-motion-ending-translate-x', 'component default', 'Exit horizontal offset'],
-  ['--popup-motion-ending-translate-y', 'component default', 'Exit vertical offset'],
+  ['--moduix-popup-motion-duration', 'component default', 'Content enter and exit duration'],
+  ['--moduix-popup-motion-easing', 'component default', 'Content enter and exit easing'],
+  ['--moduix-popup-motion-starting-opacity', 'component default', 'Entry opacity'],
+  ['--moduix-popup-motion-starting-scale', 'component default', 'Entry scale'],
+  ['--moduix-popup-motion-starting-translate-x', 'component default', 'Entry horizontal offset'],
+  ['--moduix-popup-motion-starting-translate-y', 'component default', 'Entry vertical offset'],
+  ['--moduix-popup-motion-ending-opacity', 'component default', 'Exit opacity'],
+  ['--moduix-popup-motion-ending-scale', 'component default', 'Exit scale'],
+  ['--moduix-popup-motion-ending-translate-x', 'component default', 'Exit horizontal offset'],
+  ['--moduix-popup-motion-ending-translate-y', 'component default', 'Exit vertical offset'],
 ];
 
 export function TokensOverview() {
@@ -479,17 +507,17 @@ export function TokensOverview() {
             <div className={styles.mapNode}>
               <span>01</span>
               <strong>Raw values</strong>
-              <code>--primary</code>
+              <code>--moduix-primary</code>
             </div>
             <div className={styles.mapNode} data-active="true">
               <span>02</span>
               <strong>Semantic aliases</strong>
-              <code>--color-primary</code>
+              <code>--moduix-color-primary</code>
             </div>
             <div className={styles.mapNode}>
               <span>03</span>
               <strong>Component variables</strong>
-              <code>--button-default-bg</code>
+              <code>--moduix-button-default-bg</code>
             </div>
           </div>
           <div className={styles.heroStats} aria-label="Token groups summary">
@@ -514,17 +542,17 @@ export function TokensOverview() {
         <div className={styles.stackPanel}>
           <TokenCallout
             title="Semantic aliases"
-            code="--color-primary: var(--primary)"
+            code="--moduix-color-primary: var(--moduix-primary)"
             body="Components read semantic variables while themes override the raw palette."
           />
           <TokenCallout
             title="Shared fallbacks"
-            code="--dialog-backdrop-bg -> --backdrop-bg / --backdrop-filter"
+            code="--moduix-dialog-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
             body="Global backdrop color and blur stay centralized, and component-level variables can still opt out."
           />
           <TokenCallout
             title="Scoped themes"
-            code=".billing-flow { --size-lg: 36px; }"
+            code=".billing-flow { --moduix-size-lg: 36px; }"
             body="Any parent scope can change density, motion, or color for a focused area."
           />
         </div>
@@ -674,7 +702,7 @@ export function TokensOverview() {
             <div className={styles.backdropLayer} />
             <div className={styles.backdropDialog}>
               <strong>Layered UI</strong>
-              <span>--backdrop-bg + --backdrop-filter</span>
+              <span>--moduix-backdrop-bg + --moduix-backdrop-filter</span>
             </div>
           </div>
           <TokenList title="Backdrop defaults and fallbacks" tokens={sharedBackdropTokens} />
@@ -693,7 +721,7 @@ function ThemePreview({ theme }: { theme: 'light' | 'dark' }) {
     <article className={styles.themeCard} data-theme={theme}>
       <div className={styles.themeTopbar}>
         <span>{title}</span>
-        <code>{theme === 'light' ? ':root' : '.dark'}</code>
+        <code>{theme === 'light' ? ':root' : "[data-moduix-color-scheme='dark']"}</code>
       </div>
       <div className={styles.themeCanvas}>
         <div className={styles.themeSurface}>

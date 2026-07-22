@@ -1,0 +1,16 @@
+[
+  {
+    "text": "navDocs",
+    "link": "/docs/",
+    "activeMatch": "/docs/"
+  },
+  {
+    "text": "navComponents",
+    "link": "/docs/components",
+    "activeMatch": "/docs/components"
+  },
+  {
+    "text": "navGitHub",
+    "link": "https://github.com/Blinks44/moduix"
+  }
+]

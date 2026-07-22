@@ -1,0 +1,196 @@
+---
+title: Heading
+component: heading
+description: A semantic heading primitive with Ark factory composition and moduix typography tokens.
+---
+
+import * as HeadingDocs from '@/components/examples/heading';
+
+## API Reference
+
+Ark UI does not ship a dedicated heading primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+`Heading` renders an `h1` by default. Use it for page titles and keep the semantic heading level
+tied to the document outline.
+
+<style>{`
+      .demo {
+        max-width: 28rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="heading" />
+
+## Anatomy
+
+`Heading` is a root-only component. `Heading.Root` is the equivalent Ark-aligned namespace form.
+
+```text
+Heading / Heading.Root
+└─ text or inline content
+```
+
+| Part                       | Role                                                    |
+| -------------------------- | ------------------------------------------------------- |
+| `Heading` / `Heading.Root` | Native semantic heading with moduix typography styling. |
+
+## Composition
+
+### Recommended composition
+
+Use `<Heading>` for an `h1`. For another semantic level, pass `as="h2"` through `as="h6"`:
+
+```tsx
+<Heading as="h2" size="2xl">
+  Page title rendered as h2
+</Heading>
+```
+
+Use `asChild` only when a semantic heading child must own the DOM node while receiving the
+component props, class name, data attributes, and forwarded ref.
+
+### When to go custom
+
+Use `className` and the public `--moduix-heading-*` variables for visual overrides. Use `Text` instead when
+the content is body copy or general typography rather than a document heading.
+
+### Default props
+
+| Entry       | Default             | Values / Notes                          |
+| ----------- | ------------------- | --------------------------------------- |
+| element     | `h1`                | Use `as` for `h2` through `h6`          |
+| `size`      | by rendered element | `xs`, `sm`, `md`, `lg`, `xl`, `2xl`     |
+| `weight`    | `semibold`          | `regular`, `medium`, `semibold`, `bold` |
+| `asChild`   | `false`             | Ark factory composition                 |
+| `className` | -                   | Applied to the rendered heading root    |
+
+### Behavioral notes
+
+- Default visual sizes follow the rendered element: `h1 -> 2xl`, `h2 -> xl`, `h3 -> lg`,
+  `h4 -> md`, `h5 -> sm`, and `h6 -> xs`.
+- An explicit `size` overrides the element-based default without changing semantics.
+- The root forwards its ref to the rendered heading element.
+- Native headings need no additional ARIA. Do not use a non-heading child with `asChild`.
+- `Heading` is stateless and has no callbacks, keyboard behavior, providers, or context hooks.
+
+## Examples
+
+### Heading Levels
+
+Use `as` for `h2` through `h6`. The default visual scale follows the actual heading element.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+        flex-direction: column;
+        gap: var(--moduix-spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/heading-levels.tsx"
+
+```
+
+### Semantic Level and Visual Size
+
+Keep document structure and visual emphasis independent by choosing a semantic level and applying an
+explicit visual size.
+
+<style>{`
+      .demo {
+        max-width: 28rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/semantic-level-and-visual-size.tsx"
+
+```
+
+### Visual Sizes
+
+Use `size` when multiple headings share one semantic level but need different visual emphasis.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+        flex-direction: column;
+        gap: var(--moduix-spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/visual-sizes.tsx"
+
+```
+
+### Weights
+
+Use `weight` for the built-in typography emphasis presets.
+
+<style>{`
+      .stack {
+        display: flex;
+        width: fit-content;
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+        flex-direction: column;
+        gap: var(--moduix-spacing-3);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/weights.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` only when a semantic heading element must own the DOM node while receiving the
+component props, class name, data attributes, and forwarded ref.
+
+<style>{`
+      .customHost {
+        max-width: 28rem;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/heading/custom-host.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <HeadingDocs.HeadingCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-scope="heading"` identifies the Ark-aligned component scope.
+- `data-part="root"` identifies the single root part.
+- `data-slot="heading-root"` is the stable moduix selector.
+- `data-size` is present when `size` is explicitly set.
+- `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
+- Use `className` and `--moduix-heading-*` variables for scoped visual overrides.

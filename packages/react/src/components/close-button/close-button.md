@@ -100,20 +100,20 @@ icon content because the single child is the composed root:
 
 Public CSS variables:
 
-| CSS variable                       | Default                                           |
-| ---------------------------------- | ------------------------------------------------- |
-| `--close-button-bg`                | `transparent`                                     |
-| `--close-button-bg-hover`          | `var(--color-muted)`                              |
-| `--close-button-color`             | `var(--color-muted-foreground)`                   |
-| `--close-button-color-hover`       | `var(--color-foreground)`                         |
-| `--close-button-disabled-opacity`  | `var(--opacity-disabled)`                         |
-| `--close-button-focus-ring-color`  | `var(--color-ring)`                               |
-| `--close-button-focus-ring-offset` | `var(--focus-ring-offset)`                        |
-| `--close-button-focus-ring-width`  | `var(--focus-ring-width, var(--border-width-md))` |
-| `--close-button-icon-size`         | `var(--spacing-3)`                                |
-| `--close-button-radius`            | `var(--radius-sm)`                                |
-| `--close-button-size`              | `var(--spacing-7)`                                |
-| `--close-button-transition`        | `var(--transition-default)`                       |
+| CSS variable                              | Default                                                         |
+| ----------------------------------------- | --------------------------------------------------------------- |
+| `--moduix-close-button-bg`                | `transparent`                                                   |
+| `--moduix-close-button-bg-hover`          | `var(--moduix-color-muted)`                                     |
+| `--moduix-close-button-color`             | `var(--moduix-color-muted-foreground)`                          |
+| `--moduix-close-button-color-hover`       | `var(--moduix-color-foreground)`                                |
+| `--moduix-close-button-disabled-opacity`  | `var(--moduix-opacity-disabled)`                                |
+| `--moduix-close-button-focus-ring-color`  | `var(--moduix-color-ring)`                                      |
+| `--moduix-close-button-focus-ring-offset` | `var(--moduix-focus-ring-offset)`                               |
+| `--moduix-close-button-focus-ring-width`  | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
+| `--moduix-close-button-icon-size`         | `var(--moduix-spacing-3)`                                       |
+| `--moduix-close-button-radius`            | `var(--moduix-radius-sm)`                                       |
+| `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
+| `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
 
 ## Intentional sugar and differences from upstream
 
@@ -128,7 +128,7 @@ Public CSS variables:
 - Keep this as a thin Ark factory wrapper with one part.
 - Keep standalone `CloseButton` data hooks stable. When it is composed by an Ark parent, preserve
   the parent's anatomy hooks so the parent remains the DOM contract owner.
-- Preserve the shared `--close-button-*` contract because Dialog, Drawer, and Lightbox map their
+- Preserve the shared `--moduix-close-button-*` contract because Dialog, Drawer, and Lightbox map their
   close-control tokens into it.
 - Do not reintroduce legacy render props.
 

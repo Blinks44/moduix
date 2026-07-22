@@ -1,194 +1,266 @@
-import { useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
-import { Button, Combobox, Field, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
-import { useId, useState, type ComponentProps, type FormEvent } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './tags-input.module.css';
-
-export const initialTags = ['React', 'TypeScript'];
-export const pastedTags = ['React', 'Solid', 'Vue'];
-export const invalidInitialTags = ['alpha', 'beta', 'gamma'];
-const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];
-type TagsInputValueChangeDetails = Parameters<
-  NonNullable<ComponentProps<typeof TagsInput>['onValueChange']>
->[0];
-type TagsInputInputValueChangeDetails = Parameters<
-  NonNullable<ComponentProps<typeof TagsInput>['onInputValueChange']>
->[0];
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const tagsInputCssProperties: CssPropertyInput[] = [
-  ['--tags-input-bg', 'var(--input-bg, var(--color-background))', 'Controls control background.'],
   [
-    '--tags-input-border-color',
-    'var(--input-border-color, var(--color-border))',
+    '--moduix-tags-input-bg',
+    'var(--moduix-input-bg, var(--moduix-color-background))',
+    'Controls control background.',
+  ],
+  [
+    '--moduix-tags-input-border-color',
+    'var(--moduix-input-border-color, var(--moduix-color-border))',
     'Controls control border color.',
   ],
   [
-    '--tags-input-border-width',
-    'var(--input-border-width, var(--border-width-sm))',
+    '--moduix-tags-input-border-width',
+    'var(--moduix-input-border-width, var(--moduix-border-width-sm))',
     'Controls control border width.',
   ],
-  ['--tags-input-clear-trigger-bg', 'transparent', 'Controls clear trigger background.'],
+  ['--moduix-tags-input-clear-trigger-bg', 'transparent', 'Controls clear trigger background.'],
   [
-    '--tags-input-clear-trigger-bg-hover',
-    'var(--color-muted)',
+    '--moduix-tags-input-clear-trigger-bg-hover',
+    'var(--moduix-color-muted)',
     'Controls clear trigger hover background.',
   ],
   [
-    '--tags-input-clear-trigger-color',
-    'var(--color-muted-foreground)',
+    '--moduix-tags-input-clear-trigger-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls clear trigger color.',
   ],
   [
-    '--tags-input-clear-trigger-color-hover',
-    'var(--color-foreground)',
+    '--moduix-tags-input-clear-trigger-color-hover',
+    'var(--moduix-color-foreground)',
     'Controls clear trigger hover color.',
   ],
-  ['--tags-input-clear-trigger-icon-size', 'var(--spacing-3)', 'Controls clear trigger icon size.'],
-  ['--tags-input-clear-trigger-radius', 'var(--radius-sm)', 'Controls clear trigger radius.'],
-  ['--tags-input-clear-trigger-size', 'var(--size-xs)', 'Controls clear trigger size.'],
-  ['--tags-input-color', 'var(--input-color, var(--color-foreground))', 'Controls text color.'],
-  ['--tags-input-control-gap', 'var(--spacing-1)', 'Controls spacing inside the control.'],
-  ['--tags-input-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
   [
-    '--tags-input-focus-ring-color',
-    'var(--input-focus-ring-color, var(--color-ring))',
+    '--moduix-tags-input-clear-trigger-icon-size',
+    'var(--moduix-spacing-3)',
+    'Controls clear trigger icon size.',
+  ],
+  [
+    '--moduix-tags-input-clear-trigger-radius',
+    'var(--moduix-radius-sm)',
+    'Controls clear trigger radius.',
+  ],
+  [
+    '--moduix-tags-input-clear-trigger-size',
+    'var(--moduix-size-xs)',
+    'Controls clear trigger size.',
+  ],
+  [
+    '--moduix-tags-input-color',
+    'var(--moduix-input-color, var(--moduix-color-foreground))',
+    'Controls text color.',
+  ],
+  [
+    '--moduix-tags-input-control-gap',
+    'var(--moduix-spacing-1)',
+    'Controls spacing inside the control.',
+  ],
+  [
+    '--moduix-tags-input-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  [
+    '--moduix-tags-input-focus-ring-color',
+    'var(--moduix-input-focus-ring-color, var(--moduix-color-ring))',
     'Controls focus ring color.',
   ],
   [
-    '--tags-input-focus-ring-offset',
-    'var(--input-focus-ring-offset, calc(0px - var(--tags-input-border-width, var(--input-border-width, var(--border-width-sm)))))',
+    '--moduix-tags-input-focus-ring-offset',
+    'var(--moduix-input-focus-ring-offset, calc(0px - var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-border-width-sm)))))',
     'Controls focus ring offset.',
   ],
   [
-    '--tags-input-focus-ring-width',
-    'var(--input-focus-ring-width, var(--tags-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))))',
+    '--moduix-tags-input-focus-ring-width',
+    'var(--moduix-input-focus-ring-width, var(--moduix-tags-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))))',
     'Controls focus ring width.',
   ],
-  ['--tags-input-gap', 'var(--field-gap, var(--spacing-1))', 'Controls root vertical gap.'],
   [
-    '--tags-input-input-font-size',
-    'var(--input-font-size, var(--text-sm))',
+    '--moduix-tags-input-gap',
+    'var(--moduix-field-gap, var(--moduix-spacing-1))',
+    'Controls root vertical gap.',
+  ],
+  [
+    '--moduix-tags-input-input-font-size',
+    'var(--moduix-input-font-size, var(--moduix-text-sm))',
     'Controls entry input font size.',
   ],
-  ['--tags-input-input-height', 'var(--size-xs)', 'Controls entry input height.'],
+  ['--moduix-tags-input-input-height', 'var(--moduix-size-xs)', 'Controls entry input height.'],
   [
-    '--tags-input-input-line-height',
-    'var(--input-line-height, var(--line-height-text-sm))',
+    '--moduix-tags-input-input-line-height',
+    'var(--moduix-input-line-height, var(--moduix-line-height-text-sm))',
     'Controls entry input line height.',
   ],
-  ['--tags-input-input-min-width', '7rem', 'Controls entry input minimum width.'],
-  ['--tags-input-input-padding-x', 'var(--spacing-1)', 'Controls entry input horizontal padding.'],
+  ['--moduix-tags-input-input-min-width', '7rem', 'Controls entry input minimum width.'],
   [
-    '--tags-input-invalid-border-color',
-    'var(--input-border-color-invalid, var(--color-destructive))',
+    '--moduix-tags-input-input-padding-x',
+    'var(--moduix-spacing-1)',
+    'Controls entry input horizontal padding.',
+  ],
+  [
+    '--moduix-tags-input-invalid-border-color',
+    'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
     'Controls invalid border color.',
   ],
   [
-    '--tags-input-invalid-focus-ring-color',
-    'var(--input-border-color-invalid, var(--color-destructive))',
+    '--moduix-tags-input-invalid-focus-ring-color',
+    'var(--moduix-input-border-color-invalid, var(--moduix-color-destructive))',
     'Controls invalid focus ring color.',
   ],
-  ['--tags-input-item-bg', 'var(--color-secondary)', 'Controls tag background color.'],
-  ['--tags-input-item-border-color', 'transparent', 'Controls tag border color.'],
-  ['--tags-input-item-border-width', 'var(--border-width-sm)', 'Controls tag border width.'],
-  ['--tags-input-item-color', 'var(--color-secondary-foreground)', 'Controls tag text color.'],
-  ['--tags-input-item-font-size', 'var(--text-xs)', 'Controls tag font size.'],
-  ['--tags-input-item-font-weight', 'var(--weight-medium)', 'Controls tag font weight.'],
-  ['--tags-input-item-gap', 'var(--spacing-1)', 'Controls spacing inside each tag.'],
-  ['--tags-input-item-height', 'var(--size-xs)', 'Controls tag minimum height.'],
   [
-    '--tags-input-item-highlight-ring-color',
-    'var(--color-ring)',
+    '--moduix-tags-input-item-bg',
+    'var(--moduix-color-secondary)',
+    'Controls tag background color.',
+  ],
+  ['--moduix-tags-input-item-border-color', 'transparent', 'Controls tag border color.'],
+  [
+    '--moduix-tags-input-item-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls tag border width.',
+  ],
+  [
+    '--moduix-tags-input-item-color',
+    'var(--moduix-color-secondary-foreground)',
+    'Controls tag text color.',
+  ],
+  ['--moduix-tags-input-item-font-size', 'var(--moduix-text-xs)', 'Controls tag font size.'],
+  [
+    '--moduix-tags-input-item-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls tag font weight.',
+  ],
+  ['--moduix-tags-input-item-gap', 'var(--moduix-spacing-1)', 'Controls spacing inside each tag.'],
+  ['--moduix-tags-input-item-height', 'var(--moduix-size-xs)', 'Controls tag minimum height.'],
+  [
+    '--moduix-tags-input-item-highlight-ring-color',
+    'var(--moduix-color-ring)',
     'Controls highlighted tag ring color.',
   ],
   [
-    '--tags-input-item-highlight-ring-width',
-    'var(--border-width-sm)',
+    '--moduix-tags-input-item-highlight-ring-width',
+    'var(--moduix-border-width-sm)',
     'Controls highlighted tag ring width.',
   ],
-  ['--tags-input-item-input-width', '7rem', 'Controls edit input width.'],
-  ['--tags-input-item-line-height', 'var(--line-height-text-xs)', 'Controls tag line height.'],
-  ['--tags-input-item-padding-x', 'var(--spacing-2)', 'Controls tag horizontal padding.'],
-  ['--tags-input-item-padding-y', 'var(--spacing-0-5)', 'Controls tag vertical padding.'],
-  ['--tags-input-item-radius', 'var(--radius-full)', 'Controls tag corner radius.'],
+  ['--moduix-tags-input-item-input-width', '7rem', 'Controls edit input width.'],
   [
-    '--tags-input-label-color',
-    'var(--field-label-color, var(--color-foreground))',
+    '--moduix-tags-input-item-line-height',
+    'var(--moduix-line-height-text-xs)',
+    'Controls tag line height.',
+  ],
+  [
+    '--moduix-tags-input-item-padding-x',
+    'var(--moduix-spacing-2)',
+    'Controls tag horizontal padding.',
+  ],
+  [
+    '--moduix-tags-input-item-padding-y',
+    'var(--moduix-spacing-0-5)',
+    'Controls tag vertical padding.',
+  ],
+  ['--moduix-tags-input-item-radius', 'var(--moduix-radius-full)', 'Controls tag corner radius.'],
+  [
+    '--moduix-tags-input-label-color',
+    'var(--moduix-field-label-color, var(--moduix-color-foreground))',
     'Controls label color.',
   ],
   [
-    '--tags-input-label-font-size',
-    'var(--field-label-font-size, var(--text-sm))',
+    '--moduix-tags-input-label-font-size',
+    'var(--moduix-field-label-font-size, var(--moduix-text-sm))',
     'Controls label font size.',
   ],
   [
-    '--tags-input-label-font-weight',
-    'var(--field-label-font-weight, var(--weight-medium))',
+    '--moduix-tags-input-label-font-weight',
+    'var(--moduix-field-label-font-weight, var(--moduix-weight-medium))',
     'Controls label font weight.',
   ],
-  ['--tags-input-label-gap', 'var(--field-label-gap, var(--spacing-1))', 'Controls label gap.'],
   [
-    '--tags-input-label-line-height',
-    'var(--field-label-line-height, var(--line-height-text-sm))',
+    '--moduix-tags-input-label-gap',
+    'var(--moduix-field-label-gap, var(--moduix-spacing-1))',
+    'Controls label gap.',
+  ],
+  [
+    '--moduix-tags-input-label-line-height',
+    'var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm))',
     'Controls label line height.',
   ],
-  ['--tags-input-max-width', '24rem', 'Controls root max width.'],
+  ['--moduix-tags-input-max-width', '24rem', 'Controls root max width.'],
   [
-    '--tags-input-min-height',
-    'var(--input-height, var(--size-md))',
+    '--moduix-tags-input-min-height',
+    'var(--moduix-input-height, var(--moduix-size-md))',
     'Controls control minimum height.',
   ],
-  ['--tags-input-padding-x', 'var(--spacing-2)', 'Controls horizontal control padding.'],
-  ['--tags-input-padding-y', '0.3125rem', 'Controls vertical control padding.'],
   [
-    '--tags-input-placeholder-color',
-    'var(--input-placeholder-color, var(--color-muted-foreground))',
+    '--moduix-tags-input-padding-x',
+    'var(--moduix-spacing-2)',
+    'Controls horizontal control padding.',
+  ],
+  ['--moduix-tags-input-padding-y', '0.3125rem', 'Controls vertical control padding.'],
+  [
+    '--moduix-tags-input-placeholder-color',
+    'var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))',
     'Controls entry input placeholder color.',
   ],
-  ['--tags-input-radius', 'var(--input-radius, var(--radius-md))', 'Controls control radius.'],
   [
-    '--tags-input-readonly-bg',
-    'var(--input-readonly-bg, var(--color-background))',
+    '--moduix-tags-input-radius',
+    'var(--moduix-input-radius, var(--moduix-radius-md))',
+    'Controls control radius.',
+  ],
+  [
+    '--moduix-tags-input-readonly-bg',
+    'var(--moduix-input-readonly-bg, var(--moduix-color-background))',
     'Controls read-only control background.',
   ],
   [
-    '--tags-input-readonly-color',
-    'var(--input-readonly-color, var(--color-foreground))',
+    '--moduix-tags-input-readonly-color',
+    'var(--moduix-input-readonly-color, var(--moduix-color-foreground))',
     'Controls read-only text color.',
   ],
   [
-    '--tags-input-transition',
-    'var(--input-transition, var(--transition-default))',
+    '--moduix-tags-input-transition',
+    'var(--moduix-input-transition, var(--moduix-transition-default))',
     'Controls component state transitions.',
   ],
-  ['--tags-input-trigger-bg', 'transparent', 'Controls item delete trigger background.'],
+  ['--moduix-tags-input-trigger-bg', 'transparent', 'Controls item delete trigger background.'],
   [
-    '--tags-input-trigger-bg-hover',
+    '--moduix-tags-input-trigger-bg-hover',
     'color-mix(in oklab, currentColor 12%, transparent)',
     'Controls item delete trigger hover background.',
   ],
-  ['--tags-input-trigger-color', 'currentColor', 'Controls item delete trigger color.'],
+  ['--moduix-tags-input-trigger-color', 'currentColor', 'Controls item delete trigger color.'],
   [
-    '--tags-input-trigger-focus-ring-color',
-    'var(--color-ring)',
+    '--moduix-tags-input-trigger-focus-ring-color',
+    'var(--moduix-color-ring)',
     'Controls trigger focus ring color.',
   ],
   [
-    '--tags-input-trigger-focus-ring-offset',
-    'var(--focus-ring-offset)',
+    '--moduix-tags-input-trigger-focus-ring-offset',
+    'var(--moduix-focus-ring-offset)',
     'Controls clear trigger focus offset.',
   ],
   [
-    '--tags-input-trigger-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-tags-input-trigger-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls trigger focus ring width.',
   ],
-  ['--tags-input-trigger-icon-size', 'var(--spacing-2-5)', 'Controls trigger icon size.'],
-  ['--tags-input-trigger-radius', 'var(--radius-full)', 'Controls item delete trigger radius.'],
-  ['--tags-input-trigger-size', 'var(--spacing-4)', 'Controls item delete trigger size.'],
-  ['--tags-input-width', '100%', 'Controls root width.'],
+  [
+    '--moduix-tags-input-trigger-icon-size',
+    'var(--moduix-spacing-2-5)',
+    'Controls trigger icon size.',
+  ],
+  [
+    '--moduix-tags-input-trigger-radius',
+    'var(--moduix-radius-full)',
+    'Controls item delete trigger radius.',
+  ],
+  [
+    '--moduix-tags-input-trigger-size',
+    'var(--moduix-spacing-4)',
+    'Controls item delete trigger size.',
+  ],
+  ['--moduix-tags-input-width', '100%', 'Controls root width.'],
 ];
 
 export function TagsInputCssPropertiesPanel() {
@@ -203,313 +275,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   }
 
   return property;
-}
-
-export function TagsInputExample() {
-  return (
-    <TagsInput defaultValue={initialTags} name="frameworks">
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputControlledExample() {
-  const [value, setValue] = useState(initialTags);
-
-  function handleValueChange(details: TagsInputValueChangeDetails) {
-    setValue(details.value);
-  }
-
-  return (
-    <div className={styles.stack}>
-      <TagsInput value={value} onValueChange={handleValueChange}>
-        <TagsInput.Label>Skills</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add skill" />
-          <TagsInput.ClearTrigger aria-label="Clear skills" />
-        </TagsInput.Control>
-      </TagsInput>
-      <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
-    </div>
-  );
-}
-
-export function TagsInputControlledInputExample() {
-  const [inputValue, setInputValue] = useState('');
-
-  function handleInputValueChange(details: TagsInputInputValueChangeDetails) {
-    setInputValue(details.inputValue);
-  }
-
-  return (
-    <div className={styles.stack}>
-      <div className={styles.actions}>
-        <button type="button" onClick={() => setInputValue('React')}>
-          Set React
-        </button>
-        <button type="button" onClick={() => setInputValue('')}>
-          Clear input
-        </button>
-      </div>
-      <TagsInput
-        defaultValue={['Solid']}
-        inputValue={inputValue}
-        onInputValueChange={handleInputValueChange}
-      >
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput>
-      <span className={styles.hint}>Input value: {inputValue || 'empty'}</span>
-    </div>
-  );
-}
-
-export function TagsInputDelimiterPasteExample() {
-  return (
-    <TagsInput defaultValue={pastedTags} delimiter={/[,;\s]/} addOnPaste>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Comma, semicolon, or space" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputValidationExample() {
-  const [invalidReason, setInvalidReason] = useState('none');
-
-  return (
-    <div className={styles.stack}>
-      <TagsInput
-        max={3}
-        maxLength={12}
-        defaultValue={invalidInitialTags}
-        validate={(details) => {
-          return details.inputValue.length >= 3 && !details.value.includes(details.inputValue);
-        }}
-        onValueInvalid={(details) => {
-          setInvalidReason(details.reason);
-        }}
-      >
-        <TagsInput.Label>Labels</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add unique label" />
-          <TagsInput.ClearTrigger aria-label="Clear labels" />
-        </TagsInput.Control>
-      </TagsInput>
-      <span className={styles.hint}>Last invalid reason: {invalidReason}</span>
-    </div>
-  );
-}
-
-export function TagsInputAllowDuplicatesExample() {
-  return (
-    <TagsInput allowDuplicates defaultValue={['React', 'React']}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputMaxOverflowExample() {
-  return (
-    <TagsInput max={2} allowOverflow defaultValue={['React', 'Solid']}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputSanitizeBlurExample() {
-  return (
-    <TagsInput
-      blurBehavior="add"
-      sanitizeValue={(value) => value.trim().toLowerCase()}
-      defaultValue={['design']}
-    >
-      <TagsInput.Label>Topics</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Blur to add" />
-        <TagsInput.ClearTrigger aria-label="Clear topics" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: frameworkOptions,
-    filter: contains,
-  });
-  const id = useId();
-  const ids = { input: `${id}-input`, control: `${id}-control` };
-  const tagsInput = useTagsInput({ ids });
-  const combobox = useCombobox({
-    ids,
-    collection,
-    value: [],
-    allowCustomValue: true,
-    selectionBehavior: 'clear',
-    onInputValueChange: (details) => {
-      filter(details.inputValue);
-    },
-    onValueChange: (details) => {
-      if (details.value[0]) {
-        tagsInput.addValue(details.value[0]);
-      }
-    },
-  });
-
-  return (
-    <Combobox.RootProvider value={combobox}>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <Combobox.Input asChild>
-            <TagsInput.Input placeholder="Add framework" />
-          </Combobox.Input>
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.comboboxContent}>
-          <Combobox.Empty className={styles.comboboxItem}>No frameworks found.</Combobox.Empty>
-          {collection.items.map((item) => (
-            <Combobox.Option key={item} item={item} className={styles.comboboxItem}>
-              {item}
-            </Combobox.Option>
-          ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.RootProvider>
-  );
-}
-
-export function TagsInputFieldExample() {
-  return (
-    <Field invalid required className={styles.field}>
-      <TagsInput defaultValue={['api']} name="topics">
-        <TagsInput.Label>Topics</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add topic" />
-          <TagsInput.ClearTrigger aria-label="Clear topics" />
-        </TagsInput.Control>
-      </TagsInput>
-      <Field.HelperText>Add at least one topic.</Field.HelperText>
-      <Field.ErrorText>Topics are required.</Field.ErrorText>
-    </Field>
-  );
-}
-
-export function TagsInputFormExample() {
-  const [submittedValue, setSubmittedValue] = useState('');
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmittedValue(new FormData(event.currentTarget).get('frameworks')?.toString() ?? '');
-  };
-
-  return (
-    <form className={styles.stack} onSubmit={handleSubmit}>
-      <TagsInput defaultValue={initialTags} name="frameworks">
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput>
-      <Button type="submit">Submit</Button>
-      <output className={styles.hint}>Submitted value: {submittedValue || 'none'}</output>
-    </form>
-  );
-}
-
-export function TagsInputStateExample() {
-  return (
-    <div className={styles.stack}>
-      <TagsInput disabled defaultValue={['disabled']}>
-        <TagsInput.Label>Disabled</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Unavailable" />
-        </TagsInput.Control>
-      </TagsInput>
-      <TagsInput readOnly defaultValue={['read-only']}>
-        <TagsInput.Label>Read-only</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Read-only" />
-          <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
-        </TagsInput.Control>
-      </TagsInput>
-    </div>
-  );
-}
-
-export function TagsInputDisableEditingExample() {
-  return (
-    <TagsInput editable={false} defaultValue={initialTags}>
-      <TagsInput.Label>Frameworks</TagsInput.Label>
-      <TagsInput.Control>
-        <TagsInput.Items />
-        <TagsInput.Input placeholder="Add framework" />
-        <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-      </TagsInput.Control>
-    </TagsInput>
-  );
-}
-
-export function TagsInputRootProviderExample() {
-  const id = useId();
-  const tagsInput = useTagsInput({ id, defaultValue: ['React'] });
-
-  return (
-    <div className={styles.stack}>
-      <div className={styles.actions}>
-        <button type="button" onClick={() => tagsInput.addValue('Solid')}>
-          Add Solid
-        </button>
-        <button type="button" onClick={() => tagsInput.clearValue()}>
-          Clear
-        </button>
-        <button type="button" onClick={tagsInput.focus}>
-          Focus
-        </button>
-      </div>
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
-    </div>
-  );
 }

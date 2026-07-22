@@ -1,36 +1,43 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--button-content-gap, var(--spacing-2));
+    gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
     margin: 0;
-    border: var(--button-border-width, var(--border-width-sm)) solid transparent;
-    border-radius: var(--button-radius, var(--radius-md));
+    border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid transparent;
+    border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
     background-color: transparent;
-    color: var(--button-color, var(--color-foreground));
+    color: var(--moduix-button-color, var(--moduix-color-foreground));
     appearance: none;
     font: inherit;
-    font-size: var(--button-font-size, var(--text-sm));
-    font-weight: var(--button-font-weight, var(--weight-medium));
-    line-height: var(--button-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-button-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-button-line-height, var(--moduix-line-height-text-sm));
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color var(--button-transition, var(--transition-default)),
-      border-color var(--button-transition, var(--transition-default)),
-      color var(--button-transition, var(--transition-default)),
-      opacity var(--button-transition, var(--transition-default)),
-      box-shadow var(--button-transition, var(--transition-default));
+      background-color var(--moduix-button-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-button-transition, var(--moduix-transition-default)),
+      color var(--moduix-button-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-button-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-button-transition, var(--moduix-transition-default));
 
     &:focus-visible {
-      outline: var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) solid
-        var(--button-focus-ring-color, var(--color-ring));
+      outline: var(
+          --moduix-button-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-button-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(
-        var(--button-focus-ring-offset, var(--button-border-width, var(--border-width-sm))) * -1
+        var(
+            --moduix-button-focus-ring-offset,
+            var(--moduix-button-border-width, var(--moduix-border-width-sm))
+          ) *
+          -1
       );
     }
 
@@ -39,7 +46,7 @@
     }
 
     &[data-disabled] {
-      opacity: var(--button-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
       pointer-events: none;
     }
@@ -49,8 +56,8 @@
     }
 
     & :where(svg) {
-      width: var(--button-icon-size, var(--spacing-4));
-      height: var(--button-icon-size, var(--spacing-4));
+      width: var(--moduix-button-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-button-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;
     }
 
@@ -63,80 +70,90 @@
     }
 
     &[data-variant='default'] {
-      border-color: var(--button-default-border-color, var(--color-primary));
-      background-color: var(--button-default-bg, var(--color-primary));
-      color: var(--button-default-color, var(--color-primary-foreground));
+      border-color: var(--moduix-button-default-border-color, var(--moduix-color-primary));
+      background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));
+      color: var(--moduix-button-default-color, var(--moduix-color-primary-foreground));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
           background-color: var(
-            --button-default-bg-hover,
-            color-mix(in srgb, var(--button-default-bg, var(--color-primary)) 88%, black)
+            --moduix-button-default-bg-hover,
+            color-mix(
+              in srgb,
+              var(--moduix-button-default-bg, var(--moduix-color-primary)) 88%,
+              black
+            )
           );
         }
       }
     }
 
     &[data-variant='outline'] {
-      border-color: var(--button-outline-border-color, var(--color-border));
-      background-color: var(--button-outline-bg, var(--color-background));
-      color: var(--button-outline-color, var(--color-foreground));
+      border-color: var(--moduix-button-outline-border-color, var(--moduix-color-border));
+      background-color: var(--moduix-button-outline-bg, var(--moduix-color-background));
+      color: var(--moduix-button-outline-color, var(--moduix-color-foreground));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          background-color: var(--button-outline-bg-hover, var(--color-accent));
+          background-color: var(--moduix-button-outline-bg-hover, var(--moduix-color-accent));
         }
       }
     }
 
     &[data-variant='secondary'] {
-      border-color: var(--button-secondary-border-color, var(--color-secondary));
-      background-color: var(--button-secondary-bg, var(--color-secondary));
-      color: var(--button-secondary-color, var(--color-secondary-foreground));
+      border-color: var(--moduix-button-secondary-border-color, var(--moduix-color-secondary));
+      background-color: var(--moduix-button-secondary-bg, var(--moduix-color-secondary));
+      color: var(--moduix-button-secondary-color, var(--moduix-color-secondary-foreground));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          background-color: var(--button-secondary-bg-hover, var(--color-accent));
+          background-color: var(--moduix-button-secondary-bg-hover, var(--moduix-color-accent));
         }
       }
     }
 
     &[data-variant='destructive'] {
-      border-color: var(--button-destructive-border-color, var(--color-destructive));
-      background-color: var(--button-destructive-bg, var(--color-destructive));
-      color: var(--button-destructive-color, var(--color-destructive-foreground));
+      border-color: var(--moduix-button-destructive-border-color, var(--moduix-color-destructive));
+      background-color: var(--moduix-button-destructive-bg, var(--moduix-color-destructive));
+      color: var(--moduix-button-destructive-color, var(--moduix-color-destructive-foreground));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          filter: brightness(var(--button-destructive-hover-brightness, 0.96));
+          filter: brightness(var(--moduix-button-destructive-hover-brightness, 0.96));
         }
       }
     }
 
     &[data-variant='destructive-outline'] {
-      border-color: var(--button-destructive-outline-border-color, var(--color-destructive));
-      background-color: var(--button-destructive-outline-bg, var(--color-background));
-      color: var(--button-destructive-outline-color, var(--color-destructive));
+      border-color: var(
+        --moduix-button-destructive-outline-border-color,
+        var(--moduix-color-destructive)
+      );
+      background-color: var(--moduix-button-destructive-outline-bg, var(--moduix-color-background));
+      color: var(--moduix-button-destructive-outline-color, var(--moduix-color-destructive));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          background-color: var(--button-destructive-outline-bg-hover, var(--color-destructive));
+          background-color: var(
+            --moduix-button-destructive-outline-bg-hover,
+            var(--moduix-color-destructive)
+          );
           color: var(
-            --button-destructive-outline-color-hover,
-            var(--button-destructive-color, var(--color-destructive-foreground))
+            --moduix-button-destructive-outline-color-hover,
+            var(--moduix-button-destructive-color, var(--moduix-color-destructive-foreground))
           );
         }
       }
     }
 
     &[data-variant='ghost'] {
-      border-color: var(--button-ghost-border-color, transparent);
-      background-color: var(--button-ghost-bg, transparent);
-      color: var(--button-ghost-color, var(--color-foreground));
+      border-color: var(--moduix-button-ghost-border-color, transparent);
+      background-color: var(--moduix-button-ghost-bg, transparent);
+      color: var(--moduix-button-ghost-color, var(--moduix-color-foreground));
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          background-color: var(--button-ghost-bg-hover, var(--color-accent));
+          background-color: var(--moduix-button-ghost-bg-hover, var(--moduix-color-accent));
         }
       }
     }
@@ -144,52 +161,52 @@
     &[data-variant='link'] {
       border-color: transparent;
       background-color: transparent;
-      color: var(--button-link-color, var(--color-primary));
-      text-decoration: var(--button-link-text-decoration, underline);
-      text-underline-offset: var(--button-link-underline-offset, 0.25em);
+      color: var(--moduix-button-link-color, var(--moduix-color-primary));
+      text-decoration: var(--moduix-button-link-text-decoration, underline);
+      text-underline-offset: var(--moduix-button-link-underline-offset, 0.25em);
       padding-inline: 0;
 
       @media (hover: hover) {
         &:not([data-disabled]):hover {
-          color: var(--button-link-color-hover, var(--color-foreground));
+          color: var(--moduix-button-link-color-hover, var(--moduix-color-foreground));
         }
       }
     }
 
     &[data-size='xs'] {
-      min-height: var(--button-size-xs, var(--size-xs));
-      padding-block: var(--button-padding-y-xs, var(--spacing-0-5));
-      padding-inline: var(--button-padding-x-xs, var(--spacing-2-5));
-      font-size: var(--button-font-size-xs, var(--text-xs));
-      line-height: var(--button-line-height-xs, var(--line-height-text-xs));
+      min-height: var(--moduix-button-size-xs, var(--moduix-size-xs));
+      padding-block: var(--moduix-button-padding-y-xs, var(--moduix-spacing-0-5));
+      padding-inline: var(--moduix-button-padding-x-xs, var(--moduix-spacing-2-5));
+      font-size: var(--moduix-button-font-size-xs, var(--moduix-text-xs));
+      line-height: var(--moduix-button-line-height-xs, var(--moduix-line-height-text-xs));
     }
 
     &[data-size='sm'] {
-      min-height: var(--button-size-sm, var(--size-sm));
-      padding-block: var(--button-padding-y-sm, var(--spacing-1));
-      padding-inline: var(--button-padding-x-sm, var(--spacing-3));
+      min-height: var(--moduix-button-size-sm, var(--moduix-size-sm));
+      padding-block: var(--moduix-button-padding-y-sm, var(--moduix-spacing-1));
+      padding-inline: var(--moduix-button-padding-x-sm, var(--moduix-spacing-3));
     }
 
     &[data-size='md'] {
-      min-height: var(--button-size-md, var(--size-md));
-      padding-block: var(--button-padding-y-md, var(--spacing-1));
-      padding-inline: var(--button-padding-x-md, var(--spacing-4));
+      min-height: var(--moduix-button-size-md, var(--moduix-size-md));
+      padding-block: var(--moduix-button-padding-y-md, var(--moduix-spacing-1));
+      padding-inline: var(--moduix-button-padding-x-md, var(--moduix-spacing-4));
     }
 
     &[data-size='lg'] {
-      min-height: var(--button-size-lg, var(--size-lg));
-      padding-block: var(--button-padding-y-lg, var(--spacing-1-5));
-      padding-inline: var(--button-padding-x-lg, var(--spacing-5));
-      font-size: var(--button-font-size-lg, var(--text-md));
-      line-height: var(--button-line-height-lg, var(--line-height-text-md));
+      min-height: var(--moduix-button-size-lg, var(--moduix-size-lg));
+      padding-block: var(--moduix-button-padding-y-lg, var(--moduix-spacing-1-5));
+      padding-inline: var(--moduix-button-padding-x-lg, var(--moduix-spacing-5));
+      font-size: var(--moduix-button-font-size-lg, var(--moduix-text-md));
+      line-height: var(--moduix-button-line-height-lg, var(--moduix-line-height-text-md));
     }
 
     &[data-size='xl'] {
-      min-height: var(--button-size-xl, var(--size-xl));
-      padding-block: var(--button-padding-y-xl, var(--spacing-2));
-      padding-inline: var(--button-padding-x-xl, var(--spacing-6));
-      font-size: var(--button-font-size-xl, var(--text-lg));
-      line-height: var(--button-line-height-xl, var(--line-height-text-lg));
+      min-height: var(--moduix-button-size-xl, var(--moduix-size-xl));
+      padding-block: var(--moduix-button-padding-y-xl, var(--moduix-spacing-2));
+      padding-inline: var(--moduix-button-padding-x-xl, var(--moduix-spacing-6));
+      font-size: var(--moduix-button-font-size-xl, var(--moduix-text-lg));
+      line-height: var(--moduix-button-line-height-xl, var(--moduix-line-height-text-lg));
     }
 
     &[data-size='icon-sm'],
@@ -200,21 +217,21 @@
     }
 
     &[data-size='icon-sm'] {
-      width: var(--button-size-icon-sm, var(--size-sm));
-      min-width: var(--button-size-icon-sm, var(--size-sm));
-      height: var(--button-size-icon-sm, var(--size-sm));
+      width: var(--moduix-button-size-icon-sm, var(--moduix-size-sm));
+      min-width: var(--moduix-button-size-icon-sm, var(--moduix-size-sm));
+      height: var(--moduix-button-size-icon-sm, var(--moduix-size-sm));
     }
 
     &[data-size='icon-md'] {
-      width: var(--button-size-icon-md, var(--size-md));
-      min-width: var(--button-size-icon-md, var(--size-md));
-      height: var(--button-size-icon-md, var(--size-md));
+      width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+      min-width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+      height: var(--moduix-button-size-icon-md, var(--moduix-size-md));
     }
 
     &[data-size='icon-lg'] {
-      width: var(--button-size-icon-lg, var(--size-lg));
-      min-width: var(--button-size-icon-lg, var(--size-lg));
-      height: var(--button-size-icon-lg, var(--size-lg));
+      width: var(--moduix-button-size-icon-lg, var(--moduix-size-lg));
+      min-width: var(--moduix-button-size-icon-lg, var(--moduix-size-lg));
+      height: var(--moduix-button-size-icon-lg, var(--moduix-size-lg));
     }
 
     &[data-variant='link'] {

@@ -1,11 +1,11 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .panel,
   .row {
     width: 20rem;
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-background);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-color-background);
   }
 
   .wrap {
@@ -13,14 +13,14 @@
   }
 
   .pill {
-    padding-inline: var(--spacing-3);
-    padding-block: var(--spacing-2);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-full);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    padding-inline: var(--moduix-spacing-3);
+    padding-block: var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-full);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .skeletonCard {

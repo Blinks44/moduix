@@ -35,7 +35,7 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
 - Native list props remain available on the rendered host element:
   - plain `<List>` accepts `ul` props;
   - ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
-- Visual behavior stays token-driven through `gap`, `size`, `tone`, native `::marker`, and the `--list-*` CSS variable contract.
+- Visual behavior stays token-driven through `gap`, `size`, `tone`, native `::marker`, and the `--moduix-list-*` CSS variable contract.
 
 ## Anatomy and exported parts
 
@@ -116,9 +116,9 @@ export function OrderedListDemo() {
   - `tone`: `default`
   - `marker`: semantic auto mode (`disc` on `ul`, browser default ordered markers on `ol`)
 - Public CSS variables remain:
-  - color: `--list-color`, `--list-default-color`, `--list-muted-color`, `--list-subtle-color`, `--list-primary-color`, `--list-destructive-color`
-  - typography: `--list-font-family`, `--list-font-size`, `--list-font-size-*`, `--list-font-weight`, `--list-line-height`, `--list-line-height-*`, `--list-letter-spacing`
-  - spacing/markers: `--list-gap`, `--list-gap-*`, `--list-padding-x`, `--list-marker-color`, `--list-marker-font-weight`
+  - color: `--moduix-list-color`, `--moduix-list-default-color`, `--moduix-list-muted-color`, `--moduix-list-subtle-color`, `--moduix-list-primary-color`, `--moduix-list-destructive-color`
+  - typography: `--moduix-list-font-family`, `--moduix-list-font-size`, `--moduix-list-font-size-*`, `--moduix-list-font-weight`, `--moduix-list-line-height`, `--moduix-list-line-height-*`, `--moduix-list-letter-spacing`
+  - spacing/markers: `--moduix-list-gap`, `--moduix-list-gap-*`, `--moduix-list-padding-x`, `--moduix-list-marker-color`, `--moduix-list-marker-font-weight`
 - The CSS module relies on the Ark-style root hooks and native `li::marker`; keep those selectors aligned with the implementation.
 
 ## Intentional sugar and differences from upstream

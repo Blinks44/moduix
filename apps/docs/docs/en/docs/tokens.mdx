@@ -1,0 +1,164 @@
+---
+title: Tokens
+description: Theme moduix with semantic CSS tokens, shared component defaults, and local aliases.
+---
+
+import { TokensOverview } from '@/components/docs/tokens-overview';
+
+# Tokens
+
+moduix styles are built from CSS custom properties. Start with semantic color tokens for the
+surface, text, borders, rings, and overlays, then tune spacing, radius, size, typography, motion,
+shadow, and layering tokens when the product system needs a different rhythm.
+
+When you use moduix as an npm package, import `@moduix/react/style.css` once. When you install source files
+with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same token
+foundation.
+
+The reset stays optional in both paths. Import `@moduix/react/reset.css` or
+`@/lib/moduix/styles/reset.css` explicitly before `style.css` only when you want the shared reset.
+
+For a curated starting point, use [Themes](/docs/themes). Presets override a small semantic token
+layer after `style.css`; this page remains the full reference for every token and component alias.
+
+## Token Model
+
+Tokens are layered so common changes stay small and intentional:
+
+| Layer                  | Examples                                                                        | Use it for                                                     |
+| ---------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Theme primitives       | `--moduix-primary`, `--moduix-spacing-2`, `--moduix-size-md`, `--moduix-radius` | Establishing the visual language of an application or preset.  |
+| Semantic aliases       | `--moduix-color-primary`, `--moduix-spacing-md`, `--moduix-radius-md`           | Reading resolved values in components and application styles.  |
+| Shared family defaults | `--moduix-popup-item-min-height`, `--moduix-focus-ring-width`                   | Keeping related controls, popup rows, and states synchronized. |
+| Component aliases      | `--moduix-input-height`, `--moduix-select-item-min-height`                      | Making a deliberate exception for one component or instance.   |
+
+Prefer the highest meaningful layer. Override `--moduix-primary` when the brand color changes,
+`--moduix-popup-item-min-height` when every menu-like surface needs a different density, and
+`--moduix-select-item-min-height` only when Select should intentionally diverge.
+
+Component aliases use fallback chains rather than copied values. A theme can therefore redefine a
+small group of primitives while typography, icon geometry, focus rings, and component dimensions
+continue to move together.
+
+## Use moduix with an existing design system
+
+moduix owns only `--moduix-*` variables. Your existing `--primary`, `--space-2`, or other product
+tokens are not read, overwritten, or reset. Map the values you want to share in a stylesheet loaded
+after `style.css`:
+
+```css
+:root {
+  --moduix-primary: var(--product-action-primary);
+  --moduix-primary-foreground: var(--product-action-on-primary);
+  --moduix-background: var(--product-surface-canvas);
+  --moduix-foreground: var(--product-text-primary);
+  --moduix-radius: var(--product-radius-md);
+  --moduix-spacing-2: var(--product-space-2);
+  --moduix-size-md: var(--product-control-height-md);
+}
+```
+
+You can map only the tokens your system owns; the remaining moduix defaults continue to work.
+Component-specific exceptions follow the same convention, such as `--moduix-dialog-*` and
+`--moduix-button-*`.
+
+The exception is Ark UI runtime state: variables such as `--height`, `--available-width`, and
+`--transform-origin` stay unprefixed because Ark writes them to the relevant component parts.
+moduix does not declare those values on `:root`.
+
+## Density and Control Scale
+
+The default scale is compact without becoming cramped:
+
+| Token              | Default | Intended role                                                          |
+| ------------------ | ------- | ---------------------------------------------------------------------- |
+| `--moduix-size-xs` | `24px`  | Small icon controls and compact actions.                               |
+| `--moduix-size-sm` | `32px`  | Popup rows and secondary compact controls.                             |
+| `--moduix-size-md` | `36px`  | Default inputs, buttons, triggers, pagination, and composite controls. |
+| `--moduix-size-lg` | `40px`  | Deliberately roomy controls.                                           |
+| `--moduix-size-xl` | `48px`  | Prominent controls and touch-oriented layouts.                         |
+
+Most primary controls resolve through `--moduix-size-md`; items inside menus, selects, comboboxes,
+command palettes, and similar popups resolve through `--moduix-size-sm`. This keeps a trigger and its
+popup visually related while giving the popup a slightly denser information rhythm.
+
+```css
+:root {
+  --moduix-size-md: 36px;
+  --moduix-size-sm: 32px;
+}
+
+[data-moduix-theme='compact'] {
+  --moduix-size-md: 34px;
+  --moduix-popup-item-min-height: 30px;
+}
+```
+
+## Mass Style Overrides
+
+Some variables intentionally sit above individual components. Changing them updates multiple
+components at once until a component-specific `--moduix-<component>-*` variable overrides the fallback.
+
+| Variable group                                                                                                | What it changes                       | Common consumers                                                                |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
+| <code>--moduix-backdrop-bg</code><br /><code>--moduix-backdrop-filter</code>                                  | Default backdrop color and blur       | Command Palette, Dialog, Drawer, Lightbox, Tour                                 |
+| <code>--moduix-duration-\*</code><br /><code>--moduix-ease-\*</code><br /><code>--moduix-transition-\*</code> | Shared motion timing and easing       | Controls, overlays, tabs, accordions, inputs, toasts                            |
+| <code>--moduix-popup-motion-\*</code>                                                                         | Popup content timing and phase motion | Popover, Menu, Tooltip, Hover Card, Floating Panel, modal surfaces, and pickers |
+| <code>--moduix-scale-popup</code><br /><code>--moduix-scale-dropdown</code>                                   | Default popup open/close scale        | Dialog, Popover, Tooltip, Menu, Toast, Select, Combobox                         |
+| <code>--moduix-popup-\*</code>                                                                                | Shared popup list density and spacing | Menu, Select, Combobox, CommandPalette                                          |
+| <code>--moduix-spacing-\*</code><br /><code>--moduix-size-\*</code>                                           | Shared density and control scale      | Controls, icon geometry, popup rows, layout rhythm                              |
+| <code>--moduix-focus-ring-\*</code><br /><code>--moduix-color-ring</code>                                     | Shared focus geometry and color       | Buttons, inputs, composite controls, popup triggers                             |
+
+Use these tokens when you want a broad visual shift across the system. Use component-specific
+tokens like `--moduix-dialog-backdrop-bg` or `--moduix-popover-transition` when a single component should opt out.
+
+The quick table above is the cross-component index. The detailed overview below keeps the same
+tokens in their native sections: motion in `Motion`, scale in `Elevation & Layers`, and shared
+backdrop, popup, and popup-motion defaults in `Shared Component Defaults`.
+
+```css
+:root {
+  --moduix-backdrop-bg: oklch(0.12 0.03 250 / 0.34);
+  --moduix-transition-default: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-scale-popup: 0.96;
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.command-surface {
+  --moduix-popup-item-min-height: var(--moduix-size-sm);
+}
+```
+
+Fractional spacing tokens such as `--moduix-spacing-1-5` and `--moduix-spacing-3-5` are derived from neighboring
+primitive steps. A density preset only needs to override the integer primitives; intermediate
+component padding, icon geometry, and focus offsets follow automatically.
+
+<TokensOverview />
+
+## Override Scope
+
+Set project-wide tokens in `:root`. A value on `[data-moduix-color-scheme='dark']` or another
+parent container inherits only into components rendered below that element; default portalled
+overlays need the value on the document root, `body`, or a portal container in that scope.
+
+```css
+:root {
+  --moduix-primary: oklch(0.52 0.18 145);
+  --moduix-radius: 0.75rem;
+  --moduix-backdrop-filter: blur(4px);
+}
+
+.dense-panel {
+  --moduix-spacing-1: 3px;
+  --moduix-spacing-2: 6px;
+  --moduix-spacing-3: 10px;
+  --moduix-size-sm: 30px;
+  --moduix-size-md: 34px;
+}
+```
+
+For a reusable theme, keep overrides in a dedicated stylesheet loaded after `style.css`. Scope the
+file with an attribute such as `[data-moduix-theme='brand']` when multiple themes must coexist.
+Keep one-off component adjustments close to their feature so they do not silently become global
+design-system decisions.

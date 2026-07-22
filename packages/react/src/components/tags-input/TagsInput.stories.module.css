@@ -1,21 +1,21 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     align-items: flex-start;
   }
 
   .actions {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .hint {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .field {
@@ -25,26 +25,38 @@
 
   .clearButton {
     width: max-content;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
     padding: 0.375rem 0.75rem;
-    background: var(--color-background);
-    color: var(--color-foreground);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     cursor: pointer;
   }
 
   .customRoot {
-    --tags-input-item-bg: color-mix(in oklab, var(--color-primary) 14%, var(--color-background));
-    --tags-input-item-border-color: color-mix(in oklab, var(--color-primary) 28%, transparent);
-    --tags-input-item-color: var(--color-primary);
-    --tags-input-item-highlight-ring-color: color-mix(
+    --moduix-tags-input-item-bg: color-mix(
       in oklab,
-      var(--color-primary) 70%,
+      var(--moduix-color-primary) 14%,
+      var(--moduix-color-background)
+    );
+    --moduix-tags-input-item-border-color: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 28%,
       transparent
     );
-    --tags-input-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 16%, transparent);
+    --moduix-tags-input-item-color: var(--moduix-color-primary);
+    --moduix-tags-input-item-highlight-ring-color: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 70%,
+      transparent
+    );
+    --moduix-tags-input-trigger-bg-hover: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 16%,
+      transparent
+    );
   }
 }

@@ -1,0 +1,102 @@
+---
+title: Introduction
+description: What moduix is, how it is built, and which ownership model fits your project.
+---
+
+import { OwnershipLayers } from '@/components/docs/ownership-layers';
+
+# moduix
+
+moduix is a styled React component system built on [Ark UI](https://ark-ui.com/). It combines
+Ark's accessible interaction primitives with calm defaults, explicit composition, and a CSS token
+foundation designed for product interfaces.
+
+The visual language and source-delivery experience are
+[inspired by shadcn/ui](https://ui.shadcn.com/): components should look considered out of the box,
+remain easy to read, and become application-owned when that is the better workflow. moduix keeps
+its behavior and anatomy Ark-shaped rather than trying to be a drop-in shadcn clone.
+
+## Choose How You Own It
+
+Start with the npm package for the shortest setup and package-managed updates. Choose the hosted
+shadcn registry when you want the component source, styles, and supporting utilities inside your
+repository.
+
+| Workflow                   | Imports                 | Best fit                                                               |
+| -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
+| npm package                | `@moduix/react`         | Centralized updates and the smallest amount of application-owned code. |
+| Copy-owned shadcn registry | `@/components/moduix/*` | Direct source ownership, local changes, and AI-assisted customization. |
+
+Both workflows ship the same component contracts and token system. [Quick start](/docs/quick-start)
+covers the complete setup for each path.
+
+<OwnershipLayers />
+
+## What Ark-Backed Means
+
+Complex components preserve the Ark UI model: named parts, controlled and uncontrolled state,
+callback detail objects, context providers, `asChild` composition, native form controls, and state
+attributes. moduix adds styles, defaults, convenience composition, and stable `data-slot` hooks
+without hiding the primitive structure you need for advanced product work.
+
+Ark UI remains the source of truth for interaction behavior and accessibility. moduix is the
+opinionated product layer on top.
+
+## What shadcn-Inspired Means
+
+The inspiration is practical rather than cosmetic:
+
+- polished defaults that feel coherent before customization;
+- readable composition instead of configuration-heavy wrappers;
+- open CSS variables and source code that are straightforward to inspect;
+- a hosted shadcn registry for copy-owned installation;
+- documentation that teaches the common path first and keeps escape hatches visible.
+
+moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
+contracts. Native CSS and CSS Modules remain the styling foundation.
+
+## The Styling Contract
+
+The default density uses `36px` primary controls and `32px` popup rows through `--moduix-size-md` and
+`--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination, menu items,
+and related patterns share the same scale.
+
+Colors, spacing, radii, typography, focus rings, motion, shadows, and component-specific decisions
+are expressed as CSS custom properties. Override a semantic token to change the whole system, a
+shared family token to tune related components, or a `--<component>-*` variable for one local
+exception. See [Tokens](/docs/tokens) for the full hierarchy and [Themes](/docs/themes) for
+ready-made presets.
+
+## Start Here
+
+| Page                             | Use it for                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------------- |
+| [Quick start](/docs/quick-start) | Install the package or registry source and render the first component.          |
+| [Themes](/docs/themes)           | Adopt a curated preset or use one as the starting point for your own theme.     |
+| [Tokens](/docs/tokens)           | Understand global tokens, shared component defaults, and local override scopes. |
+
+## Continue With
+
+| Page                                               | Use it for                                                                       |
+| -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [Composition Patterns](/docs/composition-patterns) | Learn recommended part trees, wrappers, providers, and low-level escape hatches. |
+| [Forms](/docs/forms)                               | Connect controls to native forms and form-state libraries.                       |
+| [Collections](/docs/collections)                   | Model data for selects, comboboxes, trees, and other collection components.      |
+| [Animations](/docs/animations)                     | Tune shared motion and component-level transitions.                              |
+| [Utilities](/docs/utilities)                       | Use Ark utilities directly when a styled moduix wrapper is unnecessary.          |
+
+## Acknowledgements
+
+moduix is possible because of the work and ideas of these projects:
+
+- [Ark UI](https://ark-ui.com/) for the accessible, state-machine-backed primitives that define the
+  behavioral foundation.
+- [Chakra UI](https://chakra-ui.com/) for the Ark-aligned composition ergonomics and design-system
+  craft that continue to inform moduix.
+- [shadcn/ui](https://ui.shadcn.com/) for open-code distribution, beautiful defaults, and a
+  documentation style centered on practical ownership.
+- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
+  adapted by the optional reset.
+- [Rspress](https://rspress.rs/) for the documentation system and component-preview tooling.
+- [Rstack](https://rspack.dev/) for the Rust-powered build foundation behind the docs.
+- [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.

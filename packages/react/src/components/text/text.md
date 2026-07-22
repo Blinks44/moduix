@@ -134,30 +134,30 @@ wrap long words with `overflow-wrap: break-word`.
 
 Public CSS variables:
 
-| Variable                      | Default                             |
-| ----------------------------- | ----------------------------------- |
-| `--text-default-color`        | `var(--color-foreground)`           |
-| `--text-destructive-color`    | `var(--color-destructive)`          |
-| `--text-font-family`          | `inherit`                           |
-| `--text-font-size-xs`         | `var(--text-xs)`                    |
-| `--text-font-size-sm`         | `var(--text-sm)`                    |
-| `--text-font-size-md`         | `var(--text-md)`                    |
-| `--text-font-size-lg`         | `var(--text-lg)`                    |
-| `--text-font-size-xl`         | `var(--text-xl)`                    |
-| `--text-font-weight-bold`     | `var(--weight-bold)`                |
-| `--text-font-weight-medium`   | `var(--weight-medium)`              |
-| `--text-font-weight-regular`  | `var(--weight-regular)`             |
-| `--text-font-weight-semibold` | `var(--weight-semibold)`            |
-| `--text-letter-spacing`       | `0`                                 |
-| `--text-line-clamp`           | set by `lineClamp`                  |
-| `--text-line-height-xs`       | `var(--line-height-text-xs)`        |
-| `--text-line-height-sm`       | `var(--line-height-text-sm)`        |
-| `--text-line-height-md`       | `var(--line-height-text-md)`        |
-| `--text-line-height-lg`       | `var(--line-height-text-lg)`        |
-| `--text-line-height-xl`       | `var(--line-height-text-xl)`        |
-| `--text-muted-color`          | `var(--color-muted-foreground)`     |
-| `--text-primary-color`        | `var(--color-primary)`              |
-| `--text-subtle-color`         | `var(--color-secondary-foreground)` |
+| Variable                             | Default                                    |
+| ------------------------------------ | ------------------------------------------ |
+| `--moduix-text-default-color`        | `var(--moduix-color-foreground)`           |
+| `--moduix-text-destructive-color`    | `var(--moduix-color-destructive)`          |
+| `--moduix-text-font-family`          | `inherit`                                  |
+| `--moduix-text-font-size-xs`         | `var(--moduix-text-xs)`                    |
+| `--moduix-text-font-size-sm`         | `var(--moduix-text-sm)`                    |
+| `--moduix-text-font-size-md`         | `var(--moduix-text-md)`                    |
+| `--moduix-text-font-size-lg`         | `var(--moduix-text-lg)`                    |
+| `--moduix-text-font-size-xl`         | `var(--moduix-text-xl)`                    |
+| `--moduix-text-font-weight-bold`     | `var(--moduix-weight-bold)`                |
+| `--moduix-text-font-weight-medium`   | `var(--moduix-weight-medium)`              |
+| `--moduix-text-font-weight-regular`  | `var(--moduix-weight-regular)`             |
+| `--moduix-text-font-weight-semibold` | `var(--moduix-weight-semibold)`            |
+| `--moduix-text-letter-spacing`       | `0`                                        |
+| `--moduix-text-line-clamp`           | set by `lineClamp`                         |
+| `--moduix-text-line-height-xs`       | `var(--moduix-line-height-text-xs)`        |
+| `--moduix-text-line-height-sm`       | `var(--moduix-line-height-text-sm)`        |
+| `--moduix-text-line-height-md`       | `var(--moduix-line-height-text-md)`        |
+| `--moduix-text-line-height-lg`       | `var(--moduix-line-height-text-lg)`        |
+| `--moduix-text-line-height-xl`       | `var(--moduix-line-height-text-xl)`        |
+| `--moduix-text-muted-color`          | `var(--moduix-color-muted-foreground)`     |
+| `--moduix-text-primary-color`        | `var(--moduix-color-primary)`              |
+| `--moduix-text-subtle-color`         | `var(--moduix-color-secondary-foreground)` |
 
 ## Intentional sugar and differences from upstream
 
@@ -174,7 +174,7 @@ directly when they need upstream typing helpers.
   layout spacing.
 - Keep `Text.Root` attached so root-only docs can teach short `<Text>` while preserving Ark-style
   namespace composition.
-- If new variants or `--text-*` variables are added, update this file, docs examples, theme tokens,
+- If new variants or `--moduix-text-*` variables are added, update this file, docs examples, theme tokens,
   and registry artifacts in the same task.
 
 ## Local changelog

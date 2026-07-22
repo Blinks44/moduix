@@ -1,113 +1,122 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--field-gap, var(--spacing-1));
-    width: var(--field-width, 100%);
-    max-width: var(--field-max-width, none);
-    color: var(--field-color, var(--color-foreground));
+    gap: var(--moduix-field-gap, var(--moduix-spacing-1));
+    width: var(--moduix-field-width, 100%);
+    max-width: var(--moduix-field-max-width, none);
+    color: var(--moduix-field-color, var(--moduix-color-foreground));
 
     &[data-disabled] {
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .item {
     display: grid;
-    gap: var(--field-item-gap, var(--spacing-1));
+    gap: var(--moduix-field-item-gap, var(--moduix-spacing-1));
   }
 
   .label {
     display: inline-flex;
     align-items: center;
-    gap: var(--field-label-gap, var(--spacing-2));
-    color: var(--field-label-color, var(--color-foreground));
-    font-size: var(--field-label-font-size, var(--text-sm));
-    font-weight: var(--field-label-font-weight, var(--weight-medium));
-    line-height: var(--field-label-line-height, var(--line-height-text-sm));
+    gap: var(--moduix-field-label-gap, var(--moduix-spacing-2));
+    color: var(--moduix-field-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-field-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-field-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm));
 
     &[data-disabled] {
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .helperText {
     margin: 0;
-    color: var(--field-description-color, var(--color-muted-foreground));
-    font-size: var(--field-description-font-size, var(--text-sm));
-    line-height: var(--field-description-line-height, var(--line-height-text-sm));
+    color: var(--moduix-field-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-field-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-field-description-line-height, var(--moduix-line-height-text-sm));
 
     &[data-disabled] {
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .control {
     box-sizing: border-box;
-    width: var(--field-control-width, 100%);
-    min-height: var(--field-control-height, var(--size-md));
+    width: var(--moduix-field-control-width, 100%);
+    min-height: var(--moduix-field-control-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--field-control-border-width, var(--border-width-sm))
-      var(--field-control-border-style, solid)
-      var(--field-control-border-color, var(--color-border));
-    border-radius: var(--field-control-radius, var(--radius-md));
-    padding: var(--field-control-padding-y, var(--spacing-1))
-      var(--field-control-padding-x, var(--spacing-3-5));
-    background-color: var(--field-control-bg, var(--color-background));
-    color: var(--field-control-color, var(--color-foreground));
+    border: var(--moduix-field-control-border-width, var(--moduix-border-width-sm))
+      var(--moduix-field-control-border-style, solid)
+      var(--moduix-field-control-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-field-control-radius, var(--moduix-radius-md));
+    padding: var(--moduix-field-control-padding-y, var(--moduix-spacing-1))
+      var(--moduix-field-control-padding-x, var(--moduix-spacing-3-5));
+    background-color: var(--moduix-field-control-bg, var(--moduix-color-background));
+    color: var(--moduix-field-control-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--field-control-font-size, var(--text-md));
-    line-height: var(--field-control-line-height, var(--line-height-text-md));
-    outline: var(--field-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+    font-size: var(--moduix-field-control-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-field-control-line-height, var(--moduix-line-height-text-md));
+    outline: var(
+        --moduix-field-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
       solid transparent;
-    outline-offset: var(--field-focus-ring-offset, var(--focus-ring-inset-offset));
+    outline-offset: var(--moduix-field-focus-ring-offset, var(--moduix-focus-ring-inset-offset));
     transition:
-      border-color var(--field-control-transition, var(--transition-default)),
-      outline-color var(--field-control-transition, var(--transition-default)),
-      opacity var(--field-control-transition, var(--transition-default));
+      border-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-field-control-transition, var(--moduix-transition-default));
 
     &::placeholder {
-      color: var(--field-control-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-field-control-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &:focus-visible {
-      outline-color: var(--field-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-field-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-invalid] {
-      border-color: var(--field-control-border-color-invalid, var(--color-destructive));
+      border-color: var(
+        --moduix-field-control-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
 
       &:focus-visible {
-        outline-color: var(--field-control-border-color-invalid, var(--color-destructive));
+        outline-color: var(
+          --moduix-field-control-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
       }
     }
 
     &[data-disabled],
     &:disabled {
       pointer-events: none;
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .textarea {
-    min-height: var(--field-textarea-min-height, 5rem);
+    min-height: var(--moduix-field-textarea-min-height, 5rem);
     resize: vertical;
   }
 
   .errorText {
     margin: 0;
-    color: var(--field-error-color, var(--color-destructive));
-    font-size: var(--field-error-font-size, var(--text-sm));
-    line-height: var(--field-error-line-height, var(--line-height-text-sm));
+    color: var(--moduix-field-error-color, var(--moduix-color-destructive));
+    font-size: var(--moduix-field-error-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-field-error-line-height, var(--moduix-line-height-text-sm));
 
     &[data-disabled] {
-      opacity: var(--field-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .requiredIndicator {
-    color: var(--field-required-indicator-color, var(--color-destructive));
+    color: var(--moduix-field-required-indicator-color, var(--moduix-color-destructive));
   }
 }

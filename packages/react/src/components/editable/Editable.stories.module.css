@@ -1,15 +1,15 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .hint {
     grid-column: 1 / -1;
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .textareaArea {
@@ -17,9 +17,9 @@
   }
 
   .textareaRoot {
-    --editable-control-align: start;
-    --editable-width: min(24rem, 100%);
-    --editable-area-width: 100%;
+    --moduix-editable-control-align: start;
+    --moduix-editable-width: min(24rem, 100%);
+    --moduix-editable-area-width: 100%;
   }
 
   .textareaInput,
@@ -29,22 +29,22 @@
   }
 
   .customArea {
-    --editable-border-color: var(--color-primary);
-    --editable-focus-ring-color: var(--color-primary);
-    --editable-radius: var(--radius-sm);
-    --editable-area-width: 16rem;
+    --moduix-editable-border-color: var(--moduix-color-primary);
+    --moduix-editable-focus-ring-color: var(--moduix-color-primary);
+    --moduix-editable-radius: var(--moduix-radius-sm);
+    --moduix-editable-area-width: 16rem;
   }
 
   .actions {
     display: flex;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .actions button {
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-1) var(--spacing-2);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-sm);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
   }
 }

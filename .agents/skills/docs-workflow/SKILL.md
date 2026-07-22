@@ -1,11 +1,11 @@
 ---
 name: docs-workflow
-description: Use for work in apps/docs, including MDX pages, live examples, and CSS variable documentation.
+description: Use for work in the Rspress docs app, including MDX pages, live examples, and CSS variable documentation.
 ---
 
 # Skill: docs-workflow
 
-Use this skill for work in `apps/docs`.
+Use this skill for work in `apps/docs`, the Rspress 2 documentation app.
 
 ## Scope
 
@@ -14,17 +14,20 @@ Use this skill for work in `apps/docs`.
 - live examples
 - CSS properties documentation
 
+Use Rspress 2's native MDX, preview-plugin, theme, and runtime APIs. Do not add compatibility
+layers for retired documentation frameworks.
+
 ## Read First
 
 1. `AGENTS.md`
-2. `apps/docs/content/docs/select.mdx` as the current reference implementation for standardized component pages
+2. `apps/docs/docs/en/docs/select.mdx` as the current reference implementation for standardized component pages
 3. `packages/react` output and local component docs when docs depend on changed UI behavior
 
 ## Core Rules
 
 - Import public components from `moduix`. Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
-- Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, but keep the visible snippet data setup inside `Preview.Code`.
+- Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, and use Rspress's fenced `preview file="..."` directive for complete runnable snippets.
 - Remove repeated docs-only ceremony with small local helpers, not page builders, generators, or hidden DSLs.
 - Prefer namespace imports in MDX when a page would otherwise accumulate long named imports from one examples module.
 - Prefer `as T` over `useState<T>()` in MDX.
@@ -36,12 +39,12 @@ Use this skill for work in `apps/docs`.
 - For root-only components whose exported component is the root with `.Root` attached, visible runnable snippets use
   the short root form (`<Component>`) by default; reserve `<Component.Root>` for anatomy, API explanation, or cases
   where the namespace itself is being discussed.
-- Live examples may use internal helpers for maintainability, but the visible `Preview.Code` should stay complete and
+- Live examples may use internal helpers for maintainability, but the visible preview source should stay complete and
   consumer-facing.
 
 ## Standard Component Page Structure
 
-Every component page in `apps/docs/content/docs/*.mdx` must use this section order:
+Every component page in `apps/docs/docs/en/docs/*.mdx` must use this section order:
 
 1. `## API Reference`
 2. `## Choosing the right component` (optional)
@@ -98,18 +101,21 @@ Inside `## Styling`, always use:
 
 ## Preview Rules
 
-- Put component code in `Preview.Code`.
-- Put example-local CSS in `Preview.CSS`.
-- On component pages in `apps/docs/content/docs/*.mdx`, every `Preview.Code` must use a docs-local
-  snippet file in `./_snippets/<component>/` with a named region include.
+- Put complete runnable component code in an official Rspress fenced directive:
+  ````md
+  ```tsx preview file="./_snippets/<component>/basic.tsx"
+
+  ```
+  ````
+- Put example-local CSS in the imported snippet module or a colocated CSS Module when the example needs it.
+- On component pages in `apps/docs/docs/en/docs/*.mdx`, every runnable preview should use a docs-local
+  snippet file in `./_snippets/<component>/`.
 - Use `basic.tsx` for the `## Basic` section and stable heading-based filenames for the rest, such
   as `root-provider.tsx` or `controlled.tsx`.
-- Do not use `Preview.Data` on component pages. Put arrays, mock payloads, and other setup data
-  directly in the visible `Preview.Code` snippet so the snippet stays self-contained.
-- Do not use `<include>` by default for `Preview.CSS`. Prefer inline content or exports from the
-  example module unless the content is genuinely large and reused.
-- Keep snippets self-contained and consumer-facing. Use `//#region demo` / `//#endregion` in the
-  snippet file so the visible region stays stable.
+- Do not hide arrays, mock payloads, or other setup data behind preview-only transforms. Keep the
+  snippet self-contained so the Rspress preview compiler can execute it directly.
+- Keep snippets self-contained and consumer-facing. Do not add `//#region` markers solely for docs
+  rendering; Rspress previews compile the snippet file directly.
 - Prefer the Ark UI documentation style: one complete component per visible snippet, with the relevant parts inlined.
   Do not make readers jump between hidden helper components just to understand the example. Keep helpers in the docs
   source only when needed for maintainability, and inline them in the displayed snippet unless the helper itself is the
@@ -117,9 +123,9 @@ Inside `## Styling`, always use:
 - For Ark collection primitives, show `create*Collection(...)` setup and recursive renderers inline when they are part
   of the consumer contract. Do not hide them behind snippet-only factories or structural wrapper helpers.
 - Do not repeat global setup imports.
-- In runnable examples (`Preview` and `Preview.Code`), use the short root form (`<Component>`) instead of
+- In runnable examples and preview snippets, use the short root form (`<Component>`) instead of
   `<Component.Root>`, while keeping child parts namespaced (for example `<Component.Item>`).
-- Do not attach `Preview.CSSProperties` or `Preview.CSSPlayground` to the `Basic` example.
+- Do not attach CSS playground controls to the `Basic` example.
 - Prefer removing `Playground` from component pages unless a task explicitly needs interactive token editing.
 - Do not add a preview canvas inside `Styling`.
 - Keep small example fixtures in the visible snippet instead of extracting page-only data constants or
@@ -190,4 +196,4 @@ Dialog-like components:
 - Keep the full hosted shadcn registry setup flow in `quick-start.mdx`, not on every component page.
 - On component pages, put `Install with shadcn` immediately after `Basic` and show only the `add` commands.
 - Keep `index.mdx`, `quick-start.mdx`, `composition-patterns.mdx`, and `tokens.mdx` aligned when install flow, token entrypoints, or ownership guidance changes.
-- Treat `registry/registry.json` as the source manifest. `npm run build:registry` generates JSON artifacts into `apps/docs/public/r/react`.
+- Treat `registry/registry.json` as the source manifest. `npm run build:registry` generates JSON artifacts into `apps/docs/docs/public/r/react`.

@@ -1,0 +1,140 @@
+.root {
+  display: grid;
+  overflow: hidden;
+  margin-block: 2rem;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius);
+  background: var(--rp-c-bg-soft);
+
+  @media (min-width: 48rem) {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+}
+
+.summary,
+.details {
+  padding: 1.25rem;
+}
+
+.summary {
+  border-bottom: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in oklab, var(--rp-c-bg-mute) 35%, transparent);
+
+  @media (min-width: 48rem) {
+    border-right: 1px solid var(--rp-c-divider-light);
+    border-bottom: 0;
+  }
+}
+
+.summary h2 {
+  margin: 0.75rem 0 0;
+  color: var(--rp-c-text-1);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+.summary > p:last-child {
+  margin: 0.75rem 0 0;
+  color: var(--rp-c-text-2);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.eyebrow,
+.note {
+  color: var(--rp-c-text-2);
+  font-size: 0.75rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.details {
+  display: grid;
+  gap: 0.75rem;
+  background: var(--rp-c-bg);
+}
+
+.layers {
+  display: grid;
+  gap: 0.5rem;
+
+  @media (min-width: 36rem) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.layer,
+.tokens {
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius-small);
+  background: var(--rp-c-bg);
+}
+
+.layer {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem;
+}
+
+.layer span,
+.note {
+  color: var(--rp-c-text-2);
+}
+
+.layer span {
+  font-size: 0.75rem;
+}
+
+.layer strong,
+.tokensHeader strong {
+  color: var(--rp-c-text-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.tokens {
+  padding: 1rem;
+}
+
+.tokensHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tokensHeader span {
+  border-radius: 999px;
+  background: var(--rp-c-text-1);
+  color: var(--rp-c-bg);
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.meter {
+  height: 0.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--rp-c-bg-mute);
+}
+
+.meter span {
+  display: block;
+  width: 72%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--rp-c-text-1);
+}
+
+.note {
+  margin: 0;
+  line-height: 1.25rem;
+}

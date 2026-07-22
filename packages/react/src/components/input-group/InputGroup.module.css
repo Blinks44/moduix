@@ -1,40 +1,53 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--input-group-width, 100%);
-    max-width: var(--input-group-max-width, none);
-    min-height: var(--input-group-height, var(--input-group-height-md, var(--size-md)));
+    width: var(--moduix-input-group-width, 100%);
+    max-width: var(--moduix-input-group-max-width, none);
+    min-height: var(
+      --moduix-input-group-height,
+      var(--moduix-input-group-height-md, var(--moduix-size-md))
+    );
     align-items: stretch;
     overflow: hidden;
-    border: var(--input-group-border-width, var(--border-width-sm))
-      var(--input-group-border-style, solid) var(--input-group-border-color, var(--color-border));
-    border-radius: var(--input-group-radius, var(--radius-md));
-    background-color: var(--input-group-bg, var(--color-background));
-    color: var(--input-group-color, var(--color-foreground));
+    border: var(--moduix-input-group-border-width, var(--moduix-border-width-sm))
+      var(--moduix-input-group-border-style, solid)
+      var(--moduix-input-group-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-input-group-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-input-group-bg, var(--moduix-color-background));
+    color: var(--moduix-input-group-color, var(--moduix-color-foreground));
     outline: var(
-        --input-group-focus-ring-width,
-        var(--input-group-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        --moduix-input-group-focus-ring-width,
+        var(
+          --moduix-input-group-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
       )
       solid transparent;
-    outline-offset: var(--input-group-focus-ring-offset, var(--focus-ring-inset-offset));
+    outline-offset: var(
+      --moduix-input-group-focus-ring-offset,
+      var(--moduix-focus-ring-inset-offset)
+    );
     transition:
-      border-color var(--input-group-transition, var(--transition-default)),
-      outline-color var(--input-group-transition, var(--transition-default)),
-      opacity var(--input-group-transition, var(--transition-default));
+      border-color var(--moduix-input-group-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-input-group-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-input-group-transition, var(--moduix-transition-default));
 
     &:focus-within {
-      outline-color: var(--input-group-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-input-group-focus-ring-color, var(--moduix-color-ring));
     }
 
     &:has(
       [data-slot='input-group-input'][data-invalid],
       [data-slot='input-group-input'][aria-invalid='true']
     ) {
-      border-color: var(--input-group-border-color-invalid, var(--color-destructive));
+      border-color: var(--moduix-input-group-border-color-invalid, var(--moduix-color-destructive));
 
       &:focus-within {
-        outline-color: var(--input-group-border-color-invalid, var(--color-destructive));
+        outline-color: var(
+          --moduix-input-group-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
       }
     }
 
@@ -42,7 +55,7 @@
       [data-slot='input-group-input'][data-disabled],
       [data-slot='input-group-input']:disabled
     ) {
-      opacity: var(--input-group-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-input-group-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     &:has(
@@ -50,59 +63,119 @@
       [data-slot='input-group-input']:read-only
     ) {
       border-color: var(
-        --input-group-readonly-border-color,
-        var(--input-group-border-color, var(--color-border))
+        --moduix-input-group-readonly-border-color,
+        var(--moduix-input-group-border-color, var(--moduix-color-border))
       );
       background-color: var(
-        --input-group-readonly-bg,
-        var(--input-group-bg, var(--color-background))
+        --moduix-input-group-readonly-bg,
+        var(--moduix-input-group-bg, var(--moduix-color-background))
       );
-      color: var(--input-group-readonly-color, var(--input-group-color, var(--color-foreground)));
+      color: var(
+        --moduix-input-group-readonly-color,
+        var(--moduix-input-group-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-size='xs'] {
-      --input-group-height: var(--input-group-height-xs, var(--size-xs));
-      --input-group-addon-padding-x: var(--input-group-addon-padding-x-xs, var(--spacing-2-5));
-      --input-group-font-size: var(--input-group-font-size-xs, var(--text-xs));
-      --input-group-line-height: var(--input-group-line-height-xs, var(--line-height-text-xs));
-      --input-group-input-padding-x: var(--input-group-input-padding-x-xs, var(--spacing-2-5));
-      --input-group-input-padding-y: var(--input-group-input-padding-y-xs, var(--spacing-0-5));
+      --moduix-input-group-height: var(--moduix-input-group-height-xs, var(--moduix-size-xs));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-xs,
+        var(--moduix-spacing-2-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-xs, var(--moduix-text-xs));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-xs,
+        var(--moduix-line-height-text-xs)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-xs,
+        var(--moduix-spacing-2-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-xs,
+        var(--moduix-spacing-0-5)
+      );
     }
 
     &[data-size='sm'] {
-      --input-group-height: var(--input-group-height-sm, var(--size-sm));
-      --input-group-addon-padding-x: var(--input-group-addon-padding-x-sm, var(--spacing-3));
-      --input-group-font-size: var(--input-group-font-size-sm, var(--text-sm));
-      --input-group-line-height: var(--input-group-line-height-sm, var(--line-height-text-sm));
-      --input-group-input-padding-x: var(--input-group-input-padding-x-sm, var(--spacing-3));
-      --input-group-input-padding-y: var(--input-group-input-padding-y-sm, 0.3125rem);
+      --moduix-input-group-height: var(--moduix-input-group-height-sm, var(--moduix-size-sm));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-sm,
+        var(--moduix-spacing-3)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-sm, var(--moduix-text-sm));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-sm,
+        var(--moduix-line-height-text-sm)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-sm,
+        var(--moduix-spacing-3)
+      );
+      --moduix-input-group-input-padding-y: var(--moduix-input-group-input-padding-y-sm, 0.3125rem);
     }
 
     &[data-size='md'] {
-      --input-group-height: var(--input-group-height-md, var(--size-md));
-      --input-group-addon-padding-x: var(--input-group-addon-padding-x-md, var(--spacing-3-5));
-      --input-group-font-size: var(--input-group-font-size-md, var(--text-md));
-      --input-group-line-height: var(--input-group-line-height-md, var(--line-height-text-md));
-      --input-group-input-padding-x: var(--input-group-input-padding-x-md, var(--spacing-3-5));
-      --input-group-input-padding-y: var(--input-group-input-padding-y-md, var(--spacing-1));
+      --moduix-input-group-height: var(--moduix-input-group-height-md, var(--moduix-size-md));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-md,
+        var(--moduix-spacing-3-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-md, var(--moduix-text-md));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-md,
+        var(--moduix-line-height-text-md)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-md,
+        var(--moduix-spacing-3-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-md,
+        var(--moduix-spacing-1)
+      );
     }
 
     &[data-size='lg'] {
-      --input-group-height: var(--input-group-height-lg, var(--size-lg));
-      --input-group-addon-padding-x: var(--input-group-addon-padding-x-lg, var(--spacing-4));
-      --input-group-font-size: var(--input-group-font-size-lg, var(--text-lg));
-      --input-group-line-height: var(--input-group-line-height-lg, var(--line-height-text-lg));
-      --input-group-input-padding-x: var(--input-group-input-padding-x-lg, var(--spacing-4));
-      --input-group-input-padding-y: var(--input-group-input-padding-y-lg, var(--spacing-1));
+      --moduix-input-group-height: var(--moduix-input-group-height-lg, var(--moduix-size-lg));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-lg,
+        var(--moduix-spacing-4)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-lg, var(--moduix-text-lg));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-lg,
+        var(--moduix-line-height-text-lg)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-lg,
+        var(--moduix-spacing-4)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-lg,
+        var(--moduix-spacing-1)
+      );
     }
 
     &[data-size='xl'] {
-      --input-group-height: var(--input-group-height-xl, var(--size-xl));
-      --input-group-addon-padding-x: var(--input-group-addon-padding-x-xl, var(--spacing-4-5));
-      --input-group-font-size: var(--input-group-font-size-xl, var(--text-lg));
-      --input-group-line-height: var(--input-group-line-height-xl, var(--line-height-text-lg));
-      --input-group-input-padding-x: var(--input-group-input-padding-x-xl, var(--spacing-4-5));
-      --input-group-input-padding-y: var(--input-group-input-padding-y-xl, var(--spacing-2));
+      --moduix-input-group-height: var(--moduix-input-group-height-xl, var(--moduix-size-xl));
+      --moduix-input-group-addon-padding-x: var(
+        --moduix-input-group-addon-padding-x-xl,
+        var(--moduix-spacing-4-5)
+      );
+      --moduix-input-group-font-size: var(--moduix-input-group-font-size-xl, var(--moduix-text-lg));
+      --moduix-input-group-line-height: var(
+        --moduix-input-group-line-height-xl,
+        var(--moduix-line-height-text-lg)
+      );
+      --moduix-input-group-input-padding-x: var(
+        --moduix-input-group-input-padding-x-xl,
+        var(--moduix-spacing-4-5)
+      );
+      --moduix-input-group-input-padding-y: var(
+        --moduix-input-group-input-padding-y-xl,
+        var(--moduix-spacing-2)
+      );
     }
   }
 
@@ -113,11 +186,11 @@
     border: 0;
     border-radius: 0;
     background-color: transparent;
-    font-size: var(--input-group-font-size, var(--text-md));
-    line-height: var(--input-group-line-height, var(--line-height-text-md));
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-md));
     outline: 0;
-    padding-block: var(--input-group-input-padding-y, var(--spacing-2));
-    padding-inline: var(--input-group-input-padding-x, var(--spacing-3-5));
+    padding-block: var(--moduix-input-group-input-padding-y, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-input-group-input-padding-x, var(--moduix-spacing-3-5));
   }
 
   .addon,
@@ -127,24 +200,24 @@
     min-width: max-content;
     align-items: center;
     justify-content: center;
-    gap: var(--input-group-addon-gap, var(--spacing-2));
-    padding-inline: var(--input-group-addon-padding-x, var(--spacing-3-5));
-    background-color: var(--input-group-addon-bg, var(--color-muted));
-    color: var(--input-group-addon-color, var(--color-muted-foreground));
-    font-size: var(--input-group-font-size, var(--text-md));
-    line-height: var(--input-group-line-height, var(--line-height-text-md));
+    gap: var(--moduix-input-group-addon-gap, var(--moduix-spacing-2));
+    padding-inline: var(--moduix-input-group-addon-padding-x, var(--moduix-spacing-3-5));
+    background-color: var(--moduix-input-group-addon-bg, var(--moduix-color-muted));
+    color: var(--moduix-input-group-addon-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-md));
     white-space: nowrap;
 
     & > svg {
-      width: var(--input-group-icon-size, var(--spacing-4));
-      height: var(--input-group-icon-size, var(--spacing-4));
+      width: var(--moduix-input-group-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-input-group-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;
     }
   }
 
   .addon {
-    border-inline: var(--input-group-separator-width, var(--border-width-sm)) solid
-      var(--input-group-separator-color, var(--color-border));
+    border-inline: var(--moduix-input-group-separator-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-input-group-separator-color, var(--moduix-color-border));
 
     &:first-child {
       border-inline-start: 0;
@@ -164,15 +237,18 @@
     height: auto;
     align-self: stretch;
     padding-block: 0;
-    padding-inline: var(--input-group-addon-padding-x, var(--spacing-3-5));
+    padding-inline: var(--moduix-input-group-addon-padding-x, var(--moduix-spacing-3-5));
     border: 0;
     border-radius: 0;
-    color: var(--input-group-button-color, var(--color-foreground));
-    font-size: var(--input-group-font-size, var(--text-sm));
-    line-height: var(--input-group-line-height, var(--line-height-text-sm));
+    color: var(--moduix-input-group-button-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-input-group-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-sm));
 
     &:focus-visible {
-      outline-offset: var(--input-group-button-focus-ring-offset, var(--focus-ring-inset-offset));
+      outline-offset: var(
+        --moduix-input-group-button-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
     }
   }
 }

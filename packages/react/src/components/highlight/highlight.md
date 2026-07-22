@@ -108,15 +108,15 @@ Matched ranges inherit the surrounding typography and receive moduix styling thr
 
 Public CSS variables:
 
-| Variable                  | Default fallback                                                     |
-| ------------------------- | -------------------------------------------------------------------- |
-| `--highlight-bg`          | `color-mix(in oklab, var(--color-warning) 40%, var(--color-accent))` |
-| `--highlight-color`       | `var(--color-foreground)`                                            |
-| `--highlight-font-weight` | `var(--weight-medium)`                                               |
-| `--highlight-padding-x`   | `var(--spacing-1)`                                                   |
-| `--highlight-padding-y`   | `0.0625rem`                                                          |
-| `--highlight-radius`      | `var(--radius-xs)`                                                   |
-| `--highlight-shadow`      | `none`                                                               |
+| Variable                         | Default fallback                                                                   |
+| -------------------------------- | ---------------------------------------------------------------------------------- |
+| `--moduix-highlight-bg`          | `color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))` |
+| `--moduix-highlight-color`       | `var(--moduix-color-foreground)`                                                   |
+| `--moduix-highlight-font-weight` | `var(--moduix-weight-medium)`                                                      |
+| `--moduix-highlight-padding-x`   | `var(--moduix-spacing-1)`                                                          |
+| `--moduix-highlight-padding-y`   | `0.0625rem`                                                                        |
+| `--moduix-highlight-radius`      | `var(--moduix-radius-xs)`                                                          |
+| `--moduix-highlight-shadow`      | `none`                                                                             |
 
 ## Intentional sugar and differences from upstream
 
@@ -129,7 +129,7 @@ Public CSS variables:
 - Keep the wrapper thin. Do not add local parsing, match preprocessing, or alternate render paths.
 - Preserve the no-wrapper contract. The component styles matched `<mark>` tags; it does not own the
   surrounding text layout.
-- If public `--highlight-*` variables change, update `theme.css`, stories, docs examples, the local
+- If public `--moduix-highlight-*` variables change, update `theme.css`, stories, docs examples, the local
   markdown file, and the docs page in the same task.
 
 ## Local changelog

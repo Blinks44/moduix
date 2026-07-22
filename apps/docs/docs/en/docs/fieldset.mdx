@@ -1,0 +1,172 @@
+---
+title: Fieldset
+component: fieldset
+description: Group related controls with Ark UI fieldset semantics, descriptions, errors, and shared state.
+---
+
+import * as FieldsetDocs from '@/components/examples/fieldset';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+
+## Choosing the right component
+
+Use `Fieldset` for multiple related controls with one legend. Use `Field` for one control with its
+own label, description, and validation message.
+
+## Basic
+
+Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and the related controls.
+The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="fieldset" />
+
+## Anatomy
+
+```text
+Fieldset.Root | Fieldset.RootProvider
+├─ Fieldset.Legend
+├─ grouped controls
+├─ Fieldset.HelperText (optional)
+└─ Fieldset.ErrorText (optional)
+```
+
+| Part                         | Role                                                                  |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `Fieldset` / `Fieldset.Root` | Creates state and renders a native `fieldset`.                        |
+| `Fieldset.RootProvider`      | Renders externally created `useFieldset` state.                       |
+| `Fieldset.Legend`            | Native `legend` and accessible group name.                            |
+| `Fieldset.HelperText`        | Description linked to the root through `aria-describedby`.            |
+| `Fieldset.ErrorText`         | Polite-live validation message rendered only while `invalid` is true. |
+
+## Composition
+
+### Recommended composition
+
+Keep one visible `Fieldset.Legend` inside the root. Pass `disabled`, `invalid`, and `id` directly to
+the root. Ark links the legend, mounted helper text, and active error text to the fieldset.
+
+Root, provider, legend, helper text, and error text forward refs to their rendered DOM elements.
+Use `asChild` with one semantic child when a custom host must own a part.
+
+### When to go custom
+
+Use `useFieldset` from `@moduix/react` with `Fieldset.RootProvider` when state is owned outside the
+rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
+
+### Default props
+
+| Surface         | Prop       | Default |
+| --------------- | ---------- | ------- |
+| `Fieldset.Root` | `disabled` | `false` |
+| `Fieldset.Root` | `invalid`  | `false` |
+
+### Behavioral notes
+
+- `Fieldset.Legend` renders a native `legend`, unlike the removed legacy wrapper.
+- Native controls inside a disabled fieldset are disabled by the browser.
+- Ark `Field` descendants inherit disabled state from the fieldset. Set `invalid` on nested `Field`
+  components when individual controls need invalid state.
+- `Fieldset.ErrorText` is absent from the DOM until `invalid` is true.
+- Fieldset owns no value, keyboard navigation, callback, or `HiddenInput`.
+- Legacy `render` and flat exports such as `FieldsetLegend` are not supported; use `asChild` and the
+  namespace parts.
+
+## Examples
+
+### Checkbox
+
+Use the fieldset legend as the shared name for a related set of Ark checkbox controls. Each checkbox
+root renders its native input automatically for form submission and reset behavior.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/checkbox.tsx"
+
+```
+
+### Disabled
+
+Set `disabled` on the root to disable native descendants and pass disabled state to Ark-aware
+controls that consume fieldset context.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/disabled.tsx"
+
+```
+
+### Field
+
+Nest `Field` components when each control also needs an individual label or description.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/field.tsx"
+
+```
+
+### Input with Select
+
+Group a country-code selector and phone input under one legend when both controls represent one
+logical value.
+
+<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+
+```tsx preview file="./_snippets/fieldset/input-with-select.tsx"
+
+```
+
+### Invalid
+
+Set `invalid` on the fieldset for group-level validation. Set `invalid` on nested `Field`
+components when individual controls also need invalid styling and ARIA state.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/invalid.tsx"
+
+```
+
+### Advanced Customization
+
+Create fieldset state outside the rendered tree with moduix `useFieldset` when sibling controls or
+reusable descendants need to coordinate with it.
+
+<style>{FieldsetDocs.fieldsetExampleCss}</style>
+
+```tsx preview file="./_snippets/fieldset/root-provider.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <FieldsetDocs.FieldsetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Every DOM part has Ark `data-scope="fieldset"` and a `data-part` matching the anatomy. Root and
+legend expose `data-disabled` and `data-invalid`; moduix also adds `data-slot="fieldset-*"` hooks.
+Use `className` for local overrides and `--moduix-fieldset-*` variables for theme-level customization,
+especially legend spacing and root border tokens.

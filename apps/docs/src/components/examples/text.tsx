@@ -1,31 +1,73 @@
-import { Text } from '@moduix/react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './text.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const textOverrideCssProperties: CssPropertyInput[] = [
-  ['--text-default-color', 'var(--color-foreground)', 'Controls default tone color.'],
-  ['--text-destructive-color', 'var(--color-destructive)', 'Controls destructive tone color.'],
-  ['--text-font-family', 'inherit', 'Controls text font family.'],
-  ['--text-font-size-xs', 'var(--text-xs)', 'Controls `xs` text font size.'],
-  ['--text-font-size-sm', 'var(--text-sm)', 'Controls `sm` text font size.'],
-  ['--text-font-size-md', 'var(--text-md)', 'Controls `md` text font size.'],
-  ['--text-font-size-lg', 'var(--text-lg)', 'Controls `lg` text font size.'],
-  ['--text-font-size-xl', 'var(--text-xl)', 'Controls `xl` text font size.'],
-  ['--text-font-weight-bold', 'var(--weight-bold)', 'Controls bold text weight.'],
-  ['--text-font-weight-medium', 'var(--weight-medium)', 'Controls medium text weight.'],
-  ['--text-font-weight-regular', 'var(--weight-regular)', 'Controls regular text weight.'],
-  ['--text-font-weight-semibold', 'var(--weight-semibold)', 'Controls semibold text weight.'],
-  ['--text-letter-spacing', '0', 'Controls text letter spacing.'],
-  ['--text-line-clamp', 'set by `lineClamp`', 'Controls the active line clamp count.'],
-  ['--text-line-height-xs', 'var(--line-height-text-xs)', 'Controls `xs` text line height.'],
-  ['--text-line-height-sm', 'var(--line-height-text-sm)', 'Controls `sm` text line height.'],
-  ['--text-line-height-md', 'var(--line-height-text-md)', 'Controls `md` text line height.'],
-  ['--text-line-height-lg', 'var(--line-height-text-lg)', 'Controls `lg` text line height.'],
-  ['--text-line-height-xl', 'var(--line-height-text-xl)', 'Controls `xl` text line height.'],
-  ['--text-muted-color', 'var(--color-muted-foreground)', 'Controls muted tone color.'],
-  ['--text-primary-color', 'var(--color-primary)', 'Controls primary tone color.'],
-  ['--text-subtle-color', 'var(--color-secondary-foreground)', 'Controls subtle tone color.'],
+const textOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-text-default-color', 'var(--moduix-color-foreground)', 'Controls default tone color.'],
+  [
+    '--moduix-text-destructive-color',
+    'var(--moduix-color-destructive)',
+    'Controls destructive tone color.',
+  ],
+  ['--moduix-text-font-family', 'inherit', 'Controls text font family.'],
+  ['--moduix-text-font-size-xs', 'var(--moduix-text-xs)', 'Controls `xs` text font size.'],
+  ['--moduix-text-font-size-sm', 'var(--moduix-text-sm)', 'Controls `sm` text font size.'],
+  ['--moduix-text-font-size-md', 'var(--moduix-text-md)', 'Controls `md` text font size.'],
+  ['--moduix-text-font-size-lg', 'var(--moduix-text-lg)', 'Controls `lg` text font size.'],
+  ['--moduix-text-font-size-xl', 'var(--moduix-text-xl)', 'Controls `xl` text font size.'],
+  ['--moduix-text-font-weight-bold', 'var(--moduix-weight-bold)', 'Controls bold text weight.'],
+  [
+    '--moduix-text-font-weight-medium',
+    'var(--moduix-weight-medium)',
+    'Controls medium text weight.',
+  ],
+  [
+    '--moduix-text-font-weight-regular',
+    'var(--moduix-weight-regular)',
+    'Controls regular text weight.',
+  ],
+  [
+    '--moduix-text-font-weight-semibold',
+    'var(--moduix-weight-semibold)',
+    'Controls semibold text weight.',
+  ],
+  ['--moduix-text-letter-spacing', '0', 'Controls text letter spacing.'],
+  ['--moduix-text-line-clamp', 'set by `lineClamp`', 'Controls the active line clamp count.'],
+  [
+    '--moduix-text-line-height-xs',
+    'var(--moduix-line-height-text-xs)',
+    'Controls `xs` text line height.',
+  ],
+  [
+    '--moduix-text-line-height-sm',
+    'var(--moduix-line-height-text-sm)',
+    'Controls `sm` text line height.',
+  ],
+  [
+    '--moduix-text-line-height-md',
+    'var(--moduix-line-height-text-md)',
+    'Controls `md` text line height.',
+  ],
+  [
+    '--moduix-text-line-height-lg',
+    'var(--moduix-line-height-text-lg)',
+    'Controls `lg` text line height.',
+  ],
+  [
+    '--moduix-text-line-height-xl',
+    'var(--moduix-line-height-text-xl)',
+    'Controls `xl` text line height.',
+  ],
+  [
+    '--moduix-text-muted-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls muted tone color.',
+  ],
+  ['--moduix-text-primary-color', 'var(--moduix-color-primary)', 'Controls primary tone color.'],
+  [
+    '--moduix-text-subtle-color',
+    'var(--moduix-color-secondary-foreground)',
+    'Controls subtle tone color.',
+  ],
 ];
 export function TextCssPropertiesPanel() {
   return (
@@ -37,97 +79,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function TextExample() {
-  return (
-    <div className={styles.stack}>
-      <Text>Use text to describe interface state and supporting details.</Text>
-      <Text as="small" tone="muted">
-        Last updated 2 minutes ago
-      </Text>
-    </div>
-  );
-}
-
-export function TextElementsExample() {
-  return (
-    <div className={styles.stack}>
-      <Text>Paragraph text rendered as p.</Text>
-      <Text as="span">Inline text rendered as span.</Text>
-      <Text as="small" tone="muted">
-        Small supporting text rendered as small.
-      </Text>
-      <Text as="strong">Important text rendered as strong.</Text>
-      <Text as="em">Emphasized text rendered as em.</Text>
-      <Text as="div">Block text rendered as div.</Text>
-    </div>
-  );
-}
-
-export function TextCustomElementExample() {
-  return (
-    <Text asChild tone="primary" weight="medium">
-      <a className={styles.link} href="/docs">
-        Read the documentation
-      </a>
-    </Text>
-  );
-}
-
-export function TextSizesExample() {
-  return (
-    <div className={styles.stack}>
-      <Text size="xl">Extra-large text</Text>
-      <Text size="lg">Large text</Text>
-      <Text size="md">Medium text</Text>
-      <Text size="sm">Small text</Text>
-      <Text size="xs">Extra-small text</Text>
-    </div>
-  );
-}
-
-export function TextTonesExample() {
-  return (
-    <div className={styles.stack}>
-      <Text tone="default">Default tone</Text>
-      <Text tone="muted">Muted tone</Text>
-      <Text tone="subtle">Subtle tone</Text>
-      <Text tone="primary">Primary tone</Text>
-      <Text tone="destructive">Destructive tone</Text>
-    </div>
-  );
-}
-
-export function TextWeightsExample() {
-  return (
-    <div className={styles.stack}>
-      <Text weight="regular">Regular weight</Text>
-      <Text weight="medium">Medium weight</Text>
-      <Text weight="semibold">Semibold weight</Text>
-      <Text weight="bold">Bold weight</Text>
-    </div>
-  );
-}
-
-export function TextAlignExample() {
-  return (
-    <div className={styles.aligned}>
-      <Text align="left">Left aligned text.</Text>
-      <Text align="center">Center aligned text.</Text>
-      <Text align="right">Right aligned text.</Text>
-    </div>
-  );
-}
-
-export function TextTruncationExample() {
-  return (
-    <div className={styles.narrow}>
-      <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
-      <Text lineClamp={2}>
-        Longer interface copy can be clamped when it appears inside dense cards, tables, or
-        constrained previews where the surrounding layout owns disclosure.
-      </Text>
-    </div>
-  );
 }

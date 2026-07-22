@@ -79,7 +79,7 @@ Ark runtime CSS variables set on the root are `--crop-width`, `--crop-height`, `
 
 The wrapper uses CSS Modules and adds default cropper visuals: a stable `32rem` root width, `100%` max width, fixed `20rem` viewport height, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and token-rounded square corners, and a `:focus-visible` selection ring. Consumers can pass `className` to each exported visual part.
 
-Public override variables use the `--image-cropper-*` prefix and are documented in the docs site. CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
+Public override variables use the `--moduix-image-cropper-*` prefix and are documented in the docs site. CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
 
 ## Intentional sugar and differences from upstream
 

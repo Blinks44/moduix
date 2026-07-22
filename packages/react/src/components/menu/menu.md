@@ -136,14 +136,14 @@ Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigg
 
 ## Defaults and styling
 
-Single-line popup items default to `--size-sm` with `--spacing-1` block padding. The default trigger
-uses the same compact action rhythm as Button: `--size-md`, `--text-sm`, medium weight, and
-`--spacing-1` block padding; every value remains independently configurable.
+Single-line popup items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding. The default trigger
+uses the same compact action rhythm as Button: `--moduix-size-md`, `--moduix-text-sm`, medium weight, and
+`--moduix-spacing-1` block padding; every value remains independently configurable.
 
-Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular weight,
-and `--spacing-1` block padding. Menu-specific variables still take precedence.
+Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
+and `--moduix-spacing-1` block padding. Menu-specific variables still take precedence.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--menu-*` motion variables
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-menu-*` motion variables
 remain the more specific override.
 
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
@@ -158,7 +158,7 @@ Styles target Ark state and layout hooks:
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
 
-Public `--menu-*` variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
+Public `--moduix-menu-*` variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -187,11 +187,11 @@ examples use them. Other Ark state surfaces remain escape hatches until moduix d
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--spacing-1` contract.
+- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
 
-- 2026-07-21: Compacted default popup items to `--size-sm` with `--spacing-1` block padding.
+- 2026-07-21: Compacted default popup items to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Exported `useMenu` and `Menu.ItemContext` through moduix so normal provider and
   item-state examples do not require direct Ark imports.
 
@@ -209,10 +209,10 @@ examples use them. Other Ark state surfaces remain escape hatches until moduix d
   consumer host components (for example, `Button`) keep their own background styles in
   hover/active/open states.
 - 2026-06-19: Removed hardcoded hover/open fallback colors on `Menu.Trigger`. Hover/open background
-  now applies only when `--menu-trigger-bg-hover` and/or `--menu-trigger-bg-active` are explicitly
+  now applies only when `--moduix-menu-trigger-bg-hover` and/or `--moduix-menu-trigger-bg-active` are explicitly
   set, so `Menu.Trigger asChild` does not override consumer button styling.
-- 2026-06-19: Changed `Menu.Trigger` open-state background fallback to `--menu-trigger-bg` so
-  opening a popup no longer forces the hover accent color unless `--menu-trigger-bg-active` is set.
+- 2026-06-19: Changed `Menu.Trigger` open-state background fallback to `--moduix-menu-trigger-bg` so
+  opening a popup no longer forces the hover accent color unless `--moduix-menu-trigger-bg-active` is set.
 - 2026-06-18: Migrated `Menu` to Ark UI React. Removed legacy compatibility exports
   and rewrote the public contract around Ark parts, `asChild`, `value` items, `RootProvider`,
   `ContextTrigger`, `TriggerItem`, Ark state attributes, and Ark positioning variables.

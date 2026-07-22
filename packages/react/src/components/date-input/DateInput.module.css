@@ -1,59 +1,69 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--date-input-gap, var(--spacing-1));
-    width: var(--date-input-width, 100%);
-    max-width: var(--date-input-max-width, none);
+    gap: var(--moduix-date-input-gap, var(--moduix-spacing-1));
+    width: var(--moduix-date-input-width, 100%);
+    max-width: var(--moduix-date-input-max-width, none);
 
     &[data-disabled] {
-      opacity: var(--date-input-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-date-input-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .label {
-    color: var(--date-input-label-color, var(--color-foreground));
-    font-size: var(--date-input-label-font-size, var(--text-sm));
-    font-weight: var(--date-input-label-font-weight, var(--weight-medium));
-    line-height: var(--date-input-label-line-height, var(--line-height-text-sm));
+    color: var(--moduix-date-input-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-date-input-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-date-input-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-date-input-label-line-height, var(--moduix-line-height-text-sm));
   }
 
   .control {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    width: var(--date-input-control-width, 100%);
-    min-height: var(--date-input-control-height, var(--size-md));
-    border: var(--date-input-border-width, var(--border-width-sm))
-      var(--date-input-border-style, solid) var(--date-input-border-color, var(--color-border));
-    border-radius: var(--date-input-radius, var(--radius-md));
-    padding: var(--date-input-padding-y, var(--spacing-1))
-      var(--date-input-padding-x, var(--spacing-3));
-    background-color: var(--date-input-bg, var(--color-background));
-    color: var(--date-input-color, var(--color-foreground));
+    width: var(--moduix-date-input-control-width, 100%);
+    min-height: var(--moduix-date-input-control-height, var(--moduix-size-md));
+    border: var(--moduix-date-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-date-input-border-style, solid)
+      var(--moduix-date-input-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-date-input-radius, var(--moduix-radius-md));
+    padding: var(--moduix-date-input-padding-y, var(--moduix-spacing-1))
+      var(--moduix-date-input-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-date-input-bg, var(--moduix-color-background));
+    color: var(--moduix-date-input-color, var(--moduix-color-foreground));
     outline: var(
-        --date-input-focus-ring-width,
-        var(--date-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        --moduix-date-input-focus-ring-width,
+        var(
+          --moduix-date-input-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
       )
       solid transparent;
-    outline-offset: var(--date-input-focus-ring-offset, var(--focus-ring-inset-offset));
+    outline-offset: var(
+      --moduix-date-input-focus-ring-offset,
+      var(--moduix-focus-ring-inset-offset)
+    );
     transition:
-      border-color var(--date-input-transition, var(--transition-default)),
-      outline-color var(--date-input-transition, var(--transition-default)),
-      opacity var(--date-input-transition, var(--transition-default));
+      border-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-date-input-transition, var(--moduix-transition-default));
 
     &:focus-within,
     &[data-focus] {
-      outline-color: var(--date-input-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-date-input-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-invalid] {
-      border-color: var(--date-input-border-color-invalid, var(--color-destructive));
+      border-color: var(--moduix-date-input-border-color-invalid, var(--moduix-color-destructive));
 
       &:focus-within,
       &[data-focus] {
-        outline-color: var(--date-input-border-color-invalid, var(--color-destructive));
+        outline-color: var(
+          --moduix-date-input-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
       }
     }
 
@@ -65,35 +75,35 @@
   .segmentGroup {
     display: inline-flex;
     align-items: center;
-    gap: var(--date-input-segment-gap, var(--border-width-md));
+    gap: var(--moduix-date-input-segment-gap, var(--moduix-border-width-md));
     font-variant-numeric: tabular-nums;
   }
 
   .segment {
-    min-width: var(--date-input-segment-min-width, 2ch);
-    border-radius: var(--date-input-segment-radius, var(--radius-sm));
-    padding: var(--date-input-segment-padding-y, 0)
-      var(--date-input-segment-padding-x, var(--spacing-1));
-    color: var(--date-input-segment-color, currentColor);
+    min-width: var(--moduix-date-input-segment-min-width, 2ch);
+    border-radius: var(--moduix-date-input-segment-radius, var(--moduix-radius-sm));
+    padding: var(--moduix-date-input-segment-padding-y, 0)
+      var(--moduix-date-input-segment-padding-x, var(--moduix-spacing-1));
+    color: var(--moduix-date-input-segment-color, currentColor);
     font: inherit;
-    line-height: var(--date-input-segment-line-height, var(--line-height-text-md));
+    line-height: var(--moduix-date-input-segment-line-height, var(--moduix-line-height-text-md));
     text-align: center;
     outline: 0;
     cursor: text;
     transition:
-      background-color var(--date-input-transition, var(--transition-default)),
-      color var(--date-input-transition, var(--transition-default));
+      background-color var(--moduix-date-input-transition, var(--moduix-transition-default)),
+      color var(--moduix-date-input-transition, var(--moduix-transition-default));
 
     &[data-placeholder-shown] {
-      color: var(--date-input-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-date-input-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &:focus-visible {
       background-color: var(
-        --date-input-segment-bg-focus,
-        color-mix(in oklab, var(--color-ring) 18%, transparent)
+        --moduix-date-input-segment-bg-focus,
+        color-mix(in oklab, var(--moduix-color-ring) 18%, transparent)
       );
-      color: var(--date-input-segment-color-focus, var(--color-foreground));
+      color: var(--moduix-date-input-segment-color-focus, var(--moduix-color-foreground));
     }
 
     &:is([data-readonly], [data-disabled]) {
@@ -105,13 +115,13 @@
       padding-inline: 0;
       background: transparent;
       box-shadow: none;
-      color: var(--date-input-separator-color, var(--color-muted-foreground));
+      color: var(--moduix-date-input-separator-color, var(--moduix-color-muted-foreground));
       pointer-events: none;
     }
   }
 
   .separator {
-    color: var(--date-input-separator-color, var(--color-muted-foreground));
+    color: var(--moduix-date-input-separator-color, var(--moduix-color-muted-foreground));
     user-select: none;
   }
 }

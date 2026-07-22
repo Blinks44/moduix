@@ -1,15 +1,15 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .hint {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .button {
@@ -17,55 +17,55 @@
     align-items: center;
     justify-content: center;
     min-height: 2rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding-inline: var(--spacing-3);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding-inline: var(--moduix-spacing-3);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
     cursor: pointer;
     transition:
-      background-color var(--transition-default),
-      border-color var(--transition-default);
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
 
     &:hover {
-      background-color: var(--color-accent);
+      background-color: var(--moduix-color-accent);
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--color-ring);
-      outline-offset: var(--border-width-sm);
+      outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-border-width-sm);
     }
   }
 
   .inlineItems {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--radio-group-gap, var(--spacing-2));
+    gap: var(--moduix-radio-group-gap, var(--moduix-spacing-2));
   }
 
   .customRoot {
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .customLabel {
-    color: var(--color-primary);
+    color: var(--moduix-color-primary);
   }
 
   .customItem {
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .customControl {
-    border-color: var(--color-primary);
+    border-color: var(--moduix-color-primary);
 
     &[data-state='checked'] {
-      background-color: var(--color-primary);
+      background-color: var(--moduix-color-primary);
     }
   }
 
   .customText {
-    color: var(--color-primary);
+    color: var(--moduix-color-primary);
   }
 
   .cardItem {
@@ -73,24 +73,24 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     width: 14rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-3);
-    gap: var(--spacing-2);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-3);
+    gap: var(--moduix-spacing-2);
 
     &[data-state='checked'] {
-      border-color: var(--color-primary);
-      background-color: var(--color-accent);
+      border-color: var(--moduix-color-primary);
+      background-color: var(--moduix-color-accent);
     }
   }
 
   .indicatorRoot {
-    padding: var(--spacing-1);
+    padding: var(--moduix-spacing-1);
   }
 
   .indicatorStack {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .fieldset {
@@ -100,6 +100,6 @@
   }
 
   .groupIndicator {
-    border-radius: var(--radius-md);
+    border-radius: var(--moduix-radius-md);
   }
 }

@@ -1,45 +1,37 @@
 @layer ui.docs {
   .root {
-    --tree-view-width: 22rem;
-  }
-
-  .customRoot {
-    --tree-view-width: 24rem;
-    --tree-view-indent: 1.25rem;
-    --tree-view-item-selected-bg: var(--color-primary);
-    --tree-view-item-selected-color: var(--color-primary-foreground);
-    --tree-view-indent-guide-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
+    --moduix-tree-view-width: 22rem;
   }
 
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .output {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .searchInput {
     box-sizing: border-box;
     width: min(100%, 22rem);
-    min-height: var(--size-lg);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
+    min-height: var(--moduix-size-lg);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
     padding: 0.5rem 0.875rem;
-    background: var(--color-background);
-    color: var(--color-foreground);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
-    outline: var(--border-width-sm) solid transparent;
-    outline-offset: calc(var(--border-width-sm) * -1);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+    outline: var(--moduix-border-width-sm) solid transparent;
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
 
     &:focus-visible {
-      border-color: var(--color-ring);
-      outline-color: var(--color-ring);
+      border-color: var(--moduix-color-ring);
+      outline-color: var(--moduix-color-ring);
     }
   }
 

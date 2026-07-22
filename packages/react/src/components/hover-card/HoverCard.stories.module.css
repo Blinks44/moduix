@@ -1,15 +1,15 @@
-@layer ui.stories {
+@layer moduix.stories {
   .paragraph {
     max-width: 33rem;
     margin: 0;
-    color: var(--color-foreground);
-    font-size: var(--text-md);
-    line-height: var(--line-height-text-md);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
 
     & a {
       display: inline-flex;
       align-items: center;
-      gap: var(--spacing-1);
+      gap: var(--moduix-spacing-1);
     }
 
     & svg {
@@ -21,34 +21,34 @@
   .stack {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .button {
-    min-height: var(--size-lg);
-    padding: 0 var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    min-height: var(--moduix-size-lg);
+    padding: 0 var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
     cursor: pointer;
     transition:
-      background-color var(--transition-default),
-      border-color var(--transition-default);
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
 
     @media (hover: hover) {
       &:hover {
-        background: var(--color-accent);
+        background: var(--moduix-color-accent);
       }
     }
   }
 
   .card {
     display: grid;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
     width: min(14rem, calc(100vw - 4rem));
   }
 
@@ -59,21 +59,21 @@
   }
 
   .name {
-    color: var(--color-popover-foreground);
-    font-size: var(--text-md);
-    font-weight: var(--weight-bold);
-    line-height: var(--line-height-text-md);
+    color: var(--moduix-color-popover-foreground);
+    font-size: var(--moduix-text-md);
+    font-weight: var(--moduix-weight-bold);
+    line-height: var(--moduix-line-height-text-md);
   }
 
   .username {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .bio {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 }

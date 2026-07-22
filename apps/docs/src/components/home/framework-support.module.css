@@ -12,9 +12,9 @@
   width: 3rem;
   height: 3rem;
   padding: 0.6rem;
-  border: 1px solid color-mix(in oklab, var(--color-fd-border) 82%, transparent);
+  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 82%, transparent);
   border-radius: 0.625rem;
-  background: color-mix(in oklab, var(--color-fd-background) 70%, transparent);
+  background: color-mix(in oklab, var(--rp-c-bg) 70%, transparent);
   backdrop-filter: blur(12px);
 
   & svg {
@@ -41,14 +41,14 @@
 
   &:hover,
   &:focus-visible {
-    border-color: color-mix(in oklab, var(--color-fd-primary) 32%, var(--color-fd-border));
+    border-color: color-mix(in oklab, var(--rp-c-text-1) 32%, var(--rp-c-divider-light));
     filter: grayscale(0);
     opacity: 1;
     transform: translateY(-2px);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-fd-primary);
+    outline: 2px solid var(--rp-c-text-1);
     outline-offset: 2px;
   }
 }

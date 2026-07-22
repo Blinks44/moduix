@@ -134,7 +134,7 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 
 ## Defaults and styling
 
-Default drawer and close controls use `--size-md` with `--spacing-1` block padding.
+Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
 
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
 uses moduix colors, spacing, radii, shadows, and motion tokens.
@@ -153,15 +153,15 @@ dragging disables transition duration and follows Ark's inline transform variabl
 must remain animatable for drag-to-dismiss. Direction-specific styles target `data-swipe-direction`.
 `Content::after` provides the overdrag bleed recommended by Ark.
 
-`Drawer.Content` uses `height: var(--drawer-size, 100%)` with `max-height:
-var(--drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable content size for
+`Drawer.Content` uses `height: var(--moduix-drawer-size, 100%)` with `max-height:
+var(--moduix-drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable content size for
 drag release and snap points. Do not change this back to `height: auto`; snap points will collapse
 to the height of the visible content.
 
 Nested drawers animate the parent `Content` with CSS `scale` and `translate` individual transform
 properties so Ark's inline swipe `transform` remains intact. Bottom drawers move the parent slightly
 up while scaling it down, leaving a visible edge behind the front drawer. Tune the effect with
-`--drawer-nested-scale-step`, `--drawer-nested-translate-step`, and `--drawer-nested-transition`.
+`--moduix-drawer-nested-scale-step`, `--moduix-drawer-nested-translate-step`, and `--moduix-drawer-nested-transition`.
 Direction-specific `transform-origin` is applied outside the nested state so closing a front drawer
 does not snap the parent between transform origins during its return animation.
 
@@ -196,7 +196,7 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default drawer and close controls to `--size-md` and compacted their block padding.
+- 2026-07-21: Reduced default drawer and close controls to `--moduix-size-md` and compacted their block padding.
 
 - 2026-07-10: Re-exported `useDrawer` from moduix so the standard `RootProvider` workflow no longer
   needs a direct Ark import.

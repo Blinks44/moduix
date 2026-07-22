@@ -1,8 +1,8 @@
-@layer ui.stories {
+@layer moduix.stories {
   .stack {
     display: grid;
     width: min(32rem, 100vw - 2rem);
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .toolbar {
@@ -10,11 +10,11 @@
     flex-wrap: wrap;
     align-items: center;
     width: fit-content;
-    gap: var(--spacing-1);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-1);
-    background: var(--color-muted);
+    gap: var(--moduix-spacing-1);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
+    padding: var(--moduix-spacing-1);
+    background: var(--moduix-color-muted);
   }
 
   .button {
@@ -22,33 +22,33 @@
     min-height: 2rem;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-2);
-    border: var(--border-width-sm) solid transparent;
-    border-radius: var(--radius-md);
-    padding-inline: var(--spacing-3);
+    gap: var(--moduix-spacing-2);
+    border: var(--moduix-border-width-sm) solid transparent;
+    border-radius: var(--moduix-radius-md);
+    padding-inline: var(--moduix-spacing-3);
     background: transparent;
-    color: var(--color-muted-foreground);
+    color: var(--moduix-color-muted-foreground);
     font: inherit;
     cursor: pointer;
     transition:
-      border-color var(--transition-default),
-      background-color var(--transition-default),
-      box-shadow var(--transition-default),
-      color var(--transition-default);
+      border-color var(--moduix-transition-default),
+      background-color var(--moduix-transition-default),
+      box-shadow var(--moduix-transition-default),
+      color var(--moduix-transition-default);
 
     &:hover {
-      color: var(--color-foreground);
+      color: var(--moduix-color-foreground);
     }
 
     &[data-state='checked'] {
-      background: var(--color-background);
-      color: var(--color-foreground);
-      box-shadow: var(--shadow-sm);
+      background: var(--moduix-color-background);
+      color: var(--moduix-color-foreground);
+      box-shadow: var(--moduix-shadow-sm);
     }
 
     &:focus-visible {
-      outline: var(--border-width-md) solid var(--color-ring);
-      outline-offset: var(--border-width-sm);
+      outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-border-width-sm);
     }
   }
 
@@ -63,9 +63,9 @@
   }
 
   .output {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .preview {
@@ -74,9 +74,9 @@
     height: 8rem;
     place-items: center;
     overflow: hidden;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-muted);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-muted);
 
     & img {
       width: 100%;
@@ -86,7 +86,7 @@
   }
 
   .customRoot {
-    --image-cropper-selection-border-color: var(--color-destructive);
-    --image-cropper-selection-overlay-bg: rgb(15 23 42 / 55%);
+    --moduix-image-cropper-selection-border-color: var(--moduix-color-destructive);
+    --moduix-image-cropper-selection-overlay-bg: rgb(15 23 42 / 55%);
   }
 }

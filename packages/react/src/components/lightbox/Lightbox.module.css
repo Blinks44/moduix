@@ -1,55 +1,68 @@
-@layer ui.components {
+@layer moduix.components {
   .trigger {
     cursor: zoom-in;
 
     &:focus-visible {
       outline: var(
-          --lightbox-trigger-focus-ring-width,
-          var(--focus-ring-width, var(--border-width-md))
+          --moduix-lightbox-trigger-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
         )
-        solid var(--lightbox-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: var(--lightbox-trigger-focus-ring-offset, var(--focus-ring-offset));
+        solid var(--moduix-lightbox-trigger-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-lightbox-trigger-focus-ring-offset,
+        var(--moduix-focus-ring-offset)
+      );
     }
   }
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
     inset: 0;
     min-height: 100dvh;
-    background-color: var(--lightbox-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    backdrop-filter: var(--backdrop-filter, blur(var(--lightbox-backdrop-blur, 4px)));
+    background-color: var(
+      --moduix-lightbox-backdrop-bg,
+      var(--moduix-backdrop-bg, var(--moduix-color-overlay))
+    );
+    backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-lightbox-backdrop-blur, 4px)));
 
     &[data-state='open'] {
-      animation: lightbox-backdrop-in var(--lightbox-backdrop-transition, var(--transition-default));
+      animation: lightbox-backdrop-in
+        var(--moduix-lightbox-backdrop-transition, var(--moduix-transition-default));
     }
 
     &[data-state='closed'] {
       animation: lightbox-backdrop-out
-        var(--lightbox-backdrop-transition, var(--transition-default));
+        var(--moduix-lightbox-backdrop-transition, var(--moduix-transition-default));
     }
   }
 
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--z-modal) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
     inset: 0;
     display: grid;
     place-items: center;
     overflow: hidden;
     overscroll-behavior: contain;
-    padding: var(--lightbox-positioner-padding, var(--spacing-4));
+    padding: var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4));
   }
 
   .content {
     box-sizing: border-box;
     position: relative;
     display: grid;
-    gap: var(--lightbox-content-gap, var(--spacing-3));
+    gap: var(--moduix-lightbox-content-gap, var(--moduix-spacing-3));
     width: fit-content;
-    max-width: min(var(--lightbox-content-max-width, 80vw), calc(100vw - var(--spacing-8)));
-    max-height: min(var(--lightbox-content-max-height, 80dvh), calc(100dvh - var(--spacing-8)));
+    max-width: min(
+      var(--moduix-lightbox-content-max-width, 80vw),
+      calc(100vw - var(--moduix-spacing-8))
+    );
+    max-height: min(
+      var(--moduix-lightbox-content-max-height, 80dvh),
+      calc(100dvh - var(--moduix-spacing-8))
+    );
     border: 0;
     background: transparent;
     outline: 0;
@@ -57,62 +70,62 @@
     &[data-state='open'] {
       animation: lightbox-content-in
         var(
-          --lightbox-transition,
-          var(--popup-motion-duration, 220ms) var(--popup-motion-easing, ease)
+          --moduix-lightbox-transition,
+          var(--moduix-popup-motion-duration, 220ms) var(--moduix-popup-motion-easing, ease)
         );
     }
 
     &[data-state='closed'] {
       animation: lightbox-content-out
         var(
-          --lightbox-transition,
-          var(--popup-motion-duration, 220ms) var(--popup-motion-easing, ease)
+          --moduix-lightbox-transition,
+          var(--moduix-popup-motion-duration, 220ms) var(--moduix-popup-motion-easing, ease)
         );
     }
   }
 
   .title {
     margin: 0;
-    color: var(--lightbox-title-color, var(--color-foreground));
-    font-size: var(--lightbox-title-font-size, var(--text-md));
-    font-weight: var(--lightbox-title-font-weight, var(--weight-semibold));
-    line-height: var(--lightbox-title-line-height, var(--line-height-text-md));
+    color: var(--moduix-lightbox-title-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-lightbox-title-font-size, var(--moduix-text-md));
+    font-weight: var(--moduix-lightbox-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-lightbox-title-line-height, var(--moduix-line-height-text-md));
   }
 
   .description {
     margin: 0;
-    color: var(--lightbox-description-color, var(--color-muted-foreground));
-    font-size: var(--lightbox-description-font-size, var(--text-sm));
-    line-height: var(--lightbox-description-line-height, var(--line-height-text-sm));
+    color: var(--moduix-lightbox-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-lightbox-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-lightbox-description-line-height, var(--moduix-line-height-text-sm));
   }
 
   .header {
     display: grid;
-    gap: var(--lightbox-header-gap, var(--spacing-1));
+    gap: var(--moduix-lightbox-header-gap, var(--moduix-spacing-1));
   }
 
   .body {
     display: grid;
-    gap: var(--lightbox-body-gap, var(--spacing-3));
+    gap: var(--moduix-lightbox-body-gap, var(--moduix-spacing-3));
   }
 
   .footer {
     display: flex;
     align-items: center;
-    justify-content: var(--lightbox-footer-justify, flex-end);
-    gap: var(--lightbox-footer-gap, var(--spacing-2));
-    color: var(--lightbox-footer-color, var(--color-muted-foreground));
-    font-size: var(--lightbox-footer-font-size, var(--text-sm));
-    line-height: var(--lightbox-footer-line-height, var(--line-height-text-sm));
+    justify-content: var(--moduix-lightbox-footer-justify, flex-end);
+    gap: var(--moduix-lightbox-footer-gap, var(--moduix-spacing-2));
+    color: var(--moduix-lightbox-footer-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-lightbox-footer-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-lightbox-footer-line-height, var(--moduix-line-height-text-sm));
   }
 
   .image {
     display: block;
-    max-width: min(var(--lightbox-media-max-width, 80vw), 100%);
-    max-height: min(var(--lightbox-media-max-height, 80dvh), 100%);
+    max-width: min(var(--moduix-lightbox-media-max-width, 80vw), 100%);
+    max-height: min(var(--moduix-lightbox-media-max-height, 80dvh), 100%);
     object-fit: contain;
-    border-radius: var(--lightbox-media-radius, var(--radius-md));
-    box-shadow: var(--lightbox-media-shadow, var(--shadow-lg));
+    border-radius: var(--moduix-lightbox-media-radius, var(--moduix-radius-md));
+    box-shadow: var(--moduix-lightbox-media-shadow, var(--moduix-shadow-lg));
     user-select: none;
 
     &[data-close-on-click] {
@@ -121,12 +134,12 @@
   }
 
   .gallery {
-    --carousel-gap: var(--lightbox-gallery-gap, var(--spacing-4));
+    --moduix-carousel-gap: var(--moduix-lightbox-gallery-gap, var(--moduix-spacing-4));
     justify-self: center;
     width: auto;
     max-width: min(
-      var(--lightbox-gallery-max-width, 72rem),
-      calc(100vw - var(--lightbox-positioner-padding, var(--spacing-4)) * 2)
+      var(--moduix-lightbox-gallery-max-width, 72rem),
+      calc(100vw - var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4)) * 2)
     );
 
     [data-slot='carousel-control'] {
@@ -134,14 +147,14 @@
     }
 
     [data-slot='carousel-item-group'] {
-      aspect-ratio: var(--lightbox-gallery-aspect-ratio, 16 / 10);
+      aspect-ratio: var(--moduix-lightbox-gallery-aspect-ratio, 16 / 10);
       max-height: min(
-        var(--lightbox-gallery-track-max-height, 68dvh),
-        var(--lightbox-media-max-height, 80dvh)
+        var(--moduix-lightbox-gallery-track-max-height, 68dvh),
+        var(--moduix-lightbox-media-max-height, 80dvh)
       );
       background: var(
-        --lightbox-gallery-track-bg,
-        color-mix(in oklab, black 88%, var(--color-background) 12%)
+        --moduix-lightbox-gallery-track-bg,
+        color-mix(in oklab, black 88%, var(--moduix-color-background) 12%)
       );
     }
 
@@ -156,7 +169,7 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        border-radius: var(--lightbox-media-radius, var(--radius-md));
+        border-radius: var(--moduix-lightbox-media-radius, var(--moduix-radius-md));
         user-select: none;
       }
     }
@@ -170,28 +183,34 @@
 
     [data-slot='carousel-indicator']:has(img) {
       overflow: hidden;
-      width: var(--lightbox-gallery-thumbnail-width, 5rem);
-      height: var(--lightbox-gallery-thumbnail-height, var(--size-xl));
-      border: var(--border-width-sm) solid transparent;
-      border-radius: var(--lightbox-gallery-thumbnail-radius, var(--radius-md));
+      width: var(--moduix-lightbox-gallery-thumbnail-width, 5rem);
+      height: var(--moduix-lightbox-gallery-thumbnail-height, var(--moduix-size-xl));
+      border: var(--moduix-border-width-sm) solid transparent;
+      border-radius: var(--moduix-lightbox-gallery-thumbnail-radius, var(--moduix-radius-md));
       background: transparent;
-      opacity: var(--lightbox-gallery-thumbnail-opacity, 0.65);
+      opacity: var(--moduix-lightbox-gallery-thumbnail-opacity, 0.65);
       transition:
-        border-color var(--transition-fast),
-        opacity var(--transition-fast),
-        transform var(--transition-fast);
+        border-color var(--moduix-transition-fast),
+        opacity var(--moduix-transition-fast),
+        transform var(--moduix-transition-fast);
 
       &:hover {
-        opacity: var(--lightbox-gallery-thumbnail-opacity-hover, 0.9);
+        opacity: var(--moduix-lightbox-gallery-thumbnail-opacity-hover, 0.9);
       }
 
       &[data-current] {
-        width: var(--lightbox-gallery-thumbnail-width, 5rem);
-        border-color: var(--lightbox-gallery-thumbnail-border-color, var(--color-primary));
+        width: var(--moduix-lightbox-gallery-thumbnail-width, 5rem);
+        border-color: var(
+          --moduix-lightbox-gallery-thumbnail-border-color,
+          var(--moduix-color-primary)
+        );
         background: transparent;
         opacity: 1;
         transform: translateY(
-          var(--lightbox-gallery-thumbnail-active-translate-y, calc(var(--border-width-sm) * -1))
+          var(
+            --moduix-lightbox-gallery-thumbnail-active-translate-y,
+            calc(var(--moduix-border-width-sm) * -1)
+          )
         );
       }
 
@@ -205,18 +224,33 @@
   }
 
   .closeIcon {
-    --close-button-size: var(--lightbox-close-icon-size, var(--spacing-8));
-    --close-button-radius: var(--lightbox-close-icon-radius, var(--radius-sm));
-    --close-button-icon-size: var(--lightbox-close-icon-glyph-size, var(--spacing-3-5));
-    --close-button-color: var(--lightbox-close-icon-color, var(--color-foreground));
-    --close-button-color-hover: var(--lightbox-close-icon-color-hover, var(--color-foreground));
-    --close-button-bg: var(--lightbox-close-icon-bg, var(--color-background));
-    --close-button-bg-hover: var(--lightbox-close-icon-bg-hover, var(--color-muted));
-    --close-button-focus-ring-color: var(--lightbox-close-icon-focus-ring-color, var(--color-ring));
+    --moduix-close-button-size: var(--moduix-lightbox-close-icon-size, var(--moduix-spacing-8));
+    --moduix-close-button-radius: var(--moduix-lightbox-close-icon-radius, var(--moduix-radius-sm));
+    --moduix-close-button-icon-size: var(
+      --moduix-lightbox-close-icon-glyph-size,
+      var(--moduix-spacing-3-5)
+    );
+    --moduix-close-button-color: var(
+      --moduix-lightbox-close-icon-color,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-lightbox-close-icon-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-bg: var(--moduix-lightbox-close-icon-bg, var(--moduix-color-background));
+    --moduix-close-button-bg-hover: var(
+      --moduix-lightbox-close-icon-bg-hover,
+      var(--moduix-color-muted)
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-lightbox-close-icon-focus-ring-color,
+      var(--moduix-color-ring)
+    );
     position: fixed;
-    z-index: calc(var(--z-modal) + var(--layer-index, 0) + 1);
-    inset-block-start: var(--lightbox-close-icon-inset-block-start, var(--spacing-4));
-    inset-inline-end: var(--lightbox-close-icon-inset-inline-end, var(--spacing-4));
+    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0) + 1);
+    inset-block-start: var(--moduix-lightbox-close-icon-inset-block-start, var(--moduix-spacing-4));
+    inset-inline-end: var(--moduix-lightbox-close-icon-inset-inline-end, var(--moduix-spacing-4));
     border: 0;
     padding: 0;
     opacity: 0;
@@ -232,39 +266,57 @@
 
   @keyframes lightbox-backdrop-in {
     from {
-      opacity: var(--lightbox-backdrop-starting-opacity, 0);
-      backdrop-filter: var(--lightbox-backdrop-starting-blur, none);
+      opacity: var(--moduix-lightbox-backdrop-starting-opacity, 0);
+      backdrop-filter: var(--moduix-lightbox-backdrop-starting-blur, none);
     }
   }
 
   @keyframes lightbox-backdrop-out {
     to {
-      opacity: var(--lightbox-backdrop-ending-opacity, 0);
-      backdrop-filter: var(--lightbox-backdrop-ending-blur, none);
+      opacity: var(--moduix-lightbox-backdrop-ending-opacity, 0);
+      backdrop-filter: var(--moduix-lightbox-backdrop-ending-blur, none);
     }
   }
 
   @keyframes lightbox-content-in {
     from {
-      opacity: var(--lightbox-content-starting-opacity, var(--popup-motion-starting-opacity, 0));
+      opacity: var(
+        --moduix-lightbox-content-starting-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
       translate: var(
-          --lightbox-content-starting-translate-x,
-          var(--popup-motion-starting-translate-x, 0)
+          --moduix-lightbox-content-starting-translate-x,
+          var(--moduix-popup-motion-starting-translate-x, 0)
         )
-        var(--lightbox-content-starting-translate-y, var(--popup-motion-starting-translate-y, 0));
-      scale: var(--lightbox-content-starting-scale, var(--popup-motion-starting-scale, 0.82));
+        var(
+          --moduix-lightbox-content-starting-translate-y,
+          var(--moduix-popup-motion-starting-translate-y, 0)
+        );
+      scale: var(
+        --moduix-lightbox-content-starting-scale,
+        var(--moduix-popup-motion-starting-scale, 0.82)
+      );
     }
   }
 
   @keyframes lightbox-content-out {
     to {
-      opacity: var(--lightbox-content-ending-opacity, var(--popup-motion-ending-opacity, 0));
+      opacity: var(
+        --moduix-lightbox-content-ending-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
       translate: var(
-          --lightbox-content-ending-translate-x,
-          var(--popup-motion-ending-translate-x, 0)
+          --moduix-lightbox-content-ending-translate-x,
+          var(--moduix-popup-motion-ending-translate-x, 0)
         )
-        var(--lightbox-content-ending-translate-y, var(--popup-motion-ending-translate-y, 0));
-      scale: var(--lightbox-content-ending-scale, var(--popup-motion-ending-scale, 0.82));
+        var(
+          --moduix-lightbox-content-ending-translate-y,
+          var(--moduix-popup-motion-ending-translate-y, 0)
+        );
+      scale: var(
+        --moduix-lightbox-content-ending-scale,
+        var(--moduix-popup-motion-ending-scale, 0.82)
+      );
     }
   }
 }

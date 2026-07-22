@@ -181,41 +181,41 @@ Decision guide:
 
 Public CSS variables:
 
-| Variable                         | Default/fallback                                                | Applies to         |
-| -------------------------------- | --------------------------------------------------------------- | ------------------ |
-| `--card-action-gap`              | `var(--spacing-2)`                                              | `Card.Action`      |
-| `--card-bg`                      | `var(--color-card)`                                             | `Card.Root`        |
-| `--card-spacing`                 | size-specific fallback                                          | `Card.Root`        |
-| `--card-spacing-lg`              | `var(--card-spacing, var(--card-padding-lg, var(--spacing-8)))` | `Card.Root`        |
-| `--card-spacing-sm`              | `var(--card-spacing, var(--card-padding-sm, var(--spacing-4)))` | `Card.Root`        |
-| `--card-body-color`              | `var(--color-muted-foreground)`                                 | `Card.Body`        |
-| `--card-body-font-size`          | `var(--text-sm)`                                                | `Card.Body`        |
-| `--card-body-line-height`        | `var(--line-height-text-sm)`                                    | `Card.Body`        |
-| `--card-body-padding-top`        | `var(--spacing-4)`                                              | `Card.Body`        |
-| `--card-border-color`            | `var(--color-border)`                                           | `Card.Root`        |
-| `--card-border-width`            | `var(--border-width-sm)`                                        | `Card.Root`        |
-| `--card-color`                   | `var(--color-card-foreground)`                                  | `Card.Root`        |
-| `--card-description-color`       | `var(--color-muted-foreground)`                                 | `Card.Description` |
-| `--card-description-font-size`   | `var(--text-sm)`                                                | `Card.Description` |
-| `--card-description-line-height` | `var(--line-height-text-sm)`                                    | `Card.Description` |
-| `--card-footer-gap`              | `var(--spacing-2)`                                              | `Card.Footer`      |
-| `--card-focus-ring-color`        | `var(--color-ring)`                                             | `Card.Link`        |
-| `--card-focus-ring-offset`       | `var(--border-width-sm)`                                        | `Card.Link`        |
-| `--card-focus-ring-width`        | `var(--focus-ring-width, var(--border-width-md))`               | `Card.Link`        |
-| `--card-header-gap`              | `var(--spacing-1)`                                              | `Card.Header`      |
-| `--card-padding`                 | `var(--spacing-6)`                                              | `Card.Root`        |
-| `--card-padding-lg`              | `var(--spacing-8)`                                              | `Card.Root`        |
-| `--card-padding-sm`              | `var(--spacing-4)`                                              | `Card.Root`        |
-| `--card-radius`                  | `var(--radius-lg)`                                              | `Card.Root`        |
-| `--card-shadow`                  | `none`                                                          | `Card.Root`        |
-| `--card-title-color`             | `currentColor`                                                  | `Card.Title`       |
-| `--card-title-font-size`         | `var(--text-lg)`                                                | `Card.Title`       |
-| `--card-title-font-size-lg`      | `var(--text-xl)`                                                | `Card.Title`       |
-| `--card-title-font-size-sm`      | `var(--text-md)`                                                | `Card.Title`       |
-| `--card-title-font-weight`       | `var(--weight-semibold)`                                        | `Card.Title`       |
-| `--card-title-line-height`       | `var(--line-height-text-lg)`                                    | `Card.Title`       |
-| `--card-title-line-height-lg`    | `var(--line-height-text-xl)`                                    | `Card.Title`       |
-| `--card-title-line-height-sm`    | `var(--line-height-text-md)`                                    | `Card.Title`       |
+| Variable                                | Default/fallback                                                                     | Applies to         |
+| --------------------------------------- | ------------------------------------------------------------------------------------ | ------------------ |
+| `--moduix-card-action-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Action`      |
+| `--moduix-card-bg`                      | `var(--moduix-color-card)`                                                           | `Card.Root`        |
+| `--moduix-card-spacing`                 | size-specific fallback                                                               | `Card.Root`        |
+| `--moduix-card-spacing-lg`              | `var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))` | `Card.Root`        |
+| `--moduix-card-spacing-sm`              | `var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))` | `Card.Root`        |
+| `--moduix-card-body-color`              | `var(--moduix-color-muted-foreground)`                                               | `Card.Body`        |
+| `--moduix-card-body-font-size`          | `var(--moduix-text-sm)`                                                              | `Card.Body`        |
+| `--moduix-card-body-line-height`        | `var(--moduix-line-height-text-sm)`                                                  | `Card.Body`        |
+| `--moduix-card-body-padding-top`        | `var(--moduix-spacing-4)`                                                            | `Card.Body`        |
+| `--moduix-card-border-color`            | `var(--moduix-color-border)`                                                         | `Card.Root`        |
+| `--moduix-card-border-width`            | `var(--moduix-border-width-sm)`                                                      | `Card.Root`        |
+| `--moduix-card-color`                   | `var(--moduix-color-card-foreground)`                                                | `Card.Root`        |
+| `--moduix-card-description-color`       | `var(--moduix-color-muted-foreground)`                                               | `Card.Description` |
+| `--moduix-card-description-font-size`   | `var(--moduix-text-sm)`                                                              | `Card.Description` |
+| `--moduix-card-description-line-height` | `var(--moduix-line-height-text-sm)`                                                  | `Card.Description` |
+| `--moduix-card-footer-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Footer`      |
+| `--moduix-card-focus-ring-color`        | `var(--moduix-color-ring)`                                                           | `Card.Link`        |
+| `--moduix-card-focus-ring-offset`       | `var(--moduix-border-width-sm)`                                                      | `Card.Link`        |
+| `--moduix-card-focus-ring-width`        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                      | `Card.Link`        |
+| `--moduix-card-header-gap`              | `var(--moduix-spacing-1)`                                                            | `Card.Header`      |
+| `--moduix-card-padding`                 | `var(--moduix-spacing-6)`                                                            | `Card.Root`        |
+| `--moduix-card-padding-lg`              | `var(--moduix-spacing-8)`                                                            | `Card.Root`        |
+| `--moduix-card-padding-sm`              | `var(--moduix-spacing-4)`                                                            | `Card.Root`        |
+| `--moduix-card-radius`                  | `var(--moduix-radius-lg)`                                                            | `Card.Root`        |
+| `--moduix-card-shadow`                  | `none`                                                                               | `Card.Root`        |
+| `--moduix-card-title-color`             | `currentColor`                                                                       | `Card.Title`       |
+| `--moduix-card-title-font-size`         | `var(--moduix-text-lg)`                                                              | `Card.Title`       |
+| `--moduix-card-title-font-size-lg`      | `var(--moduix-text-xl)`                                                              | `Card.Title`       |
+| `--moduix-card-title-font-size-sm`      | `var(--moduix-text-md)`                                                              | `Card.Title`       |
+| `--moduix-card-title-font-weight`       | `var(--moduix-weight-semibold)`                                                      | `Card.Title`       |
+| `--moduix-card-title-line-height`       | `var(--moduix-line-height-text-lg)`                                                  | `Card.Title`       |
+| `--moduix-card-title-line-height-lg`    | `var(--moduix-line-height-text-xl)`                                                  | `Card.Title`       |
+| `--moduix-card-title-line-height-sm`    | `var(--moduix-line-height-text-md)`                                                  | `Card.Title`       |
 
 ## Intentional sugar and differences from upstream
 
@@ -241,7 +241,7 @@ Public CSS variables:
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Card.Media` for predictable edge-to-edge leading media, introduced shared
-  `--card-spacing*` hooks for shadcn-style spacing control, and moved public docs to an explicit
+  `--moduix-card-spacing*` hooks for shadcn-style spacing control, and moved public docs to an explicit
   sweet-path plus advanced-customization split.
 - 2026-07-07: Clarified the shadcn migration path, documented the `CardContent` to `Card.Body`
   rename explicitly, and tightened the linked-card guidance around `Card.Root asChild` versus

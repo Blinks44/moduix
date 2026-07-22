@@ -1,15 +1,15 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .state {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .button {
@@ -17,65 +17,65 @@
     align-items: center;
     justify-content: center;
     min-height: 2rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding-inline: var(--spacing-3);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding-inline: var(--moduix-spacing-3);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
     cursor: pointer;
     transition:
-      background-color var(--transition-default),
-      border-color var(--transition-default);
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default);
 
     &:hover {
-      background-color: var(--color-accent);
+      background-color: var(--moduix-color-accent);
     }
 
     &:focus-visible {
-      outline: var(--border-width-sm) solid var(--color-ring);
-      outline-offset: var(--border-width-sm);
+      outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+      outline-offset: var(--moduix-border-width-sm);
     }
   }
 
   .albumText {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
   }
 
   .horizontalRoot {
-    --listbox-width: min(100%, 34rem);
-    --listbox-horizontal-content-max-height: none;
-    --listbox-horizontal-item-width: 10rem;
+    --moduix-listbox-width: min(100%, 34rem);
+    --moduix-listbox-horizontal-content-max-height: none;
+    --moduix-listbox-horizontal-item-width: 10rem;
   }
 
   .artist {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .customRoot {
-    --listbox-width: 18rem;
-    --listbox-bg: var(--color-muted);
-    --listbox-border-color: var(--color-primary);
-    --listbox-highlight-bg: var(--color-primary);
-    --listbox-highlight-color: var(--color-primary-foreground);
-    --listbox-item-selected-color: var(--color-primary);
+    --moduix-listbox-width: 18rem;
+    --moduix-listbox-bg: var(--moduix-color-muted);
+    --moduix-listbox-border-color: var(--moduix-color-primary);
+    --moduix-listbox-highlight-bg: var(--moduix-color-primary);
+    --moduix-listbox-highlight-color: var(--moduix-color-primary-foreground);
+    --moduix-listbox-item-selected-color: var(--moduix-color-primary);
   }
 
   .customLabel {
-    color: var(--color-primary);
+    color: var(--moduix-color-primary);
   }
 
   .customContent {
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--moduix-shadow-sm);
   }
 
   .customItem {
     &[data-selected] {
-      background-color: color-mix(in oklab, var(--color-primary), transparent 90%);
+      background-color: color-mix(in oklab, var(--moduix-color-primary), transparent 90%);
     }
   }
 }

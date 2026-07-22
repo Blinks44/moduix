@@ -2,8 +2,9 @@ import type { TourStepDetails, UseTourReturn } from '@ark-ui/react/tour';
 import { Button, Tour, useTour, waitForElement, waitForEvent, waitForPromise } from '@moduix/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import { PreviewLayout } from './preview-layout';
 import styles from './tour.module.css';
 
 const baseActions = [
@@ -134,67 +135,17 @@ function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourRe
   );
 }
 
-export function TourExample() {
-  const tour = useTour({ steps: createBasicSteps('tour-basic-upload') });
-
-  return (
-    <div className={styles.demo}>
-      <Button onClick={() => tour.start()}>Start tour</Button>
-      <div className={styles.toolbar}>
-        <Button id="tour-basic-upload" variant="outline">
-          Upload
-        </Button>
-        <Button variant="outline">Save</Button>
-      </div>
-      <TourOverlay tour={tour} />
-    </div>
-  );
-}
-
-export function AdvancedCustomizationTourExample() {
-  const tour = useTour({ steps: createBasicSteps('tour-advanced-upload') });
-
-  return (
-    <div className={styles.demo}>
-      <Button onClick={() => tour.start()}>Start custom tour</Button>
-      <Button id="tour-advanced-upload" variant="outline">
-        Upload
-      </Button>
-      <Tour tour={tour} lazyMount unmountOnExit>
-        <Tour.Backdrop />
-        <Tour.Spotlight />
-        <Tour.Positioner>
-          <Tour.Content>
-            <Tour.Arrow />
-            <Tour.CloseIcon />
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
-            <Tour.Control>
-              <Tour.Actions>
-                {(actions) =>
-                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
-                }
-              </Tour.Actions>
-            </Tour.Control>
-          </Tour.Content>
-        </Tour.Positioner>
-      </Tour>
-    </div>
-  );
-}
-
 export function MixedTypesTourExample() {
   const tour = useTour({ steps: mixedSteps });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start mixed tour</Button>
       <div id="tour-mixed-target" className={styles.target}>
         Target card
       </div>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -211,7 +162,7 @@ export function EventsTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start event tour</Button>
       <Button id="tour-events-upload" variant="outline">
         Upload
@@ -220,7 +171,7 @@ export function EventsTourExample() {
         {logs.length ? logs.map((log) => <div key={log}>{log}</div>) : 'No events yet'}
       </div>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -233,14 +184,14 @@ export function KeyboardTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start keyboard tour</Button>
       <Button id="tour-keyboard-upload" variant="outline">
         Upload
       </Button>
       <p className={styles.note}>Use Left and Right arrow keys while the tour content has focus.</p>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -248,7 +199,7 @@ export function ProgressTourExample() {
   const tour = useTour({ steps: progressSteps });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start progress tour</Button>
       <div className={styles.toolbar}>
         {['plan', 'review', 'ship'].map((item) => (
@@ -262,7 +213,7 @@ export function ProgressTourExample() {
           <div className={styles.progressFill} style={{ width: `${tour.getProgressPercent()}%` }} />
         </div>
       </TourOverlay>
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -276,14 +227,14 @@ export function SkipTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start optional tour</Button>
       <div id="tour-skip-feature" className={styles.target}>
         Optional feature
       </div>
       <output className={styles.note}>Status: {status}</output>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -318,14 +269,14 @@ export function WaitForInputTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start input tour</Button>
       <label className={styles.field}>
         Name
         <input id="tour-wait-name" className={styles.input} />
       </label>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -358,13 +309,13 @@ export function WaitForClickTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start click tour</Button>
       <Button id="tour-wait-click" variant="outline">
         Confirm action
       </Button>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -407,7 +358,7 @@ export function WaitForElementTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button
         onClick={() => {
           setItems(['Item 1', 'Item 2']);
@@ -435,7 +386,7 @@ export function WaitForElementTourExample() {
         ))}
       </div>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
@@ -485,164 +436,316 @@ export function AsyncStepTourExample() {
   });
 
   return (
-    <div className={styles.demo}>
+    <PreviewLayout gap="var(--moduix-spacing-4)" maxWidth="24rem">
       <Button onClick={() => tour.start()}>Start async tour</Button>
       <div id="tour-async-target" className={styles.target}>
         Async target
       </div>
       <TourOverlay tour={tour} />
-    </div>
+    </PreviewLayout>
   );
 }
 
-export const tourCssProperties: CssPropertyInput[] = [
-  ['--tour-action-bg', 'var(--color-background)', 'Controls secondary action background.'],
-  ['--tour-action-bg-hover', 'var(--color-accent)', 'Controls secondary action hover background.'],
-  ['--tour-action-border-color', 'var(--color-border)', 'Controls secondary action border color.'],
-  ['--tour-action-border-width', 'var(--border-width-sm)', 'Controls action border width.'],
-  ['--tour-action-color', 'var(--color-foreground)', 'Controls secondary action text color.'],
+const tourCssProperties: CssPropertyInput[] = [
   [
-    '--tour-action-primary-bg',
-    'var(--color-primary)',
+    '--moduix-tour-action-bg',
+    'var(--moduix-color-background)',
+    'Controls secondary action background.',
+  ],
+  [
+    '--moduix-tour-action-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls secondary action hover background.',
+  ],
+  [
+    '--moduix-tour-action-border-color',
+    'var(--moduix-color-border)',
+    'Controls secondary action border color.',
+  ],
+  [
+    '--moduix-tour-action-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls action border width.',
+  ],
+  [
+    '--moduix-tour-action-color',
+    'var(--moduix-color-foreground)',
+    'Controls secondary action text color.',
+  ],
+  [
+    '--moduix-tour-action-primary-bg',
+    'var(--moduix-color-primary)',
     'Controls next and dismiss action background.',
   ],
   [
-    '--tour-action-primary-color',
-    'var(--color-primary-foreground)',
+    '--moduix-tour-action-primary-color',
+    'var(--moduix-color-primary-foreground)',
     'Controls next and dismiss action text color.',
   ],
-  ['--tour-arrow-background', 'var(--tour-bg, var(--color-popover))', 'Controls arrow fill.'],
-  ['--tour-arrow-size', 'var(--spacing-2-5)', 'Controls Ark arrow size.'],
   [
-    '--tour-arrow-stroke-color',
-    'var(--tour-border-color, var(--color-border))',
+    '--moduix-tour-arrow-background',
+    'var(--moduix-tour-bg, var(--moduix-color-popover))',
+    'Controls arrow fill.',
+  ],
+  ['--moduix-tour-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls Ark arrow size.'],
+  [
+    '--moduix-tour-arrow-stroke-color',
+    'var(--moduix-tour-border-color, var(--moduix-color-border))',
     'Controls arrow border color.',
   ],
-  ['--tour-backdrop-bg', 'var(--backdrop-bg, var(--color-overlay))', 'Controls backdrop color.'],
-  ['--tour-bg', 'var(--color-popover)', 'Controls content background.'],
-  ['--tour-border-color', 'var(--color-border)', 'Controls content border color.'],
-  ['--tour-color', 'var(--color-popover-foreground)', 'Controls content foreground.'],
-  ['--tour-dialog-width', '26rem', 'Controls dialog step width.'],
-  ['--tour-floating-width', '22rem', 'Controls floating step width.'],
-  ['--tour-max-height', '24rem', 'Controls content max height.'],
-  ['--tour-max-width', 'calc(100vw - var(--spacing-8))', 'Controls content max width.'],
-  ['--tour-padding', 'var(--spacing-5)', 'Controls content padding.'],
-  ['--tour-radius', 'var(--radius-lg)', 'Controls content border radius.'],
-  ['--tour-shadow', 'var(--shadow-lg)', 'Controls content shadow.'],
-  ['--tour-title-font-size', 'var(--text-md)', 'Controls title font size.'],
-  ['--tour-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--tour-progress-text-color', 'var(--color-muted-foreground)', 'Controls progress text color.'],
-  ['--tour-z-index', 'var(--z-modal)', 'Controls tour layer z-index.'],
-  ['--tour-action-font-size', 'var(--text-sm)', 'Controls action font size.'],
-  ['--tour-action-font-weight', 'var(--weight-medium)', 'Controls action font weight.'],
-  ['--tour-action-gap', 'var(--spacing-2)', 'Controls action content gap.'],
-  ['--tour-action-height', 'var(--size-sm)', 'Controls action height.'],
-  ['--tour-action-line-height', 'var(--line-height-text-sm)', 'Controls action line height.'],
-  ['--tour-action-padding-x', 'var(--spacing-3)', 'Controls action horizontal padding.'],
-  ['--tour-action-padding-y', 'var(--spacing-1-5)', 'Controls action vertical padding.'],
   [
-    '--tour-action-primary-bg-hover',
-    'color-mix(in oklab, var(--color-primary), black 12%)',
+    '--moduix-tour-backdrop-bg',
+    'var(--moduix-backdrop-bg, var(--moduix-color-overlay))',
+    'Controls backdrop color.',
+  ],
+  ['--moduix-tour-bg', 'var(--moduix-color-popover)', 'Controls content background.'],
+  ['--moduix-tour-border-color', 'var(--moduix-color-border)', 'Controls content border color.'],
+  ['--moduix-tour-color', 'var(--moduix-color-popover-foreground)', 'Controls content foreground.'],
+  ['--moduix-tour-dialog-width', '26rem', 'Controls dialog step width.'],
+  ['--moduix-tour-floating-width', '22rem', 'Controls floating step width.'],
+  ['--moduix-tour-max-height', '24rem', 'Controls content max height.'],
+  [
+    '--moduix-tour-max-width',
+    'calc(100vw - var(--moduix-spacing-8))',
+    'Controls content max width.',
+  ],
+  ['--moduix-tour-padding', 'var(--moduix-spacing-5)', 'Controls content padding.'],
+  ['--moduix-tour-radius', 'var(--moduix-radius-lg)', 'Controls content border radius.'],
+  ['--moduix-tour-shadow', 'var(--moduix-shadow-lg)', 'Controls content shadow.'],
+  ['--moduix-tour-title-font-size', 'var(--moduix-text-md)', 'Controls title font size.'],
+  [
+    '--moduix-tour-description-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls description color.',
+  ],
+  [
+    '--moduix-tour-progress-text-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls progress text color.',
+  ],
+  ['--moduix-tour-z-index', 'var(--moduix-z-modal)', 'Controls tour layer z-index.'],
+  ['--moduix-tour-action-font-size', 'var(--moduix-text-sm)', 'Controls action font size.'],
+  [
+    '--moduix-tour-action-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls action font weight.',
+  ],
+  ['--moduix-tour-action-gap', 'var(--moduix-spacing-2)', 'Controls action content gap.'],
+  ['--moduix-tour-action-height', 'var(--moduix-size-sm)', 'Controls action height.'],
+  [
+    '--moduix-tour-action-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls action line height.',
+  ],
+  [
+    '--moduix-tour-action-padding-x',
+    'var(--moduix-spacing-3)',
+    'Controls action horizontal padding.',
+  ],
+  [
+    '--moduix-tour-action-padding-y',
+    'var(--moduix-spacing-1-5)',
+    'Controls action vertical padding.',
+  ],
+  [
+    '--moduix-tour-action-primary-bg-hover',
+    'color-mix(in oklab, var(--moduix-color-primary), black 12%)',
     'Controls primary action hover background.',
   ],
   [
-    '--tour-action-primary-border-color',
-    'var(--color-primary)',
+    '--moduix-tour-action-primary-border-color',
+    'var(--moduix-color-primary)',
     'Controls primary action border color.',
   ],
   [
-    '--tour-action-primary-border-color-hover',
-    'color-mix(in oklab, var(--color-primary), black 12%)',
+    '--moduix-tour-action-primary-border-color-hover',
+    'color-mix(in oklab, var(--moduix-color-primary), black 12%)',
     'Controls primary action hover border color.',
   ],
-  ['--tour-action-radius', 'var(--radius-md)', 'Controls action border radius.'],
-  ['--tour-action-transition', 'var(--transition-default)', 'Controls action transitions.'],
-  ['--tour-backdrop-blur', '4px', 'Controls backdrop blur.'],
-  ['--tour-backdrop-ending-blur', 'none', 'Controls backdrop blur at the end of exit.'],
-  ['--tour-backdrop-ending-opacity', '0', 'Controls backdrop opacity at the end of exit.'],
-  ['--tour-backdrop-starting-blur', 'none', 'Controls backdrop blur at the start of enter.'],
-  ['--tour-backdrop-starting-opacity', '0', 'Controls backdrop opacity at the start of enter.'],
-  ['--tour-backdrop-transition', 'var(--transition-default)', 'Controls backdrop animation.'],
-  ['--tour-border-width', 'var(--border-width-sm)', 'Controls content border width.'],
-  ['--tour-close-trigger-bg', 'transparent', 'Controls close trigger background.'],
+  ['--moduix-tour-action-radius', 'var(--moduix-radius-md)', 'Controls action border radius.'],
   [
-    '--tour-close-trigger-bg-hover',
-    'var(--color-accent)',
+    '--moduix-tour-action-transition',
+    'var(--moduix-transition-default)',
+    'Controls action transitions.',
+  ],
+  ['--moduix-tour-backdrop-blur', '4px', 'Controls backdrop blur.'],
+  ['--moduix-tour-backdrop-ending-blur', 'none', 'Controls backdrop blur at the end of exit.'],
+  ['--moduix-tour-backdrop-ending-opacity', '0', 'Controls backdrop opacity at the end of exit.'],
+  ['--moduix-tour-backdrop-starting-blur', 'none', 'Controls backdrop blur at the start of enter.'],
+  [
+    '--moduix-tour-backdrop-starting-opacity',
+    '0',
+    'Controls backdrop opacity at the start of enter.',
+  ],
+  [
+    '--moduix-tour-backdrop-transition',
+    'var(--moduix-transition-default)',
+    'Controls backdrop animation.',
+  ],
+  ['--moduix-tour-border-width', 'var(--moduix-border-width-sm)', 'Controls content border width.'],
+  ['--moduix-tour-close-trigger-bg', 'transparent', 'Controls close trigger background.'],
+  [
+    '--moduix-tour-close-trigger-bg-hover',
+    'var(--moduix-color-accent)',
     'Controls close trigger hover background.',
   ],
-  ['--tour-close-trigger-color', 'var(--color-muted-foreground)', 'Controls close trigger color.'],
   [
-    '--tour-close-trigger-color-hover',
-    'var(--tour-color, var(--color-popover-foreground))',
+    '--moduix-tour-close-trigger-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls close trigger color.',
+  ],
+  [
+    '--moduix-tour-close-trigger-color-hover',
+    'var(--moduix-tour-color, var(--moduix-color-popover-foreground))',
     'Controls close trigger hover color.',
   ],
-  ['--tour-close-trigger-icon-size', 'var(--spacing-3)', 'Controls close trigger icon size.'],
-  ['--tour-close-trigger-offset', 'var(--spacing-4)', 'Controls close trigger inset offset.'],
-  ['--tour-close-trigger-radius', 'var(--radius-md)', 'Controls close trigger border radius.'],
-  ['--tour-close-trigger-size', 'var(--spacing-7)', 'Controls close trigger square size.'],
-  ['--tour-content-ending-opacity', '0', 'Controls content opacity at the end of exit.'],
   [
-    '--tour-content-ending-scale',
-    'var(--scale-popup)',
+    '--moduix-tour-close-trigger-icon-size',
+    'var(--moduix-spacing-3)',
+    'Controls close trigger icon size.',
+  ],
+  [
+    '--moduix-tour-close-trigger-offset',
+    'var(--moduix-spacing-4)',
+    'Controls close trigger inset offset.',
+  ],
+  [
+    '--moduix-tour-close-trigger-radius',
+    'var(--moduix-radius-md)',
+    'Controls close trigger border radius.',
+  ],
+  [
+    '--moduix-tour-close-trigger-size',
+    'var(--moduix-spacing-7)',
+    'Controls close trigger square size.',
+  ],
+  ['--moduix-tour-content-ending-opacity', '0', 'Controls content opacity at the end of exit.'],
+  [
+    '--moduix-tour-content-ending-scale',
+    'var(--moduix-scale-popup)',
     'Controls content scale at the end of exit.',
   ],
-  ['--tour-content-ending-translate-x', '0', 'Controls content X offset at the end of exit.'],
-  ['--tour-content-ending-translate-y', '0', 'Controls content Y offset at the end of exit.'],
-  ['--tour-content-starting-opacity', '0', 'Controls content opacity at the start of enter.'],
   [
-    '--tour-content-starting-scale',
-    'var(--scale-popup)',
+    '--moduix-tour-content-ending-translate-x',
+    '0',
+    'Controls content X offset at the end of exit.',
+  ],
+  [
+    '--moduix-tour-content-ending-translate-y',
+    '0',
+    'Controls content Y offset at the end of exit.',
+  ],
+  [
+    '--moduix-tour-content-starting-opacity',
+    '0',
+    'Controls content opacity at the start of enter.',
+  ],
+  [
+    '--moduix-tour-content-starting-scale',
+    'var(--moduix-scale-popup)',
     'Controls content scale at the start of enter.',
   ],
-  ['--tour-content-starting-translate-x', '0', 'Controls content X offset at the start of enter.'],
-  ['--tour-content-starting-translate-y', '0', 'Controls content Y offset at the start of enter.'],
-  ['--tour-control-gap', 'var(--spacing-2)', 'Controls action group gap.'],
-  ['--tour-control-margin-top', 'var(--spacing-3)', 'Controls action group top margin.'],
-  ['--tour-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
   [
-    '--tour-description-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-tour-content-starting-translate-x',
+    '0',
+    'Controls content X offset at the start of enter.',
+  ],
+  [
+    '--moduix-tour-content-starting-translate-y',
+    '0',
+    'Controls content Y offset at the start of enter.',
+  ],
+  ['--moduix-tour-control-gap', 'var(--moduix-spacing-2)', 'Controls action group gap.'],
+  [
+    '--moduix-tour-control-margin-top',
+    'var(--moduix-spacing-3)',
+    'Controls action group top margin.',
+  ],
+  [
+    '--moduix-tour-description-font-size',
+    'var(--moduix-text-sm)',
+    'Controls description font size.',
+  ],
+  [
+    '--moduix-tour-description-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls description line height.',
   ],
-  ['--tour-description-margin', '0', 'Controls description margin.'],
-  ['--tour-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled action opacity.'],
-  ['--tour-floating-offset', 'var(--spacing-6)', 'Controls floating step viewport offset.'],
-  ['--tour-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus ring color.'],
+  ['--moduix-tour-description-margin', '0', 'Controls description margin.'],
   [
-    '--tour-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-tour-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled action opacity.',
+  ],
+  [
+    '--moduix-tour-floating-offset',
+    'var(--moduix-spacing-6)',
+    'Controls floating step viewport offset.',
+  ],
+  [
+    '--moduix-tour-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls action and close focus ring color.',
+  ],
+  [
+    '--moduix-tour-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls action and close focus ring width.',
   ],
-  ['--tour-gap', 'var(--spacing-1)', 'Controls content row gap.'],
-  ['--tour-positioner-padding', 'var(--spacing-4)', 'Controls dialog positioner padding.'],
-  ['--tour-progress-text-font-size', 'var(--text-xs)', 'Controls progress text font size.'],
+  ['--moduix-tour-gap', 'var(--moduix-spacing-1)', 'Controls content row gap.'],
   [
-    '--tour-progress-text-line-height',
-    'var(--line-height-text-xs)',
+    '--moduix-tour-positioner-padding',
+    'var(--moduix-spacing-4)',
+    'Controls dialog positioner padding.',
+  ],
+  [
+    '--moduix-tour-progress-text-font-size',
+    'var(--moduix-text-xs)',
+    'Controls progress text font size.',
+  ],
+  [
+    '--moduix-tour-progress-text-line-height',
+    'var(--moduix-line-height-text-xs)',
     'Controls progress text line height.',
   ],
-  ['--tour-progress-text-margin-top', 'var(--spacing-2)', 'Controls progress text top margin.'],
-  ['--tour-spotlight-ring-width', '2px', 'Controls spotlight ring width.'],
   [
-    '--tour-spotlight-shadow',
-    '0 0 0 var(--tour-spotlight-ring-width, 2px) var(--color-ring)',
+    '--moduix-tour-progress-text-margin-top',
+    'var(--moduix-spacing-2)',
+    'Controls progress text top margin.',
+  ],
+  ['--moduix-tour-spotlight-ring-width', '2px', 'Controls spotlight ring width.'],
+  [
+    '--moduix-tour-spotlight-shadow',
+    '0 0 0 var(--moduix-tour-spotlight-ring-width, 2px) var(--moduix-color-ring)',
     'Controls spotlight ring shadow.',
   ],
   [
-    '--tour-title-color',
-    'var(--tour-color, var(--color-popover-foreground))',
+    '--moduix-tour-title-color',
+    'var(--moduix-tour-color, var(--moduix-color-popover-foreground))',
     'Controls title color.',
   ],
-  ['--tour-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--tour-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
-  ['--tour-title-margin', '0', 'Controls title margin.'],
   [
-    '--tour-title-padding-inline-end',
-    'var(--spacing-6)',
+    '--moduix-tour-title-font-weight',
+    'var(--moduix-weight-semibold)',
+    'Controls title font weight.',
+  ],
+  [
+    '--moduix-tour-title-line-height',
+    'var(--moduix-line-height-text-md)',
+    'Controls title line height.',
+  ],
+  ['--moduix-tour-title-margin', '0', 'Controls title margin.'],
+  [
+    '--moduix-tour-title-padding-inline-end',
+    'var(--moduix-spacing-6)',
     'Reserves inline space for the close trigger.',
   ],
-  ['--tour-transition', 'var(--transition-default)', 'Controls content animation duration.'],
-  ['--tour-width', '20rem', 'Controls default content width.'],
+  [
+    '--moduix-tour-transition',
+    'var(--moduix-transition-default)',
+    'Controls content animation duration.',
+  ],
+  ['--moduix-tour-width', '20rem', 'Controls default content width.'],
 ];
 
 export function TourCssPropertiesPanel() {

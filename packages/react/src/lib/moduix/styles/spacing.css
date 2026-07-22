@@ -1,26 +1,26 @@
 :root {
   /* Primitives */
-  --spacing-0: 0px;
-  --spacing-1: 4px;
-  --spacing-0-5: calc((var(--spacing-0) + var(--spacing-1)) / 2);
-  --spacing-2: 8px;
-  --spacing-1-5: calc((var(--spacing-1) + var(--spacing-2)) / 2);
-  --spacing-3: 12px;
-  --spacing-2-5: calc((var(--spacing-2) + var(--spacing-3)) / 2);
-  --spacing-4: 16px;
-  --spacing-3-5: calc((var(--spacing-3) + var(--spacing-4)) / 2);
-  --spacing-5: 20px;
-  --spacing-4-5: calc((var(--spacing-4) + var(--spacing-5)) / 2);
-  --spacing-6: 24px;
-  --spacing-7: calc((var(--spacing-6) + var(--spacing-8)) / 2);
-  --spacing-8: 32px;
-  --spacing-10: 40px;
+  --moduix-spacing-0: 0px;
+  --moduix-spacing-1: 4px;
+  --moduix-spacing-0-5: calc((var(--moduix-spacing-0) + var(--moduix-spacing-1)) / 2);
+  --moduix-spacing-2: 8px;
+  --moduix-spacing-1-5: calc((var(--moduix-spacing-1) + var(--moduix-spacing-2)) / 2);
+  --moduix-spacing-3: 12px;
+  --moduix-spacing-2-5: calc((var(--moduix-spacing-2) + var(--moduix-spacing-3)) / 2);
+  --moduix-spacing-4: 16px;
+  --moduix-spacing-3-5: calc((var(--moduix-spacing-3) + var(--moduix-spacing-4)) / 2);
+  --moduix-spacing-5: 20px;
+  --moduix-spacing-4-5: calc((var(--moduix-spacing-4) + var(--moduix-spacing-5)) / 2);
+  --moduix-spacing-6: 24px;
+  --moduix-spacing-7: calc((var(--moduix-spacing-6) + var(--moduix-spacing-8)) / 2);
+  --moduix-spacing-8: 32px;
+  --moduix-spacing-10: 40px;
 
   /* Semantic (for components; use primitives directly for larger values) */
-  --spacing-xs: var(--spacing-1); /*  4px */
-  --spacing-sm: var(--spacing-2); /*  8px */
-  --spacing-md: var(--spacing-3); /* 12px */
-  --spacing-lg: var(--spacing-4); /* 16px */
-  --spacing-xl: var(--spacing-5); /* 20px */
-  --spacing-2xl: var(--spacing-6); /* 24px */
+  --moduix-spacing-xs: var(--moduix-spacing-1); /*  4px */
+  --moduix-spacing-sm: var(--moduix-spacing-2); /*  8px */
+  --moduix-spacing-md: var(--moduix-spacing-3); /* 12px */
+  --moduix-spacing-lg: var(--moduix-spacing-4); /* 16px */
+  --moduix-spacing-xl: var(--moduix-spacing-5); /* 20px */
+  --moduix-spacing-2xl: var(--moduix-spacing-6); /* 24px */
 }

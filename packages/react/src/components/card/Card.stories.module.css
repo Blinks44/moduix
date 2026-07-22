@@ -1,11 +1,11 @@
 .card {
-  width: min(24rem, calc(100vw - var(--spacing-8)));
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .cardGrid {
   display: grid;
-  gap: var(--spacing-4);
-  width: min(28rem, calc(100vw - var(--spacing-8)));
+  gap: var(--moduix-spacing-4);
+  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .cardGridItem {
@@ -15,40 +15,40 @@
 .releaseSummary {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .metric {
   display: grid;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 }
 
 .metricValue {
-  color: var(--color-foreground);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-2xl);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-2xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-2xl);
 }
 
 .metricLabel,
 .statLabel {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .statValue {
   display: block;
-  color: var(--color-foreground);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-xl);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-xl);
 }
 
 .image {
@@ -59,7 +59,7 @@
 
 .horizontalCard {
   display: grid;
-  width: min(40rem, calc(100vw - var(--spacing-8)));
+  width: min(40rem, calc(100vw - var(--moduix-spacing-8)));
   grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
   overflow: hidden;
 }
@@ -79,13 +79,13 @@
 
 .formGrid {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 
   & label {
     display: grid;
-    gap: var(--spacing-1);
-    color: var(--color-foreground);
-    font-weight: var(--weight-medium);
+    gap: var(--moduix-spacing-1);
+    color: var(--moduix-color-foreground);
+    font-weight: var(--moduix-weight-medium);
   }
 
   & [data-slot='input-root'] {
@@ -96,7 +96,7 @@
 .profile {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .avatar {
@@ -105,23 +105,27 @@
   height: 3rem;
   flex: none;
   place-items: center;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  color: var(--color-primary-foreground);
-  font-weight: var(--weight-semibold);
+  border-radius: var(--moduix-radius-full);
+  background: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .customCard {
-  --card-bg: color-mix(in oklab, var(--color-card) 94%, var(--color-primary));
-  --card-border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border));
-  --card-radius: var(--radius-md);
-  --card-shadow: var(--shadow-md);
-  width: min(24rem, calc(100vw - var(--spacing-8)));
+  --moduix-card-bg: color-mix(in oklab, var(--moduix-color-card) 94%, var(--moduix-color-primary));
+  --moduix-card-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 35%,
+    var(--moduix-color-border)
+  );
+  --moduix-card-radius: var(--moduix-radius-md);
+  --moduix-card-shadow: var(--moduix-shadow-md);
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .customSpacingCard {
-  --card-spacing: var(--spacing-4);
-  width: min(24rem, calc(100vw - var(--spacing-8)));
+  --moduix-card-spacing: var(--moduix-spacing-4);
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .footerBetween {
@@ -130,25 +134,25 @@
 
 .capacity {
   display: grid;
-  gap: var(--spacing-2);
-  color: var(--color-foreground);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-2xl);
+  gap: var(--moduix-spacing-2);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-2xl);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-2xl);
 }
 
 .capacityBar {
   height: 0.5rem;
   overflow: hidden;
-  border-radius: var(--radius-full);
-  background-color: var(--color-muted);
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-muted);
 }
 
 .capacityBar > div {
   width: 72%;
   height: 100%;
   border-radius: inherit;
-  background-color: var(--color-primary);
+  background-color: var(--moduix-color-primary);
 }
 
 @media (width < 36rem) {

@@ -158,11 +158,11 @@ function TreeNodeContent({ node, indexPath }) {
 ## Defaults and styling
 
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
-- Default root width is `20rem` through `--tree-view-width`.
+- Default root width is `20rem` through `--moduix-tree-view-width`.
 - Branch and item rows share hover, selected, focus, disabled, and indentation styling.
 - `BranchIndicator` and `BranchTrigger` rotate on `data-state="open"`.
 - `NodeCheckboxIndicator` renders default check and indeterminate icons when omitted.
-- Public `--tree-view-*` variables are documented in `theme.css`.
+- Public `--moduix-tree-view-*` variables are documented in `theme.css`.
 
 ## Intentional sugar and differences from upstream
 

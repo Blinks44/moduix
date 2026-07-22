@@ -1,114 +1,168 @@
-import { Button, Tooltip, useTooltip, useTooltipContext } from '@moduix/react';
-import {
-  Bell as BellIcon,
-  Info as InfoIcon,
-  Plus as PlusIcon,
-  Share as ShareIcon,
-} from 'lucide-react';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './tooltip.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const tooltipPlacements = ['top', 'right', 'bottom', 'left'] as const;
-export type TooltipPlacement = (typeof tooltipPlacements)[number];
-
-export const tooltipTools = [
-  { id: 'create', label: 'Create', shortcut: 'Ctrl+N', icon: PlusIcon },
-  { id: 'share', label: 'Share', shortcut: 'Ctrl+S', icon: ShareIcon },
-  { id: 'details', label: 'Details', shortcut: 'Ctrl+I', icon: InfoIcon },
-];
-
-export const tooltipCssProperties: CssPropertyInput[] = [
+const tooltipCssProperties: CssPropertyInput[] = [
   [
-    '--tooltip-arrow-background',
-    'var(--tooltip-bg, var(--color-popover))',
+    '--moduix-tooltip-arrow-background',
+    'var(--moduix-tooltip-bg, var(--moduix-color-popover))',
     'Controls the Ark arrow background.',
   ],
-  ['--tooltip-arrow-size', 'var(--spacing-2-5)', 'Controls the Ark arrow square size.'],
   [
-    '--tooltip-arrow-stroke-color',
-    'var(--tooltip-border-color, var(--color-border))',
+    '--moduix-tooltip-arrow-size',
+    'var(--moduix-spacing-2-5)',
+    'Controls the Ark arrow square size.',
+  ],
+  [
+    '--moduix-tooltip-arrow-stroke-color',
+    'var(--moduix-tooltip-border-color, var(--moduix-color-border))',
     'Controls arrow border color.',
   ],
-  ['--tooltip-bg', 'var(--color-popover)', 'Controls the content background color.'],
-  ['--tooltip-border-color', 'var(--color-border)', 'Controls the content border color.'],
-  ['--tooltip-border-width', 'var(--border-width-sm)', 'Controls content border width.'],
-  ['--tooltip-color', 'var(--color-popover-foreground)', 'Controls the content text color.'],
-  ['--tooltip-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled trigger opacity.'],
-  ['--tooltip-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  ['--moduix-tooltip-bg', 'var(--moduix-color-popover)', 'Controls the content background color.'],
   [
-    '--tooltip-focus-ring-offset',
-    'var(--focus-ring-inset-offset)',
+    '--moduix-tooltip-border-color',
+    'var(--moduix-color-border)',
+    'Controls the content border color.',
+  ],
+  [
+    '--moduix-tooltip-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls content border width.',
+  ],
+  [
+    '--moduix-tooltip-color',
+    'var(--moduix-color-popover-foreground)',
+    'Controls the content text color.',
+  ],
+  [
+    '--moduix-tooltip-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled trigger opacity.',
+  ],
+  [
+    '--moduix-tooltip-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls trigger focus ring color.',
+  ],
+  [
+    '--moduix-tooltip-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls trigger focus ring offset.',
   ],
   [
-    '--tooltip-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-tooltip-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls trigger focus ring width.',
   ],
-  ['--tooltip-font-size', 'var(--text-sm)', 'Controls the content font size.'],
-  ['--tooltip-line-height', 'var(--line-height-text-sm)', 'Controls the content line height.'],
-  ['--tooltip-max-height', '24rem', 'Controls the content max height.'],
-  ['--tooltip-max-width', '20rem', 'Controls the content max width.'],
-  ['--tooltip-padding-x', 'var(--spacing-2)', 'Controls the content horizontal padding.'],
-  ['--tooltip-padding-y', 'var(--spacing-1)', 'Controls the content vertical padding.'],
-  ['--tooltip-popup-ending-opacity', '0', 'Controls content opacity at the end of exit animation.'],
+  ['--moduix-tooltip-font-size', 'var(--moduix-text-sm)', 'Controls the content font size.'],
   [
-    '--tooltip-popup-ending-scale',
-    'var(--scale-popup)',
+    '--moduix-tooltip-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls the content line height.',
+  ],
+  ['--moduix-tooltip-max-height', '24rem', 'Controls the content max height.'],
+  ['--moduix-tooltip-max-width', '20rem', 'Controls the content max width.'],
+  [
+    '--moduix-tooltip-padding-x',
+    'var(--moduix-spacing-2)',
+    'Controls the content horizontal padding.',
+  ],
+  [
+    '--moduix-tooltip-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls the content vertical padding.',
+  ],
+  [
+    '--moduix-tooltip-popup-ending-opacity',
+    '0',
+    'Controls content opacity at the end of exit animation.',
+  ],
+  [
+    '--moduix-tooltip-popup-ending-scale',
+    'var(--moduix-scale-popup)',
     'Controls content scale at the end of exit animation.',
   ],
   [
-    '--tooltip-popup-ending-translate-x',
+    '--moduix-tooltip-popup-ending-translate-x',
     '0',
     'Controls content X offset at the end of exit animation.',
   ],
   [
-    '--tooltip-popup-ending-translate-y',
+    '--moduix-tooltip-popup-ending-translate-y',
     '0',
     'Controls content Y offset at the end of exit animation.',
   ],
   [
-    '--tooltip-popup-starting-opacity',
+    '--moduix-tooltip-popup-starting-opacity',
     '0',
     'Controls content opacity at the start of enter animation.',
   ],
   [
-    '--tooltip-popup-starting-scale',
-    'var(--scale-popup)',
+    '--moduix-tooltip-popup-starting-scale',
+    'var(--moduix-scale-popup)',
     'Controls content scale at the start of enter animation.',
   ],
   [
-    '--tooltip-popup-starting-translate-x',
+    '--moduix-tooltip-popup-starting-translate-x',
     '0',
     'Controls content X offset at the start of enter animation.',
   ],
   [
-    '--tooltip-popup-starting-translate-y',
+    '--moduix-tooltip-popup-starting-translate-y',
     '0',
     'Controls content Y offset at the start of enter animation.',
   ],
-  ['--tooltip-radius', 'var(--radius-md)', 'Controls the content border radius.'],
-  ['--tooltip-shadow', 'var(--shadow-lg)', 'Controls the content shadow.'],
-  ['--tooltip-transition', '150ms', 'Controls content animation and trigger transitions.'],
-  ['--tooltip-trigger-bg', 'var(--color-background)', 'Controls trigger background color.'],
+  ['--moduix-tooltip-radius', 'var(--moduix-radius-md)', 'Controls the content border radius.'],
+  ['--moduix-tooltip-shadow', 'var(--moduix-shadow-lg)', 'Controls the content shadow.'],
+  ['--moduix-tooltip-transition', '150ms', 'Controls content animation and trigger transitions.'],
   [
-    '--tooltip-trigger-bg-active',
-    'var(--tooltip-trigger-bg-hover, var(--color-accent))',
+    '--moduix-tooltip-trigger-bg',
+    'var(--moduix-color-background)',
+    'Controls trigger background color.',
+  ],
+  [
+    '--moduix-tooltip-trigger-bg-active',
+    'var(--moduix-tooltip-trigger-bg-hover, var(--moduix-color-accent))',
     'Controls trigger background while the tooltip is open.',
   ],
-  ['--tooltip-trigger-bg-hover', 'var(--color-accent)', 'Controls trigger hover background.'],
-  ['--tooltip-trigger-border-color', 'var(--color-border)', 'Controls trigger border color.'],
-  ['--tooltip-trigger-border-width', 'var(--border-width-sm)', 'Controls trigger border width.'],
-  ['--tooltip-trigger-color', 'var(--color-foreground)', 'Controls trigger text color.'],
-  ['--tooltip-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
-  ['--tooltip-trigger-height', 'var(--size-md)', 'Controls trigger height.'],
-  ['--tooltip-trigger-line-height', 'var(--line-height-text-sm)', 'Controls trigger line height.'],
-  ['--tooltip-trigger-padding-x', 'var(--spacing-3-5)', 'Controls trigger horizontal padding.'],
-  ['--tooltip-trigger-padding-y', 'var(--spacing-1)', 'Controls trigger vertical padding.'],
-  ['--tooltip-trigger-radius', 'var(--radius-md)', 'Controls trigger border radius.'],
-  ['--tooltip-z-index', 'var(--z-popup)', 'Controls the content z-index.'],
+  [
+    '--moduix-tooltip-trigger-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls trigger hover background.',
+  ],
+  [
+    '--moduix-tooltip-trigger-border-color',
+    'var(--moduix-color-border)',
+    'Controls trigger border color.',
+  ],
+  [
+    '--moduix-tooltip-trigger-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls trigger border width.',
+  ],
+  [
+    '--moduix-tooltip-trigger-color',
+    'var(--moduix-color-foreground)',
+    'Controls trigger text color.',
+  ],
+  ['--moduix-tooltip-trigger-font-size', 'var(--moduix-text-sm)', 'Controls trigger font size.'],
+  ['--moduix-tooltip-trigger-height', 'var(--moduix-size-md)', 'Controls trigger height.'],
+  [
+    '--moduix-tooltip-trigger-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls trigger line height.',
+  ],
+  [
+    '--moduix-tooltip-trigger-padding-x',
+    'var(--moduix-spacing-3-5)',
+    'Controls trigger horizontal padding.',
+  ],
+  [
+    '--moduix-tooltip-trigger-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls trigger vertical padding.',
+  ],
+  ['--moduix-tooltip-trigger-radius', 'var(--moduix-radius-md)', 'Controls trigger border radius.'],
+  ['--moduix-tooltip-z-index', 'var(--moduix-z-popup)', 'Controls the content z-index.'],
 ];
 
 export function TooltipCssPropertiesPanel() {
@@ -121,175 +175,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function TooltipExample() {
-  return (
-    <Tooltip>
-      <Tooltip.Trigger asChild aria-label="Notifications">
-        <Button>
-          <span className={styles.triggerContent}>
-            <BellIcon className={styles.icon} />
-            Notifications
-          </span>
-        </Button>
-      </Tooltip.Trigger>
-      <Tooltip.Body>Notifications</Tooltip.Body>
-    </Tooltip>
-  );
-}
-
-export function ArrowTooltipExample() {
-  return (
-    <Tooltip>
-      <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>
-      <Tooltip.Body>
-        <Tooltip.Arrow />
-        Tooltip with arrow
-      </Tooltip.Body>
-    </Tooltip>
-  );
-}
-
-export function DelayTooltipExample() {
-  return (
-    <Tooltip closeDelay={0} openDelay={0}>
-      <Tooltip.Trigger>Immediate tooltip</Tooltip.Trigger>
-      <Tooltip.Body>No open or close delay</Tooltip.Body>
-    </Tooltip>
-  );
-}
-
-export function PositioningTooltipExample() {
-  const [placement, setPlacement] = useState<TooltipPlacement>('top');
-
-  return (
-    <div className={styles.stack}>
-      <div className={styles.sideButtons}>
-        {tooltipPlacements.map((item) => (
-          <button
-            key={item}
-            type="button"
-            className={styles.sideButton}
-            data-active={item === placement || undefined}
-            onClick={() => setPlacement(item)}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-
-      <Tooltip positioning={{ placement, offset: { mainAxis: 12 } }}>
-        <Tooltip.Trigger asChild aria-label={`Tooltip placement: ${placement}`}>
-          <Button>Hover or focus</Button>
-        </Tooltip.Trigger>
-        <Tooltip.Body>Placement: {placement}</Tooltip.Body>
-      </Tooltip>
-    </div>
-  );
-}
-
-export function ControlledTooltipExample() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className={styles.stack}>
-      <Button variant="outline" onClick={() => setOpen((value) => !value)}>
-        Toggle
-      </Button>
-      <Tooltip open={open} onOpenChange={(details) => setOpen(details.open)}>
-        <Tooltip.Trigger>Controlled tooltip</Tooltip.Trigger>
-        <Tooltip.Body>Open: {String(open)}</Tooltip.Body>
-      </Tooltip>
-    </div>
-  );
-}
-
-export function ContextTooltipExample() {
-  return (
-    <Tooltip>
-      <Tooltip.Trigger>Context tooltip</Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <TooltipStateContent />
-      </Tooltip.Positioner>
-    </Tooltip>
-  );
-}
-
-export function RootProviderTooltipExample() {
-  const tooltip = useTooltip();
-
-  return (
-    <div className={styles.stack}>
-      <output className={styles.output}>Open: {String(tooltip.open)}</output>
-      <Tooltip.RootProvider value={tooltip}>
-        <Tooltip.Trigger>RootProvider tooltip</Tooltip.Trigger>
-        <Tooltip.Body>State is owned outside the tree.</Tooltip.Body>
-      </Tooltip.RootProvider>
-    </div>
-  );
-}
-
-function TooltipStateContent() {
-  const tooltip = useTooltipContext();
-
-  return <Tooltip.Content>Open from context: {tooltip.open.toString()}</Tooltip.Content>;
-}
-
-export function MultipleTriggersTooltipExample() {
-  const [activeTool, setActiveTool] = useState<(typeof tooltipTools)[number] | null>(null);
-
-  return (
-    <Tooltip
-      onTriggerValueChange={(details) => {
-        setActiveTool(tooltipTools.find((tool) => tool.id === details.value) ?? null);
-      }}
-    >
-      <div className={styles.toolbar}>
-        {tooltipTools.map((tool) => (
-          <Tooltip.Trigger key={tool.id} value={tool.id} asChild aria-label={tool.label}>
-            <Button variant="ghost" size="icon-md">
-              <tool.icon className={styles.icon} />
-            </Button>
-          </Tooltip.Trigger>
-        ))}
-      </div>
-      <Tooltip.Body>
-        {activeTool ? (
-          <>
-            {activeTool.label} <span className={styles.shortcut}>{activeTool.shortcut}</span>
-          </>
-        ) : null}
-      </Tooltip.Body>
-    </Tooltip>
-  );
-}
-
-export function WithinFixedTooltipExample() {
-  return (
-    <div className={styles.fixedContainer}>
-      <Tooltip positioning={{ strategy: 'fixed' }}>
-        <Tooltip.Trigger>Fixed strategy</Tooltip.Trigger>
-        <Tooltip.Body>Positioned from a fixed container.</Tooltip.Body>
-      </Tooltip>
-    </div>
-  );
-}
-
-export function AdvancedCustomizationTooltipExample() {
-  return (
-    <Tooltip positioning={{ placement: 'right', offset: { mainAxis: 12 } }}>
-      <Tooltip.Trigger asChild>
-        <Button>Hover or focus</Button>
-      </Tooltip.Trigger>
-      <Tooltip.Positioner>
-        <Tooltip.Content>
-          <Tooltip.Arrow>
-            <Tooltip.ArrowTip />
-          </Tooltip.Arrow>
-          Explicit positioner and content.
-        </Tooltip.Content>
-      </Tooltip.Positioner>
-    </Tooltip>
-  );
 }

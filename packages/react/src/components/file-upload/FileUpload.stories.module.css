@@ -1,59 +1,67 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     width: min(28rem, 100%);
   }
 
   .simpleDemo {
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-4);
-    background-color: color-mix(in oklab, var(--color-muted) 32%, var(--color-background));
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
+    padding: var(--moduix-spacing-4);
+    background-color: color-mix(
+      in oklab,
+      var(--moduix-color-muted) 32%,
+      var(--moduix-color-background)
+    );
   }
 
   .dropzoneContent {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
 
     & [data-slot='file-upload-trigger'] {
-      margin-top: var(--spacing-2);
+      margin-top: var(--moduix-spacing-2);
     }
   }
 
   .dropzoneTitle {
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .dropzoneDescription {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .state,
   .errorText {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .errorText {
-    color: var(--color-destructive);
+    color: var(--moduix-color-destructive);
   }
 
   .customDropzone {
-    border-color: var(--color-primary);
-    background-color: color-mix(in oklab, var(--color-primary) 5%, var(--color-background));
+    border-color: var(--moduix-color-primary);
+    background-color: color-mix(
+      in oklab,
+      var(--moduix-color-primary) 5%,
+      var(--moduix-color-background)
+    );
   }
 
   .customTrigger {
-    background-color: var(--color-foreground);
-    color: var(--color-background);
+    background-color: var(--moduix-color-foreground);
+    color: var(--moduix-color-background);
   }
 }

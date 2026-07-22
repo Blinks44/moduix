@@ -1,0 +1,265 @@
+---
+title: Separator
+component: separator
+description: Separates related content or groups with an accessible horizontal or vertical line.
+---
+
+import * as SeparatorDocs from '@/components/examples/separator';
+
+## API Reference
+
+Ark UI does not ship a dedicated separator primitive. Moduix builds this component with the official
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
+[ref](https://ark-ui.com/docs/guides/ref) guidance.
+
+## Basic
+
+Use `Separator` when the line itself communicates structure between related content.
+
+<style>{`
+      .card {
+        width: min(18rem, 100%);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background-color: var(--moduix-color-background);
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .text {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="separator" />
+
+## Anatomy
+
+`Separator` exposes one root part.
+
+```text
+Separator / Separator.Root
+└─ root[data-scope="separator"][data-part="root"][data-slot="separator-root"]
+```
+
+| Part                           | Role                                                                                   |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `Separator` / `Separator.Root` | Root divider element. Controls orientation, accessibility metadata, and visual recipe. |
+
+Style the root directly with `className`, `asChild`, or the `--moduix-separator-*` CSS properties.
+
+## Composition
+
+### Recommended composition
+
+Use the short `<Separator />` form for most dividers. It is equivalent to
+`<Separator.Root />` and keeps the public root form consistent with multipart Ark-style
+components.
+
+### When to go custom
+
+Use `asChild` only when another host must own the rendered DOM node. `Separator` already renders a
+semantic divider; the child must be one element that can receive the merged role, ARIA, data
+attributes, class name, and ref.
+
+### Default props
+
+| Prop          | Default      | Notes                                  |
+| ------------- | ------------ | -------------------------------------- |
+| `orientation` | `horizontal` | `horizontal`, `vertical`               |
+| `variant`     | `solid`      | `solid`, `dashed`, `dotted`            |
+| `size`        | `sm`         | `xs`, `sm`, `md`, `lg`                 |
+| `asChild`     | `false`      | Ark factory single-child composition   |
+| `role`        | `separator`  | Pass `presentation` for decorative use |
+
+### Behavioral notes
+
+- `Separator` writes `aria-orientation` when its role is `separator`.
+- Use `role="presentation"` when a line is decorative only. This differs from shadcn's decorative
+  default: moduix keeps meaningful content dividers in the accessibility tree by default.
+- Horizontal separators fill the available width by default.
+- Vertical separators default to `1em` height so they align naturally with inline text and compact
+  action rows.
+- `Separator` is not interactive and does not expose state, callbacks, disabled behavior, or focus
+  management.
+- Use layout primitives or spacing tokens for whitespace-only gaps.
+
+## Examples
+
+### Decorative
+
+Use `role="presentation"` for a line that only balances the layout and does not communicate
+structure to assistive technology.
+
+<style>{`
+      .card {
+        width: min(18rem, 100%);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background-color: var(--moduix-color-background);
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .text {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/decorative.tsx"
+
+```
+
+### Sizes
+
+Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
+
+<style>{`
+      .section {
+        display: grid;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .exampleRow {
+        display: grid;
+        width: min(16rem, 100%);
+        grid-template-columns: 4rem minmax(6rem, 1fr);
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .text {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/sizes.tsx"
+
+```
+
+### Variants
+
+Use `variant` when the separator needs a solid, dashed, or dotted stroke.
+
+<style>{`
+      .section {
+        display: grid;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .exampleRow {
+        display: grid;
+        width: min(16rem, 100%);
+        grid-template-columns: 4rem minmax(6rem, 1fr);
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .text {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/variants.tsx"
+
+```
+
+### Vertical
+
+Use `orientation="vertical"` for inline groups such as navigation actions.
+
+<style>{`
+      .nav {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+        text-wrap: nowrap;
+      }
+
+      .link {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+        text-decoration: none;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/vertical.tsx"
+
+```
+
+### Advanced Customization
+
+Use `asChild` when a custom host must receive the separator role, styling hooks, and forwarded ref.
+Otherwise, use `<Separator />` directly.
+
+<style>{`
+      .section {
+        display: grid;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .text {
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+
+      .nativeRule {
+        margin: 0;
+      }
+    `}</style>
+
+```tsx preview file="./_snippets/separator/as-child.tsx"
+
+```
+
+## Styling
+
+`Separator` exposes Ark-style part selectors and a small `--moduix-separator-*` CSS contract for color,
+border style, thickness, and orientation-specific length.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SeparatorDocs.SeparatorCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-scope="separator"` and `data-part="root"` identify the Ark-style root part.
+- `data-slot="separator-root"` is the stable moduix selector.
+- `data-orientation="horizontal"` and `data-orientation="vertical"` target axis-specific styling.
+- `data-size="xs|sm|md|lg"` and `data-variant="solid|dashed|dotted"` expose the visual recipe.
+- `className` and `style` are applied directly to the root separator element.

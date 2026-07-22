@@ -1,4 +1,4 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .root {
     width: 16rem;
   }
@@ -6,51 +6,51 @@
   .keysList {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
     margin: 0;
-    padding-inline-start: var(--spacing-2);
+    padding-inline-start: var(--moduix-spacing-2);
   }
 
   .status {
-    margin-top: var(--spacing-2);
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    margin-top: var(--moduix-spacing-2);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .providerLayout {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .customRoot {
     width: 16rem;
-    color: var(--color-foreground);
+    color: var(--moduix-color-foreground);
   }
 
   .customTrigger {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     width: 100%;
-    padding: var(--spacing-2) var(--spacing-3);
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
   }
 
   @media (hover: hover) {
     .customTrigger:hover {
-      background-color: var(--color-accent);
+      background-color: var(--moduix-color-accent);
     }
   }
 
   .customIndicator {
-    --collapsible-indicator-open-transform: rotate(180deg);
+    --moduix-collapsible-indicator-open-transform: rotate(180deg);
 
-    color: var(--color-primary);
+    color: var(--moduix-color-primary);
   }
 
   .triggerLabel {
@@ -58,14 +58,14 @@
   }
 
   .customContent {
-    color: var(--color-muted-foreground);
+    color: var(--moduix-color-muted-foreground);
   }
 
   .customContentBody {
-    margin-top: var(--spacing-1);
-    --collapsible-body-padding: var(--spacing-2) var(--spacing-3);
+    margin-top: var(--moduix-spacing-1);
+    --moduix-collapsible-body-padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
 
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
   }
 }

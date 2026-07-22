@@ -53,7 +53,7 @@ import { Skeleton, Stack } from '@moduix/react';
 export function UserRowSkeleton() {
   return (
     <Stack direction="row" align="center" gap={12}>
-      <Skeleton boxSize={48} borderRadius="var(--radius-full)" />
+      <Skeleton boxSize={48} borderRadius="var(--moduix-radius-full)" />
       <Stack gap={8} fill>
         <Skeleton width="46%" height={16} />
         <Skeleton height={14} />
@@ -106,18 +106,18 @@ Default CSS:
 - `display: block`
 - `width: 100%`
 - `overflow: hidden`
-- `border-radius: var(--skeleton-border-radius, var(--radius-md))`
+- `border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md))`
 - loading-only height, background, text hiding, pointer blocking, and animation are scoped to
   `data-state="loading"`
 
 Public CSS variables:
 
-| Variable                   | Default                                                                           | Effect                                                        |
-| -------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `--skeleton-animation`     | `var(--animation-pulse)`                                                          | Pulse variant animation.                                      |
-| `--skeleton-border-radius` | `var(--radius-md)`                                                                | Root border radius when no inline `borderRadius` is provided. |
-| `--skeleton-bg`            | `color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))` | Loading surface color.                                        |
-| `--skeleton-height`        | `var(--spacing-4)`                                                                | Default loading height when no inline size is provided.       |
+| Variable                          | Default                                                                                         | Effect                                                        |
+| --------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `--moduix-skeleton-animation`     | `var(--moduix-animation-pulse)`                                                                 | Pulse variant animation.                                      |
+| `--moduix-skeleton-border-radius` | `var(--moduix-radius-md)`                                                                       | Root border radius when no inline `borderRadius` is provided. |
+| `--moduix-skeleton-bg`            | `color-mix(in oklab, var(--moduix-color-muted-foreground) 18%, var(--moduix-color-background))` | Loading surface color.                                        |
+| `--moduix-skeleton-height`        | `var(--moduix-spacing-4)`                                                                       | Default loading height when no inline size is provided.       |
 
 ## Intentional sugar and differences from upstream
 

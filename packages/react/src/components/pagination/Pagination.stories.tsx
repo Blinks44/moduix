@@ -102,7 +102,7 @@ export const RootProvider: Story = {
     const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
 
     return (
-      <div style={{ display: 'grid', gap: 'var(--spacing-3)', justifyItems: 'center' }}>
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)', justifyItems: 'center' }}>
         <button type="button" onClick={() => pagination.goToNextPage()}>
           Next page
         </button>
@@ -124,10 +124,10 @@ export const CustomStyles: Story = {
       pageSize={10}
       style={
         {
-          '--pagination-item-bg-selected': 'var(--color-primary)',
-          '--pagination-item-border-color-selected': 'var(--color-primary)',
-          '--pagination-item-color-selected': 'var(--color-primary-foreground)',
-          '--pagination-item-radius': 'var(--radius-sm)',
+          '--moduix-pagination-item-bg-selected': 'var(--moduix-color-primary)',
+          '--moduix-pagination-item-border-color-selected': 'var(--moduix-color-primary)',
+          '--moduix-pagination-item-color-selected': 'var(--moduix-color-primary-foreground)',
+          '--moduix-pagination-item-radius': 'var(--moduix-radius-sm)',
         } as CSSProperties
       }
     >

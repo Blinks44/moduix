@@ -1,16 +1,16 @@
 .feedbackButton {
-  --swap-button-width: 7rem;
+  --moduix-swap-button-width: 7rem;
 
-  width: var(--swap-button-width);
-  min-width: var(--swap-button-width);
+  width: var(--moduix-swap-button-width);
+  min-width: var(--moduix-swap-button-width);
   overflow: hidden;
   transition:
-    width var(--transition-default),
-    min-width var(--transition-default);
+    width var(--moduix-transition-default),
+    min-width var(--moduix-transition-default);
 }
 
 .feedbackButton[data-playing] {
-  --swap-button-width: 7.5rem;
+  --moduix-swap-button-width: 7.5rem;
 }
 
 .feedbackSwap {
@@ -18,20 +18,20 @@
 }
 
 .compactButton[data-size='icon-md'] {
-  --compact-content-gap: 0;
-  --compact-label-width: 0;
+  --moduix-compact-content-gap: 0;
+  --moduix-compact-label-width: 0;
 
-  width: var(--button-size-icon-md, var(--size-md));
-  min-width: var(--button-size-icon-md, var(--size-md));
+  width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+  min-width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
   overflow: hidden;
   transition:
-    width var(--transition-default),
-    min-width var(--transition-default);
+    width var(--moduix-transition-default),
+    min-width var(--moduix-transition-default);
 }
 
 .compactButton[data-size='icon-md'][data-expanded] {
-  --compact-content-gap: var(--button-content-gap, var(--spacing-2));
-  --compact-label-width: 4.25rem;
+  --moduix-compact-content-gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
+  --moduix-compact-label-width: 4.25rem;
 
   width: 8.25rem;
   min-width: 8.25rem;
@@ -41,19 +41,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--compact-content-gap);
-  transition: gap var(--transition-default);
+  gap: var(--moduix-compact-content-gap);
+  transition: gap var(--moduix-transition-default);
 }
 
 .compactLabel {
-  width: var(--compact-label-width);
+  width: var(--moduix-compact-label-width);
   min-width: 0;
   overflow: hidden;
-  transition: width var(--transition-default);
+  transition: width var(--moduix-transition-default);
 }
 
 .compactIndicator {
-  gap: var(--button-content-gap, var(--spacing-2));
+  gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
 }
 
 .rotateSwap {
@@ -62,11 +62,11 @@
   }
 
   & [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-rotate-in var(--swap-transition, var(--transition-default));
+    animation: swap-rotate-in var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   & [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-rotate-out var(--swap-transition, var(--transition-default));
+    animation: swap-rotate-out var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -84,11 +84,11 @@
   }
 
   & [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-flip-in var(--swap-transition, var(--transition-default));
+    animation: swap-flip-in var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   & [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-flip-out var(--swap-transition, var(--transition-default));
+    animation: swap-flip-out var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   @media (prefers-reduced-motion: reduce) {

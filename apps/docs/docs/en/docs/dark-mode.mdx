@@ -1,0 +1,90 @@
+---
+title: Dark mode
+description: Enable the built-in dark token theme without a separate component theme provider.
+---
+
+# Dark mode
+
+moduix ships light tokens by default and a dark token set behind the
+`data-moduix-color-scheme="dark"` attribute. Import the
+foundation stylesheet once. Your application owns the theme preference and moduix responds to the
+resolved theme.
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+## Apply the theme at the document root
+
+When your theme solution resolves dark mode, it should put
+`data-moduix-color-scheme="dark"` on `<html>`; use `light` for the light scheme. moduix does not
+require a provider, store a preference, or choose a theme package, so it stays separate from the
+application's existing theme selectors and tokens.
+
+```html
+<!-- Dark theme -->
+<html data-moduix-color-scheme="dark"></html>
+```
+
+Use the document root for an application-wide theme. Portalled components such as Dialog, Popover,
+and Select also inherit the same tokens there.
+
+If your app renders on the server, use its early theme mechanism so the resolved attribute is present
+before the page becomes visible. It prevents a brief light theme before client JavaScript applies a
+saved preference.
+
+## Combine dark mode with a preset
+
+Color mode and visual presets are separate layers. Keep `data-moduix-color-scheme` and
+`data-moduix-theme` on the same root so regular and portalled components resolve the same palette,
+density, radius, and focus tokens.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/dense.css';
+```
+
+<div style={{ height: '1rem' }} aria-hidden="true" />
+
+```html
+<html data-moduix-color-scheme="dark" data-moduix-theme="dense"></html>
+```
+
+Changing color mode does not change density. The selected preset keeps its control and popup scale
+in both modes. See [Themes](/docs/themes) for the preset comparison and custom theme pattern.
+
+## Scope a preview or embedded surface
+
+You can place `data-moduix-color-scheme="dark"` on a regular wrapper when only that subtree needs
+the dark tokens:
+
+```tsx
+<section data-moduix-color-scheme="dark">
+  <Card>Dark preview</Card>
+</section>
+```
+
+This is useful for a settings preview or an embedded widget. Portalled content is outside that
+wrapper, so keep the attribute on `<html>`, `body`, or your portal container when the subtree opens
+overlays.
+
+## Customize both themes
+
+Override the same semantic tokens in `:root` and `[data-moduix-color-scheme='dark']`. Components read semantic aliases such as
+`--moduix-color-background`, `--moduix-color-foreground`, and `--moduix-color-border`, so the values stay consistent
+across the library.
+
+```css
+:root {
+  --moduix-background: oklch(0.99 0.004 285);
+  --moduix-primary: oklch(0.5 0.18 260);
+}
+
+[data-moduix-color-scheme='dark'] {
+  --moduix-background: oklch(0.16 0.01 285);
+  --moduix-primary: oklch(0.76 0.13 260);
+}
+```
+
+Use [Tokens](/docs/tokens) for the complete token reference and component pages for local visual
+overrides.

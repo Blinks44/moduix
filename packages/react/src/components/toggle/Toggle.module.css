@@ -1,138 +1,156 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--toggle-content-gap, var(--spacing-2));
-    min-height: var(--toggle-size-md, var(--size-md));
+    gap: var(--moduix-toggle-content-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-toggle-size-md, var(--moduix-size-md));
     margin: 0;
     border-style: solid;
-    border-width: var(--toggle-border-width, var(--border-width-sm));
-    border-radius: var(--toggle-radius, var(--radius-md));
-    padding-block: var(--toggle-padding-y-md, var(--spacing-1));
-    padding-inline: var(--toggle-padding-x-md, var(--spacing-4));
+    border-width: var(--moduix-toggle-border-width, var(--moduix-border-width-sm));
+    border-radius: var(--moduix-toggle-radius, var(--moduix-radius-md));
+    padding-block: var(--moduix-toggle-padding-y-md, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-toggle-padding-x-md, var(--moduix-spacing-4));
     border-color: transparent;
     background-color: transparent;
-    color: var(--toggle-color, var(--color-foreground));
+    color: var(--moduix-toggle-color, var(--moduix-color-foreground));
     appearance: none;
     font: inherit;
-    font-size: var(--toggle-font-size, var(--text-sm));
-    font-weight: var(--toggle-font-weight, var(--weight-medium));
-    line-height: var(--toggle-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-toggle-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-toggle-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-toggle-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color var(--toggle-transition, var(--transition-default)),
-      border-color var(--toggle-transition, var(--transition-default)),
-      color var(--toggle-transition, var(--transition-default)),
-      opacity var(--toggle-transition, var(--transition-default));
+      background-color var(--moduix-toggle-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-toggle-transition, var(--moduix-transition-default)),
+      color var(--moduix-toggle-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-toggle-transition, var(--moduix-transition-default));
 
     &:focus-visible {
-      outline: var(--toggle-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) solid
-        var(--toggle-focus-ring-color, var(--color-ring));
-      outline-offset: var(--toggle-focus-ring-offset, var(--focus-ring-inset-offset));
+      outline: var(
+          --moduix-toggle-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-toggle-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-toggle-focus-ring-offset, var(--moduix-focus-ring-inset-offset));
     }
 
     &[data-disabled] {
-      opacity: var(--toggle-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-toggle-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
       pointer-events: none;
     }
 
     & :where(svg) {
       display: block;
-      width: var(--toggle-icon-size, var(--spacing-4));
-      height: var(--toggle-icon-size, var(--spacing-4));
+      width: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;
     }
 
     &[data-variant='default'] {
-      border-color: var(--toggle-default-border-color, var(--color-secondary));
-      background-color: var(--toggle-default-bg, var(--color-secondary));
-      color: var(--toggle-default-color, var(--toggle-color, var(--color-secondary-foreground)));
+      border-color: var(--moduix-toggle-default-border-color, var(--moduix-color-secondary));
+      background-color: var(--moduix-toggle-default-bg, var(--moduix-color-secondary));
+      color: var(
+        --moduix-toggle-default-color,
+        var(--moduix-toggle-color, var(--moduix-color-secondary-foreground))
+      );
 
       @media (hover: hover) {
         &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--toggle-default-bg-hover, var(--color-accent));
+          background-color: var(--moduix-toggle-default-bg-hover, var(--moduix-color-accent));
         }
       }
 
       &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--toggle-default-bg-active, var(--color-accent));
+        background-color: var(--moduix-toggle-default-bg-active, var(--moduix-color-accent));
       }
 
       &[data-state='on'] {
-        border-color: var(--toggle-default-border-color-pressed, var(--color-primary));
-        background-color: var(--toggle-default-bg-pressed, var(--color-primary));
-        color: var(--toggle-default-color-pressed, var(--color-primary-foreground));
+        border-color: var(
+          --moduix-toggle-default-border-color-pressed,
+          var(--moduix-color-primary)
+        );
+        background-color: var(--moduix-toggle-default-bg-pressed, var(--moduix-color-primary));
+        color: var(--moduix-toggle-default-color-pressed, var(--moduix-color-primary-foreground));
       }
     }
 
     &[data-variant='outline'] {
-      border-color: var(--toggle-outline-border-color, var(--color-border));
-      background-color: var(--toggle-outline-bg, var(--color-background));
-      color: var(--toggle-outline-color, var(--toggle-color, var(--color-foreground)));
+      border-color: var(--moduix-toggle-outline-border-color, var(--moduix-color-border));
+      background-color: var(--moduix-toggle-outline-bg, var(--moduix-color-background));
+      color: var(
+        --moduix-toggle-outline-color,
+        var(--moduix-toggle-color, var(--moduix-color-foreground))
+      );
 
       @media (hover: hover) {
         &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--toggle-outline-bg-hover, var(--color-accent));
+          background-color: var(--moduix-toggle-outline-bg-hover, var(--moduix-color-accent));
         }
       }
 
       &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--toggle-outline-bg-active, var(--color-accent));
+        background-color: var(--moduix-toggle-outline-bg-active, var(--moduix-color-accent));
       }
 
       &[data-state='on'] {
-        border-color: var(--toggle-outline-border-color-pressed, var(--color-primary));
-        background-color: var(--toggle-outline-bg-pressed, var(--color-primary));
-        color: var(--toggle-outline-color-pressed, var(--color-primary-foreground));
+        border-color: var(
+          --moduix-toggle-outline-border-color-pressed,
+          var(--moduix-color-primary)
+        );
+        background-color: var(--moduix-toggle-outline-bg-pressed, var(--moduix-color-primary));
+        color: var(--moduix-toggle-outline-color-pressed, var(--moduix-color-primary-foreground));
       }
     }
 
     &[data-variant='ghost'] {
-      border-color: var(--toggle-ghost-border-color, transparent);
-      background-color: var(--toggle-ghost-bg, transparent);
-      color: var(--toggle-ghost-color, var(--toggle-color, var(--color-foreground)));
+      border-color: var(--moduix-toggle-ghost-border-color, transparent);
+      background-color: var(--moduix-toggle-ghost-bg, transparent);
+      color: var(
+        --moduix-toggle-ghost-color,
+        var(--moduix-toggle-color, var(--moduix-color-foreground))
+      );
 
       @media (hover: hover) {
         &[data-state='off']:not([data-disabled]):hover {
-          background-color: var(--toggle-ghost-bg-hover, var(--color-accent));
+          background-color: var(--moduix-toggle-ghost-bg-hover, var(--moduix-color-accent));
         }
       }
 
       &[data-state='off']:not([data-disabled]):active {
-        background-color: var(--toggle-ghost-bg-active, var(--color-accent));
+        background-color: var(--moduix-toggle-ghost-bg-active, var(--moduix-color-accent));
       }
 
       &[data-state='on'] {
-        background-color: var(--toggle-ghost-bg-pressed, var(--color-accent));
-        color: var(--toggle-ghost-color-pressed, var(--color-foreground));
+        background-color: var(--moduix-toggle-ghost-bg-pressed, var(--moduix-color-accent));
+        color: var(--moduix-toggle-ghost-color-pressed, var(--moduix-color-foreground));
       }
     }
 
     &[data-size='xs'] {
-      min-height: var(--toggle-size-xs, var(--size-xs));
-      padding-block: var(--toggle-padding-y-xs, var(--spacing-0-5));
-      padding-inline: var(--toggle-padding-x-xs, var(--spacing-2-5));
-      font-size: var(--toggle-font-size-xs, var(--text-xs));
-      line-height: var(--toggle-line-height-xs, var(--line-height-text-xs));
+      min-height: var(--moduix-toggle-size-xs, var(--moduix-size-xs));
+      padding-block: var(--moduix-toggle-padding-y-xs, var(--moduix-spacing-0-5));
+      padding-inline: var(--moduix-toggle-padding-x-xs, var(--moduix-spacing-2-5));
+      font-size: var(--moduix-toggle-font-size-xs, var(--moduix-text-xs));
+      line-height: var(--moduix-toggle-line-height-xs, var(--moduix-line-height-text-xs));
     }
 
     &[data-size='sm'] {
-      min-height: var(--toggle-size-sm, var(--size-sm));
-      padding-block: var(--toggle-padding-y-sm, var(--spacing-1));
-      padding-inline: var(--toggle-padding-x-sm, var(--spacing-3));
+      min-height: var(--moduix-toggle-size-sm, var(--moduix-size-sm));
+      padding-block: var(--moduix-toggle-padding-y-sm, var(--moduix-spacing-1));
+      padding-inline: var(--moduix-toggle-padding-x-sm, var(--moduix-spacing-3));
     }
 
     &[data-size='lg'] {
-      min-height: var(--toggle-size-lg, var(--size-lg));
-      padding-block: var(--toggle-padding-y-lg, var(--spacing-1-5));
-      padding-inline: var(--toggle-padding-x-lg, var(--spacing-5));
-      font-size: var(--toggle-font-size-lg, var(--text-md));
-      line-height: var(--toggle-line-height-lg, var(--line-height-text-md));
+      min-height: var(--moduix-toggle-size-lg, var(--moduix-size-lg));
+      padding-block: var(--moduix-toggle-padding-y-lg, var(--moduix-spacing-1-5));
+      padding-inline: var(--moduix-toggle-padding-x-lg, var(--moduix-spacing-5));
+      font-size: var(--moduix-toggle-font-size-lg, var(--moduix-text-md));
+      line-height: var(--moduix-toggle-line-height-lg, var(--moduix-line-height-text-md));
     }
 
     &[data-size='icon-sm'],
@@ -143,21 +161,21 @@
     }
 
     &[data-size='icon-sm'] {
-      width: var(--toggle-size-icon-sm, var(--size-sm));
-      min-width: var(--toggle-size-icon-sm, var(--size-sm));
-      height: var(--toggle-size-icon-sm, var(--size-sm));
+      width: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
+      min-width: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
+      height: var(--moduix-toggle-size-icon-sm, var(--moduix-size-sm));
     }
 
     &[data-size='icon-md'] {
-      width: var(--toggle-size-icon-md, var(--size-md));
-      min-width: var(--toggle-size-icon-md, var(--size-md));
-      height: var(--toggle-size-icon-md, var(--size-md));
+      width: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
+      min-width: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
+      height: var(--moduix-toggle-size-icon-md, var(--moduix-size-md));
     }
 
     &[data-size='icon-lg'] {
-      width: var(--toggle-size-icon-lg, var(--size-lg));
-      min-width: var(--toggle-size-icon-lg, var(--size-lg));
-      height: var(--toggle-size-icon-lg, var(--size-lg));
+      width: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
+      min-width: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
+      height: var(--moduix-toggle-size-icon-lg, var(--moduix-size-lg));
     }
   }
 

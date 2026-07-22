@@ -1,73 +1,95 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--listbox-width, 16rem);
-    max-width: var(--listbox-max-width, 100%);
+    width: var(--moduix-listbox-width, 16rem);
+    max-width: var(--moduix-listbox-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    gap: var(--listbox-root-gap, var(--spacing-3));
-    color: var(--listbox-color, var(--color-foreground));
+    gap: var(--moduix-listbox-root-gap, var(--moduix-spacing-3));
+    color: var(--moduix-listbox-color, var(--moduix-color-foreground));
 
     &[data-disabled] {
-      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .label {
-    color: var(--listbox-label-color, var(--listbox-color, var(--color-foreground)));
-    font-size: var(--listbox-label-font-size, var(--text-sm));
-    font-weight: var(--listbox-label-font-weight, var(--weight-medium));
-    line-height: var(--listbox-label-line-height, var(--line-height-text-sm));
+    color: var(
+      --moduix-listbox-label-color,
+      var(--moduix-listbox-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-listbox-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-listbox-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-listbox-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
   }
 
   .input {
     box-sizing: border-box;
     width: 100%;
-    min-height: var(--listbox-input-height, var(--size-md));
+    min-height: var(--moduix-listbox-input-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--listbox-input-border-width, var(--listbox-border-width, var(--border-width-sm)))
-      solid var(--listbox-input-border-color, var(--listbox-border-color, var(--color-border)));
-    border-radius: var(--listbox-input-radius, var(--listbox-radius, var(--radius-md)));
-    padding: var(--listbox-input-padding-y, var(--spacing-1))
-      var(--listbox-input-padding-x, var(--spacing-3));
-    background-color: var(--listbox-input-bg, var(--color-background));
-    color: var(--listbox-input-color, var(--listbox-color, var(--color-foreground)));
+    border: var(
+        --moduix-listbox-input-border-width,
+        var(--moduix-listbox-border-width, var(--moduix-border-width-sm))
+      )
+      solid
+      var(
+        --moduix-listbox-input-border-color,
+        var(--moduix-listbox-border-color, var(--moduix-color-border))
+      );
+    border-radius: var(
+      --moduix-listbox-input-radius,
+      var(--moduix-listbox-radius, var(--moduix-radius-md))
+    );
+    padding: var(--moduix-listbox-input-padding-y, var(--moduix-spacing-1))
+      var(--moduix-listbox-input-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-listbox-input-bg, var(--moduix-color-background));
+    color: var(
+      --moduix-listbox-input-color,
+      var(--moduix-listbox-color, var(--moduix-color-foreground))
+    );
     font: inherit;
-    font-size: var(--listbox-input-font-size, var(--text-md));
-    line-height: var(--listbox-input-line-height, var(--line-height-text-md));
+    font-size: var(--moduix-listbox-input-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-listbox-input-line-height, var(--moduix-line-height-text-md));
     outline: var(
-        --listbox-input-focus-ring-width,
-        var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        --moduix-listbox-input-focus-ring-width,
+        var(
+          --moduix-listbox-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
       )
       solid transparent;
     outline-offset: calc(
       var(
-          --listbox-input-focus-ring-width,
-          var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+          --moduix-listbox-input-focus-ring-width,
+          var(
+            --moduix-listbox-focus-ring-width,
+            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+          )
         ) *
         -1
     );
     transition:
-      border-color var(--listbox-transition, var(--transition-default)),
-      outline-color var(--listbox-transition, var(--transition-default)),
-      opacity var(--listbox-transition, var(--transition-default));
+      border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-listbox-transition, var(--moduix-transition-default));
 
     &::placeholder {
-      color: var(--listbox-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-listbox-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &:focus-visible {
       outline-color: var(
-        --listbox-input-focus-ring-color,
-        var(--listbox-focus-ring-color, var(--color-ring))
+        --moduix-listbox-input-focus-ring-color,
+        var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring))
       );
     }
 
     &[data-disabled],
     &[disabled] {
-      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
     }
   }
@@ -85,7 +107,7 @@
   }
 
   .filter + .content {
-    margin-top: calc(-1 * var(--listbox-root-gap, var(--spacing-3)));
+    margin-top: calc(-1 * var(--moduix-listbox-root-gap, var(--moduix-spacing-3)));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
@@ -94,27 +116,30 @@
     position: absolute;
     z-index: 1;
     top: 50%;
-    inset-inline-start: var(--listbox-filter-padding-x, var(--spacing-3));
-    width: var(--listbox-filter-icon-size, var(--spacing-4));
-    height: var(--listbox-filter-icon-size, var(--spacing-4));
-    color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
+    inset-inline-start: var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3));
+    width: var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4));
+    color: var(--moduix-listbox-filter-icon-color, var(--moduix-color-muted-foreground));
     pointer-events: none;
     transform: translateY(-50%);
   }
 
   .filter .input {
-    min-height: var(--listbox-filter-height, var(--listbox-input-height, var(--size-md)));
+    min-height: var(
+      --moduix-listbox-filter-height,
+      var(--moduix-listbox-input-height, var(--moduix-size-md))
+    );
     padding-inline-start: calc(
-      var(--listbox-filter-padding-x, var(--spacing-3)) +
-        var(--listbox-filter-icon-size, var(--spacing-4)) +
-        var(--listbox-filter-input-padding-x, var(--spacing-2))
+      var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3)) +
+        var(--moduix-listbox-filter-icon-size, var(--moduix-spacing-4)) +
+        var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
     );
     padding-inline-end: calc(
-      var(--listbox-filter-padding-x, var(--spacing-3)) +
-        var(--listbox-filter-action-size, var(--size-xs)) +
-        var(--listbox-filter-input-padding-x, var(--spacing-2))
+      var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3)) +
+        var(--moduix-listbox-filter-action-size, var(--moduix-size-xs)) +
+        var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
     );
-    background-color: var(--listbox-bg, var(--color-background));
+    background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
 
     &:focus-visible {
       outline-color: transparent;
@@ -125,70 +150,98 @@
     position: absolute;
     z-index: 1;
     top: 50%;
-    inset-inline-end: var(--listbox-filter-padding-x, var(--spacing-3));
+    inset-inline-end: var(--moduix-listbox-filter-padding-x, var(--moduix-spacing-3));
     transform: translateY(-50%);
-    --close-button-size: var(--listbox-filter-action-size, var(--size-xs));
-    --close-button-radius: var(--listbox-filter-action-radius, var(--radius-sm));
-    --close-button-bg: var(--listbox-filter-action-bg, transparent);
-    --close-button-bg-hover: var(--listbox-filter-action-bg-hover, var(--color-muted));
-    --close-button-color: var(--listbox-filter-icon-color, var(--color-muted-foreground));
-    --close-button-color-hover: var(--listbox-filter-action-color-hover, var(--color-foreground));
-    --close-button-icon-size: var(--listbox-filter-icon-size, var(--spacing-4));
-    --close-button-transition: var(--listbox-transition, var(--transition-default));
+    --moduix-close-button-size: var(--moduix-listbox-filter-action-size, var(--moduix-size-xs));
+    --moduix-close-button-radius: var(
+      --moduix-listbox-filter-action-radius,
+      var(--moduix-radius-sm)
+    );
+    --moduix-close-button-bg: var(--moduix-listbox-filter-action-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-listbox-filter-action-bg-hover,
+      var(--moduix-color-muted)
+    );
+    --moduix-close-button-color: var(
+      --moduix-listbox-filter-icon-color,
+      var(--moduix-color-muted-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-listbox-filter-action-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-icon-size: var(
+      --moduix-listbox-filter-icon-size,
+      var(--moduix-spacing-4)
+    );
+    --moduix-close-button-transition: var(
+      --moduix-listbox-transition,
+      var(--moduix-transition-default)
+    );
   }
 
   .content {
     box-sizing: border-box;
     display: flex;
     min-height: 0;
-    max-height: var(--listbox-content-max-height, 14rem);
+    max-height: var(--moduix-listbox-content-max-height, 14rem);
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    border: var(--listbox-border-width, var(--border-width-sm)) solid
-      var(--listbox-border-color, var(--color-border));
-    border-radius: var(--listbox-radius, var(--radius-md));
-    padding-block: var(--listbox-content-padding-y, var(--popup-list-padding-y, var(--spacing-1)));
-    background-color: var(--listbox-bg, var(--color-background));
-    color: var(--listbox-color, var(--color-foreground));
-    outline: var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+    border: var(--moduix-listbox-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-listbox-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-listbox-radius, var(--moduix-radius-md));
+    padding-block: var(
+      --moduix-listbox-content-padding-y,
+      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
+    );
+    background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
+    color: var(--moduix-listbox-color, var(--moduix-color-foreground));
+    outline: var(
+        --moduix-listbox-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
       solid transparent;
     outline-offset: calc(
-      var(--listbox-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      var(
+          --moduix-listbox-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
     );
     overscroll-behavior: auto;
     scrollbar-gutter: stable;
     scroll-padding-block: var(
-      --listbox-content-padding-y,
-      var(--popup-list-padding-y, var(--spacing-1))
+      --moduix-listbox-content-padding-y,
+      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
     );
     transition:
-      border-color var(--listbox-transition, var(--transition-default)),
-      outline-color var(--listbox-transition, var(--transition-default));
+      border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-listbox-transition, var(--moduix-transition-default));
 
     &[data-layout='grid'] {
       display: grid;
       grid-template-columns: repeat(var(--column-count), minmax(0, 1fr));
-      gap: var(--listbox-grid-gap, var(--spacing-1));
-      padding: var(--listbox-grid-padding, var(--spacing-2));
+      gap: var(--moduix-listbox-grid-gap, var(--moduix-spacing-1));
+      padding: var(--moduix-listbox-grid-padding, var(--moduix-spacing-2));
     }
 
     &[data-orientation='horizontal']:not([data-layout='grid']) {
       flex-direction: row;
-      gap: var(--listbox-horizontal-gap, var(--spacing-2));
-      max-height: var(--listbox-horizontal-content-max-height, none);
+      gap: var(--moduix-listbox-horizontal-gap, var(--moduix-spacing-2));
+      max-height: var(--moduix-listbox-horizontal-content-max-height, none);
       overflow-x: auto;
       overflow-y: hidden;
-      padding-inline: var(--listbox-content-padding-y, var(--spacing-1));
+      padding-inline: var(--moduix-listbox-content-padding-y, var(--moduix-spacing-1));
     }
   }
 
   .empty {
-    padding-block: var(--listbox-empty-padding-y, var(--spacing-3));
-    padding-inline: var(--listbox-empty-padding-x, var(--spacing-3));
-    color: var(--listbox-empty-color, var(--color-muted-foreground));
-    font-size: var(--listbox-empty-font-size, var(--text-sm));
-    line-height: var(--listbox-empty-line-height, var(--line-height-text-sm));
+    padding-block: var(--moduix-listbox-empty-padding-y, var(--moduix-spacing-3));
+    padding-inline: var(--moduix-listbox-empty-padding-x, var(--moduix-spacing-3));
+    color: var(--moduix-listbox-empty-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-listbox-empty-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-listbox-empty-line-height, var(--moduix-line-height-text-sm));
     text-align: center;
   }
 
@@ -197,31 +250,31 @@
     flex-direction: column;
 
     & + & {
-      margin-top: var(--listbox-item-group-gap, var(--spacing-2));
+      margin-top: var(--moduix-listbox-item-group-gap, var(--moduix-spacing-2));
     }
   }
 
   .itemGroupLabel {
     padding-block: var(
-      --listbox-item-group-label-padding-y,
-      var(--popup-group-label-padding-y, var(--spacing-1))
+      --moduix-listbox-item-group-label-padding-y,
+      var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
     );
-    padding-inline: var(--listbox-item-group-label-padding-x, var(--spacing-2));
+    padding-inline: var(--moduix-listbox-item-group-label-padding-x, var(--moduix-spacing-2));
     color: var(
-      --listbox-item-group-label-color,
-      var(--popup-group-label-color, var(--color-muted-foreground))
+      --moduix-listbox-item-group-label-color,
+      var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))
     );
     font-size: var(
-      --listbox-item-group-label-font-size,
-      var(--popup-group-label-font-size, var(--text-xs))
+      --moduix-listbox-item-group-label-font-size,
+      var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))
     );
     font-weight: var(
-      --listbox-item-group-label-font-weight,
-      var(--popup-group-label-font-weight, var(--weight-regular))
+      --moduix-listbox-item-group-label-font-weight,
+      var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))
     );
     line-height: var(
-      --listbox-item-group-label-line-height,
-      var(--popup-group-label-line-height, var(--line-height-text-xs))
+      --moduix-listbox-item-group-label-line-height,
+      var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))
     );
     user-select: none;
   }
@@ -230,64 +283,86 @@
     position: relative;
     box-sizing: border-box;
     display: grid;
-    width: calc(100% - var(--listbox-item-inset-x, var(--spacing-2)));
-    min-height: var(--listbox-item-min-height, var(--popup-item-min-height, var(--size-sm)));
-    grid-template-columns: minmax(0, 1fr) var(--listbox-item-indicator-size, var(--spacing-4));
-    align-items: center;
-    gap: var(--listbox-item-gap, var(--spacing-2));
-    margin-inline: calc(var(--listbox-item-inset-x, var(--spacing-2)) / 2);
-    border: var(--listbox-item-border-width, 0) solid var(--listbox-item-border-color, transparent);
-    border-radius: var(--listbox-item-radius, var(--radius-sm));
-    padding-block: var(--listbox-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
-    padding-inline: var(
-      --listbox-item-padding-x,
-      var(--popup-item-padding-x-start, var(--spacing-3))
+    width: calc(100% - var(--moduix-listbox-item-inset-x, var(--moduix-spacing-2)));
+    min-height: var(
+      --moduix-listbox-item-min-height,
+      var(--moduix-popup-item-min-height, var(--moduix-size-sm))
     );
-    background-color: var(--listbox-item-bg, transparent);
-    color: var(--listbox-item-color, var(--listbox-color, var(--color-foreground)));
+    grid-template-columns: minmax(0, 1fr) var(
+        --moduix-listbox-item-indicator-size,
+        var(--moduix-spacing-4)
+      );
+    align-items: center;
+    gap: var(--moduix-listbox-item-gap, var(--moduix-spacing-2));
+    margin-inline: calc(var(--moduix-listbox-item-inset-x, var(--moduix-spacing-2)) / 2);
+    border: var(--moduix-listbox-item-border-width, 0) solid
+      var(--moduix-listbox-item-border-color, transparent);
+    border-radius: var(--moduix-listbox-item-radius, var(--moduix-radius-sm));
+    padding-block: var(
+      --moduix-listbox-item-padding-y,
+      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
+    );
+    padding-inline: var(
+      --moduix-listbox-item-padding-x,
+      var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
+    );
+    background-color: var(--moduix-listbox-item-bg, transparent);
+    color: var(
+      --moduix-listbox-item-color,
+      var(--moduix-listbox-color, var(--moduix-color-foreground))
+    );
     font: inherit;
-    font-size: var(--listbox-item-font-size, var(--popup-item-font-size, var(--text-sm)));
+    font-size: var(
+      --moduix-listbox-item-font-size,
+      var(--moduix-popup-item-font-size, var(--moduix-text-sm))
+    );
     line-height: var(
-      --listbox-item-line-height,
-      var(--popup-item-line-height, var(--line-height-text-sm))
+      --moduix-listbox-item-line-height,
+      var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))
     );
     outline: 0;
     user-select: none;
     cursor: pointer;
     transition:
-      background-color var(--listbox-transition, var(--transition-default)),
-      color var(--listbox-transition, var(--transition-default));
+      background-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
+      color var(--moduix-listbox-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:not([data-disabled]):hover {
-        background-color: var(--listbox-hover-bg, var(--listbox-highlight-bg, var(--color-accent)));
+        background-color: var(
+          --moduix-listbox-hover-bg,
+          var(--moduix-listbox-highlight-bg, var(--moduix-color-accent))
+        );
         color: var(
-          --listbox-hover-color,
-          var(--listbox-highlight-color, var(--color-accent-foreground))
+          --moduix-listbox-hover-color,
+          var(--moduix-listbox-highlight-color, var(--moduix-color-accent-foreground))
         );
       }
     }
 
     &[data-highlighted] {
-      background-color: var(--listbox-highlight-bg, var(--color-accent));
-      color: var(--listbox-highlight-color, var(--color-accent-foreground));
+      background-color: var(--moduix-listbox-highlight-bg, var(--moduix-color-accent));
+      color: var(--moduix-listbox-highlight-color, var(--moduix-color-accent-foreground));
     }
 
     &[data-selected] {
-      color: var(--listbox-item-selected-color, var(--listbox-item-color, var(--color-foreground)));
+      color: var(
+        --moduix-listbox-item-selected-color,
+        var(--moduix-listbox-item-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-disabled] {
       pointer-events: none;
-      color: var(--listbox-item-disabled-color, var(--color-muted-foreground));
-      opacity: var(--listbox-disabled-opacity, var(--opacity-disabled));
+      color: var(--moduix-listbox-item-disabled-color, var(--moduix-color-muted-foreground));
+      opacity: var(--moduix-listbox-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
     }
   }
 
   .content[data-orientation='horizontal']:not([data-layout='grid']) .item {
-    width: var(--listbox-horizontal-item-width, 11rem);
-    min-width: var(--listbox-horizontal-item-width, 11rem);
+    width: var(--moduix-listbox-horizontal-item-width, 11rem);
+    min-width: var(--moduix-listbox-horizontal-item-width, 11rem);
     align-items: flex-start;
   }
 
@@ -300,8 +375,8 @@
     text-align: center;
 
     &[data-selected] {
-      background-color: var(--listbox-grid-selected-bg, var(--color-muted));
-      color: var(--listbox-grid-selected-color, var(--color-foreground));
+      background-color: var(--moduix-listbox-grid-selected-bg, var(--moduix-color-muted));
+      color: var(--moduix-listbox-grid-selected-color, var(--moduix-color-foreground));
     }
   }
 
@@ -315,16 +390,16 @@
 
   .itemIndicator {
     display: inline-flex;
-    width: var(--listbox-item-indicator-size, var(--spacing-4));
-    height: var(--listbox-item-indicator-size, var(--spacing-4));
+    width: var(--moduix-listbox-item-indicator-size, var(--moduix-spacing-4));
+    height: var(--moduix-listbox-item-indicator-size, var(--moduix-spacing-4));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--listbox-item-indicator-color, currentColor);
+    color: var(--moduix-listbox-item-indicator-color, currentColor);
 
     & > svg {
-      width: var(--listbox-item-indicator-icon-size, var(--spacing-3));
-      height: var(--listbox-item-indicator-icon-size, var(--spacing-3));
+      width: var(--moduix-listbox-item-indicator-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-listbox-item-indicator-icon-size, var(--moduix-spacing-3));
     }
 
     &[data-state='unchecked'] {
@@ -333,9 +408,9 @@
   }
 
   .valueText {
-    color: var(--listbox-value-text-color, var(--color-muted-foreground));
-    font-size: var(--listbox-value-text-font-size, var(--text-sm));
-    line-height: var(--listbox-value-text-line-height, var(--line-height-text-sm));
+    color: var(--moduix-listbox-value-text-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-listbox-value-text-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-listbox-value-text-line-height, var(--moduix-line-height-text-sm));
   }
 
   .itemTextContent {
@@ -343,18 +418,18 @@
     max-width: 100%;
     min-width: 0;
     align-items: center;
-    gap: var(--listbox-item-text-content-gap, var(--spacing-2));
+    gap: var(--moduix-listbox-item-text-content-gap, var(--moduix-spacing-2));
     vertical-align: top;
   }
 
   .itemTextIcon {
     display: inline-flex;
-    width: var(--listbox-item-text-icon-size, var(--spacing-4));
-    height: var(--listbox-item-text-icon-size, var(--spacing-4));
+    width: var(--moduix-listbox-item-text-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-listbox-item-text-icon-size, var(--moduix-spacing-4));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--listbox-item-text-icon-color, currentColor);
+    color: var(--moduix-listbox-item-text-icon-color, currentColor);
   }
 
   .itemTextLabel {

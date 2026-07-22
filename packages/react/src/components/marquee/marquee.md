@@ -135,15 +135,15 @@ should pass a descriptive `aria-label` or `translations.root`.
 
 Relevant Ark attributes and variables:
 
-| Target   | Attribute or variable                                                                  | Meaning                                  |
-| -------- | -------------------------------------------------------------------------------------- | ---------------------------------------- |
-| Root     | `data-state="paused" \| "idle"`, `data-paused`, `data-orientation`                     | Playback and orientation state.          |
-| Viewport | `data-orientation`, `data-side`                                                        | Layout orientation and scroll side.      |
-| Content  | `data-index`, `data-orientation`, `data-side`, `data-reverse`, `data-clone`            | Animation direction and clone identity.  |
-| Item     | `data-scope="marquee"`, `data-part="item"`                                             | Individual item styling hook.            |
-| Edge     | `data-side`, `data-orientation`                                                        | Fade side and orientation.               |
-| Root     | `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`, `--marquee-translate` | Animation values consumed by CSS.        |
-| Root     | `--marquee-spacing`                                                                    | Spacing between content instances/items. |
+| Target   | Attribute or variable                                                                  | Meaning                                      |
+| -------- | -------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Root     | `data-state="paused" \| "idle"`, `data-paused`, `data-orientation`                     | Playback and orientation state.              |
+| Viewport | `data-orientation`, `data-side`                                                        | Layout orientation and scroll side.          |
+| Content  | `data-index`, `data-orientation`, `data-side`, `data-reverse`, `data-clone`            | Animation direction and clone identity.      |
+| Item     | `data-scope="marquee"`, `data-part="item"`                                             | Individual item styling hook.                |
+| Edge     | `data-side`, `data-orientation`                                                        | Fade side and orientation.                   |
+| Root     | `--marquee-duration`, `--marquee-delay`, `--marquee-loop-count`, `--marquee-translate` | Ark animation values consumed by CSS.        |
+| Root     | `--marquee-spacing`                                                                    | Ark spacing between content instances/items. |
 
 `paused` with `onPauseChange(details)` is the controlled playback path. `defaultPaused` sets the
 initial uncontrolled state. Refs forward to the actual Ark DOM part for every wrapped part.
@@ -160,20 +160,20 @@ supplies layout props, state attributes, clones, and runtime CSS variables.
 
 Primary CSS variables:
 
-| Variable                    | Default                            |
-| --------------------------- | ---------------------------------- |
-| `--marquee-width`           | `100%`                             |
-| `--marquee-height`          | `auto`                             |
-| `--marquee-vertical-height` | `var(--marquee-height, 15rem)`     |
-| `--marquee-color`           | `var(--color-foreground)`          |
-| `--marquee-edge-size`       | `20%`                              |
-| `--marquee-edge-color`      | `var(--color-background)`          |
-| `--marquee-edge-z-index`    | `1`                                |
-| `--marquee-delay`           | from `delay` (`0s`)                |
-| `--marquee-duration`        | from content size + `speed` (`50`) |
-| `--marquee-loop-count`      | from `loopCount` (`0` = infinite)  |
-| `--marquee-spacing`         | from `spacing` (`1rem`)            |
-| `--marquee-translate`       | from measured size + `side`        |
+| Variable                           | Default                               |
+| ---------------------------------- | ------------------------------------- |
+| `--moduix-marquee-width`           | `100%`                                |
+| `--moduix-marquee-height`          | `auto`                                |
+| `--moduix-marquee-vertical-height` | `var(--moduix-marquee-height, 15rem)` |
+| `--moduix-marquee-color`           | `var(--moduix-color-foreground)`      |
+| `--moduix-marquee-edge-size`       | `20%`                                 |
+| `--moduix-marquee-edge-color`      | `var(--moduix-color-background)`      |
+| `--moduix-marquee-edge-z-index`    | `1`                                   |
+| `--marquee-delay`                  | from `delay` (`0s`)                   |
+| `--marquee-duration`               | from content size + `speed` (`50`)    |
+| `--marquee-loop-count`             | from `loopCount` (`0` = infinite)     |
+| `--marquee-spacing`                | from `spacing` (`1rem`)               |
+| `--marquee-translate`              | from measured size + `side`           |
 
 The CSS applies `marquee-x` for inline scrolling and `marquee-y` for vertical scrolling. It pauses
 content animation when Ark sets `data-paused` on the root and disables animation for

@@ -1,43 +1,46 @@
-@layer ui.components {
+@layer moduix.components {
   .trigger,
   .closeTrigger {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--drawer-control-height, var(--size-md));
+    min-height: var(--moduix-drawer-control-height, var(--moduix-size-md));
     margin: 0;
-    padding: var(--drawer-control-padding-y, var(--spacing-1))
-      var(--drawer-control-padding-x, var(--spacing-3-5));
-    border: var(--drawer-control-border-width, var(--border-width-sm)) solid
-      var(--drawer-control-border-color, var(--color-border));
-    border-radius: var(--drawer-control-radius, var(--radius-md));
-    background-color: var(--drawer-control-bg, var(--color-background));
-    color: var(--drawer-control-color, var(--color-foreground));
+    padding: var(--moduix-drawer-control-padding-y, var(--moduix-spacing-1))
+      var(--moduix-drawer-control-padding-x, var(--moduix-spacing-3-5));
+    border: var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-drawer-control-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-drawer-control-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-drawer-control-bg, var(--moduix-color-background));
+    color: var(--moduix-drawer-control-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--drawer-control-font-size, var(--text-md));
-    line-height: var(--drawer-control-line-height, var(--line-height-text-md));
+    font-size: var(--moduix-drawer-control-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-drawer-control-line-height, var(--moduix-line-height-text-md));
     cursor: pointer;
     user-select: none;
     transition:
-      background-color var(--transition-default),
-      border-color var(--transition-default),
-      color var(--transition-default);
+      background-color var(--moduix-transition-default),
+      border-color var(--moduix-transition-default),
+      color var(--moduix-transition-default);
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--drawer-control-bg-hover, var(--color-accent));
+        background-color: var(--moduix-drawer-control-bg-hover, var(--moduix-color-accent));
       }
     }
 
     &:focus-visible {
       outline: var(
-          --drawer-focus-ring-width,
-          var(--drawer-control-border-width, var(--border-width-sm))
+          --moduix-drawer-focus-ring-width,
+          var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm))
         )
-        solid var(--drawer-focus-ring-color, var(--color-ring));
+        solid var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring));
       outline-offset: calc(
-        var(--drawer-focus-ring-width, var(--drawer-control-border-width, var(--border-width-sm))) *
+        var(
+            --moduix-drawer-focus-ring-width,
+            var(--moduix-drawer-control-border-width, var(--moduix-border-width-sm))
+          ) *
           -1
       );
     }
@@ -45,28 +48,35 @@
     &[data-disabled],
     &[disabled] {
       pointer-events: none;
-      opacity: var(--opacity-disabled);
+      opacity: var(--moduix-opacity-disabled);
     }
   }
 
   .backdrop {
     position: fixed;
-    z-index: calc(var(--z-backdrop) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-backdrop) + var(--layer-index, 0));
     inset: 0;
     min-height: 100dvh;
-    background-color: var(--drawer-backdrop-bg, var(--backdrop-bg, var(--color-overlay)));
-    backdrop-filter: var(--backdrop-filter, blur(var(--drawer-backdrop-blur, 4px)));
+    background-color: var(
+      --moduix-drawer-backdrop-bg,
+      var(--moduix-backdrop-bg, var(--moduix-color-overlay))
+    );
+    backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-drawer-backdrop-blur, 4px)));
     opacity: calc(1 - var(--drawer-swipe-progress, 0));
     transition:
-      opacity calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out),
-      backdrop-filter calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out);
+      opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out),
+      backdrop-filter calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out);
 
     &[data-state='open'] {
-      animation: drawer-backdrop-in var(--drawer-backdrop-transition, var(--transition-spring));
+      animation: drawer-backdrop-in
+        var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
     }
 
     &[data-state='closed'] {
-      animation: drawer-backdrop-out var(--drawer-backdrop-transition, var(--transition-spring));
+      animation: drawer-backdrop-out
+        var(--moduix-drawer-backdrop-transition, var(--moduix-transition-spring));
       animation-fill-mode: forwards;
     }
 
@@ -82,14 +92,14 @@
   .positioner {
     box-sizing: border-box;
     position: fixed;
-    z-index: calc(var(--z-modal) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-modal) + var(--layer-index, 0));
     inset: 0;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
     overscroll-behavior: contain;
-    padding: var(--drawer-positioner-padding, 0);
+    padding: var(--moduix-drawer-positioner-padding, 0);
 
     &[data-swipe-direction='up'] {
       align-items: flex-start;
@@ -113,49 +123,65 @@
   }
 
   .content {
-    --drawer-bleed: var(--drawer-bleed-size, var(--size-xl));
+    --moduix-drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
     box-sizing: border-box;
     position: relative;
     display: flex;
     flex-direction: column;
-    width: min(var(--drawer-width, 100%), 100vw);
-    height: var(--drawer-size, 100%);
-    max-height: var(--drawer-max-height, 80dvh);
-    padding: var(--drawer-padding-y, var(--spacing-2)) var(--drawer-padding-x, var(--spacing-6))
-      calc(var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-bottom, 0px));
-    border: var(--drawer-border-width, var(--border-width-sm)) solid
-      var(--drawer-border-color, var(--color-border));
-    border-radius: var(--drawer-radius, var(--radius-xl)) var(--drawer-radius, var(--radius-xl)) 0 0;
+    width: min(var(--moduix-drawer-width, 100%), 100vw);
+    height: var(--moduix-drawer-size, 100%);
+    max-height: var(--moduix-drawer-max-height, 80dvh);
+    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-2))
+      var(--moduix-drawer-padding-x, var(--moduix-spacing-6))
+      calc(
+        var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-bottom, 0px)
+      );
+    border: var(--moduix-drawer-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-drawer-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl))
+      var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0 0;
     outline: 0;
-    background-color: var(--drawer-bg, var(--color-popover));
-    color: var(--drawer-color, var(--color-popover-foreground));
-    box-shadow: var(--drawer-shadow, var(--shadow-lg));
+    background-color: var(--moduix-drawer-bg, var(--moduix-color-popover));
+    color: var(--moduix-drawer-color, var(--moduix-color-popover-foreground));
+    box-shadow: var(--moduix-drawer-shadow, var(--moduix-shadow-lg));
     overscroll-behavior: contain;
     transform-origin: center bottom;
     scale: 1;
     translate: 0 0;
     transition:
-      transform calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out),
-      height calc(var(--drawer-swipe-strength, 1) * var(--duration-slower)) var(--ease-out),
-      scale var(--drawer-nested-transition, var(--drawer-transition, var(--transition-spring))),
-      translate var(--drawer-nested-transition, var(--drawer-transition, var(--transition-spring)));
+      transform calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out),
+      height calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
+        var(--moduix-ease-out),
+      scale
+        var(
+          --moduix-drawer-nested-transition,
+          var(--moduix-drawer-transition, var(--moduix-transition-spring))
+        ),
+      translate
+        var(
+          --moduix-drawer-nested-transition,
+          var(--moduix-drawer-transition, var(--moduix-transition-spring))
+        );
 
     &::after {
       position: absolute;
       inset-inline: 0;
       top: 100%;
-      height: var(--drawer-bleed);
+      height: var(--moduix-drawer-bleed);
       background-color: inherit;
       content: '';
       pointer-events: none;
     }
 
     &[data-state='open'] {
-      animation: drawer-content-in-down var(--drawer-transition, var(--transition-spring));
+      animation: drawer-content-in-down
+        var(--moduix-drawer-transition, var(--moduix-transition-spring));
     }
 
     &[data-state='closed'] {
-      animation: drawer-content-out-down var(--drawer-transition, var(--transition-spring));
+      animation: drawer-content-out-down
+        var(--moduix-drawer-transition, var(--moduix-transition-spring));
       animation-fill-mode: forwards;
     }
 
@@ -170,10 +196,12 @@
 
     &[data-swipe-direction='up'] {
       transform-origin: center top;
-      padding-top: calc(var(--drawer-padding-y, var(--spacing-4)) + env(safe-area-inset-top, 0px));
-      padding-bottom: var(--drawer-padding-y, var(--spacing-4));
-      border-radius: 0 0 var(--drawer-radius, var(--radius-xl))
-        var(--drawer-radius, var(--radius-xl));
+      padding-top: calc(
+        var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-top, 0px)
+      );
+      padding-bottom: var(--moduix-drawer-padding-y, var(--moduix-spacing-4));
+      border-radius: 0 0 var(--moduix-drawer-radius, var(--moduix-radius-xl))
+        var(--moduix-drawer-radius, var(--moduix-radius-xl));
 
       &::after {
         top: auto;
@@ -191,24 +219,25 @@
 
     &[data-swipe-direction='left'],
     &[data-swipe-direction='right'] {
-      width: min(var(--drawer-side-width, 22rem), calc(100vw - var(--spacing-8)));
-      height: var(--drawer-side-height, 100%);
+      width: min(var(--moduix-drawer-side-width, 22rem), calc(100vw - var(--moduix-spacing-8)));
+      height: var(--moduix-drawer-side-height, 100%);
       max-height: none;
-      padding: var(--drawer-padding-y, var(--spacing-6)) var(--drawer-padding-x, var(--spacing-6));
+      padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-6))
+        var(--moduix-drawer-padding-x, var(--moduix-spacing-6));
 
       &::after {
         inset-block: 0;
         inset-inline: auto;
         top: 0;
-        width: var(--drawer-bleed);
+        width: var(--moduix-drawer-bleed);
         height: auto;
       }
     }
 
     &[data-swipe-direction='left'] {
       transform-origin: left center;
-      border-radius: 0 var(--drawer-radius, var(--radius-xl)) var(--drawer-radius, var(--radius-xl))
-        0;
+      border-radius: 0 var(--moduix-drawer-radius, var(--moduix-radius-xl))
+        var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0;
 
       &::after {
         right: 100%;
@@ -225,8 +254,8 @@
 
     &[data-swipe-direction='right'] {
       transform-origin: right center;
-      border-radius: var(--drawer-radius, var(--radius-xl)) 0 0
-        var(--drawer-radius, var(--radius-xl));
+      border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl)) 0 0
+        var(--moduix-drawer-radius, var(--moduix-radius-xl));
 
       &::after {
         left: 100%;
@@ -242,29 +271,37 @@
     }
 
     &[data-nested-drawer-open] {
-      scale: calc(1 - var(--drawer-nested-scale-step, 0.05) * var(--nested-drawers, 0));
+      scale: calc(1 - var(--moduix-drawer-nested-scale-step, 0.05) * var(--nested-drawers, 0));
     }
 
     &[data-swipe-direction='down'][data-nested-drawer-open] {
       translate: 0
-        calc(-1 * var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0));
+        calc(
+          -1 * var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
+            var(--nested-drawers, 0)
+        );
     }
 
     &[data-swipe-direction='up'][data-nested-drawer-open] {
       translate: 0
-        calc(var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0));
+        calc(
+          var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
+            var(--nested-drawers, 0)
+        );
     }
 
     &[data-swipe-direction='left'][data-nested-drawer-open] {
       translate: calc(
-          var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0)
+          var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
+            var(--nested-drawers, 0)
         )
         0;
     }
 
     &[data-swipe-direction='right'][data-nested-drawer-open] {
       translate: calc(
-          -1 * var(--drawer-nested-translate-step, var(--spacing-10)) * var(--nested-drawers, 0)
+          -1 * var(--moduix-drawer-nested-translate-step, var(--moduix-spacing-10)) *
+            var(--nested-drawers, 0)
         )
         0;
     }
@@ -276,7 +313,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: var(--drawer-grabber-padding, var(--spacing-3)) 0;
+    padding: var(--moduix-drawer-grabber-padding, var(--moduix-spacing-3)) 0;
     cursor: grab;
     user-select: none;
 
@@ -290,18 +327,21 @@
   }
 
   .grabberIndicator {
-    width: var(--drawer-grabber-indicator-width, 3rem);
-    height: var(--drawer-grabber-indicator-height, 0.25rem);
-    border-radius: var(--drawer-grabber-indicator-radius, var(--radius-full));
-    background-color: var(--drawer-grabber-indicator-bg, var(--color-muted-foreground));
-    opacity: var(--drawer-grabber-indicator-opacity, 0.45);
+    width: var(--moduix-drawer-grabber-indicator-width, 3rem);
+    height: var(--moduix-drawer-grabber-indicator-height, 0.25rem);
+    border-radius: var(--moduix-drawer-grabber-indicator-radius, var(--moduix-radius-full));
+    background-color: var(
+      --moduix-drawer-grabber-indicator-bg,
+      var(--moduix-color-muted-foreground)
+    );
+    opacity: var(--moduix-drawer-grabber-indicator-opacity, 0.45);
     transition:
-      background-color var(--transition-default),
-      opacity var(--transition-default);
+      background-color var(--moduix-transition-default),
+      opacity var(--moduix-transition-default);
 
     @media (hover: hover) {
       .grabber:hover & {
-        opacity: var(--drawer-grabber-indicator-opacity-hover, 0.7);
+        opacity: var(--moduix-drawer-grabber-indicator-opacity-hover, 0.7);
       }
     }
   }
@@ -310,7 +350,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    gap: var(--drawer-header-gap, var(--spacing-1));
+    gap: var(--moduix-drawer-header-gap, var(--moduix-spacing-1));
 
     & > [data-slot='drawer-title'] {
       grid-column: 1;
@@ -329,17 +369,20 @@
 
   .title {
     margin: 0;
-    color: var(--drawer-title-color, var(--drawer-color, var(--color-popover-foreground)));
-    font-size: var(--drawer-title-font-size, var(--text-lg));
-    font-weight: var(--drawer-title-font-weight, var(--weight-semibold));
-    line-height: var(--drawer-title-line-height, var(--line-height-text-lg));
+    color: var(
+      --moduix-drawer-title-color,
+      var(--moduix-drawer-color, var(--moduix-color-popover-foreground))
+    );
+    font-size: var(--moduix-drawer-title-font-size, var(--moduix-text-lg));
+    font-weight: var(--moduix-drawer-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-drawer-title-line-height, var(--moduix-line-height-text-lg));
   }
 
   .description,
   .body {
-    color: var(--drawer-description-color, var(--color-muted-foreground));
-    font-size: var(--drawer-description-font-size, var(--text-md));
-    line-height: var(--drawer-description-line-height, var(--line-height-text-md));
+    color: var(--moduix-drawer-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-drawer-description-font-size, var(--moduix-text-md));
+    line-height: var(--moduix-drawer-description-line-height, var(--moduix-line-height-text-md));
   }
 
   .description {
@@ -348,68 +391,74 @@
 
   .body {
     min-height: 0;
-    margin-top: var(--drawer-body-margin-top, var(--spacing-4));
+    margin-top: var(--moduix-drawer-body-margin-top, var(--moduix-spacing-4));
     overflow-y: auto;
   }
 
   .footer {
     display: flex;
     justify-content: flex-end;
-    gap: var(--drawer-footer-gap, var(--spacing-2));
-    margin-top: var(--drawer-footer-margin-top, var(--spacing-6));
+    gap: var(--moduix-drawer-footer-gap, var(--moduix-spacing-2));
+    margin-top: var(--moduix-drawer-footer-margin-top, var(--moduix-spacing-6));
   }
 
   .closeIcon {
-    --close-button-size: var(--drawer-close-icon-size, var(--spacing-7));
-    --close-button-radius: var(--drawer-close-icon-radius, var(--radius-md));
-    --close-button-color: var(
-      --drawer-close-icon-color,
-      var(--drawer-description-color, var(--color-muted-foreground))
+    --moduix-close-button-size: var(--moduix-drawer-close-icon-size, var(--moduix-spacing-7));
+    --moduix-close-button-radius: var(--moduix-drawer-close-icon-radius, var(--moduix-radius-md));
+    --moduix-close-button-color: var(
+      --moduix-drawer-close-icon-color,
+      var(--moduix-drawer-description-color, var(--moduix-color-muted-foreground))
     );
-    --close-button-color-hover: var(
-      --drawer-close-icon-color-hover,
-      var(--drawer-color, var(--color-popover-foreground))
+    --moduix-close-button-color-hover: var(
+      --moduix-drawer-close-icon-color-hover,
+      var(--moduix-drawer-color, var(--moduix-color-popover-foreground))
     );
-    --close-button-bg: var(--drawer-close-icon-bg, transparent);
-    --close-button-bg-hover: var(--drawer-close-icon-bg-hover, var(--color-accent));
-    --close-button-focus-ring-color: var(
-      --drawer-close-icon-focus-ring-color,
-      var(--drawer-focus-ring-color, var(--color-ring))
+    --moduix-close-button-bg: var(--moduix-drawer-close-icon-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-drawer-close-icon-bg-hover,
+      var(--moduix-color-accent)
     );
-    --close-button-icon-size: var(--drawer-close-icon-glyph-size, var(--spacing-3));
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-drawer-close-icon-focus-ring-color,
+      var(--moduix-drawer-focus-ring-color, var(--moduix-color-ring))
+    );
+    --moduix-close-button-icon-size: var(
+      --moduix-drawer-close-icon-glyph-size,
+      var(--moduix-spacing-3)
+    );
   }
 
   .swipeArea {
     position: fixed;
-    z-index: var(--z-modal);
+    z-index: var(--moduix-z-modal);
     touch-action: none;
 
     &[data-swipe-direction='up'] {
       right: 0;
       bottom: 0;
       left: 0;
-      height: var(--drawer-swipe-area-size, var(--spacing-10));
+      height: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
     &[data-swipe-direction='down'] {
       top: 0;
       right: 0;
       left: 0;
-      height: var(--drawer-swipe-area-size, var(--spacing-10));
+      height: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
     &[data-swipe-direction='left'] {
       top: 0;
       right: 0;
       bottom: 0;
-      width: var(--drawer-swipe-area-size, var(--spacing-10));
+      width: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
     &[data-swipe-direction='right'] {
       top: 0;
       bottom: 0;
       left: 0;
-      width: var(--drawer-swipe-area-size, var(--spacing-10));
+      width: var(--moduix-drawer-swipe-area-size, var(--moduix-spacing-10));
     }
 
     &[data-disabled] {
@@ -420,14 +469,15 @@
   .indentBackground {
     position: absolute;
     inset: 0;
-    background: var(--drawer-indent-background-bg, var(--color-foreground));
-    opacity: var(--drawer-indent-background-opacity, 0);
+    background: var(--moduix-drawer-indent-background-bg, var(--moduix-color-foreground));
+    opacity: var(--moduix-drawer-indent-background-opacity, 0);
     pointer-events: none;
-    transition: opacity var(--drawer-indent-transition, var(--transition-spring));
+    transition: opacity var(--moduix-drawer-indent-transition, var(--moduix-transition-spring));
 
     &[data-active] {
       opacity: calc(
-        var(--drawer-indent-background-opacity-active, 1) * (1 - var(--drawer-swipe-progress, 0))
+        var(--moduix-drawer-indent-background-opacity-active, 1) *
+          (1 - var(--drawer-swipe-progress, 0))
       );
     }
   }
@@ -437,22 +487,22 @@
     transform: translateY(0) scale(1);
     transform-origin: center top;
     transition:
-      transform var(--drawer-indent-transition, var(--transition-spring)),
-      border-radius var(--drawer-indent-transition, var(--transition-spring));
+      transform var(--moduix-drawer-indent-transition, var(--moduix-transition-spring)),
+      border-radius var(--moduix-drawer-indent-transition, var(--moduix-transition-spring));
 
     &[data-active] {
-      border-radius: var(--drawer-indent-radius-active, var(--radius-lg))
-        var(--drawer-indent-radius-active, var(--radius-lg)) 0 0;
+      border-radius: var(--moduix-drawer-indent-radius-active, var(--moduix-radius-lg))
+        var(--moduix-drawer-indent-radius-active, var(--moduix-radius-lg)) 0 0;
       transform: translateY(
           calc(
-            var(--drawer-indent-translate-y-active, var(--spacing-2)) *
+            var(--moduix-drawer-indent-translate-y-active, var(--moduix-spacing-2)) *
               (1 - var(--drawer-swipe-progress, 0))
           )
         )
         scale(
           calc(
-            var(--drawer-indent-scale-active, 0.97) +
-              (1 - var(--drawer-indent-scale-active, 0.97)) * var(--drawer-swipe-progress, 0)
+            var(--moduix-drawer-indent-scale-active, 0.97) +
+              (1 - var(--moduix-drawer-indent-scale-active, 0.97)) * var(--drawer-swipe-progress, 0)
           )
         );
     }

@@ -1,107 +1,177 @@
-import { Button, Popover, usePopover } from '@moduix/react';
-import { Bell as BellIcon } from 'lucide-react';
-import * as React from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './popover.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const popoverOverrideCssProperties: CssPropertyInput[] = [
-  ['--popover-arrow-size', 'var(--spacing-2-5)', 'Controls the Ark arrow size.'],
-  ['--popover-arrow-stroke-color', 'var(--popover-border-color)', 'Controls arrow border color.'],
-  ['--popover-bg', 'var(--color-popover)', 'Controls the content background color.'],
-  ['--popover-body-margin', '0', 'Controls body margin.'],
-  ['--popover-border-color', 'var(--color-border)', 'Controls content border color.'],
-  ['--popover-border-width', 'var(--border-width-sm)', 'Controls content border width.'],
-  ['--popover-color', 'var(--color-popover-foreground)', 'Controls content text color.'],
-  ['--popover-control-bg', 'var(--color-background)', 'Controls default trigger backgrounds.'],
+export const popoverAnchorCss = `
+  .popover-anchor-demo {
+    display: grid;
+    width: 100%;
+    gap: var(--moduix-spacing-2);
+  }
+`;
+
+const popoverOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-popover-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls the Ark arrow size.'],
   [
-    '--popover-control-bg-active',
-    'var(--popover-control-bg-hover)',
+    '--moduix-popover-arrow-stroke-color',
+    'var(--moduix-popover-border-color)',
+    'Controls arrow border color.',
+  ],
+  ['--moduix-popover-bg', 'var(--moduix-color-popover)', 'Controls the content background color.'],
+  ['--moduix-popover-body-margin', '0', 'Controls body margin.'],
+  ['--moduix-popover-border-color', 'var(--moduix-color-border)', 'Controls content border color.'],
+  [
+    '--moduix-popover-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls content border width.',
+  ],
+  [
+    '--moduix-popover-color',
+    'var(--moduix-color-popover-foreground)',
+    'Controls content text color.',
+  ],
+  [
+    '--moduix-popover-control-bg',
+    'var(--moduix-color-background)',
+    'Controls default trigger backgrounds.',
+  ],
+  [
+    '--moduix-popover-control-bg-active',
+    'var(--moduix-popover-control-bg-hover)',
     'Controls open trigger color.',
   ],
-  ['--popover-control-bg-hover', 'var(--color-accent)', 'Controls control hover backgrounds.'],
-  ['--popover-control-border-color', 'var(--color-border)', 'Controls control border color.'],
-  ['--popover-control-border-width', 'var(--border-width-sm)', 'Controls control border width.'],
-  ['--popover-control-color', 'var(--color-foreground)', 'Controls control text color.'],
-  ['--popover-control-font-size', 'var(--text-md)', 'Controls control font size.'],
-  ['--popover-control-height', 'var(--size-md)', 'Controls control min height.'],
-  ['--popover-control-line-height', 'var(--line-height-text-md)', 'Controls line height.'],
-  ['--popover-control-padding-x', 'var(--spacing-3-5)', 'Controls horizontal control padding.'],
-  ['--popover-control-padding-y', 'var(--spacing-1)', 'Controls vertical control padding.'],
-  ['--popover-control-radius', 'var(--radius-md)', 'Controls control radius.'],
-  ['--popover-close-icon-bg', 'transparent', 'Controls close icon background.'],
-  ['--popover-close-icon-bg-hover', 'var(--color-accent)', 'Controls close icon hover background.'],
-  ['--popover-close-icon-color', 'var(--color-muted-foreground)', 'Controls close icon color.'],
   [
-    '--popover-close-icon-color-hover',
-    'var(--popover-color, var(--color-popover-foreground))',
+    '--moduix-popover-control-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls control hover backgrounds.',
+  ],
+  [
+    '--moduix-popover-control-border-color',
+    'var(--moduix-color-border)',
+    'Controls control border color.',
+  ],
+  [
+    '--moduix-popover-control-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls control border width.',
+  ],
+  [
+    '--moduix-popover-control-color',
+    'var(--moduix-color-foreground)',
+    'Controls control text color.',
+  ],
+  ['--moduix-popover-control-font-size', 'var(--moduix-text-md)', 'Controls control font size.'],
+  ['--moduix-popover-control-height', 'var(--moduix-size-md)', 'Controls control min height.'],
+  [
+    '--moduix-popover-control-line-height',
+    'var(--moduix-line-height-text-md)',
+    'Controls line height.',
+  ],
+  [
+    '--moduix-popover-control-padding-x',
+    'var(--moduix-spacing-3-5)',
+    'Controls horizontal control padding.',
+  ],
+  [
+    '--moduix-popover-control-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls vertical control padding.',
+  ],
+  ['--moduix-popover-control-radius', 'var(--moduix-radius-md)', 'Controls control radius.'],
+  ['--moduix-popover-close-icon-bg', 'transparent', 'Controls close icon background.'],
+  [
+    '--moduix-popover-close-icon-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls close icon hover background.',
+  ],
+  [
+    '--moduix-popover-close-icon-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls close icon color.',
+  ],
+  [
+    '--moduix-popover-close-icon-color-hover',
+    'var(--moduix-popover-color, var(--moduix-color-popover-foreground))',
     'Controls close icon hover color.',
   ],
-  ['--popover-close-icon-focus-ring-color', 'var(--color-ring)', 'Controls close icon focus ring.'],
-  ['--popover-close-icon-glyph-size', 'var(--spacing-3-5)', 'Controls close icon glyph size.'],
-  ['--popover-close-icon-offset', 'var(--spacing-3)', 'Controls close icon offset.'],
-  ['--popover-close-icon-radius', 'var(--radius-sm)', 'Controls close icon radius.'],
-  ['--popover-close-icon-size', 'var(--spacing-7)', 'Controls close icon size.'],
-  ['--popover-content-ending-opacity', '0', 'Controls exit opacity.'],
-  ['--popover-content-ending-scale', 'var(--scale-popup)', 'Controls exit scale.'],
-  ['--popover-content-ending-translate-x', '0', 'Controls exit horizontal offset.'],
-  ['--popover-content-ending-translate-y', '0', 'Controls exit vertical offset.'],
-  ['--popover-content-starting-opacity', '0', 'Controls enter opacity.'],
-  ['--popover-content-starting-scale', 'var(--scale-popup)', 'Controls enter scale.'],
-  ['--popover-content-starting-translate-x', '0', 'Controls enter horizontal offset.'],
-  ['--popover-content-starting-translate-y', '0', 'Controls enter vertical offset.'],
-  ['--popover-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--popover-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
-  ['--popover-description-line-height', 'var(--line-height-text-sm)', 'Controls line height.'],
-  ['--popover-description-margin', '0', 'Controls description margin.'],
-  ['--popover-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--popover-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
-    '--popover-focus-ring-width',
-    'var(--popover-control-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
+    '--moduix-popover-close-icon-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls close icon focus ring.',
+  ],
+  [
+    '--moduix-popover-close-icon-glyph-size',
+    'var(--moduix-spacing-3-5)',
+    'Controls close icon glyph size.',
+  ],
+  ['--moduix-popover-close-icon-offset', 'var(--moduix-spacing-3)', 'Controls close icon offset.'],
+  ['--moduix-popover-close-icon-radius', 'var(--moduix-radius-sm)', 'Controls close icon radius.'],
+  ['--moduix-popover-close-icon-size', 'var(--moduix-spacing-7)', 'Controls close icon size.'],
+  ['--moduix-popover-content-ending-opacity', '0', 'Controls exit opacity.'],
+  ['--moduix-popover-content-ending-scale', 'var(--moduix-scale-popup)', 'Controls exit scale.'],
+  ['--moduix-popover-content-ending-translate-x', '0', 'Controls exit horizontal offset.'],
+  ['--moduix-popover-content-ending-translate-y', '0', 'Controls exit vertical offset.'],
+  ['--moduix-popover-content-starting-opacity', '0', 'Controls enter opacity.'],
+  ['--moduix-popover-content-starting-scale', 'var(--moduix-scale-popup)', 'Controls enter scale.'],
+  ['--moduix-popover-content-starting-translate-x', '0', 'Controls enter horizontal offset.'],
+  ['--moduix-popover-content-starting-translate-y', '0', 'Controls enter vertical offset.'],
+  [
+    '--moduix-popover-description-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls description color.',
+  ],
+  [
+    '--moduix-popover-description-font-size',
+    'var(--moduix-text-sm)',
+    'Controls description font size.',
+  ],
+  [
+    '--moduix-popover-description-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls line height.',
+  ],
+  ['--moduix-popover-description-margin', '0', 'Controls description margin.'],
+  [
+    '--moduix-popover-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  ['--moduix-popover-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-popover-focus-ring-width',
+    'var(--moduix-popover-control-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls ring width.',
   ],
-  ['--popover-footer-gap', 'var(--spacing-2)', 'Controls footer action spacing.'],
-  ['--popover-footer-justify', 'flex-end', 'Controls footer alignment.'],
-  ['--popover-footer-margin', 'var(--spacing-3) 0 0', 'Controls footer margin.'],
-  ['--popover-header-gap', 'var(--spacing-1)', 'Controls header spacing.'],
+  ['--moduix-popover-footer-gap', 'var(--moduix-spacing-2)', 'Controls footer action spacing.'],
+  ['--moduix-popover-footer-justify', 'flex-end', 'Controls footer alignment.'],
+  ['--moduix-popover-footer-margin', 'var(--moduix-spacing-3) 0 0', 'Controls footer margin.'],
+  ['--moduix-popover-header-gap', 'var(--moduix-spacing-1)', 'Controls header spacing.'],
   [
-    '--popover-header-padding-inline-end',
-    'calc(var(--popover-close-icon-size, 1.75rem) + var(--popover-close-icon-offset, var(--spacing-3)))',
+    '--moduix-popover-header-padding-inline-end',
+    'calc(var(--moduix-popover-close-icon-size, 1.75rem) + var(--moduix-popover-close-icon-offset, var(--moduix-spacing-3)))',
     'Controls header space reserved when CloseIcon is present.',
   ],
-  ['--popover-height', 'auto', 'Controls content height.'],
-  ['--popover-max-height', '24rem', 'Controls content max height.'],
-  ['--popover-max-width', '28rem', 'Controls content max width.'],
-  ['--popover-min-width', '16rem', 'Controls content min width.'],
-  ['--popover-padding-x', 'var(--spacing-4)', 'Controls horizontal content padding.'],
-  ['--popover-padding-y', 'var(--spacing-4)', 'Controls vertical content padding.'],
-  ['--popover-radius', 'var(--radius-md)', 'Controls content radius.'],
-  ['--popover-shadow', 'var(--shadow-lg)', 'Controls content shadow.'],
-  ['--popover-title-color', 'var(--popover-color)', 'Controls title color.'],
-  ['--popover-title-font-size', 'var(--text-md)', 'Controls title font size.'],
-  ['--popover-title-font-weight', 'var(--weight-semibold)', 'Controls title weight.'],
-  ['--popover-title-line-height', 'var(--line-height-text-md)', 'Controls title line height.'],
-  ['--popover-transition', 'var(--duration-fast)', 'Controls content animation duration.'],
-  ['--popover-width', 'auto', 'Controls content width.'],
-];
-
-export const popoverActions = [
-  {
-    id: 'share',
-    label: 'Share',
-    detail: 'Share this item with others by link or email.',
-  },
-  {
-    id: 'export',
-    label: 'Export',
-    detail: 'Export this item as PDF, CSV, or JSON.',
-  },
-  {
-    id: 'archive',
-    label: 'Archive',
-    detail: 'Move this item to the archive for later reference.',
-  },
+  ['--moduix-popover-height', 'auto', 'Controls content height.'],
+  ['--moduix-popover-max-height', '24rem', 'Controls content max height.'],
+  ['--moduix-popover-max-width', '28rem', 'Controls content max width.'],
+  ['--moduix-popover-min-width', '16rem', 'Controls content min width.'],
+  ['--moduix-popover-padding-x', 'var(--moduix-spacing-4)', 'Controls horizontal content padding.'],
+  ['--moduix-popover-padding-y', 'var(--moduix-spacing-4)', 'Controls vertical content padding.'],
+  ['--moduix-popover-radius', 'var(--moduix-radius-md)', 'Controls content radius.'],
+  ['--moduix-popover-shadow', 'var(--moduix-shadow-lg)', 'Controls content shadow.'],
+  ['--moduix-popover-title-color', 'var(--moduix-popover-color)', 'Controls title color.'],
+  ['--moduix-popover-title-font-size', 'var(--moduix-text-md)', 'Controls title font size.'],
+  ['--moduix-popover-title-font-weight', 'var(--moduix-weight-semibold)', 'Controls title weight.'],
+  [
+    '--moduix-popover-title-line-height',
+    'var(--moduix-line-height-text-md)',
+    'Controls title line height.',
+  ],
+  [
+    '--moduix-popover-transition',
+    'var(--moduix-duration-fast)',
+    'Controls content animation duration.',
+  ],
+  ['--moduix-popover-width', 'auto', 'Controls content width.'],
 ];
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -115,293 +185,5 @@ export function PopoverCssPropertiesPanel() {
     <CSSPropertiesReferenceTable
       properties={popoverOverrideCssProperties.map(normalizeCssProperty)}
     />
-  );
-}
-
-function PopoverSurface({
-  title,
-  description,
-  arrow = false,
-  className,
-}: {
-  title: string;
-  description: string;
-  arrow?: boolean;
-  className?: string;
-}) {
-  return (
-    <Popover.Positioner>
-      <Popover.Content className={className}>
-        {arrow ? <Popover.Arrow /> : null}
-        <Popover.Header>
-          <Popover.Title>{title}</Popover.Title>
-          <Popover.Description>{description}</Popover.Description>
-        </Popover.Header>
-        <Popover.Footer>
-          <Popover.CloseTrigger>Close</Popover.CloseTrigger>
-        </Popover.Footer>
-      </Popover.Content>
-    </Popover.Positioner>
-  );
-}
-
-export function PopoverExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>
-          <span className={styles.triggerContent}>
-            <BellIcon className={styles.icon} />
-            Notifications
-          </span>
-        </Button>
-      </Popover.Trigger>
-      <PopoverSurface title="Notifications" description="You are all caught up. Good job!" />
-    </Popover>
-  );
-}
-
-export function ControlledPopoverExample() {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <div className={styles.stack}>
-      <span>Popover is {open ? 'open' : 'closed'}</span>
-      <Popover open={open} onOpenChange={(details) => setOpen(details.open)}>
-        <Popover.Trigger asChild>
-          <Button>Open controlled popover</Button>
-        </Popover.Trigger>
-        <PopoverSurface
-          title="Publish changes?"
-          description="This action will make your latest updates visible to all users."
-        />
-      </Popover>
-    </div>
-  );
-}
-
-export function RootProviderPopoverExample() {
-  const popover = usePopover({ positioning: { placement: 'bottom-start', gutter: 8 } });
-
-  return (
-    <div className={styles.stack}>
-      <span>Popover is {popover.open ? 'open' : 'closed'}</span>
-      <Button variant="outline" onClick={() => popover.setOpen(!popover.open)}>
-        Toggle externally
-      </Button>
-      <Popover.RootProvider value={popover}>
-        <Popover.Trigger asChild>
-          <Button>Open from trigger</Button>
-        </Popover.Trigger>
-        <PopoverSurface
-          title="External state"
-          description="The usePopover hook owns this popover state."
-        />
-      </Popover.RootProvider>
-    </div>
-  );
-}
-
-export function PopoverWithArrowExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Open with arrow</Button>
-      </Popover.Trigger>
-      <PopoverSurface
-        arrow
-        title="With arrow"
-        description="Arrow and ArrowTip use Ark positioning variables."
-      />
-    </Popover>
-  );
-}
-
-export function PositioningPopoverExample() {
-  return (
-    <Popover positioning={{ placement: 'left', gutter: 12 }}>
-      <Popover.Trigger asChild>
-        <Button>Open on the left</Button>
-      </Popover.Trigger>
-      <PopoverSurface title="Left placement" description="Belong to Root.positioning." />
-    </Popover>
-  );
-}
-
-export function CloseBehaviorPopoverExample() {
-  return (
-    <Popover closeOnEscape={false} closeOnInteractOutside={false}>
-      <Popover.Trigger asChild>
-        <Button>Open persistent popover</Button>
-      </Popover.Trigger>
-      <PopoverSurface
-        title="Explicit close"
-        description="Escape and outside interactions do not dismiss this popover."
-      />
-    </Popover>
-  );
-}
-
-export function ModalPopoverExample() {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  return (
-    <Popover modal initialFocusEl={() => inputRef.current}>
-      <Popover.Trigger asChild>
-        <Button>Invite teammates</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Invite teammates</Popover.Title>
-            <Popover.Description>
-              Focus is trapped inside this modal popover until dismissed.
-            </Popover.Description>
-          </Popover.Header>
-          <Popover.Body>
-            <label className={styles.field}>
-              <span>Email</span>
-              <input ref={inputRef} className={styles.input} />
-            </label>
-          </Popover.Body>
-          <Popover.Footer>
-            <Popover.CloseTrigger>Done</Popover.CloseTrigger>
-          </Popover.Footer>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-
-export function AnchorPopoverExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <div className={styles.stack}>
-        <Popover.Anchor asChild>
-          <input className={styles.input} placeholder="Popover anchor" />
-        </Popover.Anchor>
-        <Popover.Trigger asChild>
-          <Button>Open below the input</Button>
-        </Popover.Trigger>
-      </div>
-      <PopoverSurface
-        title="Custom anchor"
-        description="The popup is positioned relative to the input instead of the trigger."
-      />
-    </Popover>
-  );
-}
-
-export function SameWidthPopoverExample() {
-  return (
-    <Popover positioning={{ sameWidth: true, gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button className={styles.wideTrigger}>Match this trigger width</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content className={styles.sameWidthContent}>
-          <Popover.Title>Matched width</Popover.Title>
-          <Popover.Description>
-            The content uses Ark&apos;s reference width measurement.
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-
-export function LazyMountPopoverExample() {
-  return (
-    <Popover lazyMount unmountOnExit positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Open lazy popover</Button>
-      </Popover.Trigger>
-      <PopoverSurface
-        title="Lazy mounted"
-        description="This content mounts on open and unmounts after exit."
-      />
-    </Popover>
-  );
-}
-
-export function NestedPopoverExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Open settings</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Header>
-            <Popover.Title>Settings</Popover.Title>
-            <Popover.Description>Nested popovers keep independent state.</Popover.Description>
-          </Popover.Header>
-          <Popover.Body className={styles.nestedBody}>
-            <Popover portalled={false} positioning={{ placement: 'right', gutter: 8 }}>
-              <Popover.Trigger asChild>
-                <Button variant="outline">Advanced</Button>
-              </Popover.Trigger>
-              <PopoverSurface
-                title="Advanced settings"
-                description="This content belongs to the nested popover."
-              />
-            </Popover>
-          </Popover.Body>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-
-export function AdvancedCustomizationPopoverExample() {
-  return (
-    <Popover positioning={{ gutter: 8 }}>
-      <Popover.Trigger asChild>
-        <Button>Open custom popover</Button>
-      </Popover.Trigger>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Arrow className={styles.customArrow}>
-            <Popover.ArrowTip />
-          </Popover.Arrow>
-          <div className={styles.customHeader}>
-            <Popover.Title>Custom layout</Popover.Title>
-            <Popover.CloseIcon />
-          </div>
-          <Popover.Description>
-            Compose Ark parts directly when the layout helpers do not fit your content.
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
-  );
-}
-
-export function MultipleTriggersPopoverExample() {
-  const [activeItem, setActiveItem] = React.useState<(typeof popoverActions)[number] | null>(null);
-
-  return (
-    <Popover
-      onTriggerValueChange={(details) => {
-        setActiveItem(popoverActions.find((item) => item.id === details.value) ?? null);
-      }}
-      positioning={{ gutter: 8 }}
-    >
-      <div className={styles.triggerGroup}>
-        {popoverActions.map((item) => (
-          <Popover.Trigger key={item.id} value={item.id}>
-            {item.label}
-          </Popover.Trigger>
-        ))}
-      </div>
-      <Popover.Positioner>
-        <Popover.Content>
-          <Popover.Title>{activeItem?.label ?? 'Select an action'}</Popover.Title>
-          <Popover.Description>
-            {activeItem?.detail ?? 'Choose one of the actions.'}
-          </Popover.Description>
-        </Popover.Content>
-      </Popover.Positioner>
-    </Popover>
   );
 }

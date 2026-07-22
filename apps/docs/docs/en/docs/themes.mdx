@@ -1,0 +1,147 @@
+---
+title: Themes
+description: Start from a curated moduix token preset, then keep the CSS in your project.
+---
+
+import { ThemePresets } from '@/components/docs/theme-presets';
+import { ClientOnly } from '@ark-ui/react/client-only';
+
+# Themes
+
+moduix themes are plain CSS token layers. `Calm` is the balanced foundation; `Dense`, `Soft`, and
+`Contrast` are optional starting points for a different visual direction. A preset can change the
+palette, radius, spacing, control density, shadows, and Sidebar tokens without changing component
+APIs or adding a theme runtime.
+
+<ClientOnly fallback={<ThemePresets />}>
+  <ThemePresets />
+</ClientOnly>
+
+## Choose a preset
+
+| Preset   | Controls / popup rows | Visual direction                                                        |
+| -------- | --------------------- | ----------------------------------------------------------------------- |
+| Calm     | 36px / 32px           | Neutral rhythm and quiet surfaces for most product interfaces.          |
+| Dense    | 34px / 30px           | Compact spacing and blue structure for data-heavy tools.                |
+| Soft     | 40px / 34px           | More breathing room, rounder surfaces, and a warm violet accent.        |
+| Contrast | 36px / 32px           | The default density with sharper borders and stronger focus separation. |
+
+The preview uses real moduix controls. Open the Select and move through the fields with the keyboard
+to compare trigger density, smaller popup rows, labels, surfaces, and focus treatment together.
+
+## How the layers work
+
+The foundation stylesheet defines the complete token contract and the `Calm` defaults. A preset
+selectively overrides that contract; your application can then override only the decisions that
+belong to your brand. Components consume semantic and component-level aliases, so a palette or
+density change flows through related controls instead of becoming a collection of one-off rules.
+
+```text
+foundation tokens → optional preset → application overrides → component aliases
+```
+
+Preset CSS stays small, readable, and removable. Use [Tokens](/docs/tokens) to see which variables
+form the public theming surface.
+
+## Use with the npm package
+
+Import the foundation first, then one preset. Put `data-moduix-theme` on `<html>` so portalled
+components inherit the same tokens. Set `data-moduix-color-scheme="dark"` on that element for the
+moduix dark palette.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+```html
+<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
+```
+
+Choose one of these paths instead of `soft.css`:
+
+```text
+@moduix/react/presets/dense.css
+@moduix/react/presets/contrast.css
+```
+
+## Use with the hosted registry
+
+Install one copy-owned preset, then import its generated CSS after the foundation stylesheet.
+
+```bash
+npx shadcn@latest add @moduix-react/theme-dense
+```
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+import '@/lib/moduix/presets/dense.css';
+```
+
+```html
+<html data-moduix-theme="dense"></html>
+```
+
+Replace `dense` with `soft` or `contrast` to use another preset.
+
+## Customize a preset
+
+The preset is only a layer of CSS variables. Override it in your own stylesheet after the preset
+import. Change semantic tokens for system-wide decisions and component aliases only for intentional
+exceptions.
+
+```css
+[data-moduix-theme='soft'] {
+  --moduix-primary: oklch(0.5 0.17 285);
+  --moduix-radius: 0.875rem;
+}
+```
+
+## Create a custom theme
+
+Create a stylesheet after the foundation and apply its name on `<html>`. Start with the tokens that
+define your visual direction; omitted tokens keep their foundation values. Add size or spacing
+tokens only when your theme intentionally changes density. Use a preset as a reference when you
+want to replace the complete palette, Sidebar tokens, spacing, and shadows.
+
+```tsx
+import '@moduix/react/style.css';
+import './brand.css';
+```
+
+```css
+/* brand.css */
+[data-moduix-theme='brand'] {
+  --moduix-background: oklch(0.98 0.01 260);
+  --moduix-foreground: oklch(0.2 0.02 260);
+  --moduix-card: oklch(1 0 0);
+  --moduix-card-foreground: oklch(0.2 0.02 260);
+  --moduix-primary: oklch(0.5 0.18 260);
+  --moduix-primary-foreground: oklch(0.99 0.002 260);
+  --moduix-border: oklch(0.86 0.02 260);
+  --moduix-input: oklch(0.82 0.025 260);
+  --moduix-ring: oklch(0.58 0.15 260);
+  --moduix-radius: 0.875rem;
+  --moduix-size-sm: 2rem;
+  --moduix-size-md: 2.25rem;
+}
+
+[data-moduix-theme='brand'][data-moduix-color-scheme='dark'] {
+  --moduix-background: oklch(0.17 0.02 260);
+  --moduix-foreground: oklch(0.97 0.004 260);
+  --moduix-card: oklch(0.22 0.024 260);
+  --moduix-card-foreground: oklch(0.97 0.004 260);
+  --moduix-primary: oklch(0.78 0.13 260);
+  --moduix-primary-foreground: oklch(0.18 0.024 260);
+  --moduix-border: oklch(0.76 0.03 260 / 0.28);
+  --moduix-input: oklch(0.76 0.03 260 / 0.34);
+  --moduix-ring: oklch(0.74 0.12 260);
+}
+```
+
+```html
+<html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
+```
+
+Use [Tokens](/docs/tokens) for the complete reference and [Dark mode](/docs/dark-mode) for the
+application-owned light/dark switch.

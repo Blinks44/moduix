@@ -134,9 +134,9 @@ and accessible name.
 
 ## Defaults and styling
 
-The visible trigger defaults to `--size-md`; title-bar control buttons use `--size-sm`.
+The visible trigger defaults to `--moduix-size-md`; title-bar control buttons use `--moduix-size-sm`.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--floating-panel-*` motion
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-floating-panel-*` motion
 variables remain the more specific override.
 
 The wrappers preserve Ark `data-scope` and `data-part` attributes and add stable `data-slot` hooks.
@@ -147,7 +147,7 @@ defaults `persistRect` to `true` so close animations keep the last Ark position 
 flashing at the viewport origin during presence teardown. Stage styling uses Ark's
 `[data-minimized]`, `[data-maximized]`, and `[data-staged]` attributes.
 
-The public `--floating-panel-*` variables are declared in `theme.css`. Position and size are owned
+The public `--moduix-floating-panel-*` variables are declared in `theme.css`. Position and size are owned
 by Ark runtime variables on `Positioner`; the wrapper does not duplicate those measurements.
 
 ## Intentional sugar and differences from upstream
@@ -181,9 +181,9 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default floating-panel trigger to `--size-md` and compacted its block padding.
+- 2026-07-21: Reduced the default floating-panel trigger to `--moduix-size-md` and compacted its block padding.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Re-exported Ark state surfaces through `FloatingPanel`, added `ResizeTriggerGroup.axes`,
   defaulted `closeOnEscape` on `Root`, added the default restore control, and made the docs use the
   moduix state API as the recommended path.

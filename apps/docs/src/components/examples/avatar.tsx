@@ -1,35 +1,27 @@
-import { Avatar, useAvatar, useAvatarContext } from '@moduix/react';
-import { Computer as ComputerIcon } from 'lucide-react';
-import type { ComponentProps } from 'react';
-import { type ImgHTMLAttributes, useState } from 'react';
-import type { CssProperty } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const avatarImage =
-  'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80';
+import type { CssProperty } from '../mdx/reference';
 
 export const avatarExampleCss = `
   .docs-avatar-row,
   .docs-avatar-provider {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .docs-avatar-status {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-3);
+    align-items: center;
+    gap: var(--moduix-spacing-3);
   }
 
   .docs-avatar-provider-button {
-    min-height: var(--size-md);
-    padding-inline: var(--spacing-3);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    min-height: var(--moduix-size-md);
+    padding-inline: var(--moduix-spacing-3);
+    border: 1px solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
   }
 `;
@@ -38,14 +30,14 @@ export const avatarCompositionCss = `
   .docs-avatar-link {
     text-decoration: none;
     transition:
-      box-shadow var(--transition-default),
-      transform var(--transition-default);
+      box-shadow var(--moduix-transition-default),
+      transform var(--moduix-transition-default);
   }
 
   .docs-avatar-link:hover {
     box-shadow:
-      0 0 0 2px var(--color-background),
-      0 0 0 4px var(--color-primary);
+      0 0 0 2px var(--moduix-color-background),
+      0 0 0 4px var(--moduix-color-primary);
     transform: translateY(-1px);
   }
 
@@ -54,15 +46,15 @@ export const avatarCompositionCss = `
   }
 
   .docs-avatar-link-fallback {
-    --avatar-fallback-bg: var(--color-primary);
-    --avatar-fallback-color: var(--color-primary-foreground);
+    --moduix-avatar-fallback-bg: var(--moduix-color-primary);
+    --moduix-avatar-fallback-color: var(--moduix-color-primary-foreground);
   }
 `;
 
 export const avatarFallbackCss = `
   .docs-avatar-icon {
-    --avatar-bg: var(--color-accent);
-    --avatar-fallback-color: var(--color-accent-foreground);
+    --moduix-avatar-bg: var(--moduix-color-accent);
+    --moduix-avatar-fallback-color: var(--moduix-color-accent-foreground);
   }
 
   .docs-avatar-icon-glyph {
@@ -81,202 +73,65 @@ export const avatarCustomImageCss = `
   }
 `;
 
-export const avatarImageData = `
-  const avatarImage =
-    "https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?w=128&h=128&dpr=2&q=80";
-`;
-
 export const avatarCssProperties = [
   {
-    name: '--avatar-bg',
-    defaultValue: 'var(--color-muted)',
+    name: '--moduix-avatar-bg',
+    defaultValue: 'var(--moduix-color-muted)',
     description: 'Controls avatar background color.',
   },
   {
-    name: '--avatar-color',
-    defaultValue: 'var(--color-foreground)',
+    name: '--moduix-avatar-color',
+    defaultValue: 'var(--moduix-color-foreground)',
     description: 'Controls avatar text color.',
   },
   {
-    name: '--avatar-fallback-bg',
-    defaultValue: 'var(--avatar-bg)',
+    name: '--moduix-avatar-fallback-bg',
+    defaultValue: 'var(--moduix-avatar-bg)',
     description: 'Controls fallback background color independently from the root.',
   },
   {
-    name: '--avatar-fallback-color',
+    name: '--moduix-avatar-fallback-color',
     defaultValue: 'inherit',
     description: 'Controls fallback text and icon color.',
   },
   {
-    name: '--avatar-fallback-padding',
+    name: '--moduix-avatar-fallback-padding',
     defaultValue: '0',
     description: 'Controls fallback inner padding.',
   },
   {
-    name: '--avatar-font-size',
-    defaultValue: 'var(--text-md)',
+    name: '--moduix-avatar-font-size',
+    defaultValue: 'var(--moduix-text-md)',
     description: 'Controls avatar text font size.',
   },
   {
-    name: '--avatar-font-weight',
-    defaultValue: 'var(--weight-medium)',
+    name: '--moduix-avatar-font-weight',
+    defaultValue: 'var(--moduix-weight-medium)',
     description: 'Controls avatar text font weight.',
   },
   {
-    name: '--avatar-image-object-fit',
+    name: '--moduix-avatar-image-object-fit',
     defaultValue: 'cover',
     description: 'Controls how the image fits into the avatar.',
   },
   {
-    name: '--avatar-image-object-position',
+    name: '--moduix-avatar-image-object-position',
     defaultValue: 'center',
     description: 'Controls which part of the image remains visible when cropped.',
   },
   {
-    name: '--avatar-line-height',
-    defaultValue: 'var(--line-height-text-md)',
+    name: '--moduix-avatar-line-height',
+    defaultValue: 'var(--moduix-line-height-text-md)',
     description: 'Controls avatar text line height.',
   },
   {
-    name: '--avatar-radius',
-    defaultValue: 'var(--radius-full)',
+    name: '--moduix-avatar-radius',
+    defaultValue: 'var(--moduix-radius-full)',
     description: 'Controls avatar corner radius.',
   },
   {
-    name: '--avatar-size',
-    defaultValue: 'var(--size-md)',
+    name: '--moduix-avatar-size',
+    defaultValue: 'var(--moduix-size-md)',
     description: 'Controls avatar width and height.',
   },
 ] satisfies CssProperty[];
-
-export function AvatarCssPropertiesPanel() {
-  return <CSSPropertiesReferenceTable properties={avatarCssProperties} />;
-}
-
-export function AvatarExample(props: ComponentProps<typeof Avatar.Root>) {
-  return (
-    <Avatar {...props}>
-      <Avatar.Fallback name="Alex T." />
-      <Avatar.Image src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function AvatarFallbackOnlyExample() {
-  return (
-    <div className="docs-avatar-row">
-      <Avatar size="xs">
-        <Avatar.Fallback>XS</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="sm">
-        <Avatar.Fallback>SM</Avatar.Fallback>
-      </Avatar>
-      <Avatar>
-        <Avatar.Fallback>MD</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="lg">
-        <Avatar.Fallback>LG</Avatar.Fallback>
-      </Avatar>
-      <Avatar size="xl">
-        <Avatar.Fallback>XL</Avatar.Fallback>
-      </Avatar>
-    </div>
-  );
-}
-
-export function AvatarCompositionExample() {
-  return (
-    <Avatar asChild size="xl" className="docs-avatar-link">
-      <a href="mailto:alex@example.com" aria-label="Email Alex T.">
-        <Avatar.Fallback className="docs-avatar-link-fallback" name="Alex T." />
-        <Avatar.Image className="docs-avatar-link-image" src={avatarImage} alt="" />
-      </a>
-    </Avatar>
-  );
-}
-
-function AvatarCustomImage(props: ImgHTMLAttributes<HTMLImageElement>) {
-  const avatar = useAvatarContext();
-  const { hidden, ...imageProps } = avatar.getImageProps();
-
-  return (
-    <img
-      {...imageProps}
-      {...props}
-      className="docs-avatar-custom-image"
-      style={{ visibility: hidden ? 'hidden' : 'visible' }}
-    />
-  );
-}
-
-export function AvatarImageErrorExample() {
-  return (
-    <Avatar>
-      <Avatar.Fallback name="No Avatar" />
-      <Avatar.Image src="https://example.com/does-not-exist.png" alt="Broken image example" />
-    </Avatar>
-  );
-}
-
-export function AvatarStatusExample() {
-  const [status, setStatus] = useState('idle');
-
-  return (
-    <div className="docs-avatar-status">
-      <Avatar onStatusChange={(details) => setStatus(details.status)}>
-        <Avatar.Fallback name="Alex T." />
-        <Avatar.Image src={avatarImage} alt="Alex T." />
-      </Avatar>
-      <output className="text-sm text-muted-foreground">Status: {status}</output>
-    </div>
-  );
-}
-
-export function AvatarRootProviderExample() {
-  const [count, setCount] = useState(0);
-  const avatar = useAvatar();
-
-  return (
-    <div className="docs-avatar-provider">
-      <button
-        type="button"
-        className="docs-avatar-provider-button"
-        onClick={() => setCount(count + 1)}
-      >
-        Change avatar
-      </button>
-      <Avatar.RootProvider value={avatar}>
-        <Avatar.Fallback name="Alex T." />
-        <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
-      </Avatar.RootProvider>
-    </div>
-  );
-}
-
-export function AvatarCustomImageExample() {
-  return (
-    <Avatar>
-      <Avatar.Fallback name="Alex T." />
-      <AvatarCustomImage src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function CustomCompositionAvatarExample() {
-  return (
-    <Avatar size="lg" className="docs-avatar-ring">
-      <Avatar.Fallback className="docs-avatar-uppercase" name="Alex T." />
-      <Avatar.Image className="docs-avatar-saturated-image" src={avatarImage} alt="Alex T." />
-    </Avatar>
-  );
-}
-
-export function AvatarCustomFallbackExample() {
-  return (
-    <Avatar size="lg" className="docs-avatar-icon">
-      <Avatar.Fallback role="img" aria-label="Workstation account">
-        <ComputerIcon className="docs-avatar-icon-glyph" />
-      </Avatar.Fallback>
-    </Avatar>
-  );
-}

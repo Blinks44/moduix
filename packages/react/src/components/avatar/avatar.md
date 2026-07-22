@@ -95,28 +95,28 @@ loading state. Keep rarer Ark context APIs and type aliases on `@ark-ui/react/av
 Both root components accept `className`, receive the root styles, and set `data-size` when `size` is
 provided.
 
-| `size` | Root size token | Text token  |
-| ------ | --------------- | ----------- |
-| `xs`   | `--size-xs`     | `--text-xs` |
-| `sm`   | `--size-sm`     | `--text-sm` |
-| `md`   | `--size-md`     | `--text-md` |
-| `lg`   | `--size-lg`     | `--text-lg` |
-| `xl`   | `--size-xl`     | `--text-lg` |
+| `size` | Root size token    | Text token         |
+| ------ | ------------------ | ------------------ |
+| `xs`   | `--moduix-size-xs` | `--moduix-text-xs` |
+| `sm`   | `--moduix-size-sm` | `--moduix-text-sm` |
+| `md`   | `--moduix-size-md` | `--moduix-text-md` |
+| `lg`   | `--moduix-size-lg` | `--moduix-text-lg` |
+| `xl`   | `--moduix-size-xl` | `--moduix-text-lg` |
 
 Public CSS variables:
 
-- `--avatar-bg`
-- `--avatar-color`
-- `--avatar-fallback-bg`
-- `--avatar-fallback-color`
-- `--avatar-fallback-padding`
-- `--avatar-font-size`
-- `--avatar-font-weight`
-- `--avatar-image-object-fit`
-- `--avatar-image-object-position`
-- `--avatar-line-height`
-- `--avatar-radius`
-- `--avatar-size`
+- `--moduix-avatar-bg`
+- `--moduix-avatar-color`
+- `--moduix-avatar-fallback-bg`
+- `--moduix-avatar-fallback-color`
+- `--moduix-avatar-fallback-padding`
+- `--moduix-avatar-font-size`
+- `--moduix-avatar-font-weight`
+- `--moduix-avatar-image-object-fit`
+- `--moduix-avatar-image-object-position`
+- `--moduix-avatar-line-height`
+- `--moduix-avatar-radius`
+- `--moduix-avatar-size`
 
 State-dependent styling should target Ark `data-state`; local visual hooks should use `data-slot`
 or the public CSS variables.

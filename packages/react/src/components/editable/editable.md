@@ -33,7 +33,7 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Area`, `Input`
 - The wrapper adds visual styling, stable `data-slot` hooks, and default icons for edit, submit,
   and cancel triggers. The default layout places `Control` to the right of `Area` and centers it
   next to single-line input surfaces; textarea compositions can set
-  `--editable-control-align: start` to top-align controls with the multiline surface.
+  `--moduix-editable-control-align: start` to top-align controls with the multiline surface.
 
 ## Anatomy and exported parts
 
@@ -146,30 +146,30 @@ Ark also exposes `data-scope="editable"` and `data-part` attributes for part-lev
 
 ## Defaults and styling
 
-The editable area and its square edit trigger share the `--size-md` baseline; the area uses `--spacing-1` block padding.
+The editable area and its square edit trigger share the `--moduix-size-md` baseline; the area uses `--moduix-spacing-1` block padding.
 
 All exported parts accept `className`; Ark parts also support `asChild`. Trigger parts render the
 moduix pencil, check, or close icon when `children` is omitted.
 
 Public CSS variables:
 
-- Layout: `--editable-gap`, `--editable-width`, `--editable-max-width`,
-  `--editable-area-width`, `--editable-area-height`, `--editable-radius`.
-- Text: `--editable-color`, `--editable-font-size`, `--editable-line-height`,
-  `--editable-placeholder-color`, `--editable-preview-min-height`.
-- Label: `--editable-label-gap`, `--editable-label-color`,
-  `--editable-label-color-invalid`, `--editable-label-font-size`,
-  `--editable-label-line-height`, `--editable-label-font-weight`.
-- Surface: `--editable-bg`, `--editable-border-width`, `--editable-border-style`,
-  `--editable-border-color`, `--editable-border-color-invalid`, `--editable-padding-x`,
-  `--editable-padding-y`, `--editable-focus-ring-width`, `--editable-focus-ring-color`,
-  `--editable-transition`, `--editable-disabled-opacity`.
-- Controls: `--editable-control-align`, `--editable-control-gap`, `--editable-trigger-size`,
-  `--editable-trigger-bg`, `--editable-trigger-bg-hover`, `--editable-trigger-bg-active`,
-  `--editable-trigger-color`, `--editable-trigger-border-width`, `--editable-trigger-border-style`,
-  `--editable-trigger-border-color`, `--editable-trigger-radius`,
-  `--editable-trigger-icon-size`.
-- Textarea: `--editable-textarea-min-height`, `--editable-textarea-resize`.
+- Layout: `--moduix-editable-gap`, `--moduix-editable-width`, `--moduix-editable-max-width`,
+  `--moduix-editable-area-width`, `--moduix-editable-area-height`, `--moduix-editable-radius`.
+- Text: `--moduix-editable-color`, `--moduix-editable-font-size`, `--moduix-editable-line-height`,
+  `--moduix-editable-placeholder-color`, `--moduix-editable-preview-min-height`.
+- Label: `--moduix-editable-label-gap`, `--moduix-editable-label-color`,
+  `--moduix-editable-label-color-invalid`, `--moduix-editable-label-font-size`,
+  `--moduix-editable-label-line-height`, `--moduix-editable-label-font-weight`.
+- Surface: `--moduix-editable-bg`, `--moduix-editable-border-width`, `--moduix-editable-border-style`,
+  `--moduix-editable-border-color`, `--moduix-editable-border-color-invalid`, `--moduix-editable-padding-x`,
+  `--moduix-editable-padding-y`, `--moduix-editable-focus-ring-width`, `--moduix-editable-focus-ring-color`,
+  `--moduix-editable-transition`, `--moduix-editable-disabled-opacity`.
+- Controls: `--moduix-editable-control-align`, `--moduix-editable-control-gap`, `--moduix-editable-trigger-size`,
+  `--moduix-editable-trigger-bg`, `--moduix-editable-trigger-bg-hover`, `--moduix-editable-trigger-bg-active`,
+  `--moduix-editable-trigger-color`, `--moduix-editable-trigger-border-width`, `--moduix-editable-trigger-border-style`,
+  `--moduix-editable-trigger-border-color`, `--moduix-editable-trigger-radius`,
+  `--moduix-editable-trigger-icon-size`.
+- Textarea: `--moduix-editable-textarea-min-height`, `--moduix-editable-textarea-resize`.
 
 ## Intentional sugar and differences from upstream
 
@@ -190,7 +190,7 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Aligned the editable area and its square trigger to `--size-md` and compacted area padding.
+- 2026-07-21: Aligned the editable area and its square trigger to `--moduix-size-md` and compacted area padding.
 
 - 2026-07-10: Added `Editable.Controls` for the standard trigger flow and re-exported context
   surfaces through moduix for advanced compositions.
@@ -199,10 +199,10 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
   imports directly from `@ark-ui/react/editable`.
 - 2026-06-25: Replaced stale root-state styling guidance with real Ark part attributes, added
   explicit Context docs coverage, and synced editable CSS variable defaults.
-- 2026-06-22: Matched the default trigger button size to `--editable-area-height` so single-line
+- 2026-06-22: Matched the default trigger button size to `--moduix-editable-area-height` so single-line
   editable inputs and controls share the same height.
 - 2026-06-22: Centered right-side controls by default for single-line editable inputs and added
-  `--editable-control-align` for textarea top alignment.
+  `--moduix-editable-control-align` for textarea top alignment.
 - 2026-06-22: Changed the moduix default activation mode to double-click, aligned controls to the
   right of the editable area, and documented `Input` / `Textarea` as plain controls while inline
   editing belongs to `Editable`.

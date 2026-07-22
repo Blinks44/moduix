@@ -1,79 +1,116 @@
-import { Field, PinInput, usePinInput } from '@moduix/react';
-import { useId, useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './pin-input.module.css';
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const pinInputCount = 6;
-export const pinInputIndexes = Array.from({ length: pinInputCount }, (_, index) => index);
-export const shortPinInputIndexes = [0, 1, 2, 3];
-
-export const pinInputOverrideCssProperties: CssPropertyInput[] = [
-  ['--pin-input-bg', 'var(--color-background)', 'Controls input background.'],
-  ['--pin-input-border-color', 'var(--color-border)', 'Controls default input border color.'],
+const pinInputOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-pin-input-bg', 'var(--moduix-color-background)', 'Controls input background.'],
   [
-    '--pin-input-border-color-complete',
-    'var(--pin-input-border-color, var(--color-border))',
+    '--moduix-pin-input-border-color',
+    'var(--moduix-color-border)',
+    'Controls default input border color.',
+  ],
+  [
+    '--moduix-pin-input-border-color-complete',
+    'var(--moduix-pin-input-border-color, var(--moduix-color-border))',
     'Controls complete input border color.',
   ],
   [
-    '--pin-input-border-color-invalid',
-    'var(--color-destructive)',
+    '--moduix-pin-input-border-color-invalid',
+    'var(--moduix-color-destructive)',
     'Controls invalid border and focus ring color.',
   ],
-  ['--pin-input-border-width', 'var(--border-width-sm)', 'Controls input border width.'],
-  ['--pin-input-color', 'var(--color-foreground)', 'Controls input text color.'],
-  ['--pin-input-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--pin-input-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
   [
-    '--pin-input-focus-ring-offset',
-    'var(--focus-ring-inset-offset)',
+    '--moduix-pin-input-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls input border width.',
+  ],
+  ['--moduix-pin-input-color', 'var(--moduix-color-foreground)', 'Controls input text color.'],
+  [
+    '--moduix-pin-input-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  ['--moduix-pin-input-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-pin-input-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls focus ring offset.',
   ],
   [
-    '--pin-input-focus-ring-width',
-    'var(--pin-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
+    '--moduix-pin-input-focus-ring-width',
+    'var(--moduix-pin-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls focus ring width.',
   ],
-  ['--pin-input-font-size', 'var(--text-lg)', 'Controls input font size.'],
-  ['--pin-input-font-weight', 'var(--weight-medium)', 'Controls input font weight.'],
-  ['--pin-input-gap', 'var(--spacing-2)', 'Controls spacing between inputs.'],
+  ['--moduix-pin-input-font-size', 'var(--moduix-text-lg)', 'Controls input font size.'],
+  ['--moduix-pin-input-font-weight', 'var(--moduix-weight-medium)', 'Controls input font weight.'],
+  ['--moduix-pin-input-gap', 'var(--moduix-spacing-2)', 'Controls spacing between inputs.'],
   [
-    '--pin-input-input-height',
-    'var(--pin-input-input-size, var(--size-md))',
+    '--moduix-pin-input-input-height',
+    'var(--moduix-pin-input-input-size, var(--moduix-size-md))',
     'Controls input slot height.',
   ],
-  ['--pin-input-input-padding-x', '0', 'Controls horizontal input padding.'],
-  ['--pin-input-input-padding-y', '0', 'Controls vertical input padding.'],
-  ['--pin-input-input-size', 'var(--size-md)', 'Controls square input slot size.'],
+  ['--moduix-pin-input-input-padding-x', '0', 'Controls horizontal input padding.'],
+  ['--moduix-pin-input-input-padding-y', '0', 'Controls vertical input padding.'],
+  ['--moduix-pin-input-input-size', 'var(--moduix-size-md)', 'Controls square input slot size.'],
   [
-    '--pin-input-input-width',
-    'var(--pin-input-input-size, var(--size-md))',
+    '--moduix-pin-input-input-width',
+    'var(--moduix-pin-input-input-size, var(--moduix-size-md))',
     'Controls input slot width.',
   ],
-  ['--pin-input-label-color', 'var(--color-foreground)', 'Controls label color.'],
-  ['--pin-input-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--pin-input-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--pin-input-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--pin-input-line-height', 'var(--line-height-text-lg)', 'Controls input line height.'],
-  ['--pin-input-max-width', 'none', 'Controls root max width.'],
-  ['--pin-input-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
-  ['--pin-input-radius', 'var(--radius-md)', 'Controls input corner radius.'],
-  ['--pin-input-root-gap', 'var(--spacing-2)', 'Controls root spacing between label and control.'],
-  ['--pin-input-separator-color', 'var(--color-muted-foreground)', 'Controls separator color.'],
+  ['--moduix-pin-input-label-color', 'var(--moduix-color-foreground)', 'Controls label color.'],
+  ['--moduix-pin-input-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
-    '--pin-input-separator-height',
-    'var(--pin-input-separator-size, var(--spacing-4))',
+    '--moduix-pin-input-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-pin-input-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  [
+    '--moduix-pin-input-line-height',
+    'var(--moduix-line-height-text-lg)',
+    'Controls input line height.',
+  ],
+  ['--moduix-pin-input-max-width', 'none', 'Controls root max width.'],
+  [
+    '--moduix-pin-input-placeholder-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls placeholder color.',
+  ],
+  ['--moduix-pin-input-radius', 'var(--moduix-radius-md)', 'Controls input corner radius.'],
+  [
+    '--moduix-pin-input-root-gap',
+    'var(--moduix-spacing-2)',
+    'Controls root spacing between label and control.',
+  ],
+  [
+    '--moduix-pin-input-separator-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls separator color.',
+  ],
+  [
+    '--moduix-pin-input-separator-height',
+    'var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))',
     'Controls separator height.',
   ],
-  ['--pin-input-separator-size', 'var(--spacing-4)', 'Controls separator width and height.'],
   [
-    '--pin-input-separator-width',
-    'var(--pin-input-separator-size, var(--spacing-4))',
+    '--moduix-pin-input-separator-size',
+    'var(--moduix-spacing-4)',
+    'Controls separator width and height.',
+  ],
+  [
+    '--moduix-pin-input-separator-width',
+    'var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))',
     'Controls separator width.',
   ],
-  ['--pin-input-transition', 'var(--transition-default)', 'Controls input state transitions.'],
-  ['--pin-input-width', 'auto', 'Controls root width.'],
+  [
+    '--moduix-pin-input-transition',
+    'var(--moduix-transition-default)',
+    'Controls input state transitions.',
+  ],
+  ['--moduix-pin-input-width', 'auto', 'Controls root width.'],
 ];
 
 export function PinInputCssPropertiesPanel() {
@@ -88,149 +125,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-function PinInputSlots({ indexes }: { indexes: number[] }) {
-  return indexes.map((index) => <PinInput.Input key={index} index={index} />);
-}
-
-export function PinInputExample() {
-  return (
-    <PinInput count={pinInputCount}>
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-    </PinInput>
-  );
-}
-
-export function PinInputPlaceholderExample() {
-  return (
-    <PinInput count={pinInputCount} placeholder="*">
-      <PinInput.Label>Verification code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-    </PinInput>
-  );
-}
-
-export function PinInputBlurOnCompleteExample() {
-  const [completedValue, setCompletedValue] = useState('');
-
-  return (
-    <div className={styles.stack}>
-      <PinInput
-        count={pinInputCount}
-        blurOnComplete
-        onValueComplete={(details) => {
-          setCompletedValue(details.valueAsString);
-        }}
-      >
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-      </PinInput>
-      <span className={styles.hint}>Completed value: {completedValue || 'empty'}</span>
-    </div>
-  );
-}
-
-export function PinInputOtpModeExample() {
-  return (
-    <PinInput count={pinInputCount} otp name="verificationCode">
-      <PinInput.Label>One-time code</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-    </PinInput>
-  );
-}
-
-export function PinInputMaskedExample() {
-  return (
-    <PinInput count={4} mask>
-      <PinInput.Label>PIN</PinInput.Label>
-      <PinInput.Control>
-        <PinInput.Inputs />
-      </PinInput.Control>
-    </PinInput>
-  );
-}
-
-export function PinInputChangeEventsExample() {
-  const [value, setValue] = useState<string[]>([]);
-
-  return (
-    <div className={styles.stack}>
-      <PinInput
-        count={pinInputCount}
-        type="alphanumeric"
-        value={value}
-        onValueChange={(details) => {
-          setValue(details.value);
-        }}
-      >
-        <PinInput.Label>Invite code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-      </PinInput>
-      <span className={styles.hint}>Current value: {value.join('') || 'empty'}</span>
-    </div>
-  );
-}
-
-export function PinInputGroupedLayoutExample() {
-  return (
-    <PinInput count={pinInputCount} className={styles.customRoot}>
-      <PinInput.Label>Auth code</PinInput.Label>
-      <PinInput.Control>
-        <PinInputSlots indexes={[0, 1, 2]} />
-        <PinInput.Separator />
-        <PinInputSlots indexes={[3, 4, 5]} />
-      </PinInput.Control>
-    </PinInput>
-  );
-}
-
-export function PinInputFieldExample() {
-  return (
-    <Field invalid required className={styles.field}>
-      <PinInput count={pinInputCount}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInput.Inputs />
-        </PinInput.Control>
-      </PinInput>
-      <Field.HelperText>Additional info</Field.HelperText>
-      <Field.ErrorText>Please enter the verification code.</Field.ErrorText>
-    </Field>
-  );
-}
-
-export function PinInputRootProviderExample() {
-  const id = useId();
-  const pinInput = usePinInput({ id, count: pinInputCount });
-
-  return (
-    <div className={styles.stack}>
-      <div className={styles.actions}>
-        <button type="button" onClick={pinInput.focus}>
-          Focus
-        </button>
-        <button type="button" onClick={pinInput.clearValue}>
-          Clear
-        </button>
-      </div>
-      <PinInput.RootProvider value={pinInput}>
-        <PinInput.Label>Verification code</PinInput.Label>
-        <PinInput.Control>
-          <PinInputSlots indexes={pinInputIndexes} />
-        </PinInput.Control>
-      </PinInput.RootProvider>
-    </div>
-  );
 }

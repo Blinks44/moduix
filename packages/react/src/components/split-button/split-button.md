@@ -123,26 +123,26 @@ export function SplitButtonExample() {
 ## Defaults and styling
 
 - Root `variant` defaults to `'default'`.
-- Root `size` defaults to `'md'`, which uses Button's `--size-md` baseline.
+- Root `size` defaults to `'md'`, which uses Button's `--moduix-size-md` baseline.
 - Root `positioning` defaults to `{ placement: 'bottom-end', gutter: 4 }`.
 - `Trigger` defaults to `ChevronDownIcon` and `aria-label="More actions"` when icon-only.
 - Root `variant` excludes `Button`'s `link` variant.
 - Root `size` excludes icon-only button sizes.
 - Shared Button and Menu variables still own the two controls and popup. The attached treatment is
-  independently themeable through the public `--split-button-*` variables below.
+  independently themeable through the public `--moduix-split-button-*` variables below.
 
-| Variable                              | Default                  |
-| ------------------------------------- | ------------------------ |
-| `--split-button-separator-color`      | `currentColor`           |
-| `--split-button-separator-inset`      | `var(--spacing-1-5)`     |
-| `--split-button-separator-offset`     | `0`                      |
-| `--split-button-separator-opacity`    | `0.16`                   |
-| `--split-button-separator-width`      | `var(--border-width-sm)` |
-| `--split-button-trigger-padding-x-xs` | `var(--spacing-2)`       |
-| `--split-button-trigger-padding-x-sm` | `var(--spacing-2-5)`     |
-| `--split-button-trigger-padding-x-md` | `var(--spacing-3)`       |
-| `--split-button-trigger-padding-x-lg` | `var(--spacing-3-5)`     |
-| `--split-button-trigger-padding-x-xl` | `var(--spacing-4)`       |
+| Variable                                     | Default                         |
+| -------------------------------------------- | ------------------------------- |
+| `--moduix-split-button-separator-color`      | `currentColor`                  |
+| `--moduix-split-button-separator-inset`      | `var(--moduix-spacing-1-5)`     |
+| `--moduix-split-button-separator-offset`     | `0`                             |
+| `--moduix-split-button-separator-opacity`    | `0.16`                          |
+| `--moduix-split-button-separator-width`      | `var(--moduix-border-width-sm)` |
+| `--moduix-split-button-trigger-padding-x-xs` | `var(--moduix-spacing-2)`       |
+| `--moduix-split-button-trigger-padding-x-sm` | `var(--moduix-spacing-2-5)`     |
+| `--moduix-split-button-trigger-padding-x-md` | `var(--moduix-spacing-3)`       |
+| `--moduix-split-button-trigger-padding-x-lg` | `var(--moduix-spacing-3-5)`     |
+| `--moduix-split-button-trigger-padding-x-xl` | `var(--moduix-spacing-4)`       |
 
 ## Intentional sugar and differences from upstream
 
@@ -168,7 +168,7 @@ export function SplitButtonExample() {
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Documented that the default `md` action and trigger inherit Button's compact `--size-md` baseline.
+- 2026-07-21: Documented that the default `md` action and trigger inherit Button's compact `--moduix-size-md` baseline.
 
 - 2026-07-07: Removed the trigger-level `asChild` escape hatch so `SplitButton.Trigger` keeps one
   stable Ark Menu trigger host instead of a nested `asChild` chain.

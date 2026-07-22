@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "moduix React Separator component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/separator/Separator.tsx",
+      "content": "import type { HTMLArkProps } from '@ark-ui/react/factory';\nimport { ark } from '@ark-ui/react/factory';\nimport { clsx } from 'clsx';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Separator.module.css';\n\ntype SeparatorProps = HTMLArkProps<'span'> & {\n  orientation?: 'horizontal' | 'vertical';\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  variant?: 'solid' | 'dashed' | 'dotted';\n};\n\nconst SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function SeparatorRoot(\n  {\n    asChild,\n    className,\n    orientation = 'horizontal',\n    role,\n    size = 'sm',\n    variant = 'solid',\n    'aria-orientation': ariaOrientation,\n    ...props\n  },\n  ref,\n) {\n  const resolvedRole = role ?? 'separator';\n\n  return (\n    <ark.span\n      ref={ref}\n      asChild={asChild}\n      role={resolvedRole}\n      aria-orientation={ariaOrientation ?? (resolvedRole === 'separator' ? orientation : undefined)}\n      data-scope=\"separator\"\n      data-part=\"root\"\n      data-slot=\"separator-root\"\n      data-orientation={orientation}\n      data-size={size}\n      data-variant={variant}\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst Separator = Object.assign(SeparatorRoot, {\n  Root: SeparatorRoot,\n});\n\nexport { Separator };",
+      "type": "registry:component",
+      "target": "@components/moduix/separator/Separator.tsx"
+    },
+    {
+      "path": "packages/react/src/components/separator/Separator.module.css",
+      "content": "@layer moduix.components {\n  .root {\n    display: block;\n    flex-shrink: 0;\n    border: 0;\n    border-color: var(--moduix-separator-color, var(--moduix-color-border));\n    border-style: var(\n      --moduix-separator-border-style,\n      var(--moduix-separator-variant-border-style, solid)\n    );\n\n    &[data-size='xs'] {\n      --moduix-separator-size-thickness: var(--moduix-separator-thickness-xs, 0.5px);\n    }\n\n    &[data-size='sm'] {\n      --moduix-separator-size-thickness: var(\n        --moduix-separator-thickness-sm,\n        var(--moduix-border-width-sm)\n      );\n    }\n\n    &[data-size='md'] {\n      --moduix-separator-size-thickness: var(\n        --moduix-separator-thickness-md,\n        var(--moduix-border-width-md)\n      );\n    }\n\n    &[data-size='lg'] {\n      --moduix-separator-size-thickness: var(--moduix-separator-thickness-lg, 3px);\n    }\n\n    &[data-variant='dashed'] {\n      --moduix-separator-variant-border-style: dashed;\n    }\n\n    &[data-variant='dotted'] {\n      --moduix-separator-variant-border-style: dotted;\n    }\n\n    &[data-orientation='horizontal'] {\n      width: var(--moduix-separator-length-horizontal, 100%);\n      height: 0;\n      border-block-start-width: var(\n        --moduix-separator-thickness,\n        var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))\n      );\n    }\n\n    &[data-orientation='vertical'] {\n      width: 0;\n      height: var(--moduix-separator-length-vertical, 1em);\n      border-inline-start-width: var(\n        --moduix-separator-thickness,\n        var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))\n      );\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/separator/Separator.module.css"
+    },
+    {
+      "path": "packages/react/src/components/separator/index.ts",
+      "content": "export { Separator } from './Separator';",
+      "type": "registry:component",
+      "target": "@components/moduix/separator/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

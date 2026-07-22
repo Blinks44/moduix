@@ -11,10 +11,10 @@ const defaultItems = [
 ] as const;
 
 const collapsedMenuContentStyle = {
-  '--menu-item-font-size': 'var(--text-xs)',
-  '--menu-item-padding-x-end': '0.5rem',
-  '--menu-item-padding-x-start': '0.5rem',
-  '--menu-item-padding-y': '0.25rem',
+  '--moduix-menu-item-font-size': 'var(--moduix-text-xs)',
+  '--moduix-menu-item-padding-x-end': '0.5rem',
+  '--moduix-menu-item-padding-x-start': '0.5rem',
+  '--moduix-menu-item-padding-y': '0.25rem',
 } as CSSProperties;
 
 const collapsedMenuTriggerStyle = {

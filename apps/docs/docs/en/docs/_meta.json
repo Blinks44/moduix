@@ -1,0 +1,618 @@
+[
+  {
+    "type": "section-header",
+    "label": "Overview"
+  },
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Introduction",
+    "tag": "/sidebar-icons/book-open.svg"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "tag": "/sidebar-icons/scroll-text.svg"
+  },
+  {
+    "type": "file",
+    "name": "components",
+    "tag": "/sidebar-icons/panels-top-left.svg"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms.txt",
+    "link": "https://moduix.dev/llms.txt",
+    "tag": "/sidebar-icons/panels-top-left.svg"
+  },
+  {
+    "type": "file",
+    "name": "quick-start",
+    "tag": "/sidebar-icons/rocket.svg"
+  },
+  {
+    "type": "file",
+    "name": "themes",
+    "tag": "/sidebar-icons/palette.svg"
+  },
+  {
+    "type": "file",
+    "name": "tokens",
+    "tag": "/sidebar-icons/palette.svg"
+  },
+  {
+    "type": "section-header",
+    "label": "Blocks"
+  },
+  {
+    "type": "file",
+    "name": "blocks",
+    "tag": "/sidebar-icons/blocks.svg"
+  },
+  {
+    "type": "file",
+    "name": "app-header",
+    "tag": "/sidebar-icons/panel-top.svg"
+  },
+  {
+    "type": "file",
+    "name": "data-table",
+    "tag": "/sidebar-icons/table-properties.svg"
+  },
+  {
+    "type": "file",
+    "name": "file-upload-manager",
+    "tag": "/sidebar-icons/upload.svg"
+  },
+  {
+    "type": "file",
+    "name": "forgot-password",
+    "tag": "/sidebar-icons/key-round.svg"
+  },
+  {
+    "type": "file",
+    "name": "login-simple",
+    "tag": "/sidebar-icons/log-in.svg"
+  },
+  {
+    "type": "file",
+    "name": "mobile-drawer-navigation",
+    "tag": "/sidebar-icons/panel-left-open.svg"
+  },
+  {
+    "type": "file",
+    "name": "reset-password",
+    "tag": "/sidebar-icons/lock-keyhole.svg"
+  },
+  {
+    "type": "file",
+    "name": "sidebar-dashboard",
+    "tag": "/sidebar-icons/panel-left.svg"
+  },
+  {
+    "type": "file",
+    "name": "sign-up",
+    "tag": "/sidebar-icons/user-round-plus.svg"
+  },
+  {
+    "type": "file",
+    "name": "verification-code",
+    "tag": "/sidebar-icons/badge-check.svg"
+  },
+  {
+    "type": "section-header",
+    "label": "Guides"
+  },
+  {
+    "type": "file",
+    "name": "ai",
+    "tag": "/sidebar-icons/sparkles.svg"
+  },
+  {
+    "type": "file",
+    "name": "animations",
+    "tag": "/sidebar-icons/orbit.svg"
+  },
+  {
+    "type": "file",
+    "name": "composition-patterns",
+    "tag": "/sidebar-icons/blocks.svg"
+  },
+  {
+    "type": "file",
+    "name": "dark-mode",
+    "tag": "/sidebar-icons/moon.svg"
+  },
+  {
+    "type": "file",
+    "name": "rtl",
+    "tag": "/sidebar-icons/languages.svg"
+  },
+  {
+    "type": "file",
+    "name": "styling",
+    "tag": "/sidebar-icons/palette.svg"
+  },
+  {
+    "type": "file",
+    "name": "updating",
+    "tag": "/sidebar-icons/refresh-cw.svg"
+  },
+  {
+    "type": "file",
+    "name": "utilities",
+    "tag": "/sidebar-icons/wrench.svg"
+  },
+  {
+    "type": "section-header",
+    "label": "Collections"
+  },
+  {
+    "type": "file",
+    "name": "collections",
+    "tag": "/sidebar-icons/database.svg"
+  },
+  {
+    "type": "file",
+    "name": "async-list",
+    "tag": "/sidebar-icons/refresh-cw.svg"
+  },
+  {
+    "type": "file",
+    "name": "list-collection",
+    "tag": "/sidebar-icons/list.svg"
+  },
+  {
+    "type": "file",
+    "name": "list-selection",
+    "tag": "/sidebar-icons/list-checks.svg"
+  },
+  {
+    "type": "file",
+    "name": "tree-collection",
+    "tag": "/sidebar-icons/git-branch.svg"
+  },
+  {
+    "type": "section-header",
+    "label": "Forms"
+  },
+  {
+    "type": "file",
+    "name": "forms",
+    "tag": "/sidebar-icons/clipboard-list.svg"
+  },
+  {
+    "type": "file",
+    "name": "react-hook-form",
+    "tag": "/sidebar-icons/braces.svg"
+  },
+  {
+    "type": "file",
+    "name": "tanstack-form",
+    "tag": "/sidebar-icons/braces.svg"
+  },
+  {
+    "type": "file",
+    "name": "formisch",
+    "tag": "/sidebar-icons/braces.svg"
+  },
+  {
+    "type": "section-header",
+    "label": "Components"
+  },
+  {
+    "type": "file",
+    "name": "accordion",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "alert",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "angle-slider",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "aspect-ratio",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "avatar",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "badge",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "bleed",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "breadcrumbs",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "button",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "card",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "carousel",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "checkbox",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "clipboard",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "close-button",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "collapsible",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "color-picker",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "combobox",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "command-palette",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "container",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "date-input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "date-picker",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "dialog",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "drawer",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "editable",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "empty",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "field",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "fieldset",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "file-upload",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "floating-panel",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "heading",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "highlight",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "hover-card",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "image",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "image-cropper",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "input-group",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "kbd",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "lightbox",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "list",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "listbox",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "marquee",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "menu",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "native-select",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "number-input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "pagination",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "password-input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "pin-input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "popover",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "progress-circular",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "progress-linear",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "qr-code",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "radio-group",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "rating-group",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "scroll-area",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "segment-group",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "select",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "separator",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "sidebar",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "signature-pad",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "simple-grid",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "skeleton",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "slider",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "spinner",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "split-button",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "splitter",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "stack",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "steps",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "swap",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "switch",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "table",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tabs",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tag",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tags-input",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "text",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "textarea",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "timer",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "toast",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "toggle",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "toggle-group",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tooltip",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tour",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "tree-view",
+    "tag": "/sidebar-icons/component.svg"
+  },
+  {
+    "type": "file",
+    "name": "typeset",
+    "tag": "/sidebar-icons/component.svg"
+  }
+]

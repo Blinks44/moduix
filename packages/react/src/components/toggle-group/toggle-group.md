@@ -160,19 +160,19 @@ export function RootProviderToggleGroupDemo() {
 - Item writes `data-slot="toggle-group-item"`.
 - `data-variant` and `data-size` are moduix visual hooks.
 - Root CSS variables:
-  - `--toggle-group-bg`
-  - `--toggle-group-border-color`
-  - `--toggle-group-border-width`
-  - `--toggle-group-color`
-  - `--toggle-group-gap`
-  - `--toggle-group-ghost-bg`
-  - `--toggle-group-ghost-border-color`
-  - `--toggle-group-ghost-padding`
-  - `--toggle-group-item-radius`
-  - `--toggle-group-outline-bg`
-  - `--toggle-group-padding`
-  - `--toggle-group-radius`
-- Item also supports the public `--toggle-*` variables from `Toggle`.
+  - `--moduix-toggle-group-bg`
+  - `--moduix-toggle-group-border-color`
+  - `--moduix-toggle-group-border-width`
+  - `--moduix-toggle-group-color`
+  - `--moduix-toggle-group-gap`
+  - `--moduix-toggle-group-ghost-bg`
+  - `--moduix-toggle-group-ghost-border-color`
+  - `--moduix-toggle-group-ghost-padding`
+  - `--moduix-toggle-group-item-radius`
+  - `--moduix-toggle-group-outline-bg`
+  - `--moduix-toggle-group-padding`
+  - `--moduix-toggle-group-radius`
+- Item also supports the public `--moduix-toggle-*` variables from `Toggle`.
 
 ## Intentional sugar and differences from upstream
 

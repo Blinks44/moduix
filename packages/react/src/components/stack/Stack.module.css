@@ -1,13 +1,16 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: flex;
-    flex: var(--stack-flex, initial);
-    flex-direction: var(--stack-direction-mobile, column);
+    flex: var(--moduix-stack-flex, initial);
+    flex-direction: var(--moduix-stack-direction-mobile, column);
   }
 
   @media (min-width: 640px) {
     .root {
-      flex-direction: var(--stack-direction-desktop, var(--stack-direction-mobile, column));
+      flex-direction: var(
+        --moduix-stack-direction-desktop,
+        var(--moduix-stack-direction-mobile, column)
+      );
     }
   }
 }

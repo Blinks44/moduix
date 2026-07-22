@@ -1,52 +1,61 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-grid;
     justify-items: center;
-    gap: var(--progress-circular-gap, var(--spacing-2));
-    width: var(--progress-circular-root-width, max-content);
-    color: var(--progress-circular-color, var(--color-foreground));
+    gap: var(--moduix-progress-circular-gap, var(--moduix-spacing-2));
+    width: var(--moduix-progress-circular-root-width, max-content);
+    color: var(--moduix-progress-circular-color, var(--moduix-color-foreground));
   }
 
   .label {
-    font-size: var(--progress-circular-label-font-size, var(--text-sm));
-    font-weight: var(--progress-circular-label-font-weight, var(--weight-regular));
-    line-height: var(--progress-circular-label-line-height, var(--line-height-text-sm));
-    color: var(--progress-circular-label-color, currentColor);
+    font-size: var(--moduix-progress-circular-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-progress-circular-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(
+      --moduix-progress-circular-label-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    color: var(--moduix-progress-circular-label-color, currentColor);
   }
 
   .valueText {
-    font-size: var(--progress-circular-value-text-font-size, var(--text-sm));
-    font-weight: var(--progress-circular-value-text-font-weight, var(--weight-medium));
-    line-height: var(--progress-circular-value-text-line-height, var(--line-height-text-sm));
-    color: var(--progress-circular-value-text-color, currentColor);
+    font-size: var(--moduix-progress-circular-value-text-font-size, var(--moduix-text-sm));
+    font-weight: var(
+      --moduix-progress-circular-value-text-font-weight,
+      var(--moduix-weight-medium)
+    );
+    line-height: var(
+      --moduix-progress-circular-value-text-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    color: var(--moduix-progress-circular-value-text-color, currentColor);
     text-align: center;
   }
 
   .circle {
-    --size: var(--progress-circular-size, var(--size-xl));
-    --thickness: var(--progress-circular-thickness, 0.4rem);
+    --size: var(--moduix-progress-circular-size, var(--moduix-size-xl));
+    --thickness: var(--moduix-progress-circular-thickness, 0.4rem);
 
     display: block;
     overflow: visible;
   }
 
   .circleTrack {
-    stroke: var(--progress-circular-track-bg, var(--color-muted));
+    stroke: var(--moduix-progress-circular-track-bg, var(--moduix-color-muted));
   }
 
   .circleRange {
-    stroke: var(--progress-circular-range-bg, var(--color-primary));
-    stroke-linecap: var(--progress-circular-range-linecap, round);
+    stroke: var(--moduix-progress-circular-range-bg, var(--moduix-color-primary));
+    stroke-linecap: var(--moduix-progress-circular-range-linecap, round);
     transition: stroke-dashoffset
-      var(--progress-circular-range-transition, var(--transition-default));
+      var(--moduix-progress-circular-range-transition, var(--moduix-transition-default));
 
     &[data-state='indeterminate'] {
       animation: var(
-        --progress-circular-range-indeterminate-animation,
+        --moduix-progress-circular-range-indeterminate-animation,
         progress-circular-indeterminate 1.4s linear infinite
       );
-      stroke-dasharray: var(--progress-circular-range-indeterminate-dasharray, 1 200);
+      stroke-dasharray: var(--moduix-progress-circular-range-indeterminate-dasharray, 1 200);
     }
 
     @media (prefers-reduced-motion: reduce) {

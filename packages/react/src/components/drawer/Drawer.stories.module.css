@@ -1,39 +1,39 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .scrollBody {
     display: grid;
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
     max-height: 50dvh;
   }
 
   .noDragArea {
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) dashed var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-muted);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-muted);
   }
 
   .triggerGroup {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .providerDemo {
     display: grid;
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
   }
 
   .field {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
 
     & input {
-      min-height: var(--size-lg);
-      padding: 0 var(--spacing-3);
-      border: var(--border-width-sm) solid var(--color-border);
-      border-radius: var(--radius-md);
-      background: var(--color-background);
-      color: var(--color-foreground);
+      min-height: var(--moduix-size-lg);
+      padding: 0 var(--moduix-spacing-3);
+      border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+      border-radius: var(--moduix-radius-md);
+      background: var(--moduix-color-background);
+      color: var(--moduix-color-foreground);
       font: inherit;
     }
   }
@@ -42,14 +42,14 @@
     position: relative;
     min-height: 360px;
     overflow: hidden;
-    background: var(--color-foreground);
+    background: var(--moduix-color-foreground);
   }
 
   .indentSurface {
     display: grid;
     min-height: 360px;
     place-items: center;
-    padding: var(--spacing-6);
-    background: var(--color-background);
+    padding: var(--moduix-spacing-6);
+    background: var(--moduix-color-background);
   }
 }

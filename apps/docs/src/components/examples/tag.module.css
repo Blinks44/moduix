@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .constrained {
@@ -12,15 +12,4 @@
 .buttonTag {
   appearance: none;
   cursor: pointer;
-}
-
-.customSoft {
-  --tag-bg: color-mix(in oklab, var(--color-primary) 16%, var(--color-background));
-  --tag-border-color: color-mix(in oklab, var(--color-primary) 35%, transparent);
-  --tag-color: var(--color-primary);
-  --tag-close-trigger-bg-hover: color-mix(in oklab, var(--color-primary) 18%, transparent);
-}
-
-.customOutline {
-  --tag-border-color: color-mix(in oklab, var(--color-foreground) 18%, transparent);
 }

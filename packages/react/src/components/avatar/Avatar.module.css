@@ -1,45 +1,45 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--avatar-size, var(--size-md));
-    height: var(--avatar-size, var(--size-md));
+    width: var(--moduix-avatar-size, var(--moduix-size-md));
+    height: var(--moduix-avatar-size, var(--moduix-size-md));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
-    border-radius: var(--avatar-radius, var(--radius-full));
-    background-color: var(--avatar-bg, var(--color-muted));
-    color: var(--avatar-color, var(--color-foreground));
-    font-size: var(--avatar-font-size, var(--text-md));
-    font-weight: var(--avatar-font-weight, var(--weight-medium));
-    line-height: var(--avatar-line-height, var(--line-height-text-md));
+    border-radius: var(--moduix-avatar-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-avatar-bg, var(--moduix-color-muted));
+    color: var(--moduix-avatar-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-avatar-font-size, var(--moduix-text-md));
+    font-weight: var(--moduix-avatar-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-avatar-line-height, var(--moduix-line-height-text-md));
     user-select: none;
     vertical-align: middle;
 
     &:where([data-size='xs']) {
-      --avatar-size: var(--size-xs);
-      --avatar-font-size: var(--text-xs);
-      --avatar-line-height: var(--line-height-text-xs);
+      --moduix-avatar-size: var(--moduix-size-xs);
+      --moduix-avatar-font-size: var(--moduix-text-xs);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-xs);
     }
 
     &:where([data-size='sm']) {
-      --avatar-size: var(--size-sm);
-      --avatar-font-size: var(--text-sm);
-      --avatar-line-height: var(--line-height-text-sm);
+      --moduix-avatar-size: var(--moduix-size-sm);
+      --moduix-avatar-font-size: var(--moduix-text-sm);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-sm);
     }
 
     &:where([data-size='lg']) {
-      --avatar-size: var(--size-lg);
-      --avatar-font-size: var(--text-lg);
-      --avatar-line-height: var(--line-height-text-lg);
+      --moduix-avatar-size: var(--moduix-size-lg);
+      --moduix-avatar-font-size: var(--moduix-text-lg);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);
     }
 
     &:where([data-size='xl']) {
-      --avatar-size: var(--size-xl);
-      --avatar-font-size: var(--text-lg);
-      --avatar-line-height: var(--line-height-text-lg);
+      --moduix-avatar-size: var(--moduix-size-xl);
+      --moduix-avatar-font-size: var(--moduix-text-lg);
+      --moduix-avatar-line-height: var(--moduix-line-height-text-lg);
     }
   }
 
@@ -47,8 +47,8 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: var(--avatar-image-object-fit, cover);
-    object-position: var(--avatar-image-object-position, center);
+    object-fit: var(--moduix-avatar-image-object-fit, cover);
+    object-position: var(--moduix-avatar-image-object-position, center);
     border-radius: inherit;
 
     &[data-state='hidden'] {
@@ -62,9 +62,12 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    padding: var(--avatar-fallback-padding, 0);
-    background-color: var(--avatar-fallback-bg, var(--avatar-bg, var(--color-muted)));
-    color: var(--avatar-fallback-color, inherit);
+    padding: var(--moduix-avatar-fallback-padding, 0);
+    background-color: var(
+      --moduix-avatar-fallback-bg,
+      var(--moduix-avatar-bg, var(--moduix-color-muted))
+    );
+    color: var(--moduix-avatar-fallback-color, inherit);
     border-radius: inherit;
     line-height: 1;
 

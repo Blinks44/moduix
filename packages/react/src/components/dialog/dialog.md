@@ -114,22 +114,22 @@ rendered `CloseButton.Root`.
 
 ## Defaults and styling
 
-Default dialog and close controls use `--size-md` with `--spacing-1` block padding.
+Default dialog and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--dialog-*` content-motion
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-dialog-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
 Moduix supplies visual defaults for native trigger/close buttons, backdrop, centered positioner,
 content surface, typography, layout helpers, motion, and close icon.
 
 Open and close animations use Ark `data-state="open|closed"`. Nested scaling uses
-`--nested-layer-count` and transitions through `--dialog-nested-transition`. Like `Drawer`, nested
+`--nested-layer-count` and transitions through `--moduix-dialog-nested-transition`. Like `Drawer`, nested
 dialogs animate the parent `Content` with CSS `scale` and `translate` individual transform
 properties so the parent recedes downward and remains visibly layered behind the active dialog. Tune
-the effect with `--dialog-nested-scale-step`, `--dialog-nested-translate-step`, and
-`--dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
+the effect with `--moduix-dialog-nested-scale-step`, `--moduix-dialog-nested-translate-step`, and
+`--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
 the content's block-start/inline-end corner by default, including when it is composed outside
-`Dialog.Header`. Public `--dialog-*` tokens live in `theme.css`.
+`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `theme.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -152,9 +152,9 @@ Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext`
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default dialog and close controls to `--size-md` and compacted their block padding.
+- 2026-07-21: Reduced default dialog and close controls to `--moduix-size-md` and compacted their block padding.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-12: Kept one close part in the canonical Basic composition so Ark's generated
   close-trigger id is not duplicated within the dialog.
 - 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use

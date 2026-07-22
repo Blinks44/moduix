@@ -108,26 +108,26 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 
 Public CSS variables:
 
-| Variable                        | Default                                            | Applies to               |
-| ------------------------------- | -------------------------------------------------- | ------------------------ |
-| `--badge-bg`                    | variant-specific background                        | `Badge.Root`             |
-| `--badge-border-color`          | `transparent`; `var(--color-border)` for `outline` | `Badge.Root`             |
-| `--badge-border-width`          | `var(--border-width-sm)`                           | `Badge.Root`             |
-| `--badge-color`                 | variant-specific foreground                        | `Badge.Root`             |
-| `--badge-dot-size`              | `var(--spacing-1-5)`                               | `Badge.Dot`              |
-| `--badge-font-size`             | `var(--text-xs)`                                   | `Badge.Root`             |
-| `--badge-font-weight`           | `var(--weight-medium)`                             | `Badge.Root`             |
-| `--badge-focus-ring-color`      | `var(--color-ring)`                                | interactive `Badge.Root` |
-| `--badge-focus-ring-offset`     | `var(--focus-ring-offset)`                         | interactive `Badge.Root` |
-| `--badge-focus-ring-width`      | `var(--focus-ring-width, var(--border-width-md))`  | interactive `Badge.Root` |
-| `--badge-gap`                   | `var(--spacing-1-5)`                               | `Badge.Root`             |
-| `--badge-height`                | `1.25rem`                                          | `Badge.Root`             |
-| `--badge-icon-size`             | `var(--spacing-3)`                                 | child `svg`              |
-| `--badge-line-height`           | `var(--line-height-text-xs)`                       | `Badge.Root`             |
-| `--badge-link-underline-offset` | `0.15em`                                           | link `Badge.Root`        |
-| `--badge-padding-x`             | `var(--spacing-2-5)`                               | `Badge.Root`             |
-| `--badge-padding-y`             | `0`                                                | `Badge.Root`             |
-| `--badge-radius`                | `var(--radius-full)`                               | `Badge.Root`             |
+| Variable                               | Default                                                         | Applies to               |
+| -------------------------------------- | --------------------------------------------------------------- | ------------------------ |
+| `--moduix-badge-bg`                    | variant-specific background                                     | `Badge.Root`             |
+| `--moduix-badge-border-color`          | `transparent`; `var(--moduix-color-border)` for `outline`       | `Badge.Root`             |
+| `--moduix-badge-border-width`          | `var(--moduix-border-width-sm)`                                 | `Badge.Root`             |
+| `--moduix-badge-color`                 | variant-specific foreground                                     | `Badge.Root`             |
+| `--moduix-badge-dot-size`              | `var(--moduix-spacing-1-5)`                                     | `Badge.Dot`              |
+| `--moduix-badge-font-size`             | `var(--moduix-text-xs)`                                         | `Badge.Root`             |
+| `--moduix-badge-font-weight`           | `var(--moduix-weight-medium)`                                   | `Badge.Root`             |
+| `--moduix-badge-focus-ring-color`      | `var(--moduix-color-ring)`                                      | interactive `Badge.Root` |
+| `--moduix-badge-focus-ring-offset`     | `var(--moduix-focus-ring-offset)`                               | interactive `Badge.Root` |
+| `--moduix-badge-focus-ring-width`      | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` | interactive `Badge.Root` |
+| `--moduix-badge-gap`                   | `var(--moduix-spacing-1-5)`                                     | `Badge.Root`             |
+| `--moduix-badge-height`                | `1.25rem`                                                       | `Badge.Root`             |
+| `--moduix-badge-icon-size`             | `var(--moduix-spacing-3)`                                       | child `svg`              |
+| `--moduix-badge-line-height`           | `var(--moduix-line-height-text-xs)`                             | `Badge.Root`             |
+| `--moduix-badge-link-underline-offset` | `0.15em`                                                        | link `Badge.Root`        |
+| `--moduix-badge-padding-x`             | `var(--moduix-spacing-2-5)`                                     | `Badge.Root`             |
+| `--moduix-badge-padding-y`             | `0`                                                             | `Badge.Root`             |
+| `--moduix-badge-radius`                | `var(--moduix-radius-full)`                                     | `Badge.Root`             |
 
 ## Intentional sugar and differences from upstream
 
@@ -144,7 +144,7 @@ Public CSS variables:
 - Keep the base mental model presentational: `Badge` does not own interaction. When `asChild` is
   appropriate, use one semantic interactive child and preserve the default focus treatment on the
   rendered host.
-- Keep direct child icon sizing tied to `--badge-icon-size` and `currentColor`.
+- Keep direct child icon sizing tied to `--moduix-badge-icon-size` and `currentColor`.
 
 ## Local changelog
 

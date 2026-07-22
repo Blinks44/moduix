@@ -88,10 +88,10 @@ shared invalid/disabled/required state.
 
 ## Defaults and styling
 
-The single-select control defaults to `--size-md`; multi-select controls retain their content-driven height.
+The single-select control defaults to `--moduix-size-md`; multi-select controls retain their content-driven height.
 
 - The default control width, height, border, radius, colors, focus ring, disabled opacity, and hover
-  background use the same `--select-*` variables as `Select`.
+  background use the same `--moduix-select-*` variables as `Select`.
 - Default control padding and indicator geometry use the shared 4px spacing scale.
 - `className` is merged onto the native select. `controlProps.className` and `controlProps.style`
   target the outer layout span, so CSS variables there also reach the indicator.
@@ -115,13 +115,13 @@ The single-select control defaults to `--size-md`; multi-select controls retain 
 - Keep one real `Field.Select` without local state.
 - Do not replace native `onChange(event)` with Ark detail objects.
 - Keep visual control variables aligned with `Select`.
-- Keep the indicator inside the shared `--select-action-*` spacing contract.
+- Keep the indicator inside the shared `--moduix-select-action-*` spacing contract.
 - Do not overload native `size`; add no visual size API without a distinct prop name.
 
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default single-select control to `--size-md`.
+- 2026-07-21: Reduced the default single-select control to `--moduix-size-md`.
 
 - 2026-07-20: Removed the native field hover surface and aligned the decorative indicator's spacing and local hover treatment with `Select`; platform interaction stays on the native select.
 - 2026-06-30: Added the native select wrapper with Field integration, shared Select control styles,

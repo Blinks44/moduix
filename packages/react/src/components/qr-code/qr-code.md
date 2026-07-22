@@ -88,7 +88,7 @@ Use `QrCode.Overlay` with high error correction when central content covers part
 - Download: supported through `DownloadTrigger` with `fileName`, `mimeType`, and optional
   `quality`.
 - Error correction: supported through `encoding.ecc` and `encoding.boostEcc`.
-- Fill customization: supported through `className`, SVG `style`, and `--qr-code-fill`.
+- Fill customization: supported through `className`, SVG `style`, and `--moduix-qr-code-fill`.
 - Overlay: supported through `Overlay`; consumers should use stronger error correction when the
   overlay is large.
 - Root provider: supported through moduix `useQrCode()` and `QrCode.RootProvider`.
@@ -114,7 +114,7 @@ parts, plus runtime CSS variables on the root:
 
 ## Defaults and styling
 
-The download trigger follows Button's `--size-md` default; the visual QR overlay remains independently sized.
+The download trigger follows Button's `--moduix-size-md` default; the visual QR overlay remains independently sized.
 
 Moduix adds default classes, stable `data-slot` hooks, SVG sizing, overlay styling, and a
 button-like default style for `DownloadTrigger`. The root has no border, background, padding, or
@@ -122,21 +122,21 @@ radius by default.
 
 Primary CSS variables:
 
-| Variable                       | Default                                                   |
-| ------------------------------ | --------------------------------------------------------- |
-| `--qr-code-color`              | `var(--color-foreground)`                                 |
-| `--qr-code-fill`               | `currentColor`                                            |
-| `--qr-code-gap`                | `var(--spacing-3)`                                        |
-| `--qr-code-max-width`          | `100%`                                                    |
-| `--qr-code-size`               | `8rem` preferred frame width                              |
-| `--qr-code-overlay-size`       | `var(--size-lg)`                                          |
-| `--qr-code-overlay-padding`    | `var(--spacing-1)`                                        |
-| `--qr-code-overlay-radius`     | `var(--radius-sm)`                                        |
-| `--qr-code-overlay-bg`         | `var(--color-background)`                                 |
-| `--qr-code-overlay-color`      | `var(--color-foreground)`                                 |
-| `--qr-code-download-trigger-*` | Button token fallbacks                                    |
-| `--qr-code-disabled-opacity`   | `var(--button-disabled-opacity, var(--opacity-disabled))` |
-| `--qr-code-transition`         | `var(--button-transition, var(--transition-default))`     |
+| Variable                              | Default                                                                 |
+| ------------------------------------- | ----------------------------------------------------------------------- |
+| `--moduix-qr-code-color`              | `var(--moduix-color-foreground)`                                        |
+| `--moduix-qr-code-fill`               | `currentColor`                                                          |
+| `--moduix-qr-code-gap`                | `var(--moduix-spacing-3)`                                               |
+| `--moduix-qr-code-max-width`          | `100%`                                                                  |
+| `--moduix-qr-code-size`               | `8rem` preferred frame width                                            |
+| `--moduix-qr-code-overlay-size`       | `var(--moduix-size-lg)`                                                 |
+| `--moduix-qr-code-overlay-padding`    | `var(--moduix-spacing-1)`                                               |
+| `--moduix-qr-code-overlay-radius`     | `var(--moduix-radius-sm)`                                               |
+| `--moduix-qr-code-overlay-bg`         | `var(--moduix-color-background)`                                        |
+| `--moduix-qr-code-overlay-color`      | `var(--moduix-color-foreground)`                                        |
+| `--moduix-qr-code-download-trigger-*` | Button token fallbacks                                                  |
+| `--moduix-qr-code-disabled-opacity`   | `var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))` |
+| `--moduix-qr-code-transition`         | `var(--moduix-button-transition, var(--moduix-transition-default))`     |
 
 ## Intentional sugar and differences from upstream
 
@@ -150,7 +150,7 @@ Primary CSS variables:
 
 - Keep the wrapper thin and preserve Ark callback details.
 - Keep `Frame` and `Pattern` explicit in examples and docs.
-- When changing visual defaults, keep `--qr-code-*` tokens, docs examples, and registry output in
+- When changing visual defaults, keep `--moduix-qr-code-*` tokens, docs examples, and registry output in
   sync.
 - Keep advanced Ark state APIs other than `useQrCode()` out of the moduix surface; consumers can
   import them from Ark directly when needed.
@@ -161,7 +161,7 @@ Primary CSS variables:
 - 2026-07-21: Aligned the default download trigger with the Button `md` baseline.
 
 - 2026-07-10: Re-exported `useQrCode()` through moduix for `RootProvider` usage and constrained
-  the frame to its container width while retaining the `--qr-code-size` preferred width.
+  the frame to its container width while retaining the `--moduix-qr-code-size` preferred width.
 - 2026-07-03: Simplified the public surface to match `Combobox`: kept `RootProvider`, removed
   moduix re-exports of Ark hooks, context, and duplicate types, and updated docs to point advanced
   state usage to direct Ark imports.

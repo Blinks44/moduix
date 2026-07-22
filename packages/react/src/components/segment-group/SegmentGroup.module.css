@@ -1,18 +1,18 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     position: relative;
     isolation: isolate;
     display: inline-flex;
-    max-width: var(--segment-group-max-width, 100%);
+    max-width: var(--moduix-segment-group-max-width, 100%);
     align-items: stretch;
-    gap: var(--segment-group-gap, var(--spacing-1));
-    padding: var(--segment-group-padding, var(--spacing-1));
-    border: var(--segment-group-border-width, var(--border-width-sm)) solid
-      var(--segment-group-border-color, var(--color-border));
-    border-radius: var(--segment-group-radius, var(--radius-lg));
-    background-color: var(--segment-group-bg, var(--color-muted));
-    color: var(--segment-group-color, var(--color-foreground));
+    gap: var(--moduix-segment-group-gap, var(--moduix-spacing-1));
+    padding: var(--moduix-segment-group-padding, var(--moduix-spacing-1));
+    border: var(--moduix-segment-group-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-segment-group-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-segment-group-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-segment-group-bg, var(--moduix-color-muted));
+    color: var(--moduix-segment-group-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
       flex-direction: column;
@@ -20,21 +20,27 @@
     }
 
     &[data-disabled] {
-      opacity: var(--segment-group-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-segment-group-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     &[data-invalid] {
-      border-color: var(--segment-group-border-color-invalid, var(--color-destructive));
+      border-color: var(
+        --moduix-segment-group-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
     }
   }
 
   .label {
     position: relative;
     z-index: 1;
-    color: var(--segment-group-label-color, var(--segment-group-color, var(--color-foreground)));
-    font-size: var(--segment-group-label-font-size, var(--text-sm));
-    font-weight: var(--segment-group-label-font-weight, var(--weight-semibold));
-    line-height: var(--segment-group-label-line-height, var(--line-height-text-sm));
+    color: var(
+      --moduix-segment-group-label-color,
+      var(--moduix-segment-group-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-segment-group-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-segment-group-label-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-segment-group-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
   }
 
@@ -45,43 +51,46 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--segment-group-item-gap, var(--spacing-2));
-    min-height: var(--segment-group-item-height, var(--size-sm));
-    border-radius: var(--segment-group-item-radius, var(--radius-md));
-    padding-inline: var(--segment-group-item-padding-x, var(--spacing-3-5));
-    color: var(--segment-group-item-color, var(--color-muted-foreground));
-    font-size: var(--segment-group-item-font-size, var(--text-sm));
-    font-weight: var(--segment-group-item-font-weight, var(--weight-medium));
-    line-height: var(--segment-group-item-line-height, var(--line-height-text-sm));
+    gap: var(--moduix-segment-group-item-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-segment-group-item-height, var(--moduix-size-sm));
+    border-radius: var(--moduix-segment-group-item-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-segment-group-item-padding-x, var(--moduix-spacing-3-5));
+    color: var(--moduix-segment-group-item-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-segment-group-item-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-segment-group-item-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-segment-group-item-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
     outline: 0;
     transition:
-      color var(--segment-group-transition, var(--transition-default)),
-      opacity var(--segment-group-transition, var(--transition-default));
+      color var(--moduix-segment-group-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-segment-group-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover:not([data-readonly], [data-disabled]) {
-        color: var(--segment-group-item-color-hover, var(--color-foreground));
+        color: var(--moduix-segment-group-item-color-hover, var(--moduix-color-foreground));
       }
     }
 
     &[data-state='checked'] {
-      color: var(--segment-group-item-color-checked, var(--color-foreground));
+      color: var(--moduix-segment-group-item-color-checked, var(--moduix-color-foreground));
     }
 
     &[data-focus-visible] {
       outline: var(
-          --segment-group-focus-ring-width,
-          var(--focus-ring-inset-width, var(--border-width-sm))
+          --moduix-segment-group-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
         )
-        solid var(--segment-group-focus-ring-color, var(--color-ring));
-      outline-offset: var(--segment-group-focus-ring-offset, var(--border-width-sm));
+        solid var(--moduix-segment-group-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-segment-group-focus-ring-offset, var(--moduix-border-width-sm));
     }
 
     &[data-invalid][data-focus-visible] {
-      outline-color: var(--segment-group-focus-ring-color-invalid, var(--color-destructive));
+      outline-color: var(
+        --moduix-segment-group-focus-ring-color-invalid,
+        var(--moduix-color-destructive)
+      );
     }
 
     &[data-readonly],
@@ -90,7 +99,7 @@
     }
 
     &[data-disabled] {
-      opacity: var(--segment-group-item-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-segment-group-item-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     &[data-orientation='vertical'] {
@@ -110,12 +119,12 @@
 
   .indicator {
     --transition-duration: var(
-      --segment-group-indicator-transition-duration,
-      var(--duration-normal)
+      --moduix-segment-group-indicator-transition-duration,
+      var(--moduix-duration-normal)
     );
     --transition-timing-function: var(
-      --segment-group-indicator-transition-timing-function,
-      var(--ease-in-out)
+      --moduix-segment-group-indicator-transition-timing-function,
+      var(--moduix-ease-in-out)
     );
 
     position: absolute;
@@ -124,9 +133,9 @@
     left: var(--left);
     width: var(--width);
     height: var(--height);
-    border-radius: var(--segment-group-indicator-radius, var(--radius-md));
-    background-color: var(--segment-group-indicator-bg, var(--color-background));
-    box-shadow: var(--segment-group-indicator-shadow, var(--shadow-sm));
+    border-radius: var(--moduix-segment-group-indicator-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-segment-group-indicator-bg, var(--moduix-color-background));
+    box-shadow: var(--moduix-segment-group-indicator-shadow, var(--moduix-shadow-sm));
     pointer-events: none;
   }
 }

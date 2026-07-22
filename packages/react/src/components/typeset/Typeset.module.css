@@ -1,16 +1,16 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
-    color: var(--color-foreground);
-    font-family: var(--typeset-font-body, inherit);
-    font-size: calc(var(--typeset-size, 1em) * 1.125);
-    line-height: var(--typeset-leading, 1.75);
+    color: var(--moduix-color-foreground);
+    font-family: var(--moduix-typeset-font-body, inherit);
+    font-size: calc(var(--moduix-typeset-size, 1em) * 1.125);
+    line-height: var(--moduix-typeset-leading, 1.75);
     overflow-wrap: break-word;
   }
 
   @media (min-width: 48rem), print {
     .root {
-      font-size: var(--typeset-size, 1em);
+      font-size: var(--moduix-typeset-size, 1em);
     }
   }
 
@@ -25,13 +25,13 @@
         )
       ) {
       &:where(p) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
       }
 
       &:where(h1, h2, h3, h4, h5, h6) {
-        color: var(--color-foreground);
-        font-family: var(--typeset-font-heading, var(--font-sans));
-        font-weight: var(--weight-semibold);
+        color: var(--moduix-color-foreground);
+        font-family: var(--moduix-typeset-font-heading, var(--moduix-font-sans));
+        font-weight: var(--moduix-weight-semibold);
         letter-spacing: -0.02em;
         margin-block-end: 0;
       }
@@ -39,47 +39,47 @@
       &:where(h1) {
         font-size: 1.75em;
         line-height: 1.3;
-        margin-block-start: var(--typeset-flow, 1.25em);
+        margin-block-start: var(--moduix-typeset-flow, 1.25em);
       }
 
       &:where(h2) {
         font-size: 1.25em;
         line-height: 1.4;
-        margin-block-start: calc(var(--typeset-flow, 1.25em) * 1.4);
+        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) * 1.4);
       }
 
       &:where(h3) {
         font-size: 1.125em;
         line-height: 1.45;
-        margin-block-start: var(--typeset-flow, 1.25em);
+        margin-block-start: var(--moduix-typeset-flow, 1.25em);
       }
 
       &:where(h4) {
         font-size: 1em;
         line-height: 1.5;
-        margin-block-start: var(--typeset-flow, 1.25em);
+        margin-block-start: var(--moduix-typeset-flow, 1.25em);
       }
 
       &:where(h5) {
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
         font-size: 0.875em;
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
         line-height: 1.5;
-        margin-block-start: calc(var(--typeset-flow, 1.25em) / 0.875);
+        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) / 0.875);
       }
 
       &:where(h6) {
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
         font-size: 0.8125em;
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
         letter-spacing: 0.08em;
         line-height: 1.5;
-        margin-block-start: calc(var(--typeset-flow, 1.25em) / 0.8125);
+        margin-block-start: calc(var(--moduix-typeset-flow, 1.25em) / 0.8125);
         text-transform: uppercase;
       }
 
       &:where([id]) {
-        scroll-margin-block-start: var(--typeset-flow, 1.25em);
+        scroll-margin-block-start: var(--moduix-typeset-flow, 1.25em);
       }
 
       &:where(h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *) {
@@ -87,14 +87,14 @@
       }
 
       &:where(a) {
-        color: var(--color-primary);
+        color: var(--moduix-color-primary);
         text-decoration: underline;
         text-decoration-thickness: 0.08em;
         text-underline-offset: 0.15em;
       }
 
       &:where(ul, ol) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         padding-inline-start: 1.5em;
       }
 
@@ -123,8 +123,8 @@
       }
 
       &:where(li)::marker {
-        color: var(--color-muted-foreground);
-        font-weight: var(--weight-semibold);
+        color: var(--moduix-color-muted-foreground);
+        font-weight: var(--moduix-weight-semibold);
       }
 
       &:where(li + li) {
@@ -143,36 +143,36 @@
       &:where(:global(li.task-list-item) > input[type='checkbox']) {
         margin-inline-end: 0.5em;
         vertical-align: -0.1em;
-        accent-color: var(--color-primary);
+        accent-color: var(--moduix-color-primary);
       }
 
       &:where(blockquote) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         margin-inline: 0;
-        border-inline-start: var(--border-width-md) solid var(--color-border);
+        border-inline-start: var(--moduix-border-width-md) solid var(--moduix-color-border);
         padding-inline-start: 1em;
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
       }
 
       &:where(:not(pre) > code) {
         padding: 0.1em 0.3em;
-        border-radius: var(--radius-sm);
-        background: var(--color-muted);
-        color: var(--color-foreground);
-        font-family: var(--typeset-font-mono, var(--font-mono));
+        border-radius: var(--moduix-radius-sm);
+        background: var(--moduix-color-muted);
+        color: var(--moduix-color-foreground);
+        font-family: var(--moduix-typeset-font-mono, var(--moduix-font-mono));
         font-size: 0.875em;
       }
 
       &:where(pre) {
         max-width: 100%;
         overflow-x: auto;
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         padding: 1em;
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
-        color: var(--color-foreground);
-        font-family: var(--typeset-font-mono, var(--font-mono));
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background: var(--moduix-color-muted);
+        color: var(--moduix-color-foreground);
+        font-family: var(--moduix-typeset-font-mono, var(--moduix-font-mono));
         font-size: 0.875em;
         line-height: 1.6;
       }
@@ -186,18 +186,18 @@
       }
 
       &:where(hr) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         border: 0;
-        border-block-start: var(--border-width-sm) solid var(--color-border);
+        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
       }
 
       &:where(table) {
         width: 100%;
         max-width: 100%;
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         border-collapse: separate;
         border-spacing: 0;
-        border-block-end: var(--border-width-sm) solid var(--color-border);
+        border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
         font-size: 1em;
         font-variant-numeric: tabular-nums;
         line-height: 1.5;
@@ -205,20 +205,20 @@
 
       &:where(thead th) {
         padding: 0.65em 1em;
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
         text-align: start;
         white-space: nowrap;
       }
 
       &:where(:is(tbody, tfoot) :is(td, th)) {
         padding: 0.75em 1em;
-        border-block-start: var(--border-width-sm) solid var(--color-border);
+        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
         text-align: start;
         vertical-align: top;
       }
 
       &:where(tbody th, tfoot th) {
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
       }
 
       &:where(th:first-child, td:first-child) {
@@ -237,8 +237,8 @@
         display: block;
         max-width: 100%;
         height: auto;
-        margin-block: var(--typeset-flow, 1.25em) 0;
-        border-radius: var(--radius-md);
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
+        border-radius: var(--moduix-radius-md);
       }
 
       &:where(p img) {
@@ -246,13 +246,13 @@
       }
 
       &:where(figure) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
         margin-inline: 0;
       }
 
       &:where(figcaption, caption) {
         margin-block-start: 0.75em;
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
         font-size: 0.875em;
         text-align: center;
       }
@@ -262,25 +262,25 @@
       }
 
       &:where(details) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
       }
 
       &:where(summary) {
         cursor: pointer;
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
       }
 
       &:where(summary)::marker {
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
       }
 
       &:where(dl) {
-        margin-block: var(--typeset-flow, 1.25em) 0;
+        margin-block: var(--moduix-typeset-flow, 1.25em) 0;
       }
 
       &:where(dt) {
         margin-block-start: 1em;
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
       }
 
       &:where(dt + dt) {
@@ -291,14 +291,14 @@
         margin-block-start: 0.25em;
         margin-inline-start: 0;
         padding-inline-start: 1em;
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
       }
 
       &:where(:global(.footnotes), [data-footnotes]) {
-        margin-block: calc(var(--typeset-flow, 1.25em) * 2) 0;
-        border-block-start: var(--border-width-sm) solid var(--color-border);
-        padding-block-start: var(--typeset-flow, 1.25em);
-        color: var(--color-muted-foreground);
+        margin-block: calc(var(--moduix-typeset-flow, 1.25em) * 2) 0;
+        border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        padding-block-start: var(--moduix-typeset-flow, 1.25em);
+        color: var(--moduix-color-muted-foreground);
         font-size: 0.875em;
       }
     }
@@ -328,7 +328,7 @@
   .scroll {
     max-width: 100%;
     overflow-x: auto;
-    margin-block-start: var(--typeset-flow, 1.25em);
+    margin-block-start: var(--moduix-typeset-flow, 1.25em);
     overscroll-behavior-inline: contain;
   }
 

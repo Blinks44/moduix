@@ -137,17 +137,17 @@ Refs forward to the underlying Ark DOM parts. `CommandPalette.Input` is the inpu
 
 ## Defaults and styling
 
-The external trigger and search control use `--size-md`; single-line command items default to `--size-sm` with `--spacing-1` block padding.
+The external trigger and search control use `--moduix-size-md`; single-line command items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
 
-Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular weight,
-and `--spacing-1` block padding. Command-palette-specific variables still take precedence.
+Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
+and `--moduix-spacing-1` block padding. Command-palette-specific variables still take precedence.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--command-palette-*` content
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-command-palette-*` content
 motion variables remain the more specific override. Backdrop motion remains separate.
 
 The visual contract uses `data-slot="command-palette-*"` hooks on each exported part and on the internal scroll area. `lazyMount` and `unmountOnExit` default to `true` so Ark Presence can run enter and exit animations while still removing the palette after close. Motion is tied to Ark `data-state` on `Backdrop` and `Content`, not legacy starting/ending style attributes.
 
-Important CSS variables include `--command-palette-positioner-padding`, `--command-palette-width`, `--command-palette-max-height`, `--command-palette-bg`, `--command-palette-border-color`, `--command-palette-clear-*`, `--command-palette-control-*`, `--command-palette-input-*`, `--command-palette-highlight-*`, `--command-palette-scrollbar-*`, and the item/footer/kbd variables. Size and spacing defaults should prefer shared tokens such as `--size-sm`, `--size-md`, and `--spacing-*` over one-off fractional rem values.
+Important CSS variables include `--moduix-command-palette-positioner-padding`, `--moduix-command-palette-width`, `--moduix-command-palette-max-height`, `--moduix-command-palette-bg`, `--moduix-command-palette-border-color`, `--moduix-command-palette-clear-*`, `--moduix-command-palette-control-*`, `--moduix-command-palette-input-*`, `--moduix-command-palette-highlight-*`, `--moduix-command-palette-scrollbar-*`, and the item/footer/kbd variables. Size and spacing defaults should prefer shared tokens such as `--moduix-size-sm`, `--moduix-size-md`, and `--moduix-spacing-*` over one-off fractional rem values.
 
 ## Intentional sugar and differences from upstream
 
@@ -170,12 +170,12 @@ consumers should compose those Ark helpers directly.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized command group labels to the shared regular-weight popup-label contract.
 
-- 2026-07-21: Reduced the trigger and search control to the `md` baseline and compacted command items to `--size-sm`.
+- 2026-07-21: Reduced the trigger and search control to the `md` baseline and compacted command items to `--moduix-size-sm`.
 
 - 2026-07-17: Removed `CloseTrigger`, `CloseIcon`, and `Panel.showCloseIcon` so command palettes
   rely on standard dialog dismissal instead of a visible close affordance. Reworked `ClearTrigger`
   to compose `CloseButton` and clear the typed search value rather than the Combobox selection.
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-12: Classified close/header effective values as private `--_command-palette-*`
   implementation variables; public customization continues through the documented non-underscored
   close and header variables.
@@ -201,5 +201,5 @@ consumers should compose those Ark helpers directly.
 - 2026-06-21: Matched Dialog-style enter/exit animation tokens, simplified shortcut matching to primary-modifier shortcuts, and moved result scrolling to the local ScrollArea.
 - 2026-06-21: Removed the list height formula, let the list consume remaining flex space above `Footer`, and fixed sticky group labels to pin to the scroll viewport instead of sliding under the input header.
 - 2026-06-21: Switched `CommandPalette.Kbd` to compose the local `Kbd.Root` while preserving command-palette scoped CSS variables.
-- 2026-06-21: Made the global shortcut listener opt-in, added `alt` / `option` shortcut support, and switched docs examples to `alt+k` to avoid the Fumadocs `Cmd+K` shortcut.
+- 2026-06-21: Made the global shortcut listener opt-in, added `alt` / `option` shortcut support, and switched docs examples to `alt+k` to avoid the documentation search `Cmd+K` shortcut.
 - 2026-06-21: Updated docs and stories to reset external `useListCollection` filters on close so a reopened palette does not show stale filtered results with an empty input.

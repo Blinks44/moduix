@@ -1,9 +1,9 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: inline-flex;
     align-items: center;
-    gap: var(--pagination-gap, var(--spacing-1));
-    color: var(--pagination-color, var(--color-foreground));
+    gap: var(--moduix-pagination-gap, var(--moduix-spacing-1));
+    color: var(--moduix-pagination-color, var(--moduix-color-foreground));
   }
 
   .item,
@@ -13,82 +13,94 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--pagination-item-size, var(--size-md));
-    height: var(--pagination-item-size, var(--size-md));
-    border-radius: var(--pagination-item-radius, var(--radius-md));
-    font-size: var(--pagination-font-size, var(--text-sm));
-    font-weight: var(--pagination-font-weight, var(--weight-medium));
-    line-height: var(--pagination-line-height, var(--line-height-text-sm));
+    min-width: var(--moduix-pagination-item-size, var(--moduix-size-md));
+    height: var(--moduix-pagination-item-size, var(--moduix-size-md));
+    border-radius: var(--moduix-pagination-item-radius, var(--moduix-radius-md));
+    font-size: var(--moduix-pagination-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-pagination-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-pagination-line-height, var(--moduix-line-height-text-sm));
     font-variant-numeric: tabular-nums;
   }
 
   .item,
   .trigger {
     cursor: pointer;
-    gap: var(--pagination-trigger-gap, var(--spacing-2));
-    border: var(--pagination-item-border-width, var(--border-width-sm)) solid
-      var(--pagination-item-border-color, var(--color-border));
-    padding-inline: var(--pagination-item-padding-inline, var(--spacing-3));
-    background-color: var(--pagination-item-bg, var(--color-background));
-    color: var(--pagination-item-color, var(--color-foreground));
+    gap: var(--moduix-pagination-trigger-gap, var(--moduix-spacing-2));
+    border: var(--moduix-pagination-item-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-pagination-item-border-color, var(--moduix-color-border));
+    padding-inline: var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-3));
+    background-color: var(--moduix-pagination-item-bg, var(--moduix-color-background));
+    color: var(--moduix-pagination-item-color, var(--moduix-color-foreground));
     font-family: inherit;
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
     transition:
-      background-color var(--pagination-transition, var(--transition-default)),
-      border-color var(--pagination-transition, var(--transition-default)),
-      color var(--pagination-transition, var(--transition-default)),
-      opacity var(--pagination-transition, var(--transition-default));
+      background-color var(--moduix-pagination-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-pagination-transition, var(--moduix-transition-default)),
+      color var(--moduix-pagination-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-pagination-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--pagination-item-bg-hover, var(--color-accent));
+        background-color: var(--moduix-pagination-item-bg-hover, var(--moduix-color-accent));
       }
     }
 
     &:focus-visible,
     &[data-focus] {
-      outline: var(--pagination-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
-        solid var(--pagination-focus-ring-color, var(--color-ring));
-      outline-offset: var(--pagination-focus-ring-offset, var(--focus-ring-inset-offset));
+      outline: var(
+          --moduix-pagination-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-pagination-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-pagination-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
     }
 
     &:is([data-disabled], :disabled) {
-      opacity: var(--pagination-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-pagination-disabled-opacity, var(--moduix-opacity-disabled));
       pointer-events: none;
     }
 
     & svg {
       flex-shrink: 0;
-      width: var(--pagination-icon-size, var(--spacing-4));
-      height: var(--pagination-icon-size, var(--spacing-4));
+      width: var(--moduix-pagination-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-pagination-icon-size, var(--moduix-spacing-4));
     }
   }
 
   .item[data-selected] {
-    border-color: var(--pagination-item-border-color-selected, var(--color-foreground));
-    background-color: var(--pagination-item-bg-selected, var(--color-foreground));
-    color: var(--pagination-item-color-selected, var(--color-background));
+    border-color: var(
+      --moduix-pagination-item-border-color-selected,
+      var(--moduix-color-foreground)
+    );
+    background-color: var(--moduix-pagination-item-bg-selected, var(--moduix-color-foreground));
+    color: var(--moduix-pagination-item-color-selected, var(--moduix-color-background));
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--pagination-item-bg-selected, var(--color-foreground));
+        background-color: var(--moduix-pagination-item-bg-selected, var(--moduix-color-foreground));
       }
     }
   }
 
   .trigger {
-    padding-inline: max(var(--pagination-item-padding-inline, var(--spacing-3)), var(--spacing-3));
+    padding-inline: max(
+      var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-3)),
+      var(--moduix-spacing-3)
+    );
   }
 
   .iconTrigger {
-    width: var(--pagination-item-size, var(--size-md));
+    width: var(--moduix-pagination-item-size, var(--moduix-size-md));
     padding-inline: 0;
   }
 
   .ellipsis {
-    color: var(--pagination-ellipsis-color, var(--color-muted-foreground));
+    color: var(--moduix-pagination-ellipsis-color, var(--moduix-color-muted-foreground));
     user-select: none;
   }
 
@@ -98,7 +110,7 @@
     justify-content: center;
 
     & svg + svg {
-      margin-inline-start: calc(var(--pagination-icon-size, var(--spacing-4)) * -0.5);
+      margin-inline-start: calc(var(--moduix-pagination-icon-size, var(--moduix-spacing-4)) * -0.5);
     }
   }
 }

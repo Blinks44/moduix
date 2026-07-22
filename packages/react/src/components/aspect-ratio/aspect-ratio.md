@@ -101,9 +101,9 @@ Use `asChild` with exactly one child when another semantic element must own the 
 
 Primary CSS variable:
 
-| Variable                | Default            |
-| ----------------------- | ------------------ |
-| `--aspect-ratio-radius` | `var(--radius-md)` |
+| Variable                       | Default                   |
+| ------------------------------ | ------------------------- |
+| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` |
 
 ## Intentional sugar and differences from upstream
 

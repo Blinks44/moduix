@@ -1,32 +1,5 @@
-import { createListCollection } from '@ark-ui/react/collection';
-import { Pagination, Select } from '@moduix/react';
-import { useState } from 'react';
-import type { CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-
-const users = [
-  { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },
-  { id: 2, name: 'Liam Johnson', email: 'liam@example.com' },
-  { id: 3, name: 'Olivia Brown', email: 'olivia@example.com' },
-  { id: 4, name: 'Noah Davis', email: 'noah@example.com' },
-  { id: 5, name: 'Ava Martinez', email: 'ava@example.com' },
-  { id: 6, name: 'Ethan Garcia', email: 'ethan@example.com' },
-  { id: 7, name: 'Sophia Rodriguez', email: 'sophia@example.com' },
-  { id: 8, name: 'Mason Lee', email: 'mason@example.com' },
-  { id: 9, name: 'Isabella Walker', email: 'isabella@example.com' },
-  { id: 10, name: 'James Hall', email: 'james@example.com' },
-  { id: 11, name: 'Mia Allen', email: 'mia@example.com' },
-  { id: 12, name: 'Benjamin Young', email: 'benjamin@example.com' },
-];
-
-const pageSizes = createListCollection({
-  items: [
-    { label: '5', value: '5' },
-    { label: '10', value: '10' },
-    { label: '20', value: '20' },
-    { label: '50', value: '50' },
-  ],
-});
+import type { CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const paginationDemoCss = `
   .pagination-demo {
@@ -38,7 +11,7 @@ const paginationDemoCss = `
 const paginationStackCss = `
   .pagination-stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     justify-items: start;
   }
 `;
@@ -48,22 +21,22 @@ const paginationRowCss = `
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 `;
 
 const paginationMutedCss = `
   .pagination-muted {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 `;
 
 const paginationDataSlicingLayoutCss = `
   .pagination-users {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     width: 24rem;
     max-width: 100%;
   }
@@ -71,17 +44,17 @@ const paginationDataSlicingLayoutCss = `
   .pagination-user {
     display: flex;
     justify-content: space-between;
-    gap: var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-3);
-    background: var(--color-muted);
+    gap: var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    padding: var(--moduix-spacing-3);
+    background: var(--moduix-color-muted);
   }
 `;
 
 const paginationPageSizeControlCss = `
   .pagination-page-size-select {
-    --select-width: 5.5rem;
+    --moduix-select-width: 5.5rem;
   }
 `;
 
@@ -107,72 +80,95 @@ export const paginationTranslationsCss = paginationDemoCss;
 
 export const paginationWithEdgesCss = paginationDemoCss;
 
-export const paginationUsersData = `const users = [
-  { id: 1, name: 'Emma Wilson', email: 'emma@example.com' },
-  { id: 2, name: 'Liam Johnson', email: 'liam@example.com' },
-  { id: 3, name: 'Olivia Brown', email: 'olivia@example.com' },
-  { id: 4, name: 'Noah Davis', email: 'noah@example.com' },
-  { id: 5, name: 'Ava Martinez', email: 'ava@example.com' },
-  { id: 6, name: 'Ethan Garcia', email: 'ethan@example.com' },
-  { id: 7, name: 'Sophia Rodriguez', email: 'sophia@example.com' },
-  { id: 8, name: 'Mason Lee', email: 'mason@example.com' },
-  { id: 9, name: 'Isabella Walker', email: 'isabella@example.com' },
-  { id: 10, name: 'James Hall', email: 'james@example.com' },
-  { id: 11, name: 'Mia Allen', email: 'mia@example.com' },
-  { id: 12, name: 'Benjamin Young', email: 'benjamin@example.com' },
-];`;
-
-export const paginationNoData = `const data = null;`;
-
-export const paginationOverrideCssProperties: CssPropertyInput[] = [
-  ['--pagination-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--pagination-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--pagination-ellipsis-color', 'var(--color-muted-foreground)', 'Controls ellipsis color.'],
-  ['--pagination-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
+const paginationOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-pagination-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [
-    '--pagination-focus-ring-offset',
-    'var(--focus-ring-inset-offset)',
+    '--moduix-pagination-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  [
+    '--moduix-pagination-ellipsis-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls ellipsis color.',
+  ],
+  [
+    '--moduix-pagination-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls focus ring color.',
+  ],
+  [
+    '--moduix-pagination-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls focus ring offset.',
   ],
   [
-    '--pagination-focus-ring-width',
-    'var(--focus-ring-width, var(--border-width-md))',
+    '--moduix-pagination-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls focus ring width.',
   ],
-  ['--pagination-font-size', 'var(--text-sm)', 'Controls pagination font size.'],
-  ['--pagination-font-weight', 'var(--weight-medium)', 'Controls pagination font weight.'],
-  ['--pagination-gap', 'var(--spacing-1)', 'Controls gap between pagination parts.'],
-  ['--pagination-icon-size', 'var(--spacing-4)', 'Controls trigger icon size.'],
-  ['--pagination-item-bg', 'var(--color-background)', 'Controls item background color.'],
+  ['--moduix-pagination-font-size', 'var(--moduix-text-sm)', 'Controls pagination font size.'],
   [
-    '--pagination-item-bg-hover',
-    'var(--color-accent)',
+    '--moduix-pagination-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls pagination font weight.',
+  ],
+  ['--moduix-pagination-gap', 'var(--moduix-spacing-1)', 'Controls gap between pagination parts.'],
+  ['--moduix-pagination-icon-size', 'var(--moduix-spacing-4)', 'Controls trigger icon size.'],
+  [
+    '--moduix-pagination-item-bg',
+    'var(--moduix-color-background)',
+    'Controls item background color.',
+  ],
+  [
+    '--moduix-pagination-item-bg-hover',
+    'var(--moduix-color-accent)',
     'Controls item and trigger hover background.',
   ],
   [
-    '--pagination-item-bg-selected',
-    'var(--color-foreground)',
+    '--moduix-pagination-item-bg-selected',
+    'var(--moduix-color-foreground)',
     'Controls selected item background color.',
   ],
-  ['--pagination-item-border-color', 'var(--color-border)', 'Controls item border color.'],
   [
-    '--pagination-item-border-color-selected',
-    'var(--color-foreground)',
+    '--moduix-pagination-item-border-color',
+    'var(--moduix-color-border)',
+    'Controls item border color.',
+  ],
+  [
+    '--moduix-pagination-item-border-color-selected',
+    'var(--moduix-color-foreground)',
     'Controls selected item border color.',
   ],
-  ['--pagination-item-border-width', 'var(--border-width-sm)', 'Controls item border width.'],
-  ['--pagination-item-color', 'var(--color-foreground)', 'Controls item text color.'],
   [
-    '--pagination-item-color-selected',
-    'var(--color-background)',
+    '--moduix-pagination-item-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls item border width.',
+  ],
+  ['--moduix-pagination-item-color', 'var(--moduix-color-foreground)', 'Controls item text color.'],
+  [
+    '--moduix-pagination-item-color-selected',
+    'var(--moduix-color-background)',
     'Controls selected item text color.',
   ],
-  ['--pagination-item-padding-inline', 'var(--spacing-3)', 'Controls item horizontal padding.'],
-  ['--pagination-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
-  ['--pagination-item-size', 'var(--size-md)', 'Controls item width and height.'],
-  ['--pagination-line-height', 'var(--line-height-text-sm)', 'Controls pagination line height.'],
-  ['--pagination-transition', 'var(--transition-default)', 'Controls state transitions.'],
-  ['--pagination-trigger-gap', 'var(--spacing-2)', 'Controls trigger content gap.'],
+  [
+    '--moduix-pagination-item-padding-inline',
+    'var(--moduix-spacing-3)',
+    'Controls item horizontal padding.',
+  ],
+  ['--moduix-pagination-item-radius', 'var(--moduix-radius-md)', 'Controls item corner radius.'],
+  ['--moduix-pagination-item-size', 'var(--moduix-size-md)', 'Controls item width and height.'],
+  [
+    '--moduix-pagination-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls pagination line height.',
+  ],
+  [
+    '--moduix-pagination-transition',
+    'var(--moduix-transition-default)',
+    'Controls state transitions.',
+  ],
+  ['--moduix-pagination-trigger-gap', 'var(--moduix-spacing-2)', 'Controls trigger content gap.'],
 ];
 
 const paginationCssPropertiesReference = paginationOverrideCssProperties.map(normalizeCssProperty);
@@ -185,272 +181,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PaginationPageSizeSelect({
-  pageSize,
-  setPageSize,
-}: {
-  pageSize: number;
-  setPageSize: (nextPageSize: number) => void;
-}) {
-  return (
-    <Select
-      className="pagination-page-size-select"
-      collection={pageSizes}
-      value={[String(pageSize)]}
-      positioning={{ sameWidth: true }}
-      onValueChange={(details) => {
-        const nextValue = details.value[0];
-        if (nextValue) {
-          setPageSize(Number(nextValue));
-        }
-      }}
-    >
-      <Select.Label>Items per page</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Page size" />
-        </Select.Trigger>
-        <Select.Indicators>
-          <Select.Indicator />
-        </Select.Indicators>
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          {pageSizes.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select>
-  );
-}
-
 export function PaginationCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={paginationCssPropertiesReference} />;
-}
-
-export function PaginationExample() {
-  return (
-    <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-    </Pagination>
-  );
-}
-
-export function PaginationAdvancedCustomizationExample() {
-  return (
-    <Pagination className="pagination-demo" count={200} pageSize={10} siblingCount={2}>
-      <Pagination.PrevTrigger />
-      <Pagination.Context>
-        {(pagination) =>
-          pagination.pages.map((page, index) =>
-            page.type === 'page' ? (
-              <Pagination.Item key={index} {...page}>
-                Page {page.value}
-              </Pagination.Item>
-            ) : (
-              <Pagination.Ellipsis key={index} index={index} />
-            ),
-          )
-        }
-      </Pagination.Context>
-      <Pagination.NextTrigger />
-    </Pagination>
-  );
-}
-
-export function PaginationControlledExample() {
-  const [page, setPage] = useState(5);
-
-  return (
-    <div className="pagination-stack">
-      <Pagination
-        className="pagination-demo"
-        count={200}
-        page={page}
-        pageSize={10}
-        siblingCount={2}
-        onPageChange={(details) => setPage(details.page)}
-      >
-        <Pagination.PrevTrigger />
-        <Pagination.Items />
-        <Pagination.NextTrigger />
-      </Pagination>
-      <p className="pagination-muted">Current page: {page}</p>
-    </div>
-  );
-}
-
-export function PaginationContextExample() {
-  return (
-    <Pagination count={200} pageSize={10}>
-      <Pagination.Context>
-        {(pagination) => (
-          <div className="pagination-row">
-            <button type="button" onClick={() => pagination.goToFirstPage()}>
-              First
-            </button>
-            <button type="button" onClick={() => pagination.goToPrevPage()}>
-              Prev
-            </button>
-            <span className="pagination-muted">
-              Page {pagination.page} of {pagination.totalPages}
-            </span>
-            <button type="button" onClick={() => pagination.goToNextPage()}>
-              Next
-            </button>
-            <button type="button" onClick={() => pagination.goToLastPage()}>
-              Last
-            </button>
-          </div>
-        )}
-      </Pagination.Context>
-    </Pagination>
-  );
-}
-
-export function PaginationCustomizedExample() {
-  return (
-    <Pagination
-      className="pagination-demo"
-      count={400}
-      pageSize={20}
-      siblingCount={3}
-      translations={{
-        nextTriggerLabel: 'Next page',
-        prevTriggerLabel: 'Previous page',
-        itemLabel: (details) => `Page ${details.page}`,
-      }}
-    >
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-    </Pagination>
-  );
-}
-
-export function PaginationDataSlicingExample() {
-  return (
-    <Pagination count={users.length} pageSize={4}>
-      <Pagination.Context>
-        {(pagination) => (
-          <div className="pagination-stack">
-            <div className="pagination-users">
-              {pagination.slice(users).map((user) => (
-                <div key={user.id} className="pagination-user">
-                  <strong>{user.name}</strong>
-                  <span className="pagination-muted">{user.email}</span>
-                </div>
-              ))}
-            </div>
-            <div className="pagination-row">
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
-            </div>
-          </div>
-        )}
-      </Pagination.Context>
-    </Pagination>
-  );
-}
-
-export function PaginationLinkExample() {
-  return (
-    <Pagination
-      className="pagination-demo"
-      count={200}
-      pageSize={10}
-      siblingCount={2}
-      type="link"
-      getPageUrl={(details) => `?page=${details.page}`}
-    >
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-    </Pagination>
-  );
-}
-
-export function PaginationPageRangeExample() {
-  return (
-    <Pagination count={200} pageSize={10}>
-      <Pagination.Context>
-        {(pagination) => (
-          <div className="pagination-stack">
-            <div className="pagination-row">
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
-            </div>
-            <p className="pagination-muted">
-              Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{' '}
-              {pagination.count} results
-            </p>
-          </div>
-        )}
-      </Pagination.Context>
-    </Pagination>
-  );
-}
-
-export function PaginationPageSizeControlExample() {
-  return (
-    <Pagination count={200} defaultPageSize={10}>
-      <Pagination.Context>
-        {(pagination) => (
-          <div className="pagination-stack">
-            <div className="pagination-row">
-              <PaginationPageSizeSelect
-                pageSize={pagination.pageSize}
-                setPageSize={pagination.setPageSize}
-              />
-            </div>
-            <div className="pagination-row">
-              <Pagination.PrevTrigger />
-              <Pagination.Items />
-              <Pagination.NextTrigger />
-            </div>
-            <p className="pagination-muted">
-              Page {pagination.page} of {pagination.totalPages}
-            </p>
-          </div>
-        )}
-      </Pagination.Context>
-    </Pagination>
-  );
-}
-
-export function PaginationRootProviderExample() {
-  const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });
-
-  return (
-    <div className="pagination-stack">
-      <button type="button" onClick={() => pagination.goToNextPage()}>
-        Next page
-      </button>
-      <Pagination.RootProvider className="pagination-demo" value={pagination}>
-        <Pagination.PrevTrigger />
-        <Pagination.Items />
-        <Pagination.NextTrigger />
-      </Pagination.RootProvider>
-    </div>
-  );
-}
-
-export function PaginationWithEdgesExample() {
-  return (
-    <Pagination className="pagination-demo" count={400} pageSize={20} siblingCount={2}>
-      <Pagination.FirstTrigger />
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
-      <Pagination.LastTrigger />
-    </Pagination>
-  );
 }

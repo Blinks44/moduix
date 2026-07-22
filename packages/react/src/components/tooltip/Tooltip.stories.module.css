@@ -1,57 +1,57 @@
 .triggerContent {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .toolbar {
   display: inline-flex;
   align-items: center;
-  gap: var(--border-width-sm);
-  padding: var(--spacing-1);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-muted);
+  gap: var(--moduix-border-width-sm);
+  padding: var(--moduix-spacing-1);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-color-muted);
 }
 
 .sideButtons {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-1);
-  padding: var(--spacing-1);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-muted);
+  gap: var(--moduix-spacing-1);
+  padding: var(--moduix-spacing-1);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
 }
 
 .sideButton {
   min-width: 4.75rem;
   min-height: 2rem;
-  padding: 0 var(--spacing-3);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
-  font-weight: var(--weight-medium);
+  padding: 0 var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-sm);
+  background: var(--moduix-color-background);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+  font-weight: var(--moduix-weight-medium);
   text-transform: capitalize;
   cursor: pointer;
   transition:
-    background-color var(--transition-default),
-    color var(--transition-default);
+    background-color var(--moduix-transition-default),
+    color var(--moduix-transition-default);
 
   &[data-active] {
-    background: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background: var(--moduix-color-primary);
+    color: var(--moduix-color-primary-foreground);
   }
 }
 
@@ -61,13 +61,13 @@
 }
 
 .customContent {
-  --tooltip-bg: var(--color-primary);
-  --tooltip-color: var(--color-primary-foreground);
-  --tooltip-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-  --tooltip-arrow-background: var(--tooltip-bg);
-  --tooltip-arrow-stroke-color: var(--tooltip-border-color);
-  --tooltip-padding-x: var(--spacing-3);
-  --tooltip-padding-y: var(--spacing-2);
+  --moduix-tooltip-bg: var(--moduix-color-primary);
+  --moduix-tooltip-color: var(--moduix-color-primary-foreground);
+  --moduix-tooltip-border-color: color-mix(in oklab, var(--moduix-color-primary), black 18%);
+  --moduix-tooltip-arrow-background: var(--moduix-tooltip-bg);
+  --moduix-tooltip-arrow-stroke-color: var(--moduix-tooltip-border-color);
+  --moduix-tooltip-padding-x: var(--moduix-spacing-3);
+  --moduix-tooltip-padding-y: var(--moduix-spacing-2);
   min-width: 10rem;
   text-align: left;
 }
@@ -77,27 +77,31 @@
 }
 
 .customTrigger {
-  --tooltip-trigger-bg: var(--color-primary);
-  --tooltip-trigger-bg-hover: color-mix(in oklab, var(--color-primary), white 10%);
-  --tooltip-trigger-bg-active: color-mix(in oklab, var(--color-primary), black 12%);
-  --tooltip-trigger-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-  --tooltip-trigger-color: var(--color-primary-foreground);
+  --moduix-tooltip-trigger-bg: var(--moduix-color-primary);
+  --moduix-tooltip-trigger-bg-hover: color-mix(in oklab, var(--moduix-color-primary), white 10%);
+  --moduix-tooltip-trigger-bg-active: color-mix(in oklab, var(--moduix-color-primary), black 12%);
+  --moduix-tooltip-trigger-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-primary),
+    black 18%
+  );
+  --moduix-tooltip-trigger-color: var(--moduix-color-primary-foreground);
 }
 
 .customArrow {
-  --tooltip-arrow-size: 0.75rem;
+  --moduix-tooltip-arrow-size: 0.75rem;
 }
 
 .shortcut {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 .output {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .fixedContainer {
@@ -108,7 +112,7 @@
   place-items: center;
   min-width: 16rem;
   min-height: 8rem;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-muted);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-color-muted);
 }

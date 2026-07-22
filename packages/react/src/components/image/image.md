@@ -89,9 +89,9 @@ container width.
 
 ## Defaults and styling
 
-| Variable         | Default            | Effect                       |
-| ---------------- | ------------------ | ---------------------------- |
-| `--image-radius` | `var(--radius-md)` | Controls image border radius |
+| Variable                | Default                   | Effect                       |
+| ----------------------- | ------------------------- | ---------------------------- |
+| `--moduix-image-radius` | `var(--moduix-radius-md)` | Controls image border radius |
 
 `Image` has `display: block`. Unpic supplies inline layout styles, including width constraints for
 responsive layouts, unless `unstyled` is set. Pass `className` to `Image` for visual

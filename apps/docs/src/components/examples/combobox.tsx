@@ -1,620 +1,4 @@
-import { createListCollection, useListCollection } from '@ark-ui/react/collection';
-import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, useCombobox } from '@moduix/react';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './combobox.module.css';
-
-export { TagsInputComboboxExample as ComboboxWithTagsInputExample } from './tags-input';
-
-const fruits = [
-  { label: 'Apple', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Grape', value: 'grape' },
-  { label: 'Kiwi', value: 'kiwi' },
-  { label: 'Mango', value: 'mango' },
-  { label: 'Orange', value: 'orange' },
-  { label: 'Pineapple', value: 'pineapple' },
-  { label: 'Strawberry', value: 'strawberry' },
-];
-
-const countries = [
-  { country: 'Canada', code: 'CA', continent: 'North America' },
-  { country: 'United States', code: 'US', continent: 'North America' },
-  { country: 'Germany', code: 'DE', continent: 'Europe' },
-  { country: 'France', code: 'FR', continent: 'Europe' },
-  { country: 'Japan', code: 'JP', continent: 'Asia' },
-  { country: 'South Korea', code: 'KR', continent: 'Asia' },
-];
-
-const departments = [
-  { label: 'Engineering', value: 'engineering' },
-  { label: 'Marketing', value: 'marketing' },
-  { label: 'Sales', value: 'sales' },
-  { label: 'Finance', value: 'finance' },
-  { label: 'Human Resources', value: 'human-resources' },
-  { label: 'Operations', value: 'operations' },
-  { label: 'Product', value: 'product' },
-  { label: 'Customer Success', value: 'customer-success' },
-];
-
-const seaCreatures = [
-  { label: 'Whale', value: 'whale' },
-  { label: 'Dolphin', value: 'dolphin' },
-  { label: 'Shark', value: 'shark' },
-  { label: 'Octopus', value: 'octopus' },
-  { label: 'Jellyfish', value: 'jellyfish' },
-  { label: 'Seahorse', value: 'seahorse' },
-];
-
-const developerResources = [
-  { label: 'GitHub', href: 'https://github.com', value: 'github' },
-  { label: 'Stack Overflow', href: 'https://stackoverflow.com', value: 'stack-overflow' },
-  { label: 'MDN Web Docs', href: 'https://developer.mozilla.org', value: 'mdn' },
-  { label: 'npm', href: 'https://www.npmjs.com', value: 'npm' },
-  { label: 'TypeScript', href: 'https://www.typescriptlang.org', value: 'typescript' },
-  { label: 'React', href: 'https://react.dev', value: 'react' },
-];
-
-const cities = [
-  'New York',
-  'Los Angeles',
-  'Chicago',
-  'Houston',
-  'Phoenix',
-  'Philadelphia',
-  'San Antonio',
-  'San Diego',
-  'Dallas',
-  'San Jose',
-  'Austin',
-  'Jacksonville',
-].map((label) => ({ label, value: label.toLowerCase().replaceAll(' ', '-') }));
-
-const virtualItems = Array.from({ length: 1000 }, (_, index) => ({
-  label: `Result ${String(index + 1).padStart(4, '0')}`,
-  value: `result-${index + 1}`,
-}));
-
-function Popup({ items }: { items: Array<{ label: string; value: string }> }) {
-  return (
-    <Combobox.Positioner>
-      <Combobox.Content>
-        <Combobox.Empty>No options found.</Combobox.Empty>
-        <Combobox.List>
-          {items.map((item) => (
-            <Combobox.Option key={item.value} item={item}>
-              {item.label}
-            </Combobox.Option>
-          ))}
-        </Combobox.List>
-      </Combobox.Content>
-    </Combobox.Positioner>
-  );
-}
-
-export function ComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Choose fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Mango" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Popup items={collection.items} />
-    </Combobox.Root>
-  );
-}
-
-export function ControlledComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
-  const [value, setValue] = useState<string[]>(['mango']);
-
-  return (
-    <div className={styles.stack}>
-      <Combobox.Root
-        collection={collection}
-        value={value}
-        onInputValueChange={(details) => filter(details.inputValue)}
-        onValueChange={(details) => setValue(details.value)}
-      >
-        <Combobox.Label>Choose fruit</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
-        <Popup items={collection.items} />
-      </Combobox.Root>
-      <span className={styles.note}>Selected: {value[0] ?? 'none'}</span>
-    </div>
-  );
-}
-
-export function GroupedComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: countries,
-    itemToString: (item) => item.country,
-    itemToValue: (item) => item.code,
-    filter: contains,
-    groupBy: (item) => item.continent,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Country</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Canada" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.Empty>No countries found.</Combobox.Empty>
-          {collection.group().map(([continent, items]) => (
-            <Combobox.ItemGroup key={continent}>
-              <Combobox.ItemGroupLabel>{continent}</Combobox.ItemGroupLabel>
-              {items.map((item) => (
-                <Combobox.Option key={item.code} item={item}>
-                  {item.country}
-                </Combobox.Option>
-              ))}
-            </Combobox.ItemGroup>
-          ))}
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
-
-export function MultipleComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({ initialItems: fruits, filter: contains });
-  const [value, setValue] = useState<string[]>([]);
-  const selectedItems = fruits.filter((item) => value.includes(item.value));
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      value={value}
-      onValueChange={(details) => setValue(details.value)}
-      onInputValueChange={(details) => filter(details.inputValue)}
-      multiple
-    >
-      <Combobox.Label>Fruits</Combobox.Label>
-      <div className={styles.tags}>
-        {selectedItems.length === 0 ? <span className={styles.note}>None selected</span> : null}
-        {selectedItems.map((item) => (
-          <span key={item.value} className={styles.tag}>
-            {item.label}
-          </span>
-        ))}
-      </div>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Search fruits" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Popup items={collection.items} />
-    </Combobox.Root>
-  );
-}
-
-export function AsyncSearchComboboxExample() {
-  const [query, setQuery] = useState('');
-  const [items, setItems] = useState<typeof fruits>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!query) {
-      setItems([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    const timeout = window.setTimeout(() => {
-      setItems(fruits.filter((item) => item.label.toLowerCase().includes(query.toLowerCase())));
-      setLoading(false);
-    }, 300);
-
-    return () => window.clearTimeout(timeout);
-  }, [query]);
-
-  const collection = useMemo(() => createListCollection({ items }), [items]);
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      inputValue={query}
-      onInputValueChange={(details) => {
-        if (details.reason === 'input-change' || details.inputValue === '') {
-          setQuery(details.inputValue);
-        }
-      }}
-    >
-      <Combobox.Label>Search fruit</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Start typing" />
-        <Combobox.ClearTrigger aria-label="Clear search" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          {loading ? <div className={styles.status}>Searching…</div> : null}
-          {!loading && query && collection.items.length === 0 ? (
-            <div className={styles.status}>No results found.</div>
-          ) : null}
-          <Combobox.List>
-            {collection.items.map((item) => (
-              <Combobox.Option key={item.value} item={item}>
-                {item.label}
-              </Combobox.Option>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
-
-const jobTitles = createListCollection({
-  items: [
-    { label: 'Designer', value: 'designer' },
-    { label: 'Developer', value: 'developer' },
-    { label: 'Product Manager', value: 'product-manager' },
-  ],
-});
-
-export function RootProviderComboboxExample() {
-  const combobox = useCombobox({ collection: jobTitles });
-
-  return (
-    <div className={styles.providerLayout}>
-      <button type="button" className={styles.button} onClick={() => combobox.focus()}>
-        Focus
-      </button>
-      <Combobox.RootProvider value={combobox}>
-        <Combobox.Label>Job title</Combobox.Label>
-        <Combobox.Control>
-          <Combobox.Input />
-          <Combobox.ClearTrigger aria-label="Clear selection" />
-          <Combobox.Trigger aria-label="Open options" />
-        </Combobox.Control>
-        <Popup items={jobTitles.items} />
-      </Combobox.RootProvider>
-    </div>
-  );
-}
-
-export function AutoHighlightComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: departments,
-    filter: contains,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      inputBehavior="autohighlight"
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Department</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Engineering" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Popup items={collection.items} />
-    </Combobox.Root>
-  );
-}
-
-export function InlineAutocompleteComboboxExample() {
-  const { startsWith } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: seaCreatures,
-    filter: startsWith,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      inputBehavior="autocomplete"
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Sea creature</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Dolphin" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Popup items={collection.items} />
-    </Combobox.Root>
-  );
-}
-
-export function AdvancedCustomizationComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: developerResources,
-    filter: contains,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      selectionBehavior="preserve"
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>Developer resources</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. GitHub" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.List>
-            {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item} asChild>
-                <a href={item.href} target="_blank" rel="noreferrer">
-                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                  <Combobox.ItemIndicator />
-                </a>
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
-
-export function DynamicComboboxExample() {
-  const { collection, set } = useListCollection<string>({ initialItems: [] });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => {
-        if (details.reason !== 'input-change') {
-          return;
-        }
-
-        const name = details.inputValue.trim();
-        set(
-          name
-            ? ['gmail.com', 'outlook.com', 'proton.me'].map((domain) => `${name}@${domain}`)
-            : [],
-        );
-      }}
-    >
-      <Combobox.Label>Email</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. alex" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.List>
-            {collection.items.map((item) => (
-              <Combobox.Option key={item} item={item}>
-                {item}
-              </Combobox.Option>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
-
-type CreatableItem = {
-  label: string;
-  value: string;
-  created?: boolean;
-};
-
-const createOptionValue = '__create-option__';
-
-export function CreatableComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter, remove, update, upsert } = useListCollection<CreatableItem>({
-    initialItems: [
-      { label: 'Bug', value: 'bug' },
-      { label: 'Feature', value: 'feature' },
-      { label: 'Enhancement', value: 'enhancement' },
-      { label: 'Documentation', value: 'documentation' },
-    ],
-    filter: contains,
-  });
-  const [inputValue, setInputValue] = useState('');
-  const [value, setValue] = useState<string[]>([]);
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      inputValue={inputValue}
-      value={value}
-      allowCustomValue
-      onInputValueChange={(details) => {
-        const nextInputValue = details.inputValue;
-
-        if (details.reason === 'input-change' || details.reason === 'item-select') {
-          const hasExactMatch = collection.items.some(
-            (item) => item.label.toLowerCase() === nextInputValue.toLowerCase(),
-          );
-
-          flushSync(() => {
-            if (nextInputValue.trim() && !hasExactMatch) {
-              upsert(createOptionValue, {
-                label: nextInputValue,
-                value: createOptionValue,
-              });
-            } else {
-              remove(createOptionValue);
-            }
-          });
-          filter(nextInputValue);
-        }
-
-        setInputValue(nextInputValue);
-      }}
-      onOpenChange={(details) => {
-        if (details.reason === 'trigger-click') {
-          filter('');
-        }
-      }}
-      onValueChange={(details) => {
-        const nextValue = details.value.map((item) =>
-          item === createOptionValue ? inputValue : item,
-        );
-
-        setValue(nextValue);
-        if (details.value.includes(createOptionValue)) {
-          update(createOptionValue, {
-            label: inputValue,
-            value: inputValue,
-            created: true,
-          });
-        }
-      }}
-    >
-      <Combobox.Label>Issue label</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. Accessibility" />
-        <Combobox.ClearTrigger aria-label="Clear selection" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content>
-          <Combobox.List>
-            {collection.items.map((item) => (
-              <Combobox.Item key={item.value} item={item}>
-                <Combobox.ItemText>
-                  {item.value === createOptionValue
-                    ? `Create "${item.label}"`
-                    : `${item.label}${item.created ? ' (new)' : ''}`}
-                </Combobox.ItemText>
-                <Combobox.ItemIndicator />
-              </Combobox.Item>
-            ))}
-          </Combobox.List>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
-
-export function LimitComboboxExample() {
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter } = useListCollection({
-    initialItems: cities,
-    filter: contains,
-    limit: 5,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-    >
-      <Combobox.Label>City</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="e.g. San" />
-        <Combobox.Trigger aria-label="Open options" />
-      </Combobox.Control>
-      <Popup items={collection.items} />
-    </Combobox.Root>
-  );
-}
-
-export function VirtualizedComboboxExample() {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const { contains } = useFilter({ sensitivity: 'base' });
-  const { collection, filter, reset } = useListCollection({
-    initialItems: virtualItems,
-    filter: contains,
-  });
-  const virtualizer = useVirtualizer({
-    count: collection.size,
-    getScrollElement: () => scrollRef.current,
-    estimateSize: () => 32,
-    overscan: 8,
-  });
-
-  return (
-    <Combobox.Root
-      collection={collection}
-      onInputValueChange={(details) => filter(details.inputValue)}
-      scrollToIndexFn={(details) => {
-        flushSync(() => {
-          virtualizer.scrollToIndex(details.index, {
-            align: 'center',
-            behavior: 'auto',
-          });
-        });
-      }}
-    >
-      <Combobox.Label>Large dataset</Combobox.Label>
-      <Combobox.Control>
-        <Combobox.Input placeholder="Search 1,000 results" />
-        <Combobox.Trigger aria-label="Open options" onClick={reset} />
-      </Combobox.Control>
-      <Combobox.Positioner>
-        <Combobox.Content className={styles.virtualContent}>
-          <Combobox.Empty>No results found.</Combobox.Empty>
-          <div ref={scrollRef} className={styles.virtualScroller}>
-            <Combobox.List
-              className={styles.virtualList}
-              style={{ height: virtualizer.getTotalSize(), width: '100%' }}
-            >
-              {virtualizer.getVirtualItems().map((virtualItem) => {
-                const item = collection.items[virtualItem.index];
-
-                return (
-                  <Combobox.Item
-                    key={item.value}
-                    item={item}
-                    aria-setsize={collection.size}
-                    aria-posinset={virtualItem.index + 1}
-                    className={styles.virtualItem}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: virtualItem.size,
-                      transform: `translateY(${virtualItem.start}px)`,
-                    }}
-                  >
-                    <Combobox.ItemText>{item.label}</Combobox.ItemText>
-                    <Combobox.ItemIndicator />
-                  </Combobox.Item>
-                );
-              })}
-            </Combobox.List>
-          </div>
-        </Combobox.Content>
-      </Combobox.Positioner>
-    </Combobox.Root>
-  );
-}
+import type { CssPropertyInput } from '../mdx/reference';
 
 export const comboboxExampleCss = `
 [data-slot='combobox-content'] {
@@ -623,167 +7,263 @@ export const comboboxExampleCss = `
 }
 
 [data-slot='combobox-item'][data-highlighted] {
-  background: var(--combobox-highlight-bg, var(--color-accent));
-  color: var(--combobox-highlight-color, var(--color-accent-foreground));
+  background: var(--moduix-combobox-highlight-bg, var(--moduix-color-accent));
+  color: var(--moduix-combobox-highlight-color, var(--moduix-color-accent-foreground));
 }
 `;
 
 export const comboboxOverrideCssProperties: CssPropertyInput[] = [
-  ['--combobox-action-bg', 'transparent', 'Controls action background.'],
-  ['--combobox-action-bg-hover', 'var(--color-muted)', 'Controls action hover background.'],
-  ['--combobox-action-color-hover', 'var(--color-foreground)', 'Controls action hover color.'],
-  ['--combobox-action-gap', 'var(--spacing-0-5)', 'Controls the gap between actions.'],
-  ['--combobox-action-offset-right', 'var(--spacing-2)', 'Controls the trailing action offset.'],
-  ['--combobox-action-radius', 'var(--radius-sm)', 'Controls action radius.'],
-  ['--combobox-action-size', 'var(--size-xs)', 'Controls action size.'],
-  ['--combobox-bg', 'var(--color-background)', 'Controls control background.'],
-  ['--combobox-border-color', 'var(--color-border)', 'Controls control border color.'],
-  ['--combobox-border-width', 'var(--border-width-sm)', 'Controls control border width.'],
-  ['--combobox-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--combobox-bg-active', 'var(--color-muted)', 'Controls control background when open.'],
-  ['--combobox-bg-hover', 'var(--color-accent)', 'Controls control background on hover.'],
-  ['--combobox-content-bg', 'var(--color-popover)', 'Controls content background.'],
-  ['--combobox-content-border-color', 'var(--color-border)', 'Controls content border color.'],
-  ['--combobox-content-border-width', 'var(--border-width-sm)', 'Controls content border width.'],
-  ['--combobox-content-closed-opacity', '0', 'Controls closed animation opacity.'],
-  ['--combobox-content-closed-scale', 'var(--scale-popup)', 'Controls closed animation scale.'],
-  ['--combobox-content-color', 'var(--color-popover-foreground)', 'Controls content text color.'],
-  ['--combobox-content-max-height', '24rem', 'Controls content maximum height.'],
+  ['--moduix-combobox-action-bg', 'transparent', 'Controls action background.'],
   [
-    '--combobox-content-padding-y',
-    'var(--popup-list-padding-y, var(--spacing-1))',
+    '--moduix-combobox-action-bg-hover',
+    'var(--moduix-color-muted)',
+    'Controls action hover background.',
+  ],
+  [
+    '--moduix-combobox-action-color-hover',
+    'var(--moduix-color-foreground)',
+    'Controls action hover color.',
+  ],
+  [
+    '--moduix-combobox-action-gap',
+    'var(--moduix-spacing-0-5)',
+    'Controls the gap between actions.',
+  ],
+  [
+    '--moduix-combobox-action-offset-right',
+    'var(--moduix-spacing-2)',
+    'Controls the trailing action offset.',
+  ],
+  ['--moduix-combobox-action-radius', 'var(--moduix-radius-sm)', 'Controls action radius.'],
+  ['--moduix-combobox-action-size', 'var(--moduix-size-xs)', 'Controls action size.'],
+  ['--moduix-combobox-bg', 'var(--moduix-color-background)', 'Controls control background.'],
+  [
+    '--moduix-combobox-border-color',
+    'var(--moduix-color-border)',
+    'Controls control border color.',
+  ],
+  [
+    '--moduix-combobox-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls control border width.',
+  ],
+  ['--moduix-combobox-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
+  ['--combobox-bg-active', 'var(--moduix-color-muted)', 'Controls control background when open.'],
+  ['--combobox-bg-hover', 'var(--moduix-color-accent)', 'Controls control background on hover.'],
+  ['--moduix-combobox-content-bg', 'var(--moduix-color-popover)', 'Controls content background.'],
+  [
+    '--moduix-combobox-content-border-color',
+    'var(--moduix-color-border)',
+    'Controls content border color.',
+  ],
+  [
+    '--moduix-combobox-content-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls content border width.',
+  ],
+  ['--moduix-combobox-content-closed-opacity', '0', 'Controls closed animation opacity.'],
+  [
+    '--moduix-combobox-content-closed-scale',
+    'var(--moduix-scale-popup)',
+    'Controls closed animation scale.',
+  ],
+  [
+    '--moduix-combobox-content-color',
+    'var(--moduix-color-popover-foreground)',
+    'Controls content text color.',
+  ],
+  ['--moduix-combobox-content-max-height', '24rem', 'Controls content maximum height.'],
+  [
+    '--moduix-combobox-content-padding-y',
+    'var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))',
     'Controls content vertical padding.',
   ],
-  ['--combobox-content-shadow', 'var(--shadow-lg)', 'Controls content shadow.'],
-  ['--combobox-control-height', 'var(--size-md)', 'Controls input height.'],
-  ['--combobox-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--combobox-empty-color', 'var(--color-muted-foreground)', 'Controls empty text color.'],
-  ['--combobox-empty-font-size', 'var(--text-sm)', 'Controls empty font size.'],
-  ['--combobox-empty-line-height', 'var(--line-height-text-sm)', 'Controls empty line height.'],
-  ['--combobox-empty-padding-x', 'var(--spacing-4)', 'Controls empty horizontal padding.'],
-  ['--combobox-empty-padding-y', 'var(--spacing-3)', 'Controls empty vertical padding.'],
-  ['--combobox-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--combobox-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
+  ['--moduix-combobox-content-shadow', 'var(--moduix-shadow-lg)', 'Controls content shadow.'],
+  ['--moduix-combobox-control-height', 'var(--moduix-size-md)', 'Controls input height.'],
   [
-    '--combobox-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-combobox-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  [
+    '--moduix-combobox-empty-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls empty text color.',
+  ],
+  ['--moduix-combobox-empty-font-size', 'var(--moduix-text-sm)', 'Controls empty font size.'],
+  [
+    '--moduix-combobox-empty-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls empty line height.',
+  ],
+  [
+    '--moduix-combobox-empty-padding-x',
+    'var(--moduix-spacing-4)',
+    'Controls empty horizontal padding.',
+  ],
+  [
+    '--moduix-combobox-empty-padding-y',
+    'var(--moduix-spacing-3)',
+    'Controls empty vertical padding.',
+  ],
+  ['--moduix-combobox-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-combobox-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--moduix-combobox-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls focus ring width.',
   ],
-  ['--combobox-highlight-bg', 'var(--color-accent)', 'Controls highlighted item background.'],
   [
-    '--combobox-highlight-color',
-    'var(--color-accent-foreground)',
+    '--moduix-combobox-highlight-bg',
+    'var(--moduix-color-accent)',
+    'Controls highlighted item background.',
+  ],
+  [
+    '--moduix-combobox-highlight-color',
+    'var(--moduix-color-accent-foreground)',
     'Controls highlighted item color.',
   ],
-  ['--combobox-icon-color', 'var(--color-muted-foreground)', 'Controls action icon color.'],
-  ['--combobox-icon-size', 'var(--spacing-4)', 'Controls action icon size.'],
-  ['--combobox-input-padding-x-end', 'var(--spacing-3-5)', 'Controls input trailing padding.'],
   [
-    '--combobox-input-padding-x-end-with-clear',
+    '--moduix-combobox-icon-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls action icon color.',
+  ],
+  ['--moduix-combobox-icon-size', 'var(--moduix-spacing-4)', 'Controls action icon size.'],
+  [
+    '--moduix-combobox-input-padding-x-end',
+    'var(--moduix-spacing-3-5)',
+    'Controls input trailing padding.',
+  ],
+  [
+    '--moduix-combobox-input-padding-x-end-with-clear',
     '4.375rem',
     'Customizes combobox input padding x end with clear.',
   ],
   [
-    '--combobox-input-padding-x-end-with-trigger',
+    '--moduix-combobox-input-padding-x-end-with-trigger',
     '2.75rem',
     'Customizes combobox input padding x end with trigger.',
   ],
-  ['--combobox-input-padding-x-start', 'var(--spacing-3-5)', 'Controls input leading padding.'],
   [
-    '--combobox-input-placeholder-color',
-    'var(--color-muted-foreground)',
+    '--moduix-combobox-input-padding-x-start',
+    'var(--moduix-spacing-3-5)',
+    'Controls input leading padding.',
+  ],
+  [
+    '--moduix-combobox-input-placeholder-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls placeholder color.',
   ],
-  ['--combobox-invalid-color', 'var(--color-destructive)', 'Controls invalid border color.'],
-  ['--combobox-item-group-gap', 'var(--spacing-2)', 'Controls the gap between item groups.'],
   [
-    '--combobox-item-group-label-color',
-    'var(--popup-group-label-color, var(--color-muted-foreground))',
+    '--moduix-combobox-invalid-color',
+    'var(--moduix-color-destructive)',
+    'Controls invalid border color.',
+  ],
+  [
+    '--moduix-combobox-item-group-gap',
+    'var(--moduix-spacing-2)',
+    'Controls the gap between item groups.',
+  ],
+  [
+    '--moduix-combobox-item-group-label-color',
+    'var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))',
     'Controls group label color.',
   ],
   [
-    '--combobox-item-group-label-font-size',
-    'var(--popup-group-label-font-size, var(--text-xs))',
+    '--moduix-combobox-item-group-label-font-size',
+    'var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))',
     'Controls group label font size.',
   ],
   [
-    '--combobox-item-group-label-font-weight',
-    'var(--popup-group-label-font-weight, var(--weight-regular))',
+    '--moduix-combobox-item-group-label-font-weight',
+    'var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))',
     'Controls group label weight.',
   ],
   [
-    '--combobox-item-group-label-line-height',
-    'var(--popup-group-label-line-height, var(--line-height-text-xs))',
+    '--moduix-combobox-item-group-label-line-height',
+    'var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))',
     'Controls group label line height.',
   ],
   [
-    '--combobox-item-group-label-padding-x',
-    'var(--spacing-2-5)',
+    '--moduix-combobox-item-group-label-padding-x',
+    'var(--moduix-spacing-2-5)',
     'Controls group label horizontal padding.',
   ],
   [
-    '--combobox-item-group-label-padding-y',
-    'var(--popup-group-label-padding-y, var(--spacing-1))',
+    '--moduix-combobox-item-group-label-padding-y',
+    'var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))',
     'Controls group label vertical padding.',
   ],
-  ['--combobox-item-bg', 'transparent', 'Controls item background.'],
-  ['--combobox-item-border-color', 'transparent', 'Controls item border color.'],
-  ['--combobox-item-border-width', '0', 'Controls item border width.'],
-  ['--combobox-item-checked-color', 'var(--combobox-item-color)', 'Controls selected item color.'],
-  ['--combobox-item-color', 'var(--color-foreground)', 'Controls item text color.'],
+  ['--moduix-combobox-item-bg', 'transparent', 'Controls item background.'],
+  ['--moduix-combobox-item-border-color', 'transparent', 'Controls item border color.'],
+  ['--moduix-combobox-item-border-width', '0', 'Controls item border width.'],
   [
-    '--combobox-item-disabled-color',
-    'var(--color-muted-foreground)',
+    '--moduix-combobox-item-checked-color',
+    'var(--moduix-combobox-item-color)',
+    'Controls selected item color.',
+  ],
+  ['--moduix-combobox-item-color', 'var(--moduix-color-foreground)', 'Controls item text color.'],
+  [
+    '--moduix-combobox-item-disabled-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls disabled item color.',
   ],
   [
-    '--combobox-item-font-size',
-    'var(--popup-item-font-size, var(--text-sm))',
+    '--moduix-combobox-item-font-size',
+    'var(--moduix-popup-item-font-size, var(--moduix-text-sm))',
     'Controls item font size.',
   ],
-  ['--combobox-item-gap', 'var(--spacing-2)', 'Controls item content gap.'],
-  ['--combobox-item-inset-x', 'var(--spacing-2)', 'Controls item horizontal inset.'],
-  ['--combobox-item-indicator-size', 'var(--spacing-3)', 'Controls item indicator size.'],
+  ['--moduix-combobox-item-gap', 'var(--moduix-spacing-2)', 'Controls item content gap.'],
+  ['--moduix-combobox-item-inset-x', 'var(--moduix-spacing-2)', 'Controls item horizontal inset.'],
   [
-    '--combobox-item-line-height',
-    'var(--popup-item-line-height, var(--line-height-text-sm))',
+    '--moduix-combobox-item-indicator-size',
+    'var(--moduix-spacing-3)',
+    'Controls item indicator size.',
+  ],
+  [
+    '--moduix-combobox-item-line-height',
+    'var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))',
     'Controls item line height.',
   ],
   [
-    '--combobox-item-min-height',
-    'var(--popup-item-min-height, var(--size-sm))',
+    '--moduix-combobox-item-min-height',
+    'var(--moduix-popup-item-min-height, var(--moduix-size-sm))',
     'Controls item minimum height.',
   ],
   [
-    '--combobox-item-padding-x',
-    'var(--popup-item-padding-x-start, var(--spacing-3))',
+    '--moduix-combobox-item-padding-x',
+    'var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))',
     'Controls item horizontal padding.',
   ],
   [
-    '--combobox-item-padding-y',
-    'var(--popup-item-padding-y, var(--spacing-1))',
+    '--moduix-combobox-item-padding-y',
+    'var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))',
     'Controls item vertical padding.',
   ],
-  ['--combobox-item-radius', 'var(--radius-sm)', 'Controls item radius.'],
-  ['--combobox-label-color', 'var(--combobox-color)', 'Controls label color.'],
-  ['--combobox-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--combobox-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--combobox-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--combobox-max-width', '100%', 'Controls root maximum width.'],
-  ['--combobox-radius', 'var(--radius-md)', 'Controls control and content radius.'],
-  ['--combobox-root-gap', 'var(--spacing-1-5)', 'Controls root part spacing.'],
-  ['--combobox-transition', 'var(--transition-default)', 'Controls state transitions.'],
-  ['--combobox-width', '16rem', 'Controls root width.'],
+  ['--moduix-combobox-item-radius', 'var(--moduix-radius-sm)', 'Controls item radius.'],
+  ['--moduix-combobox-label-color', 'var(--moduix-combobox-color)', 'Controls label color.'],
+  ['--moduix-combobox-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
+  [
+    '--moduix-combobox-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-combobox-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  ['--moduix-combobox-max-width', '100%', 'Controls root maximum width.'],
+  ['--moduix-combobox-radius', 'var(--moduix-radius-md)', 'Controls control and content radius.'],
+  ['--moduix-combobox-root-gap', 'var(--moduix-spacing-1-5)', 'Controls root part spacing.'],
+  [
+    '--moduix-combobox-transition',
+    'var(--moduix-transition-default)',
+    'Controls state transitions.',
+  ],
+  ['--moduix-combobox-width', '16rem', 'Controls root width.'],
 ];
-
-const cssProperties = comboboxOverrideCssProperties.map((property) => {
-  if ('name' in property) {
-    return property;
-  }
-
-  return { name: property[0], defaultValue: property[1], description: property[2] };
-});
-
-export function ComboboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return <CSSPropertiesReferenceTable properties={cssProperties} />;
-}

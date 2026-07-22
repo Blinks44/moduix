@@ -1,49 +1,86 @@
-import { Field, Textarea } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
-import styles from './textarea.module.css';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const textareaCssProperties: CssPropertyInput[] = [
-  ['--textarea-bg', 'var(--color-background)', 'Controls the textarea background color.'],
-  ['--textarea-border-color', 'var(--color-border)', 'Controls the textarea border color.'],
+const textareaCssProperties: CssPropertyInput[] = [
   [
-    '--textarea-border-color-invalid',
-    'var(--color-destructive)',
+    '--moduix-textarea-bg',
+    'var(--moduix-color-background)',
+    'Controls the textarea background color.',
+  ],
+  [
+    '--moduix-textarea-border-color',
+    'var(--moduix-color-border)',
+    'Controls the textarea border color.',
+  ],
+  [
+    '--moduix-textarea-border-color-invalid',
+    'var(--moduix-color-destructive)',
     'Controls invalid border and focus ring color.',
   ],
-  ['--textarea-border-style', 'solid', 'Controls the textarea border style.'],
-  ['--textarea-border-width', 'var(--border-width-sm)', 'Controls the textarea border width.'],
-  ['--textarea-color', 'var(--color-foreground)', 'Controls the textarea text color.'],
-  ['--textarea-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--textarea-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--textarea-focus-ring-offset', 'var(--focus-ring-inset-offset)', 'Controls focus ring offset.'],
+  ['--moduix-textarea-border-style', 'solid', 'Controls the textarea border style.'],
   [
-    '--textarea-focus-ring-width',
-    'var(--textarea-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
+    '--moduix-textarea-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls the textarea border width.',
+  ],
+  [
+    '--moduix-textarea-color',
+    'var(--moduix-color-foreground)',
+    'Controls the textarea text color.',
+  ],
+  [
+    '--moduix-textarea-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  ['--moduix-textarea-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-textarea-focus-ring-offset',
+    'var(--moduix-focus-ring-inset-offset)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--moduix-textarea-focus-ring-width',
+    'var(--moduix-textarea-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls focus ring width.',
   ],
-  ['--textarea-font-size', 'var(--text-md)', 'Controls default font size.'],
-  ['--textarea-line-height', 'var(--line-height-text-md)', 'Controls default line height.'],
-  ['--textarea-max-width', 'none', 'Controls the textarea max width.'],
-  ['--textarea-min-height', '6rem', 'Controls default minimum textarea height.'],
-  ['--textarea-padding-x', 'var(--spacing-3-5)', 'Controls default horizontal padding.'],
-  ['--textarea-padding-y', 'var(--spacing-2)', 'Controls default vertical padding.'],
-  ['--textarea-placeholder-color', 'var(--color-muted-foreground)', 'Controls placeholder color.'],
-  ['--textarea-radius', 'var(--radius-md)', 'Controls textarea corner radius.'],
+  ['--moduix-textarea-font-size', 'var(--moduix-text-md)', 'Controls default font size.'],
   [
-    '--textarea-readonly-bg',
-    'var(--textarea-bg, var(--color-background))',
+    '--moduix-textarea-line-height',
+    'var(--moduix-line-height-text-md)',
+    'Controls default line height.',
+  ],
+  ['--moduix-textarea-max-width', 'none', 'Controls the textarea max width.'],
+  ['--moduix-textarea-min-height', '6rem', 'Controls default minimum textarea height.'],
+  [
+    '--moduix-textarea-padding-x',
+    'var(--moduix-spacing-3-5)',
+    'Controls default horizontal padding.',
+  ],
+  ['--moduix-textarea-padding-y', 'var(--moduix-spacing-2)', 'Controls default vertical padding.'],
+  [
+    '--moduix-textarea-placeholder-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls placeholder color.',
+  ],
+  ['--moduix-textarea-radius', 'var(--moduix-radius-md)', 'Controls textarea corner radius.'],
+  [
+    '--moduix-textarea-readonly-bg',
+    'var(--moduix-textarea-bg, var(--moduix-color-background))',
     'Controls readonly background color.',
   ],
   [
-    '--textarea-readonly-color',
-    'var(--textarea-color, var(--color-foreground))',
+    '--moduix-textarea-readonly-color',
+    'var(--moduix-textarea-color, var(--moduix-color-foreground))',
     'Controls readonly text color.',
   ],
-  ['--textarea-resize', 'vertical', 'Controls default textarea resize behavior.'],
-  ['--textarea-transition', 'var(--transition-default)', 'Controls state transition timing.'],
-  ['--textarea-width', '100%', 'Controls textarea width.'],
+  ['--moduix-textarea-resize', 'vertical', 'Controls default textarea resize behavior.'],
+  [
+    '--moduix-textarea-transition',
+    'var(--moduix-transition-default)',
+    'Controls state transition timing.',
+  ],
+  ['--moduix-textarea-width', '100%', 'Controls textarea width.'],
 ];
 
 export function TextareaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -56,79 +93,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function TextareaExample(props: ComponentProps<typeof Textarea>) {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Comment</Field.Label>
-      <Field.HelperText>Included in the issue summary visible to the whole team.</Field.HelperText>
-      <Textarea placeholder="Write a short comment" {...props} />
-    </Field>
-  );
-}
-
-export function ControlledTextareaExample() {
-  const [value, setValue] = useState('');
-
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Feedback</Field.Label>
-      <Textarea
-        value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
-        placeholder="Type to control value"
-      />
-    </Field>
-  );
-}
-
-export function DisabledAndReadOnlyTextareaExample() {
-  return (
-    <div className={styles.stack}>
-      <Textarea aria-label="Disabled textarea" disabled placeholder="Disabled textarea" />
-      <Textarea aria-label="Read-only textarea" readOnly value="Read-only text value" />
-    </div>
-  );
-}
-
-export function NativeAttributesTextareaExample() {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Notes</Field.Label>
-      <Textarea
-        name="notes"
-        rows={6}
-        maxLength={280}
-        spellCheck={false}
-        placeholder="Add enough context for the next person reading this."
-      />
-    </Field>
-  );
-}
-
-export function AutoResizeTextareaExample() {
-  return (
-    <Field className={styles.field}>
-      <Field.Label>Issue description</Field.Label>
-      <Textarea
-        autoresize
-        placeholder="Start typing a longer description. Height grows with content."
-      />
-    </Field>
-  );
-}
-
-export function FieldValidationTextareaExample() {
-  return (
-    <Field className={styles.field} invalid required>
-      <Field.Label>Details</Field.Label>
-      <Textarea minLength={10} placeholder="Add at least 10 characters" />
-      <Field.HelperText>
-        Include enough detail for the team to reproduce the issue.
-      </Field.HelperText>
-      <Field.ErrorText>Please provide details.</Field.ErrorText>
-      <Field.ErrorText>Enter at least 10 characters.</Field.ErrorText>
-    </Field>
-  );
 }

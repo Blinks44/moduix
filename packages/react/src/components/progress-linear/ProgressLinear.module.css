@@ -1,33 +1,36 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--progress-linear-gap, var(--spacing-2));
-    width: var(--progress-linear-width, 12rem);
-    color: var(--progress-linear-color, var(--color-foreground));
+    gap: var(--moduix-progress-linear-gap, var(--moduix-spacing-2));
+    width: var(--moduix-progress-linear-width, 12rem);
+    color: var(--moduix-progress-linear-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-rows: auto minmax(0, 1fr);
-      width: var(--progress-linear-vertical-width, max-content);
-      height: var(--progress-linear-height, 12rem);
+      width: var(--moduix-progress-linear-vertical-width, max-content);
+      height: var(--moduix-progress-linear-height, 12rem);
     }
   }
 
   .label {
-    font-size: var(--progress-linear-label-font-size, var(--text-sm));
-    font-weight: var(--progress-linear-label-font-weight, var(--weight-regular));
-    line-height: var(--progress-linear-label-line-height, var(--line-height-text-sm));
-    color: var(--progress-linear-label-color, currentColor);
+    font-size: var(--moduix-progress-linear-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-progress-linear-label-font-weight, var(--moduix-weight-regular));
+    line-height: var(--moduix-progress-linear-label-line-height, var(--moduix-line-height-text-sm));
+    color: var(--moduix-progress-linear-label-color, currentColor);
   }
 
   .valueText {
-    font-size: var(--progress-linear-value-text-font-size, var(--text-sm));
-    font-weight: var(--progress-linear-value-text-font-weight, var(--weight-regular));
-    line-height: var(--progress-linear-value-text-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-progress-linear-value-text-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-progress-linear-value-text-font-weight, var(--moduix-weight-regular));
+    line-height: var(
+      --moduix-progress-linear-value-text-line-height,
+      var(--moduix-line-height-text-sm)
+    );
     justify-self: end;
-    color: var(--progress-linear-value-text-color, currentColor);
+    color: var(--moduix-progress-linear-value-text-color, currentColor);
     text-align: right;
   }
 
@@ -36,16 +39,17 @@
     display: block;
     overflow: hidden;
     width: 100%;
-    height: var(--progress-linear-track-height, 0.5rem);
-    border-radius: var(--progress-linear-track-radius, var(--radius-full));
-    background-color: var(--progress-linear-track-bg, var(--color-muted));
-    box-shadow: inset 0 0 0 var(--progress-linear-track-border-width, var(--border-width-sm))
-      var(--progress-linear-track-border-color, var(--color-border));
+    height: var(--moduix-progress-linear-track-height, 0.5rem);
+    border-radius: var(--moduix-progress-linear-track-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-progress-linear-track-bg, var(--moduix-color-muted));
+    box-shadow: inset 0 0 0
+      var(--moduix-progress-linear-track-border-width, var(--moduix-border-width-sm))
+      var(--moduix-progress-linear-track-border-color, var(--moduix-color-border));
 
     &[data-orientation='vertical'] {
       display: flex;
       align-items: end;
-      width: var(--progress-linear-track-width, 0.5rem);
+      width: var(--moduix-progress-linear-track-width, 0.5rem);
       height: 100%;
     }
   }
@@ -53,16 +57,16 @@
   .range {
     display: block;
     height: 100%;
-    border-radius: var(--progress-linear-range-radius, inherit);
-    background-color: var(--progress-linear-range-bg, var(--color-primary));
+    border-radius: var(--moduix-progress-linear-range-radius, inherit);
+    background-color: var(--moduix-progress-linear-range-bg, var(--moduix-color-primary));
     transition:
-      width var(--progress-linear-range-transition, var(--transition-default)),
-      height var(--progress-linear-range-transition, var(--transition-default));
+      width var(--moduix-progress-linear-range-transition, var(--moduix-transition-default)),
+      height var(--moduix-progress-linear-range-transition, var(--moduix-transition-default));
 
     &[data-state='indeterminate'] {
-      width: var(--progress-linear-range-indeterminate-width, 35%);
+      width: var(--moduix-progress-linear-range-indeterminate-width, 35%);
       animation: var(
-        --progress-linear-range-indeterminate-animation,
+        --moduix-progress-linear-range-indeterminate-animation,
         progress-linear-indeterminate 1.5s ease-in-out infinite
       );
     }
@@ -72,9 +76,9 @@
     }
 
     &[data-state='indeterminate'][data-orientation='vertical'] {
-      height: var(--progress-linear-range-indeterminate-width, 35%);
+      height: var(--moduix-progress-linear-range-indeterminate-width, 35%);
       animation: var(
-        --progress-linear-range-indeterminate-vertical-animation,
+        --moduix-progress-linear-range-indeterminate-vertical-animation,
         progress-linear-indeterminate-vertical 1.5s ease-in-out infinite
       );
     }

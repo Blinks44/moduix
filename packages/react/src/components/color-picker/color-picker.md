@@ -124,12 +124,12 @@ export function ColorPickerExample() {
 
 ## Defaults and styling
 
-The square trigger, channel inputs, format select, and adjacent action triggers share `--size-md`; color swatches use `--size-sm`.
+The square trigger, channel inputs, format select, and adjacent action triggers share `--moduix-size-md`; color swatches use `--moduix-size-sm`.
 
-- Content motion falls back to the shared `--popup-motion-*` tokens. `--color-picker-transition`
+- Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-color-picker-transition`
   and closed-state variables remain the more specific override.
 - moduix applies field, popup, color area, slider, swatch, focus ring, shadow, and motion defaults.
-- `--color-picker-swatch-indicator-shadow` exposes the contrast shadow behind the selected-swatch
+- `--moduix-color-picker-swatch-indicator-shadow` exposes the contrast shadow behind the selected-swatch
   glyph; its default remains a compact `drop-shadow(...)` because it follows the swatch color rather
   than the rectangular surface shadow scale.
 - `className` is accepted on every visual part.
@@ -168,9 +168,9 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Aligned the square trigger, channel controls, and actions to `--size-md`; swatches now use `--size-sm`.
+- 2026-07-21: Aligned the square trigger, channel controls, and actions to `--moduix-size-md`; swatches now use `--moduix-size-sm`.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
 - 2026-07-10: Added `Sliders` and moduix state-hook re-exports; recommended them in docs.

@@ -1,19 +1,19 @@
 .stack {
   display: grid;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .value {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .verticalContainer {
@@ -22,30 +22,34 @@
 }
 
 .verticalSlider {
-  --slider-width-vertical: auto;
-  --slider-height: 12rem;
+  --moduix-slider-width-vertical: auto;
+  --moduix-slider-height: 12rem;
 }
 
 .customSlider {
-  --slider-width: 16rem;
+  --moduix-slider-width: 16rem;
 }
 
 .customControl {
-  --slider-control-size: 1.5rem;
+  --moduix-slider-control-size: 1.5rem;
 }
 
 .customTrack {
-  --slider-track-size: 0.625rem;
-  --slider-track-bg: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-muted));
-  --slider-track-border-color: transparent;
+  --moduix-slider-track-size: 0.625rem;
+  --moduix-slider-track-bg: color-mix(
+    in oklab,
+    var(--moduix-color-chart-4) 18%,
+    var(--moduix-color-muted)
+  );
+  --moduix-slider-track-border-color: transparent;
 }
 
 .customRange {
-  --slider-range-bg: var(--color-chart-4);
+  --moduix-slider-range-bg: var(--moduix-color-chart-4);
 }
 
 .customThumb {
-  --slider-thumb-size: 1.25rem;
-  --slider-thumb-bg: var(--color-chart-4);
-  --slider-thumb-border-color: var(--color-background);
+  --moduix-slider-thumb-size: 1.25rem;
+  --moduix-slider-thumb-bg: var(--moduix-color-chart-4);
+  --moduix-slider-thumb-border-color: var(--moduix-color-background);
 }

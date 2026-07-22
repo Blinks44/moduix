@@ -1,4 +1,4 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: grid;
@@ -6,15 +6,24 @@
     align-items: start;
     width: 100%;
     min-width: 0;
-    row-gap: var(--alert-content-gap, var(--spacing-1));
-    column-gap: var(--alert-gap, var(--spacing-3));
-    border: var(--alert-border-width, var(--border-width-sm)) solid
-      var(--alert-border-color, var(--alert-border-color-default, var(--color-border)));
-    border-radius: var(--alert-radius, var(--radius-lg));
-    padding: var(--alert-padding, var(--spacing-3));
-    background-color: var(--alert-bg, var(--alert-bg-default, var(--color-card)));
-    color: var(--alert-color, var(--alert-color-default, var(--color-card-foreground)));
-    box-shadow: var(--alert-shadow, none);
+    row-gap: var(--moduix-alert-content-gap, var(--moduix-spacing-1));
+    column-gap: var(--moduix-alert-gap, var(--moduix-spacing-3));
+    border: var(--moduix-alert-border-width, var(--moduix-border-width-sm)) solid
+      var(
+        --moduix-alert-border-color,
+        var(--moduix-alert-border-color-default, var(--moduix-color-border))
+      );
+    border-radius: var(--moduix-alert-radius, var(--moduix-radius-lg));
+    padding: var(--moduix-alert-padding, var(--moduix-spacing-3));
+    background-color: var(
+      --moduix-alert-bg,
+      var(--moduix-alert-bg-default, var(--moduix-color-card))
+    );
+    color: var(
+      --moduix-alert-color,
+      var(--moduix-alert-color-default, var(--moduix-color-card-foreground))
+    );
+    box-shadow: var(--moduix-alert-shadow, none);
 
     > [data-part='title'],
     > [data-part='description'] {
@@ -22,38 +31,70 @@
     }
 
     &[data-status='neutral'] {
-      --alert-bg-default: var(--color-card);
-      --alert-border-color-default: var(--color-border);
-      --alert-color-default: var(--color-card-foreground);
-      --alert-indicator-color-default: var(--color-muted-foreground);
+      --moduix-alert-bg-default: var(--moduix-color-card);
+      --moduix-alert-border-color-default: var(--moduix-color-border);
+      --moduix-alert-color-default: var(--moduix-color-card-foreground);
+      --moduix-alert-indicator-color-default: var(--moduix-color-muted-foreground);
     }
 
     &[data-status='info'] {
-      --alert-bg-default: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
-      --alert-border-color-default: color-mix(in oklab, var(--color-primary) 32%, transparent);
-      --alert-color-default: var(--color-foreground);
-      --alert-indicator-color-default: var(--color-primary);
+      --moduix-alert-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-primary) 4%,
+        var(--moduix-color-background)
+      );
+      --moduix-alert-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-primary) 32%,
+        transparent
+      );
+      --moduix-alert-color-default: var(--moduix-color-foreground);
+      --moduix-alert-indicator-color-default: var(--moduix-color-primary);
     }
 
     &[data-status='success'] {
-      --alert-bg-default: color-mix(in oklab, var(--color-success) 10%, var(--color-background));
-      --alert-border-color-default: color-mix(in oklab, var(--color-success) 34%, transparent);
-      --alert-color-default: var(--color-foreground);
-      --alert-indicator-color-default: var(--color-success);
+      --moduix-alert-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-success) 10%,
+        var(--moduix-color-background)
+      );
+      --moduix-alert-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-success) 34%,
+        transparent
+      );
+      --moduix-alert-color-default: var(--moduix-color-foreground);
+      --moduix-alert-indicator-color-default: var(--moduix-color-success);
     }
 
     &[data-status='warning'] {
-      --alert-bg-default: color-mix(in oklab, var(--color-warning) 13%, var(--color-background));
-      --alert-border-color-default: color-mix(in oklab, var(--color-warning) 38%, transparent);
-      --alert-color-default: var(--color-foreground);
-      --alert-indicator-color-default: var(--color-warning);
+      --moduix-alert-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-warning) 13%,
+        var(--moduix-color-background)
+      );
+      --moduix-alert-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-warning) 38%,
+        transparent
+      );
+      --moduix-alert-color-default: var(--moduix-color-foreground);
+      --moduix-alert-indicator-color-default: var(--moduix-color-warning);
     }
 
     &[data-status='error'] {
-      --alert-bg-default: color-mix(in oklab, var(--color-destructive) 9%, var(--color-background));
-      --alert-border-color-default: color-mix(in oklab, var(--color-destructive) 35%, transparent);
-      --alert-color-default: var(--color-foreground);
-      --alert-indicator-color-default: var(--color-destructive);
+      --moduix-alert-bg-default: color-mix(
+        in oklab,
+        var(--moduix-color-destructive) 9%,
+        var(--moduix-color-background)
+      );
+      --moduix-alert-border-color-default: color-mix(
+        in oklab,
+        var(--moduix-color-destructive) 35%,
+        transparent
+      );
+      --moduix-alert-color-default: var(--moduix-color-foreground);
+      --moduix-alert-indicator-color-default: var(--moduix-color-destructive);
     }
 
     &:not(:has(> [data-part='indicator'])) {
@@ -69,16 +110,19 @@
 
   .indicator {
     display: inline-flex;
-    width: var(--alert-indicator-size, var(--spacing-4));
-    height: var(--alert-indicator-size, var(--spacing-4));
+    width: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
+    height: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
     align-items: center;
     justify-content: center;
-    color: var(--alert-indicator-color, var(--alert-indicator-color-default, currentColor));
-    margin-block-start: var(--alert-indicator-offset, var(--spacing-0-5));
+    color: var(
+      --moduix-alert-indicator-color,
+      var(--moduix-alert-indicator-color-default, currentColor)
+    );
+    margin-block-start: var(--moduix-alert-indicator-offset, var(--moduix-spacing-0-5));
 
     & :where(svg) {
-      width: var(--alert-indicator-size, var(--spacing-4));
-      height: var(--alert-indicator-size, var(--spacing-4));
+      width: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
+      height: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
       flex-shrink: 0;
       pointer-events: none;
     }
@@ -87,24 +131,27 @@
   .content {
     display: grid;
     min-width: 0;
-    gap: var(--alert-content-gap, var(--spacing-1));
+    gap: var(--moduix-alert-content-gap, var(--moduix-spacing-1));
   }
 
   .title {
     margin: 0;
     min-width: 0;
-    color: var(--alert-title-color, var(--alert-color, var(--alert-color-default)));
-    font-size: var(--alert-title-font-size, var(--text-sm));
-    font-weight: var(--alert-title-font-weight, var(--weight-semibold));
-    line-height: var(--alert-title-line-height, var(--line-height-text-sm));
+    color: var(
+      --moduix-alert-title-color,
+      var(--moduix-alert-color, var(--moduix-alert-color-default))
+    );
+    font-size: var(--moduix-alert-title-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-alert-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-alert-title-line-height, var(--moduix-line-height-text-sm));
     overflow-wrap: anywhere;
   }
 
   .description {
     min-width: 0;
-    color: var(--alert-description-color, var(--color-muted-foreground));
-    font-size: var(--alert-description-font-size, var(--text-sm));
-    line-height: var(--alert-description-line-height, var(--line-height-text-sm));
+    color: var(--moduix-alert-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-alert-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-alert-description-line-height, var(--moduix-line-height-text-sm));
     overflow-wrap: anywhere;
 
     & > :first-child {
@@ -119,7 +166,7 @@
   .actions {
     display: flex;
     flex-wrap: wrap;
-    margin-block-start: var(--alert-actions-margin-top, var(--spacing-2));
-    gap: var(--alert-actions-gap, var(--spacing-2));
+    margin-block-start: var(--moduix-alert-actions-margin-top, var(--moduix-spacing-2));
+    gap: var(--moduix-alert-actions-gap, var(--moduix-spacing-2));
   }
 }

@@ -1,61 +1,85 @@
 import { Button, Popover } from '@moduix/react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesEditor, CSSPropertiesReferenceTable } from '../mdx/preview';
+import * as React from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput, CssVariables } from '../mdx/reference';
+import { CSSPropertiesEditor, CSSPropertiesReferenceTable, ExampleFrame } from '../mdx/reference';
 import styles from './animations.module.css';
 
-export const animationMotionCssProperties: CssPropertyInput[] = [
-  ['--popup-motion-duration', 'component default', 'Controls popup content animation duration.'],
-  ['--popup-motion-easing', 'component default', 'Controls popup content animation easing.'],
+const animationMotionCssProperties: CssPropertyInput[] = [
   [
-    '--popup-motion-starting-opacity',
+    '--moduix-popup-motion-duration',
+    'component default',
+    'Controls popup content animation duration.',
+  ],
+  ['--moduix-popup-motion-easing', 'component default', 'Controls popup content animation easing.'],
+  [
+    '--moduix-popup-motion-starting-opacity',
     'component default',
     'Controls content opacity while a popup is entering.',
   ],
-  ['--popup-motion-ending-opacity', 'component default', 'Controls popup content exit opacity.'],
   [
-    '--popup-motion-starting-scale',
+    '--moduix-popup-motion-ending-opacity',
+    'component default',
+    'Controls popup content exit opacity.',
+  ],
+  [
+    '--moduix-popup-motion-starting-scale',
     'component default',
     'Controls popup content scale while it is entering.',
   ],
   [
-    '--popup-motion-ending-scale',
+    '--moduix-popup-motion-ending-scale',
     'component default',
     'Controls popup content scale while it is leaving.',
   ],
   [
-    '--popup-motion-starting-translate-x',
+    '--moduix-popup-motion-starting-translate-x',
     'component default',
     'Controls popup content horizontal offset while it is entering.',
   ],
   [
-    '--popup-motion-ending-translate-x',
+    '--moduix-popup-motion-ending-translate-x',
     'component default',
     'Controls popup content horizontal offset while it is leaving.',
   ],
   [
-    '--popup-motion-starting-translate-y',
+    '--moduix-popup-motion-starting-translate-y',
     'component default',
     'Controls popup content vertical offset while it is entering.',
   ],
   [
-    '--popup-motion-ending-translate-y',
+    '--moduix-popup-motion-ending-translate-y',
     'component default',
     'Controls popup content vertical offset while it is leaving.',
   ],
 ];
 
-export const animationMotionPlaygroundCssProperties: CssPropertyInput[] = [
-  ['--popup-motion-duration', 'var(--duration-fast)', 'Shared popup content duration.'],
-  ['--popup-motion-easing', 'ease', 'Shared popup content easing.'],
-  ['--popup-motion-starting-opacity', '0', 'Popup content enter opacity.'],
-  ['--popup-motion-ending-opacity', '0', 'Popup content exit opacity.'],
-  ['--popup-motion-starting-scale', 'var(--scale-popup)', 'Popup content enter scale.'],
-  ['--popup-motion-ending-scale', 'var(--scale-popup)', 'Popup content exit scale.'],
-  ['--popup-motion-starting-translate-x', '0', 'Popup content enter horizontal offset.'],
-  ['--popup-motion-ending-translate-x', '0', 'Popup content exit horizontal offset.'],
-  ['--popup-motion-starting-translate-y', '0', 'Popup content enter vertical offset.'],
-  ['--popup-motion-ending-translate-y', '0', 'Popup content exit vertical offset.'],
+const animationMotionPlaygroundCssProperties: CssPropertyInput[] = [
+  [
+    '--moduix-popup-motion-duration',
+    'var(--moduix-duration-fast)',
+    'Shared popup content duration.',
+  ],
+  ['--moduix-popup-motion-easing', 'ease', 'Shared popup content easing.'],
+  ['--moduix-popup-motion-starting-opacity', '0', 'Popup content enter opacity.'],
+  ['--moduix-popup-motion-ending-opacity', '0', 'Popup content exit opacity.'],
+  [
+    '--moduix-popup-motion-starting-scale',
+    'var(--moduix-scale-popup)',
+    'Popup content enter scale.',
+  ],
+  ['--moduix-popup-motion-ending-scale', 'var(--moduix-scale-popup)', 'Popup content exit scale.'],
+  ['--moduix-popup-motion-starting-translate-x', '0', 'Popup content enter horizontal offset.'],
+  ['--moduix-popup-motion-ending-translate-x', '0', 'Popup content exit horizontal offset.'],
+  ['--moduix-popup-motion-starting-translate-y', '0', 'Popup content enter vertical offset.'],
+  ['--moduix-popup-motion-ending-translate-y', '0', 'Popup content exit vertical offset.'],
 ];
+
+const initialMotionValues = Object.fromEntries(
+  animationMotionCssProperties.map((property) => {
+    const normalizedProperty = normalizeCssProperty(property);
+    return [normalizedProperty.name, normalizedProperty.defaultValue];
+  }),
+) as CssVariables;
 
 type RecipeCardProps = {
   title: string;
@@ -148,7 +172,7 @@ export function MotionRecipesExample() {
   );
 }
 
-export function MotionPlaygroundExample() {
+function MotionPlaygroundExample() {
   return (
     <div className={styles.stack}>
       <Popover positioning={{ gutter: 12 }}>
@@ -174,7 +198,58 @@ export function MotionPlaygroundExample() {
   );
 }
 
-export function AnimationMotionPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function AnimationMotionPlayground() {
+  const properties = animationMotionCssProperties.map(normalizeCssProperty);
+  const [values, setValues] = React.useState<CssVariables>(initialMotionValues);
+  const appliedValues = React.useMemo(
+    () =>
+      Object.fromEntries(
+        properties
+          .map(({ name, defaultValue }) => [name, values[name], defaultValue] as const)
+          .filter(([, value, defaultValue]) => value !== defaultValue),
+      ) as CssVariables,
+    [properties, values],
+  );
+
+  React.useEffect(() => {
+    const previousValues = new Map<string, string>();
+
+    for (const [name, value] of Object.entries(appliedValues)) {
+      previousValues.set(name, document.documentElement.style.getPropertyValue(name));
+      document.documentElement.style.setProperty(name, String(value));
+    }
+
+    return () => {
+      for (const [name, value] of previousValues) {
+        if (value) document.documentElement.style.setProperty(name, value);
+        else document.documentElement.style.removeProperty(name);
+      }
+    };
+  }, [appliedValues]);
+
+  const context: CSSPropertiesEditorContext = {
+    properties,
+    values,
+    onChange: setValues,
+    onReset: () => setValues(initialMotionValues),
+  };
+
+  return (
+    <div className={styles.motionPlayground}>
+      <ExampleFrame>
+        <MotionPlaygroundExample />
+      </ExampleFrame>
+      <div className={styles.motionPanel}>
+        <AnimationMotionPropertiesPanel {...context} />
+      </div>
+      <div className={styles.motionPanel}>
+        <AnimationMotionPlaygroundPanel {...context} />
+      </div>
+    </div>
+  );
+}
+
+function AnimationMotionPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable
       properties={animationMotionCssProperties.map(normalizeCssProperty)}
@@ -182,11 +257,7 @@ export function AnimationMotionPropertiesPanel(_context: CSSPropertiesEditorCont
   );
 }
 
-export function AnimationMotionPlaygroundPanel({
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
+function AnimationMotionPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
   const properties = animationMotionPlaygroundCssProperties.map(normalizeCssProperty);
   const playgroundValues = { ...values };
 

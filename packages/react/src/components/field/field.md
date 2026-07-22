@@ -106,15 +106,15 @@ Forwarded refs target the Ark DOM part. `Field.Root` and `Field.RootProvider` fo
 
 ## Defaults and styling
 
-`Field.Control` defaults to `--size-md` with `--spacing-1` block padding. Its `--field-control-*` variables continue to override that baseline.
+`Field.Control` defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding. Its `--moduix-field-control-*` variables continue to override that baseline.
 
 The wrapper preserves moduix visual defaults: compact vertical layout, tokenized control chrome,
 focus ring, disabled opacity, invalid border color, helper text, and destructive error text.
 
 Styles use Ark `data-scope="field"` / `data-part="..."` attributes where Ark provides state and
-moduix `data-slot` hooks for consumer overrides. Public CSS variables remain under `--field-*`;
-`--field-required-indicator-color` and `--field-textarea-min-height` are part of the Ark-aligned
-contract. `--field-label-gap` defaults to `var(--spacing-2)`.
+moduix `data-slot` hooks for consumer overrides. Public CSS variables remain under `--moduix-field-*`;
+`--moduix-field-required-indicator-color` and `--moduix-field-textarea-min-height` are part of the Ark-aligned
+contract. `--moduix-field-label-gap` defaults to `var(--moduix-spacing-2)`.
 
 ## Intentional sugar and differences from upstream
 
@@ -137,7 +137,7 @@ their own `HiddenInput`; Field itself has no hidden input.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the default control to `--size-md` and compacted its block padding.
+- 2026-07-21: Reduced the default control to `--moduix-size-md` and compacted its block padding.
 
 - 2026-07-12: Added moduix `Field.Context` and `useFieldContext` exports alongside `useField`, and
   made the component-local index a re-export-only barrel.
@@ -147,7 +147,7 @@ their own `HiddenInput`; Field itself has no hidden input.
   `RootProvider`, and visual parts while removing re-exported Ark hooks, context parts, and type
   aliases from `moduix`.
 - 2026-06-25: Exported Ark part prop types through the field barrel, aligned
-  `--field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
+  `--moduix-field-label-gap` fallback with the documented theme default, and refreshed docs coverage for
   `Field.Item`, `readOnly`, and `RootProvider`.
 - 2026-06-19: Migrated `Field` to Ark UI, replaced legacy validation API with Ark
   field context, renamed public parts to Ark names, exposed provider/context hooks, and updated

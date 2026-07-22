@@ -1,11 +1,17 @@
-@layer ui.components {
+@layer moduix.components {
   @keyframes select-content-open {
     from {
-      opacity: var(--select-content-closed-opacity, var(--popup-motion-starting-opacity, 0));
-      translate: var(--popup-motion-starting-translate-x, 0)
-        var(--popup-motion-starting-translate-y, 0);
+      opacity: var(
+        --moduix-select-content-closed-opacity,
+        var(--moduix-popup-motion-starting-opacity, 0)
+      );
+      translate: var(--moduix-popup-motion-starting-translate-x, 0)
+        var(--moduix-popup-motion-starting-translate-y, 0);
       transform: scale(
-        var(--select-content-closed-scale, var(--popup-motion-starting-scale, var(--scale-popup)))
+        var(
+          --moduix-select-content-closed-scale,
+          var(--moduix-popup-motion-starting-scale, var(--moduix-scale-popup))
+        )
       );
     }
 
@@ -24,10 +30,17 @@
     }
 
     to {
-      opacity: var(--select-content-closed-opacity, var(--popup-motion-ending-opacity, 0));
-      translate: var(--popup-motion-ending-translate-x, 0) var(--popup-motion-ending-translate-y, 0);
+      opacity: var(
+        --moduix-select-content-closed-opacity,
+        var(--moduix-popup-motion-ending-opacity, 0)
+      );
+      translate: var(--moduix-popup-motion-ending-translate-x, 0)
+        var(--moduix-popup-motion-ending-translate-y, 0);
       transform: scale(
-        var(--select-content-closed-scale, var(--popup-motion-ending-scale, var(--scale-popup)))
+        var(
+          --moduix-select-content-closed-scale,
+          var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
+        )
       );
     }
   }
@@ -35,25 +48,28 @@
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--select-width, 14rem);
-    max-width: var(--select-max-width, 100%);
+    width: var(--moduix-select-width, 14rem);
+    max-width: var(--moduix-select-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    gap: var(--select-root-gap, var(--spacing-1-5));
-    color: var(--select-color, var(--color-foreground));
+    gap: var(--moduix-select-root-gap, var(--moduix-spacing-1-5));
+    color: var(--moduix-select-color, var(--moduix-color-foreground));
   }
 
   .label {
     display: inline-flex;
     align-items: center;
-    color: var(--select-label-color, var(--select-color, var(--color-foreground)));
-    font-size: var(--select-label-font-size, var(--text-sm));
-    font-weight: var(--select-label-font-weight, var(--weight-medium));
-    line-height: var(--select-label-line-height, var(--line-height-text-sm));
+    color: var(
+      --moduix-select-label-color,
+      var(--moduix-select-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-select-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-select-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-select-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
 
     &[data-disabled] {
-      opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -63,10 +79,10 @@
     width: 100%;
     min-width: 0;
     align-items: center;
-    color: var(--select-color, var(--color-foreground));
+    color: var(--moduix-select-color, var(--moduix-color-foreground));
 
     &[data-disabled] {
-      opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -76,42 +92,49 @@
     display: inline-flex;
     width: 100%;
     min-width: 0;
-    height: var(--select-control-height, var(--size-md));
+    height: var(--moduix-select-control-height, var(--moduix-size-md));
     align-items: center;
     justify-content: flex-start;
     margin: 0;
-    border: var(--select-border-width, var(--border-width-sm)) solid
-      var(--select-border-color, var(--color-border));
-    border-radius: var(--select-radius, var(--radius-md));
-    padding-inline: var(--select-trigger-padding-x-start, var(--spacing-3-5))
+    border: var(--moduix-select-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-select-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
       calc(
-        var(--select-action-offset-right, var(--spacing-2)) +
-          var(--select-action-size, var(--size-xs)) +
-          var(--select-trigger-padding-x-start, var(--spacing-3-5))
+        var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
+          var(--moduix-select-action-size, var(--moduix-size-xs)) +
+          var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3-5))
       );
-    background-color: var(--select-bg, var(--color-background));
+    background-color: var(--moduix-select-bg, var(--moduix-color-background));
     color: inherit;
     font: inherit;
     text-align: start;
-    outline: var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+    outline: var(
+        --moduix-select-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+      )
       solid transparent;
     outline-offset: calc(
-      var(--select-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      var(
+          --moduix-select-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
     );
     cursor: pointer;
     user-select: none;
     transition:
-      background-color var(--select-transition, var(--transition-default)),
-      border-color var(--select-transition, var(--transition-default)),
-      outline-color var(--select-transition, var(--transition-default));
+      background-color var(--moduix-select-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-select-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-select-transition, var(--moduix-transition-default));
 
     &[data-placeholder-shown] {
-      color: var(--select-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-select-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &[data-state='open'] {
-      border-color: var(--select-focus-ring-color, var(--color-ring));
-      outline-color: var(--select-focus-ring-color, var(--color-ring));
+      border-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-disabled],
@@ -119,19 +142,19 @@
       cursor: default;
     }
 
-    .control[data-focus] & {
-      border-color: var(--select-focus-ring-color, var(--color-ring));
-      outline-color: var(--select-focus-ring-color, var(--color-ring));
+    &:focus-visible {
+      border-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
+      outline-color: var(--moduix-select-focus-ring-color, var(--moduix-color-ring));
     }
 
     .control[data-invalid] & {
-      border-color: var(--select-invalid-color, var(--color-destructive));
-      outline-color: var(--select-invalid-color, var(--color-destructive));
+      border-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
+      outline-color: var(--moduix-select-invalid-color, var(--moduix-color-destructive));
     }
   }
 
   .control:has(.clearTrigger:not([hidden])) .trigger {
-    padding-inline-end: var(--select-trigger-padding-x-end, 4.25rem);
+    padding-inline-end: var(--moduix-select-trigger-padding-x-end, 4.25rem);
   }
 
   .valueText {
@@ -142,42 +165,30 @@
     white-space: nowrap;
   }
 
-  .indicators {
-    position: absolute;
-    top: 50%;
-    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
-    display: inline-flex;
-    align-items: center;
-    gap: var(--select-action-gap, var(--spacing-0-5));
-    line-height: 0;
-    pointer-events: none;
-    transform: translateY(-50%);
-  }
-
   .indicator {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--select-action-size, var(--size-xs));
-    height: var(--select-action-size, var(--size-xs));
+    width: var(--moduix-select-action-size, var(--moduix-size-xs));
+    height: var(--moduix-select-action-size, var(--moduix-size-xs));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     margin: 0;
     border: 0;
-    border-radius: var(--select-action-radius, var(--radius-sm));
+    border-radius: var(--moduix-select-action-radius, var(--moduix-radius-sm));
     padding: 0;
-    background: var(--select-action-bg, transparent);
-    color: var(--select-icon-color, var(--color-muted-foreground));
+    background: var(--moduix-select-action-bg, transparent);
+    color: var(--moduix-select-icon-color, var(--moduix-color-muted-foreground));
     line-height: 0;
     transition:
-      background-color var(--select-transition, var(--transition-default)),
-      color var(--select-transition, var(--transition-default)),
-      opacity var(--select-transition, var(--transition-default));
+      background-color var(--moduix-select-transition, var(--moduix-transition-default)),
+      color var(--moduix-select-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-select-transition, var(--moduix-transition-default));
 
     & > svg {
       display: block;
-      width: var(--select-icon-size, var(--spacing-4));
-      height: var(--select-icon-size, var(--spacing-4));
+      width: var(--moduix-select-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-select-icon-size, var(--moduix-spacing-4));
     }
 
     &[data-disabled],
@@ -195,29 +206,41 @@
   }
 
   .trigger > .indicator {
+    pointer-events: auto;
+  }
+
+  .trigger > .indicator {
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--select-action-offset-right, var(--spacing-2));
-    pointer-events: auto;
+    inset-inline-end: var(--moduix-select-action-offset-right, var(--moduix-spacing-2));
     transform: translateY(-50%);
   }
 
   .trigger > .indicator:not(:is([data-disabled], [disabled])):hover {
     @media (hover: hover) {
-      background-color: var(--select-action-bg-hover, var(--color-muted));
-      color: var(--select-action-color-hover, var(--color-foreground));
+      background-color: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
+      color: var(--moduix-select-action-color-hover, var(--moduix-color-foreground));
     }
   }
 
   .clearTrigger {
-    --close-button-size: var(--select-action-size, var(--size-xs));
-    --close-button-icon-size: var(--select-icon-size, var(--spacing-4));
-    --close-button-radius: var(--select-action-radius, var(--radius-sm));
-    --close-button-bg: var(--select-action-bg, transparent);
-    --close-button-bg-hover: var(--select-action-bg-hover, var(--color-muted));
-    --close-button-color: var(--select-icon-color, var(--color-muted-foreground));
-    --close-button-color-hover: var(--select-action-color-hover, var(--color-foreground));
-    --close-button-transition: var(--select-transition, var(--transition-default));
+    --moduix-close-button-size: var(--moduix-select-action-size, var(--moduix-size-xs));
+    --moduix-close-button-icon-size: var(--moduix-select-icon-size, var(--moduix-spacing-4));
+    --moduix-close-button-radius: var(--moduix-select-action-radius, var(--moduix-radius-sm));
+    --moduix-close-button-bg: var(--moduix-select-action-bg, transparent);
+    --moduix-close-button-bg-hover: var(--moduix-select-action-bg-hover, var(--moduix-color-muted));
+    --moduix-close-button-color: var(
+      --moduix-select-icon-color,
+      var(--moduix-color-muted-foreground)
+    );
+    --moduix-close-button-color-hover: var(
+      --moduix-select-action-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-transition: var(
+      --moduix-select-transition,
+      var(--moduix-transition-default)
+    );
 
     pointer-events: auto;
 
@@ -230,8 +253,9 @@
     position: absolute;
     top: 50%;
     inset-inline-end: calc(
-      var(--select-action-offset-right, var(--spacing-2)) +
-        var(--select-action-size, var(--size-xs)) + var(--select-action-gap, var(--spacing-0-5))
+      var(--moduix-select-action-offset-right, var(--moduix-spacing-2)) +
+        var(--moduix-select-action-size, var(--moduix-size-xs)) +
+        var(--moduix-select-action-gap, var(--moduix-spacing-0-5))
     );
     transform: translateY(-50%);
   }
@@ -243,40 +267,43 @@
 
   .content {
     box-sizing: border-box;
-    z-index: calc(var(--z-popup) + var(--layer-index, 0));
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     min-width: var(--reference-width);
     max-width: var(--available-width);
-    max-height: min(var(--select-content-max-height, 24rem), var(--available-height));
+    max-height: min(var(--moduix-select-content-max-height, 24rem), var(--available-height));
     flex-direction: column;
     overflow: auto;
-    border: var(--select-content-border-width, var(--border-width-sm)) solid
-      var(--select-content-border-color, var(--color-border));
-    border-radius: var(--select-radius, var(--radius-md));
-    padding-block: var(--select-content-padding-y, var(--popup-list-padding-y, var(--spacing-1)));
-    background-color: var(--select-content-bg, var(--color-popover));
-    box-shadow: var(--select-content-shadow, var(--shadow-lg));
-    color: var(--select-content-color, var(--color-popover-foreground));
+    border: var(--moduix-select-content-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-select-content-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-select-radius, var(--moduix-radius-md));
+    padding-block: var(
+      --moduix-select-content-padding-y,
+      var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
+    );
+    background-color: var(--moduix-select-content-bg, var(--moduix-color-popover));
+    box-shadow: var(--moduix-select-content-shadow, var(--moduix-shadow-lg));
+    color: var(--moduix-select-content-color, var(--moduix-color-popover-foreground));
     transform-origin: var(--transform-origin);
     outline: 0;
     overscroll-behavior: contain;
-    scroll-padding-block: var(--select-content-padding-y, var(--spacing-1));
+    scroll-padding-block: var(--moduix-select-content-padding-y, var(--moduix-spacing-1));
 
     &[data-state='open'] {
       animation: select-content-open
         var(
-          --select-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-select-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
     }
 
     &[data-state='closed'] {
       animation: select-content-closed
         var(
-          --select-transition,
-          var(--popup-motion-duration, var(--duration-normal))
-            var(--popup-motion-easing, var(--ease-in-out))
+          --moduix-select-transition,
+          var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
+            var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
       pointer-events: none;
     }
@@ -289,7 +316,7 @@
     overflow-y: auto;
     outline: 0;
     overscroll-behavior: contain;
-    scroll-padding-block: var(--select-content-padding-y, var(--spacing-1));
+    scroll-padding-block: var(--moduix-select-content-padding-y, var(--moduix-spacing-1));
   }
 
   .itemGroup {
@@ -297,31 +324,31 @@
     flex-direction: column;
 
     & + & {
-      margin-top: var(--select-item-group-gap, var(--spacing-2));
+      margin-top: var(--moduix-select-item-group-gap, var(--moduix-spacing-2));
     }
   }
 
   .itemGroupLabel {
     padding-block: var(
-      --select-item-group-label-padding-y,
-      var(--popup-group-label-padding-y, var(--spacing-1))
+      --moduix-select-item-group-label-padding-y,
+      var(--moduix-popup-group-label-padding-y, var(--moduix-spacing-1))
     );
-    padding-inline: var(--select-item-group-label-padding-x, var(--spacing-2-5));
+    padding-inline: var(--moduix-select-item-group-label-padding-x, var(--moduix-spacing-2-5));
     color: var(
-      --select-item-group-label-color,
-      var(--popup-group-label-color, var(--color-muted-foreground))
+      --moduix-select-item-group-label-color,
+      var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))
     );
     font-size: var(
-      --select-item-group-label-font-size,
-      var(--popup-group-label-font-size, var(--text-xs))
+      --moduix-select-item-group-label-font-size,
+      var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))
     );
     font-weight: var(
-      --select-item-group-label-font-weight,
-      var(--popup-group-label-font-weight, var(--weight-regular))
+      --moduix-select-item-group-label-font-weight,
+      var(--moduix-popup-group-label-font-weight, var(--moduix-weight-regular))
     );
     line-height: var(
-      --select-item-group-label-line-height,
-      var(--popup-group-label-line-height, var(--line-height-text-xs))
+      --moduix-select-item-group-label-line-height,
+      var(--moduix-popup-group-label-line-height, var(--moduix-line-height-text-xs))
     );
   }
 
@@ -329,44 +356,60 @@
     position: relative;
     box-sizing: border-box;
     display: flex;
-    width: calc(100% - var(--select-item-inset-x, var(--spacing-2)));
-    min-height: var(--select-item-min-height, var(--popup-item-min-height, var(--size-sm)));
+    width: calc(100% - var(--moduix-select-item-inset-x, var(--moduix-spacing-2)));
+    min-height: var(
+      --moduix-select-item-min-height,
+      var(--moduix-popup-item-min-height, var(--moduix-size-sm))
+    );
     align-items: center;
     justify-content: space-between;
-    gap: var(--select-item-gap, var(--spacing-2));
-    margin-inline: calc(var(--select-item-inset-x, var(--spacing-2)) / 2);
-    border: var(--select-item-border-width, 0) solid var(--select-item-border-color, transparent);
-    border-radius: var(--select-item-radius, var(--radius-sm));
-    padding-block: var(--select-item-padding-y, var(--popup-item-padding-y, var(--spacing-1)));
-    padding-inline: var(
-      --select-item-padding-x,
-      var(--popup-item-padding-x-start, var(--spacing-3))
+    gap: var(--moduix-select-item-gap, var(--moduix-spacing-2));
+    margin-inline: calc(var(--moduix-select-item-inset-x, var(--moduix-spacing-2)) / 2);
+    border: var(--moduix-select-item-border-width, 0) solid
+      var(--moduix-select-item-border-color, transparent);
+    border-radius: var(--moduix-select-item-radius, var(--moduix-radius-sm));
+    padding-block: var(
+      --moduix-select-item-padding-y,
+      var(--moduix-popup-item-padding-y, var(--moduix-spacing-1))
     );
-    background-color: var(--select-item-bg, transparent);
-    color: var(--select-item-color, var(--select-content-color, var(--color-foreground)));
+    padding-inline: var(
+      --moduix-select-item-padding-x,
+      var(--moduix-popup-item-padding-x-start, var(--moduix-spacing-3))
+    );
+    background-color: var(--moduix-select-item-bg, transparent);
+    color: var(
+      --moduix-select-item-color,
+      var(--moduix-select-content-color, var(--moduix-color-foreground))
+    );
     font: inherit;
-    font-size: var(--select-item-font-size, var(--popup-item-font-size, var(--text-sm)));
+    font-size: var(
+      --moduix-select-item-font-size,
+      var(--moduix-popup-item-font-size, var(--moduix-text-sm))
+    );
     line-height: var(
-      --select-item-line-height,
-      var(--popup-item-line-height, var(--line-height-text-sm))
+      --moduix-select-item-line-height,
+      var(--moduix-popup-item-line-height, var(--moduix-line-height-text-sm))
     );
     outline: 0;
     user-select: none;
     cursor: default;
 
     &[data-highlighted] {
-      background-color: var(--select-highlight-bg, var(--color-accent));
-      color: var(--select-highlight-color, var(--color-accent-foreground));
+      background-color: var(--moduix-select-highlight-bg, var(--moduix-color-accent));
+      color: var(--moduix-select-highlight-color, var(--moduix-color-accent-foreground));
     }
 
     &[data-state='checked'] {
-      color: var(--select-item-checked-color, var(--select-item-color, var(--color-foreground)));
+      color: var(
+        --moduix-select-item-checked-color,
+        var(--moduix-select-item-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-disabled] {
       pointer-events: none;
-      color: var(--select-item-disabled-color, var(--color-muted-foreground));
-      opacity: var(--select-disabled-opacity, var(--opacity-disabled));
+      color: var(--moduix-select-item-disabled-color, var(--moduix-color-muted-foreground));
+      opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -380,16 +423,16 @@
 
   .itemIndicator {
     display: inline-flex;
-    width: var(--select-item-indicator-size, var(--spacing-3-5));
-    height: var(--select-item-indicator-size, var(--spacing-3-5));
+    width: var(--moduix-select-item-indicator-size, var(--moduix-spacing-3-5));
+    height: var(--moduix-select-item-indicator-size, var(--moduix-spacing-3-5));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--select-item-indicator-color, currentColor);
+    color: var(--moduix-select-item-indicator-color, currentColor);
 
     & > svg {
-      width: var(--select-item-indicator-icon-size, var(--spacing-3));
-      height: var(--select-item-indicator-icon-size, var(--spacing-3));
+      width: var(--moduix-select-item-indicator-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-select-item-indicator-icon-size, var(--moduix-spacing-3));
     }
   }
 
@@ -398,18 +441,18 @@
     max-width: 100%;
     min-width: 0;
     align-items: center;
-    gap: var(--select-item-text-content-gap, var(--spacing-2));
+    gap: var(--moduix-select-item-text-content-gap, var(--moduix-spacing-2));
     vertical-align: top;
   }
 
   .itemTextIcon {
     display: inline-flex;
-    width: var(--select-item-text-icon-size, var(--spacing-4));
-    height: var(--select-item-text-icon-size, var(--spacing-4));
+    width: var(--moduix-select-item-text-icon-size, var(--moduix-spacing-4));
+    height: var(--moduix-select-item-text-icon-size, var(--moduix-spacing-4));
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: var(--select-item-text-icon-color, currentColor);
+    color: var(--moduix-select-item-text-icon-color, currentColor);
   }
 
   .itemTextLabel {

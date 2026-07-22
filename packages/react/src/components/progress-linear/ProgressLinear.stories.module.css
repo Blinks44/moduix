@@ -1,31 +1,31 @@
 .stack {
   display: grid;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .rangeControl {
   width: 12rem;
-  accent-color: var(--color-foreground);
+  accent-color: var(--moduix-color-foreground);
   cursor: pointer;
 }
 
 .customProgress {
-  --progress-linear-width: 16rem;
-  --progress-linear-track-height: 0.75rem;
-  --progress-linear-track-bg: var(--color-accent);
+  --moduix-progress-linear-width: 16rem;
+  --moduix-progress-linear-track-height: 0.75rem;
+  --moduix-progress-linear-track-bg: var(--moduix-color-accent);
 }
 
 .customProgress [data-slot='progress-linear-track'] {
-  box-shadow: inset 0 0 0 var(--border-width-md)
-    color-mix(in oklab, var(--color-primary), transparent 75%);
+  box-shadow: inset 0 0 0 var(--moduix-border-width-md)
+    color-mix(in oklab, var(--moduix-color-primary), transparent 75%);
 }
 
 .customProgress [data-slot='progress-linear-range'] {
-  background: linear-gradient(90deg, var(--color-primary), var(--color-chart-2));
+  background: linear-gradient(90deg, var(--moduix-color-primary), var(--moduix-color-chart-2));
 }
 
 .verticalProgress {
-  --progress-linear-height: 10rem;
+  --moduix-progress-linear-height: 10rem;
 }
 
 .composedTrack {
@@ -33,13 +33,13 @@
   display: flex;
   align-items: stretch;
   height: 1rem;
-  border-radius: var(--radius-md);
-  background: var(--color-background);
-  box-shadow: inset 0 0 0 var(--border-width-sm)
-    color-mix(in oklab, var(--color-chart-3), var(--color-primary) 45%);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+  box-shadow: inset 0 0 0 var(--moduix-border-width-sm)
+    color-mix(in oklab, var(--moduix-color-chart-3), var(--moduix-color-primary) 45%);
 }
 
 .composedRange {
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--color-chart-3), var(--color-primary));
+  background: linear-gradient(90deg, var(--moduix-color-chart-3), var(--moduix-color-primary));
 }

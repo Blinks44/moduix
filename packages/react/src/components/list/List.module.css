@@ -1,47 +1,53 @@
-@layer ui.components {
+@layer moduix.components {
   .root[data-scope='list'][data-part='root'] {
-    --_list-color: var(--list-color, var(--list-default-color, var(--color-foreground)));
-    --_list-font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
-    --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+    --_list-color: var(
+      --moduix-list-color,
+      var(--moduix-list-default-color, var(--moduix-color-foreground))
+    );
+    --_list-font-size: var(
+      --moduix-list-font-size,
+      var(--moduix-list-font-size-md, var(--moduix-text-md))
+    );
+    --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-sm, var(--moduix-spacing-2)));
     --_list-line-height: var(
-      --list-line-height,
-      var(--list-line-height-md, var(--line-height-text-md))
+      --moduix-list-line-height,
+      var(--moduix-list-line-height-md, var(--moduix-line-height-text-md))
     );
 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     color: var(--_list-color);
-    font-family: var(--list-font-family, inherit);
+    font-family: var(--moduix-list-font-family, inherit);
     font-size: var(--_list-font-size);
-    font-weight: var(--list-font-weight, var(--weight-regular));
+    font-weight: var(--moduix-list-font-weight, var(--moduix-weight-regular));
     line-height: var(--_list-line-height);
-    letter-spacing: var(--list-letter-spacing, 0);
+    letter-spacing: var(--moduix-list-letter-spacing, 0);
     list-style-position: outside;
     overflow-wrap: break-word;
 
     &[data-gap='xs'] {
-      --_list-gap: var(--list-gap, var(--list-gap-xs, var(--spacing-1)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-xs, var(--moduix-spacing-1)));
     }
 
     &[data-gap='sm'] {
-      --_list-gap: var(--list-gap, var(--list-gap-sm, var(--spacing-2)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-sm, var(--moduix-spacing-2)));
     }
 
     &[data-gap='md'] {
-      --_list-gap: var(--list-gap, var(--list-gap-md, var(--spacing-3)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-md, var(--moduix-spacing-3)));
     }
 
     &[data-gap='lg'] {
-      --_list-gap: var(--list-gap, var(--list-gap-lg, var(--spacing-4)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-lg, var(--moduix-spacing-4)));
     }
 
     &[data-gap='xl'] {
-      --_list-gap: var(--list-gap, var(--list-gap-xl, var(--spacing-5)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-xl, var(--moduix-spacing-5)));
     }
 
     &[data-gap='2xl'] {
-      --_list-gap: var(--list-gap, var(--list-gap-2xl, var(--spacing-6)));
+      --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-2xl, var(--moduix-spacing-6)));
     }
 
     & > li + li {
@@ -49,8 +55,8 @@
     }
 
     & > li::marker {
-      color: var(--list-marker-color, currentColor);
-      font-weight: var(--list-marker-font-weight, inherit);
+      color: var(--moduix-list-marker-color, currentColor);
+      font-weight: var(--moduix-list-marker-font-weight, inherit);
     }
 
     &[data-marker='none'] {
@@ -61,7 +67,7 @@
     &:is(ul, ol)[data-marker='auto'],
     &[data-marker='disc'],
     &[data-marker='decimal'] {
-      padding-inline-start: var(--list-padding-x, var(--spacing-5));
+      padding-inline-start: var(--moduix-list-padding-x, var(--moduix-spacing-5));
     }
 
     &:is(ul)[data-marker='auto'],
@@ -79,63 +85,93 @@
     }
 
     &[data-size='xs'] {
-      --_list-font-size: var(--list-font-size, var(--list-font-size-xs, var(--text-xs)));
+      --_list-font-size: var(
+        --moduix-list-font-size,
+        var(--moduix-list-font-size-xs, var(--moduix-text-xs))
+      );
       --_list-line-height: var(
-        --list-line-height,
-        var(--list-line-height-xs, var(--line-height-text-xs))
+        --moduix-list-line-height,
+        var(--moduix-list-line-height-xs, var(--moduix-line-height-text-xs))
       );
     }
 
     &[data-size='sm'] {
-      --_list-font-size: var(--list-font-size, var(--list-font-size-sm, var(--text-sm)));
+      --_list-font-size: var(
+        --moduix-list-font-size,
+        var(--moduix-list-font-size-sm, var(--moduix-text-sm))
+      );
       --_list-line-height: var(
-        --list-line-height,
-        var(--list-line-height-sm, var(--line-height-text-sm))
+        --moduix-list-line-height,
+        var(--moduix-list-line-height-sm, var(--moduix-line-height-text-sm))
       );
     }
 
     &[data-size='md'] {
-      --_list-font-size: var(--list-font-size, var(--list-font-size-md, var(--text-md)));
+      --_list-font-size: var(
+        --moduix-list-font-size,
+        var(--moduix-list-font-size-md, var(--moduix-text-md))
+      );
       --_list-line-height: var(
-        --list-line-height,
-        var(--list-line-height-md, var(--line-height-text-md))
+        --moduix-list-line-height,
+        var(--moduix-list-line-height-md, var(--moduix-line-height-text-md))
       );
     }
 
     &[data-size='lg'] {
-      --_list-font-size: var(--list-font-size, var(--list-font-size-lg, var(--text-lg)));
+      --_list-font-size: var(
+        --moduix-list-font-size,
+        var(--moduix-list-font-size-lg, var(--moduix-text-lg))
+      );
       --_list-line-height: var(
-        --list-line-height,
-        var(--list-line-height-lg, var(--line-height-text-lg))
+        --moduix-list-line-height,
+        var(--moduix-list-line-height-lg, var(--moduix-line-height-text-lg))
       );
     }
 
     &[data-size='xl'] {
-      --_list-font-size: var(--list-font-size, var(--list-font-size-xl, var(--text-xl)));
+      --_list-font-size: var(
+        --moduix-list-font-size,
+        var(--moduix-list-font-size-xl, var(--moduix-text-xl))
+      );
       --_list-line-height: var(
-        --list-line-height,
-        var(--list-line-height-xl, var(--line-height-text-xl))
+        --moduix-list-line-height,
+        var(--moduix-list-line-height-xl, var(--moduix-line-height-text-xl))
       );
     }
 
     &[data-tone='default'] {
-      --_list-color: var(--list-color, var(--list-default-color, var(--color-foreground)));
+      --_list-color: var(
+        --moduix-list-color,
+        var(--moduix-list-default-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-tone='muted'] {
-      --_list-color: var(--list-color, var(--list-muted-color, var(--color-muted-foreground)));
+      --_list-color: var(
+        --moduix-list-color,
+        var(--moduix-list-muted-color, var(--moduix-color-muted-foreground))
+      );
     }
 
     &[data-tone='subtle'] {
-      --_list-color: var(--list-color, var(--list-subtle-color, var(--color-secondary-foreground)));
+      --_list-color: var(
+        --moduix-list-color,
+        var(--moduix-list-subtle-color, var(--moduix-color-secondary-foreground))
+      );
     }
 
     &[data-tone='primary'] {
-      --_list-color: var(--list-color, var(--list-primary-color, var(--color-primary)));
+      --_list-color: var(
+        --moduix-list-color,
+        var(--moduix-list-primary-color, var(--moduix-color-primary))
+      );
     }
 
     &[data-tone='destructive'] {
-      --_list-color: var(--list-color, var(--list-destructive-color, var(--color-destructive)));
+      --_list-color: var(
+        --moduix-list-color,
+        var(--moduix-list-destructive-color, var(--moduix-color-destructive))
+      );
     }
   }
 }

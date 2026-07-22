@@ -1,101 +1,157 @@
-import { Button, Field, Switch, useSwitch, useSwitchContext } from '@moduix/react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import { Switch } from '@moduix/react';
+import { useState } from 'react';
+import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import { CSSPropertiesReferenceTable } from '../mdx/reference';
 import styles from './switch.module.css';
 
-export const switchSizeOptions = [
-  { label: 'Extra-small', value: 'xs' },
-  { label: 'Small', value: 'sm' },
-  { label: 'Medium', value: 'md' },
-  { label: 'Large', value: 'lg' },
-  { label: 'Extra-large', value: 'xl' },
-] as const;
-
-export const switchOverrideCssProperties: CssPropertyInput[] = [
-  ['--switch-bg', 'var(--color-muted)', 'Controls unchecked background color.'],
-  ['--switch-bg-checked', 'var(--color-primary)', 'Controls checked background color.'],
+const switchOverrideCssProperties: CssPropertyInput[] = [
+  ['--moduix-switch-bg', 'var(--moduix-color-muted)', 'Controls unchecked background color.'],
   [
-    '--switch-bg-checked-hover',
-    'var(--switch-bg-checked, var(--color-primary))',
+    '--moduix-switch-bg-checked',
+    'var(--moduix-color-primary)',
+    'Controls checked background color.',
+  ],
+  [
+    '--moduix-switch-bg-checked-hover',
+    'var(--moduix-switch-bg-checked, var(--moduix-color-primary))',
     'Controls checked hover background color.',
   ],
-  ['--switch-bg-hover', 'var(--color-accent)', 'Controls unchecked hover background color.'],
-  ['--switch-border-color', 'var(--color-border)', 'Controls unchecked border color.'],
-  ['--switch-border-color-checked', 'var(--color-primary)', 'Controls checked border color.'],
-  ['--switch-border-width', 'var(--border-width-sm)', 'Controls switch border width.'],
-  ['--switch-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--switch-focus-ring-color', 'var(--color-ring)', 'Controls focus ring color.'],
-  ['--switch-focus-ring-offset', 'var(--border-width-sm)', 'Controls focus ring offset.'],
   [
-    '--switch-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-switch-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls unchecked hover background color.',
+  ],
+  [
+    '--moduix-switch-border-color',
+    'var(--moduix-color-border)',
+    'Controls unchecked border color.',
+  ],
+  [
+    '--moduix-switch-border-color-checked',
+    'var(--moduix-color-primary)',
+    'Controls checked border color.',
+  ],
+  [
+    '--moduix-switch-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls switch border width.',
+  ],
+  [
+    '--moduix-switch-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  ['--moduix-switch-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-switch-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--moduix-switch-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls focus ring width.',
   ],
-  ['--switch-gap', 'var(--spacing-2)', 'Controls spacing between switch control and label.'],
-  ['--switch-height-xs', '1rem', 'Controls switch height for the xs size.'],
-  ['--switch-height-sm', '1.25rem', 'Controls switch height for the sm size.'],
-  ['--switch-height-md', 'var(--size-xs)', 'Controls switch height for the md size.'],
-  ['--switch-height-lg', '1.75rem', 'Controls switch height for the lg size.'],
-  ['--switch-height-xl', 'var(--size-sm)', 'Controls switch height for the xl size.'],
-  ['--switch-label-color', 'var(--color-foreground)', 'Controls label text color.'],
-  ['--switch-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--switch-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--switch-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
-  ['--switch-padding', 'var(--spacing-0-5)', 'Controls inner switch padding.'],
-  ['--switch-radius', 'var(--radius-full)', 'Controls switch corner radius.'],
   [
-    '--switch-thumb-bg',
-    'var(--color-background)',
+    '--moduix-switch-gap',
+    'var(--moduix-spacing-2)',
+    'Controls spacing between switch control and label.',
+  ],
+  ['--moduix-switch-height-xs', '1rem', 'Controls switch height for the xs size.'],
+  ['--moduix-switch-height-sm', '1.25rem', 'Controls switch height for the sm size.'],
+  ['--moduix-switch-height-md', 'var(--moduix-size-xs)', 'Controls switch height for the md size.'],
+  ['--moduix-switch-height-lg', '1.75rem', 'Controls switch height for the lg size.'],
+  ['--moduix-switch-height-xl', 'var(--moduix-size-sm)', 'Controls switch height for the xl size.'],
+  ['--moduix-switch-label-color', 'var(--moduix-color-foreground)', 'Controls label text color.'],
+  ['--moduix-switch-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
+  [
+    '--moduix-switch-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-switch-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  ['--moduix-switch-padding', 'var(--moduix-spacing-0-5)', 'Controls inner switch padding.'],
+  ['--moduix-switch-radius', 'var(--moduix-radius-full)', 'Controls switch corner radius.'],
+  [
+    '--moduix-switch-thumb-bg',
+    'var(--moduix-color-background)',
     'Controls thumb background color for both states.',
   ],
   [
-    '--switch-thumb-bg-checked',
-    'var(--switch-thumb-bg, var(--color-primary-foreground))',
+    '--moduix-switch-thumb-bg-checked',
+    'var(--moduix-switch-thumb-bg, var(--moduix-color-primary-foreground))',
     'Controls checked thumb background color.',
   ],
   [
-    '--switch-thumb-bg-unchecked',
-    'var(--switch-thumb-bg, var(--color-background))',
+    '--moduix-switch-thumb-bg-unchecked',
+    'var(--moduix-switch-thumb-bg, var(--moduix-color-background))',
     'Controls unchecked thumb background color.',
   ],
-  ['--switch-thumb-border-color', 'transparent', 'Controls thumb border color.'],
-  ['--switch-thumb-border-width', '0', 'Controls thumb border width.'],
-  ['--switch-thumb-color', 'var(--color-muted)', 'Controls thumb content color.'],
+  ['--moduix-switch-thumb-border-color', 'transparent', 'Controls thumb border color.'],
+  ['--moduix-switch-thumb-border-width', '0', 'Controls thumb border width.'],
+  ['--moduix-switch-thumb-color', 'var(--moduix-color-muted)', 'Controls thumb content color.'],
   [
-    '--switch-thumb-color-checked',
-    'var(--switch-thumb-color, var(--color-primary))',
+    '--moduix-switch-thumb-color-checked',
+    'var(--moduix-switch-thumb-color, var(--moduix-color-primary))',
     'Controls checked thumb content color.',
   ],
   [
-    '--switch-thumb-color-unchecked',
-    'var(--switch-thumb-color, var(--color-muted))',
+    '--moduix-switch-thumb-color-unchecked',
+    'var(--moduix-switch-thumb-color, var(--moduix-color-muted))',
     'Controls unchecked thumb content color.',
   ],
-  ['--switch-thumb-icon-size', '65%', 'Controls custom thumb icon size.'],
-  ['--switch-thumb-radius', 'var(--radius-full)', 'Controls thumb corner radius.'],
-  ['--switch-thumb-shadow', 'var(--shadow-sm)', 'Controls thumb shadow.'],
-  ['--switch-thumb-size-xs', 'var(--spacing-3)', 'Controls thumb size for the xs switch size.'],
-  ['--switch-thumb-size-sm', 'var(--spacing-4)', 'Controls thumb size for the sm switch size.'],
-  ['--switch-thumb-size-md', 'var(--spacing-5)', 'Controls thumb size for the md switch size.'],
-  ['--switch-thumb-size-lg', 'var(--size-xs)', 'Controls thumb size for the lg switch size.'],
-  ['--switch-thumb-size-xl', 'var(--spacing-7)', 'Controls thumb size for the xl switch size.'],
+  ['--moduix-switch-thumb-icon-size', '65%', 'Controls custom thumb icon size.'],
+  ['--moduix-switch-thumb-radius', 'var(--moduix-radius-full)', 'Controls thumb corner radius.'],
+  ['--moduix-switch-thumb-shadow', 'var(--moduix-shadow-sm)', 'Controls thumb shadow.'],
   [
-    '--switch-thumb-transition',
-    'var(--switch-transition, var(--transition-default))',
+    '--moduix-switch-thumb-size-xs',
+    'var(--moduix-spacing-3)',
+    'Controls thumb size for the xs switch size.',
+  ],
+  [
+    '--moduix-switch-thumb-size-sm',
+    'var(--moduix-spacing-4)',
+    'Controls thumb size for the sm switch size.',
+  ],
+  [
+    '--moduix-switch-thumb-size-md',
+    'var(--moduix-spacing-5)',
+    'Controls thumb size for the md switch size.',
+  ],
+  [
+    '--moduix-switch-thumb-size-lg',
+    'var(--moduix-size-xs)',
+    'Controls thumb size for the lg switch size.',
+  ],
+  [
+    '--moduix-switch-thumb-size-xl',
+    'var(--moduix-spacing-7)',
+    'Controls thumb size for the xl switch size.',
+  ],
+  [
+    '--moduix-switch-thumb-transition',
+    'var(--moduix-switch-transition, var(--moduix-transition-default))',
     'Controls thumb movement transition timing.',
   ],
   [
-    '--switch-thumb-translate',
+    '--moduix-switch-thumb-translate',
     'var(--switch-thumb-translate-default)',
     'Controls checked thumb translation distance.',
   ],
-  ['--switch-transition', 'var(--transition-default)', 'Controls state transition timing.'],
-  ['--switch-width-xs', '1.75rem', 'Controls switch width for the xs size.'],
-  ['--switch-width-sm', '2.25rem', 'Controls switch width for the sm size.'],
-  ['--switch-width-md', '2.75rem', 'Controls switch width for the md size.'],
-  ['--switch-width-lg', '3.25rem', 'Controls switch width for the lg size.'],
-  ['--switch-width-xl', '3.75rem', 'Controls switch width for the xl size.'],
+  [
+    '--moduix-switch-transition',
+    'var(--moduix-transition-default)',
+    'Controls state transition timing.',
+  ],
+  ['--moduix-switch-width-xs', '1.75rem', 'Controls switch width for the xs size.'],
+  ['--moduix-switch-width-sm', '2.25rem', 'Controls switch width for the sm size.'],
+  ['--moduix-switch-width-md', '2.75rem', 'Controls switch width for the md size.'],
+  ['--moduix-switch-width-lg', '3.25rem', 'Controls switch width for the lg size.'],
+  ['--moduix-switch-width-xl', '3.75rem', 'Controls switch width for the xl size.'],
 ];
 
 export function SwitchCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
@@ -112,71 +168,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function PowerIcon(props: ComponentProps<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <path
-        d="M8 2.5V7M5.1 4.3A5 5 0 1 0 10.9 4.3"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function SwitchContextLabel() {
-  const switchApi = useSwitchContext();
-
-  return <Switch.Label>Feature is {switchApi.checked ? 'enabled' : 'disabled'}</Switch.Label>;
-}
-
-export function SwitchExample(props: ComponentProps<typeof Switch>) {
-  return (
-    <Switch defaultChecked {...props}>
-      <Switch.Control />
-      <Switch.Label>Enable notifications</Switch.Label>
-    </Switch>
-  );
-}
-
-export function SwitchInitialCheckedExample() {
-  return (
-    <Switch defaultChecked>
-      <Switch.Control />
-      <Switch.Label>Start enabled</Switch.Label>
-    </Switch>
-  );
-}
-
-export function SwitchSizesExample() {
-  return (
-    <div className={styles.stack}>
-      {switchSizeOptions.map((item) => (
-        <Switch key={item.value} size={item.value} defaultChecked>
-          <Switch.Control />
-          <Switch.Label>{item.label}</Switch.Label>
-        </Switch>
-      ))}
-    </div>
-  );
-}
-
-export function SwitchDisabledExample() {
-  return (
-    <div className={styles.stack}>
-      <Switch disabled>
-        <Switch.Control />
-        <Switch.Label>Enable dark mode</Switch.Label>
-      </Switch>
-      <Switch defaultChecked disabled>
-        <Switch.Control />
-        <Switch.Label>Keep me signed in</Switch.Label>
-      </Switch>
-    </div>
-  );
-}
-
 export function ControlledSwitchExample() {
   const [checked, setChecked] = useState(true);
 
@@ -188,82 +179,5 @@ export function ControlledSwitchExample() {
       </Switch>
       <span className={styles.hint}>Current value: {String(checked)}</span>
     </div>
-  );
-}
-
-export function SwitchReadOnlyExample() {
-  return (
-    <div className={styles.stack}>
-      <Switch readOnly>
-        <Switch.Control />
-        <Switch.Label>Managed by policy</Switch.Label>
-      </Switch>
-      <Switch defaultChecked readOnly>
-        <Switch.Control />
-        <Switch.Label>Always on</Switch.Label>
-      </Switch>
-    </div>
-  );
-}
-
-export function SwitchContextExample() {
-  return (
-    <Switch defaultChecked>
-      <Switch.Control />
-      <SwitchContextLabel />
-    </Switch>
-  );
-}
-
-export function SwitchRootProviderExample() {
-  const switchApi = useSwitch({ defaultChecked: true });
-
-  return (
-    <div className={styles.stack}>
-      <Button variant="outline" onClick={() => switchApi.toggleChecked()}>
-        Toggle externally
-      </Button>
-      <Switch.RootProvider value={switchApi}>
-        <Switch.Control />
-        <Switch.Label>External state owner</Switch.Label>
-      </Switch.RootProvider>
-    </div>
-  );
-}
-
-export function SwitchAsChildExample() {
-  return (
-    <Switch asChild defaultChecked>
-      <label className={styles.siblingRow}>
-        <Switch.Control />
-        <span className={styles.label}>Enable reminders</span>
-      </label>
-    </Switch>
-  );
-}
-
-export function CustomIconSwitchExample() {
-  return (
-    <Switch defaultChecked>
-      <Switch.Control>
-        <Switch.Thumb className={styles.customIconThumb}>
-          <PowerIcon />
-        </Switch.Thumb>
-      </Switch.Control>
-      <Switch.Label>Use custom thumb icon</Switch.Label>
-    </Switch>
-  );
-}
-
-export function SwitchFormIntegrationExample() {
-  return (
-    <Field invalid className={styles.formField}>
-      <Switch defaultChecked name="notifications" required>
-        <Switch.Control />
-        <Switch.Label>Notifications</Switch.Label>
-      </Switch>
-      <Field.HelperText>Used for product and account updates.</Field.HelperText>
-      <Field.ErrorText>Notification preference is required.</Field.ErrorText>
-    </Field>
   );
 }

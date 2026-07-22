@@ -116,12 +116,12 @@ label, value text, and view keep their Ark `data-scope` / `data-part` hooks. `da
 ## Defaults and styling
 
 The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavior to Ark. Public
-theme variables use the `--progress-circular-*` prefix for root color/gap/width, label text,
+theme variables use the `--moduix-progress-circular-*` prefix for root color/gap/width, label text,
 value text, circle size, circle thickness, track color, range color, range linecap, range
 transition, and indeterminate animation.
 
-`ProgressCircular.Circle` and `ProgressCircular.Ring` map `--progress-circular-size` to Ark `--size` and
-`--progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--radius`,
+`ProgressCircular.Circle` and `ProgressCircular.Ring` map `--moduix-progress-circular-size` to Ark `--size` and
+`--moduix-progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--moduix-radius`,
 `--circumference`, `--percent`, and stroke offset variables.
 
 ## Intentional sugar and differences from upstream
@@ -160,5 +160,5 @@ this file, `theme.css`, and the registry output.
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, documented
   circular anatomy and styling hooks, and normalized the default circle thickness to `0.4rem`.
 - Added `ProgressCircular` as an Ark UI circular progress wrapper with RootProvider, Context, hook
-  exports, and `--progress-circular-*` styling tokens.
+  exports, and `--moduix-progress-circular-*` styling tokens.
 - Split progress into dedicated `ProgressLinear` and `ProgressCircular` public components.

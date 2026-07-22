@@ -1,11 +1,11 @@
 .stack {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .state {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }

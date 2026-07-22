@@ -1,0 +1,189 @@
+---
+title: List Selection
+description: Manage single, multiple, deselectable, and range selection for custom list interfaces.
+---
+
+# List Selection
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
+
+`useListSelection` adds selection state to a `ListCollection`. Use it for custom lists that do not
+already have selection behavior. `Select`, `Combobox`, and `Listbox` manage their own selection and
+normally do not need this hook.
+
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/react/collection';
+```
+
+## Basic single selection
+
+```tsx
+const collection = createListCollection({
+  items: [
+    { label: 'Platform', value: 'platform' },
+    { label: 'Product', value: 'product' },
+    { label: 'Design', value: 'design', disabled: true },
+  ],
+});
+
+function TeamList() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'single',
+    deselectable: true,
+  });
+
+  return (
+    <ul>
+      {collection.items.map((item) => {
+        const value = item.value;
+        const disabled = collection.getItemDisabled(item);
+        const selected = selection.isSelected(value);
+
+        return (
+          <li key={value}>
+            <button
+              type="button"
+              aria-pressed={selected}
+              disabled={disabled}
+              onClick={() => selection.select(value)}
+            >
+              {item.label}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+```
+
+The hook manages selection values only. Your UI still owns semantic roles, keyboard interaction,
+focus, and accessible labels. Prefer `Listbox` when you need standard listbox behavior.
+
+## Configuration
+
+| Prop                      | Purpose                                        | Default    |
+| ------------------------- | ---------------------------------------------- | ---------- |
+| `collection`              | Collection whose values can be selected.       | required   |
+| `selectionMode`           | `'single'`, `'multiple'`, or `'none'`.         | `'single'` |
+| `deselectable`            | Allows the current selection to be deselected. | `true`     |
+| `initialSelectedValues`   | Initial uncontrolled selection values.         | `[]`       |
+| `resetOnCollectionChange` | Clears selection when the collection changes.  | `false`    |
+
+`initialSelectedValues` is read as initial state. Use `setSelectedValues` when selection must
+change after mount.
+
+## Selection state
+
+| Value                | Meaning                                              |
+| -------------------- | ---------------------------------------------------- |
+| `selectedValues`     | Selected values in selection order.                  |
+| `isEmpty`            | No values are selected.                              |
+| `firstSelectedValue` | First selected value in collection order, or `null`. |
+| `lastSelectedValue`  | Last selected value in collection order, or `null`.  |
+
+## Queries
+
+| Method              | Purpose                                                      |
+| ------------------- | ------------------------------------------------------------ |
+| `isSelected(value)` | Checks whether a value is selected.                          |
+| `canSelect(value)`  | Checks mode, disabled state, and whether selection is valid. |
+| `isAllSelected()`   | Checks whether every collection item is selected.            |
+| `isSomeSelected()`  | Checks whether at least one collection item is selected.     |
+
+Use `canSelect` before exposing custom selection actions that are not already disabled in the UI.
+
+## Selection actions
+
+| Method                             | Purpose                                                 |
+| ---------------------------------- | ------------------------------------------------------- |
+| `select(value, forceToggle?)`      | Select a value according to the current mode.           |
+| `deselect(value)`                  | Remove one selected value.                              |
+| `toggle(value)`                    | Toggle one value.                                       |
+| `replace(value)`                   | Replace selection with one value, or clear with `null`. |
+| `extend(anchorValue, targetValue)` | Select the collection range between two values.         |
+| `setSelectedValues(values)`        | Replace selection with explicit values.                 |
+| `clear()`                          | Clear the current selection.                            |
+| `resetSelection()`                 | Restore `initialSelectedValues`.                        |
+
+## Multiple selection
+
+```tsx
+function TeamSelectionActions() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+    initialSelectedValues: ['platform'],
+  });
+
+  function toggleAll() {
+    if (selection.isAllSelected()) {
+      selection.clear();
+      return;
+    }
+
+    selection.setSelectedValues(collection.getValues());
+  }
+
+  return (
+    <button type="button" onClick={toggleAll}>
+      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
+    </button>
+  );
+}
+```
+
+Disabled values cannot be selected through `select` or `toggle`. When setting values directly,
+filter external input against `selection.canSelect` if it is not already trusted.
+
+## Range selection
+
+Store an anchor value in your interaction layer, then extend from that anchor:
+
+```tsx
+import { useRef } from 'react';
+
+function useRangeSelection() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+  });
+  const anchorRef = useRef<string | null>(null);
+
+  function handleSelect(value: string, extend: boolean) {
+    if (extend && anchorRef.current) {
+      selection.extend(anchorRef.current, value);
+      return;
+    }
+
+    selection.replace(value);
+    anchorRef.current = value;
+  }
+
+  return { selection, handleSelect };
+}
+```
+
+For mouse interfaces, `extend` commonly maps to Shift-click. Keyboard range selection additionally
+requires focus management and Shift+Arrow handling; use a collection component when those
+interactions match an established ARIA pattern.
+
+## Collection changes
+
+Set `resetOnCollectionChange: true` when a new collection represents a different dataset and old
+values must never carry over.
+
+Keep the default `false` when filtering only hides items temporarily and the selection should
+survive the filter. If removed values must be pruned selectively, derive the valid values and call
+`setSelectedValues`:
+
+```tsx
+const validValues = selection.selectedValues.filter((value) => collection.has(value));
+
+selection.setSelectedValues(validValues);
+```
+
+Run this synchronization in an event or effect when the collection changes, not during render.

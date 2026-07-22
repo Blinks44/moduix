@@ -161,20 +161,20 @@ Ark parts expose `data-scope="dialog"`, `data-part`, and `data-state="open|close
 ## Defaults and styling
 
 The current gallery thumbnail uses
-`--lightbox-gallery-thumbnail-active-translate-y` with a one-border-width upward offset, so themes
+`--moduix-lightbox-gallery-thumbnail-active-translate-y` with a one-border-width upward offset, so themes
 can tune or remove the selected-state lift without replacing the thumbnail selector.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--lightbox-*` content-motion
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-lightbox-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
 Moduix styles a zoom cursor on the trigger, a blurred backdrop, a centered positioner, transparent
 content, constrained image/video media, state-driven motion, and a fixed close icon anchored to the
 viewport corner.
 
-Public variables use Ark part names: `--lightbox-backdrop-*`, `--lightbox-positioner-padding`,
-`--lightbox-content-*`, `--lightbox-media-*`, `--lightbox-close-icon-*`,
-`--lightbox-trigger-focus-ring-*`, and
-`--lightbox-transition`. Gallery layout uses `--lightbox-gallery-*` variables for width, aspect
+Public variables use Ark part names: `--moduix-lightbox-backdrop-*`, `--moduix-lightbox-positioner-padding`,
+`--moduix-lightbox-content-*`, `--moduix-lightbox-media-*`, `--moduix-lightbox-close-icon-*`,
+`--moduix-lightbox-trigger-focus-ring-*`, and
+`--moduix-lightbox-transition`. Gallery layout uses `--moduix-lightbox-gallery-*` variables for width, aspect
 ratio, viewport height, gap, track background, and thumbnail sizing/state.
 
 ## Intentional sugar and differences from upstream
@@ -205,11 +205,11 @@ array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox
   namespace so `RootProvider` and context examples no longer require direct Ark imports.
 - 2026-07-05: Added a library-colored focus-visible outline to `Lightbox.Trigger` after focus
-  restoration and exposed `--lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
+  restoration and exposed `--moduix-lightbox-trigger-focus-ring-*` tokens for trigger ring overrides.
 - 2026-07-05: Changed `Lightbox.Gallery` from a forced width to a centered max-width cap so `Lightbox + Carousel` keeps its natural centered size inside `Lightbox.Content`.
 - 2026-07-05: Kept `Lightbox.Gallery` centered inside the new `Content` grid layout so `Lightbox + Carousel` stays visually centered.
 - 2026-07-05: Added `Lightbox.Header`, `Lightbox.Body`, and `Lightbox.Footer`, and documented the layout-helper composition path around media content.

@@ -23,8 +23,8 @@ the styles of content already on screen.
 - `Typeset` renders a `div` by default. `Typeset.Root` is an alias with the same contract.
 - `asChild` preserves a single semantic container such as `article` or `section`.
 - `Typeset.Scroll` is an opt-in horizontal scroller for a wide table or another rendered block.
-- The rhythm controls are `--typeset-size`, `--typeset-leading`, and `--typeset-flow`. Optional
-  font variables are `--typeset-font-body`, `--typeset-font-heading`, and `--typeset-font-mono`.
+- The rhythm controls are `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow`. Optional
+  font variables are `--moduix-typeset-font-body`, `--moduix-typeset-font-heading`, and `--moduix-typeset-font-mono`.
 - Colors, borders, and radius come from existing moduix theme tokens; Typeset has no second palette
   or width prop.
 - `.not-typeset` and `data-not-typeset` exclude a subtree, including any nested Typeset root.
@@ -74,8 +74,8 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 ## Defaults and styling
 
 - The root follows the surrounding font by default, then applies a small-screen type-size bump below
-  `48rem`. Above that breakpoint and when printing, it uses `--typeset-size` as-is.
-- Styles live in `@layer ui.components` and use `:where()` element selectors, allowing ordinary
+  `48rem`. Above that breakpoint and when printing, it uses `--moduix-typeset-size` as-is.
+- Styles live in `@layer moduix.components` and use `:where()` element selectors, allowing ordinary
   application CSS to override an individual rendered element.
 - Plain `ul` and `ol` elements always restore their semantic markers: disc, circle, then square for
   unordered nesting; decimal, lower-alpha, then lower-roman for ordered nesting. Task lists keep
@@ -100,6 +100,7 @@ prop-driven.
 
 ## Local changelog
 
+- 2026-07-22: Moved styles into the namespaced `moduix.components` cascade layer.
 - 2026-07-20: Made basic list markers explicit and expanded the recommended Basic example to cover
   nested lists, ordered lists, quotations, code, tables, and disclosures.
 - 2026-07-20: Simplified the public CSS contract to rhythm and font variables, added the standard

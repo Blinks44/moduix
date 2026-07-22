@@ -1,34 +1,34 @@
 .demoRoot {
-  --color-picker-width: 18rem;
+  --moduix-color-picker-width: 18rem;
 }
 
 .inlineRoot {
-  --color-picker-width: 17rem;
+  --moduix-color-picker-width: 17rem;
 }
 
 .valueRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .sliderGroup {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .inputRow {
   display: flex;
   min-width: 0;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .triggerValue {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .triggerValueSwatch {
@@ -38,13 +38,17 @@
   height: 1rem;
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: var(--radius-sm);
-  box-shadow: inset 0 0 0 var(--border-width-sm) var(--color-border);
+  border-radius: var(--moduix-radius-sm);
+  box-shadow: inset 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-border);
 }
 
 .customRoot {
-  --color-picker-width: 18rem;
-  --color-picker-focus-ring-color: var(--color-chart-4);
-  --color-picker-thumb-outer-ring-color: color-mix(in oklab, var(--color-chart-4) 45%, transparent);
-  --color-picker-action-color-hover: var(--color-chart-4);
+  --moduix-color-picker-width: 18rem;
+  --moduix-color-picker-focus-ring-color: var(--moduix-color-chart-4);
+  --moduix-color-picker-thumb-outer-ring-color: color-mix(
+    in oklab,
+    var(--moduix-color-chart-4) 45%,
+    transparent
+  );
+  --moduix-color-picker-action-color-hover: var(--moduix-color-chart-4);
 }

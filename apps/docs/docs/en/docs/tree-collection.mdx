@@ -1,0 +1,231 @@
+---
+title: Tree Collection
+description: Model, query, traverse, filter, and update hierarchical data for Tree View and custom trees.
+---
+
+# Tree Collection
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
+
+A tree collection normalizes hierarchical data for `TreeView` and custom tree interfaces. It
+provides value-based lookup, parent and descendant queries, index paths, traversal, and immutable
+updates.
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+```
+
+## Create a tree
+
+The default shape uses `value`, `label`, `children`, and optional `disabled` properties:
+
+```tsx
+const tree = createTreeCollection({
+  rootNode: {
+    value: 'root',
+    label: 'Project',
+    children: [
+      {
+        value: 'src',
+        label: 'src',
+        children: [
+          { value: 'button', label: 'Button.tsx' },
+          { value: 'input', label: 'Input.tsx' },
+        ],
+      },
+      { value: 'readme', label: 'README.md' },
+    ],
+  },
+});
+```
+
+The root node is a container and is not included in `getValues()`. Pass the collection directly to
+`TreeView` and render from `collection.rootNode.children`.
+
+## Custom node shapes
+
+Map your own fields when they differ from Ark's defaults:
+
+```tsx
+type NavigationNode = {
+  id: string;
+  name: string;
+  items?: NavigationNode[];
+  unavailable?: boolean;
+};
+
+const tree = createTreeCollection<NavigationNode>({
+  rootNode: navigation,
+  nodeToValue: (node) => node.id,
+  nodeToString: (node) => node.name,
+  nodeToChildren: (node) => node.items ?? [],
+  nodeToChildrenCount: (node) => node.items?.length,
+  isNodeDisabled: (node) => node.unavailable ?? false,
+});
+```
+
+| Option                | Purpose                                                         |
+| --------------------- | --------------------------------------------------------------- |
+| `rootNode`            | Root container for the complete hierarchy.                      |
+| `nodeToValue`         | Returns a stable string value for a node.                       |
+| `nodeToString`        | Returns display and searchable text.                            |
+| `nodeToChildren`      | Returns child nodes.                                            |
+| `nodeToChildrenCount` | Returns a known child count, including for lazily loaded nodes. |
+| `isNodeDisabled`      | Returns whether the node is disabled.                           |
+
+## Lookup and index paths
+
+An index path identifies a node by its numeric position at every tree level:
+
+```tsx
+const path = tree.getIndexPath('input')!; // [0, 1]
+tree.at(path); // Input.tsx node
+tree.getValue(path); // 'input'
+tree.getValuePath(path); // ['src', 'input']
+tree.getDepth('input'); // 2
+```
+
+| API                              | Result                                           |
+| -------------------------------- | ------------------------------------------------ |
+| `findNode(value)`                | First node with the value.                       |
+| `findNodes(values)`              | Nodes matching several values.                   |
+| `getIndexPath(valueOrValuePath)` | Numeric path for a value or explicit value path. |
+| `at(indexPath)`                  | Node at an index path.                           |
+| `getValue(indexPath)`            | Value at an index path.                          |
+| `getValuePath(indexPath)`        | Ancestor values followed by the target value.    |
+| `getDepth(value)`                | Node depth below the root.                       |
+| `getValues(rootNode?)`           | All descendant values in traversal order.        |
+| `getNodeChildren(node)`          | Normalized children for a node.                  |
+| `getNodeChildrenCount(node)`     | Known child count, or `undefined`.               |
+| `getNodeValue(node)`             | Normalized node value.                           |
+| `stringifyNode(node)`            | Normalized node text.                            |
+| `stringify(value)`               | Node text for a value, or `null`.                |
+| `getNodeDisabled(node)`          | Normalized disabled state.                       |
+| `isRootNode(node)`               | Whether the node is the collection root.         |
+| `isSameNode(node, other)`        | Whether two nodes resolve to the same value.     |
+
+`sort(values)` orders values by their tree position. `isEqual(other)` compares collections, and
+`toJSON()` returns the collection values.
+
+## Navigation and relationships
+
+```tsx
+tree.getFirstNode();
+tree.getLastNode();
+tree.getNextNode('button');
+tree.getPreviousNode('input');
+
+tree.getParentNode('input'); // src node
+tree.getParentNodes('input'); // ancestor nodes
+tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
+tree.getDescendantValues('src'); // ['button', 'input']
+```
+
+`getFirstNode`, `getLastNode`, `getNextNode`, and `getPreviousNode` accept a `skip` callback for
+nodes that should not participate in traversal.
+
+Sibling APIs work with index paths:
+
+```tsx
+const path = tree.getIndexPath('button')!;
+
+tree.getNextSibling(path);
+tree.getPreviousSibling(path);
+tree.getSiblingNodes(path);
+```
+
+Use `contains(parentPath, valuePath)` to check whether one index path contains another.
+`getDescendantNodes` and `getDescendantValues` accept `{ withBranch: true }` when branch nodes
+should be included with leaves.
+
+## Branches and traversal
+
+```tsx
+const src = tree.findNode('src');
+
+if (src) tree.isBranchNode(src);
+tree.getBranchValues();
+tree.flatten();
+```
+
+`flatten()` returns nodes with `_index`, `_parent`, and `_children` metadata, which is useful for
+virtualized or flat rendering.
+
+Use `visit` when every node must be processed:
+
+```tsx
+tree.visit({
+  onEnter(node, indexPath) {
+    console.log(tree.getNodeValue(node), indexPath.length);
+
+    if (tree.getNodeValue(node) === 'src') {
+      return 'skip';
+    }
+  },
+});
+```
+
+## Filtering
+
+`filter` returns a new tree containing matching nodes while preserving the hierarchy needed to
+reach them:
+
+```tsx
+const filteredTree = tree.filter((node) =>
+  tree.stringifyNode(node).toLocaleLowerCase().includes('input'),
+);
+```
+
+Use the returned collection for rendering. The original tree is unchanged.
+
+## Immutable updates
+
+Every modification returns a new `TreeCollection`:
+
+```tsx
+const srcPath = tree.getIndexPath('src')!;
+const buttonPath = tree.getIndexPath('button')!;
+const readmePath = tree.getIndexPath('readme')!;
+
+const withFile = tree.insertAfter(buttonPath, [{ value: 'select', label: 'Select.tsx' }]);
+
+const withoutReadme = tree.remove([readmePath]);
+const renamed = tree.replace(buttonPath, {
+  value: 'button',
+  label: 'Button.new.tsx',
+});
+const moved = tree.move([readmePath], srcPath);
+```
+
+`insertBefore` and `insertAfter` can return `undefined` when the target path is invalid. Guard paths
+obtained from dynamic data before using them.
+
+| API                         | Operation                                    |
+| --------------------------- | -------------------------------------------- |
+| `copy(rootNode)`            | Create a collection from a replacement root. |
+| `replace(indexPath, node)`  | Replace one node.                            |
+| `remove(indexPaths)`        | Remove one or more subtrees.                 |
+| `insertBefore(path, nodes)` | Insert siblings before a node.               |
+| `insertAfter(path, nodes)`  | Insert siblings after a node.                |
+| `move(fromPaths, toPath)`   | Move subtrees to another location.           |
+| `filter(predicate)`         | Return a filtered tree.                      |
+
+## File paths
+
+Use `createFileTreeCollection` when the source is already a list of paths:
+
+```tsx
+const files = createFileTreeCollection([
+  'src/components/Button.tsx',
+  'src/components/Input.tsx',
+  'src/utils/format.ts',
+  'README.md',
+]);
+
+files.getBranchValues(); // ['src', 'components', 'utils']
+```
+
+For complete rendering composition, expansion, selection, lazy loading, and recursive nodes, see
+[Tree View](/docs/tree-view).

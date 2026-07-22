@@ -1,8 +1,4 @@
-import { Collapsible, useCollapsible } from '@moduix/react';
-import { ChevronDown as ChevronDownIcon } from 'lucide-react';
-import { useState, type ComponentProps } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/preview';
-import { CSSPropertiesReferenceTable } from '../mdx/preview';
+import type { CssPropertyInput } from '../mdx/reference';
 
 export const collapsibleExampleCss = `
   .collapsible-root {
@@ -12,26 +8,26 @@ export const collapsibleExampleCss = `
   .collapsible-keys-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
     margin: 0;
-    padding-inline-start: var(--spacing-2);
+    padding-inline-start: var(--moduix-spacing-2);
   }
 
   .collapsible-state {
-    margin-top: var(--spacing-2);
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    margin-top: var(--moduix-spacing-2);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .collapsible-provider-layout {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .collapsible-nested-content > p {
-    margin: 0 0 var(--spacing-2);
+    margin: 0 0 var(--moduix-spacing-2);
   }
 
   .collapsible-nested-root {
@@ -48,317 +44,142 @@ export const collapsibleCustomCompositionCss = `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     width: 100%;
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
     border: 0;
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
   }
 
   .collapsible-custom-trigger:hover {
-    background-color: var(--color-accent);
+    background-color: var(--moduix-color-accent);
   }
 
   .collapsible-custom-indicator {
-    --collapsible-indicator-open-transform: rotate(180deg);
-    color: var(--color-primary);
+    --moduix-collapsible-indicator-open-transform: rotate(180deg);
+    color: var(--moduix-color-primary);
   }
 
   .collapsible-custom-content-body {
-    margin-top: var(--spacing-1);
-    --collapsible-body-padding: var(--spacing-2) var(--spacing-3);
+    margin-top: var(--moduix-spacing-1);
+    --moduix-collapsible-body-padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
 
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-muted-foreground);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-muted-foreground);
   }
 
   .collapsible-keys-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-1);
+    gap: var(--moduix-spacing-1);
     margin: 0;
-    padding-inline-start: var(--spacing-2);
+    padding-inline-start: var(--moduix-spacing-2);
   }
 `;
 
-export const recoveryKeysData = `const recoveryKeys = [
-  'alien-bean-pasta',
-  'wild-irish-burrito',
-  'horse-battery-staple',
-];`;
-
-export const collapsibleLongContentData = `const paragraphs = [
-  'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',
-  'Built on top of Zag.js state machines, Ark UI keeps behavior consistent while leaving styling under your control.',
-  'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
-];`;
-
 export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
-  ['--collapsible-body-gap', 'var(--spacing-2)', 'Controls body content gap.'],
-  ['--collapsible-body-padding', 'var(--spacing-2)', 'Controls body padding.'],
-  ['--collapsible-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--collapsible-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled opacity.'],
-  ['--collapsible-focus-ring-color', 'var(--color-ring)', 'Controls trigger focus ring color.'],
+  ['--moduix-collapsible-body-gap', 'var(--moduix-spacing-2)', 'Controls body content gap.'],
+  ['--moduix-collapsible-body-padding', 'var(--moduix-spacing-2)', 'Controls body padding.'],
+  ['--moduix-collapsible-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [
-    '--collapsible-focus-ring-offset',
-    'var(--border-width-sm)',
+    '--moduix-collapsible-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled opacity.',
+  ],
+  [
+    '--moduix-collapsible-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls trigger focus ring color.',
+  ],
+  [
+    '--moduix-collapsible-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
     'Controls trigger focus ring offset.',
   ],
   [
-    '--collapsible-focus-ring-width',
-    'var(--focus-ring-inset-width, var(--border-width-sm))',
+    '--moduix-collapsible-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
     'Controls trigger focus ring width.',
   ],
-  ['--collapsible-max-width', '100%', 'Controls root max width.'],
+  ['--moduix-collapsible-max-width', '100%', 'Controls root max width.'],
   [
-    '--collapsible-indicator-open-transform',
+    '--moduix-collapsible-indicator-open-transform',
     'rotate(180deg)',
     'Controls indicator transform while open.',
   ],
-  ['--collapsible-indicator-size', 'var(--spacing-3)', 'Controls indicator size.'],
+  ['--moduix-collapsible-indicator-size', 'var(--moduix-spacing-3)', 'Controls indicator size.'],
   [
-    '--collapsible-indicator-transition',
-    'var(--transition-default)',
+    '--moduix-collapsible-indicator-transition',
+    'var(--moduix-transition-default)',
     'Controls indicator transition.',
   ],
-  ['--collapsible-content-color', 'var(--color-muted-foreground)', 'Controls content color.'],
-  ['--collapsible-content-closed-opacity', '0.01', 'Controls content opacity while closed.'],
-  ['--collapsible-content-font-size', 'var(--text-sm)', 'Controls content font size.'],
   [
-    '--collapsible-content-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-collapsible-content-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls content color.',
+  ],
+  ['--moduix-collapsible-content-closed-opacity', '0.01', 'Controls content opacity while closed.'],
+  [
+    '--moduix-collapsible-content-font-size',
+    'var(--moduix-text-sm)',
+    'Controls content font size.',
+  ],
+  [
+    '--moduix-collapsible-content-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls content line height.',
   ],
-  ['--collapsible-content-open-opacity', '1', 'Controls content opacity while open.'],
+  ['--moduix-collapsible-content-open-opacity', '1', 'Controls content opacity while open.'],
   [
-    '--collapsible-content-transition',
-    'var(--transition-default)',
+    '--moduix-collapsible-content-transition',
+    'var(--moduix-transition-default)',
     'Controls content open and close animation.',
   ],
-  ['--collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
+  ['--moduix-collapsible-trigger-bg', 'transparent', 'Controls trigger background color.'],
   [
-    '--collapsible-trigger-bg-active',
-    'var(--collapsible-trigger-bg-hover)',
+    '--moduix-collapsible-trigger-bg-active',
+    'var(--moduix-collapsible-trigger-bg-hover)',
     'Controls trigger background color while pressed.',
   ],
   [
-    '--collapsible-trigger-bg-hover',
-    'var(--collapsible-trigger-bg)',
+    '--moduix-collapsible-trigger-bg-hover',
+    'var(--moduix-collapsible-trigger-bg)',
     'Controls trigger background color on hover.',
   ],
-  ['--collapsible-trigger-color', 'var(--collapsible-color)', 'Controls trigger text color.'],
-  ['--collapsible-trigger-font-size', 'var(--text-sm)', 'Controls trigger font size.'],
-  ['--collapsible-trigger-gap', 'var(--spacing-2)', 'Controls trigger content gap.'],
   [
-    '--collapsible-trigger-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-collapsible-trigger-color',
+    'var(--moduix-collapsible-color)',
+    'Controls trigger text color.',
+  ],
+  [
+    '--moduix-collapsible-trigger-font-size',
+    'var(--moduix-text-sm)',
+    'Controls trigger font size.',
+  ],
+  ['--moduix-collapsible-trigger-gap', 'var(--moduix-spacing-2)', 'Controls trigger content gap.'],
+  [
+    '--moduix-collapsible-trigger-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls trigger line height.',
   ],
-  ['--collapsible-trigger-padding-x', 'var(--spacing-2)', 'Controls trigger horizontal padding.'],
-  ['--collapsible-trigger-padding-y', 'var(--spacing-1)', 'Controls trigger vertical padding.'],
-  ['--collapsible-trigger-radius', '0', 'Controls trigger corner radius.'],
   [
-    '--collapsible-trigger-transition',
-    'var(--transition-default)',
+    '--moduix-collapsible-trigger-padding-x',
+    'var(--moduix-spacing-2)',
+    'Controls trigger horizontal padding.',
+  ],
+  [
+    '--moduix-collapsible-trigger-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls trigger vertical padding.',
+  ],
+  ['--moduix-collapsible-trigger-radius', '0', 'Controls trigger corner radius.'],
+  [
+    '--moduix-collapsible-trigger-transition',
+    'var(--moduix-transition-default)',
     'Controls trigger color and background transition.',
   ],
-  ['--collapsible-width', '100%', 'Controls root width.'],
+  ['--moduix-collapsible-width', '100%', 'Controls root width.'],
 ];
-
-const collapsibleCssProperties = collapsibleOverrideCssProperties.map(normalizeCssProperty);
-
-export function CollapsibleCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <div className="space-y-2">
-      <CSSPropertiesReferenceTable properties={collapsibleCssProperties} />
-    </div>
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}
-
-const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
-
-const paragraphs = [
-  'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',
-  'Built on top of Zag.js state machines, Ark UI keeps behavior consistent while leaving styling under your control.',
-  'Use partial collapse when a short preview should stay visible while the rest of the content is inert.',
-];
-
-function RecoveryKeys() {
-  return (
-    <ul className="collapsible-keys-list">
-      {recoveryKeys.map((key) => (
-        <li key={key}>{key}</li>
-      ))}
-    </ul>
-  );
-}
-
-export function CollapsibleExample(props: ComponentProps<typeof Collapsible>) {
-  return (
-    <Collapsible className="collapsible-root" {...props}>
-      <Collapsible.Trigger>
-        Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}
-
-export function ControlledCollapsibleExample() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Collapsible
-      className="collapsible-root"
-      open={open}
-      onOpenChange={(details) => setOpen(details.open)}
-    >
-      <Collapsible.Trigger>
-        Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
-      <span className="collapsible-state">Current state: {open ? 'open' : 'closed'}</span>
-    </Collapsible>
-  );
-}
-
-export function DisabledCollapsibleExample() {
-  return (
-    <Collapsible className="collapsible-root" disabled>
-      <Collapsible.Trigger>
-        Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}
-
-export function LazyMountCollapsibleExample() {
-  return (
-    <Collapsible className="collapsible-root" lazyMount unmountOnExit>
-      <Collapsible.Trigger>
-        Recovery keys
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}
-
-export function PartialCollapseCollapsibleExample() {
-  return (
-    <Collapsible className="collapsible-root" collapsedHeight="3rem">
-      <Collapsible.Trigger>
-        Read more
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body>
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}
-
-export function NestedCollapsibleExample() {
-  return (
-    <Collapsible className="collapsible-root">
-      <Collapsible.Trigger>
-        Account security
-        <Collapsible.Indicator />
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body className="collapsible-nested-content">
-          <p>Security options for this account.</p>
-          <Collapsible className="collapsible-nested-root">
-            <Collapsible.Trigger>
-              Recovery keys
-              <Collapsible.Indicator />
-            </Collapsible.Trigger>
-            <Collapsible.Content>
-              <Collapsible.Body>
-                <RecoveryKeys />
-              </Collapsible.Body>
-            </Collapsible.Content>
-          </Collapsible>
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}
-
-export function RootProviderCollapsibleExample() {
-  const collapsible = useCollapsible();
-
-  return (
-    <div className="collapsible-provider-layout">
-      <output>
-        open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
-      </output>
-      <Collapsible.RootProvider value={collapsible} className="collapsible-root">
-        <Collapsible.Trigger>
-          Recovery keys
-          <Collapsible.Indicator />
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <Collapsible.Body>
-            <RecoveryKeys />
-          </Collapsible.Body>
-        </Collapsible.Content>
-      </Collapsible.RootProvider>
-    </div>
-  );
-}
-
-export function CustomCompositionCollapsibleExample() {
-  return (
-    <Collapsible className="collapsible-root">
-      <Collapsible.Trigger asChild>
-        <button type="button" className="collapsible-custom-trigger">
-          Styled recovery keys
-          <Collapsible.Indicator className="collapsible-custom-indicator">
-            <ChevronDownIcon />
-          </Collapsible.Indicator>
-        </button>
-      </Collapsible.Trigger>
-      <Collapsible.Content>
-        <Collapsible.Body className="collapsible-custom-content-body">
-          <RecoveryKeys />
-        </Collapsible.Body>
-      </Collapsible.Content>
-    </Collapsible>
-  );
-}

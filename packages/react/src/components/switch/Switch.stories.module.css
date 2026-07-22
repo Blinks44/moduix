@@ -2,30 +2,30 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .hint {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 .siblingRow {
   display: flex;
   align-items: center;
-  gap: var(--switch-gap, var(--spacing-2));
+  gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
 }
 
 .label {
-  color: var(--switch-label-color, var(--color-foreground));
-  font-size: var(--switch-label-font-size, var(--text-sm));
-  font-weight: var(--switch-label-font-weight, var(--weight-medium));
-  line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+  color: var(--moduix-switch-label-color, var(--moduix-color-foreground));
+  font-size: var(--moduix-switch-label-font-size, var(--moduix-text-sm));
+  font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
+  line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
 }
 
 .customIconThumb {
-  --switch-thumb-color-checked: var(--color-primary);
-  --switch-thumb-color-unchecked: var(--color-muted-foreground);
-  --switch-thumb-icon-size: 0.75rem;
+  --moduix-switch-thumb-color-checked: var(--moduix-color-primary);
+  --moduix-switch-thumb-color-unchecked: var(--moduix-color-muted-foreground);
+  --moduix-switch-thumb-icon-size: 0.75rem;
 }

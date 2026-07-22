@@ -1,0 +1,419 @@
+---
+title: Tour
+component: tour
+description: A guided product walkthrough built on Ark UI tour state and overlay parts.
+---
+
+import * as TourDocs from '@/components/examples/tour';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tour" />
+
+## Basic
+
+Create tour state with `useTour`, pass the returned object to `Tour`, and keep the Ark overlay
+parts explicit. Steps can provide `title`, `description`, targets, actions, backdrop, and arrow
+settings.
+
+<style>{`
+      .demo {
+        display: flex;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+      }
+
+    `}</style>
+
+```tsx preview file="./_snippets/tour/basic.tsx"
+
+```
+
+## Install with shadcn
+
+<ShadcnInstall packageName="tour" />
+
+## Anatomy
+
+```text
+Tour / Tour.Root
+└─ Overlay subtree (automatically portalled)
+   ├─ Tour.Backdrop
+   ├─ Tour.Spotlight
+   └─ Tour.Positioner
+      └─ Tour.Content
+         ├─ Tour.Arrow
+         │  └─ Tour.ArrowTip
+         ├─ Tour.CloseTrigger / Tour.CloseIcon
+         ├─ Tour.Title
+         ├─ Tour.Description
+         ├─ Tour.ProgressText
+         └─ Tour.Control
+            ├─ Tour.ActionList
+            └─ Tour.Actions
+               └─ Tour.ActionTrigger[action]
+```
+
+| Part                      | Role                                                                 |
+| ------------------------- | -------------------------------------------------------------------- |
+| `Tour` / `Tour.Root`      | Renders the tour tree from the `UseTourReturn` object.               |
+| `Tour.Backdrop`           | Optional overlay layer for dialog and spotlight steps.               |
+| `Tour.Spotlight`          | Highlights the current target element.                               |
+| `Tour.Positioner`         | Positions dialog, tooltip, or floating content.                      |
+| `Tour.Content`            | Alert-dialog surface with Ark title and description wiring.          |
+| `Tour.Arrow` / `ArrowTip` | Tooltip arrow using Ark positioning variables.                       |
+| `Tour.CloseTrigger`       | Low-level dismiss trigger.                                           |
+| `Tour.CloseIcon`          | Shared icon-only close helper built on the Ark close trigger.        |
+| `Tour.ProgressText`       | Localized progress text from `translations.progressText`.            |
+| `Tour.Title`              | Current step title.                                                  |
+| `Tour.Description`        | Current step description.                                            |
+| `Tour.Control`            | Action group container.                                              |
+| `Tour.ActionList`         | Recommended mapping of the current step's actions to styled buttons. |
+| `Tour.Actions`            | Render prop for the current step action objects.                     |
+| `Tour.ActionTrigger`      | Button that runs a `StepAction` such as `next`, `prev`, `dismiss`.   |
+
+## Composition
+
+`Tour.Root` portals `Backdrop`, `Spotlight`, and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; all structural parts remain explicit and styleable.
+
+### Recommended composition
+
+Use `useTour({ steps })` as the state owner and render the structural parts directly under
+`Tour.Root`; the root handles their portal boundary.
+Moduix adds default styling, `data-slot` hooks, a default `ArrowTip`, and `Tour.ActionList` for
+ordinary step actions, but it does not hide the overlay tree behind a content shortcut.
+
+### When to go custom
+
+Use `Tour.Actions` and `Tour.ActionTrigger` when action UI needs custom composition. Import Ark
+`useTourContext()` directly when custom child UI needs the current step, progress, or navigation
+methods. Use step `effect` callbacks for async work and wait helpers. Use `ids` when separate markup
+must share the Ark-generated title, description, content, backdrop, positioner, or arrow IDs.
+
+### Default props
+
+| Prop                     | Default                         | Notes                                                |
+| ------------------------ | ------------------------------- | ---------------------------------------------------- |
+| `closeOnEscape`          | `true`                          | Escape dismisses the tour.                           |
+| `closeOnInteractOutside` | `true`                          | Outside interaction dismisses unless disabled.       |
+| `keyboardNavigation`     | `true`                          | Left and Right navigate between available steps.     |
+| `preventInteraction`     | `false`                         | Set to `true` to block interaction outside the tour. |
+| `spotlightOffset`        | `{ x: 10, y: 10 }`              | Expands the highlighted target region.               |
+| `spotlightRadius`        | `4`                             | Corner radius for the spotlight clip path.           |
+| `translations`           | Ark defaults                    | Includes progress, next, previous, close, and skip.  |
+| `lazyMount`              | `false` on Ark presence wrapper | Supported on `Tour` / `Tour.Root`.                   |
+| `unmountOnExit`          | `false` on Ark presence wrapper | Supported on `Tour` / `Tour.Root`.                   |
+
+### Behavioral notes
+
+`Tour` does not expose `RootProvider`; Ark requires a `tour` object from `useTour`. Controlled usage
+lives in `useTour` through `steps`, `stepId`, `onStepChange`, `onStepsChange`, and
+`onStatusChange`. `Tour.ActionList` passes step actions directly to `Tour.ActionTrigger`; use the
+lower-level parts when their rendering needs to vary.
+Styled parts forward refs to their Ark DOM elements and support `asChild`; keep a single semantic
+child with the required keyboard and focus behavior. `Tour` / `Tour.Root` also preserve Ark
+presence props such as `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete`.
+
+## Examples
+
+### Async Step
+
+Use a step `effect` to fetch or prepare content, call `update`, then call `show` when the step is
+ready.
+
+<style>{`      .target { background: var(--moduix-color-muted); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.AsyncStepTourExample />
+</ExampleFrame>
+
+```tsx
+const delayMs = 1500;
+
+const asyncStep = {
+  effect({ show, update }) {
+    const controller = new AbortController();
+    const [promise, cancel] = waitForPromise(loadDetails(), controller, delayMs);
+    promise.then((details) => {
+      update(details);
+      show();
+    });
+    return cancel;
+  },
+};
+```
+
+### Events
+
+Use `onStepChange` and `onStatusChange` for analytics, logging, or external UI that follows the
+tour lifecycle.
+
+<style>{`      .log { font-family: var(--moduix-font-mono); font-size: var(--moduix-text-xs); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.EventsTourExample />
+</ExampleFrame>
+
+```tsx
+const statuses = ['idle', 'started', 'skipped', 'completed', 'dismissed', 'not-found'] as const;
+
+const tour = useTour({
+  steps,
+  onStepChange: (details) => {
+    console.log(details.stepId, details.stepIndex, details.progress);
+  },
+  onStatusChange: (details) => {
+    console.log(details.status);
+  },
+});
+```
+
+### Keyboard Navigation
+
+Arrow-key navigation is enabled by default. Disable `keyboardNavigation` only when a step contains
+custom keyboard handling that should own Left and Right.
+
+<style>{`      .note { color: var(--moduix-color-muted-foreground); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.KeyboardTourExample />
+</ExampleFrame>
+
+```tsx
+const keyboardNavigation = true;
+const progressText = ({ current, total }) => String(current + 1) + ' / ' + String(total);
+
+const tour = useTour({
+  steps,
+  keyboardNavigation: true,
+  translations: {
+    progressText: ({ current, total }) => `${current + 1} / ${total}`,
+  },
+});
+```
+
+### Mixed Types
+
+Use dialog steps for broad context, tooltip steps for target-specific guidance, and floating steps
+for viewport-level notes.
+
+<style>{`      .target { border: var(--moduix-border-width-sm) solid var(--moduix-color-border); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.MixedTypesTourExample />
+</ExampleFrame>
+
+```tsx
+const steps = [
+  {
+    id: 'dialog',
+    type: 'dialog',
+    title: 'Mixed step types',
+    description: 'Start centered.',
+    actions: [{ label: 'Next', action: 'next' }],
+    backdrop: true,
+  },
+  {
+    id: 'tooltip',
+    type: 'tooltip',
+    title: 'Anchored tooltip',
+    description: 'Follows a target.',
+    target: () => document.querySelector('#tour-mixed-target') as HTMLElement | null,
+    actions: [
+      { label: 'Back', action: 'prev' },
+      { label: 'Next', action: 'next' },
+    ],
+    arrow: true,
+  },
+  {
+    id: 'floating',
+    type: 'floating',
+    placement: 'bottom-end',
+    title: 'Floating note',
+    description: 'Sits in the viewport.',
+    actions: [
+      { label: 'Back', action: 'prev' },
+      { label: 'Done', action: 'dismiss' },
+    ],
+  },
+] satisfies TourStepDetails[];
+
+const tour = useTour({ steps });
+```
+
+### Progress Bar
+
+Render custom progress from `tour.getProgressPercent()` and keep `Tour.ProgressText` available for
+localized text.
+
+<style>{`      .progressFill { height: 100%; background: var(--moduix-color-primary); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.ProgressTourExample />
+</ExampleFrame>
+
+```tsx
+const totalSteps = 3;
+
+<Tour.Content>
+  <Tour.ProgressText />
+  <Tour.Title />
+  <Tour.Description />
+  <div className={styles.progressTrack}>
+    <div className={styles.progressFill} style={{ width: `${tour.getProgressPercent()}%` }} />
+  </div>
+</Tour.Content>;
+```
+
+### Skip Tour
+
+Use a dismiss action for optional walkthroughs when users should be able to exit early.
+
+<style>{`      .note { font-size: var(--moduix-text-sm); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.SkipTourExample />
+</ExampleFrame>
+
+```tsx
+const steps = [
+  {
+    id: 'intro',
+    type: 'dialog',
+    title: 'Optional walkthrough',
+    description: 'Use a dismiss action when the tour is helpful but not required.',
+    actions: [
+      { label: 'Skip tour', action: 'dismiss' },
+      { label: 'Continue', action: 'next' },
+    ],
+    backdrop: true,
+  },
+] satisfies TourStepDetails[];
+
+const tour = useTour({ steps });
+```
+
+### Wait For Click
+
+Use `waitForEvent` with a click event when the tour should advance after a real target
+interaction.
+
+<style>{`      .demo { gap: var(--moduix-spacing-4); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.WaitForClickTourExample />
+</ExampleFrame>
+
+```tsx
+const eventType = 'click';
+
+const step = {
+  id: 'click-target',
+  type: 'tooltip',
+  title: 'Click the target',
+  target: () => document.querySelector('#tour-wait-click') as HTMLButtonElement | null,
+  effect({ next, show, target }) {
+    show();
+    const [promise, cancel] = waitForEvent(target as HTMLButtonElement, eventType);
+    promise.then(() => next());
+    return cancel;
+  },
+  arrow: true,
+};
+```
+
+### Wait For Element
+
+Use `waitForElement` when a later step targets content that appears after the tour has started.
+
+<style>{`      .listItem[data-tour-new-item] { border-color: var(--moduix-color-primary); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.WaitForElementTourExample />
+</ExampleFrame>
+
+```tsx
+const timeout = 5000;
+
+const step = {
+  id: 'new-item',
+  type: 'tooltip',
+  title: 'New item added',
+  target: () => document.querySelector('[data-tour-new-item]') as HTMLElement | null,
+  effect({ show }) {
+    const [promise, cancel] = waitForElement(
+      () => document.querySelector('[data-tour-new-item]') as HTMLElement | null,
+      { timeout },
+    );
+    promise.then(() => show());
+    return cancel;
+  },
+  actions: [{ label: 'Done', action: 'dismiss' }],
+  arrow: true,
+};
+```
+
+### Wait For Input
+
+Wait helpers let a step pause until the user completes a real DOM interaction.
+
+<style>{`      .input:focus-visible { outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring); }`}</style>
+
+<ExampleFrame>
+  <TourDocs.WaitForInputTourExample />
+</ExampleFrame>
+
+```tsx
+const minLength = 2;
+
+const step = {
+  id: 'name',
+  type: 'tooltip',
+  title: 'Enter a name',
+  target: () => document.querySelector('#tour-wait-name') as HTMLInputElement | null,
+  effect({ next, show, target }) {
+    show();
+    const [promise, cancel] = waitForEvent(target as HTMLInputElement, 'input', {
+      predicate: (element) => element.value.trim().length >= minLength,
+    });
+    promise.then(() => next());
+    return cancel;
+  },
+};
+```
+
+### Advanced Customization
+
+Bypass `Tour.ActionList` when action buttons need custom composition; preserve each Ark action
+object by passing it to `Tour.ActionTrigger`.
+
+```tsx preview file="./_snippets/tour/advanced-customization.tsx"
+
+```
+
+## Styling
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div className="docs-reference-panel docs-reference-panel--compact">
+        <TourDocs.TourCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+Target moduix slots with `data-slot="tour-content"` and related hooks. Target Ark state with
+`data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
+`data-step`, and `data-disabled`. Ark runtime variables include `--tour-layer`, `--available-width`,
+`--available-height`, `--reference-width`, `--reference-height`, `--transform-origin`,
+`--arrow-size`, and `--arrow-background`. Pass `className` to `Tour.ActionList` to style every
+generated `Tour.ActionTrigger`.

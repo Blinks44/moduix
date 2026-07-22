@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fieldset",
+  "title": "Fieldset",
+  "description": "moduix React Fieldset component.",
+  "dependencies": ["@ark-ui/react", "clsx"],
+  "registryDependencies": ["@moduix-react/foundation"],
+  "files": [
+    {
+      "path": "packages/react/src/components/fieldset/Fieldset.tsx",
+      "content": "import { Fieldset as FieldsetPrimitive, useFieldset } from '@ark-ui/react/fieldset';\nimport { clsx } from 'clsx';\nimport type { ComponentProps, ComponentRef } from 'react';\nimport { forwardRef } from 'react';\nimport { normalizeClassName } from '@/lib/moduix/normalizeClassName';\nimport styles from './Fieldset.module.css';\n\nconst FieldsetRoot = forwardRef<\n  ComponentRef<typeof FieldsetPrimitive.Root>,\n  ComponentProps<typeof FieldsetPrimitive.Root>\n>(function FieldsetRoot({ className, ...props }, ref) {\n  return (\n    <FieldsetPrimitive.Root\n      ref={ref}\n      data-slot=\"fieldset-root\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst FieldsetRootProvider = forwardRef<\n  ComponentRef<typeof FieldsetPrimitive.RootProvider>,\n  ComponentProps<typeof FieldsetPrimitive.RootProvider>\n>(function FieldsetRootProvider({ className, ...props }, ref) {\n  return (\n    <FieldsetPrimitive.RootProvider\n      ref={ref}\n      data-slot=\"fieldset-root-provider\"\n      className={clsx(styles.root, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst FieldsetLegend = forwardRef<\n  ComponentRef<typeof FieldsetPrimitive.Legend>,\n  ComponentProps<typeof FieldsetPrimitive.Legend>\n>(function FieldsetLegend({ className, ...props }, ref) {\n  return (\n    <FieldsetPrimitive.Legend\n      ref={ref}\n      data-slot=\"fieldset-legend\"\n      className={clsx(styles.legend, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst FieldsetHelperText = forwardRef<\n  ComponentRef<typeof FieldsetPrimitive.HelperText>,\n  ComponentProps<typeof FieldsetPrimitive.HelperText>\n>(function FieldsetHelperText({ className, ...props }, ref) {\n  return (\n    <FieldsetPrimitive.HelperText\n      ref={ref}\n      data-slot=\"fieldset-helper-text\"\n      className={clsx(styles.helperText, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst FieldsetErrorText = forwardRef<\n  ComponentRef<typeof FieldsetPrimitive.ErrorText>,\n  ComponentProps<typeof FieldsetPrimitive.ErrorText>\n>(function FieldsetErrorText({ className, ...props }, ref) {\n  return (\n    <FieldsetPrimitive.ErrorText\n      ref={ref}\n      data-slot=\"fieldset-error-text\"\n      className={clsx(styles.errorText, normalizeClassName(className))}\n      {...props}\n    />\n  );\n});\n\nconst Fieldset = Object.assign(FieldsetRoot, {\n  Root: FieldsetRoot,\n  RootProvider: FieldsetRootProvider,\n  Legend: FieldsetLegend,\n  HelperText: FieldsetHelperText,\n  ErrorText: FieldsetErrorText,\n});\n\nexport { Fieldset, useFieldset };",
+      "type": "registry:component",
+      "target": "@components/moduix/fieldset/Fieldset.tsx"
+    },
+    {
+      "path": "packages/react/src/components/fieldset/Fieldset.module.css",
+      "content": "@layer moduix.components {\n  .root,\n  .legend,\n  .helperText,\n  .errorText {\n    box-sizing: border-box;\n  }\n\n  .root {\n    display: flex;\n    flex-direction: column;\n    gap: var(--moduix-fieldset-gap, var(--moduix-spacing-4));\n    width: var(--moduix-fieldset-width, 100%);\n    max-width: var(--moduix-fieldset-max-width, none);\n    margin: var(--moduix-fieldset-margin, 0);\n    padding: var(--moduix-fieldset-padding, 0);\n    border-width: var(--moduix-fieldset-border-width, 0);\n    border-style: var(--moduix-fieldset-border-style, solid);\n    border-color: var(--moduix-fieldset-border-color, transparent);\n    border-radius: var(--moduix-fieldset-radius, var(--moduix-radius-none));\n    min-inline-size: 0;\n\n    &[data-disabled] {\n      opacity: var(--moduix-fieldset-disabled-opacity, var(--moduix-opacity-disabled));\n    }\n\n    &[data-invalid] {\n      border-color: var(--moduix-fieldset-border-color-invalid, var(--moduix-color-destructive));\n    }\n  }\n\n  .legend {\n    display: inline-block;\n    max-inline-size: 100%;\n    margin: var(--moduix-fieldset-legend-margin, 0);\n    padding: var(--moduix-fieldset-legend-padding, 0 0 var(--moduix-spacing-3));\n    color: var(--moduix-fieldset-legend-color, var(--moduix-color-foreground));\n    font-size: var(--moduix-fieldset-legend-font-size, var(--moduix-text-lg));\n    font-weight: var(--moduix-fieldset-legend-font-weight, var(--moduix-weight-semibold));\n    line-height: var(--moduix-fieldset-legend-line-height, var(--moduix-line-height-text-lg));\n  }\n\n  .helperText,\n  .errorText {\n    font-size: var(--moduix-fieldset-message-font-size, var(--moduix-text-sm));\n    line-height: var(--moduix-fieldset-message-line-height, var(--moduix-line-height-text-sm));\n  }\n\n  .helperText {\n    color: var(--moduix-fieldset-helper-text-color, var(--moduix-color-muted-foreground));\n  }\n\n  .errorText {\n    color: var(--moduix-fieldset-error-text-color, var(--moduix-color-destructive));\n  }\n}",
+      "type": "registry:file",
+      "target": "@components/moduix/fieldset/Fieldset.module.css"
+    },
+    {
+      "path": "packages/react/src/components/fieldset/index.ts",
+      "content": "export { Fieldset, useFieldset } from './Fieldset';",
+      "type": "registry:component",
+      "target": "@components/moduix/fieldset/index.ts"
+    }
+  ],
+  "type": "registry:item"
+}

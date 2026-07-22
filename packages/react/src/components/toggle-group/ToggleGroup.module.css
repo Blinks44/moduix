@@ -1,15 +1,15 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    gap: var(--toggle-group-gap, var(--border-width-sm));
-    padding: var(--toggle-group-padding, var(--border-width-md));
-    border: var(--toggle-group-border-width, var(--border-width-sm)) solid
-      var(--toggle-group-border-color, var(--color-border));
-    border-radius: var(--toggle-group-radius, var(--radius-lg));
-    background-color: var(--toggle-group-bg, var(--color-muted));
-    color: var(--toggle-group-color, var(--color-foreground));
+    gap: var(--moduix-toggle-group-gap, var(--moduix-border-width-sm));
+    padding: var(--moduix-toggle-group-padding, var(--moduix-border-width-md));
+    border: var(--moduix-toggle-group-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-toggle-group-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-toggle-group-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-toggle-group-bg, var(--moduix-color-muted));
+    color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
       flex-direction: column;
@@ -22,21 +22,27 @@
     }
 
     &[data-variant='ghost'] {
-      --toggle-group-bg: var(--toggle-group-ghost-bg, transparent);
-      --toggle-group-border-color: var(--toggle-group-ghost-border-color, transparent);
-      --toggle-group-padding: var(--toggle-group-ghost-padding, 0);
+      --moduix-toggle-group-bg: var(--moduix-toggle-group-ghost-bg, transparent);
+      --moduix-toggle-group-border-color: var(
+        --moduix-toggle-group-ghost-border-color,
+        transparent
+      );
+      --moduix-toggle-group-padding: var(--moduix-toggle-group-ghost-padding, 0);
     }
 
     &[data-variant='outline'] {
-      --toggle-group-bg: var(--toggle-group-outline-bg, var(--color-background));
+      --moduix-toggle-group-bg: var(
+        --moduix-toggle-group-outline-bg,
+        var(--moduix-color-background)
+      );
     }
   }
 
   .item {
     flex: 0 0 auto;
-    border-radius: var(--toggle-group-item-radius, var(--radius-md));
-    --toggle-default-color: var(--toggle-group-color, var(--color-foreground));
-    --toggle-ghost-color: var(--toggle-group-color, var(--color-foreground));
-    --toggle-outline-color: var(--toggle-group-color, var(--color-foreground));
+    border-radius: var(--moduix-toggle-group-item-radius, var(--moduix-radius-md));
+    --moduix-toggle-default-color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
+    --moduix-toggle-ghost-color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
+    --moduix-toggle-outline-color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
   }
 }

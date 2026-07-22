@@ -11,12 +11,13 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - Always apply `.agents/skills/engineering-principles/SKILL.md` for coding tasks.
 - For CSS or CSS Modules work, apply `.agents/skills/css-authoring/SKILL.md`.
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
-- For TanStack Start, TanStack Router, or TanStack Intent work in `apps/docs`, apply `.agents/skills/tanstack-intent/SKILL.md`.
 - For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
 - For component work in `packages/react`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
 - When the user explicitly asks to create or update a changeset, apply `.agents/skills/changeset-workflow/SKILL.md`.
 - For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
-- For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
+- For docs work in the Rspress 2 app in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md` and `.agents/skills/rspress-best-practices/SKILL.md`.
+- For Rspress theme or layout work, apply `.agents/skills/rspress-custom-theme/SKILL.md`.
+- When creating documentation pages, apply `.agents/skills/rspress-description-generator/SKILL.md`.
 - For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
 
 `engineering-principles` is the immutable baseline skill. Keep project-specific rules in dedicated
@@ -32,6 +33,7 @@ If a task spans UI and docs, apply skills in this order:
 5. `local-component-docs` when component markdown is created or updated
 6. `cross-package-sync`
 7. `docs-workflow`
+8. `rspress-best-practices`
 
 ## Repository Rules
 
@@ -65,7 +67,7 @@ If a task spans UI and docs, apply skills in this order:
   `packages/react/src/components` when behavior, API, styling contract, or recommended usage changed.
 - `registry/registry.json` is the source manifest for the hosted React registry. Source files in
   registry items point directly at `packages/react/src/...`.
-- `npm run build:registry` generates the deployed JSON artifacts into `apps/docs/public/r/react`.
+- `npm run build:registry` generates the deployed JSON artifacts into `apps/docs/docs/public/r/react`.
 - Consumer registry targets remain namespaced under `@components/moduix/*` and `@lib/moduix/*`.
 - In MDX snippets, prefer `as T` over `useState<T>()`; MDX can parse `<T>` as JSX.
 
