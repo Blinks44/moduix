@@ -2,6 +2,12 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const fileUploadExampleCss = `
+  [data-slot='file-upload-root'],
+  [data-slot='file-upload-root-provider'] {
+    --moduix-file-upload-width: 24rem;
+    --moduix-file-upload-max-width: 100%;
+  }
+
   .file-upload-simple-demo {
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
     border-radius: var(--moduix-radius-lg);
