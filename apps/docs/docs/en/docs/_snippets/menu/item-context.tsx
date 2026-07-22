@@ -16,7 +16,7 @@ export default function ItemContextMenuDemo() {
               {(item) => (
                 <span
                   style={{
-                    fontWeight: item.highlighted ? 'var(--weight-semibold)' : undefined,
+                    fontWeight: item.highlighted ? 'var(--moduix-weight-semibold)' : undefined,
                   }}
                 >
                   Profile Settings

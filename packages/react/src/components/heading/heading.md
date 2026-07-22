@@ -113,24 +113,24 @@ Default semantic size mapping:
 
 Public CSS variables:
 
-| Variable                         | Default                               |
-| -------------------------------- | ------------------------------------- |
-| `--heading-color`                | `var(--color-foreground)`             |
-| `--heading-font-family`          | `inherit`                             |
-| `--heading-font-size`            | size-dependent fallback               |
-| `--heading-font-size-{size}`     | matching `--text-*` token             |
-| `--heading-font-weight`          | selected weight fallback              |
-| `--heading-font-weight-{weight}` | matching `--weight-*` token           |
-| `--heading-letter-spacing`       | `0`                                   |
-| `--heading-line-height`          | size-dependent fallback               |
-| `--heading-line-height-{size}`   | matching `--line-height-text-*` token |
-| `--heading-text-wrap`            | `balance`                             |
+| Variable                                | Default                                      |
+| --------------------------------------- | -------------------------------------------- |
+| `--moduix-heading-color`                | `var(--moduix-color-foreground)`             |
+| `--moduix-heading-font-family`          | `inherit`                                    |
+| `--moduix-heading-font-size`            | size-dependent fallback                      |
+| `--moduix-heading-font-size-{size}`     | matching `--moduix-text-*` token             |
+| `--moduix-heading-font-weight`          | selected weight fallback                     |
+| `--moduix-heading-font-weight-{weight}` | matching `--moduix-weight-*` token           |
+| `--moduix-heading-letter-spacing`       | `0`                                          |
+| `--moduix-heading-line-height`          | size-dependent fallback                      |
+| `--moduix-heading-line-height-{size}`   | matching `--moduix-line-height-text-*` token |
+| `--moduix-heading-text-wrap`            | `balance`                                    |
 
 The root also uses `overflow-wrap: break-word`.
 
 ## Intentional sugar and differences from upstream
 
-- moduix adds visual `size` and `weight` props and the `--heading-*` token contract.
+- moduix adds visual `size` and `weight` props and the `--moduix-heading-*` token contract.
 - moduix adds the `as` prop for common heading-level selection.
 - moduix adds `Heading.Root` as an Ark-style namespace alias.
 - moduix adds `data-scope`, `data-part`, and stable `data-slot` hooks.
@@ -146,7 +146,7 @@ The root also uses `overflow-wrap: break-word`.
 - Preserve the native `h1` default, `as` level selection, `asChild` composition, heading-only
   semantic constraint, and ref forwarding.
 - Keep explicit `size` selectors stronger than the implicit element-based size mapping.
-- Preserve the public `data-*` and `--heading-*` styling contracts.
+- Preserve the public `data-*` and `--moduix-heading-*` styling contracts.
 
 ## Local changelog
 

@@ -6,12 +6,6 @@ description: A composable surface for content related to a single subject.
 
 import * as CardDocs from '@/components/examples/card';
 
-<style>{`
-  .rp-preview [data-slot='card-root']:not(.horizontalCard) {
-    max-width: min(24rem, 100%);
-  }
-`}</style>
-
 ## API Reference
 
 Ark UI does not ship a dedicated card primitive. Moduix builds this component with the official
@@ -100,7 +94,7 @@ in the title, then extends the hit area across the card while separate controls 
 - `Card.Title` renders `h3` by default.
 - Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
 - `Card.Body` resets first and last direct-child margins.
-- `--card-spacing`, `--card-spacing-sm`, and `--card-spacing-lg` control shared inset and section spacing without replacing the narrower `--card-*` overrides.
+- `--moduix-card-spacing`, `--moduix-card-spacing-sm`, and `--moduix-card-spacing-lg` control shared inset and section spacing without replacing the narrower `--moduix-card-*` overrides.
 
 ## Examples
 
@@ -152,7 +146,7 @@ Use `Card.Link` when navigation and independent actions must coexist.
 
 <style>{`
       [data-slot="card-link"]:focus-visible::after {
-        outline-color: var(--color-ring);
+        outline-color: var(--moduix-color-ring);
       }
     `}</style>
 
@@ -181,7 +175,7 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
 <style>{`
       .cards {
         display: grid;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .card {
@@ -200,7 +194,7 @@ Use the Chakra-aligned variants to communicate surface hierarchy.
 <style>{`
       .cards {
         display: grid;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .card {
@@ -220,7 +214,7 @@ Compose profile media inside the header when identity is the card's subject.
       .profile {
         display: flex;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .avatar {
@@ -228,9 +222,9 @@ Compose profile media inside the header when identity is the card's subject.
         width: 3rem;
         height: 3rem;
         place-items: center;
-        border-radius: var(--radius-full);
-        background: var(--color-primary);
-        color: var(--color-primary-foreground);
+        border-radius: var(--moduix-radius-full);
+        background: var(--moduix-color-primary);
+        color: var(--moduix-color-primary-foreground);
       }
     `}</style>
 
@@ -262,12 +256,12 @@ Compose the root as a form when the card groups related fields and actions.
 <style>{`
       form [data-slot="card-body"] {
         display: grid;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       form label {
         display: grid;
-        gap: var(--spacing-1);
+        gap: var(--moduix-spacing-1);
       }
     `}</style>
 
@@ -281,13 +275,13 @@ Bypass `Card.Media` when you need fully custom media framing and want to restyle
 
 <style>{`
       .card {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
+        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
       }
 
       .mediaShell {
         overflow: hidden;
-        border-start-start-radius: var(--card-radius);
-        border-start-end-radius: var(--card-radius);
+        border-start-start-radius: var(--moduix-card-radius);
+        border-start-end-radius: var(--moduix-card-radius);
       }
 
       .image {
@@ -299,25 +293,25 @@ Bypass `Card.Media` when you need fully custom media framing and want to restyle
 
       .capacity {
         display: grid;
-        gap: var(--spacing-2);
-        color: var(--color-foreground);
-        font-size: var(--text-2xl);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-2xl);
+        gap: var(--moduix-spacing-2);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-2xl);
+        font-weight: var(--moduix-weight-semibold);
+        line-height: var(--moduix-line-height-text-2xl);
       }
 
       .capacityBar {
         height: 0.5rem;
         overflow: hidden;
-        border-radius: var(--radius-full);
-        background-color: var(--color-muted);
+        border-radius: var(--moduix-radius-full);
+        background-color: var(--moduix-color-muted);
       }
 
       .capacityFill {
         width: 64%;
         height: 100%;
         border-radius: inherit;
-        background-color: var(--color-primary);
+        background-color: var(--moduix-color-primary);
       }
     `}</style>
 

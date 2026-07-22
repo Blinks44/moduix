@@ -32,7 +32,7 @@ export const Card: Story = {
   render: () => {
     return (
       <Stack gap={16} className={styles.card}>
-        <Skeleton height={148} borderRadius="var(--radius-lg)" />
+        <Skeleton height={148} borderRadius="var(--moduix-radius-lg)" />
         <Stack gap={12}>
           <Skeleton width="70%" height={20} />
           <Skeleton height={14} />
@@ -47,7 +47,7 @@ export const MediaObject: Story = {
   render: () => {
     return (
       <Stack direction="row" align="center" gap={12} className={styles.mediaObject}>
-        <Skeleton boxSize={48} borderRadius="var(--radius-full)" />
+        <Skeleton boxSize={48} borderRadius="var(--moduix-radius-full)" />
         <Stack gap={8} fill>
           <Skeleton width="46%" height={16} />
           <Skeleton height={14} />
@@ -118,7 +118,12 @@ export const LoadedContent: Story = {
 export const AsChild: Story = {
   render: () => {
     return (
-      <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
+      <Skeleton
+        asChild
+        height={72}
+        borderRadius="var(--moduix-radius-lg)"
+        className={styles.asChild}
+      >
         <section aria-label="Loading summary" />
       </Skeleton>
     );

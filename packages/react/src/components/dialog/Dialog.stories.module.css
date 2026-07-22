@@ -1,8 +1,8 @@
-@layer ui.stories {
+@layer moduix.stories {
   .scrollContent {
     display: flex;
     flex-direction: column;
-    height: min(42rem, calc(100dvh - var(--spacing-10)));
+    height: min(42rem, calc(100dvh - var(--moduix-spacing-10)));
     overflow: hidden;
   }
 
@@ -20,20 +20,20 @@
   .scrollSections {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-5);
+    gap: var(--moduix-spacing-5);
 
     h3 {
-      margin: 0 0 var(--spacing-1);
-      font-size: var(--text-sm);
-      font-weight: var(--weight-semibold);
-      line-height: var(--line-height-text-md);
+      margin: 0 0 var(--moduix-spacing-1);
+      font-size: var(--moduix-text-sm);
+      font-weight: var(--moduix-weight-semibold);
+      line-height: var(--moduix-line-height-text-md);
     }
 
     p {
       margin: 0;
-      color: var(--dialog-muted-color, var(--color-muted-foreground));
-      font-size: var(--text-sm);
-      line-height: var(--line-height-text-md);
+      color: var(--moduix-dialog-muted-color, var(--moduix-color-muted-foreground));
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-md);
     }
   }
 }

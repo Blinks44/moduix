@@ -19,7 +19,7 @@ Use a few line skeletons for the common text-loading case.
 
 <style>{`
       .skeleton-stack {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -64,14 +64,14 @@ surfaces, apply `className`, `style`, or the public CSS variables.
 
 ### Default props
 
-| Prop           | Default                         | Notes                                                                                                       |
-| -------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `loading`      | `true`                          | Controls whether placeholder styles are active or children are shown normally.                              |
-| `variant`      | `pulse`                         | Supports `pulse` and `none`.                                                                                |
-| `height`       | `1rem` while loading            | Loading CSS sets the default placeholder height. Loaded content uses natural height unless a height is set. |
-| `width`        | `100%`                          | CSS sets the default root width. Numeric prop values become `px`.                                           |
-| `boxSize`      | -                               | Sets width and height together when that axis is not provided.                                              |
-| `borderRadius` | `var(--skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                                                 |
+| Prop           | Default                                | Notes                                                                                                       |
+| -------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `loading`      | `true`                                 | Controls whether placeholder styles are active or children are shown normally.                              |
+| `variant`      | `pulse`                                | Supports `pulse` and `none`.                                                                                |
+| `height`       | `1rem` while loading                   | Loading CSS sets the default placeholder height. Loaded content uses natural height unless a height is set. |
+| `width`        | `100%`                                 | CSS sets the default root width. Numeric prop values become `px`.                                           |
+| `boxSize`      | -                                      | Sets width and height together when that axis is not provided.                                              |
+| `borderRadius` | `var(--moduix-skeleton-border-radius)` | Numeric prop values become `px`; style overrides still win.                                                 |
 
 ### Behavioral notes
 
@@ -89,7 +89,7 @@ Use a larger block plus shorter text lines to reserve card layout while content 
 
 <style>{`
       .card {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -104,16 +104,16 @@ Use `loading` to keep the same host in place while switching from placeholder to
 <style>{`
       .loadedContent {
         display: grid;
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
         min-height: 4.5rem;
-        gap: var(--spacing-1);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
+        gap: var(--moduix-spacing-1);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
       }
 
       .loadedGrid {
         display: grid;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -127,7 +127,7 @@ Use `boxSize` with a full radius for avatar placeholders, then compose text line
 
 <style>{`
       .mediaObject {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
+        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -141,8 +141,8 @@ Keep responsive layout logic in wrapper markup while each `Skeleton` stays a vis
 
 <style>{`
       .layoutExample {
-        width: min(24rem, calc(100vw - var(--spacing-8)));
-        padding-block: var(--spacing-1);
+        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
+        padding-block: var(--moduix-spacing-1);
       }
     `}</style>
 
@@ -156,7 +156,7 @@ Pass `variant="none"` when the loading state is dense or motion should stay quie
 
 <style>{`
       .staticSkeleton {
-        max-width: calc(100vw - var(--spacing-8));
+        max-width: calc(100vw - var(--moduix-spacing-8));
       }
     `}</style>
 
@@ -170,7 +170,7 @@ Use `variant` to choose between pulse and static placeholder rendering.
 
 <style>{`
       .stack {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -184,7 +184,7 @@ Use `asChild` when a semantic element such as `section` should own the DOM node 
 
 <style>{`
       .asChild {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -194,7 +194,7 @@ Use `asChild` when a semantic element such as `section` should own the DOM node 
 
 ## Styling
 
-`Skeleton` exposes Ark-style part and state hooks plus public `--skeleton-*` variables for color,
+`Skeleton` exposes Ark-style part and state hooks plus public `--moduix-skeleton-*` variables for color,
 radius, and motion.
 
 ### CSS Properties

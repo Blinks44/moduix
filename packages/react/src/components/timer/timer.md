@@ -121,8 +121,8 @@ the default accessible timer label is not appropriate.
 
 The wrapper adds CSS Modules defaults and stable `data-slot` hooks. `Timer.Root` centers its
 children with `place-items: center` by default. Runtime styling is controlled with component CSS
-variables such as `--timer-gap`, `--timer-area-font-size`, `--timer-item-min-width`,
-`--timer-action-trigger-bg`, and `--timer-action-trigger-icon-size`.
+variables such as `--moduix-timer-gap`, `--moduix-timer-area-font-size`, `--moduix-timer-item-min-width`,
+`--moduix-timer-action-trigger-bg`, and `--moduix-timer-action-trigger-icon-size`.
 
 `className` is normalized and merged with the default part class on every wrapped part.
 

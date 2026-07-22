@@ -1,4 +1,5 @@
 import { SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -12,19 +13,25 @@ export default function SegmentGroupRootProviderDemo() {
     defaultValue: 'React',
   });
   return (
-    <div className="segment-stack">
-      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
-        <SegmentGroup.Indicator />
-        <SegmentGroup.Items items={frameworks} />
-      </SegmentGroup.RootProvider>
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => segmentGroup.setValue('Solid')}
-      >
-        Set to Solid
-      </button>
-      <output className="segment-output">selected: {segmentGroup.value ?? 'none'}</output>
-    </div>
+    <PreviewLayout width="18rem">
+      <div className="segment-stack">
+        <SegmentGroup.RootProvider
+          aria-label="Framework"
+          className="segment-root-provider"
+          value={segmentGroup}
+        >
+          <SegmentGroup.Indicator />
+          <SegmentGroup.Items items={frameworks} />
+        </SegmentGroup.RootProvider>
+        <button
+          className="segment-button"
+          type="button"
+          onClick={() => segmentGroup.setValue('Solid')}
+        >
+          Set to Solid
+        </button>
+        <output className="segment-output">selected: {segmentGroup.value ?? 'none'}</output>
+      </div>
+    </PreviewLayout>
   );
 }

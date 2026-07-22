@@ -1,9 +1,9 @@
-@layer ui.stories {
+@layer moduix.stories {
   .stack {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .triggerGroup {
@@ -11,7 +11,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .titleText {
@@ -22,7 +22,7 @@
 
   .bodyStack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .bodyStack p {
@@ -30,47 +30,59 @@
   }
 
   .status {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .metricGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .metric {
     display: grid;
-    gap: var(--spacing-1);
-    padding: var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-background);
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-background);
   }
 
   .metric span {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
   }
 
   .metric strong {
-    font-size: var(--text-lg);
+    font-size: var(--moduix-text-lg);
   }
 
   .customPanel {
-    --floating-panel-bg: var(--color-primary);
-    --floating-panel-color: var(--color-primary-foreground);
-    --floating-panel-border-color: color-mix(in oklab, var(--color-primary), black 18%);
-    --floating-panel-header-bg: color-mix(in oklab, var(--color-primary), white 12%);
-    --floating-panel-control-bg: color-mix(in oklab, var(--color-primary), white 8%);
-    --floating-panel-control-bg-hover: color-mix(in oklab, var(--color-primary), white 18%);
-    --floating-panel-control-border-color: color-mix(in oklab, var(--color-primary), white 22%);
-    --floating-panel-control-color: var(--color-primary-foreground);
-    --floating-panel-drag-indicator-color: var(--color-primary-foreground);
-    --floating-panel-title-color: var(--color-primary-foreground);
-    --floating-panel-radius: var(--radius-lg);
-    --floating-panel-shadow: var(--shadow-lg);
+    --moduix-floating-panel-bg: var(--moduix-color-primary);
+    --moduix-floating-panel-color: var(--moduix-color-primary-foreground);
+    --moduix-floating-panel-border-color: color-mix(
+      in oklab,
+      var(--moduix-color-primary),
+      black 18%
+    );
+    --moduix-floating-panel-header-bg: color-mix(in oklab, var(--moduix-color-primary), white 12%);
+    --moduix-floating-panel-control-bg: color-mix(in oklab, var(--moduix-color-primary), white 8%);
+    --moduix-floating-panel-control-bg-hover: color-mix(
+      in oklab,
+      var(--moduix-color-primary),
+      white 18%
+    );
+    --moduix-floating-panel-control-border-color: color-mix(
+      in oklab,
+      var(--moduix-color-primary),
+      white 22%
+    );
+    --moduix-floating-panel-control-color: var(--moduix-color-primary-foreground);
+    --moduix-floating-panel-drag-indicator-color: var(--moduix-color-primary-foreground);
+    --moduix-floating-panel-title-color: var(--moduix-color-primary-foreground);
+    --moduix-floating-panel-radius: var(--moduix-radius-lg);
+    --moduix-floating-panel-shadow: var(--moduix-shadow-lg);
   }
 }

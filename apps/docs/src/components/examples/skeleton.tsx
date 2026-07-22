@@ -2,14 +2,22 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/refere
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const skeletonCssProperties: CssPropertyInput[] = [
-  ['--skeleton-animation', 'var(--animation-pulse)', 'Controls the pulse loading animation.'],
-  ['--skeleton-border-radius', 'var(--radius-md)', 'Controls default skeleton border radius.'],
   [
-    '--skeleton-bg',
-    'color-mix(in oklab, var(--color-muted-foreground) 18%, var(--color-background))',
+    '--moduix-skeleton-animation',
+    'var(--moduix-animation-pulse)',
+    'Controls the pulse loading animation.',
+  ],
+  [
+    '--moduix-skeleton-border-radius',
+    'var(--moduix-radius-md)',
+    'Controls default skeleton border radius.',
+  ],
+  [
+    '--moduix-skeleton-bg',
+    'color-mix(in oklab, var(--moduix-color-muted-foreground) 18%, var(--moduix-color-background))',
     'Controls skeleton background color.',
   ],
-  ['--skeleton-height', 'var(--spacing-4)', 'Controls default loading height.'],
+  ['--moduix-skeleton-height', 'var(--moduix-spacing-4)', 'Controls default loading height.'],
 ];
 const skeletonOverrideCssProperties = skeletonCssProperties;
 

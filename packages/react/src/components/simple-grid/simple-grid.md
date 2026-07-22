@@ -52,7 +52,7 @@ import { SimpleGrid } from '@moduix/react';
 
 export function Example() {
   return (
-    <SimpleGrid minChildWidth="16rem" gap="var(--spacing-4)">
+    <SimpleGrid minChildWidth="16rem" gap="var(--moduix-spacing-4)">
       <article>Analytics</article>
       <article>Billing</article>
       <article>Reports</article>

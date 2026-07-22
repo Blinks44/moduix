@@ -1,27 +1,21 @@
 .stack {
   display: grid;
-  gap: var(--spacing-3);
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-3);
 }
 
 .hint {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .customControl {
-  --date-input-bg: var(--color-muted);
-  --date-input-border-color: var(--color-primary);
-  --date-input-focus-ring-color: var(--color-primary);
+  --moduix-date-input-bg: var(--moduix-color-muted);
+  --moduix-date-input-border-color: var(--moduix-color-primary);
+  --moduix-date-input-focus-ring-color: var(--moduix-color-primary);
 }
 
 .customSegment {
-  --date-input-segment-bg-focus: var(--color-primary);
-  --date-input-segment-color-focus: var(--color-primary-foreground);
+  --moduix-date-input-segment-bg-focus: var(--moduix-color-primary);
+  --moduix-date-input-segment-color-focus: var(--moduix-color-primary-foreground);
 }

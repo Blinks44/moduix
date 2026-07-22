@@ -166,7 +166,7 @@ Set `orientation="vertical"` and give the root a stable height so stacked panels
 
 Style `Splitter` through `className`, Ark attributes, stable `data-slot="splitter-*"` hooks, and the
 public Moduix CSS variables below. `Splitter.Root` and `Splitter.RootProvider` apply
-`--splitter-width` and `--splitter-height` through their default inline style so those variables can
+`--moduix-splitter-width` and `--moduix-splitter-height` through their default inline style so those variables can
 override Ark's root layout style. The default surface lives on the root, while panels stay flat and
 flush inside it.
 
@@ -174,7 +174,7 @@ The resize trigger contributes a `1px` separator to layout with a visually thinn
 transparent hit area, and a raised rounded indicator on top. The indicator is centered over the
 separator for both orientations. Hover strengthens its border and shadow, while dragging adds a
 slight scale and stronger shadow. Releasing the pointer returns the trigger to its idle appearance.
-Override the corresponding `--splitter-resize-trigger-*` variables when the surrounding theme needs
+Override the corresponding `--moduix-splitter-resize-trigger-*` variables when the surrounding theme needs
 a different treatment.
 
 ### CSS Properties

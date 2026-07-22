@@ -23,7 +23,7 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
 
 <style>{`
       .drawer-content {
-        --drawer-max-height: 80dvh;
+        --moduix-drawer-max-height: 80dvh;
       }
     `}</style>
 
@@ -138,7 +138,7 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 
 Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
 
-<style>{`.controlled-drawer { --drawer-width: min(100%, 48rem); }`}</style>
+<style>{`.controlled-drawer { --moduix-drawer-width: min(100%, 48rem); }`}</style>
 
 ```tsx preview file="./_snippets/drawer/controlled.tsx"
 
@@ -152,8 +152,8 @@ specific interactive regions must never start a drag.
 <style>{`
       .no-drag-area {
         padding: 1rem;
-        border: 1px dashed var(--color-border);
-        border-radius: var(--radius-md);
+        border: 1px dashed var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
       }
     `}</style>
 
@@ -171,14 +171,14 @@ progress.
         position: relative;
         min-height: 22rem;
         overflow: hidden;
-        background: var(--color-foreground);
+        background: var(--moduix-color-foreground);
       }
 
       .indent-surface {
         display: grid;
         min-height: 22rem;
         place-items: center;
-        background: var(--color-background);
+        background: var(--moduix-color-background);
       }
     `}</style>
 
@@ -225,7 +225,7 @@ behind the active drawer while leaving a visible edge.
 
 Set `modal={false}` when the page must remain interactive while the drawer is open.
 
-<style>{`.non-modal-drawer { --drawer-shadow: var(--shadow-xl); }`}</style>
+<style>{`.non-modal-drawer { --moduix-drawer-shadow: var(--moduix-shadow-lg); }`}</style>
 
 ```tsx preview file="./_snippets/drawer/non-modal.tsx"
 
@@ -271,7 +271,7 @@ scroll container while the grabber and header stay fixed.
 
       .scroll-viewport {
         height: 100%;
-        padding-inline-end: var(--spacing-2);
+        padding-inline-end: var(--moduix-spacing-2);
       }
 
       .scroll-body {
@@ -288,7 +288,7 @@ scroll container while the grabber and header stay fixed.
 
 Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
-<style>{`.snap-drawer { --drawer-max-height: 100dvh; }`}</style>
+<style>{`.snap-drawer { --moduix-drawer-max-height: 100dvh; }`}</style>
 
 ```tsx preview file="./_snippets/drawer/snap-points.tsx"
 
@@ -300,7 +300,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
 
 <style>{`
       .side-drawer {
-        --drawer-side-width: 26rem;
+        --moduix-drawer-side-width: 26rem;
       }
     `}</style>
 

@@ -2,13 +2,13 @@
 
 ## Result
 
-`apps/docs` is the production Rspress documentation application that replaced the former
-TanStack Start/Fumadocs application. It keeps the existing `/docs/*` URLs, all 117 documentation
+`apps/docs` is the production Rspress 2 documentation application. It replaced the previous docs
+application while keeping the existing `/docs/*` URLs, all 117 documentation
 pages, the custom homepage, registry assets, SEO metadata, sitemap, per-page Markdown, `llms.txt`,
 and `llms-full.txt`.
 
-The former Fumadocs application has been removed. The Worker is named `moduix`, matching the
-existing production service.
+The previous docs application has been removed. The Worker is named `moduix`, matching the existing
+production service.
 
 ## What the review changed
 
@@ -73,8 +73,8 @@ The site has 773 existing live surfaces:
   not a standalone demo export;
 - the animation playground and recipe gallery remain composed documentation widgets.
 
-`ExampleFrame` is no longer a Fumadocs-compatible preview system. It is a small layout wrapper that
-uses Rspress `BrowserOnly` for the exceptional client-only cases. The former compound `Preview`,
+`ExampleFrame` is a small Rspress-native layout wrapper that uses `BrowserOnly` for the exceptional
+client-only cases. The previous compound `Preview`,
 slot parser, `NoSSR`, Tabs compatibility adapter, and CSS transform layer are gone. Rspress's own
 `Tabs`, `Tab`, and `PackageManagerTabs` are used directly.
 
@@ -111,8 +111,7 @@ component CSS overrode the browser's weak `[hidden]` rule, leaving closed popups
 indicators visible. The library reset restores `[hidden] { display: none !important; }`, so
 Combobox, Select, Menu, Dialog, and related Ark-driven examples can open and close normally.
 
-The theme now uses Rspress variables and BEM hooks instead of Fumadocs aliases and utility-class
-shims:
+The theme now uses Rspress variables and BEM hooks instead of legacy aliases and utility-class shims:
 
 - active sidebar items, heading anchors, links, and hover borders use the neutral gray palette;
 - component cards use neutral borders and icon surfaces;
@@ -129,7 +128,7 @@ shims:
   padding;
 - the 56px glass navigation stays more translucent over the homepage;
 - the homepage keeps its original green/teal blurred spotlight behind the floating composition;
-- the introduction's Tailwind/Fumadocs class block was replaced with a CSS Module component;
+- the introduction's previous Tailwind-oriented class block was replaced with a CSS Module component;
 - the fragile `:has()` selector targeting the hashed homepage class was removed because
   `pageType: custom` already provides the intended full-width layout.
 
@@ -212,7 +211,7 @@ The reviewed tree passes the repository validation sequence:
 - `wrangler deploy --dry-run` (669 static assets discovered, with no Cloudflare changes made).
 
 A separate static audit also found no missing MDX descriptions, broken external snippet references,
-language-prefixed default routes, region markers, or active Fumadocs/config-transform compatibility
+language-prefixed default routes, region markers, or active legacy compatibility/code-transform
 code.
 
 ## Deploy to Cloudflare Workers

@@ -65,7 +65,7 @@ export const Separator: Story = {
 export const Fill: Story = {
   render: () => (
     <Stack direction="row" align="center" gap={12} className={styles.row}>
-      <Skeleton boxSize={40} borderRadius="var(--radius-full)" />
+      <Skeleton boxSize={40} borderRadius="var(--moduix-radius-full)" />
       <Stack gap={8} fill>
         <Skeleton width="48%" height={16} />
         <Skeleton height={14} />
@@ -86,7 +86,7 @@ export const ResponsiveDirection: Story = {
 export const SkeletonComposition: Story = {
   render: () => (
     <Stack gap={16} className={styles.skeletonCard}>
-      <Skeleton height={144} borderRadius="var(--radius-lg)" />
+      <Skeleton height={144} borderRadius="var(--moduix-radius-lg)" />
       <Stack gap={12}>
         <Skeleton width="62%" height={18} />
         <Skeleton height={14} />

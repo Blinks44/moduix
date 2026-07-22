@@ -3,73 +3,73 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const marqueeExampleCss = `
   .marquee-root {
-    --marquee-width: 32rem;
+    --moduix-marquee-width: 32rem;
     max-width: calc(100vw - 2rem);
   }
 
   .marquee-item {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     min-width: max-content;
-    padding: var(--spacing-2) var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    line-height: var(--line-height-text-sm);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
     white-space: nowrap;
   }
 
   .marquee-stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .marquee-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     justify-content: flex-end;
   }
 
   .marquee-status {
     display: flex;
-    gap: var(--spacing-3);
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    gap: var(--moduix-spacing-3);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 `;
 
 export const marqueeVerticalCss = `
   .marquee-vertical {
-    --marquee-width: 14rem;
-    --marquee-vertical-height: 18rem;
+    --moduix-marquee-width: 14rem;
+    --moduix-marquee-vertical-height: 18rem;
     max-width: calc(100vw - 2rem);
   }
 
   .marquee-item {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     min-width: max-content;
-    padding: var(--spacing-2) var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    line-height: var(--line-height-text-sm);
+    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
     white-space: nowrap;
   }
 `;
 
 const marqueeCssProperties: CssPropertyInput[] = [
-  ['--marquee-color', 'var(--color-foreground)', 'Controls root text color.'],
+  ['--moduix-marquee-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [
     '--marquee-delay',
     'computed from `delay` (default `0s`)',
@@ -80,10 +80,14 @@ const marqueeCssProperties: CssPropertyInput[] = [
     'computed from content size and `speed` (default `50`)',
     'Runtime value from Ark that controls animation duration.',
   ],
-  ['--marquee-edge-color', 'var(--color-background)', 'Controls edge fade start color.'],
-  ['--marquee-edge-size', '20%', 'Controls edge fade width or height.'],
-  ['--marquee-edge-z-index', '1', 'Controls edge overlay stacking.'],
-  ['--marquee-height', 'auto', 'Controls root height for horizontal marquees.'],
+  [
+    '--moduix-marquee-edge-color',
+    'var(--moduix-color-background)',
+    'Controls edge fade start color.',
+  ],
+  ['--moduix-marquee-edge-size', '20%', 'Controls edge fade width or height.'],
+  ['--moduix-marquee-edge-z-index', '1', 'Controls edge overlay stacking.'],
+  ['--moduix-marquee-height', 'auto', 'Controls root height for horizontal marquees.'],
   [
     '--marquee-loop-count',
     'computed from `loopCount` (default `0` = infinite)',
@@ -100,11 +104,11 @@ const marqueeCssProperties: CssPropertyInput[] = [
     'Runtime value from Ark that drives the keyframe translate distance.',
   ],
   [
-    '--marquee-vertical-height',
-    'var(--marquee-height, 15rem)',
+    '--moduix-marquee-vertical-height',
+    'var(--moduix-marquee-height, 15rem)',
     'Controls root height for vertical marquees.',
   ],
-  ['--marquee-width', '100%', 'Controls root width.'],
+  ['--moduix-marquee-width', '100%', 'Controls root width.'],
 ];
 
 const marqueeCssPropertiesReference = marqueeCssProperties.map(normalizeCssProperty);

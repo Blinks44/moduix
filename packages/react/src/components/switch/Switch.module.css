@@ -1,8 +1,8 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: inline-flex;
     align-items: center;
-    gap: var(--switch-gap, var(--spacing-2));
+    gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
     width: fit-content;
     vertical-align: middle;
     cursor: pointer;
@@ -13,7 +13,7 @@
     }
 
     &[data-disabled] {
-      opacity: var(--switch-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-switch-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -23,122 +23,138 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    width: var(--switch-width, 3rem);
-    height: var(--switch-height, var(--size-xs));
-    --switch-thumb-translate-default: calc(
-      var(--switch-width, 3rem) - var(--switch-thumb-size, var(--spacing-5)) -
-        (var(--switch-padding, var(--spacing-0-5)) * 2) -
-        (var(--switch-border-width, var(--border-width-sm)) * 2)
+    width: var(--moduix-switch-width, 3rem);
+    height: var(--moduix-switch-height, var(--moduix-size-xs));
+    --moduix-switch-thumb-translate-default: calc(
+      var(--moduix-switch-width, 3rem) - var(--moduix-switch-thumb-size, var(--moduix-spacing-5)) -
+        (var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2) -
+        (var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)
     );
-    border: var(--switch-border-width, var(--border-width-sm)) solid
-      var(--switch-border-color, var(--color-border));
-    border-radius: var(--switch-radius, var(--radius-full));
-    padding: var(--switch-padding, var(--spacing-0-5));
-    background-color: var(--switch-bg, var(--color-muted));
+    border: var(--moduix-switch-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-switch-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-switch-radius, var(--moduix-radius-full));
+    padding: var(--moduix-switch-padding, var(--moduix-spacing-0-5));
+    background-color: var(--moduix-switch-bg, var(--moduix-color-muted));
     outline: 0;
     line-height: 0;
     user-select: none;
     transition:
-      background-color var(--switch-transition, var(--transition-default)),
-      border-color var(--switch-transition, var(--transition-default)),
-      opacity var(--switch-transition, var(--transition-default));
+      background-color var(--moduix-switch-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-switch-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-switch-transition, var(--moduix-transition-default));
 
     &[data-state='checked'] {
-      border-color: var(--switch-border-color-checked, var(--color-primary));
-      background-color: var(--switch-bg-checked, var(--color-primary));
+      border-color: var(--moduix-switch-border-color-checked, var(--moduix-color-primary));
+      background-color: var(--moduix-switch-bg-checked, var(--moduix-color-primary));
     }
 
     &[data-focus-visible] {
-      outline: var(--switch-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
-        solid var(--switch-focus-ring-color, var(--color-ring));
-      outline-offset: var(--switch-focus-ring-offset, var(--border-width-sm));
+      outline: var(
+          --moduix-switch-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-switch-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-switch-focus-ring-offset, var(--moduix-border-width-sm));
     }
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
-        background-color: var(--switch-bg-hover, var(--color-accent));
+        background-color: var(--moduix-switch-bg-hover, var(--moduix-color-accent));
       }
 
       &[data-state='checked'][data-hover]:not([data-readonly], [data-disabled]) {
         background-color: var(
-          --switch-bg-checked-hover,
-          var(--switch-bg-checked, var(--color-primary))
+          --moduix-switch-bg-checked-hover,
+          var(--moduix-switch-bg-checked, var(--moduix-color-primary))
         );
       }
     }
   }
 
   .root[data-size='xs'] .control {
-    --switch-width: var(--switch-width-xs, 1.75rem);
-    --switch-height: var(--switch-height-xs, 1rem);
-    --switch-thumb-size: var(--switch-thumb-size-xs, var(--spacing-3));
+    --moduix-switch-width: var(--moduix-switch-width-xs, 1.75rem);
+    --moduix-switch-height: var(--moduix-switch-height-xs, 1rem);
+    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-xs, var(--moduix-spacing-3));
   }
 
   .root[data-size='sm'] .control {
-    --switch-width: var(--switch-width-sm, 2.25rem);
-    --switch-height: var(--switch-height-sm, 1.25rem);
-    --switch-thumb-size: var(--switch-thumb-size-sm, var(--spacing-4));
+    --moduix-switch-width: var(--moduix-switch-width-sm, 2.25rem);
+    --moduix-switch-height: var(--moduix-switch-height-sm, 1.25rem);
+    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-sm, var(--moduix-spacing-4));
   }
 
   .root[data-size='md'] .control {
-    --switch-width: var(--switch-width-md, 2.75rem);
-    --switch-height: var(--switch-height-md, var(--size-xs));
-    --switch-thumb-size: var(--switch-thumb-size-md, var(--spacing-5));
+    --moduix-switch-width: var(--moduix-switch-width-md, 2.75rem);
+    --moduix-switch-height: var(--moduix-switch-height-md, var(--moduix-size-xs));
+    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-md, var(--moduix-spacing-5));
   }
 
   .root[data-size='lg'] .control {
-    --switch-width: var(--switch-width-lg, 3.25rem);
-    --switch-height: var(--switch-height-lg, 1.75rem);
-    --switch-thumb-size: var(--switch-thumb-size-lg, var(--size-xs));
+    --moduix-switch-width: var(--moduix-switch-width-lg, 3.25rem);
+    --moduix-switch-height: var(--moduix-switch-height-lg, 1.75rem);
+    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-lg, var(--moduix-size-xs));
   }
 
   .root[data-size='xl'] .control {
-    --switch-width: var(--switch-width-xl, 3.75rem);
-    --switch-height: var(--switch-height-xl, var(--size-sm));
-    --switch-thumb-size: var(--switch-thumb-size-xl, var(--spacing-7));
+    --moduix-switch-width: var(--moduix-switch-width-xl, 3.75rem);
+    --moduix-switch-height: var(--moduix-switch-height-xl, var(--moduix-size-sm));
+    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-xl, var(--moduix-spacing-7));
   }
 
   .thumb {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--switch-thumb-size, var(--spacing-5));
-    height: var(--switch-thumb-size, var(--spacing-5));
-    border: var(--switch-thumb-border-width, 0) solid var(--switch-thumb-border-color, transparent);
-    border-radius: var(--switch-thumb-radius, var(--radius-full));
+    width: var(--moduix-switch-thumb-size, var(--moduix-spacing-5));
+    height: var(--moduix-switch-thumb-size, var(--moduix-spacing-5));
+    border: var(--moduix-switch-thumb-border-width, 0) solid
+      var(--moduix-switch-thumb-border-color, transparent);
+    border-radius: var(--moduix-switch-thumb-radius, var(--moduix-radius-full));
     background-color: var(
-      --switch-thumb-bg-unchecked,
-      var(--switch-thumb-bg, var(--color-background))
+      --moduix-switch-thumb-bg-unchecked,
+      var(--moduix-switch-thumb-bg, var(--moduix-color-background))
     );
-    color: var(--switch-thumb-color-unchecked, var(--switch-thumb-color, var(--color-muted)));
-    box-shadow: var(--switch-thumb-shadow, var(--shadow-sm));
+    color: var(
+      --moduix-switch-thumb-color-unchecked,
+      var(--moduix-switch-thumb-color, var(--moduix-color-muted))
+    );
+    box-shadow: var(--moduix-switch-thumb-shadow, var(--moduix-shadow-sm));
     transform: translateX(0);
     transition:
-      transform var(--switch-thumb-transition, var(--switch-transition, var(--transition-default))),
-      background-color var(--switch-transition, var(--transition-default)),
-      color var(--switch-transition, var(--transition-default));
+      transform
+        var(
+          --moduix-switch-thumb-transition,
+          var(--moduix-switch-transition, var(--moduix-transition-default))
+        ),
+      background-color var(--moduix-switch-transition, var(--moduix-transition-default)),
+      color var(--moduix-switch-transition, var(--moduix-transition-default));
 
     &[data-state='checked'] {
       background-color: var(
-        --switch-thumb-bg-checked,
-        var(--switch-thumb-bg, var(--color-primary-foreground))
+        --moduix-switch-thumb-bg-checked,
+        var(--moduix-switch-thumb-bg, var(--moduix-color-primary-foreground))
       );
-      color: var(--switch-thumb-color-checked, var(--switch-thumb-color, var(--color-primary)));
-      transform: translateX(var(--switch-thumb-translate, var(--switch-thumb-translate-default)));
+      color: var(
+        --moduix-switch-thumb-color-checked,
+        var(--moduix-switch-thumb-color, var(--moduix-color-primary))
+      );
+      transform: translateX(
+        var(--moduix-switch-thumb-translate, var(--moduix-switch-thumb-translate-default))
+      );
     }
 
     & > svg {
-      width: var(--switch-thumb-icon-size, 65%);
-      height: var(--switch-thumb-icon-size, 65%);
+      width: var(--moduix-switch-thumb-icon-size, 65%);
+      height: var(--moduix-switch-thumb-icon-size, 65%);
       flex-shrink: 0;
     }
   }
 
   .label {
-    color: var(--switch-label-color, var(--color-foreground));
-    font-size: var(--switch-label-font-size, var(--text-sm));
-    font-weight: var(--switch-label-font-weight, var(--weight-medium));
-    line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+    color: var(--moduix-switch-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-switch-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
   }
 }

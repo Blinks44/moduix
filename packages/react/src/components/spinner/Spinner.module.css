@@ -1,7 +1,10 @@
-@layer ui.components {
+@layer moduix.components {
   .root,
   [data-scope='spinner'][data-part='root'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-md, var(--spacing-5)));
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-md, var(--moduix-spacing-5))
+    );
 
     display: inline-flex;
     width: var(--_spinner-size);
@@ -9,7 +12,7 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    color: var(--spinner-color, currentColor);
+    color: var(--moduix-spinner-color, currentColor);
     vertical-align: middle;
   }
 
@@ -20,7 +23,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    animation: var(--spinner-animation, var(--animation-spin));
+    animation: var(--moduix-spinner-animation, var(--moduix-animation-spin));
   }
 
   .ring,
@@ -29,10 +32,10 @@
     display: block;
     width: 100%;
     height: 100%;
-    border: var(--spinner-ring-border-width, var(--border-width-md)) solid
-      var(--spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
-    border-block-start-color: var(--spinner-color, currentColor);
-    border-radius: var(--spinner-radius, var(--radius-full));
+    border: var(--moduix-spinner-ring-border-width, var(--moduix-border-width-md)) solid
+      var(--moduix-spinner-ring-track-color, color-mix(in oklab, currentColor 22%, transparent));
+    border-block-start-color: var(--moduix-spinner-color, currentColor);
+    border-radius: var(--moduix-spinner-radius, var(--moduix-radius-full));
   }
 
   .indicator :where(svg),
@@ -43,22 +46,34 @@
 
   .root[data-size='xs'],
   [data-scope='spinner'][data-part='root'][data-size='xs'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-xs, var(--spacing-3)));
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-xs, var(--moduix-spacing-3))
+    );
   }
 
   .root[data-size='sm'],
   [data-scope='spinner'][data-part='root'][data-size='sm'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-sm, var(--spacing-4)));
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-sm, var(--moduix-spacing-4))
+    );
   }
 
   .root[data-size='lg'],
   [data-scope='spinner'][data-part='root'][data-size='lg'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-lg, var(--spacing-7)));
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-lg, var(--moduix-spacing-7))
+    );
   }
 
   .root[data-size='xl'],
   [data-scope='spinner'][data-part='root'][data-size='xl'] {
-    --_spinner-size: var(--spinner-size, var(--spinner-size-xl, var(--size-md)));
+    --_spinner-size: var(
+      --moduix-spinner-size,
+      var(--moduix-spinner-size-xl, var(--moduix-size-md))
+    );
   }
 
   @media (prefers-reduced-motion: reduce) {

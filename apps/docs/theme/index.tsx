@@ -1,6 +1,7 @@
 import {
   addLeadingSlash,
   addTrailingSlash,
+  useDark,
   useFrontmatter,
   useHead,
   useLang,
@@ -24,7 +25,7 @@ import {
   Tag,
   useMdUrl,
 } from '@rspress/core/theme-original';
-import type { ComponentProps, FC } from 'react';
+import { useEffect, type ComponentProps, type FC } from 'react';
 import {
   Card,
   Cards,
@@ -128,6 +129,16 @@ export function FallbackHeading(props: ComponentProps<typeof OriginalFallbackHea
   );
 }
 
+function SynchronizeModuixColorScheme() {
+  const dark = useDark();
+
+  useEffect(() => {
+    document.documentElement.dataset.moduixColorScheme = dark ? 'dark' : 'light';
+  }, [dark]);
+
+  return null;
+}
+
 function ModuixNavTitle() {
   const { site } = useSite();
   const lang = useLang();
@@ -177,6 +188,7 @@ export function Layout() {
   return (
     <>
       <SocialMetadata />
+      <SynchronizeModuixColorScheme />
       <OriginalLayout
         components={mdxComponents as unknown as Record<string, FC>}
         navTitle={<ModuixNavTitle />}

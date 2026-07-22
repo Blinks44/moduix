@@ -50,7 +50,7 @@ Use `AspectRatio` for most media frames. Put sizing, radius, and layout classes 
 - `asChild` uses Ark factory composition and requires exactly one React element
 - direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically
 - `className` styles and sizes the root directly
-- `--aspect-ratio-radius` controls the default rounded frame
+- `--moduix-aspect-ratio-radius` controls the default rounded frame
 
 ### When to go custom
 
@@ -60,13 +60,13 @@ when a breakpoint needs a different frame.
 
 ### Default props
 
-| Entry                   | Default            | Values / Notes                       |
-| ----------------------- | ------------------ | ------------------------------------ |
-| `ratio`                 | -                  | Required positive finite `number`    |
-| `className`             | `undefined`        | Styles and sizes the root            |
-| `style`                 | `undefined`        | Can override `aspect-ratio` directly |
-| `asChild`               | `undefined`        | Ark factory composition              |
-| `--aspect-ratio-radius` | `var(--radius-md)` | CSS length or token value            |
+| Entry                          | Default                   | Values / Notes                       |
+| ------------------------------ | ------------------------- | ------------------------------------ |
+| `ratio`                        | -                         | Required positive finite `number`    |
+| `className`                    | `undefined`               | Styles and sizes the root            |
+| `style`                        | `undefined`               | Can override `aspect-ratio` directly |
+| `asChild`                      | `undefined`               | Ark factory composition              |
+| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | CSS length or token value            |
 
 ### Behavioral notes
 

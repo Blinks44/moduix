@@ -25,32 +25,20 @@ native form submission and reset synchronization. `Items` renders the standard e
 use explicit parts only when individual tags need customization.
 
 <style>{`
-      .rp-preview [data-scope='tags-input'][data-part='root'] {
-        --tags-input-max-width: 24rem;
-
-        margin-inline: auto;
-      }
-
       [data-slot="tags-input-control"] {
-        --tags-input-control-gap: var(--spacing-1);
+        --moduix-tags-input-control-gap: var(--moduix-spacing-1);
       }
 
       .tags-input-form {
         display: grid;
-        width: min(24rem, 100%);
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .tags-input-form output {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
       }
 
-      .centered-field-example {
-        --field-width: min(24rem, 100%);
-
-        margin-inline: auto;
-      }
     `}</style>
 
 ```tsx preview file="./_snippets/tags-input/basic.tsx"
@@ -155,7 +143,7 @@ Set `allowDuplicates` when repeated values are meaningful, such as recipients or
 
 Control the tag array when selected tags must drive surrounding UI or be reset from React state.
 
-<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/controlled.tsx"
 
@@ -165,7 +153,7 @@ Control the tag array when selected tags must drive surrounding UI or be reset f
 
 Control `inputValue` separately when another control should prefill or clear the entry input.
 
-<style>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</style>
+<style>{`.actions { display: inline-flex; gap: var(--moduix-spacing-2); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/controlled-input-value.tsx"
 
@@ -196,7 +184,7 @@ Set `editable={false}` when existing tags should be removable but not editable i
 Use `disabled` for a non-interactive control and `readOnly` when values remain visible but should
 not be edited.
 
-<style>{`.stack { display: grid; gap: var(--spacing-3); }`}</style>
+<style>{`.stack { display: grid; gap: var(--moduix-spacing-3); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/disabled-and-read-only.tsx"
 
@@ -207,7 +195,7 @@ not be edited.
 Wrap `TagsInput` in `Field` when label, helper text, invalid state, and error text should share Ark
 form accessibility wiring.
 
-<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</style>
+<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--moduix-color-destructive); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/field.tsx"
 
@@ -227,7 +215,7 @@ automatically and keeps form reset in sync.
 Use `allowOverflow` with `max` when users may exceed the limit while the control reports invalid
 state.
 
-<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--color-destructive); }`}</style>
+<style>{`[data-slot="tags-input-control"][data-invalid] { border-color: var(--moduix-color-destructive); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/max-with-overflow.tsx"
 
@@ -249,7 +237,7 @@ when focus leaves the control.
 Use `validate`, `max`, and `onValueInvalid` to reject invalid values and surface validation state.
 Add `maxLength` when the entry input should stop accepting long tag values before validation runs.
 
-<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/validation-and-max.tsx"
 
@@ -270,7 +258,7 @@ Ark hooks.
 Use moduix `useTagsInput` with `RootProvider` when state and imperative methods need to live outside
 the rendered tags input tree.
 
-<style>{`.actions { display: inline-flex; gap: var(--spacing-2); }`}</style>
+<style>{`.actions { display: inline-flex; gap: var(--moduix-spacing-2); }`}</style>
 
 ```tsx preview file="./_snippets/tags-input/root-provider.tsx"
 

@@ -1,8 +1,8 @@
-@layer ui.components {
+@layer moduix.components {
   .stack {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .imageTrigger,
@@ -21,7 +21,7 @@
   }
 
   .imageTrigger {
-    border-radius: var(--radius-md);
+    border-radius: var(--moduix-radius-md);
 
     img {
       width: 17.5rem;
@@ -32,23 +32,23 @@
 
   .textTrigger {
     border: 0;
-    border-radius: var(--radius-md);
-    background: var(--color-muted);
-    padding: var(--spacing-3) var(--spacing-4);
-    color: var(--color-foreground);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-muted);
+    padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
+    color: var(--moduix-color-foreground);
     font: inherit;
   }
 
   .gallery {
     display: grid;
-    width: min(30rem, calc(100vw - var(--spacing-8)));
+    width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .galleryTrigger {
     width: 100%;
-    border-radius: var(--radius-sm);
+    border-radius: var(--moduix-radius-sm);
 
     img {
       width: 100%;
@@ -59,29 +59,29 @@
 
   .status {
     position: absolute;
-    inset-block-end: var(--spacing-3);
+    inset-block-end: var(--moduix-spacing-3);
     inset-inline-start: 50%;
     translate: -50% 0;
-    border-radius: var(--radius-sm);
+    border-radius: var(--moduix-radius-sm);
     background: rgb(0 0 0 / 0.65);
-    padding: var(--spacing-1) var(--spacing-2);
+    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
     color: white;
-    font-size: var(--text-sm);
+    font-size: var(--moduix-text-sm);
   }
 
   .customBackdrop {
-    --lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
+    --moduix-lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
   }
 
   .customContent {
-    --lightbox-content-max-width: 72vw;
-    --lightbox-content-max-height: 72dvh;
-    --lightbox-media-radius: var(--radius-lg);
+    --moduix-lightbox-content-max-width: 72vw;
+    --moduix-lightbox-content-max-height: 72dvh;
+    --moduix-lightbox-media-radius: var(--moduix-radius-lg);
   }
 
   .customCloseIcon {
-    --lightbox-close-icon-bg: var(--color-muted);
-    --lightbox-close-icon-bg-hover: var(--color-accent);
-    --lightbox-close-icon-radius: var(--radius-md);
+    --moduix-lightbox-close-icon-bg: var(--moduix-color-muted);
+    --moduix-lightbox-close-icon-bg-hover: var(--moduix-color-accent);
+    --moduix-lightbox-close-icon-radius: var(--moduix-radius-md);
   }
 }

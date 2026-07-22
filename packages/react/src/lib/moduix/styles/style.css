@@ -1,14 +1,14 @@
-@layer ui.reset, ui.tokens, ui.base, ui.components;
+@layer moduix.reset, moduix.tokens, moduix.base, moduix.components;
 
-@import './animations.css' layer(ui.tokens);
-@import './borders.css' layer(ui.tokens);
-@import './colors.css' layer(ui.tokens);
-@import './opacity.css' layer(ui.tokens);
-@import './radius.css' layer(ui.tokens);
-@import './shadows.css' layer(ui.tokens);
-@import './sizing.css' layer(ui.tokens);
-@import './spacing.css' layer(ui.tokens);
-@import './transforms.css' layer(ui.tokens);
-@import './transitions.css' layer(ui.tokens);
-@import './typography.css' layer(ui.tokens);
-@import './z-index.css' layer(ui.tokens);
+@import './animations.css' layer(moduix.tokens);
+@import './borders.css' layer(moduix.tokens);
+@import './colors.css' layer(moduix.tokens);
+@import './opacity.css' layer(moduix.tokens);
+@import './radius.css' layer(moduix.tokens);
+@import './shadows.css' layer(moduix.tokens);
+@import './sizing.css' layer(moduix.tokens);
+@import './spacing.css' layer(moduix.tokens);
+@import './transforms.css' layer(moduix.tokens);
+@import './transitions.css' layer(moduix.tokens);
+@import './typography.css' layer(moduix.tokens);
+@import './z-index.css' layer(moduix.tokens);

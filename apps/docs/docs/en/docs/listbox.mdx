@@ -17,7 +17,7 @@ Pass a `collection`, render `Content`, and pass each item through `Listbox.Item 
 
 <style>{`
       [data-slot="listbox-content"] {
-        max-height: var(--listbox-content-max-height);
+        max-height: var(--moduix-listbox-content-max-height);
       }
     `}</style>
 
@@ -125,7 +125,7 @@ typeahead, Home/End behavior, disabled item handling, and orientation-specific a
 
 Control the selected string array from React state and update it from `details.value`.
 
-<style>{`[data-slot="listbox-item"][data-selected] { color: var(--listbox-item-selected-color); }`}</style>
+<style>{`[data-slot="listbox-item"][data-selected] { color: var(--moduix-listbox-item-selected-color); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/controlled.tsx"
 
@@ -135,7 +135,7 @@ Control the selected string array from React state and update it from `details.v
 
 Disable individual items through the collection item `disabled` field or `isItemDisabled`.
 
-<style>{`[data-slot="listbox-item"][data-disabled] { opacity: var(--listbox-disabled-opacity); }`}</style>
+<style>{`[data-slot="listbox-item"][data-disabled] { opacity: var(--moduix-listbox-disabled-opacity); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/disabled-item.tsx"
 
@@ -145,7 +145,7 @@ Disable individual items through the collection item `disabled` field or `isItem
 
 Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
 
-<style>{`[data-slot="listbox-item"][data-highlighted] { background: var(--listbox-highlight-bg); }`}</style>
+<style>{`[data-slot="listbox-item"][data-highlighted] { background: var(--moduix-listbox-highlight-bg); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/extended-selection.tsx"
 
@@ -168,7 +168,7 @@ inline check indicator to keep cells compact.
 
 <style>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
 [data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
-[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--listbox-grid-selected-bg); }`}</style>
+[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--moduix-listbox-grid-selected-bg); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/grid.tsx"
 
@@ -178,7 +178,7 @@ inline check indicator to keep cells compact.
 
 Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
 
-<style>{`[data-slot="listbox-item-group-label"] { color: var(--listbox-item-group-label-color); }`}</style>
+<style>{`[data-slot="listbox-item-group-label"] { color: var(--moduix-listbox-item-group-label-color); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/grouping.tsx"
 
@@ -190,15 +190,15 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
 
 <style>{`
       .horizontalRoot {
-        --listbox-width: min(100%, 34rem);
-        --listbox-horizontal-content-max-height: none;
-        --listbox-horizontal-item-width: 10rem;
+        --moduix-listbox-width: min(100%, 34rem);
+        --moduix-listbox-horizontal-content-max-height: none;
+        --moduix-listbox-horizontal-item-width: 10rem;
       }
 
       .albumText {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-1);
+        gap: var(--moduix-spacing-1);
       }
     `}</style>
 
@@ -210,7 +210,7 @@ Set `orientation="horizontal"` for horizontal layout and left/right keyboard nav
 
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
-<style>{`[data-slot="listbox-value-text"] { color: var(--listbox-value-text-color); }`}</style>
+<style>{`[data-slot="listbox-value-text"] { color: var(--moduix-listbox-value-text-color); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/multiple.tsx"
 
@@ -221,7 +221,7 @@ Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 Use moduix `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
 listbox API.
 
-<style>{`[data-slot="listbox-root"] { gap: var(--listbox-root-gap); }`}</style>
+<style>{`[data-slot="listbox-root"] { gap: var(--moduix-listbox-root-gap); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/root-provider.tsx"
 
@@ -231,7 +231,7 @@ listbox API.
 
 Use moduix `useListboxContext` inside a child component to implement select-all controls.
 
-<style>{`[data-slot="listbox-root"] { width: var(--listbox-width); }`}</style>
+<style>{`[data-slot="listbox-root"] { width: var(--moduix-listbox-width); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/select-all.tsx"
 
@@ -250,7 +250,7 @@ default border matches `Listbox.Content`; keyboard focus animates only its outli
 
 Render `ValueText` when the selected value summary should stay visible near the list.
 
-<style>{`[data-slot="listbox-value-text"] { font-size: var(--listbox-value-text-font-size); }`}</style>
+<style>{`[data-slot="listbox-value-text"] { font-size: var(--moduix-listbox-value-text-font-size); }`}</style>
 
 ```tsx preview file="./_snippets/listbox/value-text.tsx"
 

@@ -20,7 +20,7 @@ const items = [
 const actionsStyle = {
   display: 'flex',
   justifyContent: 'flex-end',
-  gap: 'var(--spacing-2)',
+  gap: 'var(--moduix-spacing-2)',
 } as const;
 
 function StepsList() {
@@ -89,7 +89,7 @@ export const Controlled: Story = {
     const [step, setStep] = useState(1);
 
     return (
-      <div style={{ display: 'grid', gap: 'var(--spacing-3)' }}>
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
         <output>Current step: {step + 1}</output>
         <Steps
           count={items.length}
@@ -112,7 +112,7 @@ export const RootProvider: Story = {
     const steps = Steps.useSteps({ count: items.length });
 
     return (
-      <div style={{ display: 'grid', gap: 'var(--spacing-3)' }}>
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
         <output>Current step: {steps.value + 1}</output>
         <Steps.RootProvider value={steps}>
           <StepsList />

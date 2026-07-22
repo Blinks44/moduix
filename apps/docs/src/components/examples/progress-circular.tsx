@@ -23,7 +23,7 @@ export const progressCircularControlledExampleCss = `
   .progress-circular-stack {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
   }
 
   .progress-circular-slider {
@@ -37,54 +37,82 @@ export const progressCircularStateViewsExampleCss = `
   ${progressCircularCircleExampleCss}
 
   .progress-circular-state {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 `;
 
 const progressCircularCssProperties: CssPropertyInput[] = [
-  ['--progress-circular-color', 'var(--color-foreground)', 'Controls root text color.'],
-  ['--progress-circular-gap', 'var(--spacing-2)', 'Controls spacing between label and circle.'],
-  ['--progress-circular-label-color', 'currentColor', 'Controls label text color.'],
-  ['--progress-circular-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--progress-circular-label-font-weight', 'var(--weight-regular)', 'Controls label weight.'],
   [
-    '--progress-circular-label-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-progress-circular-color',
+    'var(--moduix-color-foreground)',
+    'Controls root text color.',
+  ],
+  [
+    '--moduix-progress-circular-gap',
+    'var(--moduix-spacing-2)',
+    'Controls spacing between label and circle.',
+  ],
+  ['--moduix-progress-circular-label-color', 'currentColor', 'Controls label text color.'],
+  [
+    '--moduix-progress-circular-label-font-size',
+    'var(--moduix-text-sm)',
+    'Controls label font size.',
+  ],
+  [
+    '--moduix-progress-circular-label-font-weight',
+    'var(--moduix-weight-regular)',
+    'Controls label weight.',
+  ],
+  [
+    '--moduix-progress-circular-label-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls label line height.',
   ],
-  ['--progress-circular-range-bg', 'var(--color-primary)', 'Controls circle range color.'],
   [
-    '--progress-circular-range-indeterminate-animation',
+    '--moduix-progress-circular-range-bg',
+    'var(--moduix-color-primary)',
+    'Controls circle range color.',
+  ],
+  [
+    '--moduix-progress-circular-range-indeterminate-animation',
     'progress-circular-indeterminate 1.4s linear infinite',
     'Controls indeterminate circle animation.',
   ],
   [
-    '--progress-circular-range-indeterminate-dasharray',
+    '--moduix-progress-circular-range-indeterminate-dasharray',
     '1 200',
     'Controls indeterminate dash pattern.',
   ],
-  ['--progress-circular-range-linecap', 'round', 'Controls range stroke linecap.'],
+  ['--moduix-progress-circular-range-linecap', 'round', 'Controls range stroke linecap.'],
   [
-    '--progress-circular-range-transition',
-    'var(--transition-default)',
+    '--moduix-progress-circular-range-transition',
+    'var(--moduix-transition-default)',
     'Controls circle range transition.',
   ],
-  ['--progress-circular-root-width', 'max-content', 'Controls root width.'],
-  ['--progress-circular-size', 'var(--size-xl)', 'Controls SVG circle size.'],
-  ['--progress-circular-thickness', '0.4rem', 'Controls SVG stroke thickness.'],
-  ['--progress-circular-track-bg', 'var(--color-muted)', 'Controls circle track color.'],
-  ['--progress-circular-value-text-color', 'currentColor', 'Controls value text color.'],
-  ['--progress-circular-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
+  ['--moduix-progress-circular-root-width', 'max-content', 'Controls root width.'],
+  ['--moduix-progress-circular-size', 'var(--moduix-size-xl)', 'Controls SVG circle size.'],
+  ['--moduix-progress-circular-thickness', '0.4rem', 'Controls SVG stroke thickness.'],
   [
-    '--progress-circular-value-text-font-weight',
-    'var(--weight-medium)',
+    '--moduix-progress-circular-track-bg',
+    'var(--moduix-color-muted)',
+    'Controls circle track color.',
+  ],
+  ['--moduix-progress-circular-value-text-color', 'currentColor', 'Controls value text color.'],
+  [
+    '--moduix-progress-circular-value-text-font-size',
+    'var(--moduix-text-sm)',
+    'Controls value text font size.',
+  ],
+  [
+    '--moduix-progress-circular-value-text-font-weight',
+    'var(--moduix-weight-medium)',
     'Controls value text weight.',
   ],
   [
-    '--progress-circular-value-text-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-progress-circular-value-text-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls value text line height.',
   ],
 ];

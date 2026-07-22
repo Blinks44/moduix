@@ -1,4 +1,4 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     width: 20rem;
   }
@@ -13,14 +13,14 @@
 
   .layoutExample {
     width: 24rem;
-    padding-block: var(--spacing-1);
+    padding-block: var(--moduix-spacing-1);
   }
 
   .customBlock {
     width: 20rem;
-    --skeleton-bg: var(--color-primary);
-    --skeleton-border-radius: var(--radius-full);
-    --skeleton-animation: none;
+    --moduix-skeleton-bg: var(--moduix-color-primary);
+    --moduix-skeleton-border-radius: var(--moduix-radius-full);
+    --moduix-skeleton-animation: none;
   }
 
   .customSkeleton {
@@ -31,14 +31,14 @@
     display: grid;
     width: 20rem;
     min-height: 4.5rem;
-    gap: var(--spacing-1);
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
+    gap: var(--moduix-spacing-1);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 
     & span {
-      color: var(--color-muted-foreground);
-      font-size: var(--text-sm);
-      line-height: var(--line-height-text-sm);
+      color: var(--moduix-color-muted-foreground);
+      font-size: var(--moduix-text-sm);
+      line-height: var(--moduix-line-height-text-sm);
     }
   }
 

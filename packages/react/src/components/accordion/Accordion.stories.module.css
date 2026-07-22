@@ -1,17 +1,17 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .demoRoot {
     width: 100%;
     max-width: 22rem;
   }
 
   .state {
-    margin-top: var(--spacing-3);
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    margin-top: var(--moduix-spacing-3);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .customIcon {
-    --accordion-icon-open-transform: rotate(180deg);
+    --moduix-accordion-icon-open-transform: rotate(180deg);
   }
 }

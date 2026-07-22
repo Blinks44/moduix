@@ -135,7 +135,7 @@ The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also
 
 ## Defaults and styling
 
-The input and increment/decrement controls share the `--size-md` baseline; the text input uses `--spacing-1` block padding.
+The input and increment/decrement controls share the `--moduix-size-md` baseline; the text input uses `--moduix-spacing-1` block padding.
 
 All visual parts accept `className`; Ark parts also support `asChild`. `NumberInput.Field` accepts
 the structural props of `NumberInput.Control`, including `className`, but intentionally does not
@@ -147,22 +147,22 @@ follow the surrounding text direction.
 
 Public CSS variables:
 
-- Layout: `--number-input-gap`, `--number-input-width`, `--number-input-max-width`,
-  `--number-input-control-height`, `--number-input-input-width`, `--number-input-radius`.
-- Label/value: `--number-input-label-color`, `--number-input-label-font-size`,
-  `--number-input-label-line-height`, `--number-input-label-font-weight`,
-  `--number-input-value-text-color`, `--number-input-value-text-font-size`,
-  `--number-input-value-text-line-height`.
-- Border/focus: `--number-input-border-width`, `--number-input-border-style`,
-  `--number-input-border-color`, `--number-input-border-color-invalid`,
-  `--number-input-focus-ring-width`, `--number-input-focus-ring-color`.
-- Buttons: `--number-input-button-bg`, `--number-input-button-bg-hover`,
-  `--number-input-button-bg-active`, `--number-input-button-color`, `--number-input-icon-size`.
-- Input: `--number-input-input-bg`, `--number-input-input-color`,
-  `--number-input-input-font-size`, `--number-input-input-line-height`,
-  `--number-input-input-padding-x`, `--number-input-input-padding-y`.
-- Scrubber and state: `--number-input-scrubber-gap`, `--number-input-scrubber-color`,
-  `--number-input-disabled-opacity`.
+- Layout: `--moduix-number-input-gap`, `--moduix-number-input-width`, `--moduix-number-input-max-width`,
+  `--moduix-number-input-control-height`, `--moduix-number-input-input-width`, `--moduix-number-input-radius`.
+- Label/value: `--moduix-number-input-label-color`, `--moduix-number-input-label-font-size`,
+  `--moduix-number-input-label-line-height`, `--moduix-number-input-label-font-weight`,
+  `--moduix-number-input-value-text-color`, `--moduix-number-input-value-text-font-size`,
+  `--moduix-number-input-value-text-line-height`.
+- Border/focus: `--moduix-number-input-border-width`, `--moduix-number-input-border-style`,
+  `--moduix-number-input-border-color`, `--moduix-number-input-border-color-invalid`,
+  `--moduix-number-input-focus-ring-width`, `--moduix-number-input-focus-ring-color`.
+- Buttons: `--moduix-number-input-button-bg`, `--moduix-number-input-button-bg-hover`,
+  `--moduix-number-input-button-bg-active`, `--moduix-number-input-button-color`, `--moduix-number-input-icon-size`.
+- Input: `--moduix-number-input-input-bg`, `--moduix-number-input-input-color`,
+  `--moduix-number-input-input-font-size`, `--moduix-number-input-input-line-height`,
+  `--moduix-number-input-input-padding-x`, `--moduix-number-input-input-padding-y`.
+- Scrubber and state: `--moduix-number-input-scrubber-gap`, `--moduix-number-input-scrubber-color`,
+  `--moduix-number-input-disabled-opacity`.
 
 ## Intentional sugar and differences from upstream
 
@@ -179,7 +179,7 @@ Breaking migration differences from the old previous wrapper:
 - `format` is replaced by `formatOptions`.
 - `allowWheelScrub` is replaced by Ark `allowMouseWheel`.
 - `decrementLabel` / `incrementLabel` are replaced by `translations`.
-- `--number-field-*` variables are replaced by `--number-input-*`.
+- `--moduix-number-field-*` variables are replaced by `--moduix-number-input-*`.
 
 ## Agent notes
 
@@ -190,7 +190,7 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Aligned the field and square stepper controls to `--size-md` and compacted input padding.
+- 2026-07-21: Aligned the field and square stepper controls to `--moduix-size-md` and compacted input padding.
 
 - 2026-07-19: Switched control borders and corner radii to logical inline properties for RTL.
 - 2026-07-10: Added `NumberInput.Field` and moduix exports for Ark state access; corrected disabled

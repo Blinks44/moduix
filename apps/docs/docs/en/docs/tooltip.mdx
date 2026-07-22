@@ -28,7 +28,7 @@ itself: tooltips do not replace `aria-label` or visible text.
       .triggerContent {
         display: inline-flex;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .icon {
@@ -162,7 +162,7 @@ Control open state with `open` and `onOpenChange(details)`.
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -199,11 +199,11 @@ triggers.
       .toolbar {
         display: inline-flex;
         align-items: center;
-        gap: var(--border-width-sm);
-        padding: var(--spacing-1);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background: var(--color-muted);
+        gap: var(--moduix-border-width-sm);
+        padding: var(--moduix-spacing-1);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background: var(--moduix-color-muted);
       }
 
       .icon {
@@ -212,9 +212,9 @@ triggers.
       }
 
       .shortcut {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-xs);
-        line-height: var(--line-height-text-xs);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-xs);
+        line-height: var(--moduix-line-height-text-xs);
       }
     `}</style>
 
@@ -231,38 +231,38 @@ Pass Ark positioning options to `Tooltip`, including placement and offset values
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .sideButtons {
         display: inline-flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: var(--spacing-1);
-        padding: var(--spacing-1);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
+        gap: var(--moduix-spacing-1);
+        padding: var(--moduix-spacing-1);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background: var(--moduix-color-muted);
       }
 
       .sideButton {
         min-width: 4.75rem;
         min-height: 2rem;
-        padding: 0 var(--spacing-3);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-sm);
-        background: var(--color-background);
-        color: var(--color-foreground);
+        padding: 0 var(--moduix-spacing-3);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-sm);
+        background: var(--moduix-color-background);
+        color: var(--moduix-color-foreground);
         font: inherit;
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
-        font-weight: var(--weight-medium);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+        font-weight: var(--moduix-weight-medium);
         text-transform: capitalize;
         cursor: pointer;
 
         &[data-active] {
-          background: var(--color-primary);
-          color: var(--color-primary-foreground);
+          background: var(--moduix-color-primary);
+          color: var(--moduix-color-primary-foreground);
         }
       }
     `}</style>
@@ -281,13 +281,13 @@ rendered tooltip subtree.
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .output {
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -305,9 +305,9 @@ Set `positioning.strategy` to `"fixed"` when the tooltip is anchored inside fixe
         place-items: center;
         min-width: 16rem;
         min-height: 8rem;
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background: var(--color-muted);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background: var(--moduix-color-muted);
       }
     `}</style>
 

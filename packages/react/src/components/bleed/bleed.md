@@ -31,7 +31,7 @@ Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="bleed"`, `data-part="root"`, `data-slot="bleed-root"`, `data-inline`, and
   `data-block` on the root.
-- Applies negative inline and/or block margins with CSS Modules and `--bleed-*` variables.
+- Applies negative inline and/or block margins with CSS Modules and `--moduix-bleed-*` variables.
 - Does not add inner wrappers, state, ARIA, keyboard handling, focus management, or lifecycle
   behavior.
 - Preserves normal document flow; it is not positioned and does not portal content.
@@ -106,20 +106,20 @@ Use `asChild` when another element should own the rendered DOM node.
 
 Public CSS variables:
 
-| Variable                   | Default            | Used by                |
-| -------------------------- | ------------------ | ---------------------- |
-| `--bleed-block-xs`         | `var(--spacing-1)` | `block="xs"`           |
-| `--bleed-block-sm`         | `var(--spacing-2)` | `block="sm"`           |
-| `--bleed-block-md`         | `var(--spacing-3)` | `block="md"`           |
-| `--bleed-block-lg`         | `var(--spacing-4)` | `block="lg"`           |
-| `--bleed-block-xl`         | `var(--spacing-6)` | `block="xl"`           |
-| `--bleed-inline-full`      | `calc(50% - 50vw)` | `inline="full"` margin |
-| `--bleed-inline-full-size` | `100vw`            | `inline="full"` width  |
-| `--bleed-inline-xs`        | `var(--spacing-1)` | `inline="xs"`          |
-| `--bleed-inline-sm`        | `var(--spacing-2)` | `inline="sm"`          |
-| `--bleed-inline-md`        | `var(--spacing-3)` | `inline="md"`          |
-| `--bleed-inline-lg`        | `var(--spacing-4)` | `inline="lg"`          |
-| `--bleed-inline-xl`        | `var(--spacing-6)` | `inline="xl"`          |
+| Variable                          | Default                   | Used by                |
+| --------------------------------- | ------------------------- | ---------------------- |
+| `--moduix-bleed-block-xs`         | `var(--moduix-spacing-1)` | `block="xs"`           |
+| `--moduix-bleed-block-sm`         | `var(--moduix-spacing-2)` | `block="sm"`           |
+| `--moduix-bleed-block-md`         | `var(--moduix-spacing-3)` | `block="md"`           |
+| `--moduix-bleed-block-lg`         | `var(--moduix-spacing-4)` | `block="lg"`           |
+| `--moduix-bleed-block-xl`         | `var(--moduix-spacing-6)` | `block="xl"`           |
+| `--moduix-bleed-inline-full`      | `calc(50% - 50vw)`        | `inline="full"` margin |
+| `--moduix-bleed-inline-full-size` | `100vw`                   | `inline="full"` width  |
+| `--moduix-bleed-inline-xs`        | `var(--moduix-spacing-1)` | `inline="xs"`          |
+| `--moduix-bleed-inline-sm`        | `var(--moduix-spacing-2)` | `inline="sm"`          |
+| `--moduix-bleed-inline-md`        | `var(--moduix-spacing-3)` | `inline="md"`          |
+| `--moduix-bleed-inline-lg`        | `var(--moduix-spacing-4)` | `inline="lg"`          |
+| `--moduix-bleed-inline-xl`        | `var(--moduix-spacing-6)` | `inline="xl"`          |
 
 ## Intentional sugar and differences from upstream
 

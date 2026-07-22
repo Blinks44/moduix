@@ -1,24 +1,27 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--tree-view-width, 20rem);
-    max-width: var(--tree-view-max-width, 100%);
+    width: var(--moduix-tree-view-width, 20rem);
+    max-width: var(--moduix-tree-view-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    gap: var(--tree-view-root-gap, var(--spacing-2));
-    color: var(--tree-view-color, var(--color-foreground));
+    gap: var(--moduix-tree-view-root-gap, var(--moduix-spacing-2));
+    color: var(--moduix-tree-view-color, var(--moduix-color-foreground));
 
     &[data-disabled] {
-      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-tree-view-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .label {
-    color: var(--tree-view-label-color, var(--tree-view-color, var(--color-foreground)));
-    font-size: var(--tree-view-label-font-size, var(--text-sm));
-    font-weight: var(--tree-view-label-font-weight, var(--weight-medium));
-    line-height: var(--tree-view-label-line-height, var(--line-height-text-sm));
+    color: var(
+      --moduix-tree-view-label-color,
+      var(--moduix-tree-view-color, var(--moduix-color-foreground))
+    );
+    font-size: var(--moduix-tree-view-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-tree-view-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tree-view-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
   }
 
@@ -26,9 +29,9 @@
     display: flex;
     min-width: 0;
     flex-direction: column;
-    color: var(--tree-view-color, var(--color-foreground));
-    font-size: var(--tree-view-item-font-size, var(--text-sm));
-    line-height: var(--tree-view-item-line-height, var(--line-height-text-sm));
+    color: var(--moduix-tree-view-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-tree-view-item-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-tree-view-item-line-height, var(--moduix-line-height-text-sm));
   }
 
   .branch {
@@ -42,58 +45,65 @@
     display: flex;
     width: 100%;
     min-width: 0;
-    min-height: var(--tree-view-item-min-height, var(--size-sm));
+    min-height: var(--moduix-tree-view-item-min-height, var(--moduix-size-sm));
     align-items: center;
-    gap: var(--tree-view-item-gap, var(--spacing-2));
-    border: var(--tree-view-item-border-width, 0) solid
-      var(--tree-view-item-border-color, transparent);
-    border-radius: var(--tree-view-item-radius, var(--radius-sm));
-    padding-block: var(--tree-view-item-padding-y, var(--spacing-1));
-    padding-inline-end: var(--tree-view-item-padding-x, var(--spacing-2));
+    gap: var(--moduix-tree-view-item-gap, var(--moduix-spacing-2));
+    border: var(--moduix-tree-view-item-border-width, 0) solid
+      var(--moduix-tree-view-item-border-color, transparent);
+    border-radius: var(--moduix-tree-view-item-radius, var(--moduix-radius-sm));
+    padding-block: var(--moduix-tree-view-item-padding-y, var(--moduix-spacing-1));
+    padding-inline-end: var(--moduix-tree-view-item-padding-x, var(--moduix-spacing-2));
     padding-inline-start: calc(
-      var(--tree-view-item-padding-x, var(--spacing-2)) +
-        ((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem))
+      var(--moduix-tree-view-item-padding-x, var(--moduix-spacing-2)) +
+        ((var(--depth, 1) - 1) * var(--moduix-tree-view-indent, 1rem))
     );
-    background-color: var(--tree-view-item-bg, transparent);
-    color: var(--tree-view-item-color, var(--tree-view-color, var(--color-foreground)));
+    background-color: var(--moduix-tree-view-item-bg, transparent);
+    color: var(
+      --moduix-tree-view-item-color,
+      var(--moduix-tree-view-color, var(--moduix-color-foreground))
+    );
     cursor: pointer;
     font: inherit;
     outline: var(
-        --tree-view-focus-ring-width,
-        var(--focus-ring-inset-width, var(--border-width-sm))
+        --moduix-tree-view-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
       )
       solid transparent;
     outline-offset: calc(
-      var(--tree-view-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      var(
+          --moduix-tree-view-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
     );
     text-align: start;
     text-decoration: none;
     transition:
-      background-color var(--tree-view-transition, var(--transition-default)),
-      color var(--tree-view-transition, var(--transition-default)),
-      outline-color var(--tree-view-transition, var(--transition-default)),
-      opacity var(--tree-view-transition, var(--transition-default));
+      background-color var(--moduix-tree-view-transition, var(--moduix-transition-default)),
+      color var(--moduix-tree-view-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-tree-view-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-tree-view-transition, var(--moduix-transition-default));
     user-select: none;
 
     &:hover {
-      background-color: var(--tree-view-item-hover-bg, var(--color-accent));
-      color: var(--tree-view-item-hover-color, var(--color-accent-foreground));
+      background-color: var(--moduix-tree-view-item-hover-bg, var(--moduix-color-accent));
+      color: var(--moduix-tree-view-item-hover-color, var(--moduix-color-accent-foreground));
     }
 
     &:focus-visible,
     &[data-focus] {
-      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-tree-view-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-selected] {
-      background-color: var(--tree-view-item-selected-bg, var(--color-accent));
-      color: var(--tree-view-item-selected-color, var(--color-accent-foreground));
+      background-color: var(--moduix-tree-view-item-selected-bg, var(--moduix-color-accent));
+      color: var(--moduix-tree-view-item-selected-color, var(--moduix-color-accent-foreground));
     }
 
     &[data-disabled] {
-      color: var(--tree-view-item-disabled-color, var(--color-muted-foreground));
+      color: var(--moduix-tree-view-item-disabled-color, var(--moduix-color-muted-foreground));
       cursor: default;
-      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-tree-view-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -101,22 +111,22 @@
   .branchIndicator,
   .itemIndicator {
     display: inline-flex;
-    width: var(--tree-view-indicator-size, var(--spacing-4));
-    height: var(--tree-view-indicator-size, var(--spacing-4));
-    flex: 0 0 var(--tree-view-indicator-size, var(--spacing-4));
+    width: var(--moduix-tree-view-indicator-size, var(--moduix-spacing-4));
+    height: var(--moduix-tree-view-indicator-size, var(--moduix-spacing-4));
+    flex: 0 0 var(--moduix-tree-view-indicator-size, var(--moduix-spacing-4));
     align-items: center;
     justify-content: center;
-    color: var(--tree-view-indicator-color, currentColor);
+    color: var(--moduix-tree-view-indicator-color, currentColor);
 
     & svg {
-      width: var(--tree-view-indicator-icon-size, var(--spacing-3-5));
-      height: var(--tree-view-indicator-icon-size, var(--spacing-3-5));
+      width: var(--moduix-tree-view-indicator-icon-size, var(--moduix-spacing-3-5));
+      height: var(--moduix-tree-view-indicator-icon-size, var(--moduix-spacing-3-5));
     }
   }
 
   .branchTrigger,
   .branchIndicator {
-    transition: transform var(--tree-view-transition, var(--transition-default));
+    transition: transform var(--moduix-tree-view-transition, var(--moduix-transition-default));
 
     &[data-state='open'] {
       transform: rotate(90deg);
@@ -129,15 +139,15 @@
     min-width: 0;
     flex: 1;
     align-items: center;
-    gap: var(--tree-view-item-text-gap, var(--spacing-2));
+    gap: var(--moduix-tree-view-item-text-gap, var(--moduix-spacing-2));
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     & svg {
-      width: var(--tree-view-node-icon-size, var(--spacing-4));
-      height: var(--tree-view-node-icon-size, var(--spacing-4));
-      flex: 0 0 var(--tree-view-node-icon-size, var(--spacing-4));
+      width: var(--moduix-tree-view-node-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-tree-view-node-icon-size, var(--moduix-spacing-4));
+      flex: 0 0 var(--moduix-tree-view-node-icon-size, var(--moduix-spacing-4));
     }
   }
 
@@ -148,14 +158,14 @@
 
     &[data-state='open'] {
       animation:
-        tree-view-slide-down var(--tree-view-content-transition-duration, 150ms) ease-out,
-        tree-view-fade-in var(--tree-view-content-transition-duration, 150ms) ease-out;
+        tree-view-slide-down var(--moduix-tree-view-content-transition-duration, 150ms) ease-out,
+        tree-view-fade-in var(--moduix-tree-view-content-transition-duration, 150ms) ease-out;
     }
 
     &[data-state='closed'] {
       animation:
-        tree-view-slide-up var(--tree-view-content-transition-duration, 150ms) ease-out,
-        tree-view-fade-out var(--tree-view-content-transition-duration, 150ms) ease-out;
+        tree-view-slide-up var(--moduix-tree-view-content-transition-duration, 150ms) ease-out,
+        tree-view-fade-out var(--moduix-tree-view-content-transition-duration, 150ms) ease-out;
     }
   }
 
@@ -164,57 +174,60 @@
     z-index: 1;
     top: 0;
     bottom: 0;
-    width: var(--tree-view-indent-guide-width, var(--border-width-sm));
-    background-color: var(--tree-view-indent-guide-color, var(--color-border));
+    width: var(--moduix-tree-view-indent-guide-width, var(--moduix-border-width-sm));
+    background-color: var(--moduix-tree-view-indent-guide-color, var(--moduix-color-border));
     inset-inline-start: calc(
-      var(--tree-view-item-padding-x, var(--spacing-2)) +
-        ((var(--depth, 1) - 1) * var(--tree-view-indent, 1rem)) +
-        (var(--tree-view-indicator-size, var(--spacing-4)) / 2)
+      var(--moduix-tree-view-item-padding-x, var(--moduix-spacing-2)) +
+        ((var(--depth, 1) - 1) * var(--moduix-tree-view-indent, 1rem)) +
+        (var(--moduix-tree-view-indicator-size, var(--moduix-spacing-4)) / 2)
     );
   }
 
   .nodeCheckbox {
     box-sizing: border-box;
     display: inline-flex;
-    width: var(--tree-view-checkbox-size, var(--spacing-4));
-    height: var(--tree-view-checkbox-size, var(--spacing-4));
-    flex: 0 0 var(--tree-view-checkbox-size, var(--spacing-4));
+    width: var(--moduix-tree-view-checkbox-size, var(--moduix-spacing-4));
+    height: var(--moduix-tree-view-checkbox-size, var(--moduix-spacing-4));
+    flex: 0 0 var(--moduix-tree-view-checkbox-size, var(--moduix-spacing-4));
     align-items: center;
     justify-content: center;
-    border: var(--tree-view-checkbox-border-width, var(--border-width-sm)) solid
-      var(--tree-view-checkbox-border-color, var(--color-border));
-    border-radius: var(--tree-view-checkbox-radius, var(--radius-xs));
-    background-color: var(--tree-view-checkbox-bg, var(--color-background));
-    color: var(--tree-view-checkbox-color, var(--color-primary-foreground));
+    border: var(--moduix-tree-view-checkbox-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tree-view-checkbox-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-tree-view-checkbox-radius, var(--moduix-radius-xs));
+    background-color: var(--moduix-tree-view-checkbox-bg, var(--moduix-color-background));
+    color: var(--moduix-tree-view-checkbox-color, var(--moduix-color-primary-foreground));
     outline: var(
-        --tree-view-focus-ring-width,
-        var(--focus-ring-inset-width, var(--border-width-sm))
+        --moduix-tree-view-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
       )
       solid transparent;
-    outline-offset: var(--tree-view-checkbox-focus-ring-offset, var(--border-width-sm));
+    outline-offset: var(
+      --moduix-tree-view-checkbox-focus-ring-offset,
+      var(--moduix-border-width-sm)
+    );
     transition:
-      background-color var(--tree-view-transition, var(--transition-default)),
-      border-color var(--tree-view-transition, var(--transition-default)),
-      outline-color var(--tree-view-transition, var(--transition-default));
+      background-color var(--moduix-tree-view-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-tree-view-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-tree-view-transition, var(--moduix-transition-default));
 
     &[data-state='checked'],
     &[data-state='indeterminate'] {
-      border-color: var(--tree-view-checkbox-checked-bg, var(--color-primary));
-      background-color: var(--tree-view-checkbox-checked-bg, var(--color-primary));
+      border-color: var(--moduix-tree-view-checkbox-checked-bg, var(--moduix-color-primary));
+      background-color: var(--moduix-tree-view-checkbox-checked-bg, var(--moduix-color-primary));
     }
 
     &:focus-visible {
-      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-tree-view-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-disabled] {
       cursor: default;
-      opacity: var(--tree-view-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-tree-view-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     & svg {
-      width: var(--tree-view-checkbox-icon-size, var(--spacing-3));
-      height: var(--tree-view-checkbox-icon-size, var(--spacing-3));
+      width: var(--moduix-tree-view-checkbox-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tree-view-checkbox-icon-size, var(--moduix-spacing-3));
     }
   }
 
@@ -228,25 +241,29 @@
     box-sizing: border-box;
     min-width: 0;
     flex: 1;
-    border: var(--tree-view-rename-input-border-width, var(--border-width-sm)) solid
-      var(--tree-view-rename-input-border-color, var(--color-ring));
-    border-radius: var(--tree-view-rename-input-radius, var(--radius-xs));
-    padding-block: var(--tree-view-rename-input-padding-y, 0);
-    padding-inline: var(--tree-view-rename-input-padding-x, var(--spacing-1));
-    background-color: var(--tree-view-rename-input-bg, var(--color-background));
-    color: var(--tree-view-rename-input-color, var(--color-foreground));
+    border: var(--moduix-tree-view-rename-input-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tree-view-rename-input-border-color, var(--moduix-color-ring));
+    border-radius: var(--moduix-tree-view-rename-input-radius, var(--moduix-radius-xs));
+    padding-block: var(--moduix-tree-view-rename-input-padding-y, 0);
+    padding-inline: var(--moduix-tree-view-rename-input-padding-x, var(--moduix-spacing-1));
+    background-color: var(--moduix-tree-view-rename-input-bg, var(--moduix-color-background));
+    color: var(--moduix-tree-view-rename-input-color, var(--moduix-color-foreground));
     font: inherit;
     outline: var(
-        --tree-view-focus-ring-width,
-        var(--focus-ring-inset-width, var(--border-width-sm))
+        --moduix-tree-view-focus-ring-width,
+        var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
       )
       solid transparent;
     outline-offset: calc(
-      var(--tree-view-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm))) * -1
+      var(
+          --moduix-tree-view-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        ) *
+        -1
     );
 
     &:focus-visible {
-      outline-color: var(--tree-view-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-tree-view-focus-ring-color, var(--moduix-color-ring));
     }
   }
 

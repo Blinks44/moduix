@@ -2,11 +2,11 @@
   display: grid;
   width: 100%;
   min-width: 0;
-  padding: clamp(var(--spacing-4), 5vw, var(--spacing-8));
+  padding: clamp(var(--moduix-spacing-4), 5vw, var(--moduix-spacing-8));
 }
 
 .fileUpload {
-  --file-upload-max-width: min(100%, 42rem);
+  --moduix-file-upload-max-width: min(100%, 42rem);
 
   width: 100%;
   min-width: 0;
@@ -20,7 +20,7 @@
 
 .body {
   display: grid;
-  gap: var(--spacing-6);
+  gap: var(--moduix-spacing-6);
   min-width: 0;
 }
 
@@ -28,21 +28,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .title {
-  color: var(--color-foreground);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-lg);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-lg);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-lg);
 }
 
 .fileCount,
 .dropzoneContent span {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .clearTrigger {
@@ -54,54 +54,54 @@
   min-height: 12rem;
   place-items: center;
   align-content: center;
-  gap: var(--spacing-3);
-  padding: var(--spacing-6);
-  border: var(--border-width-sm) dashed
-    color-mix(in oklab, var(--color-border) 82%, var(--color-foreground));
-  border-radius: var(--radius-lg);
-  background: color-mix(in oklab, var(--color-muted) 45%, transparent);
+  gap: var(--moduix-spacing-3);
+  padding: var(--moduix-spacing-6);
+  border: var(--moduix-border-width-sm) dashed
+    color-mix(in oklab, var(--moduix-color-border) 82%, var(--moduix-color-foreground));
+  border-radius: var(--moduix-radius-lg);
+  background: color-mix(in oklab, var(--moduix-color-muted) 45%, transparent);
   text-align: center;
-  transition: var(--transition-default);
+  transition: var(--moduix-transition-default);
 
   &[data-dragging] {
-    border-color: var(--color-primary);
-    background: color-mix(in oklab, var(--color-primary) 8%, var(--color-background));
+    border-color: var(--moduix-color-primary);
+    background: color-mix(in oklab, var(--moduix-color-primary) 8%, var(--moduix-color-background));
   }
 }
 
 .dropzoneIcon {
-  color: var(--color-primary);
+  color: var(--moduix-color-primary);
 }
 
 .dropzoneContent {
   display: grid;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 }
 
 .dropzoneContent strong,
 .listHeader > span:first-child {
-  color: var(--color-foreground);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .trigger {
-  margin-block-start: var(--spacing-1);
+  margin-block-start: var(--moduix-spacing-1);
 }
 
 .items,
 .rejectedItems {
   min-width: 0;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .fileList {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   min-width: 0;
-  padding-block-start: var(--spacing-4);
-  border-block-start: var(--border-width-sm) solid var(--color-border);
+  padding-block-start: var(--moduix-spacing-4);
+  border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 .items [data-slot='file-upload-item'],
@@ -112,26 +112,30 @@
 
 .emptyState {
   margin: 0;
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .rejectedItems [data-slot='file-upload-item'] {
-  border-color: color-mix(in oklab, var(--color-destructive) 36%, var(--color-border));
+  border-color: color-mix(
+    in oklab,
+    var(--moduix-color-destructive) 36%,
+    var(--moduix-color-border)
+  );
 }
 
 .error {
   grid-column: 2;
   margin: 0;
-  color: var(--color-destructive);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-destructive);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 @media (width < 34rem) {
   .surface {
-    padding: var(--spacing-3);
+    padding: var(--moduix-spacing-3);
   }
 
   .listHeader {
@@ -140,6 +144,6 @@
 
   .dropzone {
     min-height: 10rem;
-    padding: var(--spacing-5);
+    padding: var(--moduix-spacing-5);
   }
 }

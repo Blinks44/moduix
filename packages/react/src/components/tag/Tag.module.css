@@ -1,4 +1,4 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: inline-flex;
     width: fit-content;
@@ -6,59 +6,59 @@
     min-width: 0;
     box-sizing: border-box;
     align-items: center;
-    gap: var(--tag-gap, var(--spacing-1-5));
-    border: var(--tag-border-width, var(--border-width-sm)) solid
-      var(--tag-border-color, transparent);
-    border-radius: var(--tag-radius, var(--radius-full));
-    background-color: var(--tag-bg, var(--color-primary));
-    color: var(--tag-color, var(--color-primary-foreground));
-    font-size: var(--tag-font-size, var(--text-xs));
-    font-weight: var(--tag-font-weight, var(--weight-medium));
-    line-height: var(--tag-line-height, var(--line-height-text-xs));
-    min-height: var(--tag-height-md, var(--size-xs));
-    padding-block: var(--tag-padding-y-md, var(--spacing-0-5));
-    padding-inline: var(--tag-padding-x-md, var(--spacing-2));
+    gap: var(--moduix-tag-gap, var(--moduix-spacing-1-5));
+    border: var(--moduix-tag-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tag-border-color, transparent);
+    border-radius: var(--moduix-tag-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-tag-bg, var(--moduix-color-primary));
+    color: var(--moduix-tag-color, var(--moduix-color-primary-foreground));
+    font-size: var(--moduix-tag-font-size, var(--moduix-text-xs));
+    font-weight: var(--moduix-tag-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tag-line-height, var(--moduix-line-height-text-xs));
+    min-height: var(--moduix-tag-height-md, var(--moduix-size-xs));
+    padding-block: var(--moduix-tag-padding-y-md, var(--moduix-spacing-0-5));
+    padding-inline: var(--moduix-tag-padding-x-md, var(--moduix-spacing-2));
     white-space: nowrap;
     vertical-align: middle;
     transition:
-      color var(--tag-transition, var(--transition-default)),
-      background-color var(--tag-transition, var(--transition-default)),
-      border-color var(--tag-transition, var(--transition-default));
+      color var(--moduix-tag-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-tag-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-tag-transition, var(--moduix-transition-default));
 
     > svg {
-      width: var(--tag-icon-size, var(--spacing-3));
-      height: var(--tag-icon-size, var(--spacing-3));
+      width: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
       flex-shrink: 0;
       pointer-events: none;
     }
 
     &[data-size='sm'] {
-      gap: var(--tag-gap-sm, var(--spacing-1));
-      min-height: var(--tag-height-sm, 1.25rem);
-      padding-block: var(--tag-padding-y-sm, 0);
-      padding-inline: var(--tag-padding-x-sm, var(--spacing-1-5));
+      gap: var(--moduix-tag-gap-sm, var(--moduix-spacing-1));
+      min-height: var(--moduix-tag-height-sm, 1.25rem);
+      padding-block: var(--moduix-tag-padding-y-sm, 0);
+      padding-inline: var(--moduix-tag-padding-x-sm, var(--moduix-spacing-1-5));
     }
 
     &[data-variant='secondary'] {
-      background-color: var(--tag-bg, var(--color-secondary));
-      border-color: var(--tag-border-color, transparent);
-      color: var(--tag-color, var(--color-secondary-foreground));
+      background-color: var(--moduix-tag-bg, var(--moduix-color-secondary));
+      border-color: var(--moduix-tag-border-color, transparent);
+      color: var(--moduix-tag-color, var(--moduix-color-secondary-foreground));
     }
 
     &[data-variant='outline'],
     &[data-variant='ghost'] {
-      background-color: var(--tag-bg, transparent);
-      color: var(--tag-color, var(--color-foreground));
+      background-color: var(--moduix-tag-bg, transparent);
+      color: var(--moduix-tag-color, var(--moduix-color-foreground));
     }
 
     &[data-variant='outline'] {
-      border-color: var(--tag-border-color, var(--color-border));
+      border-color: var(--moduix-tag-border-color, var(--moduix-color-border));
     }
 
     &[data-variant='destructive'] {
-      background-color: var(--tag-bg, var(--color-destructive));
-      border-color: var(--tag-border-color, transparent);
-      color: var(--tag-color, var(--color-destructive-foreground));
+      background-color: var(--moduix-tag-bg, var(--moduix-color-destructive));
+      border-color: var(--moduix-tag-border-color, transparent);
+      color: var(--moduix-tag-color, var(--moduix-color-destructive-foreground));
     }
   }
 
@@ -77,31 +77,43 @@
     justify-content: center;
 
     > svg {
-      width: var(--tag-icon-size, var(--spacing-3));
-      height: var(--tag-icon-size, var(--spacing-3));
+      width: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
+      height: var(--moduix-tag-icon-size, var(--moduix-spacing-3));
       flex-shrink: 0;
       pointer-events: none;
     }
   }
 
   .closeTrigger {
-    --close-button-size: var(--tag-close-trigger-size, var(--spacing-4));
-    --close-button-radius: var(--tag-close-trigger-radius, var(--radius-full));
-    --close-button-icon-size: var(--tag-close-trigger-icon-size, var(--spacing-2-5));
-    --close-button-bg: var(--tag-close-trigger-bg, transparent);
-    --close-button-bg-hover: var(
-      --tag-close-trigger-bg-hover,
+    --moduix-close-button-size: var(--moduix-tag-close-trigger-size, var(--moduix-spacing-4));
+    --moduix-close-button-radius: var(--moduix-tag-close-trigger-radius, var(--moduix-radius-full));
+    --moduix-close-button-icon-size: var(
+      --moduix-tag-close-trigger-icon-size,
+      var(--moduix-spacing-2-5)
+    );
+    --moduix-close-button-bg: var(--moduix-tag-close-trigger-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-tag-close-trigger-bg-hover,
       color-mix(in oklab, currentColor 12%, transparent)
     );
-    --close-button-color: inherit;
-    --close-button-color-hover: inherit;
-    --close-button-disabled-opacity: var(--tag-disabled-opacity, var(--opacity-disabled));
-    --close-button-focus-ring-width: var(
-      --tag-close-trigger-focus-ring-width,
-      var(--focus-ring-inset-width, var(--border-width-sm))
+    --moduix-close-button-color: inherit;
+    --moduix-close-button-color-hover: inherit;
+    --moduix-close-button-disabled-opacity: var(
+      --moduix-tag-disabled-opacity,
+      var(--moduix-opacity-disabled)
     );
-    --close-button-focus-ring-color: var(--tag-close-trigger-focus-ring-color, var(--color-ring));
-    --close-button-focus-ring-offset: var(--tag-close-trigger-focus-ring-offset, 0);
-    --close-button-transition: var(--tag-transition, var(--transition-default));
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-tag-close-trigger-focus-ring-width,
+      var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-tag-close-trigger-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(--moduix-tag-close-trigger-focus-ring-offset, 0);
+    --moduix-close-button-transition: var(
+      --moduix-tag-transition,
+      var(--moduix-transition-default)
+    );
   }
 }

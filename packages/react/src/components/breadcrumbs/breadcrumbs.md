@@ -109,7 +109,7 @@ Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Lin
 item is always the current page, so give that item the current label instead of an `href`.
 
 Visible breadcrumb items can now shrink when horizontal space is limited. The last item remains the primary truncation
-target through `--breadcrumbs-item-max-width`, while ancestor links can compress instead of forcing the whole trail to
+target through `--moduix-breadcrumbs-item-max-width`, while ancestor links can compress instead of forcing the whole trail to
 overflow immediately.
 
 `Breadcrumbs.Page` sets `aria-current="page"`. `Breadcrumbs.Separator` is a presentational list item and
@@ -125,34 +125,34 @@ Every part accepts `className` and exposes both Ark-style data attributes and st
 
 Public CSS variables:
 
-| Variable                                   | Default                                                 |
-| ------------------------------------------ | ------------------------------------------------------- |
-| `--breadcrumbs-color`                      | `var(--color-muted-foreground)`                         |
-| `--breadcrumbs-ellipsis-color`             | `var(--color-muted-foreground)`                         |
-| `--breadcrumbs-ellipsis-radius`            | `var(--radius-sm)`                                      |
-| `--breadcrumbs-ellipsis-size`              | `var(--spacing-4)`                                      |
-| `--breadcrumbs-focus-ring-color`           | `var(--color-ring)`                                     |
-| `--breadcrumbs-focus-ring-width`           | `var(--focus-ring-inset-width, var(--border-width-sm))` |
-| `--breadcrumbs-font-size`                  | `var(--text-sm)`                                        |
-| `--breadcrumbs-gap`                        | `var(--spacing-1)`                                      |
-| `--breadcrumbs-item-max-width`             | `16rem`                                                 |
-| `--breadcrumbs-item-padding-x`             | `var(--spacing-1)`                                      |
-| `--breadcrumbs-line-height`                | `var(--line-height-text-sm)`                            |
-| `--breadcrumbs-link-color`                 | `var(--color-muted-foreground)`                         |
-| `--breadcrumbs-link-color-hover`           | `var(--color-foreground)`                               |
-| `--breadcrumbs-link-radius`                | `var(--radius-sm)`                                      |
-| `--breadcrumbs-link-text-decoration`       | `none`                                                  |
-| `--breadcrumbs-link-text-decoration-hover` | `none`                                                  |
-| `--breadcrumbs-link-transition`            | `var(--transition-default)`                             |
-| `--breadcrumbs-link-underline-offset`      | `0.2em`                                                 |
-| `--breadcrumbs-max-width`                  | `100%`                                                  |
-| `--breadcrumbs-page-color`                 | `var(--color-foreground)`                               |
-| `--breadcrumbs-page-font-weight`           | `var(--weight-medium)`                                  |
-| `--breadcrumbs-separator-color`            | `var(--color-muted-foreground)`                         |
-| `--breadcrumbs-separator-font-size`        | `0.875em`                                               |
-| `--breadcrumbs-separator-icon-size`        | `1em`                                                   |
+| Variable                                          | Default                                                               |
+| ------------------------------------------------- | --------------------------------------------------------------------- |
+| `--moduix-breadcrumbs-color`                      | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-breadcrumbs-ellipsis-color`             | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-breadcrumbs-ellipsis-radius`            | `var(--moduix-radius-sm)`                                             |
+| `--moduix-breadcrumbs-ellipsis-size`              | `var(--moduix-spacing-4)`                                             |
+| `--moduix-breadcrumbs-focus-ring-color`           | `var(--moduix-color-ring)`                                            |
+| `--moduix-breadcrumbs-focus-ring-width`           | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
+| `--moduix-breadcrumbs-font-size`                  | `var(--moduix-text-sm)`                                               |
+| `--moduix-breadcrumbs-gap`                        | `var(--moduix-spacing-1)`                                             |
+| `--moduix-breadcrumbs-item-max-width`             | `16rem`                                                               |
+| `--moduix-breadcrumbs-item-padding-x`             | `var(--moduix-spacing-1)`                                             |
+| `--moduix-breadcrumbs-line-height`                | `var(--moduix-line-height-text-sm)`                                   |
+| `--moduix-breadcrumbs-link-color`                 | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-breadcrumbs-link-color-hover`           | `var(--moduix-color-foreground)`                                      |
+| `--moduix-breadcrumbs-link-radius`                | `var(--moduix-radius-sm)`                                             |
+| `--moduix-breadcrumbs-link-text-decoration`       | `none`                                                                |
+| `--moduix-breadcrumbs-link-text-decoration-hover` | `none`                                                                |
+| `--moduix-breadcrumbs-link-transition`            | `var(--moduix-transition-default)`                                    |
+| `--moduix-breadcrumbs-link-underline-offset`      | `0.2em`                                                               |
+| `--moduix-breadcrumbs-max-width`                  | `100%`                                                                |
+| `--moduix-breadcrumbs-page-color`                 | `var(--moduix-color-foreground)`                                      |
+| `--moduix-breadcrumbs-page-font-weight`           | `var(--moduix-weight-medium)`                                         |
+| `--moduix-breadcrumbs-separator-color`            | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-breadcrumbs-separator-font-size`        | `0.875em`                                                             |
+| `--moduix-breadcrumbs-separator-icon-size`        | `1em`                                                                 |
 
-Visible items can shrink when necessary, and the last item is capped by `--breadcrumbs-item-max-width`; link, page, and
+Visible items can shrink when necessary, and the last item is capped by `--moduix-breadcrumbs-item-max-width`; link, page, and
 ellipsis text uses `text-overflow: ellipsis`.
 
 ## Intentional sugar and differences from upstream

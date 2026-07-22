@@ -27,7 +27,7 @@ shapes intact: `Root`, `RootProvider`, `Label`, `Control`, `Input`, `Trigger`, `
 - `Clipboard.RootProvider` keeps the styled root for clipboard state created with `Clipboard.useClipboard()`.
 - `Clipboard.useClipboard()` re-exports the Ark hook without changing its arguments or return value. Ark context hooks and type aliases remain direct imports from `@ark-ui/react/clipboard`.
 - `Clipboard` remains the callable short root form, equivalent to `Clipboard.Root`.
-- The root no longer caps width by default; consumers opt into a cap with `--clipboard-max-width`.
+- The root no longer caps width by default; consumers opt into a cap with `--moduix-clipboard-max-width`.
 - The old `CopyButton` API, prop names, live-region wrapper, and button-only mental model were removed in favor of the Ark family.
 
 ## Anatomy and exported parts
@@ -109,16 +109,16 @@ consumer wants another semantic input or button element to own the rendered node
 
 ## Defaults and styling
 
-The text input and copy trigger use the shared `--size-md` baseline; the input's default block padding is `--spacing-1`.
+The text input and copy trigger use the shared `--moduix-size-md` baseline; the input's default block padding is `--moduix-spacing-1`.
 
 - `className` is supported on every exported visual part.
 - `Clipboard.Indicator` defaults to `CopyIcon` and `CheckIcon`.
 - `Clipboard.CopyText` defaults to `Copy` and `Copied`.
 - Styles follow Ark `data-part` hooks and keep `data-copied` available for opt-in customization.
-- Public component tokens live under `--clipboard-*` in `packages/react/src/lib/moduix/styles/theme.css`.
-- Input and trigger tokens intentionally fall back to the existing `--input-*` and `--button-*` families where that keeps the visual system aligned.
-- `--clipboard-max-width` defaults to `none` instead of a fixed cap.
-- Copied-state styling should target Ark `data-copied` directly; there is no separate `--clipboard-*-copied` token layer.
+- Public component tokens live under `--moduix-clipboard-*` in `packages/react/src/lib/moduix/styles/theme.css`.
+- Input and trigger tokens intentionally fall back to the existing `--moduix-input-*` and `--moduix-button-*` families where that keeps the visual system aligned.
+- `--moduix-clipboard-max-width` defaults to `none` instead of a fixed cap.
+- Copied-state styling should target Ark `data-copied` directly; there is no separate `--moduix-clipboard-*-copied` token layer.
 
 ## Intentional sugar and differences from upstream
 
@@ -133,12 +133,12 @@ The text input and copy trigger use the shared `--size-md` baseline; the input's
 
 - Keep the family Ark-shaped. Do not collapse the composition back into a single button wrapper.
 - Preserve the explicit trigger/input/value-text structure in docs, stories, and registry output.
-- If the visual contract changes, keep `--clipboard-*` tokens and the docs CSS properties section in sync.
+- If the visual contract changes, keep `--moduix-clipboard-*` tokens and the docs CSS properties section in sync.
 
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Aligned the default input and copy trigger to `--size-md` and compacted input padding.
+- 2026-07-21: Aligned the default input and copy trigger to `--moduix-size-md` and compacted input padding.
 
 - 2026-07-09: Added `Clipboard.useClipboard()` for the public `RootProvider` path, documented `asChild` as advanced customization, and covered the copied state in Storybook.
 - 2026-07-07: Added `Clipboard.CopyText`, switched the recommended consumer path to the short `<Clipboard>` root form in examples, and removed the default max-width cap.

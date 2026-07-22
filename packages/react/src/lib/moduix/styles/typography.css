@@ -1,37 +1,37 @@
 :root {
   /* Font-family */
-  --font-sans:
+  --moduix-font-sans:
     'Noto Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
+  --moduix-font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
 
   /* Weight */
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
+  --moduix-weight-regular: 400;
+  --moduix-weight-medium: 500;
+  --moduix-weight-semibold: 600;
+  --moduix-weight-bold: 700;
 
   /* Font-size */
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-md: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
+  --moduix-text-xs: 12px;
+  --moduix-text-sm: 14px;
+  --moduix-text-md: 16px;
+  --moduix-text-lg: 18px;
+  --moduix-text-xl: 20px;
+  --moduix-text-2xl: 24px;
+  --moduix-text-3xl: 30px;
 
   /* Line-height */
-  --line-height-text-xs: 16px;
-  --line-height-text-sm: 20px;
-  --line-height-text-md: 24px;
-  --line-height-text-lg: 28px;
-  --line-height-text-xl: 28px;
-  --line-height-text-2xl: 32px;
-  --line-height-text-3xl: 36px;
+  --moduix-line-height-text-xs: 16px;
+  --moduix-line-height-text-sm: 20px;
+  --moduix-line-height-text-md: 24px;
+  --moduix-line-height-text-lg: 28px;
+  --moduix-line-height-text-xl: 28px;
+  --moduix-line-height-text-2xl: 32px;
+  --moduix-line-height-text-3xl: 36px;
 
   /* Letter-spacing */
-  --tracking-text-sm: -0.01em; /* -1% */
-  --tracking-text-xs: -0.016em; /* -1.6% */
+  --moduix-tracking-text-sm: -0.01em; /* -1% */
+  --moduix-tracking-text-xs: -0.016em; /* -1.6% */
 }

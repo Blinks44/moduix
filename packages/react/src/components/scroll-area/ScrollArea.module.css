@@ -1,12 +1,12 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     position: relative;
     box-sizing: border-box;
-    width: var(--scroll-area-width, 100%);
-    height: var(--scroll-area-height, 100%);
+    width: var(--moduix-scroll-area-width, 100%);
+    height: var(--moduix-scroll-area-height, 100%);
     min-width: 0;
     min-height: 0;
-    color: var(--scroll-area-color, var(--color-foreground));
+    color: var(--moduix-scroll-area-color, var(--moduix-color-foreground));
   }
 
   .viewport {
@@ -15,8 +15,8 @@
     height: 100%;
     min-width: 0;
     min-height: 0;
-    border-radius: var(--scroll-area-radius, var(--radius-md));
-    background-color: var(--scroll-area-bg, transparent);
+    border-radius: var(--moduix-scroll-area-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-scroll-area-bg, transparent);
     outline: 0;
     overscroll-behavior: contain;
     scrollbar-width: none;
@@ -25,14 +25,20 @@
       transparent 0,
       black
         min(
-          var(--scroll-area-fade-start-size, var(--scroll-area-fade-size, var(--spacing-10))),
+          var(
+            --moduix-scroll-area-fade-start-size,
+            var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))
+          ),
           var(--scroll-area-overflow-y-start, 0px)
         ),
       black
         calc(
           100% -
             min(
-              var(--scroll-area-fade-end-size, var(--scroll-area-fade-size, var(--spacing-10))),
+              var(
+                --moduix-scroll-area-fade-end-size,
+                var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))
+              ),
               var(--scroll-area-overflow-y-end, 0px)
             )
         ),
@@ -50,42 +56,48 @@
 
     &:focus-visible {
       outline: var(
-          --scroll-area-focus-ring-width,
-          var(--focus-ring-inset-width, var(--border-width-sm))
+          --moduix-scroll-area-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
         )
-        solid var(--scroll-area-focus-ring-color, var(--color-ring));
-      outline-offset: var(--scroll-area-focus-ring-offset, var(--focus-ring-inset-offset));
+        solid var(--moduix-scroll-area-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-scroll-area-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
     }
   }
 
   .content {
     box-sizing: border-box;
     display: block;
-    padding: var(--scroll-area-content-padding, 0);
+    padding: var(--moduix-scroll-area-content-padding, 0);
   }
 
   .scrollbar {
-    --_scroll-area-scrollbar-margin: var(--scroll-area-scrollbar-margin, var(--spacing-1));
+    --_scroll-area-scrollbar-margin: var(
+      --moduix-scroll-area-scrollbar-margin,
+      var(--moduix-spacing-1)
+    );
     --_scroll-area-scrollbar-hit-area-size: var(
-      --scroll-area-scrollbar-hit-area-size,
-      var(--spacing-5)
+      --moduix-scroll-area-scrollbar-hit-area-size,
+      var(--moduix-spacing-5)
     );
 
     position: absolute;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    padding: var(--scroll-area-scrollbar-padding, 0);
-    border-radius: var(--scroll-area-scrollbar-radius, var(--radius-md));
-    background-color: var(--scroll-area-scrollbar-bg, transparent);
-    opacity: var(--scroll-area-scrollbar-hidden-opacity, 0);
+    padding: var(--moduix-scroll-area-scrollbar-padding, 0);
+    border-radius: var(--moduix-scroll-area-scrollbar-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-scroll-area-scrollbar-bg, transparent);
+    opacity: var(--moduix-scroll-area-scrollbar-hidden-opacity, 0);
     pointer-events: none;
     user-select: none;
     touch-action: none;
     transition:
-      opacity var(--scroll-area-transition, var(--transition-default)),
-      width var(--scroll-area-thumb-hover-transition, var(--transition-fast)),
-      height var(--scroll-area-thumb-hover-transition, var(--transition-fast));
+      opacity var(--moduix-scroll-area-transition, var(--moduix-transition-default)),
+      width var(--moduix-scroll-area-thumb-hover-transition, var(--moduix-transition-fast)),
+      height var(--moduix-scroll-area-thumb-hover-transition, var(--moduix-transition-fast));
 
     &::before {
       content: '';
@@ -96,7 +108,7 @@
       top: 0;
       inset-inline-end: 0;
       bottom: var(--corner-height, 0px);
-      width: var(--scroll-area-scrollbar-size, var(--spacing-1));
+      width: var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1));
       margin-block: var(--_scroll-area-scrollbar-margin);
       margin-inline-end: var(--_scroll-area-scrollbar-margin);
 
@@ -114,8 +126,8 @@
       &:hover,
       &[data-dragging] {
         width: calc(
-          var(--scroll-area-scrollbar-size, var(--spacing-1)) +
-            var(--scroll-area-thumb-hover-increase, 2px)
+          var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1)) +
+            var(--moduix-scroll-area-thumb-hover-increase, 2px)
         );
       }
     }
@@ -124,7 +136,7 @@
       inset-inline-start: 0;
       inset-inline-end: var(--corner-width, 0px);
       bottom: 0;
-      height: var(--scroll-area-scrollbar-size, var(--spacing-1));
+      height: var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1));
       flex-direction: column;
       margin-inline: var(--_scroll-area-scrollbar-margin);
       margin-block-end: var(--_scroll-area-scrollbar-margin);
@@ -145,15 +157,15 @@
       &:hover,
       &[data-dragging] {
         height: calc(
-          var(--scroll-area-scrollbar-size, var(--spacing-1)) +
-            var(--scroll-area-thumb-hover-increase, 2px)
+          var(--moduix-scroll-area-scrollbar-size, var(--moduix-spacing-1)) +
+            var(--moduix-scroll-area-thumb-hover-increase, 2px)
         );
       }
     }
 
     &[data-hover],
     &[data-scrolling] {
-      opacity: var(--scroll-area-scrollbar-visible-opacity, 1);
+      opacity: var(--moduix-scroll-area-scrollbar-visible-opacity, 1);
       pointer-events: auto;
     }
 
@@ -162,29 +174,32 @@
     }
 
     .root[data-variant='always'] & {
-      opacity: var(--scroll-area-scrollbar-visible-opacity, 1);
+      opacity: var(--moduix-scroll-area-scrollbar-visible-opacity, 1);
       pointer-events: auto;
     }
   }
 
   .thumb {
     box-sizing: border-box;
-    border-radius: var(--scroll-area-thumb-radius, var(--radius-full));
-    background-color: var(--scroll-area-thumb-bg, var(--color-border));
+    border-radius: var(--moduix-scroll-area-thumb-radius, var(--moduix-radius-full));
+    background-color: var(--moduix-scroll-area-thumb-bg, var(--moduix-color-border));
 
     &[data-orientation='vertical'] {
       width: 100%;
-      min-height: var(--scroll-area-thumb-min-size, var(--size-xs));
+      min-height: var(--moduix-scroll-area-thumb-min-size, var(--moduix-size-xs));
     }
 
     &[data-orientation='horizontal'] {
       height: 100%;
-      min-width: var(--scroll-area-thumb-min-size, var(--size-xs));
+      min-width: var(--moduix-scroll-area-thumb-min-size, var(--moduix-size-xs));
     }
   }
 
   .corner {
     box-sizing: border-box;
-    background-color: var(--scroll-area-corner-bg, var(--scroll-area-scrollbar-bg, transparent));
+    background-color: var(
+      --moduix-scroll-area-corner-bg,
+      var(--moduix-scroll-area-scrollbar-bg, transparent)
+    );
   }
 }

@@ -138,9 +138,9 @@ the Ark part.
 
 ## Defaults and styling
 
-Default popover and close controls use `--size-md` with `--spacing-1` block padding.
+Default popover and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--popover-*` motion variables
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-popover-*` motion variables
 remain the more specific override.
 
 The wrappers preserve Ark `data-scope` and `data-part` attributes and add stable `data-slot` hooks.
@@ -150,7 +150,7 @@ Open and closed animations target `[data-state='open']` and `[data-state='closed
 layer keeps exit animations mounted. Use `present` only for JavaScript-controlled animation
 lifecycles.
 
-The public `--popover-*` variables are declared in `theme.css`. Positioner sizing relies on Ark's
+The public `--moduix-popover-*` variables are declared in `theme.css`. Positioner sizing relies on Ark's
 runtime available-size and reference-size variables rather than duplicate measurements.
 
 ## Intentional sugar and differences from upstream
@@ -176,9 +176,9 @@ runtime available-size and reference-size variables rather than duplicate measur
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default popover and close controls to `--size-md` and compacted their block padding.
+- 2026-07-21: Reduced default popover and close controls to `--moduix-size-md` and compacted their block padding.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-10: Nested examples now render inline, `Header` reserves close-icon space only when needed,
   and the public CSS-variable reference includes the `CloseIcon` styling contract.
 - 2026-07-05: Added `Popover.CloseIcon` and documented the close-icon plus layout-helper popup composition path.
@@ -191,7 +191,7 @@ runtime available-size and reference-size variables rather than duplicate measur
 - 2026-06-26: Tightened docs-workflow alignment for anatomy, ref targets, and stable `data-slot`
   hooks.
 - 2026-06-19: Updated layering to keep Ark `--z-index` on `Popover.Positioner` and apply
-  `calc(var(--z-popup) + var(--layer-index))` on `Popover.Content` so nested popovers render above parent layers.
+  `calc(var(--moduix-z-popup) + var(--layer-index))` on `Popover.Content` so nested popovers render above parent layers.
 - 2026-06-19: Replaced the previous implementation and legacy API with the full Ark UI React
   contract, namespace composition, provider/context hooks, Ark state selectors, positioning
   variables, examples, and documentation.

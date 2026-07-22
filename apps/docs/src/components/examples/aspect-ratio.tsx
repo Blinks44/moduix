@@ -1,14 +1,14 @@
 export const aspectRatioCssProperties = [
   {
-    name: '--aspect-ratio-radius' as const,
-    defaultValue: 'var(--radius-md)',
+    name: '--moduix-aspect-ratio-radius' as const,
+    defaultValue: 'var(--moduix-radius-md)',
     description: 'Controls the root border radius.',
   },
 ];
 
 export const aspectRatioBasicCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--spacing-8)));
+  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .aspect-ratio-demo__image {
@@ -23,8 +23,8 @@ export const aspectRatioBasicCss = `
 export const aspectRatioGridCss = `
 .aspect-ratio-grid {
   display: grid;
-  width: min(42rem, calc(100vw - var(--spacing-8)));
-  gap: var(--spacing-4);
+  width: min(42rem, calc(100vw - var(--moduix-spacing-8)));
+  gap: var(--moduix-spacing-4);
   align-items: start;
 }
 
@@ -36,11 +36,11 @@ export const aspectRatioGridCss = `
 
 .aspect-ratio-grid__card {
   overflow: hidden;
-  --card-radius: var(--radius-lg);
+  --moduix-card-radius: var(--moduix-radius-lg);
 }
 
 .aspect-ratio-grid__media {
-  --aspect-ratio-radius: 0;
+  --moduix-aspect-ratio-radius: 0;
 }
 
 .aspect-ratio-grid__image {
@@ -49,29 +49,29 @@ export const aspectRatioGridCss = `
 
 .aspect-ratio-grid__body {
   display: grid;
-  gap: var(--spacing-2);
-  padding: var(--spacing-5);
+  gap: var(--moduix-spacing-2);
+  padding: var(--moduix-spacing-5);
 }
 
 .aspect-ratio-grid__title {
   margin: 0;
-  color: var(--color-foreground);
-  font-size: var(--text-md);
-  font-weight: var(--weight-semibold);
-  line-height: var(--line-height-text-md);
+  color: var(--moduix-color-foreground);
+  font-size: var(--moduix-text-md);
+  font-weight: var(--moduix-weight-semibold);
+  line-height: var(--moduix-line-height-text-md);
 }
 
 .aspect-ratio-grid__description {
   margin: 0;
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 `;
 
 export const aspectRatioEmbedCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--spacing-8)));
+  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .aspect-ratio-demo__frame {
@@ -81,8 +81,8 @@ export const aspectRatioEmbedCss = `
 
 export const aspectRatioMigrationCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--spacing-8)));
-  background: var(--color-muted);
+  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
+  background: var(--moduix-color-muted);
 }
 
 .aspect-ratio-demo__fill-image {

@@ -6,12 +6,6 @@ description: Inline feedback for status, validation, and system messages.
 
 import * as AlertDocs from '@/components/examples/alert';
 
-<style>{`
-  .rp-preview [data-slot='alert-root'] {
-    max-width: min(24rem, 100%);
-  }
-`}</style>
-
 ## API Reference
 
 Ark UI does not ship a dedicated `alert` primitive. Moduix builds this component with the official
@@ -176,17 +170,17 @@ local alert should be hidden.
 
 ## Styling
 
-Use `className` on the root or parts for local styles. Override `--alert-*` CSS variables on the
+Use `className` on the root or parts for local styles. Override `--moduix-alert-*` CSS variables on the
 root when the alert needs local theming.
 
 Built-in statuses also read shared palette tokens:
 
-| Status    | Shared token          | Default                      |
-| --------- | --------------------- | ---------------------------- |
-| `info`    | `--color-primary`     | theme primary                |
-| `success` | `--color-success`     | `oklch(0.627 0.194 149.214)` |
-| `warning` | `--color-warning`     | `oklch(0.795 0.184 86.047)`  |
-| `error`   | `--color-destructive` | theme destructive            |
+| Status    | Shared token                 | Default                      |
+| --------- | ---------------------------- | ---------------------------- |
+| `info`    | `--moduix-color-primary`     | theme primary                |
+| `success` | `--moduix-color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `error`   | `--moduix-color-destructive` | theme destructive            |
 
 ### CSS Properties
 

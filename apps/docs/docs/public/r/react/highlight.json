@@ -14,7 +14,7 @@
     },
     {
       "path": "packages/react/src/components/highlight/Highlight.module.css",
-      "content": "@layer ui.components {\n  .root {\n    padding-block: var(--highlight-padding-y, 0.0625rem);\n    padding-inline: var(--highlight-padding-x, var(--spacing-1));\n    border-radius: var(--highlight-radius, var(--radius-xs));\n    background-color: var(\n      --highlight-bg,\n      color-mix(in oklab, var(--color-warning) 40%, var(--color-accent))\n    );\n    color: var(--highlight-color, var(--color-foreground));\n    box-shadow: var(--highlight-shadow, none);\n    font: inherit;\n    font-weight: var(--highlight-font-weight, var(--weight-medium));\n    text-decoration: none;\n    -webkit-box-decoration-break: clone;\n    box-decoration-break: clone;\n  }\n}",
+      "content": "@layer moduix.components {\n  .root {\n    padding-block: var(--moduix-highlight-padding-y, 0.0625rem);\n    padding-inline: var(--moduix-highlight-padding-x, var(--moduix-spacing-1));\n    border-radius: var(--moduix-highlight-radius, var(--moduix-radius-xs));\n    background-color: var(\n      --moduix-highlight-bg,\n      color-mix(in oklab, var(--moduix-color-warning) 40%, var(--moduix-color-accent))\n    );\n    color: var(--moduix-highlight-color, var(--moduix-color-foreground));\n    box-shadow: var(--moduix-highlight-shadow, none);\n    font: inherit;\n    font-weight: var(--moduix-highlight-font-weight, var(--moduix-weight-medium));\n    text-decoration: none;\n    -webkit-box-decoration-break: clone;\n    box-decoration-break: clone;\n  }\n}",
       "type": "registry:file",
       "target": "@components/moduix/highlight/Highlight.module.css"
     },

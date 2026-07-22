@@ -26,11 +26,11 @@ submission and reset synchronization.
 
 <style>{`
       [data-slot="pin-input-root"] {
-        --pin-input-root-gap: var(--spacing-2);
+        --moduix-pin-input-root-gap: var(--moduix-spacing-2);
       }
 
       [data-slot="pin-input-control"] {
-        --pin-input-gap: var(--spacing-2);
+        --moduix-pin-input-gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -110,7 +110,7 @@ and `ids` can be used when external labels or descriptions need stable element I
 
 Set `blurOnComplete` when focus should leave the final input after all slots are filled.
 
-<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
 
 ```tsx preview file="./_snippets/pin-input/blur-on-complete.tsx"
 
@@ -120,7 +120,9 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
 
 Control the value array from React state and read the Ark callback detail objects directly.
 
-<style>{`.hint { color: var(--color-muted-foreground); }`}</style>
+<style>{`
+  .hint { color: var(--moduix-color-muted-foreground); }
+`}</style>
 
 ```tsx preview file="./_snippets/pin-input/change-events.tsx"
 
@@ -132,15 +134,8 @@ Wrap `PinInput` in `Field` when label, helper text, invalid state, and error tex
 form accessibility wiring.
 
 <style>{`
-  .centered-field-example {
-    --field-width: fit-content;
-    --field-max-width: 100%;
-
-    margin-inline: auto;
-  }
-
   [data-slot="pin-input-input"][data-invalid] {
-    border-color: var(--color-destructive);
+    border-color: var(--moduix-color-destructive);
   }
 `}</style>
 
@@ -154,8 +149,8 @@ Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes 
 
 <style>{`
       .customRoot {
-        --pin-input-separator-size: 1.5rem;
-        --pin-input-separator-color: var(--color-primary);
+        --moduix-pin-input-separator-size: 1.5rem;
+        --moduix-pin-input-separator-color: var(--moduix-color-primary);
       }
     `}</style>
 
@@ -190,7 +185,7 @@ default placeholder empty.
 
 <style>{`
       [data-slot="pin-input-input"]::placeholder {
-        color: var(--pin-input-placeholder-color);
+        color: var(--moduix-pin-input-placeholder-color);
       }
     `}</style>
 
@@ -207,12 +202,12 @@ rendered tree. This example bypasses `Inputs` to show the full indexed Ark compo
   .pin-input-provider-demo {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .actions {
     display: inline-flex;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 `}</style>
 

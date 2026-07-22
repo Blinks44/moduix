@@ -45,6 +45,9 @@ import '@moduix/react/style.css';
 This stylesheet is required. It provides the shared design tokens and base layer styles that
 component CSS depends on. Component styles are still loaded alongside the components you import.
 
+All moduix design tokens use the `--moduix-*` namespace. Your project can keep its own token names
+and selectively map them in a stylesheet that loads after `style.css`; see [Tokens](/docs/tokens).
+
 If you want the optional reset, import it explicitly before the main stylesheet:
 
 ```tsx
@@ -117,17 +120,37 @@ staying in `node_modules`.
 
 ### 1. Prepare the project for shadcn
 
-For an existing React project, follow the
-[shadcn installation guide](https://ui.shadcn.com/docs/installation) for your bundler and initialize
-the project:
+Create `components.json` in your project root with the moduix registry configuration:
 
-```bash
-npx shadcn@latest init
+```json title="components.json"
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "",
+    "baseColor": "",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks",
+    "utils": "@/lib/utils"
+  },
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
+}
 ```
 
-This creates the base setup and `components.json` used by the CLI. moduix does not require Tailwind
-for its component styles, but it uses the shadcn registry format and project aliases for source
-delivery.
+The `tailwind` object is required by the shadcn configuration schema, but moduix does not use
+Tailwind and does not require it to be installed. Its empty paths and `baseColor` prevent the CLI
+from looking for Tailwind files or downloading a shadcn color palette.
 
 Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
 
@@ -209,22 +232,6 @@ resolve: {
   </Tab>
 </Tabs>
 
-After initialization, register the hosted moduix namespace:
-
-```bash
-npx shadcn@latest registry add '@moduix-react=https://moduix.dev/r/react/{name}.json'
-```
-
-You can also add the same namespace manually under `registries` in `components.json`:
-
-```json
-{
-  "registries": {
-    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
-  }
-}
-```
-
 This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in
 `src/components` and `src/lib` instead of a literal `@` directory.
 
@@ -298,7 +305,7 @@ moduix works with the styling approach your project already uses:
 - Tailwind CSS utility classes for layout and one-off styling.
 - CSS-in-JS libraries that attach classes or pass scoped styles through your own wrappers.
 
-The default density uses `--size-md: 36px` for primary controls and `--size-sm: 32px` for popup
+The default density uses `--moduix-size-md: 36px` for primary controls and `--moduix-size-sm: 32px` for popup
 rows. Because components consume the shared scale, changing those tokens updates related inputs,
 triggers, buttons, and menu-like items together.
 

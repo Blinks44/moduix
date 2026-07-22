@@ -73,7 +73,7 @@ Editable.RootProvider
 Keep `Input` and `Preview` as siblings inside `Area`, and place `Controls` after `Area` for the
 standard trigger flow. It renders trigger buttons on the right and vertically centered for
 single-line inputs. Textarea compositions use the same structure and can set
-`--editable-control-align: start` to keep controls aligned to the top of the multiline surface.
+`--moduix-editable-control-align: start` to keep controls aligned to the top of the multiline surface.
 
 ### When to go custom
 
@@ -117,15 +117,7 @@ Control the value with `value` and `onValueChange` when application state is the
 Wrap the editable with `Field` when validation state and error text live outside the editable
 surface.
 
-<style>{`
-  ${EditableDocs.editableExampleCss}
-
-  .centered-field-example {
-    --field-width: min(20rem, 100%);
-
-    margin-inline: auto;
-  }
-`}</style>
+<style>{EditableDocs.editableExampleCss}</style>
 
 ```tsx preview file="./_snippets/editable/field.tsx"
 

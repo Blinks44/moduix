@@ -114,7 +114,7 @@ the low-level `Table*` parts directly when the field or calendar grid needs cust
 `value`, `defaultValue`, and `onValueChange(details)` use Ark `DateValue[]`. Import `parseDate`,
 `DatePicker.Context`, `useDatePicker`, and event/detail types directly from
 `@ark-ui/react/date-picker` when you need them. The default root and popup width is `18.75rem`
-(300px); override `--date-picker-width` or `--date-picker-content-width` when a wider composition
+(300px); override `--moduix-date-picker-width` or `--moduix-date-picker-content-width` when a wider composition
 is needed.
 Because popup content is portalled, put popup sizing variables on `DatePicker.Content` or another
 element inside the overlay subtree, not only on `DatePicker.Root`.
@@ -309,10 +309,8 @@ export default function MonthYearSelectDatePickerDemo() {
                       <Select.Control>
                         <Select.Trigger>
                           <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicators>
                           <Select.Indicator />
-                        </Select.Indicators>
+                        </Select.Trigger>
                       </Select.Control>
                       <Select.Positioner>
                         <Select.Content>
@@ -345,10 +343,8 @@ export default function MonthYearSelectDatePickerDemo() {
                       <Select.Control>
                         <Select.Trigger>
                           <Select.ValueText />
-                        </Select.Trigger>
-                        <Select.Indicators>
                           <Select.Indicator />
-                        </Select.Indicators>
+                        </Select.Trigger>
                       </Select.Control>
                       <Select.Positioner>
                         <Select.Content>

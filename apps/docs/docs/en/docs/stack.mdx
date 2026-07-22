@@ -21,11 +21,11 @@ common alignment.
 
 <style>{`
       .panel {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -69,7 +69,7 @@ Switch to local CSS when the layout needs more than one flex container, more tha
 direction switch, per-breakpoint gap changes, item-level layout rules, or styling that reads clearer
 in a stylesheet than in component props.
 
-Use `style` when one instance needs to override public `--stack-*` variables or computed flex
+Use `style` when one instance needs to override public `--moduix-stack-*` variables or computed flex
 properties.
 
 ### Default props
@@ -105,11 +105,11 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
 
 <style>{`
       .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -123,7 +123,7 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 
 <style>{`
       .skeletonCard {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
     `}</style>
 
@@ -137,11 +137,11 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 
 <style>{`
       .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -155,11 +155,11 @@ Use `direction="row"` and alignment props for inline layouts.
 
 <style>{`
       .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -173,11 +173,11 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
 
 <style>{`
       .panel {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -192,11 +192,11 @@ between children. `gap` applies to every child, including each divider.
 
 <style>{`
       .row {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-background);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-background);
       }
 
     `}</style>
@@ -211,18 +211,18 @@ Use `wrap="wrap"` when items should flow to the next line.
 
 <style>{`
       .wrap {
-        width: min(20rem, calc(100vw - var(--spacing-8)));
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
       }
 
       .pill {
-        padding-inline: var(--spacing-3);
-        padding-block: var(--spacing-2);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-full);
-        background-color: var(--color-muted);
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        padding-inline: var(--moduix-spacing-3);
+        padding-block: var(--moduix-spacing-2);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-full);
+        background-color: var(--moduix-color-muted);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -256,6 +256,6 @@ values for these variables when provided, and the `style` prop can still overrid
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
 - `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`,
-  `flexWrap`, and any `--stack-*` variables written by props.
+  `flexWrap`, and any `--moduix-stack-*` variables written by props.
 - There are no state attributes, CSS animation variables, or `slotProps` maps in the public
   contract.

@@ -31,9 +31,9 @@ same text styling contract stays in place.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -101,9 +101,9 @@ Use `align` when alignment belongs to the text itself instead of the surrounding
       .aligned {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
     `}</style>
 
@@ -119,9 +119,9 @@ Use `as` for common semantic tags without leaving the typography scale.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -138,9 +138,9 @@ component.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -156,9 +156,9 @@ Use `tone` to match the role of the copy without local color classes.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -174,9 +174,9 @@ surrounding layout owns expansion or disclosure.
 <style>{`
       .narrow {
         display: flex;
-        width: min(18rem, calc(100vw - var(--spacing-8)));
+        width: min(18rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
     `}</style>
 
@@ -192,9 +192,9 @@ Use `weight` when the emphasis should stay within the same semantic element.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--spacing-8)));
+        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -224,7 +224,7 @@ ref.
 
 ## Styling
 
-Style `Text` through `className`, Ark-style root data attributes, and the public `--text-*` CSS
+Style `Text` through `className`, Ark-style root data attributes, and the public `--moduix-text-*` CSS
 variables defined in `theme.css`.
 
 ### CSS Properties
@@ -251,4 +251,4 @@ variables defined in `theme.css`.
   `destructive`.
 - `data-align` appears only when `align` is explicitly set to `left`, `center`, or `right`.
 - `data-truncate` appears when single-line ellipsis is active.
-- `data-line-clamp` appears when `lineClamp` is active and sets `--text-line-clamp`.
+- `data-line-clamp` appears when `lineClamp` is active and sets `--moduix-text-line-clamp`.

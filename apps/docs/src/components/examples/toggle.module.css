@@ -3,29 +3,18 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .stack {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .hint {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
-}
-
-.customToggle {
-  --toggle-outline-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-  --toggle-outline-bg-hover: color-mix(in oklab, var(--color-primary) 14%, transparent);
-  --toggle-outline-bg-active: color-mix(in oklab, var(--color-primary) 18%, transparent);
-  --toggle-outline-border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-  --toggle-outline-color: var(--color-primary);
-  --toggle-outline-bg-pressed: var(--color-primary);
-  --toggle-outline-border-color-pressed: var(--color-primary);
-  --toggle-outline-color-pressed: var(--color-primary-foreground);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }

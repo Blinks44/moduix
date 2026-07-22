@@ -94,12 +94,12 @@ Data attributes from Ark:
 
 Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes.
 
-The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--shadow-xs)`.
+The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--moduix-shadow-sm)`.
 
 `ClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
 Ark remains the source of its translated accessible label and its disabled/hidden state.
 
-All `--signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--signature-pad-width`, `--signature-pad-height`, `--signature-pad-control-width`, `--signature-pad-control-height`, `--signature-pad-stroke-color`, `--signature-pad-bg`, `--signature-pad-border-color`, `--signature-pad-radius`, `--signature-pad-guide-color`, and `--signature-pad-clear-trigger-*`.
+All `--moduix-signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, `--moduix-signature-pad-control-width`, `--moduix-signature-pad-control-height`, `--moduix-signature-pad-stroke-color`, `--moduix-signature-pad-bg`, `--moduix-signature-pad-border-color`, `--moduix-signature-pad-radius`, `--moduix-signature-pad-guide-color`, and `--moduix-signature-pad-clear-trigger-*`.
 
 The guide line and clear action use logical inline positioning, so their layout follows RTL text flow.
 

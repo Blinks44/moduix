@@ -27,12 +27,14 @@ const images = [
 
 export default function GalleryLightboxDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [galleryKey, setGalleryKey] = useState(0);
   const activeImage = images[activeIndex] ?? images[0];
   return (
     <Lightbox
       onTriggerValueChange={(details) => {
         const nextIndex = images.findIndex((image) => image.id === details.value);
         setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
+        setGalleryKey((key) => key + 1);
       }}
     >
       <div className="lightbox-gallery">
@@ -51,7 +53,8 @@ export default function GalleryLightboxDemo() {
         <Lightbox.Content aria-label={activeImage.alt}>
           <Lightbox.Gallery>
             <Carousel.Root
-              page={activeIndex}
+              key={galleryKey}
+              defaultPage={activeIndex}
               onPageChange={(details) => setActiveIndex(details.page)}
               slideCount={images.length}
             >

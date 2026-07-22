@@ -14,7 +14,7 @@
     },
     {
       "path": "packages/react/src/components/aspect-ratio/AspectRatio.module.css",
-      "content": "@layer ui.components {\n  .root {\n    --aspect-ratio-value: 1;\n    position: relative;\n    width: 100%;\n    aspect-ratio: var(--aspect-ratio-value);\n    overflow: hidden;\n    border-radius: var(--aspect-ratio-radius, var(--radius-md));\n\n    & > :where(img, video, iframe, canvas, svg) {\n      display: block;\n      width: 100%;\n      height: 100%;\n    }\n  }\n}",
+      "content": "@layer moduix.components {\n  .root {\n    --aspect-ratio-value: 1;\n    position: relative;\n    width: 100%;\n    aspect-ratio: var(--aspect-ratio-value);\n    overflow: hidden;\n    border-radius: var(--moduix-aspect-ratio-radius, var(--moduix-radius-md));\n\n    & > :where(img, video, iframe, canvas, svg) {\n      display: block;\n      width: 100%;\n      height: 100%;\n    }\n  }\n}",
       "type": "registry:file",
       "target": "@components/moduix/aspect-ratio/AspectRatio.module.css"
     },

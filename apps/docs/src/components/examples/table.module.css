@@ -12,7 +12,7 @@
 
 .stack {
   display: grid;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .stickyScrollArea {
@@ -41,44 +41,40 @@
 }
 
 .actionTrigger {
-  --button-size-icon-sm: 1.25rem;
-  --button-focus-ring-width: var(--border-width-sm);
+  --moduix-button-size-icon-sm: 1.25rem;
+  --moduix-button-focus-ring-width: var(--moduix-border-width-sm);
 
   margin-inline-start: auto;
-  border-radius: var(--radius-sm);
+  border-radius: var(--moduix-radius-sm);
 }
 
 .actionEllipsis {
-  font-weight: var(--weight-medium);
+  font-weight: var(--moduix-weight-medium);
   line-height: 1;
 }
 
 .code {
-  font-family: var(--font-mono);
+  font-family: var(--moduix-font-mono);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--weight-medium);
-}
-
-.emphasis {
-  font-weight: var(--weight-medium);
+  font-weight: var(--moduix-weight-medium);
 }
 
 .shell {
   width: min(44rem, 100%);
   min-width: 0;
   overflow-x: auto;
-  padding: var(--spacing-3);
-  border: var(--border-width-sm) dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: color-mix(in srgb, var(--moduix-color-muted) 35%, transparent);
 }
 
 .scrollArea {
-  --scroll-area-height: 16rem;
-  --scroll-area-radius: var(--radius-lg);
-  --scroll-area-bg: var(--color-card);
+  --moduix-scroll-area-height: 16rem;
+  --moduix-scroll-area-radius: var(--moduix-radius-lg);
+  --moduix-scroll-area-bg: var(--moduix-color-card);
 
   width: min(44rem, 100%);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
 }

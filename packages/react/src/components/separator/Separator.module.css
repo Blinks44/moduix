@@ -1,50 +1,59 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: block;
     flex-shrink: 0;
     border: 0;
-    border-color: var(--separator-color, var(--color-border));
-    border-style: var(--separator-border-style, var(--separator-variant-border-style, solid));
+    border-color: var(--moduix-separator-color, var(--moduix-color-border));
+    border-style: var(
+      --moduix-separator-border-style,
+      var(--moduix-separator-variant-border-style, solid)
+    );
 
     &[data-size='xs'] {
-      --separator-size-thickness: var(--separator-thickness-xs, 0.5px);
+      --moduix-separator-size-thickness: var(--moduix-separator-thickness-xs, 0.5px);
     }
 
     &[data-size='sm'] {
-      --separator-size-thickness: var(--separator-thickness-sm, var(--border-width-sm));
+      --moduix-separator-size-thickness: var(
+        --moduix-separator-thickness-sm,
+        var(--moduix-border-width-sm)
+      );
     }
 
     &[data-size='md'] {
-      --separator-size-thickness: var(--separator-thickness-md, var(--border-width-md));
+      --moduix-separator-size-thickness: var(
+        --moduix-separator-thickness-md,
+        var(--moduix-border-width-md)
+      );
     }
 
     &[data-size='lg'] {
-      --separator-size-thickness: var(--separator-thickness-lg, 3px);
+      --moduix-separator-size-thickness: var(--moduix-separator-thickness-lg, 3px);
     }
 
     &[data-variant='dashed'] {
-      --separator-variant-border-style: dashed;
+      --moduix-separator-variant-border-style: dashed;
     }
 
     &[data-variant='dotted'] {
-      --separator-variant-border-style: dotted;
+      --moduix-separator-variant-border-style: dotted;
     }
 
     &[data-orientation='horizontal'] {
-      width: var(--separator-length-horizontal, 100%);
+      width: var(--moduix-separator-length-horizontal, 100%);
       height: 0;
       border-block-start-width: var(
-        --separator-thickness,
-        var(--separator-size-thickness, var(--border-width-sm))
+        --moduix-separator-thickness,
+        var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))
       );
     }
 
     &[data-orientation='vertical'] {
       width: 0;
-      height: var(--separator-length-vertical, 1em);
+      height: var(--moduix-separator-length-vertical, 1em);
       border-inline-start-width: var(
-        --separator-thickness,
-        var(--separator-size-thickness, var(--border-width-sm))
+        --moduix-separator-thickness,
+        var(--moduix-separator-size-thickness, var(--moduix-border-width-sm))
       );
     }
   }

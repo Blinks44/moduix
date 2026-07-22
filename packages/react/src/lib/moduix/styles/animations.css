@@ -40,21 +40,22 @@
 }
 
 :root {
-  --animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
-  --animation-fade-in: moduix-fade-in var(--duration-normal) var(--ease-out);
-  --animation-fade-out: moduix-fade-out var(--duration-normal) var(--ease-in);
-  --animation-slide-up: moduix-slide-up var(--duration-normal) var(--ease-out);
-  --animation-slide-down: moduix-slide-down var(--duration-normal) var(--ease-out);
-  --animation-spin: moduix-spin 0.75s linear infinite;
+  --moduix-animation-pulse: moduix-pulse 2.5s ease-in-out infinite;
+  --moduix-animation-fade-in: moduix-fade-in var(--moduix-duration-normal) var(--moduix-ease-out);
+  --moduix-animation-fade-out: moduix-fade-out var(--moduix-duration-normal) var(--moduix-ease-in);
+  --moduix-animation-slide-up: moduix-slide-up var(--moduix-duration-normal) var(--moduix-ease-out);
+  --moduix-animation-slide-down: moduix-slide-down var(--moduix-duration-normal)
+    var(--moduix-ease-out);
+  --moduix-animation-spin: moduix-spin 0.75s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --animation-pulse: none;
-    --animation-fade-in: none;
-    --animation-fade-out: none;
-    --animation-slide-up: none;
-    --animation-slide-down: none;
-    --animation-spin: none;
+    --moduix-animation-pulse: none;
+    --moduix-animation-fade-in: none;
+    --moduix-animation-fade-out: none;
+    --moduix-animation-slide-up: none;
+    --moduix-animation-slide-down: none;
+    --moduix-animation-spin: none;
   }
 }

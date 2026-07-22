@@ -1,20 +1,20 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .fallbackRow {
     display: flex;
     align-items: center;
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
   }
 
   .linkAvatar {
     text-decoration: none;
     transition:
-      box-shadow var(--transition-default),
-      transform var(--transition-default);
+      box-shadow var(--moduix-transition-default),
+      transform var(--moduix-transition-default);
 
     &:hover {
       box-shadow:
-        0 0 0 2px var(--color-background),
-        0 0 0 4px var(--color-primary);
+        0 0 0 2px var(--moduix-color-background),
+        0 0 0 4px var(--moduix-color-primary);
       transform: translateY(-1px);
     }
   }
@@ -24,13 +24,13 @@
   }
 
   .linkAvatarFallback {
-    --avatar-fallback-bg: var(--color-primary);
-    --avatar-fallback-color: var(--color-primary-foreground);
+    --moduix-avatar-fallback-bg: var(--moduix-color-primary);
+    --moduix-avatar-fallback-color: var(--moduix-color-primary-foreground);
   }
 
   .iconAvatar {
-    --avatar-bg: var(--color-accent);
-    --avatar-fallback-color: var(--color-accent-foreground);
+    --moduix-avatar-bg: var(--moduix-color-accent);
+    --moduix-avatar-fallback-color: var(--moduix-color-accent-foreground);
   }
 
   .iconAvatarGlyph {
@@ -41,19 +41,19 @@
   .statusStory {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .statusLabel {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 
   .providerStory {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .customImage {

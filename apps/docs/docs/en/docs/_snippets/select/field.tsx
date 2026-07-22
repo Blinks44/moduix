@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field, Select } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const frameworks = createListCollection({
   items: [
@@ -25,30 +26,30 @@ const frameworks = createListCollection({
 
 export default function SelectFieldDemo() {
   return (
-    <Field.Root className="select-field-example" required>
-      <Select collection={frameworks} name="framework">
-        <Select.Label>Framework</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select framework" />
-          </Select.Trigger>
-          <Select.Indicators>
+    <PreviewLayout alignItems="center" width="20rem">
+      <Field.Root required>
+        <Select collection={frameworks} name="framework">
+          <Select.Label>Framework</Select.Label>
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText placeholder="Select framework" />
+              <Select.Indicator />
+            </Select.Trigger>
             <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {frameworks.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select>
-      <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
-    </Field.Root>
+          </Select.Control>
+          <Select.Positioner>
+            <Select.Content>
+              {frameworks.items.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select>
+        <Field.HelperText>Pick the framework used by this project.</Field.HelperText>
+      </Field.Root>
+    </PreviewLayout>
   );
 }

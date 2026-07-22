@@ -137,32 +137,32 @@ export function ToastExample() {
 
 Primary CSS variables:
 
-| Variable                         | Default                                           |
-| -------------------------------- | ------------------------------------------------- |
-| `--toast-width`                  | `20rem`                                           |
-| `--toast-viewport-inset`         | `var(--spacing-4)`                                |
-| `--toast-bg`                     | `var(--color-popover)`                            |
-| `--toast-color`                  | `var(--color-popover-foreground)`                 |
-| `--toast-border-color`           | `var(--color-border)`                             |
-| `--toast-border-width`           | `var(--border-width-sm)`                          |
-| `--toast-radius`                 | `var(--radius-lg)`                                |
-| `--toast-shadow`                 | `var(--shadow-lg)`                                |
-| `--toast-padding`                | `var(--spacing-4)`                                |
-| `--toast-content-gap`            | `var(--spacing-1)`                                |
-| `--toast-title-font-size`        | `var(--text-sm)`                                  |
-| `--toast-title-font-weight`      | `var(--weight-semibold)`                          |
-| `--toast-description-color`      | `var(--color-muted-foreground)`                   |
-| `--toast-action-bg-hover`        | `var(--color-accent)`                             |
-| `--toast-action-gap`             | `var(--spacing-2)`                                |
-| `--toast-action-min-height`      | `var(--size-xs)`                                  |
-| `--toast-close-bg-hover`         | `var(--color-muted)`                              |
-| `--toast-close-focus-ring-width` | `var(--focus-ring-width, var(--border-width-md))` |
-| `--toast-close-size`             | `var(--spacing-7)`                                |
-| `--toast-close-icon-size`        | `var(--spacing-3)`                                |
-| `--toast-transition`             | `400ms`                                           |
-| `--toast-transition-out`         | `400ms`                                           |
-| `--toast-opacity-transition-out` | `200ms`                                           |
-| `--toast-z-index`                | `var(--z-toast)`                                  |
+| Variable                                | Default                                                         |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `--moduix-toast-width`                  | `20rem`                                                         |
+| `--moduix-toast-viewport-inset`         | `var(--moduix-spacing-4)`                                       |
+| `--moduix-toast-bg`                     | `var(--moduix-color-popover)`                                   |
+| `--moduix-toast-color`                  | `var(--moduix-color-popover-foreground)`                        |
+| `--moduix-toast-border-color`           | `var(--moduix-color-border)`                                    |
+| `--moduix-toast-border-width`           | `var(--moduix-border-width-sm)`                                 |
+| `--moduix-toast-radius`                 | `var(--moduix-radius-lg)`                                       |
+| `--moduix-toast-shadow`                 | `var(--moduix-shadow-lg)`                                       |
+| `--moduix-toast-padding`                | `var(--moduix-spacing-4)`                                       |
+| `--moduix-toast-content-gap`            | `var(--moduix-spacing-1)`                                       |
+| `--moduix-toast-title-font-size`        | `var(--moduix-text-sm)`                                         |
+| `--moduix-toast-title-font-weight`      | `var(--moduix-weight-semibold)`                                 |
+| `--moduix-toast-description-color`      | `var(--moduix-color-muted-foreground)`                          |
+| `--moduix-toast-action-bg-hover`        | `var(--moduix-color-accent)`                                    |
+| `--moduix-toast-action-gap`             | `var(--moduix-spacing-2)`                                       |
+| `--moduix-toast-action-min-height`      | `var(--moduix-size-xs)`                                         |
+| `--moduix-toast-close-bg-hover`         | `var(--moduix-color-muted)`                                     |
+| `--moduix-toast-close-focus-ring-width` | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
+| `--moduix-toast-close-size`             | `var(--moduix-spacing-7)`                                       |
+| `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-3)`                                       |
+| `--moduix-toast-transition`             | `400ms`                                                         |
+| `--moduix-toast-transition-out`         | `400ms`                                                         |
+| `--moduix-toast-opacity-transition-out` | `200ms`                                                         |
+| `--moduix-toast-z-index`                | `var(--moduix-z-toast)`                                         |
 
 The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
 `data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
@@ -176,7 +176,7 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
   repeating children in every render prop.
 - `Toast.CloseTrigger` uses the moduix `CloseButton.Root` by default and keeps the default
   accessible label. Its default sizing, hover, icon, focus ring, and transition values match
-  `CloseButton`; toast-specific `--toast-close-*` variables only override that shared baseline.
+  `CloseButton`; toast-specific `--moduix-toast-close-*` variables only override that shared baseline.
 - `Toast.Toaster` is attached to the `Toast` namespace even though Ark exports `Toaster` as a
   standalone component.
 - Omitting `Toaster` children opts into the standard moduix renderer. Pass the Ark render prop to

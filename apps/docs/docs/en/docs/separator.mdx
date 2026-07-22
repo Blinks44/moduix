@@ -20,21 +20,21 @@ Use `Separator` when the line itself communicates structure between related cont
 <style>{`
       .card {
         width: min(18rem, 100%);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background-color: var(--color-background);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background-color: var(--moduix-color-background);
       }
 
       .stack {
         display: grid;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -59,7 +59,7 @@ Separator / Separator.Root
 | ------------------------------ | -------------------------------------------------------------------------------------- |
 | `Separator` / `Separator.Root` | Root divider element. Controls orientation, accessibility metadata, and visual recipe. |
 
-Style the root directly with `className`, `asChild`, or the `--separator-*` CSS properties.
+Style the root directly with `className`, `asChild`, or the `--moduix-separator-*` CSS properties.
 
 ## Composition
 
@@ -107,21 +107,21 @@ structure to assistive technology.
 <style>{`
       .card {
         width: min(18rem, 100%);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background-color: var(--color-background);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background-color: var(--moduix-color-background);
       }
 
       .stack {
         display: grid;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -136,7 +136,7 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
 <style>{`
       .section {
         display: grid;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .exampleRow {
@@ -144,13 +144,13 @@ Use `size` to select the recipe thickness before applying any custom CSS variabl
         width: min(16rem, 100%);
         grid-template-columns: 4rem minmax(6rem, 1fr);
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -165,7 +165,7 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
 <style>{`
       .section {
         display: grid;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .exampleRow {
@@ -173,13 +173,13 @@ Use `variant` when the separator needs a solid, dashed, or dotted stroke.
         width: min(16rem, 100%);
         grid-template-columns: 4rem minmax(6rem, 1fr);
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -195,14 +195,14 @@ Use `orientation="vertical"` for inline groups such as navigation actions.
       .nav {
         display: inline-flex;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
         text-wrap: nowrap;
       }
 
       .link {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
         text-decoration: none;
       }
     `}</style>
@@ -219,13 +219,13 @@ Otherwise, use `<Separator />` directly.
 <style>{`
       .section {
         display: grid;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .text {
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
 
       .nativeRule {
@@ -239,7 +239,7 @@ Otherwise, use `<Separator />` directly.
 
 ## Styling
 
-`Separator` exposes Ark-style part selectors and a small `--separator-*` CSS contract for color,
+`Separator` exposes Ark-style part selectors and a small `--moduix-separator-*` CSS contract for color,
 border style, thickness, and orientation-specific length.
 
 ### CSS Properties

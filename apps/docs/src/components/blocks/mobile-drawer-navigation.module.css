@@ -2,19 +2,19 @@
   width: 100%;
   min-height: 24rem;
   overflow: hidden;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-card);
-  color: var(--color-card-foreground);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-card);
+  color: var(--moduix-color-card-foreground);
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: var(--size-xl);
-  padding-inline: var(--spacing-3);
-  border-block-end: var(--border-width-sm) solid var(--color-border);
+  min-height: var(--moduix-size-xl);
+  padding-inline: var(--moduix-spacing-3);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 .leading,
@@ -25,40 +25,40 @@
 }
 
 .leading {
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .brand {
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
   color: inherit;
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-semibold);
   text-decoration: none;
 }
 
 .brandMark {
   display: grid;
   place-items: center;
-  width: var(--size-xs);
-  height: var(--size-xs);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-foreground);
-  color: var(--color-background);
-  font-size: var(--text-xs);
+  width: var(--moduix-size-xs);
+  height: var(--moduix-size-xs);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-foreground);
+  color: var(--moduix-color-background);
+  font-size: var(--moduix-text-xs);
   line-height: 1;
 }
 
 .main {
   display: grid;
   align-content: start;
-  gap: var(--spacing-5);
-  padding: var(--spacing-5);
-  background-color: var(--color-muted);
+  gap: var(--moduix-spacing-5);
+  padding: var(--moduix-spacing-5);
+  background-color: var(--moduix-color-muted);
 }
 
 .intro {
   display: grid;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 
   h2,
   p {
@@ -66,57 +66,57 @@
   }
 
   h2 {
-    font-size: var(--text-xl);
-    line-height: var(--line-height-text-xl);
+    font-size: var(--moduix-text-xl);
+    line-height: var(--moduix-line-height-text-xl);
   }
 
   p {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
   }
 }
 
 .eyebrow,
 .statCard > span {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
 }
 
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .statCard,
 .activity {
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background-color: var(--color-card);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background-color: var(--moduix-color-card);
 }
 
 .statCard {
   display: grid;
-  gap: var(--spacing-1);
-  padding: var(--spacing-4);
+  gap: var(--moduix-spacing-1);
+  padding: var(--moduix-spacing-4);
 
   strong {
-    font-size: var(--text-2xl);
+    font-size: var(--moduix-text-2xl);
     line-height: 1;
   }
 
   p {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
   }
 }
 
 .activity {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-3);
-  padding: var(--spacing-4);
+  gap: var(--moduix-spacing-3);
+  padding: var(--moduix-spacing-4);
 
   strong,
   p {
@@ -124,24 +124,24 @@
   }
 
   p {
-    margin: var(--spacing-1) 0 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
+    margin: var(--moduix-spacing-1) 0 0;
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
   }
 }
 
 .activityDot {
   flex: 0 0 auto;
-  width: var(--spacing-2);
-  height: var(--spacing-2);
+  width: var(--moduix-spacing-2);
+  height: var(--moduix-spacing-2);
   margin-block-start: 0.375rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-primary);
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-primary);
 }
 
 .drawer {
-  --drawer-padding-x: 0;
-  --drawer-padding-y: 0;
+  --moduix-drawer-padding-x: 0;
+  --moduix-drawer-padding-y: 0;
 
   width: min(20rem, calc(100vw - 2rem));
   max-width: 20rem;
@@ -150,10 +150,10 @@
 }
 
 .drawerHeader {
-  padding-block: var(--spacing-4);
-  padding-block-start: calc(var(--spacing-5) + env(safe-area-inset-top));
-  padding-inline: var(--spacing-4);
-  border-block-end: var(--border-width-sm) solid var(--color-border);
+  padding-block: var(--moduix-spacing-4);
+  padding-block-start: calc(var(--moduix-spacing-5) + env(safe-area-inset-top));
+  padding-inline: var(--moduix-spacing-4);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 .drawerBody {
@@ -167,26 +167,26 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--spacing-1);
-  padding: var(--spacing-3);
+  gap: var(--moduix-spacing-1);
+  padding: var(--moduix-spacing-3);
 }
 
 .navigationLabel {
-  padding: var(--spacing-2) var(--spacing-3);
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-medium);
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-medium);
 }
 
 .navigationLink {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
-  min-height: var(--size-md);
-  padding-inline: var(--spacing-3);
-  border-radius: var(--radius-sm);
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
+  gap: var(--moduix-spacing-3);
+  min-height: var(--moduix-size-md);
+  padding-inline: var(--moduix-spacing-3);
+  border-radius: var(--moduix-radius-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
   text-decoration: none;
 
   & > svg {
@@ -196,8 +196,8 @@
 
   &[data-active],
   &:hover {
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
   }
 }
 
@@ -207,24 +207,24 @@
   min-width: 1.25rem;
   height: 1.25rem;
   margin-inline-start: auto;
-  border-radius: var(--radius-full);
-  background-color: var(--color-secondary);
-  color: var(--color-secondary-foreground);
-  font-size: var(--text-xs);
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-secondary);
+  color: var(--moduix-color-secondary-foreground);
+  font-size: var(--moduix-text-xs);
   line-height: 1;
 }
 
 .navigationFooter {
   display: grid;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
   margin-block-start: auto;
-  padding-block-start: var(--spacing-3);
-  border-block-start: var(--border-width-sm) solid var(--color-border);
+  padding-block-start: var(--moduix-spacing-3);
+  border-block-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 @media (width < 30rem) {
   .main {
-    padding: var(--spacing-4);
+    padding: var(--moduix-spacing-4);
   }
 
   .cardGrid {

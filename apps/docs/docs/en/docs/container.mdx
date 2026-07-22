@@ -20,9 +20,9 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
 
 <style>{`
       .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
+        padding-block: var(--moduix-spacing-4);
+        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--moduix-color-muted);
       }
 
       .container > * {
@@ -74,7 +74,7 @@ layout helpers.
 The custom path here is small:
 
 - pass `className` for local layout or surface styling;
-- override `--container-*` variables when a page needs different width or gutter math;
+- override `--moduix-container-*` variables when a page needs different width or gutter math;
 - use `asChild` when another element should own the DOM node;
 - compose with `Bleed` when a child should escape the constrained text column.
 
@@ -105,13 +105,13 @@ Use `gutter` to control responsive inline padding.
         display: flex;
         width: 100%;
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
+        padding-block: var(--moduix-spacing-4);
+        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--moduix-color-muted);
       }
     `}</style>
 
@@ -125,9 +125,9 @@ Use `asChild` when the layout wrapper should also describe document structure.
 
 <style>{`
       .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
+        padding-block: var(--moduix-spacing-4);
+        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--moduix-color-muted);
       }
 
       .container > * {
@@ -149,13 +149,13 @@ preserving the selected gutter.
         display: flex;
         width: 100%;
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
       .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
+        padding-block: var(--moduix-spacing-4);
+        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--moduix-color-muted);
       }
     `}</style>
 
@@ -169,9 +169,9 @@ Keep the text column constrained and let only the wider child opt out.
 
 <style>{`
       .container {
-        padding-block: var(--spacing-4);
-        border-block: var(--border-width-sm) dashed var(--color-border);
-        background-color: var(--color-muted);
+        padding-block: var(--moduix-spacing-4);
+        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--moduix-color-muted);
       }
 
       .container > * {
@@ -179,9 +179,9 @@ Keep the text column constrained and let only the wider child opt out.
       }
 
       .bleedSurface {
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        background-color: var(--color-background);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        background-color: var(--moduix-color-background);
       }
     `}</style>
 
@@ -204,5 +204,5 @@ scale. Use `className` for local block styling such as padding, borders, or back
 - `data-scope="container"` and `data-part="root"` provide Ark-aligned root hooks.
 - `data-size` selects the width preset: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
-- `--container-*` variables control only inline gutter and max-width math; vertical spacing and
+- `--moduix-container-*` variables control only inline gutter and max-width math; vertical spacing and
   child layout remain the responsibility of surrounding layout CSS.

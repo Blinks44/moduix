@@ -1,4 +1,4 @@
-import { Dialog, HoverCard } from '@moduix/react';
+import { Button, Dialog, HoverCard } from '@moduix/react';
 import { useRef } from 'react';
 
 export default function DialogHoverCard() {
@@ -7,7 +7,7 @@ export default function DialogHoverCard() {
   return (
     <Dialog initialFocusEl={() => titleRef.current}>
       <Dialog.Trigger asChild>
-        <button type="button">View profile</button>
+        <Button>View profile</Button>
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>

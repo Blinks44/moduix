@@ -23,35 +23,35 @@ button semantics and a default close glyph, but it does not manage overlay state
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--spacing-4);
-        width: min(20rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: var(--color-popover);
-        color: var(--color-popover-foreground);
-        box-shadow: var(--shadow-sm);
+        gap: var(--moduix-spacing-4);
+        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: var(--moduix-color-popover);
+        color: var(--moduix-color-popover-foreground);
+        box-shadow: var(--moduix-shadow-sm);
       }
 
       .content {
         display: grid;
-        gap: var(--spacing-1);
+        gap: var(--moduix-spacing-1);
         min-width: 0;
       }
 
       .title {
         margin: 0;
-        color: var(--color-foreground);
-        font-size: var(--text-sm);
-        font-weight: var(--weight-semibold);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-foreground);
+        font-size: var(--moduix-text-sm);
+        font-weight: var(--moduix-weight-semibold);
+        line-height: var(--moduix-line-height-text-sm);
       }
 
       .description {
         margin: 0;
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -123,8 +123,8 @@ Close Button styling and data hooks.
 
 <style>{`
       .asChildButton {
-        --close-button-size: 2.5rem;
-        --close-button-icon-size: 1.25rem;
+        --moduix-close-button-size: 2.5rem;
+        --moduix-close-button-icon-size: 1.25rem;
       }
     `}</style>
 
@@ -138,10 +138,10 @@ Replace the default glyph through `children` while keeping the root button and s
 
 <style>{`
       .customChildrenButton {
-        --close-button-size: 2.5rem;
+        --moduix-close-button-size: 2.5rem;
 
         width: auto;
-        padding-inline: var(--spacing-3);
+        padding-inline: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -156,7 +156,7 @@ discoverable while refusing activation.
 
 <style>{`
       .disabledCloseButton {
-        --close-button-disabled-opacity: 0.5;
+        --moduix-close-button-disabled-opacity: 0.5;
       }
     `}</style>
 
@@ -176,4 +176,4 @@ discoverable while refusing activation.
 - `data-part="root"` identifies the only exported part.
 - `data-slot="close-button-root"` provides the moduix slot hook.
 - `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
-- Direct nested SVG children inherit sizing from `--close-button-icon-size`.
+- Direct nested SVG children inherit sizing from `--moduix-close-button-icon-size`.

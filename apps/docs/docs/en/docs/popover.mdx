@@ -24,7 +24,7 @@ hosts use `asChild`.
       .triggerContent {
         display: inline-flex;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .icon {
@@ -136,6 +136,8 @@ the default portalled behavior with `lazyMount` and `unmountOnExit` to avoid sta
 
 Use `Anchor` when a different element should provide the positioning reference.
 
+<style>{PopoverDocs.popoverAnchorCss}</style>
+
 ```tsx preview file="./_snippets/popover/anchor.tsx"
 
 ```
@@ -146,7 +148,7 @@ Render `Arrow` to get the default Moduix-styled `ArrowTip`.
 
 <style>{`
       [data-slot="popover-arrow"] {
-        --popover-arrow-size: 0.625rem;
+        --moduix-popover-arrow-size: 0.625rem;
       }
     `}</style>
 
@@ -179,7 +181,7 @@ Use Ark's details object when synchronizing open state with surrounding UI.
 
       .stack {
         display: grid;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -193,7 +195,7 @@ Use `lazyMount` and `unmountOnExit` when content should only exist while the pop
 
 <style>{`
       [data-slot="popover-content"][data-state="closed"] {
-        animation-duration: var(--popover-transition, var(--duration-fast));
+        animation-duration: var(--moduix-popover-transition, var(--moduix-duration-fast));
       }
     `}</style>
 
@@ -208,14 +210,14 @@ focus target.
 
 <style>{`
       .input {
-        min-height: var(--size-md);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
+        min-height: var(--moduix-size-md);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
       }
 
       .field {
         display: grid;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -231,7 +233,7 @@ Give each trigger a `value` when one popover surface should react to the trigger
       .triggerGroup {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -246,11 +248,11 @@ nested popover inline so it remains within its parent overlay.
 
 <style>{`
       [data-slot="popover-content"][data-nested] {
-        --popover-shadow: var(--shadow-xl);
+        --moduix-popover-shadow: var(--moduix-shadow-lg);
       }
 
       .nestedBody {
-        margin-top: var(--spacing-3);
+        margin-top: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -284,7 +286,7 @@ or methods.
 
       .stack {
         display: grid;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -316,7 +318,7 @@ cleaner anchored panel.
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 

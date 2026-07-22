@@ -87,7 +87,7 @@ not force a native `disabled` attribute onto a custom host.
   while the spinner and label stay fully compositional.
 - Optional `data-icon="inline-start|inline-end"` hooks can be applied to child icons or spinners
   when a consumer wants explicit inline icon styling hooks.
-- Direct child `svg` elements inherit `currentColor` and use `--button-icon-size`.
+- Direct child `svg` elements inherit `currentColor` and use `--moduix-button-icon-size`.
 - Icon-only buttons require an accessible name.
 - Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
   intentionally outside this root-only moduix contract.
@@ -118,7 +118,7 @@ activation prevention.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -136,7 +136,7 @@ start and end icons without adding button-level icon props.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -169,7 +169,7 @@ The forwarded ref points at the rendered root and can be used for imperative foc
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -186,7 +186,7 @@ Text and icon-only sizes share the same root API.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -203,7 +203,7 @@ Use variants to communicate action priority and intent.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 

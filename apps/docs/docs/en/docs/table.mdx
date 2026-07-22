@@ -232,15 +232,15 @@ Use the last column for row-specific actions when the dataset needs lightweight 
       }
 
       .actionTrigger {
-        --button-size-icon-sm: 1.25rem;
-        --button-focus-ring-width: var(--border-width-sm);
+        --moduix-button-size-icon-sm: 1.25rem;
+        --moduix-button-focus-ring-width: var(--moduix-border-width-sm);
 
         margin-inline-start: auto;
-        border-radius: var(--radius-sm);
+        border-radius: var(--moduix-radius-sm);
       }
 
       .actionEllipsis {
-        font-weight: var(--weight-medium);
+        font-weight: var(--moduix-weight-medium);
         line-height: 1;
       }
     `}</style>
@@ -311,13 +311,13 @@ and lightweight.
 
 <style>{`
       .scrollArea {
-        --scroll-area-height: 16rem;
-        --scroll-area-radius: var(--radius-lg);
-        --scroll-area-bg: var(--color-card);
+        --moduix-scroll-area-height: 16rem;
+        --moduix-scroll-area-radius: var(--moduix-radius-lg);
+        --moduix-scroll-area-bg: var(--moduix-color-card);
 
         width: min(44rem, 100%);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-lg);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
       }
 
       .wideTable {
@@ -337,10 +337,10 @@ Skip `Table.ScrollArea` when the surrounding layout already owns the shell or sc
       .shell {
         width: min(44rem, 100%);
         overflow-x: auto;
-        padding: var(--spacing-3);
-        border: var(--border-width-sm) dashed var(--color-border);
-        border-radius: var(--radius-lg);
-        background-color: color-mix(in srgb, var(--color-muted) 35%, transparent);
+        padding: var(--moduix-spacing-3);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        border-radius: var(--moduix-radius-lg);
+        background-color: color-mix(in srgb, var(--moduix-color-muted) 35%, transparent);
       }
 
       .table {
@@ -355,7 +355,7 @@ Skip `Table.ScrollArea` when the surrounding layout already owns the shell or sc
 ## Styling
 
 Style `Table` through `className`, the public `data-slot` hooks, `data-side` and `data-numeric`
-attributes, and the `--table-*` CSS variables shown below.
+attributes, and the `--moduix-table-*` CSS variables shown below.
 
 ### CSS Properties
 

@@ -6,7 +6,7 @@
   overflow: hidden;
   border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--rp-radius);
-  background: #fff;
+  background: var(--moduix-doc-card);
   padding: 1.5rem;
 }
 
@@ -77,8 +77,4 @@
     SFMono-Regular,
     Menlo,
     monospace;
-}
-
-:global(.dark) .demo {
-  background: var(--rp-c-bg-soft);
 }

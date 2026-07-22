@@ -1,24 +1,36 @@
 .demoRoot {
-  --angle-slider-size: 9rem;
+  --moduix-angle-slider-size: 9rem;
 }
 
 .customRoot {
-  --angle-slider-color: var(--color-chart-4);
-  --angle-slider-control-bg: color-mix(in oklab, var(--color-chart-4) 10%, var(--color-card));
-  --angle-slider-indicator-bg: var(--color-chart-4);
-  --angle-slider-label-color: var(--color-foreground);
-  --angle-slider-marker-active-color: color-mix(
+  --moduix-angle-slider-color: var(--moduix-color-chart-4);
+  --moduix-angle-slider-control-bg: color-mix(
     in oklab,
-    var(--color-chart-4) 65%,
-    var(--color-foreground)
+    var(--moduix-color-chart-4) 10%,
+    var(--moduix-color-card)
   );
-  --angle-slider-marker-color: color-mix(in oklab, var(--color-chart-4) 18%, var(--color-border));
-  --angle-slider-ring-thickness: 1rem;
-  --angle-slider-size: 10rem;
-  --angle-slider-thumb-bg: var(--color-chart-4);
-  --angle-slider-thumb-border-color: var(--color-background);
-  --angle-slider-thumb-size: 1.125rem;
-  --angle-slider-track-bg: color-mix(in oklab, var(--color-chart-4) 16%, var(--color-muted));
+  --moduix-angle-slider-indicator-bg: var(--moduix-color-chart-4);
+  --moduix-angle-slider-label-color: var(--moduix-color-foreground);
+  --moduix-angle-slider-marker-active-color: color-mix(
+    in oklab,
+    var(--moduix-color-chart-4) 65%,
+    var(--moduix-color-foreground)
+  );
+  --moduix-angle-slider-marker-color: color-mix(
+    in oklab,
+    var(--moduix-color-chart-4) 18%,
+    var(--moduix-color-border)
+  );
+  --moduix-angle-slider-ring-thickness: 1rem;
+  --moduix-angle-slider-size: 10rem;
+  --moduix-angle-slider-thumb-bg: var(--moduix-color-chart-4);
+  --moduix-angle-slider-thumb-border-color: var(--moduix-color-background);
+  --moduix-angle-slider-thumb-size: 1.125rem;
+  --moduix-angle-slider-track-bg: color-mix(
+    in oklab,
+    var(--moduix-color-chart-4) 16%,
+    var(--moduix-color-muted)
+  );
 }
 
 .providerLayout {
@@ -30,19 +42,19 @@
 .providerButton {
   min-height: 2.5rem;
   padding-inline: 1rem;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-background);
-  color: var(--color-foreground);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-background);
+  color: var(--moduix-color-foreground);
   font: inherit;
   cursor: pointer;
 
   &:hover {
-    background: var(--color-muted);
+    background: var(--moduix-color-muted);
   }
 
   &:focus-visible {
-    outline: var(--border-width-md) solid var(--color-ring);
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
     outline-offset: 2px;
   }
 }

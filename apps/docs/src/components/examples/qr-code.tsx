@@ -3,26 +3,26 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const qrCodeExampleCss = `
   .qr-code-root {
-    --qr-code-size: 9rem;
+    --moduix-qr-code-size: 9rem;
   }
 
   .qr-code-stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     justify-items: center;
   }
 
   .qr-code-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
     justify-content: center;
   }
 
   .qr-code-status {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     text-align: center;
   }
 `;
@@ -31,28 +31,28 @@ export const qrCodeFillCss = `
   .qr-code-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
     align-items: start;
   }
 
   .qr-code-primary {
-    --qr-code-fill: var(--color-primary);
+    --moduix-qr-code-fill: var(--moduix-color-primary);
   }
 
   .qr-code-danger {
-    --qr-code-fill: var(--color-destructive);
+    --moduix-qr-code-fill: var(--moduix-color-destructive);
   }
 `;
 
 export const qrCodeOverlayCss = `
   .qr-code-brand {
-    --qr-code-fill: var(--color-primary);
+    --moduix-qr-code-fill: var(--moduix-color-primary);
   }
 
   .qr-code-overlay {
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    line-height: var(--line-height-text-xs);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-xs);
   }
 `;
 
@@ -60,104 +60,112 @@ const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qrcode-height', 'computed by Ark', 'Runtime height for the generated frame.'],
   ['--qrcode-pixel-size', 'computed by Ark', 'Runtime pixel size used by the generator.'],
   ['--qrcode-width', 'computed by Ark', 'Runtime width for the generated frame.'],
-  ['--qr-code-color', 'var(--color-foreground)', 'Controls root text and inherited SVG color.'],
   [
-    '--qr-code-disabled-opacity',
-    'var(--button-disabled-opacity, var(--opacity-disabled))',
+    '--moduix-qr-code-color',
+    'var(--moduix-color-foreground)',
+    'Controls root text and inherited SVG color.',
+  ],
+  [
+    '--moduix-qr-code-disabled-opacity',
+    'var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))',
     'Controls disabled trigger opacity.',
   ],
   [
-    '--qr-code-download-trigger-bg',
-    'var(--button-outline-bg, var(--color-background))',
+    '--moduix-qr-code-download-trigger-bg',
+    'var(--moduix-button-outline-bg, var(--moduix-color-background))',
     'Controls download trigger background.',
   ],
   [
-    '--qr-code-download-trigger-bg-hover',
-    'var(--button-outline-bg-hover, var(--color-accent))',
+    '--moduix-qr-code-download-trigger-bg-hover',
+    'var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))',
     'Controls download trigger hover background.',
   ],
   [
-    '--qr-code-download-trigger-border-color',
-    'var(--button-outline-border-color, var(--color-border))',
+    '--moduix-qr-code-download-trigger-border-color',
+    'var(--moduix-button-outline-border-color, var(--moduix-color-border))',
     'Controls download trigger border color.',
   ],
   [
-    '--qr-code-download-trigger-border-width',
-    'var(--button-border-width, var(--border-width-sm))',
+    '--moduix-qr-code-download-trigger-border-width',
+    'var(--moduix-button-border-width, var(--moduix-border-width-sm))',
     'Controls download trigger border width.',
   ],
   [
-    '--qr-code-download-trigger-color',
-    'var(--button-outline-color, var(--color-foreground))',
+    '--moduix-qr-code-download-trigger-color',
+    'var(--moduix-button-outline-color, var(--moduix-color-foreground))',
     'Controls download trigger text color.',
   ],
   [
-    '--qr-code-download-trigger-focus-ring-color',
-    'var(--button-focus-ring-color, var(--color-ring))',
+    '--moduix-qr-code-download-trigger-focus-ring-color',
+    'var(--moduix-button-focus-ring-color, var(--moduix-color-ring))',
     'Controls download trigger focus ring color.',
   ],
   [
-    '--qr-code-download-trigger-focus-ring-offset',
-    'var(--qr-code-download-trigger-border-width, var(--button-border-width, var(--border-width-sm)))',
+    '--moduix-qr-code-download-trigger-focus-ring-offset',
+    'var(--moduix-qr-code-download-trigger-border-width, var(--moduix-button-border-width, var(--moduix-border-width-sm)))',
     'Controls download trigger focus ring offset.',
   ],
   [
-    '--qr-code-download-trigger-focus-ring-width',
-    'var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))',
+    '--moduix-qr-code-download-trigger-focus-ring-width',
+    'var(--moduix-button-focus-ring-width, var(--moduix-focus-ring-width, var(--moduix-border-width-md)))',
     'Controls download trigger focus ring width.',
   ],
   [
-    '--qr-code-download-trigger-font-size',
-    'var(--button-font-size, var(--text-sm))',
+    '--moduix-qr-code-download-trigger-font-size',
+    'var(--moduix-button-font-size, var(--moduix-text-sm))',
     'Controls download trigger font size.',
   ],
   [
-    '--qr-code-download-trigger-font-weight',
-    'var(--button-font-weight, var(--weight-medium))',
+    '--moduix-qr-code-download-trigger-font-weight',
+    'var(--moduix-button-font-weight, var(--moduix-weight-medium))',
     'Controls download trigger font weight.',
   ],
   [
-    '--qr-code-download-trigger-gap',
-    'var(--button-content-gap, var(--spacing-2))',
+    '--moduix-qr-code-download-trigger-gap',
+    'var(--moduix-button-content-gap, var(--moduix-spacing-2))',
     'Controls download trigger content gap.',
   ],
   [
-    '--qr-code-download-trigger-height',
-    'var(--button-size-md, var(--size-md))',
+    '--moduix-qr-code-download-trigger-height',
+    'var(--moduix-button-size-md, var(--moduix-size-md))',
     'Controls download trigger minimum height.',
   ],
   [
-    '--qr-code-download-trigger-icon-size',
-    'var(--button-icon-size, var(--spacing-4))',
+    '--moduix-qr-code-download-trigger-icon-size',
+    'var(--moduix-button-icon-size, var(--moduix-spacing-4))',
     'Controls icon size inside the download trigger.',
   ],
   [
-    '--qr-code-download-trigger-line-height',
-    'var(--button-line-height, var(--line-height-text-sm))',
+    '--moduix-qr-code-download-trigger-line-height',
+    'var(--moduix-button-line-height, var(--moduix-line-height-text-sm))',
     'Controls download trigger line height.',
   ],
   [
-    '--qr-code-download-trigger-padding-x',
-    'var(--button-padding-x-md, var(--spacing-4))',
+    '--moduix-qr-code-download-trigger-padding-x',
+    'var(--moduix-button-padding-x-md, var(--moduix-spacing-4))',
     'Controls download trigger inline padding.',
   ],
   [
-    '--qr-code-download-trigger-radius',
-    'var(--button-radius, var(--radius-md))',
+    '--moduix-qr-code-download-trigger-radius',
+    'var(--moduix-button-radius, var(--moduix-radius-md))',
     'Controls download trigger border radius.',
   ],
-  ['--qr-code-fill', 'currentColor', 'Controls QR module fill color.'],
-  ['--qr-code-gap', 'var(--spacing-3)', 'Controls root spacing between parts.'],
-  ['--qr-code-max-width', '100%', 'Controls root maximum width.'],
-  ['--qr-code-overlay-bg', 'var(--color-background)', 'Controls overlay background.'],
-  ['--qr-code-overlay-color', 'var(--color-foreground)', 'Controls overlay text color.'],
-  ['--qr-code-overlay-padding', 'var(--spacing-1)', 'Controls overlay padding.'],
-  ['--qr-code-overlay-radius', 'var(--radius-sm)', 'Controls overlay radius.'],
-  ['--qr-code-overlay-size', 'var(--size-lg)', 'Controls overlay width and height.'],
-  ['--qr-code-size', '8rem', 'Controls the preferred frame width.'],
+  ['--moduix-qr-code-fill', 'currentColor', 'Controls QR module fill color.'],
+  ['--moduix-qr-code-gap', 'var(--moduix-spacing-3)', 'Controls root spacing between parts.'],
+  ['--moduix-qr-code-max-width', '100%', 'Controls root maximum width.'],
+  ['--moduix-qr-code-overlay-bg', 'var(--moduix-color-background)', 'Controls overlay background.'],
   [
-    '--qr-code-transition',
-    'var(--button-transition, var(--transition-default))',
+    '--moduix-qr-code-overlay-color',
+    'var(--moduix-color-foreground)',
+    'Controls overlay text color.',
+  ],
+  ['--moduix-qr-code-overlay-padding', 'var(--moduix-spacing-1)', 'Controls overlay padding.'],
+  ['--moduix-qr-code-overlay-radius', 'var(--moduix-radius-sm)', 'Controls overlay radius.'],
+  ['--moduix-qr-code-overlay-size', 'var(--moduix-size-lg)', 'Controls overlay width and height.'],
+  ['--moduix-qr-code-size', '8rem', 'Controls the preferred frame width.'],
+  [
+    '--moduix-qr-code-transition',
+    'var(--moduix-button-transition, var(--moduix-transition-default))',
     'Controls trigger transitions.',
   ],
 ];

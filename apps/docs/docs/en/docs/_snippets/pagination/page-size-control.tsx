@@ -45,10 +45,8 @@ export default function PaginationPageSizeControlDemo() {
                 <Select.Control>
                   <Select.Trigger>
                     <Select.ValueText placeholder="Page size" />
-                  </Select.Trigger>
-                  <Select.Indicators>
                     <Select.Indicator />
-                  </Select.Indicators>
+                  </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>

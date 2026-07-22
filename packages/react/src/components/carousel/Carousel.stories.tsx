@@ -275,7 +275,7 @@ export const SlidesPerPage: Story = {
     <Carousel
       slideCount={slides.length}
       slidesPerPage={2}
-      spacing="var(--spacing-3)"
+      spacing="var(--moduix-spacing-3)"
       className={`${styles.carousel} ${styles.wideCarousel}`}
     >
       <Carousel.Control className={styles.compactControls}>
@@ -351,8 +351,8 @@ export const VariableSize: Story = {
   render: () => (
     <Carousel
       autoSize
-      padding="var(--spacing-4)"
-      spacing="var(--spacing-3)"
+      padding="var(--moduix-spacing-4)"
+      spacing="var(--moduix-spacing-3)"
       slideCount={variableSlides.length}
       className={styles.carousel}
     >

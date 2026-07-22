@@ -1,17 +1,17 @@
 .demo {
-  --splitter-width: min(56rem, calc(100vw - var(--spacing-8)));
-  --splitter-height: 28rem;
+  --moduix-splitter-width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  --moduix-splitter-height: 28rem;
 }
 
 .panel {
   display: grid;
   place-items: center;
-  font-weight: var(--weight-medium);
+  font-weight: var(--moduix-weight-medium);
 }
 
 .vertical {
-  --splitter-width: min(34rem, calc(100vw - var(--spacing-8)));
-  --splitter-height: 28rem;
+  --moduix-splitter-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
+  --moduix-splitter-height: 28rem;
 }
 
 .vertical > .panel {
@@ -20,43 +20,55 @@
 
 .stack {
   display: grid;
-  gap: var(--spacing-4);
-  width: min(56rem, calc(100vw - var(--spacing-8)));
-  min-width: min(42rem, calc(100vw - var(--spacing-8)));
+  gap: var(--moduix-spacing-4);
+  width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  min-width: min(42rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .status {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .custom {
-  --splitter-width: min(56rem, calc(100vw - var(--spacing-8)));
-  --splitter-height: 28rem;
-  --splitter-bg: color-mix(in oklab, var(--color-primary) 3%, var(--color-card));
-  --splitter-border-color: color-mix(in oklab, var(--color-foreground) 16%, var(--color-border));
-  --splitter-panel-bg: color-mix(in oklab, var(--color-primary) 4%, var(--color-background));
-  --splitter-resize-trigger-line-color: color-mix(
+  --moduix-splitter-width: min(56rem, calc(100vw - var(--moduix-spacing-8)));
+  --moduix-splitter-height: 28rem;
+  --moduix-splitter-bg: color-mix(
     in oklab,
-    var(--color-foreground) 24%,
+    var(--moduix-color-primary) 3%,
+    var(--moduix-color-card)
+  );
+  --moduix-splitter-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-foreground) 16%,
+    var(--moduix-color-border)
+  );
+  --moduix-splitter-panel-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 4%,
+    var(--moduix-color-background)
+  );
+  --moduix-splitter-resize-trigger-line-color: color-mix(
+    in oklab,
+    var(--moduix-color-foreground) 24%,
     transparent
   );
-  --splitter-resize-trigger-indicator-border-color: color-mix(
+  --moduix-splitter-resize-trigger-indicator-border-color: color-mix(
     in oklab,
-    var(--color-foreground) 24%,
-    var(--color-border)
+    var(--moduix-color-foreground) 24%,
+    var(--moduix-color-border)
   );
 }
 
 .demo [data-orientation='vertical'] {
-  --splitter-height: 100%;
+  --moduix-splitter-height: 100%;
   min-height: 0;
 }
 

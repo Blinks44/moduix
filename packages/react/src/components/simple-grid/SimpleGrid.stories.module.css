@@ -1,13 +1,13 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .grid {
     width: min(48rem, calc(100vw - 4rem));
   }
 
   .item {
     min-width: 0;
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-background);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-lg);
+    background-color: var(--moduix-color-background);
   }
 }

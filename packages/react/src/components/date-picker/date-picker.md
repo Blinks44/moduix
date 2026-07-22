@@ -136,12 +136,12 @@ Use `DatePicker.Context` to render week days, weeks, month grids, and year grids
 `DatePicker.DayTable` is not enough. Use `DatePicker.RootProvider` only with state created by
 moduix `useDatePicker()`; do not also render `DatePicker.Root` for the same state instance.
 
-The default root and popup width is `18.75rem` (300px). Override `--date-picker-width` for the
-field and `--date-picker-content-width` for wider popup compositions such as two visible months.
+The default root and popup width is `18.75rem` (300px). Override `--moduix-date-picker-width` for the
+field and `--moduix-date-picker-content-width` for wider popup compositions such as two visible months.
 For portalled popups, set popup sizing variables on `DatePicker.Content` or another element inside
 the overlay subtree because variables on `DatePicker.Root` do not inherit across the portal boundary.
-Each input has `--date-picker-input-min-width: 7.5rem`; range inputs use
-`--date-picker-range-input-min-width`.
+Each input has `--moduix-date-picker-input-min-width: 7.5rem`; range inputs use
+`--moduix-date-picker-range-input-min-width`.
 
 ## Upstream feature coverage
 
@@ -183,9 +183,9 @@ include `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-fo
 
 ## Defaults and styling
 
-The text input defaults to `--size-md` with `--spacing-1` block padding. Calendar navigation, day cells, selects, view triggers, and preset triggers use `--size-sm`.
+The text input defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding. Calendar navigation, day cells, selects, view triggers, and preset triggers use `--moduix-size-sm`.
 
-Content motion falls back to the shared `--popup-motion-*` tokens. `--date-picker-transition` and
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-date-picker-transition` and
 closed-state variables remain the more specific override.
 
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
@@ -199,8 +199,8 @@ of the trigger icons.
 Disabled and read-only opacity is applied at the root level only. Do not duplicate the same opacity
 on `DatePicker.Control`, because Ark can emit disabled/read-only state on both parts.
 
-Preset triggers use a muted surface by default through `--date-picker-preset-trigger-bg` and
-`--date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
+Preset triggers use a muted surface by default through `--moduix-date-picker-preset-trigger-bg` and
+`--moduix-date-picker-preset-trigger-bg-hover`, so quick range actions read as buttons even before they
 are selected.
 
 `DatePicker.ClearTrigger` maps date-picker action tokens to `CloseButton.Root`; use `asChild` with
@@ -241,13 +241,13 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the input to `--size-md` and aligned calendar popup controls to `--size-sm`.
+- 2026-07-21: Reduced the input to `--moduix-size-md` and aligned calendar popup controls to `--moduix-size-sm`.
 
 - 2026-07-20: Removed hover surfaces from date inputs and native month/year selects; icon actions retain their local hover treatment.
 - 2026-07-19: Positioned calendar and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped date-picker
   action tokens to the shared close-button visual contract.
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-09: Added `DatePicker.Field`, `DatePicker.RangeField`, and `DatePicker.DayTable` as
   recommended-path sugar, while keeping full Ark table composition as the advanced customization
   path.

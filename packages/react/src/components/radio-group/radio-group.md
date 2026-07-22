@@ -106,7 +106,7 @@ to their public Ark DOM parts. The internal native input is not a separate ref t
 
 ## Defaults and styling
 
-The CSS uses Ark state attributes and moduix `--radio-*` variables. Public selectors should target
+The CSS uses Ark state attributes and moduix `--moduix-radio-*` variables. Public selectors should target
 the exported part class, `data-slot`, or Ark attributes rather than old legacy state attributes.
 
 The root lays items out vertically by default. For horizontal groups, use `orientation="horizontal"`

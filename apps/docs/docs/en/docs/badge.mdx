@@ -93,7 +93,7 @@ different tone.
 - `Badge` does not add managed interaction or link/button semantics of its own.
 - Semantic links and buttons rendered through `asChild` keep their native semantics and get default cursor, hover, and focus-visible styling.
 - Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
-- Direct child `svg` icons inherit `currentColor` and use `--badge-icon-size`.
+- Direct child `svg` icons inherit `currentColor` and use `--moduix-badge-icon-size`.
 - Numeric content uses tabular figures, and badge text is not selectable by default.
 - Chakra's size recipe is intentionally represented by public CSS variables instead of a `size`
   prop.
@@ -102,7 +102,7 @@ different tone.
 
 ### Custom Styling
 
-Use `className` and the public `--badge-*` variables when the built-in variants are close but not
+Use `className` and the public `--moduix-badge-*` variables when the built-in variants are close but not
 enough.
 
 <style>{`
@@ -110,25 +110,25 @@ enough.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .badge-demo-small {
-        --badge-height: 1rem;
-        --badge-padding-x: 0.5rem;
-        --badge-font-size: 0.625rem;
+        --moduix-badge-height: 1rem;
+        --moduix-badge-padding-x: 0.5rem;
+        --moduix-badge-font-size: 0.625rem;
       }
 
       .badge-demo-large {
-        --badge-height: 1.5rem;
-        --badge-padding-x: 0.75rem;
-        --badge-font-size: 0.8125rem;
+        --moduix-badge-height: 1.5rem;
+        --moduix-badge-padding-x: 0.75rem;
+        --moduix-badge-font-size: 0.8125rem;
       }
 
       .badge-demo-priority {
-        --badge-bg: color-mix(in oklab, var(--color-warning) 15%, transparent);
-        --badge-border-color: color-mix(in oklab, var(--color-warning) 45%, transparent);
-        --badge-color: var(--color-warning);
+        --moduix-badge-bg: color-mix(in oklab, var(--moduix-color-warning) 15%, transparent);
+        --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-warning) 45%, transparent);
+        --moduix-badge-color: var(--moduix-color-warning);
       }
     `}</style>
 
@@ -168,7 +168,7 @@ Use the built-in variants for the common visual tones.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -185,7 +185,7 @@ Add `Badge.Dot` when label and status indicator should stay visually grouped.
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -202,7 +202,7 @@ Place an inline icon next to the label when the metadata needs a second visual c
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
     `}</style>
 
@@ -224,6 +224,6 @@ Prefer built-in variants first, then local CSS variables for one-off sizing and 
 - `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Dot` exposes `data-part="dot"`.
 - `Badge.Root` writes the selected tone to `data-variant`.
 - Semantic links and buttons rendered through `Badge asChild` or `Badge.Root asChild` receive default focus-visible styling from the root.
-- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--badge-icon-size`.
+- Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--moduix-badge-icon-size`.
 - There are no Ark-managed states or runtime CSS variables because Badge has no dedicated Ark
   primitive or behavior machine.

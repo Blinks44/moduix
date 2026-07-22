@@ -10,7 +10,7 @@ const cardSkeleton = {
 export default function SkeletonCardDemo() {
   return (
     <Stack gap={16} className={styles.card}>
-      <Skeleton height={cardSkeleton.mediaHeight} borderRadius="var(--radius-lg)" />
+      <Skeleton height={cardSkeleton.mediaHeight} borderRadius="var(--moduix-radius-lg)" />
       <Stack gap={12}>
         <Skeleton width={cardSkeleton.titleWidth} height={20} />
         <Skeleton height={14} />

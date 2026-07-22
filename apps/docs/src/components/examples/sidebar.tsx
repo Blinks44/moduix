@@ -2,73 +2,73 @@ import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const sidebarCssDefaults = {
-  '--sidebar-accent-bg': 'var(--color-accent)',
-  '--sidebar-accent-color': 'var(--color-accent-foreground)',
-  '--sidebar-active-font-weight': 'var(--weight-medium)',
-  '--sidebar-bg': 'var(--color-card)',
-  '--sidebar-border-color': 'var(--color-border)',
-  '--sidebar-border-width': 'var(--border-width-sm)',
-  '--sidebar-collapsed-item-size': 'var(--size-md)',
-  '--sidebar-collapsed-padding-x': 'var(--spacing-1)',
-  '--sidebar-color': 'var(--color-card-foreground)',
-  '--sidebar-disabled-opacity': 'var(--opacity-disabled)',
-  '--sidebar-focus-ring-color': 'var(--color-ring)',
-  '--sidebar-focus-ring-offset': 'var(--focus-ring-offset)',
-  '--sidebar-focus-ring-width': 'var(--border-width-md)',
-  '--sidebar-gap': 'var(--spacing-2)',
-  '--sidebar-group-gap': 'var(--spacing-1)',
-  '--sidebar-group-label-font-size': 'var(--text-xs)',
-  '--sidebar-group-label-font-weight': 'var(--weight-medium)',
-  '--sidebar-group-label-line-height': 'var(--line-height-text-xs)',
-  '--sidebar-group-label-padding-x': 'var(--spacing-2)',
-  '--sidebar-group-label-text-transform': 'none',
-  '--sidebar-group-action-size': '1.5rem',
-  '--sidebar-group-padding': 'var(--spacing-3)',
-  '--sidebar-header-footer-padding': 'var(--spacing-3)',
-  '--sidebar-height': '100dvh',
-  '--sidebar-icon-size': '1rem',
-  '--sidebar-inset-bg': 'var(--color-background)',
-  '--sidebar-inset-color': 'var(--color-foreground)',
-  '--sidebar-menu-button-border-width': '0',
-  '--sidebar-menu-button-font-size': 'var(--text-sm)',
-  '--sidebar-menu-button-font-size-sm': 'var(--text-xs)',
-  '--sidebar-menu-button-gap': 'var(--spacing-2)',
-  '--sidebar-menu-button-height': 'var(--size-md)',
-  '--sidebar-menu-button-height-lg': 'var(--size-lg)',
-  '--sidebar-menu-button-height-sm': 'var(--size-sm)',
-  '--sidebar-menu-button-line-height': 'var(--line-height-text-sm)',
-  '--sidebar-menu-button-padding-x': 'var(--spacing-2)',
-  '--sidebar-menu-button-padding-y': 'var(--spacing-1)',
-  '--sidebar-menu-button-radius': 'var(--radius-md)',
-  '--sidebar-menu-gap': 'var(--spacing-1)',
-  '--sidebar-menu-action-size': '1.5rem',
-  '--sidebar-menu-badge-min-width': '1.5rem',
-  '--sidebar-menu-badge-padding-x': 'var(--spacing-1)',
-  '--sidebar-menu-sub-border-width': 'var(--border-width-sm)',
-  '--sidebar-menu-sub-button-font-size': 'var(--text-sm)',
-  '--sidebar-menu-sub-button-gap': 'var(--spacing-2)',
-  '--sidebar-menu-sub-button-height': 'var(--size-sm)',
-  '--sidebar-menu-sub-button-line-height': 'var(--line-height-text-sm)',
-  '--sidebar-menu-sub-button-padding-x': 'var(--spacing-2)',
-  '--sidebar-menu-sub-margin-x': 'var(--spacing-4)',
-  '--sidebar-menu-sub-margin-y': 'var(--spacing-1)',
-  '--sidebar-menu-sub-padding-x': 'var(--spacing-2)',
-  '--sidebar-min-height': '24rem',
-  '--sidebar-muted-color': 'var(--color-muted-foreground)',
-  '--sidebar-radius': '0',
-  '--sidebar-resize-hit-area': '0.75rem',
-  '--sidebar-section-border-width': '0',
-  '--sidebar-shadow': 'none',
-  '--sidebar-transition': 'var(--transition-default)',
-  '--sidebar-trigger-bg': 'var(--color-background)',
-  '--sidebar-trigger-border-color': 'var(--color-border)',
-  '--sidebar-trigger-border-width': 'var(--border-width-sm)',
-  '--sidebar-trigger-offset-y': 'var(--spacing-4)',
-  '--sidebar-trigger-radius': 'var(--radius-full)',
-  '--sidebar-trigger-shadow': 'var(--shadow-sm)',
-  '--sidebar-trigger-size': '1.75rem',
-  '--sidebar-width': '100%',
-} satisfies Record<`--sidebar-${string}`, string>;
+  '--moduix-sidebar-accent-bg': 'var(--moduix-color-accent)',
+  '--moduix-sidebar-accent-color': 'var(--moduix-color-accent-foreground)',
+  '--moduix-sidebar-active-font-weight': 'var(--moduix-weight-medium)',
+  '--moduix-sidebar-bg': 'var(--moduix-color-card)',
+  '--moduix-sidebar-border-color': 'var(--moduix-color-border)',
+  '--moduix-sidebar-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-collapsed-item-size': 'var(--moduix-size-md)',
+  '--moduix-sidebar-collapsed-padding-x': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-color': 'var(--moduix-color-card-foreground)',
+  '--moduix-sidebar-disabled-opacity': 'var(--moduix-opacity-disabled)',
+  '--moduix-sidebar-focus-ring-color': 'var(--moduix-color-ring)',
+  '--moduix-sidebar-focus-ring-offset': 'var(--moduix-focus-ring-offset)',
+  '--moduix-sidebar-focus-ring-width': 'var(--moduix-border-width-md)',
+  '--moduix-sidebar-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-group-gap': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-group-label-font-size': 'var(--moduix-text-xs)',
+  '--moduix-sidebar-group-label-font-weight': 'var(--moduix-weight-medium)',
+  '--moduix-sidebar-group-label-line-height': 'var(--moduix-line-height-text-xs)',
+  '--moduix-sidebar-group-label-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-group-label-text-transform': 'none',
+  '--moduix-sidebar-group-action-size': '1.5rem',
+  '--moduix-sidebar-group-padding': 'var(--moduix-spacing-3)',
+  '--moduix-sidebar-header-footer-padding': 'var(--moduix-spacing-3)',
+  '--moduix-sidebar-height': '100dvh',
+  '--moduix-sidebar-icon-size': '1rem',
+  '--moduix-sidebar-inset-bg': 'var(--moduix-color-background)',
+  '--moduix-sidebar-inset-color': 'var(--moduix-color-foreground)',
+  '--moduix-sidebar-menu-button-border-width': '0',
+  '--moduix-sidebar-menu-button-font-size': 'var(--moduix-text-sm)',
+  '--moduix-sidebar-menu-button-font-size-sm': 'var(--moduix-text-xs)',
+  '--moduix-sidebar-menu-button-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-menu-button-height': 'var(--moduix-size-md)',
+  '--moduix-sidebar-menu-button-height-lg': 'var(--moduix-size-lg)',
+  '--moduix-sidebar-menu-button-height-sm': 'var(--moduix-size-sm)',
+  '--moduix-sidebar-menu-button-line-height': 'var(--moduix-line-height-text-sm)',
+  '--moduix-sidebar-menu-button-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-menu-button-padding-y': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-menu-button-radius': 'var(--moduix-radius-md)',
+  '--moduix-sidebar-menu-gap': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-menu-action-size': '1.5rem',
+  '--moduix-sidebar-menu-badge-min-width': '1.5rem',
+  '--moduix-sidebar-menu-badge-padding-x': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-menu-sub-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-menu-sub-button-font-size': 'var(--moduix-text-sm)',
+  '--moduix-sidebar-menu-sub-button-gap': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-menu-sub-button-height': 'var(--moduix-size-sm)',
+  '--moduix-sidebar-menu-sub-button-line-height': 'var(--moduix-line-height-text-sm)',
+  '--moduix-sidebar-menu-sub-button-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-menu-sub-margin-x': 'var(--moduix-spacing-4)',
+  '--moduix-sidebar-menu-sub-margin-y': 'var(--moduix-spacing-1)',
+  '--moduix-sidebar-menu-sub-padding-x': 'var(--moduix-spacing-2)',
+  '--moduix-sidebar-min-height': '24rem',
+  '--moduix-sidebar-muted-color': 'var(--moduix-color-muted-foreground)',
+  '--moduix-sidebar-radius': '0',
+  '--moduix-sidebar-resize-hit-area': '0.75rem',
+  '--moduix-sidebar-section-border-width': '0',
+  '--moduix-sidebar-shadow': 'none',
+  '--moduix-sidebar-transition': 'var(--moduix-transition-default)',
+  '--moduix-sidebar-trigger-bg': 'var(--moduix-color-background)',
+  '--moduix-sidebar-trigger-border-color': 'var(--moduix-color-border)',
+  '--moduix-sidebar-trigger-border-width': 'var(--moduix-border-width-sm)',
+  '--moduix-sidebar-trigger-offset-y': 'var(--moduix-spacing-4)',
+  '--moduix-sidebar-trigger-radius': 'var(--moduix-radius-full)',
+  '--moduix-sidebar-trigger-shadow': 'var(--moduix-shadow-sm)',
+  '--moduix-sidebar-trigger-size': '1.75rem',
+  '--moduix-sidebar-width': '100%',
+} satisfies Record<`--moduix-sidebar-${string}`, string>;
 
 const sidebarOverrideCssProperties: CssProperty[] = Object.entries(sidebarCssDefaults).map(
   ([name, defaultValue]) => ({
@@ -80,58 +80,58 @@ const sidebarOverrideCssProperties: CssProperty[] = Object.entries(sidebarCssDef
 
 export const sidebarExampleCss = `
 .app-sidebar {
-  --sidebar-width: min(64rem, 100%);
-  --sidebar-height: 34rem;
-  --sidebar-min-height: 28rem;
-  --sidebar-radius: var(--radius-lg);
-  --sidebar-shadow: var(--shadow-sm);
+  --moduix-sidebar-width: min(64rem, 100%);
+  --moduix-sidebar-height: 34rem;
+  --moduix-sidebar-min-height: 28rem;
+  --moduix-sidebar-radius: var(--moduix-radius-lg);
+  --moduix-sidebar-shadow: var(--moduix-shadow-sm);
 }
 
 .app-sidebar [data-slot="sidebar-content"] {
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: var(--moduix-color-border) transparent;
   scrollbar-width: thin;
 }
 
 .app-brand {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
   min-width: 0;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .app-header-stack {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   width: 100%;
 }
 
 .app-brand-mark {
   display: grid;
   place-items: center;
-  width: var(--size-sm);
-  height: var(--size-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
-  font-size: var(--text-xs);
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+  font-size: var(--moduix-text-xs);
 }
 
 .app-workspace-mark {
   display: grid;
   place-items: center;
-  width: var(--size-sm);
-  height: var(--size-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-accent);
-  font-size: var(--text-xs);
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-accent);
+  font-size: var(--moduix-text-xs);
 }
 
 .app-collapsible {
-  --collapsible-width: 100%;
-  --collapsible-max-width: 100%;
-  --collapsible-color: inherit;
-  --collapsible-content-color: inherit;
+  --moduix-collapsible-width: 100%;
+  --moduix-collapsible-max-width: 100%;
+  --moduix-collapsible-color: inherit;
+  --moduix-collapsible-content-color: inherit;
 }
 
 .app-account-button {
@@ -152,13 +152,13 @@ export const sidebarExampleCss = `
 }
 
 .app-account-meta > span {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
 }
 
 .app-account-menu {
-  --menu-popup-min-width: 14rem;
-  --menu-popup-max-width: 18rem;
+  --moduix-menu-popup-min-width: 14rem;
+  --moduix-menu-popup-max-width: 18rem;
 }
 
 .app-footer-stack {
@@ -169,57 +169,57 @@ export const sidebarExampleCss = `
 .app-topbar {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   min-height: 3.5rem;
-  padding-inline: var(--spacing-6);
-  border-block-end: var(--border-width-sm) solid var(--color-border);
+  padding-inline: var(--moduix-spacing-6);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 .app-main {
-  padding: var(--spacing-6);
+  padding: var(--moduix-spacing-6);
 }
 `;
 
 export const sidebarSimpleCss = `
 .app-sidebar {
-  --sidebar-width: min(64rem, 100%);
-  --sidebar-height: 34rem;
-  --sidebar-min-height: 28rem;
-  --sidebar-radius: var(--radius-lg);
-  --sidebar-shadow: var(--shadow-sm);
+  --moduix-sidebar-width: min(64rem, 100%);
+  --moduix-sidebar-height: 34rem;
+  --moduix-sidebar-min-height: 28rem;
+  --moduix-sidebar-radius: var(--moduix-radius-lg);
+  --moduix-sidebar-shadow: var(--moduix-shadow-sm);
 }
 
 .app-sidebar [data-slot="sidebar-content"] {
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: var(--moduix-color-border) transparent;
   scrollbar-width: thin;
 }
 
 .app-topbar {
   min-height: 3.5rem;
-  padding-inline: var(--spacing-6);
-  border-block-end: var(--border-width-sm) solid var(--color-border);
+  padding-inline: var(--moduix-spacing-6);
+  border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
 }
 
 .app-main {
-  padding: var(--spacing-6);
+  padding: var(--moduix-spacing-6);
 }
 `;
 
 export const sidebarDrawerCss = `
 .mobile-trigger {
-  margin-block-end: var(--spacing-4);
+  margin-block-end: var(--moduix-spacing-4);
 }
 
 .mobile-drawer {
-  --drawer-padding-x: 0;
-  --drawer-padding-y: var(--spacing-3);
-  --sidebar-section-border-width: var(--border-width-sm);
+  --moduix-drawer-padding-x: 0;
+  --moduix-drawer-padding-y: var(--moduix-spacing-3);
+  --moduix-sidebar-section-border-width: var(--moduix-border-width-sm);
   width: min(20rem, calc(100vw - 2rem));
   max-width: 20rem;
 }
 
 .mobile-drawer-header {
-  padding-inline: var(--spacing-3);
+  padding-inline: var(--moduix-spacing-3);
 }
 
 .mobile-drawer-body {
@@ -234,11 +234,11 @@ export const sidebarDrawerCss = `
   flex: 1 1 auto;
   flex-direction: column;
   min-height: 0;
-  background-color: var(--color-card);
+  background-color: var(--moduix-color-card);
 }
 
 .mobile-sidebar-surface [data-slot="sidebar-content"] {
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: var(--moduix-color-border) transparent;
   scrollbar-width: thin;
 }
 
@@ -251,20 +251,20 @@ export const sidebarDrawerCss = `
 .mobile-sidebar-surface .app-brand {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
   min-width: 0;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .mobile-sidebar-surface .app-brand-mark {
   display: grid;
   place-items: center;
-  width: var(--size-sm);
-  height: var(--size-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
-  font-size: var(--text-xs);
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-primary);
+  color: var(--moduix-color-primary-foreground);
+  font-size: var(--moduix-text-xs);
 }
 
 .mobile-sidebar-surface .app-account-button {
@@ -285,13 +285,13 @@ export const sidebarDrawerCss = `
 }
 
 .mobile-sidebar-surface .app-account-meta > span {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
 }
 
 .mobile-sidebar-surface .app-account-menu {
-  --menu-popup-min-width: 14rem;
-  --menu-popup-max-width: 18rem;
+  --moduix-menu-popup-min-width: 14rem;
+  --moduix-menu-popup-max-width: 18rem;
 }
 
 `;
@@ -302,7 +302,7 @@ export const sidebarScrollAreaCss = `${sidebarSimpleCss}
 }
 
 .app-sidebar-scroll-area {
-  --scroll-area-radius: 0;
+  --moduix-scroll-area-radius: 0;
 }
 
 [data-slot="sidebar-panel"][data-state="collapsed"]

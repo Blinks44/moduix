@@ -21,19 +21,19 @@ break out of a constrained container while staying in normal document flow.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) dashed var(--color-border);
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
       }
 
       .bleed-demo-surface {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
         text-align: center;
       }
     `}</style>
@@ -73,7 +73,7 @@ inside centered or padded shells.
 
 ### When to go custom
 
-Use `className` and local `--bleed-*` overrides when a drawer, nested scroll region, or app shell
+Use `className` and local `--moduix-bleed-*` overrides when a drawer, nested scroll region, or app shell
 needs different full-bleed math than the default viewport-based values.
 
 ### Default props
@@ -97,7 +97,7 @@ needs different full-bleed math than the default viewport-based values.
 - Use one of the fixed scale values when content only needs to escape container padding instead of
   reaching the viewport edge.
 - `inline="full"` uses viewport math, so nested shells may need local overrides for
-  `--bleed-inline-full` and `--bleed-inline-full-size`.
+  `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size`.
 - Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
 - Unlike Chakra's layout primitive, moduix intentionally exposes token-based `inline` and `block`
   modes rather than one-sided `inlineStart`, `inlineEnd`, `blockStart`, and `blockEnd` props.
@@ -111,19 +111,19 @@ Use `block` when a surface should also escape vertical container padding.
 <style>{`
       .bleed-demo-padded-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-6);
-        border: var(--border-width-sm) dashed var(--color-border);
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-6);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
       }
 
       .bleed-demo-panel {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
         text-align: center;
       }
     `}</style>
@@ -134,34 +134,34 @@ Use `block` when a surface should also escape vertical container padding.
 
 ### Custom Styling
 
-Use local `--bleed-inline-full` overrides when a nested shell should bleed to its own boundaries
+Use local `--moduix-bleed-inline-full` overrides when a nested shell should bleed to its own boundaries
 instead of the viewport.
 
 <style>{`
       .bleed-demo-shell {
-        width: min(34rem, calc(100vw - var(--spacing-8)));
-        padding: var(--spacing-6);
-        background-color: var(--color-muted);
+        width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
+        padding: var(--moduix-spacing-6);
+        background-color: var(--moduix-color-muted);
       }
 
       .bleed-demo-shell-content {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) dashed var(--color-border);
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
         background-color: var(--color-bg);
       }
 
       .bleed-demo-custom-surface {
-        --bleed-inline-full: calc(var(--spacing-4) * -1);
-        --bleed-inline-full-size: calc(100% + var(--spacing-8));
+        --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
+        --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-accent);
-        color: var(--color-accent-contrast);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-accent);
+        color: var(--moduix-color-accent-contrast);
         text-align: center;
       }
     `}</style>
@@ -177,19 +177,19 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) dashed var(--color-border);
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
       }
 
       .bleed-demo-panel {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
         text-align: center;
       }
     `}</style>
@@ -205,28 +205,28 @@ Use `asChild` when the escaping content has a more specific semantic role.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--spacing-8)));
+        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-4);
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) dashed var(--color-border);
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
       }
 
       .bleed-demo-figure {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--spacing-3);
-        padding: var(--spacing-4);
-        background-color: var(--color-muted);
+        gap: var(--moduix-spacing-3);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
         text-align: center;
       }
 
       .bleed-demo-media {
         width: min(28rem, 100%);
         min-height: 8rem;
-        border-radius: var(--radius-md);
-        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--color-accent);
+        border-radius: var(--moduix-radius-md);
+        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
       }
     `}</style>
 
@@ -250,5 +250,5 @@ the layout math needs to change, and use `className` for the visual surface insi
 - `data-inline` reflects the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or
   `full`.
 - `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
-- The public `--bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
+- The public `--moduix-bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
   viewport math used by `inline="full"`.

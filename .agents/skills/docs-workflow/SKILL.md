@@ -5,7 +5,7 @@ description: Use for work in the Rspress docs app, including MDX pages, live exa
 
 # Skill: docs-workflow
 
-Use this skill for work in `apps/docs`, the Rspress documentation app.
+Use this skill for work in `apps/docs`, the Rspress 2 documentation app.
 
 ## Scope
 
@@ -13,6 +13,9 @@ Use this skill for work in `apps/docs`, the Rspress documentation app.
 - docs site content and routing
 - live examples
 - CSS properties documentation
+
+Use Rspress 2's native MDX, preview-plugin, theme, and runtime APIs. Do not add compatibility
+layers for retired documentation frameworks.
 
 ## Read First
 

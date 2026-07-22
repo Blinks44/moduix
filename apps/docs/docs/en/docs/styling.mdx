@@ -24,13 +24,13 @@ are consumer snippets for applications where the respective tool is already conf
 
 ## Choose the smallest useful override
 
-| Goal                                             | Preferred surface                                           |
-| ------------------------------------------------ | ----------------------------------------------------------- |
-| Adopt a complete visual direction                | A curated [Theme preset](/docs/themes)                      |
-| Change a system-wide color, size, radius, or gap | A primitive or semantic token from [Tokens](/docs/tokens)   |
-| Keep a family of controls or popup rows aligned  | A shared family token such as `--popup-item-min-height`     |
-| Make one component intentionally different       | A documented `--<component>-*` alias                        |
-| Style one product composition                    | `className` on the rendered part, preferably with local CSS |
+| Goal                                             | Preferred surface                                              |
+| ------------------------------------------------ | -------------------------------------------------------------- |
+| Adopt a complete visual direction                | A curated [Theme preset](/docs/themes)                         |
+| Change a system-wide color, size, radius, or gap | A primitive or semantic token from [Tokens](/docs/tokens)      |
+| Keep a family of controls or popup rows aligned  | A shared family token such as `--moduix-popup-item-min-height` |
+| Make one component intentionally different       | A documented `--<component>-*` alias                           |
+| Style one product composition                    | `className` on the rendered part, preferably with local CSS    |
 
 This order keeps themes compact and component styling predictable. Prefer a high-level token when
 the decision should propagate; move closer to the rendered part only as the scope becomes local.
@@ -138,39 +138,39 @@ export function ProjectChecklist() {
 
 ```css
 .root {
-  --project-accent: color-mix(in oklab, #2563eb 80%, var(--color-foreground));
-  --project-accent-strong: color-mix(in oklab, #1d4ed8 80%, var(--color-foreground));
-  --project-surface: color-mix(in oklab, var(--project-accent) 8%, var(--color-card));
+  --project-accent: color-mix(in oklab, #2563eb 80%, var(--moduix-color-foreground));
+  --project-accent-strong: color-mix(in oklab, #1d4ed8 80%, var(--moduix-color-foreground));
+  --project-surface: color-mix(in oklab, var(--project-accent) 8%, var(--moduix-color-card));
 
   max-inline-size: 42rem;
-  padding: var(--spacing-3);
-  border: var(--border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 18%, var(--color-border));
-  border-radius: var(--radius-xl);
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 18%, var(--moduix-color-border));
+  border-radius: var(--moduix-radius-xl);
   background: var(--project-surface);
 }
 
 .accordion {
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .item {
   overflow: hidden;
-  border: var(--border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 20%, var(--color-border));
-  border-radius: var(--radius-lg);
-  background: var(--color-card);
+  border: var(--moduix-border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 20%, var(--moduix-color-border));
+  border-radius: var(--moduix-radius-lg);
+  background: var(--moduix-color-card);
   transition:
-    border-color var(--transition-default),
-    box-shadow var(--transition-default);
+    border-color var(--moduix-transition-default),
+    box-shadow var(--moduix-transition-default);
 
   &[data-orientation='vertical']:not(:last-child) {
-    border-bottom: var(--border-width-sm) solid
-      color-mix(in oklab, var(--project-accent) 20%, var(--color-border));
+    border-bottom: var(--moduix-border-width-sm) solid
+      color-mix(in oklab, var(--project-accent) 20%, var(--moduix-color-border));
   }
 
   &[data-state='open'] {
-    border-color: color-mix(in oklab, var(--project-accent) 46%, var(--color-border));
+    border-color: color-mix(in oklab, var(--project-accent) 46%, var(--moduix-color-border));
     box-shadow: 0 1.25rem 2.5rem -2rem color-mix(in oklab, var(--project-accent) 58%, transparent);
   }
 }
@@ -178,36 +178,36 @@ export function ProjectChecklist() {
 .trigger {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   align-items: center;
   width: 100%;
-  padding: var(--spacing-4);
-  background-color: color-mix(in oklab, var(--project-accent) 7%, var(--color-card));
-  color: var(--color-foreground);
-  font-weight: var(--weight-semibold);
+  padding: var(--moduix-spacing-4);
+  background-color: color-mix(in oklab, var(--project-accent) 7%, var(--moduix-color-card));
+  color: var(--moduix-color-foreground);
+  font-weight: var(--moduix-weight-semibold);
   text-align: left;
   transition:
-    background-color var(--transition-default),
-    color var(--transition-default);
+    background-color var(--moduix-transition-default),
+    color var(--moduix-transition-default);
 
   &:hover {
-    background-color: color-mix(in oklab, var(--project-accent) 13%, var(--color-card));
+    background-color: color-mix(in oklab, var(--project-accent) 13%, var(--moduix-color-card));
   }
 
   &:focus-visible {
-    outline: var(--border-width-md) solid var(--color-ring);
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
   }
 
   &[data-state='open'] {
-    background-color: color-mix(in oklab, var(--project-accent) 17%, var(--color-card));
+    background-color: color-mix(in oklab, var(--project-accent) 17%, var(--moduix-color-card));
     color: var(--project-accent-strong);
   }
 }
 
 .triggerCopy {
   display: flex;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   align-items: center;
   min-width: 0;
 }
@@ -218,12 +218,13 @@ export function ProjectChecklist() {
   place-items: center;
   inline-size: 1.75rem;
   block-size: 1.75rem;
-  border: var(--border-width-sm) solid color-mix(in oklab, var(--project-accent) 32%, transparent);
-  border-radius: var(--radius-xl);
-  background: color-mix(in oklab, var(--project-accent) 15%, var(--color-card));
+  border: var(--moduix-border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 32%, transparent);
+  border-radius: var(--moduix-radius-xl);
+  background: color-mix(in oklab, var(--project-accent) 15%, var(--moduix-color-card));
   color: var(--project-accent-strong);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
 }
 
 .title {
@@ -236,18 +237,18 @@ export function ProjectChecklist() {
 }
 
 .content {
-  border-block-start: var(--border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 18%, var(--color-border));
-  background: color-mix(in oklab, var(--project-accent) 5%, var(--color-card));
-  color: var(--color-foreground);
+  border-block-start: var(--moduix-border-width-sm) solid
+    color-mix(in oklab, var(--project-accent) 18%, var(--moduix-color-border));
+  background: color-mix(in oklab, var(--project-accent) 5%, var(--moduix-color-card));
+  color: var(--moduix-color-foreground);
 }
 
 .body {
-  padding: var(--spacing-4);
+  padding: var(--moduix-spacing-4);
 
   & > p {
     margin: 0;
-    color: color-mix(in oklab, var(--color-foreground) 92%, var(--project-accent));
+    color: color-mix(in oklab, var(--moduix-color-foreground) 92%, var(--project-accent));
   }
 }
 ```
@@ -266,10 +267,10 @@ class names:
 ```css
 .root {
   [data-slot='accordion-item-trigger'] {
-    padding-inline: var(--spacing-4);
+    padding-inline: var(--moduix-spacing-4);
 
     &[data-state='open'] {
-      color: var(--color-primary);
+      color: var(--moduix-color-primary);
     }
   }
 }

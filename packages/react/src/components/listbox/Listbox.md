@@ -145,13 +145,13 @@ results should remain visually separate or need a custom wrapper.
 
 ## Defaults and styling
 
-The input and filter default to `--size-md`. Single-line list items default to `--size-sm` with `--spacing-1` block padding.
+The input and filter default to `--moduix-size-md`. Single-line list items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
 
-Group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular weight,
-and `--spacing-1` block padding. Listbox-specific variables still take precedence.
+Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
+and `--moduix-spacing-1` block padding. Listbox-specific variables still take precedence.
 
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
-- Default root width is `16rem` through `--listbox-width`.
+- Default root width is `16rem` through `--moduix-listbox-width`.
 - `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
   content provides the visible boundary and divider between the input and results.
 - `Listbox.Filter` deliberately has no focus treatment. Its input keeps the base border but leaves
@@ -165,7 +165,7 @@ and `--spacing-1` block padding. Listbox-specific variables still take precedenc
 - `Listbox.ItemIndicator` is hidden by Ark when the item is unchecked.
 - `Listbox.Content[data-layout='grid']` uses Ark's `--column-count` CSS variable.
 - Grid items collapse the indicator column and should normally show selection through the neutral
-  `--listbox-grid-selected-bg` background instead of `Listbox.ItemIndicator`.
+  `--moduix-listbox-grid-selected-bg` background instead of `Listbox.ItemIndicator`.
 - Grid item labels are centered by default.
 
 ## Intentional sugar and differences from upstream
@@ -191,7 +191,7 @@ and `--spacing-1` block padding. Listbox-specific variables still take precedenc
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized group labels to the shared regular-weight popup-label contract.
 
-- 2026-07-21: Reduced the default input and filter to `--size-md` and compacted list items to `--size-sm`.
+- 2026-07-21: Reduced the default input and filter to `--moduix-size-md` and compacted list items to `--moduix-size-sm`.
 
 - 2026-07-17: Composed the standard filter clear action with `CloseButton` and mapped existing
   Listbox tokens to the shared button styling.
@@ -214,7 +214,7 @@ and `--spacing-1` block padding. Listbox-specific variables still take precedenc
   horizontal/grid examples, stories, and docs snippets.
 - 2026-06-22: Added item hover affordance, stable content focus styling, docs root sizing, and
   compact grid selection background.
-- 2026-06-22: Added `--listbox-*` variables to the public theme reference and changed default
+- 2026-06-22: Added `--moduix-listbox-*` variables to the public theme reference and changed default
   width to `16rem`.
 - 2026-06-22: Changed grid selected background from primary to neutral muted color.
 - 2026-06-22: Kept listbox content focused after pointer selection and centered grid items.

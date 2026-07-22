@@ -17,93 +17,177 @@ const placementToasters: Record<ToastPlacement, ToastToaster> = {
 };
 
 const toastOverrideCssProperties: CssPropertyInput[] = [
-  ['--toast-action-bg', 'transparent', 'Controls action button background.'],
-  ['--toast-action-bg-hover', 'var(--color-accent)', 'Controls action hover background.'],
-  ['--toast-action-border-color', 'var(--color-border)', 'Controls action border color.'],
+  ['--moduix-toast-action-bg', 'transparent', 'Controls action button background.'],
   [
-    '--toast-action-border-width',
-    'var(--toast-border-width, var(--border-width-sm))',
+    '--moduix-toast-action-bg-hover',
+    'var(--moduix-color-accent)',
+    'Controls action hover background.',
+  ],
+  [
+    '--moduix-toast-action-border-color',
+    'var(--moduix-color-border)',
+    'Controls action border color.',
+  ],
+  [
+    '--moduix-toast-action-border-width',
+    'var(--moduix-toast-border-width, var(--moduix-border-width-sm))',
     'Controls action button border width.',
   ],
-  ['--toast-action-color', 'var(--color-foreground)', 'Controls action text color.'],
-  ['--toast-action-font-size', 'var(--text-xs)', 'Controls action font size.'],
-  ['--toast-action-font-weight', 'var(--weight-medium)', 'Controls action font weight.'],
-  ['--toast-action-gap', 'var(--spacing-2)', 'Controls spacing inside action buttons.'],
-  ['--toast-action-line-height', 'var(--line-height-text-xs)', 'Controls action line height.'],
+  ['--moduix-toast-action-color', 'var(--moduix-color-foreground)', 'Controls action text color.'],
+  ['--moduix-toast-action-font-size', 'var(--moduix-text-xs)', 'Controls action font size.'],
   [
-    '--toast-action-margin-top',
-    'var(--spacing-2)',
+    '--moduix-toast-action-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls action font weight.',
+  ],
+  [
+    '--moduix-toast-action-gap',
+    'var(--moduix-spacing-2)',
+    'Controls spacing inside action buttons.',
+  ],
+  [
+    '--moduix-toast-action-line-height',
+    'var(--moduix-line-height-text-xs)',
+    'Controls action line height.',
+  ],
+  [
+    '--moduix-toast-action-margin-top',
+    'var(--moduix-spacing-2)',
     'Controls action spacing from the description.',
   ],
-  ['--toast-action-min-height', 'var(--size-xs)', 'Controls action button minimum height.'],
-  ['--toast-action-padding-x', 'var(--spacing-2)', 'Controls action horizontal padding.'],
-  ['--toast-action-padding-y', 'var(--spacing-1)', 'Controls action vertical padding.'],
-  ['--toast-action-radius', 'var(--radius-sm)', 'Controls action button border radius.'],
-  ['--toast-bg', 'var(--color-popover)', 'Controls toast background color.'],
-  ['--toast-border-color', 'var(--color-border)', 'Controls toast border color.'],
-  ['--toast-border-width', 'var(--border-width-sm)', 'Controls toast border width.'],
-  ['--toast-close-bg', 'transparent', 'Controls close button background.'],
-  ['--toast-close-bg-hover', 'var(--color-muted)', 'Controls close hover background.'],
-  ['--toast-close-color', 'var(--color-muted-foreground)', 'Controls close button color.'],
-  ['--toast-close-color-hover', 'var(--color-foreground)', 'Controls close hover color.'],
   [
-    '--toast-close-focus-ring-offset',
-    'var(--focus-ring-offset)',
+    '--moduix-toast-action-min-height',
+    'var(--moduix-size-xs)',
+    'Controls action button minimum height.',
+  ],
+  [
+    '--moduix-toast-action-padding-x',
+    'var(--moduix-spacing-2)',
+    'Controls action horizontal padding.',
+  ],
+  [
+    '--moduix-toast-action-padding-y',
+    'var(--moduix-spacing-1)',
+    'Controls action vertical padding.',
+  ],
+  [
+    '--moduix-toast-action-radius',
+    'var(--moduix-radius-sm)',
+    'Controls action button border radius.',
+  ],
+  ['--moduix-toast-bg', 'var(--moduix-color-popover)', 'Controls toast background color.'],
+  ['--moduix-toast-border-color', 'var(--moduix-color-border)', 'Controls toast border color.'],
+  ['--moduix-toast-border-width', 'var(--moduix-border-width-sm)', 'Controls toast border width.'],
+  ['--moduix-toast-close-bg', 'transparent', 'Controls close button background.'],
+  [
+    '--moduix-toast-close-bg-hover',
+    'var(--moduix-color-muted)',
+    'Controls close hover background.',
+  ],
+  [
+    '--moduix-toast-close-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls close button color.',
+  ],
+  [
+    '--moduix-toast-close-color-hover',
+    'var(--moduix-color-foreground)',
+    'Controls close hover color.',
+  ],
+  [
+    '--moduix-toast-close-focus-ring-offset',
+    'var(--moduix-focus-ring-offset)',
     'Controls close button focus ring offset.',
   ],
   [
-    '--toast-close-focus-ring-width',
-    'var(--focus-ring-width, var(--border-width-md))',
+    '--moduix-toast-close-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls close button focus ring width.',
   ],
-  ['--toast-close-icon-size', 'var(--spacing-3)', 'Controls default close icon size.'],
-  ['--toast-close-offset-right', 'var(--spacing-2)', 'Controls close button right offset.'],
-  ['--toast-close-offset-top', 'var(--spacing-2)', 'Controls close button top offset.'],
-  ['--toast-close-radius', 'var(--radius-sm)', 'Controls close button border radius.'],
-  ['--toast-close-size', 'var(--spacing-7)', 'Controls close button size.'],
   [
-    '--toast-close-transition',
-    'var(--transition-default)',
+    '--moduix-toast-close-icon-size',
+    'var(--moduix-spacing-3)',
+    'Controls default close icon size.',
+  ],
+  [
+    '--moduix-toast-close-offset-right',
+    'var(--moduix-spacing-2)',
+    'Controls close button right offset.',
+  ],
+  [
+    '--moduix-toast-close-offset-top',
+    'var(--moduix-spacing-2)',
+    'Controls close button top offset.',
+  ],
+  [
+    '--moduix-toast-close-radius',
+    'var(--moduix-radius-sm)',
+    'Controls close button border radius.',
+  ],
+  ['--moduix-toast-close-size', 'var(--moduix-spacing-7)', 'Controls close button size.'],
+  [
+    '--moduix-toast-close-transition',
+    'var(--moduix-transition-default)',
     'Controls close button transition timing.',
   ],
-  ['--toast-color', 'var(--color-popover-foreground)', 'Controls toast text color.'],
+  ['--moduix-toast-color', 'var(--moduix-color-popover-foreground)', 'Controls toast text color.'],
   [
-    '--toast-content-gap',
-    'var(--spacing-1)',
+    '--moduix-toast-content-gap',
+    'var(--moduix-spacing-1)',
     'Controls spacing between title, description, and action.',
   ],
-  ['--toast-description-color', 'var(--color-muted-foreground)', 'Controls description color.'],
-  ['--toast-description-font-size', 'var(--text-sm)', 'Controls description font size.'],
   [
-    '--toast-description-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-toast-description-color',
+    'var(--moduix-color-muted-foreground)',
+    'Controls description color.',
+  ],
+  [
+    '--moduix-toast-description-font-size',
+    'var(--moduix-text-sm)',
+    'Controls description font size.',
+  ],
+  [
+    '--moduix-toast-description-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls description line height.',
   ],
-  ['--toast-focus-ring-color', 'var(--color-ring)', 'Controls action and close focus rings.'],
-  ['--toast-focus-ring-offset', '0', 'Controls action focus ring offset.'],
   [
-    '--toast-focus-ring-width',
-    'var(--toast-action-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))',
+    '--moduix-toast-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls action and close focus rings.',
+  ],
+  ['--moduix-toast-focus-ring-offset', '0', 'Controls action focus ring offset.'],
+  [
+    '--moduix-toast-focus-ring-width',
+    'var(--moduix-toast-action-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls action and close focus ring width.',
   ],
-  ['--toast-min-height', '0', 'Controls root toast minimum height.'],
-  ['--toast-padding', 'var(--spacing-4)', 'Controls root toast padding.'],
-  ['--toast-radius', 'var(--radius-lg)', 'Controls toast border radius.'],
-  ['--toast-shadow', 'var(--shadow-lg)', 'Controls toast shadow.'],
-  ['--toast-title-font-size', 'var(--text-sm)', 'Controls title font size.'],
-  ['--toast-title-gap', 'var(--spacing-2)', 'Controls spacing inside title content.'],
-  ['--toast-title-font-weight', 'var(--weight-semibold)', 'Controls title font weight.'],
-  ['--toast-title-line-height', 'var(--line-height-text-sm)', 'Controls title line height.'],
-  ['--toast-transition', '400ms', 'Controls toast movement transition.'],
-  ['--toast-transition-out', '400ms', 'Controls exit movement transition.'],
-  ['--toast-opacity-transition-out', '200ms', 'Controls exit opacity transition.'],
+  ['--moduix-toast-min-height', '0', 'Controls root toast minimum height.'],
+  ['--moduix-toast-padding', 'var(--moduix-spacing-4)', 'Controls root toast padding.'],
+  ['--moduix-toast-radius', 'var(--moduix-radius-lg)', 'Controls toast border radius.'],
+  ['--moduix-toast-shadow', 'var(--moduix-shadow-lg)', 'Controls toast shadow.'],
+  ['--moduix-toast-title-font-size', 'var(--moduix-text-sm)', 'Controls title font size.'],
+  ['--moduix-toast-title-gap', 'var(--moduix-spacing-2)', 'Controls spacing inside title content.'],
   [
-    '--toast-viewport-inset',
-    'var(--spacing-4)',
+    '--moduix-toast-title-font-weight',
+    'var(--moduix-weight-semibold)',
+    'Controls title font weight.',
+  ],
+  [
+    '--moduix-toast-title-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls title line height.',
+  ],
+  ['--moduix-toast-transition', '400ms', 'Controls toast movement transition.'],
+  ['--moduix-toast-transition-out', '400ms', 'Controls exit movement transition.'],
+  ['--moduix-toast-opacity-transition-out', '200ms', 'Controls exit opacity transition.'],
+  [
+    '--moduix-toast-viewport-inset',
+    'var(--moduix-spacing-4)',
     'Controls toast max-width distance from the window edge.',
   ],
-  ['--toast-width', '20rem', 'Controls toast width.'],
-  ['--toast-z-index', 'var(--z-toast)', 'Controls toast stack z-index.'],
+  ['--moduix-toast-width', '20rem', 'Controls toast width.'],
+  ['--moduix-toast-z-index', 'var(--moduix-z-toast)', 'Controls toast stack z-index.'],
 ];
 
 export const toastExampleCss = `
@@ -115,13 +199,13 @@ export const toastExampleCss = `
 }
 
 .toast-custom {
-  --toast-bg: var(--color-primary);
-  --toast-color: var(--color-primary-foreground);
-  --toast-border-color: var(--color-primary);
-  --toast-description-color: color-mix(in srgb, var(--color-primary-foreground) 72%, transparent);
-  --toast-close-color: var(--color-primary-foreground);
-  --toast-close-color-hover: var(--color-primary-foreground);
-  --toast-close-bg-hover: color-mix(in srgb, var(--color-primary-foreground) 14%, transparent);
+  --moduix-toast-bg: var(--moduix-color-primary);
+  --moduix-toast-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-border-color: var(--moduix-color-primary);
+  --moduix-toast-description-color: color-mix(in srgb, var(--moduix-color-primary-foreground) 72%, transparent);
+  --moduix-toast-close-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
+  --moduix-toast-close-bg-hover: color-mix(in srgb, var(--moduix-color-primary-foreground) 14%, transparent);
 }
 `;
 

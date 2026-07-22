@@ -93,10 +93,10 @@ State callbacks keep Ark detail shapes:
 
 ## Defaults and styling
 
-Each PIN cell is square and defaults to `--size-md`; `--pin-input-input-size` remains the shared override.
+Each PIN cell is square and defaults to `--moduix-size-md`; `--moduix-pin-input-input-size` remains the shared override.
 
 Styling targets Ark `data-scope="pin-input"` / `data-part` attributes plus stable moduix
-`data-slot` hooks. Public CSS variables are `--pin-input-*` and live in `theme.css`.
+`data-slot` hooks. Public CSS variables are `--moduix-pin-input-*` and live in `theme.css`.
 
 Important hooks:
 
@@ -129,7 +129,7 @@ Important hooks:
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced default square PIN cells to `--size-md`.
+- 2026-07-21: Reduced default square PIN cells to `--moduix-size-md`.
 
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 

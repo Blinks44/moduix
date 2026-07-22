@@ -109,16 +109,16 @@ to their public Ark DOM parts. The native input is not a separate public ref tar
 ## Defaults and styling
 
 The CSS uses Ark state attributes, Ark measurement variables on `Indicator`, and public
-`--segment-group-*` variables. Public selectors should target the exported part class,
+`--moduix-segment-group-*` variables. Public selectors should target the exported part class,
 `data-slot`, or Ark attributes.
 
 `data-invalid` changes the root border and invalid focus ring through
-`--segment-group-border-color-invalid` and `--segment-group-focus-ring-color-invalid`.
+`--moduix-segment-group-border-color-invalid` and `--moduix-segment-group-focus-ring-color-invalid`.
 `data-readonly` keeps the item readable but removes hover/click affordance styling.
 
 The indicator keeps Ark in charge of measurement and transition lifecycle. Customize motion with
-`--segment-group-indicator-transition-duration` and
-`--segment-group-indicator-transition-timing-function`, which feed Ark's
+`--moduix-segment-group-indicator-transition-duration` and
+`--moduix-segment-group-indicator-transition-timing-function`, which feed Ark's
 `--transition-duration` and `--transition-timing-function` runtime variables.
 
 The root lays items out horizontally by default at both the component and hook level. Set

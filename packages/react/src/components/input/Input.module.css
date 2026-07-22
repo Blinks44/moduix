@@ -1,90 +1,121 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
-    width: var(--input-width, 100%);
-    max-width: var(--input-max-width, none);
-    min-height: var(--input-height, var(--input-height-md, var(--size-md)));
+    width: var(--moduix-input-width, 100%);
+    max-width: var(--moduix-input-max-width, none);
+    min-height: var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md)));
     margin: 0;
-    border: var(--input-border-width, var(--border-width-sm)) var(--input-border-style, solid)
-      var(--input-border-color, var(--color-border));
-    border-radius: var(--input-radius, var(--radius-md));
-    padding: var(--input-padding-y, var(--input-padding-y-md, var(--spacing-1)))
-      var(--input-padding-x, var(--input-padding-x-md, var(--spacing-3)));
-    background-color: var(--input-bg, var(--color-background));
-    color: var(--input-color, var(--color-foreground));
+    border: var(--moduix-input-border-width, var(--moduix-border-width-sm))
+      var(--moduix-input-border-style, solid)
+      var(--moduix-input-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-input-radius, var(--moduix-radius-md));
+    padding: var(
+        --moduix-input-padding-y,
+        var(--moduix-input-padding-y-md, var(--moduix-spacing-1))
+      )
+      var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3)));
+    background-color: var(--moduix-input-bg, var(--moduix-color-background));
+    color: var(--moduix-input-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--input-font-size, var(--input-font-size-md, var(--text-md)));
-    line-height: var(--input-line-height, var(--input-line-height-md, var(--line-height-text-md)));
+    font-size: var(
+      --moduix-input-font-size,
+      var(--moduix-input-font-size-md, var(--moduix-text-md))
+    );
+    line-height: var(
+      --moduix-input-line-height,
+      var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))
+    );
     outline: var(
-        --input-focus-ring-width,
-        var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        --moduix-input-focus-ring-width,
+        var(
+          --moduix-input-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
       )
       solid transparent;
     outline-offset: var(
-      --input-focus-ring-offset,
-      calc(0px - var(--input-border-width, var(--border-width-sm)))
+      --moduix-input-focus-ring-offset,
+      calc(0px - var(--moduix-input-border-width, var(--moduix-border-width-sm)))
     );
     transition:
-      border-color var(--input-transition, var(--transition-default)),
-      outline-color var(--input-transition, var(--transition-default)),
-      opacity var(--input-transition, var(--transition-default));
+      border-color var(--moduix-input-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-input-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-input-transition, var(--moduix-transition-default));
 
     &::placeholder {
-      color: var(--input-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &:focus-visible {
-      outline-color: var(--input-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-input-focus-ring-color, var(--moduix-color-ring));
     }
 
     &:is([data-invalid], [aria-invalid='true']) {
-      border-color: var(--input-border-color-invalid, var(--color-destructive));
+      border-color: var(--moduix-input-border-color-invalid, var(--moduix-color-destructive));
 
       &:focus-visible {
-        outline-color: var(--input-border-color-invalid, var(--color-destructive));
+        outline-color: var(--moduix-input-border-color-invalid, var(--moduix-color-destructive));
       }
     }
 
     &:is([data-disabled], :disabled) {
       pointer-events: none;
-      opacity: var(--input-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     &:is(:read-only, [data-readonly]) {
-      background-color: var(--input-readonly-bg, var(--input-bg, var(--color-background)));
-      color: var(--input-readonly-color, var(--input-color, var(--color-foreground)));
+      background-color: var(
+        --moduix-input-readonly-bg,
+        var(--moduix-input-bg, var(--moduix-color-background))
+      );
+      color: var(
+        --moduix-input-readonly-color,
+        var(--moduix-input-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-size='xs'] {
-      --input-height: var(--input-height-xs, var(--size-xs));
-      --input-padding-x: var(--input-padding-x-xs, var(--spacing-2));
-      --input-padding-y: var(--input-padding-y-xs, var(--spacing-0-5));
-      --input-font-size: var(--input-font-size-xs, var(--text-xs));
-      --input-line-height: var(--input-line-height-xs, var(--line-height-text-xs));
+      --moduix-input-height: var(--moduix-input-height-xs, var(--moduix-size-xs));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-xs, var(--moduix-spacing-2));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-xs, var(--moduix-spacing-0-5));
+      --moduix-input-font-size: var(--moduix-input-font-size-xs, var(--moduix-text-xs));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-xs,
+        var(--moduix-line-height-text-xs)
+      );
     }
 
     &[data-size='sm'] {
-      --input-height: var(--input-height-sm, var(--size-sm));
-      --input-padding-x: var(--input-padding-x-sm, var(--spacing-2));
-      --input-padding-y: var(--input-padding-y-sm, var(--spacing-1));
-      --input-font-size: var(--input-font-size-sm, var(--text-sm));
-      --input-line-height: var(--input-line-height-sm, var(--line-height-text-sm));
+      --moduix-input-height: var(--moduix-input-height-sm, var(--moduix-size-sm));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-sm, var(--moduix-spacing-2));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-sm, var(--moduix-spacing-1));
+      --moduix-input-font-size: var(--moduix-input-font-size-sm, var(--moduix-text-sm));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-sm,
+        var(--moduix-line-height-text-sm)
+      );
     }
 
     &[data-size='lg'] {
-      --input-height: var(--input-height-lg, var(--size-lg));
-      --input-padding-x: var(--input-padding-x-lg, var(--spacing-4));
-      --input-padding-y: var(--input-padding-y-lg, var(--spacing-1));
-      --input-font-size: var(--input-font-size-lg, var(--text-lg));
-      --input-line-height: var(--input-line-height-lg, var(--line-height-text-lg));
+      --moduix-input-height: var(--moduix-input-height-lg, var(--moduix-size-lg));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-lg, var(--moduix-spacing-4));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-lg, var(--moduix-spacing-1));
+      --moduix-input-font-size: var(--moduix-input-font-size-lg, var(--moduix-text-lg));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-lg,
+        var(--moduix-line-height-text-lg)
+      );
     }
 
     &[data-size='xl'] {
-      --input-height: var(--input-height-xl, var(--size-xl));
-      --input-padding-x: var(--input-padding-x-xl, var(--spacing-4));
-      --input-padding-y: var(--input-padding-y-xl, var(--spacing-2));
-      --input-font-size: var(--input-font-size-xl, var(--text-lg));
-      --input-line-height: var(--input-line-height-xl, var(--line-height-text-lg));
+      --moduix-input-height: var(--moduix-input-height-xl, var(--moduix-size-xl));
+      --moduix-input-padding-x: var(--moduix-input-padding-x-xl, var(--moduix-spacing-4));
+      --moduix-input-padding-y: var(--moduix-input-padding-y-xl, var(--moduix-spacing-2));
+      --moduix-input-font-size: var(--moduix-input-font-size-xl, var(--moduix-text-lg));
+      --moduix-input-line-height: var(
+        --moduix-input-line-height-xl,
+        var(--moduix-line-height-text-lg)
+      );
     }
   }
 }

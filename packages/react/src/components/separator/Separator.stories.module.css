@@ -1,40 +1,40 @@
-@layer ui.stories {
+@layer moduix.stories {
   .card {
     width: 18rem;
-    padding: var(--spacing-4);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-background);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-background);
   }
 
   .stack {
     display: grid;
-    gap: var(--spacing-4);
+    gap: var(--moduix-spacing-4);
   }
 
   .nav {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     text-wrap: nowrap;
   }
 
   .section {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .link {
-    color: var(--color-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     text-decoration: none;
   }
 
   .customSeparator {
-    --separator-color: var(--color-primary);
-    --separator-thickness: 2px;
-    --separator-length-horizontal: 8rem;
+    --moduix-separator-color: var(--moduix-color-primary);
+    --moduix-separator-thickness: 2px;
+    --moduix-separator-length-horizontal: 8rem;
   }
 
   .nativeRule {

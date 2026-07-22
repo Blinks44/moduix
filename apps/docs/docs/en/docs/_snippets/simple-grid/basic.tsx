@@ -28,7 +28,7 @@ export default function SimpleGridDemo() {
   return (
     <SimpleGrid
       minChildWidth="18rem"
-      gap="var(--spacing-4)"
+      gap="var(--moduix-spacing-4)"
       className={`${styles.simpleGridDemoGrid} ${styles.simpleGridDemoCards}`}
     >
       {plans.map((plan) => (

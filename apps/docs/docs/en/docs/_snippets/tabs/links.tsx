@@ -1,4 +1,5 @@
 import { Tabs } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const items = [
   {
@@ -22,20 +23,22 @@ const items = [
 
 export default function LinkTabsDemo() {
   return (
-    <Tabs defaultValue="overview">
-      <Tabs.List>
-        {items.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value} asChild>
-            <a href={'#' + item.value}>{item.title}</a>
-          </Tabs.Trigger>
-        ))}
-      </Tabs.List>
+    <PreviewLayout maxWidth="32rem">
+      <Tabs defaultValue="overview">
+        <Tabs.List>
+          {items.map((item) => (
+            <Tabs.Trigger key={item.value} value={item.value} asChild>
+              <a href={'#' + item.value}>{item.title}</a>
+            </Tabs.Trigger>
+          ))}
+        </Tabs.List>
 
-      {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          <span id={item.value}>{item.content}</span>
-        </Tabs.Content>
-      ))}
-    </Tabs>
+        {items.map((item) => (
+          <Tabs.Content key={item.value} value={item.value}>
+            <span id={item.value}>{item.content}</span>
+          </Tabs.Content>
+        ))}
+      </Tabs>
+    </PreviewLayout>
   );
 }

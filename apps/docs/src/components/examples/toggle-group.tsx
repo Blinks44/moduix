@@ -2,26 +2,38 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
-  ['--toggle-group-bg', 'var(--color-muted)', 'Controls group background color.'],
-  ['--toggle-group-border-color', 'var(--color-border)', 'Controls group border color.'],
-  ['--toggle-group-border-width', 'var(--border-width-sm)', 'Controls group border width.'],
-  ['--toggle-group-color', 'var(--color-foreground)', 'Controls group text color.'],
-  ['--toggle-group-gap', 'var(--border-width-sm)', 'Controls spacing between items.'],
-  ['--toggle-group-ghost-bg', 'transparent', 'Controls ghost variant group background.'],
+  ['--moduix-toggle-group-bg', 'var(--moduix-color-muted)', 'Controls group background color.'],
   [
-    '--toggle-group-ghost-border-color',
+    '--moduix-toggle-group-border-color',
+    'var(--moduix-color-border)',
+    'Controls group border color.',
+  ],
+  [
+    '--moduix-toggle-group-border-width',
+    'var(--moduix-border-width-sm)',
+    'Controls group border width.',
+  ],
+  ['--moduix-toggle-group-color', 'var(--moduix-color-foreground)', 'Controls group text color.'],
+  ['--moduix-toggle-group-gap', 'var(--moduix-border-width-sm)', 'Controls spacing between items.'],
+  ['--moduix-toggle-group-ghost-bg', 'transparent', 'Controls ghost variant group background.'],
+  [
+    '--moduix-toggle-group-ghost-border-color',
     'transparent',
     'Controls ghost variant group border color.',
   ],
-  ['--toggle-group-ghost-padding', '0', 'Controls ghost variant group padding.'],
-  ['--toggle-group-item-radius', 'var(--radius-md)', 'Controls item corner radius.'],
+  ['--moduix-toggle-group-ghost-padding', '0', 'Controls ghost variant group padding.'],
+  ['--moduix-toggle-group-item-radius', 'var(--moduix-radius-md)', 'Controls item corner radius.'],
   [
-    '--toggle-group-outline-bg',
-    'var(--color-background)',
+    '--moduix-toggle-group-outline-bg',
+    'var(--moduix-color-background)',
     'Controls outline variant group background.',
   ],
-  ['--toggle-group-padding', 'var(--border-width-md)', 'Controls group inner padding.'],
-  ['--toggle-group-radius', 'var(--radius-lg)', 'Controls group corner radius.'],
+  [
+    '--moduix-toggle-group-padding',
+    'var(--moduix-border-width-md)',
+    'Controls group inner padding.',
+  ],
+  ['--moduix-toggle-group-radius', 'var(--moduix-radius-lg)', 'Controls group corner radius.'],
 ];
 
 function normalizeCssProperty(property: CssPropertyInput) {

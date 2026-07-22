@@ -118,13 +118,13 @@ Use `asChild` only when the root itself needs native semantics:
 | `Tag.CloseTrigger` | `children`   | close icon when not using `asChild`                                          |
 | `Tag.CloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |
 
-Public CSS variables live in `packages/react/src/lib/moduix/styles/theme.css` and start with `--tag-*`. Variant
+Public CSS variables live in `packages/react/src/lib/moduix/styles/theme.css` and start with `--moduix-tag-*`. Variant
 colors intentionally match `Badge` so shared variant names carry the same visual meaning across
-compact token components. Close-trigger variables use the `--tag-close-trigger-*` prefix. Consumers
+compact token components. Close-trigger variables use the `--moduix-tag-close-trigger-*` prefix. Consumers
 can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.
 
 `Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` uses the shared `CloseButton` CSS
-contract behind the existing `--tag-close-trigger-*` variables and retains `data-disabled` for
+contract behind the existing `--moduix-tag-close-trigger-*` variables and retains `data-disabled` for
 disabled or `aria-disabled` states.
 
 ## Intentional sugar and differences from upstream
@@ -149,14 +149,14 @@ disabled or `aria-disabled` states.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-17: Composed `Tag.CloseTrigger` with the shared `CloseButton` and mapped the existing
-  `--tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.
+  `--moduix-tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.
 - 2026-07-11: Updated removable-tag examples to model parent-owned removal state and use specific
   close-trigger labels; documented `asChild` as the final advanced customization path.
 - 2026-07-03: Removed public `Tag*Props`, `TagVariant`, and `TagSize` type exports to keep the
   Tag surface component-first.
 - 2026-06-21: Migrated from legacy button composition to Ark factory parts, added namespace API
   (`Tag.Root`, `Tag.Label`, `Tag.StartElement`, `Tag.EndElement`, `Tag.CloseTrigger`), added
-  `asChild`, renamed remove styling variables to `--tag-close-trigger-*`, and removed flat legacy
+  `asChild`, renamed remove styling variables to `--moduix-tag-close-trigger-*`, and removed flat legacy
   exports.
 - 2026-06-21: Aligned built-in `Tag` variant colors with `Badge` so `default`, `secondary`,
   `outline`, `ghost`, and `destructive` share the same color semantics.

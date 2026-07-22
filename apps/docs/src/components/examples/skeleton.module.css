@@ -1,56 +1,45 @@
 .stack {
-  width: min(20rem, calc(100vw - var(--spacing-8)));
+  width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .card {
-  width: min(20rem, calc(100vw - var(--spacing-8)));
+  width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .mediaObject {
-  width: min(24rem, calc(100vw - var(--spacing-8)));
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .layoutExample {
-  width: min(24rem, calc(100vw - var(--spacing-8)));
-  padding-block: var(--spacing-1);
+  width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
+  padding-block: var(--moduix-spacing-1);
 }
 
 .staticSkeleton {
-  max-width: calc(100vw - var(--spacing-8));
-}
-
-.customBlock {
-  width: min(20rem, calc(100vw - var(--spacing-8)));
-  --skeleton-bg: var(--color-primary);
-  --skeleton-border-radius: var(--radius-full);
-  --skeleton-animation: none;
-}
-
-.customSkeleton {
-  opacity: 0.28;
+  max-width: calc(100vw - var(--moduix-spacing-8));
 }
 
 .asChild {
-  width: min(20rem, calc(100vw - var(--spacing-8)));
+  width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
 .loadedGrid {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .loadedContent {
   display: grid;
-  width: min(20rem, calc(100vw - var(--spacing-8)));
+  width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
   min-height: 4.5rem;
-  gap: var(--spacing-1);
-  padding: var(--spacing-4);
-  border: var(--border-width-sm) solid var(--color-border);
-  color: var(--color-foreground);
+  gap: var(--moduix-spacing-1);
+  padding: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  color: var(--moduix-color-foreground);
 
   & span {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 }

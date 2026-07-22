@@ -23,9 +23,9 @@
 }
 
 .migrationFrame {
-  background: var(--color-muted);
+  background: var(--moduix-color-muted);
 }
 
 .roundedFrame {
-  --aspect-ratio-radius: var(--radius-xl);
+  --moduix-aspect-ratio-radius: var(--moduix-radius-xl);
 }

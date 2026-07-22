@@ -1,80 +1,95 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--pin-input-root-gap, var(--spacing-2));
-    width: var(--pin-input-width, auto);
-    max-width: var(--pin-input-max-width, none);
+    gap: var(--moduix-pin-input-root-gap, var(--moduix-spacing-2));
+    width: var(--moduix-pin-input-width, auto);
+    max-width: var(--moduix-pin-input-max-width, none);
 
     &[data-disabled] {
-      opacity: var(--pin-input-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-pin-input-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .label {
-    color: var(--pin-input-label-color, var(--color-foreground));
-    font-size: var(--pin-input-label-font-size, var(--text-sm));
-    font-weight: var(--pin-input-label-font-weight, var(--weight-medium));
-    line-height: var(--pin-input-label-line-height, var(--line-height-text-sm));
+    color: var(--moduix-pin-input-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-pin-input-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-pin-input-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-pin-input-label-line-height, var(--moduix-line-height-text-sm));
   }
 
   .control {
     display: inline-flex;
     align-items: center;
-    gap: var(--pin-input-gap, var(--spacing-2));
+    gap: var(--moduix-pin-input-gap, var(--moduix-spacing-2));
   }
 
   .input {
     box-sizing: border-box;
     flex: none;
-    width: var(--pin-input-input-width, var(--pin-input-input-size, var(--size-md)));
-    height: var(--pin-input-input-height, var(--pin-input-input-size, var(--size-md)));
+    width: var(
+      --moduix-pin-input-input-width,
+      var(--moduix-pin-input-input-size, var(--moduix-size-md))
+    );
+    height: var(
+      --moduix-pin-input-input-height,
+      var(--moduix-pin-input-input-size, var(--moduix-size-md))
+    );
     margin: 0;
-    border: var(--pin-input-border-width, var(--border-width-sm)) solid
-      var(--pin-input-border-color, var(--color-border));
-    border-radius: var(--pin-input-radius, var(--radius-md));
-    padding-block: var(--pin-input-input-padding-y, 0);
-    padding-inline: var(--pin-input-input-padding-x, 0);
-    background-color: var(--pin-input-bg, var(--color-background));
-    color: var(--pin-input-color, var(--color-foreground));
+    border: var(--moduix-pin-input-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-pin-input-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-pin-input-radius, var(--moduix-radius-md));
+    padding-block: var(--moduix-pin-input-input-padding-y, 0);
+    padding-inline: var(--moduix-pin-input-input-padding-x, 0);
+    background-color: var(--moduix-pin-input-bg, var(--moduix-color-background));
+    color: var(--moduix-pin-input-color, var(--moduix-color-foreground));
     font: inherit;
-    font-size: var(--pin-input-font-size, var(--text-lg));
-    font-weight: var(--pin-input-font-weight, var(--weight-medium));
-    line-height: var(--pin-input-line-height, var(--line-height-text-lg));
+    font-size: var(--moduix-pin-input-font-size, var(--moduix-text-lg));
+    font-weight: var(--moduix-pin-input-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-pin-input-line-height, var(--moduix-line-height-text-lg));
     text-align: center;
     font-variant-numeric: tabular-nums;
     outline: var(
-        --pin-input-focus-ring-width,
-        var(--pin-input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))
+        --moduix-pin-input-focus-ring-width,
+        var(
+          --moduix-pin-input-border-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
       )
       solid transparent;
-    outline-offset: var(--pin-input-focus-ring-offset, var(--focus-ring-inset-offset));
+    outline-offset: var(
+      --moduix-pin-input-focus-ring-offset,
+      var(--moduix-focus-ring-inset-offset)
+    );
     transition:
-      border-color var(--pin-input-transition, var(--transition-default)),
-      outline-color var(--pin-input-transition, var(--transition-default)),
-      background-color var(--pin-input-transition, var(--transition-default));
+      border-color var(--moduix-pin-input-transition, var(--moduix-transition-default)),
+      outline-color var(--moduix-pin-input-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-pin-input-transition, var(--moduix-transition-default));
 
     &::placeholder {
-      color: var(--pin-input-placeholder-color, var(--color-muted-foreground));
+      color: var(--moduix-pin-input-placeholder-color, var(--moduix-color-muted-foreground));
     }
 
     &:focus-visible {
-      outline-color: var(--pin-input-focus-ring-color, var(--color-ring));
+      outline-color: var(--moduix-pin-input-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-complete] {
       border-color: var(
-        --pin-input-border-color-complete,
-        var(--pin-input-border-color, var(--color-border))
+        --moduix-pin-input-border-color-complete,
+        var(--moduix-pin-input-border-color, var(--moduix-color-border))
       );
     }
 
     &[data-invalid] {
-      border-color: var(--pin-input-border-color-invalid, var(--color-destructive));
+      border-color: var(--moduix-pin-input-border-color-invalid, var(--moduix-color-destructive));
 
       &:focus-visible {
-        outline-color: var(--pin-input-border-color-invalid, var(--color-destructive));
+        outline-color: var(
+          --moduix-pin-input-border-color-invalid,
+          var(--moduix-color-destructive)
+        );
       }
     }
 
@@ -88,9 +103,15 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--pin-input-separator-width, var(--pin-input-separator-size, var(--spacing-4)));
-    height: var(--pin-input-separator-height, var(--pin-input-separator-size, var(--spacing-4)));
-    color: var(--pin-input-separator-color, var(--color-muted-foreground));
+    width: var(
+      --moduix-pin-input-separator-width,
+      var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))
+    );
+    height: var(
+      --moduix-pin-input-separator-height,
+      var(--moduix-pin-input-separator-size, var(--moduix-spacing-4))
+    );
+    color: var(--moduix-pin-input-separator-color, var(--moduix-color-muted-foreground));
     line-height: 1;
     pointer-events: none;
 

@@ -14,10 +14,6 @@ const items = [
     title: 'Billing',
     description: 'Choose the plan and payment method.',
   },
-  {
-    title: 'Launch',
-    description: 'Review everything and go live.',
-  },
 ];
 
 export default function ControlledStepsDemo() {
@@ -25,7 +21,12 @@ export default function ControlledStepsDemo() {
   return (
     <div className="stack">
       <output className="output">Current step: {step + 1}</output>
-      <Steps count={items.length} step={step} onStepChange={(details) => setStep(details.step)}>
+      <Steps
+        className="steps-demo"
+        count={items.length}
+        step={step}
+        onStepChange={(details) => setStep(details.step)}
+      >
         <Steps.List>
           {items.map((item, index) => (
             <Steps.Item key={item.title} index={index}>

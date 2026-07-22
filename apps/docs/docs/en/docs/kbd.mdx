@@ -79,13 +79,13 @@ Use local CSS variables for one-off density or tone changes instead of extra com
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: var(--spacing-2);
+        gap: var(--moduix-spacing-2);
       }
 
       .kbd-demo-dense {
-        --kbd-height: 1.25rem;
-        --kbd-min-width: 1.25rem;
-        --kbd-padding-x: var(--spacing-1);
+        --moduix-kbd-height: 1.25rem;
+        --moduix-kbd-min-width: 1.25rem;
+        --moduix-kbd-padding-x: var(--moduix-spacing-1);
       }
     `}</style>
 
@@ -114,17 +114,17 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 <style>{`
       .kbd-demo-shortcut-list {
         display: grid;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
 
       .kbd-demo-shortcut-row {
         display: grid;
         grid-template-columns: max-content 1fr;
         align-items: center;
-        gap: var(--spacing-3);
-        color: var(--color-muted-foreground);
-        font-size: var(--text-sm);
-        line-height: var(--line-height-text-sm);
+        gap: var(--moduix-spacing-3);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
       }
     `}</style>
 
@@ -149,7 +149,7 @@ Use `Kbd` directly when the UI refers to one key.
 ## Styling
 
 Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable `data-slot` hooks, and the public
-`--kbd-*` CSS variables shown below.
+`--moduix-kbd-*` CSS variables shown below.
 
 ### CSS Properties
 
@@ -170,4 +170,4 @@ Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable 
 - `data-slot="kbd-root"` targets the individual keycap element
 - `data-slot="kbd-group"` targets the inline semantic wrapper for grouped shortcuts
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
-- `Kbd.Group` inherits text styles for separators, and `--kbd-group-separator-color` controls their color
+- `Kbd.Group` inherits text styles for separators, and `--moduix-kbd-group-separator-color` controls their color

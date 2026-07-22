@@ -1,15 +1,19 @@
 .stack {
   display: grid;
   width: min(38rem, calc(100vw - 2rem));
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .customAlert {
-  --alert-bg: color-mix(in oklab, var(--color-primary) 12%, var(--color-background));
-  --alert-border-color: color-mix(in oklab, var(--color-primary) 38%, transparent);
-  --alert-indicator-color: var(--color-primary);
-  --alert-radius: var(--radius-md);
-  --alert-shadow: var(--shadow-sm);
+  --moduix-alert-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 12%,
+    var(--moduix-color-background)
+  );
+  --moduix-alert-border-color: color-mix(in oklab, var(--moduix-color-primary) 38%, transparent);
+  --moduix-alert-indicator-color: var(--moduix-color-primary);
+  --moduix-alert-radius: var(--moduix-radius-md);
+  --moduix-alert-shadow: var(--moduix-shadow-sm);
 
   max-width: 32rem;
 }

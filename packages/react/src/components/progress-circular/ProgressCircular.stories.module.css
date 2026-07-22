@@ -1,7 +1,7 @@
 .stack {
   display: grid;
   justify-items: center;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .slider {
@@ -23,16 +23,18 @@
 }
 
 .customProgress {
-  --progress-circular-size: 4rem;
-  --progress-circular-thickness: 0.4rem;
-  --progress-circular-track-bg: var(--color-accent);
-  --progress-circular-range-bg: var(--color-chart-2);
+  --moduix-progress-circular-size: 4rem;
+  --moduix-progress-circular-thickness: 0.4rem;
+  --moduix-progress-circular-track-bg: var(--moduix-color-accent);
+  --moduix-progress-circular-range-bg: var(--moduix-color-chart-2);
 }
 
 .customProgress [data-slot='progress-circular-circle-track'] {
-  stroke: color-mix(in oklab, var(--color-primary), transparent 75%);
+  stroke: color-mix(in oklab, var(--moduix-color-primary), transparent 75%);
 }
 
 .customProgress [data-slot='progress-circular-circle-range'] {
-  filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--color-chart-2), transparent 45%));
+  filter: drop-shadow(
+    0 0 0.25rem color-mix(in oklab, var(--moduix-color-chart-2), transparent 45%)
+  );
 }

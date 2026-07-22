@@ -106,12 +106,12 @@ should stay focused on ordinary input composition with addons, text, and actions
 
 ## Defaults and styling
 
-The default `md` group uses `--size-md`; the `sm` variant uses `--size-sm`. The `md` input block padding is `--spacing-1`.
+The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-size-sm`. The `md` input block padding is `--moduix-spacing-1`.
 
 - Group size defaults to `md` and is exposed as `data-size`.
 - `className` is supported on every exported part.
 - Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
-  `InputGroup.Input`, native state selectors, and public `--input-group-*` variables.
+  `InputGroup.Input`, native state selectors, and public `--moduix-input-group-*` variables.
 - The group exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream

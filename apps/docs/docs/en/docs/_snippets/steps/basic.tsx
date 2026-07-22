@@ -13,15 +13,11 @@ const items = [
     title: 'Billing',
     description: 'Choose the plan and payment method.',
   },
-  {
-    title: 'Launch',
-    description: 'Review everything and go live.',
-  },
 ];
 
 export default function StepsDemo() {
   return (
-    <Steps count={items.length}>
+    <Steps className="steps-demo" count={items.length}>
       <Steps.List>
         {items.map((item, index) => (
           <Steps.Item key={item.title} index={index}>

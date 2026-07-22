@@ -27,7 +27,7 @@ short `<Switch>` export is the same root part as `Switch.Root`.
 
 <style>{`
       [data-slot="switch-root"] {
-        --switch-bg-checked: var(--color-primary);
+        --moduix-switch-bg-checked: var(--moduix-color-primary);
       }
     `}</style>
 
@@ -110,14 +110,14 @@ behavior.
       .siblingRow {
         display: flex;
         align-items: center;
-        gap: var(--switch-gap, var(--spacing-2));
+        gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
       }
 
       .label {
-        color: var(--switch-label-color, var(--color-foreground));
-        font-size: var(--switch-label-font-size, var(--text-sm));
-        font-weight: var(--switch-label-font-weight, var(--weight-medium));
-        line-height: var(--switch-label-line-height, var(--line-height-text-sm));
+        color: var(--moduix-switch-label-color, var(--moduix-color-foreground));
+        font-size: var(--moduix-switch-label-font-size, var(--moduix-text-sm));
+        font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
+        line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
       }
     `}</style>
 
@@ -227,7 +227,7 @@ Bypass `Switch.Control`'s default thumb when the thumb needs custom content or s
 ## Styling
 
 Style `Switch` through `className`, public `data-slot` hooks, Ark state attributes, and the public
-`--switch-*` CSS variables shown below.
+`--moduix-switch-*` CSS variables shown below.
 
 ### CSS Properties
 

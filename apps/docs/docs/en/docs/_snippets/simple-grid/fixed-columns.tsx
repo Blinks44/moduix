@@ -24,7 +24,7 @@ export default function FixedColumnsDemo() {
   return (
     <SimpleGrid
       columns={4}
-      gap="var(--spacing-3)"
+      gap="var(--moduix-spacing-3)"
       className={`${styles.simpleGridDemoGrid} ${styles.simpleGridDemoMetrics}`}
     >
       {metrics.map((metric) => (

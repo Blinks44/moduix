@@ -13,10 +13,6 @@ const items = [
     title: 'Billing',
     description: 'Choose the plan and payment method.',
   },
-  {
-    title: 'Launch',
-    description: 'Review everything and go live.',
-  },
 ];
 
 export default function RootProviderStepsDemo() {
@@ -26,7 +22,7 @@ export default function RootProviderStepsDemo() {
   return (
     <div className="stack">
       <output className="output">Current step: {steps.value + 1}</output>
-      <Steps.RootProvider value={steps}>
+      <Steps.RootProvider className="steps-demo" value={steps}>
         <Steps.List>
           {items.map((item, index) => (
             <Steps.Item key={item.title} index={index}>

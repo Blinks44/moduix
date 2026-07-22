@@ -6,14 +6,6 @@ description: Ark UI field context for labels, helper text, errors, and form-cont
 
 import * as FieldDocs from '@/components/examples/field';
 
-<style>{`
-  .rp-preview [data-scope='field'][data-part='root'] {
-    --field-max-width: 12.5rem;
-
-    margin-inline: auto;
-  }
-`}</style>
-
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/field" />
@@ -183,7 +175,7 @@ Pass `autoresize` to let Ark keep the textarea height in sync with its content.
 
 Use `Field.Item` with root `target` when one label should point to a control inside a grouped row.
 
-<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--spacing-2); }`}</style>
+<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
 
 ```tsx preview file="./_snippets/field/item-target.tsx"
 
@@ -198,7 +190,7 @@ Use `useField` with `Field.RootProvider` when state must be owned outside the re
 ## Styling
 
 Style `Field` through `className`, Ark `data-scope="field"` / `data-part="..."` attributes,
-moduix `data-slot="field-*"` hooks, and the public `--field-*` CSS variables shown below.
+moduix `data-slot="field-*"` hooks, and the public `--moduix-field-*` CSS variables shown below.
 
 ### CSS Properties
 

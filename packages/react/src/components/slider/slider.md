@@ -126,7 +126,7 @@ export function VolumeSlider() {
 - moduix supplies the rail, filled range, thumb, markers, dragging indicator, focus, dragging, and
   disabled visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--slider-*` variables are documented in the docs CSS properties table.
+- Public `--moduix-slider-*` variables are documented in the docs CSS properties table.
 - Focus styling uses Ark thumb `:focus-visible` for keyboard navigation and `data-dragging` while
   the thumb is pressed; marker styling uses Ark marker `data-state`.
 - Do not position `Thumb` manually. Ark owns thumb transform and range measurement.

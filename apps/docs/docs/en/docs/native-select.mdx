@@ -96,7 +96,7 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
 
 <style>{`
       .nativeSelectFieldDemo {
-        --field-width: 14rem;
+        --moduix-field-width: 14rem;
       }
     `}</style>
 
@@ -116,7 +116,7 @@ Native `multiple` and `size` props turn the control into a browser-managed optio
 
 ### CSS Properties
 
-`NativeSelect` reuses the control-level `--select-*` variables so native and custom selects can
+`NativeSelect` reuses the control-level `--moduix-select-*` variables so native and custom selects can
 share dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and
 transitions. Its default padding and indicator geometry follow the shared 4px spacing scale.
 
@@ -135,7 +135,7 @@ transitions. Its default padding and indicator geometry follow the shared 4px sp
 ### Styling hooks
 
 - `className` styles the real select element. Use `controlProps.className` for the outer layout span.
-- Put `--select-*` variables that affect the indicator in `controlProps.style` so both the select
+- Put `--moduix-select-*` variables that affect the indicator in `controlProps.style` so both the select
   and indicator inherit them.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
 - `data-slot="native-select-root"` is the stable moduix selector for the control.

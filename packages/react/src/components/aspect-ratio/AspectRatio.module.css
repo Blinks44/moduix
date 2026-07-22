@@ -1,11 +1,11 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     --aspect-ratio-value: 1;
     position: relative;
     width: 100%;
     aspect-ratio: var(--aspect-ratio-value);
     overflow: hidden;
-    border-radius: var(--aspect-ratio-radius, var(--radius-md));
+    border-radius: var(--moduix-aspect-ratio-radius, var(--moduix-radius-md));
 
     & > :where(img, video, iframe, canvas, svg) {
       display: block;

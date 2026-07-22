@@ -3,8 +3,8 @@
 }
 
 .compact {
-  --typeset-flow: 0.875em;
-  --typeset-leading: 1.6;
+  --moduix-typeset-flow: 0.875em;
+  --moduix-typeset-leading: 1.6;
 }
 
 .wideTable {
@@ -12,9 +12,9 @@
 }
 
 .excluded {
-  margin-block-start: var(--typeset-flow, 1.25em);
-  padding: var(--spacing-4);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-muted);
+  margin-block-start: var(--moduix-typeset-flow, 1.25em);
+  padding: var(--moduix-spacing-4);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-md);
+  background: var(--moduix-color-muted);
 }

@@ -1,9 +1,9 @@
 .customPopup {
-  --menu-popup-min-width: 13rem;
-  --menu-popup-bg: var(--color-background);
-  --menu-popup-border-color: var(--color-primary);
-  --menu-popup-shadow: var(--shadow-lg);
-  --menu-highlight-bg: var(--color-primary);
-  --menu-highlight-color: var(--color-primary-foreground);
-  --menu-separator-color: var(--color-primary);
+  --moduix-menu-popup-min-width: 13rem;
+  --moduix-menu-popup-bg: var(--moduix-color-background);
+  --moduix-menu-popup-border-color: var(--moduix-color-primary);
+  --moduix-menu-popup-shadow: var(--moduix-shadow-lg);
+  --moduix-menu-highlight-bg: var(--moduix-color-primary);
+  --moduix-menu-highlight-color: var(--moduix-color-primary-foreground);
+  --moduix-menu-separator-color: var(--moduix-color-primary);
 }

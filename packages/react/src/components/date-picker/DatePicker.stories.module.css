@@ -1,47 +1,40 @@
 .stack {
   display: grid;
-  gap: var(--spacing-3);
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-3);
 }
 
 .hint {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .presets {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-2);
-  margin-bottom: var(--spacing-3);
+  gap: var(--moduix-spacing-2);
+  margin-bottom: var(--moduix-spacing-3);
 }
 
 .selectedDates {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: var(--date-picker-control-height, var(--size-md));
+  min-height: var(--moduix-date-picker-control-height, var(--moduix-size-md));
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-1);
-  border: var(--date-picker-border-width, var(--border-width-sm)) solid
-    var(--date-picker-border-color, var(--color-border));
-  border-radius: var(--date-picker-radius, var(--radius-md));
-  padding-block: var(--spacing-1);
-  padding-inline: var(--date-picker-input-padding-x-start, var(--spacing-3-5))
-    var(--date-picker-input-padding-x-end, 4.25rem);
-  background: var(--date-picker-bg, var(--color-background));
+  gap: var(--moduix-spacing-1);
+  border: var(--moduix-date-picker-border-width, var(--moduix-border-width-sm)) solid
+    var(--moduix-date-picker-border-color, var(--moduix-color-border));
+  border-radius: var(--moduix-date-picker-radius, var(--moduix-radius-md));
+  padding-block: var(--moduix-spacing-1);
+  padding-inline: var(--moduix-date-picker-input-padding-x-start, var(--moduix-spacing-3-5))
+    var(--moduix-date-picker-input-padding-x-end, 4.25rem);
+  background: var(--moduix-date-picker-bg, var(--moduix-color-background));
 }
 
 .multipleRoot {
-  --date-picker-width: 20rem;
+  --moduix-date-picker-width: 20rem;
 }
 
 .selectedDate,
@@ -49,20 +42,20 @@
   display: inline-flex;
   min-width: 0;
   align-items: center;
-  gap: var(--spacing-1);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  gap: var(--moduix-spacing-1);
+  border-radius: var(--moduix-radius-sm);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .selectedDate {
   padding: 0.125rem 0.375rem;
-  background: var(--color-muted);
-  color: var(--color-foreground);
+  background: var(--moduix-color-muted);
+  color: var(--moduix-color-foreground);
 }
 
 .selectedDatesPlaceholder {
-  color: var(--date-picker-placeholder-color, var(--color-muted-foreground));
+  color: var(--moduix-date-picker-placeholder-color, var(--moduix-color-muted-foreground));
 }
 
 .selectedDateRemove {
@@ -72,29 +65,29 @@
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--moduix-radius-sm);
   padding: 0;
   background: transparent;
-  color: var(--color-muted-foreground);
+  color: var(--moduix-color-muted-foreground);
   cursor: pointer;
 }
 
 .selectedDateRemove:hover {
-  background: var(--color-accent);
-  color: var(--color-accent-foreground);
+  background: var(--moduix-color-accent);
+  color: var(--moduix-color-accent-foreground);
 }
 
 .monthYearControl {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .monthYearSelects,
 .monthYearNav {
   align-items: center;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 }
 
 .monthYearSelects {
@@ -108,26 +101,26 @@
 }
 
 .monthSelect {
-  --select-width: 100%;
-  --select-control-height: var(--date-picker-select-height, var(--size-sm));
+  --moduix-select-width: 100%;
+  --moduix-select-control-height: var(--moduix-date-picker-select-height, var(--moduix-size-sm));
   min-width: 0;
 }
 
 .yearSelect {
-  --select-width: 100%;
-  --select-control-height: var(--date-picker-select-height, var(--size-sm));
+  --moduix-select-width: 100%;
+  --moduix-select-control-height: var(--moduix-date-picker-select-height, var(--moduix-size-sm));
   min-width: 0;
 }
 
 .multipleMonths {
   display: flex;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   overflow-x: auto;
 }
 
 .multipleMonthsContent {
-  --date-picker-content-width: 37.5rem;
-  --date-picker-content-max-width: calc(100vw - 2rem);
+  --moduix-date-picker-content-width: 37.5rem;
+  --moduix-date-picker-content-max-width: calc(100vw - 2rem);
 }
 
 .multipleMonthsTable {
@@ -136,10 +129,14 @@
 }
 
 .customRoot {
-  --date-picker-bg: var(--color-muted);
-  --date-picker-border-color: var(--color-primary);
-  --date-picker-focus-ring-color: var(--color-primary);
-  --date-picker-table-cell-selected-bg: var(--color-primary);
-  --date-picker-table-cell-selected-color: var(--color-primary-foreground);
-  --date-picker-table-cell-range-bg: color-mix(in oklab, var(--color-primary) 12%, transparent);
+  --moduix-date-picker-bg: var(--moduix-color-muted);
+  --moduix-date-picker-border-color: var(--moduix-color-primary);
+  --moduix-date-picker-focus-ring-color: var(--moduix-color-primary);
+  --moduix-date-picker-table-cell-selected-bg: var(--moduix-color-primary);
+  --moduix-date-picker-table-cell-selected-color: var(--moduix-color-primary-foreground);
+  --moduix-date-picker-table-cell-range-bg: color-mix(
+    in oklab,
+    var(--moduix-color-primary) 12%,
+    transparent
+  );
 }

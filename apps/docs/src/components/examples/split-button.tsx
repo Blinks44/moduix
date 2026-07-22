@@ -4,6 +4,6 @@ export const splitButtonExampleCss = `
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 `;

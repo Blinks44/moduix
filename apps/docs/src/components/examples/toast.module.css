@@ -1,56 +1,64 @@
 .stack {
   display: grid;
   justify-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .segmented {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 }
 
 .segment {
-  min-height: var(--size-sm);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-background);
-  color: var(--color-foreground);
+  min-height: var(--moduix-size-sm);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-sm);
+  background: var(--moduix-color-background);
+  color: var(--moduix-color-foreground);
   padding: 0.25rem 0.5rem;
   font: inherit;
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
   cursor: pointer;
 }
 
 .segment[data-active] {
-  border-color: var(--color-foreground);
-  background: var(--color-foreground);
-  color: var(--color-background);
+  border-color: var(--moduix-color-foreground);
+  background: var(--moduix-color-foreground);
+  color: var(--moduix-color-background);
 }
 
 .typedActions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .customToast {
-  --toast-bg: var(--color-primary);
-  --toast-color: var(--color-primary-foreground);
-  --toast-border-color: var(--color-primary);
-  --toast-description-color: color-mix(in srgb, var(--color-primary-foreground) 72%, transparent);
-  --toast-close-color: var(--color-primary-foreground);
-  --toast-close-color-hover: var(--color-primary-foreground);
-  --toast-close-bg-hover: color-mix(in srgb, var(--color-primary-foreground) 14%, transparent);
+  --moduix-toast-bg: var(--moduix-color-primary);
+  --moduix-toast-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-border-color: var(--moduix-color-primary);
+  --moduix-toast-description-color: color-mix(
+    in srgb,
+    var(--moduix-color-primary-foreground) 72%,
+    transparent
+  );
+  --moduix-toast-close-color: var(--moduix-color-primary-foreground);
+  --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
+  --moduix-toast-close-bg-hover: color-mix(
+    in srgb,
+    var(--moduix-color-primary-foreground) 14%,
+    transparent
+  );
 }
 
 .customContent {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: var(--spacing-3);
+  column-gap: var(--moduix-spacing-3);
 }
 
 .customIcon {
@@ -61,7 +69,7 @@
 }
 
 .closeIcon {
-  inline-size: var(--toast-close-icon-size, 12px);
-  block-size: var(--toast-close-icon-size, 12px);
+  inline-size: var(--moduix-toast-close-icon-size, 12px);
+  block-size: var(--moduix-toast-close-icon-size, 12px);
   flex: none;
 }

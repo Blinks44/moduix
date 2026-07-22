@@ -90,7 +90,8 @@ function ThemePresets() {
       </div>
 
       <div
-        className={`${styles.preview} ${mode === 'dark' ? 'dark' : ''}`}
+        className={styles.preview}
+        data-moduix-color-scheme={mode}
         data-moduix-theme={preset === 'calm' ? undefined : preset}
       >
         <div className={styles.previewHeader}>
@@ -130,10 +131,8 @@ function ThemePresets() {
                 <Select.Control>
                   <Select.Trigger>
                     <Select.ValueText placeholder="Select a stage" />
-                  </Select.Trigger>
-                  <Select.Indicators>
                     <Select.Indicator />
-                  </Select.Indicators>
+                  </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>

@@ -1,12 +1,21 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
-    --card-padding-default: var(--card-spacing, var(--card-padding, var(--spacing-6)));
-    --card-section-spacing-default: var(
-      --card-spacing,
-      var(--card-body-padding-top, var(--spacing-4))
+    --moduix-card-padding-default: var(
+      --moduix-card-spacing,
+      var(--moduix-card-padding, var(--moduix-spacing-6))
     );
-    --card-title-font-size-default: var(--card-title-font-size, var(--text-lg));
-    --card-title-line-height-default: var(--card-title-line-height, var(--line-height-text-lg));
+    --moduix-card-section-spacing-default: var(
+      --moduix-card-spacing,
+      var(--moduix-card-body-padding-top, var(--moduix-spacing-4))
+    );
+    --moduix-card-title-font-size-default: var(
+      --moduix-card-title-font-size,
+      var(--moduix-text-lg)
+    );
+    --moduix-card-title-line-height-default: var(
+      --moduix-card-title-line-height,
+      var(--moduix-line-height-text-lg)
+    );
 
     box-sizing: border-box;
     position: relative;
@@ -14,57 +23,69 @@
     width: 100%;
     min-width: 0;
     flex-direction: column;
-    border: var(--card-border-width, var(--card-border-width-default, var(--border-width-sm))) solid
-      var(--card-border-color, var(--color-border));
-    border-radius: var(--card-radius, var(--radius-lg));
-    background-color: var(--card-bg, var(--card-bg-default, var(--color-card)));
-    color: var(--card-color, var(--color-card-foreground));
-    box-shadow: var(--card-shadow, var(--card-shadow-default, none));
+    border: var(
+        --moduix-card-border-width,
+        var(--moduix-card-border-width-default, var(--moduix-border-width-sm))
+      )
+      solid var(--moduix-card-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
+    background-color: var(
+      --moduix-card-bg,
+      var(--moduix-card-bg-default, var(--moduix-color-card))
+    );
+    color: var(--moduix-card-color, var(--moduix-color-card-foreground));
+    box-shadow: var(--moduix-card-shadow, var(--moduix-card-shadow-default, none));
 
     &:where(a) {
       text-decoration: none;
     }
 
     &[data-size='sm'] {
-      --card-padding-default: var(
-        --card-spacing-sm,
-        var(--card-spacing, var(--card-padding-sm, var(--spacing-4)))
+      --moduix-card-padding-default: var(
+        --moduix-card-spacing-sm,
+        var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))
       );
-      --card-section-spacing-default: var(
-        --card-spacing-sm,
-        var(--card-spacing, var(--card-body-padding-top, var(--spacing-4)))
+      --moduix-card-section-spacing-default: var(
+        --moduix-card-spacing-sm,
+        var(--moduix-card-spacing, var(--moduix-card-body-padding-top, var(--moduix-spacing-4)))
       );
-      --card-title-font-size-default: var(--card-title-font-size-sm, var(--text-md));
-      --card-title-line-height-default: var(
-        --card-title-line-height-sm,
-        var(--line-height-text-md)
+      --moduix-card-title-font-size-default: var(
+        --moduix-card-title-font-size-sm,
+        var(--moduix-text-md)
+      );
+      --moduix-card-title-line-height-default: var(
+        --moduix-card-title-line-height-sm,
+        var(--moduix-line-height-text-md)
       );
     }
 
     &[data-size='lg'] {
-      --card-padding-default: var(
-        --card-spacing-lg,
-        var(--card-spacing, var(--card-padding-lg, var(--spacing-8)))
+      --moduix-card-padding-default: var(
+        --moduix-card-spacing-lg,
+        var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))
       );
-      --card-section-spacing-default: var(
-        --card-spacing-lg,
-        var(--card-spacing, var(--card-body-padding-top, var(--spacing-4)))
+      --moduix-card-section-spacing-default: var(
+        --moduix-card-spacing-lg,
+        var(--moduix-card-spacing, var(--moduix-card-body-padding-top, var(--moduix-spacing-4)))
       );
-      --card-title-font-size-default: var(--card-title-font-size-lg, var(--text-xl));
-      --card-title-line-height-default: var(
-        --card-title-line-height-lg,
-        var(--line-height-text-xl)
+      --moduix-card-title-font-size-default: var(
+        --moduix-card-title-font-size-lg,
+        var(--moduix-text-xl)
+      );
+      --moduix-card-title-line-height-default: var(
+        --moduix-card-title-line-height-lg,
+        var(--moduix-line-height-text-xl)
       );
     }
 
     &[data-variant='elevated'] {
-      --card-border-width-default: 0;
-      --card-shadow-default: var(--shadow-md);
+      --moduix-card-border-width-default: 0;
+      --moduix-card-shadow-default: var(--moduix-shadow-md);
     }
 
     &[data-variant='subtle'] {
-      --card-border-width-default: 0;
-      --card-bg-default: var(--color-muted);
+      --moduix-card-border-width-default: 0;
+      --moduix-card-bg-default: var(--moduix-color-muted);
     }
 
     &:has([data-scope='card'][data-part='link'])
@@ -90,15 +111,15 @@
   .footer {
     box-sizing: border-box;
     min-width: 0;
-    padding-inline: var(--card-padding-default);
+    padding-inline: var(--moduix-card-padding-default);
   }
 
   .header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: var(--card-action-gap, var(--spacing-2));
-    row-gap: var(--card-header-gap, var(--spacing-1));
-    padding-block: var(--card-padding-default) 0;
+    column-gap: var(--moduix-card-action-gap, var(--moduix-spacing-2));
+    row-gap: var(--moduix-card-header-gap, var(--moduix-spacing-1));
+    padding-block: var(--moduix-card-padding-default) 0;
   }
 
   .media {
@@ -115,14 +136,14 @@
   }
 
   .body {
-    padding-block: var(--card-section-spacing-default) var(--card-padding-default);
-    color: var(--card-body-color, var(--color-muted-foreground));
-    font-size: var(--card-body-font-size, var(--text-sm));
-    line-height: var(--card-body-line-height, var(--line-height-text-sm));
+    padding-block: var(--moduix-card-section-spacing-default) var(--moduix-card-padding-default);
+    color: var(--moduix-card-body-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-card-body-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-card-body-line-height, var(--moduix-line-height-text-sm));
     overflow-wrap: anywhere;
 
     &:first-child {
-      padding-block-start: var(--card-padding-default);
+      padding-block-start: var(--moduix-card-padding-default);
     }
 
     & > :first-child {
@@ -138,18 +159,18 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--card-footer-gap, var(--spacing-2));
-    padding-block: 0 var(--card-padding-default);
+    gap: var(--moduix-card-footer-gap, var(--moduix-spacing-2));
+    padding-block: 0 var(--moduix-card-padding-default);
   }
 
   .title {
     grid-column: 1;
     margin: 0;
     min-width: 0;
-    color: var(--card-title-color, currentColor);
-    font-size: var(--card-title-font-size-default);
-    font-weight: var(--card-title-font-weight, var(--weight-semibold));
-    line-height: var(--card-title-line-height-default);
+    color: var(--moduix-card-title-color, currentColor);
+    font-size: var(--moduix-card-title-font-size-default);
+    font-weight: var(--moduix-card-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-card-title-line-height-default);
     overflow-wrap: anywhere;
   }
 
@@ -157,9 +178,9 @@
     grid-column: 1;
     margin: 0;
     min-width: 0;
-    color: var(--card-description-color, var(--color-muted-foreground));
-    font-size: var(--card-description-font-size, var(--text-sm));
-    line-height: var(--card-description-line-height, var(--line-height-text-sm));
+    color: var(--moduix-card-description-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-card-description-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-card-description-line-height, var(--moduix-line-height-text-sm));
     overflow-wrap: anywhere;
   }
 
@@ -171,7 +192,7 @@
     display: inline-flex;
     align-items: start;
     justify-content: flex-end;
-    gap: var(--card-action-gap, var(--spacing-2));
+    gap: var(--moduix-card-action-gap, var(--moduix-spacing-2));
     justify-self: end;
   }
 
@@ -185,7 +206,7 @@
       position: absolute;
       z-index: 0;
       inset: 0;
-      border-radius: var(--card-radius, var(--radius-lg));
+      border-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
     }
 
     &:focus-visible {
@@ -193,9 +214,12 @@
     }
 
     &:focus-visible::after {
-      outline: var(--card-focus-ring-width, var(--focus-ring-width, var(--border-width-md))) solid
-        var(--card-focus-ring-color, var(--color-ring));
-      outline-offset: var(--card-focus-ring-offset, var(--border-width-sm));
+      outline: var(
+          --moduix-card-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-card-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-card-focus-ring-offset, var(--moduix-border-width-sm));
     }
   }
 }

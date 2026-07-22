@@ -20,7 +20,7 @@ settings.
       .demo {
         display: flex;
         flex-direction: column;
-        gap: var(--spacing-4);
+        gap: var(--moduix-spacing-4);
       }
 
     `}</style>
@@ -121,7 +121,7 @@ presence props such as `lazyMount`, `unmountOnExit`, `present`, and `onExitCompl
 Use a step `effect` to fetch or prepare content, call `update`, then call `show` when the step is
 ready.
 
-<style>{`      .target { background: var(--color-muted); }`}</style>
+<style>{`      .target { background: var(--moduix-color-muted); }`}</style>
 
 <ExampleFrame>
   <TourDocs.AsyncStepTourExample />
@@ -148,7 +148,7 @@ const asyncStep = {
 Use `onStepChange` and `onStatusChange` for analytics, logging, or external UI that follows the
 tour lifecycle.
 
-<style>{`      .log { font-family: var(--font-mono); font-size: var(--text-xs); }`}</style>
+<style>{`      .log { font-family: var(--moduix-font-mono); font-size: var(--moduix-text-xs); }`}</style>
 
 <ExampleFrame>
   <TourDocs.EventsTourExample />
@@ -173,7 +173,7 @@ const tour = useTour({
 Arrow-key navigation is enabled by default. Disable `keyboardNavigation` only when a step contains
 custom keyboard handling that should own Left and Right.
 
-<style>{`      .note { color: var(--color-muted-foreground); }`}</style>
+<style>{`      .note { color: var(--moduix-color-muted-foreground); }`}</style>
 
 <ExampleFrame>
   <TourDocs.KeyboardTourExample />
@@ -197,7 +197,7 @@ const tour = useTour({
 Use dialog steps for broad context, tooltip steps for target-specific guidance, and floating steps
 for viewport-level notes.
 
-<style>{`      .target { border: var(--border-width-sm) solid var(--color-border); }`}</style>
+<style>{`      .target { border: var(--moduix-border-width-sm) solid var(--moduix-color-border); }`}</style>
 
 <ExampleFrame>
   <TourDocs.MixedTypesTourExample />
@@ -246,7 +246,7 @@ const tour = useTour({ steps });
 Render custom progress from `tour.getProgressPercent()` and keep `Tour.ProgressText` available for
 localized text.
 
-<style>{`      .progressFill { height: 100%; background: var(--color-primary); }`}</style>
+<style>{`      .progressFill { height: 100%; background: var(--moduix-color-primary); }`}</style>
 
 <ExampleFrame>
   <TourDocs.ProgressTourExample />
@@ -269,7 +269,7 @@ const totalSteps = 3;
 
 Use a dismiss action for optional walkthroughs when users should be able to exit early.
 
-<style>{`      .note { font-size: var(--text-sm); }`}</style>
+<style>{`      .note { font-size: var(--moduix-text-sm); }`}</style>
 
 <ExampleFrame>
   <TourDocs.SkipTourExample />
@@ -298,7 +298,7 @@ const tour = useTour({ steps });
 Use `waitForEvent` with a click event when the tour should advance after a real target
 interaction.
 
-<style>{`      .demo { gap: var(--spacing-4); }`}</style>
+<style>{`      .demo { gap: var(--moduix-spacing-4); }`}</style>
 
 <ExampleFrame>
   <TourDocs.WaitForClickTourExample />
@@ -326,7 +326,7 @@ const step = {
 
 Use `waitForElement` when a later step targets content that appears after the tour has started.
 
-<style>{`      .listItem[data-tour-new-item] { border-color: var(--color-primary); }`}</style>
+<style>{`      .listItem[data-tour-new-item] { border-color: var(--moduix-color-primary); }`}</style>
 
 <ExampleFrame>
   <TourDocs.WaitForElementTourExample />
@@ -357,7 +357,7 @@ const step = {
 
 Wait helpers let a step pause until the user completes a real DOM interaction.
 
-<style>{`      .input:focus-visible { outline: var(--border-width-sm) solid var(--color-ring); }`}</style>
+<style>{`      .input:focus-visible { outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring); }`}</style>
 
 <ExampleFrame>
   <TourDocs.WaitForInputTourExample />

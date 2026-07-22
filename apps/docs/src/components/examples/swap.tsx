@@ -5,16 +5,16 @@ export const swapExpandableButtonCss = `
     --compact-content-gap: 0;
     --compact-label-width: 0;
 
-    width: var(--button-size-icon-md, var(--size-md));
-    min-width: var(--button-size-icon-md, var(--size-md));
+    width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
+    min-width: var(--moduix-button-size-icon-md, var(--moduix-size-md));
     overflow: hidden;
     transition:
-      width var(--transition-default),
-      min-width var(--transition-default);
+      width var(--moduix-transition-default),
+      min-width var(--moduix-transition-default);
   }
 
   .compactButton[data-size='icon-md'][data-expanded] {
-    --compact-content-gap: var(--button-content-gap, var(--spacing-2));
+    --compact-content-gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
     --compact-label-width: 4.25rem;
 
     width: 8.25rem;
@@ -26,14 +26,14 @@ export const swapExpandableButtonCss = `
     align-items: center;
     justify-content: center;
     gap: var(--compact-content-gap);
-    transition: gap var(--transition-default);
+    transition: gap var(--moduix-transition-default);
   }
 
   .compactLabel {
     width: var(--compact-label-width);
     min-width: 0;
     overflow: hidden;
-    transition: width var(--transition-default);
+    transition: width var(--moduix-transition-default);
   }
 `;
 
@@ -45,8 +45,8 @@ export const swapButtonCss = `
     min-width: var(--swap-button-width);
     overflow: hidden;
     transition:
-      width var(--transition-default),
-      min-width var(--transition-default);
+      width var(--moduix-transition-default),
+      min-width var(--moduix-transition-default);
   }
 
   .feedbackButton[data-playing] {
@@ -58,7 +58,7 @@ export const swapButtonCss = `
   }
 
   .compactIndicator {
-    gap: var(--button-content-gap, var(--spacing-2));
+    gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
   }
 `;
 
@@ -68,11 +68,11 @@ export const swapRotateCss = `
   }
 
   .rotateSwap [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-rotate-in var(--swap-transition, var(--transition-default));
+    animation: swap-rotate-in var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   .rotateSwap [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-rotate-out var(--swap-transition, var(--transition-default));
+    animation: swap-rotate-out var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   @keyframes swap-rotate-in {
@@ -106,11 +106,11 @@ export const swapFlipCss = `
   }
 
   .flipSwap [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-flip-in var(--swap-transition, var(--transition-default));
+    animation: swap-flip-in var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   .flipSwap [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-flip-out var(--swap-transition, var(--transition-default));
+    animation: swap-flip-out var(--moduix-swap-transition, var(--moduix-transition-default));
   }
 
   @keyframes swap-flip-in {
@@ -136,16 +136,28 @@ export const swapFlipCss = `
 
 export const swapOverrideCssProperties: CssPropertyInput[] = [
   [
-    '--swap-transition',
-    'var(--transition-default)',
+    '--moduix-swap-transition',
+    'var(--moduix-transition-default)',
     'Controls the enter and exit animation timing.',
   ],
   [
-    '--swap-enter-starting-opacity',
+    '--moduix-swap-enter-starting-opacity',
     '0',
     'Controls the starting opacity of the entering indicator.',
   ],
-  ['--swap-enter-starting-scale', '0.92', 'Controls the starting scale of the entering indicator.'],
-  ['--swap-exit-ending-opacity', '0', 'Controls the ending opacity of the exiting indicator.'],
-  ['--swap-exit-ending-scale', '0.92', 'Controls the ending scale of the exiting indicator.'],
+  [
+    '--moduix-swap-enter-starting-scale',
+    '0.92',
+    'Controls the starting scale of the entering indicator.',
+  ],
+  [
+    '--moduix-swap-exit-ending-opacity',
+    '0',
+    'Controls the ending opacity of the exiting indicator.',
+  ],
+  [
+    '--moduix-swap-exit-ending-scale',
+    '0.92',
+    'Controls the ending scale of the exiting indicator.',
+  ],
 ];

@@ -1,11 +1,11 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: flex;
     min-width: 0;
     flex-direction: column;
-    gap: var(--tabs-gap, var(--spacing-3));
-    color: var(--tabs-color, var(--color-foreground));
+    gap: var(--moduix-tabs-gap, var(--moduix-spacing-3));
+    color: var(--moduix-tabs-color, var(--moduix-color-foreground));
 
     &[data-orientation='vertical'] {
       flex-direction: row;
@@ -21,31 +21,34 @@
     width: fit-content;
     max-width: 100%;
     align-items: stretch;
-    gap: var(--tabs-list-gap, var(--spacing-1));
-    padding: var(--tabs-list-padding-y, var(--tabs-list-padding, var(--spacing-1)))
-      var(--tabs-list-padding-x, var(--tabs-list-padding, var(--spacing-1)));
-    border: var(--tabs-list-border-width, var(--border-width-sm)) solid
-      var(--tabs-list-border-color, var(--color-border));
-    border-radius: var(--tabs-radius, var(--radius-lg));
-    background-color: var(--tabs-list-bg, var(--color-muted));
+    gap: var(--moduix-tabs-list-gap, var(--moduix-spacing-1));
+    padding: var(
+        --moduix-tabs-list-padding-y,
+        var(--moduix-tabs-list-padding, var(--moduix-spacing-1))
+      )
+      var(--moduix-tabs-list-padding-x, var(--moduix-tabs-list-padding, var(--moduix-spacing-1)));
+    border: var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tabs-list-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-tabs-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-tabs-list-bg, var(--moduix-color-muted));
 
     &[data-orientation='vertical'] {
-      width: var(--tabs-vertical-list-width, 12rem);
-      min-width: var(--tabs-vertical-list-width, 12rem);
+      width: var(--moduix-tabs-vertical-list-width, 12rem);
+      min-width: var(--moduix-tabs-vertical-list-width, 12rem);
       flex-direction: column;
     }
 
     .root[data-variant='line'] & {
       width: 100%;
-      border-width: 0 0 var(--tabs-list-border-width, var(--border-width-sm));
+      border-width: 0 0 var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm));
       border-radius: 0;
       padding-inline: 0;
       background-color: transparent;
     }
 
     .root[data-orientation='vertical'][data-variant='line'] & {
-      width: var(--tabs-vertical-list-width, 12rem);
-      border-width: 0 var(--tabs-list-border-width, var(--border-width-sm)) 0 0;
+      width: var(--moduix-tabs-vertical-list-width, 12rem);
+      border-width: 0 var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm)) 0 0;
     }
   }
 
@@ -56,35 +59,38 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--tabs-tab-content-gap, var(--spacing-2));
-    height: var(--tabs-tab-height, var(--size-sm));
+    gap: var(--moduix-tabs-tab-content-gap, var(--moduix-spacing-2));
+    height: var(--moduix-tabs-tab-height, var(--moduix-size-sm));
     margin: 0;
     appearance: none;
     border: 0;
-    border-radius: var(--tabs-tab-radius, var(--radius-md));
-    padding-inline: var(--tabs-tab-padding-x, var(--spacing-2-5));
+    border-radius: var(--moduix-tabs-tab-radius, var(--moduix-radius-md));
+    padding-inline: var(--moduix-tabs-tab-padding-x, var(--moduix-spacing-2-5));
     background: none;
-    color: var(--tabs-tab-color, var(--color-muted-foreground));
+    color: var(--moduix-tabs-tab-color, var(--moduix-color-muted-foreground));
     font: inherit;
-    font-size: var(--tabs-tab-font-size, var(--text-sm));
-    font-weight: var(--tabs-tab-font-weight, var(--weight-medium));
-    line-height: var(--tabs-tab-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-tabs-tab-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-tabs-tab-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-tabs-tab-line-height, var(--moduix-line-height-text-sm));
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
     outline: 0;
     cursor: pointer;
     transition:
-      color var(--tabs-tab-transition, var(--transition-default)),
-      opacity var(--tabs-tab-transition, var(--transition-default));
+      color var(--moduix-tabs-tab-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-tabs-tab-transition, var(--moduix-transition-default));
 
     &[data-selected] {
-      color: var(--tabs-tab-color-active, var(--color-foreground));
+      color: var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground));
     }
 
     @media (hover: hover) {
       &:hover {
-        color: var(--tabs-tab-color-hover, var(--tabs-tab-color-active, var(--color-foreground)));
+        color: var(
+          --moduix-tabs-tab-color-hover,
+          var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground))
+        );
       }
     }
 
@@ -94,23 +100,26 @@
         position: absolute;
         inset: 0;
         border-radius: inherit;
-        outline: var(--tabs-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
-          solid var(--tabs-focus-ring-color, var(--color-ring));
-        outline-offset: var(--tabs-focus-ring-offset, 0);
+        outline: var(
+            --moduix-tabs-focus-ring-width,
+            var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+          )
+          solid var(--moduix-tabs-focus-ring-color, var(--moduix-color-ring));
+        outline-offset: var(--moduix-tabs-focus-ring-offset, 0);
       }
     }
 
     &[disabled],
     &[data-disabled] {
       cursor: default;
-      opacity: var(--tabs-tab-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-tabs-tab-disabled-opacity, var(--moduix-opacity-disabled));
       pointer-events: none;
     }
 
     & > svg {
-      width: var(--tabs-tab-icon-size, var(--spacing-4));
-      height: var(--tabs-tab-icon-size, var(--spacing-4));
-      color: var(--tabs-tab-icon-color, currentColor);
+      width: var(--moduix-tabs-tab-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-tabs-tab-icon-size, var(--moduix-spacing-4));
+      color: var(--moduix-tabs-tab-icon-color, currentColor);
       flex-shrink: 0;
     }
   }
@@ -121,40 +130,45 @@
     top: 50%;
     left: var(--left, 0);
     width: var(--width, 0);
-    height: var(--tabs-indicator-size, var(--spacing-8));
-    border-radius: var(--tabs-indicator-radius, var(--radius-md));
-    background-color: var(--tabs-indicator-bg, var(--color-background));
-    box-shadow: var(--tabs-indicator-shadow, var(--shadow-sm));
+    height: var(--moduix-tabs-indicator-size, var(--moduix-spacing-8));
+    border-radius: var(--moduix-tabs-indicator-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-tabs-indicator-bg, var(--moduix-color-background));
+    box-shadow: var(--moduix-tabs-indicator-shadow, var(--moduix-shadow-sm));
     translate: 0 -50%;
     transition:
-      width var(--tabs-indicator-transition, var(--transition-default)),
-      height var(--tabs-indicator-transition, var(--transition-default)),
-      top var(--tabs-indicator-transition, var(--transition-default)),
-      left var(--tabs-indicator-transition, var(--transition-default));
+      width var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
+      height var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
+      top var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
+      left var(--moduix-tabs-indicator-transition, var(--moduix-transition-default));
 
     .root[data-variant='line'] & {
       top: auto;
       bottom: 0;
-      height: var(--tabs-line-indicator-size, var(--spacing-0-5));
-      border-radius: var(--tabs-line-indicator-radius, var(--radius-full));
+      height: var(--moduix-tabs-line-indicator-size, var(--moduix-spacing-0-5));
+      border-radius: var(--moduix-tabs-line-indicator-radius, var(--moduix-radius-full));
       background-color: var(
-        --tabs-line-indicator-bg,
-        var(--tabs-tab-color-active, var(--color-foreground))
+        --moduix-tabs-line-indicator-bg,
+        var(--moduix-tabs-tab-color-active, var(--moduix-color-foreground))
       );
       translate: none;
       box-shadow: none;
       transition:
-        width var(--tabs-line-indicator-transition, var(--transition-default)),
-        height var(--tabs-line-indicator-transition, var(--transition-default)),
-        top var(--tabs-line-indicator-transition, var(--transition-default)),
-        left var(--tabs-line-indicator-transition, var(--transition-default));
+        width var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
+        height var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
+        top var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default)),
+        left var(--moduix-tabs-line-indicator-transition, var(--moduix-transition-default));
     }
 
     &[data-orientation='vertical'] {
       top: var(--top, 0);
       left: 50%;
       width: calc(
-        100% - (var(--tabs-list-padding-x, var(--tabs-list-padding, var(--spacing-1))) * 2)
+        100% -
+          (var(
+              --moduix-tabs-list-padding-x,
+              var(--moduix-tabs-list-padding, var(--moduix-spacing-1))
+            ) *
+            2)
       );
       height: var(--height, 0);
       translate: -50% 0;
@@ -162,7 +176,7 @@
       .root[data-variant='line'] & {
         bottom: auto;
         left: 0;
-        width: var(--tabs-line-indicator-size, var(--spacing-0-5));
+        width: var(--moduix-tabs-line-indicator-size, var(--moduix-spacing-0-5));
         translate: none;
       }
     }
@@ -173,20 +187,26 @@
     flex: 1;
     min-width: 0;
     margin: 0;
-    border: var(--tabs-border-width, var(--border-width-sm)) solid
-      var(--tabs-border-color, var(--color-border));
-    border-radius: var(--tabs-radius, var(--radius-lg));
-    background-color: var(--tabs-bg, var(--color-background));
-    padding: var(--tabs-panel-padding, var(--spacing-4));
-    color: var(--tabs-panel-color, var(--tabs-color, var(--color-foreground)));
-    font-size: var(--tabs-panel-font-size, var(--text-sm));
-    line-height: var(--tabs-panel-line-height, var(--line-height-text-sm));
+    border: var(--moduix-tabs-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-tabs-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-tabs-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-tabs-bg, var(--moduix-color-background));
+    padding: var(--moduix-tabs-panel-padding, var(--moduix-spacing-4));
+    color: var(--moduix-tabs-panel-color, var(--moduix-tabs-color, var(--moduix-color-foreground)));
+    font-size: var(--moduix-tabs-panel-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-tabs-panel-line-height, var(--moduix-line-height-text-sm));
     outline: 0;
 
     &:focus-visible {
-      outline: var(--tabs-focus-ring-width, var(--focus-ring-inset-width, var(--border-width-sm)))
-        solid var(--tabs-focus-ring-color, var(--color-ring));
-      outline-offset: var(--tabs-panel-focus-ring-offset, var(--focus-ring-inset-offset));
+      outline: var(
+          --moduix-tabs-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-tabs-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-tabs-panel-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
       border-radius: inherit;
     }
 

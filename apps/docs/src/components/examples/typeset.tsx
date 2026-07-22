@@ -2,12 +2,16 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const typesetOverrideCssProperties: CssPropertyInput[] = [
-  ['--typeset-flow', '1.25em', 'Controls space before each rendered block.'],
-  ['--typeset-font-body', 'inherit', 'Controls body font family.'],
-  ['--typeset-font-heading', 'var(--font-sans)', 'Controls heading font family.'],
-  ['--typeset-leading', '1.75', 'Controls body line height.'],
-  ['--typeset-font-mono', 'var(--font-mono)', 'Controls inline and block code font family.'],
-  ['--typeset-size', '1em', 'Controls the container-relative body font size.'],
+  ['--moduix-typeset-flow', '1.25em', 'Controls space before each rendered block.'],
+  ['--moduix-typeset-font-body', 'inherit', 'Controls body font family.'],
+  ['--moduix-typeset-font-heading', 'var(--moduix-font-sans)', 'Controls heading font family.'],
+  ['--moduix-typeset-leading', '1.75', 'Controls body line height.'],
+  [
+    '--moduix-typeset-font-mono',
+    'var(--moduix-font-mono)',
+    'Controls inline and block code font family.',
+  ],
+  ['--moduix-typeset-size', '1em', 'Controls the container-relative body font size.'],
 ];
 
 export function TypesetCssPropertiesPanel() {

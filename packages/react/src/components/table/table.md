@@ -134,15 +134,15 @@ Cell state hooks:
 
 Public CSS variables are registered in `packages/react/src/lib/moduix/styles/theme.css`. Important variables:
 
-- `--table-border-color`, `--table-border-width`
-- `--table-cell-padding-x`, `--table-cell-padding-y`
-- `--table-column-border-color`, `--table-column-border-width`
-- `--table-column-header-color`, `--table-column-header-font-weight`
-- `--table-scroll-area-bg`, `--table-scroll-area-border-color`,
-  `--table-scroll-area-border-width`, `--table-scroll-area-radius`,
-  `--table-scroll-area-shadow`
-- `--table-row-bg-hover`, `--table-row-bg-striped`, `--table-row-transition`
-- `--table-sticky-header-bg`, `--table-sticky-column-bg`, and sticky z-index variables
+- `--moduix-table-border-color`, `--moduix-table-border-width`
+- `--moduix-table-cell-padding-x`, `--moduix-table-cell-padding-y`
+- `--moduix-table-column-border-color`, `--moduix-table-column-border-width`
+- `--moduix-table-column-header-color`, `--moduix-table-column-header-font-weight`
+- `--moduix-table-scroll-area-bg`, `--moduix-table-scroll-area-border-color`,
+  `--moduix-table-scroll-area-border-width`, `--moduix-table-scroll-area-radius`,
+  `--moduix-table-scroll-area-shadow`
+- `--moduix-table-row-bg-hover`, `--moduix-table-row-bg-striped`, `--moduix-table-row-transition`
+- `--moduix-table-sticky-header-bg`, `--moduix-table-sticky-column-bg`, and sticky z-index variables
 
 `interactive` controls hover highlighting. `striped` controls zebra rows. `variant="outline"` adds
 a border around the table root; `Table.ScrollArea` owns the common outer surface.

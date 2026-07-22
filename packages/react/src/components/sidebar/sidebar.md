@@ -242,7 +242,7 @@ Panel constraints are Ark state, not visual CSS. Override `panels`, `defaultSize
 `panelId` changes the default navigation id; use `Splitter` directly when a layout also needs a
 custom inset id. CSS-length sizes are measured on the client, so server-rendered layouts can shift
 after hydration; use percentages when stable SSR layout matters.
-Use the public `--sidebar-*` variables and stable slots for internal spacing, colors, item sizes,
+Use the public `--moduix-sidebar-*` variables and stable slots for internal spacing, colors, item sizes,
 group-action sizing, menu-action sizing, menu-badge spacing, and the floating trigger's vertical
 offset.
 
@@ -253,8 +253,8 @@ version visually clamps the configured `3rem` rail to `12rem`. This is tracked b
 upstream layout while that fix is pending.
 
 The resize line inherits the shared Splitter default: it keeps the normal border color at rest and
-shifts slightly toward `--color-muted-foreground` on hover and drag. Override the
-underlying `--splitter-resize-trigger-line-color-*` variables when the product needs stronger
+shifts slightly toward `--moduix-color-muted-foreground` on hover and drag. Override the
+underlying `--moduix-splitter-resize-trigger-line-color-*` variables when the product needs stronger
 feedback.
 
 ## Intentional sugar and differences from upstream

@@ -108,7 +108,7 @@ Indicator positioning comes from Ark CSS variables on `Tabs.Indicator`: `--left`
 ## Defaults and styling
 
 Every visual part accepts `className` and receives a stable `data-slot`. moduix styling preserves
-the existing compact visual identity through `--tabs-*` variables, design tokens, border radii, and
+the existing compact visual identity through `--moduix-tabs-*` variables, design tokens, border radii, and
 motion tokens.
 
 `variant="default"` renders a SegmentGroup-like filled indicator surface with `radius-md`,

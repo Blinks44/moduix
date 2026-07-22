@@ -52,7 +52,7 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
   const lineClampStyle =
     lineClamp === undefined
       ? style
-      : ({ ...style, '--text-line-clamp': lineClamp } as CSSProperties);
+      : ({ ...style, '--moduix-text-line-clamp': lineClamp } as CSSProperties);
 
   return (
     <Element

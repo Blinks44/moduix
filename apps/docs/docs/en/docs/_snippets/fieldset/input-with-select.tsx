@@ -36,10 +36,8 @@ export default function PhoneInput() {
           <Select.Control>
             <Select.Trigger>
               <Select.ValueText />
-            </Select.Trigger>
-            <Select.Indicators>
               <Select.Indicator />
-            </Select.Indicators>
+            </Select.Trigger>
           </Select.Control>
           <Select.Positioner>
             <Select.Content>

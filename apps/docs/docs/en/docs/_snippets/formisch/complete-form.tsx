@@ -81,10 +81,8 @@ export default function ProjectForm() {
                   <Select.Control>
                     <Select.Trigger>
                       <Select.ValueText placeholder="Choose a team" />
-                    </Select.Trigger>
-                    <Select.Indicators>
                       <Select.Indicator />
-                    </Select.Indicators>
+                    </Select.Trigger>
                   </Select.Control>
                   <Select.Positioner>
                     <Select.Content>

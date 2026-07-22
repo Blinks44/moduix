@@ -30,7 +30,7 @@ const slides = [
 
 export default function SlidesPerPageCarousel() {
   return (
-    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--spacing-3)">
+    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--moduix-spacing-3)">
       <Carousel.Control>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />

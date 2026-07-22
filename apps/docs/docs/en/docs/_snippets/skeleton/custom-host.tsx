@@ -7,7 +7,7 @@ const loadingRegion = {
 
 export default function SkeletonAsChildDemo() {
   return (
-    <Skeleton asChild height={72} borderRadius="var(--radius-lg)" className={styles.asChild}>
+    <Skeleton asChild height={72} borderRadius="var(--moduix-radius-lg)" className={styles.asChild}>
       <section aria-label={loadingRegion.label} />
     </Skeleton>
   );

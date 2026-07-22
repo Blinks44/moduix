@@ -12,8 +12,8 @@ import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Splitter.module.css';
 
 const rootStyle = {
-  width: 'var(--splitter-width, 100%)',
-  height: 'var(--splitter-height, 28rem)',
+  width: 'var(--moduix-splitter-width, 100%)',
+  height: 'var(--moduix-splitter-height, 28rem)',
 } satisfies CSSProperties;
 
 const SplitterRoot = forwardRef<

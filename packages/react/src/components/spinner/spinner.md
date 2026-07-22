@@ -114,19 +114,19 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 `className` applies to the root. Consumers can style the component through root class selectors, Ark-style data selectors, stable `data-slot` hooks, `data-size`, and public CSS variables.
 
-| Variable                      | Default                                              |
-| ----------------------------- | ---------------------------------------------------- |
-| `--spinner-animation`         | `var(--animation-spin)`                              |
-| `--spinner-color`             | `currentColor`                                       |
-| `--spinner-radius`            | `var(--radius-full)`                                 |
-| `--spinner-ring-border-width` | `var(--border-width-md)`                             |
-| `--spinner-ring-track-color`  | `color-mix(in oklab, currentColor 22%, transparent)` |
-| `--spinner-size`              | `var(--spinner-size-md, var(--spacing-5))`           |
-| `--spinner-size-xs`           | `var(--spacing-3)`                                   |
-| `--spinner-size-sm`           | `var(--spacing-4)`                                   |
-| `--spinner-size-md`           | `var(--spacing-5)`                                   |
-| `--spinner-size-lg`           | `var(--spacing-7)`                                   |
-| `--spinner-size-xl`           | `var(--size-md)`                                     |
+| Variable                             | Default                                                  |
+| ------------------------------------ | -------------------------------------------------------- |
+| `--moduix-spinner-animation`         | `var(--moduix-animation-spin)`                           |
+| `--moduix-spinner-color`             | `currentColor`                                           |
+| `--moduix-spinner-radius`            | `var(--moduix-radius-full)`                              |
+| `--moduix-spinner-ring-border-width` | `var(--moduix-border-width-md)`                          |
+| `--moduix-spinner-ring-track-color`  | `color-mix(in oklab, currentColor 22%, transparent)`     |
+| `--moduix-spinner-size`              | `var(--moduix-spinner-size-md, var(--moduix-spacing-5))` |
+| `--moduix-spinner-size-xs`           | `var(--moduix-spacing-3)`                                |
+| `--moduix-spinner-size-sm`           | `var(--moduix-spacing-4)`                                |
+| `--moduix-spinner-size-md`           | `var(--moduix-spacing-5)`                                |
+| `--moduix-spinner-size-lg`           | `var(--moduix-spacing-7)`                                |
+| `--moduix-spinner-size-xl`           | `var(--moduix-size-md)`                                  |
 
 ## Intentional sugar and differences from upstream
 
@@ -149,4 +149,4 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
   props from `Spinner` directly to keep the public surface smaller.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified `asChild` examples to reuse public data hooks, aligned docs API text, and removed non-token ring thickness overrides from examples.
 - 2026-06-21: Migrated `Spinner` to an Ark-style root-only component with `@ark-ui/react/factory`, `asChild`, `Spinner.Root`, `data-scope="spinner"`, `data-part` styling hooks, docs examples with Code/Styles/Data tabs, and the `SpinnerRootProps` public type.
-- 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added public prop and size type exports, and added `--spinner-animation` while disabling motion under `prefers-reduced-motion`.
+- 2026-06-03: Rewrote the local documentation around the actual moduix `Spinner` contract, documented semantics/composition/styling hooks, exposed the default ring as `data-slot="spinner-ring"`, added public prop and size type exports, and added `--moduix-spinner-animation` while disabling motion under `prefers-reduced-motion`.

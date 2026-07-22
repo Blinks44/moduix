@@ -90,9 +90,9 @@ export function UploadButton() {
 
 - The root is an `inline-grid` with a single `swap` grid area.
 - Indicators are inline-flex elements in that area and inherit their color.
-- `--swap-transition` defaults to `--transition-default` and controls both enter and exit timing.
-- `--swap-enter-starting-opacity`, `--swap-enter-starting-scale`,
-  `--swap-exit-ending-opacity`, and `--swap-exit-ending-scale` customise the default keyframes.
+- `--moduix-swap-transition` defaults to `--moduix-transition-default` and controls both enter and exit timing.
+- `--moduix-swap-enter-starting-opacity`, `--moduix-swap-enter-starting-scale`,
+  `--moduix-swap-exit-ending-opacity`, and `--moduix-swap-exit-ending-scale` customise the default keyframes.
 - Override `animation` on `Swap.Indicator[data-state]` for rotate or 3D flip recipes, and keep a
   matching `prefers-reduced-motion` fallback in that custom CSS.
 - `prefers-reduced-motion: reduce` reduces the animation duration to `1ms`.

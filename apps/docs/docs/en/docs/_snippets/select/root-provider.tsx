@@ -58,11 +58,9 @@ export default function SelectRootProviderDemo() {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select an option" />
-          </Select.Trigger>
-          <Select.Indicators>
-            <Select.ClearTrigger aria-label="Clear selection" />
             <Select.Indicator />
-          </Select.Indicators>
+          </Select.Trigger>
+          <Select.ClearTrigger aria-label="Clear selection" />
         </Select.Control>
         <Select.Positioner>
           <Select.Content>

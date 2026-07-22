@@ -32,8 +32,8 @@ export default function VariableSizeCarousel() {
     <Carousel
       autoSize
       slideCount={slides.length}
-      spacing="var(--spacing-3)"
-      padding="var(--spacing-4)"
+      spacing="var(--moduix-spacing-3)"
+      padding="var(--moduix-spacing-4)"
     >
       <Carousel.Control>
         <Carousel.PrevTrigger />

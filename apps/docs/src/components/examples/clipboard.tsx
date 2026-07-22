@@ -1,55 +1,25 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const clipboardExampleCss = `
-  .rp-preview [data-scope='clipboard'][data-part='root'] {
-    --clipboard-max-width: 24rem;
-
-    margin-inline: auto;
-  }
-
-  .clipboard-demo {
-    width: min(24rem, 100%);
-  }
-
-  .clipboard-demo-root {
-    margin-inline: auto;
-  }
-
-  .clipboard-demo-root--compact {
-    width: max-content;
-    max-width: 100%;
-  }
-
-  .clipboard-provider-stack,
-  .clipboard-status-stack {
-    display: grid;
-    justify-items: center;
-    gap: var(--spacing-3);
-  }
-
-  .clipboard-status-stack {
-    text-align: center;
-  }
-
   .clipboard-action-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--size-md);
+    min-height: var(--moduix-size-md);
     padding-inline: 1rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
     cursor: pointer;
   }
 
   .clipboard-action-button:focus-visible {
-    outline: var(--border-width-md) solid var(--color-ring);
-    outline-offset: calc(var(--border-width-sm) * -1);
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
+    outline-offset: calc(var(--moduix-border-width-sm) * -1);
   }
 
   .clipboard-value-text {
@@ -58,202 +28,218 @@ export const clipboardExampleCss = `
 
   .clipboard-status-text {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--line-height-text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
   }
 `;
 
 export const clipboardOverrideCssProperties: CssPropertyInput[] = [
-  ['--clipboard-color', 'var(--color-foreground)', 'Controls the default text color of the root.'],
-  ['--clipboard-width', '100%', 'Controls the root width.'],
-  ['--clipboard-max-width', 'none', 'Controls the default maximum width.'],
-  ['--clipboard-gap', 'var(--spacing-1-5)', 'Controls spacing between label and control.'],
   [
-    '--clipboard-control-gap',
-    'var(--spacing-2)',
+    '--moduix-clipboard-color',
+    'var(--moduix-color-foreground)',
+    'Controls the default text color of the root.',
+  ],
+  ['--moduix-clipboard-width', '100%', 'Controls the root width.'],
+  ['--moduix-clipboard-max-width', 'none', 'Controls the default maximum width.'],
+  [
+    '--moduix-clipboard-gap',
+    'var(--moduix-spacing-1-5)',
+    'Controls spacing between label and control.',
+  ],
+  [
+    '--moduix-clipboard-control-gap',
+    'var(--moduix-spacing-2)',
     'Controls spacing between value surface and trigger.',
   ],
-  ['--clipboard-label-color', 'currentColor', 'Controls label text color.'],
-  ['--clipboard-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--clipboard-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--clipboard-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
+  ['--moduix-clipboard-label-color', 'currentColor', 'Controls label text color.'],
+  ['--moduix-clipboard-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
   [
-    '--clipboard-disabled-opacity',
-    'var(--opacity-disabled)',
+    '--moduix-clipboard-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-clipboard-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  [
+    '--moduix-clipboard-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
     'Controls disabled input and trigger opacity.',
   ],
   [
-    '--clipboard-input-border-color',
-    'var(--input-border-color, var(--color-border))',
+    '--moduix-clipboard-input-border-color',
+    'var(--moduix-input-border-color, var(--moduix-color-border))',
     'Controls the input border color.',
   ],
   [
-    '--clipboard-input-border-width',
-    'var(--input-border-width, var(--border-width-sm))',
+    '--moduix-clipboard-input-border-width',
+    'var(--moduix-input-border-width, var(--moduix-border-width-sm))',
     'Controls input border width.',
   ],
   [
-    '--clipboard-input-bg',
-    'var(--input-bg, var(--color-background))',
+    '--moduix-clipboard-input-bg',
+    'var(--moduix-input-bg, var(--moduix-color-background))',
     'Controls the input background.',
   ],
   [
-    '--clipboard-input-color',
-    'var(--input-color, var(--color-foreground))',
+    '--moduix-clipboard-input-color',
+    'var(--moduix-input-color, var(--moduix-color-foreground))',
     'Controls the input text color.',
   ],
   [
-    '--clipboard-input-focus-ring-color',
-    'var(--input-focus-ring-color, var(--color-ring))',
+    '--moduix-clipboard-input-focus-ring-color',
+    'var(--moduix-input-focus-ring-color, var(--moduix-color-ring))',
     'Controls input focus ring color.',
   ],
   [
-    '--clipboard-input-focus-ring-offset',
-    'var(--clipboard-input-border-width, var(--input-border-width, var(--border-width-sm)))',
+    '--moduix-clipboard-input-focus-ring-offset',
+    'var(--moduix-clipboard-input-border-width, var(--moduix-input-border-width, var(--moduix-border-width-sm)))',
     'Controls input focus ring offset.',
   ],
   [
-    '--clipboard-input-focus-ring-width',
-    'var(--input-focus-ring-width, var(--clipboard-input-border-width, var(--input-border-width, var(--focus-ring-inset-width, var(--border-width-sm)))))',
+    '--moduix-clipboard-input-focus-ring-width',
+    'var(--moduix-input-focus-ring-width, var(--moduix-clipboard-input-border-width, var(--moduix-input-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))))',
     'Controls input focus ring width.',
   ],
   [
-    '--clipboard-input-font-size',
-    'var(--input-font-size-md, var(--text-md))',
+    '--moduix-clipboard-input-font-size',
+    'var(--moduix-input-font-size-md, var(--moduix-text-md))',
     'Controls input font size.',
   ],
   [
-    '--clipboard-input-height',
-    'var(--input-height-md, var(--size-md))',
+    '--moduix-clipboard-input-height',
+    'var(--moduix-input-height-md, var(--moduix-size-md))',
     'Controls input minimum height.',
   ],
   [
-    '--clipboard-input-line-height',
-    'var(--input-line-height-md, var(--line-height-text-md))',
+    '--moduix-clipboard-input-line-height',
+    'var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))',
     'Controls input line height.',
   ],
   [
-    '--clipboard-input-padding-x',
-    'var(--input-padding-x-md, var(--spacing-3-5))',
+    '--moduix-clipboard-input-padding-x',
+    'var(--moduix-input-padding-x-md, var(--moduix-spacing-3-5))',
     'Controls input horizontal padding.',
   ],
   [
-    '--clipboard-input-padding-y',
-    'var(--input-padding-y-md, var(--spacing-1))',
+    '--moduix-clipboard-input-padding-y',
+    'var(--moduix-input-padding-y-md, var(--moduix-spacing-1))',
     'Controls input vertical padding.',
   ],
   [
-    '--clipboard-input-placeholder-color',
-    'var(--input-placeholder-color, var(--color-muted-foreground))',
+    '--moduix-clipboard-input-placeholder-color',
+    'var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground))',
     'Controls input placeholder color.',
   ],
   [
-    '--clipboard-input-radius',
-    'var(--input-radius, var(--radius-md))',
+    '--moduix-clipboard-input-radius',
+    'var(--moduix-input-radius, var(--moduix-radius-md))',
     'Controls the input radius.',
   ],
   [
-    '--clipboard-input-readonly-bg',
-    'var(--input-readonly-bg, var(--clipboard-input-bg, var(--color-background)))',
+    '--moduix-clipboard-input-readonly-bg',
+    'var(--moduix-input-readonly-bg, var(--moduix-clipboard-input-bg, var(--moduix-color-background)))',
     'Controls read-only input background.',
   ],
   [
-    '--clipboard-input-readonly-color',
-    'var(--input-readonly-color, var(--clipboard-input-color, var(--color-foreground)))',
+    '--moduix-clipboard-input-readonly-color',
+    'var(--moduix-input-readonly-color, var(--moduix-clipboard-input-color, var(--moduix-color-foreground)))',
     'Controls read-only input text color.',
   ],
   [
-    '--clipboard-trigger-bg',
-    'var(--button-outline-bg, var(--color-background))',
+    '--moduix-clipboard-trigger-bg',
+    'var(--moduix-button-outline-bg, var(--moduix-color-background))',
     'Controls trigger background color.',
   ],
   [
-    '--clipboard-trigger-bg-hover',
-    'var(--button-outline-bg-hover, var(--color-accent))',
+    '--moduix-clipboard-trigger-bg-hover',
+    'var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))',
     'Controls trigger hover background.',
   ],
   [
-    '--clipboard-trigger-border-color',
-    'var(--button-outline-border-color, var(--color-border))',
+    '--moduix-clipboard-trigger-border-color',
+    'var(--moduix-button-outline-border-color, var(--moduix-color-border))',
     'Controls trigger border color.',
   ],
   [
-    '--clipboard-trigger-border-width',
-    'var(--button-border-width, var(--border-width-sm))',
+    '--moduix-clipboard-trigger-border-width',
+    'var(--moduix-button-border-width, var(--moduix-border-width-sm))',
     'Controls trigger border width.',
   ],
   [
-    '--clipboard-trigger-color',
-    'var(--button-outline-color, var(--color-foreground))',
+    '--moduix-clipboard-trigger-color',
+    'var(--moduix-button-outline-color, var(--moduix-color-foreground))',
     'Controls trigger text and icon color.',
   ],
   [
-    '--clipboard-trigger-focus-ring-color',
-    'var(--button-focus-ring-color, var(--color-ring))',
+    '--moduix-clipboard-trigger-focus-ring-color',
+    'var(--moduix-button-focus-ring-color, var(--moduix-color-ring))',
     'Controls trigger focus ring color.',
   ],
   [
-    '--clipboard-trigger-focus-ring-offset',
-    'var(--clipboard-trigger-border-width, var(--button-border-width, var(--border-width-sm)))',
+    '--moduix-clipboard-trigger-focus-ring-offset',
+    'var(--moduix-clipboard-trigger-border-width, var(--moduix-button-border-width, var(--moduix-border-width-sm)))',
     'Controls trigger focus ring offset.',
   ],
   [
-    '--clipboard-trigger-focus-ring-width',
-    'var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))',
+    '--moduix-clipboard-trigger-focus-ring-width',
+    'var(--moduix-button-focus-ring-width, var(--moduix-focus-ring-width, var(--moduix-border-width-md)))',
     'Controls trigger focus ring width.',
   ],
   [
-    '--clipboard-trigger-font-size',
-    'var(--button-font-size, var(--text-sm))',
+    '--moduix-clipboard-trigger-font-size',
+    'var(--moduix-button-font-size, var(--moduix-text-sm))',
     'Controls trigger font size.',
   ],
   [
-    '--clipboard-trigger-font-weight',
-    'var(--button-font-weight, var(--weight-medium))',
+    '--moduix-clipboard-trigger-font-weight',
+    'var(--moduix-button-font-weight, var(--moduix-weight-medium))',
     'Controls trigger font weight.',
   ],
   [
-    '--clipboard-trigger-gap',
-    'var(--button-content-gap, var(--spacing-2))',
+    '--moduix-clipboard-trigger-gap',
+    'var(--moduix-button-content-gap, var(--moduix-spacing-2))',
     'Controls gap between trigger children.',
   ],
   [
-    '--clipboard-trigger-height',
-    'var(--button-size-md, var(--size-md))',
+    '--moduix-clipboard-trigger-height',
+    'var(--moduix-button-size-md, var(--moduix-size-md))',
     'Controls trigger minimum height.',
   ],
   [
-    '--clipboard-trigger-line-height',
-    'var(--button-line-height, var(--line-height-text-sm))',
+    '--moduix-clipboard-trigger-line-height',
+    'var(--moduix-button-line-height, var(--moduix-line-height-text-sm))',
     'Controls trigger line height.',
   ],
   [
-    '--clipboard-trigger-padding-x',
-    'var(--button-padding-x-md, var(--spacing-4))',
+    '--moduix-clipboard-trigger-padding-x',
+    'var(--moduix-button-padding-x-md, var(--moduix-spacing-4))',
     'Controls trigger horizontal padding.',
   ],
   [
-    '--clipboard-trigger-radius',
-    'var(--button-radius, var(--radius-md))',
+    '--moduix-clipboard-trigger-radius',
+    'var(--moduix-button-radius, var(--moduix-radius-md))',
     'Controls trigger radius.',
   ],
   [
-    '--clipboard-indicator-size',
-    'var(--button-icon-size, var(--spacing-4))',
+    '--moduix-clipboard-indicator-size',
+    'var(--moduix-button-icon-size, var(--moduix-spacing-4))',
     'Controls idle and copied icon size.',
   ],
   [
-    '--clipboard-value-text-color',
+    '--moduix-clipboard-value-text-color',
     'currentColor',
     'Controls value text color when using `Clipboard.ValueText`.',
   ],
-  ['--clipboard-value-text-font-size', 'inherit', 'Controls value text font size.'],
-  ['--clipboard-value-text-font-weight', 'inherit', 'Controls value text font weight.'],
-  ['--clipboard-value-text-line-height', 'inherit', 'Controls value text line height.'],
+  ['--moduix-clipboard-value-text-font-size', 'inherit', 'Controls value text font size.'],
+  ['--moduix-clipboard-value-text-font-weight', 'inherit', 'Controls value text font weight.'],
+  ['--moduix-clipboard-value-text-line-height', 'inherit', 'Controls value text line height.'],
   [
-    '--clipboard-transition',
-    'var(--transition-default)',
+    '--moduix-clipboard-transition',
+    'var(--moduix-transition-default)',
     'Controls input and trigger transition timing.',
   ],
 ];

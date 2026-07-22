@@ -2,51 +2,51 @@ import type { CssPropertyInput } from '../mdx/reference';
 
 export const angleSliderBasicCss = `
   .docs-angle-slider-basic {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderWithMarksCss = `
   .docs-angle-slider-with-marks {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderControlledCss = `
   .docs-angle-slider-controlled {
-    --angle-slider-indicator-bg: var(--color-chart-2);
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-indicator-bg: var(--moduix-color-chart-2);
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderFormCss = `
   .docs-angle-slider-form {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderInvalidCss = `
   .docs-angle-slider-invalid {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderStepCss = `
   .docs-angle-slider-step {
-    --angle-slider-indicator-bg: var(--color-chart-3);
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-indicator-bg: var(--moduix-color-chart-3);
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderDisabledCss = `
   .docs-angle-slider-disabled {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
 export const angleSliderReadOnlyCss = `
   .docs-angle-slider-readonly {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 `;
 
@@ -58,129 +58,185 @@ export const angleSliderRootProviderCss = `
   }
 
   .docs-angle-slider-provider {
-    --angle-slider-size: 9rem;
+    --moduix-angle-slider-size: 9rem;
   }
 
   .docs-angle-slider-provider-button {
     min-height: 2.5rem;
     padding-inline: 1rem;
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
     cursor: pointer;
   }
 
   .docs-angle-slider-provider-button:hover {
-    background: var(--color-muted);
+    background: var(--moduix-color-muted);
   }
 
   .docs-angle-slider-provider-button:focus-visible {
-    outline: var(--border-width-md) solid var(--color-ring);
+    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
     outline-offset: 2px;
   }
 `;
 
 const angleSliderOverrideCssProperties: CssPropertyInput[] = [
-  ['--angle-slider-color', 'var(--color-foreground)', 'Controls the default dial text color.'],
   [
-    '--angle-slider-center-dot-color',
-    'var(--angle-slider-color)',
+    '--moduix-angle-slider-color',
+    'var(--moduix-color-foreground)',
+    'Controls the default dial text color.',
+  ],
+  [
+    '--moduix-angle-slider-center-dot-color',
+    'var(--moduix-angle-slider-color)',
     'Controls the center dot color.',
   ],
-  ['--angle-slider-center-dot-size', 'var(--spacing-1-5)', 'Controls the center dot size.'],
-  ['--angle-slider-control-bg', 'var(--color-background)', 'Controls the inner dial fill color.'],
   [
-    '--angle-slider-control-border-color',
-    'var(--color-border)',
+    '--moduix-angle-slider-center-dot-size',
+    'var(--moduix-spacing-1-5)',
+    'Controls the center dot size.',
+  ],
+  [
+    '--moduix-angle-slider-control-bg',
+    'var(--moduix-color-background)',
+    'Controls the inner dial fill color.',
+  ],
+  [
+    '--moduix-angle-slider-control-border-color',
+    'var(--moduix-color-border)',
     'Controls the inner dial border color.',
   ],
   [
-    '--angle-slider-control-border-width',
-    'var(--border-width-sm)',
+    '--moduix-angle-slider-control-border-width',
+    'var(--moduix-border-width-sm)',
     'Controls the inner dial border width.',
   ],
-  ['--angle-slider-disabled-opacity', 'var(--opacity-disabled)', 'Controls disabled dial opacity.'],
-  ['--angle-slider-focus-ring-color', 'var(--color-ring)', 'Controls the focus ring color.'],
-  ['--angle-slider-focus-ring-width', '0.1875rem', 'Controls the control focus ring width.'],
   [
-    '--angle-slider-gap',
-    'var(--spacing-3)',
+    '--moduix-angle-slider-disabled-opacity',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled dial opacity.',
+  ],
+  [
+    '--moduix-angle-slider-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls the focus ring color.',
+  ],
+  ['--moduix-angle-slider-focus-ring-width', '0.1875rem', 'Controls the control focus ring width.'],
+  [
+    '--moduix-angle-slider-gap',
+    'var(--moduix-spacing-3)',
     'Controls spacing between label, dial, and value text.',
   ],
   [
-    '--angle-slider-indicator-bg',
-    'var(--color-primary)',
+    '--moduix-angle-slider-indicator-bg',
+    'var(--moduix-color-primary)',
     'Controls the thumb and active line color.',
   ],
   [
-    '--angle-slider-invalid-color',
-    'var(--color-destructive)',
+    '--moduix-angle-slider-invalid-color',
+    'var(--moduix-color-destructive)',
     'Controls invalid-state thumb and border color.',
   ],
-  ['--angle-slider-label-color', 'var(--angle-slider-color)', 'Controls label text color.'],
-  ['--angle-slider-label-font-size', 'var(--text-sm)', 'Controls label font size.'],
-  ['--angle-slider-label-font-weight', 'var(--weight-medium)', 'Controls label font weight.'],
-  ['--angle-slider-label-line-height', 'var(--line-height-text-sm)', 'Controls label line height.'],
   [
-    '--angle-slider-marker-active-color',
-    'var(--color-primary)',
+    '--moduix-angle-slider-label-color',
+    'var(--moduix-angle-slider-color)',
+    'Controls label text color.',
+  ],
+  ['--moduix-angle-slider-label-font-size', 'var(--moduix-text-sm)', 'Controls label font size.'],
+  [
+    '--moduix-angle-slider-label-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls label font weight.',
+  ],
+  [
+    '--moduix-angle-slider-label-line-height',
+    'var(--moduix-line-height-text-sm)',
+    'Controls label line height.',
+  ],
+  [
+    '--moduix-angle-slider-marker-active-color',
+    'var(--moduix-color-primary)',
     'Controls marker color below the current value.',
   ],
   [
-    '--angle-slider-marker-color',
-    'var(--color-muted-foreground)',
+    '--moduix-angle-slider-marker-color',
+    'var(--moduix-color-muted-foreground)',
     'Controls inactive marker color.',
   ],
   [
-    '--angle-slider-marker-current-color',
-    'var(--color-foreground)',
+    '--moduix-angle-slider-marker-current-color',
+    'var(--moduix-color-foreground)',
     'Controls marker color at the current value.',
   ],
-  ['--angle-slider-marker-height', '0.625rem', 'Controls marker height.'],
-  ['--angle-slider-marker-width', '0.125rem', 'Controls marker width.'],
-  ['--angle-slider-radius', 'var(--radius-full)', 'Controls dial corner radius.'],
-  ['--angle-slider-ring-thickness', '0.875rem', 'Controls outer ring thickness.'],
-  ['--angle-slider-shadow', 'none', 'Controls dial outer shadow.'],
-  ['--angle-slider-size', '8rem', 'Controls the dial width and height.'],
+  ['--moduix-angle-slider-marker-height', '0.625rem', 'Controls marker height.'],
+  ['--moduix-angle-slider-marker-width', '0.125rem', 'Controls marker width.'],
+  ['--moduix-angle-slider-radius', 'var(--moduix-radius-full)', 'Controls dial corner radius.'],
+  ['--moduix-angle-slider-ring-thickness', '0.875rem', 'Controls outer ring thickness.'],
+  ['--moduix-angle-slider-shadow', 'none', 'Controls dial outer shadow.'],
+  ['--moduix-angle-slider-size', '8rem', 'Controls the dial width and height.'],
   [
-    '--angle-slider-thumb-bg',
-    'var(--angle-slider-indicator-bg)',
+    '--moduix-angle-slider-thumb-bg',
+    'var(--moduix-angle-slider-indicator-bg)',
     'Controls the thumb circle fill color.',
   ],
-  ['--angle-slider-thumb-border-color', 'var(--color-border)', 'Controls the thumb border color.'],
   [
-    '--angle-slider-thumb-border-width',
-    'var(--border-width-sm)',
+    '--moduix-angle-slider-thumb-border-color',
+    'var(--moduix-color-border)',
+    'Controls the thumb border color.',
+  ],
+  [
+    '--moduix-angle-slider-thumb-border-width',
+    'var(--moduix-border-width-sm)',
     'Controls the thumb border width.',
   ],
-  ['--angle-slider-thumb-line-width', '0.1875rem', 'Controls the active line thickness.'],
-  ['--angle-slider-thumb-radius', 'var(--radius-full)', 'Controls the thumb corner radius.'],
-  ['--angle-slider-thumb-shadow', 'var(--shadow-sm)', 'Controls the thumb shadow.'],
-  ['--angle-slider-thumb-size', 'var(--spacing-4)', 'Controls the thumb circle size.'],
-  ['--angle-slider-track-bg', 'var(--color-muted)', 'Controls the outer ring color.'],
+  ['--moduix-angle-slider-thumb-line-width', '0.1875rem', 'Controls the active line thickness.'],
   [
-    '--angle-slider-track-border-color',
-    'var(--color-border)',
+    '--moduix-angle-slider-thumb-radius',
+    'var(--moduix-radius-full)',
+    'Controls the thumb corner radius.',
+  ],
+  ['--moduix-angle-slider-thumb-shadow', 'var(--moduix-shadow-sm)', 'Controls the thumb shadow.'],
+  [
+    '--moduix-angle-slider-thumb-size',
+    'var(--moduix-spacing-4)',
+    'Controls the thumb circle size.',
+  ],
+  ['--moduix-angle-slider-track-bg', 'var(--moduix-color-muted)', 'Controls the outer ring color.'],
+  [
+    '--moduix-angle-slider-track-border-color',
+    'var(--moduix-color-border)',
     'Controls the outer ring border color.',
   ],
   [
-    '--angle-slider-track-border-width',
-    'var(--border-width-sm)',
+    '--moduix-angle-slider-track-border-width',
+    'var(--moduix-border-width-sm)',
     'Controls the outer ring border width.',
   ],
-  ['--angle-slider-transition', 'var(--transition-default)', 'Controls thumb transition timing.'],
-  ['--angle-slider-value-text-color', 'var(--angle-slider-color)', 'Controls value text color.'],
-  ['--angle-slider-value-text-font-size', 'var(--text-sm)', 'Controls value text font size.'],
   [
-    '--angle-slider-value-text-font-weight',
-    'var(--weight-medium)',
+    '--moduix-angle-slider-transition',
+    'var(--moduix-transition-default)',
+    'Controls thumb transition timing.',
+  ],
+  [
+    '--moduix-angle-slider-value-text-color',
+    'var(--moduix-angle-slider-color)',
+    'Controls value text color.',
+  ],
+  [
+    '--moduix-angle-slider-value-text-font-size',
+    'var(--moduix-text-sm)',
+    'Controls value text font size.',
+  ],
+  [
+    '--moduix-angle-slider-value-text-font-weight',
+    'var(--moduix-weight-medium)',
     'Controls value text font weight.',
   ],
   [
-    '--angle-slider-value-text-line-height',
-    'var(--line-height-text-sm)',
+    '--moduix-angle-slider-value-text-line-height',
+    'var(--moduix-line-height-text-sm)',
     'Controls value text line height.',
   ],
 ];

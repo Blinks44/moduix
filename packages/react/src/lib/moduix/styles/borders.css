@@ -1,10 +1,10 @@
 :root {
-  --border-width-sm: 1px;
-  --border-width-md: 2px;
-  --border-width-lg: 4px;
+  --moduix-border-width-sm: 1px;
+  --moduix-border-width-md: 2px;
+  --moduix-border-width-lg: 4px;
 
-  --focus-ring-width: var(--border-width-md);
-  --focus-ring-inset-width: var(--border-width-sm);
-  --focus-ring-offset: var(--spacing-0-5);
-  --focus-ring-inset-offset: calc(var(--border-width-sm) * -1);
+  --moduix-focus-ring-width: var(--moduix-border-width-md);
+  --moduix-focus-ring-inset-width: var(--moduix-border-width-sm);
+  --moduix-focus-ring-offset: var(--moduix-spacing-0-5);
+  --moduix-focus-ring-inset-offset: calc(var(--moduix-border-width-sm) * -1);
 }

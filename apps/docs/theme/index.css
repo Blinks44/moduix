@@ -21,6 +21,7 @@
   --rp-c-text-code: oklch(0.39 0.035 285);
   --moduix-doc-card: oklch(0.96 0.006 285);
   --moduix-doc-secondary: oklch(0.95 0.008 285);
+  --moduix-doc-preview-bg: oklch(1 0 0);
   --rp-code-block-bg: var(--moduix-doc-card);
   --rp-code-title-bg: var(--moduix-doc-secondary);
   --rp-radius: 0.875rem;
@@ -51,11 +52,7 @@
   --rp-c-text-code: oklch(0.82 0.025 285);
   --moduix-doc-card: oklch(0.185 0.01 285);
   --moduix-doc-secondary: oklch(0.215 0.011 285);
-
-  .rp-preview--internal__card,
-  .rp-tabs__label__item--selected {
-    background: var(--moduix-doc-card);
-  }
+  --moduix-doc-preview-bg: var(--moduix-doc-card);
 }
 
 html {
@@ -168,7 +165,7 @@ body {
     border-color: var(--rp-c-divider-light);
     border-radius: var(--rp-radius);
     padding: 1.5rem;
-    background: #fff;
+    background: var(--moduix-doc-preview-bg);
   }
 
   .rp-preview--internal__card__content {

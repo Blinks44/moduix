@@ -46,8 +46,8 @@ form the public theming surface.
 ## Use with the npm package
 
 Import the foundation first, then one preset. Put `data-moduix-theme` on `<html>` so portalled
-components inherit the same tokens. Keep `dark` on that element when the application is in dark
-mode.
+components inherit the same tokens. Set `data-moduix-color-scheme="dark"` on that element for the
+moduix dark palette.
 
 ```tsx
 import '@moduix/react/style.css';
@@ -55,7 +55,7 @@ import '@moduix/react/presets/soft.css';
 ```
 
 ```html
-<html data-moduix-theme="soft" class="dark"></html>
+<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
 ```
 
 Choose one of these paths instead of `soft.css`:
@@ -92,8 +92,8 @@ exceptions.
 
 ```css
 [data-moduix-theme='soft'] {
-  --primary: oklch(0.5 0.17 285);
-  --radius: 0.875rem;
+  --moduix-primary: oklch(0.5 0.17 285);
+  --moduix-radius: 0.875rem;
 }
 ```
 
@@ -112,37 +112,35 @@ import './brand.css';
 ```css
 /* brand.css */
 [data-moduix-theme='brand'] {
-  color-scheme: light;
-  --background: oklch(0.98 0.01 260);
-  --foreground: oklch(0.2 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 260);
-  --primary: oklch(0.5 0.18 260);
-  --primary-foreground: oklch(0.99 0.002 260);
-  --border: oklch(0.86 0.02 260);
-  --input: oklch(0.82 0.025 260);
-  --ring: oklch(0.58 0.15 260);
-  --radius: 0.875rem;
-  --size-sm: 2rem;
-  --size-md: 2.25rem;
+  --moduix-background: oklch(0.98 0.01 260);
+  --moduix-foreground: oklch(0.2 0.02 260);
+  --moduix-card: oklch(1 0 0);
+  --moduix-card-foreground: oklch(0.2 0.02 260);
+  --moduix-primary: oklch(0.5 0.18 260);
+  --moduix-primary-foreground: oklch(0.99 0.002 260);
+  --moduix-border: oklch(0.86 0.02 260);
+  --moduix-input: oklch(0.82 0.025 260);
+  --moduix-ring: oklch(0.58 0.15 260);
+  --moduix-radius: 0.875rem;
+  --moduix-size-sm: 2rem;
+  --moduix-size-md: 2.25rem;
 }
 
-[data-moduix-theme='brand'].dark {
-  color-scheme: dark;
-  --background: oklch(0.17 0.02 260);
-  --foreground: oklch(0.97 0.004 260);
-  --card: oklch(0.22 0.024 260);
-  --card-foreground: oklch(0.97 0.004 260);
-  --primary: oklch(0.78 0.13 260);
-  --primary-foreground: oklch(0.18 0.024 260);
-  --border: oklch(0.76 0.03 260 / 0.28);
-  --input: oklch(0.76 0.03 260 / 0.34);
-  --ring: oklch(0.74 0.12 260);
+[data-moduix-theme='brand'][data-moduix-color-scheme='dark'] {
+  --moduix-background: oklch(0.17 0.02 260);
+  --moduix-foreground: oklch(0.97 0.004 260);
+  --moduix-card: oklch(0.22 0.024 260);
+  --moduix-card-foreground: oklch(0.97 0.004 260);
+  --moduix-primary: oklch(0.78 0.13 260);
+  --moduix-primary-foreground: oklch(0.18 0.024 260);
+  --moduix-border: oklch(0.76 0.03 260 / 0.28);
+  --moduix-input: oklch(0.76 0.03 260 / 0.34);
+  --moduix-ring: oklch(0.74 0.12 260);
 }
 ```
 
 ```html
-<html data-moduix-theme="brand" class="dark"></html>
+<html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
 ```
 
 Use [Tokens](/docs/tokens) for the complete reference and [Dark mode](/docs/dark-mode) for the

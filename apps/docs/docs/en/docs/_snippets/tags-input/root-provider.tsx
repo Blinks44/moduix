@@ -1,5 +1,6 @@
 import { TagsInput, useTagsInput } from '@moduix/react';
 import { useId } from 'react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 export default function RootProviderTagsInput() {
   const id = useId();
@@ -8,25 +9,27 @@ export default function RootProviderTagsInput() {
     defaultValue: ['React'],
   });
   return (
-    <div>
-      <button type="button" onClick={() => tagsInput.addValue('Solid')}>
-        Add Solid
-      </button>
-      <button type="button" onClick={() => tagsInput.clearValue()}>
-        Clear
-      </button>
-      <button type="button" onClick={tagsInput.focus}>
-        Focus
-      </button>
+    <PreviewLayout maxWidth="24rem">
+      <div>
+        <button type="button" onClick={() => tagsInput.addValue('Solid')}>
+          Add Solid
+        </button>
+        <button type="button" onClick={() => tagsInput.clearValue()}>
+          Clear
+        </button>
+        <button type="button" onClick={tagsInput.focus}>
+          Focus
+        </button>
 
-      <TagsInput.RootProvider value={tagsInput}>
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput.RootProvider>
-    </div>
+        <TagsInput.RootProvider value={tagsInput}>
+          <TagsInput.Label>Frameworks</TagsInput.Label>
+          <TagsInput.Control>
+            <TagsInput.Items />
+            <TagsInput.Input placeholder="Add framework" />
+            <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+          </TagsInput.Control>
+        </TagsInput.RootProvider>
+      </div>
+    </PreviewLayout>
   );
 }

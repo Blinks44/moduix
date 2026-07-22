@@ -1,7 +1,7 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: block;
-    border-radius: var(--image-radius, var(--radius-md));
+    border-radius: var(--moduix-image-radius, var(--moduix-radius-md));
   }
 }

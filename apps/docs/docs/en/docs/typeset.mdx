@@ -63,9 +63,9 @@ Use CSS variables to create roomier or denser presets without adding component p
 
 <style>{`
       .typeset-reading {
-        --typeset-size: 1.125rem;
-        --typeset-leading: 1.9;
-        --typeset-flow: 1.75em;
+        --moduix-typeset-size: 1.125rem;
+        --moduix-typeset-leading: 1.9;
+        --moduix-typeset-flow: 1.75em;
       }
     `}</style>
 
@@ -80,8 +80,8 @@ grows.
 
 <style>{`
       .typeset-chat {
-        --typeset-leading: 1.6;
-        --typeset-flow: 0.875em;
+        --moduix-typeset-leading: 1.6;
+        --moduix-typeset-flow: 0.875em;
       }
     `}</style>
 
@@ -120,10 +120,10 @@ exclude the marked element and everything inside it, including a nested `Typeset
 
 <style>{`
       .app-surface {
-        padding: var(--spacing-4);
-        border: var(--border-width-sm) solid var(--color-border);
-        border-radius: var(--radius-md);
-        background: var(--color-muted);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+        border-radius: var(--moduix-radius-md);
+        background: var(--moduix-color-muted);
       }
     `}</style>
 
@@ -147,9 +147,9 @@ exclude the marked element and everything inside it, including a nested `Typeset
   </Tabs>
 </div>
 
-The three rhythm controls are `--typeset-size`, `--typeset-leading`, and `--typeset-flow`. Font
+The three rhythm controls are `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow`. Font
 variables are optional; colors, borders, and radius come straight from the active moduix theme.
-Element rules live in the `ui.components` layer and use low-specificity `:where()` selectors, so
+Element rules live in the `moduix.components` layer and use low-specificity `:where()` selectors, so
 normal application CSS can override individual elements without `!important`.
 
 ### Styling hooks

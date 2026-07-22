@@ -3,48 +3,26 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .stack {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
 }
 
 .hint {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 .underline {
   text-decoration: underline;
 }
 
-.contextGroup {
-  & [data-slot='toggle-group-item'] {
-    min-width: 4rem;
-  }
-}
-
 .iconGroup {
-  --toggle-icon-size: 1rem;
-}
-
-.customGroup {
-  --toggle-group-bg: color-mix(in oklab, var(--color-primary) 8%, transparent);
-  --toggle-group-border-color: color-mix(in oklab, var(--color-primary) 38%, var(--color-border));
-  --toggle-group-gap: var(--spacing-1);
-  --toggle-group-padding: var(--spacing-1);
-  --toggle-group-radius: var(--radius-md);
-  --toggle-default-bg-pressed: var(--color-primary);
-  --toggle-default-border-color-pressed: var(--color-primary);
-  --toggle-default-color-pressed: var(--color-primary-foreground);
-}
-
-.customItem {
-  --toggle-group-item-radius: var(--radius-sm);
-  --toggle-padding-x-md: var(--spacing-3);
+  --moduix-toggle-icon-size: 1rem;
 }

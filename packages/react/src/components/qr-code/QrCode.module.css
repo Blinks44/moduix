@@ -1,24 +1,24 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     position: relative;
     box-sizing: border-box;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--qr-code-gap, var(--spacing-3));
+    gap: var(--moduix-qr-code-gap, var(--moduix-spacing-3));
     width: fit-content;
-    max-width: var(--qr-code-max-width, 100%);
-    color: var(--qr-code-color, var(--color-foreground));
+    max-width: var(--moduix-qr-code-max-width, 100%);
+    color: var(--moduix-qr-code-color, var(--moduix-color-foreground));
   }
 
   .frame {
     box-sizing: border-box;
     display: block;
-    width: min(var(--qr-code-size, 8rem), 100%);
+    width: min(var(--moduix-qr-code-size, 8rem), 100%);
     aspect-ratio: 1;
     height: auto;
     color: inherit;
-    fill: var(--qr-code-fill, currentColor);
+    fill: var(--moduix-qr-code-fill, currentColor);
   }
 
   .pattern {
@@ -30,12 +30,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--qr-code-overlay-size, var(--size-lg));
-    height: var(--qr-code-overlay-size, var(--size-lg));
-    padding: var(--qr-code-overlay-padding, var(--spacing-1));
-    border-radius: var(--qr-code-overlay-radius, var(--radius-sm));
-    background-color: var(--qr-code-overlay-bg, var(--color-background));
-    color: var(--qr-code-overlay-color, var(--color-foreground));
+    width: var(--moduix-qr-code-overlay-size, var(--moduix-size-lg));
+    height: var(--moduix-qr-code-overlay-size, var(--moduix-size-lg));
+    padding: var(--moduix-qr-code-overlay-padding, var(--moduix-spacing-1));
+    border-radius: var(--moduix-qr-code-overlay-radius, var(--moduix-radius-sm));
+    background-color: var(--moduix-qr-code-overlay-bg, var(--moduix-color-background));
+    color: var(--moduix-qr-code-overlay-color, var(--moduix-color-foreground));
   }
 
   .overlay :where(img, svg) {
@@ -49,84 +49,124 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--qr-code-download-trigger-gap, var(--button-content-gap, var(--spacing-2)));
-    min-height: var(--qr-code-download-trigger-height, var(--button-size-md, var(--size-md)));
+    gap: var(
+      --moduix-qr-code-download-trigger-gap,
+      var(--moduix-button-content-gap, var(--moduix-spacing-2))
+    );
+    min-height: var(
+      --moduix-qr-code-download-trigger-height,
+      var(--moduix-button-size-md, var(--moduix-size-md))
+    );
     padding-inline: var(
-      --qr-code-download-trigger-padding-x,
-      var(--button-padding-x-md, var(--spacing-4))
+      --moduix-qr-code-download-trigger-padding-x,
+      var(--moduix-button-padding-x-md, var(--moduix-spacing-4))
     );
     border: var(
-        --qr-code-download-trigger-border-width,
-        var(--button-border-width, var(--border-width-sm))
+        --moduix-qr-code-download-trigger-border-width,
+        var(--moduix-button-border-width, var(--moduix-border-width-sm))
       )
       solid
       var(
-        --qr-code-download-trigger-border-color,
-        var(--button-outline-border-color, var(--color-border))
+        --moduix-qr-code-download-trigger-border-color,
+        var(--moduix-button-outline-border-color, var(--moduix-color-border))
       );
-    border-radius: var(--qr-code-download-trigger-radius, var(--button-radius, var(--radius-md)));
+    border-radius: var(
+      --moduix-qr-code-download-trigger-radius,
+      var(--moduix-button-radius, var(--moduix-radius-md))
+    );
     background-color: var(
-      --qr-code-download-trigger-bg,
-      var(--button-outline-bg, var(--color-background))
+      --moduix-qr-code-download-trigger-bg,
+      var(--moduix-button-outline-bg, var(--moduix-color-background))
     );
     color: var(
-      --qr-code-download-trigger-color,
-      var(--button-outline-color, var(--color-foreground))
+      --moduix-qr-code-download-trigger-color,
+      var(--moduix-button-outline-color, var(--moduix-color-foreground))
     );
     appearance: none;
     font: inherit;
-    font-size: var(--qr-code-download-trigger-font-size, var(--button-font-size, var(--text-sm)));
+    font-size: var(
+      --moduix-qr-code-download-trigger-font-size,
+      var(--moduix-button-font-size, var(--moduix-text-sm))
+    );
     font-weight: var(
-      --qr-code-download-trigger-font-weight,
-      var(--button-font-weight, var(--weight-medium))
+      --moduix-qr-code-download-trigger-font-weight,
+      var(--moduix-button-font-weight, var(--moduix-weight-medium))
     );
     line-height: var(
-      --qr-code-download-trigger-line-height,
-      var(--button-line-height, var(--line-height-text-sm))
+      --moduix-qr-code-download-trigger-line-height,
+      var(--moduix-button-line-height, var(--moduix-line-height-text-sm))
     );
     user-select: none;
     white-space: nowrap;
     cursor: pointer;
     transition:
-      border-color var(--qr-code-transition, var(--button-transition, var(--transition-default))),
+      border-color
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
       background-color
-        var(--qr-code-transition, var(--button-transition, var(--transition-default))),
-      color var(--qr-code-transition, var(--button-transition, var(--transition-default))),
-      opacity var(--qr-code-transition, var(--button-transition, var(--transition-default))),
-      box-shadow var(--qr-code-transition, var(--button-transition, var(--transition-default)));
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      color
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      opacity
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      box-shadow
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
+        );
   }
 
   .downloadTrigger :where(svg) {
-    width: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, var(--spacing-4)));
-    height: var(--qr-code-download-trigger-icon-size, var(--button-icon-size, var(--spacing-4)));
+    width: var(
+      --moduix-qr-code-download-trigger-icon-size,
+      var(--moduix-button-icon-size, var(--moduix-spacing-4))
+    );
+    height: var(
+      --moduix-qr-code-download-trigger-icon-size,
+      var(--moduix-button-icon-size, var(--moduix-spacing-4))
+    );
     flex-shrink: 0;
   }
 
   @media (hover: hover) {
     .downloadTrigger:hover:not(:disabled, [data-disabled]) {
       background-color: var(
-        --qr-code-download-trigger-bg-hover,
-        var(--button-outline-bg-hover, var(--color-accent))
+        --moduix-qr-code-download-trigger-bg-hover,
+        var(--moduix-button-outline-bg-hover, var(--moduix-color-accent))
       );
     }
   }
 
   .downloadTrigger:focus-visible {
     outline: var(
-        --qr-code-download-trigger-focus-ring-width,
-        var(--button-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
+        --moduix-qr-code-download-trigger-focus-ring-width,
+        var(
+          --moduix-button-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
       )
       solid
       var(
-        --qr-code-download-trigger-focus-ring-color,
-        var(--button-focus-ring-color, var(--color-ring))
+        --moduix-qr-code-download-trigger-focus-ring-color,
+        var(--moduix-button-focus-ring-color, var(--moduix-color-ring))
       );
     outline-offset: calc(
       var(
-          --qr-code-download-trigger-focus-ring-offset,
+          --moduix-qr-code-download-trigger-focus-ring-offset,
           var(
-            --qr-code-download-trigger-border-width,
-            var(--button-border-width, var(--border-width-sm))
+            --moduix-qr-code-download-trigger-border-width,
+            var(--moduix-button-border-width, var(--moduix-border-width-sm))
           )
         ) *
         -1
@@ -137,8 +177,8 @@
   .downloadTrigger[data-disabled] {
     pointer-events: none;
     opacity: var(
-      --qr-code-disabled-opacity,
-      var(--button-disabled-opacity, var(--opacity-disabled))
+      --moduix-qr-code-disabled-opacity,
+      var(--moduix-button-disabled-opacity, var(--moduix-opacity-disabled))
     );
   }
 }

@@ -1,26 +1,22 @@
-@layer ui.stories {
+@layer moduix.stories {
   .stack {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .triggerGroup {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--spacing-2);
+    gap: var(--moduix-spacing-2);
   }
 
   .triggerContent {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-2);
-  }
-
-  .status {
-    font-weight: var(--weight-medium);
+    gap: var(--moduix-spacing-2);
   }
 
   .icon {
@@ -30,19 +26,19 @@
 
   .field {
     display: grid;
-    gap: var(--spacing-2);
-    margin-top: var(--spacing-3);
-    font-size: var(--text-sm);
+    gap: var(--moduix-spacing-2);
+    margin-top: var(--moduix-spacing-3);
+    font-size: var(--moduix-text-sm);
   }
 
   .input {
     min-width: 16rem;
-    min-height: var(--size-lg);
-    padding: 0 var(--spacing-3);
-    border: var(--border-width-sm) solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-background);
-    color: var(--color-foreground);
+    min-height: var(--moduix-size-lg);
+    padding: 0 var(--moduix-spacing-3);
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background: var(--moduix-color-background);
+    color: var(--moduix-color-foreground);
     font: inherit;
   }
 
@@ -56,6 +52,6 @@
   }
 
   .nestedBody {
-    margin-top: var(--spacing-3);
+    margin-top: var(--moduix-spacing-3);
   }
 }

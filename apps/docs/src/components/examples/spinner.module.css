@@ -1,25 +1,19 @@
 .row {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
+  gap: var(--moduix-spacing-4);
 }
 
 .inline {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
 }
 
 .muted {
-  color: var(--color-muted-foreground);
-}
-
-.brandSpinner {
-  --spinner-color: var(--color-primary);
-  --spinner-ring-border-width: var(--border-width-lg);
-  --spinner-ring-track-color: color-mix(in oklab, var(--color-primary) 22%, transparent 40%);
+  color: var(--moduix-color-muted-foreground);
 }
 
 .customSpinnerHost {
-  color: var(--color-primary);
+  color: var(--moduix-color-primary);
 }

@@ -1,6 +1,7 @@
 import { Button, TagsInput } from '@moduix/react';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 export default function FormTagsInput() {
   const [submittedValue, setSubmittedValue] = useState('');
@@ -11,17 +12,19 @@ export default function FormTagsInput() {
   };
 
   return (
-    <form className="tags-input-form" onSubmit={handleSubmit}>
-      <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
-        <TagsInput.Label>Frameworks</TagsInput.Label>
-        <TagsInput.Control>
-          <TagsInput.Items />
-          <TagsInput.Input placeholder="Add framework" />
-          <TagsInput.ClearTrigger aria-label="Clear frameworks" />
-        </TagsInput.Control>
-      </TagsInput>
-      <Button type="submit">Submit</Button>
-      <output>Submitted value: {submittedValue || 'none'}</output>
-    </form>
+    <PreviewLayout maxWidth="24rem">
+      <form className="tags-input-form" onSubmit={handleSubmit}>
+        <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
+          <TagsInput.Label>Frameworks</TagsInput.Label>
+          <TagsInput.Control>
+            <TagsInput.Items />
+            <TagsInput.Input placeholder="Add framework" />
+            <TagsInput.ClearTrigger aria-label="Clear frameworks" />
+          </TagsInput.Control>
+        </TagsInput>
+        <Button type="submit">Submit</Button>
+        <output>Submitted value: {submittedValue || 'none'}</output>
+      </form>
+    </PreviewLayout>
   );
 }

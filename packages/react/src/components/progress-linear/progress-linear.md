@@ -80,7 +80,7 @@ export function ExportProgress() {
 }
 ```
 
-Use `orientation="vertical"` for vertical progress and set `--progress-linear-height` when the
+Use `orientation="vertical"` for vertical progress and set `--moduix-progress-linear-height` when the
 default `12rem` height does not fit the layout.
 
 ## Upstream feature coverage
@@ -109,7 +109,7 @@ and view keep their Ark `data-scope` / `data-part` hooks. `data-state` can be `i
 ## Defaults and styling
 
 The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavior to Ark. Public
-theme variables use the `--progress-linear-*` prefix for root color/gap/width/height, label text,
+theme variables use the `--moduix-progress-linear-*` prefix for root color/gap/width/height, label text,
 value text, track color/border/radius/size, range color/radius/transition, and indeterminate
 animations.
 
@@ -147,5 +147,5 @@ escape hatch. When changing styling hooks or CSS variables, update docs examples
 - 2026-06-26: Audited the Ark migration, aligned local docs to the required structure, added
   documented vertical orientation styling, and removed stale story CSS.
 - Added `ProgressLinear` as an Ark UI linear progress wrapper with RootProvider, Context, hook
-  exports, and `--progress-linear-*` styling tokens.
+  exports, and `--moduix-progress-linear-*` styling tokens.
 - Split progress into dedicated `ProgressLinear` and `ProgressCircular` public components.

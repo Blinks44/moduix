@@ -798,15 +798,15 @@
 }
 
 .shadowCard[data-depth='1'] {
-  box-shadow: var(--shadow-sm, 0 2px 4px 0 #0000001a);
+  box-shadow: var(--moduix-shadow-sm, 0 2px 4px 0 #0000001a);
 }
 
 .shadowCard[data-depth='2'] {
-  box-shadow: var(--shadow-md, 0 4px 6px -1px #0000001a);
+  box-shadow: var(--moduix-shadow-md, 0 4px 6px -1px #0000001a);
 }
 
 .shadowCard[data-depth='3'] {
-  box-shadow: var(--shadow-lg, 0 10px 15px -3px #0000001a);
+  box-shadow: var(--moduix-shadow-lg, 0 10px 15px -3px #0000001a);
 }
 
 .backdropPreview {
@@ -853,7 +853,7 @@
   border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 86%, transparent);
   border-radius: 0.5rem;
   background: var(--rp-c-bg-soft);
-  box-shadow: var(--shadow-lg, 0 10px 15px -3px #0000001a);
+  box-shadow: var(--moduix-shadow-lg, 0 10px 15px -3px #0000001a);
   transform: translate(-50%, -50%);
 }
 

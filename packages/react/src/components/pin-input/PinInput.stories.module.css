@@ -1,26 +1,26 @@
-@layer ui.storybook {
+@layer moduix.storybook {
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     align-items: flex-start;
   }
 
   .hint {
     margin: 0;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-xs);
-    line-height: var(--line-height-text-xs);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    line-height: var(--moduix-line-height-text-xs);
   }
 
   .customRoot {
-    --pin-input-separator-size: 1.5rem;
-    --pin-input-separator-color: var(--color-primary);
+    --moduix-pin-input-separator-size: 1.5rem;
+    --moduix-pin-input-separator-color: var(--moduix-color-primary);
   }
 
   .customInput {
-    --pin-input-input-width: 3rem;
-    --pin-input-input-height: 3rem;
-    --pin-input-font-size: var(--text-xl);
-    --pin-input-bg: var(--color-muted);
+    --moduix-pin-input-input-width: 3rem;
+    --moduix-pin-input-input-height: 3rem;
+    --moduix-pin-input-font-size: var(--moduix-text-xl);
+    --moduix-pin-input-bg: var(--moduix-color-muted);
   }
 }

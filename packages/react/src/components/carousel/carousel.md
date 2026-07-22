@@ -170,33 +170,33 @@ introducing another render prop.
 
 Primary theme variables:
 
-| Variable                                  | Default                                                                     | Notes                                              |
-| ----------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------- |
-| `--carousel-control-bg`                   | `color-mix(in oklab, var(--color-background) 92%, var(--color-card) 8%)`    | Trigger and autoplay button background.            |
-| `--carousel-control-bg-hover`             | `var(--color-accent)`                                                       | Trigger and autoplay button hover background.      |
-| `--carousel-control-border-color`         | `color-mix(in oklab, var(--color-border) 88%, black 12%)`                   | Trigger and autoplay button border.                |
-| `--carousel-control-border-color-hover`   | `color-mix(in oklab, var(--color-border) 50%, var(--color-foreground) 50%)` | Trigger and autoplay button hover border.          |
-| `--carousel-control-color`                | `var(--color-foreground)`                                                   | Trigger and autoplay button icon or text color.    |
-| `--carousel-control-color-hover`          | `var(--color-accent-foreground)`                                            | Trigger and autoplay button hover icon/text.       |
-| `--carousel-control-shadow`               | `var(--shadow-sm)`                                                          | Trigger and autoplay button shadow.                |
-| `--carousel-control-shadow-hover`         | `var(--shadow-md)`                                                          | Trigger and autoplay button hover shadow.          |
-| `--carousel-autoplay-indicator-min-width` | `var(--spacing-4)`                                                          | Minimum width reserved for autoplay status.        |
-| `--carousel-autoplay-trigger-min-width`   | `calc(var(--size-md) + var(--spacing-3))`                                   | Minimum width for the labelled autoplay trigger.   |
-| `--carousel-control-icon-size`            | `var(--spacing-4)`                                                          | Trigger icon size.                                 |
-| `--carousel-control-size`                 | `var(--size-md)`                                                            | Trigger size.                                      |
-| `--carousel-focus-ring-color`             | `var(--color-ring)`                                                         | Focus ring color for triggers and indicators.      |
-| `--carousel-focus-ring-offset`            | `var(--focus-ring-offset)`                                                  | Focus ring offset.                                 |
-| `--carousel-focus-ring-width`             | `var(--focus-ring-width, var(--border-width-md))`                           | Focus ring width.                                  |
-| `--carousel-gap`                          | `var(--spacing-3)`                                                          | Gap between carousel parts.                        |
-| `--carousel-height`                       | `24rem`                                                                     | Vertical-only root height. No effect horizontally. |
-| `--carousel-indicator-bg`                 | `color-mix(in oklab, var(--color-muted) 84%, var(--color-background) 16%)`  | Idle indicator color.                              |
-| `--carousel-indicator-bg-current`         | `var(--color-primary)`                                                      | Active indicator color.                            |
-| `--carousel-indicator-bg-hover`           | `color-mix(in oklab, var(--color-muted) 56%, var(--color-foreground) 44%)`  | Indicator hover color.                             |
-| `--carousel-indicator-gap`                | `var(--spacing-2)`                                                          | Gap between indicators.                            |
-| `--carousel-indicator-size`               | `var(--spacing-2)`                                                          | Base indicator size.                               |
-| `--carousel-progress-text-color`          | `var(--color-muted-foreground)`                                             | Progress text color.                               |
-| `--carousel-progress-text-font-size`      | `var(--text-sm)`                                                            | Progress text font size.                           |
-| `--carousel-track-radius`                 | `var(--radius-xl)`                                                          | Scroll track radius.                               |
+| Variable                                         | Default                                                                                   | Notes                                              |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `--moduix-carousel-control-bg`                   | `color-mix(in oklab, var(--moduix-color-background) 92%, var(--moduix-color-card) 8%)`    | Trigger and autoplay button background.            |
+| `--moduix-carousel-control-bg-hover`             | `var(--moduix-color-accent)`                                                              | Trigger and autoplay button hover background.      |
+| `--moduix-carousel-control-border-color`         | `color-mix(in oklab, var(--moduix-color-border) 88%, black 12%)`                          | Trigger and autoplay button border.                |
+| `--moduix-carousel-control-border-color-hover`   | `color-mix(in oklab, var(--moduix-color-border) 50%, var(--moduix-color-foreground) 50%)` | Trigger and autoplay button hover border.          |
+| `--moduix-carousel-control-color`                | `var(--moduix-color-foreground)`                                                          | Trigger and autoplay button icon or text color.    |
+| `--moduix-carousel-control-color-hover`          | `var(--moduix-color-accent-foreground)`                                                   | Trigger and autoplay button hover icon/text.       |
+| `--moduix-carousel-control-shadow`               | `var(--moduix-shadow-sm)`                                                                 | Trigger and autoplay button shadow.                |
+| `--moduix-carousel-control-shadow-hover`         | `var(--moduix-shadow-md)`                                                                 | Trigger and autoplay button hover shadow.          |
+| `--moduix-carousel-autoplay-indicator-min-width` | `var(--moduix-spacing-4)`                                                                 | Minimum width reserved for autoplay status.        |
+| `--moduix-carousel-autoplay-trigger-min-width`   | `calc(var(--moduix-size-md) + var(--moduix-spacing-3))`                                   | Minimum width for the labelled autoplay trigger.   |
+| `--moduix-carousel-control-icon-size`            | `var(--moduix-spacing-4)`                                                                 | Trigger icon size.                                 |
+| `--moduix-carousel-control-size`                 | `var(--moduix-size-md)`                                                                   | Trigger size.                                      |
+| `--moduix-carousel-focus-ring-color`             | `var(--moduix-color-ring)`                                                                | Focus ring color for triggers and indicators.      |
+| `--moduix-carousel-focus-ring-offset`            | `var(--moduix-focus-ring-offset)`                                                         | Focus ring offset.                                 |
+| `--moduix-carousel-focus-ring-width`             | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                           | Focus ring width.                                  |
+| `--moduix-carousel-gap`                          | `var(--moduix-spacing-3)`                                                                 | Gap between carousel parts.                        |
+| `--moduix-carousel-height`                       | `24rem`                                                                                   | Vertical-only root height. No effect horizontally. |
+| `--moduix-carousel-indicator-bg`                 | `color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-background) 16%)`  | Idle indicator color.                              |
+| `--moduix-carousel-indicator-bg-current`         | `var(--moduix-color-primary)`                                                             | Active indicator color.                            |
+| `--moduix-carousel-indicator-bg-hover`           | `color-mix(in oklab, var(--moduix-color-muted) 56%, var(--moduix-color-foreground) 44%)`  | Indicator hover color.                             |
+| `--moduix-carousel-indicator-gap`                | `var(--moduix-spacing-2)`                                                                 | Gap between indicators.                            |
+| `--moduix-carousel-indicator-size`               | `var(--moduix-spacing-2)`                                                                 | Base indicator size.                               |
+| `--moduix-carousel-progress-text-color`          | `var(--moduix-color-muted-foreground)`                                                    | Progress text color.                               |
+| `--moduix-carousel-progress-text-font-size`      | `var(--moduix-text-sm)`                                                                   | Progress text font size.                           |
+| `--moduix-carousel-track-radius`                 | `var(--moduix-radius-xl)`                                                                 | Scroll track radius.                               |
 
 ## Intentional sugar and differences from upstream
 

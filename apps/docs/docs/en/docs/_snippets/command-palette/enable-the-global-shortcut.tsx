@@ -32,7 +32,7 @@ export default function CommandPaletteShortcutDemo() {
           collection={collection}
           onInputValueChange={(details) => filter(details.inputValue)}
         >
-          <CommandPalette.Search />
+          <CommandPalette.Search placeholder="Search commands..." />
           <CommandPalette.List>
             <CommandPalette.Empty>No commands found.</CommandPalette.Empty>
             {collection.group().map(([section, items]) => (

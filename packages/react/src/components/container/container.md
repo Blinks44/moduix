@@ -35,7 +35,7 @@ to the rendered root, and no legacy `render` or legacy `as` contract.
 - Defaults to `size="lg"` and `gutter="md"`.
 - Centers itself with `margin-inline: auto`, always keeps `width: 100%`, and applies inline padding
   from the selected gutter.
-- Uses `max-width: calc(var(--container-max-width) + (var(--container-gutter) * 2))`, so the
+- Uses `max-width: calc(var(--moduix-container-max-width) + (var(--moduix-container-gutter) * 2))`, so the
   constrained width includes the root's left and right padding.
 - `size="full"` removes only the max-width cap. The root still keeps `width: 100%` and the selected
   gutter.
@@ -126,16 +126,16 @@ semantic element such as `main`, `section`, or `article` should own the DOM node
 
 Public CSS variables:
 
-| Variable                   | Default                                          | Used by       |
-| -------------------------- | ------------------------------------------------ | ------------- |
-| `--container-gutter-sm`    | `clamp(var(--spacing-3), 3vw, var(--spacing-6))` | `gutter="sm"` |
-| `--container-gutter-md`    | `clamp(var(--spacing-4), 4vw, var(--spacing-8))` | `gutter="md"` |
-| `--container-gutter-lg`    | `clamp(var(--spacing-6), 5vw, 3rem)`             | `gutter="lg"` |
-| `--container-max-width-xs` | `40rem`                                          | `size="xs"`   |
-| `--container-max-width-sm` | `48rem`                                          | `size="sm"`   |
-| `--container-max-width-md` | `64rem`                                          | `size="md"`   |
-| `--container-max-width-lg` | `72rem`                                          | `size="lg"`   |
-| `--container-max-width-xl` | `90rem`                                          | `size="xl"`   |
+| Variable                          | Default                                                        | Used by       |
+| --------------------------------- | -------------------------------------------------------------- | ------------- |
+| `--moduix-container-gutter-sm`    | `clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))` | `gutter="sm"` |
+| `--moduix-container-gutter-md`    | `clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))` | `gutter="md"` |
+| `--moduix-container-gutter-lg`    | `clamp(var(--moduix-spacing-6), 5vw, 3rem)`                    | `gutter="lg"` |
+| `--moduix-container-max-width-xs` | `40rem`                                                        | `size="xs"`   |
+| `--moduix-container-max-width-sm` | `48rem`                                                        | `size="sm"`   |
+| `--moduix-container-max-width-md` | `64rem`                                                        | `size="md"`   |
+| `--moduix-container-max-width-lg` | `72rem`                                                        | `size="lg"`   |
+| `--moduix-container-max-width-xl` | `90rem`                                                        | `size="xl"`   |
 
 There is no dedicated CSS variable for `size="full"` or `gutter="none"`: those states bypass the
 max-width cap or zero out the gutter directly. Override variables on the root or a parent scope
@@ -156,7 +156,7 @@ when a page shell needs different layout math.
 
 - Keep `Container` a thin single-root layout primitive.
 - Preserve `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
-  `data-size`, `data-gutter`, and the `--container-*` variable contract.
+  `data-size`, `data-gutter`, and the `--moduix-container-*` variable contract.
 - Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
   accidentally replaced.
 - Keep `size="full"` as "uncapped width with the current gutter", not as a different layout mode.

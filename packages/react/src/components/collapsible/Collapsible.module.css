@@ -1,15 +1,15 @@
-@layer ui.components {
+@layer moduix.components {
   @keyframes collapsible-content-open {
     from {
       height: var(--collapsed-height, 0);
       width: var(--collapsed-width, var(--width));
-      opacity: var(--collapsible-content-closed-opacity, 0.01);
+      opacity: var(--moduix-collapsible-content-closed-opacity, 0.01);
     }
 
     to {
       height: var(--height);
       width: var(--width);
-      opacity: var(--collapsible-content-open-opacity, 1);
+      opacity: var(--moduix-collapsible-content-open-opacity, 1);
     }
   }
 
@@ -17,24 +17,24 @@
     from {
       height: var(--height);
       width: var(--width);
-      opacity: var(--collapsible-content-open-opacity, 1);
+      opacity: var(--moduix-collapsible-content-open-opacity, 1);
     }
 
     to {
       height: var(--collapsed-height, 0);
       width: var(--collapsed-width, var(--width));
-      opacity: var(--collapsible-content-closed-opacity, 0.01);
+      opacity: var(--moduix-collapsible-content-closed-opacity, 0.01);
     }
   }
 
   .root {
     box-sizing: border-box;
     display: flex;
-    width: var(--collapsible-width, 100%);
-    max-width: var(--collapsible-max-width, 100%);
+    width: var(--moduix-collapsible-width, 100%);
+    max-width: var(--moduix-collapsible-max-width, 100%);
     min-width: 0;
     flex-direction: column;
-    color: var(--collapsible-color, var(--color-foreground));
+    color: var(--moduix-collapsible-color, var(--moduix-color-foreground));
   }
 
   .trigger {
@@ -43,54 +43,61 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    gap: var(--collapsible-trigger-gap, var(--spacing-2));
+    gap: var(--moduix-collapsible-trigger-gap, var(--moduix-spacing-2));
     margin: 0;
     border: 0;
-    border-radius: var(--collapsible-trigger-radius, 0);
-    padding-block: var(--collapsible-trigger-padding-y, var(--spacing-1));
-    padding-inline: var(--collapsible-trigger-padding-x, var(--spacing-2));
-    background-color: var(--collapsible-trigger-bg, transparent);
-    color: var(--collapsible-trigger-color, var(--collapsible-color, var(--color-foreground)));
+    border-radius: var(--moduix-collapsible-trigger-radius, 0);
+    padding-block: var(--moduix-collapsible-trigger-padding-y, var(--moduix-spacing-1));
+    padding-inline: var(--moduix-collapsible-trigger-padding-x, var(--moduix-spacing-2));
+    background-color: var(--moduix-collapsible-trigger-bg, transparent);
+    color: var(
+      --moduix-collapsible-trigger-color,
+      var(--moduix-collapsible-color, var(--moduix-color-foreground))
+    );
     font: inherit;
-    font-size: var(--collapsible-trigger-font-size, var(--text-sm));
-    line-height: var(--collapsible-trigger-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-collapsible-trigger-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-collapsible-trigger-line-height, var(--moduix-line-height-text-sm));
     text-align: left;
     user-select: none;
     outline: 0;
     cursor: pointer;
     transition:
-      background-color var(--collapsible-trigger-transition, var(--transition-default)),
-      color var(--collapsible-trigger-transition, var(--transition-default));
+      background-color
+        var(--moduix-collapsible-trigger-transition, var(--moduix-transition-default)),
+      color var(--moduix-collapsible-trigger-transition, var(--moduix-transition-default));
 
     &:focus-visible {
       outline: var(
-          --collapsible-focus-ring-width,
-          var(--focus-ring-inset-width, var(--border-width-sm))
+          --moduix-collapsible-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
         )
-        solid var(--collapsible-focus-ring-color, var(--color-ring));
-      outline-offset: var(--collapsible-focus-ring-offset, var(--border-width-sm));
+        solid var(--moduix-collapsible-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-collapsible-focus-ring-offset, var(--moduix-border-width-sm));
     }
 
     &:not(:is([disabled], [data-disabled])) {
       @media (hover: hover) {
         &:hover {
           background-color: var(
-            --collapsible-trigger-bg-hover,
-            var(--collapsible-trigger-bg, transparent)
+            --moduix-collapsible-trigger-bg-hover,
+            var(--moduix-collapsible-trigger-bg, transparent)
           );
         }
       }
 
       &:active {
         background-color: var(
-          --collapsible-trigger-bg-active,
-          var(--collapsible-trigger-bg-hover, var(--collapsible-trigger-bg, transparent))
+          --moduix-collapsible-trigger-bg-active,
+          var(
+            --moduix-collapsible-trigger-bg-hover,
+            var(--moduix-collapsible-trigger-bg, transparent)
+          )
         );
       }
     }
 
     &:is([disabled], [data-disabled]) {
-      opacity: var(--collapsible-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-collapsible-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
     }
   }
@@ -100,10 +107,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--collapsible-indicator-size, var(--spacing-3));
-    height: var(--collapsible-indicator-size, var(--spacing-3));
+    width: var(--moduix-collapsible-indicator-size, var(--moduix-spacing-3));
+    height: var(--moduix-collapsible-indicator-size, var(--moduix-spacing-3));
     flex-shrink: 0;
-    transition: transform var(--collapsible-indicator-transition, var(--transition-default));
+    transition: transform
+      var(--moduix-collapsible-indicator-transition, var(--moduix-transition-default));
 
     & > svg {
       width: 100%;
@@ -111,11 +119,11 @@
     }
 
     &[data-state='open'] {
-      transform: var(--collapsible-indicator-open-transform, rotate(180deg));
+      transform: var(--moduix-collapsible-indicator-open-transform, rotate(180deg));
     }
 
     &[data-disabled] {
-      opacity: var(--collapsible-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-collapsible-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -124,33 +132,39 @@
 
     box-sizing: border-box;
     overflow: hidden;
-    color: var(--collapsible-content-color, var(--color-muted-foreground));
-    font-size: var(--collapsible-content-font-size, var(--text-sm));
-    line-height: var(--collapsible-content-line-height, var(--line-height-text-sm));
+    color: var(--moduix-collapsible-content-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-collapsible-content-font-size, var(--moduix-text-sm));
+    line-height: var(--moduix-collapsible-content-line-height, var(--moduix-line-height-text-sm));
 
     &[data-state='open'] {
       animation: collapsible-content-open
-        var(--collapsible-content-transition, var(--transition-default));
+        var(--moduix-collapsible-content-transition, var(--moduix-transition-default));
 
       &[data-has-collapsed-size] {
-        --collapsible-content-closed-opacity: var(--collapsible-content-open-opacity, 1);
+        --moduix-collapsible-content-closed-opacity: var(
+          --moduix-collapsible-content-open-opacity,
+          1
+        );
       }
     }
 
     &[data-state='closed'] {
       animation: collapsible-content-closed
-        var(--collapsible-content-transition, var(--transition-default));
+        var(--moduix-collapsible-content-transition, var(--moduix-transition-default));
 
       &[data-has-collapsed-size] {
-        --collapsible-content-closed-opacity: var(--collapsible-content-open-opacity, 1);
+        --moduix-collapsible-content-closed-opacity: var(
+          --moduix-collapsible-content-open-opacity,
+          1
+        );
       }
     }
   }
 
   .body {
     display: grid;
-    gap: var(--collapsible-body-gap, var(--spacing-2));
+    gap: var(--moduix-collapsible-body-gap, var(--moduix-spacing-2));
     min-width: 0;
-    padding: var(--collapsible-body-padding, var(--spacing-2));
+    padding: var(--moduix-collapsible-body-padding, var(--moduix-spacing-2));
   }
 }

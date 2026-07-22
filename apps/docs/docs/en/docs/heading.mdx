@@ -62,7 +62,7 @@ component props, class name, data attributes, and forwarded ref.
 
 ### When to go custom
 
-Use `className` and the public `--heading-*` variables for visual overrides. Use `Text` instead when
+Use `className` and the public `--moduix-heading-*` variables for visual overrides. Use `Text` instead when
 the content is body copy or general typography rather than a document heading.
 
 ### Default props
@@ -94,9 +94,9 @@ Use `as` for `h2` through `h6`. The default visual scale follows the actual head
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(32rem, calc(100vw - var(--spacing-8)));
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -127,9 +127,9 @@ Use `size` when multiple headings share one semantic level but need different vi
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(32rem, calc(100vw - var(--spacing-8)));
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -145,9 +145,9 @@ Use `weight` for the built-in typography emphasis presets.
       .stack {
         display: flex;
         width: fit-content;
-        max-width: min(32rem, calc(100vw - var(--spacing-8)));
+        max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
         flex-direction: column;
-        gap: var(--spacing-3);
+        gap: var(--moduix-spacing-3);
       }
     `}</style>
 
@@ -193,4 +193,4 @@ component props, class name, data attributes, and forwarded ref.
 - `data-slot="heading-root"` is the stable moduix selector.
 - `data-size` is present when `size` is explicitly set.
 - `data-weight` reflects `regular`, `medium`, `semibold`, or `bold`.
-- Use `className` and `--heading-*` variables for scoped visual overrides.
+- Use `className` and `--moduix-heading-*` variables for scoped visual overrides.

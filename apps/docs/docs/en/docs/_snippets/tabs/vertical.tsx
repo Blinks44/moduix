@@ -1,4 +1,5 @@
 import { Tabs } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const items = [
   {
@@ -22,20 +23,22 @@ const items = [
 
 export default function VerticalTabsDemo() {
   return (
-    <Tabs defaultValue="overview" orientation="vertical">
-      <Tabs.List>
-        {items.map((item) => (
-          <Tabs.Trigger key={item.value} value={item.value}>
-            {item.title}
-          </Tabs.Trigger>
-        ))}
-      </Tabs.List>
+    <PreviewLayout maxWidth="32rem">
+      <Tabs defaultValue="overview" orientation="vertical">
+        <Tabs.List>
+          {items.map((item) => (
+            <Tabs.Trigger key={item.value} value={item.value}>
+              {item.title}
+            </Tabs.Trigger>
+          ))}
+        </Tabs.List>
 
-      {items.map((item) => (
-        <Tabs.Content key={item.value} value={item.value}>
-          {item.content}
-        </Tabs.Content>
-      ))}
-    </Tabs>
+        {items.map((item) => (
+          <Tabs.Content key={item.value} value={item.value}>
+            {item.content}
+          </Tabs.Content>
+        ))}
+      </Tabs>
+    </PreviewLayout>
   );
 }

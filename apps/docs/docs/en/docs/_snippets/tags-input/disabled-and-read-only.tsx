@@ -1,8 +1,9 @@
 import { TagsInput } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 export default function StateTagsInput() {
   return (
-    <>
+    <PreviewLayout maxWidth="24rem">
       <TagsInput disabled defaultValue={['disabled']}>
         <TagsInput.Label>Disabled</TagsInput.Label>
         <TagsInput.Control>
@@ -19,6 +20,6 @@ export default function StateTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
       </TagsInput>
-    </>
+    </PreviewLayout>
   );
 }

@@ -14,7 +14,7 @@
     },
     {
       "path": "packages/react/src/components/image/Image.module.css",
-      "content": "@layer ui.components {\n  .root {\n    box-sizing: border-box;\n    display: block;\n    border-radius: var(--image-radius, var(--radius-md));\n  }\n}",
+      "content": "@layer moduix.components {\n  .root {\n    box-sizing: border-box;\n    display: block;\n    border-radius: var(--moduix-image-radius, var(--moduix-radius-md));\n  }\n}",
       "type": "registry:file",
       "target": "@components/moduix/image/Image.module.css"
     },

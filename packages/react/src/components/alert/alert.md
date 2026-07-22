@@ -145,36 +145,36 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                          | Default/fallback                                           |
-| --------------------------------- | ---------------------------------------------------------- |
-| `--alert-actions-gap`             | `var(--spacing-2)`                                         |
-| `--alert-actions-margin-top`      | `var(--spacing-2)`                                         |
-| `--alert-bg`                      | `var(--alert-bg-default, var(--color-card))`               |
-| `--alert-border-color`            | `var(--alert-border-color-default, var(--color-border))`   |
-| `--alert-border-width`            | `var(--border-width-sm)`                                   |
-| `--alert-color`                   | `var(--alert-color-default, var(--color-card-foreground))` |
-| `--alert-content-gap`             | `var(--spacing-1)`                                         |
-| `--alert-description-color`       | `var(--color-muted-foreground)`                            |
-| `--alert-description-font-size`   | `var(--text-sm)`                                           |
-| `--alert-description-line-height` | `var(--line-height-text-sm)`                               |
-| `--alert-gap`                     | `var(--spacing-3)`                                         |
-| `--alert-indicator-color`         | `var(--alert-indicator-color-default, currentColor)`       |
-| `--alert-indicator-offset`        | `var(--spacing-0-5)`                                       |
-| `--alert-indicator-size`          | `var(--spacing-4)`                                         |
-| `--alert-padding`                 | `var(--spacing-3)`                                         |
-| `--alert-radius`                  | `var(--radius-lg)`                                         |
-| `--alert-shadow`                  | `none`                                                     |
-| `--alert-title-color`             | `var(--alert-color, var(--alert-color-default))`           |
-| `--alert-title-font-size`         | `var(--text-sm)`                                           |
-| `--alert-title-font-weight`       | `var(--weight-semibold)`                                   |
-| `--alert-title-line-height`       | `var(--line-height-text-sm)`                               |
+| Variable                                 | Default/fallback                                                         |
+| ---------------------------------------- | ------------------------------------------------------------------------ |
+| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                                |
+| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                                |
+| `--moduix-alert-bg`                      | `var(--moduix-alert-bg-default, var(--moduix-color-card))`               |
+| `--moduix-alert-border-color`            | `var(--moduix-alert-border-color-default, var(--moduix-color-border))`   |
+| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                          |
+| `--moduix-alert-color`                   | `var(--moduix-alert-color-default, var(--moduix-color-card-foreground))` |
+| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                                |
+| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                                   |
+| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                                  |
+| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                      |
+| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                                |
+| `--moduix-alert-indicator-color`         | `var(--moduix-alert-indicator-color-default, currentColor)`              |
+| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                              |
+| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                                |
+| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                                |
+| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                                |
+| `--moduix-alert-shadow`                  | `none`                                                                   |
+| `--moduix-alert-title-color`             | `var(--moduix-alert-color, var(--moduix-alert-color-default))`           |
+| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                                  |
+| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                          |
+| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                      |
 
 Built-in statuses derive their accents from shared palette tokens:
 
-- `info` -> `--color-primary`
-- `success` -> `--color-success`
-- `warning` -> `--color-warning`
-- `error` -> `--color-destructive`
+- `info` -> `--moduix-color-primary`
+- `success` -> `--moduix-color-success`
+- `warning` -> `--moduix-color-warning`
+- `error` -> `--moduix-color-destructive`
 
 ## Intentional sugar and differences from upstream
 
@@ -203,7 +203,7 @@ Built-in statuses derive their accents from shared palette tokens:
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.
 - 2026-07-06: Made `Alert.Content` optional for the simple title/description path, changed
   `Alert.Title` to render `p` by default, and tightened the default root padding to
-  `var(--spacing-3)`.
+  `var(--moduix-spacing-3)`.
 - 2026-07-02: Simplified the public type surface by removing Alert prop and status aliases; preserved
   callable-root composition, all visual parts, statuses, automatic roles, refs, `asChild`, and
   styling hooks.

@@ -1,8 +1,8 @@
 .simpleGridDemoGrid {
   width: 100%;
-  padding: var(--spacing-3);
-  border-radius: var(--radius-xl);
-  background-color: var(--color-muted);
+  padding: var(--moduix-spacing-3);
+  border-radius: var(--moduix-radius-xl);
+  background-color: var(--moduix-color-muted);
 }
 
 .simpleGridDemoCards {
@@ -15,10 +15,10 @@
 
 .simpleGridDemoMetric {
   min-width: 0;
-  padding: var(--spacing-3);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-background);
+  padding: var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-background);
   text-align: center;
 }
 
@@ -31,9 +31,9 @@
 .simpleGridDemoGalleryItem {
   min-width: 0;
   overflow: hidden;
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-background);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-background);
 }
 
 .simpleGridDemoImage {
@@ -45,5 +45,5 @@
 
 .simpleGridDemoCaption {
   display: block;
-  padding: var(--spacing-3);
+  padding: var(--moduix-spacing-3);
 }

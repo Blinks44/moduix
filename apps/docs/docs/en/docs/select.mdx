@@ -26,7 +26,7 @@ autofill.
 
 <style>{`
       [data-slot="select-root"] {
-        --select-width: 16rem;
+        --moduix-select-width: 16rem;
       }
     `}</style>
 
@@ -71,7 +71,6 @@ Select / Select.Root
 | `Select.ValueText`       | Placeholder or selected item labels.                                   |
 | `Select.ClearTrigger`    | Button that clears the current value.                                  |
 | `Select.Indicator`       | Trigger indicator with the moduix default chevron icon.                |
-| `Select.Indicators`      | Optional layout helper for custom sibling-action composition.          |
 | `Select.Positioner`      | Floating layer that exposes Ark positioning CSS variables.             |
 | `Select.Content`         | Popup surface and listbox container.                                   |
 | `Select.List`            | Optional list wrapper for virtualized or custom list layouts.          |
@@ -140,7 +139,7 @@ select autofill and progressive enhancement.
 
 Control the selected string array from React state and update it from `details.value`.
 
-<style>{`[data-slot="select-root"] { --select-width: 14rem; }`}</style>
+<style>{`[data-slot="select-root"] { --moduix-select-width: 14rem; }`}</style>
 
 ```tsx preview file="./_snippets/select/controlled.tsx"
 
@@ -151,7 +150,7 @@ Control the selected string array from React state and update it from `details.v
 Use the moduix leaf helpers inside `ItemText` when items need a stable icon and ellipsized label
 layout. These helpers are plain spans; selection behavior stays on Ark `Select.Item`.
 
-<style>{`[data-slot="select-item-text-content"] { gap: var(--spacing-2); }`}</style>
+<style>{`[data-slot="select-item-text-content"] { gap: var(--moduix-spacing-2); }`}</style>
 
 ```tsx preview file="./_snippets/select/custom-item-layout.tsx"
 
@@ -161,7 +160,7 @@ layout. These helpers are plain spans; selection behavior stays on Ark `Select.I
 
 Recreate or update the collection when the available items change.
 
-<style>{`input + [data-slot="select-root"] { margin-top: var(--spacing-3); }`}</style>
+<style>{`input + [data-slot="select-root"] { margin-top: var(--moduix-spacing-3); }`}</style>
 
 ```tsx preview file="./_snippets/select/dynamic-items.tsx"
 
@@ -173,12 +172,6 @@ Wrap `Select` in `Field.Root` when label, helper text, invalid, required, or dis
 to a form field.
 
 <style>{`
-  .select-field-example {
-    --field-width: min(20rem, 100%);
-
-    margin-inline: auto;
-  }
-
   [data-slot="select-label"][data-required]::after {
     content: " *";
   }
@@ -195,22 +188,23 @@ The root's automatic native select keeps native submission working. Read submitt
 
 <style>{`.select-form {
   display: grid;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
 }
 
 .select-form [data-slot="select-root"] {
---select-width: 16rem;
+--moduix-select-width: 16rem;
 }
 
 .select-form-actions {
-display: flex;
-align-items: center;
-gap: var(--spacing-3);
+display: grid;
+gap: var(--moduix-spacing-2);
+justify-items: center;
 }
 
 .select-form-output {
-color: var(--color-muted-foreground);
-font-size: var(--text-sm);
+color: var(--moduix-color-muted-foreground);
+font-size: var(--moduix-text-sm);
 }`}</style>
 
 ```tsx preview file="./_snippets/select/form-usage.tsx"
@@ -222,7 +216,7 @@ font-size: var(--text-sm);
 Use `groupBy` on the collection and render `collection.group()` with `ItemGroup` and
 `ItemGroupLabel`.
 
-<style>{`[data-slot="select-item-group-label"] { color: var(--color-muted-foreground); }`}</style>
+<style>{`[data-slot="select-item-group-label"] { color: var(--moduix-color-muted-foreground); }`}</style>
 
 ```tsx preview file="./_snippets/select/grouping.tsx"
 
@@ -232,7 +226,7 @@ Use `groupBy` on the collection and render `collection.group()` with `ItemGroup`
 
 Use `lazyMount` and `unmountOnExit` when popup content should only exist while the select is used.
 
-<style>{`[data-slot="select-content"] { --select-content-closed-scale: 0.96; }`}</style>
+<style>{`[data-slot="select-content"] { --moduix-select-content-closed-scale: 0.96; }`}</style>
 
 ```tsx preview file="./_snippets/select/lazy-mount.tsx"
 
@@ -242,7 +236,7 @@ Use `lazyMount` and `unmountOnExit` when popup content should only exist while t
 
 Limit multiple selection by rejecting oversized value arrays and marking remaining items disabled.
 
-<style>{`[data-slot="select-item"][data-disabled] { opacity: var(--opacity-disabled); }`}</style>
+<style>{`[data-slot="select-item"][data-disabled] { opacity: var(--moduix-opacity-disabled); }`}</style>
 
 <ExampleFrame clientOnly>
   <SelectDocs.MaxSelectionSelectExample />
@@ -303,11 +297,9 @@ export default function SelectMaxSelectionDemo() {
       <Select.Control>
         <Select.Trigger>
           <Select.ValueText placeholder="Select up to 3" />
-        </Select.Trigger>
-        <Select.Indicators>
-          <Select.ClearTrigger aria-label="Clear selection" />
           <Select.Indicator />
-        </Select.Indicators>
+        </Select.Trigger>
+        <Select.ClearTrigger aria-label="Clear selection" />
       </Select.Control>
       <Select.Positioner>
         <Select.Content>
@@ -329,7 +321,7 @@ export default function SelectMaxSelectionDemo() {
 Use `nativeFormControl="input"` when rendering a very large collection with virtualization. The
 selected values still submit through `FormData`, without creating native options for every item.
 
-<style>{`form [data-slot="select-root"] { --select-width: 16rem; }`}</style>
+<style>{`form [data-slot="select-root"] { --moduix-select-width: 16rem; }`}</style>
 
 ```tsx preview file="./_snippets/select/native-form-control.tsx"
 
@@ -340,7 +332,7 @@ selected values still submit through `FormData`, without creating native options
 Set `multiple` to allow several selected values. `ValueText` renders the selected item labels from
 the collection.
 
-<style>{`[data-slot="select-item"][data-state="checked"] { font-weight: var(--weight-semibold); }`}</style>
+<style>{`[data-slot="select-item"][data-state="checked"] { font-weight: var(--moduix-weight-semibold); }`}</style>
 
 ```tsx preview file="./_snippets/select/multiple.tsx"
 
@@ -365,16 +357,16 @@ the rendered select tree.
   .select-provider-demo {
     display: grid;
     justify-items: center;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .select-provider-demo [data-slot="select-root-provider"] {
-    --select-width: 14rem;
+    --moduix-select-width: 14rem;
   }
 
   .select-provider-demo output {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
   }
 `}</style>
 
@@ -389,28 +381,28 @@ Read root state with Ark `Select.Context` and call `selectAll()` for bulk select
 <style>{`
       .select-bulk-action {
         display: flex;
-        width: calc(100% - var(--spacing-2));
-        min-height: var(--size-sm);
-        margin: 0 var(--spacing-1) var(--spacing-1);
+        width: calc(100% - var(--moduix-spacing-2));
+        min-height: var(--moduix-size-sm);
+        margin: 0 var(--moduix-spacing-1) var(--moduix-spacing-1);
         align-items: center;
         border: 0;
-        border-radius: var(--radius-sm);
-        padding-inline: var(--spacing-3);
+        border-radius: var(--moduix-radius-sm);
+        padding-inline: var(--moduix-spacing-3);
         background: transparent;
-        color: var(--color-muted-foreground);
+        color: var(--moduix-color-muted-foreground);
         font: inherit;
-        font-size: var(--text-sm);
+        font-size: var(--moduix-text-sm);
         cursor: pointer;
       }
 
       .select-bulk-action:hover {
-        background: var(--color-muted);
-        color: var(--color-foreground);
+        background: var(--moduix-color-muted);
+        color: var(--moduix-color-foreground);
       }
 
       .select-bulk-action:focus-visible {
-        outline: var(--border-width-sm) solid var(--color-ring);
-        outline-offset: calc(var(--border-width-sm) * -1);
+        outline: var(--moduix-border-width-sm) solid var(--moduix-color-ring);
+        outline-offset: calc(var(--moduix-border-width-sm) * -1);
       }
     `}</style>
 
@@ -422,7 +414,7 @@ Read root state with Ark `Select.Context` and call `selectAll()` for bulk select
 
 Use `onHighlightChange(details)` when moving through options should immediately update selection.
 
-<style>{`[data-slot="select-item"][data-highlighted] { color: var(--select-highlight-color); }`}</style>
+<style>{`[data-slot="select-item"][data-highlighted] { color: var(--moduix-select-highlight-color); }`}</style>
 
 ```tsx preview file="./_snippets/select/select-on-highlight.tsx"
 
@@ -442,7 +434,7 @@ composition and styling.
 ## Styling
 
 Style `Select` through `className`, stable `data-slot="select-*"` hooks, Ark attributes, and the
-public `--select-*` CSS variables shown below.
+public `--moduix-select-*` CSS variables shown below.
 
 ### CSS Properties
 
@@ -460,14 +452,18 @@ public `--select-*` CSS variables shown below.
 
 ### Styling hooks
 
-`Select.Field` renders the existing `select-control`, `select-trigger`, `select-value-text`, and
-`select-indicators` slots, so it uses the same styling contract as explicit composition. Its
-`indicator` prop supplies the child of the existing `select-indicator` slot.
+`Select.Field` renders the existing `select-control`, `select-trigger`, `select-value-text`,
+`select-indicator`, and optional `select-clear-trigger` slots, so it uses the same styling
+contract as explicit composition. Its `indicator` prop supplies the child of the existing
+`select-indicator` slot. In explicit markup, keep `Select.Indicator` inside `Select.Trigger` and
+render `Select.ClearTrigger` directly under `Select.Control`.
 
 - Root and root provider expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark parts keep `data-scope="select"` and `data-part` for anatomy selectors.
 - State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-readonly`, `data-placeholder-shown`, `data-highlighted`, and
   `data-state="checked" | "unchecked"` on items.
+- The trigger shows its focus ring while open and for keyboard `:focus-visible` focus; dismissing
+  a popup with a pointer does not leave a ring on the closed field.
 - `Select.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.

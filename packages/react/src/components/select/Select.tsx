@@ -217,16 +217,6 @@ const SelectIndicator = forwardRef<
   );
 });
 
-function SelectIndicators({ className, ...props }: ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="select-indicators"
-      className={clsx(styles.indicators, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
-
 const SelectField = forwardRef<ComponentRef<typeof SelectPrimitive.Control>, SelectFieldProps>(
   function SelectField({ clearLabel, indicator, placeholder, ...props }, ref) {
     return (
@@ -450,7 +440,6 @@ const Select = Object.assign(SelectRoot, {
   ValueText: SelectValueText,
   ClearTrigger: SelectClearTrigger,
   Indicator: SelectIndicator,
-  Indicators: SelectIndicators,
   Positioner: SelectPositioner,
   Content: SelectContent,
   List: SelectList,

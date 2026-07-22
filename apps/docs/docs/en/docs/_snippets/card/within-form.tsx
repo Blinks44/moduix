@@ -1,4 +1,5 @@
 import { Button, Card, Input } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const copy = {
   title: 'Create account',
@@ -11,27 +12,29 @@ const fields = [
 
 export default function CardFormDemo() {
   return (
-    <Card asChild>
-      <form>
-        <Card.Header>
-          <Card.Title>{copy.title}</Card.Title>
-          <Card.Description>{copy.description}</Card.Description>
-        </Card.Header>
-        <Card.Body>
-          {fields.map((field) => (
-            <label key={field.name}>
-              {field.label}
-              <Input name={field.name} />
-            </label>
-          ))}
-        </Card.Body>
-        <Card.Footer>
-          <Button type="reset" variant="outline">
-            Cancel
-          </Button>
-          <Button type="submit">Create account</Button>
-        </Card.Footer>
-      </form>
-    </Card>
+    <PreviewLayout maxWidth="24rem">
+      <Card asChild>
+        <form>
+          <Card.Header>
+            <Card.Title>{copy.title}</Card.Title>
+            <Card.Description>{copy.description}</Card.Description>
+          </Card.Header>
+          <Card.Body>
+            {fields.map((field) => (
+              <label key={field.name}>
+                {field.label}
+                <Input name={field.name} />
+              </label>
+            ))}
+          </Card.Body>
+          <Card.Footer>
+            <Button type="reset" variant="outline">
+              Cancel
+            </Button>
+            <Button type="submit">Create account</Button>
+          </Card.Footer>
+        </form>
+      </Card>
+    </PreviewLayout>
   );
 }

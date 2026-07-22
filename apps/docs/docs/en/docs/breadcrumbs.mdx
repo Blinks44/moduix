@@ -91,7 +91,7 @@ portal boundary.
 - `Breadcrumbs.Ellipsis` is hidden from assistive technology because the trigger owns the label.
 - The accessible label for a collapsed path belongs on the `Menu.Trigger`.
 - Any visible breadcrumb item can shrink when space gets tight; the current page remains the primary
-  truncation target through `--breadcrumbs-item-max-width`.
+  truncation target through `--moduix-breadcrumbs-item-max-width`.
 - There are no controlled props, callbacks, context hooks, `RootProvider`, ids, `HiddenInput`, or
   form-state integrations because Breadcrumbs owns no interactive or form state.
 
@@ -111,28 +111,28 @@ stays on the explicit path because the trigger and menu content own real interac
         background: transparent;
         color: inherit;
         cursor: pointer;
-        border-radius: var(--radius-sm);
-        transition: var(--transition-default);
+        border-radius: var(--moduix-radius-sm);
+        transition: var(--moduix-transition-default);
       }
 
       @media (hover: hover) {
         .collapsed-menu-trigger:hover {
-          color: var(--color-foreground);
-          background: color-mix(in srgb, var(--color-muted) 70%, transparent);
+          color: var(--moduix-color-foreground);
+          background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
         }
       }
 
       .collapsed-menu-trigger:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 var(--border-width-sm) var(--color-ring);
+        box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
       }
 
       .collapsed-menu-content {
-        --menu-popup-min-width: 8rem;
-        --menu-item-font-size: var(--text-xs);
-        --menu-item-padding-x-start: 0.5rem;
-        --menu-item-padding-x-end: 0.5rem;
-        --menu-item-padding-y: 0.25rem;
+        --moduix-menu-popup-min-width: 8rem;
+        --moduix-menu-item-font-size: var(--moduix-text-xs);
+        --moduix-menu-item-padding-x-start: 0.5rem;
+        --moduix-menu-item-padding-x-end: 0.5rem;
+        --moduix-menu-item-padding-y: 0.25rem;
       }
     `}</style>
 
@@ -177,7 +177,7 @@ to overflow as aggressively.
 
 <style>{`
       .breadcrumbs-long-label {
-        --breadcrumbs-item-max-width: 12rem;
+        --moduix-breadcrumbs-item-max-width: 12rem;
       }
     `}</style>
 
@@ -200,7 +200,7 @@ manually annotated current page label.
       }
 
       .breadcrumbs-long-label {
-        --breadcrumbs-item-max-width: 12rem;
+        --moduix-breadcrumbs-item-max-width: 12rem;
       }
     `}</style>
 
@@ -211,7 +211,7 @@ manually annotated current page label.
 ## Styling
 
 Each exported part has Ark-style `data-scope="breadcrumbs"` and `data-part` attributes plus stable
-Moduix `data-slot` hooks. Public `--breadcrumbs-*` variables cover layout, text treatment, focus
+Moduix `data-slot` hooks. Public `--moduix-breadcrumbs-*` variables cover layout, text treatment, focus
 ring, separators, and ellipsis sizing.
 
 ### CSS Properties
@@ -227,6 +227,6 @@ ring, separators, and ellipsis sizing.
   `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable Moduix
   selectors.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Ellipsis` share the inline padding from
-  `--breadcrumbs-item-padding-x`.
+  `--moduix-breadcrumbs-item-padding-x`.
 - Visible `Breadcrumbs.Item` parts can shrink to preserve the trail; the last visible item remains
-  the primary truncation target and uses `--breadcrumbs-item-max-width`.
+  the primary truncation target and uses `--moduix-breadcrumbs-item-max-width`.

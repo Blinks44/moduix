@@ -15,7 +15,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - For component work in `packages/react`, apply `.agents/skills/ui-component-workflow/SKILL.md`.
 - When the user explicitly asks to create or update a changeset, apply `.agents/skills/changeset-workflow/SKILL.md`.
 - For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
-- For docs work in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md`.
+- For docs work in the Rspress 2 app in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md` and `.agents/skills/rspress-best-practices/SKILL.md`.
+- For Rspress theme or layout work, apply `.agents/skills/rspress-custom-theme/SKILL.md`.
+- When creating documentation pages, apply `.agents/skills/rspress-description-generator/SKILL.md`.
 - For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
 
 `engineering-principles` is the immutable baseline skill. Keep project-specific rules in dedicated
@@ -31,6 +33,7 @@ If a task spans UI and docs, apply skills in this order:
 5. `local-component-docs` when component markdown is created or updated
 6. `cross-package-sync`
 7. `docs-workflow`
+8. `rspress-best-practices`
 
 ## Repository Rules
 

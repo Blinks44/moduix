@@ -13,15 +13,11 @@ const items = [
     title: 'Billing',
     description: 'Choose the plan and payment method.',
   },
-  {
-    title: 'Launch',
-    description: 'Review everything and go live.',
-  },
 ];
 
 export default function StepsProgressDemo() {
   return (
-    <Steps count={items.length} defaultStep={1}>
+    <Steps className="steps-demo" count={items.length} defaultStep={1}>
       <Steps.Progress />
       <Steps.List>
         {items.map((item, index) => (

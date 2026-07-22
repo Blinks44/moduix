@@ -5,14 +5,14 @@
 
   .stack {
     display: grid;
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
     width: 20rem;
   }
 
   .customTextarea {
-    border-color: color-mix(in srgb, var(--color-primary) 45%, transparent);
-    background-color: color-mix(in srgb, var(--color-primary) 5%, transparent);
-    color: var(--color-primary);
+    border-color: color-mix(in srgb, var(--moduix-color-primary) 45%, transparent);
+    background-color: color-mix(in srgb, var(--moduix-color-primary) 5%, transparent);
+    color: var(--moduix-color-primary);
     resize: none;
   }
 }

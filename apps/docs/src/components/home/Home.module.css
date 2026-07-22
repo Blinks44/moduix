@@ -305,37 +305,6 @@
   }
 }
 
-.highlights {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
-  margin-top: 2rem;
-
-  @media (min-width: 521px) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.highlight {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 2.35rem;
-  padding: 0 0.8rem;
-  border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 82%, transparent);
-  border-radius: 0.5rem;
-  background: color-mix(in oklab, var(--rp-c-bg) 68%, transparent);
-  color: color-mix(in oklab, var(--rp-c-text-1) 76%, var(--rp-c-text-2));
-  font-size: 0.875rem;
-  backdrop-filter: blur(14px);
-
-  @media (min-width: 521px) {
-    justify-content: flex-start;
-  }
-}
-
 .showcase {
   position: relative;
   min-height: 18rem;
@@ -427,18 +396,18 @@
 .showcaseTabsList {
   width: fit-content;
   max-width: 100%;
-  --tabs-list-bg: color-mix(in oklab, var(--rp-c-bg) 68%, transparent);
-  --tabs-list-border-color: color-mix(in oklab, var(--rp-c-divider-light) 80%, transparent);
-  --tabs-tab-color: var(--rp-c-text-2);
-  --tabs-tab-color-active: var(--rp-c-text-1);
-  --tabs-indicator-bg: color-mix(in oklab, var(--rp-c-text-1) 12%, var(--rp-c-bg));
+  --moduix-tabs-list-bg: color-mix(in oklab, var(--rp-c-bg) 68%, transparent);
+  --moduix-tabs-list-border-color: color-mix(in oklab, var(--rp-c-divider-light) 80%, transparent);
+  --moduix-tabs-tab-color: var(--rp-c-text-2);
+  --moduix-tabs-tab-color-active: var(--rp-c-text-1);
+  --moduix-tabs-indicator-bg: color-mix(in oklab, var(--rp-c-text-1) 12%, var(--rp-c-bg));
 }
 
 .showcasePanel {
   min-height: 12.5rem;
-  --tabs-bg: color-mix(in oklab, var(--rp-c-bg) 62%, transparent);
-  --tabs-border-color: color-mix(in oklab, var(--rp-c-divider-light) 58%, transparent);
-  --tabs-panel-padding: 1rem;
+  --moduix-tabs-bg: color-mix(in oklab, var(--rp-c-bg) 62%, transparent);
+  --moduix-tabs-border-color: color-mix(in oklab, var(--rp-c-divider-light) 58%, transparent);
+  --moduix-tabs-panel-padding: 1rem;
 
   @media (min-width: 521px) {
     min-height: 15rem;
@@ -456,17 +425,17 @@
 
 .nestedTabsList {
   width: fit-content;
-  --tabs-list-bg: transparent;
-  --tabs-list-border-width: 0;
-  --tabs-tab-color: var(--rp-c-text-2);
-  --tabs-tab-color-active: var(--rp-c-text-1);
-  --tabs-line-indicator-bg: color-mix(in oklab, var(--rp-c-text-1) 78%, transparent);
+  --moduix-tabs-list-bg: transparent;
+  --moduix-tabs-list-border-width: 0;
+  --moduix-tabs-tab-color: var(--rp-c-text-2);
+  --moduix-tabs-tab-color-active: var(--rp-c-text-1);
+  --moduix-tabs-line-indicator-bg: color-mix(in oklab, var(--rp-c-text-1) 78%, transparent);
 }
 
 .nestedPanel {
-  --tabs-bg: transparent;
-  --tabs-border-width: 0;
-  --tabs-panel-padding: 0;
+  --moduix-tabs-bg: transparent;
+  --moduix-tabs-border-width: 0;
+  --moduix-tabs-panel-padding: 0;
 }
 
 .previewCard {
@@ -549,7 +518,7 @@
 
 .heroProgress {
   width: 100%;
-  --progress-linear-width: 100%;
+  --moduix-progress-linear-width: 100%;
 
   :global([data-slot='progress-linear-range']) {
     background: linear-gradient(90deg, var(--rp-c-text-1), var(--moduix-home-brand));
@@ -573,7 +542,7 @@
 .heroSelect {
   width: 100%;
   max-width: calc(16rem - 50px);
-  --select-width: 100%;
+  --moduix-select-width: 100%;
 }
 
 .floatPanel {

@@ -44,10 +44,10 @@ export default function ThumbnailIndicatorCarousel() {
         <Carousel.NextTrigger />
       </Carousel.Control>
 
-      <Carousel.IndicatorGroup>
+      <Carousel.IndicatorGroup className="carousel-thumbnail-group">
         {slides.map((slide, index) => (
-          <Carousel.Indicator key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
+          <Carousel.Indicator key={slide.id} className="carousel-thumbnail-indicator" index={index}>
+            <img className="carousel-thumbnail-image" src={slide.src} alt={slide.alt} />
           </Carousel.Indicator>
         ))}
       </Carousel.IndicatorGroup>

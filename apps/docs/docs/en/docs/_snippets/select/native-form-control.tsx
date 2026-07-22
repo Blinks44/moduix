@@ -2,6 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { Button, Select } from '@moduix/react';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const themes = createListCollection({
   items: [
@@ -20,33 +21,33 @@ export default function NativeFormControlSelectDemo() {
   };
 
   return (
-    <form className="select-form" onSubmit={handleSubmit}>
-      <Select collection={themes} name="theme" nativeFormControl="input" required>
-        <Select.Label>Theme</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select theme" />
-          </Select.Trigger>
-          <Select.Indicators>
+    <PreviewLayout width="16rem">
+      <form className="select-form" onSubmit={handleSubmit}>
+        <Select collection={themes} name="theme" nativeFormControl="input" required>
+          <Select.Label>Theme</Select.Label>
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText placeholder="Select theme" />
+              <Select.Indicator />
+            </Select.Trigger>
             <Select.ClearTrigger aria-label="Clear selection" />
-            <Select.Indicator />
-          </Select.Indicators>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content>
-            {themes.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select>
-      <div className="select-form-actions">
-        <Button type="submit">Submit</Button>
-        <output className="select-form-output">Submitted: {submitted}</output>
-      </div>
-    </form>
+          </Select.Control>
+          <Select.Positioner>
+            <Select.Content>
+              {themes.items.map((item) => (
+                <Select.Item key={item.value} item={item}>
+                  <Select.ItemText>{item.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select>
+        <div className="select-form-actions">
+          <Button type="submit">Submit</Button>
+          <output className="select-form-output">Submitted: {submitted}</output>
+        </div>
+      </form>
+    </PreviewLayout>
   );
 }

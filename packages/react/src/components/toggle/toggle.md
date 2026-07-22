@@ -36,8 +36,8 @@ state reader rather than a DOM part. Ark exposes `pressed`, `defaultPressed`,
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
 - `variant` defaults to `default`. `size` defaults to `md`.
-- The default variant uses `var(--color-secondary)` while off; `outline` uses
-  `var(--color-background)` plus `var(--color-border)` when a standalone button outline is needed.
+- The default variant uses `var(--moduix-color-secondary)` while off; `outline` uses
+  `var(--moduix-color-background)` plus `var(--moduix-color-border)` when a standalone button outline is needed.
 - The root writes `data-slot="toggle-root"`, `data-variant`, and `data-size`.
 - The indicator writes `data-slot="toggle-indicator"`.
 - legacy `render`, `nativeButton`, state callback `className`, and state callback `style` are removed. Use Ark
@@ -151,9 +151,9 @@ export function AsChildToggleDemo() {
 
 ## Defaults and styling
 
-The default and `icon-md` toggle variants use `--size-md`; the default text toggle uses `--spacing-1` block padding.
+The default and `icon-md` toggle variants use `--moduix-size-md`; the default text toggle uses `--moduix-spacing-1` block padding.
 
-`Toggle` keeps moduix visual identity through CSS Modules and public `--toggle-*` variables. Style
+`Toggle` keeps moduix visual identity through CSS Modules and public `--moduix-toggle-*` variables. Style
 the component through `className`, `data-slot`, Ark data attributes, and CSS variables.
 
 Important hooks:
@@ -167,7 +167,7 @@ Important hooks:
 | `data-state="on"`              | Preferred Ark selector for pressed state. |
 | `data-pressed`                 | Present when the toggle is pressed.       |
 
-Descendant `svg` elements inherit `--toggle-icon-size`. Icon-only sizes remove padding and keep the
+Descendant `svg` elements inherit `--moduix-toggle-icon-size`. Icon-only sizes remove padding and keep the
 root at a non-shrinking square size.
 
 ## Intentional sugar and differences from upstream
@@ -201,7 +201,7 @@ root at a non-shrinking square size.
   directly, kept pressed colors stable on hover, made icon-only sizes non-shrinking, and aligned
   anatomy docs with Ark's DOM parts.
 - 2026-06-21: Changed the off-state default variant from transparent/no-border to
-  `var(--color-background)` plus `var(--color-border)` so standalone toggles have visible affordance.
+  `var(--moduix-color-background)` plus `var(--moduix-color-border)` so standalone toggles have visible affordance.
 - 2026-07-03: Removed public re-exports of Ark toggle context helpers so moduix keeps only the
   visual parts and short root API on its public surface.
 - 2026-06-21: Migrated `Toggle` to Ark UI. Added `Toggle.Root` and `Toggle.Indicator`, removed

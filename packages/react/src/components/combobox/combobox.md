@@ -169,12 +169,12 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ## Defaults and styling
 
-The input control defaults to `--size-md`. Single-line popup options default to `--size-sm` with `--spacing-1` block padding.
+The input control defaults to `--moduix-size-md`. Single-line popup options default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
 
-Popup group labels inherit the shared `--popup-group-label-*` defaults: muted `xs` text, regular
-weight, and `--spacing-1` block padding. Component-specific variables still take precedence.
+Popup group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
+weight, and `--moduix-spacing-1` block padding. Component-specific variables still take precedence.
 
-- Content motion falls back to the shared `--popup-motion-*` tokens. `--combobox-transition` and
+- Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-combobox-transition` and
   closed-state variables remain the more specific override.
 - moduix applies its tokens, radius, focus ring, popup shadow, item highlight, and motion defaults.
 - The field keeps its focus ring while the popup is open. Hovering the input or trigger highlights
@@ -238,15 +238,15 @@ Common `shadcn` migration points:
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--spacing-1` contract.
+- 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
 
-- 2026-07-21: Reduced the default input to `--size-md` and compacted popup options to `--size-sm`.
+- 2026-07-21: Reduced the default input to `--moduix-size-md` and compacted popup options to `--moduix-size-sm`.
 
 - 2026-07-20: Removed field hover and popup-open surfaces; clear and open actions retain their local hover treatment.
 - 2026-07-19: Positioned trigger and clear actions with logical inline-end properties for RTL.
 - 2026-07-17: Composed the default clear action with `CloseButton.Root` and mapped combobox action
   tokens to the shared close-button visual contract.
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-12: Exported `Combobox.Context`, `useCombobox`, and `useComboboxContext` from the moduix
   implementation so normal provider and context paths no longer require direct Ark imports.
 - 2026-07-10: Restricted `Combobox.Option` to simple rows by excluding `asChild`; use

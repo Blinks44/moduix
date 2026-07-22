@@ -16,7 +16,7 @@ Use the Ark part tree directly: render `HoverCard.Trigger` near the hovered cont
 `HoverCard.Positioner` and `HoverCard.Content`. `HoverCard.Arrow` renders the moduix default
 `ArrowTip` when no children are passed.
 
-<style>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</style>
+<style>{`[data-slot="hover-card-content"] { --moduix-hover-card-max-width: 18rem; }`}</style>
 
 <ExampleFrame clientOnly>
   <HoverCardDocs.HoverCardExample />
@@ -191,7 +191,7 @@ export default function ControlledHoverCard() {
 
 Tune hover timing with `openDelay` and `closeDelay` on the root.
 
-<style>{`[data-slot="hover-card-content"] { --hover-card-transition: 160ms; }`}</style>
+<style>{`[data-slot="hover-card-content"] { --moduix-hover-card-transition: 160ms; }`}</style>
 
 <ExampleFrame clientOnly>
   <HoverCardDocs.DelayHoverCardExample />
@@ -241,7 +241,7 @@ Set `disabled` to prevent the card from opening while preserving the trigger's v
 Share one content surface across trigger values with `Trigger value` and
 `onTriggerValueChange(details)`.
 
-<style>{`[data-slot="hover-card-trigger"][data-current] { font-weight: var(--weight-semibold); }`}</style>
+<style>{`[data-slot="hover-card-trigger"][data-current] { font-weight: var(--moduix-weight-semibold); }`}</style>
 
 <ExampleFrame clientOnly>
   <HoverCardDocs.MultipleTriggersHoverCardExample />
@@ -281,7 +281,7 @@ export default function MultipleTriggersHoverCard() {
 
 Pass Ark positioning options through the `positioning` prop.
 
-<style>{`[data-slot="hover-card-content"] { --hover-card-min-width: 12rem; }`}</style>
+<style>{`[data-slot="hover-card-content"] { --moduix-hover-card-min-width: 12rem; }`}</style>
 
 <ExampleFrame clientOnly>
   <HoverCardDocs.PositioningHoverCardExample />
@@ -322,7 +322,7 @@ export default function PositioningHoverCard() {
 Create the state with moduix `useHoverCard()` when controls outside the card need to read or update
 it.
 
-<style>{`[data-slot="hover-card-content"] { --hover-card-max-width: 18rem; }`}</style>
+<style>{`[data-slot="hover-card-content"] { --moduix-hover-card-max-width: 18rem; }`}</style>
 
 <ExampleFrame clientOnly>
   <HoverCardDocs.RootProviderHoverCardExample />

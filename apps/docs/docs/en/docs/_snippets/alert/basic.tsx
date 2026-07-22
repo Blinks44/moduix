@@ -1,4 +1,5 @@
 import { Alert } from '@moduix/react';
+import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const alert = {
   title: 'Update available',
@@ -7,9 +8,11 @@ const alert = {
 
 export default function AlertDemo() {
   return (
-    <Alert className="alert-demo">
-      <Alert.Title>{alert.title}</Alert.Title>
-      <Alert.Description>{alert.description}</Alert.Description>
-    </Alert>
+    <PreviewLayout maxWidth="24rem">
+      <Alert className="alert-demo">
+        <Alert.Title>{alert.title}</Alert.Title>
+        <Alert.Description>{alert.description}</Alert.Description>
+      </Alert>
+    </PreviewLayout>
   );
 }

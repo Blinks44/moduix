@@ -1,39 +1,39 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-grid;
     place-items: center;
-    gap: var(--timer-gap, var(--spacing-3));
-    width: var(--timer-width, max-content);
-    color: var(--timer-color, var(--color-foreground));
+    gap: var(--moduix-timer-gap, var(--moduix-spacing-3));
+    width: var(--moduix-timer-width, max-content);
+    color: var(--moduix-timer-color, var(--moduix-color-foreground));
   }
 
   .area {
     display: inline-flex;
     align-items: baseline;
-    gap: var(--timer-area-gap, var(--spacing-1));
-    font-size: var(--timer-area-font-size, var(--text-2xl));
-    font-weight: var(--timer-area-font-weight, var(--weight-semibold));
-    line-height: var(--timer-area-line-height, var(--line-height-text-sm));
+    gap: var(--moduix-timer-area-gap, var(--moduix-spacing-1));
+    font-size: var(--moduix-timer-area-font-size, var(--moduix-text-2xl));
+    font-weight: var(--moduix-timer-area-font-weight, var(--moduix-weight-semibold));
+    line-height: var(--moduix-timer-area-line-height, var(--moduix-line-height-text-sm));
     font-variant-numeric: tabular-nums;
     letter-spacing: 0;
   }
 
   .item {
-    min-width: var(--timer-item-min-width, 2ch);
-    color: var(--timer-item-color, currentColor);
-    text-align: var(--timer-item-text-align, center);
+    min-width: var(--moduix-timer-item-min-width, 2ch);
+    color: var(--moduix-timer-item-color, currentColor);
+    text-align: var(--moduix-timer-item-text-align, center);
   }
 
   .separator {
-    color: var(--timer-separator-color, var(--color-muted-foreground));
+    color: var(--moduix-timer-separator-color, var(--moduix-color-muted-foreground));
   }
 
   .control {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--timer-control-gap, var(--spacing-2));
+    gap: var(--moduix-timer-control-gap, var(--moduix-spacing-2));
   }
 
   .actionTrigger {
@@ -41,47 +41,51 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--timer-action-trigger-gap, var(--spacing-2));
-    min-height: var(--timer-action-trigger-height, var(--size-md));
+    gap: var(--moduix-timer-action-trigger-gap, var(--moduix-spacing-2));
+    min-height: var(--moduix-timer-action-trigger-height, var(--moduix-size-md));
     margin: 0;
-    border: var(--timer-action-trigger-border-width, var(--border-width-sm)) solid
-      var(--timer-action-trigger-border-color, var(--color-border));
-    border-radius: var(--timer-action-trigger-radius, var(--radius-md));
-    padding-block: var(--timer-action-trigger-padding-y, var(--spacing-1-5));
-    padding-inline: var(--timer-action-trigger-padding-x, var(--spacing-3));
-    background-color: var(--timer-action-trigger-bg, var(--color-background));
-    color: var(--timer-action-trigger-color, var(--color-foreground));
+    border: var(--moduix-timer-action-trigger-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-timer-action-trigger-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-timer-action-trigger-radius, var(--moduix-radius-md));
+    padding-block: var(--moduix-timer-action-trigger-padding-y, var(--moduix-spacing-1-5));
+    padding-inline: var(--moduix-timer-action-trigger-padding-x, var(--moduix-spacing-3));
+    background-color: var(--moduix-timer-action-trigger-bg, var(--moduix-color-background));
+    color: var(--moduix-timer-action-trigger-color, var(--moduix-color-foreground));
     appearance: none;
     font: inherit;
-    font-size: var(--timer-action-trigger-font-size, var(--text-sm));
-    font-weight: var(--timer-action-trigger-font-weight, var(--weight-medium));
-    line-height: var(--timer-action-trigger-line-height, var(--line-height-text-sm));
+    font-size: var(--moduix-timer-action-trigger-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-timer-action-trigger-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-timer-action-trigger-line-height, var(--moduix-line-height-text-sm));
     white-space: nowrap;
     cursor: pointer;
     transition:
-      background-color var(--timer-action-trigger-transition, var(--transition-default)),
-      border-color var(--timer-action-trigger-transition, var(--transition-default)),
-      color var(--timer-action-trigger-transition, var(--transition-default)),
-      opacity var(--timer-action-trigger-transition, var(--transition-default)),
-      box-shadow var(--timer-action-trigger-transition, var(--transition-default));
+      background-color
+        var(--moduix-timer-action-trigger-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-timer-action-trigger-transition, var(--moduix-transition-default)),
+      color var(--moduix-timer-action-trigger-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-timer-action-trigger-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-timer-action-trigger-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover {
-        background-color: var(--timer-action-trigger-bg-hover, var(--color-accent));
+        background-color: var(--moduix-timer-action-trigger-bg-hover, var(--moduix-color-accent));
       }
     }
 
     &:focus-visible {
       outline: var(
-          --timer-action-trigger-focus-ring-width,
-          var(--focus-ring-width, var(--border-width-md))
+          --moduix-timer-action-trigger-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
         )
-        solid var(--timer-action-trigger-focus-ring-color, var(--color-ring));
-      outline-offset: var(--timer-action-trigger-focus-ring-offset, var(--focus-ring-inset-offset));
+        solid var(--moduix-timer-action-trigger-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(
+        --moduix-timer-action-trigger-focus-ring-offset,
+        var(--moduix-focus-ring-inset-offset)
+      );
     }
 
     &:is(:disabled, [aria-disabled='true']) {
-      opacity: var(--timer-action-trigger-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-timer-action-trigger-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
       pointer-events: none;
     }
@@ -91,8 +95,8 @@
     }
 
     & :where(svg) {
-      width: var(--timer-action-trigger-icon-size, var(--spacing-4));
-      height: var(--timer-action-trigger-icon-size, var(--spacing-4));
+      width: var(--moduix-timer-action-trigger-icon-size, var(--moduix-spacing-4));
+      height: var(--moduix-timer-action-trigger-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;
     }
   }

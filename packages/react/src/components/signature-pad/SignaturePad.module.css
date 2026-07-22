@@ -1,108 +1,132 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: inline-flex;
     flex-direction: column;
-    gap: var(--signature-pad-gap, var(--spacing-2));
-    width: var(--signature-pad-width, 17.5rem);
-    max-width: var(--signature-pad-max-width, 100%);
-    color: var(--signature-pad-color, var(--color-foreground));
+    gap: var(--moduix-signature-pad-gap, var(--moduix-spacing-2));
+    width: var(--moduix-signature-pad-width, 17.5rem);
+    max-width: var(--moduix-signature-pad-max-width, 100%);
+    color: var(--moduix-signature-pad-color, var(--moduix-color-foreground));
 
     &[data-disabled] {
-      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-signature-pad-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .label {
-    color: var(--signature-pad-label-color, var(--color-foreground));
-    font-size: var(--signature-pad-label-font-size, var(--text-sm));
-    font-weight: var(--signature-pad-label-font-weight, var(--weight-medium));
-    line-height: var(--signature-pad-label-line-height, var(--line-height-text-sm));
+    color: var(--moduix-signature-pad-label-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-signature-pad-label-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-signature-pad-label-font-weight, var(--moduix-weight-medium));
+    line-height: var(--moduix-signature-pad-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
 
     &[data-disabled] {
-      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-signature-pad-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .control {
     box-sizing: border-box;
-    width: var(--signature-pad-control-width, 100%);
-    min-width: var(--signature-pad-control-min-width, 0);
-    height: var(--signature-pad-control-height, var(--signature-pad-height, 10rem));
-    min-height: var(--signature-pad-control-min-height, 10rem);
-    border: var(--signature-pad-border-width, var(--border-width-sm)) solid
-      var(--signature-pad-border-color, var(--color-border));
-    border-radius: var(--signature-pad-radius, var(--radius-md));
-    background-color: var(--signature-pad-bg, var(--color-background));
-    color: var(--signature-pad-stroke-color, var(--color-foreground));
-    box-shadow: var(--signature-pad-shadow, var(--shadow-sm));
+    width: var(--moduix-signature-pad-control-width, 100%);
+    min-width: var(--moduix-signature-pad-control-min-width, 0);
+    height: var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem));
+    min-height: var(--moduix-signature-pad-control-min-height, 10rem);
+    border: var(--moduix-signature-pad-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-signature-pad-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-signature-pad-radius, var(--moduix-radius-md));
+    background-color: var(--moduix-signature-pad-bg, var(--moduix-color-background));
+    color: var(--moduix-signature-pad-stroke-color, var(--moduix-color-foreground));
+    box-shadow: var(--moduix-signature-pad-shadow, var(--moduix-shadow-sm));
     outline: none;
     overflow: hidden;
     transition:
-      border-color var(--signature-pad-transition, var(--transition-default)),
-      box-shadow var(--signature-pad-transition, var(--transition-default)),
-      opacity var(--signature-pad-transition, var(--transition-default));
+      border-color var(--moduix-signature-pad-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-signature-pad-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-signature-pad-transition, var(--moduix-transition-default));
 
     &[data-disabled] {
       cursor: not-allowed;
     }
 
     &:focus-visible {
-      border-color: var(--signature-pad-focus-border-color, var(--color-ring));
+      border-color: var(--moduix-signature-pad-focus-border-color, var(--moduix-color-ring));
       box-shadow: 0 0 0
-        var(--signature-pad-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
-        var(--signature-pad-focus-ring-color, var(--color-ring));
+        var(
+          --moduix-signature-pad-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        var(--moduix-signature-pad-focus-ring-color, var(--moduix-color-ring));
     }
   }
 
   .segment {
-    fill: var(--signature-pad-stroke-color, currentColor);
+    fill: var(--moduix-signature-pad-stroke-color, currentColor);
   }
 
   .guide {
     position: absolute;
-    inset-inline-end: var(--signature-pad-guide-inset-x, var(--spacing-6));
-    bottom: var(--signature-pad-guide-bottom, var(--spacing-8));
-    inset-inline-start: var(--signature-pad-guide-inset-x, var(--spacing-6));
-    border-bottom: var(--signature-pad-guide-border-width, var(--border-width-sm)) dashed
-      var(--signature-pad-guide-color, var(--color-border));
+    inset-inline-end: var(--moduix-signature-pad-guide-inset-x, var(--moduix-spacing-6));
+    bottom: var(--moduix-signature-pad-guide-bottom, var(--moduix-spacing-8));
+    inset-inline-start: var(--moduix-signature-pad-guide-inset-x, var(--moduix-spacing-6));
+    border-bottom: var(--moduix-signature-pad-guide-border-width, var(--moduix-border-width-sm))
+      dashed var(--moduix-signature-pad-guide-color, var(--moduix-color-border));
     pointer-events: none;
 
     &[data-disabled] {
-      opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+      opacity: var(--moduix-signature-pad-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
   .clearTrigger {
     position: absolute;
-    top: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
-    inset-inline-end: var(--signature-pad-clear-trigger-offset, var(--spacing-2));
-    border: var(--signature-pad-clear-trigger-border-width, 0) solid
-      var(--signature-pad-clear-trigger-border-color, transparent);
-    --close-button-size: var(--signature-pad-clear-trigger-size, var(--size-md));
-    --close-button-radius: var(--signature-pad-clear-trigger-radius, var(--radius-sm));
-    --close-button-bg: var(--signature-pad-clear-trigger-bg, transparent);
-    --close-button-bg-hover: var(--signature-pad-clear-trigger-bg-hover, var(--color-accent));
-    --close-button-color: var(--signature-pad-clear-trigger-color, var(--color-muted-foreground));
-    --close-button-color-hover: var(
-      --signature-pad-clear-trigger-color-hover,
-      var(--color-foreground)
+    top: var(--moduix-signature-pad-clear-trigger-offset, var(--moduix-spacing-2));
+    inset-inline-end: var(--moduix-signature-pad-clear-trigger-offset, var(--moduix-spacing-2));
+    border: var(--moduix-signature-pad-clear-trigger-border-width, 0) solid
+      var(--moduix-signature-pad-clear-trigger-border-color, transparent);
+    --moduix-close-button-size: var(
+      --moduix-signature-pad-clear-trigger-size,
+      var(--moduix-size-md)
     );
-    --close-button-icon-size: var(--signature-pad-clear-trigger-icon-size, var(--spacing-4));
-    --close-button-transition: var(--signature-pad-transition, var(--transition-default));
-    --close-button-focus-ring-width: var(
-      --signature-pad-clear-trigger-focus-ring-width,
-      var(--focus-ring-width, var(--border-width-md))
+    --moduix-close-button-radius: var(
+      --moduix-signature-pad-clear-trigger-radius,
+      var(--moduix-radius-sm)
     );
-    --close-button-focus-ring-color: var(
-      --signature-pad-clear-trigger-focus-ring-color,
-      var(--color-ring)
+    --moduix-close-button-bg: var(--moduix-signature-pad-clear-trigger-bg, transparent);
+    --moduix-close-button-bg-hover: var(
+      --moduix-signature-pad-clear-trigger-bg-hover,
+      var(--moduix-color-accent)
     );
-    --close-button-focus-ring-offset: var(
-      --signature-pad-clear-trigger-focus-ring-offset,
-      var(--spacing-1)
+    --moduix-close-button-color: var(
+      --moduix-signature-pad-clear-trigger-color,
+      var(--moduix-color-muted-foreground)
     );
-    --close-button-disabled-opacity: var(--signature-pad-disabled-opacity, var(--opacity-disabled));
+    --moduix-close-button-color-hover: var(
+      --moduix-signature-pad-clear-trigger-color-hover,
+      var(--moduix-color-foreground)
+    );
+    --moduix-close-button-icon-size: var(
+      --moduix-signature-pad-clear-trigger-icon-size,
+      var(--moduix-spacing-4)
+    );
+    --moduix-close-button-transition: var(
+      --moduix-signature-pad-transition,
+      var(--moduix-transition-default)
+    );
+    --moduix-close-button-focus-ring-width: var(
+      --moduix-signature-pad-clear-trigger-focus-ring-width,
+      var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+    );
+    --moduix-close-button-focus-ring-color: var(
+      --moduix-signature-pad-clear-trigger-focus-ring-color,
+      var(--moduix-color-ring)
+    );
+    --moduix-close-button-focus-ring-offset: var(
+      --moduix-signature-pad-clear-trigger-focus-ring-offset,
+      var(--moduix-spacing-1)
+    );
+    --moduix-close-button-disabled-opacity: var(
+      --moduix-signature-pad-disabled-opacity,
+      var(--moduix-opacity-disabled)
+    );
   }
 }

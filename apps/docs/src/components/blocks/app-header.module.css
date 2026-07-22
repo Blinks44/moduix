@@ -1,14 +1,14 @@
 .root {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--moduix-spacing-3);
   width: 100%;
-  min-height: var(--size-xl);
-  padding: var(--spacing-2) var(--spacing-3);
-  border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-card);
-  color: var(--color-card-foreground);
+  min-height: var(--moduix-size-xl);
+  padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-card);
+  color: var(--moduix-color-card-foreground);
 }
 
 .brand {
@@ -21,40 +21,40 @@
 .brandMark {
   display: grid;
   place-items: center;
-  width: var(--size-sm);
-  height: var(--size-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-foreground);
-  color: var(--color-background);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
+  width: var(--moduix-size-sm);
+  height: var(--moduix-size-sm);
+  border-radius: var(--moduix-radius-sm);
+  background-color: var(--moduix-color-foreground);
+  color: var(--moduix-color-background);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
   line-height: 1;
 }
 
 .navigation {
   display: flex;
   align-items: center;
-  gap: var(--spacing-1);
+  gap: var(--moduix-spacing-1);
 }
 
 .navigationLink {
-  padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--radius-sm);
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+  border-radius: var(--moduix-radius-sm);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
   text-decoration: none;
 
   &[data-active],
   &:hover {
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
+    background-color: var(--moduix-color-muted);
+    color: var(--moduix-color-foreground);
   }
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--moduix-spacing-2);
   margin-inline-start: auto;
 }
 
@@ -71,33 +71,33 @@
   width: 1.25rem;
   height: 1.25rem;
   padding: 0;
-  border: var(--border-width-sm) solid var(--color-card);
-  border-radius: var(--radius-full);
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-card);
+  border-radius: var(--moduix-radius-full);
   font-size: 0.625rem;
   line-height: 1;
 }
 
 .notificationsMenu {
-  --menu-popup-min-width: 20rem;
+  --moduix-menu-popup-min-width: 20rem;
 }
 
 .notification {
   display: grid;
-  gap: var(--spacing-1);
-  color: var(--color-muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  gap: var(--moduix-spacing-1);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
   text-decoration: none;
 }
 
 .notificationTitle {
-  color: var(--color-foreground);
-  font-weight: var(--weight-medium);
+  color: var(--moduix-color-foreground);
+  font-weight: var(--moduix-weight-medium);
 }
 
 .account {
-  gap: var(--spacing-2);
-  padding-inline: var(--spacing-1);
+  gap: var(--moduix-spacing-2);
+  padding-inline: var(--moduix-spacing-1);
 }
 
 .accountLabel {
@@ -114,23 +114,23 @@
 }
 
 .accountLabel strong {
-  font-size: var(--text-sm);
-  line-height: var(--line-height-text-sm);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
 }
 
 .accountLabel span {
-  color: var(--color-muted-foreground);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-text-xs);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-xs);
+  line-height: var(--moduix-line-height-text-xs);
 }
 
 .accountMenu {
-  --menu-popup-min-width: 13rem;
+  --moduix-menu-popup-min-width: 13rem;
 }
 
 @media (width < 42rem) {
   .root {
-    gap: var(--spacing-3);
+    gap: var(--moduix-spacing-3);
   }
 
   .navigation,

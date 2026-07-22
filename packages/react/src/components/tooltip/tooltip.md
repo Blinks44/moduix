@@ -133,9 +133,9 @@ Relevant Ark attributes and variables:
 
 ## Defaults and styling
 
-The styled tooltip trigger defaults to `--size-md` with `--spacing-1` block padding.
+The styled tooltip trigger defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding.
 
-Content motion falls back to the shared `--popup-motion-*` tokens; `--tooltip-*` motion variables
+Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-tooltip-*` motion variables
 remain the more specific override.
 
 Default trigger styling is applied only when `Tooltip.Trigger` does not use `asChild`. With
@@ -144,7 +144,7 @@ Default trigger styling is applied only when `Tooltip.Trigger` does not use `asC
 `Tooltip.Content` uses Moduix tokens for background, foreground, radius, border, shadow, font size,
 and motion. Animations are tied to Ark `data-state` and use Ark `--transform-origin`.
 
-Public CSS variables use the `--tooltip-*` prefix where Moduix owns the visual contract. Ark runtime
+Public CSS variables use the `--moduix-tooltip-*` prefix where Moduix owns the visual contract. Ark runtime
 variables remain available for placement and arrow mechanics. `Tooltip.Body` has no DOM node or
 `data-slot`; style `Positioner` and `Content` when you need lower-level control.
 
@@ -170,9 +170,9 @@ escape hatches only.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-21: Reduced the styled tooltip trigger to `--size-md` and compacted its block padding.
+- 2026-07-21: Reduced the styled tooltip trigger to `--moduix-size-md` and compacted its block padding.
 
-- 2026-07-16: Added shared `--popup-motion-*` fallbacks for project-wide popup content motion.
+- 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.
 - 2026-07-07: Added `Tooltip.Body` as the default shortcut for `Tooltip.Positioner +
 Tooltip.Content`, updated docs/examples, and kept the explicit Ark parts available for advanced
   composition.
@@ -182,7 +182,7 @@ Tooltip.Content`, updated docs/examples, and kept the explicit Ark parts availab
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Audited the Ark migration, removed stale story/docs CSS, aligned documented
-  trigger state attributes and presence behavior with Ark, and made `--tooltip-transition` a
+  trigger state attributes and presence behavior with Ark, and made `--moduix-tooltip-transition` a
   consistent duration token for trigger transitions and content animations.
 - 2026-06-21: Migrated Tooltip to Ark UI React. Replaced the legacy high-level
   wrapper contract with explicit Ark parts, Ark state callbacks, provider/context hooks, Ark data

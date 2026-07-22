@@ -1,11 +1,11 @@
-@layer ui.components {
+@layer moduix.components {
   .root {
     box-sizing: border-box;
     display: grid;
-    width: var(--image-cropper-width, 32rem);
-    max-width: var(--image-cropper-max-width, 100%);
-    gap: var(--image-cropper-gap, var(--spacing-3));
-    color: var(--image-cropper-color, var(--color-foreground));
+    width: var(--moduix-image-cropper-width, 32rem);
+    max-width: var(--moduix-image-cropper-max-width, 100%);
+    gap: var(--moduix-image-cropper-gap, var(--moduix-spacing-3));
+    color: var(--moduix-image-cropper-color, var(--moduix-color-foreground));
 
     &[data-dragging],
     &[data-panning] {
@@ -16,61 +16,64 @@
   .viewport {
     box-sizing: border-box;
     width: 100%;
-    height: var(--image-cropper-viewport-height, var(--image-cropper-viewport-min-height, 20rem));
+    height: var(
+      --moduix-image-cropper-viewport-height,
+      var(--moduix-image-cropper-viewport-min-height, 20rem)
+    );
     overflow: hidden;
-    border: var(--image-cropper-border-width, var(--border-width-sm)) solid
-      var(--image-cropper-border-color, var(--color-border));
-    border-radius: var(--image-cropper-radius, var(--radius-lg));
+    border: var(--moduix-image-cropper-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-image-cropper-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-image-cropper-radius, var(--moduix-radius-lg));
     background:
       linear-gradient(
           45deg,
           var(
-              --image-cropper-checker-color,
-              color-mix(in oklab, var(--color-muted) 72%, transparent)
+              --moduix-image-cropper-checker-color,
+              color-mix(in oklab, var(--moduix-color-muted) 72%, transparent)
             )
             25%,
           transparent 25%
         )
-        0 0 / var(--image-cropper-checker-size, var(--spacing-4))
-        var(--image-cropper-checker-size, var(--spacing-4)),
+        0 0 / var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4))
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)),
       linear-gradient(
           45deg,
           transparent 75%,
           var(
-              --image-cropper-checker-color,
-              color-mix(in oklab, var(--color-muted) 72%, transparent)
+              --moduix-image-cropper-checker-color,
+              color-mix(in oklab, var(--moduix-color-muted) 72%, transparent)
             )
             75%
         )
-        0 0 / var(--image-cropper-checker-size, var(--spacing-4))
-        var(--image-cropper-checker-size, var(--spacing-4)),
+        0 0 / var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4))
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)),
       linear-gradient(
           45deg,
           transparent 75%,
           var(
-              --image-cropper-checker-color,
-              color-mix(in oklab, var(--color-muted) 72%, transparent)
+              --moduix-image-cropper-checker-color,
+              color-mix(in oklab, var(--moduix-color-muted) 72%, transparent)
             )
             75%
         )
-        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2)
-        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2) /
-        var(--image-cropper-checker-size, var(--spacing-4))
-        var(--image-cropper-checker-size, var(--spacing-4)),
+        calc(var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)) / -2)
+        calc(var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)) / -2) /
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4))
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)),
       linear-gradient(
           45deg,
           var(
-              --image-cropper-checker-color,
-              color-mix(in oklab, var(--color-muted) 72%, transparent)
+              --moduix-image-cropper-checker-color,
+              color-mix(in oklab, var(--moduix-color-muted) 72%, transparent)
             )
             25%,
-          var(--image-cropper-viewport-bg, var(--color-background)) 25%
+          var(--moduix-image-cropper-viewport-bg, var(--moduix-color-background)) 25%
         )
-        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2)
-        calc(var(--image-cropper-checker-size, var(--spacing-4)) / -2) /
-        var(--image-cropper-checker-size, var(--spacing-4))
-        var(--image-cropper-checker-size, var(--spacing-4));
-    box-shadow: var(--image-cropper-shadow, none);
+        calc(var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)) / -2)
+        calc(var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4)) / -2) /
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4))
+        var(--moduix-image-cropper-checker-size, var(--moduix-spacing-4));
+    box-shadow: var(--moduix-image-cropper-shadow, none);
 
     &[data-disabled] {
       cursor: default;
@@ -90,30 +93,36 @@
 
   .selection {
     box-sizing: content-box;
-    border: var(--image-cropper-selection-border-width, var(--border-width-md)) solid
-      var(--image-cropper-selection-border-color, var(--color-primary));
-    border-radius: var(--image-cropper-selection-radius, var(--radius-md));
+    border: var(--moduix-image-cropper-selection-border-width, var(--moduix-border-width-md)) solid
+      var(--moduix-image-cropper-selection-border-color, var(--moduix-color-primary));
+    border-radius: var(--moduix-image-cropper-selection-radius, var(--moduix-radius-md));
     box-shadow:
-      0 0 0 9999px var(--image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
-      inset 0 0 0 var(--image-cropper-selection-inner-border-width, var(--border-width-sm))
-        var(--image-cropper-selection-inner-border-color, rgb(255 255 255 / 64%));
+      0 0 0 9999px var(--moduix-image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
+      inset 0 0 0
+        var(--moduix-image-cropper-selection-inner-border-width, var(--moduix-border-width-sm))
+        var(--moduix-image-cropper-selection-inner-border-color, rgb(255 255 255 / 64%));
     outline: 0;
     cursor: grab;
     transition:
-      border-color var(--image-cropper-transition, var(--transition-default)),
-      box-shadow var(--image-cropper-transition, var(--transition-default));
+      border-color var(--moduix-image-cropper-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-image-cropper-transition, var(--moduix-transition-default));
 
     &[data-shape='circle'] {
-      border-radius: var(--image-cropper-selection-circle-radius, var(--radius-full));
+      border-radius: var(--moduix-image-cropper-selection-circle-radius, var(--moduix-radius-full));
     }
 
     &:focus-visible {
       box-shadow:
-        0 0 0 9999px var(--image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
-        inset 0 0 0 var(--image-cropper-selection-inner-border-width, var(--border-width-sm))
-          var(--image-cropper-selection-inner-border-color, rgb(255 255 255 / 64%)),
-        0 0 0 var(--image-cropper-focus-ring-width, var(--focus-ring-width, var(--border-width-md)))
-          var(--image-cropper-focus-ring-color, var(--color-ring));
+        0 0 0 9999px var(--moduix-image-cropper-selection-overlay-bg, rgb(0 0 0 / 45%)),
+        inset 0 0 0
+          var(--moduix-image-cropper-selection-inner-border-width, var(--moduix-border-width-sm))
+          var(--moduix-image-cropper-selection-inner-border-color, rgb(255 255 255 / 64%)),
+        0 0 0
+          var(
+            --moduix-image-cropper-focus-ring-width,
+            var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+          )
+          var(--moduix-image-cropper-focus-ring-color, var(--moduix-color-ring));
     }
 
     &[data-dragging] {
@@ -129,13 +138,13 @@
     pointer-events: none;
 
     &[data-axis='horizontal'] {
-      border-block: var(--image-cropper-grid-width, var(--border-width-sm)) solid
-        var(--image-cropper-grid-color, rgb(255 255 255 / 62%));
+      border-block: var(--moduix-image-cropper-grid-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-image-cropper-grid-color, rgb(255 255 255 / 62%));
     }
 
     &[data-axis='vertical'] {
-      border-inline: var(--image-cropper-grid-width, var(--border-width-sm)) solid
-        var(--image-cropper-grid-color, rgb(255 255 255 / 62%));
+      border-inline: var(--moduix-image-cropper-grid-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-image-cropper-grid-color, rgb(255 255 255 / 62%));
     }
   }
 
@@ -143,33 +152,33 @@
     position: absolute;
     z-index: 1;
     box-sizing: border-box;
-    width: var(--image-cropper-handle-size, var(--spacing-3));
-    height: var(--image-cropper-handle-size, var(--spacing-3));
-    border: var(--image-cropper-handle-border-width, var(--border-width-sm)) solid
-      var(--image-cropper-handle-border-color, rgb(255 255 255 / 88%));
-    border-radius: var(--image-cropper-handle-radius, var(--radius-xs));
-    background-color: var(--image-cropper-handle-bg, rgb(255 255 255 / 96%));
-    box-shadow: var(--image-cropper-handle-shadow, 0 1px 3px rgb(15 23 42 / 18%));
+    width: var(--moduix-image-cropper-handle-size, var(--moduix-spacing-3));
+    height: var(--moduix-image-cropper-handle-size, var(--moduix-spacing-3));
+    border: var(--moduix-image-cropper-handle-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-image-cropper-handle-border-color, rgb(255 255 255 / 88%));
+    border-radius: var(--moduix-image-cropper-handle-radius, var(--moduix-radius-xs));
+    background-color: var(--moduix-image-cropper-handle-bg, rgb(255 255 255 / 96%));
+    box-shadow: var(--moduix-image-cropper-handle-shadow, 0 1px 3px rgb(15 23 42 / 18%));
     transition:
-      border-color var(--image-cropper-transition, var(--transition-default)),
-      background-color var(--image-cropper-transition, var(--transition-default)),
-      box-shadow var(--image-cropper-transition, var(--transition-default)),
-      opacity var(--image-cropper-transition, var(--transition-default));
+      border-color var(--moduix-image-cropper-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-image-cropper-transition, var(--moduix-transition-default)),
+      box-shadow var(--moduix-image-cropper-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-image-cropper-transition, var(--moduix-transition-default));
 
     &[data-position='n'],
     &[data-position='s'] {
       width: 100% !important;
-      height: var(--image-cropper-handle-edge-thickness, 0.2rem);
+      height: var(--moduix-image-cropper-handle-edge-thickness, 0.2rem);
       border-width: 0;
-      border-radius: var(--image-cropper-handle-edge-radius, var(--radius-full));
+      border-radius: var(--moduix-image-cropper-handle-edge-radius, var(--moduix-radius-full));
     }
 
     &[data-position='e'],
     &[data-position='w'] {
-      width: var(--image-cropper-handle-edge-thickness, 0.2rem);
+      width: var(--moduix-image-cropper-handle-edge-thickness, 0.2rem);
       height: 100% !important;
       border-width: 0;
-      border-radius: var(--image-cropper-handle-edge-radius, var(--radius-full));
+      border-radius: var(--moduix-image-cropper-handle-edge-radius, var(--moduix-radius-full));
     }
 
     &[data-disabled] {
