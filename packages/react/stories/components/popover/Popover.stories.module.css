@@ -47,7 +47,7 @@
   }
 
   .sameWidthContent {
-    width: var(--reference-width);
+    width: var(--reference-width, auto);
     min-width: 0;
   }
 
