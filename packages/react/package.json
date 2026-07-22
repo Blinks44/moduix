@@ -1,6 +1,6 @@
 {
   "name": "@moduix/react",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "React implementation of the moduix component system, built on Ark UI primitives.",
   "keywords": [
     "accessible",

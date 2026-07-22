@@ -1,5 +1,11 @@
 # moduix
 
+## 2.2.0
+
+### Minor Changes
+
+- 5c88b71: Namespace the public CSS token contract under `--moduix-*` and cascade layers under `moduix.*`.
+
 ## 2.1.0
 
 ### Minor Changes
