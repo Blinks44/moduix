@@ -46,11 +46,6 @@
     width: 20rem;
   }
 
-  .sameWidthContent {
-    width: var(--reference-width, auto);
-    min-width: 0;
-  }
-
   .nestedBody {
     margin-top: var(--moduix-spacing-3);
   }

@@ -239,7 +239,7 @@ export const SameWidth: Story = {
         <Button className={storyStyles.wideTrigger}>Match this trigger width</Button>
       </Popover.Trigger>
       <Popover.Positioner>
-        <Popover.Content className={storyStyles.sameWidthContent}>
+        <Popover.Content>
           <Popover.Title>Matched width</Popover.Title>
           <Popover.Description>
             The content uses Ark&apos;s reference width measurement.
