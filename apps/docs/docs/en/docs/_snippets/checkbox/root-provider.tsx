@@ -1,4 +1,4 @@
-import { Checkbox, useCheckbox } from '@moduix/react';
+import { Button, Checkbox, useCheckbox } from '@moduix/react';
 
 export default function RootProviderCheckboxDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
@@ -9,9 +9,13 @@ export default function RootProviderCheckboxDemo() {
         <Checkbox.Control />
         <Checkbox.Label>Managed outside the tree</Checkbox.Label>
       </Checkbox.RootProvider>
-      <button type="button" onClick={() => checkbox.setChecked(!checkbox.checked)}>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => checkbox.setChecked(!checkbox.checked)}
+      >
         {checkbox.checked ? 'Uncheck' : 'Check'}
-      </button>
+      </Button>
     </>
   );
 }

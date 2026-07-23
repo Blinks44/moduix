@@ -1,5 +1,4 @@
 import { Button, Card } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const content = {
   title: 'Release health',
@@ -9,18 +8,16 @@ const content = {
 
 export default function CardDemo() {
   return (
-    <PreviewLayout maxWidth="24rem">
-      <Card className="card">
-        <Card.Header>
-          <Card.Title>{content.title}</Card.Title>
-          <Card.Description>{content.description}</Card.Description>
-        </Card.Header>
-        <Card.Body>{content.summary}</Card.Body>
-        <Card.Footer>
-          <Button variant="outline">View log</Button>
-          <Button>Promote release</Button>
-        </Card.Footer>
-      </Card>
-    </PreviewLayout>
+    <Card className="card">
+      <Card.Header>
+        <Card.Title>{content.title}</Card.Title>
+        <Card.Description>{content.description}</Card.Description>
+      </Card.Header>
+      <Card.Body>{content.summary}</Card.Body>
+      <Card.Footer>
+        <Button variant="outline">View log</Button>
+        <Button>Promote release</Button>
+      </Card.Footer>
+    </Card>
   );
 }

@@ -7,7 +7,7 @@ const emptyState = {
 };
 export default function SavedPlacesEmptyState() {
   return (
-    <Empty className="empty">
+    <Empty>
       <Empty.Icon>
         <MapIcon />
       </Empty.Icon>

@@ -43,6 +43,11 @@
           "type": "registry:file"
         },
         {
+          "path": "packages/react/src/lib/moduix/styles/ark-runtime-reference.css",
+          "target": "@lib/moduix/styles/ark-runtime-reference.css",
+          "type": "registry:file"
+        },
+        {
           "path": "packages/react/src/lib/moduix/styles/borders.css",
           "target": "@lib/moduix/styles/borders.css",
           "type": "registry:file"

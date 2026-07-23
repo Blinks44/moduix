@@ -34,7 +34,6 @@ export default function PauseOnHoverCarousel() {
       <Carousel.Context>
         {(api) => (
           <>
-            <p>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
             <Carousel.ItemGroup
               aria-label="Pause on hover gallery"
               onPointerOver={() => api.pause()}
@@ -46,11 +45,11 @@ export default function PauseOnHoverCarousel() {
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
+            <Carousel.Indicators />
+            <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
           </>
         )}
       </Carousel.Context>
-
-      <Carousel.Indicators />
     </Carousel>
   );
 }

@@ -1,10 +1,18 @@
 import type { CssProperty } from '../mdx/reference';
 
 export const avatarExampleCss = `
-  .docs-avatar-row,
-  .docs-avatar-provider {
+  .docs-avatar-row {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .docs-avatar-provider {
+    display: grid;
+    align-items: center;
+    justify-items: center;
     gap: var(--moduix-spacing-3);
   }
 
@@ -15,15 +23,6 @@ export const avatarExampleCss = `
     gap: var(--moduix-spacing-3);
   }
 
-  .docs-avatar-provider-button {
-    min-height: var(--moduix-size-md);
-    padding-inline: var(--moduix-spacing-3);
-    border: 1px solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font: inherit;
-  }
 `;
 
 export const avatarCompositionCss = `

@@ -11,7 +11,9 @@ export default function NestedDialogDemo() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Title>Parent dialog</Dialog.Title>
-            <Button onClick={() => child.setOpen(true)}>Open nested</Button>
+            <Button className="dialog-nested-action" onClick={() => child.setOpen(true)}>
+              Open nested
+            </Button>
           </Dialog.Content>
         </Dialog.Positioner>
       </Dialog.RootProvider>

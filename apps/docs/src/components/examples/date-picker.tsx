@@ -1,34 +1,5 @@
-import { createListCollection } from '@ark-ui/react/collection';
-import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker, Select } from '@moduix/react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
-
-type DatePickerSelectItem = {
-  label: string;
-  value: string;
-};
-
-const monthSelectItems: DatePickerSelectItem[] = [
-  { label: 'January', value: '1' },
-  { label: 'February', value: '2' },
-  { label: 'March', value: '3' },
-  { label: 'April', value: '4' },
-  { label: 'May', value: '5' },
-  { label: 'June', value: '6' },
-  { label: 'July', value: '7' },
-  { label: 'August', value: '8' },
-  { label: 'September', value: '9' },
-  { label: 'October', value: '10' },
-  { label: 'November', value: '11' },
-  { label: 'December', value: '12' },
-];
-
-const monthSelectCollection = createListCollection<DatePickerSelectItem>({
-  items: monthSelectItems,
-});
-
-const DatePickerContext = DatePicker.Context;
 
 export const datePickerExampleCss = `
   .date-picker-state {
@@ -275,7 +246,6 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-popover-foreground)',
     'Controls popup text color.',
   ],
-  ['--moduix-date-picker-content-max-height', '32rem', 'Controls popup maximum height.'],
   ['--moduix-date-picker-content-max-width', 'calc(100vw - 2rem)', 'Controls popup maximum width.'],
   ['--moduix-date-picker-content-min-width', '18.75rem', 'Controls popup minimum width.'],
   ['--moduix-date-picker-content-padding', 'var(--moduix-spacing-3)', 'Controls popup padding.'],
@@ -661,99 +631,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-function DatePickerSelectContent({ items }: { items: DatePickerSelectItem[] }) {
-  return (
-    <Select.Positioner>
-      <Select.Content>
-        <Select.List>
-          {items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.List>
-      </Select.Content>
-    </Select.Positioner>
-  );
-}
-
-function DatePickerSelectControl() {
-  return (
-    <Select.Control>
-      <Select.Trigger>
-        <Select.ValueText />
-        <Select.Indicator />
-      </Select.Trigger>
-    </Select.Control>
-  );
-}
-
-function MonthYearPickerSelects() {
-  return (
-    <DatePickerContext>
-      {(datePicker) => {
-        const focusedYear = datePicker.focusedValue.year;
-        const yearItems = Array.from({ length: 12 }, (_, index) => {
-          const year = focusedYear - 5 + index;
-          return { label: String(year), value: String(year) };
-        });
-        const yearCollection = createListCollection<DatePickerSelectItem>({ items: yearItems });
-
-        return (
-          <div className="date-picker-month-year-selects">
-            <Select
-              className="date-picker-month-select"
-              collection={monthSelectCollection}
-              value={[String(datePicker.focusedValue.month)]}
-              onValueChange={(details) => {
-                const month = Number(details.value[0]);
-                if (month) datePicker.setFocusedValue(datePicker.focusedValue.set({ month }));
-              }}
-            >
-              <DatePickerSelectControl />
-              <DatePickerSelectContent items={monthSelectItems} />
-            </Select>
-            <Select
-              className="date-picker-year-select"
-              collection={yearCollection}
-              value={[String(datePicker.focusedValue.year)]}
-              onValueChange={(details) => {
-                const year = Number(details.value[0]);
-                if (year) datePicker.setFocusedValue(datePicker.focusedValue.set({ year }));
-              }}
-            >
-              <DatePickerSelectControl />
-              <DatePickerSelectContent items={yearItems} />
-            </Select>
-          </div>
-        );
-      }}
-    </DatePickerContext>
-  );
-}
-
-export function MonthYearSelectDatePickerExample() {
-  return (
-    <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl className="date-picker-month-year-control">
-            <MonthYearPickerSelects />
-            <div className="date-picker-month-year-nav">
-              <DatePicker.PrevTrigger />
-              <DatePicker.NextTrigger />
-            </div>
-          </DatePicker.ViewControl>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable showHeader={false} />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
-    </DatePicker>
-  );
 }

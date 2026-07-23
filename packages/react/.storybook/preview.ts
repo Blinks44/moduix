@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react-vite';
+import type { Preview } from '@storybook/react';
 import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 

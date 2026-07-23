@@ -1,5 +1,4 @@
 import { Button, Card } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const incident = {
   href: '/incidents/response',
@@ -10,21 +9,19 @@ const incident = {
 
 export default function OverlayLinkCardDemo() {
   return (
-    <PreviewLayout maxWidth="24rem">
-      <Card>
-        <Card.Header>
-          <Card.Title>
-            <Card.Link href={incident.href}>{incident.title}</Card.Link>
-          </Card.Title>
-          <Card.Description>{incident.description}</Card.Description>
-          <Card.Action>
-            <Button variant="outline" size="sm">
-              Acknowledge
-            </Button>
-          </Card.Action>
-        </Card.Header>
-        <Card.Body>{incident.summary}</Card.Body>
-      </Card>
-    </PreviewLayout>
+    <Card>
+      <Card.Header>
+        <Card.Title>
+          <Card.Link href={incident.href}>{incident.title}</Card.Link>
+        </Card.Title>
+        <Card.Description>{incident.description}</Card.Description>
+        <Card.Action>
+          <Button variant="outline" size="sm">
+            Acknowledge
+          </Button>
+        </Card.Action>
+      </Card.Header>
+      <Card.Body>{incident.summary}</Card.Body>
+    </Card>
   );
 }

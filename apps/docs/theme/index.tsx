@@ -31,6 +31,7 @@ import {
   Cards,
   CssPropertiesSection,
   ExampleFrame,
+  PreviewFrame,
   PrimitiveReference,
   ShadcnInstall,
 } from '@/components/mdx/Components';
@@ -175,6 +176,7 @@ const mdxComponents = {
   Cards,
   CssPropertiesSection,
   ExampleFrame,
+  PreviewFrame,
   h1: DocTitle,
   PackageManagerTabs,
   PrimitiveReference,
@@ -193,6 +195,7 @@ export function Layout() {
         components={mdxComponents as unknown as Record<string, FC>}
         navTitle={<ModuixNavTitle />}
       />
+      <div id="__rspress_modal_container" />
     </>
   );
 }

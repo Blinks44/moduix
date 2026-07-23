@@ -22,9 +22,11 @@ Compose the explicit Ark UI structure: `Dialog.Root`, `Dialog.Backdrop`,
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -123,9 +125,12 @@ trigger.
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/alert-dialog.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/alert-dialog.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Confirmation
 
@@ -133,9 +138,11 @@ Intercept the parent dialog close request when unsaved changes should be confirm
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/confirmation.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/confirmation.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Controlled
 
@@ -143,9 +150,12 @@ Use the Ark detail object when synchronizing dialog state with React.
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/controlled.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/controlled.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Mounting and Focus Lifecycle
 
@@ -153,20 +163,39 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/mounting-and-focus-lifecycle.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/mounting-and-focus-lifecycle.tsx"
 
-```
+````
+</PreviewFrame>
 
-### Inside and Outside Scroll
+### Inside Scroll
 
-Scroll the body for a fixed header/footer layout, or scroll the positioner when content should
-extend beyond the viewport.
+Use `ScrollArea` inside `Dialog.Content` when the title and actions should stay visible while the
+body scrolls.
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/inside-and-outside-scroll.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/inside-scroll.tsx"
 
-```
+````
+
+</PreviewFrame>
+
+### Outside Scroll
+
+Let `Dialog.Positioner` scroll the entire dialog when a long document should retain its natural
+content height.
+
+<style>{DialogDocs.dialogExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/outside-scroll.tsx"
+
+````
+
+</PreviewFrame>
 
 ### Multiple Triggers
 
@@ -175,9 +204,12 @@ different records.
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/multiple-triggers.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/multiple-triggers.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Nested
 
@@ -186,9 +218,12 @@ variables to the parent content; moduix uses them for a receding parent effect t
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/nested.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/nested.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Non-Modal
 
@@ -196,9 +231,12 @@ Set `modal={false}` and omit the backdrop when outside interaction should remain
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/non-modal.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/non-modal.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Open from Menu
 
@@ -206,9 +244,12 @@ Control `open` from a menu item when a contextual action needs a confirmation di
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/open-from-menu.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/open-from-menu.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Root Provider and Context
 
@@ -217,18 +258,24 @@ in child components with moduix `useDialogContext()`.
 
 <style>{DialogDocs.dialogExampleCss}</style>
 
-```tsx preview file="./_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/root-provider-and-ark-context-hooks.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control of every
 Ark dialog part.
 
-```tsx preview file="./_snippets/dialog/advanced-customization.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/dialog/advanced-customization.tsx"
 
 ```
+
+</PreviewFrame>
 
 ## Styling
 
@@ -257,3 +304,4 @@ Ark dialog part.
 - Runtime variables: `--layer-index` and `--nested-layer-count`.
 - `Dialog.CloseIcon` is absolutely positioned against `Dialog.Content`; its placement does not
   depend on `Dialog.Header`.
+```

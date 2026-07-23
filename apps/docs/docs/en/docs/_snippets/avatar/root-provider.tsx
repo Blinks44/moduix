@@ -1,4 +1,4 @@
-import { Avatar, useAvatar } from '@moduix/react';
+import { Avatar, Button, useAvatar } from '@moduix/react';
 import { useState } from 'react';
 
 const avatarImage =
@@ -10,17 +10,11 @@ export default function AvatarRootProviderDemo() {
 
   return (
     <div className="docs-avatar-provider">
-      <button
-        type="button"
-        className="docs-avatar-provider-button"
-        onClick={() => setCount(count + 1)}
-      >
-        Change avatar
-      </button>
       <Avatar.RootProvider value={avatar}>
         <Avatar.Fallback name="Alex T." />
         <Avatar.Image src={`${avatarImage}&seed=${count}`} alt="Alex T." />
       </Avatar.RootProvider>
+      <Button onClick={() => setCount(count + 1)}>Change avatar</Button>
     </div>
   );
 }

@@ -146,6 +146,7 @@ results should remain visually separate or need a custom wrapper.
 ## Defaults and styling
 
 The input and filter default to `--moduix-size-md`. Single-line list items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
+Empty messages use the same compact `--moduix-spacing-1` block padding.
 
 Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
 and `--moduix-spacing-1` block padding. Listbox-specific variables still take precedence.
@@ -188,6 +189,7 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 
 ## Local changelog
 
+- 2026-07-23: Compacted empty-message block padding to `--moduix-spacing-1` to align with popup items.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized group labels to the shared regular-weight popup-label contract.
 

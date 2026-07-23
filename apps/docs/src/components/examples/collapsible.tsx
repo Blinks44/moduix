@@ -1,10 +1,6 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const collapsibleExampleCss = `
-  .collapsible-root {
-    width: 14rem;
-  }
-
   .collapsible-keys-list {
     display: flex;
     flex-direction: column;
@@ -13,16 +9,10 @@ export const collapsibleExampleCss = `
     padding-inline-start: var(--moduix-spacing-2);
   }
 
-  .collapsible-state {
-    margin-top: var(--moduix-spacing-2);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-xs);
-    line-height: var(--moduix-line-height-text-xs);
-  }
-
-  .collapsible-provider-layout {
+  .collapsible-example-layout {
     display: flex;
     flex-direction: column;
+    inline-size: 100%;
     gap: var(--moduix-spacing-2);
   }
 
@@ -36,10 +26,6 @@ export const collapsibleExampleCss = `
 `;
 
 export const collapsibleCustomCompositionCss = `
-  .collapsible-root {
-    width: 14rem;
-  }
-
   .collapsible-custom-trigger {
     display: flex;
     align-items: center;

@@ -125,6 +125,68 @@ export function ReleaseDatePicker() {
           <DatePicker.View view="day">
             <DatePicker.DayTable />
           </DatePicker.View>
+          <DatePicker.View view="month">
+            <DatePicker.Context>
+              {(datePicker) => (
+                <>
+                  <DatePicker.ViewControl>
+                    <DatePicker.PrevTrigger />
+                    <DatePicker.ViewTrigger />
+                    <DatePicker.NextTrigger />
+                  </DatePicker.ViewControl>
+                  <DatePicker.Table columns={4}>
+                    <DatePicker.TableBody>
+                      {datePicker
+                        .getMonthsGrid({ columns: 4, format: 'short' })
+                        .map((months, rowIndex) => (
+                          <DatePicker.TableRow key={rowIndex}>
+                            {months.map((month) => (
+                              <DatePicker.TableCell key={month.value} value={month.value}>
+                                <DatePicker.TableCellTrigger>
+                                  {month.label}
+                                </DatePicker.TableCellTrigger>
+                              </DatePicker.TableCell>
+                            ))}
+                          </DatePicker.TableRow>
+                        ))}
+                    </DatePicker.TableBody>
+                  </DatePicker.Table>
+                </>
+              )}
+            </DatePicker.Context>
+          </DatePicker.View>
+          <DatePicker.View view="year">
+            <DatePicker.Context>
+              {(datePicker) => (
+                <>
+                  <DatePicker.ViewControl>
+                    <DatePicker.PrevTrigger />
+                    <DatePicker.ViewTrigger />
+                    <DatePicker.NextTrigger />
+                  </DatePicker.ViewControl>
+                  <DatePicker.Table columns={4}>
+                    <DatePicker.TableBody>
+                      {datePicker.getYearsGrid({ columns: 4 }).map((years, rowIndex) => (
+                        <DatePicker.TableRow key={rowIndex}>
+                          {years.map((year) => (
+                            <DatePicker.TableCell
+                              key={year.value}
+                              value={year.value}
+                              disabled={year.disabled}
+                            >
+                              <DatePicker.TableCellTrigger>
+                                {year.label}
+                              </DatePicker.TableCellTrigger>
+                            </DatePicker.TableCell>
+                          ))}
+                        </DatePicker.TableRow>
+                      ))}
+                    </DatePicker.TableBody>
+                  </DatePicker.Table>
+                </>
+              )}
+            </DatePicker.Context>
+          </DatePicker.View>
         </DatePicker.Content>
       </DatePicker.Positioner>
     </DatePicker>
@@ -135,6 +197,8 @@ export function ReleaseDatePicker() {
 Use `DatePicker.Context` to render week days, weeks, month grids, and year grids when
 `DatePicker.DayTable` is not enough. Use `DatePicker.RootProvider` only with state created by
 moduix `useDatePicker()`; do not also render `DatePicker.Root` for the same state instance.
+Render every view between `minView` and `maxView` whenever the composition exposes a
+`DatePicker.ViewTrigger`; for a single-panel picker, set both bounds to that panel.
 
 The default root and popup width is `18.75rem` (300px). Override `--moduix-date-picker-width` for the
 field and `--moduix-date-picker-content-width` for wider popup compositions such as two visible months.
@@ -188,6 +252,9 @@ The text input defaults to `--moduix-size-md` with `--moduix-spacing-1` block pa
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-date-picker-transition` and
 closed-state variables remain the more specific override.
 
+Calendar content does not scroll by default. Keep a constrained, scrollable calendar as an explicit consumer
+composition when the available viewport space requires it.
+
 All visual parts accept `className`. The CSS module defines defaults for root spacing, label text,
 input frame, icon triggers, popup surface, view controls, calendar cells, month/year selects,
 week-number cells, and preset buttons.
@@ -240,6 +307,7 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 
 ## Local changelog
 
+- 2026-07-23: Removed the default popup scroll container and documented the complete day/month/year view composition required by the default view-switching contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the input to `--moduix-size-md` and aligned calendar popup controls to `--moduix-size-sm`.
 

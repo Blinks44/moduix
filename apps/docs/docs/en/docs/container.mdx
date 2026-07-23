@@ -25,14 +25,13 @@ applies responsive inline gutters, and stays out of vertical spacing decisions.
         background-color: var(--moduix-color-muted);
       }
 
-      .container > * {
-        max-width: 42rem;
-      }
     `}</style>
 
-```tsx preview file="./_snippets/container/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -115,9 +114,12 @@ Use `gutter` to control responsive inline padding.
       }
     `}</style>
 
-```tsx preview file="./_snippets/container/gutters.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/gutters.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Semantic Element
 
@@ -130,14 +132,13 @@ Use `asChild` when the layout wrapper should also describe document structure.
         background-color: var(--moduix-color-muted);
       }
 
-      .container > * {
-        max-width: 42rem;
-      }
     `}</style>
 
-```tsx preview file="./_snippets/container/semantic-element.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/semantic-element.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Sizes
 
@@ -159,9 +160,12 @@ preserving the selected gutter.
       }
     `}</style>
 
-```tsx preview file="./_snippets/container/sizes.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/sizes.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### With Bleed
 
@@ -174,10 +178,6 @@ Keep the text column constrained and let only the wider child opt out.
         background-color: var(--moduix-color-muted);
       }
 
-      .container > * {
-        max-width: 42rem;
-      }
-
       .bleedSurface {
         padding: var(--moduix-spacing-4);
         border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
@@ -185,9 +185,11 @@ Keep the text column constrained and let only the wider child opt out.
       }
     `}</style>
 
-```tsx preview file="./_snippets/container/with-bleed.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/with-bleed.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -206,3 +208,4 @@ scale. Use `className` for local block styling such as padding, borders, or back
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
 - `--moduix-container-*` variables control only inline gutter and max-width math; vertical spacing and
   child layout remain the responsibility of surrounding layout CSS.
+```

@@ -4,7 +4,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export default function LazyMountCollapsibleDemo() {
   return (
-    <Collapsible className="collapsible-root" lazyMount unmountOnExit>
+    <Collapsible lazyMount unmountOnExit>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />

@@ -302,18 +302,16 @@
     display: flex;
     min-height: 0;
     flex-direction: column;
-    overflow-y: auto;
     outline: 0;
-    overscroll-behavior: contain;
-    scroll-padding-block: var(--moduix-combobox-content-padding-y, var(--moduix-spacing-1));
 
     &[data-empty] {
       display: none;
     }
   }
 
-  .empty {
-    padding-block: var(--moduix-combobox-empty-padding-y, var(--moduix-spacing-3));
+  .empty,
+  .status {
+    padding-block: var(--moduix-combobox-empty-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-combobox-empty-padding-x, var(--moduix-spacing-4));
     color: var(--moduix-combobox-empty-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-combobox-empty-font-size, var(--moduix-text-sm));
@@ -331,7 +329,7 @@
 
   .itemGroupLabel {
     position: sticky;
-    top: 0;
+    top: calc(-1 * var(--moduix-combobox-content-padding-y, var(--moduix-spacing-1)));
     z-index: 1;
     padding-block: var(
       --moduix-combobox-item-group-label-padding-y,

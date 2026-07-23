@@ -7,7 +7,7 @@ const emptyState = {
 
 export default function ProjectEmptyState() {
   return (
-    <Empty className="empty">
+    <Empty>
       <Empty.Content>
         <Empty.Title asChild>
           <h2>{emptyState.title}</h2>

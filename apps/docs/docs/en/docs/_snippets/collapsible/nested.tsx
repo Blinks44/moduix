@@ -4,7 +4,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export default function NestedCollapsibleDemo() {
   return (
-    <Collapsible className="collapsible-root">
+    <Collapsible>
       <Collapsible.Trigger>
         Account security
         <Collapsible.Indicator />

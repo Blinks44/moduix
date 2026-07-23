@@ -25,7 +25,7 @@ render it inline, or pass `portalRef` to target a custom container. The structur
 explicit and independently styleable.
 
 - Public composition is `Combobox.Root`, `Label`, `Control`, `Input`, `ClearTrigger`, `Trigger`,
-  `Positioner`, `Content`, `Empty`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`,
+  `Positioner`, `Content`, `Empty`, `Status`, `List`, `ItemGroup`, `ItemGroupLabel`, `Item`, `ItemText`,
   `ItemIndicator`, and `Option`.
 - `Combobox.RootProvider` renders the styled root for state created with moduix `useCombobox`.
 - `Combobox.Root` requires `collection`; use `createListCollection()` or `useListCollection()`.
@@ -41,6 +41,8 @@ explicit and independently styleable.
   `Combobox.Item`, wraps its children in `Combobox.ItemText`, and includes `Combobox.ItemIndicator`.
   Pass `indicator={false}` to hide the indicator or `indicator={<Icon />}` to replace the default
   check icon.
+- `Combobox.Status` is a styled `div` for consumer-owned loading, error, or guidance messages in
+  `Content`. It does not set a loading state or ARIA role.
 
 ## Anatomy and exported parts
 
@@ -55,6 +57,7 @@ Combobox.Root
    └─ Combobox.Positioner
       └─ Combobox.Content
          ├─ Combobox.Empty
+         ├─ Combobox.Status
          ├─ Combobox.List
          │  └─ Combobox.Item
          │     ├─ Combobox.ItemText
@@ -65,9 +68,10 @@ Combobox.Root
             └─ Combobox.Item
 ```
 
-All styled parts expose matching kebab-case `data-slot` hooks. `RootProvider` accepts state created
-with moduix `useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over
-the existing item parts and does not add a new styling hook.
+All styled parts expose matching kebab-case `data-slot` hooks. `Status` uses the same default visual
+tokens as `Empty` and exposes `combobox-status`. `RootProvider` accepts state created with moduix
+`useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over the existing
+item parts and does not add a new styling hook.
 
 ## Composition
 
@@ -143,7 +147,7 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - Grouping: `groupBy`, `collection.group()`, `ItemGroup`, and `ItemGroupLabel`.
 - Multiple selection: `multiple` plus controlled `value`; no combobox-specific chip API.
 - Async search: replace collection items and handle `details.reason` from
-  `onInputValueChange`.
+  `onInputValueChange`; render `Status` while a request is pending when a styled message is needed.
 - Creatable values: preserved through `allowCustomValue`.
 - Provider state: moduix `useCombobox` plus `Combobox.RootProvider`.
 - Context state: moduix `Combobox.Context` or `useComboboxContext`.
@@ -170,9 +174,18 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 ## Defaults and styling
 
 The input control defaults to `--moduix-size-md`. Single-line popup options default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
+Empty and status messages use the same compact `--moduix-spacing-1` block padding.
 
 Popup group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
 weight, and `--moduix-spacing-1` block padding. Component-specific variables still take precedence.
+When popup content scrolls, `ItemGroupLabel` sticks to its top edge and keeps an opaque popup surface
+above the scrolled options.
+
+`Status` uses the `--moduix-combobox-empty-*` tokens by default, so consumer-owned loading and error
+messages match the empty state without a duplicate token surface.
+
+Ark positioning variables have neutral initial values in the shared theme for tooling and unpositioned
+content; Ark replaces them with measured values on `Positioner` when the popup opens.
 
 - Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-combobox-transition` and
   closed-state variables remain the more specific override.
@@ -198,6 +211,8 @@ weight, and `--moduix-spacing-1` block padding. Component-specific variables sti
   composition. It keeps the same ref target as `Item`, but does not support `asChild` because it
   always renders the nested text and indicator parts. Its `indicator` prop only controls the nested
   `ItemIndicator`.
+- moduix adds `Status` because Ark has no status part. It is a styled `div`; consumers retain control
+  of async state and any loading or error announcement semantics.
 - moduix exports `RootProvider`, `Context`, `useCombobox`, and `useComboboxContext` for the normal
   state path. Ark-only item-context hooks and type aliases remain direct advanced imports.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
@@ -205,7 +220,7 @@ weight, and `--moduix-spacing-1` block padding. Component-specific variables sti
 - moduix does not ship combobox-owned chip parts. For richer multi-value controls, compose
   `Combobox` with controlled tags or with `TagsInput` when the chips must live inside one field.
 - Removed legacy `Field`, `Value`, `InputGroup`, `ControlActions`, popup aliases, arrow,
-  backdrop, status, row, separator, collection render props, and chip parts.
+  backdrop, row, separator, collection render props, and chip parts.
 - Removed legacy root props such as `items`, `itemToStringLabel`, `filter`, `filteredItems`,
   `openOnInputClick`, and converted callback signatures.
 
@@ -237,6 +252,13 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-23: Compacted empty and status message block padding to `--moduix-spacing-1`.
+- 2026-07-23: Added `Combobox.Status`, a styled consumer-owned message surface for loading, error,
+  and guidance content in popup composition.
+- 2026-07-23: Registered neutral initial values for shared Ark positioning variables and made the
+  async-search example show a prompt when the query is cleared.
+- 2026-07-23: Made grouped popup labels stick to the scrollable content edge instead of an inner
+  list scroll container.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
 

@@ -9,7 +9,7 @@ const parse = (value: string) => {
 };
 export default function MonthPickerDemo() {
   return (
-    <DatePicker defaultView="month" minView="month" format={format} parse={parse}>
+    <DatePicker defaultView="month" minView="month" maxView="month" format={format} parse={parse}>
       <DatePicker.Label>Month</DatePicker.Label>
       <DatePicker.Field placeholder="mm/yyyy" clearLabel="Clear month" />
       <DatePicker.Positioner>

@@ -6,11 +6,8 @@ export default function RootProviderCollapsibleDemo() {
   const collapsible = useCollapsible();
 
   return (
-    <div className="collapsible-provider-layout">
-      <output>
-        open: {String(collapsible.open)}, visible: {String(collapsible.visible)}
-      </output>
-      <Collapsible.RootProvider value={collapsible} className="collapsible-root">
+    <div className="collapsible-example-layout">
+      <Collapsible.RootProvider value={collapsible}>
         <Collapsible.Trigger>
           Recovery keys
           <Collapsible.Indicator />
@@ -25,6 +22,9 @@ export default function RootProviderCollapsibleDemo() {
           </Collapsible.Body>
         </Collapsible.Content>
       </Collapsible.RootProvider>
+      <output>
+        State: open {String(collapsible.open)}, visible {String(collapsible.visible)}
+      </output>
     </div>
   );
 }

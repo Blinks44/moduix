@@ -52,8 +52,9 @@ export default function AsyncSearchComboboxDemo() {
       </Combobox.Control>
       <Combobox.Positioner>
         <Combobox.Content>
-          {loading ? <div>Searching…</div> : null}
-          {!loading && query && collection.items.length === 0 ? <div>No results found.</div> : null}
+          {!query ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
+          {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
+          {!loading && query ? <Combobox.Empty>No results found.</Combobox.Empty> : null}
           <Combobox.List>
             {collection.items.map((item) => (
               <Combobox.Option key={item.value} item={item}>

@@ -20,9 +20,11 @@ Use the callable `<Card />` root with namespaced parts for the standard card com
 If you are moving from shadcn, the mental model stays the same. The main API change is
 `CardContent` becoming `Card.Body`, while the other parts stay namespaced under `Card`.
 
-```tsx preview file="./_snippets/card/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -39,7 +41,7 @@ Card.Root
 │  └─ Card.Action (optional moduix sugar)
 ├─ Card.Body
 └─ Card.Footer (optional)
-```
+````
 
 `Card` and `Card.Root` are the same root component.
 
@@ -108,37 +110,42 @@ in the title, then extends the hit area across the card while separate controls 
       }
     `}</style>
 
-```tsx preview file="./_snippets/card/header-action.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/header-action.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Horizontal
 
 Use consumer layout CSS to create a horizontal card without adding a presentation-specific prop.
 
 <style>{`
-      .horizontalCard {
-        display: grid;
-        grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
-        overflow: hidden;
-      }
+    .horizontalCard {
+      display: grid;
+      grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
+      overflow: hidden;
+    }
 
-      .image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-      .content {
-        display: flex;
-        min-width: 0;
-        flex-direction: column;
-      }
-    `}</style>
+    .content {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+    }
+  `}</style>
 
-```tsx preview file="./_snippets/card/horizontal.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/card/horizontal.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Overlay Link
 
@@ -150,23 +157,28 @@ Use `Card.Link` when navigation and independent actions must coexist.
       }
     `}</style>
 
-```tsx preview file="./_snippets/card/overlay-link.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/overlay-link.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Root as Link
 
 Use `asChild` when the entire card is one navigation target and contains no nested controls.
 
 <style>{`
-      a[data-slot="card-root"] {
-        text-decoration: none;
-      }
-    `}</style>
+    a[data-slot="card-root"] {
+      text-decoration: none;
+    }
+  `}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/root-as-link.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Sizes
 
@@ -175,6 +187,7 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
 <style>{`
       .cards {
         display: grid;
+        inline-size: 100%;
         gap: var(--moduix-spacing-4);
       }
 
@@ -183,28 +196,34 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
       }
     `}</style>
 
-```tsx preview file="./_snippets/card/sizes.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/sizes.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Variants
 
 Use the Chakra-aligned variants to communicate surface hierarchy.
 
 <style>{`
-      .cards {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
+    .cards {
+      display: grid;
+      inline-size: 100%;
+      gap: var(--moduix-spacing-4);
+    }
 
-      .card {
-        width: 100%;
-      }
-    `}</style>
+    .card {
+      width: 100%;
+    }
+  `}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/variants.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### With Avatar
 
@@ -228,26 +247,31 @@ Compose profile media inside the header when identity is the card's subject.
       }
     `}</style>
 
-```tsx preview file="./_snippets/card/with-avatar.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/with-avatar.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### With Image
 
 Use `Card.Media` when leading media should span the card width with predictable clipping.
 
 <style>{`
-      .image {
-        aspect-ratio: 16 / 9;
-        display: block;
-        width: 100%;
-        object-fit: cover;
-      }
-    `}</style>
+    .image {
+      aspect-ratio: 16 / 9;
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+  `}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/with-image.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Within Form
 
@@ -265,59 +289,60 @@ Compose the root as a form when the card groups related fields and actions.
       }
     `}</style>
 
-```tsx preview file="./_snippets/card/within-form.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/card/within-form.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `Card.Media` when you need fully custom media framing and want to restyle the card with low-level hooks.
 
 <style>{`
-      .card {
-        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
-      }
+    .mediaShell {
+      overflow: hidden;
+      border-start-start-radius: var(--moduix-card-radius);
+      border-start-end-radius: var(--moduix-card-radius);
+    }
 
-      .mediaShell {
-        overflow: hidden;
-        border-start-start-radius: var(--moduix-card-radius);
-        border-start-end-radius: var(--moduix-card-radius);
-      }
+    .image {
+      aspect-ratio: 16 / 9;
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
 
-      .image {
-        aspect-ratio: 16 / 9;
-        display: block;
-        width: 100%;
-        object-fit: cover;
-      }
+    .capacity {
+      display: grid;
+      gap: var(--moduix-spacing-2);
+      color: var(--moduix-color-foreground);
+      font-size: var(--moduix-text-2xl);
+      font-weight: var(--moduix-weight-semibold);
+      line-height: var(--moduix-line-height-text-2xl);
+    }
 
-      .capacity {
-        display: grid;
-        gap: var(--moduix-spacing-2);
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-2xl);
-        font-weight: var(--moduix-weight-semibold);
-        line-height: var(--moduix-line-height-text-2xl);
-      }
+    .capacityBar {
+      height: 0.5rem;
+      overflow: hidden;
+      border-radius: var(--moduix-radius-full);
+      background-color: var(--moduix-color-muted);
+    }
 
-      .capacityBar {
-        height: 0.5rem;
-        overflow: hidden;
-        border-radius: var(--moduix-radius-full);
-        background-color: var(--moduix-color-muted);
-      }
+    .capacityFill {
+      width: 64%;
+      height: 100%;
+      border-radius: inherit;
+      background-color: var(--moduix-color-primary);
+    }
+  `}</style>
 
-      .capacityFill {
-        width: 64%;
-        height: 100%;
-        border-radius: inherit;
-        background-color: var(--moduix-color-primary);
-      }
-    `}</style>
-
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/advanced-customization.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

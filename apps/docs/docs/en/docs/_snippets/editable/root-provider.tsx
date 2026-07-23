@@ -1,4 +1,4 @@
-import { Editable, useEditable } from '@moduix/react';
+import { Button, Editable, useEditable } from '@moduix/react';
 
 export default function RootProviderEditableDemo() {
   const editable = useEditable({
@@ -6,7 +6,7 @@ export default function RootProviderEditableDemo() {
     defaultValue: 'Root provider value',
   });
   return (
-    <>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
       <Editable.RootProvider value={editable}>
         <Editable.Label>External state</Editable.Label>
         <Editable.Area>
@@ -15,9 +15,9 @@ export default function RootProviderEditableDemo() {
         </Editable.Area>
         <Editable.Controls />
       </Editable.RootProvider>
-      <button type="button" onClick={() => editable.edit()}>
+      <Button type="button" onClick={() => editable.edit()}>
         Edit
-      </button>
-    </>
+      </Button>
+    </div>
   );
 }

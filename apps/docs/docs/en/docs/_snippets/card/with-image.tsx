@@ -1,5 +1,4 @@
 import { Button, Card } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
 
 const product = {
   title: 'Warehouse capacity',
@@ -12,20 +11,18 @@ const product = {
 
 export default function CardWithImageDemo() {
   return (
-    <PreviewLayout maxWidth="24rem">
-      <Card>
-        <Card.Media>
-          <img className="image" src={product.image} alt={product.imageAlt} />
-        </Card.Media>
-        <Card.Header>
-          <Card.Title>{product.title}</Card.Title>
-          <Card.Description>{product.description}</Card.Description>
-        </Card.Header>
-        <Card.Body>{product.capacity}% allocated</Card.Body>
-        <Card.Footer>
-          <Button variant="outline">Open report</Button>
-        </Card.Footer>
-      </Card>
-    </PreviewLayout>
+    <Card>
+      <Card.Media>
+        <img className="image" src={product.image} alt={product.imageAlt} />
+      </Card.Media>
+      <Card.Header>
+        <Card.Title>{product.title}</Card.Title>
+        <Card.Description>{product.description}</Card.Description>
+      </Card.Header>
+      <Card.Body>{product.capacity}% allocated</Card.Body>
+      <Card.Footer>
+        <Button variant="outline">Open report</Button>
+      </Card.Footer>
+    </Card>
   );
 }

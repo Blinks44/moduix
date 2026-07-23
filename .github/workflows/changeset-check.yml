@@ -41,8 +41,8 @@ jobs:
 
           releasable_files="$(
             printf '%s\n' "${changed_files}" \
-              | grep -E '^(packages/react/package\.json|packages/react/tsdown\.config\.ts|packages/react/tsconfig\.app\.json|packages/react/tsconfig\.json|packages/react/src/)' \
-              | grep -Ev '(^packages/react/src/.*\.stories\.(ts|tsx|css)$|^packages/react/src/components/.+/[^/]+\.md$)' \
+              | grep -E '^(packages/react/package\.json|packages/react/rslib\.config\.ts|packages/react/tsconfig(\.build)?\.json|packages/react/src/)' \
+              | grep -Ev '(^packages/react/src/components/.+/[^/]+\.md$|^packages/react/stories/|^packages/react/tests/)' \
               || true
           )"
 

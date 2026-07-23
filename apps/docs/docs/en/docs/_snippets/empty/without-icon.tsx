@@ -7,7 +7,7 @@ const emptyState = {
 };
 export default function SearchResultsEmptyState() {
   return (
-    <Empty className="empty">
+    <Empty>
       <Empty.Content>
         <Empty.Title>{emptyState.title}</Empty.Title>
         <Empty.Description>{emptyState.description}</Empty.Description>

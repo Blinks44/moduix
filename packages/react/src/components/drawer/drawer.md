@@ -30,8 +30,8 @@ lifecycle, dismissal controls, `ids`, `present`, `lazyMount`, and `unmountOnExit
 `lazyMount` and `unmountOnExit` default to `true` so Ark can keep closed content mounted only while
 exit animations finish.
 
-The wrapper adds visual defaults and four narrow layout helpers: `CloseIcon`, `Header`, `Body`, and
-`Footer`. It does not hide structural parts.
+The wrapper adds visual defaults, four narrow layout helpers (`CloseIcon`, `Header`, `Body`, and
+`Footer`), and an opt-in `Content variant="island"` presentation. It does not hide structural parts.
 
 ## Anatomy and exported parts
 
@@ -135,16 +135,21 @@ Runtime variables include `--drawer-translate`, `--drawer-translate-x`, `--drawe
 ## Defaults and styling
 
 Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-1` block padding.
+`Content variant="island"` insets the surface from the viewport, rounds all content corners, and
+removes the directional `Content::after` overdrag bleed. Set `--moduix-drawer-island-inset` to
+adjust the viewport inset; safe-area insets remain respected. Its enter and exit keyframes include
+the same directional inset so the surface leaves the viewport completely before Ark hides it.
 
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
 uses moduix colors, spacing, radii, shadows, and motion tokens.
 
-Backdrop and content enter/exit animations target Ark `data-state`. During open drag, CSS must not
-toggle `animation: none` on `Content`; otherwise the open keyframe is recreated when Ark removes
-`data-swiping`, causing bottom drawers to jump. Drag release and snap-point settling follow Ark's
-inline `transform` variables with a CSS transition. The closed keyframe stays active while
-`data-swiping` is still present so drag-to-dismiss can animate from the release offset to the
-viewport edge before Ark reports `ANIMATION_END`.
+Backdrop and content enter/exit animations target Ark `data-state`. The backdrop remains fully
+visible while dragging between snap points and fades only after the drawer enters its closed state.
+During open drag, CSS must not toggle `animation: none` on `Content`; otherwise the open keyframe
+is recreated when Ark removes `data-swiping`, causing bottom drawers to jump. Drag release and
+snap-point settling follow Ark's inline `transform` variables with a CSS transition. The closed
+keyframe stays active while `data-swiping` is still present so drag-to-dismiss can animate from the
+release offset to the viewport edge before Ark reports `ANIMATION_END`.
 
 Closed `Backdrop` and `Content` override the native `hidden` display behavior only while the
 `Positioner` is still present for exit animation. This uses normal scoped author CSS, avoids
@@ -173,6 +178,8 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
   accessible label to `Close drawer`.
 - `Drawer.Header`, `Drawer.Body`, and `Drawer.Footer` are native layout helpers only; they add no
   state or hidden structure.
+- `Drawer.Content variant="island"` is an opt-in presentation variant for a detached surface. It
+  preserves Ark swipe, snap-point, focus, and stack behavior while disabling only the visual bleed.
 - `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
 - moduix re-exports `useDrawer` for the common `RootProvider` workflow. Other Ark state hooks,
@@ -195,6 +202,12 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 
 ## Local changelog
 
+- 2026-07-23: Made island enter and exit keyframes account for their directional viewport inset so
+  no panel edge remains visible before unmounting.
+- 2026-07-23: Added the opt-in `Drawer.Content variant="island"` surface with a safe-area-aware
+  viewport inset, fully rounded corners, and no overdrag bleed.
+- 2026-07-23: Kept the backdrop fully visible during snap-point dragging; it now fades only after
+  the drawer begins closing.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default drawer and close controls to `--moduix-size-md` and compacted their block padding.
 

@@ -1,10 +1,6 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const carouselExampleCss = `
-  [data-scope='carousel'][data-part='root'] {
-    width: min(100%, 42rem);
-  }
-
   [data-scope='carousel'][data-part='item-group'] {
     border-radius: var(--moduix-radius-xl);
   }
@@ -13,15 +9,17 @@ export const carouselExampleCss = `
     justify-content: center;
   }
 
-  .carouselStack {
-    display: grid;
-    width: min(100%, 42rem);
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
+  [data-scope='carousel'][data-part='root'] > :where([data-scope='button'], output) {
+    align-self: center;
+    inline-size: fit-content;
+    max-inline-size: 100%;
   }
 
-  .carouselStack [data-scope='carousel'][data-part='root'] {
-    width: 100%;
+  .carouselStack {
+    display: grid;
+    inline-size: 100%;
+    gap: var(--moduix-spacing-3);
+    justify-items: center;
   }
 
   [data-scope='carousel'][data-part='item'] > img {
@@ -30,6 +28,11 @@ export const carouselExampleCss = `
     height: 21rem;
     object-fit: cover;
     border-radius: var(--moduix-radius-xl);
+  }
+
+  [data-scope='carousel'][data-part='root'][data-orientation='vertical']
+    [data-scope='carousel'][data-part='item'] > img {
+    block-size: 100%;
   }
 
   [data-scope='carousel'][data-part='indicator'][data-current] {

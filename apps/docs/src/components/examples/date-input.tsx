@@ -2,11 +2,9 @@ import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const dateInputExampleCss = `
-  .date-input-state {
-    margin-top: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+  .date-input-demo {
+    display: grid;
+    gap: var(--moduix-spacing-3);
   }
 
   .date-input-state-grid {
@@ -21,15 +19,6 @@ export const dateInputExampleCss = `
   .date-input-root-provider-actions {
     display: flex;
     gap: var(--moduix-spacing-2);
-    margin-top: var(--moduix-spacing-3);
-  }
-
-  .date-input-root-provider-actions button {
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-sm);
-    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
   }
 
   .date-input-custom-control {

@@ -9,7 +9,7 @@ const emptyState = {
 };
 export default function EmptyDemo() {
   return (
-    <Empty className="empty">
+    <Empty>
       <Empty.Icon>
         <ComputerIcon />
       </Empty.Icon>

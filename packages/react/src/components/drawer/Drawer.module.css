@@ -62,7 +62,6 @@
       var(--moduix-backdrop-bg, var(--moduix-color-overlay))
     );
     backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-drawer-backdrop-blur, 4px)));
-    opacity: calc(1 - var(--drawer-swipe-progress, 0));
     transition:
       opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),
@@ -101,6 +100,25 @@
     overscroll-behavior: contain;
     padding: var(--moduix-drawer-positioner-padding, 0);
 
+    &:has(.content[data-variant='island']) {
+      padding-top: max(
+        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+        env(safe-area-inset-top, 0px)
+      );
+      padding-right: max(
+        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+        env(safe-area-inset-right, 0px)
+      );
+      padding-bottom: max(
+        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+        env(safe-area-inset-bottom, 0px)
+      );
+      padding-left: max(
+        var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+        env(safe-area-inset-left, 0px)
+      );
+    }
+
     &[data-swipe-direction='up'] {
       align-items: flex-start;
     }
@@ -124,6 +142,7 @@
 
   .content {
     --moduix-drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
+    --drawer-island-translate-distance: 0px;
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -304,6 +323,42 @@
             var(--nested-drawers, 0)
         )
         0;
+    }
+
+    &[data-variant='island'] {
+      border-radius: var(--moduix-drawer-radius, var(--moduix-radius-xl));
+
+      &::after {
+        display: none;
+      }
+
+      &[data-swipe-direction='down'] {
+        --drawer-island-translate-distance: max(
+          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+          env(safe-area-inset-bottom, 0px)
+        );
+      }
+
+      &[data-swipe-direction='up'] {
+        --drawer-island-translate-distance: max(
+          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+          env(safe-area-inset-top, 0px)
+        );
+      }
+
+      &[data-swipe-direction='left'] {
+        --drawer-island-translate-distance: max(
+          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+          env(safe-area-inset-left, 0px)
+        );
+      }
+
+      &[data-swipe-direction='right'] {
+        --drawer-island-translate-distance: max(
+          var(--moduix-drawer-island-inset, var(--moduix-spacing-4)),
+          env(safe-area-inset-right, 0px)
+        );
+      }
     }
   }
 
@@ -524,49 +579,49 @@
 
   @keyframes drawer-content-in-down {
     from {
-      transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
     }
   }
 
   @keyframes drawer-content-out-down {
     to {
-      transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, calc(100% + var(--drawer-island-translate-distance)), 0);
     }
   }
 
   @keyframes drawer-content-in-up {
     from {
-      transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
     }
   }
 
   @keyframes drawer-content-out-up {
     to {
-      transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
     }
   }
 
   @keyframes drawer-content-in-left {
     from {
-      transform: translate3d(-100%, 0, 0);
+      transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
     }
   }
 
   @keyframes drawer-content-out-left {
     to {
-      transform: translate3d(-100%, 0, 0);
+      transform: translate3d(calc(-100% - var(--drawer-island-translate-distance)), 0, 0);
     }
   }
 
   @keyframes drawer-content-in-right {
     from {
-      transform: translate3d(100%, 0, 0);
+      transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
     }
   }
 
   @keyframes drawer-content-out-right {
     to {
-      transform: translate3d(100%, 0, 0);
+      transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
     }
   }
 }

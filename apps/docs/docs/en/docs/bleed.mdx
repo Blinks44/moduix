@@ -21,7 +21,7 @@ break out of a constrained container while staying in normal document flow.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         flex-direction: column;
         gap: var(--moduix-spacing-4);
         padding: var(--moduix-spacing-4);
@@ -38,9 +38,12 @@ break out of a constrained container while staying in normal document flow.
       }
     `}</style>
 
-```tsx preview file="./_snippets/bleed/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/bleed/basic.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -111,7 +114,7 @@ Use `block` when a surface should also escape vertical container padding.
 <style>{`
       .bleed-demo-padded-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         flex-direction: column;
         gap: var(--moduix-spacing-4);
         padding: var(--moduix-spacing-6);
@@ -128,9 +131,12 @@ Use `block` when a surface should also escape vertical container padding.
       }
     `}</style>
 
-```tsx preview file="./_snippets/bleed/block-bleed.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/bleed/block-bleed.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Custom Styling
 
@@ -139,7 +145,7 @@ instead of the viewport.
 
 <style>{`
       .bleed-demo-shell {
-        width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         padding: var(--moduix-spacing-6);
         background-color: var(--moduix-color-muted);
       }
@@ -166,9 +172,12 @@ instead of the viewport.
       }
     `}</style>
 
-```tsx preview file="./_snippets/bleed/custom-styling.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/bleed/custom-styling.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Inline Amounts
 
@@ -177,7 +186,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         flex-direction: column;
         gap: var(--moduix-spacing-4);
         padding: var(--moduix-spacing-4);
@@ -194,9 +203,12 @@ Use `inline` to choose how far content escapes the container on the inline axis.
       }
     `}</style>
 
-```tsx preview file="./_snippets/bleed/inline-amounts.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/bleed/inline-amounts.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Semantic Element
 
@@ -205,7 +217,7 @@ Use `asChild` when the escaping content has a more specific semantic role.
 <style>{`
       .bleed-demo-container {
         display: flex;
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         flex-direction: column;
         gap: var(--moduix-spacing-4);
         padding: var(--moduix-spacing-4);
@@ -223,16 +235,19 @@ Use `asChild` when the escaping content has a more specific semantic role.
       }
 
       .bleed-demo-media {
-        width: min(28rem, 100%);
+        inline-size: 100%;
         min-height: 8rem;
         border-radius: var(--moduix-radius-md);
         background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
       }
     `}</style>
 
-```tsx preview file="./_snippets/bleed/semantic-element.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/bleed/semantic-element.tsx"
 
 ```
+
+</PreviewFrame>
 
 ## Styling
 
@@ -252,3 +267,4 @@ the layout math needs to change, and use `className` for the visual surface insi
 - `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
 - The public `--moduix-bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
   viewport math used by `inline="full"`.
+```

@@ -132,6 +132,7 @@ const drawerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-2)',
     'Active indent translation.',
   ],
+  ['--moduix-drawer-island-inset', 'var(--moduix-spacing-4)', 'Inset around island drawers.'],
   ['--moduix-drawer-max-height', '80dvh', 'Maximum vertical drawer height.'],
   ['--moduix-drawer-nested-scale-step', '0.05', 'Scale step for nested drawers.'],
   [

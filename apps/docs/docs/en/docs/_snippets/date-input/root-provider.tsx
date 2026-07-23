@@ -1,6 +1,5 @@
 import { today } from '@internationalized/date';
-import { DateInput, useDateInput } from '@moduix/react';
-import { PreviewLayout } from '@/components/examples/preview-layout';
+import { Button, DateInput, useDateInput } from '@moduix/react';
 
 export default function RootProviderDateInputDemo() {
   const dateInput = useDateInput({
@@ -8,23 +7,22 @@ export default function RootProviderDateInputDemo() {
     name: 'report-date',
   });
   return (
-    <PreviewLayout width="10rem">
-      <div>
-        <DateInput.RootProvider value={dateInput}>
-          <DateInput.Label>Report date</DateInput.Label>
-          <DateInput.Control>
-            <DateInput.Segments />
-          </DateInput.Control>
-        </DateInput.RootProvider>
-        <div className="date-input-root-provider-actions">
-          <button type="button" onClick={() => dateInput.clearValue()}>
-            Clear
-          </button>
-          <button type="button" onClick={() => dateInput.focus()}>
-            Focus
-          </button>
-        </div>
+    <div className="date-input-demo">
+      <DateInput.RootProvider value={dateInput}>
+        <DateInput.Label>Report date</DateInput.Label>
+        <DateInput.Control>
+          <DateInput.Segments />
+        </DateInput.Control>
+      </DateInput.RootProvider>
+      <div className="date-input-root-provider-actions">
+        <Button type="button" variant="outline" onClick={() => dateInput.clearValue()}>
+          Clear
+        </Button>
+        <Button type="button" variant="outline" onClick={() => dateInput.focus()}>
+          Focus
+        </Button>
       </div>
-    </PreviewLayout>
+      <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
+    </div>
   );
 }

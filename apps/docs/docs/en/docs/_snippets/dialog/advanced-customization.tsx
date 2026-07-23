@@ -14,7 +14,9 @@ export default function AdvancedCustomizationDialogDemo() {
             Compose the Ark parts directly when the layout helpers do not fit.
           </Dialog.Description>
           <Dialog.CloseTrigger asChild>
-            <Button variant="outline">Close</Button>
+            <Button className="dialog-advanced-close" variant="outline">
+              Close
+            </Button>
           </Dialog.CloseTrigger>
         </Dialog.Content>
       </Dialog.Positioner>

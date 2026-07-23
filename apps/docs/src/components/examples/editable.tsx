@@ -2,35 +2,12 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/refere
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const editableExampleCss = `
-  .editable-state {
-    grid-column: 1 / -1;
-    margin-top: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-
-  .editable-root-provider-actions {
-    display: flex;
-    gap: var(--moduix-spacing-2);
-    margin-top: var(--moduix-spacing-3);
-  }
-
-  .editable-root-provider-actions button {
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-sm);
-    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-  }
-
   .editable-textarea-area {
     align-items: flex-start;
   }
 
   .editable-textarea-root {
     --moduix-editable-control-align: start;
-    --moduix-editable-width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
     --moduix-editable-area-width: 100%;
   }
 

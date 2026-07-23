@@ -16,6 +16,9 @@ const DEFAULT_CLOSE_BUTTON_LABEL = 'Close drawer';
 type DrawerRootProps = ComponentProps<typeof DrawerPrimitive.Root> & OverlayPortalProps;
 type DrawerRootProviderProps = ComponentProps<typeof DrawerPrimitive.RootProvider> &
   OverlayPortalProps;
+type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content> & {
+  variant?: 'island';
+};
 
 function DrawerRoot({
   lazyMount = true,
@@ -98,19 +101,19 @@ const DrawerPositioner = forwardRef<
   );
 });
 
-const DrawerContent = forwardRef<
-  ComponentRef<typeof DrawerPrimitive.Content>,
-  ComponentProps<typeof DrawerPrimitive.Content>
->(function DrawerContent({ className, ...props }, ref) {
-  return (
-    <DrawerPrimitive.Content
-      ref={ref}
-      data-slot="drawer-content"
-      className={clsx(styles.content, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const DrawerContent = forwardRef<ComponentRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(
+  function DrawerContent({ className, variant, ...props }, ref) {
+    return (
+      <DrawerPrimitive.Content
+        ref={ref}
+        data-slot="drawer-content"
+        data-variant={variant}
+        className={clsx(styles.content, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const DrawerGrabber = forwardRef<
   ComponentRef<typeof DrawerPrimitive.Grabber>,

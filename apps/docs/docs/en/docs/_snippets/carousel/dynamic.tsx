@@ -73,6 +73,7 @@ export default function DynamicSlidesCarousel() {
         <PlusIcon />
         Add slide
       </Button>
+      <output>Slides: {visibleSlides.length}</output>
     </div>
   );
 }
