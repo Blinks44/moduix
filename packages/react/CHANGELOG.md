@@ -1,5 +1,11 @@
 # moduix
 
+## 2.2.2
+
+### Patch Changes
+
+- 228a71c: Refactor code organization for shadcn cli
+
 ## 2.2.1
 
 ### Patch Changes
