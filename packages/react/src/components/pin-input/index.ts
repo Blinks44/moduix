@@ -1,1 +1,1 @@
-export { PinInput, usePinInput } from './PinInput';
+export { PinInput, usePinInput, usePinInputContext } from './PinInput';

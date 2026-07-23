@@ -7,6 +7,7 @@ import {
   type ComboboxRootProviderProps as ArkComboboxRootProviderProps,
   useCombobox,
   useComboboxContext,
+  useComboboxItemContext,
 } from '@ark-ui/react/combobox';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
@@ -349,6 +350,7 @@ const Combobox = Object.assign(ComboboxRoot, {
   ItemIndicator: ComboboxItemIndicator,
   Option: ComboboxOption,
   Context: ComboboxPrimitive.Context,
+  ItemContext: ComboboxPrimitive.ItemContext,
 });
 
-export { Combobox, useCombobox, useComboboxContext };
+export { Combobox, useCombobox, useComboboxContext, useComboboxItemContext };

@@ -1,4 +1,9 @@
-import { RadioGroup as RadioGroupPrimitive, useRadioGroup } from '@ark-ui/react/radio-group';
+import {
+  RadioGroup as RadioGroupPrimitive,
+  useRadioGroup,
+  useRadioGroupContext,
+  useRadioGroupItemContext,
+} from '@ark-ui/react/radio-group';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
@@ -153,6 +158,8 @@ const RadioGroupIndicator = forwardRef<
 const RadioGroup = Object.assign(RadioGroupRoot, {
   Root: RadioGroupRoot,
   RootProvider: RadioGroupRootProvider,
+  Context: RadioGroupPrimitive.Context,
+  ItemContext: RadioGroupPrimitive.ItemContext,
   Label: RadioGroupLabel,
   Item: RadioGroupItem,
   Option: RadioGroupOption,
@@ -161,5 +168,5 @@ const RadioGroup = Object.assign(RadioGroupRoot, {
   Indicator: RadioGroupIndicator,
 });
 
-export { RadioGroup, useRadioGroup };
+export { RadioGroup, useRadioGroup, useRadioGroupContext, useRadioGroupItemContext };
 export type { RadioGroupItemControlProps, RadioGroupItemControlSize, RadioGroupOptionProps };

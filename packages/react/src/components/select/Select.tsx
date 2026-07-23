@@ -453,4 +453,4 @@ const Select = Object.assign(SelectRoot, {
   ItemTextLabel: SelectItemTextLabel,
 });
 
-export { Select };
+export { Select, useSelect, useSelectContext, useSelectItemContext };

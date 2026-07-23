@@ -515,6 +515,7 @@ function withHiddenInput(children: ReactNode, asChild?: boolean) {
 const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
   RootProvider: ColorPickerRootProvider,
+  Context: ColorPickerPrimitive.Context,
   Label: ColorPickerLabel,
   Control: ColorPickerControl,
   Trigger: ColorPickerTrigger,

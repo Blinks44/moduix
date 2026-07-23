@@ -119,6 +119,7 @@ const TooltipArrowTip = forwardRef<
 const Tooltip = Object.assign(TooltipRoot, {
   Root: TooltipRoot,
   RootProvider: TooltipRootProvider,
+  Context: TooltipPrimitive.Context,
   Trigger: TooltipTrigger,
   Body: TooltipBody,
   Positioner: TooltipPositioner,

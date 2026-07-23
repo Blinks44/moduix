@@ -1,6 +1,7 @@
 import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,
+  useAngleSliderContext,
 } from '@ark-ui/react/angle-slider';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
@@ -174,6 +175,7 @@ const AngleSliderValueText = forwardRef<
 const AngleSlider = Object.assign(AngleSliderRoot, {
   Root: AngleSliderRoot,
   RootProvider: AngleSliderRootProvider,
+  Context: AngleSliderPrimitive.Context,
   Label: AngleSliderLabel,
   Control: AngleSliderControl,
   Dial: AngleSliderDial,
@@ -186,4 +188,4 @@ const AngleSlider = Object.assign(AngleSliderRoot, {
 
 const useAngleSlider = useAngleSliderPrimitive;
 
-export { AngleSlider, useAngleSlider };
+export { AngleSlider, useAngleSlider, useAngleSliderContext };

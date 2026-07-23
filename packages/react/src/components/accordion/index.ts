@@ -1,1 +1,1 @@
-export { Accordion, useAccordion } from './Accordion';
+export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext } from './Accordion';

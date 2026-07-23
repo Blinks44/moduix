@@ -85,6 +85,7 @@ const AvatarFallback = forwardRef<
 const Avatar = Object.assign(AvatarRoot, {
   Root: AvatarRoot,
   RootProvider: AvatarRootProvider,
+  Context: AvatarPrimitive.Context,
   Image: AvatarImage,
   Fallback: AvatarFallback,
 });

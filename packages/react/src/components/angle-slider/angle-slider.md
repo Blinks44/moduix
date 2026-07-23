@@ -32,8 +32,7 @@ Upstream docs:
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
   when that behavior is needed. `Root` and `RootProvider` always render the native form input.
-- Context parts, state hooks, and Ark type aliases are imported directly from
-  `@ark-ui/react/angle-slider`.
+- `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases remain direct imports from `@ark-ui/react/angle-slider`.
 
 ## Anatomy and exported parts
 

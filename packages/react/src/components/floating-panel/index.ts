@@ -1,1 +1,6 @@
-export { FloatingPanel, resizeTriggerAxes } from './FloatingPanel';
+export {
+  FloatingPanel,
+  resizeTriggerAxes,
+  useFloatingPanel,
+  useFloatingPanelContext,
+} from './FloatingPanel';

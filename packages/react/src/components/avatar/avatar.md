@@ -24,8 +24,7 @@ externally owned state.
 - `Avatar.RootProvider` applies the same visual contract to externally created Ark state.
 - `size` is the only local behavior-neutral prop. It is available on `Root` and `RootProvider`.
 - `Avatar.Fallback` accepts `name` and derives initials when no children are provided.
-- `useAvatar` and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced
-  path; other Ark type aliases and context surfaces stay on `@ark-ui/react/avatar`.
+- `Avatar.Context`, `useAvatar`, and `useAvatarContext` are re-exported from `@moduix/react` for the normal advanced path; Ark type aliases remain direct imports from `@ark-ui/react/avatar`.
 - No legacy `render`, delay, loading-state adapter, or callback compatibility API remains.
 
 ## Anatomy and exported parts
@@ -62,8 +61,8 @@ For externally owned state, import `useAvatar` from `@moduix/react` and render
 `Avatar.RootProvider value={avatar}`. Do not wrap that provider with `Avatar.Root` for the same
 state instance.
 
-Import `useAvatarContext` from `@moduix/react` for custom image rendering that still preserves Ark
-loading state. Keep rarer Ark context APIs and type aliases on `@ark-ui/react/avatar`. Use
+Import `Avatar.Context` or `useAvatarContext` from `@moduix/react` for custom image rendering that still preserves Ark
+loading state. Keep Ark type aliases on `@ark-ui/react/avatar`. Use
 `asChild` with one semantic child when another element must own a part's DOM node.
 
 ## Upstream feature coverage

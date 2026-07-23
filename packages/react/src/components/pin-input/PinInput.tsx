@@ -139,6 +139,7 @@ function usePinInput(props: UsePinInputProps = {}) {
 const PinInput = Object.assign(PinInputRoot, {
   Root: PinInputRoot,
   RootProvider: PinInputRootProvider,
+  Context: PinInputPrimitive.Context,
   Label: PinInputLabel,
   Control: PinInputControl,
   Input: PinInputInput,
@@ -146,4 +147,4 @@ const PinInput = Object.assign(PinInputRoot, {
   Separator: PinInputSeparator,
 });
 
-export { PinInput, usePinInput };
+export { PinInput, usePinInput, usePinInputContext };

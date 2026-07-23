@@ -57,9 +57,8 @@ compose the Ark parts explicitly so each structural node remains configurable.
 ### When to go custom
 
 Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when controls outside the root need
-to call the scroll area API. Advanced Ark context reads stay available directly from
-`@ark-ui/react/scroll-area`. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same
-state object.
+to call the scroll area API. Use `ScrollArea.Context` or `useScrollAreaContext()` from moduix for
+advanced state reads. Do not render `ScrollArea` and `ScrollArea.RootProvider` for the same state object.
 
 ### Default props
 

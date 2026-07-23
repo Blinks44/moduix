@@ -1,6 +1,7 @@
 import {
   PasswordInput as PasswordInputPrimitive,
   usePasswordInput,
+  usePasswordInputContext,
 } from '@ark-ui/react/password-input';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -132,6 +133,7 @@ const PasswordInputField = forwardRef<
 const PasswordInput = Object.assign(PasswordInputRoot, {
   Root: PasswordInputRoot,
   RootProvider: PasswordInputRootProvider,
+  Context: PasswordInputPrimitive.Context,
   Label: PasswordInputLabel,
   Control: PasswordInputControl,
   Field: PasswordInputField,
@@ -140,4 +142,4 @@ const PasswordInput = Object.assign(PasswordInputRoot, {
   Indicator: PasswordInputIndicator,
 });
 
-export { PasswordInput, usePasswordInput };
+export { PasswordInput, usePasswordInput, usePasswordInputContext };

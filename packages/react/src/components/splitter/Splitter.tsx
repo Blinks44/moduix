@@ -93,6 +93,7 @@ const SplitterResizeTrigger = forwardRef<
 const Splitter = Object.assign(SplitterRoot, {
   Root: SplitterRoot,
   RootProvider: SplitterRootProvider,
+  Context: SplitterPrimitive.Context,
   Panel: SplitterPanel,
   ResizeTrigger: SplitterResizeTrigger,
   ResizeTriggerIndicator: SplitterResizeTriggerIndicator,

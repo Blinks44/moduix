@@ -1,4 +1,8 @@
-import { Clipboard as ClipboardPrimitive, useClipboard } from '@ark-ui/react/clipboard';
+import {
+  Clipboard as ClipboardPrimitive,
+  useClipboard,
+  useClipboardContext,
+} from '@ark-ui/react/clipboard';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -149,6 +153,7 @@ const ClipboardCopyText = forwardRef<
 const Clipboard = Object.assign(ClipboardRoot, {
   Root: ClipboardRoot,
   RootProvider: ClipboardRootProvider,
+  Context: ClipboardPrimitive.Context,
   Label: ClipboardLabel,
   Control: ClipboardControl,
   Input: ClipboardInput,
@@ -159,4 +164,4 @@ const Clipboard = Object.assign(ClipboardRoot, {
   useClipboard,
 });
 
-export { Clipboard };
+export { Clipboard, useClipboard, useClipboardContext };

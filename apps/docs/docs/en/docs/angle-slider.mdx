@@ -76,8 +76,8 @@ Start with `Dial`, then add only the parts that match the job:
 Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` parts when the dial needs custom
 children, per-marker props, or nonstandard ordering. Use `useAngleSlider()` from `@moduix/react`
 with `AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
-Import context parts and uncommon state hooks directly from `@ark-ui/react/angle-slider` as an
-escape hatch. Do not render `Root` and `RootProvider` for the same state instance.
+Use `AngleSlider.Context` and `useAngleSliderContext()` from moduix for context reads. Do not render
+`Root` and `RootProvider` for the same state instance.
 
 Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
 keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable

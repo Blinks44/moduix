@@ -75,8 +75,8 @@ explicit.
 Use `Clipboard.ValueText` when the value should be displayed as text instead of inside an input.
 
 Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state must be created
-outside the rendered subtree. Ark context hooks remain available directly from
-`@ark-ui/react/clipboard`.
+outside the rendered subtree. Use `Clipboard.Context` or `useClipboardContext()` from moduix to read
+that state within a descendant.
 
 Use `asChild` on `Clipboard.Input` and `Clipboard.Trigger` when another element must own the
 rendered node, such as moduix `Input` or `Button` during a migration from a shadcn-style field plus

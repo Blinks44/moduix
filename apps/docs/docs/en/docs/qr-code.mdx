@@ -84,7 +84,7 @@ Use `value` with `onValueChange(details)` when the encoded URL or text should fo
 state. The callback signature is Ark's original detail object.
 
 `useQrCode()` is available from `@moduix/react` for creating QR state outside the rendered tree.
-Import other Ark context APIs directly from `@ark-ui/react/qr-code` only for rare escape hatches.
+Use `QrCode.Context` or `useQrCodeContext()` from moduix to read QR state in a descendant.
 
 There is no QR-specific arrow-key navigation, roving focus, or hidden input. `DownloadTrigger` is a
 native button and keeps button keyboard activation and focus behavior.

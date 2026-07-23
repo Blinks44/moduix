@@ -1,6 +1,7 @@
 import {
   Tour as TourPrimitive,
   useTour,
+  useTourContext,
   waitForElement,
   waitForElementValue,
   waitForEvent,
@@ -245,6 +246,7 @@ function TourActionList({ className }: { className?: string }) {
 
 const Tour = Object.assign(TourRoot, {
   Root: TourRoot,
+  Context: TourPrimitive.Context,
   Backdrop: TourBackdrop,
   Spotlight: TourSpotlight,
   Positioner: TourPositioner,
@@ -262,4 +264,12 @@ const Tour = Object.assign(TourRoot, {
   ActionTrigger: TourActionTrigger,
 });
 
-export { Tour, useTour, waitForElement, waitForElementValue, waitForEvent, waitForPromise };
+export {
+  Tour,
+  useTour,
+  useTourContext,
+  waitForElement,
+  waitForElementValue,
+  waitForEvent,
+  waitForPromise,
+};

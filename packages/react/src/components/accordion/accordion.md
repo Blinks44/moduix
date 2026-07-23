@@ -98,8 +98,9 @@ export function AccordionExample() {
 - `Root Provider`: preserved through moduix `useAccordion()` and `Accordion.RootProvider`.
 - `Multiple` and `Collapsible`: preserved on `Accordion.Root`.
 - `Lazy Mount`: preserved through `lazyMount` and `unmountOnExit`.
-- `Context` and `Item State`: available directly from `@ark-ui/react/accordion`. moduix only
-  re-exports `useAccordion()` for the `RootProvider` path.
+- `Context` and `Item State`: use `Accordion.Context`, `Accordion.ItemContext`,
+  `useAccordionContext()`, and `useAccordionItemContext()` from moduix. `useAccordion()` remains the
+  `RootProvider` path.
 - `With Slider`: preserved as normal nested composition; nested Ark widgets keep their own part tree,
   keyboard behavior, and hidden inputs inside `Accordion.ItemContent`.
 - `Content Animation`: preserved through Ark `--height` and `--width` measurement rather than a custom sizing model.

@@ -1,4 +1,9 @@
-import { Steps as StepsPrimitive, useSteps, useStepsItemContext } from '@ark-ui/react/steps';
+import {
+  Steps as StepsPrimitive,
+  useSteps,
+  useStepsContext,
+  useStepsItemContext,
+} from '@ark-ui/react/steps';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -181,6 +186,8 @@ const StepsProgress = forwardRef<
 const Steps = Object.assign(StepsRoot, {
   Root: StepsRoot,
   RootProvider: StepsRootProvider,
+  Context: StepsPrimitive.Context,
+  ItemContext: StepsPrimitive.ItemContext,
   List: StepsList,
   Item: StepsItem,
   Trigger: StepsTrigger,
@@ -194,4 +201,4 @@ const Steps = Object.assign(StepsRoot, {
   useSteps,
 });
 
-export { Steps };
+export { Steps, useSteps, useStepsContext, useStepsItemContext };

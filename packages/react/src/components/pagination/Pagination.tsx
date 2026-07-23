@@ -199,4 +199,4 @@ const Pagination = Object.assign(PaginationRoot, {
   usePaginationContext,
 });
 
-export { Pagination };
+export { Pagination, usePagination, usePaginationContext };

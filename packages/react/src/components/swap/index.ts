@@ -1,1 +1,1 @@
-export { Swap, useSwapContext } from './Swap';
+export { Swap, useSwap, useSwapContext } from './Swap';

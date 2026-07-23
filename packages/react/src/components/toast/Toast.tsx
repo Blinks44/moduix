@@ -156,6 +156,7 @@ const ToastCloseTrigger = forwardRef<
 
 const Toast = Object.assign(ToastRoot, {
   Root: ToastRoot,
+  Context: ToastPrimitive.Context,
   Title: ToastTitle,
   Description: ToastDescription,
   ActionTrigger: ToastActionTrigger,
@@ -163,4 +164,4 @@ const Toast = Object.assign(ToastRoot, {
   Toaster,
 });
 
-export { Toast, Toaster, createToaster };
+export { Toast, Toaster, createToaster, useToastContext };

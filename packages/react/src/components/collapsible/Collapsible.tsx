@@ -1,4 +1,8 @@
-import { Collapsible as CollapsiblePrimitive, useCollapsible } from '@ark-ui/react/collapsible';
+import {
+  Collapsible as CollapsiblePrimitive,
+  useCollapsible,
+  useCollapsibleContext,
+} from '@ark-ui/react/collapsible';
 import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -98,10 +102,11 @@ const CollapsibleBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'d
 const Collapsible = Object.assign(CollapsibleRoot, {
   Root: CollapsibleRoot,
   RootProvider: CollapsibleRootProvider,
+  Context: CollapsiblePrimitive.Context,
   Trigger: CollapsibleTrigger,
   Indicator: CollapsibleIndicator,
   Content: CollapsibleContent,
   Body: CollapsibleBody,
 });
 
-export { Collapsible, useCollapsible };
+export { Collapsible, useCollapsible, useCollapsibleContext };

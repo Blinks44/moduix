@@ -199,6 +199,7 @@ function SignaturePadCanvas({ className }: { className?: string }) {
 const SignaturePad = Object.assign(SignaturePadRoot, {
   Root: SignaturePadRoot,
   RootProvider: SignaturePadRootProvider,
+  Context: SignaturePadPrimitive.Context,
   Label: SignaturePadLabel,
   Control: SignaturePadControl,
   Canvas: SignaturePadCanvas,

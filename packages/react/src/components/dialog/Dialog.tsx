@@ -173,6 +173,7 @@ function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
 const Dialog = Object.assign(DialogRoot, {
   Root: DialogRoot,
   RootProvider: DialogRootProvider,
+  Context: DialogPrimitive.Context,
   Trigger: DialogTrigger,
   Backdrop: DialogBackdrop,
   Positioner: DialogPositioner,
