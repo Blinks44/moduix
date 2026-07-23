@@ -1,7 +1,7 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import type { Meta, StoryObj } from '@storybook/react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Combobox, useCombobox } from '../../../src/components/combobox/Combobox';
 import styles from './Combobox.stories.module.css';
 
@@ -169,14 +169,28 @@ function MultipleStory() {
 
 function AsyncSearchStory() {
   const [inputValue, setInputValue] = useState('');
-  const items = useMemo(
-    () =>
-      inputValue
-        ? fruits.filter((item) => item.label.toLowerCase().includes(inputValue.toLowerCase()))
-        : [],
-    [inputValue],
-  );
-  const collection = createListCollection({ items });
+  const [items, setItems] = useState([] as typeof fruits);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!inputValue) {
+      setItems([]);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    const timeout = window.setTimeout(() => {
+      setItems(
+        fruits.filter((item) => item.label.toLowerCase().includes(inputValue.toLowerCase())),
+      );
+      setLoading(false);
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [inputValue]);
+
+  const collection = useMemo(() => createListCollection({ items }), [items]);
 
   return (
     <Combobox.Root
@@ -190,7 +204,19 @@ function AsyncSearchStory() {
         <Combobox.ClearTrigger aria-label="Clear search" />
         <Combobox.Trigger aria-label="Open options" />
       </Combobox.Control>
-      <ComboboxPopup items={collection.items} />
+      <Combobox.Positioner>
+        <Combobox.Content>
+          {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
+          {!loading && inputValue ? <Combobox.Empty>No options found.</Combobox.Empty> : null}
+          <Combobox.List>
+            {collection.items.map((item) => (
+              <Combobox.Option key={item.value} item={item}>
+                {item.label}
+              </Combobox.Option>
+            ))}
+          </Combobox.List>
+        </Combobox.Content>
+      </Combobox.Positioner>
     </Combobox.Root>
   );
 }

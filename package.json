@@ -16,6 +16,7 @@
     "changeset:release": "npm run build:react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev": "turbo run dev",
+    "dev:storybook": "turbo run storybook -F @moduix/react",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
     "lint:check": "oxlint",

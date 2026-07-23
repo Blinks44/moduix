@@ -210,6 +210,20 @@ const ComboboxEmpty = forwardRef<
   );
 });
 
+const ComboboxStatus = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function ComboboxStatus(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <div
+      ref={ref}
+      data-slot="combobox-status"
+      className={clsx(styles.status, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
 const ComboboxList = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.List>,
   ComponentProps<typeof ComboboxPrimitive.List>
@@ -326,6 +340,7 @@ const Combobox = Object.assign(ComboboxRoot, {
   Positioner: ComboboxPositioner,
   Content: ComboboxContent,
   Empty: ComboboxEmpty,
+  Status: ComboboxStatus,
   List: ComboboxList,
   ItemGroup: ComboboxItemGroup,
   ItemGroupLabel: ComboboxItemGroupLabel,

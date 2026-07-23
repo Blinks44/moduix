@@ -22,6 +22,11 @@
   --moduix-doc-card: oklch(0.96 0.006 285);
   --moduix-doc-secondary: oklch(0.95 0.008 285);
   --moduix-doc-preview-bg: oklch(1 0 0);
+  --moduix-doc-preview-align-items: center;
+  --moduix-doc-preview-child-align-items: center;
+  --moduix-doc-preview-child-justify-content: safe center;
+  --moduix-doc-preview-justify-content: safe center;
+  --moduix-doc-preview-max-inline-size: 100%;
   --rp-code-block-bg: var(--moduix-doc-card);
   --rp-code-title-bg: var(--moduix-doc-secondary);
   --rp-radius: 0.875rem;

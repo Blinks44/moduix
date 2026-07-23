@@ -46,6 +46,7 @@ Combobox.Root[collection]
  └─ Combobox.Positioner
     └─ Combobox.Content
        ├─ Combobox.Empty
+       ├─ Combobox.Status
        ├─ Combobox.List
        │  ├─ Combobox.Option[item]
        │  └─ Combobox.Item[item]
@@ -65,6 +66,7 @@ Combobox.Root[collection]
 | `Combobox.ClearTrigger`      | Clears current value and/or input.                                 |
 | `Combobox.Positioner`        | Floating positioner for popup content.                             |
 | `Combobox.Content`           | Popup content container.                                           |
+| `Combobox.Status`            | Styled consumer-owned loading, error, or guidance message.         |
 | `Combobox.List`              | Option list wrapper.                                               |
 | `Combobox.Option`            | Convenience row for simple options with text and an indicator.     |
 | `Combobox.Item`              | Selectable option row.                                             |
@@ -119,8 +121,8 @@ types that moduix does not expose.
 Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
 from controlled state, then keep selection behavior on `Combobox.Root multiple`.
 
-Use ordinary elements inside `Combobox.Content` for loading and error status. Ark does not expose a
-combobox `Status` part.
+Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for
+consumer-owned loading, error, or guidance messages; it does not manage state or set an ARIA role.
 
 ### Default props
 
@@ -166,8 +168,8 @@ Keep the moduix API Ark-shaped, then translate the common shadcn conveniences ex
 
 ### Async Search
 
-Replace collection items from an async result and use `details.reason` to distinguish typed input
-from machine-driven input updates.
+Replace collection items from an async result, render `Combobox.Status` while a request is pending,
+and use `details.reason` to distinguish typed input from machine-driven input updates.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -220,7 +222,7 @@ replace that sentinel value with the user-entered value after selection.
 ### Custom Objects and Grouping
 
 Map object labels and values on the collection, then render Ark item groups from
-`collection.group()`.
+`collection.group()`. Group labels stick to the top edge of the popup while its results scroll.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -390,7 +392,7 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 
 - Stable slots include `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
   `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
-  `combobox-empty`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
+  `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
   `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`. `Combobox.Option` reuses the
   item slots instead of adding its own styling hook.
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,

@@ -18,9 +18,11 @@ with Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) for behavior.
 
 Use `CommandPalette.Panel` for the standard dialog shell and place `CommandPalette.Combobox` inside it. `CommandPalette.Search` renders the input-like search row with a clear button that appears after typing and clears the search query, while the collection stays outside the rendered tree to match Ark Combobox examples.
 
-```tsx preview file="./_snippets/command-palette/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -105,33 +107,43 @@ The shortcut listener is opt-in because documentation pages and complex applicat
 
 Control `open` from React state when the palette must coordinate with surrounding UI.
 
-```tsx preview file="./_snippets/command-palette/controlled-open-state.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/controlled-open-state.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Enable the Global Shortcut
 
 Enable the listener when a palette should open from a global command key. The live preview opens from the button so this docs page keeps a single active `Alt+K` listener.
 
-```tsx preview file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Item Actions
 
 Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
 
-```tsx preview file="./_snippets/command-palette/item-actions.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/item-actions.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `Panel` and `Search` when the palette needs custom dialog chrome or search controls. The explicit parts retain the same Dialog and Combobox behavior.
 
-```tsx preview file="./_snippets/command-palette/advanced-customization.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/advanced-customization.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -147,3 +159,4 @@ Use CSS variables on the trigger, backdrop, content, list, and item parts when t
 - Ark Dialog state hooks include `data-scope="dialog"`, `data-part`, and `data-state="open" | "closed"` on backdrop and content.
 - Ark Combobox state hooks include `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid`, and `data-empty`.
 - Motion is tied to Ark `data-state`; legacy `data-starting-style`, `data-ending-style`, and `data-open` are not part of the command-palette contract.
+```

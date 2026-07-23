@@ -19,7 +19,14 @@ export default function ControlledComboboxDemo() {
   const [value, setValue] = useState(['mango']);
 
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       <Combobox
         collection={collection}
         value={value}
@@ -45,7 +52,7 @@ export default function ControlledComboboxDemo() {
           </Combobox.Content>
         </Combobox.Positioner>
       </Combobox>
-      <span>Selected: {value[0] ?? 'none'}</span>
+      <output>Selected: {value[0] ?? 'none'}</output>
     </div>
   );
 }

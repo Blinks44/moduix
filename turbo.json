@@ -16,6 +16,10 @@
       "cache": false,
       "env": ["CLOUDFLARE_API_TOKEN"]
     },
+    "storybook": {
+      "cache": false,
+      "persistent": true
+    },
     "tsc:check": {
       "dependsOn": ["^build", "^tsc:check"],
       "outputs": []
