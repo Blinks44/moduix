@@ -39,7 +39,7 @@ Clipboard.Root | Clipboard.RootProvider
 │  └─ Clipboard.Trigger
 │     ├─ Clipboard.Indicator (optional)
 │     └─ Clipboard.CopyText (optional)
-```
+````
 
 | Part                           | Role                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
@@ -127,6 +127,7 @@ introducing a separate clipboard abstraction.
   ```tsx preview file="./_snippets/clipboard/copy-status.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Custom copy text
@@ -149,6 +150,7 @@ the rendered tree but the visible parts should stay Ark-shaped.
   ```tsx preview file="./_snippets/clipboard/root-provider.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Timeout
@@ -170,6 +172,7 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
   ```tsx preview file="./_snippets/clipboard/value-text.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -180,7 +183,7 @@ composition and moduix copy-state parts.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/as-child.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -205,3 +208,4 @@ composition and moduix copy-state parts.
 - Ark adds `data-readonly` to `Clipboard.Input` when the input is read-only.
 - `Clipboard.Indicator` adds `data-slot="clipboard-indicator-idle-icon"` and
   `data-slot="clipboard-indicator-copied-icon"` for the default icon nodes.
+```

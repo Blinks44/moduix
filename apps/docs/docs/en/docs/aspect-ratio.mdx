@@ -35,7 +35,7 @@ Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame aut
 ```text
 AspectRatio / AspectRatio.Root
 └─ media | iframe | canvas | svg | custom content
-```
+````
 
 | Part                               | Role                            |
 | ---------------------------------- | ------------------------------- |
@@ -130,7 +130,7 @@ Use `asChild` when you need to bypass the default root host and let a semantic e
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/aspect-ratio/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -148,3 +148,4 @@ Use `asChild` when you need to bypass the default root host and let a semantic e
   CSS when a breakpoint needs a different ratio.
 - `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
   decoration on an outer wrapper instead of removing root clipping.
+```

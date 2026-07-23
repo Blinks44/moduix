@@ -46,7 +46,7 @@ CommandPalette / CommandPalette.Root
       │        ├─ CommandPalette.ItemMeta
       │        └─ CommandPalette.ItemIndicator
       └─ CommandPalette.Footer
-```
+````
 
 | Part                                                                  | Role                                                                                  |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -122,6 +122,7 @@ Enable the listener when a palette should open from a global command key. The li
   ```tsx preview file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Item Actions
@@ -142,7 +143,8 @@ Bypass `Panel` and `Search` when the palette needs custom dialog chrome or searc
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/advanced-customization.tsx"
 
-```
+````
+
 </PreviewFrame>
 
 ## Styling
@@ -159,4 +161,3 @@ Use CSS variables on the trigger, backdrop, content, list, and item parts when t
 - Ark Dialog state hooks include `data-scope="dialog"`, `data-part`, and `data-state="open" | "closed"` on backdrop and content.
 - Ark Combobox state hooks include `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid`, and `data-empty`.
 - Motion is tied to Ark `data-state`; legacy `data-starting-style`, `data-ending-style`, and `data-open` are not part of the command-palette contract.
-```
