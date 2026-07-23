@@ -1,4 +1,5 @@
 import { AngleSlider, Button, useAngleSlider } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const initialValue = 45;
 const targetValue = 90;
@@ -19,7 +20,11 @@ export default function RootProviderAngleSliderDemo() {
         </AngleSlider.Dial>
         <AngleSlider.ValueText />
       </AngleSlider.RootProvider>
-      <Button onClick={() => angleSlider.setValue(targetValue)}>Set to 90°</Button>
+      <PreviewMeta>
+        <Button size="sm" onClick={() => angleSlider.setValue(targetValue)}>
+          Set to 90°
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

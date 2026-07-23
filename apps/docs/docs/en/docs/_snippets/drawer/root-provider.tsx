@@ -1,4 +1,5 @@
 import { Button, Drawer, useDrawer } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const snapPoints = [0.25, 0.5, 1];
 export default function RootProviderDrawerDemo() {
@@ -8,12 +9,6 @@ export default function RootProviderDrawerDemo() {
   });
   return (
     <div className="provider-demo">
-      <div className="provider-actions">
-        <Button onClick={() => drawer.setOpen(true)}>Open via API</Button>
-        <Button variant="outline" onClick={() => drawer.setSnapPoint(1)}>
-          Set 100%
-        </Button>
-      </div>
       <Drawer.RootProvider value={drawer}>
         <Drawer.Backdrop />
         <Drawer.Positioner>
@@ -26,6 +21,14 @@ export default function RootProviderDrawerDemo() {
           </Drawer.Content>
         </Drawer.Positioner>
       </Drawer.RootProvider>
+      <PreviewMeta>
+        <Button size="sm" onClick={() => drawer.setOpen(true)}>
+          Open via API
+        </Button>
+        <Button size="sm" variant="outline" onClick={() => drawer.setSnapPoint(1)}>
+          Set 100%
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

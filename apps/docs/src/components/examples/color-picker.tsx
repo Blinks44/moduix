@@ -58,19 +58,6 @@ export const colorPickerInlineCss = `
   }
 `;
 
-export const colorPickerFormCss = `
-  .color-picker-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--moduix-spacing-3);
-  }
-
-.color-picker-submit {
-  align-self: center;
-  width: fit-content;
-}
-`;
-
 export const colorPickerValueSwatchCss = `
   .color-picker-value-swatch {
     position: relative;

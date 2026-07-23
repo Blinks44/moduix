@@ -118,7 +118,7 @@ Use `asChild` only when the root itself needs native semantics:
 | `Tag.CloseTrigger` | `children`   | close icon when not using `asChild`                                          |
 | `Tag.CloseTrigger` | `aria-label` | `Remove tag` when not using `asChild`, no children, and no `aria-labelledby` |
 
-Public CSS variables live in `packages/react/src/lib/moduix/styles/theme.css` and start with `--moduix-tag-*`. Variant
+Public CSS variables live in `packages/react/src/styles/theme.css` and start with `--moduix-tag-*`. Variant
 colors intentionally match `Badge` so shared variant names carry the same visual meaning across
 compact token components. Close-trigger variables use the `--moduix-tag-close-trigger-*` prefix. Consumers
 can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.

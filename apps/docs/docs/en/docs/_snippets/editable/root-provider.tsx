@@ -1,4 +1,5 @@
 import { Button, Editable, useEditable } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderEditableDemo() {
   const editable = useEditable({
@@ -15,9 +16,11 @@ export default function RootProviderEditableDemo() {
         </Editable.Area>
         <Editable.Controls />
       </Editable.RootProvider>
-      <Button type="button" onClick={() => editable.edit()}>
-        Edit
-      </Button>
+      <PreviewMeta>
+        <Button type="button" size="sm" onClick={() => editable.edit()}>
+          Edit
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

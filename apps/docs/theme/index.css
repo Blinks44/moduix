@@ -1,4 +1,4 @@
-@import '../../../packages/react/src/lib/moduix/styles/fonts.css';
+@import '../../../packages/react/src/styles/fonts.css';
 @import '@moduix/react/reset.css';
 @import '@moduix/react/style.css';
 
@@ -167,6 +167,7 @@ body {
   margin-block: 1.5rem 1.75rem;
 
   .rp-preview--internal__card {
+    position: relative;
     display: flex;
     min-width: 0;
     max-width: 100%;
@@ -178,6 +179,7 @@ body {
     border-radius: var(--rp-radius);
     padding: 1.5rem;
     background: var(--moduix-doc-preview-bg);
+    container-type: inline-size;
   }
 
   .rp-preview--internal__card__content {
@@ -200,18 +202,41 @@ body {
   }
 
   .rp-preview--internal__card__content output {
-    display: inline-block;
-    align-self: center;
-    inline-size: fit-content;
-    max-inline-size: 100%;
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
     border-radius: var(--moduix-radius-sm);
     padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
     overflow-wrap: anywhere;
     background: var(--moduix-color-muted);
     color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  [data-preview-meta] {
+    margin-top: var(--moduix-spacing-4);
+    display: grid;
+    width: 100%;
+    gap: var(--moduix-spacing-2);
+    padding: var(--moduix-spacing-4);
+    border: var(--moduix-border-width-sm) solid
+      color-mix(in oklab, var(--moduix-color-border) 75%, transparent);
+    border-radius: var(--moduix-radius-md);
+    background: color-mix(in oklab, var(--moduix-doc-preview-bg) 88%, transparent);
+    font-size: 0.8rem;
+
+    > * {
+      max-inline-size: 100%;
+    }
+
+    > output {
+      padding: var(--moduix-spacing-2);
+      font-size: inherit;
+      line-height: 1.2;
+      text-align: start;
+    }
+
+    > [data-scope='button'] {
+      font-size: inherit;
+      white-space: nowrap;
+    }
   }
 
   .rp-preview-operations--web {

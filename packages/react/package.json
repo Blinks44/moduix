@@ -36,11 +36,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./style.css": "./dist/lib/moduix/styles/style.css",
-    "./reset.css": "./dist/lib/moduix/styles/reset.css",
-    "./presets/contrast.css": "./dist/lib/moduix/presets/contrast.css",
-    "./presets/dense.css": "./dist/lib/moduix/presets/dense.css",
-    "./presets/soft.css": "./dist/lib/moduix/presets/soft.css",
+    "./style.css": "./dist/styles/style.css",
+    "./reset.css": "./dist/styles/reset.css",
+    "./presets/contrast.css": "./dist/presets/contrast.css",
+    "./presets/dense.css": "./dist/presets/dense.css",
+    "./presets/soft.css": "./dist/presets/soft.css",
     "./package.json": "./package.json"
   },
   "publishConfig": {

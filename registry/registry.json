@@ -33,87 +33,87 @@
       "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
       "files": [
         {
-          "path": "packages/react/src/lib/moduix/normalizeClassName.ts",
+          "path": "packages/react/src/internal/normalizeClassName.ts",
           "target": "@lib/moduix/normalizeClassName.ts",
           "type": "registry:lib"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/animations.css",
+          "path": "packages/react/src/styles/animations.css",
           "target": "@lib/moduix/styles/animations.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/ark-runtime-reference.css",
+          "path": "packages/react/src/styles/ark-runtime-reference.css",
           "target": "@lib/moduix/styles/ark-runtime-reference.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/borders.css",
+          "path": "packages/react/src/styles/borders.css",
           "target": "@lib/moduix/styles/borders.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/colors.css",
+          "path": "packages/react/src/styles/colors.css",
           "target": "@lib/moduix/styles/colors.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/opacity.css",
+          "path": "packages/react/src/styles/opacity.css",
           "target": "@lib/moduix/styles/opacity.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/radius.css",
+          "path": "packages/react/src/styles/radius.css",
           "target": "@lib/moduix/styles/radius.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/reset.css",
+          "path": "packages/react/src/styles/reset.css",
           "target": "@lib/moduix/styles/reset.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/shadows.css",
+          "path": "packages/react/src/styles/shadows.css",
           "target": "@lib/moduix/styles/shadows.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/sizing.css",
+          "path": "packages/react/src/styles/sizing.css",
           "target": "@lib/moduix/styles/sizing.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/spacing.css",
+          "path": "packages/react/src/styles/spacing.css",
           "target": "@lib/moduix/styles/spacing.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/style.css",
+          "path": "packages/react/src/styles/style.css",
           "target": "@lib/moduix/styles/style.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/theme.css",
+          "path": "packages/react/src/styles/theme.css",
           "target": "@lib/moduix/styles/theme.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/transforms.css",
+          "path": "packages/react/src/styles/transforms.css",
           "target": "@lib/moduix/styles/transforms.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/transitions.css",
+          "path": "packages/react/src/styles/transitions.css",
           "target": "@lib/moduix/styles/transitions.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/typography.css",
+          "path": "packages/react/src/styles/typography.css",
           "target": "@lib/moduix/styles/typography.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/lib/moduix/styles/z-index.css",
+          "path": "packages/react/src/styles/z-index.css",
           "target": "@lib/moduix/styles/z-index.css",
           "type": "registry:file"
         }
@@ -128,17 +128,17 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/lib/moduix/icons/ui/index.ts",
+          "path": "packages/react/src/internal/icons/ui/index.ts",
           "target": "@lib/moduix/icons/ui/index.ts",
           "type": "registry:lib"
         },
         {
-          "path": "packages/react/src/lib/moduix/icons/ui/Icons.tsx",
+          "path": "packages/react/src/internal/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
           "type": "registry:lib"
         },
         {
-          "path": "packages/react/src/lib/moduix/overlayPortal.tsx",
+          "path": "packages/react/src/internal/overlayPortal.tsx",
           "target": "@lib/moduix/overlayPortal.tsx",
           "type": "registry:lib"
         }
@@ -153,7 +153,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/lib/moduix/presets/contrast.css",
+          "path": "packages/react/src/presets/contrast.css",
           "target": "@lib/moduix/presets/contrast.css",
           "type": "registry:file"
         }
@@ -168,7 +168,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/lib/moduix/presets/dense.css",
+          "path": "packages/react/src/presets/dense.css",
           "target": "@lib/moduix/presets/dense.css",
           "type": "registry:file"
         }
@@ -183,7 +183,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/lib/moduix/presets/soft.css",
+          "path": "packages/react/src/presets/soft.css",
           "target": "@lib/moduix/presets/soft.css",
           "type": "registry:file"
         }

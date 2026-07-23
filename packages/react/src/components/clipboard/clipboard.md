@@ -115,7 +115,7 @@ The text input and copy trigger use the shared `--moduix-size-md` baseline; the 
 - `Clipboard.Indicator` defaults to `CopyIcon` and `CheckIcon`.
 - `Clipboard.CopyText` defaults to `Copy` and `Copied`.
 - Styles follow Ark `data-part` hooks and keep `data-copied` available for opt-in customization.
-- Public component tokens live under `--moduix-clipboard-*` in `packages/react/src/lib/moduix/styles/theme.css`.
+- Public component tokens live under `--moduix-clipboard-*` in `packages/react/src/styles/theme.css`.
 - Input and trigger tokens intentionally fall back to the existing `--moduix-input-*` and `--moduix-button-*` families where that keeps the visual system aligned.
 - `--moduix-clipboard-max-width` defaults to `none` instead of a fixed cap.
 - Copied-state styling should target Ark `data-copied` directly; there is no separate `--moduix-clipboard-*-copied` token layer.

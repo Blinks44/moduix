@@ -1,5 +1,6 @@
 import { today } from '@internationalized/date';
 import { Button, DateInput, useDateInput } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDateInputDemo() {
   const dateInput = useDateInput({
@@ -14,15 +15,15 @@ export default function RootProviderDateInputDemo() {
           <DateInput.Segments />
         </DateInput.Control>
       </DateInput.RootProvider>
-      <div className="date-input-root-provider-actions">
-        <Button type="button" variant="outline" onClick={() => dateInput.clearValue()}>
+      <PreviewMeta>
+        <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
+        <Button type="button" size="sm" variant="outline" onClick={() => dateInput.clearValue()}>
           Clear
         </Button>
-        <Button type="button" variant="outline" onClick={() => dateInput.focus()}>
+        <Button type="button" size="sm" variant="outline" onClick={() => dateInput.focus()}>
           Focus
         </Button>
-      </div>
-      <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }

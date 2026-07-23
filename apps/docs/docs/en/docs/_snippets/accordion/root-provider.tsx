@@ -1,4 +1,5 @@
 import { Accordion, useAccordion } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [
   {
@@ -24,7 +25,6 @@ export default function RootProviderAccordionDemo() {
 
   return (
     <div className="accordion-provider-stack">
-      <div className="accordion-state">Open sections: {accordion.value.join(', ')}</div>
       <Accordion.RootProvider value={accordion}>
         {items.map((item) => (
           <Accordion.Item key={item.value} value={item.value}>
@@ -38,6 +38,9 @@ export default function RootProviderAccordionDemo() {
           </Accordion.Item>
         ))}
       </Accordion.RootProvider>
+      <PreviewMeta>
+        <output>Open sections: {accordion.value.join(', ')}</output>
+      </PreviewMeta>
     </div>
   );
 }

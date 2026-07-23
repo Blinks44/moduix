@@ -1,5 +1,6 @@
 import { today } from '@internationalized/date';
 import { Button, DatePicker, useDatePicker } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDatePickerDemo() {
   const datePicker = useDatePicker({
@@ -80,11 +81,11 @@ export default function RootProviderDatePickerDemo() {
           </DatePicker.Content>
         </DatePicker.Positioner>
       </DatePicker.RootProvider>
-      <div className="date-picker-state">
+      <PreviewMeta>
         <Button size="sm" variant="secondary" onClick={() => datePicker.clearValue()}>
           Clear
         </Button>
-      </div>
+      </PreviewMeta>
     </div>
   );
 }

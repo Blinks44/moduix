@@ -1,5 +1,6 @@
 import { Button } from '@moduix/react';
 import { useRef } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const labels = {
   target: 'Focus target',
@@ -12,9 +13,11 @@ export default function ButtonRefDemo() {
   return (
     <div className="button-demo-row">
       <Button ref={buttonRef}>{labels.target}</Button>
-      <Button variant="outline" onClick={() => buttonRef.current?.focus()}>
-        {labels.trigger}
-      </Button>
+      <PreviewMeta>
+        <Button size="sm" variant="outline" onClick={() => buttonRef.current?.focus()}>
+          {labels.trigger}
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

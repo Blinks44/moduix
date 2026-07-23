@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Button, Combobox, useCombobox } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -33,9 +34,11 @@ export default function RootProviderComboboxDemo() {
           </Combobox.Content>
         </Combobox.Positioner>
       </Combobox.RootProvider>
-      <Button type="button" onClick={() => combobox.focus()}>
-        Focus
-      </Button>
+      <PreviewMeta>
+        <Button type="button" size="sm" onClick={() => combobox.focus()}>
+          Focus
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

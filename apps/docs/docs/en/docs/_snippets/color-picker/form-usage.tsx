@@ -1,6 +1,7 @@
 import { Button, ColorPicker, parseColor } from '@moduix/react';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function FormUsageColorPickerDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -11,7 +12,7 @@ export default function FormUsageColorPickerDemo() {
   };
 
   return (
-    <form className="color-picker-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <ColorPicker name="accent" defaultValue={parseColor('#eb5e41')}>
         <ColorPicker.Label>Color</ColorPicker.Label>
         <ColorPicker.Control>
@@ -19,10 +20,12 @@ export default function FormUsageColorPickerDemo() {
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
       </ColorPicker>
-      <Button className="color-picker-submit" type="submit">
-        Submit
-      </Button>
-      <output>Submitted: {submitted}</output>
+      <PreviewMeta>
+        <output>Submitted: {submitted}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }
