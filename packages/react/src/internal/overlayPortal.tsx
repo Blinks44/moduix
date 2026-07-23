@@ -1,3 +1,5 @@
+'use client';
+
 import { Portal } from '@ark-ui/react/portal';
 import type { ReactNode, RefObject } from 'react';
 import { createContext, useContext } from 'react';

@@ -1,5 +1,6 @@
 import { FileUpload } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const accept = 'image/*';
 const maxFiles = 2;
@@ -7,7 +8,7 @@ const maxFileSize = 120_000;
 export default function ErrorHandlingFileUploadDemo() {
   const [message, setMessage] = useState('');
   return (
-    <div className="file-upload-stack">
+    <>
       <FileUpload
         className="file-upload-simple-demo"
         accept={accept}
@@ -44,7 +45,9 @@ export default function ErrorHandlingFileUploadDemo() {
           </FileUpload.Context>
         </FileUpload.ItemGroup>
       </FileUpload>
-      <p className="file-upload-state">{message || 'No files selected'}</p>
-    </div>
+      <PreviewMeta>
+        <output>Status: {message || 'No files selected'}</output>
+      </PreviewMeta>
+    </>
   );
 }

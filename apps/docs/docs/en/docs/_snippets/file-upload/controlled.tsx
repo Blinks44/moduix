@@ -1,5 +1,6 @@
 import { FileUpload } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const initialFiles = [
   new File(['Welcome to moduix'], 'README.md', {
@@ -9,7 +10,7 @@ const initialFiles = [
 export default function ControlledFileUploadDemo() {
   const [files, setFiles] = useState(initialFiles);
   return (
-    <div className="file-upload-stack">
+    <>
       <FileUpload
         className="file-upload-simple-demo"
         acceptedFiles={files}
@@ -30,7 +31,9 @@ export default function ControlledFileUploadDemo() {
           </FileUpload.Context>
         </FileUpload.ItemGroup>
       </FileUpload>
-      <p className="file-upload-state">Selected files: {files.length}</p>
-    </div>
+      <PreviewMeta>
+        <output>Selected: {files.length}</output>
+      </PreviewMeta>
+    </>
   );
 }

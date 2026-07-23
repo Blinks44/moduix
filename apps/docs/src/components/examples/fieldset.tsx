@@ -1,19 +1,7 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const fieldsetExampleCss = `
-  .fieldset {
-    width: min(12.5rem, 100%);
-    margin-inline: auto;
-  }
-`;
-
 export const fieldsetPhoneInputCss = `
-  .fieldset {
-    width: min(12.5rem, 100%);
-    margin-inline: auto;
-  }
-
   .phone-input {
     display: grid;
     grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
