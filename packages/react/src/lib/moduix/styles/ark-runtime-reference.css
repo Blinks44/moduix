@@ -1,0 +1,59 @@
+/*
+ * Ark UI Runtime Variable Reference
+ *
+ * This file exists solely for CSS language services and IDE inspections.
+ * It is deliberately not imported by style.css. Ark UI writes the actual
+ * values to the relevant component parts at runtime.
+ *
+ * Do not add data-moduix-ark-runtime-reference to application markup.
+ */
+
+:root[data-moduix-ark-runtime-reference] {
+  /* Positioning */
+  --arrow-background: initial;
+  --arrow-size: initial;
+  --available-height: initial;
+  --available-width: initial;
+  --layer-index: initial;
+  --reference-width: initial;
+  --transform-origin: initial;
+  --z-index: initial;
+
+  /* Dimensions and layout */
+  --aspect-ratio-value: initial;
+  --collapsed-height: initial;
+  --collapsed-width: initial;
+  --column-count: initial;
+  --corner-height: initial;
+  --corner-width: initial;
+  --height: initial;
+  --left: initial;
+  --positioner-width: initial;
+  --scroll-area-overflow-y-end: initial;
+  --scroll-area-overflow-y-start: initial;
+  --size: initial;
+  --thickness: initial;
+  --top: initial;
+  --width: initial;
+
+  /* Component state and animation */
+  --depth: initial;
+  --drawer-swipe-progress: initial;
+  --drawer-swipe-strength: initial;
+  --gap: initial;
+  --marquee-delay: initial;
+  --marquee-duration: initial;
+  --marquee-loop-count: initial;
+  --marquee-translate: initial;
+  --nested-drawers: initial;
+  --nested-layer-count: initial;
+  --opacity: initial;
+  --percent: initial;
+  --scale: initial;
+  --tour-layer: initial;
+  --transition-duration: initial;
+  --transition-property: initial;
+  --transition-timing-function: initial;
+  --x: initial;
+  --y: initial;
+}

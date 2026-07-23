@@ -237,7 +237,7 @@
   }
 
   .empty {
-    padding-block: var(--moduix-listbox-empty-padding-y, var(--moduix-spacing-3));
+    padding-block: var(--moduix-listbox-empty-padding-y, var(--moduix-spacing-1));
     padding-inline: var(--moduix-listbox-empty-padding-x, var(--moduix-spacing-3));
     color: var(--moduix-listbox-empty-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-listbox-empty-font-size, var(--moduix-text-sm));

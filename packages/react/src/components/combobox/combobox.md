@@ -174,6 +174,7 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 ## Defaults and styling
 
 The input control defaults to `--moduix-size-md`. Single-line popup options default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
+Empty and status messages use the same compact `--moduix-spacing-1` block padding.
 
 Popup group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
 weight, and `--moduix-spacing-1` block padding. Component-specific variables still take precedence.
@@ -182,6 +183,9 @@ above the scrolled options.
 
 `Status` uses the `--moduix-combobox-empty-*` tokens by default, so consumer-owned loading and error
 messages match the empty state without a duplicate token surface.
+
+Ark positioning variables have neutral initial values in the shared theme for tooling and unpositioned
+content; Ark replaces them with measured values on `Positioner` when the popup opens.
 
 - Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-combobox-transition` and
   closed-state variables remain the more specific override.
@@ -248,8 +252,11 @@ Common `shadcn` migration points:
 
 ## Local changelog
 
+- 2026-07-23: Compacted empty and status message block padding to `--moduix-spacing-1`.
 - 2026-07-23: Added `Combobox.Status`, a styled consumer-owned message surface for loading, error,
   and guidance content in popup composition.
+- 2026-07-23: Registered neutral initial values for shared Ark positioning variables and made the
+  async-search example show a prompt when the query is cleared.
 - 2026-07-23: Made grouped popup labels stick to the scrollable content edge instead of an inner
   list scroll container.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

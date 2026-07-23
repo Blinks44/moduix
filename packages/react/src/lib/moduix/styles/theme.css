@@ -8,10 +8,6 @@
  * fallback pattern:
  *   property: var(--moduix-component-prop, var(--moduix-default-token));
  *
- * Ark UI runtime variables intentionally remain unprefixed. They are written
- * by Ark on the relevant component parts, so this file does not declare them
- * on :root where they could collide with a host design system.
- *
  * To use in other projects:
  *   @import "@moduix/react/style.css"
  */
@@ -495,7 +491,7 @@
   --moduix-combobox-empty-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-combobox-empty-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-combobox-empty-padding-x: initial; /* var(--moduix-spacing-4) */
-  --moduix-combobox-empty-padding-y: initial; /* var(--moduix-spacing-3) */
+  --moduix-combobox-empty-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-combobox-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-combobox-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
   --moduix-combobox-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
@@ -1669,7 +1665,7 @@
   --moduix-listbox-empty-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-listbox-empty-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-listbox-empty-padding-x: initial; /* var(--moduix-spacing-3) */
-  --moduix-listbox-empty-padding-y: initial; /* var(--moduix-spacing-3) */
+  --moduix-listbox-empty-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-listbox-filter-action-bg: initial; /* transparent */
   --moduix-listbox-filter-action-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-listbox-filter-action-color-hover: initial; /* var(--moduix-color-foreground) */

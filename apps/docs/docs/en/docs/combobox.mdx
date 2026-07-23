@@ -169,7 +169,9 @@ Keep the moduix API Ark-shaped, then translate the common shadcn conveniences ex
 ### Async Search
 
 Replace collection items from an async result, render `Combobox.Status` while a request is pending,
-and use `details.reason` to distinguish typed input from machine-driven input updates.
+and use `details.reason` to distinguish typed input from machine-driven input updates. When the
+query is empty, keep the popup informative with a `Start typing to search…` status instead of an
+empty surface.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -398,4 +400,6 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 - Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
   `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
 - Ark positioning variables include `--reference-width`, `--available-width`,
-  `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`.
+  `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`. The shared theme
+  registers neutral initial values for tooling and unpositioned content; Ark replaces them with
+  measured values on `Positioner`.

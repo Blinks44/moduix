@@ -206,6 +206,7 @@ function AsyncSearchStory() {
       </Combobox.Control>
       <Combobox.Positioner>
         <Combobox.Content>
+          {!inputValue ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
           {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
           {!loading && inputValue ? <Combobox.Empty>No options found.</Combobox.Empty> : null}
           <Combobox.List>

@@ -138,6 +138,7 @@ Refs forward to the underlying Ark DOM parts. `CommandPalette.Input` is the inpu
 ## Defaults and styling
 
 The external trigger and search control use `--moduix-size-md`; single-line command items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding.
+Empty messages use the roomier `--moduix-spacing-3` block padding for the dialog surface.
 
 Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular weight,
 and `--moduix-spacing-1` block padding. Command-palette-specific variables still take precedence.
@@ -167,6 +168,7 @@ consumers should compose those Ark helpers directly.
 
 ## Local changelog
 
+- 2026-07-23: Kept empty-message block padding at `--moduix-spacing-3` for the command-palette dialog surface.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized command group labels to the shared regular-weight popup-label contract.
 

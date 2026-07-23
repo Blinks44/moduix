@@ -52,6 +52,7 @@ export default function AsyncSearchComboboxDemo() {
       </Combobox.Control>
       <Combobox.Positioner>
         <Combobox.Content>
+          {!query ? <Combobox.Status>Start typing to search…</Combobox.Status> : null}
           {loading ? <Combobox.Status>Searching…</Combobox.Status> : null}
           {!loading && query ? <Combobox.Empty>No results found.</Combobox.Empty> : null}
           <Combobox.List>

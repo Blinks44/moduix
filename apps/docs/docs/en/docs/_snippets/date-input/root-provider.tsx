@@ -1,5 +1,5 @@
 import { today } from '@internationalized/date';
-import { DateInput, useDateInput } from '@moduix/react';
+import { Button, DateInput, useDateInput } from '@moduix/react';
 
 export default function RootProviderDateInputDemo() {
   const dateInput = useDateInput({
@@ -7,7 +7,7 @@ export default function RootProviderDateInputDemo() {
     name: 'report-date',
   });
   return (
-    <div>
+    <div className="date-input-demo">
       <DateInput.RootProvider value={dateInput}>
         <DateInput.Label>Report date</DateInput.Label>
         <DateInput.Control>
@@ -15,13 +15,14 @@ export default function RootProviderDateInputDemo() {
         </DateInput.Control>
       </DateInput.RootProvider>
       <div className="date-input-root-provider-actions">
-        <button type="button" onClick={() => dateInput.clearValue()}>
+        <Button type="button" variant="outline" onClick={() => dateInput.clearValue()}>
           Clear
-        </button>
-        <button type="button" onClick={() => dateInput.focus()}>
+        </Button>
+        <Button type="button" variant="outline" onClick={() => dateInput.focus()}>
           Focus
-        </button>
+        </Button>
       </div>
+      <output>Selected: {dateInput.value[0]?.toString() ?? 'empty'}</output>
     </div>
   );
 }

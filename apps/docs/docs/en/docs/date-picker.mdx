@@ -24,9 +24,11 @@ standard day grid.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -136,9 +138,12 @@ Control the selected `DateValue[]` and update it from `details.value`.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/controlled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/controlled.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Default View And Fixed Weeks
 
@@ -147,9 +152,11 @@ stable six-row height while users navigate between months.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/default-view-and-fixed-weeks.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/default-view-and-fixed-weeks.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Field State
 
@@ -158,9 +165,12 @@ root when you are not composing through `Field`.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/field-state.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/field-state.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Inline And Week Numbers
 
@@ -169,9 +179,11 @@ directly without `Positioner`.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/inline-and-week-numbers.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/inline-and-week-numbers.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Locale And Format
 
@@ -179,9 +191,12 @@ directly without `Positioner`.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/locale-and-format.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/locale-and-format.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Min, Max, And Unavailable
 
@@ -190,9 +205,11 @@ calendar cells.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/min-max-and-unavailable.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/min-max-and-unavailable.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Month And Year Select
 
@@ -202,181 +219,12 @@ while still updating Ark's focused date.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-<ExampleFrame clientOnly>
-  <DatePickerDocs.MonthYearSelectDatePickerExample />
-</ExampleFrame>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/month-year-select.tsx"
 
-```tsx
-import { createListCollection } from '@ark-ui/react/collection';
-import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker } from '@moduix/react';
+````
 
-const monthItems = [
-  {
-    label: 'January',
-    value: '1',
-  },
-  {
-    label: 'February',
-    value: '2',
-  },
-  {
-    label: 'March',
-    value: '3',
-  },
-  {
-    label: 'April',
-    value: '4',
-  },
-  {
-    label: 'May',
-    value: '5',
-  },
-  {
-    label: 'June',
-    value: '6',
-  },
-  {
-    label: 'July',
-    value: '7',
-  },
-  {
-    label: 'August',
-    value: '8',
-  },
-  {
-    label: 'September',
-    value: '9',
-  },
-  {
-    label: 'October',
-    value: '10',
-  },
-  {
-    label: 'November',
-    value: '11',
-  },
-  {
-    label: 'December',
-    value: '12',
-  },
-];
-const months = createListCollection({
-  items: monthItems,
-});
-export default function MonthYearSelectDatePickerDemo() {
-  return (
-    <DatePicker defaultValue={[parseDate('2026-06-22')]}>
-      <DatePicker.Label>Report date</DatePicker.Label>
-      <DatePicker.Field />
-      <DatePicker.Positioner>
-        <DatePicker.Content>
-          <DatePicker.ViewControl className="date-picker-month-year-control">
-            <DatePicker.Context>
-              {(datePicker) => {
-                const focusedYear = datePicker.focusedValue.year;
-                const years = createListCollection({
-                  items: Array.from(
-                    {
-                      length: 12,
-                    },
-                    (_, index) => {
-                      const year = focusedYear - 5 + index;
-                      return {
-                        label: String(year),
-                        value: String(year),
-                      };
-                    },
-                  ),
-                });
-                return (
-                  <div className="date-picker-month-year-selects">
-                    <Select
-                      className="date-picker-month-select"
-                      collection={months}
-                      value={[String(datePicker.focusedValue.month)]}
-                      onValueChange={(details) => {
-                        const month = Number(details.value[0]);
-                        if (month) {
-                          datePicker.setFocusedValue(
-                            datePicker.focusedValue.set({
-                              month,
-                            }),
-                          );
-                        }
-                      }}
-                    >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                          <Select.Indicator />
-                        </Select.Trigger>
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
-                            {monthItems.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
-                            ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
-                    </Select>
-                    <Select
-                      className="date-picker-year-select"
-                      collection={years}
-                      value={[String(datePicker.focusedValue.year)]}
-                      onValueChange={(details) => {
-                        const year = Number(details.value[0]);
-                        if (year) {
-                          datePicker.setFocusedValue(
-                            datePicker.focusedValue.set({
-                              year,
-                            }),
-                          );
-                        }
-                      }}
-                    >
-                      <Select.Control>
-                        <Select.Trigger>
-                          <Select.ValueText />
-                          <Select.Indicator />
-                        </Select.Trigger>
-                      </Select.Control>
-                      <Select.Positioner>
-                        <Select.Content>
-                          <Select.List>
-                            {years.items.map((item) => (
-                              <Select.Item key={item.value} item={item}>
-                                <Select.ItemText>{item.label}</Select.ItemText>
-                                <Select.ItemIndicator />
-                              </Select.Item>
-                            ))}
-                          </Select.List>
-                        </Select.Content>
-                      </Select.Positioner>
-                    </Select>
-                  </div>
-                );
-              }}
-            </DatePicker.Context>
-            <div className="date-picker-month-year-nav">
-              <DatePicker.PrevTrigger />
-              <DatePicker.NextTrigger />
-            </div>
-          </DatePicker.ViewControl>
-          <DatePicker.View view="day">
-            <DatePicker.DayTable showHeader={false} />
-          </DatePicker.View>
-        </DatePicker.Content>
-      </DatePicker.Positioner>
-    </DatePicker>
-  );
-}
-```
+</PreviewFrame>
 
 ### Month Picker
 
@@ -385,9 +233,11 @@ when the input should accept a month/year string.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/month-picker.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/month-picker.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Multiple
 
@@ -397,9 +247,12 @@ selected-date chips and call `datePicker.setValue()` when a chip is removed.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/multiple.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/multiple.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Multiple Months
 
@@ -407,9 +260,11 @@ Set `numOfMonths` when users need more context while choosing dates.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/multiple-months.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="lg">
+  ```tsx preview file="./_snippets/date-picker/multiple-months.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Presets
 
@@ -418,9 +273,12 @@ Set `numOfMonths` when users need more context while choosing dates.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/presets.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/presets.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Range
 
@@ -430,9 +288,11 @@ the end date.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/range.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/range.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Root Provider
 
@@ -440,9 +300,12 @@ Use moduix `useDatePicker()` when the calendar state must be shared with externa
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/root-provider.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/root-provider.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Select Today
 
@@ -450,9 +313,11 @@ Use `DatePicker.Context` when a nearby control needs to call Ark helpers such as
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/select-today.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/select-today.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### With Time
 
@@ -461,9 +326,12 @@ field separately from Ark's date grid.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/with-time.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/with-time.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Year Picker
 
@@ -472,9 +340,11 @@ contract keeps keyboard input aligned with the calendar view.
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/year-picker.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/year-picker.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -483,9 +353,12 @@ Use the full Ark composition when the calendar grid itself needs custom renderin
 
 <style>{DatePickerDocs.datePickerExampleCss}</style>
 
-```tsx preview file="./_snippets/date-picker/advanced-customization.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/date-picker/advanced-customization.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 
