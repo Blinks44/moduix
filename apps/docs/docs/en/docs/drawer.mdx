@@ -123,6 +123,8 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 - Public direction values are logical: `up`, `down`, `start`, and `end`. Ark exposes resolved
   physical `left` or `right` values through `data-swipe-direction` for styling.
 - `Content draggable={false}` disables dragging from content while keeping the grabber draggable.
+- `Content variant="island"` adds a viewport inset, rounds every content corner, and removes the
+  overdrag bleed for a detached drawer surface.
 - `data-no-drag` prevents a drag gesture from starting inside a specific subtree.
 - The modal backdrop remains fully visible while dragging between snap points and fades after the
   drawer begins closing.
@@ -198,6 +200,18 @@ progress.
 
 </PreviewFrame>
 
+### Island
+
+Set `variant="island"` on `Drawer.Content` when a compact drawer should float inside the viewport
+instead of visually continuing beyond its opening edge.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/island.tsx"
+
+````
+
+</PreviewFrame>
+
 ### Multiple Triggers
 
 Assign each trigger a `value` to share one drawer across a list. The callback identifies which
@@ -209,6 +223,7 @@ trigger is current.
   ```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Nested
@@ -248,6 +263,7 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
   ```tsx preview file="./_snippets/drawer/non-modal.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Root Provider
@@ -306,6 +322,7 @@ scroll container while the grabber and header stay fixed.
   ```tsx preview file="./_snippets/drawer/scrollable.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Snap Points
@@ -335,6 +352,7 @@ Use logical `start` and `end` values for side drawers so the same code works in 
   ```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -345,7 +363,7 @@ the full low-level Drawer anatomy.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -371,6 +389,7 @@ the full low-level Drawer anatomy.
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`, and
   `drawer-indent-background`.
+- `Drawer.Content` writes `data-variant="island"` when its island presentation is active.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
 - State hooks: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
   `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
@@ -380,3 +399,4 @@ the full low-level Drawer anatomy.
   `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, `--drawer-swipe-progress`,
   `--drawer-swipe-strength`, `--drawer-height`, `--drawer-frontmost-height`,
   `--nested-drawers`, `--nested-layer-count`, and `--layer-index`.
+```

@@ -18,15 +18,11 @@ Ark UI does not ship a dedicated empty primitive. Moduix builds this component w
 Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` and
 `Empty.Actions` only when the state needs a visual cue or an explicit next step.
 
-<style>{`
-      .empty {
-        width: min(28rem, 100%);
-      }
-    `}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/empty/basic.tsx"
 
-```tsx preview file="./_snippets/empty/basic.tsx"
-
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -86,12 +82,12 @@ with normal component composition:
 ### Behavioral notes
 
 - `Empty.Title` renders `h3` by default and accepts Ark factory `asChild` for document outline
-  control.
+control.
 - `Empty.Description` renders a `div`, not a `p`, so it can safely contain block content.
 - Every part forwards its ref to the rendered DOM element and accepts Ark factory `asChild` with a
-  single semantic child.
+single semantic child.
 - Parts render `data-scope="empty"` and matching `data-part` attributes for Ark-style styling,
-  plus stable `data-slot="empty-*"` hooks for moduix overrides.
+plus stable `data-slot="empty-*"` hooks for moduix overrides.
 - `Empty.Actions` centers and wraps its children, so paired actions stay readable in narrow layouts.
 
 ## Examples
@@ -100,44 +96,35 @@ with normal component composition:
 
 Omit `Empty.Actions` when the state is only informational.
 
-<style>{`
-      .empty {
-        width: min(28rem, 100%);
-      }
-    `}</style>
-
+<PreviewFrame maxWidth="lg">
 ```tsx preview file="./_snippets/empty/without-actions.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Without Icon
 
 The visual slot is optional, so plain text-only empty states stay simple.
 
-<style>{`
-      .empty {
-        width: min(28rem, 100%);
-      }
-    `}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/empty/without-icon.tsx"
 
-```tsx preview file="./_snippets/empty/without-icon.tsx"
+````
 
-```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `Empty.Title asChild` when the surrounding page needs a different heading level. The description
 accepts normal block markup, so richer copy remains semantic without a separate configuration API.
 
-<style>{`
-      .empty {
-        width: min(28rem, 100%);
-      }
-    `}</style>
-
+<PreviewFrame maxWidth="lg">
 ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

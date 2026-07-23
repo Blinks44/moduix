@@ -60,7 +60,7 @@ DatePicker / DatePicker.Root
 │        │     └─ DatePicker.TableCellTrigger
 │        ├─ DatePicker.MonthSelect / DatePicker.YearSelect
 │        └─ DatePicker.PresetTrigger
-└─ ArkDatePicker.Context (import from @ark-ui/react/date-picker when you need calendar state)
+└─ DatePicker.Context
 ```
 
 | Part                             | Role                                                             |
@@ -95,9 +95,9 @@ structural popup parts remain explicit and styleable.
 ### When to go custom
 
 Use `DatePicker.Control`, `DatePicker.Input`, `DatePicker.Trigger`, `DatePicker.ClearTrigger`, and
-the low-level `Table*` parts directly when the field or calendar grid needs custom structure. Import
-`DatePicker.Context` from `@ark-ui/react/date-picker` when custom rendering needs Ark state such as
-`weekDays`, `weeks`, `getMonthsGrid()`, `getYearsGrid()`, `getOffset()`, or action helpers.
+the low-level `Table*` parts directly when the field or calendar grid needs custom structure. Use
+`DatePicker.Context` when custom rendering needs calendar state such as `weekDays`, `weeks`,
+`getMonthsGrid()`, `getYearsGrid()`, `getOffset()`, or action helpers.
 
 ### Default props
 
@@ -113,9 +113,9 @@ the low-level `Table*` parts directly when the field or calendar grid needs cust
 
 ### Behavioral notes
 
-`value`, `defaultValue`, and `onValueChange(details)` use Ark `DateValue[]`. Import `parseDate`,
-`DatePicker.Context`, `useDatePicker`, and event/detail types directly from
-`@ark-ui/react/date-picker` when you need them. The default root and popup width is `18.75rem`
+`value`, `defaultValue`, and `onValueChange(details)` use Ark `DateValue[]`. Import
+`DatePicker.Context`, `useDatePicker`, and `useDatePickerContext` from `moduix`; import `parseDate`
+and Ark date types from `@ark-ui/react/date-picker` when needed. The default root and popup width is `18.75rem`
 (300px); override `--moduix-date-picker-width` or `--moduix-date-picker-content-width` when a wider composition
 is needed.
 Because popup content is portalled, put popup sizing variables on `DatePicker.Content` or another
@@ -123,6 +123,7 @@ element inside the overlay subtree, not only on `DatePicker.Root`.
 
 `open`, `defaultOpen`, and `onOpenChange(details)` control popup state. `view`, `defaultView`,
 `minView`, `maxView`, and `onViewChange(details)` control the active calendar panel.
+When a composition renders only one panel, set both `minView` and `maxView` to that view.
 
 Use `selectionMode="single"`, `"range"`, or `"multiple"`. `maxSelectedDates` applies only to
 multiple selection. `numOfMonths`, `fixedWeeks`, and `showWeekNumbers` change the calendar table.

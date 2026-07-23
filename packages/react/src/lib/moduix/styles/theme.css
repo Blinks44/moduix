@@ -831,7 +831,6 @@
   --moduix-date-picker-content-closed-opacity: initial; /* 0 */
   --moduix-date-picker-content-closed-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-date-picker-content-color: initial; /* var(--moduix-color-popover-foreground) */
-  --moduix-date-picker-content-max-height: initial; /* 32rem */
   --moduix-date-picker-content-max-width: initial; /* calc(100vw - 2rem) */
   --moduix-date-picker-content-min-width: initial; /* 18.75rem */
   --moduix-date-picker-content-padding: initial; /* var(--moduix-spacing-3) */
@@ -1041,6 +1040,7 @@
   --moduix-drawer-indent-scale-active: initial; /* 0.97 */
   --moduix-drawer-indent-transition: initial; /* var(--moduix-transition-spring) */
   --moduix-drawer-indent-translate-y-active: initial; /* var(--moduix-spacing-2) */
+  --moduix-drawer-island-inset: initial; /* var(--moduix-spacing-4) */
   --moduix-drawer-max-height: initial; /* 80dvh */
   --moduix-drawer-nested-scale-step: initial; /* 0.05 */
   --moduix-drawer-nested-transition: initial; /* var(--moduix-drawer-transition, var(--moduix-transition-spring)) */

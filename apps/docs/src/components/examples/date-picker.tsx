@@ -246,7 +246,6 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-popover-foreground)',
     'Controls popup text color.',
   ],
-  ['--moduix-date-picker-content-max-height', '32rem', 'Controls popup maximum height.'],
   ['--moduix-date-picker-content-max-width', 'calc(100vw - 2rem)', 'Controls popup maximum width.'],
   ['--moduix-date-picker-content-min-width', '18.75rem', 'Controls popup minimum width.'],
   ['--moduix-date-picker-content-padding', 'var(--moduix-spacing-3)', 'Controls popup padding.'],

@@ -291,8 +291,6 @@
       var(--moduix-date-picker-content-max-width, calc(100vw - 2rem)),
       var(--available-width)
     );
-    max-height: min(var(--moduix-date-picker-content-max-height, 32rem), var(--available-height));
-    overflow: auto;
     border: var(--moduix-date-picker-content-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-date-picker-content-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-date-picker-content-radius, var(--moduix-radius-md));
@@ -302,7 +300,6 @@
     color: var(--moduix-date-picker-content-color, var(--moduix-color-popover-foreground));
     transform-origin: var(--transform-origin);
     outline: 0;
-    overscroll-behavior: contain;
 
     &[data-state='open'] {
       animation: date-picker-content-open
@@ -326,7 +323,6 @@
 
   .root[data-inline] .content {
     min-width: var(--moduix-date-picker-inline-content-min-width, 18rem);
-    max-height: none;
     box-shadow: var(--moduix-date-picker-inline-content-shadow, none);
   }
 
