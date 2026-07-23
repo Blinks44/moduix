@@ -51,7 +51,7 @@ DateInput.SegmentGroup
 
 DateInput.RootProvider
 └─ same part tree connected to a useDateInput() store
-```
+````
 
 | Part                           | Role                                                               |
 | ------------------------------ | ------------------------------------------------------------------ |
@@ -132,6 +132,7 @@ editable.
   ```tsx preview file="./_snippets/date-input/disabled-and-read-only.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Field State
@@ -158,6 +159,7 @@ Set `granularity` when the input should include time segments.
   ```tsx preview file="./_snippets/date-input/granularity.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Locale
@@ -184,6 +186,7 @@ Use `min`, `max`, and `isDateUnavailable` to mark committed dates outside busine
   ```tsx preview file="./_snippets/date-input/min-max-and-unavailable-dates.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Range
@@ -210,6 +213,7 @@ live outside the rendered root tree.
   ```tsx preview file="./_snippets/date-input/root-provider.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -222,7 +226,7 @@ Use the full segment composition when segment rendering needs to vary by Ark seg
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/date-input/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -257,3 +261,4 @@ Most styling changes start with `--moduix-date-input-width`, `--moduix-date-inpu
 - `data-slot="date-input-separator"` on moduix range separator sugar.
 - Ark state attributes include `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` on
   control and segment groups, `data-type`, `data-editable`, and `data-placeholder-shown`.
+```

@@ -45,7 +45,7 @@ AngleSlider.Root
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
 └─ AngleSlider.ValueText
-```
+````
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
@@ -76,8 +76,8 @@ Start with `Dial`, then add only the parts that match the job:
 Use explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` parts when the dial needs custom
 children, per-marker props, or nonstandard ordering. Use `useAngleSlider()` from `@moduix/react`
 with `AngleSlider.RootProvider` when state must be controlled outside the rendered slider subtree.
-Import context parts and uncommon state hooks directly from `@ark-ui/react/angle-slider` as an
-escape hatch. Do not render `Root` and `RootProvider` for the same state instance.
+Use `AngleSlider.Context` and `useAngleSliderContext()` from moduix for context reads. Do not render
+`Root` and `RootProvider` for the same state instance.
 
 Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
 keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
@@ -131,6 +131,7 @@ Use `disabled` when the control must be unavailable and excluded from interactio
   ```tsx preview file="./_snippets/angle-slider/disabled.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### In a Form
@@ -158,6 +159,7 @@ ARIA state without changing the interaction model.
   ```tsx preview file="./_snippets/angle-slider/invalid.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Read Only
@@ -184,6 +186,7 @@ needs direct access to the same state machine.
   ```tsx preview file="./_snippets/angle-slider/root-provider.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Steps
@@ -211,6 +214,7 @@ composition in place.
   ```tsx preview file="./_snippets/angle-slider/with-marks.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -223,7 +227,7 @@ extra children inside the control.
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -250,3 +254,4 @@ variables below.
   `data-slot="angle-slider-marker"` hooks as the explicit marker parts.
 - Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
   `--marker-display-value` are preserved.
+```

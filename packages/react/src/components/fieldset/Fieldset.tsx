@@ -1,4 +1,8 @@
-import { Fieldset as FieldsetPrimitive, useFieldset } from '@ark-ui/react/fieldset';
+import {
+  Fieldset as FieldsetPrimitive,
+  useFieldset,
+  useFieldsetContext,
+} from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -78,9 +82,10 @@ const FieldsetErrorText = forwardRef<
 const Fieldset = Object.assign(FieldsetRoot, {
   Root: FieldsetRoot,
   RootProvider: FieldsetRootProvider,
+  Context: FieldsetPrimitive.Context,
   Legend: FieldsetLegend,
   HelperText: FieldsetHelperText,
   ErrorText: FieldsetErrorText,
 });
 
-export { Fieldset, useFieldset };
+export { Fieldset, useFieldset, useFieldsetContext };

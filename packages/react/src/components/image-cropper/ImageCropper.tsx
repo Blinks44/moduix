@@ -1,6 +1,7 @@
 import {
   ImageCropper as ImageCropperPrimitive,
   useImageCropper,
+  useImageCropperContext,
 } from '@ark-ui/react/image-cropper';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -137,4 +138,4 @@ const ImageCropper = Object.assign(ImageCropperRoot, {
   handles: ImageCropperPrimitive.handles,
 });
 
-export { ImageCropper, useImageCropper };
+export { ImageCropper, useImageCropper, useImageCropperContext };

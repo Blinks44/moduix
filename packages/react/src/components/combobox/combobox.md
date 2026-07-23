@@ -198,7 +198,7 @@ content; Ark replaces them with measured values on `Positioner` when the popup o
 - Trigger and clear actions are positioned at the logical inline end, so they follow RTL text flow.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
-- Public component variables are declared in `packages/react/src/lib/moduix/styles/theme.css`.
+- Public component variables are declared in `packages/react/src/styles/theme.css`.
 - `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
   `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
   `Positioner` through `--z-index`.

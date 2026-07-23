@@ -1,6 +1,7 @@
 import { parseDate, type DateValue } from '@ark-ui/react/date-picker';
 import { DatePicker } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledDatePickerDemo() {
   const [value, setValue] = useState([parseDate('2026-06-22')] as DateValue[]);
@@ -79,7 +80,9 @@ export default function ControlledDatePickerDemo() {
           </DatePicker.Content>
         </DatePicker.Positioner>
       </DatePicker>
-      <div className="date-picker-state">Current value: {value[0]?.toString() ?? 'empty'}</div>
+      <PreviewMeta>
+        <output>Current value: {value[0]?.toString() ?? 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }

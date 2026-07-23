@@ -1,4 +1,9 @@
-import { Accordion as AccordionPrimitive, useAccordion } from '@ark-ui/react/accordion';
+import {
+  Accordion as AccordionPrimitive,
+  useAccordion,
+  useAccordionContext,
+  useAccordionItemContext,
+} from '@ark-ui/react/accordion';
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
@@ -112,6 +117,8 @@ const AccordionItemBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<
 const Accordion = Object.assign(AccordionRoot, {
   Root: AccordionRoot,
   RootProvider: AccordionRootProvider,
+  Context: AccordionPrimitive.Context,
+  ItemContext: AccordionPrimitive.ItemContext,
   Item: AccordionItem,
   ItemTrigger: AccordionItemTrigger,
   ItemIndicator: AccordionItemIndicator,
@@ -119,4 +126,4 @@ const Accordion = Object.assign(AccordionRoot, {
   ItemBody: AccordionItemBody,
 });
 
-export { Accordion, useAccordion };
+export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext };

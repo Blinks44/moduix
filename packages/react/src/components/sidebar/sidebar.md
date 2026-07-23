@@ -227,7 +227,7 @@ resize state. Nested Collapsible content and the trigger icon keep their normal 
 ## Defaults and styling
 
 All visual parts accept `className`. Public variables live in
-`packages/react/src/lib/moduix/styles/theme.css`. The panel exposes
+`packages/react/src/styles/theme.css`. The panel exposes
 `data-state="expanded" | "collapsed"` and all side-aware parts expose `data-side`.
 
 Collapsed styling moves `Sidebar.Label` and group labels out of layout with a visually-hidden

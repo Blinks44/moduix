@@ -1,7 +1,9 @@
 import {
   Checkbox as CheckboxPrimitive,
   useCheckbox,
+  useCheckboxContext,
   useCheckboxGroup,
+  useCheckboxGroupContext,
 } from '@ark-ui/react/checkbox';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
@@ -145,10 +147,11 @@ const CheckboxGroup = forwardRef<
 const Checkbox = Object.assign(CheckboxRoot, {
   Root: CheckboxRoot,
   RootProvider: CheckboxRootProvider,
+  Context: CheckboxPrimitive.Context,
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
   Label: CheckboxLabel,
   Group: CheckboxGroup,
 });
 
-export { Checkbox, useCheckbox, useCheckboxGroup };
+export { Checkbox, useCheckbox, useCheckboxContext, useCheckboxGroup, useCheckboxGroupContext };

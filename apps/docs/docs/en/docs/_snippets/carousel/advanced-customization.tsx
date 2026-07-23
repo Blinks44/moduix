@@ -1,4 +1,5 @@
 import { Button, Carousel } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
   {
@@ -52,14 +53,17 @@ export default function AdvancedCustomizationCarousel() {
               <Carousel.NextTrigger />
             </Carousel.Control>
 
-            <Button
-              variant="outline"
-              onClick={() => {
-                api.scrollTo(1);
-              }}
-            >
-              Go to slide 4
-            </Button>
+            <PreviewMeta>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  api.scrollTo(1);
+                }}
+              >
+                Go to slide 4
+              </Button>
+            </PreviewMeta>
           </>
         )}
       </Carousel.Context>

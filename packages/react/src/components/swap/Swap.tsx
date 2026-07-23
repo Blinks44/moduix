@@ -54,4 +54,4 @@ const Swap = Object.assign(SwapRoot, {
   useSwap,
 });
 
-export { Swap, useSwapContext };
+export { Swap, useSwap, useSwapContext };

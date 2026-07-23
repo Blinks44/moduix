@@ -1,4 +1,4 @@
-import { QrCode as QrCodePrimitive, useQrCode } from '@ark-ui/react/qr-code';
+import { QrCode as QrCodePrimitive, useQrCode, useQrCodeContext } from '@ark-ui/react/qr-code';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -92,10 +92,11 @@ const QrCodeDownloadTrigger = forwardRef<
 const QrCode = Object.assign(QrCodeRoot, {
   Root: QrCodeRoot,
   RootProvider: QrCodeRootProvider,
+  Context: QrCodePrimitive.Context,
   Frame: QrCodeFrame,
   Pattern: QrCodePattern,
   Overlay: QrCodeOverlay,
   DownloadTrigger: QrCodeDownloadTrigger,
 });
 
-export { QrCode, useQrCode };
+export { QrCode, useQrCode, useQrCodeContext };

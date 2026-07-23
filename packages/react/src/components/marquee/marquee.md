@@ -101,8 +101,7 @@ Use `Marquee.RootProvider` with moduix `useMarquee()` when controls outside the 
 - Edge fades: supported through `Marquee.Edge side="start|end|top|bottom"`.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, and content IDs.
-- `useMarquee` is available from moduix; advanced context reads stay available directly from
-  `@ark-ui/react/marquee`.
+- `Marquee.Context`, `useMarquee`, and `useMarqueeContext()` are available from moduix.
 
 ## Props and callbacks
 

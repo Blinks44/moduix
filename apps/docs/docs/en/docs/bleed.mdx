@@ -58,7 +58,7 @@ that root.
 Bleed.Root
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
-```
+````
 
 | Part                   | Role                                            |
 | ---------------------- | ----------------------------------------------- |
@@ -245,7 +245,7 @@ Use `asChild` when the escaping content has a more specific semantic role.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/semantic-element.tsx"
 
-```
+````
 
 </PreviewFrame>
 
@@ -267,4 +267,3 @@ the layout math needs to change, and use `className` for the visual surface insi
 - `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
 - The public `--moduix-bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
   viewport math used by `inline="full"`.
-```

@@ -112,7 +112,7 @@ the same state instance.
   overflowing tracks visible and interactive at rest.
 - `asChild`: preserved on all Ark parts.
 - `ids`: preserved on the root for stable root, viewport, content, scrollbar, and thumb IDs.
-- Advanced Ark context reads stay available directly from `@ark-ui/react/scroll-area`.
+- `ScrollArea.Context` and `useScrollAreaContext()` are available from moduix for advanced state reads.
 
 ## Accessibility and state
 

@@ -99,7 +99,7 @@ same padding, typography, invalid state, disabled opacity, and readonly surface 
 shared `--moduix-input-*` tokens unless a password-specific override is intentional. The bordered field
 shell lives on `PasswordInput.Control`, so the input text area stays borderless and stops before the
 visibility trigger instead of extending underneath it. Keep docs CSS variables synchronized with the
-full public `--moduix-password-input-*` list in `src/lib/moduix/styles/theme.css`.
+full public `--moduix-password-input-*` list in `src/styles/theme.css`.
 
 ## Intentional sugar and differences from upstream
 

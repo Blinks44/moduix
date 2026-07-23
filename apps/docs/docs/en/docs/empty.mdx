@@ -37,7 +37,7 @@ Empty
 │  ├─ Empty.Title
 │  └─ Empty.Description
 └─ Empty.Actions (optional)
-```
+````
 
 | Part                   | Role                                                               |
 | ---------------------- | ------------------------------------------------------------------ |
@@ -82,12 +82,12 @@ with normal component composition:
 ### Behavioral notes
 
 - `Empty.Title` renders `h3` by default and accepts Ark factory `asChild` for document outline
-control.
+  control.
 - `Empty.Description` renders a `div`, not a `p`, so it can safely contain block content.
 - Every part forwards its ref to the rendered DOM element and accepts Ark factory `asChild` with a
-single semantic child.
+  single semantic child.
 - Parts render `data-scope="empty"` and matching `data-part` attributes for Ark-style styling,
-plus stable `data-slot="empty-*"` hooks for moduix overrides.
+  plus stable `data-slot="empty-*"` hooks for moduix overrides.
 - `Empty.Actions` centers and wraps its children, so paired actions stay readable in narrow layouts.
 
 ## Examples
@@ -122,7 +122,7 @@ accepts normal block markup, so richer copy remains semantic without a separate 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -159,3 +159,4 @@ Target the part that owns the visual concern:
   `[data-scope="empty"][data-part="description"]` for typography
 - `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` for action row spacing
   and alignment
+```

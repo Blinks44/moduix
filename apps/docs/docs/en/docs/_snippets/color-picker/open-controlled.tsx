@@ -1,5 +1,6 @@
 import { Button, ColorPicker, parseColor } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function OpenControlledColorPickerDemo() {
   const [open, setOpen] = useState(false);
@@ -22,10 +23,12 @@ export default function OpenControlledColorPickerDemo() {
           </ColorPicker.Content>
         </ColorPicker.Positioner>
       </ColorPicker>
-      <Button type="button" onClick={() => setOpen((current) => !current)}>
-        {open ? 'Close' : 'Open'}
-      </Button>
-      <output>Open: {String(open)}</output>
+      <PreviewMeta>
+        <output>Open: {String(open)}</output>
+        <Button type="button" size="sm" onClick={() => setOpen((current) => !current)}>
+          {open ? 'Close' : 'Open'}
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

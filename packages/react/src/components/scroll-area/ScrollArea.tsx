@@ -1,4 +1,8 @@
-import { ScrollArea as ScrollAreaPrimitive, useScrollArea } from '@ark-ui/react/scroll-area';
+import {
+  ScrollArea as ScrollAreaPrimitive,
+  useScrollArea,
+  useScrollAreaContext,
+} from '@ark-ui/react/scroll-area';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -119,6 +123,7 @@ const ScrollAreaCorner = forwardRef<
 const ScrollArea = Object.assign(ScrollAreaRoot, {
   Root: ScrollAreaRoot,
   RootProvider: ScrollAreaRootProvider,
+  Context: ScrollAreaPrimitive.Context,
   Viewport: ScrollAreaViewport,
   Content: ScrollAreaContent,
   Scrollbar: ScrollAreaScrollbar,
@@ -127,5 +132,5 @@ const ScrollArea = Object.assign(ScrollAreaRoot, {
   useScrollArea,
 });
 
-export { ScrollArea, useScrollArea };
+export { ScrollArea, useScrollArea, useScrollAreaContext };
 export type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps };

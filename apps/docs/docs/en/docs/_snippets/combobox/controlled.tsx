@@ -2,6 +2,7 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -52,7 +53,9 @@ export default function ControlledComboboxDemo() {
           </Combobox.Content>
         </Combobox.Positioner>
       </Combobox>
-      <output>Selected: {value[0] ?? 'none'}</output>
+      <PreviewMeta>
+        <output>Selected: {value[0] ?? 'none'}</output>
+      </PreviewMeta>
     </div>
   );
 }

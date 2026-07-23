@@ -55,7 +55,7 @@ Combobox.Root[collection]
        └─ Combobox.ItemGroup
           ├─ Combobox.ItemGroupLabel
           └─ Combobox.Item
-```
+````
 
 | Part                         | Role                                                               |
 | ---------------------------- | ------------------------------------------------------------------ |
@@ -94,20 +94,20 @@ rows and keep `Combobox.Item` for links, rich rows, or custom indicator placemen
 
 ```tsx
 function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
-return (
-  <Combobox.Positioner>
-    <Combobox.Content>
-      <Combobox.Empty>No fruits found.</Combobox.Empty>
-      <Combobox.List>
-        {items.map((item) => (
-          <Combobox.Option key={item.value} item={item}>
-            {item.label}
-          </Combobox.Option>
-        ))}
-      </Combobox.List>
-    </Combobox.Content>
-  </Combobox.Positioner>
-);
+  return (
+    <Combobox.Positioner>
+      <Combobox.Content>
+        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.List>
+          {items.map((item) => (
+            <Combobox.Option key={item.value} item={item}>
+              {item.label}
+            </Combobox.Option>
+          ))}
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox.Positioner>
+  );
 }
 ```
 
@@ -141,14 +141,14 @@ consumer-owned loading, error, or guidance messages; it does not manage state or
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` reads the current values from `details.value`.
 - `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
-`details.reason`.
+  `details.reason`.
 - `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
 - All Ark DOM parts preserve `asChild`.
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
-`form` props for Ark's built-in form submission behavior.
+  `form` props for Ark's built-in form submission behavior.
 - `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
-normal provider and context paths.
+  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
+  normal provider and context paths.
 - Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`.
 
 ### Migrating from shadcn
@@ -193,6 +193,7 @@ Enter can select it without an extra arrow-key press.
   ```tsx preview file="./_snippets/combobox/auto-highlight.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Controlled
@@ -219,6 +220,7 @@ replace that sentinel value with the user-entered value after selection.
   ```tsx preview file="./_snippets/combobox/creatable.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Custom Objects and Grouping
@@ -246,6 +248,7 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
   ```tsx preview file="./_snippets/combobox/dynamic.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Inline Autocomplete
@@ -273,6 +276,7 @@ popup harder to scan. Filtering still runs against the complete initial collecti
   ```tsx preview file="./_snippets/combobox/limit-results.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Multiple
@@ -322,6 +326,7 @@ configuration.
   ```tsx preview file="./_snippets/combobox/root-provider.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Virtualized
@@ -368,6 +373,7 @@ values should live inside one editable chip field.
   ```tsx preview file="./_snippets/combobox/with-tags-input.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -380,7 +386,7 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -403,3 +409,4 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
   `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`. The shared theme
   registers neutral initial values for tooling and unpositioned content; Ark replaces them with
   measured values on `Positioner`.
+```

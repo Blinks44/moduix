@@ -326,4 +326,4 @@ const FloatingPanel = Object.assign(FloatingPanelRoot, {
   useFloatingPanelContext,
 });
 
-export { FloatingPanel, resizeTriggerAxes };
+export { FloatingPanel, resizeTriggerAxes, useFloatingPanel, useFloatingPanelContext };

@@ -77,12 +77,17 @@ function Card({
   );
 }
 
+function PreviewMeta({ children }: { children: ReactNode }) {
+  return <div data-preview-meta>{children}</div>;
+}
+
 export {
   Card,
   Cards,
   CssPropertiesSection,
   ExampleFrame,
   PreviewFrame,
+  PreviewMeta,
   PrimitiveReference,
   ShadcnInstall,
 };

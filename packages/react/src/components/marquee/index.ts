@@ -1,1 +1,1 @@
-export { Marquee, useMarquee } from './Marquee';
+export { Marquee, useMarquee, useMarqueeContext } from './Marquee';

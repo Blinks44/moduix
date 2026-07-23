@@ -37,7 +37,7 @@ Collapsible.Root
 └─ Collapsible.Content
    └─ Collapsible.Body
       └─ content
-```
+````
 
 | Part                               | Role                                                   |
 | ---------------------------------- | ------------------------------------------------------ |
@@ -70,8 +70,7 @@ Use `asChild` when another semantic element must own the rendered node. In this 
 merges Ark behavior and state attributes but leaves the visual styling to that element.
 
 Use moduix `useCollapsible` with `Collapsible.RootProvider` when state must be created outside the
-part tree. Advanced context hooks remain available from `@ark-ui/react/collapsible` as escape
-hatches.
+part tree. `Collapsible.Context` and `useCollapsibleContext()` are also available from moduix.
 
 `Collapsible.Indicator` is optional. It renders the moduix down chevron by default and accepts
 custom children.
@@ -119,6 +118,7 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
   ```tsx preview file="./_snippets/collapsible/default-open.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Disabled
@@ -144,6 +144,7 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
   ```tsx preview file="./_snippets/collapsible/lazy-mount.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Nested
@@ -171,6 +172,7 @@ available outside `Collapsible.Content`.
   ```tsx preview file="./_snippets/collapsible/partial-collapse.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Root Provider
@@ -197,7 +199,8 @@ default `Collapsible.Trigger` styling while keeping Ark behavior and state attri
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/custom-composition.tsx"
 
-```
+````
+
 </PreviewFrame>
 
 ## Styling
@@ -215,4 +218,3 @@ default `Collapsible.Trigger` styling while keeping Ark behavior and state attri
 - `data-disabled` marks disabled trigger, indicator, and content parts.
 - `data-has-collapsed-size` marks content configured with `collapsedHeight` or `collapsedWidth`.
 - Content animation uses Ark `--height`, `--width`, `--collapsed-height`, and `--collapsed-width`.
-```

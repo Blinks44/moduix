@@ -1,4 +1,5 @@
 import { Carousel } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
   {
@@ -46,7 +47,9 @@ export default function PauseOnHoverCarousel() {
               ))}
             </Carousel.ItemGroup>
             <Carousel.Indicators />
-            <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
+            <PreviewMeta>
+              <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
+            </PreviewMeta>
           </>
         )}
       </Carousel.Context>

@@ -1,4 +1,4 @@
-import { Popover as PopoverPrimitive, usePopover } from '@ark-ui/react/popover';
+import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -215,6 +215,7 @@ function PopoverFooter({ className, ...props }: ComponentProps<'div'>) {
 const Popover = Object.assign(PopoverRoot, {
   Root: PopoverRoot,
   RootProvider: PopoverRootProvider,
+  Context: PopoverPrimitive.Context,
   Anchor: PopoverAnchor,
   Trigger: PopoverTrigger,
   Indicator: PopoverIndicator,
@@ -231,4 +232,4 @@ const Popover = Object.assign(PopoverRoot, {
   Footer: PopoverFooter,
 });
 
-export { Popover, usePopover };
+export { Popover, usePopover, usePopoverContext };

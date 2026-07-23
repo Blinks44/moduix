@@ -1,1 +1,6 @@
-export { SegmentGroup, useSegmentGroup } from './SegmentGroup';
+export {
+  SegmentGroup,
+  useSegmentGroup,
+  useSegmentGroupContext,
+  useSegmentGroupItemContext,
+} from './SegmentGroup';

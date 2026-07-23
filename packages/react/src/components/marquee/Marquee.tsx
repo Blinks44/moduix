@@ -1,6 +1,7 @@
 import {
   Marquee as MarqueePrimitive,
   useMarquee as useMarqueePrimitive,
+  useMarqueeContext,
 } from '@ark-ui/react/marquee';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -95,6 +96,7 @@ const MarqueeEdge = forwardRef<
 const Marquee = Object.assign(MarqueeRoot, {
   Root: MarqueeRoot,
   RootProvider: MarqueeRootProvider,
+  Context: MarqueePrimitive.Context,
   Viewport: MarqueeViewport,
   Content: MarqueeContent,
   Item: MarqueeItem,
@@ -103,4 +105,4 @@ const Marquee = Object.assign(MarqueeRoot, {
 
 const useMarquee = useMarqueePrimitive;
 
-export { Marquee, useMarquee };
+export { Marquee, useMarquee, useMarqueeContext };

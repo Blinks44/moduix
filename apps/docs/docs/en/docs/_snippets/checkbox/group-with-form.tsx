@@ -1,5 +1,6 @@
 import { Button, Checkbox } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const options = [
   { value: 'react', label: 'React' },
@@ -28,8 +29,12 @@ export default function CheckboxGroupWithFormDemo() {
           </Checkbox>
         ))}
       </Checkbox.Group>
-      <Button type="submit">Submit</Button>
-      <output>{submitted}</output>
+      <PreviewMeta>
+        <output>{submitted}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }

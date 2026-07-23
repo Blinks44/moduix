@@ -1,4 +1,8 @@
-import { Carousel as CarouselPrimitive } from '@ark-ui/react/carousel';
+import {
+  Carousel as CarouselPrimitive,
+  useCarousel,
+  useCarouselContext,
+} from '@ark-ui/react/carousel';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -222,4 +226,4 @@ const Carousel = Object.assign(CarouselRoot, {
   ProgressText: CarouselProgressText,
 });
 
-export { Carousel };
+export { Carousel, useCarousel, useCarouselContext };

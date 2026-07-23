@@ -20,7 +20,7 @@ The wrapper follows Ark UI `Tour`. State is created with `useTour()` and passed 
 `Tour` is a thin styled wrapper over Ark parts. It exposes `Root`, `Backdrop`, `Spotlight`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `ProgressText`, `CloseTrigger`, `CloseIcon`, `Control`, `Actions`, `ActionList`, and `ActionTrigger`. The wrapper adds CSS Modules styling, stable `data-slot` hooks, bottom-aligned progress text, and a default `ArrowTip` when `Tour.Arrow` has no children. It does not add local tour state or convert Ark callbacks.
 `Tour.CloseIcon` is a thin helper for the common icon-only dismiss control.
 
-The package keeps `useTour` and the Ark wait helpers because ordinary tour usage needs them. Import advanced context hooks and duplicate Ark types directly from `@ark-ui/react/tour`.
+The package keeps `Tour.Context`, `useTour`, `useTourContext`, and the Ark wait helpers because ordinary tour usage needs them. Duplicate Ark types remain direct imports from `@ark-ui/react/tour`.
 
 ## Anatomy and exported parts
 

@@ -41,7 +41,7 @@ Unmatched text stays plain text nodes in the surrounding flow.
 ```text
 Highlight / Highlight.Root
 └─ repeated <mark> segments for matched ranges inside the provided text
-```
+````
 
 | Part                           | Role                                                                         |
 | ------------------------------ | ---------------------------------------------------------------------------- |
@@ -99,6 +99,7 @@ Enable `exactMatch` when partial-word hits are too noisy for the current search 
   ```tsx preview file="./_snippets/highlight/exact-match.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Ignore Case
@@ -120,6 +121,7 @@ Use `matchAll` when every occurrence should stay visible instead of highlighting
   ```tsx preview file="./_snippets/highlight/match-all.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Multiple Queries
@@ -129,7 +131,7 @@ Pass a string array when several search terms should be highlighted in one pass.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/highlight/multiple-queries.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -148,3 +150,4 @@ visual treatment should stay consistent across several highlight instances.
 - `data-slot="highlight-root"` is the stable moduix selector on each matched mark.
 - There is no wrapper element, state attribute, or Ark runtime CSS variable because `Highlight`
   renders plain text nodes plus matched `<mark>` segments only.
+```

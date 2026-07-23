@@ -1,6 +1,8 @@
 import {
   SegmentGroup as SegmentGroupPrimitive,
   useSegmentGroup,
+  useSegmentGroupContext,
+  useSegmentGroupItemContext,
 } from '@ark-ui/react/segment-group';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
@@ -145,6 +147,8 @@ function SegmentGroupItems({
 const SegmentGroup = Object.assign(SegmentGroupRoot, {
   Root: SegmentGroupRoot,
   RootProvider: SegmentGroupRootProvider,
+  Context: SegmentGroupPrimitive.Context,
+  ItemContext: SegmentGroupPrimitive.ItemContext,
   Label: SegmentGroupLabel,
   Item: SegmentGroupItem,
   ItemControl: SegmentGroupItemControl,
@@ -153,4 +157,4 @@ const SegmentGroup = Object.assign(SegmentGroupRoot, {
   Items: SegmentGroupItems,
 });
 
-export { SegmentGroup, useSegmentGroup };
+export { SegmentGroup, useSegmentGroup, useSegmentGroupContext, useSegmentGroupItemContext };

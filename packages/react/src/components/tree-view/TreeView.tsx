@@ -10,6 +10,7 @@ import {
   type TreeViewRootProviderComponent,
   type TreeViewRootProviderProps,
   useTreeView,
+  useTreeViewContext,
   useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
@@ -272,6 +273,8 @@ const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
 const TreeView = Object.assign(TreeViewRoot, {
   Root: TreeViewRoot,
   RootProvider: TreeViewRootProvider,
+  Context: TreeViewPrimitive.Context,
+  NodeContext: TreeViewPrimitive.NodeContext,
   Label: TreeViewLabel,
   Tree: TreeViewTree,
   NodeProvider: TreeViewNodeProvider,
@@ -295,6 +298,7 @@ export {
   createFileTreeCollection,
   createTreeCollection,
   useTreeView,
+  useTreeViewContext,
   useTreeViewNodeContext,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,

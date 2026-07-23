@@ -112,8 +112,7 @@ export function ToastExample() {
   `bottom`, and `bottom-end`.
 - `Toast in Effects`: supported by deferring store calls with `queueMicrotask()`.
 - `Styling`: preserves Ark runtime layout variables, type selectors, and mobile group/root sizing.
-- Advanced Ark toast state remains available by importing `useToastContext()` directly from
-  `@ark-ui/react/toast`.
+- Advanced toast state is available through `Toast.Context` and `useToastContext()` from moduix.
 
 ## Accessibility and state
 

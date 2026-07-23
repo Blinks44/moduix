@@ -1,1 +1,1 @@
-export { Steps } from './Steps';
+export { Steps, useSteps, useStepsContext, useStepsItemContext } from './Steps';

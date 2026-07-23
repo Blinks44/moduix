@@ -1,6 +1,7 @@
 import { CalendarDate } from '@internationalized/date';
 import { DateInput, type DateInputDateValue } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledDateInputDemo() {
   const [value, setValue] = useState([new CalendarDate(2026, 6, 22)] as DateInputDateValue[]);
@@ -12,7 +13,9 @@ export default function ControlledDateInputDemo() {
           <DateInput.Segments />
         </DateInput.Control>
       </DateInput>
-      <output>Selected: {value[0]?.toString() ?? 'empty'}</output>
+      <PreviewMeta>
+        <output>Selected: {value[0]?.toString() ?? 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }

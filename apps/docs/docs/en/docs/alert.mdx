@@ -54,7 +54,7 @@ Alert / Alert.Root
    ├─ Alert.Description
    ├─ Alert.Actions (optional)
    └─ Extra custom blocks
-```
+````
 
 | Part                   | Role                                                          | `data-part`   |
 | ---------------------- | ------------------------------------------------------------- | ------------- |
@@ -134,6 +134,7 @@ emphasis.
   ```tsx preview file="./_snippets/alert/error.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Statuses
@@ -158,6 +159,7 @@ Place a moduix icon or custom SVG inside `Alert.Indicator`.
   ```tsx preview file="./_snippets/alert/with-icon.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Advanced Customization
@@ -171,7 +173,7 @@ local alert should be hidden.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/alert/custom-composition.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -200,3 +202,4 @@ Built-in statuses also read shared palette tokens:
 - Ark-style selectors: `data-scope="alert"` with `data-part="root"`, `indicator`, `content`,
   `title`, `description`, or `actions`
 - `Alert.Root` writes the selected status to `data-status`
+```

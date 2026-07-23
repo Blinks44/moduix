@@ -99,7 +99,7 @@ The default drawing control is `17.5rem` by `10rem`, which is approximately `280
 `ClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
 Ark remains the source of its translated accessible label and its disabled/hidden state.
 
-All `--moduix-signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/lib/moduix/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, `--moduix-signature-pad-control-width`, `--moduix-signature-pad-control-height`, `--moduix-signature-pad-stroke-color`, `--moduix-signature-pad-bg`, `--moduix-signature-pad-border-color`, `--moduix-signature-pad-radius`, `--moduix-signature-pad-guide-color`, and `--moduix-signature-pad-clear-trigger-*`.
+All `--moduix-signature-pad-*` variables used by `SignaturePad.module.css` are declared in `src/styles/theme.css` so IDEs can resolve the public styling surface. The most common overrides are `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, `--moduix-signature-pad-control-width`, `--moduix-signature-pad-control-height`, `--moduix-signature-pad-stroke-color`, `--moduix-signature-pad-bg`, `--moduix-signature-pad-border-color`, `--moduix-signature-pad-radius`, `--moduix-signature-pad-guide-color`, and `--moduix-signature-pad-clear-trigger-*`.
 
 The guide line and clear action use logical inline positioning, so their layout follows RTL text flow.
 

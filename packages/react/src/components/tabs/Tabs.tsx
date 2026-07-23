@@ -1,4 +1,4 @@
-import { Tabs as TabsPrimitive, useTabs } from '@ark-ui/react/tabs';
+import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -96,6 +96,7 @@ const TabsContent = forwardRef<
 const Tabs = Object.assign(TabsRoot, {
   Root: TabsRoot,
   RootProvider: TabsRootProvider,
+  Context: TabsPrimitive.Context,
   List: TabsList,
   Trigger: TabsTrigger,
   Indicator: TabsIndicator,
@@ -103,4 +104,4 @@ const Tabs = Object.assign(TabsRoot, {
   useTabs,
 });
 
-export { Tabs, useTabs };
+export { Tabs, useTabs, useTabsContext };

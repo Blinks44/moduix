@@ -52,22 +52,40 @@ For a compact form primitive, combine them so it remains responsive while displa
 
 ## Auxiliary controls and result output
 
-Keep controls that operate the demo and result feedback below the documented component, separated by a spacing token. Do not move controls that are part of the component's public anatomy (for example, `Alert.Actions`) outside that component.
+Render every preview as the documented component first, followed by a `PreviewMeta` block for docs-only actions and result feedback. Do not move controls that are part of the component's public anatomy (for example, `Alert.Actions`) outside that component.
 
-- Use moduix `Button` for every interactive demo action. Do not add native `<button>` elements or link-shaped controls for actions.
-- Render a value that changes as a result of an interaction, event, or calculation with native `<output>`, not a presentational `<span>`. Keep a static explanatory label as ordinary text only when it is not result feedback.
-- Group the documented component, auxiliary actions, and output in one local vertical layout with a consistent gap. Keep the documented component first, then actions, then output.
-- Use the shared docs preview treatment for native `<output>` instead of per-example `*-output`, `*-hint`, or status styles. It gives the readout a muted surface, subtle border, compact tokenized spacing, and long-value wrapping; do not override it unless the output is part of the documented component API.
+Import the docs-only wrapper in the runnable snippet:
+
+```tsx
+import { PreviewMeta } from '@/components/mdx/Components';
+```
+
+Use this composition, keeping output before actions:
+
+```tsx
+<PreviewMeta>
+  <output>Submitted: {submitted}</output>
+  <Button type="submit" size="sm">
+    Submit
+  </Button>
+</PreviewMeta>
+```
+
+- Use moduix `Button` for every auxiliary demo action. Do not add native `<button>` elements or link-shaped controls.
+- Render a value that changes as a result of an interaction, event, or calculation with native `<output>`, not a presentational `<span>`.
+- Do not add per-example `*-output`, `*-hint`, action, width, spacing, or responsive styles. `PreviewMeta` supplies the shared form-card surface, gap, output treatment, and narrow-viewport behavior.
 - Keep output text short and labelled, for example `Selected: package.json` or `Submitted: saved`. Avoid adding `aria-live` unless the example specifically demonstrates announcement behavior; native `output` already conveys result semantics.
 
-When the shared output treatment is introduced, migrate existing demo result spans and local output classes to it in a dedicated pass. Preserve styles that are part of an actual component API rather than docs feedback.
+Use `PreviewMeta` only for docs-only auxiliary controls and feedback. It is the intentional exception to the normal rule against docs infrastructure in a copied snippet.
+
+When migrating a page, actively search for result feedback that does not yet use `<output>`. Replace docs-only state text in `div`, `span`, or `p` elements, and local classes such as `*-state`, `*-status`, `*-hint`, or `*-result`, with labelled native `<output>` inside `PreviewMeta`. For example, migrate `<div className="accordion-state">Open sections: {value}</div>` to the shared output pattern. Preserve text that is part of the documented component's public anatomy or API.
 
 ## Migration workflow
 
-1. Find every `tsx preview` fence on the target MDX page and wrap each relevant one in `PreviewFrame`.
+1. Find every `tsx preview` fence on the target MDX page and search its snippets for auxiliary actions plus result feedback in both `<output>` and presentational state/status elements.
 2. Move docs-only numeric width limits such as `max-width: 24rem`, `width: min(24rem, 100%)`, or preview wrapper components out of snippets and example CSS.
 3. Preserve local layout that documents the example itself: grids, gaps, action layout, and a necessary `inline-size: 100%` fill rule. Remove an injected `<style>` block and its export when it became width-only.
-4. Keep runnable TSX self-contained and consumer-facing. Never add `PreviewFrame`, `PreviewLayout`, or a docs-only wrapper to the snippet.
+4. Keep runnable TSX self-contained and consumer-facing. Never add `PreviewFrame` or `PreviewLayout` to the snippet; use `PreviewMeta` only when the example has auxiliary controls or result feedback.
 5. Keep the four-backtick closing fence and two-space indentation used by existing MDX wrappers, then run the repository's required docs validation from `AGENTS.md`.
 
 ## Troubleshooting

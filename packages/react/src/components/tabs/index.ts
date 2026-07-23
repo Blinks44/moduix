@@ -1,1 +1,1 @@
-export { Tabs, useTabs } from './Tabs';
+export { Tabs, useTabs, useTabsContext } from './Tabs';

@@ -32,8 +32,7 @@ Upstream docs:
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
   when that behavior is needed. `Root` and `RootProvider` always render the native form input.
-- Context parts, state hooks, and Ark type aliases are imported directly from
-  `@ark-ui/react/angle-slider`.
+- `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases remain direct imports from `@ark-ui/react/angle-slider`.
 
 ## Anatomy and exported parts
 
@@ -123,7 +122,7 @@ per-marker props, or custom ordering.
 - moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--moduix-angle-slider-*` variables are registered in `src/lib/moduix/styles/theme.css`.
+- Public `--moduix-angle-slider-*` variables are registered in `src/styles/theme.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /

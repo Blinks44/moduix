@@ -1,4 +1,9 @@
-import { Drawer as DrawerPrimitive, useDrawer } from '@ark-ui/react/drawer';
+import {
+  Drawer as DrawerPrimitive,
+  useDrawer,
+  useDrawerContext,
+  useDrawerStackContext,
+} from '@ark-ui/react/drawer';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -264,6 +269,7 @@ function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
 const Drawer = Object.assign(DrawerRoot, {
   Root: DrawerRoot,
   RootProvider: DrawerRootProvider,
+  Context: DrawerPrimitive.Context,
   Stack: DrawerStack,
   Trigger: DrawerTrigger,
   Backdrop: DrawerBackdrop,
@@ -283,4 +289,4 @@ const Drawer = Object.assign(DrawerRoot, {
   Footer: DrawerFooter,
 });
 
-export { Drawer, useDrawer };
+export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext };

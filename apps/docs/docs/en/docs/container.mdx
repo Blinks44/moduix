@@ -47,7 +47,7 @@ as styles, icons, and small utilities.
 ```text
 Container / Container.Root
 └─ children
-```
+````
 
 | Part                           | Role                                                     |
 | ------------------------------ | -------------------------------------------------------- |
@@ -138,6 +138,7 @@ Use `asChild` when the layout wrapper should also describe document structure.
   ```tsx preview file="./_snippets/container/semantic-element.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Sizes
@@ -188,7 +189,8 @@ Keep the text column constrained and let only the wider child opt out.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/container/with-bleed.tsx"
 
-```
+````
+
 </PreviewFrame>
 
 ## Styling
@@ -208,4 +210,3 @@ scale. Use `className` for local block styling such as padding, borders, or back
 - `data-gutter` selects the gutter preset: `none`, `sm`, `md`, `lg`.
 - `--moduix-container-*` variables control only inline gutter and max-width math; vertical spacing and
   child layout remain the responsibility of surrounding layout CSS.
-```

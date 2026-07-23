@@ -72,8 +72,8 @@ the Ark callback shape and exposes the current item values as `details.value`.
 Use `Accordion.RootProvider` together with `useAccordion()` from `@moduix/react` when accordion state must be created
 outside the rendered subtree.
 
-Import Ark context parts and remaining hooks directly from `@ark-ui/react/accordion` only for
-lower-level escape hatches when surrounding UI needs to read root or item state.
+Use `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()`, and
+`useAccordionItemContext()` from moduix when surrounding UI needs to read root or item state.
 
 `Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
 present but unavailable.

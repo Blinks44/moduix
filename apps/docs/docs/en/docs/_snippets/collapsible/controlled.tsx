@@ -1,5 +1,6 @@
 import { Collapsible } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];
 
@@ -23,7 +24,9 @@ export default function ControlledCollapsibleDemo() {
           </Collapsible.Body>
         </Collapsible.Content>
       </Collapsible>
-      <output>State: {open ? 'open' : 'closed'}</output>
+      <PreviewMeta>
+        <output>State: {open ? 'open' : 'closed'}</output>
+      </PreviewMeta>
     </div>
   );
 }

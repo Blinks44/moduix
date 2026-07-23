@@ -141,7 +141,7 @@ grow with their content.
 - `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` when
   children are omitted; text children retain the expanded action layout.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
-- Public component tokens live under `--moduix-file-upload-*` in `packages/react/src/lib/moduix/styles/theme.css`.
+- Public component tokens live under `--moduix-file-upload-*` in `packages/react/src/styles/theme.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
 - The item metadata separator uses logical inline spacing, so its rhythm follows RTL text flow.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.

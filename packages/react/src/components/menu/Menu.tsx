@@ -1,4 +1,9 @@
-import { Menu as MenuPrimitive, useMenu } from '@ark-ui/react/menu';
+import {
+  Menu as MenuPrimitive,
+  useMenu,
+  useMenuContext,
+  useMenuItemContext,
+} from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -354,6 +359,7 @@ function MenuItemShortcut({ className, ...props }: ComponentProps<'span'>) {
 const Menu = Object.assign(MenuRoot, {
   Root: MenuRoot,
   RootProvider: MenuRootProvider,
+  Context: MenuPrimitive.Context,
   Trigger: MenuTrigger,
   TriggerIcon: MenuTriggerIcon,
   Indicator: MenuIndicator,
@@ -380,4 +386,4 @@ const Menu = Object.assign(MenuRoot, {
   ItemContext: MenuPrimitive.ItemContext,
 });
 
-export { Menu, useMenu };
+export { Menu, useMenu, useMenuContext, useMenuItemContext };

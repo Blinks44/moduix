@@ -63,7 +63,7 @@ ColorPicker.Root
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
 └─ native input (automatic)
-```
+````
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
@@ -162,6 +162,7 @@ Use controlled state when the selected color must stay in sync with application 
   ```tsx preview file="./_snippets/color-picker/controlled.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Disabled
@@ -187,15 +188,14 @@ field container and should expose the same state through Ark data attributes.
   ```tsx preview file="./_snippets/color-picker/field-state.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Form Usage
 
 Use `name` on `ColorPicker.Root` and the root renders its native form input automatically.
 
-<style>{ColorPickerDocs.colorPickerFormCss}</style>
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+<PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/form-usage.tsx"
 
 ````
@@ -213,6 +213,7 @@ channel input groups without changing the picker structure.
   ```tsx preview file="./_snippets/color-picker/format-views.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Inline
@@ -239,6 +240,7 @@ too heavy for the interface.
   ```tsx preview file="./_snippets/color-picker/input-only.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Inside Dialog
@@ -265,6 +267,7 @@ Use controlled `open` state when another control or workflow owns whether the po
   ```tsx preview file="./_snippets/color-picker/open-controlled.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Root Provider
@@ -291,6 +294,7 @@ Use slider-only composition when direct manipulation matters but typed channel i
   ```tsx preview file="./_snippets/color-picker/slider-only.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Swatch Only
@@ -318,6 +322,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
   ```tsx preview file="./_snippets/color-picker/swatches.tsx"
 
 ````
+
 </PreviewFrame>
 
 ### Value Swatch
@@ -343,7 +348,8 @@ Use explicit parts and children when the default composition needs a different v
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/advanced-customization.tsx"
 
-```
+````
+
 </PreviewFrame>
 
 ## Styling
@@ -377,4 +383,3 @@ The main state hooks are `data-state`, `data-focus`, `data-invalid`, `data-disab
 `data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
 `data-placement`, and `data-side`. Ark runtime variables include `--color`, `--value`,
 `--available-width`, `--available-height`, and `--transform-origin`.
-```
