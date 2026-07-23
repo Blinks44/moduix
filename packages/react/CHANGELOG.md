@@ -1,5 +1,18 @@
 # moduix
 
+## 2.2.1
+
+### Patch Changes
+
+### Drawer
+
+- 3bccb69: Keep the backdrop visible while dragging between snap points.
+
+### Drawer
+
+- 3bccb69: Add the `island` content variant for detached, edge-inset drawers.
+- 3bccb69: Namespace the public CSS token contract under `--moduix-*` and add a non-runtime Ark UI variable reference stylesheet for IDE tooling.
+
 ## 2.2.0
 
 ### Minor Changes
