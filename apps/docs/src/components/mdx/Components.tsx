@@ -4,6 +4,7 @@ import styles from './Components.module.css';
 import {
   CSSPropertiesReferenceTable,
   ExampleFrame,
+  PreviewFrame,
   normalizeCssProperties,
   type CssPropertyInput,
 } from './reference';
@@ -76,4 +77,12 @@ function Card({
   );
 }
 
-export { Card, Cards, CssPropertiesSection, ExampleFrame, PrimitiveReference, ShadcnInstall };
+export {
+  Card,
+  Cards,
+  CssPropertiesSection,
+  ExampleFrame,
+  PreviewFrame,
+  PrimitiveReference,
+  ShadcnInstall,
+};

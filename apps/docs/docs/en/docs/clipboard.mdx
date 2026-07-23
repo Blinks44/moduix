@@ -16,11 +16,11 @@ Start with the short `Clipboard` root, pair the value field with `Clipboard.Trig
 `Clipboard.Indicator` plus `Clipboard.CopyText` for an obvious copy action without adding a custom
 label layer.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/basic.tsx"
 
-```tsx preview file="./_snippets/clipboard/basic.tsx"
-
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -111,74 +111,78 @@ button layout. Keep the Ark part tree visible instead of hiding it behind a conv
 
 Control the value when the text field should stay in sync with surrounding UI or an external source.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/controlled.tsx"
 
-```tsx preview file="./_snippets/clipboard/controlled.tsx"
+````
 
-```
+</PreviewFrame>
 
 ### Copy Status
 
 Use `onStatusChange(details)` when surrounding UI should react to successful copies without
 introducing a separate clipboard abstraction.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/copy-status.tsx"
 
-```tsx preview file="./_snippets/clipboard/copy-status.tsx"
-
-```
+````
+</PreviewFrame>
 
 ### Custom copy text
 
 Override `Clipboard.CopyText` when the trigger should use product-specific idle or copied labels.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/custom-copy-text.tsx"
 
-```tsx preview file="./_snippets/clipboard/custom-copy-text.tsx"
+````
 
-```
+</PreviewFrame>
 
 ### Root Provider
 
 Use `Clipboard.useClipboard()` with `Clipboard.RootProvider` when clipboard state belongs outside
 the rendered tree but the visible parts should stay Ark-shaped.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/root-provider.tsx"
 
-```tsx preview file="./_snippets/clipboard/root-provider.tsx"
-
-```
+````
+</PreviewFrame>
 
 ### Timeout
 
 Set `timeout` when copied state should remain visible for longer than the Ark default.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/timeout.tsx"
 
-```tsx preview file="./_snippets/clipboard/timeout.tsx"
+````
 
-```
+</PreviewFrame>
 
 ### Value Text
 
 Use `Clipboard.ValueText` when the copied value should read like inline content instead of an input.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/value-text.tsx"
 
-```tsx preview file="./_snippets/clipboard/value-text.tsx"
-
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` to replace the default input and trigger elements while retaining the explicit Ark
 composition and moduix copy-state parts.
 
-<style>{ClipboardDocs.clipboardExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/as-child.tsx"
 
-```tsx preview file="./_snippets/clipboard/as-child.tsx"
+````
 
-```
+</PreviewFrame>
 
 ## Styling
 

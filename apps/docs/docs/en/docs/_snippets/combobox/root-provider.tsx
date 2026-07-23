@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Combobox, useCombobox } from '@moduix/react';
+import { Button, Combobox, useCombobox } from '@moduix/react';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },
@@ -13,10 +13,7 @@ export default function RootProviderComboboxDemo() {
   const combobox = useCombobox({ collection });
 
   return (
-    <div>
-      <button type="button" onClick={() => combobox.focus()}>
-        Focus
-      </button>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--moduix-spacing-3)' }}>
       <Combobox.RootProvider value={combobox}>
         <Combobox.Label>Job title</Combobox.Label>
         <Combobox.Control>
@@ -36,6 +33,9 @@ export default function RootProviderComboboxDemo() {
           </Combobox.Content>
         </Combobox.Positioner>
       </Combobox.RootProvider>
+      <Button type="button" onClick={() => combobox.focus()}>
+        Focus
+      </Button>
     </div>
   );
 }

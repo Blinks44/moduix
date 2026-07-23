@@ -17,9 +17,11 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
-```tsx preview file="./_snippets/accordion/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/accordion/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -30,16 +32,16 @@ Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`
 ```text
 Accordion.Root
 └─ Accordion.Item[value]
-   ├─ Accordion.ItemTrigger
-   │  ├─ label
-   │  └─ Accordion.ItemIndicator (optional)
-   └─ Accordion.ItemContent
-      └─ Accordion.ItemBody
-         └─ content
+ ├─ Accordion.ItemTrigger
+ │  ├─ label
+ │  └─ Accordion.ItemIndicator (optional)
+ └─ Accordion.ItemContent
+    └─ Accordion.ItemBody
+       └─ content
 
 Accordion.RootProvider
 └─ same item tree connected to a useAccordion() store
-```
+````
 
 | Part                           | Role                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------- |
@@ -109,9 +111,11 @@ Add `collapsible` when the currently open item should be allowed to close withou
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
-```tsx preview file="./_snippets/accordion/collapsible.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/accordion/collapsible.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Controlled
 
@@ -119,9 +123,12 @@ Control `value` from React state when the open items need to stay in sync with r
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/controlled.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Disabled Item
 
@@ -129,9 +136,11 @@ Set `disabled` on an item when it should stay visible in the list but remain una
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
-```tsx preview file="./_snippets/accordion/disabled-item.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/accordion/disabled-item.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Horizontal
 
@@ -139,9 +148,12 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/horizontal.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Lazy Mount
 
@@ -149,9 +161,11 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
-```tsx preview file="./_snippets/accordion/lazy-mount.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/accordion/lazy-mount.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Multiple
 
@@ -159,9 +173,12 @@ Use `multiple` when several sections should stay open at the same time instead o
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/multiple.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Root Provider
 
@@ -170,9 +187,11 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
-```tsx preview file="./_snippets/accordion/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/accordion/root-provider.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -181,9 +200,12 @@ explicit so keyboard handling and hidden form inputs stay owned by the correct c
 
 <style>{AccordionDocs.accordionExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/with-slider.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

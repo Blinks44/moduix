@@ -8,7 +8,7 @@ export const aspectRatioCssProperties = [
 
 export const aspectRatioBasicCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
+  inline-size: 100%;
 }
 
 .aspect-ratio-demo__image {
@@ -23,7 +23,7 @@ export const aspectRatioBasicCss = `
 export const aspectRatioGridCss = `
 .aspect-ratio-grid {
   display: grid;
-  width: min(42rem, calc(100vw - var(--moduix-spacing-8)));
+  inline-size: 100%;
   gap: var(--moduix-spacing-4);
   align-items: start;
 }
@@ -71,7 +71,7 @@ export const aspectRatioGridCss = `
 
 export const aspectRatioEmbedCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
+  inline-size: 100%;
 }
 
 .aspect-ratio-demo__frame {
@@ -81,7 +81,7 @@ export const aspectRatioEmbedCss = `
 
 export const aspectRatioMigrationCss = `
 .aspect-ratio-demo {
-  width: min(30rem, calc(100vw - var(--moduix-spacing-8)));
+  inline-size: 100%;
   background: var(--moduix-color-muted);
 }
 

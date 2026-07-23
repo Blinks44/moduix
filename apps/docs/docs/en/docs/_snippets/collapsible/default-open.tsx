@@ -4,7 +4,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export default function DefaultOpenCollapsibleDemo() {
   return (
-    <Collapsible className="collapsible-root" defaultOpen>
+    <Collapsible defaultOpen>
       <Collapsible.Trigger>
         Recovery keys
         <Collapsible.Indicator />

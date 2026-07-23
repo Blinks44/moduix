@@ -2,7 +2,7 @@ import { Checkbox, Field } from '@moduix/react';
 
 export default function CheckboxFieldDemo() {
   return (
-    <Field className="checkbox-field">
+    <Field>
       <Checkbox required name="terms" value="accepted">
         <Checkbox.Control />
         <Checkbox.Label>Accept terms</Checkbox.Label>

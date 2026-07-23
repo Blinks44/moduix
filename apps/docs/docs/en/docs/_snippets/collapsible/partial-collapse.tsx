@@ -8,7 +8,7 @@ const paragraphs = [
 
 export default function PartialCollapseCollapsibleDemo() {
   return (
-    <Collapsible className="collapsible-root" collapsedHeight="3rem">
+    <Collapsible collapsedHeight="3rem">
       <Collapsible.Trigger>
         Read more
         <Collapsible.Indicator />

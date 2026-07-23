@@ -52,34 +52,15 @@ export const angleSliderReadOnlyCss = `
 
 export const angleSliderRootProviderCss = `
   .docs-angle-slider-provider-layout {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+    display: grid;
+    gap: var(--moduix-spacing-3);
+    justify-items: center;
   }
 
   .docs-angle-slider-provider {
     --moduix-angle-slider-size: 9rem;
   }
 
-  .docs-angle-slider-provider-button {
-    min-height: 2.5rem;
-    padding-inline: 1rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font: inherit;
-    cursor: pointer;
-  }
-
-  .docs-angle-slider-provider-button:hover {
-    background: var(--moduix-color-muted);
-  }
-
-  .docs-angle-slider-provider-button:focus-visible {
-    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
-    outline-offset: 2px;
-  }
 `;
 
 const angleSliderOverrideCssProperties: CssPropertyInput[] = [

@@ -1,12 +1,6 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const accordionExampleCss = `
-  [data-slot='accordion-root'],
-  [data-slot='accordion-root-provider'] {
-    width: 100%;
-    max-width: 24rem;
-  }
-
   .accordion-provider-stack {
     display: grid;
     gap: var(--moduix-spacing-3);

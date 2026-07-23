@@ -29,11 +29,11 @@ document flow.
 Start with `Alert`, `Alert.Title`, and `Alert.Description`. Add `Alert.Indicator` when the
 message benefits from a leading visual cue.
 
-<style>{AlertDocs.alertExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/basic.tsx"
 
-```tsx preview file="./_snippets/alert/basic.tsx"
-
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -118,22 +118,23 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 
 Use `asChild` on `Alert.Title` when the alert should participate in a specific document outline.
 
-<style>{AlertDocs.alertExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/custom-heading.tsx"
 
-```tsx preview file="./_snippets/alert/custom-heading.tsx"
+````
 
-```
+</PreviewFrame>
 
 ### Error
 
 Use `status="error"` when the message needs assertive announcement semantics and stronger visual
 emphasis.
 
-<style>{AlertDocs.alertExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/error.tsx"
 
-```tsx preview file="./_snippets/alert/error.tsx"
-
-```
+````
+</PreviewFrame>
 
 ### Statuses
 
@@ -142,19 +143,22 @@ error states.
 
 <style>{AlertDocs.alertStatusesCss}</style>
 
-```tsx preview file="./_snippets/alert/statuses.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/statuses.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### With Icon
 
 Place a moduix icon or custom SVG inside `Alert.Indicator`.
 
-<style>{AlertDocs.alertExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/with-icon.tsx"
 
-```tsx preview file="./_snippets/alert/with-icon.tsx"
-
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -164,9 +168,12 @@ local alert should be hidden.
 
 <style>{AlertDocs.alertCustomCompositionCss}</style>
 
-```tsx preview file="./_snippets/alert/custom-composition.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/alert/custom-composition.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

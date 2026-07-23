@@ -24,7 +24,7 @@ button semantics and a default close glyph, but it does not manage overlay state
         align-items: center;
         justify-content: space-between;
         gap: var(--moduix-spacing-4);
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
+        inline-size: 100%;
         padding: var(--moduix-spacing-4);
         border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
         border-radius: var(--moduix-radius-lg);
@@ -55,9 +55,11 @@ button semantics and a default close glyph, but it does not manage overlay state
       }
     `}</style>
 
-```tsx preview file="./_snippets/close-button/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/close-button/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -177,3 +179,4 @@ discoverable while refusing activation.
 - `data-slot="close-button-root"` provides the moduix slot hook.
 - `data-disabled` exposes the normalized `disabled` and `aria-disabled="true"` styling state.
 - Direct nested SVG children inherit sizing from `--moduix-close-button-icon-size`.
+````

@@ -1,9 +1,11 @@
-import { ColorPicker, Dialog, parseColor } from '@moduix/react';
+import { Button, ColorPicker, Dialog, parseColor } from '@moduix/react';
 
 export default function InsideDialogColorPickerDemo() {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="color-picker-dialog-trigger">Open dialog</Dialog.Trigger>
+      <Dialog.Trigger asChild>
+        <Button>Open dialog</Button>
+      </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>

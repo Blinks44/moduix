@@ -1,6 +1,12 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const colorPickerExampleCss = `
+  .color-picker-demo-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-2);
+  }
+
   .color-picker-slider-group {
     display: flex;
     align-items: center;
@@ -59,15 +65,10 @@ export const colorPickerFormCss = `
     gap: var(--moduix-spacing-3);
   }
 
-  .color-picker-submit {
-    width: fit-content;
-  }
-`;
-
-export const colorPickerFieldCss = `
-  .color-picker-field {
-    max-width: 18rem;
-  }
+.color-picker-submit {
+  align-self: center;
+  width: fit-content;
+}
 `;
 
 export const colorPickerValueSwatchCss = `
@@ -89,9 +90,6 @@ export const colorPickerDialogCss = `
     gap: 1rem;
   }
 
-  .color-picker-dialog-trigger {
-    width: fit-content;
-  }
 `;
 
 export const colorPickerOverrideCssProperties: CssPropertyInput[] = [

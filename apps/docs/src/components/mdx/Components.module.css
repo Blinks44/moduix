@@ -36,6 +36,11 @@
   margin-block: 1.5rem;
 }
 
+.cssProperties :global(.rp-tabs__content) {
+  max-block-size: 36rem;
+  overflow: auto;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));

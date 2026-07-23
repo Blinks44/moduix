@@ -1,45 +1,11 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
 export const checkboxExampleCss = `
-  .checkbox-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--moduix-spacing-2);
-  }
-
-  .checkbox-state,
-  .checkbox-result {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-xs);
-    line-height: var(--moduix-line-height-text-xs);
-  }
-
-  .checkbox-fieldset {
-    width: fit-content;
-    max-width: min(20rem, 100%);
-  }
-
-  .checkbox-field {
-    --moduix-field-width: fit-content;
-    --moduix-field-max-width: min(20rem, 100%);
-  }
-
   .checkbox-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--moduix-spacing-3);
-  }
-
-  .checkbox-submit {
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-sm);
-    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
   }
 `;
 

@@ -6,6 +6,7 @@ export default function CheckboxWithFormDemo() {
 
   return (
     <form
+      className="checkbox-form"
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -17,7 +18,7 @@ export default function CheckboxWithFormDemo() {
         <Checkbox.Label>I agree to the terms and conditions</Checkbox.Label>
       </Checkbox>
       <Button type="submit">Submit</Button>
-      <output className="checkbox-result">{submitted}</output>
+      <output>{submitted}</output>
     </form>
   );
 }

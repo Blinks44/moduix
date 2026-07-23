@@ -31,18 +31,17 @@ const slides = [
 export default function AdvancedCustomizationCarousel() {
   return (
     <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--moduix-spacing-3)">
+      <Carousel.ItemGroup aria-label="Advanced customization gallery">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <img src={slide.src} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+
       <Carousel.Context>
         {(api) => (
           <>
-            <Button
-              variant="outline"
-              onClick={() => {
-                api.scrollTo(1);
-              }}
-            >
-              Go to slide 4
-            </Button>
-
             <Carousel.Control>
               <Carousel.PrevTrigger />
               <Carousel.IndicatorGroup>
@@ -52,17 +51,18 @@ export default function AdvancedCustomizationCarousel() {
               </Carousel.IndicatorGroup>
               <Carousel.NextTrigger />
             </Carousel.Control>
+
+            <Button
+              variant="outline"
+              onClick={() => {
+                api.scrollTo(1);
+              }}
+            >
+              Go to slide 4
+            </Button>
           </>
         )}
       </Carousel.Context>
-
-      <Carousel.ItemGroup aria-label="Advanced customization gallery">
-        {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
-        ))}
-      </Carousel.ItemGroup>
     </Carousel>
   );
 }

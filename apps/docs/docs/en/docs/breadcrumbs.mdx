@@ -18,15 +18,12 @@ Ark UI does not ship a dedicated `breadcrumbs` primitive. Moduix builds this com
 Start with `Breadcrumbs.Path` when the application already knows the visible path. It renders the
 ordered list, items, links, current page, and default separators from a small `items` array.
 
-<style>{`
-      .breadcrumbs-preview {
-        max-width: min(34rem, 100%);
-      }
-    `}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/breadcrumbs/basic.tsx"
 
-```tsx preview file="./_snippets/breadcrumbs/basic.tsx"
+````
 
-```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -230,3 +227,4 @@ ring, separators, and ellipsis sizing.
   `--moduix-breadcrumbs-item-padding-x`.
 - Visible `Breadcrumbs.Item` parts can shrink to preserve the trail; the last visible item remains
   the primary truncation target and uses `--moduix-breadcrumbs-item-max-width`.
+````

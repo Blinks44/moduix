@@ -8,7 +8,7 @@ const options = [
 
 export default function CheckboxGroupFieldsetDemo() {
   return (
-    <Fieldset className="checkbox-fieldset">
+    <Fieldset>
       <Fieldset.Legend>Frameworks</Fieldset.Legend>
       <Checkbox.Group defaultValue={['react']} name="frameworks">
         {options.map((option) => (

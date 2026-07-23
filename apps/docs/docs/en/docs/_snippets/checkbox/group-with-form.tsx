@@ -12,6 +12,7 @@ export default function CheckboxGroupWithFormDemo() {
 
   return (
     <form
+      className="checkbox-form"
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(
@@ -28,7 +29,7 @@ export default function CheckboxGroupWithFormDemo() {
         ))}
       </Checkbox.Group>
       <Button type="submit">Submit</Button>
-      <output className="checkbox-result">{submitted}</output>
+      <output>{submitted}</output>
     </form>
   );
 }

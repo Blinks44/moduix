@@ -23,9 +23,11 @@ Use `Combobox.Option` for ordinary rows; drop to `Combobox.Item` when a row need
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -41,17 +43,17 @@ Combobox.Root[collection]
 │  ├─ Combobox.ClearTrigger
 │  └─ Combobox.Trigger
 └─ Overlay subtree (automatically portalled)
-   └─ Combobox.Positioner
-      └─ Combobox.Content
-         ├─ Combobox.Empty
-         ├─ Combobox.List
-         │  ├─ Combobox.Option[item]
-         │  └─ Combobox.Item[item]
-         │     ├─ Combobox.ItemText
-         │     └─ Combobox.ItemIndicator
-         └─ Combobox.ItemGroup
-            ├─ Combobox.ItemGroupLabel
-            └─ Combobox.Item
+ └─ Combobox.Positioner
+    └─ Combobox.Content
+       ├─ Combobox.Empty
+       ├─ Combobox.List
+       │  ├─ Combobox.Option[item]
+       │  └─ Combobox.Item[item]
+       │     ├─ Combobox.ItemText
+       │     └─ Combobox.ItemIndicator
+       └─ Combobox.ItemGroup
+          ├─ Combobox.ItemGroupLabel
+          └─ Combobox.Item
 ```
 
 | Part                         | Role                                                               |
@@ -90,20 +92,20 @@ rows and keep `Combobox.Item` for links, rich rows, or custom indicator placemen
 
 ```tsx
 function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
-  return (
-    <Combobox.Positioner>
-      <Combobox.Content>
-        <Combobox.Empty>No fruits found.</Combobox.Empty>
-        <Combobox.List>
-          {items.map((item) => (
-            <Combobox.Option key={item.value} item={item}>
-              {item.label}
-            </Combobox.Option>
-          ))}
-        </Combobox.List>
-      </Combobox.Content>
-    </Combobox.Positioner>
-  );
+return (
+  <Combobox.Positioner>
+    <Combobox.Content>
+      <Combobox.Empty>No fruits found.</Combobox.Empty>
+      <Combobox.List>
+        {items.map((item) => (
+          <Combobox.Option key={item.value} item={item}>
+            {item.label}
+          </Combobox.Option>
+        ))}
+      </Combobox.List>
+    </Combobox.Content>
+  </Combobox.Positioner>
+);
 }
 ```
 
@@ -137,14 +139,14 @@ combobox `Status` part.
 - `value` and `defaultValue` are string arrays, including single selection.
 - `onValueChange(details)` reads the current values from `details.value`.
 - `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
-  `details.reason`.
+`details.reason`.
 - `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
 - All Ark DOM parts preserve `asChild`.
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
-  `form` props for Ark's built-in form submission behavior.
+`form` props for Ark's built-in form submission behavior.
 - `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
-  normal provider and context paths.
+created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
+normal provider and context paths.
 - Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`.
 
 ### Migrating from shadcn
@@ -169,9 +171,12 @@ from machine-driven input updates.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/async-search.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Auto Highlight
 
@@ -180,9 +185,11 @@ Enter can select it without an extra arrow-key press.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/auto-highlight.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/auto-highlight.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Controlled
 
@@ -190,9 +197,12 @@ Control the selected string array and read the next value from `details.value`.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/controlled.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Creatable
 
@@ -201,9 +211,11 @@ replace that sentinel value with the user-entered value after selection.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/creatable.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/creatable.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Custom Objects and Grouping
 
@@ -212,9 +224,12 @@ Map object labels and values on the collection, then render Ark item groups from
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/custom-objects-and-grouping.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Dynamic
 
@@ -223,9 +238,11 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/dynamic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/dynamic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Inline Autocomplete
 
@@ -234,9 +251,12 @@ first matching item while preserving Ark keyboard navigation.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/inline-autocomplete.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Limit Results
 
@@ -245,9 +265,11 @@ popup harder to scan. Filtering still runs against the complete initial collecti
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/limit-results.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/limit-results.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Multiple
 
@@ -255,31 +277,34 @@ Enable `multiple` and render selected objects from controlled `value`. Tags rema
 composition; when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
 
 <style>{`
-      .tags {
-        display: flex;
-        min-height: 1.5rem;
-        flex-wrap: wrap;
-        gap: var(--moduix-spacing-1);
-      }
+    .tags {
+      display: flex;
+      min-height: 1.5rem;
+      flex-wrap: wrap;
+      gap: var(--moduix-spacing-1);
+    }
 
-      .tag {
-        display: inline-flex;
-        align-items: center;
-        border-radius: var(--moduix-radius-sm);
-        padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-        background: var(--moduix-color-muted);
-        font-size: var(--moduix-text-xs);
-      }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--moduix-radius-sm);
+      padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
+      background: var(--moduix-color-muted);
+      font-size: var(--moduix-text-xs);
+    }
 
-      .note {
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-xs);
-      }
-    `}</style>
+    .note {
+      color: var(--moduix-color-muted-foreground);
+      font-size: var(--moduix-text-xs);
+    }
+  `}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/multiple.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Root Provider
 
@@ -289,9 +314,11 @@ configuration.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
-```tsx preview file="./_snippets/combobox/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/root-provider.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Virtualized
 
@@ -299,40 +326,45 @@ For large collections, render only visible rows with TanStack Virtual and connec
 navigation through `scrollToIndexFn`. Keep `aria-setsize` and `aria-posinset` on virtual rows.
 
 <style>{`
-      .virtualContent {
-        overflow: hidden;
-      }
+    .virtualContent {
+      overflow: hidden;
+    }
 
-      .virtualScroller {
-        height: min(16rem, var(--available-height, 16rem));
-        overflow: auto;
-      }
+    .virtualScroller {
+      height: min(16rem, var(--available-height, 16rem));
+      overflow: auto;
+    }
 
-      .virtualList {
-        position: relative;
-        overflow: visible;
-      }
+    .virtualList {
+      position: relative;
+      overflow: visible;
+    }
 
-      .virtualItem {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-    `}</style>
+    .virtualItem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  `}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/virtualized.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### With TagsInput
 
 Compose `Combobox` with `TagsInput` when users still need filtered suggestions, but the selected
 values should live inside one editable chip field.
 
-```tsx preview file="./_snippets/combobox/with-tags-input.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/combobox/with-tags-input.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -341,9 +373,12 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
+<PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/combobox/advanced-customization.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

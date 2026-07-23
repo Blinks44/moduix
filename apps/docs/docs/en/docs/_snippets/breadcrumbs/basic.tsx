@@ -7,7 +7,7 @@ const items = [
 
 export default function BreadcrumbsDemo() {
   return (
-    <Breadcrumbs className="breadcrumbs-preview">
+    <Breadcrumbs>
       <Breadcrumbs.Path items={items} />
     </Breadcrumbs>
   );

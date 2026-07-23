@@ -1,15 +1,9 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
-export const alertExampleCss = `
-  .alert-demo {
-    max-width: 24rem;
-  }
-`;
-
 export const alertStatusesCss = `
   .alert-stack {
     display: grid;
-    width: min(24rem, 100%);
+    inline-size: 100%;
     gap: var(--moduix-spacing-3);
   }
 `;
@@ -21,8 +15,6 @@ export const alertCustomCompositionCss = `
     --moduix-alert-indicator-color: var(--moduix-color-primary);
     --moduix-alert-radius: var(--moduix-radius-md);
     --moduix-alert-shadow: var(--moduix-shadow-sm);
-
-    max-width: 24rem;
   }
 `;
 

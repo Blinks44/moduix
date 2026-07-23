@@ -151,13 +151,16 @@ Badges truncate long labels by default. Add `title` when the full text should st
 
 <style>{`
       .badge-demo-constrained {
-        max-width: 14rem;
+        inline-size: 100%;
       }
     `}</style>
 
-```tsx preview file="./_snippets/badge/long-labels.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/long-labels.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Variants
 
@@ -227,3 +230,4 @@ Prefer built-in variants first, then local CSS variables for one-off sizing and 
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--moduix-badge-icon-size`.
 - There are no Ark-managed states or runtime CSS variables because Badge has no dedicated Ark
   primitive or behavior machine.
+````

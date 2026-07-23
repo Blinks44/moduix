@@ -31,14 +31,6 @@ const slides = [
 export default function ScrollToCarousel() {
   return (
     <Carousel slideCount={slides.length}>
-      <Carousel.Context>
-        {(api) => (
-          <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
-            Go to slide 4
-          </Button>
-        )}
-      </Carousel.Context>
-
       <Carousel.ItemGroup aria-label="Scroll to gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -53,6 +45,14 @@ export default function ScrollToCarousel() {
       </Carousel.Control>
 
       <Carousel.Indicators />
+
+      <Carousel.Context>
+        {(api) => (
+          <Button variant="outline" onClick={() => api.scrollToIndex(3)}>
+            Go to slide 4
+          </Button>
+        )}
+      </Carousel.Context>
     </Carousel>
   );
 }

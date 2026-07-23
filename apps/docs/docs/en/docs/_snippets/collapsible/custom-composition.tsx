@@ -5,7 +5,7 @@ const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-s
 
 export default function CustomCompositionCollapsibleDemo() {
   return (
-    <Collapsible className="collapsible-root">
+    <Collapsible>
       <Collapsible.Trigger asChild>
         <button type="button" className="collapsible-custom-trigger">
           Styled recovery keys

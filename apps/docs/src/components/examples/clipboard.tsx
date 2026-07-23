@@ -1,39 +1,5 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
-export const clipboardExampleCss = `
-  .clipboard-action-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--moduix-size-md);
-    padding-inline: 1rem;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-md);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font: inherit;
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-    cursor: pointer;
-  }
-
-  .clipboard-action-button:focus-visible {
-    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
-    outline-offset: calc(var(--moduix-border-width-sm) * -1);
-  }
-
-  .clipboard-value-text {
-    flex: 1 1 auto;
-  }
-
-  .clipboard-status-text {
-    margin: 0;
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-`;
-
 export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-clipboard-color',

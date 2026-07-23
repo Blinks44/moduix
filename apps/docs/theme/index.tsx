@@ -31,6 +31,7 @@ import {
   Cards,
   CssPropertiesSection,
   ExampleFrame,
+  PreviewFrame,
   PrimitiveReference,
   ShadcnInstall,
 } from '@/components/mdx/Components';
@@ -175,6 +176,7 @@ const mdxComponents = {
   Cards,
   CssPropertiesSection,
   ExampleFrame,
+  PreviewFrame,
   h1: DocTitle,
   PackageManagerTabs,
   PrimitiveReference,
