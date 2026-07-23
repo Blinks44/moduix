@@ -15,6 +15,11 @@ export const dialogExampleCss = `
     margin-top: var(--moduix-spacing-4);
   }
 
+  .dialog-nested-action,
+  .dialog-advanced-close {
+    margin-top: var(--moduix-spacing-4);
+  }
+
   .dialog-input {
     width: 100%;
     min-height: var(--moduix-size-md);
@@ -35,10 +40,6 @@ export const dialogExampleCss = `
   .dialog-scroll-content h3,
   .dialog-scroll-content p {
     margin: 0;
-  }
-
-  .dialog-inside-scroll {
-    max-height: min(32rem, calc(100dvh - var(--moduix-spacing-8)));
   }
 
   .dialog-scroll-area {

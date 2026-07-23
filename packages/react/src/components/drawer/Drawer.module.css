@@ -62,7 +62,6 @@
       var(--moduix-backdrop-bg, var(--moduix-color-overlay))
     );
     backdrop-filter: var(--moduix-backdrop-filter, blur(var(--moduix-drawer-backdrop-blur, 4px)));
-    opacity: calc(1 - var(--drawer-swipe-progress, 0));
     transition:
       opacity calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),

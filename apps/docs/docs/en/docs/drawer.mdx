@@ -27,9 +27,11 @@ Compose the Ark structural parts explicitly. `Drawer.Content` is the real intera
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -122,6 +124,8 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
   physical `left` or `right` values through `data-swipe-direction` for styling.
 - `Content draggable={false}` disables dragging from content while keeping the grabber draggable.
 - `data-no-drag` prevents a drag gesture from starting inside a specific subtree.
+- The modal backdrop remains fully visible while dragging between snap points and fades after the
+  drawer begins closing.
 - `ids` customizes accessibility IDs for cross-part composition.
 - `stack` accepts an external Ark drawer stack store for app-level stack visuals.
 - `immediate` and `skipAnimationOnMount` tune Ark presence timing when custom animation control is
@@ -140,9 +144,12 @@ Read `details.open` from the Ark callback instead of expecting a boolean callbac
 
 <style>{`.controlled-drawer { --moduix-drawer-width: min(100%, 48rem); }`}</style>
 
-```tsx preview file="./_snippets/drawer/controlled.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/controlled.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Drag Controls
 
@@ -157,9 +164,11 @@ specific interactive regions must never start a drag.
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/drag-controls.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/drag-controls.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Indent Background
 
@@ -182,9 +191,12 @@ progress.
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/indent-background.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/indent-background.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Multiple Triggers
 
@@ -193,9 +205,11 @@ trigger is current.
 
 <style>{`.trigger-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}</style>
 
-```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Nested
 
@@ -217,9 +231,12 @@ behind the active drawer while leaving a visible edge.
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/nested.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/nested.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Non-Modal
 
@@ -227,9 +244,11 @@ Set `modal={false}` when the page must remain interactive while the drawer is op
 
 <style>{`.non-modal-drawer { --moduix-drawer-shadow: var(--moduix-shadow-lg); }`}</style>
 
-```tsx preview file="./_snippets/drawer/non-modal.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/non-modal.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Root Provider
 
@@ -248,9 +267,12 @@ change snap points.
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/root-provider.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/root-provider.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Scrollable
 
@@ -280,9 +302,11 @@ scroll container while the grabber and header stay fixed.
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/scrollable.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/scrollable.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Snap Points
 
@@ -290,9 +314,12 @@ Define intermediate positions on the root and choose the initial position with `
 
 <style>{`.snap-drawer { --moduix-drawer-max-height: 100dvh; }`}</style>
 
-```tsx preview file="./_snippets/drawer/snap-points.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/snap-points.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Swipe Direction
 
@@ -304,18 +331,23 @@ Use logical `start` and `end` values for side drawers so the same code works in 
       }
     `}</style>
 
-```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs
 the full low-level Drawer anatomy.
 
-```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ## Styling
 

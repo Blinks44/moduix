@@ -139,12 +139,13 @@ Default drawer and close controls use `--moduix-size-md` with `--moduix-spacing-
 Every visual part accepts `className`; Ark polymorphic parts also retain `asChild`. The component
 uses moduix colors, spacing, radii, shadows, and motion tokens.
 
-Backdrop and content enter/exit animations target Ark `data-state`. During open drag, CSS must not
-toggle `animation: none` on `Content`; otherwise the open keyframe is recreated when Ark removes
-`data-swiping`, causing bottom drawers to jump. Drag release and snap-point settling follow Ark's
-inline `transform` variables with a CSS transition. The closed keyframe stays active while
-`data-swiping` is still present so drag-to-dismiss can animate from the release offset to the
-viewport edge before Ark reports `ANIMATION_END`.
+Backdrop and content enter/exit animations target Ark `data-state`. The backdrop remains fully
+visible while dragging between snap points and fades only after the drawer enters its closed state.
+During open drag, CSS must not toggle `animation: none` on `Content`; otherwise the open keyframe
+is recreated when Ark removes `data-swiping`, causing bottom drawers to jump. Drag release and
+snap-point settling follow Ark's inline `transform` variables with a CSS transition. The closed
+keyframe stays active while `data-swiping` is still present so drag-to-dismiss can animate from the
+release offset to the viewport edge before Ark reports `ANIMATION_END`.
 
 Closed `Backdrop` and `Content` override the native `hidden` display behavior only while the
 `Positioner` is still present for exit animation. This uses normal scoped author CSS, avoids
@@ -195,6 +196,8 @@ Public theme variables are declared in `packages/react/src/lib/moduix/styles/the
 
 ## Local changelog
 
+- 2026-07-23: Kept the backdrop fully visible during snap-point dragging; it now fades only after
+  the drawer begins closing.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default drawer and close controls to `--moduix-size-md` and compacted their block padding.
 
