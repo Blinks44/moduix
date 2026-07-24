@@ -1,8 +1,7 @@
-import { useDrawer, useDrawerContext } from '@ark-ui/react/drawer';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../../../src/components/button';
-import { Drawer } from '../../../src/components/drawer/Drawer';
+import { Drawer, useDrawer, useDrawerContext } from '../../../src/components/drawer/Drawer';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 

@@ -4,6 +4,7 @@
   "compatibility_date": "2026-07-21",
   "assets": {
     "directory": "./doc_build",
+    "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   }
 }

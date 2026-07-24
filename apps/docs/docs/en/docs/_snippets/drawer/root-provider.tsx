@@ -16,12 +16,13 @@ export default function RootProviderDrawerDemo() {
             <Drawer.Header>
               <Drawer.Title>Root provider</Drawer.Title>
               <Drawer.CloseIcon />
-              <Drawer.Description>Active snap point: {String(drawer.snapPoint)}</Drawer.Description>
+              <Drawer.Description>Control the drawer from outside its tree.</Drawer.Description>
             </Drawer.Header>
           </Drawer.Content>
         </Drawer.Positioner>
       </Drawer.RootProvider>
       <PreviewMeta>
+        <output>Active snap point: {String(drawer.snapPoint)}</output>
         <Button size="sm" onClick={() => drawer.setOpen(true)}>
           Open via API
         </Button>

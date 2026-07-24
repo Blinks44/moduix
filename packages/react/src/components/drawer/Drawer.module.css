@@ -170,8 +170,6 @@
     transition:
       transform calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),
-      height calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
-        var(--moduix-ease-out),
       scale
         var(
           --moduix-drawer-nested-transition,

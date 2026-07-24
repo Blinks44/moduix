@@ -26,6 +26,9 @@ export default defineConfig({
   icon: '/favicon/favicon.svg',
   llms: true,
   mediumZoom: false,
+  route: {
+    cleanUrls: true,
+  },
   head: [
     ['meta', { name: 'apple-mobile-web-app-title', content: siteTitle }],
     ['meta', { name: 'robots', content: 'index, follow' }],

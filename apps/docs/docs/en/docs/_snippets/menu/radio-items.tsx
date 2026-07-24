@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function RadioItemsMenuDemo() {
   const [sortBy, setSortBy] = useState('date');
   return (
-    <Menu>
+    <Menu closeOnSelect={false}>
       <Menu.Trigger asChild>
         <Button>
           Sort

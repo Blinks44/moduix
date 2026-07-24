@@ -17,12 +17,15 @@ The wrapper follows `@ark-ui/react/drawer` directly. Preserve Ark part names, lo
 drag behavior, render strategy props, stack coordination, and runtime CSS variables.
 
 `Drawer.RootProvider` must receive a value from the moduix `useDrawer` export; do not render
-`Drawer.Root` for the same state instance. Other advanced context APIs and detail types remain
-available from `@ark-ui/react/drawer` as escape hatches.
+`Drawer` for the same state instance. `useDrawerContext`, `useDrawerStackContext`, and
+`Drawer.Context` are exported from moduix. Other Ark APIs and detail types remain available from
+`@ark-ui/react/drawer` as escape hatches.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`Drawer` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set
+`portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The
+structural parts remain explicit and independently styleable.
 
 `Drawer` and `Drawer.Root` are equivalent root components. All Ark root props pass through,
 including controlled/uncontrolled open and snap-point state, multiple trigger values, focus
@@ -65,7 +68,7 @@ Stable moduix hooks use matching kebab-case `data-slot` values, for example `dra
 ## Composition
 
 ```tsx
-<Drawer.Root>
+<Drawer>
   <Drawer.Trigger asChild>
     <Button>Open drawer</Button>
   </Drawer.Trigger>
@@ -83,7 +86,7 @@ Stable moduix hooks use matching kebab-case `data-slot` values, for example `dra
       <Drawer.Body>Content</Drawer.Body>
     </Drawer.Content>
   </Drawer.Positioner>
-</Drawer.Root>
+</Drawer>
 ```
 
 Use `asChild` for custom trigger and close-trigger hosts. The child must be a single semantic,
@@ -105,7 +108,8 @@ focusable element that preserves button behavior.
 - Nested drawers: render separate `useDrawer` states with `RootProvider` siblings so each drawer
   keeps independent open and focus state while Ark exposes nested drawer state attributes.
 - External state: import `useDrawer` from moduix, then pair its state with `Drawer.RootProvider`.
-  `useDrawerContext` and other Ark APIs remain direct-import escape hatches.
+  `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context` are also available from
+  moduix; other Ark APIs remain direct-import escape hatches.
 - Stack visuals: `Stack`, `Indent`, and `IndentBackground` use Ark stack context.
 - Render strategy and focus props: `present`, `lazyMount`, `unmountOnExit`, `initialFocusEl`,
   `finalFocusEl`, `restoreFocus`, and dismissal callbacks pass through.
@@ -182,9 +186,9 @@ Public theme variables are declared in `packages/react/src/styles/theme.css`.
   preserves Ark swipe, snap-point, focus, and stack behavior while disabling only the visual bleed.
 - `Drawer.Trigger` and `Drawer.CloseTrigger` receive moduix button visuals only when `asChild` is
   not used.
-- moduix re-exports `useDrawer` for the common `RootProvider` workflow. Other Ark state hooks,
-  context helpers, renderless context parts, and Ark type aliases remain direct-import escape
-  hatches.
+- moduix re-exports `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context`
+  for common state and context workflows. Other Ark APIs and type aliases remain direct-import
+  escape hatches.
 - The removed legacy API is intentionally unsupported: `DrawerProvider`, `createDrawerHandle`,
   `DrawerPortal`, `DrawerViewport`, `DrawerPopup`, `DrawerContentInner`, `DrawerHandle`, and the
   former high-level `DrawerContent` composition wrapper.
@@ -193,15 +197,16 @@ Public theme variables are declared in `packages/react/src/styles/theme.css`.
 
 - Keep the explicit Ark structural tree visible in stories and public docs.
 - Keep portal transport on the root and do not recreate the removed legacy popup/viewport split.
-- Keep `useDrawer` available from moduix for `RootProvider` examples; do not add other Ark hooks,
-  context helpers, renderless context parts, or duplicate type aliases without a consumer-facing
-  use case.
+- Keep `useDrawer`, `useDrawerContext`, `useDrawerStackContext`, and `Drawer.Context` available
+  from moduix; do not add other Ark hooks or duplicate type aliases without a consumer-facing use
+  case.
 - Do not convert Ark callback detail objects to scalar values.
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
 
 ## Local changelog
 
+- 2026-07-24: Documented the moduix-owned context exports and short `<Drawer>` root form.
 - 2026-07-23: Made island enter and exit keyframes account for their directional viewport inset so
   no panel edge remains visible before unmounting.
 - 2026-07-23: Added the opt-in `Drawer.Content variant="island"` surface with a safe-area-aware

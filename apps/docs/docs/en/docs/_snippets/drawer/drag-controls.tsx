@@ -1,8 +1,5 @@
 import { Button, Drawer } from '@moduix/react';
 
-const dragConfig = {
-  content: false,
-};
 const snapPoints = [0.18, 1];
 export default function DragControlsDrawerDemo() {
   return (
@@ -12,7 +9,7 @@ export default function DragControlsDrawerDemo() {
       </Drawer.Trigger>
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content draggable={dragConfig.content}>
+        <Drawer.Content>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
@@ -24,8 +21,10 @@ export default function DragControlsDrawerDemo() {
             </Drawer.Description>
           </Drawer.Header>
           <Drawer.Body>
-            <div data-no-drag className="no-drag-area">
-              Interactive content
+            <div className="no-drag-area">
+              <Button data-no-drag variant="outline">
+                Interactive no-drag region
+              </Button>
             </div>
           </Drawer.Body>
         </Drawer.Content>

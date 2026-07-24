@@ -22,15 +22,17 @@ const messages = [
 export default function MultipleTriggersMenuDemo() {
   return (
     <Menu>
-      {messages.map((message) => (
-        <Menu.Trigger
-          key={message.id}
-          value={message.id}
-          aria-label={`Open actions for ${message.sender}`}
-        >
-          <MapIcon />
-        </Menu.Trigger>
-      ))}
+      <div style={{ display: 'flex', gap: '0.5rem' }}>
+        {messages.map((message) => (
+          <Menu.Trigger
+            key={message.id}
+            value={message.id}
+            aria-label={`Open actions for ${message.sender}`}
+          >
+            <MapIcon />
+          </Menu.Trigger>
+        ))}
+      </div>
       <Menu.Positioner>
         <Menu.Content className="menu-content">
           <Menu.Item value="reply">Reply</Menu.Item>

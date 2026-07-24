@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function CheckboxItemsMenuDemo() {
   const [showToolbar, setShowToolbar] = useState(true);
   return (
-    <Menu>
+    <Menu closeOnSelect={false}>
       <Menu.Trigger asChild>
         <Button>
           View

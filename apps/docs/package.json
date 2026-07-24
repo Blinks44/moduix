@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rspress build",
     "deploy": "wrangler deploy",
-    "dev": "rspress dev",
+    "dev": "rspress dev --host",
     "preview": "rspress preview",
     "tsc:check": "tsc -p tsconfig.json"
   },

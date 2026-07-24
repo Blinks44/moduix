@@ -1,0 +1,20 @@
+.stage {
+  --moduix-drawer-max-height: 100%;
+  position: relative;
+  isolation: isolate;
+  min-height: 22rem;
+  overflow: hidden;
+  background: var(--moduix-color-foreground);
+}
+
+.surface {
+  display: grid;
+  min-height: 22rem;
+  place-items: center;
+  background: var(--moduix-color-background);
+}
+
+.backdrop,
+.positioner {
+  position: absolute;
+}

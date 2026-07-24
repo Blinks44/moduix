@@ -1,4 +1,5 @@
 import { Button, Drawer } from '@moduix/react';
+import styles from '@/components/examples/drawer-preview.module.css';
 
 const copy = {
   trigger: 'Open indented drawer',
@@ -8,16 +9,21 @@ const snapPoints = [0.18, 1];
 export default function IndentDrawerDemo() {
   return (
     <Drawer.Stack>
-      <div className="indent-stage">
+      <div className={styles.stage}>
         <Drawer.IndentBackground />
-        <Drawer modal={false} snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
-          <Drawer.Indent className="indent-surface">
+        <Drawer
+          modal={false}
+          portalled={false}
+          snapPoints={snapPoints}
+          defaultSnapPoint={snapPoints[0]}
+        >
+          <Drawer.Indent className={styles.surface}>
             <Drawer.Trigger asChild>
               <Button>{copy.trigger}</Button>
             </Drawer.Trigger>
           </Drawer.Indent>
-          <Drawer.Backdrop />
-          <Drawer.Positioner>
+          <Drawer.Backdrop className={styles.backdrop} />
+          <Drawer.Positioner className={styles.positioner}>
             <Drawer.Content>
               <Drawer.Grabber>
                 <Drawer.GrabberIndicator />
