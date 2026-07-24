@@ -11,6 +11,8 @@ export const menuExampleCss = `
     --moduix-menu-trigger-bg-active: var(--moduix-color-muted);
 
     width: 16rem;
+    min-height: 10rem;
+    border-style: dashed;
   }
 
   .menu-dialog-stack {

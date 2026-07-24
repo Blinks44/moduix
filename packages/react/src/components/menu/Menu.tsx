@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/react/menu';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
-import { forwardRef } from 'react';
+import { Children, forwardRef, isValidElement } from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -88,12 +88,13 @@ const MenuIndicator = forwardRef<
 const MenuContextTrigger = forwardRef<
   ComponentRef<typeof MenuPrimitive.ContextTrigger>,
   ComponentProps<typeof MenuPrimitive.ContextTrigger>
->(function MenuContextTrigger({ className, ...props }, ref) {
+>(function MenuContextTrigger({ asChild, className, ...props }, ref) {
   return (
     <MenuPrimitive.ContextTrigger
       ref={ref}
       data-slot="menu-context-trigger"
-      className={clsx(styles.contextTrigger, normalizeClassName(className))}
+      asChild={asChild}
+      className={clsx(!asChild && styles.contextTrigger, normalizeClassName(className))}
       {...props}
     />
   );
@@ -118,14 +119,23 @@ const MenuPositioner = forwardRef<
 const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
->(function MenuContent({ className, ...props }, ref) {
+>(function MenuContent({ className, children, ...props }, ref) {
+  const childrenArray = Children.toArray(children);
+  const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
+  const content = childrenArray.filter(
+    (child) => !isValidElement(child) || child.type !== MenuArrow,
+  );
+
   return (
     <MenuPrimitive.Content
       ref={ref}
       data-slot="menu-content"
       className={clsx(styles.content, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {arrows}
+      <div className={styles.contentViewport}>{content}</div>
+    </MenuPrimitive.Content>
   );
 });
 

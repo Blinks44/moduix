@@ -1,5 +1,6 @@
 import { Button, Menu } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function SelectEventMenuDemo() {
   const [selected, setSelected] = useState('Nothing selected');
@@ -19,7 +20,9 @@ export default function SelectEventMenuDemo() {
           </Menu.Content>
         </Menu.Positioner>
       </Menu>
-      <span>{selected}</span>
+      <PreviewMeta>
+        <output>Selected: {selected}</output>
+      </PreviewMeta>
     </>
   );
 }

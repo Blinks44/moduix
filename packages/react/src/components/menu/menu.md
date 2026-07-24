@@ -26,8 +26,10 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-The component exports thin styled wrappers over Ark parts. `useMenu` and `Menu.ItemContext` are
-available from the moduix package surface for the normal provider and item-state paths.
+The component exports thin styled wrappers over Ark parts. `useMenu`, `Menu.Context`,
+`useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext` are available from the moduix package
+surface for provider and descendant state paths. `ContextTrigger` uses the compact trigger styling by
+default and leaves a custom `asChild` host untouched.
 
 Breaking legacy APIs were removed:
 
@@ -78,6 +80,8 @@ Stable slots:
 - `menu-radio-item-group`, `menu-radio-item`, `menu-checkbox-item`
 - `menu-item-indicator`, `menu-item-text`, `menu-item-text-content`, `menu-item-text-icon`,
   `menu-item-text-label`, `menu-item-shortcut`
+
+State exports: `Menu.Context`, `useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext`.
 
 ## Composition
 
@@ -134,6 +138,10 @@ IDs internally for item lookup.
 Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigger button,
 `Menu.Content` targets the menu content element, and item refs target their item elements.
 
+`Menu.Content` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
+viewport height. Its internal viewport leaves a direct `Menu.Arrow` outside the scroll clip. The
+default `Menu.TriggerItemIcon` flips in RTL so its direction matches submenu navigation.
+
 ## Defaults and styling
 
 Single-line popup items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding. The default trigger
@@ -181,6 +189,9 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
 `Positioner` or `Arrow` internally; only portal transport belongs to the root.
 
+`Menu.Content` may use a private scroll viewport for direct non-arrow children. Keep `Menu.Arrow`
+as a direct child so it can extend beyond the popup outline.
+
 Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
@@ -188,6 +199,9 @@ examples use them. Other Ark state surfaces remain escape hatches until moduix d
 
 - 2026-07-24: Let `Menu.Arrow` extend beyond and paint over the content outline, so its stroke
   joins the popup border instead of being clipped or layered beneath it.
+
+- 2026-07-24: Kept custom context triggers unstyled with `asChild`, made menu content scroll within
+  its viewport limit, and flipped the default submenu icon in RTL.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.

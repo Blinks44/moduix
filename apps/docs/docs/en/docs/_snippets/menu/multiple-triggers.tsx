@@ -23,7 +23,11 @@ export default function MultipleTriggersMenuDemo() {
   return (
     <Menu>
       {messages.map((message) => (
-        <Menu.Trigger key={message.id} value={message.id} aria-label="Open menu">
+        <Menu.Trigger
+          key={message.id}
+          value={message.id}
+          aria-label={`Open actions for ${message.sender}`}
+        >
           <MapIcon />
         </Menu.Trigger>
       ))}
