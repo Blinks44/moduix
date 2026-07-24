@@ -1,5 +1,14 @@
 # moduix
 
+## 2.2.3
+
+### Patch Changes
+
+### Menu
+
+- 1b4ae6e: Fix arrow visibility and its connection to the popup border.
+- 1b4ae6e: Fix Next.js App Router compatibility for registry components that use local client APIs.
+
 ## 2.2.2
 
 ### Patch Changes
