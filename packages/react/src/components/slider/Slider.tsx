@@ -1,3 +1,5 @@
+'use client';
+
 import { Slider as SliderPrimitive, useSlider, useSliderContext } from '@ark-ui/react/slider';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   FloatingPanel as FloatingPanelPrimitive,
   useFloatingPanel,

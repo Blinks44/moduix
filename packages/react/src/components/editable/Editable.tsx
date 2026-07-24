@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Editable as EditablePrimitive,
   useEditable,

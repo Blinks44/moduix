@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Checkbox as CheckboxPrimitive,
   useCheckbox,

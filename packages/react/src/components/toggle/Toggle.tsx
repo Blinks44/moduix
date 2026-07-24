@@ -1,3 +1,5 @@
+'use client';
+
 import { Toggle as TogglePrimitive, ToggleContext, useToggleContext } from '@ark-ui/react/toggle';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

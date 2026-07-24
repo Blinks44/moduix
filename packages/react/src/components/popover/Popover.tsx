@@ -1,3 +1,5 @@
+'use client';
+
 import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

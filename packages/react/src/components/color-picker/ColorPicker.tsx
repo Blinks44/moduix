@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ColorPicker as ColorPickerPrimitive,
   parseColor,

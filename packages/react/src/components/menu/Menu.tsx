@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Menu as MenuPrimitive,
   useMenu,

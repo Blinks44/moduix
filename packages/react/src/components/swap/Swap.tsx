@@ -1,3 +1,5 @@
+'use client';
+
 import { Swap as SwapPrimitive, useSwap, useSwapContext } from '@ark-ui/react/swap';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,

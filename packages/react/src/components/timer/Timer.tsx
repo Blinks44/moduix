@@ -1,3 +1,5 @@
+'use client';
+
 import { Timer as TimerPrimitive, useTimer, useTimerContext } from '@ark-ui/react/timer';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactNode } from 'react';

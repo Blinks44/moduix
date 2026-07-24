@@ -1,3 +1,5 @@
+'use client';
+
 import { Field as FieldPrimitive, useField, useFieldContext } from '@ark-ui/react/field';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

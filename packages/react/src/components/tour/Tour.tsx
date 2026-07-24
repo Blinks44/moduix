@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Tour as TourPrimitive,
   useTour,

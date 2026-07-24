@@ -1,3 +1,5 @@
+'use client';
+
 import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,

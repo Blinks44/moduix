@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DateInput as DateInputPrimitive,
   type DateInputDateValue,

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,

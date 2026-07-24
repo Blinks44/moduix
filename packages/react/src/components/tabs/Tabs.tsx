@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';

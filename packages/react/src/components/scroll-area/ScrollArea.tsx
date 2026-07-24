@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ScrollArea as ScrollAreaPrimitive,
   useScrollArea,

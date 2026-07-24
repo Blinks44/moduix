@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,

@@ -1,3 +1,5 @@
+'use client';
+
 import { QrCode as QrCodePrimitive, useQrCode, useQrCodeContext } from '@ark-ui/react/qr-code';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
