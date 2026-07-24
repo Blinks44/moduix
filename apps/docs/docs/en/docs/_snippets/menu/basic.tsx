@@ -30,7 +30,6 @@ export default function MenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content className="menu-content">
-          <Menu.Arrow />
           {fileItems.map((item) => (
             <Menu.Item key={item.value} value={item.value}>
               {item.label}
