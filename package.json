@@ -24,6 +24,7 @@
     "prepare": "husky",
     "publish:react": "npm publish -w @moduix/react",
     "registry:validate": "shadcn registry validate",
+    "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"
   },
   "devDependencies": {

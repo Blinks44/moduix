@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Format, lint and typecheck
+    name: Format, lint, test and typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -43,6 +43,9 @@ jobs:
 
       - name: Build React
         run: npm run build:react
+
+      - name: Run tests
+        run: npm run test
 
       - name: Check TypeScript
         run: npm run tsc:check

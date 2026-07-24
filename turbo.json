@@ -20,6 +20,10 @@
       "cache": false,
       "persistent": true
     },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
     "tsc:check": {
       "dependsOn": ["^build", "^tsc:check"],
       "outputs": []
