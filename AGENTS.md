@@ -9,6 +9,8 @@ current public API, keep docs aligned with behavior, and remove stale guidance w
 Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 
 - Always apply `.agents/skills/engineering-principles/SKILL.md` for coding tasks.
+- For a complete production review of one component and its docs, apply
+  `.agents/skills/component-production-review/SKILL.md`.
 - For CSS or CSS Modules work, apply `.agents/skills/css-authoring/SKILL.md`.
 - For JS/TS work, apply `.agents/skills/js-react-conventions/SKILL.md`.
 - For Ark UI or shadcn reference material, apply `.agents/skills/upstream-library-docs/SKILL.md`.
@@ -16,6 +18,8 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md).
 - When the user explicitly asks to create or update a changeset, apply `.agents/skills/changeset-workflow/SKILL.md`.
 - For local component markdown in `packages/react/src/components`, apply `.agents/skills/local-component-docs/SKILL.md`.
 - For docs work in the Rspress 2 app in `apps/docs`, apply `.agents/skills/docs-workflow/SKILL.md` and `.agents/skills/rspress-best-practices/SKILL.md`.
+- For migrating or reviewing live-preview sizing and docs-only controls, apply
+  `.agents/skills/preview-frame-migration/SKILL.md`.
 - For Rspress theme or layout work, apply `.agents/skills/rspress-custom-theme/SKILL.md`.
 - When creating documentation pages, apply `.agents/skills/rspress-description-generator/SKILL.md`.
 - For tasks that touch both `packages/react` and `apps/docs`, also apply `.agents/skills/cross-package-sync/SKILL.md`.
@@ -27,13 +31,15 @@ should not repeat the same validation matrix.
 If a task spans UI and docs, apply skills in this order:
 
 1. `engineering-principles`
-2. `css-authoring` when CSS or CSS Modules are part of the task
-3. `upstream-library-docs` when upstream Ark UI or shadcn behavior matters
-4. `ui-component-workflow`
-5. `local-component-docs` when component markdown is created or updated
-6. `cross-package-sync`
-7. `docs-workflow`
-8. `rspress-best-practices`
+2. `component-production-review` when the task is a full one-component production review
+3. `css-authoring` when CSS or CSS Modules are part of the task
+4. `upstream-library-docs` when upstream Ark UI or shadcn behavior matters
+5. `ui-component-workflow`
+6. `local-component-docs` when component markdown is created or updated
+7. `cross-package-sync`
+8. `docs-workflow`
+9. `rspress-best-practices`
+10. `preview-frame-migration` when existing live previews are in scope
 
 ## Repository Rules
 

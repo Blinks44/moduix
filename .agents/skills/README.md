@@ -14,6 +14,7 @@ Skills are intentionally composable:
 ## Skills
 
 - `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks
+- `.agents/skills/component-production-review/SKILL.md` - temporary end-to-end production review of one component and its docs
 - `.agents/skills/css-authoring/SKILL.md` - CSS, CSS Modules, and selector-structure rules
 - `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
 - `.agents/skills/changeset-workflow/SKILL.md` - opt-in workflow for creating or updating `.changeset/*.md` release notes
@@ -26,6 +27,7 @@ Skills are intentionally composable:
 - `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep
 - `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`
 - `.agents/skills/cross-package-sync/SKILL.md` - parity rules for tasks that touch both UI and docs
+- `.agents/skills/preview-frame-migration/SKILL.md` - temporary migration of live-preview sizing and docs-only controls
 
 ## Source Of Truth
 
