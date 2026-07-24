@@ -24,7 +24,7 @@ export default function RootProviderAccordionDemo() {
   const accordion = useAccordion({ defaultValue: ['what-is-ark-ui'] });
 
   return (
-    <div className="accordion-provider-stack">
+    <>
       <Accordion.RootProvider value={accordion}>
         {items.map((item) => (
           <Accordion.Item key={item.value} value={item.value}>
@@ -41,6 +41,6 @@ export default function RootProviderAccordionDemo() {
       <PreviewMeta>
         <output>Open sections: {accordion.value.join(', ')}</output>
       </PreviewMeta>
-    </div>
+    </>
   );
 }

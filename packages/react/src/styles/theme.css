@@ -90,6 +90,7 @@
   --moduix-accordion-item-content-transition: initial; /* var(--moduix-transition-default) */
   --moduix-accordion-max-width: initial; /* 100% */
   --moduix-accordion-trigger-bg: initial; /* var(--moduix-color-muted) */
+  --moduix-accordion-trigger-bg-active: initial; /* var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent)) */
   --moduix-accordion-trigger-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-accordion-trigger-font-size: initial; /* var(--moduix-text-md) */
   --moduix-accordion-trigger-gap: initial; /* var(--moduix-spacing-4) */

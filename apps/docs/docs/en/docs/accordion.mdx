@@ -12,10 +12,8 @@ import * as AccordionDocs from '@/components/examples/accordion';
 
 ## Basic
 
-Use Ark-style parts: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
+Use `Accordion` with Ark-style parts: `Accordion.Item`, `Accordion.ItemTrigger`,
 `Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/basic.tsx"
@@ -57,11 +55,11 @@ Accordion.RootProvider
 
 ### Recommended composition
 
-`Accordion.Root` owns keyboard navigation, focus movement, and open item state. Use it for
+`Accordion` owns keyboard navigation, focus movement, and open item state. Use it for
 `value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
 `collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
-Stay with `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
+Stay with `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
 `Accordion.ItemContent`, and `Accordion.ItemBody` for the standard Ark composition path.
 
 ### When to go custom
@@ -109,8 +107,6 @@ All exported parts support `asChild` for cases where another element must own th
 
 Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
 
-<style>{AccordionDocs.accordionExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/collapsible.tsx"
 
@@ -120,8 +116,6 @@ Add `collapsible` when the currently open item should be allowed to close withou
 ### Controlled
 
 Control `value` from React state when the open items need to stay in sync with routing, filters, or surrounding UI.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/controlled.tsx"
@@ -134,8 +128,6 @@ Control `value` from React state when the open items need to stay in sync with r
 
 Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
 
-<style>{AccordionDocs.accordionExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/disabled-item.tsx"
 
@@ -145,8 +137,6 @@ Set `disabled` on an item when it should stay visible in the list but remain una
 ### Horizontal
 
 Switch to `orientation="horizontal"` when the accordion should follow a horizontal interaction pattern.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/horizontal.tsx"
@@ -159,8 +149,6 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 
 Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and should only render while needed.
 
-<style>{AccordionDocs.accordionExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/lazy-mount.tsx"
 
@@ -170,8 +158,6 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 ### Multiple
 
 Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/multiple.tsx"
@@ -183,9 +169,7 @@ Use `multiple` when several sections should stay open at the same time instead o
 ### Root Provider
 
 Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the state store must be created outside
-the rendered accordion tree. Do not render `Accordion.Root` for the same store.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
+the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for the same store.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/root-provider.tsx"
@@ -197,8 +181,6 @@ the rendered accordion tree. Do not render `Accordion.Root` for the same store.
 
 Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
 explicit so keyboard handling and hidden form inputs stay owned by the correct component.
-
-<style>{AccordionDocs.accordionExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/with-slider.tsx"
