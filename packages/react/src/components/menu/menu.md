@@ -186,6 +186,9 @@ examples use them. Other Ark state surfaces remain escape hatches until moduix d
 
 ## Local changelog
 
+- 2026-07-24: Let `Menu.Arrow` extend beyond and paint over the content outline, so its stroke
+  joins the popup border instead of being clipped or layered beneath it.
+
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.
 

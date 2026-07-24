@@ -128,8 +128,6 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 
 Use `getAnchorPosition` to calculate the initial panel position from the trigger rectangle.
 
-<style>{``}</style>
-
 ```tsx preview file="./_snippets/floating-panel/anchor-position.tsx"
 
 ```
@@ -138,17 +136,15 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
 
 Read the panel API inline with `FloatingPanel.Context`.
 
-<style>{``}</style>
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/floating-panel/context.tsx"
+  ```
 
-```tsx preview file="./_snippets/floating-panel/context.tsx"
-
-```
+</PreviewFrame>
 
 ### Controlled Open
 
 Use Ark's details object to synchronize panel visibility with surrounding UI.
-
-<style>{``}</style>
 
 ```tsx preview file="./_snippets/floating-panel/controlled-open.tsx"
 
@@ -158,8 +154,6 @@ Use Ark's details object to synchronize panel visibility with surrounding UI.
 
 Control `position` when another part of the application needs the latest panel coordinates.
 
-<style>{``}</style>
-
 ```tsx preview file="./_snippets/floating-panel/controlled-position.tsx"
 
 ```
@@ -167,8 +161,6 @@ Control `position` when another part of the application needs the latest panel c
 ### Controlled Size
 
 Control `size` when the surrounding UI needs to store or display the current panel dimensions.
-
-<style>{``}</style>
 
 ```tsx preview file="./_snippets/floating-panel/controlled-size.tsx"
 
@@ -179,8 +171,6 @@ Control `size` when the surrounding UI needs to store or display the current pan
 `closeOnEscape` is enabled by default. Add `autoFocus` to `Content` when Escape should work
 immediately after opening a non-modal panel.
 
-<style>{``}</style>
-
 ```tsx preview file="./_snippets/floating-panel/escape-dismiss.tsx"
 
 ```
@@ -188,8 +178,6 @@ immediately after opening a non-modal panel.
 ### Lazy Mount
 
 Use Ark presence props when the panel should mount only after first open and unmount after exit.
-
-<style>{``}</style>
 
 ```tsx preview file="./_snippets/floating-panel/lazy-mount.tsx"
 
@@ -201,8 +189,6 @@ Use `FloatingPanel.useFloatingPanel` with `RootProvider` when controls outside t
 access to methods like `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to match the
 moduix root default during close animations.
 
-<style>{``}</style>
-
 ```tsx preview file="./_snippets/floating-panel/root-provider.tsx"
 
 ```
@@ -210,8 +196,6 @@ moduix root default during close animations.
 ### Advanced Customization
 
 Use individual `ResizeTrigger` parts when each resize axis needs its own placement or styling.
-
-<style>{``}</style>
 
 ```tsx preview file="./_snippets/floating-panel/advanced-customization.tsx"
 

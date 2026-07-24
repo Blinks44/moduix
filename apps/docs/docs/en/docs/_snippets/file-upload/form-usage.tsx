@@ -1,5 +1,6 @@
 import { Button, FileUpload } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const name = 'project-assets';
 const maxFiles = 3;
@@ -30,10 +31,12 @@ export default function FileUploadFormDemo() {
           </FileUpload.Context>
         </FileUpload.ItemGroup>
       </FileUpload>
-      <Button className="file-upload-submit" type="submit">
-        Submit
-      </Button>
-      <output className="file-upload-state">{submitted}</output>
+      <PreviewMeta>
+        <output>Submitted: {submitted}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }

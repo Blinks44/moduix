@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
-import '@/lib/moduix/styles/reset.css';
-import '@/lib/moduix/styles/style.css';
+import '@/styles/reset.css';
+import '@/styles/style.css';
 
 const nativeFocus = HTMLElement.prototype.focus;
 

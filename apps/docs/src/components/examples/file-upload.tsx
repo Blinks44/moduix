@@ -2,12 +2,6 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const fileUploadExampleCss = `
-  [data-slot='file-upload-root'],
-  [data-slot='file-upload-root-provider'] {
-    --moduix-file-upload-width: 24rem;
-    --moduix-file-upload-max-width: 100%;
-  }
-
   .file-upload-simple-demo {
     border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
     border-radius: var(--moduix-radius-lg);
@@ -50,7 +44,6 @@ export const fileUploadExampleCss = `
     line-height: var(--moduix-line-height-text-xs);
   }
 
-  .file-upload-state,
   .file-upload-error {
     margin: 0;
     color: var(--moduix-color-muted-foreground);
@@ -60,18 +53,6 @@ export const fileUploadExampleCss = `
 
   .file-upload-error {
     color: var(--moduix-color-destructive);
-  }
-
-  .file-upload-submit {
-    justify-self: start;
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-sm);
-    padding: var(--moduix-spacing-2) var(--moduix-spacing-3);
-    background-color: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font: inherit;
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
   }
 
 `;

@@ -108,7 +108,7 @@
     );
     max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
     max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
-    overflow: auto;
+    overflow: visible;
     padding-block: var(
       --moduix-menu-popup-padding-y,
       var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
@@ -143,8 +143,6 @@
 
   .arrow {
     --arrow-background: var(--moduix-menu-popup-bg, var(--moduix-color-popover));
-
-    z-index: -1;
   }
 
   .arrowTip {

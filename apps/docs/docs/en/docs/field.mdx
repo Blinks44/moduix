@@ -23,9 +23,11 @@ Use `Field` when one control needs a visible label, helper text, error text, or 
 
 Start with Ark parts: `Field`, `Field.Label`, one control part, and optional helper or error text.
 
-```tsx preview file="./_snippets/field/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/basic.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -94,82 +96,102 @@ rendered node.
 Use `Field` with `Checkbox` when the field owns shared helper text, error text, or required state
 around a single checkbox control.
 
-```tsx preview file="./_snippets/field/checkbox.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/checkbox.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Controlled Invalid
 
 Derive `invalid` from local state when the field should update as the user types.
 
-```tsx preview file="./_snippets/field/controlled-invalid.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/controlled-invalid.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Disabled
 
 Set `disabled` on the root to propagate disabled state to Ark field parts.
 
-```tsx preview file="./_snippets/field/disabled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/disabled.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Invalid
 
 Set `invalid` on the root when validation is owned by application state or a form library.
 
-```tsx preview file="./_snippets/field/invalid.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/invalid.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Native Select
 
 Use `NativeSelect` for a browser-native select with the field's label, state, and description wiring.
 
-```tsx preview file="./_snippets/field/native-select.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/native-select.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### RadioGroup
 
 Use `Field` with `RadioGroup` when one field label, helper text, or error message should describe
 the whole choice set instead of individual native radio inputs.
 
-```tsx preview file="./_snippets/field/radiogroup.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/radiogroup.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Read Only
 
 Set `readOnly` on the root when the control value can be copied but not edited.
 
-```tsx preview file="./_snippets/field/read-only.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/read-only.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Select
 
 Use the composed `Select` when the native control is not enough and you need searchable or custom option UI.
 
-```tsx preview file="./_snippets/field/select.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/select.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Textarea
 
 Use `Field.Textarea` when the field owns a multiline native textarea.
 
-```tsx preview file="./_snippets/field/textarea.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/textarea.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Textarea Autoresize
 
 Pass `autoresize` to let Ark keep the textarea height in sync with its content.
 
-```tsx preview file="./_snippets/field/textarea-autoresize.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/textarea-autoresize.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -177,15 +199,19 @@ Use `Field.Item` with root `target` when one label should point to a control ins
 
 <style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
 
-```tsx preview file="./_snippets/field/item-target.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/item-target.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 Use `useField` with `Field.RootProvider` when state must be owned outside the rendered tree.
 
-```tsx preview file="./_snippets/field/root-provider.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/field/root-provider.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ## Styling
 

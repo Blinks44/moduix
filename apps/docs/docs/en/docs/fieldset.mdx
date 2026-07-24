@@ -20,11 +20,11 @@ own label, description, and validation message.
 Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and the related controls.
 The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/basic.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/basic.tsx"
-
-```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -88,32 +88,32 @@ rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state inst
 Use the fieldset legend as the shared name for a related set of Ark checkbox controls. Each checkbox
 root renders its native input automatically for form submission and reset behavior.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/checkbox.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/checkbox.tsx"
-
-```
+</PreviewFrame>
 
 ### Disabled
 
 Set `disabled` on the root to disable native descendants and pass disabled state to Ark-aware
 controls that consume fieldset context.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/disabled.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/disabled.tsx"
-
-```
+</PreviewFrame>
 
 ### Field
 
 Nest `Field` components when each control also needs an individual label or description.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/field.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/field.tsx"
-
-```
+</PreviewFrame>
 
 ### Input with Select
 
@@ -122,31 +122,33 @@ logical value.
 
 <style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
 
-```tsx preview file="./_snippets/fieldset/input-with-select.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/input-with-select.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Invalid
 
 Set `invalid` on the fieldset for group-level validation. Set `invalid` on nested `Field`
 components when individual controls also need invalid styling and ARIA state.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/invalid.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/invalid.tsx"
-
-```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Create fieldset state outside the rendered tree with moduix `useFieldset` when sibling controls or
 reusable descendants need to coordinate with it.
 
-<style>{FieldsetDocs.fieldsetExampleCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/fieldset/root-provider.tsx"
+  ```
 
-```tsx preview file="./_snippets/fieldset/root-provider.tsx"
-
-```
+</PreviewFrame>
 
 ## Styling
 
