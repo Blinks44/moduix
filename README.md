@@ -177,9 +177,14 @@ The workspace uses npm, Turborepo, oxlint, oxfmt, and Changesets.
 
 ```bash
 npm install
-npm run build:react
-npm run dev
+npm run dev:docs
 ```
+
+`dev:docs` starts Rspress together with the React package watcher. It performs one clean initial
+React build, then updates `packages/react/dist` without removing it, so the docs always consume the
+same package exports that are published to npm. Do not run `npm run build:react` in parallel with
+this development command. Use the clean `npm run build:react` for release, CI, or a final package
+check.
 
 Before opening a pull request, run the repository checks in order:
 
@@ -189,6 +194,14 @@ npm run lint:check
 npm run build:react
 npm run tsc:check
 ```
+
+`npm run build:docs` is an optional production/CI check, not a development command: Turbo performs a
+clean React dependency build. Stop `npm run dev:docs` before running it; for normal docs work, keep
+using the watcher and do not run a separate build.
+
+`npm run tsc:check` intentionally does not trigger a package build. It can run while the docs watcher
+is active and checks the current `dist`; the full-check sequence above still builds React first for a
+clean CI or release environment.
 
 Run `npm run build:registry` after changing registry-shipped React source.
 

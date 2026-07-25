@@ -15,7 +15,7 @@
     "changeset:version": "changeset version",
     "changeset:release": "npm run build:react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
-    "dev:docs": "turbo run dev -F moduix-docs",
+    "dev:docs": "turbo run dev -F moduix-docs...",
     "dev:storybook": "turbo run storybook -F @moduix/react",
     "fmt:check": "oxfmt --check",
     "fmt:fix": "oxfmt",
@@ -23,7 +23,6 @@
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
     "publish:react": "npm publish -w @moduix/react",
-    "registry:validate": "shadcn registry validate",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"
   },

@@ -67,8 +67,14 @@ If a task spans UI and docs, apply skills in this order:
 
 ### Docs and Registry Sync
 
-- Before docs changes or docs validation that depend on React output, run `npm run build:react` from
-  the repo root.
+- For interactive docs development, use the already-running `npm run dev:docs` workflow. Turbo first
+  creates a clean React `dist`, then keeps it current through `rslib --watch --no-clean`; do not run
+  `npm run build:react` alongside that watcher.
+- `npm run build:docs` is an explicit production/CI check, not part of normal docs development or
+  routine agent validation. Its dependency graph performs a clean React build, so never run it while
+  `dev:docs` is active. Do not manually prebuild React for docs-only changes.
+- `npm run tsc:check` does not rebuild package output, so it is safe during `dev:docs`. It relies on
+  the package-shaped `dist` produced by the workflow's initial build and watcher.
 - After changes to a component in `packages/react`, update that component's local `.md` file in
   `packages/react/src/components` when behavior, API, styling contract, or recommended usage changed.
 - `registry/registry.json` is the source manifest for the hosted React registry. Source files in
@@ -83,7 +89,8 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- `npm run build:react` before `npm run tsc:check` when `packages/react` changed or docs depend on fresh React output
+- Run `npm run build:react` before `npm run tsc:check` when `packages/react` source, package output,
+  or Rslib configuration changed. Docs-only work does not require a separate React build.
 - Never run `npm run build:react` and `npm run tsc:check` in parallel. Wait for `build:react` to finish successfully before starting `tsc:check`.
-- `npm run tsc:check`
+- Run `npm run tsc:check`; it checks the current package-shaped `dist` without rebuilding it.
 - `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

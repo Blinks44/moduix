@@ -49,7 +49,7 @@
   "scripts": {
     "build": "rslib",
     "build:storybook": "storybook build",
-    "dev": "rslib --watch",
+    "dev": "rslib --watch --no-clean",
     "storybook": "storybook dev -p 6006 --no-open",
     "test": "rstest run",
     "test:watch": "rstest --watch",

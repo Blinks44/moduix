@@ -11,6 +11,7 @@
   display: grid;
   min-height: 22rem;
   place-items: center;
+  padding: var(--moduix-spacing-6);
   background: var(--moduix-color-background);
 }
 

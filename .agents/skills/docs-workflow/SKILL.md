@@ -17,6 +17,19 @@ Use this skill for work in `apps/docs`, the Rspress 2 documentation app.
 Use Rspress 2's native MDX, preview-plugin, theme, and runtime APIs. Do not add compatibility
 layers for retired documentation frameworks.
 
+## Local development
+
+- Use the existing root `npm run dev:docs` workflow for interactive docs work. It starts Rspress and
+  the `@moduix/react` watcher together, after an initial clean package build.
+- Do not start a separate React watcher or run `npm run build:react` alongside `dev:docs`: the
+  watcher updates package-shaped `dist` with `--no-clean`, avoiding a transient missing-package
+  error in Rspress.
+- Do not run `npm run build:docs` as routine docs validation: Turbo runs a clean React dependency
+  build and can recreate the transient missing-`dist` window. Reserve it for an explicit
+  production/CI check, with `dev:docs` stopped. Docs-only work must not pre-run `build:react`.
+- `npm run tsc:check` checks the current package-shaped `dist` without rebuilding it, so it is safe
+  during docs work after `dev:docs` has completed its initial build.
+
 ## Read First
 
 1. `AGENTS.md`

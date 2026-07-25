@@ -241,11 +241,58 @@ behind the active drawer while leaving a visible edge.
 
 ### Non-Modal
 
-Set `modal={false}` when the page must remain interactive while the drawer is open. Ark makes the
-positioner transparent to pointer input and keeps the drawer content interactive; use this pattern
-sparingly because non-modal drawers require careful focus and dismissal design.
+Set `modal={false}` when the page must remain interactive and scrollable while the drawer is open.
+For touch devices, make `Content` non-draggable and use the Header as `Grabber`: it prevents one
+vertical gesture from moving both the drawer and the page. Put `data-no-drag` on every interactive
+Header control, such as the close button. If the whole content must be draggable instead, set
+`preventScroll` to `true`; outside controls stay interactive, but background scrolling is locked
+while the drawer is open.
 
-<style>{`.non-modal-drawer { --moduix-drawer-shadow: var(--moduix-shadow-lg); }`}</style>
+<style>{`
+      .non-modal-drawer {
+        --moduix-drawer-max-height: min(28rem, 80dvh);
+        --moduix-drawer-shadow: var(--moduix-shadow-lg);
+      }
+
+      .non-modal-grabber {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--moduix-spacing-2);
+
+        & > [data-slot='drawer-grabber-indicator'] {
+          align-self: center;
+        }
+
+        & > [data-slot='drawer-header'] {
+          width: 100%;
+        }
+      }
+
+      .non-modal-scroll-region {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .non-modal-scroll-area,
+      .non-modal-scroll-viewport {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .non-modal-scroll-viewport {
+        padding-inline-end: var(--moduix-spacing-2);
+      }
+
+      .non-modal-scroll-content {
+        display: grid;
+        gap: var(--moduix-spacing-3);
+
+        & p {
+          margin: 0;
+        }
+      }
+    `}</style>
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/drawer/non-modal.tsx"

@@ -20,6 +20,21 @@ Apply these rules when writing or reviewing Rslib library projects.
 - Use `rslib --watch` to build in watch mode for local development
 - Use `rslib inspect` to inspect final Rslib/Rsbuild/Rspack configs
 
+### moduix docs integration
+
+- For this repository's docs development, start the root `npm run dev:docs` workflow instead of an
+  independent Rslib command. Turbo runs an initial clean `@moduix/react` build, then starts
+  `rslib --watch --no-clean` alongside Rspress.
+- `--no-clean` is dev-only: it keeps exported files present while Rspress resolves the package. Do
+  not use it for release, CI, `npm pack`, or a final package check; those must use the normal clean
+  `npm run build:react`.
+- Do not invoke `npm run build:react` concurrently with `dev:docs`, because its clean step recreates
+  the same transient missing-`dist` window that this workflow avoids.
+- `npm run build:docs` also invokes that clean React dependency build. It is for an explicit
+  production/CI check only, never routine development validation while `dev:docs` is running.
+- `npm run tsc:check` deliberately has no `^build` dependency: it checks the `dist` maintained by
+  `dev:docs` without interrupting the watcher.
+
 ## Output
 
 - Prefer to build pure-ESM package with `"type": "module"` in `../../../package.json`

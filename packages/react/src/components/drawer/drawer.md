@@ -102,7 +102,10 @@ focusable element that preserves button behavior.
   `snapToSequentialPoints` pass through.
 - Modal and controlled modes: Ark `modal`, `open`, and `onOpenChange(details)` behavior is unchanged.
 - Scroll and drag controls: `preventDragOnScroll`, `data-no-drag`, and `Content draggable={false}`
-  are supported.
+  are supported. In non-modal, page-scrollable drawers, set `Content draggable={false}` and use
+  `Grabber` as the drag handle so a vertical touch gesture cannot move both the drawer and the page.
+  Set `preventScroll` to `true` instead when drag must begin from the whole content; this preserves
+  outside pointer interaction but locks background scrolling while the drawer is open.
 - Multiple triggers: `Trigger value`, `triggerValue`, and
   `onTriggerValueChange(details)` are supported.
 - Nested drawers: render separate `useDrawer` states with `RootProvider` siblings so each drawer
