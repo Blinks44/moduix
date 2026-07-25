@@ -25,7 +25,7 @@ export const aspectRatioGridCss = `
   display: grid;
   inline-size: 100%;
   gap: var(--moduix-spacing-4);
-  align-items: start;
+  align-items: stretch;
 }
 
 @media (min-width: 40rem) {

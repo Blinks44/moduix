@@ -33,9 +33,11 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
 - Root supports Ark factory polymorphism via `asChild`.
 - Root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
   `data-slot="aspect-ratio-root"`.
+- Invalid ratios throw: pass only finite numbers greater than zero.
 - The resolved ratio is written to an internal CSS custom property and consumed by the root
   `aspect-ratio` rule; consumer `style.aspectRatio` or root CSS can still override it.
-- Direct `img`, `video`, `iframe`, `canvas`, and `svg` children automatically fill the frame.
+- Direct `img`, `video`, `iframe`, `canvas`, and `svg` children automatically fill the frame. Set
+  `object-fit` on images and video to choose whether their content is cropped or letterboxed.
 - Root default styles keep `position: relative`, `overflow: hidden`, and a moduix radius token.
 
 ## Anatomy and exported parts
@@ -116,6 +118,8 @@ Primary CSS variable:
 - Keep the wrapper thin; do not reintroduce preset aliases or compatibility translation.
 - Keep `position: relative` on the root for absolute-fill patterns such as Next.js `Image fill`.
 - Keep child auto-fill limited to direct `img`, `video`, `iframe`, `canvas`, and `svg` children.
+- Keep media fitting opt-in: callers set `object-fit` according to whether cropping or containment
+  is appropriate for their content.
 
 ## Local changelog
 
@@ -127,6 +131,8 @@ Primary CSS variable:
   frame behavior.
 - 2026-06-17: Migrated `AspectRatio` to an Ark-aligned factory wrapper, added `AspectRatio.Root`,
   removed preset ratio aliases, and aligned docs/examples to numeric `ratio`.
+- 2026-07-25: Reject invalid ratios, reserve the internal ratio variable for the component contract,
+  and document explicit media fitting.
 - 2026-06-18: Audited the Ark factory contract, documented valid ratio constraints and `asChild`,
   aligned the recommended short root form, and fixed the registry dependency.
 - 2026-06-24: Re-audited the local-only Ark factory contract, refreshed the official Ark guide

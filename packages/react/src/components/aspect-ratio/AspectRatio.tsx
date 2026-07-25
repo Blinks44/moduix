@@ -11,6 +11,10 @@ type AspectRatioRootProps = HTMLArkProps<'div'> & {
 
 const AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRootProps>(
   function AspectRatioRoot({ ratio, className, style, ...props }, ref) {
+    if (!Number.isFinite(ratio) || ratio <= 0) {
+      throw new RangeError('AspectRatio `ratio` must be a finite number greater than zero.');
+    }
+
     return (
       <ark.div
         ref={ref}
@@ -18,7 +22,7 @@ const AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRoot
         data-part="root"
         data-slot="aspect-ratio-root"
         className={clsx(styles.root, normalizeClassName(className))}
-        style={{ '--aspect-ratio-value': ratio, ...style } as CSSProperties}
+        style={{ ...style, '--aspect-ratio-value': ratio } as CSSProperties}
         {...props}
       />
     );

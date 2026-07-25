@@ -68,11 +68,11 @@ If a task spans UI and docs, apply skills in this order:
 ### Docs and Registry Sync
 
 - For interactive docs development, use the already-running `npm run dev:docs` workflow. Its React
-  watcher keeps `dist` current through `rslib --watch --no-clean`; do not manually run
-  `npm run build:react` while that workflow is active, including after changes in `packages/react`.
+  watcher keeps `dist` current through `rslib --watch --no-clean`, including after changes in
+  `packages/react`.
 - `npm run build:docs` is an explicit production/CI check, not part of normal docs development or
   routine agent validation. Its dependency graph performs a clean React build, so never run it while
-  `dev:docs` is active. Do not manually prebuild React for docs-only changes.
+  `dev:docs` is active.
 - `npm run tsc:check` does not rebuild package output, so it is safe during `dev:docs`. It relies on
   the package-shaped `dist` produced by the workflow's initial build and watcher.
 - After changes to a component in `packages/react`, update that component's local `.md` file in
@@ -89,10 +89,6 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- When `dev:docs` is active, do not run `npm run build:react`: its watcher already maintains the
-  package-shaped `dist` for `npm run tsc:check`, including after `packages/react` changes.
-- Outside that development workflow, run `npm run build:react` before `npm run tsc:check` when
-  `packages/react` source, package output, or Rslib configuration changed. Never run the two commands
-  in parallel; wait for `build:react` to finish successfully before starting `tsc:check`.
-- Run `npm run tsc:check`; it checks the current package-shaped `dist` without rebuilding it.
+- Run `npm run tsc:check`; it checks the package-shaped `dist` maintained by the Rsbuild watcher
+  without rebuilding it.
 - `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

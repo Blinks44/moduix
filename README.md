@@ -182,9 +182,7 @@ npm run dev:docs
 
 `dev:docs` starts Rspress together with the React package watcher. The watcher updates
 `packages/react/dist` without removing it, so the docs always consume the same package exports that
-are published to npm. Do not manually run `npm run build:react` while this development command is
-active, even after React package changes. Use the clean `npm run build:react` only for release, CI,
-or a final package check with the watcher stopped.
+are published to npm.
 
 For a clean CI or release check, with `dev:docs` stopped, run the repository checks in order:
 
@@ -200,8 +198,8 @@ clean React dependency build. Stop `npm run dev:docs` before running it; for nor
 using the watcher and do not run a separate build.
 
 `npm run tsc:check` intentionally does not trigger a package build. It can run while the docs watcher
-is active and checks the current `dist`; do not prebuild React in that development flow. The full-check
-sequence above still builds React first for a clean CI or release environment.
+is active and checks the current `dist`. The full-check sequence above builds React first only for a
+clean CI or release environment.
 
 Run `npm run build:registry` after changing registry-shipped React source.
 
