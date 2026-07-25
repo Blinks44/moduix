@@ -17,6 +17,7 @@ export default function MenuWithArrowDemo() {
           <Menu.Item value="new-file">New File</Menu.Item>
           <Menu.Item value="open">Open...</Menu.Item>
           <Menu.Item value="save">Save</Menu.Item>
+          <Menu.Item value="save-as">Save As...</Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

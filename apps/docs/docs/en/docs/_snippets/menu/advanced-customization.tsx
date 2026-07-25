@@ -20,6 +20,7 @@ export default function AdvancedCustomizationMenuDemo() {
               <span>Duplicate project</span>
               <span aria-hidden="true">⌘D</span>
             </Menu.Item>
+            <Menu.Item value="settings">Project settings</Menu.Item>
           </Menu.ItemGroup>
           <Menu.Separator />
           <Menu.Item value="archive" tone="destructive">

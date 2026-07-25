@@ -15,7 +15,7 @@ const workspaceCollection = createListCollection({ items: workspaceOptions });
 
 export function Home() {
   return (
-    <div className={`${styles.home} moduix-home`}>
+    <main className={`${styles.home} moduix-home`}>
       <div className={styles.spotlight} />
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.content}>
@@ -89,7 +89,7 @@ export function Home() {
         </div>
         <DataTable />
       </section>
-    </div>
+    </main>
   );
 }
 

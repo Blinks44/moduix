@@ -27,6 +27,14 @@ export default function RadioItemsMenuDemo() {
                 <Menu.ItemIndicator />
                 <Menu.ItemText>Date Modified</Menu.ItemText>
               </Menu.RadioItem>
+              <Menu.RadioItem value="size">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>File Size</Menu.ItemText>
+              </Menu.RadioItem>
+              <Menu.RadioItem value="type">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>File Type</Menu.ItemText>
+              </Menu.RadioItem>
             </Menu.RadioItemGroup>
           </Menu.ItemGroup>
         </Menu.Content>

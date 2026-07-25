@@ -39,6 +39,18 @@ npm install @moduix/react @ark-ui/react
 `react`, `react-dom`, and `@ark-ui/react` are peer dependencies, so the package does not ship
 duplicate framework or primitive runtimes.
 
+## Compatibility
+
+| Environment | Supported versions                                                        |
+| ----------- | ------------------------------------------------------------------------- |
+| React       | 18 and 19                                                                 |
+| Browsers    | The latest two stable releases of Chrome, Edge, and Firefox; Safari 16.4+ |
+| SSR         | Node.js 20+ with native ESM imports                                       |
+
+Published JavaScript uses ES2023 syntax. `@moduix/react` is ESM-only: use `import` (or dynamic
+`import()` from CommonJS); `require()` is not supported. Transpile the package in your application
+build if you support an older environment.
+
 ## Add Styles
 
 Import the required foundation stylesheet once in your application entry point:

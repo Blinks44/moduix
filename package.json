@@ -11,6 +11,7 @@
     "build:docs": "turbo run build -F moduix-docs",
     "build:react": "turbo run build -F @moduix/react",
     "build:registry": "shadcn registry validate registry/registry.json && rm -rf apps/docs/docs/public/r/react && shadcn build registry/registry.json --output apps/docs/docs/public/r/react && oxfmt",
+    "check:package": "publint packages/react && attw --pack packages/react --entrypoints . --profile esm-only && npm pack -w @moduix/react --dry-run",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "npm run build:react && changeset publish",
@@ -27,11 +28,13 @@
     "tsc:check": "turbo run tsc:check"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "oxfmt": "^0.59.0",
     "oxlint": "^1.71.0",
+    "publint": "^0.3.22",
     "shadcn": "^4.12.0",
     "turbo": "^2.10.0"
   },

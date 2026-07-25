@@ -162,7 +162,7 @@ Styles target Ark state and layout hooks:
 - `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
   `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`
 - `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`
-- `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
+- `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
 
@@ -196,6 +196,9 @@ Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provid
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Local changelog
+
+- 2026-07-25: Scope the open trigger treatment to Ark's `data-current` so a shared menu only
+  highlights the trigger that opened it.
 
 - 2026-07-24: Let `Menu.Arrow` extend beyond and paint over the content outline, so its stroke
   joins the popup border instead of being clipped or layered beneath it.

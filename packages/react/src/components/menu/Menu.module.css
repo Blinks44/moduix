@@ -37,7 +37,7 @@
       background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
-    &[data-state='open'] {
+    &[data-current][data-state='open'] {
       background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 

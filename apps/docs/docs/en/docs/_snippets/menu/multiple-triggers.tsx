@@ -36,7 +36,11 @@ export default function MultipleTriggersMenuDemo() {
       <Menu.Positioner>
         <Menu.Content className="menu-content">
           <Menu.Item value="reply">Reply</Menu.Item>
+          <Menu.Item value="forward">Forward</Menu.Item>
           <Menu.Item value="archive">Archive</Menu.Item>
+          <Menu.Item value="delete" tone="destructive">
+            Delete
+          </Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

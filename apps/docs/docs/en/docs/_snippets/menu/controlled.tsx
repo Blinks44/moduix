@@ -17,6 +17,9 @@ export default function ControlledMenuDemo() {
           <Menu.Item value="edit">Edit</Menu.Item>
           <Menu.Item value="duplicate">Duplicate</Menu.Item>
           <Menu.Item value="archive">Archive</Menu.Item>
+          <Menu.Item value="delete" tone="destructive">
+            Delete
+          </Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

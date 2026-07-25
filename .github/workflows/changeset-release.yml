@@ -75,6 +75,9 @@ jobs:
       - name: Build React
         run: npm run build:react
 
+      - name: Check package contract
+        run: npm run check:package
+
       - name: Check TypeScript
         run: npm run tsc:check
 
