@@ -67,9 +67,9 @@ If a task spans UI and docs, apply skills in this order:
 
 ### Docs and Registry Sync
 
-- For interactive docs development, use the already-running `npm run dev:docs` workflow. Turbo first
-  creates a clean React `dist`, then keeps it current through `rslib --watch --no-clean`; do not run
-  `npm run build:react` alongside that watcher.
+- For interactive docs development, use the already-running `npm run dev:docs` workflow. Its React
+  watcher keeps `dist` current through `rslib --watch --no-clean`; do not manually run
+  `npm run build:react` while that workflow is active, including after changes in `packages/react`.
 - `npm run build:docs` is an explicit production/CI check, not part of normal docs development or
   routine agent validation. Its dependency graph performs a clean React build, so never run it while
   `dev:docs` is active. Do not manually prebuild React for docs-only changes.
@@ -89,8 +89,10 @@ After code changes, run from repo root:
 
 - `npm run fmt:fix`
 - `npm run lint:check`
-- Run `npm run build:react` before `npm run tsc:check` when `packages/react` source, package output,
-  or Rslib configuration changed. Docs-only work does not require a separate React build.
-- Never run `npm run build:react` and `npm run tsc:check` in parallel. Wait for `build:react` to finish successfully before starting `tsc:check`.
+- When `dev:docs` is active, do not run `npm run build:react`: its watcher already maintains the
+  package-shaped `dist` for `npm run tsc:check`, including after `packages/react` changes.
+- Outside that development workflow, run `npm run build:react` before `npm run tsc:check` when
+  `packages/react` source, package output, or Rslib configuration changed. Never run the two commands
+  in parallel; wait for `build:react` to finish successfully before starting `tsc:check`.
 - Run `npm run tsc:check`; it checks the current package-shaped `dist` without rebuilding it.
 - `npm run build:registry` after validation when registry-shipped source code in `packages/react` changed

@@ -20,10 +20,10 @@ layers for retired documentation frameworks.
 ## Local development
 
 - Use the existing root `npm run dev:docs` workflow for interactive docs work. It starts Rspress and
-  the `@moduix/react` watcher together, after an initial clean package build.
-- Do not start a separate React watcher or run `npm run build:react` alongside `dev:docs`: the
-  watcher updates package-shaped `dist` with `--no-clean`, avoiding a transient missing-package
-  error in Rspress.
+  the `@moduix/react` watcher together.
+- Do not start a separate React watcher or manually run `npm run build:react` while `dev:docs` is
+  active, including after React package changes: the watcher updates package-shaped `dist` with
+  `--no-clean`, avoiding a transient missing-package error in Rspress.
 - Do not run `npm run build:docs` as routine docs validation: Turbo runs a clean React dependency
   build and can recreate the transient missing-`dist` window. Reserve it for an explicit
   production/CI check, with `dev:docs` stopped. Docs-only work must not pre-run `build:react`.

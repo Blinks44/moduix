@@ -58,3 +58,16 @@
     outline-offset: 2px;
   }
 }
+.form {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--moduix-spacing-2);
+  align-items: center;
+  justify-content: center;
+}
