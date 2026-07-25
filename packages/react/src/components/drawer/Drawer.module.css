@@ -150,7 +150,7 @@
     width: min(var(--moduix-drawer-width, 100%), 100vw);
     height: var(--moduix-drawer-size, 100%);
     max-height: var(--moduix-drawer-max-height, 80dvh);
-    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-2))
+    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-3))
       var(--moduix-drawer-padding-x, var(--moduix-spacing-6))
       calc(
         var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-bottom, 0px)
@@ -366,7 +366,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: var(--moduix-drawer-grabber-padding, var(--moduix-spacing-1)) 0;
+    padding: var(--moduix-drawer-grabber-padding, 0) 0;
     cursor: grab;
     user-select: none;
 
