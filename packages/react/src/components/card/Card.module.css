@@ -133,6 +133,10 @@
       width: 100%;
       max-width: 100%;
     }
+
+    & > picture > img {
+      display: block;
+    }
   }
 
   .body {

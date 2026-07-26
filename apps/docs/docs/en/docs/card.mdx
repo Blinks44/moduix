@@ -104,12 +104,6 @@ in the title, then extends the hit area across the card while separate controls 
 
 `Card.Action` is moduix sugar for a compact trailing status or control.
 
-<style>{`
-      [data-slot="card-action"] {
-        align-self: start;
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/header-action.tsx"
 
@@ -119,26 +113,6 @@ in the title, then extends the hit area across the card while separate controls 
 ### Horizontal
 
 Use consumer layout CSS to create a horizontal card without adding a presentation-specific prop.
-
-<style>{`
-    .horizontalCard {
-      display: grid;
-      grid-template-columns: minmax(10rem, 0.8fr) minmax(0, 1.2fr);
-      overflow: hidden;
-    }
-
-    .image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .content {
-      display: flex;
-      min-width: 0;
-      flex-direction: column;
-    }
-  `}</style>
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/card/horizontal.tsx"
@@ -151,12 +125,6 @@ Use consumer layout CSS to create a horizontal card without adding a presentatio
 
 Use `Card.Link` when navigation and independent actions must coexist.
 
-<style>{`
-      [data-slot="card-link"]:focus-visible::after {
-        outline-color: var(--moduix-color-ring);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/overlay-link.tsx"
 
@@ -166,12 +134,6 @@ Use `Card.Link` when navigation and independent actions must coexist.
 ### Root as Link
 
 Use `asChild` when the entire card is one navigation target and contains no nested controls.
-
-<style>{`
-    a[data-slot="card-root"] {
-      text-decoration: none;
-    }
-  `}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/root-as-link.tsx"
@@ -184,18 +146,6 @@ Use `asChild` when the entire card is one navigation target and contains no nest
 
 Use `sm`, `md`, and `lg` to change card padding and title scale.
 
-<style>{`
-      .cards {
-        display: grid;
-        inline-size: 100%;
-        gap: var(--moduix-spacing-4);
-      }
-
-      .card {
-        width: 100%;
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/sizes.tsx"
 
@@ -205,18 +155,6 @@ Use `sm`, `md`, and `lg` to change card padding and title scale.
 ### Variants
 
 Use the Chakra-aligned variants to communicate surface hierarchy.
-
-<style>{`
-    .cards {
-      display: grid;
-      inline-size: 100%;
-      gap: var(--moduix-spacing-4);
-    }
-
-    .card {
-      width: 100%;
-    }
-  `}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/variants.tsx"
@@ -229,24 +167,6 @@ Use the Chakra-aligned variants to communicate surface hierarchy.
 
 Compose profile media inside the header when identity is the card's subject.
 
-<style>{`
-      .profile {
-        display: flex;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-
-      .avatar {
-        display: inline-grid;
-        width: 3rem;
-        height: 3rem;
-        place-items: center;
-        border-radius: var(--moduix-radius-full);
-        background: var(--moduix-color-primary);
-        color: var(--moduix-color-primary-foreground);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/with-avatar.tsx"
 
@@ -256,15 +176,6 @@ Compose profile media inside the header when identity is the card's subject.
 ### With Image
 
 Use `Card.Media` when leading media should span the card width with predictable clipping.
-
-<style>{`
-    .image {
-      aspect-ratio: 16 / 9;
-      display: block;
-      width: 100%;
-      object-fit: cover;
-    }
-  `}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/with-image.tsx"
@@ -277,18 +188,6 @@ Use `Card.Media` when leading media should span the card width with predictable 
 
 Compose the root as a form when the card groups related fields and actions.
 
-<style>{`
-      form [data-slot="card-body"] {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
-
-      form label {
-        display: grid;
-        gap: var(--moduix-spacing-1);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/card/within-form.tsx"
 
@@ -298,44 +197,6 @@ Compose the root as a form when the card groups related fields and actions.
 ### Advanced Customization
 
 Bypass `Card.Media` when you need fully custom media framing and want to restyle the card with low-level hooks.
-
-<style>{`
-    .mediaShell {
-      overflow: hidden;
-      border-start-start-radius: var(--moduix-card-radius);
-      border-start-end-radius: var(--moduix-card-radius);
-    }
-
-    .image {
-      aspect-ratio: 16 / 9;
-      display: block;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    .capacity {
-      display: grid;
-      gap: var(--moduix-spacing-2);
-      color: var(--moduix-color-foreground);
-      font-size: var(--moduix-text-2xl);
-      font-weight: var(--moduix-weight-semibold);
-      line-height: var(--moduix-line-height-text-2xl);
-    }
-
-    .capacityBar {
-      height: 0.5rem;
-      overflow: hidden;
-      border-radius: var(--moduix-radius-full);
-      background-color: var(--moduix-color-muted);
-    }
-
-    .capacityFill {
-      width: 64%;
-      height: 100%;
-      border-radius: inherit;
-      background-color: var(--moduix-color-primary);
-    }
-  `}</style>
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/card/advanced-customization.tsx"

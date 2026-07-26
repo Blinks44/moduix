@@ -4,7 +4,6 @@ import type { CSSProperties } from 'react';
 export default function CardAdvancedCustomizationDemo() {
   return (
     <Card
-      className="card"
       style={
         {
           '--moduix-card-bg':
@@ -16,9 +15,15 @@ export default function CardAdvancedCustomizationDemo() {
         } as CSSProperties
       }
     >
-      <div className="mediaShell">
+      <div
+        style={{
+          overflow: 'hidden',
+          borderStartStartRadius: 'var(--moduix-card-radius)',
+          borderStartEndRadius: 'var(--moduix-card-radius)',
+        }}
+      >
         <img
-          className="image"
+          style={{ aspectRatio: '16 / 9', display: 'block', width: '100%', objectFit: 'cover' }}
           src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1280&q=80"
           alt="A warehouse with neatly stacked delivery boxes."
         />
@@ -30,10 +35,33 @@ export default function CardAdvancedCustomizationDemo() {
         <Card.Description>Bypasses `Card.Media` to fully control media framing.</Card.Description>
       </Card.Header>
       <Card.Body>
-        <div className="capacity">
+        <div
+          style={{
+            display: 'grid',
+            gap: 'var(--moduix-spacing-2)',
+            color: 'var(--moduix-color-foreground)',
+            fontSize: 'var(--moduix-text-2xl)',
+            fontWeight: 'var(--moduix-weight-semibold)',
+            lineHeight: 'var(--moduix-line-height-text-2xl)',
+          }}
+        >
           <span>64%</span>
-          <div className="capacityBar">
-            <div className="capacityFill" />
+          <div
+            style={{
+              height: '0.5rem',
+              overflow: 'hidden',
+              borderRadius: 'var(--moduix-radius-full)',
+              backgroundColor: 'var(--moduix-color-muted)',
+            }}
+          >
+            <div
+              style={{
+                width: '64%',
+                height: '100%',
+                borderRadius: 'inherit',
+                backgroundColor: 'var(--moduix-color-primary)',
+              }}
+            />
           </div>
         </div>
       </Card.Body>

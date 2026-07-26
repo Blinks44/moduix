@@ -8,7 +8,7 @@ const content = {
 
 export default function CardDemo() {
   return (
-    <Card className="card">
+    <Card>
       <Card.Header>
         <Card.Title>{content.title}</Card.Title>
         <Card.Description>{content.description}</Card.Description>

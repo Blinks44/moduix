@@ -13,7 +13,11 @@ export default function CardWithImageDemo() {
   return (
     <Card>
       <Card.Media>
-        <img className="image" src={product.image} alt={product.imageAlt} />
+        <img
+          style={{ aspectRatio: '16 / 9', display: 'block', width: '100%', objectFit: 'cover' }}
+          src={product.image}
+          alt={product.imageAlt}
+        />
       </Card.Media>
       <Card.Header>
         <Card.Title>{product.title}</Card.Title>

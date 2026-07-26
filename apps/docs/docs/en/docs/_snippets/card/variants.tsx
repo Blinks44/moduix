@@ -9,9 +9,9 @@ const descriptions = {
 
 export default function CardVariantsDemo() {
   return (
-    <div className="cards">
+    <div style={{ display: 'grid', inlineSize: '100%', gap: 'var(--moduix-spacing-4)' }}>
       {variants.map((variant) => (
-        <Card key={variant} className="card" variant={variant}>
+        <Card key={variant} variant={variant} style={{ width: '100%' }}>
           <Card.Header>
             <Card.Title>{variant}</Card.Title>
             <Card.Description>{descriptions[variant]}</Card.Description>
