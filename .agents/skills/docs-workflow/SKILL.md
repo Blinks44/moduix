@@ -123,6 +123,10 @@ Inside `## Styling`, always use:
 - Close the `preview` directive with exactly three backticks. The surrounding four-backtick fence
   in this instruction is only Markdown escaping; do not copy it into an MDX page.
 - Put example-local CSS in the imported snippet module or a colocated CSS Module when the example needs it.
+- Rspress compiles every preview snippet from a virtual directory. Do not use relative CSS imports
+  (for example, `import styles from './example.module.css'`) in a preview snippet: they resolve from
+  that virtual directory instead of the snippet's directory. Keep small demo layout styles inline;
+  use a docs-app global stylesheet only when shared styling is genuinely necessary.
 - On component pages in `apps/docs/docs/en/docs/*.mdx`, every runnable preview should use a docs-local
   snippet file in `./_snippets/<component>/`.
 - Use `basic.tsx` for the `## Basic` section and stable heading-based filenames for the rest, such

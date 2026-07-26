@@ -13,7 +13,12 @@ export default function CheckboxGroupWithFormDemo() {
 
   return (
     <form
-      className="checkbox-form"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
       onSubmit={(event) => {
         event.preventDefault();
         setSubmitted(

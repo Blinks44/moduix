@@ -7,7 +7,12 @@ export default function CheckboxWithFormDemo() {
 
   return (
     <form
-      className="checkbox-form"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
