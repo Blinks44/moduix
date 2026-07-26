@@ -7,7 +7,13 @@ const containerContent = {
 
 export default function ContainerDemo() {
   return (
-    <Container className="container">
+    <Container
+      style={{
+        paddingBlock: 'var(--moduix-spacing-4)',
+        borderBlock: 'var(--moduix-border-width-sm) dashed var(--moduix-color-border)',
+        backgroundColor: 'var(--moduix-color-muted)',
+      }}
+    >
       <Heading as="h3" size="lg">
         {containerContent.title}
       </Heading>

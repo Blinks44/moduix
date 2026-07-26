@@ -3,17 +3,17 @@ import type { CssPropertyInput } from '../mdx/reference';
 export const containerOverrideCssProperties = [
   {
     name: '--moduix-container-gutter-sm',
-    defaultValue: 'clamp(0.75rem, 3vw, 1.5rem)',
+    defaultValue: 'clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))',
     description: 'Controls small inline gutters.',
   },
   {
     name: '--moduix-container-gutter-md',
-    defaultValue: 'clamp(1rem, 4vw, 2rem)',
+    defaultValue: 'clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))',
     description: 'Controls medium inline gutters.',
   },
   {
     name: '--moduix-container-gutter-lg',
-    defaultValue: 'clamp(1.5rem, 5vw, 3rem)',
+    defaultValue: 'clamp(var(--moduix-spacing-6), 5vw, 3rem)',
     description: 'Controls large inline gutters.',
   },
   {

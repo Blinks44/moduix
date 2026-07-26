@@ -18,15 +18,6 @@ Ark UI does not ship a dedicated `container` primitive. Moduix builds this compo
 Use `Container` when the main concern is readable inline width. It centers a content column,
 applies responsive inline gutters, and stays out of vertical spacing decisions.
 
-<style>{`
-      .container {
-        padding-block: var(--moduix-spacing-4);
-        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--moduix-color-muted);
-      }
-
-    `}</style>
-
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/container/basic.tsx"
 
@@ -64,6 +55,8 @@ where the main requirement is a centered content column with predictable gutters
 
 Use `size` to choose the content width and `gutter` to control the edge padding. Use `asChild` when
 the wrapper itself should also carry semantic meaning such as `main`, `section`, or `article`.
+`asChild` requires exactly one semantic child; the ref then points to that child instead of the
+default `div`.
 
 ### When to go custom
 
@@ -81,7 +74,7 @@ The custom path here is small:
 
 | Prop      | Default | Values / Notes                       |
 | --------- | ------- | ------------------------------------ |
-| `size`    | `lg`    | `xs`, `sm`, `md`, `lg`, `xl`, `full` |
+| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (uncapped) |
 | `gutter`  | `md`    | `none`, `sm`, `md`, `lg`             |
 | `asChild` | `false` | Ark factory composition              |
 
@@ -99,21 +92,6 @@ The custom path here is small:
 
 Use `gutter` to control responsive inline padding.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-      }
-
-      .container {
-        padding-block: var(--moduix-spacing-4);
-        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--moduix-color-muted);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/container/gutters.tsx"
 
@@ -125,44 +103,8 @@ Use `gutter` to control responsive inline padding.
 
 Use `asChild` when the layout wrapper should also describe document structure.
 
-<style>{`
-      .container {
-        padding-block: var(--moduix-spacing-4);
-        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--moduix-color-muted);
-      }
-
-    `}</style>
-
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/container/semantic-element.tsx"
-
-```
-
-</PreviewFrame>
-
-### Sizes
-
-Use `size` to choose the content column width. `full` fills the available inline space while
-preserving the selected gutter.
-
-<style>{`
-      .stack {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-      }
-
-      .container {
-        padding-block: var(--moduix-spacing-4);
-        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--moduix-color-muted);
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/container/sizes.tsx"
 
 ```
 
@@ -171,20 +113,6 @@ preserving the selected gutter.
 ### With Bleed
 
 Keep the text column constrained and let only the wider child opt out.
-
-<style>{`
-      .container {
-        padding-block: var(--moduix-spacing-4);
-        border-block: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        background-color: var(--moduix-color-muted);
-      }
-
-      .bleedSurface {
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/container/with-bleed.tsx"

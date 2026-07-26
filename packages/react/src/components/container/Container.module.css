@@ -1,6 +1,9 @@
 @layer moduix.components {
   .root {
-    --moduix-container-gutter: var(--moduix-container-gutter-md, clamp(1rem, 4vw, 2rem));
+    --moduix-container-gutter: var(
+      --moduix-container-gutter-md,
+      clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))
+    );
     --moduix-container-max-width: var(--moduix-container-max-width-lg, 72rem);
 
     box-sizing: border-box;
@@ -36,11 +39,17 @@
     }
 
     &[data-gutter='sm'] {
-      --moduix-container-gutter: var(--moduix-container-gutter-sm, clamp(0.75rem, 3vw, 1.5rem));
+      --moduix-container-gutter: var(
+        --moduix-container-gutter-sm,
+        clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))
+      );
     }
 
     &[data-gutter='lg'] {
-      --moduix-container-gutter: var(--moduix-container-gutter-lg, clamp(1.5rem, 5vw, 3rem));
+      --moduix-container-gutter: var(
+        --moduix-container-gutter-lg,
+        clamp(var(--moduix-spacing-6), 5vw, 3rem)
+      );
     }
   }
 }
