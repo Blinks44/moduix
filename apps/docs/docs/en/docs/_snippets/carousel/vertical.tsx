@@ -30,7 +30,7 @@ const slides = [
 
 export default function VerticalCarousel() {
   return (
-    <Carousel orientation="vertical" slideCount={slides.length}>
+    <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Vertical gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

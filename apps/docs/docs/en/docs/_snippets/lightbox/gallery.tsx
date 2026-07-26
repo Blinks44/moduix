@@ -52,7 +52,8 @@ export default function GalleryLightboxDemo() {
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={activeImage.alt}>
           <Lightbox.Gallery>
-            <Carousel.Root
+            <Carousel
+              aria-label="Server-driven image carousel"
               key={galleryKey}
               defaultPage={activeIndex}
               onPageChange={(details) => setActiveIndex(details.page)}
@@ -60,7 +61,7 @@ export default function GalleryLightboxDemo() {
             >
               <Carousel.Control>
                 <Carousel.PrevTrigger />
-                <Carousel.ItemGroup aria-label="Server-driven image carousel">
+                <Carousel.ItemGroup>
                   {images.map((image, index) => (
                     <Carousel.Item key={image.id} index={index}>
                       <img src={image.src} alt={image.alt} />
@@ -77,7 +78,7 @@ export default function GalleryLightboxDemo() {
                   </Carousel.Indicator>
                 ))}
               </Carousel.IndicatorGroup>
-            </Carousel.Root>
+            </Carousel>
           </Lightbox.Gallery>
         </Lightbox.Content>
       </Lightbox.Positioner>

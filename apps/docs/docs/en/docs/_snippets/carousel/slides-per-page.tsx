@@ -30,7 +30,12 @@ const slides = [
 
 export default function SlidesPerPageCarousel() {
   return (
-    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--moduix-spacing-3)">
+    <Carousel
+      aria-label="Two-up gallery"
+      slideCount={slides.length}
+      slidesPerPage={2}
+      spacing="var(--moduix-spacing-3)"
+    >
       <Carousel.Control>
         <Carousel.PrevTrigger />
         <Carousel.NextTrigger />

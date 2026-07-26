@@ -1,10 +1,9 @@
-import { useCarousel } from '@ark-ui/react/carousel';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../../../src/components/button';
-import { Carousel } from '../../../src/components/carousel/Carousel';
+import { Carousel, useCarousel } from '../../../src/components/carousel/Carousel';
 import styles from './Carousel.stories.module.css';
 
 const slides = [
@@ -95,7 +94,11 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      aria-label="Basic image carousel"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.ItemGroup aria-label="Basic image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -120,6 +123,7 @@ export const Controlled: Story = {
 
     return (
       <Carousel
+        aria-label="Controlled image carousel"
         slideCount={slides.length}
         page={page}
         onPageChange={(details) => setPage(details.page)}
@@ -155,6 +159,7 @@ export const DynamicSlides: Story = {
     return (
       <div className={styles.exampleStack}>
         <Carousel
+          aria-label="Dynamic image carousel"
           slideCount={visibleSlides.length}
           page={page}
           onPageChange={(details) => setPage(details.page)}
@@ -189,14 +194,20 @@ export const DynamicSlides: Story = {
 export const PauseOnHover: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel autoplay loop slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      aria-label="Pause on hover image carousel"
+      autoplay
+      loop
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.Context>
         {(api) => (
           <>
             <p className={styles.statusText}>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</p>
             <Carousel.ItemGroup
-              aria-label="Pause on hover image carousel"
-              onPointerOver={() => api.pause()}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               {slides.map((slide, index) => (
@@ -205,10 +216,19 @@ export const PauseOnHover: Story = {
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
+            <Carousel.Control
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.Indicators />
+            </Carousel.Control>
           </>
         )}
       </Carousel.Context>
-      <Carousel.Indicators />
     </Carousel>
   ),
 };
@@ -221,7 +241,11 @@ export const RootProvider: Story = {
     return (
       <div className={styles.exampleStack}>
         <output className={styles.output}>Page {carousel.page + 1}</output>
-        <Carousel.RootProvider value={carousel} className={styles.carousel}>
+        <Carousel.RootProvider
+          aria-label="Root provider image carousel"
+          value={carousel}
+          className={styles.carousel}
+        >
           <Carousel.ItemGroup aria-label="Root provider image carousel">
             {slides.map((slide, index) => (
               <Carousel.Item key={slide.id} index={index}>
@@ -243,7 +267,11 @@ export const RootProvider: Story = {
 export const ScrollTo: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      aria-label="Scroll to image carousel"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.Context>
         {(api) => (
           <div className={styles.toolbar}>
@@ -273,6 +301,7 @@ export const SlidesPerPage: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel
+      aria-label="Two-up image carousel"
       slideCount={slides.length}
       slidesPerPage={2}
       spacing="var(--moduix-spacing-3)"
@@ -298,6 +327,7 @@ export const Spacing: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel
+      aria-label="Spaced image carousel"
       slideCount={slides.length}
       slidesPerPage={1.5}
       spacing="3rem"
@@ -323,7 +353,11 @@ export const Spacing: Story = {
 export const ThumbnailIndicator: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      aria-label="Image carousel with thumbnail indicators"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.ItemGroup aria-label="Image carousel with thumbnail indicators">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -350,6 +384,7 @@ export const VariableSize: Story = {
   args: { slideCount: variableSlides.length },
   render: () => (
     <Carousel
+      aria-label="Variable image carousel"
       autoSize
       padding="var(--moduix-spacing-4)"
       spacing="var(--moduix-spacing-3)"
@@ -381,26 +416,41 @@ export const Autoplay: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel
+      aria-label="Autoplay image carousel"
       autoplay={{ delay: 3500 }}
       loop
       slideCount={slides.length}
       className={styles.carousel}
     >
-      <Carousel.ItemGroup aria-label="Autoplay image carousel">
-        {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
-            <ImageSlide src={slide.image} alt={slide.alt} />
-          </Carousel.Item>
-        ))}
-      </Carousel.ItemGroup>
-      <Carousel.Control className={styles.compactControls}>
-        <Carousel.PrevTrigger />
-        <Carousel.AutoplayTrigger>
-          <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-        </Carousel.AutoplayTrigger>
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-      <Carousel.Indicators />
+      <Carousel.Context>
+        {(api) => (
+          <>
+            <Carousel.ItemGroup
+              aria-label="Autoplay image carousel"
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+            >
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <ImageSlide src={slide.image} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
+            <Carousel.Control
+              className={styles.compactControls}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+            >
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.PrevTrigger />
+              <Carousel.Indicators />
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </>
+        )}
+      </Carousel.Context>
     </Carousel>
   ),
 };
@@ -408,7 +458,12 @@ export const Autoplay: Story = {
 export const Loop: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel loop slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      aria-label="Looping image carousel"
+      loop
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.ItemGroup aria-label="Looping image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -429,7 +484,12 @@ export const Loop: Story = {
 export const MouseDrag: Story = {
   args: { slideCount: slides.length },
   render: () => (
-    <Carousel allowMouseDrag slideCount={slides.length} className={styles.carousel}>
+    <Carousel
+      allowMouseDrag
+      aria-label="Mouse draggable image carousel"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
       <Carousel.ItemGroup aria-label="Mouse draggable image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -451,6 +511,7 @@ export const Vertical: Story = {
   args: { slideCount: slides.length },
   render: () => (
     <Carousel
+      aria-label="Vertical image carousel"
       orientation="vertical"
       slideCount={slides.length}
       className={`${styles.carousel} ${styles.verticalCarousel}`}

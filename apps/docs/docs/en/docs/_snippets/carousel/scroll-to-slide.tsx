@@ -31,7 +31,7 @@ const slides = [
 
 export default function ScrollToCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
+    <Carousel aria-label="Scroll to gallery" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Scroll to gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

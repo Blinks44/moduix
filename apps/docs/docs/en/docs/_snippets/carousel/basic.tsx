@@ -20,7 +20,7 @@ const slides = [
 
 export default function TravelCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
+    <Carousel aria-label="Travel gallery" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Travel gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

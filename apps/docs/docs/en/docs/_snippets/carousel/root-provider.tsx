@@ -1,5 +1,4 @@
-import { useCarousel } from '@ark-ui/react/carousel';
-import { Carousel } from '@moduix/react';
+import { Carousel, useCarousel } from '@moduix/react';
 
 const slides = [
   {
@@ -33,7 +32,7 @@ export default function RootProviderCarousel() {
   const carousel = useCarousel({ slideCount: slides.length });
 
   return (
-    <Carousel.RootProvider value={carousel}>
+    <Carousel.RootProvider aria-label="Root provider gallery" value={carousel}>
       <Carousel.ItemGroup aria-label="Root provider gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

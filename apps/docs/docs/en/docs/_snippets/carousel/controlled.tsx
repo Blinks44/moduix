@@ -34,6 +34,7 @@ export default function ControlledCarousel() {
 
   return (
     <Carousel
+      aria-label="Controlled gallery"
       slideCount={slides.length}
       page={page}
       onPageChange={(details) => setPage(details.page)}

@@ -30,7 +30,12 @@ const slides = [
 
 export default function SpacingCarousel() {
   return (
-    <Carousel slideCount={slides.length} slidesPerPage={1.5} spacing="3rem">
+    <Carousel
+      aria-label="Spaced gallery"
+      slideCount={slides.length}
+      slidesPerPage={1.5}
+      spacing="3rem"
+    >
       <Carousel.ItemGroup aria-label="Spaced gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

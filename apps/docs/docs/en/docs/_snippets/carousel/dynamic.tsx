@@ -52,6 +52,7 @@ export default function DynamicSlidesCarousel() {
   return (
     <div className="carouselStack">
       <Carousel
+        aria-label="Dynamic gallery"
         slideCount={visibleSlides.length}
         page={page}
         onPageChange={(details) => setPage(details.page)}

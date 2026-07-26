@@ -31,7 +31,12 @@ const slides = [
 
 export default function AdvancedCustomizationCarousel() {
   return (
-    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--moduix-spacing-3)">
+    <Carousel
+      aria-label="Advanced customization gallery"
+      slideCount={slides.length}
+      slidesPerPage={2}
+      spacing="var(--moduix-spacing-3)"
+    >
       <Carousel.ItemGroup aria-label="Advanced customization gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

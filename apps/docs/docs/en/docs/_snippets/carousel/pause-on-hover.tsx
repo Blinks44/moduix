@@ -31,13 +31,13 @@ const slides = [
 
 export default function PauseOnHoverCarousel() {
   return (
-    <Carousel autoplay loop slideCount={slides.length}>
+    <Carousel aria-label="Pause on hover gallery" autoplay loop slideCount={slides.length}>
       <Carousel.Context>
         {(api) => (
           <>
             <Carousel.ItemGroup
-              aria-label="Pause on hover gallery"
-              onPointerOver={() => api.pause()}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               {slides.map((slide, index) => (
@@ -46,7 +46,16 @@ export default function PauseOnHoverCarousel() {
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
-            <Carousel.Indicators />
+            <Carousel.Control
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.Indicators />
+            </Carousel.Control>
             <PreviewMeta>
               <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
             </PreviewMeta>

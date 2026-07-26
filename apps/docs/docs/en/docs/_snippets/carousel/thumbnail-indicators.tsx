@@ -30,7 +30,7 @@ const slides = [
 
 export default function ThumbnailIndicatorCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
+    <Carousel aria-label="Gallery with thumbnails" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Gallery with thumbnails">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

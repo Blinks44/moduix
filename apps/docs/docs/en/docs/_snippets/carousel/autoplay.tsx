@@ -30,24 +30,34 @@ const slides = [
 
 export default function AutoplayCarousel() {
   return (
-    <Carousel autoplay={{ delay: 3500 }} loop slideCount={slides.length}>
-      <Carousel.ItemGroup aria-label="Autoplay gallery">
-        {slides.map((slide, index) => (
-          <Carousel.Item key={slide.id} index={index}>
-            <img src={slide.src} alt={slide.alt} />
-          </Carousel.Item>
-        ))}
-      </Carousel.ItemGroup>
+    <Carousel
+      aria-label="Autoplay gallery"
+      autoplay={{ delay: 3500 }}
+      loop
+      slideCount={slides.length}
+    >
+      <Carousel.Context>
+        {(api) => (
+          <>
+            <Carousel.ItemGroup onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
+              {slides.map((slide, index) => (
+                <Carousel.Item key={slide.id} index={index}>
+                  <img src={slide.src} alt={slide.alt} />
+                </Carousel.Item>
+              ))}
+            </Carousel.ItemGroup>
 
-      <Carousel.Control>
-        <Carousel.PrevTrigger />
-        <Carousel.AutoplayTrigger>
-          <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
-        </Carousel.AutoplayTrigger>
-        <Carousel.NextTrigger />
-      </Carousel.Control>
-
-      <Carousel.Indicators />
+            <Carousel.Control onFocus={() => api.pause()} onPointerEnter={() => api.pause()}>
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.PrevTrigger />
+              <Carousel.Indicators />
+              <Carousel.NextTrigger />
+            </Carousel.Control>
+          </>
+        )}
+      </Carousel.Context>
     </Carousel>
   );
 }

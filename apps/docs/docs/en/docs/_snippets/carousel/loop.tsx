@@ -30,7 +30,7 @@ const slides = [
 
 export default function LoopCarousel() {
   return (
-    <Carousel loop slideCount={slides.length}>
+    <Carousel aria-label="Loop gallery" loop slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Loop gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
