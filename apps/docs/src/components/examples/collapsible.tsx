@@ -39,8 +39,10 @@ export const collapsibleCustomCompositionCss = `
     color: var(--moduix-color-foreground);
   }
 
-  .collapsible-custom-trigger:hover {
-    background-color: var(--moduix-color-accent);
+  @media (hover: hover) {
+    .collapsible-custom-trigger:hover {
+      background-color: var(--moduix-color-accent);
+    }
   }
 
   .collapsible-custom-indicator {
@@ -87,7 +89,7 @@ export const collapsibleOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-collapsible-focus-ring-width',
-    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls trigger focus ring width.',
   ],
   ['--moduix-collapsible-max-width', '100%', 'Controls root max width.'],

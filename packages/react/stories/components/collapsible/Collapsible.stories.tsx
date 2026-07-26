@@ -134,6 +134,22 @@ export const PartialCollapse: Story = {
   ),
 };
 
+export const PartialWidth: Story = {
+  render: () => (
+    <Collapsible collapsedWidth="8rem" className={styles.root} style={{ width: '18rem' }}>
+      <Collapsible.Trigger>
+        Read details
+        <Collapsible.Indicator />
+      </Collapsible.Trigger>
+      <Collapsible.Content>
+        <Collapsible.Body>
+          Additional account-recovery details stay partly visible.
+        </Collapsible.Body>
+      </Collapsible.Content>
+    </Collapsible>
+  ),
+};
+
 export const RootProvider: Story = {
   render: () => {
     const collapsible = useCollapsible();

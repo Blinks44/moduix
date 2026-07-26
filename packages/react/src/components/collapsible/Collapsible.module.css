@@ -57,7 +57,7 @@
     font: inherit;
     font-size: var(--moduix-collapsible-trigger-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-collapsible-trigger-line-height, var(--moduix-line-height-text-sm));
-    text-align: left;
+    text-align: start;
     user-select: none;
     outline: 0;
     cursor: pointer;
@@ -67,12 +67,16 @@
       color var(--moduix-collapsible-trigger-transition, var(--moduix-transition-default));
 
     &:focus-visible {
+      position: relative;
+      z-index: 1;
       outline: var(
           --moduix-collapsible-focus-ring-width,
-          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
         )
         solid var(--moduix-collapsible-focus-ring-color, var(--moduix-color-ring));
-      outline-offset: var(--moduix-collapsible-focus-ring-offset, var(--moduix-border-width-sm));
+      outline-offset: calc(
+        var(--moduix-collapsible-focus-ring-offset, var(--moduix-border-width-sm)) * -1
+      );
     }
 
     &:not(:is([disabled], [data-disabled])) {

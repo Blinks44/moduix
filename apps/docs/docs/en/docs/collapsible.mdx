@@ -175,6 +175,28 @@ available outside `Collapsible.Content`.
 
 </PreviewFrame>
 
+### Partial Width
+
+Use `collapsedWidth` when a horizontal preview is more useful than a collapsed-height preview.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/collapsible/partial-collapse-width.tsx"
+
+```
+
+</PreviewFrame>
+
+### Context
+
+Use `useCollapsibleContext()` inside a descendant to read state or close the disclosure.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/collapsible/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Root Provider
 
 Create the state machine with moduix `useCollapsible` when code outside the rendered root needs its

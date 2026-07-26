@@ -441,7 +441,7 @@
   --moduix-collapsible-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-collapsible-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-collapsible-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
-  --moduix-collapsible-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
+  --moduix-collapsible-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-collapsible-max-width: initial; /* 100% */
   --moduix-collapsible-indicator-open-transform: initial; /* rotate(180deg) */
   --moduix-collapsible-indicator-size: initial; /* var(--moduix-spacing-3) */
