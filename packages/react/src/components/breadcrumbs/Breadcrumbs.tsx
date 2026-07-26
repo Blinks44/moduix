@@ -100,12 +100,12 @@ function BreadcrumbsPath({ items, separator, ...props }: BreadcrumbsPathProps) {
         const isLastItem = index === items.length - 1;
 
         return (
-          <Fragment key={item.key ?? item.href ?? index}>
+          <Fragment key={item.key ?? index}>
             <BreadcrumbsItem>
-              {item.href && !isLastItem ? (
-                <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
-              ) : (
+              {isLastItem ? (
                 <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
+              ) : (
+                <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
               )}
             </BreadcrumbsItem>
             {!isLastItem ? <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator> : null}

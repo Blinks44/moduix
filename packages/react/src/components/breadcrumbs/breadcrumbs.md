@@ -106,7 +106,8 @@ Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Lin
 `asChild`, the child must be a single semantic link component that preserves link behavior and focusability.
 
 `Breadcrumbs.Path` does not add interaction state; it only renders the same list semantics as explicit parts. The last
-item is always the current page, so give that item the current label instead of an `href`.
+item is always the only current page, so give that item the current label instead of an `href`. Earlier items render as
+`Breadcrumbs.Link`; provide an `href` when they should be navigable.
 
 Visible breadcrumb items can now shrink when horizontal space is limited. The last item remains the primary truncation
 target through `--moduix-breadcrumbs-item-max-width`, while ancestor links can compress instead of forcing the whole trail to
@@ -178,6 +179,8 @@ ellipsis text uses `text-overflow: ellipsis`.
 
 ## Local changelog
 
+- 2026-07-26: Ensured `Breadcrumbs.Path` marks only its final item as current, made the default chevron RTL-aware, and
+  added focused semantics and composition coverage.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Allowed ancestor breadcrumb items to shrink in tight layouts and added a dedicated advanced-composition
   docs path alongside the shorthand-first examples.

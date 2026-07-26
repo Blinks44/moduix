@@ -16,6 +16,7 @@ export default function ButtonRefDemo() {
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
+        justifyContent: 'center',
         gap: 'var(--moduix-spacing-3)',
       }}
     >
