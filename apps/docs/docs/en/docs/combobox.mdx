@@ -115,11 +115,11 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
 must be created outside the rendered subtree, create it with `useCombobox` from `@moduix/react` and
-render `Combobox.RootProvider`. Direct Ark imports are reserved for low-level item-context hooks and
-types that moduix does not expose.
+render `Combobox.RootProvider`. Use moduix `Combobox.ItemContext` or `useComboboxItemContext` for
+item state; import only collection helpers and types that moduix does not expose from Ark.
 
 Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
-from controlled state, then keep selection behavior on `Combobox.Root multiple`.
+from controlled state, then keep selection behavior on `Combobox multiple`.
 
 Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for
 consumer-owned loading, error, or guidance messages; it does not manage state or set an ARIA role.
@@ -132,7 +132,7 @@ consumer-owned loading, error, or guidance messages; it does not manage state or
 | `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
 | `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
 | `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.          |
-| `Combobox` / `Combobox.Root` width | `16rem` (max `100%`)  | Styled root width defaults.                                           |
+| `Combobox` width                  | `16rem` (max `100%`)  | Styled root width defaults.                                           |
 | `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
 
 ### Behavioral notes
@@ -147,9 +147,14 @@ consumer-owned loading, error, or guidance messages; it does not manage state or
 - The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
   `form` props for Ark's built-in form submission behavior.
 - `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, and `useComboboxContext` for the
-  normal provider and context paths.
-- Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`.
+  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, `useComboboxContext`,
+  `Combobox.ItemContext`, and `useComboboxItemContext` for provider and context paths.
+- Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`;
+  `readOnly` and `required` keep their Ark behavior.
+- Use `ids` when externally composed parts need shared accessibility IDs. `present`, `lazyMount`,
+  and `unmountOnExit` keep Ark's presence lifecycle for exit animations.
+- `selectionBehavior` and `closeOnSelect` pass through to Ark. In multiple mode, Ark clears the
+  input after selection.
 
 ### Migrating from shadcn
 
