@@ -96,8 +96,10 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 - `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep
   their native keyboard and accessibility behavior while inheriting the badge root's default
   cursor, hover, and focus-visible styling.
-- Long labels stay on one line and are clipped with ellipsis. Add `title` when users need the full
-  value.
+- Long labels stay on one line and are clipped with ellipsis. Add `title` to expose the full value
+  on pointer hover; on touch-first interfaces, prefer a label that fits the available space.
+- Direct text children are wrapped internally so this truncation works in the flex layout. Elements
+  supplied as children keep their own layout and truncation behavior.
 
 ## Defaults and styling
 
@@ -151,6 +153,12 @@ Public CSS variables:
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Made the interactive `asChild` focus ring fully theme-overridable without changing
   its visual default.
+
+- 2026-07-26: Kept link badges inside the shared truncation contract and clarified that `title`
+  only exposes the complete value on pointer hover.
+
+- 2026-07-26: Wrapped direct text children internally so constrained badges render an ellipsis
+  instead of clipping text in the flex layout.
 
 - 2026-07-07: Added the `link` variant and default interactive host styling for `asChild` links and
   buttons, then aligned docs and stories around the new recommended path.

@@ -99,7 +99,8 @@
 
     &[data-variant='link'] {
       min-height: auto;
-      overflow: visible;
+      border-radius: 0;
+      padding-block: 0.125em;
       padding-inline: 0;
       border-color: transparent;
       color: var(--moduix-badge-color, var(--moduix-color-primary));
@@ -116,5 +117,11 @@
     flex-shrink: 0;
     border-radius: 50%;
     background-color: currentColor;
+  }
+
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

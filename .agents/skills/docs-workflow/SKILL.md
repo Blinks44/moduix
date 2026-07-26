@@ -120,6 +120,8 @@ Inside `## Styling`, always use:
 
   ```
   ````
+- Close the `preview` directive with exactly three backticks. The surrounding four-backtick fence
+  in this instruction is only Markdown escaping; do not copy it into an MDX page.
 - Put example-local CSS in the imported snippet module or a colocated CSS Module when the example needs it.
 - On component pages in `apps/docs/docs/en/docs/*.mdx`, every runnable preview should use a docs-local
   snippet file in `./_snippets/<component>/`.

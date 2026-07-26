@@ -19,7 +19,7 @@ label layer.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -39,7 +39,7 @@ Clipboard.Root | Clipboard.RootProvider
 │  └─ Clipboard.Trigger
 │     ├─ Clipboard.Indicator (optional)
 │     └─ Clipboard.CopyText (optional)
-````
+```
 
 | Part                           | Role                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
@@ -114,7 +114,7 @@ Control the value when the text field should stay in sync with surrounding UI or
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -126,7 +126,7 @@ introducing a separate clipboard abstraction.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/copy-status.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -137,7 +137,7 @@ Override `Clipboard.CopyText` when the trigger should use product-specific idle 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/custom-copy-text.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -149,7 +149,7 @@ the rendered tree but the visible parts should stay Ark-shaped.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/root-provider.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -160,7 +160,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/timeout.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -171,7 +171,7 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/value-text.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -208,4 +208,3 @@ composition and moduix copy-state parts.
 - Ark adds `data-readonly` to `Clipboard.Input` when the input is read-only.
 - `Clipboard.Indicator` adds `data-slot="clipboard-indicator-idle-icon"` and
   `data-slot="clipboard-indicator-copied-icon"` for the default icon nodes.
-```
