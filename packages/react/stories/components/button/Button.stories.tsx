@@ -64,10 +64,8 @@ export const Disabled: Story = {
   render: () => (
     <div className={styles.row}>
       <Button disabled>Disabled</Button>
-      <Button asChild aria-disabled="true" variant="outline">
-        <a href="#button" onClick={(event) => event.preventDefault()}>
-          Disabled link
-        </a>
+      <Button asChild disabled variant="outline">
+        <a href="#button">Disabled link</a>
       </Button>
     </div>
   ),

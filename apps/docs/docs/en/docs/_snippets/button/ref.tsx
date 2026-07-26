@@ -11,7 +11,14 @@ export default function ButtonRefDemo() {
   const buttonRef = useRef(null as HTMLButtonElement | null);
 
   return (
-    <div className="button-demo-row">
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       <Button ref={buttonRef}>{labels.target}</Button>
       <PreviewMeta>
         <Button size="sm" variant="outline" onClick={() => buttonRef.current?.focus()}>

@@ -12,7 +12,14 @@ const variants = [
 
 export default function ButtonVariantsDemo() {
   return (
-    <div className="button-demo-row">
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       {variants.map((variant) => (
         <Button key={variant} variant={variant}>
           {variant}

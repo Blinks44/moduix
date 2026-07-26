@@ -223,4 +223,3 @@ For each rejected upstream idea, state the moduix reason in one sentence.
 - [ ] The final diff contains no unrelated edits or stale generated output.
 - [ ] Final handoff lists fixes, preserved differences, rejected ideas, visual coverage, validation, and blockers.
 - [ ] Primary comparison sources are linked.
-- [ ] Temporary skill cleanup is performed only after every completion gate passes.

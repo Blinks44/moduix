@@ -181,12 +181,3 @@ Do not call the component production-ready until:
 In the final handoff, summarize implemented fixes, intentional moduix differences, upstream ideas
 that were deliberately rejected, visual scenarios checked, validation run, and any genuine blocker.
 Link the current primary sources used for comparison.
-
-## Lifetime
-
-This is a temporary one-component skill. After the selected component and its documentation pass the
-completion gate, remove `.agents/skills/component-production-review/` and its entries from
-`AGENTS.md` and `.agents/skills/README.md` in the same task unless the user asks to retain it.
-
-Remove `.agents/skills/preview-frame-migration/` and its routing entry only when the target page was
-the remaining preview-migration scope. Otherwise preserve it and report what migration work remains.

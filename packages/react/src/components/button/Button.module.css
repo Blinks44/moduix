@@ -55,7 +55,7 @@
       cursor: progress;
     }
 
-    & :where(svg) {
+    & > :where(svg) {
       width: var(--moduix-button-icon-size, var(--moduix-spacing-4));
       height: var(--moduix-button-icon-size, var(--moduix-spacing-4));
       flex-shrink: 0;

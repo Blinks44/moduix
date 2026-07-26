@@ -10,7 +10,14 @@ const iconSizes = [
 
 export default function ButtonSizesDemo() {
   return (
-    <div className="button-demo-row">
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       {sizes.map((size) => (
         <Button key={size} size={size}>
           {size}
