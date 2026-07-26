@@ -28,12 +28,12 @@ export const bleedCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-bleed-inline-full',
-    defaultValue: 'calc(50% - 50vw)',
+    defaultValue: 'calc(50% - 50vi)',
     description: 'Controls full viewport inline bleed.',
   },
   {
     name: '--moduix-bleed-inline-full-size',
-    defaultValue: '100vw',
+    defaultValue: '100vi',
     description: 'Controls the width used by full viewport inline bleed.',
   },
   {

@@ -24,8 +24,8 @@
     }
 
     &[data-inline='full'] {
-      inline-size: var(--moduix-bleed-inline-full-size, 100vw);
-      margin-inline: var(--moduix-bleed-inline-full, calc(50% - 50vw));
+      inline-size: var(--moduix-bleed-inline-full-size, 100vi);
+      margin-inline: var(--moduix-bleed-inline-full, calc(50% - 50vi));
     }
 
     &[data-block='xs'] {
