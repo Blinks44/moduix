@@ -24,7 +24,8 @@
       border-color var(--moduix-button-transition, var(--moduix-transition-default)),
       color var(--moduix-button-transition, var(--moduix-transition-default)),
       opacity var(--moduix-button-transition, var(--moduix-transition-default)),
-      box-shadow var(--moduix-button-transition, var(--moduix-transition-default));
+      box-shadow var(--moduix-button-transition, var(--moduix-transition-default)),
+      transform var(--moduix-button-transition, var(--moduix-transition-default));
 
     &:focus-visible {
       outline: var(
@@ -42,7 +43,13 @@
     }
 
     &:active:not([data-disabled]) {
-      opacity: 0.9;
+      opacity: 0.94;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active:not([data-disabled]):not([data-variant='link']) {
+        transform: translateY(1px) scale(0.985);
+      }
     }
 
     &[data-disabled] {

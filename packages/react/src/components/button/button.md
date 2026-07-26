@@ -125,6 +125,8 @@ equivalent labeling mechanism.
 ## Defaults and styling
 
 The default `md` and `icon-md` variants use `--moduix-size-md`; the `md` text button uses `--moduix-spacing-1` block padding.
+Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and
+reduced-motion preferences omit the movement.
 
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -230,6 +232,8 @@ Primary CSS variables:
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-26: Added subtle press feedback for enabled button variants while keeping links and
+  reduced-motion preferences free of movement.
 - 2026-07-26: Made disabled custom hosts expose `aria-disabled` and prevent click activation, narrowed
   icon sizing to direct SVG children, and aligned docs with the behavior.
 - 2026-07-21: Normalized the complete control scale to `24/32/36/40/48px` tokens, including icon
