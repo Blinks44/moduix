@@ -38,7 +38,7 @@ such as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-ColorPicker.Root
+ColorPicker
 ├─ ColorPicker.Label
 ├─ ColorPicker.Control
 │  ├─ ColorPicker.ChannelInput[channel]
@@ -67,7 +67,7 @@ ColorPicker.Root
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
+| `ColorPicker`                      | Owns color value, format, popup state, and form integration.           |
 | `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
 | `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
 | `ColorPicker.Content`              | Actual Ark popup content part.                                         |
@@ -95,13 +95,12 @@ composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style i
 `data-channel` or CSS variables; pass children only when a part needs custom structure. Add
 `data-fit-content` when the trigger should size to custom content such as a swatch plus `ValueText`.
 
-Use the native form input when the color should participate in native form submission or form
-reset behavior. Put it inside the same root, and pass `name` on `ColorPicker.Root` or register the
-hidden input with a form library.
+For native form submission and reset behavior, pass `name` to `ColorPicker`. It automatically
+renders and synchronizes its native input; `FormData` and `form.reset()` need no extra setup.
 
 ### When to go custom
 
-Use `inline` on `ColorPicker.Root` when the area, sliders, inputs, and swatches should render as a
+Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should render as a
 permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
 
 Use `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
@@ -124,7 +123,7 @@ must stay a single element and preserve the required focus and interaction behav
 | `ColorPicker.Sliders`                    | hue and alpha pair      | Style with `data-channel` or CSS variables.   |
 | `ColorPicker.SwatchTrigger` children     | swatch and indicator    | Uses the trigger `value` for the swatch.      |
 | `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
-| `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                   |
+| `ColorPicker` width                      | `16rem` (max `100%`)    | Styled root width defaults.                   |
 
 ### Behavioral notes
 
@@ -134,6 +133,10 @@ must stay a single element and preserve the required focus and interaction behav
 - `ids` is forwarded to Ark for shared accessibility IDs across custom compositions.
 - Field and fieldset state can flow through Ark-compatible `disabled`, `invalid`, `required`, and
   `readOnly` root props.
+- Use `positioning`, `initialFocusEl`, and `openAutoFocus` when popup placement or focus needs to
+  follow a surrounding workflow.
+- `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete` preserve Ark's presence lifecycle
+  for custom mount or exit-animation control.
 - All Ark DOM parts preserve `asChild`.
 
 ## Examples
@@ -193,7 +196,7 @@ field container and should expose the same state through Ark data attributes.
 
 ### Form Usage
 
-Use `name` on `ColorPicker.Root` and the root renders its native form input automatically.
+Use `name` on `ColorPicker`; it renders its native form input automatically.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/form-usage.tsx"
@@ -366,7 +369,7 @@ below.
 
 Use the part that owns the visual concern:
 
-- `ColorPicker.Root` for width, gap, shared color, and disabled opacity
+- `ColorPicker` for width, gap, shared color, and disabled opacity
 - `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect`, and `FormatTrigger` for the
   visible field controls
 - `ColorPicker.Positioner` and `ColorPicker.Content` for popup layering, width, padding, radius,

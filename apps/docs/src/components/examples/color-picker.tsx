@@ -59,6 +59,10 @@ export const colorPickerInlineCss = `
 `;
 
 export const colorPickerValueSwatchCss = `
+  .color-picker-value-swatch-demo {
+    align-items: center;
+  }
+
   .color-picker-value-swatch {
     position: relative;
     display: grid;

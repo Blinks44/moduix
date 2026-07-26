@@ -156,12 +156,13 @@
   }
 
   .positioner {
-    z-index: var(--moduix-z-popup);
+    z-index: var(--z-index);
     outline: 0;
   }
 
   .content {
     box-sizing: border-box;
+    z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
     display: flex;
     width: var(--moduix-color-picker-content-width, 16rem);
     max-width: var(--available-width);
