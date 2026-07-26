@@ -22,7 +22,6 @@ import {
   SvgWrapper,
   Tab,
   Tabs,
-  Tag,
   useMdUrl,
 } from '@rspress/core/theme-original';
 import { useEffect, type ComponentProps, type FC } from 'react';
@@ -35,6 +34,7 @@ import {
   PrimitiveReference,
   ShadcnInstall,
 } from '@/components/mdx/Components';
+import { Tag } from './components/Tag';
 import './index.css';
 
 export * from '@rspress/core/theme-original';
@@ -199,3 +199,5 @@ export function Layout() {
     </>
   );
 }
+
+export { Tag };

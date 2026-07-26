@@ -17,9 +17,11 @@ switch between it and the image as loading state changes.
 
 <style>{AvatarDocs.avatarExampleCss}</style>
 
-```tsx preview file="./_snippets/avatar/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/basic.tsx"
 
-```
+````
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -69,9 +71,12 @@ DOM node.
 
 ### Default props
 
-| Surface                                         | Prop   | Default | Values                       |
-| ----------------------------------------------- | ------ | ------- | ---------------------------- |
-| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`    | `xs`, `sm`, `md`, `lg`, `xl` |
+| Surface                                         | Prop   | Visual default | Values                       |
+| ----------------------------------------------- | ------ | -------------- | ---------------------------- |
+| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md`           | `xs`, `sm`, `md`, `lg`, `xl` |
+
+When `size` is omitted, Avatar uses the `md` visual tokens without setting `data-size`. Pass
+`size="md"` when selectors need the attribute.
 
 ### Behavioral notes
 
@@ -93,9 +98,12 @@ the fallback itself conveys information that is not available in nearby text.
 
 <style>{AvatarDocs.avatarFallbackCss}</style>
 
-```tsx preview file="./_snippets/avatar/custom-fallback.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/custom-fallback.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Custom Image
 
@@ -104,9 +112,11 @@ participate in Ark's loading lifecycle.
 
 <style>{AvatarDocs.avatarCustomImageCss}</style>
 
-```tsx preview file="./_snippets/avatar/custom-image.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/custom-image.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Events
 
@@ -114,9 +124,12 @@ Use `onStatusChange(details)` when surrounding UI needs to react to the image li
 
 <style>{AvatarDocs.avatarExampleCss}</style>
 
-```tsx preview file="./_snippets/avatar/events.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/events.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Root Provider
 
@@ -125,9 +138,11 @@ it, then render `Avatar.RootProvider` instead of `Avatar.Root`.
 
 <style>{AvatarDocs.avatarExampleCss}</style>
 
-```tsx preview file="./_snippets/avatar/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/root-provider.tsx"
 
-```
+````
+</PreviewFrame>
 
 ### Sizes and Fallback Only
 
@@ -136,9 +151,12 @@ avatar is valid when no image source exists.
 
 <style>{AvatarDocs.avatarExampleCss}</style>
 
-```tsx preview file="./_snippets/avatar/sizes-and-fallback-only.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/sizes-and-fallback-only.tsx"
 
-```
+````
+
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -147,9 +165,11 @@ node while keeping Ark state, fallback behavior, and part composition explicit.
 
 <style>{AvatarDocs.avatarCompositionCss}</style>
 
-```tsx preview file="./_snippets/avatar/custom-composition.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/custom-composition.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -168,4 +188,5 @@ depend on image state.
 - Ark image state: `data-state="visible" | "hidden"` on `Avatar.Image` and
   `Avatar.Fallback`.
 - moduix size state: `data-size="xs" | "sm" | "md" | "lg" | "xl"` on
-  `Avatar.Root` and `Avatar.RootProvider`.
+  `Avatar.Root` and `Avatar.RootProvider` when `size` is provided.
+```

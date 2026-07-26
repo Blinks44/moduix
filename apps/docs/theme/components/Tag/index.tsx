@@ -1,0 +1,87 @@
+import { Tag as OriginalTag } from '@rspress/core/theme-original';
+import {
+  BadgeCheck,
+  Blocks,
+  BookOpen,
+  Bot,
+  Braces,
+  ClipboardList,
+  Component as ComponentIcon,
+  Database,
+  FileText,
+  GitBranch,
+  KeyRound,
+  Languages,
+  List,
+  ListChecks,
+  LockKeyhole,
+  LogIn,
+  Moon,
+  Orbit,
+  Palette,
+  Paintbrush,
+  PanelLeft,
+  PanelLeftOpen,
+  PanelsTopLeft,
+  PanelTop,
+  RefreshCw,
+  Rocket,
+  ScrollText,
+  Sparkles,
+  SwatchBook,
+  TableProperties,
+  Upload,
+  UserRoundPlus,
+  UsersRound,
+  Workflow,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react';
+
+const icons: Record<string, LucideIcon> = {
+  'badge-check': BadgeCheck,
+  blocks: Blocks,
+  'book-open': BookOpen,
+  bot: Bot,
+  braces: Braces,
+  'clipboard-list': ClipboardList,
+  component: ComponentIcon,
+  database: Database,
+  'file-text': FileText,
+  'git-branch': GitBranch,
+  'key-round': KeyRound,
+  languages: Languages,
+  list: List,
+  'list-checks': ListChecks,
+  'lock-keyhole': LockKeyhole,
+  'log-in': LogIn,
+  moon: Moon,
+  orbit: Orbit,
+  palette: Palette,
+  paintbrush: Paintbrush,
+  'panel-left': PanelLeft,
+  'panel-left-open': PanelLeftOpen,
+  'panels-top-left': PanelsTopLeft,
+  'panel-top': PanelTop,
+  'refresh-cw': RefreshCw,
+  rocket: Rocket,
+  'scroll-text': ScrollText,
+  sparkles: Sparkles,
+  'swatch-book': SwatchBook,
+  'table-properties': TableProperties,
+  upload: Upload,
+  'user-round-plus': UserRoundPlus,
+  'users-round': UsersRound,
+  workflow: Workflow,
+  wrench: Wrench,
+};
+
+export function Tag({ tag }: { tag?: string }) {
+  const Icon = tag ? icons[tag] : undefined;
+
+  return Icon ? (
+    <Icon aria-hidden="true" size="1em" strokeWidth={1.75} />
+  ) : (
+    <OriginalTag tag={tag} />
+  );
+}

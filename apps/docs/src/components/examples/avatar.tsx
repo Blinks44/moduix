@@ -33,11 +33,13 @@ export const avatarCompositionCss = `
       transform var(--moduix-transition-default);
   }
 
-  .docs-avatar-link:hover {
+  .docs-avatar-link:hover,
+  .docs-avatar-link:focus-visible {
     box-shadow:
       0 0 0 2px var(--moduix-color-background),
       0 0 0 4px var(--moduix-color-primary);
     transform: translateY(-1px);
+    outline: none;
   }
 
   .docs-avatar-link-image {

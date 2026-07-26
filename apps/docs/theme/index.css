@@ -146,19 +146,19 @@ body {
     color: var(--rp-c-text-1);
   }
 
-  &:has(.rp-sidebar-item__right img) {
+  &:has(.rp-sidebar-item__right svg) {
     justify-content: flex-start;
     gap: 8px;
   }
 }
 
 .rp-sidebar-item__right {
-  &:has(img) {
+  &:has(svg) {
     order: -1;
     flex: none;
   }
 
-  img {
+  svg {
     display: block;
     width: 18px;
     height: 18px;

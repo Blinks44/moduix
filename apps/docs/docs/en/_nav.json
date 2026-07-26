@@ -13,6 +13,10 @@
     "link": "/docs/blocks"
   },
   {
+    "text": "navRecipes",
+    "link": "/docs/recipes"
+  },
+  {
     "text": "navGitHub",
     "link": "https://github.com/Blinks44/moduix"
   }

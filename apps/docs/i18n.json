@@ -8,6 +8,9 @@
   "navBlocks": {
     "en": "Blocks"
   },
+  "navRecipes": {
+    "en": "Recipes"
+  },
   "navGitHub": {
     "en": "GitHub"
   }
