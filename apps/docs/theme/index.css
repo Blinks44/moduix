@@ -216,7 +216,8 @@ body {
   [data-preview-meta] {
     margin-top: var(--moduix-spacing-4);
     display: grid;
-    width: 100%;
+    inline-size: fit-content;
+    max-inline-size: 100%;
     gap: var(--moduix-spacing-2);
     padding: var(--moduix-spacing-4);
     border: var(--moduix-border-width-sm) solid

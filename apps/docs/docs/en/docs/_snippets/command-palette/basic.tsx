@@ -85,7 +85,6 @@ export default function CommandPaletteDemo() {
   return (
     <CommandPalette
       aria-label="Command palette"
-      shortcut="alt+k"
       onOpenChange={(details) => {
         if (!details.open) {
           filter('');

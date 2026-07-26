@@ -116,6 +116,7 @@ function CommandPaletteRoot({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
         event.defaultPrevented ||
+        event.repeat ||
         event.isComposing ||
         !isShortcutMatch(event, shortcut) ||
         (!dialog.open && isEditableTarget(event.target))
