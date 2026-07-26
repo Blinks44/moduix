@@ -18,43 +18,6 @@ Ark UI does not ship a dedicated close-button primitive. Moduix builds this comp
 Use `CloseButton` when the control itself performs a dismiss or close action. It provides
 button semantics and a default close glyph, but it does not manage overlay state by itself.
 
-<style>{`
-      .surface {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--moduix-spacing-4);
-        inline-size: 100%;
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-popover);
-        color: var(--moduix-color-popover-foreground);
-        box-shadow: var(--moduix-shadow-sm);
-      }
-
-      .content {
-        display: grid;
-        gap: var(--moduix-spacing-1);
-        min-width: 0;
-      }
-
-      .title {
-        margin: 0;
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        font-weight: var(--moduix-weight-semibold);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-
-      .description {
-        margin: 0;
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/close-button/basic.tsx"
 
@@ -102,7 +65,7 @@ dismissal state and focus lifecycle.
 | Prop         | Default                                         | Values / Notes                             |
 | ------------ | ----------------------------------------------- | ------------------------------------------ |
 | `type`       | `button`                                        | Applied only to the native root            |
-| `aria-label` | `Close` only on the unlabeled default-icon path | Prefer a surface-specific label in real UI |
+| `aria-label` | `Close` when `aria-labelledby` is absent        | Prefer a surface-specific label in real UI |
 | `children`   | `CloseIcon`                                     | Replaced by custom icon content            |
 | `asChild`    | `false`                                         | Ark factory single-child composition       |
 
@@ -110,7 +73,8 @@ dismissal state and focus lifecycle.
 
 - `CloseButton` does not close anything by itself; wire `onClick` or use an overlay close
   trigger.
-- Custom icon children need an accessible name through `aria-label` or `aria-labelledby`.
+- The fallback label is `Close`; pass `aria-label` or `aria-labelledby` for a surface-specific
+  name.
 - Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
   targeting and suppress click activation.
 - The previous `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
@@ -120,15 +84,9 @@ dismissal state and focus lifecycle.
 
 ### As Child
 
-Use `asChild` when an existing button component must own the rendered element while receiving the
-Close Button styling and data hooks.
-
-<style>{`
-      .asChildButton {
-        --moduix-close-button-size: 2.5rem;
-        --moduix-close-button-icon-size: 1.25rem;
-      }
-    `}</style>
+Use `asChild` when an existing semantic button must own the rendered element while receiving the
+Close Button styling and data hooks. This example keeps the child button's explicit `type` and
+uses a larger circular icon.
 
 ```tsx preview file="./_snippets/close-button/as-child.tsx"
 
@@ -136,16 +94,8 @@ Close Button styling and data hooks.
 
 ### Custom Children
 
-Replace the default glyph through `children` while keeping the root button and styling contract.
-
-<style>{`
-      .customChildrenButton {
-        --moduix-close-button-size: 2.5rem;
-
-        width: auto;
-        padding-inline: var(--moduix-spacing-3);
-      }
-    `}</style>
+Replace the default glyph through `children` while keeping the root button contract. This example
+uses a plain close mark instead of the circular icon in the `asChild` example.
 
 ```tsx preview file="./_snippets/close-button/custom-children.tsx"
 
@@ -155,12 +105,6 @@ Replace the default glyph through `children` while keeping the root button and s
 
 Use native `disabled` for regular buttons or `aria-disabled="true"` when the control should remain
 discoverable while refusing activation.
-
-<style>{`
-      .disabledCloseButton {
-        --moduix-close-button-disabled-opacity: 0.5;
-      }
-    `}</style>
 
 ```tsx preview file="./_snippets/close-button/disabled-state.tsx"
 
