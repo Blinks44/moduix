@@ -39,7 +39,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'Copy' });
+    const trigger = canvas.getByRole('button', { name: 'Copy to clipboard' });
 
     await userEvent.click(trigger);
 

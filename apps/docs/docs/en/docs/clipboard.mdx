@@ -32,7 +32,7 @@ such as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-Clipboard.Root | Clipboard.RootProvider
+Clipboard | Clipboard.RootProvider
 ├─ Clipboard.Label (optional)
 ├─ Clipboard.Control
 │  ├─ Clipboard.Input or Clipboard.ValueText
@@ -43,7 +43,7 @@ Clipboard.Root | Clipboard.RootProvider
 
 | Part                           | Role                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.         |
+| `Clipboard`                  | Owns clipboard state, copied lifecycle, and controlled value.         |
 | `Clipboard.RootProvider`       | Injects `Clipboard.useClipboard()` state created outside the subtree. |
 | `Clipboard.Label`              | Accessible label for the clipboard value.                             |
 | `Clipboard.Control`            | Layout row for value surface and trigger.                             |
@@ -59,8 +59,6 @@ Clipboard.Root | Clipboard.RootProvider
 
 Stay with `Clipboard`, `Clipboard.Label`, `Clipboard.Control`, `Clipboard.Input`,
 `Clipboard.Trigger`, and `Clipboard.Indicator` for the normal Ark path.
-
-`Clipboard` is the short root form and is equivalent to `Clipboard.Root`.
 
 Use `value`, `defaultValue`, `onValueChange(details)`, `onStatusChange(details)`, `timeout`, and
 `ids` exactly as Ark defines them. moduix does not remap callback payloads or rename props on this
@@ -195,7 +193,7 @@ composition and moduix copy-state parts.
 
 ### Styling hooks
 
-- `Clipboard.Root` -> `data-slot="clipboard-root"`
+- `Clipboard` -> `data-slot="clipboard-root"`
 - `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`
 - `Clipboard.Label` -> `data-slot="clipboard-label"`
 - `Clipboard.Control` -> `data-slot="clipboard-control"`
