@@ -50,7 +50,7 @@ When the wrapper exposes the relevant behavior, document these Ark guide concept
 - `ids` usage when the component composes with another Ark component and shared accessibility IDs are required.
 - `Component.Context`, `use*Context`, and `RootProvider` support when the wrapper exposes those Ark state patterns.
 - If upstream exposes those provider/context/hook patterns, also document whether they are exported from the package
-  barrel and available to consumers importing from `moduix`.
+  barrel and available to consumers importing from `@moduix/react`.
 - If public docs or examples rely on an upstream context, item context, state hook, or context hook for normal advanced
   usage, document the moduix-owned export path and avoid presenting `ArkComponent.Context` imports as the primary
   consumer API. Direct Ark imports are acceptable only for rare escape hatches intentionally left outside the wrapper.

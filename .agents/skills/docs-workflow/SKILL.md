@@ -38,7 +38,8 @@ layers for retired documentation frameworks.
 
 ## Core Rules
 
-- Import public components from `moduix`. Do not duplicate library components inside the docs app.
+- Import public React components from `@moduix/react`, the package declared by `packages/react/package.json`.
+  Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
 - Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, and use Rspress's fenced `preview file="..."` directive for complete runnable snippets.
 - Remove repeated docs-only ceremony with small local helpers, not page builders, generators, or hidden DSLs.
@@ -47,7 +48,7 @@ layers for retired documentation frameworks.
 - Prefer short, production-like examples over exhaustive configuration demos.
 - Keep demo styles in colocated CSS Modules when that is clearer than inline styles.
 - Use existing pages as structure references, not as permission to keep stale complexity.
-- Public snippets must show the current consumer path from `moduix`, including Ark composition, callbacks,
+- Public snippets must show the current consumer path from `@moduix/react`, including Ark composition, callbacks,
   provider/context hooks, data setup, and recursive renderers when those are required to use the component.
 - For root-only components whose exported component is the root with `.Root` attached, visible runnable snippets use
   the short root form (`<Component>`) by default; reserve `<Component.Root>` for anatomy, API explanation, or cases

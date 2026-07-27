@@ -182,7 +182,7 @@ static screenshot does not prove a correct primitive integration.
 ### Examples
 
 - [ ] Every heading has an example that demonstrates exactly that concept.
-- [ ] Every runnable example imports the shipped component from `moduix`.
+- [ ] Every runnable example imports the shipped React component from `@moduix/react`.
 - [ ] The root is `<Component>` in every consumer-facing snippet.
 - [ ] Snippets are complete, short, runnable, and free of hidden essential setup.
 - [ ] Simple and advanced paths are visibly distinct.
