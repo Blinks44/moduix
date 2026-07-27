@@ -1,9 +1,4 @@
-import { Button, Dialog, useDialog, useDialogContext } from '@moduix/react';
-
-function DialogStatusText() {
-  const dialog = useDialogContext();
-  return <>Dialog is {dialog.open ? 'open' : 'closed'}</>;
-}
+import { Button, Dialog, useDialog } from '@moduix/react';
 export default function DialogStateDemo() {
   const dialog = useDialog();
   return (
@@ -17,7 +12,9 @@ export default function DialogStateDemo() {
           <Dialog.Content>
             <Dialog.Title>Status</Dialog.Title>
             <Dialog.Description>
-              <DialogStatusText />
+              <Dialog.Context>
+                {(dialog) => <>Dialog is {dialog.open ? 'open' : 'closed'}</>}
+              </Dialog.Context>
             </Dialog.Description>
             <Dialog.CloseIcon />
           </Dialog.Content>

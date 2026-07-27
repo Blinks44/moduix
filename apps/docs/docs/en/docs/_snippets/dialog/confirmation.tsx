@@ -1,4 +1,4 @@
-import { Button, Dialog, useDialog } from '@moduix/react';
+import { Button, Dialog, Field, useDialog } from '@moduix/react';
 import { useState } from 'react';
 
 export default function ConfirmationDialogDemo() {
@@ -34,12 +34,15 @@ export default function ConfirmationDialogDemo() {
               Unsaved changes ask for confirmation before closing.
             </Dialog.Description>
             <Dialog.Body>
-              <textarea
-                className="dialog-input dialog-textarea"
-                value={formContent}
-                onChange={(event) => setFormContent(event.currentTarget.value)}
-                placeholder="Enter some text..."
-              />
+              <Field>
+                <Field.Label>Content</Field.Label>
+                <Field.Textarea
+                  value={formContent}
+                  onChange={(event) => setFormContent(event.currentTarget.value)}
+                  placeholder="Enter some text..."
+                  rows={4}
+                />
+              </Field>
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Positioner>

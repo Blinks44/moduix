@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@moduix/react';
+import { Button, Dialog, Field } from '@moduix/react';
 import { useRef } from 'react';
 
 export default function DialogLifecycleDemo() {
@@ -20,7 +20,12 @@ export default function DialogLifecycleDemo() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Title>Edit profile</Dialog.Title>
-            <input ref={inputRef} className="dialog-input" />
+            <Dialog.Body>
+              <Field>
+                <Field.Label>Name</Field.Label>
+                <Field.Input ref={inputRef} />
+              </Field>
+            </Dialog.Body>
             <Dialog.CloseIcon />
           </Dialog.Content>
         </Dialog.Positioner>

@@ -33,7 +33,7 @@ export default function OpenFromMenuDialogDemo() {
               <Dialog.CloseTrigger asChild>
                 <Button variant="outline">Cancel</Button>
               </Dialog.CloseTrigger>
-              <Button>Delete</Button>
+              <Button onClick={() => setOpen(false)}>Delete</Button>
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog.Positioner>
