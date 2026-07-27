@@ -115,7 +115,8 @@ const drawerOverrideCssProperties: CssPropertyInput[] = [
     'Grabber indicator radius.',
   ],
   ['--moduix-drawer-grabber-indicator-width', '3rem', 'Grabber indicator width.'],
-  ['--moduix-drawer-grabber-padding', 'var(--moduix-spacing-3)', 'Grabber vertical padding.'],
+  ['--moduix-drawer-grabber-padding', 'var(--moduix-spacing-1)', 'Grabber bottom padding.'],
+  ['--moduix-drawer-grabber-padding-top', '0', 'Grabber top padding.'],
   ['--moduix-drawer-header-gap', 'var(--moduix-spacing-1)', 'Header gap.'],
   [
     '--moduix-drawer-indent-background-bg',

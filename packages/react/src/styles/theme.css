@@ -1032,7 +1032,8 @@
   --moduix-drawer-grabber-indicator-opacity-hover: initial; /* 0.7 */
   --moduix-drawer-grabber-indicator-radius: initial; /* var(--moduix-radius-full) */
   --moduix-drawer-grabber-indicator-width: initial; /* 3rem */
-  --moduix-drawer-grabber-padding: initial; /* var(--moduix-spacing-3) */
+  --moduix-drawer-grabber-padding: initial; /* var(--moduix-spacing-1) */
+  --moduix-drawer-grabber-padding-top: initial; /* 0 */
   --moduix-drawer-header-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-drawer-indent-background-bg: initial; /* var(--moduix-color-foreground) */
   --moduix-drawer-indent-background-opacity: initial; /* 0 */

@@ -1,4 +1,4 @@
-import { Button, Checkbox, Drawer } from '@moduix/react';
+import { Button, Card, Checkbox, Drawer } from '@moduix/react';
 
 export default function AdvancedCustomizationDrawerDemo() {
   return (
@@ -14,10 +14,14 @@ export default function AdvancedCustomizationDrawerDemo() {
           </Drawer.Grabber>
           <Drawer.Title>Preferences</Drawer.Title>
           <Drawer.Description>Choose how you want notifications delivered.</Drawer.Description>
-          <Checkbox defaultChecked>
-            <Checkbox.Control />
-            <Checkbox.Label>Email notifications</Checkbox.Label>
-          </Checkbox>
+          <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+            <Card.Body>
+              <Checkbox defaultChecked>
+                <Checkbox.Control />
+                <Checkbox.Label>Email notifications</Checkbox.Label>
+              </Checkbox>
+            </Card.Body>
+          </Card>
           <Drawer.CloseTrigger asChild>
             <Button variant="outline">Done</Button>
           </Drawer.CloseTrigger>

@@ -366,7 +366,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: var(--moduix-drawer-grabber-padding, 0) 0;
+    padding: var(--moduix-drawer-grabber-padding-top, 0) 0
+      var(--moduix-drawer-grabber-padding, var(--moduix-spacing-1));
     cursor: grab;
     user-select: none;
 

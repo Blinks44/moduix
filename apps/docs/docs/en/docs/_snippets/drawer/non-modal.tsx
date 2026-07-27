@@ -1,4 +1,4 @@
-import { Button, Drawer, ScrollArea } from '@moduix/react';
+import { Button, Card, Drawer, ScrollArea } from '@moduix/react';
 
 const modal = false;
 const snapPoints = [0.18, 1];
@@ -28,10 +28,16 @@ export default function NonModalDrawerDemo() {
         <Button>Open non-modal drawer</Button>
       </Drawer.Trigger>
       <Drawer.Positioner>
-        <Drawer.Content className="non-modal-drawer" draggable={false}>
-          <Drawer.Grabber className="non-modal-grabber">
-            <Drawer.GrabberIndicator />
-            <Drawer.Header>
+        <Drawer.Content draggable={false}>
+          <Drawer.Grabber
+            style={{
+              flexDirection: 'column',
+              alignItems: 'stretch',
+              gap: 'var(--moduix-spacing-2)',
+            }}
+          >
+            <Drawer.GrabberIndicator style={{ alignSelf: 'center' }} />
+            <Drawer.Header style={{ width: '100%' }}>
               <Drawer.Title>Non-modal drawer</Drawer.Title>
               <Drawer.CloseIcon data-no-drag />
               <Drawer.Description>
@@ -39,12 +45,26 @@ export default function NonModalDrawerDemo() {
               </Drawer.Description>
             </Drawer.Header>
           </Drawer.Grabber>
-          <Drawer.Body className="non-modal-scroll-region">
-            <ScrollArea className="non-modal-scroll-area">
-              <ScrollArea.Viewport className="non-modal-scroll-viewport">
-                <ScrollArea.Content className="non-modal-scroll-content">
+          <Drawer.Body style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+            <ScrollArea style={{ height: '100%', minHeight: 0 }}>
+              <ScrollArea.Viewport
+                style={{
+                  height: '100%',
+                  minHeight: 0,
+                  paddingInlineEnd: 'var(--moduix-spacing-2)',
+                }}
+              >
+                <ScrollArea.Content style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
                   {paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                    <Card
+                      key={paragraph}
+                      size="sm"
+                      style={{ backgroundColor: 'var(--moduix-color-muted)' }}
+                    >
+                      <Card.Body>
+                        <p style={{ margin: 0 }}>{paragraph}</p>
+                      </Card.Body>
+                    </Card>
                   ))}
                 </ScrollArea.Content>
               </ScrollArea.Viewport>

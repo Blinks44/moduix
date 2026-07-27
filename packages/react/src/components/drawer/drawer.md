@@ -209,6 +209,15 @@ Public theme variables are declared in `packages/react/src/styles/theme.css`.
 
 ## Local changelog
 
+- 2026-07-27: Added a public floating-Grabber example that positions the existing part above the
+  drawer surface through consumer styling.
+- 2026-07-27: Added `--moduix-drawer-grabber-padding-top` so consumers can tune the Grabber's
+  upper spacing independently from its bottom padding.
+- 2026-07-27: Reduced the default `Grabber` spacing to `--moduix-spacing-1` on its bottom edge only.
+- 2026-07-27: Made the public basic example open at a compact snap point with realistic content,
+  filled drawer demos with bordered muted cards that stretch through the available body space, and
+  documented every exported layout and stack helper.
+
 - 2026-07-24: Documented the moduix-owned context exports and short `<Drawer>` root form.
 - 2026-07-23: Made island enter and exit keyframes account for their directional viewport inset so
   no panel edge remains visible before unmounting.

@@ -1,5 +1,5 @@
 import { type DrawerTriggerValueChangeDetails } from '@ark-ui/react/drawer';
-import { Button, Drawer } from '@moduix/react';
+import { Button, Card, Drawer } from '@moduix/react';
 import { useState } from 'react';
 
 const users = [
@@ -26,7 +26,7 @@ export default function MultipleTriggersDrawerDemo() {
   };
   return (
     <Drawer swipeDirection="end" onTriggerValueChange={handleTriggerValueChange}>
-      <div className="trigger-group">
+      <div style={{ display: 'grid', justifyItems: 'center', gap: 'var(--moduix-spacing-2)' }}>
         {users.map((user) => (
           <Drawer.Trigger key={user.id} value={user.id} asChild>
             <Button variant="outline">Edit {user.name}</Button>
@@ -41,7 +41,13 @@ export default function MultipleTriggersDrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>{activeUser?.email}</Drawer.Description>
           </Drawer.Header>
-          {activeUser ? <Drawer.Body>Selected: {activeUser.name}</Drawer.Body> : null}
+          {activeUser ? (
+            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+                <Card.Body>Selected: {activeUser.name}</Card.Body>
+              </Card>
+            </Drawer.Body>
+          ) : null}
         </Drawer.Content>
       </Drawer.Positioner>
     </Drawer>

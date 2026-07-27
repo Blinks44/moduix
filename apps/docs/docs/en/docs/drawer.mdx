@@ -18,20 +18,13 @@ need drag behavior.
 
 ## Basic
 
-Compose the Ark structural parts explicitly. `Drawer.Content` is the real interactive surface;
-`Drawer.Positioner` aligns it and `Drawer.Backdrop` provides the modal layer.
+Compose the Ark structural parts explicitly. This example opens at a compact snap point and can be
+dragged to full height. `Drawer.Content` is the real interactive surface; `Drawer.Positioner`
+aligns it and `Drawer.Backdrop` provides the modal layer.
 
-<style>{`
-      .drawer-content {
-        --moduix-drawer-max-height: 80dvh;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/basic.tsx"
+```tsx preview file="./_snippets/drawer/basic.tsx"
 
 ```
-</PreviewFrame>
 
 ## Install with shadcn
 
@@ -63,6 +56,14 @@ Drawer.Root
 | `Drawer.Grabber`          | Drag handle container for swipe interactions.       |
 | `Drawer.GrabberIndicator` | Visual indicator inside the grabber handle.         |
 | `Drawer.CloseTrigger`     | Closes the drawer.                                  |
+| `Drawer.SwipeArea`        | Optional edge region for swipe-to-open.             |
+| `Drawer.Stack`            | Coordinates nested and indented drawers.            |
+| `Drawer.Indent`           | Surface that recedes while a stacked drawer opens.  |
+| `Drawer.IndentBackground` | Background behind an indented surface.              |
+| `Drawer.Header`           | Optional layout helper for the title area.          |
+| `Drawer.Body`             | Optional flexible content region.                   |
+| `Drawer.Footer`           | Optional layout helper for actions.                 |
+| `Drawer.CloseIcon`        | Styled close control.                               |
 | `Drawer.RootProvider`     | Connects parts to state created with `useDrawer()`. |
 
 `Drawer.Header`, `Drawer.Body`, `Drawer.Footer`, and `Drawer.CloseIcon` are optional moduix layout
@@ -70,7 +71,9 @@ and visual helpers. They do not replace or hide Ark structural parts.
 
 ## Composition
 
-The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+The root portals `Backdrop` and `Positioner` automatically. A portalled drawer uses the viewport,
+so the preview size only affects its trigger. Use `portalled={false}` for inline rendering and
+`portalRef` for a custom container; structural parts remain explicit and styleable.
 
 ### Recommended composition
 
@@ -144,14 +147,9 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 
 Read `details.open` from the Ark callback instead of expecting a boolean callback argument.
 
-<style>{`.controlled-drawer { --moduix-drawer-width: min(100%, 48rem); }`}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/controlled.tsx"
+```tsx preview file="./_snippets/drawer/controlled.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Drag Controls
 
@@ -159,20 +157,18 @@ Apply `data-no-drag` to interactive regions that must not initiate a drag while 
 content remains draggable. Set `draggable={false}` separately when only the grabber should move
 the drawer.
 
-<style>{`
-      .no-drag-area {
-        padding: 1rem;
-        border: 1px dashed var(--moduix-color-border);
-        border-radius: var(--moduix-radius-md);
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/drag-controls.tsx"
+```tsx preview file="./_snippets/drawer/drag-controls.tsx"
 
 ```
 
-</PreviewFrame>
+### Floating Grabber
+
+Position `Drawer.Grabber` above the surface when the handle should appear as a separate control.
+The inline style below keeps a 10px gap from the drawer edge.
+
+```tsx preview file="./_snippets/drawer/floating-grabber.tsx"
+
+```
 
 ### Indent Background
 
@@ -191,26 +187,18 @@ progress.
 Set `variant="island"` on `Drawer.Content` when a compact drawer should float inside the viewport
 instead of visually continuing beyond its opening edge.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/island.tsx"
+```tsx preview file="./_snippets/drawer/island.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Multiple Triggers
 
 Assign each trigger a `value` to share one drawer across a list. The callback identifies which
 trigger is current.
 
-<style>{`.trigger-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }`}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
+```tsx preview file="./_snippets/drawer/multiple-triggers.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Nested
 
@@ -218,26 +206,9 @@ Render nested drawers with separate Ark `useDrawer` instances and moduix `Drawer
 trees so each surface keeps its own open state and focus lifecycle. The parent surface recedes
 behind the active drawer while leaving a visible edge.
 
-<style>{`
-      .nested-demo {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .nested-list {
-        display: grid;
-        gap: 0.5rem;
-        margin: 0;
-        padding-inline-start: 1rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/nested.tsx"
+```tsx preview file="./_snippets/drawer/nested.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Non-Modal
 
@@ -248,159 +219,52 @@ Header control, such as the close button. If the whole content must be draggable
 `preventScroll` to `true`; outside controls stay interactive, but background scrolling is locked
 while the drawer is open.
 
-<style>{`
-      .non-modal-drawer {
-        --moduix-drawer-max-height: min(28rem, 80dvh);
-        --moduix-drawer-shadow: var(--moduix-shadow-lg);
-      }
-
-      .non-modal-grabber {
-        flex-direction: column;
-        align-items: stretch;
-        gap: var(--moduix-spacing-2);
-
-        & > [data-slot='drawer-grabber-indicator'] {
-          align-self: center;
-        }
-
-        & > [data-slot='drawer-header'] {
-          width: 100%;
-        }
-      }
-
-      .non-modal-scroll-region {
-        flex: 1;
-        min-height: 0;
-        overflow: hidden;
-      }
-
-      .non-modal-scroll-area,
-      .non-modal-scroll-viewport {
-        height: 100%;
-        min-height: 0;
-      }
-
-      .non-modal-scroll-viewport {
-        padding-inline-end: var(--moduix-spacing-2);
-      }
-
-      .non-modal-scroll-content {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-
-        & p {
-          margin: 0;
-        }
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/non-modal.tsx"
+```tsx preview file="./_snippets/drawer/non-modal.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Root Provider
 
 Use the moduix `useDrawer` export when buttons outside the component tree must open the drawer or
 change snap points.
 
-<style>{`
-      .provider-demo {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .provider-actions {
-        display: flex;
-        gap: 0.5rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/root-provider.tsx"
+```tsx preview file="./_snippets/drawer/root-provider.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Scrollable
 
 Keep long content in `Drawer.Body`, and use `ScrollArea` when the drawer should own a dedicated
 scroll container while the grabber and header stay fixed.
 
-<style>{`
-      .scroll-region {
-        flex: 1;
-        min-height: 0;
-        overflow: hidden;
-      }
-
-      .scroll-area {
-        height: 100%;
-        min-height: 0;
-      }
-
-      .scroll-viewport {
-        height: 100%;
-        padding-inline-end: var(--moduix-spacing-2);
-      }
-
-      .scroll-body {
-        display: grid;
-        gap: 1rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/scrollable.tsx"
+```tsx preview file="./_snippets/drawer/scrollable.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Snap Points
 
 Define intermediate positions on the root and choose the initial position with `defaultSnapPoint`.
 
-<style>{`.snap-drawer { --moduix-drawer-max-height: 100dvh; }`}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/snap-points.tsx"
+```tsx preview file="./_snippets/drawer/snap-points.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Swipe Direction
 
 Use logical `start` and `end` values for side drawers so the same code works in LTR and RTL.
 
-<style>{`
-      .side-drawer {
-        --moduix-drawer-side-width: 26rem;
-      }
-    `}</style>
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
+```tsx preview file="./_snippets/drawer/swipe-direction.tsx"
 
 ```
-
-</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass the optional `Header`, `Body`, `Footer`, and `CloseIcon` helpers when a custom layout needs
 the full low-level Drawer anatomy.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
+```tsx preview file="./_snippets/drawer/advanced-customization.tsx"
 
 ```
-
-</PreviewFrame>
 
 ## Styling
 
@@ -422,8 +286,8 @@ the full low-level Drawer anatomy.
 
 - Moduix slots: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
-  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`, and
-  `drawer-indent-background`.
+  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
+  `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.
 - `Drawer.Content` writes `data-variant="island"` when its island presentation is active.
 - Ark part hooks: `data-scope="drawer"` with `data-part`.
 - State hooks: `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
