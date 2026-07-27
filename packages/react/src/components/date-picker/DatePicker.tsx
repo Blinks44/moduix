@@ -116,22 +116,20 @@ const DatePickerField = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.Control>,
   DatePickerFieldProps
 >(function DatePickerField(
-  {
-    clearLabel = 'Clear date',
-    clearTriggerProps,
-    inputProps,
-    placeholder = 'Select date',
-    triggerLabel = 'Open calendar',
-    triggerProps,
-    ...props
-  },
+  { clearLabel, clearTriggerProps, inputProps, placeholder, triggerLabel, triggerProps, ...props },
   ref,
 ) {
   return (
     <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput placeholder={placeholder} {...inputProps} />
-      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
-      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
+      <DatePickerInput {...(placeholder === undefined ? {} : { placeholder })} {...inputProps} />
+      <DatePickerClearTrigger
+        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
+        {...clearTriggerProps}
+      />
+      <DatePickerTrigger
+        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
+        {...triggerProps}
+      />
     </DatePickerControl>
   );
 });
@@ -141,13 +139,13 @@ const DatePickerRangeField = forwardRef<
   DatePickerRangeFieldProps
 >(function DatePickerRangeField(
   {
-    clearLabel = 'Clear date',
+    clearLabel,
     clearTriggerProps,
     endInputProps,
-    endPlaceholder = 'End date',
+    endPlaceholder,
     startInputProps,
-    startPlaceholder = 'Start date',
-    triggerLabel = 'Open calendar',
+    startPlaceholder,
+    triggerLabel,
     triggerProps,
     ...props
   },
@@ -155,10 +153,24 @@ const DatePickerRangeField = forwardRef<
 ) {
   return (
     <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput index={0} placeholder={startPlaceholder} {...startInputProps} />
-      <DatePickerInput index={1} placeholder={endPlaceholder} {...endInputProps} />
-      <DatePickerClearTrigger aria-label={clearLabel} {...clearTriggerProps} />
-      <DatePickerTrigger aria-label={triggerLabel} {...triggerProps} />
+      <DatePickerInput
+        index={0}
+        {...(startPlaceholder === undefined ? {} : { placeholder: startPlaceholder })}
+        {...startInputProps}
+      />
+      <DatePickerInput
+        index={1}
+        {...(endPlaceholder === undefined ? {} : { placeholder: endPlaceholder })}
+        {...endInputProps}
+      />
+      <DatePickerClearTrigger
+        {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
+        {...clearTriggerProps}
+      />
+      <DatePickerTrigger
+        {...(triggerLabel === undefined ? {} : { 'aria-label': triggerLabel })}
+        {...triggerProps}
+      />
     </DatePickerControl>
   );
 });
@@ -217,8 +229,8 @@ const DatePickerClearTrigger = forwardRef<
         asChild
         data-slot="date-picker-clear-trigger"
         className={triggerClassName}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
+        {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
+        {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
         {...props}
       >
         {children}
@@ -235,8 +247,8 @@ const DatePickerClearTrigger = forwardRef<
       {...props}
     >
       <CloseButton.Root
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear date' : undefined)}
-        aria-labelledby={ariaLabelledBy}
+        {...(ariaLabel === undefined ? {} : { 'aria-label': ariaLabel })}
+        {...(ariaLabelledBy === undefined ? {} : { 'aria-labelledby': ariaLabelledBy })}
       >
         {children}
       </CloseButton.Root>

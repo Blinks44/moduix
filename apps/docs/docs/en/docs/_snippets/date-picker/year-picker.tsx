@@ -3,13 +3,15 @@ import { CalendarDate } from '@internationalized/date';
 import { DatePicker } from '@moduix/react';
 
 const format = (date: DateValue) => String(date.year);
-const parse = (value: string) => {
-  const year = Number(value);
-  return Number.isFinite(year) ? new CalendarDate(year, 1, 1) : undefined;
-};
 export default function YearPickerDemo() {
   return (
-    <DatePicker defaultView="year" minView="year" format={format} parse={parse}>
+    <DatePicker
+      defaultValue={[new CalendarDate(2026, 1, 1)]}
+      defaultView="year"
+      minView="year"
+      maxView="year"
+      format={format}
+    >
       <DatePicker.Label>Year</DatePicker.Label>
       <DatePicker.Field placeholder="yyyy" clearLabel="Clear year" />
       <DatePicker.Positioner>
@@ -17,7 +19,7 @@ export default function YearPickerDemo() {
           <DatePicker.View view="year">
             <DatePicker.ViewControl>
               <DatePicker.PrevTrigger />
-              <DatePicker.ViewTrigger />
+              <DatePicker.RangeText />
               <DatePicker.NextTrigger />
             </DatePicker.ViewControl>
             <DatePicker.Context>

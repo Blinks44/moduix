@@ -7,7 +7,7 @@ export default function RootProviderDatePickerDemo() {
     defaultValue: [today('UTC')],
   });
   return (
-    <div>
+    <div className="date-picker-preview">
       <DatePicker.RootProvider value={datePicker}>
         <DatePicker.Label>Report date</DatePicker.Label>
         <DatePicker.Field />

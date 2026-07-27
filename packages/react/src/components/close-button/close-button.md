@@ -117,6 +117,9 @@ Public CSS variables:
 | `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
 | `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
 
+The press feedback uses the individual `translate` and `scale` properties, so it composes with a
+consumer or parent component's `transform` (for example, vertical centering) instead of replacing it.
+
 ## Intentional sugar and differences from upstream
 
 - moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
@@ -136,6 +139,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-27: Kept press feedback transform-safe by using individual `translate` and `scale`
+  properties, so composed close controls retain parent positioning transforms.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-26: Made the close label and default icon resilient to falsy children, added active
   feedback consistent with `Button`, and covered the public interaction contract with tests.

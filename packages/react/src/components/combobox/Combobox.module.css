@@ -249,10 +249,6 @@
     );
     transform: translateY(-50%);
 
-    &:active:not([data-disabled]) {
-      transform: translateY(-50%);
-    }
-
     &[hidden] {
       display: none;
     }

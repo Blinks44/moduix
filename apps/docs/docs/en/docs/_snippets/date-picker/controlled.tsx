@@ -6,7 +6,7 @@ import { PreviewMeta } from '@/components/mdx/Components';
 export default function ControlledDatePickerDemo() {
   const [value, setValue] = useState([parseDate('2026-06-22')] as DateValue[]);
   return (
-    <div>
+    <div className="date-picker-preview">
       <DatePicker value={value} onValueChange={(details) => setValue(details.value)}>
         <DatePicker.Label>Controlled date</DatePicker.Label>
         <DatePicker.Field />

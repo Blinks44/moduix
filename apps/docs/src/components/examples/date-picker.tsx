@@ -22,24 +22,21 @@ export const datePickerExampleCss = `
     margin-top: var(--moduix-spacing-3);
   }
 
-  .date-picker-time-field {
+  .date-picker-preview {
     display: grid;
-    gap: var(--moduix-spacing-1);
-    margin-top: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+    justify-items: center;
   }
 
-  .date-picker-time-field input {
-    height: var(--moduix-date-picker-select-height, 2rem);
-    border: var(--moduix-date-picker-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-date-picker-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-radius-sm);
-    padding-inline: var(--moduix-spacing-2);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-    font: inherit;
+  .date-picker-date-time {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--moduix-spacing-3);
+  }
+
+  .date-picker-time-input {
+    --moduix-date-input-width: auto;
+    --moduix-date-input-control-width: auto;
   }
 
   .date-picker-selected-dates {
