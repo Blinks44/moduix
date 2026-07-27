@@ -16,11 +16,6 @@ export const dateInputExampleCss = `
     gap: var(--moduix-spacing-2);
   }
 
-  .date-input-root-provider-actions {
-    display: flex;
-    gap: var(--moduix-spacing-2);
-  }
-
   .date-input-custom-control {
     --moduix-date-input-bg: var(--moduix-color-muted);
     --moduix-date-input-border-color: var(--moduix-color-primary);
@@ -94,7 +89,7 @@ const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-date-input-focus-ring-offset',
-    defaultValue: '-1px',
+    defaultValue: 'var(--moduix-focus-ring-inset-offset)',
     description: 'Controls the focused control outline offset.',
   },
   {
@@ -134,12 +129,12 @@ const dateInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-date-input-padding-x',
-    defaultValue: '0.75rem',
+    defaultValue: 'var(--moduix-spacing-3)',
     description: 'Controls horizontal control padding.',
   },
   {
     name: '--moduix-date-input-padding-y',
-    defaultValue: '0.5rem',
+    defaultValue: 'var(--moduix-spacing-1)',
     description: 'Controls vertical control padding.',
   },
   {

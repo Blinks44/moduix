@@ -32,7 +32,7 @@ strings or local callback shapes in the wrapper.
 - `DateInput.SegmentContext` remains the advanced customization path
   for custom segment rendering inside a `DateInput.SegmentGroup`.
 - `Root` and `RootProvider` render one native input per date automatically. Pass `name` for a
-  shared field name, or `names` for separate range-field names.
+  shared base name, or a two-item `names` tuple for separate range base names; Ark appends each index.
 - `DateInput.Separator` is moduix sugar for non-interactive text between segment groups.
 - No local calendar popup, string parser, automatic segment renderer, or date-picker bundle is added.
 
@@ -91,7 +91,9 @@ export function ReleaseDateInput() {
 ```
 
 For ranges, set `selectionMode="range"`, render indexed `DateInput.Segments`, and pass
-`names={['check-in', 'check-out']}` only when the submitted values need different field names. Use `DateInput.RootProvider` only with Ark state created through
+`names={['check-in', 'check-out']}` only when the submitted values need different base names. Ark
+submits these as `check-in[0]` and `check-out[1]`; `name="date"` becomes `date[0]` and `date[1]`.
+Use `DateInput.RootProvider` only with Ark state created through
 moduix `useDateInput()`; do not also render `DateInput.Root` for the same state instance.
 
 Use `DateInput.SegmentGroup`, `DateInput.SegmentContext`, and `DateInput.Segment` directly when
@@ -125,8 +127,8 @@ text, and label association. `Field` can provide surrounding helper and error te
 the date input itself.
 
 The automatic native inputs keep native form submission and form reset synchronized with Ark state.
-For range inputs, pass `names` only when submitted start/end fields need separate keys; one `name`
-submits both values under the same key.
+For range inputs, pass a two-item `names` tuple only when start/end fields need separate base names;
+Ark appends `[0]` and `[1]` to both custom and shared names.
 
 Ark emits `data-scope="date-input"` and `data-part` attributes for `root`, `label`, `control`,
 `segment-group`, `segment`, and `hidden-input`. State attributes include `data-disabled`,
@@ -178,11 +180,14 @@ segment shortcuts, or local event aliases.
   the point of the example.
 - Keep callback details untouched: `onValueChange(details)` reports `details.value` and
   `details.valueAsString`.
-- Keep form field names semantic: use `name` for one shared field name and `names` only when range
-  values require distinct field names.
+- Keep form field names semantic: use `name` for one shared base name and `names` only when range
+  values require distinct base names. Ark appends each date index.
 - Keep `@internationalized/date` examples in docs because Ark values are `DateValue` objects.
 
 ## Local changelog
+
+- 2026-07-27: Restricted `names` to two range base names, removed its ability to create extra empty
+  native inputs, and documented Ark's indexed form-field names.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default date control to `--moduix-size-md` and compacted its block padding.

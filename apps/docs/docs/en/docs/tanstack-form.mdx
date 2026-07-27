@@ -174,8 +174,9 @@ const form = useForm<ProjectFormValues>({
 - `name={field.name}` enables native `FormData` semantics but does not replace the field's controlled
   `state.value` and `handleChange` mapping.
 - For the other automatic controls, keep exceptional form configuration on their roots: `DateInput`
-  uses `names` for distinct range keys, `Select` uses `nativeFormControl="input"` for virtualized
-  collections, and `SignaturePad` uses `getFormValue` for custom serialization.
+  uses a two-item `names` tuple for distinct indexed range keys, `Select` uses
+  `nativeFormControl="input"` for virtualized collections, and `SignaturePad` uses `getFormValue`
+  for custom serialization.
 - TanStack Form intentionally does not manage DOM focus. If you want to focus the first invalid
   field, implement it in `onSubmitInvalid` using the rendered `aria-invalid` controls.
 - Use `form.Subscribe` for derived form state instead of reading `form.state` during render.
