@@ -1,5 +1,4 @@
-import { Heading } from '@moduix/react';
-import styles from '@/components/examples/heading.module.css';
+import { Heading, Stack } from '@moduix/react';
 
 const headingWeights = [
   {
@@ -22,12 +21,12 @@ const headingWeights = [
 
 export default function HeadingWeightsDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap={3}>
       {headingWeights.map((item) => (
         <Heading key={item.weight} as="h2" weight={item.weight}>
           {item.label}
         </Heading>
       ))}
-    </div>
+    </Stack>
   );
 }

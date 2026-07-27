@@ -1,5 +1,4 @@
-import { Heading } from '@moduix/react';
-import styles from '@/components/examples/heading.module.css';
+import { Heading, Stack } from '@moduix/react';
 
 const headingLevels = [
   {
@@ -30,13 +29,13 @@ const headingLevels = [
 
 export default function HeadingLevelsDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap={3}>
       <Heading>{headingLevels[0].label}</Heading>
       <Heading as="h2">{headingLevels[1].label}</Heading>
       <Heading as="h3">{headingLevels[2].label}</Heading>
       <Heading as="h4">{headingLevels[3].label}</Heading>
       <Heading as="h5">{headingLevels[4].label}</Heading>
       <Heading as="h6">{headingLevels[5].label}</Heading>
-    </div>
+    </Stack>
   );
 }
