@@ -1,19 +1,30 @@
 import { Editable } from '@moduix/react';
+import type { CSSProperties } from 'react';
+
+const rootStyle = {
+  '--moduix-editable-area-width': '100%',
+  '--moduix-editable-control-align': 'start',
+} as CSSProperties;
+
+const textareaStyle = {
+  minHeight: '6rem',
+  whiteSpace: 'pre-wrap',
+};
 
 export default function TextareaEditableDemo() {
   return (
     <Editable
-      className="editable-textarea-root"
       defaultValue="Ark UI keeps the editable state, keyboard handling, and focus lifecycle."
       submitMode="none"
       placeholder="Enter a description"
+      style={rootStyle}
     >
       <Editable.Label>Description</Editable.Label>
-      <Editable.Area className="editable-textarea-area">
-        <Editable.Input asChild className="editable-textarea-input">
+      <Editable.Area style={{ alignItems: 'flex-start' }}>
+        <Editable.Input asChild style={textareaStyle}>
           <textarea />
         </Editable.Input>
-        <Editable.Preview className="editable-textarea-preview" />
+        <Editable.Preview style={textareaStyle} />
       </Editable.Area>
       <Editable.Controls />
     </Editable>

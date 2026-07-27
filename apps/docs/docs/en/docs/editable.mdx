@@ -25,8 +25,6 @@ Use Ark-style parts: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.In
 The wrapper adds styling, `data-slot` attributes, and default trigger icons.
 The moduix default enters edit mode on double-click to reduce accidental edits.
 
-<style>{EditableDocs.editableExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/basic.tsx"
 
@@ -58,7 +56,7 @@ Editable.RootProvider
 | ---------------------------- | ------------------------------------------------------ |
 | `Editable` / `Editable.Root` | Root state, callbacks, form props, and a11y wiring.    |
 | `Editable.RootProvider`      | Root powered by a `useEditable()` instance.            |
-| `Editable.Label`             | Accessible label linked to the editable input.         |
+| `Editable.Label`             | Visible label for the editable input.                  |
 | `Editable.Area`              | Shared surface for the input and preview parts.        |
 | `Editable.Input`             | Text input shown while editing.                        |
 | `Editable.Preview`           | Read-mode text or placeholder shown outside edit mode. |
@@ -100,15 +98,17 @@ props keep details objects, so `onValueChange`, `onValueCommit`, `onValueRevert`
 
 `Enter` commits and `Escape` reverts. When `Editable.Input` renders a textarea through `asChild`,
 Cmd/Ctrl + Enter commits the value. `name` and `form` are forwarded to Ark for native form
-submission.
+submission. `disabled` prevents activation, while `readOnly` preserves the visible value without
+allowing it to change.
+
+Set `translations.input` when the input needs a contextual accessible name; `Editable.Label`
+remains the visible label.
 
 ## Examples
 
 ### Controlled
 
 Control the value with `value` and `onValueChange` when application state is the source of truth.
-
-<style>{EditableDocs.editableExampleCss}</style>
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/controlled.tsx"
@@ -120,8 +120,6 @@ Control the value with `value` and `onValueChange` when application state is the
 
 Wrap the editable with `Field` when validation state and error text live outside the editable
 surface.
-
-<style>{EditableDocs.editableExampleCss}</style>
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/editable/field.tsx"
@@ -137,8 +135,6 @@ mode-specific placeholders, and accessible control translations.
 This example switches `activationMode` to `click` to show how to opt out of the moduix double-click
 default.
 
-<style>{EditableDocs.editableExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/guides.tsx"
 
@@ -151,9 +147,7 @@ Use moduix `useEditable()` and `Editable.RootProvider` when external controls ne
 editable state methods. Pass `activationMode: 'dblclick'` to the hook if you want the same default
 activation behavior as the moduix root component.
 
-<style>{EditableDocs.editableExampleCss}</style>
-
-<PreviewFrame maxWidth="sm">
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/editable/root-provider.tsx"
 
 ```
@@ -162,10 +156,8 @@ activation behavior as the moduix root component.
 
 ### Textarea
 
-Render `Editable.Input` as a textarea for multi-line content. Keep the child semantic and place
-textarea-only sizing in CSS.
-
-<style>{EditableDocs.editableExampleCss}</style>
+Render `Editable.Input` as a textarea for multi-line content. The example keeps its sizing inline
+so copied code stays complete.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/editable/textarea.tsx"
@@ -177,13 +169,32 @@ textarea-only sizing in CSS.
 
 Bypass `Editable.Controls` when a custom state-dependent layout needs `Editable.Context` directly.
 
-<style>{EditableDocs.editableExampleCss}</style>
-
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/editable/advanced-customization.tsx"
 
 ```
 
+</PreviewFrame>
+
+### Disabled and read-only
+
+Use `disabled` when the value is unavailable. Use `readOnly` when the value remains visible but
+must not change.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/editable/disabled-and-read-only.tsx"
+
+```
+</PreviewFrame>
+
+### In a form
+
+Pass `name` to include the current value in native form submission.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/editable/form.tsx"
+
+```
 </PreviewFrame>
 
 ## Styling

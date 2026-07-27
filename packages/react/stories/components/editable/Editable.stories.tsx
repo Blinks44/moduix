@@ -127,6 +127,30 @@ export const WithField: Story = {
   ),
 };
 
+export const DisabledAndReadOnly: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <Editable disabled defaultValue="Managed by your workspace">
+        <Editable.Label>Disabled name</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Controls />
+      </Editable>
+
+      <Editable readOnly defaultValue="Assigned workspace">
+        <Editable.Label>Read-only name</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Controls />
+      </Editable>
+    </div>
+  ),
+};
+
 export const RootProvider: Story = {
   render: () => {
     const editable = useEditable({

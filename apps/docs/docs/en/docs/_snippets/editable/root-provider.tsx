@@ -16,7 +16,7 @@ export default function RootProviderEditableDemo() {
         </Editable.Area>
         <Editable.Controls />
       </Editable.RootProvider>
-      <PreviewMeta>
+      <PreviewMeta style={{ inlineSize: '100%' }}>
         <Button type="button" size="sm" onClick={() => editable.edit()}>
           Edit
         </Button>

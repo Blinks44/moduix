@@ -1,5 +1,5 @@
 import { PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme-original';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import styles from './Components.module.css';
 import {
   CSSPropertiesReferenceTable,
@@ -77,8 +77,12 @@ function Card({
   );
 }
 
-function PreviewMeta({ children }: { children: ReactNode }) {
-  return <div data-preview-meta>{children}</div>;
+function PreviewMeta({ children, ...props }: ComponentProps<'div'>) {
+  return (
+    <div {...props} data-preview-meta>
+      {children}
+    </div>
+  );
 }
 
 export {
