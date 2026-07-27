@@ -8,10 +8,6 @@
     width: var(--moduix-file-upload-width, 100%);
     max-width: var(--moduix-file-upload-max-width, 28rem);
     color: var(--moduix-file-upload-color, var(--moduix-color-foreground));
-
-    &[data-disabled] {
-      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .label {
@@ -64,6 +60,20 @@
     &[data-disabled],
     &[data-readonly] {
       cursor: default;
+      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+
+    &[role='button']:not([data-disabled], [data-readonly]) {
+      cursor: pointer;
+    }
+
+    &:focus-visible {
+      outline: var(
+          --moduix-file-upload-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-file-upload-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-file-upload-focus-ring-offset, var(--moduix-border-width-sm));
     }
   }
 
@@ -200,7 +210,6 @@
 
     &:is(:disabled, [data-disabled], [data-readonly]) {
       pointer-events: none;
-      opacity: var(--moduix-file-upload-disabled-opacity, var(--moduix-opacity-disabled));
       cursor: default;
     }
   }

@@ -53,13 +53,13 @@ function FileUploadItems() {
 
 function FileUploadDemo(props: ComponentProps<typeof FileUpload.Root>) {
   return (
-    <FileUpload.Root className={styles.simpleDemo} maxFiles={3} {...props}>
+    <FileUpload className={styles.simpleDemo} maxFiles={3} {...props}>
       <FileUpload.Label>Attachments</FileUpload.Label>
       <FileUpload.Trigger>Choose files</FileUpload.Trigger>
       <FileUpload.ItemGroup>
         <FileUpload.Items />
       </FileUpload.ItemGroup>
-    </FileUpload.Root>
+    </FileUpload>
   );
 }
 
@@ -69,7 +69,7 @@ export const Basic: Story = {
 
 export const Dropzone: Story = {
   render: () => (
-    <FileUpload.Root maxFiles={5}>
+    <FileUpload maxFiles={5}>
       <FileUpload.Label>Project files</FileUpload.Label>
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
@@ -82,7 +82,7 @@ export const Dropzone: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-    </FileUpload.Root>
+    </FileUpload>
   ),
 };
 
@@ -112,7 +112,7 @@ export const Controlled: Story = {
 
 export const RejectedFiles: Story = {
   render: () => (
-    <FileUpload.Root accept="image/*" maxFiles={2} maxFileSize={120_000}>
+    <FileUpload accept="image/*" maxFiles={2} maxFileSize={120_000}>
       <FileUpload.Label>Images</FileUpload.Label>
       <FileUpload.Dropzone disableClick>
         <FileUpload.DropzoneIcon />
@@ -143,20 +143,20 @@ export const RejectedFiles: Story = {
           }
         </FileUpload.Context>
       </FileUpload.ItemGroup>
-    </FileUpload.Root>
+    </FileUpload>
   ),
 };
 
 export const WithField: Story = {
   render: () => (
     <Field.Root required>
-      <FileUpload.Root name="attachments" maxFiles={3}>
+      <FileUpload name="attachments" maxFiles={3}>
         <FileUpload.Label>Required attachments</FileUpload.Label>
         <FileUpload.Trigger>Choose files</FileUpload.Trigger>
         <FileUpload.ItemGroup>
           <FileUploadItems />
         </FileUpload.ItemGroup>
-      </FileUpload.Root>
+      </FileUpload>
       <Field.HelperText>Upload up to three files.</Field.HelperText>
       <Field.ErrorText>Upload at least one file.</Field.ErrorText>
     </Field.Root>
@@ -188,7 +188,7 @@ export const RootProvider: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <FileUpload.Root maxFiles={2}>
+    <FileUpload maxFiles={2}>
       <FileUpload.Label>Brand assets</FileUpload.Label>
       <FileUpload.Dropzone className={styles.customDropzone} disableClick>
         <FileUpload.DropzoneIcon />
@@ -201,6 +201,6 @@ export const CustomStyling: Story = {
       <FileUpload.ItemGroup>
         <FileUploadItems />
       </FileUpload.ItemGroup>
-    </FileUpload.Root>
+    </FileUpload>
   ),
 };

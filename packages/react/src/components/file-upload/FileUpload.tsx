@@ -293,6 +293,7 @@ const FileUploadClearTrigger = forwardRef<
   },
   ref,
 ) {
+  const clearLabel = ariaLabel ?? (ariaLabelledBy == null ? 'Clear files' : undefined);
   const triggerClassName = clsx(
     styles.clearTrigger,
     children != null && styles.clearTriggerWithContent,
@@ -306,7 +307,7 @@ const FileUploadClearTrigger = forwardRef<
         asChild
         data-slot="file-upload-clear-trigger"
         className={triggerClassName}
-        aria-label={ariaLabel}
+        aria-label={clearLabel}
         aria-labelledby={ariaLabelledBy}
         {...props}
       >
@@ -323,7 +324,7 @@ const FileUploadClearTrigger = forwardRef<
       className={triggerClassName}
       {...props}
     >
-      <CloseButton.Root aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+      <CloseButton.Root aria-label={clearLabel} aria-labelledby={ariaLabelledBy}>
         {children ?? <CloseIcon />}
       </CloseButton.Root>
     </FileUploadPrimitive.ClearTrigger>
