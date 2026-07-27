@@ -134,6 +134,16 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
 
 ```
 
+### Boundary
+
+Set `allowOverflow={false}` with `getBoundaryEl` to constrain the panel to a specific container.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
+  ```
+
+</PreviewFrame>
+
 ### Context
 
 Read the panel API inline with `FloatingPanel.Context`.
@@ -167,16 +177,6 @@ Control `size` when the surrounding UI needs to store or display the current pan
 ```tsx preview file="./_snippets/floating-panel/controlled-size.tsx"
 
 ```
-
-### Boundary
-
-Set `allowOverflow={false}` with `getBoundaryEl` to constrain the panel to a specific container.
-
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
-  ```
-
-</PreviewFrame>
 
 ### Escape Dismiss
 

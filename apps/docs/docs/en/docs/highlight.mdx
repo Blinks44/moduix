@@ -67,7 +67,7 @@ directly instead of adding a second rendering API to `Highlight`.
 | `query`      | -       | String or string array of terms to highlight.           |
 | `text`       | -       | Required full source string.                            |
 | `ignoreCase` | `false` | Makes matching case-insensitive.                        |
-| `matchAll`   | `false` | Highlights all matches instead of only the first match. |
+| `matchAll`   | `false` for a string; `true` for a string array | Highlights all matches. String-array queries require `true`. |
 | `exactMatch` | `false` | Restricts matching to exact whole words.                |
 
 ### Behavioral notes
@@ -77,6 +77,10 @@ If the query does not match, the component renders only plain text and no mark e
 
 `Highlight` has no ref target, state machine, callbacks, `Field`/`Fieldset` integration,
 `HiddenInput`, `ids`, context hooks, or `RootProvider`.
+
+`exactMatch` uses Ark's JavaScript word-boundary matching. It is reliable for Latin word matching,
+but does not treat Cyrillic and some other non-ASCII scripts as whole words. Use a locale-aware search
+matcher before rendering when that distinction is required.
 
 ## Examples
 
@@ -93,7 +97,8 @@ Control the query from React state when users are filtering or searching visible
 
 ### Exact Match
 
-Enable `exactMatch` when partial-word hits are too noisy for the current search flow.
+Enable `exactMatch` when partial-word hits are too noisy in Latin-text search. For Cyrillic and other
+non-ASCII scripts, use a locale-aware matcher before rendering instead.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/highlight/exact-match.tsx"
@@ -126,7 +131,8 @@ Use `matchAll` when every occurrence should stay visible instead of highlighting
 
 ### Multiple Queries
 
-Pass a string array when several search terms should be highlighted in one pass.
+Pass a string array when several search terms should be highlighted in one pass. Ark enables
+`matchAll` automatically for an array; passing `matchAll={false}` with one throws an error.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/highlight/multiple-queries.tsx"

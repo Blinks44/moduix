@@ -9,7 +9,6 @@ export default function HighlightDynamicQueryDemo() {
     <div className={styles.stack}>
       <Input
         aria-label="Search text"
-        className={styles.field}
         value={query}
         onChange={(event) => setQuery(event.currentTarget.value)}
         placeholder="Search text..."
