@@ -20,9 +20,6 @@ import { CloseButton } from '../close-button';
 import styles from './FloatingPanel.module.css';
 
 const DEFAULT_CLOSE_BUTTON_LABEL = 'Close panel';
-const DEFAULT_MINIMIZE_LABEL = 'Minimize panel';
-const DEFAULT_MAXIMIZE_LABEL = 'Maximize panel';
-const DEFAULT_RESTORE_LABEL = 'Restore panel';
 const resizeTriggerAxes = [
   'n',
   'e',
@@ -178,14 +175,6 @@ const FloatingPanelStageTrigger = forwardRef<
   ref,
 ) {
   const shouldRenderDefaultIcon = children == null && !asChild;
-  const defaultAriaLabel =
-    shouldRenderDefaultIcon && stage === 'minimized'
-      ? DEFAULT_MINIMIZE_LABEL
-      : shouldRenderDefaultIcon && stage === 'maximized'
-        ? DEFAULT_MAXIMIZE_LABEL
-        : shouldRenderDefaultIcon && stage === 'default'
-          ? DEFAULT_RESTORE_LABEL
-          : undefined;
 
   return (
     <FloatingPanelPrimitive.StageTrigger
@@ -194,7 +183,7 @@ const FloatingPanelStageTrigger = forwardRef<
       stage={stage}
       data-slot="floating-panel-stage-trigger"
       className={clsx(!asChild && styles.controlButton, normalizeClassName(className))}
-      aria-label={ariaLabel ?? defaultAriaLabel}
+      aria-label={ariaLabel}
       {...props}
     >
       {children}
@@ -256,8 +245,17 @@ const FloatingPanelBody = forwardRef<
 });
 
 function FloatingPanelFooter({ className, ...props }: ComponentProps<'div'>) {
+  const { ['data-minimized']: dataMinimized } = useFloatingPanelContext().getContentProps() as {
+    'data-minimized'?: string;
+  };
+
   return (
-    <div data-slot="floating-panel-footer" className={clsx(styles.footer, className)} {...props} />
+    <div
+      {...props}
+      data-slot="floating-panel-footer"
+      data-minimized={dataMinimized}
+      className={clsx(styles.footer, className)}
+    />
   );
 }
 

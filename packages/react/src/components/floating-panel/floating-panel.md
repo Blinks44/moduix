@@ -111,7 +111,8 @@ and accessible name.
   `RootProvider`, lazy mounting, and exit lifecycle props are supported.
 - Dragging, resizing, `minSize`, `maxSize`, `lockAspectRatio`, `gridSize`, `allowOverflow`,
   `getBoundaryEl`, `draggable`, `resizable`, `disabled`, `closeOnEscape`, `persistRect`, `strategy`, `ids`,
-  `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged.
+  `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged. The default
+  stage-control icons preserve Ark's translated accessible labels.
 - Stage transitions use Ark stage values: `default`, `minimized`, and `maximized`.
 - `ResizeTrigger` requires an Ark axis. `ResizeTriggerGroup` renders all axes by default or a subset
   through `axes`.
@@ -120,6 +121,8 @@ and accessible name.
 
 - Ark wires trigger/content/title/header IDs through `ids` and manages Escape handling through
   `closeOnEscape`.
+- `Content` has `role="dialog"`; when it has focus, Arrow keys move the panel by `gridSize` and
+  honor `dir`. Use `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit focus handoff.
 - The panel is non-modal: it does not trap focus, lock scroll, or hide outside content from
   assistive technology.
 - `DragTrigger` and `ResizeTrigger` preserve Ark pointer interaction and disabled state.
@@ -147,8 +150,8 @@ defaults `persistRect` to `true` so close animations keep the last Ark position 
 flashing at the viewport origin during presence teardown. Stage styling uses Ark's
 `[data-minimized]`, `[data-maximized]`, and `[data-staged]` attributes.
 
-The public `--moduix-floating-panel-*` variables are declared in `theme.css`. Position and size are owned
-by Ark runtime variables on `Positioner`; the wrapper does not duplicate those measurements.
+The public `--moduix-floating-panel-*` variables are declared in `theme.css`. Position, size, and resize
+handle geometry are owned by Ark runtime styles; configure them with Ark state props rather than CSS.
 
 ## Intentional sugar and differences from upstream
 

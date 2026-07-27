@@ -12,15 +12,6 @@ export default function ContextFloatingPanelDemo() {
       <FloatingPanel.Trigger asChild>
         <Button>Open context panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanel.Context>
-        {(panel) => (
-          <PreviewMeta>
-            <output>
-              Open: {String(panel.open)}, dragging: {String(panel.dragging)}
-            </output>
-          </PreviewMeta>
-        )}
-      </FloatingPanel.Context>
       <FloatingPanel.Positioner>
         <FloatingPanel.Content>
           <FloatingPanel.DragTrigger>
@@ -43,6 +34,15 @@ export default function ContextFloatingPanelDemo() {
           <FloatingPanel.ResizeTriggerGroup />
         </FloatingPanel.Content>
       </FloatingPanel.Positioner>
+      <FloatingPanel.Context>
+        {(panel) => (
+          <PreviewMeta>
+            <output>
+              Open: {String(panel.open)}, dragging: {String(panel.dragging)}
+            </output>
+          </PreviewMeta>
+        )}
+      </FloatingPanel.Context>
     </FloatingPanel>
   );
 }

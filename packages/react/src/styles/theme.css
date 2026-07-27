@@ -1322,13 +1322,9 @@
   --moduix-floating-panel-header-height: initial; /* var(--moduix-size-xl) */
   --moduix-floating-panel-header-padding-x: initial; /* var(--moduix-spacing-3) */
   --moduix-floating-panel-header-padding-y: initial; /* var(--moduix-spacing-2) */
-  --moduix-floating-panel-height: initial; /* 100% */
   --moduix-floating-panel-min-height: initial; /* 10rem */
   --moduix-floating-panel-min-width: initial; /* 16rem */
   --moduix-floating-panel-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-floating-panel-resize-corner-size: initial; /* var(--moduix-spacing-3) */
-  --moduix-floating-panel-resize-edge-inset: initial; /* var(--moduix-spacing-3) */
-  --moduix-floating-panel-resize-edge-size: initial; /* var(--moduix-spacing-2) */
   --moduix-floating-panel-shadow: initial; /* var(--moduix-shadow-lg) */
   --moduix-floating-panel-starting-opacity: initial; /* 0 */
   --moduix-floating-panel-starting-scale: initial; /* var(--moduix-scale-popup) */
@@ -1352,7 +1348,6 @@
   --moduix-floating-panel-trigger-padding-x: initial; /* var(--moduix-spacing-3) */
   --moduix-floating-panel-trigger-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-floating-panel-trigger-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-floating-panel-width: initial; /* 100% */
   --moduix-floating-panel-z-index: initial; /* var(--moduix-z-popup) */
 
   /* Heading */
