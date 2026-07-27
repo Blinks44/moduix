@@ -1,9 +1,9 @@
 import { HoverCard } from '@moduix/react';
-import { CircleOffIcon } from 'lucide-react';
+import { Building2Icon } from 'lucide-react';
 
-export default function DisabledHoverCard() {
+export default function PositioningHoverCard() {
   return (
-    <HoverCard disabled>
+    <HoverCard positioning={{ placement: 'right', gutter: 12 }}>
       <HoverCard.Trigger
         style={{
           backgroundColor: 'var(--moduix-color-muted)',
@@ -12,14 +12,16 @@ export default function DisabledHoverCard() {
           textDecoration: 'none',
         }}
       >
-        <CircleOffIcon aria-hidden size={14} />
-        Profile preview unavailable
+        Atlas workspace
       </HoverCard.Trigger>
       <HoverCard.Positioner>
         <HoverCard.Content>
           <HoverCard.Arrow />
-          <strong>Sarah Chen</strong>
-          <p>This preview is disabled.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-1)' }}>
+            <Building2Icon aria-hidden size={16} />
+            <strong>Atlas design system</strong>
+          </div>
+          <p>12 collaborators · positioned right with a 12px gutter.</p>
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

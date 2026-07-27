@@ -1,9 +1,9 @@
 import { HoverCard } from '@moduix/react';
-import { CircleOffIcon } from 'lucide-react';
+import { SparklesIcon } from 'lucide-react';
 
-export default function DisabledHoverCard() {
+export default function DelayHoverCard() {
   return (
-    <HoverCard disabled>
+    <HoverCard openDelay={200} closeDelay={500}>
       <HoverCard.Trigger
         style={{
           backgroundColor: 'var(--moduix-color-muted)',
@@ -12,14 +12,16 @@ export default function DisabledHoverCard() {
           textDecoration: 'none',
         }}
       >
-        <CircleOffIcon aria-hidden size={14} />
-        Profile preview unavailable
+        Release notes
       </HoverCard.Trigger>
       <HoverCard.Positioner>
         <HoverCard.Content>
           <HoverCard.Arrow />
-          <strong>Sarah Chen</strong>
-          <p>This preview is disabled.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-1)' }}>
+            <SparklesIcon aria-hidden size={16} />
+            <strong>Moduix 2.2</strong>
+          </div>
+          <p>Opens after 200ms and stays available for 500ms after pointer leave.</p>
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

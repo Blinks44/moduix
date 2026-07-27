@@ -1,4 +1,4 @@
-import { Button, Dialog, HoverCard } from '@moduix/react';
+import { Avatar, Button, Dialog, HoverCard } from '@moduix/react';
 import { useRef } from 'react';
 
 export default function DialogHoverCard() {
@@ -14,17 +14,34 @@ export default function DialogHoverCard() {
         <Dialog.Content>
           <Dialog.Header>
             <Dialog.Title ref={titleRef} tabIndex={-1}>
-              Profile
+              Team member
             </Dialog.Title>
           </Dialog.Header>
           <HoverCard portalled={false}>
-            <HoverCard.Trigger asChild>
-              <a href="#profile">@sarah_chen</a>
+            <HoverCard.Trigger
+              style={{
+                backgroundColor: 'var(--moduix-color-muted)',
+                borderRadius: 'var(--moduix-radius-sm)',
+                paddingInline: 'var(--moduix-spacing-1)',
+                textDecoration: 'none',
+              }}
+            >
+              @sarah_chen
             </HoverCard.Trigger>
             <HoverCard.Positioner>
               <HoverCard.Content>
                 <HoverCard.Arrow />
-                Profile details
+                <div style={{ display: 'flex', gap: 'var(--moduix-spacing-2)' }}>
+                  <Avatar size="sm">
+                    <Avatar.Fallback name="Sarah Chen" />
+                  </Avatar>
+                  <div>
+                    <strong>Sarah Chen</strong>
+                    <div style={{ color: 'var(--moduix-color-muted-foreground)' }}>
+                      Reviewing this project
+                    </div>
+                  </div>
+                </div>
               </HoverCard.Content>
             </HoverCard.Positioner>
           </HoverCard>
