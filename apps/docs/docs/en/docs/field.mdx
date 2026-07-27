@@ -58,7 +58,7 @@ Field
 | `Field.HelperText`        | Helper text included in `aria-describedby`.                     |
 | `Field.ErrorText`         | Error text rendered only when `Field` is `invalid`.             |
 | `Field.RequiredIndicator` | Visual required marker with optional `fallback`.                |
-| `Field.Item`              | Item-scoped field context for grouped controls via `value`.     |
+| `Field.Item`              | Item-scoped field context for grouped controls via `value`; its ref targets the row wrapper. |
 
 ## Composition
 
@@ -86,6 +86,7 @@ rendered node.
   and should not be nested inside `Field.Root` for the same field instance.
 - Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
   current field state. Direct Ark imports are only for lower-level APIs not exported by moduix.
+- `Field.Item` forwards its ref to the moduix row wrapper it renders around its children.
 - `Field` does not render a hidden input; composed controls such as `Checkbox` and `RadioGroup` own
   their own native form parts.
 

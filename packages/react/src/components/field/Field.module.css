@@ -27,10 +27,6 @@
     font-size: var(--moduix-field-label-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-field-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm));
-
-    &[data-disabled] {
-      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .helperText {
@@ -38,10 +34,6 @@
     color: var(--moduix-field-description-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-field-description-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-field-description-line-height, var(--moduix-line-height-text-sm));
-
-    &[data-disabled] {
-      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .control {
@@ -68,8 +60,7 @@
     outline-offset: var(--moduix-field-focus-ring-offset, var(--moduix-focus-ring-inset-offset));
     transition:
       border-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
-      outline-color var(--moduix-field-control-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-field-control-transition, var(--moduix-transition-default));
+      outline-color var(--moduix-field-control-transition, var(--moduix-transition-default));
 
     &::placeholder {
       color: var(--moduix-field-control-placeholder-color, var(--moduix-color-muted-foreground));
@@ -96,7 +87,6 @@
     &[data-disabled],
     &:disabled {
       pointer-events: none;
-      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
     }
   }
 
@@ -110,10 +100,6 @@
     color: var(--moduix-field-error-color, var(--moduix-color-destructive));
     font-size: var(--moduix-field-error-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-field-error-line-height, var(--moduix-line-height-text-sm));
-
-    &[data-disabled] {
-      opacity: var(--moduix-field-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .requiredIndicator {

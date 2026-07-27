@@ -37,10 +37,14 @@ const FieldRootProvider = forwardRef<
   );
 });
 
-function FieldItem({ className, children, value, ...props }: FieldItemProps) {
+const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(function FieldItem(
+  { className, children, value, ...props },
+  ref,
+) {
   return (
     <FieldPrimitive.Item value={value}>
       <div
+        ref={ref}
         data-slot="field-item"
         className={clsx(styles.item, normalizeClassName(className))}
         {...props}
@@ -49,7 +53,7 @@ function FieldItem({ className, children, value, ...props }: FieldItemProps) {
       </div>
     </FieldPrimitive.Item>
   );
-}
+});
 
 const FieldLabel = forwardRef<
   ComponentRef<typeof FieldPrimitive.Label>,
