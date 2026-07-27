@@ -74,9 +74,21 @@
 
   .actions {
     display: flex;
+    min-width: 0;
+    max-width: 100%;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: var(--moduix-empty-actions-gap, var(--moduix-spacing-2));
+
+    & > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    & > :where(button, a) {
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
   }
 }

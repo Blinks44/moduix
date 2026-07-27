@@ -119,7 +119,8 @@ button/link wrapper only where that semantic role is intentional.
 
 Every part accepts `className` and emits `data-scope="empty"` plus its `data-part` and `data-slot`.
 The CSS module preserves the moduix visual identity: centered grid layout, tokenized spacing, card
-surface colors, rounded icon container, and wrapping action row.
+surface colors, rounded icon container, and wrapping action row. Direct button and link actions can
+wrap long labels instead of overflowing a narrow surface.
 
 Public CSS variables:
 
@@ -172,13 +173,14 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-27: Kept direct button and link actions within narrow empty-state surfaces when labels are
+  long, added focused anatomy and `asChild` tests, and documented the presentational accessibility
+  contract in the site docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
-  public docs with the required local-only Ark factory API reference text.
 - 2026-07-02: Removed redundant exported `Empty*Props` aliases; the public API now exposes only the
   callable `Empty` namespace while typing stays on Ark factory intrinsics.
+- 2026-06-25: Audited the Ark factory migration, confirmed the TSX and CSS contracts, and aligned
+  public docs with the required local-only Ark factory API reference text.
 - 2026-06-19: Migrated `Empty` to an Ark-aligned factory wrapper with `data-scope`/`data-part`,
   namespaced `Empty.*` parts, forwarded refs, and `asChild` composition. Removed flat part exports
   and `EmptyTitle as`.
-- Added `Empty` as a standalone empty-state surface with optional icon, content, and actions parts.
-- Rewrote the docs contract to match the current component-page structure and styling guidance.
