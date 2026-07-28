@@ -15,15 +15,11 @@ import * as ListboxDocs from '@/components/examples/listbox';
 Use `Listbox` for a visible collection where users pick one or more items without opening a popup.
 Pass a `collection`, render `Content`, and pass each item through `Listbox.Item item={item}`.
 
-<style>{`
-      [data-slot="listbox-content"] {
-        max-height: var(--moduix-listbox-content-max-height);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/listbox/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -46,6 +42,9 @@ Listbox / Listbox.Root
 │  │     └─ Listbox.ItemIndicator
 │  └─ Listbox.Item[item]
 │     ├─ Listbox.ItemText
+│     │  └─ Listbox.ItemTextContent (optional)
+│     │     ├─ Listbox.ItemTextIcon (optional)
+│     │     └─ Listbox.ItemTextLabel (optional)
 │     └─ Listbox.ItemIndicator
 └─ Listbox.ValueText
 ```
@@ -64,6 +63,9 @@ Listbox / Listbox.Root
 | `Listbox.ItemGroupLabel`   | Label for a collection group.                                 |
 | `Listbox.Item`             | Selectable row. Pass the collection item through `item`.      |
 | `Listbox.ItemText`         | Text used for display and accessibility.                      |
+| `Listbox.ItemTextContent`  | Optional helper for icon and text layouts inside `ItemText`.  |
+| `Listbox.ItemTextIcon`     | Optional icon wrapper inside `ItemTextContent`.               |
+| `Listbox.ItemTextLabel`    | Truncation-safe label inside `ItemTextContent`.               |
 | `Listbox.ItemIndicator`    | Selected-state indicator with the moduix default check icon.  |
 | `Listbox.ValueText`        | Selected value summary.                                       |
 
@@ -93,7 +95,7 @@ filter field should remain visually separate from the list or sit in custom surr
 | `collection`              | -          | Required Ark collection. Use `createListCollection` or grid variants. |
 | `defaultValue`            | `[]`       | Initial selected values for uncontrolled state.                       |
 | `defaultHighlightedValue` | -          | Initial highlighted item for uncontrolled highlight state.            |
-| `deselectable`            | -          | Follows Ark's empty-selection behavior for deselecting values.        |
+| `deselectable`            | -          | Allows Escape to clear a non-empty selection.                          |
 | `disabled`                | `false`    | Disables the whole listbox.                                           |
 | `disallowSelectAll`       | `false`    | Disables `Cmd/Ctrl + A` selection.                                    |
 | `loopFocus`               | `false`    | Keeps arrow navigation from wrapping by default.                      |
@@ -110,6 +112,11 @@ selected keys and `details.items` for selected collection items.
 `highlightedValue`, `defaultHighlightedValue`, and `onHighlightChange(details)` control active
 descendant movement. `onSelect(details)` fires for item selection with the selected value.
 
+`useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context`, and
+`Listbox.ItemContext` are available from `@moduix/react` for advanced state and item composition.
+Refs forward to the corresponding Ark part; root and root provider refs target their rendered `div`
+elements. Use `ids` when listbox parts need stable IDs for composition with surrounding UI.
+
 `Listbox.Input` is only needed for filtering. Put it in `Listbox.Filter` for the default search
 appearance, or render it directly for a separate input. Set `typeahead={false}` so typeahead and
 filtering do not compete. Filtering state remains explicit: render `Listbox.ClearTrigger` for a
@@ -125,40 +132,42 @@ typeahead, Home/End behavior, disabled item handling, and orientation-specific a
 
 Control the selected string array from React state and update it from `details.value`.
 
-<style>{`[data-slot="listbox-item"][data-selected] { color: var(--moduix-listbox-item-selected-color); }`}</style>
-
-```tsx preview file="./_snippets/listbox/controlled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/controlled.tsx"
 
 ```
+</PreviewFrame>
 
 ### Disabled Item
 
 Disable individual items through the collection item `disabled` field or `isItemDisabled`.
 
-<style>{`[data-slot="listbox-item"][data-disabled] { opacity: var(--moduix-listbox-disabled-opacity); }`}</style>
-
-```tsx preview file="./_snippets/listbox/disabled-item.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/disabled-item.tsx"
 
 ```
+</PreviewFrame>
 
 ### Extended Selection
 
 Use `selectionMode="extended"` when users should select multiple items with platform modifier keys.
 
-<style>{`[data-slot="listbox-item"][data-highlighted] { background: var(--moduix-listbox-highlight-bg); }`}</style>
-
-```tsx preview file="./_snippets/listbox/extended-selection.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/extended-selection.tsx"
 
 ```
+</PreviewFrame>
 
 ### Filtering
 
 Use `Listbox.Filter` with `useListCollection`. It adds the default search icon and forms one surface
 with the following `Content`; turn off typeahead when text input owns search.
 
-```tsx preview file="./_snippets/listbox/filtering.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/filtering.tsx"
 
 ```
+</PreviewFrame>
 
 ### Grid
 
@@ -166,95 +175,83 @@ Pass a grid collection to get grid keyboard navigation. Ark exposes `data-layout
 `--column-count` CSS variable on `Content`. Grid examples use selected background instead of an
 inline check indicator to keep cells compact.
 
-<style>{`[data-slot="listbox-content"][data-layout="grid"] { grid-template-columns: repeat(var(--column-count), minmax(0, 1fr)); }
-[data-slot="listbox-content"][data-layout="grid"] [data-slot="listbox-item"] { justify-items: center; text-align: center; }
-[data-slot="listbox-content"][data-layout="grid"] [data-selected] { background: var(--moduix-listbox-grid-selected-bg); }`}</style>
-
-```tsx preview file="./_snippets/listbox/grid.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/grid.tsx"
 
 ```
+</PreviewFrame>
 
 ### Grouping
 
 Use `groupBy` on the collection and render `ItemGroup` plus `ItemGroupLabel`.
 
-<style>{`[data-slot="listbox-item-group-label"] { color: var(--moduix-listbox-item-group-label-color); }`}</style>
-
-```tsx preview file="./_snippets/listbox/grouping.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/grouping.tsx"
 
 ```
+</PreviewFrame>
 
 ### Horizontal
 
 Set `orientation="horizontal"` for horizontal layout and left/right keyboard navigation.
 
-<style>{`
-      .horizontalRoot {
-        --moduix-listbox-width: min(100%, 34rem);
-        --moduix-listbox-horizontal-content-max-height: none;
-        --moduix-listbox-horizontal-item-width: 10rem;
-      }
-
-      .albumText {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--moduix-spacing-1);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/listbox/horizontal.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/listbox/horizontal.tsx"
 
 ```
+</PreviewFrame>
 
 ### Multiple
 
 Set `selectionMode="multiple"` to toggle multiple values without modifier keys.
 
-<style>{`[data-slot="listbox-value-text"] { color: var(--moduix-listbox-value-text-color); }`}</style>
-
-```tsx preview file="./_snippets/listbox/multiple.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/multiple.tsx"
 
 ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use moduix `useListbox` with `Listbox.RootProvider` when external controls need direct access to the
 listbox API.
 
-<style>{`[data-slot="listbox-root"] { gap: var(--moduix-listbox-root-gap); }`}</style>
-
-```tsx preview file="./_snippets/listbox/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ### Select All
 
 Use moduix `useListboxContext` inside a child component to implement select-all controls.
 
-<style>{`[data-slot="listbox-root"] { width: var(--moduix-listbox-width); }`}</style>
-
-```tsx preview file="./_snippets/listbox/select-all.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/select-all.tsx"
 
 ```
+</PreviewFrame>
 
 ### Standalone Filter Input
 
 Render `Listbox.Input` directly when the filter and results should stay as separate surfaces. Its
 default border matches `Listbox.Content`; keyboard focus animates only its outline color.
 
-```tsx preview file="./_snippets/listbox/standalone-filter-input.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/standalone-filter-input.tsx"
 
 ```
+</PreviewFrame>
 
 ### Value Text
 
 Render `ValueText` when the selected value summary should stay visible near the list.
 
-<style>{`[data-slot="listbox-value-text"] { font-size: var(--moduix-listbox-value-text-font-size); }`}</style>
-
-```tsx preview file="./_snippets/listbox/value-text.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/listbox/value-text.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -284,4 +281,5 @@ Style `Listbox` through `className`, stable `data-slot="listbox-*"` hooks, Ark
 - Moduix hooks: `data-slot="listbox-root"`, `listbox-label`, `listbox-filter`,
   `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`, `listbox-content`,
   `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`, `listbox-item`,
-  `listbox-item-text`, `listbox-item-indicator`, and `listbox-value-text`.
+  `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
+  `listbox-item-text-label`, `listbox-item-indicator`, and `listbox-value-text`.

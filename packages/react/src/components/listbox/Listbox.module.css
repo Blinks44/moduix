@@ -140,10 +140,6 @@
         var(--moduix-listbox-filter-input-padding-x, var(--moduix-spacing-2))
     );
     background-color: var(--moduix-listbox-bg, var(--moduix-color-background));
-
-    &:focus-visible {
-      outline-color: transparent;
-    }
   }
 
   .clearTrigger {
@@ -218,6 +214,10 @@
     transition:
       border-color var(--moduix-listbox-transition, var(--moduix-transition-default)),
       outline-color var(--moduix-listbox-transition, var(--moduix-transition-default));
+
+    &:focus-visible {
+      outline-color: var(--moduix-listbox-focus-ring-color, var(--moduix-color-ring));
+    }
 
     &[data-layout='grid'] {
       display: grid;

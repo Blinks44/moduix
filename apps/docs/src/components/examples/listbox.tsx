@@ -51,7 +51,7 @@ const listboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-listbox-empty-padding-y',
-    'var(--moduix-spacing-3)',
+    'var(--moduix-spacing-1)',
     'Controls empty vertical padding.',
   ],
   ['--moduix-listbox-filter-action-bg', 'transparent', 'Controls clear button background.'],
