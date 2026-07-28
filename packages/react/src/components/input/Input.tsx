@@ -14,14 +14,15 @@ const InputRoot = forwardRef<
 >(function InputRoot({ className, size = 'md', htmlSize, ...props }, ref) {
   return (
     <FieldPrimitive.Input
+      {...props}
       ref={ref}
       data-scope="field"
       data-part="input"
       data-slot="input-root"
       data-size={size}
+      data-html-size={htmlSize === undefined ? undefined : ''}
       className={clsx(styles.root, normalizeClassName(className))}
       size={htmlSize}
-      {...props}
     />
   );
 });

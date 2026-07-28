@@ -2,14 +2,14 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `Field.Input`
-- Ark UI composition: https://ark-ui.com/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/docs/guides/styling
-- Ark UI ref: https://ark-ui.com/docs/guides/ref
+- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/react/docs/components/field and `Field.Input`
+- Ark UI composition: https://ark-ui.com/react/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/react/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/react/docs/guides/ref
 - Chakra UI Input: https://chakra-ui.com/docs/components/input
 
-Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input`, which renders
-an Ark factory input with field context, as its behavioral and accessibility model.
+Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input` as its
+behavioral and accessibility model.
 
 ## Purpose
 
@@ -28,7 +28,8 @@ and error text when rendered inside `Field`.
 ## Current behavior contract
 
 - Renders one `Field.Input` and forwards the ref to its `HTMLInputElement`.
-- Accepts Ark `Field.Input` props except native `size`, which is renamed to `htmlSize`.
+- Accepts Ark `Field.Input` props except native `size`, which is renamed to `htmlSize`; when it is
+  provided, the default width follows the native character-based input width.
 - Adds visual `size="xs" | "sm" | "md" | "lg" | "xl"` with `md` as the default.
 - Exposes `Input.Root` as the same root component for namespace consistency.
 - Supports `asChild` with one semantic input-like child.
@@ -75,6 +76,8 @@ edit, submit, and cancel controls.
   `onChange(event)`.
 - Custom control: supported through `asChild` when one semantic input element must own the DOM
   node.
+- Native file input: supported for simple forms; use `FileUpload` when the UI owns files, dropzones,
+  or upload lifecycle state.
 - Root provider, context, ids, helper/error text, and required indicator belong to `Field`, not
   `Input`.
 - Preview/edit state belongs to `Editable`, not `Input`.
@@ -93,10 +96,15 @@ edit, submit, and cancel controls.
 
 The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block padding; explicit size variants and `--moduix-input-*` overrides remain available.
 
-- `size` defaults to `md`; native character width uses `htmlSize`.
+- `size` defaults to `md`; native character width uses `htmlSize` unless
+  `--moduix-input-width` overrides it.
 - `className` is merged with the moduix CSS module class.
 - Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
   native state selectors, and the public `--moduix-input-*` variables in `theme.css`.
+- `data-html-size` is added only while `htmlSize` is set so the default width can follow the native
+  character-based width.
+- File chooser buttons use the compact moduix primary-button treatment while preserving the native
+  control and selection text.
 - Visual size defaults use the shared control scale: `xs` uses `--moduix-size-xs`, `sm` uses `--moduix-size-sm`,
   `md` uses `--moduix-size-md`, `lg` uses `--moduix-size-xl`, and `xl` uses an overrideable `3.5rem` fallback.
 - The component exposes no Ark runtime CSS variables.
@@ -117,9 +125,12 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
 - Use `InputGroup` for inline decoration and actions.
 - Keep inline edit/read-only examples on `Editable`, not `Input`.
 - Do not migrate `PasswordInput` to Ark Password Input as part of `Input` changes.
+- Keep file selection flows that need state or upload UI on `FileUpload`.
 
 ## Local changelog
 
+- 2026-07-28: Preserved native character width for `htmlSize`, made component-owned data hooks
+  stable, and gave simple native file inputs the compact moduix button treatment.
 - 2026-07-21: Normalized the complete input scale to `24/32/36/40/48px` tokens and compacted block
   padding so typography no longer expands a selected size.
 

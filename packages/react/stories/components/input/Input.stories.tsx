@@ -79,6 +79,18 @@ export const NativeAttributes: Story = {
   },
 };
 
+export const File: Story = {
+  render: () => {
+    return (
+      <Field className={storyStyles.field}>
+        <Field.Label>Attachment</Field.Label>
+        <Input accept=".pdf,.png" type="file" />
+        <Field.HelperText>Choose a PDF or PNG file.</Field.HelperText>
+      </Field>
+    );
+  },
+};
+
 export const AsChild: Story = {
   render: () => {
     return (

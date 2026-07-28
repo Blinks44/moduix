@@ -2,7 +2,7 @@ import { Field, Input } from '@moduix/react';
 
 export default function SecurityCodeDemo() {
   return (
-    <Field className="input-demo-field">
+    <Field>
       <Field.Label>Security code</Field.Label>
       <Input
         htmlSize={8}

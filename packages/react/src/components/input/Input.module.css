@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     box-sizing: border-box;
-    width: var(--moduix-input-width, 100%);
+    width: var(--moduix-input-width, var(--moduix-input-default-width, 100%));
     max-width: var(--moduix-input-max-width, none);
     min-height: var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md)));
     margin: 0;
@@ -44,6 +44,31 @@
 
     &::placeholder {
       color: var(--moduix-input-placeholder-color, var(--moduix-color-muted-foreground));
+    }
+
+    &::file-selector-button {
+      margin-inline-end: var(--moduix-spacing-3);
+      border: var(--moduix-button-border-width, var(--moduix-border-width-sm)) solid
+        var(--moduix-button-default-border-color, var(--moduix-color-primary));
+      border-radius: var(--moduix-button-radius, var(--moduix-radius-md));
+      padding: var(--moduix-spacing-0-5) var(--moduix-spacing-2);
+      background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));
+      color: var(--moduix-button-default-color, var(--moduix-color-primary-foreground));
+      font: inherit;
+      font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
+      line-height: inherit;
+      cursor: pointer;
+      transition: background-color var(--moduix-input-transition, var(--moduix-transition-default));
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-button-default-bg-hover, var(--moduix-color-foreground));
+        }
+      }
+    }
+
+    &[data-html-size] {
+      --moduix-input-default-width: auto;
     }
 
     &:focus-visible {

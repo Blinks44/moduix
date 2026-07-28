@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function ControlledInputDemo() {
   const [value, setValue] = useState('');
   return (
-    <Field className="input-demo-field">
+    <Field>
       <Field.Label>Username</Field.Label>
       <Input
         value={value}
