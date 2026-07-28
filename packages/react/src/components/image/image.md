@@ -27,7 +27,7 @@ composition for art direction and format sources.
   attributes. Unpic generates `srcset`.
 - Supported image CDN URLs are transformed automatically. URLs from other sources remain regular
   images unless a Unpic `fallback` provider is supplied.
-- moduix adds a display block, a rounded default, and stable `data-slot` hooks. Unpic owns the
+- moduix adds a display block, a rounded default, and invariant `data-slot` hooks. Unpic owns the
   layout-mode width constraints.
 
 ## Anatomy and exported parts
@@ -77,7 +77,8 @@ container width.
 - `background="auto"`: preserved; Unpic generates a low-resolution background from supported
   image providers. The background remains after loading, so use it only for opaque images.
 - `fallback`, `operations`, `options`, and `breakpoints`: preserved for CDN-specific control.
-- `Image.Source`: preserved for native `<picture>` media and type selection.
+- `Image.Source`: preserved for native `<picture>` media and type selection. Put a `type` source
+  before an equivalent source without `type` so browsers can fall back to a supported format.
 
 ## Accessibility and state
 
@@ -95,7 +96,9 @@ container width.
 
 `Image` has `display: block`. Unpic supplies inline layout styles, including width constraints for
 responsive layouts, unless `unstyled` is set. Pass `className` to `Image` for visual
-customization; use the `data-slot` hooks for global selectors.
+customization; use the invariant `data-slot` hooks for global selectors. When art-directed sources
+need different layout rules at different breakpoints, set `unstyled` and supply those rules in
+consumer CSS.
 
 ## Intentional sugar and differences from upstream
 
@@ -116,6 +119,8 @@ customization; use the `data-slot` hooks for global selectors.
 
 ## Local changelog
 
+- 2026-07-28: Kept image and source `data-slot` hooks invariant, added focused tests and priority
+  coverage, and aligned preview sizing, copied examples, and Unpic format/layout guidance.
 - 2026-07-14: Added the Unpic-backed responsive `Image` component, `Image.Source`, styles,
   stories, docs, package exports, and registry metadata. Fixed layout now preserves Unpic's exact
   dimensions and has dedicated Storybook and documentation examples.

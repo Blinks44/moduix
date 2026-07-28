@@ -7,4 +7,8 @@
     display: block;
     width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
   }
+
+  .unstyled {
+    width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+  }
 }
