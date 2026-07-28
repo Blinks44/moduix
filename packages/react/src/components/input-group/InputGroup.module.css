@@ -37,10 +37,7 @@
       outline-color: var(--moduix-input-group-focus-ring-color, var(--moduix-color-ring));
     }
 
-    &:has(
-      [data-slot='input-group-input'][data-invalid],
-      [data-slot='input-group-input'][aria-invalid='true']
-    ) {
+    &:has([data-slot='input-root'][data-invalid], [data-slot='input-root'][aria-invalid='true']) {
       border-color: var(--moduix-input-group-border-color-invalid, var(--moduix-color-destructive));
 
       &:focus-within {
@@ -51,17 +48,11 @@
       }
     }
 
-    &:has(
-      [data-slot='input-group-input'][data-disabled],
-      [data-slot='input-group-input']:disabled
-    ) {
+    &:has([data-slot='input-root'][data-disabled], [data-slot='input-root']:disabled) {
       opacity: var(--moduix-input-group-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
-    &:has(
-      [data-slot='input-group-input'][data-readonly],
-      [data-slot='input-group-input']:read-only
-    ) {
+    &:has([data-slot='input-root'][data-readonly], [data-slot='input-root']:read-only) {
       border-color: var(
         --moduix-input-group-readonly-border-color,
         var(--moduix-input-group-border-color, var(--moduix-color-border))
@@ -197,7 +188,7 @@
   .text {
     box-sizing: border-box;
     display: inline-flex;
-    min-width: max-content;
+    min-width: 0;
     align-items: center;
     justify-content: center;
     gap: var(--moduix-input-group-addon-gap, var(--moduix-spacing-2));
@@ -206,6 +197,8 @@
     color: var(--moduix-input-group-addon-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-input-group-font-size, var(--moduix-text-md));
     line-height: var(--moduix-input-group-line-height, var(--moduix-line-height-text-md));
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
 
     & > svg {

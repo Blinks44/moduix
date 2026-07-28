@@ -25,15 +25,10 @@ Ark UI does not ship a dedicated input-group primitive. Moduix builds this compo
 
 Compose one grouped input with only the presentational parts the field needs.
 
-<style>{`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/basic.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/basic.tsx"
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -99,89 +94,57 @@ an accessible name only when the standalone composition itself needs grouped sem
 Disabled state remains on the native input. Disable related actions explicitly when they should
 also become unavailable.
 
-<style>{`
-      [data-slot="input-group-root"] {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/disabled.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/disabled.tsx"
+  ```
+</PreviewFrame>
 
 ### Field State
 
 Set invalid state on `Field`; Ark applies the state and ARIA contract to `InputGroup.Input`, and the
 shell reacts to that input state.
 
-<style>{`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/field-state.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/field-state.tsx"
+  ```
+</PreviewFrame>
 
 ### Prefix and Suffix
 
 Mix a filled addon with plain text when the two sides have different visual weight.
 
-<style>{`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/prefix-and-suffix.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/prefix-and-suffix.tsx"
+  ```
+</PreviewFrame>
 
 ### Sizes
 
 Set size once on the root so the input, addon, text, and button stay aligned.
 
-<style>{`
-      .input-group-demo-stack {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/sizes.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/sizes.tsx"
+  ```
+</PreviewFrame>
 
 ### With Action
 
 Use a grouped button for an action tied to the native input value.
 
-<style>{`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/with-action.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/with-action.tsx"
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` when the root must render a custom container while keeping the grouped styling and
 size context. This bypasses the default `div`, so the child must remain a semantic layout container.
 
-<style>{`
-      .input-group-demo-field {
-        width: min(16rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input-group/as-child.tsx"
-
-```
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input-group/as-child.tsx"
+  ```
+</PreviewFrame>
 
 ## Styling
 
@@ -203,7 +166,7 @@ size context. This bypasses the default `div`, so the child must remain a semant
 
 - `data-slot="input-group-root"` and `data-size`
 - `data-scope="input-group"` and `data-part="root" | "addon" | "text"` on factory parts
-- `data-slot="input-group-input"` plus Ark Field input state attributes
+- `data-slot="input-root"` plus Ark Field input state attributes
 - `data-slot="input-group-addon"`
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` on the grouped action button

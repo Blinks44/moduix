@@ -4,7 +4,7 @@ const inputGroupSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export default function InputGroupSizesDemo() {
   return (
-    <div className="input-group-demo-stack">
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
       {inputGroupSizes.map((size) => (
         <InputGroup key={size} size={size}>
           <InputGroup.Addon>@</InputGroup.Addon>

@@ -49,7 +49,6 @@ const InputGroupInput = forwardRef<ComponentRef<typeof Input>, ComponentProps<ty
     return (
       <Input
         ref={ref}
-        data-slot="input-group-input"
         className={clsx(styles.input, normalizeClassName(className))}
         size={size ?? groupSize}
         {...props}

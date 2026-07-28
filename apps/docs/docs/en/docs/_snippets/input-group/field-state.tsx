@@ -6,7 +6,7 @@ const domainErrorMessage = 'Please enter a valid domain.';
 
 export default function InvalidDomainDemo() {
   return (
-    <Field className="input-group-demo-field" invalid>
+    <Field invalid>
       <Field.Label>Domain</Field.Label>
       <InputGroup>
         <InputGroup.Input placeholder="company" />

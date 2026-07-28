@@ -4,7 +4,7 @@ const workspacePrefix = '@';
 
 export default function InputGroupDemo() {
   return (
-    <Field className="input-group-demo-field">
+    <Field>
       <Field.Label>Workspace</Field.Label>
       <InputGroup>
         <InputGroup.Addon>{workspacePrefix}</InputGroup.Addon>

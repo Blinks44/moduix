@@ -4,7 +4,7 @@ const repositoryOwner = 'moduix/';
 
 export default function InputGroupAsChildDemo() {
   return (
-    <Field className="input-group-demo-field">
+    <Field>
       <Field.Label>Repository</Field.Label>
       <InputGroup asChild>
         <div>
