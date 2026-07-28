@@ -23,6 +23,12 @@ const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function 
   );
 });
 
+const ReleaseList = forwardRef<HTMLUListElement, ComponentProps<'ul'>>(
+  function ReleaseList(props, ref) {
+    return <ul ref={ref} {...props} />;
+  },
+);
+
 const meta = {
   title: 'Components/List',
   component: List,
@@ -122,6 +128,19 @@ export const CustomItemComposition: Story = {
       <List.Item asChild>
         <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
       </List.Item>
+    </List>
+  ),
+};
+
+export const CustomRootComposition: Story = {
+  name: 'Custom Root Composition',
+  render: () => (
+    <List asChild>
+      <ReleaseList className={storyStyles.list}>
+        <List.Item>Prepare the release notes.</List.Item>
+        <List.Item>Publish the package.</List.Item>
+        <List.Item>Announce the release.</List.Item>
+      </ReleaseList>
     </List>
   ),
 };

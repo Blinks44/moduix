@@ -2,30 +2,26 @@ import { List } from '@moduix/react';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 
-const AccentListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function AccentListItem(
-  { className, ...props },
+const ReleaseListItem = forwardRef<HTMLLIElement, ComponentProps<'li'>>(function ReleaseListItem(
+  { style, ...props },
   ref,
 ) {
   return (
-    <li
-      ref={ref}
-      {...props}
-      className={className ? `list-demo-accent-item ${className}` : 'list-demo-accent-item'}
-    />
+    <li ref={ref} {...props} style={{ fontWeight: 'var(--moduix-weight-semibold)', ...style }} />
   );
 });
 
 export default function CustomCompositionListDemo() {
   return (
-    <List className="list-demo-accent">
+    <List>
       <List.Item asChild>
-        <AccentListItem>Native markers stay available for per-item styling.</AccentListItem>
+        <ReleaseListItem>Custom items can own their local styling.</ReleaseListItem>
       </List.Item>
       <List.Item asChild>
-        <AccentListItem>Root CSS variables still control spacing and indentation.</AccentListItem>
+        <ReleaseListItem>List still provides its spacing and marker contract.</ReleaseListItem>
       </List.Item>
       <List.Item asChild>
-        <AccentListItem>asChild keeps the semantic li contract for a custom item.</AccentListItem>
+        <ReleaseListItem>asChild keeps the semantic li contract for custom items.</ReleaseListItem>
       </List.Item>
     </List>
   );

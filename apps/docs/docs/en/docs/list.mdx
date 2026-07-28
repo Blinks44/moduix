@@ -17,8 +17,6 @@ Ark UI does not ship a dedicated list primitive. Moduix builds this component wi
 
 Start with `List` and `List.Item`. This is the recommended path when you want native list semantics with moduix spacing, typography, and marker tokens.
 
-<style>{ListDocs.listNoopCss}</style>
-
 ```tsx preview file="./_snippets/list/basic.tsx"
 
 ```
@@ -49,7 +47,7 @@ Stay with `<List>` for unordered content and use `as="ol"` when you need ordered
 
 ### When to go custom
 
-`List` does not expose an internal state machine, nested structure helpers, or a marker render API. Use `className` and native CSS such as `li::marker` for ordinary item styling. Reserve `asChild` for a caller-owned component that forwards its ref and renders the required semantic host.
+`List` does not expose an internal state machine, nested structure helpers, or a marker render API. Use `className` and native CSS such as `li::marker` for ordinary item styling. Reserve `asChild` for a caller-owned component that forwards its ref and props and renders the required semantic host.
 
 Keep items as direct `li` descendants. The built-in spacing and marker styling apply only to direct list items.
 
@@ -76,8 +74,6 @@ Keep items as direct `li` descendants. The built-in spacing and marker styling a
 
 Use `marker="none"` when you need list semantics without visible markers.
 
-<style>{ListDocs.listNoopCss}</style>
-
 ```tsx preview file="./_snippets/list/markerless.tsx"
 
 ```
@@ -85,8 +81,6 @@ Use `marker="none"` when you need list semantics without visible markers.
 ### Native Items
 
 Use native `li` elements when you do not need the exported `List.Item` slot.
-
-<style>{ListDocs.listNoopCss}</style>
 
 ```tsx preview file="./_snippets/list/native-items.tsx"
 
@@ -96,8 +90,6 @@ Use native `li` elements when you do not need the exported `List.Item` slot.
 
 Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
 
-<style>{ListDocs.listNoopCss}</style>
-
 ```tsx preview file="./_snippets/list/ordered.tsx"
 
 ```
@@ -106,25 +98,31 @@ Use `as="ol"` to render an ordered list while keeping the moduix root styling co
 
 Use `tone` when the list should inherit a semantic text color.
 
-<style>{ListDocs.listToneExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/list/tone.tsx"
 
-```tsx preview file="./_snippets/list/tone.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
-Use `List.Item asChild` only when a custom component must own the rendered `<li>`. That component must forward its ref and preserve the `<li>` host; otherwise, use `List.Item className` directly.
-
-<style>{ListDocs.listCustomCompositionCss}</style>
+Use `List.Item asChild` only when a custom component must own the rendered `<li>`. That component must forward its ref and props and preserve the `<li>` host; otherwise, use `List.Item className` directly.
 
 ```tsx preview file="./_snippets/list/custom-composition.tsx"
 
 ```
 
+### Custom root
+
+Use `List asChild` when a caller-owned component must render the semantic list host. It must forward its ref and props to a single `<ul>` or `<ol>`.
+
+```tsx preview file="./_snippets/list/root-as-child.tsx"
+
+```
+
 ## Styling
 
-Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--moduix-list-*` CSS variables shown below. The variable list here was checked against `packages/react/src/lib/moduix/styles/theme.css`.
+Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--moduix-list-*` CSS variables shown below. The variable list here was checked against `packages/react/src/styles/theme.css`.
 
 ### CSS Properties
 
