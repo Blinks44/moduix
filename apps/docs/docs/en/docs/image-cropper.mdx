@@ -6,6 +6,8 @@ description: Ark UI image-cropper composition for cropping and transforming imag
 
 import * as ImageCropperDocs from '@/components/examples/image-cropper';
 
+<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
@@ -14,11 +16,11 @@ import * as ImageCropperDocs from '@/components/examples/image-cropper';
 
 Use `ImageCropper.CropArea` for the standard selection, grids, and resize handles.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/basic.tsx"
 
-```tsx preview file="./_snippets/image-cropper/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -52,7 +54,8 @@ Use `ImageCropper.CropArea` for the standard selection, grids, and resize handle
 
 Use `ImageCropper.CropArea` for the common cropper anatomy. It keeps the Ark part tree intact while
 removing repeated selection, grid, and handle markup. Pass `className`, `gridClassName`, or
-`handleClassName` to style its rendered parts.
+`handleClassName` to style its rendered parts. It owns that child structure, so use the explicit
+`Selection`, `Grid`, and `Handle` parts instead of `children` or `asChild` when the structure differs.
 
 ### When to go custom
 
@@ -87,113 +90,113 @@ Ark detail objects through `onCropChange`, `onZoomChange`, `onRotationChange`, a
 
 Change `aspectRatio` from React state when users choose a required output shape.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/aspect-ratio.tsx"
 
-```tsx preview file="./_snippets/image-cropper/aspect-ratio.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Circle Crop
 
 Use `cropShape="circle"` with a square aspect ratio for avatars and profile images.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/circle-crop.tsx"
 
-```tsx preview file="./_snippets/image-cropper/circle-crop.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Controlled Zoom
 
 Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and `maxZoom`.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/controlled-zoom.tsx"
 
-```tsx preview file="./_snippets/image-cropper/controlled-zoom.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Crop Preview
 
 Create the cropper with Ark `useImageCropper` when another control needs to call
 `getCroppedImage()`.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/crop-preview.tsx"
 
-```tsx preview file="./_snippets/image-cropper/crop-preview.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Events
 
 Use Ark detail objects to sync crop and zoom state with external UI.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/events.tsx"
 
-```tsx preview file="./_snippets/image-cropper/events.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Fixed Crop Area
 
 Use `fixedCropArea` when the selection should stay fixed while the image moves underneath.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/fixed-crop-area.tsx"
 
-```tsx preview file="./_snippets/image-cropper/fixed-crop-area.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Initial Crop
 
 Pass `initialCrop` when the cropper should open with a known pixel selection.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/initial-crop.tsx"
 
-```tsx preview file="./_snippets/image-cropper/initial-crop.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Min And Max Size
 
 Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/min-and-max-size.tsx"
 
-```tsx preview file="./_snippets/image-cropper/min-and-max-size.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use `RootProvider` with a moduix `useImageCropper` instance when a toolbar or workflow owns the cropper
 outside the rendered root.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/root-provider.tsx"
 
-```tsx preview file="./_snippets/image-cropper/root-provider.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Rotation, Flip, And Reset
 
 Read `ImageCropper.Context` inside the root for toolbar actions such as zoom, rotate, flip, and reset.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/rotation-flip-and-reset.tsx"
 
-```tsx preview file="./_snippets/image-cropper/rotation-flip-and-reset.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `CropArea` when the selection needs a different structure or custom child parts.
 
-<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/image-cropper/advanced-customization.tsx"
 
-```tsx preview file="./_snippets/image-cropper/advanced-customization.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

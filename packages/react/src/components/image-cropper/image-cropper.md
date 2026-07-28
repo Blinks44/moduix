@@ -22,6 +22,8 @@ Ark owns pointer interactions, wheel and pinch zoom, keyboard nudging, transform
 
 The package exports `ImageCropper`, `useImageCropper`, `ImageCropper.Context`, and `ImageCropper.handles`. `ImageCropper.CropArea` is the recommended selection: it renders the selection, both grids, and every resize handle. Pass `className`, `gridClassName`, or `handleClassName` to style those levels; use the explicit parts when their structure needs to differ.
 
+`CropArea` owns its complete child anatomy, so it does not accept `children` or `asChild`. Use `ImageCropper.Selection`, `Grid`, and `Handle` directly when the selection structure needs to differ.
+
 ## Anatomy and exported parts
 
 ```tsx
@@ -95,6 +97,7 @@ The sugar over Ark is styling, stable `data-slot` hooks, `ImageCropper.handles`,
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-28: Made the default viewport responsive on narrow screens, aligned selection geometry with Ark crop bounds, restricted `CropArea` to its fixed child anatomy, and removed the redundant circle selection border.
 - 2026-07-10: Added `CropArea`, `ImageCropper.Context`, and `useImageCropper` as moduix-owned advanced surfaces.
 
 - 2026-07-03: Removed duplicate moduix exports for Ark image cropper hooks, context, and types;

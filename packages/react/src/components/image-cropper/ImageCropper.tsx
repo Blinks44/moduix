@@ -111,13 +111,19 @@ const ImageCropperHandle = forwardRef<
 
 const ImageCropperCropArea = forwardRef<
   ComponentRef<typeof ImageCropperPrimitive.Selection>,
-  ComponentProps<typeof ImageCropperPrimitive.Selection> & {
+  Omit<ComponentProps<typeof ImageCropperPrimitive.Selection>, 'asChild' | 'children'> & {
     gridClassName?: string;
     handleClassName?: string;
   }
 >(function ImageCropperCropArea({ gridClassName, handleClassName, ...props }, ref) {
+  const {
+    asChild: _asChild,
+    children: _children,
+    ...selectionProps
+  } = props as ComponentProps<typeof ImageCropperPrimitive.Selection>;
+
   return (
-    <ImageCropperSelection ref={ref} {...props}>
+    <ImageCropperSelection ref={ref} {...selectionProps}>
       <ImageCropperGrid axis="horizontal" className={gridClassName} />
       <ImageCropperGrid axis="vertical" className={gridClassName} />
       {ImageCropperPrimitive.handles.map((position) => (

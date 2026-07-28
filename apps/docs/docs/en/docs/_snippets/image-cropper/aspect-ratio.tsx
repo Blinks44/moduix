@@ -1,5 +1,6 @@
-import { ImageCropper } from '@moduix/react';
+import { Button, ImageCropper } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -23,25 +24,27 @@ export default function AspectRatioImageCropperDemo() {
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
   return (
     <div className="cropper-stack">
-      <div className="cropper-toolbar">
-        {aspectRatios.map((aspect) => (
-          <button
-            className="cropper-button"
-            type="button"
-            key={aspect.label}
-            data-state={aspectRatio === aspect.value ? 'checked' : undefined}
-            onClick={() => setAspectRatio(aspect.value)}
-          >
-            {aspect.label}
-          </button>
-        ))}
-      </div>
       <ImageCropper aspectRatio={aspectRatio}>
         <ImageCropper.Viewport>
           <ImageCropper.Image src={sampleImage} crossOrigin="anonymous" />
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
+      <PreviewMeta>
+        <output>
+          Aspect ratio: {aspectRatios.find((aspect) => aspect.value === aspectRatio)?.label}
+        </output>
+        {aspectRatios.map((aspect) => (
+          <Button
+            key={aspect.label}
+            size="sm"
+            type="button"
+            onClick={() => setAspectRatio(aspect.value)}
+          >
+            {aspect.label}
+          </Button>
+        ))}
+      </PreviewMeta>
     </div>
   );
 }

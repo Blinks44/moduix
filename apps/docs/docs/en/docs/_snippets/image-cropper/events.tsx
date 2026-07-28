@@ -1,5 +1,6 @@
 import { ImageCropper } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const sampleImage =
   'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=640&h=400&q=90';
@@ -23,10 +24,12 @@ export default function EventsImageCropperDemo() {
           <ImageCropper.CropArea />
         </ImageCropper.Viewport>
       </ImageCropper>
-      <output className="cropper-output">
-        zoom: {zoom.toFixed(2)}x, crop: {Math.round(crop.x)}, {Math.round(crop.y)},{' '}
-        {Math.round(crop.width)} x {Math.round(crop.height)}
-      </output>
+      <PreviewMeta>
+        <output>
+          Zoom: {zoom.toFixed(2)}x, crop: {Math.round(crop.x)}, {Math.round(crop.y)},{' '}
+          {Math.round(crop.width)} x {Math.round(crop.height)}
+        </output>
+      </PreviewMeta>
     </div>
   );
 }
