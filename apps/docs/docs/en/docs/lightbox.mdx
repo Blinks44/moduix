@@ -118,7 +118,7 @@ Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
 | `defaultOpen`            | `false`    | Uncontrolled initial state.                                         |
 | `modal`                  | `true`     | Prevents outside interaction and hides content below the lightbox.  |
 | `preventScroll`          | `true`     | Locks page scroll while the lightbox is open.                       |
-| `role`                   | `"dialog"` | Use `aria-label`, `Lightbox.Title`, or `ids` for accessible naming. |
+| `role`                   | `"dialog"` | Use `aria-label` or `Lightbox.Title` for accessible naming; `ids` only makes those relationships stable. |
 | `trapFocus`              | `true`     | Keeps keyboard focus inside the lightbox while open.                |
 | `lazyMount`              | `false`    | Use with `unmountOnExit` for heavy media.                           |
 | `unmountOnExit`          | `false`    | Removes overlay nodes after exit.                                   |
@@ -136,7 +136,8 @@ Read dialog state in child components with `useLightboxContext()`. Both are avai
 dismiss the overlay. `Lightbox.Bind` is the zero-render binding helper for CMS or third-party
 markup you cannot wrap with `Lightbox.Trigger`. It must be rendered inside `Lightbox` and reports
 the selected image through `onImageSelect(details)`. Details contain `src`, optional `alt`, and
-the source `HTMLImageElement` as `element`.
+the source `HTMLImageElement` as `element`. `selector` is required and must match a semantic button
+or link so every preview remains keyboard-accessible.
 
 Other inherited Dialog props pass through unchanged, including `id`, `ids`, `initialFocusEl`,
 `finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
@@ -186,7 +187,8 @@ Use the Ark `onOpenChange(details)` callback when synchronizing lightbox state w
 ### Focus and IDs
 
 Use Ark `initialFocusEl`, `finalFocusEl`, and `ids` when a lightbox needs explicit focus targets or
-stable element ids for external accessibility composition.
+stable element ids for external accessibility composition. The return target highlights after close
+so the focus handoff is visible.
 
 <style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
 
@@ -231,7 +233,8 @@ not maintain a hidden image registry.
 ### Non Modal
 
 Set `modal={false}` for rare previews that should leave the page interactive. Ark disables focus
-trapping and scroll prevention for this mode.
+trapping and scroll prevention for this mode. Omit `Backdrop`: the background action remains
+available while the image is open.
 
 <style>{LightboxDocs.lightboxNonModalCss}</style>
 
@@ -242,7 +245,7 @@ trapping and scroll prevention for this mode.
 ### Root Provider and Context
 
 Create state with `useLightbox()` when the opener is outside the root. Read inline state with
-`useLightboxContext()` inside a child component.
+`useLightboxContext()` inside a child component. The external opener is a regular moduix `Button`.
 
 <style>{LightboxDocs.lightboxRootProviderCss}</style>
 
@@ -281,7 +284,8 @@ overrides; `Backdrop`, `Positioner`, and `Content` stay explicit.
 
 - Moduix slots: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
   `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-image`, and `lightbox-gallery`.
+  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`,
+  and `lightbox-gallery`.
 - Ark state and anatomy hooks: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
   `data-nested`, `data-has-nested`, `--layer-index`, and `--nested-layer-count`.
 - Local hooks: `Lightbox.Image` exposes `data-slot="lightbox-image"` and optional

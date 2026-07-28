@@ -31,19 +31,16 @@ type LightboxRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvi
 
 type LightboxBindProps = {
   onImageSelect: (details: LightboxImageSelectDetails) => void;
-  selector?: string;
+  selector: string;
   rootRef?: RefObject<HTMLElement | null>;
   rootSelector?: string;
 };
 
-const preloadedImageSources = new Set<string>();
-
 function preloadImage(src?: string) {
-  if (!src || typeof Image === 'undefined' || preloadedImageSources.has(src)) {
+  if (!src || typeof Image === 'undefined') {
     return;
   }
 
-  preloadedImageSources.add(src);
   const image = new Image();
   image.src = src;
 }
@@ -274,12 +271,7 @@ function LightboxFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="lightbox-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function LightboxBind({
-  onImageSelect,
-  selector = 'img',
-  rootRef,
-  rootSelector,
-}: LightboxBindProps) {
+function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: LightboxBindProps) {
   const { setOpen } = useDialogContext();
 
   useEffect(() => {

@@ -1,5 +1,6 @@
-import { Lightbox } from '@moduix/react';
-import { useRef } from 'react';
+import { Button, Lightbox } from '@moduix/react';
+import { useRef, useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const images = [
   {
@@ -28,14 +29,18 @@ const images = [
 export default function FocusLightboxDemo() {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const [focusReturned, setFocusReturned] = useState(false);
+
   return (
     <>
-      <button ref={triggerRef} type="button" className="lightbox-button">
-        Focus returns here
-      </button>
       <Lightbox
         initialFocusEl={() => closeRef.current}
         finalFocusEl={() => triggerRef.current}
+        onOpenChange={(details) => {
+          if (details.open) {
+            setFocusReturned(false);
+          }
+        }}
         ids={{
           content: 'lightbox-focus-content',
           title: 'lightbox-focus-title',
@@ -51,6 +56,21 @@ export default function FocusLightboxDemo() {
           </Lightbox.Content>
         </Lightbox.Positioner>
       </Lightbox>
+      <PreviewMeta>
+        <output>
+          {focusReturned
+            ? 'Focus returned to this button.'
+            : 'Close the lightbox to return focus here.'}
+        </output>
+        <Button
+          ref={triggerRef}
+          className="lightbox-focus-target"
+          data-focus-returned={focusReturned ? '' : undefined}
+          onFocus={() => setFocusReturned(true)}
+        >
+          Focus returns here
+        </Button>
+      </PreviewMeta>
     </>
   );
 }

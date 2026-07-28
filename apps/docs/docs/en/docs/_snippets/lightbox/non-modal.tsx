@@ -1,4 +1,6 @@
-import { Lightbox } from '@moduix/react';
+import { Button, Lightbox } from '@moduix/react';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const images = [
   {
@@ -25,11 +27,12 @@ const images = [
 ];
 
 export default function NonModalLightboxDemo() {
+  const [backgroundActions, setBackgroundActions] = useState(0);
+
   return (
     <>
       <Lightbox modal={false}>
         <Lightbox.Trigger className="lightbox-button">Open non-modal lightbox</Lightbox.Trigger>
-        <Lightbox.Backdrop />
         <Lightbox.Positioner>
           <Lightbox.CloseIcon />
           <Lightbox.Content aria-label={images[2].alt}>
@@ -37,9 +40,12 @@ export default function NonModalLightboxDemo() {
           </Lightbox.Content>
         </Lightbox.Positioner>
       </Lightbox>
-      <button type="button" className="lightbox-button">
-        Background action
-      </button>
+      <PreviewMeta>
+        <output>Background actions: {backgroundActions}</output>
+        <Button variant="outline" onClick={() => setBackgroundActions((value) => value + 1)}>
+          Run background action
+        </Button>
+      </PreviewMeta>
     </>
   );
 }
