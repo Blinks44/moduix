@@ -12,7 +12,14 @@ export default function AdvancedCustomizationPopoverDemo() {
       </Popover.Trigger>
       <Popover.Positioner>
         <Popover.Content>
-          <div className="customHeader">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 'var(--moduix-spacing-3)',
+            }}
+          >
             <Popover.Title>Custom layout</Popover.Title>
             <Popover.CloseIcon />
           </div>

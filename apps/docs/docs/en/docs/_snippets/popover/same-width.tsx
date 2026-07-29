@@ -9,10 +9,10 @@ export default function SameWidthPopoverDemo() {
       }}
     >
       <Popover.Trigger asChild>
-        <Button className="wideTrigger">Match this trigger width</Button>
+        <Button style={{ inlineSize: 'min(20rem, 100%)' }}>Match this trigger width</Button>
       </Popover.Trigger>
       <Popover.Positioner>
-        <Popover.Content className="sameWidthContent">
+        <Popover.Content style={{ width: 'var(--reference-width)', minWidth: 0 }}>
           <Popover.Title>Matched width</Popover.Title>
           <Popover.Description>
             The content uses Ark's reference width measurement.

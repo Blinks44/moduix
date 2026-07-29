@@ -10,10 +10,8 @@ export default function PopoverDemo() {
     >
       <Popover.Trigger asChild>
         <Button>
-          <span className="triggerContent">
-            <BellIcon className="icon" />
-            Notifications
-          </span>
+          <BellIcon aria-hidden size={16} />
+          Notifications
         </Button>
       </Popover.Trigger>
       <Popover.Positioner>

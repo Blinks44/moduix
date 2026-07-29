@@ -12,7 +12,7 @@ export default function NestedPopoverDemo() {
             <Popover.Title>Settings</Popover.Title>
             <Popover.Description>Nested popovers keep independent state.</Popover.Description>
           </Popover.Header>
-          <Popover.Body className="nestedBody">
+          <Popover.Body style={{ marginBlockStart: 'var(--moduix-spacing-3)' }}>
             <Popover
               portalled={false}
               positioning={{
