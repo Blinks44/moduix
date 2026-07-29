@@ -72,7 +72,7 @@ export function ExportProgress() {
     <ProgressLinear defaultValue={24}>
       <ProgressLinear.Label>Export data</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Export data">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear>
@@ -95,8 +95,8 @@ here. Use `ProgressCircular` for the SVG progress anatomy.
 ## Accessibility and state
 
 Ark writes `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and accessible
-value text to `ProgressLinear.Track`. Use `ProgressLinear.Label` for visible labeling and pass
-`aria-label` / `aria-labelledby` when composing without visible text.
+value text to `ProgressLinear.Track`. `ProgressLinear.Label` is visual text; pass `aria-label` or
+`aria-labelledby` to `ProgressLinear.Track` to give the progressbar a task-specific accessible name.
 
 `ProgressLinear.ValueText` uses Ark formatting and live-region behavior. Progress is informational
 and has no keyboard interaction or focus management.
@@ -114,8 +114,9 @@ value text, track color/border/radius/size, range color/radius/transition, and i
 animations.
 
 Horizontal range size comes from Ark's inline `width`. Vertical range size comes from Ark's inline
-`height`; the wrapper switches the track to a bottom-aligned flex container when
-`data-orientation="vertical"`.
+`height`; the wrapper switches the track to a bottom-aligned, centered flex container when
+`data-orientation="vertical"`. The root and text parts shrink and wrap inside narrow containers.
+Horizontal indeterminate motion reverses in RTL, and value text follows the logical inline end.
 
 ## Intentional sugar and differences from upstream
 
@@ -137,6 +138,9 @@ escape hatch. When changing styling hooks or CSS variables, update docs examples
 
 ## Local changelog
 
+- 2026-07-29: Made the default layout safe in narrow containers, centered the vertical track, and
+  made horizontal indeterminate motion and value-text alignment RTL-aware. Documented that an
+  accessible task name belongs on `Track`, not the visual label alone.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
   `ProgressLinear` namespace so normal provider/state composition stays on moduix without a

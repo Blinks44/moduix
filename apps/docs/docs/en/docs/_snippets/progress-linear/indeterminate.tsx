@@ -5,7 +5,7 @@ export default function IndeterminateProgressLinearDemo() {
     <ProgressLinear defaultValue={null}>
       <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Preparing report">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear>

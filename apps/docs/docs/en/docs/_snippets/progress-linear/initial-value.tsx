@@ -5,7 +5,7 @@ export default function InitialValueProgressLinearDemo() {
     <ProgressLinear defaultValue={70}>
       <ProgressLinear.Label>Import data</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Import data">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear>

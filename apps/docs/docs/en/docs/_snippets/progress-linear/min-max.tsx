@@ -5,7 +5,7 @@ export default function MinMaxProgressLinearDemo() {
     <ProgressLinear defaultValue={420} min={200} max={800}>
       <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Requests per minute">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear>
