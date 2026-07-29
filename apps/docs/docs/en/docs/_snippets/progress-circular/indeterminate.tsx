@@ -5,7 +5,7 @@ export default function IndeterminateProgressCircularDemo() {
     <ProgressCircular defaultValue={null}>
       <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Ring />
+        <ProgressCircular.Ring aria-label="Preparing report" />
         <ProgressCircular.ValueText />
       </div>
     </ProgressCircular>

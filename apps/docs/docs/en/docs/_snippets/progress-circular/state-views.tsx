@@ -11,7 +11,7 @@ export default function StateViewsProgressCircularDemo() {
     <ProgressCircular defaultValue={null}>
       <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Circle>
+        <ProgressCircular.Circle aria-label="Preparing report">
           <ProgressCircular.CircleTrack />
           <ProgressCircular.CircleRange />
         </ProgressCircular.Circle>

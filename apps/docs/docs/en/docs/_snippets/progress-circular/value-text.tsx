@@ -12,7 +12,7 @@ export default function ValueTextProgressCircularDemo() {
     >
       <ProgressCircular.Label>Migration</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Ring />
+        <ProgressCircular.Ring aria-label="Migration" />
         <ProgressCircular.ValueText />
       </div>
     </ProgressCircular>

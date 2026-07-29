@@ -24,7 +24,7 @@ CSS variables generated on the circle parts.
 `ProgressCircular` is the same part as `ProgressCircular.Root`. It does not auto-render label,
 circle, or value text. `ProgressCircular.Ring` is the recommended convenience part for the fixed
 circle, track, and range subtree; `Circle`, `CircleTrack`, and `CircleRange` remain available for
-low-level composition.
+low-level composition. Give `Ring` or `Circle` an `aria-label` that describes the task.
 
 `defaultValue` sets uncontrolled progress. `value` plus `onValueChange(details)` controls progress.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
@@ -58,7 +58,7 @@ ProgressCircular.RootProvider
   to an external `ProgressCircular.useProgress()` store.
 - `ProgressCircular.Context`: render-prop access to the current progress state.
 - `ProgressCircular.useProgressContext()`: hook access to state below a root/provider.
-- `ProgressCircular.Label`: `data-slot="progress-circular-label"`; accessible label.
+- `ProgressCircular.Label`: `data-slot="progress-circular-label"`; visible progress context.
 - `ProgressCircular.Circle`: `data-slot="progress-circular-circle"`; SVG progressbar surface with
   role and ARIA value attributes from Ark.
 - `ProgressCircular.CircleTrack`: `data-slot="progress-circular-circle-track"`; background circle.
@@ -80,7 +80,7 @@ export function ExportProgress() {
   return (
     <ProgressCircular defaultValue={42}>
       <ProgressCircular.Label>Export data</ProgressCircular.Label>
-      <ProgressCircular.Ring />
+      <ProgressCircular.Ring aria-label="Export data" />
       <ProgressCircular.ValueText />
     </ProgressCircular>
   );
@@ -102,8 +102,9 @@ for the horizontal progress anatomy.
 ## Accessibility and state
 
 Ark writes `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and accessible
-value text to `ProgressCircular.Circle`. Use `ProgressCircular.Label` or pass `aria-label` /
-`aria-labelledby` when composing without the label part.
+value text to `ProgressCircular.Circle`. `ProgressCircular.Label` provides visible context but does
+not create an ARIA relationship with the circle; pass `aria-label` or `aria-labelledby` to `Ring` /
+`Circle` for the task name.
 
 `ProgressCircular.ValueText` uses Ark formatting and live-region behavior. Progress is
 informational and has no keyboard interaction or focus management.
@@ -115,14 +116,15 @@ label, value text, and view keep their Ark `data-scope` / `data-part` hooks. `da
 
 ## Defaults and styling
 
-The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavior to Ark. Public
-theme variables use the `--moduix-progress-circular-*` prefix for root color/gap/width, label text,
+The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavior to Ark. The root,
+label, and value text stay within their container and wrap long text. Public theme variables use the
+`--moduix-progress-circular-*` prefix for root color/gap/width, label text,
 value text, circle size, circle thickness, track color, range color, range linecap, range
 transition, and indeterminate animation.
 
 `ProgressCircular.Circle` and `ProgressCircular.Ring` map `--moduix-progress-circular-size` to Ark `--size` and
-`--moduix-progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--moduix-radius`,
-`--circumference`, `--percent`, and stroke offset variables.
+`--moduix-progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--radius`,
+`--circumference`, `--percent`, and `--offset`.
 
 ## Intentional sugar and differences from upstream
 
@@ -148,6 +150,8 @@ this file, `theme.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-07-29: Clarified the explicit progressbar naming contract, constrained long label/value text,
+  and added a visible reduced-motion indeterminate fallback.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Exposed `Context`, `useProgress()`, and `useProgressContext()` on the
   `ProgressCircular` namespace so normal provider/state composition stays on moduix without a
