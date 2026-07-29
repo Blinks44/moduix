@@ -8,7 +8,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   },
   {
     name: '--moduix-password-input-max-width',
-    defaultValue: '20rem',
+    defaultValue: 'none',
     description: 'Maximum width of the root password input stack.',
   },
   {

@@ -89,7 +89,7 @@ deriving state through descendant selectors.
 
 ## Defaults and styling
 
-The control follows Input's compact `--moduix-size-md` baseline; its visibility trigger remains a `--moduix-size-sm` icon control.
+The control follows Input's compact `--moduix-size-md` baseline; its visibility trigger remains a `--moduix-size-sm` icon control. The root fills its container by default; use `--moduix-password-input-max-width` when a constrained field is required.
 
 The wrapper adds moduix classes, `data-slot` hooks, default visibility icons, and
 `--moduix-password-input-*` CSS variables for visual customization. Ark does not expose component-specific
@@ -118,6 +118,9 @@ Keep the wrapper thin and namespace-first. Do not rebuild local visibility state
 component and barrel exports in the same migration style.
 
 ## Local changelog
+
+- 2026-07-29: Removed the default password-field width cap, fixed duplicated disabled opacity, and
+  made the readonly visibility trigger visually non-interactive.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default password control with the compact Input `md` baseline.

@@ -1938,7 +1938,7 @@
   --moduix-password-input-label-gap: initial; /* var(--moduix-field-label-gap, var(--moduix-spacing-1)) */
   --moduix-password-input-label-line-height: initial; /* var(--moduix-field-label-line-height, var(--moduix-line-height-text-sm)) */
   --moduix-password-input-line-height: initial; /* var(--moduix-input-line-height, var(--moduix-input-line-height-md, var(--moduix-line-height-text-md))) */
-  --moduix-password-input-max-width: initial; /* 20rem */
+  --moduix-password-input-max-width: initial; /* none */
   --moduix-password-input-padding-x: initial; /* var(--moduix-input-padding-x, var(--moduix-input-padding-x-md, var(--moduix-spacing-3))) */
   --moduix-password-input-padding-y: initial; /* var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-1))) */
   --moduix-password-input-placeholder-color: initial; /* var(--moduix-input-placeholder-color) */
