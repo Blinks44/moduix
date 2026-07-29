@@ -15,7 +15,6 @@
     font-size: var(--moduix-button-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-button-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-button-line-height, var(--moduix-line-height-text-sm));
-    font: var(--moduix-button-font);
     text-decoration: none;
     user-select: none;
     white-space: nowrap;
@@ -187,21 +186,22 @@
       padding-inline: var(--moduix-button-padding-x-xs, var(--moduix-spacing-2-5));
       font-size: var(--moduix-button-font-size-xs, var(--moduix-text-xs));
       line-height: var(--moduix-button-line-height-xs, var(--moduix-line-height-text-xs));
-      font: var(--moduix-button-font-xs, var(--moduix-button-font));
     }
 
     &[data-size='sm'] {
       min-height: var(--moduix-button-size-sm, var(--moduix-size-sm));
       padding-block: var(--moduix-button-padding-y-sm, var(--moduix-spacing-1));
       padding-inline: var(--moduix-button-padding-x-sm, var(--moduix-spacing-3));
-      font: var(--moduix-button-font-sm, var(--moduix-button-font));
+      font-size: var(--moduix-button-font-size-sm, var(--moduix-text-sm));
+      line-height: var(--moduix-button-line-height-sm, var(--moduix-line-height-text-sm));
     }
 
     &[data-size='md'] {
       min-height: var(--moduix-button-size-md, var(--moduix-size-md));
       padding-block: var(--moduix-button-padding-y-md, var(--moduix-spacing-1));
       padding-inline: var(--moduix-button-padding-x-md, var(--moduix-spacing-4));
-      font: var(--moduix-button-font-md, var(--moduix-button-font));
+      font-size: var(--moduix-button-font-size-md, var(--moduix-text-sm));
+      line-height: var(--moduix-button-line-height-md, var(--moduix-line-height-text-sm));
     }
 
     &[data-size='lg'] {
@@ -210,7 +210,6 @@
       padding-inline: var(--moduix-button-padding-x-lg, var(--moduix-spacing-5));
       font-size: var(--moduix-button-font-size-lg, var(--moduix-text-md));
       line-height: var(--moduix-button-line-height-lg, var(--moduix-line-height-text-md));
-      font: var(--moduix-button-font-lg, var(--moduix-button-font));
     }
 
     &[data-size='xl'] {
@@ -219,7 +218,6 @@
       padding-inline: var(--moduix-button-padding-x-xl, var(--moduix-spacing-6));
       font-size: var(--moduix-button-font-size-xl, var(--moduix-text-lg));
       line-height: var(--moduix-button-line-height-xl, var(--moduix-line-height-text-lg));
-      font: var(--moduix-button-font-xl, var(--moduix-button-font));
     }
 
     &[data-size='icon-sm'],
