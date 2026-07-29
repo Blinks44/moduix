@@ -61,7 +61,7 @@
       opacity: var(--moduix-select-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
-    &:is([multiple], [size]:not([size='1'])) {
+    &:is([multiple], [size]:not([size='0'], [size='1'])) {
       height: auto;
       padding-block: var(--moduix-spacing-2);
       padding-inline: var(--moduix-select-trigger-padding-x-start, var(--moduix-spacing-3));
@@ -116,7 +116,7 @@
     }
   }
 
-  .root:is([multiple], [size]:not([size='1'])) + .indicator {
+  .root:is([multiple], [size]:not([size='0'], [size='1'])) + .indicator {
     display: none;
   }
 }

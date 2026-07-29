@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Field } from '../../../src/components/field';
 import { NativeSelect } from '../../../src/components/native-select/NativeSelect';
 
@@ -30,11 +31,29 @@ export const Basic: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <NativeSelect defaultValue="react" disabled>
+    <NativeSelect defaultValue="react" aria-label="Framework" disabled>
       <option value="react">React</option>
       <option value="vue">Vue</option>
     </NativeSelect>
   ),
+};
+
+export const Controlled: Story = {
+  render: function ControlledStory() {
+    const [value, setValue] = useState('react');
+
+    return (
+      <NativeSelect
+        value={value}
+        aria-label="Framework"
+        onChange={(event) => setValue(event.target.value)}
+      >
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+        <option value="svelte">Svelte</option>
+      </NativeSelect>
+    );
+  },
 };
 
 export const Grouping: Story = {

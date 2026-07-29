@@ -22,7 +22,7 @@ const frameworkOptions = [
 
 export default function NativeSelectFieldDemo() {
   return (
-    <Field.Root className="nativeSelectFieldDemo" invalid required>
+    <Field.Root invalid required>
       <Field.Label>Framework</Field.Label>
       <NativeSelect defaultValue="" name="framework">
         {frameworkOptions.map((option) => (
