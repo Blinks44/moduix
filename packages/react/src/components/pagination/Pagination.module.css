@@ -2,7 +2,9 @@
   .root {
     display: inline-flex;
     align-items: center;
+    max-inline-size: 100%;
     gap: var(--moduix-pagination-gap, var(--moduix-spacing-1));
+    overflow-x: auto;
     color: var(--moduix-pagination-color, var(--moduix-color-foreground));
   }
 
@@ -97,6 +99,10 @@
   .iconTrigger {
     width: var(--moduix-pagination-item-size, var(--moduix-size-md));
     padding-inline: 0;
+
+    &:dir(rtl) svg {
+      transform: scaleX(-1);
+    }
   }
 
   .ellipsis {

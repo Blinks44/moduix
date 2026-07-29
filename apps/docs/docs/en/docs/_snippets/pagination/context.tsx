@@ -1,27 +1,28 @@
-import { Pagination } from '@moduix/react';
+import { Button, Pagination } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PaginationContextDemo() {
   return (
     <Pagination count={200} pageSize={10}>
       <Pagination.Context>
         {(pagination) => (
-          <div className="pagination-row">
-            <button type="button" onClick={() => pagination.goToFirstPage()}>
-              First
-            </button>
-            <button type="button" onClick={() => pagination.goToPrevPage()}>
-              Prev
-            </button>
-            <span className="pagination-muted">
+          <PreviewMeta>
+            <output>
               Page {pagination.page} of {pagination.totalPages}
-            </span>
-            <button type="button" onClick={() => pagination.goToNextPage()}>
+            </output>
+            <Button size="sm" onClick={() => pagination.goToFirstPage()}>
+              First
+            </Button>
+            <Button size="sm" onClick={() => pagination.goToPrevPage()}>
+              Prev
+            </Button>
+            <Button size="sm" onClick={() => pagination.goToNextPage()}>
               Next
-            </button>
-            <button type="button" onClick={() => pagination.goToLastPage()}>
+            </Button>
+            <Button size="sm" onClick={() => pagination.goToLastPage()}>
               Last
-            </button>
-          </div>
+            </Button>
+          </PreviewMeta>
         )}
       </Pagination.Context>
     </Pagination>

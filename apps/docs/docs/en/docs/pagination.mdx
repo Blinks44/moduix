@@ -12,8 +12,7 @@ import * as PaginationDocs from '@/components/examples/pagination';
 
 ## Basic
 
-Use `Pagination` as the short root form for Ark `Pagination.Root`. `Pagination.Items` renders the
-computed page buttons and ellipses.
+Use `Pagination` as the root. `Pagination.Items` renders the computed page buttons and ellipses.
 
 <style>{PaginationDocs.paginationBasicCss}</style>
 
@@ -28,7 +27,7 @@ computed page buttons and ellipses.
 ## Anatomy
 
 ```text
-Pagination.Root
+Pagination
 ├─ Pagination.FirstTrigger (optional)
 ├─ Pagination.PrevTrigger
 ├─ Pagination.Items (recommended)
@@ -44,7 +43,7 @@ Pagination.RootProvider
 
 | Part                              | Role                                                               |
 | --------------------------------- | ------------------------------------------------------------------ |
-| `Pagination` / `Pagination.Root`  | Navigation root that owns page and page-size state.                |
+| `Pagination`                      | Navigation root that owns page and page-size state.                |
 | `Pagination.RootProvider`         | Connects parts to state created with `Pagination.usePagination()`. |
 | `Pagination.Items`                | Renders the standard computed page items and ellipses.             |
 | `Pagination.Context`              | Reads root state and helpers through an Ark render prop.           |
@@ -131,7 +130,8 @@ of an array.
 
 ### Link
 
-Use `type="link"` with `getPageUrl(details)` when page changes should be real navigation.
+Use `type="link"` with `getPageUrl(details)` and `asChild` anchors when page changes should be
+real navigation.
 
 <style>{PaginationDocs.paginationLinkCss}</style>
 

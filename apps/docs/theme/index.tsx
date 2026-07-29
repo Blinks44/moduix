@@ -150,21 +150,19 @@ function ModuixNavTitle() {
       <Link href={href} className="rp-nav__title__link">
         <svg
           className="moduix-nav-logo"
-          viewBox="48 46 148 118"
           role="img"
           aria-label="moduix"
-          fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+          fill="none"
         >
-          <path
-            d="M65 146V94c0-16.02 12.98-29 29-29 10.8 0 20.72 6.01 25.72 15.59L122 85l2.28-4.41C129.28 71.01 139.2 65 150 65c16.02 0 29 12.98 29 29v52"
-            stroke="currentColor"
-            strokeWidth="36"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path d="M122 80v20" stroke="currentColor" strokeWidth="36" strokeLinecap="round" />
-          <circle cx="122" cy="149" r="14" fill="currentColor" />
+          <rect x="1.4" y="1.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="1.4" y="12.3" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="1.4" y="22.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="11.9" y="1.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="22.4" y="1.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="22.4" y="12.3" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
+          <rect x="22.4" y="22.4" width="8.2" height="8.2" rx="1.1" fill="currentColor" />
         </svg>
       </Link>
     </div>

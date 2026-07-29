@@ -10,9 +10,25 @@ export default function LinkPaginationDemo() {
       type="link"
       getPageUrl={(details) => `?page=${details.page}`}
     >
-      <Pagination.PrevTrigger />
-      <Pagination.Items />
-      <Pagination.NextTrigger />
+      <Pagination.PrevTrigger asChild>
+        <a>Previous</a>
+      </Pagination.PrevTrigger>
+      <Pagination.Context>
+        {(pagination) =>
+          pagination.pages.map((page, index) =>
+            page.type === 'page' ? (
+              <Pagination.Item key={index} asChild {...page}>
+                <a>{page.value}</a>
+              </Pagination.Item>
+            ) : (
+              <Pagination.Ellipsis key={index} index={index} />
+            ),
+          )
+        }
+      </Pagination.Context>
+      <Pagination.NextTrigger asChild>
+        <a>Next</a>
+      </Pagination.NextTrigger>
     </Pagination>
   );
 }
