@@ -2,7 +2,7 @@ import { QrCode } from '@moduix/react';
 
 export default function DownloadQrCodeDemo() {
   return (
-    <QrCode defaultValue="https://moduix.dev/docs/qr-code" className="qr-code-root">
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
       <QrCode.Frame>
         <QrCode.Pattern />
       </QrCode.Frame>

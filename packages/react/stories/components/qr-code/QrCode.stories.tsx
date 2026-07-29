@@ -5,7 +5,7 @@ import styles from './QrCode.stories.module.css';
 
 const meta = {
   title: 'Components/QrCode',
-  component: QrCode.Root,
+  component: QrCode,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
@@ -13,7 +13,7 @@ const meta = {
   args: {
     defaultValue: 'https://moduix.dev/docs/qr-code',
   },
-} satisfies Meta<typeof QrCode.Root>;
+} satisfies Meta<typeof QrCode>;
 
 export default meta;
 
@@ -30,9 +30,9 @@ function QrCodeGraphic() {
 export const Basic: Story = {
   render: (args) => {
     return (
-      <QrCode.Root {...args}>
+      <QrCode {...args}>
         <QrCodeGraphic />
-      </QrCode.Root>
+      </QrCode>
     );
   },
 };
@@ -43,9 +43,9 @@ export const Controlled: Story = {
 
     return (
       <div className={styles.stack}>
-        <QrCode.Root value={value} onValueChange={(details) => setValue(details.value)}>
+        <QrCode value={value} onValueChange={(details) => setValue(details.value)}>
           <QrCodeGraphic />
-        </QrCode.Root>
+        </QrCode>
         <div className={styles.actions}>
           <button className={styles.action} onClick={() => setValue('https://chakra-ui.com')}>
             Chakra UI
@@ -62,14 +62,14 @@ export const Controlled: Story = {
 export const ErrorCorrection: Story = {
   render: () => {
     return (
-      <QrCode.Root
+      <QrCode
         defaultValue="https://moduix.dev/docs/qr-code"
         encoding={{
           ecc: 'H',
         }}
       >
         <QrCodeGraphic />
-      </QrCode.Root>
+      </QrCode>
     );
   },
 };
@@ -77,7 +77,7 @@ export const ErrorCorrection: Story = {
 export const Overlay: Story = {
   render: () => {
     return (
-      <QrCode.Root
+      <QrCode
         defaultValue="https://moduix.dev/docs/qr-code"
         encoding={{
           ecc: 'H',
@@ -87,7 +87,7 @@ export const Overlay: Story = {
           <QrCode.Pattern />
         </QrCode.Frame>
         <QrCode.Overlay className={styles.overlay}>MX</QrCode.Overlay>
-      </QrCode.Root>
+      </QrCode>
     );
   },
 };
@@ -95,12 +95,12 @@ export const Overlay: Story = {
 export const Download: Story = {
   render: () => {
     return (
-      <QrCode.Root defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCode defaultValue="https://moduix.dev/docs/qr-code">
         <QrCodeGraphic />
         <QrCode.DownloadTrigger fileName="moduix-qr-code.png" mimeType="image/png">
           Download
         </QrCode.DownloadTrigger>
-      </QrCode.Root>
+      </QrCode>
     );
   },
 };
@@ -114,7 +114,9 @@ export const RootProvider: Story = {
         <QrCode.RootProvider value={qrCode}>
           <QrCodeGraphic />
         </QrCode.RootProvider>
-        <output className={styles.hint}>{qrCode.value}</output>
+        <QrCode.Context>
+          {(context) => <output className={styles.hint}>{context.value}</output>}
+        </QrCode.Context>
       </div>
     );
   },

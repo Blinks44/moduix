@@ -1,61 +1,6 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const qrCodeExampleCss = `
-  .qr-code-root {
-    --moduix-qr-code-size: 9rem;
-  }
-
-  .qr-code-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    justify-items: center;
-  }
-
-  .qr-code-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--moduix-spacing-2);
-    justify-content: center;
-  }
-
-  .qr-code-status {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-    text-align: center;
-  }
-`;
-
-export const qrCodeFillCss = `
-  .qr-code-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, max-content));
-    gap: var(--moduix-spacing-4);
-    align-items: start;
-  }
-
-  .qr-code-primary {
-    --moduix-qr-code-fill: var(--moduix-color-primary);
-  }
-
-  .qr-code-danger {
-    --moduix-qr-code-fill: var(--moduix-color-destructive);
-  }
-`;
-
-export const qrCodeOverlayCss = `
-  .qr-code-brand {
-    --moduix-qr-code-fill: var(--moduix-color-primary);
-  }
-
-  .qr-code-overlay {
-    font-size: var(--moduix-text-xs);
-    font-weight: var(--moduix-weight-semibold);
-    line-height: var(--moduix-line-height-text-xs);
-  }
-`;
-
 const qrCodeCssProperties: CssPropertyInput[] = [
   ['--qrcode-height', 'computed by Ark', 'Runtime height for the generated frame.'],
   ['--qrcode-pixel-size', 'computed by Ark', 'Runtime pixel size used by the generator.'],

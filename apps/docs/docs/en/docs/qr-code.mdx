@@ -15,11 +15,11 @@ import * as QrCodeDocs from '@/components/examples/qr-code';
 Use `QrCode` as the Ark root, then render `Frame` and `Pattern` explicitly. The root owns the
 encoded value and `Frame` renders the generated SVG.
 
-<style>{QrCodeDocs.qrCodeExampleCss}</style>
-
-```tsx preview file="./_snippets/qr-code/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -51,8 +51,9 @@ QrCode.RootProvider
 
 ### Recommended composition
 
-Keep the Ark structure visible: `QrCode.Root`, `QrCode.Frame`, and `QrCode.Pattern`. Add
-`QrCode.Overlay` only when the QR code has enough error correction for the covered area.
+Keep the Ark structure visible: `QrCode`, `QrCode.Frame`, and `QrCode.Pattern`. `QrCode.Root`
+remains available as the explicit Ark-aligned alias. Add `QrCode.Overlay` only when the QR code has
+enough error correction for the covered area.
 
 ### When to go custom
 
@@ -89,8 +90,9 @@ Use `QrCode.Context` or `useQrCodeContext()` from moduix to read QR state in a d
 There is no QR-specific arrow-key navigation, roving focus, or hidden input. `DownloadTrigger` is a
 native button and keeps button keyboard activation and focus behavior.
 
-The SVG is visual output. If the encoded value needs to be available to assistive technology, show
-it in adjacent text or label the surrounding UI with meaningful copy.
+The SVG is visual output. When the QR code conveys information, add `role="img"` and an
+`aria-label` to `QrCode.Frame`. Use adjacent text or `aria-hidden="true"` when the QR code is
+redundant.
 
 ## Examples
 
@@ -98,63 +100,73 @@ it in adjacent text or label the surrounding UI with meaningful copy.
 
 Control `value` when the QR code should stay in sync with external selection or surrounding UI.
 
-<style>{QrCodeDocs.qrCodeExampleCss}</style>
-
-```tsx preview file="./_snippets/qr-code/controlled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/controlled.tsx"
 
 ```
+</PreviewFrame>
 
 ### Download
 
 Add `DownloadTrigger` when users need to save the generated QR code as an image.
 
-<style>{QrCodeDocs.qrCodeExampleCss}</style>
-
-```tsx preview file="./_snippets/qr-code/download.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/download.tsx"
 
 ```
+</PreviewFrame>
 
 ### Error Correction
 
 Set `encoding.ecc` to choose the QR error correction level. Higher levels are useful when the QR
 code has an overlay or must tolerate more damage.
 
-<style>{QrCodeDocs.qrCodeExampleCss}</style>
-
-```tsx preview file="./_snippets/qr-code/error-correction.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/error-correction.tsx"
 
 ```
+</PreviewFrame>
 
 ### Fill
 
 Customize the SVG color through `className`, inline styles, or `--moduix-qr-code-fill`.
 
-<style>{QrCodeDocs.qrCodeFillCss}</style>
-
-```tsx preview file="./_snippets/qr-code/fill.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/fill.tsx"
 
 ```
+</PreviewFrame>
+
+### Input
+
+Control the QR code from a text field when users need to enter or edit the encoded content.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/input.tsx"
+
+```
+</PreviewFrame>
 
 ### Overlay
 
 Use `QrCode.Overlay` for a compact logo or text mark. Pair it with high error correction so the
 code remains scannable.
 
-<style>{QrCodeDocs.qrCodeOverlayCss}</style>
-
-```tsx preview file="./_snippets/qr-code/overlay.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/overlay.tsx"
 
 ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use moduix `useQrCode()` with `QrCode.RootProvider` when state is created outside the rendered tree.
 
-<style>{QrCodeDocs.qrCodeExampleCss}</style>
-
-```tsx preview file="./_snippets/qr-code/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/qr-code/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
