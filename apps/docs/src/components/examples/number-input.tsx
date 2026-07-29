@@ -1,31 +1,6 @@
 import type { CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const numberInputControlledCss = `
-  .number-input-state {
-    margin-top: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-`;
-
-export const numberInputRootProviderCss = `
-  .number-input-root-provider-actions {
-    display: flex;
-    gap: var(--moduix-spacing-2);
-    margin-top: var(--moduix-spacing-3);
-  }
-
-  .number-input-root-provider-actions button {
-    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-    border-radius: var(--moduix-radius-sm);
-    padding: var(--moduix-spacing-1) var(--moduix-spacing-2);
-    background: var(--moduix-color-background);
-    color: var(--moduix-color-foreground);
-  }
-`;
-
 export const numberInputAdvancedCustomizationCss = `
   .number-input-custom-button {
     --moduix-number-input-button-bg: var(--moduix-color-muted);

@@ -32,6 +32,8 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Context`, `Label`, `Scr
   parts when their order, icons, or styles need to differ.
 - `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` keep Ark state access on the
   moduix public surface.
+- `name` does not add a native submission control. Render a hidden `<input>` through
+  `NumberInput.Context` with `context.valueAsNumber` when a form submits a numeric value.
 - No legacy aliases, numeric/null value adapters, `format` alias, `allowWheelScrub`,
   `NumberField*` flat exports, or automatic stepper group are preserved.
 
@@ -130,6 +132,9 @@ Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, 
 `onValueInvalid`, and `onFocusChange`. Keep controlled values as strings, especially with
 locale-specific `formatOptions`.
 
+For native form submission, use `NumberInput.Context` to render a hidden input whose value is
+`context.valueAsNumber`. This keeps the managed visible value as a string while submitting a number.
+
 The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also exposes
 `data-scrubbing`, `data-scope="number-input"`, and `data-part` attributes for part-level selectors.
 
@@ -188,6 +193,9 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 `packages/react/src/components/number-input`.
 
 ## Local changelog
+
+- 2026-07-29: Added focused keyboard, Field-state, provider, `asChild`, and native form-submission
+  coverage; documented the required `Context` hidden-input composition and expanded state examples.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the field and square stepper controls to `--moduix-size-md` and compacted input padding.

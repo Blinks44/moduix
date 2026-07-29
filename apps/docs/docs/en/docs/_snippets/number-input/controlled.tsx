@@ -1,5 +1,6 @@
 import { NumberInput } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledNumberInputDemo() {
   const [value, setValue] = useState('24');
@@ -9,7 +10,9 @@ export default function ControlledNumberInputDemo() {
         <NumberInput.Label>Controlled value</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
-      <div className="number-input-state">Current value: {value || 'empty'}</div>
+      <PreviewMeta style={{ marginInline: 'auto' }}>
+        <output>Current value: {value || 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }
