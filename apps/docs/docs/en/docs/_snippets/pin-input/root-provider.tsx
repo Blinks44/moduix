@@ -1,5 +1,6 @@
 import { Button, PinInput, usePinInput } from '@moduix/react';
 import { useId } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderPinInput() {
   const id = useId();
@@ -8,7 +9,13 @@ export default function RootProviderPinInput() {
     count: 6,
   });
   return (
-    <div className="pin-input-provider-demo">
+    <div
+      style={{
+        display: 'grid',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-4)',
+      }}
+    >
       <PinInput.RootProvider value={pinInput}>
         <PinInput.Label>Verification code</PinInput.Label>
         <PinInput.Control>
@@ -23,14 +30,14 @@ export default function RootProviderPinInput() {
         </PinInput.Control>
       </PinInput.RootProvider>
 
-      <div className="actions">
+      <PreviewMeta>
         <Button type="button" size="sm" variant="outline" onClick={pinInput.focus}>
           Focus
         </Button>
         <Button type="button" size="sm" variant="outline" onClick={pinInput.clearValue}>
           Clear
         </Button>
-      </div>
+      </PreviewMeta>
     </div>
   );
 }

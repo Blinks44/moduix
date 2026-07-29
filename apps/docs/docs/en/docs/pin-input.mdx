@@ -22,17 +22,7 @@ inputs.
 ## Basic
 
 Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input for form
-submission and reset synchronization.
-
-<style>{`
-      [data-slot="pin-input-root"] {
-        --moduix-pin-input-root-gap: var(--moduix-spacing-2);
-      }
-
-      [data-slot="pin-input-control"] {
-        --moduix-pin-input-gap: var(--moduix-spacing-2);
-      }
-    `}</style>
+submission and reset synchronization. Previews are centered by default.
 
 ```tsx preview file="./_snippets/pin-input/basic.tsx"
 
@@ -110,8 +100,6 @@ and `ids` can be used when external labels or descriptions need stable element I
 
 Set `blurOnComplete` when focus should leave the final input after all slots are filled.
 
-<style>{`.hint { color: var(--moduix-color-muted-foreground); }`}</style>
-
 ```tsx preview file="./_snippets/pin-input/blur-on-complete.tsx"
 
 ```
@@ -119,10 +107,6 @@ Set `blurOnComplete` when focus should leave the final input after all slots are
 ### Change Events
 
 Control the value array from React state and read the Ark callback detail objects directly.
-
-<style>{`
-  .hint { color: var(--moduix-color-muted-foreground); }
-`}</style>
 
 ```tsx preview file="./_snippets/pin-input/change-events.tsx"
 
@@ -133,26 +117,16 @@ Control the value array from React state and read the Ark callback detail object
 Wrap `PinInput` in `Field` when label, helper text, invalid state, and error text should share Ark
 form accessibility wiring.
 
-<style>{`
-  [data-slot="pin-input-input"][data-invalid] {
-    border-color: var(--moduix-color-destructive);
-  }
-`}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/pin-input/field.tsx"
 
-```tsx preview file="./_snippets/pin-input/field.tsx"
+  ```
 
-```
+</PreviewFrame>
 
 ### Grouped Layout
 
 Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes continuous.
-
-<style>{`
-      .customRoot {
-        --moduix-pin-input-separator-size: 1.5rem;
-        --moduix-pin-input-separator-color: var(--moduix-color-primary);
-      }
-    `}</style>
 
 ```tsx preview file="./_snippets/pin-input/grouped-layout.tsx"
 
@@ -162,8 +136,6 @@ Bypass `Inputs` when a grouped code needs a separator; keep Ark `Input` indexes 
 
 Use `mask` when the entered value is sensitive and should be visually obscured.
 
-<style>{`[data-slot="pin-input-input"] { font-variant-numeric: tabular-nums; }`}</style>
-
 ```tsx preview file="./_snippets/pin-input/masking.tsx"
 
 ```
@@ -171,8 +143,6 @@ Use `mask` when the entered value is sensitive and should be visually obscured.
 ### OTP Mode
 
 Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP suggestions.
-
-<style>{`[data-slot="pin-input-control"] { display: inline-flex; }`}</style>
 
 ```tsx preview file="./_snippets/pin-input/otp-mode.tsx"
 
@@ -183,12 +153,6 @@ Set `otp` to let Ark apply one-time-code autocomplete behavior for mobile OTP su
 Use `placeholder` to opt into visible placeholder characters for each input. moduix keeps the
 default placeholder empty.
 
-<style>{`
-      [data-slot="pin-input-input"]::placeholder {
-        color: var(--moduix-pin-input-placeholder-color);
-      }
-    `}</style>
-
 ```tsx preview file="./_snippets/pin-input/placeholder.tsx"
 
 ```
@@ -197,19 +161,6 @@ default placeholder empty.
 
 Use `usePinInput` with `RootProvider` when state and imperative methods need to live outside the
 rendered tree. This example bypasses `Inputs` to show the full indexed Ark composition.
-
-<style>{`
-  .pin-input-provider-demo {
-    display: grid;
-    justify-items: center;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .actions {
-    display: inline-flex;
-    gap: var(--moduix-spacing-2);
-  }
-`}</style>
 
 ```tsx preview file="./_snippets/pin-input/root-provider.tsx"
 

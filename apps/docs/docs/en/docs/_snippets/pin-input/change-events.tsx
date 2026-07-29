@@ -1,10 +1,17 @@
 import { PinInput } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ChangeEventsPinInput() {
   const [value, setValue] = useState([] as string[]);
   return (
-    <>
+    <div
+      style={{
+        display: 'grid',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-4)',
+      }}
+    >
       <PinInput
         count={6}
         type="alphanumeric"
@@ -18,7 +25,9 @@ export default function ChangeEventsPinInput() {
           <PinInput.Inputs />
         </PinInput.Control>
       </PinInput>
-      <span className="hint">Current value: {value.join('') || 'empty'}</span>
-    </>
+      <PreviewMeta>
+        <output>Current value: {value.join('') || 'empty'}</output>
+      </PreviewMeta>
+    </div>
   );
 }
