@@ -18,7 +18,7 @@ export default function AdvancedCustomizationMenuDemo() {
             </Menu.Item>
             <Menu.Item value="duplicate">
               <span>Duplicate project</span>
-              <span aria-hidden="true">⌘D</span>
+              <Menu.ItemShortcut>⌘D</Menu.ItemShortcut>
             </Menu.Item>
             <Menu.Item value="settings">Project settings</Menu.Item>
           </Menu.ItemGroup>

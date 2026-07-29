@@ -86,7 +86,7 @@ When migrating a page, actively search for result feedback that does not yet use
 2. Move docs-only numeric width limits such as `max-width: 24rem`, `width: min(24rem, 100%)`, or preview wrapper components out of snippets and example CSS.
 3. Preserve local layout that documents the example itself: grids, gaps, action layout, and a necessary `inline-size: 100%` fill rule. Remove an injected `<style>` block and its export when it became width-only.
 4. Keep runnable TSX self-contained and consumer-facing. Never add `PreviewFrame` or `PreviewLayout` to the snippet; use `PreviewMeta` only when the example has auxiliary controls or result feedback.
-5. Keep the four-backtick closing fence and two-space indentation used by existing MDX wrappers, then run the repository's required docs validation from `AGENTS.md`.
+5. Keep the three-backtick closing fence and two-space indentation used by existing MDX wrappers, then run the repository's required docs validation from `AGENTS.md`.
 
 ## Troubleshooting
 

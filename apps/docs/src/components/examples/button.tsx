@@ -101,6 +101,36 @@ export const buttonCssProperties: CssPropertyInput[] = [
     'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
     'Controls focus-visible outline width.',
   ],
+  [
+    '--moduix-button-font',
+    'None',
+    'Overrides the complete CSS font shorthand, including family, size, weight, style, and line height.',
+  ],
+  [
+    '--moduix-button-font-xs',
+    'var(--moduix-button-font)',
+    'Overrides the complete CSS font shorthand for `xs` buttons.',
+  ],
+  [
+    '--moduix-button-font-sm',
+    'var(--moduix-button-font)',
+    'Overrides the complete CSS font shorthand for `sm` buttons.',
+  ],
+  [
+    '--moduix-button-font-md',
+    'var(--moduix-button-font)',
+    'Overrides the complete CSS font shorthand for `md` buttons.',
+  ],
+  [
+    '--moduix-button-font-lg',
+    'var(--moduix-button-font)',
+    'Overrides the complete CSS font shorthand for `lg` buttons.',
+  ],
+  [
+    '--moduix-button-font-xl',
+    'var(--moduix-button-font)',
+    'Overrides the complete CSS font shorthand for `xl` buttons.',
+  ],
   ['--moduix-button-font-size', 'var(--moduix-text-sm)', 'Controls base button font size.'],
   ['--moduix-button-font-size-xs', 'var(--moduix-text-xs)', 'Controls `xs` button font size.'],
   ['--moduix-button-font-size-lg', 'var(--moduix-text-md)', 'Controls `lg` button font size.'],

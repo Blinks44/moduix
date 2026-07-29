@@ -252,6 +252,12 @@
   --moduix-button-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-button-focus-ring-offset: initial; /* var(--moduix-button-border-width, var(--moduix-border-width-sm)) */
   --moduix-button-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
+  --moduix-button-font: initial; /* component typography */
+  --moduix-button-font-xs: initial; /* var(--moduix-button-font) */
+  --moduix-button-font-sm: initial; /* var(--moduix-button-font) */
+  --moduix-button-font-md: initial; /* var(--moduix-button-font) */
+  --moduix-button-font-lg: initial; /* var(--moduix-button-font) */
+  --moduix-button-font-xl: initial; /* var(--moduix-button-font) */
   --moduix-button-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-button-font-size-xs: initial; /* var(--moduix-text-xs) */
   --moduix-button-font-size-lg: initial; /* var(--moduix-text-md) */

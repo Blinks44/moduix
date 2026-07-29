@@ -6,6 +6,11 @@ export const menuExampleCss = `
     --moduix-menu-popup-min-width: 13rem;
   }
 
+  .menu-trigger-row {
+    display: flex;
+    justify-content: center;
+  }
+
   .menu-context-trigger {
     --moduix-menu-trigger-bg-hover: var(--moduix-color-muted);
     --moduix-menu-trigger-bg-active: var(--moduix-color-muted);

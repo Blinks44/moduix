@@ -102,9 +102,9 @@ Keep popup structure explicit. `Menu.Content` is the actual Ark content part; it
 
 ### When to go custom
 
-Use `asChild` when the trigger or item must render as another semantic element. For links, put
-`asChild` on `Menu.Item` and make the anchor the single child so Ark can apply the correct ARIA,
-focus, and keyboard behavior.
+Use `asChild` when a trigger, item, or content must render as another semantic element. Supply one
+semantic child so Ark can apply the correct ARIA, focus, and keyboard behavior. For links, put
+`asChild` on `Menu.Item`; for a custom popup host, put it on `Menu.Content`.
 
 Nested menus are regular `Menu` roots inside the parent content. The nested root uses
 `Menu.TriggerItem`, then its own `Menu.Positioner` and `Menu.Content`.
@@ -297,8 +297,8 @@ Add `Menu.Arrow` and `Menu.ArrowTip` inside `Menu.Content` when the popup needs 
 
 ### Advanced Customization
 
-Bypass the default indicator and leaf helpers when a menu needs fully custom item content or a link
-host; the Ark structural parts stay explicit.
+Use leaf helpers for common menu content, then drop down to the Ark structural parts for a fully
+custom item or link host.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/advanced-customization.tsx"
@@ -328,7 +328,7 @@ host; the Ark structural parts stay explicit.
 ### Styling hooks
 
 - Ark attributes: `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`,
+  `[data-part='content']`, `[data-part='item']`,
   `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`,
   `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, and `[data-side]`.
 - Ark variables: `--reference-width`, `--available-width`, `--available-height`,

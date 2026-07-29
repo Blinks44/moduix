@@ -61,6 +61,23 @@ test('renders the controlled checked state for checkbox items', () => {
   expect(screen.getByRole('menu')).toBeVisible();
 });
 
+test('preserves a custom content host with asChild', () => {
+  render(
+    <Menu defaultOpen>
+      <Menu.Trigger>Actions</Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content asChild>
+          <section aria-label="Actions">
+            <Menu.Item value="edit">Edit</Menu.Item>
+          </section>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>,
+  );
+
+  expect(screen.getByRole('menu')).toHaveProperty('tagName', 'SECTION');
+});
+
 test('preserves custom context trigger styling', () => {
   render(
     <Menu defaultOpen>

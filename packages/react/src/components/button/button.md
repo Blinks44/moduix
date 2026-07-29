@@ -139,66 +139,68 @@ reduced-motion preferences omit the movement.
 
 Primary CSS variables:
 
-| Variable                                                          | Default/fallback                                                                              |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `--moduix-button-border-width`                                    | `var(--moduix-border-width-sm)`                                                               |
-| `--moduix-button-color`                                           | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-content-gap`                                     | `var(--moduix-spacing-2)`                                                                     |
-| `--moduix-button-default-bg`                                      | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-default-bg-hover`                                | `color-mix(in srgb, var(--moduix-button-default-bg, var(--moduix-color-primary)) 88%, black)` |
-| `--moduix-button-default-border-color`                            | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-default-color`                                   | `var(--moduix-color-primary-foreground)`                                                      |
-| `--moduix-button-destructive-bg`                                  | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-border-color`                        | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-color`                               | `var(--moduix-color-destructive-foreground)`                                                  |
-| `--moduix-button-destructive-hover-brightness`                    | `0.96`                                                                                        |
-| `--moduix-button-destructive-outline-bg`                          | `var(--moduix-color-background)`                                                              |
-| `--moduix-button-destructive-outline-bg-hover`                    | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-border-color`                | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-color`                       | `var(--moduix-color-destructive)`                                                             |
-| `--moduix-button-destructive-outline-color-hover`                 | `var(--moduix-button-destructive-color, var(--moduix-color-destructive-foreground))`          |
-| `--moduix-button-disabled-opacity`                                | `var(--moduix-opacity-disabled)`                                                              |
-| `--moduix-button-focus-ring-color`                                | `var(--moduix-color-ring)`                                                                    |
-| `--moduix-button-focus-ring-offset`                               | `var(--moduix-button-border-width, var(--moduix-border-width-sm))`                            |
-| `--moduix-button-focus-ring-width`                                | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                               |
-| `--moduix-button-font-size`                                       | `var(--moduix-text-sm)`                                                                       |
-| `--moduix-button-font-size-xs` / `--moduix-button-line-height-xs` | `var(--moduix-text-xs)` / `var(--moduix-line-height-text-xs)`                                 |
-| `--moduix-button-font-size-lg` / `--moduix-button-line-height-lg` | `var(--moduix-text-md)` / `var(--moduix-line-height-text-md)`                                 |
-| `--moduix-button-font-size-xl` / `--moduix-button-line-height-xl` | `var(--moduix-text-lg)` / `var(--moduix-line-height-text-lg)`                                 |
-| `--moduix-button-font-weight`                                     | `var(--moduix-weight-medium)`                                                                 |
-| `--moduix-button-ghost-bg`                                        | `transparent`                                                                                 |
-| `--moduix-button-ghost-bg-hover`                                  | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-ghost-border-color`                              | `transparent`                                                                                 |
-| `--moduix-button-ghost-color`                                     | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-icon-size`                                       | `var(--moduix-spacing-4)`                                                                     |
-| `--moduix-button-line-height`                                     | `var(--moduix-line-height-text-sm)`                                                           |
-| `--moduix-button-link-color`                                      | `var(--moduix-color-primary)`                                                                 |
-| `--moduix-button-link-color-hover`                                | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-link-text-decoration`                            | `underline`                                                                                   |
-| `--moduix-button-link-underline-offset`                           | `0.25em`                                                                                      |
-| `--moduix-button-outline-bg`                                      | `var(--moduix-color-background)`                                                              |
-| `--moduix-button-outline-bg-hover`                                | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-outline-border-color`                            | `var(--moduix-color-border)`                                                                  |
-| `--moduix-button-outline-color`                                   | `var(--moduix-color-foreground)`                                                              |
-| `--moduix-button-padding-x-xs` / `--moduix-button-padding-y-xs`   | `var(--moduix-spacing-2-5)` / `var(--moduix-spacing-0-5)`                                     |
-| `--moduix-button-padding-x-sm` / `--moduix-button-padding-y-sm`   | `var(--moduix-spacing-3)` / `var(--moduix-spacing-1)`                                         |
-| `--moduix-button-padding-x-md` / `--moduix-button-padding-y-md`   | `var(--moduix-spacing-4)` / `var(--moduix-spacing-1)`                                         |
-| `--moduix-button-padding-x-lg` / `--moduix-button-padding-y-lg`   | `var(--moduix-spacing-5)` / `var(--moduix-spacing-1-5)`                                       |
-| `--moduix-button-padding-x-xl` / `--moduix-button-padding-y-xl`   | `var(--moduix-spacing-6)` / `var(--moduix-spacing-2)`                                         |
-| `--moduix-button-radius`                                          | `var(--moduix-radius-md)`                                                                     |
-| `--moduix-button-secondary-bg`                                    | `var(--moduix-color-secondary)`                                                               |
-| `--moduix-button-secondary-bg-hover`                              | `var(--moduix-color-accent)`                                                                  |
-| `--moduix-button-secondary-border-color`                          | `var(--moduix-color-secondary)`                                                               |
-| `--moduix-button-secondary-color`                                 | `var(--moduix-color-secondary-foreground)`                                                    |
-| `--moduix-button-size-icon-sm`                                    | `var(--moduix-size-sm)`                                                                       |
-| `--moduix-button-size-icon-md`                                    | `var(--moduix-size-md)`                                                                       |
-| `--moduix-button-size-icon-lg`                                    | `var(--moduix-size-lg)`                                                                       |
-| `--moduix-button-size-xs`                                         | `var(--moduix-size-xs)`                                                                       |
-| `--moduix-button-size-sm`                                         | `var(--moduix-size-sm)`                                                                       |
-| `--moduix-button-size-md`                                         | `var(--moduix-size-md)`                                                                       |
-| `--moduix-button-size-lg`                                         | `var(--moduix-size-lg)`                                                                       |
-| `--moduix-button-size-xl`                                         | `var(--moduix-size-xl)`                                                                       |
-| `--moduix-button-transition`                                      | `var(--moduix-transition-default)`                                                            |
+| Variable                                                                                                                                  | Default/fallback                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `--moduix-button-border-width`                                                                                                            | `var(--moduix-border-width-sm)`                                                               |
+| `--moduix-button-color`                                                                                                                   | `var(--moduix-color-foreground)`                                                              |
+| `--moduix-button-content-gap`                                                                                                             | `var(--moduix-spacing-2)`                                                                     |
+| `--moduix-button-default-bg`                                                                                                              | `var(--moduix-color-primary)`                                                                 |
+| `--moduix-button-default-bg-hover`                                                                                                        | `color-mix(in srgb, var(--moduix-button-default-bg, var(--moduix-color-primary)) 88%, black)` |
+| `--moduix-button-default-border-color`                                                                                                    | `var(--moduix-color-primary)`                                                                 |
+| `--moduix-button-default-color`                                                                                                           | `var(--moduix-color-primary-foreground)`                                                      |
+| `--moduix-button-destructive-bg`                                                                                                          | `var(--moduix-color-destructive)`                                                             |
+| `--moduix-button-destructive-border-color`                                                                                                | `var(--moduix-color-destructive)`                                                             |
+| `--moduix-button-destructive-color`                                                                                                       | `var(--moduix-color-destructive-foreground)`                                                  |
+| `--moduix-button-destructive-hover-brightness`                                                                                            | `0.96`                                                                                        |
+| `--moduix-button-destructive-outline-bg`                                                                                                  | `var(--moduix-color-background)`                                                              |
+| `--moduix-button-destructive-outline-bg-hover`                                                                                            | `var(--moduix-color-destructive)`                                                             |
+| `--moduix-button-destructive-outline-border-color`                                                                                        | `var(--moduix-color-destructive)`                                                             |
+| `--moduix-button-destructive-outline-color`                                                                                               | `var(--moduix-color-destructive)`                                                             |
+| `--moduix-button-destructive-outline-color-hover`                                                                                         | `var(--moduix-button-destructive-color, var(--moduix-color-destructive-foreground))`          |
+| `--moduix-button-disabled-opacity`                                                                                                        | `var(--moduix-opacity-disabled)`                                                              |
+| `--moduix-button-focus-ring-color`                                                                                                        | `var(--moduix-color-ring)`                                                                    |
+| `--moduix-button-focus-ring-offset`                                                                                                       | `var(--moduix-button-border-width, var(--moduix-border-width-sm))`                            |
+| `--moduix-button-focus-ring-width`                                                                                                        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                               |
+| `--moduix-button-font`                                                                                                                    | No override; accepts a complete CSS `font` shorthand                                          |
+| `--moduix-button-font-xs` / `--moduix-button-font-sm` / `--moduix-button-font-md` / `--moduix-button-font-lg` / `--moduix-button-font-xl` | `var(--moduix-button-font)`; complete CSS `font` shorthand per text size                      |
+| `--moduix-button-font-size`                                                                                                               | `var(--moduix-text-sm)`                                                                       |
+| `--moduix-button-font-size-xs` / `--moduix-button-line-height-xs`                                                                         | `var(--moduix-text-xs)` / `var(--moduix-line-height-text-xs)`                                 |
+| `--moduix-button-font-size-lg` / `--moduix-button-line-height-lg`                                                                         | `var(--moduix-text-md)` / `var(--moduix-line-height-text-md)`                                 |
+| `--moduix-button-font-size-xl` / `--moduix-button-line-height-xl`                                                                         | `var(--moduix-text-lg)` / `var(--moduix-line-height-text-lg)`                                 |
+| `--moduix-button-font-weight`                                                                                                             | `var(--moduix-weight-medium)`                                                                 |
+| `--moduix-button-ghost-bg`                                                                                                                | `transparent`                                                                                 |
+| `--moduix-button-ghost-bg-hover`                                                                                                          | `var(--moduix-color-accent)`                                                                  |
+| `--moduix-button-ghost-border-color`                                                                                                      | `transparent`                                                                                 |
+| `--moduix-button-ghost-color`                                                                                                             | `var(--moduix-color-foreground)`                                                              |
+| `--moduix-button-icon-size`                                                                                                               | `var(--moduix-spacing-4)`                                                                     |
+| `--moduix-button-line-height`                                                                                                             | `var(--moduix-line-height-text-sm)`                                                           |
+| `--moduix-button-link-color`                                                                                                              | `var(--moduix-color-primary)`                                                                 |
+| `--moduix-button-link-color-hover`                                                                                                        | `var(--moduix-color-foreground)`                                                              |
+| `--moduix-button-link-text-decoration`                                                                                                    | `underline`                                                                                   |
+| `--moduix-button-link-underline-offset`                                                                                                   | `0.25em`                                                                                      |
+| `--moduix-button-outline-bg`                                                                                                              | `var(--moduix-color-background)`                                                              |
+| `--moduix-button-outline-bg-hover`                                                                                                        | `var(--moduix-color-accent)`                                                                  |
+| `--moduix-button-outline-border-color`                                                                                                    | `var(--moduix-color-border)`                                                                  |
+| `--moduix-button-outline-color`                                                                                                           | `var(--moduix-color-foreground)`                                                              |
+| `--moduix-button-padding-x-xs` / `--moduix-button-padding-y-xs`                                                                           | `var(--moduix-spacing-2-5)` / `var(--moduix-spacing-0-5)`                                     |
+| `--moduix-button-padding-x-sm` / `--moduix-button-padding-y-sm`                                                                           | `var(--moduix-spacing-3)` / `var(--moduix-spacing-1)`                                         |
+| `--moduix-button-padding-x-md` / `--moduix-button-padding-y-md`                                                                           | `var(--moduix-spacing-4)` / `var(--moduix-spacing-1)`                                         |
+| `--moduix-button-padding-x-lg` / `--moduix-button-padding-y-lg`                                                                           | `var(--moduix-spacing-5)` / `var(--moduix-spacing-1-5)`                                       |
+| `--moduix-button-padding-x-xl` / `--moduix-button-padding-y-xl`                                                                           | `var(--moduix-spacing-6)` / `var(--moduix-spacing-2)`                                         |
+| `--moduix-button-radius`                                                                                                                  | `var(--moduix-radius-md)`                                                                     |
+| `--moduix-button-secondary-bg`                                                                                                            | `var(--moduix-color-secondary)`                                                               |
+| `--moduix-button-secondary-bg-hover`                                                                                                      | `var(--moduix-color-accent)`                                                                  |
+| `--moduix-button-secondary-border-color`                                                                                                  | `var(--moduix-color-secondary)`                                                               |
+| `--moduix-button-secondary-color`                                                                                                         | `var(--moduix-color-secondary-foreground)`                                                    |
+| `--moduix-button-size-icon-sm`                                                                                                            | `var(--moduix-size-sm)`                                                                       |
+| `--moduix-button-size-icon-md`                                                                                                            | `var(--moduix-size-md)`                                                                       |
+| `--moduix-button-size-icon-lg`                                                                                                            | `var(--moduix-size-lg)`                                                                       |
+| `--moduix-button-size-xs`                                                                                                                 | `var(--moduix-size-xs)`                                                                       |
+| `--moduix-button-size-sm`                                                                                                                 | `var(--moduix-size-sm)`                                                                       |
+| `--moduix-button-size-md`                                                                                                                 | `var(--moduix-size-md)`                                                                       |
+| `--moduix-button-size-lg`                                                                                                                 | `var(--moduix-size-lg)`                                                                       |
+| `--moduix-button-size-xl`                                                                                                                 | `var(--moduix-size-xl)`                                                                       |
+| `--moduix-button-transition`                                                                                                              | `var(--moduix-transition-default)`                                                            |
 
 ## Intentional sugar and differences from upstream
 
@@ -231,6 +233,7 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-29: Added `--moduix-button-font` plus size-specific font overrides to replace the complete CSS font shorthand without changing existing defaults when unset.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-26: Added subtle press feedback for enabled button variants while keeping links and
   reduced-motion preferences free of movement.

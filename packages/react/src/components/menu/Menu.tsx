@@ -121,7 +121,21 @@ const MenuPositioner = forwardRef<
 const MenuContent = forwardRef<
   ComponentRef<typeof MenuPrimitive.Content>,
   ComponentProps<typeof MenuPrimitive.Content>
->(function MenuContent({ className, children, ...props }, ref) {
+>(function MenuContent({ asChild, className, children, ...props }, ref) {
+  if (asChild) {
+    return (
+      <MenuPrimitive.Content
+        ref={ref}
+        data-slot="menu-content"
+        asChild
+        className={clsx(styles.content, normalizeClassName(className))}
+        {...props}
+      >
+        {children}
+      </MenuPrimitive.Content>
+    );
+  }
+
   const childrenArray = Children.toArray(children);
   const arrows = childrenArray.filter((child) => isValidElement(child) && child.type === MenuArrow);
   const content = childrenArray.filter(
@@ -132,6 +146,7 @@ const MenuContent = forwardRef<
     <MenuPrimitive.Content
       ref={ref}
       data-slot="menu-content"
+      asChild={asChild}
       className={clsx(styles.content, normalizeClassName(className))}
       {...props}
     >

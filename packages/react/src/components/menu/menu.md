@@ -140,7 +140,8 @@ Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigg
 
 `Menu.Content` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
 viewport height. Its internal viewport leaves a direct `Menu.Arrow` outside the scroll clip. The
-default `Menu.TriggerItemIcon` flips in RTL so its direction matches submenu navigation.
+default `Menu.TriggerItemIcon` flips in RTL so its direction matches submenu navigation. With
+`asChild`, `Menu.Content` preserves the supplied single host element instead of adding that viewport.
 
 ## Defaults and styling
 
@@ -160,7 +161,7 @@ destructive tone, indicators, and shortcuts.
 Styles target Ark state and layout hooks:
 
 - `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`
+  `[data-part='content']`, `[data-part='item']`
 - `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`
 - `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
@@ -196,6 +197,9 @@ Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provid
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Local changelog
+
+- 2026-07-29: Restored Ark `Menu.Content asChild` composition so a custom single host stays the
+  actual menu content element. Removed the stale `option-item` styling hook from the docs.
 
 - 2026-07-25: Scope the open trigger treatment to Ark's `data-current` so a shared menu only
   highlights the trigger that opened it.
