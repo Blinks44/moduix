@@ -269,6 +269,7 @@ const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--moduix-menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
   ['--moduix-menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
+  ['--moduix-menu-popup-overflow', 'visible', 'Controls popup overflow.'],
   [
     '--moduix-menu-popup-padding-y',
     'var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))',

@@ -101,7 +101,7 @@
       var(--available-width, 100vw)
     );
     max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
-    overflow: visible;
+    overflow: var(--moduix-menu-popup-overflow, visible);
     padding-block: var(
       --moduix-menu-popup-padding-y,
       var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))

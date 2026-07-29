@@ -1815,6 +1815,7 @@
   --moduix-menu-popup-max-height: initial; /* 24rem */
   --moduix-menu-popup-max-width: initial; /* 20rem */
   --moduix-menu-popup-min-width: initial; /* 12rem */
+  --moduix-menu-popup-overflow: initial; /* visible */
   --moduix-menu-popup-padding-y: initial; /* var(--moduix-popup-list-padding-y, var(--moduix-spacing-1)) */
   --moduix-menu-popup-radius: initial; /* var(--moduix-radius-md) */
   --moduix-menu-popup-shadow: initial; /* var(--moduix-shadow-lg) */

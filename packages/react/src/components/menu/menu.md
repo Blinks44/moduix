@@ -158,6 +158,10 @@ remain the more specific override.
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
 
+`Menu.Content` allows its overflow to be overridden with `--moduix-menu-popup-overflow`; it defaults
+to `visible` so the direct `Menu.Arrow` can extend beyond the popup outline. Set it to `hidden` only
+when clipping popup content is required.
+
 Styles target Ark state and layout hooks:
 
 - `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
@@ -197,6 +201,9 @@ Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provid
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
 ## Local changelog
+
+- 2026-07-29: Added `--moduix-menu-popup-overflow` so consumers can clip `Menu.Content` when needed;
+  it defaults to `visible` to preserve direct-arrow rendering.
 
 - 2026-07-29: Restored Ark `Menu.Content asChild` composition so a custom single host stays the
   actual menu content element. Removed the stale `option-item` styling hook from the docs.
