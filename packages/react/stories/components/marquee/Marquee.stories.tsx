@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
+import { LocaleProvider } from '../../../src';
 import { Button } from '../../../src/components/button';
 import { Marquee, useMarquee } from '../../../src/components/marquee/Marquee';
 import styles from './Marquee.stories.module.css';
@@ -111,6 +112,23 @@ export const PauseOnInteraction: Story = {
 
 export const Reverse: Story = {
   render: () => <BasicMarquee reverse />,
+};
+
+export const RTL: Story = {
+  name: 'RTL',
+  render: () => (
+    <LocaleProvider locale="ar">
+      <Marquee aria-label="Partner logos" className={styles.root}>
+        <Marquee.Edge side="start" />
+        <Marquee.Viewport>
+          <Marquee.Content>
+            <MarqueeItems />
+          </Marquee.Content>
+        </Marquee.Viewport>
+        <Marquee.Edge side="end" />
+      </Marquee>
+    </LocaleProvider>
+  ),
 };
 
 export const Vertical: Story = {

@@ -14,13 +14,15 @@ import * as MarqueeDocs from '@/components/examples/marquee';
 
 Use `Marquee` as the Ark root, then compose `Viewport`, `Content`, and `Item` explicitly. Provide
 a descriptive label with `aria-label` or `translations.root`, especially when the content is
-informational. The root is visually neutral by default, so the basic example only sets width.
+informational. The root is visually neutral by default; `PreviewFrame` only limits the example width.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -102,6 +104,9 @@ content is interactive or needs time to read, and avoid marquees for critical in
 There is no roving focus or arrow-key navigation. When `pauseOnInteraction` is enabled, focus pauses
 the marquee and blur resumes it.
 
+When the user prefers reduced motion, moduix disables the content animation while keeping the
+marquee content available.
+
 ## Examples
 
 ### Auto Fill
@@ -111,9 +116,11 @@ between duplicated content instances.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/auto-fill.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/auto-fill.tsx"
 
 ```
+</PreviewFrame>
 
 ### Edges
 
@@ -122,9 +129,11 @@ decorative and does not receive pointer events.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/edges.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/edges.tsx"
 
 ```
+</PreviewFrame>
 
 ### Finite Loops
 
@@ -133,9 +142,11 @@ after the final loop.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/finite-loops.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/finite-loops.tsx"
 
 ```
+</PreviewFrame>
 
 ### Pause on Interaction
 
@@ -143,9 +154,11 @@ Use `pauseOnInteraction` to pause while the user hovers the marquee or focuses c
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/pause-on-interaction.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/pause-on-interaction.tsx"
 
 ```
+</PreviewFrame>
 
 ### Programmatic Control
 
@@ -154,9 +167,11 @@ or restart playback.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/programmatic-control.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/programmatic-control.tsx"
 
 ```
+</PreviewFrame>
 
 ### Reverse
 
@@ -165,9 +180,24 @@ orientation.
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/reverse.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/reverse.tsx"
 
 ```
+</PreviewFrame>
+
+### Right to left
+
+Wrap the marquee in `LocaleProvider` with an RTL locale. Logical `start` and `end` edges then follow
+the configured direction.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/rtl.tsx"
+
+```
+</PreviewFrame>
 
 ### Speed
 
@@ -175,9 +205,11 @@ Control motion with `speed`, measured in pixels per second. Lower values are eas
 
 <style>{MarqueeDocs.marqueeExampleCss}</style>
 
-```tsx preview file="./_snippets/marquee/speed.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/marquee/speed.tsx"
 
 ```
+</PreviewFrame>
 
 ### Vertical
 
@@ -186,9 +218,11 @@ Set `side="top"` or `side="bottom"` for vertical marquees. The root uses
 
 <style>{MarqueeDocs.marqueeVerticalCss}</style>
 
-```tsx preview file="./_snippets/marquee/vertical.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/marquee/vertical.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

@@ -1,5 +1,10 @@
 @layer moduix.components {
   .root {
+    --marquee-edge-color: var(--moduix-color-background);
+    --marquee-edge-size: 20%;
+    --moduix-marquee-edge-color: var(--marquee-edge-color);
+    --moduix-marquee-edge-size: var(--marquee-edge-size);
+
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
@@ -53,55 +58,31 @@
     pointer-events: none;
 
     &[data-side='start'] {
-      width: var(--moduix-marquee-edge-size, 20%);
-      background: linear-gradient(
-        to right,
-        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-        transparent
-      );
+      width: var(--moduix-marquee-edge-size);
+      background: linear-gradient(to right, var(--moduix-marquee-edge-color), transparent);
 
       &[dir='rtl'] {
-        background: linear-gradient(
-          to left,
-          var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-          transparent
-        );
+        background: linear-gradient(to left, var(--moduix-marquee-edge-color), transparent);
       }
     }
 
     &[data-side='end'] {
-      width: var(--moduix-marquee-edge-size, 20%);
-      background: linear-gradient(
-        to left,
-        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-        transparent
-      );
+      width: var(--moduix-marquee-edge-size);
+      background: linear-gradient(to left, var(--moduix-marquee-edge-color), transparent);
 
       &[dir='rtl'] {
-        background: linear-gradient(
-          to right,
-          var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-          transparent
-        );
+        background: linear-gradient(to right, var(--moduix-marquee-edge-color), transparent);
       }
     }
 
     &[data-side='top'] {
-      height: var(--moduix-marquee-edge-size, 20%);
-      background: linear-gradient(
-        to bottom,
-        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-        transparent
-      );
+      height: var(--moduix-marquee-edge-size);
+      background: linear-gradient(to bottom, var(--moduix-marquee-edge-color), transparent);
     }
 
     &[data-side='bottom'] {
-      height: var(--moduix-marquee-edge-size, 20%);
-      background: linear-gradient(
-        to top,
-        var(--moduix-marquee-edge-color, var(--moduix-color-background)),
-        transparent
-      );
+      height: var(--moduix-marquee-edge-size);
+      background: linear-gradient(to top, var(--moduix-marquee-edge-color), transparent);
     }
   }
 
