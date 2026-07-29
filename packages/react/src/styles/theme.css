@@ -2167,9 +2167,11 @@
   --moduix-radio-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-radio-border-color: initial; /* var(--moduix-color-border) */
   --moduix-radio-border-color-checked: initial; /* var(--moduix-color-primary) */
+  --moduix-radio-border-color-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-radio-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-radio-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-radio-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-radio-focus-ring-color-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-radio-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
   --moduix-radio-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-radio-gap: initial; /* var(--moduix-spacing-2) */

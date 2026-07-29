@@ -17,9 +17,12 @@ item automatically.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/basic.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -86,9 +89,10 @@ Each `RadioGroup.Item` renders its native form input automatically for native fo
 validation, and reset. Ark owns the controlled and uncontrolled value state, roving focus, keyboard
 navigation, and `onValueChange(details)` callback shape.
 
-`Field.Root` and `Fieldset.Root` state flows through to the group. Use `Field.Label`,
-`Field.HelperText`, and `Field.ErrorText` for visible form context; `Item` and `Option` retain
-native form submission and reset behavior automatically.
+`Field.Root` provides visible label, helper, and error content, but does not pass its state to
+`RadioGroup`. Pass `disabled`, `invalid`, `readOnly`, and `required` to the group itself.
+`Fieldset.Root` passes its Ark `disabled` and `invalid` state to nested radio groups. `Item` and
+`Option` retain native form submission and reset behavior automatically.
 
 ## Examples
 
@@ -98,32 +102,25 @@ Use `RadioGroup.Item asChild` when a custom label layout should own the item DOM
 
 <style>{RadioGroupDocs.radioGroupAsChildCss}</style>
 
-```tsx preview file="./_snippets/radio-group/aschild.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/aschild.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### Controlled
 
 Use `value` with `onValueChange(details)` when selected value is owned by surrounding UI.
 
-<style>{`
-  ${RadioGroupDocs.radioGroupExampleCss}
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-  .radio-group-controlled-demo {
-    display: grid;
-    justify-items: center;
-    gap: var(--moduix-spacing-3);
-  }
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/controlled.tsx"
 
-  .radio-group-controlled-demo output {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-  }
-`}</style>
+  ```
 
-```tsx preview file="./_snippets/radio-group/controlled.tsx"
-
-```
+</PreviewFrame>
 
 ### Disabled
 
@@ -131,9 +128,24 @@ Set `disabled` on the root to make every item unavailable while keeping the sele
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/disabled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/disabled.tsx"
 
-```
+  ```
+
+</PreviewFrame>
+
+### Disabled Item
+
+Set `disabled` on an individual `Item` or `Option` when only that choice is unavailable.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/item-disabled.tsx"
+  ```
+
+</PreviewFrame>
 
 ### Indicator
 
@@ -143,9 +155,12 @@ exactly.
 
 <style>{RadioGroupDocs.radioGroupIndicatorCss}</style>
 
-```tsx preview file="./_snippets/radio-group/indicator.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/indicator.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### Initial Value
 
@@ -153,19 +168,26 @@ Set `defaultValue` when the initial checked item is known but the group can mana
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/initial-value.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/initial-value.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### Orientation
 
-Set `orientation="horizontal"` when arrow-key behavior and layout should follow a horizontal group.
+Set `orientation="horizontal"` when arrow-key behavior should follow a horizontal group. Arrange
+items in a row with an inline wrapper when the layout should be horizontal too.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/orientation.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/orientation.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### Root Provider
 
@@ -174,9 +196,12 @@ tree.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/root-provider.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/root-provider.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### Sizes
 
@@ -185,19 +210,26 @@ diameter.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/sizes.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/sizes.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### With Field
 
 Use `Field.Root` to provide a visible label, helper text, and validation message for a radio group.
+Pass `invalid` to `RadioGroup` so its radios receive the matching ARIA and visual state.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/with-field.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/with-field.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ### With Fieldset
 
@@ -213,9 +245,25 @@ Wrap the group in `Fieldset` when several radio items share a form section legen
   }
 `}</style>
 
-```tsx preview file="./_snippets/radio-group/with-fieldset.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/with-fieldset.tsx"
 
-```
+  ```
+
+</PreviewFrame>
+
+### Form
+
+The native inputs created for each item participate in form submission and reset without adding an
+input part manually.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/form.tsx"
+  ```
+
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -224,9 +272,12 @@ styling.
 
 <style>{RadioGroupDocs.radioGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/radio-group/advanced-customization.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/radio-group/advanced-customization.tsx"
 
-```
+  ```
+
+</PreviewFrame>
 
 ## Styling
 

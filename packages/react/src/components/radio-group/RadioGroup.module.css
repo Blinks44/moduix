@@ -87,6 +87,10 @@
       }
     }
 
+    &[data-invalid] {
+      border-color: var(--moduix-radio-border-color-invalid, var(--moduix-color-destructive));
+    }
+
     &[data-focus-visible] {
       outline: var(
           --moduix-radio-focus-ring-width,
@@ -94,6 +98,10 @@
         )
         solid var(--moduix-radio-focus-ring-color, var(--moduix-color-ring));
       outline-offset: var(--moduix-radio-focus-ring-offset, var(--moduix-border-width-sm));
+    }
+
+    &[data-invalid][data-focus-visible] {
+      outline-color: var(--moduix-radio-focus-ring-color-invalid, var(--moduix-color-destructive));
     }
 
     @media (hover: hover) {

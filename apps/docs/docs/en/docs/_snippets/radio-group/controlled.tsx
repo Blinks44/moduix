@@ -1,12 +1,13 @@
 import { RadioGroup } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 
 export default function ControlledRadioGroupDemo() {
   const [value, setValue] = useState(null as string | null);
   return (
-    <div className="radio-group-controlled-demo">
+    <div className="radio-group-preview-stack">
       <RadioGroup value={value} onValueChange={(details) => setValue(details.value)}>
         <RadioGroup.Label>Framework</RadioGroup.Label>
         {frameworks.map((framework) => (
@@ -15,7 +16,9 @@ export default function ControlledRadioGroupDemo() {
           </RadioGroup.Option>
         ))}
       </RadioGroup>
-      <output>Selected: {value ?? 'none'}</output>
+      <PreviewMeta>
+        <output>Selected: {value ?? 'none'}</output>
+      </PreviewMeta>
     </div>
   );
 }
