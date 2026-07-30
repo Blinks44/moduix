@@ -52,6 +52,11 @@
     );
   }
 
+  .root[data-size='inherit'],
+  [data-scope='spinner'][data-part='root'][data-size='inherit'] {
+    --_spinner-size: 1em;
+  }
+
   .root[data-size='sm'],
   [data-scope='spinner'][data-part='root'][data-size='sm'] {
     --_spinner-size: var(
@@ -74,12 +79,5 @@
       --moduix-spinner-size,
       var(--moduix-spinner-size-xl, var(--moduix-size-md))
     );
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .indicator,
-    [data-scope='spinner'][data-part='indicator'] {
-      animation: none;
-    }
   }
 }

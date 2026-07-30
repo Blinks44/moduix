@@ -24,7 +24,7 @@ export const WithVisibleText: Story = {
   render: () => {
     return (
       <div className={styles.inline}>
-        <Spinner decorative size="sm" />
+        <Spinner decorative size="inherit" />
         <span className={styles.muted}>Saving changes</span>
       </div>
     );
@@ -41,6 +41,16 @@ export const Sizes: Story = {
         <Spinner decorative size="lg" />
         <Spinner decorative size="xl" />
       </div>
+    );
+  },
+};
+
+export const InheritedSize: Story = {
+  render: () => {
+    return (
+      <span style={{ fontSize: 'var(--moduix-text-xl)' }}>
+        <Spinner decorative size="inherit" /> Loading report
+      </span>
     );
   },
 };
