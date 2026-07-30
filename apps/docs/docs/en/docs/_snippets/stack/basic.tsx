@@ -1,9 +1,8 @@
 import { Heading, Stack, Text } from '@moduix/react';
-import styles from '@/components/examples/stack.module.css';
 
 export default function StackDemo() {
   return (
-    <Stack gap={12} className={styles.panel}>
+    <Stack gap={12}>
       <Heading as="h3" size="md">
         Project updates
       </Heading>

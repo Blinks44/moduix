@@ -1,13 +1,12 @@
-import { Stack } from '@moduix/react';
-import styles from '@/components/examples/stack.module.css';
+import { Badge, Stack } from '@moduix/react';
 
 export default function StackWrapDemo() {
   return (
-    <Stack direction="row" gap={8} wrap="wrap" className={styles.wrap}>
-      <div className={styles.pill}>Design</div>
-      <div className={styles.pill}>Engineering</div>
-      <div className={styles.pill}>Docs</div>
-      <div className={styles.pill}>Release</div>
+    <Stack direction="row" gap={8} wrap="wrap">
+      <Badge>Design</Badge>
+      <Badge>Engineering</Badge>
+      <Badge>Docs</Badge>
+      <Badge>Release</Badge>
     </Stack>
   );
 }

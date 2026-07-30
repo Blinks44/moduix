@@ -1,5 +1,4 @@
 import { Stack, Text } from '@moduix/react';
-import styles from '@/components/examples/stack.module.css';
 
 export default function StackResponsiveDirectionDemo() {
   return (
@@ -9,7 +8,7 @@ export default function StackResponsiveDirectionDemo() {
         desktop: 'row',
       }}
       gap={12}
-      className={styles.row}
+      style={{ inlineSize: '100%' }}
     >
       <Text weight="semibold">Adaptive layout</Text>
       <Text tone="muted">Column on mobile, row from desktop width.</Text>
