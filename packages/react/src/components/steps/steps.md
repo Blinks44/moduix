@@ -55,7 +55,7 @@ export function Example() {
 ## Anatomy and exported parts
 
 ```text
-Steps.Root
+Steps
 ├─ Steps.Progress
 ├─ Steps.List
 │  └─ Steps.Item[index]
@@ -73,7 +73,7 @@ Steps.RootProvider
 
 | Export                   | `data-slot`               | Notes                                                                              |
 | ------------------------ | ------------------------- | ---------------------------------------------------------------------------------- |
-| `Steps` / `Steps.Root`   | `steps-root`              | Root Ark state machine and default export shape.                                   |
+| `Steps`                  | `steps-root`              | Root Ark state machine and default export shape.                                   |
 | `Steps.RootProvider`     | `steps-root-provider`     | Uses a `Steps.useSteps()` store; do not pair with `Steps.Root` for the same store. |
 | `Steps.List`             | `steps-list`              | Ark tablist.                                                                       |
 | `Steps.Item`             | `steps-item`              | Requires zero-based `index`.                                                       |
@@ -86,14 +86,14 @@ Steps.RootProvider
 | `Steps.NextTrigger`      | `steps-next-trigger`      | Next-step button.                                                                  |
 | `Steps.Progress`         | `steps-progress`          | Progressbar using Ark `--percent`.                                                 |
 
-`Steps.useSteps()` creates state for `Steps.RootProvider`. Other advanced Ark state helpers, such
-as `useStepsContext`, `useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext`, remain
-direct `@ark-ui/react/steps` escape hatches.
+`Steps.useSteps()` creates state for `Steps.RootProvider`. `useStepsContext`,
+`useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext` are exported from `@moduix/react`
+as low-level Ark-shaped APIs.
 
 ## Composition
 
-Use `Steps.Root` or the short `Steps` root for normal usage. Use `Steps.RootProvider` only when
-state is created outside with `Steps.useSteps()`.
+Use `Steps` for normal usage. Use `Steps.RootProvider` only when state is created outside with
+`Steps.useSteps()`.
 
 Use `asChild` instead of the removed legacy `render` prop:
 
@@ -108,7 +108,9 @@ Use `asChild` instead of the removed legacy `render` prop:
 
 ## Upstream feature coverage
 
-Official Ark examples are covered in stories and docs: Basic, Controlled, Root Provider, and Vertical. Moduix also documents `asChild`, `Steps.Progress`, custom CSS variables, and the default indicator sugar.
+Official Ark examples are covered in docs: Basic, Controlled, Root Provider, Vertical, and
+Validation. Moduix also documents `asChild`, `Steps.Progress`, custom CSS variables, and the
+default indicator sugar.
 
 Supported upstream behavior includes controlled/uncontrolled state, completion state via `count`, `PrevTrigger`/`NextTrigger`, `RootProvider`, root and item contexts, vertical orientation, `ids`, `linear`, validation callbacks, and skippable-step callbacks.
 
@@ -116,15 +118,15 @@ Supported upstream behavior includes controlled/uncontrolled state, completion s
 
 Ark provides `role="tablist"` on `Steps.List`, `role="tab"` on triggers, `role="tabpanel"` on content, `aria-controls`, `aria-labelledby`, `aria-current="step"`, `aria-selected`, `aria-orientation`, and disabled state for previous/next triggers.
 
-Use `Steps.useSteps()` for externally owned state. Use Ark state hooks directly from
-`@ark-ui/react/steps` for inline root reads and item state. Callback payloads stay Ark-shaped,
-such as `onStepChange(details)` with `details.step`.
+Use `Steps.useSteps()` for externally owned state. Use `useStepsContext`,
+`useStepsItemContext`, `Steps.Context`, or `Steps.ItemContext` for inline root and item-state
+reads. Callback payloads stay Ark-shaped, such as `onStepChange(details)` with `details.step`.
 
 Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"` on triggers and content, `data-skippable`, `data-complete` on progress, and Ark `--percent` on the root.
 
 ## Defaults and styling
 
-The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/react/src/styles/theme.css`.
+The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Vertical layouts place navigation beside content on wide screens and above it below `40rem`. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/react/src/styles/theme.css`.
 
 Root class names apply to both `Steps.Root` and `Steps.RootProvider`. `Steps.Progress` renders a track/fill through CSS using the Ark `--percent` runtime variable. Incomplete trigger text styles target Ark `data-incomplete`; completed triggers keep normal inherited text color unless consumers override the state hooks.
 
@@ -136,13 +138,14 @@ This migration intentionally removes the old `Stepper` contract: no flat part ex
 
 ## Agent notes
 
-Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `Steps.useSteps()` is the moduix-owned state factory for `RootProvider`; other Ark state helpers remain escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
+Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `Steps.useSteps()` is the moduix-owned state factory for `RootProvider`; the exported context APIs remain low-level Ark-shaped escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
 
 When changing styling hooks or variables, update `Steps.module.css`, `theme.css`, stories, docs examples, `apps/docs/docs/en/docs/steps.mdx`, and this file together.
 
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-31: Moved the focus ring to the trigger so custom compositions remain visible, made the vertical separator RTL-safe, made narrow layouts scroll or stack safely, and synchronized tests and documentation with the exported context APIs.
 - 2026-07-11: Exposed `Steps.useSteps()` for the documented `RootProvider` path so consumers do not need a mixed moduix/Ark import for externally owned state.
 - 2026-07-03: Simplified the moduix surface to match `combobox`: kept `RootProvider` and visual
   parts, removed re-exported Ark state APIs/types, and pointed advanced state imports to

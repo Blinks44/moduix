@@ -6,6 +6,8 @@ description: Guide users through a multi-step process with Ark UI state and navi
 
 import * as StepsDocs from '@/components/examples/steps';
 
+<style>{StepsDocs.stepsExampleCss}</style>
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
@@ -14,11 +16,11 @@ import * as StepsDocs from '@/components/examples/steps';
 
 Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}` parts, matching `Steps.Content index={...}` panels, and the built-in previous/next triggers.
 
-<style>{StepsDocs.stepsExampleCss}</style>
-
-```tsx preview file="./_snippets/steps/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -27,7 +29,7 @@ Use `Steps` with a `count`, a `Steps.List` of zero-based `Steps.Item index={...}
 ## Anatomy
 
 ```text
-Steps.Root
+Steps
 ├─ Steps.Progress (optional)
 ├─ Steps.List
 │  └─ Steps.Item[index]
@@ -45,7 +47,7 @@ Steps.RootProvider
 
 | Part                                | Role                                                                       |
 | ----------------------------------- | -------------------------------------------------------------------------- |
-| `Steps` / `Steps.Root`              | Controls step state, orientation, linear navigation, validation, and IDs.  |
+| `Steps`                              | Controls step state, orientation, linear navigation, validation, and IDs.  |
 | `Steps.RootProvider`                | Connects parts to state created with `Steps.useSteps()`.                   |
 | `Steps.Progress`                    | Optional progressbar that reads Ark's `--percent` root variable.           |
 | `Steps.List`                        | Tablist that owns step triggers.                                           |
@@ -57,14 +59,15 @@ Steps.RootProvider
 | `Steps.CompletedContent`            | Tabpanel shown when the current step equals `count`.                       |
 | `Steps.PrevTrigger` / `NextTrigger` | Buttons wired to Ark's previous and next actions.                          |
 
-Use `Steps.useSteps()` with `Steps.RootProvider` for externally owned state. Other advanced Ark
-state helpers remain available directly from `@ark-ui/react/steps` as escape hatches.
+Use `Steps.useSteps()` with `Steps.RootProvider` for externally owned state. `useStepsContext`,
+`useStepsItemContext`, `Steps.Context`, and `Steps.ItemContext` are also exported from
+`@moduix/react` as low-level Ark-shaped APIs.
 
 ## Composition
 
 ### Recommended composition
 
-`Steps.Root` owns the state machine. Use `count`, `defaultStep`, `step`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, and `ids` directly on the root. Step items and panels use zero-based `index` values.
+`Steps` owns the state machine. Use `count`, `defaultStep`, `step`, `onStepChange(details)`, `onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation`, and `ids` directly on the root. Step items and panels use zero-based `index` values.
 
 Use `Steps.RootProvider` with `Steps.useSteps()` when external controls need direct access to `value`,
 `setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`, `percent`, and item-state helpers. Do not
@@ -99,51 +102,61 @@ Use `asChild` on `Steps.Trigger`, `Steps.PrevTrigger`, or `Steps.NextTrigger` wh
 
 Control `step` from React state when the active step must stay synchronized with routing, validation, or surrounding UI.
 
-<style>{StepsDocs.controlledStepsCss}</style>
-
-```tsx preview file="./_snippets/steps/controlled.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/controlled.tsx"
 
 ```
+</PreviewFrame>
+
+### Validation
+
+Use `linear`, `isStepValid`, and `onStepInvalid` when a user must complete the current step before moving forward.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/validation.tsx"
+
+```
+</PreviewFrame>
 
 ### Progress
 
 Add `Steps.Progress` when the flow should expose a progressbar in addition to the step list.
 
-<style>{StepsDocs.progressStepsCss}</style>
-
-```tsx preview file="./_snippets/steps/progress.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/progress.tsx"
 
 ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use `Steps.useSteps()` with `Steps.RootProvider` when controls outside the rendered tree need access to the same Ark store.
 
-<style>{StepsDocs.rootProviderStepsCss}</style>
-
-```tsx preview file="./_snippets/steps/root-provider.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ### Vertical
 
-Set `orientation="vertical"` when the step list should stack beside the active content panel.
+Set `orientation="vertical"` when the step list should sit beside the active content panel on wide layouts and stack above it on narrow screens.
 
-<style>{StepsDocs.verticalStepsCss}</style>
-
-```tsx preview file="./_snippets/steps/vertical.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/vertical.tsx"
 
 ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass the default button host with `asChild` when a trigger must render as an anchor or router link. Keep one semantic child so it receives Ark's ARIA, keyboard, and focus behavior.
 
-<style>{StepsDocs.asChildStepsCss}</style>
-
-```tsx preview file="./_snippets/steps/custom-composition.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/steps/custom-composition.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

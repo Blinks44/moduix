@@ -13,23 +13,19 @@ const items = [
     title: 'Billing',
     description: 'Choose the plan and payment method.',
   },
-  {
-    title: 'Launch',
-    description: 'Review everything and go live.',
-  },
 ];
 
 export default function StepsCustomCompositionDemo() {
   return (
-    <Steps count={items.length} defaultStep={1} linear={false}>
+    <Steps className="steps-demo" count={items.length} defaultStep={1} linear={false}>
       <Steps.List>
         {items.map((item, index) => (
           <Steps.Item key={item.title} index={index}>
             <Steps.Trigger asChild>
               <a href={`#step-${index + 1}`}>
                 <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
+                <span>
+                  <strong>{item.title}</strong>
                 </span>
               </a>
             </Steps.Trigger>
@@ -46,7 +42,13 @@ export default function StepsCustomCompositionDemo() {
 
       <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-      <div className="actions">
+      <div
+        style={{
+          display: 'flex',
+          gap: 'var(--moduix-spacing-2)',
+          justifyContent: 'flex-end',
+        }}
+      >
         <Steps.PrevTrigger>Back</Steps.PrevTrigger>
         <Steps.NextTrigger>Next</Steps.NextTrigger>
       </div>
