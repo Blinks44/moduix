@@ -17,15 +17,11 @@ Ark UI does not ship a dedicated skeleton primitive. Moduix builds this componen
 
 Use a few line skeletons for the common text-loading case.
 
-<style>{`
-      .skeleton-stack {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -80,6 +76,7 @@ surfaces, apply `className`, `style`, or the public CSS variables.
 - `loading={false}` sets `data-state="loaded"` and lets children use their natural height unless `height`, `boxSize`, or `style.height` is set.
 - `variant` is styling-only; no internal timers or state management are added.
 - `asChild` comes from Ark factory composition and replaces legacy render-prop composition.
+- `Skeleton` is decorative and does not announce loading. Put `aria-busy` on the region that owns the loading state, or use `Spinner` when an inline status must be announced.
 
 ## Examples
 
@@ -87,110 +84,61 @@ surfaces, apply `className`, `style`, or the public CSS variables.
 
 Use a larger block plus shorter text lines to reserve card layout while content is loading.
 
-<style>{`
-      .card {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/card.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/card.tsx"
 
 ```
+</PreviewFrame>
 
 ### Loaded Content
 
 Use `loading` to keep the same host in place while switching from placeholder to real content.
 
-<style>{`
-      .loadedContent {
-        display: grid;
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        min-height: 4.5rem;
-        gap: var(--moduix-spacing-1);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-      }
-
-      .loadedGrid {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/loaded-content.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/loaded-content.tsx"
 
 ```
+</PreviewFrame>
 
 ### Media Object
 
 Use `boxSize` with a full radius for avatar placeholders, then compose text lines beside it.
 
-<style>{`
-      .mediaObject {
-        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/media-object.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/media-object.tsx"
 
 ```
+</PreviewFrame>
 
 ### Responsive Layout
 
 Keep responsive layout logic in wrapper markup while each `Skeleton` stays a visual building block.
 
-<style>{`
-      .layoutExample {
-        width: min(24rem, calc(100vw - var(--moduix-spacing-8)));
-        padding-block: var(--moduix-spacing-1);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/responsive-layout.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/responsive-layout.tsx"
 
 ```
-
-### Static
-
-Pass `variant="none"` when the loading state is dense or motion should stay quieter.
-
-<style>{`
-      .staticSkeleton {
-        max-width: calc(100vw - var(--moduix-spacing-8));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/static.tsx"
-
-```
+</PreviewFrame>
 
 ### Variants
 
 Use `variant` to choose between pulse and static placeholder rendering.
 
-<style>{`
-      .stack {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/variants.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/variants.tsx"
 
 ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` when a semantic element such as `section` should own the DOM node instead of the default `div` host.
 
-<style>{`
-      .asChild {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/skeleton/custom-host.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/skeleton/custom-host.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

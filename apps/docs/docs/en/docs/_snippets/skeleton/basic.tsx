@@ -17,7 +17,7 @@ const lines = [
 
 export default function SkeletonDemo() {
   return (
-    <Stack gap={10} className="skeleton-stack">
+    <Stack gap={10} style={{ width: '100%' }}>
       {lines.map((line) => (
         <Skeleton key={line.width} width={line.width} height={line.height} />
       ))}

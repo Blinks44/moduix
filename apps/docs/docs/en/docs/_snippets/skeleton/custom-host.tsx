@@ -1,5 +1,4 @@
 import { Skeleton } from '@moduix/react';
-import styles from '@/components/examples/skeleton.module.css';
 
 const loadingRegion = {
   label: 'Loading summary',
@@ -7,7 +6,7 @@ const loadingRegion = {
 
 export default function SkeletonAsChildDemo() {
   return (
-    <Skeleton asChild height={72} borderRadius="var(--moduix-radius-lg)" className={styles.asChild}>
+    <Skeleton asChild height={72} borderRadius="var(--moduix-radius-lg)">
       <section aria-label={loadingRegion.label} />
     </Skeleton>
   );

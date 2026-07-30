@@ -20,7 +20,9 @@
       pointer-events: none;
       user-select: none;
 
-      & > * {
+      &::before,
+      &::after,
+      & * {
         visibility: hidden;
       }
 

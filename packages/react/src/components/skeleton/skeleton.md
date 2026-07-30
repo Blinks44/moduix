@@ -31,6 +31,8 @@ revealed with `loading={false}`, and `variant` supports `pulse` and `none`.
 - `variant` defaults to `pulse` and accepts `pulse` and `none`.
 - `width`, `height`, `boxSize`, and `borderRadius` accept CSS lengths. Numeric values are converted
   to `px`. `style` is merged last.
+- The root owns its `data-scope`, `data-part`, `data-slot`, state, loading, and variant attributes;
+  passthrough props cannot replace those styling hooks.
 
 ## Anatomy and exported parts
 
@@ -96,7 +98,8 @@ export function LoadedProfile() {
 - The component has no keyboard behavior, focus management, controlled state, callbacks,
   `Field.Root`, `Fieldset.Root`, `HiddenInput`, `ids`, context hooks, or `RootProvider`.
 - Keep real loading announcements in adjacent content when a status needs to be exposed to assistive
-  technologies.
+  technologies. Put `aria-busy` on the region that owns the loading state, not on the decorative
+  placeholder.
 - Reduced-motion users get no loading animation through the component CSS.
 
 ## Defaults and styling
@@ -107,7 +110,7 @@ Default CSS:
 - `width: 100%`
 - `overflow: hidden`
 - `border-radius: var(--moduix-skeleton-border-radius, var(--moduix-radius-md))`
-- loading-only height, background, text hiding, pointer blocking, and animation are scoped to
+- loading-only height, background, descendant and pseudo-element hiding, pointer blocking, and animation are scoped to
   `data-state="loading"`
 
 Public CSS variables:
@@ -140,6 +143,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-30: Made root styling hooks invariant, hid nested loading content and pseudo-elements,
+  and synchronized accessibility and preview guidance.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Stopped exporting `SkeletonRootProps` and `SkeletonVariant`; keep the public surface
   on the component itself and preserve the same runtime behavior.

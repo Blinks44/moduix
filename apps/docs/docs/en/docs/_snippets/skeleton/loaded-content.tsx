@@ -1,5 +1,6 @@
-import { Skeleton } from '@moduix/react';
-import styles from '@/components/examples/skeleton.module.css';
+import { Button, Skeleton } from '@moduix/react';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const profile = {
   name: 'Ada Lovelace',
@@ -7,16 +8,45 @@ const profile = {
 };
 
 export default function LoadedSkeletonDemo() {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className={styles.loadedGrid}>
-      <Skeleton loading className={styles.loadedContent}>
+    <div
+      style={{
+        display: 'grid',
+        width: '100%',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
+      <Skeleton
+        loading={loading}
+        style={{
+          display: 'grid',
+          width: '100%',
+          minHeight: '4.5rem',
+          gap: 'var(--moduix-spacing-1)',
+          padding: 'var(--moduix-spacing-4)',
+          border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        }}
+      >
         <strong>{profile.name}</strong>
-        <span>{profile.role}</span>
+        <span
+          style={{
+            color: 'var(--moduix-color-muted-foreground)',
+            fontSize: 'var(--moduix-text-sm)',
+            lineHeight: 'var(--moduix-line-height-text-sm)',
+          }}
+        >
+          {profile.role}
+        </span>
       </Skeleton>
-      <Skeleton loading={false} className={styles.loadedContent}>
-        <strong>{profile.name}</strong>
-        <span>{profile.role}</span>
-      </Skeleton>
+      <PreviewMeta>
+        <output>Profile: {loading ? 'loading' : 'loaded'}</output>
+        <Button size="sm" type="button" onClick={() => setLoading(!loading)}>
+          {loading ? 'Show profile' : 'Show skeleton'}
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }
