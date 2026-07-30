@@ -23,7 +23,8 @@ explicit popup composition, native form behavior, and `RootProvider` / context h
 - The root renders a DOM element with `data-slot="select-root"` and moduix root styling.
 - `Root` and `RootProvider` render Ark's native select automatically. Use
   `nativeFormControl="input"` for virtualized collections; it emits one lightweight hidden input
-  per selected value instead of an option for every collection item.
+  per selected value instead of an option for every collection item while retaining form reset and
+  fieldset disabled synchronization.
 - `Select.Field` renders the standard control, value text, and an indicator inside the trigger; pass `clearLabel` to add a labeled clear action or `indicator` to replace the default chevron.
 - Consumers must pass a `collection`; items render with `Select.Item item={item}`.
 - `value` and `defaultValue` are string arrays, including single selection.
@@ -129,7 +130,7 @@ export function SelectDemo() {
 
 - Basic, controlled, root provider, multiple, grouping, field, form usage, lazy mount,
   select-on-highlight, max selection, select all, overflow, dynamic collection, and custom item
-  layout are represented in docs/stories.
+  layout are represented in docs. Basic, controlled, and root-provider paths are covered by stories.
 - Async loading, reactive collections, and virtualized rendering are supported by Ark through
   `collection`, `useListCollection`, and `scrollToIndexFn`; add task-specific examples when
   product docs need those larger integrations.
@@ -140,8 +141,9 @@ export function SelectDemo() {
 
 - The root renders a native select for form submission, browser autofill, and form reset behavior.
   For very large virtualized collections, set `nativeFormControl="input"` to avoid rendering an
-  option for every item. This lightweight mode submits selected values but does not provide native
-  select autofill or progressive enhancement.
+  option for every item. This lightweight mode submits selected values and preserves form reset and
+  fieldset disabled behavior, but does not provide native select autofill, validation, or progressive
+  enhancement.
 - Forward refs to the Ark DOM part for root, trigger, control, content, and item parts.
 - Preserve Ark state attributes: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
@@ -152,7 +154,8 @@ export function SelectDemo() {
   `Select.useSelectItemContext` for advanced state reads.
 - Use `Select.useSelect` with `Select.RootProvider`; do not render `Select.Root` for the same state
   instance.
-- Use `asChild` only with a single semantic child that can receive the required Ark props.
+- Use `asChild` only with a single semantic container that can receive the required Ark props and
+  the automatic native form control; do not use an interactive host such as `button`.
 
 ## Defaults and styling
 
@@ -198,6 +201,10 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 - When registry-shipped select source changes, run `npm run build:registry`.
 
 ## Local changelog
+
+- 2026-07-30: Restored reset and fieldset-disabled synchronization for
+  `nativeFormControl="input"`, added Select tests/stories, standardized popup animation fill mode,
+  and migrated docs previews to `PreviewFrame`/`PreviewMeta`.
 
 - 2026-07-22: Removed `Select.Indicators` from the public API. Indicators belong inside
   `Select.Trigger`, while clear actions render directly under `Select.Control`.

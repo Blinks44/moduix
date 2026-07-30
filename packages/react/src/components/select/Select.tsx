@@ -381,6 +381,13 @@ function SelectFormControl({ nativeFormControl }: { nativeFormControl: SelectNat
 
   return (
     <>
+      <select
+        {...hiddenSelectProps}
+        aria-hidden
+        data-slot="select-hidden-input-proxy"
+        name={undefined}
+        required={false}
+      />
       {select.value.map((value) => (
         <input
           key={value}

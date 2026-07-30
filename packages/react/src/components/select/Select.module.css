@@ -295,7 +295,8 @@
           --moduix-select-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
-        );
+        )
+        both;
     }
 
     &[data-state='closed'] {
@@ -304,7 +305,8 @@
           --moduix-select-transition,
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
-        );
+        )
+        both;
       pointer-events: none;
     }
   }

@@ -1,7 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
-
-const query = '';
+import { Input, Select } from '@moduix/react';
+import { useState } from 'react';
 
 const fruits = createListCollection({
   items: [
@@ -49,30 +48,33 @@ const fruits = createListCollection({
 });
 
 export default function SelectDynamicItemsDemo() {
+  const [query, setQuery] = useState('');
   const collection = createListCollection({
     items: fruits.items.filter((item) => item.label.toLowerCase().includes(query)),
   });
 
   return (
-    <Select collection={collection}>
-      <Select.Label>Choose fruit</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an option" />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          {collection.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select>
+    <div className="select-dynamic-items">
+      <Input
+        aria-label="Filter fruits"
+        value={query}
+        onChange={(event) => setQuery(event.target.value.toLowerCase())}
+        placeholder="Filter fruits"
+      />
+      <Select collection={collection}>
+        <Select.Label>Choose fruit</Select.Label>
+        <Select.Field placeholder="Select an option" clearLabel="Clear selection" />
+        <Select.Positioner>
+          <Select.Content>
+            {collection.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select>
+    </div>
   );
 }

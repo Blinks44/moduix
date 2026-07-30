@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Button, Select } from '@moduix/react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const languages = createListCollection({
   items: [
@@ -31,40 +32,40 @@ const languages = createListCollection({
 });
 
 export default function SelectSelectAllDemo() {
+  const select = Select.useSelect({
+    collection: languages,
+    multiple: true,
+  });
+
   return (
-    <Select collection={languages} multiple>
-      <Select.Label>Languages</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select languages" />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.ClearTrigger aria-label="Clear selection" />
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          <Select.Context>
-            {(select) => (
-              <button
-                className="select-bulk-action"
-                type="button"
-                onClick={() => {
-                  select.selectAll();
-                  select.setOpen(false);
-                }}
-              >
-                Select all
-              </button>
-            )}
-          </Select.Context>
-          {languages.items.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select>
+    <div className="select-preview-stack">
+      <Select.RootProvider value={select}>
+        <Select.Label>Languages</Select.Label>
+        <Select.Field placeholder="Select languages" clearLabel="Clear selection" />
+        <Select.Positioner>
+          <Select.Content>
+            {languages.items.map((item) => (
+              <Select.Item key={item.value} item={item}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select.RootProvider>
+      <PreviewMeta>
+        <output>Selected: {select.value.length}</output>
+        <Button
+          type="button"
+          size="sm"
+          onClick={() => {
+            select.selectAll();
+            select.setOpen(false);
+          }}
+        >
+          Select all
+        </Button>
+      </PreviewMeta>
+    </div>
   );
 }

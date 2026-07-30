@@ -1,28 +1,47 @@
-import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
-import type { ReactNode } from 'react';
-import { useMemo, useState } from 'react';
 import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-interface OptionItem {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}
+export const selectExampleCss = `
+  .select-dynamic-items {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+  }
 
-const languages = createListCollection<OptionItem>({
-  items: [
-    { label: 'C#', value: 'csharp' },
-    { label: 'Go', value: 'go' },
-    { label: 'JavaScript', value: 'javascript' },
-    { label: 'Python', value: 'python' },
-    { label: 'Rust', value: 'rust' },
-    { label: 'TypeScript', value: 'typescript' },
-  ],
-});
+  .select-preview-stack > [data-preview-meta],
+  [data-slot="select-root"].select-preview-stack [data-preview-meta] {
+    margin-inline: auto;
+  }
 
-const selectOverrideCssProperties: CssPropertyInput[] = [
+  .select-search-popup {
+    width: var(--reference-width);
+    max-width: var(--available-width);
+    overflow: hidden;
+    border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+    border-radius: var(--moduix-radius-md);
+    background-color: var(--moduix-color-popover);
+    box-shadow: var(--moduix-shadow-lg);
+  }
+
+  .select-search-popup-header {
+    padding: var(--moduix-spacing-2);
+    border-block-end: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  }
+
+  .select-search-popup-content {
+    max-height: min(16rem, var(--available-height));
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .select-search-popup-empty {
+    padding: var(--moduix-spacing-3);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+  }
+`;
+
+export const selectOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-select-action-bg', 'transparent', 'Controls clear and indicator button background.'],
   [
     '--moduix-select-action-bg-hover',
@@ -51,8 +70,6 @@ const selectOverrideCssProperties: CssPropertyInput[] = [
     'Controls clear and indicator control size.',
   ],
   ['--moduix-select-bg', 'var(--moduix-color-background)', 'Controls trigger background.'],
-  ['--select-bg-active', 'var(--moduix-color-muted)', 'Controls trigger background when open.'],
-  ['--select-bg-hover', 'var(--moduix-color-accent)', 'Controls trigger hover background.'],
   ['--moduix-select-border-color', 'var(--moduix-color-border)', 'Controls trigger border color.'],
   [
     '--moduix-select-border-width',
@@ -262,65 +279,3 @@ const selectOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-select-width', '14rem', 'Controls root width.'],
 ];
-
-export function SelectCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={selectOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}
-
-function SelectControl({ placeholder = 'Select an option' }: { placeholder?: string }) {
-  return <Select.Field placeholder={placeholder} clearLabel="Clear selection" />;
-}
-
-function SelectPopupContent({ children }: { children: ReactNode }) {
-  return (
-    <Select.Positioner>
-      <Select.Content>{children}</Select.Content>
-    </Select.Positioner>
-  );
-}
-
-export function MaxSelectionSelectExample() {
-  const [value, setValue] = useState<string[]>(['javascript']);
-  const collection = useMemo(
-    () =>
-      createListCollection({
-        items: languages.items.map((item) => ({
-          ...item,
-          disabled: value.length >= 3 && !value.includes(item.value),
-        })),
-      }),
-    [value],
-  );
-
-  return (
-    <Select
-      collection={collection}
-      multiple
-      value={value}
-      onValueChange={(details) => {
-        if (details.value.length <= 3) setValue(details.value);
-      }}
-    >
-      <Select.Label>Languages</Select.Label>
-      <SelectControl placeholder="Select up to 3" />
-      <SelectPopupContent>
-        {collection.items.map((item) => (
-          <Select.Item key={item.value} item={item}>
-            <Select.ItemText>{item.label}</Select.ItemText>
-            <Select.ItemIndicator />
-          </Select.Item>
-        ))}
-      </SelectPopupContent>
-    </Select>
-  );
-}
