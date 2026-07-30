@@ -1,5 +1,6 @@
 import { Button, RatingGroup } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function FormRatingGroupDemo() {
   const [submitted, setSubmitted] = useState('Nothing submitted');
@@ -18,8 +19,10 @@ export default function FormRatingGroupDemo() {
           <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
-      <Button type="submit">Submit</Button>
-      <output className="rating-group-hint">Submitted: {submitted}</output>
+      <PreviewMeta>
+        <Button type="submit">Submit</Button>
+        <output className="rating-group-hint">Submitted: {submitted}</output>
+      </PreviewMeta>
     </form>
   );
 }

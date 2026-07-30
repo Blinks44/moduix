@@ -73,7 +73,15 @@ export const RootProvider: Story = {
         <RatingGroup.RootProvider value={ratingGroup}>
           <RatingGroup.Label>Product quality</RatingGroup.Label>
           <RatingGroup.Control>
-            <RatingGroup.Items />
+            <RatingGroup.Context>
+              {({ items }) =>
+                items.map((item) => (
+                  <RatingGroup.Item key={item} index={item}>
+                    <RatingGroup.ItemIndicator />
+                  </RatingGroup.Item>
+                ))
+              }
+            </RatingGroup.Context>
           </RatingGroup.Control>
         </RatingGroup.RootProvider>
       </div>
@@ -198,6 +206,21 @@ export const CustomIcon: Story = {
             </RatingGroup.ItemIndicator>
           </RatingGroup.Items>
         </RatingGroup.Control>
+      </RatingGroup>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <RatingGroup asChild defaultValue={4}>
+        <section className={storyStyles.asChild}>
+          <RatingGroup.Label>Semantic rating section</RatingGroup.Label>
+          <RatingGroup.Control>
+            <RatingGroup.Items />
+          </RatingGroup.Control>
+        </section>
       </RatingGroup>
     );
   },

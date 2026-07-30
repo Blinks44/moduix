@@ -6,13 +6,15 @@ export const ratingGroupExampleCss = `
     display: grid;
     gap: var(--moduix-spacing-3);
     justify-items: center;
-    width: min(20rem, 100%);
+  }
+
+  .rating-group-stack > [data-preview-meta] {
+    justify-self: center;
   }
 
   .rating-group-field {
     align-items: center;
     text-align: center;
-    width: min(20rem, 100%);
   }
 
   .rating-group-hint {
@@ -58,9 +60,21 @@ const ratingGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-opacity-disabled)',
     'Controls disabled label and control opacity.',
   ],
-  ['--moduix-rating-group-focus-ring-color', 'transparent', 'Controls item focus ring color.'],
-  ['--moduix-rating-group-focus-ring-offset', '0', 'Controls item focus ring offset.'],
-  ['--moduix-rating-group-focus-ring-width', '0', 'Controls item focus ring width.'],
+  [
+    '--moduix-rating-group-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls item focus ring color.',
+  ],
+  [
+    '--moduix-rating-group-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
+    'Controls item focus ring offset.',
+  ],
+  [
+    '--moduix-rating-group-focus-ring-width',
+    'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
+    'Controls item focus ring width.',
+  ],
   ['--moduix-rating-group-gap', 'var(--moduix-spacing-1)', 'Controls gap between rating items.'],
   [
     '--moduix-rating-group-root-gap',

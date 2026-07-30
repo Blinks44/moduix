@@ -73,10 +73,14 @@
       pointer-events: none;
     }
 
+    &[data-focus-visible],
     &:focus-visible {
-      outline: var(--moduix-rating-group-focus-ring-width, 0) solid
-        var(--moduix-rating-group-focus-ring-color, transparent);
-      outline-offset: var(--moduix-rating-group-focus-ring-offset, 0);
+      outline: var(
+          --moduix-rating-group-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        solid var(--moduix-rating-group-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-rating-group-focus-ring-offset, var(--moduix-border-width-sm));
     }
   }
 
@@ -121,6 +125,13 @@
 
   .item:not([data-highlighted]) .iconFg {
     clip-path: inset(0 100% 0 0);
+  }
+
+  .root:dir(rtl) {
+    .itemIndicator[data-half] .iconFg,
+    .item[data-half] .iconFg {
+      clip-path: inset(0 0 0 50%);
+    }
   }
 
   .iconBg {

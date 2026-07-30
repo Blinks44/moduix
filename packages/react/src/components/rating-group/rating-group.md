@@ -89,7 +89,8 @@ export function ReviewRating() {
 - Controlled: use Ark `value` and `onValueChange(details)` with `details.value`.
 - Root Provider: `RatingGroup.RootProvider` and `useRatingGroup()` are exported from moduix for
   state created outside the rendered tree.
-- Field: compose with moduix `Field`; Ark propagates field state to the rating group.
+- Field: compose with moduix `Field` for labels, descriptions, and validation copy. Ark inherits
+  `disabled`, `readOnly`, and `required`; `invalid` remains Field-owned state.
 - Half Rating: pass `allowHalf`; `ItemIndicator` clips the foreground star when Ark reports
   `half`.
 - Forms: pass `name`, `form`, and `required` to the root; it renders the native form input
@@ -117,30 +118,30 @@ Stable styling hooks include Ark `data-scope="rating-group"` and part attributes
 attributes (`data-disabled`, `data-readonly`, `data-checked`, `data-highlighted`, `data-half`,
 `data-required`), and moduix `data-slot` hooks. The default star foreground is clipped from
 Ark item attributes and mirrored `ItemIndicator` attributes so custom visuals can target either
-surface.
+surface. In RTL, half-star clipping follows the rating direction.
 
 Public CSS variables:
 
-| Variable                                  | Default fallback                       |
-| ----------------------------------------- | -------------------------------------- |
-| `--moduix-rating-group-active-color`      | `var(--moduix-color-primary)`          |
-| `--moduix-rating-group-color`             | `var(--moduix-color-muted-foreground)` |
-| `--moduix-rating-group-disabled-opacity`  | `var(--moduix-opacity-disabled)`       |
-| `--moduix-rating-group-focus-ring-color`  | `transparent`                          |
-| `--moduix-rating-group-focus-ring-offset` | `0`                                    |
-| `--moduix-rating-group-focus-ring-width`  | `0`                                    |
-| `--moduix-rating-group-gap`               | `var(--moduix-spacing-1)`              |
-| `--moduix-rating-group-root-gap`          | `var(--moduix-spacing-1)`              |
-| `--moduix-rating-group-icon-size-xs`      | `var(--moduix-spacing-3-5)`            |
-| `--moduix-rating-group-icon-size-sm`      | `var(--moduix-spacing-4)`              |
-| `--moduix-rating-group-icon-size-md`      | `var(--moduix-spacing-5)`              |
-| `--moduix-rating-group-icon-size-lg`      | `var(--moduix-spacing-6)`              |
-| `--moduix-rating-group-icon-size-xl`      | `var(--moduix-spacing-7)`              |
-| `--moduix-rating-group-label-color`       | `var(--moduix-color-foreground)`       |
-| `--moduix-rating-group-label-font-size`   | `var(--moduix-text-sm)`                |
-| `--moduix-rating-group-label-font-weight` | `var(--moduix-weight-semibold)`        |
-| `--moduix-rating-group-label-line-height` | `var(--moduix-line-height-text-sm)`    |
-| `--moduix-rating-group-transition`        | `var(--moduix-transition-default)`     |
+| Variable                                  | Default fallback                                                      |
+| ----------------------------------------- | --------------------------------------------------------------------- |
+| `--moduix-rating-group-active-color`      | `var(--moduix-color-primary)`                                         |
+| `--moduix-rating-group-color`             | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-rating-group-disabled-opacity`  | `var(--moduix-opacity-disabled)`                                      |
+| `--moduix-rating-group-focus-ring-color`  | `var(--moduix-color-ring)`                                            |
+| `--moduix-rating-group-focus-ring-offset` | `var(--moduix-border-width-sm)`                                       |
+| `--moduix-rating-group-focus-ring-width`  | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
+| `--moduix-rating-group-gap`               | `var(--moduix-spacing-1)`                                             |
+| `--moduix-rating-group-root-gap`          | `var(--moduix-spacing-1)`                                             |
+| `--moduix-rating-group-icon-size-xs`      | `var(--moduix-spacing-3-5)`                                           |
+| `--moduix-rating-group-icon-size-sm`      | `var(--moduix-spacing-4)`                                             |
+| `--moduix-rating-group-icon-size-md`      | `var(--moduix-spacing-5)`                                             |
+| `--moduix-rating-group-icon-size-lg`      | `var(--moduix-spacing-6)`                                             |
+| `--moduix-rating-group-icon-size-xl`      | `var(--moduix-spacing-7)`                                             |
+| `--moduix-rating-group-label-color`       | `var(--moduix-color-foreground)`                                      |
+| `--moduix-rating-group-label-font-size`   | `var(--moduix-text-sm)`                                               |
+| `--moduix-rating-group-label-font-weight` | `var(--moduix-weight-semibold)`                                       |
+| `--moduix-rating-group-label-line-height` | `var(--moduix-line-height-text-sm)`                                   |
+| `--moduix-rating-group-transition`        | `var(--moduix-transition-default)`                                    |
 
 ## Intentional sugar and differences from upstream
 
@@ -165,6 +166,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-30: Restored the visible default focus ring, made half-star clipping RTL-aware, and
+  added coverage for forms, `asChild`, controlled, provider, half-rating, and keyboard paths.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-18: Rating item focus rings are opt-in through `--moduix-rating-group-focus-ring-*`; the
   default has no visible outline.

@@ -1,5 +1,6 @@
 import { RatingGroup } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledRatingGroupDemo() {
   const [value, setValue] = useState(3);
@@ -11,7 +12,9 @@ export default function ControlledRatingGroupDemo() {
           <RatingGroup.Items />
         </RatingGroup.Control>
       </RatingGroup>
-      <span className="rating-group-hint">Current value: {value}</span>
+      <PreviewMeta>
+        <output className="rating-group-hint">Current value: {value}</output>
+      </PreviewMeta>
     </div>
   );
 }
