@@ -1,5 +1,6 @@
 import { Splitter } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const panels = [
   {
@@ -30,7 +31,9 @@ export default function ControlledSplitterDemo() {
           B
         </Splitter.Panel>
       </Splitter>
-      <output className="splitter-status">Sizes: {size.join(' / ')}</output>
+      <PreviewMeta>
+        <output className="splitter-status">Sizes: {size.join(' / ')}</output>
+      </PreviewMeta>
     </div>
   );
 }

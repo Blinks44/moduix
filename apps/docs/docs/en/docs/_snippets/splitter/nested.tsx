@@ -25,6 +25,8 @@ const verticalPanels = [
 
 export default function NestedSplitterDemo() {
   const [registry] = useState(() => createSplitterRegistry());
+  const [verticalSize, setVerticalSize] = useState([50, 50]);
+
   return (
     <Splitter
       panels={horizontalPanels}
@@ -40,8 +42,9 @@ export default function NestedSplitterDemo() {
         <Splitter
           orientation="vertical"
           panels={verticalPanels}
-          defaultSize={[50, 50]}
+          size={verticalSize}
           registry={registry}
+          onResize={({ size }) => setVerticalSize(size)}
         >
           <Splitter.Panel id="top" className="splitter-panel">
             Top

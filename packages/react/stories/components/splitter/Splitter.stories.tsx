@@ -160,7 +160,8 @@ export const RootProvider: Story = {
 
 export const Nested: Story = {
   render: () => {
-    const registry = createSplitterRegistry();
+    const [registry] = useState(() => createSplitterRegistry());
+    const [verticalSize, setVerticalSize] = useState([50, 50]);
 
     return (
       <Splitter
@@ -183,8 +184,9 @@ export const Nested: Story = {
               { id: 'top', minSize: 20 },
               { id: 'bottom', minSize: 20 },
             ]}
-            defaultSize={[50, 50]}
+            size={verticalSize}
             registry={registry}
+            onResize={({ size }) => setVerticalSize(size)}
           >
             <Splitter.Panel id="top" className={styles.panel}>
               Top

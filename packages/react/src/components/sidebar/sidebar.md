@@ -249,12 +249,6 @@ Use the public `--moduix-sidebar-*` variables and stable slots for internal spac
 group-action sizing, menu-action sizing, menu-badge spacing, and the floating trigger's vertical
 offset.
 
-Zag 1.41.2 currently leaves the expanded inline `min-width` on a collapsed panel, so the installed
-version visually clamps the configured `3rem` rail to `12rem`. This is tracked by
-[zag#3179](https://github.com/chakra-ui/zag/issues/3179) and fixed by the merged
-[zag#3180](https://github.com/chakra-ui/zag/pull/3180). Sidebar intentionally does not patch the
-upstream layout while an Ark UI release with that fix is pending.
-
 The resize line inherits the shared Splitter default: it keeps the normal border color at rest and
 shifts slightly toward `--moduix-color-muted-foreground` on hover and drag. Override the
 underlying `--moduix-splitter-resize-trigger-line-color-*` variables when the product needs stronger
