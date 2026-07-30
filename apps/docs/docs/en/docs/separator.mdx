@@ -17,30 +17,11 @@ Ark UI does not ship a dedicated separator primitive. Moduix builds this compone
 
 Use `Separator` when the line itself communicates structure between related content.
 
-<style>{`
-      .card {
-        width: min(18rem, 100%);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-md);
-        background-color: var(--moduix-color-background);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/basic.tsx"
 
-      .stack {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
-
-      .text {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -104,138 +85,52 @@ attributes, class name, and ref.
 Use `role="presentation"` for a line that only balances the layout and does not communicate
 structure to assistive technology.
 
-<style>{`
-      .card {
-        width: min(18rem, 100%);
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-md);
-        background-color: var(--moduix-color-background);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/decorative.tsx"
 
-      .stack {
-        display: grid;
-        gap: var(--moduix-spacing-4);
-      }
-
-      .text {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/decorative.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Sizes
 
 Use `size` to select the recipe thickness before applying any custom CSS variable overrides.
 
-<style>{`
-      .section {
-        display: grid;
-        gap: var(--moduix-spacing-2);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/sizes.tsx"
 
-      .exampleRow {
-        display: grid;
-        width: min(16rem, 100%);
-        grid-template-columns: 4rem minmax(6rem, 1fr);
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-
-      .text {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/sizes.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Variants
 
 Use `variant` when the separator needs a solid, dashed, or dotted stroke.
 
-<style>{`
-      .section {
-        display: grid;
-        gap: var(--moduix-spacing-2);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/variants.tsx"
 
-      .exampleRow {
-        display: grid;
-        width: min(16rem, 100%);
-        grid-template-columns: 4rem minmax(6rem, 1fr);
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-
-      .text {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/variants.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Vertical
 
 Use `orientation="vertical"` for inline groups such as navigation actions.
 
-<style>{`
-      .nav {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-        text-wrap: nowrap;
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/vertical.tsx"
 
-      .link {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-        text-decoration: none;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/vertical.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` when a custom host must receive the separator role, styling hooks, and forwarded ref.
 Otherwise, use `<Separator />` directly.
 
-<style>{`
-      .section {
-        display: grid;
-        gap: var(--moduix-spacing-2);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/separator/as-child.tsx"
 
-      .text {
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-
-      .nativeRule {
-        margin: 0;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/separator/as-child.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

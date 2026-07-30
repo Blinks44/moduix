@@ -4,14 +4,26 @@ const navigationItems = ['Home', 'Pricing', 'Sign in'];
 
 export default function VerticalSeparatorDemo() {
   return (
-    <nav className="nav" aria-label="Main navigation">
+    <nav
+      aria-label="Main navigation"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+        textWrap: 'nowrap',
+      }}
+    >
       {navigationItems.slice(0, 2).map((item) => (
-        <a key={item} href="#" className="link">
+        <a
+          key={item}
+          href="#"
+          style={{ color: 'var(--moduix-color-foreground)', textDecoration: 'none' }}
+        >
           {item}
         </a>
       ))}
       <Separator orientation="vertical" />
-      <a href="#" className="link">
+      <a href="#" style={{ color: 'var(--moduix-color-foreground)', textDecoration: 'none' }}>
         {navigationItems[2]}
       </a>
     </nav>
