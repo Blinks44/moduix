@@ -3,7 +3,14 @@ import { Slider } from '@moduix/react';
 export default function ThumbOverlapSliderDemo() {
   return (
     <Slider defaultValue={[25, 60]} minStepsBetweenThumbs={5}>
-      <div className="slider-header">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'var(--moduix-spacing-3)',
+        }}
+      >
         <Slider.Label>Minimum gap</Slider.Label>
         <Slider.ValueText />
       </div>

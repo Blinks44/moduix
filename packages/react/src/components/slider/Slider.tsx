@@ -10,12 +10,14 @@ import styles from './Slider.module.css';
 const SliderRoot = forwardRef<
   ComponentRef<typeof SliderPrimitive.Root>,
   ComponentProps<typeof SliderPrimitive.Root>
->(function SliderRoot({ className, ...props }, ref) {
+>(function SliderRoot({ className, readOnly, ...props }, ref) {
   return (
     <SliderPrimitive.Root
       ref={ref}
       data-slot="slider-root"
+      data-readonly={readOnly ? '' : undefined}
       className={clsx(styles.root, normalizeClassName(className))}
+      readOnly={readOnly}
       {...props}
     />
   );

@@ -1,17 +1,31 @@
 import { Slider } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function EventsSliderDemo() {
   const [liveValue, setLiveValue] = useState([40]);
   const [committedValue, setCommittedValue] = useState([40]);
   return (
-    <div className="slider-stack">
+    <div
+      style={{
+        display: 'grid',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-4)',
+      }}
+    >
       <Slider
         defaultValue={[40]}
         onValueChange={(details) => setLiveValue(details.value)}
         onValueChangeEnd={(details) => setCommittedValue(details.value)}
       >
-        <div className="slider-header">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 'var(--moduix-spacing-3)',
+          }}
+        >
           <Slider.Label>Gain</Slider.Label>
           <Slider.ValueText />
         </div>
@@ -22,9 +36,11 @@ export default function EventsSliderDemo() {
           <Slider.Thumbs />
         </Slider.Control>
       </Slider>
-      <div className="slider-status">
-        Live {liveValue.join(', ')} / Committed {committedValue.join(', ')}
-      </div>
+      <PreviewMeta>
+        <output>
+          Live: {liveValue.join(', ')} / Committed: {committedValue.join(', ')}
+        </output>
+      </PreviewMeta>
     </div>
   );
 }

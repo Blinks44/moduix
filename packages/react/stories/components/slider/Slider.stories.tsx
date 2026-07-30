@@ -168,6 +168,30 @@ export const Vertical: Story = {
   },
 };
 
+export const VerticalWithMarks: Story = {
+  render: () => {
+    return (
+      <Slider orientation="vertical" defaultValue={[50]} className={styles.verticalSlider}>
+        <Slider.Label>Output</Slider.Label>
+        <Slider.ValueText />
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+        <Slider.MarkerGroup>
+          {[0, 25, 50, 75, 100].map((value) => (
+            <Slider.Marker key={value} value={value}>
+              {value}
+            </Slider.Marker>
+          ))}
+        </Slider.MarkerGroup>
+      </Slider>
+    );
+  },
+};
+
 export const Disabled: Story = {
   render: () => {
     return (
@@ -181,6 +205,44 @@ export const Disabled: Story = {
             <Slider.Range />
           </Slider.Track>
           <Slider.Thumb index={0} aria-label="Notifications"></Slider.Thumb>
+        </Slider.Control>
+      </Slider>
+    );
+  },
+};
+
+export const Invalid: Story = {
+  render: () => {
+    return (
+      <Slider defaultValue={[32]} invalid>
+        <div className={styles.header}>
+          <Slider.Label>Invalid volume</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
+        </Slider.Control>
+      </Slider>
+    );
+  },
+};
+
+export const ReadOnly: Story = {
+  render: () => {
+    return (
+      <Slider defaultValue={[32]} readOnly>
+        <div className={styles.header}>
+          <Slider.Label>Read-only volume</Slider.Label>
+          <Slider.ValueText />
+        </div>
+        <Slider.Control>
+          <Slider.Track>
+            <Slider.Range />
+          </Slider.Track>
+          <Slider.Thumbs />
         </Slider.Control>
       </Slider>
     );

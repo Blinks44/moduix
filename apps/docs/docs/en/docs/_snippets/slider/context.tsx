@@ -2,11 +2,11 @@ import { Slider, useSliderContext } from '@moduix/react';
 
 function SliderStatus() {
   const slider = useSliderContext();
+
   return (
-    <div className="slider-header">
-      <Slider.Label>Dragging: {String(slider.dragging)}</Slider.Label>
-      <span className="slider-value">{slider.value.join(', ')}</span>
-    </div>
+    <Slider.Label>
+      Value: {slider.value.join(', ')} · Dragging: {String(slider.dragging)}
+    </Slider.Label>
   );
 }
 

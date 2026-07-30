@@ -1,8 +1,8 @@
 import { Slider } from '@moduix/react';
 
-export default function SliderDemo() {
+export default function InvalidSliderDemo() {
   return (
-    <Slider defaultValue={[40]}>
+    <Slider defaultValue={[32]} invalid>
       <div
         style={{
           display: 'flex',

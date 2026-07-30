@@ -1,8 +1,8 @@
 import { Slider } from '@moduix/react';
 
-export default function SliderDemo() {
+export default function ReadOnlySliderDemo() {
   return (
-    <Slider defaultValue={[40]}>
+    <Slider defaultValue={[32]} readOnly>
       <div
         style={{
           display: 'flex',
