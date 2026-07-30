@@ -103,6 +103,21 @@ export const WithIcons: Story = {
   ),
 };
 
+export const DisabledAction: Story = {
+  render: () => (
+    <SplitButton>
+      <SplitButton.Action disabled>Save Changes</SplitButton.Action>
+      <SplitButton.Trigger />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
+    </SplitButton>
+  ),
+};
+
 export const ControlledMenu: Story = {
   render: () => {
     const [open, setOpen] = useState(false);

@@ -21,9 +21,11 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/basic.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -32,7 +34,7 @@ Use `SplitButton` as the short root form, then keep the Ark-style structure visi
 ## Anatomy
 
 ```text
-SplitButton.Root
+SplitButton
 ├─ SplitButton.Action
 ├─ SplitButton.Trigger
 └─ Overlay subtree (automatically portalled)
@@ -45,7 +47,7 @@ SplitButton.Root
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton` / `SplitButton.Root` | Owns Ark Menu root state and the grouped visual wrapper.              |
+| `SplitButton`                     | Owns Ark Menu root state and the grouped visual wrapper.              |
 | `SplitButton.Action`               | Primary Button action. Inherits root `variant` and `size` by default. |
 | `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron fallback. |
 | `SplitButton.Positioner`           | Ark Menu positioner with placement variables and layer z-index.       |
@@ -53,11 +55,11 @@ SplitButton.Root
 
 ## Composition
 
-`SplitButton.Root` portals its menu `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; `Positioner` and `Content` remain explicit and styleable.
+`SplitButton` portals its menu `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; `Positioner` and `Content` remain explicit and styleable.
 
 ### Recommended composition
 
-`SplitButton.Root` forwards Ark `Menu.Root` props such as `open`, `defaultOpen`,
+`SplitButton` forwards Ark `Menu.Root` props such as `open`, `defaultOpen`,
 `onOpenChange(details)`, `onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`,
 `unmountOnExit`, and `typeahead`.
 
@@ -73,7 +75,7 @@ another compatible element.
 Pass custom trigger content through `SplitButton.Trigger` `children`. The trigger keeps one built-in
 Button host so Ark Menu trigger props and moduix button styling stay on the same element.
 
-Use `positioning` on `SplitButton.Root` for popup placement. Keep `SplitButton.Positioner` and
+Use `positioning` on `SplitButton` for popup placement. Keep `SplitButton.Positioner` and
 `SplitButton.Content` explicit so consumers can style or configure the popup structure without
 rewriting the component.
 
@@ -84,9 +86,9 @@ When the menu itself needs advanced state access, compose directly with `Menu.Ro
 
 | Surface               | Prop          | Default                                  | Notes                                                  |
 | --------------------- | ------------- | ---------------------------------------- | ------------------------------------------------------ |
-| `SplitButton.Root`    | `variant`     | `'default'`                              | Shared default for `Action` and `Trigger`.             |
-| `SplitButton.Root`    | `size`        | `'md'`                                   | Shared default for `Action` and `Trigger`.             |
-| `SplitButton.Root`    | `positioning` | `{ placement: 'bottom-end', gutter: 4 }` | Keeps the popup aligned to the trigger edge.           |
+| `SplitButton`         | `variant`     | `'default'`                              | Shared default for `Action` and `Trigger`.             |
+| `SplitButton`         | `size`        | `'md'`                                   | Shared default for `Action` and `Trigger`.             |
+| `SplitButton`         | `positioning` | `{ placement: 'bottom-end', gutter: 4 }` | Keeps the popup aligned to the trigger edge.           |
 | `SplitButton.Trigger` | `aria-label`  | `'More actions'` when icon-only          | Override for a more specific accessible name.          |
 | `SplitButton.Trigger` | `children`    | `ChevronDownIcon`                        | Replace when the trigger needs custom visible content. |
 
@@ -113,9 +115,11 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/controlled-menu-state.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/controlled-menu-state.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Link Action
 
@@ -123,9 +127,11 @@ Use `asChild` on `SplitButton.Action` when the primary action should render as a
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/link-action.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/link-action.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Positioning
 
@@ -134,9 +140,11 @@ parts explicit.
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/positioning.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/positioning.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Sizes
 
@@ -144,9 +152,11 @@ Use the root `size` when both sides should scale together.
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/sizes.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/split-button/sizes.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Variants
 
@@ -154,9 +164,11 @@ Use the root `variant` when both grouped buttons should share the same visual to
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/variants.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/split-button/variants.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### With Icons
 
@@ -165,9 +177,11 @@ label.
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/with-icons.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/with-icons.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -176,9 +190,11 @@ separators, checkbox items, radio items, or link rows.
 
 <style>{SplitButtonDocs.splitButtonExampleCss}</style>
 
-```tsx preview file="./_snippets/split-button/menu-composition.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/menu-composition.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 
