@@ -17,6 +17,13 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
   { asChild, className, style, columns, minChildWidth, gap, rowGap, columnGap, ...props },
   ref,
 ) {
+  if (
+    columns != null &&
+    (!Number.isFinite(columns) || !Number.isInteger(columns) || columns <= 0)
+  ) {
+    throw new Error('SimpleGrid `columns` must be a finite positive integer.');
+  }
+
   let gridTemplateColumns = 'minmax(0, 1fr)';
 
   if (columns != null) {

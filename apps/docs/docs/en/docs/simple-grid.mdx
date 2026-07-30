@@ -16,21 +16,8 @@ official [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factor
 ## Basic
 
 Use `minChildWidth` when equal-width items should automatically move between columns as the grid's
-available width changes. The component handles `auto-fit`, `minmax()`, and narrow-container overflow
-internally.
-
-<style>{`
-      .simpleGridDemoGrid {
-        width: 100%;
-        padding: var(--moduix-spacing-3);
-        border-radius: var(--moduix-radius-xl);
-        background-color: var(--moduix-color-muted);
-      }
-
-      .simpleGridDemoCards {
-        max-width: 44rem;
-      }
-    `}</style>
+available width changes. The component uses `auto-fit` and `minmax()` with a narrow-container guard.
+For unbreakable child content, add `min-width: 0` or an appropriate overflow rule to the item.
 
 ```tsx preview file="./_snippets/simple-grid/basic.tsx"
 
@@ -45,21 +32,20 @@ internally.
 `SimpleGrid` renders one Ark-aligned grid root and does not wrap its children.
 
 ```text
-SimpleGrid / SimpleGrid.Root
+SimpleGrid
 └─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
    └─ children
 ```
 
-| Part                             | Role                                                    |
-| -------------------------------- | ------------------------------------------------------- |
-| `SimpleGrid` / `SimpleGrid.Root` | Root wrapper that creates equal-width CSS Grid columns. |
+| Part         | Role                                             |
+| ------------ | ------------------------------------------------ |
+| `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
 
 ## Composition
 
 ### Recommended composition
 
-Use the short `SimpleGrid` export for normal `div` output. Use `SimpleGrid.Root` only when namespace
-consistency helps next to multipart components.
+Use `SimpleGrid` for the root. `SimpleGrid.Root` remains a compatibility alias.
 
 Choose one layout mode:
 
@@ -80,7 +66,7 @@ when `grid-template-columns` is owned by the stylesheet.
 
 | Prop            | Default         | Notes                                                   |
 | --------------- | --------------- | ------------------------------------------------------- |
-| `columns`       | `1`             | Positive number of equal-width columns                  |
+| `columns`       | `1`             | Finite positive integer of equal-width columns          |
 | `minChildWidth` | -               | Minimum track width; numbers are converted to pixels    |
 | `gap`           | browser default | CSS length (`number` = `px`)                            |
 | `rowGap`        | browser default | CSS length (`number` = `px`)                            |
@@ -106,28 +92,6 @@ when `grid-template-columns` is owned by the stylesheet.
 
 Use `columns` when a compact dashboard should always render an exact number of equal tracks.
 
-<style>{`
-      .simpleGridDemoGrid {
-        width: 100%;
-        padding: var(--moduix-spacing-3);
-        border-radius: var(--moduix-radius-xl);
-        background-color: var(--moduix-color-muted);
-      }
-
-      .simpleGridDemoMetrics {
-        max-width: 40rem;
-      }
-
-      .simpleGridDemoMetric {
-        min-width: 0;
-        padding: var(--moduix-spacing-3);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-        text-align: center;
-      }
-    `}</style>
-
 ```tsx preview file="./_snippets/simple-grid/fixed-columns.tsx"
 
 ```
@@ -135,41 +99,6 @@ Use `columns` when a compact dashboard should always render an exact number of e
 ### Media Gallery
 
 Combine intrinsic columns with Ark `asChild` when a media grid should also carry list semantics.
-
-<style>{`
-      .simpleGridDemoGrid {
-        width: 100%;
-        padding: var(--moduix-spacing-3);
-        border-radius: var(--moduix-radius-xl);
-        background-color: var(--moduix-color-muted);
-      }
-
-      .simpleGridDemoGallery {
-        max-width: 48rem;
-        margin: 0;
-        list-style: none;
-      }
-
-      .simpleGridDemoGalleryItem {
-        min-width: 0;
-        overflow: hidden;
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-
-      .simpleGridDemoImage {
-        aspect-ratio: 4 / 3;
-        display: block;
-        width: 100%;
-        object-fit: cover;
-      }
-
-      .simpleGridDemoCaption {
-        display: block;
-        padding: var(--moduix-spacing-3);
-      }
-    `}</style>
 
 ```tsx preview file="./_snippets/simple-grid/media-gallery.tsx"
 
