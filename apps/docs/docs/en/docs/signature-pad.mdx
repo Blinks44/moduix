@@ -17,9 +17,11 @@ Use `SignaturePad.Canvas` for the standard drawing surface. It keeps the Ark `Co
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/basic.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -72,7 +74,8 @@ form needs a custom serialization.
 
 Use `drawing` for stroke-level customization. `drawing.size` changes stroke width,
 `drawing.simulatePressure` controls pressure simulation, and `drawing.fill` sets the stroke color.
-Use a concrete color string for `drawing.fill`; Zag does not accept CSS variables for that option.
+`drawing.fill` accepts any CSS color value, including a CSS custom property reference such as
+`var(--moduix-color-primary)`.
 
 ### Default props
 
@@ -80,7 +83,7 @@ Use a concrete color string for `drawing.fill`; Zag does not accept CSS variable
 | -------------- | ------------------------------------- | --------------------------------------------------------------- |
 | `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
-| `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` must be a concrete CSS color string. |
+| `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` accepts any CSS color value.           |
 | `name`         | -                                     | Native form field name.                                         |
 | `getFormValue` | `paths.join(' ')`                     | Custom serialization for the native form value.                 |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
@@ -91,7 +94,8 @@ Use a concrete color string for `drawing.fill`; Zag does not accept CSS variable
 
 The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px`
 with the default token scale. Override `--moduix-signature-pad-width`, `--moduix-signature-pad-height`, or the
-more specific `--moduix-signature-pad-control-*` variables to resize the signing area.
+more specific `--moduix-signature-pad-control-*` variables to resize the signing area. The default
+minimum height follows the configured control height, so a smaller height remains effective.
 
 ### Behavioral notes
 
@@ -119,9 +123,11 @@ autosave logic.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/controlled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/controlled.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Drawing
 
@@ -130,9 +136,11 @@ defaults.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/drawing.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/drawing.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Field
 
@@ -141,9 +149,11 @@ messaging belongs to the same form control.
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/field.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/field.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Form Serialization
 
@@ -152,9 +162,11 @@ example sends a JSON array instead of the default space-separated SVG path strin
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/form-serialization.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/form-serialization.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Image Preview
 
@@ -164,9 +176,11 @@ Use `onDrawEnd` to export the signature and show a preview before saving it.
   {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
 </style>
 
-```tsx preview file="./_snippets/signature-pad/image-preview.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/image-preview.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Root Provider
 
@@ -176,9 +190,11 @@ access to paths, `clear()`, or `getDataUrl()`. Pass root options such as `transl
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/root-provider.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -186,9 +202,11 @@ Bypass `Canvas` when you need to control the drawing-part tree or provide a cust
 
 <style>{SignaturePadDocs.signaturePadExampleCss}</style>
 
-```tsx preview file="./_snippets/signature-pad/advanced-customization.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/signature-pad/advanced-customization.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

@@ -92,9 +92,9 @@ Data attributes from Ark:
 
 ## Defaults and styling
 
-Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes.
+Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. Component CSS uses flat CSS Module selectors and Ark data attributes. Disabled opacity is applied once at the root so nested labels, guides, and the default clear action remain legible.
 
-The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. The default shadow is `var(--moduix-shadow-sm)`.
+The default drawing control is `17.5rem` by `10rem`, which is approximately `280px` by `160px` with the default token scale. Its default minimum height follows the configured control height, so reducing either public height variable also reduces the usable drawing area. The default shadow is `var(--moduix-shadow-sm)`.
 
 `ClearTrigger` composes the shared `CloseButton` by default and uses the reset `RotateCcwIcon`.
 Ark remains the source of its translated accessible label and its disabled/hidden state.
@@ -111,10 +111,11 @@ The CSS default stroke color applies only when `drawing.fill` is not provided; e
 
 ## Agent notes
 
-Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. Do not use CSS variables inside `drawing.fill`; Zag requires a concrete CSS color string there.
+Keep `getFormValue(paths)` as the semantic serialization escape hatch. Do not replace `paths`/`onDraw` with a local `value` abstraction. `drawing.fill` accepts CSS color values, including `var(...)` references.
 
 ## Local changelog
 
+- 2026-07-30: Made disabled opacity apply once across the composed drawing surface, aligned the height and minimum-height defaults, and clarified CSS-variable stroke colors.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-19: Switched guide and clear-action positioning to logical inline properties for RTL.
 - 2026-07-17: Composed the default clear control with `CloseButton`, preserving Ark translations,

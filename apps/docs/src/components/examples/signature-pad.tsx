@@ -8,22 +8,13 @@ export const signaturePadExampleCss = `
     justify-items: center;
   }
 
-  .signature-pad-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--moduix-spacing-2);
-    justify-content: center;
-  }
-
   .signature-pad-field {
     align-items: center;
     width: auto;
   }
 
-  .signature-pad-status {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+  .signature-pad-stack > [data-preview-meta] {
+    justify-self: center;
   }
 `;
 
@@ -85,8 +76,8 @@ const signaturePadCssProperties: CssPropertyInput[] = [
   ['--moduix-signature-pad-control-min-width', '0', 'Controls the drawing control minimum width.'],
   [
     '--moduix-signature-pad-control-min-height',
-    '10rem',
-    'Controls the drawing control minimum height.',
+    'var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem))',
+    'Controls the drawing control minimum height independently from its height.',
   ],
   [
     '--moduix-signature-pad-disabled-opacity',
