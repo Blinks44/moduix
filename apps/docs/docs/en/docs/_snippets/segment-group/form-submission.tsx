@@ -1,5 +1,6 @@
 import { Button, SegmentGroup } from '@moduix/react';
 import { useState, type FormEvent } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -17,15 +18,17 @@ export default function FormSegmentGroupDemo() {
     setSubmitted(String(formData.get('framework') ?? 'none'));
   };
   return (
-    <form className="segment-form" onSubmit={handleSubmit}>
+    <form className="segment-stack" onSubmit={handleSubmit}>
       <SegmentGroup aria-label="Framework" name="framework" defaultValue="React">
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />
       </SegmentGroup>
-      <Button className="segment-button" type="submit">
-        Submit
-      </Button>
-      <output className="segment-output">submitted: {submitted}</output>
+      <PreviewMeta>
+        <output>Submitted: {submitted}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }

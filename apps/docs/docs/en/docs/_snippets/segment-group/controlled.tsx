@@ -1,5 +1,6 @@
 import { SegmentGroup } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -20,7 +21,9 @@ export default function ControlledSegmentGroupDemo() {
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />
       </SegmentGroup>
-      <output className="segment-output">selected: {value ?? 'none'}</output>
+      <PreviewMeta>
+        <output>Selected: {value ?? 'none'}</output>
+      </PreviewMeta>
     </div>
   );
 }

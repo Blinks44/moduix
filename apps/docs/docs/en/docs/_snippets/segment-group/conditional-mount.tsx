@@ -1,5 +1,6 @@
-import { SegmentGroup } from '@moduix/react';
+import { Button, SegmentGroup } from '@moduix/react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -12,19 +13,18 @@ export default function ConditionalSegmentGroupDemo() {
   const [visible, setVisible] = useState(true);
   return (
     <div className="segment-stack">
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => setVisible((value) => !value)}
-      >
-        {visible ? 'Hide' : 'Show'}
-      </button>
       {visible ? (
         <SegmentGroup aria-label="Framework" defaultValue="React">
           <SegmentGroup.Indicator />
           <SegmentGroup.Items items={frameworks} />
         </SegmentGroup>
       ) : null}
+      <PreviewMeta>
+        <output>Segment group: {visible ? 'visible' : 'hidden'}</output>
+        <Button type="button" size="sm" onClick={() => setVisible((value) => !value)}>
+          {visible ? 'Hide' : 'Show'}
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

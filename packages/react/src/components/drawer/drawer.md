@@ -163,7 +163,8 @@ Closed `Backdrop` and `Content` override the native `hidden` display behavior on
 `!important`, and lets fully closed drawers remain hidden when `unmountOnExit={false}`. Active open
 dragging disables transition duration and follows Ark's inline transform variables; closed dragging
 must remain animatable for drag-to-dismiss. Direction-specific styles target `data-swipe-direction`.
-`Content::after` provides the overdrag bleed recommended by Ark.
+`Content::after` provides the overdrag bleed recommended by Ark. The top-drawer exit keyframe also
+travels through that bleed so its downward shadow clears the viewport before Ark hides the content.
 
 `Drawer.Content` uses `height: var(--moduix-drawer-size, 100%)` with `max-height:
 var(--moduix-drawer-max-height, 80dvh)` for top/bottom drawers so Ark measures a stable content size for
@@ -209,6 +210,8 @@ Public theme variables are declared in `packages/react/src/styles/theme.css`.
 
 ## Local changelog
 
+- 2026-07-30: Extended the top-drawer exit keyframe through the existing overdrag bleed so its
+  downward shadow does not linger at the viewport edge.
 - 2026-07-27: Added a public floating-Grabber example that positions the existing part above the
   drawer surface through consumer styling.
 - 2026-07-27: Added `--moduix-drawer-grabber-padding-top` so consumers can tune the Grabber's

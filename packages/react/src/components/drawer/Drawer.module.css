@@ -596,7 +596,11 @@
 
   @keyframes drawer-content-out-up {
     to {
-      transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
+      transform: translate3d(
+        0,
+        calc(-100% - var(--drawer-island-translate-distance) - var(--moduix-drawer-bleed)),
+        0
+      );
     }
   }
 

@@ -4,41 +4,21 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 export const segmentGroupExampleCss = `
 .segment-stack {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--moduix-spacing-2);
-  justify-items: start;
+  justify-items: center;
 }
 
-.segment-button {
-  width: fit-content;
-}
-
-.segment-output {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-xs);
-  line-height: var(--moduix-line-height-text-xs);
-}
-
-.segment-root-provider {
-  width: 100%;
+.segment-stack > [data-preview-meta] {
+  justify-self: center;
 }
 `;
 
 export const segmentGroupVerticalCss = `
 .segment-vertical {
-  min-width: 10rem;
+  min-inline-size: 10rem;
 }
 `;
-
-const segmentGroupFormCss = `
-.segment-form {
-  display: grid;
-  gap: var(--moduix-spacing-3);
-  justify-items: start;
-}
-`;
-
-export const segmentGroupFormExampleCss = `${segmentGroupExampleCss}
-${segmentGroupFormCss}`;
 
 export const segmentGroupAsChildCss = `
 .segment-card-item {
