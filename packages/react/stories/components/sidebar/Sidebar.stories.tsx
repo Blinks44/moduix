@@ -493,6 +493,7 @@ export const Basic: Story = {
   args: {
     onCollapse: fn<NonNullable<ComponentProps<typeof Sidebar>['onCollapse']>>(),
     onExpand: fn<NonNullable<ComponentProps<typeof Sidebar>['onExpand']>>(),
+    onResize: fn<NonNullable<ComponentProps<typeof Sidebar>['onResize']>>(),
   },
   render: (args) => (
     <Sidebar {...args} className={styles.demo}>
@@ -510,6 +511,8 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const page = within(canvasElement.ownerDocument.body);
     const trigger = canvasElement.querySelector('[data-slot="sidebar-trigger"]');
+    const resizeTrigger = canvas.getByRole('separator', { name: 'Resize sidebar' });
+    const search = canvas.getByRole('textbox', { name: 'Search workspace' });
     if (!(trigger instanceof HTMLButtonElement)) {
       throw new Error('Sidebar trigger was not rendered');
     }
@@ -517,10 +520,19 @@ export const Basic: Story = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(search).not.toBeVisible();
     await expect(args.onCollapse).toHaveBeenCalledTimes(1);
+    await userEvent.hover(canvas.getByRole('link', { name: 'Overview' }));
+    await expect(await page.findByRole('tooltip')).toHaveTextContent('Overview');
+    await userEvent.keyboard('{Escape}');
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await expect(args.onExpand).toHaveBeenCalledTimes(1);
+
+    resizeTrigger.focus();
+    await expect(resizeTrigger).toHaveAttribute('data-focus');
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(args.onResize).toHaveBeenCalled();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Open account menu' }));
     await expect(await page.findByRole('menuitem', { name: 'Profile' })).toBeVisible();

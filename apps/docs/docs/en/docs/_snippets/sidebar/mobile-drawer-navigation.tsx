@@ -16,26 +16,56 @@ export default function MobileDrawerSidebar() {
   return (
     <Drawer.Root swipeDirection="start">
       <Drawer.Trigger asChild>
-        <Button variant="outline" className="mobile-trigger">
+        <Button variant="outline" style={{ marginBlockEnd: '1rem' }}>
           Open mobile navigation
         </Button>
       </Drawer.Trigger>
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content className="mobile-drawer" draggable={false}>
-          <Drawer.Header className="mobile-drawer-header">
+        <Drawer.Content
+          draggable={false}
+          style={{ maxWidth: '20rem', width: 'min(20rem, calc(100vw - 2rem))' }}
+        >
+          <Drawer.Header style={{ paddingInline: '1rem' }}>
             <Drawer.Title>Navigation</Drawer.Title>
             <Drawer.CloseIcon />
             <Drawer.Description>
               Use Drawer for compact-screen overlay navigation.
             </Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body className="mobile-drawer-body">
-            <div className="mobile-sidebar-surface">
+          <Drawer.Body style={{ minHeight: 0, padding: 0, overflow: 'hidden' }}>
+            <div
+              style={{
+                backgroundColor: 'var(--moduix-color-card)',
+                display: 'flex',
+                flex: '1 1 auto',
+                flexDirection: 'column',
+                minHeight: 0,
+              }}
+            >
               <Sidebar.Header>
-                <div className="app-header-stack">
-                  <div className="app-brand">
-                    <strong className="app-brand-mark" data-sidebar-icon>
+                <div style={{ display: 'grid', gap: '0.75rem', width: '100%' }}>
+                  <div
+                    style={{
+                      alignItems: 'center',
+                      display: 'flex',
+                      fontWeight: 600,
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <strong
+                      data-sidebar-icon
+                      style={{
+                        alignItems: 'center',
+                        backgroundColor: 'var(--moduix-color-primary)',
+                        borderRadius: 'var(--moduix-radius-sm)',
+                        color: 'var(--moduix-color-primary-foreground)',
+                        display: 'inline-flex',
+                        height: '2rem',
+                        justifyContent: 'center',
+                        width: '2rem',
+                      }}
+                    >
                       M
                     </strong>
                     <Sidebar.Label>Moduix</Sidebar.Label>
@@ -59,7 +89,7 @@ export default function MobileDrawerSidebar() {
                         <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
                       </Sidebar.MenuItem>
                       <Sidebar.MenuItem>
-                        <Collapsible defaultOpen className="app-collapsible">
+                        <Collapsible defaultOpen>
                           <Collapsible.Trigger asChild>
                             <Sidebar.MenuButton>
                               <FolderOpen />
@@ -114,7 +144,7 @@ export default function MobileDrawerSidebar() {
                   </Sidebar.Menu>
                 </Sidebar.Group>
               </Sidebar.Content>
-              <Sidebar.Footer className="app-footer-stack">
+              <Sidebar.Footer style={{ display: 'grid', width: '100%' }}>
                 <Sidebar.Menu>
                   <Sidebar.MenuItem>
                     <Menu positioning={{ placement: 'right-end', gutter: 8, flip: false }}>
@@ -122,15 +152,33 @@ export default function MobileDrawerSidebar() {
                         <Sidebar.MenuButton
                           size="lg"
                           aria-label="Open account menu"
+                          style={{ height: 'auto' }}
                           title="Account"
-                          className="app-account-button"
                         >
                           <Avatar size="sm" data-sidebar-icon>
                             <Avatar.Fallback>AM</Avatar.Fallback>
                           </Avatar>
-                          <Sidebar.Label className="app-account-meta">
-                            <strong>Alex Morgan</strong>
-                            <span>alex@acme.dev</span>
+                          <Sidebar.Label style={{ display: 'grid', flex: 1, textAlign: 'start' }}>
+                            <strong
+                              style={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              Alex Morgan
+                            </strong>
+                            <span
+                              style={{
+                                color: 'var(--moduix-color-muted-foreground)',
+                                fontSize: 'var(--moduix-text-xs)',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              alex@acme.dev
+                            </span>
                           </Sidebar.Label>
                           <Menu.Indicator>
                             <ChevronsUpDown />
@@ -138,7 +186,7 @@ export default function MobileDrawerSidebar() {
                         </Sidebar.MenuButton>
                       </Menu.Trigger>
                       <Menu.Positioner>
-                        <Menu.Content className="app-account-menu">
+                        <Menu.Content style={{ maxWidth: '18rem', minWidth: '14rem' }}>
                           <Menu.Item value="profile">
                             <Menu.ItemText>
                               <Menu.ItemTextContent>

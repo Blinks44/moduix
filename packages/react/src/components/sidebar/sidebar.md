@@ -37,11 +37,13 @@ or storage through normal Splitter callbacks, not in a sidebar-owned provider.
   containers can still reach the collapsed size.
 - `side="left" | "right"` selects default panel order, adjacent trigger id, floating trigger
   position, and icon direction. Render sibling parts in matching visual order.
-- `Sidebar.Panel`, `Sidebar.Inset`, and `Sidebar.ResizeTrigger` default to the correct ids for the
-  selected side.
+- `Sidebar.Panel`, `Sidebar.Inset`, and `Sidebar.ResizeTrigger` keep the ids derived from the root
+  contract for the selected side.
 - `panelId` changes the default navigation panel id and its adjacent resize trigger while the inset
-  remains `content`. Pass normal Ark `panels`, `defaultSize`, and controlled `size` to replace the
-  constraints; use `Splitter` directly for a custom inset id or more than two panels.
+  remains `content`. Sidebar layout parts intentionally do not accept individual ids, so the
+  rendered panels, resize trigger, and `useSidebar()` always agree. Pass normal Ark `panels`,
+  `defaultSize`, and controlled `size` to replace the constraints; use `Splitter` directly for a
+  custom inset id or more than two panels.
 - `Sidebar.Trigger` is a root-level zero-width flex item centered above the resize line. It calls
   `collapsePanel()` or `expandPanel()` and reads the current Ark state at click time. A consumer
   `onClick` runs first and may cancel the toggle with `event.preventDefault()`.
@@ -200,7 +202,8 @@ affordances in the collapsed rail.
 ## Accessibility and state
 
 Ark `ResizeTrigger` preserves the WAI-ARIA Window Splitter pattern, focus management, pointer
-dragging, arrow-key resizing, and state attributes. Root callbacks retain Ark detail objects:
+dragging, arrow-key resizing, and state attributes. Sidebar makes Ark's `data-focus` state visible
+on its neutral resize line. Root callbacks retain Ark detail objects:
 `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`, and `onExpand(details)`.
 
 `Sidebar.Trigger` renders a button, reports `aria-expanded`, and defaults to `"Toggle sidebar"`.
@@ -231,11 +234,11 @@ All visual parts accept `className`. Public variables live in
 `data-state="expanded" | "collapsed"` and all side-aware parts expose `data-side`.
 
 Collapsed styling moves `Sidebar.Label` and group labels out of layout with a visually-hidden
-pattern, hides nested menus, and centers SVG or `data-sidebar-icon` elements. Labels remain
-available to assistive technology without creating flex width or gaps. Mark non-SVG visual anchors
-such as `Avatar` or a brand mark with `data-sidebar-icon`; Sidebar preserves that element's own
-size. Collapsed styling also hides trailing group and menu affordances so icon-only items stay
-compact.
+pattern, hides nested menus and `Sidebar.Input`, and centers SVG or `data-sidebar-icon` elements.
+Labels remain available to assistive technology without creating flex width or gaps. Mark non-SVG
+visual anchors such as `Avatar` or a brand mark with `data-sidebar-icon`; Sidebar preserves that
+element's own size. Collapsed styling also hides trailing group and menu affordances so icon-only
+items stay compact.
 
 Panel constraints are Ark state, not visual CSS. Override `panels`, `defaultSize`, controlled
 `size`, and callbacks for application-specific expanded, minimum, maximum, or collapsed widths.
@@ -248,9 +251,9 @@ offset.
 
 Zag 1.41.2 currently leaves the expanded inline `min-width` on a collapsed panel, so the installed
 version visually clamps the configured `3rem` rail to `12rem`. This is tracked by
-[zag#3179](https://github.com/chakra-ui/zag/issues/3179) and fixed by the open
+[zag#3179](https://github.com/chakra-ui/zag/issues/3179) and fixed by the merged
 [zag#3180](https://github.com/chakra-ui/zag/pull/3180). Sidebar intentionally does not patch the
-upstream layout while that fix is pending.
+upstream layout while an Ark UI release with that fix is pending.
 
 The resize line inherits the shared Splitter default: it keeps the normal border color at rest and
 shifts slightly toward `--moduix-color-muted-foreground` on hover and drag. Override the
@@ -284,6 +287,8 @@ feedback.
 
 ## Local changelog
 
+- 2026-07-30: Made the resize handle's Ark focus state visible, hid sidebar inputs in the collapsed
+  rail, and restricted layout-part ids to the root `panelId` contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Made `panelId` update the default panel data and resize trigger id, documented
   CSS-length hydration behavior, and kept custom inset ids on the lower-level `Splitter` path.

@@ -18,14 +18,21 @@ const projects = [
 
 export default function ScrollableSidebar() {
   return (
-    <Sidebar className="app-sidebar">
+    <Sidebar
+      style={{
+        borderRadius: 'var(--moduix-radius-lg)',
+        boxShadow: 'var(--moduix-shadow-sm)',
+        height: '34rem',
+        minHeight: '28rem',
+      }}
+    >
       <Sidebar.Panel>
         <Sidebar.Header>
           <strong data-sidebar-icon>M</strong>
           <Sidebar.Label>Moduix</Sidebar.Label>
         </Sidebar.Header>
-        <Sidebar.Content className="app-sidebar-scroll-content">
-          <ScrollArea fade className="app-sidebar-scroll-area">
+        <Sidebar.Content style={{ overflow: 'hidden' }}>
+          <ScrollArea fade>
             <ScrollArea.Viewport>
               <ScrollArea.Content>
                 <Sidebar.Group>
@@ -69,8 +76,32 @@ export default function ScrollableSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header className="app-topbar">Dashboard</header>
-        <main className="app-main">Main content</main>
+        <header
+          style={{
+            alignItems: 'center',
+            borderBlockEnd: '1px solid var(--moduix-color-border)',
+            display: 'flex',
+            minHeight: '3.5rem',
+            paddingInline: '1.5rem',
+          }}
+        >
+          Project dashboard
+        </header>
+        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+          <strong>Recent activity</strong>
+          <section
+            style={{
+              border: '1px solid var(--moduix-color-border)',
+              borderRadius: 'var(--moduix-radius-md)',
+              padding: '1rem',
+            }}
+          >
+            <strong>18 active projects</strong>
+            <p style={{ color: 'var(--moduix-color-muted-foreground)', marginBlock: '0.25rem 0' }}>
+              Scroll the project list independently from the application content.
+            </p>
+          </section>
+        </main>
       </Sidebar.Inset>
     </Sidebar>
   );

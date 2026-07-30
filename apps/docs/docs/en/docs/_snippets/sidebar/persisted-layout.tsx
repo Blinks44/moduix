@@ -48,7 +48,12 @@ export default function PersistedSidebar() {
           window.localStorage.setItem(storageKey, details.size.join('|'));
         }
       }}
-      className="app-sidebar"
+      style={{
+        borderRadius: 'var(--moduix-radius-lg)',
+        boxShadow: 'var(--moduix-shadow-sm)',
+        height: '34rem',
+        minHeight: '28rem',
+      }}
     >
       <Sidebar.Panel>
         <Sidebar.Header>
@@ -86,13 +91,33 @@ export default function PersistedSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header className="app-topbar">
+        <header
+          style={{
+            alignItems: 'center',
+            borderBlockEnd: '1px solid var(--moduix-color-border)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            minHeight: '3.5rem',
+            paddingInline: '1.5rem',
+          }}
+        >
           Dashboard
           <Button variant="outline" size="sm" onClick={handleReset}>
             Reset saved width
           </Button>
         </header>
-        <main className="app-main">Resize the sidebar and reload to restore the saved width.</main>
+        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+          <strong>Saved layout</strong>
+          <section
+            style={{
+              border: '1px solid var(--moduix-color-border)',
+              borderRadius: 'var(--moduix-radius-md)',
+              padding: '1rem',
+            }}
+          >
+            Resize the sidebar and reload to restore the saved width.
+          </section>
+        </main>
       </Sidebar.Inset>
     </Sidebar>
   );

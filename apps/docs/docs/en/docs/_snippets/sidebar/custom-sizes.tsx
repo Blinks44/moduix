@@ -16,7 +16,16 @@ const panels = [
 
 export default function SizedSidebar() {
   return (
-    <Sidebar panels={panels} defaultSize={['14rem']} className="app-sidebar">
+    <Sidebar
+      panels={panels}
+      defaultSize={['14rem']}
+      style={{
+        borderRadius: 'var(--moduix-radius-lg)',
+        boxShadow: 'var(--moduix-shadow-sm)',
+        height: '34rem',
+        minHeight: '28rem',
+      }}
+    >
       <Sidebar.Panel>
         <Sidebar.Header>
           <strong data-sidebar-icon>M</strong>
@@ -91,8 +100,29 @@ export default function SizedSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header className="app-topbar">Dashboard</header>
-        <main className="app-main">Resize between 10rem and 17rem.</main>
+        <header
+          style={{
+            alignItems: 'center',
+            borderBlockEnd: '1px solid var(--moduix-color-border)',
+            display: 'flex',
+            minHeight: '3.5rem',
+            paddingInline: '1.5rem',
+          }}
+        >
+          Dashboard
+        </header>
+        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+          <strong>Resizable workspace</strong>
+          <section
+            style={{
+              border: '1px solid var(--moduix-color-border)',
+              borderRadius: 'var(--moduix-radius-md)',
+              padding: '1rem',
+            }}
+          >
+            Resize the sidebar between 10rem and 17rem.
+          </section>
+        </main>
       </Sidebar.Inset>
     </Sidebar>
   );

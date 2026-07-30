@@ -10,10 +10,39 @@ import {
 
 export default function RightSidebar() {
   return (
-    <Sidebar side="right" className="app-sidebar">
+    <Sidebar
+      side="right"
+      style={{
+        borderRadius: 'var(--moduix-radius-lg)',
+        boxShadow: 'var(--moduix-shadow-sm)',
+        height: '34rem',
+        minHeight: '28rem',
+      }}
+    >
       <Sidebar.Inset>
-        <header className="app-topbar">Dashboard</header>
-        <main className="app-main">Main content</main>
+        <header
+          style={{
+            alignItems: 'center',
+            borderBlockEnd: '1px solid var(--moduix-color-border)',
+            display: 'flex',
+            minHeight: '3.5rem',
+            paddingInline: '1.5rem',
+          }}
+        >
+          Dashboard
+        </header>
+        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+          <strong>Page settings</strong>
+          <section
+            style={{
+              border: '1px solid var(--moduix-color-border)',
+              borderRadius: 'var(--moduix-radius-md)',
+              padding: '1rem',
+            }}
+          >
+            Select an Inspector tool to edit this page.
+          </section>
+        </main>
       </Sidebar.Inset>
       <Sidebar.Trigger />
       <Sidebar.ResizeTrigger />

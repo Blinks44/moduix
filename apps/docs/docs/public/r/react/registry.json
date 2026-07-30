@@ -30,7 +30,7 @@
       "title": "moduix core",
       "description": "Shared framework-neutral styles and utilities for moduix registry components.",
       "dependencies": ["clsx"],
-      "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
+      "docs": "Required: import the installed style.css once in your app entry. To use the optional reset, import the installed reset.css before style.css. Use the destination paths configured in your project; the CLI output shows them.",
       "files": [
         {
           "path": "packages/react/src/internal/normalizeClassName.ts",

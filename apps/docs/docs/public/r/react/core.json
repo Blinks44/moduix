@@ -108,6 +108,6 @@
       "target": "@lib/moduix/styles/z-index.css"
     }
   ],
-  "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
+  "docs": "Required: import the installed style.css once in your app entry. To use the optional reset, import the installed reset.css before style.css. Use the destination paths configured in your project; the CLI output shows them.",
   "type": "registry:item"
 }

@@ -4,7 +4,7 @@ component: sidebar
 description: Resizable and collapsible application navigation built on the Ark UI Splitter.
 ---
 
-import * as SidebarDocs from '@/components/examples/sidebar';
+import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 ## API Reference
 
@@ -31,11 +31,11 @@ panel ids and constraints make the common left-sidebar layout work without confi
 example also shows the blessed collapsed-rail pattern: compose `Sidebar.Tooltip` around icon menu
 buttons instead of repeating raw Tooltip anatomy or teaching Sidebar to own popup state.
 
-<style>{SidebarDocs.sidebarSimpleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/basic.tsx"
 
-```tsx preview file="./_snippets/sidebar/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -122,8 +122,9 @@ CSS-length layout does not fit. Use `useSidebar()` for `collapsed`, `state`, `si
 registry, multiple-panel, or complete context APIs.
 
 `panelId` changes the default navigation id together with the matching resize handle; the inset id
-remains `"content"`. Use `Splitter` directly when a layout needs a custom inset id or more than
-two panels.
+remains `"content"`. The Sidebar layout parts intentionally do not accept individual ids, which
+keeps the rendered panels, trigger, and `useSidebar()` on the same Ark panel contract. Use
+`Splitter` directly when a layout needs a custom inset id or more than two panels.
 
 Use `asChild` on menu buttons and sub-buttons to compose router links. Keep one semantic child that
 accepts the merged props and ref.
@@ -161,9 +162,9 @@ panel width because a CSS flex transition would lag behind pointer and keyboard 
 Collapsible content, popup content, tooltips, and the trigger icon retain their own transitions.
 
 The installed Zag 1.41.2 release visually clamps `collapsedSize` to `minSize`. The upstream
-[issue](https://github.com/chakra-ui/zag/issues/3179) and
-[fix](https://github.com/chakra-ui/zag/pull/3180) cover this exact behavior; Sidebar does not carry a
-temporary layout override while the fix is pending.
+[fix](https://github.com/chakra-ui/zag/pull/3180) is merged, but it is not yet available through
+the current Ark UI release. Sidebar does not carry a temporary layout override while that release
+is pending.
 
 ## Examples
 
@@ -173,11 +174,11 @@ Keep native scrolling as the default, or compose `ScrollArea` inside `Sidebar.Co
 application needs a styled thumb and optional edge fade. Disable the outer overflow so the
 `ScrollArea.Viewport` remains the only scroll container.
 
-<style>{SidebarDocs.sidebarScrollAreaCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/custom-scroll-area.tsx"
 
-```tsx preview file="./_snippets/sidebar/custom-scroll-area.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Mobile Drawer Navigation
 
@@ -185,11 +186,11 @@ Use `Drawer` for compact-screen overlay navigation and reuse the Sidebar visual 
 drawer body. Keep `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and `useSidebar()` on the desktop
 path only. This is the recommended mobile half of the responsive sidebar recipe.
 
-<style>{SidebarDocs.sidebarDrawerCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/mobile-drawer-navigation.tsx"
 
-```tsx preview file="./_snippets/sidebar/mobile-drawer-navigation.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Persisted Desktop Layout
 
@@ -197,11 +198,11 @@ Keep desktop width outside the component by controlling `size`, mirroring live d
 `onResize(details)`, and persisting the last settled width from `onResizeEnd(details)`. This keeps
 Splitter as the source of layout truth while making sidebar migration feel as sticky as shadcn.
 
-<style>{SidebarDocs.sidebarSimpleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/persisted-layout.tsx"
 
-```tsx preview file="./_snippets/sidebar/persisted-layout.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Recommended App Shell
 
@@ -211,11 +212,11 @@ corresponding moduix primitives. The expanded project list and additional naviga
 demonstrate scrolling inside `Sidebar.Content`. `Sidebar.Tooltip` keeps the collapsed icon-rail path
 compact without introducing a sidebar-owned tooltip manager.
 
-<style>{SidebarDocs.sidebarExampleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/nested-navigation-and-account-menu.tsx"
 
-```tsx preview file="./_snippets/sidebar/nested-navigation-and-account-menu.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Right Sidebar
 
@@ -223,11 +224,11 @@ Pass `side="right"` and render `Inset`, `Trigger`, `ResizeTrigger`, and `Panel` 
 Sidebar chooses the matching panel model, trigger id, floating position, and chevron direction. The
 Inspector example includes grouped tools, activity links, internal scrolling, and a footer menu.
 
-<style>{SidebarDocs.sidebarSimpleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/right-sidebar.tsx"
 
-```tsx preview file="./_snippets/sidebar/right-sidebar.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Workspace Select
 
@@ -236,11 +237,11 @@ and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no
 The example combines the workspace switcher with regular navigation, a scrollable content region,
 and an account menu.
 
-<style>{SidebarDocs.sidebarExampleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/workspace-select.tsx"
 
-```tsx preview file="./_snippets/sidebar/workspace-select.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -248,22 +249,22 @@ Bypass Sidebar's default panel constraints by passing Ark `panels` directly whil
 explicit Sidebar composition. Use `Splitter` instead when the layout also needs custom inset ids,
 more than two panels, or provider and registry APIs.
 
-<style>{SidebarDocs.sidebarSimpleCss}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/sidebar/custom-sizes.tsx"
 
-```tsx preview file="./_snippets/sidebar/custom-sizes.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 
 The navigation panel uses card tokens; the inset uses the application background. The default panel
 data configures a `3rem` rail. Collapsed panels move `Sidebar.Label` and group labels out of layout
-with a visually-hidden pattern, hide nested menus, and center SVG and `data-sidebar-icon` elements.
-Labels remain available to assistive technology without taking flex space. Mark non-SVG anchors
-such as Avatar, a Select workspace mark, or a brand mark with `data-sidebar-icon`; its own
-dimensions are preserved. Put collapsible text, values, badges, and indicators in `Sidebar.Label`
-when they should leave the visual layout in the collapsed rail. Trailing group and menu affordances
-hide automatically in the collapsed icon-only state.
+with a visually-hidden pattern, hide nested menus and `Sidebar.Input`, and center SVG and
+`data-sidebar-icon` elements. Labels remain available to assistive technology without taking flex
+space. Mark non-SVG anchors such as Avatar, a Select workspace mark, or a brand mark with
+`data-sidebar-icon`; its own dimensions are preserved. Put collapsible text, values, badges, and
+indicators in `Sidebar.Label` when they should leave the visual layout in the collapsed rail.
+Trailing group and menu affordances hide automatically in the collapsed icon-only state.
 
 Panel widths are Ark state rather than visual CSS. Override `panels`, `defaultSize`, and controlled
 `size` to customize the expanded, minimum, maximum, and collapsed widths. `panelId` changes the
@@ -271,10 +272,10 @@ default navigation id; use `Splitter` directly for a custom inset id or more tha
 the public `--moduix-sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's
 vertical offset.
 
-The resize UI is intentionally only a line. It uses the shared Splitter default: the idle color
-matches the border, while hover and drag shift it slightly toward `--moduix-color-muted-foreground`.
-Override the `--moduix-splitter-resize-trigger-line-color-*` variables only when the product needs stronger
-feedback.
+The resize UI is intentionally only a line. Its idle color matches the border, hover and drag shift
+it slightly toward `--moduix-color-muted-foreground`, and keyboard focus uses the Sidebar focus-ring
+color. Override the `--moduix-splitter-resize-trigger-line-color-*` variables only when the product
+needs stronger feedback.
 
 ### CSS Properties
 
@@ -285,7 +286,7 @@ feedback.
     contentItemClassName="docs-reference-panel"
   >
     <Tab>
-      <SidebarDocs.SidebarCssPropertiesPanel />
+      <SidebarCssPropertiesPanel />
     </Tab>
   </Tabs>
 </div>
