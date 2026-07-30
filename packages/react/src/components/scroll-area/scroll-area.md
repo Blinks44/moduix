@@ -45,6 +45,9 @@ export function Example() {
 }
 ```
 
+Give the root a bounded block size whenever content should scroll. Moduix does not set
+`overscroll-behavior`, so a viewport at its scroll edge keeps normal browser scroll chaining.
+
 The package exports `ScrollArea`, `useScrollArea`, and the local root prop types. The hook is also
 available as `ScrollArea.useScrollArea` for a single namespace import.
 
@@ -195,6 +198,7 @@ while dragging with a fast transition; customize its timing with
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-30: Preserved stable moduix data attributes ahead of consumer props, restored default browser scroll chaining, and disabled scrollbar transitions for reduced motion.
 - 2026-07-11: Made the 2px scrollbar growth use the fast transition token to avoid visibly stepped
   width and height interpolation; `--moduix-scroll-area-thumb-hover-transition` customizes the timing.
 - 2026-07-11: Added `variant="always"` for persistently visible scrollbar tracks and exposed

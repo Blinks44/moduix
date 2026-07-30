@@ -1,18 +1,36 @@
 import { ScrollArea } from '@moduix/react';
-import { scrollSections } from '@/components/examples/scroll-sections';
-import styles from '@/components/examples/scroll-area.module.css';
+
+const items = Array.from({ length: 12 }, (_, index) => `Inbox item ${index + 1}`);
 
 export default function AlwaysVisibleScrollAreaDemo() {
   return (
-    <ScrollArea className={styles.root} variant="always">
+    <ScrollArea
+      variant="always"
+      style={{
+        height: '13rem',
+        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+      }}
+    >
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.textContent}>
-            {scrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
-              </section>
+          <div
+            style={{
+              display: 'grid',
+              gap: 'var(--moduix-spacing-2)',
+              padding: 'var(--moduix-spacing-3)',
+            }}
+          >
+            {items.map((item) => (
+              <div
+                key={item}
+                style={{
+                  padding: 'var(--moduix-spacing-2)',
+                  background: 'var(--moduix-color-muted)',
+                }}
+              >
+                {item}
+              </div>
             ))}
           </div>
         </ScrollArea.Content>

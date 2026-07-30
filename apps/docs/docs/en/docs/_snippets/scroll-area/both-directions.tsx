@@ -1,5 +1,4 @@
 import { ScrollArea } from '@moduix/react';
-import styles from '@/components/examples/scroll-area.module.css';
 
 const cells = Array.from(
   {
@@ -10,12 +9,35 @@ const cells = Array.from(
 
 export default function BothDirectionsScrollAreaDemo() {
   return (
-    <ScrollArea className={styles.root}>
+    <ScrollArea
+      style={{
+        height: '13rem',
+        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+      }}
+    >
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.gridContent}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(12, 5rem)',
+              gridTemplateRows: 'repeat(8, 5rem)',
+              width: 'max-content',
+              gap: 'var(--moduix-spacing-2)',
+              padding: 'var(--moduix-spacing-3)',
+            }}
+          >
             {cells.map((cell) => (
-              <div key={cell} className={styles.cell}>
+              <div
+                key={cell}
+                style={{
+                  display: 'grid',
+                  placeItems: 'center',
+                  borderRadius: 'var(--moduix-radius-sm)',
+                  background: 'var(--moduix-color-muted)',
+                }}
+              >
                 {cell}
               </div>
             ))}
