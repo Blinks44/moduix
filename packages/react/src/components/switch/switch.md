@@ -138,6 +138,7 @@ export function RootProviderSwitchDemo() {
 - State styling uses Ark attributes: `data-state='checked' | 'unchecked'`, `data-focus-visible`,
   `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, and
   `data-required`.
+- Checked thumbs move toward the inline end, including when the switch inherits RTL direction.
 - `Switch.Control` is the visual focus ring target. Refs are forwarded to the matching Ark DOM part.
 
 ## Defaults and styling
@@ -218,6 +219,9 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 - Keep advanced Ark state APIs available through moduix without wrapping or translating them.
 
 ## Local changelog
+
+- 2026-07-31: Fixed checked-thumb movement in RTL, added invalid control styling, and covered the
+  automatic input, `asChild`, and controlled paths with focused tests.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

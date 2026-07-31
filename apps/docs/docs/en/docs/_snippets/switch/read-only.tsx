@@ -3,7 +3,7 @@ import styles from '@/components/examples/switch.module.css';
 
 export default function ReadOnlySwitchDemo() {
   return (
-    <div className={styles.stack}>
+    <div className={styles.column}>
       <Switch readOnly>
         <Switch.Control />
         <Switch.Label>Managed by policy</Switch.Label>

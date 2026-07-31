@@ -26,7 +26,7 @@ import styles from '@/components/examples/switch.module.css';
 
 export default function SwitchSizesDemo() {
   return (
-    <div className={styles.stack}>
+    <div className={styles.column}>
       {switchSizeOptions.map((item) => (
         <Switch key={item.value} size={item.value} defaultChecked>
           <Switch.Control />

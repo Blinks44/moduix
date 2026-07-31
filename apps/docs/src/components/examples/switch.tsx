@@ -1,8 +1,5 @@
-import { Switch } from '@moduix/react';
-import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
-import styles from './switch.module.css';
 
 const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-switch-bg', 'var(--moduix-color-muted)', 'Controls unchecked background color.'],
@@ -166,18 +163,4 @@ function normalizeCssProperty(property: CssPropertyInput) {
   if (!('name' in property))
     return { name: property[0], defaultValue: property[1], description: property[2] };
   return property;
-}
-
-export function ControlledSwitchExample() {
-  const [checked, setChecked] = useState(true);
-
-  return (
-    <div className={styles.stack}>
-      <Switch checked={checked} onCheckedChange={(details) => setChecked(details.checked)}>
-        <Switch.Control />
-        <Switch.Label>{checked ? 'On' : 'Off'}</Switch.Label>
-      </Switch>
-      <span className={styles.hint}>Current value: {String(checked)}</span>
-    </div>
-  );
 }
