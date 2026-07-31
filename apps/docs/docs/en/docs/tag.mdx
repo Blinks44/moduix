@@ -26,11 +26,11 @@ removed, reordered, or managed as part of the current interface state.
 Start with the short root form and `Tag.Label`. Add other parts only when the token needs icons or
 an inline close action.
 
-<style>{`      /* No custom styles are required. */`}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/basic.tsx"
 
-```tsx preview file="./_snippets/tag/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -97,101 +97,64 @@ semantic element, and it owns the interaction behavior.
 Use `Tag.EndElement` with `Tag.CloseTrigger` for removable values. The parent widget owns removal
 state and click handling.
 
-<style>{`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/closable.tsx"
 
-```tsx preview file="./_snippets/tag/closable.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Icon
 
 Use `Tag.StartElement` and `Tag.EndElement` for icon slots so label truncation and action sizing stay
 independent.
 
-<style>{`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/icon.tsx"
 
-```tsx preview file="./_snippets/tag/icon.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Overflow
 
-Use `Tag.Label` as the truncation point for long values. Add `title` when the full text should
-remain discoverable.
+Use `Tag.Label` as the truncation point for long values. This intentionally narrow example makes
+the ellipsis visible; add `title` when the full text should remain discoverable.
 
-<style>{`
-      .constrained {
-        max-width: 18rem;
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/overflow.tsx"
 
-```tsx preview file="./_snippets/tag/overflow.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Sizes
 
 Use `size="sm"` for dense token rows and keep the default `md` size for standalone tokens.
 
-<style>{`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/sizes.tsx"
 
-```tsx preview file="./_snippets/tag/sizes.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Variants
 
 Use the built-in variants for common moduix tones while keeping the same part structure.
 
-<style>{`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/variants.tsx"
 
-```tsx preview file="./_snippets/tag/variants.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` when the whole token is an action. This replaces the default `span` host; keep the
 single child semantic element responsible for keyboard and click behavior.
 
-<style>{`
-      .buttonTag {
-        appearance: none;
-        cursor: pointer;
-      }
-    `}</style>
+<PreviewFrame>
+  ```tsx preview file="./_snippets/tag/render-as-button.tsx"
 
-```tsx preview file="./_snippets/tag/render-as-button.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 
