@@ -1,5 +1,4 @@
 import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
 
 const products = [
   {
@@ -21,8 +20,8 @@ const products = [
 
 export default function TableColumnGroupAndBordersDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table showColumnBorder className={styles.table}>
+    <Table.ScrollArea>
+      <Table showColumnBorder>
         <Table.ColumnGroup>
           <Table.Column htmlWidth="42%" />
           <Table.Column htmlWidth="28%" />

@@ -1,5 +1,4 @@
 import { Card, Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
 
 const projects = [
   {
@@ -24,13 +23,13 @@ const projects = [
 
 export default function TableInsideCardDemo() {
   return (
-    <Card className={styles.card}>
+    <Card>
       <Card.Header>
         <Card.Title>Projects</Card.Title>
       </Card.Header>
-      <Card.Body className={styles.cardContent}>
+      <Card.Body>
         <Table.ScrollArea>
-          <Table className={styles.table}>
+          <Table>
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeader>Project</Table.ColumnHeader>

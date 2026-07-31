@@ -1,5 +1,4 @@
 import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
 
 const projects = [
   {
@@ -14,10 +13,10 @@ const projects = [
 
 export default function TableSizesAndVariantsDemo() {
   return (
-    <div className={styles.stack}>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-4)' }}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
-        <Table.ScrollArea key={size} className={styles.showcase}>
-          <Table size={size} variant={size === 'md' ? 'outline' : 'line'} className={styles.table}>
+        <Table.ScrollArea key={size}>
+          <Table size={size} variant={size === 'md' ? 'outline' : 'line'}>
             <Table.Caption side="top">{size.toUpperCase()} project summary</Table.Caption>
             <Table.Header>
               <Table.Row>

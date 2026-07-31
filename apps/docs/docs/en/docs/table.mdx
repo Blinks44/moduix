@@ -18,9 +18,10 @@ Ark UI does not ship a dedicated `table` primitive. Moduix builds this component
 Start with `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body`, and the native row and cell
 parts. This is the recommended path for invoices, summaries, and admin-style read-only datasets.
 
-```tsx preview file="./_snippets/table/basic.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/basic.tsx"
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -48,7 +49,7 @@ Table.ScrollArea (optional)
 
 | Part                   | Role                                                                       |
 | ---------------------- | -------------------------------------------------------------------------- |
-| `Table` / `Table.Root` | Native `table` root. Owns typography, dividers, and state attributes.      |
+| `Table`               | Native `table` root. Owns typography, dividers, and state attributes.      |
 | `Table.ScrollArea`     | Optional bordered overflow shell for the common “table in a surface” case. |
 | `Table.ColumnGroup`    | Native `colgroup` wrapper for column width distribution.                   |
 | `Table.Column`         | Native `col` wrapper. Supports `htmlWidth`.                                |
@@ -118,190 +119,87 @@ All parts accept `className` and their matching native element props.
 Use `Table.Caption side="top"` when the label reads better before the data, and `Table.Footer` for
 totals or summaries.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/caption-and-footer.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/caption-and-footer.tsx"
+  ```
+</PreviewFrame>
 
 ### Column Group and Borders
 
 Use `Table.ColumnGroup` and `Table.Column` for native column widths, and `showColumnBorder` when
 column separation needs to be visible.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/column-group-and-borders.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/column-group-and-borders.tsx"
+  ```
+</PreviewFrame>
 
 ### Empty State
 
 Use `Table.Empty` when a body would otherwise render no rows.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/empty-state.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/empty-state.tsx"
+  ```
+</PreviewFrame>
 
 ### Inside Card
 
 `Table.ScrollArea` fits naturally inside `Card.Body` when the table should live on a card surface.
 
-<style>{`
-      .card {
-        width: min(44rem, 100%);
-      }
-
-      .cardContent {
-        min-width: 0;
-        padding-top: 0;
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/inside-card.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/inside-card.tsx"
+  ```
+</PreviewFrame>
 
 ### Numeric Columns
 
 Use `numeric` on both the header and the cells for the common aligned-metrics case.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/numeric-columns.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/numeric-columns.tsx"
+  ```
+</PreviewFrame>
 
 ### Row Actions With Menu
 
 Use the last column for row-specific actions when the dataset needs lightweight overflow commands.
 `Menu` fits this case cleanly without changing the native table structure.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 44rem;
-      }
-
-      .actionsHead,
-      .actionsCell {
-        width: 1%;
-        text-align: right;
-        white-space: nowrap;
-      }
-
-      .actionTrigger {
-        --moduix-button-size-icon-sm: 1.25rem;
-        --moduix-button-focus-ring-width: var(--moduix-border-width-sm);
-
-        margin-inline-start: auto;
-        border-radius: var(--moduix-radius-sm);
-      }
-
-      .actionEllipsis {
-        font-weight: var(--moduix-weight-medium);
-        line-height: 1;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/row-actions-with-menu.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/row-actions-with-menu.tsx"
+  ```
+</PreviewFrame>
 
 ### Sizes and Variants
 
 Use `size` for density and `variant` for divider style. `Table` keeps these as visual modes on the
 native root instead of adding extra state.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/sizes-and-variants.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/sizes-and-variants.tsx"
+  ```
+</PreviewFrame>
 
 ### Sticky Header and Column
 
 Use `stickyHeader` on the root and `data-sticky="start" | "end"` on cells when a horizontally or
 vertically scrolling table needs persistent context.
 
-<style>{`
-      .stickyShell {
-        width: min(44rem, 100%);
-        max-height: 18rem;
-      }
-
-      .wideTable {
-        min-width: 56rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/sticky-header-and-column.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/sticky-header-and-column.tsx"
+  ```
+</PreviewFrame>
 
 ### Striped Rows
 
 Use `striped` when long read-only bodies need stronger row separation without switching to a more
 opinionated table abstraction.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-      }
-
-      .table {
-        min-width: 40rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/striped-rows.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/striped-rows.tsx"
+  ```
+</PreviewFrame>
 
 ### With ScrollArea
 
@@ -309,48 +207,19 @@ Use `ScrollArea` directly when the table needs styled Ark scrollbar parts on bot
 behavior, or the scroll area API. Keep the `ScrollArea` structure explicit so the table stays native
 and lightweight.
 
-<style>{`
-      .scrollArea {
-        --moduix-scroll-area-height: 16rem;
-        --moduix-scroll-area-radius: var(--moduix-radius-lg);
-        --moduix-scroll-area-bg: var(--moduix-color-card);
-
-        width: min(44rem, 100%);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-      }
-
-      .wideTable {
-        min-width: 56rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/with-scrollarea.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/with-scrollarea.tsx"
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Skip `Table.ScrollArea` when the surrounding layout already owns the shell or scrolling behavior. This bypasses the convenience shell while keeping the native table composition explicit.
 
-<style>{`
-      .shell {
-        width: min(44rem, 100%);
-        overflow-x: auto;
-        padding: var(--moduix-spacing-3);
-        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: color-mix(in srgb, var(--moduix-color-muted) 35%, transparent);
-      }
-
-      .table {
-        min-width: 34rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/table/custom-composition.tsx"
-
-```
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table/custom-composition.tsx"
+  ```
+</PreviewFrame>
 
 ## Styling
 

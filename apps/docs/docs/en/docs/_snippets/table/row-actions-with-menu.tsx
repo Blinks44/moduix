@@ -1,5 +1,4 @@
 import { Button, Menu, Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
 
 const rows = [
   {
@@ -30,15 +29,8 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
       }}
     >
       <Menu.Trigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          className={styles.actionTrigger}
-          aria-label={`Open actions for ${itemName}`}
-        >
-          <span aria-hidden className={styles.actionEllipsis}>
-            ...
-          </span>
+        <Button variant="ghost" size="icon-sm" aria-label={`Open actions for ${itemName}`}>
+          <span aria-hidden>…</span>
         </Button>
       </Menu.Trigger>
       <Menu.Positioner>
@@ -58,15 +50,15 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
 
 export default function TableRowActionsDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table className={styles.table}>
+    <Table.ScrollArea>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Project</Table.ColumnHeader>
             <Table.ColumnHeader>Owner</Table.ColumnHeader>
             <Table.ColumnHeader>Environment</Table.ColumnHeader>
             <Table.ColumnHeader>Updated</Table.ColumnHeader>
-            <Table.ColumnHeader className={styles.actionsHead}>Actions</Table.ColumnHeader>
+            <Table.ColumnHeader>Actions</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -76,7 +68,7 @@ export default function TableRowActionsDemo() {
               <Table.Cell>{row.owner}</Table.Cell>
               <Table.Cell>{row.environment}</Table.Cell>
               <Table.Cell>{row.updated}</Table.Cell>
-              <Table.Cell className={styles.actionsCell}>
+              <Table.Cell>
                 <RowActionsMenu itemName={row.name} />
               </Table.Cell>
             </Table.Row>

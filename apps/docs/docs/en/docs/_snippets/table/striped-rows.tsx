@@ -1,5 +1,4 @@
 import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
 
 const projects = [
   {
@@ -21,8 +20,8 @@ const projects = [
 
 export default function TableStripedRowsDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table striped interactive className={styles.table}>
+    <Table.ScrollArea>
+      <Table striped interactive>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Project</Table.ColumnHeader>
