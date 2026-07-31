@@ -1,3 +1,4 @@
+import { useFieldContext } from '@ark-ui/react/field';
 import {
   TagsInput as TagsInputPrimitive,
   useTagsInput,
@@ -6,7 +7,7 @@ import {
 } from '@ark-ui/react/tags-input';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import { CloseButton } from '../close-button';
@@ -175,6 +176,7 @@ const TagsInputClearTrigger = forwardRef<
   ref,
 ) {
   const triggerClassName = clsx(styles.clearTrigger, normalizeClassName(className));
+  const clearTriggerLabel = useTagsInputContext().getClearTriggerProps()['aria-label'];
 
   if (asChild) {
     return (
@@ -201,8 +203,11 @@ const TagsInputClearTrigger = forwardRef<
       {...props}
     >
       <CloseButton.Root
-        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Clear tags' : undefined)}
+        aria-label={ariaLabel ?? clearTriggerLabel}
         aria-labelledby={ariaLabelledBy}
+        data-part="clear-trigger"
+        data-scope="tags-input"
+        data-slot="tags-input-clear-trigger"
       >
         {children}
       </CloseButton.Root>
@@ -211,7 +216,7 @@ const TagsInputClearTrigger = forwardRef<
 });
 
 function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <TagsInputPrimitive.HiddenInput data-slot="tags-input-hidden-input" />;
+  const hiddenInput = <TagsInputHiddenInput />;
 
   if (!asChild) {
     return (
@@ -229,6 +234,42 @@ function withHiddenInput(children: ReactNode, asChild?: boolean) {
 
 const TagsInputContext = TagsInputPrimitive.Context;
 
+function TagsInputHiddenInput() {
+  const field = useFieldContext();
+  const tagsInput = useTagsInputContext();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const initialValue = useRef(tagsInput.value);
+  const initialInputValue = useRef(tagsInput.inputValue);
+  const { defaultValue: _, ...hiddenInputProps } = tagsInput.getHiddenInputProps();
+
+  useEffect(() => {
+    const form = inputRef.current?.form;
+
+    if (!form) return;
+
+    const handleReset = () => {
+      queueMicrotask(() => {
+        tagsInput.setValue(initialValue.current);
+        tagsInput.setInputValue(initialInputValue.current);
+      });
+    };
+
+    form.addEventListener('reset', handleReset);
+    return () => form.removeEventListener('reset', handleReset);
+  }, [tagsInput]);
+
+  return (
+    <input
+      {...hiddenInputProps}
+      ref={inputRef}
+      value={tagsInput.valueAsString}
+      readOnly
+      aria-describedby={field?.ariaDescribedby}
+      data-slot="tags-input-hidden-input"
+    />
+  );
+}
+
 function TagsInputItems() {
   return (
     <TagsInputContext>
@@ -237,7 +278,7 @@ function TagsInputItems() {
           <TagsInputItem key={`${value}-${index}`} index={index} value={value}>
             <TagsInputItemPreview>
               <TagsInputItemText>{value}</TagsInputItemText>
-              <TagsInputItemDeleteTrigger aria-label={`Remove ${value}`} />
+              <TagsInputItemDeleteTrigger />
             </TagsInputItemPreview>
             <TagsInputItemInput />
           </TagsInputItem>

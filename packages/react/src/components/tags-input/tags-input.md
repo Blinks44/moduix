@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/tags-input
+- Chakra UI: https://chakra-ui.com/docs/components/tags-input
 - Zag API: https://zagjs.com/components/react/tags-input
 
 ## Purpose
@@ -14,6 +15,7 @@ navigation, focus management, validation hooks, hidden form input, and data attr
 ## Upstream model to preserve
 
 - Ark UI: https://ark-ui.com/docs/components/tags-input
+- Chakra UI: https://chakra-ui.com/docs/components/tags-input
 - Zag API: https://zagjs.com/components/react/tags-input
 
 The upstream component is a multipart form control. Values are `string[]`, `inputValue` is the
@@ -32,7 +34,7 @@ parts remain available for custom tags.
 `TagsInput.ItemDeleteTrigger` provides the compact tag-level `CloseIcon` when no children are
 passed. `TagsInput.ClearTrigger` composes the shared `CloseButton.Root` by default through Ark
 `asChild`, including when custom icon children are passed, so clearing all tags has the library
-close affordance without nesting buttons.
+close affordance without nesting buttons while retaining Ark's translations and anatomy attributes.
 Use root props such as `name` and `form` to configure native form participation.
 
 ## Anatomy and exported parts
@@ -77,6 +79,10 @@ Use `RootProvider` plus moduix `useTagsInput` only when state or imperative meth
 share an input/control between `TagsInput` and other Ark primitives such as `Combobox`, and compose
 the shared text field with `Combobox.Input asChild` around `TagsInput.Input`.
 
+Every Ark part supports `asChild` with one semantic child that forwards props and `ref`. When the
+root uses `asChild`, that child must also render its children so moduix can append the automatic
+native form input.
+
 ## Upstream feature coverage
 
 The wrapper exposes upstream controlled and uncontrolled values, controlled input value, max tags,
@@ -112,6 +118,8 @@ Important hooks:
 - item preview/text/delete trigger: `data-disabled`, `data-highlighted`
 - clear trigger: `data-readonly`; default rendering also carries the shared close-button visual
   class while preserving Ark `data-scope="tags-input"` and `data-part="clear-trigger"`
+- read-only entry input: `data-readonly`; moduix hides it so only the immutable tag values remain
+  visible
 
 ## Intentional sugar and differences from upstream
 
@@ -132,6 +140,9 @@ for normal provider and state access.
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-31: Preserved Ark translations and anatomy attributes on default delete and clear actions;
+  synchronized the automatic native form input with value changes and form reset.
+- 2026-07-31: Hid the entry input in the read-only presentation so it does not appear editable.
 - 2026-07-21: Aligned the default one-line control with the compact Input `md` baseline.
 
 - 2026-07-17: Routed custom default clear-trigger children through `CloseButton.Root` so every

@@ -2,11 +2,12 @@ import { Button } from '@moduix/react/button';
 import { Stack } from '@moduix/react/stack';
 import { TagsInput } from '@moduix/react/tags-input';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledInputValueTagsInput() {
   const [inputValue, setInputValue] = useState('');
   return (
-    <Stack gap="var(--moduix-spacing-3)">
+    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
       <TagsInput
         defaultValue={['Solid']}
         inputValue={inputValue}
@@ -19,9 +20,12 @@ export default function ControlledInputValueTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput>
-      <Button type="button" onClick={() => setInputValue('React')}>
-        Set React
-      </Button>
+      <PreviewMeta>
+        <output>Input: {inputValue || 'empty'}</output>
+        <Button type="button" size="sm" onClick={() => setInputValue('React')}>
+          Set React
+        </Button>
+      </PreviewMeta>
     </Stack>
   );
 }
