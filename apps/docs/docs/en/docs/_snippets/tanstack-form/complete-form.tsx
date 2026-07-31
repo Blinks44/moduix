@@ -5,7 +5,9 @@ import { Card } from '@moduix/react/card';
 import { Checkbox } from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import { useForm } from '@tanstack/react-form';
 
 const teams = createListCollection({
@@ -69,7 +71,7 @@ export default function ProjectForm() {
                   Project name
                   <Field.RequiredIndicator />
                 </Field.Label>
-                <Field.Input
+                <Input
                   name={field.name}
                   value={field.state.value}
                   onChange={(event) => field.handleChange(event.currentTarget.value)}
@@ -167,7 +169,7 @@ export default function ProjectForm() {
             {(field) => (
               <Field>
                 <Field.Label>Summary</Field.Label>
-                <Field.Textarea
+                <Textarea
                   name={field.name}
                   value={field.state.value}
                   onChange={(event) => field.handleChange(event.currentTarget.value)}

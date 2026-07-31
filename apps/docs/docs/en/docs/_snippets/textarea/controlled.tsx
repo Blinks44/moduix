@@ -1,13 +1,12 @@
 import { Field } from '@moduix/react/field';
 import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
-import styles from '@/components/examples/textarea.module.css';
 
 export default function TextareaControlledDemo() {
   const [value, setValue] = useState('');
 
   return (
-    <Field className={styles.field}>
+    <Field>
       <Field.Label>Feedback</Field.Label>
       <Textarea
         value={value}

@@ -1,4 +1,5 @@
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { NativeSelect } from '@moduix/react/native-select';
 
 const currencyOptions = [
@@ -30,7 +31,7 @@ export default function ItemFieldDemo() {
           </NativeSelect>
         </Field.Item>
         <Field.Item value="amount">
-          <Field.Input inputMode="decimal" placeholder="0.00" />
+          <Input inputMode="decimal" placeholder="0.00" />
         </Field.Item>
       </div>
       <Field.HelperText>The root label targets the amount input.</Field.HelperText>

@@ -1,35 +1,45 @@
 ---
 title: App header
-description: A copy-owned application header with primary navigation, notifications, and an account menu.
+description: A copy-paste workspace header with calm navigation, notifications, and account actions.
 ---
 
-import { AppHeaderPreview } from '@/components/blocks/app-header-preview';
+import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
 
 # App header
 
-Add a compact application header with navigation, unread notifications, and account actions. The
-menus are fully interactive; replace the example anchors and menu items with your routes and data.
+Add a calm workspace header with a location switcher, compact navigation, unread notifications, and
+account actions. The menus are fully interactive; replace the example anchors and menu items with
+your routes and data.
 
 <ExampleFrame clientOnly>
   <AppHeaderPreview />
 </ExampleFrame>
 
-```tsx file="../../../src/components/blocks/app-header.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/app-header.tsx"
 
 ```
 
-```css file="../../../src/components/blocks/app-header.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/app-header.module.css"
 
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install
 
-<ShadcnInstall packageName="app-header" itemLabel="block" />
-
-The command copies `app-header.tsx` and `app-header.module.css` into your configured components
-directory, and installs `@moduix/react` and `lucide-react` when needed.
+<ShadcnInstall packageName={['avatar', 'badge', 'button', 'menu', 'separator']} itemLabel="recipe" copiedSource dependencies={['lucide-react']} />
 
 ## Use in a route
 
-Keep the header copy-owned: replace the navigation anchors, notification data, and menu actions with
-your routes and application state. The block works independently or above the Sidebar dashboard.
+Keep the header copy-owned: replace the workspace name, navigation anchors, notification data, and
+menu actions with your routes and application state. The recipe works independently or above the
+Sidebar dashboard.

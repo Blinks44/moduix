@@ -1,5 +1,6 @@
 import { Field } from '@moduix/react/field';
 import { Fieldset, useFieldset } from '@moduix/react/fieldset';
+import { Input } from '@moduix/react/input';
 
 export default function ExternalFieldsetState() {
   const fieldset = useFieldset({
@@ -10,7 +11,7 @@ export default function ExternalFieldsetState() {
       <Fieldset.Legend>Contact details</Fieldset.Legend>
       <Field invalid>
         <Field.Label>Email</Field.Label>
-        <Field.Input type="email" defaultValue="invalid-address" />
+        <Input type="email" defaultValue="invalid-address" />
       </Field>
       <Fieldset.ErrorText>Enter a valid email address.</Fieldset.ErrorText>
     </Fieldset.RootProvider>

@@ -5,7 +5,6 @@ import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './sign-up.module.css';
-import '@moduix/react/style.css';
 
 export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (

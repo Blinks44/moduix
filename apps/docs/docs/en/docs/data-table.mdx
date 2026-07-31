@@ -3,7 +3,7 @@ title: Data Table
 description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table.
 ---
 
-import { DataTable } from '@/components/home/data-table';
+import { DataTable } from '@/components/recipes/data-table';
 
 # Data Table
 
@@ -13,7 +13,7 @@ feature owns its records and controls table state when that state drives a route
 Each product has different columns, filters, row actions, and server contracts, so keep that
 behavior close to the feature that needs it.
 
-The copy-owned block below is the same interactive table shown on the home page. It includes
+The copy-ready recipe below is the same interactive table shown on the home page. It includes
 search, sorting, column visibility, row selection, actions, and pagination; replace its example
 records and actions with your product data.
 
@@ -21,20 +21,33 @@ records and actions with your product data.
   <DataTable />
 </ExampleFrame>
 
-```tsx file="../../../src/components/home/data-table.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/data-table.tsx"
 
 ```
 
-```css file="../../../src/components/home/data-table.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/data-table.module.css"
 
 ```
 
-## Install the block
+    </Tab>
+  </Tabs>
+</div>
 
-<ShadcnInstall packageName="data-table" itemLabel="block" />
+## Install
 
-The command copies the JSX and CSS module into your components directory, and installs
-`@tanstack/react-table`, `@moduix/react`, and `lucide-react` when needed.
+<ShadcnInstall
+  packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
+  itemLabel="recipe"
+  copiedSource
+  dependencies={['@tanstack/react-table', 'lucide-react']}
+/>
 
 ## Build the pattern yourself
 

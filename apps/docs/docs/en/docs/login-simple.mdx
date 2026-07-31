@@ -3,7 +3,7 @@ title: Login simple
 description: A copy-owned email and password sign-in form built with moduix React components.
 ---
 
-import { LoginSimplePreview } from '@/components/blocks/login-simple-preview';
+import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
 
 # Login simple
 
@@ -15,20 +15,28 @@ own action or API.
   <LoginSimplePreview />
 </ExampleFrame>
 
-```tsx file="../../../src/components/blocks/login-simple.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/login-simple.tsx"
 
 ```
 
-```css file="../../../src/components/blocks/login-simple.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/login-simple.module.css"
 
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install
 
-<ShadcnInstall packageName="login-simple" itemLabel="block" />
-
-The command copies `login-simple.tsx` and `login-simple.module.css` into your configured
-components directory and installs `@moduix/react` when needed.
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemLabel="recipe" copiedSource />
 
 ## Use in a route
 

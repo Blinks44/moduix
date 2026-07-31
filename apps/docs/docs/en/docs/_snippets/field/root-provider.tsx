@@ -1,4 +1,5 @@
 import { Field, useField } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 
 export default function RootProviderFieldDemo() {
   const field = useField({
@@ -8,7 +9,7 @@ export default function RootProviderFieldDemo() {
   return (
     <Field.RootProvider value={field}>
       <Field.Label>Project key</Field.Label>
-      <Field.Input placeholder="MAPS" />
+      <Input placeholder="MAPS" />
       <Field.HelperText>The field state is created outside the rendered tree.</Field.HelperText>
     </Field.RootProvider>
   );

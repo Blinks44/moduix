@@ -11,7 +11,6 @@ import {
   UsersRound,
 } from 'lucide-react';
 import styles from './mobile-drawer-navigation.module.css';
-import '@moduix/react/style.css';
 
 export function MobileDrawerNavigation() {
   return (

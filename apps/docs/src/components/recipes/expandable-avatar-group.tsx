@@ -1,7 +1,6 @@
 import { Avatar } from '@moduix/react/avatar';
 import { Tooltip } from '@moduix/react/tooltip';
 import styles from './expandable-avatar-group.module.css';
-import '@moduix/react/style.css';
 
 const members = [
   {

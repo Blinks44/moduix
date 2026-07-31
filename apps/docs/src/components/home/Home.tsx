@@ -7,8 +7,8 @@ import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { DataTable } from '@/components/home/data-table';
 import { FrameworkSupport } from '@/components/home/framework-support';
+import { DataTable } from '@/components/recipes/data-table';
 import styles from './Home.module.css';
 
 const workspaceOptions = [

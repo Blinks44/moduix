@@ -5,7 +5,9 @@ import { Card } from '@moduix/react/card';
 import { Checkbox } from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import { Controller, useForm } from 'react-hook-form';
 
 const teams = createListCollection({
@@ -66,7 +68,7 @@ export default function ProjectForm() {
               Project name
               <Field.RequiredIndicator />
             </Field.Label>
-            <Field.Input
+            <Input
               {...register('name', {
                 required: 'Enter a project name.',
               })}
@@ -159,7 +161,7 @@ export default function ProjectForm() {
 
           <Field>
             <Field.Label>Summary</Field.Label>
-            <Field.Textarea
+            <Textarea
               {...register('summary')}
               placeholder="What are you planning to build?"
               rows={3}

@@ -36,12 +36,12 @@
   },
   {
     "type": "section-header",
-    "label": "Blocks"
+    "label": "Recipes"
   },
   {
     "type": "file",
-    "name": "blocks",
-    "tag": "blocks"
+    "name": "recipes",
+    "tag": "sparkles"
   },
   {
     "type": "file",
@@ -92,15 +92,6 @@
     "type": "file",
     "name": "verification-code",
     "tag": "badge-check"
-  },
-  {
-    "type": "section-header",
-    "label": "Recipes"
-  },
-  {
-    "type": "file",
-    "name": "recipes",
-    "tag": "sparkles"
   },
   {
     "type": "file",

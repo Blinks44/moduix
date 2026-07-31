@@ -3,7 +3,7 @@ title: Sidebar dashboard
 description: A copy-owned desktop dashboard shell with collapsible and resizable moduix navigation.
 ---
 
-import { SidebarDashboardPreview } from '@/components/blocks/sidebar-dashboard-preview';
+import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 
 # Sidebar dashboard
 
@@ -15,23 +15,31 @@ demonstrates nested navigation, and the footer includes a workspace menu.
   <SidebarDashboardPreview />
 </ExampleFrame>
 
-```tsx file="../../../src/components/blocks/sidebar-dashboard.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
 
 ```
 
-```css file="../../../src/components/blocks/sidebar-dashboard.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/sidebar-dashboard.module.css"
 
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install
 
-<ShadcnInstall packageName="sidebar-dashboard" itemLabel="block" />
-
-The command copies `sidebar-dashboard.tsx` and `sidebar-dashboard.module.css` into your configured
-components directory, and installs `@moduix/react` and `lucide-react` when needed.
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemLabel="recipe" copiedSource dependencies={['lucide-react']} />
 
 ## Use in a route
 
-Replace the example anchors, labels, and dashboard content with your routes and data. This block is
-desktop-first: account menus, notifications, and mobile drawer navigation remain separate blocks so
+Replace the example anchors, labels, and dashboard content with your routes and data. This recipe is
+desktop-first: account menus, notifications, and mobile drawer navigation remain separate recipes so
 you can compose them only when your application needs them.

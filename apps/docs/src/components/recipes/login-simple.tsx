@@ -5,7 +5,6 @@ import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './login-simple.module.css';
-import '@moduix/react/style.css';
 
 export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (

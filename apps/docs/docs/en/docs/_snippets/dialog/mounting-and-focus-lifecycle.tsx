@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Dialog } from '@moduix/react/dialog';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { useRef } from 'react';
 
 export default function DialogLifecycleDemo() {
@@ -25,7 +26,7 @@ export default function DialogLifecycleDemo() {
             <Dialog.Body>
               <Field>
                 <Field.Label>Name</Field.Label>
-                <Field.Input ref={inputRef} />
+                <Input ref={inputRef} />
               </Field>
             </Dialog.Body>
             <Dialog.CloseIcon />

@@ -1,4 +1,5 @@
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 
 export default function FieldDemo() {
   return (
@@ -7,7 +8,7 @@ export default function FieldDemo() {
         Name
         <Field.RequiredIndicator />
       </Field.Label>
-      <Field.Input placeholder="Enter your name" />
+      <Input placeholder="Enter your name" />
       <Field.HelperText>Visible on your public profile.</Field.HelperText>
     </Field>
   );

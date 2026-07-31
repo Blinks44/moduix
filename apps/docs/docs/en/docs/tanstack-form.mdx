@@ -17,7 +17,7 @@ npm install @tanstack/react-form
 
 | Control                                         | TanStack Form wiring                                                      |
 | ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `Field.Input`, `Field.Textarea`, `Field.Select` | Pass `field.state.value` and map the native change event.                 |
+| `Input`, `Textarea`, `Field.Select`              | Pass `field.state.value` and map the native change event.                 |
 | `Select`                                        | Convert the scalar field value to and from Ark's string-array `value`.    |
 | `Combobox`                                      | Use the same value mapping and keep filtering in `onInputValueChange`.    |
 | `Checkbox`                                      | Map `details.checked === true` to the boolean field value.                |
@@ -96,7 +96,7 @@ const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
           {(field) => (
             <Field invalid={!field.state.meta.isValid}>
               <Field.Label>Email {index + 1}</Field.Label>
-              <Field.Input
+              <Input
                 name={field.name}
                 type="email"
                 value={field.state.value}

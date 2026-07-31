@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { Field } from '@moduix/react/field';
 import { Fieldset } from '@moduix/react/fieldset';
+import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
 
 const countryCodes = createListCollection({
@@ -54,7 +55,7 @@ export default function PhoneInput() {
         </Select>
         <Field>
           <Field.Label>Phone</Field.Label>
-          <Field.Input type="tel" aria-label="Phone number" />
+          <Input type="tel" aria-label="Phone number" />
         </Field>
       </div>
       <Fieldset.HelperText>Include the area code.</Fieldset.HelperText>

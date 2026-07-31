@@ -3,31 +3,25 @@ import { Card } from '@moduix/react/card';
 import { Field } from '@moduix/react/field';
 import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
-import styles from './reset-password.module.css';
-import '@moduix/react/style.css';
+import styles from './forgot-password.module.css';
 
-export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
+export function ForgotPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   return (
     <Card className={styles.root}>
       <Card.Header className={styles.header}>
-        <Card.Title>Create a new password</Card.Title>
-        <Card.Description>Choose a strong password you don&apos;t use elsewhere.</Card.Description>
+        <Card.Title>Reset your password</Card.Title>
+        <Card.Description>Enter your email and we&apos;ll send you a reset link.</Card.Description>
       </Card.Header>
 
       <Card.Body>
         <form className={styles.form} onSubmit={onSubmit}>
           <Field.Root required>
-            <Field.Label>New password</Field.Label>
-            <Input name="password" type="password" autoComplete="new-password" />
-          </Field.Root>
-
-          <Field.Root required>
-            <Field.Label>Confirm new password</Field.Label>
-            <Input name="confirm-password" type="password" autoComplete="new-password" />
+            <Field.Label>Email address</Field.Label>
+            <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
           </Field.Root>
 
           <Button type="submit" className={styles.submit}>
-            Reset password
+            Send reset link
           </Button>
         </form>
       </Card.Body>

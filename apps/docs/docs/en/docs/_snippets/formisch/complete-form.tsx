@@ -6,7 +6,9 @@ import { Card } from '@moduix/react/card';
 import { Checkbox } from '@moduix/react/checkbox';
 import { Combobox } from '@moduix/react/combobox';
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
 
 const teams = createListCollection({
@@ -64,7 +66,7 @@ export default function ProjectForm() {
                   Project name
                   <Field.RequiredIndicator />
                 </Field.Label>
-                <Field.Input {...field.props} value={field.input} />
+                <Input {...field.props} value={field.input} />
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>
             )}
@@ -146,7 +148,7 @@ export default function ProjectForm() {
             {(field) => (
               <Field>
                 <Field.Label>Summary</Field.Label>
-                <Field.Textarea
+                <Textarea
                   {...field.props}
                   value={field.input}
                   placeholder="What are you planning to build?"

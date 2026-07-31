@@ -1,4 +1,5 @@
 import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { useState } from 'react';
 
 export default function ControlledInvalidFieldDemo() {
@@ -7,7 +8,7 @@ export default function ControlledInvalidFieldDemo() {
   return (
     <Field invalid={invalid}>
       <Field.Label>Username</Field.Label>
-      <Field.Input
+      <Input
         value={value}
         onChange={(event) => setValue(event.currentTarget.value)}
         placeholder="e.g. vinny"

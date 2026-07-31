@@ -1,6 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Dialog, useDialog } from '@moduix/react/dialog';
 import { Field } from '@moduix/react/field';
+import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 
 export default function ConfirmationDialogDemo() {
@@ -38,7 +39,7 @@ export default function ConfirmationDialogDemo() {
             <Dialog.Body>
               <Field>
                 <Field.Label>Content</Field.Label>
-                <Field.Textarea
+                <Textarea
                   value={formContent}
                   onChange={(event) => setFormContent(event.currentTarget.value)}
                   placeholder="Enter some text..."

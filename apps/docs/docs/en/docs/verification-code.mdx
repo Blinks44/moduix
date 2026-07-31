@@ -3,7 +3,7 @@ title: Verification code
 description: A copy-owned six-digit email verification form built with moduix React components.
 ---
 
-import { VerificationCodePreview } from '@/components/blocks/verification-code-preview';
+import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
 
 # Verification code
 
@@ -14,20 +14,28 @@ keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the 
   <VerificationCodePreview />
 </ExampleFrame>
 
-```tsx file="../../../src/components/blocks/verification-code.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/verification-code.tsx"
 
 ```
 
-```css file="../../../src/components/blocks/verification-code.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/verification-code.module.css"
 
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install
 
-<ShadcnInstall packageName="verification-code" itemLabel="block" />
-
-The command copies `verification-code.tsx` and `verification-code.module.css` into your configured
-components directory and installs `@moduix/react` when needed.
+<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemLabel="recipe" copiedSource />
 
 ## Use in a route
 
@@ -37,4 +45,4 @@ and verify the `code` value with your server. Replace the default `/sign-in` lin
 application route.
 
 The preview intentionally has no verification server. After six digits it runs its empty submit
-handler; the installed block runs the handler you provide instead.
+handler; the copied recipe runs the handler you provide instead.

@@ -17,7 +17,7 @@ npm install @formisch/react valibot
 
 | Control                                         | Formisch wiring                                                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `field.props`, then pass `value={field.input}` to keep the field controlled. |
+| `Input`, `Textarea`, `Field.Select`              | Spread `field.props`, then pass `value={field.input}` to keep the field controlled. |
 | `Select`, `Combobox`                            | Read `field.input` and map the component detail back through `field.onChange`.      |
 | `Checkbox`                                      | Map `details.checked === true` through `field.onChange`.                            |
 | Automatic native controls                       | Keep state on the component root; do not add another hidden input.                  |
@@ -42,7 +42,7 @@ of only resetting the native DOM form, so its controlled field state resets too.
 ## Complete form
 
 This form uses Formisch validation on submit and revalidates edited values on input. Native
-`Field.Input` and `Field.Textarea` receive Formisch props directly; `Select`, `Combobox`, and
+`Input` and `Textarea` receive Formisch props directly; `Select`, `Combobox`, and
 `Checkbox` map their Ark callback details to the Formisch field state.
 
 <style>{`
@@ -106,7 +106,7 @@ const form = useForm({
           {(field) => (
             <Field invalid={field.errors !== null}>
               <Field.Label>Email {index + 1}</Field.Label>
-              <Field.Input type="email" {...field.props} value={field.input} />
+              <Input type="email" {...field.props} value={field.input} />
               <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               <Button type="button" onClick={() => remove(form, { path: ['emails'], at: index })}>
                 Remove email
@@ -165,9 +165,8 @@ import { Form, setErrors } from '@formisch/react';
 
 ## Behavioral notes
 
-- `field.props` is for native input events and attributes. Spread it onto `Field.Input` or
-  `Field.Textarea`, then provide `value={field.input}` so the rendered control reflects Formisch
-  state.
+- `field.props` is for native input events and attributes. Spread it onto `Input` or `Textarea`,
+  then provide `value={field.input}` so the rendered control reflects Formisch state.
 - Ark compound controls use detail callbacks rather than native change events. Read
   `field.input`, then convert the detail to the field value with `field.onChange`, as the
   `Select`, `Combobox`, and `Checkbox` fields do in the example.

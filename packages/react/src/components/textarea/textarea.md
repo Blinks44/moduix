@@ -62,7 +62,9 @@ export function CommentField() {
 }
 ```
 
-Use `Field.Root` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
+Use `Field.Root` / `Field` for accessible labels, descriptions, required state, invalid state, and read-only/disabled inheritance. Prefer `Textarea` rather than `Field.Textarea` so ordinary multiline controls share the standalone styling contract. `Field.Textarea` remains available as a lower-level Ark-shaped escape hatch.
+
+Use native textarea props such as `rows`, `maxLength`, `resize` styling, `value`, `defaultValue`, and `onChange` for browser behavior.
 
 Use `Editable` when the UI should render preview text first and switch into a multiline editing
 surface with edit, submit, and cancel controls.
@@ -84,6 +86,7 @@ surface with edit, submit, and cancel controls.
 - Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from `Field` context.
 - No `HiddenInput` is needed because native `<textarea>` already participates in form submission and form reset.
 - `asChild` is inherited from Ark polymorphic props; if used, the child must be a single semantic textarea-compatible element.
+- Ark sets inline `resize: none` while `autoresize` is enabled; `--moduix-textarea-resize` controls only non-autoresizing textareas.
 
 ## Defaults and styling
 
@@ -128,6 +131,7 @@ Public CSS variables from `variables-moduix.css`:
 ## Local changelog
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-31: Clarified `Textarea` as the recommended multiline control, documented the lower-level `Field.Textarea` escape hatch, and recorded Ark's autoresize resize constraint.
 - 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs
   snippet and example ordering with the public component page.
 - 2026-06-27: Protected Ark/moduix data hooks from rest-prop overrides, aligned the validation example with Ark `Field invalid`, and refreshed docs wording for the no-dedicated-primitive contract.

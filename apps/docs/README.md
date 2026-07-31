@@ -23,7 +23,7 @@ apps/docs/
   docs/en/              # English MDX pages, navigation metadata, and snippets
   docs/public/          # Static and hosted registry assets shared by locales
   i18n.json             # Locale-aware UI strings
-  src/components/       # Home, examples, blocks, and focused MDX support components
+  src/components/       # Home, examples, recipes, and focused MDX support components
   theme/                # Rspress theme wrapper and moduix visual tokens
   rspress.config.ts     # Rspress and official plugin configuration
   wrangler.jsonc        # Cloudflare Workers Static Assets deployment

@@ -17,7 +17,7 @@ npm install react-hook-form
 
 | Control                                         | React Hook Form wiring                                                    |
 | ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `register(name, rules)` onto the native control.                   |
+| `Input`, `Textarea`, `Field.Select`              | Spread `register(name, rules)` onto the native control.                   |
 | `Select`                                        | Use `Controller`; map a scalar string to Ark's string-array `value`.      |
 | `Combobox`                                      | Use `Controller`; map `value` and keep filtering in `onInputValueChange`. |
 | `Checkbox`                                      | Use `Controller`; map `details.checked === true` to a boolean.            |
@@ -102,7 +102,7 @@ const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
   fields.map((item, index) => (
     <Field key={item.id}>
       <Field.Label>Email {index + 1}</Field.Label>
-      <Field.Input type="email" {...register(`emails.${index}.address` as const)} />
+      <Input type="email" {...register(`emails.${index}.address` as const)} />
       <Button type="button" onClick={() => remove(index)}>
         Remove email
       </Button>

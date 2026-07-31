@@ -1,7 +1,6 @@
 import { Tag as OriginalTag } from '@rspress/core/theme-original';
 import {
   BadgeCheck,
-  Blocks,
   BookOpen,
   Bot,
   Braces,
@@ -40,7 +39,6 @@ import {
 
 const icons: Record<string, LucideIcon> = {
   'badge-check': BadgeCheck,
-  blocks: Blocks,
   'book-open': BookOpen,
   bot: Bot,
   braces: Braces,

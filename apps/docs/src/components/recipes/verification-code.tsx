@@ -5,7 +5,6 @@ import { PinInput } from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import styles from './verification-code.module.css';
-import '@moduix/react/style.css';
 
 export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormElement> }) {
   const [invalid, setInvalid] = useState(false);

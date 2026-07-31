@@ -21,7 +21,7 @@ Use `Field` when one control needs a visible label, helper text, error text, or 
 
 ## Basic
 
-Start with Ark parts: `Field`, `Field.Label`, one control part, and optional helper or error text.
+Start with `Field`, `Field.Label`, one moduix control, and optional helper or error text.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/basic.tsx"
@@ -52,8 +52,8 @@ Field
 | `Field.RootProvider`      | Root powered by a `useField()` instance owned outside the tree. |
 | `Field.Context`           | Renderless access to the current field state.                   |
 | `Field.Label`             | Label linked to the current control id.                         |
-| `Field.Input`             | Native input wired with field ARIA and state props.             |
-| `Field.Textarea`          | Native textarea; supports Ark `autoresize`.                     |
+| `Field.Input`             | Low-level Ark-shaped native input escape hatch. Prefer `Input`. |
+| `Field.Textarea`          | Low-level Ark-shaped textarea escape hatch. Prefer `Textarea`.  |
 | `Field.Select`            | Native select wired with field ARIA and state props.            |
 | `Field.HelperText`        | Helper text included in `aria-describedby`.                     |
 | `Field.ErrorText`         | Error text rendered only when `Field` is `invalid`.             |
@@ -64,14 +64,16 @@ Field
 
 ### Recommended composition
 
-Keep one visible label in the root, render exactly one primary control for the field, and add helper
-or error text when the control needs description or validation feedback.
+Keep one visible label in the root, render exactly one primary moduix control such as `Input`,
+`Textarea`, or `NativeSelect`, and add helper or error text when it needs description or validation
+feedback.
 
 ### When to go custom
 
 Use `Field.Item value` with root `target` when a field contains multiple native controls and the
-label should point to one of them. Use `asChild` when one semantic input element must own the
-rendered node.
+label should point to one of them. `Field.Input`, `Field.Textarea`, and `Field.Select` remain
+available for advanced Ark-shaped composition, but ordinary application code should use their
+dedicated moduix controls.
 
 ### Default props
 
@@ -170,26 +172,6 @@ Use the composed `Select` when the native control is not enough and you need sea
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/field/select.tsx"
-  ```
-
-</PreviewFrame>
-
-### Textarea
-
-Use `Field.Textarea` when the field owns a multiline native textarea.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/textarea.tsx"
-  ```
-
-</PreviewFrame>
-
-### Textarea Autoresize
-
-Pass `autoresize` to let Ark keep the textarea height in sync with its content.
-
-<PreviewFrame contentWidth="fit-content" maxWidth="sm">
-  ```tsx preview file="./_snippets/field/textarea-autoresize.tsx"
   ```
 
 </PreviewFrame>

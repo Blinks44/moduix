@@ -3,7 +3,7 @@ title: Mobile drawer navigation
 description: A copy-owned mobile navigation shell with a side drawer and responsive workspace content.
 ---
 
-import { MobileDrawerNavigationPreview } from '@/components/blocks/mobile-drawer-navigation-preview';
+import { MobileDrawerNavigationPreview } from '@/components/recipes/mobile-drawer-navigation-preview';
 
 # Mobile drawer navigation
 
@@ -15,20 +15,28 @@ behavior accessible.
   <MobileDrawerNavigationPreview />
 </ExampleFrame>
 
-```tsx file="../../../src/components/blocks/mobile-drawer-navigation.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/mobile-drawer-navigation.tsx"
 
 ```
 
-```css file="../../../src/components/blocks/mobile-drawer-navigation.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/mobile-drawer-navigation.module.css"
 
 ```
+
+    </Tab>
+  </Tabs>
+</div>
 
 ## Install
 
-<ShadcnInstall packageName="mobile-drawer-navigation" itemLabel="block" />
-
-The command copies the JSX and CSS module into your components directory, and installs
-`@moduix/react` and `lucide-react` when needed.
+<ShadcnInstall packageName={['button', 'drawer']} itemLabel="recipe" copiedSource dependencies={['lucide-react']} />
 
 ## Use in a route
 

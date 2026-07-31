@@ -28,7 +28,6 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import styles from './data-table.module.css';
-import '@moduix/react/style.css';
 
 type ComponentRow = {
   category: string;
