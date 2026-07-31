@@ -7,28 +7,39 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Swap.module.css';
 
-const SwapRoot = forwardRef<
-  ComponentRef<typeof SwapPrimitive.Root>,
-  ComponentProps<typeof SwapPrimitive.Root>
->(function SwapRoot({ className, ...props }, ref) {
-  return (
-    <SwapPrimitive.Root
-      ref={ref}
-      data-slot="swap-root"
-      className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+type SwapAnimation = 'fade' | 'scale' | 'rotate' | 'flip' | (string & {});
+
+type SwapRootProps = ComponentProps<typeof SwapPrimitive.Root> & {
+  animation?: SwapAnimation;
+};
+
+type SwapRootProviderProps = ComponentProps<typeof SwapPrimitive.RootProvider> & {
+  animation?: SwapAnimation;
+};
+
+const SwapRoot = forwardRef<ComponentRef<typeof SwapPrimitive.Root>, SwapRootProps>(
+  function SwapRoot({ animation = 'scale', className, ...props }, ref) {
+    return (
+      <SwapPrimitive.Root
+        ref={ref}
+        data-slot="swap-root"
+        data-animation={animation}
+        className={clsx(styles.root, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const SwapRootProvider = forwardRef<
   ComponentRef<typeof SwapPrimitive.RootProvider>,
-  ComponentProps<typeof SwapPrimitive.RootProvider>
->(function SwapRootProvider({ className, ...props }, ref) {
+  SwapRootProviderProps
+>(function SwapRootProvider({ animation = 'scale', className, ...props }, ref) {
   return (
     <SwapPrimitive.RootProvider
       ref={ref}
       data-slot="swap-root-provider"
+      data-animation={animation}
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}
     />
@@ -56,4 +67,4 @@ const Swap = Object.assign(SwapRoot, {
   useSwap,
 });
 
-export { Swap, useSwap, useSwapContext };
+export { Swap, useSwap, useSwapContext, type SwapAnimation };

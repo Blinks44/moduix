@@ -56,72 +56,15 @@
   gap: var(--moduix-button-content-gap, var(--moduix-spacing-2));
 }
 
-.rotateSwap {
-  & [data-slot='swap-indicator'] {
-    backface-visibility: hidden;
-  }
-
-  & [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-rotate-in var(--moduix-swap-transition, var(--moduix-transition-default));
-  }
-
-  & [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-rotate-out var(--moduix-swap-transition, var(--moduix-transition-default));
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    & [data-slot='swap-indicator'][data-state] {
-      animation-duration: 1ms;
-    }
-  }
+.animationPresets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--moduix-spacing-2);
 }
 
-.flipSwap {
-  perspective: 24rem;
-
-  & [data-slot='swap-indicator'] {
-    backface-visibility: hidden;
-  }
-
-  & [data-slot='swap-indicator'][data-state='open'] {
-    animation: swap-flip-in var(--moduix-swap-transition, var(--moduix-transition-default));
-  }
-
-  & [data-slot='swap-indicator'][data-state='closed'] {
-    animation: swap-flip-out var(--moduix-swap-transition, var(--moduix-transition-default));
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    & [data-slot='swap-indicator'][data-state] {
-      animation-duration: 1ms;
-    }
-  }
-}
-
-@keyframes swap-rotate-in {
-  from {
-    opacity: 0;
-    transform: rotate(-180deg);
-  }
-}
-
-@keyframes swap-rotate-out {
-  to {
-    opacity: 0;
-    transform: rotate(180deg);
-  }
-}
-
-@keyframes swap-flip-in {
-  from {
-    opacity: 0;
-    transform: rotateY(-180deg);
-  }
-}
-
-@keyframes swap-flip-out {
-  to {
-    opacity: 0;
-    transform: rotateY(180deg);
-  }
+.provider {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-3);
 }

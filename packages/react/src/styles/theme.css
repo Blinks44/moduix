@@ -2756,10 +2756,10 @@
 
   /* Swap */
   --moduix-swap-enter-starting-opacity: initial; /* 0 */
-  --moduix-swap-enter-starting-scale: initial; /* 0.92 */
+  --moduix-swap-enter-starting-scale: initial; /* 0.5 */
   --moduix-swap-exit-ending-opacity: initial; /* 0 */
-  --moduix-swap-exit-ending-scale: initial; /* 0.92 */
-  --moduix-swap-transition: initial; /* var(--moduix-transition-default) */
+  --moduix-swap-exit-ending-scale: initial; /* 0.5 */
+  --moduix-swap-transition: initial; /* var(--moduix-transition-slow) */
 
   /* Tag */
   --moduix-tag-bg: initial; /* var(--moduix-color-primary) */

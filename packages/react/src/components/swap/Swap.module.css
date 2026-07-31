@@ -4,6 +4,10 @@
     grid-template-areas: 'swap';
     place-items: center;
     vertical-align: middle;
+
+    &[data-animation='flip'] {
+      perspective: 24rem;
+    }
   }
 
   .indicator {
@@ -13,12 +17,40 @@
     justify-content: center;
     color: inherit;
 
-    &[data-state='open'] {
-      animation: swap-enter var(--moduix-swap-transition, var(--moduix-transition-default));
+    .root[data-animation='fade'] &[data-state='open'] {
+      animation: swap-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
     }
 
-    &[data-state='closed'] {
-      animation: swap-exit var(--moduix-swap-transition, var(--moduix-transition-default));
+    .root[data-animation='fade'] &[data-state='closed'] {
+      animation: swap-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='scale'] &[data-state='open'] {
+      animation: swap-scale-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='scale'] &[data-state='closed'] {
+      animation: swap-scale-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='rotate'] &[data-state='open'] {
+      animation: swap-rotate-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='rotate'] &[data-state='closed'] {
+      animation: swap-rotate-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='flip'] & {
+      backface-visibility: hidden;
+    }
+
+    .root[data-animation='flip'] &[data-state='open'] {
+      animation: swap-flip-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
+    }
+
+    .root[data-animation='flip'] &[data-state='closed'] {
+      animation: swap-flip-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
     }
   }
 
@@ -32,14 +64,54 @@
   @keyframes swap-enter {
     from {
       opacity: var(--moduix-swap-enter-starting-opacity, 0);
-      transform: scale(var(--moduix-swap-enter-starting-scale, 0.92));
     }
   }
 
   @keyframes swap-exit {
     to {
       opacity: var(--moduix-swap-exit-ending-opacity, 0);
-      transform: scale(var(--moduix-swap-exit-ending-scale, 0.92));
+    }
+  }
+
+  @keyframes swap-scale-enter {
+    from {
+      opacity: var(--moduix-swap-enter-starting-opacity, 0);
+      transform: scale(var(--moduix-swap-enter-starting-scale, 0.5));
+    }
+  }
+
+  @keyframes swap-scale-exit {
+    to {
+      opacity: var(--moduix-swap-exit-ending-opacity, 0);
+      transform: scale(var(--moduix-swap-exit-ending-scale, 0.5));
+    }
+  }
+
+  @keyframes swap-rotate-enter {
+    from {
+      opacity: var(--moduix-swap-enter-starting-opacity, 0);
+      transform: rotate(-180deg);
+    }
+  }
+
+  @keyframes swap-rotate-exit {
+    to {
+      opacity: var(--moduix-swap-exit-ending-opacity, 0);
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes swap-flip-enter {
+    from {
+      opacity: var(--moduix-swap-enter-starting-opacity, 0);
+      transform: rotateY(-180deg);
+    }
+  }
+
+  @keyframes swap-flip-exit {
+    to {
+      opacity: var(--moduix-swap-exit-ending-opacity, 0);
+      transform: rotateY(180deg);
     }
   }
 }
