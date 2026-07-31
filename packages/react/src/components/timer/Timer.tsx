@@ -105,15 +105,21 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
+type TimerSegmentsProps = {
+  className?: string;
+  separator?: ReactNode;
+  types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
+};
+
+const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies ComponentProps<
+  typeof TimerPrimitive.Item
+>['type'][];
+
 function TimerSegments({
   className,
   separator = ':',
-  types,
-}: {
-  className?: string;
-  separator?: ReactNode;
-  types: ComponentProps<typeof TimerPrimitive.Item>['type'][];
-}) {
+  types = defaultTimerSegmentTypes,
+}: TimerSegmentsProps) {
   return (
     <TimerArea className={className}>
       {types.map((type, index) => (
@@ -138,4 +144,4 @@ const Timer = Object.assign(TimerRoot, {
   Segments: TimerSegments,
 });
 
-export { Timer, useTimer, useTimerContext };
+export { Timer, type TimerSegmentsProps, useTimer, useTimerContext };

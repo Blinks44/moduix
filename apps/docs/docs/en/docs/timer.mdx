@@ -12,14 +12,17 @@ import * as TimerDocs from '@/components/examples/timer';
 
 ## Basic
 
-`Timer.Segments` is the shortest path for a conventional colon-separated display. Use the explicit
-Ark-style parts when unit labels, custom separators, or per-item styling are needed.
+`Timer.Segments` is the shortest path for a conventional colon-separated display. It defaults to
+hours, minutes, and seconds; pass `types` for another set. Use the explicit Ark-style parts when
+unit labels, custom separators, or per-item styling are needed.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -57,8 +60,9 @@ Timer.Segments
 
 ### Recommended composition
 
-`Timer` is the short root form. It is equivalent to `Timer.Root`; use `Timer.Segments` for a
-conventional display without manually repeating items and separators.
+`Timer` is the short root form. It is equivalent to `Timer.Root`; use `Timer.Segments` for the
+default hours, minutes, and seconds display without manually repeating items and separators.
+Pass `types` when another unit set is needed.
 
 Use `targetMs` for a stopwatch that stops at a target time. Use `startMs` when the initial elapsed
 or remaining time should not be zero. Use `countdown` with `startMs` for a countdown timer.
@@ -99,8 +103,9 @@ children semantic, especially for `Timer.ActionTrigger`.
 
 `Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
 `Timer.Segments` is limited to standard items and separators; unit labels remain explicit
-composition around `Timer.Item`. moduix adds centered root layout, stable `data-slot` hooks, SVG
-icon sizing inside action triggers, and CSS defaults without changing the Ark timer machine.
+composition around `Timer.Item`. moduix adds centered root layout, a responsive wrapping time area,
+stable `data-slot` hooks, SVG icon sizing inside action triggers, and CSS defaults without changing
+the Ark timer machine.
 
 ## Examples
 
@@ -110,9 +115,11 @@ Set `countdown` and `startMs` when the display should decrement toward zero.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/countdown.tsx"
 
 ```
+</PreviewFrame>
 
 ### Events
 
@@ -120,9 +127,11 @@ Use `onTick` and `onComplete` for side effects that should follow the Ark timer 
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/events.tsx"
 
 ```
+</PreviewFrame>
 
 ### Interval
 
@@ -130,9 +139,11 @@ Use `interval` with a `milliseconds` item when the UI needs sub-second updates.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/interval.tsx"
 
 ```
+</PreviewFrame>
 
 ### Pomodoro
 
@@ -140,9 +151,11 @@ Switch between work and break durations from `onComplete` when a timer cycle sho
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/pomodoro.tsx"
 
 ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -151,9 +164,11 @@ tree. This is also the path for unit labels and other custom item composition.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/timer/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

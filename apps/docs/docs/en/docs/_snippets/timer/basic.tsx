@@ -4,7 +4,7 @@ import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from
 export default function TimerDemo() {
   return (
     <Timer targetMs={60 * 60 * 1000} startMs={40 * 60 * 1000}>
-      <Timer.Segments types={['days', 'hours', 'minutes', 'seconds']} />
+      <Timer.Segments />
       <Timer.Control>
         <Timer.ActionTrigger action="start">
           <PlayIcon /> Start

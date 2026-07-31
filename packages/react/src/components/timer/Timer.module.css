@@ -5,12 +5,17 @@
     place-items: center;
     gap: var(--moduix-timer-gap, var(--moduix-spacing-3));
     width: var(--moduix-timer-width, max-content);
+    max-inline-size: 100%;
     color: var(--moduix-timer-color, var(--moduix-color-foreground));
   }
 
   .area {
     display: inline-flex;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    flex-wrap: wrap;
     align-items: baseline;
+    justify-content: center;
     gap: var(--moduix-timer-area-gap, var(--moduix-spacing-1));
     font-size: var(--moduix-timer-area-font-size, var(--moduix-text-2xl));
     font-weight: var(--moduix-timer-area-font-weight, var(--moduix-weight-semibold));
