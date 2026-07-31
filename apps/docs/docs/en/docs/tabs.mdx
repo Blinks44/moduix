@@ -20,14 +20,13 @@ Use `Tabs` when users switch between mutually exclusive views that share one pag
 
 ## Basic
 
-Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and
-`Tabs.Content`. The short `<Tabs>` form is the same root component.
+Use the short root form with `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and `Tabs.Content`.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/basic.tsx"
 
-```tsx preview file="./_snippets/tabs/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -36,7 +35,7 @@ Use Ark-style parts: `Tabs.Root`, `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`,
 ## Anatomy
 
 ```text
-Tabs.Root
+Tabs
 ├─ Tabs.List
 │  ├─ Tabs.Trigger[value]
 │  ├─ Tabs.Trigger[value]
@@ -45,12 +44,16 @@ Tabs.Root
 
 Tabs.RootProvider
 └─ same part tree connected to a useTabs() store
+
+Tabs.Context
+└─ advanced render-prop access to the current tab state
 ```
 
 | Part                 | Role                                                            |
 | -------------------- | --------------------------------------------------------------- |
-| `Tabs` / `Tabs.Root` | Controls selected value, focus movement, orientation, and mode. |
+| `Tabs`               | Controls selected value, focus movement, orientation, and mode. |
 | `Tabs.RootProvider`  | Connects parts to state created with moduix `useTabs()`.        |
+| `Tabs.Context`       | Advanced render-prop access to the current tab state.           |
 | `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
 | `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
 | `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
@@ -60,7 +63,7 @@ Tabs.RootProvider
 
 ### Recommended composition
 
-`Tabs.Root` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
+`Tabs` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
 `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
 `orientation`, `loopFocus`, `deselectable`, `lazyMount`, `unmountOnExit`, `ids`, and `navigate`.
 
@@ -73,18 +76,19 @@ Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router co
 must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
 
 Use moduix `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
-tree. Do not render `Tabs.Root` around the same state instance.
+tree. Do not render `Tabs` around the same state instance. Use `Tabs.Context` or
+`useTabsContext()` when surrounding UI needs to read the current tab state.
 
 ### Default props
 
 | Prop                       | Default      | Notes                                                        |
 | -------------------------- | ------------ | ------------------------------------------------------------ |
 | `Tabs.variant`             | `default`    | moduix visual sugar: `default` or `line`.                    |
-| `Tabs.Root.activationMode` | `automatic`  | Focus selects automatically unless set to `manual`.          |
-| `Tabs.Root.orientation`    | `horizontal` | `horizontal` uses arrow left/right; `vertical` uses up/down. |
-| `Tabs.Root.loopFocus`      | `true`       | Roving focus wraps around the trigger list.                  |
-| `Tabs.Root.lazyMount`      | `false`      | Defers content mounting until selected.                      |
-| `Tabs.Root.unmountOnExit`  | `false`      | Removes inactive content when combined with lazy paths.      |
+| `Tabs.activationMode`      | `automatic`  | Focus selects automatically unless set to `manual`.          |
+| `Tabs.orientation`         | `horizontal` | `horizontal` uses arrow left/right; `vertical` uses up/down. |
+| `Tabs.loopFocus`           | `true`       | Roving focus wraps around the trigger list.                  |
+| `Tabs.lazyMount`           | `false`      | Defers content mounting until selected.                      |
+| `Tabs.unmountOnExit`       | `false`      | Removes inactive content when combined with lazy paths.      |
 
 ### Behavioral notes
 
@@ -99,93 +103,84 @@ tree. Do not render `Tabs.Root` around the same state instance.
 
 Control the selected tab from React state when the active panel coordinates with other UI.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/controlled-value.tsx"
 
-```tsx preview file="./_snippets/tabs/controlled-value.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Custom Icons
 
 Compose icons and labels directly inside `Tabs.Trigger`.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/custom-icons.tsx"
 
-```tsx preview file="./_snippets/tabs/custom-icons.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Disabled Tab
 
 Disable triggers that are visible but not available yet.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/disabled-tab.tsx"
 
-```tsx preview file="./_snippets/tabs/disabled-tab.tsx"
-
-```
-
-### Indicator
-
-Add `Tabs.Indicator` inside `Tabs.List` when you want an animated active-trigger highlight.
-
-<style>{TabsDocs.tabsExampleCss}</style>
-
-```tsx preview file="./_snippets/tabs/indicator.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Lazy Mount
 
 Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the DOM.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/lazy-mount.tsx"
 
-```tsx preview file="./_snippets/tabs/lazy-mount.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Line
 
 Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
 trigger.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/line.tsx"
 
-```tsx preview file="./_snippets/tabs/line.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Links
 
 Use `asChild` when triggers should render anchors or router links.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/links.tsx"
 
-```tsx preview file="./_snippets/tabs/links.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Manual Activation
 
 Set `activationMode="manual"` when arrow-key focus should move without selecting until click,
 Enter, or Space.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/manual-activation.tsx"
 
-```tsx preview file="./_snippets/tabs/manual-activation.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Vertical
 
-Use `orientation="vertical"` when the trigger list should sit beside the active content.
+Use `orientation="vertical"` when the trigger list should sit beside the active content. Vertical
+tabs use the filled indicator, which keeps the selected item easy to scan.
 
-<style>{TabsDocs.tabsExampleCss}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/vertical.tsx"
 
-```tsx preview file="./_snippets/tabs/vertical.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -194,9 +189,11 @@ the part tree or controlled by adjacent UI.
 
 <style>{TabsDocs.tabsExampleCss}</style>
 
-```tsx preview file="./_snippets/tabs/root-provider.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tabs/root-provider.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 
@@ -221,7 +218,7 @@ Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-s
 
 Use the part that owns the visual concern:
 
-- `Tabs.Root` for layout width, overall gap, orientation, and variant-level overrides
+- `Tabs` for layout width, overall gap, orientation, and variant-level overrides
 - `Tabs.List` for list chrome, borders, background, and indicator container spacing
 - `Tabs.Trigger` for label layout, icon spacing, selected state, disabled state, and focus styling
 - `Tabs.Indicator` for custom indicator color, size, and transition behavior

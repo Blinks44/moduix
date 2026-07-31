@@ -2,10 +2,14 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/refere
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const tabsExampleCss = `
-  .tabs-demo-selected {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
+  .tabs-stack {
+    display: grid;
+    gap: var(--moduix-spacing-3);
+    justify-items: center;
+  }
+
+  .tabs-stack > [data-preview-meta] {
+    justify-self: center;
   }
 `;
 
@@ -177,7 +181,7 @@ const tabsOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-tabs-vertical-list-width',
     '12rem',
-    'Controls the list width in vertical orientation.',
+    'Controls the preferred list width in vertical orientation.',
   ],
 ];
 

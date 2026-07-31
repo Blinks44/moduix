@@ -2,6 +2,7 @@
   .root {
     box-sizing: border-box;
     display: flex;
+    inline-size: 100%;
     min-width: 0;
     flex-direction: column;
     gap: var(--moduix-tabs-gap, var(--moduix-spacing-3));
@@ -32,23 +33,27 @@
     border-radius: var(--moduix-tabs-radius, var(--moduix-radius-lg));
     background-color: var(--moduix-tabs-list-bg, var(--moduix-color-muted));
 
-    &[data-orientation='vertical'] {
-      width: var(--moduix-tabs-vertical-list-width, 12rem);
-      min-width: var(--moduix-tabs-vertical-list-width, 12rem);
-      flex-direction: column;
+    .root:not([data-orientation='vertical']) & {
+      overflow-x: auto;
     }
 
-    .root[data-variant='line'] & {
+    &[data-orientation='vertical'] {
+      inline-size: var(--moduix-tabs-vertical-list-width, 12rem);
+      min-inline-size: var(--moduix-tabs-vertical-list-width, 12rem);
+      flex-direction: column;
+
+      @media (max-width: 30rem) {
+        inline-size: min(var(--moduix-tabs-vertical-list-width, 12rem), 40%);
+        min-inline-size: 0;
+      }
+    }
+
+    .root[data-variant='line']:not([data-orientation='vertical']) & {
       width: 100%;
       border-width: 0 0 var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm));
       border-radius: 0;
       padding-inline: 0;
       background-color: transparent;
-    }
-
-    .root[data-orientation='vertical'][data-variant='line'] & {
-      width: var(--moduix-tabs-vertical-list-width, 12rem);
-      border-width: 0 var(--moduix-tabs-list-border-width, var(--moduix-border-width-sm)) 0 0;
     }
   }
 
@@ -141,7 +146,7 @@
       top var(--moduix-tabs-indicator-transition, var(--moduix-transition-default)),
       left var(--moduix-tabs-indicator-transition, var(--moduix-transition-default));
 
-    .root[data-variant='line'] & {
+    .root[data-variant='line']:not([data-orientation='vertical']) & {
       top: auto;
       bottom: 0;
       height: var(--moduix-tabs-line-indicator-size, var(--moduix-spacing-0-5));
@@ -172,13 +177,6 @@
       );
       height: var(--height, 0);
       translate: -50% 0;
-
-      .root[data-variant='line'] & {
-        bottom: auto;
-        left: 0;
-        width: var(--moduix-tabs-line-indicator-size, var(--moduix-spacing-0-5));
-        translate: none;
-      }
     }
   }
 

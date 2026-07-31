@@ -29,6 +29,7 @@ export default function VerticalTabsDemo() {
             {item.title}
           </Tabs.Trigger>
         ))}
+        <Tabs.Indicator />
       </Tabs.List>
 
       {items.map((item) => (
