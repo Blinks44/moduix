@@ -1,1 +1,6 @@
-export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext } from './TagsInput';
+export {
+  TagsInput,
+  useTagsInput,
+  useTagsInputContext,
+  useTagsInputItemContext,
+} from './TagsInput.js';

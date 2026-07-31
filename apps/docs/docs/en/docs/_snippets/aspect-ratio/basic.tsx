@@ -1,4 +1,4 @@
-import { AspectRatio } from '@moduix/react';
+import { AspectRatio } from '@moduix/react/aspect-ratio';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',

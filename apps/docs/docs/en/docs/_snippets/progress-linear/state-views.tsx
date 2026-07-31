@@ -1,4 +1,5 @@
-import { Button, ProgressLinear } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ProgressLinear } from '@moduix/react/progress-linear';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

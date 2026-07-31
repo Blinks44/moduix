@@ -67,7 +67,7 @@ same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styli
 ## Composition
 
 ```tsx
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
@@ -125,7 +125,7 @@ per-marker props, or custom ordering.
 - moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--moduix-angle-slider-*` variables are registered in `src/styles/theme.css`.
+- Public `--moduix-angle-slider-*` variables are registered in `src/styles/variables-moduix.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /

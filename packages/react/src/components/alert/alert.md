@@ -72,7 +72,7 @@ Every exported part accepts `className` and receives stable hooks:
 ## Composition
 
 ```tsx
-import { Alert } from '@moduix/react';
+import { Alert } from '@moduix/react/alert';
 
 export function AlertDemo() {
   return (

@@ -1,4 +1,5 @@
-import { Button, ImageCropper } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ImageCropper } from '@moduix/react/image-cropper';
 import {
   FlipHorizontal as FlipHorizontalIcon,
   RotateCcw as RestartIcon,

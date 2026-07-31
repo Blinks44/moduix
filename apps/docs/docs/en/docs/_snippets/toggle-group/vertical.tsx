@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup } from '@moduix/react/toggle-group';
 
 const viewItems = [
   {

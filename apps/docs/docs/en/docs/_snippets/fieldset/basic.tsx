@@ -1,4 +1,5 @@
-import { Field, Fieldset } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Fieldset } from '@moduix/react/fieldset';
 
 export default function ContactDetails() {
   return (

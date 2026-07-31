@@ -21,7 +21,7 @@ const switchSizeOptions = [
   },
 ] as const;
 
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 import styles from '@/components/examples/switch.module.css';
 
 export default function SwitchSizesDemo() {

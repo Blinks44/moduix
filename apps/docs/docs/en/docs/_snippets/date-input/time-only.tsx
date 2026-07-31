@@ -1,5 +1,5 @@
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
 
 const formatter = new DateFormatter('en-US', {
   hour: '2-digit',

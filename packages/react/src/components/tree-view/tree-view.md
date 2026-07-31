@@ -78,7 +78,7 @@ TreeView / TreeView.Root
 ## Composition
 
 ```tsx
-import { TreeView, createTreeCollection, useTreeViewNodeContext } from '@moduix/react';
+import { TreeView, createTreeCollection, useTreeViewNodeContext } from '@moduix/react/tree-view';
 import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from 'lucide-react';
 
 const collection = createTreeCollection({
@@ -162,7 +162,7 @@ function TreeNodeContent({ node, indexPath }) {
 - Branch and item rows share hover, selected, focus, disabled, and indentation styling.
 - `BranchIndicator` and `BranchTrigger` rotate on `data-state="open"`.
 - `NodeCheckboxIndicator` renders default check and indeterminate icons when omitted.
-- Public `--moduix-tree-view-*` variables are documented in `theme.css`.
+- Public `--moduix-tree-view-*` variables are documented in `variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 

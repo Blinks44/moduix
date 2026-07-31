@@ -1,4 +1,9 @@
-import { Avatar, Button, Collapsible, Drawer, Menu, Sidebar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Button } from '@moduix/react/button';
+import { Collapsible } from '@moduix/react/collapsible';
+import { Drawer } from '@moduix/react/drawer';
+import { Menu } from '@moduix/react/menu';
+import { Sidebar } from '@moduix/react/sidebar';
 import {
   CalendarDays,
   ChevronsUpDown,

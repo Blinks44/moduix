@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import { useRef } from 'react';
 
 export default function ModalPopoverDemo() {

@@ -1,4 +1,6 @@
-import { Button, Menu, Table } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
+import { Table } from '@moduix/react/table';
 
 const rows = [
   {

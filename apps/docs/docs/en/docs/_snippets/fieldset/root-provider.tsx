@@ -1,4 +1,5 @@
-import { Field, Fieldset, useFieldset } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Fieldset, useFieldset } from '@moduix/react/fieldset';
 
 export default function ExternalFieldsetState() {
   const fieldset = useFieldset({

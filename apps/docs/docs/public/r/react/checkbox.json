@@ -4,7 +4,7 @@
   "title": "Checkbox",
   "description": "moduix React Checkbox component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/checkbox/Checkbox.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/checkbox/index.ts",
-      "content": "export * from './Checkbox';",
+      "content": "export * from './Checkbox.js';",
       "type": "registry:component",
       "target": "@components/moduix/checkbox/index.ts"
     }

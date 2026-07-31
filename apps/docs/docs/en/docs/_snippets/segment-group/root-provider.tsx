@@ -1,4 +1,5 @@
-import { Button, SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { SegmentGroup, useSegmentGroup } from '@moduix/react/segment-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = [

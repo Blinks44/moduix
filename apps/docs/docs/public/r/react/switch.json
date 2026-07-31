@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/switch/index.ts",
-      "content": "export { Switch, useSwitch, useSwitchContext } from './Switch';\nexport type { SwitchRootProps, SwitchRootProviderProps, SwitchSize } from './Switch';",
+      "content": "export { Switch, useSwitch, useSwitchContext } from './Switch.js';\nexport type { SwitchRootProps, SwitchRootProviderProps, SwitchSize } from './Switch.js';",
       "type": "registry:component",
       "target": "@components/moduix/switch/index.ts"
     }

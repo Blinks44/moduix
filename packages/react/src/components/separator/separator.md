@@ -48,7 +48,7 @@ Separator / Separator.Root
 Use the short root form for normal separators:
 
 ```tsx
-import { Separator } from '@moduix/react';
+import { Separator } from '@moduix/react/separator';
 
 export function AccountSections() {
   return (

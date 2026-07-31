@@ -1,4 +1,4 @@
-import { Clipboard } from '@moduix/react';
+import { Clipboard } from '@moduix/react/clipboard';
 
 export default function CustomCopyTextClipboardDemo() {
   return (

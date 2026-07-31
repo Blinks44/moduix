@@ -57,7 +57,7 @@ Spinner / Spinner.Root
 Use the short root form for normal consumers:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function LoadingState() {
   return <Spinner />;
@@ -67,7 +67,7 @@ export function LoadingState() {
 Use `decorative` beside visible loading text:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function SavingState() {
   return (
@@ -82,7 +82,7 @@ export function SavingState() {
 Use `asChild` only when the root host itself must be custom:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function ReportSpinner() {
   return (

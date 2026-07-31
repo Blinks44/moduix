@@ -1,5 +1,6 @@
 import type { ToastPlacement } from '@ark-ui/react/toast';
-import { Button, Toaster, createToaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';

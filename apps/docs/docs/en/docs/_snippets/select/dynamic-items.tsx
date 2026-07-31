@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Input, Select } from '@moduix/react';
+import { Input } from '@moduix/react/input';
+import { Select } from '@moduix/react/select';
 import { useState } from 'react';
 
 const fruits = createListCollection({

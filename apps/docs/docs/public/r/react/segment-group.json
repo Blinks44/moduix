@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/segment-group/index.ts",
-      "content": "export {\n  SegmentGroup,\n  useSegmentGroup,\n  useSegmentGroupContext,\n  useSegmentGroupItemContext,\n} from './SegmentGroup';",
+      "content": "export {\n  SegmentGroup,\n  useSegmentGroup,\n  useSegmentGroupContext,\n  useSegmentGroupItemContext,\n} from './SegmentGroup.js';",
       "type": "registry:component",
       "target": "@components/moduix/segment-group/index.ts"
     }

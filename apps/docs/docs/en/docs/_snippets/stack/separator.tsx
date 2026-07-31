@@ -1,4 +1,6 @@
-import { Separator, Stack, Text } from '@moduix/react';
+import { Separator } from '@moduix/react/separator';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 
 export default function StackSeparatorDemo() {
   return (

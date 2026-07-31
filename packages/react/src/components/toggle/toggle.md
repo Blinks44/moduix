@@ -63,7 +63,8 @@ Toggle.Context (state reader, not a DOM part)
 Simple uncontrolled toggle:
 
 ```tsx
-import { StarIcon, Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
+import { Star as StarIcon } from 'lucide-react';
 
 export function ToggleDemo() {
   return (
@@ -78,7 +79,7 @@ export function ToggleDemo() {
 Changing inline content with Ark `Indicator`:
 
 ```tsx
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 import { Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 
 export function FavoriteToggleDemo() {
@@ -95,7 +96,8 @@ export function FavoriteToggleDemo() {
 Controlled pressed state:
 
 ```tsx
-import { BellIcon, Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
+import { Bell as BellIcon } from 'lucide-react';
 import { useState } from 'react';
 
 export function ControlledToggleDemo() {
@@ -113,7 +115,7 @@ export function ControlledToggleDemo() {
 Custom host element with Ark `asChild`:
 
 ```tsx
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 
 export function AsChildToggleDemo() {
   return (

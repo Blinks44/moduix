@@ -1,4 +1,5 @@
-import { Button, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
@@ -49,7 +50,7 @@ export default function ScrollToCarousel() {
 
       <Carousel.Context>
         {(api) => (
-          <PreviewMeta>
+          <PreviewMeta style={{ marginInline: 'auto' }}>
             <Button size="sm" variant="outline" onClick={() => api.scrollToIndex(3)}>
               Go to slide 4
             </Button>

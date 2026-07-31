@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup } from '@moduix/react/segment-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

@@ -1,4 +1,4 @@
-import { Timer, useTimer } from '@moduix/react';
+import { Timer, useTimer } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export default function RootProviderTimerDemo() {

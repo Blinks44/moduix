@@ -1,4 +1,5 @@
-import { Button, RatingGroup, useRatingGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { RatingGroup, useRatingGroup } from '@moduix/react/rating-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function AdvancedCustomizationRatingGroupDemo() {

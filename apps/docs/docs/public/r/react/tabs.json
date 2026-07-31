@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/tabs/index.ts",
-      "content": "export { Tabs, useTabs, useTabsContext } from './Tabs';",
+      "content": "export { Tabs, useTabs, useTabsContext } from './Tabs.js';",
       "type": "registry:component",
       "target": "@components/moduix/tabs/index.ts"
     }

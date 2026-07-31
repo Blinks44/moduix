@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/highlight/index.ts",
-      "content": "export { Highlight } from './Highlight';",
+      "content": "export { Highlight } from './Highlight.js';",
       "type": "registry:component",
       "target": "@components/moduix/highlight/index.ts"
     }

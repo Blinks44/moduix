@@ -1,4 +1,5 @@
-import { Breadcrumbs, Menu } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
+import { Menu } from '@moduix/react/menu';
 
 const collapsedItems = [
   { href: '/docs', label: 'Docs' },

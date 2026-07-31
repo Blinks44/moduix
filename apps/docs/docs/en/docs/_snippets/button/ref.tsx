@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 import { useRef } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

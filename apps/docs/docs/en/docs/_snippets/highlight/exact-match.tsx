@@ -1,4 +1,5 @@
-import { Highlight, Text } from '@moduix/react';
+import { Highlight } from '@moduix/react/highlight';
+import { Text } from '@moduix/react/text';
 import styles from '@/components/examples/highlight.module.css';
 
 export default function HighlightExactMatchDemo() {

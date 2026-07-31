@@ -1,4 +1,4 @@
-import { AngleSlider, useAngleSlider } from '@moduix/react';
+import { AngleSlider, useAngleSlider } from '@moduix/react/angle-slider';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const initialValue = 45;

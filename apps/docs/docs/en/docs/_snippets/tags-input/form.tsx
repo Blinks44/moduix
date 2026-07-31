@@ -1,4 +1,5 @@
-import { Button, TagsInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { TagsInput } from '@moduix/react/tags-input';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 

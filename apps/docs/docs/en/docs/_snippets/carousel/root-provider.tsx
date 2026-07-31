@@ -1,4 +1,4 @@
-import { Carousel, useCarousel } from '@moduix/react';
+import { Carousel, useCarousel } from '@moduix/react/carousel';
 
 const slides = [
   {

@@ -1,4 +1,5 @@
-import { Button, Tooltip } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tooltip } from '@moduix/react/tooltip';
 import { Bell as BellIcon } from 'lucide-react';
 import styles from '@/components/examples/tooltip.module.css';
 

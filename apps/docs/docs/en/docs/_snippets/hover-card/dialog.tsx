@@ -1,4 +1,7 @@
-import { Avatar, Button, Dialog, HoverCard } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { HoverCard } from '@moduix/react/hover-card';
 import { useRef } from 'react';
 
 export default function DialogHoverCard() {

@@ -1,4 +1,5 @@
-import { Button, Editable } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Editable } from '@moduix/react/editable';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

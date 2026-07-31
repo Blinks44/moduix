@@ -1,4 +1,4 @@
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 import styles from '@/components/examples/toggle-group.module.css';
 

@@ -1,4 +1,4 @@
-import { Tabs, useTabs } from '@moduix/react';
+import { Tabs, useTabs } from '@moduix/react/tabs';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [

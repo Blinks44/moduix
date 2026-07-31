@@ -1,4 +1,6 @@
-import { Button, Card, Drawer, useDrawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer, useDrawer } from '@moduix/react/drawer';
 
 const items = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
 const snapPoints = [0.42, 1];

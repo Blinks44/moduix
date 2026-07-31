@@ -1,6 +1,11 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, Card, Checkbox, Combobox, Field, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Combobox } from '@moduix/react/combobox';
+import { Field } from '@moduix/react/field';
+import { Select } from '@moduix/react/select';
 
 const teams = createListCollection({
   items: [

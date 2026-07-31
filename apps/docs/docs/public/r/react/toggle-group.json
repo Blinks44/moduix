@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/toggle-group/index.ts",
-      "content": "export { ToggleGroup, useToggleGroup, useToggleGroupContext } from './ToggleGroup';",
+      "content": "export { ToggleGroup, useToggleGroup, useToggleGroupContext } from './ToggleGroup.js';",
       "type": "registry:component",
       "target": "@components/moduix/toggle-group/index.ts"
     }

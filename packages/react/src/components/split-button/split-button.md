@@ -68,7 +68,8 @@ Every exported DOM part accepts `className` and receives stable styling hooks:
 ## Composition
 
 ```tsx
-import { Menu, SplitButton } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
+import { SplitButton } from '@moduix/react/split-button';
 
 export function SplitButtonExample() {
   return (

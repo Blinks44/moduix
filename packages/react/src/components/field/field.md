@@ -57,7 +57,7 @@ style hook. `Field.Context`, `useField`, and `useFieldContext` are exported for 
 ## Composition
 
 ```tsx
-import { Field } from '@moduix/react';
+import { Field } from '@moduix/react/field';
 
 export function NameField() {
   return (

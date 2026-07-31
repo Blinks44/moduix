@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Combobox, useCombobox } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react/combobox';
 
 const jobTitles = [
   { label: 'Designer', value: 'designer' },

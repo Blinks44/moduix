@@ -58,7 +58,7 @@ Provider composition replaces `Root` with `RootProvider`.
 ## Composition
 
 ```tsx
-import { Collapsible } from '@moduix/react';
+import { Collapsible } from '@moduix/react/collapsible';
 
 export function CollapsibleExample() {
   return (

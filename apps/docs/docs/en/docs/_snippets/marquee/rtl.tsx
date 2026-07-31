@@ -1,4 +1,5 @@
-import { LocaleProvider, Marquee } from '@moduix/react';
+import { LocaleProvider } from '@moduix/react/locale';
+import { Marquee } from '@moduix/react/marquee';
 
 const partners = [
   { name: 'أطلس', mark: 'AT' },

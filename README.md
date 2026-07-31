@@ -39,10 +39,10 @@ the `shadcn` CLI.
 Start with the npm package for the shortest setup. Use the registry when direct source ownership is
 a project requirement.
 
-| Workflow                   | Imports                 | Best fit                                                                |
-| -------------------------- | ----------------------- | ----------------------------------------------------------------------- |
-| npm package                | `@moduix/react`         | Package-managed updates and minimal application-owned infrastructure.   |
-| Copy-owned shadcn registry | `@/components/moduix/*` | Direct customization, local source review, and AI-assisted development. |
+| Workflow                   | Imports                     | Best fit                                                                |
+| -------------------------- | --------------------------- | ----------------------------------------------------------------------- |
+| npm package                | `@moduix/react/<component>` | Package-managed updates and minimal application-owned infrastructure.   |
+| Copy-owned shadcn registry | `@/components/moduix/*`     | Direct customization, local source review, and AI-assisted development. |
 
 Both workflows use the same component contracts and design-token foundation.
 
@@ -70,7 +70,8 @@ import '@moduix/react/style.css';
 Then compose the components you need:
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (
@@ -116,6 +117,17 @@ files land under `src/components/moduix/*`; shared styles, icons, and utilities 
 Import the generated foundation stylesheet once:
 
 ```tsx
+import '@/lib/moduix/styles/style.css';
+```
+
+To use the optional reset, install it separately and import it before the foundation stylesheet:
+
+```bash
+npx shadcn@latest add @moduix-react/reset
+```
+
+```tsx
+import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
 

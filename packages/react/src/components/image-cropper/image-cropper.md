@@ -47,7 +47,7 @@ The package exports `ImageCropper`, `useImageCropper`, `ImageCropper.Context`, a
 ## Composition
 
 ```tsx
-import { ImageCropper } from '@moduix/react';
+import { ImageCropper } from '@moduix/react/image-cropper';
 
 export function AvatarCropper() {
   return (
@@ -75,7 +75,7 @@ Ark applies `role="group"` to the root, `role="slider"` and keyboard interaction
 
 The root exposes `data-scope="image-cropper"`, `data-part="root"`, `data-fixed`, `data-shape`, `data-pinch`, `data-dragging`, and `data-panning`. Other parts expose Ark `data-part` values for `viewport`, `image`, `selection`, `grid`, and `handle`; notable state attributes include `data-ready`, `data-flip-horizontal`, `data-flip-vertical`, `data-disabled`, `data-measured`, `data-axis`, and `data-position`.
 
-Ark runtime CSS variables set on the root are `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`, `--image-rotation`, `--image-offset-x`, and `--image-offset-y`. They are declared in `theme.css` because the primitive writes them at runtime.
+Ark runtime CSS variables set on the root are `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`, `--image-rotation`, `--image-offset-x`, and `--image-offset-y`. They are declared in `variables-moduix.css` because the primitive writes them at runtime.
 
 ## Defaults and styling
 

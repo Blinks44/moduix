@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react';
+import { Field } from '@moduix/react/field';
 import { useState } from 'react';
 
 export default function ControlledInvalidFieldDemo() {

@@ -1,4 +1,5 @@
-import { Field, FileUpload } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { FileUpload } from '@moduix/react/file-upload';
 
 const name = 'attachments';
 const maxFiles = 3;

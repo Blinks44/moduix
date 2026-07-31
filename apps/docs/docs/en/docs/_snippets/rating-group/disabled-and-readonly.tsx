@@ -1,4 +1,4 @@
-import { RatingGroup } from '@moduix/react';
+import { RatingGroup } from '@moduix/react/rating-group';
 
 export default function DisabledRatingGroupDemo() {
   return (

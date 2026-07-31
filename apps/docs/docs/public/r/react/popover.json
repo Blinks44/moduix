@@ -4,7 +4,11 @@
   "title": "Popover",
   "description": "moduix React Popover component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/close-button", "@moduix-react/foundation"],
+  "registryDependencies": [
+    "@moduix-react/close-button",
+    "@moduix-react/foundation",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/popover/Popover.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/popover/index.ts",
-      "content": "export { Popover, usePopover, usePopoverContext } from './Popover';",
+      "content": "export { Popover, usePopover, usePopoverContext } from './Popover.js';",
       "type": "registry:component",
       "target": "@components/moduix/popover/index.ts"
     }

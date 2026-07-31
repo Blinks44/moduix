@@ -1,5 +1,6 @@
 import { today } from '@internationalized/date';
-import { Button, DateInput, useDateInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { DateInput, useDateInput } from '@moduix/react/date-input';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDateInputDemo() {

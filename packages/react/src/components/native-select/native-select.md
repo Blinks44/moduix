@@ -51,7 +51,7 @@ NativeSelect
 ## Composition
 
 ```tsx
-import { NativeSelect } from '@moduix/react';
+import { NativeSelect } from '@moduix/react/native-select';
 
 export function Example() {
   return (

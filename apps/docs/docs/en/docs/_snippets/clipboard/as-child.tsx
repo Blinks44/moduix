@@ -1,4 +1,6 @@
-import { Button, Clipboard, Input } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Clipboard } from '@moduix/react/clipboard';
+import { Input } from '@moduix/react/input';
 
 export default function AsChildClipboardDemo() {
   return (

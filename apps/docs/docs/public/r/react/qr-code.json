@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/qr-code/index.ts",
-      "content": "export * from './QrCode';",
+      "content": "export * from './QrCode.js';",
       "type": "registry:component",
       "target": "@components/moduix/qr-code/index.ts"
     }

@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/react';
+import { Splitter } from '@moduix/react/splitter';
 
 const panels = [
   {

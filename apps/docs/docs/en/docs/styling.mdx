@@ -3,7 +3,7 @@ title: Styling
 description: Style moduix components with CSS Modules, Panda CSS, or Tailwind CSS.
 ---
 
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 import styles from '@/components/examples/styling.module.css';
 
 # Styling
@@ -104,7 +104,7 @@ directly to the parts it renders.
     <Tab value="ProjectChecklist.tsx">
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 import styles from './ProjectChecklist.module.css';
 
 export function ProjectChecklist() {
@@ -285,7 +285,7 @@ In an application that already has Panda configured, generate classes for the sa
 `ProjectChecklist` parts. The token names below belong to your Panda theme, not to moduix.
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 import { css } from '../styled-system/css';
 
 const root = css({
@@ -380,7 +380,7 @@ In an application that already uses Tailwind, apply utilities and state variants
 `ProjectChecklist` parts. No moduix-specific Tailwind plugin or configuration is required.
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 
 export function ProjectChecklist() {
   return (

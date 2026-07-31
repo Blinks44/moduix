@@ -4,7 +4,11 @@
   "title": "Toast",
   "description": "moduix React Toast component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/toast/Toast.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/toast/index.ts",
-      "content": "export { Toast, Toaster, createToaster, useToastContext } from './Toast';",
+      "content": "export { Toast, Toaster, createToaster, useToastContext } from './Toast.js';",
       "type": "registry:component",
       "target": "@components/moduix/toast/index.ts"
     }

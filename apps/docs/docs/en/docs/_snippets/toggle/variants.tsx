@@ -1,4 +1,4 @@
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 import styles from '@/components/examples/toggle.module.css';
 
 export default function ToggleVariantsDemo() {

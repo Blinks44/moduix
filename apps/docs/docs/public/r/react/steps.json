@@ -4,7 +4,7 @@
   "title": "Steps",
   "description": "moduix React Steps component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/steps/Steps.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/steps/index.ts",
-      "content": "export { Steps, useSteps, useStepsContext, useStepsItemContext } from './Steps';",
+      "content": "export { Steps, useSteps, useStepsContext, useStepsItemContext } from './Steps.js';",
       "type": "registry:component",
       "target": "@components/moduix/steps/index.ts"
     }

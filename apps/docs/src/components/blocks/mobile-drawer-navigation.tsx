@@ -1,4 +1,5 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Drawer } from '@moduix/react/drawer';
 import {
   Bell,
   FolderKanban,

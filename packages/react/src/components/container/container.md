@@ -62,7 +62,10 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Bleed, Container, Heading, Text } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
+import { Container } from '@moduix/react/container';
+import { Heading } from '@moduix/react/heading';
+import { Text } from '@moduix/react/text';
 import styles from './container.module.css';
 
 export function Example() {

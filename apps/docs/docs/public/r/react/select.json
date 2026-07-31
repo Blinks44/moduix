@@ -4,7 +4,12 @@
   "title": "Select",
   "description": "moduix React Select component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/select/Select.tsx",
@@ -20,7 +25,7 @@
     },
     {
       "path": "packages/react/src/components/select/index.ts",
-      "content": "export * from './Select';",
+      "content": "export * from './Select.js';",
       "type": "registry:component",
       "target": "@components/moduix/select/index.ts"
     }

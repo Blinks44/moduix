@@ -1,4 +1,5 @@
-import { Button, RatingGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { RatingGroup } from '@moduix/react/rating-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

@@ -1,4 +1,4 @@
-import { Toggle, useToggleContext } from '@moduix/react';
+import { Toggle, useToggleContext } from '@moduix/react/toggle';
 import { Bell as BellIcon } from 'lucide-react';
 
 function ToggleStateLabel() {

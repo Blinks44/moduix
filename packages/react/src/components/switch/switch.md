@@ -68,7 +68,7 @@ State helpers are imported from `@moduix/react` with `Switch`.
 Canonical labeled switch:
 
 ```tsx
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 
 export function SwitchDemo() {
   return (
@@ -83,7 +83,7 @@ export function SwitchDemo() {
 Controlled switch:
 
 ```tsx
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 import { useState } from 'react';
 
 export function ControlledSwitchDemo() {
@@ -101,7 +101,7 @@ export function ControlledSwitchDemo() {
 External state owner:
 
 ```tsx
-import { Switch, useSwitch } from '@moduix/react';
+import { Switch, useSwitch } from '@moduix/react/switch';
 
 export function RootProviderSwitchDemo() {
   const switchApi = useSwitch({ defaultChecked: true });

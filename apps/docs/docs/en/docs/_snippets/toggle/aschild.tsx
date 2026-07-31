@@ -1,4 +1,4 @@
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 import { Check as CheckIcon } from 'lucide-react';
 
 export default function AsChildToggleDemo() {

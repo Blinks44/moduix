@@ -1,4 +1,4 @@
-import { Tooltip, useTooltipContext } from '@moduix/react';
+import { Tooltip, useTooltipContext } from '@moduix/react/tooltip';
 
 function TooltipStateContent() {
   const tooltip = useTooltipContext();

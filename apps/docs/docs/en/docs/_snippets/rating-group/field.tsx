@@ -1,4 +1,5 @@
-import { Field, RatingGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { RatingGroup } from '@moduix/react/rating-group';
 
 export default function FieldRatingGroupDemo() {
   return (

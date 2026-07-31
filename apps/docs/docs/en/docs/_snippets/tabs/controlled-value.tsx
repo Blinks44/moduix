@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/react';
+import { Tabs } from '@moduix/react/tabs';
 import { useState } from 'react';
 
 const items = [

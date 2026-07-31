@@ -1,4 +1,5 @@
-import { Button, Tooltip } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tooltip } from '@moduix/react/tooltip';
 import { Info as InfoIcon, Plus as PlusIcon, Share as ShareIcon } from 'lucide-react';
 import { useState } from 'react';
 import styles from '@/components/examples/tooltip.module.css';

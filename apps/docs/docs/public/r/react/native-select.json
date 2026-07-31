@@ -4,7 +4,7 @@
   "title": "Native Select",
   "description": "moduix React Native Select component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/native-select/NativeSelect.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/native-select/index.ts",
-      "content": "export * from './NativeSelect';",
+      "content": "export * from './NativeSelect.js';",
       "type": "registry:component",
       "target": "@components/moduix/native-select/index.ts"
     }

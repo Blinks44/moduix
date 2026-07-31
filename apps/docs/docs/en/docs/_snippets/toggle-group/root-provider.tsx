@@ -1,4 +1,4 @@
-import { ToggleGroup, useToggleGroup } from '@moduix/react';
+import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
 import styles from '@/components/examples/toggle-group.module.css';
 
 const alignmentItems = [

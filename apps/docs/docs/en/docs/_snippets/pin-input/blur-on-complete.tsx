@@ -1,4 +1,4 @@
-import { PinInput } from '@moduix/react';
+import { PinInput } from '@moduix/react/pin-input';
 
 export default function BlurOnCompletePinInput() {
   return (

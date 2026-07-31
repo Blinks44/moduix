@@ -101,7 +101,7 @@ Ark state attributes to preserve include `data-scope="tags-input"`, `data-part`,
 The one-line control follows Input's `--moduix-size-md` default, while wrapping tag content may naturally increase its height.
 
 Styling targets Ark `data-scope="tags-input"` / `data-part` attributes plus stable moduix
-`data-slot` hooks. Public CSS variables are `--moduix-tags-input-*` and live in `theme.css`. Ark does not
+`data-slot` hooks. Public CSS variables are `--moduix-tags-input-*` and live in `variables-moduix.css`. Ark does not
 expose component-specific runtime CSS variables for this primitive.
 
 Important hooks:

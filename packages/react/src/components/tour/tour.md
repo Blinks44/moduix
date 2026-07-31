@@ -61,7 +61,7 @@ const tour = useTour({ steps });
 
 ```tsx
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Tour, useTour } from '@moduix/react';
+import { Tour, useTour } from '@moduix/react/tour';
 
 const steps = [
   {
@@ -120,7 +120,7 @@ Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-tour-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
-The CSS module provides visual defaults for backdrop, spotlight, positioner, content, arrow, title, description, progress text, close trigger, control, and action triggers. Progress text is visually ordered below the title and description so it does not compete with the absolute close trigger. It styles dialog and floating positioners via `data-type`, and tooltip content through Ark popper positioning. Content animations use the shared `--moduix-transition-default` fallback, matching the dialog-like overlay family. Public theme variables are declared in `theme.css` with `--moduix-tour-*` names, while Ark runtime variables are initialized to avoid unresolved custom property diagnostics.
+The CSS module provides visual defaults for backdrop, spotlight, positioner, content, arrow, title, description, progress text, close trigger, control, and action triggers. Progress text is visually ordered below the title and description so it does not compete with the absolute close trigger. It styles dialog and floating positioners via `data-type`, and tooltip content through Ark popper positioning. Content animations use the shared `--moduix-transition-default` fallback, matching the dialog-like overlay family. Public theme variables are declared in `variables-moduix.css` with `--moduix-tour-*` names, while Ark runtime variables are initialized to avoid unresolved custom property diagnostics.
 
 ## Intentional sugar and differences from upstream
 
@@ -130,7 +130,7 @@ Moduix adds only styling, `data-slot` hooks, the default `ArrowTip` inside `Tour
 
 Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvider`. Keep
 `Positioner` and `Content` explicit; only portal transport is automatic. If action styling changes,
-update `theme.css`, docs CSS properties, stories, and registry artifacts together.
+update `variables-moduix.css`, docs CSS properties, stories, and registry artifacts together.
 
 ## Local changelog
 

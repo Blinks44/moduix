@@ -74,7 +74,7 @@ ProgressCircular.RootProvider
 ## Composition
 
 ```tsx
-import { ProgressCircular } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
 
 export function ExportProgress() {
   return (
@@ -146,7 +146,7 @@ Do not add hidden structural wrappers to center `ValueText`; keep that as consum
 Do not remap Ark callback detail objects or replace `RootProvider` with a local state layer.
 Keep normal state/provider examples on the `ProgressCircular` namespace; direct Ark imports are
 only an advanced escape hatch. When changing styling hooks or CSS variables, update docs examples,
-this file, `theme.css`, and the registry output.
+this file, `variables-moduix.css`, and the registry output.
 
 ## Local changelog
 

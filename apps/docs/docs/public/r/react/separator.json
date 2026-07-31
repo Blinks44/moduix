@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/separator/index.ts",
-      "content": "export { Separator } from './Separator';",
+      "content": "export { Separator } from './Separator.js';",
       "type": "registry:component",
       "target": "@components/moduix/separator/index.ts"
     }

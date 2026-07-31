@@ -1,4 +1,5 @@
-import { Container, Text } from '@moduix/react';
+import { Container } from '@moduix/react/container';
+import { Text } from '@moduix/react/text';
 
 const containerGutters = [
   { value: 'none', label: 'No gutter' },

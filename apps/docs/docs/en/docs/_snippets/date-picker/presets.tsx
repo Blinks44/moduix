@@ -1,4 +1,4 @@
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 
 export default function PresetDatePickerDemo() {
   return (

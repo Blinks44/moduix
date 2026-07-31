@@ -1,4 +1,4 @@
-import { Slider, useSliderContext } from '@moduix/react';
+import { Slider, useSliderContext } from '@moduix/react/slider';
 
 function SliderStatus() {
   const slider = useSliderContext();

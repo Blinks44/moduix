@@ -1,4 +1,4 @@
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
 

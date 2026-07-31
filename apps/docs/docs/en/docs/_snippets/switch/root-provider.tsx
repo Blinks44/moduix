@@ -1,4 +1,5 @@
-import { Button, Switch, useSwitch } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Switch, useSwitch } from '@moduix/react/switch';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/switch.module.css';
 

@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/card/index.ts",
-      "content": "export { Card } from './Card';",
+      "content": "export { Card } from './Card.js';",
       "type": "registry:component",
       "target": "@components/moduix/card/index.ts"
     }

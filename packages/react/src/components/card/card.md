@@ -69,7 +69,8 @@ Every exported part accepts `className` and keeps stable hooks:
 ## Composition
 
 ```tsx
-import { Button, Card } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 export function CardDemo() {
   return (

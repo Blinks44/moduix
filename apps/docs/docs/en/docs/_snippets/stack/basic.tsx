@@ -1,4 +1,6 @@
-import { Heading, Stack, Text } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 
 export default function StackDemo() {
   return (

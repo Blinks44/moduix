@@ -1,4 +1,4 @@
-import { Tooltip } from '@moduix/react';
+import { Tooltip } from '@moduix/react/tooltip';
 import styles from '@/components/examples/tooltip.module.css';
 
 export default function WithinFixedTooltipDemo() {

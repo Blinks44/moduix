@@ -50,7 +50,7 @@ Kbd.Group
 ## Composition
 
 ```tsx
-import { Kbd } from '@moduix/react';
+import { Kbd } from '@moduix/react/kbd';
 
 export function ShortcutHint() {
   return (

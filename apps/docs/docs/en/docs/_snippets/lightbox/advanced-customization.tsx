@@ -1,4 +1,4 @@
-import { Lightbox } from '@moduix/react';
+import { Lightbox } from '@moduix/react/lightbox';
 
 const image = {
   src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1800&q=90',

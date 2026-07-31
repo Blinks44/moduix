@@ -1,4 +1,5 @@
-import { Button, Skeleton } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Skeleton } from '@moduix/react/skeleton';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

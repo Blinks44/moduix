@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Pagination, Select } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
+import { Select } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const pageSizes = createListCollection({

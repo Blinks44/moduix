@@ -24,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/input-group/index.ts",
-      "content": "export { InputGroup } from './InputGroup';",
+      "content": "export { InputGroup } from './InputGroup.js';",
       "type": "registry:component",
       "target": "@components/moduix/input-group/index.ts"
     }

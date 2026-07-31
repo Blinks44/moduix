@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import { Bell as BellIcon } from 'lucide-react';
 
 export default function PopoverDemo() {

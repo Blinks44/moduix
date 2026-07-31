@@ -58,3 +58,6 @@ jobs:
 
       - name: Check generated registry
         run: git diff --exit-code -- apps/docs/docs/public/r/react
+
+      - name: Check package contract
+        run: npm run check:package

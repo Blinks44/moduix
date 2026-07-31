@@ -1,4 +1,4 @@
-import { TagsInput } from '@moduix/react';
+import { TagsInput } from '@moduix/react/tags-input';
 
 const initialTags = ['React', 'TypeScript'];
 

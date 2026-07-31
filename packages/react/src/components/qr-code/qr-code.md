@@ -58,7 +58,7 @@ No flat part aliases such as `QrCodeRoot` or `QrCodeFrame` are exported.
 ## Composition
 
 ```tsx
-import { QrCode } from '@moduix/react';
+import { QrCode } from '@moduix/react/qr-code';
 
 export function QrCodeDemo() {
   return (

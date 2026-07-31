@@ -4,7 +4,7 @@
   "title": "TreeView",
   "description": "moduix React TreeView component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/tree-view/TreeView.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/tree-view/index.ts",
-      "content": "export * from './TreeView';",
+      "content": "export * from './TreeView.js';",
       "type": "registry:component",
       "target": "@components/moduix/tree-view/index.ts"
     }

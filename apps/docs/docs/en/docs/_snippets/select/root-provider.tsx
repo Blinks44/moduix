@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Select } from '@moduix/react/select';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const fruits = createListCollection({

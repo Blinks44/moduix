@@ -86,7 +86,7 @@ Listbox / Listbox.Root
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react';
+import { Listbox } from '@moduix/react/listbox';
 
 const countries = createListCollection({
   items: [

@@ -1,1 +1,1 @@
-export { Timer, useTimer, useTimerContext } from './Timer';
+export { Timer, useTimer, useTimerContext } from './Timer.js';

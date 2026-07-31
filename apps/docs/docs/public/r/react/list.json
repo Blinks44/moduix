@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/list/index.ts",
-      "content": "export * from './List';",
+      "content": "export * from './List.js';",
       "type": "registry:component",
       "target": "@components/moduix/list/index.ts"
     }

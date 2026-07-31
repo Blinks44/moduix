@@ -11,7 +11,7 @@ context. Set `dir="rtl"` on the document root, then wrap the app with the moduix
 
 ```tsx
 import type { ReactNode } from 'react';
-import { LocaleProvider } from '@moduix/react';
+import { LocaleProvider } from '@moduix/react/locale';
 
 export function Document({ children }: { children: ReactNode }) {
   return (
@@ -35,7 +35,9 @@ special RTL prop.
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, LocaleProvider, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { LocaleProvider } from '@moduix/react/locale';
+import { Select } from '@moduix/react/select';
 
 const cities = createListCollection({
   items: [

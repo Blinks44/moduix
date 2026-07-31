@@ -1,4 +1,5 @@
-import { Button, Card } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 const content = {
   title: 'Release health',

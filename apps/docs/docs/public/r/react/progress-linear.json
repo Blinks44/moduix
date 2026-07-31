@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/progress-linear/index.ts",
-      "content": "export { ProgressLinear } from './ProgressLinear';",
+      "content": "export { ProgressLinear } from './ProgressLinear.js';",
       "type": "registry:component",
       "target": "@components/moduix/progress-linear/index.ts"
     }

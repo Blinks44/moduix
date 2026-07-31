@@ -1,4 +1,8 @@
-import { Button, Card, Collapsible, Menu, Sidebar } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Collapsible } from '@moduix/react/collapsible';
+import { Menu } from '@moduix/react/menu';
+import { Sidebar } from '@moduix/react/sidebar';
 import { ChevronsUpDown, FileText, FolderOpen, Gauge, Settings, Users } from 'lucide-react';
 import styles from './sidebar-dashboard.module.css';
 import '@moduix/react/style.css';

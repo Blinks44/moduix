@@ -28,7 +28,7 @@ at rest. It does not render viewport, content, scrollbar, thumb, or corner parts
 Consumers compose the Ark tree explicitly:
 
 ```tsx
-import { ScrollArea } from '@moduix/react';
+import { ScrollArea } from '@moduix/react/scroll-area';
 
 export function Example() {
   return (

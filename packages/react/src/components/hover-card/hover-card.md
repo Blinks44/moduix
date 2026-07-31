@@ -53,7 +53,7 @@ high-level content wrapper are intentionally removed.
 ## Composition
 
 ```tsx
-import { HoverCard } from '@moduix/react';
+import { HoverCard } from '@moduix/react/hover-card';
 
 export function Example() {
   return (

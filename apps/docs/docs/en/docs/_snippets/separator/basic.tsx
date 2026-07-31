@@ -1,4 +1,4 @@
-import { Separator } from '@moduix/react';
+import { Separator } from '@moduix/react/separator';
 
 const sections = ['Account settings', 'Billing details'];
 

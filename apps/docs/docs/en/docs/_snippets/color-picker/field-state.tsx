@@ -1,4 +1,5 @@
-import { ColorPicker, Field, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import { Field } from '@moduix/react/field';
 
 export default function FieldStateColorPickerDemo() {
   return (

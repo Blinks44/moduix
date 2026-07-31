@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/timer/index.ts",
-      "content": "export { Timer, useTimer, useTimerContext } from './Timer';",
+      "content": "export { Timer, useTimer, useTimerContext } from './Timer.js';",
       "type": "registry:component",
       "target": "@components/moduix/timer/index.ts"
     }

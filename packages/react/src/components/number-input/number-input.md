@@ -73,7 +73,7 @@ Exported values: `NumberInput`, `useNumberInput`, and `useNumberInputContext`.
 ## Composition
 
 ```tsx
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 
 export function QuantityInput() {
   return (
@@ -88,7 +88,7 @@ export function QuantityInput() {
 Controlled usage keeps string state:
 
 ```tsx
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 import { useState } from 'react';
 
 export function ControlledQuantityInput() {

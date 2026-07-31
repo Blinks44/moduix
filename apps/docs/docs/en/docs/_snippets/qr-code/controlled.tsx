@@ -1,4 +1,5 @@
-import { Button, QrCode } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { QrCode } from '@moduix/react/qr-code';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

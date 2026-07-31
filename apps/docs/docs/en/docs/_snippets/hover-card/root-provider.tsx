@@ -1,4 +1,4 @@
-import { HoverCard, useHoverCard } from '@moduix/react';
+import { HoverCard, useHoverCard } from '@moduix/react/hover-card';
 import { MailIcon } from 'lucide-react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

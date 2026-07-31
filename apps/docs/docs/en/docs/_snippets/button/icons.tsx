@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 import { ArrowUpRight as ArrowUpRightIcon, Plus as PlusIcon, Star as StarIcon } from 'lucide-react';
 
 const labels = {

@@ -1,4 +1,5 @@
-import { Field, SignaturePad } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { SignaturePad } from '@moduix/react/signature-pad';
 
 const signatureName = 'signature';
 

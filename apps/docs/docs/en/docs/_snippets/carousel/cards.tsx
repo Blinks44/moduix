@@ -1,4 +1,6 @@
-import { Button, Card, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Carousel } from '@moduix/react/carousel';
 
 const destinations = [
   {

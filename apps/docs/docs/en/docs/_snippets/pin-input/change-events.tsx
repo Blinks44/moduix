@@ -1,4 +1,4 @@
-import { PinInput } from '@moduix/react';
+import { PinInput } from '@moduix/react/pin-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

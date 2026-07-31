@@ -1,1 +1,1 @@
-export { Toggle, useToggleContext } from './Toggle';
+export { Toggle, useToggleContext } from './Toggle.js';

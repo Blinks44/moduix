@@ -1,4 +1,4 @@
-import { Alert } from '@moduix/react';
+import { Alert } from '@moduix/react/alert';
 import { Info as InfoIcon } from 'lucide-react';
 
 const alert = {

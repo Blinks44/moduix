@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react';
+import { Card } from '@moduix/react/card';
 
 const variants = ['elevated', 'outline', 'subtle'] as const;
 const descriptions = {

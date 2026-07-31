@@ -4,7 +4,7 @@
   "title": "Carousel",
   "description": "moduix React Carousel component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/carousel/Carousel.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/carousel/index.ts",
-      "content": "export { Carousel, useCarousel, useCarouselContext } from './Carousel';",
+      "content": "export { Carousel, useCarousel, useCarouselContext } from './Carousel.js';",
       "type": "registry:component",
       "target": "@components/moduix/carousel/index.ts"
     }

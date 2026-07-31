@@ -4,7 +4,11 @@
   "title": "Lightbox",
   "description": "moduix React Lightbox component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/lightbox/Lightbox.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/lightbox/index.ts",
-      "content": "export {\n  Lightbox,\n  LightboxBind,\n  LightboxGallery,\n  LightboxImage,\n  useLightbox,\n  useLightboxContext,\n} from './Lightbox';\nexport type { LightboxBindProps, LightboxImageSelectDetails } from './Lightbox';",
+      "content": "export {\n  Lightbox,\n  LightboxBind,\n  LightboxGallery,\n  LightboxImage,\n  useLightbox,\n  useLightboxContext,\n} from './Lightbox.js';\nexport type { LightboxBindProps, LightboxImageSelectDetails } from './Lightbox.js';",
       "type": "registry:component",
       "target": "@components/moduix/lightbox/index.ts"
     }

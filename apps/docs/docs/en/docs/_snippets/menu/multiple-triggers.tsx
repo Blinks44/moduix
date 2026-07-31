@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
 import { Map as MapIcon } from 'lucide-react';
 
 const messages = [

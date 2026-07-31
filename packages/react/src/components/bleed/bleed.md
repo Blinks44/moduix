@@ -56,7 +56,7 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Bleed } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
 
 <Bleed asChild>
   <figure>
@@ -139,7 +139,7 @@ Public CSS variables:
   surface.
 - Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
   replaced accidentally.
-- If CSS variables change, update `theme.css`, docs CSS Properties, stories/examples, and this file
+- If CSS variables change, update `variables-moduix.css`, docs CSS Properties, stories/examples, and this file
   in the same task.
 
 ## Local changelog

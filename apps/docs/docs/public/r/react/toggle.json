@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/toggle/index.ts",
-      "content": "export { Toggle, useToggleContext } from './Toggle';",
+      "content": "export { Toggle, useToggleContext } from './Toggle.js';",
       "type": "registry:component",
       "target": "@components/moduix/toggle/index.ts"
     }

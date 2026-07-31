@@ -1,5 +1,8 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Avatar, Menu, Select, Sidebar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Menu } from '@moduix/react/menu';
+import { Select } from '@moduix/react/select';
+import { Sidebar } from '@moduix/react/sidebar';
 import {
   BarChart3,
   Bell,

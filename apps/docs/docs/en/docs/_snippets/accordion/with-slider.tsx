@@ -1,4 +1,5 @@
-import { Accordion, Slider } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
+import { Slider } from '@moduix/react/slider';
 
 const items = [
   {

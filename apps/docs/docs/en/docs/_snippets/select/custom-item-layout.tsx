@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Select } from '@moduix/react/select';
 import { Apple as AppleIcon, Banana as BananaIcon, Cherry as CherryIcon } from 'lucide-react';
 
 const fruits = createListCollection({

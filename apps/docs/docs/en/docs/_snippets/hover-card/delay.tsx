@@ -1,4 +1,4 @@
-import { HoverCard } from '@moduix/react';
+import { HoverCard } from '@moduix/react/hover-card';
 import { SparklesIcon } from 'lucide-react';
 
 export default function DelayHoverCard() {

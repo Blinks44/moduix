@@ -1,4 +1,4 @@
-import { InputGroup } from '@moduix/react';
+import { InputGroup } from '@moduix/react/input-group';
 
 const inputGroupSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 

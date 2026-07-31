@@ -76,7 +76,7 @@ Exported values: `DateInput`, `useDateInput`, and `useDateInputContext`. Exporte
 
 ```tsx
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
 
 export function ReleaseDateInput() {
   return (

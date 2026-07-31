@@ -1,4 +1,4 @@
-import { Collapsible } from '@moduix/react';
+import { Collapsible } from '@moduix/react/collapsible';
 
 export default function PartialWidthCollapsibleDemo() {
   return (

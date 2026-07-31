@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/bleed/index.ts",
-      "content": "export * from './Bleed';",
+      "content": "export * from './Bleed.js';",
       "type": "registry:component",
       "target": "@components/moduix/bleed/index.ts"
     }

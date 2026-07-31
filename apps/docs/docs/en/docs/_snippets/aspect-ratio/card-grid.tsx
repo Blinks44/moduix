@@ -1,4 +1,5 @@
-import { AspectRatio, Card } from '@moduix/react';
+import { AspectRatio } from '@moduix/react/aspect-ratio';
+import { Card } from '@moduix/react/card';
 
 const stories = [
   {

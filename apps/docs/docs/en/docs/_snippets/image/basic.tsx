@@ -1,4 +1,4 @@
-import { Image } from '@moduix/react';
+import { Image } from '@moduix/react/image';
 
 export default function ImageDemo() {
   return (

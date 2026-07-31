@@ -1,5 +1,9 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Badge, Button, Card, Input, Select } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Input } from '@moduix/react/input';
+import { Select } from '@moduix/react/select';
 import { useState } from 'react';
 import styles from './theme-presets.module.css';
 import '@moduix/react/presets/contrast.css';

@@ -1,4 +1,4 @@
-import { AspectRatio } from '@moduix/react';
+import { AspectRatio } from '@moduix/react/aspect-ratio';
 
 const embed = {
   ratio: 16 / 9,

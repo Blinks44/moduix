@@ -4,7 +4,11 @@
   "title": "Tour",
   "description": "moduix React Tour component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/close-button", "@moduix-react/foundation"],
+  "registryDependencies": [
+    "@moduix-react/close-button",
+    "@moduix-react/foundation",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/tour/Tour.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/tour/index.ts",
-      "content": "export {\n  Tour,\n  useTour,\n  useTourContext,\n  waitForElement,\n  waitForElementValue,\n  waitForEvent,\n  waitForPromise,\n} from './Tour';",
+      "content": "export {\n  Tour,\n  useTour,\n  useTourContext,\n  waitForElement,\n  waitForElementValue,\n  waitForEvent,\n  waitForPromise,\n} from './Tour.js';",
       "type": "registry:component",
       "target": "@components/moduix/tour/index.ts"
     }

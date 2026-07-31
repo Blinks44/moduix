@@ -1,4 +1,4 @@
-import { createSplitterRegistry, Splitter } from '@moduix/react';
+import { createSplitterRegistry, Splitter } from '@moduix/react/splitter';
 import { useState } from 'react';
 
 const horizontalPanels = [

@@ -1,4 +1,4 @@
-import { Collapsible } from '@moduix/react';
+import { Collapsible } from '@moduix/react/collapsible';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

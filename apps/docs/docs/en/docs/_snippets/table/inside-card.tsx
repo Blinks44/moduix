@@ -1,4 +1,5 @@
-import { Card, Table } from '@moduix/react';
+import { Card } from '@moduix/react/card';
+import { Table } from '@moduix/react/table';
 
 const projects = [
   {

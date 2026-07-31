@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
 import { ChevronRight as ChevronRightIcon } from 'lucide-react';
 
 const labels = {

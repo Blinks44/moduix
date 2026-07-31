@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/skeleton/index.ts",
-      "content": "export * from './Skeleton';",
+      "content": "export * from './Skeleton.js';",
       "type": "registry:component",
       "target": "@components/moduix/skeleton/index.ts"
     }

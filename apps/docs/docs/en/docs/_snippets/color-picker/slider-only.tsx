@@ -1,4 +1,4 @@
-import { ColorPicker, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 
 export default function SliderOnlyColorPickerDemo() {
   return (

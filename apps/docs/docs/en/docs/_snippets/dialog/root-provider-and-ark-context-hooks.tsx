@@ -1,4 +1,5 @@
-import { Button, Dialog, useDialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog, useDialog } from '@moduix/react/dialog';
 export default function DialogStateDemo() {
   const dialog = useDialog();
   return (

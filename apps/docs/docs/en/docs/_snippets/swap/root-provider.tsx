@@ -1,4 +1,5 @@
-import { Button, Swap } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Swap } from '@moduix/react/swap';
 import { Check as CheckIcon, Download as DownloadIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/heading/index.ts",
-      "content": "export * from './Heading';",
+      "content": "export * from './Heading.js';",
       "type": "registry:component",
       "target": "@components/moduix/heading/index.ts"
     }

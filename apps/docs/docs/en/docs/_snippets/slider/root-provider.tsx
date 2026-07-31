@@ -1,4 +1,5 @@
-import { Button, Slider, useSlider } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Slider, useSlider } from '@moduix/react/slider';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderSliderDemo() {

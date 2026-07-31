@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/empty/index.ts",
-      "content": "export * from './Empty';",
+      "content": "export * from './Empty.js';",
       "type": "registry:component",
       "target": "@components/moduix/empty/index.ts"
     }

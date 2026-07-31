@@ -65,7 +65,9 @@ Empty / Empty.Root
 ## Composition
 
 ```tsx
-import { Button, Empty, MapIcon } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Empty } from '@moduix/react/empty';
+import { Map as MapIcon } from 'lucide-react';
 
 export function EmptyResults() {
   return (
@@ -166,7 +168,7 @@ Public CSS variables:
   hooks, or built-in action props without a concrete product requirement.
 - Preserve `Empty.Description` as a `div`; replacing it with `p` makes block content composition
   error-prone.
-- If public `--moduix-empty-*` variables change, update `theme.css`, stories, docs examples, and the CSS
+- If public `--moduix-empty-*` variables change, update `variables-moduix.css`, stories, docs examples, and the CSS
   properties reference in the same task.
 - Registry consumers need `@ark-ui/react` because the shipped source imports
   `@ark-ui/react/factory`.

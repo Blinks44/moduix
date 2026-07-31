@@ -78,7 +78,7 @@ also accepts `indicatorClassName` for its generated `Carousel.Indicator` items:
 ## Composition
 
 ```tsx
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 
 export function BasicCarousel() {
   return (

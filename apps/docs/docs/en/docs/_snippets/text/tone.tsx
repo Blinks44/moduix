@@ -1,4 +1,4 @@
-import { Text } from '@moduix/react';
+import { Text } from '@moduix/react/text';
 import styles from '@/components/examples/text.module.css';
 
 export default function TextTonesDemo() {

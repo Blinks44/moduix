@@ -66,7 +66,7 @@ Every exported part accepts `className` and receives a stable `data-slot`:
 ## Composition
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 
 const items = [
   { value: 'shipping', title: 'Shipping', description: 'Delivery times and tracking options.' },

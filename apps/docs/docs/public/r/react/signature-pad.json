@@ -4,7 +4,11 @@
   "title": "Signature Pad",
   "description": "moduix React Signature Pad component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/signature-pad/SignaturePad.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/signature-pad/index.ts",
-      "content": "export { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad';",
+      "content": "export { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad.js';",
       "type": "registry:component",
       "target": "@components/moduix/signature-pad/index.ts"
     }

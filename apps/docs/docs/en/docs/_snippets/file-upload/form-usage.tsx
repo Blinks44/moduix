@@ -1,4 +1,5 @@
-import { Button, FileUpload } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FileUpload } from '@moduix/react/file-upload';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

@@ -1,4 +1,5 @@
-import { Button, Lightbox } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

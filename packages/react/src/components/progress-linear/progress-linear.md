@@ -65,7 +65,7 @@ ProgressLinear.RootProvider
 ## Composition
 
 ```tsx
-import { ProgressLinear } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
 
 export function ExportProgress() {
   return (
@@ -134,7 +134,7 @@ Do not add hidden structural wrappers for label, value text, track, or range. Do
 callback detail objects or replace `RootProvider` with a local state layer. Keep normal
 state/provider examples on the `ProgressLinear` namespace; direct Ark imports are only an advanced
 escape hatch. When changing styling hooks or CSS variables, update docs examples, this file,
-`theme.css`, and the registry output.
+`variables-moduix.css`, and the registry output.
 
 ## Local changelog
 

@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/slider/index.ts",
-      "content": "export * from './Slider';",
+      "content": "export * from './Slider.js';",
       "type": "registry:component",
       "target": "@components/moduix/slider/index.ts"
     }

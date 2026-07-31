@@ -55,7 +55,7 @@ Do not unpack or remap `onValueChange`; consumers should read `details.value`.
 ## Composition
 
 ```tsx
-import { RadioGroup } from '@moduix/react';
+import { RadioGroup } from '@moduix/react/radio-group';
 
 export function RadioGroupDemo() {
   return (

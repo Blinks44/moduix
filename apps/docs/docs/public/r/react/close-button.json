@@ -4,7 +4,7 @@
   "title": "CloseButton",
   "description": "moduix React CloseButton component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/close-button/CloseButton.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/close-button/index.ts",
-      "content": "export * from './CloseButton';",
+      "content": "export * from './CloseButton.js';",
       "type": "registry:component",
       "target": "@components/moduix/close-button/index.ts"
     }

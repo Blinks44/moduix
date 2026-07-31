@@ -1,4 +1,4 @@
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 import { useState } from 'react';
 
 export default function ControlledEditableDemo() {

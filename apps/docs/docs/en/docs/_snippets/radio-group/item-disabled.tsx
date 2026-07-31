@@ -1,4 +1,4 @@
-import { RadioGroup } from '@moduix/react';
+import { RadioGroup } from '@moduix/react/radio-group';
 
 export default function RadioGroupItemDisabledDemo() {
   return (

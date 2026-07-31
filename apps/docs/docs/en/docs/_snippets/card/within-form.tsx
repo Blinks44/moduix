@@ -1,4 +1,6 @@
-import { Button, Card, Input } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Input } from '@moduix/react/input';
 
 const copy = {
   title: 'Create account',

@@ -62,7 +62,7 @@ ToggleGroup.RootProvider
 Canonical usage:
 
 ```tsx
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup } from '@moduix/react/toggle-group';
 
 export function ToggleGroupDemo() {
   return (
@@ -78,7 +78,7 @@ export function ToggleGroupDemo() {
 Controlled usage keeps Ark callback details:
 
 ```tsx
-import { ToggleGroup } from '@moduix/react';
+import { ToggleGroup } from '@moduix/react/toggle-group';
 import { useState } from 'react';
 
 export function ControlledToggleGroupDemo() {
@@ -101,7 +101,7 @@ export function ControlledToggleGroupDemo() {
 Root provider usage:
 
 ```tsx
-import { ToggleGroup, useToggleGroup } from '@moduix/react';
+import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
 
 export function RootProviderToggleGroupDemo() {
   const toggleGroup = useToggleGroup({ defaultValue: ['left'] });

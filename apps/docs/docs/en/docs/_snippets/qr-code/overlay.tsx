@@ -1,4 +1,4 @@
-import { QrCode } from '@moduix/react';
+import { QrCode } from '@moduix/react/qr-code';
 
 export default function OverlayQrCodeDemo() {
   return (

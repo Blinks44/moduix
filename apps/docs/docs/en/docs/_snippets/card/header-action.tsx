@@ -1,4 +1,5 @@
-import { Badge, Card } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Card } from '@moduix/react/card';
 
 const incident = {
   title: 'Incident response',

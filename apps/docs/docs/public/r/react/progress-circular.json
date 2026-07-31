@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/progress-circular/index.ts",
-      "content": "export { ProgressCircular } from './ProgressCircular';",
+      "content": "export { ProgressCircular } from './ProgressCircular.js';",
       "type": "registry:component",
       "target": "@components/moduix/progress-circular/index.ts"
     }

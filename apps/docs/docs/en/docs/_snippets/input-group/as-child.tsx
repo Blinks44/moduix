@@ -1,4 +1,5 @@
-import { Field, InputGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { InputGroup } from '@moduix/react/input-group';
 
 const repositoryOwner = 'moduix/';
 

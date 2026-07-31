@@ -21,6 +21,8 @@ Use this skill when work spans `packages/react` and `apps/docs`.
   context, callback detail objects, `asChild`, `ids`, context hooks, `RootProvider`, state attributes, and CSS
   variables should match the shipped wrapper.
 - Sync README files when install paths, styling entrypoints, or ownership guidance changes, and keep wording consistent with `quick-start.mdx`.
+- When package exports change, migrate package and documentation imports to the supported subpaths in the same
+  change. Do not leave examples that teach an unavailable root package entrypoint.
 - Remove docs for deleted props, types, styling hooks, feature flags, and outdated examples in the same task.
 - When a native form-control part becomes internal, remove it from package/site examples and public anatomy, then
   state that moduix renders it automatically. Document and demonstrate any semantic migration props that replace

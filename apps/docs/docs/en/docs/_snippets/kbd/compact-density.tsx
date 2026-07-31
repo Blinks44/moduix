@@ -1,4 +1,4 @@
-import { Kbd } from '@moduix/react';
+import { Kbd } from '@moduix/react/kbd';
 
 const keys = ['Esc', 'Ctrl', '/'];
 

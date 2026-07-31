@@ -1,4 +1,4 @@
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
 import { useState } from 'react';
 
 const initialValue = 210;

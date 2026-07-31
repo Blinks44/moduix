@@ -1,4 +1,4 @@
-import { Accordion, useAccordion } from '@moduix/react';
+import { Accordion, useAccordion } from '@moduix/react/accordion';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [

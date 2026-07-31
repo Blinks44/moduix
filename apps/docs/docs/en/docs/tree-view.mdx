@@ -165,7 +165,7 @@ const asyncResponse = {
 
 createTreeViewCode({
   imports: `import { useState } from "react";
-import { TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from "@moduix/react";
+import { TreeView, type TreeViewLoadChildrenDetails, type TreeViewNodeProviderProps, createTreeCollection, useTreeViewNodeContext } from '@moduix/react/tree-view';
 import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `const asyncCollection = createTreeCollection<FileNode>({
   nodeToValue: (node) => node.id,
@@ -451,7 +451,8 @@ const collection = createTreeCollection({
 });
 
 createTreeViewCode({
-  imports: `import { Button, TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+  imports: `import { Button } from '@moduix/react/button';
+import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from '@moduix/react/tree-view';
 import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   extraSetup: `function ExpandCollapseControls({
   expanded,
@@ -660,7 +661,7 @@ const collection = createTreeCollection({
 });
 
 createTreeViewCode({
-  imports: `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from "@moduix/react";
+  imports: `import { TreeView, type TreeViewNodeProviderProps, createTreeCollection, useTreeView, useTreeViewNodeContext } from '@moduix/react/tree-view';
 import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from "lucide-react";`,
   demo: `export function RootProviderTreeDemo() {
   const treeView = useTreeView({ collection, defaultSelectedValue: ["README.md"] });

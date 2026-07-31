@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react';
+import { Tag } from '@moduix/react/tag';
 
 export default function TagDemo() {
   return (

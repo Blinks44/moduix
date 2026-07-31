@@ -5,5 +5,5 @@ export {
   LightboxImage,
   useLightbox,
   useLightboxContext,
-} from './Lightbox';
-export type { LightboxBindProps, LightboxImageSelectDetails } from './Lightbox';
+} from './Lightbox.js';
+export type { LightboxBindProps, LightboxImageSelectDetails } from './Lightbox.js';

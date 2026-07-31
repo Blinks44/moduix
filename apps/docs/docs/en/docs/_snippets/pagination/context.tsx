@@ -1,4 +1,5 @@
-import { Button, Pagination } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Pagination } from '@moduix/react/pagination';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PaginationContextDemo() {

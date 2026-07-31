@@ -71,10 +71,11 @@ import '@moduix/react/style.css';
 
 ## Use Components
 
-Import public components from the package barrel and compose their named parts:
+Import the component subpaths you use and compose their named parts:
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (

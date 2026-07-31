@@ -1,4 +1,5 @@
-import { Skeleton, Stack } from '@moduix/react';
+import { Skeleton } from '@moduix/react/skeleton';
+import { Stack } from '@moduix/react/stack';
 
 export default function StackFillDemo() {
   return (

@@ -1,4 +1,4 @@
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 

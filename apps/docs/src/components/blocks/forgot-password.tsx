@@ -1,4 +1,7 @@
-import { Button, Card, Field, Input } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './forgot-password.module.css';
 import '@moduix/react/style.css';

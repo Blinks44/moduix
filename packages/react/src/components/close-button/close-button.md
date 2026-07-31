@@ -51,7 +51,7 @@ CloseButton / CloseButton.Root
 ## Composition
 
 ```tsx
-import { CloseButton } from '@moduix/react';
+import { CloseButton } from '@moduix/react/close-button';
 
 export function DismissNotification() {
   return <CloseButton aria-label="Dismiss notification" />;

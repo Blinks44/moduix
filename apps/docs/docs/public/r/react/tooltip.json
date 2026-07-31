@@ -4,7 +4,7 @@
   "title": "Tooltip",
   "description": "moduix React Tooltip component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
   "files": [
     {
       "path": "packages/react/src/components/tooltip/Tooltip.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/tooltip/index.ts",
-      "content": "export { Tooltip, useTooltip, useTooltipContext } from './Tooltip';",
+      "content": "export { Tooltip, useTooltip, useTooltipContext } from './Tooltip.js';",
       "type": "registry:component",
       "target": "@components/moduix/tooltip/index.ts"
     }

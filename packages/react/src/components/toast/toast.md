@@ -71,7 +71,8 @@ Every visual exported part accepts `className` and receives a stable `data-slot`
 ## Composition
 
 ```tsx
-import { Button, Toast, Toaster, createToaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toast, Toaster, createToaster } from '@moduix/react/toast';
 
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 

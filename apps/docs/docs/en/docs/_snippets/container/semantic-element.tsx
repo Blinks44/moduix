@@ -1,4 +1,6 @@
-import { Container, Heading, Text } from '@moduix/react';
+import { Container } from '@moduix/react/container';
+import { Heading } from '@moduix/react/heading';
+import { Text } from '@moduix/react/text';
 
 const semanticContent = {
   title: 'Main content area',

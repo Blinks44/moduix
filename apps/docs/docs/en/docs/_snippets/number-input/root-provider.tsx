@@ -1,4 +1,5 @@
-import { Button, NumberInput, useNumberInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { NumberInput, useNumberInput } from '@moduix/react/number-input';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderNumberInputDemo() {

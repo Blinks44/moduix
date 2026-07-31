@@ -1,4 +1,4 @@
-import { Field } from '@moduix/react';
+import { Field } from '@moduix/react/field';
 
 export default function TextareaAutoresizeFieldDemo() {
   return (

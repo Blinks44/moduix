@@ -4,7 +4,7 @@
   "title": "Pagination",
   "description": "moduix React Pagination component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/pagination/Pagination.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/pagination/index.ts",
-      "content": "export { Pagination, usePagination, usePaginationContext } from './Pagination';",
+      "content": "export { Pagination, usePagination, usePaginationContext } from './Pagination.js';",
       "type": "registry:component",
       "target": "@components/moduix/pagination/index.ts"
     }

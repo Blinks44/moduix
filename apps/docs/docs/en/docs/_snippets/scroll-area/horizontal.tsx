@@ -1,4 +1,4 @@
-import { ScrollArea } from '@moduix/react';
+import { ScrollArea } from '@moduix/react/scroll-area';
 
 const copy =
   'Long single-line or wide content can stay in one native scroll viewport while the custom horizontal track remains visible only when x-axis overflow exists.';

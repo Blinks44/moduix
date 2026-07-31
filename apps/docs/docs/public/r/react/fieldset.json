@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/fieldset/index.ts",
-      "content": "export { Fieldset, useFieldset, useFieldsetContext } from './Fieldset';",
+      "content": "export { Fieldset, useFieldset, useFieldsetContext } from './Fieldset.js';",
       "type": "registry:component",
       "target": "@components/moduix/fieldset/index.ts"
     }

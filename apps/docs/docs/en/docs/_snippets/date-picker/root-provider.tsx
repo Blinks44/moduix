@@ -1,5 +1,6 @@
 import { today } from '@internationalized/date';
-import { Button, DatePicker, useDatePicker } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { DatePicker, useDatePicker } from '@moduix/react/date-picker';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDatePickerDemo() {

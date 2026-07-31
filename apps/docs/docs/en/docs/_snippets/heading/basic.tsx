@@ -1,4 +1,4 @@
-import { Heading } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
 
 const headingText = 'Build reliable interfaces';
 

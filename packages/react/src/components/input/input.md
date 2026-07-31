@@ -48,7 +48,8 @@ Field.Root (optional)
 ## Composition
 
 ```tsx
-import { Field, Input } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 
 export function EmailField() {
   return (
@@ -100,7 +101,7 @@ The default `md` input uses `--moduix-size-md` with `--moduix-spacing-1` block p
   `--moduix-input-width` overrides it.
 - `className` is merged with the moduix CSS module class.
 - Stable hooks are `data-slot`, `data-size`, `data-scope`, `data-part`, Ark field state attributes,
-  native state selectors, and the public `--moduix-input-*` variables in `theme.css`.
+  native state selectors, and the public `--moduix-input-*` variables in `variables-moduix.css`.
 - `data-html-size` is added only while `htmlSize` is set so the default width can follow the native
   character-based width.
 - File chooser buttons use the compact moduix primary-button treatment while preserving the native

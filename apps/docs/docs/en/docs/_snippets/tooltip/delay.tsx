@@ -1,4 +1,4 @@
-import { Tooltip } from '@moduix/react';
+import { Tooltip } from '@moduix/react/tooltip';
 
 export default function DelayTooltipDemo() {
   return (

@@ -51,7 +51,8 @@ Swap / Swap.Root
 ## Composition
 
 ```tsx
-import { Button, Swap } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Swap } from '@moduix/react/swap';
 
 export function UploadButton() {
   const [uploaded, setUploaded] = useState(false);

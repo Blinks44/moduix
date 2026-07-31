@@ -1,4 +1,5 @@
-import { Field, NativeSelect } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { NativeSelect } from '@moduix/react/native-select';
 
 const currencyOptions = [
   {

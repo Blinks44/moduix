@@ -1,4 +1,4 @@
-import { ImageCropper } from '@moduix/react';
+import { ImageCropper } from '@moduix/react/image-cropper';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

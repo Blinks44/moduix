@@ -79,7 +79,8 @@ portal transport and `Context` do not render DOM elements.
 ## Composition
 
 ```tsx
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 
 export function PopoverDemo() {
   return (
@@ -159,7 +160,7 @@ Open and closed animations target `[data-state='open']` and `[data-state='closed
 layer keeps exit animations mounted. Use `present` only for JavaScript-controlled animation
 lifecycles.
 
-The public `--moduix-popover-*` variables are declared in `theme.css`. Positioner sizing relies on Ark's
+The public `--moduix-popover-*` variables are declared in `variables-moduix.css`. Positioner sizing relies on Ark's
 runtime available-size and reference-size variables rather than duplicate measurements.
 
 When `Body` is present, `Content` uses it as the scroll region instead of allowing long content to

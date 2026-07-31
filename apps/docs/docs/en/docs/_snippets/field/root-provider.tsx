@@ -1,4 +1,4 @@
-import { Field, useField } from '@moduix/react';
+import { Field, useField } from '@moduix/react/field';
 
 export default function RootProviderFieldDemo() {
   const field = useField({

@@ -1,4 +1,5 @@
-import { Field, Input } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { useState } from 'react';
 
 export default function ControlledInputDemo() {

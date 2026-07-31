@@ -1,4 +1,5 @@
-import { Button, Popover, usePopoverContext } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover, usePopoverContext } from '@moduix/react/popover';
 
 function PopoverState() {
   const popover = usePopoverContext();

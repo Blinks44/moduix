@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup } from '@moduix/react/segment-group';
 
 const frameworks = [
   { value: 'React', label: 'React' },

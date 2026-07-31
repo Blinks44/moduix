@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/date-input/index.ts",
-      "content": "export * from './DateInput';",
+      "content": "export * from './DateInput.js';",
       "type": "registry:component",
       "target": "@components/moduix/date-input/index.ts"
     }

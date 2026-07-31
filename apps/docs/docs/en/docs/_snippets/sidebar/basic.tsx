@@ -1,4 +1,4 @@
-import { Sidebar } from '@moduix/react';
+import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, Gauge } from 'lucide-react';
 
 export default function AppSidebar() {

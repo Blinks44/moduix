@@ -1,4 +1,4 @@
-import { TagsInput, useTagsInput } from '@moduix/react';
+import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 
 export default function RootProviderTagsInput() {

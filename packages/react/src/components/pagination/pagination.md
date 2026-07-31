@@ -24,7 +24,7 @@ many items map to one page.
 Use `Pagination` as the root:
 
 ```tsx
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
 
 export function Example() {
   return (

@@ -23,6 +23,14 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 - Use design tokens and public CSS variables instead of hardcoded one-off values when a token already exists.
 - Keep component CSS and demo CSS separate. Library styling belongs in `packages/react`; demo-only layout belongs in stories or docs example CSS.
 
+## CSS Variable References
+
+- `packages/react/src/styles/variables-moduix.css` and `packages/react/src/styles/variables-ark.css` are internal
+  reference sources for the public moduix and Ark runtime custom-property contracts. Never import either file at
+  runtime, publish it in the npm build, or ship it through the shadcn registry.
+- When adding, renaming, or removing a public custom property, update the relevant reference source and the
+  component documentation in the same change. Do not add IDE metadata or a generator solely for CSS completion.
+
 ## Ark Styling
 
 - Target Ark parts with `data-scope` and `data-part` when the selector needs to bind to the upstream anatomy.

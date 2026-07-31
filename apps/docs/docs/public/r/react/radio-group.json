@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/radio-group/index.ts",
-      "content": "export {\n  RadioGroup,\n  useRadioGroup,\n  useRadioGroupContext,\n  useRadioGroupItemContext,\n} from './RadioGroup';\nexport type {\n  RadioGroupItemControlProps,\n  RadioGroupItemControlSize,\n  RadioGroupOptionProps,\n} from './RadioGroup';",
+      "content": "export {\n  RadioGroup,\n  useRadioGroup,\n  useRadioGroupContext,\n  useRadioGroupItemContext,\n} from './RadioGroup.js';\nexport type {\n  RadioGroupItemControlProps,\n  RadioGroupItemControlSize,\n  RadioGroupOptionProps,\n} from './RadioGroup.js';",
       "type": "registry:component",
       "target": "@components/moduix/radio-group/index.ts"
     }

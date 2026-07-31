@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/field/index.ts",
-      "content": "export * from './Field';",
+      "content": "export * from './Field.js';",
       "type": "registry:component",
       "target": "@components/moduix/field/index.ts"
     }

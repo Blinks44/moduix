@@ -1,4 +1,5 @@
-import { ScrollArea, Sidebar } from '@moduix/react';
+import { ScrollArea } from '@moduix/react/scroll-area';
+import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, FolderOpen, Gauge } from 'lucide-react';
 
 const projects = [

@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/table/index.ts",
-      "content": "export { Table } from './Table';",
+      "content": "export { Table } from './Table.js';",
       "type": "registry:component",
       "target": "@components/moduix/table/index.ts"
     }

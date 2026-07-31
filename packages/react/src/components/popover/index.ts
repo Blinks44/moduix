@@ -1,1 +1,1 @@
-export { Popover, usePopover, usePopoverContext } from './Popover';
+export { Popover, usePopover, usePopoverContext } from './Popover.js';

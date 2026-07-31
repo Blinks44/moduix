@@ -1,4 +1,5 @@
-import { ProgressCircular, Slider } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
+import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

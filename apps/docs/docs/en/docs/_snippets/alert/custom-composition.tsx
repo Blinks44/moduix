@@ -1,4 +1,5 @@
-import { Alert, Button } from '@moduix/react';
+import { Alert } from '@moduix/react/alert';
+import { Button } from '@moduix/react/button';
 import { Info as InfoIcon } from 'lucide-react';
 import { useState } from 'react';
 

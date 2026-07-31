@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/button/index.ts",
-      "content": "export { Button } from './Button';",
+      "content": "export { Button } from './Button.js';",
       "type": "registry:component",
       "target": "@components/moduix/button/index.ts"
     }

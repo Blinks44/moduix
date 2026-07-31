@@ -4,7 +4,7 @@
   "title": "Clipboard",
   "description": "moduix React Clipboard component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/clipboard/Clipboard.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/clipboard/index.ts",
-      "content": "export * from './Clipboard';",
+      "content": "export * from './Clipboard.js';",
       "type": "registry:component",
       "target": "@components/moduix/clipboard/index.ts"
     }

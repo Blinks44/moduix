@@ -1,4 +1,4 @@
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 
 export default function InitialCheckedSwitchDemo() {
   return (

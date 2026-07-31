@@ -1,5 +1,10 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { ProgressLinear } from '@moduix/react/progress-linear';
+import { Select } from '@moduix/react/select';
+import { Switch } from '@moduix/react/switch';
+import { Tabs } from '@moduix/react/tabs';
 import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { DataTable } from '@/components/home/data-table';

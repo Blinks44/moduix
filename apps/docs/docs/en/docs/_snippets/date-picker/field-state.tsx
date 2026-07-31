@@ -1,4 +1,5 @@
-import { DatePicker, Field } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
+import { Field } from '@moduix/react/field';
 
 export default function FieldDatePickerDemo() {
   return (

@@ -1,4 +1,5 @@
-import { Button, Spinner } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Spinner } from '@moduix/react/spinner';
 import { useState } from 'react';
 
 const delay = 1800;

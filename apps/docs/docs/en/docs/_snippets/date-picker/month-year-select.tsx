@@ -1,6 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker, Select } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
+import { Select } from '@moduix/react/select';
 
 const monthItems = [
   { label: 'January', value: '1' },

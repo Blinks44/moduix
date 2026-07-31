@@ -1,4 +1,4 @@
-import { SignaturePad, useSignaturePad } from '@moduix/react';
+import { SignaturePad, useSignaturePad } from '@moduix/react/signature-pad';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const signaturePadTranslations = {

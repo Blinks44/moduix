@@ -1,4 +1,5 @@
-import { Button, Marquee, useMarquee } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Marquee, useMarquee } from '@moduix/react/marquee';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

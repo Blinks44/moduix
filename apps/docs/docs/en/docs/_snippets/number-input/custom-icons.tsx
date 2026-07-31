@@ -1,4 +1,4 @@
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
 
 export default function CustomIconsNumberInputDemo() {

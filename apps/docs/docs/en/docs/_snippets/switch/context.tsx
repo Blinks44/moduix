@@ -1,4 +1,4 @@
-import { Switch, useSwitchContext } from '@moduix/react';
+import { Switch, useSwitchContext } from '@moduix/react/switch';
 
 function SwitchContextLabel() {
   const switchApi = useSwitchContext();

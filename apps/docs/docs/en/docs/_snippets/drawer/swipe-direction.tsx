@@ -1,4 +1,6 @@
-import { Button, Card, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
 const direction = 'end' as const;
 export default function SwipeDirectionDrawerDemo() {

@@ -4,7 +4,11 @@
   "title": "FileUpload",
   "description": "moduix React FileUpload component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/file-upload/FileUpload.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/file-upload/index.ts",
-      "content": "export { FileUpload, useFileUpload, useFileUploadContext } from './FileUpload';",
+      "content": "export { FileUpload, useFileUpload, useFileUploadContext } from './FileUpload.js';",
       "type": "registry:component",
       "target": "@components/moduix/file-upload/index.ts"
     }

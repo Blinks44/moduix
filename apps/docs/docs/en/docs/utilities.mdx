@@ -13,7 +13,7 @@ Many of these utilities use dedicated subpath imports:
 
 ```tsx
 import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react';
+import { LocaleProvider } from '@moduix/react/locale';
 import { ClientOnly } from '@ark-ui/react/client-only';
 import { EnvironmentProvider } from '@ark-ui/react/environment';
 import { Presence } from '@ark-ui/react/presence';
@@ -98,7 +98,7 @@ Use `EnvironmentProvider` when a moduix subtree renders in a non-default documen
 
 ```tsx
 import { EnvironmentProvider } from '@ark-ui/react/environment';
-import { Popover } from '@moduix/react';
+import { Popover } from '@moduix/react/popover';
 
 export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
   return (
@@ -127,7 +127,7 @@ code.
 
 ```tsx
 import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react';
+import { LocaleProvider } from '@moduix/react/locale';
 
 export function ActivityTimestamp() {
   return (

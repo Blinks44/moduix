@@ -4,7 +4,7 @@
   "title": "Editable",
   "description": "moduix React Editable component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/editable/Editable.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/editable/index.ts",
-      "content": "export { Editable, useEditable, useEditableContext } from './Editable';",
+      "content": "export { Editable, useEditable, useEditableContext } from './Editable.js';",
       "type": "registry:component",
       "target": "@components/moduix/editable/index.ts"
     }

@@ -1,4 +1,4 @@
-import { PasswordInput } from '@moduix/react';
+import { PasswordInput } from '@moduix/react/password-input';
 import { useState } from 'react';
 
 export default function PasswordInputStrengthMeterDemo() {

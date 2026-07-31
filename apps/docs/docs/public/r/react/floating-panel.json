@@ -4,7 +4,12 @@
   "title": "FloatingPanel",
   "description": "moduix React FloatingPanel component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/floating-panel/FloatingPanel.tsx",
@@ -20,7 +25,7 @@
     },
     {
       "path": "packages/react/src/components/floating-panel/index.ts",
-      "content": "export {\n  FloatingPanel,\n  resizeTriggerAxes,\n  useFloatingPanel,\n  useFloatingPanelContext,\n} from './FloatingPanel';",
+      "content": "export {\n  FloatingPanel,\n  resizeTriggerAxes,\n  useFloatingPanel,\n  useFloatingPanelContext,\n} from './FloatingPanel.js';",
       "type": "registry:component",
       "target": "@components/moduix/floating-panel/index.ts"
     }

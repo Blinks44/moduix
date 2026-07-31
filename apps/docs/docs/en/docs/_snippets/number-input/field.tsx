@@ -1,4 +1,5 @@
-import { Field, NumberInput } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { NumberInput } from '@moduix/react/number-input';
 
 export default function NumberInputFieldDemo() {
   return (

@@ -112,7 +112,7 @@ event/detail types remain direct imports from `@ark-ui/react/date-picker`.
 ## Composition
 
 ```tsx
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 import { parseDate } from '@ark-ui/react/date-picker';
 
 export function ReleaseDatePicker() {

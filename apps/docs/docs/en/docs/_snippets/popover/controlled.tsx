@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

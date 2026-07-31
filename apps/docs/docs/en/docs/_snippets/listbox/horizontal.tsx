@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react';
+import { Listbox } from '@moduix/react/listbox';
 import styles from '@/components/examples/listbox.module.css';
 
 const albums = createListCollection({

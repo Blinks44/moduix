@@ -1,4 +1,5 @@
-import { Button, ScrollArea } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ScrollArea } from '@moduix/react/scroll-area';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

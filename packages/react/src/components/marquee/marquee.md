@@ -25,7 +25,7 @@ Ark CSS variables.
 content, items, or edge fades automatically. Consumers compose the Ark tree explicitly:
 
 ```tsx
-import { Marquee } from '@moduix/react';
+import { Marquee } from '@moduix/react/marquee';
 
 export function Example() {
   return (

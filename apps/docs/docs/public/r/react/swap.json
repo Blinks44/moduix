@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/swap/index.ts",
-      "content": "export { Swap, useSwap, useSwapContext, type SwapAnimation } from './Swap';",
+      "content": "export { Swap, useSwap, useSwapContext, type SwapAnimation } from './Swap.js';",
       "type": "registry:component",
       "target": "@components/moduix/swap/index.ts"
     }

@@ -1,4 +1,6 @@
-import { Button, Dialog, ScrollArea } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { ScrollArea } from '@moduix/react/scroll-area';
 
 const sections = [
   {

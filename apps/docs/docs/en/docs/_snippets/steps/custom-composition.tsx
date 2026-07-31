@@ -1,4 +1,4 @@
-import { Steps } from '@moduix/react';
+import { Steps } from '@moduix/react/steps';
 
 const items = [
   {

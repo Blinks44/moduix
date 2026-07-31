@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 import { useState } from 'react';
 
 const slides = [

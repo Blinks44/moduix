@@ -1,4 +1,4 @@
-import { Tooltip, useTooltip } from '@moduix/react';
+import { Tooltip, useTooltip } from '@moduix/react/tooltip';
 import styles from '@/components/examples/tooltip.module.css';
 
 export default function RootProviderTooltipDemo() {

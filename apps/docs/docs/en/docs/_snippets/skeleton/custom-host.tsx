@@ -1,4 +1,4 @@
-import { Skeleton } from '@moduix/react';
+import { Skeleton } from '@moduix/react/skeleton';
 
 const loadingRegion = {
   label: 'Loading summary',

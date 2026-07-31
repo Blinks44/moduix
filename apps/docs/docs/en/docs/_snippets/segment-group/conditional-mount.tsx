@@ -1,4 +1,5 @@
-import { Button, SegmentGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { SegmentGroup } from '@moduix/react/segment-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

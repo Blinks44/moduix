@@ -8,7 +8,9 @@
     "@moduix-react/close-button",
     "@moduix-react/foundation",
     "@moduix-react/kbd",
-    "@moduix-react/scroll-area"
+    "@moduix-react/scroll-area",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
   ],
   "files": [
     {
@@ -25,7 +27,7 @@
     },
     {
       "path": "packages/react/src/components/command-palette/index.ts",
-      "content": "export * from './CommandPalette';",
+      "content": "export * from './CommandPalette.js';",
       "type": "registry:component",
       "target": "@components/moduix/command-palette/index.ts"
     }

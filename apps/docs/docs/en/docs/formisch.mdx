@@ -80,7 +80,8 @@ The fragment belongs inside a `Form` that uses the `form` created here.
 
 ```tsx
 import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
-import { Button, Field } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Field } from '@moduix/react/field';
 import * as v from 'valibot';
 
 const formSchema = v.object({

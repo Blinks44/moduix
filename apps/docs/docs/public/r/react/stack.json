@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/stack/index.ts",
-      "content": "export { Stack } from './Stack';",
+      "content": "export { Stack } from './Stack.js';",
       "type": "registry:component",
       "target": "@components/moduix/stack/index.ts"
     }

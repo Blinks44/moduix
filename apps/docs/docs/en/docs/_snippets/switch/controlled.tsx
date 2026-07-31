@@ -1,4 +1,4 @@
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/switch.module.css';

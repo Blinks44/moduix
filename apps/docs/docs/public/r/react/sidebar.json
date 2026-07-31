@@ -8,7 +8,8 @@
     "@moduix-react/input",
     "@moduix-react/separator",
     "@moduix-react/splitter",
-    "@moduix-react/tooltip"
+    "@moduix-react/tooltip",
+    "@moduix-react/icons"
   ],
   "files": [
     {
@@ -25,7 +26,7 @@
     },
     {
       "path": "packages/react/src/components/sidebar/index.ts",
-      "content": "export { Sidebar, useSidebar } from './Sidebar';",
+      "content": "export { Sidebar, useSidebar } from './Sidebar.js';",
       "type": "registry:component",
       "target": "@components/moduix/sidebar/index.ts"
     }

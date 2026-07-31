@@ -4,7 +4,7 @@
   "title": "Collapsible",
   "description": "moduix React Collapsible component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/collapsible/Collapsible.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/collapsible/index.ts",
-      "content": "export { Collapsible, useCollapsible, useCollapsibleContext } from './Collapsible';",
+      "content": "export { Collapsible, useCollapsible, useCollapsibleContext } from './Collapsible.js';",
       "type": "registry:component",
       "target": "@components/moduix/collapsible/index.ts"
     }

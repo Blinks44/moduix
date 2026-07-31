@@ -54,7 +54,7 @@ List / List.Root
 Canonical unordered usage:
 
 ```tsx
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export function ListDemo() {
   return (
@@ -70,7 +70,7 @@ export function ListDemo() {
 Canonical ordered usage:
 
 ```tsx
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export function OrderedListDemo() {
   return (

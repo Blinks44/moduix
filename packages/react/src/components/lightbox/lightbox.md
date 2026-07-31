@@ -79,7 +79,7 @@ an Ark anatomy part.
 ## Composition
 
 ```tsx
-import { Lightbox } from '@moduix/react';
+import { Lightbox } from '@moduix/react/lightbox';
 
 export function LightboxDemo() {
   return (

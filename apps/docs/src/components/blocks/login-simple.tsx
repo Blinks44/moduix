@@ -1,4 +1,8 @@
-import { Button, Card, Checkbox, Field, Input } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import type { FormEventHandler } from 'react';
 import styles from './login-simple.module.css';
 import '@moduix/react/style.css';

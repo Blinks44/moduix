@@ -1,4 +1,5 @@
-import { Button, Collapsible, useCollapsibleContext } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Collapsible, useCollapsibleContext } from '@moduix/react/collapsible';
 
 function CloseDetailsButton() {
   const collapsible = useCollapsibleContext();

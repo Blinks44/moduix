@@ -51,7 +51,8 @@ Highlight / Highlight.Root
 Canonical usage:
 
 ```tsx
-import { Highlight, Text } from '@moduix/react';
+import { Highlight } from '@moduix/react/highlight';
+import { Text } from '@moduix/react/text';
 
 export function Example() {
   return (
@@ -133,7 +134,7 @@ Public CSS variables:
 - Keep the wrapper thin. Do not add local parsing, match preprocessing, or alternate render paths.
 - Preserve the no-wrapper contract. The component styles matched `<mark>` tags; it does not own the
   surrounding text layout.
-- If public `--moduix-highlight-*` variables change, update `theme.css`, stories, docs examples, the local
+- If public `--moduix-highlight-*` variables change, update `variables-moduix.css`, stories, docs examples, the local
   markdown file, and the docs page in the same task.
 
 ## Local changelog

@@ -1,4 +1,4 @@
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

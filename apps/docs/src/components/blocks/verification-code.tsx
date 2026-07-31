@@ -1,4 +1,7 @@
-import { Button, Card, Field, PinInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Field } from '@moduix/react/field';
+import { PinInput } from '@moduix/react/pin-input';
 import type { FormEventHandler } from 'react';
 import { useState } from 'react';
 import styles from './verification-code.module.css';

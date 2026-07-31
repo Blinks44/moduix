@@ -4,7 +4,7 @@
   "title": "HoverCard",
   "description": "moduix React HoverCard component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
   "files": [
     {
       "path": "packages/react/src/components/hover-card/HoverCard.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/hover-card/index.ts",
-      "content": "export { HoverCard, useHoverCard, useHoverCardContext } from './HoverCard';",
+      "content": "export { HoverCard, useHoverCard, useHoverCardContext } from './HoverCard.js';",
       "type": "registry:component",
       "target": "@components/moduix/hover-card/index.ts"
     }

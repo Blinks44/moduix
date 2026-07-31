@@ -15,8 +15,9 @@ When you use moduix as an npm package, import `@moduix/react/style.css` once. Wh
 with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same token
 foundation.
 
-The reset stays optional in both paths. Import `@moduix/react/reset.css` or
-`@/lib/moduix/styles/reset.css` explicitly before `style.css` only when you want the shared reset.
+The reset stays optional in both paths. As an npm consumer, import `@moduix/react/reset.css`
+before `style.css`. In the copy-owned path, first run `npx shadcn@latest add @moduix-react/reset`,
+then import `@/lib/moduix/styles/reset.css` before `style.css`.
 
 For a curated starting point, use [Themes](/docs/themes). Presets override a small semantic token
 layer after `style.css`; this page remains the full reference for every token and component alias.
@@ -65,6 +66,11 @@ Component-specific exceptions follow the same convention, such as `--moduix-dial
 The exception is Ark UI runtime state: variables such as `--height`, `--available-width`, and
 `--transform-origin` stay unprefixed because Ark writes them to the relevant component parts.
 moduix does not declare those values on `:root`.
+
+The source reference files that describe these variables are internal library authoring assets;
+neither is installed or imported by consumers. Package users receive IDE metadata automatically,
+and shadcn users receive the same metadata files with the setup described in
+[Quick start](/docs/quick-start).
 
 ## Density and Control Scale
 

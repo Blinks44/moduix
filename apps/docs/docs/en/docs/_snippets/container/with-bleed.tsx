@@ -1,4 +1,7 @@
-import { Bleed, Container, Heading, Text } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
+import { Container } from '@moduix/react/container';
+import { Heading } from '@moduix/react/heading';
+import { Text } from '@moduix/react/text';
 
 const bleedContent = {
   title: 'Article body',

@@ -1,4 +1,5 @@
-import { Field, Textarea } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Textarea } from '@moduix/react/textarea';
 import { useState } from 'react';
 import styles from '@/components/examples/textarea.module.css';
 

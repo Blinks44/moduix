@@ -1,4 +1,4 @@
-import { Splitter } from '@moduix/react';
+import { Splitter } from '@moduix/react/splitter';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

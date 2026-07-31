@@ -1,4 +1,5 @@
-import { Heading, Stack } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
 
 const headingWeights = [
   {

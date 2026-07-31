@@ -4,7 +4,11 @@
   "title": "Menu",
   "description": "moduix React Menu component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/menu/Menu.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/menu/index.ts",
-      "content": "export { Menu, useMenu, useMenuContext, useMenuItemContext } from './Menu';",
+      "content": "export { Menu, useMenu, useMenuContext, useMenuItemContext } from './Menu.js';",
       "type": "registry:component",
       "target": "@components/moduix/menu/index.ts"
     }

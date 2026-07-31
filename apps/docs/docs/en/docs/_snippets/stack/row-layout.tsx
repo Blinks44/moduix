@@ -1,4 +1,5 @@
-import { Stack, Text } from '@moduix/react';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 
 export default function StackRowDemo() {
   return (

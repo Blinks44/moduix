@@ -1,4 +1,5 @@
-import { SimpleGrid, Text } from '@moduix/react';
+import { SimpleGrid } from '@moduix/react/simple-grid';
+import { Text } from '@moduix/react/text';
 import styles from '@/components/examples/simple-grid.module.css';
 
 const destinations = [

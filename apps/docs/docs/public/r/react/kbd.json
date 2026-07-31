@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/kbd/index.ts",
-      "content": "export * from './Kbd';",
+      "content": "export * from './Kbd.js';",
       "type": "registry:component",
       "target": "@components/moduix/kbd/index.ts"
     }

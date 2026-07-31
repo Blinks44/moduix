@@ -62,7 +62,7 @@ Breadcrumbs / Breadcrumbs.Root
 ## Composition
 
 ```tsx
-import { Breadcrumbs } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 
 export function Example() {
   return (

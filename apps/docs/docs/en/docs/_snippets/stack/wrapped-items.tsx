@@ -1,4 +1,5 @@
-import { Badge, Stack } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Stack } from '@moduix/react/stack';
 
 export default function StackWrapDemo() {
   return (

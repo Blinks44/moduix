@@ -1,4 +1,4 @@
-import { ProgressCircular } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
 
 export default function IndeterminateProgressCircularDemo() {
   return (

@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/image-cropper/index.ts",
-      "content": "export { ImageCropper, useImageCropper, useImageCropperContext } from './ImageCropper';",
+      "content": "export { ImageCropper, useImageCropper, useImageCropperContext } from './ImageCropper.js';",
       "type": "registry:component",
       "target": "@components/moduix/image-cropper/index.ts"
     }

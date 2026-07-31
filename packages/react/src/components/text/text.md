@@ -63,7 +63,7 @@ Text / Text.Root
 Canonical usage:
 
 ```tsx
-import { Text } from '@moduix/react';
+import { Text } from '@moduix/react/text';
 
 export function Example() {
   return <Text>Use text to describe interface state and supporting details.</Text>;

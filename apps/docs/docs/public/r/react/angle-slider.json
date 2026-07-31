@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/angle-slider/index.ts",
-      "content": "export * from './AngleSlider';",
+      "content": "export * from './AngleSlider.js';",
       "type": "registry:component",
       "target": "@components/moduix/angle-slider/index.ts"
     }

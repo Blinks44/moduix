@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react';
+import { Combobox } from '@moduix/react/combobox';
 
 const developerResources = [
   { label: 'GitHub', href: 'https://github.com', value: 'github' },

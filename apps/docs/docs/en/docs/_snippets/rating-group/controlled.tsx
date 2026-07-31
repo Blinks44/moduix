@@ -1,4 +1,4 @@
-import { RatingGroup } from '@moduix/react';
+import { RatingGroup } from '@moduix/react/rating-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

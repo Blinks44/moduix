@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/marquee/index.ts",
-      "content": "export { Marquee, useMarquee, useMarqueeContext } from './Marquee';",
+      "content": "export { Marquee, useMarquee, useMarqueeContext } from './Marquee.js';",
       "type": "registry:component",
       "target": "@components/moduix/marquee/index.ts"
     }

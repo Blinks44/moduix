@@ -1,1 +1,1 @@
-export { FileUpload, useFileUpload, useFileUploadContext } from './FileUpload';
+export { FileUpload, useFileUpload, useFileUploadContext } from './FileUpload.js';

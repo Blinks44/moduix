@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/image/index.ts",
-      "content": "export * from './Image';",
+      "content": "export * from './Image.js';",
       "type": "registry:component",
       "target": "@components/moduix/image/index.ts"
     }

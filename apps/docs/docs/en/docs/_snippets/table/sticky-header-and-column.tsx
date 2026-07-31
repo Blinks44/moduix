@@ -1,4 +1,4 @@
-import { Table } from '@moduix/react';
+import { Table } from '@moduix/react/table';
 
 const rows = [
   {

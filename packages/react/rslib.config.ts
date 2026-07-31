@@ -4,7 +4,11 @@ import { defineConfig } from '@rslib/core';
 export default defineConfig({
   source: {
     entry: {
-      index: ['./src/**/*.{css,ts,tsx}'],
+      index: [
+        './src/**/*.{css,ts,tsx}',
+        '!./src/styles/variables-ark.css',
+        '!./src/styles/variables-moduix.css',
+      ],
     },
     tsconfigPath: './tsconfig.build.json',
   },
@@ -12,7 +16,7 @@ export default defineConfig({
     {
       bundle: false,
       dts: {
-        bundle: true,
+        bundle: false,
       },
       format: 'esm',
       syntax: 'es2023',

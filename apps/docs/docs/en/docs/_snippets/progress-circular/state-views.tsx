@@ -1,4 +1,4 @@
-import { ProgressCircular } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
 
 const progressCircularStateMessages = {
   indeterminate: 'Waiting for source data',

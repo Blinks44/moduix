@@ -1,4 +1,5 @@
-import { AngleSlider, Button } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
+import { Button } from '@moduix/react/button';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

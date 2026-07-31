@@ -67,7 +67,8 @@ surfaces through the moduix namespace.
 ## Composition
 
 ```tsx
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
 
 export function FloatingPanelDemo() {
   return (
@@ -150,7 +151,7 @@ defaults `persistRect` to `true` so close animations keep the last Ark position 
 flashing at the viewport origin during presence teardown. Stage styling uses Ark's
 `[data-minimized]`, `[data-maximized]`, and `[data-staged]` attributes.
 
-The public `--moduix-floating-panel-*` variables are declared in `theme.css`. Position, size, and resize
+The public `--moduix-floating-panel-*` variables are declared in `variables-moduix.css`. Position, size, and resize
 handle geometry are owned by Ark runtime styles; configure them with Ark state props rather than CSS.
 
 ## Intentional sugar and differences from upstream

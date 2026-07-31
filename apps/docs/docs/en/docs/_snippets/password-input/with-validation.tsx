@@ -1,4 +1,5 @@
-import { Field, PasswordInput } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { PasswordInput } from '@moduix/react/password-input';
 import { useState } from 'react';
 
 export default function PasswordInputValidationDemo() {

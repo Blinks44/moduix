@@ -1,4 +1,7 @@
-import { Avatar, Badge, Button, Menu } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 import { Bell, CheckCheck, LogOut, Settings, UserRound } from 'lucide-react';
 import styles from './app-header.module.css';
 import '@moduix/react/style.css';

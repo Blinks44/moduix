@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/alert/index.ts",
-      "content": "export * from './Alert';",
+      "content": "export * from './Alert.js';",
       "type": "registry:component",
       "target": "@components/moduix/alert/index.ts"
     }

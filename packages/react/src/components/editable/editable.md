@@ -72,7 +72,7 @@ Exported values: `Editable`, `useEditable`, and `useEditableContext`.
 ## Composition
 
 ```tsx
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 
 export function NameEditable() {
   return (
@@ -91,7 +91,7 @@ export function NameEditable() {
 Controlled usage keeps Ark detail objects:
 
 ```tsx
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 import { useState } from 'react';
 
 export function ControlledNameEditable() {

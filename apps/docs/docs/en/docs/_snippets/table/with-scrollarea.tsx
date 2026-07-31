@@ -1,4 +1,5 @@
-import { ScrollArea, Table } from '@moduix/react';
+import { ScrollArea } from '@moduix/react/scroll-area';
+import { Table } from '@moduix/react/table';
 
 const rows = [
   {

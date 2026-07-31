@@ -72,7 +72,7 @@ object from Ark `useColorPicker`.
 ## Composition
 
 ```tsx
-import { ColorPicker, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 
 export function ColorPickerExample() {
   return (

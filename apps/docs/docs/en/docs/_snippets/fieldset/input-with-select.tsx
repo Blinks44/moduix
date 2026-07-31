@@ -1,5 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field, Fieldset, Select } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Fieldset } from '@moduix/react/fieldset';
+import { Select } from '@moduix/react/select';
 
 const countryCodes = createListCollection({
   items: [

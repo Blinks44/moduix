@@ -1,5 +1,5 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
 
 export default function DateInputDemo() {
   return (

@@ -86,7 +86,8 @@ State exports: `Menu.Context`, `useMenuContext`, `Menu.ItemContext`, and `useMen
 ## Composition
 
 ```tsx
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export function Example() {
   return (
@@ -171,7 +172,7 @@ Styles target Ark state and layout hooks:
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
 
-Public `--moduix-menu-*` variables are declared in `packages/react/src/styles/theme.css`.
+Public `--moduix-menu-*` variables are declared in `packages/react/src/styles/variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 

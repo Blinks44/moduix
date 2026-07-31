@@ -1,4 +1,5 @@
-import { Button, Splitter, useSplitter } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Splitter, useSplitter } from '@moduix/react/splitter';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const panels = [

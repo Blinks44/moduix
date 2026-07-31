@@ -48,7 +48,7 @@ preset.
 ## Composition
 
 ```tsx
-import { Heading } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
 
 export function Example() {
   return (

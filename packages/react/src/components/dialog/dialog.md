@@ -58,7 +58,8 @@ Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dial
 ## Composition
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function DialogDemo() {
   return (
@@ -132,7 +133,7 @@ properties so the parent recedes downward and remains visibly layered behind the
 the effect with `--moduix-dialog-nested-scale-step`, `--moduix-dialog-nested-translate-step`, and
 `--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
 the content's block-start/inline-end corner by default, including when it is composed outside
-`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `theme.css`.
+`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 

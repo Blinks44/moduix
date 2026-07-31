@@ -1,4 +1,4 @@
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup } from '@moduix/react/segment-group';
 
 export default function SegmentGroupAsChildDemo() {
   return (

@@ -1,4 +1,5 @@
-import { Button, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
@@ -58,7 +59,7 @@ export default function AdvancedCustomizationCarousel() {
               <Carousel.NextTrigger />
             </Carousel.Control>
 
-            <PreviewMeta>
+            <PreviewMeta style={{ marginInline: 'auto' }}>
               <Button
                 size="sm"
                 variant="outline"

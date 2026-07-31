@@ -4,7 +4,7 @@
   "title": "RatingGroup",
   "description": "moduix React RatingGroup component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/rating-group/RatingGroup.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/rating-group/index.ts",
-      "content": "export {\n  RatingGroup,\n  useRatingGroup,\n  useRatingGroupContext,\n  useRatingGroupItemContext,\n} from './RatingGroup';\nexport type {\n  RatingGroupItemIndicatorProps,\n  RatingGroupRootProps,\n  RatingGroupRootProviderProps,\n  RatingGroupSize,\n} from './RatingGroup';",
+      "content": "export {\n  RatingGroup,\n  useRatingGroup,\n  useRatingGroupContext,\n  useRatingGroupItemContext,\n} from './RatingGroup.js';\nexport type {\n  RatingGroupItemIndicatorProps,\n  RatingGroupRootProps,\n  RatingGroupRootProviderProps,\n  RatingGroupSize,\n} from './RatingGroup.js';",
       "type": "registry:component",
       "target": "@components/moduix/rating-group/index.ts"
     }

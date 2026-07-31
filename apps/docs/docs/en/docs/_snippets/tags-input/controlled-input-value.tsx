@@ -1,4 +1,6 @@
-import { Button, Stack, TagsInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
+import { TagsInput } from '@moduix/react/tags-input';
 import { useState } from 'react';
 
 export default function ControlledInputValueTagsInput() {

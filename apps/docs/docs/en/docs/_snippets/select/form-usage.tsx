@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Select } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

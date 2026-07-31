@@ -1,4 +1,4 @@
-import { CloseButton } from '@moduix/react';
+import { CloseButton } from '@moduix/react/close-button';
 import { useState } from 'react';
 
 export default function CloseButtonDemo() {

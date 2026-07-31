@@ -5,10 +5,10 @@
  * It is deliberately not imported by style.css. Ark UI writes the actual
  * values to the relevant component parts at runtime.
  *
- * Do not add data-moduix-ark-runtime-reference to application markup.
+ * Do not add data-moduix-variables-ark to application markup.
  */
 
-:root[data-moduix-ark-runtime-reference] {
+:root[data-moduix-variables-ark] {
   /* Positioning */
   --arrow-background: initial;
   --arrow-size: initial;

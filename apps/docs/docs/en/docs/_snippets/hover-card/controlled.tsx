@@ -1,4 +1,6 @@
-import { Avatar, Button, HoverCard } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Button } from '@moduix/react/button';
+import { HoverCard } from '@moduix/react/hover-card';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

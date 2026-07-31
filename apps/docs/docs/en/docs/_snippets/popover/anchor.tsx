@@ -1,4 +1,6 @@
-import { Button, Input, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Input } from '@moduix/react/input';
+import { Popover } from '@moduix/react/popover';
 
 export default function AnchorPopoverDemo() {
   return (

@@ -1,12 +1,12 @@
+import { Button } from '@moduix/react/button';
 import {
-  Button,
   TreeView,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
   createTreeCollection,
   useTreeView,
   useTreeViewNodeContext,
-} from '@moduix/react';
+} from '@moduix/react/tree-view';
 import {
   File as FileIcon,
   Folder as FolderIcon,

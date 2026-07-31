@@ -1,4 +1,5 @@
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 const paragraphs = [
   'This release introduces a more resilient deployment workflow for teams that publish packages across several applications. Every release starts from a clean branch and records the exact commit, generated artifacts, and package version that will be published.',

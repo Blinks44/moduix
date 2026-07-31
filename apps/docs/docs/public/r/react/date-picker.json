@@ -4,7 +4,12 @@
   "title": "DatePicker",
   "description": "moduix React DatePicker component.",
   "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/date-picker/DatePicker.tsx",
@@ -20,7 +25,7 @@
     },
     {
       "path": "packages/react/src/components/date-picker/index.ts",
-      "content": "export * from './DatePicker';",
+      "content": "export * from './DatePicker.js';",
       "type": "registry:component",
       "target": "@components/moduix/date-picker/index.ts"
     }

@@ -68,7 +68,8 @@ renders `Tooltip.ArrowTip` by default when no children are provided.
 ## Composition
 
 ```tsx
-import { Button, Tooltip } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tooltip } from '@moduix/react/tooltip';
 
 export function Example() {
   return (

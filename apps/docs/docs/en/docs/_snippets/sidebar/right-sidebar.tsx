@@ -1,4 +1,5 @@
-import { Menu, Sidebar } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
+import { Sidebar } from '@moduix/react/sidebar';
 import {
   FileSearch,
   History,

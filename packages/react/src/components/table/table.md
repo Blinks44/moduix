@@ -68,7 +68,7 @@ Table.ScrollArea (optional)
 ## Composition
 
 ```tsx
-import { Table } from '@moduix/react';
+import { Table } from '@moduix/react/table';
 
 export function InvoiceTable() {
   return (
@@ -132,7 +132,7 @@ Cell state hooks:
 
 ## Defaults and styling
 
-Public CSS variables are registered in `packages/react/src/styles/theme.css`. Important variables:
+Public CSS variables are registered in `packages/react/src/styles/variables-moduix.css`. Important variables:
 
 - `--moduix-table-border-color`, `--moduix-table-border-width`
 - `--moduix-table-cell-padding-x`, `--moduix-table-cell-padding-y`

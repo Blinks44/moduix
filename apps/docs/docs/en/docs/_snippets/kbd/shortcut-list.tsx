@@ -1,4 +1,4 @@
-import { Kbd } from '@moduix/react';
+import { Kbd } from '@moduix/react/kbd';
 import { Fragment } from 'react';
 
 const shortcuts = [

@@ -1,4 +1,5 @@
-import { Editable, Field } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
+import { Field } from '@moduix/react/field';
 
 export default function FieldEditableDemo() {
   return (

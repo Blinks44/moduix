@@ -1,4 +1,5 @@
-import { Field, TagsInput } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { TagsInput } from '@moduix/react/tags-input';
 
 export default function FieldTagsInput() {
   return (

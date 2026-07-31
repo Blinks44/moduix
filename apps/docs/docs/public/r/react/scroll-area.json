@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/scroll-area/index.ts",
-      "content": "export { ScrollArea, useScrollArea, useScrollAreaContext } from './ScrollArea';\nexport type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps } from './ScrollArea';",
+      "content": "export { ScrollArea, useScrollArea, useScrollAreaContext } from './ScrollArea.js';\nexport type { ModuixScrollAreaRootProps, ModuixScrollAreaRootProviderProps } from './ScrollArea.js';",
       "type": "registry:component",
       "target": "@components/moduix/scroll-area/index.ts"
     }

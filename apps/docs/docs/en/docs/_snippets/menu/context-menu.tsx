@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
 
 export default function ContextMenuDemo() {
   return (

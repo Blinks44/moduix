@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/spinner/index.ts",
-      "content": "export { Spinner } from './Spinner';",
+      "content": "export { Spinner } from './Spinner.js';",
       "type": "registry:component",
       "target": "@components/moduix/spinner/index.ts"
     }

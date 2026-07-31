@@ -1,4 +1,4 @@
-import { Steps } from '@moduix/react';
+import { Steps } from '@moduix/react/steps';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

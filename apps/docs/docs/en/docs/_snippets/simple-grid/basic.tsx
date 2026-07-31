@@ -1,4 +1,6 @@
-import { Card, SimpleGrid, Text } from '@moduix/react';
+import { Card } from '@moduix/react/card';
+import { SimpleGrid } from '@moduix/react/simple-grid';
+import { Text } from '@moduix/react/text';
 import styles from '@/components/examples/simple-grid.module.css';
 
 const plans = [

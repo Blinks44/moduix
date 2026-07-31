@@ -4,7 +4,7 @@
   "title": "NumberInput",
   "description": "moduix React NumberInput component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/number-input/NumberInput.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/number-input/index.ts",
-      "content": "export { NumberInput, useNumberInput, useNumberInputContext } from './NumberInput';",
+      "content": "export { NumberInput, useNumberInput, useNumberInputContext } from './NumberInput.js';",
       "type": "registry:component",
       "target": "@components/moduix/number-input/index.ts"
     }

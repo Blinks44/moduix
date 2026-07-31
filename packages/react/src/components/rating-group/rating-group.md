@@ -69,7 +69,7 @@ RatingGroup.RootProvider
 ## Composition
 
 ```tsx
-import { RatingGroup } from '@moduix/react';
+import { RatingGroup } from '@moduix/react/rating-group';
 
 export function ReviewRating() {
   return (
@@ -161,7 +161,7 @@ Public CSS variables:
 - Keep `RootProvider`, contexts, state hooks, and `ItemIndicator`; do not re-export duplicate Ark
   type aliases from the moduix barrel.
 - The root renders the native form input automatically for both `Items` and custom item trees.
-- If styling tokens change, update `theme.css`, docs CSS reference data, and registry output in the
+- If styling tokens change, update `variables-moduix.css`, docs CSS reference data, and registry output in the
   same task.
 
 ## Local changelog

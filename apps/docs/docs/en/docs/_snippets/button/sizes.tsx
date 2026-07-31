@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 import { Star as StarIcon } from 'lucide-react';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;

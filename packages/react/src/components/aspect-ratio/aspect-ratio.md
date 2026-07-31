@@ -58,7 +58,7 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { AspectRatio } from '@moduix/react';
+import { AspectRatio } from '@moduix/react/aspect-ratio';
 
 export function AspectRatioExample() {
   return (

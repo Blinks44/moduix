@@ -1,6 +1,7 @@
 import { type DatePickerValueChangeDetails } from '@ark-ui/react/date-picker';
 import { CalendarDateTime, DateFormatter } from '@internationalized/date';
-import { DateInput, DatePicker } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
+import { DatePicker } from '@moduix/react/date-picker';
 import { useState } from 'react';
 
 const timeFormatter = new DateFormatter('en-US', {

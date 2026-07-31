@@ -1,4 +1,5 @@
-import { Button, SignaturePad } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { SignaturePad } from '@moduix/react/signature-pad';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

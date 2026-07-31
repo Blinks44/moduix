@@ -1,4 +1,5 @@
-import { Field, RadioGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { RadioGroup } from '@moduix/react/radio-group';
 
 export default function RadioGroupFieldDemo() {
   return (

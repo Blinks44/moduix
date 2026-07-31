@@ -1,4 +1,4 @@
-import { Popover } from '@moduix/react';
+import { Popover } from '@moduix/react/popover';
 import { useState } from 'react';
 
 const actions = [

@@ -1,4 +1,5 @@
-import { Button, Menu, useMenu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu, useMenu } from '@moduix/react/menu';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderMenuDemo() {

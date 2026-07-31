@@ -1,4 +1,6 @@
-import { Button, Card, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
 const snapPoints = [0.18, 1];
 export default function DragControlsDrawerDemo() {

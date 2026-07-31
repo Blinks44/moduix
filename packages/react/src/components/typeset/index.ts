@@ -1,1 +1,1 @@
-export * from './Typeset';
+export * from './Typeset.js';

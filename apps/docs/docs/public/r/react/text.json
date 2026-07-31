@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/text/index.ts",
-      "content": "export * from './Text';",
+      "content": "export * from './Text.js';",
       "type": "registry:component",
       "target": "@components/moduix/text/index.ts"
     }

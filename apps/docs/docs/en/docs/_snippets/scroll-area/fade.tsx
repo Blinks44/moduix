@@ -1,4 +1,4 @@
-import { ScrollArea } from '@moduix/react';
+import { ScrollArea } from '@moduix/react/scroll-area';
 
 const items = Array.from({ length: 10 }, (_, index) => `Section ${index + 1}`);
 

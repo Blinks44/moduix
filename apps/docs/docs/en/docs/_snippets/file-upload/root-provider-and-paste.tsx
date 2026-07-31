@@ -1,4 +1,5 @@
-import { FileUpload, Textarea, useFileUpload } from '@moduix/react';
+import { FileUpload, useFileUpload } from '@moduix/react/file-upload';
+import { Textarea } from '@moduix/react/textarea';
 
 const maxFiles = 3;
 const accept = 'image/*';

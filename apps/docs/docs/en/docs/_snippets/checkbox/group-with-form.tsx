@@ -1,4 +1,5 @@
-import { Button, Checkbox } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Checkbox } from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

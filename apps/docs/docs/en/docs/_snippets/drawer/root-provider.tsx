@@ -1,4 +1,6 @@
-import { Button, Card, Drawer, useDrawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer, useDrawer } from '@moduix/react/drawer';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const snapPoints = [0.25, 0.5, 1];

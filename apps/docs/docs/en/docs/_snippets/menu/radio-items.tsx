@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 
 export default function RadioItemsMenuDemo() {

@@ -72,7 +72,7 @@ Externally owned state replaces `Root` with `RootProvider`.
 ## Composition
 
 ```tsx
-import { Slider } from '@moduix/react';
+import { Slider } from '@moduix/react/slider';
 
 export function VolumeSlider() {
   return (

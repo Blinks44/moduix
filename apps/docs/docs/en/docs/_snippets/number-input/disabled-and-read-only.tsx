@@ -1,4 +1,4 @@
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 
 export default function DisabledAndReadOnlyNumberInputDemo() {
   return (

@@ -78,7 +78,8 @@ their override points.
 Use `asChild` when a moduix part should attach its behavior to an existing semantic element.
 
 ```tsx
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 // shadcn copy-owned: import { Button } from '@/components/moduix/button';
 // shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
 
@@ -105,7 +106,8 @@ Most compositions wire their own relationships automatically. When two primitive
 same trigger or description node, share IDs instead of hand-writing aria relationships.
 
 ```tsx
-import { Avatar, Tooltip } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Tooltip } from '@moduix/react/tooltip';
 import { useId } from 'react';
 
 export function AssigneeTooltip() {
@@ -134,7 +136,7 @@ new abstractions. Re-exporting keeps the original behavior intact while giving y
 stable local API.
 
 ```tsx
-import { Dialog as DialogBase } from '@moduix/react';
+import { Dialog as DialogBase } from '@moduix/react/dialog';
 // shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
 
 export const Dialog = DialogBase.Root;
@@ -167,7 +169,7 @@ styling. Keep the structure visible, and forward the rest of the props unchanged
 ```tsx
 import type { DialogBackdropProps, DialogContentProps } from '@ark-ui/react/dialog';
 import { clsx } from 'clsx';
-import { Dialog as DialogBase } from '@moduix/react';
+import { Dialog as DialogBase } from '@moduix/react/dialog';
 // shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
 import styles from './ProductDialog.module.css';
 
@@ -236,7 +238,7 @@ Use component state helpers only when state needs to live outside the rendered s
 - `useComponent()` plus `Component.RootProvider` when state is created outside the rendered tree
 
 ```tsx
-import { Dialog, useDialog } from '@moduix/react';
+import { Dialog, useDialog } from '@moduix/react/dialog';
 
 export function DialogFromExternalState() {
   const dialog = useDialog();

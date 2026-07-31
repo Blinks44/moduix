@@ -1,4 +1,5 @@
-import { Button, Editable, useEditable } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Editable, useEditable } from '@moduix/react/editable';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderEditableDemo() {

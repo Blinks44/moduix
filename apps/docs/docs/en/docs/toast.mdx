@@ -154,7 +154,8 @@ Set `max` on the toaster store when bursts should queue instead of filling the s
 </ExampleFrame>
 
 ```tsx
-import { Button, Toaster, createToaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toaster, createToaster } from '@moduix/react/toast';
 
 const toaster = createToaster({
   max: 3,
@@ -205,7 +206,8 @@ Choose one of Ark's six placements when the toast group needs to appear on a spe
 </ExampleFrame>
 
 ```tsx
-import { Button, Toaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toaster } from '@moduix/react/toast';
 import { useState } from 'react';
 
 const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'];
@@ -284,7 +286,7 @@ component-specific CSS variables.
 ## Styling
 
 Style `Toast` through Ark part attributes, `data-slot` hooks, and the public `--moduix-toast-*` variables
-from `theme.css`.
+from the public CSS API.
 
 ### CSS Properties
 

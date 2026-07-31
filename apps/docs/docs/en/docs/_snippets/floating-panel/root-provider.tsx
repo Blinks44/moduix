@@ -1,4 +1,5 @@
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderFloatingPanelDemo() {

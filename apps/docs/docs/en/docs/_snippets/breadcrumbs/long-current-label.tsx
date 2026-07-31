@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 
 const currentPage =
   'Go lang developer to production team with cross-functional ownership and platform support';

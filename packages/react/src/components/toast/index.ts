@@ -1,1 +1,1 @@
-export { Toast, Toaster, createToaster, useToastContext } from './Toast';
+export { Toast, Toaster, createToaster, useToastContext } from './Toast.js';

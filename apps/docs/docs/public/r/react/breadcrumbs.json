@@ -4,7 +4,7 @@
   "title": "Breadcrumbs",
   "description": "moduix React Breadcrumbs component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/breadcrumbs/Breadcrumbs.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/breadcrumbs/index.ts",
-      "content": "export { Breadcrumbs } from './Breadcrumbs';",
+      "content": "export { Breadcrumbs } from './Breadcrumbs.js';",
       "type": "registry:component",
       "target": "@components/moduix/breadcrumbs/index.ts"
     }

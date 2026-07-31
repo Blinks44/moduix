@@ -50,7 +50,8 @@ Skeleton.Root
 ## Composition
 
 ```tsx
-import { Skeleton, Stack } from '@moduix/react';
+import { Skeleton } from '@moduix/react/skeleton';
+import { Stack } from '@moduix/react/stack';
 
 export function UserRowSkeleton() {
   return (
@@ -67,7 +68,7 @@ export function UserRowSkeleton() {
 ```
 
 ```tsx
-import { Skeleton } from '@moduix/react';
+import { Skeleton } from '@moduix/react/skeleton';
 
 export function LoadedProfile() {
   return (

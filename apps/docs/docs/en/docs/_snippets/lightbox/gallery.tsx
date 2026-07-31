@@ -1,4 +1,5 @@
-import { Carousel, Lightbox } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
+import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
 
 const images = [

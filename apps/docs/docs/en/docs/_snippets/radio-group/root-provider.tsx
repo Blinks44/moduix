@@ -1,4 +1,5 @@
-import { Button, RadioGroup, useRadioGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { RadioGroup, useRadioGroup } from '@moduix/react/radio-group';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = ['React', 'Solid', 'Vue'];

@@ -1,4 +1,5 @@
-import { Button, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Carousel } from '@moduix/react/carousel';
 import { Plus as PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

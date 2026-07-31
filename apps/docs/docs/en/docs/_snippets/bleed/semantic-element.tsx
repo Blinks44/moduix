@@ -1,4 +1,5 @@
-import { Bleed, Text } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
+import { Text } from '@moduix/react/text';
 
 const content = {
   caption: 'Full-width media with a constrained parent.',

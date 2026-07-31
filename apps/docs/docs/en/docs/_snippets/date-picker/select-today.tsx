@@ -1,4 +1,5 @@
-import { Button, DatePicker } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { DatePicker } from '@moduix/react/date-picker';
 
 export default function SelectTodayDatePickerDemo() {
   return (

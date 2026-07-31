@@ -1,4 +1,4 @@
-import { Textarea } from '@moduix/react';
+import { Textarea } from '@moduix/react/textarea';
 import styles from '@/components/examples/textarea.module.css';
 
 export default function DisabledAndReadonlyTextareaDemo() {

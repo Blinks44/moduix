@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/aspect-ratio/index.ts",
-      "content": "export { AspectRatio } from './AspectRatio';",
+      "content": "export { AspectRatio } from './AspectRatio.js';",
       "type": "registry:component",
       "target": "@components/moduix/aspect-ratio/index.ts"
     }

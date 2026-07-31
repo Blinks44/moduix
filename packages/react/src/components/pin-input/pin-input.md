@@ -54,7 +54,7 @@ consumer passes `placeholder` explicitly.
 ## Composition
 
 ```tsx
-import { PinInput } from '@moduix/react';
+import { PinInput } from '@moduix/react/pin-input';
 
 export function VerificationCodeField() {
   return (
@@ -97,7 +97,7 @@ State callbacks keep Ark detail shapes:
 Each PIN cell is square and defaults to `--moduix-size-md`; `--moduix-pin-input-input-size` remains the shared override.
 
 Styling targets Ark `data-scope="pin-input"` / `data-part` attributes plus stable moduix
-`data-slot` hooks. Public CSS variables are `--moduix-pin-input-*` and live in `theme.css`.
+`data-slot` hooks. Public CSS variables are `--moduix-pin-input-*` and live in `variables-moduix.css`.
 
 Important hooks:
 

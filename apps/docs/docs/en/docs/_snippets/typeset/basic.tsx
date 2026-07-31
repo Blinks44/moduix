@@ -1,4 +1,4 @@
-import { Typeset } from '@moduix/react';
+import { Typeset } from '@moduix/react/typeset';
 
 export default function TypesetDemo() {
   return (

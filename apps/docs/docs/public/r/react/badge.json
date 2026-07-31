@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/badge/index.ts",
-      "content": "export * from './Badge';",
+      "content": "export * from './Badge.js';",
       "type": "registry:component",
       "target": "@components/moduix/badge/index.ts"
     }

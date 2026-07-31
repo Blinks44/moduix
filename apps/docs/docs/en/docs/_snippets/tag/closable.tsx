@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react';
+import { Tag } from '@moduix/react/tag';
 import { useState, type ComponentProps } from 'react';
 import styles from '@/components/examples/tag.module.css';
 

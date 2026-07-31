@@ -1,4 +1,6 @@
-import { Button, ColorPicker, Dialog, parseColor } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+import { Dialog } from '@moduix/react/dialog';
 
 export default function InsideDialogColorPickerDemo() {
   return (

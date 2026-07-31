@@ -48,7 +48,7 @@ The root exposes `data-scope="simple-grid"`, `data-part="root"`, and
 Use `minChildWidth` when the number of columns should follow the available width:
 
 ```tsx
-import { SimpleGrid } from '@moduix/react';
+import { SimpleGrid } from '@moduix/react/simple-grid';
 
 export function Example() {
   return (

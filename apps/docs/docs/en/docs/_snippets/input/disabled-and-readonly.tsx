@@ -1,4 +1,4 @@
-import { Input } from '@moduix/react';
+import { Input } from '@moduix/react/input';
 
 export default function InputStatesDemo() {
   return (

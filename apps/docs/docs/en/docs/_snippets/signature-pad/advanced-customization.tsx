@@ -1,4 +1,4 @@
-import { SignaturePad } from '@moduix/react';
+import { SignaturePad } from '@moduix/react/signature-pad';
 import { RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export default function AdvancedCustomizationSignaturePadDemo() {

@@ -1,4 +1,7 @@
-import { Avatar, Collapsible, Menu, Sidebar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Collapsible } from '@moduix/react/collapsible';
+import { Menu } from '@moduix/react/menu';
+import { Sidebar } from '@moduix/react/sidebar';
 import {
   ChevronsUpDown,
   FileText,

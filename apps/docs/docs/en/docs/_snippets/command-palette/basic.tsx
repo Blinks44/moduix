@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, CommandPalette } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { CommandPalette } from '@moduix/react/command-palette';
 import {
   ArrowUpRight as ArrowUpRightIcon,
   Bell as BellIcon,

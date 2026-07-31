@@ -90,7 +90,7 @@ Checkbox.Group
 Standalone checkbox:
 
 ```tsx
-import { Checkbox } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
 
 export function CheckboxDemo() {
   return (
@@ -105,7 +105,7 @@ export function CheckboxDemo() {
 Grouped selection:
 
 ```tsx
-import { Checkbox } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
 
 const options = [
   { value: 'email', label: 'Email updates' },
@@ -130,7 +130,7 @@ export function CheckboxGroupDemo() {
 Provider state:
 
 ```tsx
-import { Checkbox, useCheckbox } from '@moduix/react';
+import { Checkbox, useCheckbox } from '@moduix/react/checkbox';
 
 export function CheckboxProviderDemo() {
   const checkbox = useCheckbox({ defaultChecked: true });
@@ -184,7 +184,7 @@ export function CheckboxProviderDemo() {
 ## Defaults and styling
 
 - moduix ships styled defaults; Ark is unstyled.
-- Public CSS variables are declared in `packages/react/src/styles/theme.css` and
+- Public CSS variables are declared in `packages/react/src/styles/variables-moduix.css` and
   documented in `apps/docs/docs/en/docs/checkbox.mdx`.
 - Styling uses local classes plus Ark state data attributes. No legacy state selectors are used in
   `Checkbox.module.css`.

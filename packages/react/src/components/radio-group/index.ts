@@ -3,9 +3,9 @@ export {
   useRadioGroup,
   useRadioGroupContext,
   useRadioGroupItemContext,
-} from './RadioGroup';
+} from './RadioGroup.js';
 export type {
   RadioGroupItemControlProps,
   RadioGroupItemControlSize,
   RadioGroupOptionProps,
-} from './RadioGroup';
+} from './RadioGroup.js';

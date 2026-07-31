@@ -64,7 +64,7 @@ Every exported root accepts `className` and receives stable hooks:
 ## Composition
 
 ```tsx
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 
 export function SaveButton() {
   return <Button>Save Changes</Button>;

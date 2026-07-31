@@ -1,4 +1,4 @@
-import { QrCode, useQrCode } from '@moduix/react';
+import { QrCode, useQrCode } from '@moduix/react/qr-code';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderQrCodeDemo() {

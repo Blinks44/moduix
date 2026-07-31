@@ -4,7 +4,11 @@
   "title": "Drawer",
   "description": "moduix React Drawer component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/drawer/Drawer.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/drawer/index.ts",
-      "content": "export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext } from './Drawer';",
+      "content": "export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext } from './Drawer.js';",
       "type": "registry:component",
       "target": "@components/moduix/drawer/index.ts"
     }

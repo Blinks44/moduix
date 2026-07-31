@@ -1,4 +1,4 @@
-import { Timer } from '@moduix/react';
+import { Timer } from '@moduix/react/timer';
 import { Pause as PauseIcon, Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 
 export default function CountdownTimerDemo() {

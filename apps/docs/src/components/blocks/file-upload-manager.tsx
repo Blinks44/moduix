@@ -1,4 +1,5 @@
-import { Card, FileUpload } from '@moduix/react';
+import { Card } from '@moduix/react/card';
+import { FileUpload } from '@moduix/react/file-upload';
 import styles from './file-upload-manager.module.css';
 
 const maxFiles = 5;

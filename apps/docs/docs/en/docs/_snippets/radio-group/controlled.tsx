@@ -1,4 +1,4 @@
-import { RadioGroup } from '@moduix/react';
+import { RadioGroup } from '@moduix/react/radio-group';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

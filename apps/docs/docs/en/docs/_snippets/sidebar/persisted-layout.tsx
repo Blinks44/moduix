@@ -1,4 +1,5 @@
-import { Button, Sidebar } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Sidebar } from '@moduix/react/sidebar';
 import { FileText, Gauge } from 'lucide-react';
 import { useEffect, useState, type ComponentProps } from 'react';
 

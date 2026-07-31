@@ -4,7 +4,11 @@
   "title": "TagsInput",
   "description": "moduix React TagsInput component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/tags-input/TagsInput.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/tags-input/index.ts",
-      "content": "export { TagsInput, useTagsInput, useTagsInputContext, useTagsInputItemContext } from './TagsInput';",
+      "content": "export {\n  TagsInput,\n  useTagsInput,\n  useTagsInputContext,\n  useTagsInputItemContext,\n} from './TagsInput.js';",
       "type": "registry:component",
       "target": "@components/moduix/tags-input/index.ts"
     }

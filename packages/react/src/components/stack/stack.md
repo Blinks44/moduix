@@ -57,7 +57,9 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Heading, Stack, Text } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 import styles from './stack.module.css';
 
 export function Example() {
@@ -118,7 +120,7 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |
 
-These public CSS variables live in `packages/react/src/styles/theme.css`. `direction` and
+These public CSS variables live in `packages/react/src/styles/variables-moduix.css`. `direction` and
 `fill` write inline values for the same variables when provided, and `style` is applied last as the
 per-instance override escape hatch.
 

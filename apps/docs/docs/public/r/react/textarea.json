@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/textarea/index.ts",
-      "content": "export { Textarea } from './Textarea';",
+      "content": "export { Textarea } from './Textarea.js';",
       "type": "registry:component",
       "target": "@components/moduix/textarea/index.ts"
     }

@@ -1,4 +1,5 @@
-import { Badge, Table } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Table } from '@moduix/react/table';
 
 const invoices = [
   {

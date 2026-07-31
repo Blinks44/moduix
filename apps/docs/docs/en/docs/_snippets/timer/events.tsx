@@ -1,4 +1,4 @@
-import { Timer } from '@moduix/react';
+import { Timer } from '@moduix/react/timer';
 import { Play as PlayIcon, RotateCcw as RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 

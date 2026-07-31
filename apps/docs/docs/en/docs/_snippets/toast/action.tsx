@@ -1,4 +1,5 @@
-import { Button, Toaster, createToaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toaster, createToaster } from '@moduix/react/toast';
 
 const toaster = createToaster({
   placement: 'bottom-end',

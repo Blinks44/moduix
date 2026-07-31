@@ -1,4 +1,5 @@
-import { ProgressLinear, Slider } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
+import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 
 export default function ControlledProgressLinearDemo() {

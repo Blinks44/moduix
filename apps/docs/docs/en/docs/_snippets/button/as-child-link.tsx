@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 
 const link = {
   href: '#button',

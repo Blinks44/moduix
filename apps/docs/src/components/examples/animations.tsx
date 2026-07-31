@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import * as React from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput, CssVariables } from '../mdx/reference';
 import { CSSPropertiesEditor, CSSPropertiesReferenceTable, ExampleFrame } from '../mdx/reference';

@@ -1,4 +1,5 @@
-import { Menu, SplitButton } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
+import { SplitButton } from '@moduix/react/split-button';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

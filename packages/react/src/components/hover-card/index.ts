@@ -1,1 +1,1 @@
-export { HoverCard, useHoverCard, useHoverCardContext } from './HoverCard';
+export { HoverCard, useHoverCard, useHoverCardContext } from './HoverCard.js';

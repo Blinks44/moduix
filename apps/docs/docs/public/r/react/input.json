@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/input/index.ts",
-      "content": "export { Input } from './Input';",
+      "content": "export { Input } from './Input.js';",
       "type": "registry:component",
       "target": "@components/moduix/input/index.ts"
     }

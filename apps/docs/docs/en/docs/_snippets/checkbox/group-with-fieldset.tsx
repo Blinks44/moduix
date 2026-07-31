@@ -1,4 +1,5 @@
-import { Checkbox, Fieldset } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Fieldset } from '@moduix/react/fieldset';
 
 const options = [
   { value: 'react', label: 'React' },

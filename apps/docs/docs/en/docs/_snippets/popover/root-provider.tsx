@@ -1,4 +1,5 @@
-import { Button, Popover, usePopover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover, usePopover } from '@moduix/react/popover';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDemo() {

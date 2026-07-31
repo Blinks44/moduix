@@ -1,4 +1,5 @@
-import { Button, Checkbox, useCheckbox } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Checkbox, useCheckbox } from '@moduix/react/checkbox';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderCheckboxDemo() {

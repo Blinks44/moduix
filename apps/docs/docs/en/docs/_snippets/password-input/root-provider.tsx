@@ -1,4 +1,4 @@
-import { PasswordInput, usePasswordInput } from '@moduix/react';
+import { PasswordInput, usePasswordInput } from '@moduix/react/password-input';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PasswordInputRootProviderDemo() {

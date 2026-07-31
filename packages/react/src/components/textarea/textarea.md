@@ -48,7 +48,8 @@ No `Textarea.Root`, provider, context hook, hidden input, wrapper shell, label p
 ## Composition
 
 ```tsx
-import { Field, Textarea } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Textarea } from '@moduix/react/textarea';
 
 export function CommentField() {
   return (
@@ -94,7 +95,7 @@ surface with edit, submit, and cancel controls.
 - `data-autoresize` when `autoresize` is true
 - native `[disabled]`, `[aria-invalid='true']`, `[readonly]`, `:read-only`, and Ark `data-disabled`, `data-readonly`, `data-invalid`
 
-Public CSS variables from `theme.css`:
+Public CSS variables from `variables-moduix.css`:
 
 | Group        | Variables                                                                                                                                                                                                                                                                                         |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -122,7 +123,7 @@ Public CSS variables from `theme.css`:
 - Do not reintroduce the legacy `Field.Control`, `render`, `mergeProps`, `autoResize`, or `onValueChange` adapter contract.
 - Keep `Textarea` aligned with Ark `Field.Textarea`; use `Field.Textarea` as the local implementation reference.
 - Keep inline edit/read-only examples on `Editable`, not `Textarea`.
-- Keep stories, docs examples, `theme.css`, registry output, and this file synchronized when the public contract changes.
+- Keep stories, docs examples, `variables-moduix.css`, registry output, and this file synchronized when the public contract changes.
 
 ## Local changelog
 

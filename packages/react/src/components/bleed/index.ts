@@ -1,1 +1,1 @@
-export * from './Bleed';
+export * from './Bleed.js';

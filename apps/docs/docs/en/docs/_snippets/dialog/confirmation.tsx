@@ -1,4 +1,6 @@
-import { Button, Dialog, Field, useDialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog, useDialog } from '@moduix/react/dialog';
+import { Field } from '@moduix/react/field';
 import { useState } from 'react';
 
 export default function ConfirmationDialogDemo() {

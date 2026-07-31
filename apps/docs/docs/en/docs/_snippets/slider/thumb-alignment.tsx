@@ -1,4 +1,4 @@
-import { Slider } from '@moduix/react';
+import { Slider } from '@moduix/react/slider';
 
 export default function ThumbAlignmentSliderDemo() {
   return (

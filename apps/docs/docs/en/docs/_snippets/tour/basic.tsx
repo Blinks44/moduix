@@ -31,7 +31,8 @@ const steps = [
 ] satisfies TourStepDetails[];
 
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Button, Tour, useTour } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tour, useTour } from '@moduix/react/tour';
 
 export default function TourDemo() {
   const tour = useTour({ steps });

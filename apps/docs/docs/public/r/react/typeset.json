@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/typeset/index.ts",
-      "content": "export * from './Typeset';",
+      "content": "export * from './Typeset.js';",
       "type": "registry:component",
       "target": "@components/moduix/typeset/index.ts"
     }

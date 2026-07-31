@@ -1,4 +1,4 @@
-import { ProgressLinear } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
 
 export default function MinMaxProgressLinearDemo() {
   return (

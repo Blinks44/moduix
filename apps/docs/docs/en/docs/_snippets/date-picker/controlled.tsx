@@ -1,5 +1,5 @@
 import { parseDate, type DateValue } from '@ark-ui/react/date-picker';
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

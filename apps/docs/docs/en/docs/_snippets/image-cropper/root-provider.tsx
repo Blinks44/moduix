@@ -1,4 +1,5 @@
-import { Button, ImageCropper, useImageCropper } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ImageCropper, useImageCropper } from '@moduix/react/image-cropper';
 import { RotateCcw as RestartIcon } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

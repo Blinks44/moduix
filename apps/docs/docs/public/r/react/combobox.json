@@ -4,7 +4,12 @@
   "title": "Combobox",
   "description": "moduix React Combobox component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/combobox/Combobox.tsx",
@@ -20,7 +25,7 @@
     },
     {
       "path": "packages/react/src/components/combobox/index.ts",
-      "content": "export * from './Combobox';",
+      "content": "export * from './Combobox.js';",
       "type": "registry:component",
       "target": "@components/moduix/combobox/index.ts"
     }

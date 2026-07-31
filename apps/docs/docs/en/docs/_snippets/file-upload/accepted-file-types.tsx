@@ -1,4 +1,4 @@
-import { FileUpload } from '@moduix/react';
+import { FileUpload } from '@moduix/react/file-upload';
 
 const accept = 'image/png,image/jpeg';
 const maxFiles = 4;

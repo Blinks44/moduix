@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 const items = [
   { href: '/', label: 'Home' },
   { href: '/docs/breadcrumbs', label: 'Breadcrumbs' },

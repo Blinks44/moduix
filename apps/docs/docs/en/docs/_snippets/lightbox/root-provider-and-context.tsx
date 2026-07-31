@@ -1,4 +1,5 @@
-import { Button, Lightbox, useLightbox, useLightboxContext } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Lightbox, useLightbox, useLightboxContext } from '@moduix/react/lightbox';
 
 const images = [
   {

@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react';
+import { Card } from '@moduix/react/card';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const descriptions = {

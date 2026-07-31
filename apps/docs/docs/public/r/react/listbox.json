@@ -4,7 +4,11 @@
   "title": "Listbox",
   "description": "moduix React Listbox component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/icons"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/listbox/Listbox.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/listbox/index.ts",
-      "content": "export { Listbox, useListbox, useListboxContext, useListboxItemContext } from './Listbox';",
+      "content": "export { Listbox, useListbox, useListboxContext, useListboxItemContext } from './Listbox.js';",
       "type": "registry:component",
       "target": "@components/moduix/listbox/index.ts"
     }

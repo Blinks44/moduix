@@ -4,7 +4,7 @@
   "title": "Accordion",
   "description": "moduix React Accordion component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/accordion/Accordion.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/accordion/index.ts",
-      "content": "export { Accordion, useAccordion, useAccordionContext, useAccordionItemContext } from './Accordion';",
+      "content": "export {\n  Accordion,\n  useAccordion,\n  useAccordionContext,\n  useAccordionItemContext,\n} from './Accordion.js';",
       "type": "registry:component",
       "target": "@components/moduix/accordion/index.ts"
     }

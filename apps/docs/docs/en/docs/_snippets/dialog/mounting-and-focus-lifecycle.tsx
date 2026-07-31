@@ -1,4 +1,6 @@
-import { Button, Dialog, Field } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { Field } from '@moduix/react/field';
 import { useRef } from 'react';
 
 export default function DialogLifecycleDemo() {

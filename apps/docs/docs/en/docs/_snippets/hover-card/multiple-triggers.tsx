@@ -1,4 +1,5 @@
-import { Avatar, HoverCard } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { HoverCard } from '@moduix/react/hover-card';
 import { useState } from 'react';
 
 const profiles = [

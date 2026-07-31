@@ -1,4 +1,7 @@
-import { Button, Card, Checkbox, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Drawer } from '@moduix/react/drawer';
 
 export default function AdvancedCustomizationDrawerDemo() {
   return (

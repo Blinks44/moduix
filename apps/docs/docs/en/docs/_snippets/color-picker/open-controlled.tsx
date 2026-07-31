@@ -1,4 +1,5 @@
-import { Button, ColorPicker, parseColor } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

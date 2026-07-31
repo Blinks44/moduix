@@ -4,7 +4,7 @@
   "title": "PinInput",
   "description": "moduix React PinInput component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation"],
+  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
   "files": [
     {
       "path": "packages/react/src/components/pin-input/PinInput.tsx",
@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/pin-input/index.ts",
-      "content": "export { PinInput, usePinInput, usePinInputContext } from './PinInput';",
+      "content": "export { PinInput, usePinInput, usePinInputContext } from './PinInput.js';",
       "type": "registry:component",
       "target": "@components/moduix/pin-input/index.ts"
     }

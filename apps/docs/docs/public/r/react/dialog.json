@@ -4,7 +4,11 @@
   "title": "Dialog",
   "description": "moduix React Dialog component.",
   "dependencies": ["@ark-ui/react", "clsx"],
-  "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+  "registryDependencies": [
+    "@moduix-react/foundation",
+    "@moduix-react/close-button",
+    "@moduix-react/overlay-portal"
+  ],
   "files": [
     {
       "path": "packages/react/src/components/dialog/Dialog.tsx",
@@ -20,7 +24,7 @@
     },
     {
       "path": "packages/react/src/components/dialog/index.ts",
-      "content": "export { Dialog, useDialog, useDialogContext } from './Dialog';\nexport type { DialogRootProps, DialogRootProviderProps } from './Dialog';",
+      "content": "export { Dialog, useDialog, useDialogContext } from './Dialog.js';\nexport type { DialogRootProps, DialogRootProviderProps } from './Dialog.js';",
       "type": "registry:component",
       "target": "@components/moduix/dialog/index.ts"
     }

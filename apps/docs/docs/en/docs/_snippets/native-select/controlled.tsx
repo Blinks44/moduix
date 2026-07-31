@@ -1,4 +1,4 @@
-import { NativeSelect } from '@moduix/react';
+import { NativeSelect } from '@moduix/react/native-select';
 import { useState } from 'react';
 
 const frameworkOptions = [

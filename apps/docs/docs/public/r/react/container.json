@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/container/index.ts",
-      "content": "export * from './Container';",
+      "content": "export * from './Container.js';",
       "type": "registry:component",
       "target": "@components/moduix/container/index.ts"
     }

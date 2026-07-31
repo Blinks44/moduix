@@ -49,7 +49,7 @@ picture (native)
 ## Composition
 
 ```tsx
-import { Image } from '@moduix/react';
+import { Image } from '@moduix/react/image';
 
 export function HeroImage() {
   return (

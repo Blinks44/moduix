@@ -1,4 +1,6 @@
-import { Badge, Button, Card } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 const item = {
   title: 'The perfect latte',

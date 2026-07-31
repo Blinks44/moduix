@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/splitter/index.ts",
-      "content": "export {\n  createSplitterRegistry,\n  Splitter,\n  type SplitterPanelData,\n  useSplitter,\n  useSplitterContext,\n} from './Splitter';",
+      "content": "export {\n  createSplitterRegistry,\n  Splitter,\n  type SplitterPanelData,\n  useSplitter,\n  useSplitterContext,\n} from './Splitter.js';",
       "type": "registry:component",
       "target": "@components/moduix/splitter/index.ts"
     }

@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { InputGroup, Select } from '@moduix/react';
+import { InputGroup } from '@moduix/react/input-group';
+import { Select } from '@moduix/react/select';
 import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 

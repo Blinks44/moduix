@@ -1,4 +1,6 @@
-import { Button, Field, Switch } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Field } from '@moduix/react/field';
+import { Switch } from '@moduix/react/switch';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/switch.module.css';

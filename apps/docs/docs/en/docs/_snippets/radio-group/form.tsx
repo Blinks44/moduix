@@ -1,4 +1,5 @@
-import { Button, RadioGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { RadioGroup } from '@moduix/react/radio-group';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';

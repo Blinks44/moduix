@@ -53,7 +53,7 @@ Direct child `svg` icons are styled by the root and inherit `currentColor`.
 ## Composition
 
 ```tsx
-import { Badge } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
 
 export function BadgeDemo() {
   return <Badge>New</Badge>;

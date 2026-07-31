@@ -1,4 +1,4 @@
-import { Separator } from '@moduix/react';
+import { Separator } from '@moduix/react/separator';
 
 const variants = ['solid', 'dashed', 'dotted'] as const;
 

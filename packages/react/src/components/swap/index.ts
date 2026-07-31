@@ -1,1 +1,1 @@
-export { Swap, useSwap, useSwapContext, type SwapAnimation } from './Swap';
+export { Swap, useSwap, useSwapContext, type SwapAnimation } from './Swap.js';

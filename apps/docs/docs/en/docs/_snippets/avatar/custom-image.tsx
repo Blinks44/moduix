@@ -1,4 +1,4 @@
-import { Avatar, useAvatarContext } from '@moduix/react';
+import { Avatar, useAvatarContext } from '@moduix/react/avatar';
 import type { ImgHTMLAttributes } from 'react';
 
 const avatarImage =

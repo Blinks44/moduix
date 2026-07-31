@@ -1,4 +1,5 @@
-import { Button, Toast, Toaster, createToaster } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Toast, Toaster, createToaster } from '@moduix/react/toast';
 import { Info as InfoIcon, X as CloseIcon } from 'lucide-react';
 import styles from '@/components/examples/toast.module.css';
 
