@@ -8,7 +8,7 @@
     letter-spacing: var(--moduix-text-letter-spacing, 0);
     color: var(--moduix-text-default-color, var(--moduix-color-foreground));
     text-align: start;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 
     &[data-size='xs'] {
       font-size: var(--moduix-text-font-size-xs, var(--moduix-text-xs));
@@ -62,12 +62,24 @@
       text-align: left;
     }
 
+    &[data-align='start'] {
+      text-align: start;
+    }
+
     &[data-align='center'] {
       text-align: center;
     }
 
     &[data-align='right'] {
       text-align: right;
+    }
+
+    &[data-align='end'] {
+      text-align: end;
+    }
+
+    &[data-align='justify'] {
+      text-align: justify;
     }
 
     &[data-truncate] {

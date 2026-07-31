@@ -19,7 +19,7 @@ type TextElement = 'p' | 'span' | 'small' | 'strong' | 'em' | 'div';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 type TextTone = 'default' | 'muted' | 'subtle' | 'primary' | 'destructive';
-type TextAlign = 'left' | 'center' | 'right';
+type TextAlign = 'start' | 'center' | 'end' | 'left' | 'right' | 'justify';
 type TextProps = HTMLArkProps<'p'> & {
   as?: TextElement;
   size?: TextSize;
@@ -49,10 +49,12 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
   const Element = elements[as ?? 'p'] as typeof ark.p;
   const defaultSize = as === 'small' ? 'sm' : 'md';
   const defaultWeight = as === 'strong' ? 'semibold' : 'regular';
+  const resolvedLineClamp =
+    Number.isInteger(lineClamp) && (lineClamp ?? 0) > 0 ? lineClamp : undefined;
   const lineClampStyle =
-    lineClamp === undefined
+    resolvedLineClamp === undefined
       ? style
-      : ({ ...style, '--moduix-text-line-clamp': lineClamp } as CSSProperties);
+      : ({ ...style, '--moduix-text-line-clamp': resolvedLineClamp } as CSSProperties);
 
   return (
     <Element
@@ -67,7 +69,7 @@ const TextRoot = forwardRef<HTMLElement, TextProps>(function TextRoot(
       data-tone={tone}
       data-align={align}
       data-truncate={truncate ? '' : undefined}
-      data-line-clamp={lineClamp === undefined ? undefined : ''}
+      data-line-clamp={resolvedLineClamp === undefined ? undefined : ''}
       className={clsx(styles.root, normalizeClassName(className))}
       style={lineClampStyle}
     />

@@ -1,9 +1,8 @@
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/text.module.css';
 
 export default function TextTruncationDemo() {
   return (
-    <div className={styles.narrow}>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-4)' }}>
       <Text truncate>Release notes for the weekly platform update are ready for review.</Text>
       <Text lineClamp={2}>
         Longer interface copy can be clamped when it appears inside dense cards, tables, or

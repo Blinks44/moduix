@@ -1,12 +1,11 @@
 import { Text } from '@moduix/react/text';
-import styles from '@/components/examples/text.module.css';
 
 export default function TextAlignDemo() {
   return (
-    <div className={styles.aligned}>
-      <Text align="left">Left aligned text.</Text>
+    <div style={{ display: 'grid', inlineSize: '100%', gap: 'var(--moduix-spacing-4)' }}>
+      <Text align="start">Start-aligned text.</Text>
       <Text align="center">Center aligned text.</Text>
-      <Text align="right">Right aligned text.</Text>
+      <Text align="end">End-aligned text.</Text>
     </div>
   );
 }

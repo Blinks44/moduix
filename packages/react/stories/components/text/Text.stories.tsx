@@ -82,9 +82,9 @@ export const Weights: Story = {
 export const Aligned: Story = {
   render: () => (
     <div className={storyStyles.aligned}>
-      <Text align="left">Left aligned text.</Text>
+      <Text align="start">Start-aligned text.</Text>
       <Text align="center">Center aligned text.</Text>
-      <Text align="right">Right aligned text.</Text>
+      <Text align="end">End-aligned text.</Text>
     </div>
   ),
 };

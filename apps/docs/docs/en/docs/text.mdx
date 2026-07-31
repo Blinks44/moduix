@@ -27,19 +27,11 @@ the moduix text scale.
 Start with the default `p` root. Use `as` only when the semantic HTML tag should change while the
 same text styling contract stays in place.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -81,15 +73,16 @@ truncation, and line-clamp surface.
 | `size`      | Element-based   | `small` defaults to `sm`; other roots default to `md`.  |
 | `weight`    | Element-based   | `strong` defaults to `semibold`; others to `regular`.   |
 | `tone`      | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive`. |
-| `align`     | Unset (`start`) | `left`, `center`, or `right` when explicit.             |
+| `align`     | Unset (`start`) | `start`, `center`, `end`, `left`, `right`, or `justify`. |
 | `truncate`  | `false`         | Single-line CSS ellipsis.                               |
-| `lineClamp` | Unset           | Multi-line CSS clamp count.                             |
+| `lineClamp` | Unset           | Positive integer; invalid values disable clamping.      |
 
 ### Behavioral notes
 
 `Text` has no state machine, controlled state, keyboard behavior, Field/Fieldset integration,
 HiddenInput, ids, context hooks, or RootProvider. `truncate` and `lineClamp` are visual CSS
-constraints; the surrounding layout owns any disclosure behavior.
+constraints; `lineClamp` accepts positive integers only. The surrounding layout owns any disclosure
+behavior.
 
 ## Examples
 
@@ -97,110 +90,63 @@ constraints; the surrounding layout owns any disclosure behavior.
 
 Use `align` when alignment belongs to the text itself instead of the surrounding layout container.
 
-<style>{`
-      .aligned {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/alignment.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/alignment.tsx"
 
 ```
+</PreviewFrame>
 
 ### Semantics
 
 Use `as` for common semantic tags without leaving the typography scale.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/semantics.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/semantics.tsx"
 
 ```
+</PreviewFrame>
 
 ### Size
 
 Use `size` when the visual hierarchy should shift without switching to a different typography
 component.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/size.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/size.tsx"
 
 ```
+</PreviewFrame>
 
 ### Tone
 
 Use `tone` to match the role of the copy without local color classes.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/tone.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/tone.tsx"
 
 ```
+</PreviewFrame>
 
 ### Truncation
 
 Use `truncate` for a single-line ellipsis and `lineClamp` for dense multi-line previews where the
 surrounding layout owns expansion or disclosure.
 
-<style>{`
-      .narrow {
-        display: flex;
-        width: min(18rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-4);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/truncation.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/text/truncation.tsx"
 
 ```
+</PreviewFrame>
 
 ### Weight
 
 Use `weight` when the emphasis should stay within the same semantic element.
 
-<style>{`
-      .stack {
-        display: flex;
-        width: fit-content;
-        max-width: min(34rem, calc(100vw - var(--moduix-spacing-8)));
-        flex-direction: column;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/weight.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/text/weight.tsx"
 
 ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -208,19 +154,11 @@ Use `asChild` when the root should be a custom host element instead of one of th
 intrinsic `as` values. The child must be a single element that can accept the forwarded props and
 ref.
 
-<style>{`
-      .link {
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/text/custom-composition.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/text/custom-composition.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -229,7 +167,7 @@ variables documented by the public CSS API.
 
 ### CSS Properties
 
-<div className="docs-reference">
+<div className="not-prose docs-reference">
   <Tabs
     values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
@@ -249,6 +187,8 @@ variables documented by the public CSS API.
 - `data-weight` reflects the resolved weight preset: `regular`, `medium`, `semibold`, or `bold`.
 - `data-tone` reflects the active tone preset: `default`, `muted`, `subtle`, `primary`, or
   `destructive`.
-- `data-align` appears only when `align` is explicitly set to `left`, `center`, or `right`.
+- `data-align` appears only when `align` is explicitly set to `start`, `center`, `end`, `left`,
+  `right`, or `justify`.
 - `data-truncate` appears when single-line ellipsis is active.
-- `data-line-clamp` appears when `lineClamp` is active and sets `--moduix-text-line-clamp`.
+- `data-line-clamp` appears when `lineClamp` is a positive integer and sets
+  `--moduix-text-line-clamp`.

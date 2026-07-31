@@ -36,9 +36,9 @@ Default behavior:
 | `size`      | Element-based   | `xs`, `sm`, `md`, `lg`, `xl`                           |
 | `weight`    | Element-based   | `regular`, `medium`, `semibold`, `bold`                |
 | `tone`      | `default`       | `default`, `muted`, `subtle`, `primary`, `destructive` |
-| `align`     | Unset (`start`) | `left`, `center`, `right`                              |
+| `align`     | Unset (`start`) | `start`, `center`, `end`, `left`, `right`, `justify`   |
 | `truncate`  | `false`         | boolean                                                |
-| `lineClamp` | Unset           | number                                                 |
+| `lineClamp` | Unset           | Positive integer; other values disable clamping.       |
 
 Element-based defaults:
 
@@ -110,8 +110,8 @@ adding ARIA to the default paragraph.
 The component has no interactive state, keyboard behavior, focus lifecycle, Field/Fieldset context,
 HiddenInput, ids, callback detail objects, provider, context, or RootProvider API. `truncate` and
 `lineClamp` are CSS-only rendering constraints; they do not provide disclosure or screen reader
-behavior. If `truncate` and `lineClamp` are both passed, line clamp remains the effective visual
-constraint.
+behavior. `lineClamp` accepts positive integers only; other values disable clamping. If `truncate`
+and `lineClamp` are both passed, line clamp remains the effective visual constraint.
 
 Root attributes:
 
@@ -130,7 +130,7 @@ Root attributes:
 The root accepts `className`, `style`, native paragraph props from `HTMLArkProps<'p'>`, and `asChild`.
 Its ref is typed as `HTMLElement` because every supported `as` value and an `asChild` host can render
 a different native element. Base styles reset margin to `0`, use logical `text-align: start`, and
-wrap long words with `overflow-wrap: break-word`.
+wrap long words with `overflow-wrap: anywhere`.
 
 Public CSS variables:
 
@@ -179,6 +179,8 @@ directly when they need upstream typing helpers.
 
 ## Local changelog
 
+- 2026-07-31: Added logical alignment presets, ignored invalid `lineClamp` values, and made long
+  unbroken strings safe in flex and grid layouts.
 - 2026-07-11: Widened the root ref type to `HTMLElement` so it remains accurate for every supported
   semantic root and `asChild` host.
 - 2026-06-27: Re-audited the local Ark factory contract, simplified default variant resolution,
