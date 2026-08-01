@@ -19,16 +19,13 @@ export const toggleRowCss = `
 
 export const toggleStackCss = `
 .stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
   gap: var(--moduix-spacing-3);
+  justify-items: center;
 }
 
-.hint {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-xs);
-  line-height: var(--moduix-line-height-text-xs);
+.stack > [data-preview-meta] {
+  justify-self: center;
 }
 `;
 
@@ -135,7 +132,11 @@ const toggleOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-foreground)',
     'Controls ghost pressed text and icon color.',
   ],
-  ['--moduix-toggle-icon-size', 'var(--moduix-spacing-4)', 'Controls nested SVG icon size.'],
+  [
+    '--moduix-toggle-icon-size',
+    'var(--moduix-spacing-4)',
+    'Controls direct and indicator SVG icon size.',
+  ],
   [
     '--moduix-toggle-line-height',
     'var(--moduix-line-height-text-sm)',

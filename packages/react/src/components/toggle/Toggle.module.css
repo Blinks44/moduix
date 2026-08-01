@@ -44,7 +44,8 @@
       pointer-events: none;
     }
 
-    & :where(svg) {
+    & > :where(svg),
+    & [data-slot='toggle-indicator'] > :where(svg) {
       display: block;
       width: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));
       height: var(--moduix-toggle-icon-size, var(--moduix-spacing-4));

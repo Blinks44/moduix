@@ -50,3 +50,4 @@ const Toggle = Object.assign(ToggleRoot, {
 });
 
 export { Toggle, useToggleContext };
+export type { ToggleRootProps, ToggleSize, ToggleVariant };
