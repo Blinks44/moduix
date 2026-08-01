@@ -47,9 +47,11 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
     asChild,
     children,
     className,
+    lazyMount = true,
     nativeFormControl = 'select',
     portalled,
     portalRef,
+    unmountOnExit = true,
     ...props
   }: SelectRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
@@ -61,6 +63,8 @@ const SelectRoot = forwardRef(function SelectRoot<T extends CollectionItem>(
         data-slot="select-root"
         className={clsx(styles.root, normalizeClassName(className))}
         asChild={asChild}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       >
         {withNativeFormControl(children, asChild, nativeFormControl)}
@@ -74,9 +78,11 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
     asChild,
     children,
     className,
+    lazyMount = true,
     nativeFormControl = 'select',
     portalled,
     portalRef,
+    unmountOnExit = true,
     ...props
   }: SelectRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
@@ -88,6 +94,8 @@ const SelectRootProvider = forwardRef(function SelectRootProvider<T extends Coll
         data-slot="select-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
         asChild={asChild}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       >
         {withNativeFormControl(children, asChild, nativeFormControl)}

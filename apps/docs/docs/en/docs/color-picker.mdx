@@ -111,6 +111,10 @@ must stay a single element and preserve the required focus and interaction behav
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Surface / Prop                           | Default                 | Notes                                         |
 | ---------------------------------------- | ----------------------- | --------------------------------------------- |
 | `defaultValue`                           | `parseColor("#000000")` | Ark default color value.                      |
@@ -135,8 +139,8 @@ must stay a single element and preserve the required focus and interaction behav
   `readOnly` root props.
 - Use `positioning`, `initialFocusEl`, and `openAutoFocus` when popup placement or focus needs to
   follow a surrounding workflow.
-- `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete` preserve Ark's presence lifecycle
-  for custom mount or exit-animation control.
+- `lazyMount` and `unmountOnExit` default to `true`; `present` and `onExitComplete` preserve Ark's
+  presence lifecycle for custom mount or exit-animation control.
 - All Ark DOM parts preserve `asChild`.
 
 ## Examples

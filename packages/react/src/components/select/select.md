@@ -200,7 +200,15 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
   component paths.
 - When registry-shipped select source changes, run `npm run build:registry`.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-30: Restored reset and fieldset-disabled synchronization for
   `nativeFormControl="input"`, added Select tests/stories, standardized popup animation fill mode,

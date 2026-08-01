@@ -185,7 +185,15 @@ Keep docs and stories on explicit `Positioner` and `Content` composition. Normal
 access uses the moduix `useTooltip` and `useTooltipContext` exports; direct Ark imports remain
 escape hatches only.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-08-01: Added `Tooltip.DisabledTrigger` for accessible disabled native controls, made long
   unbroken tooltip text wrap safely, and synchronized component tests and consumer-facing docs

@@ -25,10 +25,16 @@ const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 
-function TourRoot({ portalled, portalRef, ...props }: TourRootProps) {
+function TourRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TourRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TourPrimitive.Root {...props} />
+      <TourPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }

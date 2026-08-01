@@ -42,7 +42,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
   expect(screen.getByTestId('content')).toHaveAttribute('data-state', 'open');
 });
 
-test('does not open a disabled hover card', async () => {
+test('does not mount a disabled hover card before it opens', () => {
   render(
     <HoverCard disabled openDelay={0} portalled={false}>
       <HoverCard.Trigger>Profile</HoverCard.Trigger>
@@ -52,9 +52,7 @@ test('does not open a disabled hover card', async () => {
 
   fireEvent.focus(screen.getByRole('button', { name: 'Profile' }));
 
-  await waitFor(() =>
-    expect(screen.getByTestId('content')).toHaveAttribute('data-state', 'closed'),
-  );
+  expect(screen.queryByTestId('content')).not.toBeInTheDocument();
 });
 
 test('keeps RootProvider state available through the moduix context hook', async () => {

@@ -201,7 +201,15 @@ as a direct child so it can extend beyond the popup outline.
 Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-29: Added `--moduix-menu-popup-overflow` so consumers can clip `Menu.Content` when needed;
   it defaults to `visible` to preserve direct-arrow rendering.

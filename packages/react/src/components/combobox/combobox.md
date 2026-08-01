@@ -257,7 +257,15 @@ Common `shadcn` migration points:
 - Keep item context on the moduix export path; do not redirect consumers to Ark for
   `Combobox.ItemContext` or `useComboboxItemContext`.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-26: Documented moduix item-context exports and advanced Ark root props in the public and
   local composition guidance.

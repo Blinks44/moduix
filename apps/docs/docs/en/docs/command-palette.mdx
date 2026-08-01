@@ -85,6 +85,10 @@ Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                                        | Default         | Notes                                                                            |
 | ------------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
 | `CommandPalette.shortcut`                   | `false`         | Pass `alt+k` or another primary modifier plus key to enable the toggle listener. |

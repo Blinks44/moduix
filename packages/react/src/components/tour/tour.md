@@ -138,7 +138,15 @@ Keep `Tour.Root` as a required-`tour` root until Ark exposes a real `RootProvide
 recommended path whenever step content can exceed the available height. If action styling changes,
 update `variables-moduix.css`, docs CSS properties, stories, and registry artifacts together.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-08-01: Added `Tour.Body` for scroll-safe step content, fixed Ark layer ordering and floating placements, and restored the moduix context-hook exports in the public documentation.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

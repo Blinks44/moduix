@@ -126,6 +126,10 @@ consumer-owned loading, error, or guidance messages; it does not manage state or
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Surface                            | Default               | Notes                                                                 |
 | ---------------------------------- | --------------------- | --------------------------------------------------------------------- |
 | `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
@@ -151,8 +155,8 @@ consumer-owned loading, error, or guidance messages; it does not manage state or
   `Combobox.ItemContext`, and `useComboboxItemContext` for provider and context paths.
 - Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`;
   `readOnly` and `required` keep their Ark behavior.
-- Use `ids` when externally composed parts need shared accessibility IDs. `present`, `lazyMount`,
-  and `unmountOnExit` keep Ark's presence lifecycle for exit animations.
+- Use `ids` when externally composed parts need shared accessibility IDs. `lazyMount` and
+  `unmountOnExit` default to `true`; `present` keeps Ark's presence lifecycle for exit animations.
 - `selectionBehavior` and `closeOnSelect` pass through to Ark. In multiple mode, Ark clears the
   input after selection.
 

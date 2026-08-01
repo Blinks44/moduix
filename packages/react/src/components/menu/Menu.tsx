@@ -32,18 +32,30 @@ type MenuRadioItemProps = ComponentProps<typeof MenuPrimitive.RadioItem> & {
 type MenuRootProps = ComponentProps<typeof MenuPrimitive.Root> & OverlayPortalProps;
 type MenuRootProviderProps = ComponentProps<typeof MenuPrimitive.RootProvider> & OverlayPortalProps;
 
-function MenuRoot({ portalled, portalRef, ...props }: MenuRootProps) {
+function MenuRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: MenuRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <MenuPrimitive.Root {...props} />
+      <MenuPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function MenuRootProvider({ portalled, portalRef, ...props }: MenuRootProviderProps) {
+function MenuRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: MenuRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <MenuPrimitive.RootProvider {...props} />
+      <MenuPrimitive.RootProvider lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }

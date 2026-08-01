@@ -187,7 +187,15 @@ new component API.
 - Mirror any future Ark provider, context, hook, part, or public type additions through the package
   barrel unless intentionally documented otherwise.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-29: Styled only the current valued trigger while a shared popover is open.
 

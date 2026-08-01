@@ -55,13 +55,18 @@ type DatePickerDayTableProps = ComponentProps<typeof DatePickerPrimitive.Table> 
 const DatePickerRoot = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.Root>,
   DatePickerRootProps
->(function DatePickerRoot({ className, portalled, portalRef, ...props }, ref) {
+>(function DatePickerRoot(
+  { className, lazyMount = true, portalled, portalRef, unmountOnExit = true, ...props },
+  ref,
+) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <DatePickerPrimitive.Root
         ref={ref}
         data-slot="date-picker-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       />
     </OverlayPortalProvider>
@@ -71,13 +76,18 @@ const DatePickerRoot = forwardRef<
 const DatePickerRootProvider = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.RootProvider>,
   DatePickerRootProviderProps
->(function DatePickerRootProvider({ className, portalled, portalRef, ...props }, ref) {
+>(function DatePickerRootProvider(
+  { className, lazyMount = true, portalled, portalRef, unmountOnExit = true, ...props },
+  ref,
+) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <DatePickerPrimitive.RootProvider
         ref={ref}
         data-slot="date-picker-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       />
     </OverlayPortalProvider>

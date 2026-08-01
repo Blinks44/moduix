@@ -19,18 +19,34 @@ type DialogRootProps = ComponentProps<typeof DialogPrimitive.Root> & OverlayPort
 type DialogRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function DialogRoot({ portalled, portalRef, ...props }: DialogRootProps) {
+function DialogRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: DialogRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.Root {...props} />
+      <DialogPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function DialogRootProvider({ portalled, portalRef, ...props }: DialogRootProviderProps) {
+function DialogRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: DialogRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.RootProvider {...props} />
+      <DialogPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

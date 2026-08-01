@@ -97,15 +97,19 @@ Use `Select.List` for custom list wrappers and virtualization paths.
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                    | Default | Notes                                                          |
 | ----------------------- | ------- | -------------------------------------------------------------- |
 | `closeOnSelect`         | `true`  | Closes the popup after item selection.                         |
 | `composite`             | `true`  | Enables listbox keyboard composition.                          |
 | `defaultValue`          | `[]`    | Values are string arrays, including single selection.          |
-| `lazyMount`             | `false` | Defers popup content mounting until opened.                    |
+| `lazyMount`             | `true`  | Defers popup content mounting until opened.                    |
 | `loopFocus`             | `false` | Keeps arrow navigation from wrapping by default.               |
 | `multiple`              | `false` | Enables multiple values when set.                              |
-| `unmountOnExit`         | `false` | Removes popup content after its exit animation.                |
+| `unmountOnExit`         | `true`  | Removes popup content after its exit animation.                |
 | `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
 
 ### Behavioral notes

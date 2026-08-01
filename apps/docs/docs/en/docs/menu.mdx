@@ -111,6 +111,10 @@ Nested menus are regular `Menu` roots inside the parent content. The nested root
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Surface                           | Default | Notes                                                  |
 | --------------------------------- | ------- | ------------------------------------------------------ |
 | `Menu` / `Menu.Root`              | —       | No additional behavioral defaults; Ark defaults apply. |
@@ -120,7 +124,7 @@ Nested menus are regular `Menu` roots inside the parent content. The nested root
 
 - `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`,
   `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids`, `lazyMount`,
-  `unmountOnExit`, and `present` follow Ark directly.
+  `unmountOnExit` default to `true`; `present` follows Ark directly.
 - Use `value`, not a custom `id`, for menu item identity.
 - `Menu.CheckboxItem.onCheckedChange` receives the next boolean checked state.
 - `Menu.RadioItemGroup.onValueChange` receives `details.value`.
@@ -201,8 +205,8 @@ Use `Menu.ItemContext` for inline access to item state such as `highlighted`.
 
 ### Lazy Mounted Context Menu
 
-Use Ark `lazyMount` and `unmountOnExit` when context menu content should mount only while the menu
-is present.
+Context menu content mounts only while the menu is used by default. Set `unmountOnExit={false}`
+when its subtree must persist after the first open.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/menu/lazy-mounted-context-menu.tsx"

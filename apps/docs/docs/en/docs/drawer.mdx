@@ -102,6 +102,10 @@ Wrap coordinated indent surfaces in `Drawer.Stack`, then render `Drawer.IndentBa
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                     | Default    | Notes                                                  |
 | ------------------------ | ---------- | ------------------------------------------------------ |
 | `modal`                  | `true`     | Hides page content and blocks outside interaction.     |

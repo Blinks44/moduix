@@ -166,7 +166,15 @@ Collections, locale helpers, and advanced combobox state APIs belong to Ark UI. 
 when a workflow needs them. Avoid duplicate command-palette re-exports with the same names because
 consumers should compose those Ark helpers directly.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Documented the existing lazy-mount and unmount-on-exit overlay defaults.
 
 - 2026-07-26: Ignore repeat keydown events for global shortcuts and apply Ark dialog layer indices to overlay stacking.
 

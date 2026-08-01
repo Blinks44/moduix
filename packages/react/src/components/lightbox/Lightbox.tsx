@@ -77,18 +77,34 @@ function resolveImage(
   };
 }
 
-function LightboxRoot({ portalled, portalRef, ...props }: LightboxRootProps) {
+function LightboxRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: LightboxRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.Root {...props} />
+      <DialogPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function LightboxRootProvider({ portalled, portalRef, ...props }: LightboxRootProviderProps) {
+function LightboxRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: LightboxRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.RootProvider {...props} />
+      <DialogPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

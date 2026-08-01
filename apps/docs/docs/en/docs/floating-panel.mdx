@@ -96,6 +96,10 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop            | Default | Notes                                                                      |
 | --------------- | ------- | -------------------------------------------------------------------------- |
 | `closeOnEscape` | `true`  | Closes the focused topmost panel; set `false` to opt out.                  |
@@ -103,7 +107,7 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 | `draggable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `resizable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `strategy`      | Ark     | Passed through unchanged; Ark defaults to fixed positioning.               |
-| Presence props  | Ark     | `lazyMount`, `unmountOnExit`, `present`, and animation props pass through. |
+| Presence props  | Moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
 
 ### Behavioral notes
 

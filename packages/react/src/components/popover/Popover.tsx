@@ -19,18 +19,41 @@ type PopoverRootProps = ComponentProps<typeof PopoverPrimitive.Root> & OverlayPo
 type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function PopoverRoot({ portalled, portalRef, ...props }: PopoverRootProps) {
+function PopoverRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: PopoverRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <PopoverPrimitive.Root portalled={portalled} {...props} />
+      <PopoverPrimitive.Root
+        portalled={portalled}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }
 
-function PopoverRootProvider({ portalled, portalRef, value, ...props }: PopoverRootProviderProps) {
+function PopoverRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  value,
+  ...props
+}: PopoverRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled ?? value.portalled} portalRef={portalRef}>
-      <PopoverPrimitive.RootProvider value={value} {...props} />
+      <PopoverPrimitive.RootProvider
+        value={value}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

@@ -70,12 +70,16 @@ tree, and use `HoverCard.Context` or `useHoverCardContext()` for inline state re
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                   | Default | Notes                                                              |
 | ---------------------- | ------- | ------------------------------------------------------------------ |
 | `closeDelay`           | `300`   | Time in ms from pointer leaving trigger/content until close.       |
 | `openDelay`            | `600`   | Time in ms from pointer entering trigger until open.               |
-| `lazyMount`            | `false` | Defers content mounting until first open.                          |
-| `unmountOnExit`        | `false` | Removes content after close when enabled.                          |
+| `lazyMount`            | `true`  | Defers content mounting until first open.                          |
+| `unmountOnExit`        | `true`  | Removes content after its exit animation.                          |
 | `skipAnimationOnMount` | `false` | Allows initial presence animation by default.                      |
 
 ### Behavioral notes

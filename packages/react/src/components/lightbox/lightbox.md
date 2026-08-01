@@ -206,7 +206,15 @@ Keep external DOM binding scoped to `Lightbox.Bind`; do not smear source-capture
 into the base `Lightbox` parts or `Lightbox.Gallery`. When data already exists as a structured image
 array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-28: Required `Lightbox.Bind.selector` so external previews always target a semantic
   keyboard-accessible activator; made the positioner scrollable and constrained content by its

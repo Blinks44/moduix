@@ -208,7 +208,15 @@ Public theme variables are declared in `packages/react/src/styles/variables-modu
 - Use `start` and `end` in public props; physical `left` and `right` are styling attributes only.
 - Keep `Grabber` and `GrabberIndicator` as separate parts.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Documented the existing lazy-mount and unmount-on-exit overlay defaults.
 
 - 2026-07-30: Extended the top-drawer exit keyframe through the existing overdrag bleed so its
   downward shadow does not linger at the viewport edge.

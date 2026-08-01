@@ -16,18 +16,34 @@ type TooltipRootProps = ComponentProps<typeof TooltipPrimitive.Root> & OverlayPo
 type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function TooltipRoot({ portalled, portalRef, ...props }: TooltipRootProps) {
+function TooltipRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TooltipRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TooltipPrimitive.Root {...props} />
+      <TooltipPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function TooltipRootProvider({ portalled, portalRef, ...props }: TooltipRootProviderProps) {
+function TooltipRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TooltipRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TooltipPrimitive.RootProvider {...props} />
+      <TooltipPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

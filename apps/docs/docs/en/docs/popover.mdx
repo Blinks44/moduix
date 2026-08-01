@@ -87,17 +87,21 @@ semantic child for custom trigger, anchor, content, or close-trigger hosts. Set
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                     | Default | Notes                                                        |
 | ------------------------ | ------- | ------------------------------------------------------------ |
 | `autoFocus`              | `true`  | Focuses the first focusable element when the popover opens.  |
 | `closeOnEscape`          | `true`  | Closes the popover on Escape.                                |
 | `closeOnInteractOutside` | `true`  | Closes the popover on outside interaction.                   |
-| `lazyMount`              | `false` | Defers popup content mounting until first open.              |
+| `lazyMount`              | `true`  | Defers popup content mounting until first open.              |
 | `modal`                  | `false` | Enables focus trap, scroll lock, and outside isolation.      |
 | `portalled`              | `true`  | Portals the positioner and preserves Ark tab behavior.       |
 | `portalRef`              | -       | Targets a custom portal container.                           |
 | `skipAnimationOnMount`   | `false` | Keeps the initial presence animation enabled.                |
-| `unmountOnExit`          | `false` | Removes popup content after close when enabled.              |
+| `unmountOnExit`          | `true`  | Removes popup content after its exit animation.              |
 | `defaultOpen`            | -       | Initial uncontrolled open state.                             |
 | `open`                   | -       | Controlled open state.                                       |
 | `ids`                    | -       | Stable IDs for trigger, content, title, description, anchor. |

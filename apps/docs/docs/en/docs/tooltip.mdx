@@ -101,6 +101,10 @@ level Ark-shaped structure. Use `ids` when separate tooltip parts need stable sh
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                   | Default | Notes                                                             |
 | ---------------------- | ------- | ----------------------------------------------------------------- |
 | `openDelay`            | `400`   | Delay before opening on hover or focus.                           |
@@ -110,8 +114,8 @@ level Ark-shaped structure. Use `ids` when separate tooltip parts need stable sh
 | `closeOnPointerDown`   | `true`  | Closes on pointer down.                                           |
 | `closeOnScroll`        | `true`  | Closes on scroll.                                                 |
 | `interactive`          | `false` | Keeps the tooltip open while hovering content when set to `true`. |
-| `lazyMount`            | `false` | Defers mounting until the tooltip first opens.                    |
-| `unmountOnExit`        | `false` | Unmounts content after exit when enabled.                         |
+| `lazyMount`            | `true`  | Defers mounting until the tooltip first opens.                    |
+| `unmountOnExit`        | `true`  | Unmounts content after its exit animation.                        |
 | `skipAnimationOnMount` | `false` | Allows the first presence animation unless explicitly skipped.    |
 
 ### Behavioral notes

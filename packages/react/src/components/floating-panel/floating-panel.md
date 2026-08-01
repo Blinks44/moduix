@@ -182,7 +182,15 @@ handle geometry are owned by Ark runtime styles; configure them with Ark state p
 - Do not replace Ark drag, resize, boundary, stage, or presence behavior with local state.
 - Keep helper parts visual only; they must not hide required Ark parts or alter focus management.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default floating-panel trigger to `--moduix-size-md` and compacted its block padding.

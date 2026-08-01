@@ -79,6 +79,10 @@ the action UI itself must vary.
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop | Default | Notes |
 | --- | --- | --- |
 | `closeOnEscape` | `true` | Escape dismisses the tour. |
@@ -87,8 +91,8 @@ the action UI itself must vary.
 | `preventInteraction` | `false` | Set to `true` to block page interaction while open. |
 | `spotlightOffset` | `{ x: 10, y: 10 }` | Expands the highlighted target region. |
 | `spotlightRadius` | `4` | Sets the spotlight clip-path corner radius. |
-| `lazyMount` | `false` | Ark presence behavior supported on `Tour`. |
-| `unmountOnExit` | `false` | Unmounts after the closing animation. |
+| `lazyMount` | `true` | Defers the tour overlay until it first opens. |
+| `unmountOnExit` | `true` | Unmounts after the closing animation. |
 
 ## Examples
 

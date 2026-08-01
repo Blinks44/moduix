@@ -38,16 +38,20 @@ type FloatingPanelRootProviderProps = ComponentProps<typeof FloatingPanelPrimiti
 
 function FloatingPanelRoot({
   closeOnEscape = true,
+  lazyMount = true,
   persistRect = true,
   portalled,
   portalRef,
+  unmountOnExit = true,
   ...props
 }: FloatingPanelRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <FloatingPanelPrimitive.Root
         closeOnEscape={closeOnEscape}
+        lazyMount={lazyMount}
         persistRect={persistRect}
+        unmountOnExit={unmountOnExit}
         {...props}
       />
     </OverlayPortalProvider>
@@ -55,13 +59,19 @@ function FloatingPanelRoot({
 }
 
 function FloatingPanelRootProvider({
+  lazyMount = true,
   portalled,
   portalRef,
+  unmountOnExit = true,
   ...props
 }: FloatingPanelRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <FloatingPanelPrimitive.RootProvider {...props} />
+      <FloatingPanelPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

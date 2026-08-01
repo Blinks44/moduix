@@ -306,7 +306,15 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 - Keep `@internationalized/date` / Ark `parseDate()` examples because Ark values are `DateValue`
   objects.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-27: Let `Field` and `RangeField` preserve Ark's locale-aware placeholders and translated
   action labels when their optional override props are omitted.

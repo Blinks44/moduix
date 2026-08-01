@@ -111,6 +111,10 @@ Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop                     | Default    | Notes                                                               |
 | ------------------------ | ---------- | ------------------------------------------------------------------- |
 | `closeOnEscape`          | `true`     | Inherited from Ark Dialog.                                          |
@@ -120,8 +124,8 @@ Carousel gallery. Use `Lightbox.Bind` only when the source markup cannot render
 | `preventScroll`          | `true`     | Locks page scroll while the lightbox is open.                       |
 | `role`                   | `"dialog"` | Use `aria-label` or `Lightbox.Title` for accessible naming; `ids` only makes those relationships stable. |
 | `trapFocus`              | `true`     | Keeps keyboard focus inside the lightbox while open.                |
-| `lazyMount`              | `false`    | Use with `unmountOnExit` for heavy media.                           |
-| `unmountOnExit`          | `false`    | Removes overlay nodes after exit.                                   |
+| `lazyMount`              | `true`     | Defers the heavy media overlay until first open.                     |
+| `unmountOnExit`          | `true`     | Removes overlay nodes after their exit animation.                    |
 
 ### Behavioral notes
 
@@ -210,7 +214,7 @@ slide and keep `Carousel` page state in sync as the user navigates.
 
 ### Lazy Mount
 
-Use Ark presence props for heavy media. `lazyMount` delays rendering until the first open, and
+Heavy media uses lazy mounting and unmount-on-exit by default. `lazyMount` delays rendering until the first open, and
 `unmountOnExit` removes the overlay after close animations finish.
 
 <style>{LightboxDocs.lightboxLazyMountCss}</style>
