@@ -1,4 +1,5 @@
 import { ToggleGroup, useToggleGroup } from '@moduix/react/toggle-group';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toggle-group.module.css';
 
 const alignmentItems = [
@@ -22,7 +23,6 @@ export default function RootProviderToggleGroupDemo() {
   });
   return (
     <div className={styles.stack}>
-      <span className={styles.hint}>Current value: {toggleGroup.value.join(', ') || 'empty'}</span>
       <ToggleGroup.RootProvider value={toggleGroup} aria-label="Text alignment">
         {alignmentItems.map((item) => (
           <ToggleGroup.Item key={item.value} value={item.value}>
@@ -30,6 +30,9 @@ export default function RootProviderToggleGroupDemo() {
           </ToggleGroup.Item>
         ))}
       </ToggleGroup.RootProvider>
+      <PreviewMeta>
+        <output>Selected: {toggleGroup.value.join(', ') || 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }

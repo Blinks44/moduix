@@ -3,7 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/toggle-group
-- Chakra UI: https://chakra-ui.com/docs/components/toggle-group
+- Chakra UI does not have a dedicated ToggleGroup component.
 
 ## Purpose
 
@@ -34,10 +34,13 @@ The wrapper follows Ark UI React `@ark-ui/react/toggle-group`.
 - `variant` defaults to `default`. `size` defaults to `md`.
 - Root and root provider write `data-slot`, `data-variant`, and `data-size`.
 - Item writes `data-slot="toggle-group-item"`, `data-variant`, and `data-size`.
+- Those styling hooks are wrapper-owned and cannot be replaced through HTML `data-*` props.
 - Items inherit the root/root-provider `variant` and `size` through a small local visual context.
   That context must not own selection, focus, disabled state, callbacks, ids, or ARIA behavior.
 - Flat `ToggleGroupItem`, legacy `render`, `nativeButton`, and raw-array `onValueChange` callback
   compatibility are not part of this Ark-backed API.
+- `ToggleGroupRootProps`, `ToggleGroupRootProviderProps`, `ToggleGroupItemProps`, `ToggleVariant`, and
+  `ToggleSize` are exported for typed composition.
 
 ## Anatomy and exported parts
 
@@ -149,12 +152,16 @@ export function RootProviderToggleGroupDemo() {
 - Ark data attributes to preserve: `data-scope="toggle-group"`, `data-part`, `data-orientation`,
   `data-disabled`, `data-focus`, and item `data-state="on" | "off"`.
 - No Ark CSS variables are currently documented for ToggleGroup.
+- Horizontal groups scroll when their content exceeds the available inline size. They do not wrap,
+  preserving Ark's linear roving-focus behavior.
 
 ## Defaults and styling
 
 - Root and root provider merge `styles.root` with consumer `className`.
 - Item merges `Toggle.module.css` root styles, `ToggleGroup.module.css` item styles, and consumer
   `className`.
+- Root and root provider cap their inline size to their container and use horizontal overflow for
+  long groups.
 - Root/root-provider write `data-slot="toggle-group-root"` or
   `data-slot="toggle-group-root-provider"`.
 - Item writes `data-slot="toggle-group-item"`.
@@ -192,6 +199,7 @@ export function RootProviderToggleGroupDemo() {
 
 - Keep behavior delegated to Ark. Do not add local selection state or callback remapping.
 - Keep the local context limited to visual `variant` and `size` inheritance.
+- Keep long horizontal groups scrollable rather than wrapping their items.
 - If Ark adds more parts, context hooks, or CSS variables, mirror and document the public surface.
 - Keep examples and stories using `ToggleGroup.Item`, not a flat item alias.
 - Keep `ToggleGroup.Item` visuals synchronized with standalone `Toggle` when token names or
@@ -199,6 +207,8 @@ export function RootProviderToggleGroupDemo() {
 
 ## Local changelog
 
+- 2026-08-01: Made wrapper styling hooks non-overridable, exported the public composition types,
+  kept long horizontal groups reachable through inline scrolling, and added Context coverage.
 - 2026-07-12: Restored the Ark-aligned `Context`, `useToggleGroup()`, and
   `useToggleGroupContext()` surfaces through moduix so normal advanced composition avoids direct
   Ark imports.

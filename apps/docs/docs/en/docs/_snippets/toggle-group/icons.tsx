@@ -1,15 +1,9 @@
 import { ToggleGroup } from '@moduix/react/toggle-group';
 import { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from 'lucide-react';
-import styles from '@/components/examples/toggle-group.module.css';
 
 export default function IconToggleGroupDemo() {
   return (
-    <ToggleGroup
-      defaultValue={['left']}
-      aria-label="Text alignment"
-      size="md"
-      className={styles.iconGroup}
-    >
+    <ToggleGroup defaultValue={['left']} aria-label="Text alignment" size="icon-md">
       <ToggleGroup.Item value="left" aria-label="Align left">
         <AlignLeftIcon />
       </ToggleGroup.Item>

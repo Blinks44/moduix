@@ -1,5 +1,4 @@
 import { ToggleGroup } from '@moduix/react/toggle-group';
-import styles from '@/components/examples/toggle-group.module.css';
 
 export default function MultipleToggleGroupDemo() {
   return (
@@ -11,7 +10,7 @@ export default function MultipleToggleGroupDemo() {
         <em>I</em>
       </ToggleGroup.Item>
       <ToggleGroup.Item value="underline" aria-label="Underline">
-        <span className={styles.underline}>U</span>
+        <u>U</u>
       </ToggleGroup.Item>
     </ToggleGroup>
   );

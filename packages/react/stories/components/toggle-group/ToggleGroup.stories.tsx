@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Fragment, useState } from 'react';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { ToggleGroup, useToggleGroup } from '../../../src/components/toggle-group/ToggleGroup';
+import {
+  ToggleGroup,
+  useToggleGroup,
+  useToggleGroupContext,
+} from '../../../src/components/toggle-group/ToggleGroup';
 import { BellIcon, StarIcon } from '../../icons/demo';
 import storyStyles from './ToggleGroup.stories.module.css';
 
@@ -206,6 +210,30 @@ export const RootProvider: Story = {
         <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
         <ToggleGroup.Item value="right">Right</ToggleGroup.Item>
       </ToggleGroup.RootProvider>
+    );
+  },
+};
+
+function ContextItem({ value }: { value: string }) {
+  const toggleGroup = useToggleGroupContext();
+  const selected = toggleGroup.value.includes(value);
+
+  return (
+    <ToggleGroup.Item value={value}>
+      {selected ? <CheckIcon /> : null}
+      {value}
+    </ToggleGroup.Item>
+  );
+}
+
+export const Context: Story = {
+  render: () => {
+    return (
+      <ToggleGroup defaultValue={['left']} aria-label="Text alignment">
+        <ContextItem value="left" />
+        <ContextItem value="center" />
+        <ContextItem value="right" />
+      </ToggleGroup>
     );
   },
 };

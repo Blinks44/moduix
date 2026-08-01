@@ -1,5 +1,6 @@
 import { ToggleGroup } from '@moduix/react/toggle-group';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/toggle-group.module.css';
 
 const alignmentItems = [
@@ -32,7 +33,9 @@ export default function ControlledToggleGroupDemo() {
           </ToggleGroup.Item>
         ))}
       </ToggleGroup>
-      <span className={styles.hint}>Current value: {value.join(', ') || 'empty'}</span>
+      <PreviewMeta>
+        <output>Selected: {value.join(', ') || 'empty'}</output>
+      </PreviewMeta>
     </div>
   );
 }
