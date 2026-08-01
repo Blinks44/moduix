@@ -15,10 +15,10 @@ export function ForgotPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLF
 
       <Card.Body>
         <form className={styles.form} onSubmit={onSubmit}>
-          <Field.Root required>
+          <Field required>
             <Field.Label>Email address</Field.Label>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
-          </Field.Root>
+          </Field>
 
           <Button type="submit" className={styles.submit}>
             Send reset link

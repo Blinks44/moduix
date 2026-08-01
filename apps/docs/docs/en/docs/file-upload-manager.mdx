@@ -43,3 +43,16 @@ mutation where the product needs to send files to a server.
 `FileUpload` keeps the selected files in its local state. Add `onFileChange` to the root when your
 route needs to pass `details.acceptedFiles` to a form action or upload mutation. Keep the progress
 and completion state next to that real request rather than simulating it in the recipe.
+
+Client validation improves feedback, but the server must validate file type, size, content, and
+authorization again. Treat the selected `File` as untrusted input.
+
+| Upload state | Show to the user                                                        |
+| ------------ | ----------------------------------------------------------------------- |
+| Selected     | File name, size, removal action, and an explicit upload or form submit.  |
+| Uploading    | Progress when known, a pending label, and disabled duplicate submission. |
+| Failed       | The server message when safe, plus retry and remove actions.              |
+| Complete     | A stable success state using the server's stored file identifier.         |
+
+If files upload immediately after selection, keep an application-owned ID for each request so a
+retry updates the same row and removing one file does not cancel the others.

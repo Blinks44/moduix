@@ -15,15 +15,15 @@ export function ResetPassword({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFo
 
       <Card.Body>
         <form className={styles.form} onSubmit={onSubmit}>
-          <Field.Root required>
+          <Field required>
             <Field.Label>New password</Field.Label>
             <Input name="password" type="password" autoComplete="new-password" />
-          </Field.Root>
+          </Field>
 
-          <Field.Root required>
+          <Field required>
             <Field.Label>Confirm new password</Field.Label>
             <Input name="confirm-password" type="password" autoComplete="new-password" />
-          </Field.Root>
+          </Field>
 
           <Button type="submit" className={styles.submit}>
             Reset password

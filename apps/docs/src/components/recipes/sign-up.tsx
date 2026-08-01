@@ -16,25 +16,25 @@ export function SignUp({ onSubmit }: { onSubmit?: FormEventHandler<HTMLFormEleme
 
       <Card.Body>
         <form className={styles.form} onSubmit={onSubmit}>
-          <Field.Root required>
+          <Field required>
             <Field.Label>Full name</Field.Label>
             <Input name="name" autoComplete="name" placeholder="Alex Morgan" />
-          </Field.Root>
+          </Field>
 
-          <Field.Root required>
+          <Field required>
             <Field.Label>Email address</Field.Label>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
-          </Field.Root>
+          </Field>
 
-          <Field.Root required>
+          <Field required>
             <Field.Label>Password</Field.Label>
             <Input name="password" type="password" autoComplete="new-password" />
-          </Field.Root>
+          </Field>
 
-          <Field.Root required>
+          <Field required>
             <Field.Label>Confirm password</Field.Label>
             <Input name="confirm-password" type="password" autoComplete="new-password" />
-          </Field.Root>
+          </Field>
 
           <Checkbox name="terms" required>
             <Checkbox.Control />

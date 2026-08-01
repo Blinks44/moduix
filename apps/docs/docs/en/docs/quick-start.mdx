@@ -14,12 +14,25 @@ moduix supports two production workflows:
 Start with the npm package unless source ownership is an explicit requirement. Both paths expose the
 same Ark-aligned component contracts and token system.
 
+## The shortest path
+
+For most applications, the minimum setup is three steps:
+
+1. Run `npm install @moduix/react @ark-ui/react`.
+2. Import `@moduix/react/style.css` once in the application entry point.
+3. Import a component from its subpath, such as `@moduix/react/button`.
+
+You need React 18 or 19 and a framework or bundler that can import CSS from npm packages.
+Interactive components must render inside a client boundary when your framework requires one.
+Continue with the detailed package steps below for portal layering, the optional reset, and a
+complete Dialog example.
+
 | Choose this path            | When it fits best                                                                                                      |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | npm package                 | You want updates through package management, imports from `@moduix/react/<component>`, and styles from `@moduix/react/style.css`.  |
 | `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`. |
 
-## Install as a Package
+## Install as a package
 
 Use this path when you want moduix to stay in `node_modules` and receive updates through normal
 package management.
@@ -79,9 +92,9 @@ of your page without competing with local `z-index` values.
 }
 ```
 
-Starting with iOS 26, Safari can expose content beneath the browser chrome. Keep the document body
-positioned so dialog backdrops that use absolute positioning can cover the full visual viewport
-after the page is scrolled.
+If your application supports iOS 26 Safari, test a scrolled modal against the browser chrome. When
+content remains visible below the backdrop, keep the document body positioned so absolute
+backdrops can cover the full visual viewport.
 
 ```css title="styles.css"
 body {
@@ -91,7 +104,7 @@ body {
 
 ### 4. Use components
 
-Import the components and parts you need from `@moduix/react`:
+Import each component from its `@moduix/react/*` subpath:
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -99,22 +112,33 @@ import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.Header>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <Dialog.Description>Review the settings for this project.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger asChild>
+              <Button variant="outline">Close</Button>
+            </Dialog.CloseTrigger>
+          </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   );
 }
 ```
 
-## Install Components Into Your Project
+You are set when the button uses the moduix styles, opens the dialog with keyboard and pointer
+input, and focus returns to the button after closing it.
+
+## Install components into your project
 
 Use this path when you want the installed files to become part of your own codebase instead of
 staying in `node_modules`.
@@ -153,50 +177,35 @@ The `tailwind` object is required by the shadcn configuration schema, but moduix
 Tailwind and does not require it to be installed. Its empty paths and `baseColor` prevent the CLI
 from looking for Tailwind files or downloading a shadcn color palette.
 
+Keep `rsc: false` for client-rendered applications. Set it to `true` in a React Server Components
+application so shadcn can add a `use client` directive to generated components that need one.
+
 Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
 
 #### Vite
 
-For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mirror it in
-`vite.config.ts`:
+For the standard Vite React template, put the alias in both `tsconfig.json` and
+`tsconfig.app.json`, then mirror it in `vite.config.ts`:
 
 <Tabs values={[{ label: 'tsconfig.json', value: 'tsconfig.json' }, { label: 'tsconfig.app.json', value: 'tsconfig.app.json' }, { label: 'vite.config.ts', value: 'vite.config.ts' }]}>
   <Tab value="tsconfig.json">
 
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
-}
+```json file="./_snippets/quick-start/vite-tsconfig.json"
+
 ```
 
   </Tab>
   <Tab value="tsconfig.app.json">
 
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
+```json file="./_snippets/quick-start/vite-tsconfig.app.json"
+
 ```
 
   </Tab>
   <Tab value="vite.config.ts">
 
-```ts
-resolve: {
-  alias: {
-    '@': path.resolve(__dirname, './src'),
-  },
-}
+```ts file="./_snippets/quick-start/vite.config.ts.txt"
+
 ```
 
   </Tab>
@@ -204,10 +213,7 @@ resolve: {
 
 #### Rsbuild
 
-For Rsbuild, add the alias to `tsconfig.json`, then mirror it in `rsbuild.config.ts`:
-
-<Tabs values={[{ label: 'tsconfig.json', value: 'tsconfig.json' }, { label: 'rsbuild.config.ts', value: 'rsbuild.config.ts' }]}>
-  <Tab value="tsconfig.json">
+Rsbuild reads TypeScript path aliases automatically, so add the alias to `tsconfig.json` once:
 
 ```json
 {
@@ -218,20 +224,6 @@ For Rsbuild, add the alias to `tsconfig.json`, then mirror it in `rsbuild.config
   }
 }
 ```
-
-  </Tab>
-  <Tab value="rsbuild.config.ts">
-
-```ts
-resolve: {
-  alias: {
-    '@': './src',
-  },
-}
-```
-
-  </Tab>
-</Tabs>
 
 This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in
 `src/components` and `src/lib` instead of a literal `@` directory.
@@ -260,8 +252,8 @@ Install registry items from the moduix hosted registry:
 Run the same command with another registry item name, such as `@moduix-react/accordion`, to add
 more components.
 
-The registry installs only the shared runtime files each component needs. It does not install the
-internal CSS-variable references or a global font stylesheet.
+The registry installs only the shared runtime files each component needs. It does not add a global
+font, so typography continues to inherit from your application.
 
 ### 4. Add styles
 
@@ -320,13 +312,22 @@ system-wide changes and component variables only for deliberate exceptions. See
 [Tokens](/docs/tokens) for the complete hierarchy and [Animations](/docs/animations) for motion
 recipes.
 
-## Documentation Flow
+## Troubleshooting
+
+| Symptom                              | Check                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------- |
+| Components render without styles     | Import the correct `style.css` entry point once, after any optional reset.             |
+| A copy-owned import cannot be found  | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
+| A popup appears below page content   | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
+| Server rendering reports client APIs | Keep interactive components below a client boundary in frameworks that require one.   |
+
+## Documentation flow
 
 Start with the component page that matches the interface you are building. Each page teaches the
 recommended composition first, then documents anatomy, behavioral constraints, advanced examples,
 CSS variables, and stable styling hooks.
 
-## Next Reading
+## Next reading
 
 - [Composition Patterns](/docs/composition-patterns) for wrapper-first composition rules and
   low-level escape hatches.

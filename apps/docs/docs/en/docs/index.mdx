@@ -11,12 +11,15 @@ moduix is a styled React component system built on [Ark UI](https://ark-ui.com/)
 Ark's accessible interaction primitives with calm defaults, explicit composition, and a CSS token
 foundation designed for product interfaces.
 
+If you want to try it now, follow the [three-step package setup](/docs/quick-start#install-as-a-package),
+render a Button, and return here when you need to choose an ownership model.
+
 The visual language and source-delivery experience are
 [inspired by shadcn/ui](https://ui.shadcn.com/): components should look considered out of the box,
 remain easy to read, and become application-owned when that is the better workflow. moduix keeps
 its behavior and anatomy Ark-shaped rather than trying to be a drop-in shadcn clone.
 
-## Choose How You Own It
+## Choose how you own it
 
 Start with the npm package for the shortest setup and package-managed updates. Choose the hosted
 shadcn registry when you want the component source, styles, and supporting utilities inside your
@@ -24,15 +27,15 @@ repository.
 
 | Workflow                   | Imports                 | Best fit                                                               |
 | -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
-| npm package                | `@moduix/react`         | Centralized updates and the smallest amount of application-owned code. |
-| Copy-owned shadcn registry | `@/components/moduix/*` | Direct source ownership, local changes, and AI-assisted customization. |
+| npm package                | `@moduix/react/*`       | Centralized updates and the smallest amount of application-owned code. |
+| Copy-owned shadcn registry | `@/components/moduix/*` | Direct source ownership and deliberate local changes.                 |
 
 Both workflows ship the same component contracts and token system. [Quick start](/docs/quick-start)
 covers the complete setup for each path.
 
 <OwnershipLayers />
 
-## What Ark-Backed Means
+## What Ark-backed means
 
 Complex components preserve the Ark UI model: named parts, controlled and uncontrolled state,
 callback detail objects, context providers, `asChild` composition, native form controls, and state
@@ -42,7 +45,7 @@ without hiding the primitive structure you need for advanced product work.
 Ark UI remains the source of truth for interaction behavior and accessibility. moduix is the
 opinionated product layer on top.
 
-## What shadcn-Inspired Means
+## What shadcn-inspired means
 
 The inspiration is practical rather than cosmetic:
 
@@ -55,7 +58,7 @@ The inspiration is practical rather than cosmetic:
 moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
 contracts. Native CSS and CSS Modules remain the styling foundation.
 
-## The Styling Contract
+## The styling contract
 
 The default density uses `36px` primary controls and `32px` popup rows through `--moduix-size-md` and
 `--moduix-size-sm`. Inputs, buttons, select and combobox triggers, date controls, pagination, menu items,
@@ -67,7 +70,7 @@ shared family token to tune related components, or a `--<component>-*` variable 
 exception. See [Tokens](/docs/tokens) for the full hierarchy and [Themes](/docs/themes) for
 ready-made presets.
 
-## Start Here
+## Start here
 
 | Page                             | Use it for                                                                      |
 | -------------------------------- | ------------------------------------------------------------------------------- |
@@ -75,7 +78,7 @@ ready-made presets.
 | [Themes](/docs/themes)           | Adopt a curated preset or use one as the starting point for your own theme.     |
 | [Tokens](/docs/tokens)           | Understand global tokens, shared component defaults, and local override scopes. |
 
-## Continue With
+## Continue with
 
 | Page                                               | Use it for                                                                       |
 | -------------------------------------------------- | -------------------------------------------------------------------------------- |
@@ -98,5 +101,5 @@ moduix is possible because of the work and ideas of these projects:
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
 - [Rspress](https://rspress.rs/) for the documentation system and component-preview tooling.
-- [Rstack](https://rspack.dev/) for the Rust-powered build foundation behind the docs.
+- [Rstack](https://rspack.rs/) for the Rust-powered build foundation behind the docs.
 - [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.

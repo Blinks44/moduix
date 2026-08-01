@@ -202,7 +202,7 @@ affordances in the collapsed rail.
 ## Accessibility and state
 
 Ark `ResizeTrigger` preserves the WAI-ARIA Window Splitter pattern, focus management, pointer
-dragging, arrow-key resizing, and state attributes. Sidebar makes Ark's `data-focus` state visible
+dragging, arrow-key resizing, and state attributes. Sidebar makes keyboard-visible focus visible
 on its neutral resize line. Root callbacks retain Ark detail objects:
 `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`, and `onExpand(details)`.
 

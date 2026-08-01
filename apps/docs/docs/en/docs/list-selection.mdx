@@ -5,7 +5,7 @@ description: Manage single, multiple, deselectable, and range selection for cust
 
 # List Selection
 
-## API Reference
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
@@ -19,49 +19,16 @@ import { createListCollection, useListSelection } from '@ark-ui/react/collection
 
 ## Basic single selection
 
-```tsx
-const collection = createListCollection({
-  items: [
-    { label: 'Platform', value: 'platform' },
-    { label: 'Product', value: 'product' },
-    { label: 'Design', value: 'design', disabled: true },
-  ],
-});
+```tsx preview file="./_snippets/list-selection/basic.tsx"
 
-function TeamList() {
-  const selection = useListSelection({
-    collection,
-    selectionMode: 'single',
-    deselectable: true,
-  });
-
-  return (
-    <ul>
-      {collection.items.map((item) => {
-        const value = item.value;
-        const disabled = collection.getItemDisabled(item);
-        const selected = selection.isSelected(value);
-
-        return (
-          <li key={value}>
-            <button
-              type="button"
-              aria-pressed={selected}
-              disabled={disabled}
-              onClick={() => selection.select(value)}
-            >
-              {item.label}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
 ```
 
 The hook manages selection values only. Your UI still owns semantic roles, keyboard interaction,
 focus, and accessible labels. Prefer `Listbox` when you need standard listbox behavior.
+
+The button example is appropriate because each option is an independent toggle action. Do not add
+`role="listbox"` to custom markup unless you also implement the complete listbox keyboard and focus
+model. For a conventional option picker, use [Listbox](/docs/listbox) and let it own that behavior.
 
 ## Configuration
 
@@ -107,11 +74,13 @@ Use `canSelect` before exposing custom selection actions that are not already di
 | `extend(anchorValue, targetValue)` | Select the collection range between two values.         |
 | `setSelectedValues(values)`        | Replace selection with explicit values.                 |
 | `clear()`                          | Clear the current selection.                            |
-| `resetSelection()`                 | Restore `initialSelectedValues`.                        |
+| `resetSelection()`                 | Recreate an empty selection with the current settings.  |
 
 ## Multiple selection
 
 ```tsx
+import { Button } from '@moduix/react/button';
+
 function TeamSelectionActions() {
   const selection = useListSelection({
     collection,
@@ -129,9 +98,9 @@ function TeamSelectionActions() {
   }
 
   return (
-    <button type="button" onClick={toggleAll}>
+    <Button type="button" onClick={toggleAll}>
       {selection.isAllSelected() ? 'Clear all' : 'Select all'}
-    </button>
+    </Button>
   );
 }
 ```

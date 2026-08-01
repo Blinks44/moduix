@@ -21,6 +21,26 @@ All collection APIs covered in this section use the React collection entry point
 import { createListCollection } from '@ark-ui/react/collection';
 ```
 
+The usual flow is small:
+
+```text
+application items → Ark collection → moduix component → user selection
+```
+
+The collection normalizes item identity, text, disabled state, and traversal. The moduix component
+renders the accessible interaction and owns focus and selection behavior.
+
+## Start with a Select
+
+This is the most common collection workflow: create the collection once, pass it to Select, and
+render the same items from `collection.items`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/select/basic.tsx"
+  ```
+
+</PreviewFrame>
+
 ## Overview
 
 | Page                                     | Use it for                                                                                              |

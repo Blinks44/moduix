@@ -51,7 +51,14 @@ export default function ProjectForm() {
   });
 
   return (
-    <Form className="form" of={form} onSubmit={(values) => console.log(values)}>
+    <Form
+      className="form"
+      of={form}
+      onSubmit={async (values) => {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        console.log(values);
+      }}
+    >
       <Card>
         <Card.Header>
           <Card.Title>Create project</Card.Title>
@@ -122,7 +129,13 @@ export default function ProjectForm() {
                   onInputValueChange={(details) => filter(details.inputValue)}
                 >
                   <Combobox.Control>
-                    <Combobox.Input placeholder="Search people" />
+                    <Combobox.Input
+                      ref={field.props.ref}
+                      autoFocus={field.props.autoFocus}
+                      onFocus={field.props.onFocus}
+                      onBlur={field.props.onBlur}
+                      placeholder="Search people"
+                    />
                     <Combobox.ClearTrigger aria-label="Clear reviewer" />
                     <Combobox.Trigger aria-label="Open reviewers" />
                   </Combobox.Control>
@@ -161,6 +174,7 @@ export default function ProjectForm() {
           <FormischField of={form} path={['notifications']}>
             {(field) => (
               <Checkbox
+                name={field.props.name}
                 checked={field.input}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
               >
@@ -172,7 +186,7 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit">
+          <Button className="submit" type="submit" loading={form.isSubmitting}>
             {form.isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>

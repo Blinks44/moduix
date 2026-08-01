@@ -42,3 +42,12 @@ own action or API.
 
 Render `LoginSimple` in the route that owns authentication and pass its real submit handler. Replace
 the default `/forgot-password` and `/sign-up` links with your application routes.
+
+| Result             | Route behavior                                                               |
+| ------------------ | ---------------------------------------------------------------------------- |
+| Pending            | Disable duplicate submission and label the button `Signing in…`.             |
+| Invalid credentials| Show one form-level error without identifying which credential was wrong.     |
+| Network error      | Preserve the email and offer retry; do not clear the password before needed.  |
+| Success            | Replace the history entry or redirect to the safe destination chosen by your app. |
+
+Validate any `returnTo` or redirect URL on the server before navigating to it.

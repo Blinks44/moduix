@@ -5,7 +5,7 @@ description: Load, filter, sort, paginate, cancel, and retry remote list data wi
 
 # Async List
 
-## API Reference
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
 
@@ -21,46 +21,18 @@ import { useAsyncList } from '@ark-ui/react/collection';
 Set `autoReload: true` when the first request should run on mount. Pass the provided `signal` to
 `fetch` so a superseded request can be cancelled.
 
-```tsx
-type User = {
-  id: number;
-  name: string;
-};
+The runnable example uses a short local delay so loading, refreshing, empty, and error branches stay
+visible in one component. Replace its loader with your real request and pass `signal` to `fetch`.
 
-function UserList() {
-  const list = useAsyncList<User>({
-    autoReload: true,
-    async load({ signal }) {
-      const response = await fetch('/api/users', { signal });
+```tsx preview file="./_snippets/async-list/basic.tsx"
 
-      if (!response.ok) {
-        throw new Error('Could not load users');
-      }
-
-      return { items: await response.json() };
-    },
-  });
-
-  if (list.loading && list.items.length === 0) return <p>Loading…</p>;
-  if (list.error instanceof Error) return <p>{list.error.message}</p>;
-
-  return (
-    <>
-      <ul>
-        {list.items.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
-      <button type="button" onClick={list.reload} disabled={list.loading}>
-        Reload
-      </button>
-    </>
-  );
-}
 ```
 
 `autoReload` defaults to `false`. Without it, call `list.reload()` when the application is ready to
 load.
+
+Keep the current items visible during refresh. Use a full loading replacement only before the first
+result, and put retry next to the error so it repeats the same request.
 
 ## Configuration
 
@@ -73,8 +45,8 @@ load.
 | `dependencies`          | Primitive values that trigger a reload when changed.        | `[]`        |
 | `initialFilterText`     | Initial server-side filter text.                            | `''`        |
 | `initialSortDescriptor` | Initial `{ column, direction }` descriptor.                 | `undefined` |
-| `onSuccess`             | Called with the successfully loaded items.                  | —           |
-| `onError`               | Called with the request error.                              | —           |
+| `onSuccess`             | Called with `{ items }` after a successful load.             | —           |
+| `onError`               | Called with `{ error }` after a failed load.                 | —           |
 
 Dependencies support `string`, `number`, `boolean`, `null`, and `undefined`. Keep object and array
 state out of the dependency list; derive stable primitive values instead.
@@ -140,6 +112,8 @@ const list = useAsyncList<User, string>({
 Filtering is server-driven through the `load` callback:
 
 ```tsx
+import { Input } from '@moduix/react/input';
+
 function UserSearch() {
   const list = useAsyncList<User>({
     autoReload: true,
@@ -153,8 +127,9 @@ function UserSearch() {
   });
 
   return (
-    <input
+    <Input
       type="search"
+      aria-label="Search users"
       value={list.filterText}
       onChange={(event) => list.setFilterText(event.currentTarget.value)}
     />
@@ -170,11 +145,13 @@ function UserSearch() {
 Return a cursor while more data is available, then call `loadMore()`:
 
 ```tsx
+import { Button } from '@moduix/react/button';
+
 {
   list.hasMore && (
-    <button type="button" onClick={list.loadMore} disabled={list.loading}>
+    <Button type="button" onClick={() => list.loadMore()} loading={list.loading}>
       {list.loading ? 'Loading…' : 'Load more'}
-    </button>
+    </Button>
   );
 }
 ```

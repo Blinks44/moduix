@@ -28,7 +28,7 @@ Check the linked Ark page for the exact import and full API.
 | [Client Only](https://ark-ui.com/docs/utilities/client-only)                   | A subtree needs `window`, layout measurement, or another browser-only API after hydration.               | Useful in SSR apps and docs examples.                                                             |
 | [Download Trigger](https://ark-ui.com/docs/utilities/download-trigger)         | A click should download a URL, blob, file, or generated payload.                                         | moduix already wraps this pattern as `QrCode.DownloadTrigger` for QR exports.                     |
 | [Environment](https://ark-ui.com/docs/utilities/environment)                   | A moduix or Ark subtree renders inside an iframe, Shadow DOM, Electron, or another custom document root. | Wrap the affected subtree once instead of patching each component.                                |
-| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap)                     | You are building a custom attention-demanding surface that is not a moduix dialog-like component.        | moduix dialog, drawer, popover, menu, and tooltip roots already manage their own focus behavior.  |
+| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap)                     | You are building a custom modal surface that must contain keyboard focus.                                | Dialog and Drawer already provide modal focus behavior; popup components use their own appropriate focus model. |
 | [Format Byte](https://ark-ui.com/docs/utilities/format-byte)                   | You need localized file sizes or storage values.                                                         | Useful around uploads, downloads, and telemetry.                                                  |
 | [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | You need user-facing relative timestamps such as "2 min ago".                                            | Reads locale from `LocaleProvider` when present.                                                  |
 | [Format Time](https://ark-ui.com/docs/utilities/format-time)                   | You need localized time output from a `Date` or `HH:mm[:ss]` string.                                     | Useful for scheduling, timers, and activity feeds.                                                |
@@ -45,6 +45,7 @@ Use `Presence` when your application owns the visible node and you still want Ar
 unmounting behavior.
 
 ```tsx
+import { Button } from '@moduix/react/button';
 import { Presence } from '@ark-ui/react/presence';
 import { useState } from 'react';
 
@@ -53,9 +54,9 @@ export function InlinePresenceNotice() {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen((value) => !value)}>
+      <Button type="button" onClick={() => setOpen((value) => !value)}>
         Toggle notice
-      </button>
+      </Button>
       <Presence present={open} lazyMount unmountOnExit>
         <div className="notice">Saved filters will apply to the next refresh.</div>
       </Presence>
@@ -98,13 +99,16 @@ Use `EnvironmentProvider` when a moduix subtree renders in a non-default documen
 
 ```tsx
 import { EnvironmentProvider } from '@ark-ui/react/environment';
+import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
 
 export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
   return (
     <EnvironmentProvider value={iframeDocument}>
       <Popover>
-        <Popover.Trigger>Open preview tools</Popover.Trigger>
+        <Popover.Trigger asChild>
+          <Button>Open preview tools</Button>
+        </Popover.Trigger>
         <Popover.Positioner>
           <Popover.Content>Popover queries now target the iframe document.</Popover.Content>
         </Popover.Positioner>
@@ -155,9 +159,13 @@ See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
 - Use the built-in focus management in dialog-like and popup-like moduix components before adding a
   separate `FocusTrap`.
 
+`FocusTrap` is not a general fix for keyboard navigation. Use it only for a truly modal custom
+surface, provide an accessible name and close action, restore focus when it closes, and prefer
+[Dialog](/docs/dialog) or [Drawer](/docs/drawer) when either fits.
+
 ## Contract boundary
 
 These utilities come from Ark UI, not from the moduix styled component layer. Ark owns their props,
 lifecycle details, accessibility behavior, and release cadence. `LocaleProvider` is also re-exported
-from `@moduix/react` so locale and direction have one stable moduix entrypoint. moduix component
+from `@moduix/react/locale` so locale and direction have one stable moduix entrypoint. moduix component
 pages call out the places where a utility is already part of a component contract.

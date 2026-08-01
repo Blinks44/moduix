@@ -43,7 +43,7 @@ export default function ProjectForm() {
     control,
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       name: '',
@@ -55,7 +55,14 @@ export default function ProjectForm() {
   });
 
   return (
-    <form className="form" noValidate onSubmit={handleSubmit((values) => console.log(values))}>
+    <form
+      className="form"
+      noValidate
+      onSubmit={handleSubmit(async (values) => {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        console.log(values);
+      })}
+    >
       <Card>
         <Card.Header>
           <Card.Title>Create project</Card.Title>
@@ -187,8 +194,8 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit">
-            Create project
+          <Button className="submit" type="submit" loading={isSubmitting}>
+            {isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>
       </Card>

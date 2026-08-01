@@ -42,3 +42,9 @@ handler.
 
 Render `SignUp` in the route that owns registration and pass its real submit handler. Replace the
 default `/terms`, `/privacy`, and `/sign-in` links with your application routes.
+
+Keep password policy text visible before submission and validate the same policy on the server.
+While creating the account, disable duplicate submission. Map field-specific server errors, such as
+an unavailable email, to the relevant field; use a form-level message for network or unexpected
+errors. After success, follow your product's explicit next step: start a session, verify the email,
+or show a confirmation page.

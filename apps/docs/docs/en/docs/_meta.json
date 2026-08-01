@@ -55,6 +55,11 @@
   },
   {
     "type": "file",
+    "name": "expandable-avatar-group",
+    "tag": "users-round"
+  },
+  {
+    "type": "file",
     "name": "file-upload-manager",
     "tag": "upload"
   },
@@ -92,11 +97,6 @@
     "type": "file",
     "name": "verification-code",
     "tag": "badge-check"
-  },
-  {
-    "type": "file",
-    "name": "expandable-avatar-group",
-    "tag": "users-round"
   },
   {
     "type": "section-header",

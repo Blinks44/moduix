@@ -5,6 +5,9 @@ description: Integrate moduix native and compound controls with Formisch and Val
 
 # Formisch
 
+[Formisch documentation](https://formisch.dev) and [Valibot documentation](https://valibot.dev)
+cover their full schema, store, and validation APIs. This page focuses on the moduix mapping.
+
 Formisch is schema-first: pass a Valibot schema to `useForm`, then render fields with its headless
 `Field` component. Spread `field.props` onto native controls and use `field.input` with
 `field.onChange` for Ark compound controls.
@@ -24,6 +27,9 @@ npm install @formisch/react valibot
 
 Use `Field` from Formisch as `FormischField` beside moduix `Field`. The Valibot schema provides
 the validation messages, and its field paths remain type-safe.
+
+Formisch exposes `form.isSubmitting` while an async submit handler is running. Use it to disable
+duplicate submission and update the button label, while keeping the current field values visible.
 
 ## Validation and reset
 
@@ -172,3 +178,8 @@ import { Form, setErrors } from '@formisch/react';
   `Select`, `Combobox`, and `Checkbox` fields do in the example.
 - Keep `name`, `form`, and special form options on the moduix root for controls that render their
   native form input automatically. Do not add another hidden input for the same Formisch field.
+- Formisch focuses the first invalid native input or textarea through the element registered by
+  `field.props.ref`. `Combobox.Input` can receive `ref`, `autoFocus`, `onFocus`, and `onBlur`
+  individually. `Select.Trigger` is a button and is outside Formisch's input-ref type; when Select
+  can be the first invalid control, focus the first rendered `[aria-invalid="true"]` element from an
+  application invalid-submit effect instead of casting the ref.

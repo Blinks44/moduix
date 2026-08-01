@@ -16,6 +16,16 @@ submission workflows.
 | [TanStack Form](/docs/tanstack-form)     | Explicit controlled fields, reactive form state, and typed validation.     |
 | [Formisch](/docs/formisch)               | Schema-first Valibot validation with headless field state.                 |
 
+## Start with a native form
+
+Choose native form state first when the form has a few fields and the browser's validation is
+enough. Give every control a visible label and `name`, put native constraints on the real control,
+and read the submission with `new FormData(event.currentTarget)`. The [runnable native example](#native-form)
+mixes a regular Input with Ark-backed Select and Checkbox controls without duplicate hidden inputs.
+
+Add a library only when the product needs field arrays, schema or cross-field validation, controlled
+state shared elsewhere in the UI, or a validation lifecycle that native forms cannot express cleanly.
+
 ## How form libraries fit in
 
 moduix owns accessible form structure: labels, descriptions, error-message wiring, semantic
@@ -145,6 +155,22 @@ React Hook Form uses that ref for its built-in invalid-field focus. TanStack For
 leaves focus management to the application, so focus the first rendered `aria-invalid` control in
 an invalid-submit handler when that behaviour is needed. The dedicated integration guides show
 the corresponding value, blur, reset, and focus mappings.
+
+## Submission lifecycle
+
+Regardless of the state library, make the request state explicit:
+
+| State       | User-facing behavior                                                               |
+| ----------- | ---------------------------------------------------------------------------------- |
+| Ready       | Submit is available and validation has not shown premature errors.                 |
+| Submitting  | Prevent duplicate requests, keep values visible, and label the pending action.      |
+| Field error | Attach the server message to that field and move focus when submission is invalid.  |
+| Form error  | Render one `role="alert"` near the heading or submit action and keep retry possible. |
+| Success     | Confirm completion, reset only when useful, or navigate to the clear next step.      |
+
+`FormData` values are strings or `File` objects. Repeated names produce repeated entries; unchecked
+native checkboxes may be absent. Read repeated fields with `getAll`, normalize values at the server
+boundary, and never assume the client-side type or validation makes submitted data trusted.
 
 ## Repeated fields and server errors
 

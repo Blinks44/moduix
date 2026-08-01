@@ -79,7 +79,12 @@ export function MobileDrawerNavigation() {
             <nav className={styles.navigation} aria-label="Mobile navigation">
               <span className={styles.navigationLabel}>Workspace</span>
               <Drawer.CloseTrigger asChild>
-                <a className={styles.navigationLink} data-active href="#overview">
+                <a
+                  className={styles.navigationLink}
+                  data-active
+                  href="#overview"
+                  aria-current="page"
+                >
                   <LayoutDashboard />
                   Overview
                 </a>

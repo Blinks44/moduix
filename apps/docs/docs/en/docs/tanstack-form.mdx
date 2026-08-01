@@ -5,6 +5,9 @@ description: Integrate moduix native and compound controls with TanStack Form.
 
 # TanStack Form
 
+[TanStack Form documentation](https://tanstack.com/form/latest/docs/framework/react/overview) covers
+the complete React API and validation model. This page focuses on mapping moduix controls.
+
 TanStack Form fields are controlled. Pass `field.state.value` to the component, then map the
 component callback back to `field.handleChange`. Ark compound controls render their own native form
 control when they need one, so never add a separate hidden input.
@@ -26,6 +29,10 @@ npm install @tanstack/react-form
 Define every field in `defaultValues`. Call `field.handleBlur` from the actual interaction
 boundary so touched state and blur validation remain accurate.
 
+Subscribe to `state.canSubmit` and `state.isSubmitting` for the submit button, as the complete
+example does. Keep the values visible, block invalid submission, and disable duplicate submission
+until the async `onSubmit` handler settles.
+
 ## Validation and reset
 
 Use a field validator for local rules and a form-level Standard Schema validator for shared or
@@ -41,8 +48,9 @@ the form.
 ## Complete form
 
 This example integrates `Input`, `Select`, `Combobox`, `Textarea`, and `Checkbox`, validates on
-submit, and uses `form.Subscribe` only for the submit state. `noValidate` keeps the demo's error
-flow inside TanStack Form; omit it when native browser validation should run first.
+submit, focuses the first invalid control, and subscribes only to submit readiness and pending
+state. `noValidate` keeps the demo's error flow inside TanStack Form; omit it when native browser
+validation should run first.
 
 <style>{`
       .form {
@@ -159,6 +167,33 @@ const form = useForm<ProjectFormValues>({
   {([error]) => (error ? <p role="alert">{error}</p> : null)}
 </form.Subscribe>;
 ```
+
+## Focus the first invalid field
+
+TanStack Form does not choose a DOM focus target. Use `onSubmitInvalid` to focus the first rendered
+control that your `Field invalid` mapping marks with `aria-invalid="true"`:
+
+```tsx
+function focusFirstInvalid(formId: string) {
+  requestAnimationFrame(() => {
+    const formElement = document.getElementById(formId);
+    const control = formElement?.querySelector<HTMLElement>(
+      '[aria-invalid="true"]:not([hidden])',
+    );
+    control?.focus();
+  });
+}
+
+const form = useForm({
+  defaultValues,
+  onSubmit,
+  onSubmitInvalid: () => focusFirstInvalid('project-form'),
+});
+
+<form id="project-form">{/* fields */}</form>;
+```
+
+Forward focus to the actual control: the native Input, `Select.Trigger`, or `Combobox.Input`.
 
 ## Behavioral notes
 

@@ -19,15 +19,17 @@ APIs or adding a theme runtime.
 
 ## Choose a preset
 
-| Preset   | Controls / popup rows | Visual direction                                                        |
-| -------- | --------------------- | ----------------------------------------------------------------------- |
-| Calm     | 36px / 32px           | Neutral rhythm and quiet surfaces for most product interfaces.          |
-| Dense    | 34px / 30px           | Compact spacing and blue structure for data-heavy tools.                |
-| Soft     | 40px / 34px           | More breathing room, rounder surfaces, and a warm violet accent.        |
-| Contrast | 36px / 32px           | The default density with sharper borders and stronger focus separation. |
+| Preset   | Controls / popup rows | Best starting point for                                                  |
+| -------- | --------------------- | ------------------------------------------------------------------------ |
+| Calm     | 36px / 32px           | Most product interfaces; neutral rhythm and quiet surfaces.              |
+| Dense    | 34px / 30px           | Data-heavy tools where visible information density matters.              |
+| Soft     | 40px / 34px           | Touch-friendly or spacious interfaces with a warmer visual direction.    |
+| Contrast | 36px / 32px           | Interfaces that benefit from stronger borders and focus separation.      |
 
 The preview uses real moduix controls. Open the Select and move through the fields with the keyboard
 to compare trigger density, smaller popup rows, labels, surfaces, and focus treatment together.
+Preset names describe a visual direction, not an accessibility guarantee. Test text contrast,
+focus visibility, zoom, and target sizes with your content and application overrides before release.
 
 ## How the layers work
 
@@ -83,6 +85,20 @@ import '@/lib/moduix/presets/dense.css';
 ```
 
 Replace `dense` with `soft` or `contrast` to use another preset.
+
+## Switch themes at runtime
+
+Keep theme state on the document element so regular content and portalled overlays receive the same
+tokens. Persist the chosen name only if your product needs to remember it.
+
+```tsx
+function setTheme(theme: 'calm' | 'dense' | 'soft' | 'contrast') {
+  document.documentElement.dataset.moduixTheme = theme;
+  localStorage.setItem('moduix-theme', theme);
+}
+```
+
+Apply the saved value before the app renders to avoid a visible theme change during startup.
 
 ## Customize a preset
 
@@ -143,5 +159,5 @@ import './brand.css';
 <html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
 ```
 
-Use [Tokens](/docs/tokens) for the complete reference and [Dark mode](/docs/dark-mode) for the
+Use [Tokens](/docs/tokens) for the system token reference and [Dark mode](/docs/dark-mode) for the
 application-owned light/dark switch.

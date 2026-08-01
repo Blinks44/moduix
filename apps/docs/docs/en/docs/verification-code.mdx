@@ -46,3 +46,8 @@ application route.
 
 The preview intentionally has no verification server. After six digits it runs its empty submit
 handler; the copied recipe runs the handler you provide instead.
+
+Disable duplicate verification while the request is pending. For an invalid code, keep the entered
+digits available and attach the error to the field; for an expired code, explain that a new code is
+required. Put resend behind a short cooldown, announce when a new code is sent, and let the server
+enforce the real rate limit. Never treat the client countdown as authorization.

@@ -32,7 +32,7 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
 
       <Card.Body>
         <form className={styles.form} noValidate onSubmit={handleSubmit}>
-          <Field.Root className={styles.field} invalid={invalid} required>
+          <Field className={styles.field} invalid={invalid} required>
             <PinInput
               className={styles.code}
               count={6}
@@ -48,7 +48,7 @@ export function VerificationCode({ onSubmit }: { onSubmit?: FormEventHandler<HTM
             {invalid ? (
               <Field.ErrorText>Enter all six digits before verifying.</Field.ErrorText>
             ) : null}
-          </Field.Root>
+          </Field>
 
           <Button type="submit" className={styles.submit}>
             Verify email

@@ -25,6 +25,16 @@ const people = [
   { label: 'Radia Perlman', value: 'radia' },
 ];
 
+const formId = 'project-form';
+
+function focusFirstInvalid() {
+  requestAnimationFrame(() => {
+    const formElement = document.getElementById(formId);
+    const control = formElement?.querySelector<HTMLElement>('[aria-invalid="true"]:not([hidden])');
+    control?.focus();
+  });
+}
+
 export default function ProjectForm() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
@@ -39,11 +49,16 @@ export default function ProjectForm() {
       summary: '',
       notifications: false,
     },
-    onSubmit: ({ value }) => console.log(value),
+    onSubmit: async ({ value }) => {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      console.log(value);
+    },
+    onSubmitInvalid: focusFirstInvalid,
   });
 
   return (
     <form
+      id={formId}
       className="form"
       noValidate
       onSubmit={(event) => {
@@ -197,9 +212,9 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <form.Subscribe selector={(state) => [state.isSubmitting] as const}>
-            {([isSubmitting]) => (
-              <Button className="submit" type="submit" disabled={isSubmitting}>
+          <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
+            {([canSubmit, isSubmitting]) => (
+              <Button className="submit" type="submit" disabled={!canSubmit} loading={isSubmitting}>
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

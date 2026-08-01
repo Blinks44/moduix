@@ -16,12 +16,12 @@ export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLForm
 
       <Card.Body>
         <form className={styles.form} onSubmit={onSubmit}>
-          <Field.Root required>
+          <Field required>
             <Field.Label>Email address</Field.Label>
             <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
-          </Field.Root>
+          </Field>
 
-          <Field.Root required>
+          <Field required>
             <div className={styles.passwordLabel}>
               <Field.Label>Password</Field.Label>
               <a className={styles.link} href="/forgot-password">
@@ -29,7 +29,7 @@ export function LoginSimple({ onSubmit }: { onSubmit?: FormEventHandler<HTMLForm
               </a>
             </div>
             <Input name="password" type="password" autoComplete="current-password" />
-          </Field.Root>
+          </Field>
 
           <Checkbox name="remember">
             <Checkbox.Control />

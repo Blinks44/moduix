@@ -121,7 +121,7 @@
   .resizeTrigger {
     z-index: 2;
 
-    &[data-focus]:not([data-dragging])::before {
+    &:focus-visible:not([data-dragging])::before {
       background-color: var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
     }
   }
