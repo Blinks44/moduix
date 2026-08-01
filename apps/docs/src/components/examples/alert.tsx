@@ -31,19 +31,34 @@ export const alertCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-alert-bg',
-    'var(--alert-bg-default, var(--moduix-color-card))',
+    'var(--moduix-alert-bg-default, var(--moduix-color-card))',
     'Controls alert background.',
   ],
   [
+    '--moduix-alert-bg-default',
+    'Depends on status',
+    'Provides the status-derived fallback for the alert background.',
+  ],
+  [
     '--moduix-alert-border-color',
-    'var(--alert-border-color-default, var(--moduix-color-border))',
+    'var(--moduix-alert-border-color-default, var(--moduix-color-border))',
     'Controls alert border color.',
+  ],
+  [
+    '--moduix-alert-border-color-default',
+    'Depends on status',
+    'Provides the status-derived fallback for the alert border color.',
   ],
   ['--moduix-alert-border-width', 'var(--moduix-border-width-sm)', 'Controls alert border width.'],
   [
     '--moduix-alert-color',
-    'var(--alert-color-default, var(--moduix-color-card-foreground))',
+    'var(--moduix-alert-color-default, var(--moduix-color-card-foreground))',
     'Controls alert text color.',
+  ],
+  [
+    '--moduix-alert-color-default',
+    'Depends on status',
+    'Provides the status-derived fallback for the alert text color.',
   ],
   ['--moduix-alert-content-gap', 'var(--moduix-spacing-1)', 'Controls gap inside AlertContent.'],
   [
@@ -64,8 +79,13 @@ export const alertCssProperties: CssPropertyInput[] = [
   ['--moduix-alert-gap', 'var(--moduix-spacing-3)', 'Controls root column gap.'],
   [
     '--moduix-alert-indicator-color',
-    'var(--alert-indicator-color-default, currentColor)',
+    'var(--moduix-alert-indicator-color-default, currentColor)',
     'Controls indicator color.',
+  ],
+  [
+    '--moduix-alert-indicator-color-default',
+    'Depends on status',
+    'Provides the status-derived fallback for the indicator color.',
   ],
   [
     '--moduix-alert-indicator-offset',
