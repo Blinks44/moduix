@@ -122,10 +122,12 @@ function TourOverlay({ children, tour }: { children?: ReactNode; tour: UseTourRe
         <Tour.Content>
           <Tour.Arrow />
           <Tour.CloseIcon />
-          <Tour.Title />
-          <Tour.Description />
-          {children}
-          <Tour.ProgressText />
+          <Tour.Body>
+            <Tour.Title />
+            <Tour.Description />
+            {children}
+            <Tour.ProgressText />
+          </Tour.Body>
           <Tour.Control>
             <Tour.ActionList />
           </Tour.Control>

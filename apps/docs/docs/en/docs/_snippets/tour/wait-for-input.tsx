@@ -1,41 +1,35 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import { Button } from '@moduix/react/button';
+import { Input } from '@moduix/react/input';
 import { Tour, useTour } from '@moduix/react/tour';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const steps = [
   {
-    id: 'custom-actions',
-    type: 'dialog',
-    title: 'Custom action labels',
-    description: 'These buttons keep Ark behavior while changing their markup and copy.',
-    actions: [
-      { label: 'Continue', action: 'next' },
-      { label: 'Skip tour', action: 'dismiss' },
-    ],
-    backdrop: true,
+    id: 'name',
+    type: 'tooltip',
+    title: 'Enter a name',
+    description: 'The tour continues after at least two characters.',
+    target: () => document.querySelector('#tour-wait-name') as HTMLInputElement | null,
+    arrow: true,
   },
   {
-    id: 'finish',
+    id: 'complete',
     type: 'dialog',
-    title: 'Same actions, different UI',
-    description: 'Back and Finish still use their original Ark action objects.',
-    actions: [
-      { label: 'Back', action: 'prev' },
-      { label: 'Finish', action: 'dismiss' },
-    ],
+    title: 'Name saved',
+    description: 'Typing two characters moved the tour to this step.',
+    actions: [{ label: 'Done', action: 'dismiss' }],
     backdrop: true,
   },
 ] satisfies TourStepDetails[];
 
-export default function TourDemo() {
+export default function TourWaitForInputDemo() {
   const [status, setStatus] = useState('idle');
   const tour = useTour({
     steps,
     onStatusChange: (details) => setStatus(details.status),
   });
-
   return (
     <div
       style={{
@@ -44,6 +38,17 @@ export default function TourDemo() {
         justifyItems: 'center',
       }}
     >
+      <Input
+        id="tour-wait-name"
+        aria-label="Workspace name"
+        placeholder="Workspace name"
+        onInput={(event) => {
+          if (event.currentTarget.value.trim().length >= 2) {
+            tour.next();
+          }
+        }}
+      />
+
       <Tour tour={tour} lazyMount unmountOnExit>
         <Tour.Backdrop />
         <Tour.Spotlight />
@@ -54,20 +59,9 @@ export default function TourDemo() {
             <Tour.Body>
               <Tour.Title />
               <Tour.Description />
-              <Tour.ProgressText />
             </Tour.Body>
             <Tour.Control>
-              <Tour.Actions>
-                {(actions) =>
-                  actions.map((action, index) => (
-                    <Tour.ActionTrigger key={`${action.label}-${index}`} action={action} asChild>
-                      <Button variant={action.action === 'dismiss' ? 'outline' : 'default'}>
-                        {action.label}
-                      </Button>
-                    </Tour.ActionTrigger>
-                  ))
-                }
-              </Tour.Actions>
+              <Tour.ActionList />
             </Tour.Control>
           </Tour.Content>
         </Tour.Positioner>
@@ -75,7 +69,7 @@ export default function TourDemo() {
 
       <PreviewMeta>
         <output>Tour: {status}</output>
-        <Button onClick={() => tour.start()}>Start custom tour</Button>
+        <Button onClick={() => tour.start()}>Start input tour</Button>
       </PreviewMeta>
     </div>
   );
