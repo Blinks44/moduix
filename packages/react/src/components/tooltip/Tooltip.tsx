@@ -2,7 +2,7 @@
 
 import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -46,6 +46,22 @@ const TooltipTrigger = forwardRef<
     />
   );
 });
+
+const TooltipDisabledTrigger = forwardRef<HTMLSpanElement, ComponentPropsWithoutRef<'span'>>(
+  function TooltipDisabledTrigger({ className, tabIndex = 0, ...props }, ref) {
+    return (
+      <TooltipPrimitive.Trigger asChild>
+        <span
+          ref={ref}
+          data-slot="tooltip-disabled-trigger"
+          tabIndex={tabIndex}
+          className={clsx(styles.disabledTrigger, normalizeClassName(className))}
+          {...props}
+        />
+      </TooltipPrimitive.Trigger>
+    );
+  },
+);
 
 const TooltipPositioner = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Positioner>,
@@ -123,6 +139,7 @@ const Tooltip = Object.assign(TooltipRoot, {
   RootProvider: TooltipRootProvider,
   Context: TooltipPrimitive.Context,
   Trigger: TooltipTrigger,
+  DisabledTrigger: TooltipDisabledTrigger,
   Body: TooltipBody,
   Positioner: TooltipPositioner,
   Content: TooltipContent,

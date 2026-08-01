@@ -59,6 +59,15 @@
     }
   }
 
+  .disabledTrigger {
+    display: inline-flex;
+    cursor: not-allowed;
+
+    & > :is(:disabled, [data-disabled]) {
+      pointer-events: none;
+    }
+  }
+
   .positioner {
     z-index: var(--z-index, var(--moduix-z-popup));
     max-width: var(--available-width);
@@ -77,6 +86,7 @@
     z-index: var(--moduix-tooltip-z-index, var(--moduix-z-popup));
     max-width: min(var(--moduix-tooltip-max-width, 20rem), var(--available-width));
     max-height: min(var(--moduix-tooltip-max-height, 24rem), var(--available-height, 100dvh));
+    overflow: auto;
     padding: var(--moduix-tooltip-padding-y, var(--moduix-spacing-1))
       var(--moduix-tooltip-padding-x, var(--moduix-spacing-2));
     border: var(--moduix-tooltip-border-width, var(--moduix-border-width-sm)) solid
@@ -88,6 +98,7 @@
     font-size: var(--moduix-tooltip-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-tooltip-line-height, var(--moduix-line-height-text-sm));
     text-align: center;
+    overflow-wrap: anywhere;
     transform-origin: var(--transform-origin);
 
     &[data-state='open'] {

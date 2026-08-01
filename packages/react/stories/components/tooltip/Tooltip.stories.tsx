@@ -72,6 +72,20 @@ export const Delay: Story = {
   },
 };
 
+export const DisabledTrigger: Story = {
+  name: 'Disabled Trigger',
+  render: () => {
+    return (
+      <Tooltip>
+        <Tooltip.DisabledTrigger aria-label="Create project is unavailable">
+          <Button disabled>Create project</Button>
+        </Tooltip.DisabledTrigger>
+        <Tooltip.Body>Projects are unavailable while offline.</Tooltip.Body>
+      </Tooltip>
+    );
+  },
+};
+
 export const Positioning: Story = {
   render: () => {
     const [placement, setPlacement] = useState<TooltipPlacement>('top');
