@@ -21,8 +21,11 @@ the styles of content already on screen.
 ## Current behavior contract
 
 - `Typeset` renders a `div` by default. `Typeset.Root` is an alias with the same contract.
-- `asChild` preserves a single semantic container such as `article` or `section`.
-- `Typeset.Scroll` is an opt-in horizontal scroller for a wide table or another rendered block.
+- `asChild` preserves exactly one semantic container such as `article` or `section`.
+- `Typeset.Scroll` is an opt-in horizontal scroller for a wide table or another rendered block. It
+  defaults to `tabIndex={0}` so an overflowing static block is keyboard reachable; consumers can
+  pass another `tabIndex` or native ARIA props when needed. A supplied `aria-label` or
+  `aria-labelledby` also adds `role="region"` unless the consumer passes a role explicitly.
 - The rhythm controls are `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow`. Optional
   font variables are `--moduix-typeset-font-body`, `--moduix-typeset-font-heading`, and `--moduix-typeset-font-mono`.
 - Colors, borders, and radius come from existing moduix theme tokens; Typeset has no second palette
@@ -43,7 +46,7 @@ Typeset / Typeset.Root  data-slot="typeset"
 ## Composition
 
 ```tsx
-<Typeset asChild className="article">
+<Typeset asChild>
   <article>
     <h1>Release notes</h1>
     <p>Rendered Markdown keeps a consistent rhythm.</p>
@@ -52,6 +55,7 @@ Typeset / Typeset.Root  data-slot="typeset"
 ```
 
 Use `Typeset.Scroll` in a renderer's table component when a table should scroll instead of compress.
+Both parts forward refs to their rendered element; with `asChild`, that is the one semantic child.
 Do not put Markdown parsing, sanitization, or fixed reading width into this component.
 
 ## Upstream feature coverage
@@ -65,11 +69,12 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 ## Accessibility and state
 
 - Typeset has no state machine, callbacks, form behavior, `HiddenInput`, context, or provider.
-- The consumer chooses semantic container elements with `asChild`; rendered HTML retains its native
-  roles and keyboard behavior.
+- The consumer chooses one semantic container element with `asChild`; rendered HTML retains its
+  native roles and keyboard behavior.
 - Task-list checkboxes remain native controls. `details` and `summary` retain native disclosure
   behavior.
-- Refs forward to the rendered root or scroll `div` through the Ark factory.
+- Refs forward to the rendered root or scroll element through the Ark factory. `Typeset.Scroll` is
+  focusable by default so its native horizontal scrolling works with a keyboard.
 
 ## Defaults and styling
 
@@ -95,11 +100,13 @@ prop-driven.
 
 - Keep the API limited to semantic structure. Do not add parser, renderer, sanitization, theme, or
   layout props.
-- Every future element rule must preserve the `.not-typeset` / `data-not-typeset` escape hatch and
-  append-stability constraints.
+- Every future element rule must preserve the `.not-typeset` / `data-not-typeset` escape hatch,
+  including nested Typeset roots and scroll wrappers, plus append-stability constraints.
 
 ## Local changelog
 
+- 2026-08-01: Made `Typeset.Scroll` keyboard-focusable by default, locked stable data hooks, widened
+  refs to rendered semantic elements, and made the opt-out contract cover nested Typeset parts.
 - 2026-07-22: Moved styles into the namespaced `moduix.components` cascade layer.
 - 2026-07-20: Made basic list markers explicit and expanded the recommended Basic example to cover
   nested lists, ordered lists, quotations, code, tables, and disclosures.
