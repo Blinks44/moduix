@@ -3020,6 +3020,7 @@
   --moduix-tree-view-rename-input-padding-y: initial; /* 0 */
   --moduix-tree-view-rename-input-radius: initial; /* var(--moduix-radius-xs) */
   --moduix-tree-view-root-gap: initial; /* var(--moduix-spacing-2) */
+  --moduix-tree-view-row-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-tree-view-transition: initial; /* var(--moduix-transition-default) */
   --moduix-tree-view-width: initial; /* 20rem */
 

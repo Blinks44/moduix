@@ -29,6 +29,7 @@
     display: flex;
     min-width: 0;
     flex-direction: column;
+    gap: var(--moduix-tree-view-row-gap, var(--moduix-spacing-1));
     color: var(--moduix-tree-view-color, var(--moduix-color-foreground));
     font-size: var(--moduix-tree-view-item-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-tree-view-item-line-height, var(--moduix-line-height-text-sm));
@@ -37,6 +38,9 @@
   .branch {
     position: relative;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--moduix-tree-view-row-gap, var(--moduix-spacing-1));
   }
 
   .branchControl,
@@ -153,7 +157,10 @@
 
   .branchContent {
     position: relative;
+    display: flex;
     min-width: 0;
+    flex-direction: column;
+    gap: var(--moduix-tree-view-row-gap, var(--moduix-spacing-1));
     overflow: hidden;
 
     &[data-state='open'] {
@@ -167,6 +174,10 @@
         tree-view-slide-up var(--moduix-tree-view-content-transition-duration, 150ms) ease-out,
         tree-view-fade-out var(--moduix-tree-view-content-transition-duration, 150ms) ease-out;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
   }
 
   .branchIndentGuide {
@@ -176,6 +187,7 @@
     bottom: 0;
     width: var(--moduix-tree-view-indent-guide-width, var(--moduix-border-width-sm));
     background-color: var(--moduix-tree-view-indent-guide-color, var(--moduix-color-border));
+    pointer-events: none;
     inset-inline-start: calc(
       var(--moduix-tree-view-item-padding-x, var(--moduix-spacing-2)) +
         ((var(--depth, 1) - 1) * var(--moduix-tree-view-indent, 1rem)) +

@@ -572,6 +572,7 @@ const treeViewOverrideCssProperties: CssPropertyInput[] = [
     'Customizes tree view rename input radius.',
   ],
   ['--moduix-tree-view-root-gap', 'var(--moduix-spacing-2)', 'Customizes tree view root gap.'],
+  ['--moduix-tree-view-row-gap', 'var(--moduix-spacing-1)', 'Controls the gap between tree rows.'],
   [
     '--moduix-tree-view-transition',
     'var(--moduix-transition-default)',

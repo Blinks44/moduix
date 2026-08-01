@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/tree-view
+- Chakra UI: https://chakra-ui.com/docs/components/tree-view
 - Zag: https://zagjs.com/components/react/tree-view
 
 ## Purpose
@@ -21,8 +22,8 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
 - `TreeView` is the short root form and is equivalent to `TreeView.Root`.
 - Consumers must pass a `TreeCollection` created by `createTreeCollection` or
   `createFileTreeCollection`.
-- Nodes render by mapping `collection.rootNode.children` and wrapping each recursive node with
-  `TreeView.NodeProvider node={node} indexPath={indexPath}`.
+- Nodes render by mapping `collection.rootNode.children` with `TreeView.Node`, or with the explicit
+  `TreeView.NodeProvider node={node} indexPath={indexPath}` path.
 - Branches use `Branch`, `BranchControl`, `BranchIndicator`, `BranchText`, `BranchContent`, and
   optional `BranchIndentGuide`.
 - Leaves use `Item`, `ItemText`, and optional `ItemIndicator`.
@@ -32,6 +33,8 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
   `TreeView.NodeCheckboxIndicator` render moduix default icons when children are omitted.
 - `RootProvider`, `useTreeView`, `useTreeViewNodeContext`, `TreeViewNodeProviderProps`, and
   `TreeViewLoadChildrenDetails` are re-exported from `@moduix/react` with their Ark contracts.
+- `TreeView.Node` provides `{ node, indexPath, state }` to its child function without hiding the
+  branch/item composition.
 
 ## Anatomy and exported parts
 
@@ -39,7 +42,7 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
 TreeView / TreeView.Root
 ├─ TreeView.Label
 └─ TreeView.Tree
-   └─ TreeView.NodeProvider[node, indexPath]
+   └─ TreeView.Node[node, indexPath] or TreeView.NodeProvider[node, indexPath]
       ├─ TreeView.Branch
       │  ├─ TreeView.BranchControl
       │  │  ├─ TreeView.BranchIndicator
@@ -60,6 +63,7 @@ TreeView / TreeView.Root
 | `TreeView.RootProvider`          | `tree-view-root-provider`           | RootProvider styled like root. |
 | `TreeView.Label`                 | `tree-view-label`                   | Accessible label.              |
 | `TreeView.Tree`                  | `tree-view-tree`                    | Tree container.                |
+| `TreeView.Node`                  | -                                   | Recursive-renderer shortcut.   |
 | `TreeView.NodeProvider`          | -                                   | Ark node/indexPath context.    |
 | `TreeView.Branch`                | `tree-view-branch`                  | Expandable node wrapper.       |
 | `TreeView.BranchControl`         | `tree-view-branch-control`          | Interactive branch row.        |
@@ -149,18 +153,24 @@ function TreeNodeContent({ node, indexPath }) {
   `data-depth`, `data-path`, and `data-value`.
 - `BranchContent` uses Ark's shared collapsible `--height` runtime variable for open/closed
   animation.
+- Branch-content animation respects `prefers-reduced-motion`, and `BranchIndentGuide` remains
+  decorative without receiving pointer interaction.
 - `Branch`, `BranchControl`, `Item`, and `BranchIndentGuide` use Ark's `--depth` runtime variable
   for indentation.
 - Use Ark `useTreeView` with `TreeView.RootProvider`; do not render `TreeView.Root` for the same
   state instance.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
+- When a branch uses a separate `BranchTrigger`, set `role="none"` on `BranchControl` to avoid
+  nesting the trigger in another interactive tree item.
 
 ## Defaults and styling
 
 - Moduix styling is applied through CSS Modules plus stable `data-slot` hooks.
 - Default root width is `20rem` through `--moduix-tree-view-width`.
 - Branch and item rows share hover, selected, focus, disabled, and indentation styling.
+- Rows have a small `--moduix-tree-view-row-gap` gap so adjacent hover backgrounds stay distinct.
 - `BranchIndicator` and `BranchTrigger` rotate on `data-state="open"`.
+- Branch-content animation is disabled for reduced-motion preferences.
 - `NodeCheckboxIndicator` renders default check and indeterminate icons when omitted.
 - Public `--moduix-tree-view-*` variables are documented in `variables-moduix.css`.
 
@@ -169,8 +179,10 @@ function TreeNodeContent({ node, indexPath }) {
 - Default icons are added for branch indicators, item indicators, and checkbox indicators; use an
   empty `NodeCheckboxIndicator` unless the checked or indeterminate icons need customization.
 - File/folder icons are exported from the shared icon pack for examples and consumer convenience.
-- No convenience wrapper hides Ark recursive rendering; consumers keep the explicit `NodeProvider`
-  and branch/item composition.
+- `TreeView.Node` removes repeated provider/context plumbing while preserving an explicit branch/item
+  choice. `NodeProvider` remains available for the low-level Ark composition path.
+- Put decorative file and folder icons inside `BranchText` or `ItemText`; keep `BranchIndicator`
+  separate as the expand/collapse affordance.
 
 ## Agent notes
 
@@ -181,6 +193,8 @@ function TreeNodeContent({ node, indexPath }) {
 
 ## Local changelog
 
+- 2026-08-01: Added `TreeView.Node`, reduced-motion-safe branch animation, non-interactive
+  indent guides, and a configurable row gap.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Re-exported the TreeView hooks and normal recursive-renderer types from moduix, and
   documented the default checkbox-indicator icons as the recommended path.
