@@ -38,5 +38,22 @@
     "name": "tokens",
     "label": "Токены",
     "tag": "swatch-book"
+  },
+  {
+    "type": "section-header",
+    "label": "Начало работы"
+  },
+  {
+    "type": "file",
+    "name": "quick-start",
+    "label": "Быстрый старт",
+    "tag": "rocket"
+  },
+  {
+    "type": "dir",
+    "name": "installation",
+    "label": "Настройка фреймворка",
+    "collapsible": true,
+    "collapsed": true
   }
 ]

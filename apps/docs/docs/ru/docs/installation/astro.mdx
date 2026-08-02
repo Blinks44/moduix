@@ -1,0 +1,64 @@
+---
+title: Astro
+description: Установите moduix как интерактивные React-острова в Astro, используя глобальный CSS и клиентские директивы.
+---
+
+# Astro
+
+moduix — библиотека React. В Astro рендерьте интерактивные компоненты через официальную интеграцию React и
+гидратируйте каждый остров клиентской директивой Astro.
+
+## Добавьте интеграцию React
+
+```bash
+npx astro add react
+```
+
+## Установите пакет
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Один раз импортируйте базовую таблицу стилей из общего layout:
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/react/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+Создайте React-компонент, затем гидратируйте его на странице Astro:
+
+```tsx title="src/components/ContinueButton.tsx"
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+```astro title="src/pages/index.astro"
+---
+import { ContinueButton } from '../components/ContinueButton';
+---
+
+<ContinueButton client:load />
+```
+
+Используйте наименее агрессивную директиву, подходящую для этого взаимодействия. Одного статического серверного рендеринга
+недостаточно для Dialog, Menu, Select и других интерактивных компонентов.
+
+## Установка через shadcn CLI
+
+Завершите [настройку shadcn CLI](/ru/docs/quick-start#установить-через-shadcn-cli), сопоставьте `@/*` с `src/*`
+в `tsconfig.json` и импортируйте `@/lib/moduix/styles/style.css` из общего layout. Сгенерированным React-компонентам
+всё равно нужна клиентская директива Astro там, где они используются.
+
+## Проверка
+
+Настройка завершена, когда остров стилизован до гидратации и реагирует после выполнения клиентской директивы.
+
+Полный перечень вариантов рендеринга и гидратации приведён в [руководстве Astro по интеграции React](https://docs.astro.build/en/guides/integrations-guide/react/).
