@@ -55,5 +55,27 @@
     "label": "Настройка фреймворка",
     "collapsible": true,
     "collapsed": true
+  },
+  {
+    "type": "section-header",
+    "label": "AI"
+  },
+  {
+    "type": "file",
+    "name": "ai",
+    "label": "Руководство по AI",
+    "tag": "bot"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms.txt",
+    "link": "https://moduix.dev/llms.txt",
+    "tag": "file-text"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-full.txt",
+    "link": "https://moduix.dev/llms-full.txt",
+    "tag": "file-text"
   }
 ]
