@@ -132,5 +132,44 @@
     "type": "file",
     "name": "tanstack-form",
     "tag": "braces"
+  },
+  {
+    "type": "section-header",
+    "label": "Руководства"
+  },
+  {
+    "type": "file",
+    "name": "animations",
+    "tag": "orbit"
+  },
+  {
+    "type": "file",
+    "name": "composition-patterns",
+    "tag": "workflow"
+  },
+  {
+    "type": "file",
+    "name": "dark-mode",
+    "tag": "moon"
+  },
+  {
+    "type": "file",
+    "name": "rtl",
+    "tag": "languages"
+  },
+  {
+    "type": "file",
+    "name": "styling",
+    "tag": "paintbrush"
+  },
+  {
+    "type": "file",
+    "name": "updating",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "utilities",
+    "tag": "wrench"
   }
 ]

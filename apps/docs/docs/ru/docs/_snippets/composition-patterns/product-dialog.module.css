@@ -1,0 +1,10 @@
+.backdrop {
+  background: rgb(0 0 0 / 56%);
+  backdrop-filter: blur(0.375rem);
+}
+
+.content {
+  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  border-radius: var(--moduix-radius-xl);
+  box-shadow: var(--moduix-shadow-lg);
+}

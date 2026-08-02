@@ -82,10 +82,60 @@ const initialMotionValues = Object.fromEntries(
   }),
 ) as CssVariables;
 
+type AnimationLocale = 'en' | 'ru';
+
+type AnimationExampleProps = {
+  locale?: AnimationLocale;
+};
+
 type RecipeCardProps = {
   title: string;
   description: string;
   popupClassName: string;
+};
+
+const animationMotionDescriptionsRu: Record<string, string> = {
+  '--moduix-popup-motion-duration':
+    'Управляет длительностью анимации содержимого всплывающих компонентов.',
+  '--moduix-popup-motion-easing': 'Управляет кривой анимации содержимого всплывающих компонентов.',
+  '--moduix-popup-motion-starting-opacity':
+    'Управляет opacity содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-opacity':
+    'Управляет opacity содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-scale':
+    'Управляет scale содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-scale':
+    'Управляет scale содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-translate-x':
+    'Управляет горизонтальным смещением содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-translate-x':
+    'Управляет горизонтальным смещением содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-translate-y':
+    'Управляет вертикальным смещением содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-translate-y':
+    'Управляет вертикальным смещением содержимого при исчезновении всплывающего компонента.',
+};
+
+const animationMotionPlaygroundDescriptionsRu: Record<string, string> = {
+  '--moduix-popup-motion-duration':
+    'Общая длительность анимации содержимого всплывающих компонентов.',
+  '--moduix-popup-motion-easing': 'Общая кривая анимации содержимого всплывающих компонентов.',
+  '--moduix-popup-motion-starting-opacity':
+    'Opacity содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-opacity':
+    'Opacity содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-scale':
+    'Scale содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-scale':
+    'Scale содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-translate-x':
+    'Горизонтальное смещение содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-translate-x':
+    'Горизонтальное смещение содержимого при исчезновении всплывающего компонента.',
+  '--moduix-popup-motion-starting-translate-y':
+    'Вертикальное смещение содержимого при появлении всплывающего компонента.',
+  '--moduix-popup-motion-ending-translate-y':
+    'Вертикальное смещение содержимого при исчезновении всплывающего компонента.',
 };
 
 function normalizeCssProperty(property: CssPropertyInput) {
@@ -96,7 +146,24 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
+function localizeCssProperties(
+  properties: CssPropertyInput[],
+  descriptions: Record<string, string> | undefined,
+) {
+  if (!descriptions) return properties;
+
+  return properties.map((property) => {
+    const { name, defaultValue, description } = normalizeCssProperty(property);
+    return [name, defaultValue, descriptions[name] ?? description] as CssPropertyInput;
+  });
+}
+
+function RecipeCard({
+  title,
+  description,
+  popupClassName,
+  locale,
+}: RecipeCardProps & Required<AnimationExampleProps>) {
   return (
     <div className={styles.recipeCard}>
       <div>
@@ -106,90 +173,16 @@ function RecipeCard({ title, description, popupClassName }: RecipeCardProps) {
 
       <Popover positioning={{ gutter: 10 }}>
         <Popover.Trigger asChild>
-          <Button variant="outline">Preview</Button>
+          <Button variant="outline">{locale === 'ru' ? 'Предпросмотр' : 'Preview'}</Button>
         </Popover.Trigger>
         <Popover.Positioner>
           <Popover.Content className={`${styles.popup} ${popupClassName}`}>
             <div className={styles.popupHeader}>
               <p className={styles.label}>{title}</p>
-              <p className={styles.caption}>Same structure, different motion recipe.</p>
-            </div>
-          </Popover.Content>
-        </Popover.Positioner>
-      </Popover>
-    </div>
-  );
-}
-
-export function MotionRecipesExample() {
-  return (
-    <div className={styles.recipesGrid}>
-      <RecipeCard
-        title="Fade"
-        description="No scale or offset, only opacity."
-        popupClassName={styles.fadePopup}
-      />
-      <RecipeCard
-        title="Slide Up"
-        description="Moves upward into place without zoom."
-        popupClassName={styles.slideUpPopup}
-      />
-      <RecipeCard
-        title="Slide Down"
-        description="Drops into place from above."
-        popupClassName={styles.slideDownPopup}
-      />
-      <RecipeCard
-        title="Slide Left"
-        description="Moves in from the right edge into place."
-        popupClassName={styles.slideLeftPopup}
-      />
-      <RecipeCard
-        title="Slide Right"
-        description="Moves in from the left edge into place."
-        popupClassName={styles.slideRightPopup}
-      />
-      <RecipeCard
-        title="Zoom"
-        description="Keeps the current scale-in feel."
-        popupClassName={styles.zoomPopup}
-      />
-      <RecipeCard
-        title="Lift"
-        description="Small upward slide plus subtle zoom for menus and cards."
-        popupClassName={styles.liftPopup}
-      />
-      <RecipeCard
-        title="Drop In"
-        description="Small downward slide plus scale for heavier overlays."
-        popupClassName={styles.dropInPopup}
-      />
-      <RecipeCard
-        title="Soft Pop"
-        description="A slower, more expressive scale-in for short confirmation surfaces."
-        popupClassName={styles.softPopPopup}
-      />
-    </div>
-  );
-}
-
-function MotionPlaygroundExample() {
-  return (
-    <div className={styles.stack}>
-      <Popover positioning={{ gutter: 12 }}>
-        <div className={styles.playgroundTrigger}>
-          <Popover.Trigger asChild>
-            <Button>Open motion playground</Button>
-          </Popover.Trigger>
-        </div>
-        <Popover.Positioner>
-          <Popover.Content className={styles.playgroundPopup}>
-            <div className={styles.playgroundHeader}>
-              <span className={styles.playgroundKicker}>Animations</span>
-              <p className={styles.playgroundTitle}>Tune shared popup motion</p>
-              <p className={styles.playgroundDescription}>
-                Change the shared popup tokens in the Playground tab to test the motion contract
-                used by every supported popup surface.
+              <p className={styles.caption}>
+                {locale === 'ru'
+                  ? 'Та же структура, другой рецепт анимации.'
+                  : 'Same structure, different motion recipe.'}
               </p>
             </div>
           </Popover.Content>
@@ -199,8 +192,154 @@ function MotionPlaygroundExample() {
   );
 }
 
-export function AnimationMotionPlayground() {
-  const properties = animationMotionCssProperties.map(normalizeCssProperty);
+export function MotionRecipesExample({ locale = 'en' }: AnimationExampleProps) {
+  const recipes: RecipeCardProps[] =
+    locale === 'ru'
+      ? [
+          {
+            title: 'Затухание',
+            description: 'Без масштаба и смещения — только opacity.',
+            popupClassName: styles.fadePopup,
+          },
+          {
+            title: 'Сдвиг вверх',
+            description: 'Поднимается на место без масштабирования.',
+            popupClassName: styles.slideUpPopup,
+          },
+          {
+            title: 'Сдвиг вниз',
+            description: 'Опускается на место сверху.',
+            popupClassName: styles.slideDownPopup,
+          },
+          {
+            title: 'Сдвиг влево',
+            description: 'Перемещается на место с правого края.',
+            popupClassName: styles.slideLeftPopup,
+          },
+          {
+            title: 'Сдвиг вправо',
+            description: 'Перемещается на место с левого края.',
+            popupClassName: styles.slideRightPopup,
+          },
+          {
+            title: 'Масштабирование',
+            description: 'Сохраняет текущее ощущение увеличения.',
+            popupClassName: styles.zoomPopup,
+          },
+          {
+            title: 'Подъём',
+            description: 'Небольшой сдвиг вверх и лёгкое масштабирование для меню и карточек.',
+            popupClassName: styles.liftPopup,
+          },
+          {
+            title: 'Появление сверху',
+            description: 'Небольшой сдвиг вниз и масштабирование для более тяжёлых оверлеев.',
+            popupClassName: styles.dropInPopup,
+          },
+          {
+            title: 'Мягкое появление',
+            description:
+              'Более медленное и выразительное увеличение для коротких поверхностей подтверждения.',
+            popupClassName: styles.softPopPopup,
+          },
+        ]
+      : [
+          {
+            title: 'Fade',
+            description: 'No scale or offset, only opacity.',
+            popupClassName: styles.fadePopup,
+          },
+          {
+            title: 'Slide Up',
+            description: 'Moves upward into place without zoom.',
+            popupClassName: styles.slideUpPopup,
+          },
+          {
+            title: 'Slide Down',
+            description: 'Drops into place from above.',
+            popupClassName: styles.slideDownPopup,
+          },
+          {
+            title: 'Slide Left',
+            description: 'Moves in from the right edge into place.',
+            popupClassName: styles.slideLeftPopup,
+          },
+          {
+            title: 'Slide Right',
+            description: 'Moves in from the left edge into place.',
+            popupClassName: styles.slideRightPopup,
+          },
+          {
+            title: 'Zoom',
+            description: 'Keeps the current scale-in feel.',
+            popupClassName: styles.zoomPopup,
+          },
+          {
+            title: 'Lift',
+            description: 'Small upward slide plus subtle zoom for menus and cards.',
+            popupClassName: styles.liftPopup,
+          },
+          {
+            title: 'Drop In',
+            description: 'Small downward slide plus scale for heavier overlays.',
+            popupClassName: styles.dropInPopup,
+          },
+          {
+            title: 'Soft Pop',
+            description: 'A slower, more expressive scale-in for short confirmation surfaces.',
+            popupClassName: styles.softPopPopup,
+          },
+        ];
+
+  return (
+    <div className={styles.recipesGrid}>
+      {recipes.map((recipe) => (
+        <RecipeCard key={recipe.popupClassName} {...recipe} locale={locale} />
+      ))}
+    </div>
+  );
+}
+
+function MotionPlaygroundExample({ locale }: Required<AnimationExampleProps>) {
+  return (
+    <div className={styles.stack}>
+      <Popover positioning={{ gutter: 12 }}>
+        <div className={styles.playgroundTrigger}>
+          <Popover.Trigger asChild>
+            <Button>
+              {locale === 'ru' ? 'Открыть песочницу анимации' : 'Open motion playground'}
+            </Button>
+          </Popover.Trigger>
+        </div>
+        <Popover.Positioner>
+          <Popover.Content className={styles.playgroundPopup}>
+            <div className={styles.playgroundHeader}>
+              <span className={styles.playgroundKicker}>
+                {locale === 'ru' ? 'Анимации' : 'Animations'}
+              </span>
+              <p className={styles.playgroundTitle}>
+                {locale === 'ru'
+                  ? 'Настройте общую анимацию всплывающих компонентов'
+                  : 'Tune shared popup motion'}
+              </p>
+              <p className={styles.playgroundDescription}>
+                {locale === 'ru'
+                  ? 'Измените общие токены всплывающих компонентов на вкладке Playground, чтобы проверить контракт анимации, используемый каждой поддерживаемой всплывающей поверхностью.'
+                  : 'Change the shared popup tokens in the Playground tab to test the motion contract used by every supported popup surface.'}
+              </p>
+            </div>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover>
+    </div>
+  );
+}
+
+export function AnimationMotionPlayground({ locale = 'en' }: AnimationExampleProps) {
+  const properties = localizeCssProperties(
+    animationMotionCssProperties,
+    locale === 'ru' ? animationMotionDescriptionsRu : undefined,
+  ).map(normalizeCssProperty);
   const [values, setValues] = React.useState<CssVariables>(initialMotionValues);
   const appliedValues = React.useMemo(
     () =>
@@ -238,28 +377,39 @@ export function AnimationMotionPlayground() {
   return (
     <div className={styles.motionPlayground}>
       <ExampleFrame>
-        <MotionPlaygroundExample />
+        <MotionPlaygroundExample locale={locale} />
       </ExampleFrame>
       <div className={styles.motionPanel}>
-        <AnimationMotionPropertiesPanel {...context} />
+        <AnimationMotionPropertiesPanel locale={locale} />
       </div>
       <div className={styles.motionPanel}>
-        <AnimationMotionPlaygroundPanel {...context} />
+        <AnimationMotionPlaygroundPanel {...context} locale={locale} />
       </div>
     </div>
   );
 }
 
-function AnimationMotionPropertiesPanel(_context: CSSPropertiesEditorContext) {
+function AnimationMotionPropertiesPanel({ locale }: Required<AnimationExampleProps>) {
   return (
     <CSSPropertiesReferenceTable
-      properties={animationMotionCssProperties.map(normalizeCssProperty)}
+      properties={localizeCssProperties(
+        animationMotionCssProperties,
+        locale === 'ru' ? animationMotionDescriptionsRu : undefined,
+      ).map(normalizeCssProperty)}
     />
   );
 }
 
-function AnimationMotionPlaygroundPanel({ values, onChange, onReset }: CSSPropertiesEditorContext) {
-  const properties = animationMotionPlaygroundCssProperties.map(normalizeCssProperty);
+function AnimationMotionPlaygroundPanel({
+  values,
+  onChange,
+  onReset,
+  locale,
+}: CSSPropertiesEditorContext & Required<AnimationExampleProps>) {
+  const properties = localizeCssProperties(
+    animationMotionPlaygroundCssProperties,
+    locale === 'ru' ? animationMotionPlaygroundDescriptionsRu : undefined,
+  ).map(normalizeCssProperty);
   const playgroundValues = { ...values };
 
   for (const property of properties) {
