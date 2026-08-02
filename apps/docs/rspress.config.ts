@@ -22,6 +22,13 @@ export default defineConfig({
       title: siteTitle,
       description: siteDescription,
     },
+    {
+      lang: 'ru',
+      label: 'Русский',
+      title: 'moduix — доступные React-компоненты на базе Ark UI',
+      description:
+        'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на основе токенов.',
+    },
   ],
   icon: '/favicon/favicon.svg',
   llms: true,

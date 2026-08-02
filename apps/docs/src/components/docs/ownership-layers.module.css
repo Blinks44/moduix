@@ -1,40 +1,36 @@
 .root {
-  display: grid;
   overflow: hidden;
   margin-block: 2rem;
   border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--rp-radius);
-  background: var(--rp-c-bg-soft);
-
-  @media (min-width: 48rem) {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  }
-}
-
-.summary,
-.details {
-  padding: 1.25rem;
+  background: var(--rp-c-bg);
 }
 
 .summary {
+  padding: 1.5rem;
   border-bottom: 1px solid var(--rp-c-divider-light);
-  background: color-mix(in oklab, var(--rp-c-bg-mute) 35%, transparent);
-
-  @media (min-width: 48rem) {
-    border-right: 1px solid var(--rp-c-divider-light);
-    border-bottom: 0;
-  }
+  background:
+    linear-gradient(
+      120deg,
+      color-mix(in oklab, var(--rp-c-bg-mute) 55%, transparent),
+      transparent 62%
+    ),
+    var(--rp-c-bg-soft);
 }
 
 .summary h2 {
-  margin: 0.75rem 0 0;
+  max-width: 34rem;
+  margin: 0.5rem 0 0;
   color: var(--rp-c-text-1);
-  font-size: 1.5rem;
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
   font-weight: 600;
   letter-spacing: normal;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .summary > p:last-child {
+  max-width: 43rem;
   margin: 0.75rem 0 0;
   color: var(--rp-c-text-2);
   font-size: 0.875rem;
@@ -42,6 +38,7 @@
 }
 
 .eyebrow,
+.layerContent > span,
 .note {
   color: var(--rp-c-text-2);
   font-size: 0.75rem;
@@ -49,81 +46,114 @@
 
 .eyebrow {
   margin: 0;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .details {
   display: grid;
-  gap: 0.75rem;
-  background: var(--rp-c-bg);
+  gap: 1rem;
+  padding: 1rem;
+
+  @media (min-width: 42rem) {
+    grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
+    align-items: stretch;
+    padding: 1.25rem;
+  }
 }
 
 .layers {
   display: grid;
-  gap: 0.5rem;
-
-  @media (min-width: 36rem) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.layer,
-.tokens {
+  align-content: start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--rp-radius-small);
-  background: var(--rp-c-bg);
+  list-style: none;
 }
 
 .layer {
+  position: relative;
   display: grid;
-  gap: 0.25rem;
-  padding: 0.75rem;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.875rem;
+  background: var(--rp-c-bg);
+
+  + .layer {
+    border-top: 1px solid var(--rp-c-divider-light);
+  }
 }
 
-.layer span,
-.note {
+.index {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--rp-c-bg-mute);
   color: var(--rp-c-text-2);
-}
-
-.layer span {
-  font-size: 0.75rem;
-}
-
-.layer strong,
-.tokensHeader strong {
-  color: var(--rp-c-text-1);
-  font-size: 0.875rem;
+  font-family: var(--rp-font-family-mono);
+  font-size: 0.6875rem;
   font-weight: 600;
 }
 
+.layerContent {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+  align-content: center;
+}
+
+.layerContent > span {
+  line-height: 1rem;
+}
+
+.layerContent strong,
+.tokensHeader strong {
+  overflow-wrap: anywhere;
+  color: var(--rp-c-text-1);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35rem;
+}
+
 .tokens {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-width: 0;
   padding: 1rem;
+  border-radius: var(--rp-radius-small);
+  background: var(--rp-c-bg-mute);
 }
 
 .tokensHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .tokensHeader span {
+  width: fit-content;
+  max-width: 100%;
   border-radius: 999px;
   background: var(--rp-c-text-1);
   color: var(--rp-c-bg);
   padding: 0.25rem 0.625rem;
   font-size: 0.75rem;
   font-weight: 500;
+  line-height: 1rem;
 }
 
 .meter {
-  height: 0.5rem;
-  margin-top: 1rem;
+  height: 0.375rem;
   overflow: hidden;
   border-radius: 999px;
-  background: var(--rp-c-bg-mute);
+  background: color-mix(in oklab, var(--rp-c-text-1) 12%, transparent);
 }
 
 .meter span {
@@ -136,5 +166,5 @@
 
 .note {
   margin: 0;
-  line-height: 1.25rem;
+  line-height: 1.4rem;
 }

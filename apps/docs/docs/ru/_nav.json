@@ -1,0 +1,19 @@
+[
+  {
+    "text": "navDocs",
+    "link": "/docs/",
+    "activeMatch": "^/docs/$"
+  },
+  {
+    "text": "navComponents",
+    "link": "/docs/components"
+  },
+  {
+    "text": "navRecipes",
+    "link": "../../docs/recipes"
+  },
+  {
+    "text": "navGitHub",
+    "link": "https://github.com/Blinks44/moduix"
+  }
+]

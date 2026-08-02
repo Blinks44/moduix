@@ -1,0 +1,42 @@
+[
+  {
+    "type": "section-header",
+    "label": "Обзор"
+  },
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Введение",
+    "tag": "book-open"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "label": "История изменений",
+    "tag": "scroll-text"
+  },
+  {
+    "type": "file",
+    "name": "components",
+    "label": "Компоненты",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "migrate-from-shadcn",
+    "label": "Из shadcn",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "themes",
+    "label": "Темы",
+    "tag": "palette"
+  },
+  {
+    "type": "file",
+    "name": "tokens",
+    "label": "Токены",
+    "tag": "swatch-book"
+  }
+]

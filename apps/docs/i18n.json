@@ -1,14 +1,18 @@
 {
   "navDocs": {
-    "en": "Docs"
+    "en": "Docs",
+    "ru": "Документация"
   },
   "navComponents": {
-    "en": "Components"
+    "en": "Components",
+    "ru": "Компоненты"
   },
   "navRecipes": {
-    "en": "Recipes"
+    "en": "Recipes",
+    "ru": "Рецепты"
   },
   "navGitHub": {
-    "en": "GitHub"
+    "en": "GitHub",
+    "ru": "GitHub"
   }
 }
