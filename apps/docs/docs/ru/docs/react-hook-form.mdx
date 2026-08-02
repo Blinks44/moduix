@@ -1,0 +1,186 @@
+---
+title: React Hook Form
+description: Интегрируйте нативные и составные элементы управления moduix с React Hook Form.
+---
+
+# React Hook Form
+
+[Документация React Hook Form](https://react-hook-form.com/get-started) описывает полное API, режимы
+валидации, resolver и поддержку TypeScript. Эта страница посвящена сопоставлению с moduix.
+
+Используйте `register` для частей, которые отрисовывают нативное поле ввода. Используйте `Controller`,
+когда компонент Ark предоставляет контролируемые значения и колбэки с данными. Составные компоненты Ark
+отрисовывают собственный нативный элемент управления формы, когда он им нужен, поэтому никогда не
+добавляйте и не регистрируйте отдельное скрытое поле ввода.
+
+```bash
+npm install react-hook-form
+```
+
+## Сопоставление
+
+| Элемент управления | Подключение React Hook Form |
+| ------------------ | --------------------------- |
+| `Input`, `Textarea`, `Field.Select` | Передайте `register(name, rules)` через spread в нативный элемент управления. |
+| `Select` | Используйте `Controller`; сопоставьте скалярную строку со строковым массивом `value` Ark. |
+| `Combobox` | Используйте `Controller`; сопоставьте `value` и сохраняйте фильтрацию в `onInputValueChange`. |
+| `Checkbox` | Используйте `Controller`; сопоставьте `details.checked === true` с булевым значением. |
+| Автоматические нативные элементы управления | Передавайте семантические пропсы корневого элемента, например `name` или `form`; moduix управляет полем ввода. |
+
+Всегда указывайте `defaultValues` для контролируемых полей. React Hook Form использует их для начального
+состояния, проверки изменённости и `reset()`.
+
+Используйте `formState.isSubmitting` для интерфейса ожидания. Блокируйте только повторную отправку,
+сохраняйте значения полей видимыми и пусть текст кнопки описывает выполняемый запрос. `handleSubmit`
+сохраняет `isSubmitting` равным true, пока не завершится асинхронный обработчик отправки.
+
+## Валидация и сброс
+
+Используйте `rules` для небольших проверок, относящихся к одному полю. Для общей валидации между полями
+или определённой схемой добавьте resolver; сопоставление компонентов moduix остаётся тем же. Когда
+React Hook Form управляет видимыми ошибками, добавьте `noValidate` к нативной форме и выводите
+`Field invalid` и `Field.ErrorText` из `fieldState`. Не добавляйте `noValidate`, когда сначала должна
+сработать валидация ограничений браузера.
+
+Вызовите `reset()`, чтобы восстановить те же `defaultValues`, которые инициализировали форму. Одного
+`reset()` формы DOM недостаточно для контролируемых полей `Controller`: иначе React Hook Form снова
+отрисует предыдущее значение в элементе управления moduix.
+
+## Полная форма
+
+Форма объединяет зарегистрированные элементы управления `Input` и `Textarea` с контролируемыми `Select`,
+`Combobox` и `Checkbox`. В этой демонстрации `noValidate` позволяет React Hook Form управлять сообщениями
+об ошибках. Не используйте его, когда вы намеренно хотите показать нативный интерфейс валидации браузера.
+
+<style>{`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --moduix-select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --moduix-combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/react-hook-form/complete-form.tsx"
+
+```
+
+## Повторяющиеся поля
+
+Используйте `useFieldArray` для списка, который пользователь может редактировать. Он предоставляет
+стабильный `id` для каждой строки; используйте его как ключ React, но никогда не используйте текущий
+индекс. Индекс нужен только для пути зарегистрированного поля. Сохраняйте метку группы в `Fieldset`,
+когда у списка есть общая цель. Это фрагмент для компонента, которому принадлежит `useForm`; отрисовывайте
+строки и кнопки внутри его формы.
+
+```tsx
+import { Button } from '@moduix/react/button';
+import { Field } from '@moduix/react/field';
+import { useFieldArray, useForm } from 'react-hook-form';
+
+type EmailFormValues = {
+  emails: { address: string }[];
+};
+
+const { control, register } = useForm<EmailFormValues>({
+  defaultValues: { emails: [{ address: '' }] },
+});
+const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
+
+{
+  fields.map((item, index) => (
+    <Field key={item.id}>
+      <Field.Label>Email {index + 1}</Field.Label>
+      <Input type="email" {...register(`emails.${index}.address` as const)} />
+      <Button type="button" onClick={() => remove(index)}>
+        Remove email
+      </Button>
+    </Field>
+  ));
+}
+
+<Button type="button" onClick={() => append({ address: '' })}>
+  Add email
+</Button>;
+```
+
+## Ошибки, возвращённые сервером
+
+После запроса используйте `setError` для ошибок, относящихся к полю, и пространство имён `root` для
+ошибки всей формы. Существующее сопоставление `errors.name` по-прежнему управляет `Field invalid` и
+`Field.ErrorText`; отрисуйте корневое сообщение один раз рядом с заголовком формы или кнопкой отправки.
+
+```tsx
+const {
+  handleSubmit,
+  setError,
+  formState: { errors },
+} = useForm<{ name: string }>({
+  defaultValues: { name: '' },
+});
+
+const onSubmit = handleSubmit(async (values) => {
+  const result = await createProject(values);
+
+  if (result.nameError) {
+    setError('name', {
+      type: 'server',
+      message: result.nameError,
+    });
+  }
+
+  if (result.message) {
+    setError('root.server', {
+      type: 'server',
+      message: result.message,
+    });
+  }
+});
+
+{
+  errors.root?.server?.message ? <p role="alert">{errors.root.server.message}</p> : null;
+}
+```
+
+## Особенности поведения
+
+- Не передавайте объект поля `Controller` через spread в `Select` или `Combobox`: формы их колбэков
+  и значений не являются нативными событиями поля ввода.
+- Для одиночного выбора передайте `field.value ? [field.value] : []` и прочитайте
+  `details.value[0] ?? ""`.
+- Вызывайте `field.onBlur` из `Select.onInteractOutside` или `Combobox.Input.onBlur`, чтобы состояние
+  посещения поля и валидация по blur соответствовали взаимодействию пользователя.
+- Передавайте `field.ref` в `Select.Trigger` или `Combobox.Input`. Это позволяет React Hook Form
+  переводить фокус на первое невалидное поле.
+- `Select` автоматически отрисовывает нативный select для нативной семантики, автозаполнения и
+  синхронизации сброса.
+- Сопоставляйте отмеченное состояние `Checkbox` с булевым значением поля; его корневой элемент
+  автоматически отрисовывает нативное поле ввода.
+- `name={field.name}` включает нативную семантику `FormData`, но не заменяет `Controller` как источник
+  значения поля. Сохраняйте контролируемое значение и сопоставление колбэка, показанные выше.
+- Для остальных автоматических элементов управления сохраняйте нестандартную конфигурацию формы на их
+  корневых элементах: `DateInput` использует кортеж `names` из двух элементов для отдельных
+  индексированных ключей диапазона, `Select` использует `nativeFormControl="input"` для
+  виртуализированных коллекций, а `SignaturePad` использует `getFormValue` для пользовательской
+  сериализации.

@@ -107,5 +107,30 @@
     "type": "file",
     "name": "tree-collection",
     "tag": "git-branch"
+  },
+  {
+    "type": "section-header",
+    "label": "Формы"
+  },
+  {
+    "type": "file",
+    "name": "forms",
+    "label": "Обзор форм",
+    "tag": "clipboard-list"
+  },
+  {
+    "type": "file",
+    "name": "formisch",
+    "tag": "braces"
+  },
+  {
+    "type": "file",
+    "name": "react-hook-form",
+    "tag": "braces"
+  },
+  {
+    "type": "file",
+    "name": "tanstack-form",
+    "tag": "braces"
   }
 ]
