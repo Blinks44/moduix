@@ -1,4 +1,0 @@
-interface:
-  display_name: 'Component Production Review'
-  short_description: 'Polish one component and its docs for release'
-  default_prompt: 'Use $component-production-review to audit and polish one moduix component and its documentation page to production readiness.'

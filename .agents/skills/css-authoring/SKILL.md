@@ -44,6 +44,9 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
   JavaScript animation paths should rely on Ark `present` in component code rather than CSS-only assumptions.
 - Do not translate Ark state attributes into parallel custom modifier classes unless the wrapper exposes an
   intentional local styling contract.
+- Do not override Ark-owned positioning, measurements, transforms, or runtime variables without confirming the
+  primitive contract. For responsive or animated overlays, verify opening, closing, interrupted, and reduced-motion
+  states at each supported direction and viewport.
 
 ## Nesting
 

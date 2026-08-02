@@ -36,11 +36,16 @@ layers for retired documentation frameworks.
 2. `apps/docs/docs/en/docs/select.mdx` as the current reference implementation for standardized component pages
 3. `packages/react` output and local component docs when docs depend on changed UI behavior
 
+When creating a new page or changing description frontmatter, apply `rspress-description-generator`. Every new
+standalone documentation page needs a concise `description` frontmatter field.
+
 ## Core Rules
 
 - Import public React components from `@moduix/react`, the package declared by `packages/react/package.json`.
   Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
+- When UI changes affect documentation, keep site examples, README installation or styling guidance, and package
+  imports aligned with the shipped API. Teach the recommended path before lower-level composition.
 - Keep MDX consumer-facing. Put interactive logic and `cssProperties` arrays in example `.tsx` files, and use Rspress's fenced `preview file="..."` directive for complete runnable snippets.
 - Remove repeated docs-only ceremony with small local helpers, not page builders, generators, or hidden DSLs.
 - Prefer namespace imports in MDX when a page would otherwise accumulate long named imports from one examples module.
@@ -114,6 +119,31 @@ Inside `## Styling`, always use:
 - Do not add styling-only examples that only restyle the same public behavior.
 
 ## Preview Rules
+
+### Preview frame and docs-only metadata
+
+Wrap an official `tsx preview` fence in `PreviewFrame` only in MDX; it is globally registered and must never appear
+in copied TSX. Omit it for naturally sized examples. `maxWidth="sm"` and `maxWidth="lg"` cap the direct snippet root
+at 384px and 512px without forcing a width; use `contentWidth="fit-content"` with a fixed cap only when a root that
+defaults to `width: 100%` should shrink-wrap to its natural content width. Do not use `maxWidth="fit-content"` for a
+direct fixed- or square-sized root such as `Avatar`.
+
+`PreviewFrame` controls the preview canvas, not the demo. Keep docs-only numeric width limits and wrapper components
+out of copied TSX and example CSS. Preserve layout that demonstrates the component itself; when a demo intentionally
+fills its cap, set `inline-size: 100%` on its root. Default placement is centered: use `alignItems` or
+`justifyContent` only for a deliberate canvas change, and use child alignment props only for an explicit direct-root
+layout requirement.
+
+For docs-only auxiliary actions or result feedback in a runnable snippet, import `PreviewMeta` from
+`@/components/mdx/Components`. Render it after the documented component, place a short labelled native `<output>`
+before its actions, and use moduix `Button` for every auxiliary action. Do not move controls from the component's
+public anatomy into `PreviewMeta`, add per-example output/action/width styles, or use presentational `span`, `p`, or
+`div` elements for interaction results. Preserve text that belongs to the documented component API.
+
+When migrating a page, inspect every preview fence and direct snippet root; search for docs-only state/status/hint
+classes as well as existing `<output>` elements. Move preview-only width rules into `PreviewFrame`, replace
+docs-only result text with the shared `PreviewMeta` and `<output>` pattern, and remove injected width-only styles.
+Keep the normal MDX fence indentation and validate the resulting page.
 
 - Put complete runnable component code in an official Rspress fenced directive:
   ````md

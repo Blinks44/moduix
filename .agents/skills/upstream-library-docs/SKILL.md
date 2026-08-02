@@ -31,6 +31,8 @@ and keep local contracts aligned with the versions in use.
 - If no matching shadcn component exists, continue from Ark, Chakra, and established moduix patterns.
 - Do not rely on local snapshots.
 - If an upstream source is unavailable, stop and report it instead of guessing.
+- For implementation-bearing component reviews, record the primary source URLs and access date in working notes.
+  Inspect implementation or registry source when documentation does not explain a behavior critical to the change.
 
 ## Local vs Upstream
 
