@@ -1,0 +1,55 @@
+---
+title: TanStack Start
+description: Install moduix in TanStack Start with global CSS, hydrated components, and a copy-owned alias.
+---
+
+# TanStack Start
+
+TanStack Start uses Vite and hydrates route components on the client, so moduix components work in
+the normal route tree without a `use client` directive.
+
+## Package install
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Add the foundation stylesheet to the global stylesheet already loaded by your root route:
+
+```css title="src/styles.css"
+@import '@moduix/react/style.css';
+```
+
+Use a component in a route:
+
+```tsx title="src/routes/index.tsx"
+import { createFileRoute } from '@tanstack/react-router';
+import { Button } from '@moduix/react/button';
+
+export const Route = createFileRoute('/')({
+  component: Home,
+});
+
+function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## shadcn CLI install
+
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). If your starter
+already maps `@/*` to `src/*`, keep that alias. Otherwise add the TypeScript and Vite alias shown in
+the [Vite setup](/docs/installation/vite#shadcn-cli-install).
+
+Replace the package CSS import with the generated stylesheet:
+
+```css title="src/styles.css"
+@import '@/lib/moduix/styles/style.css';
+```
+
+## Verify
+
+The setup is complete when the server-rendered page hydrates without a mismatch and an interactive
+component responds after hydration. Keep browser-only application code out of the server render as
+you would elsewhere in TanStack Start.
+
+See the [TanStack Start quick start](https://tanstack.com/start/latest/docs/framework/react/quick-start)
+for the framework's complete setup.

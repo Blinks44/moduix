@@ -1,0 +1,66 @@
+---
+title: Astro
+description: Install moduix as interactive React islands in Astro with global CSS and client directives.
+---
+
+# Astro
+
+moduix is a React library. In Astro, render interactive components through the official React
+integration and hydrate each island with an Astro client directive.
+
+## Add the React integration
+
+```bash
+npx astro add react
+```
+
+## Package install
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Import the foundation stylesheet once from your shared layout:
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/react/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+Create a React component, then hydrate it from an Astro page:
+
+```tsx title="src/components/ContinueButton.tsx"
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+```astro title="src/pages/index.astro"
+---
+import { ContinueButton } from '../components/ContinueButton';
+---
+
+<ContinueButton client:load />
+```
+
+Use the least eager directive that fits the interaction. A static server-only render is not enough
+for Dialog, Menu, Select, and other interactive components.
+
+## shadcn CLI install
+
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli), map `@/*` to `src/*`
+in `tsconfig.json`, and import `@/lib/moduix/styles/style.css` from the shared layout. Generated
+React components still need an Astro client directive where they are used.
+
+## Verify
+
+The setup is complete when the island is styled before hydration and responds after its client
+directive runs.
+
+See Astro's [React integration guide](https://docs.astro.build/en/guides/integrations-guide/react/)
+for all renderer and hydration options.

@@ -4,6 +4,7 @@ description: What moduix is, how it is built, and which ownership model fits you
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
+import { Card, Cards } from '@/components/mdx/Components';
 
 # moduix
 
@@ -11,8 +12,8 @@ moduix is a styled React component system built on [Ark UI](https://ark-ui.com/)
 Ark's accessible interaction primitives with calm defaults, explicit composition, and a CSS token
 foundation designed for product interfaces.
 
-If you want to try it now, follow the [three-step package setup](/docs/quick-start#install-as-a-package),
-render a Button, and return here when you need to choose an ownership model.
+If you want to try it now, choose an installation method in [Quick start](/docs/quick-start), render
+a Button, and return here when you need the broader system model.
 
 The visual language and source-delivery experience are
 [inspired by shadcn/ui](https://ui.shadcn.com/): components should look considered out of the box,
@@ -21,9 +22,8 @@ its behavior and anatomy Ark-shaped rather than trying to be a drop-in shadcn cl
 
 ## Choose how you own it
 
-Start with the npm package for the shortest setup and package-managed updates. Choose the hosted
-shadcn registry when you want the component source, styles, and supporting utilities inside your
-repository.
+Choose the npm package for package-managed updates. Choose the hosted shadcn registry when you want
+the component source, styles, and supporting utilities inside your repository.
 
 | Workflow                   | Imports                 | Best fit                                                               |
 | -------------------------- | ----------------------- | ---------------------------------------------------------------------- |
@@ -72,21 +72,53 @@ ready-made presets.
 
 ## Start here
 
-| Page                             | Use it for                                                                      |
-| -------------------------------- | ------------------------------------------------------------------------------- |
-| [Quick start](/docs/quick-start) | Install the package or registry source and render the first component.          |
-| [Themes](/docs/themes)           | Adopt a curated preset or use one as the starting point for your own theme.     |
-| [Tokens](/docs/tokens)           | Understand global tokens, shared component defaults, and local override scopes. |
+<Cards>
+  <Card
+    title="Quick start"
+    description="Choose package-managed or source-owned installation and render the first component."
+    href="/docs/quick-start"
+  />
+  <Card
+    title="Themes"
+    description="Adopt a curated preset or use one as the starting point for your own theme."
+    href="/docs/themes"
+  />
+  <Card
+    title="Tokens"
+    description="Understand global tokens, shared defaults, and local override scopes."
+    href="/docs/tokens"
+  />
+</Cards>
 
 ## Continue with
 
-| Page                                               | Use it for                                                                       |
-| -------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [Composition Patterns](/docs/composition-patterns) | Learn recommended part trees, wrappers, providers, and low-level escape hatches. |
-| [Forms](/docs/forms)                               | Connect controls to native forms and form-state libraries.                       |
-| [Collections](/docs/collections)                   | Model data for selects, comboboxes, trees, and other collection components.      |
-| [Animations](/docs/animations)                     | Tune shared motion and component-level transitions.                              |
-| [Utilities](/docs/utilities)                       | Use Ark utilities directly when a styled moduix wrapper is unnecessary.          |
+<Cards>
+  <Card
+    title="Animations"
+    description="Tune shared motion and component-level transitions."
+    href="/docs/animations"
+  />
+  <Card
+    title="Collections"
+    description="Model data for selects, comboboxes, trees, and other collection components."
+    href="/docs/collections"
+  />
+  <Card
+    title="Composition Patterns"
+    description="Learn recommended part trees, wrappers, providers, and low-level escape hatches."
+    href="/docs/composition-patterns"
+  />
+  <Card
+    title="Forms"
+    description="Connect controls to native forms and form-state libraries."
+    href="/docs/forms"
+  />
+  <Card
+    title="Utilities"
+    description="Use Ark utilities directly when a styled wrapper is unnecessary."
+    href="/docs/utilities"
+  />
+</Cards>
 
 ## Acknowledgements
 

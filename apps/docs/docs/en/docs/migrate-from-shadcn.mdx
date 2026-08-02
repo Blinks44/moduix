@@ -1,0 +1,135 @@
+---
+title: Migrate from shadcn
+description: Map shadcn components, imports, styling, and source ownership to the equivalent moduix workflow.
+---
+
+# Migrate from shadcn
+
+moduix keeps the parts of shadcn that make adoption easy: copy-owned source, `components.json`, and
+registry installation. The main differences are systematic component names, Ark-shaped compound
+APIs, and token-first CSS that does not require Tailwind.
+
+You do not need to migrate an application all at once. Start with one screen or one component
+family and keep shadcn components beside moduix while the work is in progress.
+
+## Choose an ownership model
+
+| moduix workflow | Choose it when | Updates |
+| --- | --- | --- |
+| npm package | You want package-managed updates and stable imports from `@moduix/react/*`. | Update the package. |
+| shadcn-compatible registry | You want source and styles inside your repository. | Review and apply registry updates. |
+
+Follow the [Quick start](/docs/quick-start) for the complete setup. Existing shadcn users can keep
+their CLI and `components.json`; add the moduix registry and aliases shown there.
+
+## Find the equivalent component
+
+moduix usually uses the underlying interaction name instead of a product-specific alias.
+
+| Familiar shadcn name | Use in moduix | Migration note |
+| --- | --- | --- |
+| Accordion | `Accordion` | Same interaction, expressed through namespaced parts. |
+| Alert Dialog | `Dialog` | Set `role="alertdialog"`; no separate alias is needed. |
+| Avatar | `Avatar` | Move fallback and image into `Avatar` parts. |
+| Breadcrumb | `Breadcrumbs` | Plural family name; keep semantic links and current-page state. |
+| Calendar | `DatePicker` | Use its calendar view without creating a second public family. |
+| Carousel | `Carousel` | Ark-shaped controls, indicators, and item group. |
+| Collapsible | `Collapsible` | Use `onOpenChange` details instead of a bare boolean callback. |
+| Combobox | `Combobox` | Collection state and item values follow Ark contracts. |
+| Command | `CommandPalette` | A ready search-and-command workflow, not a generic list alias. |
+| Context Menu | `Menu.ContextTrigger` | The same `Menu` family with a context trigger. |
+| Data Table | `Table` + Data Table recipe | Keep sorting, filtering, and server state in application code. |
+| Date Picker | `DatePicker` | One composed date-input and calendar family. |
+| Dropdown Menu | `Menu` | Use the normal `Menu.Trigger` path. |
+| Form | `Field` and `Fieldset` | Keep validation and submission in the form library or application. |
+| Hover Card | `HoverCard` | Similar intent with Ark positioning and lifecycle details. |
+| Input OTP | `PinInput` | Native form and SSR behavior are part of the component contract. |
+| Progress | `ProgressLinear` or `ProgressCircular` | Choose the visual form explicitly. |
+| Resizable | `Splitter` | Panels use stable ids and explicit layout state. |
+| Select | `Select` | Items use an Ark collection instead of ad hoc option objects. |
+| Sheet | `Drawer` | An edge panel with a Dialog-aligned lifecycle. |
+| Sidebar | `Sidebar` | Keep responsive product navigation composition. |
+| Sonner / Toast | `Toast` | One notification surface with application-owned messages. |
+| Tabs | `Tabs` | Same interaction with namespaced compound parts. |
+| Toggle Group | `ToggleGroup` | Use item values and group state from the Ark contract. |
+| Tooltip | `Tooltip` | Trigger and portalled content stay explicit. |
+
+Navigation Menu and Menubar do not need forced one-to-one aliases. Choose `Sidebar`, `Menu`,
+`Breadcrumbs`, or ordinary links based on the actual interaction.
+
+## Change the import shape
+
+shadcn commonly exports every part as a separate local symbol:
+
+```tsx
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+```
+
+moduix keeps a component family under one namespace:
+
+```tsx
+import { Dialog } from '@moduix/react/dialog';
+
+<Dialog>
+  <Dialog.Trigger>Open</Dialog.Trigger>
+  <Dialog.Backdrop />
+  <Dialog.Positioner>
+    <Dialog.Content>
+      <Dialog.Title>Project settings</Dialog.Title>
+    </Dialog.Content>
+  </Dialog.Positioner>
+</Dialog>;
+```
+
+For a copy-owned install, only the import source changes:
+
+```tsx
+import { Dialog } from '@/components/moduix/dialog';
+```
+
+Explicit backdrop, positioner, and content parts make portal ownership and layout easier to see and
+customize.
+
+## Move styling without a rewrite
+
+moduix ships finished CSS and shared `--moduix-*` tokens. Import the foundation stylesheet once,
+then customize semantic tokens in CSS that loads after it:
+
+```css title="app.css"
+:root {
+  --moduix-color-accent: oklch(58% 0.18 260deg);
+  --moduix-radius-md: 0.625rem;
+}
+```
+
+Tailwind can remain in the application for layout and one-off classes. It is not required by
+moduix, and you do not need to translate every existing utility before replacing a component.
+Component pages list stable slots, CSS variables, and class props for local exceptions.
+
+## Adapt Ark-shaped state callbacks
+
+Ark callbacks receive a details object so one contract can grow without positional arguments:
+
+```tsx
+<Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
+  {/* parts */}
+</Dialog>
+```
+
+Collection components also prefer stable item values and explicit collection state. Check the
+target component page before copying a shadcn callback or option shape unchanged.
+
+## Migrate in small batches
+
+1. Add the moduix foundation stylesheet and tokens.
+2. Replace low-dependency components such as Button, Badge, Avatar, and Separator.
+3. Move overlays and collections one family at a time, including their portal and state parts.
+4. Replace screen-level patterns with [recipes](/docs/recipes) only where the product flow matches.
+5. Remove the old component source and styles after that screen is verified.
+
+Keep application responsibilities where they already belong: labels, validation messages,
+permissions, server calls, and product flow remain outside the component library. Ark provides the
+primitive behavior; moduix provides the wrapper contract, styles, and defaults.
+
+Use [Updating and migration](/docs/updating) for later package or registry upgrades and
+[Composition Patterns](/docs/composition-patterns) when adapting existing wrappers.

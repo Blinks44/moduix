@@ -1,0 +1,57 @@
+---
+title: React Router
+description: Install moduix in a React Router framework app with root CSS, SSR-safe markup, and aliases.
+---
+
+# React Router
+
+This setup targets React Router framework mode. Data mode apps can use the same package imports in
+their existing Vite entry.
+
+## Package install
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Import the foundation stylesheet once from the root route:
+
+```tsx title="app/root.tsx"
+import '@moduix/react/style.css';
+```
+
+Use components in a route module:
+
+```tsx title="app/routes/home.tsx"
+import { Button } from '@moduix/react/button';
+
+export default function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## shadcn CLI install
+
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). Map `@/*` to `app/*`
+instead of `src/*` when generated code belongs under the standard `app` directory:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+React Router framework mode uses Vite, so mirror the alias in `vite.config.ts` as shown in the
+[Vite setup](/docs/installation/vite#shadcn-cli-install), changing `./src` to `./app`.
+Import `@/lib/moduix/styles/style.css` from `app/root.tsx`.
+
+## Verify
+
+The setup is complete when the initial server render matches the hydrated page and interactive
+components work after hydration. Do not branch component markup on browser globals during render.
+
+See [React Router installation](https://reactrouter.com/start/framework/installation) for the
+framework's complete setup.

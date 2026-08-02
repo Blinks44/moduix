@@ -1,7 +1,9 @@
 ---
-title: Collections
+title: Browse collections
 description: Data structures and React hooks from Ark UI for list, tree, async, and selection workflows.
 ---
+
+import { Card, Cards } from '@/components/mdx/Components';
 
 # Collections
 
@@ -30,6 +32,31 @@ application items → Ark collection → moduix component → user selection
 The collection normalizes item identity, text, disabled state, and traversal. The moduix component
 renders the accessible interaction and owns focus and selection behavior.
 
+## Browse collection guides
+
+<Cards>
+  <Card
+    title="Async List"
+    description="Load, filter, sort, and paginate remote list data with cancellation and error state."
+    href="/docs/async-list"
+  />
+  <Card
+    title="List Collection"
+    description="Model array-backed items, lookup, traversal, grouping, and immutable updates."
+    href="/docs/list-collection"
+  />
+  <Card
+    title="List Selection"
+    description="Manage single, multiple, deselectable, and range-style selection state."
+    href="/docs/list-selection"
+  />
+  <Card
+    title="Tree Collection"
+    description="Model hierarchical data, traversal, filtering, and immutable tree operations."
+    href="/docs/tree-collection"
+  />
+</Cards>
+
 ## Start with a Select
 
 This is the most common collection workflow: create the collection once, pass it to Select, and
@@ -40,15 +67,6 @@ render the same items from `collection.items`.
   ```
 
 </PreviewFrame>
-
-## Overview
-
-| Page                                     | Use it for                                                                                              |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [Async List](/docs/async-list)           | Loading, filtering, sorting, pagination, request cancellation, and error state for remote list data.    |
-| [List Collection](/docs/list-collection) | Array-backed option data with value lookup, traversal, grouping, disabled items, and immutable updates. |
-| [List Selection](/docs/list-selection)   | Single, multiple, deselectable, and range-style selection state for custom list interfaces.             |
-| [Tree Collection](/docs/tree-collection) | Hierarchical data with parent/child queries, traversal, filtering, and immutable tree operations.       |
 
 ## Choosing the right collection
 

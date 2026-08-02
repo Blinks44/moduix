@@ -1,20 +1,39 @@
 ---
-title: Forms
+title: Browse forms
 description: Build accessible native forms with moduix fields and Ark-backed controls.
 ---
 
+import { Card, Cards } from '@/components/mdx/Components';
+
 # Forms
 
-moduix does not own form state. Start with a native `<form>` when browser validation and
-`FormData` are enough. Add a form library when you need richer validation, field state, or
-submission workflows.
+moduix does not own form state. Use a native `<form>` when browser validation and `FormData` are
+enough. Add a form library when you need richer validation, field state, or submission workflows.
 
-| Approach                                 | Best fit                                                                   |
-| ---------------------------------------- | -------------------------------------------------------------------------- |
-| Native `<form>`                          | Simple forms that can use browser validation, submission, and reset.       |
-| [React Hook Form](/docs/react-hook-form) | Mostly uncontrolled inputs with controlled adapters for compound controls. |
-| [TanStack Form](/docs/tanstack-form)     | Explicit controlled fields, reactive form state, and typed validation.     |
-| [Formisch](/docs/formisch)               | Schema-first Valibot validation with headless field state.                 |
+## Choose an approach
+
+<Cards>
+  <Card
+    title="Native form"
+    description="Use browser validation, FormData submission, and native reset for a small form."
+    href="/docs/forms#start-with-a-native-form"
+  />
+  <Card
+    title="Formisch"
+    description="Connect schema-first Valibot validation and headless field state."
+    href="/docs/formisch"
+  />
+  <Card
+    title="React Hook Form"
+    description="Connect mostly uncontrolled inputs and controlled compound components."
+    href="/docs/react-hook-form"
+  />
+  <Card
+    title="TanStack Form"
+    description="Connect explicit controlled fields, reactive state, and typed validation."
+    href="/docs/tanstack-form"
+  />
+</Cards>
 
 ## Start with a native form
 
