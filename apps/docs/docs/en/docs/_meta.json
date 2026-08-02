@@ -494,12 +494,12 @@
   },
   {
     "type": "section-header",
-    "label": "Collections"
+    "label": "Ark Collections"
   },
   {
     "type": "file",
     "name": "collections",
-    "label": "Browse collections",
+    "label": "Browse Collections",
     "tag": "database"
   },
   {

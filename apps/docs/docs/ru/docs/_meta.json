@@ -52,7 +52,7 @@
   {
     "type": "dir",
     "name": "installation",
-    "label": "Настройка фреймворка",
+    "label": "Настройка фреймворков",
     "collapsible": true,
     "collapsed": true
   },
@@ -77,5 +77,35 @@
     "label": "llms-full.txt",
     "link": "https://moduix.dev/llms-full.txt",
     "tag": "file-text"
+  },
+  {
+    "type": "section-header",
+    "label": "Ark Коллекции"
+  },
+  {
+    "type": "file",
+    "name": "collections",
+    "label": "Обзор коллекций",
+    "tag": "database"
+  },
+  {
+    "type": "file",
+    "name": "async-list",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "list-collection",
+    "tag": "list"
+  },
+  {
+    "type": "file",
+    "name": "list-selection",
+    "tag": "list-checks"
+  },
+  {
+    "type": "file",
+    "name": "tree-collection",
+    "tag": "git-branch"
   }
 ]

@@ -1,0 +1,162 @@
+---
+title: List Selection
+description: Управляйте одиночным, множественным, отменяемым и диапазонным выбором в пользовательских интерфейсах списков.
+---
+
+# List Selection
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
+
+`useListSelection` добавляет состояние выбора в `ListCollection`. Используйте его для пользовательских
+списков, в которых ещё нет поведения выбора. `Select`, `Combobox` и `Listbox` сами управляют выбором и
+обычно не нуждаются в этом хуке.
+
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/react/collection';
+```
+
+## Базовый одиночный выбор
+
+```tsx preview file="./_snippets/list-selection/basic.tsx"
+
+```
+
+Хук управляет только значениями выбора. За семантические роли, взаимодействие с клавиатурой, фокус
+и доступные подписи по-прежнему отвечает ваш интерфейс. Если нужно стандартное поведение listbox,
+предпочитайте `Listbox`.
+
+Пример с кнопками уместен, потому что каждый вариант является независимым действием переключения.
+Не добавляйте `role="listbox"` в пользовательскую разметку, если также не реализуете полную модель
+клавиатуры и фокуса listbox. Для обычного выбора вариантов используйте [Listbox](/docs/listbox) и
+поручите ему это поведение.
+
+## Конфигурация
+
+| Свойство                  | Назначение                                         | По умолчанию |
+| ------------------------- | -------------------------------------------------- | ------------ |
+| `collection`              | Коллекция, значения которой можно выбрать.         | обязательное |
+| `selectionMode`           | `'single'`, `'multiple'` или `'none'`.            | `'single'`   |
+| `deselectable`            | Позволяет отменить текущий выбор.                  | `true`       |
+| `initialSelectedValues`   | Начальные неконтролируемые значения выбора.        | `[]`         |
+| `resetOnCollectionChange` | Очищает выбор при изменении коллекции.             | `false`      |
+
+`initialSelectedValues` считывается как начальное состояние. Используйте `setSelectedValues`, если
+выбор должен измениться после монтирования.
+
+## Состояние выбора
+
+| Значение             | Описание                                                   |
+| -------------------- | ---------------------------------------------------------- |
+| `selectedValues`     | Выбранные значения в порядке выбора.                       |
+| `isEmpty`            | Нет выбранных значений.                                    |
+| `firstSelectedValue` | Первое выбранное значение в порядке коллекции или `null`. |
+| `lastSelectedValue`  | Последнее выбранное значение в порядке коллекции или `null`. |
+
+## Запросы
+
+| Метод               | Назначение                                                   |
+| ------------------- | ------------------------------------------------------------ |
+| `isSelected(value)` | Проверяет, выбрано ли значение.                              |
+| `canSelect(value)`  | Проверяет режим, отключённое состояние и допустимость выбора. |
+| `isAllSelected()`   | Проверяет, выбран ли каждый элемент коллекции.               |
+| `isSomeSelected()`  | Проверяет, выбран ли хотя бы один элемент коллекции.         |
+
+Используйте `canSelect`, прежде чем показывать пользовательские действия выбора, которые ещё не
+отключены в интерфейсе.
+
+## Действия выбора
+
+| Метод                              | Назначение                                                  |
+| ---------------------------------- | ----------------------------------------------------------- |
+| `select(value, forceToggle?)`      | Выбирает значение в соответствии с текущим режимом.         |
+| `deselect(value)`                  | Удаляет одно выбранное значение.                            |
+| `toggle(value)`                    | Переключает одно значение.                                  |
+| `replace(value)`                   | Заменяет выбор одним значением или очищает его с `null`.   |
+| `extend(anchorValue, targetValue)` | Выбирает диапазон коллекции между двумя значениями.          |
+| `setSelectedValues(values)`        | Заменяет выбор явными значениями.                           |
+| `clear()`                          | Очищает текущий выбор.                                      |
+| `resetSelection()`                 | Создаёт пустой выбор с текущими настройками заново.          |
+
+## Множественный выбор
+
+```tsx
+import { Button } from '@moduix/react/button';
+
+function TeamSelectionActions() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+    initialSelectedValues: ['platform'],
+  });
+
+  function toggleAll() {
+    if (selection.isAllSelected()) {
+      selection.clear();
+      return;
+    }
+
+    selection.setSelectedValues(collection.getValues());
+  }
+
+  return (
+    <Button type="button" onClick={toggleAll}>
+      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
+    </Button>
+  );
+}
+```
+
+Отключённые значения нельзя выбрать через `select` или `toggle`. При прямой установке значений
+фильтруйте внешний ввод с помощью `selection.canSelect`, если он ещё не считается доверенным.
+
+## Диапазонный выбор
+
+Сохраните опорное значение на уровне взаимодействия, а затем расширяйте выбор от него:
+
+```tsx
+import { useRef } from 'react';
+
+function useRangeSelection() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+  });
+  const anchorRef = useRef<string | null>(null);
+
+  function handleSelect(value: string, extend: boolean) {
+    if (extend && anchorRef.current) {
+      selection.extend(anchorRef.current, value);
+      return;
+    }
+
+    selection.replace(value);
+    anchorRef.current = value;
+  }
+
+  return { selection, handleSelect };
+}
+```
+
+В интерфейсах с мышью `extend` обычно соответствует клику с Shift. Диапазонный выбор с клавиатуры
+дополнительно требует управления фокусом и обработки Shift+стрелок; используйте компонент коллекции,
+если эти взаимодействия соответствуют устоявшемуся шаблону ARIA.
+
+## Изменения коллекции
+
+Установите `resetOnCollectionChange: true`, когда новая коллекция представляет другой набор данных
+и старые значения никогда не должны переноситься.
+
+Сохраняйте значение по умолчанию `false`, когда фильтрация лишь временно скрывает элементы и выбор
+должен переживать фильтр. Если удалённые значения нужно выборочно исключить, получите допустимые
+значения и вызовите `setSelectedValues`:
+
+```tsx
+const validValues = selection.selectedValues.filter((value) => collection.has(value));
+
+selection.setSelectedValues(validValues);
+```
+
+Выполняйте эту синхронизацию в обработчике события или эффекте при изменении коллекции, а не во время
+рендера.
