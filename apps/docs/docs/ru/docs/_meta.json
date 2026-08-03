@@ -161,6 +161,10 @@
   { "type": "file", "name": "drawer", "tag": "component" },
   { "type": "file", "name": "editable", "label": "Editable", "tag": "component" },
   { "type": "file", "name": "empty", "tag": "component" },
+  { "type": "file", "name": "field", "tag": "component" },
+  { "type": "file", "name": "fieldset", "tag": "component" },
+  { "type": "file", "name": "file-upload", "tag": "component" },
+  { "type": "file", "name": "floating-panel", "tag": "component" },
   {
     "type": "section-header",
     "label": "AI"

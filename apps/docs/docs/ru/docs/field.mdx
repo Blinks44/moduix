@@ -1,0 +1,221 @@
+---
+title: Field
+component: field
+description: Контекст поля Ark UI для меток, поясняющего текста, ошибок и состояния элемента формы.
+---
+
+import * as FieldDocs from '@/components/examples/field';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+
+## Выбор подходящего компонента
+
+Используйте `Field`, когда одному элементу управления нужны видимая метка, поясняющий текст, текст ошибки
+или общее состояние `disabled`, `invalid`, `required` и `readOnly`.
+
+- Выбирайте **`Field`** для одного элемента управления и его метки или поясняющего текста.
+- Выбирайте **`Fieldset`**, когда нескольким связанным полям нужна одна общая легенда.
+- Используйте отдельный элемент управления, когда не требуются ARIA-связи на уровне поля или общее состояние.
+
+## Базовый пример
+
+Начните с `Field`, `Field.Label`, одного элемента управления moduix и необязательного поясняющего текста или текста ошибки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="field" />
+
+## Анатомия
+
+`Field` следует составным частям Ark UI и сохраняет их имена в публичном API moduix.
+
+```text
+Field
+├─ Field.Label
+├─ Field.Input | Field.Textarea | Field.Select | custom control
+├─ Field.HelperText
+├─ Field.ErrorText
+└─ Field.RequiredIndicator
+```
+
+| Часть                     | Назначение                                                                 |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `Field` / `Field.Root`    | Корневой контекст и стандартный `<div role="group">`.                    |
+| `Field.RootProvider`      | Корень, работающий с экземпляром `useField()`, созданным вне дерева.       |
+| `Field.Context`           | Нерисующий доступ к текущему состоянию поля.                               |
+| `Field.Label`             | Метка, связанная с идентификатором текущего элемента управления.           |
+| `Field.Input`             | Низкоуровневый нативный input в стиле Ark. Предпочтительнее `Input`.       |
+| `Field.Textarea`          | Низкоуровневый textarea в стиле Ark. Предпочтительнее `Textarea`.         |
+| `Field.Select`            | Нативный select, связанный с ARIA и свойствами состояния поля.             |
+| `Field.HelperText`        | Поясняющий текст, включённый в `aria-describedby`.                         |
+| `Field.ErrorText`         | Текст ошибки, отрисовываемый только когда `Field` имеет `invalid`.         |
+| `Field.RequiredIndicator` | Визуальный маркер обязательности с необязательным `fallback`.              |
+| `Field.Item`              | Контекст поля для элемента групповых контролов через `value`; его ref указывает на обёртку строки. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Оставляйте одну видимую метку в корне, отрисовывайте ровно один основной элемент управления moduix, например `Input`,
+`Textarea` или `NativeSelect`, и добавляйте поясняющий текст или текст ошибки, если нужно описание или обратная связь валидации.
+
+### Когда нужна собственная композиция
+
+Используйте `Field.Item value` вместе с корневым `target`, когда поле содержит несколько нативных элементов управления,
+а метка должна указывать на один из них. `Field.Input`, `Field.Textarea` и `Field.Select` остаются доступны для
+расширенной композиции в стиле Ark, однако в обычном коде приложения следует применять предназначенные для них элементы moduix.
+
+### Свойства по умолчанию
+
+| Поверхность              | По умолчанию | Примечания                                                |
+| ------------------------ | ------------ | --------------------------------------------------------- |
+| `Field` / `Field.Root`   | —            | Дополнительных поведенческих значений нет; действуют значения Ark. |
+
+### Особенности поведения
+
+- `Field.ErrorText` отсутствует в DOM, пока корень не имеет `invalid`.
+- `Field.RootProvider` должен получать состояние из `useField()`, импортированного из `@moduix/react`,
+  и не должен быть вложен в `Field.Root` для того же экземпляра поля.
+- Используйте `Field.Context` или `useFieldContext` из `@moduix/react`, когда пользовательскому элементу управления
+  требуется текущее состояние поля. Прямой импорт из Ark нужен только для низкоуровневых API, не экспортируемых moduix.
+- `Field.Item` передаёт свой ref обёртке строки moduix, которую отрисовывает вокруг дочерних элементов.
+- `Field` не отрисовывает скрытый input: составные элементы, такие как `Checkbox` и `RadioGroup`, владеют
+  собственными нативными частями формы.
+
+## Примеры
+
+### Checkbox
+
+Используйте `Field` с `Checkbox`, когда поле задаёт общий поясняющий текст, текст ошибки или обязательное состояние
+для одного элемента управления checkbox.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/checkbox.tsx"
+  ```
+
+</PreviewFrame>
+
+### Управляемое невалидное состояние
+
+Получайте `invalid` из локального состояния, когда поле должно обновляться по мере ввода пользователя.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/controlled-invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### Недоступное состояние
+
+Установите `disabled` на корне, чтобы передать недоступное состояние составным частям поля Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### Невалидное состояние
+
+Установите `invalid` на корне, когда валидацией управляет состояние приложения или библиотека форм.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### Нативный Select
+
+Используйте `NativeSelect` для нативного select браузера со связями метки, состояния и описания от поля.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/native-select.tsx"
+  ```
+
+</PreviewFrame>
+
+### RadioGroup
+
+Используйте `Field` с `RadioGroup`, когда одна метка поля, поясняющий текст или сообщение об ошибке должны описывать
+весь набор вариантов, а не отдельные нативные radio input.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/radiogroup.tsx"
+  ```
+
+</PreviewFrame>
+
+### Только для чтения
+
+Установите `readOnly` на корне, когда значение элемента управления можно копировать, но нельзя редактировать.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/read-only.tsx"
+  ```
+
+</PreviewFrame>
+
+### Select
+
+Используйте составной `Select`, когда нативного элемента управления недостаточно и нужен поиск или пользовательский интерфейс вариантов.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/select.tsx"
+  ```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `Field.Item` с корневым `target`, когда одна метка должна указывать на элемент управления внутри групповой строки.
+
+<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/item-target.tsx"
+  ```
+
+</PreviewFrame>
+
+Используйте `useField` вместе с `Field.RootProvider`, когда состояние должно создаваться вне отрисовываемого дерева.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/root-provider.tsx"
+  ```
+
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Field` через `className`, атрибуты Ark `data-scope="field"` / `data-part="..."`,
+хуки moduix `data-slot="field-*"` и публичные CSS-переменные `--moduix-field-*`, приведённые ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <FieldDocs.FieldCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Ark добавляет `data-disabled`, `data-invalid`, `data-readonly` и `data-required` к соответствующим частям.
+`Field.ErrorText` отрисовывается только когда контекст текущего поля невалиден, а идентификаторы поясняющего текста
+или текста ошибки включаются в `aria-describedby` элемента управления, когда эти части присутствуют. Каждая DOM-часть
+также сохраняет стабильный хук `data-slot="field-*"`.

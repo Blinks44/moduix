@@ -1,0 +1,175 @@
+---
+title: Fieldset
+component: fieldset
+description: Группируйте связанные элементы управления с семантикой fieldset Ark UI, описаниями, ошибками и общим состоянием.
+---
+
+import * as FieldsetDocs from '@/components/examples/fieldset';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+
+## Выбор подходящего компонента
+
+Используйте `Fieldset` для нескольких связанных элементов управления с одной легендой. Используйте `Field` для одного
+элемента управления с собственной меткой, описанием и сообщением о валидации.
+
+## Базовый пример
+
+Скомпонуйте `Fieldset`, `Fieldset.Legend`, необязательный поясняющий текст или текст ошибки и связанные элементы управления.
+`Fieldset.Root` остаётся доступен как псевдоним, соответствующий Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="fieldset" />
+
+## Анатомия
+
+```text
+Fieldset.Root | Fieldset.RootProvider
+├─ Fieldset.Legend
+├─ grouped controls
+├─ Fieldset.HelperText (optional)
+└─ Fieldset.ErrorText (optional)
+```
+
+| Часть                        | Назначение                                                               |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `Fieldset` / `Fieldset.Root` | Создаёт состояние и отрисовывает нативный `fieldset`.                   |
+| `Fieldset.RootProvider`      | Отрисовывает внешне созданное состояние `useFieldset`.                   |
+| `Fieldset.Legend`            | Нативный `legend` и доступное имя группы.                                |
+| `Fieldset.HelperText`        | Описание, связанное с корнем через `aria-describedby`.                   |
+| `Fieldset.ErrorText`         | Вежливое live-сообщение валидации, отрисовываемое только при `invalid`.  |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Оставляйте один видимый `Fieldset.Legend` внутри корня. Передавайте `disabled`, `invalid` и `id` непосредственно
+в корень. Ark связывает легенду, смонтированный поясняющий текст и активный текст ошибки с fieldset.
+
+Корень, provider, легенда, поясняющий текст и текст ошибки передают refs своим отрисованным DOM-элементам.
+Используйте `asChild` с одним семантическим дочерним элементом, когда пользовательский host должен владеть частью.
+
+### Когда нужна собственная композиция
+
+Используйте `useFieldset` из `@moduix/react` вместе с `Fieldset.RootProvider`, когда состояние создаётся вне
+отрисовываемого дерева. Используйте `useFieldsetContext()` или `Fieldset.Context` в потомке, которому нужно прочитать
+это состояние. Не оборачивайте provider в `Fieldset.Root` для того же экземпляра состояния.
+
+### Свойства по умолчанию
+
+| Поверхность       | Свойство  | По умолчанию |
+| ----------------- | --------- | ------------ |
+| `Fieldset.Root`   | `disabled` | `false`     |
+| `Fieldset.Root`   | `invalid`  | `false`     |
+
+### Особенности поведения
+
+- `Fieldset.Legend` отрисовывает нативный `legend`, в отличие от удалённой устаревшей обёртки.
+- Браузер отключает нативные элементы управления внутри недоступного fieldset.
+- Потомки Ark `Field` наследуют недоступное состояние от fieldset. Устанавливайте `invalid` на вложенных компонентах `Field`,
+  когда отдельным элементам управления нужно невалидное состояние.
+- `Fieldset.ErrorText` отсутствует в DOM, пока `invalid` не имеет значение true.
+- `useFieldsetContext()` и `Fieldset.Context` предоставляют потомкам то же состояние Ark, что и `useFieldset`.
+- Fieldset не владеет значением, навигацией с клавиатуры, колбэком или `HiddenInput`.
+- Устаревший `render` и плоские экспорты, такие как `FieldsetLegend`, не поддерживаются; используйте `asChild`
+  и части пространства имён.
+
+## Примеры
+
+### Checkbox
+
+Используйте легенду fieldset как общее имя для связанного набора элементов управления checkbox Ark. Каждый корень checkbox
+автоматически отрисовывает свой нативный input для отправки формы и поведения сброса.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/checkbox.tsx"
+  ```
+
+</PreviewFrame>
+
+### Недоступное состояние
+
+Установите `disabled` на корне, чтобы отключить нативных потомков и передать недоступное состояние
+элементам управления с поддержкой Ark, которые используют контекст fieldset.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### Field
+
+Вкладывайте компоненты `Field`, когда каждому элементу управления также нужны индивидуальные метка или описание.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
+  ```
+
+</PreviewFrame>
+
+### Input с Select
+
+Группируйте селектор кода страны и input номера телефона под одной легендой, когда оба элемента управления представляют одно логическое значение.
+
+<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
+  ```
+
+</PreviewFrame>
+
+### Невалидное состояние
+
+Установите `invalid` на fieldset для валидации на уровне группы. Устанавливайте `invalid` на вложенных компонентах `Field`,
+когда отдельным элементам управления также нужны невалидные стили и ARIA-состояние.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Создавайте состояние fieldset вне отрисовываемого дерева с помощью moduix `useFieldset`, когда с ним должны согласованно работать
+соседние элементы управления или повторно используемые потомки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/root-provider.tsx"
+  ```
+
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <FieldsetDocs.FieldsetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Каждая DOM-часть имеет `data-scope="fieldset"` Ark и `data-part`, соответствующий анатомии. Корень и легенда
+предоставляют `data-disabled` и `data-invalid`; moduix также добавляет хуки `data-slot="fieldset-*"`.
+Используйте `className` для локальных переопределений и переменные `--moduix-fieldset-*` для настройки на уровне темы,
+особенно токенов отступов легенды и границы корня.

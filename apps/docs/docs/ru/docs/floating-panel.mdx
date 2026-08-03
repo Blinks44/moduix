@@ -1,0 +1,246 @@
+---
+title: Floating Panel
+component: floating-panel
+description: Немодальное окно Ark UI, которое можно перетаскивать, изменять в размере, сворачивать и разворачивать.
+---
+
+import * as FloatingPanelDocs from '@/components/examples/floating-panel';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/floating-panel" />
+
+## Выбор подходящего компонента
+
+Используйте `FloatingPanel` для отсоединяемой немодальной рабочей поверхности. Используйте `Popover` для компактного
+содержимого, привязанного к триггеру, `Dialog` для модальных сценариев, а `Drawer` — для прикреплённых к краю панелей
+с жестами или точками привязки.
+
+## Базовый пример
+
+Явно скомпонуйте структуру Ark. `FloatingPanel.Positioner` владеет измеренным прямоугольником Ark, а
+`FloatingPanel.Content` — это поверхность, которую можно перетаскивать и изменять в размере.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/basic.tsx"
+
+```
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="floating-panel" />
+
+## Анатомия
+
+```text
+FloatingPanel / FloatingPanel.Root
+├─ FloatingPanel.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ FloatingPanel.Positioner
+      └─ FloatingPanel.Content
+         ├─ FloatingPanel.DragTrigger
+         │  └─ FloatingPanel.Header
+         │     ├─ FloatingPanel.Title
+         │     │  └─ FloatingPanel.DragIndicator (optional)
+         │     └─ FloatingPanel.Control
+         │        ├─ FloatingPanel.StageTrigger
+         │        └─ FloatingPanel.CloseTrigger / CloseIcon
+         ├─ FloatingPanel.Body
+         ├─ FloatingPanel.Footer
+         └─ FloatingPanel.ResizeTrigger / ResizeTriggerGroup
+```
+
+| Часть                                     | Назначение                                                              |
+| ----------------------------------------- | ----------------------------------------------------------------------- |
+| `FloatingPanel` / `FloatingPanel.Root`    | Управляет состоянием открытия, позиции, размера, перетаскивания, изменения размера и этапа. |
+| `FloatingPanel.Trigger`                   | Открывает или переключает панель.                                       |
+| `FloatingPanel.Positioner`                | Применяет значения Ark позиции, размера, transform и z-index.           |
+| `FloatingPanel.Content`                   | Видимая поверхность плавающего окна.                                    |
+| `FloatingPanel.DragTrigger`               | Отмечает область перетаскивания, обычно вокруг заголовка.               |
+| `FloatingPanel.Header`                    | Часть заголовка Ark и рекомендуемая раскладка ручки перетаскивания.     |
+| `FloatingPanel.Title`                     | Цель для доступного заголовка.                                          |
+| `FloatingPanel.Control`                   | Группирует элементы управления этапом и закрытием.                      |
+| `FloatingPanel.StageTrigger`              | Переключает на `default`, `minimized` или `maximized`.                  |
+| `FloatingPanel.CloseTrigger` / `CloseIcon` | Закрывает панель.                                                       |
+| `FloatingPanel.Body`                      | Прокручиваемая область содержимого.                                     |
+| `FloatingPanel.Footer`                    | Необязательная область подвала для вторичных действий или текста состояния. |
+| `FloatingPanel.ResizeTrigger`             | Ручка изменения размера для одной оси Ark.                              |
+| `FloatingPanel.ResizeTriggerGroup`        | Помощник moduix, отрисовывающий все или выбранные оси изменения размера. |
+| `FloatingPanel.RootProvider`              | Подключает части к состоянию, созданному с `FloatingPanel.useFloatingPanel()`. |
+
+`FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` и
+`FloatingPanel.ResizeTriggerGroup` — помощники moduix. Они не заменяют структурные части Ark.
+
+## Композиция
+
+Корень автоматически портализирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга и `portalRef`
+для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
+
+### Рекомендуемая композиция
+
+Используйте `FloatingPanel` для состояния и поведения. Явно отрисовывайте `Positioner` и `Content`, затем поместите
+`DragTrigger` вокруг заголовка, чтобы перемещение указателем начиналось из предсказуемой области.
+
+Используйте `StageTrigger` с `stage="minimized"`, `stage="maximized"` и `stage="default"` для встроенных кнопок
+сворачивания, разворачивания и восстановления с иконками. Ark скрывает элемент восстановления, пока панель не будет
+свёрнута или развёрнута. Когда `asChild` задан на триггере или элементе управления, передавайте один семантический
+дочерний элемент; стандартные иконки Moduix добавляются только для стандартного хоста кнопки Ark.
+
+### Когда нужна собственная композиция
+
+Применяйте `className` непосредственно к любой экспортируемой части. Используйте `asChild` ровно с одним семантическим
+дочерним элементом для пользовательского host триггера, триггера закрытия или триггера этапа. Передавайте `axes` в
+`ResizeTriggerGroup` для подмножества стандартных ручек или используйте отдельные части `ResizeTrigger` для разных
+стилей на каждой оси.
+
+Используйте `FloatingPanel.Context` или `FloatingPanel.useFloatingPanelContext()` внутри дерева панели и
+`FloatingPanel.useFloatingPanel()` вместе с `RootProvider` для внешнего состояния. Не сочетайте `Root` и `RootProvider`
+для одного экземпляра состояния.
+
+### Свойства по умолчанию
+
+Портализированное содержимое overlay по умолчанию лениво монтируется и размонтируется после анимации выхода. Установите
+`unmountOnExit={false}`, чтобы сохранить его после первого открытия; задавайте оба свойства жизненного цикла как `false`
+только когда нужен начальный рендеринг без ожидания.
+
+| Свойство         | По умолчанию | Примечания                                                               |
+| ---------------- | ------------ | ------------------------------------------------------------------------ |
+| `closeOnEscape`  | `true`       | Закрывает верхнюю панель с фокусом; задайте `false`, чтобы отключить.    |
+| `persistRect`    | `true`       | Сохраняет последний прямоугольник, пока завершается анимация закрытия.   |
+| `draggable`      | Ark          | Передаётся без изменений; Ark по умолчанию задаёт `true`.                |
+| `resizable`      | Ark          | Передаётся без изменений; Ark по умолчанию задаёт `true`.                |
+| `strategy`       | Ark          | Передаётся без изменений; Ark по умолчанию использует fixed-позиционирование. |
+| Свойства presence | Moduix      | `lazyMount` и `unmountOnExit` по умолчанию имеют `true`; остальные свойства передаются дальше. |
+
+### Особенности поведения
+
+- `onOpenChange(details)` предоставляет `details.open`.
+- `onPositionChange(details)` и `onPositionChangeEnd(details)` предоставляют `details.position`.
+- `onSizeChange(details)` и `onSizeChangeEnd(details)` предоставляют `details.size`.
+- `onStageChange(details)` предоставляет объект деталей этапа Ark.
+- `position` и `size` управляются независимо; используйте `defaultPosition` и `defaultSize` для неуправляемой инициализации.
+- `getAnchorPosition(details)` может получить начальную позицию из прямоугольника триггера.
+- `closeOnEscape` по умолчанию имеет `true` в `FloatingPanel`; установите `false`, чтобы отключить его. Ark получает Escape
+  от верхнего `Content` с фокусом, поэтому используйте `autoFocus`, когда панель должна получать фокус при открытии.
+- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio` и `gridSize` передаются Ark без изменений.
+- `Content` имеет `role="dialog"`. Когда на нём находится фокус, клавиши стрелок перемещают панель на `gridSize`
+  с учётом `dir`; используйте `initialFocusEl`, `finalFocusEl` и `restoreFocus` для явной передачи фокуса.
+- `persistRect` можно задать как `false`, но значение по умолчанию `true` сохраняет размер и позицию для анимаций закрытия.
+- Панель немодальная: она не удерживает фокус и не блокирует внешнее взаимодействие.
+
+## Примеры
+
+### Позиция от якоря
+
+Используйте `getAnchorPosition`, чтобы вычислить начальную позицию панели по прямоугольнику триггера.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/anchor-position.tsx"
+
+```
+
+### Граница
+
+Задайте `allowOverflow={false}` вместе с `getBoundaryEl`, чтобы ограничить панель определённым контейнером.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/floating-panel/boundary.tsx"
+  ```
+
+</PreviewFrame>
+
+### Контекст
+
+Читайте API панели непосредственно с `FloatingPanel.Context`.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="../../en/docs/_snippets/floating-panel/context.tsx"
+  ```
+
+</PreviewFrame>
+
+### Управляемое открытие
+
+Используйте объект деталей Ark, чтобы синхронизировать видимость панели с окружающим интерфейсом.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-open.tsx"
+
+```
+
+### Управляемая позиция
+
+Управляйте `position`, когда другой части приложения нужны последние координаты панели.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-position.tsx"
+
+```
+
+### Управляемый размер
+
+Управляйте `size`, когда окружающему интерфейсу нужно хранить или показывать текущие размеры панели.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/controlled-size.tsx"
+
+```
+
+### Закрытие по Escape
+
+`closeOnEscape` включён по умолчанию. Добавьте `autoFocus` к `Content`, когда Escape должен работать
+сразу после открытия немодальной панели.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/escape-dismiss.tsx"
+
+```
+
+### Ленивое монтирование
+
+Используйте свойства присутствия Ark, когда панель должна монтироваться только после первого открытия и размонтироваться после выхода.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/lazy-mount.tsx"
+
+```
+
+### Root Provider
+
+Используйте `FloatingPanel.useFloatingPanel` вместе с `RootProvider`, когда элементам управления вне дерева панели нужен
+доступ к методам вроде `minimize`, `maximize` и `setOpen`. Передавайте `persistRect: true`, чтобы соответствовать
+значению по умолчанию корня moduix при анимациях закрытия.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/root-provider.tsx"
+
+```
+
+### Расширенная настройка
+
+Используйте отдельные части `ResizeTrigger`, когда каждой оси изменения размера нужны собственные расположение или стили.
+
+```tsx preview file="../../en/docs/_snippets/floating-panel/advanced-customization.tsx"
+
+```
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div>
+        <FloatingPanelDocs.FloatingPanelCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Части Ark сохраняют `data-scope="floating-panel"` и свои значения `data-part`. Moduix добавляет
+`data-slot="floating-panel-*"` к отрисованным обёрткам. Для стилизации по состоянию используйте
+`data-state="open|closed"`, `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
+`data-maximized`, `data-staged` и `data-axis`.
+
+`Positioner` предоставляет `--width`, `--height`, `--x`, `--y`, `--reference-width`,
+`--reference-height`, `--available-width`, `--available-height`, `--z-index` и `--transform-origin`.
+Сохраняйте логику размеров и transform в переменных времени выполнения Ark, а не дублируйте измерения в пользовательском коде.
