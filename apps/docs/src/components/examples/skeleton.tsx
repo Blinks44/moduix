@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const skeletonCssProperties: CssPropertyInput[] = [
@@ -21,7 +21,7 @@ const skeletonCssProperties: CssPropertyInput[] = [
 ];
 const skeletonOverrideCssProperties = skeletonCssProperties;
 
-export function SkeletonCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SkeletonCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={skeletonOverrideCssProperties.map(normalizeCssProperty)}

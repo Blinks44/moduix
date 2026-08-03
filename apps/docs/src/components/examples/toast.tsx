@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const toastOverrideCssProperties: CssPropertyInput[] = [
@@ -187,7 +187,7 @@ export const toastExampleCss = `
 }
 `;
 
-export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ToastCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={toastOverrideCssProperties.map(normalizeCssProperty)}

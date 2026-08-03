@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const switchOverrideCssProperties: CssPropertyInput[] = [
@@ -156,7 +156,7 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-switch-width-xl', '3.75rem', 'Controls switch width for the xl size.'],
 ];
 
-export function SwitchCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SwitchCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={switchOverrideCssProperties.map(normalizeCssProperty)}

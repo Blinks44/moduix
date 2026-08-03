@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const stepsExampleCss = `
@@ -269,6 +269,6 @@ function normalizeCssProperty(property: CssPropertyInput) {
 
 const stepsCssProperties = stepsOverrideCssProperties.map(normalizeCssProperty);
 
-export function StepsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function StepsCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={stepsCssProperties} />;
 }

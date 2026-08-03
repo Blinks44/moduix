@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const stackOverrideCssProperties = [
@@ -21,6 +21,6 @@ const stackOverrideCssProperties = [
   },
 ] satisfies CssPropertyInput[];
 
-export function StackCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function StackCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={stackOverrideCssProperties} />;
 }

@@ -4,9 +4,11 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
-import { useLang } from '@rspress/core/runtime';
+import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
 import styles from './theme-presets.module.css';
+
+type Translate = ReturnType<typeof useI18n<typeof import('i18n')>>;
 import '@moduix/react/presets/contrast.css';
 import '@moduix/react/presets/dense.css';
 import '@moduix/react/presets/soft.css';
@@ -15,71 +17,53 @@ const presets = [
   {
     value: 'calm',
     title: 'Calm',
-    description: 'The balanced moduix foundation. Quiet surfaces and a neutral rhythm.',
+    descriptionKey: 'ThemePresetsCalmDescription',
     controlSize: '36px',
     popupSize: '32px',
   },
   {
     value: 'dense',
     title: 'Dense',
-    description: 'Compact spacing and blue structure for admin and data-heavy interfaces.',
+    descriptionKey: 'ThemePresetsDenseDescription',
     controlSize: '34px',
     popupSize: '30px',
   },
   {
     value: 'soft',
     title: 'Soft',
-    description: 'Rounded surfaces and a warmer violet accent for product workflows.',
+    descriptionKey: 'ThemePresetsSoftDescription',
     controlSize: '40px',
     popupSize: '34px',
   },
   {
     value: 'contrast',
     title: 'Contrast',
-    description: 'Sharper borders and clearer contrast for focused, technical interfaces.',
+    descriptionKey: 'ThemePresetsContrastDescription',
     controlSize: '36px',
     popupSize: '32px',
   },
-];
+] as const;
 
-const russianPresetDescriptions: Record<string, string> = {
-  calm: 'Сбалансированная основа moduix. Спокойные поверхности и нейтральный ритм.',
-  dense:
-    'Компактные интервалы и синяя структура для административных интерфейсов и работы с данными.',
-  soft: 'Скруглённые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев.',
-  contrast: 'Более чёткие границы и контраст для сфокусированных технических интерфейсов.',
-};
-
-const getStageCollection = (isRussian: boolean) =>
+const getStageCollection = (t: Translate) =>
   createListCollection({
-    items: isRussian
-      ? [
-          { label: 'Планирование', value: 'planning' },
-          { label: 'На проверке', value: 'review' },
-          { label: 'Готово к выпуску', value: 'ready' },
-        ]
-      : [
-          { label: 'Planning', value: 'planning' },
-          { label: 'In review', value: 'review' },
-          { label: 'Ready to ship', value: 'ready' },
-        ],
+    items: [
+      { label: t('ThemePresetsStagePlanning'), value: 'planning' },
+      { label: t('ThemePresetsStageReview'), value: 'review' },
+      { label: t('ThemePresetsStageReady'), value: 'ready' },
+    ],
   });
 
 function ThemePresets() {
-  const isRussian = useLang() === 'ru';
-  const t = (english: string, russian: string) => (isRussian ? russian : english);
+  const t = useI18n<typeof import('i18n')>();
   const [preset, setPreset] = useState('calm');
   const [mode, setMode] = useState('light');
   const activePreset = presets.find((item) => item.value === preset) ?? presets[0];
-  const stageCollection = getStageCollection(isRussian);
+  const stageCollection = getStageCollection(t);
 
   return (
-    <section
-      className={styles.root}
-      aria-label={t('Theme preset preview', 'Предпросмотр пресета темы')}
-    >
+    <section className={styles.root} aria-label={t('ThemePresetsPreviewAriaLabel')}>
       <div className={styles.controls}>
-        <div className={styles.presetList} aria-label={t('Theme presets', 'Пресеты тем')}>
+        <div className={styles.presetList} aria-label={t('ThemePresetsListAriaLabel')}>
           {presets.map((item) => (
             <button
               key={item.value}
@@ -90,22 +74,19 @@ function ThemePresets() {
               onClick={() => setPreset(item.value)}
             >
               <span>{item.title}</span>
-              <small>{isRussian ? russianPresetDescriptions[item.value] : item.description}</small>
+              <small>{t(item.descriptionKey)}</small>
             </button>
           ))}
         </div>
 
-        <div
-          className={styles.modeList}
-          aria-label={t('Preview color mode', 'Цветовой режим предпросмотра')}
-        >
+        <div className={styles.modeList} aria-label={t('ThemePresetsColorModeAriaLabel')}>
           <button
             type="button"
             data-active={mode === 'light' || undefined}
             aria-pressed={mode === 'light'}
             onClick={() => setMode('light')}
           >
-            {t('Light', 'Светлый')}
+            {t('ThemePresetsLight')}
           </button>
           <button
             type="button"
@@ -113,7 +94,7 @@ function ThemePresets() {
             aria-pressed={mode === 'dark'}
             onClick={() => setMode('dark')}
           >
-            {t('Dark', 'Тёмный')}
+            {t('ThemePresetsDark')}
           </button>
         </div>
       </div>
@@ -125,16 +106,15 @@ function ThemePresets() {
       >
         <div className={styles.previewHeader}>
           <div>
-            <span>{t('moduix preset', 'пресет moduix')}</span>
+            <span>{t('ThemePresetsLabel')}</span>
             <strong>{activePreset.title}</strong>
           </div>
           <div className={styles.previewMeta}>
             <span>
-              {t('Controls', 'Элементы управления')} <strong>{activePreset.controlSize}</strong>
+              {t('ThemePresetsControls')} <strong>{activePreset.controlSize}</strong>
             </span>
             <span>
-              {t('Popup rows', 'Строки всплывающих списков')}{' '}
-              <strong>{activePreset.popupSize}</strong>
+              {t('ThemePresetsPopupRows')} <strong>{activePreset.popupSize}</strong>
             </span>
             <Badge variant="secondary">{mode}</Badge>
           </div>
@@ -144,37 +124,30 @@ function ThemePresets() {
           <Card className={styles.previewCard}>
             <Card.Header>
               <div>
-                <Card.Title>{t('Release workspace', 'Пространство выпуска')}</Card.Title>
-                <Card.Description>
-                  {t(
-                    'One visual decision, applied across the system.',
-                    'Одно визуальное решение, применённое во всей системе.',
-                  )}
-                </Card.Description>
+                <Card.Title>{t('ThemePresetsWorkspace')}</Card.Title>
+                <Card.Description>{t('ThemePresetsDescription')}</Card.Description>
               </div>
               <Card.Action>
-                <Badge>{t('Ready', 'Готово')}</Badge>
+                <Badge>{t('ThemePresetsReady')}</Badge>
               </Card.Action>
             </Card.Header>
             <Card.Body className={styles.previewBody}>
               <label className={styles.field}>
-                {t('Project name', 'Название проекта')}
-                <Input defaultValue={t('Spring release', 'Весенний выпуск')} />
+                {t('ThemePresetsProjectName')}
+                <Input defaultValue={t('ThemePresetsSpringRelease')} />
               </label>
               <Select collection={stageCollection} defaultValue={['review']} portalled={false}>
-                <Select.Label>{t('Stage', 'Этап')}</Select.Label>
+                <Select.Label>{t('ThemePresetsStage')}</Select.Label>
                 <Select.Control>
                   <Select.Trigger>
-                    <Select.ValueText placeholder={t('Select a stage', 'Выберите этап')} />
+                    <Select.ValueText placeholder={t('ThemePresetsSelectStage')} />
                     <Select.Indicator />
                   </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>
                     <Select.ItemGroup>
-                      <Select.ItemGroupLabel>
-                        {t('Workflow', 'Процесс работы')}
-                      </Select.ItemGroupLabel>
+                      <Select.ItemGroupLabel>{t('ThemePresetsWorkflow')}</Select.ItemGroupLabel>
                       {stageCollection.items.map((item) => (
                         <Select.Item key={item.value} item={item}>
                           <Select.ItemText>{item.label}</Select.ItemText>
@@ -186,13 +159,13 @@ function ThemePresets() {
                 </Select.Positioner>
               </Select>
               <div className={styles.stats}>
-                <span>{t('12 tasks', '12 задач')}</span>
-                <span>{t('4 reviewers', '4 проверяющих')}</span>
+                <span>{t('ThemePresetsTaskCount')}</span>
+                <span>{t('ThemePresetsReviewerCount')}</span>
               </div>
             </Card.Body>
             <Card.Footer>
-              <Button>{t('Create workspace', 'Создать пространство')}</Button>
-              <Button variant="outline">{t('Preview', 'Предпросмотр')}</Button>
+              <Button>{t('ThemePresetsCreateWorkspace')}</Button>
+              <Button variant="outline">{t('ThemePresetsPreview')}</Button>
             </Card.Footer>
           </Card>
         </div>

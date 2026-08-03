@@ -19,7 +19,8 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
   `local-component-docs` when component markdown changes.
 - **Rspress pages, examples, or CSS-variable documentation in `apps/docs`:** `docs-workflow`; additionally use
   `rspress-description-generator` for new-page or description-frontmatter work, `rspress-best-practices` for
-  Rspress configuration, navigation, i18n, build, deployment, or debugging, and `rspress-custom-theme` for theme
+  Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization
+  work, and `rspress-custom-theme` for theme
   or layout changes.
 - **Tests:** `rstest-best-practices`.
 - **Rslib configuration or library build issues:** `rslib-best-practices`.

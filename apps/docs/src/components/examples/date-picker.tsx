@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const datePickerExampleCss = `
@@ -616,7 +616,7 @@ const datePickerOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-date-picker-width', '18.75rem', 'Controls root width.'],
 ];
 
-export function DatePickerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function DatePickerCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={datePickerOverrideCssProperties.map(normalizeCssProperty)}

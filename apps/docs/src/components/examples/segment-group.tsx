@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const segmentGroupExampleCss = `
@@ -195,7 +195,7 @@ const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export function SegmentGroupCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SegmentGroupCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={segmentGroupOverrideCssProperties.map(normalizeCssProperty)}

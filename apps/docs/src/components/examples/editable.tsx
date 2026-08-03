@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const editableOverrideCssProperties: CssPropertyInput[] = [
@@ -151,7 +151,7 @@ const editableOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-editable-width', 'auto', 'Controls root width.'],
 ];
 
-export function EditableCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function EditableCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={editableOverrideCssProperties.map(normalizeCssProperty)}

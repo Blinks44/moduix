@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const progressLinearCssProperties: CssPropertyInput[] = [
@@ -87,7 +87,7 @@ const progressLinearCssProperties: CssPropertyInput[] = [
 
 const progressLinearCssPropertiesReference = progressLinearCssProperties.map(normalizeCssProperty);
 
-export function ProgressLinearCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ProgressLinearCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={progressLinearCssPropertiesReference} />;
 }
 

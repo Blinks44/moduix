@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const fieldOverrideCssProperties: CssPropertyInput[] = [
@@ -141,7 +141,7 @@ const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-field-width', '100%', 'Controls the root field width.'],
 ];
 
-export function FieldCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function FieldCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={fieldOverrideCssProperties.map(normalizeCssProperty)}

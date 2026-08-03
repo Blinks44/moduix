@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const drawerOverrideCssProperties: CssPropertyInput[] = [
@@ -171,7 +171,7 @@ const drawerOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-drawer-width', '100%', 'Width of up/down drawers.'],
 ];
 
-export function DrawerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function DrawerCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={drawerOverrideCssProperties.map(normalizeCssProperty)}

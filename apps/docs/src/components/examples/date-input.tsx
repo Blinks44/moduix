@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
+import type { CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const dateInputExampleCss = `
@@ -209,6 +209,6 @@ const dateInputOverrideCssProperties: CssProperty[] = [
   },
 ];
 
-export function DateInputCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function DateInputCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={dateInputOverrideCssProperties} />;
 }

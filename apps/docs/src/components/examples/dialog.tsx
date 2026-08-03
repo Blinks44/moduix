@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const dialogOverrideCssProperties: CssPropertyInput[] = [
@@ -161,7 +161,7 @@ const dialogOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-dialog-width', '28rem', 'Content width.'],
 ];
 
-export function DialogCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function DialogCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={dialogOverrideCssProperties.map(normalizeCssProperty)}

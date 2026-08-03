@@ -97,24 +97,6 @@ export function Layout() {
 }
 ```
 
-### With i18n Hooks
-
-```tsx
-// theme/index.tsx
-import { Layout as OriginalLayout } from '@rspress/core/theme-original';
-import { useLang } from '@rspress/core/runtime';
-export * from '@rspress/core/theme-original';
-
-function LocalizedBanner() {
-  const lang = useLang();
-  return <div>{lang === 'zh' ? '欢迎' : 'Welcome'}</div>;
-}
-
-export function Layout() {
-  return <OriginalLayout top={<LocalizedBanner />} />;
-}
-```
-
 ### Override MDX Components
 
 The `components` slot accepts a `Record<string, React.ComponentType>` to override how MDX elements render:
@@ -142,10 +124,8 @@ Use these hooks inside slot components. Import from `@rspress/core/runtime`.
 | Hook               | Purpose                             |
 | ------------------ | ----------------------------------- |
 | `useDark()`        | Returns whether dark mode is active |
-| `useLang()`        | Returns current language code       |
 | `useVersion()`     | Returns current doc version         |
 | `usePage()`        | Returns current page metadata       |
 | `usePages()`       | Returns all pages metadata          |
 | `useSite()`        | Returns site-level configuration    |
 | `useFrontmatter()` | Returns current page frontmatter    |
-| `useI18n()`        | Returns i18n translation function   |

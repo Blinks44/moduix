@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 import styles from './tree-view.module.css';
 
@@ -587,7 +587,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TreeViewCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TreeViewCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={treeViewOverrideCssProperties.map(normalizeCssProperty)}

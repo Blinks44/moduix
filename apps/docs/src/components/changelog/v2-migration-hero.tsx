@@ -1,4 +1,4 @@
-import { useLang } from '@rspress/core/runtime';
+import { useI18n } from '@rspress/core/runtime';
 import { ChangelogHero, ChangelogHeroArrow, ChangelogHeroCard } from './hero';
 
 const BaseUiLogo = () => (
@@ -19,17 +19,13 @@ const ArkUiLogo = () => (
 );
 
 export function V2MigrationHero() {
-  const isRussian = useLang() === 'ru';
+  const t = useI18n<typeof import('i18n')>();
 
   return (
     <ChangelogHero
       eyebrow="moduix v2"
-      title={isRussian ? 'Новая основа компонентов' : 'A new component foundation'}
-      summary={
-        isRussian
-          ? 'В этом релизе moduix переходит с Base UI на Ark UI.'
-          : 'This release migrates moduix from Base UI to Ark UI.'
-      }
+      title={t('v2MigrationHeroTitle')}
+      summary={t('v2MigrationHeroSummary')}
     >
       <ChangelogHeroCard label="Base UI">
         <BaseUiLogo />

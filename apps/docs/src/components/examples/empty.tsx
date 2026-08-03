@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const emptyOverrideCssProperties = [
@@ -110,6 +110,6 @@ const emptyOverrideCssProperties = [
   },
 ] satisfies CssPropertyInput[];
 
-export function EmptyCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function EmptyCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={emptyOverrideCssProperties} />;
 }

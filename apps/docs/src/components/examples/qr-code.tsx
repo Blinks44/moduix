@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const qrCodeCssProperties: CssPropertyInput[] = [
@@ -117,7 +117,7 @@ const qrCodeCssProperties: CssPropertyInput[] = [
 
 const qrCodeCssPropertiesReference = qrCodeCssProperties.map(normalizeCssProperty);
 
-export function QrCodeCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function QrCodeCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={qrCodeCssPropertiesReference} />;
 }
 

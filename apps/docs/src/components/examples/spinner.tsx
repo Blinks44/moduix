@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const spinnerOverrideCssProperties: CssPropertyInput[] = [
@@ -31,7 +31,7 @@ const spinnerOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-spinner-size-xl', 'var(--moduix-size-md)', 'Controls xl spinner size.'],
 ];
 
-export function SpinnerCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SpinnerCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={spinnerOverrideCssProperties.map(normalizeCssProperty)}

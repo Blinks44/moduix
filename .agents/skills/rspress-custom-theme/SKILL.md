@@ -112,9 +112,9 @@ export function Layout() {
 }
 ```
 
-Use runtime hooks inside slot components — import from `@rspress/core/runtime`: `useDark()`, `useLang()`, `useVersion()`, `usePage()`, `useSite()`, `useFrontmatter()`, `useI18n()`.
+Use runtime hooks inside slot components — import from `@rspress/core/runtime`: `useDark()`, `useVersion()`, `usePage()`, `useSite()`, and `useFrontmatter()`.
 
-> **All slots & examples**: Read `references/layout-slots.md` for the complete slot list and usage patterns including i18n and MDX component overrides.
+> **All slots & examples**: Read `references/layout-slots.md` for the complete slot list and MDX component override patterns.
 
 ---
 

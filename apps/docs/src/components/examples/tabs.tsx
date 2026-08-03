@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const tabsExampleCss = `
@@ -185,7 +185,7 @@ const tabsOverrideCssProperties: CssPropertyInput[] = [
   ],
 ];
 
-export function TabsCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TabsCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={tabsOverrideCssProperties.map(normalizeCssProperty)} />
   );

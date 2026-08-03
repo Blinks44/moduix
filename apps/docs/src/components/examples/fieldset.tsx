@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const fieldsetPhoneInputCss = `
@@ -78,7 +78,7 @@ const fieldsetOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-fieldset-width', '100%', 'Controls root width.'],
 ];
 
-export function FieldsetCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function FieldsetCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={fieldsetOverrideCssProperties.map(normalizeCssProperty)}

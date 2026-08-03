@@ -90,18 +90,6 @@ These components keep separate motion systems and do not accept `--moduix-popup-
 Toast uses Ark runtime layout variables for stacking and dismissal. Keep its `--x`, `--y`, `--scale`,
 `--height`, and `--opacity` values intact; the recipes on this page are not a Toast API.
 
-## Live preview
-
-The preview uses `Popover.Content` because it is the smallest popup surface in the library. The
-Playground writes shared variables at the root scope, so the same values apply to every supported
-popup content surface listed under Shared popup motion.
-
-<AnimationDocs.AnimationMotionPlayground />
-
-```tsx file="./_snippets/animations/live-preview.tsx"
-
-```
-
 ## Ready recipes
 
 Choose motion by purpose, then keep one consistent recipe for similar surfaces:

@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const tableOverrideCssProperties: CssPropertyInput[] = [
@@ -156,7 +156,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   return property;
 }
 
-export function TableCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TableCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={tableOverrideCssProperties.map(normalizeCssProperty)}

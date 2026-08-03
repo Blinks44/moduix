@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const imageCropperExampleCss = `
@@ -143,7 +143,7 @@ const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-image-cropper-width', '32rem', 'Controls root width.'],
 ];
 
-export function ImageCropperCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ImageCropperCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={imageCropperOverrideCssProperties.map(normalizeCssProperty)}

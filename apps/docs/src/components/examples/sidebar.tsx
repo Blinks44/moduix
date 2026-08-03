@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
+import type { CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const sidebarCssDefaults = {
@@ -78,6 +78,6 @@ const sidebarOverrideCssProperties: CssProperty[] = Object.entries(sidebarCssDef
   }),
 );
 
-export function SidebarCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SidebarCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={sidebarOverrideCssProperties} />;
 }

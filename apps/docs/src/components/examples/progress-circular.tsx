@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const progressCircularCircleExampleCss = `
@@ -124,7 +124,7 @@ const progressCircularCssProperties: CssPropertyInput[] = [
 const progressCircularCssPropertiesReference =
   progressCircularCssProperties.map(normalizeCssProperty);
 
-export function ProgressCircularCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function ProgressCircularCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={progressCircularCssPropertiesReference} />;
 }
 

@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const sliderOverrideCssProperties: CssPropertyInput[] = [
@@ -161,7 +161,7 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-slider-width-vertical', 'max-content', 'Controls vertical slider width.'],
 ];
 
-export function SliderCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SliderCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={sliderOverrideCssProperties.map(normalizeCssProperty)}

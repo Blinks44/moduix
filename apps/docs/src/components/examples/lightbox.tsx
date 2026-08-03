@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const lightboxTriggerCss = `
@@ -342,7 +342,7 @@ const lightboxOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-lightbox-transition', '220ms ease', 'Content motion timing.'],
 ];
 
-export function LightboxCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function LightboxCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={lightboxOverrideCssProperties.map(normalizeCssProperty)}

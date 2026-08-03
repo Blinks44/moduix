@@ -263,16 +263,452 @@
     "en": "CSS Variables",
     "ru": "CSS-переменные"
   },
-  "cssValue": {
-    "en": "Value",
-    "ru": "Значение"
-  },
   "cssDefault": {
     "en": "Default",
     "ru": "По умолчанию"
   },
-  "cssReset": {
-    "en": "Reset",
-    "ru": "Сбросить"
+  "ThemePresetsCalmDescription": {
+    "en": "The balanced moduix foundation. Quiet surfaces and a neutral rhythm.",
+    "ru": "Сбалансированная основа moduix. Спокойные поверхности и нейтральный ритм."
+  },
+  "ThemePresetsDenseDescription": {
+    "en": "Compact spacing and blue structure for admin and data-heavy interfaces.",
+    "ru": "Компактные интервалы и синяя структура для административных интерфейсов и работы с данными."
+  },
+  "ThemePresetsSoftDescription": {
+    "en": "Rounded surfaces and a warmer violet accent for product workflows.",
+    "ru": "Скруглённые поверхности и более тёплый фиолетовый акцент для продуктовых сценариев."
+  },
+  "ThemePresetsContrastDescription": {
+    "en": "Sharper borders and clearer contrast for focused, technical interfaces.",
+    "ru": "Более чёткие границы и контраст для сфокусированных технических интерфейсов."
+  },
+  "ThemePresetsStagePlanning": {
+    "en": "Planning",
+    "ru": "Планирование"
+  },
+  "ThemePresetsStageReview": {
+    "en": "In review",
+    "ru": "На проверке"
+  },
+  "ThemePresetsStageReady": {
+    "en": "Ready to ship",
+    "ru": "Готово к выпуску"
+  },
+  "ThemePresetsPreviewAriaLabel": {
+    "en": "Theme preset preview",
+    "ru": "Предпросмотр пресета темы"
+  },
+  "ThemePresetsListAriaLabel": {
+    "en": "Theme presets",
+    "ru": "Пресеты тем"
+  },
+  "ThemePresetsColorModeAriaLabel": {
+    "en": "Preview color mode",
+    "ru": "Цветовой режим предпросмотра"
+  },
+  "ThemePresetsLight": {
+    "en": "Light",
+    "ru": "Светлый"
+  },
+  "ThemePresetsDark": {
+    "en": "Dark",
+    "ru": "Тёмный"
+  },
+  "ThemePresetsLabel": {
+    "en": "moduix preset",
+    "ru": "пресет moduix"
+  },
+  "ThemePresetsControls": {
+    "en": "Controls",
+    "ru": "Элементы управления"
+  },
+  "ThemePresetsPopupRows": {
+    "en": "Popup rows",
+    "ru": "Строки всплывающих списков"
+  },
+  "ThemePresetsWorkspace": {
+    "en": "Release workspace",
+    "ru": "Пространство выпуска"
+  },
+  "ThemePresetsDescription": {
+    "en": "One visual decision, applied across the system.",
+    "ru": "Одно визуальное решение, применённое во всей системе."
+  },
+  "ThemePresetsReady": {
+    "en": "Ready",
+    "ru": "Готово"
+  },
+  "ThemePresetsProjectName": {
+    "en": "Project name",
+    "ru": "Название проекта"
+  },
+  "ThemePresetsSpringRelease": {
+    "en": "Spring release",
+    "ru": "Весенний выпуск"
+  },
+  "ThemePresetsStage": {
+    "en": "Stage",
+    "ru": "Этап"
+  },
+  "ThemePresetsSelectStage": {
+    "en": "Select a stage",
+    "ru": "Выберите этап"
+  },
+  "ThemePresetsWorkflow": {
+    "en": "Workflow",
+    "ru": "Процесс работы"
+  },
+  "ThemePresetsTaskCount": {
+    "en": "12 tasks",
+    "ru": "12 задач"
+  },
+  "ThemePresetsReviewerCount": {
+    "en": "4 reviewers",
+    "ru": "4 проверяющих"
+  },
+  "ThemePresetsCreateWorkspace": {
+    "en": "Create workspace",
+    "ru": "Создать пространство"
+  },
+  "ThemePresetsPreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр"
+  },
+  "tokensOverviewTokenArchitecture": {
+    "en": "Token architecture",
+    "ru": "Архитектура токенов"
+  },
+  "tokensOverviewRawValues": {
+    "en": "Raw values",
+    "ru": "Исходные значения"
+  },
+  "tokensOverviewSemanticAliases": {
+    "en": "Semantic aliases",
+    "ru": "Семантические алиасы"
+  },
+  "tokensOverviewComponentVariables": {
+    "en": "Component variables",
+    "ru": "Переменные компонентов"
+  },
+  "tokensOverviewTokenGroupsSummary": {
+    "en": "Token groups summary",
+    "ru": "Сводка групп токенов"
+  },
+  "tokensOverviewColorTokens": {
+    "en": "color tokens",
+    "ru": "цветовых токенов"
+  },
+  "tokensOverviewSpacingSteps": {
+    "en": "spacing steps",
+    "ru": "шагов интервалов"
+  },
+  "tokensOverviewSharedDefaults": {
+    "en": "shared defaults",
+    "ru": "общих значений по умолчанию"
+  },
+  "tokensOverviewSharedFallbacks": {
+    "en": "Shared fallbacks",
+    "ru": "Общие резервные значения"
+  },
+  "tokensOverviewScopedThemes": {
+    "en": "Scoped themes",
+    "ru": "Темы с ограниченной областью"
+  },
+  "tokensOverviewColors": {
+    "en": "Colors",
+    "ru": "Цвета"
+  },
+  "tokensOverviewSpacingSize": {
+    "en": "Spacing & Size",
+    "ru": "Интервалы и размеры"
+  },
+  "tokensOverviewPrimitiveSpacing": {
+    "en": "Primitive spacing",
+    "ru": "Примитивные интервалы"
+  },
+  "tokensOverviewSemanticSpacing": {
+    "en": "Semantic spacing",
+    "ru": "Семантические интервалы"
+  },
+  "tokensOverviewControlSize": {
+    "en": "Control size",
+    "ru": "Размер элементов управления"
+  },
+  "tokensOverviewShapeBorders": {
+    "en": "Shape & Borders",
+    "ru": "Форма и границы"
+  },
+  "tokensOverviewBorderWidths": {
+    "en": "Border widths",
+    "ru": "Толщина границ"
+  },
+  "tokensOverviewOpacity": {
+    "en": "Opacity",
+    "ru": "Непрозрачность"
+  },
+  "tokensOverviewTypography": {
+    "en": "Font families, sizes, line heights, weights, and tracking tokens.",
+    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга."
+  },
+  "tokensOverviewFontFamilies": {
+    "en": "Font families",
+    "ru": "Семейства шрифтов"
+  },
+  "tokensOverviewMotion": {
+    "en": "Durations, easing, transition shorthands, and reusable animations.",
+    "ru": "Длительности, сглаживание, сокращения переходов и повторно используемые анимации."
+  },
+  "tokensOverviewTimingAndTransitionTokens": {
+    "en": "Timing and transition tokens",
+    "ru": "Токены времени и переходов"
+  },
+  "tokensOverviewAnimationTokens": {
+    "en": "Animation tokens",
+    "ru": "Токены анимации"
+  },
+  "tokensOverviewElevationLayers": {
+    "en": "Elevation & Layers",
+    "ru": "Высота и слои"
+  },
+  "tokensOverviewTransforms": {
+    "en": "Transforms",
+    "ru": "Преобразования"
+  },
+  "tokensOverviewSharedComponentDefaults": {
+    "en": "Shared Component Defaults",
+    "ru": "Общие значения компонентов по умолчанию"
+  },
+  "tokensOverviewBackdropDefaultsAndFallbacks": {
+    "en": "Backdrop defaults and fallbacks",
+    "ru": "Значения и резервные варианты фона"
+  },
+  "tokensOverviewSharedPopupContentMotion": {
+    "en": "Shared popup content motion",
+    "ru": "Общая анимация содержимого всплывающих окон"
+  },
+  "tokensOverviewSharedPopupMenuDefaults": {
+    "en": "Shared popup menu defaults",
+    "ru": "Общие значения меню всплывающих окон"
+  },
+  "ownershipLayersBehavior": {
+    "en": "Behavior",
+    "ru": "Поведение"
+  },
+  "ownershipLayersPresentation": {
+    "en": "Presentation",
+    "ru": "Представление"
+  },
+  "ownershipLayersOwnership": {
+    "en": "Ownership",
+    "ru": "Владение"
+  },
+  "ownershipLayersPackageSource": {
+    "en": "Package or source",
+    "ru": "Пакет или исходный код"
+  },
+  "ownershipLayersEyebrow": {
+    "en": "Design-system contract",
+    "ru": "Контракт дизайн-системы"
+  },
+  "ownershipLayersTitle": {
+    "en": "One system, three clear layers",
+    "ru": "Одна система, три понятных слоя"
+  },
+  "ownershipLayersSummary": {
+    "en": "Ark UI owns interaction behavior, moduix supplies the styled component layer, and your application owns the final theme and composition.",
+    "ru": "Ark UI владеет поведением взаимодействий, moduix предоставляет слой стилизованных компонентов, а вашему приложению принадлежат итоговая тема и композиция."
+  },
+  "ownershipLayersTokenFirstStyling": {
+    "en": "Token-first styling",
+    "ru": "Стилизация на основе токенов"
+  },
+  "ownershipLayersThemeable": {
+    "en": "themeable",
+    "ru": "настраивается темой"
+  },
+  "ownershipLayersNote": {
+    "en": "Global semantic tokens establish the visual language; shared family tokens keep related controls aligned; component variables remain available for deliberate exceptions.",
+    "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений."
+  },
+  "v2MigrationHeroTitle": {
+    "en": "A new component foundation",
+    "ru": "Новая основа компонентов"
+  },
+  "v2MigrationHeroSummary": {
+    "en": "This release migrates moduix from Base UI to Ark UI.",
+    "ru": "В этом релизе moduix переходит с Base UI на Ark UI."
+  },
+  "componentGalleryCategoryFormInputTitle": {
+    "en": "Form & Input",
+    "ru": "Формы и ввод"
+  },
+  "componentGalleryCategoryFormInputDescription": {
+    "en": "Inputs, selection controls, field composition, and form-ready controls.",
+    "ru": "Поля ввода, элементы выбора, композиция полей и элементы управления для форм."
+  },
+  "componentGalleryCategoryLayoutNavigationTitle": {
+    "en": "Layout & Navigation",
+    "ru": "Макет и навигация"
+  },
+  "componentGalleryCategoryLayoutNavigationDescription": {
+    "en": "Structure product screens, reveal content, and guide people through them.",
+    "ru": "Структурируйте экраны продукта, открывайте содержимое и направляйте пользователей."
+  },
+  "componentGalleryCategoryOverlaysDialogsTitle": {
+    "en": "Overlays & Dialogs",
+    "ru": "Оверлеи и диалоги"
+  },
+  "componentGalleryCategoryOverlaysDialogsDescription": {
+    "en": "Focused surfaces for commands, details, help, and temporary workflows.",
+    "ru": "Сфокусированные поверхности для команд, подробностей, помощи и временных сценариев."
+  },
+  "componentGalleryCategoryFeedbackStatusTitle": {
+    "en": "Feedback & Status",
+    "ru": "Обратная связь и статус"
+  },
+  "componentGalleryCategoryFeedbackStatusDescription": {
+    "en": "Communicate progress, empty states, loading, and actionable messages.",
+    "ru": "Сообщайте о ходе выполнения, пустых состояниях, загрузке и доступных действиях."
+  },
+  "componentGalleryCategoryDisplayContentTitle": {
+    "en": "Display & Content",
+    "ru": "Отображение и содержимое"
+  },
+  "componentGalleryCategoryDisplayContentDescription": {
+    "en": "Present identity, media, data, keyboard hints, and supporting information.",
+    "ru": "Представляйте идентификационные данные, медиа, данные, подсказки клавиатуры и дополнительную информацию."
+  },
+  "componentGalleryCategoryActionsUtilitiesTitle": {
+    "en": "Actions & Utilities",
+    "ru": "Действия и утилиты"
+  },
+  "componentGalleryCategoryActionsUtilitiesDescription": {
+    "en": "Small interaction primitives for common product actions and patterns.",
+    "ru": "Небольшие примитивы взаимодействия для распространённых действий и паттернов продукта."
+  },
+  "componentGallerySummary": {
+    "en": "Browse composable React components built on Ark UI. Every card leads to usage guidance, a runnable example, and its install command.",
+    "ru": "Изучайте компонуемые React-компоненты, построенные на Ark UI. Каждая карточка ведёт к руководству по использованию, работающему примеру и команде установки."
+  },
+  "componentGalleryMoreTitle": {
+    "en": "More components",
+    "ru": "Другие компоненты"
+  },
+  "componentGalleryMoreDescription": {
+    "en": "New components remain visible here until they receive a category.",
+    "ru": "Новые компоненты остаются здесь видимыми, пока не получат категорию."
+  },
+  "tokensOverviewSemanticVariables": {
+    "en": "Components read semantic variables while themes override the raw palette.",
+    "ru": "Компоненты читают семантические переменные, а темы переопределяют исходную палитру."
+  },
+  "tokensOverviewCentralizedBackdrop": {
+    "en": "Global backdrop color and blur stay centralized, and component-level variables can still opt out.",
+    "ru": "Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться."
+  },
+  "tokensOverviewParentScope": {
+    "en": "Any parent scope can change density, motion, or color for a focused area.",
+    "ru": "Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны."
+  },
+  "tokensOverviewColorThemeValues": {
+    "en": "Light and dark theme values plus semantic aliases.",
+    "ru": "Значения светлой и тёмной темы вместе с семантическими алиасами."
+  },
+  "tokensOverviewSizingScale": {
+    "en": "Primitive steps, semantic spacing, and control heights.",
+    "ru": "Примитивные шаги, семантические интервалы и высоты элементов управления."
+  },
+  "tokensOverviewRadiusAndBorders": {
+    "en": "Radius derives from one root value; borders stay simple.",
+    "ru": "Скругление выводится из одного корневого значения; границы остаются простыми."
+  },
+  "tokensOverviewElevation": {
+    "en": "Shadows, transforms, and z-index tokens for overlays.",
+    "ru": "Тени, преобразования и токены z-index для оверлеев."
+  },
+  "tokensOverviewOverlayDefaults": {
+    "en": "Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.",
+    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов."
+  },
+  "animationsRecipePreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр"
+  },
+  "animationsRecipePreviewCaption": {
+    "en": "Same structure, different motion recipe.",
+    "ru": "Та же структура, другой рецепт анимации."
+  },
+  "animationsRecipeFadeTitle": {
+    "en": "Fade",
+    "ru": "Затухание"
+  },
+  "animationsRecipeFadeDescription": {
+    "en": "No scale or offset, only opacity.",
+    "ru": "Без масштаба и смещения — только opacity."
+  },
+  "animationsRecipeSlideUpTitle": {
+    "en": "Slide Up",
+    "ru": "Сдвиг вверх"
+  },
+  "animationsRecipeSlideUpDescription": {
+    "en": "Moves upward into place without zoom.",
+    "ru": "Поднимается на место без масштабирования."
+  },
+  "animationsRecipeSlideDownTitle": {
+    "en": "Slide Down",
+    "ru": "Сдвиг вниз"
+  },
+  "animationsRecipeSlideDownDescription": {
+    "en": "Drops into place from above.",
+    "ru": "Опускается на место сверху."
+  },
+  "animationsRecipeSlideLeftTitle": {
+    "en": "Slide Left",
+    "ru": "Сдвиг влево"
+  },
+  "animationsRecipeSlideLeftDescription": {
+    "en": "Moves in from the right edge into place.",
+    "ru": "Перемещается на место с правого края."
+  },
+  "animationsRecipeSlideRightTitle": {
+    "en": "Slide Right",
+    "ru": "Сдвиг вправо"
+  },
+  "animationsRecipeSlideRightDescription": {
+    "en": "Moves in from the left edge into place.",
+    "ru": "Перемещается на место с левого края."
+  },
+  "animationsRecipeZoomTitle": {
+    "en": "Zoom",
+    "ru": "Масштабирование"
+  },
+  "animationsRecipeZoomDescription": {
+    "en": "Keeps the current scale-in feel.",
+    "ru": "Сохраняет текущее ощущение увеличения."
+  },
+  "animationsRecipeLiftTitle": {
+    "en": "Lift",
+    "ru": "Подъём"
+  },
+  "animationsRecipeLiftDescription": {
+    "en": "Small upward slide plus subtle zoom for menus and cards.",
+    "ru": "Небольшой сдвиг вверх и лёгкое масштабирование для меню и карточек."
+  },
+  "animationsRecipeDropInTitle": {
+    "en": "Drop In",
+    "ru": "Появление сверху"
+  },
+  "animationsRecipeDropInDescription": {
+    "en": "Small downward slide plus scale for heavier overlays.",
+    "ru": "Небольшой сдвиг вниз и масштабирование для более тяжёлых оверлеев."
+  },
+  "animationsRecipeSoftPopTitle": {
+    "en": "Soft Pop",
+    "ru": "Мягкое появление"
+  },
+  "animationsRecipeSoftPopDescription": {
+    "en": "A slower, more expressive scale-in for short confirmation surfaces.",
+    "ru": "Более медленное и выразительное увеличение для коротких поверхностей подтверждения."
   }
 }

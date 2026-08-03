@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const textareaCssProperties: CssPropertyInput[] = [
@@ -83,7 +83,7 @@ const textareaCssProperties: CssPropertyInput[] = [
   ['--moduix-textarea-width', '100%', 'Controls textarea width.'],
 ];
 
-export function TextareaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function TextareaCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable properties={textareaCssProperties.map(normalizeCssProperty)} />
   );

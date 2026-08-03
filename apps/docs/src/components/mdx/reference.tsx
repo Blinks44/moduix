@@ -12,15 +12,6 @@ type CssPropertyInput =
   | CssProperty
   | readonly [name: `--${string}`, defaultValue: string, description?: React.ReactNode];
 
-type CssVariables = React.CSSProperties & Partial<Record<`--${string}`, string>>;
-
-type CSSPropertiesEditorContext = {
-  properties: CssProperty[];
-  values: CssVariables;
-  onChange: React.Dispatch<React.SetStateAction<CssVariables>>;
-  onReset: () => void;
-};
-
 const previewMaxWidths = {
   xs: '220px',
   sm: '384px',
@@ -124,60 +115,6 @@ function normalizeCssProperty(property: CssPropertyInput): CssProperty {
   };
 }
 
-function CSSPropertiesEditor({
-  properties,
-  values,
-  onChange,
-  onReset,
-}: CSSPropertiesEditorContext) {
-  const t = useI18n<typeof import('i18n')>();
-
-  return (
-    <div>
-      <div className={styles.editorActions}>
-        <button type="button" className={styles.reset} onClick={onReset}>
-          {t('cssReset')}
-        </button>
-      </div>
-      <div className={styles.tableScroll}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>{t('cssProperty')}</th>
-              <th>{t('cssValue')}</th>
-              <th>{t('cssDefault')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {properties.map((property) => (
-              <tr key={property.name}>
-                <td>
-                  <code>{property.name}</code>
-                </td>
-                <td>
-                  <input
-                    className={styles.input}
-                    value={values[property.name] ?? ''}
-                    onChange={(event) =>
-                      onChange((current) => ({
-                        ...current,
-                        [property.name]: event.target.value,
-                      }))
-                    }
-                  />
-                </td>
-                <td>
-                  <code>{property.defaultValue}</code>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
 function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
   const t = useI18n<typeof import('i18n')>();
 
@@ -207,11 +144,5 @@ function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[]
   );
 }
 
-export {
-  CSSPropertiesEditor,
-  CSSPropertiesReferenceTable,
-  ExampleFrame,
-  PreviewFrame,
-  normalizeCssProperties,
-};
-export type { CSSPropertiesEditorContext, CssProperty, CssPropertyInput, CssVariables };
+export { CSSPropertiesReferenceTable, ExampleFrame, PreviewFrame, normalizeCssProperties };
+export type { CssProperty, CssPropertyInput };

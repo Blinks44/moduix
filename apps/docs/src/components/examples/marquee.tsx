@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const marqueeExampleCss = `
@@ -111,7 +111,7 @@ const marqueeCssProperties: CssPropertyInput[] = [
 
 const marqueeCssPropertiesReference = marqueeCssProperties.map(normalizeCssProperty);
 
-export function MarqueeCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function MarqueeCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={marqueeCssPropertiesReference} />;
 }
 

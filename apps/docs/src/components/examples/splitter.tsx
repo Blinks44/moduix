@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const splitterExampleCss = `
@@ -249,7 +249,7 @@ function normalizeCssProperty(property: CssPropertyInput) {
   };
 }
 
-export function SplitterCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function SplitterCssPropertiesPanel() {
   return (
     <CSSPropertiesReferenceTable
       properties={splitterOverrideCssProperties.map(normalizeCssProperty)}

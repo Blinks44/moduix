@@ -16,25 +16,7 @@ The `description` field in Rspress frontmatter generates `<meta name="descriptio
    - If `root` is not set, default to `docs` relative to the config file's directory.
 3. Confirm the directory exists. If neither `docs` nor the configured root exists, check for `doc` as a fallback.
 
-## Step 2 — Detect i18n structure
-
-Rspress i18n projects place language subdirectories (e.g., `en/`, `zh/`) directly under the docs root:
-
-```
-docs/
-├── en/
-│   ├── guide/
-│   └── index.md
-└── zh/
-    ├── guide/
-    └── index.md
-```
-
-Check if the docs root contains language subdirectories (two-letter codes like `en`, `zh`, `ja`, `ko`, etc.). If so, process each language directory separately — the description language should match the content language.
-
-If there are no language subdirectories, treat the entire docs root as a single-language site.
-
-## Step 3 — Scan and process files
+## Step 2 — Scan and process files
 
 Glob for `**/*.md` and `**/*.mdx` under the docs root. Exclude:
 
@@ -73,7 +55,7 @@ If the description contains colons, quotes, or other special YAML characters, wr
 description: 'API reference for Rspress configuration: plugins, themes, and build options'
 ```
 
-## Step 4 — Batch processing
+## Step 3 — Batch processing
 
 For sites with many files, use parallel agent calls to process independent files simultaneously. Group by directory (e.g., all files in `guide/`, then all in `api/`) to maintain focus and consistency within each section.
 
@@ -86,9 +68,8 @@ The description serves three audiences: search engines (Google snippet), AI syst
 ### Rules
 
 - **Length**: 50–160 characters. Under 50 is too vague for search engines; over 160 gets truncated in snippets.
-- **Language**: Match the document content. Chinese docs get Chinese descriptions, English docs get English descriptions.
 - **Be direct**: State what the page covers. Avoid starting with "This document", "This page", "Learn about" — jump straight to the substance.
-- **Be specific**: Mention concrete technologies, APIs, or concepts the page covers. "Configure Rspress plugins for search, analytics, and internationalization" beats "How to use plugins."
+- **Be specific**: Mention concrete technologies, APIs, or concepts the page covers. "Configure Rspress plugins for search and analytics" beats "How to use plugins."
 - **No markdown**: Plain text only, no formatting syntax.
 
 ### Examples

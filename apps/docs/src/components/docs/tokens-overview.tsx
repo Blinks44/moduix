@@ -1,4 +1,4 @@
-import { useLang } from '@rspress/core/runtime';
+import { useI18n } from '@rspress/core/runtime';
 import type { ReactNode } from 'react';
 import styles from './tokens-overview.module.css';
 
@@ -496,45 +496,41 @@ const sharedPopupMotionTokens = [
 ];
 
 export function TokensOverview() {
-  const isRussian = useLang() === 'ru';
-  const t = (english: string, russian: string) => (isRussian ? russian : english);
+  const t = useI18n<typeof import('i18n')>();
 
   return (
     <div className={styles.root}>
       <section className={styles.heroGrid}>
         <div className={styles.heroPanel}>
           <div className={styles.heroHeader}>
-            <span>{t('Token architecture', 'Архитектура токенов')}</span>
+            <span>{t('tokensOverviewTokenArchitecture')}</span>
             <code>:root</code>
           </div>
           <div className={styles.systemMap} aria-hidden="true">
             <div className={styles.mapNode}>
               <span>01</span>
-              <strong>{t('Raw values', 'Исходные значения')}</strong>
+              <strong>{t('tokensOverviewRawValues')}</strong>
               <code>--moduix-primary</code>
             </div>
             <div className={styles.mapNode} data-active="true">
               <span>02</span>
-              <strong>{t('Semantic aliases', 'Семантические алиасы')}</strong>
+              <strong>{t('tokensOverviewSemanticAliases')}</strong>
               <code>--moduix-color-primary</code>
             </div>
             <div className={styles.mapNode}>
               <span>03</span>
-              <strong>{t('Component variables', 'Переменные компонентов')}</strong>
+              <strong>{t('tokensOverviewComponentVariables')}</strong>
               <code>--moduix-button-default-bg</code>
             </div>
           </div>
-          <div
-            className={styles.heroStats}
-            aria-label={t('Token groups summary', 'Сводка групп токенов')}
-          >
+          <div className={styles.heroStats} aria-label={t('tokensOverviewTokenGroupsSummary')}>
             <span>
               <strong>{colorTokenCount}</strong>
-              {t('color tokens', 'цветовых токенов')}
+              {t('tokensOverviewColorTokens')}
             </span>
             <span>
               <strong>{spacingTokens.length + semanticSpacingTokens.length}</strong>
-              {t('spacing steps', 'шагов интервалов')}
+              {t('tokensOverviewSpacingSteps')}
             </span>
             <span>
               <strong>
@@ -542,45 +538,30 @@ export function TokensOverview() {
                   sharedPopupTokens.length +
                   sharedPopupMotionTokens.length}
               </strong>
-              {t('shared defaults', 'общих значений по умолчанию')}
+              {t('tokensOverviewSharedDefaults')}
             </span>
           </div>
         </div>
         <div className={styles.stackPanel}>
           <TokenCallout
-            title={t('Semantic aliases', 'Семантические алиасы')}
+            title={t('tokensOverviewSemanticAliases')}
             code="--moduix-color-primary: var(--moduix-primary)"
-            body={t(
-              'Components read semantic variables while themes override the raw palette.',
-              'Компоненты читают семантические переменные, а темы переопределяют исходную палитру.',
-            )}
+            body={t('tokensOverviewSemanticVariables')}
           />
           <TokenCallout
-            title={t('Shared fallbacks', 'Общие резервные значения')}
+            title={t('tokensOverviewSharedFallbacks')}
             code="--moduix-dialog-backdrop-bg -> --moduix-backdrop-bg / --moduix-backdrop-filter"
-            body={t(
-              'Global backdrop color and blur stay centralized, and component-level variables can still opt out.',
-              'Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться.',
-            )}
+            body={t('tokensOverviewCentralizedBackdrop')}
           />
           <TokenCallout
-            title={t('Scoped themes', 'Темы с ограниченной областью')}
+            title={t('tokensOverviewScopedThemes')}
             code=".billing-flow { --moduix-size-lg: 36px; }"
-            body={t(
-              'Any parent scope can change density, motion, or color for a focused area.',
-              'Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны.',
-            )}
+            body={t('tokensOverviewParentScope')}
           />
         </div>
       </section>
 
-      <Section
-        title={t('Colors', 'Цвета')}
-        note={t(
-          'Light and dark theme values plus semantic aliases.',
-          'Значения светлой и тёмной темы вместе с семантическими алиасами.',
-        )}
-      >
+      <Section title={t('tokensOverviewColors')} note={t('tokensOverviewColorThemeValues')}>
         <div className={styles.themePreviewGrid}>
           <ThemePreview theme="light" />
           <ThemePreview theme="dark" />
@@ -630,61 +611,35 @@ export function TokensOverview() {
         </div>
       </Section>
 
-      <Section
-        title={t('Spacing & Size', 'Интервалы и размеры')}
-        note={t(
-          'Primitive steps, semantic spacing, and control heights.',
-          'Примитивные шаги, семантические интервалы и высоты элементов управления.',
-        )}
-      >
+      <Section title={t('tokensOverviewSpacingSize')} note={t('tokensOverviewSizingScale')}>
         <div className={styles.measureGrid}>
           <TokenScale
-            title={t('Primitive spacing', 'Примитивные интервалы')}
+            title={t('tokensOverviewPrimitiveSpacing')}
             tokens={spacingTokens}
             variant="bars"
           />
           <TokenScale
-            title={t('Semantic spacing', 'Семантические интервалы')}
+            title={t('tokensOverviewSemanticSpacing')}
             tokens={semanticSpacingTokens}
             variant="semantic"
           />
-          <TokenScale
-            title={t('Control size', 'Размер элементов управления')}
-            tokens={sizeTokens}
-            variant="blocks"
-          />
+          <TokenScale title={t('tokensOverviewControlSize')} tokens={sizeTokens} variant="blocks" />
         </div>
       </Section>
 
-      <Section
-        title={t('Shape & Borders', 'Форма и границы')}
-        note={t(
-          'Radius derives from one root value; borders stay simple.',
-          'Скругление выводится из одного корневого значения; границы остаются простыми.',
-        )}
-      >
+      <Section title={t('tokensOverviewShapeBorders')} note={t('tokensOverviewRadiusAndBorders')}>
         <div className={styles.measureGrid}>
           <RadiusScale />
           <TokenScale
-            title={t('Border widths', 'Толщина границ')}
+            title={t('tokensOverviewBorderWidths')}
             tokens={borderTokens}
             variant="lines"
           />
-          <TokenScale
-            title={t('Opacity', 'Непрозрачность')}
-            tokens={opacityTokens}
-            variant="opacity"
-          />
+          <TokenScale title={t('tokensOverviewOpacity')} tokens={opacityTokens} variant="opacity" />
         </div>
       </Section>
 
-      <Section
-        title={t('Typography', 'Типографика')}
-        note={t(
-          'Font families, sizes, line heights, weights, and tracking tokens.',
-          'Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга.',
-        )}
-      >
+      <Section title={t('tokensOverviewTypography')} note={t('tokensOverviewTypography')}>
         <div className={styles.typeGrid}>
           {typographyTokens.map(([textName, textValue, lineName, lineValue]) => (
             <div className={styles.typeRow} key={textName}>
@@ -713,32 +668,17 @@ export function TokensOverview() {
             </span>
           ))}
         </div>
-        <TokenList title={t('Font families', 'Семейства шрифтов')} tokens={fontFamilyTokens} />
+        <TokenList title={t('tokensOverviewFontFamilies')} tokens={fontFamilyTokens} />
       </Section>
 
-      <Section
-        title={t('Motion', 'Анимация')}
-        note={t(
-          'Durations, easing, transition shorthands, and reusable animations.',
-          'Длительности, сглаживание, сокращения переходов и повторно используемые анимации.',
-        )}
-      >
+      <Section title={t('tokensOverviewMotion')} note={t('tokensOverviewMotion')}>
         <div className={styles.motionGrid}>
-          <TokenList
-            title={t('Timing and transition tokens', 'Токены времени и переходов')}
-            tokens={motionTokens}
-          />
-          <TokenList title={t('Animation tokens', 'Токены анимации')} tokens={animationTokens} />
+          <TokenList title={t('tokensOverviewTimingAndTransitionTokens')} tokens={motionTokens} />
+          <TokenList title={t('tokensOverviewAnimationTokens')} tokens={animationTokens} />
         </div>
       </Section>
 
-      <Section
-        title={t('Elevation & Layers', 'Высота и слои')}
-        note={t(
-          'Shadows, transforms, and z-index tokens for overlays.',
-          'Тени, преобразования и токены z-index для оверлеев.',
-        )}
-      >
+      <Section title={t('tokensOverviewElevationLayers')} note={t('tokensOverviewElevation')}>
         <div className={styles.layerGrid}>
           {shadowTokens.map(([name, value], index) => (
             <div className={styles.shadowCard} data-depth={index + 1} key={name}>
@@ -748,17 +688,14 @@ export function TokensOverview() {
           ))}
         </div>
         <div className={styles.motionGrid}>
-          <TokenList title={t('Transforms', 'Преобразования')} tokens={transformTokens} />
+          <TokenList title={t('tokensOverviewTransforms')} tokens={transformTokens} />
           <TokenList title="Z-index" tokens={zIndexTokens} />
         </div>
       </Section>
 
       <Section
-        title={t('Shared Component Defaults', 'Общие значения компонентов по умолчанию')}
-        note={t(
-          'Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.',
-          'Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов.',
-        )}
+        title={t('tokensOverviewSharedComponentDefaults')}
+        note={t('tokensOverviewOverlayDefaults')}
       >
         <div className={styles.backdropPreview}>
           <div className={styles.backdropStage}>
@@ -769,18 +706,15 @@ export function TokensOverview() {
             </div>
           </div>
           <TokenList
-            title={t('Backdrop defaults and fallbacks', 'Значения и резервные варианты фона')}
+            title={t('tokensOverviewBackdropDefaultsAndFallbacks')}
             tokens={sharedBackdropTokens}
           />
         </div>
         <TokenList
-          title={t('Shared popup content motion', 'Общая анимация содержимого всплывающих окон')}
+          title={t('tokensOverviewSharedPopupContentMotion')}
           tokens={sharedPopupMotionTokens}
         />
-        <TokenList
-          title={t('Shared popup menu defaults', 'Общие значения меню всплывающих окон')}
-          tokens={sharedPopupTokens}
-        />
+        <TokenList title={t('tokensOverviewSharedPopupMenuDefaults')} tokens={sharedPopupTokens} />
       </Section>
     </div>
   );

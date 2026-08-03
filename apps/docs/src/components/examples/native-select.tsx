@@ -1,4 +1,4 @@
-import type { CSSPropertiesEditorContext, CssProperty } from '../mdx/reference';
+import type { CssProperty } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const nativeSelectCssProperties: CssProperty[] = [
@@ -104,6 +104,6 @@ const nativeSelectCssProperties: CssProperty[] = [
   },
 ];
 
-export function NativeSelectCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
+export function NativeSelectCssPropertiesPanel() {
   return <CSSPropertiesReferenceTable properties={nativeSelectCssProperties} />;
 }
