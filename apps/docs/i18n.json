@@ -11,11 +11,86 @@
     "en": "Recipes",
     "ru": "Рецепты"
   },
-  "navRecipes": {
-    "en": "Recipes"
-  },
   "navGitHub": {
     "en": "GitHub",
     "ru": "GitHub"
-  }
+  },
+  "homeDesignFoundations": { "en": "Design foundations", "ru": "Основы дизайна" },
+  "homeBuiltOnArk": { "en": "Built on Ark UI", "ru": "На базе Ark UI" },
+  "homeShadcnInspired": { "en": "shadcn-inspired", "ru": "Вдохновлено shadcn" },
+  "homeLead": {
+    "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
+    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS-основой на базе токенов, которую можно настраивать темой или хранить в проекте."
+  },
+  "homeGetStarted": { "en": "Get started", "ru": "Начать" },
+  "homeComponents": { "en": "Components", "ru": "Компоненты" },
+  "homeCompositionInPractice": { "en": "Composition in practice", "ru": "Композиция на практике" },
+  "homeComponentsTogether": {
+    "en": "A few components, working together.",
+    "ru": "Несколько компонентов, работающих вместе."
+  },
+  "homeCompositionDescription": {
+    "en": "Search, selection, menus, and a wide table stay small and composable—ready for a product screen rather than a marketing mockup.",
+    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и компонуемыми — готовыми для продуктового экрана, а не маркетингового макета."
+  },
+  "homeExploreTable": { "en": "Explore the table pattern", "ru": "Изучить паттерн таблицы" },
+  "homeDesignSystem": { "en": "Design system", "ru": "Дизайн-система" },
+  "homeCheckoutFlow": { "en": "Checkout flow", "ru": "Оформление заказа" },
+  "homeMapsWidgets": { "en": "Maps widgets", "ru": "Виджеты карт" },
+  "homeSelectWorkspace": { "en": "Select workspace", "ru": "Выберите пространство" },
+  "homeActions": { "en": "Actions", "ru": "Действия" },
+  "homeStatus": { "en": "Status", "ru": "Статус" },
+  "homeReleaseControls": { "en": "Release controls", "ru": "Управление выпуском" },
+  "homeFastActions": {
+    "en": "Fast actions with real states",
+    "ru": "Быстрые действия с реальными состояниями"
+  },
+  "homePublishUpdate": { "en": "Publish update", "ru": "Опубликовать обновление" },
+  "homePreview": { "en": "Preview", "ru": "Предпросмотр" },
+  "homeShare": { "en": "Share", "ru": "Поделиться" },
+  "homePrimaryCta": { "en": "Primary CTA", "ru": "Основной CTA" },
+  "homeDefaultVariant": { "en": "Default variant", "ru": "Вариант по умолчанию" },
+  "homeSecondaryPath": { "en": "Secondary path", "ru": "Вторичный путь" },
+  "homeOutlineGhost": { "en": "Outline and ghost", "ru": "Outline и ghost" },
+  "homeFlowHealth": { "en": "Flow health", "ru": "Состояние процесса" },
+  "homeToggleProgress": {
+    "en": "Toggle and progress in one pass",
+    "ru": "Переключатель и прогресс в одном сценарии"
+  },
+  "homeAutoReview": { "en": "Auto-review before release", "ru": "Автопроверка перед выпуском" },
+  "homeReleaseReadiness": { "en": "Release readiness", "ru": "Готовность к выпуску" },
+  "homeChecksEnabled": { "en": "Checks enabled", "ru": "Проверки включены" },
+  "homeManualReview": { "en": "Manual review only", "ru": "Только ручная проверка" },
+  "homeAdvance": { "en": "Advance", "ru": "Продолжить" },
+  "homeApprovalFlow": { "en": "Approval flow", "ru": "Сценарий согласования" },
+  "homeOpenModal": {
+    "en": "Open the modal directly in the hero",
+    "ru": "Откройте модальное окно прямо в герое"
+  },
+  "homeDialogDescription": {
+    "en": "The preview stays compact, but the interaction is real and uses the shipped dialog API.",
+    "ru": "Предпросмотр остаётся компактным, но взаимодействие настоящее и использует поставляемый API диалога."
+  },
+  "homeReviewChanges": { "en": "Review changes", "ru": "Проверить изменения" },
+  "homePublishRelease": { "en": "Publish release?", "ru": "Опубликовать выпуск?" },
+  "homePublishReleaseDescription": {
+    "en": "Push the updated components and docs to the shared workspace.",
+    "ru": "Отправьте обновлённые компоненты и документацию в общее рабочее пространство."
+  },
+  "homeBack": { "en": "Back", "ru": "Назад" },
+  "homeApprove": { "en": "Approve", "ru": "Подтвердить" },
+  "homeInspectApi": { "en": "Inspect API", "ru": "Изучить API" },
+  "homeFocusManagement": { "en": "Focus management", "ru": "Управление фокусом" },
+  "homeBuiltIn": { "en": "Built in", "ru": "Встроено" },
+  "homeComposition": { "en": "Composition", "ru": "Композиция" },
+  "homeDialogParts": { "en": "Trigger, content, footer", "ru": "Триггер, содержимое, подвал" },
+  "homeWorkspacePicker": { "en": "Workspace picker", "ru": "Выбор рабочего пространства" },
+  "homeInteractiveSelect": {
+    "en": "Interactive select with current value",
+    "ru": "Интерактивный Select с текущим значением"
+  },
+  "homeActiveWorkspace": { "en": "Active workspace", "ru": "Активное рабочее пространство" },
+  "homeSelected": { "en": "Selected", "ru": "Выбрано" },
+  "homePattern": { "en": "Pattern", "ru": "Паттерн" },
+  "homeSelectParts": { "en": "Field, trigger, list", "ru": "Поле, триггер, список" }
 }

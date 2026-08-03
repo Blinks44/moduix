@@ -1,5 +1,6 @@
-import { PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme-original';
+import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import type { ComponentProps, ReactNode } from 'react';
+import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
 import {
   CSSPropertiesReferenceTable,
@@ -98,12 +99,14 @@ function Card({
   href: string;
   icon?: ReactNode;
 }) {
+  const localizedHref = useLocalizedPath(href);
+
   return (
-    <a className={styles.card} href={href}>
+    <Link className={styles.card} href={localizedHref}>
       {icon ? <span className={styles.cardIcon}>{icon}</span> : null}
       <strong>{title}</strong>
       <span>{description}</span>
-    </a>
+    </Link>
   );
 }
 

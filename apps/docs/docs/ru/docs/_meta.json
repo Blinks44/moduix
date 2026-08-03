@@ -24,7 +24,7 @@
   {
     "type": "file",
     "name": "migrate-from-shadcn",
-    "label": "Из shadcn",
+    "label": "Миграция с shadcn",
     "tag": "refresh-cw"
   },
   {

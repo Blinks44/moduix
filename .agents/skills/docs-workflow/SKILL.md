@@ -41,6 +41,13 @@ standalone documentation page needs a concise `description` frontmatter field.
 
 ## Core Rules
 
+- Prefer public Rspress 2 APIs, components, and configuration before creating custom equivalents. Introduce a local
+  helper only when Rspress has no suitable public API.
+- For site-internal links in docs UI or custom MDX components, use `Link` from `@rspress/core/theme`. In Markdown,
+  MDX, and `_nav.json`, use locale-neutral `/docs/...` paths; Rspress prefixes those. In custom TSX, `Link` does not
+  localize a passed `href`, so use the shared `useLocalizedPath` hook instead of repeating locale logic or literal
+  prefixes. Keep native anchors in copied consumer snippets, product recipes, external links, and fragment navigation
+  when those are the documented behavior.
 - Import public React components from `@moduix/react`, the package declared by `packages/react/package.json`.
   Do not duplicate library components inside the docs app.
 - Document the shipped public API only. Remove stale props, examples, styling hooks, and obsolete guidance in the same task.
@@ -60,6 +67,16 @@ standalone documentation page needs a concise `description` frontmatter field.
   where the namespace itself is being discussed.
 - Live examples may use internal helpers for maintainability, but the visible preview source should stay complete and
   consumer-facing.
+
+## Localization
+
+- Keep every supported locale in sync. When documentation content, page structure, navigation, examples, cards, or
+  shared docs UI changes in one locale, make the corresponding change in every locale during the same task.
+- Mirror MDX structure, routes, `_nav.json`, `_meta.json`, frontmatter, and user-visible behavior across locales;
+  translate reader-facing text while preserving code, commands, public API names, and links unless the localized route
+  requires a Rspress-managed transformation.
+- Before handoff, compare the changed locale files with their equivalents and report any intentionally unsupported or
+  absent localization rather than leaving silent drift.
 
 ## Standard Component Page Structure
 

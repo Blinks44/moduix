@@ -26,6 +26,10 @@ Apply these rules when writing or reviewing Rspress (v2) sites.
 
 - Keep docs content under one clear docs root and group pages by topic or workflow, not by team ownership
 - Use `_meta.json` or `_nav.json` to control sidebar and navigation labels/order instead of encoding order in filenames
+- Use Rspress's public `Link` from `@rspress/core/theme` for site-internal navigation in custom docs UI. In Markdown,
+  MDX, and `_nav.json`, pass locale-neutral routes such as `/docs/page`. In custom TSX, use the shared
+  `useLocalizedPath` hook: `Link` does not localize a passed href itself. Retain native
+  anchors for external URLs, fragments, and copied consumer-facing code where they are part of the documented API.
 - Put reusable MDX snippets or shared components in shared files instead of duplicating them across pages
 - Keep landing pages concise and link to deeper task-oriented guides from them
 
@@ -52,8 +56,12 @@ Apply these rules when writing or reviewing Rspress (v2) sites.
 
 ## I18n, Search, And AI
 
-- For multilingual sites, organize locale content under per-language directories and keep navigation mirrored where practical
+- For multilingual sites, organize locale content under per-language directories and keep every locale synchronized:
+  reflect documentation content, page structure, navigation, examples, cards, frontmatter, and shared docs UI changes
+  in all supported locales during the same task. Report any intentional or unavailable exception explicitly.
 - Keep descriptions and other frontmatter text in the same language as the page content
+- Prefer Rspress public APIs, configuration, theme components, and runtime hooks before custom code. Add a custom
+  implementation only when no suitable public Rspress tool exists.
 - Configure search intentionally: use local search for small or medium sites, and hosted search when scale or cross-version indexing requires it
 - Enable `llms` or `ssgMd` only when the site benefits from machine-readable outputs, and keep descriptions accurate because those outputs surface page summaries
 

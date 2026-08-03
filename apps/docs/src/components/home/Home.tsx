@@ -5,41 +5,37 @@ import { ProgressLinear } from '@moduix/react/progress-linear';
 import { Select } from '@moduix/react/select';
 import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
-import { useLang } from '@rspress/core/runtime';
+import { useI18n } from '@rspress/core/runtime';
+import { Link } from '@rspress/core/theme';
 import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { DataTable } from '@/components/recipes/data-table';
+import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Home.module.css';
 
-const getWorkspaceOptions = (isRussian: boolean) =>
-  isRussian
-    ? [
-        { label: 'Дизайн-система', value: 'design-system' },
-        { label: 'Оформление заказа', value: 'checkout-flow' },
-        { label: 'Виджеты карт', value: 'maps-widgets' },
-      ]
-    : [
-        { label: 'Design system', value: 'design-system' },
-        { label: 'Checkout flow', value: 'checkout-flow' },
-        { label: 'Maps widgets', value: 'maps-widgets' },
-      ];
+type Translate = ReturnType<typeof useI18n<typeof import('i18n')>>;
+
+const getWorkspaceOptions = (t: Translate) => [
+  { label: t('homeDesignSystem'), value: 'design-system' },
+  { label: t('homeCheckoutFlow'), value: 'checkout-flow' },
+  { label: t('homeMapsWidgets'), value: 'maps-widgets' },
+];
 
 export function Home() {
-  const isRussian = useLang() === 'ru';
-  const t = (english: string, russian: string) => (isRussian ? russian : english);
-  const docsPath = isRussian ? '/ru/docs/' : '/docs/';
-  const componentsPath = isRussian ? '/ru/docs/components' : '/docs/components';
-
+  const t = useI18n<typeof import('i18n')>();
+  const docsPath = useLocalizedPath('/docs/');
+  const componentsPath = useLocalizedPath('/docs/components');
+  const dataTablePath = useLocalizedPath('/docs/data-table');
   return (
     <main className={`${styles.home} moduix-home`}>
       <div className={styles.spotlight} />
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.content}>
-          <div className={styles.badges} aria-label={t('Design foundations', 'Основы дизайна')}>
+          <div className={styles.badges} aria-label={t('homeDesignFoundations')}>
             <a className={styles.badge} href="https://ark-ui.com/" target="_blank" rel="noreferrer">
               <Sparkles size={14} aria-hidden="true" />
-              {t('Built on Ark UI', 'На базе Ark UI')}
+              {t('homeBuiltOnArk')}
             </a>
             <a
               className={styles.badge}
@@ -48,28 +44,23 @@ export function Home() {
               rel="noreferrer"
             >
               <Layers3 size={14} aria-hidden="true" />
-              {t('shadcn-inspired', 'Вдохновлено shadcn')}
+              {t('homeShadcnInspired')}
             </a>
           </div>
           <h1 id="home-title" className={styles.title}>
             moduix
           </h1>
-          <p className={styles.lead}>
-            {t(
-              'Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.',
-              'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS-основой на базе токенов, которую можно настраивать темой или хранить в проекте.',
-            )}
-          </p>
+          <p className={styles.lead}>{t('homeLead')}</p>
           <FrameworkSupport />
           <div className={styles.actions}>
-            <a href={docsPath} className={styles.primary}>
-              {t('Get started', 'Начать')}
+            <Link href={docsPath} className={styles.primary}>
+              {t('homeGetStarted')}
               <ArrowRight size={18} aria-hidden="true" />
-            </a>
-            <a href={componentsPath} className={styles.secondary}>
-              {t('Components', 'Компоненты')}
+            </Link>
+            <Link href={componentsPath} className={styles.secondary}>
+              {t('homeComponents')}
               <Component size={18} aria-hidden="true" />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -80,7 +71,7 @@ export function Home() {
               <span />
               <span />
             </div>
-            <HomeShowcase isRussian={isRussian} />
+            <HomeShowcase />
           </div>
 
           <div className={`${styles.panel} ${styles.floatPanel}`} aria-hidden="true">
@@ -94,26 +85,14 @@ export function Home() {
       <section className={styles.dataTableSection} aria-labelledby="component-table-title">
         <div className={styles.dataTableIntro}>
           <div>
-            <span className={styles.sectionEyebrow}>
-              {t('Composition in practice', 'Композиция на практике')}
-            </span>
-            <h2 id="component-table-title">
-              {t(
-                'A few components, working together.',
-                'Несколько компонентов, работающих вместе.',
-              )}
-            </h2>
-            <p>
-              {t(
-                'Search, selection, menus, and a wide table stay small and composable—ready for a product screen rather than a marketing mockup.',
-                'Поиск, выбор, меню и широкая таблица остаются компактными и компонуемыми — готовыми для продуктового экрана, а не маркетингового макета.',
-              )}
-            </p>
+            <span className={styles.sectionEyebrow}>{t('homeCompositionInPractice')}</span>
+            <h2 id="component-table-title">{t('homeComponentsTogether')}</h2>
+            <p>{t('homeCompositionDescription')}</p>
           </div>
-          <a href="/docs/data-table" className={styles.tableLink}>
-            {t('Explore the table pattern', 'Изучить паттерн таблицы')}
+          <Link href={dataTablePath} className={styles.tableLink}>
+            {t('homeExploreTable')}
             <ArrowRight size={16} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
         <DataTable />
       </section>
@@ -121,9 +100,9 @@ export function Home() {
   );
 }
 
-function HomeShowcase({ isRussian }: { isRussian: boolean }) {
-  const t = (english: string, russian: string) => (isRussian ? russian : english);
-  const workspaceOptions = getWorkspaceOptions(isRussian);
+function HomeShowcase() {
+  const t = useI18n<typeof import('i18n')>();
+  const workspaceOptions = getWorkspaceOptions(t);
   const workspaceCollection = createListCollection({ items: workspaceOptions });
   const [automationEnabled, setAutomationEnabled] = useState(true);
   const [progressValue, setProgressValue] = useState(72);
@@ -131,7 +110,7 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
 
   const workspaceLabel =
     workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ??
-    t('Select workspace', 'Выберите пространство');
+    t('homeSelectWorkspace');
 
   const handleAutomationChange = (details: { checked: boolean }) => {
     setAutomationEnabled(details.checked);
@@ -150,34 +129,30 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
       <Tabs.Content value="button" className={styles.showcasePanel}>
         <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
           <Tabs.List className={styles.nestedTabsList}>
-            <Tabs.Trigger value="actions">{t('Actions', 'Действия')}</Tabs.Trigger>
-            <Tabs.Trigger value="status">{t('Status', 'Статус')}</Tabs.Trigger>
+            <Tabs.Trigger value="actions">{t('homeActions')}</Tabs.Trigger>
+            <Tabs.Trigger value="status">{t('homeStatus')}</Tabs.Trigger>
             <Tabs.Indicator />
           </Tabs.List>
 
           <Tabs.Content value="actions" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>
-                  {t('Release controls', 'Управление выпуском')}
-                </span>
-                <strong>
-                  {t('Fast actions with real states', 'Быстрые действия с реальными состояниями')}
-                </strong>
+                <span className={styles.eyebrow}>{t('homeReleaseControls')}</span>
+                <strong>{t('homeFastActions')}</strong>
               </div>
               <div className={styles.buttonRow}>
-                <Button>{t('Publish update', 'Опубликовать обновление')}</Button>
-                <Button variant="outline">{t('Preview', 'Предпросмотр')}</Button>
-                <Button variant="ghost">{t('Share', 'Поделиться')}</Button>
+                <Button>{t('homePublishUpdate')}</Button>
+                <Button variant="outline">{t('homePreview')}</Button>
+                <Button variant="ghost">{t('homeShare')}</Button>
               </div>
               <div className={styles.miniStats}>
                 <div className={styles.metric}>
-                  <span>{t('Primary CTA', 'Основной CTA')}</span>
-                  <strong>{t('Default variant', 'Вариант по умолчанию')}</strong>
+                  <span>{t('homePrimaryCta')}</span>
+                  <strong>{t('homeDefaultVariant')}</strong>
                 </div>
                 <div className={styles.metric}>
-                  <span>{t('Secondary path', 'Вторичный путь')}</span>
-                  <strong>{t('Outline and ghost', 'Outline и ghost')}</strong>
+                  <span>{t('homeSecondaryPath')}</span>
+                  <strong>{t('homeOutlineGhost')}</strong>
                 </div>
               </div>
             </div>
@@ -186,13 +161,8 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
           <Tabs.Content value="status" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>{t('Flow health', 'Состояние процесса')}</span>
-                <strong>
-                  {t(
-                    'Toggle and progress in one pass',
-                    'Переключатель и прогресс в одном сценарии',
-                  )}
-                </strong>
+                <span className={styles.eyebrow}>{t('homeFlowHealth')}</span>
+                <strong>{t('homeToggleProgress')}</strong>
               </div>
               <Switch
                 checked={automationEnabled}
@@ -200,31 +170,23 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
                 className={styles.switchRow}
               >
                 <Switch.Control />
-                <Switch.Label>
-                  {t('Auto-review before release', 'Автопроверка перед выпуском')}
-                </Switch.Label>
+                <Switch.Label>{t('homeAutoReview')}</Switch.Label>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
-                <ProgressLinear.Label>
-                  {t('Release readiness', 'Готовность к выпуску')}
-                </ProgressLinear.Label>
+                <ProgressLinear.Label>{t('homeReleaseReadiness')}</ProgressLinear.Label>
                 <ProgressLinear.ValueText />
                 <ProgressLinear.Track>
                   <ProgressLinear.Range />
                 </ProgressLinear.Track>
               </ProgressLinear>
               <div className={styles.statusRow}>
-                <span>
-                  {automationEnabled
-                    ? t('Checks enabled', 'Проверки включены')
-                    : t('Manual review only', 'Только ручная проверка')}
-                </span>
+                <span>{automationEnabled ? t('homeChecksEnabled') : t('homeManualReview')}</span>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setProgressValue((value) => Math.min(value + 9, 100))}
                 >
-                  {t('Advance', 'Продолжить')}
+                  {t('homeAdvance')}
                 </Button>
               </div>
             </div>
@@ -235,55 +197,43 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
       <Tabs.Content value="dialog" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>{t('Approval flow', 'Сценарий согласования')}</span>
-            <strong>
-              {t('Open the modal directly in the hero', 'Откройте модальное окно прямо в герое')}
-            </strong>
+            <span className={styles.eyebrow}>{t('homeApprovalFlow')}</span>
+            <strong>{t('homeOpenModal')}</strong>
           </div>
-          <p className={styles.previewText}>
-            {t(
-              'The preview stays compact, but the interaction is real and uses the shipped dialog API.',
-              'Предпросмотр остаётся компактным, но взаимодействие настоящее и использует поставляемый API диалога.',
-            )}
-          </p>
+          <p className={styles.previewText}>{t('homeDialogDescription')}</p>
           <div className={styles.buttonRow}>
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <Button>{t('Review changes', 'Проверить изменения')}</Button>
+                <Button>{t('homeReviewChanges')}</Button>
               </Dialog.Trigger>
               <Dialog.Backdrop />
               <Dialog.Positioner>
                 <Dialog.Content>
                   <Dialog.Header>
-                    <Dialog.Title>{t('Publish release?', 'Опубликовать выпуск?')}</Dialog.Title>
-                    <Dialog.Description>
-                      {t(
-                        'Push the updated components and docs to the shared workspace.',
-                        'Отправьте обновлённые компоненты и документацию в общее рабочее пространство.',
-                      )}
-                    </Dialog.Description>
+                    <Dialog.Title>{t('homePublishRelease')}</Dialog.Title>
+                    <Dialog.Description>{t('homePublishReleaseDescription')}</Dialog.Description>
                   </Dialog.Header>
                   <Dialog.Footer>
                     <Dialog.CloseTrigger asChild>
-                      <Button variant="outline">{t('Back', 'Назад')}</Button>
+                      <Button variant="outline">{t('homeBack')}</Button>
                     </Dialog.CloseTrigger>
                     <Dialog.CloseTrigger asChild>
-                      <Button>{t('Approve', 'Подтвердить')}</Button>
+                      <Button>{t('homeApprove')}</Button>
                     </Dialog.CloseTrigger>
                   </Dialog.Footer>
                 </Dialog.Content>
               </Dialog.Positioner>
             </Dialog.Root>
-            <Button variant="outline">{t('Inspect API', 'Изучить API')}</Button>
+            <Button variant="outline">{t('homeInspectApi')}</Button>
           </div>
           <div className={styles.miniStats}>
             <div className={styles.metric}>
-              <span>{t('Focus management', 'Управление фокусом')}</span>
-              <strong>{t('Built in', 'Встроено')}</strong>
+              <span>{t('homeFocusManagement')}</span>
+              <strong>{t('homeBuiltIn')}</strong>
             </div>
             <div className={styles.metric}>
-              <span>{t('Composition', 'Композиция')}</span>
-              <strong>{t('Trigger, content, footer', 'Триггер, содержимое, подвал')}</strong>
+              <span>{t('homeComposition')}</span>
+              <strong>{t('homeDialogParts')}</strong>
             </div>
           </div>
         </div>
@@ -292,15 +242,8 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
       <Tabs.Content value="select" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>
-              {t('Workspace picker', 'Выбор рабочего пространства')}
-            </span>
-            <strong>
-              {t(
-                'Interactive select with current value',
-                'Интерактивный Select с текущим значением',
-              )}
-            </strong>
+            <span className={styles.eyebrow}>{t('homeWorkspacePicker')}</span>
+            <strong>{t('homeInteractiveSelect')}</strong>
           </div>
           <div className={styles.heroSelect}>
             <Select
@@ -308,10 +251,10 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
               value={workspaceValue}
               onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <Select.Label>{t('Active workspace', 'Активное рабочее пространство')}</Select.Label>
+              <Select.Label>{t('homeActiveWorkspace')}</Select.Label>
               <Select.Control>
                 <Select.Trigger>
-                  <Select.ValueText placeholder={t('Select workspace', 'Выберите пространство')} />
+                  <Select.ValueText placeholder={t('homeSelectWorkspace')} />
                   <Select.Indicator />
                 </Select.Trigger>
               </Select.Control>
@@ -330,12 +273,12 @@ function HomeShowcase({ isRussian }: { isRussian: boolean }) {
           </div>
           <div className={styles.miniStats}>
             <div className={styles.metric}>
-              <span>{t('Selected', 'Выбрано')}</span>
+              <span>{t('homeSelected')}</span>
               <strong>{workspaceLabel}</strong>
             </div>
             <div className={styles.metric}>
-              <span>{t('Pattern', 'Паттерн')}</span>
-              <strong>{t('Field, trigger, list', 'Поле, триггер, список')}</strong>
+              <span>{t('homePattern')}</span>
+              <strong>{t('homeSelectParts')}</strong>
             </div>
           </div>
         </div>
