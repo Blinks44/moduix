@@ -1,0 +1,287 @@
+---
+title: Listbox
+component: listbox
+description: Композиция listbox Ark UI для видимого одиночного, множественного и расширенного выбора с фильтрацией.
+---
+
+import * as ListboxDocs from '@/components/examples/listbox';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+
+## Основы
+
+Используйте `Listbox` для видимой коллекции, в которой пользователь выбирает один или несколько элементов,
+не открывая всплывающее окно. Передайте `collection`, отрисуйте `Content` и передайте каждый элемент в
+`Listbox.Item item={item}`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка с shadcn
+
+<ShadcnInstall packageName="listbox" />
+
+## Анатомия
+
+```text
+Listbox / Listbox.Root
+├─ Listbox.Label
+├─ Listbox.Filter
+│  ├─ Listbox.Input
+│  └─ Listbox.ClearTrigger
+├─ Listbox.Content
+│  ├─ Listbox.Empty
+│  ├─ Listbox.ItemGroup
+│  │  ├─ Listbox.ItemGroupLabel
+│  │  └─ Listbox.Item[item]
+│  │     ├─ Listbox.ItemText
+│  │     └─ Listbox.ItemIndicator
+│  └─ Listbox.Item[item]
+│     ├─ Listbox.ItemText
+│     │  └─ Listbox.ItemTextContent (optional)
+│     │     ├─ Listbox.ItemTextIcon (optional)
+│     │     └─ Listbox.ItemTextLabel (optional)
+│     └─ Listbox.ItemIndicator
+└─ Listbox.ValueText
+```
+
+| Часть                       | Назначение                                                          |
+| -------------------------- | ------------------------------------------------------------------- |
+| `Listbox` / `Listbox.Root` | Владеет коллекцией, выбранными значениями, подсвеченным элементом и режимом. |
+| `Listbox.RootProvider`     | Отрисовывает дерево listbox из состояния, возвращённого `useListbox`. |
+| `Listbox.Label`            | Доступная метка содержимого listbox.                                |
+| `Listbox.Filter`           | Стандартное поле поиска с иконкой; размещайте перед `Content`.      |
+| `Listbox.Input`            | Поле фильтра, обычно составляемое внутри `Filter`.                  |
+| `Listbox.ClearTrigger`     | Подключаемая потребителем кнопка сброса запроса со стандартной иконкой закрытия. |
+| `Listbox.Content`          | Поверхность listbox с фокусом и клавиатурной навигацией.            |
+| `Listbox.Empty`            | Содержимое пустого состояния отфильтрованных коллекций.             |
+| `Listbox.ItemGroup`        | Обёртка группы связанных элементов коллекции.                       |
+| `Listbox.ItemGroupLabel`   | Метка группы коллекции.                                             |
+| `Listbox.Item`             | Выбираемая строка. Передавайте элемент коллекции через `item`.      |
+| `Listbox.ItemText`         | Текст для отображения и доступности.                                |
+| `Listbox.ItemTextContent`  | Необязательный помощник для раскладки иконки и текста внутри `ItemText`. |
+| `Listbox.ItemTextIcon`     | Необязательная обёртка иконки внутри `ItemTextContent`.             |
+| `Listbox.ItemTextLabel`    | Устойчивая к обрезанию метка внутри `ItemTextContent`.              |
+| `Listbox.ItemIndicator`    | Индикатор выбранного состояния со стандартной иконкой галочки moduix. |
+| `Listbox.ValueText`        | Сводка выбранного значения.                                         |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Отрисовывайте дерево частей Ark напрямую: `Listbox` владеет коллекцией, `Listbox.Content` владеет фокусом
+и клавиатурной навигацией, а каждый `Listbox.Item` получает исходный элемент коллекции через `item`.
+Используйте `Listbox.ItemIndicator`, когда строкам нужно резервировать место для выбранного состояния.
+
+Для фильтрации поместите `Listbox.Input` в `Listbox.Filter` непосредственно перед `Listbox.Content`.
+`Filter` предоставляет стандартную иконку поиска и объединяет поле ввода с результатами в одну поверхность с рамкой.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, только когда пользовательский элемент может сохранить требуемую семантику listbox и
+получить пропы Ark. Используйте `ids`, когда частям listbox нужны стабильные ID для композиции с окружающим
+интерфейсом. Используйте moduix `useListbox` вместе с `Listbox.RootProvider`, когда состоянием необходимо
+управлять вне отрисованного дерева; не отрисовывайте `Listbox.Root` для того же экземпляра состояния.
+Отрисовывайте `Listbox.Input` напрямую, когда поле фильтра должно оставаться визуально отдельным от списка
+или находиться в пользовательском окружении.
+
+### Значения по умолчанию
+
+| Проп                      | По умолчанию | Примечания                                                                 |
+| ------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `collection`              | —            | Обязательная коллекция Ark. Используйте `createListCollection` или варианты для сетки. |
+| `defaultValue`            | `[]`         | Начальные выбранные значения для неуправляемого состояния.                 |
+| `defaultHighlightedValue` | —            | Начальный подсвеченный элемент для неуправляемого состояния подсветки.      |
+| `deselectable`            | —            | Позволяет Escape очистить непустой выбор.                                  |
+| `disabled`                | `false`      | Отключает весь listbox.                                                     |
+| `disallowSelectAll`       | `false`      | Отключает выбор `Cmd/Ctrl + A`.                                            |
+| `loopFocus`               | `false`      | По умолчанию стрелочная навигация не зацикливается.                         |
+| `orientation`             | `vertical`   | Управляет раскладкой и направлением стрелочных клавиш.                      |
+| `selectionMode`           | `single`     | Поддерживает `single`, `multiple` и `extended`.                            |
+| `selectOnHighlight`       | `false`      | Выбирает элементы при изменении подсветки с клавиатуры.                     |
+| `typeahead`               | `true`       | Включает поиск по вводу, если текстовый ввод не принадлежит фильтру.        |
+
+### Особенности поведения
+
+`value`, `defaultValue` и `onValueChange(details)` используют массивы строк. Читайте `details.value`
+для выбранных ключей, а `details.items` — для выбранных элементов коллекции.
+
+`highlightedValue`, `defaultHighlightedValue` и `onHighlightChange(details)` управляют перемещением
+активного потомка. `onSelect(details)` срабатывает при выборе элемента с выбранным значением.
+
+`useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context` и
+`Listbox.ItemContext` доступны из `@moduix/react` для расширенной композиции состояния и элементов.
+Ref передаются соответствующей части Ark; ref корня и root provider указывают на отрисованные элементы `div`.
+Используйте `ids`, когда частям listbox нужны стабильные ID для композиции с окружающим интерфейсом.
+
+`Listbox.Input` нужен только для фильтрации. Помещайте его в `Listbox.Filter` для стандартного вида поиска
+или отрисовывайте напрямую для отдельного поля ввода. Установите `typeahead={false}`, чтобы поиск по вводу
+и фильтрация не конкурировали. Состояние фильтрации остаётся явным: отрисовывайте `Listbox.ClearTrigger`
+для непустого запроса и очищайте запрос вместе с фильтром коллекции в его обработчике `onClick`.
+
+Ark владеет ARIA-паттерном listbox, управлением фокусом активного потомка, клавиатурной навигацией,
+поиском по вводу, поведением Home/End, обработкой отключённых элементов и стрелочными клавишами в зависимости
+от ориентации. Оставляйте `Listbox.Label` в дереве, когда listbox нужна видимая метка.
+
+## Примеры
+
+### Управляемый режим
+
+Управляйте выбранным массивом строк из состояния React и обновляйте его из `details.value`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Отключённый элемент
+
+Отключайте отдельные элементы через поле `disabled` элемента коллекции или `isItemDisabled`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/disabled-item.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенный выбор
+
+Используйте `selectionMode="extended"`, если пользователи должны выбирать несколько элементов с клавишами-модификаторами платформы.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/extended-selection.tsx"
+
+```
+</PreviewFrame>
+
+### Фильтрация
+
+Используйте `Listbox.Filter` с `useListCollection`. Он добавляет стандартную иконку поиска и создаёт одну
+поверхность со следующим `Content`; отключите поиск по вводу, когда текстовый ввод отвечает за поиск.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/filtering.tsx"
+
+```
+</PreviewFrame>
+
+### Сетка
+
+Передайте коллекцию сетки для клавиатурной навигации по сетке. Ark предоставляет `data-layout="grid"` и
+CSS-переменную `--column-count` в `Content`. Примеры сетки используют выбранный фон вместо встроенного
+индикатора галочки, чтобы ячейки оставались компактными.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/grid.tsx"
+
+```
+</PreviewFrame>
+
+### Группировка
+
+Используйте `groupBy` в коллекции и отрисуйте `ItemGroup` вместе с `ItemGroupLabel`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/grouping.tsx"
+
+```
+</PreviewFrame>
+
+### Горизонтальная ориентация
+
+Установите `orientation="horizontal"` для горизонтальной раскладки и навигации клавишами влево/вправо.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/listbox/horizontal.tsx"
+
+```
+</PreviewFrame>
+
+### Множественный выбор
+
+Установите `selectionMode="multiple"`, чтобы переключать несколько значений без клавиш-модификаторов.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/multiple.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте moduix `useListbox` вместе с `Listbox.RootProvider`, когда внешним элементам управления нужен
+прямой доступ к API listbox.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Выбрать всё
+
+Используйте moduix `useListboxContext` внутри дочернего компонента, чтобы реализовать элементы управления выбором всех элементов.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/select-all.tsx"
+
+```
+</PreviewFrame>
+
+### Отдельное поле фильтра
+
+Отрисовывайте `Listbox.Input` напрямую, когда фильтр и результаты должны оставаться отдельными поверхностями.
+Его стандартная рамка соответствует `Listbox.Content`; при фокусе с клавиатуры анимируется только цвет контура.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/standalone-filter-input.tsx"
+
+```
+</PreviewFrame>
+
+### Текст значения
+
+Отрисовывайте `ValueText`, когда сводка выбранного значения должна оставаться видимой рядом со списком.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/value-text.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Listbox` через `className`, стабильные хуки `data-slot="listbox-*"`,
+`data-scope="listbox"` / `data-part` Ark и атрибуты состояния.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ListboxDocs.ListboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- Хуки анатомии Ark: `data-scope="listbox"` и `data-part` на корне, метке, поле ввода, содержимом,
+  группе элементов, метке группы, элементе, тексте элемента, индикаторе элемента, тексте значения и пустом состоянии.
+- Хуки состояния: `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
+  `data-activedescendant`, `data-value`, `data-selected`, `data-state` и `data-highlighted`.
+- Хуки moduix: `data-slot="listbox-root"`, `listbox-label`, `listbox-filter`,
+  `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`, `listbox-content`,
+  `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`, `listbox-item`,
+  `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
+  `listbox-item-text-label`, `listbox-item-indicator` и `listbox-value-text`.

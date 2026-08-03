@@ -173,6 +173,11 @@
   { "type": "file", "name": "input", "tag": "component" },
   { "type": "file", "name": "input-group", "tag": "component" },
   { "type": "file", "name": "kbd", "tag": "component" },
+  { "type": "file", "name": "lightbox", "tag": "component" },
+  { "type": "file", "name": "list", "tag": "component" },
+  { "type": "file", "name": "listbox", "tag": "component" },
+  { "type": "file", "name": "marquee", "tag": "component" },
+  { "type": "file", "name": "menu", "tag": "component" },
   {
     "type": "section-header",
     "label": "AI"

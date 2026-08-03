@@ -1,0 +1,297 @@
+---
+title: Lightbox
+component: lightbox
+description: Композиция диалога Ark UI для модального просмотра изображений.
+---
+
+import * as LightboxDocs from '@/components/examples/lightbox';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
+
+В Ark UI нет отдельного примитива `lightbox`. Moduix строит этот компонент на основе `Dialog` из Ark UI,
+следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition),
+[стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref), а `Dialog` остаётся источником истины для поведения.
+
+## Выбор подходящего компонента
+
+Используйте `Lightbox`, когда оверлей нужен главным образом для просмотра изображения или медиаконтента.
+
+- Выбирайте **`Lightbox`** для увеличенного просмотра изображений, галерей товаров и модальных поверхностей, где медиа играет главную роль.
+- Выбирайте **`Dialog`**, если поверхность содержит обычный интерфейс приложения: формы, действия или смешанное содержимое.
+- Компонуйте **`Carousel` внутри `Lightbox.Gallery`**, если для просмотра нужны слайды или стрелки.
+
+## Основы
+
+Скомпонуйте явную структуру диалога Ark UI: `Lightbox`, `Lightbox.Trigger`,
+`Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. Используйте `asChild` с одним
+семантическим элементом-триггером.
+
+<style>{LightboxDocs.lightboxBasicCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/basic.tsx"
+
+```
+
+## Установка с shadcn
+
+<ShadcnInstall packageName="lightbox" />
+
+## Анатомия
+
+```text
+Lightbox / Lightbox.Root
+├─ Lightbox.Trigger
+├─ Lightbox.Bind
+└─ Поддерево оверлея (автоматически портируется)
+   ├─ Lightbox.Backdrop
+   └─ Lightbox.Positioner
+      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
+      └─ Lightbox.Content
+         ├─ Lightbox.Header (optional)
+         │  ├─ Lightbox.Title
+         │  └─ Lightbox.Description
+         ├─ Lightbox.Body
+         │  └─ Lightbox.Image
+         └─ Lightbox.Footer (optional)
+
+Lightbox.RootProvider
+└─ то же дерево частей, подключённое к useLightbox()
+```
+
+| Часть                         | Назначение                                                                           |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `Lightbox` / `Lightbox.Root` | Корень Ark Dialog: хранит состояние открытия, жизненный цикл фокуса, закрытие и доступность. |
+| `Lightbox.RootProvider`      | Провайдер для состояния, созданного с `useLightbox()`.                               |
+| `Lightbox.Trigger`           | Триггер Ark. Используйте `asChild` для пользовательских семантических кнопок или ссылок. |
+| `Lightbox.Backdrop`          | Модальная подложка с `data-state` Ark и переменными слоёв.                           |
+| `Lightbox.Positioner`        | Фиксированный контейнер оверлея по центру.                                           |
+| `Lightbox.Content`           | Фактический узел содержимого диалога Ark.                                            |
+| `Lightbox.Title`             | Необязательный доступный заголовок.                                                  |
+| `Lightbox.Description`       | Необязательное доступное описание.                                                   |
+| `Lightbox.CloseTrigger`      | Низкоуровневый триггер закрытия Ark.                                                 |
+| `Lightbox.CloseIcon`         | Сокращение moduix: `CloseButton.Root` поверх триггера закрытия Ark.                  |
+| `Lightbox.Header` / `Body`   | Необязательные помощники компоновки для текстовой и медиазоны в содержимом.          |
+| `Lightbox.Footer`            | Необязательный помощник компоновки для действий или статуса под медиа.                |
+| `Lightbox.Image`             | Стилизованное нативное изображение с ref типа `HTMLImageElement`.                    |
+| `Lightbox.Gallery`           | Граница компоновки и стилизации для составленного `Carousel`.                        |
+| `Lightbox.Bind`              | Невидимая часть поведения, привязывающая внешнюю разметку изображения к корню.        |
+
+## Композиция
+
+Корень автоматически портирует `Backdrop` и `Positioner`. Используйте `portalled={false}` для встроенного рендеринга и `portalRef` для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
+
+### Рекомендуемая композиция
+
+Сохраняйте структуру оверлея явной. `Lightbox.Content` — настоящая часть содержимого Ark; он не
+отрисовывает за вас подложку, позиционер, изображение, галерею или кнопку закрытия.
+
+Используйте `Lightbox.Image` для одного изображения. Он отрисовывает нативный `<img>`, принимает
+нативные пропы изображения и передаёт ref элементу `HTMLImageElement`. `Lightbox.Header`, `Body` и
+`Footer` — необязательные помощники компоновки, когда текст, медиа и действия должны быть визуально разделены.
+
+Используйте `Lightbox.Gallery` вокруг `Carousel` для известной коллекции изображений. Он задаёт
+характерные для lightbox область просмотра, выравнивание стрелок, размер медиа и раскладку индикаторов,
+а `Carousel` продолжает отвечать за поведение всех слайдов.
+
+Отрисовывайте `Lightbox.CloseIcon` рядом с `Lightbox.Content` внутри `Lightbox.Positioner`, если он
+должен быть закреплён в углу области просмотра. Внутри `Lightbox.Content` он наследует трансформации
+содержимого во время анимации появления и исчезновения.
+
+### Когда нужна собственная композиция
+
+Отрисовывайте пользовательское содержимое прямо внутри `Lightbox.Content`, если это не одиночный
+медиакадр и не галерея `Carousel`. Используйте `Lightbox.Bind` только когда исходная разметка не
+может отрисовать `Lightbox.Trigger`; для структурированных массивов используйте явные триггеры и `Lightbox.Gallery`.
+
+### Значения по умолчанию
+
+Содержимое портированного оверлея по умолчанию лениво монтируется и размонтируется после анимации
+закрытия. Установите `unmountOnExit={false}`, чтобы сохранить его после первого открытия; устанавливайте
+оба пропа жизненного цикла в `false`, только когда нужен начальный рендеринг без задержки.
+
+| Проп                     | По умолчанию | Примечания                                                               |
+| ------------------------ | ------------ | ------------------------------------------------------------------------ |
+| `closeOnEscape`          | `true`       | Наследуется от Ark Dialog.                                               |
+| `closeOnInteractOutside` | `true`       | Наследуется от Ark Dialog.                                               |
+| `defaultOpen`            | `false`      | Начальное состояние в неуправляемом режиме.                              |
+| `modal`                  | `true`       | Блокирует внешнее взаимодействие и скрывает содержимое под lightbox.     |
+| `preventScroll`          | `true`       | Блокирует прокрутку страницы, пока lightbox открыт.                      |
+| `role`                   | `"dialog"`   | Для доступного имени используйте `aria-label` или `Lightbox.Title`; `ids` лишь делает связи стабильными. |
+| `trapFocus`              | `true`       | Удерживает клавиатурный фокус внутри lightbox, пока он открыт.           |
+| `lazyMount`              | `true`       | Откладывает тяжёлый медиаверлей до первого открытия.                     |
+| `unmountOnExit`          | `true`       | Удаляет узлы оверлея после анимации закрытия.                            |
+
+### Особенности поведения
+
+`onOpenChange` и `onTriggerValueChange` сохраняют формы колбэков Ark с объектом подробностей.
+Для управляемого состояния открытия читайте `details.open`, а для галерей с несколькими триггерами — `details.value`.
+
+Используйте `useLightbox()` с `Lightbox.RootProvider`, когда элементы управления находятся вне
+отрисованного корня. Состояние диалога в дочерних компонентах доступно через `useLightboxContext()`.
+Оба API экспортируются из `@moduix/react` и пространства имён `Lightbox`.
+
+`Lightbox.Image closeOnClick` — поддерживаемое сокращение для предпросмотра, когда само изображение
+должно закрывать оверлей. `Lightbox.Bind` — невидимый помощник привязки для разметки CMS или сторонних
+систем, которую нельзя обернуть в `Lightbox.Trigger`. Его необходимо отрисовывать внутри `Lightbox`;
+выбранное изображение передаётся через `onImageSelect(details)`. Details содержит `src`, необязательный
+`alt` и исходный `HTMLImageElement` в `element`. `selector` обязателен и должен соответствовать
+семантической кнопке или ссылке, чтобы каждый предпросмотр был доступен с клавиатуры.
+
+Другие унаследованные пропы `Dialog` передаются без изменений, включая `id`, `ids`, `initialFocusEl`,
+`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
+`skipAnimationOnMount` и колбэки внешнего взаимодействия.
+
+## Примеры
+
+### Привязка содержимого CMS
+
+Используйте `Lightbox.Bind`, если просматриваемые изображения поступают из CMS или сторонней разметки,
+которую вы не отрисовываете напрямую через `Lightbox.Trigger`. Укажите контейнер с `rootRef` или
+`rootSelector`, выберите `selector` и обработайте определённый `{ src, alt, element }` через
+`onImageSelect`. `Bind` открывает родительский Lightbox, но не отрисовывает структуру оверлея, поэтому
+подложка, содержимое, элементы закрытия и раскладка изображения остаются полностью компонуемыми. Он читает
+`data-lightbox-src`, затем `currentSrc`, затем `src` и предзагружает этот источник при наведении указателя
+или фокусе с клавиатуры. Используйте семантическую кнопку или ссылку в качестве совпадающего `selector`,
+чтобы нативная активация с клавиатуры вызывала клик, открывающий Lightbox. Если сервер уже возвращает
+настоящий массив изображений, предпочитайте описанную выше композицию `Lightbox.Gallery + Carousel`.
+
+<style>{LightboxDocs.lightboxBindCmsContentCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/bind-cms-content.tsx"
+
+```
+
+### Закрытие по клику на изображение
+
+Используйте `Lightbox.Image closeOnClick`, если клик по просматриваемому изображению должен закрывать
+оверлей. Иконка закрытия остаётся доступной и сохраняет ту же семантику закрытия Ark.
+
+<style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/click-to-close-image.tsx"
+
+```
+
+### Управляемый режим
+
+Используйте колбэк Ark `onOpenChange(details)`, когда состояние lightbox синхронизируется с React.
+
+<style>{LightboxDocs.lightboxControlledCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/controlled.tsx"
+
+```
+
+### Фокус и ID
+
+Используйте Ark `initialFocusEl`, `finalFocusEl` и `ids`, когда lightbox нужны явные цели фокуса или
+стабильные идентификаторы элементов для внешней композиции доступности. Целевой элемент подсвечивается
+после закрытия, поэтому передача фокуса заметна.
+
+<style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/focus-and-ids.tsx"
+
+```
+
+### Галерея
+
+Если CMS или API отдаёт структурированный массив изображений, храните его в состоянии React и
+компонуйте `Carousel` внутри `Lightbox.Gallery`. Используйте `Lightbox.Trigger value`, чтобы выбрать
+начальный слайд, и синхронизируйте состояние страницы `Carousel` во время навигации пользователя.
+
+<style>{LightboxDocs.lightboxGalleryExampleCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/gallery.tsx"
+
+```
+
+### Ленивое монтирование
+
+Тяжёлое медиа по умолчанию лениво монтируется и размонтируется при закрытии. `lazyMount` откладывает
+рендеринг до первого открытия, а `unmountOnExit` удаляет оверлей после завершения анимации закрытия.
+
+<style>{LightboxDocs.lightboxLazyMountCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/lazy-mount.tsx"
+
+```
+
+### Несколько триггеров
+
+Используйте `Trigger.value` и `onTriggerValueChange(details)` для миниатюр галереи. Компонент не
+поддерживает скрытый реестр изображений.
+
+<style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/multiple-triggers.tsx"
+
+```
+
+### Немодальный режим
+
+Установите `modal={false}` для редких предпросмотров, при которых страница должна оставаться интерактивной.
+В этом режиме Ark отключает удержание фокуса и предотвращение прокрутки. Не добавляйте `Backdrop`: действие
+на фоне останется доступным, пока изображение открыто.
+
+<style>{LightboxDocs.lightboxNonModalCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/non-modal.tsx"
+
+```
+
+### Root Provider и контекст
+
+Создайте состояние с `useLightbox()`, когда элемент открытия находится вне корня. Получайте встроенное
+состояние через `useLightboxContext()` внутри дочернего компонента. Внешний элемент открытия — обычная
+кнопка moduix `Button`.
+
+<style>{LightboxDocs.lightboxRootProviderCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/root-provider-and-context.tsx"
+
+```
+
+### Расширенная настройка
+
+Не используйте необязательные помощники компоновки, когда медиаповерхности нужны пользовательские классы
+слотов и переопределения токенов; `Backdrop`, `Positioner` и `Content` остаются явными.
+
+<style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/lightbox/advanced-customization.tsx"
+
+```
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <LightboxDocs.LightboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- Слоты moduix: `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
+  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
+  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`
+  и `lightbox-gallery`.
+- Хуки состояния и анатомии Ark: `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
+  `data-nested`, `data-has-nested`, `--layer-index` и `--nested-layer-count`.
+- Локальные хуки: `Lightbox.Image` предоставляет `data-slot="lightbox-image"` и необязательный
+  `data-close-on-click`; `Lightbox.Gallery` предоставляет `data-slot="lightbox-gallery"` и стилизует
+  вложенные слоты Carousel.
+- Анимация определяется Ark `data-state`; используйте `present`, только когда управление анимацией в JavaScript
+  должно сохранять содержимое смонтированным.
