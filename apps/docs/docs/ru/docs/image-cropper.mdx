@@ -1,0 +1,224 @@
+---
+title: Image Cropper
+component: image-cropper
+description: Композиция Image Cropper из Ark UI для кадрирования и преобразования изображений.
+---
+
+import * as ImageCropperDocs from '@/components/examples/image-cropper';
+
+<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
+
+## Базовый пример
+
+Используйте `ImageCropper.CropArea` для стандартной области выделения, сетки и маркеров изменения размера.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="image-cropper" />
+
+## Анатомия
+
+```tsx
+<ImageCropper>
+  <ImageCropper.Viewport>
+    <ImageCropper.Image />
+    <ImageCropper.CropArea />
+  </ImageCropper.Viewport>
+</ImageCropper>
+```
+
+| Часть                                | Назначение                                                                               |
+| ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `ImageCropper` / `ImageCropper.Root` | Корневая группа, управляющая состоянием кадрирования, преобразованиями, ARIA-метками и CSS-переменными времени выполнения. |
+| `ImageCropper.RootProvider`          | Корень, отрисованный из экземпляра `useImageCropper`, созданного вне дерева.             |
+| `ImageCropper.Viewport`              | Поверхность для перемещения и область просмотра изображения с отсечением.                |
+| `ImageCropper.Image`                 | Преобразуемый элемент изображения под управлением Ark.                                   |
+| `ImageCropper.Selection`             | Фокусируемое выделение кадра и цель для взаимодействия с клавиатурой.                    |
+| `ImageCropper.Grid`                  | Горизонтальные или вертикальные направляющие кадрирования.                               |
+| `ImageCropper.Handle`                | Маркер изменения размера для каждой позиции из `ImageCropper.handles`.                   |
+| `ImageCropper.CropArea`              | Рекомендуемое выделение с обеими сетками и всеми маркерами изменения размера.            |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `ImageCropper.CropArea` для обычной анатомии кадрирования. Он сохраняет дерево частей Ark нетронутым,
+устраняя повторяющуюся разметку выделения, сетки и маркеров. Передавайте `className`, `gridClassName` или
+`handleClassName`, чтобы стилизовать отрисованные части. Компонент управляет этой дочерней структурой, поэтому при иной
+структуре используйте явные части `Selection`, `Grid` и `Handle` вместо `children` или `asChild`.
+
+### Когда нужна собственная композиция
+
+Используйте `ImageCropper.Context` для панелей инструментов внутри корня. Используйте moduix `useImageCropper` вместе с
+`ImageCropper.RootProvider`, когда элементам управления, предварительному просмотру кадра или интеграции с формой
+нужен API кадрирования вне поддерева корня. Для одного экземпляра состояния не объединяйте `RootProvider` с
+`ImageCropper.Root`.
+
+### Свойства по умолчанию
+
+| Свойство                | По умолчанию                             | Примечания                                                              |
+| ----------------------- | ---------------------------------------- | ----------------------------------------------------------------------- |
+| `cropShape`             | `"rectangle"`                            | Используйте `"circle"` для кадрирования в стиле аватара.              |
+| `defaultZoom`           | `1`                                      | Начальное масштабирование изображения.                                 |
+| `defaultRotation`       | `0`                                      | Начальный поворот изображения в градусах.                              |
+| `defaultFlip`           | `{ horizontal: false, vertical: false }` | Начальное состояние отражения.                                         |
+| `minZoom`               | `1`                                      | Минимальный коэффициент масштабирования.                               |
+| `maxZoom`               | `5`                                      | Максимальный коэффициент масштабирования.                              |
+| `minWidth` / `minHeight` | `40`                                   | Минимальный размер выделения кадра.                                     |
+| `fixedCropArea`         | `false`                                  | Когда значение истинно, пользователь перемещает изображение под фиксированным выделением. |
+
+### Особенности поведения
+
+Ark управляет перетаскиванием указателем, панорамированием, масштабированием колесом и жестом, перемещением с клавиатуры,
+генерируемыми идентификаторами, ARIA-метками и помощниками для результата кадрирования. Клавиши со стрелками перемещают выделение,
+`Alt` со стрелками изменяет его размер, `Shift` и `Ctrl`/`Cmd` используют свойства шага перемещения, а `+` / `-`
+масштабируют. Управляемое состояние сохраняет объекты details Ark через `onCropChange`, `onZoomChange`,
+`onRotationChange` и `onFlipChange`.
+
+## Примеры
+
+### Соотношение сторон
+
+Изменяйте `aspectRatio` из состояния React, когда пользователь выбирает требуемую форму результата.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+
+  ```
+</PreviewFrame>
+
+### Круглое кадрирование
+
+Используйте `cropShape="circle"` с квадратным соотношением сторон для аватаров и изображений профиля.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемый масштаб
+
+Управляйте `zoom` с помощью `onZoomChange` и ограничивайте взаимодействие значениями `minZoom` и `maxZoom`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+
+  ```
+</PreviewFrame>
+
+### Предварительный просмотр кадра
+
+Создавайте кадрировщик с Ark `useImageCropper`, когда другому элементу управления нужно вызвать
+`getCroppedImage()`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+
+  ```
+</PreviewFrame>
+
+### События
+
+Используйте объекты details Ark для синхронизации состояния кадрирования и масштаба с внешним интерфейсом.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"
+
+  ```
+</PreviewFrame>
+
+### Фиксированная область кадрирования
+
+Используйте `fixedCropArea`, когда выделение должно оставаться неподвижным, пока изображение перемещается под ним.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+
+  ```
+</PreviewFrame>
+
+### Начальный кадр
+
+Передайте `initialCrop`, когда кадрировщик должен открываться с известным выделением в пикселях.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+
+  ```
+</PreviewFrame>
+
+### Минимальный и максимальный размер
+
+Ограничивайте изменение размера выделения с помощью `minWidth`, `minHeight`, `maxWidth` и `maxHeight`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `RootProvider` с экземпляром moduix `useImageCropper`, когда панель инструментов или сценарий управляет кадрировщиком
+вне отрисованного корня.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Поворот, отражение и сброс
+
+Читайте `ImageCropper.Context` внутри корня для действий панели инструментов: масштабирования, поворота, отражения и сброса.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `CropArea`, когда для выделения нужна другая структура или пользовательские дочерние части.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Используйте стабильные хуки `data-slot`: `image-cropper-root`, `image-cropper-viewport`,
+`image-cropper-image`, `image-cropper-selection`, `image-cropper-grid` и
+`image-cropper-handle`. Ark также предоставляет `data-scope="image-cropper"`, значения `data-part`,
+`data-shape`, `data-ready`, `data-disabled`, `data-dragging`, `data-panning`, `data-axis` и
+`data-position`.

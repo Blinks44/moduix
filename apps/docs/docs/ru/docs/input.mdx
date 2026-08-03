@@ -1,0 +1,193 @@
+---
+title: Input
+component: input
+description: Обёртка Input из Ark Field с нативными событиями, семантикой форм и стилизацией moduix.
+---
+
+import * as InputDocs from '@/components/examples/input';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив input. Moduix построен на основе
+[Ark Field.Input](https://ark-ui.com/react/docs/components/field) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/react/docs/guides/composition),
+[стилизации](https://ark-ui.com/react/docs/guides/styling) и
+[ref](https://ark-ui.com/react/docs/guides/ref).
+
+## Выбор подходящего компонента
+
+- Выберите **`Input`** для обычного однострочного нативного поля ввода.
+- Выберите **`InputGroup`** для встроенных дополнений, текста или действий.
+- Выберите **`PasswordInput`** для существующей обёртки с переключателем видимости.
+- Выберите **`NumberInput`** для разбора чисел и изменения значения по шагам.
+- Выберите **`Textarea`** для многострочного содержимого.
+- Выберите **`Editable`** для текста, который сначала показывается, а затем переключается в режим редактирования.
+
+## Базовый пример
+
+Используйте `Input` внутри `Field`, чтобы Ark мог связать метку, поясняющий текст, идентификаторы и состояние формы.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="input" />
+
+## Анатомия
+
+```text
+Field.Root (optional)
+└─ Input
+```
+
+| Часть                   | Назначение                                                                  |
+| ----------------------- | --------------------------------------------------------------------------- |
+| `Input` / `Input.Root` | Стилизованный `Field.Input` Ark, отрисовывающий нативный однострочный элемент управления. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Отрисовывайте `Input` внутри `Field` для меток, поясняющего текста или текста ошибки, идентификаторов и общего состояния
+`disabled`, `invalid`, `required` или `readOnly`. `Fieldset` может предоставлять состояние `disabled` вложенным полям.
+
+Используйте нативные свойства и события input. В управляемых полях используются `value` и `onChange(event)`;
+в неуправляемых — `defaultValue`.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, когда один семантический элемент input должен владеть отрисованным узлом. Ark объединяет свойства
+обёртки, поля, класс и ref в этом единственном дочернем элементе.
+
+Для элемента управления, несовместимого с input, не пытайтесь использовать `Input`; скомпонуйте его с
+компонентом, которому принадлежит правильный примитив элемента управления Ark.
+
+### Свойства по умолчанию
+
+| Свойство   | По умолчанию | Примечания                                                                |
+| ---------- | ------------ | ------------------------------------------------------------------------- |
+| `size`     | `md`         | Визуальный размер: `xs`, `sm`, `md`, `lg` или `xl`.                      |
+| `htmlSize` | —            | Задаёт нативное символьное значение `input[size]` и по умолчанию использует его ширину. |
+| `asChild`  | `false`      | Объединяет свойства в одном семантическом дочернем элементе через Ark Slot. |
+
+### Особенности поведения
+
+- Ref указывает на настоящий `HTMLInputElement`.
+- `HiddenInput` не нужен, поскольку `Input` — нативный элемент управления формы.
+- Ark `Field` предоставляет `aria-describedby`, `aria-invalid`, идентификаторы и свойства состояния.
+- `Input` не управляет значением, валидностью, фокусом или навигацией с клавиатуры.
+
+## Примеры
+
+### Управляемое поле
+
+Используйте нативное событие изменения, когда React управляет текущим значением.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Отключённое и только для чтения
+
+Используйте нативные свойства напрямую или задавайте их на `Field.Root`, когда всё поле должно иметь общее состояние.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+
+```
+</PreviewFrame>
+
+### Состояние поля
+
+Задавайте состояние `invalid` на `Field`; Ark применяет `aria-invalid` и `data-invalid` к input и
+связывает текст ошибки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+
+```
+</PreviewFrame>
+
+### Нативные атрибуты
+
+Нативные атрибуты продолжают управлять валидацией браузера, клавиатурой, автозаполнением и отправкой
+формы. Используйте `htmlSize` только для ширины в символах.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+
+```
+</PreviewFrame>
+
+### Выбор файла
+
+`Input` сохраняет доступ к нативному выборщику файлов для простых форм. Используйте `FileUpload`, когда нужно управлять
+выбором, dropzone или интерфейсом жизненного цикла загрузки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+
+```
+</PreviewFrame>
+
+### Размеры
+
+Свойство moduix `size` меняет визуальную плотность, не заменяя нативный атрибут `size`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+
+```
+</PreviewFrame>
+
+### Автономное поле
+
+Вне `Field` явно задавайте доступное имя. Нативные свойства состояния по-прежнему работают, но контекст поля
+не предоставляет идентификаторы или связи с поясняющим текстом и текстом ошибки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `asChild` только тогда, когда пользовательский узел input должен владеть отрисованным узлом; сохраняйте один
+семантический фокусируемый элемент input, который может получить переданные свойства и ref.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <InputDocs.InputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="input-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` и `data-part="input"`
+- `data-invalid`, `data-required` и `data-readonly` Ark внутри `Field`
+- нативные `:disabled`, `:read-only`, `:focus-visible` и `[aria-invalid="true"]`

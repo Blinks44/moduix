@@ -168,6 +168,11 @@
   { "type": "file", "name": "heading", "tag": "component" },
   { "type": "file", "name": "highlight", "tag": "component" },
   { "type": "file", "name": "hover-card", "tag": "component" },
+  { "type": "file", "name": "image", "tag": "component" },
+  { "type": "file", "name": "image-cropper", "tag": "component" },
+  { "type": "file", "name": "input", "tag": "component" },
+  { "type": "file", "name": "input-group", "tag": "component" },
+  { "type": "file", "name": "kbd", "tag": "component" },
   {
     "type": "section-header",
     "label": "AI"

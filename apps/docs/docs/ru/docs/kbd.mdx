@@ -1,0 +1,152 @@
+---
+title: Kbd
+component: kbd
+description: Компактная клавиша для сочетаний клавиш и подсказок команд.
+---
+
+import * as KbdDocs from '@/components/examples/kbd';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив kbd. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Базовый пример
+
+Начните с `Kbd` для одной клавиши и используйте `Kbd.Group`, когда несколько клавиш образуют одно сочетание.
+
+<style>{`
+      .kbd-demo-shortcut {
+        display: inline-flex;
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/kbd/basic.tsx"
+
+```
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="kbd" />
+
+## Анатомия
+
+Обычный путь для потребителя краток:
+
+```text
+Kbd.Group
+├─ Kbd / Kbd.Root
+├─ +
+└─ Kbd / Kbd.Root
+```
+
+| Часть               | Назначение                                                   |
+| ------------------- | ------------------------------------------------------------ |
+| `Kbd` / `Kbd.Root` | Полиморфный корень клавиши; по умолчанию отрисовывает `kbd`. |
+| `Kbd.Group`         | Полиморфная встроенная обёртка для комбинаций клавиш.        |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `Kbd` как сокращённую форму корня и `Kbd.Group` для подсказок сочетаний, меню команд и встроенной справки.
+
+`Kbd` и `Kbd.Root` принимают `HTMLArkProps<'kbd'>`; `Kbd.Group` принимает `HTMLArkProps<'span'>`.
+Каждая часть перенаправляет свой ref к отрисованному элементу и поддерживает `asChild`.
+Нет API вариантов, размеров, разделителей, колбэков или состояния.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, когда существующий семантический элемент `<kbd>` должен получить стили moduix и поведение
+композиции Ark. Дочерним элементом должен быть один элемент, сохраняющий семантику клавиатурного ввода.
+
+### Особенности поведения
+
+- `Kbd`, `Kbd.Root` и `Kbd.Group` — статические подписи сочетаний, а не интерактивные элементы управления.
+- Разделители, такие как `+`, `/` или `then`, остаются обычным текстом в простой композиции.
+- Добавляйте `aria-label` к `Kbd.Group`, когда сокращениям или символам нужна более понятная речевая форма.
+- Части предоставляют `data-scope="kbd"`, `data-part` и стабильные атрибуты `data-slot`.
+
+## Примеры
+
+### Компактная плотность
+
+Используйте локальные CSS-переменные для разовой настройки плотности или тона вместо дополнительных свойств компонента.
+
+<style>{`
+      .kbd-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .kbd-demo-dense {
+        --moduix-kbd-height: 1.25rem;
+        --moduix-kbd-min-width: 1.25rem;
+        --moduix-kbd-padding-x: var(--moduix-spacing-1);
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/kbd/compact-density.tsx"
+
+```
+
+### Пользовательский элемент
+
+Используйте `asChild`, чтобы объединить свойства Kbd с одним семантическим дочерним элементом, когда другой слой владеет элементом.
+
+```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
+
+```
+
+### Список сочетаний
+
+Используйте простую композицию, когда сочетания должны располагаться рядом с окружающим текстом.
+
+<style>{`
+      .kbd-demo-shortcut-list {
+        display: grid;
+        gap: var(--moduix-spacing-3);
+      }
+
+      .kbd-demo-shortcut-row {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+        color: var(--moduix-color-muted-foreground);
+        font-size: var(--moduix-text-sm);
+        line-height: var(--moduix-line-height-text-sm);
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/kbd/shortcut-list.tsx"
+
+```
+
+### Одна клавиша
+
+Используйте `Kbd` напрямую, когда интерфейс ссылается на одну клавишу.
+
+```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
+
+```
+
+## Стилизация
+
+Стилизуйте `Kbd` и `Kbd.Group` через `className`, атрибуты анатомии Ark, стабильные хуки `data-slot` и публичные
+CSS-переменные `--moduix-kbd-*`, приведённые ниже.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
+
+### Хуки стилизации
+
+- `data-slot="kbd-root"` выбирает отдельный элемент клавиши
+- `data-slot="kbd-group"` выбирает встроенную обёртку для сгруппированных сочетаний
+- `[data-scope="kbd"][data-part="root"]` и `[data-part="group"]` предоставляют селекторы анатомии в стиле Ark
+- `Kbd.Group` наследует стили текста для разделителей, а `--moduix-kbd-group-separator-color` управляет их цветом

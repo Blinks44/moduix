@@ -1,0 +1,172 @@
+---
+title: Input Group
+component: input-group
+description: Композиция в стиле Ark для одного поля ввода со встроенными дополнениями, текстом и действиями.
+---
+
+import * as InputGroupDocs from '@/components/examples/input-group';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив input-group. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Выбор подходящего компонента
+
+- Выберите **`Input`** для обычного однострочного поля.
+- Выберите **`InputGroup`** для встроенных префиксов, суффиксов, текста или действий.
+- Выберите **`Editable`** для текста, который сначала показывается, а затем переключается в режим редактирования.
+- Выберите **`PasswordInput`** для существующей композиции с видимостью пароля.
+- Выберите **`NumberInput`**, когда важно числовое поведение.
+
+## Базовый пример
+
+Скомпонуйте одно сгруппированное поле ввода только с теми презентационными частями, которые нужны полю.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/basic.tsx"
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="input-group" />
+
+## Анатомия
+
+```text
+InputGroup / InputGroup.Root
+├─ InputGroup.Addon (optional)
+├─ InputGroup.Input
+├─ InputGroup.Text (optional)
+└─ InputGroup.Button (optional)
+```
+
+| Часть                            | Назначение                                                          |
+| -------------------------------- | ------------------------------------------------------------------- |
+| `InputGroup` / `InputGroup.Root` | Корень Ark factory для общей раскладки, границы, фокуса и размера. |
+| `InputGroup.Input`               | Нативное поле ввода на основе Ark и владелец значения формы.       |
+| `InputGroup.Addon`               | Заполненный презентационный префикс или суффикс.                    |
+| `InputGroup.Text`                | Незаполненный встроенный презентационный текст.                     |
+| `InputGroup.Button`              | Нативное действие-кнопка с визуальными настройками группы по умолчанию. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте ровно один `InputGroup.Input`. Размещайте дополнения, текст или кнопки до или после него. Помещайте
+композицию внутрь `Field`, когда ей нужны метка, поясняющий текст, текст ошибки, идентификаторы или общее состояние.
+
+`InputGroup.Input` использует нативные события input. В управляемых полях используются `value` и `onChange(event)`.
+Корневой `size` наследуют input и кнопка.
+
+### Когда нужна собственная композиция
+
+`InputGroup`, `InputGroup.Addon` и `InputGroup.Text` поддерживают Ark `asChild`. Дочерний элемент корня должен
+оставаться контейнером; дочерние элементы дополнения и текста должны оставаться презентационными и принимать переданные свойства
+и ref.
+
+Используйте `InputGroup.Button` для действий вместо того, чтобы делать интерактивным дополнение. Используйте `role="group"` с
+доступным именем только тогда, когда автономной композиции действительно нужна семантика группы.
+
+### Свойства по умолчанию
+
+| Часть / свойство            | По умолчанию          |
+| --------------------------- | --------------------- |
+| `InputGroup.size`           | `md`                  |
+| `InputGroup.Input.size`     | наследуется от корня  |
+| `InputGroup.Button.size`    | наследуется от корня  |
+| `InputGroup.Button.variant` | `ghost`               |
+| `InputGroup.Button.type`    | `button`              |
+
+### Особенности поведения
+
+- Ref input указывает на настоящий `HTMLInputElement`.
+- Корень не управляет значением, валидацией, ARIA-идентификаторами, хуками контекста или `HiddenInput`.
+- Стили невалидного, отключённого и доступного только для чтения корня зависят от состояния вложенного input.
+
+## Примеры
+
+### Отключённое состояние
+
+Состояние `disabled` остаётся на нативном input. Явно отключайте связанные действия, когда они также должны стать недоступными.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/disabled.tsx"
+  ```
+</PreviewFrame>
+
+### Состояние поля
+
+Задайте невалидное состояние на `Field`; Ark применяет состояние и контракт ARIA к `InputGroup.Input`, а оболочка
+реагирует на это состояние input.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/field-state.tsx"
+  ```
+</PreviewFrame>
+
+### Префикс и суффикс
+
+Сочетайте заполненное дополнение с обычным текстом, когда у двух сторон разный визуальный вес.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/prefix-and-suffix.tsx"
+  ```
+</PreviewFrame>
+
+### Размеры
+
+Задавайте размер один раз на корне, чтобы input, дополнение, текст и кнопка оставались выровненными.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/sizes.tsx"
+  ```
+</PreviewFrame>
+
+### С действием
+
+Используйте сгруппированную кнопку для действия, связанного со значением нативного input.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/with-action.tsx"
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `asChild`, когда корень должен отрисовать пользовательский контейнер, сохраняя стилизацию группы и контекст
+размера. Это обходит стандартный `div`, поэтому дочерний элемент должен оставаться семантическим контейнером раскладки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input-group/as-child.tsx"
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <InputGroupDocs.InputGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="input-group-root"` и `data-size`
+- `data-scope="input-group"` и `data-part="root" | "addon" | "text"` на частях factory
+- `data-slot="input-root"` вместе с атрибутами состояния input Ark Field
+- `data-slot="input-group-addon"`
+- `data-slot="input-group-text"`
+- `data-slot="input-group-button"` на сгруппированной кнопке действия
+- вложенные состояния `data-invalid`, `aria-invalid`, `disabled` и `readOnly` через `:has(...)` корня
