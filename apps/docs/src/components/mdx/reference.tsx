@@ -1,4 +1,4 @@
-import { BrowserOnly } from '@rspress/core/runtime';
+import { BrowserOnly, useI18n } from '@rspress/core/runtime';
 import * as React from 'react';
 import styles from './Reference.module.css';
 
@@ -130,21 +130,23 @@ function CSSPropertiesEditor({
   onChange,
   onReset,
 }: CSSPropertiesEditorContext) {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
     <div>
       <div className={styles.editorActions}>
         <button type="button" className={styles.reset} onClick={onReset}>
-          Reset
+          {t('cssReset')}
         </button>
       </div>
       <div className={styles.tableScroll}>
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Property</th>
-              <th>Value</th>
-              <th>Default</th>
-              <th>Description</th>
+              <th>{t('cssProperty')}</th>
+              <th>{t('cssValue')}</th>
+              <th>{t('cssDefault')}</th>
+              <th>{t('cssDescription')}</th>
             </tr>
           </thead>
           <tbody>
@@ -179,14 +181,16 @@ function CSSPropertiesEditor({
 }
 
 function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[] }) {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
     <div className={styles.tableScroll}>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Property</th>
-            <th>Default</th>
-            <th>Description</th>
+            <th>{t('cssProperty')}</th>
+            <th>{t('cssDefault')}</th>
+            <th>{t('cssDescription')}</th>
           </tr>
         </thead>
         <tbody>

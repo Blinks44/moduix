@@ -1,0 +1,190 @@
+---
+title: Avatar
+component: avatar
+description: Компактное представление пользователя с загрузкой изображения и резервным содержимым Ark UI.
+---
+
+import * as AvatarDocs from '@/components/examples/avatar';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+
+## Базовый пример
+
+Скомпонуйте `Avatar`, `Avatar.Fallback` и `Avatar.Image`. Оставляйте резервный элемент смонтированным, чтобы Ark UI мог
+переключаться между ним и изображением при изменении состояния загрузки.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="avatar" />
+
+## Анатомия
+
+```text
+Avatar.Root | Avatar.RootProvider
+├─ Avatar.Fallback
+└─ Avatar.Image
+```
+
+| Часть                    | Назначение                                                                |
+| ------------------------ | ------------------------------------------------------------------------- |
+| `Avatar` / `Avatar.Root` | Создаёт и хранит состояние Avatar из Ark UI.                              |
+| `Avatar.RootProvider`    | Отрисовывает Avatar из созданного извне состояния Ark UI.                 |
+| `Avatar.Fallback`        | Показывает инициалы, иконку или пользовательское содержимое до загрузки изображения. |
+| `Avatar.Image`           | Показывает нативное изображение после успешной загрузки.                  |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для обычного варианта используйте `Avatar`. `Avatar.Root` остаётся доступен, если нужно явное пространство имён,
+согласованное с Ark. `onStatusChange(details)` сообщает состояние загрузки Ark, а `ids`
+предоставляет стабильные идентификаторы для корня, изображения и резервного содержимого. Все DOM-части перенаправляют свои ref и
+поддерживают Ark `asChild`.
+
+`Avatar.Image` отрисовывает `img`, поэтому указывайте осмысленный текст `alt`, если изображение передаёт информацию о пользователе.
+Используйте `alt=""`, когда окружающая ссылка или кнопка уже имеет доступное имя.
+
+`Avatar.Fallback name="Alex T."` получает инициалы для распространённого случая. Передавайте дочерние элементы, если требуется
+пользовательское резервное содержимое; явные дочерние элементы имеют приоритет над `name`.
+
+### Когда нужна собственная композиция
+
+Используйте `useAvatar` из `@moduix/react` вместе с `Avatar.RootProvider`, если состояние нужно создать вне
+отрисовываемого Avatar. Не отрисовывайте `Avatar.Root` вокруг того же экземпляра состояния `RootProvider`.
+
+Для компонентов изображений фреймворка используйте `useAvatarContext()` из `@moduix/react` и сохраняйте поведение Ark
+для скрытого/видимого состояния. Более редкие поверхности контекста и псевдонимы типов только Ark оставляйте в
+`@ark-ui/react/avatar`.
+
+Используйте `asChild` с одним семантическим дочерним элементом, если ссылка, кнопка или компонент фреймворка должны владеть DOM-узлом части.
+
+### Свойства по умолчанию
+
+| Поверхность                                    | Свойство | Визуальное значение по умолчанию | Значения                      |
+| ---------------------------------------------- | -------- | -------------------------------- | ----------------------------- |
+| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size`   | `md`                             | `xs`, `sm`, `md`, `lg`, `xl`  |
+
+Если `size` не задан, Avatar использует визуальные токены `md`, не устанавливая `data-size`. Передайте
+`size="md"`, если селекторам нужен этот атрибут.
+
+### Особенности поведения
+
+- Ark управляет `data-state="visible" | "hidden"` на `Avatar.Image` и `Avatar.Fallback`.
+- `Avatar.Fallback` получает инициалы из `name` только если не переданы дочерние элементы.
+- `onStatusChange` получает объект details; считывайте текущее значение из `details.status`.
+- При отсутствии изображения или ошибке его загрузки резервное содержимое остаётся видимым.
+- `Avatar.RootProvider` требует `value`, возвращаемый `useAvatar`.
+- `useAvatar` и `useAvatarContext` доступны из `@moduix/react`.
+- `Avatar.Context` доступен из `@moduix/react`; псевдонимы типов Ark остаются в `@ark-ui/react/avatar`.
+- moduix добавляет только визуальные значения по умолчанию, стабильные хуки `data-slot`, CSS-переменные и `size`.
+
+## Примеры
+
+### Пользовательское резервное содержимое
+
+Резервным содержимым может быть иконка или другой компактный идентификатор. Добавьте доступное имя, если
+само резервное содержимое передаёт информацию, которой нет в ближайшем тексте.
+
+<style>{AvatarDocs.avatarFallbackCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-fallback.tsx"
+
+```
+
+</PreviewFrame>
+
+### Пользовательское изображение
+
+Используйте `useAvatarContext()` из moduix, если компонент изображения фреймворка или пользовательский рендерер должен
+участвовать в жизненном цикле загрузки Ark.
+
+<style>{AvatarDocs.avatarCustomImageCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-image.tsx"
+
+```
+</PreviewFrame>
+
+### События
+
+Используйте `onStatusChange(details)`, если окружающий интерфейс должен реагировать на жизненный цикл изображения.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/events.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Создавайте состояние с помощью `useAvatar` из moduix, если элементы управления вне Avatar должны координироваться
+с ним, а затем отрисовывайте `Avatar.RootProvider` вместо `Avatar.Root`.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Размеры и только резервное содержимое
+
+Сокращённое свойство moduix `size` сопоставляет распространённые размеры токенов дизайна с любым корневым компонентом.
+Avatar только с резервным содержимым допустим, если источник изображения отсутствует.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `asChild`, если интерактивным элементом является сам Avatar. Так можно обойти DOM-узел корневого элемента по умолчанию,
+сохраняя при этом явными состояние Ark, поведение резервного содержимого и композицию частей.
+
+<style>{AvatarDocs.avatarCompositionCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-composition.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Используйте `className` и CSS-переменные moduix для визуальных изменений. Используйте атрибуты данных Ark, когда стили
+зависят от состояния изображения.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+
+### Хуки стилизации
+
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image` и `avatar-fallback`.
+- Хуки анатомии Ark: `data-scope="avatar"` и
+  `data-part="root" | "image" | "fallback"`.
+- Состояние изображения Ark: `data-state="visible" | "hidden"` на `Avatar.Image` и
+  `Avatar.Fallback`.
+- Состояние размера moduix: `data-size="xs" | "sm" | "md" | "lg" | "xl"` на
+  `Avatar.Root` и `Avatar.RootProvider`, когда передан `size`.

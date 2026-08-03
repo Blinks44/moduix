@@ -1,7 +1,9 @@
+import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
+import { cssDescriptionKeys } from './css-description-keys';
 import {
   CSSPropertiesReferenceTable,
   ExampleFrame,
@@ -11,11 +13,13 @@ import {
 } from './reference';
 
 function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; label?: string }) {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
     <aside className={styles.reference}>
       <div>
-        <strong>Upstream primitive API</strong>
-        <p>Behavior, accessibility details, and low-level props live in the upstream reference.</p>
+        <strong>{t('primitiveReferenceTitle')}</strong>
+        <p>{t('primitiveReferenceDescription')}</p>
       </div>
       <a href={href} target="_blank" rel="noreferrer">
         {label}
@@ -36,19 +40,21 @@ function ShadcnInstall({
   dependencies?: string[];
 }) {
   const packageNames = Array.isArray(packageName) ? packageName : [packageName];
+  const t = useI18n<typeof import('i18n')>();
+  const displayItemLabel = itemLabel === 'component' ? t('shadcnComponentLabel') : itemLabel;
 
   return (
     <div className={styles.install}>
       <p>
         {copiedSource ? (
           <>
-            Copy this {itemLabel} and its CSS from the tabs above, then add the moduix components it
-            uses:
+            {t('shadcnCopyPrefix')} {displayItemLabel} {t('shadcnCopySuffix')}
           </>
         ) : (
           <>
-            If you want this {itemLabel} in your project source instead of <code>node_modules</code>
-            , install it from the hosted moduix registry:
+            {t('shadcnInstallPrefix')} {displayItemLabel} {t('shadcnInstallMiddle')}{' '}
+            <code>node_modules</code>
+            {t('shadcnInstallSuffix')}
           </>
         )}
       </p>
@@ -59,7 +65,7 @@ function ShadcnInstall({
       {dependencies.length > 0 ? (
         <>
           <p>
-            This example also requires{' '}
+            {t('shadcnExampleRequires')}{' '}
             {dependencies.map((dependency, index) => (
               <code key={dependency}>{index > 0 ? ` ${dependency}` : dependency}</code>
             ))}
@@ -73,15 +79,27 @@ function ShadcnInstall({
 }
 
 function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
+  const t = useI18n<typeof import('i18n')>();
+  const normalizedProperties = normalizeCssProperties(properties).map((property) => ({
+    ...property,
+    description: hasCssDescriptionKey(property.name)
+      ? t(cssDescriptionKeys[property.name])
+      : property.description,
+  }));
+
   return (
     <div className={styles.cssProperties}>
-      <Tabs values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}>
+      <Tabs values={[{ label: t('cssVariables'), value: 'CSS Variables' }]}>
         <Tab value="CSS Variables">
-          <CSSPropertiesReferenceTable properties={normalizeCssProperties(properties)} />
+          <CSSPropertiesReferenceTable properties={normalizedProperties} />
         </Tab>
       </Tabs>
     </div>
   );
+}
+
+function hasCssDescriptionKey(name: string): name is keyof typeof cssDescriptionKeys {
+  return Object.hasOwn(cssDescriptionKeys, name);
 }
 
 function Cards({ children }: { children: ReactNode }) {

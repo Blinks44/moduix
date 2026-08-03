@@ -58,6 +58,35 @@
   },
   {
     "type": "section-header",
+    "label": "Компоненты"
+  },
+  {
+    "type": "file",
+    "name": "accordion",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "alert",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "angle-slider",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "aspect-ratio",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "avatar",
+    "tag": "component"
+  },
+  {
+    "type": "section-header",
     "label": "AI"
   },
   {

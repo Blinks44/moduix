@@ -1,0 +1,202 @@
+---
+title: Alert
+component: alert
+description: Встроенная обратная связь для статусов, валидации и системных сообщений.
+---
+
+import * as AlertDocs from '@/components/examples/alert';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `alert`. Moduix строит этот компонент с помощью официальной
+[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+Публичные части: `Alert.Root`, `Alert.Indicator`, `Alert.Content`, `Alert.Title`,
+`Alert.Description` и `Alert.Actions`.
+
+## Выбор подходящего компонента
+
+Используйте `Alert`, если сообщение должно оставаться встроенным в макет страницы и участвовать в обычном
+потоке документа.
+
+- Выберите **`Alert`** для встроенных сообщений о статусе, валидации и системе в формах, панелях или содержимом страницы.
+- Выберите **`Toast`** для кратковременных уведомлений, которые появляются вне потока документа и закрываются самостоятельно.
+
+## Базовый пример
+
+Начните с `Alert`, `Alert.Title` и `Alert.Description`. Добавьте `Alert.Indicator`, если сообщению
+полезен наглядный индикатор в начале.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="alert" />
+
+Этот способ установки также добавляет общие базовые файлы moduix, от которых зависит `Alert`,
+например стили, иконки и небольшие утилиты.
+
+## Анатомия
+
+```text
+Alert / Alert.Root
+├─ Alert.Indicator (optional)
+├─ Alert.Title
+├─ Alert.Description
+└─ Alert.Content (optional)
+   ├─ Alert.Title
+   ├─ Alert.Description
+   ├─ Alert.Actions (optional)
+   └─ Extra custom blocks
+```
+
+| Часть                  | Назначение                                                            | `data-part`   |
+| ---------------------- | --------------------------------------------------------------------- | ------------- |
+| `Alert` / `Alert.Root` | Корневой слот. Применяет стили и семантику статуса.                  | `root`        |
+| `Alert.Indicator`      | Необязательный слот индикатора. Единообразно задаёт размер дочерним SVG-иконкам. | `indicator`   |
+| `Alert.Content`        | Необязательная обёртка-колонка для сгруппированного текста и действий. | `content`     |
+| `Alert.Title`          | Слот заголовка уведомления. По умолчанию отрисовывает `p`.           | `title`       |
+| `Alert.Description`    | Слот дополнительного текста сообщения.                               | `description` |
+| `Alert.Actions`        | Необязательная строка с переносом для элементов действий внутри содержимого. | `actions`     |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для распространённого варианта встроенного сообщения используйте напрямую `Alert`, `Alert.Title` и `Alert.Description`.
+
+Используйте `status` для задания назначения: `neutral`, `info`, `success`, `warning` или `error`.
+
+Добавьте `Alert.Indicator`, если уведомлению нужен явный визуальный сигнал. Компонент намеренно
+не предлагает специальных свойств для действий или наборов слотов.
+
+### Когда нужна собственная композиция
+
+Добавьте `Alert.Content`, если текст уведомления должен оставаться в одной колонке с дополнительными встроенными элементами управления,
+локальным состоянием закрытия или пользовательскими блоками. Используйте `Alert.Actions` для строки действий с переносом
+внутри этой колонки, а `Alert.Title asChild` — если в структуре документа нужен другой элемент заголовка.
+
+Используйте `Alert.Title asChild`, если в структуре документа нужен другой элемент заголовка:
+
+```tsx
+<Alert.Title asChild>
+  <h2>Billing issue</h2>
+</Alert.Title>
+```
+
+### Свойства по умолчанию
+
+| Свойство | По умолчанию | Значения / примечания                                             |
+| -------- | ------------ | ----------------------------------------------------------------- |
+| `status` | `neutral`    | `neutral`, `info`, `success`, `warning`, `error`                 |
+| `role`   | Авто         | По умолчанию `role="status"`; для `status="error"` — `role="alert"` |
+
+### Особенности поведения
+
+- `Alert.Root` по умолчанию использует `role="status"` и переключается на `role="alert"` при `status="error"`.
+- Для `Alert.Indicator` по умолчанию задан `aria-hidden="true"`.
+- `Alert.Title` по умолчанию отрисовывает `p` и использует Ark `asChild` для полиморфизма заголовков.
+- Существенный смысл должен быть указан в заголовке или описании, поскольку индикатор остаётся
+  `aria-hidden`.
+- `Alert.Content` необязателен. Используйте его, если заголовок, описание и дополнительные элементы управления должны находиться в одной
+  колонке содержимого рядом с индикатором.
+- `Alert.Actions` необязателен. Используйте его, если кнопки или ссылки должны использовать стили строки действий с переносом по умолчанию.
+- Компонент намеренно является презентационным. Он не управляет состоянием закрытия, фокусом или
+  поведением клавиатуры для встроенных действий.
+
+## Примеры
+
+### Пользовательский заголовок
+
+Используйте `asChild` на `Alert.Title`, если уведомление должно участвовать в определённой структуре документа.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/custom-heading.tsx"
+
+```
+
+</PreviewFrame>
+
+### Ошибка
+
+Используйте `status="error"`, если сообщению требуются семантика настойчивого объявления и более сильное визуальное
+выделение.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/error.tsx"
+
+```
+
+</PreviewFrame>
+
+### Статусы
+
+Используйте `Alert.Indicator` с выбранной иконкой для нейтрального, информационного, успешного, предупреждающего состояний и
+состояния ошибки.
+
+<style>{AlertDocs.alertStatusesCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/statuses.tsx"
+
+```
+
+</PreviewFrame>
+
+### С иконкой
+
+Поместите иконку moduix или пользовательскую SVG внутрь `Alert.Indicator`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/with-icon.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Откажитесь от произвольных обёрток для раскладки и используйте `Alert.Actions`, если сообщению нужен путь восстановления или
+дополнительные элементы управления внутри `Alert.Content`. Храните состояние закрытия в использующем компоненте, если локальное уведомление
+нужно скрывать.
+
+<style>{AlertDocs.alertCustomCompositionCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/alert/custom-composition.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Используйте `className` на корне или частях для локальных стилей. Переопределяйте CSS-переменные `--moduix-alert-*` на
+корне, если уведомлению требуется локальная тема.
+
+Встроенные статусы также используют общие токены палитры:
+
+| Статус     | Общий токен                  | По умолчанию                 |
+| ---------- | ---------------------------- | ---------------------------- |
+| `info`     | `--moduix-color-primary`     | основной цвет темы            |
+| `success`  | `--moduix-color-success`     | `oklch(0.627 0.194 149.214)` |
+| `warning`  | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
+| `error`    | `--moduix-color-destructive` | деструктивный цвет темы      |
+
+### CSS-свойства
+
+<CssPropertiesSection properties={AlertDocs.alertCssProperties} />
+
+### Хуки стилизации
+
+- Стабильные селекторы `data-slot`: `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
+  `alert-description` и `alert-actions`
+- Селекторы в стиле Ark: `data-scope="alert"` с `data-part="root"`, `indicator`, `content`,
+  `title`, `description` или `actions`
+- `Alert.Root` записывает выбранный статус в `data-status`

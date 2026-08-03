@@ -92,5 +92,495 @@
   "homeActiveWorkspace": { "en": "Active workspace", "ru": "Активное рабочее пространство" },
   "homeSelected": { "en": "Selected", "ru": "Выбрано" },
   "homePattern": { "en": "Pattern", "ru": "Паттерн" },
-  "homeSelectParts": { "en": "Field, trigger, list", "ru": "Поле, триггер, список" }
+  "homeSelectParts": { "en": "Field, trigger, list", "ru": "Поле, триггер, список" },
+  "primitiveReferenceTitle": { "en": "Upstream primitive API", "ru": "API исходного примитива" },
+  "primitiveReferenceDescription": {
+    "en": "Behavior, accessibility details, and low-level props live in the upstream reference.",
+    "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке."
+  },
+  "shadcnInstallPrefix": { "en": "If you want this", "ru": "Если вы хотите добавить этот" },
+  "shadcnComponentLabel": { "en": "component", "ru": "компонент" },
+  "shadcnInstallMiddle": {
+    "en": "in your project source instead of",
+    "ru": "в исходный код проекта вместо"
+  },
+  "shadcnInstallSuffix": {
+    "en": ", install it from the hosted moduix registry:",
+    "ru": ", установите его из размещённого реестра moduix:"
+  },
+  "shadcnCopyPrefix": { "en": "Copy this", "ru": "Скопируйте этот" },
+  "shadcnCopySuffix": {
+    "en": "and its CSS from the tabs above, then add the moduix components it uses:",
+    "ru": "и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
+  },
+  "shadcnExampleRequires": {
+    "en": "This example also requires",
+    "ru": "Для этого примера также требуется"
+  },
+  "cssProperty": { "en": "Property", "ru": "Свойство" },
+  "cssVariables": { "en": "CSS Variables", "ru": "CSS-переменные" },
+  "cssValue": { "en": "Value", "ru": "Значение" },
+  "cssDefault": { "en": "Default", "ru": "По умолчанию" },
+  "cssDescription": { "en": "Description", "ru": "Описание" },
+  "cssReset": { "en": "Reset", "ru": "Сбросить" },
+  "cssDescriptionModuixAccordionColor": {
+    "en": "Controls accordion text color.",
+    "ru": "Управляет цветом текста аккордеона."
+  },
+  "cssDescriptionModuixAccordionDisabledOpacity": {
+    "en": "Controls disabled item opacity.",
+    "ru": "Управляет прозрачностью недоступного элемента."
+  },
+  "cssDescriptionModuixAccordionFocusRingColor": {
+    "en": "Controls trigger focus ring color.",
+    "ru": "Управляет цветом кольца фокуса триггера."
+  },
+  "cssDescriptionModuixAccordionFocusRingOffset": {
+    "en": "Controls trigger focus ring offset from trigger edge.",
+    "ru": "Управляет смещением кольца фокуса триггера от его края."
+  },
+  "cssDescriptionModuixAccordionFocusRingWidth": {
+    "en": "Controls trigger focus ring outline width.",
+    "ru": "Управляет толщиной обводки кольца фокуса триггера."
+  },
+  "cssDescriptionModuixAccordionHorizontalContentWidth": {
+    "en": "Controls the inner content width for horizontal accordions.",
+    "ru": "Управляет шириной внутреннего содержимого горизонтальных аккордеонов."
+  },
+  "cssDescriptionModuixAccordionHorizontalHeight": {
+    "en": "Controls horizontal accordion height.",
+    "ru": "Управляет высотой горизонтального аккордеона."
+  },
+  "cssDescriptionModuixAccordionHorizontalMaxHeight": {
+    "en": "Controls horizontal accordion maximum height.",
+    "ru": "Управляет максимальной высотой горизонтального аккордеона."
+  },
+  "cssDescriptionModuixAccordionHorizontalTriggerWidth": {
+    "en": "Controls trigger width in horizontal orientation.",
+    "ru": "Управляет шириной триггера при горизонтальной ориентации."
+  },
+  "cssDescriptionModuixAccordionHorizontalWidth": {
+    "en": "Controls horizontal accordion width.",
+    "ru": "Управляет шириной горизонтального аккордеона."
+  },
+  "cssDescriptionModuixAccordionIconOpenTransform": {
+    "en": "Controls indicator transform when the item is open.",
+    "ru": "Управляет трансформацией индикатора при открытом элементе."
+  },
+  "cssDescriptionModuixAccordionIconSize": {
+    "en": "Controls indicator icon size.",
+    "ru": "Управляет размером иконки индикатора."
+  },
+  "cssDescriptionModuixAccordionIconTransition": {
+    "en": "Controls indicator transition.",
+    "ru": "Управляет переходом индикатора."
+  },
+  "cssDescriptionModuixAccordionItemBorderColor": {
+    "en": "Controls the separator color between accordion items.",
+    "ru": "Управляет цветом разделителя между элементами аккордеона."
+  },
+  "cssDescriptionModuixAccordionItemBorderWidth": {
+    "en": "Controls the separator width between accordion items.",
+    "ru": "Управляет толщиной разделителя между элементами аккордеона."
+  },
+  "cssDescriptionModuixAccordionItemBodyGap": {
+    "en": "Controls spacing between elements in item body.",
+    "ru": "Управляет промежутком между элементами в теле элемента."
+  },
+  "cssDescriptionModuixAccordionItemBodyPadding": {
+    "en": "Controls item body padding.",
+    "ru": "Управляет внутренними отступами тела элемента."
+  },
+  "cssDescriptionModuixAccordionItemContentClosedOpacity": {
+    "en": "Controls content opacity at the closed end of the animation.",
+    "ru": "Управляет прозрачностью содержимого в закрытом конце анимации."
+  },
+  "cssDescriptionModuixAccordionItemContentColor": {
+    "en": "Controls item content text color.",
+    "ru": "Управляет цветом текста содержимого элемента."
+  },
+  "cssDescriptionModuixAccordionItemContentFontSize": {
+    "en": "Controls item content font size.",
+    "ru": "Управляет размером шрифта содержимого элемента."
+  },
+  "cssDescriptionModuixAccordionItemContentLineHeight": {
+    "en": "Controls item content line height.",
+    "ru": "Управляет межстрочным интервалом содержимого элемента."
+  },
+  "cssDescriptionModuixAccordionItemContentOpenOpacity": {
+    "en": "Controls content opacity at the open end of the animation.",
+    "ru": "Управляет прозрачностью содержимого в открытом конце анимации."
+  },
+  "cssDescriptionModuixAccordionItemContentTransition": {
+    "en": "Controls item content open and close animation timing.",
+    "ru": "Управляет длительностью анимации открытия и закрытия содержимого элемента."
+  },
+  "cssDescriptionModuixAccordionMaxWidth": {
+    "en": "Controls the maximum accordion width.",
+    "ru": "Управляет максимальной шириной аккордеона."
+  },
+  "cssDescriptionModuixAccordionTriggerBg": {
+    "en": "Controls trigger background color.",
+    "ru": "Управляет цветом фона триггера."
+  },
+  "cssDescriptionModuixAccordionTriggerBgActive": {
+    "en": "Controls trigger background color while pressed.",
+    "ru": "Управляет цветом фона триггера при нажатии."
+  },
+  "cssDescriptionModuixAccordionTriggerBgHover": {
+    "en": "Controls trigger background color on hover.",
+    "ru": "Управляет цветом фона триггера при наведении."
+  },
+  "cssDescriptionModuixAccordionTriggerFontSize": {
+    "en": "Controls trigger text font size.",
+    "ru": "Управляет размером шрифта текста триггера."
+  },
+  "cssDescriptionModuixAccordionTriggerGap": {
+    "en": "Controls spacing between trigger content and indicator.",
+    "ru": "Управляет промежутком между содержимым триггера и индикатором."
+  },
+  "cssDescriptionModuixAccordionTriggerLineHeight": {
+    "en": "Controls trigger text line height.",
+    "ru": "Управляет межстрочным интервалом текста триггера."
+  },
+  "cssDescriptionModuixAccordionTriggerPaddingX": {
+    "en": "Controls trigger horizontal padding.",
+    "ru": "Управляет горизонтальными внутренними отступами триггера."
+  },
+  "cssDescriptionModuixAccordionTriggerPaddingY": {
+    "en": "Controls trigger vertical padding.",
+    "ru": "Управляет вертикальными внутренними отступами триггера."
+  },
+  "cssDescriptionModuixAccordionWidth": {
+    "en": "Controls the default accordion width.",
+    "ru": "Управляет шириной аккордеона по умолчанию."
+  },
+  "cssDescriptionModuixAlertActionsGap": {
+    "en": "Controls gap between action elements.",
+    "ru": "Управляет промежутком между элементами действий."
+  },
+  "cssDescriptionModuixAlertActionsMarginTop": {
+    "en": "Controls spacing before the actions row.",
+    "ru": "Управляет отступом перед строкой действий."
+  },
+  "cssDescriptionModuixAlertBg": {
+    "en": "Controls alert background.",
+    "ru": "Управляет фоном уведомления."
+  },
+  "cssDescriptionModuixAlertBgDefault": {
+    "en": "Provides the status-derived fallback for the alert background.",
+    "ru": "Предоставляет резервное значение фона уведомления, зависящее от статуса."
+  },
+  "cssDescriptionModuixAlertBorderColor": {
+    "en": "Controls alert border color.",
+    "ru": "Управляет цветом границы уведомления."
+  },
+  "cssDescriptionModuixAlertBorderColorDefault": {
+    "en": "Provides the status-derived fallback for the alert border color.",
+    "ru": "Предоставляет резервное значение цвета границы уведомления, зависящее от статуса."
+  },
+  "cssDescriptionModuixAlertBorderWidth": {
+    "en": "Controls alert border width.",
+    "ru": "Управляет толщиной границы уведомления."
+  },
+  "cssDescriptionModuixAlertColor": {
+    "en": "Controls alert text color.",
+    "ru": "Управляет цветом текста уведомления."
+  },
+  "cssDescriptionModuixAlertColorDefault": {
+    "en": "Provides the status-derived fallback for the alert text color.",
+    "ru": "Предоставляет резервное значение цвета текста уведомления, зависящее от статуса."
+  },
+  "cssDescriptionModuixAlertContentGap": {
+    "en": "Controls gap inside AlertContent.",
+    "ru": "Управляет промежутком внутри AlertContent."
+  },
+  "cssDescriptionModuixAlertDescriptionColor": {
+    "en": "Controls description text color.",
+    "ru": "Управляет цветом текста описания."
+  },
+  "cssDescriptionModuixAlertDescriptionFontSize": {
+    "en": "Controls description font size.",
+    "ru": "Управляет размером шрифта описания."
+  },
+  "cssDescriptionModuixAlertDescriptionLineHeight": {
+    "en": "Controls description line-height.",
+    "ru": "Управляет межстрочным интервалом описания."
+  },
+  "cssDescriptionModuixAlertGap": {
+    "en": "Controls root column gap.",
+    "ru": "Управляет промежутком между столбцами корневого элемента."
+  },
+  "cssDescriptionModuixAlertIndicatorColor": {
+    "en": "Controls indicator color.",
+    "ru": "Управляет цветом индикатора."
+  },
+  "cssDescriptionModuixAlertIndicatorColorDefault": {
+    "en": "Provides the status-derived fallback for the indicator color.",
+    "ru": "Предоставляет резервное значение цвета индикатора, зависящее от статуса."
+  },
+  "cssDescriptionModuixAlertIndicatorOffset": {
+    "en": "Controls indicator vertical offset.",
+    "ru": "Управляет вертикальным смещением индикатора."
+  },
+  "cssDescriptionModuixAlertIndicatorSize": {
+    "en": "Controls indicator size.",
+    "ru": "Управляет размером индикатора."
+  },
+  "cssDescriptionModuixAlertPadding": {
+    "en": "Controls alert padding.",
+    "ru": "Управляет внутренними отступами уведомления."
+  },
+  "cssDescriptionModuixAlertRadius": {
+    "en": "Controls alert border radius.",
+    "ru": "Управляет радиусом границы уведомления."
+  },
+  "cssDescriptionModuixAlertShadow": {
+    "en": "Controls alert shadow.",
+    "ru": "Управляет тенью уведомления."
+  },
+  "cssDescriptionModuixColorPrimary": {
+    "en": "Shared primary palette token used by the info status.",
+    "ru": "Общий токен основной палитры, используемый статусом info."
+  },
+  "cssDescriptionModuixColorSuccess": {
+    "en": "Shared success palette token used by the success status.",
+    "ru": "Общий токен палитры успеха, используемый статусом success."
+  },
+  "cssDescriptionModuixAlertTitleColor": {
+    "en": "Controls title text color.",
+    "ru": "Управляет цветом текста заголовка."
+  },
+  "cssDescriptionModuixAlertTitleFontSize": {
+    "en": "Controls title font size.",
+    "ru": "Управляет размером шрифта заголовка."
+  },
+  "cssDescriptionModuixAlertTitleFontWeight": {
+    "en": "Controls title font weight.",
+    "ru": "Управляет насыщенностью шрифта заголовка."
+  },
+  "cssDescriptionModuixAlertTitleLineHeight": {
+    "en": "Controls title line-height.",
+    "ru": "Управляет межстрочным интервалом заголовка."
+  },
+  "cssDescriptionModuixColorWarning": {
+    "en": "Shared warning palette token used by the warning status.",
+    "ru": "Общий токен палитры предупреждений, используемый статусом warning."
+  },
+  "cssDescriptionModuixColorDestructive": {
+    "en": "Shared destructive palette token used by the error status.",
+    "ru": "Общий токен деструктивной палитры, используемый статусом error."
+  },
+  "cssDescriptionModuixAngleSliderColor": {
+    "en": "Controls the default dial text color.",
+    "ru": "Управляет цветом текста регулятора по умолчанию."
+  },
+  "cssDescriptionModuixAngleSliderCenterDotColor": {
+    "en": "Controls the center dot color.",
+    "ru": "Управляет цветом центральной точки."
+  },
+  "cssDescriptionModuixAngleSliderCenterDotSize": {
+    "en": "Controls the center dot size.",
+    "ru": "Управляет размером центральной точки."
+  },
+  "cssDescriptionModuixAngleSliderControlBg": {
+    "en": "Controls the inner dial fill color.",
+    "ru": "Управляет цветом заливки внутреннего диска регулятора."
+  },
+  "cssDescriptionModuixAngleSliderControlBorderColor": {
+    "en": "Controls the inner dial border color.",
+    "ru": "Управляет цветом границы внутреннего диска регулятора."
+  },
+  "cssDescriptionModuixAngleSliderControlBorderWidth": {
+    "en": "Controls the inner dial border width.",
+    "ru": "Управляет толщиной границы внутреннего диска регулятора."
+  },
+  "cssDescriptionModuixAngleSliderDisabledOpacity": {
+    "en": "Controls disabled dial opacity.",
+    "ru": "Управляет прозрачностью недоступного регулятора."
+  },
+  "cssDescriptionModuixAngleSliderFocusRingColor": {
+    "en": "Controls the focus ring color.",
+    "ru": "Управляет цветом кольца фокуса."
+  },
+  "cssDescriptionModuixAngleSliderFocusRingWidth": {
+    "en": "Controls the control focus ring width.",
+    "ru": "Управляет толщиной кольца фокуса элемента управления."
+  },
+  "cssDescriptionModuixAngleSliderGap": {
+    "en": "Controls spacing between label, dial, and value text.",
+    "ru": "Управляет промежутком между меткой, регулятором и текстом значения."
+  },
+  "cssDescriptionModuixAngleSliderIndicatorBg": {
+    "en": "Controls the thumb and active line color.",
+    "ru": "Управляет цветом бегунка и активной линии."
+  },
+  "cssDescriptionModuixAngleSliderInvalidColor": {
+    "en": "Controls invalid-state thumb and border color.",
+    "ru": "Управляет цветом бегунка и границы в недопустимом состоянии."
+  },
+  "cssDescriptionModuixAngleSliderLabelColor": {
+    "en": "Controls label text color.",
+    "ru": "Управляет цветом текста метки."
+  },
+  "cssDescriptionModuixAngleSliderLabelFontSize": {
+    "en": "Controls label font size.",
+    "ru": "Управляет размером шрифта метки."
+  },
+  "cssDescriptionModuixAngleSliderLabelFontWeight": {
+    "en": "Controls label font weight.",
+    "ru": "Управляет насыщенностью шрифта метки."
+  },
+  "cssDescriptionModuixAngleSliderLabelLineHeight": {
+    "en": "Controls label line height.",
+    "ru": "Управляет межстрочным интервалом метки."
+  },
+  "cssDescriptionModuixAngleSliderMarkerActiveColor": {
+    "en": "Controls marker color below the current value.",
+    "ru": "Управляет цветом метки ниже текущего значения."
+  },
+  "cssDescriptionModuixAngleSliderMarkerColor": {
+    "en": "Controls inactive marker color.",
+    "ru": "Управляет цветом неактивной метки."
+  },
+  "cssDescriptionModuixAngleSliderMarkerCurrentColor": {
+    "en": "Controls marker color at the current value.",
+    "ru": "Управляет цветом метки на текущем значении."
+  },
+  "cssDescriptionModuixAngleSliderMarkerHeight": {
+    "en": "Controls marker height.",
+    "ru": "Управляет высотой метки."
+  },
+  "cssDescriptionModuixAngleSliderMarkerWidth": {
+    "en": "Controls marker width.",
+    "ru": "Управляет шириной метки."
+  },
+  "cssDescriptionModuixAngleSliderRadius": {
+    "en": "Controls dial corner radius.",
+    "ru": "Управляет радиусом углов регулятора."
+  },
+  "cssDescriptionModuixAngleSliderRingThickness": {
+    "en": "Controls outer ring thickness.",
+    "ru": "Управляет толщиной внешнего кольца."
+  },
+  "cssDescriptionModuixAngleSliderShadow": {
+    "en": "Controls dial outer shadow.",
+    "ru": "Управляет внешней тенью регулятора."
+  },
+  "cssDescriptionModuixAngleSliderSize": {
+    "en": "Controls the dial width and height.",
+    "ru": "Управляет шириной и высотой регулятора."
+  },
+  "cssDescriptionModuixAngleSliderThumbBg": {
+    "en": "Controls the thumb circle fill color.",
+    "ru": "Управляет цветом заливки круга бегунка."
+  },
+  "cssDescriptionModuixAngleSliderThumbBorderColor": {
+    "en": "Controls the thumb border color.",
+    "ru": "Управляет цветом границы бегунка."
+  },
+  "cssDescriptionModuixAngleSliderThumbBorderWidth": {
+    "en": "Controls the thumb border width.",
+    "ru": "Управляет толщиной границы бегунка."
+  },
+  "cssDescriptionModuixAngleSliderThumbLineWidth": {
+    "en": "Controls the active line thickness.",
+    "ru": "Управляет толщиной активной линии."
+  },
+  "cssDescriptionModuixAngleSliderThumbRadius": {
+    "en": "Controls the thumb corner radius.",
+    "ru": "Управляет радиусом углов бегунка."
+  },
+  "cssDescriptionModuixAngleSliderThumbShadow": {
+    "en": "Controls the thumb shadow.",
+    "ru": "Управляет тенью бегунка."
+  },
+  "cssDescriptionModuixAngleSliderThumbSize": {
+    "en": "Controls the thumb circle size.",
+    "ru": "Управляет размером круга бегунка."
+  },
+  "cssDescriptionModuixAngleSliderTrackBg": {
+    "en": "Controls the outer ring color.",
+    "ru": "Управляет цветом внешнего кольца."
+  },
+  "cssDescriptionModuixAngleSliderTrackBorderColor": {
+    "en": "Controls the outer ring border color.",
+    "ru": "Управляет цветом границы внешнего кольца."
+  },
+  "cssDescriptionModuixAngleSliderTrackBorderWidth": {
+    "en": "Controls the outer ring border width.",
+    "ru": "Управляет толщиной границы внешнего кольца."
+  },
+  "cssDescriptionModuixAngleSliderTransition": {
+    "en": "Controls thumb transition timing.",
+    "ru": "Управляет длительностью перехода бегунка."
+  },
+  "cssDescriptionModuixAngleSliderValueTextColor": {
+    "en": "Controls value text color.",
+    "ru": "Управляет цветом текста значения."
+  },
+  "cssDescriptionModuixAngleSliderValueTextFontSize": {
+    "en": "Controls value text font size.",
+    "ru": "Управляет размером шрифта текста значения."
+  },
+  "cssDescriptionModuixAngleSliderValueTextFontWeight": {
+    "en": "Controls value text font weight.",
+    "ru": "Управляет насыщенностью шрифта текста значения."
+  },
+  "cssDescriptionModuixAngleSliderValueTextLineHeight": {
+    "en": "Controls value text line height.",
+    "ru": "Управляет межстрочным интервалом текста значения."
+  },
+  "cssDescriptionModuixAspectRatioRadius": {
+    "en": "Controls the root border radius.",
+    "ru": "Управляет радиусом границы корневого элемента."
+  },
+  "cssDescriptionModuixAvatarBg": {
+    "en": "Controls avatar background color.",
+    "ru": "Управляет цветом фона Avatar."
+  },
+  "cssDescriptionModuixAvatarColor": {
+    "en": "Controls avatar text color.",
+    "ru": "Управляет цветом текста Avatar."
+  },
+  "cssDescriptionModuixAvatarFallbackBg": {
+    "en": "Controls fallback background color independently from the root.",
+    "ru": "Управляет цветом фона резервного содержимого независимо от корня."
+  },
+  "cssDescriptionModuixAvatarFallbackColor": {
+    "en": "Controls fallback text and icon color.",
+    "ru": "Управляет цветом текста и иконки резервного содержимого."
+  },
+  "cssDescriptionModuixAvatarFallbackPadding": {
+    "en": "Controls fallback inner padding.",
+    "ru": "Управляет внутренними отступами резервного содержимого."
+  },
+  "cssDescriptionModuixAvatarFontSize": {
+    "en": "Controls avatar text font size.",
+    "ru": "Управляет размером шрифта текста Avatar."
+  },
+  "cssDescriptionModuixAvatarFontWeight": {
+    "en": "Controls avatar text font weight.",
+    "ru": "Управляет насыщенностью шрифта текста Avatar."
+  },
+  "cssDescriptionModuixAvatarImageObjectFit": {
+    "en": "Controls how the image fits into the avatar.",
+    "ru": "Управляет вписыванием изображения в Avatar."
+  },
+  "cssDescriptionModuixAvatarImageObjectPosition": {
+    "en": "Controls which part of the image remains visible when cropped.",
+    "ru": "Управляет частью изображения, которая остаётся видимой при обрезке."
+  },
+  "cssDescriptionModuixAvatarLineHeight": {
+    "en": "Controls avatar text line height.",
+    "ru": "Управляет межстрочным интервалом текста Avatar."
+  },
+  "cssDescriptionModuixAvatarRadius": {
+    "en": "Controls avatar corner radius.",
+    "ru": "Управляет радиусом углов Avatar."
+  },
+  "cssDescriptionModuixAvatarSize": {
+    "en": "Controls avatar width and height.",
+    "ru": "Управляет шириной и высотой Avatar."
+  }
 }

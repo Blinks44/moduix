@@ -1,0 +1,154 @@
+---
+title: Aspect Ratio
+component: aspect-ratio
+description: Ограничивает медиаконтент и встраиваемое содержимое адаптивным контейнером с фиксированным соотношением сторон.
+---
+
+import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `aspect-ratio`. Moduix строит этот компонент с помощью официальной
+[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Базовый пример
+
+Начните с `AspectRatio`, задайте ширину или максимальную ширину на самом корневом элементе и передайте конечное положительное
+числовое значение `ratio`. Прямые дочерние элементы `img`, `video`, `iframe`, `canvas` и `svg`
+автоматически заполняют кадр. Задайте `object-fit` для изображений и видео, если требуется обрезка или вписывание.
+
+<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="aspect-ratio" />
+
+## Анатомия
+
+```text
+AspectRatio / AspectRatio.Root
+└─ media | iframe | canvas | svg | custom content
+```
+
+| Часть                              | Назначение                                      |
+| ---------------------------------- | ----------------------------------------------- |
+| `AspectRatio` / `AspectRatio.Root` | Адаптивный контейнер с обрезкой содержимого.    |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `AspectRatio` для большинства медиаконтейнеров. Задавайте размеры, радиус и классы раскладки на самом корневом элементе;
+`AspectRatio.Root` — тот же корень, предоставленный для единообразия пространства имён.
+
+- `ratio` обязателен и является числом; для корректного CSS-поведения передавайте конечное значение больше нуля
+- `asChild` использует композицию фабрики Ark и требует ровно один элемент React
+- прямые дочерние элементы `img`, `video`, `iframe`, `canvas` и `svg` автоматически заполняют кадр; задайте
+  `object-fit` для изображений и видео, чтобы выбрать обрезку или вписывание
+- `className` напрямую стилизует и задаёт размер корневого элемента
+- `--moduix-aspect-ratio-radius` управляет радиусом скругления кадра по умолчанию
+
+### Когда нужна собственная композиция
+
+Оберните `AspectRatio`, если тени, кольца фокуса или декоративные элементы раскладки должны выходить за пределы обрезанного
+кадра. Сохраняйте обрезку на самом корневом элементе и переопределяйте корневой `aspect-ratio` в собственном CSS,
+если на определённом брейкпоинте требуется другой кадр.
+
+### Свойства по умолчанию
+
+| Элемент                         | По умолчанию              | Значения / примечания                   |
+| ------------------------------- | ------------------------- | ---------------------------------------- |
+| `ratio`                         | -                         | Обязательное положительное конечное `number` |
+| `className`                     | `undefined`               | Стилизует и задаёт размер корневого элемента |
+| `style`                         | `undefined`               | Может напрямую переопределить `aspect-ratio` |
+| `asChild`                       | `undefined`               | Композиция фабрики Ark                   |
+| `--moduix-aspect-ratio-radius`  | `var(--moduix-radius-md)` | Значение длины CSS или токен             |
+
+### Особенности поведения
+
+- Корневой элемент отрисовывается с `data-scope="aspect-ratio"`, `data-part="root"` и
+  `data-slot="aspect-ratio-root"`.
+- `position: relative` на корневом элементе задан намеренно и поддерживает паттерны дочерних элементов с абсолютным заполнением,
+  например Next.js `Image fill`.
+- Предыдущие строковые предустановки (`square`, `video`, `portrait`, `photo`) были удалены при миграции на Ark.
+  Используйте числа: `1`, `16 / 9`, `9 / 16` и `4 / 3`.
+
+## Примеры
+
+### Карточки
+
+Сохраняйте визуальное выравнивание повторяющихся карточек, оборачивая их медиаконтент в одинаковое соотношение сторон, даже если
+исходные ресурсы различаются.
+
+<style>{AspectRatioDocs.aspectRatioGridCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
+
+```
+</PreviewFrame>
+
+### Встраиваемое содержимое
+
+Оберните видео или другое встраиваемое содержимое в `AspectRatio`, чтобы размер кадра оставался стабильным, пока внешнее содержимое
+не завершит загрузку.
+
+<style>{AspectRatioDocs.aspectRatioEmbedCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
+
+```
+
+</PreviewFrame>
+
+### Миграция с shadcn
+
+Если вы переходите с shadcn, переместите классы ширины и радиуса на сам `AspectRatio`. Тот же
+паттерн корневого элемента работает с `next/image fill` в Next.js.
+
+<style>{AspectRatioDocs.aspectRatioMigrationCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `asChild`, если нужно обойти контейнер корневого элемента по умолчанию и передать кадр семантическому элементу, например
+`figure`. Ark объединяет свойства компонента с единственным дочерним элементом.
+
+<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
+
+### Хуки стилизации
+
+- `data-scope="aspect-ratio"` и `data-part="root"` — хуки корневого элемента, согласованные с Ark.
+- `data-slot="aspect-ratio-root"` — стабильный хук корневого элемента moduix.
+- Задавайте ширину, максимальную ширину и стили раскладки на самом корневом элементе. Переопределяйте `aspect-ratio` в собственном
+  CSS, если на определённом брейкпоинте требуется другое соотношение сторон.
+- `overflow: hidden` задан намеренно. Если видимый декоративный элемент должен выходить за пределы кадра, поместите
+  его на внешнюю обёртку, а не убирайте обрезку корневого элемента.
