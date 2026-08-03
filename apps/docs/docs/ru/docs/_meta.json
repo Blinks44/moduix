@@ -155,6 +155,12 @@
     "name": "container",
     "tag": "component"
   },
+  { "type": "file", "name": "date-input", "tag": "component" },
+  { "type": "file", "name": "date-picker", "tag": "component" },
+  { "type": "file", "name": "dialog", "tag": "component" },
+  { "type": "file", "name": "drawer", "tag": "component" },
+  { "type": "file", "name": "editable", "label": "Editable", "tag": "component" },
+  { "type": "file", "name": "empty", "tag": "component" },
   {
     "type": "section-header",
     "label": "AI"

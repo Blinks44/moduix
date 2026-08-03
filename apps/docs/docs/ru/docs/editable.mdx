@@ -1,0 +1,224 @@
+---
+title: Editable
+component: editable
+description: "Редактирование текста на месте с помощью Ark UI: предпросмотр, поле ввода, элементы управления и интеграция с состоянием формы."
+---
+
+import * as EditableDocs from '@/components/examples/editable';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/editable" />
+
+## Выбор подходящего компонента
+
+- Выберите **`Input`** или **`Textarea`**, когда значение всегда должно выглядеть редактируемым.
+- Выберите **`Editable`**, когда поверхность по умолчанию содержит текст только для чтения, а редактирование —
+  осознанное действие.
+- Используйте **`Field`** вокруг `Editable`, когда вспомогательный текст, текст ошибки или общее состояние формы должны быть
+  видны вне дерева частей редактируемого компонента.
+
+## Базовый пример
+
+Используйте части в стиле Ark: `Editable`, `Editable.Label`, `Editable.Area`, `Editable.Input` и
+`Editable.Preview`. Добавьте `Editable.Controls` для стандартного сценария редактирования, подтверждения и отмены.
+Обёртка добавляет стилизацию, атрибуты `data-slot` и иконки триггеров по умолчанию.
+По умолчанию moduix переходит в режим редактирования по двойному щелчку, чтобы сократить случайные правки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="editable" />
+
+## Анатомия
+
+```text
+Editable.Root
+├─ Editable.Label
+├─ Editable.Area
+│  ├─ Editable.Input
+│  └─ Editable.Preview
+├─ Editable.Control или Editable.Controls
+│  ├─ Editable.EditTrigger
+│  ├─ Editable.SubmitTrigger
+│  └─ Editable.CancelTrigger
+
+Editable.RootProvider
+└─ то же дерево частей, подключённое к состоянию Ark `useEditable()`
+```
+
+| Часть                        | Назначение                                                        |
+| ---------------------------- | ----------------------------------------------------------------- |
+| `Editable` / `Editable.Root` | Корневое состояние, колбэки, свойства формы и настройка доступности. |
+| `Editable.RootProvider`      | Корневой компонент на основе экземпляра `useEditable()`.         |
+| `Editable.Label`             | Видимая метка для редактируемого поля ввода.                      |
+| `Editable.Area`              | Общая поверхность для частей поля ввода и предпросмотра.         |
+| `Editable.Input`             | Текстовое поле, отображаемое во время редактирования.            |
+| `Editable.Preview`           | Текст в режиме чтения или плейсхолдер вне режима редактирования. |
+| `Editable.Control`           | Необязательная обёртка для кнопок редактирования, подтверждения и отмены. |
+| `Editable.Controls`          | Стандартный сценарий элементов управления редактированием, подтверждением и отменой. |
+| `Editable.EditTrigger`       | Кнопка, переходящая в режим редактирования.                      |
+| `Editable.SubmitTrigger`     | Кнопка, подтверждающая значение.                                  |
+| `Editable.CancelTrigger`     | Кнопка, отменяющая изменения значения.                            |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Держите `Input` и `Preview` соседними элементами внутри `Area`, а `Controls` размещайте после `Area` для
+стандартного сценария триггеров. Для однострочных полей кнопки триггеров отображаются справа и выровнены по вертикальному центру.
+Композиции с textarea используют ту же структуру и могут задать
+`--moduix-editable-control-align: start`, чтобы элементы управления оставались выровненными по верхнему краю многострочной поверхности.
+
+### Когда нужна собственная композиция
+
+Используйте moduix `Editable.Context` или `useEditableContext()`, когда повторно используемым дочерним частям или встроенному чтению состояния
+нужно состояние редактируемого компонента. Используйте moduix `useEditable()` с `Editable.RootProvider`, когда состояние или
+методы должны находиться вне отрисованного дерева Editable. Используйте `asChild` для семантически корректного пользовательского
+корневого элемента поля ввода, например textarea.
+
+### Свойства по умолчанию
+
+| Свойство         | По умолчанию | Примечания                                                                                                           |
+| ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `activationMode` | `dblclick`   | moduix использует двойной щелчок по умолчанию; передайте `focus`, `click` или `none`, когда нужен другой режим активации Ark. |
+| `selectOnFocus`  | `true`       | Ark выделяет текст поля при получении фокуса.                                                                        |
+| `submitMode`     | `both`       | `Enter` и потеря фокуса подтверждают значение по умолчанию; используйте `none` с явными элементами подтверждения.   |
+
+### Особенности поведения
+
+`value` и `defaultValue` отвечают за текстовое значение. `edit` и `defaultEdit` отвечают за режим редактирования. Свойства колбэков Ark
+сохраняют объекты details, поэтому `onValueChange`, `onValueCommit`, `onValueRevert` и
+`onEditChange` получают те же данные, что и в Ark UI.
+
+`Enter` подтверждает изменения, а `Escape` отменяет их. Когда `Editable.Input` отрисовывает textarea через `asChild`,
+Cmd/Ctrl + Enter подтверждает значение. `name` и `form` передаются в Ark для нативной
+отправки формы. `disabled` запрещает активацию, а `readOnly` сохраняет видимое значение, не
+позволяя его изменять.
+
+Задайте `translations.input`, когда полю ввода требуется контекстное доступное имя; `Editable.Label`
+остаётся видимой меткой.
+
+## Примеры
+
+### Контролируемый компонент
+
+Управляйте значением с помощью `value` и `onValueChange`, когда источником истины служит состояние приложения.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Field
+
+Оберните редактируемый компонент в `Field`, когда состояние валидации и текст ошибки находятся вне его
+поверхности.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/field.tsx"
+
+```
+
+</PreviewFrame>
+
+### Руководства
+
+Распространённые возможности из руководств Ark передаются через свойства корневого компонента: режим активации, автоматическое изменение размера, максимальная длина,
+плейсхолдеры для конкретного режима и доступные переводы элементов управления.
+Этот пример меняет `activationMode` на `click`, чтобы показать, как отказаться от значения moduix по умолчанию — двойного щелчка.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/guides.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте moduix `useEditable()` и `Editable.RootProvider`, когда внешним элементам управления нужен доступ к
+методам состояния Editable. Передайте в хук `activationMode: 'dblclick'`, если нужно такое же поведение
+активации по умолчанию, как у корневого компонента moduix.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Textarea
+
+Отрисовывайте `Editable.Input` как textarea для многострочного содержимого. В примере размер задан встроенными стилями,
+чтобы скопированный код оставался полным.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/textarea.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Обходите `Editable.Controls`, когда пользовательскому макету, зависящему от состояния, нужен прямой доступ к `Editable.Context`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённое состояние и только для чтения
+
+Используйте `disabled`, когда значение недоступно. Используйте `readOnly`, когда значение остаётся видимым, но
+не должно изменяться.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/disabled-and-read-only.tsx"
+
+```
+</PreviewFrame>
+
+### В форме
+
+Передайте `name`, чтобы включить текущее значение в нативную отправку формы.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/editable/form.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <EditableDocs.EditableCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="editable-root"`, `editable-root-provider`, `editable-label`, `editable-area`,
+  `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
+  `editable-submit-trigger`, and `editable-cancel-trigger`.
+- Ark также добавляет атрибуты `data-scope="editable"` и `data-part` для каждой примитивной части.
+- Селекторы состояния включают `data-focus` на `Label` и `Area`; `data-disabled` на `Area`, `Input`
+  и `Preview`; `data-readonly` / `aria-readonly` на элементах управления только для чтения; `data-invalid` на
+  `Label`, `Input` и `Preview`; `data-required` на `Label`; `data-placeholder-shown` на `Area`
+  и `Preview`; а также `data-autoresize` на `Input` и `Preview`.
