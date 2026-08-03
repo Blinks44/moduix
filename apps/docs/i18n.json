@@ -11,6 +11,9 @@
     "en": "Recipes",
     "ru": "Рецепты"
   },
+  "navRecipes": {
+    "en": "Recipes"
+  },
   "navGitHub": {
     "en": "GitHub",
     "ru": "GitHub"
