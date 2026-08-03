@@ -165,6 +165,9 @@
   { "type": "file", "name": "fieldset", "tag": "component" },
   { "type": "file", "name": "file-upload", "tag": "component" },
   { "type": "file", "name": "floating-panel", "tag": "component" },
+  { "type": "file", "name": "heading", "tag": "component" },
+  { "type": "file", "name": "highlight", "tag": "component" },
+  { "type": "file", "name": "hover-card", "tag": "component" },
   {
     "type": "section-header",
     "label": "AI"
