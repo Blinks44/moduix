@@ -1,6 +1,6 @@
 ---
 name: docs-workflow
-description: Use for Rspress documentation content in apps/docs: MDX pages, runnable examples, component-page guidance, CSS-variable references, and registry documentation.
+description: Use for Rspress documentation content in apps/docs - MDX pages, runnable examples, component-page guidance, CSS-variable references, and registry documentation.
 ---
 
 # Docs Workflow
