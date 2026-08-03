@@ -1,5 +1,146 @@
 # moduix
 
+## 2.2.4
+
+### Patch Changes
+
+### Sidebar
+
+- d7077b1: Improve sidebar behavior, styling, and documentation.
+
+### Highlight
+
+- d7077b1: Clarify component documentation and usage guidance.
+
+### Image
+
+- d7077b1: Refine image rendering behavior and documentation.
+
+### Listbox
+
+- d7077b1: Refine listbox styling and documentation.
+
+### Kbd
+
+- d7077b1: Refine keyboard-key styling and documentation.
+
+### Popover
+
+- d7077b1: Refine popover styling and usage guidance.
+
+### InputGroup
+
+- d7077b1: Refine grouped-input styling and composition.
+
+### Marquee
+
+- d7077b1: Refine marquee animation styling and usage guidance.
+
+### ScrollArea
+
+- d7077b1: Improve scroll-area behavior, styling, and documentation.
+
+### PinInput
+
+- d7077b1: Improve PIN input behavior and documentation.
+
+### NumberInput
+
+- d7077b1: Clarify number-input usage guidance.
+
+### List
+
+- d7077b1: Clarify list component usage guidance.
+
+### ProgressLinear
+
+- d7077b1: Improve linear progress styling and documentation.
+
+### NativeSelect
+
+- d7077b1: Refine native-select styling and documentation.
+
+### Input
+
+- d7077b1: Improve input styling and behavior documentation.
+
+### Button
+
+- d7077b1: Improve button styling and usage guidance.
+- d7077b1: Improve component behavior, styling, documentation, and registry output.
+
+### Select
+
+- d7077b1: Improve select behavior, styling, and documentation.
+
+### Steps
+
+- d7077b1: Improve focus styling, responsive layouts, and documentation examples.
+
+### QrCode
+
+- d7077b1: Refine QR code styling and usage guidance.
+
+### RatingGroup
+
+- d7077b1: Refine rating-group styling and usage guidance.
+
+### Slider
+
+- d7077b1: Improve vertical marks, invalid and read-only states.
+
+### ProgressCircular
+
+- d7077b1: Improve circular progress styling and documentation.
+
+### PasswordInput
+
+- d7077b1: Refine password-input styling and usage guidance.
+
+### SegmentGroup
+
+- d7077b1: Improve segmented-control behavior, styling, and documentation.
+
+### Separator
+
+- d7077b1: Refine separator behavior, styling, and documentation.
+
+### Lightbox
+
+- d7077b1: Improve lightbox layout and interaction behavior.
+
+### ImageCropper
+
+- d7077b1: Improve cropper styling and interaction behavior.
+
+### SignaturePad
+
+- d7077b1: Fix disabled styling and height customization.
+
+### SplitButton
+
+- d7077b1: Improve documentation previews and interaction coverage.
+
+### Stack
+
+- d7077b1: Add reverse directions and improve semantic composition.
+
+### Pagination
+
+- d7077b1: Improve pagination styling and documentation.
+
+### Drawer
+
+- d7077b1: Improve mobile drag motion and refresh the documentation examples.
+
+### Menu
+
+- d7077b1: Improve menu behavior, styling, and documentation.
+
+### RadioGroup
+
+- d7077b1: Improve radio-group styling and documentation.
+
 ## 2.2.3
 
 ### Patch Changes
