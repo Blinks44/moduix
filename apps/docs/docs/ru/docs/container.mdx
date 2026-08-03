@@ -1,0 +1,140 @@
+---
+title: Container
+component: container
+description: Адаптивный примитив компоновки для единообразной ширины содержимого и гибких горизонтальных отступов.
+---
+
+import * as ContainerDocs from '@/components/examples/container';
+
+## Справочник API
+
+В Ark UI нет отдельного примитива `container`. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), следуя рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Основы
+
+Используйте `Container`, когда главное — удобная для чтения ширина строки. Он центрирует колонку содержимого,
+задаёт адаптивные горизонтальные отступы и не влияет на решения о вертикальных интервалах.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка с shadcn
+
+<ShadcnInstall packageName="container" />
+
+This install path also pulls in the shared moduix foundation files that `Container` depends on, such
+as styles, icons, and small utilities.
+
+## Анатомия
+
+`Container` is a single root layout primitive built on Ark factory composition.
+
+```text
+Container / Container.Root
+└─ дочерние элементы
+```
+
+| Part                           | Role                                                     |
+| ------------------------------ | -------------------------------------------------------- |
+| `Container` / `Container.Root` | Root layout wrapper. Controls content width and gutters. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Use `Container` for page shells, article bodies, docs sections, settings screens, and other layouts
+where the main requirement is a centered content column with predictable gutters.
+
+`Container.Root` is the same component exposed as an Ark-aligned namespace alias.
+
+Use `size` to choose the content width and `gutter` to control the edge padding. Use `asChild` when
+the wrapper itself should also carry semantic meaning such as `main`, `section`, or `article`.
+`asChild` requires exactly one semantic child; the ref then points to that child instead of the
+default `div`.
+
+### Когда нужна кастомизация
+
+`Container` is intentionally root-only. There are no extra subparts, slot props, or nested
+layout helpers.
+
+The custom path here is small:
+
+- pass `className` for local layout or surface styling;
+- override `--moduix-container-*` variables when a page needs different width or gutter math;
+- use `asChild` when another element should own the DOM node;
+- compose with `Bleed` when a child should escape the constrained text column.
+
+### Значения по умолчанию
+
+| Prop      | Default | Values / Notes                       |
+| --------- | ------- | ------------------------------------ |
+| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (uncapped) |
+| `gutter`  | `md`    | `none`, `sm`, `md`, `lg`             |
+| `asChild` | `false` | Ark factory composition              |
+
+### Особенности поведения
+
+- `Container` does not manage vertical rhythm. Add section spacing outside it or on its children.
+- `size="full"` removes only the max-width cap. The selected gutter still applies unless
+  `gutter="none"` is used.
+- The root exposes `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
+  `data-size`, and `data-gutter` for styling and tests.
+
+## Примеры
+
+### Внутренние отступы
+
+Use `gutter` to control responsive inline padding.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/gutters.tsx"
+
+```
+
+</PreviewFrame>
+
+### Семантический элемент
+
+Используйте `asChild`, когда обёртка компоновки также должна описывать структуру документа.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/semantic-element.tsx"
+
+```
+
+</PreviewFrame>
+
+### С Bleed
+
+Keep the text column constrained and let only the wider child opt out.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/container/with-bleed.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Используйте CSS-переменные у корневого компонента, когда оболочке страницы нужны другие вычисления отступов или другая шкала
+ширины. Используйте `className` для локальной стилизации блока, например внутренних отступов, границ или фонов.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
+
+### Хуки стилизации
+
+- `Container` и `Container.Root` предоставляют `data-slot="container-root"` у корневого компонента.
+- `data-scope="container"` и `data-part="root"` предоставляют хуки корневого компонента, согласованные с Ark.
+- `data-size` выбирает предустановку ширины: `xs`, `sm`, `md`, `lg`, `xl`, `full`.
+- `data-gutter` выбирает предустановку отступов: `none`, `sm`, `md`, `lg`.
+- Переменные `--moduix-container-*` управляют только горизонтальными отступами и вычислением максимальной ширины; вертикальные интервалы и
+  компоновка дочерних элементов остаются ответственностью окружающего CSS компоновки.

@@ -1,0 +1,257 @@
+---
+title: Checkbox
+component: checkbox
+description: Компонуемый примитив флажка для одиночного и группового выбора.
+---
+
+import * as CheckboxDocs from '@/components/examples/checkbox';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+
+## Основы
+
+Используйте дерево частей Ark напрямую. В типовом случае `Checkbox.Control` уже отрисовывает стандартные
+индикаторы выбранного и неопределённого состояния, поэтому большинству checkbox нужны только `Checkbox.Control` и
+`Checkbox.Label`. moduix автоматически отрисовывает нативное поле формы.
+
+```tsx preview file="./_snippets/checkbox/basic.tsx"
+
+```
+
+## Установка с shadcn
+
+<ShadcnInstall packageName="checkbox" />
+
+## Анатомия
+
+```text
+Checkbox.Root
+├─ Checkbox.Control
+│  ├─ Checkbox.Indicator
+│  └─ Checkbox.Indicator[indeterminate] (optional)
+├─ Checkbox.Label
+└─ native input (automatic)
+
+Checkbox.RootProvider
+└─ same part tree connected to useCheckbox()
+
+Checkbox.Group
+└─ Checkbox.Root[value]
+   ├─ Checkbox.Control
+   ├─ Checkbox.Label
+   └─ the native form input
+```
+
+| Часть                         | Назначение                                                                              |
+| ---------------------------- | ---------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | Владеет состоянием одного checkbox и отрисовывает оборачивающий элемент label. |
+| `Checkbox.RootProvider`      | Подключает части к состоянию Ark, созданному за пределами отрисованного поддерева. |
+| `Checkbox.Control`           | Визуальная поверхность управления. Без дочерних элементов отрисовывает стандартные индикаторы выбранного и неопределённого состояния. |
+| `Checkbox.Indicator`         | Необязательный слот иконки для пользовательской композиции. При необходимости используйте `indeterminate`. |
+| `Checkbox.Label`             | Видимый текст метки внутри корневого компонента. |
+| `Checkbox.Group`             | Разделяет состояние значения между несколькими корневыми checkbox. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Сохраняйте дерево частей Ark видимым. `Checkbox.Root` принимает пропы корневого компонента Ark, такие как `checked`,
+`defaultChecked`, `onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`,
+`name`, `value`, `form`, `ids` и `asChild`.
+
+`Checkbox.Group` принимает `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
+`invalid`, `maxSelectedValues` и `name`.
+
+`Checkbox.Control` — стандартное сокращение moduix: оставьте его пустым для встроенных иконок или передайте
+дочерние элементы для пользовательской композиции индикатора. `size` — единственный дополнительный DX-проп у
+`Checkbox.Root` и `Checkbox.RootProvider`.
+
+### Когда нужна кастомизация
+
+Используйте `Checkbox.RootProvider`, когда состоянием checkbox нужно владеть за пределами отрисованного поддерева. moduix
+повторно экспортирует для этого пути `useCheckbox()`. `Checkbox.Context`, `useCheckboxContext()`,
+`useCheckboxGroup()` и `useCheckboxGroupContext()` сохраняют доступ к состоянию Ark для расширенной
+композиции. Явно отрисовывайте `Checkbox.Indicator`, только когда нужны пользовательские иконки или
+нестандартная компоновка индикатора.
+
+### Значения по умолчанию
+
+| Поверхность                   | По умолчанию | Примечания                                            |
+| ---------------------------- | ------- | ------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root` | —           | Дополнительных поведенческих значений нет; применяются значения Ark. |
+| `size`                       | `md`         | Применяется к `Checkbox.Root` и `Checkbox.RootProvider`. |
+
+### Особенности поведения
+
+Корневой компонент автоматически отрисовывает нативное поле формы для участия в нативных формах, валидации, сброса формы
+и отправки. Для отдельного checkbox передайте `name` и `value` в `Checkbox.Root`. Для
+группы передайте `name` в `Checkbox.Group`, а `value` — в каждый `Checkbox.Root`.
+
+Для пользователей shadcn, переходящих на moduix, `Checkbox.Control` уже содержит стандартное оформление иконки. Основные
+явные части, остающиеся в дереве, — control и label; скрытое поле ввода остаётся
+внутренним.
+
+Ark `Checkbox.Root` отрисовывает `label`. Если используется `asChild`, непосредственный дочерний элемент также должен быть
+семантическим `label`, иначе checkbox больше не будет иметь корректной метки элемента формы.
+
+Ref указывает на соответствующую часть DOM Ark. Checkbox в фокусе переключается клавишей <kbd>Space</kbd>.
+
+## Примеры
+
+### Управляемый режим
+
+Управляйте `checked` из состояния React, когда checkbox должен координироваться с другим интерфейсом или производной логикой.
+
+```tsx preview file="./_snippets/checkbox/controlled.tsx"
+
+```
+
+### Управляемая группа
+
+Управляйте значением группы из состояния React, когда выбранные варианты должны влиять на фильтры, сводки или действия.
+
+```tsx preview file="./_snippets/checkbox/controlled-group.tsx"
+
+```
+
+### Пользовательский индикатор
+
+Заменяйте стандартную галочку, когда продукту нужно другое оформление иконки при сохранении поведения checkbox из Ark.
+
+```tsx preview file="./_snippets/checkbox/custom-indicator.tsx"
+
+```
+
+### Выбрано по умолчанию
+
+Используйте `defaultChecked`, когда checkbox должен начинать в выбранном состоянии, а затем управлять своим состоянием сам.
+
+```tsx preview file="./_snippets/checkbox/default-checked.tsx"
+
+```
+
+### Отключённое состояние
+
+Используйте `disabled`, когда вариант недоступен и не должен принимать фокус или ввод.
+
+```tsx preview file="./_snippets/checkbox/disabled.tsx"
+
+```
+
+### Группа
+
+Используйте `Checkbox.Group`, когда несколько вариантов относятся к одному общему массиву выбранных значений.
+
+```tsx preview file="./_snippets/checkbox/group.tsx"
+
+```
+
+### Группа с Fieldset
+
+Оберните группу в `Fieldset`, когда набор checkbox является одним семантическим полем формы с общей легендой.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/checkbox/group-with-fieldset.tsx"
+
+```
+</PreviewFrame>
+
+### Группа с формой
+
+Use `Checkbox.Group` inside a form and read selected values with `FormData.getAll(name)`.
+
+```tsx preview file="./_snippets/checkbox/group-with-form.tsx"
+
+```
+
+### Неопределённое состояние
+
+Use the indeterminate state when one checkbox reflects a partial selection instead of a simple on or off value.
+
+```tsx preview file="./_snippets/checkbox/indeterminate.tsx"
+
+```
+
+### Недопустимая группа
+
+Mark the group invalid when the whole set participates in validation and requires a valid selection state.
+
+```tsx preview file="./_snippets/checkbox/invalid-group.tsx"
+
+```
+
+### Максимум выбранных
+
+Use `maxSelectedValues` when only a fixed number of options can be selected.
+
+```tsx preview file="./_snippets/checkbox/max-selected.tsx"
+
+```
+
+### Только для чтения
+
+Use `readOnly` when the value should remain visible but user interaction should not change it.
+
+```tsx preview file="./_snippets/checkbox/read-only.tsx"
+
+```
+
+### Root Provider
+
+Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered subtree. Import
+the state hook from `@moduix/react`.
+
+```tsx preview file="./_snippets/checkbox/root-provider.tsx"
+
+```
+
+### Выбрать все
+
+Compose a parent checkbox and a controlled group when one control should toggle the entire selection set.
+
+```tsx preview file="./_snippets/checkbox/select-all.tsx"
+
+```
+
+### Sizes
+
+Apply moduix `size` to match checkbox density to the surrounding form or settings surface.
+
+```tsx preview file="./_snippets/checkbox/sizes.tsx"
+
+```
+
+### С полем
+
+Use `Field` around one checkbox when it needs helper text, validation text, or shared field state.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/checkbox/with-field.tsx"
+
+```
+</PreviewFrame>
+
+### С формой
+
+Передайте `name` и `value` в `Checkbox.Root`, чтобы его автоматическое нативное поле ввода отправлялось с `FormData`.
+
+```tsx preview file="./_snippets/checkbox/with-form.tsx"
+
+```
+
+## Стилизация
+
+### CSS-свойства
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+
+### Хуки стилизации
+
+- `Checkbox.Root` предоставляет `data-slot="checkbox-root"`, `data-size` и атрибуты состояния Ark, такие как `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` и `data-focus-visible`.
+- `Checkbox.RootProvider` предоставляет `data-slot="checkbox-root-provider"` и тот же контракт стилизации корневого компонента.
+- `Checkbox.Control` предоставляет `data-slot="checkbox-control"` и атрибуты состояния Ark, включая `data-state="checked" | "indeterminate" | "unchecked"`.
+- `Checkbox.Indicator` предоставляет `data-slot="checkbox-indicator"` и наследует атрибуты состояния checkbox из Ark.
+- `Checkbox.Label` предоставляет `data-slot="checkbox-label"` и атрибуты состояния checkbox из Ark.
+- `Checkbox.Group` exposes `data-slot="checkbox-group"`.

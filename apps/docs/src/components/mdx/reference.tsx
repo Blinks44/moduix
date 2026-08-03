@@ -146,7 +146,6 @@ function CSSPropertiesEditor({
               <th>{t('cssProperty')}</th>
               <th>{t('cssValue')}</th>
               <th>{t('cssDefault')}</th>
-              <th>{t('cssDescription')}</th>
             </tr>
           </thead>
           <tbody>
@@ -170,7 +169,6 @@ function CSSPropertiesEditor({
                 <td>
                   <code>{property.defaultValue}</code>
                 </td>
-                <td>{property.description ?? '-'}</td>
               </tr>
             ))}
           </tbody>
@@ -190,7 +188,6 @@ function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[]
           <tr>
             <th>{t('cssProperty')}</th>
             <th>{t('cssDefault')}</th>
-            <th>{t('cssDescription')}</th>
           </tr>
         </thead>
         <tbody>
@@ -202,7 +199,6 @@ function CSSPropertiesReferenceTable({ properties }: { properties: CssProperty[]
               <td>
                 <code>{property.defaultValue}</code>
               </td>
-              <td>{property.description ?? '-'}</td>
             </tr>
           ))}
         </tbody>

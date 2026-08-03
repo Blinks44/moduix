@@ -3,7 +3,6 @@ import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
-import { cssDescriptionKeys } from './css-description-keys';
 import {
   CSSPropertiesReferenceTable,
   ExampleFrame,
@@ -80,12 +79,7 @@ function ShadcnInstall({
 
 function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }) {
   const t = useI18n<typeof import('i18n')>();
-  const normalizedProperties = normalizeCssProperties(properties).map((property) => ({
-    ...property,
-    description: hasCssDescriptionKey(property.name)
-      ? t(cssDescriptionKeys[property.name])
-      : property.description,
-  }));
+  const normalizedProperties = normalizeCssProperties(properties);
 
   return (
     <div className={styles.cssProperties}>
@@ -96,10 +90,6 @@ function CssPropertiesSection({ properties }: { properties: CssPropertyInput[] }
       </Tabs>
     </div>
   );
-}
-
-function hasCssDescriptionKey(name: string): name is keyof typeof cssDescriptionKeys {
-  return Object.hasOwn(cssDescriptionKeys, name);
 }
 
 function Cards({ children }: { children: ReactNode }) {

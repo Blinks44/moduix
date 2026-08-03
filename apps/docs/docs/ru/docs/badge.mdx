@@ -1,0 +1,229 @@
+---
+title: Badge
+component: badge
+description: Компактная метка статуса для коротких метаданных, таких как состояние, категория и количество.
+---
+
+import * as BadgeDocs from '@/components/examples/badge';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `badge`. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Выбор подходящего компонента
+
+Используйте `Badge`, когда интерфейс показывает метаданные о другом объекте, а не выбранное значение как таковое.
+
+- Выбирайте **`Badge`** для коротких метаданных: статуса, категории, версии или количества.
+- Выбирайте **`Tag`**, когда интерфейс показывает выбранные значения, фильтры, назначения или метки, относящиеся к текущему состоянию интерфейса.
+
+## Базовый пример
+
+Начните с одного `Badge`. Добавьте `variant`, если тона по умолчанию недостаточно, и `Badge.Dot` — только когда статусу нужен сгруппированный индикатор.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="badge" />
+
+## Анатомия
+
+`Badge` сохраняет публичную поверхность небольшой и предоставляет только видимые части.
+
+```text
+Badge / Badge.Root
+├─ content
+├─ Badge.Dot (optional)
+└─ svg icon (optional)
+```
+
+| Часть                  | Роль                                                                                |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| `Badge` / `Badge.Root` | Корневой слот. Применяет вариант, границу, отступы и усечение текста.               |
+| `Badge.Dot`            | Необязательный слот индикатора. Отрисовывает круглый маркер с текущим цветом текста. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для большинства меток статуса, категорий, плашек версий и коротких счётчиков используйте `Badge` напрямую.
+
+Используйте `variant` для встроенных тонов: `default`, `secondary`, `destructive`, `outline`, `ghost` и `link`.
+
+Размещайте `Badge.Dot` или прямой дочерний значок рядом с меткой, когда бейджу нужен дополнительный визуальный сигнал.
+
+`Badge.Root` и `Badge.Dot` передают ref своим отрисованным DOM-элементам.
+
+### Когда нужна собственная композиция
+
+Используйте `Badge asChild`, когда DOM-узлом должен владеть другой семантический элемент. Композиция Ark требует ровно одного дочернего элемента. Интерактивные дочерние элементы сохраняют нативную семантику и наследуют от бейджа стандартное оформление курсора, наведения и клавиатурного фокуса.
+
+Перейдите на локальные CSS-переменные или переопределения `className`, когда поверхности нужен нестандартный размер или другой тон.
+
+### Свойства по умолчанию
+
+| Свойство  | По умолчанию | Значения / примечания                                           |
+| --------- | ------------ | ---------------------------------------------------------------- |
+| `variant` | `default`    | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
+| `asChild` | `false`      | Композиция Ark factory с ровно одним дочерним элементом          |
+
+### Особенности поведения
+
+- По умолчанию `Badge` носит презентационный характер и отрисовывает `span`.
+- `Badge.Dot` декоративен и скрыт от вспомогательных технологий, поэтому видимый текст должен передавать смысл статуса.
+- `Badge` не добавляет собственных управляемых взаимодействий или семантики ссылки и кнопки.
+- Семантические ссылки и кнопки, отрисованные через `asChild`, сохраняют нативную семантику и получают стандартное оформление курсора, наведения и видимого фокуса.
+- Длинные метки остаются в одну строку и усекаются корневым элементом; `title` показывает полное значение при наведении указателя, а в интерфейсах, рассчитанных на касания, метка должна помещаться в доступное пространство.
+- Прямые дочерние значки `svg` наследуют `currentColor` и используют `--moduix-badge-icon-size`.
+- Числовое содержимое использует табличные цифры, а текст бейджа по умолчанию нельзя выделить.
+- Рецепт размера Chakra намеренно представлен публичными CSS-переменными, а не свойством `size`.
+
+## Примеры
+
+### Пользовательская стилизация
+
+Используйте `className` и публичные переменные `--moduix-badge-*`, если встроенные варианты близки к нужному, но недостаточны.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+
+      .badge-demo-small {
+        --moduix-badge-height: 1rem;
+        --moduix-badge-padding-x: 0.5rem;
+        --moduix-badge-font-size: 0.625rem;
+      }
+
+      .badge-demo-large {
+        --moduix-badge-height: 1.5rem;
+        --moduix-badge-padding-x: 0.75rem;
+        --moduix-badge-font-size: 0.8125rem;
+      }
+
+      .badge-demo-priority {
+        --moduix-badge-bg: color-mix(in oklab, var(--moduix-color-warning) 15%, transparent);
+        --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-warning) 45%, transparent);
+        --moduix-badge-color: var(--moduix-color-warning);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/custom-styling.tsx"
+
+```
+
+</PreviewFrame>
+
+### Ссылка
+
+Используйте `variant="link"` вместе с `asChild`, когда бейдж должен выглядеть как встроенная навигация по метаданным или небольшое действие, а дочерний элемент должен сохранить семантику настоящей ссылки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/link.tsx"
+
+```
+</PreviewFrame>
+
+### Длинные метки
+
+По умолчанию бейджи усекают длинные метки. Добавьте `title`, чтобы показывать полную метку при наведении указателя; в интерфейсах, рассчитанных на касания, предпочтительна метка, которая помещается в доступное пространство.
+
+<style>{`
+      .badge-demo-constrained {
+        inline-size: 100%;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/long-labels.tsx"
+
+```
+
+</PreviewFrame>
+
+### Варианты
+
+Используйте встроенные варианты для распространённых визуальных тонов.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/variants.tsx"
+
+```
+</PreviewFrame>
+
+### С точкой
+
+Добавьте `Badge.Dot`, когда метка и индикатор статуса должны оставаться визуально сгруппированными.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/with-dot.tsx"
+
+```
+
+</PreviewFrame>
+
+### Со значком
+
+Разместите встроенный значок рядом с меткой, когда метаданным нужен второй визуальный сигнал.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/with-icon.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Сначала используйте встроенные варианты, затем — локальные CSS-переменные для разовых изменений размера и тона.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+
+### Хуки стилизации
+
+- `data-slot="badge-root"` и `data-slot="badge-dot"` — стабильные селекторы экспортируемых частей.
+- `Badge.Root` также предоставляет `data-scope="badge"` и `data-part="root"`. `Badge.Dot` предоставляет `data-part="dot"`.
+- `Badge.Root` записывает выбранный тон в `data-variant`.
+- Семантические ссылки и кнопки, отрисованные через `Badge asChild` или `Badge.Root asChild`, получают от корневого элемента стандартное оформление видимого фокуса.
+- Прямые дочерние значки `svg` наследуют `currentColor`, не получают события указателя и имеют размер `--moduix-badge-icon-size`.
+- У Badge нет отдельного примитива Ark или машины поведения, поэтому у него нет управляемых Ark состояний или CSS-переменных времени выполнения.

@@ -1,0 +1,16 @@
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
+
+const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
+
+export default function SwatchOnlyColorPickerDemo() {
+  return (
+    <ColorPicker inline defaultValue={parseColor('#f97316')}>
+      <ColorPicker.Label>Brand color</ColorPicker.Label>
+      <ColorPicker.SwatchGroup>
+        {swatches.map((color) => (
+          <ColorPicker.SwatchTrigger key={color} value={color} />
+        ))}
+      </ColorPicker.SwatchGroup>
+    </ColorPicker>
+  );
+}

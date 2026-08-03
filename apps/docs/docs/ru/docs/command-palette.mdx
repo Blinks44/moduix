@@ -1,0 +1,167 @@
+---
+title: Command Palette
+component: command-palette
+description: Поверхность команд на основе диалога с поиском Ark Combobox и запуском с клавиатуры.
+---
+
+import * as CommandPaletteDocs from '@/components/examples/command-palette';
+
+## Справочник API
+
+В Ark UI нет отдельного примитива `command-palette`. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), следуя рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref), а также компонует Ark [`Dialog`](https://ark-ui.com/docs/components/dialog)
+с Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) для реализации поведения.
+
+## Основы
+
+Используйте `CommandPalette.Panel` для стандартной оболочки диалога и разместите внутри `CommandPalette.Combobox`. `CommandPalette.Search` отрисовывает строку поиска, похожую на поле ввода, с кнопкой очистки: она появляется после ввода и очищает поисковый запрос. Коллекция при этом остаётся вне отрисованного дерева, как в примерах Ark Combobox.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка с shadcn
+
+<ShadcnInstall packageName="command-palette" />
+
+## Анатомия
+
+```text
+CommandPalette / CommandPalette.Root
+├─ CommandPalette.Trigger
+└─ CommandPalette.Panel
+   └─ CommandPalette.Combobox
+      ├─ CommandPalette.Search
+      ├─ CommandPalette.List
+      │  ├─ CommandPalette.Empty
+      │  └─ CommandPalette.ItemGroup
+      │     ├─ CommandPalette.ItemGroupLabel
+      │     └─ CommandPalette.Item
+      │        ├─ CommandPalette.ItemIcon
+      │        ├─ CommandPalette.ItemText
+      │        ├─ CommandPalette.ItemMeta
+      │        └─ CommandPalette.ItemIndicator
+      └─ CommandPalette.Footer
+```
+
+| Part                                                                  | Role                                                                                  |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `CommandPalette` / `CommandPalette.Root`                              | Ark Dialog root plus optional global shortcut listener.                               |
+| `CommandPalette.Trigger`                                              | Ark Dialog trigger; use `asChild` for custom trigger hosts.                           |
+| `CommandPalette.Backdrop`                                             | Ark Dialog backdrop with `data-state` animations.                                     |
+| `CommandPalette.Positioner`                                           | Ark Dialog positioner for viewport alignment and scroll containment.                  |
+| `CommandPalette.Content`                                              | Ark Dialog content and visual palette surface.                                        |
+| `CommandPalette.Panel`                                                | Convenience shell for the standard backdrop, positioner, content, and body structure. |
+| `CommandPalette.Header` / `Title` / `Description`                     | Optional custom chrome and Ark Dialog title/description parts.                        |
+| `CommandPalette.Body`                                                 | Layout boundary for the combobox region inside the dialog content.                    |
+| `CommandPalette.Combobox`                                             | Ark Combobox root for command search state and selection.                             |
+| `CommandPalette.Control`                                              | Ark Combobox control around the search input and clear trigger.                       |
+| `CommandPalette.Input`                                                | Ark Combobox input.                                                                   |
+| `CommandPalette.Search`                                               | Convenience search row that renders `Control`, `Input`, and `ClearTrigger`.           |
+| `CommandPalette.ClearTrigger`                                         | Clears the typed search query and appears while the query is non-empty.               |
+| `CommandPalette.List`                                                 | Ark Combobox content/listbox with an internal moduix `ScrollArea`.                    |
+| `CommandPalette.Empty`                                                | Ark Combobox empty state.                                                             |
+| `CommandPalette.ItemGroup` / `ItemGroupLabel`                         | Ark Combobox grouped result sections.                                                 |
+| `CommandPalette.Item`                                                 | Ark Combobox item with highlighted, checked, and disabled state.                      |
+| `CommandPalette.ItemText` / `ItemIndicator`                           | Ark text plus the selected-state indicator slot.                                      |
+| `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta` | Moduix visual leaf parts for command rows and trailing metadata.                      |
+| `CommandPalette.Footer` / `Kbd`                                       | Footer/status area and a command-scoped wrapper around Moduix `Kbd`.                  |
+
+## Композиция
+
+The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+
+### Рекомендуемая композиция
+
+Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Use `CommandPalette.Panel` for the repeated overlay chrome and `CommandPalette.Search` for the standard input-like search row, including its clear action.
+
+### Когда нужна кастомизация
+
+Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`, and `ClearTrigger` directly when you need custom overlay structure or search controls. Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `aria-label` on the root for the recommended palette label, or render `CommandPalette.Title` in a custom composition when you need visible dialog chrome. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state from Ark `useDialog`, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them. Other Ark Dialog root props, including `ids`, `initialFocusEl`, `finalFocusEl`, `present`, and `onExitComplete`, retain their original contracts; part refs forward to the matching Ark DOM parts. Command palettes do not render a `HiddenInput` because they are action surfaces rather than form controls.
+
+### Значения по умолчанию
+
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
+| Prop                                        | Default         | Notes                                                                            |
+| ------------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
+| `CommandPalette.shortcut`                   | `false`         | Pass `alt+k` or another primary modifier plus key to enable the toggle listener. |
+| `CommandPalette.shortcutTarget`             | `document`      | Used only when `shortcut` is enabled; `null` skips listener registration.        |
+| `CommandPalette.lazyMount`                  | `true`          | Defers dialog DOM until the palette is opened.                                   |
+| `CommandPalette.unmountOnExit`              | `true`          | Keeps exit animation mounted, then unmounts after it completes.                  |
+| `CommandPalette.Combobox.open`              | `true`          | Keeps the listbox visible while the dialog is mounted.                           |
+| `CommandPalette.Combobox.inputBehavior`     | `autohighlight` | Highlights the first matching command as the user types.                         |
+| `CommandPalette.Combobox.selectionBehavior` | `preserve`      | Keeps typed search text instead of replacing it with the selected item.          |
+| `CommandPalette.Combobox.disableLayer`      | `true`          | Avoids adding an extra dismissable layer inside the dialog.                      |
+| `CommandPalette.Combobox.closeOnSelect`     | `true`          | Also closes the dialog after Ark Combobox selection.                             |
+
+### Особенности поведения
+
+The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. It accepts one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`; supported modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`. When enabled, it ignores repeat keydown events and `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because the documentation search uses `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette.ClearTrigger` clears `inputValue`, rather than the Combobox selection value, and stays hidden while the search is empty. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
+
+## Примеры
+
+### Управляемое состояние открытия
+
+Control `open` from React state when the palette must coordinate with surrounding UI.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/controlled-open-state.tsx"
+
+```
+
+</PreviewFrame>
+
+### Включение глобального сочетания клавиш
+
+Включайте обработчик, когда палитра должна открываться по глобальному сочетанию клавиш. Это единственный пример на странице, который регистрирует `Alt+K`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
+
+```
+
+</PreviewFrame>
+
+### Действия элемента
+
+Attach execution behavior to items and let `CommandPalette.Combobox` close the dialog on selection.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/item-actions.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная кастомизация
+
+Обходите `Panel` и `Search`, когда палитре нужны пользовательская оболочка диалога или элементы поиска. Явные части сохраняют то же поведение Dialog и Combobox.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/command-palette/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Use CSS variables on the trigger, backdrop, content, list, and item parts when the palette needs to match a denser tool UI or a branded overlay style. Use the structural parts when you need to change layout or layering.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties} />
+
+### Хуки стилизации
+
+- Exported visual parts expose stable `data-slot` hooks such as `command-palette-trigger`, `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-list`, `command-palette-scroll-area`, `command-palette-scrollbar`, and `command-palette-item`.
+- Ark Dialog state hooks include `data-scope="dialog"`, `data-part`, and `data-state="open" | "closed"` on backdrop and content.
+- Ark Combobox state hooks include `data-scope="combobox"`, `data-part`, `data-state`, `data-highlighted`, `data-disabled`, `data-invalid`, and `data-empty`.
+- Motion is tied to Ark `data-state`; legacy `data-starting-style`, `data-ending-style`, and `data-open` are not part of the command-palette contract.

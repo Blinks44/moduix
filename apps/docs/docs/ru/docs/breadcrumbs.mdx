@@ -1,0 +1,223 @@
+---
+title: Breadcrumbs
+component: breadcrumbs
+description: Семантическая навигация по пути в стиле Ark с явными частями и сокращённой формой узкого пути.
+---
+
+import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `breadcrumbs`. Moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Базовый пример
+
+Начните с `Breadcrumbs.Path`, когда приложению уже известен видимый путь. Он отрисовывает упорядоченный список, элементы, ссылки, текущую страницу и разделители по умолчанию из небольшого массива `items`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
+
+```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="breadcrumbs" />
+
+## Анатомия
+
+`Breadcrumbs` предоставляет согласованные с Ark части пространства имён.
+
+```text
+Breadcrumbs / Breadcrumbs.Root
+└─ Breadcrumbs.List
+   ├─ Breadcrumbs.Item
+   │  └─ Breadcrumbs.Link
+   ├─ Breadcrumbs.Separator
+   └─ Breadcrumbs.Item
+      └─ Breadcrumbs.Page
+```
+
+| Часть                              | Роль                                                               |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Корневая область навигации с `aria-label` по умолчанию.            |
+| `Breadcrumbs.List`                 | Упорядоченный список сегментов навигационной цепочки.              |
+| `Breadcrumbs.Item`                 | Обёртка элемента списка для одного сегмента.                       |
+| `Breadcrumbs.Link`                 | Стилизованный якорь для доступных для перехода сегментов; поддерживает `asChild`. |
+| `Breadcrumbs.Page`                 | Текст текущей страницы с `aria-current="page"`.                   |
+| `Breadcrumbs.Separator`            | Презентационный визуальный разделитель, скрытый от вспомогательных технологий. |
+| `Breadcrumbs.Ellipsis`             | Минимальный маркер свёрнутого пути для триггеров меню.             |
+
+`Breadcrumbs.Path` — локальная сокращённая форма, отрисовывающая `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Separator` из массива `items`.
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `Breadcrumbs.Path` для простых цепочек на основе якорей. Последний элемент становится текущей страницей, разделитель по умолчанию — шеврон, а `separator` может заменить его в каждом видимом промежутке.
+
+### Когда нужна собственная композиция
+
+Используйте явные части, когда нужны ссылки роутера фреймворка, свёрнутый средний раздел или разметка, различающаяся для отдельных элементов. Ark `asChild` по-прежнему обрабатывает ссылки роутера; дочерний элемент должен быть единственной семантической ссылкой, сохраняющей ожидаемые `href`, фокус и поведение клавиатуры.
+
+Комбинируйте с `Menu`, когда средние сегменты нужно свернуть за триггером с многоточием. Сохраняйте структуру Menu явной: `Menu.Positioner`, `Menu.Content` и `Menu.Item asChild`; границу портала обрабатывает Menu.
+
+### Свойства по умолчанию
+
+| Поверхность                        | По умолчанию | Примечания                                             |
+| ---------------------------------- | ------------ | ------------------------------------------------------ |
+| `Breadcrumbs` / `Breadcrumbs.Root` | —            | Нет дополнительных поведенческих значений по умолчанию; применяются значения Ark. |
+| `Breadcrumbs.Path`                 | шеврон       | Отрисовывает разделители-шевроны, если не задан `separator`. |
+
+### Особенности поведения
+
+- `Breadcrumbs` отрисовывает ориентир `nav`, а `aria-label` по умолчанию равен `"Breadcrumb"`.
+- `Breadcrumbs.Path` отрисовывает упорядоченный список из `items`; последний элемент всегда является текущей страницей.
+- `Breadcrumbs.Separator` носит презентационный характер и скрыт от вспомогательных технологий.
+- `Breadcrumbs.Ellipsis` скрыт от вспомогательных технологий, поскольку меткой владеет триггер.
+- Доступная метка свёрнутого пути должна находиться на `Menu.Trigger`.
+- Любой видимый элемент навигационной цепочки может сжиматься при недостатке места; главной целью усечения остаётся текущая страница благодаря `--moduix-breadcrumbs-item-max-width`.
+- Управляемых свойств, колбэков, хуков контекста, `RootProvider`, ids, `HiddenInput` или интеграций с состоянием формы нет, потому что Breadcrumbs не владеет интерактивным состоянием или состоянием формы.
+
+## Примеры
+
+### Свёрнутый путь
+
+Используйте части перенесённого на Ark `Menu`, когда скрытым средним сегментам нужно поведение раскрытия. Этот пример остаётся на явном пути, поскольку триггер и содержимое меню владеют настоящим взаимодействием.
+
+<style>{`
+      .collapsed-menu-trigger {
+        min-width: auto;
+        min-height: auto;
+        padding: 0;
+        border: none;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        border-radius: var(--moduix-radius-sm);
+        transition: var(--moduix-transition-default);
+      }
+
+      @media (hover: hover) {
+        .collapsed-menu-trigger:hover {
+          color: var(--moduix-color-foreground);
+          background: color-mix(in srgb, var(--moduix-color-muted) 70%, transparent);
+        }
+      }
+
+      .collapsed-menu-trigger:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-ring);
+      }
+
+      .collapsed-menu-content {
+        --moduix-menu-popup-min-width: 8rem;
+        --moduix-menu-item-font-size: var(--moduix-text-xs);
+        --moduix-menu-item-padding-x-start: 0.5rem;
+        --moduix-menu-item-padding-x-end: 0.5rem;
+        --moduix-menu-item-padding-y: 0.25rem;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/collapsed-path.tsx"
+
+```
+
+</PreviewFrame>
+
+### Пользовательский разделитель
+
+Замените шеврон по умолчанию значком или символом через `Breadcrumbs.Path`, когда все видимые промежутки используют один и тот же разделитель.
+
+<style>{`
+      .separator-icon {
+        color: currentColor;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/custom-separator.tsx"
+
+```
+
+</PreviewFrame>
+
+### Ссылка фреймворка
+
+Используйте Ark `asChild`, когда приложение стандартизировано на ссылках фреймворка.
+
+<style>{`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/framework-link.tsx"
+
+```
+
+</PreviewFrame>
+
+### Длинная метка текущей страницы
+
+Передайте React-узел в качестве последней метки `Breadcrumbs.Path`, когда текущей странице нужны дополнительные атрибуты, например `title`. Элементы-предки теперь тоже могут сжиматься, поэтому длинные средние метки больше не заставляют цепочку так легко переполняться.
+
+<style>{`
+      .breadcrumbs-long-label {
+        --moduix-breadcrumbs-item-max-width: 12rem;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/long-current-label.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Откажитесь от `Breadcrumbs.Path`, когда одной цепочке нужно сочетание ссылок фреймворка, пользовательского разделителя и вручную размеченной метки текущей страницы.
+
+<style>{`
+      [data-framework-link] {
+        text-decoration: none;
+      }
+
+      .separator-icon {
+        color: currentColor;
+      }
+
+      .breadcrumbs-long-label {
+        --moduix-breadcrumbs-item-max-width: 12rem;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/breadcrumbs/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+У каждой экспортируемой части есть атрибуты `data-scope="breadcrumbs"` и `data-part` в стиле Ark, а также стабильные хуки moduix `data-slot`. Публичные переменные `--moduix-breadcrumbs-*` покрывают макет, оформление текста, кольцо фокуса, разделители и размер многоточия.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
+
+### Хуки стилизации
+
+- `data-scope="breadcrumbs"` присутствует на каждой экспортируемой части.
+- `data-part="root"`, `list`, `item`, `link`, `page`, `separator` и `ellipsis` следуют контракту Ark factory, который использует этот компонент.
+- `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`, `breadcrumbs-separator` и `breadcrumbs-ellipsis` остаются стабильными селекторами moduix.
+- `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Ellipsis` используют общий строчный внутренний отступ из `--moduix-breadcrumbs-item-padding-x`.
+- Видимые части `Breadcrumbs.Item` могут сжиматься, чтобы сохранить цепочку; последняя видимая часть остаётся главной целью усечения и использует `--moduix-breadcrumbs-item-max-width`.
