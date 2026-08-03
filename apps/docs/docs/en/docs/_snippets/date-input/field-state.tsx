@@ -1,4 +1,5 @@
-import { DateInput, Field } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
+import { Field } from '@moduix/react/field';
 
 export default function DateInputFieldDemo() {
   return (

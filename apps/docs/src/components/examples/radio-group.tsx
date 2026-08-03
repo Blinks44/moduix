@@ -2,8 +2,9 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const radioGroupExampleCss = `
-.radio-stack {
+.radio-group-preview-stack {
   display: grid;
+  justify-items: center;
   gap: var(--moduix-spacing-2);
 }
 
@@ -12,16 +13,6 @@ export const radioGroupExampleCss = `
   width: fit-content;
   max-width: min(20rem, 100%);
   margin-inline: auto;
-}
-
-.radio-button {
-  width: fit-content;
-  min-height: 2rem;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-  border-radius: var(--moduix-radius-md);
-  padding-inline: var(--moduix-spacing-3);
-  background: var(--moduix-color-background);
-  color: var(--moduix-color-foreground);
 }
 
 .radio-inline-items {
@@ -87,6 +78,11 @@ const radioGroupOverrideCssProperties: CssPropertyInput[] = [
     'Controls checked border color.',
   ],
   [
+    '--moduix-radio-border-color-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid item control border color.',
+  ],
+  [
     '--moduix-radio-border-width',
     'var(--moduix-border-width-sm)',
     'Controls item control border width.',
@@ -100,6 +96,11 @@ const radioGroupOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-radio-focus-ring-color',
     'var(--moduix-color-ring)',
     'Controls item control focus ring color.',
+  ],
+  [
+    '--moduix-radio-focus-ring-color-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid item control focus ring color.',
   ],
   [
     '--moduix-radio-focus-ring-offset',

@@ -135,6 +135,19 @@ export const Disabled: Story = {
   ),
 };
 
+export const ItemDisabled: Story = {
+  render: () => (
+    <RadioGroup defaultValue="React">
+      <RadioGroup.Label>Framework</RadioGroup.Label>
+      <RadioGroup.Option value="React">React</RadioGroup.Option>
+      <RadioGroup.Option disabled value="Solid">
+        Solid
+      </RadioGroup.Option>
+      <RadioGroup.Option value="Vue">Vue</RadioGroup.Option>
+    </RadioGroup>
+  ),
+};
+
 export const ReadOnly: Story = {
   render: () => (
     <RadioGroup defaultValue="Solid" readOnly>
@@ -201,7 +214,7 @@ export const WithField: Story = {
   render: () => (
     <Field.Root invalid>
       <Field.Label>Account type</Field.Label>
-      <RadioGroup required name="account-type">
+      <RadioGroup invalid required name="account-type">
         <RadioOptions items={['Personal', 'Team']} />
       </RadioGroup>
       <Field.HelperText>Choose the default account context for new projects.</Field.HelperText>

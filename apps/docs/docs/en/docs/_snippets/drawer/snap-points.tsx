@@ -1,4 +1,6 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
 const snapPoints = [0.25, 0.5, 1];
 export default function SnapPointsDrawerDemo() {
@@ -9,17 +11,20 @@ export default function SnapPointsDrawerDemo() {
       </Drawer.Trigger>
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content className="snap-drawer">
+        <Drawer.Content>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
           <Drawer.Header>
             <Drawer.Title>Snap points</Drawer.Title>
             <Drawer.CloseIcon />
-            <Drawer.Description>
-              Drag between 25%, 50%, and 100% of the viewport.
-            </Drawer.Description>
+            <Drawer.Description>Drag between the configured snap points.</Drawer.Description>
           </Drawer.Header>
+          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+              <Card.Body>25% · 50% · 100%</Card.Body>
+            </Card>
+          </Drawer.Body>
         </Drawer.Content>
       </Drawer.Positioner>
     </Drawer>

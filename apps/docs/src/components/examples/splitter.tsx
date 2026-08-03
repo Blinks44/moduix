@@ -3,7 +3,6 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const splitterExampleCss = `
 .splitter-demo {
-  --moduix-splitter-width: min(56rem, 100%);
   --moduix-splitter-height: 28rem;
 }
 
@@ -16,7 +15,6 @@ export const splitterExampleCss = `
 
 export const splitterVerticalCss = `
 .splitter-vertical {
-  --moduix-splitter-width: min(34rem, 100%);
   --moduix-splitter-height: 28rem;
 }
 
@@ -35,25 +33,30 @@ export const splitterStackCss = `
 .splitter-stack {
   display: grid;
   gap: var(--moduix-spacing-4);
-  width: min(56rem, 100%);
-  min-width: min(42rem, 100%);
+  width: 100%;
 }
 
 .splitter-demo {
-  --moduix-splitter-width: min(56rem, 100%);
   --moduix-splitter-height: 28rem;
 }
 
 .splitter-toolbar {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: var(--moduix-spacing-2);
+  justify-items: center;
 }
 
 .splitter-status {
   color: var(--moduix-color-muted-foreground);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
+}
+
+.splitter-stack > [data-preview-meta] {
+  display: grid;
+  gap: var(--moduix-spacing-2);
+  justify-items: center;
+  justify-self: center;
 }
 
 .splitter-panel {
@@ -65,7 +68,6 @@ export const splitterStackCss = `
 
 export const splitterNestedCss = `
 .splitter-nested {
-  --moduix-splitter-width: min(56rem, 100%);
   --moduix-splitter-height: 30rem;
 }
 

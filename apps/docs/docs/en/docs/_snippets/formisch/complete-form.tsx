@@ -1,7 +1,14 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Field as FormischField, Form, useForm } from '@formisch/react';
-import { Button, Card, Checkbox, Combobox, Field, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Combobox } from '@moduix/react/combobox';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
+import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import * as v from 'valibot';
 
 const teams = createListCollection({
@@ -44,7 +51,14 @@ export default function ProjectForm() {
   });
 
   return (
-    <Form className="form" of={form} onSubmit={(values) => console.log(values)}>
+    <Form
+      className="form"
+      of={form}
+      onSubmit={async (values) => {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        console.log(values);
+      }}
+    >
       <Card>
         <Card.Header>
           <Card.Title>Create project</Card.Title>
@@ -59,7 +73,7 @@ export default function ProjectForm() {
                   Project name
                   <Field.RequiredIndicator />
                 </Field.Label>
-                <Field.Input {...field.props} value={field.input} />
+                <Input {...field.props} value={field.input} />
                 <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               </Field>
             )}
@@ -115,7 +129,13 @@ export default function ProjectForm() {
                   onInputValueChange={(details) => filter(details.inputValue)}
                 >
                   <Combobox.Control>
-                    <Combobox.Input placeholder="Search people" />
+                    <Combobox.Input
+                      ref={field.props.ref}
+                      autoFocus={field.props.autoFocus}
+                      onFocus={field.props.onFocus}
+                      onBlur={field.props.onBlur}
+                      placeholder="Search people"
+                    />
                     <Combobox.ClearTrigger aria-label="Clear reviewer" />
                     <Combobox.Trigger aria-label="Open reviewers" />
                   </Combobox.Control>
@@ -141,7 +161,7 @@ export default function ProjectForm() {
             {(field) => (
               <Field>
                 <Field.Label>Summary</Field.Label>
-                <Field.Textarea
+                <Textarea
                   {...field.props}
                   value={field.input}
                   placeholder="What are you planning to build?"
@@ -154,6 +174,7 @@ export default function ProjectForm() {
           <FormischField of={form} path={['notifications']}>
             {(field) => (
               <Checkbox
+                name={field.props.name}
                 checked={field.input}
                 onCheckedChange={(details) => field.onChange(details.checked === true)}
               >
@@ -165,7 +186,7 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit">
+          <Button className="submit" type="submit" loading={form.isSubmitting}>
             {form.isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>

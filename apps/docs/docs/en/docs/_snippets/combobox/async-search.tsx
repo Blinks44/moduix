@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Combobox } from '@moduix/react';
+import { Combobox } from '@moduix/react/combobox';
 import { useEffect, useMemo, useState } from 'react';
 
 const fruits = [

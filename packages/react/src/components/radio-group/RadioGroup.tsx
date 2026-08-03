@@ -1,3 +1,5 @@
+'use client';
+
 import {
   RadioGroup as RadioGroupPrimitive,
   useRadioGroup,

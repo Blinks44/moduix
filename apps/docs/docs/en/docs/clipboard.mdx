@@ -19,7 +19,7 @@ label layer.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -32,18 +32,18 @@ such as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-Clipboard.Root | Clipboard.RootProvider
+Clipboard | Clipboard.RootProvider
 ├─ Clipboard.Label (optional)
 ├─ Clipboard.Control
 │  ├─ Clipboard.Input or Clipboard.ValueText
 │  └─ Clipboard.Trigger
 │     ├─ Clipboard.Indicator (optional)
 │     └─ Clipboard.CopyText (optional)
-````
+```
 
 | Part                           | Role                                                                  |
 | ------------------------------ | --------------------------------------------------------------------- |
-| `Clipboard` / `Clipboard.Root` | Owns clipboard state, copied lifecycle, and controlled value.         |
+| `Clipboard`                  | Owns clipboard state, copied lifecycle, and controlled value.         |
 | `Clipboard.RootProvider`       | Injects `Clipboard.useClipboard()` state created outside the subtree. |
 | `Clipboard.Label`              | Accessible label for the clipboard value.                             |
 | `Clipboard.Control`            | Layout row for value surface and trigger.                             |
@@ -59,8 +59,6 @@ Clipboard.Root | Clipboard.RootProvider
 
 Stay with `Clipboard`, `Clipboard.Label`, `Clipboard.Control`, `Clipboard.Input`,
 `Clipboard.Trigger`, and `Clipboard.Indicator` for the normal Ark path.
-
-`Clipboard` is the short root form and is equivalent to `Clipboard.Root`.
 
 Use `value`, `defaultValue`, `onValueChange(details)`, `onStatusChange(details)`, `timeout`, and
 `ids` exactly as Ark defines them. moduix does not remap callback payloads or rename props on this
@@ -114,7 +112,7 @@ Control the value when the text field should stay in sync with surrounding UI or
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -126,7 +124,7 @@ introducing a separate clipboard abstraction.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/copy-status.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -137,7 +135,7 @@ Override `Clipboard.CopyText` when the trigger should use product-specific idle 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/custom-copy-text.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -149,7 +147,7 @@ the rendered tree but the visible parts should stay Ark-shaped.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/root-provider.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -160,7 +158,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/timeout.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -171,7 +169,7 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/value-text.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -195,7 +193,7 @@ composition and moduix copy-state parts.
 
 ### Styling hooks
 
-- `Clipboard.Root` -> `data-slot="clipboard-root"`
+- `Clipboard` -> `data-slot="clipboard-root"`
 - `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`
 - `Clipboard.Label` -> `data-slot="clipboard-label"`
 - `Clipboard.Control` -> `data-slot="clipboard-control"`
@@ -208,4 +206,3 @@ composition and moduix copy-state parts.
 - Ark adds `data-readonly` to `Clipboard.Input` when the input is read-only.
 - `Clipboard.Indicator` adds `data-slot="clipboard-indicator-idle-icon"` and
   `data-slot="clipboard-indicator-copied-icon"` for the default icon nodes.
-```

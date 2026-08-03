@@ -26,15 +26,15 @@ legacy `as` contract. Chakra's Stack recipe informs the public layout props.
 - Root accepts Ark factory div props, including `asChild`.
 - Applies `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` on the root.
 - Always applies the local root class from `Stack.module.css`, which sets `display: flex`.
-- `direction` falls back to the `--moduix-stack-direction-*` theme variables and then `column`. When
+- `direction` falls back to the `--moduix-stack-direction-*` CSS variables and then `column`. When
   provided, it writes inline `--moduix-stack-direction-mobile` and `--moduix-stack-direction-desktop` values.
 - `fill={true}` writes inline `--moduix-stack-flex: 1 1 0` on the root. `fill={false}` writes
-  `--moduix-stack-flex: initial`. When omitted, the root uses the `--moduix-stack-flex` theme variable and then
-  `initial`.
+  `--moduix-stack-flex: initial`. When omitted, the root falls back to `initial`.
 - `gap`, `align`, `justify`, and `wrap` are written as inline styles only when their corresponding
   prop is provided. When omitted, normal browser flex defaults apply.
-- Responsive `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only
-  one side is provided.
+- `direction` accepts `row`, `row-reverse`, `column`, and `column-reverse`. Responsive
+  `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
+  provided.
 - Use the moduix `Separator` as an ordinary child when the layout needs a visual divider.
 - The component does not add item wrappers, keyboard handling, focus management, disabled states, or
   read-only states.
@@ -57,7 +57,9 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Heading, Stack, Text } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 import styles from './stack.module.css';
 
 export function Example() {
@@ -113,12 +115,12 @@ a single element that accepts `className`, `style`, and DOM attributes.
 | `align`     | browser default | Any valid `align-items` value                            |
 | `justify`   | browser default | Any valid `justify-content` value                        |
 | `wrap`      | browser default | Any valid `flex-wrap` value                              |
-| `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial`  |
+| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` sets `flex: initial`  |
 | `asChild`   | `false`         | Ark factory composition                                  |
 | `className` | -               | Applied to the root                                      |
 | `style`     | -               | Applied last and can override computed inline properties |
 
-These public CSS variables live in `packages/react/src/styles/theme.css`. `direction` and
+These public CSS variables live in `packages/react/src/styles/variables-moduix.css`. `direction` and
 `fill` write inline values for the same variables when provided, and `style` is applied last as the
 per-instance override escape hatch.
 
@@ -152,17 +154,19 @@ per-instance override escape hatch.
   or consumer CSS for custom separators.
 - Do not document `align`, `justify`, or `wrap` as component-enforced defaults; they rely on browser
   flex defaults when omitted.
-- Keep the styling contract clear: `--moduix-stack-direction-*` and `--moduix-stack-flex` are public theme
+- Keep the styling contract clear: `--moduix-stack-direction-*` and `--moduix-stack-flex` are public CSS
   variables that props can override inline, and `style` remains the per-instance override escape
   hatch.
 
 ## Local changelog
 
+- 2026-07-30: Added reverse flex-direction values, aligned `asChild` refs with the actual rendered
+  element, and migrated docs previews to consumer-ready snippets.
 - 2026-07-11: Removed the `separator` prop to keep Stack a thin flex wrapper; compose the moduix
   `Separator` directly as a child.
 - 2026-07-03: Removed the extra `StackRootProps` re-export so the public surface stays root-only.
 - 2026-06-27: Stopped writing default `--moduix-stack-*` inline variables when `direction` or `fill` are
-  omitted, so the public theme variables in `theme.css` can act as defaults.
+  omitted, so consumer CSS variables can override the built-in fallbacks.
 - 2026-06-21: Migrated `Stack` to `@ark-ui/react/factory`, added `Stack.Root`, `asChild`,
   `data-scope="stack"`, `data-part="root"`, and forwarded root refs.
 - 2026-06-21: Removed the legacy `as` contract in favor of Ark factory `asChild`.

@@ -1,3 +1,9 @@
+import type { TourStepDetails } from '@ark-ui/react/tour';
+import { Button } from '@moduix/react/button';
+import { Tour, useTour } from '@moduix/react/tour';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
+
 const steps = [
   {
     id: 'welcome',
@@ -22,25 +28,31 @@ const steps = [
   },
   {
     id: 'complete',
-    type: 'dialog',
+    type: 'floating',
+    placement: 'bottom-end',
     title: 'You are ready',
-    description: 'Dismiss the tour when the walkthrough is complete.',
+    description: 'Floating steps stay in the viewport without a target.',
     actions: [{ label: 'Finish', action: 'dismiss' }],
-    backdrop: true,
   },
 ] satisfies TourStepDetails[];
 
-import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Button, Tour, useTour } from '@moduix/react';
-
 export default function TourDemo() {
-  const tour = useTour({ steps });
+  const [status, setStatus] = useState('idle');
+  const tour = useTour({
+    steps,
+    onStatusChange: (details) => setStatus(details.status),
+  });
 
   return (
-    <>
-      <Button onClick={() => tour.start()}>Start tour</Button>
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--moduix-spacing-3)',
+        justifyItems: 'center',
+      }}
+    >
       <Button id="tour-basic-upload" variant="outline">
-        Upload
+        Upload files
       </Button>
 
       <Tour tour={tour} lazyMount unmountOnExit>
@@ -50,15 +62,22 @@ export default function TourDemo() {
           <Tour.Content>
             <Tour.Arrow />
             <Tour.CloseIcon />
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
+            <Tour.Body>
+              <Tour.Title />
+              <Tour.Description />
+              <Tour.ProgressText />
+            </Tour.Body>
             <Tour.Control>
               <Tour.ActionList />
             </Tour.Control>
           </Tour.Content>
         </Tour.Positioner>
       </Tour>
-    </>
+
+      <PreviewMeta>
+        <output>Tour: {status}</output>
+        <Button onClick={() => tour.start()}>Start tour</Button>
+      </PreviewMeta>
+    </div>
   );
 }

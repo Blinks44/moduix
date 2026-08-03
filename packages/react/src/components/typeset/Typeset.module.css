@@ -5,7 +5,7 @@
     font-family: var(--moduix-typeset-font-body, inherit);
     font-size: calc(var(--moduix-typeset-size, 1em) * 1.125);
     line-height: var(--moduix-typeset-leading, 1.75);
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
   }
 
   @media (min-width: 48rem), print {
@@ -330,6 +330,12 @@
     overflow-x: auto;
     margin-block-start: var(--moduix-typeset-flow, 1.25em);
     overscroll-behavior-inline: contain;
+
+    &:focus-visible {
+      outline: var(--moduix-focus-ring-width, var(--moduix-border-width-md)) solid
+        var(--moduix-color-ring);
+      outline-offset: var(--moduix-focus-ring-inset-offset);
+    }
   }
 
   .root > .scroll:first-child {
@@ -343,5 +349,24 @@
   .root .scroll table {
     width: max-content;
     max-width: none;
+  }
+
+  :global(.not-typeset) .root,
+  :global(.not-typeset) .root *,
+  :global(.not-typeset) .scroll,
+  :global(.not-typeset) .scroll *,
+  [data-not-typeset] .root,
+  [data-not-typeset] .root *,
+  [data-not-typeset] .scroll,
+  [data-not-typeset] .scroll *,
+  .root:global(.not-typeset),
+  .root:global(.not-typeset) *,
+  .root[data-not-typeset],
+  .root[data-not-typeset] *,
+  .scroll:global(.not-typeset),
+  .scroll:global(.not-typeset) *,
+  .scroll[data-not-typeset],
+  .scroll[data-not-typeset] * {
+    all: revert-layer;
   }
 }

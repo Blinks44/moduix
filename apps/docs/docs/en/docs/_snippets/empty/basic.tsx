@@ -1,4 +1,5 @@
-import { Button, Empty } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Empty } from '@moduix/react/empty';
 import { Computer as ComputerIcon } from 'lucide-react';
 
 const emptyState = {

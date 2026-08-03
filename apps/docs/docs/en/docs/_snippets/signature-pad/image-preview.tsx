@@ -1,4 +1,4 @@
-import { SignaturePad } from '@moduix/react';
+import { SignaturePad } from '@moduix/react/signature-pad';
 import { useState } from 'react';
 
 const imageType = 'image/png';

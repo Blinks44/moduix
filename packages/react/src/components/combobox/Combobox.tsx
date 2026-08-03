@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Combobox as ComboboxPrimitive,
   type CollectionItem,
@@ -27,7 +29,14 @@ type ComboboxRootProviderProps<T extends CollectionItem> = ArkComboboxRootProvid
   OverlayPortalProps;
 
 const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: ComboboxRootProps<T>,
+  {
+    className,
+    lazyMount = true,
+    portalled,
+    portalRef,
+    unmountOnExit = true,
+    ...props
+  }: ComboboxRootProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -36,6 +45,8 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
         ref={ref}
         data-slot="combobox-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       />
     </OverlayPortalProvider>
@@ -43,7 +54,14 @@ const ComboboxRoot = forwardRef(function ComboboxRoot<T extends CollectionItem>(
 }) as ArkComboboxRootComponent<OverlayPortalProps>;
 
 const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends CollectionItem>(
-  { className, portalled, portalRef, ...props }: ComboboxRootProviderProps<T>,
+  {
+    className,
+    lazyMount = true,
+    portalled,
+    portalRef,
+    unmountOnExit = true,
+    ...props
+  }: ComboboxRootProviderProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
@@ -52,6 +70,8 @@ const ComboboxRootProvider = forwardRef(function ComboboxRootProvider<T extends 
         ref={ref}
         data-slot="combobox-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       />
     </OverlayPortalProvider>

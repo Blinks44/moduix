@@ -1,7 +1,6 @@
-import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
+import type { CssPropertyInput } from '../mdx/reference';
 
-const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
+export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-scroll-area-bg', 'transparent', 'Controls the viewport background color.'],
   ['--moduix-scroll-area-color', 'var(--moduix-color-foreground)', 'Controls the root text color.'],
   ['--moduix-scroll-area-content-padding', '0', 'Controls the content slot padding.'],
@@ -106,17 +105,3 @@ const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ],
   ['--moduix-scroll-area-width', '100%', 'Controls the root width.'],
 ];
-
-export function ScrollAreaCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={scrollAreaOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property))
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  return property;
-}

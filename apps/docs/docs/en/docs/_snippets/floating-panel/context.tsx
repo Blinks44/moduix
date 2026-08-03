@@ -1,4 +1,5 @@
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ContextFloatingPanelDemo() {
@@ -12,15 +13,6 @@ export default function ContextFloatingPanelDemo() {
       <FloatingPanel.Trigger asChild>
         <Button>Open context panel</Button>
       </FloatingPanel.Trigger>
-      <FloatingPanel.Context>
-        {(panel) => (
-          <PreviewMeta>
-            <output>
-              Open: {String(panel.open)}, dragging: {String(panel.dragging)}
-            </output>
-          </PreviewMeta>
-        )}
-      </FloatingPanel.Context>
       <FloatingPanel.Positioner>
         <FloatingPanel.Content>
           <FloatingPanel.DragTrigger>
@@ -43,6 +35,15 @@ export default function ContextFloatingPanelDemo() {
           <FloatingPanel.ResizeTriggerGroup />
         </FloatingPanel.Content>
       </FloatingPanel.Positioner>
+      <FloatingPanel.Context>
+        {(panel) => (
+          <PreviewMeta>
+            <output>
+              Open: {String(panel.open)}, dragging: {String(panel.dragging)}
+            </output>
+          </PreviewMeta>
+        )}
+      </FloatingPanel.Context>
     </FloatingPanel>
   );
 }

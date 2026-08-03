@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
 
 const avatarSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 

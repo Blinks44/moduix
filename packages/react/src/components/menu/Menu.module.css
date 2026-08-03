@@ -37,7 +37,7 @@
       background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
-    &[data-state='open'] {
+    &[data-current][data-state='open'] {
       background-color: var(--moduix-menu-trigger-bg-active, var(--moduix-menu-trigger-bg-hover));
     }
 
@@ -61,12 +61,6 @@
       pointer-events: none;
       opacity: var(--moduix-menu-disabled-opacity, var(--moduix-opacity-disabled));
     }
-  }
-
-  .contextTrigger {
-    width: var(--moduix-menu-context-trigger-width, 15rem);
-    min-height: var(--moduix-menu-context-trigger-height, 10rem);
-    border-style: var(--moduix-menu-context-trigger-border-style, dashed);
   }
 
   .triggerIcon,
@@ -107,8 +101,7 @@
       var(--available-width, 100vw)
     );
     max-width: min(var(--moduix-menu-popup-max-width, 20rem), var(--available-width, 100vw));
-    max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
-    overflow: visible;
+    overflow: var(--moduix-menu-popup-overflow, visible);
     padding-block: var(
       --moduix-menu-popup-padding-y,
       var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))
@@ -129,6 +122,13 @@
           var(--moduix-popup-motion-duration, var(--moduix-duration-normal))
             var(--moduix-popup-motion-easing, var(--moduix-ease-in-out))
         );
+    }
+
+    .contentViewport {
+      display: flex;
+      max-height: min(var(--moduix-menu-popup-max-height, 24rem), var(--available-height, 100dvh));
+      flex-direction: column;
+      overflow: auto;
     }
 
     &[data-state='closed'] {
@@ -285,6 +285,10 @@
     height: var(--moduix-menu-trigger-item-icon-size, var(--moduix-spacing-3-5));
     flex-shrink: 0;
     color: currentColor;
+
+    &:dir(rtl) {
+      transform: scaleX(-1);
+    }
   }
 
   .itemGroup {

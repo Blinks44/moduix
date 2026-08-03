@@ -1,1 +1,1 @@
-export { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad';
+export { SignaturePad, useSignaturePad, useSignaturePadContext } from './SignaturePad.js';

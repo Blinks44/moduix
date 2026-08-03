@@ -28,15 +28,11 @@ browser textarea behavior.
 Start with `Textarea` inside `Field`. This is the recommended path for ordinary forms, settings,
 and issue or note entry.
 
-<style>{`
-      .field {
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/basic.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -72,9 +68,9 @@ share declarative labels, helper text, and validation messaging.
 
 ### When to go custom
 
-There is no lower-level `Textarea` composition path beyond the styled textarea root. When structure
-needs to change, keep `Textarea` as the control and customize the surrounding layout with your own
-wrappers, actions, or adjacent UI.
+There is no lower-level `Textarea` composition path beyond the styled textarea root. `Field.Textarea`
+remains available as an Ark-shaped escape hatch, but prefer `Textarea` so multiline controls share
+the same moduix styling contract everywhere.
 
 Use `Editable` instead of composing custom read-only/editing controls around `Textarea`.
 
@@ -88,7 +84,10 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 
 - Use `value` with native `onChange` for controlled text.
 - Use `name` plus regular form submission when the value only needs to be read from `FormData`.
-- Use Ark `autoresize` when the field should grow with content.
+- The ref points to the real `HTMLTextAreaElement`; use `asChild` only with one semantic textarea
+  host that can receive the merged props and ref.
+- Use Ark `autoresize` when the field should grow with content. Ark disables manual resizing while
+  it is enabled, so `--moduix-textarea-resize` applies only when `autoresize` is false.
 - Use `Editable` for inline edit/read-only flows with preview text, edit triggers, and commit or
   cancel controls.
 
@@ -98,79 +97,58 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 
 Use Ark `autoresize` when the textarea should grow with its content.
 
-<style>{`
-      .field {
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/auto-resize.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/auto-resize.tsx"
 
 ```
+</PreviewFrame>
 
 ### Controlled
 
 Use `value` and native `onChange` when content should stay in React state.
 
-<style>{`
-      .field {
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/controlled.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/controlled.tsx"
 
 ```
+</PreviewFrame>
 
 ### Disabled and Readonly
 
 Set `disabled` or `readOnly` based on interaction requirements.
 
-<style>{`
-      .stack {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/disabled-and-readonly.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/disabled-and-readonly.tsx"
 
 ```
+</PreviewFrame>
 
 ### Field Validation
 
 Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the textarea and
 connects the error text.
 
-<style>{`
-      .field {
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/field-validation.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/field-validation.tsx"
 
 ```
+</PreviewFrame>
 
 ### Native Attributes
 
-Use native textarea props for sizing, browser behavior, and form submission.
+Use native textarea props for sizing, browser behavior, and form submission. The preview submits
+the current `FormData` value to make native form participation explicit.
 
-<style>{`
-      .field {
-        width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/textarea/native-attributes.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/textarea/native-attributes.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
 Style `Textarea` through `className`, `data-slot="textarea-root"`, and the public `--moduix-textarea-*`
-variables defined in `theme.css`.
+variables documented by the public CSS API.
 
 ### CSS Properties
 

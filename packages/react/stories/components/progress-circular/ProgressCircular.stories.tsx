@@ -20,10 +20,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function CircularParts() {
+function CircularParts({ ariaLabel }: { ariaLabel: string }) {
   return (
     <div className={styles.circleContainer}>
-      <ProgressCircular.Ring />
+      <ProgressCircular.Ring aria-label={ariaLabel} />
       <ProgressCircular.ValueText />
     </div>
   );
@@ -34,7 +34,7 @@ export const Basic: Story = {
     return (
       <ProgressCircular {...args}>
         <ProgressCircular.Label>Export data</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Export data" />
       </ProgressCircular>
     );
   },
@@ -48,7 +48,7 @@ export const Controlled: Story = {
       <div className={styles.stack}>
         <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
           <ProgressCircular.Label>Upload status</ProgressCircular.Label>
-          <CircularParts />
+          <CircularParts ariaLabel="Upload status" />
         </ProgressCircular>
         <Slider
           className={styles.slider}
@@ -78,7 +78,7 @@ export const InitialValue: Story = {
     return (
       <ProgressCircular defaultValue={70}>
         <ProgressCircular.Label>Import data</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Import data" />
       </ProgressCircular>
     );
   },
@@ -89,7 +89,7 @@ export const MinMaxRange: Story = {
     return (
       <ProgressCircular defaultValue={420} min={200} max={800}>
         <ProgressCircular.Label>Requests per minute</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Requests per minute" />
       </ProgressCircular>
     );
   },
@@ -100,7 +100,7 @@ export const Indeterminate: Story = {
     return (
       <ProgressCircular defaultValue={null}>
         <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Preparing report" />
       </ProgressCircular>
     );
   },
@@ -118,7 +118,7 @@ export const ValueText: Story = {
         }}
       >
         <ProgressCircular.Label>Migration</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Migration" />
       </ProgressCircular>
     );
   },
@@ -131,7 +131,7 @@ export const RootProvider: Story = {
     return (
       <ProgressCircular.RootProvider value={progress}>
         <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Team rollout" />
       </ProgressCircular.RootProvider>
     );
   },
@@ -142,7 +142,7 @@ export const CustomStyles: Story = {
     return (
       <ProgressCircular defaultValue={72} className={styles.customProgress}>
         <ProgressCircular.Label>Monthly quota</ProgressCircular.Label>
-        <CircularParts />
+        <CircularParts ariaLabel="Monthly quota" />
       </ProgressCircular>
     );
   },

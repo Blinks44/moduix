@@ -1,4 +1,4 @@
-import { ColorPicker, parseColor, useColorPicker } from '@moduix/react';
+import { ColorPicker, parseColor, useColorPicker } from '@moduix/react/color-picker';
 
 export default function RootProviderColorPickerDemo() {
   const colorPicker = useColorPicker({ defaultValue: parseColor('#9333ea') });

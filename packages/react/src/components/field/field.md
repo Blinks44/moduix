@@ -57,7 +57,7 @@ style hook. `Field.Context`, `useField`, and `useFieldContext` are exported for 
 ## Composition
 
 ```tsx
-import { Field } from '@moduix/react';
+import { Field } from '@moduix/react/field';
 
 export function NameField() {
   return (
@@ -101,12 +101,15 @@ ids are included in `aria-describedby` when present, `Field.ErrorText` renders o
 invalid, and state is exposed through `data-disabled`, `data-invalid`, `data-readonly`, and
 `data-required`.
 
-Forwarded refs target the Ark DOM part. `Field.Root` and `Field.RootProvider` forward to the root
-`div`; control parts forward to their native control elements.
+Forwarded refs target the rendered DOM part. `Field.Root` and `Field.RootProvider` forward to the
+root `div`; control parts forward to their native control elements; `Field.Item` forwards to its
+moduix row wrapper.
 
 ## Defaults and styling
 
-`Field.Control` defaults to `--moduix-size-md` with `--moduix-spacing-1` block padding. Its `--moduix-field-control-*` variables continue to override that baseline.
+`Field.Input`, `Field.Textarea`, and `Field.Select` default to `--moduix-size-md` with
+`--moduix-spacing-1` block padding. Their `--moduix-field-control-*` variables continue to override
+that baseline.
 
 The wrapper preserves moduix visual defaults: compact vertical layout, tokenized control chrome,
 focus ring, disabled opacity, invalid border color, helper text, and destructive error text.
@@ -120,8 +123,8 @@ contract. `--moduix-field-label-gap` defaults to `var(--moduix-spacing-2)`.
 
 `Field` is callable as the root for brevity and exposes `.Root` for Ark namespace parity.
 `Field.Item` adds a local wrapper div because Ark's `Item` only provides nested field context and
-does not render a styleable row. `Field.Context`, `useField`, and `useFieldContext` are re-exported
-without changing their Ark state contracts.
+does not render a styleable row. Its ref targets that wrapper. `Field.Context`, `useField`, and
+`useFieldContext` are re-exported without changing their Ark state contracts.
 
 No legacy compatibility aliases are exported. `useField` is available from `@moduix/react` for
 `Field.RootProvider`, while `Field.Context` and `useFieldContext` cover state inside the tree.
@@ -136,6 +139,8 @@ their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
 
+- 2026-07-27: Removed compounded disabled opacity from nested field parts and made `Field.Item`'s
+  row wrapper ref-forwarding.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default control to `--moduix-size-md` and compacted its block padding.
 

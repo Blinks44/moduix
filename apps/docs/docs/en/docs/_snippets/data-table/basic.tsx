@@ -1,4 +1,5 @@
-import { Badge, Table } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Table } from '@moduix/react/table';
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
 
 type Payment = {

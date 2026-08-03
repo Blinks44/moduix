@@ -1,4 +1,5 @@
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 const paragraphs = [
   'This release introduces a more resilient deployment workflow for teams that publish packages across several applications. Every release starts from a clean branch and records the exact commit, generated artifacts, and package version that will be published.',
@@ -18,17 +19,25 @@ export default function DialogOutsideScrollDemo() {
         <Button>Open release notes</Button>
       </Dialog.Trigger>
       <Dialog.Backdrop />
-      <Dialog.Positioner className="dialog-outside-positioner">
-        <Dialog.Content className="dialog-outside-content">
+      <Dialog.Positioner style={{ placeItems: 'start center' }}>
+        <Dialog.Content style={{ maxHeight: 'none', marginBlock: 'var(--moduix-spacing-8)' }}>
           <Dialog.Header>
             <Dialog.Title>Release notes</Dialog.Title>
             <Dialog.Description>
               The positioner scrolls the whole dialog when its content exceeds the viewport.
             </Dialog.Description>
           </Dialog.Header>
-          <Dialog.Body className="dialog-scroll-content">
+          <Dialog.Body
+            style={{
+              display: 'grid',
+              gap: 'var(--moduix-spacing-4)',
+              paddingInlineEnd: 'var(--moduix-spacing-3)',
+            }}
+          >
             {paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph} style={{ margin: 0 }}>
+                {paragraph}
+              </p>
             ))}
           </Dialog.Body>
           <Dialog.Footer>

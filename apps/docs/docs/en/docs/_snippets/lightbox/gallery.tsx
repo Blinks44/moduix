@@ -1,4 +1,5 @@
-import { Carousel, Lightbox } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
+import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
 
 const images = [
@@ -27,14 +28,12 @@ const images = [
 
 export default function GalleryLightboxDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [galleryKey, setGalleryKey] = useState(0);
   const activeImage = images[activeIndex] ?? images[0];
   return (
     <Lightbox
       onTriggerValueChange={(details) => {
         const nextIndex = images.findIndex((image) => image.id === details.value);
         setActiveIndex(nextIndex >= 0 ? nextIndex : 0);
-        setGalleryKey((key) => key + 1);
       }}
     >
       <div className="lightbox-gallery">
@@ -52,15 +51,15 @@ export default function GalleryLightboxDemo() {
         <Lightbox.CloseIcon />
         <Lightbox.Content aria-label={activeImage.alt}>
           <Lightbox.Gallery>
-            <Carousel.Root
-              key={galleryKey}
-              defaultPage={activeIndex}
+            <Carousel
+              aria-label="Server-driven image carousel"
+              page={activeIndex}
               onPageChange={(details) => setActiveIndex(details.page)}
               slideCount={images.length}
             >
               <Carousel.Control>
                 <Carousel.PrevTrigger />
-                <Carousel.ItemGroup aria-label="Server-driven image carousel">
+                <Carousel.ItemGroup>
                   {images.map((image, index) => (
                     <Carousel.Item key={image.id} index={index}>
                       <img src={image.src} alt={image.alt} />
@@ -77,7 +76,7 @@ export default function GalleryLightboxDemo() {
                   </Carousel.Indicator>
                 ))}
               </Carousel.IndicatorGroup>
-            </Carousel.Root>
+            </Carousel>
           </Lightbox.Gallery>
         </Lightbox.Content>
       </Lightbox.Positioner>

@@ -3,6 +3,9 @@
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
     gap: var(--moduix-toggle-group-gap, var(--moduix-border-width-sm));
     padding: var(--moduix-toggle-group-padding, var(--moduix-border-width-md));
     border: var(--moduix-toggle-group-border-width, var(--moduix-border-width-sm)) solid

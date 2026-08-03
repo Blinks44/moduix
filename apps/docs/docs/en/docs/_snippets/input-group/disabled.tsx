@@ -1,4 +1,4 @@
-import { InputGroup } from '@moduix/react';
+import { InputGroup } from '@moduix/react/input-group';
 
 const workspaceHandle = 'maps';
 

@@ -19,7 +19,7 @@ single-component public API.
 
 ## Current behavior contract
 
-- `NativeSelect` and `NativeSelect.Root` reference the same native select component.
+- `NativeSelect` is the direct public API. `NativeSelect.Root` is an equivalent compatibility alias.
 - `controlProps` target the outer layout span; use its `className` or `style` for styling that must
   reach both the select and indicator.
 - Native `value`, `defaultValue`, `onChange(event)`, `name`, `required`, `disabled`, `multiple`, and
@@ -28,14 +28,14 @@ single-component public API.
   intrinsic list height.
 - Children are native `option` and `optgroup` elements.
 - The component adds no local state, collection model, popup, or value transformation.
-- The shared `ChevronDownIcon` is shown for collapsed single-select controls and removed for
+- The shared `ChevronDownIcon` is shown for collapsed single-select controls and hidden for
   native list controls.
 - Styling reuses the control variables from `Select`.
 
 ## Anatomy and exported parts
 
 ```text
-NativeSelect / NativeSelect.Root
+NativeSelect
 └─ span[data-scope="native-select"][data-part="control"][data-slot="native-select-control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
@@ -44,14 +44,14 @@ NativeSelect / NativeSelect.Root
       └─ ChevronDownIcon
 ```
 
-| Export                               | `data-slot`          | Notes                       |
-| ------------------------------------ | -------------------- | --------------------------- |
-| `NativeSelect` / `NativeSelect.Root` | `native-select-root` | The real native `<select>`. |
+| Export         | `data-slot`          | Notes                       |
+| -------------- | -------------------- | --------------------------- |
+| `NativeSelect` | `native-select-root` | The real native `<select>`. |
 
 ## Composition
 
 ```tsx
-import { NativeSelect } from '@moduix/react';
+import { NativeSelect } from '@moduix/react/native-select';
 
 export function Example() {
   return (

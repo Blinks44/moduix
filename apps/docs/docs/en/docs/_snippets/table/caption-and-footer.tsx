@@ -1,5 +1,4 @@
-import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { Table } from '@moduix/react/table';
 
 const invoices = [
   {
@@ -30,8 +29,8 @@ const invoices = [
 
 export default function TableCaptionAndFooterDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table className={styles.table}>
+    <Table.ScrollArea>
+      <Table>
         <Table.Caption side="top">
           A list of recent invoices for the current billing cycle.
         </Table.Caption>

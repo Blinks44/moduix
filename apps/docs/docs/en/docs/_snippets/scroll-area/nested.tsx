@@ -1,5 +1,4 @@
-import { ScrollArea } from '@moduix/react';
-import styles from '@/components/examples/scroll-area.module.css';
+import { ScrollArea } from '@moduix/react/scroll-area';
 
 const sections = [
   {
@@ -14,22 +13,46 @@ const sections = [
 
 export default function NestedScrollAreaDemo() {
   return (
-    <ScrollArea className={styles.root}>
+    <ScrollArea
+      style={{
+        height: '13rem',
+        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+      }}
+    >
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.textContent}>
+          <div
+            style={{
+              display: 'grid',
+              gap: 'var(--moduix-spacing-3)',
+              padding: 'var(--moduix-spacing-3)',
+            }}
+          >
             <section>
               <h3>Outer release notes</h3>
-              <p className={styles.paragraph}>{sections[0].body}</p>
+              <p style={{ margin: 0 }}>{sections[0].body}</p>
             </section>
-            <ScrollArea className={styles.nestedRoot}>
+            <ScrollArea
+              style={{
+                height: '8rem',
+                border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+                borderRadius: 'var(--moduix-radius-md)',
+              }}
+            >
               <ScrollArea.Viewport>
                 <ScrollArea.Content>
-                  <div className={styles.textContent}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gap: 'var(--moduix-spacing-2)',
+                      padding: 'var(--moduix-spacing-3)',
+                    }}
+                  >
                     {sections.map((item) => (
                       <section key={item.title}>
                         <h3>{item.title}</h3>
-                        <p className={styles.paragraph}>{item.body}</p>
+                        <p style={{ margin: 0 }}>{item.body}</p>
                       </section>
                     ))}
                   </div>

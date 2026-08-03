@@ -28,6 +28,7 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
 
   return (
     <ark.span
+      {...props}
       ref={ref}
       asChild={asChild}
       role={resolvedRole}
@@ -39,7 +40,6 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
       data-size={size}
       data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });

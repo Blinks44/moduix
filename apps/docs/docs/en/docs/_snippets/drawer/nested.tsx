@@ -1,4 +1,6 @@
-import { Button, Drawer, useDrawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer, useDrawer } from '@moduix/react/drawer';
 
 const items = ['Passkeys enabled', 'Two-factor authentication on', '3 signed-in devices'];
 const snapPoints = [0.42, 1];
@@ -12,7 +14,7 @@ export default function NestedDrawerDemo() {
     defaultSnapPoint: snapPoints[0],
   });
   return (
-    <div className="nested-demo">
+    <div>
       <Button onClick={() => accountDrawer.setOpen(true)}>Open account drawer</Button>
       <Drawer.RootProvider value={accountDrawer}>
         <Drawer.Backdrop />
@@ -26,10 +28,14 @@ export default function NestedDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Review account preferences.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body>
-              <Button variant="outline" onClick={() => securityDrawer.setOpen(true)}>
-                Security settings
-              </Button>
+            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+                <Card.Body>
+                  <Button variant="outline" onClick={() => securityDrawer.setOpen(true)}>
+                    Security settings
+                  </Button>
+                </Card.Body>
+              </Card>
             </Drawer.Body>
           </Drawer.Content>
         </Drawer.Positioner>
@@ -45,12 +51,16 @@ export default function NestedDrawerDemo() {
               <Drawer.CloseIcon />
               <Drawer.Description>Nested drawers keep their own focus state.</Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body>
-              <ul className="nested-list">
-                {items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+                <Card.Body>
+                  <ul>
+                    {items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </Card.Body>
+              </Card>
             </Drawer.Body>
             <Drawer.Footer>
               <Drawer.CloseTrigger asChild>

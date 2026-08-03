@@ -1,4 +1,4 @@
-import { Checkbox } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
 
 const options = [
   { value: 'react', label: 'React' },

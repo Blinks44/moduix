@@ -1,4 +1,3 @@
-@import '../../../packages/react/src/styles/fonts.css';
 @import '@moduix/react/reset.css';
 @import '@moduix/react/style.css';
 
@@ -67,6 +66,10 @@ html {
 body {
   position: relative;
   background: var(--rp-c-bg);
+  font-family: var(--moduix-font-sans), sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: 'wdth' 100;
 
   &:has(.moduix-home) .rp-nav {
     background-color: color-mix(in srgb, var(--rp-c-bg) 58%, transparent);
@@ -143,23 +146,27 @@ body {
     color: var(--rp-c-text-1);
   }
 
-  &:has(.rp-sidebar-item__right img) {
+  &:has(.rp-sidebar-item__right svg) {
     justify-content: flex-start;
     gap: 8px;
   }
 }
 
 .rp-sidebar-item__right {
-  &:has(img) {
+  &:has(svg) {
     order: -1;
     flex: none;
   }
 
-  img {
+  svg {
     display: block;
     width: 18px;
     height: 18px;
   }
+}
+
+.rp-outline__toc .rp-toc-item:not([data-depth='0']) {
+  display: none;
 }
 
 .rp-preview {
@@ -193,6 +200,7 @@ body {
     gap: 0.75rem;
     overflow: hidden;
     flex-direction: column;
+    padding-block: 0.5rem;
 
     > * {
       min-width: 0;
@@ -213,7 +221,8 @@ body {
   [data-preview-meta] {
     margin-top: var(--moduix-spacing-4);
     display: grid;
-    width: 100%;
+    inline-size: fit-content;
+    max-inline-size: 100%;
     gap: var(--moduix-spacing-2);
     padding: var(--moduix-spacing-4);
     border: var(--moduix-border-width-sm) solid

@@ -1,39 +1,5 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
-export const checkboxExampleCss = `
-  .checkbox-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--moduix-spacing-3);
-  }
-`;
-
-export const checkboxCustomIndicatorCss = `
-  .checkbox-custom-group,
-  .checkbox-custom-root {
-    gap: var(--moduix-spacing-3);
-  }
-
-  .checkbox-custom-control {
-    border-color: var(--moduix-color-primary);
-  }
-
-  .checkbox-custom-control[data-state='checked'],
-  .checkbox-custom-control[data-state='indeterminate'] {
-    border-color: var(--moduix-color-primary);
-    background-color: var(--moduix-color-primary);
-  }
-
-  .checkbox-custom-label {
-    color: var(--moduix-color-primary);
-  }
-
-  .checkbox-custom-icon {
-    transform: rotate(-8deg);
-  }
-`;
-
 export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-checkbox-bg',

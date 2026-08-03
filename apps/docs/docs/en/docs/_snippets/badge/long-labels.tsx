@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
 
 const label = 'Ready for stakeholder review after legal approval for production release';
 

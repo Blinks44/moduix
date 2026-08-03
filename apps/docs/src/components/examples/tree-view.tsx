@@ -1,12 +1,12 @@
+import { Button } from '@moduix/react/button';
 import {
-  Button,
   TreeView,
   type TreeViewLoadChildrenDetails,
   type TreeViewNodeProviderProps,
   createTreeCollection,
   useTreeView,
   useTreeViewNodeContext,
-} from '@moduix/react';
+} from '@moduix/react/tree-view';
 import {
   File as FileIcon,
   Folder as FolderIcon,
@@ -572,6 +572,7 @@ const treeViewOverrideCssProperties: CssPropertyInput[] = [
     'Customizes tree view rename input radius.',
   ],
   ['--moduix-tree-view-root-gap', 'var(--moduix-spacing-2)', 'Customizes tree view root gap.'],
+  ['--moduix-tree-view-row-gap', 'var(--moduix-spacing-1)', 'Controls the gap between tree rows.'],
   [
     '--moduix-tree-view-transition',
     'var(--moduix-transition-default)',

@@ -28,9 +28,11 @@ text, control, and hidden input parts for every entry.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/basic.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -49,12 +51,17 @@ SegmentGroup / SegmentGroup.Root
 
 SegmentGroup.RootProvider
 └─ same item tree connected to a moduix useSegmentGroup() store
+
+SegmentGroup.Context / SegmentGroup.ItemContext
+└─ advanced render-prop access to Ark state
 ```
 
 | Part                                 | Role                                                             |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `SegmentGroup` / `SegmentGroup.Root` | Owns single-value state, keyboard navigation, and forms.         |
 | `SegmentGroup.RootProvider`          | Connects parts to state created with moduix `useSegmentGroup()`. |
+| `SegmentGroup.Context`               | Advanced render-prop access to the current root state.           |
+| `SegmentGroup.ItemContext`           | Advanced render-prop access to the current item state.           |
 | `SegmentGroup.Label`                 | Optional accessible label for the group.                         |
 | `SegmentGroup.Indicator`             | Measured active-item highlight using Ark CSS variables.          |
 | `SegmentGroup.Items`                 | Recommended renderer for standard text segments.                 |
@@ -68,14 +75,20 @@ SegmentGroup.RootProvider
 
 Use the short root form `<SegmentGroup>` with `SegmentGroup.Items` for normal usage. Render
 `Indicator` before items so the measured highlight sits behind the checked segment. `Items` keeps
-Ark's the native form input in every generated item for native forms and reset behavior.
+the native form input in every generated item for native forms and reset behavior.
 
 ### When to go custom
 
 Use `SegmentGroup.Item` when segments need custom content, per-item classes, or `asChild`. An
 `asChild` child must still be a single semantic `label`. Use `SegmentGroup.RootProvider` with
 `useSegmentGroup()` from `@moduix/react` when surrounding controls need to call methods such as
-`setValue`, `clearValue`, or `focus`.
+`setValue`, `clearValue`, or `focus`. For state-driven custom visuals, import
+`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext`, or
+`useSegmentGroupItemContext` from `@moduix/react`.
+
+`ItemHiddenInput` is intentionally internal in moduix. `SegmentGroup.Item` always renders exactly
+one synchronized native radio input, including with `asChild`; do not compose Ark's
+`ItemHiddenInput` a second time.
 
 ### Default props
 
@@ -95,6 +108,12 @@ Use `SegmentGroup.Item` when segments need custom content, per-item classes, or 
 Ark owns roving focus, arrow-key navigation, focus management, disabled/read-only/invalid/required
 state, ids, form submission, and form reset synchronization.
 
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
+to their corresponding Ark DOM parts. Wrap the group in `Field` or `Fieldset` when their shared
+state should apply: `Field` provides disabled, invalid, required, and read-only state, while
+`Fieldset` provides disabled and invalid state. Use `ids` when composed labels or controls need
+deterministic accessibility identifiers.
+
 ## Examples
 
 ### Conditional Mount
@@ -104,9 +123,11 @@ group appears.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/conditional-mount.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/conditional-mount.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Controlled
 
@@ -114,9 +135,11 @@ Control the selected value from React state and update it from `details.value`.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/controlled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/controlled.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Disabled
 
@@ -124,20 +147,37 @@ Set `disabled` on an item when only one segment should be unavailable.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/disabled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/disabled.tsx"
 
-```
+  ```
+</PreviewFrame>
+
+### Field
+
+Wrap the group in `Field` when helper or error text should accompany its automatic native input.
+Ark inherits disabled, invalid, required, and read-only field state.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/field.tsx"
+
+  ```
+</PreviewFrame>
 
 ### Form Submission
 
 Pass `name` to the root to submit the selected value with native form data. `SegmentGroup.Items`
 adds the native form input to every generated item.
 
-<style>{SegmentGroupDocs.segmentGroupFormExampleCss}</style>
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/form-submission.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/form-submission.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Invalid
 
@@ -146,9 +186,11 @@ participates in native form validation.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/invalid.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/invalid.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Root Provider
 
@@ -157,9 +199,11 @@ segment tree.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/segment-group/root-provider.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/root-provider.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Vertical Orientation
 
@@ -167,9 +211,11 @@ Set `orientation="vertical"` when arrow-key behavior and layout should follow a 
 
 <style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
 
-```tsx preview file="./_snippets/segment-group/vertical-orientation.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/vertical-orientation.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
@@ -178,9 +224,11 @@ own the item DOM node.
 
 <style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
 
-```tsx preview file="./_snippets/segment-group/aschild.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/segment-group/aschild.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

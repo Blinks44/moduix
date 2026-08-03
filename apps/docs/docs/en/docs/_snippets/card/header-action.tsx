@@ -1,4 +1,5 @@
-import { Badge, Card } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Card } from '@moduix/react/card';
 
 const incident = {
   title: 'Incident response',
@@ -13,7 +14,7 @@ export default function CardActionDemo() {
       <Card.Header>
         <Card.Title>{incident.title}</Card.Title>
         <Card.Description>{incident.description}</Card.Description>
-        <Card.Action>
+        <Card.Action style={{ alignSelf: 'start' }}>
           <Badge variant="secondary">{incident.status}</Badge>
         </Card.Action>
       </Card.Header>

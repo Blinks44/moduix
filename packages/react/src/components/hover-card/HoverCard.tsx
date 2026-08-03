@@ -1,3 +1,5 @@
+'use client';
+
 import {
   HoverCard as HoverCardPrimitive,
   useHoverCard,
@@ -18,18 +20,40 @@ type HoverCardRootProps = ComponentProps<typeof HoverCardPrimitive.Root> & Overl
 type HoverCardRootProviderProps = ComponentProps<typeof HoverCardPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function HoverCardRoot({ portalled, portalRef, ...props }: HoverCardRootProps) {
+function HoverCardRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: HoverCardRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <HoverCardPrimitive.Root data-slot="hover-card-root" {...props} />
+      <HoverCardPrimitive.Root
+        data-slot="hover-card-root"
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }
 
-function HoverCardRootProvider({ portalled, portalRef, ...props }: HoverCardRootProviderProps) {
+function HoverCardRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: HoverCardRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <HoverCardPrimitive.RootProvider data-slot="hover-card-root-provider" {...props} />
+      <HoverCardPrimitive.RootProvider
+        data-slot="hover-card-root-provider"
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }

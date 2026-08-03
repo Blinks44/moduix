@@ -1,1 +1,1 @@
-export { ToggleGroup, useToggleGroup, useToggleGroupContext } from './ToggleGroup';
+export { ToggleGroup, useToggleGroup, useToggleGroupContext } from './ToggleGroup.js';

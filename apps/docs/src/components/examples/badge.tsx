@@ -12,6 +12,17 @@ export const badgeCssProperties: CssPropertyInput[] = [
   ['--moduix-badge-dot-size', 'var(--moduix-spacing-1-5)', 'Controls Badge.Dot size.'],
   ['--moduix-badge-font-size', 'var(--moduix-text-xs)', 'Controls badge font size.'],
   ['--moduix-badge-font-weight', 'var(--moduix-weight-medium)', 'Controls badge font weight.'],
+  ['--moduix-badge-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-badge-focus-ring-offset',
+    'var(--moduix-focus-ring-offset)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--moduix-badge-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
+    'Controls focus ring width.',
+  ],
   ['--moduix-badge-gap', 'var(--moduix-spacing-1-5)', 'Controls space between badge children.'],
   ['--moduix-badge-height', '1.25rem', 'Controls badge minimum height.'],
   ['--moduix-badge-icon-size', 'var(--moduix-spacing-3)', 'Controls direct child SVG icon size.'],

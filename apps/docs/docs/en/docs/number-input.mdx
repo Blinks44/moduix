@@ -12,11 +12,13 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 ## Basic
 
-Use `NumberInput.Field` for the standard input and trigger group.
+Use `NumberInput` with `NumberInput.Field` for the standard input and trigger group.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -57,9 +59,9 @@ NumberInput.RootProvider
 
 ### Recommended composition
 
-`NumberInput.Root` owns parsing, range checks, keyboard increment/decrement, spin-on-press, mouse
-wheel changes, scrubber interaction, and formatting. Use `NumberInput` as the short root form and
-use `NumberInput.Field` for the default visible parts.
+`NumberInput` owns parsing, range checks, keyboard increment/decrement, spin-on-press, scrubber
+interaction, and formatting. Set `allowMouseWheel` when wheel-based changes are intentional. Use
+`NumberInput.Field` for the default visible parts.
 
 Use string values for `value` and `defaultValue`. Ark reports changes through
 `onValueChange(details)`, where `details.value` is the string value and `details.valueAsNumber` is
@@ -86,10 +88,13 @@ drag-to-change input.
 - Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText` for accessible localized labels.
 - `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` pass directly to Ark.
 - `onValueInvalid(details)` reports `rangeUnderflow` or `rangeOverflow` when the value exceeds configured bounds.
+- Set `clampValueOnBlur={false}` when typed values outside `min` or `max` should remain unchanged on blur.
 - Use `ids` when external labels or descriptions need stable element IDs.
 - Ark-backed parts support `asChild` for custom host composition; `NumberInput.Field` intentionally
   renders its fixed three-part structure and forwards its ref to `NumberInput.Control`.
 - `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` are available from `@moduix/react`.
+- To submit a numeric value, render a hidden native input from `NumberInput.Context` with
+  `context.valueAsNumber`.
 
 ## Examples
 
@@ -97,90 +102,129 @@ drag-to-change input.
 
 Keep controlled state as a string and read `details.value` in `onValueChange`.
 
-<style>{NumberInputDocs.numberInputControlledCss}</style>
-
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/controlled.tsx"
 
 ```
+</PreviewFrame>
 
 ### Field
 
-Compose with `Field` when form state, error text, and accessibility metadata should be shared.
+Compose with `Field` when form state, helper text, error text, and accessibility metadata should be shared.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/field.tsx"
 
 ```
+</PreviewFrame>
 
 ### Formatting
 
 Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/formatting.tsx"
 
 ```
+</PreviewFrame>
 
 ### Min and Max
 
-Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions.
+Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions. Set
+`clampValueOnBlur={false}` when an out-of-range typed value should remain visible after blur.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/min-and-max.tsx"
 
 ```
+</PreviewFrame>
 
 ### Mouse Wheel
 
 Set `allowMouseWheel` when wheel-based value changes are intentional for the workflow.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/mouse-wheel.tsx"
 
 ```
+</PreviewFrame>
 
 ### Precision
 
 Use `formatOptions` with `Intl.NumberFormatOptions` when the visible value needs a fixed number of
 fraction digits.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/precision.tsx"
 
 ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use `useNumberInput()` with `NumberInput.RootProvider` when state must be created outside the
 rendered part tree.
 
-<style>{NumberInputDocs.numberInputRootProviderCss}</style>
-
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ### Scrubbing
 
-Render `NumberInput.Scrubber` when pointer dragging should change the value.
+Drag the scrubber label left or right to change the value.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/scrubbing.tsx"
 
 ```
+</PreviewFrame>
 
 ### Value text
 
-Use `NumberInput.ValueText` when the formatted value should also be visible outside the editable input.
+Use an `<output>` when the current value should also be visible outside the editable input.
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/value-text.tsx"
 
 ```
+</PreviewFrame>
+
+### Disabled and read-only
+
+Use `disabled` to prevent all interaction. Use `readOnly` when the value remains selectable but must
+not be edited.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="./_snippets/number-input/disabled-and-read-only.tsx"
+
+```
+</PreviewFrame>
+
+### Native form submission
+
+`NumberInput` manages a text spinbutton. Render a hidden native input through `NumberInput.Context`
+when a form must submit the parsed numeric value.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="./_snippets/number-input/form-submission.tsx"
+
+```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `NumberInput.Field` and compose the low-level parts when the trigger icons or input styling
-must be customized.
+must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
 
 <style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
 
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/custom-icons.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

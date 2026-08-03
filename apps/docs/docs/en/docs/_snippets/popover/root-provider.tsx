@@ -1,4 +1,6 @@
-import { Button, Popover, usePopover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover, usePopover } from '@moduix/react/popover';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDemo() {
   const popover = usePopover({
@@ -8,9 +10,13 @@ export default function RootProviderDemo() {
     },
   });
   return (
-    <div className="stack">
-      <span>Popover is {popover.open ? 'open' : 'closed'}</span>
-      <Button onClick={() => popover.setOpen(!popover.open)}>Toggle externally</Button>
+    <div
+      style={{
+        display: 'grid',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       <Popover.RootProvider value={popover}>
         <Popover.Trigger asChild>
           <Button>Open from trigger</Button>
@@ -29,6 +35,12 @@ export default function RootProviderDemo() {
           </Popover.Content>
         </Popover.Positioner>
       </Popover.RootProvider>
+      <PreviewMeta style={{ justifySelf: 'center' }}>
+        <output>Open: {popover.open ? 'yes' : 'no'}</output>
+        <Button size="sm" onClick={() => popover.setOpen(!popover.open)}>
+          Toggle externally
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

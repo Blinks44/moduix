@@ -1,4 +1,4 @@
-import { FileUpload } from '@moduix/react';
+import { FileUpload } from '@moduix/react/file-upload';
 
 const maxFiles = 3;
 export default function FileUploadDemo() {

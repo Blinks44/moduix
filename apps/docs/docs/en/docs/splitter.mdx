@@ -12,15 +12,17 @@ import * as SplitterDocs from '@/components/examples/splitter';
 
 ## Basic
 
-Use Ark-style parts: `Splitter.Root`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The trigger
+Use Ark-style parts: `Splitter`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The trigger
 shows the moduix resize indicator by default. `panels` defines ids and constraints; rendered panel
 ids must match that array.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
-```tsx preview file="./_snippets/splitter/basic.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/basic.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -29,7 +31,7 @@ ids must match that array.
 ## Anatomy
 
 ```text
-Splitter.Root
+Splitter
 ├─ Splitter.Panel[id]
 ├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
 │  └─ Splitter.ResizeTriggerIndicator (default, customizable)
@@ -78,11 +80,6 @@ button semantics, focus behavior, and keyboard interaction intact.
 `collapsedSize`. Numeric size values are percentages; Ark also accepts CSS lengths for initial and
 constraint sizes, which are measured on the client and can shift after hydration.
 
-Zag 1.41.2 currently renders a collapsed panel at `minSize` when `collapsedSize` is smaller. The
-upstream [issue](https://github.com/chakra-ui/zag/issues/3179) and
-[fix](https://github.com/chakra-ui/zag/pull/3180) cover this regression; moduix does not add a local
-layout override while the fix is pending.
-
 Callbacks keep Ark detail objects: `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`,
 and `onExpand(details)`. `onResizeStart` is called when a resize begins.
 
@@ -95,9 +92,11 @@ rail.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
-```tsx preview file="./_snippets/splitter/collapsible-panels.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/collapsible-panels.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Controlled
 
@@ -105,9 +104,11 @@ Control panel sizes from React state and update that state from `details.size`.
 
 <style>{SplitterDocs.splitterStackCss}</style>
 
-```tsx preview file="./_snippets/splitter/controlled.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/controlled.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Dynamic Collapsible
 
@@ -116,9 +117,11 @@ available width.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
-```tsx preview file="./_snippets/splitter/dynamic-collapsible.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/dynamic-collapsible.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Multiple Panels
 
@@ -126,9 +129,11 @@ Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
-```tsx preview file="./_snippets/splitter/multiple-panels.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/multiple-panels.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Nested
 
@@ -137,9 +142,11 @@ handle intersections.
 
 <style>{SplitterDocs.splitterNestedCss}</style>
 
-```tsx preview file="./_snippets/splitter/nested.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/nested.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Root Provider
 
@@ -148,9 +155,11 @@ same splitter API.
 
 <style>{SplitterDocs.splitterStackCss}</style>
 
-```tsx preview file="./_snippets/splitter/root-provider.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/root-provider.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Vertical
 
@@ -158,9 +167,11 @@ Set `orientation="vertical"` and give the root a stable height so stacked panels
 
 <style>{SplitterDocs.splitterVerticalCss}</style>
 
-```tsx preview file="./_snippets/splitter/vertical.tsx"
+<PreviewFrame>
+  ```tsx preview file="./_snippets/splitter/vertical.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

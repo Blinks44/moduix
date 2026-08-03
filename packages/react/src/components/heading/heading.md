@@ -48,7 +48,7 @@ preset.
 ## Composition
 
 ```tsx
-import { Heading } from '@moduix/react';
+import { Heading } from '@moduix/react/heading';
 
 export function Example() {
   return (
@@ -126,7 +126,7 @@ Public CSS variables:
 | `--moduix-heading-line-height-{size}`   | matching `--moduix-line-height-text-*` token |
 | `--moduix-heading-text-wrap`            | `balance`                                    |
 
-The root also uses `overflow-wrap: break-word`.
+The root uses `overflow-wrap: anywhere` so long unbroken content can shrink inside narrow layouts.
 
 ## Intentional sugar and differences from upstream
 

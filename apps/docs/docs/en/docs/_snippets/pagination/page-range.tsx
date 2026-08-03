@@ -1,4 +1,5 @@
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PaginationPageRangeDemo() {
   return (
@@ -11,10 +12,12 @@ export default function PaginationPageRangeDemo() {
               <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
-            <p className="pagination-muted">
-              Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{' '}
-              {pagination.count} results
-            </p>
+            <PreviewMeta>
+              <output>
+                Showing {pagination.pageRange.start + 1}-{pagination.pageRange.end} of{' '}
+                {pagination.count} results
+              </output>
+            </PreviewMeta>
           </div>
         )}
       </Pagination.Context>

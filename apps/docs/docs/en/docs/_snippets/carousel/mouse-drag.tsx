@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 
 const slides = [
   {
@@ -30,7 +30,7 @@ const slides = [
 
 export default function MouseDragCarousel() {
   return (
-    <Carousel allowMouseDrag slideCount={slides.length}>
+    <Carousel allowMouseDrag aria-label="Mouse draggable gallery" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Mouse draggable gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

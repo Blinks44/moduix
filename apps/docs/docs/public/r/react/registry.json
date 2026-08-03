@@ -28,9 +28,9 @@
       "name": "core",
       "type": "registry:item",
       "title": "moduix core",
-      "description": "Shared framework-neutral styles and utilities for moduix registry components.",
+      "description": "Runtime styles and utilities required by moduix registry components.",
       "dependencies": ["clsx"],
-      "docs": "Import '@/lib/moduix/styles/style.css' once in your app entry. Optionally import '@/lib/moduix/styles/reset.css' before it.",
+      "docs": "Required: import the installed style.css once in your app entry. The optional reset is a separate registry item and must be imported before style.css.",
       "files": [
         {
           "path": "packages/react/src/internal/normalizeClassName.ts",
@@ -40,11 +40,6 @@
         {
           "path": "packages/react/src/styles/animations.css",
           "target": "@lib/moduix/styles/animations.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/react/src/styles/ark-runtime-reference.css",
-          "target": "@lib/moduix/styles/ark-runtime-reference.css",
           "type": "registry:file"
         },
         {
@@ -68,11 +63,6 @@
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/reset.css",
-          "target": "@lib/moduix/styles/reset.css",
-          "type": "registry:file"
-        },
-        {
           "path": "packages/react/src/styles/shadows.css",
           "target": "@lib/moduix/styles/shadows.css",
           "type": "registry:file"
@@ -90,11 +80,6 @@
         {
           "path": "packages/react/src/styles/style.css",
           "target": "@lib/moduix/styles/style.css",
-          "type": "registry:file"
-        },
-        {
-          "path": "packages/react/src/styles/theme.css",
-          "target": "@lib/moduix/styles/theme.css",
           "type": "registry:file"
         },
         {
@@ -120,12 +105,24 @@
       ]
     },
     {
-      "name": "foundation",
+      "name": "reset",
       "type": "registry:item",
-      "title": "moduix React core",
-      "description": "React-specific icons and shared foundation dependencies for moduix React registry components.",
-      "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/core"],
+      "title": "moduix reset",
+      "description": "Optional CSS reset for projects that want moduix global reset rules.",
+      "docs": "Optional: import the installed reset.css before style.css in your app entry.",
+      "files": [
+        {
+          "path": "packages/react/src/styles/reset.css",
+          "target": "@lib/moduix/styles/reset.css",
+          "type": "registry:file"
+        }
+      ]
+    },
+    {
+      "name": "icons",
+      "type": "registry:item",
+      "title": "moduix icons",
+      "description": "Internal icon components required only by registry components that render them.",
       "files": [
         {
           "path": "packages/react/src/internal/icons/ui/index.ts",
@@ -136,13 +133,29 @@
           "path": "packages/react/src/internal/icons/ui/Icons.tsx",
           "target": "@lib/moduix/icons/ui/Icons.tsx",
           "type": "registry:lib"
-        },
+        }
+      ]
+    },
+    {
+      "name": "overlay-portal",
+      "type": "registry:item",
+      "title": "moduix overlay portal",
+      "description": "Internal overlay portal helper required only by overlay registry components.",
+      "files": [
         {
           "path": "packages/react/src/internal/overlayPortal.tsx",
           "target": "@lib/moduix/overlayPortal.tsx",
           "type": "registry:lib"
         }
       ]
+    },
+    {
+      "name": "foundation",
+      "type": "registry:item",
+      "title": "moduix React core",
+      "description": "Shared runtime dependencies installed by every moduix registry component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/core"]
     },
     {
       "name": "theme-contrast",
@@ -195,7 +208,7 @@
       "title": "Accordion",
       "description": "moduix React Accordion component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/accordion/Accordion.tsx",
@@ -370,7 +383,7 @@
       "title": "Breadcrumbs",
       "description": "moduix React Breadcrumbs component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/breadcrumbs/Breadcrumbs.tsx",
@@ -445,7 +458,7 @@
       "title": "Checkbox",
       "description": "moduix React Checkbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/checkbox/Checkbox.tsx",
@@ -470,7 +483,7 @@
       "title": "CloseButton",
       "description": "moduix React CloseButton component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/close-button/CloseButton.tsx",
@@ -495,7 +508,7 @@
       "title": "Collapsible",
       "description": "moduix React Collapsible component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/collapsible/Collapsible.tsx",
@@ -520,7 +533,12 @@
       "title": "Combobox",
       "description": "moduix React Combobox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/combobox/Combobox.tsx",
@@ -545,7 +563,11 @@
       "title": "ColorPicker",
       "description": "moduix React ColorPicker component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/color-picker/ColorPicker.tsx",
@@ -574,7 +596,9 @@
         "@moduix-react/close-button",
         "@moduix-react/foundation",
         "@moduix-react/kbd",
-        "@moduix-react/scroll-area"
+        "@moduix-react/scroll-area",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
       ],
       "files": [
         {
@@ -650,7 +674,12 @@
       "title": "DatePicker",
       "description": "moduix React DatePicker component.",
       "dependencies": ["@ark-ui/react", "@internationalized/date", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/date-picker/DatePicker.tsx",
@@ -675,7 +704,7 @@
       "title": "Clipboard",
       "description": "moduix React Clipboard component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/clipboard/Clipboard.tsx",
@@ -700,7 +729,11 @@
       "title": "Dialog",
       "description": "moduix React Dialog component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/dialog/Dialog.tsx",
@@ -725,7 +758,11 @@
       "title": "Drawer",
       "description": "moduix React Drawer component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/drawer/Drawer.tsx",
@@ -775,7 +812,7 @@
       "title": "Editable",
       "description": "moduix React Editable component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/editable/Editable.tsx",
@@ -825,7 +862,11 @@
       "title": "FileUpload",
       "description": "moduix React FileUpload component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/file-upload/FileUpload.tsx",
@@ -875,7 +916,12 @@
       "title": "FloatingPanel",
       "description": "moduix React FloatingPanel component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/floating-panel/FloatingPanel.tsx",
@@ -1079,7 +1125,11 @@
       "title": "Lightbox",
       "description": "moduix React Lightbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/lightbox/Lightbox.tsx",
@@ -1129,7 +1179,11 @@
       "title": "Listbox",
       "description": "moduix React Listbox component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/listbox/Listbox.tsx",
@@ -1154,7 +1208,7 @@
       "title": "TreeView",
       "description": "moduix React TreeView component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/tree-view/TreeView.tsx",
@@ -1204,7 +1258,11 @@
       "title": "Menu",
       "description": "moduix React Menu component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/menu/Menu.tsx",
@@ -1229,7 +1287,7 @@
       "title": "Native Select",
       "description": "moduix React Native Select component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/native-select/NativeSelect.tsx",
@@ -1254,7 +1312,7 @@
       "title": "NumberInput",
       "description": "moduix React NumberInput component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/number-input/NumberInput.tsx",
@@ -1279,7 +1337,7 @@
       "title": "PinInput",
       "description": "moduix React PinInput component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/pin-input/PinInput.tsx",
@@ -1304,7 +1362,7 @@
       "title": "Pagination",
       "description": "moduix React Pagination component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/pagination/Pagination.tsx",
@@ -1329,7 +1387,7 @@
       "title": "PasswordInput",
       "description": "moduix React PasswordInput component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/password-input/PasswordInput.tsx",
@@ -1354,7 +1412,11 @@
       "title": "Popover",
       "description": "moduix React Popover component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/close-button", "@moduix-react/foundation"],
+      "registryDependencies": [
+        "@moduix-react/close-button",
+        "@moduix-react/foundation",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/popover/Popover.tsx",
@@ -1379,7 +1441,7 @@
       "title": "HoverCard",
       "description": "moduix React HoverCard component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
           "path": "packages/react/src/components/hover-card/HoverCard.tsx",
@@ -1504,7 +1566,7 @@
       "title": "RatingGroup",
       "description": "moduix React RatingGroup component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/rating-group/RatingGroup.tsx",
@@ -1579,7 +1641,11 @@
       "title": "Signature Pad",
       "description": "moduix React Signature Pad component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/signature-pad/SignaturePad.tsx",
@@ -1604,7 +1670,12 @@
       "title": "Select",
       "description": "moduix React Select component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/select/Select.tsx",
@@ -1753,7 +1824,8 @@
         "@moduix-react/input",
         "@moduix-react/separator",
         "@moduix-react/splitter",
-        "@moduix-react/tooltip"
+        "@moduix-react/tooltip",
+        "@moduix-react/icons"
       ],
       "files": [
         {
@@ -1779,7 +1851,7 @@
       "title": "Carousel",
       "description": "moduix React Carousel component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/carousel/Carousel.tsx",
@@ -1832,7 +1904,8 @@
       "registryDependencies": [
         "@moduix-react/foundation",
         "@moduix-react/button",
-        "@moduix-react/menu"
+        "@moduix-react/menu",
+        "@moduix-react/icons"
       ],
       "files": [
         {
@@ -1883,7 +1956,7 @@
       "title": "Steps",
       "description": "moduix React Steps component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
       "files": [
         {
           "path": "packages/react/src/components/steps/Steps.tsx",
@@ -1983,7 +2056,11 @@
       "title": "TagsInput",
       "description": "moduix React TagsInput component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/icons"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/tags-input/TagsInput.tsx",
@@ -2158,7 +2235,11 @@
       "title": "Toast",
       "description": "moduix React Toast component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/close-button"],
+      "registryDependencies": [
+        "@moduix-react/foundation",
+        "@moduix-react/close-button",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/toast/Toast.tsx",
@@ -2233,7 +2314,7 @@
       "title": "Tooltip",
       "description": "moduix React Tooltip component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/foundation"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/overlay-portal"],
       "files": [
         {
           "path": "packages/react/src/components/tooltip/Tooltip.tsx",
@@ -2258,7 +2339,11 @@
       "title": "Tour",
       "description": "moduix React Tour component.",
       "dependencies": ["@ark-ui/react", "clsx"],
-      "registryDependencies": ["@moduix-react/close-button", "@moduix-react/foundation"],
+      "registryDependencies": [
+        "@moduix-react/close-button",
+        "@moduix-react/foundation",
+        "@moduix-react/overlay-portal"
+      ],
       "files": [
         {
           "path": "packages/react/src/components/tour/Tour.tsx",
@@ -2274,196 +2359,6 @@
           "path": "packages/react/src/components/tour/index.ts",
           "target": "@components/moduix/tour/index.ts",
           "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "login-simple",
-      "type": "registry:block",
-      "title": "Login simple",
-      "description": "A copy-owned email and password sign-in form built with moduix React components.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/login-simple.tsx",
-          "target": "@components/blocks/login-simple.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/login-simple.module.css",
-          "target": "@components/blocks/login-simple.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "sign-up",
-      "type": "registry:block",
-      "title": "Sign up",
-      "description": "A copy-owned account creation form built with moduix React components.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/sign-up.tsx",
-          "target": "@components/blocks/sign-up.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/sign-up.module.css",
-          "target": "@components/blocks/sign-up.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "forgot-password",
-      "type": "registry:block",
-      "title": "Forgot password",
-      "description": "A copy-owned password reset request form built with moduix React components.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/forgot-password.tsx",
-          "target": "@components/blocks/forgot-password.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/forgot-password.module.css",
-          "target": "@components/blocks/forgot-password.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "reset-password",
-      "type": "registry:block",
-      "title": "Reset password",
-      "description": "A copy-owned new password form built with moduix React components.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/reset-password.tsx",
-          "target": "@components/blocks/reset-password.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/reset-password.module.css",
-          "target": "@components/blocks/reset-password.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "verification-code",
-      "type": "registry:block",
-      "title": "Verification code",
-      "description": "A copy-owned six-digit email verification form built with moduix React components.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/verification-code.tsx",
-          "target": "@components/blocks/verification-code.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/verification-code.module.css",
-          "target": "@components/blocks/verification-code.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "app-header",
-      "type": "registry:block",
-      "title": "App header",
-      "description": "A copy-owned application header with navigation, notifications, and account actions.",
-      "dependencies": ["@moduix/react", "lucide-react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/app-header.tsx",
-          "target": "@components/blocks/app-header.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/app-header.module.css",
-          "target": "@components/blocks/app-header.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "mobile-drawer-navigation",
-      "type": "registry:block",
-      "title": "Mobile drawer navigation",
-      "description": "A copy-owned mobile navigation shell with an accessible side drawer.",
-      "dependencies": ["@moduix/react", "lucide-react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.tsx",
-          "target": "@components/blocks/mobile-drawer-navigation.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/mobile-drawer-navigation.module.css",
-          "target": "@components/blocks/mobile-drawer-navigation.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "data-table",
-      "type": "registry:block",
-      "title": "Data table",
-      "description": "A copy-owned TanStack Table with search, sorting, selection, column visibility, actions, and pagination.",
-      "dependencies": ["@moduix/react", "@tanstack/react-table", "lucide-react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/home/data-table.tsx",
-          "target": "@components/blocks/data-table.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/home/data-table.module.css",
-          "target": "@components/blocks/data-table.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "sidebar-dashboard",
-      "type": "registry:block",
-      "title": "Sidebar dashboard",
-      "description": "A copy-owned desktop dashboard shell with collapsible and resizable moduix navigation.",
-      "dependencies": ["@moduix/react", "lucide-react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/sidebar-dashboard.tsx",
-          "target": "@components/blocks/sidebar-dashboard.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/sidebar-dashboard.module.css",
-          "target": "@components/blocks/sidebar-dashboard.module.css",
-          "type": "registry:file"
-        }
-      ]
-    },
-    {
-      "name": "file-upload-manager",
-      "type": "registry:block",
-      "title": "File upload manager",
-      "description": "A copy-owned attachment manager with drag-and-drop, validation, removal, and clear actions.",
-      "dependencies": ["@moduix/react"],
-      "files": [
-        {
-          "path": "apps/docs/src/components/blocks/file-upload-manager.tsx",
-          "target": "@components/blocks/file-upload-manager.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "apps/docs/src/components/blocks/file-upload-manager.module.css",
-          "target": "@components/blocks/file-upload-manager.module.css",
-          "type": "registry:file"
         }
       ]
     }

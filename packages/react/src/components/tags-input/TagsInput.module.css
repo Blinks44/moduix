@@ -262,6 +262,10 @@
     flex: 0 1 var(--moduix-tags-input-item-input-width, 7rem);
   }
 
+  .input[data-readonly] {
+    display: none;
+  }
+
   .itemDeleteTrigger {
     display: inline-flex;
     flex: none;

@@ -63,9 +63,14 @@ const nativeSelectCssProperties: CssProperty[] = [
     description: 'Controls the background.',
   },
   {
-    name: '--select-bg-hover',
-    defaultValue: 'var(--moduix-color-accent)',
-    description: 'Controls the hover background.',
+    name: '--moduix-select-action-bg-hover',
+    defaultValue: 'var(--moduix-color-muted)',
+    description: 'Controls the indicator hover background.',
+  },
+  {
+    name: '--moduix-select-action-color-hover',
+    defaultValue: 'var(--moduix-color-foreground)',
+    description: 'Controls the indicator hover color.',
   },
   {
     name: '--moduix-select-color',

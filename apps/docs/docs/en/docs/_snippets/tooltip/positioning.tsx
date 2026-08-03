@@ -1,6 +1,7 @@
-import { Button, Tooltip } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tooltip } from '@moduix/react/tooltip';
 import { useState } from 'react';
-import styles from '@/components/examples/tooltip.module.css';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const tooltipPlacements = ['top', 'right', 'bottom', 'left'] as const;
 
@@ -9,21 +10,7 @@ type TooltipPlacement = (typeof tooltipPlacements)[number];
 export default function PositioningTooltipDemo() {
   const [placement, setPlacement] = useState('top' as TooltipPlacement);
   return (
-    <div className={styles.stack}>
-      <div className={styles.sideButtons}>
-        {tooltipPlacements.map((item) => (
-          <button
-            key={item}
-            type="button"
-            className={styles.sideButton}
-            data-active={item === placement || undefined}
-            onClick={() => setPlacement(item)}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-
+    <>
       <Tooltip
         positioning={{
           placement,
@@ -37,6 +24,20 @@ export default function PositioningTooltipDemo() {
         </Tooltip.Trigger>
         <Tooltip.Body>Placement: {placement}</Tooltip.Body>
       </Tooltip>
-    </div>
+      <PreviewMeta>
+        <output>Placement: {placement}</output>
+        {tooltipPlacements.map((item) => (
+          <Button
+            key={item}
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() => setPlacement(item)}
+          >
+            {item}
+          </Button>
+        ))}
+      </PreviewMeta>
+    </>
   );
 }

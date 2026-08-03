@@ -1,4 +1,4 @@
-import { Alert } from '@moduix/react';
+import { Alert } from '@moduix/react/alert';
 
 const alert = {
   title: 'Update available',

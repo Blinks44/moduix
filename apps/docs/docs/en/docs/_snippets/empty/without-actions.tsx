@@ -1,4 +1,4 @@
-import { Empty } from '@moduix/react';
+import { Empty } from '@moduix/react/empty';
 import { Map as MapIcon } from 'lucide-react';
 
 const emptyState = {

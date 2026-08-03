@@ -1,8 +1,15 @@
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export default function ListToneDemo() {
   return (
-    <div className="list-demo-tones">
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--moduix-spacing-4) var(--moduix-spacing-6)',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(12rem, 1fr))',
+        inlineSize: '100%',
+      }}
+    >
       <List tone="default">
         <List.Item>Default list tone</List.Item>
       </List>

@@ -28,7 +28,8 @@ model through `@ark-ui/react/factory`:
 - The default DOM node is `button`.
 - `type` defaults to `button` for the native root.
 - Omitting `children` renders the moduix `CloseIcon`.
-- Omitting an accessible name on the default-icon path adds `aria-label="Close"`.
+- Omitting `aria-label` and `aria-labelledby` adds `aria-label="Close"`, including for custom
+  icon children.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
 - When a parent Ark part composes `CloseButton` through `asChild`, the parent's `data-scope`,
   `data-part`, `data-slot`, and `data-disabled` hooks remain on the DOM node. `CloseButton`
@@ -50,7 +51,7 @@ CloseButton / CloseButton.Root
 ## Composition
 
 ```tsx
-import { CloseButton } from '@moduix/react';
+import { CloseButton } from '@moduix/react/close-button';
 
 export function DismissNotification() {
   return <CloseButton aria-label="Dismiss notification" />;
@@ -80,9 +81,10 @@ icon content because the single child is the composed root:
 
 ## Accessibility and state
 
-- The default icon path receives `aria-label="Close"` only when neither `aria-label` nor
-  `aria-labelledby` is provided.
-- Custom icon content should be decorative and requires an accessible name on the root.
+- The root receives `aria-label="Close"` when neither `aria-label` nor `aria-labelledby` is
+  provided. Pass a surface-specific label in product UI.
+- Falsy children render the default decorative close icon so conditional icon content cannot leave
+  an empty button.
 - Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling. An inherited
   parent `data-disabled` state is preserved and prevents activation as well.
 - `aria-disabled="true"` suppresses the root click handler and prevents default activation.
@@ -115,6 +117,9 @@ Public CSS variables:
 | `--moduix-close-button-size`              | `var(--moduix-spacing-7)`                                       |
 | `--moduix-close-button-transition`        | `var(--moduix-transition-default)`                              |
 
+The press feedback uses the individual `translate` and `scale` properties, so it composes with a
+consumer or parent component's `transform` (for example, vertical centering) instead of replacing it.
+
 ## Intentional sugar and differences from upstream
 
 - moduix adds the default close glyph, accessible-name fallback, visual tokens, and square
@@ -134,7 +139,11 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-27: Kept press feedback transform-safe by using individual `translate` and `scale`
+  properties, so composed close controls retain parent positioning transforms.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-26: Made the close label and default icon resilient to falsy children, added active
+  feedback consistent with `Button`, and covered the public interaction contract with tests.
 - 2026-07-17: Preserved an Ark parent's data hooks when it composes `CloseButton`, so clear
   triggers can share the button styling without losing their own anatomy or disabled state.
 

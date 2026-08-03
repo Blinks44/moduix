@@ -1,10 +1,11 @@
-import { Field, InputGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { InputGroup } from '@moduix/react/input-group';
 
 const repositoryOwner = 'moduix/';
 
 export default function InputGroupAsChildDemo() {
   return (
-    <Field className="input-group-demo-field">
+    <Field>
       <Field.Label>Repository</Field.Label>
       <InputGroup asChild>
         <div>

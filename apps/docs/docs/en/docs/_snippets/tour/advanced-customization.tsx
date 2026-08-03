@@ -1,24 +1,49 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
-import { Button, Tour, useTour } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Tour, useTour } from '@moduix/react/tour';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const steps = [
   {
-    id: 'welcome',
+    id: 'custom-actions',
     type: 'dialog',
-    title: 'Welcome to the workspace',
-    description: 'Customize the action rendering while preserving Ark action objects.',
-    actions: [{ label: 'Start', action: 'next' }],
+    title: 'Custom action labels',
+    description: 'These buttons keep Ark behavior while changing their markup and copy.',
+    actions: [
+      { label: 'Continue', action: 'next' },
+      { label: 'Skip tour', action: 'dismiss' },
+    ],
+    backdrop: true,
+  },
+  {
+    id: 'finish',
+    type: 'dialog',
+    title: 'Same actions, different UI',
+    description: 'Back and Finish still use their original Ark action objects.',
+    actions: [
+      { label: 'Back', action: 'prev' },
+      { label: 'Finish', action: 'dismiss' },
+    ],
     backdrop: true,
   },
 ] satisfies TourStepDetails[];
 
 export default function TourDemo() {
-  const tour = useTour({ steps });
+  const [status, setStatus] = useState('idle');
+  const tour = useTour({
+    steps,
+    onStatusChange: (details) => setStatus(details.status),
+  });
 
   return (
-    <>
-      <Button onClick={() => tour.start()}>Start custom tour</Button>
-
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--moduix-spacing-3)',
+        justifyItems: 'center',
+      }}
+    >
       <Tour tour={tour} lazyMount unmountOnExit>
         <Tour.Backdrop />
         <Tour.Spotlight />
@@ -26,19 +51,32 @@ export default function TourDemo() {
           <Tour.Content>
             <Tour.Arrow />
             <Tour.CloseIcon />
-            <Tour.Title />
-            <Tour.Description />
-            <Tour.ProgressText />
+            <Tour.Body>
+              <Tour.Title />
+              <Tour.Description />
+              <Tour.ProgressText />
+            </Tour.Body>
             <Tour.Control>
               <Tour.Actions>
                 {(actions) =>
-                  actions.map((action) => <Tour.ActionTrigger key={action.label} action={action} />)
+                  actions.map((action, index) => (
+                    <Tour.ActionTrigger key={`${action.label}-${index}`} action={action} asChild>
+                      <Button variant={action.action === 'dismiss' ? 'outline' : 'default'}>
+                        {action.label}
+                      </Button>
+                    </Tour.ActionTrigger>
+                  ))
                 }
               </Tour.Actions>
             </Tour.Control>
           </Tour.Content>
         </Tour.Positioner>
       </Tour>
-    </>
+
+      <PreviewMeta>
+        <output>Tour: {status}</output>
+        <Button onClick={() => tour.start()}>Start custom tour</Button>
+      </PreviewMeta>
+    </div>
   );
 }

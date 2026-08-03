@@ -68,8 +68,8 @@ export const FractionDigits: Story = {
 export const Scrubber: Story = {
   render: () => (
     <NumberInput defaultValue="250">
-      <NumberInput.Label>Drag to scrub</NumberInput.Label>
-      <NumberInput.Scrubber>Drag</NumberInput.Scrubber>
+      <NumberInput.Label>Adjust value</NumberInput.Label>
+      <NumberInput.Scrubber>Drag left or right to adjust</NumberInput.Scrubber>
       <NumberInput.Field />
     </NumberInput>
   ),
@@ -105,8 +105,24 @@ export const WithFieldValidation: Story = {
         <NumberInput.Label>Items</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput>
+      <Field.HelperText>Choose between 1 and 10 items.</Field.HelperText>
       <Field.ErrorText>Value should be between 1 and 10.</Field.ErrorText>
     </Field>
+  ),
+};
+
+export const DisabledAndReadOnly: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <NumberInput defaultValue="4" disabled>
+        <NumberInput.Label>Disabled quantity</NumberInput.Label>
+        <NumberInput.Field />
+      </NumberInput>
+      <NumberInput defaultValue="8" readOnly>
+        <NumberInput.Label>Read-only quantity</NumberInput.Label>
+        <NumberInput.Field />
+      </NumberInput>
+    </div>
   ),
 };
 
@@ -140,7 +156,10 @@ export const RootProvider: Story = {
 
 export const CustomIcons: Story = {
   render: () => (
-    <NumberInput defaultValue="8">
+    <NumberInput
+      defaultValue="8"
+      translations={{ decrementLabel: 'Decrease floors', incrementLabel: 'Increase floors' }}
+    >
       <NumberInput.Label>Floors</NumberInput.Label>
       <NumberInput.Control>
         <NumberInput.DecrementTrigger className={storyStyles.customButton}>

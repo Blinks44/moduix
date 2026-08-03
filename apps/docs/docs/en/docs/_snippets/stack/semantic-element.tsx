@@ -1,9 +1,10 @@
-import { Heading, Stack, Text } from '@moduix/react';
-import styles from '@/components/examples/stack.module.css';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
+import { Text } from '@moduix/react/text';
 
 export default function StackSemanticDemo() {
   return (
-    <Stack asChild gap={12} className={styles.panel}>
+    <Stack asChild gap={12}>
       <section>
         <Heading as="h3" size="md">
           Rendered as section

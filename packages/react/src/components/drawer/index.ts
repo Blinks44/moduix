@@ -1,1 +1,1 @@
-export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext } from './Drawer';
+export { Drawer, useDrawer, useDrawerContext, useDrawerStackContext } from './Drawer.js';

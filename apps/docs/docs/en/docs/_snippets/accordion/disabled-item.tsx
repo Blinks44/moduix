@@ -1,4 +1,4 @@
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 
 const items = [
   {

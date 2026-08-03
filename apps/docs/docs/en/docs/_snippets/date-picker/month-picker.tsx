@@ -1,6 +1,6 @@
 import { type DateValue } from '@ark-ui/react/date-picker';
 import { CalendarDate } from '@internationalized/date';
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 
 const format = (date: DateValue) => `${String(date.month).padStart(2, '0')}/${date.year}`;
 const parse = (value: string) => {

@@ -26,8 +26,10 @@ Callbacks and state shapes must remain Ark-shaped: `onOpenChange(details)`,
 
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-The component exports thin styled wrappers over Ark parts. `useMenu` and `Menu.ItemContext` are
-available from the moduix package surface for the normal provider and item-state paths.
+The component exports thin styled wrappers over Ark parts. `useMenu`, `Menu.Context`,
+`useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext` are available from the moduix package
+surface for provider and descendant state paths. `ContextTrigger` uses the compact trigger styling by
+default and leaves a custom `asChild` host untouched.
 
 Breaking legacy APIs were removed:
 
@@ -79,10 +81,13 @@ Stable slots:
 - `menu-item-indicator`, `menu-item-text`, `menu-item-text-content`, `menu-item-text-icon`,
   `menu-item-text-label`, `menu-item-shortcut`
 
+State exports: `Menu.Context`, `useMenuContext`, `Menu.ItemContext`, and `useMenuItemContext`.
+
 ## Composition
 
 ```tsx
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export function Example() {
   return (
@@ -134,6 +139,11 @@ IDs internally for item lookup.
 Refs forward to the corresponding Ark DOM part. `Menu.Trigger` targets the trigger button,
 `Menu.Content` targets the menu content element, and item refs target their item elements.
 
+`Menu.Content` scrolls when its height reaches `--moduix-menu-popup-max-height` or Ark's available
+viewport height. Its internal viewport leaves a direct `Menu.Arrow` outside the scroll clip. The
+default `Menu.TriggerItemIcon` flips in RTL so its direction matches submenu navigation. With
+`asChild`, `Menu.Content` preserves the supplied single host element instead of adding that viewport.
+
 ## Defaults and styling
 
 Single-line popup items default to `--moduix-size-sm` with `--moduix-spacing-1` block padding. The default trigger
@@ -149,16 +159,20 @@ remain the more specific override.
 Visual defaults preserve moduix tokens for trigger density, popup radius, shadow, item highlight,
 destructive tone, indicators, and shortcuts.
 
+`Menu.Content` allows its overflow to be overridden with `--moduix-menu-popup-overflow`; it defaults
+to `visible` so the direct `Menu.Arrow` can extend beyond the popup outline. Set it to `hidden` only
+when clipping popup content is required.
+
 Styles target Ark state and layout hooks:
 
 - `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`,
-  `[data-part='content']`, `[data-part='item']`, `[data-part='option-item']`
+  `[data-part='content']`, `[data-part='item']`
 - `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`
-- `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
+- `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]`, `[data-side]`
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
 
-Public `--moduix-menu-*` variables are declared in `packages/react/src/styles/theme.css`.
+Public `--moduix-menu-*` variables are declared in `packages/react/src/styles/variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -181,13 +195,36 @@ These helpers must not hide the Ark part tree or remap Ark callback detail objec
 Keep `Menu.Content` as the real Ark content part. Do not reintroduce a wrapper that renders
 `Positioner` or `Arrow` internally; only portal transport belongs to the root.
 
+`Menu.Content` may use a private scroll viewport for direct non-arrow children. Keep `Menu.Arrow`
+as a direct child so it can extend beyond the popup outline.
+
 Keep `useMenu` and `Menu.ItemContext` aligned with Ark because the public provider and item-state
 examples use them. Other Ark state surfaces remain escape hatches until moduix documents them.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-29: Added `--moduix-menu-popup-overflow` so consumers can clip `Menu.Content` when needed;
+  it defaults to `visible` to preserve direct-arrow rendering.
+
+- 2026-07-29: Restored Ark `Menu.Content asChild` composition so a custom single host stays the
+  actual menu content element. Removed the stale `option-item` styling hook from the docs.
+
+- 2026-07-25: Scope the open trigger treatment to Ark's `data-current` so a shared menu only
+  highlights the trigger that opened it.
 
 - 2026-07-24: Let `Menu.Arrow` extend beyond and paint over the content outline, so its stroke
   joins the popup border instead of being clipped or layered beneath it.
+
+- 2026-07-24: Kept custom context triggers unstyled with `asChild`, made menu content scroll within
+  its viewport limit, and flipped the default submenu icon in RTL.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized popup group labels to the shared regular-weight, `--moduix-spacing-1` contract.

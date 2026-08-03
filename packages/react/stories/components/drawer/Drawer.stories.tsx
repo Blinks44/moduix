@@ -1,8 +1,8 @@
-import { useDrawer, useDrawerContext } from '@ark-ui/react/drawer';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactNode } from 'react';
 import { Button } from '../../../src/components/button';
-import { Drawer } from '../../../src/components/drawer/Drawer';
+import { Drawer, useDrawer, useDrawerContext } from '../../../src/components/drawer/Drawer';
+import { ScrollArea } from '../../../src/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 
@@ -114,16 +114,44 @@ export const NonModal: Story = {
     <Drawer.Root
       defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT}
       modal={false}
+      preventScroll={false}
       snapPoints={DEFAULT_DEMO_SNAP_POINTS}
     >
       <Drawer.Trigger asChild>
         <Button>Open non-modal drawer</Button>
       </Drawer.Trigger>
-      <DrawerSurface
-        title="Non-modal drawer"
-        description="The page remains interactive while this drawer is open."
-        backdrop={false}
-      />
+      <Drawer.Positioner>
+        <Drawer.Content className={storyStyles.nonModalContent} draggable={false}>
+          <Drawer.Grabber className={storyStyles.nonModalGrabber}>
+            <Drawer.GrabberIndicator />
+            <Drawer.Header>
+              <Drawer.Title>Non-modal drawer</Drawer.Title>
+              <Drawer.CloseIcon data-no-drag />
+              <Drawer.Description>
+                Drag this header; the page and the scrollable content stay interactive.
+              </Drawer.Description>
+            </Drawer.Header>
+          </Drawer.Grabber>
+          <Drawer.Body className={storyStyles.nonModalScrollRegion}>
+            <ScrollArea className={storyStyles.nonModalScrollArea}>
+              <ScrollArea.Viewport className={storyStyles.nonModalScrollViewport}>
+                <ScrollArea.Content className={storyStyles.nonModalScrollContent}>
+                  {insideScrollSections.map((item) => (
+                    <section key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </section>
+                  ))}
+                </ScrollArea.Content>
+              </ScrollArea.Viewport>
+              <ScrollArea.Scrollbar>
+                <ScrollArea.Thumb />
+              </ScrollArea.Scrollbar>
+              <ScrollArea.Corner />
+            </ScrollArea>
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Positioner>
     </Drawer.Root>
   ),
 };

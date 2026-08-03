@@ -5,6 +5,9 @@
   "navComponents": {
     "en": "Components"
   },
+  "navRecipes": {
+    "en": "Recipes"
+  },
   "navGitHub": {
     "en": "GitHub"
   }

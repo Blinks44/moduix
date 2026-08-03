@@ -91,7 +91,11 @@ const progressCircularCssProperties: CssPropertyInput[] = [
     'var(--moduix-transition-default)',
     'Controls circle range transition.',
   ],
-  ['--moduix-progress-circular-root-width', 'max-content', 'Controls root width.'],
+  [
+    '--moduix-progress-circular-root-width',
+    'max-content',
+    'Controls root width within its container.',
+  ],
   ['--moduix-progress-circular-size', 'var(--moduix-size-xl)', 'Controls SVG circle size.'],
   ['--moduix-progress-circular-thickness', '0.4rem', 'Controls SVG stroke thickness.'],
   [

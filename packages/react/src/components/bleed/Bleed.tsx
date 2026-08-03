@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardedRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Bleed.module.css';
 
@@ -9,7 +9,7 @@ type BleedAmount = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type BleedInline = BleedAmount | 'full';
 
 const BleedRoot = forwardRef<
-  HTMLDivElement,
+  HTMLElement,
   HTMLArkProps<'div'> & {
     inline?: BleedInline;
     block?: BleedAmount;
@@ -17,7 +17,7 @@ const BleedRoot = forwardRef<
 >(function BleedRoot({ inline = 'full', block = 'none', className, ...props }, ref) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       {...props}
       data-scope="bleed"
       data-part="root"

@@ -5,6 +5,9 @@ description: Integrate moduix native and compound controls with React Hook Form.
 
 # React Hook Form
 
+[React Hook Form documentation](https://react-hook-form.com/get-started) covers the complete API,
+validation modes, resolvers, and TypeScript support. This page focuses on the moduix mapping.
+
 Use `register` for parts that render a native input. Use `Controller` when an Ark component exposes
 controlled values and detail callbacks. Ark compound controls render their own native form control
 when they need one, so never add or register a separate hidden input.
@@ -17,7 +20,7 @@ npm install react-hook-form
 
 | Control                                         | React Hook Form wiring                                                    |
 | ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `register(name, rules)` onto the native control.                   |
+| `Input`, `Textarea`, `Field.Select`              | Spread `register(name, rules)` onto the native control.                   |
 | `Select`                                        | Use `Controller`; map a scalar string to Ark's string-array `value`.      |
 | `Combobox`                                      | Use `Controller`; map `value` and keep filtering in `onInputValueChange`. |
 | `Checkbox`                                      | Use `Controller`; map `details.checked === true` to a boolean.            |
@@ -25,6 +28,10 @@ npm install react-hook-form
 
 Always provide `defaultValues` for controlled fields. React Hook Form uses them for initial state,
 dirty checks, and `reset()`.
+
+Use `formState.isSubmitting` for the pending UI. Disable only duplicate submission, keep field values
+visible, and let the button label describe the active request. `handleSubmit` keeps `isSubmitting`
+true until an async submit handler settles.
 
 ## Validation and reset
 
@@ -85,7 +92,8 @@ the group's label in `Fieldset` when the list has a shared purpose. This is a fr
 component that owns `useForm`; render the rows and buttons inside its form.
 
 ```tsx
-import { Button, Field } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Field } from '@moduix/react/field';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 type EmailFormValues = {
@@ -101,7 +109,7 @@ const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
   fields.map((item, index) => (
     <Field key={item.id}>
       <Field.Label>Email {index + 1}</Field.Label>
-      <Field.Input type="email" {...register(`emails.${index}.address` as const)} />
+      <Input type="email" {...register(`emails.${index}.address` as const)} />
       <Button type="button" onClick={() => remove(index)}>
         Remove email
       </Button>
@@ -169,5 +177,6 @@ const onSubmit = handleSubmit(async (values) => {
 - `name={field.name}` enables native `FormData` semantics but does not replace `Controller` as the
   source of the field value. Keep the controlled value and callback mapping shown above.
 - For the other automatic controls, keep exceptional form configuration on their roots: `DateInput`
-  uses `names` for distinct range keys, `Select` uses `nativeFormControl="input"` for virtualized
-  collections, and `SignaturePad` uses `getFormValue` for custom serialization.
+  uses a two-item `names` tuple for distinct indexed range keys, `Select` uses
+  `nativeFormControl="input"` for virtualized collections, and `SignaturePad` uses `getFormValue`
+  for custom serialization.

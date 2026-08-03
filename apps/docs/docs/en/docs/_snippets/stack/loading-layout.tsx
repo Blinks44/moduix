@@ -1,9 +1,9 @@
-import { Skeleton, Stack } from '@moduix/react';
-import styles from '@/components/examples/stack.module.css';
+import { Skeleton } from '@moduix/react/skeleton';
+import { Stack } from '@moduix/react/stack';
 
 export default function StackSkeletonDemo() {
   return (
-    <Stack gap={16} className={styles.skeletonCard}>
+    <Stack gap={16} style={{ inlineSize: '100%' }}>
       <Skeleton height={144} borderRadius="var(--moduix-radius-lg)" />
       <Stack gap={12}>
         <Skeleton width="62%" height={18} />

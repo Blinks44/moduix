@@ -1,5 +1,4 @@
-import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { Table } from '@moduix/react/table';
 
 const metrics = [
   {
@@ -24,8 +23,8 @@ const metrics = [
 
 export default function TableNumericColumnsDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table className={styles.table}>
+    <Table.ScrollArea>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Service</Table.ColumnHeader>

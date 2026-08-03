@@ -3,7 +3,7 @@ title: Styling
 description: Style moduix components with CSS Modules, Panda CSS, or Tailwind CSS.
 ---
 
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 import styles from '@/components/examples/styling.module.css';
 
 # Styling
@@ -103,154 +103,15 @@ directly to the parts it renders.
   <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
     <Tab value="ProjectChecklist.tsx">
 
-```tsx
-import { Accordion } from '@moduix/react';
-import styles from './ProjectChecklist.module.css';
+```tsx file="./_snippets/styling/project-checklist.tsx"
 
-export function ProjectChecklist() {
-  return (
-    <section className={styles.root}>
-      <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
-        <Accordion.Item className={styles.item} value="outcome">
-          <Accordion.ItemTrigger className={styles.trigger}>
-            <span className={styles.triggerCopy}>
-              <span className={styles.step}>01</span>
-              <span className={styles.title}>Define the project outcome</span>
-            </span>
-            <Accordion.ItemIndicator className={styles.indicator} />
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent className={styles.content}>
-            <Accordion.ItemBody className={styles.body}>
-              <p>
-                Write one sentence that makes the next decision obvious to everyone on the project.
-              </p>
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
-      </Accordion>
-    </section>
-  );
-}
 ```
 
     </Tab>
     <Tab value="ProjectChecklist.module.css">
 
-```css
-.root {
-  --project-accent: color-mix(in oklab, #2563eb 80%, var(--moduix-color-foreground));
-  --project-accent-strong: color-mix(in oklab, #1d4ed8 80%, var(--moduix-color-foreground));
-  --project-surface: color-mix(in oklab, var(--project-accent) 8%, var(--moduix-color-card));
+```css file="./_snippets/styling/project-checklist.module.css"
 
-  max-inline-size: 42rem;
-  padding: var(--moduix-spacing-3);
-  border: var(--moduix-border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 18%, var(--moduix-color-border));
-  border-radius: var(--moduix-radius-xl);
-  background: var(--project-surface);
-}
-
-.accordion {
-  gap: var(--moduix-spacing-3);
-}
-
-.item {
-  overflow: hidden;
-  border: var(--moduix-border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 20%, var(--moduix-color-border));
-  border-radius: var(--moduix-radius-lg);
-  background: var(--moduix-color-card);
-  transition:
-    border-color var(--moduix-transition-default),
-    box-shadow var(--moduix-transition-default);
-
-  &[data-orientation='vertical']:not(:last-child) {
-    border-bottom: var(--moduix-border-width-sm) solid
-      color-mix(in oklab, var(--project-accent) 20%, var(--moduix-color-border));
-  }
-
-  &[data-state='open'] {
-    border-color: color-mix(in oklab, var(--project-accent) 46%, var(--moduix-color-border));
-    box-shadow: 0 1.25rem 2.5rem -2rem color-mix(in oklab, var(--project-accent) 58%, transparent);
-  }
-}
-
-.trigger {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--moduix-spacing-3);
-  align-items: center;
-  width: 100%;
-  padding: var(--moduix-spacing-4);
-  background-color: color-mix(in oklab, var(--project-accent) 7%, var(--moduix-color-card));
-  color: var(--moduix-color-foreground);
-  font-weight: var(--moduix-weight-semibold);
-  text-align: left;
-  transition:
-    background-color var(--moduix-transition-default),
-    color var(--moduix-transition-default);
-
-  &:hover {
-    background-color: color-mix(in oklab, var(--project-accent) 13%, var(--moduix-color-card));
-  }
-
-  &:focus-visible {
-    outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
-    outline-offset: calc(var(--moduix-border-width-sm) * -1);
-  }
-
-  &[data-state='open'] {
-    background-color: color-mix(in oklab, var(--project-accent) 17%, var(--moduix-color-card));
-    color: var(--project-accent-strong);
-  }
-}
-
-.triggerCopy {
-  display: flex;
-  gap: var(--moduix-spacing-3);
-  align-items: center;
-  min-width: 0;
-}
-
-.step {
-  display: grid;
-  flex: none;
-  place-items: center;
-  inline-size: 1.75rem;
-  block-size: 1.75rem;
-  border: var(--moduix-border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 32%, transparent);
-  border-radius: var(--moduix-radius-xl);
-  background: color-mix(in oklab, var(--project-accent) 15%, var(--moduix-color-card));
-  color: var(--project-accent-strong);
-  font-size: var(--moduix-text-xs);
-  font-weight: var(--moduix-weight-semibold);
-}
-
-.title {
-  min-width: 0;
-}
-
-.indicator {
-  flex: none;
-  color: var(--project-accent-strong);
-}
-
-.content {
-  border-block-start: var(--moduix-border-width-sm) solid
-    color-mix(in oklab, var(--project-accent) 18%, var(--moduix-color-border));
-  background: color-mix(in oklab, var(--project-accent) 5%, var(--moduix-color-card));
-  color: var(--moduix-color-foreground);
-}
-
-.body {
-  padding: var(--moduix-spacing-4);
-
-  & > p {
-    margin: 0;
-    color: color-mix(in oklab, var(--moduix-color-foreground) 92%, var(--project-accent));
-  }
-}
 ```
 
     </Tab>
@@ -285,7 +146,7 @@ In an application that already has Panda configured, generate classes for the sa
 `ProjectChecklist` parts. The token names below belong to your Panda theme, not to moduix.
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 import { css } from '../styled-system/css';
 
 const root = css({
@@ -380,7 +241,7 @@ In an application that already uses Tailwind, apply utilities and state variants
 `ProjectChecklist` parts. No moduix-specific Tailwind plugin or configuration is required.
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 
 export function ProjectChecklist() {
   return (
@@ -412,6 +273,19 @@ export function ProjectChecklist() {
   );
 }
 ```
+
+## Troubleshooting
+
+| Symptom                                  | Most likely check                                                                 |
+| ---------------------------------------- | --------------------------------------------------------------------------------- |
+| A variable has no effect                 | Confirm the component page exposes it and that your rule loads after `style.css`. |
+| A popup ignores a wrapper-scoped value   | The popup may be portalled; put the value on its part, root, or portal container. |
+| A state selector never matches           | Inspect the documented `data-state`, `data-disabled`, or other Ark attribute.     |
+| A class reaches the root but not a part  | Put `className` on the exported part that owns the visual property.               |
+| A utility class loses to component CSS   | Use a documented CSS variable or a local class with deliberate cascade order.    |
+
+Use browser developer tools to inspect the rendered part, its `data-slot`, state attributes, and
+resolved custom properties before increasing selector specificity.
 
 ## Related
 

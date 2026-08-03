@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ColorPicker as ColorPickerPrimitive,
   parseColor,
@@ -23,7 +25,19 @@ type ColorPickerRootProviderProps = ComponentProps<typeof ColorPickerPrimitive.R
 const ColorPickerRoot = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.Root>,
   ColorPickerRootProps
->(function ColorPickerRoot({ asChild, children, className, portalled, portalRef, ...props }, ref) {
+>(function ColorPickerRoot(
+  {
+    asChild,
+    children,
+    className,
+    lazyMount = true,
+    portalled,
+    portalRef,
+    unmountOnExit = true,
+    ...props
+  },
+  ref,
+) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <ColorPickerPrimitive.Root
@@ -31,6 +45,8 @@ const ColorPickerRoot = forwardRef<
         asChild={asChild}
         data-slot="color-picker-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       >
         {withHiddenInput(children, asChild)}
@@ -43,7 +59,16 @@ const ColorPickerRootProvider = forwardRef<
   ComponentRef<typeof ColorPickerPrimitive.RootProvider>,
   ColorPickerRootProviderProps
 >(function ColorPickerRootProvider(
-  { asChild, children, className, portalled, portalRef, ...props },
+  {
+    asChild,
+    children,
+    className,
+    lazyMount = true,
+    portalled,
+    portalRef,
+    unmountOnExit = true,
+    ...props
+  },
   ref,
 ) {
   return (
@@ -53,6 +78,8 @@ const ColorPickerRootProvider = forwardRef<
         asChild={asChild}
         data-slot="color-picker-root-provider"
         className={clsx(styles.root, normalizeClassName(className))}
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
         {...props}
       >
         {withHiddenInput(children, asChild)}

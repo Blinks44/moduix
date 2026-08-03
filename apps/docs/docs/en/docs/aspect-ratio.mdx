@@ -15,15 +15,16 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
 
 ## Basic
 
-Start with `AspectRatio`, put width or max-width on the root itself, and pass a numeric `ratio`.
-Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically.
+Start with `AspectRatio`, put width or max-width on the root itself, and pass a finite positive
+numeric `ratio`. Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame
+automatically. Set `object-fit` on images and video when you need cropping or containment.
 
 <style>{AspectRatioDocs.aspectRatioBasicCss}</style>
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/aspect-ratio/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -35,7 +36,7 @@ Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame aut
 ```text
 AspectRatio / AspectRatio.Root
 └─ media | iframe | canvas | svg | custom content
-````
+```
 
 | Part                               | Role                            |
 | ---------------------------------- | ------------------------------- |
@@ -50,7 +51,8 @@ Use `AspectRatio` for most media frames. Put sizing, radius, and layout classes 
 
 - `ratio` is required and numeric; pass a finite value greater than zero for valid CSS behavior
 - `asChild` uses Ark factory composition and requires exactly one React element
-- direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically
+- direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically; set
+  `object-fit` on images and video to choose cropping or containment
 - `className` styles and sizes the root directly
 - `--moduix-aspect-ratio-radius` controls the default rounded frame
 
@@ -88,9 +90,11 @@ source assets differ.
 
 <style>{AspectRatioDocs.aspectRatioGridCss}</style>
 
-```tsx preview file="./_snippets/aspect-ratio/card-grid.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/aspect-ratio/card-grid.tsx"
 
 ```
+</PreviewFrame>
 
 ### Embedded content
 
@@ -102,7 +106,7 @@ finishes loading.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/aspect-ratio/embedded-content.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -116,7 +120,7 @@ root pattern works with `next/image fill` in Next.js.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/aspect-ratio/migrating-from-shadcn.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -148,4 +152,3 @@ Use `asChild` when you need to bypass the default root host and let a semantic e
   CSS when a breakpoint needs a different ratio.
 - `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
   decoration on an outer wrapper instead of removing root clipping.
-```

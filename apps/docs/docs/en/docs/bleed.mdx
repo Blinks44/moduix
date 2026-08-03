@@ -41,7 +41,7 @@ break out of a constrained container while staying in normal document flow.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/basic.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -58,7 +58,7 @@ that root.
 Bleed.Root
 └─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
    └─ children
-````
+```
 
 | Part                   | Role                                            |
 | ---------------------- | ----------------------------------------------- |
@@ -134,14 +134,14 @@ Use `block` when a surface should also escape vertical container padding.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/block-bleed.tsx"
 
-````
+```
 
 </PreviewFrame>
 
 ### Custom Styling
 
-Use local `--moduix-bleed-inline-full` overrides when a nested shell should bleed to its own boundaries
-instead of the viewport.
+Use local `--moduix-bleed-inline-full` overrides when a nested shell should bleed to its inner
+content boundaries instead of the viewport.
 
 <style>{`
       .bleed-demo-shell {
@@ -175,7 +175,7 @@ instead of the viewport.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/custom-styling.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -206,7 +206,7 @@ Use `inline` to choose how far content escapes the container on the inline axis.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/inline-amounts.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -245,7 +245,7 @@ Use `asChild` when the escaping content has a more specific semantic role.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/bleed/semantic-element.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -265,5 +265,5 @@ the layout math needs to change, and use `className` for the visual surface insi
 - `data-inline` reflects the current inline bleed mode: `none`, `xs`, `sm`, `md`, `lg`, `xl`, or
   `full`.
 - `data-block` reflects the current block bleed mode: `none`, `xs`, `sm`, `md`, `lg`, or `xl`.
-- The public `--moduix-bleed-*` variables in `theme.css` cover both scale-based bleed amounts and the
+- The public `--moduix-bleed-*` CSS API covers both scale-based bleed amounts and the
   viewport math used by `inline="full"`.

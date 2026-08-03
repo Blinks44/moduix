@@ -1,4 +1,4 @@
-import { Checkbox } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
 
 export default function CheckboxSizesDemo() {
   return (

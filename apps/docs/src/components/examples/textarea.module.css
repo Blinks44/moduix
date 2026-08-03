@@ -1,9 +1,0 @@
-.field {
-  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-}
-
-.stack {
-  display: grid;
-  gap: var(--moduix-spacing-3);
-  width: min(28rem, calc(100vw - var(--moduix-spacing-8)));
-}

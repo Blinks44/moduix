@@ -75,8 +75,6 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: var(--moduix-floating-panel-width, 100%);
-    height: var(--moduix-floating-panel-height, 100%);
     min-width: var(--moduix-floating-panel-min-width, 16rem);
     min-height: var(--moduix-floating-panel-min-height, 10rem);
     overflow: hidden;
@@ -290,70 +288,60 @@
 
     &[data-axis='n'],
     &[data-axis='s'] {
-      left: var(--moduix-floating-panel-resize-edge-inset, var(--moduix-spacing-3));
-      width: calc(
-        100% - (var(--moduix-floating-panel-resize-edge-inset, var(--moduix-spacing-3)) * 2)
-      );
-      height: var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2));
-      cursor: ns-resize;
+      left: var(--moduix-spacing-3);
+      width: calc(100% - (var(--moduix-spacing-3) * 2));
+      height: var(--moduix-spacing-2);
     }
 
     &[data-axis='n'] {
-      top: calc(var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2)) / -2);
+      top: calc(var(--moduix-spacing-2) / -2);
     }
 
     &[data-axis='s'] {
-      bottom: calc(var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2)) / -2);
+      bottom: calc(var(--moduix-spacing-2) / -2);
     }
 
     &[data-axis='e'],
     &[data-axis='w'] {
-      top: var(--moduix-floating-panel-resize-edge-inset, var(--moduix-spacing-3));
-      width: var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2));
-      height: calc(
-        100% - (var(--moduix-floating-panel-resize-edge-inset, var(--moduix-spacing-3)) * 2)
-      );
-      cursor: ew-resize;
+      top: var(--moduix-spacing-3);
+      width: var(--moduix-spacing-2);
+      height: calc(100% - (var(--moduix-spacing-3) * 2));
     }
 
     &[data-axis='e'] {
-      right: calc(var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2)) / -2);
+      right: calc(var(--moduix-spacing-2) / -2);
     }
 
     &[data-axis='w'] {
-      left: calc(var(--moduix-floating-panel-resize-edge-size, var(--moduix-spacing-2)) / -2);
+      left: calc(var(--moduix-spacing-2) / -2);
     }
 
     &[data-axis='ne'],
     &[data-axis='nw'],
     &[data-axis='se'],
     &[data-axis='sw'] {
-      width: var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3));
-      height: var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3));
+      width: var(--moduix-spacing-3);
+      height: var(--moduix-spacing-3);
     }
 
     &[data-axis='ne'] {
-      top: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      right: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      cursor: nesw-resize;
+      top: calc(var(--moduix-spacing-3) / -2);
+      right: calc(var(--moduix-spacing-3) / -2);
     }
 
     &[data-axis='nw'] {
-      top: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      left: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      cursor: nwse-resize;
+      top: calc(var(--moduix-spacing-3) / -2);
+      left: calc(var(--moduix-spacing-3) / -2);
     }
 
     &[data-axis='se'] {
-      right: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      bottom: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      cursor: nwse-resize;
+      right: calc(var(--moduix-spacing-3) / -2);
+      bottom: calc(var(--moduix-spacing-3) / -2);
     }
 
     &[data-axis='sw'] {
-      bottom: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      left: calc(var(--moduix-floating-panel-resize-corner-size, var(--moduix-spacing-3)) / -2);
-      cursor: nesw-resize;
+      bottom: calc(var(--moduix-spacing-3) / -2);
+      left: calc(var(--moduix-spacing-3) / -2);
     }
 
     &[data-disabled] {

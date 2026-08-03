@@ -1,8 +1,8 @@
-import { Typeset } from '@moduix/react';
+import { Typeset } from '@moduix/react/typeset';
 
 export default function TypesetDemo() {
   return (
-    <Typeset asChild className="article">
+    <Typeset asChild>
       <article>
         <h1>Ship readable content by default</h1>
         <p>

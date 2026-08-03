@@ -1,4 +1,4 @@
-import { Collapsible } from '@moduix/react';
+import { Collapsible } from '@moduix/react/collapsible';
 
 const paragraphs = [
   'Ark UI is a headless component library for building accessible, high-quality UI components for React, Solid, Vue, and Svelte.',

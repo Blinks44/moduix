@@ -1,4 +1,4 @@
-import { SignaturePad } from '@moduix/react';
+import { SignaturePad } from '@moduix/react/signature-pad';
 
 const signaturePadTranslations = {
   control: 'Signature drawing area',

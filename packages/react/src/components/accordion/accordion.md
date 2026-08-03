@@ -23,7 +23,8 @@ variables, and stable `data-slot` hooks.
 
 ## Current behavior contract
 
-- Uses Ark composition: `Accordion.Root`, `Accordion.Item`, `Accordion.ItemTrigger`,
+- Uses `Accordion` as the recommended root, with `Accordion.Root` retained as a compatible alias,
+  alongside `Accordion.Item`, `Accordion.ItemTrigger`,
   `Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
 - Supports Ark external state ownership through `Accordion.RootProvider` and the moduix-exported
   `useAccordion()`.
@@ -65,7 +66,7 @@ Every exported part accepts `className` and receives a stable `data-slot`:
 ## Composition
 
 ```tsx
-import { Accordion } from '@moduix/react';
+import { Accordion } from '@moduix/react/accordion';
 
 const items = [
   { value: 'shipping', title: 'Shipping', description: 'Delivery times and tracking options.' },
@@ -74,7 +75,7 @@ const items = [
 
 export function AccordionExample() {
   return (
-    <Accordion.Root defaultValue={['shipping']}>
+    <Accordion defaultValue={['shipping']}>
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.ItemTrigger>
@@ -86,7 +87,7 @@ export function AccordionExample() {
           </Accordion.ItemContent>
         </Accordion.Item>
       ))}
-    </Accordion.Root>
+    </Accordion>
   );
 }
 ```
@@ -132,6 +133,7 @@ Primary CSS variables:
 | `--moduix-accordion-horizontal-trigger-width` | `2.5rem`                               |
 | `--moduix-accordion-horizontal-content-width` | `16rem`                                |
 | `--moduix-accordion-trigger-bg`               | `var(--moduix-color-muted)`            |
+| `--moduix-accordion-trigger-bg-active`        | hover background                       |
 | `--moduix-accordion-trigger-bg-hover`         | `var(--moduix-color-accent)`           |
 | `--moduix-accordion-icon-open-transform`      | `rotate(45deg) scale(1.1)`             |
 | `--moduix-accordion-item-body-gap`            | `var(--moduix-spacing-3)`              |
@@ -145,8 +147,8 @@ Primary CSS variables:
 - `Accordion.ItemIndicator` defaults to `PlusIcon` when children are not provided.
 - `Accordion.ItemBody` removes the need for per-example inner content wrappers just to add spacing.
 - `Accordion.RootProvider` shares the same default root styling as `Accordion.Root`.
-- `useAccordion()` is re-exported from moduix for provider-driven composition, while Ark context
-  parts, remaining state hooks, and type aliases stay on `@ark-ui/react/accordion`.
+- moduix re-exports `useAccordion()`, `useAccordionContext()`, `useAccordionItemContext()`,
+  `Accordion.Context`, and `Accordion.ItemContext` for Ark-shaped provider and context composition.
 - Horizontal orientation gets a row layout, opposite-side trigger text rotation, trigger width
   defaults, and `--width`-based content animation in addition to Ark's horizontal keyboard behavior.
 
@@ -160,6 +162,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-24: Documented the short `Accordion` root form, corrected context export guidance, and
+  added the pressed trigger background token.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-06: Added `Accordion.ItemBody` as a thin inner spacing wrapper, moved default panel spacing
   into the component CSS contract, and migrated stories/docs away from ad-hoc content wrapper divs.

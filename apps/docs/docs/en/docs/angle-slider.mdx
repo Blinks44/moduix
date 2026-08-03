@@ -28,7 +28,7 @@ Start with the smallest useful composition: `Dial`. Add a visible `Label` later,
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -45,7 +45,7 @@ AngleSlider.Root
 │  │  └─ AngleSlider.Marker[value]
 │  └─ AngleSlider.Thumb
 └─ AngleSlider.ValueText
-````
+```
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
@@ -79,9 +79,11 @@ with `AngleSlider.RootProvider` when state must be controlled outside the render
 Use `AngleSlider.Context` and `useAngleSliderContext()` from moduix for context reads. Do not render
 `Root` and `RootProvider` for the same state instance.
 
-Every DOM part supports Ark `asChild`. Supply one semantic child that can preserve the part's
-keyboard, focus, ARIA, and pointer behavior. Use `ids` on `Root` when composed elements need stable
-shared IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
+Ark DOM parts support `asChild`; supply one compatible child that can preserve their keyboard, focus,
+ARIA, and pointer behavior. `Dial` and `Marks` keep a fixed multi-part composition, so they do not
+accept `asChild`. With `Root` or `RootProvider`, use a container that can contain the internally
+rendered hidden input and slider parts. Use `ids` on `Root` when composed elements need stable shared
+IDs. Refs are forwarded to the DOM element rendered by each wrapped Ark part.
 
 ### Default props
 
@@ -117,7 +119,7 @@ Use controlled state when the angle must stay synchronized with application stat
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -130,7 +132,7 @@ Use `disabled` when the control must be unavailable and excluded from interactio
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/disabled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -141,10 +143,10 @@ native form input automatically.
 
 <style>{AngleSliderDocs.angleSliderFormCss}</style>
 
-<PreviewFrame maxWidth="fit-content">
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/angle-slider/form.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -158,7 +160,7 @@ ARIA state without changing the interaction model.
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/invalid.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -171,21 +173,21 @@ Use `readOnly` when the current value should remain focusable and visible withou
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/read-only.tsx"
 
-````
+```
 
 </PreviewFrame>
 
 ### Root Provider
 
-Use `useAngleSlider()` from `@moduix/react` with `AngleSlider.RootProvider` when another control
-needs direct access to the same state machine.
+Use `useAngleSlider()` from `@moduix/react` with `AngleSlider.RootProvider` when another component
+needs direct access to the same state machine. The external state remains available to surrounding UI.
 
 <style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
 
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/root-provider.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -198,7 +200,7 @@ Use `step` to snap pointer and keyboard interaction to a discrete angular increm
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/steps.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -213,7 +215,7 @@ composition in place.
 <PreviewFrame maxWidth="fit-content">
   ```tsx preview file="./_snippets/angle-slider/with-marks.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -254,4 +256,5 @@ variables below.
   `data-slot="angle-slider-marker"` hooks as the explicit marker parts.
 - Ark root variables `--value` and `--angle` and marker variables `--marker-value` and
   `--marker-display-value` are preserved.
+```
 ```

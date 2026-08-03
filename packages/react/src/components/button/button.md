@@ -33,14 +33,16 @@ composition.
 - The package exports only the `Button` value. Derive its props with
   `React.ComponentProps<typeof Button>` when a wrapper needs them.
 - Native roots default to `type="button"`; pass `type="submit"` explicitly for form submission.
-- `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
+- `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled` and prevent click
+  activation.
 - The forwarded ref targets the rendered button element.
 - Writes `data-scope="button"`, `data-part="root"`, and `data-slot="button-root"` on a standalone
   root by default. When an Ark parent composes Button as its `asChild` trigger, incoming
   `data-scope` and `data-part` take precedence so the parent anatomy survives; `data-slot` remains
   the stable moduix styling hook and can still be narrowed by composed wrappers.
-- When `asChild` is enabled, the wrapper keeps `aria-disabled`, `aria-busy`, and `data-disabled`
-  for state and styling, but it does not force a native `disabled` attribute onto the custom host.
+- When `asChild` is enabled, disabled states keep `aria-disabled`, `aria-busy`, and `data-disabled`
+  for state and styling, prevent click activation, and do not force a native `disabled` attribute
+  onto the custom host.
 - Does not keep legacy `render`, `nativeButton`, or `focusableWhenDisabled`.
 
 ## Anatomy and exported parts
@@ -62,7 +64,7 @@ Every exported root accepts `className` and receives stable hooks:
 ## Composition
 
 ```tsx
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 
 export function SaveButton() {
   return <Button>Save Changes</Button>;
@@ -111,18 +113,20 @@ equivalent labeling mechanism.
 - Disabled styling is driven by `[data-disabled]`.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
-- `Button.Root` forwards native button attributes and event handlers without wrapper translation.
+- `Button.Root` forwards native button attributes and event handlers. Disabled states prevent click
+  activation.
 - `Button.Root` forwards its ref to the rendered root.
-- `aria-disabled` on a non-button `asChild` target does not block activation by itself. Application
-  code must prevent navigation or activation.
+- `aria-disabled="true"` on a non-button `asChild` target adds the disabled state and prevents click
+  activation.
 - `loading={true}` forces `aria-busy` and keeps the loading indicator content fully compositional.
-- On an `asChild` host, `loading` does not inject native disabling. Keep navigation or activation
-  suppression in application code.
+- On an `asChild` host, `loading` does not inject native disabling but does prevent click activation.
 - Icon-only buttons still need an accessible name through `aria-label` or equivalent labeling.
 
 ## Defaults and styling
 
 The default `md` and `icon-md` variants use `--moduix-size-md`; the `md` text button uses `--moduix-spacing-1` block padding.
+Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and
+reduced-motion preferences omit the movement.
 
 | Entry       | Default   | Values                                                                                   |
 | ----------- | --------- | ---------------------------------------------------------------------------------------- |
@@ -159,6 +163,8 @@ Primary CSS variables:
 | `--moduix-button-focus-ring-width`                                | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                               |
 | `--moduix-button-font-size`                                       | `var(--moduix-text-sm)`                                                                       |
 | `--moduix-button-font-size-xs` / `--moduix-button-line-height-xs` | `var(--moduix-text-xs)` / `var(--moduix-line-height-text-xs)`                                 |
+| `--moduix-button-font-size-sm` / `--moduix-button-line-height-sm` | `var(--moduix-text-sm)` / `var(--moduix-line-height-text-sm)`                                 |
+| `--moduix-button-font-size-md` / `--moduix-button-line-height-md` | `var(--moduix-text-sm)` / `var(--moduix-line-height-text-sm)`                                 |
 | `--moduix-button-font-size-lg` / `--moduix-button-line-height-lg` | `var(--moduix-text-md)` / `var(--moduix-line-height-text-md)`                                 |
 | `--moduix-button-font-size-xl` / `--moduix-button-line-height-xl` | `var(--moduix-text-lg)` / `var(--moduix-line-height-text-lg)`                                 |
 | `--moduix-button-font-weight`                                     | `var(--moduix-weight-medium)`                                                                 |
@@ -227,7 +233,12 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-07-29: Added `font-size` and `line-height` theme overrides for `sm` and `md` button sizes.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
+- 2026-07-26: Added subtle press feedback for enabled button variants while keeping links and
+  reduced-motion preferences free of movement.
+- 2026-07-26: Made disabled custom hosts expose `aria-disabled` and prevent click activation, narrowed
+  icon sizing to direct SVG children, and aligned docs with the behavior.
 - 2026-07-21: Normalized the complete control scale to `24/32/36/40/48px` tokens, including icon
   buttons, and compacted block padding so typography no longer expands a selected size.
 

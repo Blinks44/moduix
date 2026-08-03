@@ -1,8 +1,8 @@
-import { PinInput } from '@moduix/react';
+import { PinInput } from '@moduix/react/pin-input';
 
 export default function GroupedPinInput() {
   return (
-    <PinInput count={6} className="customRoot">
+    <PinInput count={6}>
       <PinInput.Label>Auth code</PinInput.Label>
       <PinInput.Control>
         {[0, 1, 2].map((index) => (

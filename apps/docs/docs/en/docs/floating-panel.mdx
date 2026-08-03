@@ -76,7 +76,7 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 
 ### Recommended composition
 
-Use `FloatingPanel.Root` for state and behavior. Render `Positioner` and `Content` explicitly, then
+Use `FloatingPanel` for state and behavior. Render `Positioner` and `Content` explicitly, then
 place `DragTrigger` around the header so pointer movement starts from a predictable region.
 
 Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` for the
@@ -96,6 +96,10 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 
 ### Default props
 
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
+
 | Prop            | Default | Notes                                                                      |
 | --------------- | ------- | -------------------------------------------------------------------------- |
 | `closeOnEscape` | `true`  | Closes the focused topmost panel; set `false` to opt out.                  |
@@ -103,7 +107,7 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 | `draggable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `resizable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `strategy`      | Ark     | Passed through unchanged; Ark defaults to fixed positioning.               |
-| Presence props  | Ark     | `lazyMount`, `unmountOnExit`, `present`, and animation props pass through. |
+| Presence props  | Moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
 
 ### Behavioral notes
 
@@ -114,10 +118,12 @@ Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside 
 - `position` and `size` are controlled independently; use `defaultPosition` and `defaultSize` for
   uncontrolled initialization.
 - `getAnchorPosition(details)` can derive the initial position from the trigger rect.
-- `closeOnEscape` defaults to `true` on `Root`; set it to `false` to opt out. Ark receives Escape
+- `closeOnEscape` defaults to `true` on `FloatingPanel`; set it to `false` to opt out. Ark receives Escape
   from the focused topmost `Content`, so use `autoFocus` when the panel should receive focus on open.
 - `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio`, and `gridSize` pass through Ark
   unchanged.
+- `Content` has `role="dialog"`. When it has focus, Arrow keys reposition the panel by `gridSize`
+  and honor `dir`; use `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit focus handoff.
 - `persistRect` can be set to `false`, but the default `true` keeps size and position available for
   close animations.
 - The panel is non-modal and does not trap focus or block outside interaction.
@@ -131,6 +137,16 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
 ```tsx preview file="./_snippets/floating-panel/anchor-position.tsx"
 
 ```
+
+### Boundary
+
+Set `allowOverflow={false}` with `getBoundaryEl` to constrain the panel to a specific container.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
+  ```
+
+</PreviewFrame>
 
 ### Context
 

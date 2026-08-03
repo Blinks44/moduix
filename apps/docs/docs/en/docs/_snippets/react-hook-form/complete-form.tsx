@@ -1,6 +1,13 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, Card, Checkbox, Combobox, Field, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Combobox } from '@moduix/react/combobox';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
+import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import { Controller, useForm } from 'react-hook-form';
 
 const teams = createListCollection({
@@ -36,7 +43,7 @@ export default function ProjectForm() {
     control,
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       name: '',
@@ -48,7 +55,14 @@ export default function ProjectForm() {
   });
 
   return (
-    <form className="form" noValidate onSubmit={handleSubmit((values) => console.log(values))}>
+    <form
+      className="form"
+      noValidate
+      onSubmit={handleSubmit(async (values) => {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+        console.log(values);
+      })}
+    >
       <Card>
         <Card.Header>
           <Card.Title>Create project</Card.Title>
@@ -61,7 +75,7 @@ export default function ProjectForm() {
               Project name
               <Field.RequiredIndicator />
             </Field.Label>
-            <Field.Input
+            <Input
               {...register('name', {
                 required: 'Enter a project name.',
               })}
@@ -154,7 +168,7 @@ export default function ProjectForm() {
 
           <Field>
             <Field.Label>Summary</Field.Label>
-            <Field.Textarea
+            <Textarea
               {...register('summary')}
               placeholder="What are you planning to build?"
               rows={3}
@@ -180,8 +194,8 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <Button className="submit" type="submit">
-            Create project
+          <Button className="submit" type="submit" loading={isSubmitting}>
+            {isSubmitting ? 'Creating…' : 'Create project'}
           </Button>
         </Card.Footer>
       </Card>

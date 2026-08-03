@@ -1,11 +1,5 @@
-import { CloseButton } from '@moduix/react';
+import { CloseButton } from '@moduix/react/close-button';
 
 export default function CloseButtonDisabledDemo() {
-  return (
-    <CloseButton
-      className="disabledCloseButton"
-      aria-disabled="true"
-      aria-label="Close unavailable message"
-    />
-  );
+  return <CloseButton disabled aria-label="Close unavailable message" />;
 }

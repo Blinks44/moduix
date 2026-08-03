@@ -1,9 +1,16 @@
-import { Slider } from '@moduix/react';
+import { Slider } from '@moduix/react/slider';
 
 export default function SliderDemo() {
   return (
     <Slider defaultValue={[40]}>
-      <div className="slider-header">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'var(--moduix-spacing-3)',
+        }}
+      >
         <Slider.Label>Volume</Slider.Label>
         <Slider.ValueText />
       </div>

@@ -1,4 +1,4 @@
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
 
 const initialValue = 60;
 const step = 15;

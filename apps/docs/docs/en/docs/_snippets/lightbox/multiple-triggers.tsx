@@ -1,4 +1,4 @@
-import { Lightbox } from '@moduix/react';
+import { Lightbox } from '@moduix/react/lightbox';
 import { useState } from 'react';
 
 const images = [

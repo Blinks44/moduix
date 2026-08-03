@@ -1,4 +1,4 @@
-import { Marquee } from '@moduix/react';
+import { Marquee } from '@moduix/react/marquee';
 
 const partners = [
   {

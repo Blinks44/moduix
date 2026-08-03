@@ -33,6 +33,36 @@ If your app renders on the server, use its early theme mechanism so the resolved
 before the page becomes visible. It prevents a brief light theme before client JavaScript applies a
 saved preference.
 
+## Add a simple switch
+
+Store the user's explicit choice in the application and update the document attribute. If there is
+no saved choice, resolve the operating-system preference with `matchMedia`.
+
+```tsx
+type ColorScheme = 'light' | 'dark';
+
+export function applyColorScheme(scheme: ColorScheme) {
+  document.documentElement.dataset.moduixColorScheme = scheme;
+}
+
+export function resolveColorScheme(): ColorScheme {
+  const saved = localStorage.getItem('color-scheme');
+  if (saved === 'light' || saved === 'dark') return saved;
+
+  return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+export function saveColorScheme(scheme: ColorScheme) {
+  localStorage.setItem('color-scheme', scheme);
+  applyColorScheme(scheme);
+}
+```
+
+Run the equivalent of `applyColorScheme(resolveColorScheme())` in your framework's early inline
+theme script, before the first paint. Let the visible switch call `saveColorScheme` with the next
+value. This keeps the operating-system preference as the default until the user makes an explicit
+choice. Give the switch an accessible name that describes the action, such as `Switch to dark mode`.
+
 ## Combine dark mode with a preset
 
 Color mode and visual presets are separate layers. Keep `data-moduix-color-scheme` and
@@ -86,5 +116,5 @@ across the library.
 }
 ```
 
-Use [Tokens](/docs/tokens) for the complete token reference and component pages for local visual
+Use [Tokens](/docs/tokens) for the system token reference and component pages for local visual
 overrides.

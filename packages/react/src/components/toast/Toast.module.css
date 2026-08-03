@@ -38,7 +38,6 @@
         var(--moduix-toast-close-size, var(--moduix-spacing-7))
     );
     pointer-events: auto;
-    user-select: none;
     translate: var(--x) var(--y);
     scale: var(--scale);
     z-index: var(--z-index);

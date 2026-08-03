@@ -1,4 +1,4 @@
-import { Badge } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
 
 export default function BadgeCustomStylingDemo() {
   return (

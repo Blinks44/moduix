@@ -248,6 +248,10 @@
         var(--moduix-combobox-action-gap, var(--moduix-spacing-0-5))
     );
     transform: translateY(-50%);
+
+    &[hidden] {
+      display: none;
+    }
   }
 
   .positioner {

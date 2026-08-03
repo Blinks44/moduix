@@ -145,25 +145,9 @@ const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-spacing-2)',
     'Header vertical padding.',
   ],
-  ['--moduix-floating-panel-height', '100%', 'Content height inside Ark positioner.'],
   ['--moduix-floating-panel-min-height', '10rem', 'Minimum content height.'],
   ['--moduix-floating-panel-min-width', '16rem', 'Minimum content width.'],
   ['--moduix-floating-panel-radius', 'var(--moduix-radius-md)', 'Panel radius.'],
-  [
-    '--moduix-floating-panel-resize-corner-size',
-    'var(--moduix-spacing-3)',
-    'Corner resize handle size.',
-  ],
-  [
-    '--moduix-floating-panel-resize-edge-inset',
-    'var(--moduix-spacing-3)',
-    'Edge resize handle inset.',
-  ],
-  [
-    '--moduix-floating-panel-resize-edge-size',
-    'var(--moduix-spacing-2)',
-    'Edge resize handle thickness.',
-  ],
   ['--moduix-floating-panel-shadow', 'var(--moduix-shadow-lg)', 'Panel shadow.'],
   ['--moduix-floating-panel-starting-opacity', '0', 'Enter animation opacity.'],
   ['--moduix-floating-panel-starting-scale', 'var(--moduix-scale-popup)', 'Enter animation scale.'],
@@ -243,7 +227,6 @@ const floatingPanelOverrideCssProperties: CssPropertyInput[] = [
     'Default trigger vertical padding.',
   ],
   ['--moduix-floating-panel-trigger-radius', 'var(--moduix-radius-md)', 'Default trigger radius.'],
-  ['--moduix-floating-panel-width', '100%', 'Content width inside Ark positioner.'],
   ['--moduix-floating-panel-z-index', 'var(--moduix-z-popup)', 'Fallback panel z-index.'],
 ];
 

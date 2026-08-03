@@ -1,5 +1,5 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
 
 const defaultRange = [new CalendarDate(2026, 6, 22), new CalendarDate(2026, 6, 26)];
 export default function RangeDateInputDemo() {

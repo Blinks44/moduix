@@ -1,4 +1,5 @@
-import { Button, Card } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 const content = {
   title: 'Release health',
@@ -8,7 +9,7 @@ const content = {
 
 export default function CardDemo() {
   return (
-    <Card className="card">
+    <Card>
       <Card.Header>
         <Card.Title>{content.title}</Card.Title>
         <Card.Description>{content.description}</Card.Description>

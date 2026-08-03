@@ -1,4 +1,4 @@
-import { Tabs } from '@moduix/react';
+import { Tabs } from '@moduix/react/tabs';
 import { Handshake as HandshakeIcon, Map as MapIcon, Gift as PresentIcon } from 'lucide-react';
 
 const items = [

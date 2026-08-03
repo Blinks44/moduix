@@ -1,6 +1,10 @@
+'use client';
+
+import { useFieldContext } from '@ark-ui/react/field';
+import { useFieldsetContext } from '@ark-ui/react/fieldset';
 import {
   SegmentGroup as SegmentGroupPrimitive,
-  useSegmentGroup,
+  useSegmentGroup as useSegmentGroupPrimitive,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
 } from '@ark-ui/react/segment-group';
@@ -10,14 +14,68 @@ import { Children, cloneElement, forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './SegmentGroup.module.css';
 
+type SegmentGroupMachineProps = Parameters<typeof useSegmentGroupPrimitive>[0];
+
+function omitUndefined<T extends Record<string, unknown>>(props: T) {
+  return Object.fromEntries(Object.entries(props).filter(([, value]) => value !== undefined)) as T;
+}
+
+function useSegmentGroup(props?: SegmentGroupMachineProps) {
+  const field = useFieldContext();
+  const fieldset = useFieldsetContext();
+
+  return useSegmentGroupPrimitive({
+    disabled: field?.disabled ?? fieldset?.disabled,
+    invalid: field?.invalid ?? fieldset?.invalid,
+    readOnly: field?.readOnly,
+    required: field?.required,
+    ...omitUndefined(props ?? {}),
+  });
+}
+
 const SegmentGroupRoot = forwardRef<
   ComponentRef<typeof SegmentGroupPrimitive.Root>,
   ComponentProps<typeof SegmentGroupPrimitive.Root>
->(function SegmentGroupRoot({ className, orientation = 'horizontal', ...props }, ref) {
+>(function SegmentGroupRoot(
+  {
+    className,
+    defaultValue,
+    disabled,
+    form,
+    id,
+    ids,
+    invalid,
+    name,
+    onValueChange,
+    orientation = 'horizontal',
+    readOnly,
+    required,
+    value,
+    ...props
+  },
+  ref,
+) {
+  const segmentGroup = useSegmentGroup(
+    omitUndefined({
+      defaultValue,
+      disabled,
+      form,
+      id,
+      ids,
+      invalid,
+      name,
+      onValueChange,
+      orientation,
+      readOnly,
+      required,
+      value,
+    }),
+  );
+
   return (
-    <SegmentGroupPrimitive.Root
+    <SegmentGroupPrimitive.RootProvider
       ref={ref}
-      orientation={orientation}
+      value={segmentGroup}
       data-slot="segment-group-root"
       className={clsx(styles.root, normalizeClassName(className))}
       {...props}

@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 
 const variants = [
   'default',
@@ -12,7 +12,15 @@ const variants = [
 
 export default function ButtonVariantsDemo() {
   return (
-    <div className="button-demo-row">
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       {variants.map((variant) => (
         <Button key={variant} variant={variant}>
           {variant}

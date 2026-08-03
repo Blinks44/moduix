@@ -24,9 +24,11 @@ or controlled popup behavior.
 
 Render native `option` or `optgroup` children and use normal select props.
 
-```tsx preview file="./_snippets/native-select/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/native-select/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -38,7 +40,7 @@ Render native `option` or `optgroup` children and use normal select props.
 `ChevronDownIcon` for consistent alignment with `Select`.
 
 ```text
-NativeSelect / NativeSelect.Root
+NativeSelect
 └─ span[data-scope="native-select"][data-part="control"]
    ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
    │  ├─ option
@@ -47,9 +49,9 @@ NativeSelect / NativeSelect.Root
       └─ ChevronDownIcon
 ```
 
-| Part                                 | Role                                          |
-| ------------------------------------ | --------------------------------------------- |
-| `NativeSelect` / `NativeSelect.Root` | Styled native select with a visual indicator. |
+| Part           | Role                                          |
+| -------------- | --------------------------------------------- |
+| `NativeSelect` | Styled native select with a visual indicator. |
 
 ## Composition
 
@@ -58,6 +60,8 @@ NativeSelect / NativeSelect.Root
 Use the short `NativeSelect` form with native children and native controlled or uncontrolled props.
 Compose it inside `Field.Root` when the control needs a visible label, helper text, error text, or
 shared required, invalid, or disabled state.
+
+`NativeSelect.Root` is a compatibility alias; prefer `NativeSelect` in application code.
 
 ### When to go custom
 
@@ -90,27 +94,35 @@ must be controlled by the application. Keep `NativeSelect` for browser-owned sel
 
 ## Examples
 
+### Controlled
+
+Use the native change event when React owns the selected value.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/native-select/controlled.tsx"
+
+```
+</PreviewFrame>
+
 ### Field Integration
 
 Use `Field` for accessible labels, descriptions, error text, and shared form state.
 
-<style>{`
-      .nativeSelectFieldDemo {
-        --moduix-field-width: 14rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/native-select/field-integration.tsx"
+<PreviewFrame maxWidth="sm" contentWidth="fit-content">
+  ```tsx preview file="./_snippets/native-select/field-integration.tsx"
 
 ```
+</PreviewFrame>
 
 ### Multiple Selection
 
 Native `multiple` and `size` props turn the control into a browser-managed option list.
 
-```tsx preview file="./_snippets/native-select/multiple-selection.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/native-select/multiple-selection.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

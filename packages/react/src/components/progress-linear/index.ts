@@ -1,1 +1,1 @@
-export { ProgressLinear } from './ProgressLinear';
+export { ProgressLinear } from './ProgressLinear.js';

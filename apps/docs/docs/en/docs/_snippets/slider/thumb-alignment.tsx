@@ -1,9 +1,16 @@
-import { Slider } from '@moduix/react';
+import { Slider } from '@moduix/react/slider';
 
 export default function ThumbAlignmentSliderDemo() {
   return (
     <Slider defaultValue={[0]} thumbAlignment="center">
-      <div className="slider-header">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 'var(--moduix-spacing-3)',
+        }}
+      >
         <Slider.Label>Centered thumb</Slider.Label>
         <Slider.ValueText />
       </div>

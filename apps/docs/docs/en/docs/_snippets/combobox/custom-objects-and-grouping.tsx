@@ -1,6 +1,6 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react';
+import { Combobox } from '@moduix/react/combobox';
 
 const countries = [
   { country: 'Canada', code: 'CA', continent: 'North America' },

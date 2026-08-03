@@ -73,7 +73,7 @@ FileUpload.Root | FileUpload.RootProvider
 Canonical composition:
 
 ```tsx
-import { FileUpload } from '@moduix/react';
+import { FileUpload } from '@moduix/react/file-upload';
 
 export function FileUploadDemo() {
   return (
@@ -138,10 +138,10 @@ grow with their content.
 - `--moduix-file-upload-item-preview-icon-size` controls fallback preview glyphs, while
   `--moduix-file-upload-image-item-max-width` caps compact image cards without hard-wiring consumer layout.
 - `ItemDeleteTrigger` defaults to the moduix `TrashIcon` when children are omitted.
-- `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` when
-  children are omitted; text children retain the expanded action layout.
+- `ClearTrigger` composes the shared `CloseButton` by default. It uses the moduix `CloseIcon` and the accessible
+  name `Clear files` when children are omitted; text children retain the expanded action layout.
 - Public styling hooks are Ark `data-scope` / `data-part`, Ark state attributes, and moduix `data-slot`.
-- Public component tokens live under `--moduix-file-upload-*` in `packages/react/src/styles/theme.css`.
+- Public component tokens live under `--moduix-file-upload-*` in `packages/react/src/styles/variables-moduix.css`.
 - Item layout selectors use the public `data-slot` hooks for previews and size text.
 - The item metadata separator uses logical inline spacing, so its rhythm follows RTL text flow.
 - Empty `ItemGroup` parts are hidden so they do not add root spacing before accepted or rejected files exist.
@@ -174,6 +174,8 @@ grow with their content.
 
 ## Local changelog
 
+- 2026-07-27: Added a visible keyboard focus ring for clickable dropzones, corrected the default clear-action name,
+  and prevented disabled descendants from receiving compounded opacity.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default upload trigger with the Button `md` baseline.
 

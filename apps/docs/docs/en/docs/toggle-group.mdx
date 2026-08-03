@@ -23,15 +23,11 @@ Use `ToggleGroup` when several pressed buttons belong to one shared value set.
 
 Start with the short root form `<ToggleGroup>` and add Ark-aligned `ToggleGroup.Item` children.
 
-<style>{`
-      [data-slot="toggle-group-root"] {
-        width: max-content;
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/basic.tsx"
 
-```tsx preview file="./_snippets/toggle-group/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -108,6 +104,8 @@ the moduix API.
   whether arrow navigation wraps.
 - Ark writes `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
   `data-focus`, and item `data-state="on" | "off"` for styling.
+- Horizontal groups scroll when they are wider than their container instead of wrapping and changing
+  the arrow-key navigation layout.
 
 ## Examples
 
@@ -115,126 +113,94 @@ the moduix API.
 
 Control `value` from React state when the group needs to stay in sync with surrounding UI.
 
-<style>{`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--moduix-spacing-3);
-      }
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/controlled.tsx"
 
-      .hint {
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-xs);
-        line-height: var(--moduix-line-height-text-xs);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/toggle-group/controlled.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Disabled
 
 Use `disabled` on the group or on a specific item to prevent interaction.
 
-<style>{`
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/toggle-group/disabled.tsx"
 
-```tsx preview file="./_snippets/toggle-group/disabled.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Icons
 
 Pass icons as regular children. Icon-only items should always include an accessible label.
 
-<style>{`
-      .iconGroup {
-        --moduix-toggle-icon-size: 1rem;
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/icons.tsx"
 
-```tsx preview file="./_snippets/toggle-group/icons.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Multiple Selection
 
 Use `multiple` when several options can stay pressed at the same time.
 
-<style>{`
-      .underline {
-        text-decoration: underline;
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/multiple-selection.tsx"
 
-    `}</style>
-
-```tsx preview file="./_snippets/toggle-group/multiple-selection.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Variants
 
 Set `variant` on the group when every item should share the same visual treatment.
 
-<style>{`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--moduix-spacing-3);
-      }
-    `}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/variants.tsx"
 
-```tsx preview file="./_snippets/toggle-group/variants.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Vertical
 
 Set `orientation="vertical"` when the choices should stack in a column.
 
-<style>{`
-      [data-slot="toggle-group-root"][data-orientation="vertical"] {
-        width: 10rem;
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/vertical.tsx"
 
-```tsx preview file="./_snippets/toggle-group/vertical.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `ToggleGroup.RootProvider` with moduix `useToggleGroup` when the state instance must be shared or
 controlled before the root is rendered.
 
-<style>{`
-      .stack {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--moduix-spacing-3);
-      }
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/root-provider.tsx"
 
-      .hint {
-        color: var(--moduix-color-muted-foreground);
-        font-size: var(--moduix-text-xs);
-        line-height: var(--moduix-line-height-text-xs);
-      }
-    `}</style>
+  ```
+</PreviewFrame>
 
-```tsx preview file="./_snippets/toggle-group/root-provider.tsx"
+### asChild
 
-```
+Use `asChild` on an item when a custom button must own the rendered element. Keep exactly one
+button-like child so Ark can merge the group semantics and keyboard behavior.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/as-child.tsx"
+
+  ```
+</PreviewFrame>
+
+### Context
+
+Use `useToggleGroupContext()` in a custom item when its contents need the current group state.
+`ToggleGroup.Context` provides the same state through a render prop.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle-group/context.tsx"
+
+  ```
+</PreviewFrame>
 
 ## Styling
 

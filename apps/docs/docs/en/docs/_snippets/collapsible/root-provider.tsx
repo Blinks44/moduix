@@ -1,4 +1,4 @@
-import { Collapsible, useCollapsible } from '@moduix/react';
+import { Collapsible, useCollapsible } from '@moduix/react/collapsible';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const recoveryKeys = ['alien-bean-pasta', 'wild-irish-burrito', 'horse-battery-staple'];

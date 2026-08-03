@@ -1,30 +1,6 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const editableExampleCss = `
-  .editable-textarea-area {
-    align-items: flex-start;
-  }
-
-  .editable-textarea-root {
-    --moduix-editable-control-align: start;
-    --moduix-editable-area-width: 100%;
-  }
-
-  .editable-textarea-input,
-  .editable-textarea-preview {
-    min-height: 6rem;
-    white-space: pre-wrap;
-  }
-
-  .editable-custom-area {
-    --moduix-editable-area-width: 16rem;
-    --moduix-editable-border-color: var(--moduix-color-primary);
-    --moduix-editable-focus-ring-color: var(--moduix-color-primary);
-    --moduix-editable-radius: var(--moduix-radius-sm);
-  }
-`;
-
 const editableOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-editable-area-height',

@@ -45,7 +45,7 @@ Kbd.Group
 | Part               | Role                                                    |
 | ------------------ | ------------------------------------------------------- |
 | `Kbd` / `Kbd.Root` | Polymorphic keycap root; renders `kbd` by default.      |
-| `Kbd.Group`        | Polymorphic semantic wrapper for shortcut combinations. |
+| `Kbd.Group`        | Polymorphic inline wrapper for shortcut combinations.   |
 
 ## Composition
 
@@ -53,7 +53,8 @@ Kbd.Group
 
 Use `Kbd` as the root shorthand and `Kbd.Group` for shortcut hints, command menus, and inline help.
 
-Both parts accept `HTMLArkProps<'kbd'>`, forward refs to the rendered element, and support `asChild`.
+`Kbd` and `Kbd.Root` accept `HTMLArkProps<'kbd'>`; `Kbd.Group` accepts `HTMLArkProps<'span'>`.
+Every part forwards its ref to the rendered element and supports `asChild`.
 There is no variant, size, separator, callback, or state API.
 
 ### When to go custom
@@ -97,12 +98,6 @@ Use local CSS variables for one-off density or tone changes instead of extra com
 
 Use `asChild` to merge Kbd props into one semantic child when another layer owns the element.
 
-<style>{`
-      [data-slot="kbd-root"] {
-        cursor: default;
-      }
-    `}</style>
-
 ```tsx preview file="./_snippets/kbd/custom-element.tsx"
 
 ```
@@ -136,12 +131,6 @@ Use plain composition when shortcuts need to sit next to surrounding copy.
 
 Use `Kbd` directly when the UI refers to one key.
 
-<style>{`
-      [data-scope="kbd"][data-part="root"] {
-        vertical-align: middle;
-      }
-    `}</style>
-
 ```tsx preview file="./_snippets/kbd/single-key.tsx"
 
 ```
@@ -153,21 +142,11 @@ Style `Kbd` and `Kbd.Group` through `className`, Ark anatomy attributes, stable 
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <KbdDocs.KbdCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
 
 ### Styling hooks
 
 - `data-slot="kbd-root"` targets the individual keycap element
-- `data-slot="kbd-group"` targets the inline semantic wrapper for grouped shortcuts
+- `data-slot="kbd-group"` targets the inline wrapper for grouped shortcuts
 - `[data-scope="kbd"][data-part="root"]` and `[data-part="group"]` expose Ark-style anatomy selectors
 - `Kbd.Group` inherits text styles for separators, and `--moduix-kbd-group-separator-color` controls their color

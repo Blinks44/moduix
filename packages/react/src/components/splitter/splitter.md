@@ -96,12 +96,6 @@ Zag notes preserved by the wrapper:
 - `nonce` is passed through for the cursor stylesheet Ark injects.
 - `ids` can be used when external composition needs stable accessibility and interaction ids.
 
-Zag 1.41.2 has a known regression where `collapsedSize < minSize` updates internal state correctly
-but the inline CSS minimum keeps the rendered panel at `minSize`. This is tracked by
-[zag#3179](https://github.com/chakra-ui/zag/issues/3179) and fixed by the open
-[zag#3180](https://github.com/chakra-ui/zag/pull/3180). The wrapper intentionally remains thin and
-does not patch that upstream layout behavior.
-
 ## Accessibility and state
 
 Ark implements the WAI-ARIA Window Splitter pattern. `ResizeTrigger` renders a button with keyboard and pointer handling, focus state, and panel relationship metadata from Ark.
@@ -120,7 +114,7 @@ Every styled part accepts `className`, merged with moduix defaults through `clsx
 
 The root defaults to inline `width: var(--moduix-splitter-width, 100%)` and `height: var(--moduix-splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--moduix-splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow; dragging slightly scales the indicator and raises its shadow; release returns to idle. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
 
-All public `--moduix-splitter-*` variables used by the component are declared in `src/styles/theme.css`. Common overrides include `--moduix-splitter-height`, `--moduix-splitter-bg`, `--moduix-splitter-border-color`, `--moduix-splitter-radius`, `--moduix-splitter-shadow`, `--moduix-splitter-panel-bg`, `--moduix-splitter-panel-min-height`, `--moduix-splitter-panel-min-height-vertical`, `--moduix-splitter-panel-padding`, `--moduix-splitter-resize-trigger-size`, `--moduix-splitter-resize-trigger-line-thickness`, `--moduix-splitter-resize-trigger-line-color`, `--moduix-splitter-resize-trigger-line-color-hover`, `--moduix-splitter-resize-trigger-line-color-dragging`, `--moduix-splitter-resize-trigger-indicator-bg`, `--moduix-splitter-resize-trigger-indicator-bg-dragging`, `--moduix-splitter-resize-trigger-indicator-border-color`, `--moduix-splitter-resize-trigger-indicator-border-color-hover`, `--moduix-splitter-resize-trigger-indicator-border-color-dragging`, `--moduix-splitter-resize-trigger-indicator-shadow`, `--moduix-splitter-resize-trigger-indicator-shadow-hover`, and `--moduix-splitter-resize-trigger-indicator-shadow-dragging`.
+All public `--moduix-splitter-*` variables used by the component are declared in `src/styles/variables-moduix.css`. Common overrides include `--moduix-splitter-height`, `--moduix-splitter-bg`, `--moduix-splitter-border-color`, `--moduix-splitter-radius`, `--moduix-splitter-shadow`, `--moduix-splitter-panel-bg`, `--moduix-splitter-panel-min-height`, `--moduix-splitter-panel-min-height-vertical`, `--moduix-splitter-panel-padding`, `--moduix-splitter-resize-trigger-size`, `--moduix-splitter-resize-trigger-line-thickness`, `--moduix-splitter-resize-trigger-line-color`, `--moduix-splitter-resize-trigger-line-color-hover`, `--moduix-splitter-resize-trigger-line-color-dragging`, `--moduix-splitter-resize-trigger-indicator-bg`, `--moduix-splitter-resize-trigger-indicator-bg-dragging`, `--moduix-splitter-resize-trigger-indicator-border-color`, `--moduix-splitter-resize-trigger-indicator-border-color-hover`, `--moduix-splitter-resize-trigger-indicator-border-color-dragging`, `--moduix-splitter-resize-trigger-indicator-shadow`, `--moduix-splitter-resize-trigger-indicator-shadow-hover`, and `--moduix-splitter-resize-trigger-indicator-shadow-dragging`.
 
 ## Intentional sugar and differences from upstream
 
@@ -150,8 +144,6 @@ with rendered `Panel` ids and adjacent trigger ids.
 
 - 2026-07-03: Removed Ark context parts, hooks, registry/layout helpers, and type re-exports from
   the public moduix surface while keeping `Splitter.RootProvider` for externally owned Ark state.
-- 2026-07-01: Documented the pending upstream Zag fix for collapsible panels rendering at
-  `minSize` instead of a smaller `collapsedSize`.
 - 2026-06-22: Added Ark-backed `Splitter` with styled parts, context/provider hooks, registry helpers, theme variables, docs, and registry integration.
 - 2026-06-22: Refined default styling to use a thin splitter line plus rounded indicator handle, and enlarged docs/story demos for practical resizing.
 - 2026-06-22: Tightened the handle and added polished panel surface defaults with minimum panel height.

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DateInput as DateInputPrimitive,
   type DateInputDateValue,
@@ -114,13 +116,13 @@ const DateInputSegments = forwardRef<
 });
 
 type DateInputFormProps = {
-  names?: readonly string[];
+  names?: readonly [string, string];
 };
 
 function withHiddenInputs(
   children: ReactNode,
   asChild: boolean | undefined,
-  names: readonly string[] | undefined,
+  names: readonly [string, string] | undefined,
 ) {
   const hiddenInputs = <DateInputFormInputs names={names} />;
 
@@ -140,7 +142,7 @@ function withHiddenInputs(
 
 function DateInputFormInputs({ names }: DateInputFormProps) {
   const dateInput = useDateInputContext();
-  const inputCount = Math.max(dateInput.displayValues.length, names?.length ?? 0, 1);
+  const inputCount = Math.max(dateInput.displayValues.length, 1);
 
   return (
     <>

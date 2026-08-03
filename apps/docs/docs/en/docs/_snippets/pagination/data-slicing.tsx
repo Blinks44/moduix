@@ -1,4 +1,4 @@
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
 
 const users = [
   {

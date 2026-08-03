@@ -1,5 +1,5 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Select } from '@moduix/react/select';
 
 const produce = createListCollection({
   items: [

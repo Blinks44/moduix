@@ -1,5 +1,5 @@
 import { useListCollection } from '@ark-ui/react/collection';
-import { Combobox } from '@moduix/react';
+import { Combobox } from '@moduix/react/combobox';
 
 const domains = ['gmail.com', 'outlook.com', 'proton.me'];
 

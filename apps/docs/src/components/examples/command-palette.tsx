@@ -219,6 +219,11 @@ export const commandPaletteOverrideCssProperties: CssPropertyInput[] = [
     'Customizes command palette group gap.',
   ],
   [
+    '--moduix-command-palette-group-label-color',
+    'var(--moduix-popup-group-label-color, var(--moduix-color-muted-foreground))',
+    'Customizes command palette group label color.',
+  ],
+  [
     '--moduix-command-palette-group-label-font-size',
     'var(--moduix-popup-group-label-font-size, var(--moduix-text-xs))',
     'Customizes command palette group label font size.',

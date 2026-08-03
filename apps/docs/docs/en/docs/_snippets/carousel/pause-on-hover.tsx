@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
@@ -31,13 +31,13 @@ const slides = [
 
 export default function PauseOnHoverCarousel() {
   return (
-    <Carousel autoplay loop slideCount={slides.length}>
+    <Carousel aria-label="Pause on hover gallery" autoplay loop slideCount={slides.length}>
       <Carousel.Context>
         {(api) => (
           <>
             <Carousel.ItemGroup
-              aria-label="Pause on hover gallery"
-              onPointerOver={() => api.pause()}
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
               onPointerLeave={() => api.play()}
             >
               {slides.map((slide, index) => (
@@ -46,8 +46,17 @@ export default function PauseOnHoverCarousel() {
                 </Carousel.Item>
               ))}
             </Carousel.ItemGroup>
-            <Carousel.Indicators />
-            <PreviewMeta>
+            <Carousel.Control
+              onFocus={() => api.pause()}
+              onPointerEnter={() => api.pause()}
+              onPointerLeave={() => api.play()}
+            >
+              <Carousel.AutoplayTrigger>
+                <Carousel.AutoplayIndicator fallback="Play">Pause</Carousel.AutoplayIndicator>
+              </Carousel.AutoplayTrigger>
+              <Carousel.Indicators />
+            </Carousel.Control>
+            <PreviewMeta style={{ marginInline: 'auto' }}>
               <output>Autoplay: {api.isPlaying ? 'playing' : 'paused'}</output>
             </PreviewMeta>
           </>

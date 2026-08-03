@@ -1,4 +1,4 @@
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
 
 const initialValue = 45;
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];

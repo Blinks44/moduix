@@ -8,12 +8,12 @@ import storyStyles from './Dialog.stories.module.css';
 
 const meta = {
   title: 'Components/Dialog',
-  component: Dialog.Root,
+  component: Dialog,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Dialog.Root>;
+} satisfies Meta<typeof Dialog>;
 
 export default meta;
 
@@ -38,7 +38,7 @@ function DialogStatusText() {
 
 export const Basic: Story = {
   render: () => (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>View notifications</Button>
       </Dialog.Trigger>
@@ -49,7 +49,7 @@ export const Basic: Story = {
           <Dialog.Description>You are all caught up. Good job!</Dialog.Description>
         </Dialog.Header>
       </DialogSurface>
-    </Dialog.Root>
+    </Dialog>
   ),
 };
 
@@ -58,7 +58,7 @@ export const Controlled: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <Dialog.Root open={open} onOpenChange={(details) => setOpen(details.open)}>
+      <Dialog open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Dialog.Trigger asChild>
           <Button>Open controlled dialog</Button>
         </Dialog.Trigger>
@@ -73,7 +73,7 @@ export const Controlled: Story = {
             </Dialog.CloseTrigger>
           </Dialog.Footer>
         </DialogSurface>
-      </Dialog.Root>
+      </Dialog>
     );
   },
 };
@@ -103,7 +103,7 @@ export const RootProvider: Story = {
 
 export const AlertDialog: Story = {
   render: () => (
-    <Dialog.Root role="alertdialog">
+    <Dialog role="alertdialog">
       <Dialog.Trigger asChild>
         <Button>Delete account</Button>
       </Dialog.Trigger>
@@ -119,7 +119,7 @@ export const AlertDialog: Story = {
           <Button>Delete account</Button>
         </Dialog.Footer>
       </DialogSurface>
-    </Dialog.Root>
+    </Dialog>
   ),
 };
 
@@ -128,7 +128,7 @@ export const InitialFocus: Story = {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-      <Dialog.Root initialFocusEl={() => inputRef.current}>
+      <Dialog initialFocusEl={() => inputRef.current}>
         <Dialog.Trigger asChild>
           <Button>Edit profile</Button>
         </Dialog.Trigger>
@@ -139,14 +139,14 @@ export const InitialFocus: Story = {
             <input ref={inputRef} placeholder="Name" />
           </Dialog.Body>
         </DialogSurface>
-      </Dialog.Root>
+      </Dialog>
     );
   },
 };
 
 export const ScrollableBody: Story = {
   render: () => (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open long content</Button>
       </Dialog.Trigger>
@@ -182,7 +182,7 @@ export const ScrollableBody: Story = {
           </Dialog.Body>
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   ),
 };
 
@@ -217,7 +217,7 @@ export const Nested: Story = {
 
 export const NonModal: Story = {
   render: () => (
-    <Dialog.Root modal={false}>
+    <Dialog modal={false}>
       <Dialog.Trigger asChild>
         <Button>Open non-modal dialog</Button>
       </Dialog.Trigger>
@@ -230,13 +230,13 @@ export const NonModal: Story = {
           </Dialog.Description>
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   ),
 };
 
 export const Context: Story = {
   render: () => (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open status dialog</Button>
       </Dialog.Trigger>
@@ -246,13 +246,13 @@ export const Context: Story = {
           <DialogStatusText />
         </Dialog.Description>
       </DialogSurface>
-    </Dialog.Root>
+    </Dialog>
   ),
 };
 
 export const CustomCloseIcon: Story = {
   render: () => (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
@@ -265,6 +265,6 @@ export const CustomCloseIcon: Story = {
           <Dialog.Description>The close icon supports custom content.</Dialog.Description>
         </Dialog.Header>
       </DialogSurface>
-    </Dialog.Root>
+    </Dialog>
   ),
 };

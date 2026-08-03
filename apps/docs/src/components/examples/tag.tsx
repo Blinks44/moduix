@@ -54,11 +54,6 @@ const tagCssProperties = (
       'Controls close trigger focus ring offset.',
     ],
     [
-      '--tag-close-trigger-focus-ring-offset-color',
-      'transparent',
-      'Controls close trigger focus ring offset color.',
-    ],
-    [
       '--moduix-tag-close-trigger-focus-ring-width',
       'var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))',
       'Controls close trigger focus ring width.',

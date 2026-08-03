@@ -5,8 +5,8 @@
   gap: var(--moduix-spacing-3);
 }
 
-.constrained {
-  max-width: 18rem;
+.constrained[data-scope='tag'] {
+  max-width: 12rem;
 }
 
 .buttonTag {

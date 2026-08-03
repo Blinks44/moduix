@@ -1,7 +1,7 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, type ForwardedRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Card.module.css';
 
@@ -10,13 +10,13 @@ type CardRootProps = HTMLArkProps<'div'> & {
   variant?: 'elevated' | 'outline' | 'subtle';
 };
 
-const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
+const CardRoot = forwardRef<HTMLElement, CardRootProps>(function CardRoot(
   { className, size = 'md', variant = 'outline', ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="root"
       data-slot="card-root"
@@ -28,13 +28,13 @@ const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(function CardRoot(
   );
 });
 
-const CardHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardHeader(
+const CardHeader = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardHeader(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="header"
       data-slot="card-header"
@@ -44,13 +44,13 @@ const CardHeader = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Card
   );
 });
 
-const CardBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardBody(
+const CardBody = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardBody(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="body"
       data-slot="card-body"
@@ -60,13 +60,13 @@ const CardBody = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardBo
   );
 });
 
-const CardMedia = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardMedia(
+const CardMedia = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardMedia(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="media"
       data-slot="card-media"
@@ -76,13 +76,13 @@ const CardMedia = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardM
   );
 });
 
-const CardFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardFooter(
+const CardFooter = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardFooter(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="footer"
       data-slot="card-footer"
@@ -92,13 +92,13 @@ const CardFooter = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Card
   );
 });
 
-const CardTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function CardTitle(
+const CardTitle = forwardRef<HTMLElement, HTMLArkProps<'h3'>>(function CardTitle(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.h3
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLHeadingElement>}
       data-scope="card"
       data-part="title"
       data-slot="card-title"
@@ -108,28 +108,29 @@ const CardTitle = forwardRef<HTMLHeadingElement, HTMLArkProps<'h3'>>(function Ca
   );
 });
 
-const CardDescription = forwardRef<HTMLParagraphElement, HTMLArkProps<'p'>>(
-  function CardDescription({ className, ...props }, ref) {
-    return (
-      <ark.p
-        ref={ref}
-        data-scope="card"
-        data-part="description"
-        data-slot="card-description"
-        className={clsx(styles.description, normalizeClassName(className))}
-        {...props}
-      />
-    );
-  },
-);
+const CardDescription = forwardRef<HTMLElement, HTMLArkProps<'p'>>(function CardDescription(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.p
+      ref={ref as ForwardedRef<HTMLParagraphElement>}
+      data-scope="card"
+      data-part="description"
+      data-slot="card-description"
+      className={clsx(styles.description, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
 
-const CardAction = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function CardAction(
+const CardAction = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardAction(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.div
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       data-scope="card"
       data-part="action"
       data-slot="card-action"
@@ -139,13 +140,13 @@ const CardAction = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function Card
   );
 });
 
-const CardLink = forwardRef<HTMLAnchorElement, HTMLArkProps<'a'>>(function CardLink(
+const CardLink = forwardRef<HTMLElement, HTMLArkProps<'a'>>(function CardLink(
   { className, ...props },
   ref,
 ) {
   return (
     <ark.a
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLAnchorElement>}
       data-scope="card"
       data-part="link"
       data-slot="card-link"

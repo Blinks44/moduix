@@ -1,5 +1,5 @@
-import { ScrollArea, Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { ScrollArea } from '@moduix/react/scroll-area';
+import { Table } from '@moduix/react/table';
 
 const rows = [
   {
@@ -24,10 +24,17 @@ const rows = [
 
 export default function TableWithScrollareaDemo() {
   return (
-    <ScrollArea className={styles.scrollArea}>
+    <ScrollArea
+      style={{
+        height: '16rem',
+        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+        backgroundColor: 'var(--moduix-color-card)',
+      }}
+    >
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <Table className={styles.wideTable}>
+          <Table style={{ minWidth: '56rem' }}>
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeader>Project</Table.ColumnHeader>

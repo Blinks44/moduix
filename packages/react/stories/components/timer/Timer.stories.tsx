@@ -69,7 +69,7 @@ export const Basic: Story = {
   render: (args) => {
     return (
       <Timer.Root {...args}>
-        <Timer.Segments types={['days', 'hours', 'minutes', 'seconds']} />
+        <Timer.Segments />
         <TimerControls />
       </Timer.Root>
     );

@@ -1,14 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import {
-  CheckIcon,
-  EyeClosedIcon,
-  EyeIcon,
-  PauseIcon,
-  PlayIcon,
-  RotateCwIcon,
-  UploadIcon,
-} from '@/lib/moduix/icons/ui';
+import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/lib/moduix/icons/ui';
 import { Button } from '../../../src/components/button';
 import { Swap } from '../../../src/components/swap/Swap';
 import styles from './Swap.stories.module.css';
@@ -25,6 +17,8 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+const animations = ['fade', 'scale', 'rotate', 'flip'] as const;
 
 export const Icons: Story = {
   render: () => {
@@ -74,43 +68,55 @@ export const ButtonFeedback: Story = {
   },
 };
 
-export const Rotate: Story = {
+export const AnimationPresets: Story = {
   render: () => {
-    const [synced, setSynced] = useState(false);
+    const [swapped, setSwapped] = useState(false);
 
     return (
-      <Button aria-label={synced ? 'Synced' : 'Sync'} onClick={() => setSynced((value) => !value)}>
-        <Swap swap={synced} className={styles.rotateSwap}>
-          <Swap.Indicator aria-hidden="true" type="off">
-            <RotateCwIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
-            <CheckIcon />
-          </Swap.Indicator>
-        </Swap>
-      </Button>
+      <div className={styles.animationPresets}>
+        {animations.map((animation) => (
+          <Button
+            key={animation}
+            aria-label={`${animation} animation`}
+            onClick={() => setSwapped((value) => !value)}
+          >
+            <Swap animation={animation} swap={swapped}>
+              <Swap.Indicator aria-hidden="true" type="off">
+                <UploadIcon />
+              </Swap.Indicator>
+              <Swap.Indicator aria-hidden="true" type="on">
+                <CheckIcon />
+              </Swap.Indicator>
+            </Swap>
+          </Button>
+        ))}
+      </div>
     );
   },
 };
 
-export const Flip: Story = {
+export const RootProvider: Story = {
   render: () => {
-    const [visible, setVisible] = useState(true);
+    const [swapped, setSwapped] = useState(false);
+    const swap = Swap.useSwap({ swap: swapped });
 
     return (
-      <Button
-        aria-label={visible ? 'Hide password' : 'Show password'}
-        onClick={() => setVisible((value) => !value)}
-      >
-        <Swap swap={visible} className={styles.flipSwap}>
-          <Swap.Indicator aria-hidden="true" type="off">
-            <EyeClosedIcon />
-          </Swap.Indicator>
-          <Swap.Indicator aria-hidden="true" type="on">
-            <EyeIcon />
-          </Swap.Indicator>
-        </Swap>
-      </Button>
+      <div className={styles.provider}>
+        <Swap.RootProvider asChild value={swap}>
+          <Button
+            aria-label={swapped ? 'Uploaded' : 'Upload'}
+            onClick={() => setSwapped((value) => !value)}
+          >
+            <Swap.Indicator aria-hidden="true" type="off">
+              <UploadIcon />
+            </Swap.Indicator>
+            <Swap.Indicator aria-hidden="true" type="on">
+              <CheckIcon />
+            </Swap.Indicator>
+          </Button>
+        </Swap.RootProvider>
+        <output>Visible: {swapped ? 'Uploaded' : 'Upload'}</output>
+      </div>
     );
   },
 };

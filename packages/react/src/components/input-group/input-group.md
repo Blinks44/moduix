@@ -47,7 +47,7 @@ InputGroup / InputGroup.Root
 | Part                             | Stable slot          |
 | -------------------------------- | -------------------- |
 | `InputGroup` / `InputGroup.Root` | `input-group-root`   |
-| `InputGroup.Input`               | `input-group-input`  |
+| `InputGroup.Input`               | `input-root`         |
 | `InputGroup.Addon`               | `input-group-addon`  |
 | `InputGroup.Text`                | `input-group-text`   |
 | `InputGroup.Button`              | `input-group-button` |
@@ -55,7 +55,8 @@ InputGroup / InputGroup.Root
 ## Composition
 
 ```tsx
-import { Field, InputGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { InputGroup } from '@moduix/react/input-group';
 
 export function WorkspaceField() {
   return (
@@ -98,7 +99,7 @@ should stay focused on ordinary input composition with addons, text, and actions
   composition needs grouped semantics.
 - The input ref targets the real `HTMLInputElement`.
 - Root, addon, and text expose `data-scope="input-group"` plus matching `data-part` attributes.
-- The nested input keeps Ark Field input state attributes and the grouped `input-group-input` slot.
+- The nested input keeps Ark Field input state attributes and Input's `input-root` slot.
 - The grouped button keeps Button behavior while exposing the grouped `input-group-button` slot.
 - Root visuals derive invalid, disabled, and read-only state from the nested input with `:has(...)`.
 - Buttons retain native keyboard behavior and default to `type="button"`. They do not inherit the
@@ -112,6 +113,7 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 - `className` is supported on every exported part.
 - Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
   `InputGroup.Input`, native state selectors, and public `--moduix-input-group-*` variables.
+- Addon and text content shrink and truncate instead of forcing the input out of a narrow group.
 - The group exposes no Ark runtime CSS variables.
 
 ## Intentional sugar and differences from upstream
@@ -130,6 +132,8 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 
 ## Local changelog
 
+- 2026-07-28: Restored shell invalid, disabled, and read-only state styling through Input's stable
+  `input-root` slot, and made addon/text content truncate safely in narrow groups.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized the complete group scale to `24/32/36/40/48px` tokens and compacted input
   padding so typography no longer expands a selected size.

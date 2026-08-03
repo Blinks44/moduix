@@ -1,10 +1,11 @@
-import { Field, Input } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 import { useState } from 'react';
 
 export default function ControlledInputDemo() {
   const [value, setValue] = useState('');
   return (
-    <Field className="input-demo-field">
+    <Field>
       <Field.Label>Username</Field.Label>
       <Input
         value={value}

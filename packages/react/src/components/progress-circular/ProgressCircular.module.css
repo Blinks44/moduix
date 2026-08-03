@@ -5,6 +5,8 @@
     justify-items: center;
     gap: var(--moduix-progress-circular-gap, var(--moduix-spacing-2));
     width: var(--moduix-progress-circular-root-width, max-content);
+    max-width: 100%;
+    min-width: 0;
     color: var(--moduix-progress-circular-color, var(--moduix-color-foreground));
   }
 
@@ -16,6 +18,10 @@
       var(--moduix-line-height-text-sm)
     );
     color: var(--moduix-progress-circular-label-color, currentColor);
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: center;
   }
 
   .valueText {
@@ -29,6 +35,9 @@
       var(--moduix-line-height-text-sm)
     );
     color: var(--moduix-progress-circular-value-text-color, currentColor);
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
     text-align: center;
   }
 
@@ -61,6 +70,7 @@
     @media (prefers-reduced-motion: reduce) {
       &[data-state='indeterminate'] {
         animation: none;
+        stroke-dasharray: 20 200;
       }
     }
   }

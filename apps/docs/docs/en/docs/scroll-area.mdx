@@ -17,9 +17,11 @@ parts explicitly. The viewport keeps native wheel, touch, trackpad, and keyboard
 scrollbar parts provide the styled controls. Moduix adds one small extra: `fade`, which applies a
 top and bottom mask to the viewport using Ark overflow measurements.
 
-```tsx preview file="./_snippets/scroll-area/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -52,7 +54,8 @@ ScrollArea
 ### Recommended composition
 
 `ScrollArea` is the styled root. It does not render viewport, content, or scrollbar parts for you;
-compose the Ark parts explicitly so each structural node remains configurable.
+compose the Ark parts explicitly so each structural node remains configurable. Give the root a bounded
+block size; otherwise content expands the viewport instead of scrolling.
 
 ### When to go custom
 
@@ -88,52 +91,64 @@ advanced state reads. Do not render `ScrollArea` and `ScrollArea.RootProvider` f
 
 Use `variant="always"` in dense panels when the scrollbar should stay discoverable without hover.
 
-```tsx preview file="./_snippets/scroll-area/always-visible.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/always-visible.tsx"
 
 ```
+</PreviewFrame>
 
 ### Both Directions
 
 Render vertical and horizontal scrollbars when content can overflow on both axes.
 
-```tsx preview file="./_snippets/scroll-area/both-directions.tsx"
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/scroll-area/both-directions.tsx"
 
 ```
+</PreviewFrame>
 
 ### Fade
 
 Use `fade` when long vertical content should hint that more content exists above and below the
 current viewport without introducing another wrapper.
 
-```tsx preview file="./_snippets/scroll-area/fade.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/fade.tsx"
 
 ```
+</PreviewFrame>
 
 ### Horizontal
 
 Use a horizontal scrollbar when the content is intentionally wider than the frame.
 
-```tsx preview file="./_snippets/scroll-area/horizontal.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/horizontal.tsx"
 
 ```
+</PreviewFrame>
 
 ### Nested
 
 Nested scroll areas use the same composition. Keep each root, viewport, content, and scrollbar tree
 complete so Ark can measure each area independently.
 
-```tsx preview file="./_snippets/scroll-area/nested.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/nested.tsx"
 
 ```
+</PreviewFrame>
 
 ### Root Provider
 
 Use `ScrollArea.useScrollArea()` with `ScrollArea.RootProvider` when external controls need access
 to the scrolling API.
 
-```tsx preview file="./_snippets/scroll-area/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/scroll-area/root-provider.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 
@@ -145,17 +160,7 @@ grows by `2px` across its track on hover or drag; customize the amount with
 
 ### CSS Properties
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <ScrollAreaDocs.ScrollAreaCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
 
 ### Styling hooks
 

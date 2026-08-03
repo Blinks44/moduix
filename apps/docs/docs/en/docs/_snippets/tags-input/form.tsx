@@ -1,6 +1,8 @@
-import { Button, TagsInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { TagsInput } from '@moduix/react/tags-input';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function FormTagsInput() {
   const [submittedValue, setSubmittedValue] = useState('');
@@ -11,7 +13,7 @@ export default function FormTagsInput() {
   };
 
   return (
-    <form className="tags-input-form" onSubmit={handleSubmit}>
+    <form className="tags-input-preview-stack" onSubmit={handleSubmit}>
       <TagsInput defaultValue={['React', 'TypeScript']} name="frameworks">
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
@@ -20,8 +22,12 @@ export default function FormTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput>
-      <Button type="submit">Submit</Button>
-      <output>Submitted value: {submittedValue || 'none'}</output>
+      <PreviewMeta>
+        <output>Submitted: {submittedValue || 'none'}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }

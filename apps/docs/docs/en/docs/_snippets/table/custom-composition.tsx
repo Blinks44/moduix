@@ -1,5 +1,4 @@
-import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { Table } from '@moduix/react/table';
 
 const plans = [
   {
@@ -21,8 +20,15 @@ const plans = [
 
 export default function TableCustomCompositionDemo() {
   return (
-    <div className={styles.shell}>
-      <Table className={styles.table}>
+    <div
+      style={{
+        overflowX: 'auto',
+        padding: 'var(--moduix-spacing-3)',
+        border: 'var(--moduix-border-width-sm) dashed var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+      }}
+    >
+      <Table style={{ minWidth: '34rem' }}>
         <Table.Caption side="bottom">
           This version uses a plain wrapper instead of Table.ScrollArea.
         </Table.Caption>

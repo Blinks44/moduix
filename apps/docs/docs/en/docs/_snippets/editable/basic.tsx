@@ -1,8 +1,16 @@
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 
 export default function EditableDemo() {
   return (
-    <Editable defaultValue="Layer name">
+    <Editable
+      defaultValue="Layer name"
+      translations={{
+        input: 'Layer name',
+        edit: 'Edit layer name',
+        submit: 'Save layer name',
+        cancel: 'Cancel layer name',
+      }}
+    >
       <Editable.Label>Name</Editable.Label>
       <Editable.Area>
         <Editable.Input />

@@ -1,6 +1,13 @@
 import { createListCollection, useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Button, Card, Checkbox, Combobox, Field, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Combobox } from '@moduix/react/combobox';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
+import { Select } from '@moduix/react/select';
+import { Textarea } from '@moduix/react/textarea';
 import { useForm } from '@tanstack/react-form';
 
 const teams = createListCollection({
@@ -18,6 +25,16 @@ const people = [
   { label: 'Radia Perlman', value: 'radia' },
 ];
 
+const formId = 'project-form';
+
+function focusFirstInvalid() {
+  requestAnimationFrame(() => {
+    const formElement = document.getElementById(formId);
+    const control = formElement?.querySelector<HTMLElement>('[aria-invalid="true"]:not([hidden])');
+    control?.focus();
+  });
+}
+
 export default function ProjectForm() {
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter } = useListCollection({
@@ -32,11 +49,16 @@ export default function ProjectForm() {
       summary: '',
       notifications: false,
     },
-    onSubmit: ({ value }) => console.log(value),
+    onSubmit: async ({ value }) => {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      console.log(value);
+    },
+    onSubmitInvalid: focusFirstInvalid,
   });
 
   return (
     <form
+      id={formId}
       className="form"
       noValidate
       onSubmit={(event) => {
@@ -64,7 +86,7 @@ export default function ProjectForm() {
                   Project name
                   <Field.RequiredIndicator />
                 </Field.Label>
-                <Field.Input
+                <Input
                   name={field.name}
                   value={field.state.value}
                   onChange={(event) => field.handleChange(event.currentTarget.value)}
@@ -162,7 +184,7 @@ export default function ProjectForm() {
             {(field) => (
               <Field>
                 <Field.Label>Summary</Field.Label>
-                <Field.Textarea
+                <Textarea
                   name={field.name}
                   value={field.state.value}
                   onChange={(event) => field.handleChange(event.currentTarget.value)}
@@ -190,9 +212,9 @@ export default function ProjectForm() {
         </Card.Body>
 
         <Card.Footer>
-          <form.Subscribe selector={(state) => [state.isSubmitting] as const}>
-            {([isSubmitting]) => (
-              <Button className="submit" type="submit" disabled={isSubmitting}>
+          <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
+            {([canSubmit, isSubmitting]) => (
+              <Button className="submit" type="submit" disabled={!canSubmit} loading={isSubmitting}>
                 {isSubmitting ? 'Creating…' : 'Create project'}
               </Button>
             )}

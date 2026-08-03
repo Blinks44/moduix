@@ -1,6 +1,7 @@
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox, TagsInput, useCombobox, useTagsInput } from '@moduix/react';
+import { Combobox, useCombobox } from '@moduix/react/combobox';
+import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
 
 const frameworkOptions = ['React', 'Solid', 'Vue', 'Svelte', 'Angular', 'Preact', 'Next.js'];

@@ -1,4 +1,4 @@
-import { RatingGroup } from '@moduix/react';
+import { RatingGroup } from '@moduix/react/rating-group';
 import { Heart as HeartIcon } from 'lucide-react';
 
 export default function CustomIconRatingGroupDemo() {

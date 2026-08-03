@@ -4,7 +4,7 @@
     position: relative;
     isolation: isolate;
     display: inline-flex;
-    max-width: var(--moduix-segment-group-max-width, 100%);
+    max-inline-size: var(--moduix-segment-group-max-width, 100%);
     align-items: stretch;
     gap: var(--moduix-segment-group-gap, var(--moduix-spacing-1));
     padding: var(--moduix-segment-group-padding, var(--moduix-spacing-1));
@@ -103,7 +103,7 @@
     }
 
     &[data-orientation='vertical'] {
-      width: 100%;
+      inline-size: 100%;
       justify-content: flex-start;
     }
   }

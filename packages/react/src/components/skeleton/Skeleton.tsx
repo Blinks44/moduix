@@ -35,6 +35,7 @@ const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton
 ) {
   return (
     <ark.div
+      {...props}
       ref={ref}
       asChild={asChild}
       data-scope="skeleton"
@@ -51,7 +52,6 @@ const SkeletonRoot = forwardRef<HTMLDivElement, SkeletonProps>(function Skeleton
         borderRadius: toCssValue(borderRadius),
         ...style,
       }}
-      {...props}
     />
   );
 });

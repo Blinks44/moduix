@@ -1,4 +1,7 @@
-import { Button, Marquee, useMarquee } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Marquee, useMarquee } from '@moduix/react/marquee';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const partners = [
   {
@@ -33,19 +36,25 @@ export default function ProgrammaticMarqueeDemo() {
       root: 'Partner logos',
     },
   });
+  const [status, setStatus] = useState('Running');
+
+  const handlePause = () => {
+    marquee.pause();
+    setStatus('Paused');
+  };
+
+  const handleResume = () => {
+    marquee.resume();
+    setStatus('Running');
+  };
+
+  const handleRestart = () => {
+    marquee.restart();
+    setStatus('Restarted');
+  };
+
   return (
     <div className="marquee-stack">
-      <div className="marquee-actions">
-        <Button size="sm" variant="outline" onClick={() => marquee.pause()}>
-          Pause
-        </Button>
-        <Button size="sm" variant="outline" onClick={() => marquee.resume()}>
-          Resume
-        </Button>
-        <Button size="sm" variant="outline" onClick={() => marquee.restart()}>
-          Restart
-        </Button>
-      </div>
       <Marquee.RootProvider value={marquee} className="marquee-root">
         <Marquee.Viewport>
           <Marquee.Content>
@@ -58,6 +67,18 @@ export default function ProgrammaticMarqueeDemo() {
           </Marquee.Content>
         </Marquee.Viewport>
       </Marquee.RootProvider>
+      <PreviewMeta>
+        <output>Playback: {status}</output>
+        <Button size="sm" variant="outline" onClick={handlePause}>
+          Pause
+        </Button>
+        <Button size="sm" variant="outline" onClick={handleResume}>
+          Resume
+        </Button>
+        <Button size="sm" variant="outline" onClick={handleRestart}>
+          Restart
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

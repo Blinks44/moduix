@@ -1,5 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Pagination, Select } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
+import { Select } from '@moduix/react/select';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const pageSizes = createListCollection({
   items: [
@@ -65,9 +67,11 @@ export default function PaginationPageSizeControlDemo() {
               <Pagination.Items />
               <Pagination.NextTrigger />
             </div>
-            <p className="pagination-muted">
-              Page {pagination.page} of {pagination.totalPages}
-            </p>
+            <PreviewMeta>
+              <output>
+                Page {pagination.page} of {pagination.totalPages}
+              </output>
+            </PreviewMeta>
           </div>
         )}
       </Pagination.Context>

@@ -62,7 +62,7 @@ Use `asChild` when another semantic button must own the rendered element. Keep t
 button-like element so Ark can merge the required props and behavior onto it.
 
 For a custom descendant that reads state, use `Toggle.Context` or `useToggleContext()` from
-`@moduix/react`. Both read the nearest toggle state without a direct Ark import.
+`@moduix/react/toggle`. Both read the nearest toggle state without a direct Ark import.
 
 Use `ToggleGroup` instead of manually coordinating several standalone toggles when multiple pressed
 buttons belong to one shared choice set.
@@ -80,7 +80,7 @@ buttons belong to one shared choice set.
 - `disabled` keeps the current visual state but prevents interaction.
 - Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
 - Ark Toggle does not expose `RootProvider` or a hidden form input.
-- `Toggle.Context` and `useToggleContext()` are available from `@moduix/react`.
+- `Toggle.Context` and `useToggleContext()` are available from `@moduix/react/toggle`.
 - legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
 
 ## Examples
@@ -100,9 +100,11 @@ Control `pressed` from React state when the toggle participates in app state or 
 
 <style>{ToggleDocs.toggleStackCss}</style>
 
-```tsx preview file="./_snippets/toggle/controlled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/toggle/controlled.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Disabled
 
@@ -147,7 +149,8 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
 ### Variants
 
 Use `default` for a secondary action, `outline` for a bordered surface, and `ghost` for compact
-toolbar actions. All variants use the primary color when pressed.
+toolbar actions. `default` and `outline` use the primary color when pressed; `ghost` uses the
+accent surface to stay visually quiet in dense toolbars.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -195,4 +198,5 @@ for variants, sizes, focus ring, spacing, and icon sizing.
 - `data-variant` reflects the moduix visual variant.
 - `data-size` reflects the moduix size, including `icon-sm`, `icon-md`, and `icon-lg`.
 - `data-disabled` drives disabled styles; Ark also preserves the native `disabled` attribute.
-- Descendant `svg` elements are sized through `--moduix-toggle-icon-size`.
+- Direct icon children and icons inside `Toggle.Indicator` are sized through
+  `--moduix-toggle-icon-size`.

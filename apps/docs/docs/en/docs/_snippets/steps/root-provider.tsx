@@ -1,4 +1,5 @@
-import { Steps } from '@moduix/react';
+import { Steps } from '@moduix/react/steps';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [
   {
@@ -20,17 +21,30 @@ export default function RootProviderStepsDemo() {
     count: items.length,
   });
   return (
-    <div className="stack">
-      <output className="output">Current step: {steps.value + 1}</output>
+    <div
+      style={{
+        display: 'grid',
+        width: '100%',
+        gap: 'var(--moduix-spacing-3)',
+        justifyItems: 'center',
+      }}
+    >
       <Steps.RootProvider className="steps-demo" value={steps}>
         <Steps.List>
           {items.map((item, index) => (
             <Steps.Item key={item.title} index={index}>
               <Steps.Trigger>
                 <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
-                  <span className="stepDescription">{item.description}</span>
+                <span style={{ display: 'grid', minWidth: 0, gap: '0.125rem' }}>
+                  <strong>{item.title}</strong>
+                  <small
+                    style={{
+                      color: 'var(--moduix-color-muted-foreground)',
+                      fontSize: 'var(--moduix-text-xs)',
+                    }}
+                  >
+                    {item.description}
+                  </small>
                 </span>
               </Steps.Trigger>
               <Steps.Separator />
@@ -46,11 +60,20 @@ export default function RootProviderStepsDemo() {
 
         <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-        <div className="actions">
+        <div
+          style={{
+            display: 'flex',
+            gap: 'var(--moduix-spacing-2)',
+            justifyContent: 'flex-end',
+          }}
+        >
           <Steps.PrevTrigger>Back</Steps.PrevTrigger>
           <Steps.NextTrigger>Next</Steps.NextTrigger>
         </div>
       </Steps.RootProvider>
+      <PreviewMeta>
+        <output>Current step: {steps.value + 1}</output>
+      </PreviewMeta>
     </div>
   );
 }

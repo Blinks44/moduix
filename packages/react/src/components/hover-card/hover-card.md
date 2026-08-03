@@ -53,7 +53,7 @@ high-level content wrapper are intentionally removed.
 ## Composition
 
 ```tsx
-import { HoverCard } from '@moduix/react';
+import { HoverCard } from '@moduix/react/hover-card';
 
 export function Example() {
   return (
@@ -118,7 +118,15 @@ and content. Do not reintroduce legacy `createHandle`, `handle`, `payload`, `ren
 Keep `RootProvider` compatible with Ark-owned state. Preserve the moduix context and hook exports;
 Ark utility types remain direct-import escape hatches.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for project-wide popup content motion.

@@ -1,5 +1,5 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput, type DateInputDateValue } from '@moduix/react';
+import { DateInput, type DateInputDateValue } from '@moduix/react/date-input';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

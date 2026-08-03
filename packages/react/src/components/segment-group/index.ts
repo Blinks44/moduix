@@ -3,4 +3,4 @@ export {
   useSegmentGroup,
   useSegmentGroupContext,
   useSegmentGroupItemContext,
-} from './SegmentGroup';
+} from './SegmentGroup.js';

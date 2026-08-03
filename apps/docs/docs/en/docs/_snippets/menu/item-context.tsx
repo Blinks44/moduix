@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export default function ItemContextMenuDemo() {
   return (
@@ -14,14 +15,25 @@ export default function ItemContextMenuDemo() {
           <Menu.Item value="profile">
             <Menu.ItemContext>
               {(item) => (
-                <span
-                  style={{
-                    fontWeight: item.highlighted ? 'var(--moduix-weight-semibold)' : undefined,
-                  }}
-                >
-                  Profile Settings
-                </span>
+                <span data-highlighted={item.highlighted || undefined}>Profile Settings</span>
               )}
+            </Menu.ItemContext>
+          </Menu.Item>
+          <Menu.Item value="notifications">
+            <Menu.ItemContext>
+              {(item) => (
+                <span data-highlighted={item.highlighted || undefined}>Notifications</span>
+              )}
+            </Menu.ItemContext>
+          </Menu.Item>
+          <Menu.Item value="appearance">
+            <Menu.ItemContext>
+              {(item) => <span data-highlighted={item.highlighted || undefined}>Appearance</span>}
+            </Menu.ItemContext>
+          </Menu.Item>
+          <Menu.Item value="security">
+            <Menu.ItemContext>
+              {(item) => <span data-highlighted={item.highlighted || undefined}>Security</span>}
             </Menu.ItemContext>
           </Menu.Item>
         </Menu.Content>

@@ -1,17 +1,32 @@
-import { ScrollArea } from '@moduix/react';
-import { scrollSections } from '@/components/examples/scroll-sections';
-import styles from '@/components/examples/scroll-area.module.css';
+import { ScrollArea } from '@moduix/react/scroll-area';
+
+const items = Array.from({ length: 10 }, (_, index) => `Section ${index + 1}`);
 
 export default function FadeScrollAreaDemo() {
   return (
-    <ScrollArea className={styles.root} fade>
+    <ScrollArea
+      fade
+      style={{
+        height: '13rem',
+        border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+        borderRadius: 'var(--moduix-radius-lg)',
+      }}
+    >
       <ScrollArea.Viewport>
         <ScrollArea.Content>
-          <div className={styles.textContent}>
-            {scrollSections.map((item) => (
-              <section key={item.title}>
-                <h3>{item.title}</h3>
-                <p className={styles.paragraph}>{item.body}</p>
+          <div
+            style={{
+              display: 'grid',
+              gap: 'var(--moduix-spacing-3)',
+              padding: 'var(--moduix-spacing-3)',
+            }}
+          >
+            {items.map((item) => (
+              <section key={item}>
+                <h3>{item}</h3>
+                <p style={{ margin: 0 }}>
+                  The fade responds to the viewport’s current overflow distance.
+                </p>
               </section>
             ))}
           </div>

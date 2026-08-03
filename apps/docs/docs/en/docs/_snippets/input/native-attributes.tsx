@@ -1,8 +1,9 @@
-import { Field, Input } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Input } from '@moduix/react/input';
 
 export default function SecurityCodeDemo() {
   return (
-    <Field className="input-demo-field">
+    <Field>
       <Field.Label>Security code</Field.Label>
       <Input
         htmlSize={8}

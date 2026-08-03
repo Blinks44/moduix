@@ -1,4 +1,6 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 import { useState } from 'react';
 
 const initialOpen = false;
@@ -18,12 +20,17 @@ export default function ControlledDrawerDemo() {
       >
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content className="controlled-drawer">
+          <Drawer.Content>
             <Drawer.Header>
               <Drawer.Title>Controlled drawer</Drawer.Title>
               <Drawer.CloseIcon />
               <Drawer.Description>Open: {String(open)}</Drawer.Description>
             </Drawer.Header>
+            <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+              <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+                <Card.Body>The trigger and close controls both update the same state.</Card.Body>
+              </Card>
+            </Drawer.Body>
           </Drawer.Content>
         </Drawer.Positioner>
       </Drawer>

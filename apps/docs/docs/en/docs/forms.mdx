@@ -1,20 +1,49 @@
 ---
-title: Forms
+title: Browse forms
 description: Build accessible native forms with moduix fields and Ark-backed controls.
 ---
 
+import { Card, Cards } from '@/components/mdx/Components';
+
 # Forms
 
-moduix does not own form state. Start with a native `<form>` when browser validation and
-`FormData` are enough. Add a form library when you need richer validation, field state, or
-submission workflows.
+moduix does not own form state. Use a native `<form>` when browser validation and `FormData` are
+enough. Add a form library when you need richer validation, field state, or submission workflows.
 
-| Approach                                 | Best fit                                                                   |
-| ---------------------------------------- | -------------------------------------------------------------------------- |
-| Native `<form>`                          | Simple forms that can use browser validation, submission, and reset.       |
-| [React Hook Form](/docs/react-hook-form) | Mostly uncontrolled inputs with controlled adapters for compound controls. |
-| [TanStack Form](/docs/tanstack-form)     | Explicit controlled fields, reactive form state, and typed validation.     |
-| [Formisch](/docs/formisch)               | Schema-first Valibot validation with headless field state.                 |
+## Choose an approach
+
+<Cards>
+  <Card
+    title="Native form"
+    description="Use browser validation, FormData submission, and native reset for a small form."
+    href="/docs/forms#start-with-a-native-form"
+  />
+  <Card
+    title="Formisch"
+    description="Connect schema-first Valibot validation and headless field state."
+    href="/docs/formisch"
+  />
+  <Card
+    title="React Hook Form"
+    description="Connect mostly uncontrolled inputs and controlled compound components."
+    href="/docs/react-hook-form"
+  />
+  <Card
+    title="TanStack Form"
+    description="Connect explicit controlled fields, reactive state, and typed validation."
+    href="/docs/tanstack-form"
+  />
+</Cards>
+
+## Start with a native form
+
+Choose native form state first when the form has a few fields and the browser's validation is
+enough. Give every control a visible label and `name`, put native constraints on the real control,
+and read the submission with `new FormData(event.currentTarget)`. The [runnable native example](#native-form)
+mixes a regular Input with Ark-backed Select and Checkbox controls without duplicate hidden inputs.
+
+Add a library only when the product needs field arrays, schema or cross-field validation, controlled
+state shared elsewhere in the UI, or a validation lifecycle that native forms cannot express cleanly.
 
 ## How form libraries fit in
 
@@ -67,8 +96,8 @@ Do not add a second hidden input. It can submit a competing value and break rese
 
 For the controls with form-specific options, keep the configuration on the semantic root:
 
-- `DateInput`: a range with `name="date"` submits two values under `date`; use
-  `names={['start-date', 'end-date']}` when the values need distinct keys.
+- `DateInput`: a range with `name="date"` submits `date[0]` and `date[1]`; use
+  `names={['start-date', 'end-date']}` for `start-date[0]` and `end-date[1]`.
 - `Select`: the default native select preserves browser autofill and progressive enhancement. Use
   `nativeFormControl="input"` for a very large virtualized collection; it submits lightweight
   hidden inputs and intentionally does not provide those native-select features.
@@ -137,7 +166,7 @@ reset alone, otherwise the next render can restore the old application value.
 
 Form libraries need the ref of the element a user can focus:
 
-- `Field.Input`, `Field.Textarea`, or `Field.Select` for native controls
+- `Input`, `Textarea`, or `Field.Select` for native controls
 - `Select.Trigger` for `Select`
 - `Combobox.Input` for `Combobox`
 
@@ -145,6 +174,22 @@ React Hook Form uses that ref for its built-in invalid-field focus. TanStack For
 leaves focus management to the application, so focus the first rendered `aria-invalid` control in
 an invalid-submit handler when that behaviour is needed. The dedicated integration guides show
 the corresponding value, blur, reset, and focus mappings.
+
+## Submission lifecycle
+
+Regardless of the state library, make the request state explicit:
+
+| State       | User-facing behavior                                                               |
+| ----------- | ---------------------------------------------------------------------------------- |
+| Ready       | Submit is available and validation has not shown premature errors.                 |
+| Submitting  | Prevent duplicate requests, keep values visible, and label the pending action.      |
+| Field error | Attach the server message to that field and move focus when submission is invalid.  |
+| Form error  | Render one `role="alert"` near the heading or submit action and keep retry possible. |
+| Success     | Confirm completion, reset only when useful, or navigate to the clear next step.      |
+
+`FormData` values are strings or `File` objects. Repeated names produce repeated entries; unchecked
+native checkboxes may be absent. Read repeated fields with `getAll`, normalize values at the server
+boundary, and never assume the client-side type or validation makes submitted data trusted.
 
 ## Repeated fields and server errors
 

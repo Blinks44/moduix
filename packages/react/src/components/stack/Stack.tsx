@@ -1,11 +1,11 @@
 import type { HTMLArkProps } from '@ark-ui/react/factory';
 import { ark } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
-import { forwardRef, type CSSProperties } from 'react';
+import { forwardRef, type CSSProperties, type ForwardedRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Stack.module.css';
 
-type StackDirection = 'row' | 'column';
+type StackDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 type StackRootProps = HTMLArkProps<'div'> & {
   direction?:
@@ -21,7 +21,7 @@ type StackRootProps = HTMLArkProps<'div'> & {
   fill?: boolean;
 };
 
-const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
+const StackRoot = forwardRef<HTMLElement, StackRootProps>(function StackRoot(
   { asChild, children, className, style, direction, gap, align, justify, wrap, fill, ...props },
   ref,
 ) {
@@ -32,7 +32,7 @@ const StackRoot = forwardRef<HTMLDivElement, StackRootProps>(function StackRoot(
   return (
     <ark.div
       {...props}
-      ref={ref}
+      ref={ref as ForwardedRef<HTMLDivElement>}
       asChild={asChild}
       data-scope="stack"
       data-part="root"

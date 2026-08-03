@@ -11,6 +11,11 @@
       "cache": false,
       "persistent": true
     },
+    "@moduix/react#dev": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
     "deploy": {
       "dependsOn": ["build"],
       "cache": false,
@@ -20,8 +25,12 @@
       "cache": false,
       "persistent": true
     },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
     "tsc:check": {
-      "dependsOn": ["^build", "^tsc:check"],
+      "dependsOn": ["^tsc:check"],
       "outputs": []
     }
   }

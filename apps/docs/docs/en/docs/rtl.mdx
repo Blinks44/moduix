@@ -11,7 +11,7 @@ context. Set `dir="rtl"` on the document root, then wrap the app with the moduix
 
 ```tsx
 import type { ReactNode } from 'react';
-import { LocaleProvider } from '@moduix/react';
+import { LocaleProvider } from '@moduix/react/locale';
 
 export function Document({ children }: { children: ReactNode }) {
   return (
@@ -35,7 +35,9 @@ special RTL prop.
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, LocaleProvider, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { LocaleProvider } from '@moduix/react/locale';
+import { Select } from '@moduix/react/select';
 
 const cities = createListCollection({
   items: [
@@ -74,6 +76,11 @@ export function ArabicPreferences() {
 For portalled overlays, set `dir` on `<html>` or use a portal container inside the RTL subtree.
 That keeps the overlay's text, inline positioning, and tokens in the same scope as its trigger.
 
+For mixed-direction content, keep the application direction on the outer container and set the
+smallest correct override on user-provided values. Use `dir="auto"` for unknown plain text and
+`dir="ltr"` for values that must keep a physical order, such as email addresses, URLs, codes, and
+telephone numbers.
+
 ## Styling contract
 
 New moduix styles use logical CSS properties whenever a rule means “start” or “end”: for example,
@@ -84,6 +91,10 @@ Keep physical `left` and `right` only where they mean actual screen geometry, su
 coordinates, a resize edge, or an explicit swipe direction. Do not replace those values blindly:
 they describe a measured position or gesture, not reading order.
 
+Mirror icons that express inline direction, such as back, forward, undo, or redo. Do not mirror
+icons with a fixed meaning, such as play, check, download, or a brand logo. Prefer an icon library's
+RTL variant when it provides one; otherwise apply the transform only inside an RTL scope.
+
 ## Check before release
 
 Test the interface with an RTL locale after changing layout code, especially:
@@ -91,7 +102,9 @@ Test the interface with an RTL locale after changing layout code, especially:
 - inputs with clear or action buttons;
 - select, combobox, and date-picker triggers;
 - portalled dialogs, popovers, menus, and tooltips;
-- keyboard navigation and visible focus order.
+- keyboard navigation and visible focus order;
+- mixed Arabic or Hebrew text with email addresses, numbers, and codes;
+- directional icons, swipe gestures, and start/end alignment at narrow widths.
 
 Ark owns primitive direction behavior. See the [Ark Locale documentation](https://ark-ui.com/docs/utilities/locale)
 for the provider API and locale context details.

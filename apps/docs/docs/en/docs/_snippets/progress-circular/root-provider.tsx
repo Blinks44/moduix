@@ -1,4 +1,4 @@
-import { ProgressCircular } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
 
 export default function RootProviderProgressCircularDemo() {
   const progress = ProgressCircular.useProgress({
@@ -8,7 +8,7 @@ export default function RootProviderProgressCircularDemo() {
     <ProgressCircular.RootProvider value={progress}>
       <ProgressCircular.Label>Team rollout</ProgressCircular.Label>
       <div className="progress-circular-circle-container">
-        <ProgressCircular.Circle>
+        <ProgressCircular.Circle aria-label="Team rollout">
           <ProgressCircular.CircleTrack />
           <ProgressCircular.CircleRange />
         </ProgressCircular.Circle>

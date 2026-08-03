@@ -1,3 +1,5 @@
+'use client';
+
 import {
   RatingGroup as RatingGroupPrimitive,
   useRatingGroup,

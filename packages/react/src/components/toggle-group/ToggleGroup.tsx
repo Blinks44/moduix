@@ -47,12 +47,12 @@ const ToggleGroupRoot = forwardRef<
   return (
     <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.Root
+        {...props}
         ref={ref}
         data-slot="toggle-group-root"
         data-variant={variant}
         data-size={size}
         className={clsx(styles.root, normalizeClassName(className))}
-        {...props}
       />
     </ToggleGroupStyleContext.Provider>
   );
@@ -65,12 +65,12 @@ const ToggleGroupRootProvider = forwardRef<
   return (
     <ToggleGroupStyleContext.Provider value={{ variant, size }}>
       <ToggleGroupPrimitive.RootProvider
+        {...props}
         ref={ref}
         data-slot="toggle-group-root-provider"
         data-variant={variant}
         data-size={size}
         className={clsx(styles.root, normalizeClassName(className))}
-        {...props}
       />
     </ToggleGroupStyleContext.Provider>
   );
@@ -84,12 +84,12 @@ const ToggleGroupItem = forwardRef<
 
   return (
     <ToggleGroupPrimitive.Item
+      {...props}
       ref={ref}
       data-slot="toggle-group-item"
       data-variant={variant ?? inherited.variant}
       data-size={size ?? inherited.size}
       className={clsx(toggleStyles.root, styles.item, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -102,3 +102,10 @@ const ToggleGroup = Object.assign(ToggleGroupRoot, {
 });
 
 export { ToggleGroup, useToggleGroup, useToggleGroupContext };
+export type {
+  ToggleGroupItemProps,
+  ToggleGroupRootProps,
+  ToggleGroupRootProviderProps,
+  ToggleSize,
+  ToggleVariant,
+};

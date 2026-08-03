@@ -3,10 +3,6 @@
   gap: var(--moduix-spacing-4);
 }
 
-.field {
-  width: min(18rem, 100%);
-}
-
 .comparison {
   display: grid;
   gap: var(--moduix-spacing-4);

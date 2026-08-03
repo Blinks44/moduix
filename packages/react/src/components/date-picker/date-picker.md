@@ -112,7 +112,7 @@ event/detail types remain direct imports from `@ark-ui/react/date-picker`.
 ## Composition
 
 ```tsx
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 import { parseDate } from '@ark-ui/react/date-picker';
 
 export function ReleaseDatePicker() {
@@ -278,9 +278,10 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 ## Intentional sugar and differences from upstream
 
 - `DatePicker.Field` renders `Control`, one `Input`, `ClearTrigger`, and `Trigger` for the standard
-  single-date field.
+  single-date field. When its placeholders and labels are omitted, Ark supplies locale-aware input
+  placeholders and translated action labels.
 - `DatePicker.RangeField` renders `Control`, two indexed `Input` parts, `ClearTrigger`, and
-  `Trigger` for range fields.
+  `Trigger` for range fields, with the same Ark-provided localized defaults.
 - `DatePicker.DayTable` renders the standard day-view header and table from Ark context. Pass
   `showHeader={false}` when an external header is composed, `showWeekNumbers` for week-number
   cells, and `offset` for additional visible months.
@@ -305,8 +306,18 @@ The calendar and clear actions use logical inline-end positioning, so they follo
 - Keep `@internationalized/date` / Ark `parseDate()` examples because Ark values are `DateValue`
   objects.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
 
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-27: Let `Field` and `RangeField` preserve Ark's locale-aware placeholders and translated
+  action labels when their optional override props are omitted.
 - 2026-07-23: Removed the default popup scroll container and documented the complete day/month/year view composition required by the default view-switching contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the input to `--moduix-size-md` and aligned calendar popup controls to `--moduix-size-sm`.

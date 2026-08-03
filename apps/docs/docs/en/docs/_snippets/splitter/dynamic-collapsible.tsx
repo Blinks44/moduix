@@ -1,4 +1,4 @@
-import { Splitter, useSplitter } from '@moduix/react';
+import { Splitter, useSplitter } from '@moduix/react/splitter';
 import { useEffect, useRef, useState } from 'react';
 
 export default function DynamicCollapsibleSplitterDemo() {

@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 
 const slides = [
   {
@@ -30,7 +30,7 @@ const slides = [
 
 export default function VerticalCarousel() {
   return (
-    <Carousel orientation="vertical" slideCount={slides.length}>
+    <Carousel aria-label="Vertical gallery" orientation="vertical" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Vertical gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>

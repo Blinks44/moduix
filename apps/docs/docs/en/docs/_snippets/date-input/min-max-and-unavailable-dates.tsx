@@ -1,5 +1,5 @@
 import { CalendarDate } from '@internationalized/date';
-import { DateInput } from '@moduix/react';
+import { DateInput } from '@moduix/react/date-input';
 
 const minDate = new CalendarDate(2026, 6, 22);
 const maxDate = new CalendarDate(2026, 6, 30);

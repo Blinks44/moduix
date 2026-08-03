@@ -29,7 +29,7 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
   semantics and ordered-list props.
 - `asChild` remains available for custom host ownership, not for the normal `ul` / `ol` path. Its
   child must preserve the corresponding semantic host (`ul`/`ol` for `List`, `li` for `List.Item`)
-  and forward the ref.
+  and forward the ref and props.
 - `List.Item` is the public item part. The flat `ListItem` export was removed during the Ark migration.
 - `marker="none"` still applies `role="list"` by default for markerless semantics unless the caller passes a custom `role`.
 - Native list props remain available on the rendered host element:
@@ -54,7 +54,7 @@ List / List.Root
 Canonical unordered usage:
 
 ```tsx
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export function ListDemo() {
   return (
@@ -70,7 +70,7 @@ export function ListDemo() {
 Canonical ordered usage:
 
 ```tsx
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export function OrderedListDemo() {
   return (
@@ -140,6 +140,8 @@ export function OrderedListDemo() {
 
 ## Local changelog
 
+- 2026-07-28: Added root `asChild` documentation, Storybook coverage, and regression tests; custom
+  semantic hosts must forward refs and props.
 - 2026-07-10: Clarified the semantic and ref-forwarding requirements for `asChild`; docs and stories
   now reserve it for custom `ul`/`ol` or `li` components rather than ordinary styling.
 - 2026-07-03: Removed redundant exported list prop and token type aliases from the public surface.

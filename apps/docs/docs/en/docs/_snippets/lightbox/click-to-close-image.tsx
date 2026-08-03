@@ -1,4 +1,4 @@
-import { Lightbox } from '@moduix/react';
+import { Lightbox } from '@moduix/react/lightbox';
 
 const images = [
   {

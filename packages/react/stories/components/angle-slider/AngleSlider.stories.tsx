@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { AngleSlider, useAngleSlider } from '../../../src/components/angle-slider/AngleSlider';
 import styles from './AngleSlider.stories.module.css';
@@ -85,9 +86,20 @@ export const Disabled: Story = {
   },
 };
 
-export const Form: Story = {
-  render: () => {
-    return (
+function FormStory() {
+  const [submitted, setSubmitted] = useState('Nothing submitted');
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(`${String(new FormData(event.currentTarget).get('rotation') ?? '')}°`);
+  };
+
+  return (
+    <form
+      className={styles.form}
+      onReset={() => setSubmitted('Nothing submitted')}
+      onSubmit={handleSubmit}
+    >
       <AngleSlider
         defaultValue={135}
         aria-label="Rotation"
@@ -97,8 +109,17 @@ export const Form: Story = {
         <AngleSlider.Label>Rotation</AngleSlider.Label>
         <AngleSliderMarkedParts />
       </AngleSlider>
-    );
-  },
+      <div className={styles.formActions}>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <output>Submitted: {submitted}</output>
+      </div>
+    </form>
+  );
+}
+
+export const Form: Story = {
+  render: () => <FormStory />,
 };
 
 export const Invalid: Story = {

@@ -1,4 +1,6 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
 export default function IslandDrawerDemo() {
   return (
@@ -14,7 +16,11 @@ export default function IslandDrawerDemo() {
             <Drawer.CloseIcon />
             <Drawer.Description>This drawer floats inside the viewport edge.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body>Choose an action without leaving your current context.</Drawer.Body>
+          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+              <Card.Body>Choose an action without leaving your current context.</Card.Body>
+            </Card>
+          </Drawer.Body>
           <Drawer.Footer>
             <Drawer.CloseTrigger asChild>
               <Button variant="outline">Done</Button>

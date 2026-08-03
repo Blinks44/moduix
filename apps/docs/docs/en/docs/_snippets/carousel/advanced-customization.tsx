@@ -1,4 +1,5 @@
-import { Button, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
@@ -31,7 +32,12 @@ const slides = [
 
 export default function AdvancedCustomizationCarousel() {
   return (
-    <Carousel slideCount={slides.length} slidesPerPage={2} spacing="var(--moduix-spacing-3)">
+    <Carousel
+      aria-label="Advanced customization gallery"
+      slideCount={slides.length}
+      slidesPerPage={2}
+      spacing="var(--moduix-spacing-3)"
+    >
       <Carousel.ItemGroup aria-label="Advanced customization gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -53,7 +59,7 @@ export default function AdvancedCustomizationCarousel() {
               <Carousel.NextTrigger />
             </Carousel.Control>
 
-            <PreviewMeta>
+            <PreviewMeta style={{ marginInline: 'auto' }}>
               <Button
                 size="sm"
                 variant="outline"

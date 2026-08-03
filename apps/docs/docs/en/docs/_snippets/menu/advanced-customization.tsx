@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export default function AdvancedCustomizationMenuDemo() {
   return (
@@ -18,8 +19,9 @@ export default function AdvancedCustomizationMenuDemo() {
             </Menu.Item>
             <Menu.Item value="duplicate">
               <span>Duplicate project</span>
-              <span aria-hidden="true">⌘D</span>
+              <Menu.ItemShortcut>⌘D</Menu.ItemShortcut>
             </Menu.Item>
+            <Menu.Item value="settings">Project settings</Menu.Item>
           </Menu.ItemGroup>
           <Menu.Separator />
           <Menu.Item value="archive" tone="destructive">

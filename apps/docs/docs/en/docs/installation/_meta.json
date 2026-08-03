@@ -1,0 +1,32 @@
+[
+  {
+    "type": "file",
+    "name": "astro",
+    "label": "Astro"
+  },
+  {
+    "type": "file",
+    "name": "nextjs",
+    "label": "Next.js"
+  },
+  {
+    "type": "file",
+    "name": "react-router",
+    "label": "React Router"
+  },
+  {
+    "type": "file",
+    "name": "rsbuild",
+    "label": "Rsbuild"
+  },
+  {
+    "type": "file",
+    "name": "tanstack-start",
+    "label": "TanStack Start"
+  },
+  {
+    "type": "file",
+    "name": "vite",
+    "label": "Vite"
+  }
+]

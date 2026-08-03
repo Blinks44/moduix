@@ -39,10 +39,10 @@ the `shadcn` CLI.
 Start with the npm package for the shortest setup. Use the registry when direct source ownership is
 a project requirement.
 
-| Workflow                   | Imports                 | Best fit                                                                |
-| -------------------------- | ----------------------- | ----------------------------------------------------------------------- |
-| npm package                | `@moduix/react`         | Package-managed updates and minimal application-owned infrastructure.   |
-| Copy-owned shadcn registry | `@/components/moduix/*` | Direct customization, local source review, and AI-assisted development. |
+| Workflow                   | Imports                     | Best fit                                                                |
+| -------------------------- | --------------------------- | ----------------------------------------------------------------------- |
+| npm package                | `@moduix/react/<component>` | Package-managed updates and minimal application-owned infrastructure.   |
+| Copy-owned shadcn registry | `@/components/moduix/*`     | Direct customization, local source review, and AI-assisted development. |
 
 Both workflows use the same component contracts and design-token foundation.
 
@@ -70,7 +70,8 @@ import '@moduix/react/style.css';
 Then compose the components you need:
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (
@@ -116,6 +117,17 @@ files land under `src/components/moduix/*`; shared styles, icons, and utilities 
 Import the generated foundation stylesheet once:
 
 ```tsx
+import '@/lib/moduix/styles/style.css';
+```
+
+To use the optional reset, install it separately and import it before the foundation stylesheet:
+
+```bash
+npx shadcn@latest add @moduix-react/reset
+```
+
+```tsx
+import '@/lib/moduix/styles/reset.css';
 import '@/lib/moduix/styles/style.css';
 ```
 
@@ -177,11 +189,14 @@ The workspace uses npm, Turborepo, oxlint, oxfmt, and Changesets.
 
 ```bash
 npm install
-npm run build:react
-npm run dev
+npm run dev:docs
 ```
 
-Before opening a pull request, run the repository checks in order:
+`dev:docs` starts Rspress together with the React package watcher. The watcher updates
+`packages/react/dist` without removing it, so the docs always consume the same package exports that
+are published to npm.
+
+For a clean CI or release check, with `dev:docs` stopped, run the repository checks in order:
 
 ```bash
 npm run fmt:fix
@@ -189,6 +204,14 @@ npm run lint:check
 npm run build:react
 npm run tsc:check
 ```
+
+`npm run build:docs` is an optional production/CI check, not a development command: Turbo performs a
+clean React dependency build. Stop `npm run dev:docs` before running it; for normal docs work, keep
+using the watcher and do not run a separate build.
+
+`npm run tsc:check` intentionally does not trigger a package build. It can run while the docs watcher
+is active and checks the current `dist`. The full-check sequence above builds React first only for a
+clean CI or release environment.
 
 Run `npm run build:registry` after changing registry-shipped React source.
 

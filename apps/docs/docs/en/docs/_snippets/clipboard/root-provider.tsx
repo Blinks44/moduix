@@ -1,4 +1,4 @@
-import { Clipboard } from '@moduix/react';
+import { Clipboard } from '@moduix/react/clipboard';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderClipboardDemo() {

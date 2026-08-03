@@ -1,5 +1,5 @@
-import { Heading } from '@moduix/react';
-import styles from '@/components/examples/heading.module.css';
+import { Heading } from '@moduix/react/heading';
+import { Stack } from '@moduix/react/stack';
 
 const headingSizes = [
   {
@@ -30,12 +30,12 @@ const headingSizes = [
 
 export default function HeadingSizesDemo() {
   return (
-    <div className={styles.stack}>
+    <Stack gap={3}>
       {headingSizes.map((item) => (
         <Heading key={item.size} as="h2" size={item.size}>
           {item.label}
         </Heading>
       ))}
-    </div>
+    </Stack>
   );
 }

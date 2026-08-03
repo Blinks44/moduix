@@ -97,6 +97,16 @@ export const WithEdges: Story = {
   ),
 };
 
+export const RightToLeft: Story = {
+  render: () => (
+    <Pagination dir="rtl" count={200} defaultPage={5} pageSize={10} siblingCount={1}>
+      <Pagination.PrevTrigger />
+      <Pagination.Items />
+      <Pagination.NextTrigger />
+    </Pagination>
+  ),
+};
+
 export const RootProvider: Story = {
   render: () => {
     const pagination = Pagination.usePagination({ count: 200, pageSize: 10, siblingCount: 2 });

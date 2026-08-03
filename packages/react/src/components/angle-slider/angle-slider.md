@@ -32,7 +32,8 @@ Upstream docs:
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
   when that behavior is needed. `Root` and `RootProvider` always render the native form input.
-- `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases remain direct imports from `@ark-ui/react/angle-slider`.
+- `AngleSlider.Context` and `useAngleSliderContext()` are exported from moduix; Ark type aliases
+  remain direct imports from `@ark-ui/react/angle-slider`.
 
 ## Anatomy and exported parts
 
@@ -66,7 +67,7 @@ same `MarkerGroup` and `Marker` slots. Neither adds a separate DOM part or styli
 ## Composition
 
 ```tsx
-import { AngleSlider } from '@moduix/react';
+import { AngleSlider } from '@moduix/react/angle-slider';
 
 const markerValues = [0, 45, 90, 135, 180, 225, 270, 315];
 
@@ -90,8 +91,9 @@ per-marker props, or custom ordering.
 
 - Official Ark example surfaces `Basic`, `Controlled`, and `Steps` are supported and documented.
 - Ark example surfaces `Disabled` and `Root Provider` are also supported and documented.
-- `readOnly`, `invalid`, `name`, `ids`, `onValueChangeEnd`, `asChild`, and part refs pass through
-  and are documented.
+- `readOnly`, `invalid`, `name`, `ids`, `onValueChangeEnd`, and refs pass through and are
+  documented. `asChild` is available on the underlying Ark DOM parts; `Dial` and `Marks` keep their
+  fixed multi-part composition.
 - `RootProvider` accepts the return value of moduix `useAngleSlider()` and the underlying Ark hook.
 - Chakra's `Slider.Marks` convenience informed the narrow `AngleSlider.Marks` sugar, and
   `AngleSlider.Dial` follows the same "common structure first" ergonomics without removing the
@@ -107,8 +109,9 @@ per-marker props, or custom ordering.
   moduix form-state adapter.
 - `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the
   same flow, while uncommon context utilities remain direct Ark imports.
-- `asChild` is available on Ark DOM parts and requires one semantic child that can preserve the
-  part's interaction contract.
+- `asChild` is available on Ark DOM parts and requires one compatible child. For `Root` and
+  `RootProvider`, use a container that can contain the internally rendered hidden input and slider
+  parts. `Dial` and `Marks` do not accept `asChild` because each renders a fixed multi-part tree.
 - `ids` can stabilize the root, thumb, hidden input, control, value text, and label IDs.
 - Ark state hooks remain intact:
   - root, label, control, and thumb: `data-disabled`, `data-invalid`, `data-readonly`
@@ -122,7 +125,7 @@ per-marker props, or custom ordering.
 - moduix supplies the circular dial, inner disc, center dot, rotating thumb, active line, marker,
   focus, disabled, read-only, and invalid visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
-- Public `--moduix-angle-slider-*` variables are registered in `src/styles/theme.css`.
+- Public `--moduix-angle-slider-*` variables are registered in `src/styles/variables-moduix.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /
@@ -139,9 +142,9 @@ per-marker props, or custom ordering.
   generating thumbs, labels, value text, or form controls.
 - Explicit `Control`, `Thumb`, `MarkerGroup`, and `Marker` composition remains supported and is
   still the escape hatch for custom dial rendering.
-- moduix keeps `RootProvider` and re-exports `useAngleSlider()` for the normal provider flow, but
-  does not re-export Ark context parts, context hooks, or Ark type aliases. Advanced consumers
-  import those directly from `@ark-ui/react/angle-slider`.
+- moduix keeps `RootProvider`, `AngleSlider.Context`, and re-exports `useAngleSlider()` and
+  `useAngleSliderContext()` for the normal provider and context flows. Ark type aliases remain
+  direct imports from `@ark-ui/react/angle-slider`.
 - No legacy aliases, positional callback adapters, custom state context, or `render` prop remain.
 
 ## Agent notes

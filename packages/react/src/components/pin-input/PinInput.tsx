@@ -1,3 +1,5 @@
+'use client';
+
 import {
   PinInput as PinInputPrimitive,
   usePinInput as usePinInputPrimitive,
@@ -6,7 +8,7 @@ import {
 } from '@ark-ui/react/pin-input';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
-import { Children, cloneElement, forwardRef } from 'react';
+import { Children, cloneElement, forwardRef, useEffect, useRef } from 'react';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './PinInput.module.css';
@@ -96,20 +98,49 @@ function PinInputInputs({ className }: { className?: string }) {
 }
 
 function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <PinInputPrimitive.HiddenInput data-slot="pin-input-hidden-input" />;
+  const formControls = (
+    <>
+      <PinInputFormReset />
+      <PinInputPrimitive.HiddenInput data-slot="pin-input-hidden-input" />
+    </>
+  );
 
   if (!asChild) {
     return (
       <>
         {children}
-        {hiddenInput}
+        {formControls}
       </>
     );
   }
 
   const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
 
-  return cloneElement(child, {}, child.props.children, hiddenInput);
+  return cloneElement(child, {}, child.props.children, formControls);
+}
+
+function PinInputFormReset() {
+  const pinInput = usePinInputContext();
+  const defaultValue = useRef(pinInput.value);
+
+  useEffect(() => {
+    const hiddenInputId = pinInput.getHiddenInputProps().id;
+    if (!hiddenInputId) return;
+
+    const hiddenInput = document.getElementById(hiddenInputId) as HTMLInputElement | null;
+    const form = hiddenInput?.form;
+
+    if (!form) return;
+
+    const handleReset = () => {
+      queueMicrotask(() => pinInput.setValue(defaultValue.current));
+    };
+
+    form.addEventListener('reset', handleReset);
+    return () => form.removeEventListener('reset', handleReset);
+  }, [pinInput]);
+
+  return null;
 }
 
 function PinInputSeparator({

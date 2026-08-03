@@ -1,4 +1,5 @@
-import { Button, Checkbox } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Checkbox } from '@moduix/react/checkbox';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 
@@ -7,7 +8,12 @@ export default function CheckboxWithFormDemo() {
 
   return (
     <form
-      className="checkbox-form"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);

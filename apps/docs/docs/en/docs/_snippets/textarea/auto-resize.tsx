@@ -1,9 +1,9 @@
-import { Field, Textarea } from '@moduix/react';
-import styles from '@/components/examples/textarea.module.css';
+import { Field } from '@moduix/react/field';
+import { Textarea } from '@moduix/react/textarea';
 
 export default function AutoResizeTextareaDemo() {
   return (
-    <Field className={styles.field}>
+    <Field>
       <Field.Label>Issue description</Field.Label>
       <Textarea
         autoresize

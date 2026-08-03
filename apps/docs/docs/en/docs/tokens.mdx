@@ -15,13 +15,25 @@ When you use moduix as an npm package, import `@moduix/react/style.css` once. Wh
 with `shadcn`, import `@/lib/moduix/styles/style.css` once. Both entrypoints load the same token
 foundation.
 
-The reset stays optional in both paths. Import `@moduix/react/reset.css` or
-`@/lib/moduix/styles/reset.css` explicitly before `style.css` only when you want the shared reset.
+The reset stays optional in both paths. As an npm consumer, import `@moduix/react/reset.css`
+before `style.css`. In the copy-owned path, first run `npx shadcn@latest add @moduix-react/reset`,
+then import `@/lib/moduix/styles/reset.css` before `style.css`.
 
 For a curated starting point, use [Themes](/docs/themes). Presets override a small semantic token
-layer after `style.css`; this page remains the full reference for every token and component alias.
+layer after `style.css`. This page explains the system and shared tokens; each component page lists
+the component-specific aliases and state selectors you can safely customize.
 
-## Token Model
+## Choose the override level
+
+1. Change a theme primitive such as `--moduix-primary` for a product-wide visual decision.
+2. Change a shared family default when related components should move together.
+3. Change a component alias only when that component must intentionally differ.
+4. Scope the variable to a feature container for a one-off local exception.
+
+If you are unsure, start higher in the list. A small semantic override is easier to maintain than
+repeating the same value across many component aliases.
+
+## Token model
 
 Tokens are layered so common changes stay small and intentional:
 
@@ -66,7 +78,10 @@ The exception is Ark UI runtime state: variables such as `--height`, `--availabl
 `--transform-origin` stay unprefixed because Ark writes them to the relevant component parts.
 moduix does not declare those values on `:root`.
 
-## Density and Control Scale
+Use this page for system-wide decisions and the relevant component page for local aliases. Neither
+installation path requires a separate variable-reference stylesheet at runtime.
+
+## Density and control scale
 
 The default scale is compact without becoming cramped:
 
@@ -94,7 +109,7 @@ popup visually related while giving the popup a slightly denser information rhyt
 }
 ```
 
-## Mass Style Overrides
+## Mass style overrides
 
 Some variables intentionally sit above individual components. Changing them updates multiple
 components at once until a component-specific `--moduix-<component>-*` variable overrides the fallback.
@@ -136,7 +151,7 @@ component padding, icon geometry, and focus offsets follow automatically.
 
 <TokensOverview />
 
-## Override Scope
+## Override scope
 
 Set project-wide tokens in `:root`. A value on `[data-moduix-color-scheme='dark']` or another
 parent container inherits only into components rendered below that element; default portalled

@@ -67,7 +67,8 @@ surfaces through the moduix namespace.
 ## Composition
 
 ```tsx
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
 
 export function FloatingPanelDemo() {
   return (
@@ -111,7 +112,8 @@ and accessible name.
   `RootProvider`, lazy mounting, and exit lifecycle props are supported.
 - Dragging, resizing, `minSize`, `maxSize`, `lockAspectRatio`, `gridSize`, `allowOverflow`,
   `getBoundaryEl`, `draggable`, `resizable`, `disabled`, `closeOnEscape`, `persistRect`, `strategy`, `ids`,
-  `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged.
+  `translations`, `present`, `lazyMount`, and `unmountOnExit` pass through Ark unchanged. The default
+  stage-control icons preserve Ark's translated accessible labels.
 - Stage transitions use Ark stage values: `default`, `minimized`, and `maximized`.
 - `ResizeTrigger` requires an Ark axis. `ResizeTriggerGroup` renders all axes by default or a subset
   through `axes`.
@@ -120,6 +122,8 @@ and accessible name.
 
 - Ark wires trigger/content/title/header IDs through `ids` and manages Escape handling through
   `closeOnEscape`.
+- `Content` has `role="dialog"`; when it has focus, Arrow keys move the panel by `gridSize` and
+  honor `dir`. Use `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit focus handoff.
 - The panel is non-modal: it does not trap focus, lock scroll, or hide outside content from
   assistive technology.
 - `DragTrigger` and `ResizeTrigger` preserve Ark pointer interaction and disabled state.
@@ -147,8 +151,8 @@ defaults `persistRect` to `true` so close animations keep the last Ark position 
 flashing at the viewport origin during presence teardown. Stage styling uses Ark's
 `[data-minimized]`, `[data-maximized]`, and `[data-staged]` attributes.
 
-The public `--moduix-floating-panel-*` variables are declared in `theme.css`. Position and size are owned
-by Ark runtime variables on `Positioner`; the wrapper does not duplicate those measurements.
+The public `--moduix-floating-panel-*` variables are declared in `variables-moduix.css`. Position, size, and resize
+handle geometry are owned by Ark runtime styles; configure them with Ark state props rather than CSS.
 
 ## Intentional sugar and differences from upstream
 
@@ -178,7 +182,15 @@ by Ark runtime variables on `Positioner`; the wrapper does not duplicate those m
 - Do not replace Ark drag, resize, boundary, stage, or presence behavior with local state.
 - Keep helper parts visual only; they must not hide required Ark parts or alter focus management.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default floating-panel trigger to `--moduix-size-md` and compacted its block padding.

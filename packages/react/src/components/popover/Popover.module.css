@@ -32,7 +32,8 @@
     }
 
     &:active,
-    &[data-state='open'] {
+    &[data-state='open']:not([data-value]),
+    &[data-state='open'][data-current] {
       background-color: var(
         --moduix-popover-control-bg-active,
         var(--moduix-popover-control-bg-hover, var(--moduix-color-accent))
@@ -127,6 +128,16 @@
             var(--moduix-popup-motion-easing, ease)
         )
         both;
+    }
+
+    &:has(> .body) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &:has(> .body) > .body {
+      min-block-size: 0;
+      overflow: auto;
     }
 
     &:has(.closeIcon) {

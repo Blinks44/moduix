@@ -1,4 +1,4 @@
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 import { Bell as BellIcon, Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 import styles from '@/components/examples/toggle.module.css';
 

@@ -20,7 +20,6 @@ Use this skill for work in `packages/react`.
 3. `.agents/skills/js-react-conventions/SKILL.md`
 4. `.agents/skills/upstream-library-docs/SKILL.md` when Ark, Chakra, or shadcn behavior matters
 5. `.agents/skills/local-component-docs/SKILL.md` when component markdown changes
-6. `.agents/skills/cross-package-sync/SKILL.md` when public changes affect docs
 
 Before editing an existing component, inspect its implementation, styling, stories, and local
 markdown together. Check public docs/examples when the change is user-facing.
@@ -78,6 +77,22 @@ When moduix intentionally makes Ark's native form-control part an implementation
 - Keep every convenience part stylable: accept `className` on meaningful visual roots and retain useful Ark data
   attributes, CSS variables, stable `data-slot` hooks, or exported lower-level parts for deeper customization.
 
+## Full Component Reviews
+
+For an implementation-bearing review, inventory the component implementation, styles, exports, stories, tests,
+local markdown, registry entry, documentation page, preview snippets, and relevant sibling components before editing.
+Record the current public contract, simple and advanced composition paths, and intentional moduix sugar.
+
+Use live primary upstream sources when behavior is relevant. Classify each finding as a defect, a low-risk
+evidence-backed parity improvement, an intentional moduix difference, or speculation. Fix defects and justified
+improvements; preserve and document intentional differences; do not implement speculation. New sugar must solve a
+concrete recurring task, preserve the Ark-shaped advanced path, fit sibling patterns, and be simple to document and test.
+
+For responsive or animated primitives, inspect behavior across opening, open, closing, interrupted, and unmounted
+states. Verify mobile and desktop separately, including keyboard and focus behavior, reduced motion, long content,
+overflow, zoom, theme, and RTL when applicable. Keep a compact working evidence matrix and report rejected upstream
+ideas with their moduix rationale.
+
 ## Typing Rules
 
 - When wrapping Ark primitive parts, prefer `ComponentRef<typeof Primitive.Part>` for refs and
@@ -112,9 +127,18 @@ When moduix intentionally makes Ark's native form-control part an implementation
 ## Sync Requirements
 
 - Keep stories, package barrels, local component markdown, public docs, and registry output aligned with the shipped API.
+- Keep Ark-backed parts, refs, `HiddenInput`, form context, callback detail objects, `asChild`, `ids`, context hooks,
+  `RootProvider`, state attributes, and CSS variables consistent across implementation and documentation.
 - If the wrapper exposes provider/context/state surfaces, stories should cover them, not only the happy path.
 - Remove deleted props, obsolete customization paths, and outdated examples in the same task.
 - If API, behavior, styling hooks, or recommended usage changed, update local component markdown in the same task.
-- If docs become inaccurate, apply `cross-package-sync`.
+- When public changes affect docs, update site examples, README installation or styling guidance, and supported package
+  imports in the same change. Teach the recommended path first and retain the lower-level composition as the advanced
+  path. When a native form-control part becomes internal, remove it from public anatomy and examples, explain its
+  automatic rendering, and document any semantic migration props that replace manual configuration.
 - If a registry-shipped component changes public styling, import contract, or registry dependencies, update
   `registry.json` and run `npm run build:registry`.
+- Use `kebab-case` component directories and retain existing implementation filenames. Use relative imports between
+  components within `packages/react/src/components`; use `@/lib/moduix/*` for shared registry-safe utilities, icons,
+  and styles. Keep consumer registry targets namespaced under `@components/moduix/*` and `@lib/moduix/*`. Do not
+  start a development server; use the existing project workflow.

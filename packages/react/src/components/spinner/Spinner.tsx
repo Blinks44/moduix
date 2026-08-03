@@ -6,7 +6,7 @@ import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Spinner.module.css';
 
 type SpinnerProps = HTMLArkProps<'span'> & {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   decorative?: boolean;
 };
 
@@ -36,8 +36,8 @@ const SpinnerRoot = forwardRef<HTMLSpanElement, SpinnerProps>(function SpinnerRo
       data-part="root"
       data-slot="spinner-root"
       data-size={size}
-      role={decorative ? 'presentation' : 'status'}
-      aria-hidden={decorative ? true : undefined}
+      role={decorative && !asChild ? 'presentation' : decorative ? undefined : 'status'}
+      aria-hidden={decorative && !asChild ? true : undefined}
       aria-label={accessibleLabel}
       aria-labelledby={decorative ? undefined : ariaLabelledBy}
       className={clsx(styles.root, normalizeClassName(className))}

@@ -140,6 +140,14 @@
     }
   }
 
+  .root[data-orientation='horizontal'][dir='rtl'] {
+    .defaultIcon {
+      & svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   .indicatorGroup {
     display: flex;
     align-items: center;
@@ -170,7 +178,7 @@
       background-color var(--moduix-transition-fast),
       opacity var(--moduix-transition-fast);
 
-    &:hover {
+    &:not(:disabled, [data-disabled], [data-readonly]):hover {
       background-color: var(
         --moduix-carousel-indicator-bg-hover,
         color-mix(in oklab, var(--moduix-color-muted) 56%, var(--moduix-color-foreground) 44%)
@@ -207,9 +215,13 @@
   }
 
   .autoplayTrigger {
+    --moduix-carousel-autoplay-trigger-min-width-fallback: calc(
+      var(--moduix-size-md) + var(--moduix-spacing-3)
+    );
+
     min-width: var(
       --moduix-carousel-autoplay-trigger-min-width,
-      calc(var(--moduix-size-md) + var(--moduix-spacing-3))
+      var(--moduix-carousel-autoplay-trigger-min-width-fallback)
     );
   }
 

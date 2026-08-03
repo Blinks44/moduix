@@ -1,11 +1,7 @@
-import { Badge } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
 
 const label = 'New';
 
 export default function BadgeDemo() {
-  return (
-    <div className="badge-demo-basic">
-      <Badge>{label}</Badge>
-    </div>
-  );
+  return <Badge>{label}</Badge>;
 }

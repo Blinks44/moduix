@@ -152,7 +152,7 @@ Important CSS variables include `--moduix-command-palette-positioner-padding`, `
 
 ## Intentional sugar and differences from upstream
 
-`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. Shortcuts accept one modifier and one key: `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, or `alt` / `option`, followed by `+` and the key. The shortcut toggles an open palette and ignores editable targets while the palette is closed. `CommandPalette.Panel` is narrow workflow sugar for the standard command-palette chrome; use the explicit parts for custom overlay layout. `CommandPalette.Search` is narrow workflow sugar for the standard input-like search row and includes the clear trigger by default. `CommandPalette.ClearTrigger` uses `CloseButton` for its default icon-only action but clears the Combobox search input rather than the selection value. `Header` and `Body` are layout helpers without hiding the dialog or combobox structure. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
+`CommandPalette` can add a global shortcut listener because neither Ark Dialog nor Ark Combobox owns command-launch behavior. The listener is opt-in so pages with multiple palettes do not open every mounted instance from one key press. Shortcuts accept one modifier and one key: `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, or `alt` / `option`, followed by `+` and the key. The shortcut toggles an open palette, ignores repeat keydown events, and ignores editable targets while the palette is closed. `CommandPalette.Panel` is narrow workflow sugar for the standard command-palette chrome; use the explicit parts for custom overlay layout. `CommandPalette.Search` is narrow workflow sugar for the standard input-like search row and includes the clear trigger by default. `CommandPalette.ClearTrigger` uses `CloseButton` for its default icon-only action but clears the Combobox search input rather than the selection value. `Header` and `Body` are layout helpers without hiding the dialog or combobox structure. `CommandPalette.List` wraps its children in the local `ScrollArea` so command results use moduix scrollbars by default. The list is a flex child and does not own a hard-coded height; footer/header space is resolved by the dialog flex layout. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. `CommandPalette.Kbd` composes the local `Kbd.Root` and maps command-palette CSS variables to the shared Kbd contract. `CommandPalette.ItemIcon`, `ItemLabel`, `ItemDescription`, `ItemMeta`, `Separator`, and `Footer` are visual Ark factory leaf parts only.
 
 `CommandPalette.Combobox` defaults to an always-open listbox inside the dialog and closes the dialog on selection. Set `closeOnSelect={false}` on `CommandPalette.Combobox` for commands that should keep the palette open.
 
@@ -166,7 +166,17 @@ Collections, locale helpers, and advanced combobox state APIs belong to Ark UI. 
 when a workflow needs them. Avoid duplicate command-palette re-exports with the same names because
 consumers should compose those Ark helpers directly.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Documented the existing lazy-mount and unmount-on-exit overlay defaults.
+
+- 2026-07-26: Ignore repeat keydown events for global shortcuts and apply Ark dialog layer indices to overlay stacking.
 
 - 2026-07-23: Kept empty-message block padding at `--moduix-spacing-3` for the command-palette dialog surface.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

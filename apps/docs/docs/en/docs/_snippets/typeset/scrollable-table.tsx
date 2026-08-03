@@ -1,10 +1,10 @@
-import { Typeset } from '@moduix/react';
+import { Typeset } from '@moduix/react/typeset';
 
 export default function TypesetScrollableTableDemo() {
   return (
     <Typeset>
       <Typeset.Scroll>
-        <table className="wide-table">
+        <table style={{ minWidth: '36rem' }}>
           <thead>
             <tr>
               <th>Context</th>

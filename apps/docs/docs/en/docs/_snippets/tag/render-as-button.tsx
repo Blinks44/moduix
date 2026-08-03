@@ -1,4 +1,4 @@
-import { Tag } from '@moduix/react';
+import { Tag } from '@moduix/react/tag';
 import styles from '@/components/examples/tag.module.css';
 
 export default function TagAsChildDemo() {

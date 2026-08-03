@@ -1,4 +1,6 @@
-import { SegmentGroup, useSegmentGroup } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { SegmentGroup, useSegmentGroup } from '@moduix/react/segment-group';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -13,22 +15,16 @@ export default function SegmentGroupRootProviderDemo() {
   });
   return (
     <div className="segment-stack">
-      <SegmentGroup.RootProvider
-        aria-label="Framework"
-        className="segment-root-provider"
-        value={segmentGroup}
-      >
+      <SegmentGroup.RootProvider aria-label="Framework" value={segmentGroup}>
         <SegmentGroup.Indicator />
         <SegmentGroup.Items items={frameworks} />
       </SegmentGroup.RootProvider>
-      <button
-        className="segment-button"
-        type="button"
-        onClick={() => segmentGroup.setValue('Solid')}
-      >
-        Set to Solid
-      </button>
-      <output className="segment-output">selected: {segmentGroup.value ?? 'none'}</output>
+      <PreviewMeta>
+        <output>Selected: {segmentGroup.value ?? 'none'}</output>
+        <Button type="button" size="sm" onClick={() => segmentGroup.setValue('Solid')}>
+          Set to Solid
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

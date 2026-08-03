@@ -31,12 +31,16 @@ Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boun
 including controlled and uncontrolled open state, trigger values, focus lifecycle, dismissal,
 presence, `ids`, modal behavior, and Ark callback detail objects.
 
+For `modal={false}`, omit `Lightbox.Backdrop`: Ark keeps the positioner pointer-transparent outside
+`Lightbox.Content`, so the surrounding page remains interactive.
+
 The base `Lightbox` parts do not manage image sources or gallery state. `Lightbox.Image` renders a
 styled native image for the single-image path and adds the wrapper-specific `closeOnClick`
 interaction. `Lightbox.Gallery` is a layout and styling boundary for a composed `Carousel`; it does
 not own image data or slide state. `Lightbox.Bind` is a zero-render behavior part for CMS or
-third-party markup that cannot render `Lightbox.Trigger` directly. It uses the surrounding Dialog
-context and leaves all overlay markup consumer-owned. `Header`, `Body`, and `Footer` are plain
+third-party markup that cannot render `Lightbox.Trigger` directly. It requires a selector for a
+semantic button or link, uses the surrounding Dialog context, and leaves all overlay markup
+consumer-owned. `Header`, `Body`, and `Footer` are plain
 layout helpers for captions, metadata, or actions around the media surface.
 
 ## Anatomy and exported parts
@@ -75,7 +79,7 @@ an Ark anatomy part.
 ## Composition
 
 ```tsx
-import { Lightbox } from '@moduix/react';
+import { Lightbox } from '@moduix/react/lightbox';
 
 export function LightboxDemo() {
   return (
@@ -129,8 +133,8 @@ preloads the resolved full-size source on pointer hover or keyboard focus.
   thumbnail indicators without wrapping or translating Carousel props.
 - `Lightbox.Bind` listens to external markup, calls `onImageSelect(details)`, and opens its parent
   Dialog through context. It renders nothing and intentionally stays single-image capture, not a
-  hidden carousel or image registry. Its props are `rootRef`, `rootSelector`, `selector`, and the
-  required `onImageSelect`. It listens for native click activation and preloads the resolved image
+  hidden carousel or image registry. Its props are `rootRef`, `rootSelector`, the required semantic
+  `selector`, and the required `onImageSelect`. It listens for native click activation and preloads the resolved image
   on pointer hover or focus.
 - `LightboxImageSelectDetails` contains `src`, optional `alt`, and the source
   `HTMLImageElement` as `element`.
@@ -202,8 +206,21 @@ Keep external DOM binding scoped to `Lightbox.Bind`; do not smear source-capture
 into the base `Lightbox` parts or `Lightbox.Gallery`. When data already exists as a structured image
 array, prefer explicit `Lightbox.Gallery + Carousel` composition.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
 
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-28: Required `Lightbox.Bind.selector` so external previews always target a semantic
+  keyboard-accessible activator; made the positioner scrollable and constrained content by its
+  configured viewport padding.
+- 2026-07-28: Documented non-modal composition without `Backdrop`; it preserves interaction with
+  page content outside the lightbox.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-16: Added shared `--moduix-popup-motion-*` fallbacks for content motion; backdrop motion remains separate.
 - 2026-07-10: Re-exported `useLightbox` and `useLightboxContext` through moduix and the Lightbox

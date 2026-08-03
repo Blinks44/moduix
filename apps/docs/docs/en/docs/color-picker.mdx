@@ -25,7 +25,7 @@ content, default picker internals, and a hidden input for forms.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -38,7 +38,7 @@ such as styles, icons, and small utilities.
 ## Anatomy
 
 ```text
-ColorPicker.Root
+ColorPicker
 ├─ ColorPicker.Label
 ├─ ColorPicker.Control
 │  ├─ ColorPicker.ChannelInput[channel]
@@ -63,11 +63,11 @@ ColorPicker.Root
 │        └─ ColorPicker.View[format]
 │           └─ ColorPicker.ChannelInput[channel]
 └─ native input (automatic)
-````
+```
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `ColorPicker` / `ColorPicker.Root` | Owns color value, format, popup state, and form integration.           |
+| `ColorPicker`                      | Owns color value, format, popup state, and form integration.           |
 | `ColorPicker.Control`              | Groups visible inputs and trigger.                                     |
 | `ColorPicker.Trigger`              | Button that opens the popup and renders the current swatch by default. |
 | `ColorPicker.Content`              | Actual Ark popup content part.                                         |
@@ -95,13 +95,12 @@ composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style i
 `data-channel` or CSS variables; pass children only when a part needs custom structure. Add
 `data-fit-content` when the trigger should size to custom content such as a swatch plus `ValueText`.
 
-Use the native form input when the color should participate in native form submission or form
-reset behavior. Put it inside the same root, and pass `name` on `ColorPicker.Root` or register the
-hidden input with a form library.
+For native form submission and reset behavior, pass `name` to `ColorPicker`. It automatically
+renders and synchronizes its native input; `FormData` and `form.reset()` need no extra setup.
 
 ### When to go custom
 
-Use `inline` on `ColorPicker.Root` when the area, sliders, inputs, and swatches should render as a
+Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should render as a
 permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
 
 Use `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
@@ -111,6 +110,10 @@ Use `asChild` on exported Ark parts when another semantic element must own the D
 must stay a single element and preserve the required focus and interaction behavior.
 
 ### Default props
+
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
 
 | Surface / Prop                           | Default                 | Notes                                         |
 | ---------------------------------------- | ----------------------- | --------------------------------------------- |
@@ -124,7 +127,7 @@ must stay a single element and preserve the required focus and interaction behav
 | `ColorPicker.Sliders`                    | hue and alpha pair      | Style with `data-channel` or CSS variables.   |
 | `ColorPicker.SwatchTrigger` children     | swatch and indicator    | Uses the trigger `value` for the swatch.      |
 | `ColorPicker.SwatchIndicator`            | moduix check icon       | Used when children are omitted.               |
-| `ColorPicker` / `ColorPicker.Root` width | `16rem` (max `100%`)    | Styled root width defaults.                   |
+| `ColorPicker` width                      | `16rem` (max `100%`)    | Styled root width defaults.                   |
 
 ### Behavioral notes
 
@@ -134,6 +137,10 @@ must stay a single element and preserve the required focus and interaction behav
 - `ids` is forwarded to Ark for shared accessibility IDs across custom compositions.
 - Field and fieldset state can flow through Ark-compatible `disabled`, `invalid`, `required`, and
   `readOnly` root props.
+- Use `positioning`, `initialFocusEl`, and `openAutoFocus` when popup placement or focus needs to
+  follow a surrounding workflow.
+- `lazyMount` and `unmountOnExit` default to `true`; `present` and `onExitComplete` preserve Ark's
+  presence lifecycle for custom mount or exit-animation control.
 - All Ark DOM parts preserve `asChild`.
 
 ## Examples
@@ -148,7 +155,7 @@ square swatch, for example during migration from button-based color fields.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/compact-trigger.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -161,7 +168,7 @@ Use controlled state when the selected color must stay in sync with application 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -175,7 +182,7 @@ the current color visible.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/disabled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -187,18 +194,18 @@ field container and should expose the same state through Ark data attributes.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/field-state.tsx"
 
-````
+```
 
 </PreviewFrame>
 
 ### Form Usage
 
-Use `name` on `ColorPicker.Root` and the root renders its native form input automatically.
+Use `name` on `ColorPicker`; it renders its native form input automatically.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/form-usage.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -212,7 +219,7 @@ channel input groups without changing the picker structure.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/format-views.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -225,7 +232,7 @@ Use `inline` for settings panels where the color tools should stay visible witho
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/inline.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -239,7 +246,7 @@ too heavy for the interface.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/input-only.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -253,7 +260,7 @@ dialog's stacking context and remains interactive above the dialog surface.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/inside-dialog.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -266,7 +273,7 @@ Use controlled `open` state when another control or workflow owns whether the po
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/open-controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -280,7 +287,7 @@ the rendered tree and shared with nearby controls.
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/root-provider.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -293,7 +300,7 @@ Use slider-only composition when direct manipulation matters but typed channel i
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/slider-only.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -307,7 +314,7 @@ be unnecessary.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/swatch-only.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -321,7 +328,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/swatches.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -335,7 +342,7 @@ the full picker.
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/value-swatch.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -348,7 +355,7 @@ Use explicit parts and children when the default composition needs a different v
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/color-picker/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -366,7 +373,7 @@ below.
 
 Use the part that owns the visual concern:
 
-- `ColorPicker.Root` for width, gap, shared color, and disabled opacity
+- `ColorPicker` for width, gap, shared color, and disabled opacity
 - `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect`, and `FormatTrigger` for the
   visible field controls
 - `ColorPicker.Positioner` and `ColorPicker.Content` for popup layering, width, padding, radius,

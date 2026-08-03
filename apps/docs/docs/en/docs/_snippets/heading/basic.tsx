@@ -1,8 +1,7 @@
-import { Heading } from '@moduix/react';
-import styles from '@/components/examples/heading.module.css';
+import { Heading } from '@moduix/react/heading';
 
 const headingText = 'Build reliable interfaces';
 
 export default function HeadingDemo() {
-  return <Heading className={styles.demo}>{headingText}</Heading>;
+  return <Heading>{headingText}</Heading>;
 }

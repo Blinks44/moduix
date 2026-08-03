@@ -1,4 +1,6 @@
-import { Button, Dialog, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { Menu } from '@moduix/react/menu';
 
 export default function MenuInDialogDemo() {
   return (
@@ -26,6 +28,7 @@ export default function MenuInDialogDemo() {
                 <Menu.Content>
                   <Menu.Item value="rename">Rename project</Menu.Item>
                   <Menu.Item value="duplicate">Duplicate project</Menu.Item>
+                  <Menu.Item value="move">Move to folder</Menu.Item>
                   <Menu.Separator />
                   <Menu.Item value="archive" tone="destructive">
                     Archive project

@@ -8,11 +8,11 @@ import * as InputDocs from '@/components/examples/input';
 
 ## API Reference
 
-Ark UI does not ship a dedicated input primitive. Moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance, and delegates field behavior to
-[Ark Field.Input](https://ark-ui.com/docs/components/field).
+Ark UI does not ship a dedicated input primitive. Moduix builds on
+[Ark Field.Input](https://ark-ui.com/react/docs/components/field), follows Ark's
+[composition](https://ark-ui.com/react/docs/guides/composition),
+[styling](https://ark-ui.com/react/docs/guides/styling), and
+[ref](https://ark-ui.com/react/docs/guides/ref) guidance.
 
 ## Choosing the right component
 
@@ -27,15 +27,11 @@ Ark UI does not ship a dedicated input primitive. Moduix builds this component w
 
 Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and form state.
 
-<style>{`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -75,7 +71,7 @@ component that owns the correct Ark control primitive.
 | Prop       | Default | Notes                                                  |
 | ---------- | ------- | ------------------------------------------------------ |
 | `size`     | `md`    | Visual size: `xs`, `sm`, `md`, `lg`, or `xl`.          |
-| `htmlSize` | —       | Writes the native character-based `input[size]` value. |
+| `htmlSize` | —       | Writes the native character-based `input[size]` value and uses its width by default. |
 | `asChild`  | `false` | Merges props into one semantic child through Ark Slot. |
 
 ### Behavioral notes
@@ -91,107 +87,86 @@ component that owns the correct Ark control primitive.
 
 Use the native change event when React owns the current value.
 
-<style>{`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/controlled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/controlled.tsx"
 
 ```
+</PreviewFrame>
 
 ### Disabled and Readonly
 
 Use native props directly or place them on `Field.Root` when the full field should share state.
 
-<style>{`
-      .input-demo-stack {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
 
 ```
+</PreviewFrame>
 
 ### Field State
 
 Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
 connects the error text.
 
-<style>{`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/field-state.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/field-state.tsx"
 
 ```
+</PreviewFrame>
 
 ### Native Attributes
 
 Native attributes continue to control browser validation, keyboard, autocomplete, and form
 submission. Use `htmlSize` only for character-based width.
 
-<style>{`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/native-attributes.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/input/native-attributes.tsx"
 
 ```
+</PreviewFrame>
+
+### File Input
+
+`Input` keeps the native file chooser available for simple forms. Use `FileUpload` when selection,
+dropzones, or upload lifecycle UI needs to be managed.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/file-input.tsx"
+
+```
+</PreviewFrame>
 
 ### Sizes
 
 The moduix `size` prop changes visual density without replacing the native `size` attribute.
 
-<style>{`
-      .input-demo-stack {
-        display: grid;
-        gap: var(--moduix-spacing-3);
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/sizes.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/sizes.tsx"
 
 ```
+</PreviewFrame>
 
 ### Standalone Input
 
 Outside `Field`, provide an accessible name explicitly. Native state props still work, but there is
 no field context to supply ids or helper/error relationships.
 
-<style>{`
-      .input-demo-standalone {
-        max-width: 14rem;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/standalone-input.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/standalone-input.tsx"
 
 ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 Use `asChild` only when a custom input host must own the rendered node; preserve one semantic,
 focusable input element that can receive the forwarded props and ref.
 
-<style>{`
-      .input-demo-field {
-        width: min(14rem, 100%);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/input/as-child.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/input/as-child.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

@@ -1,4 +1,4 @@
-import { List } from '@moduix/react';
+import { List } from '@moduix/react/list';
 
 export default function MarkerlessListDemo() {
   return (

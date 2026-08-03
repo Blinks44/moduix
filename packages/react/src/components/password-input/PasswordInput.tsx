@@ -1,3 +1,5 @@
+'use client';
+
 import {
   PasswordInput as PasswordInputPrimitive,
   usePasswordInput,

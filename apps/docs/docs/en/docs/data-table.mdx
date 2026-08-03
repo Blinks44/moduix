@@ -3,7 +3,7 @@ title: Data Table
 description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table.
 ---
 
-import { DataTable } from '@/components/home/data-table';
+import { DataTable } from '@/components/recipes/data-table';
 
 # Data Table
 
@@ -13,28 +13,53 @@ feature owns its records and controls table state when that state drives a route
 Each product has different columns, filters, row actions, and server contracts, so keep that
 behavior close to the feature that needs it.
 
-The copy-owned block below is the same interactive table shown on the home page. It includes
+The copy-ready recipe below is the same interactive table shown on the home page. It includes
 search, sorting, column visibility, row selection, actions, and pagination; replace its example
 records and actions with your product data.
+
+## Choose the smallest table that works
+
+| Need                                            | Start with                                                    |
+| ----------------------------------------------- | ------------------------------------------------------------- |
+| Read-only rows and columns                      | The semantic [Table](/docs/table) component                   |
+| Local sorting or filtering for a small dataset  | Table plus the matching TanStack row model                    |
+| Server sorting, filtering, or pagination        | Controlled query state with the manual TanStack options below |
+| Virtualized rows                                | Add virtualization only after measuring a real performance issue |
+
+Do not copy every control from the full recipe by default. Remove selection, column visibility,
+actions, or pagination when the user cannot use that capability.
 
 <ExampleFrame clientOnly>
   <DataTable />
 </ExampleFrame>
 
-```tsx file="../../../src/components/home/data-table.tsx"
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/data-table.tsx"
 
 ```
 
-```css file="../../../src/components/home/data-table.module.css"
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/data-table.module.css"
 
 ```
 
-## Install the block
+    </Tab>
+  </Tabs>
+</div>
 
-<ShadcnInstall packageName="data-table" itemLabel="block" />
+## Install
 
-The command copies the JSX and CSS module into your components directory, and installs
-`@tanstack/react-table`, `@moduix/react`, and `lucide-react` when needed.
+<ShadcnInstall
+  packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
+  itemLabel="recipe"
+  copiedSource
+  dependencies={['@tanstack/react-table', 'lucide-react']}
+/>
 
 ## Build the pattern yourself
 
@@ -44,7 +69,7 @@ Install TanStack Table in the application that owns the data-grid behavior:
 npm install @tanstack/react-table
 ```
 
-`Table` already comes from `@moduix/react`. It deliberately does not include TanStack Table, so
+`Table` already comes from `@moduix/react/table`. It deliberately does not include TanStack Table, so
 applications that only need a semantic table do not pay for data-grid logic.
 
 ## Basic
@@ -175,6 +200,15 @@ changes; otherwise the API can return an empty page. See TanStack's
 [filtering](https://tanstack.com/table/latest/docs/guide/global-filtering),
 [sorting](https://tanstack.com/table/latest/docs/guide/sorting), and
 [pagination](https://tanstack.com/table/latest/docs/guide/pagination) guides for the query layer.
+
+Render the request state next to the table, not inside unrelated cells:
+
+| Request state | Recommended result                                                               |
+| ------------- | -------------------------------------------------------------------------------- |
+| Initial load  | Keep column headers visible and show a labeled loading row or skeleton.          |
+| Refetch       | Preserve current rows, mark the toolbar busy, and prevent duplicate requests.    |
+| Empty result  | Explain whether there are no records or filters removed every match.             |
+| Error         | Keep the query controls available and offer a retry that repeats the same query.  |
 
 ## Add features deliberately
 

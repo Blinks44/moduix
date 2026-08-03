@@ -1,1 +1,1 @@
-export { Sidebar, useSidebar } from './Sidebar';
+export { Sidebar, useSidebar } from './Sidebar.js';

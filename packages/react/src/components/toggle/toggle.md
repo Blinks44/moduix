@@ -32,6 +32,8 @@ state reader rather than a DOM part. Ark exposes `pressed`, `defaultPressed`,
 - `Toggle.Indicator` is a thin styled wrapper over `ArkToggle.Indicator`.
 - `Toggle.Context` and `useToggleContext` preserve Ark's custom-descendant state access through
   moduix exports.
+- `ToggleRootProps`, `ToggleSize`, and `ToggleVariant` are exported for typed wrappers and shared
+  component APIs.
 - moduix adds two visual props to the root:
   - `variant?: 'default' | 'outline' | 'ghost'`
   - `size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg'`
@@ -63,7 +65,8 @@ Toggle.Context (state reader, not a DOM part)
 Simple uncontrolled toggle:
 
 ```tsx
-import { StarIcon, Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
+import { Star as StarIcon } from 'lucide-react';
 
 export function ToggleDemo() {
   return (
@@ -78,7 +81,7 @@ export function ToggleDemo() {
 Changing inline content with Ark `Indicator`:
 
 ```tsx
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 import { Check as CheckIcon, Star as StarIcon } from 'lucide-react';
 
 export function FavoriteToggleDemo() {
@@ -95,7 +98,8 @@ export function FavoriteToggleDemo() {
 Controlled pressed state:
 
 ```tsx
-import { BellIcon, Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
+import { Bell as BellIcon } from 'lucide-react';
 import { useState } from 'react';
 
 export function ControlledToggleDemo() {
@@ -113,7 +117,7 @@ export function ControlledToggleDemo() {
 Custom host element with Ark `asChild`:
 
 ```tsx
-import { Toggle } from '@moduix/react';
+import { Toggle } from '@moduix/react/toggle';
 
 export function AsChildToggleDemo() {
   return (
@@ -130,7 +134,8 @@ export function AsChildToggleDemo() {
 - Controlled: supported with Ark `pressed` and `onPressedChange(pressed)`.
 - Disabled: supported through Ark `disabled` and native button disabled behavior.
 - Indicator: supported through `Toggle.Indicator` and its `fallback` prop.
-- Advanced Ark state access remains available by importing `useToggleContext()` from `@moduix/react`;
+- Advanced Ark state access remains available by importing `useToggleContext()` from
+  `@moduix/react/toggle`;
   `Toggle.Context` is also available through the component namespace.
 - RootProvider: not applicable; Ark Toggle does not expose a public `RootProvider`.
 - Form state: not applicable; Ark Toggle is a button primitive and does not expose `HiddenInput`.
@@ -192,6 +197,9 @@ root at a non-shrinking square size.
 - `ToggleGroup` is a separate component family; do not make standalone `Toggle` depend on group context.
 
 ## Local changelog
+
+- 2026-08-01: Exported Toggle prop and visual-union types, narrowed default SVG sizing to the
+  documented icon slots, and corrected the supported context-hook import path.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized the toggle scale to `24/32/36/40px` tokens, including icon-only sizes,

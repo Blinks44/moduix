@@ -1,4 +1,4 @@
-import { Switch } from '@moduix/react';
+import { Switch } from '@moduix/react/switch';
 
 function PowerIcon() {
   return (

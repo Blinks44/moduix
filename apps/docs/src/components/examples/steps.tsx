@@ -1,84 +1,17 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-const sharedStepsCss = `
-  .stepText {
-    display: grid;
-    gap: 0.125rem;
-  }
-
-  .stepTitle {
-    font-weight: var(--moduix-weight-medium);
-  }
-
-  .stepDescription {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-xs);
-  }
-
+export const stepsExampleCss = `
   .steps-demo [data-slot='steps-item'],
   .steps-demo [data-slot='steps-item']:last-child {
     flex: 1 1 0;
   }
 
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--moduix-spacing-2);
-  }
-`;
-
-export const stepsExampleCss = sharedStepsCss;
-
-export const controlledStepsCss = `
-  ${sharedStepsCss}
-
-  .stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .output {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-  }
-`;
-
-export const rootProviderStepsCss = `
-  ${sharedStepsCss}
-
-  .stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-  }
-
-  .output {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-  }
-`;
-
-export const verticalStepsCss = `
-  ${sharedStepsCss}
-
-  .vertical {
-    max-width: min(100%, 40rem);
-  }
-`;
-
-export const asChildStepsCss = `
-  ${sharedStepsCss}
-
-  a[data-scope='steps'][data-part='trigger'] {
-    text-decoration: none;
-  }
-`;
-
-export const progressStepsCss = `
-  ${sharedStepsCss}
-
-  [data-slot='steps-progress'] {
-    margin-block-end: var(--moduix-spacing-2);
+  @media (max-width: 40rem) {
+    .steps-demo [data-slot='steps-item'],
+    .steps-demo [data-slot='steps-item']:last-child {
+      flex: 0 0 auto;
+    }
   }
 `;
 

@@ -16,8 +16,8 @@ Ark UI has no dedicated Kbd primitive. This component follows the official
 
 The component uses `@ark-ui/react/factory` rather than a state machine:
 
-- each part is an `ark.kbd` element;
-- `HTMLArkProps<'kbd'>` provides native props and `asChild`;
+- `Kbd` and `Kbd.Root` are `ark.kbd` elements; `Kbd.Group` is an `ark.span` element;
+- `HTMLArkProps` provides native props and `asChild` for the rendered element;
 - refs target the rendered host element;
 - `data-scope` and `data-part` describe the local anatomy.
 
@@ -28,7 +28,7 @@ because the component is static.
 
 - `Kbd` is the root shorthand and renders a native `<kbd>` by default.
 - `Kbd.Root` exposes the same root part explicitly.
-- `Kbd.Group` renders a semantic `<kbd>` wrapper for grouped shortcuts.
+- `Kbd.Group` renders an inline `<span>` wrapper for grouped shortcuts.
 - Separators remain plain composition; the component does not inject text or extra elements.
 - Every part supports `className`, native attributes, `asChild`, and a forwarded ref.
 - Styling uses Ark anatomy attributes, stable `data-slot` hooks, and public `--moduix-kbd-*` variables.
@@ -50,7 +50,7 @@ Kbd.Group
 ## Composition
 
 ```tsx
-import { Kbd } from '@moduix/react';
+import { Kbd } from '@moduix/react/kbd';
 
 export function ShortcutHint() {
   return (

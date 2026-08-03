@@ -5,7 +5,7 @@ description: Model, query, traverse, filter, and update hierarchical data for Tr
 
 # Tree Collection
 
-## API Reference
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
@@ -43,6 +43,15 @@ const tree = createTreeCollection({
 
 The root node is a container and is not included in `getValues()`. Pass the collection directly to
 `TreeView` and render from `collection.rootNode.children`.
+
+## Render it with Tree View
+
+The collection owns the hierarchy; Tree View owns expansion, focus, keyboard navigation, and
+selection. Render branches recursively from the same node and index path supplied by the collection.
+
+```tsx preview file="./_snippets/tree-view/basic.tsx"
+
+```
 
 ## Custom node shapes
 
@@ -199,6 +208,10 @@ const renamed = tree.replace(buttonPath, {
 const moved = tree.move([readmePath], srcPath);
 ```
 
+Index paths describe positions in one collection snapshot. After insert, remove, reorder, or move,
+discard stored index paths and resolve them again from the returned collection before the next
+operation. Store stable node values in application state instead of numeric paths.
+
 `insertBefore` and `insertAfter` can return `undefined` when the target path is invalid. Guard paths
 obtained from dynamic data before using them.
 
@@ -228,4 +241,5 @@ files.getBranchValues(); // ['src', 'components', 'utils']
 ```
 
 For complete rendering composition, expansion, selection, lazy loading, and recursive nodes, see
-[Tree View](/docs/tree-view).
+[Tree View](/docs/tree-view). For remote children, use its Async loading example and update the
+collection only after the request succeeds.

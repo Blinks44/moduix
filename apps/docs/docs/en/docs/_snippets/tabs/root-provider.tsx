@@ -1,4 +1,5 @@
-import { Tabs, useTabs } from '@moduix/react';
+import { Tabs, useTabs } from '@moduix/react/tabs';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const items = [
   {
@@ -25,8 +26,7 @@ export default function RootProviderTabsDemo() {
     defaultValue: 'overview',
   });
   return (
-    <>
-      <output className="tabs-demo-selected">selected: {tabs.value}</output>
+    <div className="tabs-stack">
       <Tabs.RootProvider value={tabs}>
         <Tabs.List>
           {items.map((item) => (
@@ -42,6 +42,9 @@ export default function RootProviderTabsDemo() {
           </Tabs.Content>
         ))}
       </Tabs.RootProvider>
-    </>
+      <PreviewMeta>
+        <output>Selected: {tabs.value ?? 'none'}</output>
+      </PreviewMeta>
+    </div>
   );
 }

@@ -1,8 +1,7 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
-const dragConfig = {
-  content: false,
-};
 const snapPoints = [0.18, 1];
 export default function DragControlsDrawerDemo() {
   return (
@@ -12,7 +11,7 @@ export default function DragControlsDrawerDemo() {
       </Drawer.Trigger>
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content draggable={dragConfig.content}>
+        <Drawer.Content>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
@@ -23,10 +22,14 @@ export default function DragControlsDrawerDemo() {
               Content dragging is disabled; the grabber remains draggable.
             </Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body>
-            <div data-no-drag className="no-drag-area">
-              Interactive content
-            </div>
+          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+              <Card.Body>
+                <Button data-no-drag variant="outline">
+                  Interactive no-drag region
+                </Button>
+              </Card.Body>
+            </Card>
           </Drawer.Body>
         </Drawer.Content>
       </Drawer.Positioner>

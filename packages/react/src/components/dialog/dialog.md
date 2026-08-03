@@ -21,7 +21,7 @@ Keep `Backdrop → Positioner → Content` explicit. `Root` owns the portal boun
 
 `Root` and `RootProvider` portal `Backdrop` and `Positioner` automatically by default. Set `portalled={false}` to render them inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-`Dialog.Root` passes Ark root props through unchanged, including controlled and uncontrolled open
+`Dialog` passes Ark root props through unchanged, including controlled and uncontrolled open
 state, focus targets, modal behavior, presence options, dismissal callbacks, `ids`, and
 `role="dialog" | "alertdialog"`.
 
@@ -31,7 +31,7 @@ state, focus targets, modal behavior, presence options, dismissal callbacks, `id
 ## Anatomy and exported parts
 
 ```text
-Dialog.Root
+Dialog
 ├─ Dialog.Trigger
 └─ Overlay subtree (automatically portalled)
    ├─ Dialog.Backdrop
@@ -46,6 +46,9 @@ Dialog.Root
 
 Dialog.RootProvider
 └─ the same part tree connected to moduix useDialog()
+
+Dialog.Context
+└─ a render function with the current dialog state and methods
 ```
 
 Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
@@ -55,11 +58,12 @@ Stable slots are `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dial
 ## Composition
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function DialogDemo() {
   return (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
@@ -71,12 +75,12 @@ export function DialogDemo() {
           <Dialog.CloseIcon />
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   );
 }
 ```
 
-Use `asChild` with one semantic child. Use `Dialog.RootProvider` instead of `Dialog.Root` when the
+Use `asChild` with one semantic child. Use `Dialog.RootProvider` instead of `Dialog` when the
 same state instance comes from moduix `useDialog()`.
 
 ## Upstream feature coverage
@@ -129,15 +133,16 @@ properties so the parent recedes downward and remains visibly layered behind the
 the effect with `--moduix-dialog-nested-scale-step`, `--moduix-dialog-nested-translate-step`, and
 `--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
 the content's block-start/inline-end corner by default, including when it is composed outside
-`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `theme.css`.
+`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 
 - `Dialog.CloseIcon` composes Ark `CloseTrigger` with the moduix close button and defaults its
   accessible label to `"Close dialog"`.
 - `Dialog.Header`, `Dialog.Body`, and `Dialog.Footer` are native layout helpers.
-- moduix exports Ark's `useDialog` and `useDialogContext` hooks alongside `Dialog`, so provider and
-  context workflows stay on the moduix public surface. Direct Ark imports remain escape hatches.
+- moduix exports Ark's `useDialog` and `useDialogContext` hooks alongside `Dialog`, and includes
+  `Dialog.Context`, so provider and context workflows stay on the moduix public surface. Direct Ark
+  imports remain escape hatches.
 - `Dialog.Trigger` and `Dialog.CloseTrigger` receive moduix button styling only when they render
   their native button. `asChild` leaves the child component's visual styling in control.
 - Legacy exports were removed: `createDialogHandle`, `DialogPortal`, `DialogViewport`,
@@ -149,7 +154,15 @@ the content's block-start/inline-end corner by default, including when it is com
 Do not introduce a convenience component that hides `Backdrop`, `Positioner`, or `Content`. Keep
 Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext` unchanged.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default dialog and close controls to `--moduix-size-md` and compacted their block padding.
@@ -159,8 +172,7 @@ Ark callback detail objects, `RootProvider`, `useDialog`, and `useDialogContext`
   close-trigger id is not duplicated within the dialog.
 - 2026-07-10: Re-exported `useDialog` and `useDialogContext` so provider and context workflows use
   the moduix package surface.
-- 2026-07-02: Removed `Dialog.Context`, Ark dialog hooks, and duplicate Ark type exports from the
-  moduix surface. Kept `RootProvider`, structural parts, and existing dialog-specific sugar.
+- 2026-07-24: Restored Ark-compatible `Dialog.Context` alongside the moduix context hooks.
 - 2026-07-01: Made overlay portalling automatic by default, added `portalled` and `portalRef`, and removed explicit `Portal` wrappers from recommended composition.
 
 - 2026-06-29: Synced nested dialog motion with Drawer by adding animated parent scale and downward

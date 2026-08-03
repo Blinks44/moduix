@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import { useRef } from 'react';
 
 export default function ModalPopoverDemo() {
@@ -17,9 +18,16 @@ export default function ModalPopoverDemo() {
             </Popover.Description>
           </Popover.Header>
           <Popover.Body>
-            <label className="field">
+            <label style={{ display: 'grid', gap: 'var(--moduix-spacing-2)' }}>
               <span>Email</span>
-              <input ref={inputRef} className="input" />
+              <input
+                ref={inputRef}
+                style={{
+                  minBlockSize: 'var(--moduix-size-md)',
+                  border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+                  borderRadius: 'var(--moduix-radius-md)',
+                }}
+              />
             </label>
           </Popover.Body>
           <Popover.Footer>

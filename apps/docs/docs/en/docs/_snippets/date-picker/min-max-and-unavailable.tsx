@@ -1,5 +1,5 @@
 import { parseDate } from '@ark-ui/react/date-picker';
-import { DatePicker } from '@moduix/react';
+import { DatePicker } from '@moduix/react/date-picker';
 
 export default function MinMaxDatePickerDemo() {
   return (

@@ -21,6 +21,8 @@ and provides shared disabled state to compatible descendants.
 - `Fieldset` and `Fieldset.Root` are the same styled Ark root.
 - `disabled`, `invalid`, and `id` pass directly to Ark.
 - `useFieldset` is re-exported from `@moduix/react` for the supported `RootProvider` path.
+- `Fieldset.Context` and `useFieldsetContext` are re-exported for descendants that read fieldset
+  state.
 - `Fieldset.ErrorText` renders only while the root is invalid.
 - `Fieldset.HelperText` and active error text are connected through `aria-describedby`.
 - legacy `render`, callback class names, flat part aliases, and compatibility adapters are removed.
@@ -43,10 +45,14 @@ Fieldset.Root | Fieldset.RootProvider
 | `Fieldset.HelperText`   | `fieldset-helper-text`   | Descriptive `span`.                |
 | `Fieldset.ErrorText`    | `fieldset-error-text`    | Conditional polite-live `span`.    |
 
+`Fieldset.Context` and `useFieldsetContext` expose the state returned by `useFieldset`; they do not
+render an additional DOM part.
+
 ## Composition
 
 ```tsx
-import { Field, Fieldset } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Fieldset } from '@moduix/react/fieldset';
 
 export function ContactDetails() {
   return (
@@ -63,14 +69,16 @@ export function ContactDetails() {
 ```
 
 Use `asChild` with one semantic child when replacing a part's host. Use `useFieldset` from
-`@moduix/react` with `Fieldset.RootProvider`; do not render `Fieldset.Root` around the same state
-instance.
+`@moduix/react` with `Fieldset.RootProvider`; use `Fieldset.Context` or `useFieldsetContext` in a
+descendant that reads its state. Do not render `Fieldset.Root` around the same state instance.
 
 ## Upstream feature coverage
 
 - Basic grouped fields and native controls are supported.
 - Ark `Field`, checkbox, radio-group, and select compositions work as nested controls.
 - Root Provider is exposed through moduix `useFieldset` and `Fieldset.RootProvider`.
+- `Fieldset.Context` and `useFieldsetContext` are available from `@moduix/react` for Ark-shaped
+  state reads.
 - `id`, `disabled`, `invalid`, refs, and `asChild` are passed through unchanged.
 
 ## Accessibility and state
@@ -86,6 +94,8 @@ instance.
   components when individual controls need invalid styling or ARIA state.
 - Fieldset has no value and therefore no `HiddenInput`, controlled value, callback, or keyboard
   navigation contract of its own.
+- `Fieldset.Context` accepts a render function; `useFieldsetContext` returns the same context in a
+  descendant.
 
 ## Defaults and styling
 
@@ -101,12 +111,15 @@ disabled and invalid state, and helper/error text typography and color.
 
 ## Agent notes
 
-- Keep the visual parts, `RootProvider`, and `useFieldset`; do not re-export Ark context parts or types.
+- Keep the visual parts, `RootProvider`, `useFieldset`, `Context`, and `useFieldsetContext` aligned
+  with Ark's fieldset state contract.
 - Keep `ErrorText` conditional; do not duplicate its visibility logic.
 - Do not restore `render`; Ark composition uses `asChild`.
 - Keep docs examples on the namespace API.
 
 ## Local changelog
+
+- 2026-07-27: Documented the existing `Context` and `useFieldsetContext` exports.
 
 - 2026-07-10: Re-exported `useFieldset` for the supported `RootProvider` composition path.
 

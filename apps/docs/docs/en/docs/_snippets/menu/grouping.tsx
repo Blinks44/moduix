@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export default function GroupingMenuDemo() {
   return (
@@ -15,6 +16,7 @@ export default function GroupingMenuDemo() {
             <Menu.ItemGroupLabel>Clipboard</Menu.ItemGroupLabel>
             <Menu.Item value="cut">Cut</Menu.Item>
             <Menu.Item value="copy">Copy</Menu.Item>
+            <Menu.Item value="paste">Paste</Menu.Item>
           </Menu.ItemGroup>
           <Menu.Separator />
           <Menu.ItemGroup>

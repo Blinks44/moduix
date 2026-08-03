@@ -1,4 +1,4 @@
-import { Steps } from '@moduix/react';
+import { Steps } from '@moduix/react/steps';
 
 const items = [
   {
@@ -21,23 +21,38 @@ const items = [
 
 export default function StepsVerticalDemo() {
   return (
-    <div className="vertical">
-      <Steps count={items.length} defaultStep={1} orientation="vertical">
-        <Steps.List>
-          {items.map((item, index) => (
-            <Steps.Item key={item.title} index={index}>
-              <Steps.Trigger>
-                <Steps.Indicator />
-                <span className="stepText">
-                  <span className="stepTitle">{item.title}</span>
-                  <span className="stepDescription">{item.description}</span>
-                </span>
-              </Steps.Trigger>
-              <Steps.Separator />
-            </Steps.Item>
-          ))}
-        </Steps.List>
+    <Steps count={items.length} defaultStep={1} orientation="vertical">
+      <Steps.List>
+        {items.map((item, index) => (
+          <Steps.Item key={item.title} index={index}>
+            <Steps.Trigger>
+              <Steps.Indicator />
+              <span style={{ display: 'grid', minWidth: 0, gap: '0.125rem' }}>
+                <strong>{item.title}</strong>
+                <small
+                  style={{
+                    color: 'var(--moduix-color-muted-foreground)',
+                    fontSize: 'var(--moduix-text-xs)',
+                  }}
+                >
+                  {item.description}
+                </small>
+              </span>
+            </Steps.Trigger>
+            <Steps.Separator />
+          </Steps.Item>
+        ))}
+      </Steps.List>
 
+      <div
+        style={{
+          display: 'grid',
+          minWidth: 0,
+          flex: '1 1 auto',
+          alignContent: 'start',
+          gap: 'var(--moduix-spacing-4)',
+        }}
+      >
         {items.map((item, index) => (
           <Steps.Content key={item.title} index={index}>
             {item.title} - {item.description}
@@ -46,11 +61,17 @@ export default function StepsVerticalDemo() {
 
         <Steps.CompletedContent>Steps complete. The workspace is ready.</Steps.CompletedContent>
 
-        <div className="actions">
+        <div
+          style={{
+            display: 'flex',
+            gap: 'var(--moduix-spacing-2)',
+            justifyContent: 'flex-end',
+          }}
+        >
           <Steps.PrevTrigger>Back</Steps.PrevTrigger>
           <Steps.NextTrigger>Next</Steps.NextTrigger>
         </div>
-      </Steps>
-    </div>
+      </div>
+    </Steps>
   );
 }

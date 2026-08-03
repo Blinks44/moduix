@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs as TabsPrimitive, useTabs, useTabsContext } from '@ark-ui/react/tabs';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -10,13 +12,16 @@ type TabsVariant = 'default' | 'line';
 const TabsRoot = forwardRef<
   ComponentRef<typeof TabsPrimitive.Root>,
   ComponentProps<typeof TabsPrimitive.Root> & { variant?: TabsVariant }
->(function TabsRoot({ className, variant = 'default', ...props }, ref) {
+>(function TabsRoot({ className, orientation, variant = 'default', ...props }, ref) {
+  const resolvedVariant = orientation === 'vertical' ? 'default' : variant;
+
   return (
     <TabsPrimitive.Root
       ref={ref}
       data-slot="tabs-root"
-      data-variant={variant}
+      data-variant={resolvedVariant}
       className={clsx(styles.root, normalizeClassName(className))}
+      orientation={orientation}
       {...props}
     />
   );

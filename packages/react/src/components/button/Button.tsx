@@ -28,6 +28,7 @@ const ButtonRoot = forwardRef<
     className,
     disabled,
     loading = false,
+    onClick,
     size = 'md',
     type,
     'data-scope': dataScope = 'button',
@@ -40,11 +41,10 @@ const ButtonRoot = forwardRef<
   },
   ref,
 ) {
-  const nativeDisabled = asChild ? undefined : loading || disabled;
+  const isDisabled = disabled || loading || ariaDisabled === true || ariaDisabled === 'true';
+  const nativeDisabled = asChild ? undefined : isDisabled;
   const resolvedAriaBusy = loading ? true : ariaBusy;
-  const resolvedAriaDisabled = loading ? true : ariaDisabled;
-  const isDisabled =
-    disabled || loading || resolvedAriaDisabled === true || resolvedAriaDisabled === 'true';
+  const resolvedAriaDisabled = isDisabled ? true : ariaDisabled;
 
   return (
     <ark.button
@@ -55,6 +55,15 @@ const ButtonRoot = forwardRef<
       aria-busy={resolvedAriaBusy}
       aria-disabled={resolvedAriaDisabled}
       {...props}
+      onClick={(event) => {
+        if (isDisabled) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        onClick?.(event);
+      }}
       data-scope={dataScope}
       data-part={dataPart}
       data-slot={dataSlot ?? 'button-root'}

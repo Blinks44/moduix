@@ -86,7 +86,7 @@ Listbox / Listbox.Root
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
-import { Listbox } from '@moduix/react';
+import { Listbox } from '@moduix/react/listbox';
 
 const countries = createListCollection({
   items: [
@@ -131,6 +131,9 @@ results should remain visually separate or need a custom wrapper.
 - Keep `Listbox.Label` connected to `Listbox.Content`; Ark owns the ARIA listbox pattern.
 - `Listbox.Content` manages active descendant focus, keyboard navigation, Home/End, typeahead, and
   orientation-specific arrow keys.
+- Refs target the rendered Ark parts: the root and root provider render `div` elements, `Input`
+  renders an `input`, and `Content`, items, labels, and value text forward to their matching Ark
+  elements.
 - `Listbox.Filter` is a visual wrapper only. It does not own input state or filtering, so its
   optional `Listbox.ClearTrigger` must reset the external query and call the collection filter.
 - `Listbox.ClearTrigger` is semantic button content with an accessible `Clear search` label by
@@ -141,6 +144,9 @@ results should remain visually separate or need a custom wrapper.
 - Use `typeahead={false}` when a filtering input owns text entry.
 - Use Ark `useListbox()` with `Listbox.RootProvider`; do not render `Listbox.Root` for the same
   state instance.
+- `useListboxContext`, `useListboxItemContext`, `Listbox.Context`, and `Listbox.ItemContext` stay
+  available from `@moduix/react` for advanced root- and item-level composition.
+- Pass `ids` when surrounding UI needs stable root, content, label, item, or group IDs.
 - Use `asChild` only with a single semantic child that can receive the required Ark props.
 
 ## Defaults and styling
@@ -155,15 +161,15 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 - Default root width is `16rem` through `--moduix-listbox-width`.
 - `Listbox.Filter` has a default search icon. When placed immediately before `Listbox.Content`, the
   content provides the visible boundary and divider between the input and results.
-- `Listbox.Filter` deliberately has no focus treatment. Its input keeps the base border but leaves
-  its outline transparent on `:focus-visible`; the clear button uses the shared `CloseButton`
-  focus ring.
+- `Listbox.Input` and `Listbox.Content` show the shared focus ring on keyboard focus, including
+  when the input is composed inside `Listbox.Filter`.
 - `Listbox.Content` has a `14rem` default max height and scrolls long lists without blocking page scroll
   chaining.
 - `Listbox.Input` is optional and only needed for filtering scenarios. Its default border matches
   `Listbox.Content`; used directly, `:focus-visible` animates only its outline color. Inside
   `Listbox.Filter`, it keeps that border and suppresses the outline.
-- `Listbox.ItemIndicator` is hidden by Ark when the item is unchecked.
+- Moduix visually hides `Listbox.ItemIndicator` when Ark marks the item as unchecked, preserving
+  the reserved indicator space.
 - `Listbox.Content[data-layout='grid']` uses Ark's `--column-count` CSS variable.
 - Grid items collapse the indicator column and should normally show selection through the neutral
   `--moduix-listbox-grid-selected-bg` background instead of `Listbox.ItemIndicator`.
@@ -190,6 +196,8 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 ## Local changelog
 
 - 2026-07-23: Compacted empty-message block padding to `--moduix-spacing-1` to align with popup items.
+- 2026-07-28: Restored visible keyboard focus for content and unified filter inputs; added Listbox
+  regression coverage and synchronized public docs with the advanced state and item-text helpers.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Normalized group labels to the shared regular-weight popup-label contract.
 

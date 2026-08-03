@@ -1,4 +1,6 @@
-import { NumberInput, useNumberInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { NumberInput, useNumberInput } from '@moduix/react/number-input';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderNumberInputDemo() {
   const numberInput = useNumberInput({
@@ -12,14 +14,15 @@ export default function RootProviderNumberInputDemo() {
         <NumberInput.Label>Guests</NumberInput.Label>
         <NumberInput.Field />
       </NumberInput.RootProvider>
-      <div className="number-input-root-provider-actions">
-        <button type="button" onClick={() => numberInput.setToMin()}>
+      <PreviewMeta style={{ marginInline: 'auto' }}>
+        <output>Value: {numberInput.value}</output>
+        <Button type="button" size="sm" variant="outline" onClick={() => numberInput.setToMin()}>
           Min
-        </button>
-        <button type="button" onClick={() => numberInput.setToMax()}>
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => numberInput.setToMax()}>
           Max
-        </button>
-      </div>
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

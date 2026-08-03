@@ -28,6 +28,7 @@ Upstream docs:
   `readOnly`, `name`, `form`, `ids`, `thumbSize`, `onValueChange(details)`,
   `onValueChangeEnd(details)`, and `onFocusChange(details)` pass through unchanged.
 - Values are arrays. Single-thumb sliders use `[value]`, not a bare number.
+- When `defaultValue` is omitted, Ark initializes the value to `[min]` (`[0]` by default).
 - `Slider.Thumbs` renders one styled `Thumb` per value from slider context. Each `Thumb` appends
   its native form input automatically.
 - `Slider.Context`, `Slider.useSlider`, `Slider.useSliderContext`, `useSlider`, and
@@ -71,7 +72,7 @@ Externally owned state replaces `Root` with `RootProvider`.
 ## Composition
 
 ```tsx
-import { Slider } from '@moduix/react';
+import { Slider } from '@moduix/react/slider';
 
 export function VolumeSlider() {
   return (
@@ -92,8 +93,8 @@ export function VolumeSlider() {
 ## Upstream feature coverage
 
 - Official examples covered in docs/stories: basic, range, min/max, step, change events, vertical,
-  with marks, dragging indicator, context, root provider, center origin, thumb alignment, thumb
-  collision, thumb overlap, disabled, and custom styling.
+  vertical marks, dragging indicator, context, root provider, center origin, thumb alignment, thumb
+  collision, thumb overlap, disabled, invalid, read-only, form submission, and custom styling.
 - `RootProvider` accepts the return value of moduix `useSlider`.
 - Inline state reads work through moduix `useSliderContext` inside slider children.
 - Marker state, dragging indicator state, orientation, invalid, disabled, read-only, and focus
@@ -120,11 +121,12 @@ export function VolumeSlider() {
 - Ark CSS variables include `--slider-thumb-width`, `--slider-thumb-height`,
   `--slider-thumb-transform`, `--slider-range-start`, `--slider-range-end`, `--translate-x`, and
   `--translate-y`.
+- moduix adds `data-readonly` to `Root` so the default control can expose a non-interactive cursor.
 
 ## Defaults and styling
 
-- moduix supplies the rail, filled range, thumb, markers, dragging indicator, focus, dragging, and
-  disabled visuals.
+- moduix supplies the rail, filled range, thumb, markers, dragging indicator, focus, dragging,
+  disabled, invalid, and read-only visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--moduix-slider-*` variables are documented in the docs CSS properties table.
 - Focus styling uses Ark thumb `:focus-visible` for keyboard navigation and `data-dragging` while
@@ -155,6 +157,9 @@ export function VolumeSlider() {
 - Keep docs previews synchronized with `Code`, `CSS`, and `Data` tabs.
 
 ## Local changelog
+
+- 2026-07-30: Added responsive vertical-marker layout, invalid and read-only default states, native
+  form coverage, and centered self-contained docs previews.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

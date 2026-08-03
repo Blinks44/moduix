@@ -44,7 +44,7 @@
     inset: 0;
     display: grid;
     place-items: center;
-    overflow: hidden;
+    overflow: auto;
     overscroll-behavior: contain;
     padding: var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4));
   }
@@ -57,11 +57,11 @@
     width: fit-content;
     max-width: min(
       var(--moduix-lightbox-content-max-width, 80vw),
-      calc(100vw - var(--moduix-spacing-8))
+      calc(100vw - var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4)) * 2)
     );
     max-height: min(
       var(--moduix-lightbox-content-max-height, 80dvh),
-      calc(100dvh - var(--moduix-spacing-8))
+      calc(100dvh - var(--moduix-lightbox-positioner-padding, var(--moduix-spacing-4)) * 2)
     );
     border: 0;
     background: transparent;
@@ -209,7 +209,7 @@
         transform: translateY(
           var(
             --moduix-lightbox-gallery-thumbnail-active-translate-y,
-            calc(var(--moduix-border-width-sm) * -1)
+            calc(0px - var(--moduix-border-width-sm))
           )
         );
       }

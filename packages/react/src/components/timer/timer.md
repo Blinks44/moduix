@@ -40,7 +40,8 @@ Ark anatomy:
   `restart`.
 - `Timer.Item` requires `type`, matching Ark time parts such as `days`, `hours`, `minutes`,
   `seconds`, and `milliseconds`.
-- `Timer.Segments` renders standard `Timer.Item` and `Timer.Separator` composition from `types`.
+- `Timer.Segments` renders hours, minutes, and seconds by default, or standard `Timer.Item` and
+  `Timer.Separator` composition from `types`.
 - moduix re-exports `useTimer` and `useTimerContext`; `Timer.Context` provides the corresponding
   Ark context surface for normal advanced composition.
 
@@ -133,8 +134,12 @@ actions, centered root layout, tabular numeric display for `Timer.Area`, stable 
 selectors, and `Timer.Segments` for the common display shape. It does not rename Ark props, add
 hidden controls, or add state outside Ark.
 
-`Timer.Segments` accepts only `types`, `separator`, and `className`; use the exported lower-level
-parts when unit labels or per-item customization are required.
+`Timer.Segments` defaults to `hours`, `minutes`, and `seconds`, and accepts `types`, `separator`,
+and `className`; use the exported lower-level parts when unit labels or per-item customization are
+required.
+
+The root and area cap their inline size to the available container. The area wraps time parts when
+needed, while the control row already wraps actions.
 
 ## Agent notes
 
@@ -143,6 +148,8 @@ Keep future additions as explicit parts or style hooks unless Ark adds new timer
 
 ## Local changelog
 
+- 2026-07-31: Added default `Timer.Segments` units, responsive time-area wrapping, focused tests,
+  and centered docs previews with semantic interaction output.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-12: Added `Timer.Segments` and moduix-owned `useTimer`, `useTimerContext`, and
   `Timer.Context` exports for the documented advanced composition path.

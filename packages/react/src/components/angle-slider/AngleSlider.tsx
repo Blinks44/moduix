@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AngleSlider as AngleSliderPrimitive,
   useAngleSlider as useAngleSliderPrimitive,
@@ -130,10 +132,14 @@ const AngleSliderMarker = forwardRef<
   );
 });
 
-function AngleSliderMarks({
-  values,
-  ...props
-}: ComponentProps<typeof AngleSliderPrimitive.MarkerGroup> & { values: readonly number[] }) {
+type AngleSliderMarksProps = Omit<
+  ComponentProps<typeof AngleSliderPrimitive.MarkerGroup>,
+  'asChild' | 'children'
+> & {
+  values: readonly number[];
+};
+
+function AngleSliderMarks({ values, ...props }: AngleSliderMarksProps) {
   return (
     <AngleSliderMarkerGroup {...props}>
       {values.map((value) => (
@@ -143,13 +149,15 @@ function AngleSliderMarks({
   );
 }
 
-function AngleSliderDial({
-  children,
-  thumbClassName,
-  ...props
-}: ComponentProps<typeof AngleSliderPrimitive.Control> & {
+type AngleSliderDialProps = Omit<
+  ComponentProps<typeof AngleSliderPrimitive.Control>,
+  'asChild' | 'children'
+> & {
+  children?: ReactNode;
   thumbClassName?: string;
-}) {
+};
+
+function AngleSliderDial({ children, thumbClassName, ...props }: AngleSliderDialProps) {
   return (
     <AngleSliderControl {...props}>
       {children}

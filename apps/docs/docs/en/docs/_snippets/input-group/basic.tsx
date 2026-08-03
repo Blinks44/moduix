@@ -1,10 +1,11 @@
-import { Field, InputGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { InputGroup } from '@moduix/react/input-group';
 
 const workspacePrefix = '@';
 
 export default function InputGroupDemo() {
   return (
-    <Field className="input-group-demo-field">
+    <Field>
       <Field.Label>Workspace</Field.Label>
       <InputGroup>
         <InputGroup.Addon>{workspacePrefix}</InputGroup.Addon>

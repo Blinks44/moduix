@@ -19,8 +19,8 @@ registry.
 
 ## Install with shadcn when you want to own the code
 
-Use the npm package when you want package-managed updates, imports from `@moduix/react`, and styles
-from `@moduix/react/style.css`.
+Use the npm package when you want package-managed updates, component imports from
+`@moduix/react/*`, and styles from `@moduix/react/style.css`.
 
 Use the `shadcn` registry when you want the component source files inside your application. It writes
 the selected component and its required moduix styles, icons, and utilities into your project, so you
@@ -28,7 +28,7 @@ can change them directly and import them from `@/components/moduix/*`.
 
 Copy-owned components do not receive package updates automatically. When a newer moduix version is
 available, add it through `shadcn`, then review and merge the resulting diff on your terms. Follow the
-[Quick start](/docs/quick-start#install-components-into-your-project) for the one-time registry setup
+[Quick start](/docs/quick-start#install-with-the-shadcn-cli) for the one-time registry setup
 and component commands.
 
 ## Start from the documented part tree
@@ -78,7 +78,8 @@ their override points.
 Use `asChild` when a moduix part should attach its behavior to an existing semantic element.
 
 ```tsx
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 // shadcn copy-owned: import { Button } from '@/components/moduix/button';
 // shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
 
@@ -105,7 +106,8 @@ Most compositions wire their own relationships automatically. When two primitive
 same trigger or description node, share IDs instead of hand-writing aria relationships.
 
 ```tsx
-import { Avatar, Tooltip } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Tooltip } from '@moduix/react/tooltip';
 import { useId } from 'react';
 
 export function AssigneeTooltip() {
@@ -115,11 +117,10 @@ export function AssigneeTooltip() {
     <Tooltip ids={{ trigger: id }}>
       <Tooltip.Trigger asChild>
         <Avatar ids={{ root: id }}>
-          <Avatar.Image src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
-          <Avatar.Fallback name="Segun Adebayo" />
+          <Avatar.Fallback name="Sam Ortiz" />
         </Avatar>
       </Tooltip.Trigger>
-      <Tooltip.Body>Segun Adebayo is online</Tooltip.Body>
+      <Tooltip.Body>Sam Ortiz is online</Tooltip.Body>
     </Tooltip>
   );
 }
@@ -134,10 +135,10 @@ new abstractions. Re-exporting keeps the original behavior intact while giving y
 stable local API.
 
 ```tsx
-import { Dialog as DialogBase } from '@moduix/react';
+import { Dialog as DialogBase } from '@moduix/react/dialog';
 // shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
 
-export const Dialog = DialogBase.Root;
+export const Dialog = DialogBase;
 export const DialogTrigger = DialogBase.Trigger;
 export const DialogBackdrop = DialogBase.Backdrop;
 export const DialogPositioner = DialogBase.Positioner;
@@ -149,7 +150,7 @@ export const DialogCloseTrigger = DialogBase.CloseTrigger;
 
 This is the lowest-risk customization path:
 
-- consumers import from your product layer instead of directly from `@moduix/react` or
+- consumers import from your product layer instead of directly from `@moduix/react/*` or
   `@/components/moduix/*`
 - Ark behavior stays untouched
 - moving from package usage to copy-owned usage stays straightforward
@@ -164,56 +165,15 @@ styling. Keep the structure visible, and forward the rest of the props unchanged
   <Tabs values={[{ label: 'Code', value: 'Code' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Code">
 
-```tsx
-import type { DialogBackdropProps, DialogContentProps } from '@ark-ui/react/dialog';
-import { clsx } from 'clsx';
-import { Dialog as DialogBase } from '@moduix/react';
-// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
-import styles from './ProductDialog.module.css';
+```tsx file="./_snippets/composition-patterns/product-dialog.tsx"
 
-export const Dialog = DialogBase.Root;
-export const DialogTrigger = DialogBase.Trigger;
-export const DialogPositioner = DialogBase.Positioner;
-
-export function DialogContent({ className, ...props }: DialogContentProps) {
-  return <DialogBase.Content className={clsx(styles.content, className)} {...props} />;
-}
-
-export function DialogBackdrop({ className, ...props }: DialogBackdropProps) {
-  return <DialogBase.Backdrop className={clsx(styles.backdrop, className)} {...props} />;
-}
-
-export function DeleteProjectDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger>Delete project</DialogTrigger>
-      <DialogBackdrop />
-      <DialogPositioner>
-        <DialogContent>
-          <h2>Delete this project?</h2>
-          <p>This cannot be undone.</p>
-        </DialogContent>
-      </DialogPositioner>
-    </Dialog>
-  );
-}
 ```
 
     </Tab>
     <Tab value="Styles">
 
-```css
-.backdrop {
-  background: color-mix(in srgb, var(--color-black) 56%, transparent);
-  backdrop-filter: blur(var(--product-dialog-backdrop-blur, 0.375rem));
-}
+```css file="./_snippets/composition-patterns/product-dialog.module.css"
 
-.content {
-  border: var(--product-dialog-border-width, var(--moduix-border-width-sm)) solid
-    var(--moduix-border-color-subtle);
-  border-radius: var(--product-dialog-radius, var(--moduix-radius-xl));
-  box-shadow: var(--product-dialog-shadow, var(--moduix-shadow-lg));
-}
 ```
 
     </Tab>
@@ -223,6 +183,10 @@ export function DeleteProjectDialog() {
 
 Keep the structure visible and forward behavior unchanged. If a wrapper only renames the part and
 adds a class, that is usually enough.
+
+Before shipping a wrapper, confirm that it still forwards the ref, `className`, event handlers,
+`asChild`, Ark callback detail objects, and accessibility attributes accepted by the original part.
+Do not replace a native button, label, or input with a generic element for styling convenience.
 
 ## Move state outside the tree only when ownership changes
 
@@ -236,7 +200,7 @@ Use component state helpers only when state needs to live outside the rendered s
 - `useComponent()` plus `Component.RootProvider` when state is created outside the rendered tree
 
 ```tsx
-import { Dialog, useDialog } from '@moduix/react';
+import { Dialog, useDialog } from '@moduix/react/dialog';
 
 export function DialogFromExternalState() {
   const dialog = useDialog();

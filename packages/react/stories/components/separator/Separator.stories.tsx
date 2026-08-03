@@ -86,7 +86,7 @@ export const AsChild: Story = {
       <div className={styles.section}>
         <span className={styles.link}>Native host</span>
         <Separator asChild>
-          <hr className={styles.nativeRule} />
+          <hr />
         </Separator>
         <span className={styles.link}>Still styled by moduix hooks</span>
       </div>

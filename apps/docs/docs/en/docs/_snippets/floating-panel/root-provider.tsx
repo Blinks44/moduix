@@ -1,4 +1,6 @@
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderFloatingPanelDemo() {
   const panel = FloatingPanel.useFloatingPanel({
@@ -10,13 +12,6 @@ export default function RootProviderFloatingPanelDemo() {
   });
   return (
     <>
-      <Button onClick={() => panel.setOpen(true)}>Open via API</Button>
-      <Button variant="outline" onClick={() => panel.maximize()}>
-        Maximize
-      </Button>
-      <Button variant="outline" onClick={() => panel.minimize()}>
-        Minimize
-      </Button>
       <FloatingPanel.RootProvider value={panel}>
         <FloatingPanel.Positioner>
           <FloatingPanel.Content>
@@ -41,6 +36,15 @@ export default function RootProviderFloatingPanelDemo() {
           </FloatingPanel.Content>
         </FloatingPanel.Positioner>
       </FloatingPanel.RootProvider>
+      <PreviewMeta>
+        <Button onClick={() => panel.setOpen(true)}>Open via API</Button>
+        <Button variant="outline" onClick={() => panel.maximize()}>
+          Maximize
+        </Button>
+        <Button variant="outline" onClick={() => panel.minimize()}>
+          Minimize
+        </Button>
+      </PreviewMeta>
     </>
   );
 }

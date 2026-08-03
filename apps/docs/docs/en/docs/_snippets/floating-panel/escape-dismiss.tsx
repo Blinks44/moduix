@@ -1,4 +1,5 @@
-import { Button, FloatingPanel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { FloatingPanel } from '@moduix/react/floating-panel';
 
 export default function EscapeDismissFloatingPanelDemo() {
   return (

@@ -106,9 +106,18 @@
       background-color var(--moduix-transition-default),
       color var(--moduix-transition-default);
 
-    @media (hover: hover) {
-      &:hover {
-        background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent));
+    &:not(:is([disabled], [data-disabled])) {
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent));
+        }
+      }
+
+      &:active {
+        background-color: var(
+          --moduix-accordion-trigger-bg-active,
+          var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent))
+        );
       }
     }
 

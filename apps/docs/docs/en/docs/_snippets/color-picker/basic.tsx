@@ -1,4 +1,4 @@
-import { ColorPicker, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316'];
 

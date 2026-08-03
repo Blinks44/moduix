@@ -95,6 +95,24 @@ export const IgnorePasswordManager: Story = {
   ),
 };
 
+export const Disabled: Story = {
+  render: () => (
+    <PasswordInput disabled>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Field />
+    </PasswordInput>
+  ),
+};
+
+export const ReadOnly: Story = {
+  render: () => (
+    <PasswordInput readOnly>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Field />
+    </PasswordInput>
+  ),
+};
+
 export const RootProvider: Story = {
   render: function RootProviderStory() {
     const passwordInput = usePasswordInput();

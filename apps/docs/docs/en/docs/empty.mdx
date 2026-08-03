@@ -21,7 +21,7 @@ Start with the callable `<Empty />` root and namespaced parts. Add `Empty.Icon` 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/basic.tsx"
 
-````
+  ```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -37,7 +37,7 @@ Empty
 │  ├─ Empty.Title
 │  └─ Empty.Description
 └─ Empty.Actions (optional)
-````
+```
 
 | Part                   | Role                                                               |
 | ---------------------- | ------------------------------------------------------------------ |
@@ -88,7 +88,11 @@ with normal component composition:
   single semantic child.
 - Parts render `data-scope="empty"` and matching `data-part` attributes for Ark-style styling,
   plus stable `data-slot="empty-*"` hooks for moduix overrides.
-- `Empty.Actions` centers and wraps its children, so paired actions stay readable in narrow layouts.
+- `Empty.Actions` centers and wraps its children, so paired actions and long direct button or link
+  labels stay readable in narrow layouts.
+- `Empty` is presentational: choose a surrounding landmark, `role`, or live-region behavior only
+  when the screen context needs one. Keep decorative icons hidden from assistive technology; give
+  meaningful icons an accessible name.
 
 ## Examples
 
@@ -97,9 +101,9 @@ with normal component composition:
 Omit `Empty.Actions` when the state is only informational.
 
 <PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/empty/without-actions.tsx"
+  ```tsx preview file="./_snippets/empty/without-actions.tsx"
 
-````
+  ```
 
 </PreviewFrame>
 
@@ -110,7 +114,7 @@ The visual slot is optional, so plain text-only empty states stay simple.
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/without-icon.tsx"
 
-````
+  ```
 
 </PreviewFrame>
 
@@ -120,9 +124,9 @@ Use `Empty.Title asChild` when the surrounding page needs a different heading le
 accepts normal block markup, so richer copy remains semantic without a separate configuration API.
 
 <PreviewFrame maxWidth="lg">
-```tsx preview file="./_snippets/empty/advanced-customization.tsx"
+  ```tsx preview file="./_snippets/empty/advanced-customization.tsx"
 
-```
+  ```
 
 </PreviewFrame>
 
@@ -159,4 +163,3 @@ Target the part that owns the visual concern:
   `[data-scope="empty"][data-part="description"]` for typography
 - `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` for action row spacing
   and alignment
-```

@@ -1,5 +1,7 @@
-import { Button, QrCode } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { QrCode } from '@moduix/react/qr-code';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const errorLevels = ['L', 'M', 'Q', 'H'] as const;
 
@@ -8,7 +10,13 @@ type ErrorLevel = 'L' | 'M' | 'Q' | 'H';
 export default function ErrorCorrectionQrCodeDemo() {
   const [errorLevel, setErrorLevel] = useState('L' as ErrorLevel);
   return (
-    <div className="qr-code-stack">
+    <div
+      style={{
+        display: 'grid',
+        gap: 'var(--moduix-spacing-3)',
+        justifyItems: 'center',
+      }}
+    >
       <QrCode
         defaultValue="https://moduix.dev/docs/qr-code"
         encoding={{
@@ -19,7 +27,8 @@ export default function ErrorCorrectionQrCodeDemo() {
           <QrCode.Pattern />
         </QrCode.Frame>
       </QrCode>
-      <div className="qr-code-actions">
+      <PreviewMeta style={{ justifySelf: 'center' }}>
+        <output>Error correction: {errorLevel}</output>
         {errorLevels.map((level) => (
           <Button
             key={level}
@@ -30,7 +39,7 @@ export default function ErrorCorrectionQrCodeDemo() {
             {level}
           </Button>
         ))}
-      </div>
+      </PreviewMeta>
     </div>
   );
 }

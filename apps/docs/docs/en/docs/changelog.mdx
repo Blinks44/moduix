@@ -7,6 +7,40 @@ import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 
 <V2MigrationHero />
 
+## v2.2.3 — July 24, 2026
+
+- Fixed Next.js App Router compatibility for copy-owned components that use local client APIs.
+- Fixed the Menu arrow so it stays visible and connects cleanly to the popup border.
+
+These fixes affect registry-installed source as well as package users. If you own copied files,
+review the update with `npx shadcn@latest add <item> --diff` before applying it.
+
+## v2.2.2 — July 24, 2026
+
+- Reorganized package source and dependency paths so shadcn CLI output remains self-contained.
+- Kept the public component API unchanged.
+
+## v2.2.1 — July 23, 2026
+
+- Added the Drawer `island` content variant for detached, edge-inset drawers.
+- Kept the Drawer backdrop visible while dragging between snap points.
+- Added a non-runtime Ark UI variable-reference stylesheet for repository IDE tooling.
+
+## v2.2.0 — July 22, 2026
+
+- Namespaced public CSS tokens under `--moduix-*`.
+- Namespaced cascade layers under `moduix.*`.
+
+If application CSS overrides an older unprefixed moduix token, rename that override to its
+`--moduix-*` equivalent. Ark UI runtime variables such as `--height` and `--transform-origin`
+remain unprefixed because Ark writes them directly to component parts.
+
+## v2.1.0 — July 21, 2026
+
+- Standardized primary controls around the medium size scale and popup rows around the small scale.
+- Refined focus treatments, popup density, Select composition, and theming tokens.
+- Added the Typeset component and the Calm, Dense, Soft, and Contrast theme presets.
+
 ## v2.0.0 — July 19, 2026
 
 moduix v2 moves the React component foundation from Base UI to Ark UI. This is an intentional major
@@ -58,7 +92,7 @@ path.
 
    ```tsx
    import { Check as CheckIcon } from 'lucide-react';
-   import { Toggle } from '@moduix/react';
+   import { Toggle } from '@moduix/react/toggle';
    ```
 
 4. For copy-owned components, inspect changes before updating and merge the result into your source:
@@ -79,7 +113,8 @@ For the permanent package and copy-owned update flow, see [Updating and migratio
 ## Version and support policy
 
 moduix follows Semantic Versioning. Major releases may include breaking changes; minor releases add
-backwards-compatible features; patch releases contain backwards-compatible fixes.
+backward-compatible features; patch releases contain backward-compatible fixes.
 
-The latest major is actively supported. v2 supports React 18 and 19 with Ark UI v5. For each major
-release, this page records affected APIs, migration steps, and package or registry implications.
+The latest major is actively supported. v2 supports React 18 and 19, and moduix keeps its Ark UI
+integration aligned with current releases. For each major release, this page records affected APIs,
+migration steps, and package or registry implications.

@@ -1,1 +1,1 @@
-export { SimpleGrid } from './SimpleGrid';
+export { SimpleGrid } from './SimpleGrid.js';

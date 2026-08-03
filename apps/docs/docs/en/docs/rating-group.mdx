@@ -16,9 +16,11 @@ Use the short root form with `RatingGroup.Label`, `RatingGroup.Control`, and `Ra
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/basic.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/basic.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -36,7 +38,7 @@ RatingGroup.Root
    ├─ RatingGroup.Context (advanced, optional)
    │  └─ RatingGroup.Item[index]
    │     └─ RatingGroup.ItemIndicator
-   └─ the native form input (advanced custom item tree)
+   └─ the native form input (automatic)
 
 RatingGroup.RootProvider
 └─ same part tree connected to a moduix useRatingGroup() store
@@ -99,9 +101,11 @@ Use controlled mode when the selected score drives surrounding UI or must be res
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/controlled.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/controlled.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Custom Icon
 
@@ -111,9 +115,11 @@ for styling.
 
 <style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
 
-```tsx preview file="./_snippets/rating-group/custom-icon.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/custom-icon.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Disabled and Readonly
 
@@ -122,31 +128,38 @@ changes.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/disabled-and-readonly.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/disabled-and-readonly.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Field
 
-Use `Field` around the rating group when helper text, error text, required, disabled, or invalid
-state should be shared with form copy.
+Use `Field` around the rating group when helper or error text should be associated with its automatic
+input. Ark inherits `disabled`, `readOnly`, and `required` from the field; validation state remains
+owned by `Field` and application code.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/field.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/field.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Forms
 
-Pass `name` when the selected value should be included in `FormData`; `RatingGroup.Items` renders
-the synchronized input.
+Pass `name` when the selected value should be included in `FormData`; the root renders the
+synchronized input automatically.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/forms.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/forms.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Half Rating
 
@@ -154,9 +167,11 @@ Set `allowHalf` when the rating should support half-step selection and display.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/half-rating.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/half-rating.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ### Sizes
 
@@ -164,21 +179,25 @@ Use the moduix `size` prop when the same Ark rating behavior needs to fit a diff
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/sizes.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/sizes.tsx"
 
-```
+  ```
+</PreviewFrame>
 
-### Advanced Customization
+### Advanced Composition
 
 Use `RatingGroup.RootProvider` with moduix `useRatingGroup()` when state must be created outside the
-rendered subtree. This bypasses the normal root state setup while keeping the convenient
-`RatingGroup.Items` renderer.
+rendered subtree. Use `RatingGroup.Context` when the generated `RatingGroup.Items` path needs a
+manual item tree.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
 
-```tsx preview file="./_snippets/rating-group/advanced-customization.tsx"
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/rating-group/advanced-customization.tsx"
 
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 

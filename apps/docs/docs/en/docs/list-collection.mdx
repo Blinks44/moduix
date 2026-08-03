@@ -5,7 +5,7 @@ description: Create and manage array-backed collections for Select, Combobox, Li
 
 # List Collection
 
-## API Reference
+## API reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
 
@@ -36,28 +36,15 @@ const collection = createListCollection({
 
 Pass the same collection object to the component and render its items:
 
-```tsx
-import { Select } from '@moduix/react';
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/select/basic.tsx"
+  ```
 
-<Select collection={collection}>
-  <Select.Control>
-    <Select.Trigger>
-      <Select.ValueText placeholder="Choose a team" />
-      <Select.Indicator />
-    </Select.Trigger>
-  </Select.Control>
-  <Select.Positioner>
-    <Select.Content>
-      {collection.items.map((item) => (
-        <Select.Item key={item.value} item={item}>
-          <Select.ItemText>{item.label}</Select.ItemText>
-          <Select.ItemIndicator />
-        </Select.Item>
-      ))}
-    </Select.Content>
-  </Select.Positioner>
-</Select>;
-```
+</PreviewFrame>
+
+Keep a static collection outside the component when its items do not change. If items come from
+props, state, or a request, memoize the collection or use `useListCollection` so the collection
+identity changes only when the data changes.
 
 ## Custom item shapes
 
@@ -96,6 +83,10 @@ boundary when necessary.
 | `groupSort`      | Sorts group keys with a comparator, explicit order, `'asc'`, or `'desc'`. |
 
 ## Read and query
+
+The sections below are reference material. Most Select and Combobox features need only `items`,
+`find`, `stringify`, and the item mapping options above; reach for traversal and mutation APIs when
+your product interaction actually requires them.
 
 | API                                 | Result                                                         |
 | ----------------------------------- | -------------------------------------------------------------- |

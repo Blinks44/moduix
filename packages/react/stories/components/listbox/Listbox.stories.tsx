@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Listbox, useListbox } from '../../../src/components/listbox/Listbox';
+import { Listbox, useListbox, useListboxContext } from '../../../src/components/listbox/Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {
@@ -211,6 +211,17 @@ export const Multiple: Story = {
   ),
 };
 
+export const Extended: Story = {
+  render: () => (
+    <Listbox collection={days} selectionMode="extended">
+      <Listbox.Label>Hold Cmd or Ctrl to select multiple</Listbox.Label>
+      <Listbox.Content>
+        <OptionItems collection={days} />
+      </Listbox.Content>
+    </Listbox>
+  ),
+};
+
 export const Grouped: Story = {
   render: () => (
     <Listbox collection={regions}>
@@ -327,6 +338,58 @@ export const Grid: Story = {
       </Listbox.Content>
     </Listbox>
   ),
+};
+
+export const ItemContext: Story = {
+  render: () => (
+    <Listbox collection={countries} defaultValue={['ca']}>
+      <Listbox.Label>Styled country</Listbox.Label>
+      <Listbox.Content>
+        {countries.items.map((item) => (
+          <Listbox.Item key={item.value} item={item}>
+            <Listbox.ItemContext>
+              {(itemContext) => (
+                <Listbox.ItemText>
+                  {itemContext.selected ? `${item.label} (selected)` : item.label}
+                </Listbox.ItemText>
+              )}
+            </Listbox.ItemContext>
+            <Listbox.ItemIndicator />
+          </Listbox.Item>
+        ))}
+      </Listbox.Content>
+    </Listbox>
+  ),
+};
+
+export const SelectAll: Story = {
+  render: () => {
+    function SelectAllTrigger() {
+      const listbox = useListboxContext();
+      const allValues = days.items.map((item) => item.value);
+      const allSelected = listbox.value.length === allValues.length;
+
+      return (
+        <button
+          className={styles.button}
+          type="button"
+          onClick={() => listbox.setValue(allSelected ? [] : allValues)}
+        >
+          {allSelected ? 'Clear all' : 'Select all'}
+        </button>
+      );
+    }
+
+    return (
+      <Listbox collection={days} selectionMode="multiple">
+        <Listbox.Label>Select days</Listbox.Label>
+        <Listbox.Content>
+          <OptionItems collection={days} />
+        </Listbox.Content>
+        <SelectAllTrigger />
+      </Listbox>
+    );
+  },
 };
 
 export const CustomStyling: Story = {

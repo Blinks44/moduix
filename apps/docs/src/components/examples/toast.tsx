@@ -1,20 +1,5 @@
-import type { ToastPlacement } from '@ark-ui/react/toast';
-import { Button, Toaster, createToaster } from '@moduix/react';
-import { useState } from 'react';
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
-import styles from './toast.module.css';
-type ToastToaster = ReturnType<typeof createToaster>;
-const maxToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16, max: 3 });
-const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const;
-const placementToasters: Record<ToastPlacement, ToastToaster> = {
-  'top-start': createToaster({ placement: 'top-start', overlap: true, gap: 16 }),
-  top: createToaster({ placement: 'top', overlap: true, gap: 16 }),
-  'top-end': createToaster({ placement: 'top-end', overlap: true, gap: 16 }),
-  'bottom-start': createToaster({ placement: 'bottom-start', overlap: true, gap: 16 }),
-  bottom: createToaster({ placement: 'bottom', overlap: true, gap: 16 }),
-  'bottom-end': createToaster({ placement: 'bottom-end', overlap: true, gap: 16 }),
-};
 
 const toastOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-toast-action-bg', 'transparent', 'Controls action button background.'],
@@ -191,21 +176,14 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
 ];
 
 export const toastExampleCss = `
-.toast-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
+.toast-preview-stack {
+  display: grid;
+  gap: var(--moduix-spacing-3);
+  justify-items: center;
 }
 
-.toast-custom {
-  --moduix-toast-bg: var(--moduix-color-primary);
-  --moduix-toast-color: var(--moduix-color-primary-foreground);
-  --moduix-toast-border-color: var(--moduix-color-primary);
-  --moduix-toast-description-color: color-mix(in srgb, var(--moduix-color-primary-foreground) 72%, transparent);
-  --moduix-toast-close-color: var(--moduix-color-primary-foreground);
-  --moduix-toast-close-color-hover: var(--moduix-color-primary-foreground);
-  --moduix-toast-close-bg-hover: color-mix(in srgb, var(--moduix-color-primary-foreground) 14%, transparent);
+.toast-preview-stack > [data-preview-meta] {
+  justify-self: center;
 }
 `;
 
@@ -215,83 +193,6 @@ export function ToastCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
       properties={toastOverrideCssProperties.map(normalizeCssProperty)}
     />
   );
-}
-
-export function MaxToastsToastExample() {
-  return (
-    <>
-      <div className={styles.typedActions}>
-        <Button
-          onClick={() =>
-            maxToaster.info({
-              title: 'New notification',
-              description: 'You have a new message in your inbox.',
-            })
-          }
-        >
-          Add notification
-        </Button>
-        <Button
-          onClick={() => {
-            [
-              'John liked your post',
-              'Sarah commented on your photo',
-              'New follower: @designpro',
-              'Your post was shared 10 times',
-              'Meeting reminder in 15 minutes',
-            ].forEach((description) => {
-              maxToaster.info({ title: 'Notification', description });
-            });
-          }}
-        >
-          Add 5 notifications
-        </Button>
-      </div>
-      <ToastRenderer toaster={maxToaster} />
-    </>
-  );
-}
-
-export function PlacementToastExample() {
-  const [placement, setPlacement] = useState<ToastPlacement>('bottom-end');
-  const toaster = placementToasters[placement];
-
-  return (
-    <>
-      <div className={styles.stack}>
-        <div className={styles.segmented}>
-          {placements.map((item) => (
-            <button
-              key={item}
-              type="button"
-              className={styles.segment}
-              data-active={item === placement || undefined}
-              onClick={() => setPlacement(item)}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <Button
-          onClick={() =>
-            toaster.info({
-              title: 'Notification',
-              description: `This toast appears at ${placement}.`,
-            })
-          }
-        >
-          Show {placement}
-        </Button>
-      </div>
-      {placements.map((item) => (
-        <ToastRenderer key={item} toaster={placementToasters[item]} />
-      ))}
-    </>
-  );
-}
-
-function ToastRenderer({ toaster }: { toaster: ToastToaster }) {
-  return <Toaster toaster={toaster} />;
 }
 
 function normalizeCssProperty(property: CssPropertyInput) {

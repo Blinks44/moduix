@@ -1,19 +1,20 @@
-import { ProgressLinear, Slider } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
+import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
 
 export default function ControlledProgressLinearDemo() {
   const [value, setValue] = useState(45);
+
   return (
-    <div className="progress-linear-stack">
+    <>
       <ProgressLinear value={value} onValueChange={(details) => setValue(details.value ?? 0)}>
         <ProgressLinear.Label>Upload status</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Upload status">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
       <Slider
-        className="progress-linear-slider"
         min={0}
         max={100}
         value={[value]}
@@ -28,6 +29,6 @@ export default function ControlledProgressLinearDemo() {
           <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
         </Slider.Control>
       </Slider>
-    </div>
+    </>
   );
 }

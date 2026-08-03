@@ -1,4 +1,5 @@
-import { SignaturePad, useSignaturePad } from '@moduix/react';
+import { SignaturePad, useSignaturePad } from '@moduix/react/signature-pad';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const signaturePadTranslations = {
   control: 'Signature drawing area',
@@ -15,7 +16,9 @@ export default function RootProviderSignaturePadDemo() {
         <SignaturePad.Label>Sign below</SignaturePad.Label>
         <SignaturePad.Canvas />
       </SignaturePad.RootProvider>
-      <output className="signature-pad-status">Paths: {signaturePad.paths.length}</output>
+      <PreviewMeta>
+        <output>Paths: {signaturePad.paths.length}</output>
+      </PreviewMeta>
     </div>
   );
 }

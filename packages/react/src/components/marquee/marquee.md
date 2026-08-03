@@ -3,6 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/marquee
+- Chakra UI: https://chakra-ui.com/docs/components/marquee
 - Zag API: https://zagjs.com/api/mdx/components/react/marquee
 
 ## Purpose
@@ -24,7 +25,7 @@ Ark CSS variables.
 content, items, or edge fades automatically. Consumers compose the Ark tree explicitly:
 
 ```tsx
-import { Marquee } from '@moduix/react';
+import { Marquee } from '@moduix/react/marquee';
 
 export function Example() {
   return (
@@ -40,8 +41,8 @@ export function Example() {
 }
 ```
 
-The package exports `Marquee`, its visible parts, and `useMarquee`. Context access remains available
-directly from `@ark-ui/react/marquee` as an escape hatch.
+The package exports `Marquee`, `useMarquee`, and `useMarqueeContext`. `Marquee.Context` is available
+for advanced composition alongside the visible parts.
 
 ## Anatomy and exported parts
 
@@ -62,13 +63,17 @@ Marquee / Marquee.Root
 | `Marquee.Content`          | `marquee-content`       | Animated content wrapper and cloned content host.       |
 | `Marquee.Item`             | `marquee-item`          | Individual marquee item.                                |
 | `Marquee.Edge`             | `marquee-edge`          | Optional fade overlay. Requires `side`.                 |
+| `Marquee.Context`          | -                       | Advanced context consumer for the enclosing marquee.    |
+| `useMarquee`               | -                       | Creates state for `Marquee.RootProvider`.               |
+| `useMarqueeContext`        | -                       | Reads state from the enclosing marquee.                 |
 
 No flat part aliases such as `MarqueeRoot` or `MarqueeViewport` are exported.
 
 ## Composition
 
 Use `pauseOnInteraction` for readable or interactive content, `autoFill` when the item set is
-shorter than the viewport, and `side="top" | "bottom"` for vertical marquees.
+shorter than the viewport, and `side="top" | "bottom"` for vertical marquees. Wrap right-to-left
+content in moduix `LocaleProvider` with an RTL locale so Ark applies the direction to every part.
 
 ```tsx
 <Marquee aria-label="Partner logos" autoFill pauseOnInteraction spacing="2rem">
@@ -150,6 +155,9 @@ initial uncontrolled state. Refs forward to the actual Ark DOM part for every wr
 There is no roving focus or arrow-key navigation. When `pauseOnInteraction` is enabled, focus pauses
 the marquee and blur resumes it.
 
+When `prefers-reduced-motion: reduce` is active, moduix disables the content animation while keeping
+the marquee content available.
+
 ## Defaults and styling
 
 Moduix adds default classes, `data-slot` hooks, CSS variables, edge fade styles, reduced-motion
@@ -165,9 +173,11 @@ Primary CSS variables:
 | `--moduix-marquee-height`          | `auto`                                |
 | `--moduix-marquee-vertical-height` | `var(--moduix-marquee-height, 15rem)` |
 | `--moduix-marquee-color`           | `var(--moduix-color-foreground)`      |
-| `--moduix-marquee-edge-size`       | `20%`                                 |
-| `--moduix-marquee-edge-color`      | `var(--moduix-color-background)`      |
+| `--moduix-marquee-edge-size`       | `var(--marquee-edge-size)`            |
+| `--moduix-marquee-edge-color`      | `var(--marquee-edge-color)`           |
 | `--moduix-marquee-edge-z-index`    | `1`                                   |
+| `--marquee-edge-color`             | `var(--moduix-color-background)`      |
+| `--marquee-edge-size`              | `20%`                                 |
 | `--marquee-delay`                  | from `delay` (`0s`)                   |
 | `--marquee-duration`               | from content size + `speed` (`50`)    |
 | `--marquee-loop-count`             | from `loopCount` (`0` = infinite)     |
@@ -176,7 +186,8 @@ Primary CSS variables:
 
 The CSS applies `marquee-x` for inline scrolling and `marquee-y` for vertical scrolling. It pauses
 content animation when Ark sets `data-paused` on the root and disables animation for
-`prefers-reduced-motion: reduce`.
+`prefers-reduced-motion: reduce`. The `--moduix-marquee-edge-*` variables override their
+Chakra-compatible `--marquee-edge-*` aliases.
 
 ## Intentional sugar and differences from upstream
 
@@ -193,15 +204,15 @@ content animation when Ark sets `data-paused` on the root and disables animation
 - Keep the wrapper thin. Do not add automatic structural rendering for viewport/content/items.
 - Keep keyframe names local to the CSS module and tied to Ark `--marquee-translate`.
 - Keep pause callbacks and controlled state detail objects in Ark's original shape.
-- Keep `useMarquee` available from moduix for `RootProvider` composition. Advanced context APIs stay
-  direct Ark escape hatches.
+- Keep `useMarquee`, `useMarqueeContext`, and `Marquee.Context` available for Ark-shaped advanced
+  composition.
 
 ## Local changelog
 
 - 2026-07-10: Re-exported `useMarquee` from moduix so `RootProvider` examples stay within the public
   package surface.
-- 2026-07-03: Removed Ark hook, context, and duplicate type re-exports from the moduix surface.
-  Kept `RootProvider`, the callable root, visible parts, and edge fade sugar.
+- 2026-07-29: Clarified the public context API, documented reduced-motion behavior, and added Chakra
+  edge-variable fallbacks.
 - 2026-06-22: Added `Marquee` as an Ark UI-backed component with root shortcut, provider/context
   support, required animation CSS, edge fade styling, stories, local docs, public exports, docs
   examples, and registry metadata.

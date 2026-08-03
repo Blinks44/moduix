@@ -1,4 +1,6 @@
-import { Button, Dialog, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 
 export default function OpenFromMenuDialogDemo() {
@@ -33,7 +35,7 @@ export default function OpenFromMenuDialogDemo() {
               <Dialog.CloseTrigger asChild>
                 <Button variant="outline">Cancel</Button>
               </Dialog.CloseTrigger>
-              <Button>Delete</Button>
+              <Button onClick={() => setOpen(false)}>Delete</Button>
             </Dialog.Footer>
           </Dialog.Content>
         </Dialog.Positioner>

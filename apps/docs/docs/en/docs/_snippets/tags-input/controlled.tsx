@@ -1,4 +1,4 @@
-import { TagsInput } from '@moduix/react';
+import { TagsInput } from '@moduix/react/tags-input';
 import { useState } from 'react';
 
 export default function ControlledTagsInput() {

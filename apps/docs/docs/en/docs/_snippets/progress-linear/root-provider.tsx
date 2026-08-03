@@ -1,4 +1,4 @@
-import { ProgressLinear } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
 
 export default function RootProviderProgressLinearDemo() {
   const progress = ProgressLinear.useProgress({
@@ -8,7 +8,7 @@ export default function RootProviderProgressLinearDemo() {
     <ProgressLinear.RootProvider value={progress}>
       <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Team rollout">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear.RootProvider>

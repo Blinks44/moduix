@@ -1,1 +1,1 @@
-export { ImageCropper, useImageCropper, useImageCropperContext } from './ImageCropper';
+export { ImageCropper, useImageCropper, useImageCropperContext } from './ImageCropper.js';

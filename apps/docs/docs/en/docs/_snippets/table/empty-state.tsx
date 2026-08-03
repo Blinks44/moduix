@@ -1,11 +1,10 @@
-import { Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { Table } from '@moduix/react/table';
 
 const columnCount = 4;
 
 export default function EmptyStateTableDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
+    <Table.ScrollArea>
       <Table>
         <Table.Caption side="top">Projects filtered by the current workspace query.</Table.Caption>
         <Table.Header>

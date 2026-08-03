@@ -1,1 +1,1 @@
-export * from './CommandPalette';
+export * from './CommandPalette.js';

@@ -36,8 +36,4 @@
     --moduix-separator-thickness: 2px;
     --moduix-separator-length-horizontal: 8rem;
   }
-
-  .nativeRule {
-    margin: 0;
-  }
 }

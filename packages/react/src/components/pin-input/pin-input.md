@@ -23,7 +23,8 @@ checked against the installed Ark UI 5.37.2 props and examples.
 `PinInput` is the short root form and is equivalent to `PinInput.Root`. It accepts Ark root props:
 `count`, `value`, `defaultValue`, `type`, `pattern`, `placeholder`, `otp`, `mask`,
 `blurOnComplete`, `selectOnFocus`, `onValueChange(details)`, `onValueComplete(details)`, and
-`onValueInvalid(details)`.
+`onValueInvalid(details)`. Its internal native form input keeps uncontrolled values synchronized
+with native form resets.
 
 moduix overrides Ark's default placeholder behavior by using an empty placeholder string unless the
 consumer passes `placeholder` explicitly.
@@ -53,7 +54,7 @@ consumer passes `placeholder` explicitly.
 ## Composition
 
 ```tsx
-import { PinInput } from '@moduix/react';
+import { PinInput } from '@moduix/react/pin-input';
 
 export function VerificationCodeField() {
   return (
@@ -96,7 +97,7 @@ State callbacks keep Ark detail shapes:
 Each PIN cell is square and defaults to `--moduix-size-md`; `--moduix-pin-input-input-size` remains the shared override.
 
 Styling targets Ark `data-scope="pin-input"` / `data-part` attributes plus stable moduix
-`data-slot` hooks. Public CSS variables are `--moduix-pin-input-*` and live in `theme.css`.
+`data-slot` hooks. Public CSS variables are `--moduix-pin-input-*` and live in `variables-moduix.css`.
 
 Important hooks:
 
@@ -127,6 +128,8 @@ Important hooks:
 - When adding grouped layouts, input indexes must stay continuous across separators.
 
 ## Local changelog
+
+- 2026-07-29: Synced uncontrolled PinInput state with native form resets and added focused regression coverage for form participation, paste, Field state, RootProvider, and `asChild`.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default square PIN cells to `--moduix-size-md`.

@@ -1,5 +1,5 @@
-import { Badge, Table } from '@moduix/react';
-import styles from '@/components/examples/table.module.css';
+import { Badge } from '@moduix/react/badge';
+import { Table } from '@moduix/react/table';
 
 const invoices = [
   {
@@ -30,8 +30,8 @@ const invoices = [
 
 export default function TableDemo() {
   return (
-    <Table.ScrollArea className={styles.showcase}>
-      <Table className={styles.table}>
+    <Table.ScrollArea>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Invoice</Table.ColumnHeader>
@@ -43,7 +43,7 @@ export default function TableDemo() {
         <Table.Body>
           {invoices.map((invoice) => (
             <Table.Row key={invoice.id}>
-              <Table.Cell className={styles.code}>{invoice.id}</Table.Cell>
+              <Table.Cell>{invoice.id}</Table.Cell>
               <Table.Cell>
                 <Badge variant={invoice.status === 'Paid' ? 'secondary' : 'outline'}>
                   {invoice.status}

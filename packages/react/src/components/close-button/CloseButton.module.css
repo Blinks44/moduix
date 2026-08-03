@@ -20,7 +20,9 @@
     transition:
       background-color var(--moduix-close-button-transition, var(--moduix-transition-default)),
       color var(--moduix-close-button-transition, var(--moduix-transition-default)),
-      opacity var(--moduix-close-button-transition, var(--moduix-transition-default));
+      opacity var(--moduix-close-button-transition, var(--moduix-transition-default)),
+      translate var(--moduix-close-button-transition, var(--moduix-transition-default)),
+      scale var(--moduix-close-button-transition, var(--moduix-transition-default));
 
     & > svg {
       flex-shrink: 0;
@@ -42,6 +44,17 @@
         )
         solid var(--moduix-close-button-focus-ring-color, var(--moduix-color-ring));
       outline-offset: var(--moduix-close-button-focus-ring-offset, var(--moduix-focus-ring-offset));
+    }
+
+    &:active:not([data-disabled]) {
+      opacity: 0.94;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      &:active:not([data-disabled]) {
+        translate: 0 1px;
+        scale: 0.985;
+      }
     }
 
     &[data-disabled] {

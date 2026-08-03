@@ -1,7 +1,9 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Select } from '@moduix/react/select';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const themes = createListCollection({
   items: [
@@ -20,7 +22,7 @@ export default function NativeFormControlSelectDemo() {
   };
 
   return (
-    <form className="select-form" onSubmit={handleSubmit}>
+    <form className="select-preview-stack" onSubmit={handleSubmit}>
       <Select collection={themes} name="theme" nativeFormControl="input" required>
         <Select.Label>Theme</Select.Label>
         <Select.Control>
@@ -41,10 +43,12 @@ export default function NativeFormControlSelectDemo() {
           </Select.Content>
         </Select.Positioner>
       </Select>
-      <div className="select-form-actions">
-        <Button type="submit">Submit</Button>
-        <output className="select-form-output">Submitted: {submitted}</output>
-      </div>
+      <PreviewMeta>
+        <output>Submitted: {submitted}</output>
+        <Button type="submit" size="sm">
+          Submit
+        </Button>
+      </PreviewMeta>
     </form>
   );
 }

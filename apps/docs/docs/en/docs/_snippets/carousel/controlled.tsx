@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 import { useState } from 'react';
 
 const slides = [
@@ -34,6 +34,7 @@ export default function ControlledCarousel() {
 
   return (
     <Carousel
+      aria-label="Controlled gallery"
       slideCount={slides.length}
       page={page}
       onPageChange={(details) => setPage(details.page)}

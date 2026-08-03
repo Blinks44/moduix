@@ -50,7 +50,7 @@ function ColorPickerField({ swatchList = swatches }: { swatchList?: string[] }) 
 
 function InlinePicker() {
   return (
-    <ColorPicker.Root className={styles.inlineRoot} inline defaultValue={parseColor('#2563eb')}>
+    <ColorPicker className={styles.inlineRoot} inline defaultValue={parseColor('#2563eb')}>
       <div className={styles.valueRow}>
         <ColorPicker.Label>Inline color</ColorPicker.Label>
         <ColorPicker.ValueText format="hex" />
@@ -66,13 +66,13 @@ function InlinePicker() {
           <ColorPicker.ChannelInput channel="alpha" />
         </div>
       </ColorPicker.View>
-    </ColorPicker.Root>
+    </ColorPicker>
   );
 }
 
 function CompactTriggerPicker() {
   return (
-    <ColorPicker.Root className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
+    <ColorPicker className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.Trigger aria-label="Open color picker" data-fit-content>
@@ -94,15 +94,15 @@ function CompactTriggerPicker() {
           </div>
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-    </ColorPicker.Root>
+    </ColorPicker>
   );
 }
 
 export const Basic: Story = {
   render: () => (
-    <ColorPicker.Root className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
+    <ColorPicker className={styles.demoRoot} defaultValue={parseColor('#eb5e41')}>
       <ColorPickerField />
-    </ColorPicker.Root>
+    </ColorPicker>
   ),
 };
 
@@ -111,13 +111,13 @@ export const Controlled: Story = {
     const [value, setValue] = useState(() => parseColor('#16a34a'));
 
     return (
-      <ColorPicker.Root
+      <ColorPicker
         className={styles.demoRoot}
         value={value}
         onValueChange={(details) => setValue(details.value)}
       >
         <ColorPickerField />
-      </ColorPicker.Root>
+      </ColorPicker>
     );
   },
 };
@@ -148,8 +148,8 @@ export const RootProvider: Story = {
 
 export const CustomStyling: Story = {
   render: () => (
-    <ColorPicker.Root className={styles.customRoot} defaultValue={parseColor('#0ea5e9')}>
+    <ColorPicker className={styles.customRoot} defaultValue={parseColor('#0ea5e9')}>
       <ColorPickerField swatchList={['#0ea5e9', '#14b8a6', '#84cc16', '#f59e0b']} />
-    </ColorPicker.Root>
+    </ColorPicker>
   ),
 };

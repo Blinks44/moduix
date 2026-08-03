@@ -1,31 +1,44 @@
-import { Button, Drawer } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Drawer } from '@moduix/react/drawer';
 
-const copy = {
-  trigger: 'Open drawer',
-  title: 'Notifications',
-  description: 'You are all caught up. Good job!',
-  body: 'Bottom drawers are draggable by default.',
-};
-const snapPoints = [0.18, 1];
+const snapPoints = [0.45, 1];
+const notifications = [
+  'Your weekly report is ready to review.',
+  'Maya mentioned you in the project update.',
+  'Two tasks are due tomorrow.',
+];
+
 export default function DrawerDemo() {
   return (
     <Drawer snapPoints={snapPoints} defaultSnapPoint={snapPoints[0]}>
       <Drawer.Trigger asChild>
-        <Button>{copy.trigger}</Button>
+        <Button>Open drawer</Button>
       </Drawer.Trigger>
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content className="drawer-content">
+        <Drawer.Content>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
           <Drawer.Header>
-            <Drawer.Title>{copy.title}</Drawer.Title>
+            <Drawer.Title>Notifications</Drawer.Title>
             <Drawer.CloseIcon />
-            <Drawer.Description>{copy.description}</Drawer.Description>
+            <Drawer.Description>Three updates need your attention.</Drawer.Description>
           </Drawer.Header>
-          <Drawer.Body>{copy.body}</Drawer.Body>
+          <Drawer.Body style={{ display: 'flex', flex: 1 }}>
+            <Card size="sm" style={{ flex: 1, backgroundColor: 'var(--moduix-color-muted)' }}>
+              <Card.Body>
+                <ul>
+                  {notifications.map((notification) => (
+                    <li key={notification}>{notification}</li>
+                  ))}
+                </ul>
+              </Card.Body>
+            </Card>
+          </Drawer.Body>
           <Drawer.Footer>
+            <Button>View inbox</Button>
             <Drawer.CloseTrigger asChild>
               <Button variant="outline">Close</Button>
             </Drawer.CloseTrigger>

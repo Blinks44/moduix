@@ -1,10 +1,14 @@
+'use client';
+
 import {
   TreeView as TreeViewPrimitive,
   createFileTreeCollection,
   createTreeCollection,
   type TreeNode,
   type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProps as TreeViewPrimitiveNodeProps,
   type TreeViewNodeProviderProps,
+  type TreeViewNodeState,
   type TreeViewRootComponent,
   type TreeViewRootProps,
   type TreeViewRootProviderComponent,
@@ -14,7 +18,7 @@ import {
   useTreeViewNodeContext,
 } from '@ark-ui/react/tree-view';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef, ForwardedRef } from 'react';
+import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 import { CheckIcon, ChevronRightIcon, IndeterminateIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
@@ -270,6 +274,36 @@ const TreeViewNodeRenameInput = forwardRef<
 
 const TreeViewNodeProvider = TreeViewPrimitive.NodeProvider;
 
+type TreeViewNodeRenderProps<T extends TreeNode> = {
+  indexPath: number[];
+  node: T;
+  state: TreeViewNodeState;
+};
+
+type TreeViewNodeProps<T extends TreeNode> = {
+  children: (props: TreeViewNodeRenderProps<T>) => ReactNode;
+  indexPath: number[];
+  node: T;
+};
+
+function TreeViewNodeContent<T extends TreeNode>({
+  children,
+  indexPath,
+  node,
+}: TreeViewNodeProps<T>) {
+  return children({ indexPath, node, state: useTreeViewNodeContext() });
+}
+
+function TreeViewNode<T extends TreeNode>({ children, indexPath, node }: TreeViewNodeProps<T>) {
+  return (
+    <TreeViewNodeProvider node={node} indexPath={indexPath}>
+      <TreeViewNodeContent node={node} indexPath={indexPath}>
+        {children}
+      </TreeViewNodeContent>
+    </TreeViewNodeProvider>
+  );
+}
+
 const TreeView = Object.assign(TreeViewRoot, {
   Root: TreeViewRoot,
   RootProvider: TreeViewRootProvider,
@@ -277,6 +311,7 @@ const TreeView = Object.assign(TreeViewRoot, {
   NodeContext: TreeViewPrimitive.NodeContext,
   Label: TreeViewLabel,
   Tree: TreeViewTree,
+  Node: TreeViewNode,
   NodeProvider: TreeViewNodeProvider,
   Branch: TreeViewBranch,
   BranchControl: TreeViewBranchControl,
@@ -301,5 +336,8 @@ export {
   useTreeViewContext,
   useTreeViewNodeContext,
   type TreeViewLoadChildrenDetails,
+  type TreeViewNodeRenderProps,
+  type TreeViewNodeState,
+  type TreeViewPrimitiveNodeProps as TreeViewNodeProps,
   type TreeViewNodeProviderProps,
 };

@@ -3,4 +3,4 @@ export {
   resizeTriggerAxes,
   useFloatingPanel,
   useFloatingPanelContext,
-} from './FloatingPanel';
+} from './FloatingPanel.js';

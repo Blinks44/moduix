@@ -17,8 +17,8 @@ own label, description, and validation message.
 
 ## Basic
 
-Compose `Fieldset.Root`, `Fieldset.Legend`, optional helper or error text, and the related controls.
-The short `<Fieldset>` form is equivalent to `<Fieldset.Root>`.
+Compose `Fieldset`, `Fieldset.Legend`, optional helper or error text, and the related controls.
+`Fieldset.Root` remains available as the Ark-aligned alias.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/fieldset/basic.tsx"
@@ -61,7 +61,8 @@ Use `asChild` with one semantic child when a custom host must own a part.
 ### When to go custom
 
 Use `useFieldset` from `@moduix/react` with `Fieldset.RootProvider` when state is owned outside the
-rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state instance.
+rendered tree. Use `useFieldsetContext()` or `Fieldset.Context` in a descendant that needs to read
+that state. Do not wrap a provider in `Fieldset.Root` for the same state instance.
 
 ### Default props
 
@@ -77,6 +78,8 @@ rendered tree. Do not wrap a provider in `Fieldset.Root` for the same state inst
 - Ark `Field` descendants inherit disabled state from the fieldset. Set `invalid` on nested `Field`
   components when individual controls need invalid state.
 - `Fieldset.ErrorText` is absent from the DOM until `invalid` is true.
+- `useFieldsetContext()` and `Fieldset.Context` expose the same Ark state as `useFieldset` to
+  descendants.
 - Fieldset owns no value, keyboard navigation, callback, or `HiddenInput`.
 - Legacy `render` and flat exports such as `FieldsetLegend` are not supported; use `asChild` and the
   namespace parts.

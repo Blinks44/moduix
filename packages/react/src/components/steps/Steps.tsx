@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Steps as StepsPrimitive,
   useSteps,

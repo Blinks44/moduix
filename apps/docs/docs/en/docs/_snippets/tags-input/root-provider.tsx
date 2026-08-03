@@ -1,5 +1,8 @@
-import { TagsInput, useTagsInput } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Stack } from '@moduix/react/stack';
+import { TagsInput, useTagsInput } from '@moduix/react/tags-input';
 import { useId } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderTagsInput() {
   const id = useId();
@@ -8,17 +11,7 @@ export default function RootProviderTagsInput() {
     defaultValue: ['React'],
   });
   return (
-    <div>
-      <button type="button" onClick={() => tagsInput.addValue('Solid')}>
-        Add Solid
-      </button>
-      <button type="button" onClick={() => tagsInput.clearValue()}>
-        Clear
-      </button>
-      <button type="button" onClick={tagsInput.focus}>
-        Focus
-      </button>
-
+    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
       <TagsInput.RootProvider value={tagsInput}>
         <TagsInput.Label>Frameworks</TagsInput.Label>
         <TagsInput.Control>
@@ -27,6 +20,18 @@ export default function RootProviderTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear frameworks" />
         </TagsInput.Control>
       </TagsInput.RootProvider>
-    </div>
+      <PreviewMeta>
+        <output>Tags: {tagsInput.value.join(', ') || 'empty'}</output>
+        <Button type="button" size="sm" onClick={() => tagsInput.addValue('Solid')}>
+          Add Solid
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => tagsInput.clearValue()}>
+          Clear
+        </Button>
+        <Button type="button" size="sm" variant="outline" onClick={tagsInput.focus}>
+          Focus
+        </Button>
+      </PreviewMeta>
+    </Stack>
   );
 }

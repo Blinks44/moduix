@@ -1,8 +1,17 @@
-import { Button, Input, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Input } from '@moduix/react/input';
+import { Popover } from '@moduix/react/popover';
 
 export default function AnchorPopoverDemo() {
   return (
-    <div className="popover-anchor-demo">
+    <div
+      style={{
+        display: 'grid',
+        inlineSize: 'min(20rem, 100%)',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-2)',
+      }}
+    >
       <Popover
         positioning={{
           gutter: 8,

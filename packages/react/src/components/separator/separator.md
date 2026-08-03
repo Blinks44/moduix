@@ -48,7 +48,7 @@ Separator / Separator.Root
 Use the short root form for normal separators:
 
 ```tsx
-import { Separator } from '@moduix/react';
+import { Separator } from '@moduix/react/separator';
 
 export function AccountSections() {
   return (
@@ -93,6 +93,8 @@ The child must be a single semantic element that can carry the merged separator 
 - Consumers can pass `role="presentation"` when a line is purely decorative; then the default
   `aria-orientation` is omitted.
 - The root writes `data-orientation`, `data-size`, and `data-variant` for styling.
+- Local props retain ownership of the role, ARIA metadata, and stable data hooks; pass custom styles
+  through `className`, `style`, or the documented CSS variables instead of overriding those attributes.
 - There are no interactive states and no Ark runtime CSS variables for measured layout.
 - Refs point to the rendered separator host. With `asChild`, the child element receives the merged
   props and ref.
@@ -141,9 +143,12 @@ Public CSS variables:
   `data-variant`; these are the public styling hooks.
 - Keep the line border-based, not background-based, so dashed and dotted variants remain native CSS
   border styles.
+- Keep the root marginless so `asChild` hosts such as `hr` match the default separator layout.
 
 ## Local changelog
 
+- 2026-07-30: Protected stable ARIA and data hooks from passthrough overrides and normalized margins
+  for `asChild` native hosts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-03: Removed public prop and option type aliases. The public surface is now only the
   callable root component with `.Root`.

@@ -5,6 +5,9 @@ description: Integrate moduix native and compound controls with Formisch and Val
 
 # Formisch
 
+[Formisch documentation](https://formisch.dev) and [Valibot documentation](https://valibot.dev)
+cover their full schema, store, and validation APIs. This page focuses on the moduix mapping.
+
 Formisch is schema-first: pass a Valibot schema to `useForm`, then render fields with its headless
 `Field` component. Spread `field.props` onto native controls and use `field.input` with
 `field.onChange` for Ark compound controls.
@@ -17,13 +20,16 @@ npm install @formisch/react valibot
 
 | Control                                         | Formisch wiring                                                                     |
 | ----------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `Field.Input`, `Field.Textarea`, `Field.Select` | Spread `field.props`, then pass `value={field.input}` to keep the field controlled. |
+| `Input`, `Textarea`, `Field.Select`              | Spread `field.props`, then pass `value={field.input}` to keep the field controlled. |
 | `Select`, `Combobox`                            | Read `field.input` and map the component detail back through `field.onChange`.      |
 | `Checkbox`                                      | Map `details.checked === true` through `field.onChange`.                            |
 | Automatic native controls                       | Keep state on the component root; do not add another hidden input.                  |
 
 Use `Field` from Formisch as `FormischField` beside moduix `Field`. The Valibot schema provides
 the validation messages, and its field paths remain type-safe.
+
+Formisch exposes `form.isSubmitting` while an async submit handler is running. Use it to disable
+duplicate submission and update the button label, while keeping the current field values visible.
 
 ## Validation and reset
 
@@ -42,7 +48,7 @@ of only resetting the native DOM form, so its controlled field state resets too.
 ## Complete form
 
 This form uses Formisch validation on submit and revalidates edited values on input. Native
-`Field.Input` and `Field.Textarea` receive Formisch props directly; `Select`, `Combobox`, and
+`Input` and `Textarea` receive Formisch props directly; `Select`, `Combobox`, and
 `Checkbox` map their Ark callback details to the Formisch field state.
 
 <style>{`
@@ -80,7 +86,8 @@ The fragment belongs inside a `Form` that uses the `form` created here.
 
 ```tsx
 import { Field as FormischField, FieldArray, insert, remove, useForm } from '@formisch/react';
-import { Button, Field } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Field } from '@moduix/react/field';
 import * as v from 'valibot';
 
 const formSchema = v.object({
@@ -105,7 +112,7 @@ const form = useForm({
           {(field) => (
             <Field invalid={field.errors !== null}>
               <Field.Label>Email {index + 1}</Field.Label>
-              <Field.Input type="email" {...field.props} value={field.input} />
+              <Input type="email" {...field.props} value={field.input} />
               <Field.ErrorText>{field.errors?.[0]}</Field.ErrorText>
               <Button type="button" onClick={() => remove(form, { path: ['emails'], at: index })}>
                 Remove email
@@ -164,11 +171,15 @@ import { Form, setErrors } from '@formisch/react';
 
 ## Behavioral notes
 
-- `field.props` is for native input events and attributes. Spread it onto `Field.Input` or
-  `Field.Textarea`, then provide `value={field.input}` so the rendered control reflects Formisch
-  state.
+- `field.props` is for native input events and attributes. Spread it onto `Input` or `Textarea`,
+  then provide `value={field.input}` so the rendered control reflects Formisch state.
 - Ark compound controls use detail callbacks rather than native change events. Read
   `field.input`, then convert the detail to the field value with `field.onChange`, as the
   `Select`, `Combobox`, and `Checkbox` fields do in the example.
 - Keep `name`, `form`, and special form options on the moduix root for controls that render their
   native form input automatically. Do not add another hidden input for the same Formisch field.
+- Formisch focuses the first invalid native input or textarea through the element registered by
+  `field.props.ref`. `Combobox.Input` can receive `ref`, `autoFocus`, `onFocus`, and `onBlur`
+  individually. `Select.Trigger` is a button and is outside Formisch's input-ref type; when Select
+  can be the first invalid control, focus the first rendered `[aria-invalid="true"]` element from an
+  application invalid-submit effect instead of casting the ref.

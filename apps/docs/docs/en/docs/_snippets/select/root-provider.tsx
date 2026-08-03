@@ -1,5 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Select } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Select } from '@moduix/react/select';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 const fruits = createListCollection({
   items: [
@@ -52,7 +54,7 @@ export default function SelectRootProviderDemo() {
     defaultValue: ['banana'],
   });
   return (
-    <div className="select-provider-demo">
+    <div className="select-preview-stack">
       <Select.RootProvider value={select}>
         <Select.Label>Choose fruit</Select.Label>
         <Select.Control>
@@ -73,7 +75,12 @@ export default function SelectRootProviderDemo() {
           </Select.Content>
         </Select.Positioner>
       </Select.RootProvider>
-      <output>Selected: {select.valueAsString}</output>
+      <PreviewMeta>
+        <output>Selected: {select.valueAsString || 'none'}</output>
+        <Button type="button" size="sm" onClick={() => select.setValue(['banana'])}>
+          Select banana
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

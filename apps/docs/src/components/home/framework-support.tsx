@@ -1,4 +1,4 @@
-import { Tooltip } from '@moduix/react';
+import { Tooltip } from '@moduix/react/tooltip';
 import styles from './framework-support.module.css';
 
 const upcomingFrameworks = [

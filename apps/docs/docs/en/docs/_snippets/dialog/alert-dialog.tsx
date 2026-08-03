@@ -1,4 +1,5 @@
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export default function DeleteAccountDialog() {
   return (
@@ -12,10 +13,12 @@ export default function DeleteAccountDialog() {
           <Dialog.Title>Are you absolutely sure?</Dialog.Title>
           <Dialog.Description>This action cannot be undone.</Dialog.Description>
           <Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
+            <Dialog.CloseTrigger asChild id="cancel-delete-account">
               <Button variant="outline">Cancel</Button>
             </Dialog.CloseTrigger>
-            <Button>Delete account</Button>
+            <Dialog.CloseTrigger asChild id="confirm-delete-account">
+              <Button>Delete account</Button>
+            </Dialog.CloseTrigger>
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>

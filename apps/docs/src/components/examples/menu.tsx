@@ -6,11 +6,18 @@ export const menuExampleCss = `
     --moduix-menu-popup-min-width: 13rem;
   }
 
+  .menu-trigger-row {
+    display: flex;
+    justify-content: center;
+  }
+
   .menu-context-trigger {
     --moduix-menu-trigger-bg-hover: var(--moduix-color-muted);
     --moduix-menu-trigger-bg-active: var(--moduix-color-muted);
 
     width: 16rem;
+    min-height: 10rem;
+    border-style: dashed;
   }
 
   .menu-dialog-stack {
@@ -262,6 +269,7 @@ const menuOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-menu-popup-max-height', '24rem', 'Controls popup maximum height.'],
   ['--moduix-menu-popup-max-width', '20rem', 'Controls popup maximum width.'],
   ['--moduix-menu-popup-min-width', '12rem', 'Controls popup minimum width.'],
+  ['--moduix-menu-popup-overflow', 'visible', 'Controls popup overflow.'],
   [
     '--moduix-menu-popup-padding-y',
     'var(--moduix-popup-list-padding-y, var(--moduix-spacing-1))',

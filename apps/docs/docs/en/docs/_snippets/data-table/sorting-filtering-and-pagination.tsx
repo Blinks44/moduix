@@ -1,4 +1,8 @@
-import { Badge, Button, Checkbox, Input, Table } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Input } from '@moduix/react/input';
+import { Table } from '@moduix/react/table';
 import {
   flexRender,
   getCoreRowModel,

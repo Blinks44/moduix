@@ -1,1 +1,1 @@
-export * from './TreeView';
+export * from './TreeView.js';

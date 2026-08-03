@@ -1,5 +1,7 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Listbox, useListbox } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Listbox, useListbox } from '@moduix/react/listbox';
+import { PreviewMeta } from '@/components/mdx/Components';
 import styles from '@/components/examples/listbox.module.css';
 
 const priorities = createListCollection({
@@ -28,8 +30,7 @@ export default function RootProviderListboxDemo() {
     collection: priorities,
   });
   return (
-    <>
-      <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
       <Listbox.RootProvider value={listbox} className={styles.root}>
         <Listbox.Label>Select priority</Listbox.Label>
         <Listbox.Content>
@@ -41,6 +42,10 @@ export default function RootProviderListboxDemo() {
           ))}
         </Listbox.Content>
       </Listbox.RootProvider>
-    </>
+      <PreviewMeta style={{ placeSelf: 'center' }}>
+        <output>Selected: {listbox.value[0] ?? 'none'}</output>
+        <Button onClick={() => listbox.setValue(['high'])}>Set to high</Button>
+      </PreviewMeta>
+    </div>
   );
 }

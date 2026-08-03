@@ -1,3 +1,5 @@
+'use client';
+
 import { Portal } from '@ark-ui/react/portal';
 import type { ToastOptions } from '@ark-ui/react/toast';
 import {

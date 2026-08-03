@@ -26,15 +26,11 @@ itself.
 Start with `Badge` only. Add `variant` when the default tone is not enough, and add `Badge.Dot`
 only when the status needs a grouped indicator.
 
-<style>{`
-      .badge-demo-basic {
-        display: inline-flex;
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/badge/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/basic.tsx"
 
 ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -92,7 +88,8 @@ different tone.
 - `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
 - `Badge` does not add managed interaction or link/button semantics of its own.
 - Semantic links and buttons rendered through `asChild` keep their native semantics and get default cursor, hover, and focus-visible styling.
-- Long labels stay on one line and are truncated by the root; add `title` when the full value should remain discoverable.
+- Long labels stay on one line and are truncated by the root; `title` exposes the complete value on
+  pointer hover, while touch-first interfaces need a label that fits the available space.
 - Direct child `svg` icons inherit `currentColor` and use `--moduix-badge-icon-size`.
 - Numeric content uses tabular figures, and badge text is not selectable by default.
 - Chakra's size recipe is intentionally represented by public CSS variables instead of a `size`
@@ -132,22 +129,28 @@ enough.
       }
     `}</style>
 
-```tsx preview file="./_snippets/badge/custom-styling.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/custom-styling.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Link
 
 Use `variant="link"` with `asChild` when the badge should read like inline metadata navigation or a
 small action while the child element keeps the real link semantics.
 
-```tsx preview file="./_snippets/badge/link.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/link.tsx"
 
 ```
+</PreviewFrame>
 
 ### Long Labels
 
-Badges truncate long labels by default. Add `title` when the full text should still be available.
+Badges truncate long labels by default. Add `title` to expose the full label on pointer hover; on
+touch-first interfaces, prefer a label that fits the available space.
 
 <style>{`
       .badge-demo-constrained {
@@ -158,7 +161,7 @@ Badges truncate long labels by default. Add `title` when the full text should st
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/badge/long-labels.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -175,9 +178,11 @@ Use the built-in variants for the common visual tones.
       }
     `}</style>
 
-```tsx preview file="./_snippets/badge/variants.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/variants.tsx"
 
-````
+```
+</PreviewFrame>
 
 ### With Dot
 
@@ -192,9 +197,12 @@ Add `Badge.Dot` when label and status indicator should stay visually grouped.
       }
     `}</style>
 
-```tsx preview file="./_snippets/badge/with-dot.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/with-dot.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### With Icon
 
@@ -209,9 +217,11 @@ Place an inline icon next to the label when the metadata needs a second visual c
       }
     `}</style>
 
-```tsx preview file="./_snippets/badge/with-icon.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/badge/with-icon.tsx"
 
 ```
+</PreviewFrame>
 
 ## Styling
 

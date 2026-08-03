@@ -28,8 +28,8 @@ variables, and stable `data-slot` hooks.
   `Carousel.NextTrigger`, `Carousel.Indicators`, `Carousel.IndicatorGroup`, `Carousel.Indicator`,
   `Carousel.AutoplayTrigger`, `Carousel.AutoplayIndicator`, and `Carousel.ProgressText`.
 - Keeps the callable root pattern, so `<Carousel />` and `<Carousel.Root />` are equivalent.
-- `Carousel.Context` is re-exported for runtime carousel API access. Hooks and type aliases are still
-  imported directly from `@ark-ui/react/carousel`.
+- `Carousel.Context`, `useCarousel`, and `useCarouselContext` are exported from `@moduix/react`.
+  Type aliases remain available from `@ark-ui/react/carousel`.
 - Keeps Ark controlled and uncontrolled paging unchanged: `page`, `defaultPage`, and
   `onPageChange(details)`.
 - Keeps Ark behavior props unchanged: `loop`, `autoplay`, `autoSize`, `slidesPerPage`,
@@ -78,12 +78,12 @@ also accepts `indicatorClassName` for its generated `Carousel.Indicator` items:
 ## Composition
 
 ```tsx
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 
 export function BasicCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
-      <Carousel.ItemGroup aria-label="Gallery">
+    <Carousel aria-label="Gallery" slideCount={slides.length}>
+      <Carousel.ItemGroup>
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
             <img src={slide.src} alt={slide.alt} />
@@ -125,20 +125,20 @@ runtime `pageSnapPoints`, such as thumbnail navigation or a mixed toolbar:
   autoplay controls. This is the default path.
 - Place `ItemGroup` inside `Control` only when a compact inline layout is the real design goal.
 
-Use `Carousel.RootProvider` with Ark `useCarousel()` only when carousel state must be created
+Use `Carousel.RootProvider` with moduix `useCarousel()` only when carousel state must be created
 outside the rendered subtree.
 
-Use Ark `useCarouselContext()` inside custom reusable children that need the carousel API without
+Use moduix `useCarouselContext()` inside custom reusable children that need the carousel API without
 introducing another render prop.
 
 ## Upstream feature coverage
 
 - `Anatomy`: preserved directly through the exported Ark-shaped parts.
 - `Controlled`: preserved through `page` and `onPageChange(details)`.
-- `Root Provider`: preserved through `Carousel.RootProvider` and Ark `useCarousel()`.
+- `Root Provider`: preserved through `Carousel.RootProvider` and moduix `useCarousel()`.
 - `Autoplay`: preserved through the Ark `autoplay` prop and autoplay parts.
-- `Pause on Hover`: not built in, matching Ark; consumers use `Carousel.Context` and
-  `api.pause()` or `api.play()`.
+- `Pause on Hover`: not built in, matching Ark; consumers use `Carousel.Context` and `api.pause()`.
+  Autoplay examples also pause on focus and leave restarting to `Carousel.AutoplayTrigger`.
 - `Indicators`: `Carousel.Indicators` renders the default pager from runtime `pageSnapPoints`,
   including multi-slide and auto-size layouts.
 - `Thumbnail Indicators`: preserved by rendering custom content inside `Carousel.Indicator`.
@@ -163,8 +163,8 @@ introducing another render prop.
   - `--slide-item-size`
 - Ark callback and API shapes remain unchanged, including `onPageChange(details)`,
   `onAutoplayStatusChange(details)`, and `onDragStatusChange(details)`.
-- `Carousel.Context` is re-exported from moduix. Ark state hooks and type aliases are still imported
-  directly from `@ark-ui/react/carousel`.
+- `Carousel.Context`, `useCarousel`, and `useCarouselContext` are exported from moduix. Ark type aliases
+  remain available from `@ark-ui/react/carousel`.
 
 ## Defaults and styling
 
@@ -208,10 +208,12 @@ Primary theme variables:
 - The default trigger icons are moduix chevrons, not Ark example icons.
 - moduix re-exports `Carousel.Context` to keep runtime API access on the same namespace as the
   styled parts.
+- moduix exports `useCarousel` and `useCarouselContext` from the package barrel for provider and custom-child
+  composition.
 - `data-pressed` on autoplay controls and `data-readonly` or disabled indicators receive moduix
   visual state defaults.
-- moduix keeps `RootProvider`, but Ark state hooks and type aliases are still imported directly from
-  `@ark-ui/react/carousel`.
+- moduix keeps `RootProvider`, `useCarousel`, and `useCarouselContext`; Ark type aliases remain available
+  from `@ark-ui/react/carousel`.
 
 ## Agent notes
 
@@ -219,8 +221,12 @@ Primary theme variables:
 - Do not reintroduce the old native-scroll-only wrapper contract.
 - Keep `Carousel.Control` structural. Do not hide `ItemGroup`, `IndicatorGroup`, or autoplay parts
   behind broad convenience wrappers. `Carousel.Indicators` is the limit of the intended sugar here.
+- Put an accessible name on `Carousel` or `Carousel.RootProvider`, not only on `Carousel.ItemGroup`.
 
 ## Local changelog
+
+- 2026-07-26: Mirrored default horizontal trigger icons in RTL, prevented hover styling on unavailable
+  indicators, and documented accessible root labels plus moduix hook exports.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Carousel.Indicators`, moved the recommended composition to `ItemGroup` plus a

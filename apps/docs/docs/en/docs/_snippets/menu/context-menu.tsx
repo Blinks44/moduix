@@ -1,4 +1,4 @@
-import { Menu } from '@moduix/react';
+import { Menu } from '@moduix/react/menu';
 
 export default function ContextMenuDemo() {
   return (
@@ -9,6 +9,7 @@ export default function ContextMenuDemo() {
           <Menu.Item value="cut">Cut</Menu.Item>
           <Menu.Item value="copy">Copy</Menu.Item>
           <Menu.Item value="paste">Paste</Menu.Item>
+          <Menu.Item value="select-all">Select All</Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

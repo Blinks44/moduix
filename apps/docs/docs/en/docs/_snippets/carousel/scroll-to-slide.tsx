@@ -1,4 +1,5 @@
-import { Button, Carousel } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Carousel } from '@moduix/react/carousel';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 const slides = [
@@ -31,7 +32,7 @@ const slides = [
 
 export default function ScrollToCarousel() {
   return (
-    <Carousel slideCount={slides.length}>
+    <Carousel aria-label="Scroll to gallery" slideCount={slides.length}>
       <Carousel.ItemGroup aria-label="Scroll to gallery">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
@@ -49,7 +50,7 @@ export default function ScrollToCarousel() {
 
       <Carousel.Context>
         {(api) => (
-          <PreviewMeta>
+          <PreviewMeta style={{ marginInline: 'auto' }}>
             <Button size="sm" variant="outline" onClick={() => api.scrollToIndex(3)}>
               Go to slide 4
             </Button>

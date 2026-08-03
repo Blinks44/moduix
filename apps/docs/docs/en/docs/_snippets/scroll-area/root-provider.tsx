@@ -1,40 +1,51 @@
-import { Button, ScrollArea } from '@moduix/react';
-import { scrollSections } from '@/components/examples/scroll-sections';
-import styles from '@/components/examples/scroll-area.module.css';
+import { Button } from '@moduix/react/button';
+import { ScrollArea } from '@moduix/react/scroll-area';
+import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
+
+const items = Array.from({ length: 12 }, (_, index) => `Activity item ${index + 1}`);
 
 export default function RootProviderScrollAreaDemo() {
   const scrollArea = ScrollArea.useScrollArea();
+  const [edge, setEdge] = useState('top');
+
   return (
-    <div className={styles.providerStack}>
-      <div className={styles.actions}>
-        <Button
-          onClick={() =>
-            scrollArea.scrollToEdge({
-              edge: 'top',
-            })
-          }
-        >
-          Top
-        </Button>
-        <Button
-          onClick={() =>
-            scrollArea.scrollToEdge({
-              edge: 'bottom',
-            })
-          }
-        >
-          Bottom
-        </Button>
-      </div>
-      <ScrollArea.RootProvider value={scrollArea} className={styles.root}>
+    <div
+      style={{
+        display: 'grid',
+        width: '100%',
+        justifyItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
+      <ScrollArea.RootProvider
+        value={scrollArea}
+        style={{
+          width: '100%',
+          height: '13rem',
+          border: 'var(--moduix-border-width-sm) solid var(--moduix-color-border)',
+          borderRadius: 'var(--moduix-radius-lg)',
+        }}
+      >
         <ScrollArea.Viewport>
           <ScrollArea.Content>
-            <div className={styles.textContent}>
-              {scrollSections.map((item) => (
-                <section key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p className={styles.paragraph}>{item.body}</p>
-                </section>
+            <div
+              style={{
+                display: 'grid',
+                gap: 'var(--moduix-spacing-2)',
+                padding: 'var(--moduix-spacing-3)',
+              }}
+            >
+              {items.map((item) => (
+                <div
+                  key={item}
+                  style={{
+                    padding: 'var(--moduix-spacing-2)',
+                    background: 'var(--moduix-color-muted)',
+                  }}
+                >
+                  {item}
+                </div>
               ))}
             </div>
           </ScrollArea.Content>
@@ -44,6 +55,33 @@ export default function RootProviderScrollAreaDemo() {
         </ScrollArea.Scrollbar>
         <ScrollArea.Corner />
       </ScrollArea.RootProvider>
+      <PreviewMeta>
+        <output>Current edge: {edge}</output>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            scrollArea.scrollToEdge({
+              edge: 'top',
+            });
+            setEdge('top');
+          }}
+        >
+          Top
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            scrollArea.scrollToEdge({
+              edge: 'bottom',
+            });
+            setEdge('bottom');
+          }}
+        >
+          Bottom
+        </Button>
+      </PreviewMeta>
     </div>
   );
 }

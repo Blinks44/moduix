@@ -26,14 +26,16 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 
 - `Spinner` and `Spinner.Root` are the same root component.
 - `Spinner.Root` accepts `HTMLArkProps<'span'>` plus `size` and `decorative`.
-- `size` defaults to `'md'` and writes `data-size` on the root.
+- `size` defaults to `'md'`, accepts `'inherit' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'`, and writes
+  `data-size` on the root. `'inherit'` uses `1em`.
 - `decorative` defaults to `false`.
 - Non-decorative spinners render `role="status"` and default to `aria-label="Loading"` unless `aria-label` or `aria-labelledby` is provided.
-- Decorative spinners render `role="presentation"` and `aria-hidden="true"`.
+- Decorative default spinners render `role="presentation"` and `aria-hidden="true"`.
 - `Spinner` owns its status semantics and `data-scope`, `data-part`, `data-slot`, and `data-size` styling hooks; native props cannot override them.
 - Custom `children` replace the default ring while keeping the built-in indicator wrapper.
-- `asChild` makes the single child the root; that child must render its own indicator contents.
-- Motion is disabled under `prefers-reduced-motion`.
+- `asChild` makes the single child the root; that child must be non-interactive and render its own
+  indicator contents.
+- Spinner motion remains enabled under `prefers-reduced-motion` because it is the loading cue.
 
 ## Anatomy and exported parts
 
@@ -55,7 +57,7 @@ Spinner / Spinner.Root
 Use the short root form for normal consumers:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function LoadingState() {
   return <Spinner />;
@@ -65,7 +67,7 @@ export function LoadingState() {
 Use `decorative` beside visible loading text:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function SavingState() {
   return (
@@ -80,7 +82,7 @@ export function SavingState() {
 Use `asChild` only when the root host itself must be custom:
 
 ```tsx
-import { Spinner } from '@moduix/react';
+import { Spinner } from '@moduix/react/spinner';
 
 export function ReportSpinner() {
   return (
@@ -95,6 +97,8 @@ export function ReportSpinner() {
 }
 ```
 
+Keep the custom host non-interactive. `asChild` is for a visual host, not for a button or link.
+
 ## Upstream feature coverage
 
 - Composition: follows Ark factory `asChild` behavior and the single-child custom host constraint.
@@ -106,7 +110,7 @@ export function ReportSpinner() {
 
 ## Accessibility and state
 
-The default non-decorative path announces a loading status. Prefer `decorative` when adjacent visible text already communicates the pending state. Use `aria-labelledby` when a visible label elsewhere should name the status.
+The default non-decorative path announces a loading status. Prefer `decorative` when adjacent visible text already communicates the pending state. Use `aria-labelledby` when a visible label elsewhere should name the status. Decorative default roots are hidden from assistive technology; with `asChild`, keep the custom visual host non-interactive.
 
 `Spinner` is non-interactive, so it does not manage focus, keyboard input, disabled state, invalid state, read-only state, or field context.
 
@@ -134,6 +138,7 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 - Moduix adds default status semantics, the `decorative` prop, the `size` prop, and the default ring.
 - `children` is convenience sugar for replacing the default ring while keeping the indicator wrapper.
 - `Spinner.Root` exists only to keep the API aligned with root-only Ark-style components.
+- `size="inherit"` matches the spinner to the surrounding font size without a custom CSS variable.
 
 ## Agent notes
 
@@ -143,6 +148,7 @@ The default non-decorative path announces a loading status. Prefer `decorative` 
 
 ## Local changelog
 
+- 2026-07-30: Added `size="inherit"`, kept loading motion for reduced-motion users, and made decorative `asChild` composition preserve custom-host semantics.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-11: Protected status semantics and stable styling hooks from conflicting native props.
 - 2026-07-03: Stopped exporting `SpinnerRootProps` and `SpinnerSize`; docs and examples now infer

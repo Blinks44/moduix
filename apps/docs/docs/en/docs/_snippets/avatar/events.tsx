@@ -1,4 +1,4 @@
-import { Avatar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 

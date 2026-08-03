@@ -78,6 +78,10 @@
         display: none;
       }
 
+      .input {
+        display: none;
+      }
+
       .menuButton {
         width: var(--moduix-sidebar-collapsed-item-size, var(--moduix-size-md));
         min-height: var(--moduix-sidebar-collapsed-item-size, var(--moduix-size-md));
@@ -116,6 +120,10 @@
 
   .resizeTrigger {
     z-index: 2;
+
+    &:focus-visible:not([data-dragging])::before {
+      background-color: var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
+    }
   }
 
   .trigger {

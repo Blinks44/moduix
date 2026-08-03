@@ -20,12 +20,10 @@ Skills are intentionally composable:
 - `.agents/skills/rspress-best-practices/SKILL.md` - Rspress 2 conventions for configuration, content, themes, and deployment
 - `.agents/skills/rspress-custom-theme/SKILL.md` - Rspress theme customization through CSS variables, BEM hooks, and layout slots
 - `.agents/skills/rspress-description-generator/SKILL.md` - Rspress page description frontmatter and AI/search metadata
-- `.agents/skills/rspress-docs-generator/SKILL.md` - create and maintain Rspress 2 documentation sites
 - `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Ark UI, Chakra UI, and shadcn references
 - `.agents/skills/ui-component-workflow/SKILL.md` - workflow for `packages/react` component implementation and API changes
 - `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep
 - `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`
-- `.agents/skills/cross-package-sync/SKILL.md` - parity rules for tasks that touch both UI and docs
 
 ## Source Of Truth
 

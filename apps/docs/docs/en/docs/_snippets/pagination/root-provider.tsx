@@ -1,4 +1,4 @@
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
 
 export default function RootProviderPaginationDemo() {
   const pagination = Pagination.usePagination({

@@ -1,4 +1,5 @@
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 import { Bell as BellIcon } from 'lucide-react';
 
 export default function PopoverDemo() {
@@ -10,10 +11,8 @@ export default function PopoverDemo() {
     >
       <Popover.Trigger asChild>
         <Button>
-          <span className="triggerContent">
-            <BellIcon className="icon" />
-            Notifications
-          </span>
+          <BellIcon aria-hidden size={16} />
+          Notifications
         </Button>
       </Popover.Trigger>
       <Popover.Positioner>

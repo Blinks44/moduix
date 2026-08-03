@@ -5,10 +5,6 @@ import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Image.module.css';
 
-type ImageSourceProps = UnpicSourceProps & {
-  'data-slot'?: string;
-};
-
 const ImageRoot = forwardRef<HTMLImageElement, UnpicImageProps>(function ImageRoot(
   { className, ...props },
   ref,
@@ -16,16 +12,16 @@ const ImageRoot = forwardRef<HTMLImageElement, UnpicImageProps>(function ImageRo
   return (
     <ImagePrimitive
       ref={ref}
+      {...props}
       data-slot="image-root"
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });
 
-const ImageSource = forwardRef<HTMLSourceElement, ImageSourceProps>(
+const ImageSource = forwardRef<HTMLSourceElement, UnpicSourceProps>(
   function ImageSource(props, ref) {
-    return <ImageSourcePrimitive ref={ref} data-slot="image-source" {...props} />;
+    return <ImageSourcePrimitive ref={ref} {...props} data-slot="image-source" />;
   },
 );
 

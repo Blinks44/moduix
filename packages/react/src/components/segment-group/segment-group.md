@@ -47,6 +47,8 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
 | --------------------------- | ----------------------------- | ------------------------------------------ |
 | `SegmentGroup` / `Root`     | `segment-group-root`          | Ark root, value state, orientation, forms. |
 | `SegmentGroup.RootProvider` | `segment-group-root-provider` | Uses state from `useSegmentGroup`.         |
+| `SegmentGroup.Context`      | —                             | Advanced render-prop access to root state. |
+| `SegmentGroup.ItemContext`  | —                             | Advanced render-prop access to item state. |
 | `SegmentGroup.Label`        | `segment-group-label`         | Optional Ark group label.                  |
 | `SegmentGroup.Items`        | —                             | Renders standard text items.               |
 | `SegmentGroup.Item`         | `segment-group-item`          | Ark item, renders a `label` by default.    |
@@ -54,16 +56,15 @@ moduix defaults `orientation` to `horizontal` on `SegmentGroup.Root`. Explicit
 | `SegmentGroup.ItemText`     | `segment-group-item-text`     | Visible item text.                         |
 | `SegmentGroup.Indicator`    | `segment-group-indicator`     | Measured active-item highlight.            |
 
-Import `useSegmentGroup` from `@moduix/react` when an advanced state workflow needs
-`RootProvider`. `SegmentGroup.Context` and `useSegmentGroupContext` remain Ark escape hatches from
-`@ark-ui/react/segment-group`.
+Import `useSegmentGroup`, `useSegmentGroupContext`, and `useSegmentGroupItemContext` from
+`@moduix/react` when an advanced state workflow needs `RootProvider` or current Ark state.
 
 ## Composition
 
 Canonical usage:
 
 ```tsx
-import { SegmentGroup } from '@moduix/react';
+import { SegmentGroup } from '@moduix/react/segment-group';
 
 const frameworks = [
   { value: 'React', label: 'React' },
@@ -84,6 +85,8 @@ export function SegmentGroupDemo() {
 
 Use `SegmentGroup.RootProvider` with moduix `useSegmentGroup` when state must be controlled from
 outside the rendered tree. Do not render `Root` and `RootProvider` for the same state instance.
+`ItemHiddenInput` is intentionally internal: every `Item` renders exactly one synchronized native
+radio input, including with `asChild`. Do not add Ark's `ItemHiddenInput` again.
 
 ## Upstream feature coverage
 
@@ -94,6 +97,8 @@ outside the rendered tree. Do not render `Root` and `RootProvider` for the same 
 - Both `Items` and explicit `Item` composition render a native form input automatically for every item.
 - `ids` is forwarded from `Root`/`RootProvider` for explicit accessibility composition.
 - `Indicator` preserves Ark CSS variables: `--left`, `--top`, `--width`, and `--height`.
+- `Field` state propagates through Ark for `disabled`, `invalid`, `required`, and `readOnly`.
+  `Fieldset` provides shared `disabled` and `invalid` state.
 
 ## Accessibility and state
 
@@ -105,6 +110,9 @@ Preserve Ark data attributes such as `data-scope="segment-group"`, `data-part`, 
 
 `Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText`, and `Indicator` forward refs
 to their public Ark DOM parts. The native input is not a separate public ref target.
+
+`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext`, and
+`useSegmentGroupItemContext` are exported from `@moduix/react` for advanced state-driven markup.
 
 ## Defaults and styling
 
@@ -139,8 +147,7 @@ rendered but visually hidden because the segmented-control affordance comes from
 ## Agent notes
 
 - Keep behavior delegated to Ark. Do not add local selection state or callback remapping.
-- Keep `RootProvider` and the moduix `useSegmentGroup` re-export aligned. Ark context parts and
-  type aliases remain direct Ark escape hatches.
+- Keep `RootProvider`, context parts, and moduix hook exports aligned.
 - Keep examples with `SegmentGroup.Indicator` before items when the active highlight should render.
 - When changing public slots or variables, sync stories, local docs, app docs, registry metadata,
   and generated registry output in the same task.
@@ -150,10 +157,13 @@ rendered but visually hidden because the segmented-control affordance comes from
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.
 
+- 2026-07-30: Clarified the automatic native-input contract, Field/Fieldset integration, and the
+  moduix-owned context exports.
+
 - 2026-07-11: Added `SegmentGroup.Items` for standard segment lists and re-exported
   `useSegmentGroup` for the documented `RootProvider` workflow.
-- 2026-07-03: Removed Ark context parts, state hooks, and duplicate Ark type exports from the
-  moduix surface. `RootProvider` remained for externally owned Ark state.
+- 2026-07-03: Removed duplicate Ark type aliases from the moduix surface. `RootProvider`, context
+  parts, and state hooks remain available for Ark-shaped advanced composition.
 - 2026-06-22: Added Ark UI `segment-group` wrapper with namespace parts, provider/context hooks,
   CSS Modules styling, local documentation, docs examples, and registry metadata.
 - 2026-06-22: Set moduix default orientation to horizontal, polished `asChild` card styling, and

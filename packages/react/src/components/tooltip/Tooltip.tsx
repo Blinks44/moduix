@@ -1,6 +1,8 @@
+'use client';
+
 import { Tooltip as TooltipPrimitive, useTooltip, useTooltipContext } from '@ark-ui/react/tooltip';
 import { clsx } from 'clsx';
-import type { ComponentProps, ComponentRef } from 'react';
+import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from 'react';
 import { forwardRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
@@ -14,18 +16,34 @@ type TooltipRootProps = ComponentProps<typeof TooltipPrimitive.Root> & OverlayPo
 type TooltipRootProviderProps = ComponentProps<typeof TooltipPrimitive.RootProvider> &
   OverlayPortalProps;
 
-function TooltipRoot({ portalled, portalRef, ...props }: TooltipRootProps) {
+function TooltipRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TooltipRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TooltipPrimitive.Root {...props} />
+      <TooltipPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function TooltipRootProvider({ portalled, portalRef, ...props }: TooltipRootProviderProps) {
+function TooltipRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TooltipRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TooltipPrimitive.RootProvider {...props} />
+      <TooltipPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }
@@ -44,6 +62,22 @@ const TooltipTrigger = forwardRef<
     />
   );
 });
+
+const TooltipDisabledTrigger = forwardRef<HTMLSpanElement, ComponentPropsWithoutRef<'span'>>(
+  function TooltipDisabledTrigger({ className, tabIndex = 0, ...props }, ref) {
+    return (
+      <TooltipPrimitive.Trigger asChild>
+        <span
+          ref={ref}
+          data-slot="tooltip-disabled-trigger"
+          tabIndex={tabIndex}
+          className={clsx(styles.disabledTrigger, normalizeClassName(className))}
+          {...props}
+        />
+      </TooltipPrimitive.Trigger>
+    );
+  },
+);
 
 const TooltipPositioner = forwardRef<
   ComponentRef<typeof TooltipPrimitive.Positioner>,
@@ -121,6 +155,7 @@ const Tooltip = Object.assign(TooltipRoot, {
   RootProvider: TooltipRootProvider,
   Context: TooltipPrimitive.Context,
   Trigger: TooltipTrigger,
+  DisabledTrigger: TooltipDisabledTrigger,
   Body: TooltipBody,
   Positioner: TooltipPositioner,
   Content: TooltipContent,

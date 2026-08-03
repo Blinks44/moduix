@@ -1,29 +1,6 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const progressLinearExampleCss = `
-  .progress-linear-stack {
-    display: grid;
-    gap: var(--moduix-spacing-4);
-  }
-
-  .progress-linear-slider {
-    width: 12rem;
-  }
-`;
-
-export const progressLinearVerticalCss = `
-  .progress-linear-vertical {
-    --moduix-progress-linear-height: 10rem;
-
-    margin-inline: auto;
-  }
-
-  .progress-linear-vertical [data-slot='progress-linear-track'] {
-    justify-self: center;
-  }
-`;
-
 const progressLinearCssProperties: CssPropertyInput[] = [
   ['--moduix-progress-linear-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
   [

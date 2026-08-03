@@ -84,6 +84,24 @@ const lightboxStatusCss = `
   }
 `;
 
+const lightboxFocusReturnCss = `
+  .lightbox-focus-target[data-focus-returned] {
+    box-shadow: 0 0 0 var(--moduix-spacing-1) var(--moduix-color-ring);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox-focus-target[data-focus-returned] {
+      animation: lightbox-focus-return 600ms ease-out;
+    }
+
+    @keyframes lightbox-focus-return {
+      50% {
+        scale: 1.04;
+      }
+    }
+  }
+`;
+
 const lightboxCustomizationCss = `
   .lightbox-custom-backdrop {
     --moduix-lightbox-backdrop-bg: rgb(15 23 42 / 0.72);
@@ -106,7 +124,7 @@ export const lightboxBasicCss = lightboxTriggerCss;
 export const lightboxBindCmsContentCss = lightboxGalleryCss;
 export const lightboxClickToCloseImageCss = lightboxButtonCss;
 export const lightboxControlledCss = `${lightboxStackCss}${lightboxButtonCss}`;
-export const lightboxFocusAndIdsCss = `${lightboxStackCss}${lightboxButtonCss}${lightboxStatusCss}`;
+export const lightboxFocusAndIdsCss = `${lightboxStackCss}${lightboxFocusReturnCss}${lightboxStatusCss}`;
 export const lightboxGalleryExampleCss = lightboxGalleryCss;
 export const lightboxLazyMountCss = lightboxButtonCss;
 export const lightboxMultipleTriggersCss = lightboxGalleryCss;

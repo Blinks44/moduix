@@ -1,5 +1,7 @@
-import { ProgressCircular, Slider } from '@moduix/react';
+import { ProgressCircular } from '@moduix/react/progress-circular';
+import { Slider } from '@moduix/react/slider';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledProgressCircularDemo() {
   const [value, setValue] = useState(42 as number | null);
@@ -8,26 +10,29 @@ export default function ControlledProgressCircularDemo() {
       <ProgressCircular value={value} onValueChange={(details) => setValue(details.value)}>
         <ProgressCircular.Label>Upload status</ProgressCircular.Label>
         <div className="progress-circular-circle-container">
-          <ProgressCircular.Ring />
+          <ProgressCircular.Ring aria-label="Upload status" />
           <ProgressCircular.ValueText />
         </div>
       </ProgressCircular>
-      <Slider
-        className="progress-circular-slider"
-        min={0}
-        max={100}
-        value={[value ?? 0]}
-        onValueChange={(details) => setValue(details.value[0] ?? 0)}
-      >
-        <Slider.Label>Progress value</Slider.Label>
-        <Slider.ValueText />
-        <Slider.Control>
-          <Slider.Track>
-            <Slider.Range />
-          </Slider.Track>
-          <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
-        </Slider.Control>
-      </Slider>
+      <PreviewMeta>
+        <output>Progress: {value ?? 'loading'}%</output>
+        <Slider
+          className="progress-circular-slider"
+          min={0}
+          max={100}
+          value={[value ?? 0]}
+          onValueChange={(details) => setValue(details.value[0] ?? 0)}
+        >
+          <Slider.Label>Progress value</Slider.Label>
+          <Slider.ValueText />
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb index={0} aria-label="Progress value"></Slider.Thumb>
+          </Slider.Control>
+        </Slider>
+      </PreviewMeta>
     </div>
   );
 }

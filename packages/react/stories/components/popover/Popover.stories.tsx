@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { Button } from '../../../src/components/button';
-import { Popover, usePopover } from '../../../src/components/popover/Popover';
+import { Popover, usePopover, usePopoverContext } from '../../../src/components/popover/Popover';
 import { BellIcon } from '../../icons/demo';
 import storyStyles from './Popover.stories.module.css';
 
@@ -118,6 +118,37 @@ export const RootProvider: Story = {
           />
         </Popover.RootProvider>
       </div>
+    );
+  },
+};
+
+export const Context: Story = {
+  render: () => {
+    function PopoverState() {
+      const popover = usePopoverContext();
+      return <output>Popover is {popover.open ? 'open' : 'closed'}</output>;
+    }
+
+    return (
+      <Popover positioning={{ gutter: 8 }}>
+        <Popover.Trigger asChild>
+          <Button>Open context example</Button>
+        </Popover.Trigger>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Header>
+              <Popover.Title>Context state</Popover.Title>
+              <Popover.Description>
+                Read the popover state from a descendant without prop drilling.
+              </Popover.Description>
+            </Popover.Header>
+            <Popover.Footer>
+              <PopoverState />
+              <Popover.CloseTrigger>Close</Popover.CloseTrigger>
+            </Popover.Footer>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover>
     );
   },
 };

@@ -1,5 +1,6 @@
 .simpleGridDemoGrid {
   width: 100%;
+  margin-inline: auto;
   padding: var(--moduix-spacing-3);
   border-radius: var(--moduix-radius-xl);
   background-color: var(--moduix-color-muted);

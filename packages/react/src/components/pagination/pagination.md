@@ -21,10 +21,10 @@ many items map to one page.
 
 ## Current behavior contract
 
-Use the short root form for `Pagination.Root`:
+Use `Pagination` as the root:
 
 ```tsx
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
 
 export function Example() {
   return (
@@ -44,7 +44,7 @@ directly instead of local range math or layout aliases. `Pagination.usePaginatio
 ## Anatomy and exported parts
 
 ```text
-Pagination.Root
+Pagination
 ├─ Pagination.FirstTrigger (optional)
 ├─ Pagination.PrevTrigger
 ├─ Pagination.Items (recommended)
@@ -60,7 +60,7 @@ Pagination.RootProvider
 
 | Export                            | `data-slot`                | Notes                                                       |
 | --------------------------------- | -------------------------- | ----------------------------------------------------------- |
-| `Pagination` / `Pagination.Root`  | `pagination-root`          | Ark root with default `aria-label="Pagination"`.            |
+| `Pagination`                      | `pagination-root`          | Ark root with default `aria-label="Pagination"`.            |
 | `Pagination.RootProvider`         | `pagination-root-provider` | Ark root provider with default `aria-label="Pagination"`.   |
 | `Pagination.Items`                | —                          | Renders the standard computed page items and ellipses.      |
 | `Pagination.Context`              | Ark render prop            | Reads page state, helpers, pages, ranges, and slice helper. |
@@ -82,7 +82,7 @@ Use `Pagination.Items` for normal item rendering:
 ```
 
 Use `Pagination.Context` when page items need custom content or layout. Use `type="link"` with
-`getPageUrl(details)` for anchor navigation. Use `Pagination.usePagination()` plus
+`getPageUrl(details)` and `asChild` anchors for anchor navigation. Use `Pagination.usePagination()` plus
 `Pagination.RootProvider` when pagination state must be created outside the rendered root. Do not
 render `Pagination.Root` and `Pagination.RootProvider` for the same state instance.
 
@@ -131,6 +131,7 @@ Moduix adds visual defaults only:
 - default double-chevron visuals for first/last triggers;
 - default `...` text for ellipsis;
 - default `aria-label="Pagination"` on root and root provider.
+- default trigger icons mirror in RTL contexts.
 
 Public CSS variables:
 
@@ -174,6 +175,9 @@ Keep `Pagination.Context` for custom item rendering and `Pagination.Items` for t
 list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
+
+- 2026-07-29: Mirrored default trigger icons in RTL contexts and constrained the root to prevent
+  narrow-container overflow. Updated pagination docs previews to use semantic result output.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default pagination items and icon triggers to `--moduix-size-md`.

@@ -20,14 +20,14 @@ surface styles, or interactive behavior.
 Ark UI does not ship a dedicated `Container` primitive. moduix implements this component as an
 Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 
-Preserve the Ark composition model: one root part, DOM ownership through `asChild`, forwarded refs
-to the rendered root, and no legacy `render` or legacy `as` contract.
+Preserve the Ark composition model: one root part, DOM ownership through `asChild` with exactly one
+semantic child, forwarded refs to the rendered root, and no legacy `render` or legacy `as` contract.
 
 ## Current behavior contract
 
 - `Container` is the primary root component.
 - `Container.Root` is the same component exposed for Ark-style namespace consistency.
-- Root accepts Ark factory div props, including `asChild`.
+- Root accepts Ark factory div props, including `asChild`, which requires exactly one semantic child.
 - moduix does not export dedicated `Container*` prop or variant type aliases; advanced consumers can
   derive prop types locally or import Ark factory helpers directly.
 - Applies `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
@@ -62,7 +62,10 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Bleed, Container, Heading, Text } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
+import { Container } from '@moduix/react/container';
+import { Heading } from '@moduix/react/heading';
+import { Text } from '@moduix/react/text';
 import styles from './container.module.css';
 
 export function Example() {
@@ -88,14 +91,16 @@ export function Example() {
 `Container` is root-only and composition-first. Prefer the short `<Container>` form. Use the
 equivalent `<Container.Root>` namespace form when consistency with multipart component anatomy is
 useful. Put headings, text, forms, media, or full section content inside it. Use `asChild` when a
-semantic element such as `main`, `section`, or `article` should own the DOM node.
+semantic element such as `main`, `section`, or `article` should own the DOM node. `asChild` requires
+exactly one semantic child, and the ref then targets that child.
 
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior.
 - `Styling`: follows Ark's `data-scope`, `data-part`, and state/data-attribute guidance with one
   root part and no invented state attributes.
-- `Refs`: the forwarded ref targets the rendered root, or the single child element with `asChild`.
+- `Refs`: the forwarded ref targets the rendered root, or the single semantic child element with
+  `asChild`.
 - `Dedicated primitive features`: not applicable because Ark has no dedicated `Container`
   component page.
 - `Stateful or behavioral patterns`: intentionally unsupported; `Container` remains a single-root
@@ -166,6 +171,8 @@ when a page shell needs different layout math.
 
 ## Local changelog
 
+- 2026-07-26: Restored spacing-token fallbacks for responsive gutters, documented the single-child
+  `asChild` and ref contract, and made the site examples self-contained.
 - 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root
   component surface (`Container` / `Container.Root`).
 - 2026-06-25: Re-audited `Container` as a local Ark factory primitive, protected root data/class

@@ -1,11 +1,10 @@
-import { Spinner } from '@moduix/react';
-import styles from '@/components/examples/spinner.module.css';
+import { Spinner } from '@moduix/react/spinner';
 
 export default function SpinnerInlineDemo() {
   return (
-    <div className={styles.inline}>
-      <Spinner decorative size="sm" />
-      <span className={styles.muted}>Saving changes</span>
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--moduix-spacing-2)' }}>
+      <Spinner decorative size="inherit" />
+      <span style={{ color: 'var(--moduix-color-muted-foreground)' }}>Saving changes</span>
     </div>
   );
 }

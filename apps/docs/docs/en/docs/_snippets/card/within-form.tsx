@@ -1,4 +1,6 @@
-import { Button, Card, Input } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
+import { Input } from '@moduix/react/input';
 
 const copy = {
   title: 'Create account',
@@ -17,9 +19,9 @@ export default function CardFormDemo() {
           <Card.Title>{copy.title}</Card.Title>
           <Card.Description>{copy.description}</Card.Description>
         </Card.Header>
-        <Card.Body>
+        <Card.Body style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
           {fields.map((field) => (
-            <label key={field.name}>
+            <label key={field.name} style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}>
               {field.label}
               <Input name={field.name} />
             </label>

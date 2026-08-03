@@ -69,7 +69,8 @@ Every exported part accepts `className` and keeps stable hooks:
 ## Composition
 
 ```tsx
-import { Button, Card } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 export function CardDemo() {
   return (
@@ -163,7 +164,8 @@ Decision guide:
   - `data-size="sm" | "md" | "lg"`
   - `data-variant="elevated" | "outline" | "subtle"`
 - `Card.Root` is presentational by default.
-- Every part forwards its ref to the rendered DOM element.
+- Every part forwards an `HTMLElement` ref to its rendered DOM element, including when `asChild`
+  changes that element.
 - `asChild` requires one semantic child that can accept the merged props and ref.
 - `Card.Media` is layout-only sugar and does not create ownership or ARIA relationships.
 - `Card.Action` is layout only and does not create ownership or ARIA relationships.
@@ -239,6 +241,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-07-26: Made every part's public ref polymorphic for `asChild`, added focused root and
+  overlay-link regression coverage, and made documentation previews self-contained.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Card.Media` for predictable edge-to-edge leading media, introduced shared
   `--moduix-card-spacing*` hooks for shadcn-style spacing control, and moved public docs to an explicit

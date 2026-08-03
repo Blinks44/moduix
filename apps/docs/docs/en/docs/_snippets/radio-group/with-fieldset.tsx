@@ -1,4 +1,5 @@
-import { Fieldset, RadioGroup } from '@moduix/react';
+import { Fieldset } from '@moduix/react/fieldset';
+import { RadioGroup } from '@moduix/react/radio-group';
 
 const frameworks = ['React', 'Solid', 'Vue'];
 

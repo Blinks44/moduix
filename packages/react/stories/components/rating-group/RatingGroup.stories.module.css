@@ -26,6 +26,12 @@
     --moduix-rating-group-gap: var(--moduix-spacing-2);
   }
 
+  .asChild {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--moduix-spacing-1);
+  }
+
   .customIcon {
     color: var(--moduix-rating-group-active-color, var(--moduix-color-primary));
 

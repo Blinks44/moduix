@@ -56,7 +56,7 @@ Every exported part accepts `className` and uses the standard hooks below:
 ## Composition
 
 ```tsx
-import { Bleed } from '@moduix/react';
+import { Bleed } from '@moduix/react/bleed';
 
 <Bleed asChild>
   <figure>
@@ -85,7 +85,7 @@ Use `asChild` when another element should own the rendered DOM node.
 
 - `Bleed` has no managed state, callbacks, or ARIA behavior.
 - `asChild` requires exactly one semantic child that accepts DOM props and a ref.
-- A normal root ref resolves to `HTMLDivElement`; with `asChild`, Ark forwards it to the rendered
+- A root ref resolves to the rendered `HTMLElement`; with `asChild`, Ark forwards it to the rendered
   child element.
 - The root keeps stable hooks for styling and test targeting:
   - `data-scope`
@@ -113,8 +113,8 @@ Public CSS variables:
 | `--moduix-bleed-block-md`         | `var(--moduix-spacing-3)` | `block="md"`           |
 | `--moduix-bleed-block-lg`         | `var(--moduix-spacing-4)` | `block="lg"`           |
 | `--moduix-bleed-block-xl`         | `var(--moduix-spacing-6)` | `block="xl"`           |
-| `--moduix-bleed-inline-full`      | `calc(50% - 50vw)`        | `inline="full"` margin |
-| `--moduix-bleed-inline-full-size` | `100vw`                   | `inline="full"` width  |
+| `--moduix-bleed-inline-full`      | `calc(50% - 50vi)`        | `inline="full"` margin |
+| `--moduix-bleed-inline-full-size` | `100vi`                   | `inline="full"` width  |
 | `--moduix-bleed-inline-xs`        | `var(--moduix-spacing-1)` | `inline="xs"`          |
 | `--moduix-bleed-inline-sm`        | `var(--moduix-spacing-2)` | `inline="sm"`          |
 | `--moduix-bleed-inline-md`        | `var(--moduix-spacing-3)` | `inline="md"`          |
@@ -139,11 +139,13 @@ Public CSS variables:
   surface.
 - Keep wrapper-owned data hooks and the merged root class after consumer props so they cannot be
   replaced accidentally.
-- If CSS variables change, update `theme.css`, docs CSS Properties, stories/examples, and this file
+- If CSS variables change, update `variables-moduix.css`, docs CSS Properties, stories/examples, and this file
   in the same task.
 
 ## Local changelog
 
+- 2026-07-26: Made full-bleed viewport math logical for vertical writing modes, widened the
+  forwarded ref contract for `asChild`, and added focused regression coverage.
 - 2026-07-09: Re-aligned stories and public docs around the short `<Bleed>` sweet path and added a
   nested-shell example for overriding the full-bleed CSS variables.
 - 2026-07-07: Kept `Bleed` root-only and token-based, made wrapper-owned root hooks

@@ -1,9 +1,9 @@
-import { Field, Textarea } from '@moduix/react';
-import styles from '@/components/examples/textarea.module.css';
+import { Field } from '@moduix/react/field';
+import { Textarea } from '@moduix/react/textarea';
 
 export default function TextareaFieldValidationDemo() {
   return (
-    <Field className={styles.field} invalid required>
+    <Field invalid required>
       <Field.Label>Details</Field.Label>
       <Textarea minLength={10} placeholder="Add at least 10 characters" />
       <Field.HelperText>

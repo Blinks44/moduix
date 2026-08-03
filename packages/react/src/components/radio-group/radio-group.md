@@ -55,7 +55,7 @@ Do not unpack or remap `onValueChange`; consumers should read `details.value`.
 ## Composition
 
 ```tsx
-import { RadioGroup } from '@moduix/react';
+import { RadioGroup } from '@moduix/react/radio-group';
 
 export function RadioGroupDemo() {
   return (
@@ -80,9 +80,10 @@ placement or class names.
 
 - Basic, initial value, controlled, disabled, orientation, root provider, field, and fieldset
   examples are supported through the same Ark parts and props.
-- `Field.Root` and `Fieldset.Root` propagate form state to the group. Keep the visible field label,
-  helper text, and error text adjacent to the group; every `Item` renders its native form input
-  automatically.
+- `Field.Root` provides visible field context only; pass `disabled`, `invalid`, `readOnly`, and
+  `required` directly to the group. `Fieldset.Root` passes its Ark `disabled` and `invalid` state
+  to the group. Keep visible field labels, helper text, and error text adjacent to the group; every
+  `Item` renders its native form input automatically.
 - `asChild` is supported on Ark parts. `RadioGroup.Item` renders a `label` by default; when
   `asChild` is used, the direct child must still be a semantic `label`.
 - Each `RadioGroup.Item` renders its native form input automatically for submission, validation, and reset.
@@ -96,7 +97,8 @@ placement or class names.
 ## Accessibility and state
 
 Ark owns the WAI-ARIA radio group behavior, roving focus, keyboard navigation, controlled and
-uncontrolled state, disabled/read-only/invalid/required propagation, and hidden input behavior.
+uncontrolled state, and hidden input behavior. Root props control disabled, read-only, invalid, and
+required state; `Fieldset.Root` also supplies disabled and invalid state.
 Preserve Ark data attributes such as `data-scope="radio-group"`, `data-part`, `data-state`,
 `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`,
 `data-focus`, `data-focus-visible`, `data-hover`, and `data-active`.
@@ -135,6 +137,10 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 - Do not reintroduce flat aliases just for backwards compatibility.
 
 ## Local changelog
+
+- 2026-07-30: Added invalid control styling and focused regression coverage for automatic native
+  inputs, keyboard navigation, `asChild`, invalid state, and `RootProvider`. Clarified `Field.Root`
+  versus `Fieldset.Root` state integration.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

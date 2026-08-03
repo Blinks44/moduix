@@ -1,26 +1,5 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
-export const accordionExampleCss = `
-  .accordion-provider-stack {
-    display: grid;
-    gap: var(--moduix-spacing-3);
-    width: fit-content;
-    max-width: 100%;
-  }
-
-  .accordion-provider-stack .accordion-state {
-    margin-top: 0;
-  }
-
-  .accordion-state {
-    margin-top: var(--moduix-spacing-3);
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
-  }
-
-`;
-
 export const accordionOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-accordion-color', 'var(--moduix-color-foreground)', 'Controls accordion text color.'],
   [
@@ -126,6 +105,11 @@ export const accordionOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-accordion-trigger-bg',
     'var(--moduix-color-muted)',
     'Controls trigger background color.',
+  ],
+  [
+    '--moduix-accordion-trigger-bg-active',
+    'var(--moduix-accordion-trigger-bg-hover, var(--moduix-color-accent))',
+    'Controls trigger background color while pressed.',
   ],
   [
     '--moduix-accordion-trigger-bg-hover',

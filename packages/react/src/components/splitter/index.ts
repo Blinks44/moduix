@@ -4,4 +4,4 @@ export {
   type SplitterPanelData,
   useSplitter,
   useSplitterContext,
-} from './Splitter';
+} from './Splitter.js';

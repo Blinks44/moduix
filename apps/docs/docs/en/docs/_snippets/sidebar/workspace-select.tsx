@@ -1,5 +1,8 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Avatar, Menu, Select, Sidebar } from '@moduix/react';
+import { Avatar } from '@moduix/react/avatar';
+import { Menu } from '@moduix/react/menu';
+import { Select } from '@moduix/react/select';
+import { Sidebar } from '@moduix/react/sidebar';
 import {
   BarChart3,
   Bell,
@@ -32,7 +35,14 @@ const workspaces = createListCollection({
 
 export default function WorkspaceSidebar() {
   return (
-    <Sidebar className="app-sidebar">
+    <Sidebar
+      style={{
+        borderRadius: 'var(--moduix-radius-lg)',
+        boxShadow: 'var(--moduix-shadow-sm)',
+        height: '34rem',
+        minHeight: '28rem',
+      }}
+    >
       <Sidebar.Panel>
         <Sidebar.Header>
           <Sidebar.Menu>
@@ -48,7 +58,18 @@ export default function WorkspaceSidebar() {
               >
                 <Select.Trigger asChild>
                   <Sidebar.MenuButton size="lg" aria-label="Select workspace">
-                    <span className="app-workspace-mark" data-sidebar-icon>
+                    <span
+                      data-sidebar-icon
+                      style={{
+                        alignItems: 'center',
+                        backgroundColor: 'var(--moduix-color-accent)',
+                        borderRadius: 'var(--moduix-radius-sm)',
+                        display: 'inline-flex',
+                        height: '2rem',
+                        justifyContent: 'center',
+                        width: '2rem',
+                      }}
+                    >
                       AC
                     </span>
                     <Sidebar.Label>
@@ -150,7 +171,7 @@ export default function WorkspaceSidebar() {
             </Sidebar.Menu>
           </Sidebar.Group>
         </Sidebar.Content>
-        <Sidebar.Footer className="app-footer-stack">
+        <Sidebar.Footer style={{ display: 'grid', width: '100%' }}>
           <Sidebar.Separator />
           <Menu
             positioning={{
@@ -164,9 +185,23 @@ export default function WorkspaceSidebar() {
                 <Avatar size="sm" data-sidebar-icon>
                   <Avatar.Fallback>AM</Avatar.Fallback>
                 </Avatar>
-                <Sidebar.Label className="app-account-meta">
-                  <strong>Alex Morgan</strong>
-                  <span>alex@acme.dev</span>
+                <Sidebar.Label style={{ display: 'grid', flex: 1, textAlign: 'start' }}>
+                  <strong
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  >
+                    Alex Morgan
+                  </strong>
+                  <span
+                    style={{
+                      color: 'var(--moduix-color-muted-foreground)',
+                      fontSize: 'var(--moduix-text-xs)',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    alex@acme.dev
+                  </span>
                 </Sidebar.Label>
               </Sidebar.MenuButton>
             </Menu.Trigger>
@@ -193,8 +228,29 @@ export default function WorkspaceSidebar() {
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
       <Sidebar.Inset>
-        <header className="app-topbar">Dashboard</header>
-        <main className="app-main">Workspace content</main>
+        <header
+          style={{
+            alignItems: 'center',
+            borderBlockEnd: '1px solid var(--moduix-color-border)',
+            display: 'flex',
+            minHeight: '3.5rem',
+            paddingInline: '1.5rem',
+          }}
+        >
+          Dashboard
+        </header>
+        <main style={{ display: 'grid', gap: '1rem', padding: '1.5rem' }}>
+          <strong>Acme Inc.</strong>
+          <section
+            style={{
+              border: '1px solid var(--moduix-color-border)',
+              borderRadius: 'var(--moduix-radius-md)',
+              padding: '1rem',
+            }}
+          >
+            Switch workspaces without changing the navigation shell.
+          </section>
+        </main>
       </Sidebar.Inset>
     </Sidebar>
   );

@@ -1,4 +1,6 @@
-import { Badge, Button, Card } from '@moduix/react';
+import { Badge } from '@moduix/react/badge';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 const item = {
   title: 'The perfect latte',
@@ -12,9 +14,19 @@ const item = {
 
 export default function HorizontalCardDemo() {
   return (
-    <Card className="horizontalCard">
-      <img className="image" src={item.image} alt={item.imageAlt} />
-      <div className="content">
+    <Card
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(10rem, 0.8fr) minmax(0, 1.2fr)',
+        overflow: 'hidden',
+      }}
+    >
+      <img
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        src={item.image}
+        alt={item.imageAlt}
+      />
+      <div style={{ display: 'flex', minWidth: 0, flexDirection: 'column' }}>
         <Card.Header>
           <Card.Title>{item.title}</Card.Title>
           <Card.Description>{item.description}</Card.Description>

@@ -1,4 +1,5 @@
-import { Button, Empty } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Empty } from '@moduix/react/empty';
 
 const emptyState = {
   title: 'No results found',

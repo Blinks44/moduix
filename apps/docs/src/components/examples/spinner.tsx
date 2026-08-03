@@ -1,32 +1,6 @@
 import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const spinnerInlineCss = `
-  .inline {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--moduix-spacing-2);
-  }
-
-  .muted {
-    color: var(--moduix-color-muted-foreground);
-  }
-`;
-
-export const spinnerRowCss = `
-  .row {
-    display: flex;
-    align-items: center;
-    gap: var(--moduix-spacing-4);
-  }
-`;
-
-export const spinnerAsChildCss = `
-  .customSpinnerHost {
-    color: var(--moduix-color-primary);
-  }
-`;
-
 const spinnerOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-spinner-animation',

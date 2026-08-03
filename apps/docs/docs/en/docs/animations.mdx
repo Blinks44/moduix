@@ -90,11 +90,11 @@ These components keep separate motion systems and do not accept `--moduix-popup-
 Toast uses Ark runtime layout variables for stacking and dismissal. Keep its `--x`, `--y`, `--scale`,
 `--height`, and `--opacity` values intact; the recipes on this page are not a Toast API.
 
-## Live Preview
+## Live preview
 
 The preview uses `Popover.Content` because it is the smallest popup surface in the library. The
-Playground writes shared variables at the root scope, so the same values apply to all 13 supported
-popup content surfaces.
+Playground writes shared variables at the root scope, so the same values apply to every supported
+popup content surface listed under Shared popup motion.
 
 <AnimationDocs.AnimationMotionPlayground />
 
@@ -102,9 +102,18 @@ popup content surfaces.
 
 ```
 
-## Ready Recipes
+## Ready recipes
 
-Put these variables on `:root` to apply the recipe to all 13 supported popup content surfaces. For
+Choose motion by purpose, then keep one consistent recipe for similar surfaces:
+
+| Product intent                              | Start with                          |
+| ------------------------------------------- | ----------------------------------- |
+| Quiet disclosure without spatial meaning   | Fade                                |
+| Surface arriving from a nearby edge         | The matching Slide direction        |
+| Anchored menu or picker opening from trigger| Zoom or Lift                        |
+| Short, friendly confirmation                | Soft Pop, used sparingly            |
+
+Put these variables on `:root` to apply the recipe to all supported popup content surfaces. For
 one exception, use the matching component prefix from the component-local table instead.
 
 ### Fade
@@ -120,7 +129,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Slide Up
+### Slide up
 
 ```css
 :root {
@@ -133,7 +142,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Slide Down
+### Slide down
 
 ```css
 :root {
@@ -146,7 +155,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Slide Left
+### Slide left
 
 ```css
 :root {
@@ -159,7 +168,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Slide Right
+### Slide right
 
 ```css
 :root {
@@ -196,7 +205,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Drop In
+### Drop in
 
 ```css
 :root {
@@ -209,7 +218,7 @@ one exception, use the matching component prefix from the component-local table 
 }
 ```
 
-### Soft Pop
+### Soft pop
 
 ```css
 :root {
@@ -226,9 +235,9 @@ one exception, use the matching component prefix from the component-local table 
 
 Use this for a deliberate, friendly emphasis on a short menu, tooltip, or confirmation surface.
 
-## Component Recipes
+## Component recipes
 
-### Glass Focus for modal backdrops
+### Glass focus for modal backdrops
 
 Apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. Replace `dialog` with
 `command-palette`, `lightbox`, or `tour` for the matching modal family.
@@ -253,7 +262,7 @@ Apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. R
 }
 ```
 
-### Soft Scale for picker content
+### Soft scale for picker content
 
 Apply this class to `Select.Content`. For `Combobox`, `ColorPicker`, or `DatePicker`, replace the
 `select` prefix with `combobox`, `color-picker`, or `date-picker`.
@@ -293,13 +302,13 @@ arrive with more energy.
 }
 ```
 
-### Recipe Gallery
+### Recipe gallery
 
 <ExampleFrame>
   <AnimationDocs.MotionRecipesExample />
 </ExampleFrame>
 
-## Usage Rules
+## Usage rules
 
 - Put component-local motion variables on the visual part that owns the animation; set shared popup
   variables on `:root` for default portalled overlays.

@@ -3,10 +3,10 @@ export {
   useRatingGroup,
   useRatingGroupContext,
   useRatingGroupItemContext,
-} from './RatingGroup';
+} from './RatingGroup.js';
 export type {
   RatingGroupItemIndicatorProps,
   RatingGroupRootProps,
   RatingGroupRootProviderProps,
   RatingGroupSize,
-} from './RatingGroup';
+} from './RatingGroup.js';

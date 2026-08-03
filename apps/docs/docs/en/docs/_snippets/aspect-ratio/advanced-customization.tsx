@@ -1,4 +1,4 @@
-import { AspectRatio } from '@moduix/react';
+import { AspectRatio } from '@moduix/react/aspect-ratio';
 
 const media = {
   ratio: 16 / 9,

@@ -19,19 +19,11 @@ informs only the layout prop vocabulary.
 Start with `Stack` when one flex container is enough and the layout only needs direction, gap, and
 common alignment.
 
-<style>{`
-      .panel {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/basic.tsx"
 
-```tsx preview file="./_snippets/stack/basic.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -76,12 +68,12 @@ properties.
 
 | Prop        | Default         | Notes                                                   |
 | ----------- | --------------- | ------------------------------------------------------- |
-| `direction` | `column`        | `column`, `row`, or `{ mobile?: ..., desktop?: ... }`   |
+| `direction` | `column`        | `row`, `row-reverse`, `column`, `column-reverse`, or responsive object |
 | `gap`       | browser default | CSS length (`number` = `px`)                            |
 | `align`     | browser default | Any valid `align-items` value                           |
 | `justify`   | browser default | Any valid `justify-content` value                       |
 | `wrap`      | browser default | Any valid `flex-wrap` value                             |
-| `fill`      | theme default   | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
+| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` also sets `initial`  |
 | `asChild`   | `false`         | Ark factory composition with one semantic child element |
 
 ### Behavioral notes
@@ -89,6 +81,7 @@ properties.
 - `Stack` renders exactly one root and forwards Ark factory DOM props to that root.
 - `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
   provided.
+- `direction` also accepts `row-reverse` and `column-reverse` for reversed visual order.
 - `fill` affects the stack as a flex item, not its children.
 - `Separator` is an ordinary child; mark decorative dividers with `aria-hidden`.
 - `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
@@ -103,139 +96,80 @@ properties.
 
 Use `fill` when a nested stack should take the remaining space in a flex row.
 
-<style>{`
-      .row {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/growing-child-stack.tsx"
 
-```tsx preview file="./_snippets/stack/growing-child-stack.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Loading Layout
 
 Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
 
-<style>{`
-      .skeletonCard {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/loading-layout.tsx"
 
-```tsx preview file="./_snippets/stack/loading-layout.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Responsive Direction
 
 Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
 
-<style>{`
-      .row {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/responsive-direction.tsx"
 
-```tsx preview file="./_snippets/stack/responsive-direction.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Row Layout
 
 Use `direction="row"` and alignment props for inline layouts.
 
-<style>{`
-      .row {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/row-layout.tsx"
 
-```tsx preview file="./_snippets/stack/row-layout.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Semantic Element
 
 Use Ark `asChild` when the layout wrapper should also describe document structure.
 
-<style>{`
-      .panel {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
-    `}</style>
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/semantic-element.tsx"
 
-```tsx preview file="./_snippets/stack/semantic-element.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Separator
 
 Compose `Separator` directly when a horizontal or vertical stack needs a repeated visual divider
 between children. `gap` applies to every child, including each divider.
 
-<style>{`
-      .row {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-        padding: var(--moduix-spacing-4);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-lg);
-        background-color: var(--moduix-color-background);
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/separator.tsx"
 
-    `}</style>
-
-```tsx preview file="./_snippets/stack/separator.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ### Wrapped Items
 
 Use `wrap="wrap"` when items should flow to the next line.
 
-<style>{`
-      .wrap {
-        width: min(20rem, calc(100vw - var(--moduix-spacing-8)));
-      }
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/stack/wrapped-items.tsx"
 
-      .pill {
-        padding-inline: var(--moduix-spacing-3);
-        padding-block: var(--moduix-spacing-2);
-        border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-        border-radius: var(--moduix-radius-full);
-        background-color: var(--moduix-color-muted);
-        color: var(--moduix-color-foreground);
-        font-size: var(--moduix-text-sm);
-        line-height: var(--moduix-line-height-text-sm);
-      }
-    `}</style>
-
-```tsx preview file="./_snippets/stack/wrapped-items.tsx"
-
-```
+  ```
+</PreviewFrame>
 
 ## Styling
 
 ### CSS Properties
 
-`Stack` exposes public CSS variables in `theme.css`. The `direction` and `fill` props write inline
-values for these variables when provided, and the `style` prop can still override them per instance.
+`Stack` exposes public CSS variables on its root. They fall back to `column` and `initial`; the
+`direction` and `fill` props write inline values when provided, and `style` can override them per
+instance.
 
 <div className="docs-reference">
   <Tabs

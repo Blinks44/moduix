@@ -48,6 +48,10 @@
       background-color: var(--moduix-switch-bg-checked, var(--moduix-color-primary));
     }
 
+    &[data-invalid] {
+      border-color: var(--moduix-color-destructive);
+    }
+
     &[data-focus-visible] {
       outline: var(
           --moduix-switch-focus-ring-width,
@@ -148,6 +152,12 @@
       height: var(--moduix-switch-thumb-icon-size, 65%);
       flex-shrink: 0;
     }
+  }
+
+  .root:dir(rtl) .thumb[data-state='checked'] {
+    transform: translateX(
+      calc(var(--moduix-switch-thumb-translate, var(--moduix-switch-thumb-translate-default)) * -1)
+    );
   }
 
   .label {

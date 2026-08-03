@@ -21,6 +21,8 @@ and provider/context APIs without remapping them.
 `Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
 - `Popover` and `Popover.Root` are the same root component.
+- `Popover.Context` and `usePopoverContext` expose the current Ark state to descendants; both are
+  available from `@moduix/react`.
 - `onOpenChange` receives Ark's `{ open }` details object.
 - Floating placement is configured through `positioning` on `Root` or `usePopover`, not on
   `Positioner` or `Content`.
@@ -30,6 +32,8 @@ and provider/context APIs without remapping them.
 - `Arrow` renders the styled `ArrowTip` by default.
 - `Header`, `Body`, and `Footer` are plain layout helpers. `Header` reserves space for `CloseIcon`
   only when that helper is present.
+- When `Body` is a direct child of `Content`, it becomes the scroll region when the popup reaches
+  its available height. Keep Arrow, Header, and Footer outside `Body`.
 
 ## Anatomy and exported parts
 
@@ -51,9 +55,9 @@ Popover.Root
          └─ Popover.Footer (moduix)
 ```
 
-Exported Ark-aligned state surfaces are `Popover.RootProvider` and `usePopover`. Every rendered
-wrapper has a matching `data-slot` in kebab-case; the internal portal transport does not render a
-DOM element.
+Exported Ark-aligned state surfaces are `Popover.RootProvider`, `Popover.Context`, `usePopover`, and
+`usePopoverContext`. Every rendered wrapper has a matching `data-slot` in kebab-case; the internal
+portal transport and `Context` do not render DOM elements.
 
 | Export                 | Stable slot             | Notes                                      |
 | ---------------------- | ----------------------- | ------------------------------------------ |
@@ -75,7 +79,8 @@ DOM element.
 ## Composition
 
 ```tsx
-import { Button, Popover } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
 
 export function PopoverDemo() {
   return (
@@ -106,7 +111,8 @@ the Ark part.
 
 ## Upstream feature coverage
 
-- Basic explicit composition, `asChild`, controlled state, context reads, arrow, placement, close
+- Basic explicit composition, `asChild`, controlled state, context reads through `Popover.Context`
+  or `usePopoverContext`, arrow, placement, close
   behavior, lazy mounting, modal mode, initial focus, custom anchor, same-width positioning, dialog
   layering, nested popovers, and multiple trigger values are supported. Nested popovers render inline
   with `portalled={false}` to stay within their parent overlay.
@@ -130,8 +136,12 @@ the Ark part.
   `closeOnInteractOutside` retain Ark semantics.
 - Escape, pointer-down-outside, focus-outside, interact-outside, and dismissal callbacks receive Ark
   event objects unchanged.
+- `Popover.Context` and `usePopoverContext` read the same state as `RootProvider`; both remain
+  available through the moduix package barrel.
 - `Trigger` exposes `data-state` and `data-placement`. `Content` exposes `data-state`,
   `data-placement`, `data-nested`, `data-has-nested`, and `data-expanded`.
+- When multiple triggers have `value`, Ark adds `data-current` only to the trigger that opened the
+  popover; default trigger styling preserves that distinction.
 - `Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
 - `Content` exposes `--layer-index` and `--nested-layer-count`; `Arrow` exposes Ark arrow variables.
@@ -150,8 +160,12 @@ Open and closed animations target `[data-state='open']` and `[data-state='closed
 layer keeps exit animations mounted. Use `present` only for JavaScript-controlled animation
 lifecycles.
 
-The public `--moduix-popover-*` variables are declared in `theme.css`. Positioner sizing relies on Ark's
+The public `--moduix-popover-*` variables are declared in `variables-moduix.css`. Positioner sizing relies on Ark's
 runtime available-size and reference-size variables rather than duplicate measurements.
+
+When `Body` is present, `Content` uses it as the scroll region instead of allowing long content to
+escape the available viewport. Consumers with custom content can use `Body` without introducing a
+new component API.
 
 ## Intentional sugar and differences from upstream
 
@@ -173,7 +187,20 @@ runtime available-size and reference-size variables rather than duplicate measur
 - Mirror any future Ark provider, context, hook, part, or public type additions through the package
   barrel unless intentionally documented otherwise.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-29: Styled only the current valued trigger while a shared popover is open.
+
+- 2026-07-29: Documented the existing Context exports, made direct `Body` content scroll at the
+  popup height limit, and aligned runnable examples with the standalone preview contract.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced default popover and close controls to `--moduix-size-md` and compacted their block padding.

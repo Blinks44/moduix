@@ -1,4 +1,5 @@
-import { Button, Dialog, useDialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog, useDialog } from '@moduix/react/dialog';
 
 export default function NestedDialogDemo() {
   const parent = useDialog();
@@ -11,7 +12,10 @@ export default function NestedDialogDemo() {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Title>Parent dialog</Dialog.Title>
-            <Button className="dialog-nested-action" onClick={() => child.setOpen(true)}>
+            <Button
+              style={{ marginTop: 'var(--moduix-spacing-4)' }}
+              onClick={() => child.setOpen(true)}
+            >
               Open nested
             </Button>
           </Dialog.Content>

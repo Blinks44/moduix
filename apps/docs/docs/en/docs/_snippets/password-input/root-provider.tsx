@@ -1,10 +1,10 @@
-import { PasswordInput, usePasswordInput } from '@moduix/react';
+import { PasswordInput, usePasswordInput } from '@moduix/react/password-input';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function PasswordInputRootProviderDemo() {
   const passwordInput = usePasswordInput();
   return (
-    <div className="password-input-demo-stack">
-      <output>password input is {passwordInput.visible ? 'visible' : 'hidden'}</output>
+    <>
       <PasswordInput.RootProvider value={passwordInput}>
         <PasswordInput.Label>Password</PasswordInput.Label>
         <PasswordInput.Control>
@@ -14,6 +14,9 @@ export default function PasswordInputRootProviderDemo() {
           </PasswordInput.VisibilityTrigger>
         </PasswordInput.Control>
       </PasswordInput.RootProvider>
-    </div>
+      <PreviewMeta>
+        <output>Visibility: {passwordInput.visible ? 'visible' : 'hidden'}</output>
+      </PreviewMeta>
+    </>
   );
 }

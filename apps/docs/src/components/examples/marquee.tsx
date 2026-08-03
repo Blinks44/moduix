@@ -2,11 +2,6 @@ import type { CSSPropertiesEditorContext, CssPropertyInput } from '../mdx/refere
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const marqueeExampleCss = `
-  .marquee-root {
-    --moduix-marquee-width: 32rem;
-    max-width: calc(100vw - 2rem);
-  }
-
   .marquee-item {
     display: inline-flex;
     align-items: center;
@@ -26,13 +21,7 @@ export const marqueeExampleCss = `
   .marquee-stack {
     display: grid;
     gap: var(--moduix-spacing-3);
-  }
-
-  .marquee-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--moduix-spacing-2);
-    justify-content: flex-end;
+    justify-items: center;
   }
 
   .marquee-status {
@@ -48,7 +37,6 @@ export const marqueeVerticalCss = `
   .marquee-vertical {
     --moduix-marquee-width: 14rem;
     --moduix-marquee-vertical-height: 18rem;
-    max-width: calc(100vw - 2rem);
   }
 
   .marquee-item {
@@ -82,10 +70,20 @@ const marqueeCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-marquee-edge-color',
-    'var(--moduix-color-background)',
-    'Controls edge fade start color.',
+    'var(--marquee-edge-color)',
+    'Controls edge fade start color and overrides the Chakra-compatible alias.',
   ],
-  ['--moduix-marquee-edge-size', '20%', 'Controls edge fade width or height.'],
+  [
+    '--moduix-marquee-edge-size',
+    'var(--marquee-edge-size)',
+    'Controls edge fade width or height and overrides the Chakra-compatible alias.',
+  ],
+  [
+    '--marquee-edge-color',
+    'var(--moduix-color-background)',
+    'Chakra-compatible alias for edge fade start color.',
+  ],
+  ['--marquee-edge-size', '20%', 'Chakra-compatible alias for edge fade width or height.'],
   ['--moduix-marquee-edge-z-index', '1', 'Controls edge overlay stacking.'],
   ['--moduix-marquee-height', 'auto', 'Controls root height for horizontal marquees.'],
   [

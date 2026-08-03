@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export default function MenuWithArrowDemo() {
   return (
@@ -17,6 +18,7 @@ export default function MenuWithArrowDemo() {
           <Menu.Item value="new-file">New File</Menu.Item>
           <Menu.Item value="open">Open...</Menu.Item>
           <Menu.Item value="save">Save</Menu.Item>
+          <Menu.Item value="save-as">Save As...</Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

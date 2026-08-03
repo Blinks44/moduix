@@ -140,7 +140,11 @@ const inputOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-transition-default)',
     'Controls state transition timing.',
   ],
-  ['--moduix-input-width', '100%', 'Controls the input width.'],
+  [
+    '--moduix-input-width',
+    '100%',
+    'Controls the input width. When omitted, htmlSize uses the native character-based width.',
+  ],
 ];
 
 export function InputCssPropertiesPanel() {

@@ -1,4 +1,4 @@
-import { TagsInput } from '@moduix/react';
+import { TagsInput } from '@moduix/react/tags-input';
 
 export default function MaxOverflowTagsInput() {
   return (

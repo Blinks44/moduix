@@ -1,10 +1,11 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 import { useState } from 'react';
 
 export default function RadioItemsMenuDemo() {
   const [sortBy, setSortBy] = useState('date');
   return (
-    <Menu>
+    <Menu closeOnSelect={false}>
       <Menu.Trigger asChild>
         <Button>
           Sort
@@ -26,6 +27,14 @@ export default function RadioItemsMenuDemo() {
               <Menu.RadioItem value="date">
                 <Menu.ItemIndicator />
                 <Menu.ItemText>Date Modified</Menu.ItemText>
+              </Menu.RadioItem>
+              <Menu.RadioItem value="size">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>File Size</Menu.ItemText>
+              </Menu.RadioItem>
+              <Menu.RadioItem value="type">
+                <Menu.ItemIndicator />
+                <Menu.ItemText>File Type</Menu.ItemText>
               </Menu.RadioItem>
             </Menu.RadioItemGroup>
           </Menu.ItemGroup>

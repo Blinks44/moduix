@@ -24,11 +24,12 @@ input.
 `Slider.Thumbs` is the recommended way to render one styled thumb for every value. Every thumb,
 including an explicit `Slider.Thumb`, renders its native form input automatically.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/basic.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/basic.tsx"
 
 ```
+
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -85,7 +86,7 @@ from `@moduix/react` and pair them with `Slider.RootProvider`.
 
 | Prop                     | Default      | Notes                                      |
 | ------------------------ | ------------ | ------------------------------------------ |
-| `defaultValue`           | `[50]`       | Ark stores slider values as `number[]`.    |
+| `defaultValue`           | `[min]`      | Ark stores slider values as `number[]`.    |
 | `orientation`            | `horizontal` | Use `vertical` for vertical keyboard axis. |
 | `min`                    | `0`          | Lower bound.                               |
 | `max`                    | `100`        | Upper bound.                               |
@@ -103,7 +104,8 @@ objects. Use `details.value` to read the array.
 
 `Slider` follows Ark's WAI-ARIA slider behavior. Each thumb needs an accessible name through
 `Slider.Label`, `aria-label`, or `aria-labelledby`. Horizontal sliders use left/right arrow keys;
-vertical sliders use up/down arrow keys. Home and End move to bounds.
+vertical sliders use up/down arrow keys. Page Up, Page Down, Home, and End use the configured
+larger step or bounds.
 
 Every `Slider.Thumb` renders its native form input automatically for form submission, association,
 and reset synchronization. `disabled`, `invalid`, `readOnly`, `name`,
@@ -116,164 +118,227 @@ Ark.
 
 Set `origin="center"` when the selected value represents a positive or negative offset.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/center-origin.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/center-origin.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Change Events
 
 Use `onValueChange` for live updates and `onValueChangeEnd` when a drag or keyboard interaction is
 committed.
 
-<style>{SliderDocs.sliderEventsCss}</style>
-
-```tsx preview file="./_snippets/slider/change-events.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/change-events.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Context
 
 Use moduix `useSliderContext` inside a child component when you need inline reads of slider state
 such as `value`, `dragging`, and focus state.
 
-<style>{SliderDocs.sliderContextCss}</style>
-
-```tsx preview file="./_snippets/slider/context.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/context.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Controlled
 
 Control the value from React state by storing Ark's `details.value` array.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/controlled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/controlled.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Disabled
 
 Use `disabled` to keep the value visible while preventing interaction.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/disabled.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/disabled.tsx"
 
 ```
+
+</PreviewFrame>
+
+### Form
+
+Set `name` to submit the current value through a native form. moduix renders and synchronizes the
+native input automatically.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/form.tsx"
+
+```
+
+</PreviewFrame>
 
 ### Dragging Indicator
 
 Place `Slider.DraggingIndicator` inside a thumb to show the active value while dragging.
 
-<style>{SliderDocs.sliderNoCss}</style>
-
-```tsx preview file="./_snippets/slider/dragging-indicator.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/dragging-indicator.tsx"
 
 ```
+
+</PreviewFrame>
+
+### Invalid
+
+Use `invalid` when the selected value fails validation. The track, range, and thumb expose the
+error state while retaining normal slider interaction.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/invalid.tsx"
+
+```
+
+</PreviewFrame>
 
 ### Marks
 
 Use `Slider.MarkerGroup` and `Slider.Marker` to render tick marks. Ark marks expose
 `data-state="under-value | at-value | over-value"` for styling.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/marks.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/marks.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Min and Max
 
 Use `min` and `max` for domains that do not start at `0` or end at `100`.
 
-<style>{SliderDocs.sliderNoCss}</style>
-
-```tsx preview file="./_snippets/slider/min-and-max.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/min-and-max.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Range
 
 Pass an array with one value per thumb. `Slider.Thumbs` creates the matching thumb and input parts.
 
-<style>{SliderDocs.sliderNoCss}</style>
-
-```tsx preview file="./_snippets/slider/range.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/range.tsx"
 
 ```
+
+</PreviewFrame>
+
+### Read Only
+
+Use `readOnly` when the value should stay visible and focusable but must not change. moduix uses a
+default cursor so this state does not look interactive.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/read-only.tsx"
+
+```
+
+</PreviewFrame>
 
 ### Root Provider
 
 Use moduix `useSlider` with `Slider.RootProvider` when state must be owned outside the rendered tree.
 
-<style>{SliderDocs.sliderStackCss}</style>
-
-```tsx preview file="./_snippets/slider/root-provider.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/root-provider.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Step
 
 Use `step` for fractional or constrained increments.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/step.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/step.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Thumb Alignment
 
 Use `thumbAlignment="center"` when the thumb should extend beyond the track edges.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/thumb-alignment.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/thumb-alignment.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Thumb Collision
 
 Use `thumbCollisionBehavior="push"` or `"swap"` to change how range thumbs behave when they meet.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/thumb-collision.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/thumb-collision.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Thumb Overlap
 
 Use `minStepsBetweenThumbs` to keep a minimum gap between range thumbs.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/thumb-overlap.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/thumb-overlap.tsx"
 
 ```
+
+</PreviewFrame>
 
 ### Vertical
 
 Set `orientation="vertical"` and give the root a stable height.
 
-<style>{SliderDocs.sliderVerticalCss}</style>
-
-```tsx preview file="./_snippets/slider/vertical.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/vertical.tsx"
 
 ```
+
+</PreviewFrame>
+
+### Vertical with Marks
+
+Marks stay aligned with the track in vertical orientation and use the same marker state hooks.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/vertical-with-marks.tsx"
+
+```
+
+</PreviewFrame>
 
 ### Advanced Customization
 
 Bypass `Slider.Thumbs` when individual thumbs need custom children, accessible names, or ordering.
 
-<style>{SliderDocs.sliderHeaderCss}</style>
-
-```tsx preview file="./_snippets/slider/advanced-customization.tsx"
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/slider/advanced-customization.tsx"
 
 ```
+
+</PreviewFrame>
 
 ## Styling
 
@@ -306,6 +371,9 @@ Important Ark state hooks include `data-orientation`, `data-disabled`, `data-inv
 `data-state="open | closed"`. Ark runtime CSS variables include `--slider-thumb-width`,
 `--slider-thumb-height`, `--slider-thumb-transform`, `--slider-range-start`,
 `--slider-range-end`, `--translate-x`, and `--translate-y`.
+
+moduix adds `data-readonly` to `Slider` when its `readOnly` prop is set. The default invalid state
+uses the destructive color for the rail, selected range, and thumb.
 
 The default thumb focus ring uses `:focus-visible` for keyboard focus and Ark `data-dragging` while
 the thumb is pressed. It is removed after pointer release.

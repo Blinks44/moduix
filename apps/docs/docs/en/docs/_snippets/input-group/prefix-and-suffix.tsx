@@ -1,4 +1,5 @@
-import { Field, InputGroup } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { InputGroup } from '@moduix/react/input-group';
 
 const currency = {
   symbol: '$',
@@ -7,7 +8,7 @@ const currency = {
 
 export default function BudgetInputGroupDemo() {
   return (
-    <Field className="input-group-demo-field">
+    <Field>
       <Field.Label>Monthly budget</Field.Label>
       <InputGroup>
         <InputGroup.Addon>{currency.symbol}</InputGroup.Addon>

@@ -1,1 +1,1 @@
-export * from './AngleSlider';
+export * from './AngleSlider.js';

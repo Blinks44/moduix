@@ -1,5 +1,5 @@
 import { PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme-original';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import styles from './Components.module.css';
 import {
   CSSPropertiesReferenceTable,
@@ -26,17 +26,47 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
 function ShadcnInstall({
   packageName,
   itemLabel = 'component',
+  copiedSource = false,
+  dependencies = [],
 }: {
-  packageName: string;
+  packageName: string | string[];
   itemLabel?: string;
+  copiedSource?: boolean;
+  dependencies?: string[];
 }) {
+  const packageNames = Array.isArray(packageName) ? packageName : [packageName];
+
   return (
     <div className={styles.install}>
       <p>
-        If you want this {itemLabel} in your project source instead of <code>node_modules</code>,
-        install it from the hosted moduix registry:
+        {copiedSource ? (
+          <>
+            Copy this {itemLabel} and its CSS from the tabs above, then add the moduix components it
+            uses:
+          </>
+        ) : (
+          <>
+            If you want this {itemLabel} in your project source instead of <code>node_modules</code>
+            , install it from the hosted moduix registry:
+          </>
+        )}
       </p>
-      <PackageManagerTabs command={`shadcn@latest add @moduix-react/${packageName}`} dlx />
+      <PackageManagerTabs
+        command={`shadcn@latest add ${packageNames.map((name) => `@moduix-react/${name}`).join(' ')}`}
+        dlx
+      />
+      {dependencies.length > 0 ? (
+        <>
+          <p>
+            This example also requires{' '}
+            {dependencies.map((dependency, index) => (
+              <code key={dependency}>{index > 0 ? ` ${dependency}` : dependency}</code>
+            ))}
+            .
+          </p>
+          <PackageManagerTabs command={`install ${dependencies.join(' ')}`} />
+        </>
+      ) : null}
     </div>
   );
 }
@@ -77,8 +107,12 @@ function Card({
   );
 }
 
-function PreviewMeta({ children }: { children: ReactNode }) {
-  return <div data-preview-meta>{children}</div>;
+function PreviewMeta({ children, ...props }: ComponentProps<'div'>) {
+  return (
+    <div {...props} data-preview-meta>
+      {children}
+    </div>
+  );
 }
 
 export {

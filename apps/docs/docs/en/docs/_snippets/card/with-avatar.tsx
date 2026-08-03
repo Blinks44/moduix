@@ -1,4 +1,5 @@
-import { Button, Card } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Card } from '@moduix/react/card';
 
 const person = {
   initials: 'NF',
@@ -11,8 +12,19 @@ export default function CardAvatarDemo() {
   return (
     <Card>
       <Card.Header>
-        <div className="profile">
-          <span aria-hidden="true" className="avatar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-3)' }}>
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'inline-grid',
+              width: '3rem',
+              height: '3rem',
+              placeItems: 'center',
+              borderRadius: 'var(--moduix-radius-full)',
+              background: 'var(--moduix-color-primary)',
+              color: 'var(--moduix-color-primary-foreground)',
+            }}
+          >
             {person.initials}
           </span>
           <div>

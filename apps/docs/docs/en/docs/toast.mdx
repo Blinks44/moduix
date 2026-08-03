@@ -6,6 +6,8 @@ description: A notification region for temporary messages, actions, and contextu
 
 import * as ToastDocs from '@/components/examples/toast';
 
+<style>{ToastDocs.toastExampleCss}</style>
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
@@ -15,11 +17,10 @@ import * as ToastDocs from '@/components/examples/toast';
 Create a toaster store with `createToaster()`, enqueue messages through that store, and render the
 store with `Toaster`.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/basic.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/basic.tsx"
+  ```
+</PreviewFrame>
 
 ## Install with shadcn
 
@@ -31,7 +32,7 @@ store with `Toaster`.
 createToaster()
 └─ Overlay subtree (automatically portalled)
    └─ Toaster
-      └─ Toast.Root
+      └─ Toast
          ├─ Toast.Title
          ├─ Toast.Description
          ├─ Toast.ActionTrigger
@@ -40,8 +41,8 @@ createToaster()
 
 | Part                        | Role                                                                                 |
 | --------------------------- | ------------------------------------------------------------------------------------ |
-| `Toast` / `Toast.Root`      | Visible toast surface connected to the current Ark toast context.                    |
-| `Toaster` / `Toast.Toaster` | Renders a toaster store and owns the Ark toast group.                                |
+| `Toast`                     | Visible toast surface connected to the current Ark toast context.                    |
+| `Toaster`                   | Renders a toaster store and owns the Ark toast group.                                |
 | `Toast.Title`               | Title part. Defaults to the current toast `title` when no children are passed.       |
 | `Toast.Description`         | Description part. Defaults to the current toast `description`.                       |
 | `Toast.ActionTrigger`       | Action button wired to `toast.action.onClick`. Pass `toast.action.label` as content. |
@@ -60,8 +61,8 @@ and the `Alt+T` focus hotkey.
 `Toaster` targets `document.body` by default. Set `portalled={false}` for inline rendering or pass
 `portalRef` for another container.
 
-Use `Toast` as the short root form in application code. It is equivalent to `Toast.Root` and keeps
-the Ark namespace available for the child parts.
+Use `Toast` as the root form in application code. `Toast.Root` remains available as a compatibility
+alias.
 
 With no render prop, `Toaster` renders the moduix default toast: title and description only when
 present, its action when provided, and a close button unless `closable: false` is set. This is the
@@ -71,15 +72,14 @@ recommended path for standard application feedback.
 
 Use the `Toaster` render prop when each toast needs custom layout, icons, or controls that differ
 from the default. For example, use it to replace the default close icon.
-Keep `Toast.Root` as the outer item so Ark can preserve stacking, height measurement, dismiss
+Keep `Toast` as the outer item so Ark can preserve stacking, height measurement, dismiss
 lifecycle, pausing, keyboard focus, and type/state attributes.
 
 All exported Ark parts support `asChild`; custom children must remain semantic and preserve button
 behavior for `ActionTrigger` and `CloseTrigger`.
 
-If a custom child part needs direct access to Ark toast state, import `useToastContext()` from
-`@ark-ui/react/toast`. moduix keeps the visual parts and toaster wiring public and leaves the
-advanced state hook to Ark.
+If a custom child part needs direct access to toast state, import `useToastContext()` from
+`@moduix/react/toast`.
 
 ### Default props
 
@@ -105,7 +105,7 @@ advanced state hook to Ark.
   `unmounted`.
 - When creating a toast inside an effect, defer the store call with `queueMicrotask()` to avoid
   React `flushSync` warnings.
-- `Toast.Root` exposes Ark state attributes such as `data-state`, `data-type`, `data-placement`,
+- `Toast` exposes Ark state attributes such as `data-state`, `data-type`, `data-placement`,
   `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack`, and
   `data-overlap`.
 
@@ -115,176 +115,92 @@ advanced state hook to Ark.
 
 Use `action: { label, onClick }` when the toast should expose one direct follow-up action.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/action.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/action.tsx"
+  ```
+</PreviewFrame>
 
 ### Always Expanded
 
 Set `overlap: false` when every toast should remain fully visible instead of collapsing into an
 overlapping stack. This is an additional Ark store configuration, not a separate component mode.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/always-expanded.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/always-expanded.tsx"
+  ```
+</PreviewFrame>
 
 ### Duration
 
 Set `duration` per toast when a notification should dismiss faster, slower, or only after manual
 dismissal.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/duration.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/duration.tsx"
+  ```
+</PreviewFrame>
 
 ### Max Visible
 
 Set `max` on the toaster store when bursts should queue instead of filling the screen.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-<ExampleFrame clientOnly>
-  <ToastDocs.MaxToastsToastExample />
-</ExampleFrame>
-
-```tsx
-import { Button, Toaster, createToaster } from '@moduix/react';
-
-const toaster = createToaster({
-  max: 3,
-  overlap: true,
-  placement: 'bottom-end',
-  gap: 16,
-});
-
-export default function App() {
-  return (
-    <>
-      <Button
-        onClick={() =>
-          toaster.info({
-            title: 'New notification',
-            description: 'You have a new message in your inbox.',
-          })
-        }
-      >
-        Add notification
-      </Button>
-      <Button
-        onClick={() => {
-          messages.forEach((description) => {
-            toaster.info({
-              title: 'Notification',
-              description,
-            });
-          });
-        }}
-      >
-        Add 5 notifications
-      </Button>
-      <Toaster toaster={toaster} />
-    </>
-  );
-}
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/max-toasts.tsx"
+  ```
+</PreviewFrame>
 
 ### Placement
 
 Choose one of Ark's six placements when the toast group needs to appear on a specific viewport edge.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-<ExampleFrame clientOnly>
-  <ToastDocs.PlacementToastExample />
-</ExampleFrame>
-
-```tsx
-import { Button, Toaster } from '@moduix/react';
-import { useState } from 'react';
-
-const placements = ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'];
-
-export default function App() {
-  const [placement, setPlacement] = useState<(typeof placements)[number]>('bottom-end');
-  const toaster = toasters[placement];
-  return (
-    <>
-      {placements.map((item) => (
-        <Button key={item} onClick={() => setPlacement(item)}>
-          {item}
-        </Button>
-      ))}
-      <Button
-        onClick={() =>
-          toaster.info({
-            title: 'Notification',
-            description: `This toast appears at ${placement}.`,
-          })
-        }
-      >
-        Show {placement}
-      </Button>
-      {placements.map((item) => (
-        <Toaster key={item} toaster={toasters[item]} />
-      ))}
-    </>
-  );
-}
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/placement.tsx"
+  ```
+</PreviewFrame>
 
 ### Promise Toast
 
 Use `toaster.promise()` to transition one toast from loading to success or error.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/promise-toast.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/promise-toast.tsx"
+  ```
+</PreviewFrame>
 
 ### Types
 
 Use the typed toaster helpers for status-specific variants. moduix styles `info`, `success`,
 `warning`, `error`, and `destructive` through `data-type`.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/types.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/types.tsx"
+  ```
+</PreviewFrame>
 
 ### Update
 
 Keep the created toast id and pass it to `toaster.update()` when an existing notification should
 change in place.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/update.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/update.tsx"
+  ```
+</PreviewFrame>
 
 ### Advanced Customization
 
 This bypasses the default `Toaster` renderer to add an icon, replace the close icon, and use
 component-specific CSS variables.
 
-<style>{ToastDocs.toastExampleCss}</style>
-
-```tsx preview file="./_snippets/toast/custom-composition.tsx"
-
-```
+<PreviewFrame>
+  ```tsx preview file="./_snippets/toast/custom-composition.tsx"
+  ```
+</PreviewFrame>
 
 ## Styling
 
 Style `Toast` through Ark part attributes, `data-slot` hooks, and the public `--moduix-toast-*` variables
-from `theme.css`.
+from the public CSS API.
 
 ### CSS Properties
 
@@ -302,19 +218,19 @@ from `theme.css`.
 
 ### Styling hooks
 
-Use `Toast.Root` for surface, border, motion, type-based variants, and Ark runtime variables.
+Use `Toast` for surface, border, motion, type-based variants, and Ark runtime variables.
 Use `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger`, and `Toast.CloseTrigger` for inner
 typography and controls.
 
 Important Ark hooks:
 
 - `[data-scope='toast'][data-part='group']` on `Toaster`
-- `[data-scope='toast'][data-part='root']` on `Toast.Root`
+- `[data-scope='toast'][data-part='root']` on `Toast`
 - `[data-scope='toast'][data-part='title']` on `Toast.Title`
 - `[data-scope='toast'][data-part='description']` on `Toast.Description`
 - `[data-scope='toast'][data-part='action-trigger']` on `Toast.ActionTrigger`
 - `[data-scope='toast'][data-part='close-trigger']` on `Toast.CloseTrigger`
-- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast.Root`
+- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity`, and `--gap` on `Toast`
 
 moduix also adds stable hooks: `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
 `toast-description`, `toast-action-trigger`, and `toast-close-trigger`.

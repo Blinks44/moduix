@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Minus as SeparatorMarkIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 

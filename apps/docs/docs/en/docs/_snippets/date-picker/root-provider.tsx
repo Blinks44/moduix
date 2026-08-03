@@ -1,5 +1,6 @@
 import { today } from '@internationalized/date';
-import { Button, DatePicker, useDatePicker } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { DatePicker, useDatePicker } from '@moduix/react/date-picker';
 import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function RootProviderDatePickerDemo() {
@@ -7,7 +8,7 @@ export default function RootProviderDatePickerDemo() {
     defaultValue: [today('UTC')],
   });
   return (
-    <div>
+    <div className="date-picker-preview">
       <DatePicker.RootProvider value={datePicker}>
         <DatePicker.Label>Report date</DatePicker.Label>
         <DatePicker.Field />

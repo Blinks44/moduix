@@ -1,4 +1,4 @@
-import { Carousel } from '@moduix/react';
+import { Carousel } from '@moduix/react/carousel';
 
 const slides = [
   {
@@ -30,6 +30,7 @@ const slides = [
 export default function VariableSizeCarousel() {
   return (
     <Carousel
+      aria-label="Variable size gallery"
       autoSize
       slideCount={slides.length}
       spacing="var(--moduix-spacing-3)"

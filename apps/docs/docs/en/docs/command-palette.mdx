@@ -21,7 +21,7 @@ Use `CommandPalette.Panel` for the standard dialog shell and place `CommandPalet
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -46,7 +46,7 @@ CommandPalette / CommandPalette.Root
       │        ├─ CommandPalette.ItemMeta
       │        └─ CommandPalette.ItemIndicator
       └─ CommandPalette.Footer
-````
+```
 
 | Part                                                                  | Role                                                                                  |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -81,9 +81,13 @@ Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then 
 
 ### When to go custom
 
-Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`, and `ClearTrigger` directly when you need custom overlay structure or search controls. Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `aria-label` on the root for the recommended palette label, or render `CommandPalette.Title` in a custom composition when you need visible dialog chrome. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them.
+Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`, and `ClearTrigger` directly when you need custom overlay structure or search controls. Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `aria-label` on the root for the recommended palette label, or render `CommandPalette.Title` in a custom composition when you need visible dialog chrome. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state from Ark `useDialog`, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them. Other Ark Dialog root props, including `ids`, `initialFocusEl`, `finalFocusEl`, `present`, and `onExitComplete`, retain their original contracts; part refs forward to the matching Ark DOM parts. Command palettes do not render a `HiddenInput` because they are action surfaces rather than form controls.
 
 ### Default props
+
+The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
+`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
+eager initial rendering is needed.
 
 | Prop                                        | Default         | Notes                                                                            |
 | ------------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
@@ -99,7 +103,7 @@ Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`
 
 ### Behavioral notes
 
-The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. It accepts one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`; supported modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`. When enabled, it ignores `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because the documentation search uses `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette.ClearTrigger` clears `inputValue`, rather than the Combobox selection value, and stays hidden while the search is empty. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
+The shortcut listener is opt-in because documentation pages and complex applications can mount multiple command palettes at once. It accepts one modifier and one key, for example `mod+k`, `ctrl+1`, `meta+k`, or `alt+k`; supported modifier aliases are `mod`, `ctrl` / `control`, `meta` / `cmd` / `command`, and `alt` / `option`. When enabled, it ignores repeat keydown events and `input`, `textarea`, `select`, and `contenteditable` targets while the palette is closed, and closes the palette when the same shortcut is pressed while it is open. `alt+k` is the recommended docs shortcut because the documentation search uses `Cmd+K`. `mod` accepts either Meta or Control, which keeps the component platform-agnostic. `CommandPalette.ClearTrigger` clears `inputValue`, rather than the Combobox selection value, and stays hidden while the search is empty. `CommandPalette` preserves Ark `onOpenChange(details)`, and `CommandPalette.Combobox` preserves Ark Combobox callback detail objects such as `onInputValueChange(details)`, `onSelect(details)`, and `onValueChange(details)`.
 
 ## Examples
 
@@ -110,18 +114,18 @@ Control `open` from React state when the palette must coordinate with surroundin
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/controlled-open-state.tsx"
 
-````
+```
 
 </PreviewFrame>
 
 ### Enable the Global Shortcut
 
-Enable the listener when a palette should open from a global command key. The live preview opens from the button so this docs page keeps a single active `Alt+K` listener.
+Enable the listener when a palette should open from a global command key. This is the only preview on the page that registers `Alt+K`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/enable-the-global-shortcut.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -132,7 +136,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/item-actions.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -143,7 +147,7 @@ Bypass `Panel` and `Search` when the palette needs custom dialog chrome or searc
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/command-palette/advanced-customization.tsx"
 
-````
+```
 
 </PreviewFrame>
 

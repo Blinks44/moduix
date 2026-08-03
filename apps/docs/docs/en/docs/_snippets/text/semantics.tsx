@@ -1,9 +1,8 @@
-import { Text } from '@moduix/react';
-import styles from '@/components/examples/text.module.css';
+import { Text } from '@moduix/react/text';
 
 export default function TextSemanticsDemo() {
   return (
-    <div className={styles.stack}>
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
       <Text>Paragraph text rendered as p.</Text>
       <Text as="span">Inline text rendered as span.</Text>
       <Text as="small" tone="muted">

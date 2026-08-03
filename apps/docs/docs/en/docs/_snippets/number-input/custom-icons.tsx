@@ -1,9 +1,12 @@
-import { NumberInput } from '@moduix/react';
+import { NumberInput } from '@moduix/react/number-input';
 import { ChevronDown as ChevronDownIcon, ChevronUp as ChevronUpIcon } from 'lucide-react';
 
 export default function CustomIconsNumberInputDemo() {
   return (
-    <NumberInput defaultValue="8">
+    <NumberInput
+      defaultValue="8"
+      translations={{ decrementLabel: 'Decrease floors', incrementLabel: 'Increase floors' }}
+    >
       <NumberInput.Label>Floors</NumberInput.Label>
       <NumberInput.Control>
         <NumberInput.DecrementTrigger className="number-input-custom-button">

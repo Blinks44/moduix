@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ScrollArea as ScrollAreaPrimitive,
   useScrollArea,
@@ -25,11 +27,11 @@ const ScrollAreaRoot = forwardRef<
   return (
     <ScrollAreaPrimitive.Root
       ref={ref}
+      {...props}
       data-slot="scroll-area-root"
       data-fade={fade ? '' : undefined}
       data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -41,11 +43,11 @@ const ScrollAreaRootProvider = forwardRef<
   return (
     <ScrollAreaPrimitive.RootProvider
       ref={ref}
+      {...props}
       data-slot="scroll-area-root-provider"
       data-fade={fade ? '' : undefined}
       data-variant={variant}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -57,9 +59,9 @@ const ScrollAreaViewport = forwardRef<
   return (
     <ScrollAreaPrimitive.Viewport
       ref={ref}
+      {...props}
       data-slot="scroll-area-viewport"
       className={clsx(styles.viewport, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -71,9 +73,9 @@ const ScrollAreaContent = forwardRef<
   return (
     <ScrollAreaPrimitive.Content
       ref={ref}
+      {...props}
       data-slot="scroll-area-content"
       className={clsx(styles.content, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -85,9 +87,9 @@ const ScrollAreaScrollbar = forwardRef<
   return (
     <ScrollAreaPrimitive.Scrollbar
       ref={ref}
+      {...props}
       data-slot="scroll-area-scrollbar"
       className={clsx(styles.scrollbar, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -99,9 +101,9 @@ const ScrollAreaThumb = forwardRef<
   return (
     <ScrollAreaPrimitive.Thumb
       ref={ref}
+      {...props}
       data-slot="scroll-area-thumb"
       className={clsx(styles.thumb, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -113,9 +115,9 @@ const ScrollAreaCorner = forwardRef<
   return (
     <ScrollAreaPrimitive.Corner
       ref={ref}
+      {...props}
       data-slot="scroll-area-corner"
       className={clsx(styles.corner, normalizeClassName(className))}
-      {...props}
     />
   );
 });

@@ -1,5 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Field, Select } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Select } from '@moduix/react/select';
 
 const frameworks = createListCollection({
   items: [

@@ -1,4 +1,4 @@
-import { ProgressLinear } from '@moduix/react';
+import { ProgressLinear } from '@moduix/react/progress-linear';
 
 export default function ValueTextProgressLinearDemo() {
   return (
@@ -12,7 +12,7 @@ export default function ValueTextProgressLinearDemo() {
     >
       <ProgressLinear.Label>Migration</ProgressLinear.Label>
       <ProgressLinear.ValueText />
-      <ProgressLinear.Track>
+      <ProgressLinear.Track aria-label="Migration">
         <ProgressLinear.Range />
       </ProgressLinear.Track>
     </ProgressLinear>

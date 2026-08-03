@@ -1,29 +1,5 @@
 import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
-export const listNoopCss = '';
-
-export const listToneExampleCss = `
-  .list-demo-tones {
-    display: grid;
-    gap: var(--moduix-spacing-4) var(--moduix-spacing-6);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: fit-content;
-    max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
-  }
-`;
-
-export const listCustomCompositionCss = `
-  .list-demo-accent {
-    max-width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
-    --moduix-list-padding-x: var(--moduix-spacing-6);
-  }
-
-  .list-demo-accent-item::marker {
-    color: var(--moduix-color-chart-2);
-    font-weight: var(--moduix-weight-semibold);
-  }
-`;
-
 const listOverrideCssProperties = [
   {
     name: '--moduix-list-color',

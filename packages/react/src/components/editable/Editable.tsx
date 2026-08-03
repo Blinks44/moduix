@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Editable as EditablePrimitive,
   useEditable,
@@ -157,12 +159,12 @@ const EditableCancelTrigger = forwardRef<
   );
 });
 
-function EditableControls({
-  className,
-  ...props
-}: Omit<ComponentProps<typeof EditablePrimitive.Control>, 'asChild' | 'children'>) {
+const EditableControls = forwardRef<
+  ComponentRef<typeof EditablePrimitive.Control>,
+  Omit<ComponentProps<typeof EditablePrimitive.Control>, 'asChild' | 'children'>
+>(function EditableControls({ className, ...props }, ref) {
   return (
-    <EditableControl className={className} {...props}>
+    <EditableControl ref={ref} className={className} {...props}>
       <EditablePrimitive.Context>
         {(editable) =>
           editable.editing ? (
@@ -177,7 +179,7 @@ function EditableControls({
       </EditablePrimitive.Context>
     </EditableControl>
   );
-}
+});
 
 const Editable = Object.assign(EditableRoot, {
   Root: EditableRoot,

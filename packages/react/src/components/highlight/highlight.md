@@ -3,7 +3,7 @@
 Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/utilities/highlight
-- Chakra UI: no dedicated Highlight recipe used for this wrapper
+- Chakra UI: https://chakra-ui.com/docs/components/highlight
 
 ## Purpose
 
@@ -29,6 +29,8 @@ Preserve these upstream behaviors:
 - `Highlight` is the callable root and `Highlight.Root` is the same component.
 - The component renders one `<mark>` per matched chunk and plain text nodes for unmatched chunks.
 - If the query does not match, the component renders only plain text with no `<mark>` output.
+- `matchAll` defaults to `false` for a string query and to `true` for a string-array query. A string
+  array requires `matchAll` to remain `true`.
 - `className` and other mark props are applied to every matched `<mark>` segment.
 - moduix adds stable `data-scope`, `data-part`, and `data-slot` hooks plus default highlight styles.
 - The package exports the styled root only; there is no chunk-rendering API.
@@ -49,7 +51,8 @@ Highlight / Highlight.Root
 Canonical usage:
 
 ```tsx
-import { Highlight, Text } from '@moduix/react';
+import { Highlight } from '@moduix/react/highlight';
+import { Text } from '@moduix/react/text';
 
 export function Example() {
   return (
@@ -86,7 +89,9 @@ required.
 - Ark multiple queries: covered by string-array `query`.
 - Ark case sensitivity: covered by `ignoreCase`.
 - Ark first-match versus all-matches behavior: covered by `matchAll`.
-- Ark whole-word matching: covered by `exactMatch`.
+- Ark whole-word matching: covered by `exactMatch` for Latin word boundaries. Ark's JavaScript
+  word-boundary implementation does not provide whole-word matching for Cyrillic and some other
+  non-ASCII scripts; preserve that behavior rather than adding local parsing.
 
 ## Accessibility and state
 
@@ -129,13 +134,15 @@ Public CSS variables:
 - Keep the wrapper thin. Do not add local parsing, match preprocessing, or alternate render paths.
 - Preserve the no-wrapper contract. The component styles matched `<mark>` tags; it does not own the
   surrounding text layout.
-- If public `--moduix-highlight-*` variables change, update `theme.css`, stories, docs examples, the local
+- If public `--moduix-highlight-*` variables change, update `variables-moduix.css`, stories, docs examples, the local
   markdown file, and the docs page in the same task.
 
 ## Local changelog
 
-- 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
-- 2026-07-05: Added the moduix `Highlight` wrapper around Ark Highlight with shared mark styling,
-  stable data hooks, Storybook coverage, local component documentation, and public docs.
+- 2026-07-27: Documented conditional `matchAll` defaults and the upstream non-ASCII `exactMatch`
+  limitation; added regression coverage for the rendered contract.
+- 2026-07-21: Routed Highlight padding and radius fallbacks through foundation tokens.
 - 2026-07-10: Clarified that custom chunk rendering is outside the Highlight contract and aligned the
   public examples with the documented ordering.
+- 2026-07-05: Added the moduix `Highlight` wrapper around Ark Highlight with shared mark styling,
+  stable data hooks, Storybook coverage, local component documentation, and public docs.

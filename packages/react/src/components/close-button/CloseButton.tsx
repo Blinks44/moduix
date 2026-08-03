@@ -58,11 +58,11 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
         data-disabled={dataDisabled ?? (isDisabled ? '' : undefined)}
         className={clsx(styles.root, normalizeClassName(className))}
         aria-disabled={ariaDisabled}
-        aria-label={ariaLabel ?? (children == null && ariaLabelledBy == null ? 'Close' : undefined)}
+        aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
         onClick={handleClick}
       >
-        {children ?? <CloseIcon />}
+        {children || <CloseIcon />}
       </ark.button>
     );
   },

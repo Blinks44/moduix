@@ -1,14 +1,20 @@
 .stack {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--moduix-spacing-3);
 }
 
 .formField {
-  width: fit-content;
-  max-width: min(20rem, 100%);
-  align-self: center;
+  align-items: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.form {
+  display: grid;
+  justify-items: center;
+  gap: var(--moduix-spacing-4);
 }
 
 .siblingRow {
@@ -17,15 +23,16 @@
   gap: var(--moduix-switch-gap, var(--moduix-spacing-2));
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--moduix-spacing-3);
+}
+
 .label {
   color: var(--moduix-switch-label-color, var(--moduix-color-foreground));
   font-size: var(--moduix-switch-label-font-size, var(--moduix-text-sm));
   font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
   line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
-}
-
-.hint {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-xs);
-  line-height: var(--moduix-line-height-text-xs);
 }

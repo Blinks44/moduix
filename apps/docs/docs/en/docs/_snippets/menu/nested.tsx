@@ -1,4 +1,5 @@
-import { Button, Menu } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Menu } from '@moduix/react/menu';
 
 export default function NestedMenuDemo() {
   return (
@@ -12,6 +13,7 @@ export default function NestedMenuDemo() {
       <Menu.Positioner>
         <Menu.Content className="menu-content">
           <Menu.Item value="open">Open...</Menu.Item>
+          <Menu.Item value="save">Save</Menu.Item>
           <Menu>
             <Menu.TriggerItem>
               Share
@@ -21,9 +23,12 @@ export default function NestedMenuDemo() {
               <Menu.Content className="menu-content">
                 <Menu.Item value="email">Email</Menu.Item>
                 <Menu.Item value="message">Message</Menu.Item>
+                <Menu.Item value="copy-link">Copy Link</Menu.Item>
+                <Menu.Item value="invite">Invite people</Menu.Item>
               </Menu.Content>
             </Menu.Positioner>
           </Menu>
+          <Menu.Item value="print">Print</Menu.Item>
         </Menu.Content>
       </Menu.Positioner>
     </Menu>

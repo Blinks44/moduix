@@ -1,4 +1,4 @@
-import { Lightbox, type LightboxImageSelectDetails } from '@moduix/react';
+import { Lightbox, type LightboxImageSelectDetails } from '@moduix/react/lightbox';
 import { useRef, useState } from 'react';
 
 const images = [

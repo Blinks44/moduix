@@ -90,6 +90,10 @@
     flex: none;
   }
 
+  :global([dir='rtl']) .separatorIcon {
+    transform: rotate(180deg);
+  }
+
   .ellipsis[data-scope='breadcrumbs'][data-part='ellipsis'] {
     display: inline-flex;
     align-items: center;

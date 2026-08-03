@@ -4,88 +4,14 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 export const imageCropperExampleCss = `
 .cropper-stack {
   display: grid;
-  width: min(32rem, 100%);
+  justify-items: center;
   gap: var(--moduix-spacing-3);
 }
 
 .cropper-toolbar {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  width: fit-content;
   gap: var(--moduix-spacing-1);
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-  border-radius: var(--moduix-radius-lg);
-  padding: var(--moduix-spacing-1);
-  background: var(--moduix-color-muted);
-}
-
-.cropper-button {
-  display: inline-flex;
-  min-height: 2rem;
-  align-items: center;
-  justify-content: center;
-  gap: var(--moduix-spacing-2);
-  border: var(--moduix-border-width-sm) solid transparent;
-  border-radius: var(--moduix-radius-md);
-  padding-inline: var(--moduix-spacing-3);
-  background: transparent;
-  color: var(--moduix-color-muted-foreground);
-  font: inherit;
-  cursor: pointer;
-  transition:
-    border-color var(--moduix-transition-default),
-    background-color var(--moduix-transition-default),
-    box-shadow var(--moduix-transition-default),
-    color var(--moduix-transition-default);
-}
-
-.cropper-button:hover {
-  color: var(--moduix-color-foreground);
-}
-
-.cropper-button[data-state="checked"] {
-  background: var(--moduix-color-background);
-  color: var(--moduix-color-foreground);
-  box-shadow: var(--moduix-shadow-sm);
-}
-
-.cropper-button:focus-visible {
-  outline: var(--moduix-border-width-md) solid var(--moduix-color-ring);
-  outline-offset: var(--moduix-border-width-sm);
-}
-
-.cropper-icon-button {
-  width: 2rem;
-  padding-inline: 0;
-}
-
-.cropper-icon-button svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.cropper-output {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-xs);
-  line-height: var(--moduix-line-height-text-xs);
-}
-
-.cropper-preview {
-  display: grid;
-  width: 8rem;
-  height: 8rem;
-  place-items: center;
-  overflow: hidden;
-  border: var(--moduix-border-width-sm) solid var(--moduix-color-border);
-  border-radius: var(--moduix-radius-md);
-  background: var(--moduix-color-muted);
-}
-
-.cropper-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 `;
 
@@ -210,8 +136,8 @@ const imageCropperOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-image-cropper-viewport-height',
-    'var(--moduix-image-cropper-viewport-min-height, 20rem)',
-    'Controls viewport height.',
+    'min(var(--moduix-image-cropper-viewport-min-height, 20rem), 62.5vw)',
+    'Controls viewport height; the default follows narrow viewports.',
   ],
   ['--moduix-image-cropper-viewport-min-height', '20rem', 'Controls viewport minimum height.'],
   ['--moduix-image-cropper-width', '32rem', 'Controls root width.'],

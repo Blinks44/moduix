@@ -1,4 +1,6 @@
-import { Field, Fieldset } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { Fieldset } from '@moduix/react/fieldset';
+import { Input } from '@moduix/react/input';
 
 export default function DisabledFieldset() {
   return (
@@ -9,11 +11,11 @@ export default function DisabledFieldset() {
       </Fieldset.HelperText>
       <Field>
         <Field.Label>Street</Field.Label>
-        <Field.Input defaultValue="123 Main St" />
+        <Input defaultValue="123 Main St" />
       </Field>
       <Field>
         <Field.Label>City</Field.Label>
-        <Field.Input defaultValue="San Francisco" />
+        <Input defaultValue="San Francisco" />
       </Field>
     </Fieldset>
   );

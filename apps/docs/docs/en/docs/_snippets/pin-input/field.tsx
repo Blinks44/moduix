@@ -1,4 +1,5 @@
-import { Field, PinInput } from '@moduix/react';
+import { Field } from '@moduix/react/field';
+import { PinInput } from '@moduix/react/pin-input';
 
 export default function FieldPinInput() {
   return (

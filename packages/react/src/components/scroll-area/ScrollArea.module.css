@@ -18,7 +18,6 @@
     border-radius: var(--moduix-scroll-area-radius, var(--moduix-radius-md));
     background-color: var(--moduix-scroll-area-bg, transparent);
     outline: 0;
-    overscroll-behavior: contain;
     scrollbar-width: none;
     --_scroll-area-block-fade-mask: linear-gradient(
       to bottom,
@@ -201,5 +200,11 @@
       --moduix-scroll-area-corner-bg,
       var(--moduix-scroll-area-scrollbar-bg, transparent)
     );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scrollbar {
+      transition: none;
+    }
   }
 }

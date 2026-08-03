@@ -1,4 +1,5 @@
-import { Checkbox, Field } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
+import { Field } from '@moduix/react/field';
 
 export default function CheckboxFieldDemo() {
   return (

@@ -1,0 +1,63 @@
+---
+title: Next.js
+description: Install moduix in the Next.js App Router with root CSS and explicit client component boundaries.
+---
+
+# Next.js
+
+In the App Router, load moduix CSS from the root layout and keep interactive components below a
+client boundary.
+
+## Package install
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Import the foundation stylesheet once in the root layout:
+
+```tsx title="app/layout.tsx"
+import '@moduix/react/style.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Put interactive moduix composition in a client component:
+
+```tsx title="app/continue-button.tsx"
+'use client';
+
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+Server components can render ordinary markup around this boundary. They should pass serializable
+data into the client component instead of event handlers.
+
+## shadcn CLI install
+
+Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli) with `rsc: true`.
+Keep the default `@/*` alias from the Next.js starter and import the generated foundation stylesheet
+from the root layout:
+
+```tsx title="app/layout.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+The shadcn CLI adds `use client` to generated components that require it. Your own composed wrapper
+still needs the directive when it owns state, effects, or event handlers.
+
+## Verify
+
+The setup is complete when styles are present on the first response and interactive components do
+not report a server/client boundary or hydration error.
+
+See the Next.js guides for [CSS](https://nextjs.org/docs/app/getting-started/css) and the
+[`use client` directive](https://nextjs.org/docs/app/api-reference/directives/use-client).

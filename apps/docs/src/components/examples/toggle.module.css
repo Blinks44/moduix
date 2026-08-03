@@ -7,14 +7,11 @@
 }
 
 .stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
   gap: var(--moduix-spacing-3);
+  justify-items: center;
 }
 
-.hint {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-xs);
-  line-height: var(--moduix-line-height-text-xs);
+.stack > [data-preview-meta] {
+  justify-self: center;
 }

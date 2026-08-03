@@ -20,7 +20,7 @@ disclosure.
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/basic.tsx"
 
-````
+```
 </PreviewFrame>
 
 ## Install with shadcn
@@ -37,7 +37,7 @@ Collapsible.Root
 └─ Collapsible.Content
    └─ Collapsible.Body
       └─ content
-````
+```
 
 | Part                               | Role                                                   |
 | ---------------------------------- | ------------------------------------------------------ |
@@ -104,7 +104,7 @@ Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI own
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/controlled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -117,7 +117,7 @@ Set `defaultOpen` for an uncontrolled disclosure that starts expanded.
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/default-open.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -130,7 +130,7 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/disabled.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -143,7 +143,7 @@ Combine `lazyMount` and `unmountOnExit` when closed content should not remain in
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/lazy-mount.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -156,7 +156,7 @@ Nest independent roots when a disclosed section contains another optional detail
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/nested.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -171,7 +171,29 @@ available outside `Collapsible.Content`.
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/partial-collapse.tsx"
 
-````
+```
+
+</PreviewFrame>
+
+### Partial Width
+
+Use `collapsedWidth` when a horizontal preview is more useful than a collapsed-height preview.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/collapsible/partial-collapse-width.tsx"
+
+```
+
+</PreviewFrame>
+
+### Context
+
+Use `useCollapsibleContext()` inside a descendant to read state or close the disclosure.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="./_snippets/collapsible/context.tsx"
+
+```
 
 </PreviewFrame>
 
@@ -185,7 +207,7 @@ state.
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/root-provider.tsx"
 
-````
+```
 
 </PreviewFrame>
 
@@ -199,7 +221,7 @@ default `Collapsible.Trigger` styling while keeping Ark behavior and state attri
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/collapsible/custom-composition.tsx"
 
-````
+```
 
 </PreviewFrame>
 

@@ -21,12 +21,12 @@ const KbdRoot = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdRoot(
   );
 });
 
-const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'kbd'>>(function KbdGroupPart(
+const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdGroupPart(
   { className, ...props },
   ref,
 ) {
   return (
-    <ark.kbd
+    <ark.span
       ref={ref}
       data-scope="kbd"
       data-part="group"

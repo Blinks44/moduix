@@ -6,4 +6,4 @@ export {
   waitForElementValue,
   waitForEvent,
   waitForPromise,
-} from './Tour';
+} from './Tour.js';

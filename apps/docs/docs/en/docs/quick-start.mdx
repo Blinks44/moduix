@@ -3,23 +3,50 @@ title: Quick start
 description: Install moduix as a package or copy components from the hosted shadcn registry.
 ---
 
+import { FrameworkGrid } from '@/components/docs/framework-grid';
+import { Card, Cards } from '@/components/mdx/Components';
+
 # Quick start
 
-moduix supports two production workflows:
+moduix supports two equivalent production workflows:
 
-- Install `@moduix/react` when you want the shortest setup and package-managed updates.
-- Install components with `shadcn` when you want the source, styles, and supporting utilities in
-  your own repository.
+- Install `@moduix/react` for package-managed installation and updates.
+- Install with the shadcn CLI for component source, styles, and utilities inside your repository.
 
-Start with the npm package unless source ownership is an explicit requirement. Both paths expose the
-same Ark-aligned component contracts and token system.
+Both methods expose the same components, Ark-aligned contracts, and token system. Choose by how you
+want to own and update the code.
 
-| Choose this path            | When it fits best                                                                                                      |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| npm package                 | You want updates through package management, imports from `@moduix/react`, and styles from `@moduix/react/style.css`.  |
-| `shadcn` copy-owned install | You want generated source files inside your app, direct local customization, and imports from `@/components/moduix/*`. |
+## Choose an installation method
 
-## Install as a Package
+<Cards>
+  <Card
+    title="Install as a package"
+    description="Keep moduix in node_modules and receive updates through your package manager."
+    href="#install-as-a-package"
+  />
+  <Card
+    title="Install with the shadcn CLI"
+    description="Copy component source and styles into your app for direct ownership and customization."
+    href="#install-with-the-shadcn-cli"
+  />
+</Cards>
+
+You need React 18 or 19, `@ark-ui/react`, and a framework or bundler that can import CSS from npm
+packages. Interactive components must render inside a client boundary when the framework requires
+one.
+
+Accessibility is a shared responsibility: Ark UI owns primitive behavior, moduix owns the wrapper
+contract and defaults, and the application owns labels, content, validation messages, and product
+flow.
+
+## Choose your framework
+
+The package and registry contracts are the same in every React stack. Choose your framework for the
+exact stylesheet location, source alias, and client or SSR boundary.
+
+<FrameworkGrid />
+
+## Install as a package
 
 Use this path when you want moduix to stay in `node_modules` and receive updates through normal
 package management.
@@ -61,64 +88,48 @@ the consuming bundle.
 For a curated visual starting point, import one optional preset after `style.css`; see
 [Themes](/docs/themes).
 
-### 3. Configure portal layering
+### 3. Use a component
 
-Components such as `Dialog`, `Popover`, `Menu`, and `Select` render overlay content in portals. Add
-an isolated application root so portalled backdrops and popups consistently render above the rest
-of your page without competing with local `z-index` values.
-
-```tsx title="layout.tsx"
-<body>
-  <div className="root">{children}</div>
-</body>
-```
-
-```css title="styles.css"
-.root {
-  isolation: isolate;
-}
-```
-
-Starting with iOS 26, Safari can expose content beneath the browser chrome. Keep the document body
-positioned so dialog backdrops that use absolute positioning can cover the full visual viewport
-after the page is scrolled.
-
-```css title="styles.css"
-body {
-  position: relative;
-}
-```
-
-### 4. Use components
-
-Import the components and parts you need from `@moduix/react`:
+Import each component from its `@moduix/react/*` subpath:
 
 ```tsx
-import { Button, Dialog } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open dialog</Button>
       </Dialog.Trigger>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>
-          <Dialog.Title>Project settings</Dialog.Title>
+          <Dialog.Header>
+            <Dialog.Title>Project settings</Dialog.Title>
+            <Dialog.Description>Review the settings for this project.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger asChild>
+              <Button variant="outline">Close</Button>
+            </Dialog.CloseTrigger>
+          </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   );
 }
 ```
 
-## Install Components Into Your Project
+You are set when the button uses the moduix styles, opens the dialog with keyboard and pointer
+input, and focus returns to the button after closing it.
 
-Use this path when you want the installed files to become part of your own codebase instead of
-staying in `node_modules`.
+## Install with the shadcn CLI
 
-### 1. Prepare the project for shadcn
+Use this method when you want component source and styles in your repository. The shadcn CLI reads
+the moduix registry, resolves dependencies, and writes the files to your configured aliases.
+
+### 1. Configure shadcn
 
 Create `components.json` in your project root with the moduix registry configuration:
 
@@ -152,30 +163,10 @@ The `tailwind` object is required by the shadcn configuration schema, but moduix
 Tailwind and does not require it to be installed. Its empty paths and `baseColor` prevent the CLI
 from looking for Tailwind files or downloading a shadcn color palette.
 
-Make sure your project resolves the `@/*` alias to `src/*`. The exact setup depends on the bundler:
+Keep `rsc: false` for client-rendered applications. Set it to `true` in a React Server Components
+application so shadcn can add a `use client` directive to generated components that need one.
 
-#### Vite
-
-For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mirror it in
-`vite.config.ts`:
-
-<Tabs values={[{ label: 'tsconfig.json', value: 'tsconfig.json' }, { label: 'tsconfig.app.json', value: 'tsconfig.app.json' }, { label: 'vite.config.ts', value: 'vite.config.ts' }]}>
-  <Tab value="tsconfig.json">
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
-}
-```
-
-  </Tab>
-  <Tab value="tsconfig.app.json">
+Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses:
 
 ```json
 {
@@ -187,57 +178,13 @@ For Vite, put the alias in both `tsconfig.json` and `tsconfig.app.json`, then mi
 }
 ```
 
-  </Tab>
-  <Tab value="vite.config.ts">
+This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in your
+source tree instead of a literal `@` directory. Your [framework setup](#choose-your-framework)
+shows whether the same alias also belongs in the bundler config and which source root to use.
 
-```ts
-resolve: {
-  alias: {
-    '@': path.resolve(__dirname, './src'),
-  },
-}
-```
+### 2. Inspect a registry item
 
-  </Tab>
-</Tabs>
-
-#### Rsbuild
-
-For Rsbuild, add the alias to `tsconfig.json`, then mirror it in `rsbuild.config.ts`:
-
-<Tabs values={[{ label: 'tsconfig.json', value: 'tsconfig.json' }, { label: 'rsbuild.config.ts', value: 'rsbuild.config.ts' }]}>
-  <Tab value="tsconfig.json">
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-  </Tab>
-  <Tab value="rsbuild.config.ts">
-
-```ts
-resolve: {
-  alias: {
-    '@': './src',
-  },
-}
-```
-
-  </Tab>
-</Tabs>
-
-This gives the `shadcn` CLI the aliases and registry URL it needs to place generated files in
-`src/components` and `src/lib` instead of a literal `@` directory.
-
-### 2. Discover and preview before installing
-
-For a copy-owned project, inspect the current configuration and the item before writing files:
+Before writing source files, inspect the current configuration and registry item:
 
 ```bash
 npx shadcn@latest info --json
@@ -247,22 +194,22 @@ npx shadcn@latest add @moduix-react/dialog --dry-run
 ```
 
 Search by the interface you need rather than a familiar library name. The registry contains
-components, blocks, themes, and their declared dependencies. See the [AI guide](/docs/ai) to use
+components, themes, and their declared dependencies. See the [AI guide](/docs/ai) to use
 the same discovery flow through shadcn MCP.
 
-### 3. Install components with shadcn
+### 3. Add a component
 
-Install registry items from the moduix hosted registry:
+Add registry items from the moduix hosted registry:
 
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
 Run the same command with another registry item name, such as `@moduix-react/accordion`, to add
 more components.
 
-The registry will also install the shared moduix foundation files those components need, including
-styles, icons, and small utilities.
+The registry installs only the shared runtime files each component needs. It does not add a global
+font, so typography continues to inherit from your application.
 
-### 4. Add styles
+### 4. Import generated styles
 
 Import the generated foundation stylesheet from the files that `shadcn` added to your project:
 
@@ -270,8 +217,13 @@ Import the generated foundation stylesheet from the files that `shadcn` added to
 import '@/lib/moduix/styles/style.css';
 ```
 
-If you want the optional reset in the copy-owned path, import it explicitly before the main
-stylesheet:
+If you want the optional reset with this method, install its separate registry item:
+
+```bash
+npx shadcn@latest add @moduix-react/reset
+```
+
+Then import it before the main stylesheet:
 
 ```tsx
 import '@/lib/moduix/styles/reset.css';
@@ -281,7 +233,7 @@ import '@/lib/moduix/styles/style.css';
 The examples below assume `@/components` and `@/lib`. If your project uses different aliases,
 update `components.json` and import the generated files from the matching paths.
 
-### 5. Use the generated files
+### 5. Use the generated component
 
 Import components from the generated files in your own project:
 
@@ -295,6 +247,35 @@ control markup, layout, and styling in the consuming application.
 
 The ownership flow is inspired by [shadcn/ui](https://ui.shadcn.com/), while component anatomy and
 interaction behavior remain aligned with [Ark UI](https://ark-ui.com/).
+
+## Configure portal layering
+
+This setup applies to both installation methods. Components such as `Dialog`, `Popover`, `Menu`, and
+`Select` render overlay content in portals. Isolate the application root so portalled backdrops and
+popups consistently render above the rest of the page without competing with local `z-index`
+values.
+
+```tsx title="layout.tsx"
+<body>
+  <div className="root">{children}</div>
+</body>
+```
+
+```css title="styles.css"
+.root {
+  isolation: isolate;
+}
+```
+
+If your application supports iOS 26 Safari, test a scrolled modal against the browser chrome. When
+content remains visible below the backdrop, keep the document body positioned so absolute
+backdrops can cover the full visual viewport.
+
+```css title="styles.css"
+body {
+  position: relative;
+}
+```
 
 ## Styling
 
@@ -314,14 +295,19 @@ system-wide changes and component variables only for deliberate exceptions. See
 [Tokens](/docs/tokens) for the complete hierarchy and [Animations](/docs/animations) for motion
 recipes.
 
-## Documentation Flow
+## Troubleshooting
 
-Start with the component page that matches the interface you are building. Each page teaches the
-recommended composition first, then documents anatomy, behavioral constraints, advanced examples,
-CSS variables, and stable styling hooks.
+| Symptom                              | Check                                                                                 |
+| ------------------------------------ | ------------------------------------------------------------------------------------- |
+| Components render without styles     | Import the correct `style.css` entry point once, after any optional reset.             |
+| A copy-owned import cannot be found  | Verify the `@/*` alias in TypeScript and your bundler, then check `components.json`.    |
+| A popup appears below page content   | Add `isolation: isolate` to the application root and avoid unrelated global z-indexes. |
+| Server rendering reports client APIs | Keep interactive components below a client boundary in frameworks that require one.   |
 
-## Next Reading
+## Next reading
 
+- [Migrate from shadcn](/docs/migrate-from-shadcn) for component names, imports, styling, and
+  ownership differences.
 - [Composition Patterns](/docs/composition-patterns) for wrapper-first composition rules and
   low-level escape hatches.
 - [Tokens](/docs/tokens) for shared design tokens, global overrides, and component fallbacks.

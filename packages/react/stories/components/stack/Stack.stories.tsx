@@ -83,6 +83,15 @@ export const ResponsiveDirection: Story = {
   ),
 };
 
+export const ReverseDirection: Story = {
+  render: () => (
+    <Stack direction="row-reverse" align="center" gap={12} className={styles.row}>
+      <Text weight="semibold">Newest update</Text>
+      <Text tone="muted">Appears first in the visual row.</Text>
+    </Stack>
+  ),
+};
+
 export const SkeletonComposition: Story = {
   render: () => (
     <Stack gap={16} className={styles.skeletonCard}>

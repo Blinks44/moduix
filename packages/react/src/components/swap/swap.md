@@ -26,7 +26,9 @@ available during enter and exit animations.
 - `Swap.Root`, `Swap.RootProvider`, and `Swap.Indicator` forward Ark props, refs, and `asChild`.
 - `Swap.useSwap()` creates Ark state for `Swap.RootProvider`; `useSwapContext()` reads the nearest
   provider state.
-- moduix layers indicators in a 1×1 inline grid and applies a fade-and-scale animation by default.
+- moduix layers indicators in a 1×1 inline grid and applies the `scale` animation by default.
+- `animation` accepts the included `fade`, `scale`, `rotate`, and `flip` recipes, or a custom name
+  for consumer-defined CSS.
 - `Swap` does not create hover, click, toggle, or announcement behavior. The surrounding component
   owns interaction and accessible naming.
 
@@ -49,14 +51,15 @@ Swap / Swap.Root
 ## Composition
 
 ```tsx
-import { Button, Swap } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Swap } from '@moduix/react/swap';
 
 export function UploadButton() {
   const [uploaded, setUploaded] = useState(false);
 
   return (
     <Button aria-label={uploaded ? 'Uploaded' : 'Upload'} onClick={() => setUploaded(!uploaded)}>
-      <Swap swap={uploaded}>
+      <Swap animation="rotate" swap={uploaded}>
         <Swap.Indicator aria-hidden="true" type="off">
           <UploadIcon />
         </Swap.Indicator>
@@ -85,12 +88,15 @@ export function UploadButton() {
 - Ark adds `data-state="open" | "closed"` to each indicator; moduix does not translate it to a
   separate state class.
 - `Swap.Root` and `Swap.RootProvider` forward refs to their rendered span roots.
+- `animation` is written to `data-animation` on the root so consumer CSS can add a named recipe.
 
 ## Defaults and styling
 
 - The root is an `inline-grid` with a single `swap` grid area.
 - Indicators are inline-flex elements in that area and inherit their color.
-- `--moduix-swap-transition` defaults to `--moduix-transition-default` and controls both enter and exit timing.
+- `animation="fade"` uses opacity, `scale` combines it with a 50% scale, `rotate` spins in 2D,
+  and `flip` applies a 3D Y-axis flip with a root perspective.
+- `--moduix-swap-transition` defaults to `--moduix-transition-slow` and controls both enter and exit timing.
 - `--moduix-swap-enter-starting-opacity`, `--moduix-swap-enter-starting-scale`,
   `--moduix-swap-exit-ending-opacity`, and `--moduix-swap-exit-ending-scale` customise the default keyframes.
 - Override `animation` on `Swap.Indicator[data-state]` for rotate or 3D flip recipes, and keep a
@@ -102,17 +108,22 @@ export function UploadButton() {
 
 ## Intentional sugar and differences from upstream
 
-moduix supplies only layout, default animation, and stable `data-slot` hooks. It does not add
-variant props, event handlers, or a special-purpose button wrapper. Animate a button's dimensions
-in its own CSS; use `Swap` solely for its layered content.
+moduix supplies layout, four small animation recipes, and stable `data-slot` hooks. It does not add
+event handlers or a special-purpose button wrapper. A custom animation name turns off the included
+recipe and keeps the Ark `data-state` hooks available for consumer CSS.
 
 ## Agent notes
 
 Keep the Ark `swap` prop, Presence-driven `data-state` attributes, provider path, and `asChild`
-composition intact. Do not add hover state or expand/collapse behaviour to this primitive.
+composition intact. Keep `scale` as the default animation, and do not add hover state or
+expand/collapse behaviour to this primitive.
 
 ## Local changelog
 
+- 2026-07-31: Added `animation` presets and a custom-name escape hatch without changing Ark state.
+- 2026-07-31: Increased the default scale animation amplitude from `0.92` to `0.8` so it remains distinct from fade.
+- 2026-07-31: Set the preset transition to `--moduix-transition-slow` and the default scale to `0.5`.
+- 2026-07-31: Added provider, presence, `asChild`, and animation regression coverage.
 - 2026-07-14: Registered the public animation CSS properties in the theme override reference.
 - 2026-07-14: Added centered and width-animated button recipes plus rotate and 3D flip examples.
 - 2026-07-14: Kept the expandable-download icon outside Swap so its position animates continuously.

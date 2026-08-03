@@ -1,4 +1,4 @@
-import { Checkbox } from '@moduix/react';
+import { Checkbox } from '@moduix/react/checkbox';
 import type { ComponentProps } from 'react';
 
 function CustomPlusIcon(props: ComponentProps<'svg'>) {

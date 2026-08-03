@@ -1,5 +1,6 @@
-import { Pagination } from '@moduix/react';
+import { Pagination } from '@moduix/react/pagination';
 import { useState } from 'react';
+import { PreviewMeta } from '@/components/mdx/Components';
 
 export default function ControlledPaginationDemo() {
   const [page, setPage] = useState(5);
@@ -17,7 +18,9 @@ export default function ControlledPaginationDemo() {
         <Pagination.Items />
         <Pagination.NextTrigger />
       </Pagination>
-      <p className="pagination-muted">Current page: {page}</p>
+      <PreviewMeta>
+        <output>Current page: {page}</output>
+      </PreviewMeta>
     </div>
   );
 }

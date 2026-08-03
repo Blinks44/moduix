@@ -78,7 +78,7 @@ item parts and does not add a new styling hook.
 ```tsx
 import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
-import { Combobox } from '@moduix/react';
+import { Combobox } from '@moduix/react/combobox';
 
 const fruits = [
   { label: 'Apple', value: 'apple' },
@@ -170,6 +170,10 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 - Positioning variables include `--reference-width`, `--available-width`, `--available-height`,
   `--transform-origin`, `--z-index`, and `--layer-index`.
 - All Ark DOM parts preserve `asChild`.
+- `ids`, `readOnly`, `selectionBehavior`, and `closeOnSelect` pass through unchanged. `present`,
+  `lazyMount`, and `unmountOnExit` keep Ark's presence lifecycle for CSS exit animations.
+- `Context`, `ItemContext`, `useComboboxContext`, and `useComboboxItemContext` are available from
+  moduix for provider and item-context composition.
 
 ## Defaults and styling
 
@@ -198,7 +202,7 @@ content; Ark replaces them with measured values on `Positioner` when the popup o
 - Trigger and clear actions are positioned at the logical inline end, so they follow RTL text flow.
 - `Combobox.Input asChild` preserves Ark input behavior without applying the default combobox input
   visual class to the child element.
-- Public component variables are declared in `packages/react/src/styles/theme.css`.
+- Public component variables are declared in `packages/react/src/styles/variables-moduix.css`.
 - `Content` uses Ark `--reference-width`, `--available-height`, `--transform-origin`, and
   `--layer-index`. Its z-index is declared on the content part so Ark can propagate it to
   `Positioner` through `--z-index`.
@@ -213,8 +217,9 @@ content; Ark replaces them with measured values on `Positioner` when the popup o
   `ItemIndicator`.
 - moduix adds `Status` because Ark has no status part. It is a styled `div`; consumers retain control
   of async state and any loading or error announcement semantics.
-- moduix exports `RootProvider`, `Context`, `useCombobox`, and `useComboboxContext` for the normal
-  state path. Ark-only item-context hooks and type aliases remain direct advanced imports.
+- moduix exports `RootProvider`, `Context`, `ItemContext`, `useCombobox`, `useComboboxContext`, and
+  `useComboboxItemContext` for provider and context paths. Collection helpers and type aliases that
+  moduix does not expose remain direct Ark imports.
 - moduix does not add a hidden popup bundle such as `ComboboxContent` or a root-level `items` prop.
   Keep state collection-first and hide repeated popup structure in local helpers when needed.
 - moduix does not ship combobox-owned chip parts. For richer multi-value controls, compose
@@ -229,7 +234,7 @@ content; Ark replaces them with measured values on `Positioner` when the popup o
 Common `shadcn` migration points:
 
 - `items` on the root becomes `createListCollection()` or `useListCollection()`, then pass
-  `collection` to `Combobox.Root`.
+  `collection` to `Combobox`.
 - `itemToStringValue` becomes `itemToString` and usually `itemToValue` on the Ark collection.
 - `showClear` becomes an explicit `Combobox.ClearTrigger`.
 - Plain `ComboboxItem` rows usually become `Combobox.Option`; keep `Combobox.Item` when a row needs
@@ -249,8 +254,21 @@ Common `shadcn` migration points:
 - Do not reintroduce combobox-owned chips; multiple-value rendering belongs in consumer composition
   through controlled state.
 - Keep generic inference on the callable root, `Root`, and `RootProvider`.
+- Keep item context on the moduix export path; do not redirect consumers to Ark for
+  `Combobox.ItemContext` or `useComboboxItemContext`.
+
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-26: Documented moduix item-context exports and advanced Ark root props in the public and
+  local composition guidance.
 
 - 2026-07-23: Compacted empty and status message block padding to `--moduix-spacing-1`.
 - 2026-07-23: Added `Combobox.Status`, a styled consumer-owned message surface for loading, error,

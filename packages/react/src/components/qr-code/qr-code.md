@@ -3,7 +3,7 @@
 ## Upstream docs
 
 - Ark UI: https://ark-ui.com/docs/components/qr-code
-- Zag API: https://zagjs.com/api/mdx/components/react/qr-code
+- Chakra UI: https://chakra-ui.com/docs/components/qr-code
 
 ## Purpose
 
@@ -28,7 +28,8 @@ render path that hides `Frame` or `Pattern`.
 - `id`, `pixelSize`, and `ids` are forwarded to Ark.
 - `QrCode.DownloadTrigger` requires `fileName` and `mimeType`; it preserves Ark's `quality` option.
 - `QrCode.RootProvider` is preserved for externally owned Ark QR state. Import `useQrCode()` from
-  `@moduix/react`; keep other advanced state APIs on `@ark-ui/react/qr-code` as escape hatches.
+  `@moduix/react`. `QrCode.Context` and `useQrCodeContext()` are also available from moduix for
+  reading the current QR API in descendants; keep Ark-only type aliases as escape hatches.
 
 ## Anatomy and exported parts
 
@@ -57,7 +58,7 @@ No flat part aliases such as `QrCodeRoot` or `QrCodeFrame` are exported.
 ## Composition
 
 ```tsx
-import { QrCode } from '@moduix/react';
+import { QrCode } from '@moduix/react/qr-code';
 
 export function QrCodeDemo() {
   return (
@@ -99,8 +100,8 @@ Use `QrCode.Overlay` with high error correction when central content covers part
 
 Ark renders the root as a `div`, the frame as an `svg`, the pattern as a `path`, the overlay as a
 `div`, and the download trigger as a native `button`. Refs forward to those Ark elements. The QR
-image is visual content; provide surrounding text, labels, or adjacent copy when the encoded value
-needs to be available to assistive technology.
+image is visual content. When it conveys information, add `role="img"` and an `aria-label` to
+`QrCode.Frame`; use adjacent text or `aria-hidden="true"` when the QR code is redundant.
 
 There is no roving focus or QR-specific keyboard navigation. `DownloadTrigger` is a native button
 and keeps normal button focus, keyboard activation, `disabled`, and `asChild` behavior from Ark.
@@ -152,8 +153,8 @@ Primary CSS variables:
 - Keep `Frame` and `Pattern` explicit in examples and docs.
 - When changing visual defaults, keep `--moduix-qr-code-*` tokens, docs examples, and registry output in
   sync.
-- Keep advanced Ark state APIs other than `useQrCode()` out of the moduix surface; consumers can
-  import them from Ark directly when needed.
+- Keep `QrCode.Context`, `useQrCode()`, and `useQrCodeContext()` aligned as the moduix-owned
+  advanced state surface; consumers can import Ark-only types directly when needed.
 
 ## Local changelog
 

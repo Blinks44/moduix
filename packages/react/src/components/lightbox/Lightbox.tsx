@@ -31,19 +31,16 @@ type LightboxRootProviderProps = ComponentProps<typeof DialogPrimitive.RootProvi
 
 type LightboxBindProps = {
   onImageSelect: (details: LightboxImageSelectDetails) => void;
-  selector?: string;
+  selector: string;
   rootRef?: RefObject<HTMLElement | null>;
   rootSelector?: string;
 };
 
-const preloadedImageSources = new Set<string>();
-
 function preloadImage(src?: string) {
-  if (!src || typeof Image === 'undefined' || preloadedImageSources.has(src)) {
+  if (!src || typeof Image === 'undefined') {
     return;
   }
 
-  preloadedImageSources.add(src);
   const image = new Image();
   image.src = src;
 }
@@ -80,18 +77,34 @@ function resolveImage(
   };
 }
 
-function LightboxRoot({ portalled, portalRef, ...props }: LightboxRootProps) {
+function LightboxRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: LightboxRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.Root {...props} />
+      <DialogPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
 
-function LightboxRootProvider({ portalled, portalRef, ...props }: LightboxRootProviderProps) {
+function LightboxRootProvider({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: LightboxRootProviderProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <DialogPrimitive.RootProvider {...props} />
+      <DialogPrimitive.RootProvider
+        lazyMount={lazyMount}
+        unmountOnExit={unmountOnExit}
+        {...props}
+      />
     </OverlayPortalProvider>
   );
 }
@@ -274,12 +287,7 @@ function LightboxFooter({ className, ...props }: ComponentProps<'div'>) {
   return <div data-slot="lightbox-footer" className={clsx(styles.footer, className)} {...props} />;
 }
 
-function LightboxBind({
-  onImageSelect,
-  selector = 'img',
-  rootRef,
-  rootSelector,
-}: LightboxBindProps) {
+function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: LightboxBindProps) {
   const { setOpen } = useDialogContext();
 
   useEffect(() => {

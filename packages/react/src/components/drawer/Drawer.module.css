@@ -150,7 +150,7 @@
     width: min(var(--moduix-drawer-width, 100%), 100vw);
     height: var(--moduix-drawer-size, 100%);
     max-height: var(--moduix-drawer-max-height, 80dvh);
-    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-2))
+    padding: var(--moduix-drawer-padding-y, var(--moduix-spacing-3))
       var(--moduix-drawer-padding-x, var(--moduix-spacing-6))
       calc(
         var(--moduix-drawer-padding-y, var(--moduix-spacing-4)) + env(safe-area-inset-bottom, 0px)
@@ -169,8 +169,6 @@
     translate: 0 0;
     transition:
       transform calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
-        var(--moduix-ease-out),
-      height calc(var(--drawer-swipe-strength, 1) * var(--moduix-duration-slower))
         var(--moduix-ease-out),
       scale
         var(
@@ -368,7 +366,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: var(--moduix-drawer-grabber-padding, var(--moduix-spacing-3)) 0;
+    padding: var(--moduix-drawer-grabber-padding-top, 0) 0
+      var(--moduix-drawer-grabber-padding, var(--moduix-spacing-1));
     cursor: grab;
     user-select: none;
 
@@ -597,7 +596,11 @@
 
   @keyframes drawer-content-out-up {
     to {
-      transform: translate3d(0, calc(-100% - var(--drawer-island-translate-distance)), 0);
+      transform: translate3d(
+        0,
+        calc(-100% - var(--drawer-island-translate-distance) - var(--moduix-drawer-bleed)),
+        0
+      );
     }
   }
 

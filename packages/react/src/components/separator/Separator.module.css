@@ -2,6 +2,7 @@
   .root {
     display: block;
     flex-shrink: 0;
+    margin: 0;
     border: 0;
     border-color: var(--moduix-separator-color, var(--moduix-color-border));
     border-style: var(

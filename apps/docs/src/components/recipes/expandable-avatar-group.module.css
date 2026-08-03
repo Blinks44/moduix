@@ -1,0 +1,61 @@
+.group {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--moduix-spacing-3);
+}
+
+.member {
+  display: grid;
+  position: relative;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--moduix-color-card);
+  border-radius: var(--moduix-radius-full);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    margin-inline-start 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 180ms ease,
+    box-shadow 180ms ease;
+
+  &:not(:first-child) {
+    margin-inline-start: calc(-1 * var(--moduix-spacing-3));
+  }
+
+  &:hover,
+  &:focus-visible {
+    z-index: 1;
+    box-shadow: 0 0 0 3px var(--moduix-color-background);
+    outline: none;
+    transform: translateY(calc(-1 * var(--moduix-spacing-1))) scale(1.08);
+  }
+}
+
+.member:is(:hover, :focus-visible) ~ .member {
+  transform: translateX(var(--moduix-spacing-3));
+}
+
+.member:has(~ .member:is(:hover, :focus-visible)) {
+  transform: translateX(calc(-1 * var(--moduix-spacing-3)));
+}
+
+.tooltip {
+  display: grid;
+  gap: 0.125rem;
+
+  strong {
+    font-weight: var(--moduix-weight-semibold);
+  }
+
+  span {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .member {
+    transition: none;
+  }
+}

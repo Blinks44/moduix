@@ -1,9 +1,14 @@
 import { createListCollection } from '@ark-ui/react/collection';
-import { Button, Dialog, ProgressLinear, Select, Switch, Tabs } from '@moduix/react';
+import { Button } from '@moduix/react/button';
+import { Dialog } from '@moduix/react/dialog';
+import { ProgressLinear } from '@moduix/react/progress-linear';
+import { Select } from '@moduix/react/select';
+import { Switch } from '@moduix/react/switch';
+import { Tabs } from '@moduix/react/tabs';
 import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { DataTable } from '@/components/home/data-table';
 import { FrameworkSupport } from '@/components/home/framework-support';
+import { DataTable } from '@/components/recipes/data-table';
 import styles from './Home.module.css';
 
 const workspaceOptions = [
@@ -15,7 +20,7 @@ const workspaceCollection = createListCollection({ items: workspaceOptions });
 
 export function Home() {
   return (
-    <div className={`${styles.home} moduix-home`}>
+    <main className={`${styles.home} moduix-home`}>
       <div className={styles.spotlight} />
       <section className={styles.hero} aria-labelledby="home-title">
         <div className={styles.content}>
@@ -89,7 +94,7 @@ export function Home() {
         </div>
         <DataTable />
       </section>
-    </div>
+    </main>
   );
 }
 

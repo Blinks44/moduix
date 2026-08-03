@@ -16,17 +16,17 @@ field input, color area, channel sliders, eyedropper, and swatches.
 - Keeps Ark parts, value objects from `parseColor`, format state, controlled/open state, provider
   state, and callback detail objects unchanged.
 - Keeps popup structure explicit through `Positioner` and `Content`; the root owns portalling.
-- `Root` and `RootProvider` render the native form input internally for native form integration.
+- `ColorPicker` and `RootProvider` render the native form input internally for native form integration.
 
 ## Current behavior contract
 
-`Root` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
+`ColorPicker` and `RootProvider` portal `Positioner` automatically by default. Set `portalled={false}` to render it inline, or pass `portalRef` to target a custom container. The structural parts remain explicit and independently styleable.
 
-- Public composition is `ColorPicker.Root`, `RootProvider`, `Label`, `Control`, `Trigger`,
+- Public composition is `ColorPicker`, `RootProvider`, `Label`, `Control`, `Trigger`,
   `Positioner`, `Content`, `Area`, `AreaBackground`, `AreaThumb`, channel slider parts,
   `Sliders`, `ChannelInput`, `EyeDropperTrigger`, format parts, swatch parts, `TransparencyGrid`,
   `ValueSwatch`, `ValueText`, and `View`.
-- `Root` and `RootProvider` append the native form input automatically; it is not a public moduix
+- `ColorPicker` and `RootProvider` append the native form input automatically; it is not a public moduix
   part.
 - `parseColor`, `useColorPicker`, and `useColorPickerContext` are re-exported for common
   string-to-`Color` and advanced state workflows.
@@ -40,7 +40,7 @@ field input, color area, channel sliders, eyedropper, and swatches.
 ## Anatomy and exported parts
 
 ```text
-ColorPicker.Root
+ColorPicker
 ├─ ColorPicker.Label
 ├─ ColorPicker.Control
 │  ├─ ColorPicker.ChannelInput[channel]
@@ -72,11 +72,11 @@ object from Ark `useColorPicker`.
 ## Composition
 
 ```tsx
-import { ColorPicker, parseColor } from '@moduix/react';
+import { ColorPicker, parseColor } from '@moduix/react/color-picker';
 
 export function ColorPickerExample() {
   return (
-    <ColorPicker.Root defaultValue={parseColor('#eb5e41')}>
+    <ColorPicker defaultValue={parseColor('#eb5e41')}>
       <ColorPicker.Label>Color</ColorPicker.Label>
       <ColorPicker.Control>
         <ColorPicker.ChannelInput channel="hex" />
@@ -88,7 +88,7 @@ export function ColorPickerExample() {
           <ColorPicker.Sliders />
         </ColorPicker.Content>
       </ColorPicker.Positioner>
-    </ColorPicker.Root>
+    </ColorPicker>
   );
 }
 ```
@@ -97,10 +97,10 @@ export function ColorPickerExample() {
 
 - Basic popup composition with `Control`, `Trigger`, `Positioner`, and `Content`.
 - Controlled state through `value`, `format`, `open`, and Ark detail callbacks.
-- Inline mode through `inline` on `Root`, where `Area`, sliders, inputs, and swatches can render
+- Inline mode through `inline` on `ColorPicker`, where `Area`, sliders, inputs, and swatches can render
   directly inside the root.
-- Form usage through `name` or form-library registration on the root; the native form input is
-  automatic.
+- Form usage through `name` on `ColorPicker`; the native form input is automatic and stays in sync
+  with native submission and reset.
 - Field integration through Ark `Field.Root` context for disabled, invalid, required, and read-only
   state.
 - Provider state through moduix `useColorPicker` plus `RootProvider`.
@@ -119,7 +119,8 @@ export function ColorPickerExample() {
   `data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
   `data-placement`, and `data-side`.
 - Runtime variables include `--value`, `--color`, `--reference-width`, `--available-width`,
-  `--available-height`, `--transform-origin`, `--layer-index`, and transparency grid `--size`.
+  `--available-height`, `--transform-origin`, `--z-index`, `--layer-index`, and transparency grid
+  `--size`.
 - All Ark DOM parts preserve `asChild`.
 
 ## Defaults and styling
@@ -128,6 +129,8 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 
 - Content motion falls back to the shared `--moduix-popup-motion-*` tokens. `--moduix-color-picker-transition`
   and closed-state variables remain the more specific override.
+- `Positioner` preserves Ark `--z-index`, and `Content` adds `--layer-index` to the moduix popup
+  layer so nested pickers remain above their parent overlay.
 - moduix applies field, popup, color area, slider, swatch, focus ring, shadow, and motion defaults.
 - `--moduix-color-picker-swatch-indicator-shadow` exposes the contrast shadow behind the selected-swatch
   glyph; its default remains a compact `drop-shadow(...)` because it follows the swatch color rather
@@ -165,7 +168,18 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - Form participation is controlled through root props; the root renders the native form input
   automatically.
 
+## Mount lifecycle
+
+The portalled overlay content defaults to `lazyMount` and `unmountOnExit`. It is absent from the
+DOM until first open and is removed after its exit animation. Set `unmountOnExit={false}` to retain
+content after the first open; set both props to `false` only when eager initial rendering is needed.
+
 ## Local changelog
+
+- 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
+
+- 2026-07-26: Preserved Ark popup stacking through `--z-index` and `--layer-index`, added focused
+  form and interaction regressions, and clarified native form and presence documentation.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the square trigger, channel controls, and actions to `--moduix-size-md`; swatches now use `--moduix-size-sm`.

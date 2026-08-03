@@ -34,6 +34,7 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Label`, `Area`, `Input`
   and cancel triggers. The default layout places `Control` to the right of `Area` and centers it
   next to single-line input surfaces; textarea compositions can set
   `--moduix-editable-control-align: start` to top-align controls with the multiline surface.
+- `Editable.Controls` forwards its ref to the underlying `Editable.Control` element.
 
 ## Anatomy and exported parts
 
@@ -52,26 +53,26 @@ Editable.RootProvider
 └─ same part tree connected to Ark `useEditable()` state
 ```
 
-| Part                         | `data-slot`               | Notes                                              |
-| ---------------------------- | ------------------------- | -------------------------------------------------- |
-| `Editable` / `Editable.Root` | `editable-root`           | Root state, form props, callbacks, and a11y.       |
-| `Editable.RootProvider`      | `editable-root-provider`  | Connects to `useEditable()` state.                 |
-| `Editable.Label`             | `editable-label`          | Accessible label for the input and preview.        |
-| `Editable.Area`              | `editable-area`           | Shared visual surface around input and preview.    |
-| `Editable.Input`             | `editable-input`          | Managed text input; can render a textarea.         |
-| `Editable.Preview`           | `editable-preview`        | Read-mode value or placeholder text.               |
-| `Editable.Control`           | `editable-control`        | Optional wrapper for edit, submit, cancel buttons. |
-| `Editable.Controls`          | `editable-control`        | Convenience control that swaps default triggers.   |
-| `Editable.EditTrigger`       | `editable-edit-trigger`   | Renders a pencil icon when children are omitted.   |
-| `Editable.SubmitTrigger`     | `editable-submit-trigger` | Renders a check icon when children are omitted.    |
-| `Editable.CancelTrigger`     | `editable-cancel-trigger` | Renders a close icon when children are omitted.    |
+| Part                         | `data-slot`               | Notes                                                      |
+| ---------------------------- | ------------------------- | ---------------------------------------------------------- |
+| `Editable` / `Editable.Root` | `editable-root`           | Root state, form props, callbacks, and a11y.               |
+| `Editable.RootProvider`      | `editable-root-provider`  | Connects to `useEditable()` state.                         |
+| `Editable.Label`             | `editable-label`          | Visible label for the input and preview.                   |
+| `Editable.Area`              | `editable-area`           | Shared visual surface around input and preview.            |
+| `Editable.Input`             | `editable-input`          | Managed text input; can render a textarea.                 |
+| `Editable.Preview`           | `editable-preview`        | Read-mode value or placeholder text.                       |
+| `Editable.Control`           | `editable-control`        | Optional wrapper for edit, submit, cancel buttons.         |
+| `Editable.Controls`          | `editable-control`        | Convenience control that swaps triggers and forwards refs. |
+| `Editable.EditTrigger`       | `editable-edit-trigger`   | Renders a pencil icon when children are omitted.           |
+| `Editable.SubmitTrigger`     | `editable-submit-trigger` | Renders a check icon when children are omitted.            |
+| `Editable.CancelTrigger`     | `editable-cancel-trigger` | Renders a close icon when children are omitted.            |
 
 Exported values: `Editable`, `useEditable`, and `useEditableContext`.
 
 ## Composition
 
 ```tsx
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 
 export function NameEditable() {
   return (
@@ -90,7 +91,7 @@ export function NameEditable() {
 Controlled usage keeps Ark detail objects:
 
 ```tsx
-import { Editable } from '@moduix/react';
+import { Editable } from '@moduix/react/editable';
 import { useState } from 'react';
 
 export function ControlledNameEditable() {
@@ -127,9 +128,10 @@ Use `Editable.RootProvider` only with state created by moduix `useEditable()`; d
 
 ## Accessibility and state
 
-Every editable needs an accessible name; prefer `Editable.Label` in the root tree. Ark owns ids,
-ARIA wiring, keyboard interactions, focus lifecycle, and outside interaction handling. `Enter`
-commits the value, `Escape` reverts it, and textarea composition commits on Cmd/Ctrl + Enter.
+Every editable has Ark's default accessible input name; set `translations.input` when it needs a
+contextual name. `Editable.Label` remains the visible label in the root tree. Ark owns ids, ARIA
+wiring, keyboard interactions, focus lifecycle, and outside interaction handling. `Enter` commits
+the value, `Escape` reverts it, and textarea composition commits on Cmd/Ctrl + Enter.
 
 Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, `invalid`,
 `required`, `activationMode`, `submitMode`, `selectOnFocus`, `maxLength`, `autoResize`,
@@ -189,14 +191,14 @@ with `:has(...)`. Docs examples must import from `moduix`, not from the componen
 
 ## Local changelog
 
+- 2026-07-27: Made `Editable.Controls` ref-compatible with `Editable.Control`, added focused
+  interaction coverage, and kept public examples self-contained for forms and state variants.
+
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the editable area and its square trigger to `--moduix-size-md` and compacted area padding.
 
 - 2026-07-10: Added `Editable.Controls` for the standard trigger flow and re-exported context
   surfaces through moduix for advanced compositions.
-- 2026-07-02: Removed `Editable.Context`, `useEditable`, `useEditableContext`, and duplicate Ark
-  type re-exports from the moduix surface. `RootProvider` remains, and advanced state access now
-  imports directly from `@ark-ui/react/editable`.
 - 2026-06-25: Replaced stale root-state styling guidance with real Ark part attributes, added
   explicit Context docs coverage, and synced editable CSS variable defaults.
 - 2026-06-22: Matched the default trigger button size to `--moduix-editable-area-height` so single-line

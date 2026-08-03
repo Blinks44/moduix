@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Fieldset as FieldsetPrimitive,
   useFieldset,

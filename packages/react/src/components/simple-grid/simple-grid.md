@@ -48,7 +48,7 @@ The root exposes `data-scope="simple-grid"`, `data-part="root"`, and
 Use `minChildWidth` when the number of columns should follow the available width:
 
 ```tsx
-import { SimpleGrid } from '@moduix/react';
+import { SimpleGrid } from '@moduix/react/simple-grid';
 
 export function Example() {
   return (
@@ -73,7 +73,7 @@ Use `columns` when the column count is fixed:
 
 - Ark factory composition and `asChild`: supported.
 - Forwarded root ref: supported.
-- Chakra fixed columns: supported with a positive `columns` number.
+- Chakra fixed columns: supported with a finite positive `columns` integer.
 - Chakra auto-responsive layout: supported through `minChildWidth`, `auto-fit`, and `minmax()`.
 - Chakra row and column gaps: supported.
 - Chakra responsive style props and Grid item span helpers: intentionally unsupported.
@@ -87,16 +87,16 @@ element. The forwarded ref targets the rendered root.
 
 ## Defaults and styling
 
-| Entry           | Default         | Values / Notes                              |
-| --------------- | --------------- | ------------------------------------------- |
-| `columns`       | `1`             | Positive number of equal-width columns      |
-| `minChildWidth` | -               | CSS length; numbers are converted to pixels |
-| `gap`           | browser default | CSS length                                  |
-| `rowGap`        | browser default | CSS length                                  |
-| `columnGap`     | browser default | CSS length                                  |
-| `asChild`       | `false`         | Ark factory composition                     |
-| `className`     | -               | Applied to the root                         |
-| `style`         | -               | Applied last as the instance override       |
+| Entry           | Default         | Values / Notes                                 |
+| --------------- | --------------- | ---------------------------------------------- |
+| `columns`       | `1`             | Finite positive integer of equal-width columns |
+| `minChildWidth` | -               | CSS length; numbers are converted to pixels    |
+| `gap`           | browser default | CSS length                                     |
+| `rowGap`        | browser default | CSS length                                     |
+| `columnGap`     | browser default | CSS length                                     |
+| `asChild`       | `false`         | Ark factory composition                        |
+| `className`     | -               | Applied to the root                            |
+| `style`         | -               | Applied last as the instance override          |
 
 The component writes `display: grid`, the one-column fallback, and any provided layout props as
 inline styles on the root. For media or container query layouts, omit `columns` and
@@ -119,6 +119,7 @@ last and remains the final per-instance override.
 
 ## Local changelog
 
+- 2026-07-30: Reject invalid `columns` values instead of emitting an invalid CSS `repeat()` track list.
 - 2026-07-11: Made the `style` prop the final override for generated gaps, and documented that
   `minChildWidth` takes priority when both layout props are supplied.
 - 2026-07-04: Moved the base `display: grid` and one-column fallback from the CSS module into inline

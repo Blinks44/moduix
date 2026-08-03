@@ -1,4 +1,4 @@
-import { Button } from '@moduix/react';
+import { Button } from '@moduix/react/button';
 
 const labels = {
   button: 'Disabled',
@@ -7,12 +7,17 @@ const labels = {
 
 export default function ButtonDisabledDemo() {
   return (
-    <div className="button-demo-row">
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 'var(--moduix-spacing-3)',
+      }}
+    >
       <Button disabled>{labels.button}</Button>
-      <Button asChild aria-disabled="true" variant="outline">
-        <a href="#button" onClick={(event) => event.preventDefault()}>
-          {labels.link}
-        </a>
+      <Button asChild disabled variant="outline">
+        <a href="#button">{labels.link}</a>
       </Button>
     </div>
   );

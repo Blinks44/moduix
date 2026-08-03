@@ -1,4 +1,4 @@
-import { Breadcrumbs } from '@moduix/react';
+import { Breadcrumbs } from '@moduix/react/breadcrumbs';
 import { Fragment, type ComponentProps } from 'react';
 
 const pathItems = [

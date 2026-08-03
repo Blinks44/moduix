@@ -25,7 +25,7 @@ export const Basic: Story = {
       <ProgressLinear {...args}>
         <ProgressLinear.Label>Export data</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Export data">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -42,7 +42,7 @@ export const Controlled: Story = {
         <ProgressLinear value={value} onValueChange={(details) => setValue(details.value)}>
           <ProgressLinear.Label>Upload status</ProgressLinear.Label>
           <ProgressLinear.ValueText />
-          <ProgressLinear.Track>
+          <ProgressLinear.Track aria-label="Upload status">
             <ProgressLinear.Range />
           </ProgressLinear.Track>
         </ProgressLinear>
@@ -67,7 +67,7 @@ export const InitialValue: Story = {
       <ProgressLinear defaultValue={70}>
         <ProgressLinear.Label>Import data</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Import data">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -81,7 +81,7 @@ export const MinMaxRange: Story = {
       <ProgressLinear defaultValue={420} min={200} max={800}>
         <ProgressLinear.Label>Requests per minute</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Requests per minute">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -95,7 +95,7 @@ export const Indeterminate: Story = {
       <ProgressLinear defaultValue={null}>
         <ProgressLinear.Label>Preparing report</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Preparing report">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -109,7 +109,7 @@ export const Vertical: Story = {
       <ProgressLinear defaultValue={42} orientation="vertical" className={styles.verticalProgress}>
         <ProgressLinear.Label>Indexing files</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Indexing files">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -130,7 +130,7 @@ export const ValueText: Story = {
       >
         <ProgressLinear.Label>Migration</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Migration">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>
@@ -146,7 +146,7 @@ export const RootProvider: Story = {
       <ProgressLinear.RootProvider value={progress}>
         <ProgressLinear.Label>Team rollout</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track className={styles.composedTrack}>
+        <ProgressLinear.Track className={styles.composedTrack} aria-label="Team rollout">
           <ProgressLinear.Range className={styles.composedRange} />
         </ProgressLinear.Track>
       </ProgressLinear.RootProvider>
@@ -160,7 +160,7 @@ export const CustomStyles: Story = {
       <ProgressLinear defaultValue={72} className={styles.customProgress}>
         <ProgressLinear.Label>Monthly quota</ProgressLinear.Label>
         <ProgressLinear.ValueText />
-        <ProgressLinear.Track>
+        <ProgressLinear.Track aria-label="Monthly quota">
           <ProgressLinear.Range />
         </ProgressLinear.Track>
       </ProgressLinear>

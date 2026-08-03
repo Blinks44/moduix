@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      {
+        const saved = localStorage.getItem('rspress-theme-appearance');
+        const theme = saved === 'light' || saved === 'dark' || saved === 'auto' ? saved : 'auto';
+        const dark =
+          theme === 'dark' ||
+          (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.moduixColorScheme = dark ? 'dark' : 'light';
+      }
+    </script>
     <!--<?- GENERATOR ?>-->
     <!--<?- HEAD ?>-->
   </head>

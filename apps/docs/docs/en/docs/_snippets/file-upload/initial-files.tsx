@@ -1,4 +1,4 @@
-import { FileUpload } from '@moduix/react';
+import { FileUpload } from '@moduix/react/file-upload';
 
 const initialFiles = [
   new File(['Welcome to moduix'], 'README.md', {

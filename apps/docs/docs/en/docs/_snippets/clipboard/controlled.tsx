@@ -1,4 +1,4 @@
-import { Clipboard } from '@moduix/react';
+import { Clipboard } from '@moduix/react/clipboard';
 import { useState } from 'react';
 
 export default function ControlledClipboardDemo() {

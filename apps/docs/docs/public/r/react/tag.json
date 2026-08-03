@@ -20,7 +20,7 @@
     },
     {
       "path": "packages/react/src/components/tag/index.ts",
-      "content": "export { Tag } from './Tag';",
+      "content": "export { Tag } from './Tag.js';",
       "type": "registry:component",
       "target": "@components/moduix/tag/index.ts"
     }

@@ -33,6 +33,12 @@ const paginationMutedCss = `
   }
 `;
 
+const paginationPreviewMetaCss = `
+  .pagination-stack > [data-preview-meta] {
+    justify-self: center;
+  }
+`;
+
 const paginationDataSlicingLayoutCss = `
   .pagination-users {
     display: grid;
@@ -54,7 +60,11 @@ const paginationDataSlicingLayoutCss = `
 
 const paginationPageSizeControlCss = `
   .pagination-page-size-select {
-    --moduix-select-width: 5.5rem;
+    --moduix-select-width: 10rem;
+
+    [data-part='label'] {
+      white-space: nowrap;
+    }
   }
 `;
 
@@ -62,7 +72,7 @@ export const paginationBasicCss = paginationDemoCss;
 
 export const paginationAdvancedCustomizationCss = paginationDemoCss;
 
-export const paginationControlledCss = `${paginationDemoCss}${paginationStackCss}${paginationMutedCss}`;
+export const paginationControlledCss = `${paginationDemoCss}${paginationStackCss}${paginationMutedCss}${paginationPreviewMetaCss}`;
 
 export const paginationContextCss = `${paginationRowCss}${paginationMutedCss}`;
 
@@ -70,9 +80,9 @@ export const paginationDataSlicingCss = `${paginationStackCss}${paginationRowCss
 
 export const paginationLinkCss = paginationDemoCss;
 
-export const paginationPageRangeCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}`;
+export const paginationPageRangeCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}${paginationPreviewMetaCss}`;
 
-export const paginationPageSizeControlExampleCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}${paginationPageSizeControlCss}`;
+export const paginationPageSizeControlExampleCss = `${paginationStackCss}${paginationRowCss}${paginationMutedCss}${paginationPreviewMetaCss}${paginationPageSizeControlCss}`;
 
 export const paginationRootProviderCss = `${paginationDemoCss}${paginationStackCss}`;
 

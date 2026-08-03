@@ -20,6 +20,11 @@ export const angleSliderControlledCss = `
 `;
 
 export const angleSliderFormCss = `
+  .docs-angle-slider-form-layout {
+    display: grid;
+    justify-items: center;
+  }
+
   .docs-angle-slider-form {
     --moduix-angle-slider-size: 9rem;
   }

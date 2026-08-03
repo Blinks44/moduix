@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Tour as TourPrimitive,
   useTour,
@@ -23,10 +25,16 @@ const DEFAULT_CLOSE_BUTTON_LABEL = 'Close tour';
 
 type TourRootProps = ComponentProps<typeof TourPrimitive.Root> & OverlayPortalProps;
 
-function TourRoot({ portalled, portalRef, ...props }: TourRootProps) {
+function TourRoot({
+  lazyMount = true,
+  portalled,
+  portalRef,
+  unmountOnExit = true,
+  ...props
+}: TourRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <TourPrimitive.Root {...props} />
+      <TourPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
@@ -165,6 +173,20 @@ const TourProgressText = forwardRef<
   );
 });
 
+const TourBody = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function TourBody(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <div
+      ref={ref}
+      data-slot="tour-body"
+      className={clsx(styles.body, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
 const TourCloseTrigger = forwardRef<
   ComponentRef<typeof TourPrimitive.CloseTrigger>,
   ComponentProps<typeof TourPrimitive.CloseTrigger>
@@ -236,8 +258,12 @@ function TourActionList({ className }: { className?: string }) {
   return (
     <TourPrimitive.Actions>
       {(actions) =>
-        actions.map((action) => (
-          <TourActionTrigger key={action.label} action={action} className={className} />
+        actions.map((action, index) => (
+          <TourActionTrigger
+            key={`${action.label}-${index}`}
+            action={action}
+            className={className}
+          />
         ))
       }
     </TourPrimitive.Actions>
@@ -256,6 +282,7 @@ const Tour = Object.assign(TourRoot, {
   Title: TourTitle,
   Description: TourDescription,
   ProgressText: TourProgressText,
+  Body: TourBody,
   CloseTrigger: TourCloseTrigger,
   CloseIcon: TourCloseIcon,
   Control: TourControl,

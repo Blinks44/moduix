@@ -161,67 +161,6 @@ const sliderOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-slider-width-vertical', 'max-content', 'Controls vertical slider width.'],
 ];
 
-export const sliderNoCss = `No additional styles are required.`;
-
-export const sliderHeaderCss = `
-.slider-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--moduix-spacing-3);
-}
-`;
-
-export const sliderStackCss = `
-.slider-stack {
-  display: grid;
-  gap: var(--moduix-spacing-4);
-}
-`;
-
-export const sliderEventsCss = `
-.slider-stack {
-  display: grid;
-  gap: var(--moduix-spacing-4);
-}
-
-.slider-header,
-.slider-status {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-sm);
-  line-height: var(--moduix-line-height-text-sm);
-}
-
-.slider-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--moduix-spacing-3);
-}
-`;
-
-export const sliderVerticalCss = `
-.slider-vertical {
-  --moduix-slider-width-vertical: auto;
-  --moduix-slider-height: 12rem;
-}
-`;
-
-export const sliderContextCss = `
-.slider-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--moduix-spacing-3);
-}
-
-.slider-value {
-  color: var(--moduix-color-muted-foreground);
-  font-size: var(--moduix-text-sm);
-  line-height: var(--moduix-line-height-text-sm);
-}
-`;
-
 export function SliderCssPropertiesPanel(_context: CSSPropertiesEditorContext) {
   return (
     <CSSPropertiesReferenceTable

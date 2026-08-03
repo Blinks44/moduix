@@ -124,6 +124,11 @@
         var(
           --moduix-qr-code-transition,
           var(--moduix-button-transition, var(--moduix-transition-default))
+        ),
+      transform
+        var(
+          --moduix-qr-code-transition,
+          var(--moduix-button-transition, var(--moduix-transition-default))
         );
   }
 
@@ -171,6 +176,16 @@
         ) *
         -1
     );
+  }
+
+  .downloadTrigger:active:not(:disabled, [data-disabled]) {
+    opacity: 0.94;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .downloadTrigger:active:not(:disabled, [data-disabled]) {
+      transform: translateY(1px) scale(0.985);
+    }
   }
 
   .downloadTrigger:disabled,

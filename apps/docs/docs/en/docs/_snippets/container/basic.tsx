@@ -1,4 +1,6 @@
-import { Container, Heading, Text } from '@moduix/react';
+import { Container } from '@moduix/react/container';
+import { Heading } from '@moduix/react/heading';
+import { Text } from '@moduix/react/text';
 
 const containerContent = {
   title: 'Responsive page content',
@@ -7,7 +9,13 @@ const containerContent = {
 
 export default function ContainerDemo() {
   return (
-    <Container className="container">
+    <Container
+      style={{
+        paddingBlock: 'var(--moduix-spacing-4)',
+        borderBlock: 'var(--moduix-border-width-sm) dashed var(--moduix-color-border)',
+        backgroundColor: 'var(--moduix-color-muted)',
+      }}
+    >
       <Heading as="h3" size="lg">
         {containerContent.title}
       </Heading>

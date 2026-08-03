@@ -1,4 +1,4 @@
-import { Card } from '@moduix/react';
+import { Card } from '@moduix/react/card';
 
 const sizes = ['sm', 'md', 'lg'] as const;
 const descriptions = {
@@ -9,9 +9,9 @@ const descriptions = {
 
 export default function CardSizesDemo() {
   return (
-    <div className="cards">
+    <div style={{ display: 'grid', inlineSize: '100%', gap: 'var(--moduix-spacing-4)' }}>
       {sizes.map((size) => (
-        <Card key={size} className="card" size={size}>
+        <Card key={size} size={size} style={{ width: '100%' }}>
           <Card.Header>
             <Card.Title>Card {size}</Card.Title>
             <Card.Description>{descriptions[size]}</Card.Description>

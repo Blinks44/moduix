@@ -1,8 +1,9 @@
-import { TagsInput } from '@moduix/react';
+import { Stack } from '@moduix/react/stack';
+import { TagsInput } from '@moduix/react/tags-input';
 
 export default function StateTagsInput() {
   return (
-    <>
+    <Stack className="tags-input-preview-stack" gap="var(--moduix-spacing-3)">
       <TagsInput disabled defaultValue={['disabled']}>
         <TagsInput.Label>Disabled</TagsInput.Label>
         <TagsInput.Control>
@@ -19,6 +20,6 @@ export default function StateTagsInput() {
           <TagsInput.ClearTrigger aria-label="Clear read-only tags" />
         </TagsInput.Control>
       </TagsInput>
-    </>
+    </Stack>
   );
 }

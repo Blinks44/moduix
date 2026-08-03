@@ -1,5 +1,10 @@
 @layer moduix.components {
   .root {
+    --moduix-image-cropper-viewport-height: min(
+      var(--moduix-image-cropper-viewport-min-height, 20rem),
+      62.5vw
+    );
+
     box-sizing: border-box;
     display: grid;
     width: var(--moduix-image-cropper-width, 32rem);
@@ -16,10 +21,7 @@
   .viewport {
     box-sizing: border-box;
     width: 100%;
-    height: var(
-      --moduix-image-cropper-viewport-height,
-      var(--moduix-image-cropper-viewport-min-height, 20rem)
-    );
+    height: var(--moduix-image-cropper-viewport-height);
     overflow: hidden;
     border: var(--moduix-image-cropper-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-image-cropper-border-color, var(--moduix-color-border));
@@ -76,7 +78,7 @@
     box-shadow: var(--moduix-image-cropper-shadow, none);
 
     &[data-disabled] {
-      cursor: default;
+      cursor: grab;
     }
   }
 
@@ -92,7 +94,7 @@
   }
 
   .selection {
-    box-sizing: content-box;
+    box-sizing: border-box;
     border: var(--moduix-image-cropper-selection-border-width, var(--moduix-border-width-md)) solid
       var(--moduix-image-cropper-selection-border-color, var(--moduix-color-primary));
     border-radius: var(--moduix-image-cropper-selection-radius, var(--moduix-radius-md));
@@ -109,6 +111,7 @@
 
     &[data-shape='circle'] {
       border-radius: var(--moduix-image-cropper-selection-circle-radius, var(--moduix-radius-full));
+      border-color: transparent;
     }
 
     &:focus-visible {
@@ -179,6 +182,14 @@
       height: 100% !important;
       border-width: 0;
       border-radius: var(--moduix-image-cropper-handle-edge-radius, var(--moduix-radius-full));
+    }
+
+    &[data-position='nw'],
+    &[data-position='ne'],
+    &[data-position='se'],
+    &[data-position='sw'] {
+      z-index: 2;
+      background-color: rgb(255 255 255);
     }
 
     &[data-disabled] {

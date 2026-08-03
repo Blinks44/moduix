@@ -19,10 +19,6 @@
     font-weight: var(--moduix-signature-pad-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-signature-pad-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
-
-    &[data-disabled] {
-      opacity: var(--moduix-signature-pad-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .control {
@@ -30,7 +26,10 @@
     width: var(--moduix-signature-pad-control-width, 100%);
     min-width: var(--moduix-signature-pad-control-min-width, 0);
     height: var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem));
-    min-height: var(--moduix-signature-pad-control-min-height, 10rem);
+    min-height: var(
+      --moduix-signature-pad-control-min-height,
+      var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem))
+    );
     border: var(--moduix-signature-pad-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-signature-pad-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-signature-pad-radius, var(--moduix-radius-md));
@@ -71,10 +70,6 @@
     border-bottom: var(--moduix-signature-pad-guide-border-width, var(--moduix-border-width-sm))
       dashed var(--moduix-signature-pad-guide-color, var(--moduix-color-border));
     pointer-events: none;
-
-    &[data-disabled] {
-      opacity: var(--moduix-signature-pad-disabled-opacity, var(--moduix-opacity-disabled));
-    }
   }
 
   .clearTrigger {
@@ -124,9 +119,6 @@
       --moduix-signature-pad-clear-trigger-focus-ring-offset,
       var(--moduix-spacing-1)
     );
-    --moduix-close-button-disabled-opacity: var(
-      --moduix-signature-pad-disabled-opacity,
-      var(--moduix-opacity-disabled)
-    );
+    --moduix-close-button-disabled-opacity: 1;
   }
 }
