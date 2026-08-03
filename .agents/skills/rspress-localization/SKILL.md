@@ -31,7 +31,7 @@ Treat localization as technical editing, not string substitution.
 - Preserve the source document's information architecture, precision, examples, cautions, and level of detail. A translation must be equally actionable and technically correct.
 - Use existing project terminology consistently. When a term is ambiguous, inspect accepted pages, component docs, and upstream documentation before choosing a rendering; keep a small project glossary only when a term recurs.
 - Preserve proper names and public identifiers exactly: component names such as `Collapsible`, product names such as `Formisch`, package names, imports, API members, props, events, CSS variables, design-token names, commands, file paths, URLs, and code identifiers.
-- Translate surrounding prose and explanatory labels, but never translate a public identifier into a fictional API. Keep code fences byte-for-byte unchanged unless a separate task changes the documented code.
+- Translate surrounding prose and explanatory labels, but never translate a public identifier into a fictional API. Apply the separate code-example policy below to every fenced or file-backed example.
 - Preserve Markdown/MDX structure, frontmatter field names, links, anchors, fenced-code languages, and syntax. Translate visible link text where appropriate, not the destination unless the locale has a real corresponding route.
 - Review target-language typography, grammar, punctuation, capitalization, terminology, and naturalness. Reject unreviewed, awkward, or incomplete machine translation.
 
@@ -47,7 +47,7 @@ The best localization solution is the simplest one that meets the reader's need 
 | Current language for routing or page filtering | `useLang`                                          |
 | Current-language page index/gallery            | `usePages()` filtered by `page.lang === useLang()` |
 | Markdown or MDX internal link                  | Locale-neutral route such as `/docs/button`        |
-| TSX internal link                              | Shared `useLocalizedPath` plus Rspress `Link`      |
+| TSX link that navigates the documentation site | Shared `useLocalizedPath` plus Rspress `Link`      |
 
 `usePages()` returns metadata for all languages. Always filter it by `page.lang` before rendering a locale-specific collection. Do not infer the locale from a route prefix; default and non-default locales use different prefixes.
 
@@ -57,13 +57,13 @@ The best localization solution is the simplest one that meets the reader's need 
 - Design dynamic copy for the grammar of every locale. If a variable count, date, unit, gender, or word order would make a shared sentence awkward, simplify the UI wording or use a complete locale-specific message; do not introduce a custom translation engine for it.
 - Use descriptive, stable i18n keys. Keep translation context evident from the key and component; add only a short nearby code comment when the context would otherwise be unclear.
 - Format reader-facing dates, numbers, currencies, and units with the platform `Intl` APIs and the current language from `useLang`; never hand-format locale data.
-- Localize user-facing accessible text too: alternative text, `aria-label`, `title`, validation and error messages, status messages, and empty states. Preserve the actual HTML, ARIA, and API attribute names unchanged.
+- Localize user-facing accessible text in the documentation UI too: alternative text, `aria-label`, `title`, validation and error messages, status messages, and empty states. Preserve the actual HTML, ARIA, and API attribute names unchanged. Literal copy inside a shared, copyable code example and its runnable preview follows the code-example policy below.
 - Review rendered translations in context. Check labels, headings, controls, and cards for truncation, awkward wrapping, and lost meaning. Plan explicit direction and layout testing before introducing a right-to-left locale.
 
 ## Links and incomplete translations
 
 - Keep links locale-neutral in Markdown, MDX, and navigation JSON; let Rspress resolve the locale.
-- Use `useLocalizedPath` only in custom TSX links, where Rspress `Link` does not localize `href` itself.
+- Use `useLocalizedPath` only in custom TSX links that navigate the documentation site, where Rspress `Link` does not localize `href` itself. Application routes in a copyable recipe are example data, not documentation routes.
 - Before creating a localized internal link, verify that its target exists for that locale. Do not silently generate 404 links.
 - Verify locale-specific anchor fragments as well as page routes; a translated heading can change its generated anchor.
 - If a locale intentionally lacks a page, choose and document one product decision: omit the link/card, link explicitly to the default-language page, or add the missing page. Do not implement hidden fallback rules.
@@ -77,9 +77,13 @@ The best localization solution is the simplest one that meets the reader's need 
 - Do not add route-prefix string logic in individual components.
 - Do not add a translation abstraction, fallback router, generated locale tree, or speculative generic helper when `i18n.json`, `useI18n`, `useLang`, `usePages`, or the shared link helper already cover the case.
 
-## Code examples: intentionally undecided
+## Code examples: one shared source
 
-Keep public API names, commands, identifiers, and code semantics stable. The project has not chosen a universal policy for translating human-readable UI copy inside runnable code snippets. Do not invent one here: record the decision needed, inspect accepted examples, and apply the eventual policy consistently without duplicating locale-specific snippet trees.
+Keep one default-language source for every copyable example. Preserve its code content byte-for-byte across locale pages: public API names, commands, identifiers, comments, fixtures, human-readable UI literals, `aria-label`, `title`, and code semantics all stay in the source language. Its runnable preview is part of that same example and keeps the same copy.
+
+Translate the surrounding prose and documentation UI, not the example implementation. Do not duplicate locale-specific snippet trees, pass a locale into an example, add Rspress i18n to copyable recipe code, or create locale-only preview wrappers merely to change example copy. The example must remain self-contained and usable when copied into a consumer application.
+
+Locale pages may use a different relative `file` directive solely to reference the one shared source. That path difference is allowed; it is not a translated code change.
 
 ## Verification
 

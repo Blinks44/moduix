@@ -29,47 +29,31 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
 
 function ShadcnInstall({
   packageName,
-  itemLabel = 'component',
+  itemKind = 'component',
   copiedSource = false,
   dependencies = [],
 }: {
   packageName: string | string[];
-  itemLabel?: string;
+  itemKind?: 'component' | 'recipe';
   copiedSource?: boolean;
   dependencies?: string[];
 }) {
   const packageNames = Array.isArray(packageName) ? packageName : [packageName];
   const t = useI18n<typeof import('i18n')>();
-  const displayItemLabel = itemLabel === 'component' ? t('shadcnComponentLabel') : itemLabel;
+  const installMessage =
+    itemKind === 'recipe' ? t('shadcnInstallRecipe') : t('shadcnInstallComponent');
+  const copyMessage = itemKind === 'recipe' ? t('shadcnCopyRecipe') : t('shadcnCopyComponent');
 
   return (
     <div className={styles.install}>
-      <p>
-        {copiedSource ? (
-          <>
-            {t('shadcnCopyPrefix')} {displayItemLabel} {t('shadcnCopySuffix')}
-          </>
-        ) : (
-          <>
-            {t('shadcnInstallPrefix')} {displayItemLabel} {t('shadcnInstallMiddle')}{' '}
-            <code>node_modules</code>
-            {t('shadcnInstallSuffix')}
-          </>
-        )}
-      </p>
+      <p>{copiedSource ? copyMessage : installMessage}</p>
       <PackageManagerTabs
         command={`shadcn@latest add ${packageNames.map((name) => `@moduix-react/${name}`).join(' ')}`}
         dlx
       />
       {dependencies.length > 0 ? (
         <>
-          <p>
-            {t('shadcnExampleRequires')}{' '}
-            {dependencies.map((dependency, index) => (
-              <code key={dependency}>{index > 0 ? ` ${dependency}` : dependency}</code>
-            ))}
-            .
-          </p>
+          <p>{t('shadcnExampleRequires')}</p>
           <PackageManagerTabs command={`install ${dependencies.join(' ')}`} />
         </>
       ) : null}

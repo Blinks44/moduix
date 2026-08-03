@@ -227,33 +227,25 @@
     "en": "Behavior, accessibility details, and low-level props live in the upstream reference.",
     "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке."
   },
-  "shadcnInstallPrefix": {
-    "en": "If you want this",
-    "ru": "Если вы хотите добавить этот"
+  "shadcnInstallComponent": {
+    "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",
+    "ru": "Чтобы добавить этот компонент в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:"
   },
-  "shadcnComponentLabel": {
-    "en": "component",
-    "ru": "компонент"
+  "shadcnInstallRecipe": {
+    "en": "To add this recipe to your project source instead of node_modules, install it from the hosted moduix registry:",
+    "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:"
   },
-  "shadcnInstallMiddle": {
-    "en": "in your project source instead of",
-    "ru": "в исходный код проекта вместо"
+  "shadcnCopyComponent": {
+    "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
+    "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
   },
-  "shadcnInstallSuffix": {
-    "en": ", install it from the hosted moduix registry:",
-    "ru": ", установите его из размещённого реестра moduix:"
-  },
-  "shadcnCopyPrefix": {
-    "en": "Copy this",
-    "ru": "Скопируйте этот"
-  },
-  "shadcnCopySuffix": {
-    "en": "and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
+  "shadcnCopyRecipe": {
+    "en": "Copy this recipe and its CSS from the tabs above, then add the moduix components it uses:",
+    "ru": "Скопируйте этот рецепт и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
   },
   "shadcnExampleRequires": {
-    "en": "This example also requires",
-    "ru": "Для этого примера также требуется"
+    "en": "Install the example's additional dependencies:",
+    "ru": "Установите дополнительные зависимости примера:"
   },
   "cssProperty": {
     "en": "Property",
