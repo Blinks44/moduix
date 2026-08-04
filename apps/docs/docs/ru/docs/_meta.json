@@ -219,6 +219,31 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "qr-code",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "radio-group",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "rating-group",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "scroll-area",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "segment-group",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

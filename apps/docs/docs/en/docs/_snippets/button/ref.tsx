@@ -13,10 +13,8 @@ export default function ButtonRefDemo() {
   return (
     <div
       style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: 'grid',
+        justifyItems: 'center',
         gap: 'var(--moduix-spacing-3)',
       }}
     >

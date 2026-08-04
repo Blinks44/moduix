@@ -1,0 +1,184 @@
+---
+title: QR Code
+component: qr-code
+description: Примитив QR-кода Ark UI с выводом SVG, наложениями и поддержкой скачивания изображения.
+---
+
+import * as QrCodeDocs from '@/components/examples/qr-code';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/qr-code" />
+
+## Базовый пример
+
+Используйте `QrCode` как корневой элемент Ark, затем явно отрисуйте `Frame` и `Pattern`. Корневой элемент хранит закодированное значение, а `Frame` отображает созданный SVG.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="qr-code" />
+
+## Анатомия
+
+```text
+QrCode / QrCode.Root
+├─ QrCode.Frame
+│  └─ QrCode.Pattern
+├─ QrCode.Overlay
+└─ QrCode.DownloadTrigger
+
+QrCode.RootProvider
+└─ same part tree connected to useQrCode() from @moduix/react
+```
+
+| Часть                     | Назначение                                                               |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `QrCode` / `QrCode.Root` | Состояние значения, параметры генерации, идентификаторы и CSS-переменные. |
+| `QrCode.RootProvider`    | Отрисовывает дерево QR-кода из состояния, возвращённого moduix `useQrCode()`. |
+| `QrCode.Frame`           | SVG-рамка, созданная Ark.                                                |
+| `QrCode.Pattern`         | SVG-путь для модулей QR-кода.                                            |
+| `QrCode.Overlay`         | Пользовательское содержимое по центру поверх QR-кода.                    |
+| `QrCode.DownloadTrigger` | Кнопка, скачивающая текущую QR-рамку как изображение.                    |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Сохраняйте структуру Ark явной: `QrCode`, `QrCode.Frame` и `QrCode.Pattern`. `QrCode.Root` остаётся доступным как явный псевдоним, соответствующий Ark. Добавляйте `QrCode.Overlay`, только если коррекции ошибок QR-кода достаточно для перекрываемой области.
+
+### Когда нужна собственная композиция
+
+Используйте `encoding` для параметров генерации QR-кода, в частности `encoding={{ ecc: 'H' }}` при добавлении наложения. Используйте `QrCode.DownloadTrigger`, когда пользователям нужен сгенерированный файл изображения. Используйте `useQrCode()` из `@moduix/react` вместе с `QrCode.RootProvider`, когда элементам управления вне дерева требуется доступ к API текущего QR-кода.
+
+Используйте `asChild` на частях Ark при замене хост-элемента. Сохраняйте заменяющий дочерний элемент семантичным и единственным. Используйте `ids`, если пользовательскому дереву нужны стабильные идентификаторы корневого элемента или рамки.
+
+### Свойства по умолчанию
+
+| Свойство       | По умолчанию | Примечания                                                                    |
+| -------------- | ------------ | ----------------------------------------------------------------------------- |
+| `defaultValue` | -            | Начальное неконтролируемое закодированное значение.                           |
+| `value`        | -            | Контролируемое закодированное значение.                                       |
+| `encoding`     | -            | Параметры генерации QR-кода, например `ecc` и `boostEcc`.                    |
+| `pixelSize`    | -            | Размер пикселя, передаваемый генератору Ark/Zag.                              |
+| `id`           | -            | Стабильный машинный идентификатор, передаваемый в Ark.                        |
+| `ids`          | -            | Стабильные идентификаторы для `root` и `frame`.                               |
+| `fileName`     | -            | Обязателен для `DownloadTrigger`.                                             |
+| `mimeType`     | -            | Обязателен для `DownloadTrigger`, например `image/png` или `image/svg+xml`. |
+| `quality`      | -            | Необязательное качество скачиваемого изображения.                             |
+
+### Особенности поведения
+
+Используйте `value` с `onValueChange(details)`, когда закодированный URL или текст должен синхронизироваться с окружающим состоянием. Сигнатура обратного вызова — исходный объект деталей Ark.
+
+`useQrCode()` из `@moduix/react` позволяет создать состояние QR-кода вне отрисовываемого дерева. Используйте `QrCode.Context` или `useQrCodeContext()` из moduix, чтобы читать состояние QR-кода в потомке.
+
+У QR-кода нет специальной навигации стрелками, roving focus или скрытого поля ввода. `DownloadTrigger` — нативная кнопка, поэтому сохраняет активацию с клавиатуры и поведение фокуса кнопки.
+
+SVG — визуальный вывод. Когда QR-код передаёт информацию, добавьте `role="img"` и `aria-label` в `QrCode.Frame`. Используйте соседний текст или `aria-hidden="true"`, когда QR-код дублирует информацию.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте `value`, когда QR-код должен оставаться синхронизированным с внешним выбором или окружающим интерфейсом.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Скачивание
+
+Добавьте `DownloadTrigger`, когда пользователям нужно сохранить сгенерированный QR-код как изображение.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/download.tsx"
+
+```
+</PreviewFrame>
+
+### Коррекция ошибок
+
+Задайте `encoding.ecc`, чтобы выбрать уровень коррекции ошибок QR-кода. Более высокие уровни полезны, когда у QR-кода есть наложение или он должен выдерживать больше повреждений.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/error-correction.tsx"
+
+```
+</PreviewFrame>
+
+### Заливка
+
+Настройте цвет SVG через `className`, встроенные стили или `--moduix-qr-code-fill`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/fill.tsx"
+
+```
+</PreviewFrame>
+
+### Поле ввода
+
+Управляйте QR-кодом из текстового поля, когда пользователям нужно ввести или изменить закодированное содержимое.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/input.tsx"
+
+```
+</PreviewFrame>
+
+### Наложение
+
+Используйте `QrCode.Overlay` для компактного логотипа или текстового знака. Сочетайте его с высокой коррекцией ошибок, чтобы код оставался считываемым.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/overlay.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте moduix `useQrCode()` с `QrCode.RootProvider`, когда состояние создаётся вне отрисовываемого дерева.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/qr-code/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Переопределяйте размер QR-кода, заливку, наложение и стили триггера скачивания через CSS-переменные и классы частей. Ark также задаёт переменные времени выполнения в корневом элементе для размеров созданной рамки.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <QrCodeDocs.QrCodeCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `QrCode.Root` -> `data-slot="qr-code-root"`
+- `QrCode.RootProvider` -> `data-slot="qr-code-root-provider"`
+- `QrCode.Frame` -> `data-slot="qr-code-frame"`
+- `QrCode.Pattern` -> `data-slot="qr-code-pattern"`
+- `QrCode.Overlay` -> `data-slot="qr-code-overlay"`
+- `QrCode.DownloadTrigger` -> `data-slot="qr-code-download-trigger"`
+- Хуки Ark: `data-scope="qr-code"`, `data-part="root|frame|pattern|overlay|download-trigger"`,
+  а также CSS-переменные времени выполнения `--qrcode-pixel-size`, `--qrcode-width` и `--qrcode-height`.
