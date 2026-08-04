@@ -1,0 +1,266 @@
+---
+title: Tags Input
+component: tags-input
+description: Ark UI tags input composition for entering, editing, validating, and submitting string tags.
+---
+
+import * as TagsInputDocs from '@/components/examples/tags-input';
+
+## Справочник по API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
+
+## Выбор подходящего компонента
+
+Используйте `TagsInput`, когда пользователям необходимо создать список редактируемых строковых значений внутри одного элемента управления формой.
+
+- Выбирайте **`TagsInput`** для меток, навыков, фильтров, получателей, тем и других списков произвольных строк.
+- Выбирайте **`Tag`**, когда интерфейс только показывает существующий токен и может предлагать отдельное действие удаления.
+- Выбирайте **`Combobox`**, когда пользователь должен выбирать из известной коллекции, а фильтрация — основное взаимодействие.
+
+## Базовый
+
+Начните с корня, метки, элемента управления, `Items`, ввода ввода и очистки триггера. Корень добавляет собственную форму ввода для отправки и синхронизации сброса. `Items` отображает стандартную анатомию редактируемых тегов; используйте явные части только тогда, когда отдельные теги требуют настройки.
+
+<style>{TagsInputDocs.tagsInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установить с помощью shadcn
+
+<ShadcnInstall packageName="tags-input" />
+
+## Анатомия
+
+```text
+TagsInput / TagsInput.Root
+├─ TagsInput.Label
+├─ TagsInput.Control
+│  ├─ TagsInput.Items
+│  └─ TagsInput.Item[index, value]
+│     ├─ TagsInput.ItemPreview
+│     │  ├─ TagsInput.ItemText
+│     │  └─ TagsInput.ItemDeleteTrigger
+│     └─ TagsInput.ItemInput
+│  ├─ TagsInput.Input
+│  └─ TagsInput.ClearTrigger
+└─ native input (automatic)
+```
+
+|Часть|Роль|
+| -------------------------------------- | -------------------------------------------------------------------- |
+|`TagsInput` / `TagsInput.Root`|Корневой автомат, массив значений, входное значение, проверка и формы.|
+|`TagsInput.RootProvider`|Отрисовывает ввод тегов из состояния, возвращаемого Ark `useTagsInput`.|
+|`TagsInput.Label`|Доступная метка для ввода тегов.|
+|`TagsInput.Control`|Видимая оболочка ввода, содержащая теги, ввод ввода и очистка триггера.|
+|`TagsInput.Items`|Средство визуализации редактируемых тегов по умолчанию для значений `TagsInput.Context`.|
+|`TagsInput.Item`|Один элемент тега. Передайте `index` и `value`.|
+|`TagsInput.ItemContext`|Доступ к Render-prop к текущему состоянию элемента.|
+|`TagsInput.ItemPreview`|Видимая поверхность тега вне режима редактирования.|
+|`TagsInput.ItemText`|Видимый текст тега.|
+|`TagsInput.ItemDeleteTrigger`|Удаляет один тег; moduix предоставляет компактный значок закрытия по умолчанию.|
+|`TagsInput.ItemInput`|Встроенное редактирование тега.|
+|`TagsInput.Input`|Ввод данных для новых тегов.|
+|`TagsInput.ClearTrigger`|Очищает все теги; moduix использует общее значение по умолчанию `CloseButton.Root`.|
+|`TagsInput.Context`|Встроенный доступ к корневому состоянию Ark.|
+|moduix `useTagsInput` + `RootProvider`|Внешняя государственная собственность и императивные методы.|
+
+## Состав
+
+### Рекомендуемый состав
+
+Используйте короткую корневую форму `<TagsInput>`. Визуализируйте `TagsInput.Items` внутри `Control` для стандартного редактируемого дерева тегов. Корень автоматически отображает входные данные собственной формы; настройте участие в форме с помощью корневых реквизитов, таких как `name` и `form`.
+
+### Когда переходить к индивидуальному подходу
+
+Используйте явную композицию `TagsInput.Context`/`TagsInput.Item`, когда тегам требуется настраиваемый контент или действия. Используйте `TagsInput.RootProvider` с moduix `useTagsInput`, когда для окружающего пользовательского интерфейса требуются императивные методы, такие как `addValue`, `setValue`, `clearValue`, `setInputValue` или `focus`. Используйте `ids` при составлении `TagsInput` с другим примитивом Ark, например `Combobox`, и оба примитива должны иметь общий идентификатор входа или элемента управления.
+
+### Реквизит по умолчанию
+
+|Опора|По умолчанию|Примечания|
+| ------------------- | ---------- | ----------------------------------------------------------------------- |
+|`defaultValue`|`[]`|Начальный неконтролируемый массив тегов.|
+|`value`|-|Управляемый массив тегов. Обновление от `onValueChange(details).value`.|
+|`defaultInputValue`|`''`|Начальное неконтролируемое входное значение.|
+|`inputValue`|-|Входное значение контролируемой записи.|
+|`delimiter`|`','`|Символ или регулярное выражение, используемые для разделения вставки и обработки ключей-разделителей.|
+|`max`|`Infinity`|Максимальное количество тегов.|
+|`maxLength`|-|Максимальное количество символов, принимаемых для ввода.|
+|`allowOverflow`|`false`|Допускает значения, выходящие за пределы `max`, при этом корень помечается как недействительный.|
+|`allowDuplicates`|`false`|Позволяет добавлять одно и то же строковое значение более одного раза.|
+|`editable`|`true`|Позволяет тегам с фокусом или двойным щелчком мыши перейти в режим редактирования.|
+|`addOnPaste`|`false`|Разбивает вставленный ввод на теги с помощью `delimiter`.|
+|`blurBehavior`|-|Используйте `"add"`, чтобы добавить значение записи для размытия, или `"clear"`, чтобы его отменить.|
+|`sanitizeValue`|подрезать|Нормализует каждое значение до того, как Ark проверит и добавит его.|
+
+### Поведенческие замечания
+
+`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` и `onValueInvalid(details)` предоставляют объекты сведений Ark. `validate(details)` принимает или отклоняет ожидающий тег, а `sanitizeValue(value)` нормализует каждый тег перед его добавлением. Используйте `translations`, чтобы локализовать метки действий по удалению и очистке по умолчанию.
+
+`Field.Root` и `Fieldset.Root` могут предоставлять отключенное, недопустимое, обязательное состояние и состояние только для чтения через контекст Ark. Все экспортированные части Ark поддерживают `asChild` с одним семантическим дочерним элементом, который пересылает реквизиты и `ref`; корневой дочерний элемент также должен отображать дочерние элементы, чтобы автоматический ввод встроенной формы оставался доступным. Триггер очистки по умолчанию использует `CloseButton.Root` под Ark `asChild`, а при удалении элемента сохраняется кнопка со значком меньшего размера на уровне тега.
+
+## Примеры
+
+### Разрешить дубликаты
+
+Установите `allowDuplicates`, если повторяющиеся значения имеют смысл, например получатели или взвешенные метки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/allow-duplicates.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контролируется
+
+Управляйте массивом тегов, когда выбранные теги должны управлять окружающим пользовательским интерфейсом или сбрасываться из состояния React.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контролируемое значение Input
+
+Управляйте `inputValue` отдельно, когда другой элемент управления должен предварительно заполнить или очистить ввод.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/controlled-input-value.tsx"
+
+  ```
+</PreviewFrame>
+
+### Разделитель и вставка
+
+Используйте `delimiter` с `addOnPaste`, когда вставленный текст должен создавать несколько тегов.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/delimiter-and-paste.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключить редактирование
+
+Установите `editable={false}`, если существующие теги должны быть съемными, но не редактируемыми на месте.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/disable-editing.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключено и доступно только для чтения
+
+Используйте `disabled` для неинтерактивного элемента управления и `readOnly`, когда значения остаются видимыми, но не подлежат редактированию.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/disabled-and-read-only.tsx"
+
+  ```
+</PreviewFrame>
+
+### Field
+
+Оберните `TagsInput` в `Field`, если метка, вспомогательный текст, недопустимое состояние и текст ошибки должны использовать общую проводку доступности Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Форма
+
+Передайте `name` в корень, чтобы включить список тегов в `FormData`; он автоматически отображает исходный ввод формы и синхронизирует сброс формы.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/form.tsx"
+
+  ```
+</PreviewFrame>
+
+### Макс с переполнением
+
+Используйте `allowOverflow` с `max`, когда пользователи могут превысить предел, в то время как элемент управления сообщает о недопустимом состоянии.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/max-with-overflow.tsx"
+
+  ```
+</PreviewFrame>
+
+### Корневой провайдер
+
+Используйте moduix `useTagsInput` с `RootProvider`, когда методы состояния и императивные методы должны находиться за пределами входного дерева отображаемых тегов.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Дезинфекция и размытие
+
+Используйте `sanitizeValue` для нормализации входящих тегов и `blurBehavior="add"` для фиксации текущего ввода, когда фокус покидает элемент управления.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/sanitize-and-blur.tsx"
+
+  ```
+</PreviewFrame>
+
+### Валидация и Макс
+
+Используйте `validate`, `max` и `onValueInvalid`, чтобы отклонить недопустимые значения и состояние поверхностной проверки. Добавьте `maxLength`, когда входные данные должны перестать принимать значения длинных тегов перед запуском проверки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/validation-and-max.tsx"
+
+  ```
+</PreviewFrame>
+
+### С Combobox
+
+Составьте `TagsInput` с `Combobox`, когда вводимый ввод должен предлагать известные параметры, но при этом разрешать пользовательские теги.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/with-combobox.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Обходите `Items`, когда для каждого тега требуется индивидуальный контент или действия. Полное дерево предметов в форме ковчега остается доступным для настройки.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tags-input/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стиль
+
+### CSS Свойства
+
+<div className="docs-reference">
+<Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+> <Tab> <TagsInputDocs.TagsInputCssPropertiesPanel /> </Tab> </Tabs>
+</div>
+
+### Крючки для стиля
+
+— Корень и корневой провайдер предоставляют `data-slot="tags-input-root"` и `data-slot="tags-input-root-provider"`. - Детали Ark сохраняют значения `data-scope="tags-input"` и `data-part` из предшествующей анатомии. - В стилях состояний используются `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` и `data-highlighted` в тех частях, где их создает Ark. — Удаление и очистка триггеров предоставляют стабильные перехватчики `data-slot`. Для удаления элемента используется компактный значок закрытия по умолчанию; Clear-all использует общий стиль по умолчанию `CloseButton.Root`. — `TagsInput.ClearTrigger` остается привязанным к встроенному концу элемента управления при переносе строк тега. - В состоянии только для чтения moduix скрывает ввод ввода и очищает триггер, поэтому отображаются только значения неизменяемых тегов.
+
+## Доступность
+
+Ark владеет проводкой меток, подсветкой тегов, режимом встроенного редактирования, удалением Backspace/Delete, навигацией по тегам ArrowLeft и ArrowRight, поведением Enter для добавления и Enter для редактирования, разделением вставки и интеграцией скрытых форм ввода. Корень автоматически отображает входные данные собственной формы; настройте участие в форме с помощью корневых реквизитов, таких как `name` и `form`.

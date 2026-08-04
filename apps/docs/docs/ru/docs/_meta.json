@@ -314,6 +314,36 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "table",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "tabs",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "tag",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "tags-input",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "text",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "textarea",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

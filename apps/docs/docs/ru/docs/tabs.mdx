@@ -1,0 +1,205 @@
+---
+title: Tabs
+component: tabs
+description: A set of tab triggers that switch between related content panels on the same page.
+---
+
+import * as TabsDocs from '@/components/examples/tabs';
+
+## Справочник по API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
+
+## Выбор правильного компонента
+
+Используйте `Tabs`, когда пользователи переключаются между взаимоисключающими представлениями, которые используют одну область страницы.
+
+- Выберите **`Tabs`**, когда один выбранный триггер должен отображать одну выбранную панель содержимого. - Выберите **`Accordion`**, когда секции должны оставаться в стопке и расширяться независимо. - Выберите **`ToggleGroup`**, когда элемент управления меняет состояние или режим, но не владеет содержимым панели.
+
+## Базовый
+
+Используйте короткую корневую форму с `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator` и `Tabs.Content`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установить с помощью shadcn
+
+<ShadcnInstall packageName="tabs" />
+
+## Анатомия
+
+```text
+Tabs
+├─ Tabs.List
+│  ├─ Tabs.Trigger[value]
+│  ├─ Tabs.Trigger[value]
+│  └─ Tabs.Indicator (optional)
+└─ Tabs.Content[value]
+
+Tabs.RootProvider
+└─ same part tree connected to a useTabs() store
+
+Tabs.Context
+└─ advanced render-prop access to the current tab state
+```
+
+|Часть|Роль|
+| -------------------- | --------------------------------------------------------------- |
+|`Tabs`|Управляет выбранным значением, перемещением фокуса, ориентацией и режимом.|
+|`Tabs.RootProvider`|Соединяет детали с состоянием, созданным с помощью moduix `useTabs()`.|
+|`Tabs.Context`|Расширенный доступ к рендерингу текущего состояния вкладки.|
+|`Tabs.List`|Вкладка «Группы» запускает и управляет семантикой списка перемещаемого фокуса.|
+|`Tabs.Trigger`|Интерактивная кнопка вкладки или хост `asChild` с необходимым значением.|
+|`Tabs.Indicator`|Дополнительный индикатор активного триггера, позиционируемый переменными Ark.|
+|`Tabs.Content`|Область содержимого для соответствующего значения триггера.|
+
+## Состав
+
+### Рекомендуемый состав
+
+`Tabs` владеет навигацией с помощью клавиатуры, перемещением фокуса и выбранным значением. Используйте его для `value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`, `deselectable`, `lazyMount`, `unmountOnExit`, `ids` и `navigate`.
+
+Сохраняйте дерево деталей Ark видимым. `Tabs.Indicator` не является обязательным и должен отображаться явно, если вам нужен индикатор активного триггера.
+
+### Когда переходить к индивидуальному подходу
+
+Используйте `asChild` на `Tabs.Trigger`, когда триггер должен отображать компонент канала или маршрутизатора. Дочерний элемент должен представлять собой один семантический элемент, который может сохранить клавиатуру, фокус и поведение ARIA Ark.
+
+Используйте moduix `useTabs()` с `Tabs.RootProvider`, когда состояние вкладки должно быть создано вне отображаемого дерева. Не визуализируйте `Tabs` вокруг одного и того же экземпляра состояния. Используйте `Tabs.Context` или `useTabsContext()`, когда окружающему пользовательскому интерфейсу необходимо прочитать текущее состояние вкладки.
+
+### Реквизит по умолчанию
+
+|Опора|По умолчанию|Примечания|
+| -------------------------- | ------------ | ------------------------------------------------------------ |
+|`Tabs.variant`|`default`|Визуальный сахар moduix: `default` или `line`.|
+|`Tabs.activationMode`|`automatic`|Фокус выбирается автоматически, если не установлено значение `manual`.|
+|`Tabs.orientation`|`horizontal`|`horizontal` использует стрелку влево/вправо; `vertical` использует вверх/вниз.|
+|`Tabs.loopFocus`|`true`|Блуждающий фокус обтекает список триггеров.|
+|`Tabs.lazyMount`|`false`|Откладывает монтаж контента до тех пор, пока он не будет выбран.|
+|`Tabs.unmountOnExit`|`false`|Удаляет неактивный контент в сочетании с ленивыми путями.|
+
+### Поведенческие замечания
+
+- `onValueChange` следует за Ark и получает `details`; прочитать выбранное значение из `details.value`. - `Tabs.Trigger` и `Tabs.Content` соединяются через соответствующие реквизиты строки `value`. - `Tabs.List` больше не отображает индикатор автоматически. При необходимости визуализируйте `Tabs.Indicator` явно. - Ark управляет атрибутами доступности, связями панели вкладок, перемещением фокуса и отключенным поведением триггера.
+
+## Примеры
+
+### Контролируемое значение
+
+Управляйте выбранной вкладкой из состояния React, когда активная панель координируется с другим пользовательским интерфейсом.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+
+  ```
+</PreviewFrame>
+
+### Пользовательские значки
+
+Создавайте значки и метки непосредственно внутри `Tabs.Trigger`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вкладка «Отключено»
+
+Отключите триггеры, которые видны, но еще не доступны.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ленивое ездовое животное
+
+Используйте `lazyMount` и `unmountOnExit`, когда неактивный контент не должен оставаться в DOM.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### Линия
+
+Используйте moduix `variant="line"`, когда индикатор должен находиться на активном фронте, а не заполнять триггер.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ссылки
+
+Используйте `asChild`, когда триггеры должны отображать привязки или ссылки маршрутизатора.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+
+  ```
+</PreviewFrame>
+
+### Активация вручную
+
+Установите `activationMode="manual"`, когда фокус с помощью клавиши со стрелкой должен перемещаться без выбора до щелчка, Enter или пробела.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вертикальный
+
+Используйте `orientation="vertical"`, когда список триггеров должен располагаться рядом с активным содержимым. Вертикальные вкладки используют заполненный индикатор, который упрощает сканирование выбранного элемента.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Создайте внешнее состояние с помощью moduix `useTabs()`, когда выбранное значение необходимо прочитать перед визуализацией дерева детали или управлять им с помощью соседнего пользовательского интерфейса.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стиль
+
+Стиль от `Tabs` до `className`, стабильные перехватчики `data-slot="tabs-*"`, атрибуты Ark `data-scope` и `data-part`, `data-variant` и общедоступные переменные `--moduix-tabs-*` CSS, показанные ниже.
+
+### CSS Свойства
+
+<div className="docs-reference">
+<Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+> <Tab> <TabsDocs.TabsCssPropertiesPanel /> </Tab> </Tabs>
+</div>
+
+### Крючки для стиля
+
+Используйте ту часть, которая отвечает за визуальное представление:
+
+- `Tabs` для ширины макета, общего зазора, ориентации и переопределений на уровне варианта. - `Tabs.List` для хрома списка, границ, фона и интервала между контейнерами индикаторов. - `Tabs.Trigger` для макета меток, интервала между значками, выбранного состояния, отключенного состояния и стиля фокуса. - `Tabs.Indicator` для пользовательского цвета, размера и поведения перехода. - `Tabs.Content` для поверхности содержимого, заполнения и стиля фокуса.
+
+К основным публичным перехватчикам относятся `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`, `data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` и `data-slot="tabs-content"`.
+
+Полезные хуки Ark включают `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`, `data-disabled`, `data-focus` и индикаторные переменные `--left`, `--top`, `--width` и `--height`.
