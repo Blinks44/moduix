@@ -344,6 +344,26 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "timer",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "toast",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "toggle",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "toggle-group",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

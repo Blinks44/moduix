@@ -1,0 +1,199 @@
+---
+title: Timer
+component: timer
+description: Секундомер или таймер обратного отсчёта с явными элементами управления Ark.
+---
+
+import * as TimerDocs from '@/components/examples/timer';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
+
+## Базовый пример
+
+`Timer.Segments` — самый короткий путь к обычному отображению с разделителями-двоеточиями. По умолчанию он показывает
+часы, минуты и секунды; для другого набора передайте `types`. Если нужны подписи единиц, собственные разделители
+или стилизация отдельных элементов, используйте явные части в стиле Ark.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="timer" />
+
+## Анатомия
+
+```text
+Timer.Root
+├─ Timer.Area
+│  ├─ Timer.Item
+│  └─ Timer.Separator
+└─ Timer.Control
+   └─ Timer.ActionTrigger
+
+Timer.RootProvider
+└─ то же дерево частей, подключённое к Ark useTimer()
+
+Timer.Segments
+└─ Timer.Area с частями Timer.Item и Timer.Separator
+```
+
+| Часть                   | Назначение                                                               |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `Timer` / `Timer.Root`  | Владеет состоянием таймера Ark, ID, интервалом и обратными вызовами.     |
+| `Timer.RootProvider`    | Подключает части к состоянию таймера, созданному через Ark `useTimer()`. |
+| `Timer.Segments`        | Отрисовывает обычные единицы времени с разделителем.                     |
+| `Timer.Area`            | Группирует видимые части времени.                                        |
+| `Timer.Item`            | Отрисовывает отформатированную единицу времени: `hours`, `minutes` или `seconds`. |
+| `Timer.Separator`       | Отрисовывает разделители между единицами времени.                        |
+| `Timer.Control`         | Группирует триггеры действий.                                            |
+| `Timer.ActionTrigger`   | Выполняет `start`, `pause`, `resume`, `reset` или `restart`.             |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`Timer` — короткая форма корневого компонента. Он эквивалентен `Timer.Root`; используйте `Timer.Segments` для
+отображения часов, минут и секунд по умолчанию, не повторяя элементы и разделители вручную. Если нужен другой
+набор единиц, передайте `types`.
+
+Используйте `targetMs` для секундомера, который останавливается в заданный момент. Используйте `startMs`, если
+начальное прошедшее или оставшееся время не должно быть нулевым. Для таймера обратного отсчёта используйте
+`countdown` вместе с `startMs`.
+
+### Когда нужна собственная композиция
+
+Используйте `Timer.RootProvider` с `useTimer()`, если API таймера нужно создать вне отрисовываемого поддерева.
+Используйте `Timer.Context` или `useTimerContext()`, если расположенному рядом UI нужен доступ к `running`,
+`paused`, `time`, `formattedTime`, `progressPercent` либо программным методам `start()`, `pause()`, `resume()`,
+`reset()` и `restart()`.
+
+Для отображения долей секунды используйте `interval`. Делайте интервал настолько редким, насколько позволяет UI;
+интервал Ark по умолчанию — `1000`.
+
+### Свойства по умолчанию
+
+| Свойство          | По умолчанию | Примечания                                                        |
+| ----------------- | ------------ | ----------------------------------------------------------------- |
+| `autoStart`       | `false`      | Запускает таймер при монтировании.                                |
+| `countdown`       | `false`      | Ведёт отсчёт вниз, а не вверх.                                    |
+| `startMs`         | `0`          | Начальная продолжительность в миллисекундах.                      |
+| `targetMs`        | —            | Целевая продолжительность в миллисекундах.                        |
+| `interval`        | `1000`       | Интервал тиков в миллисекундах.                                   |
+| `ids`             | генерируются | Переопределяет ID корневого элемента и области.                   |
+| `translations`    | встроено     | Настраивает доступную метку области через `areaLabel`.            |
+| `onTick(details)` | —            | Получает текущее значение, числовое время и отформатированные части времени. |
+| `onComplete()`    | —            | Вызывается, когда таймер достигает цели.                          |
+
+### Особенности поведения
+
+По умолчанию `Timer.ActionTrigger` отрисовывает кнопку, поэтому активация с клавиатуры следует нативному
+поведению кнопки. Ark скрывает зависящие от состояния действия start, pause, resume и reset, когда они недоступны;
+при отрисовке `restart` остаётся доступным. Таймер не использует roving focus или составную клавиатурную навигацию.
+
+Все экспортируемые части поддерживают `asChild` через полиморфную композицию Ark. Сохраняйте семантику заменяющих
+дочерних элементов, особенно для `Timer.ActionTrigger`.
+
+`Timer.Item` сохраняет `data-scope="timer"`, `data-part="item"`, `data-type` и `--value` от Ark.
+`Timer.Segments` ограничен стандартными элементами и разделителями; подписи единиц остаются явной композицией
+вокруг `Timer.Item`. moduix добавляет центрированную раскладку корневого элемента, адаптивную переносящуюся область
+времени, стабильные хуки `data-slot`, размер SVG-иконок внутри триггеров действий и CSS-значения по умолчанию,
+не меняя машину состояний таймера Ark.
+
+## Примеры
+
+### Обратный отсчёт
+
+Установите `countdown` и `startMs`, если отображение должно уменьшаться до нуля.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/countdown.tsx"
+
+```
+</PreviewFrame>
+
+### События
+
+Используйте `onTick` и `onComplete` для побочных эффектов, которые должны следовать жизненному циклу таймера Ark.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/events.tsx"
+
+```
+</PreviewFrame>
+
+### Интервал
+
+Используйте `interval` с элементом `milliseconds`, если UI должен обновляться с точностью до долей секунды.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/interval.tsx"
+
+```
+</PreviewFrame>
+
+### Помодоро
+
+Переключайте длительности работы и перерыва из `onComplete`, если цикл таймера должен продолжаться.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/pomodoro.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Создайте таймер через `useTimer()`, если состояние и методы должны считываться вне дерева видимых частей. Это также
+путь для подписей единиц и другой пользовательской композиции элементов.
+
+<style>{TimerDocs.timerExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/timer/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Для структурных переопределений используйте `className` на экспортируемых частях, а CSS-переменные — для визуальных
+значений по умолчанию. Атрибуты Ark остаются доступны для стилизации отдельных частей.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TimerDocs.TimerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
+  `timer-separator`, `timer-control` и `timer-action-trigger`.
+- Хуки анатомии Ark: `data-scope="timer"` и
+  `data-part="root|area|item|separator|control|action-trigger"`.
+- `Timer.Item` предоставляет `data-type` и переменную времени выполнения Ark `--value`.
+- Ark применяет `hidden` к триггерам действий, которые не соответствуют текущему состоянию таймера.

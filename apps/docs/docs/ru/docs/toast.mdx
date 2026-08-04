@@ -1,0 +1,238 @@
+---
+title: Toast
+component: toast
+description: Область уведомлений для временных сообщений, действий и контекстной обратной связи.
+---
+
+import * as ToastDocs from '@/components/examples/toast';
+
+<style>{ToastDocs.toastExampleCss}</style>
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+
+## Базовый пример
+
+Создайте хранилище уведомлений через `createToaster()`, добавляйте сообщения через это хранилище и отрисовывайте его
+с помощью `Toaster`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/basic.tsx"
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="toast" />
+
+## Анатомия
+
+```text
+createToaster()
+└─ Поддерево overlay (портализируется автоматически)
+   └─ Toaster
+      └─ Toast
+         ├─ Toast.Title
+         ├─ Toast.Description
+         ├─ Toast.ActionTrigger
+         └─ Toast.CloseTrigger
+```
+
+| Часть                  | Назначение                                                                  |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `Toast`                | Видимая поверхность уведомления, связанная с текущим контекстом toast Ark. |
+| `Toaster`              | Отрисовывает хранилище уведомлений и владеет группой toast Ark.            |
+| `Toast.Title`          | Часть заголовка. Без дочерних элементов использует текущий `title` уведомления. |
+| `Toast.Description`    | Часть описания. Без дочерних элементов использует текущее `description` уведомления. |
+| `Toast.ActionTrigger`  | Кнопка действия, связанная с `toast.action.onClick`. Передайте `toast.action.label` как содержимое. |
+| `Toast.CloseTrigger`   | Кнопка закрытия. По умолчанию отрисовывает `CloseButton.Root`.             |
+
+## Композиция
+
+`Toaster` по умолчанию портализируется сам. Для встроенной отрисовки используйте `portalled={false}`, а для
+пользовательского контейнера — `portalRef`; обёртка `Portal` не нужна.
+
+### Рекомендуемая композиция
+
+Создайте стабильное хранилище уведомлений через `createToaster(options)`, затем один раз отрисуйте его с `Toaster`.
+Хранилище управляет размещением, наложением, расстоянием, максимальным размером очереди, длительностью, задержкой
+удаления, паузой в простое и горячей клавишей фокуса `Alt+T`.
+
+По умолчанию `Toaster` использует `document.body`. Для встроенной отрисовки установите `portalled={false}` или
+передайте `portalRef` для другого контейнера.
+
+В коде приложения используйте `Toast` как корневую форму. `Toast.Root` остаётся доступен как алиас для
+совместимости.
+
+Без render prop `Toaster` отрисовывает стандартное уведомление moduix: заголовок и описание — только если они есть,
+действие — если оно задано, и кнопку закрытия, если не установлено `closable: false`. Это рекомендуемый путь для
+обычной обратной связи в приложении.
+
+### Когда нужна собственная композиция
+
+Используйте render prop `Toaster`, если каждому уведомлению нужна собственная раскладка, иконки или элементы
+управления, отличающиеся от стандартных. Например, с его помощью можно заменить стандартную иконку закрытия.
+Сохраняйте `Toast` внешним элементом, чтобы Ark мог поддерживать стек, измерение высоты, жизненный цикл закрытия,
+паузу, клавиатурный фокус и атрибуты типа и состояния.
+
+Все экспортируемые части Ark поддерживают `asChild`; пользовательские дочерние элементы должны сохранять семантику
+и поведение кнопки для `ActionTrigger` и `CloseTrigger`.
+
+Если пользовательской дочерней части нужен прямой доступ к состоянию уведомления, импортируйте `useToastContext()`
+из `@moduix/react/toast`.
+
+### Свойства по умолчанию
+
+| Свойство                       | По умолчанию         | Примечания                                                                            |
+| ------------------------------ | -------------------- | ------------------------------------------------------------------------------------- |
+| `createToaster.gap`            | `16`                 | Расстояние между уведомлениями.                                                        |
+| `createToaster.max`            | `24`                 | Новые уведомления ставятся в очередь, когда видимый стек достигает этого лимита.      |
+| `createToaster.hotkey`         | `["altKey", "KeyT"]` | Перемещает фокус на группу уведомлений.                                             |
+| `createToaster.offsets`        | `"1rem"`           | Отступ от безопасной границы для группы уведомлений.                                   |
+| `createToaster.overlap`        | `false`              | Режим стека Ark. Используйте `true` для перекрывающихся стеков.                       |
+| `createToaster.pauseOnPageIdle`| `false`              | Установите `true`, чтобы приостанавливать таймеры, когда страница бездействует.        |
+| `createToaster.placement`      | `"bottom"`         | Используйте размещения Ark: `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
+| `createToaster.removeDelay`    | `200`                | Сохраняет закрытые уведомления в DOM достаточно долго для анимации выхода.             |
+
+### Особенности поведения
+
+- Используйте `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
+  `promise()`, `update()`, `dismiss()`, `remove()` и `dismissByPlacement()` непосредственно из хранилища
+  уведомлений Ark.
+- `toast.action` использует `{ label, onClick }`, отрисовываемый `Toast.ActionTrigger`.
+- `toast.duration` задаёт одно уведомление; `createToaster({ duration })` задаёт значение по умолчанию.
+- `toast.onStatusChange(details)` получает изменения статуса Ark: `visible`, `dismissing` и `unmounted`.
+- Если уведомление создаётся внутри эффекта, отложите вызов хранилища через `queueMicrotask()`, чтобы избежать
+  предупреждений React `flushSync`.
+- `Toast` предоставляет атрибуты состояния Ark, такие как `data-state`, `data-type`, `data-placement`,
+  `data-side`, `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack` и `data-overlap`.
+
+## Примеры
+
+### Действие
+
+Используйте `action: { label, onClick }`, если уведомление должно показывать одно прямое действие.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/action.tsx"
+  ```
+</PreviewFrame>
+
+### Всегда развёрнутый стек
+
+Установите `overlap: false`, если каждое уведомление должно оставаться полностью видимым, а не сворачиваться в
+перекрывающийся стек. Это дополнительная настройка хранилища Ark, а не отдельный режим компонента.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/always-expanded.tsx"
+  ```
+</PreviewFrame>
+
+### Длительность
+
+Устанавливайте `duration` для каждого уведомления, когда оно должно закрываться быстрее, медленнее или только
+вручную.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/duration.tsx"
+  ```
+</PreviewFrame>
+
+### Максимум видимых
+
+Установите `max` на хранилище уведомлений, если всплески сообщений должны вставать в очередь, а не заполнять экран.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/max-toasts.tsx"
+  ```
+</PreviewFrame>
+
+### Размещение
+
+Выберите одно из шести размещений Ark, если группа уведомлений должна появляться у определённого края viewport.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/placement.tsx"
+  ```
+</PreviewFrame>
+
+### Уведомление для Promise
+
+Используйте `toaster.promise()`, чтобы перевести одно уведомление из загрузки в успех или ошибку.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/promise-toast.tsx"
+  ```
+</PreviewFrame>
+
+### Типы
+
+Используйте типизированные хелперы хранилища для вариантов, зависящих от статуса. moduix стилизует `info`, `success`,
+`warning`, `error` и `destructive` через `data-type`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"
+  ```
+</PreviewFrame>
+
+### Обновление
+
+Сохраните ID созданного уведомления и передайте его в `toaster.update()`, если существующее уведомление должно
+измениться на месте.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/update.tsx"
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Этот пример обходит стандартный отрисовщик `Toaster`, чтобы добавить иконку, заменить иконку закрытия и
+использовать CSS-переменные конкретного компонента.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/custom-composition.tsx"
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Toast` через атрибуты частей Ark, хуки `data-slot` и публичные переменные `--moduix-toast-*` из
+публичного CSS API.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ToastDocs.ToastCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Используйте `Toast` для поверхности, границы, анимации, вариантов по типу и переменных времени выполнения Ark.
+Используйте `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` и `Toast.CloseTrigger` для внутренней
+типографики и элементов управления.
+
+Важные хуки Ark:
+
+- `[data-scope='toast'][data-part='group']` на `Toaster`
+- `[data-scope='toast'][data-part='root']` на `Toast`
+- `[data-scope='toast'][data-part='title']` на `Toast.Title`
+- `[data-scope='toast'][data-part='description']` на `Toast.Description`
+- `[data-scope='toast'][data-part='action-trigger']` на `Toast.ActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` на `Toast.CloseTrigger`
+- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` и `--gap` на `Toast`
+
+moduix также добавляет стабильные хуки: `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
+`toast-description`, `toast-action-trigger` и `toast-close-trigger`.
+
+При ширине viewport до `40rem` moduix следует мобильным рекомендациям Ark: группа уведомлений занимает viewport,
+а каждый корневой элемент использует `--gap` для безопасного внутреннего отступа.
