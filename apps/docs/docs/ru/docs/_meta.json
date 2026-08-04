@@ -244,6 +244,31 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "select",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "separator",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "sidebar",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "signature-pad",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "simple-grid",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },
