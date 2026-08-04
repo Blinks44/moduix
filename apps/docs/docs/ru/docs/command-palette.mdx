@@ -14,7 +14,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette';
 [ref](https://ark-ui.com/docs/guides/ref), а также компонует Ark [`Dialog`](https://ark-ui.com/docs/components/dialog)
 с Ark [`Combobox`](https://ark-ui.com/docs/components/combobox) для реализации поведения.
 
-## Основы
+## Базовый пример
 
 Используйте `CommandPalette.Panel` для стандартной оболочки диалога и разместите внутри `CommandPalette.Combobox`. `CommandPalette.Search` отрисовывает строку поиска, похожую на поле ввода, с кнопкой очистки: она появляется после ввода и очищает поисковый запрос. Коллекция при этом остаётся вне отрисованного дерева, как в примерах Ark Combobox.
 
@@ -24,7 +24,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="command-palette" />
 
@@ -79,11 +79,11 @@ The root portals `Backdrop` and `Positioner` automatically. Use `portalled={fals
 
 Use `useListCollection` with `itemToString`, `itemToValue`, and `groupBy`, then call `filter(details.inputValue)` from `CommandPalette.Combobox` `onInputValueChange`. Use `CommandPalette.Panel` for the repeated overlay chrome and `CommandPalette.Search` for the standard input-like search row, including its clear action.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Render `Backdrop`, `Positioner`, `Content`, `Header`, `Body`, `Control`, `Input`, and `ClearTrigger` directly when you need custom overlay structure or search controls. Set `closeOnSelect={false}` on `CommandPalette.Combobox` when selecting a command should update palette state instead of closing the dialog. Use `aria-label` on the root for the recommended palette label, or render `CommandPalette.Title` in a custom composition when you need visible dialog chrome. `CommandPalette.ItemIndicator` renders a default check icon and can share the trailing row layout with `ItemMeta`. Keep `CommandPalette.RootProvider` for externally owned dialog state from Ark `useDialog`, and import advanced combobox provider/context APIs directly from `@ark-ui/react/combobox` when you need them. Other Ark Dialog root props, including `ids`, `initialFocusEl`, `finalFocusEl`, `present`, and `onExitComplete`, retain their original contracts; part refs forward to the matching Ark DOM parts. Command palettes do not render a `HiddenInput` because they are action surfaces rather than form controls.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
 `unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
@@ -140,7 +140,7 @@ Attach execution behavior to items and let `CommandPalette.Combobox` close the d
 
 </PreviewFrame>
 
-### Расширенная кастомизация
+### Расширенная настройка
 
 Обходите `Panel` и `Search`, когда палитре нужны пользовательская оболочка диалога или элементы поиска. Явные части сохраняют то же поведение Dialog и Combobox.
 

@@ -10,7 +10,7 @@ import * as CarouselDocs from '@/components/examples/carousel';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
 
-## Основы
+## Базовый пример
 
 Начните с `Carousel`: отрисуйте `Carousel.ItemGroup`, добавьте компактный `Carousel.Control` для перехода к предыдущему
 и следующему элементу, затем используйте `Carousel.Indicators` и `Carousel.ProgressText` для стандартного
@@ -24,7 +24,7 @@ import * as CarouselDocs from '@/components/examples/carousel';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="carousel" />
 
@@ -77,7 +77,7 @@ navigation controls, and reach for `Carousel.Indicators` when the default dot pa
 `Carousel.Root` remains available as an explicit alias of `Carousel` when the namespace itself is
 what you want to show.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use `Carousel.Context` plus `Carousel.IndicatorGroup` and `Carousel.Indicator` when you need a
 custom pager layout, thumbnail indicators, or tighter control over `pageSnapPoints`.
@@ -91,7 +91,7 @@ render prop.
 Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
 part of the visible UI instead of only a root prop.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Prop         | Default | Notes                                     |
 | ------------ | ------- | ----------------------------------------- |
@@ -123,7 +123,7 @@ users can restart it with `Carousel.AutoplayTrigger`.
 ```
 </PreviewFrame>
 
-### Управляемый режим
+### Управляемое состояние
 
 Управляйте текущей страницей, когда состояние carousel должно синхронизироваться с внешней навигацией, фильтрами или аналитикой.
 
@@ -286,7 +286,7 @@ Render custom indicator content when the pager itself should preview the slides 
 ```
 </PreviewFrame>
 
-### Advanced Customization
+### Расширенная настройка
 
 Bypass `Carousel.Indicators` when you need custom `pageSnapPoints` rendering or want to interleave pager UI with other context-driven controls.
 

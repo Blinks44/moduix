@@ -13,7 +13,7 @@ import * as CardDocs from '@/components/examples/card';
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
 
-## Основы
+## Базовый пример
 
 Используйте вызываемый корневой компонент `<Card />` и части пространства имён для стандартной композиции card.
 
@@ -26,7 +26,7 @@ import * as CardDocs from '@/components/examples/card';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="card" />
 
@@ -65,7 +65,7 @@ Use `<Card />`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, an
 Wrap leading media in `Card.Media` when it should bleed to the card edges without custom clipping.
 The root defaults to `size="md"` and `variant="outline"`.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use `asChild` when one semantic child should own a part's DOM node. Ark composition requires exactly
 one child. A linked root must not contain nested buttons, inputs, or links.
@@ -81,7 +81,7 @@ in the title, then extends the hit area across the card while separate controls 
 | The card should navigate, but it also contains buttons, menus, or other separate actions. | `Card.Link` inside `Card.Title`, optionally with `Card.Action` |
 | The card is only a grouped surface and does not navigate.                                 | Plain `Card` composition without link sugar                    |
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Part        | Prop      | Default     | Values                                |
 | ----------- | --------- | ----------- | ------------------------------------- |
@@ -194,7 +194,7 @@ Compose profile media inside the header when identity is the card's subject.
 ```
 </PreviewFrame>
 
-### Advanced Customization
+### Расширенная настройка
 
 Bypass `Card.Media` when you need fully custom media framing and want to restyle the card with low-level hooks.
 

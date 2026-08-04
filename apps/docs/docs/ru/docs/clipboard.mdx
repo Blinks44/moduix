@@ -10,7 +10,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
-## Основы
+## Базовый пример
 
 Начните с короткой формы корневого компонента `Clipboard`, соедините поле значения с `Clipboard.Trigger` и используйте
 `Clipboard.Indicator` вместе с `Clipboard.CopyText` для понятного действия копирования без добавления отдельного
@@ -22,7 +22,7 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="clipboard" />
 
@@ -68,7 +68,7 @@ surface.
 copy/check icons and `Copy`/`Copied` text by default while keeping the Ark trigger structure
 explicit.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use `Clipboard.ValueText` when the value should be displayed as text instead of inside an input.
 
@@ -80,7 +80,7 @@ Use `asChild` on `Clipboard.Input` and `Clipboard.Trigger` when another element 
 rendered node, such as moduix `Input` or `Button` during a migration from a shadcn-style field plus
 button layout. Keep the Ark part tree visible instead of hiding it behind a convenience wrapper.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Prop                 | Default  | Values / Notes                                       |
 | -------------------- | -------- | ---------------------------------------------------- |
@@ -105,7 +105,7 @@ button layout. Keep the Ark part tree visible instead of hiding it behind a conv
 
 ## Примеры
 
-### Управляемый режим
+### Управляемое состояние
 
 Control the value when the text field should stay in sync with surrounding UI or an external source.
 
@@ -173,7 +173,7 @@ Set `timeout` when copied state should remain visible for longer than the Ark de
 
 </PreviewFrame>
 
-### Advanced Customization
+### Расширенная настройка
 
 Use `asChild` to replace the default input and trigger elements while retaining the explicit Ark
 composition and moduix copy-state parts.

@@ -24,6 +24,41 @@ This skill does not own Rspress configuration, theme customization, localization
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
 
+## Component-heading consistency
+
+When editing localized component pages, also use `rspress-localization`. Treat repeated component
+section headings as controlled terminology: keep their information architecture, heading level, and
+canonical wording consistent across all component pages. Do not translate public component names or
+API identifiers merely because they appear in a heading.
+
+For Russian component pages, use these canonical equivalents whenever the English source heading is
+the same:
+
+| English heading           | Russian heading                      |
+| ------------------------- | ------------------------------------ |
+| `API Reference`           | `Справочник API`                     |
+| `Basic`                   | `Базовый пример`                     |
+| `Install with shadcn`     | `Установка через shadcn`             |
+| `Anatomy`                 | `Анатомия`                           |
+| `Composition`             | `Композиция`                         |
+| `Recommended composition` | `Рекомендуемая композиция`           |
+| `When to go custom`       | `Когда нужна собственная композиция` |
+| `Default props`           | `Свойства по умолчанию`              |
+| `Behavioral notes`        | `Особенности поведения`              |
+| `Examples`                | `Примеры`                            |
+| `Controlled`              | `Управляемое состояние`              |
+| `Advanced Customization`  | `Расширенная настройка`              |
+| `Styling`                 | `Стилизация`                         |
+| `CSS Properties`          | `CSS-свойства`                       |
+| `Styling hooks`           | `Хуки стилизации`                    |
+
+Use the same principle for recurring secondary headings: `Root Provider` stays `Root Provider`;
+`Disabled`, `Field State`, `Sizes`, `Lazy Mount`, `Invalid`, `With Field`, and migration headings
+must use one established translation across matching component pages. Keep contextual headings
+specific when the same English word has genuinely different meanings, such as `Multiple` in an
+accordion and a date picker. Before completing a localization change, compare matching English and
+Russian heading sequences and resolve unexplained variants.
+
 ## Component pages
 
 For a new, migrated, or substantially restructured component page, read [the component-page contract](references/component-pages.md). It defines section order, Ark-alignment coverage, and styling-reference expectations.

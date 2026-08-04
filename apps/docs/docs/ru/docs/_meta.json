@@ -179,6 +179,26 @@
   { "type": "file", "name": "marquee", "tag": "component" },
   { "type": "file", "name": "menu", "tag": "component" },
   {
+    "type": "file",
+    "name": "native-select",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "number-input",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "pagination",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "password-input",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

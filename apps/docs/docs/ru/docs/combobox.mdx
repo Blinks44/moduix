@@ -15,7 +15,7 @@ import * as ComboboxDocs from '@/components/examples/combobox';
 Используйте `Combobox`, когда пользователи выбирают из известных значений, а ввод помогает отфильтровать доступные варианты.
 Используйте `Select`, когда тот же заранее заданный выбор не требует редактируемого поля ввода.
 
-## Основы
+## Базовый пример
 
 Создайте Ark `ListCollection`, передайте её в `Combobox` и сохраняйте структуру всплывающего окна явной.
 Используйте `Combobox.Option` для обычных строк; переходите к `Combobox.Item`, когда строке нужна пользовательская структура.
@@ -29,7 +29,7 @@ import * as ComboboxDocs from '@/components/examples/combobox';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="combobox" />
 
@@ -111,7 +111,7 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 }
 ```
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
 must be created outside the rendered subtree, create it with `useCombobox` from `@moduix/react` and
@@ -124,7 +124,7 @@ from controlled state, then keep selection behavior on `Combobox multiple`.
 Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for
 consumer-owned loading, error, or guidance messages; it does not manage state or set an ARIA role.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
 `unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
@@ -160,7 +160,7 @@ eager initial rendering is needed.
 - `selectionBehavior` and `closeOnSelect` pass through to Ark. In multiple mode, Ark clears the
   input after selection.
 
-### Переход с shadcn
+### Миграция с shadcn
 
 Keep the moduix API Ark-shaped, then translate the common shadcn conveniences explicitly:
 
@@ -205,7 +205,7 @@ Enter can select it without an extra arrow-key press.
 
 </PreviewFrame>
 
-### Управляемый режим
+### Управляемое состояние
 
 Управляйте выбранным массивом строк и получайте следующее значение из `details.value`.
 
@@ -246,7 +246,7 @@ Map object labels and values on the collection, then render Ark item groups from
 
 </PreviewFrame>
 
-### Dynamic
+### Динамическое изменение
 
 Build the collection from the current input when suggestions do not exist until the user starts
 typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
@@ -385,7 +385,7 @@ configuration.
 
 </PreviewFrame>
 
-### Advanced Customization
+### Расширенная настройка
 
 Bypass `Combobox.Option` when a row needs a custom semantic element or layout. This example keeps
 the full item anatomy while composing each result as a link with `Combobox.Item asChild`.

@@ -13,7 +13,7 @@ import * as ContainerDocs from '@/components/examples/container';
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
 
-## Основы
+## Базовый пример
 
 Используйте `Container`, когда главное — удобная для чтения ширина строки. Он центрирует колонку содержимого,
 задаёт адаптивные горизонтальные отступы и не влияет на решения о вертикальных интервалах.
@@ -24,7 +24,7 @@ import * as ContainerDocs from '@/components/examples/container';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="container" />
 
@@ -58,7 +58,7 @@ the wrapper itself should also carry semantic meaning such as `main`, `section`,
 `asChild` requires exactly one semantic child; the ref then points to that child instead of the
 default `div`.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 `Container` is intentionally root-only. There are no extra subparts, slot props, or nested
 layout helpers.
@@ -70,7 +70,7 @@ The custom path here is small:
 - use `asChild` when another element should own the DOM node;
 - compose with `Bleed` when a child should escape the constrained text column.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Prop      | Default | Values / Notes                       |
 | --------- | ------- | ------------------------------------ |

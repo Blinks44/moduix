@@ -23,7 +23,7 @@ import * as LightboxDocs from '@/components/examples/lightbox';
 - Выбирайте **`Dialog`**, если поверхность содержит обычный интерфейс приложения: формы, действия или смешанное содержимое.
 - Компонуйте **`Carousel` внутри `Lightbox.Gallery`**, если для просмотра нужны слайды или стрелки.
 
-## Основы
+## Базовый пример
 
 Скомпонуйте явную структуру диалога Ark UI: `Lightbox`, `Lightbox.Trigger`,
 `Lightbox.Backdrop`, `Lightbox.Positioner` и `Lightbox.Content`. Используйте `asChild` с одним
@@ -35,7 +35,7 @@ import * as LightboxDocs from '@/components/examples/lightbox';
 
 ```
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="lightbox" />
 
@@ -106,7 +106,7 @@ Lightbox.RootProvider
 медиакадр и не галерея `Carousel`. Используйте `Lightbox.Bind` только когда исходная разметка не
 может отрисовать `Lightbox.Trigger`; для структурированных массивов используйте явные триггеры и `Lightbox.Gallery`.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 Содержимое портированного оверлея по умолчанию лениво монтируется и размонтируется после анимации
 закрытия. Установите `unmountOnExit={false}`, чтобы сохранить его после первого открытия; устанавливайте
@@ -175,7 +175,7 @@ Lightbox.RootProvider
 
 ```
 
-### Управляемый режим
+### Управляемое состояние
 
 Используйте колбэк Ark `onOpenChange(details)`, когда состояние lightbox синхронизируется с React.
 

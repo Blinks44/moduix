@@ -15,7 +15,7 @@ import * as ColorPickerDocs from '@/components/examples/color-picker';
 Используйте `ColorPicker`, когда пользователям нужно выбрать или точно настроить цвет. Используйте `Input`, когда пользователям достаточно
 вставить известное значение цвета и прямое управление цветом не нужно.
 
-## Основы
+## Базовый пример
 
 Начните с компактного поля: корневого компонента, одного поля канала, стандартного образца в триггере, явного всплывающего
 содержимого, стандартных внутренних частей picker и скрытого поля ввода для форм.
@@ -28,7 +28,7 @@ import * as ColorPickerDocs from '@/components/examples/color-picker';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="color-picker" />
 
@@ -98,7 +98,7 @@ composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style i
 For native form submission and reset behavior, pass `name` to `ColorPicker`. It automatically
 renders and synchronizes its native input; `FormData` and `form.reset()` need no extra setup.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should render as a
 permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
@@ -109,7 +109,7 @@ rendered subtree. Do not render `Root` and `RootProvider` for the same state ins
 Use `asChild` on exported Ark parts when another semantic element must own the DOM node. The child
 must stay a single element and preserve the required focus and interaction behavior.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
 `unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
@@ -159,7 +159,7 @@ square swatch, for example during migration from button-based color fields.
 
 </PreviewFrame>
 
-### Управляемый режим
+### Управляемое состояние
 
 Используйте управляемое состояние, когда выбранный цвет должен синхронизироваться с состоянием приложения.
 
@@ -346,7 +346,7 @@ the full picker.
 
 </PreviewFrame>
 
-### Расширенная кастомизация
+### Расширенная настройка
 
 Используйте явные части и дочерние элементы, когда стандартной композиции нужна другая визуальная структура.
 

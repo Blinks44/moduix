@@ -10,7 +10,7 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
-## Основы
+## Базовый пример
 
 Используйте `Collapsible` с частями Ark-формы `Trigger`, `Indicator` и `Content` для одного встроенного
 элемента раскрытия.
@@ -23,7 +23,7 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 ```
 </PreviewFrame>
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="collapsible" />
 
@@ -64,7 +64,7 @@ When migrating from shadcn, map `CollapsibleTrigger` to `Collapsible.Trigger` an
 `CollapsibleContent` to `Collapsible.Content`. moduix keeps Ark's details object, so controlled
 state reads `details.open` instead of receiving the boolean directly.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Use `asChild` when another semantic element must own the rendered node. In this mode Collapsible
 merges Ark behavior and state attributes but leaves the visual styling to that element.
@@ -75,7 +75,7 @@ part tree. `Collapsible.Context` and `useCollapsibleContext()` are also availabl
 `Collapsible.Indicator` is optional. It renders the moduix down chevron by default and accepts
 custom children.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Part                    | Default          | Notes                                              |
 | ----------------------- | ---------------- | -------------------------------------------------- |
@@ -95,7 +95,7 @@ custom children.
 
 ## Примеры
 
-### Управляемый режим
+### Управляемое состояние
 
 Use `open` with the Ark `onOpenChange(details)` callback when surrounding UI owns the state.
 
@@ -134,7 +134,7 @@ Set `disabled` on the root to keep the disclosure visible but unavailable.
 
 </PreviewFrame>
 
-### Отложенное монтирование
+### Ленивое монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, когда закрытое содержимое не должно оставаться в DOM.
 
@@ -211,7 +211,7 @@ state.
 
 </PreviewFrame>
 
-### Расширенная кастомизация
+### Расширенная настройка
 
 Используйте `asChild`, чтобы скомпоновать поведение триггера с кнопкой приложения. Это обходит
 стандартную стилизацию `Collapsible.Trigger`, сохраняя поведение Ark и атрибуты состояния.

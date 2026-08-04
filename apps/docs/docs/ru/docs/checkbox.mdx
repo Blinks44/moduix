@@ -10,7 +10,7 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
 
-## Основы
+## Базовый пример
 
 Используйте дерево частей Ark напрямую. В типовом случае `Checkbox.Control` уже отрисовывает стандартные
 индикаторы выбранного и неопределённого состояния, поэтому большинству checkbox нужны только `Checkbox.Control` и
@@ -20,7 +20,7 @@ import * as CheckboxDocs from '@/components/examples/checkbox';
 
 ```
 
-## Установка с shadcn
+## Установка через shadcn
 
 <ShadcnInstall packageName="checkbox" />
 
@@ -68,7 +68,7 @@ Checkbox.Group
 дочерние элементы для пользовательской композиции индикатора. `size` — единственный дополнительный DX-проп у
 `Checkbox.Root` и `Checkbox.RootProvider`.
 
-### Когда нужна кастомизация
+### Когда нужна собственная композиция
 
 Используйте `Checkbox.RootProvider`, когда состоянием checkbox нужно владеть за пределами отрисованного поддерева. moduix
 повторно экспортирует для этого пути `useCheckbox()`. `Checkbox.Context`, `useCheckboxContext()`,
@@ -76,7 +76,7 @@ Checkbox.Group
 композиции. Явно отрисовывайте `Checkbox.Indicator`, только когда нужны пользовательские иконки или
 нестандартная компоновка индикатора.
 
-### Значения по умолчанию
+### Свойства по умолчанию
 
 | Поверхность                   | По умолчанию | Примечания                                            |
 | ---------------------------- | ------- | ------------------------------------------------------- |
@@ -100,7 +100,7 @@ Ref указывает на соответствующую часть DOM Ark. C
 
 ## Примеры
 
-### Управляемый режим
+### Управляемое состояние
 
 Управляйте `checked` из состояния React, когда checkbox должен координироваться с другим интерфейсом или производной логикой.
 
@@ -207,7 +207,7 @@ the state hook from `@moduix/react`.
 
 ```
 
-### Выбрать все
+### Выбрать всё
 
 Compose a parent checkbox and a controlled group when one control should toggle the entire selection set.
 
@@ -215,7 +215,7 @@ Compose a parent checkbox and a controlled group when one control should toggle 
 
 ```
 
-### Sizes
+### Размеры
 
 Apply moduix `size` to match checkbox density to the surrounding form or settings surface.
 
@@ -223,7 +223,7 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
 
 ```
 
-### С полем
+### С Field
 
 Use `Field` around one checkbox when it needs helper text, validation text, or shared field state.
 
