@@ -269,6 +269,51 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "skeleton",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "slider",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "spinner",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "split-button",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "splitter",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "stack",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "steps",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "swap",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "switch",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

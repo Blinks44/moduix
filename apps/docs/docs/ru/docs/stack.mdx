@@ -1,0 +1,189 @@
+---
+title: Stack
+component: stack
+description: Небольшой примитив flex-раскладки, согласованный с Ark, для вертикальной и горизонтальной композиции.
+---
+
+import * as StackDocs from '@/components/examples/stack';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `stack`. Moduix строит этот компонент с помощью официальной
+[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref). Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
+определяет только словарь свойств раскладки.
+
+## Базовый пример
+
+Начните с `Stack`, если достаточно одного flex-контейнера, а раскладке нужны только направление, отступ и
+обычное выравнивание.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="stack" />
+
+## Анатомия
+
+`Stack` отрисовывает одну корневую flex-обёртку, согласованную с Ark. Она управляет направлением, отступом,
+общим выравниванием и небольшой адаптивной настройкой, а более широкие правила раскладки остаются в локальном CSS.
+
+```text
+Stack / Stack.Root
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
+   └─ children
+```
+
+| Часть                   | Назначение                                                              |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `Stack` / `Stack.Root` | Корневая flex-обёртка для направления, отступов, выравнивания и промежутков между дочерними элементами. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для обычного вывода `div` используйте короткую форму `<Stack>`. Используйте `Stack.Root`, только когда
+единообразие пространства имён полезно рядом с составными компонентами.
+
+Для обычной flex-раскладки применяйте `direction`, `gap`, `align`, `justify` и `wrap`. Используйте `fill`,
+когда вложенный stack должен расти как flex-элемент. Если раскладке нужен визуальный разделитель, напрямую
+компонуйте moduix `Separator`. Используйте `asChild`, когда stack должен отрисовываться как семантический элемент.
+
+### Когда нужна собственная композиция
+
+Перейдите на локальный CSS, когда раскладке нужно больше одного flex-контейнера, больше, чем переключение
+направления между мобильной и настольной версией, разные отступы на точках останова, правила для отдельных
+элементов или стилизация, которая понятнее в таблице стилей, чем в свойствах компонента.
+
+Используйте `style`, когда одному экземпляру нужно переопределить публичные переменные `--moduix-stack-*` или
+вычисляемые flex-свойства.
+
+### Свойства по умолчанию
+
+| Свойство    | По умолчанию       | Примечания                                                              |
+| ----------- | ------------------ | ----------------------------------------------------------------------- |
+| `direction` | `column`           | `row`, `row-reverse`, `column`, `column-reverse` или адаптивный объект |
+| `gap`       | значение браузера  | CSS-длина (`number` = `px`)                                            |
+| `align`     | значение браузера  | Любое допустимое значение `align-items`                                |
+| `justify`   | значение браузера  | Любое допустимое значение `justify-content`                            |
+| `wrap`      | значение браузера  | Любое допустимое значение `flex-wrap`                                  |
+| `fill`      | `initial`          | `true` задаёт `flex: 1 1 0`; `false` также задаёт `initial`            |
+| `asChild`   | `false`            | Композиция фабрики Ark с одним семантическим дочерним элементом         |
+
+### Особенности поведения
+
+- `Stack` отрисовывает ровно один корневой элемент и передаёт ему DOM-свойства фабрики Ark.
+- `direction={{ mobile, desktop }}` переключается на `640px` и использует значение другой стороны, когда задано только одно из них.
+- `direction` также принимает `row-reverse` и `column-reverse` для обратного визуального порядка.
+- `fill` влияет на stack как на flex-элемент, а не на его дочерние элементы.
+- `Separator` — обычный дочерний элемент; декоративные разделители помечайте `aria-hidden`.
+- `gap`, `align`, `justify` и `wrap` записываются inline, только если вы их передали.
+- `Stack` предоставляет `data-scope="stack"`, `data-part="root"` и `data-slot="stack-root"` для стилизации в стиле Ark.
+- `Stack` не добавляет обёрток элементов, поведения клавиатуры, ARIA-семантики, хуков контекста или состояния provider.
+
+## Примеры
+
+### Растущий вложенный Stack
+
+Используйте `fill`, когда вложенный stack должен занимать оставшееся место в flex-строке.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+
+  ```
+</PreviewFrame>
+
+### Раскладка загрузки
+
+Используйте `Stack` с `Skeleton`, когда состоянию загрузки нужны только flex-композиция и отступы.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/loading-layout.tsx"
+
+  ```
+</PreviewFrame>
+
+### Адаптивное направление
+
+Используйте адаптивный `direction`, когда раскладке нужно лишь переключаться с колонки на мобильных устройствах на строку на настольных.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+
+  ```
+</PreviewFrame>
+
+### Раскладка в строку
+
+Используйте `direction="row"` и свойства выравнивания для горизонтальных раскладок.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/row-layout.tsx"
+
+  ```
+</PreviewFrame>
+
+### Семантический элемент
+
+Используйте Ark `asChild`, когда обёртка раскладки должна также описывать структуру документа.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/semantic-element.tsx"
+
+  ```
+</PreviewFrame>
+
+### Разделитель
+
+Напрямую компонуйте `Separator`, когда горизонтальному или вертикальному stack нужен повторяющийся визуальный
+разделитель между дочерними элементами. `gap` применяется к каждому дочернему элементу, включая разделители.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/separator.tsx"
+
+  ```
+</PreviewFrame>
+
+### Перенос элементов
+
+Используйте `wrap="wrap"`, когда элементы должны переходить на следующую строку.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+`Stack` предоставляет публичные CSS-переменные в корневом элементе. Они используют `column` и `initial` как
+запасные значения; свойства `direction` и `fill` записывают inline-значения, когда переданы, а `style` может
+переопределить их для одного экземпляра.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <StackDocs.StackCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `className` стилизует единственный корневой элемент: ширину, внутренние отступы, границы, фоны и другие поверхностные свойства.
+- `data-scope="stack"` и `data-part="root"` согласуют обёртку с соглашениями стилизации Ark.
+- `data-slot="stack-root"` — стабильный селектор moduix для корневого элемента в локальном CSS.
+- `style` применяется последним, поэтому может переопределить вычисляемые `gap`, `alignItems`, `justifyContent`, `flexWrap` и любые переменные `--moduix-stack-*`, записанные свойствами.
+- В публичном контракте нет атрибутов состояния, CSS-переменных анимации или карт `slotProps`.

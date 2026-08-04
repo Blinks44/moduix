@@ -1,0 +1,219 @@
+---
+title: Switch
+component: switch
+description: Компонуемый переключатель Ark UI для включения и выключения настройки.
+---
+
+import * as SwitchDocs from '@/components/examples/switch';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+
+## Выбор подходящего компонента
+
+Используйте `Switch` для немедленных настроек «вкл./выкл.», когда изменение элемента управления должно
+переключать одно булево состояние.
+
+- Выбирайте **`Switch`** для таких настроек, как уведомления, напоминания или флаги функций.
+- Выбирайте **`Checkbox`**, когда элемент управления ведёт себя как отправляемый выбор, а не как немедленное переключение настройки.
+- Выбирайте **`RadioGroup`**, когда пользователь должен выбрать один вариант из нескольких взаимоисключающих значений.
+
+## Базовый пример
+
+Начните с анатомии Ark: корневой метки `Switch`, визуального элемента управления, ползунка, текстовой метки и скрытого поля ввода.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="switch" />
+
+## Анатомия
+
+```text
+Switch
+├─ Switch.Control
+│  └─ Switch.Thumb
+├─ Switch.Label
+└─ native input (automatic)
+```
+
+| Часть                 | Назначение                                                              |
+| --------------------- | ----------------------------------------------------------------------- |
+| `Switch`              | Корневой элемент `label`. Управляет состоянием выбора, ID, свойствами формы и `size`. |
+| `Switch.Control`      | Визуальная дорожка и цель для кольца фокуса. Автоматически отрисовывает `Switch.Thumb`. |
+| `Switch.Thumb`        | Подвижный ползунок для стандартного вида или пользовательского содержимого. |
+| `Switch.Label`        | Текст метки Ark, связанный с переключателем.                            |
+| `Switch.RootProvider` | Корневая метка, управляемая внешним экземпляром состояния Ark `useSwitch()`. |
+
+`Switch.Context`, `useSwitchContext` и `useSwitch` экспортируются из `@moduix/react` вместе с компонентом.
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Сохраняйте видимое дерево частей Ark явным: используйте `Switch.Control` и `Switch.Label`. `Switch` автоматически
+отрисовывает нативное поле формы.
+
+`Switch.Control` отрисовывает стандартный `Switch.Thumb`, когда дочерние элементы не переданы. Напрямую
+компонуйте `Switch.Thumb`, когда ползунку нужны пользовательское содержимое или стилизация.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, только когда корень должен отрисовывать пользовательский host-элемент. Ark отрисовывает
+корень как `label`; непосредственный элемент `asChild` должен быть совместим с `label`, чтобы переключатель
+сохранил корректное доступное имя.
+
+Используйте `Switch.Context`, `useSwitchContext` или `useSwitch` из `@moduix/react`, когда окружающему интерфейсу
+нужно читать состояние переключателя Ark или владеть им.
+
+### Свойства по умолчанию
+
+| Свойство    | По умолчанию | Примечания                                           |
+| ----------- | ------------ | ---------------------------------------------------- |
+| `size`      | `md`         | Дополнение moduix: `xs`, `sm`, `md`, `lg`, `xl`.     |
+| `value`     | `on`         | Значение скрытого поля Ark для отправки формы.       |
+| `children`  | `undefined`  | Явно компонуйте части Ark.                           |
+| `className` | `undefined`  | Применяется к корневой метке Ark.                    |
+
+### Особенности поведения
+
+- Для неуправляемого режима используйте `defaultChecked`, а для управляемого — `checked` с `onCheckedChange(details)`.
+- `details.checked` — следующее булево состояние. Старый колбэк с необработанным булевым значением удалён.
+- Корень отрисовывает нативное поле формы, когда переключатель участвует в нативных формах или сбросе формы.
+- Для расширенного чтения состояния используйте `Switch.Context`, `useSwitchContext` или `useSwitch` из `@moduix/react`, а не адаптеры колбэков уровня обёртки.
+- Используйте `asChild` для пользовательского корневого host-элемента. Дочерний элемент должен оставаться единственным семантическим элементом, совместимым с `label`.
+
+## Примеры
+
+### As Child
+
+Используйте `asChild`, когда пользовательский корневой элемент должен владеть DOM-узлом, а Ark сохраняет поведение переключателя.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/as-child.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контекст
+
+Импортируйте `useSwitchContext` из `@moduix/react`, когда находящаяся рядом метка или вспомогательный элемент должны читать текущее состояние переключателя.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Используйте управляемый режим, когда переключатель должен координироваться с окружающим интерфейсом.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённое состояние
+
+Используйте `disabled`, чтобы запретить взаимодействие, сохраняя текущее визуальное состояние.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Интеграция с формой
+
+Используйте `Field` с нативным полем формы, когда переключатель участвует в маркировке, валидации или отправке формы. Этот пример показывает ошибку только после отправки формы без выбора.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/switch/form-integration.tsx"
+
+  ```
+</PreviewFrame>
+
+### Начальное состояние «включено»
+
+Используйте `defaultChecked`, когда переключатель должен начать работу включённым, но затем сам управлять своим состоянием.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/initial-checked.tsx"
+
+  ```
+</PreviewFrame>
+
+### Только для чтения
+
+Используйте `readOnly`, когда текущее состояние должно оставаться видимым, но пользователь не должен его менять.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/read-only.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Импортируйте `useSwitch` из `@moduix/react` и используйте его с `Switch.RootProvider`, когда состоянием нужно владеть вне отрисованного дерева переключателя.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Размеры
+
+Используйте moduix `size`, чтобы согласовать плотность формы с окружающей поверхностью без изменения дерева частей Ark.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/sizes.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Обойдите стандартный ползунок `Switch.Control`, когда ему нужны пользовательское содержимое или стилизация.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Switch` с помощью `className`, публичных хуков `data-slot`, атрибутов состояния Ark и публичных
+CSS-переменных `--moduix-switch-*`, показанных ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SwitchDocs.SwitchCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `Switch` и `Switch.RootProvider` предоставляют `data-slot="switch-root"` / `data-slot="switch-root-provider"` и записывают `data-size` moduix.
+- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая `data-state`, `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`, `data-invalid` и `data-required`.
+- `Switch.Thumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для движения ползунка и стилизации пользовательского содержимого.
+- `Switch.Label` предоставляет `data-slot="switch-label"` для переопределения типографики.
+- Нативное поле формы предоставляет `data-slot="switch-hidden-input"` для инспекционных хуков, но должно оставаться визуально скрытым средствами Ark.
