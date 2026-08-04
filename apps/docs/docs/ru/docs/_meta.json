@@ -364,6 +364,26 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "tooltip",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "tour",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "tree-view",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "typeset",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

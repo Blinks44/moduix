@@ -1,0 +1,250 @@
+---
+title: Tooltip
+component: tooltip
+description: Метка с дополнительной информацией, которая появляется при наведении или фокусе.
+---
+
+import * as TooltipDocs from '@/components/examples/tooltip';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+
+## Выбор подходящего компонента
+
+Используйте `Tooltip` для коротких необязательных меток и подсказок, которые появляются при наведении или фокусе.
+
+- Выбирайте **`Tooltip`** для компактных меток и кратких контекстных подсказок.
+- Выбирайте **`Popover`**, если всплывающему элементу нужна более сложная компоновка, действия или интерактивное содержимое.
+- Выбирайте **`HoverCard`**, если во всплывающем элементе нужно показать расширенный предпросмотр, связанный с триггером.
+
+## Базовый пример
+
+Начните с `Tooltip`, `Tooltip.Trigger` и `Tooltip.Body`. `Tooltip.Body` — это краткая запись для обычной композиции `Tooltip.Positioner + Tooltip.Content`. Сохраняйте доступное имя у самого триггера: tooltip не заменяет `aria-label` и видимый текст.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="tooltip" />
+
+## Анатомия
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Поддерево оверлея (автоматически портируется)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         └─ содержимое
+```
+
+Добавьте `Tooltip.Arrow` и `Tooltip.ArrowTip` внутрь содержимого, когда всплывающий элемент должен указывать на триггер. По умолчанию `Tooltip.Arrow` рендерит `Tooltip.ArrowTip`.
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Поддерево оверлея (автоматически портируется)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         ├─ Tooltip.Arrow
+         │  └─ Tooltip.ArrowTip
+         └─ содержимое
+```
+
+| Часть | Роль |
+| --- | --- |
+| `Tooltip` / `Tooltip.Root` | Корневое состояние, управляемое или неуправляемое состояние открытия, задержки, параметры позиционирования и жизненный цикл. |
+| `Tooltip.RootProvider` | Рендерит tooltip из объекта состояния `useTooltip()`, принадлежащего внешней части дерева. |
+| `Tooltip.Body` | Удобная обёртка, одновременно рендерящая `Tooltip.Positioner` и `Tooltip.Content`. |
+| `Tooltip.Trigger` | Интерактивный якорный элемент, открывающий tooltip при наведении или фокусе. |
+| `Tooltip.DisabledTrigger` | Фокусируемая обёртка для одного отключённого нативного элемента управления, которому всё ещё нужно пояснение. |
+| `Tooltip.Positioner` | Слой плавающей компоновки, использующий параметры позиционирования Ark и CSS-переменные времени выполнения. |
+| `Tooltip.Content` | Видимая поверхность tooltip. |
+| `Tooltip.Arrow` | Необязательная обёртка стрелки. |
+| `Tooltip.ArrowTip` | Наконечник стрелки, который по умолчанию рендерится из `Tooltip.Arrow`. |
+
+## Композиция
+
+Корневой компонент автоматически портирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга, а `portalRef` — для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
+
+### Рекомендуемая композиция
+
+Для обычного сценария используйте `Tooltip.Trigger` вместе с `Tooltip.Body`. `Tooltip.Body` сохраняет API позиционирования корневого компонента и рендерит за вас `Tooltip.Positioner` с `Tooltip.Content`. Moduix также сохраняет доступными явные части Ark, когда нужен полный контроль над структурой.
+
+При миграции с shadcn `Tooltip.Body` ближе всего к обычному шагу `TooltipContent`, а явные части Ark остаются доступными для сложной структуры.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild` в `Tooltip.Trigger`, когда триггером должна быть кнопка moduix `Button`, ссылка или другой семантический элемент управления. Потомок должен оставаться единственным фокусируемым элементом, поддерживающим взаимодействие с триггером.
+
+Используйте `Tooltip.DisabledTrigger` для одного отключённого нативного элемента управления, которому требуется краткое пояснение. Задайте обёртке доступное имя: она сохраняет отключённый потомок неинтерактивным, но делает tooltip доступным пользователям мыши и клавиатуры.
+
+Используйте `positioning` у `Tooltip` для размещения, стратегии, отступа, поведения при коллизиях и остальных плавающих параметров Ark. Используйте явные `Tooltip.Positioner` и `Tooltip.Content`, когда нужны стили, специфичные для positioner, встроенные потребители контекста, которым должна принадлежать часть содержимого, или более низкоуровневая структура в стиле Ark. Используйте `ids`, когда отдельным частям tooltip нужны стабильные общие ID.
+
+### Свойства по умолчанию
+
+Содержимое портированного оверлея по умолчанию монтируется лениво и удаляется после анимации закрытия. Установите `unmountOnExit={false}`, чтобы сохранять его после первого открытия; устанавливайте оба свойства жизненного цикла в `false`, только когда нужен ранний первоначальный рендеринг.
+
+| Свойство | По умолчанию | Примечания |
+| --- | --- | --- |
+| `openDelay` | `400` | Задержка перед открытием при наведении или фокусе. |
+| `closeDelay` | `150` | Задержка перед закрытием после ухода наведения или фокуса. |
+| `closeOnClick` | `true` | Закрывает tooltip при нажатии на триггер. |
+| `closeOnEscape` | `true` | Закрывает tooltip при нажатии Escape. |
+| `closeOnPointerDown` | `true` | Закрывает tooltip при нажатии указателя. |
+| `closeOnScroll` | `true` | Закрывает tooltip при прокрутке. |
+| `interactive` | `false` | Сохраняет tooltip открытым при наведении на содержимое, если установлено `true`. |
+| `lazyMount` | `true` | Откладывает монтирование до первого открытия tooltip. |
+| `unmountOnExit` | `true` | Удаляет содержимое после анимации закрытия. |
+| `skipAnimationOnMount` | `false` | Разрешает первую анимацию появления, если её явно не отключили. |
+
+### Особенности поведения
+
+- Управляемое состояние использует форму Ark `open` и `onOpenChange(details)`. Читайте `details.open`.
+- `defaultOpen` задаёт неуправляемое начальное состояние, а `disabled` отключает взаимодействие с tooltip, не меняя собственную семантику триггера.
+- Свойства присутствия Ark, такие как `present`, `immediate`, `onExitComplete`, `lazyMount` и `unmountOnExit`, передаются без изменений.
+- `Tooltip.RootProvider`, `useTooltip` и `useTooltipContext` доступны из `@moduix/react` для внешнего или встроенного расширенного доступа к состоянию.
+- `Tooltip.Trigger` получает оформление триггера moduix, только если не используется `asChild`. При `asChild` стилизация принадлежит дочернему элементу.
+- `Tooltip.DisabledTrigger` — специализированная обёртка для одного прямого отключённого потомка. Используйте её вместо дублирования `span`, `tabIndex` и переопределения pointer-events в tooltip для каждой отключённой кнопки.
+- `Tooltip.Body` передаёт свойства содержимого и потомков в `Tooltip.Content`. Он не создаёт новую часть DOM или отдельную поверхность свойств позиционирования.
+- `Tooltip.Content` владеет видимой поверхностью и z-index. `Tooltip.Positioner` владеет плавающей компоновкой и предоставляет переменные Ark, такие как `--available-width`, `--available-height` и `--transform-origin`.
+- Ark выставляет `data-state="open" | "closed"` на триггере и содержимом; `data-value`, `data-current` и `data-expanded` на триггере; а также атрибуты размещения `data-placement` и `data-side` на содержимом.
+- Содержимое tooltip переносит длинные неразрывные строки, но длинное или интерактивное содержимое следует помещать в Popover или HoverCard, а не в прокручиваемый tooltip.
+
+## Примеры
+
+### Стрелка
+
+Рендерите `Tooltip.Arrow` первым потомком `Tooltip.Content`, когда поверхности нужен указатель. Обёртка рендерит `Tooltip.ArrowTip` для стрелки по умолчанию.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/arrow.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Управляйте состоянием открытия с помощью `open` и `onOpenChange(details)`.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контекст
+
+Используйте `useTooltipContext()` из moduix, когда содержимому нужен встроенный доступ к текущему состоянию tooltip.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### Задержка
+
+Используйте `openDelay` и `closeDelay` в корневом компоненте, чтобы настроить задержки наведения и фокуса.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/delay.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённый триггер
+
+Используйте `Tooltip.DisabledTrigger`, когда отключённому нативному элементу управления всё ещё нужно краткое пояснение. Он сохраняет фокусируемый триггер вокруг отключённого потомка, не заменяя явную композицию Ark.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+
+  ```
+</PreviewFrame>
+
+### Несколько триггеров
+
+Используйте `value` триггера и `onTriggerValueChange(details)`, чтобы управлять одним tooltip из нескольких триггеров.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Позиционирование
+
+Передавайте `Tooltip` параметры позиционирования Ark, включая значения размещения и отступа.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/positioning.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useTooltip()` из moduix вместе с `Tooltip.RootProvider`, когда состояние tooltip должно принадлежать внешней части дерева отрендеренного tooltip.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Внутри фиксированных контейнеров
+
+Используйте `positioning.strategy: "fixed"` для триггеров в фиксированных или липких областях интерфейса. Переведите фокус на триггер, затем прокрутите эту панель: `closeOnScroll={false}` оставляет tooltip открытым, чтобы можно было проверить его выравнивание, пока липкий триггер перемещается.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Tooltip.Body`, если для positioner или содержимого нужны независимые композиция или стилизация.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="not-prose">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TooltipDocs.TooltipCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Используйте часть, которая отвечает за визуальную задачу:
+
+- `Tooltip.Body` не создаёт собственный DOM-узел; при переходе на явный путь стилизуйте `Tooltip.Positioner` и `Tooltip.Content`.
+- `Tooltip.Trigger` — для оформления триггера, обратной связи при наведении и открытии, а также стилей фокуса.
+- `Tooltip.DisabledTrigger` — для обёртки отключённого элемента управления и её прямого отключённого потомка.
+- `Tooltip.Positioner` — для ограничений плавающей компоновки.
+- `Tooltip.Content` — для переопределений поверхности всплывающего элемента.
+- `Tooltip.Arrow` и `Tooltip.ArrowTip` — для размера стрелки, фона и обводки.
+
+Основные публичные хуки: `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` и `data-slot="tooltip-arrow-tip"`.
+
+Ark также добавляет `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`, `data-value`, `data-current`, `data-expanded`, `data-instant`, `data-placement` и `data-side` к соответствующим частям. Positioner предоставляет CSS-переменные времени выполнения, включая `--available-width`, `--available-height`, `--reference-width`, `--reference-height`, `--x`, `--y`, `--z-index` и `--transform-origin`.
