@@ -1,0 +1,183 @@
+---
+title: Pin Input
+component: pin-input
+description: Композиция поля ввода PIN-кода на базе Ark UI для PIN-кодов и коротких кодов подтверждения.
+---
+
+import * as PinInputDocs from '@/components/examples/pin-input';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
+
+## Выбор подходящего компонента
+
+Используйте `PinInput`, когда короткое значение фиксированной длины вводится в отдельные поля по одному символу.
+
+- Выбирайте **`PinInput`** для одноразовых паролей, PIN-кодов, резервных кодов и кодов приглашений.
+- Выбирайте **`Input`**, когда достаточно одного простого текстового поля.
+- Выбирайте **`PasswordInput`**, когда значение представляет собой одну секретную строку с возможностью показать или скрыть её.
+
+## Базовый пример
+
+Начните с дерева частей Ark: состояния корня, метки, элемента управления, `Inputs` и нативного поля формы для отправки формы и синхронизации сброса. Предпросмотры по умолчанию центрированы.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/basic.tsx"
+
+```
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="pin-input" />
+
+## Анатомия
+
+```text
+PinInput / PinInput.Root
+├─ PinInput.Label
+├─ PinInput.Control
+│  ├─ PinInput.Input[index=0]
+│  ├─ PinInput.Input[index=1]
+│  └─ PinInput.Input[index=2]
+└─ native input (automatic)
+```
+
+| Часть                           | Назначение                                                                |
+| ------------------------------- | ------------------------------------------------------------------------- |
+| `PinInput` / `PinInput.Root`    | Корневой автомат состояний, количество, массив значений, валидация и параметры формы. |
+| `PinInput.RootProvider`         | Рендерит поле PIN-кода из состояния, возвращённого `usePinInput`.         |
+| `PinInput.Label`                | Доступная метка для группы полей PIN-кода.                                |
+| `PinInput.Control`              | Обёртка вокруг видимых полей с индексами.                                 |
+| `PinInput.Input`                | Одно видимое поле для символа. Передайте индекс `index`, начинающийся с нуля. |
+| `PinInput.Inputs`               | Рендерит стандартные поля с индексами из контекста Ark.                   |
+| `PinInput.Separator`            | Декоративный помощник группировки Moduix. Не является частью примитива Ark. |
+| `usePinInput` / `RootProvider`  | Внешнее владение состоянием и императивные методы.                        |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте краткую корневую форму `<PinInput>`, отрисуйте видимую `Label` и держите `Control` вокруг `Inputs`.
+Корень рендерит нативное поле формы, когда отправка формы, синхронизация сброса или автозаполнение OTP должны продолжать работать через нативное поле.
+
+### Когда нужна собственная композиция
+
+Используйте части `Input` с явными индексами для сгруппированных раскладок или свойств отдельных полей. Выбирайте `PinInput.RootProvider` и `usePinInput`, когда владение состоянием нужно вынести за пределы отрисованного дерева. Сохраняйте непрерывную последовательность индексов полей Ark во всём коде.
+
+### Свойства по умолчанию
+
+| Свойство         | По умолчанию    | Примечания                                                              |
+| ---------------- | --------------- | ----------------------------------------------------------------------- |
+| `count`          | -               | Количество полей. Передавайте его для SSR и рендеринга с индексами.     |
+| `type`           | `numeric`       | `numeric`, `alphabetic` или `alphanumeric`.                            |
+| `placeholder`    | `''` в moduix   | В Ark по умолчанию `○`; moduix скрывает его, пока не передан `placeholder`. |
+| `otp`            | `false`         | При `true` добавляет поведение автозаполнения одноразового кода.        |
+| `mask`           | `false`         | Маскирует видимые значения, как в полях пароля.                         |
+| `blurOnComplete` | `false`         | Убирает фокус с последнего поля после завершения ввода.                 |
+| `selectOnFocus`  | -               | Выделяет текущее значение поля при получении фокуса.                    |
+| `pattern`        | -               | Пользовательское регулярное выражение для допустимых символов.          |
+| `defaultValue`   | `[]`            | Неуправляемое значение как массив строк.                                |
+| `value`          | -               | Управляемое значение как массив строк.                                  |
+
+### Особенности поведения
+
+`value` и `defaultValue` — массивы строк. `onValueChange(details)` и `onValueComplete(details)` предоставляют `details.value` и `details.valueAsString`. `onValueInvalid(details)` предоставляет отклонённые `details.value` и `details.index`.
+
+Используйте `type` и `pattern` для валидации значения. `Field.Root` и `Fieldset.Root` могут передать состояния disabled, invalid, required и read-only через контекст Ark. Части Ark поддерживают `asChild`, а `ids` можно использовать, когда внешним меткам или описаниям нужны стабильные идентификаторы элементов.
+
+## Примеры
+
+### Потеря фокуса после завершения
+
+Установите `blurOnComplete`, если после заполнения всех позиций фокус должен уйти с последнего поля.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/blur-on-complete.tsx"
+
+```
+
+### События изменения
+
+Управляйте массивом значений из состояния React и напрямую считывайте объекты с деталями обратных вызовов Ark.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/change-events.tsx"
+
+```
+
+### Поле
+
+Оберните `PinInput` в `Field`, когда метка, вспомогательный текст, недопустимое состояние и текст ошибки должны использовать общую инфраструктуру доступности формы Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/pin-input/field.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Сгруппированная раскладка
+
+Не используйте `Inputs`, когда сгруппированному коду нужен разделитель; сохраняйте непрерывные индексы `Input` Ark.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/grouped-layout.tsx"
+
+```
+
+### Маскирование
+
+Используйте `mask`, когда введённое значение конфиденциально и должно быть визуально скрыто.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/masking.tsx"
+
+```
+
+### Режим OTP
+
+Установите `otp`, чтобы Ark применил поведение автозаполнения одноразового кода для мобильных подсказок OTP.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/otp-mode.tsx"
+
+```
+
+### Заполнитель
+
+Используйте `placeholder`, чтобы включить видимые символы-заполнители для каждого поля. По умолчанию moduix оставляет заполнитель пустым.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/placeholder.tsx"
+
+```
+
+### Расширенная настройка
+
+Используйте `usePinInput` с `RootProvider`, когда состоянию и императивным методам нужно находиться за пределами отрисованного дерева. Этот пример не использует `Inputs`, чтобы показать полную композицию Ark с индексами.
+
+```tsx preview file="../../en/docs/_snippets/pin-input/root-provider.tsx"
+
+```
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <PinInputDocs.PinInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- Корень и провайдер корня предоставляют `data-slot="pin-input-root"` и `data-slot="pin-input-root-provider"`.
+- Части Ark сохраняют `data-scope="pin-input"` и `data-part="root" | "label" | "control" | "input"`.
+- Для стилизации состояния корня используются `data-disabled`, `data-invalid`, `data-complete` и `data-readonly`.
+- Для стилизации состояния поля используются `data-disabled`, `data-invalid`, `data-complete`, `data-filled` и `data-index`.
+- `PinInput.Separator` предоставляет `data-slot="pin-input-separator"` и по умолчанию декоративен.
+
+## Доступность
+
+Ark управляет переносом фокуса, распределением вставленного текста, редактированием с клавиатуры, данными формы в скрытом поле и автозаполнением. Корень автоматически рендерит нативное поле формы; настройте участие в форме с помощью свойств корня, таких как `name` и `form`.

@@ -1,0 +1,271 @@
+---
+title: Popover
+component: popover
+description: Доступное всплывающее окно Ark UI, привязанное к триггеру или пользовательскому опорному элементу.
+---
+
+import * as PopoverDocs from '@/components/examples/popover';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/popover" />
+
+## Выбор подходящего компонента
+
+Используйте `Popover` для компактного интерактивного содержимого, связанного с триггером. Используйте `Tooltip` для неинтерактивных подсказок, а `Dialog` — для более крупных или сильно прерывающих рабочий процесс сценариев.
+
+## Базовый пример
+
+Явно скомпонуйте структуру Ark. Параметры позиционирования принадлежат `Popover`, а пользовательские контейнеры кнопок используют `asChild`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="popover" />
+
+## Анатомия
+
+```text
+Popover / Popover.Root
+├─ Popover.Anchor (optional)
+├─ Popover.Trigger
+│  └─ Popover.Indicator (optional)
+└─ Overlay subtree (automatically portalled)
+   └─ Popover.Positioner
+      └─ Popover.Content
+         ├─ Popover.Arrow
+         │  └─ Popover.ArrowTip
+         ├─ Popover.Header
+         │  ├─ Popover.Title
+         │  └─ Popover.Description
+         ├─ Popover.Body
+         ├─ Popover.Footer
+         └─ Popover.CloseTrigger / Popover.CloseIcon
+```
+
+| Часть                         | Назначение                                                           |
+| ----------------------------- | -------------------------------------------------------------------- |
+| `Popover` / `Popover.Root`    | Корневое состояние, жизненный цикл всплывающего окна, закрытие, фокус и позиционирование. |
+| `Popover.RootProvider`        | Рендерит дерево popover из состояния, возвращённого `usePopover`.   |
+| `Popover.Context`             | Считывает текущее состояние через render prop потомка.               |
+| `Popover.Anchor`              | Необязательный пользовательский опорный элемент позиционирования.    |
+| `Popover.Trigger`             | Кнопка, открывающая и закрывающая popover; может иметь `value` триггера. |
+| `Popover.Indicator`           | Необязательный индикатор состояния триггера.                         |
+| `Popover.Positioner`          | Плавающий слой, предоставляющий CSS-переменные позиционирования Ark. |
+| `Popover.Content`             | Поверхность интерактивного всплывающего окна.                        |
+| `Popover.Arrow` / `ArrowTip`  | Необязательная позиционируемая стрелка и её видимый наконечник.      |
+| `Popover.Title`               | Доступный заголовок, связанный с содержимым.                         |
+| `Popover.Description`         | Доступное описание, связанное с содержимым.                          |
+| `Popover.CloseTrigger`        | Низкоуровневый триггер закрытия.                                     |
+| `Popover.CloseIcon`           | Общий помощник закрытия только с иконкой, построенный на триггере закрытия Ark. |
+| `Popover.Header` / `Body`     | Обёртки раскладки Moduix со стабильными слотами.                     |
+| `Popover.Footer`              | Обёртка строки действий Moduix со стабильным слотом.                 |
+
+## Композиция
+
+Корень автоматически портирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга и `portalRef` для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
+
+### Рекомендуемая композиция
+
+Оставляйте `Popover.Positioner` и `Popover.Content` явными. `Popover` эквивалентен `Popover.Root`. Настраивайте размещение, поведение при коллизиях, смещения и одинаковую ширину через `positioning`.
+
+### Когда нужна собственная композиция
+
+Используйте `Anchor`, когда опорный элемент позиционирования отличается от триггера. Используйте `asChild` ровно с одним семантическим потомком для пользовательских контейнеров триггера, опорного элемента, содержимого или триггера закрытия. Установите `portalled={false}`, когда popover внутри другого оверлея должен рендериться встроенно. Используйте `lazyMount` и `unmountOnExit`, только когда полезны отложенное монтирование и удаление после анимации закрытия.
+
+### Свойства по умолчанию
+
+Содержимое портированного оверлея по умолчанию монтируется отложенно и удаляется после анимации закрытия. Установите `unmountOnExit={false}`, чтобы сохранить его после первого открытия; установите оба свойства жизненного цикла в `false`, только когда нужен нетерпеливый начальный рендеринг.
+
+| Свойство                | По умолчанию | Примечания                                                          |
+| ----------------------- | ------------ | ------------------------------------------------------------------- |
+| `autoFocus`             | `true`       | Переводит фокус на первый фокусируемый элемент при открытии popover. |
+| `closeOnEscape`         | `true`       | Закрывает popover по Escape.                                        |
+| `closeOnInteractOutside`| `true`       | Закрывает popover при взаимодействии вне него.                      |
+| `lazyMount`             | `true`       | Откладывает монтирование содержимого до первого открытия.           |
+| `modal`                 | `false`      | Включает ловушку фокуса, блокировку прокрутки и изоляцию внешнего содержимого. |
+| `portalled`             | `true`       | Портирует позиционер и сохраняет поведение вкладок Ark.             |
+| `portalRef`             | -            | Указывает пользовательский контейнер портала.                       |
+| `skipAnimationOnMount`  | `false`      | Сохраняет анимацию появления при первом монтировании.               |
+| `unmountOnExit`         | `true`       | Удаляет содержимое всплывающего окна после анимации закрытия.       |
+| `defaultOpen`           | -            | Начальное неуправляемое открытое состояние.                          |
+| `open`                  | -            | Управляемое открытое состояние.                                      |
+| `ids`                   | -            | Стабильные идентификаторы для триггера, содержимого, заголовка, описания и опорного элемента. |
+| `initialFocusEl`        | -            | Функция, возвращающая элемент для фокуса при открытии.               |
+| `positioning`           | -            | Параметры плавающего позиционирования Ark.                           |
+| `present`               | -            | Управляемое присутствие для жизненных циклов JavaScript-анимаций.    |
+
+### Особенности поведения
+
+- Refs передаются базовым DOM-частям Ark: `Trigger` и `CloseTrigger` указывают на кнопки, а `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`, `Header`, `Body` и `Footer` — на соответствующие отрисованные элементы.
+- `onOpenChange` получает `{ open }`; обратные вызовы не преобразуются в позиционные значения.
+- `modal` имеет тип boolean и включает ловушку фокуса, блокировку прокрутки, блокировку внешнего взаимодействия и изоляцию для программ чтения с экрана.
+- `RootProvider` получает объект, возвращённый `usePopover`; не оборачивайте это же состояние в `Root`.
+- `Popover.Context` и `usePopoverContext` предоставляют текущее состояние Ark потомкам. Хук экспортируется из `@moduix/react`; используйте `Context`, когда render prop читается яснее.
+- `usePopover` экспортируется для владения состоянием Ark через `RootProvider`.
+- `Popover.Arrow` рендерит `ArrowTip` по умолчанию; рендерите `ArrowTip` явно, только чтобы настроить его.
+- Ark по умолчанию закрывает окно по Escape и взаимодействию снаружи. Оба поведения можно отключить отдельно.
+- Используйте `ids`, когда нужны стабильные идентификаторы триггера, содержимого, заголовка, описания, опорного элемента или триггера закрытия.
+- CSS-анимации закрытия используют закрытое состояние присутствия Ark. Используйте `present` для жизненных циклов, управляемых JavaScript.
+- Для содержимого, которое может превышать доступную высоту, разместите прокручиваемую область в `Popover.Body`.
+
+## Примеры
+
+### Опорный элемент
+
+Используйте `Anchor`, когда другой элемент должен быть опорой для позиционирования.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/anchor.tsx"
+
+  ```
+</PreviewFrame>
+
+### Стрелка
+
+Рендерите `Arrow`, чтобы получить `ArrowTip` со стилями Moduix по умолчанию.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/arrow.tsx"
+
+  ```
+</PreviewFrame>
+
+### Поведение закрытия
+
+Отключайте закрытие при внешнем взаимодействии или по Escape, только когда сценарий предоставляет явное действие для закрытия.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/close-behavior.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контекст
+
+Считывайте текущее состояние у потомка через `usePopoverContext`. `Popover.Context` предоставляет то же состояние через render prop.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Используйте объект с деталями Ark при синхронизации открытого состояния с окружающим UI.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отложенное монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, когда содержимое должно существовать только во время использования popover.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/lazy-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### Модальный режим
+
+Модальные popover удерживают фокус и изолируют внешнее содержимое. Используйте `initialFocusEl` для намеренно выбранной начальной цели фокуса.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/modal.tsx"
+
+  ```
+</PreviewFrame>
+
+### Несколько триггеров
+
+Передайте каждому триггеру `value`, когда одна поверхность popover должна реагировать на триггер, открывший её.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/multiple-triggers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вложенный popover
+
+Вложенные popover сохраняют независимое состояние и предоставляют атрибуты данных Ark для вложенных слоёв. Рендерите вложенный popover встроенно, чтобы он оставался в оверлее родителя.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/nested.tsx"
+
+  ```
+</PreviewFrame>
+
+### Размещение
+
+Настраивайте размещение и смещения через объект `positioning` Ark.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/placement.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `usePopover` с `RootProvider`, когда элементам управления за пределами отрисованного дерева popover нужны его состояние или методы.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Одинаковая ширина
+
+Включите `positioning.sameWidth` и используйте переменную Ark `--reference-width` в содержимом.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/same-width.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте помощники раскладки, когда всплывающему окну нужна собственная компактная обработка заголовка; части Ark остаются явными и стилизуются независимо. Стрелка необязательна, и её можно опустить для более лаконичной привязанной панели.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/popover/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab value="CSS Variables">
+      <div>
+        <PopoverDocs.PopoverCssPropertiesPanel />
+      </div>
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Части Ark сохраняют `data-scope="popover"` и значения `data-part`. Каждая экспортируемая отрисованная часть принимает `className`; Moduix добавляет `data-slot="popover-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`, `data-placement`, `data-nested`, `data-has-nested` и `data-expanded` для стилизации по состоянию. Если у нескольких триггеров есть `value`, используйте `data-current`, чтобы стилизовать только триггер, открывший popover.
+
+`Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `Content` предоставляет `--layer-index` и `--nested-layer-count`; `Arrow` предоставляет переменные измерений стрелки Ark.

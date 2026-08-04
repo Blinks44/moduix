@@ -199,6 +199,26 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "pin-input",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "popover",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "progress-circular",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "progress-linear",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },
