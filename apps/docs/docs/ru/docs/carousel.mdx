@@ -1,7 +1,7 @@
 ---
 title: Carousel
 component: carousel
-description: Постраничная карусель с композицией Ark UI, автопрокруткой, состоянием provider и слайдами переменного размера.
+description: Постраничная карусель с композицией Ark UI, автопрокруткой, состоянием провайдера и слайдами переменного размера.
 ---
 
 import * as CarouselDocs from '@/components/examples/carousel';
@@ -43,77 +43,76 @@ Carousel / Carousel.Root
 └─ Carousel.ProgressText
 ```
 
-| Part                         | Role                                                           |
+| Часть                        | Назначение                                                      |
 | ---------------------------- | -------------------------------------------------------------- |
-| `Carousel` / `Carousel.Root` | Owns carousel state, navigation behavior, and item collection. |
-| `Carousel.Control`           | Layout wrapper for navigation triggers and companion controls. |
-| `Carousel.ItemGroup`         | Slide track that owns `Carousel.Item` parts.                   |
-| `Carousel.Item`              | Individual slide at a stable `index`.                          |
-| `Carousel.PrevTrigger`       | Previous-page trigger.                                         |
-| `Carousel.NextTrigger`       | Next-page trigger.                                             |
-| `Carousel.Indicators`        | Moduix convenience wrapper for the default page indicators.    |
-| `Carousel.IndicatorGroup`    | Group wrapper for page indicators.                             |
-| `Carousel.Indicator`         | Page indicator trigger for a specific slide/page index.        |
-| `Carousel.ProgressText`      | Current page and total progress text.                          |
+| `Carousel` / `Carousel.Root` | Управляет состоянием карусели, навигацией и коллекцией элементов. |
+| `Carousel.Control`           | Обёртка для компоновки триггеров навигации и сопутствующих элементов управления. |
+| `Carousel.ItemGroup`         | Дорожка слайдов, содержащая части `Carousel.Item`.              |
+| `Carousel.Item`              | Отдельный слайд со стабильным `index`.                          |
+| `Carousel.PrevTrigger`       | Триггер перехода на предыдущую страницу.                       |
+| `Carousel.NextTrigger`       | Триггер перехода на следующую страницу.                        |
+| `Carousel.Indicators`        | Удобная обёртка moduix для стандартных индикаторов страниц.     |
+| `Carousel.IndicatorGroup`    | Групповая обёртка индикаторов страниц.                          |
+| `Carousel.Indicator`         | Триггер индикатора для заданного индекса слайда или страницы.   |
+| `Carousel.ProgressText`      | Текст с текущей страницей и общим количеством страниц.          |
 
-Additional advanced surfaces stay available for advanced flows:
+Для расширенных сценариев также доступны:
 
 - `Carousel.Context`
 - `Carousel.AutoplayTrigger`
 - `Carousel.AutoplayIndicator`
 - `Carousel.RootProvider`
 
-`useCarousel` and `useCarouselContext` are available from `@moduix/react`.
+`useCarousel` и `useCarouselContext` доступны из `@moduix/react`.
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Use `Carousel` as the root, render `Carousel.ItemGroup` as the track, keep `Carousel.Control` for
-navigation controls, and reach for `Carousel.Indicators` when the default dot pager is enough.
+Используйте `Carousel` как корневой компонент, рендерите `Carousel.ItemGroup` как дорожку, размещайте элементы
+навигации в `Carousel.Control` и добавляйте `Carousel.Indicators`, когда достаточно стандартного точечного индикатора.
 
-`Carousel.Control` is usually a toolbar sibling to `Carousel.ItemGroup`.
+Обычно `Carousel.Control` — соседняя с `Carousel.ItemGroup` панель инструментов.
 
-`Carousel.Root` remains available as an explicit alias of `Carousel` when the namespace itself is
-what you want to show.
+`Carousel.Root` остаётся явным алиасом `Carousel`, когда в коде нужно показать пространство имён.
 
 ### Когда нужна собственная композиция
 
-Use `Carousel.Context` plus `Carousel.IndicatorGroup` and `Carousel.Indicator` when you need a
-custom pager layout, thumbnail indicators, or tighter control over `pageSnapPoints`.
+Используйте `Carousel.Context` вместе с `Carousel.IndicatorGroup` и `Carousel.Indicator`, когда нужны собственная
+компоновка пагинатора, индикаторы-миниатюры или более точное управление `pageSnapPoints`.
 
-Use moduix `Carousel.RootProvider` with `useCarousel()` when carousel state must be created
-outside the rendered subtree.
+Используйте `Carousel.RootProvider` из moduix вместе с `useCarousel()`, когда состояние карусели должно создаваться
+вне отрендеренного поддерева.
 
-Use `useCarouselContext()` inside custom child components that need the carousel API without a
+Используйте `useCarouselContext()` внутри пользовательских дочерних компонентов, которым нужен API карусели без
 render prop.
 
-Use `Carousel.AutoplayTrigger` and `Carousel.AutoplayIndicator` when autoplay controls should be
-part of the visible UI instead of only a root prop.
+Используйте `Carousel.AutoplayTrigger` и `Carousel.AutoplayIndicator`, когда элементы управления автопрокруткой
+должны быть видимой частью интерфейса, а не только свойством корневого компонента.
 
 ### Свойства по умолчанию
 
-| Prop         | Default | Notes                                     |
+| Свойство     | По умолчанию | Примечания                            |
 | ------------ | ------- | ----------------------------------------- |
-| `slideCount` | —       | Required on `Carousel` / `Carousel.Root`. |
+| `slideCount` | —       | Обязательно для `Carousel` / `Carousel.Root`. |
 
 ### Особенности поведения
 
-- `onPageChange(details)` follows Ark shape and exposes the active page as `details.page`.
-- Give `Carousel` or `Carousel.RootProvider` an `aria-label` or `aria-labelledby` so its carousel
-  landmark has an accessible name.
-- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove`, and `autoSize` follow Ark sizing and
-  snap-point behavior directly.
-- Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
-  component uses moduix-provided chevrons.
-- Horizontal default triggers mirror automatically when `dir="rtl"`.
+- `onPageChange(details)` сохраняет форму Ark и предоставляет активную страницу как `details.page`.
+- Задайте `Carousel` или `Carousel.RootProvider` атрибут `aria-label` либо `aria-labelledby`, чтобы landmark карусели
+  имел доступное имя.
+- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove` и `autoSize` напрямую следуют правилам размеров и точек
+  привязки Ark.
+- Вертикальная карусель использует тот же публичный API. Стандартные триггеры автоматически поворачиваются, если
+  компонент использует шевроны moduix.
+- Стандартные горизонтальные триггеры автоматически отражаются при `dir="rtl"`.
 
 ## Примеры
 
 ### Автопрокрутка
 
-Use autoplay for passive galleries and pair it with visible controls. Pause it on pointer entry and focus;
-users can restart it with `Carousel.AutoplayTrigger`.
+Используйте автопрокрутку для пассивных галерей и добавляйте видимые элементы управления. Приостанавливайте её при
+наведении указателя и получении фокуса; пользователь сможет возобновить прокрутку через `Carousel.AutoplayTrigger`.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -125,7 +124,7 @@ users can restart it with `Carousel.AutoplayTrigger`.
 
 ### Управляемое состояние
 
-Управляйте текущей страницей, когда состояние carousel должно синхронизироваться с внешней навигацией, фильтрами или аналитикой.
+Управляйте текущей страницей, когда состояние карусели должно синхронизироваться с внешней навигацией, фильтрами или аналитикой.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -138,7 +137,7 @@ users can restart it with `Carousel.AutoplayTrigger`.
 
 ### Карточки
 
-Элементы carousel могут содержать любую композицию. Центрируйте card стилями компоновки приложения, когда она должна
+Элементы карусели могут содержать любую композицию. Центрируйте карточку стилями компоновки приложения, когда она должна
 оставаться уже слайда.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
@@ -151,7 +150,7 @@ users can restart it with `Carousel.AutoplayTrigger`.
 
 ### Зацикливание
 
-Turn on `loop` when the carousel should wrap seamlessly from the last slide back to the first.
+Включите `loop`, когда карусель должна непрерывно переходить от последнего слайда к первому.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -188,7 +187,8 @@ Turn on `loop` when the carousel should wrap seamlessly from the last slide back
 
 ### Приостановка при наведении
 
-Pause autoplay while the pointer is over the carousel. It resumes when the pointer leaves; focus still pauses it.
+Приостанавливайте автопрокрутку, пока указатель находится над каруселью. После ухода указателя прокрутка возобновится;
+получение фокуса по-прежнему будет её приостанавливать.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -201,7 +201,8 @@ Pause autoplay while the pointer is over the carousel. It resumes when the point
 
 ### Root Provider
 
-Use `Carousel.RootProvider` when the carousel store should be created outside the rendered subtree and reused across composition boundaries.
+Используйте `Carousel.RootProvider`, когда хранилище карусели должно создаваться вне отрендеренного поддерева и
+переиспользоваться между частями композиции.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -213,7 +214,7 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 
 ### Прокрутка к слайду
 
-Вызывайте API carousel из контекста, когда другой элемент управления должен перейти сразу к определённому слайду.
+Вызывайте API карусели из контекста, когда другой элемент управления должен перейти сразу к определённому слайду.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -238,7 +239,8 @@ Use `Carousel.RootProvider` when the carousel store should be created outside th
 
 ### Интервалы
 
-Tune `spacing` when adjacent slides need more separation for editorial layouts, product rails, or branded rhythm.
+Настраивайте `spacing`, когда соседним слайдам нужен больший интервал в редакционных макетах, товарных лентах или
+фирменной системе отступов.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -251,7 +253,7 @@ Tune `spacing` when adjacent slides need more separation for editorial layouts, 
 
 ### Индикаторы-миниатюры
 
-Render custom indicator content when the pager itself should preview the slides instead of using plain dots.
+Рендерите собственное содержимое индикаторов, когда пагинатор должен показывать миниатюры слайдов вместо обычных точек.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -276,7 +278,7 @@ Render custom indicator content when the pager itself should preview the slides 
 
 ### Вертикальная ориентация
 
-Переключайтесь на вертикальную ориентацию, когда carousel должен располагать перемещение и элементы управления по блочной оси.
+Переключайтесь на вертикальную ориентацию, когда карусель должна располагать движение и элементы управления по блочной оси.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -288,7 +290,8 @@ Render custom indicator content when the pager itself should preview the slides 
 
 ### Расширенная настройка
 
-Bypass `Carousel.Indicators` when you need custom `pageSnapPoints` rendering or want to interleave pager UI with other context-driven controls.
+Не используйте `Carousel.Indicators`, когда нужно самостоятельно отрисовать `pageSnapPoints` или объединить интерфейс
+пагинатора с другими элементами управления на основе контекста.
 
 <style>{CarouselDocs.carouselExampleCss}</style>
 
@@ -301,9 +304,9 @@ Bypass `Carousel.Indicators` when you need custom `pageSnapPoints` rendering or 
 
 ## Стилизация
 
-Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
-data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging`) and moduix
-`data-slot` hooks.
+Используйте `className` на экспортируемых частях для структурных изменений стилей. Для стилизации состояния отдавайте
+предпочтение data-атрибутам Ark (`data-part`, `data-orientation`, `data-current`, `data-dragging`) и хукам
+`data-slot` из moduix.
 
 ### CSS-свойства
 
@@ -313,12 +316,12 @@ data attributes (`data-part`, `data-orientation`, `data-current`, `data-dragging
 
 - `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
   `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
-  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator`, and
-  `carousel-progress-text` are stable selectors on the exported parts.
-- Ark also exposes `data-scope="carousel"` and `data-part` names on the rendered nodes.
-- `data-orientation="horizontal" | "vertical"` is available on root and structural parts.
-- `Carousel.ItemGroup` exposes `data-dragging` while drag interaction is active.
-- `Carousel.Indicator` exposes `data-current`, and `Carousel.Item` exposes `data-index` and
+  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` и
+  `carousel-progress-text` — стабильные селекторы экспортируемых частей.
+- Ark также предоставляет имена `data-scope="carousel"` и `data-part` на отрендеренных узлах.
+- `data-orientation="horizontal" | "vertical"` доступен на корневом компоненте и структурных частях.
+- `Carousel.ItemGroup` предоставляет `data-dragging` во время перетаскивания.
+- `Carousel.Indicator` предоставляет `data-current`, а `Carousel.Item` — `data-index` и
   `data-inview`.
-- `Carousel.Indicator` exposes `data-readonly`, and `Carousel.AutoplayTrigger` exposes
+- `Carousel.Indicator` предоставляет `data-readonly`, а `Carousel.AutoplayTrigger` —
   `data-pressed`.

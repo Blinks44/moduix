@@ -160,7 +160,7 @@ Ref указывает на соответствующую часть DOM Ark. C
 
 ### Группа с формой
 
-Use `Checkbox.Group` inside a form and read selected values with `FormData.getAll(name)`.
+Используйте `Checkbox.Group` внутри формы и получайте выбранные значения через `FormData.getAll(name)`.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
 
@@ -168,7 +168,7 @@ Use `Checkbox.Group` inside a form and read selected values with `FormData.getAl
 
 ### Неопределённое состояние
 
-Use the indeterminate state when one checkbox reflects a partial selection instead of a simple on or off value.
+Используйте неопределённое состояние, когда флажок отражает частичный выбор, а не только включённое или выключенное значение.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
 
@@ -176,7 +176,7 @@ Use the indeterminate state when one checkbox reflects a partial selection inste
 
 ### Недопустимая группа
 
-Mark the group invalid when the whole set participates in validation and requires a valid selection state.
+Помечайте группу как недопустимую, когда весь набор участвует в валидации и требует корректного состояния выбора.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
 
@@ -184,7 +184,7 @@ Mark the group invalid when the whole set participates in validation and require
 
 ### Максимум выбранных
 
-Use `maxSelectedValues` when only a fixed number of options can be selected.
+Используйте `maxSelectedValues`, когда можно выбрать только заданное количество вариантов.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
 
@@ -192,7 +192,7 @@ Use `maxSelectedValues` when only a fixed number of options can be selected.
 
 ### Только для чтения
 
-Use `readOnly` when the value should remain visible but user interaction should not change it.
+Используйте `readOnly`, когда значение должно оставаться видимым, но пользователь не должен его изменять.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
 
@@ -200,8 +200,8 @@ Use `readOnly` when the value should remain visible but user interaction should 
 
 ### Root Provider
 
-Use `Checkbox.RootProvider` when checkbox state needs to live outside the rendered subtree. Import
-the state hook from `@moduix/react`.
+Используйте `Checkbox.RootProvider`, когда состояние флажка должно находиться вне отрендеренного поддерева. Импортируйте
+хук состояния из `@moduix/react`.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
 
@@ -209,7 +209,7 @@ the state hook from `@moduix/react`.
 
 ### Выбрать всё
 
-Compose a parent checkbox and a controlled group when one control should toggle the entire selection set.
+Скомпонуйте родительский флажок и управляемую группу, когда один элемент должен переключать весь набор.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
 
@@ -217,7 +217,7 @@ Compose a parent checkbox and a controlled group when one control should toggle 
 
 ### Размеры
 
-Apply moduix `size` to match checkbox density to the surrounding form or settings surface.
+Задайте `size` из moduix, чтобы размер флажка соответствовал окружающей форме или экрану настроек.
 
 ```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
 
@@ -225,7 +225,7 @@ Apply moduix `size` to match checkbox density to the surrounding form or setting
 
 ### С Field
 
-Use `Field` around one checkbox when it needs helper text, validation text, or shared field state.
+Оберните отдельный флажок в `Field`, если ему нужны пояснение, сообщение валидации или общее состояние поля.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"

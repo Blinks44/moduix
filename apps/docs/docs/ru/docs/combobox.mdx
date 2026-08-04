@@ -57,40 +57,41 @@ Combobox.Root[collection]
           └─ Combobox.Item
 ```
 
-| Part                         | Role                                                               |
+| Часть                        | Назначение                                                         |
 | ---------------------------- | ------------------------------------------------------------------ |
-| `Combobox` / `Combobox.Root` | Owns combobox state, filtering, highlighting, and selected values. |
-| `Combobox.Control`           | Wrapper for input and trigger controls.                            |
-| `Combobox.Input`             | Text input that drives search and selection.                       |
-| `Combobox.Trigger`           | Opens and closes the popup list.                                   |
-| `Combobox.ClearTrigger`      | Clears current value and/or input.                                 |
-| `Combobox.Positioner`        | Floating positioner for popup content.                             |
-| `Combobox.Content`           | Popup content container.                                           |
-| `Combobox.Status`            | Styled consumer-owned loading, error, or guidance message.         |
-| `Combobox.List`              | Option list wrapper.                                               |
-| `Combobox.Option`            | Convenience row for simple options with text and an indicator.     |
-| `Combobox.Item`              | Selectable option row.                                             |
-| `Combobox.ItemText`          | Text label slot inside an item.                                    |
-| `Combobox.ItemIndicator`     | Selected/highlight indicator slot for an item.                     |
-| `Combobox.Context`           | Renderless access to the current combobox state.                   |
+| `Combobox` / `Combobox.Root` | Управляет состоянием, фильтрацией, подсветкой и выбранными значениями Combobox. |
+| `Combobox.Control`           | Обёртка элементов поля и триггера.                                |
+| `Combobox.Input`             | Текстовое поле, управляющее поиском и выбором.                     |
+| `Combobox.Trigger`           | Открывает и закрывает всплывающий список.                          |
+| `Combobox.ClearTrigger`      | Очищает текущее значение и/или поле.                               |
+| `Combobox.Positioner`        | Плавающий позиционер всплывающего содержимого.                     |
+| `Combobox.Content`           | Контейнер содержимого всплывающего окна.                           |
+| `Combobox.Status`            | Стилизованное сообщение приложения о загрузке, ошибке или подсказке. |
+| `Combobox.List`              | Обёртка списка вариантов.                                         |
+| `Combobox.Option`            | Готовая строка простого варианта с текстом и индикатором.          |
+| `Combobox.Item`              | Выбираемая строка варианта.                                       |
+| `Combobox.ItemText`          | Слот текстовой подписи внутри элемента.                            |
+| `Combobox.ItemIndicator`     | Слот индикатора выбора или подсветки элемента.                     |
+| `Combobox.Context`           | Доступ к текущему состоянию Combobox без дополнительной разметки. |
 
-`Combobox.RootProvider` renders the same styled root around state created with moduix
-`useCombobox`. Read in-tree state with `Combobox.Context` or moduix `useComboboxContext`.
+`Combobox.RootProvider` рендерит тот же стилизованный корневой компонент вокруг состояния, созданного через
+`useCombobox` из moduix. Читайте состояние внутри дерева через `Combobox.Context` или `useComboboxContext` из moduix.
 
 ## Композиция
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+Корневой компонент автоматически переносит `Positioner` в портал. Для встроенного рендеринга используйте
+`portalled={false}`, а для собственного контейнера — `portalRef`; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
 
-Use `createListCollection` for a static collection or `useListCollection` when filtering changes
-the rendered items. Object collections should define `itemToString` and `itemToValue`.
+Используйте `createListCollection` для статической коллекции или `useListCollection`, когда фильтрация меняет
+отрендеренные элементы. Для коллекций объектов задайте `itemToString` и `itemToValue`.
 
-Keep `Combobox.Positioner` and `Combobox.Content` visible. `Content` is the actual Ark content part;
-the root only automates the portal boundary.
+Сохраняйте `Combobox.Positioner` и `Combobox.Content` явными. `Content` — фактическая часть содержимого Ark;
+корневой компонент автоматизирует только границу портала.
 
-When that popup structure repeats, prefer a small local helper. Use `Combobox.Option` for simple
-rows and keep `Combobox.Item` for links, rich rows, or custom indicator placement:
+Если эта структура всплывающего окна повторяется, используйте небольшой локальный помощник. Для простых строк
+выбирайте `Combobox.Option`, а `Combobox.Item` оставляйте для ссылок, сложных строк или собственного размещения индикатора:
 
 ```tsx
 function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: string }> }) {
@@ -113,74 +114,73 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ### Когда нужна собственная композиция
 
-Use controlled `value` and Ark detail callbacks when adjacent UI needs selected values. When state
-must be created outside the rendered subtree, create it with `useCombobox` from `@moduix/react` and
-render `Combobox.RootProvider`. Use moduix `Combobox.ItemContext` or `useComboboxItemContext` for
-item state; import only collection helpers and types that moduix does not expose from Ark.
+Используйте управляемое `value` и колбэки сведений Ark, когда соседнему интерфейсу нужны выбранные значения. Если
+состояние нужно создать вне отрендеренного поддерева, создайте его через `useCombobox` из `@moduix/react` и отрендерите
+`Combobox.RootProvider`. Для состояния элемента используйте `Combobox.ItemContext` или `useComboboxItemContext` из
+moduix; из Ark импортируйте только отсутствующие в moduix помощники коллекций и типы.
 
-Multiple selection does not add a combobox-specific chip API. Render tags or another value summary
-from controlled state, then keep selection behavior on `Combobox multiple`.
+Множественный выбор не добавляет отдельный API чипов для Combobox. Рендерите теги или другое представление значений из
+управляемого состояния, а поведение выбора оставляйте на `Combobox multiple`.
 
-Ark does not expose a combobox status part. moduix `Combobox.Status` is a styled `div` for
-consumer-owned loading, error, or guidance messages; it does not manage state or set an ARIA role.
+Ark не предоставляет часть статуса Combobox. `Combobox.Status` из moduix — стилизованный `div` для сообщений приложения
+о загрузке, ошибке или подсказке; он не управляет состоянием и не задаёт ARIA-роль.
 
 ### Свойства по умолчанию
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+По умолчанию содержимое оверлея в портале монтируется лениво и размонтируется после анимации выхода. Задайте
+`unmountOnExit={false}`, чтобы сохранять его после первого открытия; отключайте оба свойства жизненного цикла только
+когда нужен немедленный первоначальный рендеринг.
 
-| Surface                            | Default               | Notes                                                                 |
+| Поверхность                        | По умолчанию          | Примечания                                                            |
 | ---------------------------------- | --------------------- | --------------------------------------------------------------------- |
-| `Combobox.Trigger`                 | moduix chevron icon   | Used when children are omitted.                                       |
-| `Combobox.ClearTrigger`            | moduix close icon     | Used when children are omitted.                                       |
-| `Combobox.ItemIndicator`           | moduix check icon     | Used when children are omitted.                                       |
-| `Combobox.Option.indicator`        | check icon            | Pass `false` to hide it or a React node to replace the icon.          |
-| `Combobox` width                  | `16rem` (max `100%`)  | Styled root width defaults.                                           |
-| `Combobox.Positioner` variables    | Ark runtime variables | Uses `--reference-width`, `--available-height`, `--transform-origin`. |
+| `Combobox.Trigger`                 | шеврон moduix         | Используется, когда дочерние элементы не переданы.                    |
+| `Combobox.ClearTrigger`            | иконка закрытия moduix | Используется, когда дочерние элементы не переданы.                   |
+| `Combobox.ItemIndicator`           | иконка подтверждения moduix | Используется, когда дочерние элементы не переданы.               |
+| `Combobox.Option.indicator`        | иконка подтверждения  | Передайте `false`, чтобы скрыть её, или React-узел, чтобы заменить.   |
+| ширина `Combobox`                  | `16rem` (макс. `100%`) | Стандартная ширина стилизованного корневого компонента.              |
+| переменные `Combobox.Positioner`   | переменные времени выполнения Ark | Использует `--reference-width`, `--available-height`, `--transform-origin`. |
 
 ### Особенности поведения
 
-- `collection` is required.
-- `value` and `defaultValue` are string arrays, including single selection.
-- `onValueChange(details)` reads the current values from `details.value`.
-- `onInputValueChange(details)` reads input text from `details.inputValue` and its source from
+- `collection` обязателен.
+- `value` и `defaultValue` — массивы строк, в том числе при одиночном выборе.
+- `onValueChange(details)` читает текущие значения из `details.value`.
+- `onInputValueChange(details)` читает текст поля из `details.inputValue`, а его источник — из
   `details.reason`.
-- `onOpenChange`, `onHighlightChange`, and `onSelect` keep their Ark detail shapes.
-- All Ark DOM parts preserve `asChild`.
-- The current Ark Combobox package does not expose a `HiddenInput` part. Use the root `name` and
-  `form` props for Ark's built-in form submission behavior.
-- `Combobox.RootProvider` preserves moduix root styling and portal configuration for externally
-  created Ark state. Use moduix `useCombobox`, `Combobox.Context`, `useComboboxContext`,
-  `Combobox.ItemContext`, and `useComboboxItemContext` for provider and context paths.
-- Ark `Field.Root` state inheritance remains available through the Ark-backed moduix `Field.Root`;
-  `readOnly` and `required` keep their Ark behavior.
-- Use `ids` when externally composed parts need shared accessibility IDs. `lazyMount` and
-  `unmountOnExit` default to `true`; `present` keeps Ark's presence lifecycle for exit animations.
-- `selectionBehavior` and `closeOnSelect` pass through to Ark. In multiple mode, Ark clears the
-  input after selection.
+- `onOpenChange`, `onHighlightChange` и `onSelect` сохраняют форму сведений Ark.
+- Все DOM-части Ark сохраняют `asChild`.
+- Текущий пакет Ark Combobox не предоставляет часть `HiddenInput`. Для встроенной отправки формы Ark используйте
+  корневые свойства `name` и `form`.
+- `Combobox.RootProvider` сохраняет стили корневого компонента moduix и настройки портала для состояния Ark, созданного
+  снаружи. Для сценариев провайдера и контекста используйте `useCombobox`, `Combobox.Context`, `useComboboxContext`,
+  `Combobox.ItemContext` и `useComboboxItemContext` из moduix.
+- Наследование состояния Ark `Field.Root` остаётся доступным через `Field.Root` из moduix на базе Ark; `readOnly` и
+  `required` сохраняют поведение Ark.
+- Используйте `ids`, когда отдельно скомпонованным частям нужны общие идентификаторы доступности. `lazyMount` и
+  `unmountOnExit` по умолчанию равны `true`; `present` сохраняет жизненный цикл присутствия Ark для анимаций выхода.
+- `selectionBehavior` и `closeOnSelect` передаются в Ark без изменений. В режиме множественного выбора Ark очищает
+  поле после выбора.
 
 ### Миграция с shadcn
 
-Keep the moduix API Ark-shaped, then translate the common shadcn conveniences explicitly:
+Сохраняйте форму API moduix согласованной с Ark и явно сопоставляйте распространённые удобства shadcn:
 
-| shadcn pattern          | moduix path                                                          |
+| Паттерн shadcn          | Путь в moduix                                                        |
 | ----------------------- | -------------------------------------------------------------------- |
-| `items` on the root     | `createListCollection()` or `useListCollection()`, then `collection` |
-| `itemToStringValue`     | `itemToString` and usually `itemToValue` on the collection           |
-| `showClear`             | Render `Combobox.ClearTrigger` when needed                           |
-| Plain `ComboboxItem`    | Use `Combobox.Option`; use `Combobox.Item` for custom row structure  |
-| Built-in chips surface  | Controlled `value` plus custom tags, or `TagsInput` composition      |
-| `ComboboxContent` sugar | Explicit `Combobox.Positioner` and `Combobox.Content`                |
+| `items` на корневом компоненте | `createListCollection()` или `useListCollection()`, затем `collection` |
+| `itemToStringValue`     | `itemToString` и обычно `itemToValue` на коллекции                   |
+| `showClear`             | При необходимости рендерите `Combobox.ClearTrigger`                  |
+| Обычный `ComboboxItem`  | Используйте `Combobox.Option`; для собственной структуры строки — `Combobox.Item` |
+| Встроенная область чипов | Управляемое `value` с собственными тегами или композиция `TagsInput` |
+| Обёртка `ComboboxContent` | Явные `Combobox.Positioner` и `Combobox.Content`                    |
 
 ## Примеры
 
 ### Асинхронный поиск
 
-Replace collection items from an async result, render `Combobox.Status` while a request is pending,
-and use `details.reason` to distinguish typed input from machine-driven input updates. When the
-query is empty, keep the popup informative with a `Start typing to search…` status instead of an
-empty surface.
+Заменяйте элементы коллекции результатом асинхронного запроса, рендерите `Combobox.Status` во время ожидания и
+используйте `details.reason`, чтобы отличать пользовательский ввод от программного обновления поля. При пустом запросе
+показывайте во всплывающем окне статус `Start typing to search…`, а не пустую поверхность.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -193,8 +193,8 @@ empty surface.
 
 ### Автоматическая подсветка
 
-Set `inputBehavior="autohighlight"` to highlight the first matching item while the user types, so
-Enter can select it without an extra arrow-key press.
+Задайте `inputBehavior="autohighlight"`, чтобы по мере ввода подсвечивать первый подходящий элемент и выбирать его
+клавишей Enter без дополнительного нажатия стрелки.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -234,8 +234,8 @@ Enter can select it without an extra arrow-key press.
 
 ### Пользовательские объекты и группировка
 
-Map object labels and values on the collection, then render Ark item groups from
-`collection.group()`. Group labels stick to the top edge of the popup while its results scroll.
+Настройте подписи и значения объектов в коллекции, затем рендерите группы элементов Ark из `collection.group()`.
+Подписи групп закрепляются у верхнего края всплывающего окна при прокрутке результатов.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -248,8 +248,8 @@ Map object labels and values on the collection, then render Ark item groups from
 
 ### Динамическое изменение
 
-Build the collection from the current input when suggestions do not exist until the user starts
-typing. Check `details.reason` to avoid rebuilding it after selection-driven input changes.
+Создавайте коллекцию из текущего ввода, когда предложения появляются только после начала ввода. Проверяйте
+`details.reason`, чтобы не перестраивать её после изменений поля, вызванных выбором.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -290,8 +290,8 @@ typing. Check `details.reason` to avoid rebuilding it after selection-driven inp
 
 ### Множественный выбор
 
-Enable `multiple` and render selected objects from controlled `value`. Tags remain consumer
-composition; when they must live inside the same field shell, compose `Combobox` with `TagsInput`.
+Включите `multiple` и рендерите выбранные объекты из управляемого `value`. Теги остаются композицией приложения;
+если они должны находиться в одной оболочке поля, скомпонуйте `Combobox` с `TagsInput`.
 
 <style>{`
     .tags {
@@ -325,9 +325,8 @@ composition; when they must live inside the same field shell, compose `Combobox`
 
 ### Root Provider
 
-Create the state with Ark `useCombobox` when external controls need imperative methods or shared
-state before the root renders. `Combobox.RootProvider` preserves the moduix root styling and portal
-configuration.
+Создавайте состояние через Ark `useCombobox`, когда внешним элементам управления нужны императивные методы или общее
+состояние до рендеринга корневого компонента. `Combobox.RootProvider` сохраняет стили корня moduix и настройки портала.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -387,8 +386,8 @@ configuration.
 
 ### Расширенная настройка
 
-Bypass `Combobox.Option` when a row needs a custom semantic element or layout. This example keeps
-the full item anatomy while composing each result as a link with `Combobox.Item asChild`.
+Не используйте `Combobox.Option`, когда строке нужен собственный семантический элемент или компоновка. В этом примере
+сохраняется полная анатомия элемента, а каждый результат компонуется как ссылка через `Combobox.Item asChild`.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 
@@ -407,14 +406,13 @@ the full item anatomy while composing each result as a link with `Combobox.Item 
 
 ### Хуки стилизации
 
-- Stable slots include `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
+- Стабильные слоты включают `combobox-root`, `combobox-label`, `combobox-control`, `combobox-input`,
   `combobox-clear-trigger`, `combobox-trigger`, `combobox-positioner`, `combobox-content`,
   `combobox-empty`, `combobox-status`, `combobox-list`, `combobox-item-group`, `combobox-item-group-label`,
-  `combobox-item`, `combobox-item-text`, and `combobox-item-indicator`. `Combobox.Option` reuses the
-  item slots instead of adding its own styling hook.
-- Ark state hooks include `data-state="open|closed"`, `data-focus`, `data-invalid`,
-  `data-disabled`, `data-highlighted`, `data-empty`, `data-placement`, and `data-side`.
-- Ark positioning variables include `--reference-width`, `--available-width`,
-  `--available-height`, `--transform-origin`, `--z-index`, and `--layer-index`. The shared theme
-  registers neutral initial values for tooling and unpositioned content; Ark replaces them with
-  measured values on `Positioner`.
+  `combobox-item`, `combobox-item-text` и `combobox-item-indicator`. `Combobox.Option` переиспользует слоты элемента,
+  не добавляя собственного хука стилизации.
+- Хуки состояния Ark включают `data-state="open|closed"`, `data-focus`, `data-invalid`, `data-disabled`,
+  `data-highlighted`, `data-empty`, `data-placement` и `data-side`.
+- Переменные позиционирования Ark включают `--reference-width`, `--available-width`, `--available-height`,
+  `--transform-origin`, `--z-index` и `--layer-index`. Общая тема регистрирует нейтральные начальные значения для
+  инструментов и непозиционированного содержимого; Ark заменяет их измеренными значениями на `Positioner`.

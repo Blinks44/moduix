@@ -28,69 +28,68 @@ import * as ContainerDocs from '@/components/examples/container';
 
 <ShadcnInstall packageName="container" />
 
-This install path also pulls in the shared moduix foundation files that `Container` depends on, such
-as styles, icons, and small utilities.
+Этот способ установки также добавляет общие базовые файлы moduix, от которых зависит `Container`: стили,
+иконки и небольшие утилиты.
 
 ## Анатомия
 
-`Container` is a single root layout primitive built on Ark factory composition.
+`Container` — единственный корневой примитив компоновки, построенный на композиции фабрики Ark.
 
 ```text
 Container / Container.Root
 └─ дочерние элементы
 ```
 
-| Part                           | Role                                                     |
+| Часть                          | Назначение                                               |
 | ------------------------------ | -------------------------------------------------------- |
-| `Container` / `Container.Root` | Root layout wrapper. Controls content width and gutters. |
+| `Container` / `Container.Root` | Корневая обёртка компоновки. Управляет шириной содержимого и боковыми отступами. |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Use `Container` for page shells, article bodies, docs sections, settings screens, and other layouts
-where the main requirement is a centered content column with predictable gutters.
+Используйте `Container` для каркасов страниц, текста статей, разделов документации, экранов настроек и других
+компоновок, которым нужна центрированная колонка содержимого с предсказуемыми боковыми отступами.
 
-`Container.Root` is the same component exposed as an Ark-aligned namespace alias.
+`Container.Root` — тот же компонент, предоставленный как согласованный с Ark алиас пространства имён.
 
-Use `size` to choose the content width and `gutter` to control the edge padding. Use `asChild` when
-the wrapper itself should also carry semantic meaning such as `main`, `section`, or `article`.
-`asChild` requires exactly one semantic child; the ref then points to that child instead of the
-default `div`.
+Используйте `size` для выбора ширины содержимого, а `gutter` — для управления отступами от краёв. Используйте
+`asChild`, когда обёртка также должна иметь семантику `main`, `section` или `article`. Для `asChild` нужен ровно
+один семантический дочерний элемент; ref будет указывать на него, а не на стандартный `div`.
 
 ### Когда нужна собственная композиция
 
-`Container` is intentionally root-only. There are no extra subparts, slot props, or nested
-layout helpers.
+`Container` намеренно состоит только из корневого компонента. У него нет дополнительных частей, свойств слотов
+или вложенных помощников компоновки.
 
-The custom path here is small:
+Для настройки достаточно:
 
-- pass `className` for local layout or surface styling;
-- override `--moduix-container-*` variables when a page needs different width or gutter math;
-- use `asChild` when another element should own the DOM node;
-- compose with `Bleed` when a child should escape the constrained text column.
+- передать `className` для локальной компоновки или стилизации поверхности;
+- переопределить переменные `--moduix-container-*`, если странице нужны другие ширина или расчёт боковых отступов;
+- использовать `asChild`, когда DOM-узлом должен быть другой элемент;
+- скомпоновать с `Bleed`, когда дочерний элемент должен выйти за пределы ограниченной текстовой колонки.
 
 ### Свойства по умолчанию
 
-| Prop      | Default | Values / Notes                       |
+| Свойство  | По умолчанию | Значения / примечания                |
 | --------- | ------- | ------------------------------------ |
-| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (uncapped) |
+| `size`    | `lg`    | `xs` (40rem), `sm` (48rem), `md` (64rem), `lg` (72rem), `xl` (90rem), `full` (без ограничения) |
 | `gutter`  | `md`    | `none`, `sm`, `md`, `lg`             |
-| `asChild` | `false` | Ark factory composition              |
+| `asChild` | `false` | Композиция фабрики Ark               |
 
 ### Особенности поведения
 
-- `Container` does not manage vertical rhythm. Add section spacing outside it or on its children.
-- `size="full"` removes only the max-width cap. The selected gutter still applies unless
-  `gutter="none"` is used.
-- The root exposes `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
-  `data-size`, and `data-gutter` for styling and tests.
+- `Container` не управляет вертикальными интервалами. Добавляйте интервалы между разделами снаружи или на дочерних элементах.
+- `size="full"` снимает только ограничение максимальной ширины. Выбранный боковой отступ продолжает применяться, если
+  не используется `gutter="none"`.
+- Корневой компонент предоставляет `data-scope="container"`, `data-part="root"`, `data-slot="container-root"`,
+  `data-size` и `data-gutter` для стилизации и тестов.
 
 ## Примеры
 
 ### Внутренние отступы
 
-Use `gutter` to control responsive inline padding.
+Используйте `gutter` для управления адаптивными горизонтальными отступами.
 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="../../en/docs/_snippets/container/gutters.tsx"
@@ -112,7 +111,7 @@ Use `gutter` to control responsive inline padding.
 
 ### С Bleed
 
-Keep the text column constrained and let only the wider child opt out.
+Сохраняйте ограничение текстовой колонки и позволяйте выйти за её пределы только более широкому дочернему элементу.
 
 <PreviewFrame maxWidth="lg">
 ```tsx preview file="../../en/docs/_snippets/container/with-bleed.tsx"

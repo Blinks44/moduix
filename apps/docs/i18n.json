@@ -702,5 +702,29 @@
   "animationsRecipeSoftPopDescription": {
     "en": "A slower, more expressive scale-in for short confirmation surfaces.",
     "ru": "Более медленное и выразительное увеличение для коротких поверхностей подтверждения."
+  },
+  "frameworkAstroDescription": {
+    "en": "Interactive React islands in Astro.",
+    "ru": "Интерактивные React-острова в Astro."
+  },
+  "frameworkNextDescription": {
+    "en": "App Router and React Server Components.",
+    "ru": "App Router и React Server Components."
+  },
+  "frameworkReactRouterDescription": {
+    "en": "Framework mode and data mode apps.",
+    "ru": "Приложения в режиме фреймворка и в режиме данных."
+  },
+  "frameworkRsbuildDescription": {
+    "en": "React apps powered by Rspack.",
+    "ru": "React-приложения на базе Rspack."
+  },
+  "frameworkTanStackStartDescription": {
+    "en": "Full-stack React on Vite.",
+    "ru": "Полнофункциональный React на Vite."
+  },
+  "frameworkViteDescription": {
+    "en": "Standard React apps and SPAs.",
+    "ru": "Стандартные React-приложения и SPA."
   }
 }

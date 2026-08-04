@@ -3,6 +3,7 @@ title: Быстрый старт
 description: Установите moduix как пакет или добавьте исходный код компонентов из размещённого реестра shadcn.
 ---
 
+import { FrameworkGrid } from '@/components/docs/framework-grid';
 import { Card, Cards } from '@/components/mdx/Components';
 
 # Быстрый старт
@@ -41,44 +42,7 @@ moduix поддерживает два равнозначных подхода �
 Контракты пакета и реестра одинаковы в любом React-стеке. Выберите фреймворк, чтобы узнать точное расположение
 таблицы стилей, алиас исходного кода и клиентскую или SSR-границу.
 
-<Cards>
-  <Card
-    title="Astro"
-    description="Интерактивные React-острова в Astro."
-    href="/docs/installation/astro"
-    icon={<img src="/frameworks/astro.svg" alt="" />}
-  />
-  <Card
-    title="Next.js"
-    description="App Router и React Server Components."
-    href="/docs/installation/nextjs"
-    icon={<img src="/frameworks/nextjs.svg" alt="" />}
-  />
-  <Card
-    title="React Router"
-    description="Приложения в режиме фреймворка и в режиме данных."
-    href="/docs/installation/react-router"
-    icon={<img src="/frameworks/react-router.svg" alt="" />}
-  />
-  <Card
-    title="Rsbuild"
-    description="React-приложения на базе Rspack."
-    href="/docs/installation/rsbuild"
-    icon={<img src="/frameworks/rsbuild.svg" alt="" />}
-  />
-  <Card
-    title="TanStack Start"
-    description="Полнофункциональный React на Vite."
-    href="/docs/installation/tanstack-start"
-    icon={<img src="/frameworks/tanstack-start.svg" alt="" />}
-  />
-  <Card
-    title="Vite"
-    description="Стандартные React-приложения и SPA."
-    href="/docs/installation/vite"
-    icon={<img src="/frameworks/vite.svg" alt="" />}
-  />
-</Cards>
+<FrameworkGrid />
 
 ## Установить как пакет
 
