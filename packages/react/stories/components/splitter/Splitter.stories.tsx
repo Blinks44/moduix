@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import {
-  createSplitterRegistry,
-  Splitter,
-  useSplitter,
-} from '../../../src/components/splitter/Splitter';
+import { Button } from '@/components/button';
+import { createSplitterRegistry, Splitter, useSplitter } from '@/components/splitter/Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [

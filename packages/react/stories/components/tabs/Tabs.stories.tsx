@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Tabs, useTabs } from '../../../src/components/tabs/Tabs';
+import { Tabs, useTabs } from '@/components/tabs/Tabs';
 import { HandshakeIcon, MapIcon, PresentIcon } from '../../icons/demo';
 import styles from './Tabs.stories.module.css';
 

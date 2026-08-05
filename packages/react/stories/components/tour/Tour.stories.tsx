@@ -1,8 +1,8 @@
 import type { TourStepDetails } from '@ark-ui/react/tour';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Tour, useTour, waitForEvent } from '../../../src/components/tour/Tour';
+import { Button } from '@/components/button';
+import { Tour, useTour, waitForEvent } from '@/components/tour/Tour';
 import storyStyles from './Tour.stories.module.css';
 
 const meta = {

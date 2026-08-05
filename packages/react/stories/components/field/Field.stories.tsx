@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Checkbox } from '../../../src/components/checkbox';
-import { Field, useField } from '../../../src/components/field/Field';
-import { RadioGroup } from '../../../src/components/radio-group';
+import { Checkbox } from '@/components/checkbox';
+import { Field, useField } from '@/components/field/Field';
+import { RadioGroup } from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Field',

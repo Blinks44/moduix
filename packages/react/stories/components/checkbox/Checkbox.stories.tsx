@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
-import { Checkbox, useCheckbox } from '../../../src/components/checkbox/index';
-import { Fieldset } from '../../../src/components/fieldset';
+import { Checkbox, useCheckbox } from '@/components/checkbox/index';
+import { Fieldset } from '@/components/fieldset';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {

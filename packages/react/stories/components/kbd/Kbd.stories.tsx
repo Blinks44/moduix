@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Kbd } from '../../../src/components/kbd/Kbd';
+import { Kbd } from '@/components/kbd/Kbd';
 import styles from './Kbd.stories.module.css';
 
 const meta = {

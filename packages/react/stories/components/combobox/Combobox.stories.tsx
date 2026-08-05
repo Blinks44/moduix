@@ -2,7 +2,7 @@ import { createListCollection, useListCollection } from '@ark-ui/react/collectio
 import { useFilter } from '@ark-ui/react/locale';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useMemo, useState } from 'react';
-import { Combobox, useCombobox } from '../../../src/components/combobox/Combobox';
+import { Combobox, useCombobox } from '@/components/combobox/Combobox';
 import styles from './Combobox.stories.module.css';
 
 const meta = {

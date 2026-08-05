@@ -28,6 +28,7 @@
     "rslib.config.ts",
     "rstest.config.ts",
     "rstest.setup.ts",
+    "stories",
     "tests"
   ]
 }

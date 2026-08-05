@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Menu, useMenu } from '../../../src/components/menu/Menu';
+import { Button } from '@/components/button';
+import { Menu, useMenu } from '@/components/menu/Menu';
 import { InfoIcon, MapIcon } from '../../icons/demo';
 import storyStyles from './Menu.stories.module.css';
 

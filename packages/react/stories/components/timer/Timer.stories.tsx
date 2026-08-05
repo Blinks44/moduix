@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
+import { Timer, useTimer } from '@/components/timer/Timer';
 import { PauseIcon, PlayIcon, RotateCcwIcon } from '@/lib/moduix/icons/ui';
-import { Timer, useTimer } from '../../../src/components/timer/Timer';
 import styles from './Timer.stories.module.css';
 
 const meta = {

@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import {
-  ColorPicker,
-  parseColor,
-  useColorPicker,
-} from '../../../src/components/color-picker/ColorPicker';
+import { ColorPicker, parseColor, useColorPicker } from '@/components/color-picker/ColorPicker';
 import styles from './ColorPicker.stories.module.css';
 
 const swatches = ['#0f172a', '#2563eb', '#16a34a', '#f97316', '#dc2626', '#9333ea'];

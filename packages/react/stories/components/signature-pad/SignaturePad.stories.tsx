@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { SignaturePad, useSignaturePad } from '../../../src/components/signature-pad/SignaturePad';
+import { Field } from '@/components/field';
+import { SignaturePad, useSignaturePad } from '@/components/signature-pad/SignaturePad';
 import styles from './SignaturePad.stories.module.css';
 
 const meta = {

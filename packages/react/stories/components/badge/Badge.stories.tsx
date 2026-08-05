@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
+import { Badge } from '@/components/badge/Badge';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { Badge } from '../../../src/components/badge/Badge';
 import styles from './Badge.stories.module.css';
 
 const meta = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type CSSProperties } from 'react';
-import { Pagination } from '../../../src/components/pagination/Pagination';
+import { Pagination } from '@/components/pagination/Pagination';
 
 type PaginationStoryArgs = {
   count?: number;

@@ -1,9 +1,9 @@
 import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+import { Button } from '@/components/button';
+import { Toast, Toaster, createToaster } from '@/components/toast/Toast';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Toast, Toaster, createToaster } from '../../../src/components/toast/Toast';
 import { InfoIcon } from '../../icons/demo';
 import styles from './Toast.stories.module.css';
 

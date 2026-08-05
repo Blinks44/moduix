@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useId, useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { PinInput, usePinInput } from '../../../src/components/pin-input/PinInput';
+import { Field } from '@/components/field';
+import { PinInput, usePinInput } from '@/components/pin-input/PinInput';
 import storyStyles from './PinInput.stories.module.css';
 
 const PIN_COUNT = 6;

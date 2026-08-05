@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
+import { Swap } from '@/components/swap/Swap';
 import { CheckIcon, PauseIcon, PlayIcon, UploadIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Swap } from '../../../src/components/swap/Swap';
 import styles from './Swap.stories.module.css';
 
 const meta = {

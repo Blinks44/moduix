@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Skeleton } from '../../../src/components/skeleton/Skeleton';
-import { Stack } from '../../../src/components/stack';
+import { Skeleton } from '@/components/skeleton/Skeleton';
+import { Stack } from '@/components/stack';
 import styles from './Skeleton.stories.module.css';
 
 const meta = {

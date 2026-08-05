@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { SegmentGroup, useSegmentGroup } from '../../../src/components/segment-group/SegmentGroup';
+import { SegmentGroup, useSegmentGroup } from '@/components/segment-group/SegmentGroup';
 import styles from './SegmentGroup.stories.module.css';
 
 const meta = {

@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 import {
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
   useTreeViewNodeContext,
-} from '../../../src/components/tree-view/TreeView';
+} from '@/components/tree-view/TreeView';
+import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {

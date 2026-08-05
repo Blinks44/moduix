@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Menu } from '@/components/menu';
+import { SplitButton } from '@/components/split-button/SplitButton';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Menu } from '../../../src/components/menu';
-import { SplitButton } from '../../../src/components/split-button/SplitButton';
 import { ArrowUpRightIcon } from '../../icons/demo';
 import styles from './SplitButton.stories.module.css';
 

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Alert } from '@/components/alert/Alert';
+import { Button } from '@/components/button';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { Alert } from '../../../src/components/alert/Alert';
-import { Button } from '../../../src/components/button';
 import { InfoIcon } from '../../icons/demo';
 import styles from './Alert.stories.module.css';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Tag } from '@/components/tag/Tag';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { Tag } from '../../../src/components/tag/Tag';
 import styles from './Tag.stories.module.css';
 
 const meta = {

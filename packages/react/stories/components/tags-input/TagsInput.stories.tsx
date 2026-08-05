@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useId, useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { TagsInput, useTagsInput } from '../../../src/components/tags-input/TagsInput';
+import { Field } from '@/components/field';
+import { TagsInput, useTagsInput } from '@/components/tags-input/TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];

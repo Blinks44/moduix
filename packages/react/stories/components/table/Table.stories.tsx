@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Badge } from '../../../src/components/badge';
-import { Card } from '../../../src/components/card';
-import { Table } from '../../../src/components/table/Table';
+import { Badge } from '@/components/badge';
+import { Card } from '@/components/card';
+import { Table } from '@/components/table/Table';
 import styles from './Table.stories.module.css';
 
 const invoices = [

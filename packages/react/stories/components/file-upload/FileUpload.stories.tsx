@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { FileUpload, useFileUpload } from '../../../src/components/file-upload/FileUpload';
+import { Field } from '@/components/field';
+import { FileUpload, useFileUpload } from '@/components/file-upload/FileUpload';
 import styles from './FileUpload.stories.module.css';
 
 const meta = {

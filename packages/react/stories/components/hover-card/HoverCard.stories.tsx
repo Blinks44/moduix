@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
+import { HoverCard, useHoverCard } from '@/components/hover-card/HoverCard';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
-import { HoverCard, useHoverCard } from '../../../src/components/hover-card/HoverCard';
 import styles from './HoverCard.stories.module.css';
 
 const meta = {

@@ -3,10 +3,10 @@ import { parseDate, type DateValue } from '@ark-ui/react/date-picker';
 import { today } from '@internationalized/date';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { DatePicker, useDatePicker } from '../../../src/components/date-picker/DatePicker';
-import { Field } from '../../../src/components/field';
-import { Select } from '../../../src/components/select';
+import { Button } from '@/components/button';
+import { DatePicker, useDatePicker } from '@/components/date-picker/DatePicker';
+import { Field } from '@/components/field';
+import { Select } from '@/components/select';
 import storyStyles from './DatePicker.stories.module.css';
 
 type DatePickerSelectItem = {

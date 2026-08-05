@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../../../src/components/button';
-import { Empty } from '../../../src/components/empty/Empty';
+import { Button } from '@/components/button';
+import { Empty } from '@/components/empty/Empty';
 import { ComputerIcon, MapIcon } from '../../icons/demo';
 import styles from './Empty.stories.module.css';
 

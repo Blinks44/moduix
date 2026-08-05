@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { NativeSelect } from '../../../src/components/native-select/NativeSelect';
+import { Field } from '@/components/field';
+import { NativeSelect } from '@/components/native-select/NativeSelect';
 
 const meta = {
   title: 'Components/NativeSelect',

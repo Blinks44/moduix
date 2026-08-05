@@ -3,9 +3,9 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
+import { Button } from '@/components/button';
+import { CommandPalette } from '@/components/command-palette/CommandPalette';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { CommandPalette } from '../../../src/components/command-palette/CommandPalette';
 import { ArrowUpRightIcon, BellIcon, StarIcon } from '../../icons/demo';
 import styles from './CommandPalette.stories.module.css';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Editable, useEditable } from '../../../src/components/editable/Editable';
-import { Field } from '../../../src/components/field';
+import { Editable, useEditable } from '@/components/editable/Editable';
+import { Field } from '@/components/field';
 import storyStyles from './Editable.stories.module.css';
 
 const meta = {

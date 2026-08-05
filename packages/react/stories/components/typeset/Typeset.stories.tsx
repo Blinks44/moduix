@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Typeset } from '../../../src/components/typeset/Typeset';
+import { Typeset } from '@/components/typeset/Typeset';
 import styles from './Typeset.stories.module.css';
 
 const meta = {

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+import { Button } from '@/components/button/Button';
+import { Spinner } from '@/components/spinner';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button/Button';
-import { Spinner } from '../../../src/components/spinner';
 import { ArrowUpRightIcon, StarIcon } from '../../icons/demo';
 import styles from './Button.stories.module.css';
 

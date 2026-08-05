@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
+import { Carousel, useCarousel } from '@/components/carousel/Carousel';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Carousel, useCarousel } from '../../../src/components/carousel/Carousel';
 import styles from './Carousel.stories.module.css';
 
 const slides = [

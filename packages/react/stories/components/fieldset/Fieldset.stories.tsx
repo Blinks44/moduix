@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from '../../../src/components/checkbox';
-import { Field } from '../../../src/components/field';
-import { Fieldset, useFieldset } from '../../../src/components/fieldset/Fieldset';
-import { RadioGroup } from '../../../src/components/radio-group';
+import { Checkbox } from '@/components/checkbox';
+import { Field } from '@/components/field';
+import { Fieldset, useFieldset } from '@/components/fieldset/Fieldset';
+import { RadioGroup } from '@/components/radio-group';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {

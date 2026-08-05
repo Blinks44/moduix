@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
+import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
+import { Menu } from '@/components/menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { Breadcrumbs } from '../../../src/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '../../../src/components/menu';
 
 const defaultItems = [
   { href: '#', label: 'Home' },

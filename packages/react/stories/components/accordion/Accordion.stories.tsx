@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
+import { Accordion, useAccordion } from '@/components/accordion/Accordion';
+import { Slider } from '@/components/slider';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Accordion, useAccordion } from '../../../src/components/accordion/Accordion';
-import { Slider } from '../../../src/components/slider';
 import styles from './Accordion.stories.module.css';
 
 const meta = {

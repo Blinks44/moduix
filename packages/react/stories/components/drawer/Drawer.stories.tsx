@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactNode } from 'react';
-import { Button } from '../../../src/components/button';
-import { Drawer, useDrawer, useDrawerContext } from '../../../src/components/drawer/Drawer';
-import { ScrollArea } from '../../../src/components/scroll-area/ScrollArea';
+import { Button } from '@/components/button';
+import { Drawer, useDrawer, useDrawerContext } from '@/components/drawer/Drawer';
+import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import { AngleSlider, useAngleSlider } from '../../../src/components/angle-slider/AngleSlider';
+import { AngleSlider, useAngleSlider } from '@/components/angle-slider/AngleSlider';
 import styles from './AngleSlider.stories.module.css';
 
 const markerValues = Array.from({ length: 8 }, (_, index) => index * 45);

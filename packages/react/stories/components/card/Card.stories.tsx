@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Badge } from '../../../src/components/badge';
-import { Button } from '../../../src/components/button';
-import { Card } from '../../../src/components/card/Card';
-import { Input } from '../../../src/components/input';
+import { Badge } from '@/components/badge';
+import { Button } from '@/components/button';
+import { Card } from '@/components/card/Card';
+import { Input } from '@/components/input';
 import styles from './Card.stories.module.css';
 
 const meta = {

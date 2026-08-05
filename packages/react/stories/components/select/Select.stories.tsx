@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import { Select } from '../../../src/components/select/Select';
+import { Select } from '@/components/select/Select';
 import { InfoIcon } from '../../icons/demo';
 import styles from './Select.stories.module.css';
 

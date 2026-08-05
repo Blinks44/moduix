@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Bleed } from '../../../src/components/bleed';
-import { Container } from '../../../src/components/container/Container';
-import { Text } from '../../../src/components/text';
+import { Bleed } from '@/components/bleed';
+import { Container } from '@/components/container/Container';
+import { Text } from '@/components/text';
 import storyStyles from './Container.stories.module.css';
 
 const meta = {

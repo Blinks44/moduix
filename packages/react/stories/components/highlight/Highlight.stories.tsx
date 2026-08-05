@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Highlight } from '../../../src/components/highlight/Highlight';
-import { Input } from '../../../src/components/input';
-import { Text } from '../../../src/components/text';
+import { Highlight } from '@/components/highlight/Highlight';
+import { Input } from '@/components/input';
+import { Text } from '@/components/text';
 import storyStyles from './Highlight.stories.module.css';
 
 const meta = {

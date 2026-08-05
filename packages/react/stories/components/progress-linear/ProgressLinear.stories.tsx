@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ProgressLinear } from '../../../src/components/progress-linear/ProgressLinear';
+import { ProgressLinear } from '@/components/progress-linear/ProgressLinear';
 import styles from './ProgressLinear.stories.module.css';
 
 const meta = {

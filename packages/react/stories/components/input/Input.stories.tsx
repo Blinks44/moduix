@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { Input } from '../../../src/components/input/Input';
+import { Field } from '@/components/field';
+import { Input } from '@/components/input/Input';
 import storyStyles from './Input.stories.module.css';
 
 const meta = {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
+import { Toggle, useToggleContext } from '@/components/toggle/Toggle';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { Toggle, useToggleContext } from '../../../src/components/toggle/Toggle';
 import { BellIcon, StarIcon } from '../../icons/demo';
 import storyStyles from './Toggle.stories.module.css';
 

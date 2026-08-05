@@ -2,6 +2,14 @@ import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { Avatar } from '@/components/avatar';
+import { Button } from '@/components/button';
+import { Collapsible } from '@/components/collapsible';
+import { Drawer } from '@/components/drawer';
+import { Menu } from '@/components/menu';
+import { ScrollArea } from '@/components/scroll-area';
+import { Select } from '@/components/select';
+import { Sidebar } from '@/components/sidebar/Sidebar';
 import {
   ChevronUpDownIcon,
   FileIcon,
@@ -12,14 +20,6 @@ import {
   RestartIcon,
   TrashIcon,
 } from '@/lib/moduix/icons/ui';
-import { Avatar } from '../../../src/components/avatar';
-import { Button } from '../../../src/components/button';
-import { Collapsible } from '../../../src/components/collapsible';
-import { Drawer } from '../../../src/components/drawer';
-import { Menu } from '../../../src/components/menu';
-import { ScrollArea } from '../../../src/components/scroll-area';
-import { Select } from '../../../src/components/select';
-import { Sidebar } from '../../../src/components/sidebar/Sidebar';
 import styles from './Sidebar.stories.module.css';
 
 const meta = {

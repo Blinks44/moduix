@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
-import { CloseButton } from '../../../src/components/close-button/CloseButton';
+import { CloseButton } from '@/components/close-button/CloseButton';
 import styles from './CloseButton.stories.module.css';
 
 const meta = {

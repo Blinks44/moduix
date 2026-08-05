@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Image } from '../../../src/components/image/Image';
+import { Image } from '@/components/image/Image';
 import styles from './Image.stories.module.css';
 
 const mountainImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4';
@@ -62,7 +62,7 @@ export const Unstyled: Story = {
         width={800}
         height={520}
         unstyled
-        style={{ inlineSize: '100%', aspectRatio: '4 / 3', objectFit: 'cover' }}
+        className={styles.unstyledImage}
       />
     </div>
   ),

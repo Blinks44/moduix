@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { List } from '../../../src/components/list/List';
+import { List } from '@/components/list/List';
 import storyStyles from './List.stories.module.css';
 
 const defaultItems = [

@@ -5,8 +5,8 @@ import {
   DateInput,
   type DateInputDateValue,
   useDateInput,
-} from '../../../src/components/date-input/DateInput';
-import { Field } from '../../../src/components/field';
+} from '@/components/date-input/DateInput';
+import { Field } from '@/components/field';
 import storyStyles from './DateInput.stories.module.css';
 
 const meta = {

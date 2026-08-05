@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Slider, useSlider, useSliderContext } from '../../../src/components/slider/Slider';
+import { Button } from '@/components/button';
+import { Slider, useSlider, useSliderContext } from '@/components/slider/Slider';
 import styles from './Slider.stories.module.css';
 
 const meta = {

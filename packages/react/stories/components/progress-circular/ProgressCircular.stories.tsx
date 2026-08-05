@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { ProgressCircular } from '../../../src/components/progress-circular/ProgressCircular';
-import { Slider } from '../../../src/components/slider';
+import { ProgressCircular } from '@/components/progress-circular/ProgressCircular';
+import { Slider } from '@/components/slider';
 import styles from './ProgressCircular.stories.module.css';
 
 const meta = {

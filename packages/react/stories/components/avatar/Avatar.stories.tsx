@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ImgHTMLAttributes, useState } from 'react';
-import { Avatar, useAvatar, useAvatarContext } from '../../../src/components/avatar/index';
+import { Avatar, useAvatar, useAvatarContext } from '@/components/avatar/index';
 import { ComputerIcon } from '../../icons/demo';
 import styles from './Avatar.stories.module.css';
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../../../src/components/button';
-import { ScrollArea } from '../../../src/components/scroll-area/ScrollArea';
+import { Button } from '@/components/button';
+import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import styles from './ScrollArea.stories.module.css';
 

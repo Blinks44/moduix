@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
+import { ImageCropper, useImageCropper } from '@/components/image-cropper/ImageCropper';
 import {
   FlipHorizontalIcon,
   RestartIcon,
@@ -9,8 +11,6 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { ImageCropper, useImageCropper } from '../../../src/components/image-cropper/ImageCropper';
 import styles from './ImageCropper.stories.module.css';
 
 const sampleImage =

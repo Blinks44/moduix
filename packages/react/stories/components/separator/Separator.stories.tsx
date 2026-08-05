@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Separator } from '../../../src/components/separator/Separator';
+import { Separator } from '@/components/separator/Separator';
 import styles from './Separator.stories.module.css';
 
 const meta = {

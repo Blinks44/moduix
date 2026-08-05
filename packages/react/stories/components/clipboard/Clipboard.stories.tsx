@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { Button } from '../../../src/components/button';
-import { Clipboard } from '../../../src/components/clipboard/Clipboard';
-import { Input } from '../../../src/components/input';
+import { Button } from '@/components/button';
+import { Clipboard } from '@/components/clipboard/Clipboard';
+import { Input } from '@/components/input';
 import styles from './Clipboard.stories.module.css';
 
 const meta = {

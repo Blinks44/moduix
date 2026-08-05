@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Dialog, useDialog, useDialogContext } from '../../../src/components/dialog/Dialog';
-import { ScrollArea } from '../../../src/components/scroll-area';
+import { Button } from '@/components/button';
+import { Dialog, useDialog, useDialogContext } from '@/components/dialog/Dialog';
+import { ScrollArea } from '@/components/scroll-area';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import storyStyles from './Dialog.stories.module.css';
 

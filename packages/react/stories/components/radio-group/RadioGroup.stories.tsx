@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { Fieldset } from '../../../src/components/fieldset';
-import { RadioGroup, useRadioGroup } from '../../../src/components/radio-group/RadioGroup';
+import { Field } from '@/components/field';
+import { Fieldset } from '@/components/fieldset';
+import { RadioGroup, useRadioGroup } from '@/components/radio-group/RadioGroup';
 import styles from './RadioGroup.stories.module.css';
 
 const meta = {

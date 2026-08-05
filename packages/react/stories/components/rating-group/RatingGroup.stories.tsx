@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Field } from '../../../src/components/field';
-import { RatingGroup, useRatingGroup } from '../../../src/components/rating-group/RatingGroup';
+import { Button } from '@/components/button';
+import { Field } from '@/components/field';
+import { RatingGroup, useRatingGroup } from '@/components/rating-group/RatingGroup';
 import { HeartIcon } from '../../icons/demo';
 import storyStyles from './RatingGroup.stories.module.css';
 

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
-import { Button } from '../../../src/components/button';
-import { Field } from '../../../src/components/field';
-import { Switch, useSwitch, useSwitchContext } from '../../../src/components/switch/Switch';
+import { Button } from '@/components/button';
+import { Field } from '@/components/field';
+import { Switch, useSwitch, useSwitchContext } from '@/components/switch/Switch';
 import styles from './Switch.stories.module.css';
 
 const meta = {
