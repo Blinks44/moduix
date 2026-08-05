@@ -145,29 +145,29 @@ Extends Ark `div` props and supports `asChild`.
 
 ### Public CSS variables
 
-| Variable                                 | Default/fallback                                                         |
-| ---------------------------------------- | ------------------------------------------------------------------------ |
-| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                                |
-| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                                |
-| `--moduix-alert-bg`                      | `var(--moduix-alert-bg-default, var(--moduix-color-card))`               |
-| `--moduix-alert-border-color`            | `var(--moduix-alert-border-color-default, var(--moduix-color-border))`   |
-| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                          |
-| `--moduix-alert-color`                   | `var(--moduix-alert-color-default, var(--moduix-color-card-foreground))` |
-| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                                |
-| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                                   |
-| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                                  |
-| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                      |
-| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                                |
-| `--moduix-alert-indicator-color`         | `var(--moduix-alert-indicator-color-default, currentColor)`              |
-| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                              |
-| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                                |
-| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                                |
-| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                                |
-| `--moduix-alert-shadow`                  | `none`                                                                   |
-| `--moduix-alert-title-color`             | `var(--moduix-alert-color, var(--moduix-alert-color-default))`           |
-| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                                  |
-| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                          |
-| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                      |
+| Variable                                 | Default/fallback                                                      |
+| ---------------------------------------- | --------------------------------------------------------------------- |
+| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                             |
+| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                             |
+| `--moduix-alert-bg`                      | Status-dependent; neutral uses `var(--moduix-color-card)`             |
+| `--moduix-alert-border-color`            | Status-dependent; neutral uses `var(--moduix-color-border)`           |
+| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                       |
+| `--moduix-alert-color`                   | Status-dependent; neutral uses `var(--moduix-color-card-foreground)`  |
+| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                             |
+| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                               |
+| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                   |
+| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                             |
+| `--moduix-alert-indicator-color`         | Status-dependent; neutral uses `var(--moduix-color-muted-foreground)` |
+| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                           |
+| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                             |
+| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                             |
+| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                             |
+| `--moduix-alert-shadow`                  | `none`                                                                |
+| `--moduix-alert-title-color`             | `var(--moduix-alert-color)`                                           |
+| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                               |
+| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                       |
+| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                   |
 
 Built-in statuses derive their accents from shared palette tokens:
 

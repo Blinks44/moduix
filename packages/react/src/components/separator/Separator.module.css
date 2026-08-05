@@ -7,7 +7,7 @@
     border-color: var(--moduix-separator-color, var(--moduix-color-border));
     border-style: var(
       --moduix-separator-border-style,
-      var(--moduix-separator-variant-border-style, solid)
+      var(--_separator-variant-border-style, solid)
     );
 
     &[data-size='xs'] {
@@ -33,11 +33,11 @@
     }
 
     &[data-variant='dashed'] {
-      --moduix-separator-variant-border-style: dashed;
+      --_separator-variant-border-style: dashed;
     }
 
     &[data-variant='dotted'] {
-      --moduix-separator-variant-border-style: dotted;
+      --_separator-variant-border-style: dotted;
     }
 
     &[data-orientation='horizontal'] {

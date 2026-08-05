@@ -35,7 +35,7 @@ semantic child, forwarded refs to the rendered root, and no legacy `render` or l
 - Defaults to `size="lg"` and `gutter="md"`.
 - Centers itself with `margin-inline: auto`, always keeps `width: 100%`, and applies inline padding
   from the selected gutter.
-- Uses `max-width: calc(var(--moduix-container-max-width) + (var(--moduix-container-gutter) * 2))`, so the
+- Uses the resolved size plus both inline gutters for `max-width`, so the
   constrained width includes the root's left and right padding.
 - `size="full"` removes only the max-width cap. The root still keeps `width: 100%` and the selected
   gutter.

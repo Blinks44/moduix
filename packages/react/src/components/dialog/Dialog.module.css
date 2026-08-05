@@ -220,7 +220,7 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--moduix-dialog-footer-gap, var(--moduix-spacing-2));
-    margin-top: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
+    margin-block-start: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
   }
 
   .closeIcon {

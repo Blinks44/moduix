@@ -88,6 +88,16 @@ export const Markerless: Story = {
   ),
 };
 
+export const Row: Story = {
+  render: () => (
+    <List marker="none" className={storyStyles.rowList}>
+      <List.Item>Semantic HTML</List.Item>
+      <List.Item>Responsive spacing</List.Item>
+      <List.Item>Composable styling</List.Item>
+    </List>
+  ),
+};
+
 export const Tones: Story = {
   render: () => (
     <div className={storyStyles.stack}>

@@ -140,10 +140,10 @@
   --moduix-angle-slider-value-text-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-angle-slider-value-text-line-height: initial; /* var(--moduix-line-height-text-sm) */
   /* Alert */
-  --moduix-alert-bg: initial; /* var(--moduix-alert-bg-default, var(--moduix-color-card)) */
-  --moduix-alert-border-color: initial; /* var(--moduix-alert-border-color-default, var(--moduix-color-border)) */
+  --moduix-alert-bg: initial; /* status-dependent; neutral: var(--moduix-color-card) */
+  --moduix-alert-border-color: initial; /* status-dependent; neutral: var(--moduix-color-border) */
   --moduix-alert-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-alert-color: initial; /* var(--moduix-alert-color-default, var(--moduix-color-card-foreground)) */
+  --moduix-alert-color: initial; /* status-dependent; neutral: var(--moduix-color-card-foreground) */
   --moduix-alert-content-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-alert-actions-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-alert-actions-margin-top: initial; /* var(--moduix-spacing-2) */
@@ -151,13 +151,13 @@
   --moduix-alert-description-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-alert-description-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-alert-gap: initial; /* var(--moduix-spacing-3) */
-  --moduix-alert-indicator-color: initial; /* var(--moduix-alert-indicator-color-default, currentColor) */
+  --moduix-alert-indicator-color: initial; /* status-dependent; neutral: var(--moduix-color-muted-foreground) */
   --moduix-alert-indicator-offset: initial; /* var(--moduix-spacing-0-5) */
   --moduix-alert-indicator-size: initial; /* var(--moduix-spacing-4) */
   --moduix-alert-padding: initial; /* var(--moduix-spacing-3) */
   --moduix-alert-radius: initial; /* var(--moduix-radius-lg) */
   --moduix-alert-shadow: initial; /* none */
-  --moduix-alert-title-color: initial; /* var(--moduix-alert-color, var(--moduix-alert-color-default)) */
+  --moduix-alert-title-color: initial; /* var(--moduix-alert-color) */
   --moduix-alert-title-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-alert-title-font-weight: initial; /* var(--moduix-weight-semibold) */
   --moduix-alert-title-line-height: initial; /* var(--moduix-line-height-text-sm) */
@@ -2746,7 +2746,7 @@
   --moduix-switch-thumb-size-lg: initial; /* var(--moduix-size-xs) */
   --moduix-switch-thumb-size-xl: initial; /* var(--moduix-spacing-7) */
   --moduix-switch-thumb-transition: initial; /* var(--moduix-switch-transition, var(--moduix-transition-default)) */
-  --moduix-switch-thumb-translate: initial; /* var(--moduix-switch-thumb-translate-default) */
+  --moduix-switch-thumb-translate: initial; /* size-dependent control width minus thumb size and borders */
   --moduix-switch-transition: initial; /* var(--moduix-transition-default) */
   --moduix-switch-width-xs: initial; /* 1.75rem */
   --moduix-switch-width-sm: initial; /* 2.25rem */

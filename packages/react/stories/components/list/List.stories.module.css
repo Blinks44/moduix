@@ -3,6 +3,11 @@
   width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
 }
 
+.rowList {
+  flex-flow: row wrap;
+  width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
+}
+
 .stack {
   display: flex;
   flex-direction: column;

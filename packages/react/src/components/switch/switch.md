@@ -187,7 +187,7 @@ Public CSS variables:
 | `--moduix-switch-thumb-size-lg`         | `var(--moduix-size-xs)`                                                 | Thumb size for `size="lg"`.          |
 | `--moduix-switch-thumb-size-xl`         | `var(--moduix-spacing-7)`                                               | Thumb size for `size="xl"`.          |
 | `--moduix-switch-thumb-transition`      | `var(--moduix-switch-transition, var(--moduix-transition-default))`     | Thumb movement transition timing.    |
-| `--moduix-switch-thumb-translate`       | `var(--moduix-switch-thumb-translate-default)`                          | Checked thumb translation distance.  |
+| `--moduix-switch-thumb-translate`       | Size-dependent control width minus thumb size and borders               | Checked thumb translation distance.  |
 | `--moduix-switch-transition`            | `var(--moduix-transition-default)`                                      | State transition timing.             |
 | `--moduix-switch-width-xs`              | `1.75rem`                                                               | Control width for `size="xs"`.       |
 | `--moduix-switch-width-sm`              | `2.25rem`                                                               | Control width for `size="sm"`.       |

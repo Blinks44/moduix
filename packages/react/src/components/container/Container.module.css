@@ -1,33 +1,33 @@
 @layer moduix.components {
   .root {
-    --moduix-container-gutter: var(
+    --_container-gutter: var(
       --moduix-container-gutter-md,
       clamp(var(--moduix-spacing-4), 4vw, var(--moduix-spacing-8))
     );
-    --moduix-container-max-width: var(--moduix-container-max-width-lg, 72rem);
+    --_container-max-width: var(--moduix-container-max-width-lg, 72rem);
 
     box-sizing: border-box;
     display: block;
     width: 100%;
-    max-width: calc(var(--moduix-container-max-width) + (var(--moduix-container-gutter) * 2));
+    max-width: calc(var(--_container-max-width) + (var(--_container-gutter) * 2));
     min-width: 0;
     margin-inline: auto;
-    padding-inline: var(--moduix-container-gutter);
+    padding-inline: var(--_container-gutter);
 
     &[data-size='xs'] {
-      --moduix-container-max-width: var(--moduix-container-max-width-xs, 40rem);
+      --_container-max-width: var(--moduix-container-max-width-xs, 40rem);
     }
 
     &[data-size='sm'] {
-      --moduix-container-max-width: var(--moduix-container-max-width-sm, 48rem);
+      --_container-max-width: var(--moduix-container-max-width-sm, 48rem);
     }
 
     &[data-size='md'] {
-      --moduix-container-max-width: var(--moduix-container-max-width-md, 64rem);
+      --_container-max-width: var(--moduix-container-max-width-md, 64rem);
     }
 
     &[data-size='xl'] {
-      --moduix-container-max-width: var(--moduix-container-max-width-xl, 90rem);
+      --_container-max-width: var(--moduix-container-max-width-xl, 90rem);
     }
 
     &[data-size='full'] {
@@ -35,18 +35,18 @@
     }
 
     &[data-gutter='none'] {
-      --moduix-container-gutter: 0;
+      --_container-gutter: 0;
     }
 
     &[data-gutter='sm'] {
-      --moduix-container-gutter: var(
+      --_container-gutter: var(
         --moduix-container-gutter-sm,
         clamp(var(--moduix-spacing-3), 3vw, var(--moduix-spacing-6))
       );
     }
 
     &[data-gutter='lg'] {
-      --moduix-container-gutter: var(
+      --_container-gutter: var(
         --moduix-container-gutter-lg,
         clamp(var(--moduix-spacing-6), 5vw, 3rem)
       );

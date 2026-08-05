@@ -215,13 +215,13 @@
   }
 
   .autoplayTrigger {
-    --moduix-carousel-autoplay-trigger-min-width-fallback: calc(
+    --_carousel-autoplay-trigger-min-width-fallback: calc(
       var(--moduix-size-md) + var(--moduix-spacing-3)
     );
 
     min-width: var(
       --moduix-carousel-autoplay-trigger-min-width,
-      var(--moduix-carousel-autoplay-trigger-min-width-fallback)
+      var(--_carousel-autoplay-trigger-min-width-fallback)
     );
   }
 

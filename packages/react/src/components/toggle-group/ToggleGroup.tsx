@@ -9,11 +9,9 @@ import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { createContext, forwardRef, useContext } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
+import type { ToggleSize, ToggleVariant } from '../toggle/Toggle';
 import toggleStyles from '../toggle/Toggle.module.css';
 import styles from './ToggleGroup.module.css';
-
-type ToggleVariant = 'default' | 'outline' | 'ghost';
-type ToggleSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
 const defaultToggleGroupStyles = {
   variant: 'default' as ToggleVariant,

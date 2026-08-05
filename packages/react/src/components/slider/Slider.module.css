@@ -191,7 +191,7 @@
   .markerGroup {
     display: flex;
     justify-content: space-between;
-    margin-top: var(--moduix-slider-marker-group-margin-top, var(--moduix-spacing-2));
+    margin-block-start: var(--moduix-slider-marker-group-margin-top, var(--moduix-spacing-2));
 
     &[data-orientation='vertical'] {
       flex-direction: column;

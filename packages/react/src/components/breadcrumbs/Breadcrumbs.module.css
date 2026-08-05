@@ -51,7 +51,7 @@
     text-underline-offset: var(--moduix-breadcrumbs-link-underline-offset, 0.2em);
     border-radius: var(--moduix-breadcrumbs-link-radius, var(--moduix-radius-sm));
     outline: none;
-    transition: var(--moduix-breadcrumbs-link-transition, var(--moduix-transition-default));
+    transition: color var(--moduix-breadcrumbs-link-transition, var(--moduix-transition-default));
 
     @media (hover: hover) {
       &:hover {

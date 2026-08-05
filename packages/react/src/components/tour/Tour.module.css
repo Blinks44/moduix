@@ -30,11 +30,11 @@
   }
 
   .positioner {
-    --moduix-tour-positioner-z-index: calc(
+    --_tour-positioner-z-index: calc(
       var(--moduix-tour-z-index, var(--moduix-z-modal)) + var(--tour-layer, 0) +
         var(--layer-index, 0)
     );
-    z-index: var(--z-index, var(--moduix-tour-positioner-z-index));
+    z-index: var(--z-index, var(--_tour-positioner-z-index));
     max-width: var(--available-width);
     max-height: var(--available-height);
     outline: 0;
@@ -240,7 +240,7 @@
 
   .progressText {
     order: 1;
-    margin-top: var(--moduix-tour-progress-text-margin-top, var(--moduix-spacing-2));
+    margin-block-start: var(--moduix-tour-progress-text-margin-top, var(--moduix-spacing-2));
     color: var(--moduix-tour-progress-text-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-tour-progress-text-font-size, var(--moduix-text-xs));
     line-height: var(--moduix-tour-progress-text-line-height, var(--moduix-line-height-text-xs));
@@ -339,7 +339,7 @@
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: var(--moduix-tour-control-gap, var(--moduix-spacing-2));
-    margin-top: var(--moduix-tour-control-margin-top, var(--moduix-spacing-3));
+    margin-block-start: var(--moduix-tour-control-margin-top, var(--moduix-spacing-3));
   }
 
   .actionTrigger {
