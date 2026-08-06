@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Tour as TourPrimitive,
   useTour,
@@ -173,12 +174,12 @@ const TourProgressText = forwardRef<
   );
 });
 
-const TourBody = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function TourBody(
+const TourBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(function TourBody(
   { className, ...props },
   ref,
 ) {
   return (
-    <div
+    <ark.div
       ref={ref}
       data-slot="tour-body"
       className={clsx(styles.body, normalizeClassName(className))}

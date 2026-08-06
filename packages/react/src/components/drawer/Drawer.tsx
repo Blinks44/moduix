@@ -6,6 +6,7 @@ import {
   useDrawerContext,
   useDrawerStackContext,
 } from '@ark-ui/react/drawer';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -256,17 +257,44 @@ const DrawerIndentBackground = forwardRef<
   );
 });
 
-function DrawerHeader({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="drawer-header" className={clsx(styles.header, className)} {...props} />;
-}
+const DrawerHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DrawerHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="drawer-header"
+        className={clsx(styles.header, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function DrawerBody({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="drawer-body" className={clsx(styles.body, className)} {...props} />;
-}
+const DrawerBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DrawerBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="drawer-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function DrawerFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="drawer-footer" className={clsx(styles.footer, className)} {...props} />;
-}
+const DrawerFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DrawerFooter({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="drawer-footer"
+        className={clsx(styles.footer, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Drawer = Object.assign(DrawerRoot, {
   Root: DrawerRoot,

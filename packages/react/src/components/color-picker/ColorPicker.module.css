@@ -121,7 +121,7 @@
       outline-color var(--moduix-color-picker-transition, var(--moduix-transition-default)),
       background-color var(--moduix-color-picker-transition, var(--moduix-transition-default));
 
-    &:is(:focus-visible, [data-focus]) {
+    &:is(:focus-visible, [data-state='open']) {
       border-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
       outline-color: var(--moduix-color-picker-focus-ring-color, var(--moduix-color-ring));
     }

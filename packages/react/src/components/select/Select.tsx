@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Select as SelectPrimitive,
   type CollectionItem,
@@ -412,35 +413,44 @@ function SelectFormControl({ nativeFormControl }: { nativeFormControl: SelectNat
   );
 }
 
-function SelectItemTextContent({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="select-item-text-content"
-      className={clsx(styles.itemTextContent, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const SelectItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function SelectItemTextContent({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="select-item-text-content"
+        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function SelectItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="select-item-text-icon"
-      className={clsx(styles.itemTextIcon, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const SelectItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function SelectItemTextIcon({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="select-item-text-icon"
+        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function SelectItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="select-item-text-label"
-      className={clsx(styles.itemTextLabel, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const SelectItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function SelectItemTextLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="select-item-text-label"
+        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Select = Object.assign(SelectRoot, {
   Root: SelectRoot,

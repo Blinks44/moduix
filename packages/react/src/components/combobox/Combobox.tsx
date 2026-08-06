@@ -11,6 +11,7 @@ import {
   useComboboxContext,
   useComboboxItemContext,
 } from '@ark-ui/react/combobox';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ForwardedRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
@@ -231,19 +232,18 @@ const ComboboxEmpty = forwardRef<
   );
 });
 
-const ComboboxStatus = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function ComboboxStatus(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <div
-      ref={ref}
-      data-slot="combobox-status"
-      className={clsx(styles.status, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const ComboboxStatus = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function ComboboxStatus({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="combobox-status"
+        className={clsx(styles.status, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const ComboboxList = forwardRef<
   ComponentRef<typeof ComboboxPrimitive.List>,
