@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--moduix-qr-code-gap, var(--moduix-spacing-3));
-    width: fit-content;
+    width: min(var(--moduix-qr-code-size, 8rem), 100%);
     max-width: var(--moduix-qr-code-max-width, 100%);
     color: var(--moduix-qr-code-color, var(--moduix-color-foreground));
   }
@@ -14,7 +14,7 @@
   .frame {
     box-sizing: border-box;
     display: block;
-    width: min(var(--moduix-qr-code-size, 8rem), 100%);
+    width: 100%;
     aspect-ratio: 1;
     height: auto;
     color: inherit;

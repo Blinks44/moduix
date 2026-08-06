@@ -129,7 +129,7 @@ Primary CSS variables:
 | `--moduix-qr-code-fill`               | `currentColor`                                                          |
 | `--moduix-qr-code-gap`                | `var(--moduix-spacing-3)`                                               |
 | `--moduix-qr-code-max-width`          | `100%`                                                                  |
-| `--moduix-qr-code-size`               | `8rem` preferred frame width                                            |
+| `--moduix-qr-code-size`               | `8rem` preferred root and frame width                                   |
 | `--moduix-qr-code-overlay-size`       | `var(--moduix-size-lg)`                                                 |
 | `--moduix-qr-code-overlay-padding`    | `var(--moduix-spacing-1)`                                               |
 | `--moduix-qr-code-overlay-radius`     | `var(--moduix-radius-sm)`                                               |
@@ -158,6 +158,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-08-06: Constrained the root to the configured QR size so an SVG's 300px intrinsic width
+  cannot enlarge `fit-content` layouts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default download trigger with the Button `md` baseline.
 
