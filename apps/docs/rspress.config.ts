@@ -4,32 +4,30 @@ import { pluginSitemap } from '@rspress/plugin-sitemap';
 import { fileURLToPath } from 'node:url';
 
 const siteOrigin = 'https://moduix.dev';
-const siteTitle = 'moduix';
-const siteDescription =
-  'Accessible React components with calm defaults, explicit composition, and token-first CSS.';
+const brandName = 'Moduix';
+const locales = [
+  {
+    lang: 'en',
+    label: 'English',
+    title: `${brandName} — Accessible React Component Library Built on Ark UI`,
+    description:
+      'Accessible React components with calm defaults, explicit composition, and token-first CSS.',
+  },
+  {
+    lang: 'ru',
+    label: 'Русский',
+    title: `${brandName} — библиотека доступных React-компонентов на базе Ark UI`,
+    description:
+      'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на основе токенов.',
+  },
+];
 const socialImage = `${siteOrigin}/banner.png`;
 const socialImageAlt = 'moduix component library';
 
 export default defineConfig({
-  title: siteTitle,
-  description: siteDescription,
   siteOrigin,
   lang: 'en',
-  locales: [
-    {
-      lang: 'en',
-      label: 'English',
-      title: siteTitle,
-      description: siteDescription,
-    },
-    {
-      lang: 'ru',
-      label: 'Русский',
-      title: 'moduix — доступные React-компоненты на базе Ark UI',
-      description:
-        'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на основе токенов.',
-    },
-  ],
+  locales,
   icon: '/favicon/favicon.svg',
   llms: true,
   mediumZoom: false,
@@ -37,9 +35,9 @@ export default defineConfig({
     cleanUrls: true,
   },
   head: [
-    ['meta', { name: 'apple-mobile-web-app-title', content: siteTitle }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: brandName }],
     ['meta', { name: 'robots', content: 'index, follow' }],
-    ['meta', { property: 'og:site_name', content: siteTitle }],
+    ['meta', { property: 'og:site_name', content: brandName }],
     ['meta', { property: 'og:image', content: socialImage }],
     ['meta', { property: 'og:image:alt', content: socialImageAlt }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
@@ -85,6 +83,7 @@ export default defineConfig({
   },
   plugins: [pluginPreview(), pluginSitemap()],
   themeConfig: {
+    locales,
     llmsUI: false,
     search: true,
     lastUpdated: true,

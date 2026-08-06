@@ -4,11 +4,8 @@ import { Button } from '@moduix/react/button';
 import { Card } from '@moduix/react/card';
 import { Input } from '@moduix/react/input';
 import { Select } from '@moduix/react/select';
-import { useI18n } from '@rspress/core/runtime';
 import { useState } from 'react';
 import styles from './theme-presets.module.css';
-
-type Translate = ReturnType<typeof useI18n<typeof import('i18n')>>;
 import '@moduix/react/presets/contrast.css';
 import '@moduix/react/presets/dense.css';
 import '@moduix/react/presets/soft.css';
@@ -17,53 +14,50 @@ const presets = [
   {
     value: 'calm',
     title: 'Calm',
-    descriptionKey: 'ThemePresetsCalmDescription',
+    description: 'The balanced moduix foundation. Quiet surfaces and a neutral rhythm.',
     controlSize: '36px',
     popupSize: '32px',
   },
   {
     value: 'dense',
     title: 'Dense',
-    descriptionKey: 'ThemePresetsDenseDescription',
+    description: 'Compact spacing and blue structure for admin and data-heavy interfaces.',
     controlSize: '34px',
     popupSize: '30px',
   },
   {
     value: 'soft',
     title: 'Soft',
-    descriptionKey: 'ThemePresetsSoftDescription',
+    description: 'Rounded surfaces and a warmer violet accent for product workflows.',
     controlSize: '40px',
     popupSize: '34px',
   },
   {
     value: 'contrast',
     title: 'Contrast',
-    descriptionKey: 'ThemePresetsContrastDescription',
+    description: 'Sharper borders and clearer contrast for focused, technical interfaces.',
     controlSize: '36px',
     popupSize: '32px',
   },
 ] as const;
 
-const getStageCollection = (t: Translate) =>
-  createListCollection({
-    items: [
-      { label: t('ThemePresetsStagePlanning'), value: 'planning' },
-      { label: t('ThemePresetsStageReview'), value: 'review' },
-      { label: t('ThemePresetsStageReady'), value: 'ready' },
-    ],
-  });
+const stageCollection = createListCollection({
+  items: [
+    { label: 'Planning', value: 'planning' },
+    { label: 'In review', value: 'review' },
+    { label: 'Ready to ship', value: 'ready' },
+  ],
+});
 
 function ThemePresets() {
-  const t = useI18n<typeof import('i18n')>();
   const [preset, setPreset] = useState('calm');
   const [mode, setMode] = useState('light');
   const activePreset = presets.find((item) => item.value === preset) ?? presets[0];
-  const stageCollection = getStageCollection(t);
 
   return (
-    <section className={styles.root} aria-label={t('ThemePresetsPreviewAriaLabel')}>
+    <section className={styles.root} aria-label="Theme preset preview">
       <div className={styles.controls}>
-        <div className={styles.presetList} aria-label={t('ThemePresetsListAriaLabel')}>
+        <div className={styles.presetList} aria-label="Theme presets">
           {presets.map((item) => (
             <button
               key={item.value}
@@ -74,19 +68,19 @@ function ThemePresets() {
               onClick={() => setPreset(item.value)}
             >
               <span>{item.title}</span>
-              <small>{t(item.descriptionKey)}</small>
+              <small>{item.description}</small>
             </button>
           ))}
         </div>
 
-        <div className={styles.modeList} aria-label={t('ThemePresetsColorModeAriaLabel')}>
+        <div className={styles.modeList} aria-label="Preview color mode">
           <button
             type="button"
             data-active={mode === 'light' || undefined}
             aria-pressed={mode === 'light'}
             onClick={() => setMode('light')}
           >
-            {t('ThemePresetsLight')}
+            Light
           </button>
           <button
             type="button"
@@ -94,7 +88,7 @@ function ThemePresets() {
             aria-pressed={mode === 'dark'}
             onClick={() => setMode('dark')}
           >
-            {t('ThemePresetsDark')}
+            Dark
           </button>
         </div>
       </div>
@@ -106,15 +100,15 @@ function ThemePresets() {
       >
         <div className={styles.previewHeader}>
           <div>
-            <span>{t('ThemePresetsLabel')}</span>
+            <span>moduix preset</span>
             <strong>{activePreset.title}</strong>
           </div>
           <div className={styles.previewMeta}>
             <span>
-              {t('ThemePresetsControls')} <strong>{activePreset.controlSize}</strong>
+              Controls <strong>{activePreset.controlSize}</strong>
             </span>
             <span>
-              {t('ThemePresetsPopupRows')} <strong>{activePreset.popupSize}</strong>
+              Popup rows <strong>{activePreset.popupSize}</strong>
             </span>
             <Badge variant="secondary">{mode}</Badge>
           </div>
@@ -124,30 +118,30 @@ function ThemePresets() {
           <Card className={styles.previewCard}>
             <Card.Header>
               <div>
-                <Card.Title>{t('ThemePresetsWorkspace')}</Card.Title>
-                <Card.Description>{t('ThemePresetsDescription')}</Card.Description>
+                <Card.Title>Release workspace</Card.Title>
+                <Card.Description>One visual decision, applied across the system.</Card.Description>
               </div>
               <Card.Action>
-                <Badge>{t('ThemePresetsReady')}</Badge>
+                <Badge>Ready</Badge>
               </Card.Action>
             </Card.Header>
             <Card.Body className={styles.previewBody}>
               <label className={styles.field}>
-                {t('ThemePresetsProjectName')}
-                <Input defaultValue={t('ThemePresetsSpringRelease')} />
+                Project name
+                <Input defaultValue="Spring release" />
               </label>
               <Select collection={stageCollection} defaultValue={['review']} portalled={false}>
-                <Select.Label>{t('ThemePresetsStage')}</Select.Label>
+                <Select.Label>Stage</Select.Label>
                 <Select.Control>
                   <Select.Trigger>
-                    <Select.ValueText placeholder={t('ThemePresetsSelectStage')} />
+                    <Select.ValueText placeholder="Select a stage" />
                     <Select.Indicator />
                   </Select.Trigger>
                 </Select.Control>
                 <Select.Positioner>
                   <Select.Content>
                     <Select.ItemGroup>
-                      <Select.ItemGroupLabel>{t('ThemePresetsWorkflow')}</Select.ItemGroupLabel>
+                      <Select.ItemGroupLabel>Workflow</Select.ItemGroupLabel>
                       {stageCollection.items.map((item) => (
                         <Select.Item key={item.value} item={item}>
                           <Select.ItemText>{item.label}</Select.ItemText>
@@ -159,13 +153,13 @@ function ThemePresets() {
                 </Select.Positioner>
               </Select>
               <div className={styles.stats}>
-                <span>{t('ThemePresetsTaskCount')}</span>
-                <span>{t('ThemePresetsReviewerCount')}</span>
+                <span>12 tasks</span>
+                <span>4 reviewers</span>
               </div>
             </Card.Body>
             <Card.Footer>
-              <Button>{t('ThemePresetsCreateWorkspace')}</Button>
-              <Button variant="outline">{t('ThemePresetsPreview')}</Button>
+              <Button>Create workspace</Button>
+              <Button variant="outline">Preview</Button>
             </Card.Footer>
           </Card>
         </div>
