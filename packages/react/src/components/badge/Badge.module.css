@@ -9,12 +9,18 @@
     gap: var(--moduix-badge-gap, var(--moduix-spacing-1-5));
     overflow: hidden;
     border: var(--moduix-badge-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-badge-border-color, transparent);
+      var(--moduix-badge-border-color, var(--moduix-badge-default-border-color, transparent));
     border-radius: var(--moduix-badge-radius, var(--moduix-radius-full));
     padding-block: var(--moduix-badge-padding-y, 0);
     padding-inline: var(--moduix-badge-padding-x, var(--moduix-spacing-2-5));
-    background-color: var(--moduix-badge-bg, var(--moduix-color-primary));
-    color: var(--moduix-badge-color, var(--moduix-color-primary-foreground));
+    background-color: var(
+      --moduix-badge-bg,
+      var(--moduix-badge-default-bg, var(--moduix-color-primary))
+    );
+    color: var(
+      --moduix-badge-color,
+      var(--moduix-badge-default-color, var(--moduix-color-primary-foreground))
+    );
     font-size: var(--moduix-badge-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-badge-font-weight, var(--moduix-weight-medium));
     font-variant-numeric: tabular-nums;
@@ -50,11 +56,29 @@
         }
       }
 
-      &[data-variant='outline'],
+      &[data-variant='outline'] {
+        &:hover {
+          border-color: var(
+            --moduix-badge-border-color,
+            var(--moduix-badge-outline-border-color-hover, var(--moduix-color-primary))
+          );
+          color: var(
+            --moduix-badge-color,
+            var(--moduix-badge-outline-color-hover, var(--moduix-color-primary))
+          );
+        }
+      }
+
       &[data-variant='ghost'] {
         &:hover {
-          border-color: var(--moduix-badge-border-color, var(--moduix-color-primary));
-          color: var(--moduix-badge-color, var(--moduix-color-primary));
+          border-color: var(
+            --moduix-badge-border-color,
+            var(--moduix-badge-ghost-border-color-hover, var(--moduix-color-primary))
+          );
+          color: var(
+            --moduix-badge-color,
+            var(--moduix-badge-ghost-color-hover, var(--moduix-color-primary))
+          );
         }
       }
 
@@ -73,28 +97,57 @@
     }
 
     &[data-variant='secondary'] {
-      background-color: var(--moduix-badge-bg, var(--moduix-color-secondary));
-      color: var(--moduix-badge-color, var(--moduix-color-secondary-foreground));
+      border-color: var(
+        --moduix-badge-border-color,
+        var(--moduix-badge-secondary-border-color, transparent)
+      );
+      background-color: var(
+        --moduix-badge-bg,
+        var(--moduix-badge-secondary-bg, var(--moduix-color-secondary))
+      );
+      color: var(
+        --moduix-badge-color,
+        var(--moduix-badge-secondary-color, var(--moduix-color-secondary-foreground))
+      );
     }
 
     &[data-variant='destructive'] {
-      background-color: var(--moduix-badge-bg, var(--moduix-color-destructive));
-      color: var(--moduix-badge-color, var(--moduix-color-destructive-foreground));
-    }
-
-    &[data-variant='outline'],
-    &[data-variant='ghost'],
-    &[data-variant='link'] {
-      background-color: var(--moduix-badge-bg, transparent);
-    }
-
-    &[data-variant='outline'],
-    &[data-variant='ghost'] {
-      color: var(--moduix-badge-color, var(--moduix-color-foreground));
+      border-color: var(
+        --moduix-badge-border-color,
+        var(--moduix-badge-destructive-border-color, transparent)
+      );
+      background-color: var(
+        --moduix-badge-bg,
+        var(--moduix-badge-destructive-bg, var(--moduix-color-destructive))
+      );
+      color: var(
+        --moduix-badge-color,
+        var(--moduix-badge-destructive-color, var(--moduix-color-destructive-foreground))
+      );
     }
 
     &[data-variant='outline'] {
-      border-color: var(--moduix-badge-border-color, var(--moduix-color-border));
+      border-color: var(
+        --moduix-badge-border-color,
+        var(--moduix-badge-outline-border-color, var(--moduix-color-border))
+      );
+      background-color: var(--moduix-badge-bg, var(--moduix-badge-outline-bg, transparent));
+      color: var(
+        --moduix-badge-color,
+        var(--moduix-badge-outline-color, var(--moduix-color-foreground))
+      );
+    }
+
+    &[data-variant='ghost'] {
+      border-color: var(
+        --moduix-badge-border-color,
+        var(--moduix-badge-ghost-border-color, transparent)
+      );
+      background-color: var(--moduix-badge-bg, var(--moduix-badge-ghost-bg, transparent));
+      color: var(
+        --moduix-badge-color,
+        var(--moduix-badge-ghost-color, var(--moduix-color-foreground))
+      );
     }
 
     &[data-variant='link'] {
@@ -102,8 +155,12 @@
       border-radius: 0;
       padding-block: 0.125em;
       padding-inline: 0;
-      border-color: transparent;
-      color: var(--moduix-badge-color, var(--moduix-color-primary));
+      border-color: var(
+        --moduix-badge-border-color,
+        var(--moduix-badge-link-border-color, transparent)
+      );
+      background-color: var(--moduix-badge-bg, var(--moduix-badge-link-bg, transparent));
+      color: var(--moduix-badge-color, var(--moduix-badge-link-color, var(--moduix-color-primary)));
       text-decoration: underline;
       text-decoration-color: color-mix(in oklab, currentColor 55%, transparent);
       text-underline-offset: var(--moduix-badge-link-underline-offset, 0.15em);

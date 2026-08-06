@@ -102,33 +102,6 @@ different tone.
 Use `className` and the public `--moduix-badge-*` variables when the built-in variants are close but not
 enough.
 
-<style>{`
-      .badge-demo-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: var(--moduix-spacing-2);
-      }
-
-      .badge-demo-small {
-        --moduix-badge-height: 1rem;
-        --moduix-badge-padding-x: 0.5rem;
-        --moduix-badge-font-size: 0.625rem;
-      }
-
-      .badge-demo-large {
-        --moduix-badge-height: 1.5rem;
-        --moduix-badge-padding-x: 0.75rem;
-        --moduix-badge-font-size: 0.8125rem;
-      }
-
-      .badge-demo-priority {
-        --moduix-badge-bg: color-mix(in oklab, var(--moduix-color-warning) 15%, transparent);
-        --moduix-badge-border-color: color-mix(in oklab, var(--moduix-color-warning) 45%, transparent);
-        --moduix-badge-color: var(--moduix-color-warning);
-      }
-    `}</style>
-
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/badge/custom-styling.tsx"
 
@@ -226,6 +199,9 @@ Place an inline icon next to the label when the metadata needs a second visual c
 ## Styling
 
 Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
+Use `--moduix-badge-<variant>-*` variables to theme a variant across the application; the shared
+`--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color` variables remain
+the higher-priority one-off overrides.
 
 ### CSS Properties
 

@@ -175,10 +175,16 @@
   --moduix-avatar-radius: initial; /* var(--moduix-radius-full) */
   --moduix-avatar-size: initial; /* var(--moduix-size-md) */
   /* Badge */
-  --moduix-badge-bg: initial; /* var(--moduix-color-primary) */
-  --moduix-badge-border-color: initial; /* transparent */
+  --moduix-badge-bg: initial; /* variant-specific background */
+  --moduix-badge-border-color: initial; /* variant-specific border color */
   --moduix-badge-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-badge-color: initial; /* var(--moduix-color-primary-foreground) */
+  --moduix-badge-color: initial; /* variant-specific text and icon color */
+  --moduix-badge-default-bg: initial; /* var(--moduix-color-primary) */
+  --moduix-badge-default-border-color: initial; /* transparent */
+  --moduix-badge-default-color: initial; /* var(--moduix-color-primary-foreground) */
+  --moduix-badge-destructive-bg: initial; /* var(--moduix-color-destructive) */
+  --moduix-badge-destructive-border-color: initial; /* transparent */
+  --moduix-badge-destructive-color: initial; /* var(--moduix-color-destructive-foreground) */
   --moduix-badge-dot-size: initial; /* var(--moduix-spacing-1-5) */
   --moduix-badge-font-size: initial; /* var(--moduix-text-xs) */
   --moduix-badge-font-weight: initial; /* var(--moduix-weight-medium) */
@@ -186,13 +192,29 @@
   --moduix-badge-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
   --moduix-badge-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-badge-gap: initial; /* var(--moduix-spacing-1-5) */
+  --moduix-badge-ghost-bg: initial; /* transparent */
+  --moduix-badge-ghost-border-color: initial; /* transparent */
+  --moduix-badge-ghost-border-color-hover: initial; /* var(--moduix-color-primary) */
+  --moduix-badge-ghost-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-badge-ghost-color-hover: initial; /* var(--moduix-color-primary) */
   --moduix-badge-height: initial; /* 1.25rem */
   --moduix-badge-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-badge-line-height: initial; /* var(--moduix-line-height-text-xs) */
+  --moduix-badge-link-bg: initial; /* transparent */
+  --moduix-badge-link-border-color: initial; /* transparent */
+  --moduix-badge-link-color: initial; /* var(--moduix-color-primary) */
   --moduix-badge-link-underline-offset: initial; /* 0.15em */
+  --moduix-badge-outline-bg: initial; /* transparent */
+  --moduix-badge-outline-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-badge-outline-border-color-hover: initial; /* var(--moduix-color-primary) */
+  --moduix-badge-outline-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-badge-outline-color-hover: initial; /* var(--moduix-color-primary) */
   --moduix-badge-padding-x: initial; /* var(--moduix-spacing-2-5) */
   --moduix-badge-padding-y: initial; /* 0 */
   --moduix-badge-radius: initial; /* var(--moduix-radius-full) */
+  --moduix-badge-secondary-bg: initial; /* var(--moduix-color-secondary) */
+  --moduix-badge-secondary-border-color: initial; /* transparent */
+  --moduix-badge-secondary-color: initial; /* var(--moduix-color-secondary-foreground) */
   /* Bleed */
   --moduix-bleed-block-xs: initial; /* var(--moduix-spacing-1) */
   --moduix-bleed-block-sm: initial; /* var(--moduix-spacing-2) */

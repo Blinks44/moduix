@@ -131,6 +131,12 @@ Public CSS variables:
 | `--moduix-badge-padding-y`             | `0`                                                             | `Badge.Root`             |
 | `--moduix-badge-radius`                | `var(--moduix-radius-full)`                                     | `Badge.Root`             |
 
+The shared `--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color`
+overrides take precedence for an individual badge. Theme defaults can target a variant with
+`--moduix-badge-<variant>-bg`, `--moduix-badge-<variant>-border-color`, and
+`--moduix-badge-<variant>-color`. `outline` and `ghost` also provide matching `*-hover`
+border and color variables.
+
 ## Intentional sugar and differences from upstream
 
 - Ark UI has no dedicated `Badge` primitive here; moduix uses Ark factory parts.
@@ -150,6 +156,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-06: Added variant-specific color variables so themes can retune Badge defaults without
+  changing one-off overrides.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Made the interactive `asChild` focus ring fully theme-overridable without changing
   its visual default.
