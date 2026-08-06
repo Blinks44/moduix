@@ -68,14 +68,6 @@
       flex-shrink: 0;
     }
 
-    & [data-icon='inline-start'],
-    & [data-icon='inline-end'] {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
     &[data-variant='default'] {
       border-color: var(--moduix-button-default-border-color, var(--moduix-color-primary));
       background-color: var(--moduix-button-default-bg, var(--moduix-color-primary));

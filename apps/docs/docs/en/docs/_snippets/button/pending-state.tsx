@@ -21,7 +21,7 @@ export default function PendingButton() {
     >
       {pending ? (
         <>
-          <Spinner decorative size="sm" data-icon="inline-start" />
+          <Spinner decorative size="sm" />
           {labels.pending}
         </>
       ) : (

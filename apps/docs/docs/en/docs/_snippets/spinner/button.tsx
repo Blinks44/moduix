@@ -17,7 +17,7 @@ export default function SpinnerButtonDemo() {
       <Button aria-busy={saving} type="button" onClick={() => setSaving(!saving)}>
         {saving ? (
           <>
-            <Spinner decorative size="sm" data-icon="inline-start" />
+            <Spinner decorative size="sm" />
             Saving changes
           </>
         ) : (

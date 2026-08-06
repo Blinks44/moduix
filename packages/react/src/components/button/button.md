@@ -209,8 +209,6 @@ Primary CSS variables:
 - moduix keeps loading content compositional but adds a narrow `loading` prop for the busy and
   disabled state wiring instead of copying Chakra's managed `loadingText`, `spinner`, and
   `spinnerPlacement` props.
-- moduix accepts optional `data-icon="inline-start|inline-end"` hooks on child icon or spinner
-  elements for explicit inline icon styling without introducing icon props.
 - The old legacy `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
@@ -245,9 +243,10 @@ Primary CSS variables:
 - 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
   trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable
   `data-slot` hook.
-- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts, documented the `loading`
-  contract for custom hosts, and added optional `data-icon` styling hooks for inline icons and
-  spinners.
+- 2026-08-06: Removed redundant `data-icon` hooks; child composition and root `gap` determine
+  inline icon placement.
+- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts and documented the `loading`
+  contract for custom hosts.
 - 2026-07-07: Added narrow `loading` state sugar that sets `data-loading`, `aria-busy`, and the
   disabled styling path, softened the default hover fallback, and aligned link sizing plus press
   feedback with the recommended usage contract.

@@ -78,8 +78,6 @@ activation. They do not add a native `disabled` attribute to the custom host.
 - Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
 - `loading` is narrow sugar: it sets `data-loading`, `aria-busy`, and the disabled styling path
   while the spinner and label stay fully compositional.
-- Optional `data-icon="inline-start|inline-end"` hooks can be applied to child icons or spinners
-  when a consumer wants explicit inline icon styling hooks.
 - Direct child `svg` elements inherit `currentColor` and use `--moduix-button-icon-size`.
 - Icon-only buttons require an accessible name.
 - Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
@@ -105,8 +103,7 @@ Use `disabled` for native buttons and `asChild` hosts.
 
 ### Icons
 
-Icons can appear before or after text. Optional `data-icon` hooks help consumers target inline
-start and end icons without adding button-level icon props.
+Icons can appear before or after text; their JSX order and the Button root's gap determine layout.
 
 ```tsx preview file="./_snippets/button/icons.tsx"
 
@@ -159,8 +156,6 @@ Use variants to communicate action priority and intent.
 - `data-variant` and `data-size` reflect the active visual recipe.
 - `data-disabled` is present for native `disabled`, `aria-disabled="true"`, and `loading`.
 - `data-loading` is present when `loading={true}`.
-- Child icons and spinners may opt into `data-icon="inline-start"` or `data-icon="inline-end"` for
-  explicit inline icon targeting.
 - `[data-disabled]` drives disabled visuals for native `disabled`, `aria-disabled="true"`, and `loading`.
 - Enabled button variants use a subtle press movement; `link` keeps opacity feedback only, and reduced-motion
   preferences omit the movement.

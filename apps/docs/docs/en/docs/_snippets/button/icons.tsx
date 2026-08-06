@@ -18,7 +18,7 @@ export default function ButtonIconsDemo() {
       }}
     >
       <Button>
-        <PlusIcon data-icon="inline-start" />
+        <PlusIcon />
         {labels.create}
       </Button>
       <Button size="icon-md" variant="outline" aria-label={labels.favorite}>
@@ -26,7 +26,7 @@ export default function ButtonIconsDemo() {
       </Button>
       <Button variant="link">
         {labels.docs}
-        <ArrowUpRightIcon data-icon="inline-end" />
+        <ArrowUpRightIcon />
       </Button>
     </div>
   );
