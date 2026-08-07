@@ -62,9 +62,9 @@ function FaqAccordionItems({
 export const Basic: Story = {
   render: () => {
     return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+      <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -72,9 +72,36 @@ export const Basic: Story = {
 export const Collapsible: Story = {
   render: () => {
     return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} collapsible className={styles.demoRoot}>
+      <Accordion defaultValue={['what-is-ark-ui']} collapsible className={styles.demoRoot}>
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
+    );
+  },
+};
+
+export const ContextState: Story = {
+  render: () => {
+    return (
+      <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+        <Accordion.Context>
+          {(context) => (
+            <output className={styles.state}>Open sections: {context.value.join(', ')}</output>
+          )}
+        </Accordion.Context>
+        {faqItems.map((item) => (
+          <Accordion.Item key={item.value} value={item.value}>
+            <Accordion.ItemTrigger>
+              {item.title}
+              <Accordion.ItemContext>
+                {(context) => <span>{context.expanded ? 'Open' : 'Closed'}</span>}
+              </Accordion.ItemContext>
+            </Accordion.ItemTrigger>
+            <Accordion.ItemContent>
+              <Accordion.ItemBody>{item.description}</Accordion.ItemBody>
+            </Accordion.ItemContent>
+          </Accordion.Item>
+        ))}
+      </Accordion>
     );
   },
 };
@@ -84,13 +111,13 @@ export const Controlled: Story = {
     const [value, setValue] = useState<string[]>(['getting-started']);
 
     return (
-      <Accordion.Root
+      <Accordion
         value={value}
         onValueChange={(details) => setValue(details.value)}
         className={styles.demoRoot}
       >
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -98,9 +125,9 @@ export const Controlled: Story = {
 export const DisabledItem: Story = {
   render: () => {
     return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+      <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems disabledValue="getting-started" />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -108,13 +135,13 @@ export const DisabledItem: Story = {
 export const Horizontal: Story = {
   render: () => {
     return (
-      <Accordion.Root
+      <Accordion
         orientation="horizontal"
         defaultValue={['what-is-ark-ui']}
         className={styles.demoRoot}
       >
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -122,9 +149,9 @@ export const Horizontal: Story = {
 export const LazyMount: Story = {
   render: () => {
     return (
-      <Accordion.Root lazyMount unmountOnExit className={styles.demoRoot}>
+      <Accordion lazyMount unmountOnExit className={styles.demoRoot}>
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -132,13 +159,13 @@ export const LazyMount: Story = {
 export const Multiple: Story = {
   render: () => {
     return (
-      <Accordion.Root
+      <Accordion
         multiple
         defaultValue={['what-is-ark-ui', 'can-i-use-it']}
         className={styles.demoRoot}
       >
         <FaqAccordionItems />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };
@@ -161,7 +188,7 @@ export const RootProvider: Story = {
 export const AdvancedCustomization: Story = {
   render: () => {
     return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+      <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         {faqItems.map((item) => (
           <Accordion.Item key={item.value} value={item.value}>
             <Accordion.ItemTrigger>
@@ -184,7 +211,29 @@ export const AdvancedCustomization: Story = {
             </Accordion.ItemContent>
           </Accordion.Item>
         ))}
-      </Accordion.Root>
+      </Accordion>
+    );
+  },
+};
+
+export const ContentStress: Story = {
+  render: () => {
+    return (
+      <Accordion defaultValue={['long-content']} className={styles.demoRoot}>
+        <Accordion.Item value="long-content">
+          <Accordion.ItemTrigger>
+            How does Accordion behave when a heading wraps across several lines in a narrow
+            container?
+            <Accordion.ItemIndicator />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent>
+            <Accordion.ItemBody>
+              Long headings wrap without displacing the indicator, and multiline panel content keeps
+              its spacing while the container narrows.
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
     );
   },
 };
@@ -192,9 +241,9 @@ export const AdvancedCustomization: Story = {
 export const CustomStyling: Story = {
   render: () => {
     return (
-      <Accordion.Root defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
+      <Accordion defaultValue={['what-is-ark-ui']} className={styles.demoRoot}>
         <FaqAccordionItems icon={<ChevronDownIcon />} iconClassName={styles.customIcon} />
-      </Accordion.Root>
+      </Accordion>
     );
   },
 };

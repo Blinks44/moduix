@@ -12,6 +12,10 @@ import * as AccordionDocs from '@/components/examples/accordion';
 
 ## Basic
 
+`Accordion` groups related sections behind headings that can be expanded in place. Use it for FAQs,
+settings groups, or filters where people may need to compare sections; use `Collapsible` for one
+standalone disclosure.
+
 Use `Accordion` with Ark-style parts: `Accordion.Item`, `Accordion.ItemTrigger`,
 `Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
 
@@ -71,7 +75,8 @@ Use `Accordion.RootProvider` together with `useAccordion()` from `@moduix/react`
 outside the rendered subtree.
 
 Use `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()`, and
-`useAccordionItemContext()` from moduix when surrounding UI needs to read root or item state.
+`useAccordionItemContext()` from moduix when surrounding UI needs to read root or item state. Item
+state exposes Ark's `expanded`, `focused`, and `disabled` booleans.
 
 `Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
 present but unavailable.
@@ -82,7 +87,7 @@ are provided, but you can replace the indicator content entirely.
 Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
 instead of hiding it behind convenience wrappers.
 
-### Default Props
+### Default props
 
 | Prop                   | Default    | Notes                                                 |
 | ---------------------- | ---------- | ----------------------------------------------------- |
@@ -99,7 +104,16 @@ Put spacing on `Accordion.ItemBody` instead of on `Accordion.ItemContent`. Ark m
 drive the open/close animation: `--height` for vertical accordions and `--width` for horizontal
 accordions.
 
-All exported parts support `asChild` for cases where another element must own the rendered node.
+Each trigger is a native button connected to its content with `aria-expanded`, `aria-controls`, and
+the matching content label. `Enter` or `Space` toggles an item. In vertical orientation, `ArrowDown`
+and `ArrowUp` move between triggers; horizontal orientation uses `ArrowRight` and `ArrowLeft`.
+`Home` and `End` move to the first and last trigger.
+
+Every styled part forwards its ref and supports `asChild` for cases where another semantic element
+must own the rendered node. Keep trigger replacements keyboard-focusable and button-like.
+
+When the user requests reduced motion, Accordion removes trigger and indicator transitions and
+reduces panel motion to an effectively instant lifecycle-safe animation.
 
 ## Examples
 

@@ -98,7 +98,7 @@
     font: inherit;
     font-size: var(--moduix-accordion-trigger-font-size, var(--moduix-text-md));
     line-height: var(--moduix-accordion-trigger-line-height, var(--moduix-line-height-text-md));
-    text-align: left;
+    text-align: start;
     user-select: none;
     outline: 0;
     cursor: pointer;
@@ -211,5 +211,17 @@
     gap: var(--moduix-accordion-item-body-gap, var(--moduix-spacing-3));
     min-width: 0;
     padding: var(--moduix-accordion-item-body-padding, var(--moduix-spacing-3));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .itemTrigger,
+    .itemIndicator {
+      transition: none;
+    }
+
+    .itemContent[data-state][data-orientation] {
+      animation-duration: 1ms;
+      animation-delay: 0ms;
+    }
   }
 }
