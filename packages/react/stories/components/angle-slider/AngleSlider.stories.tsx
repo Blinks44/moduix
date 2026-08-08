@@ -200,6 +200,21 @@ export const WithMarks: Story = {
   },
 };
 
+export const ContentStress: Story = {
+  render: () => {
+    return (
+      <AngleSlider
+        defaultValue={225}
+        aria-label="Direction of the primary studio spotlight"
+        className={styles.stressRoot}
+      >
+        <AngleSlider.Label>Direction of the primary studio spotlight</AngleSlider.Label>
+        <AngleSliderMarkedParts />
+      </AngleSlider>
+    );
+  },
+};
+
 export const CustomStyling: Story = {
   render: () => {
     return (

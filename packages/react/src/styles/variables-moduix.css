@@ -110,7 +110,9 @@
   --moduix-angle-slider-focus-ring-width: initial; /* 0.1875rem */
   --moduix-angle-slider-gap: initial; /* var(--moduix-spacing-3) */
   --moduix-angle-slider-indicator-bg: initial; /* var(--moduix-color-primary) */
+  --moduix-angle-slider-invalid-border-color: initial; /* var(--moduix-angle-slider-invalid-color) */
   --moduix-angle-slider-invalid-color: initial; /* var(--moduix-color-destructive) */
+  --moduix-angle-slider-invalid-indicator-bg: initial; /* var(--moduix-angle-slider-invalid-color) */
   --moduix-angle-slider-label-color: initial; /* var(--moduix-angle-slider-color) */
   --moduix-angle-slider-label-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-angle-slider-label-font-weight: initial; /* var(--moduix-weight-medium) */
@@ -132,6 +134,8 @@
   --moduix-angle-slider-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
   --moduix-angle-slider-thumb-size: initial; /* var(--moduix-spacing-4) */
   --moduix-angle-slider-track-bg: initial; /* var(--moduix-color-muted) */
+  --moduix-angle-slider-track-bg-active: initial; /* color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground)) */
+  --moduix-angle-slider-track-bg-hover: initial; /* color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground)) */
   --moduix-angle-slider-track-border-color: initial; /* var(--moduix-color-border) */
   --moduix-angle-slider-track-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-angle-slider-transition: initial; /* var(--moduix-transition-default) */

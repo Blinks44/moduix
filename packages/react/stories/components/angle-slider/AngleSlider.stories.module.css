@@ -2,6 +2,12 @@
   --moduix-angle-slider-size: 9rem;
 }
 
+.stressRoot {
+  --moduix-angle-slider-size: 9rem;
+
+  max-width: 12rem;
+}
+
 .customRoot {
   --moduix-angle-slider-color: var(--moduix-color-chart-4);
   --moduix-angle-slider-control-bg: color-mix(

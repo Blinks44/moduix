@@ -121,9 +121,19 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls the thumb and active line color.',
   ],
   [
+    '--moduix-angle-slider-invalid-border-color',
+    'var(--moduix-angle-slider-invalid-color)',
+    'Controls invalid-state dial and thumb borders.',
+  ],
+  [
     '--moduix-angle-slider-invalid-color',
     'var(--moduix-color-destructive)',
-    'Controls invalid-state thumb and border color.',
+    'Controls the shared invalid-state color fallback.',
+  ],
+  [
+    '--moduix-angle-slider-invalid-indicator-bg',
+    'var(--moduix-angle-slider-invalid-color)',
+    'Controls the invalid-state thumb and active line color.',
   ],
   [
     '--moduix-angle-slider-label-color',
@@ -190,6 +200,16 @@ const angleSliderOverrideCssProperties: CssPropertyInput[] = [
     'Controls the thumb circle size.',
   ],
   ['--moduix-angle-slider-track-bg', 'var(--moduix-color-muted)', 'Controls the outer ring color.'],
+  [
+    '--moduix-angle-slider-track-bg-active',
+    'color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground))',
+    'Controls the interactive outer ring color while pressed.',
+  ],
+  [
+    '--moduix-angle-slider-track-bg-hover',
+    'color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground))',
+    'Controls the interactive outer ring color on hover.',
+  ],
   [
     '--moduix-angle-slider-track-border-color',
     'var(--moduix-color-border)',

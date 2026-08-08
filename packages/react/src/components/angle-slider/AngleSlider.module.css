@@ -43,7 +43,7 @@
     min-width: 0;
     aspect-ratio: 1;
     border-radius: var(--moduix-angle-slider-radius, var(--moduix-radius-full));
-    background: var(--moduix-angle-slider-track-bg, var(--moduix-color-muted));
+    background-color: var(--moduix-angle-slider-track-bg, var(--moduix-color-muted));
     box-shadow:
       inset 0 0 0 var(--moduix-angle-slider-track-border-width, var(--moduix-border-width-sm))
         var(--_angle-slider-track-border-color),
@@ -51,6 +51,24 @@
     cursor: pointer;
     outline: 0;
     user-select: none;
+    transition: background-color
+      var(--moduix-angle-slider-transition, var(--moduix-transition-default));
+
+    @media (hover: hover) {
+      &:not([data-disabled], [data-readonly]):hover {
+        background-color: var(
+          --moduix-angle-slider-track-bg-hover,
+          color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground))
+        );
+      }
+    }
+
+    &:not([data-disabled], [data-readonly]):active {
+      background-color: var(
+        --moduix-angle-slider-track-bg-active,
+        color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground))
+      );
+    }
 
     &::after {
       position: absolute;
@@ -88,12 +106,12 @@
 
     &[data-invalid] {
       --_angle-slider-control-border-color: var(
-        --moduix-angle-slider-invalid-color,
-        var(--moduix-color-destructive)
+        --moduix-angle-slider-invalid-border-color,
+        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
       );
       --_angle-slider-track-border-color: var(
-        --moduix-angle-slider-invalid-color,
-        var(--moduix-color-destructive)
+        --moduix-angle-slider-invalid-border-color,
+        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
       );
     }
 
@@ -168,13 +186,23 @@
     }
 
     &[data-invalid]::before {
-      border-color: var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive));
+      border-color: var(
+        --moduix-angle-slider-invalid-border-color,
+        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
+      );
+      background: var(
+        --moduix-angle-slider-invalid-indicator-bg,
+        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
+      );
     }
 
     &[data-invalid]::after {
       background: linear-gradient(
         to bottom,
-        var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive)),
+        var(
+          --moduix-angle-slider-invalid-indicator-bg,
+          var(--moduix-angle-slider-invalid-color, var(--moduix-color-destructive))
+        ),
         transparent
       );
     }
@@ -228,5 +256,12 @@
       var(--moduix-line-height-text-sm)
     );
     text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .control,
+    .thumb::before {
+      transition: none;
+    }
   }
 }
