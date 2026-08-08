@@ -127,6 +127,10 @@ different heading element:
 - `Alert.Actions` writes `data-part="actions"` and `data-slot="alert-actions"` for targeted action
   row styling.
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
+- The automatic roles create live regions. Consumers should mount the root before updating its
+  message when announcement is required; content present on initial page load may not be announced.
+- Consumers can override `role`; static supplementary callouts should use an appropriate non-live
+  role such as `note` instead of the automatic status semantics.
 - All exported parts support Ark `asChild`.
 - `asChild` requires one semantic child; interactive children keep their own native keyboard and
   focus behavior.
@@ -161,6 +165,26 @@ Extends Ark `div` props and supports `asChild`.
 | `--moduix-alert-indicator-color`         | Status-dependent; neutral uses `var(--moduix-color-muted-foreground)` |
 | `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                           |
 | `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                             |
+| `--moduix-alert-neutral-bg`              | `var(--moduix-color-card)`                                            |
+| `--moduix-alert-neutral-border-color`    | `var(--moduix-color-border)`                                          |
+| `--moduix-alert-neutral-color`           | `var(--moduix-color-card-foreground)`                                 |
+| `--moduix-alert-neutral-indicator-color` | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-alert-info-bg`                 | Primary at 4% over `var(--moduix-color-background)`                   |
+| `--moduix-alert-info-border-color`       | Primary at 32%                                                        |
+| `--moduix-alert-info-color`              | `var(--moduix-color-foreground)`                                      |
+| `--moduix-alert-info-indicator-color`    | `var(--moduix-color-primary)`                                         |
+| `--moduix-alert-success-bg`              | Success at 10% over `var(--moduix-color-background)`                  |
+| `--moduix-alert-success-border-color`    | Success at 34%                                                        |
+| `--moduix-alert-success-color`           | `var(--moduix-color-foreground)`                                      |
+| `--moduix-alert-success-indicator-color` | `var(--moduix-color-success)`                                         |
+| `--moduix-alert-warning-bg`              | Warning at 13% over `var(--moduix-color-background)`                  |
+| `--moduix-alert-warning-border-color`    | Warning at 38%                                                        |
+| `--moduix-alert-warning-color`           | `var(--moduix-color-foreground)`                                      |
+| `--moduix-alert-warning-indicator-color` | `var(--moduix-color-warning)`                                         |
+| `--moduix-alert-error-bg`                | Destructive at 9% over `var(--moduix-color-background)`               |
+| `--moduix-alert-error-border-color`      | Destructive at 35%                                                    |
+| `--moduix-alert-error-color`             | `var(--moduix-color-foreground)`                                      |
+| `--moduix-alert-error-indicator-color`   | `var(--moduix-color-destructive)`                                     |
 | `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                             |
 | `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                             |
 | `--moduix-alert-shadow`                  | `none`                                                                |
@@ -175,6 +199,10 @@ Built-in statuses derive their accents from shared palette tokens:
 - `success` -> `--moduix-color-success`
 - `warning` -> `--moduix-color-warning`
 - `error` -> `--moduix-color-destructive`
+
+The component-wide background, border, text, and indicator variables take precedence over their
+status-specific counterparts. Use a status-specific variable to retheme one status without
+changing the others, or a component-wide variable when every status should share that decision.
 
 ## Intentional sugar and differences from upstream
 
@@ -198,6 +226,9 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Local changelog
 
+- 2026-08-08: Added independent background, border, text, and indicator variables for every status;
+  preserved component-wide overrides as the highest-priority theming path; and clarified live-region
+  usage in consumer docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.

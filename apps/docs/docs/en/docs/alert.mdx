@@ -101,6 +101,10 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 ### Behavioral notes
 
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
+- These roles create polite and assertive live regions. Mount the alert before updating its message
+  when an announcement is required; content already present when the page loads may not be announced.
+- Override `role` when the surface is a static callout instead of live feedback. For example, use
+  `role="note"` for supplementary static information.
 - `Alert.Indicator` defaults to `aria-hidden="true"`.
 - `Alert.Title` renders `p` by default and uses Ark `asChild` for heading polymorphism.
 - Essential meaning should stay in the title or description, because the indicator stays
@@ -181,6 +185,10 @@ local alert should be hidden.
 
 Use `className` on the root or parts for local styles. Override `--moduix-alert-*` CSS variables on the
 root when the alert needs local theming.
+
+The component-wide `--moduix-alert-bg`, `--moduix-alert-border-color`, `--moduix-alert-color`, and
+`--moduix-alert-indicator-color` variables override every status. Use the matching
+`--moduix-alert-<status>-*` variables when only one status should change.
 
 Built-in statuses also read shared palette tokens:
 
