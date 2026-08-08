@@ -76,8 +76,11 @@ when a breakpoint needs a different frame.
 
 - The root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
   `data-slot="aspect-ratio-root"`.
+- The root is block-level and uses border-box sizing, including when `asChild` changes the host
+  element.
 - `position: relative` on the root is intentional and supports absolute-fill child patterns such
   as Next.js `Image fill`.
+- Direct `iframe` children fill the frame without the browser's default border.
 - The previous preset strings (`square`, `video`, `portrait`, `photo`) were removed during the Ark
   migration. Use numbers such as `1`, `16 / 9`, `9 / 16`, and `4 / 3`.
 
@@ -150,5 +153,7 @@ Use `asChild` when you need to bypass the default root host and let a semantic e
 - `data-slot="aspect-ratio-root"` is the stable moduix root hook.
 - Put width, max-width, and layout styles on the root itself. Override `aspect-ratio` from your own
   CSS when a breakpoint needs a different ratio.
+- Direct media uses border-box sizing; images and videos keep their own `object-fit` value so the
+  consumer chooses between cropping and containment.
 - `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
   decoration on an outer wrapper instead of removing root clipping.

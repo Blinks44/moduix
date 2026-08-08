@@ -73,10 +73,6 @@ export const aspectRatioEmbedCss = `
 .aspect-ratio-demo {
   inline-size: 100%;
 }
-
-.aspect-ratio-demo__frame {
-  border: 0;
-}
 `;
 
 export const aspectRatioMigrationCss = `

@@ -14,7 +14,6 @@ export default function AspectRatioEmbedDemo() {
         title={embed.title}
         allow="autoplay; encrypted-media"
         allowFullScreen
-        className="aspect-ratio-demo__frame"
       />
     </AspectRatio>
   );

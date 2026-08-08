@@ -21,8 +21,8 @@ type Story = StoryObj<typeof meta>;
 const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80';
 
 export const Image: Story = {
-  render: () => (
-    <AspectRatio ratio={16 / 9} className={styles.container}>
+  render: (args) => (
+    <AspectRatio {...args} className={styles.container}>
       <img src={imageUrl} alt="Mountain landscape" className={styles.image} />
     </AspectRatio>
   ),
@@ -36,7 +36,6 @@ export const EmbeddedContent: Story = {
         title="Video embed"
         allow="autoplay; encrypted-media"
         allowFullScreen
-        className={styles.frame}
       />
     </AspectRatio>
   ),

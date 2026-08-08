@@ -38,7 +38,9 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. Moduix builds this co
   `aspect-ratio` rule; consumer `style.aspectRatio` or root CSS can still override it.
 - Direct `img`, `video`, `iframe`, `canvas`, and `svg` children automatically fill the frame. Set
   `object-fit` on images and video to choose whether their content is cropped or letterboxed.
-- Root default styles keep `position: relative`, `overflow: hidden`, and a moduix radius token.
+- Root default styles keep a block formatting context, `position: relative`, `overflow: hidden`,
+  border-box sizing, and a moduix radius token.
+- Direct `iframe` children have their user-agent border removed.
 
 ## Anatomy and exported parts
 
@@ -110,7 +112,8 @@ Primary CSS variable:
 ## Intentional sugar and differences from upstream
 
 - moduix adds the namespace surface `AspectRatio.Root` for consistency with the rest of the library.
-- moduix adds a styled default radius token and direct-media auto-fill rules.
+- moduix adds a styled default radius token, direct-media auto-fill rules, and a borderless iframe
+  default.
 - moduix removes the previous local preset aliases and keeps only the Ark-aligned numeric ratio.
 
 ## Agent notes
@@ -123,6 +126,9 @@ Primary CSS variable:
 
 ## Local changelog
 
+- 2026-08-08: Protected stable root hooks from prop overrides, isolated the internal ratio variable
+  from Ark's runtime-variable reference, made `asChild` hosts reliably block-level, normalized
+  media sizing, and removed native iframe borders.
 - 2026-07-07: Moved ratio handling from inline `style.aspectRatio` to an internal CSS custom
   property so consumer CSS can override the root ratio more easily, and updated docs/examples to
   size the root directly and show the shadcn-style `Image fill` path.
