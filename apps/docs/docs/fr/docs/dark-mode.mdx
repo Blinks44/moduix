@@ -1,0 +1,121 @@
+---
+title: Mode sombre
+description: Activez le thème sombre intégré des tokens sans fournisseur de thème distinct pour les composants.
+---
+
+# Mode sombre
+
+moduix fournit par défaut des tokens clairs. Le jeu de tokens sombres s’active avec l’attribut
+`data-moduix-color-scheme="dark"`. Importez une seule fois la feuille de styles de base. L’application
+contrôle le thème sélectionné et moduix réagit au thème final.
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+## Appliquer le thème à la racine du document
+
+Lorsque votre solution de gestion des thèmes sélectionne le mode sombre, elle doit définir
+`data-moduix-color-scheme="dark"` sur `<html>` ; utilisez `light` pour le mode clair. moduix ne nécessite
+aucun fournisseur, ne stocke aucun réglage et n’impose aucun package de thème. Il reste ainsi indépendant
+des sélecteurs et des tokens de thème déjà présents dans l’application.
+
+```html
+<!-- Dark theme -->
+<html data-moduix-color-scheme="dark"></html>
+```
+
+Utilisez la racine du document pour appliquer le thème à toute l’application. Les composants rendus dans
+un portail, comme Dialog, Popover et Select, héritent eux aussi des tokens définis à cet endroit.
+
+Si l’application est rendue côté serveur, utilisez le mécanisme d’application anticipée du thème fourni
+par votre framework afin que l’attribut final soit défini avant l’affichage de la page. Vous éviterez ainsi
+un bref affichage du thème clair pendant que le JavaScript client applique le réglage enregistré.
+
+## Ajouter un sélecteur simple
+
+Conservez dans l’application le thème explicitement choisi par la personne et mettez à jour l’attribut du
+document. En l’absence de choix enregistré, déterminez la préférence du système avec `matchMedia`.
+
+```tsx
+type ColorScheme = 'light' | 'dark';
+
+export function applyColorScheme(scheme: ColorScheme) {
+  document.documentElement.dataset.moduixColorScheme = scheme;
+}
+
+export function resolveColorScheme(): ColorScheme {
+  const saved = localStorage.getItem('color-scheme');
+  if (saved === 'light' || saved === 'dark') return saved;
+
+  return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+export function saveColorScheme(scheme: ColorScheme) {
+  localStorage.setItem('color-scheme', scheme);
+  applyColorScheme(scheme);
+}
+```
+
+Exécutez l’équivalent de `applyColorScheme(resolveColorScheme())` dans le script inline anticipé de votre
+framework, avant le premier rendu. Le sélecteur visible doit appeler `saveColorScheme` avec la valeur
+suivante. La préférence système reste ainsi la valeur par défaut tant qu’aucun choix explicite n’a été
+effectué. Donnez au sélecteur un nom accessible qui décrit l’action, par exemple `Switch to dark mode`.
+
+## Associer le mode sombre à un preset
+
+Le jeu de couleurs et les presets visuels sont deux couches indépendantes. Définissez
+`data-moduix-color-scheme` et `data-moduix-theme` sur la même racine afin que les composants ordinaires et
+ceux rendus dans un portail partagent la même palette, la même densité, les mêmes rayons et les mêmes tokens
+de focus.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/dense.css';
+```
+
+<div style={{ height: '1rem' }} aria-hidden="true" />
+
+```html
+<html data-moduix-color-scheme="dark" data-moduix-theme="dense"></html>
+```
+
+Changer le jeu de couleurs ne modifie pas la densité. Le preset choisi conserve l’échelle des contrôles et
+des composants flottants dans les deux modes. La comparaison des presets et la création d’un thème
+personnalisé sont détaillées dans [Thèmes](/docs/themes).
+
+## Limiter le thème à un aperçu ou à une surface intégrée
+
+Si les tokens sombres ne sont nécessaires que dans un sous-arbre, vous pouvez définir
+`data-moduix-color-scheme="dark"` sur un conteneur ordinaire :
+
+```tsx
+<section data-moduix-color-scheme="dark">
+  <Card>Dark preview</Card>
+</section>
+```
+
+Cette approche convient aux aperçus de réglages et aux widgets intégrés. Le contenu rendu dans un portail
+se trouve hors de ce conteneur. Si le sous-arbre ouvre des overlays, conservez donc l’attribut sur `<html>`,
+`body` ou le conteneur du portail.
+
+## Personnaliser les deux thèmes
+
+Redéfinissez les mêmes tokens sémantiques dans `:root` et `[data-moduix-color-scheme='dark']`. Les composants
+emploient des alias sémantiques comme `--moduix-color-background`, `--moduix-color-foreground` et
+`--moduix-color-border`, ce qui maintient des valeurs cohérentes dans toute la bibliothèque.
+
+```css
+:root {
+  --moduix-background: oklch(0.99 0.004 285);
+  --moduix-primary: oklch(0.5 0.18 260);
+}
+
+[data-moduix-color-scheme='dark'] {
+  --moduix-background: oklch(0.16 0.01 285);
+  --moduix-primary: oklch(0.76 0.13 260);
+}
+```
+
+La référence des tokens système se trouve dans [Tokens](/docs/tokens), tandis que les redéfinitions
+visuelles locales sont documentées sur les pages des composants.

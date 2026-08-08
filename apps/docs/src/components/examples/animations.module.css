@@ -8,6 +8,7 @@
 
 .recipeCard {
   display: grid;
+  grid-template-rows: 1fr auto;
   gap: var(--moduix-spacing-3);
   justify-items: center;
   padding: var(--moduix-spacing-4);
