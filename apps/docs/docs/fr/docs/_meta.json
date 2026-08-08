@@ -58,6 +58,55 @@
   },
   {
     "type": "section-header",
+    "label": "Composants"
+  },
+  {
+    "type": "file",
+    "name": "accordion",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "alert",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "angle-slider",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "aspect-ratio",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "avatar",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "badge",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "bleed",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "breadcrumbs",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "button",
+    "tag": "component"
+  },
+  {
+    "type": "section-header",
     "label": "AI"
   },
   {

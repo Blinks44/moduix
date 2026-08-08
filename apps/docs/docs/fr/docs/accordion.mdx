@@ -1,0 +1,228 @@
+---
+title: Accordion
+component: accordion
+description: Un ensemble vertical de titres interactifs qui révèlent chacun une section de contenu.
+---
+
+import * as AccordionDocs from '@/components/examples/accordion';
+
+## Référence API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
+
+## Exemple de base
+
+`Accordion` regroupe des sections liées sous des titres qui peuvent être déployés sur place.
+Utilisez-le pour les FAQ, les groupes de paramètres ou les filtres lorsque plusieurs sections doivent
+pouvoir être comparées ; utilisez `Collapsible` pour une seule zone dépliable autonome.
+
+Utilisez `Accordion` avec les parties dans le style Ark : `Accordion.Item`, `Accordion.ItemTrigger`,
+`Accordion.ItemIndicator`, `Accordion.ItemContent` et `Accordion.ItemBody`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="accordion" />
+
+## Anatomie
+
+```text
+Accordion.Root
+└─ Accordion.Item[value]
+ ├─ Accordion.ItemTrigger
+ │  ├─ label
+ │  └─ Accordion.ItemIndicator (facultatif)
+ └─ Accordion.ItemContent
+    └─ Accordion.ItemBody
+       └─ content
+
+Accordion.RootProvider
+└─ même arbre d'éléments connecté à un store useAccordion()
+```
+
+| Partie                         | Rôle                                                                                                  |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `Accordion` / `Accordion.Root` | Contrôle l'état de l'accordéon et les interactions au clavier.                                        |
+| `Accordion.RootProvider`       | Connecte les parties à l'état créé avec `useAccordion()`.                                             |
+| `Accordion.Item`               | Un élément repliable doté d'une propriété `value` obligatoire.                                       |
+| `Accordion.ItemTrigger`        | Bouton interactif qui ouvre ou ferme l'élément.                                                       |
+| `Accordion.ItemIndicator`      | Indicateur visuel d'ouverture ou de fermeture. Affiche par défaut l'icône plus de moduix sans enfant. |
+| `Accordion.ItemContent`        | Zone de contenu repliable qui conserve le comportement d'animation de taille d'Ark.                   |
+| `Accordion.ItemBody`           | Conteneur interne avec l'espacement par défaut du contenu du panneau.                                 |
+
+## Composition
+
+### Composition recommandée
+
+`Accordion` gère la navigation au clavier, le déplacement du focus et l'état des éléments ouverts. Utilisez-le pour
+`value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
+`collapsible`, `orientation`, `lazyMount`, `unmountOnExit` et `ids`.
+
+Pour la composition Ark standard, utilisez `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`,
+`Accordion.ItemIndicator`, `Accordion.ItemContent` et `Accordion.ItemBody`.
+
+### Quand créer une composition personnalisée
+
+`value` et `defaultValue` sont toujours des tableaux, y compris lorsqu'un seul élément peut être ouvert.
+`onValueChange` suit la forme du callback Ark et expose les valeurs actuelles dans `details.value`.
+
+Utilisez `Accordion.RootProvider` avec `useAccordion()` de `@moduix/react` lorsque l'état de
+l'accordéon doit être créé en dehors du sous-arbre rendu.
+
+Utilisez `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()` et
+`useAccordionItemContext()` de moduix lorsque l'interface environnante doit lire l'état de la racine
+ou d'un élément. L'état d'un élément expose les booléens Ark `expanded`, `focused` et `disabled`.
+
+`Accordion.Item` exige une valeur `value` stable. Utilisez `disabled` sur l'élément lorsqu'une section
+doit rester visible, mais indisponible.
+
+`Accordion.ItemIndicator` est facultatif. Dans moduix, il affiche `PlusIcon` par défaut lorsqu'aucun
+enfant n'est fourni, mais vous pouvez remplacer entièrement son contenu.
+
+Utilisez `asChild` uniquement lorsqu'un autre élément doit porter le nœud rendu. Gardez l'arbre des
+parties Ark visible au lieu de le masquer derrière des wrappers pratiques.
+
+### Propriétés par défaut
+
+| Propriété               | Valeur par défaut | Remarques                                                               |
+| ----------------------- | ----------------- | ----------------------------------------------------------------------- |
+| `collapsible`           | `false`           | Garde un élément déployé tant qu'un autre n'est pas sélectionné.        |
+| `lazyMount`             | `false`           | Monte immédiatement le contenu des éléments.                            |
+| `multiple`              | `false`           | N'autorise par défaut qu'un seul élément déployé.                        |
+| `orientation`           | `vertical`        | Applique les interactions clavier et la disposition verticales.        |
+| `unmountOnExit`         | `false`           | Garde le contenu replié monté.                                          |
+| `value`/`defaultValue`  | `[]`              | Les valeurs sont des tableaux de chaînes, même en mode à élément unique. |
+
+### Notes sur le comportement
+
+Appliquez l'espacement à `Accordion.ItemBody` plutôt qu'à `Accordion.ItemContent`. Les variables de
+mesure Ark pilotent l'animation d'ouverture et de fermeture : `--height` pour les accordéons
+verticaux et `--width` pour les accordéons horizontaux.
+
+Chaque déclencheur est un bouton natif relié à son contenu par `aria-expanded`, `aria-controls` et
+le libellé correspondant de la zone de contenu. `Enter` ou `Space` bascule un élément. En orientation
+verticale, `ArrowDown` et `ArrowUp` déplacent le focus entre les déclencheurs ; en orientation
+horizontale, `ArrowRight` et `ArrowLeft` sont utilisés. `Home` et `End` placent le focus sur le
+premier ou le dernier déclencheur.
+
+Chaque partie stylisée transmet sa ref et prend en charge `asChild` lorsqu'un autre élément sémantique
+doit porter le nœud rendu. Les remplacements de déclencheur doivent rester accessibles au clavier et
+conserver le comportement d'un bouton.
+
+Si l'utilisateur préfère réduire les animations, Accordion désactive les transitions du déclencheur
+et de l'indicateur et réduit l'animation du panneau à un cycle pratiquement instantané et sûr.
+
+## Exemples
+
+### Repliable
+
+Ajoutez `collapsible` lorsque l'élément ouvert doit pouvoir se fermer sans sélectionner d'abord un autre élément.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/collapsible.tsx"
+
+```
+</PreviewFrame>
+
+### État contrôlé
+
+Contrôlez `value` depuis l'état React lorsque les éléments ouverts doivent rester synchronisés avec le routage, les filtres ou l'interface environnante.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Élément désactivé
+
+Définissez `disabled` sur un élément qui doit rester visible dans la liste, mais ne pas être interactif.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/disabled-item.tsx"
+
+```
+</PreviewFrame>
+
+### Horizontal
+
+Définissez `orientation="horizontal"` lorsque l'accordéon doit suivre un modèle d'interaction horizontal.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/horizontal.tsx"
+
+```
+
+</PreviewFrame>
+
+### Montage différé
+
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu masqué est coûteux et ne doit être rendu qu'en cas de besoin.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
+
+```
+</PreviewFrame>
+
+### Plusieurs éléments ouverts
+
+Utilisez `multiple` lorsque plusieurs sections doivent rester ouvertes simultanément au lieu de se réduire à un seul élément actif.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/multiple.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useAccordion()` de `@moduix/react` avec `Accordion.RootProvider` lorsque le store d'état doit être créé en dehors
+de l'arbre d'accordéon rendu. Ne rendez pas `Accordion` ou `Accordion.Root` pour le même store.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Le contenu d'un accordéon peut accueillir un autre widget composite fondé sur Ark. Gardez explicite
+l'arbre des parties de chaque primitive afin que la gestion du clavier et les champs de formulaire
+masqués restent sous la responsabilité du bon composant.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/with-slider.tsx"
+
+```
+
+</PreviewFrame>
+
+## Styles
+
+Utilisez `className` sur les parties exportées pour les modifications structurelles. Pour les styles
+d'état, privilégiez les attributs de données Ark (`data-state`, `data-disabled`, `data-orientation`)
+et les hooks `data-slot` de moduix.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+
+### Hooks de style
+
+- Sélecteurs `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
+  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content` et
+  `accordion-item-body`.
+- Hooks d'anatomie Ark : `data-scope="accordion"` et `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- Hook pratique moduix : `data-part="item-body"` sur `Accordion.ItemBody`.
+- Hooks d'état Ark : `data-state="open|closed"`, `data-disabled`, `data-focus`,
+  `data-controls` et `data-orientation="horizontal|vertical"`.
+- Variables de contenu Ark : `--height` pour l'animation verticale et `--width` pour l'animation horizontale.
