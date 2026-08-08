@@ -1,378 +1,517 @@
 {
   "navDocs": {
     "en": "Docs",
-    "ru": "Документация"
+    "ru": "Документация",
+    "fr": "Documentation"
   },
   "navComponents": {
     "en": "Components",
-    "ru": "Компоненты"
+    "ru": "Компоненты",
+    "fr": "Composants"
   },
   "navRecipes": {
     "en": "Recipes",
-    "ru": "Рецепты"
+    "ru": "Рецепты",
+    "fr": "Recettes"
   },
   "navGitHub": {
     "en": "GitHub",
-    "ru": "GitHub"
+    "ru": "GitHub",
+    "fr": "GitHub"
   },
   "homeDesignFoundations": {
     "en": "Design foundations",
-    "ru": "Основы дизайна"
+    "ru": "Основы дизайна",
+    "fr": "Fondations du design"
   },
   "homeBuiltOnArk": {
     "en": "Built on Ark UI",
-    "ru": "На базе Ark UI"
+    "ru": "На базе Ark UI",
+    "fr": "Construit sur Ark UI"
   },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
-    "ru": "Вдохновлено shadcn"
+    "ru": "Вдохновлено shadcn",
+    "fr": "Inspiré par shadcn"
   },
   "homeLead": {
     "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
-    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS-основой на базе токенов, которую можно настраивать темой или хранить в проекте."
+    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS-основой на базе токенов, которую можно настраивать темой или хранить в проекте.",
+    "fr": "Des composants React accessibles, des valeurs par défaut réfléchies, une composition explicite et une base CSS fondée sur les tokens, à personnaliser ou à posséder."
   },
   "homeGetStarted": {
     "en": "Get started",
-    "ru": "Начать"
+    "ru": "Начать",
+    "fr": "Commencer"
   },
   "homeComponents": {
     "en": "Components",
-    "ru": "Компоненты"
+    "ru": "Компоненты",
+    "fr": "Composants"
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
-    "ru": "Композиция на практике"
+    "ru": "Композиция на практике",
+    "fr": "La composition en pratique"
   },
   "homeComponentsTogether": {
     "en": "A few components, working together.",
-    "ru": "Несколько компонентов, работающих вместе."
+    "ru": "Несколько компонентов, работающих вместе.",
+    "fr": "Quelques composants qui fonctionnent ensemble."
   },
   "homeCompositionDescription": {
     "en": "Search, selection, menus, and a wide table stay small and composable—ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и компонуемыми — готовыми для продуктового экрана, а не маркетингового макета."
+    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и компонуемыми — готовыми для продуктового экрана, а не маркетингового макета.",
+    "fr": "Recherche, sélection, menus et tableau large restent compacts et composables, prêts pour un écran produit plutôt qu'une maquette marketing."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
-    "ru": "Изучить паттерн таблицы"
+    "ru": "Изучить паттерн таблицы",
+    "fr": "Explorer le modèle de tableau"
   },
   "primitiveReferenceTitle": {
     "en": "Upstream primitive API",
-    "ru": "API исходного примитива"
+    "ru": "API исходного примитива",
+    "fr": "API du primitif sous-jacent"
   },
   "primitiveReferenceDescription": {
     "en": "Behavior, accessibility details, and low-level props live in the upstream reference.",
-    "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке."
+    "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке.",
+    "fr": "Le comportement, les détails d'accessibilité et les props de bas niveau sont documentés dans la référence en amont."
   },
   "shadcnInstallComponent": {
     "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот компонент в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:"
+    "ru": "Чтобы добавить этот компонент в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
+    "fr": "Pour ajouter ce composant au code source de votre projet plutôt que dans node_modules, installez-le depuis le registre moduix hébergé :"
   },
   "shadcnInstallRecipe": {
     "en": "To add this recipe to your project source instead of node_modules, install it from the hosted moduix registry:",
-    "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:"
+    "ru": "Чтобы добавить этот рецепт в исходный код проекта, а не устанавливать его из node_modules, используйте размещённый реестр moduix:",
+    "fr": "Pour ajouter cette recette au code source de votre projet plutôt que dans node_modules, installez-la depuis le registre moduix hébergé :"
   },
   "shadcnCopyComponent": {
     "en": "Copy this component and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
+    "ru": "Скопируйте этот компонент и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
+    "fr": "Copiez ce composant et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'il utilise :"
   },
   "shadcnCopyRecipe": {
     "en": "Copy this recipe and its CSS from the tabs above, then add the moduix components it uses:",
-    "ru": "Скопируйте этот рецепт и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:"
+    "ru": "Скопируйте этот рецепт и его CSS из вкладок выше, затем добавьте используемые им компоненты moduix:",
+    "fr": "Copiez cette recette et son CSS depuis les onglets ci-dessus, puis ajoutez les composants moduix qu'elle utilise :"
   },
   "shadcnExampleRequires": {
     "en": "Install the example's additional dependencies:",
-    "ru": "Установите дополнительные зависимости примера:"
+    "ru": "Установите дополнительные зависимости примера:",
+    "fr": "Installez les dépendances supplémentaires de l'exemple :"
   },
   "cssProperty": {
     "en": "Property",
-    "ru": "Свойство"
+    "ru": "Свойство",
+    "fr": "Propriété"
   },
   "cssVariables": {
     "en": "CSS Variables",
-    "ru": "CSS-переменные"
+    "ru": "CSS-переменные",
+    "fr": "Variables CSS"
   },
   "cssDefault": {
     "en": "Default",
-    "ru": "По умолчанию"
+    "ru": "По умолчанию",
+    "fr": "Par défaut"
   },
   "tokensOverviewTokenArchitecture": {
     "en": "Token architecture",
-    "ru": "Архитектура токенов"
+    "ru": "Архитектура токенов",
+    "fr": "Architecture des tokens"
   },
   "tokensOverviewRawValues": {
     "en": "Raw values",
-    "ru": "Исходные значения"
+    "ru": "Исходные значения",
+    "fr": "Valeurs brutes"
   },
   "tokensOverviewSemanticAliases": {
     "en": "Semantic aliases",
-    "ru": "Семантические алиасы"
+    "ru": "Семантические алиасы",
+    "fr": "Alias sémantiques"
   },
   "tokensOverviewComponentVariables": {
     "en": "Component variables",
-    "ru": "Переменные компонентов"
+    "ru": "Переменные компонентов",
+    "fr": "Variables de composant"
   },
   "tokensOverviewTokenGroupsSummary": {
     "en": "Token groups summary",
-    "ru": "Сводка групп токенов"
+    "ru": "Сводка групп токенов",
+    "fr": "Résumé des groupes de tokens"
   },
   "tokensOverviewColorTokens": {
     "en": "color tokens",
-    "ru": "цветовых токенов"
+    "ru": "цветовых токенов",
+    "fr": "tokens de couleur"
   },
   "tokensOverviewSpacingSteps": {
     "en": "spacing steps",
-    "ru": "шагов интервалов"
+    "ru": "шагов интервалов",
+    "fr": "paliers d'espacement"
   },
   "tokensOverviewSharedDefaults": {
     "en": "shared defaults",
-    "ru": "общих значений по умолчанию"
+    "ru": "общих значений по умолчанию",
+    "fr": "valeurs par défaut partagées"
   },
   "tokensOverviewSharedFallbacks": {
     "en": "Shared fallbacks",
-    "ru": "Общие резервные значения"
+    "ru": "Общие резервные значения",
+    "fr": "Solutions de repli partagées"
   },
   "tokensOverviewScopedThemes": {
     "en": "Scoped themes",
-    "ru": "Темы с ограниченной областью"
+    "ru": "Темы с ограниченной областью",
+    "fr": "Thèmes à portée limitée"
   },
   "tokensOverviewColors": {
     "en": "Colors",
-    "ru": "Цвета"
+    "ru": "Цвета",
+    "fr": "Couleurs"
   },
   "tokensOverviewSpacingSize": {
     "en": "Spacing & Size",
-    "ru": "Интервалы и размеры"
+    "ru": "Интервалы и размеры",
+    "fr": "Espacement et dimensions"
   },
   "tokensOverviewPrimitiveSpacing": {
     "en": "Primitive spacing",
-    "ru": "Примитивные интервалы"
+    "ru": "Примитивные интервалы",
+    "fr": "Espacement primitif"
   },
   "tokensOverviewSemanticSpacing": {
     "en": "Semantic spacing",
-    "ru": "Семантические интервалы"
+    "ru": "Семантические интервалы",
+    "fr": "Espacement sémantique"
   },
   "tokensOverviewControlSize": {
     "en": "Control size",
-    "ru": "Размер элементов управления"
+    "ru": "Размер элементов управления",
+    "fr": "Taille des contrôles"
   },
   "tokensOverviewShapeBorders": {
     "en": "Shape & Borders",
-    "ru": "Форма и границы"
+    "ru": "Форма и границы",
+    "fr": "Forme et bordures"
   },
   "tokensOverviewBorderWidths": {
     "en": "Border widths",
-    "ru": "Толщина границ"
+    "ru": "Толщина границ",
+    "fr": "Épaisseur des bordures"
   },
   "tokensOverviewOpacity": {
     "en": "Opacity",
-    "ru": "Непрозрачность"
+    "ru": "Непрозрачность",
+    "fr": "Opacité"
   },
   "tokensOverviewTypography": {
     "en": "Font families, sizes, line heights, weights, and tracking tokens.",
-    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга."
+    "ru": "Семейства шрифтов, размеры, межстрочные интервалы, начертания и токены трекинга.",
+    "fr": "Familles de polices, tailles, hauteurs de ligne, graisses et tokens d'approche."
   },
   "tokensOverviewFontFamilies": {
     "en": "Font families",
-    "ru": "Семейства шрифтов"
+    "ru": "Семейства шрифтов",
+    "fr": "Familles de polices"
   },
   "tokensOverviewMotion": {
     "en": "Durations, easing, transition shorthands, and reusable animations.",
-    "ru": "Длительности, сглаживание, сокращения переходов и повторно используемые анимации."
+    "ru": "Длительности, сглаживание, сокращения переходов и повторно используемые анимации.",
+    "fr": "Durées, fonctions d'accélération, raccourcis de transition et animations réutilisables."
   },
   "tokensOverviewTimingAndTransitionTokens": {
     "en": "Timing and transition tokens",
-    "ru": "Токены времени и переходов"
+    "ru": "Токены времени и переходов",
+    "fr": "Tokens de durée et de transition"
   },
   "tokensOverviewAnimationTokens": {
     "en": "Animation tokens",
-    "ru": "Токены анимации"
+    "ru": "Токены анимации",
+    "fr": "Tokens d'animation"
   },
   "tokensOverviewElevationLayers": {
     "en": "Elevation & Layers",
-    "ru": "Высота и слои"
+    "ru": "Высота и слои",
+    "fr": "Élévation et calques"
   },
   "tokensOverviewTransforms": {
     "en": "Transforms",
-    "ru": "Преобразования"
+    "ru": "Преобразования",
+    "fr": "Transformations"
   },
   "tokensOverviewSharedComponentDefaults": {
     "en": "Shared Component Defaults",
-    "ru": "Общие значения компонентов по умолчанию"
+    "ru": "Общие значения компонентов по умолчанию",
+    "fr": "Valeurs par défaut partagées des composants"
   },
   "tokensOverviewBackdropDefaultsAndFallbacks": {
     "en": "Backdrop defaults and fallbacks",
-    "ru": "Значения и резервные варианты фона"
+    "ru": "Значения и резервные варианты фона",
+    "fr": "Valeurs par défaut et solutions de repli pour l'arrière-plan"
   },
   "tokensOverviewSharedPopupContentMotion": {
     "en": "Shared popup content motion",
-    "ru": "Общая анимация содержимого всплывающих окон"
+    "ru": "Общая анимация содержимого всплывающих окон",
+    "fr": "Animation partagée du contenu des fenêtres surgissantes"
   },
   "tokensOverviewSharedPopupMenuDefaults": {
     "en": "Shared popup menu defaults",
-    "ru": "Общие значения меню всплывающих окон"
+    "ru": "Общие значения меню всплывающих окон",
+    "fr": "Valeurs par défaut partagées des menus surgissants"
   },
   "ownershipLayersBehavior": {
     "en": "Behavior",
-    "ru": "Поведение"
+    "ru": "Поведение",
+    "fr": "Comportement"
   },
   "ownershipLayersPresentation": {
     "en": "Presentation",
-    "ru": "Представление"
+    "ru": "Представление",
+    "fr": "Présentation"
   },
   "ownershipLayersOwnership": {
     "en": "Ownership",
-    "ru": "Владение"
+    "ru": "Владение",
+    "fr": "Propriété"
   },
   "ownershipLayersPackageSource": {
     "en": "Package or source",
-    "ru": "Пакет или исходный код"
+    "ru": "Пакет или исходный код",
+    "fr": "Paquet ou code source"
   },
   "ownershipLayersEyebrow": {
     "en": "Design-system contract",
-    "ru": "Контракт дизайн-системы"
+    "ru": "Контракт дизайн-системы",
+    "fr": "Contrat du système de design"
   },
   "ownershipLayersTitle": {
     "en": "One system, three clear layers",
-    "ru": "Одна система, три понятных слоя"
+    "ru": "Одна система, три понятных слоя",
+    "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
     "en": "Ark UI owns interaction behavior, moduix supplies the styled component layer, and your application owns the final theme and composition.",
-    "ru": "Ark UI владеет поведением взаимодействий, moduix предоставляет слой стилизованных компонентов, а вашему приложению принадлежат итоговая тема и композиция."
+    "ru": "Ark UI владеет поведением взаимодействий, moduix предоставляет слой стилизованных компонентов, а вашему приложению принадлежат итоговая тема и композиция.",
+    "fr": "Ark UI gère le comportement des interactions, moduix fournit la couche de composants stylés et votre application possède le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
-    "ru": "Стилизация на основе токенов"
+    "ru": "Стилизация на основе токенов",
+    "fr": "Style fondé sur les tokens"
   },
   "ownershipLayersThemeable": {
     "en": "themeable",
-    "ru": "настраивается темой"
+    "ru": "настраивается темой",
+    "fr": "personnalisable par thème"
   },
   "ownershipLayersNote": {
     "en": "Global semantic tokens establish the visual language; shared family tokens keep related controls aligned; component variables remain available for deliberate exceptions.",
-    "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений."
+    "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений.",
+    "fr": "Les tokens sémantiques globaux définissent le langage visuel ; les tokens de famille partagés alignent les contrôles apparentés ; les variables de composant permettent les exceptions délibérées."
   },
   "v2MigrationHeroTitle": {
     "en": "A new component foundation",
-    "ru": "Новая основа компонентов"
+    "ru": "Новая основа компонентов",
+    "fr": "Une nouvelle fondation pour les composants"
   },
   "v2MigrationHeroSummary": {
     "en": "This release migrates moduix from Base UI to Ark UI.",
-    "ru": "В этом релизе moduix переходит с Base UI на Ark UI."
+    "ru": "В этом релизе moduix переходит с Base UI на Ark UI.",
+    "fr": "Cette version fait migrer moduix de Base UI vers Ark UI."
   },
   "componentGalleryCategoryFormInputTitle": {
     "en": "Form & Input",
-    "ru": "Формы и ввод"
+    "ru": "Формы и ввод",
+    "fr": "Formulaires et saisie"
   },
   "componentGalleryCategoryFormInputDescription": {
     "en": "Inputs, selection controls, field composition, and form-ready controls.",
-    "ru": "Поля ввода, элементы выбора, композиция полей и элементы управления для форм."
+    "ru": "Поля ввода, элементы выбора, композиция полей и элементы управления для форм.",
+    "fr": "Champs de saisie, contrôles de sélection, composition de champs et contrôles prêts pour les formulaires."
   },
   "componentGalleryCategoryLayoutNavigationTitle": {
     "en": "Layout & Navigation",
-    "ru": "Макет и навигация"
+    "ru": "Макет и навигация",
+    "fr": "Mise en page et navigation"
   },
   "componentGalleryCategoryLayoutNavigationDescription": {
     "en": "Structure product screens, reveal content, and guide people through them.",
-    "ru": "Структурируйте экраны продукта, открывайте содержимое и направляйте пользователей."
+    "ru": "Структурируйте экраны продукта, открывайте содержимое и направляйте пользователей.",
+    "fr": "Structurez les écrans produit, révélez le contenu et guidez les utilisateurs."
   },
   "componentGalleryCategoryOverlaysDialogsTitle": {
     "en": "Overlays & Dialogs",
-    "ru": "Оверлеи и диалоги"
+    "ru": "Оверлеи и диалоги",
+    "fr": "Superpositions et dialogues"
   },
   "componentGalleryCategoryOverlaysDialogsDescription": {
     "en": "Focused surfaces for commands, details, help, and temporary workflows.",
-    "ru": "Сфокусированные поверхности для команд, подробностей, помощи и временных сценариев."
+    "ru": "Сфокусированные поверхности для команд, подробностей, помощи и временных сценариев.",
+    "fr": "Surfaces ciblées pour les commandes, les détails, l'aide et les flux temporaires."
   },
   "componentGalleryCategoryFeedbackStatusTitle": {
     "en": "Feedback & Status",
-    "ru": "Обратная связь и статус"
+    "ru": "Обратная связь и статус",
+    "fr": "Retour et état"
   },
   "componentGalleryCategoryFeedbackStatusDescription": {
     "en": "Communicate progress, empty states, loading, and actionable messages.",
-    "ru": "Сообщайте о ходе выполнения, пустых состояниях, загрузке и доступных действиях."
+    "ru": "Сообщайте о ходе выполнения, пустых состояниях, загрузке и доступных действиях.",
+    "fr": "Communiquez la progression, les états vides, le chargement et les messages actionnables."
   },
   "componentGalleryCategoryDisplayContentTitle": {
     "en": "Display & Content",
-    "ru": "Отображение и содержимое"
+    "ru": "Отображение и содержимое",
+    "fr": "Affichage et contenu"
   },
   "componentGalleryCategoryDisplayContentDescription": {
     "en": "Present identity, media, data, keyboard hints, and supporting information.",
-    "ru": "Представляйте идентификационные данные, медиа, данные, подсказки клавиатуры и дополнительную информацию."
+    "ru": "Представляйте идентификационные данные, медиа, данные, подсказки клавиатуры и дополнительную информацию.",
+    "fr": "Présentez l'identité, les médias, les données, les raccourcis clavier et les informations complémentaires."
   },
   "componentGalleryCategoryActionsUtilitiesTitle": {
     "en": "Actions & Utilities",
-    "ru": "Действия и утилиты"
+    "ru": "Действия и утилиты",
+    "fr": "Actions et utilitaires"
   },
   "componentGalleryCategoryActionsUtilitiesDescription": {
     "en": "Small interaction primitives for common product actions and patterns.",
-    "ru": "Небольшие примитивы взаимодействия для распространённых действий и паттернов продукта."
+    "ru": "Небольшие примитивы взаимодействия для распространённых действий и паттернов продукта.",
+    "fr": "De petits primitifs d'interaction pour les actions et modèles produit courants."
   },
   "componentGallerySummary": {
     "en": "Browse composable React components built on Ark UI. Every card leads to usage guidance, a runnable example, and its install command.",
-    "ru": "Изучайте компонуемые React-компоненты, построенные на Ark UI. Каждая карточка ведёт к руководству по использованию, работающему примеру и команде установки."
+    "ru": "Изучайте компонуемые React-компоненты, построенные на Ark UI. Каждая карточка ведёт к руководству по использованию, работающему примеру и команде установки.",
+    "fr": "Parcourez les composants React composables construits sur Ark UI. Chaque carte mène à un guide d'utilisation, un exemple exécutable et sa commande d'installation."
   },
   "componentGalleryMoreTitle": {
     "en": "More components",
-    "ru": "Другие компоненты"
+    "ru": "Другие компоненты",
+    "fr": "Autres composants"
   },
   "componentGalleryMoreDescription": {
     "en": "New components remain visible here until they receive a category.",
-    "ru": "Новые компоненты остаются здесь видимыми, пока не получат категорию."
+    "ru": "Новые компоненты остаются здесь видимыми, пока не получат категорию.",
+    "fr": "Les nouveaux composants restent visibles ici jusqu'à ce qu'ils reçoivent une catégorie."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",
-    "ru": "Компоненты читают семантические переменные, а темы переопределяют исходную палитру."
+    "ru": "Компоненты читают семантические переменные, а темы переопределяют исходную палитру.",
+    "fr": "Les composants lisent les variables sémantiques tandis que les thèmes remplacent la palette brute."
   },
   "tokensOverviewCentralizedBackdrop": {
     "en": "Global backdrop color and blur stay centralized, and component-level variables can still opt out.",
-    "ru": "Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться."
+    "ru": "Глобальные цвет и размытие фона остаются централизованными, а переменные уровня компонента по-прежнему могут от них отказаться.",
+    "fr": "La couleur et le flou globaux de l'arrière-plan restent centralisés, et les variables de composant peuvent toujours s'en écarter."
   },
   "tokensOverviewParentScope": {
     "en": "Any parent scope can change density, motion, or color for a focused area.",
-    "ru": "Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны."
+    "ru": "Любая родительская область может изменить плотность, анимацию или цвет для выделенной зоны.",
+    "fr": "Toute portée parente peut modifier la densité, le mouvement ou la couleur d'une zone ciblée."
   },
   "tokensOverviewColorThemeValues": {
     "en": "Light and dark theme values plus semantic aliases.",
-    "ru": "Значения светлой и тёмной темы вместе с семантическими алиасами."
+    "ru": "Значения светлой и тёмной темы вместе с семантическими алиасами.",
+    "fr": "Valeurs des thèmes clair et sombre, avec leurs alias sémantiques."
   },
   "tokensOverviewSizingScale": {
     "en": "Primitive steps, semantic spacing, and control heights.",
-    "ru": "Примитивные шаги, семантические интервалы и высоты элементов управления."
+    "ru": "Примитивные шаги, семантические интервалы и высоты элементов управления.",
+    "fr": "Paliers primitifs, espacement sémantique et hauteurs des contrôles."
   },
   "tokensOverviewRadiusAndBorders": {
     "en": "Radius derives from one root value; borders stay simple.",
-    "ru": "Скругление выводится из одного корневого значения; границы остаются простыми."
+    "ru": "Скругление выводится из одного корневого значения; границы остаются простыми.",
+    "fr": "Les rayons dérivent d'une valeur racine unique ; les bordures restent simples."
   },
   "tokensOverviewElevation": {
     "en": "Shadows, transforms, and z-index tokens for overlays.",
-    "ru": "Тени, преобразования и токены z-index для оверлеев."
+    "ru": "Тени, преобразования и токены z-index для оверлеев.",
+    "fr": "Ombres, transformations et tokens z-index pour les superpositions."
   },
   "tokensOverviewOverlayDefaults": {
     "en": "Backdrop, popup, and popup-motion defaults are reused across overlay families, with local component tokens layered on top.",
-    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов."
+    "ru": "Значения по умолчанию для фона, всплывающих окон и их анимации используются всеми семействами оверлеев, а поверх них располагаются локальные токены компонентов.",
+    "fr": "Les valeurs par défaut d'arrière-plan, de fenêtre surgissante et de mouvement sont réutilisées par les familles de superpositions, avec des tokens locaux de composant par-dessus."
   },
   "frameworkAstroDescription": {
     "en": "Interactive React islands in Astro.",
-    "ru": "Интерактивные React-острова в Astro."
+    "ru": "Интерактивные React-острова в Astro.",
+    "fr": "Îlots React interactifs dans Astro."
   },
   "frameworkNextDescription": {
     "en": "App Router and React Server Components.",
-    "ru": "App Router и React Server Components."
+    "ru": "App Router и React Server Components.",
+    "fr": "App Router et React Server Components."
   },
   "frameworkReactRouterDescription": {
     "en": "Framework mode and data mode apps.",
-    "ru": "Приложения в режиме фреймворка и в режиме данных."
+    "ru": "Приложения в режиме фреймворка и в режиме данных.",
+    "fr": "Applications en mode framework et en mode données."
   },
   "frameworkRsbuildDescription": {
     "en": "React apps powered by Rspack.",
-    "ru": "React-приложения на базе Rspack."
+    "ru": "React-приложения на базе Rspack.",
+    "fr": "Applications React propulsées par Rspack."
   },
   "frameworkTanStackStartDescription": {
     "en": "Full-stack React on Vite.",
-    "ru": "Полнофункциональный React на Vite."
+    "ru": "Полнофункциональный React на Vite.",
+    "fr": "React full stack sur Vite."
   },
   "frameworkViteDescription": {
     "en": "Standard React apps and SPAs.",
-    "ru": "Стандартные React-приложения и SPA."
+    "ru": "Стандартные React-приложения и SPA.",
+    "fr": "Applications React et SPA standard."
+  },
+  "frameworkSupportGroupLabel": {
+    "en": "Framework support",
+    "ru": "Поддержка фреймворков",
+    "fr": "Prise en charge des frameworks"
+  },
+  "frameworkReactAvailable": {
+    "en": "React is available",
+    "ru": "React доступен",
+    "fr": "React est disponible"
+  },
+  "frameworkSupportPlanned": {
+    "en": "Planned",
+    "ru": "Запланировано",
+    "fr": "Prévu"
+  },
+  "copyMarkdownText": {
+    "en": "Copy Markdown",
+    "ru": "Скопировать Markdown",
+    "fr": "Copier le Markdown"
+  },
+  "copyMarkdownLinkText": {
+    "en": "Copy Markdown link",
+    "ru": "Скопировать ссылку Markdown",
+    "fr": "Copier le lien Markdown"
+  },
+  "outlineTitle": {
+    "en": "ON THIS PAGE",
+    "ru": "ОГЛАВЛЕНИЕ",
+    "fr": "SUR CETTE PAGE"
+  },
+  "editLinkText": {
+    "en": "Edit this page",
+    "ru": "Отредактировать страницу",
+    "fr": "Modifier cette page"
+  },
+  "lastUpdatedText": {
+    "en": "Last Updated",
+    "ru": "Последнее обновление",
+    "fr": "Dernière mise à jour"
+  },
+  "nextPageText": {
+    "en": "Next page",
+    "ru": "Следующая страница",
+    "fr": "Page suivante"
   }
 }

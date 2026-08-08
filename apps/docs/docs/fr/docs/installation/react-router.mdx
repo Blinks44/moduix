@@ -1,0 +1,58 @@
+---
+title: React Router
+description: Installez moduix dans une application React Router avec CSS racine, balisage sûr pour SSR et alias.
+---
+
+# React Router
+
+Cette configuration cible le mode framework de React Router. Les applications en mode données peuvent utiliser les
+mêmes imports de paquet dans leur point d'entrée Vite existant.
+
+## Installer le paquet
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Importez une seule fois la feuille de style de base depuis la route racine :
+
+```tsx title="app/root.tsx"
+import '@moduix/react/style.css';
+```
+
+Utilisez les composants dans un module de route :
+
+```tsx title="app/routes/home.tsx"
+import { Button } from '@moduix/react/button';
+
+export default function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Installer avec la CLI shadcn
+
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn). Associez `@/*` à
+`app/*` plutôt qu'à `src/*` lorsque le code généré doit se trouver dans le répertoire `app` standard :
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+Le mode framework de React Router utilise Vite ; reproduisez donc l'alias dans `vite.config.ts` comme indiqué dans
+la [configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn), en remplaçant `./src` par `./app`.
+Importez `@/lib/moduix/styles/style.css` depuis `app/root.tsx`.
+
+## Vérifier
+
+La configuration est terminée lorsque le rendu serveur initial correspond à la page hydratée et que les composants
+interactifs fonctionnent après l'hydratation. Ne faites pas dépendre le balisage d'un composant des globales du
+navigateur pendant le rendu.
+
+Consultez l'[installation de React Router](https://reactrouter.com/start/framework/installation) pour la
+configuration complète du framework.

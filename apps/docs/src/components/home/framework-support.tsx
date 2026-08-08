@@ -1,4 +1,5 @@
 import { Tooltip } from '@moduix/react/tooltip';
+import { useI18n } from '@rspress/core/runtime';
 import styles from './framework-support.module.css';
 
 const upcomingFrameworks = [
@@ -8,9 +9,11 @@ const upcomingFrameworks = [
 ];
 
 export function FrameworkSupport() {
+  const t = useI18n<typeof import('i18n')>();
+
   return (
-    <div className={styles.root} role="group" aria-label="Framework support">
-      <div className={styles.available} role="img" aria-label="React is available">
+    <div className={styles.root} role="group" aria-label={t('frameworkSupportGroupLabel')}>
+      <div className={styles.available} role="img" aria-label={t('frameworkReactAvailable')}>
         <ReactIcon />
       </div>
 
@@ -19,12 +22,12 @@ export function FrameworkSupport() {
           <Tooltip.Trigger
             type="button"
             className={styles.upcoming}
-            aria-label={`${name} support coming soon`}
+            aria-label={t('frameworkSupportPlanned')}
           >
             {icon}
           </Tooltip.Trigger>
           <Tooltip.Positioner>
-            <Tooltip.Content>Planned</Tooltip.Content>
+            <Tooltip.Content>{t('frameworkSupportPlanned')}</Tooltip.Content>
           </Tooltip.Positioner>
         </Tooltip>
       ))}

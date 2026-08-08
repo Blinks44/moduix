@@ -1,0 +1,54 @@
+---
+title: Connexion simple
+description: Formulaire de connexion par e-mail et mot de passe intégré à votre projet et construit avec les composants React moduix.
+---
+
+import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
+
+# Connexion simple
+
+Un formulaire compact avec e-mail et mot de passe, validation native, option « Se souvenir de moi »
+et liens clairs de récupération du compte. Il n’implémente volontairement pas l’authentification :
+transmettez `onSubmit` pour brancher votre propre action ou API.
+
+<ExampleFrame clientOnly>
+  <LoginSimplePreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/login-simple.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/login-simple.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+
+## Utilisation dans une route
+
+Affichez `LoginSimple` dans la route responsable de l’authentification et transmettez-lui le véritable
+gestionnaire d’envoi. Remplacez les liens `/forgot-password` et `/sign-up` par les routes de votre
+application.
+
+| Résultat | Comportement de la route |
+| -------- | ------------------------ |
+| En attente | Désactivez les envois en double et attribuez au bouton le libellé `Signing in…`. |
+| Identifiants incorrects | Affichez une seule erreur au niveau du formulaire sans préciser quel identifiant est incorrect. |
+| Erreur réseau | Conservez l’e-mail et proposez de réessayer ; n’effacez pas le mot de passe avant que cela soit nécessaire. |
+| Réussite | Remplacez l’entrée de l’historique ou redirigez vers la destination sûre choisie par votre application. |
+
+Validez toute URL `returnTo` ou de redirection sur le serveur avant d’y accéder.

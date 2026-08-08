@@ -1,0 +1,61 @@
+---
+title: Gestionnaire de téléversement de fichiers
+description: Gestionnaire de pièces jointes intégré à votre projet, avec glisser-déposer, validation et suppression des fichiers sélectionnés.
+---
+
+import { FileUploadManagerPreview } from '@/components/recipes/file-upload-manager-preview';
+
+# Gestionnaire de téléversement de fichiers
+
+Ajoutez une surface soignée pour les pièces jointes, avec glisser-déposer, sélecteur de fichiers
+natif, limites et retour clair lorsqu’un fichier est refusé. La recette ne gère que la liste locale :
+branchez votre propre mutation de téléversement là où le produit doit envoyer les fichiers au serveur.
+
+<ExampleFrame clientOnly>
+  <FileUploadManagerPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/file-upload-manager.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/file-upload-manager.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['card', 'file-upload']} itemKind="recipe" copiedSource />
+
+## Connexion du téléversement
+
+`FileUpload` conserve les fichiers sélectionnés dans son état local. Ajoutez `onFileChange` à la
+racine lorsque votre route doit transmettre `details.acceptedFiles` à une action de formulaire ou à
+une mutation de téléversement. Conservez les états de progression et de fin près de cette requête
+réelle au lieu de les simuler dans la recette.
+
+La validation côté client améliore le retour fourni, mais le serveur doit à nouveau valider le type,
+la taille, le contenu et l’autorisation du fichier. Traitez le `File` sélectionné comme une entrée
+non fiable.
+
+| État du téléversement | À montrer à l’utilisateur |
+| --------------------- | ------------------------- |
+| Sélectionné | Le nom et la taille du fichier, une action de suppression et un envoi explicite du fichier ou du formulaire. |
+| En cours | La progression lorsqu’elle est connue, un libellé d’attente et la désactivation des envois en double. |
+| Échec | Le message du serveur lorsqu’il peut être affiché sans risque, ainsi que des actions pour réessayer et supprimer. |
+| Terminé | Un état de réussite stable utilisant l’identifiant du fichier stocké par le serveur. |
+
+Si les fichiers sont téléversés dès leur sélection, conservez un identifiant attribué par
+l’application pour chaque requête afin qu’une nouvelle tentative mette à jour la même ligne et que
+la suppression d’un fichier n’annule pas les autres.

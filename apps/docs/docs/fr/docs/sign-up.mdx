@@ -1,0 +1,52 @@
+---
+title: Inscription
+description: Formulaire de création de compte intégré à votre projet et construit avec les composants React moduix.
+---
+
+import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+
+# Inscription
+
+Créez un compte avec une validation native du nom, de l’e-mail, des mots de passe et de l’acceptation
+des conditions. La recette confie volontairement l’authentification et la validation de la
+correspondance des mots de passe à votre gestionnaire `onSubmit`.
+
+<ExampleFrame clientOnly>
+  <SignUpPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/sign-up.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/sign-up.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+
+## Utilisation dans une route
+
+Affichez `SignUp` dans la route responsable de l’inscription et transmettez-lui le véritable
+gestionnaire d’envoi. Remplacez les liens `/terms`, `/privacy` et `/sign-in` par les routes de votre
+application.
+
+Affichez la politique de mot de passe avant l’envoi et validez la même politique sur le serveur.
+Pendant la création du compte, désactivez les envois en double. Associez les erreurs serveur propres
+à un champ, par exemple une adresse e-mail indisponible, au champ concerné ; utilisez un message au
+niveau du formulaire pour les erreurs réseau ou inattendues. Après la réussite, suivez la prochaine
+étape explicite de votre produit : démarrez une session, vérifiez l’adresse e-mail ou affichez une
+page de confirmation.

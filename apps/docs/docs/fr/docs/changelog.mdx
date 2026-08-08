@@ -1,0 +1,136 @@
+---
+title: Journal des modifications
+description: Versions du produit, modifications avec rupture de compatibilité et politique de support des versions de moduix.
+---
+
+import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
+
+<V2MigrationHero />
+
+## v2.2.3 — 24 juillet 2026
+
+- Correction de la compatibilité avec Next.js App Router pour les composants avec code source dans
+  le projet qui utilisent des API client locales.
+- Correction de la flèche Menu : elle reste désormais visible et se raccorde proprement à la bordure
+  du popup.
+
+Ces correctifs concernent aussi bien le code source installé depuis le registre que les utilisateurs
+du paquet. Si vous possédez des fichiers copiés, examinez la mise à jour avec
+`npx shadcn@latest add <item> --diff` avant de l'appliquer.
+
+## v2.2.2 — 24 juillet 2026
+
+- Réorganisation du code source du paquet et des chemins de dépendances afin que la sortie du CLI
+  shadcn reste autonome.
+- L'API publique des composants reste inchangée.
+
+## v2.2.1 — 23 juillet 2026
+
+- Ajout de la variante de contenu `island` pour Drawer — pour les panneaux détachés du bord de
+  l'écran.
+- Le fond du Drawer reste visible lors du glissement entre les points d'ancrage.
+- Ajout d'une feuille de style de référence des variables Ark UI (non exécutée) pour les outils
+  IDE du dépôt.
+
+## v2.2.0 — 22 juillet 2026
+
+- Les tokens CSS publics sont désormais préfixés `--moduix-*`.
+- Les couches de cascade sont désormais préfixées `moduix.*`.
+
+Si le CSS de l'application substitue un ancien token moduix sans préfixe, renommez cette
+substitution avec son équivalent `--moduix-*`. Les variables d'état d'exécution Ark UI, telles
+que `--height` et `--transform-origin`, restent sans préfixe car Ark les écrit directement dans
+les parties des composants.
+
+## v2.1.0 — 21 juillet 2026
+
+- Standardisation des contrôles principaux autour de l'échelle de taille medium et des lignes de
+  popup autour de l'échelle small.
+- Affinement du traitement du focus, de la densité des popups, de la composition Select et des
+  tokens de thème.
+- Ajout du composant Typeset et des préréglages de thème Calm, Dense, Soft et Contrast.
+
+## v2.0.0 — 19 juillet 2026
+
+moduix v2 fait migrer le socle de composants React de Base UI vers Ark UI. Il s'agit d'une version
+majeure intentionnelle : la composition des composants, l'accès à l'état et les props bas niveau
+suivent désormais le modèle de primitives accessibles d'Ark UI.
+
+### Ce qui a changé
+
+- Les composants dotés d'une primitive dédiée utilisent désormais Ark UI pour le comportement et
+  l'accessibilité.
+- L'API publique suit la composition en parties d'Ark : les racines, les parties structurelles,
+  `RootProvider`, les contextes et les callbacks respectent les contrats Ark correspondants là où
+  ils sont exposés.
+- Le CSS natif et les chemins d'installation par paquet ou avec code source restent disponibles.
+  Le registre hébergé continue d'installer le code source autonome des composants.
+- Les icônes par défaut des composants sont un détail d'implémentation interne. Importez les icônes
+  de l'application directement depuis la bibliothèque de votre choix, par exemple `lucide-react`.
+
+### Thèmes
+
+La v2 ajoute des préréglages de tokens CSS soigneusement sélectionnés : `Calm`, `Dense`, `Soft` et
+`Contrast`. Ils modifient les couleurs sémantiques, l'espacement, les tailles des contrôles, le
+rayon, les ombres et les tokens Sidebar sans fournisseur ni runtime de thème. `Calm` est le socle
+par défaut ; importez l'un des autres préréglages après `style.css` et définissez le thème sur
+`<html>` :
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+```html
+<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
+```
+
+L'attribut `data-moduix-color-scheme` sélectionne les valeurs sombres pour le préréglage actif.
+Les thèmes restent du CSS ordinaire ; vous pouvez donc créer un thème appartenant au projet en
+définissant les mêmes tokens sémantiques après l'import du socle. Consultez [Thèmes](/docs/themes)
+pour le guide complet de thème personnalisé, tous les préréglages et le chemin via le registre hébergé.
+
+### Migration vers la v2
+
+1. Installez le paquet v2 avec sa peer dependency Ark UI :
+
+   ```bash
+   npm install @moduix/react@2 @ark-ui/react
+   ```
+
+2. Consultez la page v2 de chaque composant utilisé. Recomposez ses parties explicites là où
+   l'ancienne API Base UI était plus plate ou utilisait des noms différents.
+3. Remplacez les imports d'icônes moduix par une bibliothèque d'icônes appartenant à l'application :
+
+   ```tsx
+   import { Check as CheckIcon } from 'lucide-react';
+   import { Toggle } from '@moduix/react/toggle';
+   ```
+
+4. Pour les composants avec code source dans le projet, examinez les modifications avant de
+   mettre à jour et fusionnez le résultat dans votre code source :
+
+   ```bash
+   npx shadcn@latest add @moduix-react/button --diff
+   ```
+
+Pour le processus permanent de mise à jour du paquet et du code source dans le projet, consultez
+[Mise à jour et migration](https://moduix.dev/docs/updating).
+
+### Modifications avec rupture de compatibilité
+
+- Les API de composants spécifiques à Base UI sont supprimées.
+- `@moduix/react` n'exporte plus ses icônes par défaut internes.
+- Les composants avec code source dans le projet doivent être examinés et mis à jour explicitement ;
+  il s'agit de code source dans votre projet, pas de code de paquet mis à jour automatiquement.
+
+## Politique de versions et de support
+
+moduix suit le Semantic Versioning. Les versions majeures peuvent inclure des modifications avec
+rupture de compatibilité ; les versions mineures ajoutent des fonctionnalités rétrocompatibles ;
+les correctifs contiennent des corrections rétrocompatibles.
+
+La dernière version majeure est activement supportée. La v2 supporte React 18 et 19, et moduix
+maintient son intégration Ark UI alignée avec les versions courantes. Pour chaque version majeure,
+cette page recense les API concernées, les étapes de migration et les implications pour le paquet
+ou le registre.

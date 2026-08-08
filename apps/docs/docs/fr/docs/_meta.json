@@ -1,0 +1,59 @@
+[
+  {
+    "type": "section-header",
+    "label": "Vue d'ensemble"
+  },
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Introduction",
+    "tag": "book-open"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "label": "Journal des modifications",
+    "tag": "scroll-text"
+  },
+  {
+    "type": "file",
+    "name": "components",
+    "label": "Composants",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "migrate-from-shadcn",
+    "label": "Migration depuis shadcn",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "themes",
+    "label": "Thèmes",
+    "tag": "palette"
+  },
+  {
+    "type": "file",
+    "name": "tokens",
+    "label": "Tokens",
+    "tag": "swatch-book"
+  },
+  {
+    "type": "section-header",
+    "label": "Commencer"
+  },
+  {
+    "type": "file",
+    "name": "quick-start",
+    "label": "Démarrage rapide",
+    "tag": "rocket"
+  },
+  {
+    "type": "dir",
+    "name": "installation",
+    "label": "Configuration des frameworks",
+    "collapsible": true,
+    "collapsed": true
+  }
+]

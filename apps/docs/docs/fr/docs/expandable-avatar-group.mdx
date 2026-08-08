@@ -1,0 +1,58 @@
+---
+title: Groupe d’avatars extensible
+description: Groupe d’avatars superposés qui s’étend au survol ou au focus clavier et identifie chaque membre par une infobulle.
+---
+
+import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
+
+# Groupe d’avatars extensible
+
+Utilisez cette liste d’équipe compacte lorsque l’espace est limité, mais que chaque personne doit
+rester identifiable par un libellé. Le survol ou le focus d’un avatar libère de la place après
+celui-ci et ouvre l’infobulle correspondante.
+
+<ExampleFrame clientOnly>
+  <ExpandableAvatarGroup />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/expandable-avatar-group.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
+
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
+
+## Fonctionnement
+
+Le groupe utilise `Avatar.Image` avec `Avatar.Fallback` comme solution de repli pendant le chargement et
+`Tooltip.Trigger asChild` afin que chaque avatar reste un bouton sémantique. L’animation repose
+uniquement sur le CSS : le bouton actif se soulève légèrement tandis que les éléments qui le suivent
+lui font de la place. Avant de publier la recette, remplacez les URL d’images d’exemple par la source
+d’avatars de votre application.
+
+Gardez le contenu de l’infobulle court et non essentiel. Si la sélection d’un membre doit naviguer
+ou déclencher une action, remplacez le bouton par le contrôle sémantique approprié et conservez son
+nom accessible.
+
+Utilisez `role="group"` avec un libellé pertinent pour la liste et incluez le rôle de chaque personne
+dans le nom accessible du bouton lorsque cela aide à distinguer des noms similaires. Pour une équipe
+nombreuse, affichez seulement les premiers membres et un dernier contrôle `+N` qui ouvre une liste
+complète et consultable. Gardez un ordre stable et conservez l’espacement étendu tout en supprimant
+le soulèvement et les transitions sous `prefers-reduced-motion: reduce`.

@@ -1,0 +1,63 @@
+---
+title: Next.js
+description: Installez moduix dans le routeur App de Next.js avec CSS racine et limites explicites de composants client.
+---
+
+# Next.js
+
+Dans l'App Router, chargez le CSS de moduix depuis le layout racine et placez les composants interactifs sous une
+limite client.
+
+## Installer le paquet
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Importez une seule fois la feuille de style de base dans le layout racine :
+
+```tsx title="app/layout.tsx"
+import '@moduix/react/style.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Placez la composition moduix interactive dans un composant client :
+
+```tsx title="app/continue-button.tsx"
+'use client';
+
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+Les composants serveur peuvent afficher du balisage ordinaire autour de cette limite. Ils doivent transmettre des
+données sérialisables au composant client plutôt que des gestionnaires d'événements.
+
+## Installer avec la CLI shadcn
+
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn) avec `rsc: true`.
+Conservez l'alias `@/*` par défaut du starter Next.js et importez la feuille de style de base générée depuis le
+layout racine :
+
+```tsx title="app/layout.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+La CLI shadcn ajoute `use client` aux composants générés qui en ont besoin. Votre propre wrapper composé nécessite
+toujours la directive s'il possède un état, des effets ou des gestionnaires d'événements.
+
+## Vérifier
+
+La configuration est terminée lorsque les styles sont présents dans la première réponse et que les composants
+interactifs ne signalent ni erreur de limite serveur/client ni erreur d'hydratation.
+
+Consultez les guides Next.js sur le [CSS](https://nextjs.org/docs/app/getting-started/css) et la
+[directive `use client`](https://nextjs.org/docs/app/api-reference/directives/use-client).

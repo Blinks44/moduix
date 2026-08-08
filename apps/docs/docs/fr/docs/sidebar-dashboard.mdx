@@ -1,0 +1,54 @@
+---
+title: Tableau de bord avec barre latérale
+description: Structure de tableau de bord intégrée à votre projet, avec navigation moduix réductible et redimensionnable.
+---
+
+import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
+
+# Tableau de bord avec barre latérale
+
+Créez un espace de travail pour ordinateur avec une barre latérale de navigation redimensionnable et
+une vue d’ensemble simple du tableau de bord. `Sidebar` gère la réduction, le redimensionnement au
+clavier et les infobulles de la navigation réduite. L’élément Projects illustre également une
+navigation imbriquée, tandis que le pied de page contient un menu d’espace de travail.
+
+<ExampleFrame clientOnly>
+  <SidebarDashboardPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/sidebar-dashboard.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+
+## Utilisation dans une route
+
+Remplacez les liens, les libellés et le contenu du tableau de bord d’exemple par vos routes et vos
+données. Cette recette est pensée d’abord pour les ordinateurs : les menus du compte, les
+notifications et la navigation mobile avec tiroir restent des recettes distinctes, afin que vous
+les composiez uniquement lorsque votre application en a besoin.
+
+Marquez la destination active avec `aria-current="page"` et utilisez les liens du routeur via
+`asChild` lorsque le routeur doit gérer la navigation. Ne conservez la largeur réduite que si cette
+préférence est utile aux utilisateurs qui reviennent ; lisez le stockage du navigateur après
+l’hydratation et gardez une valeur par défaut utilisable sans celui-ci. Associez cette structure pour
+ordinateur à la [Navigation mobile avec tiroir](/docs/mobile-drawer-navigation) au lieu de forcer la
+barre latérale redimensionnable dans une fenêtre étroite.

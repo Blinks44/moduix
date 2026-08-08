@@ -1,0 +1,170 @@
+---
+title: Thèmes
+description: Démarrez à partir d'un préréglage de tokens moduix soigneusement sélectionné, puis conservez le CSS dans votre projet.
+---
+
+import { ThemePresets } from '@/components/docs/theme-presets';
+import { ClientOnly } from '@ark-ui/react/client-only';
+
+# Thèmes
+
+Les thèmes moduix sont de simples couches de tokens CSS. `Calm` est le socle équilibré ; `Dense`,
+`Soft` et `Contrast` sont des points de départ optionnels pour une direction visuelle différente.
+Un préréglage peut modifier la palette, le rayon, l'espacement, la densité des contrôles, les
+ombres et les tokens Sidebar sans modifier les API des composants ni ajouter un runtime de thème.
+
+<ClientOnly fallback={<ThemePresets />}>
+  <ThemePresets />
+</ClientOnly>
+
+## Choisissez un préréglage
+
+| Préréglage | Contrôles / lignes de popup | Meilleur point de départ pour |
+| --- | --- | --- |
+| Calm | 36px / 32px | La plupart des interfaces produit ; un rythme neutre et des surfaces apaisées. |
+| Dense | 34px / 30px | Les outils à forte densité de données où la densité d'information visible est importante. |
+| Soft | 40px / 34px | Les interfaces tactiles ou spacieuses avec une direction visuelle plus chaleureuse. |
+| Contrast | 36px / 32px | Les interfaces qui bénéficient de bordures plus prononcées et d'une séparation du focus. |
+
+L'aperçu utilise de véritables contrôles moduix. Ouvrez le Select et naviguez dans les champs au
+clavier pour comparer ensemble la densité des déclencheurs, les lignes de popup plus compactes, les
+labels, les surfaces et le traitement du focus. Les noms des préréglages décrivent une direction
+visuelle, pas une garantie d'accessibilité. Testez le contraste du texte, la visibilité du focus,
+le zoom et la taille des cibles avec votre contenu et les substitutions de votre application avant
+la mise en production.
+
+## Comment fonctionnent les couches
+
+La feuille de style de base définit le contrat de tokens complet et les valeurs par défaut `Calm`.
+Un préréglage substitue sélectivement ce contrat ; votre application peut ensuite ne substituer
+que les décisions qui appartiennent à votre marque. Les composants consomment des alias sémantiques
+et au niveau du composant, de sorte qu'un changement de palette ou de densité se propage aux
+contrôles liés au lieu de devenir un ensemble de règles ponctuelles.
+
+```text
+foundation tokens → optional preset → application overrides → component aliases
+```
+
+Le CSS des préréglages reste petit, lisible et supprimable. Consultez [Tokens](/docs/tokens) pour
+voir quelles variables forment la surface publique de thématisation.
+
+## Utilisation avec le paquet npm
+
+Importez d'abord le socle, puis un préréglage. Placez `data-moduix-theme` sur `<html>` pour que
+les composants rendus via portail héritent des mêmes tokens. Définissez
+`data-moduix-color-scheme="dark"` sur cet élément pour la palette sombre de moduix.
+
+```tsx
+import '@moduix/react/style.css';
+import '@moduix/react/presets/soft.css';
+```
+
+```html
+<html data-moduix-theme="soft" data-moduix-color-scheme="dark"></html>
+```
+
+Choisissez l'un de ces chemins à la place de `soft.css` :
+
+```text
+@moduix/react/presets/dense.css
+@moduix/react/presets/contrast.css
+```
+
+## Utilisation avec le registre hébergé
+
+Installez un préréglage avec code source dans le projet, puis importez son CSS généré après la
+feuille de style de base.
+
+```bash
+npx shadcn@latest add @moduix-react/theme-dense
+```
+
+```tsx
+import '@/lib/moduix/styles/style.css';
+import '@/lib/moduix/presets/dense.css';
+```
+
+```html
+<html data-moduix-theme="dense"></html>
+```
+
+Remplacez `dense` par `soft` ou `contrast` pour utiliser un autre préréglage.
+
+## Changer de thème à l'exécution
+
+Conservez l'état du thème sur l'élément document pour que le contenu ordinaire et les overlays du
+portail reçoivent les mêmes tokens. Ne persistez le nom choisi que si votre produit a besoin de
+le mémoriser.
+
+```tsx
+function setTheme(theme: 'calm' | 'dense' | 'soft' | 'contrast') {
+  document.documentElement.dataset.moduixTheme = theme;
+  localStorage.setItem('moduix-theme', theme);
+}
+```
+
+Appliquez la valeur sauvegardée avant le rendu de l'application pour éviter un changement de thème
+visible au démarrage.
+
+## Personnaliser un préréglage
+
+Le préréglage n'est qu'une couche de variables CSS. Substituez-le dans votre propre feuille de
+style après l'import du préréglage. Modifiez les tokens sémantiques pour les décisions à l'échelle
+du système, et les alias de composants uniquement pour les exceptions intentionnelles.
+
+```css
+[data-moduix-theme='soft'] {
+  --moduix-primary: oklch(0.5 0.17 285);
+  --moduix-radius: 0.875rem;
+}
+```
+
+## Créer un thème personnalisé
+
+Créez une feuille de style après le socle et appliquez son nom sur `<html>`. Commencez par les
+tokens qui définissent votre direction visuelle ; les tokens omis conservent leurs valeurs de base.
+N'ajoutez des tokens de taille ou d'espacement que si votre thème modifie intentionnellement la
+densité. Utilisez un préréglage comme référence quand vous voulez remplacer la palette complète, les
+tokens Sidebar, l'espacement et les ombres.
+
+```tsx
+import '@moduix/react/style.css';
+import './brand.css';
+```
+
+```css
+/* brand.css */
+[data-moduix-theme='brand'] {
+  --moduix-background: oklch(0.98 0.01 260);
+  --moduix-foreground: oklch(0.2 0.02 260);
+  --moduix-card: oklch(1 0 0);
+  --moduix-card-foreground: oklch(0.2 0.02 260);
+  --moduix-primary: oklch(0.5 0.18 260);
+  --moduix-primary-foreground: oklch(0.99 0.002 260);
+  --moduix-border: oklch(0.86 0.02 260);
+  --moduix-input: oklch(0.82 0.025 260);
+  --moduix-ring: oklch(0.58 0.15 260);
+  --moduix-radius: 0.875rem;
+  --moduix-size-sm: 2rem;
+  --moduix-size-md: 2.25rem;
+}
+
+[data-moduix-theme='brand'][data-moduix-color-scheme='dark'] {
+  --moduix-background: oklch(0.17 0.02 260);
+  --moduix-foreground: oklch(0.97 0.004 260);
+  --moduix-card: oklch(0.22 0.024 260);
+  --moduix-card-foreground: oklch(0.97 0.004 260);
+  --moduix-primary: oklch(0.78 0.13 260);
+  --moduix-primary-foreground: oklch(0.18 0.024 260);
+  --moduix-border: oklch(0.76 0.03 260 / 0.28);
+  --moduix-input: oklch(0.76 0.03 260 / 0.34);
+  --moduix-ring: oklch(0.74 0.12 260);
+}
+```
+
+```html
+<html data-moduix-theme="brand" data-moduix-color-scheme="dark"></html>
+```
+
+Consultez [Tokens](/docs/tokens) pour la référence des tokens système et [Mode sombre](https://moduix.dev/docs/dark-mode)
+pour le commutateur clair/sombre appartenant à l'application.
