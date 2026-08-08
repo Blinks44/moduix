@@ -190,6 +190,7 @@
   --moduix-avatar-color: initial; /* var(--moduix-color-foreground) */
   --moduix-avatar-fallback-bg: initial; /* var(--moduix-avatar-bg) */
   --moduix-avatar-fallback-color: initial; /* inherit */
+  --moduix-avatar-fallback-icon-size: initial; /* 55% */
   --moduix-avatar-fallback-padding: initial; /* 0 */
   --moduix-avatar-font-size: initial; /* var(--moduix-text-md) */
   --moduix-avatar-font-weight: initial; /* var(--moduix-weight-medium) */

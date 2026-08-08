@@ -54,7 +54,8 @@ Avatar.Root | Avatar.RootProvider
 `Avatar.Image` отрисовывает `img`, поэтому указывайте осмысленный текст `alt`, если изображение передаёт информацию о пользователе.
 Используйте `alt=""`, когда окружающая ссылка или кнопка уже имеет доступное имя.
 
-`Avatar.Fallback name="Alex T."` получает инициалы для распространённого случая. Передавайте дочерние элементы, если требуется
+`Avatar.Fallback name="Alex T."` получает первую графему первого и последнего слова — инициалы
+корректно отображаются для имён на разных языках и эмодзи. Передавайте дочерние элементы, если требуется
 пользовательское резервное содержимое; явные дочерние элементы имеют приоритет над `name`.
 
 ### Когда нужна собственная композиция
@@ -80,7 +81,10 @@ Avatar.Root | Avatar.RootProvider
 ### Особенности поведения
 
 - Ark управляет `data-state="visible" | "hidden"` на `Avatar.Image` и `Avatar.Fallback`.
-- `Avatar.Fallback` получает инициалы из `name` только если не переданы дочерние элементы.
+- `Avatar.Fallback` получает безопасные для Unicode-графем инициалы из первого и последнего слова `name`
+  только если не переданы дочерние элементы.
+- `Avatar.Fallback` отображает декоративную иконку пользователя, если нет дочерних элементов и из
+  `name` нельзя получить инициалы.
 - `onStatusChange` получает объект details; считывайте текущее значение из `details.status`.
 - При отсутствии изображения или ошибке его загрузки резервное содержимое остаётся видимым.
 - `Avatar.RootProvider` требует `value`, возвращаемый `useAvatar`.
@@ -89,6 +93,17 @@ Avatar.Root | Avatar.RootProvider
 - moduix добавляет только визуальные значения по умолчанию, стабильные хуки `data-slot`, CSS-переменные и `size`.
 
 ## Примеры
+
+### Резервная иконка по умолчанию
+
+Оставьте `Avatar.Fallback` пустым, чтобы использовать встроенную декоративную иконку пользователя.
+Если Avatar интерактивен, задайте доступное имя окружающей ссылке или кнопке.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/default-fallback.tsx"
+
+```
+</PreviewFrame>
 
 ### Пользовательское резервное содержимое
 
@@ -181,7 +196,8 @@ Avatar только с резервным содержимым допустим,
 
 ### Хуки стилизации
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image` и `avatar-fallback`.
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` и
+  `avatar-fallback-icon`.
 - Хуки анатомии Ark: `data-scope="avatar"` и
   `data-part="root" | "image" | "fallback"`.
 - Состояние изображения Ark: `data-state="visible" | "hidden"` на `Avatar.Image` и

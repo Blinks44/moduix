@@ -98,6 +98,41 @@ export const FallbackOnly: Story = {
   },
 };
 
+export const DefaultFallback: Story = {
+  render: () => {
+    return (
+      <div className={styles.fallbackRow}>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+          <Avatar key={size} size={size}>
+            <Avatar.Fallback />
+          </Avatar>
+        ))}
+      </div>
+    );
+  },
+};
+
+export const InternationalInitials: Story = {
+  render: () => {
+    return (
+      <div className={styles.fallbackRow}>
+        <Avatar size="lg">
+          <Avatar.Fallback name="Alex Taylor" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="Алексей Смирнов" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="李 小龙" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="👩🏽‍💻 Developer" />
+        </Avatar>
+      </div>
+    );
+  },
+};
+
 export const AsChildComposition: Story = {
   render: () => {
     return (

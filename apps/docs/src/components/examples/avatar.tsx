@@ -96,6 +96,11 @@ export const avatarCssProperties = [
     description: 'Controls fallback text and icon color.',
   },
   {
+    name: '--moduix-avatar-fallback-icon-size',
+    defaultValue: '55%',
+    description: 'Controls the size of the built-in fallback icon.',
+  },
+  {
     name: '--moduix-avatar-fallback-padding',
     defaultValue: '0',
     description: 'Controls fallback inner padding.',

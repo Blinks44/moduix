@@ -1,5 +1,5 @@
-import { expect, test } from '@rstest/core';
-import { render, screen } from '@testing-library/react';
+import { expect, rs, test } from '@rstest/core';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
 import { Avatar, useAvatar } from '../src';
 
@@ -34,7 +34,7 @@ test('uses md visual styling without a data-size attribute by default', () => {
 });
 
 test('prioritizes explicit fallback children over initials', () => {
-  render(
+  const { container } = render(
     <Avatar>
       <Avatar.Fallback name="Alex Taylor">Custom fallback</Avatar.Fallback>
     </Avatar>,
@@ -42,6 +42,82 @@ test('prioritizes explicit fallback children over initials', () => {
 
   expect(screen.getByText('Custom fallback')).toBeTruthy();
   expect(screen.queryByText('AT')).toBeNull();
+  expect(container.querySelector('[data-slot="avatar-fallback-icon"]')).toBeNull();
+});
+
+test('renders a decorative default icon when fallback content is absent', () => {
+  const { container } = render(
+    <Avatar>
+      <Avatar.Fallback />
+    </Avatar>,
+  );
+
+  const icon = container.querySelector('[data-slot="avatar-fallback-icon"]');
+
+  expect(icon).toHaveAttribute('aria-hidden', 'true');
+  expect(icon).toHaveAttribute('focusable', 'false');
+});
+
+test('derives initials from whole Unicode graphemes', () => {
+  render(
+    <Avatar>
+      <Avatar.Fallback name="👩🏽‍💻 Developer" />
+    </Avatar>,
+  );
+
+  expect(screen.getByText('👩🏽‍💻D')).toBeTruthy();
+});
+
+test('preserves the Ark image loading lifecycle and callback details', async () => {
+  const onStatusChange = rs.fn();
+
+  render(
+    <Avatar onStatusChange={onStatusChange}>
+      <Avatar.Fallback name="Alex Taylor" />
+      <Avatar.Image src="/alex.jpg" alt="Alex Taylor" />
+    </Avatar>,
+  );
+
+  const fallback = screen.getByText('AT');
+  const image = screen.getByAltText('Alex Taylor');
+
+  expect(fallback).toHaveAttribute('data-state', 'visible');
+  expect(image).toHaveAttribute('data-state', 'hidden');
+
+  Object.defineProperties(image, {
+    complete: { configurable: true, value: true },
+    naturalHeight: { configurable: true, value: 64 },
+    naturalWidth: { configurable: true, value: 64 },
+  });
+  fireEvent.load(image);
+
+  await waitFor(() => {
+    expect(onStatusChange).toHaveBeenLastCalledWith({ status: 'loaded' });
+    expect(fallback).toHaveAttribute('data-state', 'hidden');
+    expect(image).toHaveAttribute('data-state', 'visible');
+  });
+});
+
+test('keeps the fallback visible when the image fails', async () => {
+  const onStatusChange = rs.fn();
+
+  render(
+    <Avatar onStatusChange={onStatusChange}>
+      <Avatar.Fallback name="Alex Taylor" />
+      <Avatar.Image src="/missing.jpg" alt="Alex Taylor" />
+    </Avatar>,
+  );
+
+  const fallback = screen.getByText('AT');
+  const image = screen.getByAltText('Alex Taylor');
+
+  fireEvent.error(image);
+
+  await waitFor(() => {
+    expect(onStatusChange).toHaveBeenLastCalledWith({ status: 'error' });
+    expect(fallback).toHaveAttribute('data-state', 'visible');
+    expect(image).toHaveAttribute('data-state', 'hidden');
+  });
 });
 
 test('preserves semantic root composition with asChild', () => {

@@ -54,8 +54,9 @@ support Ark `asChild`.
 `Avatar.Image` renders an `img`, so provide meaningful `alt` text when the image conveys identity.
 Use `alt=""` when the surrounding link or button already has the accessible name.
 
-`Avatar.Fallback name="Alex T."` derives initials for the common case. Pass children when you need
-custom fallback content; explicit children take precedence over `name`.
+`Avatar.Fallback name="Alex T."` derives the first grapheme of the first and last words for the
+common case, so initials remain intact for international names and emoji. Pass children when you
+need custom fallback content; explicit children take precedence over `name`.
 
 ### When to go custom
 
@@ -81,7 +82,10 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
 ### Behavioral notes
 
 - Ark controls `data-state="visible" | "hidden"` on `Avatar.Image` and `Avatar.Fallback`.
-- `Avatar.Fallback` derives initials from `name` only when no children are provided.
+- `Avatar.Fallback` derives grapheme-safe initials from the first and last words of `name` only when
+  no children are provided.
+- `Avatar.Fallback` renders a decorative User icon when neither children nor usable `name` initials
+  are available.
 - `onStatusChange` receives a detail object; read the current value from `details.status`.
 - A missing or failed image keeps the fallback visible.
 - `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
@@ -90,6 +94,17 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
 - moduix adds only visual defaults, stable `data-slot` hooks, CSS variables, and `size`.
 
 ## Examples
+
+### Default Fallback
+
+Leave `Avatar.Fallback` empty to use the built-in decorative User icon. Provide the accessible name
+on the surrounding link or button when the avatar is interactive.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/default-fallback.tsx"
+
+```
+</PreviewFrame>
 
 ### Custom Fallback
 
@@ -182,7 +197,8 @@ depend on image state.
 
 ### Styling hooks
 
-- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, and `avatar-fallback`.
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback`, and
+  `avatar-fallback-icon`.
 - Ark anatomy hooks: `data-scope="avatar"` and
   `data-part="root" | "image" | "fallback"`.
 - Ark image state: `data-state="visible" | "hidden"` on `Avatar.Image` and
