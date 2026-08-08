@@ -1,0 +1,233 @@
+---
+title: Async List
+description: Chargez, filtrez, triez et paginez des données de liste distantes avec useAsyncList, y compris l'annulation et les nouvelles tentatives.
+---
+
+# Async List
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
+
+`useAsyncList` gère les données de liste distantes et le cycle de vie des requêtes. Il prend en charge les éléments chargés, les états de chargement et de tri, les erreurs, le filtrage, les curseurs de pagination et l'annulation des requêtes.
+
+```tsx
+import { useAsyncList } from '@ark-ui/react/collection';
+```
+
+## Chargement de base
+
+Définissez `autoReload: true` lorsque la première requête doit s'exécuter au montage. Transmettez le `signal` fourni à `fetch` afin qu'une requête devenue obsolète puisse être annulée.
+
+L'exemple exécutable utilise un court délai local afin de montrer dans un même composant les états de chargement, d'actualisation, de résultat vide et d'erreur. Remplacez son chargeur par votre requête réelle et transmettez `signal` à `fetch`.
+
+```tsx preview file="../../en/docs/_snippets/async-list/basic.tsx"
+
+```
+
+`autoReload` vaut `false` par défaut. Sans cette option, appelez `list.reload()` lorsque l'application est prête à charger les données.
+
+Gardez les éléments actuels visibles pendant l'actualisation. Remplacez entièrement l'interface par un indicateur de chargement uniquement avant le premier résultat, et placez l'action de nouvelle tentative près de l'erreur afin qu'elle répète la même requête.
+
+## Configuration
+
+| Propriété | Objectif | Valeur par défaut |
+| ----------------------- | ----------------------------------------------------------- | ----------- |
+| `load` | Chargeur asynchrone requis. | — |
+| `sort` | Fonction facultative de tri asynchrone ou synchrone côté client. | — |
+| `autoReload` | Exécute le chargement initial au montage. | `false` |
+| `initialItems` | Éléments affichés avant le premier chargement réussi. | `[]` |
+| `dependencies` | Valeurs primitives qui déclenchent un rechargement lorsqu'elles sont modifiées. | `[]` |
+| `initialFilterText` | Texte du filtre initial côté serveur. | `''` |
+| `initialSortDescriptor` | Descripteur initial `{ column, direction }`. | `undefined` |
+| `onSuccess` | Appelé avec `{ items }` après un chargement réussi. | — |
+| `onError` | Appelé avec `{ error }` après un échec de chargement. | — |
+
+Les dépendances prennent en charge `string`, `number`, `boolean`, `null` et `undefined`. Gardez l’état des objets et des tableaux en dehors de la liste des dépendances ; dérivez plutôt des valeurs primitives stables.
+
+## Contrat de chargement
+
+Chaque appel `load` reçoit :
+
+| Valeur | Objectif |
+| ---------------- | -------------------------------------------------------- |
+| `signal` | Signal d'abandon pour la requête active. |
+| `filterText` | Texte actuel défini avec `setFilterText`. |
+| `cursor` | Curseur renvoyé par le chargement précédent, lors du chargement supplémentaire. |
+| `sortDescriptor` | Colonne de tri actuelle et direction. |
+
+Renvoyez un objet contenant `items` et, éventuellement, un `cursor` :
+
+```tsx
+const list = useAsyncList<User, string>({
+  autoReload: true,
+  async load({ cursor, signal }) {
+    const params = new URLSearchParams();
+
+    if (cursor) params.set('cursor', cursor);
+
+    const response = await fetch(`/api/users?${params}`, { signal });
+    if (!response.ok) throw new Error('Could not load users');
+
+    const data: { users: User[]; nextCursor?: string } = await response.json();
+    return {
+      items: data.users,
+      cursor: data.nextCursor,
+    };
+  },
+});
+```
+
+## État et actions
+
+| État | Signification |
+| ---------------- | ------------------------------------------ |
+| `items` | Éléments actuellement chargés. |
+| `filterText` | Texte du filtre actuel. |
+| `cursor` | Curseur pour la page suivante. |
+| `sortDescriptor` | Descripteur de tri actuel. |
+| `loading` | Une requête de chargement est en cours. |
+| `sorting` | Une opération de tri est en cours. |
+| `empty` | Le tableau d'éléments actuel est vide. |
+| `hasMore` | Un curseur existe pour une autre page. |
+| `error` | Erreur de la dernière requête ayant échoué. |
+
+| Action | Objectif |
+| ---------------------- | ---------------------------------------------- |
+| `reload()` | Remplace les éléments par le résultat d'un nouveau chargement. |
+| `loadMore()` | Charge le curseur actuel et ajoute le résultat. |
+| `abort()` | Annule la requête active. |
+| `setFilterText(value)` | Définit le texte du filtre et recharge les données. |
+| `clearFilter()` | Efface le texte du filtre. |
+| `sort(descriptor)` | Applique un descripteur de tri. |
+
+## Filtrage
+
+Le filtrage est piloté par le serveur via la fonction de rappel `load` :
+
+```tsx
+import { Input } from '@moduix/react/input';
+
+function UserSearch() {
+  const list = useAsyncList<User>({
+    autoReload: true,
+    async load({ filterText, signal }) {
+      const params = new URLSearchParams({ query: filterText });
+      const response = await fetch(`/api/users?${params}`, { signal });
+
+      if (!response.ok) throw new Error('Search failed');
+      return { items: await response.json() };
+    },
+  });
+
+  return (
+    <Input
+      type="search"
+      aria-label="Search users"
+      value={list.filterText}
+      onChange={(event) => list.setFilterText(event.currentTarget.value)}
+    />
+  );
+}
+```
+
+`useAsyncList` annule les chargements devenus obsolètes. L'application décide quand et s'il faut appliquer un debounce à `setFilterText` ; le serveur contrôle les règles de correspondance et les limites des résultats.
+
+## Pagination
+
+Renvoyez un curseur pendant que plus de données sont disponibles, puis appelez `loadMore()` :
+
+```tsx
+import { Button } from '@moduix/react/button';
+
+{
+  list.hasMore && (
+    <Button type="button" onClick={() => list.loadMore()} loading={list.loading}>
+      {list.loading ? 'Loading…' : 'Load more'}
+    </Button>
+  );
+}
+```
+
+Ne calculez pas `hasMore` séparément ; il indique si le dernier résultat a renvoyé un curseur.
+
+## Tri
+
+Pour le tri côté serveur, lisez `sortDescriptor` dans `load` :
+
+```tsx
+function useServerSortedUsers() {
+  return useAsyncList<User>({
+    autoReload: true,
+    async load({ sortDescriptor, signal }) {
+      const params = new URLSearchParams();
+
+      if (sortDescriptor) {
+        params.set('sort', String(sortDescriptor.column));
+        params.set('direction', sortDescriptor.direction);
+      }
+
+      const response = await fetch(`/api/users?${params}`, { signal });
+      if (!response.ok) throw new Error('Could not sort users');
+
+      return { items: await response.json() };
+    },
+  });
+}
+```
+
+Pour le tri côté client, fournissez `sort` :
+
+```tsx
+function useClientSortedUsers() {
+  return useAsyncList<User>({
+    autoReload: true,
+    async load({ signal }) {
+      const response = await fetch('/api/users', { signal });
+      if (!response.ok) throw new Error('Could not load users');
+      return { items: await response.json() };
+    },
+    sort({ items, descriptor }) {
+      const direction = descriptor.direction === 'ascending' ? 1 : -1;
+
+      return {
+        items: items.toSorted(
+          (a, b) =>
+            String(a[descriptor.column]).localeCompare(String(b[descriptor.column])) * direction,
+        ),
+      };
+    },
+  });
+}
+```
+
+La colonne du descripteur est typée comme une clé du type de l'élément. Préférez le tri côté serveur lorsque celui-ci gère également la pagination ; trier uniquement la page actuellement chargée est généralement trompeur.
+
+## Dépendances
+
+Utilisez les dépendances lorsqu'un filtre externe doit recharger la liste :
+
+```tsx
+function useDepartmentUsers(department: string) {
+  return useAsyncList<User>({
+    autoReload: true,
+    dependencies: [department],
+    async load({ signal }) {
+      const params = new URLSearchParams({ department });
+      const response = await fetch(`/api/users?${params}`, { signal });
+
+      if (!response.ok) throw new Error('Could not load users');
+      return { items: await response.json() };
+    },
+  });
+}
+```
+
+## Erreurs et annulation des requêtes
+
+- Vérifiez `response.ok` ; `fetch` ne rejette pas la promesse pour les statuts d'erreur HTTP.
+- Transmettez `signal` à chaque requête annulable.
+- Le filtrage et le tri maintiennent les éléments actuels disponibles pendant que le travail est en attente. `reload()` efface les éléments actuels avant de charger un nouveau résultat.
+- Utilisez `reload()` pour les actions de nouvelle tentative.
+- Traitez `error` comme une entrée inconnue de l'application et affinez son type avant de lire `.message`.
+- Utilisez `onSuccess` et `onError` pour les effets externes, et non pour dupliquer l'état des éléments ou des erreurs géré par le hook.

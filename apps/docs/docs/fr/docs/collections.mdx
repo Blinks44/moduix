@@ -1,0 +1,92 @@
+---
+title: Parcourir les collections
+description: Structures de données et hooks React d'Ark UI pour les flux de listes, d'arbres, asynchrones et de sélection.
+---
+
+import { Card, Cards } from '@/components/mdx/Components';
+
+# Parcourir les collections
+
+Les collections constituent la couche de données des composants Ark de type liste. Ce ne sont pas des composants
+moduix stylisés : lorsque vous travaillez avec `Select`, `Combobox`, `Listbox`, `TreeView` ou des interfaces
+personnalisées basées sur des collections, importez-les directement depuis Ark UI.
+
+Comme le code de l'application importe Ark UI directement, déclarez-le comme dépendance directe :
+
+```bash
+npm install @ark-ui/react
+```
+
+Toutes les API de collection présentées dans cette section utilisent le point d'entrée React des collections :
+
+```tsx
+import { createListCollection } from '@ark-ui/react/collection';
+```
+
+Le flux habituel est simple :
+
+```text
+application items → Ark collection → moduix component → user selection
+```
+
+La collection normalise l'identité, le texte, l'état désactivé et le parcours des éléments. Le composant moduix
+affiche l'interaction accessible et gère le comportement de focus et de sélection.
+
+## Guides sur les collections
+
+<Cards>
+  <Card
+    title="Async List"
+    description="Chargez, filtrez, triez et paginez des données de liste distantes avec annulation et état d'erreur."
+    href="/docs/async-list"
+  />
+  <Card
+    title="List Collection"
+    description="Modélisez des éléments basés sur un tableau, la recherche, le parcours, le regroupement et les mises à jour immuables."
+    href="/docs/list-collection"
+  />
+  <Card
+    title="List Selection"
+    description="Gérez l'état de sélection unique, multiple, désélectionnable et par plage."
+    href="/docs/list-selection"
+  />
+  <Card
+    title="Tree Collection"
+    description="Modélisez des données hiérarchiques, le parcours, le filtrage et les opérations immuables sur les arbres."
+    href="/docs/tree-collection"
+  />
+</Cards>
+
+## Commencer avec un Select
+
+Il s'agit du flux de collection le plus courant : créez la collection une seule fois, passez-la à Select, puis
+affichez les mêmes éléments à partir de `collection.items`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+## Choisir la bonne collection
+
+- Commencez par `createListCollection` pour un tableau fixe d'options.
+- Utilisez `useListCollection` lorsque la liste doit être filtrée ou modifiée depuis l'état React.
+- Utilisez `createTreeCollection` pour des données imbriquées.
+- Utilisez `useAsyncList` lorsqu'un serveur gère le chargement, le filtrage, le tri ou la pagination.
+- Utilisez `useListSelection` pour la sélection dans une liste personnalisée. Les composants de collection moduix
+  gèrent déjà leur propre état de sélection.
+
+Les collections normalisent l'identité et le texte des éléments, mais n'affichent pas d'interface. Passez la
+collection obtenue au composant moduix correspondant :
+
+- [Select](https://moduix.dev/docs/select)
+- [Combobox](https://moduix.dev/docs/combobox)
+- [Listbox](https://moduix.dev/docs/listbox)
+- [Tree View](https://moduix.dev/docs/tree-view)
+
+## Limite de responsabilité
+
+Ark UI possède ces API et leur cycle de publication. moduix accepte les objets de collection obtenus sans les
+encapsuler ni les réexporter. Les pages suivantes décrivent le flux complet nécessaire aux utilisateurs de moduix et
+renvoient en haut de page vers la référence Ark correspondante.

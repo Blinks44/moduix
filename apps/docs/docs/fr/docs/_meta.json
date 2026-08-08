@@ -55,5 +55,57 @@
     "label": "Configuration des frameworks",
     "collapsible": true,
     "collapsed": true
+  },
+  {
+    "type": "section-header",
+    "label": "AI"
+  },
+  {
+    "type": "file",
+    "name": "ai",
+    "label": "Guide de l’IA",
+    "tag": "bot"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms.txt",
+    "link": "https://moduix.dev/llms.txt",
+    "tag": "file-text"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-full.txt",
+    "link": "https://moduix.dev/llms-full.txt",
+    "tag": "file-text"
+  },
+  {
+    "type": "section-header",
+    "label": "Collections Ark"
+  },
+  {
+    "type": "file",
+    "name": "collections",
+    "label": "Parcourir les collections",
+    "tag": "database"
+  },
+  {
+    "type": "file",
+    "name": "async-list",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "list-collection",
+    "tag": "list"
+  },
+  {
+    "type": "file",
+    "name": "list-selection",
+    "tag": "list-checks"
+  },
+  {
+    "type": "file",
+    "name": "tree-collection",
+    "tag": "git-branch"
   }
 ]

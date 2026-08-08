@@ -1,0 +1,146 @@
+---
+title: List Selection
+description: Gérez la sélection unique, multiple, désélectionnable et par plage pour les interfaces de liste personnalisées.
+---
+
+# List Selection
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
+
+`useListSelection` ajoute l'état de sélection à un `ListCollection`. Utilisez-le pour les listes personnalisées qui n'ont pas encore de comportement de sélection. `Select`, `Combobox` et `Listbox` gèrent leur propre sélection et n'ont normalement pas besoin de ce hook.
+
+```tsx
+import { createListCollection, useListSelection } from '@ark-ui/react/collection';
+```
+
+## Sélection unique de base
+
+```tsx preview file="../../en/docs/_snippets/list-selection/basic.tsx"
+
+```
+
+Le hook gère uniquement les valeurs de sélection. Votre interface reste responsable des rôles sémantiques, des interactions au clavier, du focus et des libellés accessibles. Préférez `Listbox` lorsque vous avez besoin du comportement standard d'une listbox.
+
+L'exemple avec des boutons convient, car chaque option constitue une action de bascule indépendante. N'ajoutez pas `role="listbox"` à un balisage personnalisé sans implémenter également le modèle complet de navigation au clavier et de focus d'une listbox. Pour une sélection d'options standard, utilisez [Listbox](https://moduix.dev/docs/listbox) et laissez-le gérer ce comportement.
+
+## Configuration
+
+| Propriété | Objectif | Valeur par défaut |
+| ------------------------- | ---------------------------------------------- | ---------- |
+| `collection` | Collection dont les valeurs peuvent être sélectionnées. | requis |
+| `selectionMode` | `'single'`, `'multiple'` ou `'none'`. | `'single'` |
+| `deselectable` | Permet de désélectionner la sélection actuelle. | `true` |
+| `initialSelectedValues` | Valeurs de sélection initiales non contrôlées. | `[]` |
+| `resetOnCollectionChange` | Efface la sélection lorsque la collection change. | `false` |
+
+`initialSelectedValues` est lu comme état initial. Utilisez `setSelectedValues` lorsque la sélection doit changer après le montage.
+
+## État de la sélection
+
+| Valeur | Signification |
+| -------------------- | ---------------------------------------------------- |
+| `selectedValues` | Valeurs sélectionnées dans l'ordre de sélection. |
+| `isEmpty` | Aucune valeur n'est sélectionnée. |
+| `firstSelectedValue` | Première valeur sélectionnée dans l'ordre de la collection, ou `null`. |
+| `lastSelectedValue` | Dernière valeur sélectionnée dans l'ordre de la collection, ou `null`. |
+
+## Requêtes
+
+| Méthode | Objectif |
+| ------------------- | ------------------------------------------------------------ |
+| `isSelected(value)` | Vérifie si une valeur est sélectionnée. |
+| `canSelect(value)` | Vérifie le mode, l'état désactivé et si la sélection est valide. |
+| `isAllSelected()` | Vérifie si chaque élément de collection est sélectionné. |
+| `isSomeSelected()` | Vérifie si au moins un élément de collection est sélectionné. |
+
+Utilisez `canSelect` avant d'exposer les actions de sélection personnalisées qui ne sont pas déjà désactivées dans l'interface utilisateur.
+
+## Actions de sélection
+
+| Méthode | Objectif |
+| ---------------------------------- | ------------------------------------------------------- |
+| `select(value, forceToggle?)` | Sélectionne une valeur selon le mode actuel. |
+| `deselect(value)` | Supprime une valeur sélectionnée. |
+| `toggle(value)` | Bascule une valeur. |
+| `replace(value)` | Remplace la sélection par une valeur, ou l'efface avec `null`. |
+| `extend(anchorValue, targetValue)` | Sélectionne la plage de la collection entre deux valeurs. |
+| `setSelectedValues(values)` | Remplace la sélection par des valeurs explicites. |
+| `clear()` | Efface la sélection actuelle. |
+| `resetSelection()` | Recrée une sélection vide avec les paramètres actuels. |
+
+## Sélection multiple
+
+```tsx
+import { Button } from '@moduix/react/button';
+
+function TeamSelectionActions() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+    initialSelectedValues: ['platform'],
+  });
+
+  function toggleAll() {
+    if (selection.isAllSelected()) {
+      selection.clear();
+      return;
+    }
+
+    selection.setSelectedValues(collection.getValues());
+  }
+
+  return (
+    <Button type="button" onClick={toggleAll}>
+      {selection.isAllSelected() ? 'Clear all' : 'Select all'}
+    </Button>
+  );
+}
+```
+
+Les valeurs désactivées ne peuvent pas être sélectionnées via `select` ou `toggle`. Lorsque vous définissez directement des valeurs, filtrez les entrées externes par rapport à `selection.canSelect` si elles ne sont pas déjà fiables.
+
+## Sélection d'une plage
+
+Stockez une valeur d'ancrage dans votre couche d'interaction, puis étendez-la à partir de cette ancre :
+
+```tsx
+import { useRef } from 'react';
+
+function useRangeSelection() {
+  const selection = useListSelection({
+    collection,
+    selectionMode: 'multiple',
+  });
+  const anchorRef = useRef<string | null>(null);
+
+  function handleSelect(value: string, extend: boolean) {
+    if (extend && anchorRef.current) {
+      selection.extend(anchorRef.current, value);
+      return;
+    }
+
+    selection.replace(value);
+    anchorRef.current = value;
+  }
+
+  return { selection, handleSelect };
+}
+```
+
+Dans les interfaces à la souris, `extend` correspond généralement à Maj + clic. La sélection d'une plage au clavier nécessite également de gérer le focus et les raccourcis Maj + flèche ; utilisez un composant de collection lorsque ces interactions correspondent à un modèle ARIA établi.
+
+## Modifications de la collection
+
+Définissez `resetOnCollectionChange: true` lorsqu'une nouvelle collection représente un ensemble de données différent et que les anciennes valeurs ne doivent jamais être conservées.
+
+Conservez la valeur par défaut `false` lorsque le filtrage ne masque que temporairement les éléments et que la sélection doit survivre au filtre. Si certaines valeurs supprimées doivent être retirées de la sélection, déterminez les valeurs encore valides et appelez `setSelectedValues` :
+
+```tsx
+const validValues = selection.selectedValues.filter((value) => collection.has(value));
+
+selection.setSelectedValues(validValues);
+```
+
+Exécutez cette synchronisation dans un événement ou un effet lorsque la collection change, et non pendant le rendu.
