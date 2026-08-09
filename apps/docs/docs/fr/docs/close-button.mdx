@@ -1,0 +1,119 @@
+---
+title: Close Button
+component: close-button
+description: Un bouton à icône seule pour fermer les superpositions, notifications et autres surfaces refermables.
+---
+
+import * as CloseButtonDocs from '@/components/examples/close-button';
+
+## Référence API
+
+Ark UI ne fournit pas de primitive close-button dédiée. Moduix construit ce composant avec l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle, conformément aux recommandations d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+
+## Exemple de base
+
+Utilisez `CloseButton` lorsque le contrôle lui-même exécute l’action de fermeture. Il fournit la sémantique
+d’un bouton et le symbole de fermeture standard, mais ne gère pas lui-même l’état de la superposition.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/close-button/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="close-button" />
+
+Cette méthode d’installation ajoute également les fichiers de base moduix partagés dont dépend `Close Button`,
+notamment les styles, les icônes et de petits utilitaires.
+
+## Anatomie
+
+`CloseButton` fournit une seule partie racine dans le style d’Ark.
+
+```text
+CloseButton / CloseButton.Root
+└─ root[data-scope="close-button"][data-part="root"][data-slot="close-button-root"]
+   └─ CloseIcon (par défaut) | enfants personnalisés
+```
+
+| Partie                             | Rôle                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| `CloseButton` / `CloseButton.Root` | Élément de fermeture interactif fondé sur la sémantique et l’accessibilité d’un bouton. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez directement `CloseButton` lorsqu’un bouton natif doit exécuter l’action de fermeture. Le wrapper
+transmet les props de bouton de l’Ark factory, les attributs natifs, les gestionnaires d’événements et la ref.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` lorsqu’un autre composant de bouton doit posséder le nœud DOM. La composition Ark exige un seul
+enfant, qui doit fournir son propre contenu d’icône.
+
+Si un composant de superposition fournit déjà un déclencheur de fermeture, préférez celui-ci afin qu’il puisse gérer
+l’état de fermeture et le cycle de vie du focus.
+
+### Propriétés par défaut
+
+| Prop         | Valeur par défaut                              | Valeurs / remarques                                      |
+| ------------ | ---------------------------------------------- | -------------------------------------------------------- |
+| `type`       | `button`                                       | S’applique uniquement au composant racine natif          |
+| `aria-label` | `Close`, en l’absence de `aria-labelledby`     | Dans une interface réelle, préférez un libellé propre à la surface |
+| `children`   | `CloseIcon`                                    | Remplacé par un contenu d’icône personnalisé             |
+| `asChild`    | `false`                                        | Composition Ark factory avec un seul enfant              |
+
+### Notes sur le comportement
+
+- `CloseButton` ne ferme rien par lui-même ; associez-lui un `onClick` ou utilisez le déclencheur de fermeture d’une superposition.
+- Le libellé de repli est `Close` ; transmettez `aria-label` ou `aria-labelledby` pour fournir un libellé adapté à la surface de l’interface.
+- Les états natifs `disabled` et `aria-disabled="true"` fournissent `data-disabled` pour la mise en forme de l’état à la manière d’Ark et empêchent l’activation par clic.
+- Les anciennes props `render`, `nativeButton` et `focusableWhenDisabled` ont été supprimées.
+- `CloseButton.Root` est disponible comme forme équivalente dans l’espace de noms, conformément à Ark.
+
+## Exemples
+
+### As Child
+
+Utilisez `asChild` lorsqu’un bouton sémantique existant doit posséder l’élément rendu tout en conservant les styles
+et les hooks de données de Close Button. Cet exemple préserve le `type` explicite du bouton enfant et utilise
+une icône circulaire plus grande.
+
+```tsx preview file="../../en/docs/_snippets/close-button/as-child.tsx"
+
+```
+
+### Enfants personnalisés
+
+Remplacez le symbole par défaut via `children` tout en conservant le contrat du bouton racine. Cet exemple
+utilise un simple signe de fermeture plutôt que l’icône circulaire de l’exemple `asChild`.
+
+```tsx preview file="../../en/docs/_snippets/close-button/custom-children.tsx"
+
+```
+
+### État désactivé
+
+Utilisez l’attribut natif `disabled` pour les boutons ordinaires, ou `aria-disabled="true"` lorsque le contrôle doit rester
+repérable sans accepter d’activation.
+
+```tsx preview file="../../en/docs/_snippets/close-button/disabled-state.tsx"
+
+```
+
+## Styles
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
+
+### Hooks de style
+
+- `data-scope="close-button"` identifie la famille du composant.
+- `data-part="root"` identifie l’unique partie exportée.
+- `data-slot="close-button-root"` fournit le hook de slot moduix.
+- `data-disabled` fournit un état de style normalisé pour `disabled` et `aria-disabled="true"`.
+- Les enfants SVG directs héritent leur taille de `--moduix-close-button-icon-size`.

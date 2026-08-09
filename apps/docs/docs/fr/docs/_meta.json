@@ -106,6 +106,56 @@
     "tag": "component"
   },
   {
+    "type": "file",
+    "name": "card",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "carousel",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "checkbox",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "clipboard",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "close-button",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "collapsible",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "color-picker",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "combobox",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "command-palette",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "container",
+    "tag": "component"
+  },
+  {
     "type": "section-header",
     "label": "AI"
   },

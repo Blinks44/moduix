@@ -1,0 +1,218 @@
+---
+title: Card
+component: card
+description: Une surface composable pour regrouper le contenu relatif à un même objet.
+---
+
+import * as CardDocs from '@/components/examples/card';
+
+## Référence API
+
+Ark UI ne fournit pas de primitive card dédiée. Moduix construit ce composant avec l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle, conformément aux recommandations d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+
+## Exemple de base
+
+Utilisez le composant racine `<Card />` et les parties de son espace de noms pour obtenir la composition standard d’une carte.
+
+Si vous migrez depuis shadcn, le modèle mental reste le même. La principale différence d’API est que
+`CardContent` devient `Card.Body`, tandis que les autres parties restent dans l’espace de noms `Card`.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="card" />
+
+## Anatomie
+
+```text
+Card.Root
+├─ Card.Media (raccourci moduix facultatif)
+├─ Card.Header
+│  ├─ Card.Title
+│  ├─ Card.Description
+│  └─ Card.Action (raccourci moduix facultatif)
+├─ Card.Body
+└─ Card.Footer (facultatif)
+```
+
+`Card` et `Card.Root` désignent le même composant racine.
+
+| Partie               | Rôle                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `Card` / `Card.Root` | Conteneur racine avec les propriétés `size`, `variant` et `asChild`.                                         |
+| `Card.Media`         | Enveloppe facultative pour un média bord à bord avec un arrondi prévisible des angles supérieurs.            |
+| `Card.Header`        | Dispose le titre, la description et une éventuelle action en fin de ligne.                                   |
+| `Card.Body`          | Zone de contenu principale.                                                                                  |
+| `Card.Footer`        | Ligne portable d’actions ou de métadonnées.                                                                  |
+| `Card.Title`         | Partie de titre. Rend un `h3` par défaut ; utilisez `asChild` pour choisir un autre niveau.                   |
+| `Card.Description`   | Texte complémentaire.                                                                                        |
+| `Card.Action`        | Slot moduix destiné à disposer une action dans l’en-tête.                                                    |
+| `Card.Link`          | Lien étendu moduix pour une carte de navigation qui contient également des actions distinctes.               |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `<Card />`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body` et `Card.Footer`.
+Placez le média initial dans `Card.Media` lorsqu’il doit atteindre les bords de la carte sans nécessiter son propre rognage.
+Par défaut, le composant racine utilise `size="md"` et `variant="outline"`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` lorsque l’unique enfant sémantique doit posséder le nœud DOM d’une partie. La composition Ark
+exige exactement un enfant. Un élément racine qui est un lien ne doit pas contenir de boutons, de champs de saisie ni d’autres liens imbriqués.
+
+Utilisez `Card.Link` dans l’en-tête lorsque la carte doit être cliquable sur toute sa surface tout en contenant
+des contrôles indépendants. `Card.Link` applique le motif du lien étendu : le lien visible reste dans l’en-tête,
+mais sa zone cliquable s’étend à toute la carte sans recouvrir les éléments interactifs distincts.
+`Card.Action` ne gère que la disposition et ne crée aucune relation ARIA.
+
+| Situation                                                                                                  | API recommandée                                                    |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| La carte entière est un lien unique et ne contient aucun contrôle imbriqué.                                | `Card asChild` avec un élément racine `<a>`                         |
+| La carte ouvre une page, mais contient aussi des boutons, menus ou autres actions indépendantes.           | `Card.Link` dans `Card.Title`, avec `Card.Action` si nécessaire     |
+| La carte sert uniquement à regrouper du contenu, sans navigation.                                          | Composition `Card` ordinaire sans lien étendu                       |
+
+### Propriétés par défaut
+
+| Partie      | Propriété  | Valeur par défaut | Valeurs                               |
+| ----------- | ---------- | ----------------- | ------------------------------------- |
+| `Card.Root` | `size`     | `'md'`            | `'sm' \| 'md' \| 'lg'`              |
+| `Card.Root` | `variant`  | `'outline'`       | `'elevated' \| 'outline' \| 'subtle'` |
+
+### Notes sur le comportement
+
+- Le composant racine rend par défaut un `div` de présentation et transmet la ref à l’élément rendu.
+- Toutes les parties acceptent les propriétés natives, `className`, `style` et la propriété `asChild` de l’Ark factory.
+- `Card.Media` est une enveloppe de commodité facultative. Ne l’utilisez pas si le média nécessite ses propres styles ou s’il n’apparaît pas au début de la carte.
+- `Card.Title` rend un `h3` par défaut.
+- Card ne gère ni état, ni callbacks, ni comportement clavier, ni provider, ni contexte, ni champ de saisie masqué.
+- `Card.Body` réinitialise les marges externes du premier et du dernier enfant direct.
+- `--moduix-card-spacing`, `--moduix-card-spacing-sm` et `--moduix-card-spacing-lg` contrôlent les espacements intérieurs communs et l’écart entre les sections, sans remplacer les redéfinitions `--moduix-card-*` plus ciblées.
+
+## Exemples
+
+### Action dans l’en-tête
+
+`Card.Action` fournit une disposition moduix prête à l’emploi pour un statut compact ou un contrôle placé en fin d’en-tête.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/header-action.tsx"
+
+```
+</PreviewFrame>
+
+### Disposition horizontale
+
+Utilisez le CSS de mise en page de l’application pour créer une carte horizontale sans ajouter de propriété liée à la présentation.
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/card/horizontal.tsx"
+
+```
+
+</PreviewFrame>
+
+### Lien sur le contenu
+
+Utilisez `Card.Link` lorsque la navigation doit coexister avec des actions indépendantes.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/overlay-link.tsx"
+
+```
+</PreviewFrame>
+
+### Élément racine sous forme de lien
+
+Utilisez `asChild` lorsque toute la carte constitue une seule cible de navigation et ne contient aucun contrôle imbriqué.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/root-as-link.tsx"
+
+```
+
+</PreviewFrame>
+
+### Tailles
+
+Utilisez `sm`, `md` et `lg` pour modifier les espacements intérieurs de la carte et la taille du titre.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/sizes.tsx"
+
+```
+</PreviewFrame>
+
+### Variantes
+
+Utilisez les variantes alignées sur Chakra pour exprimer la hiérarchie des surfaces.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/variants.tsx"
+
+```
+
+</PreviewFrame>
+
+### Avec un avatar
+
+Placez le média de profil dans l’en-tête lorsque la carte représente une personne ou une entité.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/with-avatar.tsx"
+
+```
+</PreviewFrame>
+
+### Avec une image
+
+Utilisez `Card.Media` lorsque le média initial doit occuper toute la largeur de la carte avec un rognage prévisible.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/with-image.tsx"
+
+```
+
+</PreviewFrame>
+
+### Dans un formulaire
+
+Utilisez le composant racine comme formulaire lorsque la carte regroupe des champs et des actions associés.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/within-form.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Card.Media` si vous devez contrôler entièrement la présentation du média et styliser la carte à l’aide de hooks de bas niveau.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={CardDocs.cardOverrideCssProperties} />
+
+### Hooks de style
+
+- Chaque partie fournit `data-scope="card"` et le `data-part` correspondant.
+- Hooks moduix stables : `data-slot="card-root"`, `card-media`, `card-header`, `card-body`,
+  `card-footer`, `card-title`, `card-description`, `card-action` et `card-link`.
+- Le composant racine fournit `data-size="sm | md | lg"` et
+  `data-variant="elevated | outline | subtle"`.
+- Card ne possède aucun attribut d’état interactif, car il ne gère ni état ni comportement.
