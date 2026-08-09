@@ -42,7 +42,7 @@ only when the status needs a grouped indicator.
 
 ```text
 Badge / Badge.Root
-├─ content
+├─ Badge.Label (optional; direct text is wrapped automatically)
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
@@ -50,6 +50,7 @@ Badge / Badge.Root
 | Part                   | Role                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
 | `Badge` / `Badge.Root` | Root slot. Applies variant, border, spacing, and text truncation.                    |
+| `Badge.Label`          | Explicit text slot. Keeps composed labels eligible for truncation.                  |
 | `Badge.Dot`            | Optional indicator slot. Renders a circular marker that inherits current text color. |
 
 ## Composition
@@ -62,9 +63,10 @@ counters.
 Use `variant` for the built-in tones: `default`, `secondary`, `destructive`, `outline`, `ghost`,
 and `link`.
 
-Place `Badge.Dot` or a direct child icon next to the label when a badge needs an extra visual cue.
+Place `Badge.Dot` or a direct child icon next to `Badge.Label` when a composed badge needs an extra
+visual cue. Plain text is wrapped in `Badge.Label` automatically.
 
-`Badge.Root` and `Badge.Dot` forward refs to their rendered DOM elements.
+`Badge.Root`, `Badge.Label`, and `Badge.Dot` forward refs to their rendered DOM elements.
 
 ### When to go custom
 
@@ -88,8 +90,11 @@ different tone.
 - `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
 - `Badge` does not add managed interaction or link/button semantics of its own.
 - Semantic links and buttons rendered through `asChild` keep their native semantics and get default cursor, hover, and focus-visible styling.
+- Disabled buttons and elements with `aria-disabled="true"` keep their semantics, skip hover styling, and use the public disabled-opacity hook.
 - Long labels stay on one line and are truncated by the root; `title` exposes the complete value on
   pointer hover, while touch-first interfaces need a label that fits the available space.
+- Direct text is wrapped in `Badge.Label` automatically. Use `Badge.Label` explicitly when text is
+  composed with a dot, icon, or another element.
 - Direct child `svg` icons inherit `currentColor` and use `--moduix-badge-icon-size`.
 - Numeric content uses tabular figures, and badge text is not selectable by default.
 - Chakra's size recipe is intentionally represented by public CSS variables instead of a `size`
@@ -209,8 +214,8 @@ the higher-priority one-off overrides.
 
 ### Styling hooks
 
-- `data-slot="badge-root"` and `data-slot="badge-dot"` are stable selectors on the exported parts.
-- `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Dot` exposes `data-part="dot"`.
+- `data-slot="badge-root"`, `data-slot="badge-label"`, and `data-slot="badge-dot"` are stable selectors on the exported parts.
+- `Badge.Root` also exposes `data-scope="badge"` and `data-part="root"`. `Badge.Label` and `Badge.Dot` expose `data-part="label"` and `data-part="dot"`.
 - `Badge.Root` writes the selected tone to `data-variant`.
 - Semantic links and buttons rendered through `Badge asChild` or `Badge.Root asChild` receive default focus-visible styling from the root.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and are sized with `--moduix-badge-icon-size`.

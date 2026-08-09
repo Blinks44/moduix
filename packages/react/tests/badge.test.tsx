@@ -3,10 +3,17 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { Badge } from '../src';
 
-test('applies variants and stable data hooks', () => {
+test('protects variants, accessibility, and stable data hooks', () => {
   render(
-    <Badge variant="secondary" data-testid="badge">
-      <Badge.Dot data-testid="dot" />
+    <Badge
+      variant="secondary"
+      data-testid="badge"
+      data-scope="custom"
+      data-part="custom"
+      data-slot="custom"
+      data-variant="outline"
+    >
+      <Badge.Dot data-testid="dot" data-part="custom" aria-hidden={false} />
       Draft
     </Badge>,
   );
@@ -50,7 +57,40 @@ test('wraps direct text so long labels can truncate', () => {
   const badge = getByTestId('badge');
 
   expect(badge.firstElementChild?.tagName).toBe('SPAN');
+  expect(badge.firstElementChild).toHaveAttribute('data-part', 'label');
+  expect(badge.firstElementChild).toHaveAttribute('data-slot', 'badge-label');
   expect(badge.firstElementChild).toHaveTextContent(
     'Ready for stakeholder review after legal approval',
   );
+});
+
+test('exposes a composable label with a forwarded ref', () => {
+  const ref = createRef<HTMLElement>();
+
+  render(
+    <Badge>
+      <Badge.Dot />
+      <Badge.Label ref={ref} asChild data-part="custom">
+        <strong>Production ready</strong>
+      </Badge.Label>
+    </Badge>,
+  );
+
+  const label = screen.getByText('Production ready');
+
+  expect(ref.current).toBe(label);
+  expect(label.tagName).toBe('STRONG');
+  expect(label).toHaveAttribute('data-scope', 'badge');
+  expect(label).toHaveAttribute('data-part', 'label');
+  expect(label).toHaveAttribute('data-slot', 'badge-label');
+});
+
+test('preserves native disabled button semantics with asChild', () => {
+  render(
+    <Badge asChild variant="secondary">
+      <button disabled>Archived</button>
+    </Badge>,
+  );
+
+  expect(screen.getByRole('button', { name: 'Archived' })).toBeDisabled();
 });

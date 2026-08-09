@@ -40,7 +40,7 @@ Commencez par un seul `Badge`. Ajoutez `variant` si le ton par défaut ne convie
 
 ```text
 Badge / Badge.Root
-├─ content
+├─ Badge.Label (optional; direct text is wrapped automatically)
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
@@ -48,6 +48,7 @@ Badge / Badge.Root
 | Partie                 | Rôle                                                                                  |
 | ---------------------- | ------------------------------------------------------------------------------------- |
 | `Badge` / `Badge.Root` | Slot racine. Applique la variante, la bordure, les espacements et la troncature du texte. |
+| `Badge.Label`          | Slot de texte explicite. Permet de tronquer les libellés composés.                   |
 | `Badge.Dot`            | Slot d’indicateur facultatif. Affiche un marqueur circulaire avec la couleur de texte actuelle. |
 
 ## Composition
@@ -58,9 +59,9 @@ Pour la plupart des badges de statut, de catégorie, de version et des compteurs
 
 Utilisez `variant` pour les tons intégrés : `default`, `secondary`, `destructive`, `outline`, `ghost` et `link`.
 
-Placez `Badge.Dot` ou une icône enfant directe à côté du libellé lorsque le badge nécessite un signal visuel supplémentaire.
+Placez `Badge.Dot` ou une icône enfant directe à côté de `Badge.Label` lorsqu’un badge composé nécessite un signal visuel supplémentaire. Le texte brut est automatiquement enveloppé dans `Badge.Label`.
 
-`Badge.Root` et `Badge.Dot` transmettent leur ref aux éléments DOM qu’ils affichent.
+`Badge.Root`, `Badge.Label` et `Badge.Dot` transmettent leur ref aux éléments DOM qu’ils affichent.
 
 ### Quand créer une composition personnalisée
 
@@ -81,7 +82,9 @@ Utilisez les variables CSS locales ou des remplacements de `className` lorsque l
 - `Badge.Dot` est décoratif et masqué pour les technologies d’assistance ; le texte visible doit donc transmettre la signification du statut.
 - `Badge` n’ajoute aucune interaction contrôlée ni sémantique de lien ou de bouton.
 - Les liens et boutons sémantiques affichés avec `asChild` conservent leur sémantique native et reçoivent les styles par défaut du curseur, du survol et du focus visible.
+- Les boutons désactivés et les éléments avec `aria-disabled="true"` conservent leur sémantique, n’appliquent pas les styles de survol et utilisent la variable publique d’opacité désactivée.
 - Les libellés longs restent sur une seule ligne et sont tronqués par l’élément racine ; `title` affiche la valeur complète au survol, tandis que dans les interfaces tactiles, le libellé doit tenir dans l’espace disponible.
+- Le texte brut est automatiquement enveloppé dans `Badge.Label`. Utilisez explicitement `Badge.Label` lorsque le texte est composé avec un point, une icône ou un autre élément.
 - Les icônes `svg` enfants directes héritent de `currentColor` et utilisent `--moduix-badge-icon-size`.
 - Le contenu numérique utilise des chiffres tabulaires et, par défaut, le texte du badge ne peut pas être sélectionné.
 - La recette de taille Chakra est volontairement exposée sous forme de variables CSS publiques plutôt que par une propriété `size`.
@@ -197,8 +200,8 @@ priorité supérieure pour les remplacements ponctuels.
 
 ### Points d’accroche CSS
 
-- `data-slot="badge-root"` et `data-slot="badge-dot"` sont des sélecteurs stables pour les parties exportées.
-- `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Dot` expose `data-part="dot"`.
+- `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour les parties exportées.
+- `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Label` et `Badge.Dot` exposent `data-part="label"` et `data-part="dot"`.
 - `Badge.Root` inscrit le ton sélectionné dans `data-variant`.
 - Les liens et boutons sémantiques affichés avec `Badge asChild` ou `Badge.Root asChild` reçoivent de l’élément racine les styles par défaut du focus visible.
 - Les icônes `svg` enfants directes héritent de `currentColor`, ne reçoivent pas les événements du pointeur et utilisent la taille `--moduix-badge-icon-size`.

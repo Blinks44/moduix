@@ -11,16 +11,16 @@ export default function BadgeWithIconDemo() {
   return (
     <div className="badge-demo-row">
       <Badge variant="default">
-        {labels.release}
+        <Badge.Label>{labels.release}</Badge.Label>
         <ChevronRightIcon />
       </Badge>
       <Badge variant="secondary">
-        {labels.details}
+        <Badge.Label>{labels.details}</Badge.Label>
         <ChevronRightIcon />
       </Badge>
       <Badge asChild variant="link">
         <a href="#styling">
-          {labels.more}
+          <Badge.Label>{labels.more}</Badge.Label>
           <ChevronRightIcon />
         </a>
       </Badge>

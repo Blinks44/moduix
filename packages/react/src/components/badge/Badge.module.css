@@ -4,6 +4,7 @@
     width: fit-content;
     max-width: 100%;
     min-width: 0;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
     gap: var(--moduix-badge-gap, var(--moduix-spacing-1-5));
@@ -32,13 +33,12 @@
     text-overflow: ellipsis;
     vertical-align: middle;
     transition:
-      color var(--moduix-transition-default),
-      background-color var(--moduix-transition-default),
-      border-color var(--moduix-transition-default);
+      color var(--moduix-badge-transition, var(--moduix-transition-default)),
+      background-color var(--moduix-badge-transition, var(--moduix-transition-default)),
+      border-color var(--moduix-badge-transition, var(--moduix-transition-default)),
+      opacity var(--moduix-badge-transition, var(--moduix-transition-default));
 
     &:is(a, button, [role='button']) {
-      cursor: pointer;
-
       &:focus-visible {
         outline: var(
             --moduix-badge-focus-ring-width,
@@ -48,44 +48,53 @@
         outline-offset: var(--moduix-badge-focus-ring-offset, var(--moduix-focus-ring-offset));
       }
 
-      &[data-variant='default'],
-      &[data-variant='secondary'],
-      &[data-variant='destructive'] {
-        &:hover {
-          opacity: 0.9;
+      &:not(:disabled, [aria-disabled='true']) {
+        cursor: pointer;
+
+        &[data-variant='default'],
+        &[data-variant='secondary'],
+        &[data-variant='destructive'] {
+          &:hover {
+            opacity: var(--moduix-badge-opacity-hover, var(--moduix-opacity-hover));
+          }
+        }
+
+        &[data-variant='outline'] {
+          &:hover {
+            border-color: var(
+              --moduix-badge-border-color,
+              var(--moduix-badge-outline-border-color-hover, var(--moduix-color-primary))
+            );
+            color: var(
+              --moduix-badge-color,
+              var(--moduix-badge-outline-color-hover, var(--moduix-color-primary))
+            );
+          }
+        }
+
+        &[data-variant='ghost'] {
+          &:hover {
+            border-color: var(
+              --moduix-badge-border-color,
+              var(--moduix-badge-ghost-border-color-hover, var(--moduix-color-primary))
+            );
+            color: var(
+              --moduix-badge-color,
+              var(--moduix-badge-ghost-color-hover, var(--moduix-color-primary))
+            );
+          }
+        }
+
+        &[data-variant='link'] {
+          &:hover {
+            text-decoration-color: currentColor;
+          }
         }
       }
 
-      &[data-variant='outline'] {
-        &:hover {
-          border-color: var(
-            --moduix-badge-border-color,
-            var(--moduix-badge-outline-border-color-hover, var(--moduix-color-primary))
-          );
-          color: var(
-            --moduix-badge-color,
-            var(--moduix-badge-outline-color-hover, var(--moduix-color-primary))
-          );
-        }
-      }
-
-      &[data-variant='ghost'] {
-        &:hover {
-          border-color: var(
-            --moduix-badge-border-color,
-            var(--moduix-badge-ghost-border-color-hover, var(--moduix-color-primary))
-          );
-          color: var(
-            --moduix-badge-color,
-            var(--moduix-badge-ghost-color-hover, var(--moduix-color-primary))
-          );
-        }
-      }
-
-      &[data-variant='link'] {
-        &:hover {
-          text-decoration-color: currentColor;
-        }
+      &:is(:disabled, [aria-disabled='true']) {
+        cursor: not-allowed;
+        opacity: var(--moduix-badge-opacity-disabled, var(--moduix-opacity-disabled));
       }
     }
 

@@ -234,12 +234,15 @@
   --moduix-badge-outline-border-color-hover: initial; /* var(--moduix-color-primary) */
   --moduix-badge-outline-color: initial; /* var(--moduix-color-foreground) */
   --moduix-badge-outline-color-hover: initial; /* var(--moduix-color-primary) */
+  --moduix-badge-opacity-disabled: initial; /* var(--moduix-opacity-disabled) */
+  --moduix-badge-opacity-hover: initial; /* var(--moduix-opacity-hover) */
   --moduix-badge-padding-x: initial; /* var(--moduix-spacing-2-5) */
   --moduix-badge-padding-y: initial; /* 0 */
   --moduix-badge-radius: initial; /* var(--moduix-radius-full) */
   --moduix-badge-secondary-bg: initial; /* var(--moduix-color-secondary) */
   --moduix-badge-secondary-border-color: initial; /* transparent */
   --moduix-badge-secondary-color: initial; /* var(--moduix-color-secondary-foreground) */
+  --moduix-badge-transition: initial; /* var(--moduix-transition-default) */
   /* Bleed */
   --moduix-bleed-block-xs: initial; /* var(--moduix-spacing-1) */
   --moduix-bleed-block-sm: initial; /* var(--moduix-spacing-2) */

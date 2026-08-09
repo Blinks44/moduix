@@ -12,7 +12,7 @@ export default function BadgeWithDotDemo() {
       {statuses.map((status) => (
         <Badge key={status.label} variant={status.variant}>
           <Badge.Dot />
-          {status.label}
+          <Badge.Label>{status.label}</Badge.Label>
         </Badge>
       ))}
     </div>

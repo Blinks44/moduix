@@ -99,6 +99,16 @@ export const badgeCssProperties: CssPropertyInput[] = [
     'var(--moduix-color-primary)',
     'Controls outline badge text and icon color on hover.',
   ],
+  [
+    '--moduix-badge-opacity-disabled',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled interactive badge opacity.',
+  ],
+  [
+    '--moduix-badge-opacity-hover',
+    'var(--moduix-opacity-hover)',
+    'Controls filled interactive badge opacity on hover.',
+  ],
   ['--moduix-badge-padding-x', 'var(--moduix-spacing-2-5)', 'Controls horizontal badge padding.'],
   ['--moduix-badge-padding-y', '0', 'Controls vertical badge padding.'],
   ['--moduix-badge-radius', 'var(--moduix-radius-full)', 'Controls badge border radius.'],
@@ -116,5 +126,10 @@ export const badgeCssProperties: CssPropertyInput[] = [
     '--moduix-badge-secondary-color',
     'var(--moduix-color-secondary-foreground)',
     'Controls secondary badge text and icon color.',
+  ],
+  [
+    '--moduix-badge-transition',
+    'var(--moduix-transition-default)',
+    'Controls badge color, background, border, and opacity transitions.',
   ],
 ];

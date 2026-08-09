@@ -35,7 +35,7 @@ export default function BadgeCustomStylingDemo() {
       <Badge style={largeStyle}>Large</Badge>
       <Badge style={priorityStyle}>
         <Badge.Dot />
-        Priority
+        <Badge.Label>Priority</Badge.Label>
       </Badge>
     </div>
   );
