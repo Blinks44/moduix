@@ -59,6 +59,7 @@ Breadcrumbs / Breadcrumbs.Root
 ### Composition recommandée
 
 Utilisez `Breadcrumbs.Path` pour les chemins simples fondés sur des ancres. Le dernier élément devient la page actuelle, le séparateur par défaut est un chevron et `separator` peut le remplacer dans chaque intervalle visible.
+Ce raccourci génère lui-même ses enfants et n’accepte donc ni `children` ni `asChild` ; les propriétés natives de la liste ordonnée et les refs sont transmises au `Breadcrumbs.List` généré.
 
 ### Quand créer une composition personnalisée
 
@@ -77,6 +78,7 @@ Combinez le composant avec `Menu` lorsque les segments intermédiaires doivent �
 
 - `Breadcrumbs` affiche un repère `nav` dont l’`aria-label` par défaut vaut `"Breadcrumb"`.
 - `Breadcrumbs.Path` affiche une liste ordonnée à partir de `items` ; le dernier élément est toujours la page actuelle.
+- `Breadcrumbs.Path` transmet les propriétés natives de la liste ordonnée et les refs, mais conserve ses enfants générés et ne prend donc en charge ni `children` ni `asChild`.
 - `Breadcrumbs.Separator` est purement présentatif et masqué pour les technologies d’assistance.
 - `Breadcrumbs.Ellipsis` est masqué pour les technologies d’assistance, car le déclencheur porte le libellé.
 - Le libellé accessible du chemin replié doit être placé sur `Menu.Trigger`.

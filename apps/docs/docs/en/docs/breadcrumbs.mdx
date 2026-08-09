@@ -62,6 +62,8 @@ Breadcrumbs / Breadcrumbs.Root
 
 Use `Breadcrumbs.Path` for plain anchor-based trails. The last item becomes the current page, the
 default separator is a chevron, and `separator` can replace it for every visible gap.
+The shorthand owns its generated children, so it does not accept `children` or `asChild`; native
+ordered-list props and refs are forwarded to the generated `Breadcrumbs.List`.
 
 ### When to go custom
 
@@ -84,6 +86,8 @@ portal boundary.
 
 - `Breadcrumbs` renders a `nav` landmark and defaults `aria-label` to `"Breadcrumb"`.
 - `Breadcrumbs.Path` renders an ordered list from `items`; the last item is always the current page.
+- `Breadcrumbs.Path` forwards native ordered-list props and refs, but keeps its generated children
+  fixed and therefore does not support `children` or `asChild`.
 - `Breadcrumbs.Separator` is presentational and hidden from assistive technology.
 - `Breadcrumbs.Ellipsis` is hidden from assistive technology because the trigger owns the label.
 - The accessible label for a collapsed path belongs on the `Menu.Trigger`.

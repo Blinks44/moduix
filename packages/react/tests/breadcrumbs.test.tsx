@@ -1,7 +1,34 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { createRef } from 'react';
+import { createRef, type ComponentProps } from 'react';
 import { Breadcrumbs } from '../src';
+
+type BreadcrumbsPathProps = ComponentProps<typeof Breadcrumbs.Path>;
+
+const pathDoesNotExposeOwnedCompositionProps: Extract<
+  keyof BreadcrumbsPathProps,
+  'asChild' | 'children'
+> extends never
+  ? true
+  : false = true;
+
+test('forwards Path list props and ref without exposing owned composition props', () => {
+  const ref = createRef<HTMLOListElement>();
+
+  render(
+    <Breadcrumbs>
+      <Breadcrumbs.Path
+        ref={ref}
+        aria-label="Current path"
+        items={[{ href: '/', label: 'Home' }, { label: 'Breadcrumbs' }]}
+      />
+    </Breadcrumbs>,
+  );
+
+  expect(pathDoesNotExposeOwnedCompositionProps).toBe(true);
+  expect(ref.current).toBe(screen.getByRole('list', { name: 'Current path' }));
+  expect(ref.current).toHaveAttribute('data-slot', 'breadcrumbs-list');
+});
 
 test('renders semantic path navigation with one current page', () => {
   const { container } = render(

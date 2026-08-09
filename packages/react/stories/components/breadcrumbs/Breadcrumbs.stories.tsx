@@ -109,6 +109,20 @@ export const CustomSeparator: Story = {
   ),
 };
 
+export const RightToLeft: Story = {
+  render: () => (
+    <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'الرئيسية' },
+          { href: '#', label: 'الوظائف' },
+          { label: 'مطور Go' },
+        ]}
+      />
+    </Breadcrumbs>
+  ),
+};
+
 export const FrameworkLink: Story = {
   render: () => (
     <Breadcrumbs>
