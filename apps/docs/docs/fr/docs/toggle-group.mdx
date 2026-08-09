@@ -1,0 +1,227 @@
+---
+title: Toggle Group
+component: toggle-group
+description: Un ensemble de boutons à deux états qui partagent les valeurs sélectionnées.
+---
+
+import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
+
+## Choisir le composant adapté
+
+Utilisez `ToggleGroup` lorsque plusieurs boutons activés appartiennent au même ensemble de valeurs.
+
+- Choisissez **`ToggleGroup`** pour les contrôles segmentés, les ensembles de filtres compacts et les barres de mise en forme.
+- Choisissez **`Toggle`** pour une action autonome à deux états.
+- Choisissez **`Tabs`** si la sélection change également les panneaux associés.
+- Choisissez **`RadioGroup`** si les choix doivent prendre la forme d’options de formulaire.
+
+## Exemple de base
+
+Commencez par la forme racine abrégée `<ToggleGroup>` et ajoutez des enfants `ToggleGroup.Item` alignés sur Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="toggle-group" />
+
+## Anatomie
+
+```text
+ToggleGroup / ToggleGroup.Root
+├─ ToggleGroup.Context (facultatif)
+└─ ToggleGroup.Item[value]
+
+ToggleGroup.RootProvider
+└─ ToggleGroup.Item[value]
+```
+
+| Partie                              | Rôle                                                                                                      |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `ToggleGroup` / `ToggleGroup.Root`  | Machine à états racine pour les valeurs sélectionnées, le focus mobile, l’orientation et la désactivation. |
+| `ToggleGroup.Item`                  | Bouton d’élément avec un `value` obligatoire et l’état Ark `data-state` activé ou désactivé.              |
+| `ToggleGroup.RootProvider`          | Racine pilotée par une instance d’état `useToggleGroup()` créée hors de l’arbre rendu.                    |
+| `ToggleGroup.Context`               | Accès par render prop à l’état actuel du groupe.                                                          |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `ToggleGroup` comme composant racine et `ToggleGroup.Item` pour chaque bouton. `value` et
+`defaultValue` sont des tableaux de chaînes dans les modes de sélection unique et multiple.
+
+moduix ajoute deux props visuelles à `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider` et
+`ToggleGroup.Item` :
+
+| Prop      | Valeur par défaut | Valeurs                                                 |
+| --------- | ----------------- | ------------------------------------------------------- |
+| `variant` | `default`         | `default`, `outline`, `ghost`                           |
+| `size`    | `md`              | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` sur `ToggleGroup.Item` lorsqu’un autre bouton sémantique doit posséder l’élément rendu.
+Conservez un seul enfant assimilable à un bouton afin qu’Ark puisse lui associer les props d’interaction et l’état ARIA.
+
+Utilisez `ToggleGroup.RootProvider` avec `useToggleGroup()` de moduix lorsque l’état doit être créé hors du composant
+racine rendu. Utilisez `useToggleGroupContext()` de moduix sous la racine ou le provider lorsqu’un composant
+personnalisé a besoin de l’état actuel du groupe. Ne rendez pas `ToggleGroup.Root` et `ToggleGroup.RootProvider` pour
+la même instance d’état. Les imports directs depuis Ark restent une échappatoire pour les surfaces volontairement
+hors de l’API moduix.
+
+### Props par défaut
+
+| Prop          | Valeur par défaut | Remarques                                                                                  |
+| ------------- | ----------------- | ------------------------------------------------------------------------------------------ |
+| `deselectable`| `true`            | Autorise une sélection vide lorsque `multiple` n’est pas activé.                           |
+| `loopFocus`   | `true`            | Fait passer le focus par les flèches du dernier élément au premier et inversement.          |
+| `orientation` | `horizontal`      | Contrôle l’axe de la disposition et la navigation clavier correspondante.                  |
+| `rovingFocus` | `true`            | Utilise un tab index mobile afin qu’un seul élément participe à l’ordre de tabulation.      |
+| `multiple`    | `false`           | Autorise plusieurs éléments à rester activés simultanément.                                |
+| `variant`     | `default`         | Variante visuelle moduix.                                                                  |
+| `size`        | `md`              | Taille d’élément moduix.                                                                    |
+
+### Remarques sur le comportement
+
+- `onValueChange` reçoit les détails Ark : utilisez `details.value` pour obtenir le tableau de chaînes sélectionnées.
+- `deselectable` est ignoré lorsque `multiple` est activé.
+- Le groupe a besoin d’un nom accessible fourni par `aria-label` ou `aria-labelledby`.
+- Les éléments qui n’affichent qu’une icône ont besoin de leur propre nom accessible, par exemple `aria-label="Align left"`.
+- Utilisez `disabled` sur le groupe pour désactiver l’ensemble ou sur un élément pour rendre un choix précis indisponible.
+- Utilisez `ids` pour définir des ID stables pour la racine et les éléments lorsque le groupe est composé avec une autre interface accessible.
+- Les groupes à sélection unique utilisent les sémantiques `radiogroup`/`radio` ; ceux à sélection multiple utilisent `group` et `aria-pressed`.
+- Les groupes horizontaux utilisent les flèches gauche/droite, les groupes verticaux les flèches haut/bas, et Home/End déplacent le focus vers le premier ou le dernier élément disponible. Espace/Entrée activent le bouton ayant le focus, tandis que `loopFocus` contrôle le bouclage de la navigation par flèches.
+- Ark expose `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`, `data-focus` et `data-state="on" | "off"` sur les éléments pour la mise en forme.
+- Les groupes horizontaux défilent lorsqu’ils dépassent la largeur du conteneur, au lieu de revenir à la ligne et de modifier la disposition de la navigation clavier.
+
+## Exemples
+
+### État contrôlé
+
+Contrôlez `value` depuis l’état React si le groupe doit rester synchronisé avec l’interface environnante.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### État désactivé
+
+Utilisez `disabled` sur le groupe ou sur un élément précis pour empêcher les interactions.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Icônes
+
+Passez les icônes comme des enfants ordinaires. Les éléments qui n’affichent qu’une icône doivent toujours avoir un libellé accessible.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Sélection multiple
+
+Utilisez `multiple` si plusieurs choix peuvent rester activés simultanément.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+
+  ```
+</PreviewFrame>
+
+### Variantes
+
+Définissez `variant` sur le groupe lorsque tous les éléments doivent partager le même style visuel.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/variants.tsx"
+
+  ```
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` lorsque les choix doivent être disposés en colonne.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `ToggleGroup.RootProvider` avec `useToggleGroup` de moduix lorsque l’instance d’état doit être partagée ou
+contrôlée avant le rendu du composant racine.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### asChild
+
+Utilisez `asChild` sur un élément lorsqu’un bouton personnalisé doit posséder l’élément rendu. Conservez exactement
+un enfant assimilable à un bouton afin qu’Ark puisse fusionner la sémantique du groupe et le comportement clavier.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+
+  ```
+</PreviewFrame>
+
+### Contexte
+
+Utilisez `useToggleGroupContext()` dans un élément personnalisé lorsque son contenu a besoin de l’état actuel du
+groupe. `ToggleGroup.Context` fournit le même état par render prop.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/context.tsx"
+
+  ```
+</PreviewFrame>
+
+## Mise en forme
+
+`ToggleGroup` fournit des hooks `data-slot` stables pour moduix ainsi que les attributs d’anatomie et d’état d’Ark
+pour la mise en forme fondée sur le comportement.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de mise en forme
+
+- `data-slot="toggle-group-root"` et `data-slot="toggle-group-root-provider"` — sélecteurs stables de la racine.
+- `data-slot="toggle-group-item"` — sélecteur stable d’un élément.
+- `data-scope="toggle-group"` et `data-part="root" | "item"` sont fournis par Ark.
+- `data-state="on" | "off"` est exposé sur chaque élément.
+- `data-orientation="horizontal" | "vertical"` est exposé sur la racine et ses enfants.
+- `data-disabled` et `data-focus` sont des attributs d’état Ark.
+- `data-variant` et `data-size` reflètent les props visuelles moduix.

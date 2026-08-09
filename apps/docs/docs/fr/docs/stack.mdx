@@ -1,0 +1,199 @@
+---
+title: Stack
+component: stack
+description: Une petite primitive de mise en page flex alignée sur Ark pour les compositions verticales et horizontales.
+---
+
+import * as StackDocs from '@/components/examples/stack';
+
+## Référence API
+
+Ark UI ne fournit pas de primitive `stack` dédiée. Moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref). Le composant
+[Stack](https://chakra-ui.com/docs/components/stack) de Chakra UI inspire uniquement le vocabulaire des propriétés
+de mise en page.
+
+## Exemple de base
+
+Utilisez `Stack` lorsqu’un seul conteneur flex suffit et que la mise en page ne nécessite qu’une direction, un
+espacement et un alignement courant.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="stack" />
+
+## Anatomie
+
+`Stack` affiche une seule enveloppe flex racine alignée sur Ark. Elle gère la direction, l’espacement, l’alignement
+courant et quelques facilités responsives, tandis que les règles de mise en page plus larges restent dans le CSS
+local.
+
+```text
+Stack / Stack.Root
+└─ root[data-scope="stack"][data-part="root"][data-slot="stack-root"]
+   └─ children
+```
+
+| Partie                 | Rôle                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `Stack` / `Stack.Root` | Enveloppe flex racine pour la direction, l’espacement et l’alignement.       |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez la forme courte `<Stack>` pour produire normalement un `div`. Utilisez `Stack.Root` uniquement lorsque la
+cohérence avec l’espace de noms des composants multipartites facilite la lecture.
+
+Utilisez `direction`, `gap`, `align`, `justify` et `wrap` pour les mises en page flex courantes. Utilisez `fill`
+lorsqu’une stack imbriquée doit s’étendre en tant qu’élément flex. Composez directement le `Separator` de moduix
+lorsqu’une mise en page nécessite un séparateur visuel. Utilisez `asChild` lorsque la stack doit être rendue sous la
+forme d’un élément sémantique.
+
+### Quand créer une composition personnalisée
+
+Passez au CSS local lorsque la mise en page nécessite plusieurs conteneurs flex, plus qu’un simple changement de
+direction mobile/ordinateur, des espacements différents selon les breakpoints, des règles propres aux éléments ou
+des styles plus lisibles dans une feuille de style que dans les propriétés du composant.
+
+Utilisez `style` lorsqu’une instance doit remplacer les variables publiques `--moduix-stack-*` ou des propriétés
+flex calculées.
+
+### Propriétés par défaut
+
+| Propriété   | Par défaut            | Remarques                                                                    |
+| ----------- | --------------------- | ---------------------------------------------------------------------------- |
+| `direction` | `column`              | `row`, `row-reverse`, `column`, `column-reverse` ou objet responsive         |
+| `gap`       | valeur du navigateur  | Longueur CSS (`number` = `px`)                                                |
+| `align`     | valeur du navigateur  | Toute valeur `align-items` valide                                             |
+| `justify`   | valeur du navigateur  | Toute valeur `justify-content` valide                                         |
+| `wrap`      | valeur du navigateur  | Toute valeur `flex-wrap` valide                                               |
+| `fill`      | `initial`             | `true` définit `flex: 1 1 0` ; `false` définit également `initial`           |
+| `asChild`   | `false`               | Composition avec la fabrique Ark et un seul élément enfant sémantique        |
+
+### Notes sur le comportement
+
+- `Stack` affiche exactement une racine et lui transmet les propriétés DOM de la fabrique Ark.
+- `direction={{ mobile, desktop }}` bascule à `640px` et utilise l’autre valeur comme repli lorsqu’un seul côté est
+  fourni.
+- `direction` accepte également `row-reverse` et `column-reverse` pour inverser l’ordre visuel.
+- `fill` affecte la stack en tant qu’élément flex, et non ses enfants.
+- `Separator` est un enfant ordinaire ; marquez les séparateurs décoratifs avec `aria-hidden`.
+- `gap`, `align`, `justify` et `wrap` ne sont écrits inline que lorsqu’ils sont fournis.
+- `Stack` expose `data-scope="stack"`, `data-part="root"` et `data-slot="stack-root"` pour des styles conformes aux
+  conventions d’Ark.
+- `Stack` n’ajoute ni enveloppes autour des éléments, ni comportement clavier, ni sémantique ARIA, ni hooks de
+  contexte, ni état de provider.
+
+## Exemples
+
+### Stack enfant extensible
+
+Utilisez `fill` lorsqu’une stack imbriquée doit occuper l’espace restant dans une ligne flex.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/growing-child-stack.tsx"
+
+  ```
+</PreviewFrame>
+
+### Mise en page de chargement
+
+Utilisez `Stack` avec `Skeleton` lorsque l’état de chargement ne nécessite qu’une composition flex et des
+espacements.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/loading-layout.tsx"
+
+  ```
+</PreviewFrame>
+
+### Direction responsive
+
+Utilisez une `direction` responsive lorsque la mise en page doit uniquement passer d’une colonne sur mobile à une
+ligne sur ordinateur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/responsive-direction.tsx"
+
+  ```
+</PreviewFrame>
+
+### Mise en page en ligne
+
+Utilisez `direction="row"` et les propriétés d’alignement pour les mises en page inline.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/row-layout.tsx"
+
+  ```
+</PreviewFrame>
+
+### Élément sémantique
+
+Utilisez `asChild` d’Ark lorsque l’enveloppe de mise en page doit également décrire la structure du document.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/semantic-element.tsx"
+
+  ```
+</PreviewFrame>
+
+### Séparateur
+
+Composez directement `Separator` lorsqu’une stack horizontale ou verticale nécessite un séparateur visuel répété
+entre ses enfants. `gap` s’applique à chaque enfant, y compris à chaque séparateur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/separator.tsx"
+
+  ```
+</PreviewFrame>
+
+### Retour à la ligne des éléments
+
+Utilisez `wrap="wrap"` lorsque les éléments doivent passer à la ligne suivante.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/stack/wrapped-items.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+`Stack` expose des variables CSS publiques sur sa racine. Elles utilisent `column` et `initial` comme valeurs de
+repli ; les propriétés `direction` et `fill` écrivent des valeurs inline lorsqu’elles sont fournies, et `style`
+permet de les remplacer pour une instance donnée.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <StackDocs.StackCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- `className` applique les styles à l’unique racine pour la largeur, le padding, les bordures, les arrière-plans et
+  les autres aspects de surface.
+- `data-scope="stack"` et `data-part="root"` alignent l’enveloppe sur les conventions de style d’Ark.
+- `data-slot="stack-root"` est le sélecteur moduix stable permettant de cibler la racine dans le CSS local.
+- `style` est appliqué en dernier et peut donc remplacer les valeurs calculées de `gap`, `alignItems`,
+  `justifyContent`, `flexWrap` et toute variable `--moduix-stack-*` écrite par les propriétés.
+- Le contrat public ne contient aucun attribut d’état, aucune variable d’animation CSS et aucune map `slotProps`.

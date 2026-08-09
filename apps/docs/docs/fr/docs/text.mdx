@@ -1,0 +1,189 @@
+---
+title: Text
+component: text
+description: Un composant typographique pour le texte courant ou en ligne, les descriptions, l’emphase sémantique et les aperçus tronqués.
+---
+
+import * as TextDocs from '@/components/examples/text';
+
+## Référence API
+
+Ark UI ne fournit pas de primitive `text` dédiée. Moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [ref](https://ark-ui.com/docs/guides/ref).
+
+## Choisir le bon composant
+
+Utilisez `Text` pour le texte courant et auxiliaire, l’emphase en ligne et le texte d’accompagnement de l’interface
+qui doivent rester dans l’échelle typographique de moduix.
+
+- Choisissez **`Heading`** pour la structure du document et la hiérarchie des titres.
+- Choisissez **`Text`** lorsque le contenu doit conserver la sémantique d’un paragraphe ou d’un texte en ligne avec les styles du texte courant.
+- Utilisez du CSS local lorsque le besoin concerne la mise en page du texte enrichi, l’espacement ou le dépliage d’un texte tronqué.
+
+## Exemple de base
+
+Commencez par l’élément racine `p` par défaut. Utilisez `as` uniquement lorsque vous devez modifier la balise HTML
+sémantique tout en conservant le même contrat de style typographique.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="text" />
+
+## Anatomie
+
+`Text` rend un seul élément racine à l’aide de la fabrique Ark. Les formes courtes `<Text>` et `<Text.Root>` sont équivalentes.
+
+```text
+Text / Text.Root
+└─ text or inline content
+```
+
+| Partie | Rôle |
+| --------------------- | --------------------------------------------------------------------- |
+| `Text` / `Text.Root` | Racine sémantique du texte, avec la typographie du design system et les hooks de données. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez la forme courte `<Text>` pour le texte courant et auxiliaire. Elle équivaut à `<Text.Root>`, rend un élément
+`p` par défaut et transmet la ref au `HTMLElement` rendu.
+
+### Quand créer une composition personnalisée
+
+Utilisez `as` avec les balises intégrées prises en charge lorsque vous devez modifier l’élément sémantique. Utilisez
+`asChild` lorsqu’un unique élément hôte personnalisé doit recevoir la classe moduix, les styles, les attributs de
+données et la ref. La recette [Text](https://chakra-ui.com/docs/components/text) de Chakra définit les API locales de
+taille, de graisse, de troncature et de limitation du nombre de lignes.
+
+### Propriétés par défaut
+
+| Propriété | Valeur par défaut | Remarques |
+| ----------- | ----------------- | ------------------------------------------------------------ |
+| `as` | `p` | `p`, `span`, `small`, `strong`, `em` ou `div`. |
+| `asChild` | `false` | Utilise l’unique élément enfant comme hôte. |
+| `size` | Selon l’élément | `sm` par défaut pour `small` ; `md` pour les autres racines. |
+| `weight` | Selon l’élément | `semibold` par défaut pour `strong` ; `regular` dans les autres cas. |
+| `tone` | `default` | `default`, `muted`, `subtle`, `primary`, `destructive`. |
+| `align` | Non défini (`start`) | `start`, `center`, `end`, `left`, `right` ou `justify`. |
+| `truncate` | `false` | Troncature CSS sur une ligne avec points de suspension. |
+| `lineClamp` | Non défini | Entier positif ; les valeurs non valides désactivent la limitation. |
+
+### Notes sur le comportement
+
+`Text` ne possède pas de machine à états, d’état contrôlé, de comportement au clavier, d’intégration à
+`Field`/`Fieldset`, de `HiddenInput`, d’identifiants, de hooks de contexte ni de `RootProvider`. `truncate` et
+`lineClamp` sont des contraintes visuelles CSS ; `lineClamp` n’accepte que les entiers positifs. Le dépliage du
+contenu relève de la mise en page environnante.
+
+## Exemples
+
+### Alignement
+
+Utilisez `align` lorsque l’alignement appartient au texte lui-même et non à son conteneur.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/alignment.tsx"
+
+```
+</PreviewFrame>
+
+### Sémantique
+
+Utilisez `as` pour les balises sémantiques courantes sans sortir de l’échelle typographique.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/semantics.tsx"
+
+```
+</PreviewFrame>
+
+### Taille
+
+Utilisez `size` pour modifier la hiérarchie visuelle sans changer de composant typographique.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/size.tsx"
+
+```
+</PreviewFrame>
+
+### Tonalité
+
+Utilisez `tone` pour exprimer le rôle du texte sans classe de couleur locale.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/tone.tsx"
+
+```
+</PreviewFrame>
+
+### Troncature
+
+Utilisez `truncate` pour une troncature sur une ligne avec points de suspension, et `lineClamp` pour les aperçus
+compacts sur plusieurs lignes dont le dépliage est géré par la mise en page environnante.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/text/truncation.tsx"
+
+```
+</PreviewFrame>
+
+### Graisse
+
+Utilisez `weight` lorsque l’emphase doit rester dans le même élément sémantique.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/text/weight.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `asChild` lorsque la racine doit être un élément hôte personnalisé plutôt que l’une des valeurs intégrées
+prises en charge par `as`. L’enfant doit être l’unique élément capable de recevoir les propriétés transmises et la ref.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/text/custom-composition.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Personnalisez `Text` avec `className`, les attributs de données de la racine dans le style d’Ark et les variables CSS
+publiques `--moduix-text-*` décrites dans l’API CSS publique.
+
+### Propriétés CSS
+
+<div className="not-prose docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TextDocs.TextCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- `data-scope="text"` et `data-part="root"` identifient la racine dans le style d’Ark.
+- `data-slot="text-root"` est le sélecteur moduix stable de la racine exportée.
+- `data-size` reflète la taille visuelle calculée : `xs`, `sm`, `md`, `lg` ou `xl`.
+- `data-weight` reflète la graisse active : `regular`, `medium`, `semibold` ou `bold`.
+- `data-tone` reflète la tonalité active : `default`, `muted`, `subtle`, `primary` ou `destructive`.
+- `data-align` apparaît uniquement lorsque `align` vaut explicitement `start`, `center`, `end`, `left`, `right` ou `justify`.
+- `data-truncate` apparaît lorsque la troncature sur une ligne avec points de suspension est active.
+- `data-line-clamp` apparaît lorsque `lineClamp` est un entier positif et définit `--moduix-text-line-clamp`.

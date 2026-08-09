@@ -1,0 +1,376 @@
+---
+title: Slider
+component: slider
+description: Un contrôle permettant de sélectionner une valeur unique ou une plage de valeurs.
+---
+
+import * as SliderDocs from '@/components/examples/slider';
+
+## Référence API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/slider" />
+
+## Choisir le bon composant
+
+Utilisez `Slider` lorsque l’utilisateur doit modifier directement une valeur numérique bornée avec le pointeur ou le clavier.
+
+- Choisissez **`Slider`** pour le volume, la luminosité, un budget, des seuils et des plages à plusieurs curseurs.
+- Choisissez **`Input`** ou **`NumberInput`** lorsque la saisie précise importe davantage que le glissement.
+- Choisissez **`ProgressLinear`** ou **`ProgressCircular`** lorsque la valeur est uniquement destinée à être affichée.
+
+## Exemple de base
+
+`Slider.Thumbs` est la méthode recommandée pour afficher un curseur stylisé pour chaque valeur. Chaque curseur,
+y compris un `Slider.Thumb` explicite, affiche automatiquement son propre élément de formulaire natif.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/basic.tsx"
+
+```
+
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="slider" />
+
+## Anatomie
+
+```text
+Slider / Slider.Root
+├─ Slider.Label
+├─ Slider.ValueText
+├─ Slider.Control
+│  ├─ Slider.Track
+│  │  └─ Slider.Range
+│  └─ Slider.Thumbs
+│     └─ Slider.Thumb[index]
+│        ├─ Slider.DraggingIndicator
+│        └─ native input (automatique)
+└─ Slider.MarkerGroup
+   └─ Slider.Marker[value]
+```
+
+| Partie                                  | Rôle                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| `Slider` / `Slider.Root`                | Racine Ark stylisée pour les états contrôlés et non contrôlés.          |
+| `Slider.RootProvider`                   | Racine qui reçoit une machine `useSlider` externe.                      |
+| `Slider.Label`                          | Libellé visible du groupe de sliders.                                   |
+| `Slider.ValueText`                      | Texte de la valeur actuelle produit par Ark.                            |
+| `Slider.Control`                        | Zone d’interaction avec le pointeur.                                    |
+| `Slider.Track`                          | Piste visuelle complète.                                                |
+| `Slider.Range`                          | Segment rempli entre l’origine configurée et la valeur.                 |
+| `Slider.Thumb`                          | Curseur du slider qui reçoit le focus.                                  |
+| `Slider.Thumbs`                         | Utilitaire Moduix qui affiche un curseur pour chaque valeur.            |
+| `Slider.MarkerGroup` / `Slider.Marker`  | Groupe de repères facultatif et repère individuel.                      |
+| `Slider.DraggingIndicator`              | Valeur facultative dans une infobulle pendant le glissement.            |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez l’arbre de parties Ark : racine, libellé, texte de valeur facultatif, contrôle, piste, plage et
+`Slider.Thumbs`. Celui-ci crée un curseur pour chaque valeur ; chaque curseur ajoute automatiquement un élément de formulaire natif.
+
+`Slider` est la forme concise de la racine, équivalente à `Slider.Root`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` lorsqu’une partie doit afficher un élément hôte personnalisé, tout en conservant un unique enfant
+sémantique capable de recevoir les propriétés Ark. Utilisez un `Slider.Thumb` explicite pour personnaliser les enfants,
+les noms accessibles ou l’ordre des curseurs ; il conserve l’élément de formulaire natif automatique. Pour un accès
+avancé à l’état, importez `useSliderContext` ou `useSlider` depuis `@moduix/react` et utilisez-les avec `Slider.RootProvider`.
+
+### Propriétés par défaut
+
+| Propriété                 | Par défaut    | Remarques                                                               |
+| ------------------------- | ------------- | ----------------------------------------------------------------------- |
+| `defaultValue`            | `[min]`       | Ark stocke les valeurs du slider sous forme de `number[]`.              |
+| `orientation`             | `horizontal`  | Utilisez `vertical` pour un axe clavier vertical.                        |
+| `min`                     | `0`           | Limite inférieure.                                                       |
+| `max`                     | `100`         | Limite supérieure.                                                      |
+| `step`                    | `1`           | Incrément du pointeur et du clavier.                                     |
+| `minStepsBetweenThumbs`   | `0`           | Écart minimal entre les curseurs d’une plage.                            |
+| `origin`                  | `start`       | Origine du remplissage pour les plages à valeur unique.                  |
+| `thumbAlignment`          | `contain`     | Utilisez `center` pour permettre au curseur de dépasser des extrémités.  |
+| `thumbCollisionBehavior`  | `none`        | Utilisez `push` ou `swap` lors du glissement d’une plage.                |
+| `thumbSize`               | mesuré        | Remplace les dimensions de curseur mesurées par Ark.                     |
+
+`value`, `defaultValue`, `onValueChange(details)` et `onValueChangeEnd(details)` utilisent les objets details d’Ark.
+Pour lire le tableau, utilisez `details.value`.
+
+### Notes sur le comportement
+
+`Slider` suit le comportement WAI-ARIA slider d’Ark. Chaque curseur nécessite un nom accessible au moyen de
+`Slider.Label`, `aria-label` ou `aria-labelledby`. Les sliders horizontaux utilisent les touches fléchées gauche et
+droite ; les verticaux utilisent les flèches haut et bas. Page Up, Page Down, Home et End utilisent le grand incrément
+configuré ou les limites.
+
+Chaque `Slider.Thumb` affiche automatiquement un élément de formulaire natif pour la soumission, l’association au
+formulaire et la synchronisation de la réinitialisation. `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
+`aria-label`, `aria-labelledby` et `getAriaValueText(details)` sont transmis à Ark.
+
+## Exemples
+
+### Centre comme origine
+
+Définissez `origin="center"` lorsque la valeur sélectionnée représente un décalage positif ou négatif.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/center-origin.tsx"
+
+```
+
+</PreviewFrame>
+
+### Événements de modification
+
+Utilisez `onValueChange` pour les mises à jour en cours d’interaction et `onValueChangeEnd` lorsque le glissement ou
+l’interaction clavier est terminé.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/change-events.tsx"
+
+```
+
+</PreviewFrame>
+
+### Contexte
+
+Utilisez `useSliderContext` de moduix dans un composant enfant lorsque celui-ci doit lire directement l’état du slider,
+par exemple `value`, `dragging` et l’état du focus.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/context.tsx"
+
+```
+
+</PreviewFrame>
+
+### État contrôlé
+
+Contrôlez la valeur depuis l’état React en conservant le tableau `details.value` d’Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Désactivé
+
+Utilisez `disabled` pour garder la valeur visible tout en empêchant les interactions.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/disabled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Formulaire
+
+Définissez `name` pour envoyer la valeur actuelle avec un formulaire natif. moduix affiche et synchronise
+automatiquement l’élément de formulaire natif.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/form.tsx"
+
+```
+
+</PreviewFrame>
+
+### Indicateur de glissement
+
+Placez `Slider.DraggingIndicator` dans le curseur pour afficher la valeur active pendant le glissement.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
+
+```
+
+</PreviewFrame>
+
+### Valeur non valide
+
+Utilisez `invalid` lorsque la valeur sélectionnée échoue à la validation. La piste, la plage et le curseur affichent
+l’état d’erreur tout en conservant le comportement habituel du slider.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/invalid.tsx"
+
+```
+
+</PreviewFrame>
+
+### Repères
+
+Utilisez `Slider.MarkerGroup` et `Slider.Marker` pour afficher des repères. Les repères Ark exposent
+`data-state="under-value | at-value | over-value"` pour les styles.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/marks.tsx"
+
+```
+
+</PreviewFrame>
+
+### Minimum et maximum
+
+Utilisez `min` et `max` pour les plages qui ne commencent pas à `0` ou ne se terminent pas à `100`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/min-and-max.tsx"
+
+```
+
+</PreviewFrame>
+
+### Plage
+
+Transmettez un tableau contenant une valeur par curseur. `Slider.Thumbs` crée les parties de curseur et d’entrée correspondantes.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/range.tsx"
+
+```
+
+</PreviewFrame>
+
+### Lecture seule
+
+Utilisez `readOnly` lorsque la valeur doit rester visible et accessible au focus sans pouvoir être modifiée. moduix
+utilise le curseur système par défaut afin que cet état ne paraisse pas interactif.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/read-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useSlider` de moduix avec `Slider.RootProvider` lorsque l’état doit être possédé en dehors de l’arbre affiché.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Incrément
+
+Utilisez `step` pour des incréments fractionnaires ou limités.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/step.tsx"
+
+```
+
+</PreviewFrame>
+
+### Alignement du curseur
+
+Utilisez `thumbAlignment="center"` lorsque le curseur doit dépasser des extrémités de la piste.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
+
+```
+
+</PreviewFrame>
+
+### Collision des curseurs
+
+Utilisez `thumbCollisionBehavior="push"` ou `"swap"` pour modifier le comportement des curseurs d’une plage lorsqu’ils se rencontrent.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-collision.tsx"
+
+```
+
+</PreviewFrame>
+
+### Chevauchement des curseurs
+
+Utilisez `minStepsBetweenThumbs` pour conserver un écart minimal entre les curseurs d’une plage.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
+
+```
+
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` et une hauteur stable sur la racine.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/vertical.tsx"
+
+```
+
+</PreviewFrame>
+
+### Orientation verticale avec repères
+
+Les repères restent alignés sur la piste en orientation verticale et utilisent les mêmes hooks d’état de marqueur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
+
+```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Slider.Thumbs` lorsque les différents curseurs nécessitent des enfants personnalisés, des noms accessibles ou un ordre particulier.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Slider` avec `className`, les attributs Ark, les hooks stables `data-slot="slider-*"`, les variables CSS
+d’Ark et les variables CSS publiques de Moduix ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SliderDocs.SliderCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+Ark écrit `data-scope="slider"` et `data-part` sur toutes les parties affichées. Moduix écrit également les valeurs
+`data-slot` suivantes : `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`, `slider-control`,
+`slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`, `slider-marker-group`, `slider-marker` et
+`slider-dragging-indicator`.
+
+Les principaux hooks d’état d’Ark sont `data-orientation`, `data-disabled`, `data-invalid`, `data-focus`,
+`data-dragging`, le `data-state` du repère et le `data-state="open | closed"` de l’indicateur de glissement. Les
+variables CSS d’exécution d’Ark sont `--slider-thumb-width`, `--slider-thumb-height`, `--slider-thumb-transform`,
+`--slider-range-start`, `--slider-range-end`, `--translate-x` et `--translate-y`.
+
+moduix ajoute `data-readonly` à `Slider` lorsque la propriété `readOnly` est définie. Dans l’état d’erreur, la piste,
+la plage sélectionnée et le curseur utilisent par défaut la couleur destructive.
+
+L’anneau de focus par défaut du curseur utilise `:focus-visible` pour le focus clavier et `data-dragging` d’Ark tant
+que le curseur est maintenu. Il disparaît après le relâchement du pointeur.

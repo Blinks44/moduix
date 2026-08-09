@@ -1,0 +1,185 @@
+---
+title: Tree View
+component: tree-view
+description: Une arborescence Ark UI accessible pour les dossiers, fichiers et ressources imbriquées hiérarchiques.
+---
+
+import * as TreeViewDocs from '@/components/examples/tree-view';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tree-view" />
+
+## Exemple de base
+
+Passez le résultat de `createTreeCollection` à `TreeView`. `TreeView.Node` évite de répéter le provider et la
+transmission du contexte dans le moteur de rendu récursif, tout en gardant visible l’arbre complet des parties Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="tree-view" />
+
+## Anatomie
+
+```text
+TreeView / TreeView.Root
+├─ TreeView.Label
+└─ TreeView.Tree
+   └─ TreeView.Node ou TreeView.NodeProvider
+      ├─ TreeView.Branch
+      │  ├─ TreeView.BranchControl
+      │  │  ├─ TreeView.BranchIndicator
+      │  │  └─ TreeView.BranchText
+      │  └─ TreeView.BranchContent
+      │     ├─ TreeView.BranchIndentGuide
+      │     └─ nœuds imbriqués
+      └─ TreeView.Item
+         └─ TreeView.ItemText
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `TreeView` / `TreeView.Root` | Gère la collection, la sélection, le développement, le focus, les cases à cocher et le renommage. |
+| `TreeView.RootProvider` | Relie les parties à une instance de `useTreeView`. |
+| `TreeView.Label` | Donne un nom accessible à l’arborescence. |
+| `TreeView.Tree` | Conteneur ARIA de l’arborescence. |
+| `TreeView.Node` | Provider pratique avec `{ node, indexPath, state }`. |
+| `TreeView.NodeProvider` | Limite de contexte Ark de bas niveau pour une composition personnalisée. |
+| `TreeView.Branch*` | Nœud extensible, déclencheur, indicateur, libellé et descendants. |
+| `TreeView.Item*` | Élément terminal de l’arborescence et indicateur facultatif de l’état sélectionné. |
+| `TreeView.NodeCheckbox*` | Contrôle d’arborescence avec case à cocher et indicateur d’état coché ou indéterminé. |
+| `TreeView.NodeRenameInput` | Champ intégré affiché pendant le renommage d’un nœud. |
+
+## Composition
+
+### Approche recommandée
+
+Utilisez `TreeView.Node` pour les moteurs de rendu récursifs habituels. Son callback de rendu reçoit les valeurs
+actuelles `node` et `indexPath`, ainsi que l’état de nœud Ark `state` ; il peut donc choisir la composition d’une
+branche ou d’un élément sans composant de contexte distinct. `NodeProvider` reste disponible lorsqu’un arbre de
+composants personnalisé nécessite un contrôle direct.
+
+### Déclencheur de développement dédié
+
+Par défaut, `BranchControl` développe toute la ligne. Lorsque vous rendez un `BranchTrigger` distinct, définissez
+`role="none"` sur `BranchControl` afin que le déclencheur ne soit pas imbriqué dans un autre élément interactif de
+l’arborescence.
+
+### Liens et autres éléments terminaux sémantiques
+
+Utilisez `asChild` sur `TreeView.Item` pour un unique descendant sémantique, comme un lien. L’élément de remplacement
+doit accepter les props Ark et conserver le comportement du clavier et du focus.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/links.tsx"
+
+  ```
+</PreviewFrame>
+
+### État et comportement du clavier
+
+Ark gère le pattern d’arborescence WAI-ARIA : focus mobile, navigation par flèches, Home/End, recherche à la saisie,
+sélection, cases à cocher, nœuds désactivés, chargement asynchrone et touches de renommage. Contrôlez `expandedValue`,
+`selectedValue`, `checkedValue` et `focusedValue` avec leurs callbacks de détails Ark.
+
+| Prop | Valeur par défaut | Remarques |
+| --- | --- | --- |
+| `selectionMode` | `"single"` | Utilisez `"multiple"` pour sélectionner une plage ou employer des touches de modification. |
+| `expandOnClick` | `true` | Un clic sur la ligne d’une branche la développe ou la réduit. |
+| `typeahead` | `true` | Utilise `nodeToString` de la collection. |
+| `lazyMount` | `false` | Diffère le rendu du contenu d’une branche jusqu’à son premier développement. |
+| `unmountOnExit` | `false` | Démonte le contenu fermé après le cycle de fermeture. |
+
+## Exemples
+
+### Chargement asynchrone
+
+Les branches avec `childrenCount` peuvent charger leurs descendants avec `loadChildren`. Remplacez la collection par
+`details.collection` après `onLoadChildrenComplete`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/async-loading.tsx"
+
+  ```
+</PreviewFrame>
+
+### Arborescence avec cases à cocher
+
+Placez `NodeCheckbox` dans les contrôles de branche comme dans les éléments terminaux. L’indicateur par défaut rend
+déjà les icônes des états coché et indéterminé.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/checkboxes.tsx"
+
+  ```
+</PreviewFrame>
+
+### Icônes de fichiers
+
+Placez les icônes décoratives de fichiers et de dossiers dans `BranchText` et `ItemText`. `BranchIndicator` reste
+distinct et demeure ainsi le seul élément chargé du développement et de la réduction.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/file-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Sélection multiple
+
+Définissez `selectionMode="multiple"`. Utilisez Ctrl/⌘ pour ajouter ou retirer des éléments individuels et Maj pour
+étendre la plage de sélection ; l’état reste contrôlé par le consommateur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/controlled-selection.tsx"
+
+  ```
+</PreviewFrame>
+
+### Renommage et virtualisation
+
+Activez le renommage intégré avec `canRename`, rendez `NodeRenameInput` tant que `state.renaming` vaut true, puis
+mettez à jour la collection dans `onRenameComplete`. Pour les grandes arborescences, utilisez `RootProvider`,
+`getVisibleNodes()` et `scrollToIndexFn` avec un virtualiseur ; moduix n’ajoute pas d’API de virtualisation concurrente.
+
+### Root Provider
+
+Créez l’état hors de l’arbre rendu avec `useTreeView` lorsque des contrôles situés ailleurs ont besoin de méthodes
+comme `expand()` et `collapse()`. Dans l’aperçu, les deux contrôles et le retour d’état restent centrés dans `PreviewMeta`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/tree-view/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Mise en forme
+
+Utilisez `className` sur les parties exportées pour la mise en forme structurelle. Ark fournit
+`data-state="open|closed"`, `data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`,
+`data-checked`, `data-indeterminate`, `data-depth`, `data-path` et `data-value`. L’enveloppe respecte les variables
+d’indentation Ark `--depth` et de mesure de réduction `--height`, et désactive l’animation des branches lorsque la
+préférence de réduction des animations est activée.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TreeViewDocs.TreeViewCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de mise en forme
+
+- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`, `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`, `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`, `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`, `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator` et `tree-view-node-rename-input`.
+- Toute la personnalisation visuelle est disponible au moyen des variables documentées `--moduix-tree-view-*`.
