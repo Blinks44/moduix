@@ -98,6 +98,8 @@ button layout. Keep the Ark part tree visible instead of hiding it behind a conv
 - Ark applies `data-copied` to the relevant parts while copied state is active. By default moduix
   keeps the input and trigger visually stable and only swaps `Indicator` or `CopyText`, while
   `data-copied` remains available for opt-in custom styling.
+- Ark does not expose a root-level disabled state. Pass the native `disabled` prop to both
+  `Clipboard.Input` and `Clipboard.Trigger` when the complete clipboard control is unavailable.
 - `Clipboard` no longer caps field width by default. Set `--moduix-clipboard-max-width` when a specific
   maximum width belongs to the layout.
 - The old `CopyButton` API was removed. There is no `copiedDuration`, `copyLabels`, `onCopy`, or
@@ -151,6 +153,18 @@ the rendered tree but the visible parts should stay Ark-shaped.
 
 </PreviewFrame>
 
+### Context
+
+Use `Clipboard.Context` for inline access to `copied`, `value`, `setValue`, and `copy`. Custom child
+components can read the same state with `useClipboardContext()` from moduix.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Timeout
 
 Set `timeout` when copied state should remain visible for longer than the Ark default.
@@ -168,6 +182,18 @@ Use `Clipboard.ValueText` when the copied value should read like inline content 
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/clipboard/value-text.tsx"
+
+```
+
+</PreviewFrame>
+
+### Disabled
+
+Disable the native input and trigger together when the value must remain visible but copying and
+editing are unavailable.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/clipboard/disabled.tsx"
 
 ```
 

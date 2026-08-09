@@ -94,6 +94,8 @@ Gardez l’arborescence des parties Ark explicite au lieu de la masquer derrièr
 - `onValueChange(details)` expose la nouvelle valeur du presse-papiers via `details.value`.
 - `onStatusChange(details)` conserve la structure des détails de copie d’Ark et convient aux données analytiques, aux compteurs ou à un retour supplémentaire.
 - Ark applique `data-copied` aux parties concernées tant que l’état de copie est actif. Par défaut, moduix conserve l’apparence du champ et du déclencheur et remplace uniquement `Indicator` ou `CopyText` ; `data-copied` reste disponible pour les styles personnalisés.
+- Ark ne fournit pas d’état désactivé au niveau de la racine. Passez la prop native `disabled` à la fois à
+  `Clipboard.Input` et à `Clipboard.Trigger` lorsque l’ensemble du contrôle est indisponible.
 - `Clipboard` ne limite plus par défaut la largeur du champ. Définissez `--moduix-clipboard-max-width` lorsqu’une largeur maximale précise fait partie de la mise en page.
 - L’ancienne API `CopyButton` a été supprimée. `Clipboard` ne possède aucune couche d’alias pour `copiedDuration`, `copyLabels`, `onCopy` ou `onCopyError`.
 
@@ -145,6 +147,18 @@ de l’arborescence rendue, mais que les parties visibles doivent conserver la f
 
 </PreviewFrame>
 
+### Contexte
+
+Utilisez `Clipboard.Context` pour accéder directement à `copied`, `value`, `setValue` et `copy`. Les composants
+enfants personnalisés peuvent lire le même état avec `useClipboardContext()` de moduix.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/clipboard/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Délai
 
 Définissez `timeout` lorsque l’état de copie doit rester visible plus longtemps que la durée Ark standard.
@@ -162,6 +176,18 @@ Utilisez `Clipboard.ValueText` lorsque la valeur copiée doit apparaître comme 
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/value-text.tsx"
+
+```
+
+</PreviewFrame>
+
+### État désactivé
+
+Désactivez ensemble le champ et le déclencheur natifs lorsque la valeur doit rester visible, mais que la
+modification et la copie ne sont pas disponibles.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/clipboard/disabled.tsx"
 
 ```
 

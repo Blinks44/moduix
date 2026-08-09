@@ -97,6 +97,8 @@ Clipboard | Clipboard.RootProvider
 - Ark применяет `data-copied` к соответствующим частям, пока активно состояние копирования. По умолчанию moduix
   сохраняет внешний вид поля и триггера и заменяет только `Indicator` или `CopyText`; `data-copied` остаётся
   доступным для пользовательской стилизации.
+- Ark не предоставляет отключённое состояние на корневом уровне. Передайте нативное свойство `disabled`
+  одновременно в `Clipboard.Input` и `Clipboard.Trigger`, когда весь элемент управления недоступен.
 - `Clipboard` больше не ограничивает ширину поля по умолчанию. Задайте `--moduix-clipboard-max-width`, когда
   конкретная максимальная ширина является частью компоновки.
 - Старый API `CopyButton` удалён. У `Clipboard` нет слоя алиасов `copiedDuration`, `copyLabels`, `onCopy` или
@@ -150,6 +152,18 @@ Clipboard | Clipboard.RootProvider
 
 </PreviewFrame>
 
+### Контекст
+
+Используйте `Clipboard.Context` для встроенного доступа к `copied`, `value`, `setValue` и `copy`. Пользовательские
+дочерние компоненты могут читать то же состояние через `useClipboardContext()` из moduix.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/clipboard/context.tsx"
+
+```
+
+</PreviewFrame>
+
 ### Задержка
 
 Задайте `timeout`, когда состояние копирования должно оставаться видимым дольше стандартного времени Ark.
@@ -167,6 +181,18 @@ Clipboard | Clipboard.RootProvider
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/value-text.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённое состояние
+
+Отключайте нативные поле и триггер вместе, когда значение должно оставаться видимым, но редактирование и
+копирование недоступны.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/clipboard/disabled.tsx"
 
 ```
 

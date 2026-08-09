@@ -102,6 +102,9 @@ consumer wants another semantic input or button element to own the rendered node
 - `onStatusChange(details)` exposes Ark copy-status details without remapping.
 - Ark applies `data-copied` to `Root`, `Label`, `Control`, `Input`, and `Trigger` while copied state is active.
 - Ark applies `data-readonly` on `Clipboard.Input` when read-only.
+- Ark does not expose a root-level disabled state. Consumers disable `Clipboard.Input` and
+  `Clipboard.Trigger` through their native `disabled` props; moduix styles both native disabled
+  parts consistently.
 - `Clipboard.Trigger` keeps Ark keyboard and focus behavior. Do not replace it with a custom click handler layer.
 - `Clipboard.CopyText` inherits Ark indicator semantics through `Clipboard.Indicator`, so copied-state text still follows the same copied timing and `data-copied` state as the trigger.
 - The wrapper no longer adds a separate live region. Accessibility follows the Ark clipboard contract directly.
@@ -119,6 +122,8 @@ The text input and copy trigger use the shared `--moduix-size-md` baseline; the 
 - Input and trigger tokens intentionally fall back to the existing `--moduix-input-*` and `--moduix-button-*` families where that keeps the visual system aligned.
 - `--moduix-clipboard-max-width` defaults to `none` instead of a fixed cap.
 - Copied-state styling should target Ark `data-copied` directly; there is no separate `--moduix-clipboard-*-copied` token layer.
+- The trigger follows the moduix button interaction model with hover, focus-visible, pressed, and
+  reduced-motion-aware feedback.
 
 ## Intentional sugar and differences from upstream
 
@@ -137,6 +142,8 @@ The text input and copy trigger use the shared `--moduix-size-md` baseline; the 
 
 ## Local changelog
 
+- 2026-08-09: Covered refs, context access, default copy affordances, and native disabled semantics;
+  aligned disabled input and pressed trigger styling with the public component contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default input and copy trigger to `--moduix-size-md` and compacted input padding.
 

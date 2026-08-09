@@ -154,6 +154,42 @@ export const RootProvider: Story = {
   },
 };
 
+export const ContextState: Story = {
+  render: () => {
+    return (
+      <Clipboard className={styles.demo} defaultValue="https://moduix.dev/docs/clipboard">
+        <Clipboard.Control>
+          <Clipboard.ValueText className={styles.valueText} />
+          <Clipboard.Trigger>
+            <Clipboard.Indicator />
+            <Clipboard.CopyText />
+          </Clipboard.Trigger>
+        </Clipboard.Control>
+        <Clipboard.Context>
+          {(clipboard) => <p className={styles.status}>Copied: {String(clipboard.copied)}</p>}
+        </Clipboard.Context>
+      </Clipboard>
+    );
+  },
+};
+
+export const Disabled: Story = {
+  render: () => {
+    return (
+      <Clipboard className={styles.demo} defaultValue="workspace-secret">
+        <Clipboard.Label>Disabled clipboard</Clipboard.Label>
+        <Clipboard.Control>
+          <Clipboard.Input disabled />
+          <Clipboard.Trigger disabled>
+            <Clipboard.Indicator />
+            <Clipboard.CopyText />
+          </Clipboard.Trigger>
+        </Clipboard.Control>
+      </Clipboard>
+    );
+  },
+};
+
 export const AsChildBridge: Story = {
   render: () => {
     return (
