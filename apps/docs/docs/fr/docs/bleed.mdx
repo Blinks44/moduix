@@ -13,6 +13,9 @@ Ark UI ne fournit pas de primitive `bleed` dédiée. Moduix construit ce composa
 [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
 [ref](https://ark-ui.com/docs/guides/ref).
 
+Utilisez [Container](/docs/container) pour contraindre une mise en page ; placez `Bleed` dans le
+contenu contraint lorsque seuls un média, un arrière-plan, un séparateur ou une bannière doivent dépasser ces limites.
+
 ## Exemple de base
 
 Commencez par le comportement par défaut `inline="full"` lorsque des médias, des bannières ou des accents de section doivent dépasser un conteneur contraint tout en restant dans le flux normal du document.
@@ -88,7 +91,8 @@ Utilisez `className` et des remplacements locaux de `--moduix-bleed-*` lorsqu’
 - `Bleed.Root` affiche exactement un élément racine et lui transmet les propriétés `div` d’Ark factory.
 - La `ref` pointe vers l’élément racine affiché. Avec `asChild`, elle pointe vers l’unique élément enfant.
 - `asChild` exige un seul enfant sémantique capable d’accepter les propriétés DOM et une ref.
-- Utilisez `inline` pour dépasser horizontalement et ajoutez `block` lorsque la surface doit également dépasser les espacements intérieurs verticaux.
+- Utilisez `inline` pour dépasser les espacements intérieurs sur l’axe en ligne et ajoutez `block`
+  lorsque la surface doit également dépasser ceux de l’axe de bloc. Ces axes logiques suivent le mode d’écriture du document.
 - L’ancienne propriété `as` a été supprimée lors de la migration vers Ark. Utilisez `asChild` lorsqu’un élément sémantique doit posséder le nœud DOM.
 - Utilisez l’une des valeurs fixes de l’échelle lorsque le contenu doit seulement dépasser l’espacement intérieur du conteneur, et non atteindre le bord du viewport.
 - `inline="full"` utilise un calcul fondé sur le viewport ; les enveloppes imbriquées peuvent donc nécessiter des remplacements locaux de `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size`.
@@ -99,7 +103,7 @@ Utilisez `className` et des remplacements locaux de `--moduix-bleed-*` lorsqu’
 
 ### Bleed sur l’axe de bloc
 
-Utilisez `block` lorsque la surface doit également dépasser les espacements intérieurs verticaux du conteneur.
+Utilisez `block` lorsque la surface doit également dépasser les espacements intérieurs du conteneur sur l’axe de bloc.
 
 <style>{`
       .bleed-demo-padded-container {

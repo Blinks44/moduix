@@ -21,6 +21,8 @@ Ark-aligned factory wrapper with `@ark-ui/react/factory`.
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
 - Keeps the API intentionally small: one root part with polymorphic DOM ownership through `asChild`.
 - Keeps the layout model explicit: negative inline and block margins on a single root.
+- Keeps viewport-wide sizing logical with `vi`, so the full mode follows the document's writing
+  mode instead of assuming a horizontal inline axis.
 - Uses Chakra's `inline` and `block` axis model as a secondary reference while keeping moduix's
   token-based values and full-viewport mode.
 
@@ -144,6 +146,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-09: Synchronized the public full-bleed variable reference with logical viewport units and
+  expanded regression coverage for the namespace form, stable hooks, and consumer classes.
 - 2026-07-26: Made full-bleed viewport math logical for vertical writing modes, widened the
   forwarded ref contract for `asChild`, and added focused regression coverage.
 - 2026-07-09: Re-aligned stories and public docs around the short `<Bleed>` sweet path and added a

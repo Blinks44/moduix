@@ -249,8 +249,8 @@
   --moduix-bleed-block-md: initial; /* var(--moduix-spacing-3) */
   --moduix-bleed-block-lg: initial; /* var(--moduix-spacing-4) */
   --moduix-bleed-block-xl: initial; /* var(--moduix-spacing-6) */
-  --moduix-bleed-inline-full: initial; /* calc(50% - 50vw) */
-  --moduix-bleed-inline-full-size: initial; /* 100vw */
+  --moduix-bleed-inline-full: initial; /* calc(50% - 50vi) */
+  --moduix-bleed-inline-full-size: initial; /* 100vi */
   --moduix-bleed-inline-xs: initial; /* var(--moduix-spacing-1) */
   --moduix-bleed-inline-sm: initial; /* var(--moduix-spacing-2) */
   --moduix-bleed-inline-md: initial; /* var(--moduix-spacing-3) */

@@ -13,6 +13,9 @@ Ark UI does not ship a dedicated `bleed` primitive. Moduix builds this component
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
 
+Use [Container](/docs/container) to constrain a layout; use `Bleed` inside constrained content when
+only a media region, background, divider, or banner should escape those boundaries.
+
 ## Basic
 
 Start with the default `inline="full"` behavior when media, banners, or section accents should
@@ -93,8 +96,8 @@ needs different full-bleed math than the default viewport-based values.
 - `Bleed.Root` renders exactly one root and forwards Ark factory div props to it.
 - `ref` targets the rendered root element. With `asChild`, it targets the single child element.
 - `asChild` requires one semantic child that can accept DOM props and a ref.
-- Use `inline` for horizontal escape, and add `block` when a surface should also escape vertical
-  padding.
+- Use `inline` to escape inline-axis padding, and add `block` when a surface should also escape
+  block-axis padding. These logical axes follow the document's writing mode.
 - The old `as` prop was removed during the Ark migration. Use `asChild` when a semantic element
   should own the DOM node.
 - Use one of the fixed scale values when content only needs to escape container padding instead of
@@ -109,7 +112,7 @@ needs different full-bleed math than the default viewport-based values.
 
 ### Block Bleed
 
-Use `block` when a surface should also escape vertical container padding.
+Use `block` when a surface should also escape block-axis container padding.
 
 <style>{`
       .bleed-demo-padded-container {
