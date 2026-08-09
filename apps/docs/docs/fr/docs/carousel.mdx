@@ -102,6 +102,11 @@ doivent faire partie de l’interface visible, plutôt que d’être uniquement 
 - `spacing`, `padding`, `slidesPerPage`, `slidesPerMove` et `autoSize` suivent directement les règles d’Ark relatives aux dimensions et aux points d’accroche.
 - Le carrousel vertical utilise la même API publique. Les déclencheurs standard pivotent automatiquement lorsque le composant utilise les chevrons moduix.
 - Les déclencheurs horizontaux standard sont automatiquement inversés avec `dir="rtl"`.
+- `Carousel.ProgressText` conserve l’ordre numérique lisible « actuel / total » dans les carrousels RTL.
+- `--moduix-carousel-indicator-size` contrôle le bouton indicateur compact ; son anneau de focus suit
+  donc la géométrie du point ou de la capsule active.
+- Avec `prefers-reduced-motion: reduce`, la piste défile immédiatement et les transitions des contrôles et
+  indicateurs moduix sont désactivées.
 
 ## Exemples
 

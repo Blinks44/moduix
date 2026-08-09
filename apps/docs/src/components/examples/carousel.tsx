@@ -35,10 +35,6 @@ export const carouselExampleCss = `
     block-size: 100%;
   }
 
-  [data-scope='carousel'][data-part='indicator'][data-current] {
-    background-color: var(--moduix-color-primary);
-  }
-
   .carousel-thumbnail-group {
     flex-wrap: wrap;
   }

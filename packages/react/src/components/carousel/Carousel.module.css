@@ -173,12 +173,12 @@
     cursor: pointer;
     opacity: 0.88;
     transition:
-      inline-size var(--moduix-transition-fast),
-      block-size var(--moduix-transition-fast),
+      width var(--moduix-transition-fast),
+      height var(--moduix-transition-fast),
       background-color var(--moduix-transition-fast),
       opacity var(--moduix-transition-fast);
 
-    &:not(:disabled, [data-disabled], [data-readonly]):hover {
+    &:not(:disabled, [data-disabled], [data-readonly], [data-current]):hover {
       background-color: var(
         --moduix-carousel-indicator-bg-hover,
         color-mix(in oklab, var(--moduix-color-muted) 56%, var(--moduix-color-foreground) 44%)
@@ -238,8 +238,33 @@
 
   .progressText {
     color: var(--moduix-carousel-progress-text-color, var(--moduix-color-muted-foreground));
+    direction: ltr;
     font-size: var(--moduix-carousel-progress-text-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-line-height-text-sm);
     font-variant-numeric: tabular-nums;
+    unicode-bidi: isolate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .itemGroup {
+      scroll-behavior: auto;
+    }
+
+    .prevTrigger,
+    .nextTrigger,
+    .autoplayTrigger,
+    .indicator {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .indicator {
+      background-color: ButtonText;
+    }
+
+    .indicator[data-current] {
+      background-color: Highlight;
+    }
   }
 }

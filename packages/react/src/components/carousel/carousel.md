@@ -165,6 +165,13 @@ introducing another render prop.
   `onAutoplayStatusChange(details)`, and `onDragStatusChange(details)`.
 - `Carousel.Context`, `useCarousel`, and `useCarouselContext` are exported from moduix. Ark type aliases
   remain available from `@ark-ui/react/carousel`.
+- `--moduix-carousel-indicator-size` controls the compact indicator button itself. The current
+  indicator expands along the paging axis, and its focus ring follows the same dot or capsule
+  geometry. Forced-colors mode keeps idle and current indicators distinguishable.
+- `prefers-reduced-motion: reduce` disables moduix control and indicator transitions and changes
+  the item group from smooth to immediate scrolling.
+- `Carousel.ProgressText` isolates its numeric `current / total` output as left-to-right text so the
+  order remains readable inside RTL carousels.
 
 ## Defaults and styling
 
@@ -225,6 +232,9 @@ Primary theme variables:
 
 ## Local changelog
 
+- 2026-08-09: Kept compact indicator geometry and matching focus rings, stabilized the active color
+  on hover, added forced-colors and reduced-motion fallbacks, kept numeric progress readable in RTL,
+  and covered RTL rendering plus public ref and `asChild` composition.
 - 2026-07-26: Mirrored default horizontal trigger icons in RTL, prevented hover styling on unavailable
   indicators, and documented accessible root labels plus moduix hook exports.
 

@@ -507,6 +507,32 @@ export const MouseDrag: Story = {
   ),
 };
 
+export const Rtl: Story = {
+  args: { slideCount: slides.length },
+  render: () => (
+    <Carousel
+      aria-label="Right-to-left image carousel"
+      dir="rtl"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
+      <Carousel.ItemGroup aria-label="Right-to-left image carousel">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
+        <Carousel.PrevTrigger />
+        <Carousel.NextTrigger />
+      </Carousel.Control>
+      <Carousel.Indicators />
+      <Carousel.ProgressText />
+    </Carousel>
+  ),
+};
+
 export const Vertical: Story = {
   args: { slideCount: slides.length },
   render: () => (

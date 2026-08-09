@@ -107,6 +107,11 @@ part of the visible UI instead of only a root prop.
 - Vertical carousels stay on the same public surface. Default triggers rotate automatically when the
   component uses moduix-provided chevrons.
 - Horizontal default triggers mirror automatically when `dir="rtl"`.
+- `Carousel.ProgressText` keeps the numeric `current / total` order readable in RTL carousels.
+- `--moduix-carousel-indicator-size` controls the compact indicator button, so its focus ring follows
+  the dot or current capsule geometry.
+- With `prefers-reduced-motion: reduce`, the track scrolls immediately and moduix control and
+  indicator transitions are disabled.
 
 ## Examples
 
