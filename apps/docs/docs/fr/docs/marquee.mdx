@@ -1,0 +1,240 @@
+---
+title: Marquee
+component: marquee
+description: Un composant Ark UI à défilement continu pour les logos, les annonces et le contenu répété.
+---
+
+import * as MarqueeDocs from '@/components/examples/marquee';
+
+## Référence API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+
+## Exemple de base
+
+Utilisez `Marquee` comme racine Ark, puis composez explicitement `Viewport`, `Content` et `Item`. Fournissez
+un libellé descriptif avec `aria-label` ou `translations.root`, en particulier pour le contenu informatif.
+Par défaut, la racine est visuellement neutre ; `PreviewFrame` limite uniquement la largeur de l’exemple.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="marquee" />
+
+## Anatomie
+
+```text
+Marquee / Marquee.Root
+├─ Marquee.Edge
+├─ Marquee.Viewport
+│  └─ Marquee.Content
+│     └─ Marquee.Item
+└─ Marquee.Edge
+
+Marquee.RootProvider
+└─ même arbre de parties, connecté à useMarquee() de moduix
+```
+
+| Partie                       | Rôle                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Marquee` / `Marquee.Root`   | État racine, libellés, ID, orientation, état de pause et variables CSS.                          |
+| `Marquee.RootProvider`       | Rend l’arbre du marquee à partir de l’état renvoyé par `useMarquee`.                             |
+| `Marquee.Viewport`           | Zone d’affichage qui masque le débordement du contenu défilant.                                  |
+| `Marquee.Content`            | Conteneur du contenu animé. Ark le clone lorsque cela est nécessaire.                            |
+| `Marquee.Item`               | Élément répété individuel dans le contenu.                                                       |
+| `Marquee.Edge`               | Overlay de fondu facultatif. Fournissez `side` pour choisir le bord.                             |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez la forme racine abrégée `Marquee` et conservez l’arbre des parties Ark explicite. La bibliothèque
+fournit les images clés de l’animation et les hooks d’état ; l’apparence visuelle des éléments et le cadre de la racine
+restent définis dans le CSS du consommateur.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Marquee.Edge` lorsque le contenu doit s’estomper dans l’arrière-plan de la page. Utilisez
+`useMarquee()` de moduix avec `Marquee.RootProvider` lorsque des contrôles externes ont besoin des API `pause()`,
+`resume()`, `togglePause()` et `restart()`. Ne rendez pas `Marquee` et `Marquee.RootProvider` pour un même objet d’état.
+
+Utilisez `asChild` sur les parties Ark pour remplacer l’élément hôte. L’enfant de remplacement doit rester
+sémantique et unique. Utilisez `ids` lorsqu’un arbre personnalisé nécessite des ID stables pour la racine,
+la zone d’affichage ou le contenu.
+
+### Props et callbacks
+
+| Prop                 | Valeur par défaut | Remarques                                                                                 |
+| -------------------- | ----------------- | ----------------------------------------------------------------------------------------- |
+| `side`               | `start`           | Utilisez `start`, `end`, `top` ou `bottom`. `top` et `bottom` correspondent à la verticale. |
+| `speed`              | `50`              | Pixels par seconde. Ark calcule la durée à partir de la taille du contenu.                |
+| `spacing`            | `1rem`            | Espacement entre les instances du contenu et les éléments.                                |
+| `delay`              | `0`               | Délai, en secondes, avant le début de l’animation.                                        |
+| `loopCount`          | `0`               | `0` signifie un nombre infini de boucles.                                                 |
+| `autoFill`           | `false`           | Duplique le contenu jusqu’à remplir la zone d’affichage.                                  |
+| `pauseOnInteraction` | `false`           | Met en pause au survol et à la prise de focus. Recommandé pour le contenu à lire.         |
+| `reverse`            | `false`           | Inverse le sens de l’animation sans modifier `side`.                                      |
+| `defaultPaused`      | `false`           | État de pause initial en mode non contrôlé.                                               |
+| `paused`             | —                 | État de pause contrôlé. À utiliser avec `onPauseChange`.                                  |
+| `onPauseChange`      | —                 | Reçoit les détails Ark sur l’état de pause.                                               |
+| `onLoopComplete`     | —                 | Appelé après chaque itération de la boucle.                                               |
+| `onComplete`         | —                 | Appelé après la dernière boucle lorsque `loopCount` est fini.                             |
+| `translations`       | —                 | Libellé localisé de la racine. Utilisez-le ou fournissez `aria-label`.                    |
+| `ids`                | —                 | ID stables pour les instances de la racine, de la zone d’affichage et du contenu.         |
+| `asChild`            | —                 | Disponible sur chaque partie Ark pour remplacer l’élément hôte.                           |
+| `Marquee.Edge side`  | —                 | Bord obligatoire : `start`, `end`, `top` ou `bottom`.                                     |
+| `RootProvider.value` | —                 | `UseMarqueeReturn` obligatoire provenant de `useMarquee()`.                               |
+
+### Notes de comportement
+
+Utilisez `paused` avec `onPauseChange(details)` pour un défilement contrôlé. Utilisez `loopCount`,
+`onLoopComplete` et `onComplete` lorsque le marquee doit s’arrêter après un nombre fini de boucles. Les signatures
+des callbacks restent celles d’Ark.
+
+Ark rend le marquee comme une région sémantique dotée d’un libellé et masque le contenu cloné aux technologies
+d’assistance. Fournissez un `aria-label` pertinent ou `translations.root`. Préférez `pauseOnInteraction`
+si le contenu est interactif ou nécessite du temps de lecture, et n’utilisez pas le marquee pour une information critique.
+
+Il n’y a ni focus itinérant ni navigation avec les touches fléchées. Lorsque `pauseOnInteraction` est activé, la prise de focus
+met le marquee en pause et la perte de focus le relance.
+
+Lorsque l’utilisateur préfère réduire les animations, moduix désactive l’animation du contenu tout en maintenant
+le contenu du marquee accessible.
+
+## Exemples
+
+### Remplissage automatique
+
+Utilisez `autoFill` si le contenu disponible est plus court que la zone d’affichage. `spacing` contrôle l’espace
+entre les instances dupliquées du contenu.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/auto-fill.tsx"
+
+```
+</PreviewFrame>
+
+### Bords
+
+Ajoutez `Marquee.Edge` sur les côtés qui doivent s’estomper dans l’arrière-plan de la page. Cette partie est décorative et ne reçoit pas les événements de pointeur.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/edges.tsx"
+
+```
+</PreviewFrame>
+
+### Nombre fini de boucles
+
+Définissez `loopCount` pour limiter le défilement. `onLoopComplete` est appelé après chaque boucle et `onComplete` après la dernière.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/finite-loops.tsx"
+
+```
+</PreviewFrame>
+
+### Pause lors d’une interaction
+
+Utilisez `pauseOnInteraction` pour mettre le marquee en pause lorsque l’utilisateur survole son contenu ou place le focus à l’intérieur.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/pause-on-interaction.tsx"
+
+```
+</PreviewFrame>
+
+### Contrôle programmatique
+
+Utilisez `useMarquee()` de moduix et `Marquee.RootProvider` lorsque des contrôles externes doivent mettre en pause, reprendre ou redémarrer le défilement.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/programmatic-control.tsx"
+
+```
+</PreviewFrame>
+
+### Sens inverse
+
+Utilisez `reverse` lorsque le contenu doit se déplacer dans le sens opposé au côté configuré, sans changer d’orientation.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/reverse.tsx"
+
+```
+</PreviewFrame>
+
+### De droite à gauche
+
+Placez le marquee dans un `LocaleProvider` avec une locale RTL. Les bords logiques `start` et `end` suivent alors la direction configurée.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/rtl.tsx"
+
+```
+</PreviewFrame>
+
+### Vitesse
+
+Contrôlez le mouvement avec `speed`, exprimé en pixels par seconde. Les valeurs plus faibles sont plus faciles à lire.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/speed.tsx"
+
+```
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `side="top"` ou `side="bottom"` pour un marquee vertical. Par défaut, la racine utilise
+`--moduix-marquee-vertical-height`, afin que la zone d’affichage conserve une taille stable dans l’axe de bloc.
+
+<style>{MarqueeDocs.marqueeVerticalCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/marquee/vertical.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Le mouvement de Marquee dépend des images clés fournies. Remplacez la mise en page et l’apparence visuelle
+avec les variables CSS et les classes des parties ; conservez les attributs d’état Ark pour styliser le comportement.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Variables CSS', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
+    <Tab><MarqueeDocs.MarqueeCssPropertiesPanel /></Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` et `marquee-edge`.
+- Hooks Ark : `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` et `data-clone`.
+- Variables CSS Ark : `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`, `--marquee-loop-count` et `--marquee-translate`.

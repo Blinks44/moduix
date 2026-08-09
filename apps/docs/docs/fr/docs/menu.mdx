@@ -1,0 +1,312 @@
+---
+title: Menu
+component: menu
+description: Un menu associé à un déclencheur pour les actions, les liens, les sélections, les sous-commandes et les menus contextuels.
+---
+
+import * as MenuDocs from '@/components/examples/menu';
+
+## Référence API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/menu" />
+
+## Choisir le bon composant
+
+Utilisez `Menu` pour les listes de déclencheurs, les menus contextuels, la sélection simple et
+actions imbriquées.
+
+- Sélectionnez **`Menu`** pour les actions de débordement, les actions de ligne et les listes de commandes ouvertes par un bouton ou un déclencheur contextuel.
+
+## Exemple de base
+
+Commencez par l'arborescence des pièces Ark : `Menu`, `Menu.Trigger`, `Menu.Positioner` et `Menu.Content`. Pour sélectionner et
+les éléments de recherche d'entrée utilisent des identifiants stables `value`.
+
+<style>{MenuDocs.menuExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="menu" />
+
+## Anatomie
+
+```text
+Menu
+├─ Menu.Trigger
+│  └─ Menu.Indicator
+├─ Menu.ContextTrigger
+├─ Sous-arborescence de superposition (portée automatiquement)
+│  └─ Menu.Positioner
+│     └─ Menu.Content
+│        ├─ Menu.Arrow
+│        │  └─ Menu.ArrowTip
+│        ├─ Menu.Item
+│        ├─ Menu.CheckboxItem
+│        │  ├─ Menu.ItemIndicator
+│        │  └─ Menu.ItemText
+│        ├─ Menu.RadioItemGroup
+│        │  └─ Menu.RadioItem
+│        ├─ Menu.ItemGroup
+│        │  └─ Menu.ItemGroupLabel
+│        └─ Menu
+│           └─ Menu.TriggerItem
+```
+
+| Partie | Destination |
+| --------------------- | ----------------------------------------------------------------- |
+| `Menu` / `Menu.Root` | Ark root pour l'état d'ouverture, de positionnement, de recherche par saisie et de fermeture. |
+| `Menu.RootProvider` | Dessine un menu à partir de l'instance d'état `useMenu`.             |
+| `Menu.Trigger` | Bouton de déclenchement ; utilisez `asChild` pour l'hôte personnalisé. |
+| `Menu.Indicator` | Indicateur de déclenchement Stateful Ark.                   |
+| `Menu.ContextTrigger` | Faites un clic droit et appuyez longuement sur la gâchette pour les menus contextuels. |
+| `Menu.Positioner` | Positionneur de couche flottante.                                      |
+| `Menu.Content` | Une surface pop-up avec le rôle d'un menu et d'une collection d'éléments.     |
+| `Menu.Item` | Chaîne de commande.                                                   |
+| `Menu.CheckboxItem` | Élément de paramètre booléen.                                   |
+| `Menu.RadioItemGroup` | Un groupe d'une valeur sélectionnée pour les éléments radio.            |
+| `Menu.RadioItem` | Élément de paramètre mutuellement exclusif.                             |
+| `Menu.TriggerItem` | Ligne qui ouvre le `Menu` imbriqué.                             |
+| `Menu.ItemIndicator` | Cochez l'indicateur pour les cases à cocher et les lignes radio.                     |
+
+## Composition
+
+Root porte automatiquement `Positioner`. Utilisez `portalled={false}` pour le rendu en ligne et
+`portalRef` pour un conteneur personnalisé ; les pièces structurelles restent explicites et disponibles pour le style.
+
+### Composition recommandée
+
+Gardez la structure contextuelle explicite. `Menu.Content` - partie réelle du contenu d'Ark ; il est plus grand
+ne cache pas `Menu.Positioner`.
+
+```tsx
+<Menu positioning={{ placement: 'bottom-start', gutter: 8 }}>
+  <Menu.Trigger asChild>
+    <Button>
+      Actions
+      <Menu.Indicator />
+    </Button>
+  </Menu.Trigger>
+  <Menu.Positioner>
+    <Menu.Content className="menu-content">
+      <Menu.Item value="edit">Edit</Menu.Item>
+    </Menu.Content>
+  </Menu.Positioner>
+</Menu>
+```
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` lorsqu'un déclencheur, un élément ou un contenu doit être rendu par une autre sémantique
+élément. Transmettez un enfant sémantique pour qu'Ark puisse appliquer les bons attributs ARIA,
+Concentration et comportement du clavier. Pour les liens, mettez `asChild` à `Menu.Item` ; pour hôte personnalisé
+fenêtre contextuelle - à `Menu.Content`.
+
+Les menus imbriqués sont des racines `Menu` normales dans le contenu du menu parent. Utilisations racine imbriquées
+`Menu.TriggerItem`, puis possède `Menu.Positioner` et `Menu.Content`.
+
+### Propriétés par défaut
+
+Le contenu de superposition porté est monté et démonté paresseusement après l'animation de fermeture par défaut.
+Réglez `unmountOnExit={false}` pour l'enregistrer après la première ouverture ; installer les deux accessoires
+cycle de vie dans `false`, uniquement lorsque le rendu initial sans délai est nécessaire.
+
+| Surfaces | Par défaut | Remarques |
+| --------------------------------- | ------------ | ----------------------------------------------------------- |
+| `Menu` / `Menu.Root` | — | Il n’y a aucune implication comportementale supplémentaire ; Les valeurs Ark s'appliquent. |
+| `Menu.CheckboxItem` / `RadioItem` | `start` | `indicator` contrôle la position de la colonne indicatrice.          |
+
+### Notes de comportement
+
+- `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids`, `lazyMount`, `unmountOnExit` sont égaux à `true` par défaut ; `present` est transféré directement vers Ark.
+- Pour l'identité des éléments de menu, utilisez `value` plutôt que le `id` personnalisé.
+- `Menu.CheckboxItem.onCheckedChange` reçoit le prochain état logique sélectionné.
+- `Menu.RadioItemGroup.onValueChange` reçoit `details.value`.
+- `Menu.RootProvider` doit être utilisé avec une instance de `useMenu`, plutôt que de dessiner une deuxième racine `Menu` pour le même état.
+- `Menu.Context`, `useMenuContext` et `useMenuItemContext` fournissent l'état Ark aux descendants pour une composition étendue.
+- Les racines portent automatiquement `Menu.Positioner`. Utilisez `portalled={false}` pour laisser un menu dans une boîte de dialogue ou un conteneur déroulant, et combinez-le avec `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` si le conteneur est déroulant.
+- `Menu.Indicator` répète une partie de l'indicateur Ark. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemShortcut` et les assistants de texte d'élément sont uniquement des abréviations de feuille de module.
+
+## Exemples
+
+### Éléments de case à cocher
+
+Les éléments de case à cocher stockent l’état logique, préservant la navigation dans les menus et la recherche d’entrée.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/checkbox-items.tsx"
+
+```
+</PreviewFrame>
+
+### Menu contextuel
+
+Utilisez `Menu.ContextTrigger` pour les menus contextuels en cliquant avec le bouton droit et en appuyant longuement.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/context-menu.tsx"
+
+```
+</PreviewFrame>
+
+### État contrôlé
+
+Contrôlez `open` via `onOpenChange(details)` lorsque le menu doit être ouvert par un autre contrôle.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Regroupement
+
+Utilisez `Menu.ItemGroup` et `Menu.ItemGroupLabel` pour organiser les barres de menus associées.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/grouping.tsx"
+
+```
+</PreviewFrame>
+
+### Placement des indicateurs
+
+moduix ajoute `indicator="start" | "end" | "none"` pour les cases à cocher et les lignes radio afin de contrôler la mise en page.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/indicator-placement.tsx"
+
+```
+</PreviewFrame>
+
+### Contexte de l'élément
+
+Utilisez `Menu.ItemContext` pour un accès en ligne à l'état des éléments, tel que `highlighted`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/item-context.tsx"
+
+```
+</PreviewFrame>
+
+### Menu contextuel avec montage différé
+
+Le contenu du menu contextuel par défaut est monté uniquement lorsque le menu est utilisé. Définissez `unmountOnExit={false}` si son sous-arbre doit être conservé après la première ouverture.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/lazy-mounted-context-menu.tsx"
+
+```
+</PreviewFrame>
+
+### Liens
+
+Utilisez `Menu.Item asChild` pour les liens afin que le lien lui-même reçoive la sémantique du menu.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/links.tsx"
+
+```
+</PreviewFrame>
+
+### Menu en dialogue
+
+Laissez la fenêtre contextuelle dans une boîte de dialogue ou un conteneur défilant avec `portalled={false}`. Utiliser
+positionnement fixe et `hideWhenDetached` lorsque le conteneur défile.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/menu-in-dialog.tsx"
+
+```
+</PreviewFrame>
+
+### Plusieurs déclencheurs
+
+Transmettez `value` à chaque `Menu.Trigger` lorsque plusieurs éléments de déclenchement partagent le même menu.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/multiple-triggers.tsx"
+
+```
+</PreviewFrame>
+
+### Sous-menu
+
+Dessinez le `Menu` imbriqué et ouvrez-le à partir de `Menu.TriggerItem`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/nested.tsx"
+
+```
+</PreviewFrame>
+
+### Éléments radio
+
+Utilisez `Menu.RadioItemGroup` pour une valeur sélectionnée dans un menu.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/radio-items.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useMenu` et `Menu.RootProvider` lorsque le code en dehors de l'arborescence rendue doit accéder à l'API de menu.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Événement de sélection
+
+Utilisez la racine `onSelect(details)` lorsque le menu doit répondre à un élément sélectionné.
+
+<PreviewFrame maxWidth="xs">
+  ```tsx preview file="../../en/docs/_snippets/menu/select-event.tsx"
+
+```
+</PreviewFrame>
+
+### Avec flèche
+
+Ajoutez `Menu.Arrow` et `Menu.ArrowTip` à l'intérieur de `Menu.Content` lorsque la fenêtre contextuelle a besoin d'une ancre visuelle.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/with-arrow.tsx"
+
+```
+</PreviewFrame>
+
+###Configuration avancée
+
+Utilisez les assistants de feuille pour le contenu du menu commun, puis passez aux parties structurelles d'Ark pour un élément ou un hôte de lien entièrement personnalisé.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/menu/advanced-customization.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="not-prose docs-reference">
+  <Tabs values={[{ label: 'Variables CSS', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
+    <Tab value="CSS Variables"><div style={{ maxHeight: '28rem', overflow: 'auto' }}><MenuDocs.MenuCssPropertiesPanel /></div></Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- Attributs Ark : `[data-scope='menu']`, `[data-part='trigger']`, `[data-part='indicator']`, `[data-part='content']`, `[data-part='item']`, `[data-type='checkbox' | 'radio']`, `[data-state='open' | 'closed' | 'checked' | 'unchecked']`, `[data-current]`, `[data-highlighted]`, `[data-disabled]`, `[data-placement]` et `[data-side]`.
+- Variables Ark : `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`, `--layer-index`, `--arrow-size` et `--arrow-background`.
+- Hooks moduix : `data-slot="menu-trigger"`, `menu-content`, `menu-item`, `menu-checkbox-item`, `menu-radio-item`, `menu-trigger-item`, `menu-item-indicator` et `menu-item-shortcut`.

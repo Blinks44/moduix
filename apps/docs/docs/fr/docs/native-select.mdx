@@ -1,0 +1,160 @@
+---
+title: Native Select
+component: native-select
+description: Un élément select natif stylisé pour les listes d’options simples et la sélection propre à la plateforme.
+---
+
+import * as NativeSelectDocs from '@/components/examples/native-select';
+
+## Référence API
+
+`NativeSelect` encapsule le composant Ark UI
+[Field.Select](https://ark-ui.com/docs/components/field) et affiche un véritable élément HTML `<select>`.
+Le composant [Native Select](https://chakra-ui.com/docs/components/native-select) de Chakra UI inspire sa
+cohérence visuelle avec le composant Select personnalisé, tandis que moduix conserve une API publique limitée à un seul composant.
+
+## Choisir le bon composant
+
+Utilisez `NativeSelect` pour les listes d’options simples lorsque la saisie automatique du navigateur,
+la réinitialisation du formulaire, le comportement natif au clavier et les sélecteurs propres aux plateformes
+mobiles sont souhaitables. Utilisez [`Select`](https://moduix.dev/docs/select) lorsque l’interface nécessite une fenêtre contextuelle
+personnalisée, des API de collection, des éléments enrichis, l’effacement, l’affichage de plusieurs valeurs ou
+un contrôle de l’ouverture.
+
+## Exemple de base
+
+Affichez des enfants natifs `option` ou `optgroup` et utilisez les propriétés habituelles de l’élément select.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/native-select/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="native-select" />
+
+## Anatomie
+
+`NativeSelect` conserve le véritable élément select comme contrôle de formulaire et ajoute une icône moduix
+`ChevronDownIcon` non interactive afin de rester aligné avec `Select`.
+
+```text
+NativeSelect
+└─ span[data-scope="native-select"][data-part="control"]
+   ├─ select[data-scope="field"][data-part="select"][data-slot="native-select-root"]
+   │  ├─ option
+   │  └─ optgroup
+   └─ span[data-scope="native-select"][data-part="indicator"]
+      └─ ChevronDownIcon
+```
+
+| Partie         | Rôle                                                |
+| -------------- | --------------------------------------------------- |
+| `NativeSelect` | Élément select natif stylisé avec indicateur visuel. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez la forme courte `NativeSelect` avec des enfants natifs et les propriétés natives contrôlées ou non contrôlées.
+Composez-la dans `Field.Root` lorsque le contrôle a besoin d’un libellé visible, d’un texte d’aide, d’un message
+d’erreur ou d’un état requis, invalide ou désactivé partagé.
+
+`NativeSelect.Root` est un alias de compatibilité ; privilégiez `NativeSelect` dans le code de l’application.
+
+### Quand créer une composition personnalisée
+
+Passez à `Select` lorsque le rendu des options, le positionnement de la fenêtre contextuelle, l’état de la collection
+ou les indicateurs personnalisés doivent être contrôlés par l’application. Réservez `NativeSelect` au comportement
+de sélection géré par le navigateur.
+
+### Propriétés par défaut
+
+| Propriété      | Valeur par défaut          | Remarques                                                     |
+| -------------- | -------------------------- | ------------------------------------------------------------- |
+| `value`        | -                          | Valeur native contrôlée                                       |
+| `defaultValue` | -                          | Valeur native non contrôlée                                   |
+| `onChange`     | -                          | `ChangeEvent<HTMLSelectElement>` natif                        |
+| `multiple`     | `false`                    | Active la sélection multiple native                           |
+| `size`         | valeur par défaut du navigateur | Nombre de lignes natives visibles, et non variante de taille |
+| `disabled`     | `false`                    | État désactivé natif                                          |
+| `controlProps` | -                          | Propriétés du conteneur de mise en page externe               |
+| `asChild`      | `false`                    | Composition Ark ; laissez généralement cette option désactivée |
+
+### Notes sur le comportement
+
+- La référence cible le véritable `HTMLSelectElement`.
+- La soumission native, la saisie automatique, la réinitialisation, la validation `required`, les options et le
+  comportement au clavier sont conservés.
+- `multiple` et les valeurs natives de `size` supérieures à un utilisent une hauteur de liste intrinsèque.
+- `Field.Root` fournit les identifiants, `aria-describedby`, l’état invalide et les propriétés d’état natives.
+- L’élément HTML select ne prend pas en charge l’état en lecture seule.
+- `ChevronDownIcon` maintient le contrôle replié aligné avec `Select` ; le navigateur reste responsable de
+  l’apparence de la fenêtre contextuelle.
+
+## Exemples
+
+### État contrôlé
+
+Utilisez l’événement de changement natif lorsque React possède la valeur sélectionnée.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/native-select/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Intégration avec Field
+
+Utilisez `Field` pour fournir des libellés accessibles, des descriptions, des messages d’erreur et un état de formulaire partagé.
+
+<PreviewFrame maxWidth="sm" contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/native-select/field-integration.tsx"
+
+```
+</PreviewFrame>
+
+### Sélection multiple
+
+Les propriétés natives `multiple` et `size` transforment le contrôle en liste d’options gérée par le navigateur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/native-select/multiple-selection.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+`NativeSelect` réutilise les variables `--moduix-select-*` du contrôle afin que les éléments select natifs et
+personnalisés puissent partager dimensions, espacement de l’indicateur, bordures, couleurs, rayon, anneau de focus,
+opacité à l’état désactivé et transitions. Son espacement interne et la géométrie de l’indicateur suivent l’échelle
+d’espacement commune de 4 px.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <NativeSelectDocs.NativeSelectCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- `className` applique les styles au véritable élément select. Utilisez `controlProps.className` pour le conteneur
+  de mise en page externe.
+- Placez dans `controlProps.style` les variables `--moduix-select-*` qui affectent l’indicateur, afin que l’élément
+  select et l’indicateur en héritent tous deux.
+- `data-scope="field"` et `data-part="select"` préservent le contrat de style Ark Field.
+- `data-slot="native-select-root"` est le sélecteur moduix stable du contrôle.
+- `data-slot="native-select-control"` et `data-slot="native-select-indicator"` ciblent la mise en page interne et l’icône.
+- Les sélecteurs natifs `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]` et `[size]` pilotent
+  les états visuels.
