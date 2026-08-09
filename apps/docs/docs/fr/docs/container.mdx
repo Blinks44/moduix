@@ -6,7 +6,7 @@ description: Une primitive de mise en page responsive pour une largeur de conten
 
 import * as ContainerDocs from '@/components/examples/container';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne propose pas de primitive `container` dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), conformément aux recommandations d’Ark sur
@@ -77,7 +77,7 @@ Pour le personnaliser :
 | `gutter`   | `md`              | `none`, `sm`, `md`, `lg`                                 |
 | `asChild`  | `false`           | Composition avec l’Ark factory                           |
 
-### Notes sur le comportement
+### Comportement
 
 - `Container` ne gère pas l’espacement vertical. Ajoutez l’espace entre les sections à l’extérieur ou sur les enfants.
 - `size="full"` supprime uniquement la largeur maximale. La marge latérale choisie reste appliquée, sauf avec
@@ -130,7 +130,7 @@ les bordures ou les arrière-plans.
 
 <CssPropertiesSection properties={ContainerDocs.containerOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `Container` et `Container.Root` fournissent `data-slot="container-root"` sur le composant racine.
 - `data-scope="container"` et `data-part="root"` fournissent des hooks racine cohérents avec Ark.

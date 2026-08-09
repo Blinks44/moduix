@@ -6,7 +6,7 @@ description: Navigation entre les pages fondée sur le composant primitif de pag
 
 import * as PaginationDocs from '@/components/examples/pagination';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
 
@@ -85,7 +85,7 @@ Définissez `type="link"` et fournissez `getPageUrl(details)` lorsque la paginat
 | `boundaryCount`   | `1`               | Pages Ark affichées au début et à la fin de la plage.            |
 | `type`            | `button`          | Utilisez `link` avec `getPageUrl(details)` pour les ancres.      |
 
-### Notes sur le comportement
+### Comportement
 
 Utilisez `defaultPage` et `defaultPageSize` pour un état non contrôlé. Utilisez `page`, `pageSize`,
 `onPageChange(details)` et `onPageSizeChange(details)` pour un état contrôlé. Les objets de détail des rappels sont
@@ -217,7 +217,7 @@ Moduix conserve les attributs d’état Ark et ajoute des hooks `data-slot` stab
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="pagination"` et `data-part="item"` sur `Pagination.Item`
 - `data-scope="pagination"` et `data-part="prev-trigger"` sur `Pagination.PrevTrigger`

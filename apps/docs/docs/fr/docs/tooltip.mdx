@@ -10,7 +10,7 @@ import * as TooltipDocs from '@/components/examples/tooltip';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
 
-## Choisir le composant adapté
+## Choisir le bon composant
 
 Utilisez `Tooltip` pour de courts libellés et conseils facultatifs qui apparaissent au survol ou au focus.
 
@@ -100,7 +100,7 @@ besoin de styles propres au positioner, de consommateurs de contexte intégrés 
 contenu, ou d’une structure Ark de plus bas niveau. Utilisez `ids` lorsque les différentes parties du tooltip ont
 besoin d’ID partagés et stables.
 
-### Props par défaut
+### Propriétés par défaut
 
 Le contenu de l’overlay porté est monté paresseusement par défaut, puis démonté après l’animation de fermeture.
 Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; ne définissez les deux props de
@@ -119,7 +119,7 @@ cycle de vie sur `false` que si un rendu initial anticipé est nécessaire.
 | `unmountOnExit` | `true` | Démonte le contenu après l’animation de fermeture. |
 | `skipAnimationOnMount` | `false` | Autorise la première animation d’apparition sauf désactivation explicite. |
 
-### Remarques sur le comportement
+### Comportement
 
 - L’état contrôlé utilise la forme Ark `open` et `onOpenChange(details)`. Lisez `details.open`.
 - `defaultOpen` définit l’état initial non contrôlé, tandis que `disabled` désactive les interactions du tooltip sans modifier la sémantique propre au déclencheur.
@@ -239,7 +239,7 @@ N’utilisez pas `Tooltip.Body` si le positioner ou le contenu exige une composi
   ```
 </PreviewFrame>
 
-## Mise en forme
+## Styles
 
 ### Propriétés CSS
 
@@ -255,7 +255,7 @@ N’utilisez pas `Tooltip.Body` si le positioner ou le contenu exige une composi
   </Tabs>
 </div>
 
-### Hooks de mise en forme
+### Points d’accroche CSS
 
 Utilisez la partie responsable de la tâche visuelle :
 

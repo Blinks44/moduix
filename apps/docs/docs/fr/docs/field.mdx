@@ -79,7 +79,7 @@ composition étendue dans le style Ark, mais dans le code d'application normal, 
 | ------------------------ | ------------ | --------------------------------------------------------- |
 | `Field` / `Field.Root` | — | Il n’y a aucune implication comportementale supplémentaire ; Les valeurs Ark s'appliquent. |
 
-### Notes de comportement
+### Comportement
 
 - `Field.ErrorText` n'est pas dans le DOM sauf si la racine a `invalid`.
 - `Field.RootProvider` doit recevoir l'état de `useField()` importé de `@moduix/react`,
@@ -211,7 +211,7 @@ hooks moduix `data-slot="field-*"` et variables CSS publiques `--moduix-field-*`
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties correspondantes.
 `Field.ErrorText` est rendu uniquement lorsque le contexte du champ courant est invalide. Les identifiants du texte d’aide

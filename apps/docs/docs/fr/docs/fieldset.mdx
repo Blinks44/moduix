@@ -71,7 +71,7 @@ N’imbriquez pas le provider dans `Fieldset.Root` pour une même instance d’�
 | `Fieldset.Root`   | `disabled` | `false`     |
 | `Fieldset.Root`   | `invalid`  | `false`     |
 
-### Notes de comportement
+### Comportement
 
 - `Fieldset.Legend` rend le `legend` natif, par opposition au wrapper hérité supprimé.
 - Le navigateur désactive les contrôles natifs à l’intérieur d’un groupe de champs désactivé.
@@ -167,7 +167,7 @@ contrôles adjacents ou enfants réutilisables.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Chaque partie DOM possède un `data-scope="fieldset"` Ark et un `data-part` correspondant à l'anatomie. Racine et légende
 fournir `data-disabled` et `data-invalid` ; moduix ajoute également des hooks `data-slot="fieldset-*"`.

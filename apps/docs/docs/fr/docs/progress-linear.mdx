@@ -6,7 +6,7 @@ description: Indicateur de progression linéaire avec une valeur déterminée ou
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
 
@@ -79,7 +79,7 @@ Utilisez `ids` lorsque le libellé, la piste ou la disposition environnante ont 
 | `locale`        | `'en-US'`              | Locale utilisée par `Intl.NumberFormat`.                       |
 | `orientation`   | `'horizontal'`         | Orientation Ark. Utilisez `vertical` avec une hauteur définie. |
 
-### Notes sur le comportement
+### Comportement
 
 `ProgressLinear.Track` reçoit d’Ark le rôle d’indicateur de progression et les attributs ARIA de valeur. La racine conserve l’état de progression et fournit `data-state="indeterminate|loading|complete"`. Ark définit `data-orientation` sur la racine, le libellé, la piste et la plage afin que les styles horizontaux et verticaux puissent partager le même arbre de parties.
 
@@ -187,7 +187,7 @@ Utilisez `className` sur les parties exportées pour les changements structurels
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` et `progress-linear-view`.
 - Hooks Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`, `data-orientation="horizontal|vertical"`, `data-value` et `data-max`.

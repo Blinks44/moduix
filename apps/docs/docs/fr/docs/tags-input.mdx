@@ -6,7 +6,7 @@ description: Une composition de champ Ark UI pour saisir, modifier, valider et e
 
 import * as TagsInputDocs from '@/components/examples/tags-input';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/tags-input" />
 
@@ -97,7 +97,7 @@ Utilisez la composition explicite `TagsInput.Context`/`TagsInput.Item` lorsque l
 | `blurBehavior` | — | Utilisez `"add"` pour ajouter la valeur saisie à la perte de focus, ou `"clear"` pour l’abandonner. |
 | `sanitizeValue` | troncature des espaces | Normalise chaque valeur avant qu’Ark ne la valide et ne l’ajoute. |
 
-### Notes sur le comportement
+### Comportement
 
 `onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` et `onValueInvalid(details)` fournissent les objets de détails Ark. `validate(details)` accepte ou rejette le tag en attente, tandis que `sanitizeValue(value)` normalise chaque tag avant son ajout. Utilisez `translations` pour localiser les libellés par défaut des actions de suppression et d’effacement.
 
@@ -257,7 +257,7 @@ Contournez `Items` lorsque chaque tag nécessite du contenu ou des actions perso
 > <Tab> <TagsInputDocs.TagsInputCssPropertiesPanel /> </Tab> </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - La racine et le fournisseur racine exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
 - Les parties Ark conservent les valeurs `data-scope="tags-input"` et `data-part` de l’anatomie ci-dessus.

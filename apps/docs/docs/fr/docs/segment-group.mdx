@@ -6,7 +6,7 @@ description: Une composition segment-group Ark UI pour sélectionner une valeur 
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
 
@@ -90,7 +90,7 @@ Utilisez `SegmentGroup.Item` lorsque les segments nécessitent un contenu person
 | `required`      | `false`           | Rend les champs masqués obligatoires dans les formulaires natifs.                         |
 | `invalid`       | `false`           | Ajoute les attributs d’état invalide d’Ark pour le style et ARIA.                         |
 
-### Notes sur le comportement
+### Comportement
 
 `onValueChange(details)` conserve la signature de rappel d’Ark. Lisez `details.value` pour obtenir la valeur sélectionnée. Ark gère le roving focus, la navigation avec les flèches, le focus, les états disabled/read-only/invalid/required, les identifiants, la soumission du formulaire et la synchronisation de sa réinitialisation.
 
@@ -224,7 +224,7 @@ Stylisez `SegmentGroup` avec `className`, les hooks stables `data-slot="segment-
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - Hooks d’anatomie Ark : `data-scope="segment-group"` et `data-part` sur root, label, indicator, item, item text, item control et hidden input.
 - Hooks d’état Ark : `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` et `data-focus-visible`.

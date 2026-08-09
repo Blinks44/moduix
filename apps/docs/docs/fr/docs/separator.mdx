@@ -6,7 +6,7 @@ description: Séparez du contenu ou des groupes associés par une ligne horizont
 
 import * as SeparatorDocs from '@/components/examples/separator';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive separator dédiée. Moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling) et de [ref](https://ark-ui.com/docs/guides/ref).
 
@@ -59,7 +59,7 @@ Utilisez `asChild` uniquement lorsqu’un autre élément hôte doit posséder l
 | `asChild`       | `false`           | Composition de la fabrique Ark avec un enfant unique             |
 | `role`          | `separator`       | Transmettez `presentation` pour une utilisation décorative       |
 
-### Notes sur le comportement
+### Comportement
 
 - `Separator` définit `aria-orientation` lorsque son rôle est `separator`.
 - Utilisez `role="presentation"` lorsque la ligne est purement décorative. Ce comportement diffère de la valeur décorative par défaut de shadcn : moduix conserve par défaut les séparateurs de contenu significatifs dans l’arbre d’accessibilité.
@@ -138,7 +138,7 @@ Utilisez `asChild` lorsqu’un élément hôte personnalisé doit recevoir le r�
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="separator"` et `data-part="root"` définissent la partie racine dans le style d’Ark.
 - `data-slot="separator-root"` est le sélecteur stable de moduix.

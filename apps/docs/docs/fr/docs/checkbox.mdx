@@ -6,7 +6,7 @@ description: Une primitive de case à cocher composable pour les sélections ind
 
 import * as CheckboxDocs from '@/components/examples/checkbox';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
 
@@ -83,7 +83,7 @@ non standard de l’indicateur.
 | `Checkbox` / `Checkbox.Root`  | —                 | Aucune valeur comportementale supplémentaire ; valeurs Ark appliquées. |
 | `size`                        | `md`              | S’applique à `Checkbox.Root` et `Checkbox.RootProvider`.           |
 
-### Notes sur le comportement
+### Comportement
 
 Le composant racine rend automatiquement un champ de formulaire natif afin de participer aux formulaires natifs,
 à la validation, à la réinitialisation et à l’envoi. Pour une case à cocher individuelle, transmettez `name` et `value`
@@ -247,7 +247,7 @@ Transmettez `name` et `value` à `Checkbox.Root` afin que son champ natif automa
 
 <CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `Checkbox.Root` fournit `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark tels que `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
 - `Checkbox.RootProvider` fournit `data-slot="checkbox-root-provider"` et le même contrat de style que le composant racine.

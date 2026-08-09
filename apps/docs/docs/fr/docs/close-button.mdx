@@ -6,7 +6,7 @@ description: Un bouton à icône seule pour fermer les superpositions, notificat
 
 import * as CloseButtonDocs from '@/components/examples/close-button';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive close-button dédiée. Moduix construit ce composant avec l’[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle, conformément aux recommandations d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
 
@@ -66,7 +66,7 @@ l’état de fermeture et le cycle de vie du focus.
 | `children`   | `CloseIcon`                                    | Remplacé par un contenu d’icône personnalisé             |
 | `asChild`    | `false`                                        | Composition Ark factory avec un seul enfant              |
 
-### Notes sur le comportement
+### Comportement
 
 - `CloseButton` ne ferme rien par lui-même ; associez-lui un `onClick` ou utilisez le déclencheur de fermeture d’une superposition.
 - Le libellé de repli est `Close` ; transmettez `aria-label` ou `aria-labelledby` pour fournir un libellé adapté à la surface de l’interface.
@@ -110,7 +110,7 @@ repérable sans accepter d’activation.
 
 <CssPropertiesSection properties={CloseButtonDocs.closeButtonOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="close-button"` identifie la famille du composant.
 - `data-part="root"` identifie l’unique partie exportée.

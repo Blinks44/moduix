@@ -6,7 +6,7 @@ description: Sélecteur de date Ark UI avec calendrier intégré ou contextuel, 
 
 import * as DatePickerDocs from '@/components/examples/date-picker';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/date-picker" />
 
@@ -118,7 +118,7 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 | `DatePicker.DayTable.showHeader`           | `true`                 | Rend les contrôles précédent/vue/suivant avant le tableau. |
 | `DatePicker.DayTable.showWeekNumbers`      | `false`                | Rend l’en-tête et les cellules des numéros de semaine. |
 
-### Notes sur le comportement
+### Comportement
 
 `value`, `defaultValue` et `onValueChange(details)` utilisent des `DateValue[]` Ark. Importez `DatePicker.Context`,
 `useDatePicker` et `useDatePickerContext` depuis `moduix` ; si nécessaire, importez `parseDate` et les types de date Ark
@@ -404,7 +404,7 @@ n’utilise ni `DatePicker.Field` ni `DatePicker.DayTable`, tout en conservant l
   </Tabs>
 </div>
 
-### Points d’accroche de style
+### Points d’accroche CSS
 
 - `data-slot="date-picker-root"` sur le composant racine.
 - `data-slot="date-picker-root-provider"` sur le composant racine du provider.

@@ -6,7 +6,7 @@ description: Saisie de date segmentée Ark UI pour les dates, les plages, l’é
 
 import * as DateInputDocs from '@/components/examples/date-input';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/date-input" />
 
@@ -97,7 +97,7 @@ Utilisez `ids` lorsqu’un libellé externe, un texte d’aide ou un autre compo
 | `DateInput.Separator.aria-hidden` | `true`            | Le texte décoratif est masqué aux technologies d’assistance. |
 | `DateInput.Separator.role`        | `presentation`    | Retire les séparateurs de plage de l’arbre d’accessibilité. |
 
-### Notes sur le comportement
+### Comportement
 
 - Les valeurs sont des objets `DateInputDateValue[]` d’Ark / `@internationalized/date`, et non des chaînes.
 - `onValueChange(details)` conserve l’objet `details` Ark avec `details.value` et `details.valueAsString`.
@@ -299,7 +299,7 @@ La plupart des personnalisations commencent par `--moduix-date-input-width`, `--
   </Tabs>
 </div>
 
-### Points d’accroche de style
+### Points d’accroche CSS
 
 - `data-slot="date-input-root"` sur le composant racine.
 - `data-slot="date-input-label"` sur le libellé.

@@ -6,7 +6,7 @@ description: Une représentation visuelle compacte d'un utilisateur ou d'une ent
 
 import * as AvatarDocs from '@/components/examples/avatar';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
 
@@ -79,7 +79,7 @@ Nœud DOM.
 Lorsque `size` est omis, Avatar utilise les jetons visuels `md` sans définir `data-size`. Passer
 `size="md"` lorsque les sélecteurs ont besoin de l'attribut.
 
-### Notes sur le comportement
+### Comportement
 
 - Ark contrôle `data-state="visible" | "hidden"` sur `Avatar.Image` et `Avatar.Fallback`.
 - `Avatar.Fallback` dérive les initiales sécurisées pour les graphèmes à partir du premier et du dernier mot de `name` uniquement lorsque
@@ -195,7 +195,7 @@ dépendent de l'état de l'image.
 
 <CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` et
 `avatar-fallback-icon`.

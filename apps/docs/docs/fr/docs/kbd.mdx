@@ -6,7 +6,7 @@ description: Une touche compacte pour représenter les raccourcis clavier et les
 
 import * as KbdDocs from '@/components/examples/kbd';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive kbd dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
@@ -62,7 +62,7 @@ Il n’existe aucune API de variantes, de tailles, de séparateurs, de callbacks
 Utilisez `asChild` lorsqu’un élément sémantique `<kbd>` existant doit recevoir les styles moduix et le comportement de
 composition Ark. L’enfant doit être un élément unique qui conserve la sémantique de saisie au clavier.
 
-### Notes de comportement
+### Comportement
 
 - `Kbd`, `Kbd.Root` et `Kbd.Group` sont des libellés statiques de raccourcis, et non des contrôles interactifs.
 - Les séparateurs tels que `+`, `/` ou `then` restent du texte ordinaire dans une composition simple.
@@ -144,7 +144,7 @@ variables CSS publiques `--moduix-kbd-*` répertoriées ci-dessous.
 
 <CssPropertiesSection properties={KbdDocs.kbdOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="kbd-root"` cible un élément de touche individuel
 - `data-slot="kbd-group"` cible le conteneur en ligne des raccourcis regroupés

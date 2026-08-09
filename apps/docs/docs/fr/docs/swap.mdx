@@ -6,7 +6,7 @@ description: Animez le passage entre deux états visuels superposés tout en pr�
 
 import * as SwapDocs from '@/components/examples/swap';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
 
@@ -66,7 +66,7 @@ conflit avec une animation par défaut.
 | `lazyMount`     | `false`    | Diffère le montage d’un indicateur inactif jusqu’à son premier affichage.  |
 | `unmountOnExit` | `false`    | Retire un indicateur inactif après son animation de sortie.                |
 
-### Notes sur le comportement
+### Comportement
 
 - `swap` est contrôlé ; `Swap` ne réagit pas de lui-même au survol ou aux clics.
 - Chaque indicateur reçoit l’attribut Ark `data-state="open" | "closed"` pendant la transition.
@@ -130,7 +130,7 @@ de Swap.
 
 <CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `Swap.Root` → `data-slot="swap-root"`
 - `Swap.RootProvider` → `data-slot="swap-root-provider"`

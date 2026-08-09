@@ -6,7 +6,7 @@ description: Un libellé compact pour les valeurs sélectionnées, les filtres e
 
 import * as TagDocs from '@/components/examples/tag';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `tag` dédiée. Moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [ref](https://ark-ui.com/docs/guides/ref).
 
@@ -71,7 +71,7 @@ Utilisez `asChild` lorsque la racine elle-même doit adopter la sémantique d’
 | `Tag.CloseTrigger` | `children` | icône de fermeture | Utilisée uniquement sans `asChild` ; remplacée par les enfants personnalisés. |
 | `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Appliqué uniquement en l’absence d’enfants personnalisés, de `aria-labelledby` et de `asChild`. |
 
-### Notes sur le comportement
+### Comportement
 
 - `Tag` ne possède pas d’état, de callbacks, de déplacement au clavier ni de comportement de formulaire propres.
 - `Tag.CloseTrigger` relève d’une composition explicite et non d’une propriété `onClose` au niveau de la racine.
@@ -157,7 +157,7 @@ Privilégiez d’abord les variantes intégrées, puis les variables CSS locales
 > <Tab> <TagDocs.TagCssPropertiesPanel /> </Tab> </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="tag"` et `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"` sont émis sur les parties exportées.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` et `data-slot="tag-close-trigger"` sont des sélecteurs moduix stables.

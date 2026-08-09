@@ -6,7 +6,7 @@ description: Une composition de saisie Ark UI pour les codes PIN et les codes de
 
 import * as PinInputDocs from '@/components/examples/pin-input';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/pin-input" />
 
@@ -83,7 +83,7 @@ Conservez des index Ark continus sur l’ensemble du code.
 | `defaultValue`   | `[]`              | Valeur non contrôlée sous forme de tableau de chaînes.                 |
 | `value`          | -                 | Valeur contrôlée sous forme de tableau de chaînes.                     |
 
-### Notes sur le comportement
+### Comportement
 
 `value` et `defaultValue` sont des tableaux de chaînes. `onValueChange(details)` et
 `onValueComplete(details)` exposent `details.value` et `details.valueAsString`.
@@ -180,7 +180,7 @@ l’arbre affiché. Cet exemple contourne `Inputs` pour présenter la compositio
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - La racine et son fournisseur exposent `data-slot="pin-input-root"` et `data-slot="pin-input-root-provider"`.
 - Les parties Ark conservent `data-scope="pin-input"` et `data-part="root" | "label" | "control" | "input"`.

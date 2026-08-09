@@ -6,7 +6,7 @@ description: Une fenêtre contextuelle Ark UI accessible, ancrée à un déclenc
 
 import * as PopoverDocs from '@/components/examples/popover';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/popover" />
 
@@ -109,7 +109,7 @@ cycle de vie à `false` uniquement si un rendu initial immédiat est nécessaire
 | `positioning`            | -                 | Options de positionnement flottant Ark.                          |
 | `present`                | -                 | Présence contrôlée pour les cycles de vie d’animation JavaScript. |
 
-### Notes sur le comportement
+### Comportement
 
 - Les références sont transmises aux parties DOM Ark sous-jacentes : `Trigger` et `CloseTrigger` ciblent des boutons,
   tandis que `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`, `Header`,
@@ -281,7 +281,7 @@ obtenir un panneau ancré plus épuré.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Les parties Ark conservent `data-scope="popover"` et leurs valeurs de `data-part`. Chaque partie affichée exportée
 accepte `className` ; moduix ajoute `data-slot="popover-*"` aux conteneurs affichés. Ciblez

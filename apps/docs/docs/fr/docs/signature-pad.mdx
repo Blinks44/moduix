@@ -6,7 +6,7 @@ description: Un champ de signature Ark UI pour la saisie manuscrite au pointeur 
 
 import * as SignaturePadDocs from '@/components/examples/signature-pad';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
 
@@ -84,7 +84,7 @@ Utilisez `drawing` pour régler chaque trait. `drawing.size` modifie sa largeur,
 
 Le control de dessin standard mesure `17.5rem` sur `10rem`, soit environ `280px` sur `160px` avec l’échelle de tokens par défaut. Redéfinissez `--moduix-signature-pad-width`, `--moduix-signature-pad-height` ou les variables plus précises `--moduix-signature-pad-control-*` pour modifier la zone de signature. La hauteur minimale par défaut suit la hauteur configurée du control ; une valeur inférieure reste donc effective.
 
-### Notes sur le comportement
+### Comportement
 
 Utilisez `defaultPaths` pour une signature initiale non contrôlée. Utilisez `paths` avec `onDraw(details)` lorsque la signature doit rester dans l’état de l’application. `onDrawEnd(details)` est appelé après la fin d’un trait ou l’effacement de la signature et fournit `details.getDataUrl(type, quality?)`.
 
@@ -196,7 +196,7 @@ N’utilisez pas `Canvas` lorsque vous devez contrôler l’arborescence des par
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez `className` sur toute partie exportée pour appliquer des styles locaux. moduix ajoute également des attributs `data-slot` stables :
 

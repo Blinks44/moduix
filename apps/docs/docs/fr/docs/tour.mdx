@@ -77,7 +77,7 @@ touches. En RTL, Ark inverse la navigation gauche et droite.
 méthodes de navigation. `Tour.ActionList` est la forme abrégée par défaut ; n’utilisez `Tour.Actions` que si
 l’interface des actions elle-même doit changer.
 
-### Props par défaut
+### Propriétés par défaut
 
 Le contenu de l’overlay porté est monté paresseusement par défaut, puis démonté après l’animation de fermeture.
 Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; ne définissez les deux props de
@@ -132,7 +132,7 @@ tour » sont des descendants `Button` personnalisés, mais chacun reçoit l’ob
 ```
 </PreviewFrame>
 
-## Mise en forme
+## Styles
 
 ### Propriétés CSS
 
@@ -150,7 +150,7 @@ tour » sont des descendants `Button` personnalisés, mais chacun reçoit l’ob
   </Tabs>
 </div>
 
-### Hooks de mise en forme
+### Points d’accroche CSS
 
 Utilisez les hooks moduix `data-slot`, comme `tour-content`, `tour-body` et `tour-action-trigger`, pour une mise en
 forme locale. Ark fournit `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,

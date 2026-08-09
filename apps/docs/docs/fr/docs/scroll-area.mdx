@@ -6,7 +6,7 @@ description: Un conteneur de défilement natif avec des barres de défilement Ar
 
 import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
 
@@ -66,7 +66,7 @@ Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des
 | `asChild`                                                | `false`           | Disponible sur chaque partie Ark pour composer l’élément hôte avec un enfant unique.                                          |
 | `ids` sur `ScrollArea`                                   | generated         | Utilisez cette propriété lorsqu’un autre code a besoin d’identifiants stables pour root, viewport, content, scrollbar ou thumb. |
 
-### Notes sur le comportement
+### Comportement
 
 - Affichez un `ScrollArea.Scrollbar` pour chaque axe que vous souhaitez rendre visible.
 - Ark ajoute `data-overflow-x` et `data-overflow-y` ; moduix masque les pistes tant que l’axe correspondant ne déborde pas réellement.
@@ -144,7 +144,7 @@ Utilisez les variables CSS sur l’élément racine lorsque vous devez modifier 
 
 <CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner` sont des hooks Moduix stables.
 - La propriété `fade` ajoute `data-fade`, tandis que `variant` ajoute `data-variant="hover" | "always"` à `ScrollArea` et `ScrollArea.RootProvider`.

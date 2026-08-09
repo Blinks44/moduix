@@ -6,7 +6,7 @@ description: Une action principale groupée avec un déclencheur de menu déroul
 
 import * as SplitButtonDocs from '@/components/examples/split-button';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive split button dédiée. Moduix construit ce composant avec la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
@@ -91,7 +91,7 @@ Lorsque le menu lui-même nécessite un accès avancé à l’état, composez-le
 | `SplitButton.Trigger`   | `aria-label`    | `'More actions'` avec une icône seule  | Remplacez-la par un nom accessible plus précis.                   |
 | `SplitButton.Trigger`   | `children`      | `ChevronDownIcon`                       | Remplacez-le si le déclencheur nécessite son propre contenu visible. |
 
-### Notes sur le comportement
+### Comportement
 
 - `SplitButton` ne possède ni ancien contrat de rendu ni exportation à plat de ses parties.
 - `SplitButton.Action` suit le contrat `asChild` du composant `Button` partagé de moduix.
@@ -205,7 +205,7 @@ tandis que `Menu` continue de posséder les styles des lignes de la fenêtre sur
 
 <CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="split-button"` et `data-part="root"` ciblent l’enveloppe groupée.
 - `data-slot="split-button-root"` cible l’enveloppe groupée.

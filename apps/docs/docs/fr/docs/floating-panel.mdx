@@ -111,7 +111,7 @@ uniquement lorsque vous avez besoin d'un rendu initial sans attendre.
 | `strategy` | Ark | Transmis inchangé ; Ark utilise un positionnement fixe par défaut. |
 | propriétés de présence | Moduix | `lazyMount` et `unmountOnExit` ont `true` par défaut ; les propriétés restantes sont transmises. |
 
-### Notes de comportement
+### Comportement
 
 - `onOpenChange(details)` fournit `details.open`.
 - `onPositionChange(details)` et `onPositionChangeEnd(details)` fournissent `details.position`.
@@ -234,7 +234,7 @@ Utilisez des parties `ResizeTrigger` distinctes lorsque chaque axe de redimensio
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Les parties Ark conservent leurs valeurs `data-scope="floating-panel"` et `data-part`. Moduix ajoute
 `data-slot="floating-panel-*"` aux wrappers rendus. Pour appliquer des styles selon l’état, utilisez

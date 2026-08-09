@@ -84,7 +84,7 @@ Utilisez `Editable.Context` de moduix ou `useEditableContext()` lorsque des enfa
 | `selectOnFocus`  | `true`            | Ark sélectionne le texte du champ lorsqu’il reçoit le focus.                                                                  |
 | `submitMode`     | `both`            | `Enter` et la perte de focus valident la valeur par défaut ; utilisez `none` avec des contrôles de validation explicites.      |
 
-### Notes de comportement
+### Comportement
 
 `value` et `defaultValue` contrôlent la valeur textuelle. `edit` et `defaultEdit` contrôlent le mode modification. Les propriétés de callback Ark conservent les objets details : `onValueChange`, `onValueCommit`, `onValueRevert` et `onEditChange` reçoivent donc les mêmes données que dans Ark UI.
 
@@ -194,7 +194,7 @@ Passez `name` pour inclure la valeur actuelle dans la soumission native du formu
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="editable-root"`, `editable-root-provider`, `editable-label`, `editable-area`,
   `editable-input`, `editable-preview`, `editable-control`, `editable-edit-trigger`,
@@ -204,4 +204,3 @@ Passez `name` pour inclure la valeur actuelle dans la soumission native du formu
   et `Preview` ; `data-readonly` / `aria-readonly` sur les contrôles en lecture seule ; `data-invalid` sur
   `Label`, `Input` et `Preview` ; `data-required` sur `Label` ; `data-placeholder-shown` sur `Area`
   et `Preview` ; ainsi que `data-autoresize` sur `Input` et `Preview`.
-

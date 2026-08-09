@@ -122,9 +122,9 @@ eager initial rendering is needed.
 
 ### Behavioral notes
 
-- `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`,
-  `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids`, `lazyMount`,
-  `unmountOnExit` default to `true`; `present` follows Ark directly.
+- `lazyMount` and `unmountOnExit` default to `true` in moduix. `open`, `defaultOpen`,
+  `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`,
+  `closeOnSelect`, `ids`, and `present` pass through to Ark without additional moduix defaults.
 - Use `value`, not a custom `id`, for menu item identity.
 - `Menu.CheckboxItem.onCheckedChange` receives the next boolean checked state.
 - `Menu.RadioItemGroup.onValueChange` receives `details.value`.

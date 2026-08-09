@@ -10,7 +10,7 @@ import * as ToggleGroupDocs from '@/components/examples/toggle-group';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
 
-## Choisir le composant adapté
+## Choisir le bon composant
 
 Utilisez `ToggleGroup` lorsque plusieurs boutons activés appartiennent au même ensemble de valeurs.
 
@@ -77,7 +77,7 @@ personnalisé a besoin de l’état actuel du groupe. Ne rendez pas `ToggleGroup
 la même instance d’état. Les imports directs depuis Ark restent une échappatoire pour les surfaces volontairement
 hors de l’API moduix.
 
-### Props par défaut
+### Propriétés par défaut
 
 | Prop          | Valeur par défaut | Remarques                                                                                  |
 | ------------- | ----------------- | ------------------------------------------------------------------------------------------ |
@@ -89,7 +89,7 @@ hors de l’API moduix.
 | `variant`     | `default`         | Variante visuelle moduix.                                                                  |
 | `size`        | `md`              | Taille d’élément moduix.                                                                    |
 
-### Remarques sur le comportement
+### Comportement
 
 - `onValueChange` reçoit les détails Ark : utilisez `details.value` pour obtenir le tableau de chaînes sélectionnées.
 - `deselectable` est ignoré lorsque `multiple` est activé.
@@ -197,7 +197,7 @@ groupe. `ToggleGroup.Context` fournit le même état par render prop.
   ```
 </PreviewFrame>
 
-## Mise en forme
+## Styles
 
 `ToggleGroup` fournit des hooks `data-slot` stables pour moduix ainsi que les attributs d’anatomie et d’état d’Ark
 pour la mise en forme fondée sur le comportement.
@@ -216,7 +216,7 @@ pour la mise en forme fondée sur le comportement.
   </Tabs>
 </div>
 
-### Hooks de mise en forme
+### Points d’accroche CSS
 
 - `data-slot="toggle-group-root"` et `data-slot="toggle-group-root-provider"` — sélecteurs stables de la racine.
 - `data-slot="toggle-group-item"` — sélecteur stable d’un élément.

@@ -6,7 +6,7 @@ description: Un contrôle permettant de sélectionner une valeur unique ou une p
 
 import * as SliderDocs from '@/components/examples/slider';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/slider" />
 
@@ -99,7 +99,7 @@ avancé à l’état, importez `useSliderContext` ou `useSlider` depuis `@moduix
 `value`, `defaultValue`, `onValueChange(details)` et `onValueChangeEnd(details)` utilisent les objets details d’Ark.
 Pour lire le tableau, utilisez `details.value`.
 
-### Notes sur le comportement
+### Comportement
 
 `Slider` suit le comportement WAI-ARIA slider d’Ark. Chaque curseur nécessite un nom accessible au moyen de
 `Slider.Label`, `aria-label` ou `aria-labelledby`. Les sliders horizontaux utilisent les touches fléchées gauche et
@@ -357,7 +357,7 @@ d’Ark et les variables CSS publiques de Moduix ci-dessous.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Ark écrit `data-scope="slider"` et `data-part` sur toutes les parties affichées. Moduix écrit également les valeurs
 `data-slot` suivantes : `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`, `slider-control`,

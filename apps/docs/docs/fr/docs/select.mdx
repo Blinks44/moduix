@@ -6,7 +6,7 @@ description: Une composition Select d’Ark UI pour choisir une ou plusieurs val
 
 import * as SelectDocs from '@/components/examples/select';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/select" />
 
@@ -101,7 +101,7 @@ Par défaut, le contenu de l’overlay placé dans un portail est monté de mani
 | `unmountOnExit`           | `true`            | Supprime le contenu après l’animation de sortie.             |
 | `ValueText.placeholder`   | -                 | Texte affiché lorsque le tableau de valeurs est vide.        |
 
-### Notes sur le comportement
+### Comportement
 
 `value`, `defaultValue` et `onValueChange(details)` utilisent des tableaux de chaînes. Lisez les clés sélectionnées dans `details.value` et les éléments de collection dans `details.items`. `onOpenChange(details)`, `onHighlightChange(details)` et `onSelect(details)` conservent les objets details d’Ark sans modification.
 
@@ -279,7 +279,7 @@ Stylisez Select avec `className`, les hooks stables `data-slot="select-*"`, les 
 
 <CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 `Select.Field` affiche les slots existants `select-control`, `select-trigger`, `select-value-text`, `select-indicator` et le slot facultatif `select-clear-trigger`. Sa propriété `indicator` transmet un enfant au slot d’indicateur existant.
 

@@ -6,7 +6,7 @@ description: Un composant Ark UI à défilement continu pour les logos, les anno
 
 import * as MarqueeDocs from '@/components/examples/marquee';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
 
@@ -92,7 +92,7 @@ la zone d’affichage ou le contenu.
 | `Marquee.Edge side`  | —                 | Bord obligatoire : `start`, `end`, `top` ou `bottom`.                                     |
 | `RootProvider.value` | —                 | `UseMarqueeReturn` obligatoire provenant de `useMarquee()`.                               |
 
-### Notes de comportement
+### Comportement
 
 Utilisez `paused` avec `onPauseChange(details)` pour un défilement contrôlé. Utilisez `loopCount`,
 `onLoopComplete` et `onComplete` lorsque le marquee doit s’arrêter après un nombre fini de boucles. Les signatures
@@ -233,7 +233,7 @@ avec les variables CSS et les classes des parties ; conservez les attributs d’
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` et `marquee-edge`.
 - Hooks Ark : `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` et `data-clone`.

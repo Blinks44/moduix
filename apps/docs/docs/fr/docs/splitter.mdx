@@ -6,7 +6,7 @@ description: Une primitive de mise en page redimensionnable qui divise l’inter
 
 import * as SplitterDocs from '@/components/examples/splitter';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
 
@@ -75,7 +75,7 @@ redimensionnement personnalisés doivent conserver la sémantique de bouton, le 
 | `size`              | Non contrôlé       | Transmettez-le avec `onResize(details)` pour contrôler les tailles.       |
 | `disabled`          | `false`            | Définissez-le sur `ResizeTrigger` pour désactiver la poignée.             |
 
-### Notes sur le comportement
+### Comportement
 
 `panels` est une propriété obligatoire qui définit les contraintes `minSize`, `maxSize`, `collapsible` et
 `collapsedSize`. Les valeurs numériques de taille sont exprimées en pourcentage ; Ark accepte également des longueurs
@@ -202,7 +202,7 @@ nécessite un autre rendu.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Ark écrit `data-scope="splitter"` et `data-part` sur toutes les parties affichées. Moduix écrit également les valeurs
 `data-slot` suivantes : `splitter-root`, `splitter-root-provider`, `splitter-panel`, `splitter-resize-trigger` et

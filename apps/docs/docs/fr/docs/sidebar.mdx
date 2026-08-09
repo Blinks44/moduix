@@ -6,7 +6,7 @@ description: Une navigation d’application redimensionnable et repliable, fond�
 
 import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
-## Référence API
+## Référence de l’API
 
 `Sidebar` utilise [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) pour le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité. Son anatomie sémantique de navigation s’inspire du [Sidebar de shadcn/ui](https://ui.shadcn.com/docs/components/radix/sidebar), tandis que son contrat d’état conserve la forme d’Ark.
 
@@ -117,7 +117,7 @@ Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `Resize
 | `panelId` de la racine           | `"sidebar"`                                                       |
 | `size` du bouton de menu         | `"md"`                                                            |
 
-### Notes sur le comportement
+### Comportement
 
 Ark accepte les pourcentages et les longueurs CSS pour dimensionner les panneaux. Les longueurs CSS sont mesurées côté client ; une disposition rendue sur le serveur peut donc se décaler après l’hydratation. Utilisez des pourcentages lorsqu’une disposition SSR stable est importante. `Trigger` fournit `aria-expanded`, appelle d’abord le gestionnaire `onClick` de l’utilisateur et ignore le basculement par défaut si ce gestionnaire a appelé `preventDefault()`.
 
@@ -219,7 +219,7 @@ L’interface de redimensionnement se limite volontairement à une ligne. Sa cou
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Chaque partie sémantique accepte `className` et fournit un hook stable `data-slot="sidebar-*"`. Les parties de l’enveloppe appartenant à Sidebar fournissent aussi `data-scope="sidebar"` et `data-part`, tandis que `Sidebar.Input` et `Sidebar.Separator` conservent volontairement les scopes des primitives de base. Les parties de disposition fondées sur Ark conservent les attributs d’état de Splitter.
 

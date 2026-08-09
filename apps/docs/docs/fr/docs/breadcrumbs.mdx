@@ -6,7 +6,7 @@ description: Une navigation sémantique de type fil d’Ariane, conforme à Ark,
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `breadcrumbs` dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
@@ -73,7 +73,7 @@ Combinez le composant avec `Menu` lorsque les segments intermédiaires doivent �
 | `Breadcrumbs` / `Breadcrumbs.Root` | —                 | Aucune valeur de comportement supplémentaire par défaut ; les valeurs Ark s’appliquent. |
 | `Breadcrumbs.Path`                 | chevron           | Affiche des chevrons comme séparateurs si `separator` n’est pas défini. |
 
-### Notes sur le comportement
+### Comportement
 
 - `Breadcrumbs` affiche un repère `nav` dont l’`aria-label` par défaut vaut `"Breadcrumb"`.
 - `Breadcrumbs.Path` affiche une liste ordonnée à partir de `items` ; le dernier élément est toujours la page actuelle.
@@ -214,7 +214,7 @@ Chaque partie exportée possède les attributs `data-scope="breadcrumbs"` et `da
 
 <CssPropertiesSection properties={BreadcrumbsDocs.breadcrumbsCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="breadcrumbs"` est présent sur chaque partie exportée.
 - Les valeurs `data-part="root"`, `list`, `item`, `link`, `page`, `separator` et `ellipsis` suivent le contrat Ark factory utilisé par ce composant.

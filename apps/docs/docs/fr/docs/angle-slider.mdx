@@ -6,7 +6,7 @@ description: Une commande circulaire pour sélectionner un angle de 0 à 360 deg
 
 import * as AngleSliderDocs from '@/components/examples/angle-slider';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
 
@@ -84,7 +84,7 @@ Les pièces Ark DOM prennent en charge `asChild` ; fournir un enfant compatible
 ARIA et comportement du pointeur. `Dial` et `Marks` conservent une composition fixe en plusieurs parties, ils ne
 acceptez `asChild`. Avec `Root` ou `RootProvider`, utilisez un conteneur pouvant contenir les
 rendu des entrées cachées et des parties de curseur. Utilisez `ids` sur `Root` lorsque les éléments composés nécessitent un partage stable
-Pièces d'identité. Les références sont transmises à l'élément DOM rendu par chaque partie Ark enveloppée.
+identifiants de partie. Les refs sont transmises à l’élément DOM affiché par chaque partie Ark enveloppée.
 
 ### Propriétés par défaut
 
@@ -96,7 +96,7 @@ Pièces d'identité. Les références sont transmises à l'élément DOM rendu p
 | `readOnly` | `false` | Conserve la valeur visible mais non modifiable |
 | `invalid` | `false` | Expose un état invalide pour ARIA et le style |
 
-### Notes sur le comportement
+### Comportement
 
 - `value` est un nombre unique ; Les `onValueChange(details)` et `onValueChangeEnd(details)` préservent Ark
 objets de rappel avec `details.value` et `details.valueAsDegree`.
@@ -246,7 +246,7 @@ variables ci-dessous.
 
 <CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="angle-slider-root"` et `data-slot="angle-slider-root-provider"` possèdent leur propre disposition partagée.
 - `data-slot="angle-slider-control"` possède le cadran et reçoit `data-disabled`, `data-invalid`,

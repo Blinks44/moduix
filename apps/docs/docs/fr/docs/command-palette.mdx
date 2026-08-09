@@ -6,7 +6,7 @@ description: Une palette de commandes dans une boîte de dialogue, avec recherch
 
 import * as CommandPaletteDocs from '@/components/examples/command-palette';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne propose pas de primitive `command-palette` dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), conformément aux recommandations d’Ark sur
@@ -119,7 +119,7 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 | `CommandPalette.Combobox.disableLayer`      | `true`            | N’ajoute pas de couche dismissable superflue dans le dialogue.                    |
 | `CommandPalette.Combobox.closeOnSelect`     | `true`            | Ferme également le dialogue après la sélection dans Ark Combobox.                 |
 
-### Notes sur le comportement
+### Comportement
 
 Le gestionnaire de raccourci est activé explicitement, car les pages de documentation et les applications complexes
 peuvent monter plusieurs palettes à la fois. Il accepte un modificateur et une touche, par exemple `mod+k`, `ctrl+1`,
@@ -190,7 +190,7 @@ structurelles pour modifier la mise en page ou les couches.
 
 <CssPropertiesSection properties={CommandPaletteDocs.commandPaletteOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - Les parties visuelles exportées fournissent les hooks `data-slot` stables suivants : `command-palette-trigger`,
   `command-palette-backdrop`, `command-palette-positioner`, `command-palette-content`, `command-palette-list`,

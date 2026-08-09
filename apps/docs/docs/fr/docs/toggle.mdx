@@ -10,7 +10,7 @@ import * as ToggleDocs from '@/components/examples/toggle';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toggle" />
 
-## Choisir le composant adapté
+## Choisir le bon composant
 
 Utilisez `Toggle` lorsque le contrôle reste un bouton qui indique un état activé.
 
@@ -66,14 +66,14 @@ Pour un descendant personnalisé qui lit l’état, utilisez `Toggle.Context` ou
 Au lieu de coordonner manuellement plusieurs toggles autonomes, utilisez `ToggleGroup` lorsque plusieurs boutons
 activés appartiennent au même ensemble de sélection.
 
-### Props par défaut
+### Propriétés par défaut
 
 | Prop      | Valeur par défaut | Remarques                                                                                 |
 | --------- | ----------------- | ----------------------------------------------------------------------------------------- |
 | `variant` | `default`         | Variante visuelle moduix : `default` secondaire, `outline` avec contour ou `ghost` transparent. |
 | `size`    | `md`              | Espacement moduix ou géométrie réservée à une icône.                                      |
 
-### Remarques sur le comportement
+### Comportement
 
 - Les toggles qui n’affichent qu’une icône ont besoin d’un nom accessible, par exemple `aria-label="Favorite"`.
 - `disabled` conserve l’état visuel actuel, mais empêche toute interaction.
@@ -168,7 +168,7 @@ toggle le plus proche avec le hook de contexte moduix.
 
 ```
 
-## Mise en forme
+## Styles
 
 `Toggle` fournit un élément racine stylisé, une partie indicateur facultative et l’ensemble des tokens
 `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus, l’espacement et la taille des icônes.
@@ -187,7 +187,7 @@ toggle le plus proche avec le hook de contexte moduix.
   </Tabs>
 </div>
 
-### Hooks de mise en forme
+### Points d’accroche CSS
 
 - `data-slot="toggle-root"` — sélecteur stable de l’élément racine.
 - `data-slot="toggle-indicator"` — sélecteur stable de `Toggle.Indicator`.

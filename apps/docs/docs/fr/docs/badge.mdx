@@ -6,7 +6,7 @@ description: Une étiquette d’état compacte pour de courtes métadonnées tel
 
 import * as BadgeDocs from '@/components/examples/badge';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `badge` dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
@@ -75,7 +75,7 @@ Utilisez les variables CSS locales ou des remplacements de `className` lorsque l
 | `variant` | `default`         | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
 | `asChild` | `false`           | Composition Ark factory avec exactement un enfant               |
 
-### Notes sur le comportement
+### Comportement
 
 - Par défaut, `Badge` est purement présentatif et affiche un `span`.
 - `Badge.Dot` est décoratif et masqué pour les technologies d’assistance ; le texte visible doit donc transmettre la signification du statut.
@@ -195,7 +195,7 @@ priorité supérieure pour les remplacements ponctuels.
 
 <CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="badge-root"` et `data-slot="badge-dot"` sont des sélecteurs stables pour les parties exportées.
 - `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Dot` expose `data-part="dot"`.

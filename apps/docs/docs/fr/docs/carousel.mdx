@@ -6,7 +6,7 @@ description: Un carrousel paginé avec composition Ark UI, lecture automatique, 
 
 import * as CarouselDocs from '@/components/examples/carousel';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
 
@@ -95,7 +95,7 @@ doivent faire partie de l’interface visible, plutôt que d’être uniquement 
 | ------------ | ----------------- | ------------------------------------------------- |
 | `slideCount` | —                 | Requis pour `Carousel` / `Carousel.Root`.         |
 
-### Notes sur le comportement
+### Comportement
 
 - `onPageChange(details)` conserve la forme d’Ark et expose la page active via `details.page`.
 - Attribuez `aria-label` ou `aria-labelledby` à `Carousel` ou `Carousel.RootProvider` afin que le landmark du carrousel possède un nom accessible.
@@ -308,7 +308,7 @@ préférez les attributs de données d’Ark (`data-part`, `data-orientation`, `
 
 <CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
   `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,

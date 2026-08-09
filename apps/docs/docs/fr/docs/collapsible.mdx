@@ -6,7 +6,7 @@ description: Un élément dépliable qui ouvre et ferme une seule zone de conten
 
 import * as CollapsibleDocs from '@/components/examples/collapsible';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/collapsible" />
 
@@ -85,7 +85,7 @@ des enfants personnalisés.
 | `Collapsible.Content`     | zone repliée      | Utilise les variables de mesure et la stratégie de rendu d’Ark |
 | `Collapsible.Body`        | `div`             | Enveloppe interne avec espacements intérieurs et écart         |
 
-### Notes sur le comportement
+### Comportement
 
 - `onOpenChange` reçoit un objet de détails d’Ark. Lisez l’état suivant dans `details.open`.
 - `open` est l’état cible, tandis que `visible` reste vrai tant que le contenu en cours de fermeture reste monté pour l’animation de sortie.
@@ -230,7 +230,7 @@ les styles par défaut de `Collapsible.Trigger` tout en préservant le comportem
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - Les parties DOM fournissent `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` et `collapsible-body`.

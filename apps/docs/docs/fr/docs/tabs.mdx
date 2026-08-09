@@ -6,7 +6,7 @@ description: Un ensemble de déclencheurs d’onglets permettant de basculer ent
 
 import * as TabsDocs from '@/components/examples/tabs';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
 
@@ -92,7 +92,7 @@ l’arbre affiché. N’affichez pas `Tabs` autour de la même instance d’éta
 | `Tabs.lazyMount`             | `false`      | Diffère le montage du contenu jusqu’à sa sélection.              |
 | `Tabs.unmountOnExit`         | `false`      | Retire le contenu inactif lorsqu’il est associé au montage différé. |
 
-### Notes sur le comportement
+### Comportement
 
 - `onValueChange` suit Ark et reçoit `details` ; lisez la valeur sélectionnée depuis `details.value`.
 - `Tabs.Trigger` et `Tabs.Content` sont reliés par des propriétés `value` de type chaîne identiques.
@@ -218,7 +218,7 @@ Stylisez `Tabs` avec `className`, les hooks stables `data-slot="tabs-*"`, les at
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez la partie responsable de l’aspect visuel concerné :
 

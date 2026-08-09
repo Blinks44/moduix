@@ -6,7 +6,7 @@ description: Une composition de presse-papiers dans le style d’Ark pour affich
 
 import * as ClipboardDocs from '@/components/examples/clipboard';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/clipboard" />
 
@@ -89,7 +89,7 @@ Gardez l’arborescence des parties Ark explicite au lieu de la masquer derrièr
 | `CopyText.copied`    | `Copied`          | Libellé de `Clipboard.CopyText` après la copie                    |
 | `CopyText.children`  | `Copy`            | Libellé de `Clipboard.CopyText` dans l’état initial               |
 
-### Notes sur le comportement
+### Comportement
 
 - `onValueChange(details)` expose la nouvelle valeur du presse-papiers via `details.value`.
 - `onStatusChange(details)` conserve la structure des détails de copie d’Ark et convient aux données analytiques, aux compteurs ou à un retour supplémentaire.
@@ -185,7 +185,7 @@ et les parties qui représentent l’état de copie dans moduix.
 
 <CssPropertiesSection properties={ClipboardDocs.clipboardOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `Clipboard` -> `data-slot="clipboard-root"`
 - `Clipboard.RootProvider` -> `data-slot="clipboard-root-provider"`

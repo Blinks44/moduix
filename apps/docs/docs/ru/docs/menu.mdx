@@ -123,7 +123,7 @@ Menu
 
 ### Особенности поведения
 
-- `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids`, `lazyMount`, `unmountOnExit` по умолчанию равны `true`; `present` передаётся Ark напрямую.
+- В moduix свойства `lazyMount` и `unmountOnExit` по умолчанию равны `true`. Свойства `open`, `defaultOpen`, `onOpenChange(details)`, `highlightedValue`, `onHighlightChange(details)`, `onSelect(details)`, `closeOnSelect`, `ids` и `present` передаются в Ark без дополнительных значений по умолчанию.
 - Для идентичности элемента меню используйте `value`, а не пользовательский `id`.
 - `Menu.CheckboxItem.onCheckedChange` получает следующее логическое выбранное состояние.
 - `Menu.RadioItemGroup.onValueChange` получает `details.value`.

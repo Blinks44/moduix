@@ -77,7 +77,7 @@ Cette approche garde le cas courant explicite tout en permettant des description
 | ---------------------- | ----------------- | ---------------------------------------------------------------------------------- |
 | `Empty` / `Empty.Root` | —                 | Aucune valeur comportementale supplémentaire par défaut ; les valeurs Ark s’appliquent. |
 
-### Notes de comportement
+### Comportement
 
 - `Empty.Title` rend un `h3` par défaut et accepte `asChild` de la fabrique Ark pour contrôler la structure du document.
 - `Empty.Description` rend un `div`, et non un `p`, afin de pouvoir contenir sans risque du contenu de type bloc.
@@ -140,7 +140,7 @@ Stylisez `Empty` avec `className`, les sélecteurs Ark `data-scope="empty"` / `d
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Ciblez la partie responsable de la propriété visuelle concernée :
 
@@ -149,4 +149,3 @@ Ciblez la partie responsable de la propriété visuelle concernée :
 - `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` pour la largeur et l’espacement du groupe de texte
 - `[data-scope="empty"][data-part="title"]` et `[data-scope="empty"][data-part="description"]` pour la typographie
 - `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` pour l’espacement et l’alignement de la ligne d’actions
-

@@ -6,7 +6,7 @@ description: Un chronomètre ou compte à rebours avec des parties et des contr�
 
 import * as TimerDocs from '@/components/examples/timer';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/timer" />
 
@@ -92,7 +92,7 @@ l’interface ; la valeur par défaut d’Ark est `1000`.
 | `onTick(details)` | — | Reçoit la valeur courante, le temps numérique et les parties de temps formatées. |
 | `onComplete()` | — | Appelé lorsque le minuteur atteint sa cible. |
 
-### Notes sur le comportement
+### Comportement
 
 Par défaut, `Timer.ActionTrigger` rend un bouton : l’activation au clavier suit donc le comportement natif d’un
 bouton. Ark masque les actions dépendantes de l’état `start`, `pause`, `resume` et `reset` lorsqu’elles ne sont pas
@@ -190,7 +190,7 @@ valeurs visuelles par défaut. Les attributs Ark restent disponibles pour cibler
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
   `timer-separator`, `timer-control` et `timer-action-trigger`.

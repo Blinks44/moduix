@@ -6,7 +6,7 @@ description: Un champ natif de saisie multiligne avec intégration à Field et s
 
 import * as TextareaDocs from '@/components/examples/textarea';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de composant de zone de texte dédié. Moduix stylise et réexporte [Ark Field.Textarea](https://ark-ui.com/docs/components/field) tout en conservant sa propre API de zone de texte, `autoresize`, le transfert de ref, `asChild` et l’héritage des états de Field.
 
@@ -70,7 +70,7 @@ Utilisez `Editable` au lieu de construire des contrôles personnalisés de lectu
 | ------------ | ------- | ------------------------------------------------ |
 | `autoresize` | `false` | Le redimensionnement automatique d’Ark est activé séparément pour chaque zone de texte. |
 
-### Notes sur le comportement
+### Comportement
 
 - Utilisez `value` avec le gestionnaire natif `onChange` pour contrôler le texte.
 - Utilisez `name` avec la soumission native du formulaire lorsque la valeur doit seulement être lue depuis `FormData`.
@@ -144,7 +144,7 @@ Personnalisez `Textarea` avec `className`, `data-slot="textarea-root"` et les va
 > <Tab> <TextareaDocs.TextareaCssPropertiesPanel /> </Tab> </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez la racine de la zone de texte pour le contrôle visuel lui-même et le `Field` environnant pour la mise en page et le texte associé.
 

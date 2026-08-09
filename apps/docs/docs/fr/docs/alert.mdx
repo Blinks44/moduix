@@ -6,7 +6,7 @@ description: Commentaires en ligne pour les messages d'état, de validation et s
 
 import * as AlertDocs from '@/components/examples/alert';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `alert` dédiée. Moduix construit ce composant avec la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d'Ark en matière de
@@ -74,7 +74,7 @@ Utilisez `Alert`, `Alert.Title` et `Alert.Description` directement pour le chemi
 Utilisez `status` pour l'intention : `neutral`, `info`, `success`, `warning` ou `error`.
 
 Ajoutez `Alert.Indicator` lorsque l’alerte nécessite un repère visuel explicite. Le composant intentionnellement
-évite les accessoires d'action spéciaux ou les sacs à fente.
+évite d’ajouter des propriétés ou des emplacements spéciaux pour les actions.
 
 ### Quand créer une composition personnalisée
 
@@ -98,7 +98,7 @@ Utilisez `Alert.Title asChild` lorsque le plan du document nécessite un éléme
 | `status` | `neutral` | `neutral`, `info`, `success`, `warning`, `error` |
 | `role` | Automobile | `role="status"` par défaut, `role="alert"` pour `status="error"` |
 
-### Notes sur le comportement
+### Comportement
 
 - `Alert.Root` est par défaut `role="status"` et passe à `role="alert"` pour `status="error"`.
 - Ces rôles créent des régions vivantes polies et affirmées. Montez l'alerte avant de mettre à jour son message
@@ -203,7 +203,7 @@ Les statuts intégrés lisent également les jetons de palette partagée :
 
 <CssPropertiesSection properties={AlertDocs.alertCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - Sélecteurs `data-slot` stables : `alert-root`, `alert-indicator`, `alert-content`, `alert-title`,
 `alert-description` et `alert-actions`

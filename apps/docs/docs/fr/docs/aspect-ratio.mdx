@@ -6,7 +6,7 @@ description: Contraint les médias et intègre le contenu dans une boîte réact
 
 import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `aspect-ratio` dédiée. Moduix construit ce composant avec la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d'Ark en matière de
@@ -58,7 +58,7 @@ Utilisez `AspectRatio` pour la plupart des images multimédias. Placez les class
 
 ### Quand créer une composition personnalisée
 
-Enveloppez `AspectRatio` lorsque les ombres, les bagues de mise au point ou la décoration de la mise en page doivent échapper à la zone écrêtée.
+Entourez `AspectRatio` d’un conteneur lorsque les ombres, les anneaux de focus ou d’autres éléments décoratifs doivent dépasser de la zone recadrée.
 cadre. Conservez le découpage sur la racine elle-même et remplacez la racine `aspect-ratio` dans votre propre CSS
 lorsqu'un point d'arrêt a besoin d'un cadre différent.
 
@@ -72,7 +72,7 @@ lorsqu'un point d'arrêt a besoin d'un cadre différent.
 | `asChild` | `undefined` | Composition de l'usine d'arche |
 | `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | Longueur CSS ou valeur du jeton |
 
-### Notes sur le comportement
+### Comportement
 
 - La racine s'affiche avec `data-scope="aspect-ratio"`, `data-part="root"` et
 `data-slot="aspect-ratio-root"`.
@@ -147,7 +147,7 @@ Utilisez `asChild` lorsque vous devez contourner l'hôte racine par défaut et l
 
 <CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-scope="aspect-ratio"` et `data-part="root"` sont les crochets racine alignés sur Ark.
 - `data-slot="aspect-ratio-root"` est le hook racine moduix stable.

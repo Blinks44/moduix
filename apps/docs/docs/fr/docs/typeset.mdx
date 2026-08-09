@@ -57,14 +57,14 @@ Utilisez directement le HTML sémantique lorsque le sous-arbre rendu nécessite 
 à `Typeset.Scroll` lorsque sa zone de défilement a besoin d’un nom ; moduix donne alors le rôle `region` à cette
 enveloppe nommée. Vous pouvez également passer des valeurs personnalisées pour `role` ou `tabIndex`.
 
-### Props par défaut
+### Propriétés par défaut
 
 | Partie | Valeur par défaut | Remarques |
 | --- | --- | --- |
 | `Typeset` | `div` | Utilisez `asChild` avec un seul descendant sémantique pour rendre un autre conteneur. |
 | `Typeset.Scroll` | `div`, `tabIndex={0}` | Le focus par défaut rend un tableau statique débordant accessible au clavier ; un nom accessible transmis ajoute `role="region"`. |
 
-### Remarques sur le comportement
+### Comportement
 
 `Typeset` n’a ni machine à états, ni état contrôlé, ni comportement clavier, ni intégration aux formulaires, ni
 champ masqué. `Typeset.Scroll` constitue l’exception : il peut recevoir le focus au clavier par défaut afin que le
@@ -129,7 +129,7 @@ n’ajoutent que leur propre espacement.
   ```
 </PreviewFrame>
 
-## Mise en forme
+## Styles
 
 ### Propriétés CSS
 
@@ -151,7 +151,7 @@ directement du thème moduix actif. Les règles des éléments se trouvent dans 
 emploient des sélecteurs de faible spécificité `:where()` ; le CSS ordinaire de l’application peut donc remplacer
 certains éléments sans `!important`.
 
-### Hooks de mise en forme
+### Points d’accroche CSS
 
 - `data-slot="typeset"` cible le conteneur racine.
 - `data-slot="typeset-scroll"` cible l’enveloppe de débordement facultative et son état focus-visible.

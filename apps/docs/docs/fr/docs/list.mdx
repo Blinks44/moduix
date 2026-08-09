@@ -6,7 +6,7 @@ description: Un conteneur de liste sémantique avec une composition de type Ark,
 
 import * as ListDocs from '@/components/examples/list';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive de liste dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
@@ -69,7 +69,7 @@ qu’aux éléments directs de la liste.
 | `as`      | `ul`                 | Bascule l’hôte natif de la liste entre `ul` et `ol`.                                            |
 | `asChild` | `false`              | Remplace l’hôte sémantique par l’unique élément enfant fourni par le code appelant.             |
 
-### Notes de comportement
+### Comportement
 
 - Les props de liste ordonnée telles que `start`, `reversed` et `type` sont disponibles avec `as="ol"`.
 - Utilisez `marker="none"` pour masquer les marqueurs tout en conservant la sémantique de liste. Dans ce cas, `List` ajoute `role="list"`, sauf si vous remplacez explicitement `role`.
@@ -150,7 +150,7 @@ l’API CSS publique.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 `List` expose une surface de style volontairement réduite :
 

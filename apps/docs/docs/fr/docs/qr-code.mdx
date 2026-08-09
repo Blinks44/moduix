@@ -6,7 +6,7 @@ description: Primitive de QR code Ark UI avec rendu SVG, superpositions et tél�
 
 import * as QrCodeDocs from '@/components/examples/qr-code';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/qr-code" />
 
@@ -72,7 +72,7 @@ Utilisez `asChild` sur les parties Ark lorsque vous remplacez l’élément hôt
 | `mimeType`     | —           | Requis pour `DownloadTrigger`, par exemple `image/png` ou `image/svg+xml`.       |
 | `quality`      | —           | Qualité facultative de l’image téléchargée.                                      |
 
-### Notes sur le comportement
+### Comportement
 
 Utilisez `value` avec `onValueChange(details)` lorsque l’URL ou le texte encodé doit rester synchronisé avec l’état environnant. La signature du callback correspond à l’objet de détails Ark d’origine.
 
@@ -172,7 +172,7 @@ Remplacez la taille du QR code, le remplissage, la superposition et les styles d
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `QrCode.Root` -> `data-slot="qr-code-root"`
 - `QrCode.RootProvider` -> `data-slot="qr-code-root-provider"`

@@ -6,7 +6,7 @@ description: Un contrôle d’action stylisé construit sur le modèle de compos
 
 import * as ButtonDocs from '@/components/examples/button';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `button` dédiée. Moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
@@ -63,7 +63,7 @@ Lorsque `Dialog.Trigger`, `Menu.Trigger` ou une autre partie Ark compose Button 
 
 Pour la navigation, utilisez un véritable lien. Sur l’hôte `asChild`, les propriétés `disabled`, `loading` et `aria-disabled="true"` ajoutent `aria-disabled`, appliquent les styles de l’état disabled et empêchent l’activation au clic. Elles n’ajoutent pas l’attribut natif `disabled` à un hôte personnalisé.
 
-### Notes sur le comportement
+### Comportement
 
 - Les attributs natifs, `className` et `style` sont transmis sans transformer les callbacks. Les clics sur les éléments racine désactivés sont empêchés.
 - La ref transmise pointe vers l’élément racine affiché.
@@ -137,7 +137,7 @@ Utilisez les variantes pour exprimer la priorité et la fonction d’une action.
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="button-root"` est un sélecteur moduix stable.
 - Les éléments racine autonomes utilisent par défaut `data-scope="button"` et `data-part="root"`. Un parent Ark composé peut les remplacer par ses propres valeurs d’anatomie.

@@ -6,7 +6,7 @@ description: Indicateur de progression circulaire avec une valeur déterminée o
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/progress-circular" />
 
@@ -83,7 +83,7 @@ Utilisez `Circle`, `CircleTrack` et `CircleRange` lorsque vous devez personnalis
 | `formatOptions` | `{ style: 'percent' }` | Contrôle le formatage de `ValueText`.                        |
 | `locale`        | `'en-US'`              | Locale utilisée par `Intl.NumberFormat`.                     |
 
-### Notes sur le comportement
+### Comportement
 
 `ProgressCircular.Circle` reçoit d’Ark le rôle d’indicateur de progression et les attributs ARIA de valeur. Attribuez à `Ring` ou `Circle` un `aria-label` décrivant la tâche ; `ProgressCircular.Label` fournit un contexte visible, mais ne crée pas automatiquement cette association ARIA. Ark gère également les variables SVG de rayon, de circonférence, de pourcentage et de décalage du trait.
 
@@ -187,7 +187,7 @@ Utilisez `className` sur les parties exportées pour les changements structurels
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `data-slot="progress-circular-root"`, `progress-circular-root-provider`, `progress-circular-label`, `progress-circular-circle`, `progress-circular-circle-track`, `progress-circular-circle-range`, `progress-circular-value-text` et `progress-circular-view`.
 - `ProgressCircular.Ring` utilise les mêmes `data-slot`, `className`, ref et variables de taille et d’épaisseur `--moduix-progress-circular-*` que `ProgressCircular.Circle`.

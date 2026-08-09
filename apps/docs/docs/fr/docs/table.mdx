@@ -6,7 +6,7 @@ description: Une primitive de tableau natif avec des facilités légères pour l
 
 import * as TableDocs from '@/components/examples/table';
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `table` dédiée. Moduix construit ce composant avec la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
@@ -106,7 +106,7 @@ Toutes les parties acceptent `className` et les propriétés natives de l’él�
 | `Table.Cell`         | `numeric`          | `false`    | Aligne le contenu à la fin inline et utilise des chiffres tabulaires. |
 | `Table.Empty`        | `colSpan`          | obligatoire | Doit correspondre au nombre actuel de colonnes du corps.       |
 
-### Notes sur le comportement
+### Comportement
 
 - `Table.Empty` affiche une ligne complète pour l’état vide : transmettez donc le nombre de colonnes du corps via
   `colSpan`. Sa ligne expose `data-empty` et ne reçoit ni les rayures ni les styles de survol interactifs.
@@ -247,7 +247,7 @@ que les variables CSS `--moduix-table-*` présentées ci-dessous.
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez la partie responsable de l’aspect visuel concerné :
 

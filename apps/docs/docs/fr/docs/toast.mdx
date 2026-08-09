@@ -8,7 +8,7 @@ import * as ToastDocs from '@/components/examples/toast';
 
 <style>{ToastDocs.toastExampleCss}</style>
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
 
@@ -94,7 +94,7 @@ Si une partie enfant personnalisée a besoin d’accéder directement à l’ét
 | `createToaster.placement` | `"bottom"` | Placements Ark disponibles : `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
 | `createToaster.removeDelay` | `200` | Conserve les notifications fermées dans le DOM assez longtemps pour l’animation de sortie. |
 
-### Notes sur le comportement
+### Comportement
 
 - Utilisez `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
   `promise()`, `update()`, `dismiss()`, `remove()` et `dismissByPlacement()` directement depuis le gestionnaire
@@ -215,7 +215,7 @@ Personnalisez `Toast` avec les attributs de parties Ark, les hooks `data-slot` e
   </Tabs>
 </div>
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez `Toast` pour la surface, la bordure, l’animation, les variantes par type et les variables d’exécution Ark.
 Utilisez `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` et `Toast.CloseTrigger` pour la typographie et les

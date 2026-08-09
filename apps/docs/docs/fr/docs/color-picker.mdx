@@ -6,7 +6,7 @@ description: Un sélecteur de couleur Ark UI composé pour les champs de couleur
 
 import * as ColorPickerDocs from '@/components/examples/color-picker';
 
-## Référence API
+## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
 
@@ -130,7 +130,7 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 | `ColorPicker.SwatchIndicator`               | icône de confirmation moduix | Utilisée en l’absence d’enfants. |
 | largeur de `ColorPicker`                    | `16rem` (max. `100%`) | Largeur standard du composant racine stylé. |
 
-### Notes sur le comportement
+### Comportement
 
 - `value` et `defaultValue` utilisent des objets Ark `Color`. Pour les chaînes, utilisez `parseColor()`.
 - `onValueChange(details)` et `onValueChangeEnd(details)` conservent les objets de détails Ark.
@@ -335,7 +335,7 @@ Stylez `ColorPicker` avec `className`, les hooks stables `data-slot="color-picke
 
 <CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
 
-### Hooks de style
+### Points d’accroche CSS
 
 Utilisez la partie qui contrôle l’aspect visuel concerné :
 

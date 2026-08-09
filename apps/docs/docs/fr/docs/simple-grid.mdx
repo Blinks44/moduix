@@ -4,7 +4,7 @@ component: simple-grid
 description: Une grille de colonnes égales inspirée d’Ark UI qui s’adapte automatiquement à la largeur disponible.
 ---
 
-## Référence API
+## Référence de l’API
 
 Ark UI ne fournit pas de primitive `simple-grid` dédiée. Moduix construit ce composant avec la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
@@ -74,7 +74,7 @@ pas `columns` ni `minChildWidth` si `grid-template-columns` est défini dans une
 | `columnGap`      | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
 | `asChild`        | `false`                   | Composition de la fabrique Ark avec un seul enfant sémantique           |
 
-### Notes sur le comportement
+### Comportement
 
 - Si les deux propriétés de mise en page sont transmises, `minChildWidth` prend le pas sur `columns`.
 - `columns={3}` crée trois pistes égales sans ajouter d’enveloppe autour des enfants.
@@ -108,7 +108,7 @@ Associez les colonnes internes à `asChild` d’Ark lorsque la grille de médias
 `SimpleGrid` ne possède pas de variables CSS propres au composant ; une référence CSS dédiée n’est donc pas
 nécessaire. Les propriétés de mise en page sont écrites dans les styles inline de l’élément racine.
 
-### Hooks de style
+### Points d’accroche CSS
 
 - `className` permet de styliser l’unique racine : largeur, positionnement, arrière-plan et mise en page adaptative
   lorsque `columns` et `minChildWidth` ne sont pas transmis.
