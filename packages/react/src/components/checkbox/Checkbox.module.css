@@ -4,7 +4,10 @@
     align-items: center;
     gap: var(--moduix-checkbox-gap, var(--moduix-spacing-2));
     vertical-align: middle;
-    color: var(--moduix-checkbox-label-color, var(--moduix-color-foreground));
+    color: var(
+      --moduix-checkbox-label-color,
+      var(--moduix-checkbox-group-color, var(--moduix-color-foreground))
+    );
     cursor: pointer;
 
     &[data-disabled],
@@ -66,13 +69,33 @@
       }
 
       &[data-focus-visible] {
-        outline-color: var(--moduix-checkbox-border-color-invalid, var(--moduix-color-destructive));
+        outline-color: var(
+          --moduix-checkbox-focus-ring-color-invalid,
+          var(--moduix-checkbox-border-color-invalid, var(--moduix-color-destructive))
+        );
       }
     }
 
     @media (hover: hover) {
       &[data-state='unchecked'][data-hover]:not([data-readonly], [data-disabled]) {
         background-color: var(--moduix-checkbox-bg-hover, var(--moduix-color-accent));
+      }
+
+      &:is([data-state='checked'], [data-state='indeterminate'])[data-hover]:not(
+        [data-readonly],
+        [data-disabled]
+      ) {
+        background-color: var(
+          --moduix-checkbox-bg-checked-hover,
+          var(--moduix-checkbox-bg-checked, var(--moduix-color-primary))
+        );
+
+        &[data-invalid] {
+          background-color: var(
+            --moduix-checkbox-bg-invalid-hover,
+            var(--moduix-checkbox-bg-invalid, var(--moduix-color-destructive))
+          );
+        }
       }
     }
   }
@@ -127,7 +150,10 @@
   }
 
   .label {
-    color: var(--moduix-checkbox-label-color, var(--moduix-color-foreground));
+    color: var(
+      --moduix-checkbox-label-color,
+      var(--moduix-checkbox-group-color, var(--moduix-color-foreground))
+    );
     font-size: var(--moduix-checkbox-label-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-checkbox-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-checkbox-label-line-height, var(--moduix-line-height-text-sm));

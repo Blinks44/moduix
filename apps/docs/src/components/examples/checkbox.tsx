@@ -12,6 +12,11 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
     'Controls checked background color.',
   ],
   [
+    '--moduix-checkbox-bg-checked-hover',
+    'var(--moduix-checkbox-bg-checked, var(--moduix-color-primary))',
+    'Controls checked and indeterminate hover background color.',
+  ],
+  [
     '--moduix-checkbox-bg-hover',
     'var(--moduix-color-accent)',
     'Controls unchecked hover background color.',
@@ -20,6 +25,11 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-checkbox-bg-invalid',
     'var(--moduix-color-destructive)',
     'Controls checked invalid background color.',
+  ],
+  [
+    '--moduix-checkbox-bg-invalid-hover',
+    'var(--moduix-checkbox-bg-invalid, var(--moduix-color-destructive))',
+    'Controls checked invalid hover background color.',
   ],
   [
     '--moduix-checkbox-border-color',
@@ -34,7 +44,7 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-checkbox-border-color-invalid',
     'var(--moduix-color-destructive)',
-    'Controls invalid border and focus ring color.',
+    'Controls invalid border color.',
   ],
   [
     '--moduix-checkbox-border-width',
@@ -57,6 +67,11 @@ export const checkboxOverrideCssProperties: CssPropertyInput[] = [
     'Controls disabled opacity.',
   ],
   ['--moduix-checkbox-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-checkbox-focus-ring-color-invalid',
+    'var(--moduix-checkbox-border-color-invalid, var(--moduix-color-destructive))',
+    'Controls invalid focus ring color.',
+  ],
   [
     '--moduix-checkbox-focus-ring-offset',
     'var(--moduix-border-width-sm)',

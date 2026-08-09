@@ -159,6 +159,32 @@ export const ReadOnly: Story = {
   ),
 };
 
+export const Invalid: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      <CheckboxItem invalid required>
+        Accept the data processing terms
+      </CheckboxItem>
+      <CheckboxItem defaultChecked invalid>
+        Keep the invalid selection
+      </CheckboxItem>
+    </div>
+  ),
+};
+
+export const ContentResilience: Story = {
+  render: () => (
+    <div className={styles.narrow}>
+      <CheckboxItem defaultChecked>
+        Email me a weekly summary of security, billing, and workspace activity
+      </CheckboxItem>
+      <CheckboxItem>
+        Allow administrators to contact me when an account setting needs attention
+      </CheckboxItem>
+    </div>
+  ),
+};
+
 export const CustomIndicator: Story = {
   render: () => (
     <CheckboxItem defaultChecked indicator="custom">

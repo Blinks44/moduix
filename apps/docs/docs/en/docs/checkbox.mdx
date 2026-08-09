@@ -6,6 +6,10 @@ description: A composable checkbox primitive for standalone and grouped selectio
 
 import * as CheckboxDocs from '@/components/examples/checkbox';
 
+`Checkbox` lets people select one or more independent options in forms, settings, and filter lists.
+Use `RadioGroup` when exactly one option must be chosen, or `Switch` when a setting takes effect
+immediately.
+
 ## API Reference
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
@@ -95,6 +99,9 @@ internal.
 
 Ark `Checkbox.Root` renders a `label`. If you use `asChild`, the direct child must also be a
 semantic `label`, otherwise the checkbox no longer has valid form-control labelling.
+
+When `readOnly` is set, moduix mirrors that state to `aria-readonly` on the automatic native input
+while Ark prevents interaction.
 
 Refs target the matching Ark DOM part. A focused checkbox toggles with <kbd>Space</kbd>.
 

@@ -6,6 +6,10 @@ description: Une primitive de case à cocher composable pour les sélections ind
 
 import * as CheckboxDocs from '@/components/examples/checkbox';
 
+`Checkbox` permet de sélectionner une ou plusieurs options indépendantes dans les formulaires, les
+réglages et les listes de filtres. Utilisez `RadioGroup` lorsqu’un seul choix est autorisé, ou
+`Switch` lorsqu’un réglage doit s’appliquer immédiatement.
+
 ## Référence de l’API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
@@ -95,6 +99,9 @@ le champ de saisie masqué reste interne.
 
 `Checkbox.Root` d’Ark rend un `label`. Avec `asChild`, l’enfant direct doit lui aussi être un `label` sémantique,
 sinon la case à cocher ne disposera plus d’un libellé de formulaire correct.
+
+Lorsque `readOnly` est défini, moduix reflète aussi cet état avec `aria-readonly` sur le champ natif
+automatique, tandis qu’Ark bloque l’interaction.
 
 La ref pointe vers la partie DOM correspondante d’Ark. Une case à cocher qui a le focus bascule avec la touche <kbd>Espace</kbd>.
 

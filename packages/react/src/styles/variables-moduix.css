@@ -406,8 +406,10 @@
   /* Checkbox */
   --moduix-checkbox-bg: initial; /* var(--moduix-color-background) */
   --moduix-checkbox-bg-checked: initial; /* var(--moduix-color-primary) */
+  --moduix-checkbox-bg-checked-hover: initial; /* var(--moduix-checkbox-bg-checked, var(--moduix-color-primary)) */
   --moduix-checkbox-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-checkbox-bg-invalid: initial; /* var(--moduix-color-destructive) */
+  --moduix-checkbox-bg-invalid-hover: initial; /* var(--moduix-checkbox-bg-invalid, var(--moduix-color-destructive)) */
   --moduix-checkbox-border-color: initial; /* var(--moduix-color-border) */
   --moduix-checkbox-border-color-checked: initial; /* var(--moduix-color-primary) */
   --moduix-checkbox-border-color-invalid: initial; /* var(--moduix-color-destructive) */
@@ -416,6 +418,7 @@
   --moduix-checkbox-color-invalid: initial; /* var(--moduix-color-destructive-foreground) */
   --moduix-checkbox-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-checkbox-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-checkbox-focus-ring-color-invalid: initial; /* var(--moduix-checkbox-border-color-invalid, var(--moduix-color-destructive)) */
   --moduix-checkbox-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
   --moduix-checkbox-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-checkbox-gap: initial; /* var(--moduix-spacing-2) */

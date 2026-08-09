@@ -6,6 +6,10 @@ description: Компонуемый примитив флажка для оди�
 
 import * as CheckboxDocs from '@/components/examples/checkbox';
 
+`Checkbox` позволяет выбирать один или несколько независимых вариантов в формах, настройках и
+списках фильтров. Используйте `RadioGroup`, когда можно выбрать только один вариант, а `Switch` —
+когда настройка должна применяться сразу.
+
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
@@ -95,6 +99,9 @@ Checkbox.Group
 
 Ark `Checkbox.Root` отрисовывает `label`. Если используется `asChild`, непосредственный дочерний элемент также должен быть
 семантическим `label`, иначе checkbox больше не будет иметь корректной метки элемента формы.
+
+При `readOnly` moduix также устанавливает `aria-readonly` на автоматически добавленном нативном
+поле, а Ark блокирует взаимодействие.
 
 Ref указывает на соответствующую часть DOM Ark. Checkbox в фокусе переключается клавишей <kbd>Space</kbd>.
 
