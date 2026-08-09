@@ -77,6 +77,8 @@ dismissal state and focus lifecycle.
   name.
 - Native `disabled` and `aria-disabled="true"` expose `data-disabled` for Ark-style state
   targeting and suppress click activation.
+- With `asChild`, `disabled` does not add a native `disabled` attribute to the custom host. It
+  adds `aria-disabled="true"` and `data-disabled`, then suppresses click activation.
 - The previous `render`, `nativeButton`, and `focusableWhenDisabled` props are removed.
 - `CloseButton.Root` is available as the equivalent Ark-aligned namespace form.
 

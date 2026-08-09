@@ -77,6 +77,9 @@ CloseButton / CloseButton.Root
   интерфейса.
 - Нативные `disabled` и `aria-disabled="true"` предоставляют `data-disabled` для стилизации состояния
   в стиле Ark и подавляют активацию по клику.
+- При `asChild` свойство `disabled` не добавляет нативный атрибут `disabled` к пользовательскому
+  элементу. Вместо этого добавляются `aria-disabled="true"` и `data-disabled`, а активация по
+  клику блокируется.
 - Предыдущие пропы `render`, `nativeButton` и `focusableWhenDisabled` удалены.
 - `CloseButton.Root` доступен как эквивалентная форма пространства имён, согласованная с Ark.
 
@@ -103,8 +106,8 @@ CloseButton / CloseButton.Root
 
 ### Отключённое состояние
 
-Используйте нативный `disabled` для обычных кнопок или `aria-disabled="true` when элемент управления должен оставаться
-доступным для обнаружения, но не принимать активацию.
+Используйте нативный `disabled` для обычных кнопок или `aria-disabled="true"`, когда элемент управления должен
+оставаться доступным для обнаружения, но не принимать активацию.
 
 ```tsx preview file="../../en/docs/_snippets/close-button/disabled-state.tsx"
 

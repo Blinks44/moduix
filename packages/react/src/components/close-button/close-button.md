@@ -1,10 +1,12 @@
 # CloseButton
 
-Upstream docs:
+Upstream docs (reviewed 2026-08-09):
 
 - Ark UI Composition: https://ark-ui.com/docs/guides/composition
 - Ark UI Styling: https://ark-ui.com/docs/guides/styling
+- Ark UI Ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/close-button
+- shadcn/ui Button: https://ui.shadcn.com/docs/components/button
 
 ## Purpose
 
@@ -31,10 +33,20 @@ model through `@ark-ui/react/factory`:
 - Omitting `aria-label` and `aria-labelledby` adds `aria-label="Close"`, including for custom
   icon children.
 - `disabled` and `aria-disabled="true"` expose `data-disabled`.
+- On an `asChild` host, `disabled` adds `aria-disabled="true"` and `data-disabled` but never
+  forwards a native `disabled` attribute; click activation remains blocked.
 - When a parent Ark part composes `CloseButton` through `asChild`, the parent's `data-scope`,
   `data-part`, `data-slot`, and `data-disabled` hooks remain on the DOM node. `CloseButton`
   contributes its button styling and disabled click protection without replacing that anatomy.
 - legacy `render`, `nativeButton`, and `focusableWhenDisabled` are not supported.
+
+## Upstream comparison
+
+| Source    | Relevant difference                                                                          | Moduix decision                                                                                                         |
+| --------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | No dedicated close-button primitive; the factory supplies composition, refs, and data hooks. | **Required correctness:** preserve the factory root, one semantic child for `asChild`, and ref/data-attribute behavior. |
+| Chakra UI | Provides a dedicated close-button recipe.                                                    | **Intentional difference:** retain a root-only API and CSS-variable theming instead of recipe variants.                 |
+| shadcn/ui | Uses an icon-sized generic Button rather than a dedicated close button.                      | **Intentional difference:** keep `CloseButton` discoverable with its default glyph and accessible-name fallback.        |
 
 ## Anatomy and exported parts
 
@@ -85,8 +97,10 @@ icon content because the single child is the composed root:
   provided. Pass a surface-specific label in product UI.
 - Falsy children render the default decorative close icon so conditional icon content cannot leave
   an empty button.
-- Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling. An inherited
-  parent `data-disabled` state is preserved and prevents activation as well.
+- Native `disabled` and `aria-disabled="true"` map to `data-disabled` for styling. On an
+  `asChild` host, `disabled` is represented by `aria-disabled="true"` rather than a native
+  attribute. An inherited parent `data-disabled` state is preserved and prevents activation as
+  well.
 - `aria-disabled="true"` suppresses the root click handler and prevents default activation.
 - The component does not manage overlay state, escape handling, focus return, or dismissal
   callbacks.
@@ -138,6 +152,9 @@ consumer or parent component's `transform` (for example, vertical centering) ins
 - Do not reintroduce legacy render props.
 
 ## Local changelog
+
+- 2026-08-09: Kept disabled `asChild` hosts semantic by omitting native `disabled`, adding
+  `aria-disabled`, and blocking child click handlers during capture.
 
 - 2026-07-27: Kept press feedback transform-safe by using individual `translate` and `scale`
   properties, so composed close controls retain parent positioning transforms.

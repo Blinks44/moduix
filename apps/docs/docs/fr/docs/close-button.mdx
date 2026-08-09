@@ -71,6 +71,7 @@ l’état de fermeture et le cycle de vie du focus.
 - `CloseButton` ne ferme rien par lui-même ; associez-lui un `onClick` ou utilisez le déclencheur de fermeture d’une superposition.
 - Le libellé de repli est `Close` ; transmettez `aria-label` ou `aria-labelledby` pour fournir un libellé adapté à la surface de l’interface.
 - Les états natifs `disabled` et `aria-disabled="true"` fournissent `data-disabled` pour la mise en forme de l’état à la manière d’Ark et empêchent l’activation par clic.
+- Avec `asChild`, `disabled` n’ajoute pas d’attribut natif `disabled` à l’hôte personnalisé. Il ajoute `aria-disabled="true"` et `data-disabled`, puis empêche l’activation par clic.
 - Les anciennes props `render`, `nativeButton` et `focusableWhenDisabled` ont été supprimées.
 - `CloseButton.Root` est disponible comme forme équivalente dans l’espace de noms, conformément à Ark.
 
