@@ -136,6 +136,35 @@ export const Sizes: Story = {
   },
 };
 
+export const ContentStress: Story = {
+  render: () => {
+    return (
+      <Card className={styles.card}>
+        <Card.Header>
+          <Card.Title>
+            Production-readiness-review-for-the-international-warehouse-platform
+          </Card.Title>
+          <Card.Description>
+            A deliberately long description verifies wrapping at narrow widths and increased text
+            scaling without forcing the trailing content outside the card.
+          </Card.Description>
+          <Card.Action>
+            <Badge variant="secondary">Needs review</Badge>
+          </Card.Action>
+        </Card.Header>
+        <Card.Body>
+          Owners in logistics, reliability engineering, and customer support are coordinating the
+          final rollout window.
+        </Card.Body>
+        <Card.Footer>
+          <Button variant="outline">Review dependencies</Button>
+          <Button>Approve rollout</Button>
+        </Card.Footer>
+      </Card>
+    );
+  },
+};
+
 export const WithinForm: Story = {
   render: () => {
     return (

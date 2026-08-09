@@ -94,6 +94,7 @@ in the title, then extends the hit area across the card while separate controls 
 - All parts accept native props, `className`, `style`, and Ark factory `asChild`.
 - `Card.Media` is optional sugar. Omit it when you need fully custom media framing or non-leading placement.
 - `Card.Title` renders `h3` by default.
+- Interactive roots created with `asChild` and `Card.Link` receive the same themeable `:focus-visible` ring.
 - Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
 - `Card.Body` resets first and last direct-child margins.
 - `--moduix-card-spacing`, `--moduix-card-spacing-sm`, and `--moduix-card-spacing-lg` control shared inset and section spacing without replacing the narrower `--moduix-card-*` overrides.
@@ -218,4 +219,6 @@ Bypass `Card.Media` when you need fully custom media framing and want to restyle
   `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
 - The root exposes `data-size="sm | md | lg"` and
   `data-variant="elevated | outline | subtle"`.
+- Component-wide `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*`, and
+  `--moduix-card-shadow` overrides take precedence over the matching variant-specific variables.
 - Card has no interactive state attributes because it does not own state or behavior.

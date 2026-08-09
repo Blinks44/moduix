@@ -27,6 +27,31 @@ export const cardOverrideCssProperties: CssProperty[] = [
     description: 'Controls compact-card shared inset and section spacing.',
   },
   {
+    name: '--moduix-card-subtle-bg',
+    defaultValue: 'var(--moduix-color-muted)',
+    description: 'Controls the subtle variant background color.',
+  },
+  {
+    name: '--moduix-card-subtle-border-color',
+    defaultValue: 'transparent',
+    description: 'Controls the subtle variant border color.',
+  },
+  {
+    name: '--moduix-card-subtle-border-width',
+    defaultValue: '0',
+    description: 'Controls the subtle variant border width.',
+  },
+  {
+    name: '--moduix-card-subtle-color',
+    defaultValue: 'var(--moduix-color-card-foreground)',
+    description: 'Controls the subtle variant foreground color.',
+  },
+  {
+    name: '--moduix-card-subtle-shadow',
+    defaultValue: 'none',
+    description: 'Controls the subtle variant shadow.',
+  },
+  {
     name: '--moduix-card-border-color',
     defaultValue: 'var(--moduix-color-border)',
     description: 'Controls card border color.',
@@ -77,6 +102,31 @@ export const cardOverrideCssProperties: CssProperty[] = [
     description: 'Controls `Card.Description` line height.',
   },
   {
+    name: '--moduix-card-elevated-bg',
+    defaultValue: 'var(--moduix-color-card)',
+    description: 'Controls the elevated variant background color.',
+  },
+  {
+    name: '--moduix-card-elevated-border-color',
+    defaultValue: 'transparent',
+    description: 'Controls the elevated variant border color.',
+  },
+  {
+    name: '--moduix-card-elevated-border-width',
+    defaultValue: '0',
+    description: 'Controls the elevated variant border width.',
+  },
+  {
+    name: '--moduix-card-elevated-color',
+    defaultValue: 'var(--moduix-color-card-foreground)',
+    description: 'Controls the elevated variant foreground color.',
+  },
+  {
+    name: '--moduix-card-elevated-shadow',
+    defaultValue: 'var(--moduix-shadow-md)',
+    description: 'Controls the elevated variant shadow.',
+  },
+  {
     name: '--moduix-card-footer-gap',
     defaultValue: 'var(--moduix-spacing-2)',
     description: 'Controls `Card.Footer` spacing.',
@@ -84,22 +134,47 @@ export const cardOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-card-focus-ring-color',
     defaultValue: 'var(--moduix-color-ring)',
-    description: 'Controls `Card.Link` focus ring color.',
+    description: 'Controls interactive root and `Card.Link` focus ring color.',
   },
   {
     name: '--moduix-card-focus-ring-offset',
     defaultValue: 'var(--moduix-border-width-sm)',
-    description: 'Controls `Card.Link` focus ring offset.',
+    description: 'Controls interactive root and `Card.Link` focus ring offset.',
   },
   {
     name: '--moduix-card-focus-ring-width',
     defaultValue: 'var(--moduix-border-width-md)',
-    description: 'Controls `Card.Link` focus ring width.',
+    description: 'Controls interactive root and `Card.Link` focus ring width.',
   },
   {
     name: '--moduix-card-header-gap',
     defaultValue: 'var(--moduix-spacing-1)',
     description: 'Controls spacing inside `Card.Header`.',
+  },
+  {
+    name: '--moduix-card-outline-bg',
+    defaultValue: 'var(--moduix-color-card)',
+    description: 'Controls the outline variant background color.',
+  },
+  {
+    name: '--moduix-card-outline-border-color',
+    defaultValue: 'var(--moduix-color-border)',
+    description: 'Controls the outline variant border color.',
+  },
+  {
+    name: '--moduix-card-outline-border-width',
+    defaultValue: 'var(--moduix-border-width-sm)',
+    description: 'Controls the outline variant border width.',
+  },
+  {
+    name: '--moduix-card-outline-color',
+    defaultValue: 'var(--moduix-color-card-foreground)',
+    description: 'Controls the outline variant foreground color.',
+  },
+  {
+    name: '--moduix-card-outline-shadow',
+    defaultValue: 'none',
+    description: 'Controls the outline variant shadow.',
   },
   {
     name: '--moduix-card-padding',

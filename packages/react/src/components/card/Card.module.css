@@ -24,14 +24,27 @@
         --moduix-card-border-width,
         var(--_card-border-width-default, var(--moduix-border-width-sm))
       )
-      solid var(--moduix-card-border-color, var(--moduix-color-border));
+      solid
+      var(--moduix-card-border-color, var(--_card-border-color-default, var(--moduix-color-border)));
     border-radius: var(--moduix-card-radius, var(--moduix-radius-lg));
     background-color: var(--moduix-card-bg, var(--_card-bg-default, var(--moduix-color-card)));
-    color: var(--moduix-card-color, var(--moduix-color-card-foreground));
+    color: var(
+      --moduix-card-color,
+      var(--_card-color-default, var(--moduix-color-card-foreground))
+    );
     box-shadow: var(--moduix-card-shadow, var(--_card-shadow-default, none));
 
     &:where(a) {
       text-decoration: none;
+    }
+
+    &:is(a, button, [role='button'], [tabindex]:not([tabindex='-1'])):focus-visible {
+      outline: var(
+          --moduix-card-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-card-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-card-focus-ring-offset, var(--moduix-border-width-sm));
     }
 
     &[data-size='sm'] {
@@ -67,13 +80,33 @@
     }
 
     &[data-variant='elevated'] {
-      --_card-border-width-default: 0;
-      --_card-shadow-default: var(--moduix-shadow-md);
+      --_card-bg-default: var(--moduix-card-elevated-bg, var(--moduix-color-card));
+      --_card-border-color-default: var(--moduix-card-elevated-border-color, transparent);
+      --_card-border-width-default: var(--moduix-card-elevated-border-width, 0);
+      --_card-color-default: var(--moduix-card-elevated-color, var(--moduix-color-card-foreground));
+      --_card-shadow-default: var(--moduix-card-elevated-shadow, var(--moduix-shadow-md));
+    }
+
+    &[data-variant='outline'] {
+      --_card-bg-default: var(--moduix-card-outline-bg, var(--moduix-color-card));
+      --_card-border-color-default: var(
+        --moduix-card-outline-border-color,
+        var(--moduix-color-border)
+      );
+      --_card-border-width-default: var(
+        --moduix-card-outline-border-width,
+        var(--moduix-border-width-sm)
+      );
+      --_card-color-default: var(--moduix-card-outline-color, var(--moduix-color-card-foreground));
+      --_card-shadow-default: var(--moduix-card-outline-shadow, none);
     }
 
     &[data-variant='subtle'] {
-      --_card-border-width-default: 0;
-      --_card-bg-default: var(--moduix-color-muted);
+      --_card-bg-default: var(--moduix-card-subtle-bg, var(--moduix-color-muted));
+      --_card-border-color-default: var(--moduix-card-subtle-border-color, transparent);
+      --_card-border-width-default: var(--moduix-card-subtle-border-width, 0);
+      --_card-color-default: var(--moduix-card-subtle-color, var(--moduix-color-card-foreground));
+      --_card-shadow-default: var(--moduix-card-subtle-shadow, none);
     }
 
     &:has([data-scope='card'][data-part='link'])

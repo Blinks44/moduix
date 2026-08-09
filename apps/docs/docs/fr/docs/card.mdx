@@ -91,6 +91,7 @@ mais sa zone cliquable s’étend à toute la carte sans recouvrir les élément
 - Toutes les parties acceptent les propriétés natives, `className`, `style` et la propriété `asChild` de l’Ark factory.
 - `Card.Media` est une enveloppe de commodité facultative. Ne l’utilisez pas si le média nécessite ses propres styles ou s’il n’apparaît pas au début de la carte.
 - `Card.Title` rend un `h3` par défaut.
+- Les racines interactives créées avec `asChild` et `Card.Link` reçoivent le même anneau `:focus-visible` personnalisable.
 - Card ne gère ni état, ni callbacks, ni comportement clavier, ni provider, ni contexte, ni champ de saisie masqué.
 - `Card.Body` réinitialise les marges externes du premier et du dernier enfant direct.
 - `--moduix-card-spacing`, `--moduix-card-spacing-sm` et `--moduix-card-spacing-lg` contrôlent les espacements intérieurs communs et l’écart entre les sections, sans remplacer les redéfinitions `--moduix-card-*` plus ciblées.
@@ -215,4 +216,6 @@ N’utilisez pas `Card.Media` si vous devez contrôler entièrement la présenta
   `card-footer`, `card-title`, `card-description`, `card-action` et `card-link`.
 - Le composant racine fournit `data-size="sm | md | lg"` et
   `data-variant="elevated | outline | subtle"`.
+- Les redéfinitions globales `--moduix-card-bg`, `--moduix-card-color`, `--moduix-card-border-*` et
+  `--moduix-card-shadow` ont priorité sur les variables correspondantes propres à chaque variante.
 - Card ne possède aucun attribut d’état interactif, car il ne gère ni état ni comportement.

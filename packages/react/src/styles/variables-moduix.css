@@ -366,17 +366,32 @@
   --moduix-card-description-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-card-description-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-card-description-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-card-elevated-bg: initial; /* var(--moduix-color-card) */
+  --moduix-card-elevated-border-color: initial; /* transparent */
+  --moduix-card-elevated-border-width: initial; /* 0 */
+  --moduix-card-elevated-color: initial; /* var(--moduix-color-card-foreground) */
+  --moduix-card-elevated-shadow: initial; /* var(--moduix-shadow-md) */
   --moduix-card-footer-gap: initial; /* var(--moduix-spacing-2) */
   --moduix-card-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-card-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
   --moduix-card-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-card-header-gap: initial; /* var(--moduix-spacing-1) */
+  --moduix-card-outline-bg: initial; /* var(--moduix-color-card) */
+  --moduix-card-outline-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-card-outline-border-width: initial; /* var(--moduix-border-width-sm) */
+  --moduix-card-outline-color: initial; /* var(--moduix-color-card-foreground) */
+  --moduix-card-outline-shadow: initial; /* none */
   --moduix-card-padding: initial; /* var(--moduix-spacing-6) */
   --moduix-card-padding-lg: initial; /* var(--moduix-spacing-8) */
   --moduix-card-padding-sm: initial; /* var(--moduix-spacing-4) */
   --moduix-card-spacing: initial; /* var(--moduix-card-padding, var(--moduix-spacing-6)) */
   --moduix-card-spacing-lg: initial; /* var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8))) */
   --moduix-card-spacing-sm: initial; /* var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4))) */
+  --moduix-card-subtle-bg: initial; /* var(--moduix-color-muted) */
+  --moduix-card-subtle-border-color: initial; /* transparent */
+  --moduix-card-subtle-border-width: initial; /* 0 */
+  --moduix-card-subtle-color: initial; /* var(--moduix-color-card-foreground) */
+  --moduix-card-subtle-shadow: initial; /* none */
   --moduix-card-radius: initial; /* var(--moduix-radius-lg) */
   --moduix-card-shadow: initial; /* none */
   --moduix-card-title-color: initial; /* currentColor */

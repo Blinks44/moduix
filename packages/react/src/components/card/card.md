@@ -6,6 +6,9 @@ Upstream docs:
 - Ark UI styling: https://ark-ui.com/docs/guides/styling
 - Ark UI refs: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/card
+- shadcn/ui: https://ui.shadcn.com/docs/components/card
+
+Reviewed on 2026-08-09.
 
 ## Purpose
 
@@ -23,6 +26,16 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
   `data-scope` / `data-part` hooks for parts, and forwarded refs to rendered elements.
 - Keeps Ark-style DOM ownership through `asChild` while leaving card state and workflow logic
   outside the component.
+
+Release comparison:
+
+| Source    | Useful difference                                                                                           | Decision                                                                              |
+| --------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Ark UI    | Factory parts preserve `asChild`, merged props, and rendered-element refs.                                  | Required correctness; preserved.                                                      |
+| Chakra UI | `sm` / `md` / `lg` sizes and `elevated` / `outline` / `subtle` variants form a compact recipe contract.     | Consumer friction; preserved with independent variant CSS variables.                  |
+| shadcn/ui | A header action, shared spacing hook, and explicit image composition are easy to discover.                  | Optional sugar; covered by `Card.Action`, `--moduix-card-spacing*`, and `Card.Media`. |
+| moduix    | A namespaced API and `Card.Body` fit adjacent components better than flat shadcn exports and `CardContent`. | Intentional difference.                                                               |
+| Chakra UI | An `unstyled` prop would create a parallel styling mode.                                                    | Rejected complexity; use parts, `className`, and CSS variables instead.               |
 
 ## Current behavior contract
 
@@ -171,6 +184,8 @@ Decision guide:
 - `Card.Action` is layout only and does not create ownership or ARIA relationships.
 - `Card.Link` owns the overlay click target and focus ring for the linked-card stretched-link
   pattern.
+- When `Card.Root asChild` renders an interactive anchor, button, role button, or focusable custom
+  element, the root owns the same visible focus-ring contract as `Card.Link`.
 - Card has no managed state, callback details, provider/context API, form context integration,
   `HiddenInput`, or runtime CSS variables because it is not an interactive Ark primitive.
 
@@ -183,41 +198,56 @@ Decision guide:
 
 Public CSS variables:
 
-| Variable                                | Default/fallback                                                                     | Applies to         |
-| --------------------------------------- | ------------------------------------------------------------------------------------ | ------------------ |
-| `--moduix-card-action-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Action`      |
-| `--moduix-card-bg`                      | `var(--moduix-color-card)`                                                           | `Card.Root`        |
-| `--moduix-card-spacing`                 | size-specific fallback                                                               | `Card.Root`        |
-| `--moduix-card-spacing-lg`              | `var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))` | `Card.Root`        |
-| `--moduix-card-spacing-sm`              | `var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))` | `Card.Root`        |
-| `--moduix-card-body-color`              | `var(--moduix-color-muted-foreground)`                                               | `Card.Body`        |
-| `--moduix-card-body-font-size`          | `var(--moduix-text-sm)`                                                              | `Card.Body`        |
-| `--moduix-card-body-line-height`        | `var(--moduix-line-height-text-sm)`                                                  | `Card.Body`        |
-| `--moduix-card-body-padding-top`        | `var(--moduix-spacing-4)`                                                            | `Card.Body`        |
-| `--moduix-card-border-color`            | `var(--moduix-color-border)`                                                         | `Card.Root`        |
-| `--moduix-card-border-width`            | `var(--moduix-border-width-sm)`                                                      | `Card.Root`        |
-| `--moduix-card-color`                   | `var(--moduix-color-card-foreground)`                                                | `Card.Root`        |
-| `--moduix-card-description-color`       | `var(--moduix-color-muted-foreground)`                                               | `Card.Description` |
-| `--moduix-card-description-font-size`   | `var(--moduix-text-sm)`                                                              | `Card.Description` |
-| `--moduix-card-description-line-height` | `var(--moduix-line-height-text-sm)`                                                  | `Card.Description` |
-| `--moduix-card-footer-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Footer`      |
-| `--moduix-card-focus-ring-color`        | `var(--moduix-color-ring)`                                                           | `Card.Link`        |
-| `--moduix-card-focus-ring-offset`       | `var(--moduix-border-width-sm)`                                                      | `Card.Link`        |
-| `--moduix-card-focus-ring-width`        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                      | `Card.Link`        |
-| `--moduix-card-header-gap`              | `var(--moduix-spacing-1)`                                                            | `Card.Header`      |
-| `--moduix-card-padding`                 | `var(--moduix-spacing-6)`                                                            | `Card.Root`        |
-| `--moduix-card-padding-lg`              | `var(--moduix-spacing-8)`                                                            | `Card.Root`        |
-| `--moduix-card-padding-sm`              | `var(--moduix-spacing-4)`                                                            | `Card.Root`        |
-| `--moduix-card-radius`                  | `var(--moduix-radius-lg)`                                                            | `Card.Root`        |
-| `--moduix-card-shadow`                  | `none`                                                                               | `Card.Root`        |
-| `--moduix-card-title-color`             | `currentColor`                                                                       | `Card.Title`       |
-| `--moduix-card-title-font-size`         | `var(--moduix-text-lg)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-size-lg`      | `var(--moduix-text-xl)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-size-sm`      | `var(--moduix-text-md)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-weight`       | `var(--moduix-weight-semibold)`                                                      | `Card.Title`       |
-| `--moduix-card-title-line-height`       | `var(--moduix-line-height-text-lg)`                                                  | `Card.Title`       |
-| `--moduix-card-title-line-height-lg`    | `var(--moduix-line-height-text-xl)`                                                  | `Card.Title`       |
-| `--moduix-card-title-line-height-sm`    | `var(--moduix-line-height-text-md)`                                                  | `Card.Title`       |
+| Variable                                | Default/fallback                                                                     | Applies to                     |
+| --------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
+| `--moduix-card-action-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Action`                  |
+| `--moduix-card-bg`                      | `var(--moduix-color-card)`                                                           | `Card.Root`                    |
+| `--moduix-card-spacing`                 | size-specific fallback                                                               | `Card.Root`                    |
+| `--moduix-card-spacing-lg`              | `var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))` | `Card.Root`                    |
+| `--moduix-card-spacing-sm`              | `var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))` | `Card.Root`                    |
+| `--moduix-card-subtle-bg`               | `var(--moduix-color-muted)`                                                          | subtle root                    |
+| `--moduix-card-subtle-border-color`     | `transparent`                                                                        | subtle root                    |
+| `--moduix-card-subtle-border-width`     | `0`                                                                                  | subtle root                    |
+| `--moduix-card-subtle-color`            | `var(--moduix-color-card-foreground)`                                                | subtle root                    |
+| `--moduix-card-subtle-shadow`           | `none`                                                                               | subtle root                    |
+| `--moduix-card-body-color`              | `var(--moduix-color-muted-foreground)`                                               | `Card.Body`                    |
+| `--moduix-card-body-font-size`          | `var(--moduix-text-sm)`                                                              | `Card.Body`                    |
+| `--moduix-card-body-line-height`        | `var(--moduix-line-height-text-sm)`                                                  | `Card.Body`                    |
+| `--moduix-card-body-padding-top`        | `var(--moduix-spacing-4)`                                                            | `Card.Body`                    |
+| `--moduix-card-border-color`            | `var(--moduix-color-border)`                                                         | `Card.Root`                    |
+| `--moduix-card-border-width`            | `var(--moduix-border-width-sm)`                                                      | `Card.Root`                    |
+| `--moduix-card-color`                   | `var(--moduix-color-card-foreground)`                                                | `Card.Root`                    |
+| `--moduix-card-description-color`       | `var(--moduix-color-muted-foreground)`                                               | `Card.Description`             |
+| `--moduix-card-description-font-size`   | `var(--moduix-text-sm)`                                                              | `Card.Description`             |
+| `--moduix-card-description-line-height` | `var(--moduix-line-height-text-sm)`                                                  | `Card.Description`             |
+| `--moduix-card-elevated-bg`             | `var(--moduix-color-card)`                                                           | elevated root                  |
+| `--moduix-card-elevated-border-color`   | `transparent`                                                                        | elevated root                  |
+| `--moduix-card-elevated-border-width`   | `0`                                                                                  | elevated root                  |
+| `--moduix-card-elevated-color`          | `var(--moduix-color-card-foreground)`                                                | elevated root                  |
+| `--moduix-card-elevated-shadow`         | `var(--moduix-shadow-md)`                                                            | elevated root                  |
+| `--moduix-card-footer-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Footer`                  |
+| `--moduix-card-focus-ring-color`        | `var(--moduix-color-ring)`                                                           | interactive root / `Card.Link` |
+| `--moduix-card-focus-ring-offset`       | `var(--moduix-border-width-sm)`                                                      | interactive root / `Card.Link` |
+| `--moduix-card-focus-ring-width`        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                      | interactive root / `Card.Link` |
+| `--moduix-card-header-gap`              | `var(--moduix-spacing-1)`                                                            | `Card.Header`                  |
+| `--moduix-card-outline-bg`              | `var(--moduix-color-card)`                                                           | outline root                   |
+| `--moduix-card-outline-border-color`    | `var(--moduix-color-border)`                                                         | outline root                   |
+| `--moduix-card-outline-border-width`    | `var(--moduix-border-width-sm)`                                                      | outline root                   |
+| `--moduix-card-outline-color`           | `var(--moduix-color-card-foreground)`                                                | outline root                   |
+| `--moduix-card-outline-shadow`          | `none`                                                                               | outline root                   |
+| `--moduix-card-padding`                 | `var(--moduix-spacing-6)`                                                            | `Card.Root`                    |
+| `--moduix-card-padding-lg`              | `var(--moduix-spacing-8)`                                                            | `Card.Root`                    |
+| `--moduix-card-padding-sm`              | `var(--moduix-spacing-4)`                                                            | `Card.Root`                    |
+| `--moduix-card-radius`                  | `var(--moduix-radius-lg)`                                                            | `Card.Root`                    |
+| `--moduix-card-shadow`                  | `none`                                                                               | `Card.Root`                    |
+| `--moduix-card-title-color`             | `currentColor`                                                                       | `Card.Title`                   |
+| `--moduix-card-title-font-size`         | `var(--moduix-text-lg)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-size-lg`      | `var(--moduix-text-xl)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-size-sm`      | `var(--moduix-text-md)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-weight`       | `var(--moduix-weight-semibold)`                                                      | `Card.Title`                   |
+| `--moduix-card-title-line-height`       | `var(--moduix-line-height-text-lg)`                                                  | `Card.Title`                   |
+| `--moduix-card-title-line-height-lg`    | `var(--moduix-line-height-text-xl)`                                                  | `Card.Title`                   |
+| `--moduix-card-title-line-height-sm`    | `var(--moduix-line-height-text-md)`                                                  | `Card.Title`                   |
 
 ## Intentional sugar and differences from upstream
 
@@ -241,6 +271,9 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-09: Added independent background, foreground, border, and shadow variables for every
+  variant, and gave interactive `Card.Root asChild` compositions the same themeable focus-ring
+  contract as `Card.Link`.
 - 2026-07-26: Made every part's public ref polymorphic for `asChild`, added focused root and
   overlay-link regression coverage, and made documentation previews self-contained.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
