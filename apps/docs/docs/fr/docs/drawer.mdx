@@ -1,0 +1,298 @@
+---
+title: Drawer
+component: drawer
+description: Panneau accessible ancré à l’écran, avec gestes de balayage, points d’ancrage et coordination des piles.
+---
+
+import * as DrawerDocs from '@/components/examples/drawer';
+
+## Référence API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/drawer" />
+
+## Choisir le bon composant
+
+Utilisez `Drawer` pour un panneau ancré à un bord de l’écran qui nécessite des gestes de balayage, des points d’ancrage
+ou le comportement d’une bottom sheet mobile. Utilisez `Dialog` lorsque la surface doit rester centrée et ne nécessite
+pas de glisser-déposer.
+
+## Exemple de base
+
+Composez explicitement les parties structurelles Ark. Cet exemple s’ouvre sur un point d’ancrage compact, puis peut
+être tiré jusqu’à sa pleine hauteur. `Drawer.Content` est la véritable surface interactive, `Drawer.Positioner`
+l’aligne et `Drawer.Backdrop` crée la couche modale.
+
+```tsx preview file="../../en/docs/_snippets/drawer/basic.tsx"
+
+```
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="drawer" />
+
+## Anatomie
+
+```text
+Drawer.Root
+├─ Drawer.Trigger
+├─ Drawer.SwipeArea (optional)
+├─ Drawer.Backdrop
+└─ Drawer.Positioner
+   └─ Drawer.Content
+      ├─ Drawer.Grabber
+      │  └─ Drawer.GrabberIndicator
+      ├─ Drawer.Title
+      ├─ Drawer.Description
+      └─ Drawer.CloseTrigger
+```
+
+| Partie                     | Rôle |
+| -------------------------- | ---- |
+| `Drawer` / `Drawer.Root`   | Gère l’état du panneau, les points d’ancrage et les gestes de balayage. |
+| `Drawer.Trigger`           | Ouvre le panneau. |
+| `Drawer.Backdrop`          | Couche d’arrière-plan modale. |
+| `Drawer.Positioner`        | Positionneur flottant du contenu du panneau. |
+| `Drawer.Content`           | Conteneur de la surface du panneau. |
+| `Drawer.Grabber`           | Conteneur de la poignée de glissement pour les gestes de balayage. |
+| `Drawer.GrabberIndicator`  | Indicateur visuel à l’intérieur de la poignée. |
+| `Drawer.CloseTrigger`      | Ferme le panneau. |
+| `Drawer.SwipeArea`         | Zone facultative sur un bord pour ouvrir le panneau par balayage. |
+| `Drawer.Stack`             | Coordonne les panneaux imbriqués et les surfaces en retrait. |
+| `Drawer.Indent`            | Surface qui se met en retrait à l’ouverture d’un panneau dans la pile. |
+| `Drawer.IndentBackground`  | Arrière-plan derrière la surface en retrait. |
+| `Drawer.Header`            | Utilitaire facultatif de mise en page de l’en-tête. |
+| `Drawer.Body`              | Zone de contenu flexible facultative. |
+| `Drawer.Footer`            | Utilitaire facultatif de mise en page des actions. |
+| `Drawer.CloseIcon`         | Contrôle de fermeture stylé. |
+| `Drawer.RootProvider`      | Connecte les parties à l’état créé avec `useDrawer()`. |
+
+`Drawer.Header`, `Drawer.Body`, `Drawer.Footer` et `Drawer.CloseIcon` sont des utilitaires facultatifs de mise en page
+et de présentation de moduix. Ils ne remplacent ni ne masquent les parties structurelles Ark.
+
+## Composition
+
+Le composant racine place automatiquement `Backdrop` et `Positioner` dans un portail. Un panneau dans un portail
+utilise la fenêtre d’affichage ; la taille de l’aperçu n’affecte donc que le déclencheur. Utilisez `portalled={false}`
+pour un rendu intégré ou `portalRef` pour un conteneur personnalisé ; les parties structurelles restent explicites et stylables.
+
+### Composition recommandée
+
+Utilisez `Drawer` pour l’état et le comportement. Rendez explicitement `Backdrop`, `Positioner` et `Content`, puis
+placez `Grabber` et `GrabberIndicator` dans le contenu si le glissement exige une poignée visible.
+
+Utilisez `asChild` pour composer `Drawer.Trigger` ou `Drawer.CloseTrigger` avec `Button`. L’enfant doit être un unique
+élément sémantique capable de recevoir le focus.
+
+Les callbacks conservent les objets de détails Ark :
+
+- `onOpenChange(details)` → `details.open`
+- `onSnapPointChange(details)` → `details.snapPoint`
+- `onTriggerValueChange(details)` → `details.value` et `details.triggerElement`
+
+### Quand créer une composition personnalisée
+
+Transmettez `className` directement à toute partie exportée. Pour un état externe, importez `useDrawer` depuis
+`@moduix/react` et connectez cet état avec `Drawer.RootProvider`. N’associez pas `Drawer` et `Drawer.RootProvider` pour
+une même instance. `useDrawerContext`, `useDrawerStackContext` et `Drawer.Context` sont également disponibles depuis
+`@moduix/react` pour les compositions avancées.
+
+Placez les surfaces coordonnées en retrait dans `Drawer.Stack`, puis rendez `Drawer.IndentBackground` et `Drawer.Indent`.
+
+### Propriétés par défaut
+
+Par défaut, le contenu de l’overlay dans le portail est monté à la demande et démonté après l’animation de sortie.
+Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; désactivez les deux propriétés de
+cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
+
+| Propriété                  | Valeur par défaut | Remarques |
+| -------------------------- | ----------------- | --------- |
+| `modal`                    | `true`            | Masque le contenu de la page et bloque les interactions extérieures. |
+| `swipeDirection`           | `"down"`          | S’ouvre par le bas par défaut. |
+| `snapPoints`               | `[1]`             | Utilise la taille complète si aucun point d’ancrage n’est défini. |
+| `closeOnEscape`            | `true`            | Conserve la fermeture par Échap d’Ark. |
+| `closeOnInteractOutside`   | `true`            | Ferme le panneau modal lors d’une interaction extérieure. |
+| `preventDragOnScroll`      | `true`            | N’amorce pas le glissement depuis les enfants défilables. |
+| `preventScroll`            | `true`            | Empêche le défilement de l’arrière-plan lorsque le panneau est ouvert. |
+| `restoreFocus`             | `true`            | Rend le focus à l’élément précédemment actif. |
+| `trapFocus`                | `true`            | Retient le focus dans le contenu modal. |
+| `lazyMount`                | `true`            | Valeur par défaut de moduix, différente du `false` d’Ark. |
+| `unmountOnExit`            | `true`            | Valeur par défaut de moduix, différente du `false` d’Ark. |
+| `Content draggable`        | `true`            | La poignée permet toujours le glissement même si le contenu ne le permet pas. |
+| `closeThreshold`           | `0.25`            | Fraction de la distance de balayage nécessaire à la fermeture. |
+| `snapToSequentialPoints`   | `false`           | Parcourt les points d’ancrage une étape à la fois. |
+| `swipeVelocityThreshold`   | `700`             | Seuil de vitesse de balayage pour fermer. |
+| `role`                     | `"dialog"`        | Utilisez `"alertdialog"` pour un contenu bloquant urgent. |
+
+### Notes sur le comportement
+
+- Les directions publiques sont logiques : `up`, `down`, `start` et `end`. Pour le style, Ark expose dans
+  `data-swipe-direction` les valeurs physiques calculées `left` ou `right`.
+- `Content draggable={false}` désactive le glissement depuis le contenu tout en laissant la poignée active.
+- `Content variant="island"` ajoute une marge par rapport à la fenêtre d’affichage, arrondit tous les angles du contenu
+  et évite son dépassement lors du glissement afin de créer une surface de panneau détachée.
+- `data-no-drag` empêche de démarrer un geste de glissement dans le sous-arbre concerné.
+- L’arrière-plan modal reste entièrement visible lors du glissement entre les points d’ancrage et disparaît après le
+  début de la fermeture.
+- `ids` configure les identifiants d’accessibilité des compositions réparties entre plusieurs parties.
+- `stack` accepte un store externe de pile de panneaux Ark pour une visualisation au niveau de l’application.
+- `immediate` et `skipAnimationOnMount` règlent la chronologie de présence Ark lorsqu’une animation personnalisée est nécessaire.
+- `present`, `lazyMount`, `unmountOnExit` et `onExitComplete` contrôlent le cycle de rendu. Dans moduix, `lazyMount` et
+  `unmountOnExit` valent `true` par défaut afin que les animations de sortie se terminent sans rendu initial des panneaux masqués.
+- Ark conserve la rétention du focus du dialogue, la gestion d’Échap, les associations du titre et de la description,
+  ainsi que la restauration du focus.
+
+## Exemples
+
+### État contrôlé
+
+Lisez `details.open` dans le callback Ark au lieu d’attendre un argument booléen.
+
+```tsx preview file="../../en/docs/_snippets/drawer/controlled.tsx"
+
+```
+
+### Contrôles du glissement
+
+Appliquez `data-no-drag` aux zones interactives qui ne doivent pas amorcer le glissement, tandis que le reste du contenu
+reste déplaçable. Définissez séparément `draggable={false}` lorsque le panneau ne doit bouger que par sa poignée.
+
+```tsx preview file="../../en/docs/_snippets/drawer/drag-controls.tsx"
+
+```
+
+### Grabber flottant
+
+Placez `Drawer.Grabber` au-dessus de la surface lorsque la poignée doit apparaître comme un contrôle distinct.
+Le style intégré ci-dessous conserve une marge de 10 px par rapport au bord du panneau.
+
+```tsx preview file="../../en/docs/_snippets/drawer/floating-grabber.tsx"
+
+```
+
+### Arrière-plan en retrait
+
+`Drawer.Stack` coordonne `IndentBackground` et `Indent` grâce à l’état de pile Ark et à la progression du balayage.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/drawer/indent-background.tsx"
+
+```
+
+</PreviewFrame>
+
+### Island
+
+Définissez `variant="island"` sur `Drawer.Content` lorsqu’un panneau compact doit flotter dans la fenêtre d’affichage
+au lieu de se prolonger visuellement au-delà du bord depuis lequel il s’ouvre.
+
+```tsx preview file="../../en/docs/_snippets/drawer/island.tsx"
+
+```
+
+### Plusieurs déclencheurs
+
+Attribuez une `value` à chaque déclencheur pour utiliser un seul panneau pour toute une liste. Le callback identifie le
+déclencheur actuel.
+
+```tsx preview file="../../en/docs/_snippets/drawer/multiple-triggers.tsx"
+
+```
+
+### Panneaux imbriqués
+
+Rendez les panneaux imbriqués avec des instances Ark `useDrawer` et des arbres `Drawer.RootProvider` de moduix distincts,
+afin que chaque surface conserve son propre état ouvert et son cycle de focus. La surface parente recule derrière le
+panneau actif tout en laissant un bord visible.
+
+```tsx preview file="../../en/docs/_snippets/drawer/nested.tsx"
+
+```
+
+### Mode non modal
+
+Définissez `modal={false}` lorsque la page doit rester interactive et défilable pendant que le panneau est ouvert. Sur
+les appareils tactiles, désactivez le glissement de `Content` et utilisez Header comme `Grabber` afin qu’un même geste
+vertical ne déplace pas à la fois le panneau et la page. Ajoutez `data-no-drag` à chaque élément interactif de Header,
+comme le bouton de fermeture. Si tout le contenu doit permettre le glissement, définissez `preventScroll={true}` : les
+contrôles externes resteront interactifs, mais le défilement en arrière-plan sera bloqué jusqu’à la fermeture du panneau.
+
+```tsx preview file="../../en/docs/_snippets/drawer/non-modal.tsx"
+
+```
+
+### Root Provider
+
+Utilisez l’export `useDrawer` de moduix lorsque des boutons extérieurs à l’arbre du composant doivent ouvrir le panneau
+ou modifier ses points d’ancrage.
+
+```tsx preview file="../../en/docs/_snippets/drawer/root-provider.tsx"
+
+```
+
+### Panneau défilable
+
+Placez le contenu long dans `Drawer.Body` et utilisez `ScrollArea` lorsque le panneau exige son propre conteneur de
+défilement tandis que la poignée et l’en-tête doivent rester fixes.
+
+```tsx preview file="../../en/docs/_snippets/drawer/scrollable.tsx"
+
+```
+
+### Points d’ancrage
+
+Définissez les positions intermédiaires sur le composant racine et choisissez la position initiale avec `defaultSnapPoint`.
+
+```tsx preview file="../../en/docs/_snippets/drawer/snap-points.tsx"
+
+```
+
+### Direction du balayage
+
+Utilisez les valeurs logiques `start` et `end` pour les panneaux latéraux afin qu’un même code fonctionne en LTR et
+en RTL. Utilisez `up` pour un panneau supérieur et `down` pour un panneau inférieur.
+
+```tsx preview file="../../en/docs/_snippets/drawer/swipe-direction.tsx"
+
+```
+
+### Personnalisation avancée
+
+N’utilisez pas les utilitaires facultatifs `Header`, `Body`, `Footer` ni `CloseIcon` lorsqu’une mise en page personnalisée
+exige l’anatomie bas niveau complète de Drawer.
+
+```tsx preview file="../../en/docs/_snippets/drawer/advanced-customization.tsx"
+
+```
+
+## Styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <DrawerDocs.DrawerCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche de style
+
+- Slots moduix : `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
+  `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
+  `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
+  `drawer-indent-background`, `drawer-header`, `drawer-body` et `drawer-footer`.
+- `Drawer.Content` écrit `data-variant="island"` lorsque la variante island est active.
+- Points d’accroche des parties Ark : `data-scope="drawer"` avec `data-part`.
+- Points d’accroche d’état : `data-state="open|closed"`, `data-swipe-direction`, `data-swiping`,
+  `data-dragging`, `data-expanded`, `data-current`, `data-value`, `data-disabled`,
+  `data-nested-drawer-open` et `data-nested-drawer-swiping`.
+- Variables d’exécution : `--drawer-translate`, `--drawer-translate-x`, `--drawer-translate-y`,
+  `--drawer-snap-point-offset-x`, `--drawer-snap-point-offset-y`,
+  `--drawer-swipe-movement-x`, `--drawer-swipe-movement-y`, `--drawer-swipe-progress`,
+  `--drawer-swipe-strength`, `--drawer-height`, `--drawer-frontmost-height`,
+  `--nested-drawers`, `--nested-layer-count` et `--layer-index`.
