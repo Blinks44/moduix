@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Button: Improve button styling and usage guidance.
+Button: Prevent disabled composed hosts from running child click handlers.

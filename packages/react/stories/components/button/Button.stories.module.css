@@ -5,3 +5,13 @@
   justify-content: center;
   gap: var(--moduix-spacing-3);
 }
+
+.contentStress {
+  display: grid;
+  width: min(18rem, calc(100vw - var(--moduix-spacing-8)));
+  gap: var(--moduix-spacing-3);
+}
+
+.wrappingButton {
+  white-space: normal;
+}

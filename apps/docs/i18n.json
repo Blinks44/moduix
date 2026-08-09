@@ -1,4 +1,76 @@
 {
+  "languagesText": {
+    "fr": "Langues"
+  },
+  "themeText": {
+    "fr": "Thème"
+  },
+  "versionsText": {
+    "fr": "Versions"
+  },
+  "menuTitle": {
+    "fr": "Menu"
+  },
+  "scrollToTopText": {
+    "fr": "Retour en haut"
+  },
+  "lastUpdatedAuthorText": {
+    "fr": "par"
+  },
+  "prevPageText": {
+    "fr": "Page précédente"
+  },
+  "sourceCodeText": {
+    "fr": "Code source"
+  },
+  "searchPlaceholderText": {
+    "fr": "Rechercher"
+  },
+  "searchPanelCancelText": {
+    "fr": "Annuler"
+  },
+  "searchNoResultsText": {
+    "fr": "Aucun résultat correspondant"
+  },
+  "searchSuggestedQueryText": {
+    "fr": "Essayez d’autres mots-clés"
+  },
+  "overview.filterNameText": {
+    "fr": "Filtrer"
+  },
+  "overview.filterPlaceholderText": {
+    "fr": "Rechercher dans l’API"
+  },
+  "overview.filterNoResultText": {
+    "fr": "Aucune API correspondante trouvée"
+  },
+  "openInText": {
+    "fr": "Ouvrir dans {{name}}"
+  },
+  "codeButtonGroupCopyButtonText": {
+    "fr": "Copier le code"
+  },
+  "codeButtonGroupWrapButtonText": {
+    "fr": "Activer ou désactiver le retour à la ligne du code"
+  },
+  "notFoundText": {
+    "fr": "PAGE INTROUVABLE"
+  },
+  "takeMeHomeText": {
+    "fr": "Retour à l’accueil"
+  },
+  "promptCopyText": {
+    "fr": "Copier le prompt"
+  },
+  "promptCopiedText": {
+    "fr": "Copié"
+  },
+  "promptExpandText": {
+    "fr": "Développer"
+  },
+  "promptCollapseText": {
+    "fr": "Réduire"
+  },
   "navDocs": {
     "en": "Docs",
     "ru": "Документация",

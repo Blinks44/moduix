@@ -40,10 +40,34 @@ test('preserves semantic anchors with asChild', () => {
   expect(link).toHaveAttribute('data-slot', 'button-root');
 });
 
+test('preserves composed event handlers while enabled', () => {
+  const calls: string[] = [];
+
+  render(
+    <Button
+      asChild
+      onClickCapture={() => calls.push('button capture')}
+      onClick={() => calls.push('button click')}
+    >
+      <a href="#docs" onClick={() => calls.push('link click')}>
+        Read the docs
+      </a>
+    </Button>,
+  );
+
+  fireEvent.click(screen.getByRole('link', { name: 'Read the docs' }));
+
+  expect(calls).toEqual(['button capture', 'link click', 'button click']);
+});
+
 test('disables custom hosts accessibly and prevents activation', () => {
+  let activationCount = 0;
+
   render(
     <Button asChild disabled>
-      <a href="#docs">Read the docs</a>
+      <a href="#docs" onClick={() => activationCount++}>
+        Read the docs
+      </a>
     </Button>,
   );
 
@@ -52,6 +76,7 @@ test('disables custom hosts accessibly and prevents activation', () => {
   expect(link).toHaveAttribute('aria-disabled', 'true');
   expect(link).toHaveAttribute('data-disabled');
   expect(fireEvent.click(link)).toBe(false);
+  expect(activationCount).toBe(0);
 });
 
 test('wires the loading state without taking over its content', () => {
@@ -64,4 +89,17 @@ test('wires the loading state without taking over its content', () => {
   expect(button).toHaveAttribute('aria-disabled', 'true');
   expect(button).toHaveAttribute('data-disabled');
   expect(button).toHaveAttribute('data-loading');
+});
+
+test('supports the namespaced root with explicit recipe values', () => {
+  render(
+    <Button.Root aria-label="Delete item" size="icon-lg" variant="destructive-outline">
+      ×
+    </Button.Root>,
+  );
+
+  const button = screen.getByRole('button', { name: 'Delete item' });
+
+  expect(button).toHaveAttribute('data-size', 'icon-lg');
+  expect(button).toHaveAttribute('data-variant', 'destructive-outline');
 });

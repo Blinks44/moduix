@@ -29,6 +29,7 @@ const ButtonRoot = forwardRef<
     disabled,
     loading = false,
     onClick,
+    onClickCapture,
     size = 'md',
     type,
     'data-scope': dataScope = 'button',
@@ -55,6 +56,15 @@ const ButtonRoot = forwardRef<
       aria-busy={resolvedAriaBusy}
       aria-disabled={resolvedAriaDisabled}
       {...props}
+      onClickCapture={(event) => {
+        if (isDisabled) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        onClickCapture?.(event);
+      }}
       onClick={(event) => {
         if (isDisabled) {
           event.preventDefault();

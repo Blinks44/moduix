@@ -142,3 +142,16 @@ export const PendingState: Story = {
     );
   },
 };
+
+export const ContentStress: Story = {
+  render: () => (
+    <div className={styles.contentStress}>
+      <Button className={styles.wrappingButton}>
+        Approve the updated account recovery settings
+      </Button>
+      <Button className={styles.wrappingButton} dir="rtl" variant="outline">
+        اعتماد إعدادات استرداد الحساب المحدّثة
+      </Button>
+    </div>
+  ),
+};
