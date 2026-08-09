@@ -1,0 +1,175 @@
+---
+title: Fieldset
+component: fieldset
+description: Regroupement de contrôles associés avec la sémantique, les descriptions, les erreurs et l’état partagé d’un groupe de champs Ark UI.
+---
+
+import * as FieldsetDocs from '@/components/examples/fieldset';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/fieldset" />
+
+## Choisir le bon composant
+
+Utilisez `Fieldset` pour plusieurs contrôles associés avec une seule légende. Utilisez `Field` pour un
+contrôle avec sa propre étiquette, description et message de validation.
+
+## Exemple de base
+
+Organisez `Fieldset`, `Fieldset.Legend`, le texte explicatif ou d'erreur facultatif et les contrôles associés.
+`Fieldset.Root` reste disponible sous forme d'alias correspondant à Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="fieldset" />
+
+## Anatomie
+
+```text
+Fieldset.Root | Fieldset.RootProvider
+├─ Fieldset.Legend
+├─ grouped controls
+├─ Fieldset.HelperText (optional)
+└─ Fieldset.ErrorText (optional)
+```
+
+| Partie | Rôle |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `Fieldset` / `Fieldset.Root` | Crée un état et rend le `fieldset` natif.                   |
+| `Fieldset.RootProvider` | Rend l’état `useFieldset` créé en externe.                         |
+| `Fieldset.Legend` | `legend` natif et nom de groupe disponible.                                |
+| `Fieldset.HelperText` | Description associée à la racine via `aria-describedby`.                   |
+| `Fieldset.ErrorText` | Message de validation dans une région live polie, affiché uniquement avec `invalid`. |
+
+## Composition
+
+### Composition recommandée
+
+Laissez un `Fieldset.Legend` visible à l’intérieur de la racine. Transférez directement les `disabled`, `invalid` et `id`
+à la racine. Ark associe la légende, le texte d’aide présent et le texte d’erreur actif au groupe de champs.
+
+La racine, le fournisseur, la légende, le texte explicatif et le texte d'erreur transmettent les références à leurs éléments DOM rendus.
+Utilisez `asChild` avec un enfant sémantique lorsque l'hôte utilisateur doit être propriétaire de la partie.
+
+### Quand créer une composition personnalisée
+
+Utilisez `useFieldset` depuis `@moduix/react` avec `Fieldset.RootProvider` lorsque l’état est créé en dehors de
+l’arbre rendu. Utilisez `useFieldsetContext()` ou `Fieldset.Context` dans un enfant qui doit lire cet état.
+N’imbriquez pas le provider dans `Fieldset.Root` pour une même instance d’état.
+
+### Propriétés par défaut
+
+| Surfaces | Propriété | Par défaut |
+| ----------------- | --------- | ------------ |
+| `Fieldset.Root`   | `disabled` | `false`     |
+| `Fieldset.Root`   | `invalid`  | `false`     |
+
+### Notes de comportement
+
+- `Fieldset.Legend` rend le `legend` natif, par opposition au wrapper hérité supprimé.
+- Le navigateur désactive les contrôles natifs à l’intérieur d’un groupe de champs désactivé.
+- Les descendants `Field` d’Ark héritent de l’état désactivé du groupe de champs. Définissez `invalid` sur les composants `Field` imbriqués
+  lorsque des contrôles individuels nécessitent un état invalide.
+- `Fieldset.ErrorText` n'est pas dans le DOM tant que `invalid` n'est pas vrai.
+- `useFieldsetContext()` et `Fieldset.Context` fournissent aux descendants le même état Ark que `useFieldset`.
+- Fieldset ne possède pas de valeur, de navigation au clavier, de rappel ou de `HiddenInput`.
+- L'ancien `render` et les exportations plates telles que `FieldsetLegend` ne sont pas pris en charge ; utiliser `asChild`
+  et des parties de l'espace de noms.
+
+## Exemples
+
+### Checkbox
+
+Utilisez la légende du groupe de champs comme nom commun pour le jeu de contrôles Ark de case à cocher associé. Chaque case à cocher racine
+rend automatiquement son entrée native pour la soumission du formulaire et le comportement de réinitialisation.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/checkbox.tsx"
+  ```
+
+</PreviewFrame>
+
+### État désactivé
+
+Définissez `disabled` sur la racine pour désactiver les enfants natifs et transmettre l'état désactivé
+Contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### Field
+
+Composants Nest `Field` lorsque chaque commande nécessite également une étiquette ou une description individuelle.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
+  ```
+
+</PreviewFrame>
+
+### Input avec Select
+
+Regroupez le sélecteur de code de pays et la saisie du numéro de téléphone sous une seule légende lorsque les deux commandes représentent la même valeur booléenne.
+
+<style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/input-with-select.tsx"
+  ```
+
+</PreviewFrame>
+
+### État invalide
+
+Définissez `invalid` sur Fieldset pour la validation au niveau du groupe. Définissez `invalid` sur les composants imbriqués de `Field`,
+lorsque des contrôles individuels nécessitent également des styles et un état ARIA non valides.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Créez l’état du groupe de champs en dehors de l’arbre rendu avec `useFieldset` de moduix lorsqu’il doit être géré de manière cohérente
+contrôles adjacents ou enfants réutilisables.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/fieldset/root-provider.tsx"
+  ```
+
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <FieldsetDocs.FieldsetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+Chaque partie DOM possède un `data-scope="fieldset"` Ark et un `data-part` correspondant à l'anatomie. Racine et légende
+fournir `data-disabled` et `data-invalid` ; moduix ajoute également des hooks `data-slot="fieldset-*"`.
+Utilisez `className` pour les remplacements locaux et les variables `--moduix-fieldset-*` pour la personnalisation au niveau du thème,
+en particulier le espacement interne de la légende et les tokens de bordure racine.

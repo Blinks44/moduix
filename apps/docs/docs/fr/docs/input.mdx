@@ -1,0 +1,180 @@
+---
+title: Input
+component: input
+description: Wrapper Input fondé sur Ark Field, avec événements natifs, sémantique de formulaire et styles moduix.
+---
+
+import * as InputDocs from '@/components/examples/input';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive input distincte. Moduix repose sur [Ark Field.Input](https://ark-ui.com/react/docs/components/field) et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/react/docs/guides/composition), la [personnalisation des styles](https://ark-ui.com/react/docs/guides/styling) et les [refs](https://ark-ui.com/react/docs/guides/ref).
+
+## Choisir le bon composant
+
+- Choisissez **`Input`** pour un champ natif standard sur une seule ligne.
+- Choisissez **`InputGroup`** pour intégrer des compléments, du texte ou des actions.
+- Choisissez **`PasswordInput`** pour le wrapper existant avec contrôle de visibilité.
+- Choisissez **`NumberInput`** pour analyser les nombres et modifier leur valeur par pas.
+- Choisissez **`Textarea`** pour le contenu multiligne.
+- Choisissez **`Editable`** pour du texte d’abord affiché, puis basculé en mode édition.
+
+## Exemple de base
+
+Utilisez `Input` dans `Field` afin qu’Ark puisse associer le libellé, le texte d’aide, les identifiants et l’état du formulaire.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="input" />
+
+## Anatomie
+
+```text
+Field.Root (optional)
+└─ Input
+```
+
+| Partie                 | Rôle                                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| `Input` / `Input.Root` | `Field.Input` d’Ark stylisé qui affiche un contrôle natif sur une seule ligne.                 |
+
+## Composition
+
+### Composition recommandée
+
+Affichez `Input` dans `Field` pour obtenir un libellé, un texte d’aide ou d’erreur, des identifiants et un état partagé `disabled`, `invalid`, `required` ou `readOnly`. `Fieldset` peut fournir l’état `disabled` aux champs imbriqués.
+
+Utilisez les propriétés et événements natifs de l’input. Les champs contrôlés utilisent `value` et `onChange(event)` ; les champs non contrôlés utilisent `defaultValue`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` lorsqu’un unique élément input sémantique doit posséder le nœud affiché. Ark fusionne dans cet enfant unique les propriétés du wrapper et du champ, la classe et la ref.
+
+Pour un contrôle incompatible avec un input, ne tentez pas d’utiliser `Input` ; composez-le avec le composant auquel appartient la primitive de contrôle Ark appropriée.
+
+### Propriétés par défaut
+
+| Propriété   | Valeur par défaut | Remarques                                                                                     |
+| ----------- | ----------------- | --------------------------------------------------------------------------------------------- |
+| `size`      | `md`              | Taille visuelle : `xs`, `sm`, `md`, `lg` ou `xl`.                                             |
+| `htmlSize`  | —                 | Définit la valeur native en caractères de `input[size]` et utilise sa largeur par défaut.      |
+| `asChild`   | `false`           | Fusionne les propriétés dans un unique enfant sémantique via Ark Slot.                         |
+
+### Comportement
+
+- La ref pointe vers le véritable `HTMLInputElement`.
+- Aucun `HiddenInput` n’est nécessaire, car `Input` est un contrôle de formulaire natif.
+- `Field` d’Ark fournit `aria-describedby`, `aria-invalid`, les identifiants et les propriétés d’état.
+- `Input` ne gère ni la valeur, ni la validité, ni le focus, ni la navigation au clavier.
+
+## Exemples
+
+### État contrôlé
+
+Utilisez l’événement de modification natif lorsque React contrôle la valeur courante.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Désactivé et en lecture seule
+
+Utilisez directement les propriétés natives ou définissez-les sur `Field.Root` lorsque tout le champ doit partager le même état.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/disabled-and-readonly.tsx"
+
+```
+</PreviewFrame>
+
+### État du champ
+
+Définissez l’état `invalid` sur `Field` ; Ark applique `aria-invalid` et `data-invalid` à l’input et associe le texte d’erreur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/field-state.tsx"
+
+```
+</PreviewFrame>
+
+### Attributs natifs
+
+Les attributs natifs continuent de contrôler la validation du navigateur, le clavier, l’autocomplétion et l’envoi du formulaire. Utilisez `htmlSize` uniquement pour exprimer une largeur en caractères.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/native-attributes.tsx"
+
+```
+</PreviewFrame>
+
+### Sélection de fichier
+
+`Input` conserve l’accès au sélecteur de fichiers natif pour les formulaires simples. Utilisez `FileUpload` lorsque vous devez gérer la sélection, une dropzone ou l’interface du cycle de vie du téléversement.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/file-input.tsx"
+
+```
+</PreviewFrame>
+
+### Tailles
+
+La propriété `size` de moduix modifie la densité visuelle sans remplacer l’attribut natif `size`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/sizes.tsx"
+
+```
+</PreviewFrame>
+
+### Champ autonome
+
+Hors de `Field`, fournissez explicitement un nom accessible. Les propriétés d’état natives fonctionnent toujours, mais le contexte du champ ne fournit ni identifiant, ni association avec le texte d’aide ou d’erreur.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/standalone-input.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `asChild` uniquement lorsqu’un nœud input personnalisé doit posséder le nœud affiché ; conservez un unique élément input sémantique et focusable capable de recevoir les propriétés et la ref transmises.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/input/as-child.tsx"
+
+```
+</PreviewFrame>
+
+## Personnalisation des styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <InputDocs.InputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Sélecteurs de style
+
+- `data-slot="input-root"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"`
+- `data-scope="field"` et `data-part="input"`
+- `data-invalid`, `data-required` et `data-readonly` d’Ark dans `Field`
+- les sélecteurs natifs `:disabled`, `:read-only`, `:focus-visible` et `[aria-invalid="true"]`
