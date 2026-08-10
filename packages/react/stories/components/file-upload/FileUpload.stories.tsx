@@ -23,8 +23,7 @@ const initialFiles = [
   new File(['{}'], 'package.json', { type: 'application/json' }),
 ];
 
-const isImageFile = (file: File) =>
-  file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+const isImageFile = (file: File) => file.type.startsWith('image/');
 
 function FileUploadItems() {
   return (
@@ -92,6 +91,10 @@ export const AcceptedTypes: Story = {
 
 export const InitialFiles: Story = {
   render: () => <FileUploadDemo defaultAcceptedFiles={initialFiles} />,
+};
+
+export const MissingImageMimeType: Story = {
+  render: () => <FileUploadDemo defaultAcceptedFiles={[new File([''], 'diagram.png')]} />,
 };
 
 export const Controlled: Story = {

@@ -1,6 +1,6 @@
 .preview {
   display: grid;
-  min-height: inherit;
+  height: 10.5rem;
   place-items: center;
   overflow: hidden;
   padding: 1rem;

@@ -1,8 +1,10 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { FileUpload, useFileUpload } from '../src';
 
 const file = new File(['moduix'], 'moduix.txt', { type: 'text/plain' });
+const imageWithoutMimeType = new File(['moduix'], 'moduix.png');
 
 test('renders a keyboard-focusable dropzone and a clearly named default clear action', () => {
   render(
@@ -77,4 +79,39 @@ test('preserves RootProvider state and the automatic hidden input', () => {
   expect(screen.getByTestId('provider')).toHaveAttribute('data-slot', 'file-upload-root-provider');
   expect(screen.getByText('moduix.txt')).toBeTruthy();
   expect(document.querySelector('input[type="file"]')).not.toBeNull();
+});
+
+test('uses a generic preview when an image filename has no image MIME type', () => {
+  render(
+    <FileUpload defaultAcceptedFiles={[imageWithoutMimeType]}>
+      <FileUpload.Label>Attachments</FileUpload.Label>
+      <FileUpload.ItemGroup>
+        <FileUpload.Items />
+      </FileUpload.ItemGroup>
+    </FileUpload>,
+  );
+
+  expect(document.querySelector('[data-slot="file-upload-item-preview-image"]')).toBeNull();
+  expect(document.querySelector('[data-slot="file-upload-item-preview-icon"]')).not.toBeNull();
+  expect(screen.getByRole('button', { name: 'Remove moduix.png' })).toBeTruthy();
+});
+
+test('preserves Root asChild composition, refs, and the automatic hidden input', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const triggerRef = createRef<HTMLButtonElement>();
+
+  render(
+    <FileUpload asChild ref={rootRef}>
+      <div data-testid="custom-root">
+        <FileUpload.Label>Attachments</FileUpload.Label>
+        <FileUpload.Trigger ref={triggerRef}>Choose files</FileUpload.Trigger>
+      </div>
+    </FileUpload>,
+  );
+
+  const root = screen.getByTestId('custom-root');
+
+  expect(rootRef.current).toBe(root);
+  expect(triggerRef.current).toBe(screen.getByRole('button', { name: 'Choose files' }));
+  expect(root.querySelector('input[type="file"]')).not.toBeNull();
 });

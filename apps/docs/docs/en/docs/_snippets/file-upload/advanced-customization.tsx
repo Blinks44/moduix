@@ -1,8 +1,7 @@
 import { FileUpload } from '@moduix/react/file-upload';
 
 const maxFiles = 5;
-const isImageFile = (file: File) =>
-  file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+const isImageFile = (file: File) => file.type.startsWith('image/');
 export default function AdvancedFileUploadDemo() {
   return (
     <FileUpload maxFiles={maxFiles}>

@@ -13,7 +13,8 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 ## Базовый пример
 
 Используйте `FileUpload` как корень, отрисуйте `Label`, добавьте `Trigger` или `Dropzone` и выведите принятые
-файлы с помощью `Items`. Корень автоматически отрисовывает нативный input формы.
+файлы с помощью `Items`. Корень автоматически отрисовывает нативный input формы. `Items` показывает миниатюру,
+только когда браузер сообщает MIME-тип `image/*`; для файлов без этого MIME-типа используется универсальное превью.
 
 <style>{FileUploadDocs.fileUploadExampleCss}</style>
 

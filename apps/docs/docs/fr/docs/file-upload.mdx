@@ -13,7 +13,8 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 ## Exemple de base
 
 Utilisez `FileUpload` comme racine, rendez `Label`, ajoutez `Trigger` ou `Dropzone`, puis affichez les
-fichiers acceptés avec `Items`. La racine rend automatiquement l’input de formulaire natif.
+fichiers acceptés avec `Items`. La racine rend automatiquement l’input de formulaire natif. `Items` affiche une
+vignette seulement lorsque le navigateur fournit un type MIME `image/*` ; sinon, l’aperçu générique est utilisé.
 
 <style>{FileUploadDocs.fileUploadExampleCss}</style>
 
@@ -66,9 +67,9 @@ FileUpload / FileUpload.Root
 | `FileUpload.ItemPreviewImage` | Aperçu de l'image à l'intérieur du `ItemPreview`.                                |
 | `FileUpload.ItemPreviewIcon` | Icône de fichier universelle pour secours dans `ItemPreview`.                 |
 | `FileUpload.ItemName` | Texte du nom de fichier.                                                       |
-| `FileUpload.ItemMetadata` | Type de fichier et taille localisée ; passer le `file` actuel.             |
+| `FileUpload.ItemMetadata` | Type de fichier et taille localisée ; passez le `file` actuel.              |
 | `FileUpload.ItemSizeText` | Texte de taille de fichier localisé.                                      |
-| `FileUpload.ItemDeleteTrigger` | Supprime un fichier. Par défaut, il utilise l'icône de la corbeilmoduix.        |
+| `FileUpload.ItemDeleteTrigger` | Supprime un fichier. Par défaut, il utilise l’icône de corbeille moduix.       |
 | `FileUpload.ClearTrigger` | Efface les fichiers sélectionnés. Par défaut, il utilise l'icône de fermeture moduix. |
 
 ## Composition

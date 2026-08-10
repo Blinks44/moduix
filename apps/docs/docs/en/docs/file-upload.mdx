@@ -13,7 +13,8 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 ## Basic
 
 Use `FileUpload` as the root, render a `Label`, add either a `Trigger` or `Dropzone`, and list
-accepted files with `Items`. The root renders its native form input automatically.
+accepted files with `Items`. The root renders its native form input automatically. `Items` uses an image
+thumbnail only when the browser reports an `image/*` MIME type; files without that MIME type use the generic preview.
 
 <style>{FileUploadDocs.fileUploadExampleCss}</style>
 
