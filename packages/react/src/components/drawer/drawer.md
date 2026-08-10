@@ -152,6 +152,8 @@ uses moduix colors, spacing, radii, shadows, and motion tokens.
 
 Backdrop and content enter/exit animations target Ark `data-state`. The backdrop remains fully
 visible while dragging between snap points and fades only after the drawer enters its closed state.
+When `prefers-reduced-motion: reduce` matches, overlay and stack animations take 1ms while keeping
+Ark's exit lifecycle completion intact.
 During open drag, CSS must not toggle `animation: none` on `Content`; otherwise the open keyframe
 is recreated when Ark removes `data-swiping`, causing bottom drawers to jump. Drag release and
 snap-point settling follow Ark's inline `transform` variables with a CSS transition. The closed
@@ -215,6 +217,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-10: Added reduced-motion timing for overlay and stack transitions, plus focused coverage
+  for default lifecycle, island styling, and the accessible close icon.
 
 - 2026-08-01: Documented the existing lazy-mount and unmount-on-exit overlay defaults.
 

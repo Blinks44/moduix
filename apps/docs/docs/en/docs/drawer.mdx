@@ -142,6 +142,8 @@ eager initial rendering is needed.
 - `present`, `lazyMount`, `unmountOnExit`, and `onExitComplete` control render lifecycle.
   Moduix defaults `lazyMount` and `unmountOnExit` to `true` so exit animations can finish without
   rendering hidden drawers on initial page load.
+- When `prefers-reduced-motion: reduce` matches, entry, exit, and stack animations take 1ms while
+  preserving Ark lifecycle completion.
 - Ark preserves dialog focus trapping, Escape handling, title/description associations, and focus
   restoration.
 

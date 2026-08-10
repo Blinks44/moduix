@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Drawer: Improve mobile drag motion and refresh the documentation examples.
+Drawer: Respect reduced-motion preferences and expand island, lifecycle, and close-control coverage.

@@ -138,6 +138,8 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 - `immediate` et `skipAnimationOnMount` règlent la chronologie de présence Ark lorsqu’une animation personnalisée est nécessaire.
 - `present`, `lazyMount`, `unmountOnExit` et `onExitComplete` contrôlent le cycle de rendu. Dans moduix, `lazyMount` et
   `unmountOnExit` valent `true` par défaut afin que les animations de sortie se terminent sans rendu initial des panneaux masqués.
+- Lorsque `prefers-reduced-motion: reduce` correspond, les animations d’entrée, de sortie et de pile durent 1 ms tout en
+  préservant la fin du cycle de vie d’Ark.
 - Ark conserve la rétention du focus du dialogue, la gestion d’Échap, les associations du titre et de la description,
   ainsi que la restauration du focus.
 
