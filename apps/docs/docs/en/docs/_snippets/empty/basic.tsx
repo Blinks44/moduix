@@ -12,7 +12,7 @@ export default function EmptyDemo() {
   return (
     <Empty>
       <Empty.Icon>
-        <ComputerIcon />
+        <ComputerIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>{emptyState.title}</Empty.Title>

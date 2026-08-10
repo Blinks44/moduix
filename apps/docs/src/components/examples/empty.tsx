@@ -73,8 +73,13 @@ const emptyOverrideCssProperties = [
     description: 'Controls the icon container padding.',
   },
   {
+    name: '--moduix-empty-icon-radius',
+    defaultValue: 'var(--moduix-radius-full)',
+    description: 'Controls the icon container border radius.',
+  },
+  {
     name: '--moduix-empty-icon-size',
-    defaultValue: '1.5rem',
+    defaultValue: 'var(--moduix-spacing-6)',
     description: 'Controls nested SVG icon size.',
   },
   {

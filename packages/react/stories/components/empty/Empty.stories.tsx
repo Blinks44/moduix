@@ -21,7 +21,7 @@ export const Basic: Story = {
   render: () => (
     <Empty className={styles.empty}>
       <Empty.Icon>
-        <ComputerIcon />
+        <ComputerIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>No deployments yet</Empty.Title>
@@ -41,7 +41,7 @@ export const WithoutActions: Story = {
   render: () => (
     <Empty className={styles.empty}>
       <Empty.Icon>
-        <MapIcon />
+        <MapIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>No saved places</Empty.Title>
@@ -73,7 +73,7 @@ export const CustomStyles: Story = {
   render: () => (
     <Empty className={styles.customEmpty}>
       <Empty.Icon className={styles.customIcon}>
-        <ComputerIcon />
+        <ComputerIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>Invite your team</Empty.Title>

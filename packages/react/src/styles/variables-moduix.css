@@ -1150,6 +1150,7 @@
   --moduix-empty-icon-bg: initial; /* var(--moduix-color-muted) */
   --moduix-empty-icon-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-empty-icon-padding: initial; /* var(--moduix-spacing-3) */
+  --moduix-empty-icon-radius: initial; /* var(--moduix-radius-full) */
   --moduix-empty-icon-size: initial; /* var(--moduix-spacing-6) */
   --moduix-empty-padding: initial; /* var(--moduix-spacing-8) */
   --moduix-empty-radius: initial; /* var(--moduix-radius-xl) */

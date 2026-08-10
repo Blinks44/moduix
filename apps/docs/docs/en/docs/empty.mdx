@@ -9,9 +9,11 @@ import * as EmptyDocs from '@/components/examples/empty';
 ## API Reference
 
 Ark UI does not ship a dedicated empty primitive. Moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance
+[Ark factory](https://ark-ui.com/react/docs/guides/composition#the-ark-factory), follows Ark's
+[composition](https://ark-ui.com/react/docs/guides/composition), [styling](https://ark-ui.com/react/docs/guides/styling), and
+[ref](https://ark-ui.com/react/docs/guides/ref) guidance. [Chakra's Empty State](https://chakra-ui.com/docs/components/empty-state)
+informs the explicit composition; unlike Chakra, moduix keeps optional `Empty.Icon` and
+`Empty.Actions` as root siblings so consumers can place them freely.
 
 ## Basic
 
@@ -70,7 +72,7 @@ with normal component composition:
 
 - omit `Empty.Icon` or `Empty.Actions`
 - add richer markup inside `Empty.Description`
-- change the heading level with `Empty.Title asChild`
+- change the surrounding landmark or heading level with `Empty asChild` and `Empty.Title asChild`
 - apply `className` and `--moduix-empty-*` variables on the parts that own the visual concern
 
 ### Default props
@@ -91,8 +93,8 @@ with normal component composition:
 - `Empty.Actions` centers and wraps its children, so paired actions and long direct button or link
   labels stay readable in narrow layouts.
 - `Empty` is presentational: choose a surrounding landmark, `role`, or live-region behavior only
-  when the screen context needs one. Keep decorative icons hidden from assistive technology; give
-  meaningful icons an accessible name.
+  when the screen context needs one. Use `aria-hidden` for decorative icons; give meaningful icons
+  an accessible name.
 
 ## Examples
 
@@ -120,8 +122,9 @@ The visual slot is optional, so plain text-only empty states stay simple.
 
 ### Advanced Customization
 
-Use `Empty.Title asChild` when the surrounding page needs a different heading level. The description
-accepts normal block markup, so richer copy remains semantic without a separate configuration API.
+Use `Empty asChild` and `Empty.Title asChild` when the surrounding page needs a landmark and a
+different heading level. The description accepts normal block markup, so richer copy remains
+semantic without a separate configuration API.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/empty/advanced-customization.tsx"

@@ -9,7 +9,7 @@ export default function SavedPlacesEmptyState() {
   return (
     <Empty>
       <Empty.Icon>
-        <MapIcon />
+        <MapIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>{emptyState.title}</Empty.Title>

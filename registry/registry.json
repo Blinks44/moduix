@@ -785,7 +785,7 @@
       "name": "empty",
       "type": "registry:item",
       "title": "Empty",
-      "description": "moduix React Empty component.",
+      "description": "Composable empty-state surface for no-results, no-data, and first-run screens.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [

@@ -9,9 +9,11 @@ import * as EmptyDocs from '@/components/examples/empty';
 ## Référence de l’API
 
 Ark UI ne fournit pas de primitive dédiée aux états vides. Moduix construit ce composant avec la
-[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark relatives à la
-[composition](https://ark-ui.com/docs/guides/composition), aux [styles](https://ark-ui.com/docs/guides/styling) et aux
-[ref](https://ark-ui.com/docs/guides/ref).
+[fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark relatives à la
+[composition](https://ark-ui.com/react/docs/guides/composition), aux [styles](https://ark-ui.com/react/docs/guides/styling) et aux
+[ref](https://ark-ui.com/react/docs/guides/ref). L’[Empty State de Chakra](https://chakra-ui.com/docs/components/empty-state)
+éclaire cette composition explicite ; contrairement à Chakra, moduix conserve `Empty.Icon` et
+`Empty.Actions` facultatifs comme parties sœurs de la racine afin de les placer librement.
 
 ## Exemple de base
 
@@ -68,7 +70,7 @@ Cette approche garde le cas courant explicite tout en permettant des description
 
 - omettre `Empty.Icon` ou `Empty.Actions`
 - ajouter une mise en forme plus complexe dans `Empty.Description`
-- modifier le niveau du titre avec `Empty.Title asChild`
+- modifier le repère environnant ou le niveau du titre avec `Empty asChild` et `Empty.Title asChild`
 - appliquer `className` et les variables `--moduix-empty-*` aux parties responsables de la propriété visuelle concernée
 
 ### Propriétés par défaut
@@ -84,7 +86,7 @@ Cette approche garde le cas courant explicite tout en permettant des description
 - Chaque partie transmet sa ref à l’élément DOM rendu et accepte `asChild` de la fabrique Ark avec un unique enfant sémantiquement correct.
 - Les parties rendent `data-scope="empty"` et les attributs `data-part` correspondants pour les styles dans l’esprit d’Ark, ainsi que les hooks stables `data-slot="empty-*"` pour les surcharges moduix.
 - `Empty.Actions` centre ses enfants et autorise leur retour à la ligne : les paires d’actions et les longs libellés explicites de boutons ou de liens restent ainsi lisibles dans les mises en page étroites.
-- `Empty` est purement présentationnel : ne choisissez un repère environnant, un `role` ou le comportement d’une région live que si le contexte de l’écran l’exige. Masquez les icônes décoratives aux technologies d’assistance et donnez un nom accessible aux icônes porteuses de sens.
+- `Empty` est purement présentationnel : ne choisissez un repère environnant, un `role` ou le comportement d’une région live que si le contexte de l’écran l’exige. Utilisez `aria-hidden` pour les icônes décoratives et donnez un nom accessible aux icônes porteuses de sens.
 
 ## Exemples
 
@@ -112,7 +114,9 @@ L’emplacement visuel est facultatif : les états vides composés uniquement de
 
 ### Personnalisation avancée
 
-Utilisez `Empty.Title asChild` lorsque la page environnante nécessite un autre niveau de titre. La description accepte une mise en forme ordinaire de type bloc : un texte plus riche reste donc sémantiquement correct sans API de configuration distincte.
+Utilisez `Empty asChild` et `Empty.Title asChild` lorsque la page environnante nécessite un repère et
+un autre niveau de titre. La description accepte une mise en forme ordinaire de type bloc : un texte
+plus riche reste donc sémantiquement correct sans API de configuration distincte.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
