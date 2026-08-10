@@ -86,6 +86,29 @@ test('preserves disabled state', async () => {
   expect(trigger).toHaveAttribute('data-disabled');
 });
 
+test('keeps interactive content inert while partially collapsed', async () => {
+  render(
+    <Collapsible collapsedHeight="2rem">
+      <Collapsible.Trigger>Partial details</Collapsible.Trigger>
+      <Collapsible.Content data-testid="partial-content">
+        <button type="button">Nested action</button>
+      </Collapsible.Content>
+    </Collapsible>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Partial details' });
+  const content = screen.getByTestId('partial-content');
+  const nestedAction = screen.getByText('Nested action');
+
+  expect(content).toHaveAttribute('data-has-collapsed-size');
+  expect(content).not.toHaveAttribute('hidden');
+  await waitFor(() => expect(nestedAction).toHaveAttribute('inert'));
+
+  fireEvent.click(trigger);
+
+  await waitFor(() => expect(nestedAction).not.toHaveAttribute('inert'));
+});
+
 test('preserves consumer-owned trigger refs and behavior with asChild', async () => {
   const triggerRef = createRef<HTMLButtonElement>();
 
