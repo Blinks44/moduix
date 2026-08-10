@@ -159,6 +159,7 @@ export function ComponentGallery() {
       {categories.map((category) => {
         const slugs: readonly string[] = category.slugs;
         const items = components.filter((component) => slugs.includes(component.slug));
+        const hasPreview = category.id === 'form-input' || category.id === 'layout-navigation';
         return (
           <section key={category.id} aria-labelledby={category.id}>
             <div className={styles.heading}>
@@ -174,11 +175,9 @@ export function ComponentGallery() {
                   key={component.slug}
                   description={component.description}
                   href={component.url}
-                  icon={category.id === 'form-input' ? undefined : <ComponentIcon />}
+                  icon={hasPreview ? undefined : <ComponentIcon />}
                   preview={
-                    category.id === 'form-input' ? (
-                      <ComponentCardPreview component={component.slug} />
-                    ) : undefined
+                    hasPreview ? <ComponentCardPreview component={component.slug} /> : undefined
                   }
                   title={component.title}
                 />
