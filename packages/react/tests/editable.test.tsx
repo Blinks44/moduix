@@ -2,19 +2,21 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
-import { Editable, useEditable } from '../src';
+import { Editable, Field, useEditable } from '../src';
 
 function TestEditable({
   defaultValue = 'Layer name',
+  form,
   name,
   onValueCommit,
 }: {
   defaultValue?: string;
+  form?: string;
   name?: string;
   onValueCommit?: (details: { value: string }) => void;
 }) {
   return (
-    <Editable defaultValue={defaultValue} name={name} onValueCommit={onValueCommit}>
+    <Editable defaultValue={defaultValue} form={form} name={name} onValueCommit={onValueCommit}>
       <Editable.Label>Name</Editable.Label>
       <Editable.Area>
         <Editable.Input />
@@ -47,6 +49,15 @@ test('commits with Enter and reverts with Escape', async () => {
 
   await waitFor(() => expect(commits).toEqual(['Published name']));
   expect(screen.getByText('Published name')).toBeVisible();
+});
+
+test('activates the preview with the moduix double-click default', async () => {
+  const user = userEvent.setup();
+  render(<TestEditable />);
+
+  await user.dblClick(screen.getByText('Layer name'));
+
+  expect(await screen.findByRole('textbox', { name: 'editable input' })).toBeVisible();
 });
 
 test('keeps disabled triggers unavailable and read-only values unchanged', () => {
@@ -88,6 +99,40 @@ test('keeps disabled triggers unavailable and read-only values unchanged', () =>
   expect(within(readOnlyEditable!).queryByRole('textbox')).not.toBeInTheDocument();
 });
 
+test('inherits Field state and preserves public styling hooks', () => {
+  const { container } = render(
+    <Field disabled id="layer-name" invalid readOnly required>
+      <Editable defaultValue="Layer name">
+        <Editable.Label>Layer name</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Controls />
+      </Editable>
+    </Field>,
+  );
+
+  const root = container.querySelector<HTMLElement>('[data-slot="editable-root"]');
+  const area = container.querySelector<HTMLElement>('[data-slot="editable-area"]');
+  const input = container.querySelector<HTMLInputElement>('[data-slot="editable-input"]');
+  const label = container.querySelector<HTMLElement>('[data-slot="editable-label"]');
+
+  expect(root).not.toBeNull();
+  expect(area).not.toBeNull();
+  expect(input).not.toBeNull();
+  expect(label).not.toBeNull();
+  expect(root!).toHaveAttribute('data-slot', 'editable-root');
+  expect(area!).toHaveAttribute('data-disabled');
+  expect(input!).toHaveAttribute('data-slot', 'editable-input');
+  expect(input!).toBeDisabled();
+  expect(input!).toHaveAttribute('aria-invalid', 'true');
+  expect(input!).toHaveAttribute('readonly');
+  expect(input!).toBeRequired();
+  expect(label!).toHaveAttribute('data-invalid');
+  expect(label!).toHaveAttribute('for', input!.id);
+});
+
 test('participates in native form submission', () => {
   const { container } = render(
     <form>
@@ -98,6 +143,28 @@ test('participates in native form submission', () => {
 
   expect(form).not.toBeNull();
   expect(new FormData(form!).get('title')).toBe('Layer name');
+});
+
+test('submits the committed value through an external form owner', async () => {
+  const user = userEvent.setup();
+  render(
+    <>
+      <form id="editable-form" />
+      <TestEditable defaultValue="Layer name" form="editable-form" name="title" />
+    </>,
+  );
+
+  await user.click(screen.getByRole('button', { name: 'edit' }));
+  const input = await screen.findByRole('textbox', { name: 'editable input' });
+  await user.clear(input);
+  await user.type(input, 'Published name');
+  await user.keyboard('{Enter}');
+
+  await waitFor(() => expect(screen.getByText('Published name')).toBeVisible());
+  const form = document.getElementById('editable-form');
+
+  expect(form).toBeInstanceOf(HTMLFormElement);
+  expect(new FormData(form as HTMLFormElement).get('title')).toBe('Published name');
 });
 
 test('commits textarea values with Ctrl or Cmd + Enter', async () => {
