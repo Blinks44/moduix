@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { Collapsible, useCollapsible, useCollapsibleContext } from '../src';
 
 function ContextCloseButton() {
@@ -84,6 +84,32 @@ test('preserves disabled state', async () => {
 
   await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
   expect(trigger).toHaveAttribute('data-disabled');
+});
+
+test('preserves consumer-owned trigger refs and behavior with asChild', async () => {
+  const triggerRef = createRef<HTMLButtonElement>();
+
+  render(
+    <Collapsible>
+      <Collapsible.Trigger asChild ref={triggerRef}>
+        <button type="button" className="consumer-trigger">
+          Composed details
+        </button>
+      </Collapsible.Trigger>
+      <Collapsible.Content>Composed content.</Collapsible.Content>
+    </Collapsible>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Composed details' });
+
+  expect(triggerRef.current).toBe(trigger);
+  expect(trigger).toHaveClass('consumer-trigger');
+  expect(trigger).toHaveAttribute('data-slot', 'collapsible-trigger');
+  expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+  fireEvent.click(trigger);
+
+  await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
 });
 
 test('keeps provider and descendant context composition connected', async () => {

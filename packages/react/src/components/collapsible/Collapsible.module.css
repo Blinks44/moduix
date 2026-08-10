@@ -171,4 +171,16 @@
     min-width: 0;
     padding: var(--moduix-collapsible-body-padding, var(--moduix-spacing-2));
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .indicator {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation-delay: 0ms;
+      animation-duration: 1ms;
+    }
+  }
 }

@@ -173,6 +173,14 @@ Primary CSS variables:
   and descendant-context composition paths, while Ark type aliases remain direct escape hatches.
 - No legacy flat exports, aliases, or converted callback signatures are retained.
 
+## Upstream comparison (reviewed 2026-08-10)
+
+| Source                                                               | Finding                                                                                                                             | Decision                                                                                                                                                                   |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Ark UI](https://ark-ui.com/docs/components/collapsible)             | Defines the anatomy, `asChild`, controlled state, partial-collapse measurements, inert collapsed content, and keyboard interaction. | **Required correctness** — preserve Ark props, callback details, state attributes, and runtime measurement variables without translation. Verified.                        |
+| [Chakra UI](https://next.chakra-ui.com/docs/components/collapsible)  | Recommends an inner content wrapper so padding does not interfere with size animation.                                              | **Consumer friction** — moduix `Collapsible.Body` supplies that wrapper while keeping the real Ark content part available.                                                 |
+| [shadcn/ui](https://ui.shadcn.com/docs/components/radix/collapsible) | Favors a compact, discoverable root/trigger/content recipe and controlled-state example.                                            | **Intentional difference** — retain the moduix namespace and optional default indicator; flat aliases would add duplicate API without removing recurring composition work. |
+
 ## Agent notes
 
 - Preserve Ark callback details, `asChild`, context/provider composition, render strategy, and
@@ -182,9 +190,12 @@ Primary CSS variables:
 - Keep `Content` reserved for the real Ark content part.
 - Keep spacing on `Collapsible.Body` or another inner content wrapper so `--height` animation
   remains accurate.
+- Keep content and indicator motion aligned with the user's `prefers-reduced-motion` setting.
 
 ## Local changelog
 
+- 2026-08-10: Completed the release audit against Ark UI, Chakra UI, and shadcn/ui; added
+  reduced-motion handling and regression coverage for consumer-owned `Trigger asChild` refs.
 - 2026-07-26: Aligned the trigger focus ring with Accordion, added RTL-safe trigger alignment,
   regression coverage, and docs examples for `collapsedWidth` and descendant context control.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
