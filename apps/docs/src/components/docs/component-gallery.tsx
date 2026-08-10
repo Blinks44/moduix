@@ -1,6 +1,7 @@
 import { useI18n, useLang, usePages } from '@rspress/core/runtime';
 import { Component as ComponentIcon } from 'lucide-react';
 import { Card, Cards } from '../mdx/Components';
+import { ComponentCardPreview } from './component-card-preview';
 import styles from './component-gallery.module.css';
 
 const categories = [
@@ -173,7 +174,12 @@ export function ComponentGallery() {
                   key={component.slug}
                   description={component.description}
                   href={component.url}
-                  icon={<ComponentIcon />}
+                  icon={category.id === 'form-input' ? undefined : <ComponentIcon />}
+                  preview={
+                    category.id === 'form-input' ? (
+                      <ComponentCardPreview component={component.slug} />
+                    ) : undefined
+                  }
                   title={component.title}
                 />
               ))}
