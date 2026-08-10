@@ -29,6 +29,7 @@ legacy `render` contract.
 - `size` controls visual scale independently from semantic level.
 - `weight` defaults to `semibold`.
 - Without an explicit `size`, native `h1` through `h6` elements map to `2xl` through `xs`.
+- Component-owned styling hooks take precedence over colliding `data-*` props.
 - The component has no managed state, callbacks, keyboard behavior, or ARIA abstraction.
 
 ## Anatomy and exported parts
@@ -150,6 +151,8 @@ The root uses `overflow-wrap: anywhere` so long unbroken content can shrink insi
 
 ## Local changelog
 
+- 2026-08-10: Preserved component-owned styling hooks when user props provide colliding `data-*`
+  attributes, with regression coverage and localized consumer guidance.
 - 2026-07-03: Removed public `Heading` type aliases to keep the wrapper surface aligned with other
   simplified root-only components.
 - 2026-06-25: Finalized local-only Ark factory docs, added explicit `asChild` guidance, and

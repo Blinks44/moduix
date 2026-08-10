@@ -57,6 +57,28 @@ test('keeps explicit visual props separate from heading semantics', () => {
   expect(heading).toHaveAttribute('data-weight', 'bold');
 });
 
+test('preserves component-owned styling hooks when data attributes collide', () => {
+  render(
+    <Heading
+      data-scope="custom-scope"
+      data-part="custom-part"
+      data-slot="custom-slot"
+      data-size="xs"
+      data-weight="bold"
+    >
+      Page title
+    </Heading>,
+  );
+
+  const heading = screen.getByRole('heading', { name: 'Page title', level: 1 });
+
+  expect(heading).toHaveAttribute('data-scope', 'heading');
+  expect(heading).toHaveAttribute('data-part', 'root');
+  expect(heading).toHaveAttribute('data-slot', 'heading-root');
+  expect(heading).not.toHaveAttribute('data-size');
+  expect(heading).toHaveAttribute('data-weight', 'semibold');
+});
+
 test('forwards props and refs through a semantic asChild host', () => {
   const ref = createRef<HTMLHeadingElement>();
 
