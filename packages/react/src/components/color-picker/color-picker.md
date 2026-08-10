@@ -141,6 +141,73 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - `Trigger` supports `data-fit-content` for content-sized button compositions with custom children.
 - `AreaThumb`, `ChannelSliderThumb`, `Swatch`, `SwatchTrigger`, and `ValueSwatch` preserve Ark
   color variables such as `--color`.
+- When `prefers-reduced-motion` is enabled, popup entry and exit animations use a 1ms duration so
+  Ark can complete its exit lifecycle without visible motion.
+
+### Public CSS variables
+
+The public documentation provides the defaults and descriptions for this exact contract. Keep its
+`colorPickerOverrideCssProperties` list synchronized with the variables below.
+
+- Root, controls, and shared states: `--moduix-color-picker-width`,
+  `--moduix-color-picker-max-width`, `--moduix-color-picker-root-gap`,
+  `--moduix-color-picker-color`, `--moduix-color-picker-disabled-opacity`,
+  `--moduix-color-picker-label-color`, `--moduix-color-picker-label-font-size`,
+  `--moduix-color-picker-label-font-weight`, `--moduix-color-picker-label-line-height`,
+  `--moduix-color-picker-control-gap`, `--moduix-color-picker-trigger-size`,
+  `--moduix-color-picker-border-width`, `--moduix-color-picker-border-color`,
+  `--moduix-color-picker-radius`, `--moduix-color-picker-trigger-padding`,
+  `--moduix-color-picker-control-bg`, `--moduix-color-picker-focus-ring-width`,
+  `--moduix-color-picker-transition`, `--moduix-color-picker-focus-ring-color`,
+  `--moduix-color-picker-invalid-color`, and `--moduix-color-picker-icon-size`.
+- Popup, motion, and compact triggers: `--moduix-color-picker-content-closed-opacity`,
+  `--moduix-color-picker-content-closed-scale`,
+  `--moduix-color-picker-trigger-fit-content-padding-x`,
+  `--moduix-color-picker-trigger-fit-content-gap`,
+  `--moduix-color-picker-trigger-fit-content-swatch-size`,
+  `--moduix-color-picker-content-width`, `--moduix-color-picker-content-max-height`,
+  `--moduix-color-picker-content-gap`, `--moduix-color-picker-content-border-width`,
+  `--moduix-color-picker-content-border-color`, `--moduix-color-picker-content-radius`,
+  `--moduix-color-picker-content-padding`, `--moduix-color-picker-content-bg`,
+  `--moduix-color-picker-content-shadow`, and `--moduix-color-picker-content-color`.
+- Color area and thumbs: `--moduix-color-picker-area-height`,
+  `--moduix-color-picker-area-radius`, `--moduix-color-picker-area-border-width`,
+  `--moduix-color-picker-area-border-color`, `--moduix-color-picker-thumb-size`,
+  `--moduix-color-picker-thumb-radius`, `--moduix-color-picker-thumb-bg`,
+  `--moduix-color-picker-thumb-inner-ring-width`,
+  `--moduix-color-picker-thumb-inner-ring-color`,
+  `--moduix-color-picker-thumb-outer-ring-width`,
+  `--moduix-color-picker-thumb-outer-ring-color`, `--moduix-color-picker-thumb-shadow`, and
+  `--moduix-color-picker-thumb-focus-ring-width`.
+- Channel sliders: `--moduix-color-picker-channel-slider-height`,
+  `--moduix-color-picker-channel-slider-radius`,
+  `--moduix-color-picker-channel-slider-vertical-height`, `--moduix-color-picker-sliders-gap`,
+  `--moduix-color-picker-channel-slider-track-size`,
+  `--moduix-color-picker-channel-slider-border-width`,
+  `--moduix-color-picker-channel-slider-border-color`,
+  `--moduix-color-picker-channel-slider-label-color`,
+  `--moduix-color-picker-channel-slider-label-font-size`,
+  `--moduix-color-picker-channel-slider-label-font-weight`,
+  `--moduix-color-picker-channel-slider-label-line-height`,
+  `--moduix-color-picker-channel-slider-value-color`,
+  `--moduix-color-picker-channel-slider-value-font-size`, and
+  `--moduix-color-picker-channel-slider-value-line-height`.
+- Inputs and actions: `--moduix-color-picker-input-height`,
+  `--moduix-color-picker-input-padding-x`, `--moduix-color-picker-input-font-size`,
+  `--moduix-color-picker-input-line-height`, `--moduix-color-picker-alpha-input-width`,
+  `--moduix-color-picker-action-size`, `--moduix-color-picker-action-gap`,
+  `--moduix-color-picker-action-padding-x`, `--moduix-color-picker-action-bg`,
+  `--moduix-color-picker-action-color`, `--moduix-color-picker-action-font-size`,
+  `--moduix-color-picker-action-line-height`, `--moduix-color-picker-action-bg-hover`, and
+  `--moduix-color-picker-action-color-hover`.
+- Swatches and value display: `--moduix-color-picker-swatch-gap`,
+  `--moduix-color-picker-swatch-radius`, `--moduix-color-picker-swatch-size`,
+  `--moduix-color-picker-swatch-border-width`, `--moduix-color-picker-swatch-border-color`,
+  `--moduix-color-picker-swatch-indicator-color`,
+  `--moduix-color-picker-swatch-indicator-shadow`,
+  `--moduix-color-picker-swatch-indicator-size`, `--moduix-color-picker-value-text-color`,
+  `--moduix-color-picker-value-text-font-size`,
+  `--moduix-color-picker-value-text-line-height`, and `--moduix-color-picker-view-gap`.
 
 ## Intentional sugar and differences from upstream
 
@@ -167,6 +234,12 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - Preserve Ark `Color` objects and callback detail shapes.
 - Form participation is controlled through root props; the root renders the native form input
   automatically.
+- Upstream review, 2026-08-10: Ark's
+  [`Color Picker`](https://ark-ui.com/docs/components/color-picker) defines the preserved behavior
+  and lifecycle; [Chakra's Color Picker](https://chakra-ui.com/docs/components/color-picker)
+  confirms the part anatomy and styled composition; [shadcn/ui](https://ui.shadcn.com/llms.txt)
+  does not ship a Color Picker, so moduix intentionally retains an explicit Ark-shaped composition
+  instead of presenting a pseudo-native color input.
 
 ## Mount lifecycle
 
@@ -175,6 +248,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-10: Added motion-safe popup transitions, documented the complete public CSS-variable
+  contract, and covered `asChild`, refs, and native form reset behavior.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

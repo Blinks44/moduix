@@ -203,6 +203,13 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation-duration: 1ms;
+      animation-delay: 0ms;
+    }
+  }
+
   .area {
     position: relative;
     box-sizing: border-box;

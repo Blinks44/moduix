@@ -387,3 +387,6 @@ ColorPicker
 `data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
 `data-placement` и `data-side`. Переменные времени выполнения Ark включают `--color`, `--value`,
 `--available-width`, `--available-height` и `--transform-origin`.
+
+При включённом `prefers-reduced-motion` анимации открытия и закрытия popup сокращаются до 1 мс:
+так Ark корректно завершает lifecycle выхода без видимого движения.
