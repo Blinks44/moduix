@@ -34,6 +34,7 @@ If you are moving from shadcn, the mental model stays the same. The main API cha
 
 ```text
 Card.Root
+├─ Card.Background (optional moduix sugar)
 ├─ Card.Media (optional moduix sugar)
 ├─ Card.Header
 │  ├─ Card.Title
@@ -48,6 +49,7 @@ Card.Root
 | Part                 | Role                                                                                    |
 | -------------------- | --------------------------------------------------------------------------------------- |
 | `Card` / `Card.Root` | Root surface with `size`, `variant`, and `asChild`.                                     |
+| `Card.Background`    | Optional full-bleed background layer for decorative media.                              |
 | `Card.Media`         | Optional edge-to-edge media wrapper with predictable top-radius clipping.               |
 | `Card.Header`        | Header layout for title, description, and an optional trailing action.                  |
 | `Card.Body`          | Main content area.                                                                      |
@@ -63,6 +65,8 @@ Card.Root
 
 Use `<Card />`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body`, and `Card.Footer`.
 Wrap leading media in `Card.Media` when it should bleed to the card edges without custom clipping.
+Use `Card.Background` for a decorative image behind the entire card; add the contrast treatment in
+your application styles.
 The root defaults to `size="md"` and `variant="outline"`.
 
 ### When to go custom
@@ -93,6 +97,8 @@ in the title, then extends the hit area across the card while separate controls 
 - The root renders a presentational `div` by default and forwards its ref to the rendered element.
 - All parts accept native props, `className`, `style`, and Ark factory `asChild`.
 - `Card.Media` is optional sugar. Omit it when you need fully custom media framing or non-leading placement.
+- `Card.Background` is optional sugar for decorative full-card media. Keep its image `alt=""`; use
+  `Card.Media` when the image requires alternative text.
 - `Card.Title` renders `h3` by default.
 - Interactive roots created with `asChild` and `Card.Link` receive the same themeable `:focus-visible` ring.
 - Card has no managed state, callbacks, keyboard behavior, provider, context, or hidden input.
@@ -185,6 +191,17 @@ Use `Card.Media` when leading media should span the card width with predictable 
 
 </PreviewFrame>
 
+### With Background
+
+Use `Card.Background` for a decorative full-bleed image behind the card. Supply the gradient and
+text contrast in application styles.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="./_snippets/card/with-background.tsx"
+
+```
+</PreviewFrame>
+
 ### Within Form
 
 Compose the root as a form when the card groups related fields and actions.
@@ -215,7 +232,7 @@ Bypass `Card.Media` when you need fully custom media framing and want to restyle
 ### Styling hooks
 
 - Every part exposes `data-scope="card"` and a matching `data-part`.
-- Stable moduix hooks are `data-slot="card-root"`, `card-media`, `card-header`, `card-body`,
+- Stable moduix hooks are `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
   `card-footer`, `card-title`, `card-description`, `card-action`, and `card-link`.
 - The root exposes `data-size="sm | md | lg"` and
   `data-variant="elevated | outline | subtle"`.

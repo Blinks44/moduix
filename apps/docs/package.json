@@ -24,6 +24,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
+    "react-parallax-tilt": "^1.7.337",
     "valibot": "^1.4.2"
   },
   "devDependencies": {

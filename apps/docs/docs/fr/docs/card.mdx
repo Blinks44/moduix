@@ -31,6 +31,7 @@ Si vous migrez depuis shadcn, le modèle mental reste le même. La principale di
 
 ```text
 Card.Root
+├─ Card.Background (raccourci moduix facultatif)
 ├─ Card.Media (raccourci moduix facultatif)
 ├─ Card.Header
 │  ├─ Card.Title
@@ -45,6 +46,7 @@ Card.Root
 | Partie               | Rôle                                                                                                         |
 | -------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `Card` / `Card.Root` | Conteneur racine avec les propriétés `size`, `variant` et `asChild`.                                         |
+| `Card.Background`    | Couche plein fond facultative pour un média décoratif.                                                        |
 | `Card.Media`         | Enveloppe facultative pour un média bord à bord avec un arrondi prévisible des angles supérieurs.            |
 | `Card.Header`        | Dispose le titre, la description et une éventuelle action en fin de ligne.                                   |
 | `Card.Body`          | Zone de contenu principale.                                                                                  |
@@ -60,6 +62,8 @@ Card.Root
 
 Utilisez `<Card />`, `Card.Header`, `Card.Title`, `Card.Description`, `Card.Body` et `Card.Footer`.
 Placez le média initial dans `Card.Media` lorsqu’il doit atteindre les bords de la carte sans nécessiter son propre rognage.
+Utilisez `Card.Background` pour une image décorative derrière toute la carte ; ajoutez le traitement de
+contraste dans les styles de votre application.
 Par défaut, le composant racine utilise `size="md"` et `variant="outline"`.
 
 ### Quand créer une composition personnalisée
@@ -90,6 +94,8 @@ mais sa zone cliquable s’étend à toute la carte sans recouvrir les élément
 - Le composant racine rend par défaut un `div` de présentation et transmet la ref à l’élément rendu.
 - Toutes les parties acceptent les propriétés natives, `className`, `style` et la propriété `asChild` de l’Ark factory.
 - `Card.Media` est une enveloppe de commodité facultative. Ne l’utilisez pas si le média nécessite ses propres styles ou s’il n’apparaît pas au début de la carte.
+- `Card.Background` est un raccourci facultatif pour un média décoratif sur toute la carte. Gardez
+  `alt=""` pour cette image ; utilisez `Card.Media` lorsqu’elle requiert un texte alternatif.
 - `Card.Title` rend un `h3` par défaut.
 - Les racines interactives créées avec `asChild` et `Card.Link` reçoivent le même anneau `:focus-visible` personnalisable.
 - Card ne gère ni état, ni callbacks, ni comportement clavier, ni provider, ni contexte, ni champ de saisie masqué.
@@ -182,6 +188,17 @@ Utilisez `Card.Media` lorsque le média initial doit occuper toute la largeur de
 
 </PreviewFrame>
 
+### Avec une image de fond
+
+Utilisez `Card.Background` pour une image décorative sur toute la carte. Ajoutez le dégradé et le
+contraste du texte dans les styles de votre application.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/card/with-background.tsx"
+
+```
+</PreviewFrame>
+
 ### Dans un formulaire
 
 Utilisez le composant racine comme formulaire lorsque la carte regroupe des champs et des actions associés.
@@ -212,7 +229,7 @@ N’utilisez pas `Card.Media` si vous devez contrôler entièrement la présenta
 ### Points d’accroche CSS
 
 - Chaque partie fournit `data-scope="card"` et le `data-part` correspondant.
-- Hooks moduix stables : `data-slot="card-root"`, `card-media`, `card-header`, `card-body`,
+- Hooks moduix stables : `data-slot="card-root"`, `card-background`, `card-media`, `card-header`, `card-body`,
   `card-footer`, `card-title`, `card-description`, `card-action` et `card-link`.
 - Le composant racine fournit `data-size="sm | md | lg"` et
   `data-variant="elevated | outline | subtle"`.

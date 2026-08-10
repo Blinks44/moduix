@@ -1,0 +1,45 @@
+---
+title: Карточка с параллаксом
+description: Карточка moduix с фотографией на весь фон и лёгким 3D-наклоном при наведении.
+---
+
+import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
+
+# Карточка с параллаксом
+
+Карточка с фотографией на весь фон и лёгким 3D-наклоном. Декоративным слоем фотографии управляет
+`Card.Background`, а для движения курсора используется `react-parallax-tilt`; эффект не включается
+без точного hover-курсора и при настройке reduced motion.
+
+<ExampleFrame clientOnly>
+  <ParallaxCardPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/parallax-card.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/parallax-card.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Установка
+
+<ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
+
+## Использование на странице
+
+Замените URL изображения и содержание карточки. Оставьте у декоративного фона `alt=""`; если
+изображению нужен альтернативный текст, используйте `Card.Media`. Анимация здесь декоративна, поэтому
+карточка должна оставаться читаемой и полезной без hover; для перехода добавьте обычную ссылку или кнопку.

@@ -230,6 +230,29 @@ export const WithImage: Story = {
   },
 };
 
+export const WithBackground: Story = {
+  render: () => {
+    return (
+      <Card className={styles.backgroundCard} variant="elevated">
+        <Card.Background>
+          <img
+            alt=""
+            className={styles.backgroundImage}
+            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85"
+          />
+          <div aria-hidden="true" className={styles.backgroundOverlay} />
+        </Card.Background>
+        <Card.Header className={styles.backgroundHeader}>
+          <Card.Title>Weekend guide</Card.Title>
+          <Card.Description className={styles.backgroundDescription}>
+            Three places to slow down, look around, and stay a little longer.
+          </Card.Description>
+        </Card.Header>
+      </Card>
+    );
+  },
+};
+
 export const Horizontal: Story = {
   render: () => {
     return (

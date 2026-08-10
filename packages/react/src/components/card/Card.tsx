@@ -76,6 +76,22 @@ const CardMedia = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardMedi
   );
 });
 
+const CardBackground = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardBackground(
+  { className, ...props },
+  ref,
+) {
+  return (
+    <ark.div
+      ref={ref as ForwardedRef<HTMLDivElement>}
+      data-scope="card"
+      data-part="background"
+      data-slot="card-background"
+      className={clsx(styles.background, normalizeClassName(className))}
+      {...props}
+    />
+  );
+});
+
 const CardFooter = forwardRef<HTMLElement, HTMLArkProps<'div'>>(function CardFooter(
   { className, ...props },
   ref,
@@ -161,6 +177,7 @@ const Card = Object.assign(CardRoot, {
   Header: CardHeader,
   Body: CardBody,
   Media: CardMedia,
+  Background: CardBackground,
   Footer: CardFooter,
   Title: CardTitle,
   Description: CardDescription,

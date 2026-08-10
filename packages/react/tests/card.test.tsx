@@ -20,6 +20,7 @@ test('renders the default root with stable hooks', () => {
 test('renders every part with its semantic default and stable hooks', () => {
   render(
     <Card>
+      <Card.Background data-testid="background" />
       <Card.Media data-testid="media" />
       <Card.Header data-testid="header">
         <Card.Title data-testid="title">
@@ -36,6 +37,7 @@ test('renders every part with its semantic default and stable hooks', () => {
   );
 
   const parts = [
+    ['background', 'div'],
     ['media', 'div'],
     ['header', 'div'],
     ['title', 'h3'],
@@ -86,6 +88,24 @@ test('forwards an HTMLElement ref through an asChild part', () => {
   expect(ref.current).toBe(heading);
   expect(heading).toHaveAttribute('data-part', 'title');
   expect(heading).toHaveAttribute('data-slot', 'card-title');
+});
+
+test('forwards an HTMLElement ref through an asChild background', () => {
+  const ref = createRef<HTMLElement>();
+
+  render(
+    <Card.Background asChild ref={ref}>
+      <picture data-testid="background">
+        <img alt="" src="/forest.jpg" />
+      </picture>
+    </Card.Background>,
+  );
+
+  const background = screen.getByTestId('background');
+
+  expect(ref.current).toBe(background);
+  expect(background).toHaveAttribute('data-part', 'background');
+  expect(background).toHaveAttribute('data-slot', 'card-background');
 });
 
 test('keeps actions interactive when Card.Link covers the card', () => {
