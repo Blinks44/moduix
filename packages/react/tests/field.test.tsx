@@ -64,6 +64,37 @@ test('forwards Field.Item refs and uses target for its label wiring', () => {
   expect(screen.getByText('Email')).toHaveAttribute('for', input.id);
 });
 
+test('forwards refs and styling hooks for the Ark native parts', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const inputRef = createRef<HTMLInputElement>();
+  const textareaRef = createRef<HTMLTextAreaElement>();
+  const selectRef = createRef<HTMLSelectElement>();
+
+  render(
+    <>
+      <Field ref={rootRef}>
+        <Field.Label>Name</Field.Label>
+        <Field.Input ref={inputRef} />
+      </Field>
+      <Field>
+        <Field.Label>Summary</Field.Label>
+        <Field.Textarea ref={textareaRef} />
+      </Field>
+      <Field>
+        <Field.Label>Priority</Field.Label>
+        <Field.Select ref={selectRef}>
+          <option>Normal</option>
+        </Field.Select>
+      </Field>
+    </>,
+  );
+
+  expect(rootRef.current).toHaveAttribute('data-slot', 'field-root');
+  expect(inputRef.current).toHaveAttribute('data-slot', 'field-input');
+  expect(textareaRef.current).toHaveAttribute('data-slot', 'field-textarea');
+  expect(selectRef.current).toHaveAttribute('data-slot', 'field-select');
+});
+
 test('keeps the RootProvider composition path Ark-shaped', () => {
   function ProviderField() {
     const field = useField({ id: 'provider-email', invalid: true });

@@ -21,7 +21,7 @@ ou l'état général des `disabled`, `invalid`, `required` et `readOnly`.
 
 ## Exemple de base
 
-Commencez par `Field`, `Field.Label`, une commande moduix et un texte explicatif ou d'erreur facultatif.
+Commencez par `Field`, `Field.Label`, un contrôle moduix et un texte d’aide ou d’erreur facultatif.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/basic.tsx"
@@ -35,7 +35,7 @@ Commencez par `Field`, `Field.Label`, une commande moduix et un texte explicatif
 
 ## Anatomie
 
-`Field` suit les composants d’Ark UI et stocke leurs noms dans l'API publique de moduix.
+`Field` suit les composants d’Ark UI et conserve leurs noms dans l’API publique de moduix.
 
 ```text
 Field
@@ -64,27 +64,27 @@ Field
 
 ### Composition recommandée
 
-Laissez une étiquette visible à la racine, rendz exactement un contrôle principal moduix, par exemple `Input`,
-`Textarea` ou `NativeSelect`, et ajoutez un texte explicatif ou d'erreur si une description ou un retour de validation est nécessaire.
+Conservez un libellé visible à la racine, rendez exactement un contrôle moduix principal, comme `Input`,
+`Textarea` ou `NativeSelect`, et ajoutez un texte d’aide ou d’erreur si une description ou un retour de validation est nécessaire.
 
 ### Quand créer une composition personnalisée
 
 Utilisez `Field.Item value` avec la racine `target` lorsque le champ contient plusieurs contrôles natifs,
-et l'étiquette doit pointer vers l'un d'eux. `Field.Input`, `Field.Textarea` et `Field.Select` restent disponibles pour
-composition étendue dans le style Ark, mais dans le code d'application normal, vous devez utiliser les éléments moduix qui leur sont destinés.
+et le libellé doit pointer vers l’un d’eux. `Field.Input`, `Field.Textarea` et `Field.Select` restent disponibles pour
+une composition avancée dans le style Ark, mais le code d’application ordinaire doit utiliser les composants moduix dédiés.
 
 ### Propriétés par défaut
 
 | Surfaces | Par défaut | Remarques |
 | ------------------------ | ------------ | --------------------------------------------------------- |
-| `Field` / `Field.Root` | — | Il n’y a aucune implication comportementale supplémentaire ; Les valeurs Ark s'appliquent. |
+| `Field` / `Field.Root` | — | Aucun comportement supplémentaire ; les valeurs par défaut d’Ark s’appliquent. |
 
 ### Comportement
 
 - `Field.ErrorText` n'est pas dans le DOM sauf si la racine a `invalid`.
 - `Field.RootProvider` doit recevoir l'état de `useField()` importé de `@moduix/react`,
   et ne doit pas être imbriqué dans `Field.Root` pour la même instance de champ.
-- Utilisez `Field.Context` ou `useFieldContext` de `@moduix/react` lorsqu’un contrôle personnalisé a besoin de l’état actuel du champ. Un import direct depuis Ark n’est nécessaire que pour les API de bas niveau que moduix n’exporte pas.
+- Utilisez `Field.Context` ou `useFieldContext` de `@moduix/react` lorsqu’un contrôle personnalisé a besoin de l’état actuel du champ. Un import direct depuis Ark n’est nécessaire que pour les API de bas niveau non exportées par moduix.
 - `Field.Item` transmet sa ref au wrapper de ligne moduix rendu autour de ses enfants.
 - `Field` ne rend pas d’input masqué : les composants composés tels que `Checkbox` et `RadioGroup` possèdent leurs propres parties de formulaire natives.
 
@@ -92,8 +92,8 @@ composition étendue dans le style Ark, mais dans le code d'application normal, 
 
 ### Checkbox
 
-Utilisez `Field` avec `Checkbox` lorsque le champ spécifie un texte explicatif général, un texte d'erreur ou une condition obligatoire.
-pour un contrôle de case à cocher.
+Utilisez `Field` avec `Checkbox` lorsque le champ fournit un texte d’aide, un texte d’erreur ou un état obligatoire
+à un unique contrôle de case à cocher.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/checkbox.tsx"
@@ -141,6 +141,17 @@ Utilisez `NativeSelect` pour un select natif du navigateur relié au libellé, �
 
 </PreviewFrame>
 
+### Zone de texte
+
+Utilisez `Textarea` pour le texte multiligne tout en conservant les associations du champ avec le libellé,
+la description et l’état.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/textarea.tsx"
+  ```
+
+</PreviewFrame>
+
 ### RadioGroup
 
 Utilisez `Field` avec `RadioGroup` lorsqu'une seule étiquette de champ, un texte explicatif ou un message d'erreur doit décrire
@@ -164,7 +175,7 @@ Définissez `readOnly` à la racine lorsque la valeur du contrôle peut être co
 
 ### Select
 
-Utilisez le composite `Select` lorsqu'un contrôle natif ne suffit pas et que vous avez besoin d'une interface utilisateur de recherche ou de variante.
+Utilisez le composant `Select` lorsqu’un contrôle natif ne suffit pas et qu’une recherche ou une interface d’options personnalisée est nécessaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/field/select.tsx"
@@ -194,8 +205,8 @@ Utilisez `useField` avec `Field.RootProvider` lorsque l’état doit être cré�
 
 ## Styles
 
-Style `Field` via les attributs `className`, Ark `data-scope="field"` / `data-part="..."`,
-hooks moduix `data-slot="field-*"` et variables CSS publiques `--moduix-field-*` ci-dessous.
+Stylisez `Field` avec `className`, les attributs Ark `data-scope="field"` / `data-part="..."`,
+les hooks moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-field-*` ci-dessous.
 
 ### Propriétés CSS
 
