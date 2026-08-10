@@ -402,9 +402,9 @@
     "fr": "Russe · Français"
   },
   "localizationHeroSummary": {
-    "en": "Russian and French documentation is here. More translations are next.",
-    "ru": "Документация на русском и французском уже здесь. Другие переводы — скоро.",
-    "fr": "La documentation en français et en russe est disponible. D’autres traductions arrivent bientôt."
+    "en": "Russian and French are here. More translations are next.",
+    "ru": "Русский и французский уже доступны. Другие языки — скоро.",
+    "fr": "Le français et le russe sont disponibles. D’autres langues arrivent."
   },
   "v2MigrationHeroDate": {
     "en": "July 19, 2026",

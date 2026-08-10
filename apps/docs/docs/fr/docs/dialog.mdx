@@ -116,6 +116,8 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`, `persistentElements` et les
   callbacks d’interaction extérieure sont transmis à Ark UI sans modification.
 - Un nom accessible exige `Dialog.Title` ou un `aria-label` sur le composant racine.
+- Lorsque le système d’exploitation demande une réduction des mouvements, Dialog raccourcit ses
+  animations d’entrée et de sortie tout en préservant le cycle de présence d’Ark UI.
 - Tous les identifiants des parties de fermeture rendues doivent être uniques. La composition de base canonique utilise
   un seul `Dialog.CloseIcon` ; si plusieurs contrôles de fermeture sont nécessaires, attribuez des `id` explicites et
   uniques aux parties supplémentaires.

@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/dialog
 - Chakra UI: https://chakra-ui.com/docs/components/dialog
+- shadcn/ui: https://ui.shadcn.com/docs/components/dialog
+
+These sources were compared on 2026-08-10.
 
 ## Purpose
 
@@ -133,7 +136,9 @@ properties so the parent recedes downward and remains visibly layered behind the
 the effect with `--moduix-dialog-nested-scale-step`, `--moduix-dialog-nested-translate-step`, and
 `--moduix-dialog-nested-transition`. Layer order uses `--layer-index`. `Dialog.CloseIcon` is positioned at
 the content's block-start/inline-end corner by default, including when it is composed outside
-`Dialog.Header`. Public `--moduix-dialog-*` tokens live in `variables-moduix.css`.
+`Dialog.Header`. When the system requests reduced motion, backdrop and content animations shorten
+while Ark keeps its presence lifecycle intact. Public `--moduix-dialog-*` tokens live in
+`variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 
@@ -161,6 +166,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-10: Added a reduced-motion path for dialog backdrop and content transitions, and covered
+  Escape dismissal, controlled state, external state, and portal behavior with focused tests.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

@@ -311,4 +311,16 @@
       );
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation-delay: 0ms;
+      animation-duration: 1ms;
+    }
+
+    .content {
+      transition: none;
+    }
+  }
 }

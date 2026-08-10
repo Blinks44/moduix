@@ -114,6 +114,8 @@ eager initial rendering is needed.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
   `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
 - `Dialog.Title` or root `aria-label` is required for an accessible name.
+- When the operating system requests reduced motion, Dialog shortens its entry and exit animations
+  while preserving Ark UI's presence lifecycle.
 - Keep every rendered close part id unique. The canonical Basic composition uses one
   `Dialog.CloseIcon`; if a dialog needs multiple close controls, give the additional parts explicit
   unique `id` values.
