@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/date-input
 - Chakra UI: https://chakra-ui.com/docs/components/date-picker
+- shadcn/ui: https://ui.shadcn.com/docs/components/date-picker
+
+Reviewed on 2026-08-10.
 
 ## Purpose
 
@@ -21,6 +24,15 @@ available for custom segment rendering.
 Ark owns keyboard editing, segment focus, parsing, min/max validation, unavailable-date validation,
 locale formatting, internal native-input synchronization, and form reset behavior. Do not translate dates to
 strings or local callback shapes in the wrapper.
+
+Release comparison:
+
+| Source    | Useful difference                                                                                                         | Decision                                                                                                |
+| --------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Its explicit `HiddenInput` composition is required for native form fields; its segment and state semantics are canonical. | Required correctness; moduix inserts indexed native inputs without changing Ark values or callbacks.    |
+| Chakra UI | Its date picker combines field, calendar, and triggers in one composition.                                                | Intentional difference; use `DatePicker` when a calendar is needed and keep `DateInput` keyboard-first. |
+| shadcn/ui | Its date picker teaches a button, popover, and calendar convenience flow.                                                 | Rejected complexity for this component; moduix already exposes that workflow as `DatePicker`.           |
+| moduix    | `Segments` removes only the repeated segment render callback.                                                             | Optional sugar; preserve `SegmentGroup`, `SegmentContext`, and `Segment` for custom rendering.          |
 
 ## Current behavior contract
 

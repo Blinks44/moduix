@@ -132,6 +132,11 @@ element inside the overlay subtree, not only on `DatePicker`.
 `minView`, `maxView`, and `onViewChange(details)` control the active calendar panel.
 When a composition renders only one panel, set both `minView` and `maxView` to that view.
 
+When nested in moduix `Field` or `Fieldset`, `DatePicker` inherits `disabled` and `invalid`; a
+`Field` also provides `readOnly` and `required`. Props set directly on `DatePicker` take precedence.
+`DatePicker.Field` always uses input index `0`; `DatePicker.RangeField` reserves `0` and `1` for
+the start and end inputs. Use `Control` and `Input` directly for a different input layout.
+
 Use `selectionMode="single"`, `"range"`, or `"multiple"`. `maxSelectedDates` applies only to
 multiple selection. `numOfMonths`, `fixedWeeks`, and `showWeekNumbers` change the calendar table.
 

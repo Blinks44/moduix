@@ -1,0 +1,414 @@
+.preview {
+  display: grid;
+  min-height: inherit;
+  place-items: center;
+  overflow: hidden;
+  padding: 1rem;
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    var(--rp-c-bg-soft);
+  background-size: 1.5rem 1.5rem;
+}
+
+.appHeader,
+.mobileShell,
+.dashboard,
+.accountForm,
+.codeForm,
+.dataTable,
+.uploadCard,
+.parallaxCard {
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--rp-c-bg) 88%, transparent);
+  box-shadow: 0 0.375rem 0.875rem color-mix(in srgb, var(--rp-c-text-1) 8%, transparent);
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  width: min(100%, 12rem);
+  gap: 0.375rem;
+  padding: 0.5rem;
+}
+
+.headerLogo,
+.headerNavigation,
+.headerAction,
+.mobileTopBar,
+.drawerLabel,
+.drawerLink,
+.sidebarBrand,
+.sidebarLink,
+.dashboardTitle,
+.dashboardStats span,
+.dashboardTable,
+.formTitle,
+.formDescription,
+.formLabel,
+.formInput,
+.formAction,
+.tableToolbar span,
+.tableHeader span,
+.tableRow span,
+.uploadIcon,
+.uploadTitle,
+.uploadMeta,
+.uploadProgress,
+.avatar,
+.avatarCount,
+.parallaxOverlay span {
+  display: block;
+  border-radius: 999px;
+  background: var(--rp-c-bg-mute);
+}
+
+.headerLogo {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 0.25rem;
+  background: var(--rp-c-text-1);
+}
+
+.headerNavigation {
+  width: 1.5rem;
+  height: 0.25rem;
+}
+
+.headerAction {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-left: auto;
+  background: color-mix(in srgb, var(--rp-c-text-1) 24%, var(--rp-c-bg-mute));
+}
+
+.mobileShell {
+  position: relative;
+  width: 5.5rem;
+  height: 4.5rem;
+  overflow: hidden;
+}
+
+.mobileTopBar {
+  width: 100%;
+  height: 0.625rem;
+  border-radius: 0;
+  border-bottom: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in srgb, var(--rp-c-bg) 70%, var(--rp-c-bg-mute));
+}
+
+.mobileDrawer {
+  display: grid;
+  width: 65%;
+  gap: 0.375rem;
+  height: calc(100% - 0.625rem);
+  padding: 0.5rem;
+  border-right: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in srgb, var(--rp-c-bg) 92%, transparent);
+}
+
+.drawerLabel {
+  width: 58%;
+  height: 0.25rem;
+  margin-bottom: 0.125rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.drawerLink {
+  width: 78%;
+  height: 0.25rem;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  width: min(100%, 9rem);
+  height: 4.5rem;
+  overflow: hidden;
+}
+
+.dashboardSidebar {
+  display: grid;
+  align-content: start;
+  gap: 0.375rem;
+  padding: 0.5rem 0.375rem;
+  border-right: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in srgb, var(--rp-c-bg-mute) 65%, transparent);
+}
+
+.sidebarBrand {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-bottom: 0.25rem;
+  border-radius: 0.25rem;
+  background: var(--rp-c-text-1);
+}
+
+.sidebarLink {
+  width: 100%;
+  height: 0.2rem;
+}
+
+.dashboardContent {
+  display: grid;
+  align-content: start;
+  gap: 0.375rem;
+  padding: 0.5rem;
+}
+
+.dashboardTitle {
+  width: 45%;
+  height: 0.25rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.dashboardStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem;
+}
+
+.dashboardStats span {
+  height: 0.875rem;
+}
+
+.dashboardTable {
+  height: 1.25rem;
+  border-radius: 0.25rem;
+}
+
+.accountForm,
+.codeForm {
+  display: grid;
+  width: min(100%, 10.5rem);
+  gap: 0.375rem;
+  padding: 0.75rem;
+}
+
+.formTitle {
+  width: 45%;
+  height: 0.375rem;
+  margin-bottom: 0.125rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.formDescription {
+  width: 72%;
+  height: 0.25rem;
+  margin-bottom: 0.375rem;
+}
+
+.formLabel {
+  width: 30%;
+  height: 0.25rem;
+}
+
+.formInput {
+  height: 0.75rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid var(--rp-c-divider-light);
+  background: color-mix(in srgb, var(--rp-c-bg) 74%, var(--rp-c-bg-mute));
+}
+
+.formAction {
+  height: 0.875rem;
+  margin-top: 0.125rem;
+  background: var(--rp-c-text-1);
+}
+
+.codeCells {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.25rem;
+  margin-block: 0.25rem;
+}
+
+.codeCells span {
+  aspect-ratio: 1;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: 0.25rem;
+  background: color-mix(in srgb, var(--rp-c-bg) 74%, var(--rp-c-bg-mute));
+}
+
+.codeCells span:first-child {
+  border-color: color-mix(in srgb, var(--rp-c-text-1) 45%, var(--rp-c-divider-light));
+}
+
+.dataTable {
+  display: grid;
+  width: min(100%, 11rem);
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.tableToolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.125rem;
+}
+
+.tableToolbar span:first-child {
+  width: 2rem;
+  height: 0.375rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.tableToolbar span:last-child {
+  width: 0.875rem;
+  height: 0.375rem;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 0.7fr;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.tableHeader {
+  background: color-mix(in srgb, var(--rp-c-bg-mute) 68%, transparent);
+}
+
+.tableHeader span,
+.tableRow span {
+  height: 0.2rem;
+}
+
+.tableHeader span {
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.tableRow {
+  border-top: 1px solid color-mix(in srgb, var(--rp-c-divider-light) 70%, transparent);
+}
+
+.uploadCard {
+  display: flex;
+  align-items: center;
+  width: min(100%, 10rem);
+  gap: 0.625rem;
+  padding: 0.75rem;
+}
+
+.uploadIcon {
+  flex: none;
+  width: 1.5rem;
+  height: 1.75rem;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 16%, var(--rp-c-bg-mute));
+}
+
+.uploadDetails {
+  display: grid;
+  flex: 1;
+  gap: 0.375rem;
+}
+
+.uploadTitle {
+  width: 65%;
+  height: 0.3rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.uploadMeta {
+  width: 42%;
+  height: 0.25rem;
+}
+
+.uploadProgress {
+  height: 0.25rem;
+  overflow: hidden;
+}
+
+.uploadProgress span {
+  display: block;
+  width: 62%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--rp-c-text-1);
+}
+
+.avatarGroup {
+  display: flex;
+  align-items: center;
+  padding-left: 0.625rem;
+}
+
+.avatar,
+.avatarCount {
+  width: 2rem;
+  height: 2rem;
+  margin-left: -0.625rem;
+  border: 2px solid var(--rp-c-bg-soft);
+  background: color-mix(in srgb, var(--rp-c-text-1) 14%, var(--rp-c-bg-mute));
+  box-shadow: 0 0.25rem 0.5rem color-mix(in srgb, var(--rp-c-text-1) 6%, transparent);
+}
+
+.avatar:nth-child(2) {
+  background: color-mix(in srgb, var(--rp-c-text-1) 22%, var(--rp-c-bg-mute));
+}
+
+.avatar:nth-child(3) {
+  background: color-mix(in srgb, var(--rp-c-text-1) 30%, var(--rp-c-bg-mute));
+}
+
+.avatar:nth-child(4) {
+  background: color-mix(in srgb, var(--rp-c-text-1) 18%, var(--rp-c-bg-mute));
+}
+
+.avatarCount {
+  background: var(--rp-c-text-1);
+}
+
+.parallaxCard {
+  position: relative;
+  width: min(100%, 10rem);
+  height: 4.5rem;
+  overflow: hidden;
+  transform: rotate(-3deg);
+}
+
+.parallaxImage {
+  position: absolute;
+  inset: -15%;
+  background:
+    linear-gradient(135deg, transparent 42%, color-mix(in srgb, var(--rp-c-bg) 26%, transparent)),
+    linear-gradient(45deg, var(--rp-c-text-1), var(--rp-c-bg-mute) 55%, var(--rp-c-text-1));
+  transform: rotate(7deg) scale(1.1);
+}
+
+.parallaxOverlay {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: grid;
+  gap: 0.25rem;
+  width: 3.25rem;
+  padding: 0.375rem;
+  border: 1px solid color-mix(in srgb, var(--rp-c-bg) 48%, transparent);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--rp-c-bg) 78%, transparent);
+}
+
+.parallaxOverlay span:first-child {
+  width: 62%;
+  height: 0.25rem;
+  background: color-mix(in srgb, var(--rp-c-text-1) 24%, var(--rp-c-bg-mute));
+}
+
+.parallaxOverlay span:last-child {
+  width: 100%;
+  height: 0.2rem;
+}

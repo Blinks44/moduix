@@ -4,6 +4,17 @@ description: Copy-paste interface examples composed from moduix components.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import {
+  AccountFormCardPreview,
+  AppHeaderCardPreview,
+  DataTableCardPreview,
+  ExpandableAvatarGroupCardPreview,
+  FileUploadManagerCardPreview,
+  MobileDrawerNavigationCardPreview,
+  ParallaxCardCardPreview,
+  SidebarDashboardCardPreview,
+  VerificationCodeCardPreview,
+} from '@/components/recipes/recipe-card-previews';
 
 # Recipes
 
@@ -18,16 +29,19 @@ to your application.
     title="App header"
     description="A compact application header with navigation, notifications, and account actions."
     href="/docs/app-header"
+    preview={<AppHeaderCardPreview />}
   />
   <Card
     title="Mobile drawer navigation"
     description="An accessible mobile navigation shell with an edge-attached drawer."
     href="/docs/mobile-drawer-navigation"
+    preview={<MobileDrawerNavigationCardPreview />}
   />
   <Card
     title="Sidebar dashboard"
     description="A resizable desktop navigation shell with nested items and a workspace menu."
     href="/docs/sidebar-dashboard"
+    preview={<SidebarDashboardCardPreview />}
   />
 </Cards>
 
@@ -41,26 +55,31 @@ work at both breakpoints. The app header can sit above either shell.
     title="Login simple"
     description="Email and password sign-in. Connect authentication, pending state, and server errors."
     href="/docs/login-simple"
+    preview={<AccountFormCardPreview />}
   />
   <Card
     title="Sign up"
     description="Account creation with terms acceptance. Add account checks and a success route."
     href="/docs/sign-up"
+    preview={<AccountFormCardPreview />}
   />
   <Card
     title="Forgot password"
     description="Request a reset email without revealing whether an account exists."
     href="/docs/forgot-password"
+    preview={<AccountFormCardPreview />}
   />
   <Card
     title="Reset password"
     description="Choose a new password after your server verifies the reset token."
     href="/docs/reset-password"
+    preview={<AccountFormCardPreview />}
   />
   <Card
     title="Verification code"
     description="Enter a six-digit email code with mobile OTP autofill and resend handling."
     href="/docs/verification-code"
+    preview={<VerificationCodeCardPreview />}
   />
 </Cards>
 
@@ -71,11 +90,13 @@ work at both breakpoints. The app header can sit above either shell.
     title="Data table"
     description="Sorting, filtering, selection, and pagination with TanStack Table. Start with only the states your product needs."
     href="/docs/data-table"
+    preview={<DataTableCardPreview />}
   />
   <Card
     title="File upload manager"
     description="Local file selection and validation. Connect the real upload, progress, retry, and server errors."
     href="/docs/file-upload-manager"
+    preview={<FileUploadManagerCardPreview />}
   />
 </Cards>
 
@@ -86,6 +107,7 @@ work at both breakpoints. The app header can sit above either shell.
     title="Expandable avatar group"
     description="A compact, labeled team roster for short lists. Use a separate people list for large teams."
     href="/docs/expandable-avatar-group"
+    preview={<ExpandableAvatarGroupCardPreview />}
   />
 </Cards>
 
@@ -96,6 +118,7 @@ work at both breakpoints. The app header can sit above either shell.
     title="Parallax card"
     description="A full-bleed image Card with a gentle 3D tilt that follows a pointer."
     href="/docs/parallax-card"
+    preview={<ParallaxCardCardPreview />}
   />
 </Cards>
 

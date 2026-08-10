@@ -131,6 +131,11 @@ un autre élément du sous-arbre de l’overlay, et pas seulement sur `DatePicke
 et `onViewChange(details)` contrôlent le panneau actif du calendrier. Si la composition ne rend qu’un panneau,
 définissez cette même vue dans `minView` et `maxView`.
 
+Dans un `Field` ou un `Fieldset` moduix, `DatePicker` hérite de `disabled` et `invalid` ; un `Field` fournit aussi
+`readOnly` et `required`. Les propriétés définies directement sur `DatePicker` sont prioritaires. `DatePicker.Field`
+utilise toujours l’index de champ `0` ; `DatePicker.RangeField` réserve `0` et `1` pour les champs de début et de fin.
+Utilisez directement `Control` et `Input` pour une disposition de champs différente.
+
 Utilisez `selectionMode="single"`, `"range"` ou `"multiple"`. `maxSelectedDates` ne s’applique qu’à la sélection
 multiple. `numOfMonths`, `fixedWeeks` et `showWeekNumbers` modifient le tableau du calendrier.
 

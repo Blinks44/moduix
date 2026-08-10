@@ -85,19 +85,28 @@ function Card({
   description,
   href,
   icon,
+  preview,
 }: {
   title: string;
   description: string;
   href: string;
   icon?: ReactNode;
+  preview?: ReactNode;
 }) {
   const localizedHref = useLocalizedPath(href);
 
   return (
-    <Link className={styles.card} href={localizedHref}>
-      {icon ? <span className={styles.cardIcon}>{icon}</span> : null}
-      <strong>{title}</strong>
-      <span>{description}</span>
+    <Link className={styles.card} data-preview={preview ? '' : undefined} href={localizedHref}>
+      {preview ? (
+        <div className={styles.cardPreview} aria-hidden="true">
+          {preview}
+        </div>
+      ) : null}
+      <div className={styles.cardBody}>
+        {icon ? <span className={styles.cardIcon}>{icon}</span> : null}
+        <strong>{title}</strong>
+        <span className={styles.cardDescription}>{description}</span>
+      </div>
     </Link>
   );
 }

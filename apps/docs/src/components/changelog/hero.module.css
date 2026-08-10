@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   gap: 1rem;
-  margin: 0 0 2rem;
+  margin: 0 0 1.5rem;
   padding: clamp(1.5rem, 5vw, 3rem);
   overflow: hidden;
   border: 1px solid var(--rp-c-divider-light);
@@ -51,9 +51,9 @@
   z-index: 1;
   display: flex;
   flex-wrap: nowrap;
+  align-items: stretch;
   justify-content: center;
   gap: clamp(0.35rem, 2vw, 1rem);
-  align-items: stretch;
   max-width: 38rem;
   margin: 0.75rem auto;
 }
@@ -62,9 +62,9 @@
   display: grid;
   flex: 1 1 0;
   min-width: 0;
+  min-height: 7rem;
   place-items: center;
   gap: 0.5rem;
-  min-height: 7rem;
   padding: clamp(0.5rem, 2vw, 0.75rem);
   border: 1px solid color-mix(in oklab, var(--rp-c-divider-light) 84%, transparent);
   border-radius: 0.75rem;
@@ -102,4 +102,8 @@
   color: var(--rp-c-text-2);
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+.newsItem {
+  margin-bottom: clamp(3rem, 8vw, 5rem);
 }

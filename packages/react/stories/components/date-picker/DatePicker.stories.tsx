@@ -512,8 +512,8 @@ export const Presets: Story = {
 
 export const WithFieldValidation: Story = {
   render: () => (
-    <Field invalid>
-      <DatePicker required invalid>
+    <Field invalid required>
+      <DatePicker>
         <DatePicker.Label>Deadline</DatePicker.Label>
         <DatePicker.Field />
         <DatePickerPopup />

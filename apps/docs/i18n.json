@@ -386,15 +386,40 @@
     "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений.",
     "fr": "Les tokens sémantiques globaux définissent le langage visuel ; les tokens de famille partagés alignent les contrôles apparentés ; les variables de composant permettent les exceptions délibérées."
   },
+  "localizationHeroDate": {
+    "en": "August 2026",
+    "ru": "Август 2026 г.",
+    "fr": "Août 2026"
+  },
+  "localizationHeroTitle": {
+    "en": "Full documentation in Russian and French",
+    "ru": "Полная документация на русском и французском",
+    "fr": "Documentation complète en français et en russe"
+  },
+  "localizationHeroLanguages": {
+    "en": "Russian · French",
+    "ru": "Русский · Французский",
+    "fr": "Russe · Français"
+  },
+  "localizationHeroSummary": {
+    "en": "Russian and French documentation is here. More translations are next.",
+    "ru": "Документация на русском и французском уже здесь. Другие переводы — скоро.",
+    "fr": "La documentation en français et en russe est disponible. D’autres traductions arrivent bientôt."
+  },
+  "v2MigrationHeroDate": {
+    "en": "July 19, 2026",
+    "ru": "19 июля 2026 г.",
+    "fr": "19 juillet 2026"
+  },
   "v2MigrationHeroTitle": {
     "en": "A new component foundation",
     "ru": "Новая основа компонентов",
     "fr": "Une nouvelle fondation pour les composants"
   },
   "v2MigrationHeroSummary": {
-    "en": "This release migrates moduix from Base UI to Ark UI.",
-    "ru": "В этом релизе moduix переходит с Base UI на Ark UI.",
-    "fr": "Cette version fait migrer moduix de Base UI vers Ark UI."
+    "en": "A deliberate Ark UI foundation for accessible components.",
+    "ru": "Осознанная основа на Ark UI для доступных компонентов.",
+    "fr": "Une fondation Ark UI pensée pour des composants accessibles."
   },
   "componentGalleryCategoryFormInputTitle": {
     "en": "Form & Input",

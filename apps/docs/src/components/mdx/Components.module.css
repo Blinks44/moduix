@@ -47,18 +47,24 @@
   grid-auto-rows: 1fr;
   gap: 0.875rem;
   margin-block: 1.5rem;
+
+  &:has(.card[data-preview]) {
+    grid-auto-rows: auto;
+  }
+
+  &:has(.card[data-preview]) .card:not([data-preview]) {
+    align-self: start;
+  }
 }
 
 .card {
   display: grid;
   align-content: start;
-  gap: 0.5rem;
-  min-height: 8.5rem;
   border: 1px solid var(--rp-c-divider-light);
   border-radius: var(--rp-radius-small);
   background: color-mix(in srgb, var(--rp-c-bg-soft) 75%, transparent);
   color: var(--rp-c-text-1);
-  padding: 1rem;
+  overflow: hidden;
   text-decoration: none;
   transition:
     border-color 160ms ease,
@@ -72,7 +78,24 @@
   }
 }
 
-.card > span:last-child {
+.cardBody {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  min-height: 8.5rem;
+  padding: 1rem;
+}
+
+.cardPreview {
+  min-height: 6.75rem;
+  border-bottom: 1px solid var(--rp-c-divider-light);
+}
+
+.card[data-preview] .cardBody {
+  min-height: 0;
+}
+
+.cardDescription {
   color: var(--rp-c-text-2);
   font-size: 0.875rem;
   line-height: 1.55;

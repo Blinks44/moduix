@@ -23,7 +23,8 @@ export function V2MigrationHero() {
 
   return (
     <ChangelogHero
-      eyebrow="moduix v2"
+      id="v200--july-19-2026"
+      eyebrow={t('v2MigrationHeroDate')}
       title={t('v2MigrationHeroTitle')}
       summary={t('v2MigrationHeroSummary')}
     >

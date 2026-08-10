@@ -6,6 +6,8 @@ import {
   type UseDatePickerReturn,
 } from '@ark-ui/react/date-picker';
 import { DatePicker as DatePickerPrimitive } from '@ark-ui/react/date-picker';
+import { useFieldContext } from '@ark-ui/react/field';
+import { useFieldsetContext } from '@ark-ui/react/fieldset';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -56,16 +58,34 @@ const DatePickerRoot = forwardRef<
   ComponentRef<typeof DatePickerPrimitive.Root>,
   DatePickerRootProps
 >(function DatePickerRoot(
-  { className, lazyMount = true, portalled, portalRef, unmountOnExit = true, ...props },
+  {
+    className,
+    disabled,
+    invalid,
+    lazyMount = true,
+    portalled,
+    portalRef,
+    readOnly,
+    required,
+    unmountOnExit = true,
+    ...props
+  },
   ref,
 ) {
+  const field = useFieldContext();
+  const fieldset = useFieldsetContext();
+
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <DatePickerPrimitive.Root
         ref={ref}
         data-slot="date-picker-root"
         className={clsx(styles.root, normalizeClassName(className))}
+        disabled={disabled ?? field?.disabled ?? fieldset?.disabled}
+        invalid={invalid ?? field?.invalid ?? fieldset?.invalid}
         lazyMount={lazyMount}
+        readOnly={readOnly ?? field?.readOnly}
+        required={required ?? field?.required}
         unmountOnExit={unmountOnExit}
         {...props}
       />
@@ -131,7 +151,11 @@ const DatePickerField = forwardRef<
 ) {
   return (
     <DatePickerControl ref={ref} {...props}>
-      <DatePickerInput {...(placeholder === undefined ? {} : { placeholder })} {...inputProps} />
+      <DatePickerInput
+        {...(placeholder === undefined ? {} : { placeholder })}
+        {...inputProps}
+        index={0}
+      />
       <DatePickerClearTrigger
         {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}
         {...clearTriggerProps}
@@ -164,14 +188,14 @@ const DatePickerRangeField = forwardRef<
   return (
     <DatePickerControl ref={ref} {...props}>
       <DatePickerInput
-        index={0}
         {...(startPlaceholder === undefined ? {} : { placeholder: startPlaceholder })}
         {...startInputProps}
+        index={0}
       />
       <DatePickerInput
-        index={1}
         {...(endPlaceholder === undefined ? {} : { placeholder: endPlaceholder })}
         {...endInputProps}
+        index={1}
       />
       <DatePickerClearTrigger
         {...(clearLabel === undefined ? {} : { 'aria-label': clearLabel })}

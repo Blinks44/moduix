@@ -131,6 +131,11 @@ DatePicker
 `minView`, `maxView` и `onViewChange(details)` управляют активной панелью календаря. Если композиция рендерит только
 одну панель, задайте этот вид одновременно в `minView` и `maxView`.
 
+Внутри `Field` или `Fieldset` moduix компонент `DatePicker` наследует `disabled` и `invalid`; `Field` также передаёт
+`readOnly` и `required`. Свойства, заданные непосредственно на `DatePicker`, имеют приоритет. `DatePicker.Field`
+всегда использует индекс поля `0`; `DatePicker.RangeField` резервирует `0` и `1` для полей начала и конца. Для другой
+структуры полей используйте `Control` и `Input` напрямую.
+
 Используйте `selectionMode="single"`, `"range"` или `"multiple"`. `maxSelectedDates` применяется только к
 множественному выбору. `numOfMonths`, `fixedWeeks` и `showWeekNumbers` изменяют таблицу календаря.
 

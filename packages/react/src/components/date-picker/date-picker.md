@@ -1,6 +1,6 @@
 # DatePicker
 
-Upstream docs:
+Upstream docs (accessed 2026-08-10):
 
 - Ark UI: https://ark-ui.com/docs/components/date-picker
 - Zag API: https://zagjs.com/api/mdx/components/react/date-picker
@@ -32,6 +32,11 @@ and accessible labels. Do not translate dates to strings or local callback shape
 - `DatePicker.Input` is the native input that participates in forms through Ark.
 - Range selection renders two indexed inputs: `DatePicker.Input index={0}` and
   `DatePicker.Input index={1}`.
+- `DatePicker.Field` reserves input index `0`; `DatePicker.RangeField` reserves indexes `0` and
+  `1`. Compose `Control` and `Input` directly for a different input layout.
+- `DatePicker.Root` inherits `disabled` and `invalid` from the closest Ark `Field` or `Fieldset`,
+  and `readOnly` and `required` from `Field`. Values passed directly to `DatePicker` take
+  precedence.
 - `DatePicker.DayTable` renders the standard day-view header and table from Ark context.
 - Multiple selection should render selected values through `ArkDatePicker.Context` from
   `@ark-ui/react/date-picker` instead of trying to display every date in one text input.
@@ -313,6 +318,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-10: Made the root inherit Ark `Field` / `Fieldset` state and kept convenience-field
+  input indexes fixed.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 
