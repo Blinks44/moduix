@@ -171,6 +171,8 @@ when a page shell needs different layout math.
 
 ## Local changelog
 
+- 2026-08-10: Added coverage for every `size` and `gutter` preset, protected root hooks, and the
+  documented uncapped-width composition path.
 - 2026-07-26: Restored spacing-token fallbacks for responsive gutters, documented the single-child
   `asChild` and ref contract, and made the site examples self-contained.
 - 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root
