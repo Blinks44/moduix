@@ -74,6 +74,33 @@ test('forwards selection details and respects closeOnSelect=false', async () => 
   expect(screen.getByRole('dialog', { name: 'Command palette' })).toBeVisible();
 });
 
+test('uses dialog title and description semantics and closes after selection by default', async () => {
+  render(
+    <CommandPalette defaultOpen portalled={false}>
+      <CommandPalette.Panel>
+        <CommandPalette.Title>Command palette</CommandPalette.Title>
+        <CommandPalette.Description>Select a command to continue.</CommandPalette.Description>
+        <CommandPalette.Combobox collection={commands}>
+          <CommandPalette.Search />
+          <CommandPalette.List>
+            <CommandPalette.Item item={commands.items[0]}>Open settings</CommandPalette.Item>
+          </CommandPalette.List>
+        </CommandPalette.Combobox>
+      </CommandPalette.Panel>
+    </CommandPalette>,
+  );
+
+  expect(
+    await screen.findByRole('dialog', { name: 'Command palette' }),
+  ).toHaveAccessibleDescription('Select a command to continue.');
+
+  fireEvent.click(screen.getByRole('option', { name: 'Open settings' }));
+
+  await waitFor(() =>
+    expect(screen.queryByRole('dialog', { name: 'Command palette' })).not.toBeInTheDocument(),
+  );
+});
+
 test('provides an accessible search control that clears without losing focus', async () => {
   render(
     <CommandPalette defaultOpen aria-label="Command palette" portalled={false}>
