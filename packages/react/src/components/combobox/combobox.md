@@ -1,9 +1,10 @@
 # Combobox
 
-Upstream docs:
+Upstream references (accessed 2026-08-10):
 
-- Ark UI: https://ark-ui.com/docs/components/combobox
+- Ark UI: https://ark-ui.com/react/docs/components/combobox
 - Chakra UI: https://chakra-ui.com/docs/components/combobox
+- shadcn/ui: https://ui.shadcn.com/docs/components/combobox
 
 ## Purpose
 
@@ -69,9 +70,9 @@ Combobox.Root
 ```
 
 All styled parts expose matching kebab-case `data-slot` hooks. `Status` uses the same default visual
-tokens as `Empty` and exposes `combobox-status`. `RootProvider` accepts state created with moduix
-`useCombobox` and keeps the same root styling and portal contract. `Option` is sugar over the existing
-item parts and does not add a new styling hook.
+tokens as `Empty` and exposes `combobox-status`. `RootProvider` exposes `combobox-root-provider`, while
+keeping the same root styling and portal contract for state created with moduix `useCombobox`. `Option`
+is sugar over the existing item parts and does not add a new styling hook.
 
 ## Composition
 
@@ -264,6 +265,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-10: Corrected the public CSS-property reference, documented the `RootProvider` styling hook,
+  and added regression coverage for keyboard selection, the default clear action, portalling, and refs.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

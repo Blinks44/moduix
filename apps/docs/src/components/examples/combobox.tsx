@@ -48,8 +48,6 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
     'Controls control border width.',
   ],
   ['--moduix-combobox-color', 'var(--moduix-color-foreground)', 'Controls root text color.'],
-  ['--combobox-bg-active', 'var(--moduix-color-muted)', 'Controls control background when open.'],
-  ['--combobox-bg-hover', 'var(--moduix-color-accent)', 'Controls control background on hover.'],
   ['--moduix-combobox-content-bg', 'var(--moduix-color-popover)', 'Controls content background.'],
   [
     '--moduix-combobox-content-border-color',
@@ -103,7 +101,7 @@ export const comboboxOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-combobox-empty-padding-y',
-    'var(--moduix-spacing-3)',
+    'var(--moduix-spacing-1)',
     'Controls empty vertical padding.',
   ],
   ['--moduix-combobox-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
