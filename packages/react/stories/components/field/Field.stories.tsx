@@ -158,6 +158,23 @@ export const WithRadioGroup: Story = {
   },
 };
 
+export const LongContent: Story = {
+  render: () => (
+    <Field invalid>
+      <Field.Label>
+        International tax residency and withholding election for non-resident account holders
+      </Field.Label>
+      <Field.Input />
+      <Field.HelperText>
+        Enter the tax identification number issued by your country of tax residence.
+      </Field.HelperText>
+      <Field.ErrorText>
+        A tax identification number is required before you can continue.
+      </Field.ErrorText>
+    </Field>
+  ),
+};
+
 export const ItemTarget: Story = {
   render: () => {
     return (

@@ -101,6 +101,26 @@ export const WithRadioGroup: Story = {
   ),
 };
 
+export const LongContent: Story = {
+  render: () => (
+    <Fieldset invalid>
+      <Fieldset.Legend>
+        International tax residency and withholding election for non-resident account holders
+      </Fieldset.Legend>
+      <Field.Root invalid>
+        <Field.Label>Tax identification number</Field.Label>
+        <Field.Input />
+      </Field.Root>
+      <Fieldset.HelperText>
+        Enter the tax identification number issued by your country of tax residence.
+      </Fieldset.HelperText>
+      <Fieldset.ErrorText>
+        A tax identification number is required before you can continue.
+      </Fieldset.ErrorText>
+    </Fieldset>
+  ),
+};
+
 function RootProviderDemo() {
   const fieldset = useFieldset({ invalid: true });
 

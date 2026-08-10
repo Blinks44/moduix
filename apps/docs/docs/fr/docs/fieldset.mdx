@@ -17,7 +17,7 @@ contrôle avec sa propre étiquette, description et message de validation.
 
 ## Exemple de base
 
-Organisez `Fieldset`, `Fieldset.Legend`, le texte explicatif ou d'erreur facultatif et les contrôles associés.
+Composez `Fieldset`, `Fieldset.Legend`, le texte explicatif ou d’erreur facultatif et les contrôles associés.
 `Fieldset.Root` reste disponible sous forme d'alias correspondant à Ark.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
@@ -78,6 +78,7 @@ N’imbriquez pas le provider dans `Fieldset.Root` pour une même instance d’�
 - Les descendants `Field` d’Ark héritent de l’état désactivé du groupe de champs. Définissez `invalid` sur les composants `Field` imbriqués
   lorsque des contrôles individuels nécessitent un état invalide.
 - `Fieldset.ErrorText` n'est pas dans le DOM tant que `invalid` n'est pas vrai.
+- Les longues légendes, le texte explicatif et le texte d’erreur reviennent à la ligne dans le groupe de champs au lieu de déborder.
 - `useFieldsetContext()` et `Fieldset.Context` fournissent aux descendants le même état Ark que `useFieldset`.
 - Fieldset ne possède pas de valeur, de navigation au clavier, de rappel ou de `HiddenInput`.
 - L'ancien `render` et les exportations plates telles que `FieldsetLegend` ne sont pas pris en charge ; utiliser `asChild`
@@ -98,8 +99,8 @@ rend automatiquement son entrée native pour la soumission du formulaire et le c
 
 ### État désactivé
 
-Définissez `disabled` sur la racine pour désactiver les enfants natifs et transmettre l'état désactivé
-Contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
+Définissez `disabled` sur la racine pour désactiver les enfants natifs et transmettre l’état désactivé
+aux contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/disabled.tsx"
@@ -109,7 +110,7 @@ Contrôles compatibles Ark qui utilisent le contexte de groupe de champs.
 
 ### Field
 
-Composants Nest `Field` lorsque chaque commande nécessite également une étiquette ou une description individuelle.
+Imbriquez des composants `Field` lorsque chaque contrôle nécessite également sa propre étiquette ou description.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/fieldset/field.tsx"
@@ -119,7 +120,7 @@ Composants Nest `Field` lorsque chaque commande nécessite également une étiqu
 
 ### Input avec Select
 
-Regroupez le sélecteur de code de pays et la saisie du numéro de téléphone sous une seule légende lorsque les deux commandes représentent la même valeur booléenne.
+Regroupez le sélecteur de code de pays et la saisie du numéro de téléphone sous une seule légende lorsque les deux contrôles représentent une même valeur logique.
 
 <style>{FieldsetDocs.fieldsetPhoneInputCss}</style>
 
@@ -172,4 +173,4 @@ contrôles adjacents ou enfants réutilisables.
 Chaque partie DOM possède un `data-scope="fieldset"` Ark et un `data-part` correspondant à l'anatomie. Racine et légende
 fournir `data-disabled` et `data-invalid` ; moduix ajoute également des hooks `data-slot="fieldset-*"`.
 Utilisez `className` pour les remplacements locaux et les variables `--moduix-fieldset-*` pour la personnalisation au niveau du thème,
-en particulier le espacement interne de la légende et les tokens de bordure racine.
+en particulier l’espacement interne de la légende et les tokens de bordure de la racine.

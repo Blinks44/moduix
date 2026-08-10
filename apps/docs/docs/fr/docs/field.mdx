@@ -82,6 +82,7 @@ une composition avancée dans le style Ark, mais le code d’application ordinai
 ### Comportement
 
 - `Field.ErrorText` n'est pas dans le DOM sauf si la racine a `invalid`.
+- Les longues étiquettes, le texte explicatif et le texte d’erreur reviennent à la ligne dans le champ au lieu de déborder.
 - `Field.RootProvider` doit recevoir l'état de `useField()` importé de `@moduix/react`,
   et ne doit pas être imbriqué dans `Field.Root` pour la même instance de champ.
 - Utilisez `Field.Context` ou `useFieldContext` de `@moduix/react` lorsqu’un contrôle personnalisé a besoin de l’état actuel du champ. Un import direct depuis Ark n’est nécessaire que pour les API de bas niveau non exportées par moduix.

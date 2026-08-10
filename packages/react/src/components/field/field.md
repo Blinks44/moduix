@@ -112,12 +112,14 @@ moduix row wrapper.
 that baseline.
 
 The wrapper preserves moduix visual defaults: compact vertical layout, tokenized control chrome,
-focus ring, disabled opacity, invalid border color, helper text, and destructive error text.
+focus ring, disabled opacity, invalid border color, helper text, and destructive error text. Long labels,
+helper text, and errors wrap without overflowing their container.
 
 Styles use Ark `data-scope="field"` / `data-part="..."` attributes where Ark provides state and
 moduix `data-slot` hooks for consumer overrides. Public CSS variables remain under `--moduix-field-*`;
-`--moduix-field-required-indicator-color` and `--moduix-field-textarea-min-height` are part of the Ark-aligned
-contract. `--moduix-field-label-gap` defaults to `var(--moduix-spacing-2)`.
+`--moduix-field-required-indicator-color`, `--moduix-field-error-font-weight`, and
+`--moduix-field-textarea-min-height` are part of the Ark-aligned contract.
+`--moduix-field-label-gap` defaults to `var(--moduix-spacing-2)`.
 
 ## Intentional sugar and differences from upstream
 
@@ -138,6 +140,8 @@ or delegated to form-specific components. If future controls need native form su
 their own `HiddenInput`; Field itself has no hidden input.
 
 ## Local changelog
+
+- 2026-08-10: Added a dedicated error-text weight token and resilient wrapping for long field text.
 
 - 2026-07-27: Removed compounded disabled opacity from nested field parts and made `Field.Item`'s
   row wrapper ref-forwarding.

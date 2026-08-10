@@ -114,9 +114,11 @@ test('keeps the RootProvider composition path Ark-shaped', () => {
   expect(screen.getByText('Enter a valid email address.')).toBeVisible();
 });
 
-test('preserves Ark asChild composition for the root', () => {
+test('preserves Ark asChild composition and forwards refs for the root', () => {
+  const rootRef = createRef<HTMLDivElement>();
+
   render(
-    <Field asChild>
+    <Field asChild ref={rootRef}>
       <section>
         <Field.Label>Email</Field.Label>
         <Field.Input />
@@ -124,6 +126,7 @@ test('preserves Ark asChild composition for the root', () => {
     </Field>,
   );
 
-  expect(screen.getByRole('group')).toHaveAttribute('data-slot', 'field-root');
+  expect(rootRef.current).toBe(screen.getByRole('group'));
+  expect(rootRef.current).toHaveAttribute('data-slot', 'field-root');
   expect(screen.getByRole('textbox', { name: 'Email' })).toBeVisible();
 });

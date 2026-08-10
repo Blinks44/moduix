@@ -23,6 +23,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--moduix-field-label-gap, var(--moduix-spacing-2));
+    overflow-wrap: anywhere;
     color: var(--moduix-field-label-color, var(--moduix-color-foreground));
     font-size: var(--moduix-field-label-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-field-label-font-weight, var(--moduix-weight-medium));
@@ -31,6 +32,7 @@
 
   .helperText {
     margin: 0;
+    overflow-wrap: anywhere;
     color: var(--moduix-field-description-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-field-description-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-field-description-line-height, var(--moduix-line-height-text-sm));
@@ -97,8 +99,10 @@
 
   .errorText {
     margin: 0;
+    overflow-wrap: anywhere;
     color: var(--moduix-field-error-color, var(--moduix-color-destructive));
     font-size: var(--moduix-field-error-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-field-error-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-field-error-line-height, var(--moduix-line-height-text-sm));
   }
 

@@ -97,6 +97,11 @@ const fieldOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-field-error-color', 'var(--moduix-color-destructive)', 'Controls error text color.'],
   ['--moduix-field-error-font-size', 'var(--moduix-text-sm)', 'Controls error text font size.'],
   [
+    '--moduix-field-error-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls error text font weight.',
+  ],
+  [
     '--moduix-field-error-line-height',
     'var(--moduix-line-height-text-sm)',
     'Controls error text line height.',

@@ -1312,6 +1312,7 @@
   --moduix-field-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-field-error-color: initial; /* var(--moduix-color-destructive) */
   --moduix-field-error-font-size: initial; /* var(--moduix-text-sm) */
+  --moduix-field-error-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-field-error-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-field-focus-ring-color: initial; /* var(--moduix-color-ring) */
   --moduix-field-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
@@ -1335,6 +1336,7 @@
   --moduix-fieldset-border-width: initial; /* 0 */
   --moduix-fieldset-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-fieldset-error-text-color: initial; /* var(--moduix-color-destructive) */
+  --moduix-fieldset-error-text-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-fieldset-gap: initial; /* var(--moduix-spacing-4) */
   --moduix-fieldset-helper-text-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-fieldset-legend-color: initial; /* var(--moduix-color-foreground) */

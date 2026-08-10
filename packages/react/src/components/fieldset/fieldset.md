@@ -100,8 +100,9 @@ descendant that reads its state. Do not render `Fieldset.Root` around the same s
 ## Defaults and styling
 
 All DOM parts accept `className`; wrappers add stable `data-slot` hooks. Root and provider share the
-same visual defaults. Public variables cover root layout/borders, legend spacing and typography,
-disabled and invalid state, and helper/error text typography and color.
+same visual defaults. Long legends, helper text, and errors wrap without overflowing their container.
+Public variables cover root layout/borders, legend spacing and typography, disabled and invalid state,
+and helper/error text typography and color.
 
 ## Intentional sugar and differences from upstream
 
@@ -118,6 +119,8 @@ disabled and invalid state, and helper/error text typography and color.
 - Keep docs examples on the namespace API.
 
 ## Local changelog
+
+- 2026-08-10: Added a dedicated error-text weight token and resilient wrapping for long fieldset text.
 
 - 2026-07-27: Documented the existing `Context` and `useFieldsetContext` exports.
 

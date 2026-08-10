@@ -34,6 +34,11 @@ const fieldsetOverrideCssProperties: CssPropertyInput[] = [
     'Controls error text color.',
   ],
   [
+    '--moduix-fieldset-error-text-font-weight',
+    'var(--moduix-weight-medium)',
+    'Controls error text font weight.',
+  ],
+  [
     '--moduix-fieldset-gap',
     'var(--moduix-spacing-4)',
     'Controls spacing between fieldset children.',

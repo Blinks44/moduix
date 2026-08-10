@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { Fieldset, useFieldset, useFieldsetContext } from '../src';
 
 test('connects the legend, description, and error text to the native fieldset', () => {
@@ -48,6 +49,25 @@ test('disables native descendants', () => {
   );
 
   expect(screen.getByRole('textbox', { name: 'Street' })).toBeDisabled();
+});
+
+test('preserves native composition and forwards refs through asChild', () => {
+  const rootRef = createRef<HTMLFieldSetElement>();
+  const legendRef = createRef<HTMLLegendElement>();
+
+  render(
+    <Fieldset asChild ref={rootRef}>
+      <fieldset>
+        <Fieldset.Legend asChild ref={legendRef}>
+          <legend>Account details</legend>
+        </Fieldset.Legend>
+      </fieldset>
+    </Fieldset>,
+  );
+
+  expect(rootRef.current).toBe(screen.getByRole('group', { name: 'Account details' }));
+  expect(rootRef.current).toHaveAttribute('data-slot', 'fieldset-root');
+  expect(legendRef.current).toHaveAttribute('data-slot', 'fieldset-legend');
 });
 
 function ContextState() {

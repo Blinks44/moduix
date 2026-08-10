@@ -78,6 +78,7 @@ that state. Do not wrap a provider in `Fieldset.Root` for the same state instanc
 - Ark `Field` descendants inherit disabled state from the fieldset. Set `invalid` on nested `Field`
   components when individual controls need invalid state.
 - `Fieldset.ErrorText` is absent from the DOM until `invalid` is true.
+- Long legends, helper text, and error text wrap inside the fieldset instead of overflowing it.
 - `useFieldsetContext()` and `Fieldset.Context` expose the same Ark state as `useFieldset` to
   descendants.
 - Fieldset owns no value, keyboard navigation, callback, or `HiddenInput`.

@@ -84,6 +84,7 @@ dedicated moduix controls.
 ### Behavioral notes
 
 - `Field.ErrorText` is absent from the DOM until the root is `invalid`.
+- Long labels, helper text, and error text wrap inside the field instead of overflowing it.
 - `Field.RootProvider` must receive state from `useField()` imported from `@moduix/react`
   and should not be nested inside `Field.Root` for the same field instance.
 - Use `Field.Context` or `useFieldContext` from `@moduix/react` when a custom control needs the
