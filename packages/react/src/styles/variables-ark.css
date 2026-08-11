@@ -25,7 +25,13 @@
   --column-count: initial;
   --corner-height: initial;
   --corner-width: initial;
+  --crop-height: initial;
+  --crop-width: initial;
+  --crop-x: initial;
+  --crop-y: initial;
   --height: initial;
+  --image-offset-x: initial;
+  --image-offset-y: initial;
   --left: initial;
   --positioner-width: initial;
   --scroll-area-overflow-y-end: initial;
@@ -40,6 +46,8 @@
   --drawer-swipe-progress: initial;
   --drawer-swipe-strength: initial;
   --gap: initial;
+  --image-rotation: initial;
+  --image-zoom: initial;
   --marquee-delay: initial;
   --marquee-duration: initial;
   --marquee-loop-count: initial;

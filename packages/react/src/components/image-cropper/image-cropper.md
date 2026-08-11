@@ -2,8 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/components/image-cropper
-- Chakra UI: no dedicated image cropper recipe; this wrapper follows the Ark UI primitive directly.
+- Ark UI: https://ark-ui.com/docs/components/image-cropper (reviewed 2026-08-11)
+- Chakra UI: https://www.chakra-ui.com/docs/components/concepts/overview (reviewed 2026-08-11); no dedicated image cropper recipe.
+- shadcn/ui: https://ui.shadcn.com/llms.txt (reviewed 2026-08-11); no dedicated image cropper component, so use its registry conventions without adding a compatibility API.
 
 ## Purpose
 
@@ -75,11 +76,11 @@ Ark applies `role="group"` to the root, `role="slider"` and keyboard interaction
 
 The root exposes `data-scope="image-cropper"`, `data-part="root"`, `data-fixed`, `data-shape`, `data-pinch`, `data-dragging`, and `data-panning`. Other parts expose Ark `data-part` values for `viewport`, `image`, `selection`, `grid`, and `handle`; notable state attributes include `data-ready`, `data-flip-horizontal`, `data-flip-vertical`, `data-disabled`, `data-measured`, `data-axis`, and `data-position`.
 
-Ark runtime CSS variables set on the root are `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`, `--image-rotation`, `--image-offset-x`, and `--image-offset-y`. They are declared in `variables-moduix.css` because the primitive writes them at runtime.
+Ark writes the runtime CSS variables `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`, `--image-rotation`, `--image-offset-x`, and `--image-offset-y` on the root. They are documented in `variables-ark.css` as read-only runtime values; do not override them.
 
 ## Defaults and styling
 
-The wrapper uses CSS Modules and adds default cropper visuals: a stable `32rem` root width, `100%` max width, fixed `20rem` viewport height, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and token-rounded square corners, and a `:focus-visible` selection ring. Consumers can pass `className` to each exported visual part.
+The wrapper uses CSS Modules and adds default cropper visuals: a `32rem` root width with `100%` max width, a viewport that uses `20rem` on roomy screens and stays within narrow viewports, bordered viewport, checkerboard background, dimmed outside area, crop grid, near-white resize handles with slim edge bars and token-rounded square corners, and a `:focus-visible` selection ring. Consumers can pass `className` to each exported visual part.
 
 Public override variables use the `--moduix-image-cropper-*` prefix and are documented in the docs site. CSS targets local classes and Ark state attributes; it does not add custom modifier classes.
 
@@ -93,9 +94,11 @@ The sugar over Ark is styling, stable `data-slot` hooks, `ImageCropper.handles`,
 - Preserve Ark callback detail objects and context methods.
 - Keep `RootProvider` examples separate from `Root`; never nest both for the same cropper instance.
 - Keep `useImageCropper` and `ImageCropper.Context` aligned with Ark's signatures.
+- Keep fixed-area selection semantics intact: it is removed from the tab order while the viewport remains the panning surface.
 
 ## Local changelog
 
+- 2026-08-11: Added keyboard and fixed-crop-area regression coverage, a matching Storybook state, and the complete Ark state-hook reference in localized docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-28: Made the default viewport responsive on narrow screens, aligned selection geometry with Ark crop bounds, restricted `CropArea` to its fixed child anatomy, and removed the redundant circle selection border.
 - 2026-07-10: Added `CropArea`, `ImageCropper.Context`, and `useImageCropper` as moduix-owned advanced surfaces.

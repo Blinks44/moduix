@@ -50,6 +50,17 @@ export const AspectRatio: Story = {
   render: () => <CropperCanvas aspectRatio={1} cropShape="circle" />,
 };
 
+export const FixedCropArea: Story = {
+  render: () => (
+    <CropperCanvas
+      fixedCropArea
+      cropShape="circle"
+      aspectRatio={1}
+      initialCrop={{ x: 112, y: 64, width: 220, height: 220 }}
+    />
+  ),
+};
+
 export const ControlledZoom: Story = {
   render: () => {
     const [zoom, setZoom] = useState(1);
