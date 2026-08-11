@@ -80,10 +80,7 @@ export function Example() {
       <Tooltip.Trigger asChild aria-label="Save">
         <Button>Save</Button>
       </Tooltip.Trigger>
-      <Tooltip.Body>
-        <Tooltip.Arrow />
-        Save changes
-      </Tooltip.Body>
+      <Tooltip.Body>Save changes</Tooltip.Body>
     </Tooltip>
   );
 }
@@ -169,8 +166,8 @@ The root owns the portal boundary; `Positioner` and `Content` remain tooltip-own
 `Tooltip.Body` removes the repeated `Positioner + Content` ceremony for common tooltips without
 introducing a new positioning API.
 
-`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Consumers can pass custom children when they
-need a custom arrow shape.
+`Tooltip.Arrow` renders `Tooltip.ArrowTip` by default. Add it when the popup needs a visual anchor;
+consumers can pass custom children when they need a custom arrow shape.
 
 `Tooltip.DisabledTrigger` replaces the repeated focusable wrapper and pointer-events rule needed for
 a disabled native control. It keeps the lower-level `Tooltip.Trigger asChild` path available when a
@@ -192,6 +189,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Made the recommended popup composition arrowless and kept `Tooltip.Arrow` as an
+  explicit visual-anchor option.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

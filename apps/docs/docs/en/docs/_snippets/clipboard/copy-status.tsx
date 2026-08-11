@@ -6,7 +6,7 @@ export default function ClipboardStatusDemo() {
   const [copyCount, setCopyCount] = useState(0);
 
   return (
-    <div>
+    <div className="clipboard-preview-stack">
       <Clipboard
         defaultValue="maps-platform-token"
         onStatusChange={(details) => {

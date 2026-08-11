@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/hover-card
 - Chakra UI: https://chakra-ui.com/docs/components/hover-card
+- shadcn/ui: https://ui.shadcn.com/docs/components/hover-card
+
+Last compared: 2026-08-11.
 
 ## Purpose
 
@@ -33,17 +36,13 @@ high-level content wrapper are intentionally removed.
     <a href="#profile">@sarah_chen</a>
   </HoverCard.Trigger>
   <HoverCard.Positioner>
-    <HoverCard.Content>
-      <HoverCard.Arrow>
-        <HoverCard.ArrowTip />
-      </HoverCard.Arrow>
-    </HoverCard.Content>
+    <HoverCard.Content></HoverCard.Content>
   </HoverCard.Positioner>
 </HoverCard>
 ```
 
-- `HoverCard` / `HoverCard.Root`: root state and lifecycle, `data-slot="hover-card-root"`.
-- `HoverCard.RootProvider`: connects parts to Ark `useHoverCard()` state and adds `data-slot="hover-card-root-provider"`.
+- `HoverCard` / `HoverCard.Root`: root state and lifecycle; they do not render a DOM element.
+- `HoverCard.RootProvider`: connects parts to Ark `useHoverCard()` state; it does not render a DOM element.
 - `HoverCard.Trigger`: `data-slot="hover-card-trigger"`, default link-like styling when `asChild` is not used.
 - `HoverCard.Positioner`: `data-slot="hover-card-positioner"`, Ark positioning layer.
 - `HoverCard.Content`: `data-slot="hover-card-content"`, visible styled popup surface.
@@ -62,10 +61,7 @@ export function Example() {
         <a href="#profile">@sarah_chen</a>
       </HoverCard.Trigger>
       <HoverCard.Positioner>
-        <HoverCard.Content>
-          <HoverCard.Arrow />
-          Profile details
-        </HoverCard.Content>
+        <HoverCard.Content>Profile details</HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>
   );
@@ -96,15 +92,24 @@ Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--mod
 variables remain the more specific override.
 
 Moduix adds default visual styling to `Trigger`, `Positioner`, `Content`, `Arrow`, and `ArrowTip`.
-Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`. Positioning and
-sizing use Ark runtime variables such as `--available-width`, `--available-height`,
+Content animation uses Ark `data-state='open' | 'closed'` and `--transform-origin`, and is disabled
+when the user requests reduced motion. Long unbroken text wraps instead of overflowing the card.
+Positioning and sizing use Ark runtime variables such as `--available-width`, `--available-height`,
 `--reference-width`, `--reference-height`, `--layer-index`, `--arrow-size`, `--arrow-background`,
 and `--arrow-offset`. Public theme variables use the `--moduix-hover-card-*` prefix.
 
+## Release comparison
+
+| Source    | Relevant observation                                                                         | moduix decision                                                                                              |
+| --------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Ark UI    | Defines the primitive anatomy, state, presence, and accessible hover/focus behavior.         | Required correctness: preserve all parts and pass Ark props and callback details through unchanged.          |
+| Chakra UI | Uses the same explicit Ark-shaped root, trigger, positioner, content, and arrow composition. | Intentional difference: retain moduix portal defaults and styling hooks without another convenience wrapper. |
+| shadcn/ui | Sets an expectation for a concise, copyable hover-preview example.                           | Consumer ergonomics: keep the basic public example short while exposing the full Ark part tree.              |
+
 ## Intentional sugar and differences from upstream
 
-`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed. The root owns the portal
-boundary. Use `portalled={false}` for a hover card inside a dialog or another overlay that must keep
+`HoverCard.Arrow` renders `HoverCard.ArrowTip` when no children are passed; add it only when the popup
+needs a visual anchor. The root owns the portal boundary. Use `portalled={false}` for a hover card inside a dialog or another overlay that must keep
 its positioner in the parent layer. Dialog auto-focus can focus a hover-card trigger and open the
 card after `openDelay`; use Dialog `initialFocusEl` to choose another initial target when needed.
 `HoverCard.Context`, `useHoverCard`, and `useHoverCardContext` are moduix-owned paths to the
@@ -125,6 +130,12 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Made the recommended composition arrowless and documented `HoverCard.Arrow` as an
+  explicit visual-anchor option.
+
+- 2026-08-11: Removed non-rendering root styling hooks from the documented contract, respected
+  reduced-motion preferences, improved long-text resilience, and covered portal and default-arrow behavior.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

@@ -13,9 +13,11 @@ export default function ContextClipboardDemo() {
       </Clipboard.Control>
       <Clipboard.Context>
         {(clipboard) => (
-          <PreviewMeta>
-            <output>Copied: {String(clipboard.copied)}</output>
-          </PreviewMeta>
+          <div className="clipboard-preview-stack">
+            <PreviewMeta>
+              <output>Copied: {String(clipboard.copied)}</output>
+            </PreviewMeta>
+          </div>
         )}
       </Clipboard.Context>
     </Clipboard>

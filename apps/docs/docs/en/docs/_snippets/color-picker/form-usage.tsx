@@ -20,6 +20,11 @@ export default function FormUsageColorPickerDemo() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
+        <ColorPicker.Positioner>
+          <ColorPicker.Content>
+            <ColorPicker.Area />
+          </ColorPicker.Content>
+        </ColorPicker.Positioner>
       </ColorPicker>
       <PreviewMeta>
         <output>Submitted: {submitted}</output>

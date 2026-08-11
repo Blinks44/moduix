@@ -32,7 +32,6 @@ const tour = useTour({ steps });
   <Tour.Spotlight />
   <Tour.Positioner>
     <Tour.Content>
-      <Tour.Arrow />
       <Tour.CloseIcon />
       <Tour.Body>
         <Tour.Title />
@@ -90,7 +89,6 @@ function Example() {
         <Tour.Spotlight />
         <Tour.Positioner>
           <Tour.Content>
-            <Tour.Arrow />
             <Tour.CloseIcon />
             <Tour.Body>
               <Tour.Title />
@@ -145,6 +143,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Made the recommended tour composition arrowless and kept `Tour.Arrow` as an explicit
+  visual-anchor option for tooltip steps.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

@@ -224,7 +224,6 @@ export const CustomComposition: Story = {
         </Tooltip.Trigger>
         <Tooltip.Positioner className={storyStyles.customPositioner}>
           <Tooltip.Content className={storyStyles.customContent}>
-            <Tooltip.Arrow className={storyStyles.customArrow} />
             Styled through explicit Ark parts
           </Tooltip.Content>
         </Tooltip.Positioner>

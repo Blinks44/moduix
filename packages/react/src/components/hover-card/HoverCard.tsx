@@ -29,12 +29,7 @@ function HoverCardRoot({
 }: HoverCardRootProps) {
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
-      <HoverCardPrimitive.Root
-        data-slot="hover-card-root"
-        lazyMount={lazyMount}
-        unmountOnExit={unmountOnExit}
-        {...props}
-      />
+      <HoverCardPrimitive.Root lazyMount={lazyMount} unmountOnExit={unmountOnExit} {...props} />
     </OverlayPortalProvider>
   );
 }
@@ -49,7 +44,6 @@ function HoverCardRootProvider({
   return (
     <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
       <HoverCardPrimitive.RootProvider
-        data-slot="hover-card-root-provider"
         lazyMount={lazyMount}
         unmountOnExit={unmountOnExit}
         {...props}

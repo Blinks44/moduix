@@ -8,12 +8,7 @@ export default function AdvancedCustomizationTooltipDemo() {
         <Button>Hover or focus</Button>
       </Tooltip.Trigger>
       <Tooltip.Positioner>
-        <Tooltip.Content>
-          <Tooltip.Arrow>
-            <Tooltip.ArrowTip />
-          </Tooltip.Arrow>
-          Explicit positioner and content.
-        </Tooltip.Content>
+        <Tooltip.Content>Explicit positioner and content.</Tooltip.Content>
       </Tooltip.Positioner>
     </Tooltip>
   );

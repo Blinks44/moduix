@@ -12,7 +12,6 @@ const steps = [
     title: 'Enter a name',
     description: 'The tour continues after at least two characters.',
     target: () => document.querySelector('#tour-wait-name') as HTMLInputElement | null,
-    arrow: true,
   },
   {
     id: 'complete',
@@ -54,7 +53,6 @@ export default function TourWaitForInputDemo() {
         <Tour.Spotlight />
         <Tour.Positioner>
           <Tour.Content>
-            <Tour.Arrow />
             <Tour.CloseIcon />
             <Tour.Body>
               <Tour.Title />

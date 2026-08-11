@@ -16,6 +16,10 @@ export const collapsibleExampleCss = `
     gap: var(--moduix-spacing-2);
   }
 
+  .collapsible-controlled-layout > [data-preview-meta] {
+    align-self: center;
+  }
+
   .collapsible-nested-content > p {
     margin: 0 0 var(--moduix-spacing-2);
   }

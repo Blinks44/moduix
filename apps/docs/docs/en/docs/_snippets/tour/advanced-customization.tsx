@@ -49,7 +49,6 @@ export default function TourDemo() {
         <Tour.Spotlight />
         <Tour.Positioner>
           <Tour.Content>
-            <Tour.Arrow />
             <Tour.CloseIcon />
             <Tour.Body>
               <Tour.Title />

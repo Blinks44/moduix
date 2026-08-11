@@ -8,7 +8,7 @@ export default function ControlledCollapsibleDemo() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="collapsible-example-layout">
+    <div className="collapsible-example-layout collapsible-controlled-layout">
       <Collapsible open={open} onOpenChange={(details) => setOpen(details.open)}>
         <Collapsible.Trigger>
           Recovery keys

@@ -75,6 +75,7 @@
     max-width: min(var(--moduix-hover-card-max-width, 24rem), var(--available-width));
     max-height: min(var(--moduix-hover-card-max-height, 24rem), var(--available-height, 100dvh));
     overflow: visible;
+    overflow-wrap: anywhere;
     padding: var(--moduix-hover-card-padding-y, var(--moduix-spacing-2))
       var(--moduix-hover-card-padding-x, var(--moduix-spacing-2));
     border: 0;
@@ -123,6 +124,16 @@
         --moduix-hover-card-arrow-stroke-color,
         var(--moduix-hover-card-border-color, var(--moduix-color-border))
       );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content {
+      animation: none;
+    }
   }
 
   @keyframes hover-card-enter {

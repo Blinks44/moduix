@@ -37,7 +37,6 @@ const basicSteps: TourStepDetails[] = [
       { label: 'Next', action: 'next' },
     ],
     backdrop: true,
-    arrow: true,
   },
   {
     id: 'complete',
@@ -48,6 +47,10 @@ const basicSteps: TourStepDetails[] = [
     backdrop: true,
   },
 ];
+
+const withArrowSteps = basicSteps.map((step) =>
+  step.id === 'upload' ? { ...step, arrow: true } : step,
+);
 
 const mixedSteps: TourStepDetails[] = [
   {
@@ -68,7 +71,6 @@ const mixedSteps: TourStepDetails[] = [
       { label: 'Back', action: 'prev' },
       { label: 'Next', action: 'next' },
     ],
-    arrow: true,
   },
   {
     id: 'floating',
@@ -83,14 +85,20 @@ const mixedSteps: TourStepDetails[] = [
   },
 ];
 
-function TourOverlay({ tour }: { tour: ReturnType<typeof useTour> }) {
+function TourOverlay({
+  tour,
+  withArrow = false,
+}: {
+  tour: ReturnType<typeof useTour>;
+  withArrow?: boolean;
+}) {
   return (
     <Tour tour={tour} lazyMount unmountOnExit>
       <Tour.Backdrop />
       <Tour.Spotlight />
       <Tour.Positioner>
         <Tour.Content>
-          <Tour.Arrow />
+          {withArrow ? <Tour.Arrow /> : null}
           <Tour.CloseIcon />
           <Tour.Body>
             <Tour.Title />
@@ -120,6 +128,25 @@ export const Default: Story = {
           <Button variant="outline">Save</Button>
         </div>
         <TourOverlay tour={tour} />
+      </div>
+    );
+  },
+};
+
+export const WithArrow: Story = {
+  name: 'With Arrow',
+  render: () => {
+    const tour = useTour({ steps: withArrowSteps });
+
+    return (
+      <div className={storyStyles.canvas}>
+        <Button onClick={() => tour.start()}>Start tour with arrow</Button>
+        <div className={storyStyles.targets}>
+          <Button id="tour-story-upload" variant="outline">
+            Upload
+          </Button>
+        </div>
+        <TourOverlay tour={tour} withArrow />
       </div>
     );
   },
@@ -157,7 +184,6 @@ export const Progress: Story = {
           <Tour.Spotlight />
           <Tour.Positioner>
             <Tour.Content>
-              <Tour.Arrow />
               <Tour.CloseIcon />
               <Tour.Title />
               <Tour.Description />
@@ -225,7 +251,6 @@ export const WaitForInput: Story = {
             promise.then(() => next());
             return cancel;
           },
-          arrow: true,
         },
         {
           id: 'done',

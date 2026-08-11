@@ -7,6 +7,10 @@ export const colorPickerExampleCss = `
     gap: var(--moduix-spacing-2);
   }
 
+  .color-picker-demo-layout > [data-preview-meta] {
+    align-self: center;
+  }
+
   .color-picker-slider-group {
     display: flex;
     align-items: center;

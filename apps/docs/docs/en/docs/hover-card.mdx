@@ -13,8 +13,7 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 ## Basic
 
 Use the explicit Ark part tree: put `HoverCard.Trigger` near the hovered content, then render the
-positioner and content. `HoverCard.Arrow` supplies the moduix default arrow tip when no child is
-provided.
+positioner and content. The standard composition is a simple popup without an arrow.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/hover-card/basic.tsx"
@@ -88,6 +87,9 @@ eager initial rendering is needed.
 triggers use `Trigger value` with `onTriggerValueChange`. `ids` can pin trigger, content,
 positioner, and arrow ids for composed accessibility. Ark presence props, including `present`,
 `immediate`, and `onExitComplete`, pass through unchanged.
+
+Hover Card disables its trigger and content motion when the user prefers reduced motion. Long
+unbroken text wraps inside the content instead of overflowing it.
 
 Hover cards are for supplementary previews only. Keep the information required to understand or
 complete a task visible without opening the card.
@@ -178,6 +180,17 @@ update it.
   ```
 </PreviewFrame>
 
+### With Arrow
+
+Add `HoverCard.Arrow` inside `HoverCard.Content` when the popup needs a visual anchor. The wrapper
+renders `HoverCard.ArrowTip` by default.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/hover-card/with-arrow.tsx"
+
+  ```
+</PreviewFrame>
+
 ## Styling
 
 ### CSS Properties
@@ -186,8 +199,9 @@ update it.
 
 ### Styling hooks
 
-Every rendered part accepts `className`; moduix also adds `data-slot="hover-card-*"` hooks for the
-root, root provider, trigger, positioner, content, arrow, and arrow tip. Ark exposes
+Every rendered part accepts `className`; moduix adds `data-slot="hover-card-*"` hooks for the
+trigger, positioner, content, arrow, and arrow tip. `HoverCard` and `HoverCard.RootProvider` provide
+state without rendering DOM elements, so they have no styling hook. Ark exposes
 `data-scope="hover-card"` and `data-part` on its parts. Target `data-state="open|closed"`,
 `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested`, and
 `data-has-nested` for state-aware styling.

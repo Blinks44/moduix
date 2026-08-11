@@ -2,7 +2,7 @@ import { useListCollection } from '@ark-ui/react/collection';
 import { useFilter } from '@ark-ui/react/locale';
 import { Combobox } from '@moduix/react/combobox';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { flushSync } from 'react-dom';
 
 const results = Array.from({ length: 1000 }, (_, index) => ({
@@ -11,7 +11,7 @@ const results = Array.from({ length: 1000 }, (_, index) => ({
 }));
 
 export default function VirtualizedComboboxDemo() {
-  const scrollRef = useRef(null as HTMLDivElement | null);
+  const [scrollElement, setScrollElement] = useState<HTMLDivElement | null>(null);
   const { contains } = useFilter({ sensitivity: 'base' });
   const { collection, filter, reset } = useListCollection({
     initialItems: results,
@@ -19,7 +19,7 @@ export default function VirtualizedComboboxDemo() {
   });
   const virtualizer = useVirtualizer({
     count: collection.size,
-    getScrollElement: () => scrollRef.current,
+    getScrollElement: () => scrollElement,
     estimateSize: () => 32,
     overscan: 8,
   });
@@ -45,7 +45,7 @@ export default function VirtualizedComboboxDemo() {
       <Combobox.Positioner>
         <Combobox.Content className="virtualContent">
           <Combobox.Empty>No results found.</Combobox.Empty>
-          <div ref={scrollRef} className="virtualScroller">
+          <div ref={setScrollElement} className="virtualScroller">
             <Combobox.List
               className="virtualList"
               style={{ height: virtualizer.getTotalSize(), width: '100%' }}

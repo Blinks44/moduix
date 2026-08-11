@@ -48,12 +48,23 @@
 
   .card {
     display: grid;
-    gap: var(--moduix-spacing-1);
     width: min(14rem, calc(100vw - 4rem));
   }
 
+  .image {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border-radius: var(--moduix-radius-md);
+    object-fit: cover;
+  }
+
+  .content {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+    margin-block-start: var(--moduix-spacing-2);
+  }
+
   .name,
-  .username,
   .bio {
     margin: 0;
   }
@@ -63,12 +74,6 @@
     font-size: var(--moduix-text-md);
     font-weight: var(--moduix-weight-bold);
     line-height: var(--moduix-line-height-text-md);
-  }
-
-  .username {
-    color: var(--moduix-color-muted-foreground);
-    font-size: var(--moduix-text-sm);
-    line-height: var(--moduix-line-height-text-sm);
   }
 
   .bio {

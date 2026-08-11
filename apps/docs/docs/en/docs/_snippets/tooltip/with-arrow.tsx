@@ -1,6 +1,6 @@
 import { Tooltip } from '@moduix/react/tooltip';
 
-export default function ArrowTooltipDemo() {
+export default function TooltipWithArrowDemo() {
   return (
     <Tooltip>
       <Tooltip.Trigger>Hover or focus</Tooltip.Trigger>

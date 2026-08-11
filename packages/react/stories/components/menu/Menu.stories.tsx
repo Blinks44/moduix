@@ -305,7 +305,6 @@ export const CustomStyling: Story = {
       </MenuButtonTrigger>
       <Menu.Positioner>
         <Menu.Content className={storyStyles.customPopup}>
-          <Menu.Arrow />
           <Menu.Item value="png">Export PNG</Menu.Item>
           <Menu.Item value="pdf">Export PDF</Menu.Item>
           <Menu.Separator />

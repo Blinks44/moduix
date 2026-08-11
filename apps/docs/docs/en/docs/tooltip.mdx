@@ -144,17 +144,6 @@ eager initial rendering is needed.
 
 ## Examples
 
-### Arrow
-
-Render `Tooltip.Arrow` as the first child of `Tooltip.Content` when the surface needs a pointer.
-The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
-
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="./_snippets/tooltip/arrow.tsx"
-
-  ```
-</PreviewFrame>
-
 ### Controlled
 
 Control open state with `open` and `onOpenChange(details)`.
@@ -224,6 +213,17 @@ rendered tooltip subtree.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="./_snippets/tooltip/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### With Arrow
+
+Render `Tooltip.Arrow` as the first child of `Tooltip.Content` when the surface needs a pointer.
+The wrapper renders `Tooltip.ArrowTip` for the default arrow shape.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="./_snippets/tooltip/with-arrow.tsx"
 
   ```
 </PreviewFrame>

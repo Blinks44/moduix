@@ -47,18 +47,30 @@ const profiles: Profile[] = [
 function ProfileCard({ profile }: { profile: Profile }) {
   return (
     <div className={styles.card}>
-      <p className={styles.name}>{profile.name}</p>
-      <p className={styles.username}>{profile.username}</p>
-      <p className={styles.bio}>{profile.bio}</p>
+      <img
+        className={styles.image}
+        alt="Sunlit workspace with a laptop and plants"
+        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+      />
+      <div className={styles.content}>
+        <p className={styles.name}>{profile.name}</p>
+        <p className={styles.bio}>{profile.bio}</p>
+      </div>
     </div>
   );
 }
 
-function HoverCardSurface({ profile }: { profile: Profile }) {
+function HoverCardSurface({
+  profile,
+  withArrow = false,
+}: {
+  profile: Profile;
+  withArrow?: boolean;
+}) {
   return (
     <HoverCard.Positioner>
       <HoverCard.Content>
-        <HoverCard.Arrow />
+        {withArrow ? <HoverCard.Arrow /> : null}
         <ProfileCard profile={profile} />
       </HoverCard.Content>
     </HoverCard.Positioner>
@@ -76,6 +88,22 @@ export const Basic: Story = {
         and 3 others
       </p>
       <HoverCardSurface profile={profiles[0]} />
+    </HoverCard>
+  ),
+};
+
+export const WithArrow: Story = {
+  name: 'With Arrow',
+  render: () => (
+    <HoverCard>
+      <p className={styles.paragraph}>
+        Liked by{' '}
+        <HoverCard.Trigger asChild>
+          <a href="#profile">@sarah_chen</a>
+        </HoverCard.Trigger>{' '}
+        and 3 others
+      </p>
+      <HoverCardSurface profile={profiles[0]} withArrow />
     </HoverCard>
   ),
 };

@@ -13,7 +13,7 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 ## Exemple de base
 
 Créez l’état avec `useTour`, passez-le à `Tour` et laissez les parties de l’overlay explicites. `Tour.Body` permet au
-contenu long d’une étape de défiler sans rogner la flèche ni la rangée d’actions.
+contenu long d’une étape de défiler sans rogner le popup ni la rangée d’actions.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/basic.tsx"
@@ -116,6 +116,17 @@ asynchrones, `waitForElement`, `waitForElementValue`, `waitForEvent` et `waitFor
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/wait-for-input.tsx"
+
+```
+</PreviewFrame>
+
+### Avec flèche
+
+Ajoutez `Tour.Arrow` à une étape tooltip lorsqu’elle a besoin d’un lien visuel avec sa cible. Activez l’option
+`arrow` de l’étape pour qu’Ark positionne la flèche.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tour/with-arrow.tsx"
 
 ```
 </PreviewFrame>

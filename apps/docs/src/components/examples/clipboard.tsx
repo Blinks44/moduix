@@ -1,5 +1,17 @@
 import type { CssPropertyInput } from '../mdx/reference';
 
+export const clipboardExampleCss = `
+  .clipboard-preview-stack {
+    display: grid;
+    gap: var(--moduix-spacing-2);
+    justify-items: center;
+  }
+
+  .clipboard-preview-stack > [data-preview-meta] {
+    justify-self: center;
+  }
+`;
+
 export const clipboardOverrideCssProperties: CssPropertyInput[] = [
   [
     '--moduix-clipboard-color',

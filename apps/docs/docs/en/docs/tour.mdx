@@ -13,7 +13,7 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 ## Basic
 
 Create state with `useTour`, pass it to `Tour`, and keep the overlay parts explicit. `Tour.Body`
-keeps long step content scrollable without clipping the arrow or action row.
+keeps long step content scrollable without clipping the popup or action row.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/basic.tsx"
@@ -116,6 +116,17 @@ Enter two characters to move from the tooltip to the confirmation step. For asyn
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tour/wait-for-input.tsx"
+
+```
+</PreviewFrame>
+
+### With Arrow
+
+Add `Tour.Arrow` to a tooltip step when it needs a visual connection to its target. Enable the
+step's `arrow` option so Ark positions the arrow.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/tour/with-arrow.tsx"
 
 ```
 </PreviewFrame>

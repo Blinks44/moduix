@@ -13,8 +13,7 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 ## Базовый пример
 
 Используйте явное дерево частей Ark: разместите `HoverCard.Trigger` рядом с содержимым, на которое наводится
-указатель, затем отрендерите positioner и content. Если не передан дочерний элемент, `HoverCard.Arrow` добавляет
-стандартный наконечник стрелки moduix.
+указатель, затем отрендерите positioner и content. Стандартная композиция — простой попап без стрелки.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
@@ -88,6 +87,9 @@ HoverCard.RootProvider
 триггеров применяйте `Trigger value` вместе с `onTriggerValueChange`. `ids` позволяет зафиксировать ids триггера,
 содержимого, positioner и стрелки для составной доступности. Свойства присутствия Ark, включая `present`,
 `immediate` и `onExitComplete`, передаются без изменений.
+
+Hover Card отключает анимацию триггера и содержимого, когда пользователь предпочитает уменьшенное движение.
+Длинный неразрывный текст переносится внутри содержимого и не выходит за границы карточки.
 
 Hover card предназначены только для дополнительных предпросмотров. Информация, необходимая для понимания или
 выполнения задачи, должна быть доступна без открытия карточки.
@@ -178,6 +180,17 @@ Hover card предназначены только для дополнитель
   ```
 </PreviewFrame>
 
+### Со стрелкой
+
+Добавьте `HoverCard.Arrow` в `HoverCard.Content`, когда попапу нужна визуальная привязка. Обёртка по
+умолчанию рендерит `HoverCard.ArrowTip`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+
+  ```
+</PreviewFrame>
+
 ## Стилизация
 
 ### CSS-свойства
@@ -187,7 +200,8 @@ Hover card предназначены только для дополнитель
 ### Хуки стилизации
 
 Каждая отрендеренная часть принимает `className`; moduix также добавляет хуки `data-slot="hover-card-*"` для
-корня, корневого провайдера, триггера, positioner, содержимого, стрелки и наконечника стрелки. Ark предоставляет
+триггера, positioner, содержимого, стрелки и наконечника стрелки. `HoverCard` и `HoverCard.RootProvider`
+предоставляют состояние без DOM-элемента, поэтому для них хуков стилизации нет. Ark предоставляет
 на своих частях `data-scope="hover-card"` и `data-part`. Для зависящей от состояния стилизации используйте
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и
 `data-has-nested`.

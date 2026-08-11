@@ -9,9 +9,6 @@ export default function AdvancedCustomizationMenuDemo() {
       </Menu.Trigger>
       <Menu.Positioner>
         <Menu.Content>
-          <Menu.Arrow>
-            <Menu.ArrowTip />
-          </Menu.Arrow>
           <Menu.ItemGroup>
             <Menu.ItemGroupLabel>Project</Menu.ItemGroupLabel>
             <Menu.Item asChild value="overview">

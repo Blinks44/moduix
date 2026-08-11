@@ -7,7 +7,7 @@ export default function RootProviderClipboardDemo() {
   });
 
   return (
-    <div>
+    <div className="clipboard-preview-stack">
       <Clipboard.RootProvider value={clipboard}>
         <Clipboard.Label>Provider-driven clipboard</Clipboard.Label>
         <Clipboard.Control>

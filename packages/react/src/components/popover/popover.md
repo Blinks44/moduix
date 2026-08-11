@@ -90,7 +90,6 @@ export function PopoverDemo() {
       </Popover.Trigger>
       <Popover.Positioner>
         <Popover.Content>
-          <Popover.Arrow />
           <Popover.CloseIcon />
           <Popover.Header>
             <Popover.Title>Project status</Popover.Title>
@@ -194,6 +193,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Made the recommended popup composition arrowless and kept `Popover.Arrow` as an
+  explicit visual-anchor option.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

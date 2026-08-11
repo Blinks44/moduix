@@ -1,11 +1,42 @@
-import { Avatar } from '@moduix/react/avatar';
 import { HoverCard } from '@moduix/react/hover-card';
 import { useState } from 'react';
 
 const profiles = [
-  { id: 'sarah', name: 'Sarah Chen', username: '@sarah_chen', role: 'Design Engineer' },
-  { id: 'alex', name: 'Alex Rivera', username: '@alex_r', role: 'Product Manager' },
+  {
+    id: 'sarah',
+    name: 'Design systems that scale',
+    username: '@sarah_chen',
+    description: 'A practical guide to building clear, consistent product experiences.',
+  },
+  {
+    id: 'alex',
+    name: 'Make room for better ideas',
+    username: '@alex_r',
+    description: 'A guide to calmer, more collaborative product work.',
+  },
 ];
+
+function HoverCardPreview({ description, title }: { description: string; title: string }) {
+  return (
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)', width: '14rem' }}>
+      <img
+        alt="Sunlit workspace with a laptop and plants"
+        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+        style={{
+          aspectRatio: '16 / 9',
+          borderRadius: 'var(--moduix-radius-md)',
+          display: 'block',
+          objectFit: 'cover',
+          width: '100%',
+        }}
+      />
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}>
+        <strong>{title}</strong>
+        <p style={{ color: 'var(--moduix-color-muted-foreground)', margin: 0 }}>{description}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function MultipleTriggersHoverCard() {
   const [activeProfile, setActiveProfile] = useState(profiles[0]);
@@ -37,18 +68,7 @@ export default function MultipleTriggersHoverCard() {
       </p>
       <HoverCard.Positioner>
         <HoverCard.Content>
-          <HoverCard.Arrow />
-          <div style={{ display: 'flex', gap: 'var(--moduix-spacing-2)' }}>
-            <Avatar size="sm">
-              <Avatar.Fallback name={activeProfile.name} />
-            </Avatar>
-            <div>
-              <strong>{activeProfile.name}</strong>
-              <div style={{ color: 'var(--moduix-color-muted-foreground)' }}>
-                {activeProfile.role}
-              </div>
-            </div>
-          </div>
+          <HoverCardPreview description={activeProfile.description} title={activeProfile.name} />
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

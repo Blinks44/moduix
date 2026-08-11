@@ -10,6 +10,11 @@ export default function FieldStateColorPickerDemo() {
           <ColorPicker.ChannelInput channel="hex" />
           <ColorPicker.Trigger aria-label="Open color picker" />
         </ColorPicker.Control>
+        <ColorPicker.Positioner>
+          <ColorPicker.Content>
+            <ColorPicker.Area />
+          </ColorPicker.Content>
+        </ColorPicker.Positioner>
       </ColorPicker>
       <Field.HelperText>Used for generated charts and callouts.</Field.HelperText>
       <Field.ErrorText>Choose an accent color.</Field.ErrorText>

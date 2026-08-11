@@ -12,7 +12,7 @@ import { TourCssPropertiesPanel } from '@/components/examples/tour';
 
 ## Базовый пример
 
-Создайте состояние с помощью `useTour`, передайте его в `Tour` и оставьте части оверлея явными. `Tour.Body` сохраняет длинное содержимое шага прокручиваемым, не обрезая стрелку или строку действий.
+Создайте состояние с помощью `useTour`, передайте его в `Tour` и оставьте части оверлея явными. `Tour.Body` сохраняет длинное содержимое шага прокручиваемым, не обрезая попап или строку действий.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/basic.tsx"
@@ -101,6 +101,17 @@ Tour
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/tour/wait-for-input.tsx"
+
+```
+</PreviewFrame>
+
+### Со стрелкой
+
+Добавьте `Tour.Arrow` в tooltip-шаг, когда ему нужна визуальная связь с целевым элементом. Включите опцию
+шага `arrow`, чтобы Ark позиционировал стрелку.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tour/with-arrow.tsx"
 
 ```
 </PreviewFrame>

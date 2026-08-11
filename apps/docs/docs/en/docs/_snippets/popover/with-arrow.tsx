@@ -1,7 +1,7 @@
 import { Button } from '@moduix/react/button';
 import { Popover } from '@moduix/react/popover';
 
-export default function PopoverArrowDemo() {
+export default function PopoverWithArrowDemo() {
   return (
     <Popover
       positioning={{

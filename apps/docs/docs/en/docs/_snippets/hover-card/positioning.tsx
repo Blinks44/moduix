@@ -1,5 +1,28 @@
 import { HoverCard } from '@moduix/react/hover-card';
-import { Building2Icon } from 'lucide-react';
+
+function HoverCardPreview() {
+  return (
+    <div style={{ display: 'grid', gap: 'var(--moduix-spacing-2)', width: '14rem' }}>
+      <img
+        alt="Sunlit workspace with a laptop and plants"
+        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=640&q=80"
+        style={{
+          aspectRatio: '16 / 9',
+          borderRadius: 'var(--moduix-radius-md)',
+          display: 'block',
+          objectFit: 'cover',
+          width: '100%',
+        }}
+      />
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-1)' }}>
+        <strong>Design systems that scale</strong>
+        <p style={{ color: 'var(--moduix-color-muted-foreground)', margin: 0 }}>
+          A practical guide to building clear, consistent product experiences.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function PositioningHoverCard() {
   return (
@@ -16,12 +39,7 @@ export default function PositioningHoverCard() {
       </HoverCard.Trigger>
       <HoverCard.Positioner>
         <HoverCard.Content>
-          <HoverCard.Arrow />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--moduix-spacing-1)' }}>
-            <Building2Icon aria-hidden size={16} />
-            <strong>Atlas design system</strong>
-          </div>
-          <p>12 collaborators · positioned right with a 12px gutter.</p>
+          <HoverCardPreview />
         </HoverCard.Content>
       </HoverCard.Positioner>
     </HoverCard>

@@ -12,7 +12,7 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 
 ## Exemple de base
 
-Utilisez une arborescence explicite des parties Ark : placez `HoverCard.Trigger` à côté du contenu survolé, puis affichez le positioner et le content. Si aucun enfant n’est transmis, `HoverCard.Arrow` ajoute la pointe de flèche moduix par défaut.
+Utilisez une arborescence explicite des parties Ark : placez `HoverCard.Trigger` à côté du contenu survolé, puis affichez le positioner et le content. La composition standard est un simple popup sans flèche.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
@@ -75,6 +75,8 @@ Par défaut, le contenu de l’overlay placé dans un portail est monté paresse
 ### Comportement
 
 `onOpenChange` reçoit des objets de détails Ark, par exemple `{ open }` ; utilisez `details.open`. Pour plusieurs triggers, utilisez `Trigger value` avec `onTriggerValueChange`. `ids` permet de fixer les ids du trigger, du content, du positioner et de la flèche afin de composer l’accessibilité. Les propriétés de présence Ark, notamment `present`, `immediate` et `onExitComplete`, sont transmises telles quelles.
+
+Hover Card désactive l’animation du trigger et du contenu lorsque l’utilisateur préfère réduire les animations. Un long mot insécable revient à la ligne dans le contenu au lieu de déborder de la carte.
 
 Les hover cards sont réservées aux aperçus complémentaires. Toute information nécessaire à la compréhension ou à l’accomplissement d’une tâche doit rester accessible sans ouvrir la carte.
 
@@ -160,6 +162,17 @@ Créez l’état avec `useHoverCard()` de moduix lorsque des contrôles ou une a
   ```
 </PreviewFrame>
 
+### Avec flèche
+
+Ajoutez `HoverCard.Arrow` dans `HoverCard.Content` lorsque le popup a besoin d’un repère visuel. Le
+composant affiche `HoverCard.ArrowTip` par défaut.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+
+  ```
+</PreviewFrame>
+
 ## Styles
 
 ### Propriétés CSS
@@ -168,6 +181,6 @@ Créez l’état avec `useHoverCard()` de moduix lorsque des contrôles ou une a
 
 ### Points d’accroche CSS
 
-Chaque partie affichée accepte `className` ; moduix ajoute également les sélecteurs `data-slot="hover-card-*"` à la racine, au provider racine, au trigger, au positioner, au content, à la flèche et à sa pointe. Ark fournit `data-scope="hover-card"` et `data-part` sur ses parties. Pour les styles dépendant de l’état, utilisez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
+Chaque partie affichée accepte `className` ; moduix ajoute également les sélecteurs `data-slot="hover-card-*"` au trigger, au positioner, au content, à la flèche et à sa pointe. `HoverCard` et `HoverCard.RootProvider` fournissent l’état sans afficher d’élément DOM : ils n’ont donc pas de point d’accroche CSS. Ark fournit `data-scope="hover-card"` et `data-part` sur ses parties. Pour les styles dépendant de l’état, utilisez `data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` et `data-has-nested`.
 
 `HoverCard.Positioner` fournit `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index` et `--transform-origin`. `HoverCard.Content` fournit `--layer-index` et `--nested-layer-count` ; `HoverCard.Arrow` fournit `--arrow-size`, `--arrow-size-half`, `--arrow-background` et `--arrow-offset`.

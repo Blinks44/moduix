@@ -88,10 +88,6 @@
   --moduix-tooltip-trigger-color: var(--moduix-color-primary-foreground);
 }
 
-.customArrow {
-  --moduix-tooltip-arrow-size: 0.75rem;
-}
-
 .shortcut {
   color: var(--moduix-color-muted-foreground);
   font-size: var(--moduix-text-xs);

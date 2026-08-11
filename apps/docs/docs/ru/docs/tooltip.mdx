@@ -118,16 +118,6 @@ Tooltip / Tooltip.Root
 
 ## Примеры
 
-### Стрелка
-
-Рендерите `Tooltip.Arrow` первым потомком `Tooltip.Content`, когда поверхности нужен указатель. Обёртка рендерит `Tooltip.ArrowTip` для стрелки по умолчанию.
-
-<PreviewFrame contentWidth="fit-content">
-  ```tsx preview file="../../en/docs/_snippets/tooltip/arrow.tsx"
-
-  ```
-</PreviewFrame>
-
 ### Управляемое состояние
 
 Управляйте состоянием открытия с помощью `open` и `onOpenChange(details)`.
@@ -194,6 +184,16 @@ Tooltip / Tooltip.Root
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Со стрелкой
+
+Рендерите `Tooltip.Arrow` первым потомком `Tooltip.Content`, когда поверхности нужен указатель. Обёртка рендерит `Tooltip.ArrowTip` для стрелки по умолчанию.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
 
   ```
 </PreviewFrame>
