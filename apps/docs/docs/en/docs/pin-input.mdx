@@ -21,8 +21,8 @@ inputs.
 
 ## Basic
 
-Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input for form
-submission and reset synchronization. Previews are centered by default.
+Start with the Ark part tree: root state, label, control, `Inputs`, and the native form input. moduix renders that
+input automatically, preserving form submission and reset synchronization. Previews are centered by default.
 
 ```tsx preview file="./_snippets/pin-input/basic.tsx"
 
@@ -59,9 +59,8 @@ PinInput / PinInput.Root
 
 ### Recommended composition
 
-Use the short `<PinInput>` root form, render a visible `Label`, keep `Control` around `Inputs`, and
-The root renders the native form input whenever form submission, reset synchronization, or OTP autofill should keep
-working through the native input.
+Use the short `<PinInput>` root form, render a visible `Label`, and keep `Control` around `Inputs`. The root always
+renders the native form input, preserving form submission, reset synchronization, and OTP autofill.
 
 ### When to go custom
 
@@ -93,6 +92,10 @@ tree. Keep Ark input indexes continuous across the full code.
 Use `type` and `pattern` for value validation. `Field.Root` and `Fieldset.Root` can provide
 disabled, invalid, required, and read-only state through Ark context. Ark parts support `asChild`,
 and `ids` can be used when external labels or descriptions need stable element IDs.
+
+Set `autoSubmit` only when completing the code should submit its owning form. Keyboard interaction stays Ark-native:
+Arrow keys move between cells, Backspace moves back after clearing, Delete clears the current cell, and pasting fills
+the remaining cells.
 
 ## Examples
 

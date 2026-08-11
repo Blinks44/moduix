@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-PinInput: Improve PIN input behavior and documentation.
+PinInput: Clarify automatic form submission and keyboard behavior.

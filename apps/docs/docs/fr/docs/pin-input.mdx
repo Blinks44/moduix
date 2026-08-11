@@ -20,8 +20,9 @@ Utilisez `PinInput` lorsqu’une valeur courte de longueur fixe doit être saisi
 
 ## Exemple de base
 
-Commencez par l’arbre de parties Ark : état racine, libellé, contrôle, `Inputs` et champ de formulaire natif pour
-la soumission et la synchronisation de la réinitialisation. Les aperçus sont centrés par défaut.
+Commencez par l’arbre de parties Ark : état racine, libellé, contrôle, `Inputs` et champ de formulaire natif. moduix
+rend ce champ automatiquement pour préserver la soumission du formulaire et la synchronisation de la réinitialisation.
+Les aperçus sont centrés par défaut.
 
 ```tsx preview file="../../en/docs/_snippets/pin-input/basic.tsx"
 
@@ -59,8 +60,8 @@ PinInput / PinInput.Root
 ### Composition recommandée
 
 Utilisez la forme racine courte `<PinInput>`, affichez un `Label` visible et conservez `Control` autour de `Inputs`.
-La racine affiche automatiquement le champ natif afin que la soumission du formulaire, la synchronisation de la
-réinitialisation et la saisie automatique OTP continuent de fonctionner.
+La racine affiche toujours le champ natif pour préserver la soumission du formulaire, la synchronisation de la
+réinitialisation et la saisie automatique OTP.
 
 ### Quand créer une composition personnalisée
 
@@ -92,6 +93,10 @@ Conservez des index Ark continus sur l’ensemble du code.
 Utilisez `type` et `pattern` pour valider la valeur. `Field.Root` et `Fieldset.Root` peuvent fournir les états
 désactivé, invalide, requis et lecture seule via le contexte Ark. Les parties Ark prennent en charge `asChild`,
 et `ids` permet de fournir des identifiants stables aux libellés ou descriptions externes.
+
+Utilisez `autoSubmit` uniquement lorsqu’un code complet doit soumettre son formulaire propriétaire. Les interactions
+au clavier restent celles d’Ark : les flèches passent d’une cellule à l’autre, Retour arrière revient après avoir
+effacé, Suppr efface la cellule courante et le collage remplit les cellules restantes.
 
 ## Exemples
 
