@@ -119,6 +119,9 @@ component and barrel exports in the same migration style.
 
 ## Local changelog
 
+- 2026-08-11: Applied disabled opacity once at the root so the complete field shares one coherent
+  disabled state; corrected the documented vertical-padding and disabled-opacity fallbacks.
+
 - 2026-07-29: Removed the default password-field width cap, fixed duplicated disabled opacity, and
   made the readonly visibility trigger visually non-interactive.
 

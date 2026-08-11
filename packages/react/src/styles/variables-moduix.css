@@ -1995,7 +1995,7 @@
   --moduix-password-input-bg: initial; /* var(--moduix-input-bg, var(--moduix-color-background)) */
   --moduix-password-input-border-color: initial; /* var(--moduix-input-border-color, var(--moduix-color-border)) */
   --moduix-password-input-color: initial; /* var(--moduix-input-color, var(--moduix-color-foreground)) */
-  --moduix-password-input-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
+  --moduix-password-input-disabled-opacity: initial; /* var(--moduix-field-disabled-opacity, var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled))) */
   --moduix-password-input-focus-ring-color: initial; /* var(--moduix-input-focus-ring-color, var(--moduix-color-ring)) */
   --moduix-password-input-font-size: initial; /* var(--moduix-input-font-size, var(--moduix-input-font-size-md, var(--moduix-text-md))) */
   --moduix-password-input-gap: initial; /* var(--moduix-field-gap, var(--moduix-spacing-1)) */

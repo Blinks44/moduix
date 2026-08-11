@@ -35,7 +35,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
     name: '--moduix-password-input-disabled-opacity',
     defaultValue:
       'var(--moduix-field-disabled-opacity, var(--moduix-input-disabled-opacity, var(--moduix-opacity-disabled)))',
-    description: 'Opacity applied to disabled root, label, and control states.',
+    description: 'Opacity applied to the disabled password input.',
   },
   {
     name: '--moduix-password-input-focus-ring-color',
@@ -109,7 +109,7 @@ const passwordInputOverrideCssProperties: CssProperty[] = [
   {
     name: '--moduix-password-input-padding-y',
     defaultValue:
-      'var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-2)))',
+      'var(--moduix-input-padding-y, var(--moduix-input-padding-y-md, var(--moduix-spacing-1)))',
     description: 'Vertical padding used by the text input inside the control shell.',
   },
   {
