@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Marquee: Refine marquee animation styling and usage guidance.
+Marquee: Clarify animation styling and accessible playback guidance.

@@ -3,7 +3,8 @@
  *
  * This file exists solely for CSS language services and IDE inspections.
  * It is deliberately not imported by style.css. Ark UI writes the actual
- * values to the relevant component parts at runtime.
+ * runtime values to the relevant component parts. The Marquee edge aliases
+ * are moduix's documented Chakra-compatible controls in the same namespace.
  *
  * Do not add data-moduix-variables-ark to application markup.
  */
@@ -50,7 +51,10 @@
   --image-zoom: initial;
   --marquee-delay: initial;
   --marquee-duration: initial;
+  --marquee-edge-color: initial;
+  --marquee-edge-size: initial;
   --marquee-loop-count: initial;
+  --marquee-spacing: initial;
   --marquee-translate: initial;
   --nested-drawers: initial;
   --nested-layer-count: initial;
