@@ -231,10 +231,7 @@
     align-items: center;
     gap: var(--moduix-command-palette-input-gap, var(--moduix-spacing-2));
     min-height: var(--moduix-command-palette-input-height, var(--moduix-size-md));
-    margin: var(
-        --moduix-command-palette-control-margin-top,
-        var(--moduix-command-palette-control-margin-y, var(--moduix-spacing-3))
-      )
+    margin: var(--moduix-command-palette-control-margin-y, var(--moduix-spacing-3))
       var(--moduix-command-palette-control-margin-x, var(--moduix-spacing-3))
       var(
         --moduix-command-palette-control-margin-bottom,

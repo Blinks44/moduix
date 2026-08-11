@@ -724,9 +724,9 @@
   --moduix-command-palette-content-starting-scale: initial; /* var(--moduix-scale-popup) */
   --moduix-command-palette-content-starting-translate-x: initial; /* 0 */
   --moduix-command-palette-content-starting-translate-y: initial; /* -0.75rem */
-  --moduix-command-palette-control-margin-bottom: initial; /* var(--moduix-spacing-2) */
-  --moduix-command-palette-control-margin-x: initial; /* var(--moduix-spacing-4) */
-  --moduix-command-palette-control-margin-y: initial; /* var(--moduix-spacing-2) */
+  --moduix-command-palette-control-margin-bottom: initial; /* 0 */
+  --moduix-command-palette-control-margin-x: initial; /* var(--moduix-spacing-3) */
+  --moduix-command-palette-control-margin-y: initial; /* var(--moduix-spacing-3) */
   --moduix-command-palette-control-padding-x: initial; /* var(--moduix-spacing-3) */
   --moduix-command-palette-control-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-command-palette-divider-color: initial; /* var(--moduix-color-border) */
@@ -804,17 +804,14 @@
   --moduix-command-palette-kbd-min-width: initial; /* 1.25rem */
   --moduix-command-palette-kbd-padding-x: initial; /* var(--moduix-spacing-1) */
   --moduix-command-palette-kbd-radius: initial; /* var(--moduix-radius-sm) */
-  --moduix-command-palette-list-padding-x: initial; /* var(--moduix-spacing-2) */
-  --moduix-command-palette-list-padding-y: initial; /* var(--moduix-spacing-2) */
+  --moduix-command-palette-list-padding-x: initial; /* var(--moduix-spacing-3) */
+  --moduix-command-palette-list-padding-y: initial; /* var(--moduix-spacing-3) */
   --moduix-command-palette-list-scroll-padding-y: initial; /* var(--moduix-spacing-2) */
   --moduix-command-palette-max-height: initial; /* 34rem */
   --moduix-command-palette-max-width: initial; /* calc(100vw - var(--moduix-spacing-8)) */
   --moduix-command-palette-muted-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-command-palette-positioner-padding: initial; /* 10dvh var(--moduix-spacing-4) var(--moduix-spacing-4) */
   --moduix-command-palette-radius: initial; /* var(--moduix-radius-lg) */
-  --moduix-command-palette-scrollbar-margin: initial; /* var(--moduix-spacing-1) */
-  --moduix-command-palette-scrollbar-size: initial; /* var(--moduix-spacing-1-5) */
-  --moduix-command-palette-scrollbar-thumb-bg: initial; /* var(--moduix-color-border) */
   --moduix-command-palette-selected-color: initial; /* var(--moduix-command-palette-highlight-color) */
   --moduix-command-palette-separator-margin-x: initial; /* var(--moduix-spacing-2) */
   --moduix-command-palette-separator-margin-y: initial; /* var(--moduix-spacing-2) */
