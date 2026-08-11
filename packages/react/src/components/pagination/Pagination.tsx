@@ -172,11 +172,11 @@ function PaginationItems() {
       {(pagination) =>
         pagination.pages.map((page, index) =>
           page.type === 'page' ? (
-            <PaginationItem key={index} {...page}>
+            <PaginationItem key={page.value} {...page}>
               {page.value}
             </PaginationItem>
           ) : (
-            <PaginationEllipsis key={index} index={index} />
+            <PaginationEllipsis key={`ellipsis-${index}`} index={index} />
           ),
         )
       }

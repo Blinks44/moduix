@@ -28,17 +28,17 @@ Utilisez `Pagination` comme racine. `Pagination.Items` affiche les boutons de pa
 
 ```text
 Pagination
-├─ Pagination.FirstTrigger (optional)
+├─ Pagination.FirstTrigger (facultatif)
 ├─ Pagination.PrevTrigger
-├─ Pagination.Items (recommended)
-├─ Pagination.Context (advanced render-prop access)
+├─ Pagination.Items (recommandé)
+├─ Pagination.Context (accès avancé par fonction de rendu)
 │  ├─ Pagination.Item
 │  └─ Pagination.Ellipsis
 ├─ Pagination.NextTrigger
-└─ Pagination.LastTrigger (optional)
+└─ Pagination.LastTrigger (facultatif)
 
 Pagination.RootProvider
-└─ same trigger, item, ellipsis, and context tree connected to usePagination()
+└─ mêmes déclencheurs, éléments, points de suspension et contexte connectés à usePagination()
 ```
 
 | Partie                            | Rôle                                                                    |
@@ -46,7 +46,7 @@ Pagination.RootProvider
 | `Pagination`                      | Racine de navigation qui possède l’état de la page et de sa taille.     |
 | `Pagination.RootProvider`         | Relie les parties à l’état créé avec `Pagination.usePagination()`.      |
 | `Pagination.Items`                | Affiche les éléments de page et les points de suspension calculés.      |
-| `Pagination.Context`              | Lit l’état racine et ses fonctions à l’aide d’une propriété de rendu Ark. |
+| `Pagination.Context`              | Lit l’état racine et ses fonctions à l’aide d’une fonction de rendu Ark. |
 | `Pagination.usePagination`        | Crée l’état de pagination Ark en dehors de la racine affichée.          |
 | `Pagination.usePaginationContext` | Lit l’état de pagination Ark depuis un descendant.                      |
 | `Pagination.Item`                 | Élément de page interactif. Reçoit `{ type: 'page', value }`.           |
@@ -159,7 +159,7 @@ Appelez `pagination.setPageSize(nextSize)` depuis le contexte pour permettre à 
 
 ### Root Provider
 
-Utilisez `Pagination.usePagination()` avec `Pagination.RootProvider` lorsque l’état doit être possédé en dehors de la racine affichée.
+Utilisez `Pagination.usePagination()` avec `Pagination.RootProvider` lorsque l’état doit être géré en dehors de la racine affichée.
 
 <style>{PaginationDocs.paginationRootProviderCss}</style>
 
@@ -180,7 +180,8 @@ Utilisez `translations` pour les libellés accessibles et ajustez la fenêtre ca
 
 ### Avec les pages extrêmes
 
-Ajoutez `FirstTrigger` et `LastTrigger` lorsque les utilisateurs ont besoin d’accéder explicitement à la première et à la dernière page.
+Ajoutez `Pagination.FirstTrigger` et `Pagination.LastTrigger` lorsque les utilisateurs ont besoin
+d’accéder explicitement à la première et à la dernière page.
 
 <style>{PaginationDocs.paginationWithEdgesCss}</style>
 

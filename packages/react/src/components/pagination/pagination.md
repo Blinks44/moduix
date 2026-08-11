@@ -176,6 +176,10 @@ list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
 
+- 2026-08-11: Stabilized standard page-item reconciliation across changing ranges; added
+  long-range edge-navigation test coverage, a link-mode Storybook story, and synchronized
+  reader-facing Pagination documentation across English, Russian, and French.
+
 - 2026-07-29: Mirrored default trigger icons in RTL contexts and constrained the root to prevent
   narrow-container overflow. Updated pagination docs previews to use semantic result output.
 

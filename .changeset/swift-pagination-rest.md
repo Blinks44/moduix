@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Pagination: Improve pagination styling and documentation.
+Pagination: Improve range navigation coverage and localized documentation.

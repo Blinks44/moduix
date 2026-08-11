@@ -27,9 +27,58 @@ test('preserves Ark navigation semantics, refs, and default trigger boundaries',
     'pagination-root',
   );
   expect(ref.current).toHaveAttribute('data-slot', 'pagination-root');
+  expect(screen.getByRole('button', { name: /previous page/i })).toHaveAttribute(
+    'data-slot',
+    'pagination-prev-trigger',
+  );
   expect(screen.getByRole('button', { name: /previous page/i })).toBeDisabled();
+  expect(screen.getByRole('button', { name: /next page/i })).toHaveAttribute(
+    'data-slot',
+    'pagination-next-trigger',
+  );
   expect(screen.getByRole('button', { name: /next page/i })).not.toBeDisabled();
+  expect(screen.getByRole('button', { name: /page 1/i })).toHaveAttribute(
+    'data-slot',
+    'pagination-item',
+  );
   expect(screen.getByRole('button', { name: /page 1/i })).toHaveAttribute('data-selected');
+});
+
+test('renders a long range with ellipses and keeps edge trigger boundaries in sync', async () => {
+  const { container } = render(
+    <Pagination count={200} defaultPage={10} pageSize={10} siblingCount={1}>
+      <Pagination.FirstTrigger />
+      <Pagination.PrevTrigger />
+      <Pagination.Items />
+      <Pagination.NextTrigger />
+      <Pagination.LastTrigger />
+    </Pagination>,
+  );
+
+  expect(screen.getAllByText('...')).toHaveLength(2);
+  const firstTrigger = screen.getByRole('button', { name: 'first page' });
+  const lastTrigger = screen.getByRole('button', { name: 'last page' });
+
+  expect(firstTrigger).toHaveAttribute('data-slot', 'pagination-first-trigger');
+  expect(lastTrigger).toHaveAttribute('data-slot', 'pagination-last-trigger');
+
+  fireEvent.click(firstTrigger);
+  await waitFor(() =>
+    expect(
+      container.querySelector('[data-slot="pagination-item"][data-selected]'),
+    ).toHaveTextContent('1'),
+  );
+  expect(firstTrigger).toBeDisabled();
+  expect(screen.getByRole('button', { name: /previous page/i })).toBeDisabled();
+
+  fireEvent.click(lastTrigger);
+  await waitFor(() =>
+    expect(
+      container.querySelector('[data-slot="pagination-item"][data-selected]'),
+    ).toHaveTextContent('20'),
+  );
+  expect(screen.getByRole('button', { name: /next page/i })).toBeDisabled();
+  expect(lastTrigger).toBeDisabled();
 });
 
 test('keeps controlled page changes and Ark callback details intact', async () => {
