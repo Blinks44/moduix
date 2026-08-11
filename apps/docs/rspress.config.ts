@@ -33,6 +33,7 @@ const socialImageAlt = 'moduix component library';
 
 export default defineConfig({
   siteOrigin,
+  title: brandName,
   lang: 'en',
   locales,
   icon: '/favicon/favicon.svg',
