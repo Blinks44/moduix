@@ -40,6 +40,16 @@ export const AsChild: Story = {
   ),
 };
 
+export const GroupAsChild: Story = {
+  render: () => (
+    <Kbd.Group asChild aria-label="Command K">
+      <span>
+        <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
+      </span>
+    </Kbd.Group>
+  ),
+};
+
 export const ShortcutList: Story = {
   render: () => (
     <div className={styles.column}>

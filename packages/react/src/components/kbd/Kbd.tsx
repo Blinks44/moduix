@@ -28,6 +28,7 @@ const KbdGroupPart = forwardRef<HTMLElement, HTMLArkProps<'span'>>(function KbdG
   return (
     <ark.span
       ref={ref}
+      role="group"
       data-scope="kbd"
       data-part="group"
       data-slot="kbd-group"

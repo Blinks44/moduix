@@ -45,7 +45,7 @@ Kbd.Group
 | Part               | Role                                                    |
 | ------------------ | ------------------------------------------------------- |
 | `Kbd` / `Kbd.Root` | Polymorphic keycap root; renders `kbd` by default.      |
-| `Kbd.Group`        | Polymorphic inline wrapper for shortcut combinations.   |
+| `Kbd.Group`        | Polymorphic inline wrapper with the default `group` role for shortcut combinations. |
 
 ## Composition
 
@@ -53,7 +53,8 @@ Kbd.Group
 
 Use `Kbd` as the root shorthand and `Kbd.Group` for shortcut hints, command menus, and inline help.
 
-`Kbd` and `Kbd.Root` accept `HTMLArkProps<'kbd'>`; `Kbd.Group` accepts `HTMLArkProps<'span'>`.
+`Kbd` and `Kbd.Root` accept `HTMLArkProps<'kbd'>`; `Kbd.Group` accepts `HTMLArkProps<'span'>` and renders with
+`role="group"` by default.
 Every part forwards its ref to the rendered element and supports `asChild`.
 There is no variant, size, separator, callback, or state API.
 

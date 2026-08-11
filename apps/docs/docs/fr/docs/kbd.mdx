@@ -45,7 +45,7 @@ Kbd.Group
 | Partie              | Rôle                                                               |
 | ------------------- | ------------------------------------------------------------------ |
 | `Kbd` / `Kbd.Root` | Racine polymorphe de la touche ; rend un élément `kbd` par défaut. |
-| `Kbd.Group`         | Conteneur en ligne polymorphe pour les combinaisons de touches.    |
+| `Kbd.Group`         | Conteneur en ligne polymorphe avec le rôle `group` par défaut pour les combinaisons de touches. |
 
 ## Composition
 
@@ -53,7 +53,8 @@ Kbd.Group
 
 Utilisez `Kbd` comme raccourci vers la racine et `Kbd.Group` pour les indications de raccourcis, les menus de commandes et l’aide intégrée.
 
-`Kbd` et `Kbd.Root` acceptent `HTMLArkProps<'kbd'>` ; `Kbd.Group` accepte `HTMLArkProps<'span'>`.
+`Kbd` et `Kbd.Root` acceptent `HTMLArkProps<'kbd'>` ; `Kbd.Group` accepte `HTMLArkProps<'span'>` et s’affiche par
+défaut avec `role="group"`.
 Chaque partie transmet sa ref à l’élément rendu et prend en charge `asChild`.
 Il n’existe aucune API de variantes, de tailles, de séparateurs, de callbacks ou d’état.
 
