@@ -98,11 +98,35 @@ export const Row: Story = {
   ),
 };
 
+export const Sizes: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <List size="xs">
+        <List.Item>Compact supporting content.</List.Item>
+        <List.Item>Still uses native list semantics and markers.</List.Item>
+      </List>
+      <List size="md">
+        <List.Item>Default body content for a release summary.</List.Item>
+        <List.Item>
+          Items can wrap across multiple lines without losing their marker alignment.
+        </List.Item>
+      </List>
+      <List size="xl">
+        <List.Item>Large, high-emphasis content.</List.Item>
+        <List.Item>Use this scale sparingly for short, scannable statements.</List.Item>
+      </List>
+    </div>
+  ),
+};
+
 export const Tones: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       <List tone="muted">
         <List.Item>Muted list tone</List.Item>
+      </List>
+      <List tone="subtle">
+        <List.Item>Subtle list tone</List.Item>
       </List>
       <List tone="primary">
         <List.Item>Primary list tone</List.Item>

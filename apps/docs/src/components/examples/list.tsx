@@ -18,7 +18,7 @@ const listOverrideCssProperties = [
   },
   {
     name: '--moduix-list-font-family',
-    defaultValue: 'var(--moduix-font-sans)',
+    defaultValue: 'inherit',
     description: 'Controls list font family.',
   },
   {

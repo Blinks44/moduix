@@ -6,6 +6,13 @@ Upstream docs:
   - https://ark-ui.com/docs/guides/composition
   - https://ark-ui.com/docs/guides/styling
   - https://ark-ui.com/docs/guides/ref
+- Ark UI List Collection is a data utility, not a semantic visual-list primitive:
+  https://ark-ui.com/react/docs/collections/list-collection
+- Chakra UI List: https://chakra-ui.com/docs/components/list
+- shadcn/ui has no dedicated List component in its public catalog:
+  https://ui.shadcn.com/llms.txt
+
+Sources reviewed 2026-08-11.
 
 ## Purpose
 
@@ -21,6 +28,14 @@ There is no dedicated Ark `List` primitive or component page. The wrapper should
   replacement `<li>` host.
 - Styling is driven through Ark-style `data-scope`, `data-part`, state-like data attributes, and public CSS variables.
 - Ref behavior targets the rendered semantic root/item element, with the standard Ark `asChild` constraint of a single semantic child.
+
+## Upstream comparison
+
+| Source    | Useful difference                                                                         | Decision                                                                                                                                                                                                                       |
+| --------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Ark UI    | `createListCollection` models collection data; it does not render a semantic visual list. | **Intentional difference:** keep `List` as a native `ul`/`ol` wrapper. Selection and collection state belong to `Listbox` and other Ark primitives.                                                                            |
+| Chakra UI | Exposes `List.Root`/`List.Item` and a marker-style convenience API.                       | **Consumer friction resolved / complexity rejected:** moduix provides the same discoverable root/item composition, while native `li::marker` and tokens remain the styling path instead of adding a translated style-prop API. |
+| shadcn/ui | Does not publish a dedicated List component.                                              | **Intentional difference:** keep the small semantic wrapper; there is no shadcn API to mirror.                                                                                                                                 |
 
 ## Current behavior contract
 
@@ -144,6 +159,9 @@ export function OrderedListDemo() {
 
 ## Local changelog
 
+- 2026-08-11: Corrected the documented `--moduix-list-font-family` fallback to `inherit` and added
+  regression coverage for default root data hooks and item refs; Storybook now covers all semantic
+  tone paths and representative size extremes.
 - 2026-08-05: Replaced vertical sibling margins with root flex gap so consumer row and wrapped layouts
   keep spacing on the selected flex axis.
 - 2026-07-28: Added root `asChild` documentation, Storybook coverage, and regression tests; custom

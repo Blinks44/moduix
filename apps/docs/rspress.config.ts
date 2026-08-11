@@ -9,21 +9,21 @@ const locales = [
   {
     lang: 'en',
     label: 'English',
-    title: `${brandName} — Accessible React Component Library Built on Ark UI`,
+    title: `${brandName} - Accessible React Component Library Built on Ark UI`,
     description:
       'Accessible React components with calm defaults, explicit composition, and token-first CSS.',
   },
   {
     lang: 'fr',
     label: 'Français',
-    title: `${brandName} — bibliothèque de composants React accessibles, fondée sur Ark UI`,
+    title: `${brandName} - bibliothèque de composants React accessibles, fondée sur Ark UI`,
     description:
       'Composants React accessibles avec des valeurs par défaut réfléchies, une composition explicite et un CSS fondé sur les tokens.',
   },
   {
     lang: 'ru',
     label: 'Русский',
-    title: `${brandName} — библиотека доступных React-компонентов на базе Ark UI`,
+    title: `${brandName} - библиотека доступных React-компонентов на базе Ark UI`,
     description:
       'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на основе токенов.',
   },
@@ -33,7 +33,6 @@ const socialImageAlt = 'moduix component library';
 
 export default defineConfig({
   siteOrigin,
-  title: brandName,
   lang: 'en',
   locales,
   icon: '/favicon/favicon.svg',

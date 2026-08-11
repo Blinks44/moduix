@@ -1696,7 +1696,7 @@
   --moduix-list-color: initial; /* var(--moduix-list-default-color, var(--moduix-color-foreground)) */
   --moduix-list-default-color: initial; /* var(--moduix-color-foreground) */
   --moduix-list-destructive-color: initial; /* var(--moduix-color-destructive) */
-  --moduix-list-font-family: initial; /* var(--moduix-font-sans) */
+  --moduix-list-font-family: initial; /* inherit */
   --moduix-list-font-size: initial; /* var(--moduix-list-font-size-md, var(--moduix-text-md)) */
   --moduix-list-font-size-xs: initial; /* var(--moduix-text-xs) */
   --moduix-list-font-size-sm: initial; /* var(--moduix-text-sm) */
