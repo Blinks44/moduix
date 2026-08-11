@@ -160,3 +160,7 @@ Utilisez `asChild` lorsque la racine doit afficher un conteneur personnalisé to
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` sur le bouton d’action groupé
 - les états imbriqués `data-invalid`, `aria-invalid`, `disabled` et `readOnly` via `:has(...)` sur la racine
+
+Les crochets propres au composant, `data-slot`, `data-scope`, `data-part` et `data-size` de la racine,
+restent stables lorsqu’on fournit des props consommateur. `className` est toujours fusionné avec les
+styles du composant.

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-InputGroup: Refine grouped-input styling and composition.
+InputGroup: Refine grouped-input styling and protect component-owned styling hooks.

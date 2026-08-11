@@ -29,12 +29,12 @@ const InputGroupRoot = forwardRef<
     <InputGroupSizeContext.Provider value={size}>
       <ark.div
         ref={ref}
+        {...props}
         data-scope="input-group"
         data-part="root"
         data-slot="input-group-root"
         data-size={size}
         className={clsx(styles.root, normalizeClassName(className))}
-        {...props}
       >
         {children}
       </ark.div>
@@ -64,11 +64,11 @@ const InputGroupAddon = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functi
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="input-group"
       data-part="addon"
       data-slot="input-group-addon"
       className={clsx(styles.addon, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -80,11 +80,11 @@ const InputGroupText = forwardRef<HTMLSpanElement, HTMLArkProps<'span'>>(functio
   return (
     <ark.span
       ref={ref}
+      {...props}
       data-scope="input-group"
       data-part="text"
       data-slot="input-group-text"
       className={clsx(styles.text, normalizeClassName(className))}
-      {...props}
     />
   );
 });
@@ -99,12 +99,12 @@ const InputGroupButton = forwardRef<HTMLButtonElement, ComponentProps<typeof But
     return (
       <Button
         ref={ref}
+        {...props}
         data-slot="input-group-button"
         className={clsx(styles.button, normalizeClassName(className))}
         variant={variant}
         size={size ?? groupSize}
         type={type}
-        {...props}
       />
     );
   },

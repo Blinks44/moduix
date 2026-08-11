@@ -1,13 +1,23 @@
 # InputGroup
 
-Upstream docs:
+Upstream review (accessed 2026-08-11):
 
 - Ark UI composition: https://ark-ui.com/docs/guides/composition
 - Ark UI Field: https://ark-ui.com/docs/components/field
 - Chakra UI Input: https://chakra-ui.com/docs/components/input
+- Chakra UI Group: https://chakra-ui.com/docs/components/group
+- shadcn/ui Input Group: https://ui.shadcn.com/docs/components/input-group
 
 Ark UI has no `InputGroup` primitive. `InputGroup` is a moduix-owned composition built from Ark
 factory elements, the Ark-backed local `Input`, and the local `Button`.
+
+Chakra UI has no current dedicated InputGroup page: its Input docs pair `InputAddon` with `Group`.
+
+| Source                 | Useful difference                                     | moduix decision                                                                            |
+| ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Ark factory and Field  | Polymorphic structural parts and native form behavior | **Required correctness:** preserve `asChild`, refs, and the nested Ark input.              |
+| Chakra Input and Group | Configurable start/end elements and attached controls | **Intentional difference:** retain explicit child parts instead of start/end props.        |
+| shadcn/ui Input Group  | Discoverable addon, text, and button anatomy          | **Consumer friction addressed:** expose matching explicit parts with stable styling hooks. |
 
 ## Purpose
 
@@ -111,6 +121,8 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 
 - Group size defaults to `md` and is exposed as `data-size`.
 - `className` is supported on every exported part.
+- Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks cannot be
+  replaced through component props; supplied classes merge with the default styles.
 - Use stable `data-slot` hooks, `data-scope`/`data-part` on factory parts, Ark field attributes on
   `InputGroup.Input`, native state selectors, and public `--moduix-input-group-*` variables.
 - Addon and text content shrink and truncate instead of forcing the input out of a narrow group.
@@ -132,6 +144,8 @@ The default `md` group uses `--moduix-size-md`; the `sm` variant uses `--moduix-
 
 ## Local changelog
 
+- 2026-08-11: Protected component-owned styling hooks from consumer prop overrides and covered the
+  group size and button defaults with behavior tests.
 - 2026-07-28: Restored shell invalid, disabled, and read-only state styling through Input's stable
   `input-root` slot, and made addon/text content truncate safely in narrow groups.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

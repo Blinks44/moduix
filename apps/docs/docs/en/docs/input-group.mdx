@@ -171,3 +171,6 @@ size context. This bypasses the default `div`, so the child must remain a semant
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` on the grouped action button
 - nested `data-invalid`, `aria-invalid`, `disabled`, and `readOnly` state through root `:has(...)`
+
+Component-owned `data-slot`, `data-scope`, `data-part`, and root `data-size` hooks stay stable when
+consumer props are supplied. `className` always merges with the component styles.

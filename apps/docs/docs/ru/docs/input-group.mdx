@@ -170,3 +170,6 @@ InputGroup / InputGroup.Root
 - `data-slot="input-group-text"`
 - `data-slot="input-group-button"` на сгруппированной кнопке действия
 - вложенные состояния `data-invalid`, `aria-invalid`, `disabled` и `readOnly` через `:has(...)` корня
+
+Собственные хуки `data-slot`, `data-scope`, `data-part` и `data-size` корня остаются стабильными при
+передаче пользовательских props. `className` всегда объединяется со стилями компонента.
