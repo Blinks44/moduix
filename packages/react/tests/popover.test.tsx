@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { useRef, useState } from 'react';
 import { Popover, usePopover, usePopoverContext } from '../src';
 
 function PopoverSurface() {
@@ -120,4 +120,98 @@ test('marks only the current trigger when a popover has multiple triggers', asyn
   expect(share).toHaveAttribute('data-current');
   expect(exportTrigger).not.toHaveAttribute('data-current');
   expect(archive).not.toHaveAttribute('data-current');
+});
+
+test('renders inline only when portalled is false', () => {
+  render(
+    <div data-testid="popover-host">
+      <Popover defaultOpen portalled={false}>
+        <Popover.Positioner>
+          <Popover.Content>
+            <Popover.Title>Preferences</Popover.Title>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Popover>
+    </div>,
+  );
+
+  expect(within(screen.getByTestId('popover-host')).getByRole('dialog')).toBeInTheDocument();
+});
+
+test('portals content outside the root tree by default', () => {
+  const { container } = render(
+    <Popover defaultOpen>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>Preferences</Popover.Title>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover>,
+  );
+
+  expect(within(container).queryByRole('dialog')).not.toBeInTheDocument();
+  expect(screen.getByRole('dialog')).toBeInTheDocument();
+});
+
+test('portals content into portalRef when provided', () => {
+  function PopoverWithCustomPortal() {
+    const portalRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <>
+        <div ref={portalRef} data-testid="popover-portal" />
+        <Popover defaultOpen portalRef={portalRef}>
+          <Popover.Positioner>
+            <Popover.Content>
+              <Popover.Title>Preferences</Popover.Title>
+            </Popover.Content>
+          </Popover.Positioner>
+        </Popover>
+      </>
+    );
+  }
+
+  render(<PopoverWithCustomPortal />);
+
+  expect(within(screen.getByTestId('popover-portal')).getByRole('dialog')).toBeInTheDocument();
+});
+
+test('keeps modal popovers portalled when portalled is false', () => {
+  const { container } = render(
+    <Popover defaultOpen modal portalled={false}>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>Preferences</Popover.Title>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover>,
+  );
+
+  const content = screen.getByRole('dialog');
+
+  expect(within(container).queryByRole('dialog')).not.toBeInTheDocument();
+  expect(content).toHaveAttribute('aria-modal', 'true');
+});
+
+test('closes with CloseIcon and restores focus to its trigger', async () => {
+  render(
+    <Popover portalled={false}>
+      <Popover.Trigger>Open preferences</Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content>
+          <Popover.Title>Preferences</Popover.Title>
+          <Popover.CloseIcon />
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Open preferences' });
+  fireEvent.click(trigger);
+  fireEvent.click(await screen.findByRole('button', { name: 'Close popover' }));
+
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
 });

@@ -2092,7 +2092,7 @@
   --moduix-popover-footer-justify: initial; /* flex-end */
   --moduix-popover-footer-margin: initial; /* var(--moduix-spacing-3) 0 0 */
   --moduix-popover-header-gap: initial; /* var(--moduix-spacing-1) */
-  --moduix-popover-header-padding-inline-end: initial; /* calc(var(--moduix-popover-close-icon-size, 1.75rem) + var(--moduix-popover-close-icon-offset, var(--moduix-spacing-3))) */
+  --moduix-popover-header-padding-inline-end: initial; /* calc(var(--moduix-popover-close-icon-size, var(--moduix-spacing-7)) + var(--moduix-popover-close-icon-offset, var(--moduix-spacing-3))) */
   --moduix-popover-height: initial; /* auto */
   --moduix-popover-max-height: initial; /* 24rem */
   --moduix-popover-max-width: initial; /* 28rem */

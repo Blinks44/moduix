@@ -22,16 +22,20 @@ type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvi
 
 function PopoverRoot({
   lazyMount = true,
+  modal,
   portalled,
   portalRef,
   unmountOnExit = true,
   ...props
 }: PopoverRootProps) {
+  const resolvedPortalled = modal || portalled;
+
   return (
-    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+    <OverlayPortalProvider portalled={resolvedPortalled} portalRef={portalRef}>
       <PopoverPrimitive.Root
-        portalled={portalled}
         lazyMount={lazyMount}
+        modal={modal}
+        portalled={resolvedPortalled}
         unmountOnExit={unmountOnExit}
         {...props}
       />

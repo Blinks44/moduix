@@ -96,6 +96,7 @@
     max-width: min(var(--moduix-popover-max-width, 28rem), var(--available-width));
     max-height: min(var(--moduix-popover-max-height, 24rem), var(--available-height, 100dvh));
     overflow: visible;
+    overflow-wrap: anywhere;
     padding: var(--moduix-popover-padding-y, var(--moduix-spacing-4))
       var(--moduix-popover-padding-x, var(--moduix-spacing-4));
     border: 0;
@@ -224,6 +225,20 @@
     justify-content: var(--moduix-popover-footer-justify, flex-end);
     gap: var(--moduix-popover-footer-gap, var(--moduix-spacing-2));
     margin: var(--moduix-popover-footer-margin, var(--moduix-spacing-3) 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .closeTrigger {
+      transition: none;
+    }
+
+    .content {
+      &[data-state='open'],
+      &[data-state='closed'] {
+        animation: none;
+      }
+    }
   }
 
   @keyframes popover-enter {

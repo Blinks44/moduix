@@ -116,7 +116,8 @@ eager initial rendering is needed.
   `Header`, `Body`, and `Footer` target their rendered elements.
 - `onOpenChange` receives `{ open }`; callbacks are not converted to positional values.
 - `modal` is boolean and enables focus trapping, scroll lock, outside interaction blocking, and
-  screen-reader isolation.
+  screen-reader isolation. Modal popovers are always portalled, even when `portalled={false}` is
+  passed.
 - `RootProvider` receives the object returned by `usePopover`; do not wrap the same state in `Root`.
 - `Popover.Context` and `usePopoverContext` expose the current Ark state from descendants. The hook
   is exported from `@moduix/react`; use `Context` when a render prop reads more clearly.
@@ -287,11 +288,12 @@ cleaner anchored panel.
 
 Ark parts retain `data-scope="popover"` and their `data-part` values. Every exported rendered part
 accepts `className`; Moduix adds `data-slot="popover-*"` to rendered wrappers. Target
-`data-state="open|closed"`,
-`data-placement`, `data-nested`, `data-has-nested`, and `data-expanded` for state-aware styling.
+`data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
+`data-expanded` for state-aware styling.
 When multiple triggers have `value`, use `data-current` to style only the trigger that opened the
 popover.
 
 `Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
 `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`. `Content` exposes
 `--layer-index` and `--nested-layer-count`; `Arrow` exposes Ark's arrow measurement variables.
+Content wraps long unbroken strings and disables its motion when the user prefers reduced motion.

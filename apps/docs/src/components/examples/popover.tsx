@@ -139,7 +139,7 @@ const popoverOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-popover-header-gap', 'var(--moduix-spacing-1)', 'Controls header spacing.'],
   [
     '--moduix-popover-header-padding-inline-end',
-    'calc(var(--moduix-popover-close-icon-size, 1.75rem) + var(--moduix-popover-close-icon-offset, var(--moduix-spacing-3)))',
+    'calc(var(--moduix-popover-close-icon-size, var(--moduix-spacing-7)) + var(--moduix-popover-close-icon-offset, var(--moduix-spacing-3)))',
     'Controls header space reserved when CloseIcon is present.',
   ],
   ['--moduix-popover-height', 'auto', 'Controls content height.'],

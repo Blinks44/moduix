@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Popover: Refine popover styling and usage guidance.
+Popover: Preserve modal portal behavior and refine resilient popup styling.

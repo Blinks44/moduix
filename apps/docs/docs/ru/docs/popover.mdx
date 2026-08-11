@@ -104,7 +104,7 @@ Popover / Popover.Root
 
 - Refs передаются базовым DOM-частям Ark: `Trigger` и `CloseTrigger` указывают на кнопки, а `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`, `Header`, `Body` и `Footer` — на соответствующие отрисованные элементы.
 - `onOpenChange` получает `{ open }`; обратные вызовы не преобразуются в позиционные значения.
-- `modal` имеет тип boolean и включает ловушку фокуса, блокировку прокрутки, блокировку внешнего взаимодействия и изоляцию для программ чтения с экрана.
+- `modal` имеет тип boolean и включает ловушку фокуса, блокировку прокрутки, блокировку внешнего взаимодействия и изоляцию для программ чтения с экрана. Модальный popover всегда рендерится через portal, даже если передано `portalled={false}`.
 - `RootProvider` получает объект, возвращённый `usePopover`; не оборачивайте это же состояние в `Root`.
 - `Popover.Context` и `usePopoverContext` предоставляют текущее состояние Ark потомкам. Хук экспортируется из `@moduix/react`; используйте `Context`, когда render prop читается яснее.
 - `usePopover` экспортируется для владения состоянием Ark через `RootProvider`.
@@ -266,6 +266,6 @@ Popover / Popover.Root
 
 ### Хуки стилизации
 
-Части Ark сохраняют `data-scope="popover"` и значения `data-part`. Каждая экспортируемая отрисованная часть принимает `className`; Moduix добавляет `data-slot="popover-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`, `data-placement`, `data-nested`, `data-has-nested` и `data-expanded` для стилизации по состоянию. Если у нескольких триггеров есть `value`, используйте `data-current`, чтобы стилизовать только триггер, открывший popover.
+Части Ark сохраняют `data-scope="popover"` и значения `data-part`. Каждая экспортируемая отрисованная часть принимает `className`; Moduix добавляет `data-slot="popover-*"` к отрисованным обёрткам. Используйте `data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested` и `data-expanded` для стилизации по состоянию. Если у нескольких триггеров есть `value`, используйте `data-current`, чтобы стилизовать только триггер, открывший popover.
 
-`Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `Content` предоставляет `--layer-index` и `--nested-layer-count`; `Arrow` предоставляет переменные измерений стрелки Ark.
+`Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `Content` предоставляет `--layer-index` и `--nested-layer-count`; `Arrow` предоставляет переменные измерений стрелки Ark. Содержимое переносит длинные неразрывные строки и отключает анимацию, когда пользователь предпочитает уменьшенное движение.

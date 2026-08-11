@@ -116,7 +116,8 @@ cycle de vie à `false` uniquement si un rendu initial immédiat est nécessaire
   `Body` et `Footer` ciblent leurs éléments affichés.
 - `onOpenChange` reçoit `{ open }` ; les rappels ne sont pas convertis en valeurs positionnelles.
 - `modal` est un booléen qui active le piège à focus, le verrouillage du défilement, le blocage des interactions extérieures
-  et l’isolation pour les lecteurs d’écran.
+  et l’isolation pour les lecteurs d’écran. Les Popover modaux sont toujours rendus dans un portail, même lorsque
+  `portalled={false}` est transmis.
 - `RootProvider` reçoit l’objet renvoyé par `usePopover` ; n’enveloppez pas le même état dans `Root`.
 - `Popover.Context` et `usePopoverContext` exposent l’état Ark actuel aux descendants. Le hook est exporté depuis
   `@moduix/react` ; utilisez `Context` lorsqu’une propriété de rendu est plus lisible.
@@ -285,10 +286,11 @@ obtenir un panneau ancré plus épuré.
 
 Les parties Ark conservent `data-scope="popover"` et leurs valeurs de `data-part`. Chaque partie affichée exportée
 accepte `className` ; moduix ajoute `data-slot="popover-*"` aux conteneurs affichés. Ciblez
-`data-state="open|closed"`, `data-placement`, `data-nested`, `data-has-nested` et `data-expanded` pour adapter les styles
+`data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested` et `data-expanded` pour adapter les styles
 à l’état. Lorsque plusieurs déclencheurs possèdent une `value`, utilisez `data-current` pour ne styliser que celui qui
 a ouvert le Popover.
 
 `Positioner` expose `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`. `Content` expose `--layer-index` et `--nested-layer-count` ; `Arrow` expose les
-variables de mesure de la flèche Ark.
+variables de mesure de la flèche Ark. Le contenu coupe les longues chaînes sans séparateur et désactive ses animations
+lorsque l’utilisateur préfère réduire les animations.

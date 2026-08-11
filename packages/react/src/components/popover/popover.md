@@ -137,8 +137,9 @@ the Ark part.
   event objects unchanged.
 - `Popover.Context` and `usePopoverContext` read the same state as `RootProvider`; both remain
   available through the moduix package barrel.
-- `Trigger` exposes `data-state` and `data-placement`. `Content` exposes `data-state`,
-  `data-placement`, `data-nested`, `data-has-nested`, and `data-expanded`.
+- `Trigger` exposes `data-state`, `data-placement`, and `data-side`. `Content` exposes
+  `data-state`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
+  `data-expanded`.
 - When multiple triggers have `value`, Ark adds `data-current` only to the trigger that opened the
   popover; default trigger styling preserves that distinction.
 - `Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
@@ -158,6 +159,9 @@ The content uses moduix colors, spacing, radii, shadow, typography, and motion t
 Open and closed animations target `[data-state='open']` and `[data-state='closed']`. Ark's presence
 layer keeps exit animations mounted. Use `present` only for JavaScript-controlled animation
 lifecycles.
+
+Content wraps unbroken strings to remain within the available popup width. Animations and control
+transitions respect `prefers-reduced-motion`.
 
 The public `--moduix-popover-*` variables are declared in `variables-moduix.css`. Positioner sizing relies on Ark's
 runtime available-size and reference-size variables rather than duplicate measurements.
@@ -193,6 +197,10 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Kept modal popovers portalled when `portalled={false}`, added focused portal and
+  close-icon regression coverage, and made default content resilient to reduced motion and long
+  unbroken strings.
 
 - 2026-08-11: Made the recommended popup composition arrowless and kept `Popover.Arrow` as an
   explicit visual-anchor option.
