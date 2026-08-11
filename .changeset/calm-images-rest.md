@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Image: Refine image rendering behavior and documentation.
+Image: Preserve explicit fetch-priority overrides and complete release-readiness coverage.

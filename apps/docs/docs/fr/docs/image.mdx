@@ -8,7 +8,7 @@ import * as ImageDocs from '@/components/examples/image';
 
 ## Référence de l’API
 
-`Image` est le wrapper moduix de l’élément `<img>`, construit autour d’[Unpic React](https://unpic.pics/img/react/). Ark UI ne fournit pas de primitive d’image dédiée à ce composant.
+`Image` est le wrapper moduix de l’élément `<img>`, construit autour d’[Unpic React](https://unpic.pics/img/react/). Ark UI ne fournit pas de primitive d’image dédiée à ce composant ; il conserve donc la composition native `<img>` et `<picture>` au lieu d’adapter une partie Ark. Consultez son [guide de composition](https://ark-ui.com/react/docs/guides/composition) pour ce modèle d’éléments natifs.
 
 ## Exemple de base
 
@@ -46,7 +46,7 @@ picture (native)
 
 `Image` est la forme racine courte, équivalente à `Image.Root`. Utilisez `width` et `height` avec le `layout="constrained"` par défaut pour préserver le rapport de dimensions de la ressource et éviter les décalages de mise en page. Pour les URL distantes de fournisseurs pris en charge, Unpic détecte le fournisseur et génère automatiquement les entrées `srcSet` transformées.
 
-Utilisez `priority` uniquement pour les images qui doivent se charger immédiatement, comme l’image principale d’un hero au-dessus de la ligne de flottaison. Cette propriété active le chargement immédiat et une priorité de récupération élevée si les attributs natifs correspondants ne sont pas fournis.
+Utilisez `priority` uniquement pour les images qui doivent se charger immédiatement, comme l’image principale d’un hero au-dessus de la ligne de flottaison. Cette propriété active le chargement immédiat et une priorité de récupération élevée, sauf si `loading` ou la propriété React `fetchPriority` en camelCase sont fournis explicitement.
 
 ### Quand créer une composition personnalisée
 
@@ -60,7 +60,8 @@ Pour sélectionner un format, placez une `Image.Source` avec une valeur `type` a
 | ------------------------ | ------------------------------------ | -------------------------------------------------------------------------------- |
 | `layout`                 | `constrained`                        | Respecte les dimensions fournies et se réduit si nécessaire.                     |
 | `loading`                | `lazy`                               | Devient `eager` lorsque `priority` est défini.                                    |
-| `decoding`               | `async` pour les images sans `priority` | Les valeurs natives sont prioritaires ; la propriété est omise avec `priority`. |
+| `decoding`               | `async` pour les images sans `priority` | Une valeur native est conservée ; omise par défaut avec `priority`.             |
+| `fetchPriority`          | `high` avec `priority`               | Une valeur native remplace la valeur par défaut de `priority`.                    |
 | `objectFit`              | `cover`                              | Appliqué via les styles en ligne générés par Unpic.                               |
 | `--moduix-image-radius`  | `var(--moduix-radius-md)`            | Rayon visible par défaut de moduix.                                               |
 
@@ -69,6 +70,7 @@ Pour sélectionner un format, placez une `Image.Source` avec une valeur `type` a
 - `fixed` conserve les dimensions indiquées en pixels CSS et peut déborder d’un parent plus étroit, tandis que `fullWidth` remplit la largeur du conteneur.
 - `alt` est obligatoire pour les images porteuses de sens. Pour une image décorative, utilisez `alt=""` ; Unpic applique alors `role="presentation"`, sauf si vous remplacez explicitement ce rôle.
 - Unpic génère `srcSet` à partir de l’URL source. Utilisez `breakpoints` lorsque ses largeurs adaptatives par défaut ne conviennent pas.
+- Les propriétés natives `loading`, `decoding` et `fetchPriority` de React en camelCase restent disponibles lorsque les valeurs générées ne correspondent pas aux besoins de chargement de l’image.
 - `background="auto"` crée un arrière-plan basse résolution chez les fournisseurs pris en charge. Celui-ci reste après le chargement ; utilisez-le donc uniquement pour les images opaques ou fournissez une valeur d’arrière-plan choisie explicitement.
 - `unstyled` désactive les styles de mise en page en ligne générés par Unpic ; les styles d’affichage et de rayon ainsi que les sélecteurs `data-slot` de moduix restent disponibles. Utilisez-le lorsque des sources avec direction artistique nécessitent d’autres règles de mise en page adaptative, puis définissez ces règles dans votre propre CSS.
 

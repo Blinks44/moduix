@@ -9,7 +9,9 @@ import * as ImageDocs from '@/components/examples/image';
 ## API Reference
 
 `Image` is a moduix-owned `<img>` wrapper around [Unpic React](https://unpic.pics/img/react/).
-Ark UI has no dedicated image primitive for this component.
+Ark UI has no dedicated image primitive for this component, so it preserves native `<img>` and
+`<picture>` composition rather than adapting an Ark part. See Ark's [Composition
+guide](https://ark-ui.com/react/docs/guides/composition) for its native-element model.
 
 ## Basic
 
@@ -52,7 +54,8 @@ remote URLs from supported providers, Unpic detects the provider and generates t
 entries automatically.
 
 Use `priority` only for images that must load immediately, such as the primary above-the-fold hero.
-It sets eager loading and high fetch priority unless the corresponding native attributes are passed.
+It sets eager loading and high fetch priority unless native `loading` or React's camel-cased
+`fetchPriority` is passed explicitly.
 
 ### When to go custom
 
@@ -69,7 +72,8 @@ For format selection, put a `type`-specific `Image.Source` before an equivalent 
 | ----------------------- | ------------------------- | ------------------------------------------------ |
 | `layout`                | `constrained`             | Fits within supplied dimensions and scales down. |
 | `loading`               | `lazy`                    | Becomes `eager` when `priority` is set.          |
-| `decoding`              | `async` for non-priority images | Native values override it; priority leaves it unset. |
+| `decoding`              | `async` for non-priority images | A native value is preserved; absent by default with `priority`. |
+| `fetchPriority`         | `high` with `priority`    | A native value overrides the priority default.    |
 | `objectFit`             | `cover`                   | Applied by Unpic's generated inline styles.      |
 | `--moduix-image-radius` | `var(--moduix-radius-md)` | moduix's default visible radius.                 |
 
@@ -81,6 +85,8 @@ For format selection, put a `type`-specific `Image.Source` before an equivalent 
   `role="presentation"` unless you override the role.
 - Unpic generates `srcSet` from the source URL. Use `breakpoints` when its standard responsive
   widths are not appropriate.
+- Native `loading`, `decoding`, and React's camel-cased `fetchPriority` remain available when the
+  generated defaults do not match the image's loading needs.
 - `background="auto"` creates a low-resolution background from supported providers. It remains
   after loading, so use it only for opaque images or provide a deliberate background value instead.
 - `unstyled` disables Unpic's generated inline layout styles; moduix's display, radius, and

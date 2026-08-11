@@ -72,8 +72,8 @@ container width.
 
 - `layout="constrained" | "fixed" | "fullWidth"`: preserved from Unpic. `fixed` keeps its exact
   pixel dimensions and can overflow a narrower parent.
-- `priority`: preserved; it sets eager loading and high fetch priority unless those native props
-  are set explicitly.
+- `priority`: preserved; it sets eager loading and high fetch priority unless native `loading` or
+  React's camel-cased `fetchPriority` prop is set explicitly.
 - `background="auto"`: preserved; Unpic generates a low-resolution background from supported
   image providers. The background remains after loading, so use it only for opaque images.
 - `fallback`, `operations`, `options`, and `breakpoints`: preserved for CDN-specific control.
@@ -104,6 +104,8 @@ consumer CSS.
 
 - moduix adds `Image.Root` as a namespace alias and exposes Unpic's source component as
   `Image.Source` instead of a separate top-level export.
+- Unlike Chakra's `Image`, moduix deliberately does not offer `asChild`: this component always
+  renders a native `<img>` so Unpic's responsive output and `<picture>` fallback remain semantic.
 - moduix does not expose Unpic's Next.js entry point. The shipped component uses Unpic's standard
   React entry point and relies on supported image providers or the consumer's `fallback`
   configuration.
@@ -119,6 +121,8 @@ consumer CSS.
 
 ## Local changelog
 
+- 2026-08-11: Preserved explicit React `fetchPriority` overrides when `priority` is set and
+  documented the native-element composition decision.
 - 2026-07-28: Kept image and source `data-slot` hooks invariant, added focused tests and priority
   coverage, and aligned preview sizing, copied examples, and Unpic format/layout guidance.
 - 2026-07-14: Added the Unpic-backed responsive `Image` component, `Image.Source`, styles,

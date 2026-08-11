@@ -43,7 +43,7 @@ test('preserves ref forwarding and invariant moduix hooks', () => {
   expect(source).toHaveAttribute('type', 'image/avif');
 });
 
-test('preserves Unpic priority and decorative image defaults', () => {
+test('preserves Unpic priority, native overrides, and decorative image defaults', () => {
   const { rerender } = render(
     <Image src={imageUrl} alt="Mountain landscape" width={800} height={520} priority />,
   );
@@ -54,6 +54,38 @@ test('preserves Unpic priority and decorative image defaults', () => {
   expect(priorityImage).toHaveAttribute('fetchpriority', 'high');
   expect(priorityImage).not.toHaveAttribute('decoding');
 
+  rerender(
+    <Image
+      src={imageUrl}
+      alt="Mountain landscape"
+      width={800}
+      height={520}
+      priority
+      loading="lazy"
+      decoding="sync"
+      fetchPriority="low"
+    />,
+  );
+
+  const overriddenImage = screen.getByAltText('Mountain landscape');
+
+  expect(overriddenImage).toHaveAttribute('loading', 'lazy');
+  expect(overriddenImage).toHaveAttribute('decoding', 'sync');
+  expect(overriddenImage).toHaveAttribute('fetchpriority', 'low');
+
+  rerender(
+    <Image
+      src={imageUrl}
+      alt="Mountain landscape"
+      width={800}
+      height={520}
+      priority
+      fetchPriority="auto"
+    />,
+  );
+
+  expect(screen.getByAltText('Mountain landscape')).toHaveAttribute('fetchpriority', 'auto');
+
   rerender(<Image src={imageUrl} alt="" width={800} height={520} />);
 
   expect(screen.getByRole('presentation')).toHaveAttribute('data-slot', 'image-root');
@@ -63,4 +95,22 @@ test('leaves layout styles to the consumer when unstyled is set', () => {
   render(<Image src={imageUrl} alt="Mountain landscape" width={800} height={520} unstyled />);
 
   expect(screen.getByAltText('Mountain landscape')).not.toHaveAttribute('style');
+});
+
+test('preserves consumer class names and styles', () => {
+  render(
+    <Image
+      src={imageUrl}
+      alt="Mountain landscape"
+      width={800}
+      height={520}
+      className="consumer-image"
+      style={{ objectFit: 'contain' }}
+    />,
+  );
+
+  const image = screen.getByAltText('Mountain landscape');
+
+  expect(image).toHaveClass('consumer-image');
+  expect(image).toHaveStyle({ objectFit: 'contain' });
 });
