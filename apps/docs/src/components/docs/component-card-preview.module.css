@@ -1,36 +1,3 @@
-.preview {
-  --line: color-mix(in oklab, var(--rp-c-text-1) 18%, var(--rp-c-bg));
-  --faint: color-mix(in oklab, var(--rp-c-text-1) 9%, var(--rp-c-bg));
-  --strong: color-mix(in oklab, var(--rp-c-text-1) 82%, var(--rp-c-bg));
-  --border: color-mix(in oklab, var(--rp-c-text-1) 14%, transparent);
-  --surface: color-mix(in oklab, var(--rp-c-bg) 90%, transparent);
-
-  display: grid;
-  height: 10.5rem;
-  place-items: center;
-  overflow: hidden;
-  padding: 1rem;
-  background:
-    linear-gradient(
-      to right,
-      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--rp-c-text-1) 5%, transparent) 1px,
-      transparent 1px
-    ),
-    var(--rp-c-bg-soft);
-  background-size: 1.5rem 1.5rem;
-}
-
-.preview *,
-.preview *::before,
-.preview *::after {
-  box-sizing: border-box;
-}
-
 .canvas {
   display: grid;
   width: min(100%, 11rem);

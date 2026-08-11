@@ -484,10 +484,6 @@ const CommandPaletteList = forwardRef<
             {children}
           </ScrollArea.Content>
         </ScrollArea.Viewport>
-        <ScrollArea.Scrollbar data-slot="command-palette-scrollbar" className={styles.scrollbar}>
-          <ScrollArea.Thumb />
-        </ScrollArea.Scrollbar>
-        <ScrollArea.Corner />
       </ScrollArea>
     </ComboboxPrimitive.Content>
   );

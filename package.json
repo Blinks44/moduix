@@ -32,7 +32,7 @@
     "@changesets/cli": "^2.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
-    "oxfmt": "^0.60.0",
+    "oxfmt": "^0.63.0",
     "oxlint": "^1.71.0",
     "publint": "^0.3.22",
     "shadcn": "^4.12.0",

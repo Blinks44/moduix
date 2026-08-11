@@ -135,25 +135,16 @@
   gap: var(--moduix-spacing-1);
 }
 
-.searchLink,
-.createLink,
+.searchTrigger,
 .accountTrigger {
   border-radius: var(--moduix-radius-full);
 }
 
-.searchLink {
-  gap: var(--moduix-spacing-2);
+.searchTrigger {
   color: var(--moduix-color-muted-foreground);
 }
 
-.createLink {
-  gap: var(--moduix-spacing-1-5);
-  padding-inline: var(--moduix-spacing-3);
-  box-shadow: var(--moduix-shadow-sm);
-}
-
-.searchLink > svg,
-.createLink > svg,
+.searchTrigger > svg,
 .accountChevron,
 .menuLink > svg {
   width: 1rem;
@@ -216,6 +207,10 @@
   --moduix-menu-popup-min-width: 12rem;
 }
 
+.commandPalette {
+  --moduix-command-palette-width: min(34rem, calc(100vw - 2rem));
+}
+
 .accountMenu {
   --moduix-menu-popup-min-width: 15rem;
 }
@@ -249,8 +244,7 @@
 }
 
 @media (width < 64rem) {
-  .workspace,
-  .searchLabel {
+  .workspace {
     display: none;
   }
 }
@@ -275,14 +269,9 @@
     border-radius: var(--moduix-radius-xl);
   }
 
-  .createLabel,
   .accountDetails,
   .accountChevron {
     display: none;
-  }
-
-  .createLink {
-    padding-inline: 0;
   }
 
   .accountTrigger {

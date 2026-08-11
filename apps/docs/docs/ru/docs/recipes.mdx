@@ -5,14 +5,17 @@ description: Готовые к копированию примеры интер�
 
 import { Card, Cards } from '@/components/mdx/Components';
 import {
-  AccountFormCardPreview,
   AppHeaderCardPreview,
   DataTableCardPreview,
   ExpandableAvatarGroupCardPreview,
   FileUploadManagerCardPreview,
+  ForgotPasswordCardPreview,
+  LoginSimpleCardPreview,
   MobileDrawerNavigationCardPreview,
   ParallaxCardCardPreview,
+  ResetPasswordCardPreview,
   SidebarDashboardCardPreview,
+  SignUpCardPreview,
   VerificationCodeCardPreview,
 } from '@/components/recipes/recipe-card-previews';
 
@@ -55,25 +58,25 @@ import {
     title="Простой вход"
     description="Вход по электронной почте и паролю. Подключите аутентификацию, состояние ожидания и ошибки сервера."
     href="/docs/login-simple"
-    preview={<AccountFormCardPreview />}
+    preview={<LoginSimpleCardPreview />}
   />
   <Card
     title="Регистрация"
     description="Создание учётной записи с принятием условий. Добавьте проверку учётной записи и маршрут успешного завершения."
     href="/docs/sign-up"
-    preview={<AccountFormCardPreview />}
+    preview={<SignUpCardPreview />}
   />
   <Card
     title="Восстановление пароля"
     description="Запросите письмо для сброса пароля, не раскрывая, существует ли учётная запись."
     href="/docs/forgot-password"
-    preview={<AccountFormCardPreview />}
+    preview={<ForgotPasswordCardPreview />}
   />
   <Card
     title="Сброс пароля"
     description="Выберите новый пароль после того, как сервер подтвердит токен сброса."
     href="/docs/reset-password"
-    preview={<AccountFormCardPreview />}
+    preview={<ResetPasswordCardPreview />}
   />
   <Card
     title="Код подтверждения"

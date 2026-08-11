@@ -1,4 +1,4 @@
-import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
+import type { CreateToasterReturn, ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/button';
@@ -18,7 +18,7 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastToaster = ReturnType<typeof createToaster>;
+type ToastToaster = CreateToasterReturn;
 type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
 
 const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });

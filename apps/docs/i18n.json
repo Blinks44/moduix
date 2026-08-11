@@ -481,11 +481,6 @@
     "ru": "Небольшие примитивы взаимодействия для распространённых действий и паттернов продукта.",
     "fr": "De petits primitifs d'interaction pour les actions et modèles produit courants."
   },
-  "componentGallerySummary": {
-    "en": "Browse composable React components built on Ark UI. Every card leads to usage guidance, a runnable example, and its install command.",
-    "ru": "Изучайте компонуемые React-компоненты, построенные на Ark UI. Каждая карточка ведёт к руководству по использованию, работающему примеру и команде установки.",
-    "fr": "Parcourez les composants React composables construits sur Ark UI. Chaque carte mène à un guide d'utilisation, un exemple exécutable et sa commande d'installation."
-  },
   "componentGalleryMoreTitle": {
     "en": "More components",
     "ru": "Другие компоненты",

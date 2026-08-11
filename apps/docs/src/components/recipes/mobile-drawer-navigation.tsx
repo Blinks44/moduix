@@ -14,7 +14,7 @@ import styles from './mobile-drawer-navigation.module.css';
 
 export function MobileDrawerNavigation() {
   return (
-    <Drawer.Root swipeDirection="start">
+    <Drawer swipeDirection="start">
       <section className={styles.root}>
         <header className={styles.topbar}>
           <div className={styles.leading}>
@@ -70,7 +70,7 @@ export function MobileDrawerNavigation() {
 
       <Drawer.Backdrop />
       <Drawer.Positioner>
-        <Drawer.Content className={styles.drawer} draggable={false}>
+        <Drawer.Content className={styles.drawer}>
           <Drawer.Header className={styles.drawerHeader}>
             <Drawer.Title>Navigation</Drawer.Title>
             <Drawer.CloseIcon />
@@ -127,6 +127,6 @@ export function MobileDrawerNavigation() {
           </Drawer.Body>
         </Drawer.Content>
       </Drawer.Positioner>
-    </Drawer.Root>
+    </Drawer>
   );
 }

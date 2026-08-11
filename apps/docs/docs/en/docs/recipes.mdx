@@ -5,14 +5,17 @@ description: Copy-paste interface examples composed from moduix components.
 
 import { Card, Cards } from '@/components/mdx/Components';
 import {
-  AccountFormCardPreview,
   AppHeaderCardPreview,
   DataTableCardPreview,
   ExpandableAvatarGroupCardPreview,
   FileUploadManagerCardPreview,
+  ForgotPasswordCardPreview,
+  LoginSimpleCardPreview,
   MobileDrawerNavigationCardPreview,
   ParallaxCardCardPreview,
+  ResetPasswordCardPreview,
   SidebarDashboardCardPreview,
+  SignUpCardPreview,
   VerificationCodeCardPreview,
 } from '@/components/recipes/recipe-card-previews';
 
@@ -55,25 +58,25 @@ work at both breakpoints. The app header can sit above either shell.
     title="Login simple"
     description="Email and password sign-in. Connect authentication, pending state, and server errors."
     href="/docs/login-simple"
-    preview={<AccountFormCardPreview />}
+    preview={<LoginSimpleCardPreview />}
   />
   <Card
     title="Sign up"
     description="Account creation with terms acceptance. Add account checks and a success route."
     href="/docs/sign-up"
-    preview={<AccountFormCardPreview />}
+    preview={<SignUpCardPreview />}
   />
   <Card
     title="Forgot password"
     description="Request a reset email without revealing whether an account exists."
     href="/docs/forgot-password"
-    preview={<AccountFormCardPreview />}
+    preview={<ForgotPasswordCardPreview />}
   />
   <Card
     title="Reset password"
     description="Choose a new password after your server verifies the reset token."
     href="/docs/reset-password"
-    preview={<AccountFormCardPreview />}
+    preview={<ResetPasswordCardPreview />}
   />
   <Card
     title="Verification code"

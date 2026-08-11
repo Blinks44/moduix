@@ -37,7 +37,7 @@ l’en-tête en barre d’outils.
 
 ## Installation
 
-<ShadcnInstall packageName={['avatar', 'button', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
 
 ## Adaptation à votre application
 
@@ -49,7 +49,7 @@ et de l’état du compte.
 | -------------------------------- | ---------------------------------- |
 | Orbit et Acme Studio | Le lien vers l’accueil du produit et l’espace de travail actuel |
 | Liens de navigation | Les liens du routeur ; définissez `aria-current="page"` selon la route actuelle |
-| Search et New project | De vraies destinations ou des contrôles qui ouvrent vos parcours de recherche et de création |
+| Contrôle de recherche | Un déclencheur de Command Palette avec les routes et actions de votre application |
 | Image et informations du compte | Les données de l’utilisateur authentifié et une URL d’image gérée par l’application |
 | Liens du menu du compte | Les routes du profil, des paramètres, de l’aide et toute autre route réellement utile aux utilisateurs |
 
@@ -61,6 +61,6 @@ n’est disponible.
 ## Comportement adaptatif
 
 Sous 48rem, la navigation centrée est déplacée dans un véritable `Menu` au lieu de disparaître.
-Sous 36rem, les libellés secondaires sont masqués tandis que chaque action conserve un nom
-accessible. Pour une navigation plus profonde, avec des groupes ou des routes imbriquées, remplacez
+Sous 36rem, les libellés de l’espace de travail et du compte sont masqués tandis que les boutons à
+icône conservent un nom accessible. Pour une navigation plus profonde, avec des groupes ou des routes imbriquées, remplacez
 le menu compact par la recette [Navigation mobile avec tiroir](/docs/mobile-drawer-navigation).

@@ -155,7 +155,6 @@ export function ComponentGallery() {
 
   return (
     <div className={styles.gallery}>
-      <p className={styles.summary}>{t('componentGallerySummary')}</p>
       {categories.map((category) => {
         const slugs: readonly string[] = category.slugs;
         const items = components.filter((component) => slugs.includes(component.slug));

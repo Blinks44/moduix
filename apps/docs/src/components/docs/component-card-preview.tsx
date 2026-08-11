@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import { CardPreviewFrame } from './card-preview-frame';
 import styles from './component-card-preview.module.css';
 import { actionsUtilitiesDrawings } from './component-card-preview/actions-utilities';
 import { displayContentDrawings } from './component-card-preview/display-content';
@@ -19,11 +20,11 @@ const drawings: Record<string, ComponentType> = {
 function ComponentCardPreview({ component }: { component: string }) {
   const ComponentDrawing = drawings[component] ?? formInputDrawings.input;
   return (
-    <div aria-hidden="true" className={styles.preview}>
+    <CardPreviewFrame>
       <div className={styles.canvas}>
         <ComponentDrawing />
       </div>
-    </div>
+    </CardPreviewFrame>
   );
 }
 
