@@ -136,6 +136,8 @@ results should remain visually separate or need a custom wrapper.
   elements.
 - `Listbox.Filter` is a visual wrapper only. It does not own input state or filtering, so its
   optional `Listbox.ClearTrigger` must reset the external query and call the collection filter.
+- Listbox does not render a native form control for its selected values. Keep submission and reset
+  state in the consumer's form model when the selection must be submitted.
 - `Listbox.ClearTrigger` is semantic button content with an accessible `Clear search` label by
   default. Its standard rendering uses `CloseButton`, while custom content remains supported.
 - Preserve Ark state attributes: `data-orientation`, `data-disabled`, `data-empty`,

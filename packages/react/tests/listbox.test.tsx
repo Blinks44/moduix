@@ -1,6 +1,6 @@
 import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef, useState } from 'react';
 import { Listbox, useListbox, useListboxContext } from '../src';
 
@@ -102,6 +102,32 @@ test('keeps disabled items unavailable and content focusable for keyboard naviga
   expect(content).toHaveFocus();
   expect(unavailable).toHaveAttribute('data-disabled');
   expect(unavailable).not.toHaveAttribute('data-selected');
+});
+
+test('selects highlighted enabled items with the keyboard and skips disabled items', async () => {
+  render(<FruitListbox />);
+
+  const content = screen.getByRole('listbox', { name: 'Fruit' });
+  const apple = screen.getByRole('option', { name: 'Apple' });
+  const mango = screen.getByRole('option', { name: 'Mango' });
+  const unavailable = screen.getByRole('option', { name: 'Unavailable' });
+
+  content.focus();
+  fireEvent.keyDown(content, { key: 'ArrowDown' });
+
+  await waitFor(() => {
+    expect(apple).toHaveAttribute('data-highlighted');
+    expect(content).toHaveAttribute('aria-activedescendant', apple.id);
+  });
+
+  fireEvent.keyDown(content, { key: 'Enter' });
+
+  await waitFor(() => expect(apple).toHaveAttribute('data-selected'));
+
+  fireEvent.keyDown(content, { key: 'ArrowDown' });
+
+  await waitFor(() => expect(mango).toHaveAttribute('data-highlighted'));
+  expect(unavailable).not.toHaveAttribute('data-highlighted');
 });
 
 test('exposes RootProvider state through the moduix context hook', () => {

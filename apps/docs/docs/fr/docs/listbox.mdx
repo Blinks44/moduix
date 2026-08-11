@@ -118,6 +118,9 @@ pour les clés sélectionnées et `details.items` pour les éléments de collect
 partie Ark correspondante ; les refs de la racine et du root provider pointent vers les éléments `div` affichés.
 Utilisez `ids` lorsque des parties de la zone de liste nécessitent des ID stables pour la composition avec l'interface environnante.
 
+La Listbox ne crée pas de contrôle de formulaire natif pour les valeurs sélectionnées. Si la sélection doit
+être envoyée, conservez l’état de soumission et de réinitialisation dans le modèle de votre formulaire.
+
 `Listbox.Input` n’est utile que pour le filtrage. Placez-le dans `Listbox.Filter` pour la présentation standard, ou
 affichez-le directement pour un champ séparé. Définissez `typeahead={false}` afin que la recherche par saisie ne
 concurrence pas le filtre. Gardez l’état du filtre explicite : affichez `Listbox.ClearTrigger` lorsque la requête n’est

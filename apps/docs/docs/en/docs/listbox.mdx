@@ -117,6 +117,9 @@ descendant movement. `onSelect(details)` fires for item selection with the selec
 Refs forward to the corresponding Ark part; root and root provider refs target their rendered `div`
 elements. Use `ids` when listbox parts need stable IDs for composition with surrounding UI.
 
+Listbox does not render a native form control for its selected values. Keep submission and reset state
+in your form model when the selection must be submitted.
+
 `Listbox.Input` is only needed for filtering. Put it in `Listbox.Filter` for the default search
 appearance, or render it directly for a separate input. Set `typeahead={false}` so typeahead and
 filtering do not compete. Filtering state remains explicit: render `Listbox.ClearTrigger` for a

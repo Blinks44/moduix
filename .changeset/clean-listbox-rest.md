@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Listbox: Refine listbox styling and documentation.
+Listbox: Improve keyboard-selection coverage and clarify form integration in documentation.
