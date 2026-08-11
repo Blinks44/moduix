@@ -80,6 +80,29 @@ test('closes a click-to-close image and restores focus to its trigger', async ()
   });
 });
 
+test('closes from its accessible close icon and restores focus to its trigger', async () => {
+  render(
+    <Lightbox portalled={false}>
+      <Lightbox.Trigger>Open preview</Lightbox.Trigger>
+      <Lightbox.Positioner>
+        <Lightbox.CloseIcon />
+        <Lightbox.Content aria-label="Image preview">
+          <Lightbox.Image src="/full-size.jpg" alt="Mountain ridge" />
+        </Lightbox.Content>
+      </Lightbox.Positioner>
+    </Lightbox>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Open preview' });
+  fireEvent.click(trigger);
+  fireEvent.click(await screen.findByRole('button', { name: 'Close image' }));
+
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+});
+
 test('exposes RootProvider state through useLightboxContext', async () => {
   function LightboxStatus() {
     const dialog = useLightboxContext();

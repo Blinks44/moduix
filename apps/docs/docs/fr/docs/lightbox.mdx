@@ -48,14 +48,14 @@ Lightbox / Lightbox.Root
 └─ Sous-arborescence de superposition (portée automatiquement)
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
+      ├─ Lightbox.CloseTrigger ou Lightbox.CloseIcon
       └─ Lightbox.Content
-         ├─ Lightbox.Header (optional)
+         ├─ Lightbox.Header (facultatif)
          │  ├─ Lightbox.Title
          │  └─ Lightbox.Description
          ├─ Lightbox.Body
          │  └─ Lightbox.Image
-         └─ Lightbox.Footer (optional)
+         └─ Lightbox.Footer (facultatif)
 
 Lightbox.RootProvider
 └─ le même arbre de pièces, connecté à useLightbox()
@@ -294,3 +294,5 @@ et `lightbox-gallery`.
 Emplacements de carrousel imbriqués.
 - L'animation est déterminée par Ark `data-state` ; utilisez `present` uniquement lors du contrôle de l'animation en JavaScript
 devrait garder le contenu monté.
+- Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de
+  1 ms : le nettoyage après fermeture reste intact sans mouvement visible.

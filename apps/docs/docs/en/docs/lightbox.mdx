@@ -297,3 +297,5 @@ overrides; `Backdrop`, `Positioner`, and `Content` stay explicit.
   nested Carousel slots.
 - Motion is driven by Ark `data-state`; use `present` only when JavaScript animation control needs
   to keep the content mounted.
+- With `prefers-reduced-motion: reduce`, the backdrop and content use a 1ms animation so exit
+  lifecycle cleanup remains intact without visible motion.

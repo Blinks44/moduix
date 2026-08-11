@@ -48,14 +48,14 @@ Lightbox / Lightbox.Root
 └─ Поддерево оверлея (автоматически портируется)
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
-      ├─ Lightbox.CloseTrigger or Lightbox.CloseIcon
+      ├─ Lightbox.CloseTrigger или Lightbox.CloseIcon
       └─ Lightbox.Content
-         ├─ Lightbox.Header (optional)
+         ├─ Lightbox.Header (необязательно)
          │  ├─ Lightbox.Title
          │  └─ Lightbox.Description
          ├─ Lightbox.Body
          │  └─ Lightbox.Image
-         └─ Lightbox.Footer (optional)
+         └─ Lightbox.Footer (необязательно)
 
 Lightbox.RootProvider
 └─ то же дерево частей, подключённое к useLightbox()
@@ -295,3 +295,5 @@ Lightbox.RootProvider
   вложенные слоты Carousel.
 - Анимация определяется Ark `data-state`; используйте `present`, только когда управление анимацией в JavaScript
   должно сохранять содержимое смонтированным.
+- При `prefers-reduced-motion: reduce` подложка и содержимое используют анимацию длительностью 1 мс:
+  очистка после закрытия сохраняется, но видимого движения нет.
