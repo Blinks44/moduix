@@ -14,12 +14,9 @@ export default function NumberInputFormSubmissionDemo() {
         setSubmittedValue(String(new FormData(event.currentTarget).get('quantity')));
       }}
     >
-      <NumberInput defaultValue="42">
+      <NumberInput defaultValue="42" name="quantity">
         <NumberInput.Label>Quantity</NumberInput.Label>
         <NumberInput.Field />
-        <NumberInput.Context>
-          {(context) => <input name="quantity" type="hidden" value={context.valueAsNumber} />}
-        </NumberInput.Context>
       </NumberInput>
       <PreviewMeta>
         <output>Submitted: {submittedValue}</output>

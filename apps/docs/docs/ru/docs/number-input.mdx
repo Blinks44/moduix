@@ -93,8 +93,9 @@ NumberInput.RootProvider
 - Части с поддержкой Ark поддерживают `asChild` для пользовательской композиции хоста; `NumberInput.Field` намеренно
 отображает фиксированную трехчастную структуру и пересылает ссылку на `NumberInput.Control`.
 - `useNumberInput`, `useNumberInputContext` и `NumberInput.Context` доступны на сайте `@moduix/react`.
-- Чтобы отправить числовое значение, отобразите скрытый собственный ввод из `NumberInput.Context` с помощью
-`context.valueAsNumber`.
+- `name` и `form` передаются видимому spinbutton для нативной отправки формы. Рендерьте скрытый
+  нативный input из `NumberInput.Context` с `context.valueAsNumber`, только когда форме нужно
+  разобранное числовое значение, а не отображаемая строка.
 
 ## Примеры
 
@@ -204,8 +205,9 @@ NumberInput.RootProvider
 
 ### Нативная отправка формы
 
-`NumberInput` управляет кнопкой прокрутки текста. Рендеринг скрытого встроенного ввода через `NumberInput.Context`
-когда форма должна отправить проанализированное числовое значение.
+Задайте `name`, чтобы нативная форма отправляла значение видимого текстового spinbutton. Рендерьте
+скрытый нативный input через `NumberInput.Context`, только когда форме нужно разобранное числовое
+значение, а не отображаемая строка.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"

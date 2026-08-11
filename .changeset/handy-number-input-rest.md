@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-NumberInput: Clarify number-input usage guidance.
+NumberInput: Clarify native form submission and external form ownership.

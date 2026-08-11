@@ -93,8 +93,9 @@ la modification par glissement.
 - Les parties basées sur Ark prennent en charge `asChild` pour composer un hôte personnalisé ; `NumberInput.Field`
   affiche volontairement sa structure fixe en trois parties et transmet sa référence à `NumberInput.Control`.
 - `useNumberInput`, `useNumberInputContext` et `NumberInput.Context` sont disponibles depuis `@moduix/react`.
-- Pour soumettre une valeur numérique, affichez un champ natif masqué depuis `NumberInput.Context` avec
-  `context.valueAsNumber`.
+- `name` et `form` sont transmis au spinbutton visible pour la soumission native du formulaire.
+  Affichez un champ natif masqué depuis `NumberInput.Context` avec `context.valueAsNumber`
+  uniquement lorsque le formulaire attend la représentation numérique analysée plutôt que la chaîne affichée.
 
 ## Exemples
 
@@ -203,8 +204,9 @@ sans pouvoir être modifiée.
 
 ### Soumission native du formulaire
 
-`NumberInput` gère un champ de texte de type spinbutton. Affichez un champ natif masqué avec `NumberInput.Context`
-lorsqu’un formulaire doit soumettre la valeur numérique analysée.
+Définissez `name` pour soumettre le spinbutton de texte visible avec un formulaire natif. Affichez un
+champ natif masqué depuis `NumberInput.Context` uniquement lorsque le formulaire attend la
+représentation numérique analysée plutôt que la chaîne affichée.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"

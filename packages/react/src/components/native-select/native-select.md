@@ -1,9 +1,10 @@
 # Native Select
 
-## Upstream docs
+## Upstream references
 
-- Ark UI Field: https://ark-ui.com/docs/components/field
-- Chakra UI Native Select: https://chakra-ui.com/docs/components/native-select
+- Ark UI Field: https://ark-ui.com/react/docs/components/field (accessed 2026-08-11)
+- Chakra UI Native Select: https://chakra-ui.com/docs/components/native-select (accessed 2026-08-11)
+- shadcn/ui Native Select: https://ui.shadcn.com/docs/components/native-select (accessed 2026-08-11)
 
 ## Purpose
 
@@ -27,6 +28,7 @@ single-component public API.
 - `multiple` and native `size` values greater than one switch the fixed control height to an
   intrinsic list height.
 - Children are native `option` and `optgroup` elements.
+- Ark's `asChild` is preserved; its child must remain a semantic `<select>` element.
 - The component adds no local state, collection model, popup, or value transformation.
 - The shared `ChevronDownIcon` is shown for collapsed single-select controls and hidden for
   native list controls.
@@ -92,6 +94,8 @@ The single-select control defaults to `--moduix-size-md`; multi-select controls 
 
 - The default control width, height, border, radius, colors, focus ring, disabled opacity, and hover
   background use the same `--moduix-select-*` variables as `Select`.
+- `--moduix-select-action-offset-right` uses the same inline-end spacing for text and the indicator,
+  so custom offsets keep the two parts aligned.
 - Default control padding and indicator geometry use the shared 4px spacing scale.
 - `className` is merged onto the native select. `controlProps.className` and `controlProps.style`
   target the outer layout span, so CSS variables there also reach the indicator.
@@ -120,6 +124,8 @@ The single-select control defaults to `--moduix-size-md`; multi-select controls 
 
 ## Local changelog
 
+- 2026-08-11: Aligned the indicator and text spacing fallback, documented the complete public
+  indicator token contract, and covered native reset and `asChild` preservation.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Reduced the default single-select control to `--moduix-size-md`.
 

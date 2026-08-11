@@ -93,8 +93,9 @@ drag-to-change input.
 - Ark-backed parts support `asChild` for custom host composition; `NumberInput.Field` intentionally
   renders its fixed three-part structure and forwards its ref to `NumberInput.Control`.
 - `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` are available from `@moduix/react`.
-- To submit a numeric value, render a hidden native input from `NumberInput.Context` with
-  `context.valueAsNumber`.
+- `name` and `form` are forwarded to the visible spinbutton for native form submission. Render a
+  hidden native input from `NumberInput.Context` with `context.valueAsNumber` only when the form
+  needs the parsed numeric representation instead of the displayed string.
 
 ## Examples
 
@@ -204,8 +205,9 @@ not be edited.
 
 ### Native form submission
 
-`NumberInput` manages a text spinbutton. Render a hidden native input through `NumberInput.Context`
-when a form must submit the parsed numeric value.
+Set `name` to submit the visible text spinbutton through a native form. Render a hidden native input
+through `NumberInput.Context` only when the form needs the parsed numeric representation instead of
+the displayed string.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/form-submission.tsx"

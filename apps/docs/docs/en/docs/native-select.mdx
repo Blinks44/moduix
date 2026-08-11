@@ -79,7 +79,7 @@ must be controlled by the application. Keep `NativeSelect` for browser-owned sel
 | `size`         | browser default | Native visible row count, not a visual size variant |
 | `disabled`     | `false`         | Native disabled state                               |
 | `controlProps` | -               | Props for the outer layout span                     |
-| `asChild`      | `false`         | Ark composition; usually leave this off             |
+| `asChild`      | `false`         | Ark composition; its child must remain a `<select>` |
 
 ### Behavioral notes
 
@@ -88,6 +88,7 @@ must be controlled by the application. Keep `NativeSelect` for browser-owned sel
   preserved.
 - `multiple` and native `size` values greater than one use an intrinsic list height.
 - `Field.Root` supplies ids, `aria-describedby`, invalid state, and native state props.
+- With `asChild`, keep the child as a semantic HTML `<select>`.
 - HTML select does not support a read-only state.
 - `ChevronDownIcon` keeps the collapsed control aligned with `Select`; the browser still owns the
   popup appearance.

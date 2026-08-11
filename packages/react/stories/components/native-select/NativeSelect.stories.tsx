@@ -56,6 +56,20 @@ export const Controlled: Story = {
   },
 };
 
+export const AsChild: Story = {
+  render: () => (
+    <NativeSelect asChild>
+      <select defaultValue="" aria-label="Framework">
+        <option value="" disabled>
+          Choose framework
+        </option>
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+      </select>
+    </NativeSelect>
+  ),
+};
+
 export const Grouping: Story = {
   render: () => (
     <NativeSelect defaultValue="" aria-label="Framework">

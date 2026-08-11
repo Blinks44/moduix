@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-NativeSelect: Refine native-select styling and documentation.
+NativeSelect: Align indicator spacing and document native form composition.

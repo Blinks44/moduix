@@ -48,6 +48,16 @@ const nativeSelectCssProperties: CssProperty[] = [
     description: 'Controls the indicator box size.',
   },
   {
+    name: '--moduix-select-action-radius',
+    defaultValue: 'var(--moduix-radius-sm)',
+    description: 'Controls the indicator corner radius.',
+  },
+  {
+    name: '--moduix-select-action-bg',
+    defaultValue: 'transparent',
+    description: 'Controls the indicator background.',
+  },
+  {
     name: '--moduix-select-icon-color',
     defaultValue: 'var(--moduix-color-muted-foreground)',
     description: 'Controls the indicator color.',

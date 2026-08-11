@@ -17,7 +17,7 @@ cohérence visuelle avec le composant Select personnalisé, tandis que moduix co
 
 Utilisez `NativeSelect` pour les listes d’options simples lorsque la saisie automatique du navigateur,
 la réinitialisation du formulaire, le comportement natif au clavier et les sélecteurs propres aux plateformes
-mobiles sont souhaitables. Utilisez [`Select`](https://moduix.dev/docs/select) lorsque l’interface nécessite une fenêtre contextuelle
+mobiles sont souhaitables. Utilisez [`Select`](/docs/select) lorsque l’interface nécessite une fenêtre contextuelle
 personnalisée, des API de collection, des éléments enrichis, l’effacement, l’affichage de plusieurs valeurs ou
 un contrôle de l’ouverture.
 
@@ -81,7 +81,7 @@ de sélection géré par le navigateur.
 | `size`         | valeur par défaut du navigateur | Nombre de lignes natives visibles, et non variante de taille |
 | `disabled`     | `false`                    | État désactivé natif                                          |
 | `controlProps` | -                          | Propriétés du conteneur de mise en page externe               |
-| `asChild`      | `false`                    | Composition Ark ; laissez généralement cette option désactivée |
+| `asChild`      | `false`                    | Composition Ark ; l’enfant doit rester un élément `<select>`   |
 
 ### Comportement
 
@@ -90,6 +90,7 @@ de sélection géré par le navigateur.
   comportement au clavier sont conservés.
 - `multiple` et les valeurs natives de `size` supérieures à un utilisent une hauteur de liste intrinsèque.
 - `Field.Root` fournit les identifiants, `aria-describedby`, l’état invalide et les propriétés d’état natives.
+- Avec `asChild`, conservez un élément HTML `<select>` sémantique comme enfant.
 - L’élément HTML select ne prend pas en charge l’état en lecture seule.
 - `ChevronDownIcon` maintient le contrôle replié aligné avec `Select` ; le navigateur reste responsable de
   l’apparence de la fenêtre contextuelle.
