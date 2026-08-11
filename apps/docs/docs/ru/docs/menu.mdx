@@ -130,6 +130,7 @@ Menu
 - `Menu.RootProvider` нужно использовать с экземпляром `useMenu`, а не отрисовывать второй корень `Menu` для того же состояния.
 - `Menu.Context`, `useMenuContext` и `useMenuItemContext` предоставляют состояние Ark потомкам для расширенной композиции.
 - Корни автоматически портируют `Menu.Positioner`. Используйте `portalled={false}`, чтобы оставить меню внутри диалога или контейнера прокрутки, и сочетайте с `positioning={{ strategy: 'fixed', hideWhenDetached: true }}`, если контейнер прокручивается.
+- Анимации открытия и закрытия учитывают `prefers-reduced-motion`.
 - `Menu.Indicator` повторяет часть индикатора Ark. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemShortcut` и помощники текста элемента — только leaf-сокращения moduix.
 
 ## Примеры

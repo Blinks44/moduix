@@ -494,6 +494,17 @@
     background-color: var(--moduix-menu-separator-color, var(--moduix-color-border));
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .contextTrigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
+
   @keyframes menuContentIn {
     from {
       opacity: var(

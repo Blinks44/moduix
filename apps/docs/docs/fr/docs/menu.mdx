@@ -131,6 +131,7 @@ cycle de vie uniquement si un rendu initial immédiat est nécessaire.
 - Utilisez `Menu.RootProvider` avec une instance de `useMenu` au lieu d’afficher une seconde racine `Menu` pour le même état.
 - `Menu.Context`, `useMenuContext` et `useMenuItemContext` fournissent l'état Ark aux descendants pour une composition étendue.
 - Les racines portent automatiquement `Menu.Positioner`. Utilisez `portalled={false}` pour laisser un menu dans une boîte de dialogue ou un conteneur déroulant, et combinez-le avec `positioning={{ strategy: 'fixed', hideWhenDetached: true }}` si le conteneur est déroulant.
+- Les animations d’ouverture et de fermeture respectent `prefers-reduced-motion`.
 - `Menu.Indicator` reprend la partie indicator d’Ark. `Menu.TriggerIcon`, `Menu.TriggerItemIcon`, `Menu.ItemShortcut` et les utilitaires de texte sont uniquement des raccourcis de présentation moduix.
 
 ## Exemples

@@ -1,9 +1,10 @@
 # Menu
 
-Upstream docs:
+Upstream review (accessed 2026-08-11):
 
 - Ark UI: https://ark-ui.com/docs/components/menu
 - Chakra UI: https://chakra-ui.com/docs/components/menu
+- shadcn/ui: https://ui.shadcn.com/docs/components/dropdown-menu
 
 ## Purpose
 
@@ -205,6 +206,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Added a reduced-motion path for popup and trigger transitions, corrected the public
+  CSS-variable reference, and covered the automatic and inline portal contracts.
 
 - 2026-08-11: Made the recommended popup composition arrowless and kept `Menu.Arrow` as an
   explicit visual-anchor option.

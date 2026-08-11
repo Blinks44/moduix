@@ -75,13 +75,6 @@ const menuOverrideCssProperties: CssPropertyInput[] = [
     'Controls checkbox indicator radius.',
   ],
   [
-    '--moduix-menu-context-trigger-border-style',
-    'dashed',
-    'Controls context trigger border style.',
-  ],
-  ['--moduix-menu-context-trigger-height', '10rem', 'Controls context trigger height.'],
-  ['--moduix-menu-context-trigger-width', '15rem', 'Controls context trigger width.'],
-  [
     '--moduix-menu-disabled-opacity',
     'var(--moduix-opacity-disabled)',
     'Controls disabled trigger opacity.',
