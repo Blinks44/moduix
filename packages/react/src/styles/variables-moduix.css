@@ -2279,9 +2279,9 @@
   --moduix-rating-group-active-color: initial; /* var(--moduix-color-primary) */
   --moduix-rating-group-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-rating-group-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
-  --moduix-rating-group-focus-ring-color: initial; /* transparent */
-  --moduix-rating-group-focus-ring-offset: initial; /* 0 */
-  --moduix-rating-group-focus-ring-width: initial; /* 0 */
+  --moduix-rating-group-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-rating-group-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
+  --moduix-rating-group-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-rating-group-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-rating-group-root-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-rating-group-icon-size-xs: initial; /* var(--moduix-spacing-3-5) */

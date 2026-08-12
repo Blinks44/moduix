@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-RatingGroup: Refine rating-group styling and usage guidance.
+RatingGroup: Refine styling, focus-ring CSS variable defaults, and usage guidance.
