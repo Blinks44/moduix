@@ -170,8 +170,9 @@ rendered but visually hidden because the segmented-control affordance comes from
 
 ## Local changelog
 
-- 2026-08-12: Added regression coverage for native radio semantics, disabled items, and read-only
-  automatic native inputs; re-checked Ark, Chakra, and shadcn guidance.
+- 2026-08-12: Prevented root and item disabled opacity from compounding, expanded regression
+  coverage for native radio semantics, wrapper refs, disabled state, and read-only automatic native
+  inputs, and re-checked Ark, Chakra, and shadcn guidance.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

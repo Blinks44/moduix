@@ -124,7 +124,9 @@ Contrôlez la valeur sélectionnée depuis l’état React et mettez-la à jour 
 
 ### Élément désactivé
 
-Définissez `disabled` sur l’élément lorsqu’un seul segment est indisponible.
+Définissez `disabled` sur un élément lorsqu’un seul segment est indisponible, ou sur la racine pour
+désactiver tout le groupe. Le style désactivé de la racine atténue le groupe une seule fois, sans
+cumuler l’opacité de chaque élément.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 

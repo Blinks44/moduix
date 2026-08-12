@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-SegmentGroup: Strengthen native radio and read-only interaction reliability.
+SegmentGroup: Prevent compounded disabled opacity and strengthen native interaction reliability.

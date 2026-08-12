@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { Field, Fieldset, SegmentGroup, useSegmentGroup } from '../src';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -127,6 +127,39 @@ test('preserves native radio semantics and disabled items', async () => {
 
   vue.click();
   await waitFor(() => expect(vue).toBeChecked());
+});
+
+test('propagates group disabled state to every native input', () => {
+  render(
+    <SegmentGroup defaultValue="React" disabled>
+      <SegmentItems />
+    </SegmentGroup>,
+  );
+
+  expect(screen.getByRole('radiogroup')).toHaveAttribute('data-disabled');
+  for (const radio of screen.getAllByRole('radio')) {
+    expect(radio).toBeDisabled();
+  }
+});
+
+test('forwards refs through the root, item, and indicator wrappers', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const itemRef = createRef<HTMLLabelElement>();
+  const indicatorRef = createRef<HTMLDivElement>();
+
+  render(
+    <SegmentGroup ref={rootRef} defaultValue="React">
+      <SegmentGroup.Indicator ref={indicatorRef} />
+      <SegmentGroup.Item ref={itemRef} value="React">
+        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+    </SegmentGroup>,
+  );
+
+  expect(rootRef.current).toBe(screen.getByRole('radiogroup'));
+  expect(itemRef.current?.tagName).toBe('LABEL');
+  expect(indicatorRef.current).toHaveAttribute('data-slot', 'segment-group-indicator');
 });
 
 test('keeps read-only automatic native inputs from changing value', async () => {

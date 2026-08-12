@@ -9,9 +9,15 @@ const frameworks = [
 
 export default function DisabledSegmentGroupDemo() {
   return (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items items={frameworks} />
-    </SegmentGroup>
+    <div className="segment-stack">
+      <SegmentGroup aria-label="Framework with unavailable item" defaultValue="React">
+        <SegmentGroup.Indicator />
+        <SegmentGroup.Items items={frameworks} />
+      </SegmentGroup>
+      <SegmentGroup aria-label="Disabled framework" defaultValue="React" disabled>
+        <SegmentGroup.Indicator />
+        <SegmentGroup.Items items={frameworks} />
+      </SegmentGroup>
+    </div>
   );
 }

@@ -143,7 +143,9 @@ Control the selected value from React state and update it from `details.value`.
 
 ### Disabled
 
-Set `disabled` on an item when only one segment should be unavailable.
+Set `disabled` on an item when only one segment should be unavailable, or on the root to disable
+the whole group. Root-level disabled styling dims the group once instead of compounding item
+opacity.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
