@@ -148,6 +148,7 @@ export function SelectDemo() {
 - Preserve Ark state attributes: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
   `data-state="checked" | "unchecked"`.
+- Disable trigger transitions and popup enter/exit animation when the user requests reduced motion.
 - Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
   state.
 - Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
@@ -207,6 +208,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-12: Added reduced-motion styling and release-gate coverage for keyboard selection,
+  accessible clearing, portal placement, forwarded refs, component states, and long content.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

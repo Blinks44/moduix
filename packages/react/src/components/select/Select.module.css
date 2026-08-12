@@ -463,4 +463,19 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .indicator {
+      transition: none;
+    }
+
+    .clearTrigger {
+      --moduix-close-button-transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
 }

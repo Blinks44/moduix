@@ -109,6 +109,8 @@ Utilisez `Select.useSelect` avec `Select.RootProvider` lorsque l’état doit ê
 
 Le select natif standard conserve la validation du navigateur, le remplissage automatique, la réinitialisation et l’amélioration progressive. Pour une collection virtualisée, `nativeFormControl="input"` soumet un input masqué par valeur sélectionnée plutôt qu’une option par élément. Il synchronise toujours la réinitialisation du formulaire et l’état disabled du fieldset, mais ne fournit volontairement ni remplissage automatique natif du select, ni validation, ni amélioration progressive.
 
+Select supprime les transitions du déclencheur et l’animation d’ouverture et de fermeture lorsque l’utilisateur préfère réduire les mouvements ; la sélection, la restauration du focus et le cycle de montage restent inchangés.
+
 ## Exemples
 
 ### État contrôlé

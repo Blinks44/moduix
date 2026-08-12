@@ -62,6 +62,16 @@ const languages = createListCollection<OptionItem>({
   ],
 });
 
+const longLabels = createListCollection<OptionItem>({
+  items: [
+    {
+      label: 'A deliberately long option label that demonstrates truncation inside a narrow field',
+      value: 'long-label',
+    },
+    { label: 'Short option', value: 'short-option' },
+  ],
+});
+
 function SelectFieldView({ placeholder = 'Select an option' }: { placeholder?: string }) {
   return <Select.Field placeholder={placeholder} clearLabel="Clear selection" />;
 }
@@ -205,6 +215,47 @@ export const ClearTrigger: Story = {
       <SelectFieldView placeholder="Select theme" />
       <SelectPopupContent>
         {themeOptions.items.map((item) => (
+          <Select.Item key={item.value} item={item}>
+            <Select.ItemText>{item.label}</Select.ItemText>
+            <Select.ItemIndicator />
+          </Select.Item>
+        ))}
+      </SelectPopupContent>
+    </Select>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <Select collection={fruits} defaultValue={['apple']} disabled>
+      <Select.Label>Unavailable fruit</Select.Label>
+      <SelectFieldView />
+      <SelectPopupContent>
+        <FruitItems />
+      </SelectPopupContent>
+    </Select>
+  ),
+};
+
+export const Invalid: Story = {
+  render: () => (
+    <Select collection={fruits} invalid>
+      <Select.Label>Required fruit</Select.Label>
+      <SelectFieldView />
+      <SelectPopupContent>
+        <FruitItems />
+      </SelectPopupContent>
+    </Select>
+  ),
+};
+
+export const LongContent: Story = {
+  render: () => (
+    <Select collection={longLabels} defaultValue={['long-label']}>
+      <Select.Label>Delivery preference with a long label</Select.Label>
+      <SelectFieldView />
+      <SelectPopupContent>
+        {longLabels.items.map((item) => (
           <Select.Item key={item.value} item={item}>
             <Select.ItemText>{item.label}</Select.ItemText>
             <Select.ItemIndicator />

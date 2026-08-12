@@ -2,4 +2,5 @@
 '@moduix/react': patch
 ---
 
-Select: Improve select behavior, styling, and documentation.
+Select: Respect reduced-motion preferences and strengthen release coverage for keyboard selection,
+accessible clearing, portal placement, forwarded refs, states, and long content.
