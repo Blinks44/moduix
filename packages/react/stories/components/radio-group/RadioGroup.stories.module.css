@@ -45,11 +45,9 @@
   }
 
   .customRoot {
-    gap: var(--moduix-spacing-3);
-  }
+    --moduix-radio-group-color: var(--moduix-color-primary);
 
-  .customLabel {
-    color: var(--moduix-color-primary);
+    gap: var(--moduix-spacing-3);
   }
 
   .customItem {
@@ -62,10 +60,6 @@
     &[data-state='checked'] {
       background-color: var(--moduix-color-primary);
     }
-  }
-
-  .customText {
-    color: var(--moduix-color-primary);
   }
 
   .cardItem {

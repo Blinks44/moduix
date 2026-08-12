@@ -142,7 +142,10 @@
   }
 
   .itemText {
-    color: var(--moduix-radio-label-color, var(--moduix-color-foreground));
+    color: var(
+      --moduix-radio-label-color,
+      var(--moduix-radio-group-color, var(--moduix-color-foreground))
+    );
     font-size: var(--moduix-radio-label-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-radio-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-radio-label-line-height, var(--moduix-line-height-text-sm));

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-RadioGroup: Improve radio-group styling and documentation.
+RadioGroup: Fix group text-color theming and strengthen keyboard and state regression coverage.

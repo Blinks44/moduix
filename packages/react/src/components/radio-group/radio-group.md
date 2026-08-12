@@ -2,8 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/components/radio-group
-- Chakra UI: https://chakra-ui.com/docs/components/radio-card
+- Ark UI: https://ark-ui.com/react/docs/components/radio-group (accessed 2026-08-12)
+- Chakra UI: https://chakra-ui.com/docs/components/radio (accessed 2026-08-12)
+- shadcn/ui: https://ui.shadcn.com/docs/components/radio-group (accessed 2026-08-12)
 
 ## Purpose
 
@@ -130,13 +131,17 @@ and provide an inline item wrapper when you need custom row wrapping. `ItemContr
 ## Agent notes
 
 - Every `RadioGroup.Item`, including the item used by `RadioGroup.Option`, renders its native form input automatically.
-- Keep `RootProvider` and its `useRadioGroup` companion available from the moduix barrel. Ark
-  contexts and less common hooks remain direct-import escape hatches.
+- Keep `RootProvider`, `useRadioGroup`, `useRadioGroupContext`, and `useRadioGroupItemContext`
+  available from the moduix barrel. Other Ark APIs remain direct-import escape hatches.
 - When changing the public namespace, sync stories, docs examples, registry paths, and generated
   registry output in the same task.
 - Do not reintroduce flat aliases just for backwards compatibility.
 
 ## Local changelog
+
+- 2026-08-12: Made item-label text inherit `--moduix-radio-group-color` unless its own color is
+  overridden. Added regression coverage for public refs and slots plus disabled, read-only, invalid,
+  and required semantics.
 
 - 2026-07-30: Added invalid control styling and focused regression coverage for automatic native
   inputs, keyboard navigation, `asChild`, invalid state, and `RootProvider`. Clarified `Field.Root`

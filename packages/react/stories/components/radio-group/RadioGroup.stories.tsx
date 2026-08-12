@@ -160,11 +160,11 @@ export const ReadOnly: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <RadioGroup defaultValue="React" className={styles.customRoot}>
-      <RadioGroup.Label className={styles.customLabel}>Styled Framework</RadioGroup.Label>
+      <RadioGroup.Label>Styled Framework</RadioGroup.Label>
       {frameworks.map((item) => (
         <RadioGroup.Item key={item} value={item} className={styles.customItem}>
           <RadioGroup.ItemControl className={styles.customControl} />
-          <RadioGroup.ItemText className={styles.customText}>{item}</RadioGroup.ItemText>
+          <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
         </RadioGroup.Item>
       ))}
     </RadioGroup>

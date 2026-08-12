@@ -161,7 +161,11 @@ const radioGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-radio-indicator-size-md', 'var(--moduix-spacing-2)', 'Controls `md` item dot size.'],
   ['--moduix-radio-indicator-size-lg', 'var(--moduix-spacing-2-5)', 'Controls `lg` item dot size.'],
   ['--moduix-radio-indicator-size-xl', 'var(--moduix-spacing-3)', 'Controls `xl` item dot size.'],
-  ['--moduix-radio-label-color', 'var(--moduix-color-foreground)', 'Controls item text color.'],
+  [
+    '--moduix-radio-label-color',
+    'var(--moduix-radio-group-color, var(--moduix-color-foreground))',
+    'Controls item text color.',
+  ],
   ['--moduix-radio-label-font-size', 'var(--moduix-text-sm)', 'Controls item text font size.'],
   [
     '--moduix-radio-label-font-weight',
