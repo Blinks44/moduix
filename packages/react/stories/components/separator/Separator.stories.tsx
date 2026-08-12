@@ -80,6 +80,18 @@ export const Sizes: Story = {
   },
 };
 
+export const Decorative: Story = {
+  render: () => {
+    return (
+      <div className={styles.section}>
+        <span className={styles.link}>Related visual content</span>
+        <Separator role="presentation" />
+        <span className={styles.link}>Hidden from the accessibility tree</span>
+      </div>
+    );
+  },
+};
+
 export const AsChild: Story = {
   render: () => {
     return (

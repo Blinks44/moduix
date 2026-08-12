@@ -90,8 +90,8 @@ The child must be a single semantic element that can carry the merged separator 
 
 - The root writes `role="separator"` by default.
 - The root writes `aria-orientation` from the resolved `orientation` when its role is `separator`.
-- Consumers can pass `role="presentation"` when a line is purely decorative; then the default
-  `aria-orientation` is omitted.
+- Consumers can pass `role="presentation"` when a line is purely decorative; then
+  `aria-orientation` is omitted, including when passthrough props contain a stale value.
 - The root writes `data-orientation`, `data-size`, and `data-variant` for styling.
 - Local props retain ownership of the role, ARIA metadata, and stable data hooks; pass custom styles
   through `className`, `style`, or the documented CSS variables instead of overriding those attributes.
@@ -147,6 +147,8 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-12: Kept `aria-orientation` derived from semantic role and orientation, and expanded
+  release coverage for defaults, styling props, namespace composition, and decorative usage.
 - 2026-07-30: Protected stable ARIA and data hooks from passthrough overrides and normalized margins
   for `asChild` native hosts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

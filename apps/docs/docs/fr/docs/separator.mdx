@@ -61,7 +61,7 @@ Utilisez `asChild` uniquement lorsqu’un autre élément hôte doit posséder l
 
 ### Comportement
 
-- `Separator` définit `aria-orientation` lorsque son rôle est `separator`.
+- `Separator` déduit `aria-orientation` de `orientation` lorsque son rôle est `separator` et l’omet pour un rôle décoratif, afin que les attributs transmis ne puissent pas contredire sa sémantique.
 - Utilisez `role="presentation"` lorsque la ligne est purement décorative. Ce comportement diffère de la valeur décorative par défaut de shadcn : moduix conserve par défaut les séparateurs de contenu significatifs dans l’arbre d’accessibilité.
 - Les séparateurs horizontaux occupent toute la largeur disponible par défaut.
 - Les séparateurs verticaux mesurent `1em` de haut par défaut, ce qui les aligne naturellement avec le texte en ligne et les rangées d’actions compactes.

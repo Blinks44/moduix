@@ -19,7 +19,7 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
     role,
     size = 'sm',
     variant = 'solid',
-    'aria-orientation': ariaOrientation,
+    'aria-orientation': _ariaOrientation,
     ...props
   },
   ref,
@@ -32,7 +32,7 @@ const SeparatorRoot = forwardRef<HTMLSpanElement, SeparatorProps>(function Separ
       ref={ref}
       asChild={asChild}
       role={resolvedRole}
-      aria-orientation={ariaOrientation ?? (resolvedRole === 'separator' ? orientation : undefined)}
+      aria-orientation={resolvedRole === 'separator' ? orientation : undefined}
       data-scope="separator"
       data-part="root"
       data-slot="separator-root"

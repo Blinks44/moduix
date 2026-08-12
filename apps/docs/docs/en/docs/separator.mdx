@@ -68,7 +68,8 @@ attributes, class name, and ref.
 
 ### Behavioral notes
 
-- `Separator` writes `aria-orientation` when its role is `separator`.
+- `Separator` derives `aria-orientation` from `orientation` when its role is `separator` and omits
+  it for decorative roles, so passthrough attributes cannot contradict its semantics.
 - Use `role="presentation"` when a line is decorative only. This differs from shadcn's decorative
   default: moduix keeps meaningful content dividers in the accessibility tree by default.
 - Horizontal separators fill the available width by default.
