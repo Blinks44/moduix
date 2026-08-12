@@ -129,7 +129,7 @@
     }
   }
 
-  .resizeTrigger:is([data-dragging], :focus-visible)::before {
+  .resizeTrigger[data-dragging]::before {
     background-color: var(
       --moduix-splitter-resize-trigger-line-color-dragging,
       color-mix(
@@ -194,7 +194,7 @@
     }
   }
 
-  .resizeTrigger:is([data-dragging], :focus-visible) .resizeTriggerIndicator {
+  .resizeTrigger[data-dragging] .resizeTriggerIndicator {
     border-color: var(
       --moduix-splitter-resize-trigger-indicator-border-color-dragging,
       var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
@@ -208,6 +208,18 @@
       var(--moduix-shadow-md)
     );
     transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+    outline: var(
+        --moduix-splitter-resize-trigger-focus-ring-width,
+        var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      )
+      solid var(--moduix-splitter-resize-trigger-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: var(
+      --moduix-splitter-resize-trigger-focus-ring-offset,
+      var(--moduix-border-width-sm)
+    );
   }
 
   .resizeTrigger[data-disabled] .resizeTriggerIndicator {

@@ -1,11 +1,20 @@
 import { expect, test } from '@rstest/core';
 import { render, screen } from '@testing-library/react';
-import { Sidebar } from '../src';
+import { Sidebar, useSplitterContext } from '../src';
+
+function DefaultSidebarConstraints() {
+  const splitter = useSplitterContext();
+  const panel = splitter.getPanelById('navigation');
+
+  return <output data-testid="constraints">{`${panel.minSize}:${panel.collapsedSize}`}</output>;
+}
 
 test('keeps the default panel, inset, and resize ids aligned', () => {
   render(
     <Sidebar panelId="navigation" data-testid="sidebar">
-      <Sidebar.Panel data-testid="panel" />
+      <Sidebar.Panel data-testid="panel">
+        <DefaultSidebarConstraints />
+      </Sidebar.Panel>
       <Sidebar.ResizeTrigger data-testid="resize" />
       <Sidebar.Trigger />
       <Sidebar.Inset data-testid="inset">Content</Sidebar.Inset>
@@ -18,6 +27,7 @@ test('keeps the default panel, inset, and resize ids aligned', () => {
 
   expect(screen.getByTestId('sidebar')).toHaveAttribute('data-side', 'left');
   expect(panel.id).toMatch(/:panel:navigation$/);
+  expect(screen.getByTestId('constraints')).toHaveTextContent('3rem:3rem');
   expect(inset.id).toMatch(/:panel:content$/);
   expect(resize.id).toMatch(/:splitter:navigation:content$/);
   expect(resize).toHaveAttribute('aria-controls', `${panel.id} ${inset.id}`);

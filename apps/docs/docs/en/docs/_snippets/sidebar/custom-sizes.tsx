@@ -5,7 +5,7 @@ import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 
 const panels = [
   {
     id: 'sidebar',
-    minSize: '10rem',
+    minSize: '3rem',
     maxSize: '17rem',
     collapsible: true,
     collapsedSize: '3rem',

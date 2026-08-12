@@ -2514,6 +2514,9 @@
   --moduix-splitter-panel-shadow: initial; /* none */
   --moduix-splitter-radius: initial; /* var(--moduix-radius-md) */
   --moduix-splitter-resize-trigger-bg: initial; /* transparent */
+  --moduix-splitter-resize-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-splitter-resize-trigger-focus-ring-offset: initial; /* var(--moduix-border-width-sm) */
+  --moduix-splitter-resize-trigger-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
   --moduix-splitter-resize-trigger-indicator-bg: initial; /* var(--moduix-color-background) */
   --moduix-splitter-resize-trigger-indicator-bg-dragging: initial; /* var(--moduix-splitter-resize-trigger-indicator-bg, var(--moduix-color-background)) */
   --moduix-splitter-resize-trigger-indicator-border-color: initial; /* var(--moduix-color-border) */

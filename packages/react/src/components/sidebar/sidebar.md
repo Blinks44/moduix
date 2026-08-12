@@ -32,9 +32,11 @@ or storage through normal Splitter callbacks, not in a sidebar-owned provider.
 - `Sidebar` and `Sidebar.Root` wrap `Splitter.Root` and preserve its props and callbacks.
 - Sidebar is a horizontal navigation/inset layout; `orientation` is intentionally fixed and omitted
   from its public props.
-- The sidebar starts at `16rem` (256px), stays between `12rem` and `18rem`, and
-  configures a `3rem` (48px) collapsed icon rail. The content panel has no imposed minimum so narrow
+- The sidebar starts at `16rem` (256px), resizes continuously down to its `3rem` (48px) collapsed
+  icon rail, and has an `18rem` maximum. The content panel has no imposed minimum so narrow
   containers can still reach the collapsed size.
+- `Sidebar.Label` and `Sidebar.GroupLabel` truncate overflowing text to one line so resizing does
+  not change the sidebar layout.
 - `side="left" | "right"` selects default panel order, adjacent trigger id, floating trigger
   position, and icon direction. Render sibling parts in matching visual order.
 - `Sidebar.Panel`, `Sidebar.Inset`, and `Sidebar.ResizeTrigger` keep the ids derived from the root
@@ -281,6 +283,9 @@ feedback.
 
 ## Local changelog
 
+- 2026-08-12: Matched the default minimum and collapsed widths at `3rem` so pointer resizing reaches
+  the icon rail without a size snap, and made labels and group labels truncate instead of shifting
+  the layout. Removed the high-contrast resize-line focus fill that persisted after pointer dragging.
 - 2026-07-30: Made the resize handle's Ark focus state visible, hid sidebar inputs in the collapsed
   rail, and restricted layout-part ids to the root `panelId` contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

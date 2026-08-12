@@ -64,6 +64,8 @@ en dehors de l’arbre de parties affiché.
 
 Utilisez `asChild` uniquement lorsqu’un autre élément doit posséder le nœud affiché. Les déclencheurs de
 redimensionnement personnalisés doivent conserver la sémantique de bouton, le comportement du focus et l’interaction clavier.
+Avec `asChild`, fournissez exactement un élément enfant interactif pour la poignée : l’indicateur de redimensionnement
+par défaut n’y est pas ajouté.
 
 ### Propriétés par défaut
 
@@ -87,6 +89,10 @@ et `onExpand(details)`. `onResizeStart` est appelé au début du redimensionneme
 ## Exemples
 
 ### Panneaux réductibles
+
+Pour qu'un redimensionnement au pointeur reste continu, définissez `minSize` sur la même valeur que
+`collapsedSize`. Une valeur `minSize` supérieure demande intentionnellement à Zag de basculer entre
+la largeur minimale développée et le rail réduit.
 
 Définissez `collapsible` et `collapsedSize` dans la description du panneau lorsqu’il peut se réduire à une bande repliée.
 

@@ -3,7 +3,7 @@ import { Splitter } from '@moduix/react/splitter';
 const panels = [
   {
     id: 'sidebar',
-    minSize: 15,
+    minSize: 5,
     maxSize: 40,
     collapsible: true,
     collapsedSize: 5,

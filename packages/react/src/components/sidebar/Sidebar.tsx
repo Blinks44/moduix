@@ -29,7 +29,7 @@ type SidebarDefaultSize = ComponentProps<typeof Splitter.Root>['defaultSize'];
 
 const sidebarPanel = {
   id: 'sidebar',
-  minSize: '12rem',
+  minSize: '3rem',
   maxSize: '18rem',
   collapsible: true,
   collapsedSize: '3rem',

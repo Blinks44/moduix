@@ -126,6 +126,21 @@ const splitterOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-splitter-panel-shadow', 'none', 'Controls optional panel shadow.'],
   ['--moduix-splitter-resize-trigger-bg', 'transparent', 'Controls the resize trigger background.'],
   [
+    '--moduix-splitter-resize-trigger-focus-ring-color',
+    'var(--moduix-color-ring)',
+    'Controls the keyboard focus ring color around the handle indicator.',
+  ],
+  [
+    '--moduix-splitter-resize-trigger-focus-ring-offset',
+    'var(--moduix-border-width-sm)',
+    'Controls the keyboard focus ring offset around the handle indicator.',
+  ],
+  [
+    '--moduix-splitter-resize-trigger-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
+    'Controls the keyboard focus ring width around the handle indicator.',
+  ],
+  [
     '--moduix-splitter-resize-trigger-size',
     'var(--moduix-spacing-2-5)',
     'Controls the resize handle hit area.',

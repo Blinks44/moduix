@@ -89,6 +89,8 @@ package barrel.
 
 Zag notes preserved by the wrapper:
 
+- A collapsible panel with different `minSize` and `collapsedSize` values intentionally snaps between
+  those sizes. Set them equal when the pointer should resize continuously into the collapsed rail.
 - Numeric `defaultSize` and controlled `size` values are percentage arrays and should total `100`;
   Ark also supports CSS lengths for initial and constraint sizes.
 - `panels` defines constraints such as `minSize`, `maxSize`, `collapsible`, and `collapsedSize`.
@@ -107,14 +109,15 @@ Data attributes from Ark:
 - `ResizeTrigger`: `data-scope="splitter"`, `data-part="resize-trigger"`, `data-id`, `data-orientation`, `data-focus`, `data-dragging`, `data-disabled`
 
 Refs are forwarded to the actual Ark-rendered root, panel, trigger, and indicator elements. `asChild` is preserved on all Ark parts that expose it; custom trigger hosts must keep button semantics and keyboard/focus behavior.
+An `asChild` resize trigger requires exactly one interactive host and does not receive the default indicator.
 
 ## Defaults and styling
 
 Every styled part accepts `className`, merged with moduix defaults through `clsx` and `normalizeClassName`. The CSS module uses flat selectors, Ark data attributes, and stable `data-slot` hooks.
 
-The root defaults to inline `width: var(--moduix-splitter-width, 100%)` and `height: var(--moduix-splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--moduix-splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow. Pointer dragging and keyboard `:focus-visible` share the same restrained line color, indicator border/background, scale, and shadow; release or blur returns to idle. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
+The root defaults to inline `width: var(--moduix-splitter-width, 100%)` and `height: var(--moduix-splitter-height, 28rem)` plus a card background, an outer border, rounded corners, clipping, and a small shadow. Panels get `min-height: 12.5rem`, padding, `overflow: auto`, and a flat card background so adjacent panels sit flush. Vertical splitters reset panel min height through `--moduix-splitter-panel-min-height-vertical` so top/bottom panels can resize inside the fixed root height. The resize trigger keeps a `1px` layout divider while its visible line is `0.5px`; its transparent hit area overlaps the divider. Hover strengthens the line, indicator border, and shadow. Pointer dragging strengthens the line and indicator; keyboard `:focus-visible` keeps the idle line and draws a focus ring around the indicator instead. `ResizeTriggerIndicator` is centered absolutely over the divider and renders as a narrow rounded handle with a background fill, stable border, and shadow.
 
-All public `--moduix-splitter-*` variables used by the component are declared in `src/styles/variables-moduix.css`. Common overrides include `--moduix-splitter-height`, `--moduix-splitter-bg`, `--moduix-splitter-border-color`, `--moduix-splitter-radius`, `--moduix-splitter-shadow`, `--moduix-splitter-panel-bg`, `--moduix-splitter-panel-min-height`, `--moduix-splitter-panel-min-height-vertical`, `--moduix-splitter-panel-padding`, `--moduix-splitter-resize-trigger-size`, `--moduix-splitter-resize-trigger-line-thickness`, `--moduix-splitter-resize-trigger-line-color`, `--moduix-splitter-resize-trigger-line-color-hover`, `--moduix-splitter-resize-trigger-line-color-dragging`, `--moduix-splitter-resize-trigger-indicator-bg`, `--moduix-splitter-resize-trigger-indicator-bg-dragging`, `--moduix-splitter-resize-trigger-indicator-border-color`, `--moduix-splitter-resize-trigger-indicator-border-color-hover`, `--moduix-splitter-resize-trigger-indicator-border-color-dragging`, `--moduix-splitter-resize-trigger-indicator-shadow`, `--moduix-splitter-resize-trigger-indicator-shadow-hover`, and `--moduix-splitter-resize-trigger-indicator-shadow-dragging`.
+All public `--moduix-splitter-*` variables used by the component are declared in `src/styles/variables-moduix.css`. Common overrides include `--moduix-splitter-height`, `--moduix-splitter-bg`, `--moduix-splitter-border-color`, `--moduix-splitter-radius`, `--moduix-splitter-shadow`, `--moduix-splitter-panel-bg`, `--moduix-splitter-panel-min-height`, `--moduix-splitter-panel-min-height-vertical`, `--moduix-splitter-panel-padding`, `--moduix-splitter-resize-trigger-size`, `--moduix-splitter-resize-trigger-line-thickness`, `--moduix-splitter-resize-trigger-line-color`, `--moduix-splitter-resize-trigger-line-color-hover`, `--moduix-splitter-resize-trigger-line-color-dragging`, `--moduix-splitter-resize-trigger-focus-ring-color`, `--moduix-splitter-resize-trigger-focus-ring-offset`, `--moduix-splitter-resize-trigger-focus-ring-width`, `--moduix-splitter-resize-trigger-indicator-bg`, `--moduix-splitter-resize-trigger-indicator-bg-dragging`, `--moduix-splitter-resize-trigger-indicator-border-color`, `--moduix-splitter-resize-trigger-indicator-border-color-hover`, `--moduix-splitter-resize-trigger-indicator-border-color-dragging`, `--moduix-splitter-resize-trigger-indicator-shadow`, `--moduix-splitter-resize-trigger-indicator-shadow-hover`, and `--moduix-splitter-resize-trigger-indicator-shadow-dragging`.
 
 ## Intentional sugar and differences from upstream
 
@@ -135,6 +138,10 @@ with rendered `Panel` ids and adjacent trigger ids.
 
 ## Local changelog
 
+- 2026-08-12: Made persistent keyboard focus distinct from active pointer resizing by retaining the
+  idle divider and drawing a ring around the handle indicator.
+- 2026-08-12: Kept `asChild` resize triggers explicitly consumer-composed instead of mounting the
+  decorative default indicator as their interactive host.
 - 2026-08-05: Restored visible keyboard focus by sharing the existing restrained dragging styles
   between `:focus-visible` and `[data-dragging]`.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

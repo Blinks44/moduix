@@ -62,7 +62,8 @@ imperative controls, externally-owned state, and nested multi-drag layouts. Pair
 with `Splitter.RootProvider` when state must be created outside the rendered part tree.
 
 Use `asChild` only when another element must own the rendered node. Custom resize triggers must keep
-button semantics, focus behavior, and keyboard interaction intact.
+button semantics, focus behavior, and keyboard interaction intact. With `asChild`, provide exactly one
+interactive trigger child; it does not receive the default resize indicator.
 
 ### Default props
 
@@ -88,7 +89,8 @@ and `onExpand(details)`. `onResizeStart` is called when a resize begins.
 ### Collapsible Panels
 
 Set `collapsible` and `collapsedSize` on a panel definition when a panel can shrink to a collapsed
-rail.
+rail. To keep pointer resizing continuous, set `minSize` to the same value as `collapsedSize`; a
+larger `minSize` intentionally makes Zag snap between the expanded minimum and the rail.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 

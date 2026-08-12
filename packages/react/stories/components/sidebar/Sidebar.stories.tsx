@@ -45,7 +45,7 @@ const workspaces = createListCollection({
 const customPanels = [
   {
     id: 'sidebar',
-    minSize: '10rem',
+    minSize: '3rem',
     maxSize: '17rem',
     collapsible: true,
     collapsedSize: '3rem',

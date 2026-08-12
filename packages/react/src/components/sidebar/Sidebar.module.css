@@ -120,10 +120,6 @@
 
   .resizeTrigger {
     z-index: 2;
-
-    &:focus-visible:not([data-dragging])::before {
-      background-color: var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-    }
   }
 
   .trigger {
@@ -197,8 +193,12 @@
     }
   }
 
-  .label {
+  .label,
+  .groupLabel {
     min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header,
@@ -238,7 +238,6 @@
   }
 
   .groupLabel {
-    min-width: 0;
     margin: 0;
     padding-inline: var(--moduix-sidebar-group-label-padding-x, var(--moduix-spacing-2));
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));

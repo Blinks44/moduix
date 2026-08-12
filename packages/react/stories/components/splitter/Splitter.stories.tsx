@@ -87,7 +87,7 @@ export const Collapsible: Story = {
   render: () => (
     <Splitter
       panels={[
-        { id: 'sidebar', minSize: 15, maxSize: 40, collapsible: true, collapsedSize: 5 },
+        { id: 'sidebar', minSize: 5, maxSize: 40, collapsible: true, collapsedSize: 5 },
         { id: 'content', minSize: 40 },
       ]}
       defaultSize={[28, 72]}
