@@ -48,7 +48,7 @@ SignaturePad.RootProvider
 | `SignaturePad` / `SignaturePad.Root` | Owns paths, drawing options, form name, ids, and callbacks. |
 | `SignaturePad.RootProvider`          | Renders a tree from state returned by `useSignaturePad()`.  |
 | `SignaturePad.Label`                 | Labels the drawing area and native input.                   |
-| `SignaturePad.Canvas`                | Standard drawing surface composed from the four Ark parts.  |
+| `SignaturePad.Canvas`                | Standard drawing surface; forwards control props and refs.  |
 | `SignaturePad.Control`               | Focusable pointer/touch drawing region.                     |
 | `SignaturePad.Segment`               | SVG layer for saved paths and the current in-progress path. |
 | `SignaturePad.ClearTrigger`          | Native button that clears paths; Ark hides it while empty.  |
@@ -60,6 +60,7 @@ SignaturePad.RootProvider
 
 Use `Label` and `Canvas` for the normal path. `Canvas` keeps Ark's focus target, pointer capture,
 accessible clear button behavior, and SVG rendering while removing repeated drawing-surface markup.
+It forwards `Control` props and its DOM ref.
 
 ### When to go custom
 
@@ -83,11 +84,11 @@ Use `drawing` for stroke-level customization. `drawing.size` changes stroke widt
 | -------------- | ------------------------------------- | --------------------------------------------------------------- |
 | `defaultPaths` | -                                     | Initial uncontrolled SVG path array.                            |
 | `paths`        | -                                     | Controlled SVG path array. Pair with `onDraw(details)`.         |
-| `drawing`      | `{ size: 2, simulatePressure: true }` | Zag stroke options; `fill` accepts any CSS color value.           |
+| `drawing`      | `{ size: 2, simulatePressure: false }` | Zag stroke options; `fill` accepts any CSS color value.          |
 | `name`         | -                                     | Native form field name.                                         |
 | `getFormValue` | `paths.join(' ')`                     | Custom serialization for the native form value.                 |
 | `disabled`     | -                                     | Disables drawing and clear trigger interaction.                 |
-| `readOnly`     | -                                     | Prevents drawing while preserving display.                      |
+| `readOnly`     | -                                     | Prevents drawing and disables the clear trigger.                |
 | `required`     | -                                     | Marks the label and native input as required.                   |
 | `ids`          | -                                     | Stable ids for root, control, hidden input, and label.          |
 | `translations` | Ark defaults                          | Accessible labels for the control and clear trigger.            |
@@ -112,7 +113,8 @@ descriptions; it does not add `data-invalid` to the signature pad parts.
 `Control` is keyboard-focusable and exposes `role="application"` with
 `aria-roledescription="signature pad"`. Drawing uses pointer and touch input rather than arrow-key
 navigation. `ClearTrigger` is a native button, so Enter and Space activation remain standard button
-behavior.
+behavior. In read-only state, moduix disables the clear trigger so the displayed signature cannot be
+changed accidentally.
 
 ## Examples
 

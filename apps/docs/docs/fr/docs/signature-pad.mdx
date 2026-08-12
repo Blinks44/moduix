@@ -47,7 +47,7 @@ SignaturePad.RootProvider
 | `SignaturePad` / `SignaturePad.Root`    | Gère les tracés, les paramètres de dessin, le nom du formulaire, les id et les rappels.     |
 | `SignaturePad.RootProvider`             | Affiche l’arborescence depuis l’état renvoyé par `useSignaturePad()`.                        |
 | `SignaturePad.Label`                    | Libelle la zone de dessin et l’input natif.                                                  |
-| `SignaturePad.Canvas`                   | Surface standard assemblée à partir de quatre parties Ark.                                   |
+| `SignaturePad.Canvas`                   | Surface standard qui transmet les propriétés et la ref du control.                           |
 | `SignaturePad.Control`                  | Zone de dessin au pointeur et au toucher, accessible au focus.                               |
 | `SignaturePad.Segment`                  | Calque SVG pour les tracés enregistrés et le tracé actuel inachevé.                          |
 | `SignaturePad.ClearTrigger`             | Bouton natif qui efface les tracés ; Ark le masque tant que le champ est vide.               |
@@ -57,7 +57,7 @@ SignaturePad.RootProvider
 
 ### Composition recommandée
 
-Utilisez `Label` et `Canvas` dans le cas courant. `Canvas` conserve la cible de focus Ark, la capture du pointeur, le comportement accessible du bouton d’effacement et le rendu SVG, tout en supprimant le balisage répétitif de la surface de dessin.
+Utilisez `Label` et `Canvas` dans le cas courant. `Canvas` conserve la cible de focus Ark, la capture du pointeur, le comportement accessible du bouton d’effacement et le rendu SVG, tout en supprimant le balisage répétitif de la surface de dessin. Il transmet les propriétés de `Control` et sa ref DOM.
 
 ### Quand créer une composition personnalisée
 
@@ -73,11 +73,11 @@ Utilisez `drawing` pour régler chaque trait. `drawing.size` modifie sa largeur,
 | ---------------- | ------------------------------------- | ------------------------------------------------------------------------- |
 | `defaultPaths`   | -                                     | Tableau initial non contrôlé de tracés SVG.                               |
 | `paths`          | -                                     | Tableau contrôlé de tracés SVG. Utilisez-le avec `onDraw(details)`.       |
-| `drawing`        | `{ size: 2, simulatePressure: true }` | Paramètres de trait Zag ; `fill` accepte toute valeur de couleur CSS.     |
+| `drawing`        | `{ size: 2, simulatePressure: false }` | Paramètres de trait Zag ; `fill` accepte toute valeur de couleur CSS.    |
 | `name`           | -                                     | Nom du champ de formulaire natif.                                         |
 | `getFormValue`   | `paths.join(' ')`                     | Sérialisation personnalisée de la valeur du formulaire natif.             |
 | `disabled`       | -                                     | Désactive le dessin et l’interaction avec le bouton d’effacement.         |
-| `readOnly`       | -                                     | Empêche le dessin tout en conservant l’affichage.                          |
+| `readOnly`       | -                                     | Empêche le dessin et désactive le bouton d’effacement.                    |
 | `required`       | -                                     | Rend la signature et l’input natif obligatoires.                          |
 | `ids`            | -                                     | Id stables pour la racine, le control, l’input masqué et le libellé.      |
 | `translations`   | Valeurs Ark par défaut                | Libellés accessibles du control et du bouton d’effacement.                |
@@ -90,7 +90,7 @@ Utilisez `defaultPaths` pour une signature initiale non contrôlée. Utilisez `p
 
 Définissez `name` sur la racine pour activer la soumission native du formulaire : l’input est affiché automatiquement. Transmettez `getFormValue(paths)` si le formulaire nécessite une autre sérialisation. Enveloppez le composant dans `Field.Root` lorsque le texte d’aide, le message d’erreur, l’état required ou disabled doivent être partagés avec l’interface de formulaire environnante. L’état invalid de `Field` gère les messages et les descriptions du champ, mais n’ajoute pas `data-invalid` aux parties du champ de signature.
 
-`Control` peut recevoir le focus au clavier et fournit `role="application"` avec `aria-roledescription="signature pad"`. Le dessin s’effectue au pointeur et au toucher, et non avec les flèches. `ClearTrigger` est un bouton natif : son activation avec Entrée et Espace conserve donc le comportement standard d’un bouton.
+`Control` peut recevoir le focus au clavier et fournit `role="application"` avec `aria-roledescription="signature pad"`. Le dessin s’effectue au pointeur et au toucher, et non avec les flèches. `ClearTrigger` est un bouton natif : son activation avec Entrée et Espace conserve donc le comportement standard d’un bouton. En lecture seule, moduix désactive le bouton d’effacement afin d’éviter toute modification accidentelle de la signature affichée.
 
 ## Exemples
 

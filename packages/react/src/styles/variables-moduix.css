@@ -2392,7 +2392,7 @@
   --moduix-signature-pad-clear-trigger-size: initial; /* var(--moduix-size-md) */
   --moduix-signature-pad-color: initial; /* var(--moduix-color-foreground) */
   --moduix-signature-pad-control-height: initial; /* var(--moduix-signature-pad-height, 10rem) */
-  --moduix-signature-pad-control-min-height: initial; /* 10rem */
+  --moduix-signature-pad-control-min-height: initial; /* var(--moduix-signature-pad-control-height, var(--moduix-signature-pad-height, 10rem)) */
   --moduix-signature-pad-control-min-width: initial; /* 0 */
   --moduix-signature-pad-control-width: initial; /* 100% */
   --moduix-signature-pad-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
