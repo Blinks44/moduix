@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 function QrCodeGraphic() {
   return (
-    <QrCode.Frame>
+    <QrCode.Frame role="img" aria-label="QR code for moduix documentation">
       <QrCode.Pattern />
     </QrCode.Frame>
   );
@@ -113,10 +113,10 @@ export const RootProvider: Story = {
       <div className={styles.stack}>
         <QrCode.RootProvider value={qrCode}>
           <QrCodeGraphic />
+          <QrCode.Context>
+            {(context) => <output className={styles.hint}>{context.value}</output>}
+          </QrCode.Context>
         </QrCode.RootProvider>
-        <QrCode.Context>
-          {(context) => <output className={styles.hint}>{context.value}</output>}
-        </QrCode.Context>
       </div>
     );
   },

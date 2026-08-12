@@ -98,6 +98,21 @@ test('keeps RootProvider, Context, and useQrCodeContext on the moduix surface', 
   expect(screen.getByText('Context: https://moduix.dev/docs/qr-code')).toBeTruthy();
 });
 
+test('keeps the disabled download trigger unavailable', () => {
+  render(
+    <QrCode defaultValue="https://moduix.dev/docs/qr-code">
+      <QrCode.Frame>
+        <QrCode.Pattern />
+      </QrCode.Frame>
+      <QrCode.DownloadTrigger disabled fileName="moduix-qr-code.png" mimeType="image/png">
+        Download PNG
+      </QrCode.DownloadTrigger>
+    </QrCode>,
+  );
+
+  expect(screen.getByRole('button', { name: 'Download PNG' })).toBeDisabled();
+});
+
 test('preserves semantic download trigger composition with asChild', () => {
   render(
     <QrCode defaultValue="https://moduix.dev/docs/qr-code">

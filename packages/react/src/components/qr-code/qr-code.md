@@ -2,8 +2,9 @@
 
 ## Upstream docs
 
-- Ark UI: https://ark-ui.com/docs/components/qr-code
-- Chakra UI: https://chakra-ui.com/docs/components/qr-code
+- Ark UI: https://ark-ui.com/docs/components/qr-code (accessed 2026-08-12)
+- Chakra UI: https://chakra-ui.com/docs/components/qr-code (accessed 2026-08-12)
+- shadcn/ui: https://ui.shadcn.com/llms.txt (accessed 2026-08-12; no QR code component)
 
 ## Purpose
 
@@ -146,6 +147,14 @@ Primary CSS variables:
   `useQrCode()` for the normal `RootProvider` path.
 - Moduix does not add form integration, hidden inputs, value text, or local state around Ark.
 - Moduix does not force a default overlay or download button; consumers opt into those parts.
+
+## Upstream comparison
+
+| Source    | Finding                                                              | Decision                                                |
+| --------- | -------------------------------------------------------------------- | ------------------------------------------------------- |
+| Ark UI    | Explicit `Root` / `Frame` / `Pattern` anatomy and details callbacks. | Required correctness: preserve unchanged.               |
+| Chakra UI | Optional closed wrapper can hide the explicit part tree.             | Rejected complexity: keep Ark-shaped parts.             |
+| shadcn/ui | No equivalent QR code component.                                     | Intentional difference: publish moduix's registry item. |
 
 ## Agent notes
 

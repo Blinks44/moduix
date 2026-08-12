@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-QrCode: Refine QR code styling and usage guidance.
+QrCode: Improve release-ready examples, accessibility guidance, and disabled download behavior.

@@ -2184,6 +2184,7 @@
   --moduix-progress-linear-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-progress-linear-range-bg: initial; /* var(--moduix-color-primary) */
   --moduix-progress-linear-range-indeterminate-animation: initial; /* progress-linear-indeterminate 1.5s ease-in-out infinite */
+  --moduix-progress-linear-range-indeterminate-bg: initial; /* var(--moduix-progress-linear-range-bg, var(--moduix-color-primary)) */
   --moduix-progress-linear-range-indeterminate-vertical-animation: initial; /* progress-linear-indeterminate-vertical 1.5s ease-in-out infinite */
   --moduix-progress-linear-range-indeterminate-width: initial; /* 35% */
   --moduix-progress-linear-range-radius: initial; /* inherit */
