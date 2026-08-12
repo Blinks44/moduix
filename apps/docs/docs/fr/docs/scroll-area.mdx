@@ -69,9 +69,11 @@ Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des
 ### Comportement
 
 - Affichez un `ScrollArea.Scrollbar` pour chaque axe que vous souhaitez rendre visible.
+- Passez la propriété Ark `dir="rtl"` à l’élément racine pour le défilement de droite à gauche ; moduix utilise un positionnement logique afin que la barre verticale suive le bord de fin en ligne.
 - Ark ajoute `data-overflow-x` et `data-overflow-y` ; moduix masque les pistes tant que l’axe correspondant ne déborde pas réellement.
 - Définissez `variant="always"` lorsque la barre de défilement en débordement correspondante doit rester visible et interactive à l’état normal.
 - Le CSS du viewport masque les barres de défilement natives du navigateur avec `scrollbar-width: none` et la règle WebKit requise par Ark UI.
+- En mode forced colors, moduix désactive le masque `fade` facultatif afin qu’il ne masque pas le contenu et utilise les couleurs système pour l’anneau de focus du viewport et le curseur de la barre de défilement.
 - La ref de `ScrollArea` pointe vers l’élément racine ; celle de `ScrollArea.Viewport` pointe vers le conteneur de défilement natif.
 
 ## Exemples

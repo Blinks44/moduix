@@ -135,6 +135,26 @@ export const Horizontal: Story = {
   ),
 };
 
+export const RTL: Story = {
+  name: 'RTL',
+  render: () => (
+    <ScrollArea className={styles.horizontalRoot} dir="rtl" variant="always">
+      <ScrollArea.Viewport aria-label="ملاحظات الإصدار">
+        <ScrollArea.Content>
+          <p className={styles.wideParagraph}>
+            تدعم منطقة التمرير اتجاه النص من اليمين إلى اليسار مع الحفاظ على التمرير الأصلي وأجزاء
+            شريط التمرير القابلة للتخصيص.
+          </p>
+        </ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar orientation="horizontal">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+      <ScrollArea.Corner />
+    </ScrollArea>
+  ),
+};
+
 export const BothDirections: Story = {
   name: 'Both Directions',
   render: () => (

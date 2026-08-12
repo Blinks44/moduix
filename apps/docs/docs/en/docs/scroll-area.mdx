@@ -76,12 +76,16 @@ advanced state reads. Do not render `ScrollArea` and `ScrollArea.RootProvider` f
 ### Behavioral notes
 
 - Render one `ScrollArea.Scrollbar` per axis you want to expose.
+- Pass Ark's `dir="rtl"` to the root for right-to-left scrolling; moduix uses logical positioning so
+  the vertical scrollbar follows the inline end edge.
 - Ark adds `data-overflow-x` and `data-overflow-y`; moduix hides scrollbar tracks until the matching
   axis actually overflows.
 - Set `variant="always"` when the matching overflowing scrollbar should remain visible and
   interactive at rest.
 - The viewport CSS hides native browser scrollbars with `scrollbar-width: none` and the WebKit
   scrollbar rule required by Ark UI.
+- In forced-colors mode, moduix disables the optional fade mask so it cannot obscure content and
+  uses system colors for the viewport focus ring and scrollbar thumb.
 - The ref on `ScrollArea` points to the root element; the ref on `ScrollArea.Viewport` points to the
   native scroll container.
 

@@ -207,4 +207,18 @@
       transition: none;
     }
   }
+
+  @media (forced-colors: active) {
+    .root[data-fade] .viewport {
+      mask-image: none;
+    }
+
+    .viewport:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .thumb {
+      background-color: ButtonText;
+    }
+  }
 }

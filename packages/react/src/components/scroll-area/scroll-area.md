@@ -117,6 +117,7 @@ the same state instance.
   `Thumb` / `Corner` composition.
 - Horizontal: supported by rendering only a horizontal scrollbar.
 - Both directions: supported by rendering both vertical and horizontal scrollbars.
+- RTL: supported through Ark's `dir` prop and logical scrollbar positioning.
 - Nested: supported by rendering complete independent scroll area trees.
 - Root provider: supported through `ScrollArea.RootProvider` plus `ScrollArea.useScrollArea()`.
 - Vertical fade mask sugar: supported through `fade` on `ScrollArea` and `ScrollArea.RootProvider`.
@@ -154,31 +155,44 @@ state attributes and measurements.
 
 Primary CSS variables:
 
-| Variable                                      | Default                                                         |
-| --------------------------------------------- | --------------------------------------------------------------- |
-| `--moduix-scroll-area-width`                  | `100%`                                                          |
-| `--moduix-scroll-area-height`                 | `100%`                                                          |
-| `--moduix-scroll-area-bg`                     | `transparent`                                                   |
-| `--moduix-scroll-area-color`                  | `var(--moduix-color-foreground)`                                |
-| `--moduix-scroll-area-radius`                 | `var(--moduix-radius-md)`                                       |
-| `--moduix-scroll-area-content-padding`        | `0`                                                             |
-| `--moduix-scroll-area-fade-size`              | `var(--moduix-spacing-10)`                                      |
-| `--moduix-scroll-area-fade-start-size`        | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))` |
-| `--moduix-scroll-area-fade-end-size`          | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))` |
-| `--moduix-scroll-area-scrollbar-size`         | `var(--moduix-spacing-1)`                                       |
-| `--moduix-scroll-area-scrollbar-margin`       | `var(--moduix-spacing-1)`                                       |
-| `--moduix-scroll-area-scrollbar-bg`           | `transparent`                                                   |
-| `--moduix-scroll-area-thumb-bg`               | `var(--moduix-color-border)`                                    |
-| `--moduix-scroll-area-thumb-hover-increase`   | `2px`                                                           |
-| `--moduix-scroll-area-thumb-hover-transition` | `var(--moduix-transition-fast)`                                 |
-| `--moduix-scroll-area-thumb-min-size`         | `var(--moduix-size-xs)`                                         |
-| `--moduix-scroll-area-corner-bg`              | `var(--moduix-scroll-area-scrollbar-bg, transparent)`           |
+| Variable                                         | Default                                                               |
+| ------------------------------------------------ | --------------------------------------------------------------------- |
+| `--moduix-scroll-area-width`                     | `100%`                                                                |
+| `--moduix-scroll-area-height`                    | `100%`                                                                |
+| `--moduix-scroll-area-bg`                        | `transparent`                                                         |
+| `--moduix-scroll-area-color`                     | `var(--moduix-color-foreground)`                                      |
+| `--moduix-scroll-area-radius`                    | `var(--moduix-radius-md)`                                             |
+| `--moduix-scroll-area-content-padding`           | `0`                                                                   |
+| `--moduix-scroll-area-fade-size`                 | `var(--moduix-spacing-10)`                                            |
+| `--moduix-scroll-area-fade-start-size`           | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))`       |
+| `--moduix-scroll-area-fade-end-size`             | `var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10))`       |
+| `--moduix-scroll-area-focus-ring-color`          | `var(--moduix-color-ring)`                                            |
+| `--moduix-scroll-area-focus-ring-offset`         | `var(--moduix-focus-ring-inset-offset)`                               |
+| `--moduix-scroll-area-focus-ring-width`          | `var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))` |
+| `--moduix-scroll-area-scrollbar-size`            | `var(--moduix-spacing-1)`                                             |
+| `--moduix-scroll-area-scrollbar-margin`          | `var(--moduix-spacing-1)`                                             |
+| `--moduix-scroll-area-scrollbar-bg`              | `transparent`                                                         |
+| `--moduix-scroll-area-scrollbar-hidden-opacity`  | `0`                                                                   |
+| `--moduix-scroll-area-scrollbar-hit-area-size`   | `var(--moduix-spacing-5)`                                             |
+| `--moduix-scroll-area-scrollbar-padding`         | `0`                                                                   |
+| `--moduix-scroll-area-scrollbar-radius`          | `var(--moduix-radius-md)`                                             |
+| `--moduix-scroll-area-scrollbar-visible-opacity` | `1`                                                                   |
+| `--moduix-scroll-area-thumb-bg`                  | `var(--moduix-color-border)`                                          |
+| `--moduix-scroll-area-thumb-hover-increase`      | `2px`                                                                 |
+| `--moduix-scroll-area-thumb-hover-transition`    | `var(--moduix-transition-fast)`                                       |
+| `--moduix-scroll-area-thumb-min-size`            | `var(--moduix-size-xs)`                                               |
+| `--moduix-scroll-area-thumb-radius`              | `var(--moduix-radius-full)`                                           |
+| `--moduix-scroll-area-transition`                | `var(--moduix-transition-default)`                                    |
+| `--moduix-scroll-area-corner-bg`                 | `var(--moduix-scroll-area-scrollbar-bg, transparent)`                 |
 
 Use classes on individual parts for axis-specific customization. The bundled CSS hides each
 scrollbar when its matching Ark overflow attribute is absent. `variant="always"` keeps matching
 overflowing tracks visible and interactive. The thumb grows by `2px` across the track on hover and
 while dragging with a fast transition; customize its timing with
 `--moduix-scroll-area-thumb-hover-transition`.
+
+In forced-colors mode, the optional fade mask is disabled to preserve content legibility, while the
+viewport focus ring and thumb use system colors.
 
 ## Intentional sugar and differences from upstream
 
@@ -206,6 +220,8 @@ while dragging with a fast transition; customize its timing with
 
 ## Local changelog
 
+- 2026-08-12: Added forced-colors fallbacks for content, focus, and the scrollbar thumb, and
+  completed the local public CSS-variable contract.
 - 2026-08-12: Audited against current Ark UI, Chakra UI, and shadcn/ui guidance; synchronized the
   documented focus-ring offset default with the shared inset token and added coverage for `asChild`,
   default state hooks, and refs on every visible part.
