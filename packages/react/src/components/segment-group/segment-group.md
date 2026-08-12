@@ -17,6 +17,22 @@ The component follows Ark UI React `@ark-ui/react/segment-group`, which is backe
 detail objects, `RootProvider`, `asChild` behavior, measured `Indicator`, and native form input
 integration intact. Each item renders its input internally.
 
+### Release review sources
+
+Reviewed on 2026-08-12:
+
+- Ark UI: https://ark-ui.com/docs/components/segment-group — required correctness: radio-group
+  semantics, roving focus, arrow-key selection, `RootProvider`, measured indicator, and native
+  input lifecycle.
+- Chakra UI: https://chakra-ui.com/docs/components/segmented-control — consumer ergonomics:
+  `Items` is the appropriate concise path for standard item lists.
+- shadcn/ui: https://ui.shadcn.com/docs/components/base/toggle-group — consumer expectation:
+  keep the default composition concise and make orientation and disabled states discoverable.
+
+Intentional differences: moduix keeps Ark-shaped parts, automatic native inputs, and CSS-variable
+theming instead of adding Chakra `size` or shadcn-style visual variants. Those APIs would widen the
+surface without improving correctness or composability for this component.
+
 ## Current behavior contract
 
 `SegmentGroup` is the short root form and is equivalent to `SegmentGroup.Root`. The public parts
@@ -153,6 +169,9 @@ rendered but visually hidden because the segmented-control affordance comes from
   and generated registry output in the same task.
 
 ## Local changelog
+
+- 2026-08-12: Added regression coverage for native radio semantics, disabled items, and read-only
+  automatic native inputs; re-checked Ark, Chakra, and shadcn guidance.
 
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Native form controls are now rendered automatically; the former public form-control part was removed.

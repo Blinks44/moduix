@@ -94,6 +94,57 @@ test('preserves Ark value change callback details', async () => {
   expect(changes).toEqual(['Solid']);
 });
 
+test('preserves native radio semantics and disabled items', async () => {
+  render(
+    <SegmentGroup defaultValue="React" name="framework">
+      <SegmentGroup.Indicator />
+      <SegmentGroup.Item value="React">
+        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+      <SegmentGroup.Item value="Solid" disabled>
+        <SegmentGroup.ItemText>Solid</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+      <SegmentGroup.Item value="Vue">
+        <SegmentGroup.ItemText>Vue</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+    </SegmentGroup>,
+  );
+
+  const react = screen.getByRole('radio', { name: 'React' });
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+  const vue = screen.getByRole('radio', { name: 'Vue' });
+
+  expect(react).toHaveAttribute('type', 'radio');
+  expect(react).toHaveAttribute('name', 'framework');
+  expect(react).toBeChecked();
+  expect(solid).toBeDisabled();
+
+  solid.click();
+  expect(react).toBeChecked();
+
+  vue.click();
+  await waitFor(() => expect(vue).toBeChecked());
+});
+
+test('keeps read-only automatic native inputs from changing value', async () => {
+  render(
+    <SegmentGroup defaultValue="React" readOnly>
+      <SegmentItems />
+    </SegmentGroup>,
+  );
+
+  const react = screen.getByRole('radio', { name: 'React' });
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+
+  fireEvent.click(solid);
+
+  await waitFor(() => expect(react).toBeChecked());
+  expect(solid).not.toBeChecked();
+});
+
 test('preserves controlled and provider composition paths', async () => {
   const { rerender } = render(<ControlledSegmentGroup />);
 
