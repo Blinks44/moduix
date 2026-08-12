@@ -66,6 +66,15 @@ export const End: Story = {
   },
 };
 
+export const NumericContent: Story = {
+  args: {
+    count: 120,
+    defaultPage: 10,
+    pageSize: 1,
+    siblingCount: 2,
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [page, setPage] = useState(5);

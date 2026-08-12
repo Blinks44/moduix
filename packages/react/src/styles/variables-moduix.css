@@ -2042,7 +2042,7 @@
   --moduix-pagination-item-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-pagination-item-color: initial; /* var(--moduix-color-foreground) */
   --moduix-pagination-item-color-selected: initial; /* var(--moduix-color-background) */
-  --moduix-pagination-item-padding-inline: initial; /* var(--moduix-spacing-3) */
+  --moduix-pagination-item-padding-inline: initial; /* var(--moduix-spacing-2) */
   --moduix-pagination-item-radius: initial; /* var(--moduix-radius-md) */
   --moduix-pagination-item-size: initial; /* var(--moduix-size-md) */
   --moduix-pagination-line-height: initial; /* var(--moduix-line-height-text-sm) */

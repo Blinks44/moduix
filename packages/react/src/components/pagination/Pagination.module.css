@@ -30,7 +30,7 @@
     gap: var(--moduix-pagination-trigger-gap, var(--moduix-spacing-2));
     border: var(--moduix-pagination-item-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-pagination-item-border-color, var(--moduix-color-border));
-    padding-inline: var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-3));
+    padding-inline: var(--moduix-pagination-item-padding-inline, var(--moduix-spacing-2));
     background-color: var(--moduix-pagination-item-bg, var(--moduix-color-background));
     color: var(--moduix-pagination-item-color, var(--moduix-color-foreground));
     font-family: inherit;
