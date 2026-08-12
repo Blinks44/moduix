@@ -5,16 +5,18 @@ export default function ValueTextProgressCircularDemo() {
     <ProgressCircular
       translations={{
         value({ value, max }) {
-          if (value === null) return 'Loading...';
-          return `${value} of ${max}`;
+          if (value === null) return 'Migration: loading';
+          return `Migration: ${value} of ${max}`;
         },
       }}
     >
       <ProgressCircular.Label>Migration</ProgressCircular.Label>
-      <div className="progress-circular-circle-container">
-        <ProgressCircular.Ring aria-label="Migration" />
-        <ProgressCircular.ValueText />
-      </div>
+      <ProgressCircular.Ring />
+      <ProgressCircular.Context>
+        {(progress) => (
+          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+        )}
+      </ProgressCircular.Context>
     </ProgressCircular>
   );
 }

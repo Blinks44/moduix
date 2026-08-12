@@ -15,6 +15,10 @@ const progressCircularCircleExampleCss = `
   .progress-circular-circle-container [data-slot="progress-circular-value-text"] {
     grid-area: 1 / 1;
   }
+
+  .progress-circular-indeterminate {
+    --moduix-progress-circular-range-indeterminate-bg: var(--moduix-color-chart-4);
+  }
 `;
 
 export const progressCircularBasicExampleCss = progressCircularCircleExampleCss;
@@ -81,9 +85,19 @@ const progressCircularCssProperties: CssPropertyInput[] = [
     'Controls indeterminate circle animation.',
   ],
   [
+    '--moduix-progress-circular-range-indeterminate-bg',
+    'var(--moduix-progress-circular-range-bg, var(--moduix-color-primary))',
+    'Controls indeterminate circle range color.',
+  ],
+  [
     '--moduix-progress-circular-range-indeterminate-dasharray',
     '1 200',
     'Controls indeterminate dash pattern.',
+  ],
+  [
+    '--moduix-progress-circular-range-indeterminate-reduced-motion-dasharray',
+    '20 200',
+    'Controls the static indeterminate dash pattern under reduced motion.',
   ],
   ['--moduix-progress-circular-range-linecap', 'round', 'Controls range stroke linecap.'],
   [

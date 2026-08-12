@@ -2160,7 +2160,9 @@
   --moduix-progress-circular-label-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-progress-circular-range-bg: initial; /* var(--moduix-color-primary) */
   --moduix-progress-circular-range-indeterminate-animation: initial; /* progress-circular-indeterminate 1.4s linear infinite */
+  --moduix-progress-circular-range-indeterminate-bg: initial; /* var(--moduix-progress-circular-range-bg, var(--moduix-color-primary)) */
   --moduix-progress-circular-range-indeterminate-dasharray: initial; /* 1 200 */
+  --moduix-progress-circular-range-indeterminate-reduced-motion-dasharray: initial; /* 20 200 */
   --moduix-progress-circular-range-linecap: initial; /* round */
   --moduix-progress-circular-range-transition: initial; /* var(--moduix-transition-default) */
   --moduix-progress-circular-root-width: initial; /* max-content */

@@ -75,9 +75,10 @@ progress, and `defaultValue={null}` or `value={null}` for indeterminate progress
 
 ### When to go custom
 
-Use `translations.value(details)` for custom visible value text. Give `Ring` or `Circle` an
-`aria-label` that describes the task, then wrap the circle and value text in your own layout element
-when the number should sit in the center.
+Use `translations.value(details)` for Ark's generated accessible name when `Ring` or `Circle` does
+not have an explicit `aria-label`. To show the same wording, render `ValueText` in
+`ProgressCircular.Context` with `progress.valueAsString` as its child. Then wrap the circle and
+value text in your own layout element when the number should sit in the center.
 
 Use `Circle`, `CircleTrack`, and `CircleRange` when their structure or Ark `asChild` composition
 needs customization. Use `ids` when the label, circle, or surrounding layout need stable explicit
@@ -149,9 +150,9 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
 
 ### Value Text
 
-Use `translations.value(details)` when the formatted percent is not the wording users need.
-
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+`translations.value(details)` changes Ark's generated accessible name, not `ValueText`'s default
+formatted percent. Render `progress.valueAsString` through `ProgressCircular.Context` to use that
+same wording visibly.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/progress-circular/value-text.tsx"
@@ -194,6 +195,10 @@ instead of duplicating state checks outside the component.
 
 Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
 data attributes, Ark SVG variables, and moduix `data-slot` hooks.
+
+`--moduix-progress-circular-range-indeterminate-bg` can give unknown-duration work a different
+semantic color from determinate progress. When reduced motion is enabled, the range does not
+transition or spin; use the reduced-motion dash-pattern variable to tune its static cue.
 
 ### CSS Properties
 

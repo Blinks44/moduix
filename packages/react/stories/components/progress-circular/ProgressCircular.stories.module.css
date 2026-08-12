@@ -29,6 +29,10 @@
   --moduix-progress-circular-range-bg: var(--moduix-color-chart-2);
 }
 
+.indeterminateProgress {
+  --moduix-progress-circular-range-indeterminate-bg: var(--moduix-color-chart-4);
+}
+
 .customProgress [data-slot='progress-circular-circle-track'] {
   stroke: color-mix(in oklab, var(--moduix-color-primary), transparent 75%);
 }

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-ProgressCircular: Improve circular progress styling and documentation.
+ProgressCircular: Improve accessible value-text composition and indeterminate motion styling.

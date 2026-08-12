@@ -98,7 +98,7 @@ export const MinMaxRange: Story = {
 export const Indeterminate: Story = {
   render: () => {
     return (
-      <ProgressCircular defaultValue={null}>
+      <ProgressCircular className={styles.indeterminateProgress} defaultValue={null}>
         <ProgressCircular.Label>Preparing report</ProgressCircular.Label>
         <CircularParts ariaLabel="Preparing report" />
       </ProgressCircular>
@@ -112,13 +112,18 @@ export const ValueText: Story = {
       <ProgressCircular
         translations={{
           value({ value, max }) {
-            if (value === null) return 'Loading...';
-            return `${value} of ${max}`;
+            if (value === null) return 'Migration: loading';
+            return `Migration: ${value} of ${max}`;
           },
         }}
       >
         <ProgressCircular.Label>Migration</ProgressCircular.Label>
-        <CircularParts ariaLabel="Migration" />
+        <ProgressCircular.Ring />
+        <ProgressCircular.Context>
+          {(progress) => (
+            <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+          )}
+        </ProgressCircular.Context>
       </ProgressCircular>
     );
   },

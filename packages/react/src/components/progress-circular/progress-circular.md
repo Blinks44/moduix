@@ -29,6 +29,8 @@ low-level composition. Give `Ring` or `Circle` an `aria-label` that describes th
 `defaultValue` sets uncontrolled progress. `value` plus `onValueChange(details)` controls progress.
 `defaultValue={null}` or `value={null}` renders indeterminate progress. `min`, `max`,
 `formatOptions`, `locale`, `translations`, `ids`, and `orientation` pass through to Ark.
+`translations.value(details)` supplies Ark's generated accessible name on `Circle`; it does not
+replace `ValueText`'s default formatted percent.
 
 `ProgressCircular.RootProvider` is preserved for externally owned Ark progress state. Create that
 state with `ProgressCircular.useProgress()`. `ProgressCircular.Context` and
@@ -93,7 +95,8 @@ circle. That wrapper is demo layout, not a required library part.
 ## Upstream feature coverage
 
 The wrapper exposes the circular Ark examples and guide topics: basic progress, `min`/`max`,
-indeterminate progress with `null`, labels, value text, custom `translations.value(details)`,
+indeterminate progress with `null`, labels, value text, custom accessible
+`translations.value(details)`,
 `RootProvider`, `View`, and circle styling through `--size` and `--thickness`.
 
 Linear Ark parts (`Track` and `Range`) are intentionally not exported here. Use `ProgressLinear`
@@ -106,8 +109,10 @@ value text to `ProgressCircular.Circle`. `ProgressCircular.Label` provides visib
 not create an ARIA relationship with the circle; pass `aria-label` or `aria-labelledby` to `Ring` /
 `Circle` for the task name.
 
-`ProgressCircular.ValueText` uses Ark formatting and live-region behavior. Progress is
-informational and has no keyboard interaction or focus management.
+`ProgressCircular.ValueText` uses Ark's formatted percent and live-region behavior. To display the
+custom wording from `translations.value(details)`, render `ValueText` in
+`ProgressCircular.Context` with `progress.valueAsString` as its child. Progress is informational
+and has no keyboard interaction or focus management.
 
 Ark state attributes are preserved: root has `data-scope="progress"`, `data-part="root"`,
 `data-state`, `data-value`, `data-max`, and `data-orientation`; circle, circle track, circle range,
@@ -120,7 +125,9 @@ The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavi
 label, and value text stay within their container and wrap long text. Public theme variables use the
 `--moduix-progress-circular-*` prefix for root color/gap/width, label text,
 value text, circle size, circle thickness, track color, range color, range linecap, range
-transition, and indeterminate animation.
+transition, an indeterminate range color, indeterminate animation, and its static reduced-motion
+dash pattern. The indeterminate range rotates around its own center. Under reduced motion, range
+transitions and indeterminate animation are disabled.
 
 `ProgressCircular.Circle` and `ProgressCircular.Ring` map `--moduix-progress-circular-size` to Ark `--size` and
 `--moduix-progress-circular-thickness` to Ark `--thickness`. Ark continues to own `--radius`,
@@ -150,6 +157,10 @@ this file, `variables-moduix.css`, and the registry output.
 
 ## Local changelog
 
+- 2026-08-12: Corrected custom value-text guidance: Ark translations set the generated accessible
+  name, while `Context` supplies the same string to a visible `ValueText`.
+- 2026-08-12: Added independent indeterminate range theming, centered the SVG rotation, and made
+  all range motion respect `prefers-reduced-motion`.
 - 2026-07-29: Clarified the explicit progressbar naming contract, constrained long label/value text,
   and added a visible reduced-motion indeterminate fallback.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

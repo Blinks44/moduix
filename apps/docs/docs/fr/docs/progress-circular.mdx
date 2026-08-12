@@ -69,7 +69,7 @@ Utilisez `defaultValue` pour une progression non contrôlée, `value` avec `onVa
 
 ### Quand créer une composition personnalisée
 
-Utilisez `translations.value(details)` pour personnaliser le texte visible de la valeur. Attribuez à `Ring` ou `Circle` un `aria-label` décrivant la tâche, puis enveloppez le cercle et le texte de la valeur dans votre propre élément de disposition si le nombre doit être centré.
+Utilisez `translations.value(details)` pour le nom accessible généré par Ark lorsque `Ring` ou `Circle` n’a pas d’`aria-label` explicite. Pour afficher la même formulation, rendez `ValueText` dans `ProgressCircular.Context` avec `progress.valueAsString` comme enfant. Enveloppez ensuite le cercle et le texte de la valeur dans votre propre élément de disposition si le nombre doit être centré.
 
 Utilisez `Circle`, `CircleTrack` et `CircleRange` lorsque vous devez personnaliser leur structure ou la composition Ark via `asChild`. Utilisez `ids` lorsque le libellé, le cercle ou la disposition environnante ont besoin d’identifiants explicites et stables dans un arbre personnalisé. Utilisez `ProgressCircular.useProgress()` avec `RootProvider` lorsque l’état doit exister en dehors de l’arbre affiché, et `ProgressCircular.useProgressContext()` sous la racine ou le fournisseur lorsqu’un composant personnalisé a besoin de l’état actuel. Les imports Ark directs restent une solution de repli pour les surfaces volontairement exclues de l’API moduix.
 
@@ -131,9 +131,7 @@ Utilisez `min` et `max` lorsque la valeur ne suit pas la plage par défaut de `0
 
 ### Texte de la valeur
 
-Utilisez `translations.value(details)` lorsque le pourcentage formaté ne correspond pas à la formulation attendue par les utilisateurs.
-
-<style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
+`translations.value(details)` modifie le nom accessible généré par Ark, et non le pourcentage formaté par défaut de `ValueText`. Rendez `progress.valueAsString` via `ProgressCircular.Context` pour afficher cette même formulation.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-circular/value-text.tsx"
@@ -172,6 +170,8 @@ Utilisez `ProgressCircular.View` lorsque le texte d’aide ou l’interface doiv
 ## Styles
 
 Utilisez `className` sur les parties exportées pour les changements structurels de style. Pour les styles dépendant de l’état, privilégiez les attributs de données Ark, les variables SVG Ark et les hooks `data-slot` de moduix.
+
+`--moduix-progress-circular-range-indeterminate-bg` permet de donner aux tâches de durée inconnue une couleur sémantique différente de celle de la progression déterminée. Lorsque la réduction des mouvements est activée, la plage ne tourne pas et n’utilise pas de transition ; utilisez la variable du motif de tirets pour réduction des mouvements afin d’ajuster son repère statique.
 
 ### Propriétés CSS
 
