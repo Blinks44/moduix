@@ -2475,7 +2475,7 @@
   --moduix-sidebar-trigger-bg: initial; /* var(--moduix-color-background) */
   --moduix-sidebar-trigger-border-color: initial; /* var(--moduix-color-border) */
   --moduix-sidebar-trigger-border-width: initial; /* var(--moduix-border-width-sm) */
-  --moduix-sidebar-trigger-offset-y: initial; /* var(--moduix-spacing-4) */
+  --moduix-sidebar-trigger-offset-y: initial; /* 40px */
   --moduix-sidebar-trigger-radius: initial; /* var(--moduix-radius-full) */
   --moduix-sidebar-trigger-shadow: initial; /* var(--moduix-shadow-sm) */
   --moduix-sidebar-trigger-size: initial; /* var(--moduix-spacing-7) */

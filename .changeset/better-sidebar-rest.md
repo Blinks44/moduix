@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Sidebar: Improve sidebar behavior, styling, and documentation.
+Sidebar: Move the divider trigger to the inset topbar intersection, align workspace Select indicators, and clarify Drawer composition.

@@ -1,9 +1,13 @@
 # Sidebar
 
-## Upstream docs
+## Upstream reference
 
 - [Ark UI Splitter](https://ark-ui.com/docs/components/splitter)
-- [shadcn/ui Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar)
+- [Chakra UI Splitter](https://chakra-ui.com/docs/components/splitter)
+- [shadcn/ui Sidebar](https://ui.shadcn.com/docs/components/sidebar)
+
+Sources accessed 2026-08-12. Ark and Chakra establish the Splitter behavior; shadcn informs
+discoverability and navigation composition only.
 
 Ark UI has no dedicated Sidebar primitive. Moduix uses Ark `Splitter` as the behavioral and
 accessibility foundation and follows shadcn's explicit navigation anatomy.
@@ -25,7 +29,8 @@ or storage through normal Splitter callbacks, not in a sidebar-owned provider.
 
 `Select.Trigger asChild` can target `Sidebar.MenuButton`; mark its compact visual anchor with
 `data-sidebar-icon` and wrap values or indicators that should leave the collapsed layout in
-`Sidebar.Label`.
+`Sidebar.Label`. A direct `Select.Indicator` inside that label moves to the trailing edge of the
+menu button.
 
 ## Current behavior contract
 
@@ -46,9 +51,11 @@ or storage through normal Splitter callbacks, not in a sidebar-owned provider.
   rendered panels, resize trigger, and `useSidebar()` always agree. Pass normal Ark `panels`,
   `defaultSize`, and controlled `size` to replace the constraints; use `Splitter` directly for a
   custom inset id or more than two panels.
-- `Sidebar.Trigger` is a root-level zero-width flex item centered above the resize line. It calls
-  `collapsePanel()` or `expandPanel()` and reads the current Ark state at click time. A consumer
-  `onClick` runs first and may cancel the toggle with `event.preventDefault()`.
+- `Sidebar.Trigger` is a root-level zero-width flex item that, by default, sits at the intersection
+  of the resize line and a typical inset topbar divider. Its `40px` vertical offset is customizable
+  with `--moduix-sidebar-trigger-offset-y`. It calls `collapsePanel()` or `expandPanel()` and reads
+  the current Ark state at click time. A consumer `onClick` runs first and may cancel the toggle with
+  `event.preventDefault()`.
 - `useSidebar()` exposes the sidebar-specific `side`, `collapsed`, `state`, and `toggleSidebar`.
 - `Sidebar.MenuButton` supports `active`, `size`, and `asChild`.
 - `Sidebar.Tooltip` wraps the shared Tooltip primitive with collapsed-only behavior and side-aware
@@ -218,8 +225,9 @@ content or non-standard positioning. Use `Collapsible.Trigger`/`Content` for nes
 Ark owns `aria-expanded`, ids, keyboard activation, and animation.
 
 `Sidebar.Panel`, `Sidebar.Inset`, `Sidebar.ResizeTrigger`, `Sidebar.Trigger`, and `useSidebar()` all
-require Splitter context. The remaining exported visual parts are plain styled wrappers and can be
-reused in `Drawer` or `Dialog` content without adding sidebar-owned state.
+require Splitter context. The remaining exported visual parts are plain styled wrappers. When a
+mobile overlay needs the same navigation styling, keep `Drawer.Header`, `Drawer.Body`, and
+`Drawer.Footer` as the layout owners and reuse only the navigation parts inside them.
 
 `Sidebar.GroupAction` and `Sidebar.MenuAction` are plain buttons with default `type="button"` and
 the shared sidebar focus ring. `Sidebar.MenuBadge` is presentational and does not add its own
@@ -283,6 +291,10 @@ feedback.
 
 ## Local changelog
 
+- 2026-08-12: Centered the floating trigger on the divider, aligned wrapped Select indicators to
+  the trailing edge of menu buttons, and made Drawer own mobile navigation layout in examples.
+- 2026-08-12: Updated the maintained upstream reference links and added a behavior test for
+  cancelled trigger clicks.
 - 2026-08-12: Matched the default minimum and collapsed widths at `3rem` so pointer resizing reaches
   the icon rail without a size snap, and made labels and group labels truncate instead of shifting
   the layout. Removed the high-contrast resize-line focus fill that persisted after pointer dragging.

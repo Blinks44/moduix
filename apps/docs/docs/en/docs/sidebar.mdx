@@ -10,7 +10,7 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 `Sidebar` uses the [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) for resizing,
 collapse state, keyboard interaction, and accessibility. Its semantic navigation anatomy is
-informed by the [shadcn/ui Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar), while the
+informed by the [shadcn/ui Sidebar](https://ui.shadcn.com/docs/components/sidebar), while the
 state contract remains Ark-shaped.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
@@ -97,8 +97,10 @@ Sidebar / Sidebar.Root
 
 Keep every layout part as a root child. For a left sidebar, render `Panel`, `ResizeTrigger`,
 `Trigger`, then `Inset`. For a right sidebar, render `Inset`, `Trigger`, `ResizeTrigger`, then
-`Panel`. The trigger has zero effective flex width and stays centered above the resize line without
-being clipped by either panel. Use `Collapsible` for nested menu items and `Menu + Avatar` for
+`Panel`. The trigger has zero effective flex width and, by default, sits at the intersection of the
+resize line and a typical inset topbar divider without being clipped by either panel. Use
+`--moduix-sidebar-trigger-offset-y` to align it with a custom inset header height. Use `Collapsible`
+for nested menu items and `Menu + Avatar` for
 account actions. Add `Menu.Indicator` directly inside `Sidebar.MenuButton`; Sidebar places it at
 the inline end and hides it in the collapsed rail. `Input`, `GroupAction`, `GroupContent`,
 `MenuAction`, `MenuBadge`, and
@@ -107,8 +109,7 @@ Compose `Sidebar.Tooltip` around icon menu buttons when the collapsed rail needs
 labels. Treat the following as the official migration recipes:
 
 1. **Collapsed rail labels:** `Sidebar.Tooltip` around `Sidebar.MenuButton`.
-2. **Responsive shell:** desktop `Sidebar` + compact-screen `Drawer` that reuses the visual sidebar
-   parts.
+2. **Responsive shell:** desktop `Sidebar` + compact-screen `Drawer` that owns its overlay layout.
 3. **Persistence:** keep width in controlled `size`, update it from `onResize(details)`, and persist
    it from `onResizeEnd(details)` in app state or storage.
 
@@ -130,9 +131,9 @@ Use `asChild` on menu buttons and sub-buttons to compose router links. Keep one 
 accepts the merged props and ref.
 
 Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and
-`useSidebar()`. Reuse the visual parts (`Header`, `Input`, `Content`, `Footer`, `Group`, `Menu`,
-and related item parts) inside a `Drawer` when compact screens need an overlay path instead of a
-collapsible rail.
+`useSidebar()`. For a compact-screen overlay, use `Drawer.Header`, `Drawer.Body`, and
+`Drawer.Footer` for layout. Reuse Sidebar navigation parts such as `Group` and `Menu` inside those
+regions only when shared navigation styling is useful.
 
 ### Default props
 
@@ -177,9 +178,9 @@ application needs a styled thumb and optional edge fade. Disable the outer overf
 
 ### Mobile Drawer Navigation
 
-Use `Drawer` for compact-screen overlay navigation and reuse the Sidebar visual parts inside the
-drawer body. Keep `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and `useSidebar()` on the desktop
-path only. This is the recommended mobile half of the responsive sidebar recipe.
+Use `Drawer` for compact-screen overlay navigation. Let its `Header`, `Body`, and `Footer` own the
+mobile layout, and reuse Sidebar navigation parts inside those regions only where shared styling is
+useful. Keep `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and `useSidebar()` on the desktop path.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/sidebar/mobile-drawer-navigation.tsx"
@@ -229,8 +230,8 @@ Inspector example includes grouped tools, activity links, internal scrolling, an
 
 Use `Select.Trigger asChild` with `Sidebar.MenuButton`. Wrap text and indicators in `Sidebar.Label`
 and mark the compact visual anchor with `data-sidebar-icon` so collapse needs no custom JavaScript.
-The example combines the workspace switcher with regular navigation, a scrollable content region,
-and an account menu.
+The wrapped `Select.Indicator` aligns itself to the trailing edge. The example combines the
+workspace switcher with regular navigation, a scrollable content region, and an account menu.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/sidebar/workspace-select.tsx"
@@ -267,7 +268,10 @@ default navigation id; use `Splitter` directly for a custom inset id or more tha
 the public `--moduix-sidebar-*` variables for internal spacing, item dimensions, colors, and the trigger's
 vertical offset.
 
-The resize UI is intentionally only a line. Its idle color matches the border, hover and drag shift
+The floating trigger sits at the intersection of the resize line and a typical inset topbar divider,
+keeping clear of the navigation header. Its default `40px` offset suits a `3.5rem` inset topbar;
+override `--moduix-sidebar-trigger-offset-y` for a custom header height. The resize UI is
+intentionally only a line. Its idle color matches the border, hover and drag shift
 it slightly toward `--moduix-color-muted-foreground`, and keyboard focus uses the Sidebar focus-ring
 color. Override the `--moduix-splitter-resize-trigger-line-color-*` variables only when the product
 needs stronger feedback.

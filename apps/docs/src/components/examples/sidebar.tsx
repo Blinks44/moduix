@@ -63,7 +63,7 @@ const sidebarCssDefaults = {
   '--moduix-sidebar-trigger-bg': 'var(--moduix-color-background)',
   '--moduix-sidebar-trigger-border-color': 'var(--moduix-color-border)',
   '--moduix-sidebar-trigger-border-width': 'var(--moduix-border-width-sm)',
-  '--moduix-sidebar-trigger-offset-y': 'var(--moduix-spacing-4)',
+  '--moduix-sidebar-trigger-offset-y': '40px',
   '--moduix-sidebar-trigger-radius': 'var(--moduix-radius-full)',
   '--moduix-sidebar-trigger-shadow': 'var(--moduix-shadow-sm)',
   '--moduix-sidebar-trigger-size': '1.75rem',
@@ -74,7 +74,9 @@ const sidebarOverrideCssProperties: CssProperty[] = Object.entries(sidebarCssDef
   ([name, defaultValue]) => ({
     name: name as `--${string}`,
     defaultValue,
-    description: `Controls the Sidebar ${name.slice('--sidebar-'.length).replaceAll('-', ' ')}.`,
+    description: `Controls the Sidebar ${name
+      .slice('--moduix-sidebar-'.length)
+      .replaceAll('-', ' ')}.`,
   }),
 );
 

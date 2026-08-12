@@ -8,7 +8,7 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 ## Référence de l’API
 
-`Sidebar` utilise [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) pour le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité. Son anatomie sémantique de navigation s’inspire du [Sidebar de shadcn/ui](https://ui.shadcn.com/docs/components/radix/sidebar), tandis que son contrat d’état conserve la forme d’Ark.
+`Sidebar` utilise [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) pour le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité. Son anatomie sémantique de navigation s’inspire du [Sidebar de shadcn/ui](https://ui.shadcn.com/docs/components/sidebar), tandis que son contrat d’état conserve la forme d’Ark.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
 
@@ -86,10 +86,10 @@ Sidebar / Sidebar.Root
 
 ### Composition recommandée
 
-Conservez toutes les parties de la disposition comme enfants directs de la racine. Pour une barre latérale gauche, affichez `Panel`, `ResizeTrigger`, `Trigger`, puis `Inset`. Pour une barre latérale droite, affichez `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel`. Le déclencheur a une largeur flex effective nulle et reste centré au-dessus de la ligne de redimensionnement sans être rogné par les panneaux. Utilisez `Collapsible` pour les éléments de menu imbriqués et `Menu + Avatar` pour les actions du compte. Ajoutez `Menu.Indicator` directement dans `Sidebar.MenuButton` ; Sidebar le place à l’extrémité inline et le masque dans le panneau replié. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge` et `Separator` couvrent les éléments récurrents d’une enveloppe d’application sans ajouter d’état propre à Sidebar. Composez `Sidebar.Tooltip` autour des boutons de menu à icône lorsque le panneau replié nécessite des libellés visibles au survol. Considérez les recettes suivantes comme les parcours de migration officiels :
+Conservez toutes les parties de la disposition comme enfants directs de la racine. Pour une barre latérale gauche, affichez `Panel`, `ResizeTrigger`, `Trigger`, puis `Inset`. Pour une barre latérale droite, affichez `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel`. Le déclencheur a une largeur flex effective nulle et se place par défaut à l’intersection de la ligne de redimensionnement et d’un séparateur de topbar d’inset typique, sans être rogné par les panneaux. Redéfinissez `--moduix-sidebar-trigger-offset-y` pour une autre hauteur d’en-tête d’inset. Utilisez `Collapsible` pour les éléments de menu imbriqués et `Menu + Avatar` pour les actions du compte. Ajoutez `Menu.Indicator` directement dans `Sidebar.MenuButton` ; Sidebar le place à l’extrémité inline et le masque dans le panneau replié. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge` et `Separator` couvrent les éléments récurrents d’une enveloppe d’application sans ajouter d’état propre à Sidebar. Composez `Sidebar.Tooltip` autour des boutons de menu à icône lorsque le panneau replié nécessite des libellés visibles au survol. Considérez les recettes suivantes comme les parcours de migration officiels :
 
 1. **Libellés du panneau replié :** `Sidebar.Tooltip` autour de `Sidebar.MenuButton`.
-2. **Enveloppe adaptative :** `Sidebar` sur ordinateur + `Drawer` sur les écrans compacts, en réutilisant les parties visuelles de Sidebar.
+2. **Enveloppe adaptative :** `Sidebar` sur ordinateur + `Drawer` sur les écrans compacts, qui gère sa propre disposition d’overlay.
 3. **Persistance :** conservez la largeur dans un `size` contrôlé, mettez-la à jour depuis `onResize(details)` et enregistrez-la depuis `onResizeEnd(details)` dans l’état ou le stockage de l’application.
 
 `Sidebar` est la forme racine courte, équivalente à `Sidebar.Root`.
@@ -102,7 +102,7 @@ Transmettez directement `panels`, `defaultSize`, un `size` contrôlé et les rap
 
 Utilisez `asChild` sur les boutons de menu et de sous-menu pour composer des liens de routeur. Conservez un seul enfant sémantique capable de recevoir les props et la ref fusionnés.
 
-Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()`. Réutilisez les parties visuelles (`Header`, `Input`, `Content`, `Footer`, `Group`, `Menu` et les parties d’élément associées) dans un `Drawer` lorsque les écrans compacts nécessitent un overlay plutôt qu’un panneau repliable.
+Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()`. Pour un overlay sur écran compact, utilisez `Drawer.Header`, `Drawer.Body` et `Drawer.Footer` pour la disposition. Réutilisez les parties de navigation Sidebar comme `Group` et `Menu` dans ces régions uniquement lorsqu’un style de navigation partagé est utile.
 
 ### Propriétés par défaut
 
@@ -139,7 +139,7 @@ Conservez le défilement natif par défaut ou composez `ScrollArea` dans `Sideba
 
 ### Navigation dans un Drawer mobile
 
-Utilisez `Drawer` pour une navigation en overlay sur les écrans compacts et réutilisez les parties visuelles de Sidebar dans le corps du drawer. Réservez `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()` au parcours pour ordinateur. Il s’agit de la moitié mobile recommandée de la recette de sidebar adaptative.
+Utilisez `Drawer` pour une navigation en overlay sur les écrans compacts. Laissez ses `Header`, `Body` et `Footer` gérer la disposition mobile, et réutilisez les parties de navigation Sidebar dans ces régions uniquement lorsqu’un style partagé est utile. Réservez `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()` au parcours pour ordinateur.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/mobile-drawer-navigation.tsx"
@@ -179,7 +179,7 @@ Transmettez `side="right"` et affichez `Inset`, `Trigger`, `ResizeTrigger`, puis
 
 ### Sélection de l’espace de travail
 
-Utilisez `Select.Trigger asChild` avec `Sidebar.MenuButton`. Enveloppez le texte et les indicateurs dans `Sidebar.Label`, puis marquez l’ancre visuelle compacte avec `data-sidebar-icon` afin que le repli ne nécessite aucun JavaScript personnalisé. L’exemple associe un sélecteur d’espace de travail à une navigation classique, une zone de contenu défilable et un menu de compte.
+Utilisez `Select.Trigger asChild` avec `Sidebar.MenuButton`. Enveloppez le texte et les indicateurs dans `Sidebar.Label`, puis marquez l’ancre visuelle compacte avec `data-sidebar-icon` afin que le repli ne nécessite aucun JavaScript personnalisé. Le `Select.Indicator` enveloppé s’aligne sur le bord de fin. L’exemple associe un sélecteur d’espace de travail à une navigation classique, une zone de contenu défilable et un menu de compte.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
@@ -203,7 +203,7 @@ Le panneau de navigation utilise les tokens card, tandis que l’inset utilise l
 
 La largeur du panneau relève de l’état Ark et non du CSS visuel. Redéfinissez `panels`, `defaultSize` et le `size` contrôlé pour personnaliser les largeurs déployée, minimale, maximale et repliée. `panelId` modifie l’id de navigation par défaut ; utilisez directement `Splitter` pour un id d’inset personnalisé ou plus de deux panneaux. Utilisez les variables publiques `--moduix-sidebar-*` pour les espacements internes, les dimensions des éléments, les couleurs et le décalage vertical du déclencheur.
 
-L’interface de redimensionnement se limite volontairement à une ligne. Sa couleur au repos correspond à la bordure ; au survol et pendant le déplacement, elle se rapproche légèrement de `--moduix-color-muted-foreground`, tandis que le focus au clavier utilise la couleur focus-ring de Sidebar. Ne redéfinissez les variables `--moduix-splitter-resize-trigger-line-color-*` que si le produit nécessite un retour visuel plus marqué.
+Le déclencheur flottant se place à l’intersection de la ligne de redimensionnement et d’un séparateur de topbar d’inset typique, sans recouvrir l’en-tête de navigation. Son décalage par défaut de `40px` convient à un topbar d’inset de `3.5rem` ; redéfinissez `--moduix-sidebar-trigger-offset-y` pour une autre hauteur d’en-tête. L’interface de redimensionnement se limite volontairement à une ligne. Sa couleur au repos correspond à la bordure ; au survol et pendant le déplacement, elle se rapproche légèrement de `--moduix-color-muted-foreground`, tandis que le focus au clavier utilise la couleur focus-ring de Sidebar. Ne redéfinissez les variables `--moduix-splitter-resize-trigger-line-color-*` que si le produit nécessite un retour visuel plus marqué.
 
 ### Propriétés CSS
 

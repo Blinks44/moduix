@@ -173,9 +173,8 @@
 
   .trigger {
     position: relative;
-    align-self: flex-start;
     z-index: 4;
-    margin-block-start: var(--moduix-sidebar-trigger-offset-y, var(--moduix-spacing-4));
+    margin-block-start: 0;
     margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
     border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
@@ -191,6 +190,8 @@
     > svg {
       transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
     }
+
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
   }
 
   .label,
