@@ -2304,7 +2304,7 @@
   --moduix-scroll-area-fade-size: initial; /* var(--moduix-spacing-10) */
   --moduix-scroll-area-fade-start-size: initial; /* var(--moduix-scroll-area-fade-size, var(--moduix-spacing-10)) */
   --moduix-scroll-area-focus-ring-color: initial; /* var(--moduix-color-ring) */
-  --moduix-scroll-area-focus-ring-offset: initial; /* calc(var(--moduix-scroll-area-focus-ring-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))) * -1) */
+  --moduix-scroll-area-focus-ring-offset: initial; /* var(--moduix-focus-ring-inset-offset) */
   --moduix-scroll-area-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
   --moduix-scroll-area-height: initial; /* 100% */
   --moduix-scroll-area-radius: initial; /* var(--moduix-radius-md) */

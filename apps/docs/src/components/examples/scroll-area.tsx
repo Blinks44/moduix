@@ -31,7 +31,7 @@ export const scrollAreaOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-scroll-area-focus-ring-offset',
-    'calc(var(--moduix-scroll-area-focus-ring-width, var(--moduix-border-width-sm)) * -1)',
+    'var(--moduix-focus-ring-inset-offset)',
     'Controls the viewport focus ring offset.',
   ],
   [

@@ -1,9 +1,18 @@
 # ScrollArea
 
-Upstream docs:
+## Upstream review
 
-- Ark UI: https://ark-ui.com/docs/components/scroll-area
-- Chakra UI: https://chakra-ui.com/docs/components/scroll-area
+Reviewed 2026-08-12:
+
+| Source                                                         | Useful reference                                                           | Moduix decision                                                                                                      |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| [Ark UI](https://ark-ui.com/react/docs/components/scroll-area) | Primitive anatomy, IDs, state attributes, interaction, and `asChild`.      | **Required correctness:** retain the complete Ark part tree and props unchanged.                                     |
+| [Chakra UI](https://chakra-ui.com/docs/components/scroll-area) | Explicit composition and `hover` / `always` scrollbar visibility variants. | **Intentional difference:** retain visibility variants, but use CSS variables rather than a `size` prop matrix.      |
+| [shadcn/ui](https://ui.shadcn.com/docs/components/scroll-area) | Concise installation and horizontal-scrolling discoverability.             | **Rejected complexity:** keep Moduix's explicit Ark composition instead of automatically rendering structural parts. |
+
+The local focus-ring offset variable intentionally falls back to the shared
+`--moduix-focus-ring-inset-offset` token. Keep the CSS variable reference and public CSS-property
+table aligned with this behavior.
 
 ## Purpose
 
@@ -197,6 +206,9 @@ while dragging with a fast transition; customize its timing with
 
 ## Local changelog
 
+- 2026-08-12: Audited against current Ark UI, Chakra UI, and shadcn/ui guidance; synchronized the
+  documented focus-ring offset default with the shared inset token and added coverage for `asChild`,
+  default state hooks, and refs on every visible part.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-30: Preserved stable moduix data attributes ahead of consumer props, restored default browser scroll chaining, and disabled scrollbar transitions for reduced motion.
 - 2026-07-11: Made the 2px scrollbar growth use the fast transition token to avoid visibly stepped
