@@ -36,6 +36,11 @@ const progressLinearCssProperties: CssPropertyInput[] = [
     'Controls indeterminate range animation.',
   ],
   [
+    '--moduix-progress-linear-range-indeterminate-bg',
+    'var(--moduix-progress-linear-range-bg, var(--moduix-color-primary))',
+    'Controls indeterminate range color without changing determinate progress.',
+  ],
+  [
     '--moduix-progress-linear-range-indeterminate-vertical-animation',
     'progress-linear-indeterminate-vertical 1.5s ease-in-out infinite',
     'Controls vertical indeterminate range animation.',

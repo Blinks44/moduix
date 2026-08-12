@@ -11,7 +11,9 @@ export default function ValueTextProgressLinearDemo() {
       }}
     >
       <ProgressLinear.Label>Migration</ProgressLinear.Label>
-      <ProgressLinear.ValueText />
+      <ProgressLinear.Context>
+        {(state) => <ProgressLinear.ValueText>{state.valueAsString}</ProgressLinear.ValueText>}
+      </ProgressLinear.Context>
       <ProgressLinear.Track aria-label="Migration">
         <ProgressLinear.Range />
       </ProgressLinear.Track>

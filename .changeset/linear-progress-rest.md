@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-ProgressLinear: Improve linear progress styling and documentation.
+ProgressLinear: Add indeterminate theming and clarify custom value-text composition.

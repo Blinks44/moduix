@@ -47,7 +47,7 @@ ProgressLinear.RootProvider
 | `ProgressLinear.RootProvider`             | Подключает части к состоянию, созданному `ProgressLinear.useProgress()`. |
 | `ProgressLinear.Context`                  | Доступ к текущему состоянию прогресса через render prop.                |
 | `ProgressLinear.Label`                    | Видимая метка индикатора прогресса.                                     |
-| `ProgressLinear.ValueText`                | Видимый текст значения, созданный из переводов Ark.                      |
+| `ProgressLinear.ValueText`                | Видимый форматированный текст значения; для пользовательской строки Ark используйте `Context`. |
 | `ProgressLinear.Track`                    | Линейная дорожка с ролью индикатора и атрибутами ARIA-значения.         |
 | `ProgressLinear.Range`                    | Заполненный диапазон, отражающий текущий процент.                       |
 | `ProgressLinear.View`                     | Условное представление для `indeterminate`, `loading` или `complete`.  |
@@ -64,7 +64,10 @@ ProgressLinear.RootProvider
 
 Используйте `ProgressLinear.RootProvider` вместе с `ProgressLinear.useProgress()`, когда состояние прогресса должно быть создано за пределами отрисованного поддерева.
 
-Используйте `translations.value(details)` для пользовательского видимого и доступного текста значения. Это заменяет устаревшую схему с `getAriaValueText` и дочерней функцией рендеринга.
+Используйте `translations.value(details)`, чтобы создать пользовательскую строку значения Ark. Чтобы
+показать её, передайте `state.valueAsString` из `ProgressLinear.Context` в `ValueText`; для имени
+задачи сохраните `aria-label` или `aria-labelledby` на `Track`. Это заменяет устаревшую схему с
+`getAriaValueText` и дочерней функцией рендеринга.
 
 Используйте `ids`, когда метке, дорожке или окружающей раскладке нужны стабильные явные идентификаторы в более пользовательском дереве. Используйте `ProgressLinear.View`, когда вспомогательный UI должен переключаться вместе с состоянием прогресса Ark, а не дублировать проверки состояния вне компонента. Используйте `ProgressLinear.Context` или `ProgressLinear.useProgressContext()` для доступа к состоянию ниже корня или провайдера. Прямые импорты Ark остаются запасным вариантом для поверхностей, намеренно находящихся вне API moduix.
 
@@ -141,7 +144,8 @@ ProgressLinear.RootProvider
 
 ### Текст значения
 
-Используйте `translations.value(details)`, когда форматированный процент не соответствует нужной пользователям формулировке.
+Используйте `Context` с `translations.value(details)`, когда видимому тексту значения нужна
+формулировка, специфичная для задачи.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"

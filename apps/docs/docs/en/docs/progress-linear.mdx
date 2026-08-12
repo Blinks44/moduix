@@ -48,7 +48,7 @@ ProgressLinear.RootProvider
 | `ProgressLinear.RootProvider`            | Connects parts to state created with `ProgressLinear.useProgress()`. |
 | `ProgressLinear.Context`                 | Render-prop access to the current progress state.                    |
 | `ProgressLinear.Label`                   | Visible label for the progressbar.                                   |
-| `ProgressLinear.ValueText`               | Visible value text generated from Ark translations.                  |
+| `ProgressLinear.ValueText`               | Visible formatted value text; use `Context` for a custom Ark value string. |
 | `ProgressLinear.Track`                   | Linear rail with progressbar role and ARIA value attributes.         |
 | `ProgressLinear.Range`                   | Filled range that reflects the current percent.                      |
 | `ProgressLinear.View`                    | Conditional view for `indeterminate`, `loading`, or `complete`.      |
@@ -68,8 +68,10 @@ progress, and `defaultValue={null}` or `value={null}` for indeterminate progress
 Use `ProgressLinear.RootProvider` with `ProgressLinear.useProgress()` when progress state must be
 created outside the rendered subtree.
 
-Use `translations.value(details)` for custom visible and accessible value text. This replaces the
-old legacy `getAriaValueText` and child render function pattern.
+Use `translations.value(details)` to create a custom Ark value string. Render `state.valueAsString`
+through `ProgressLinear.Context` inside `ValueText` when that string must be visible; keep an
+`aria-label` or `aria-labelledby` on `Track` to name the task. This replaces the old legacy
+`getAriaValueText` and child render function pattern.
 
 Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
 custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
@@ -158,7 +160,7 @@ instead of duplicating state checks outside the component.
 
 ### Value Text
 
-Use `translations.value(details)` when the formatted percent is not the wording users need.
+Use `Context` with `translations.value(details)` when visible value text needs task-specific wording.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/progress-linear/value-text.tsx"

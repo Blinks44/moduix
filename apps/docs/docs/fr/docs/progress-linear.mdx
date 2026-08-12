@@ -47,7 +47,7 @@ ProgressLinear.RootProvider
 | `ProgressLinear.RootProvider`             | Relie les parties à l’état créé par `ProgressLinear.useProgress()`.        |
 | `ProgressLinear.Context`                  | Donne accès à l’état de progression actuel via une render prop.            |
 | `ProgressLinear.Label`                    | Libellé visible de l’indicateur de progression.                            |
-| `ProgressLinear.ValueText`                | Texte visible de la valeur, produit à partir des traductions Ark.           |
+| `ProgressLinear.ValueText`                | Texte de valeur visible et formaté ; utilisez `Context` pour une chaîne Ark personnalisée. |
 | `ProgressLinear.Track`                    | Piste linéaire portant le rôle d’indicateur et les attributs ARIA de valeur. |
 | `ProgressLinear.Range`                    | Plage remplie reflétant le pourcentage actuel.                             |
 | `ProgressLinear.View`                     | Vue conditionnelle pour `indeterminate`, `loading` ou `complete`.           |
@@ -64,7 +64,11 @@ Utilisez `defaultValue` pour une progression non contrôlée, `value` avec `onVa
 
 Utilisez `ProgressLinear.RootProvider` avec `ProgressLinear.useProgress()` lorsque l’état de progression doit être créé en dehors du sous-arbre affiché.
 
-Utilisez `translations.value(details)` pour personnaliser le texte visible et accessible de la valeur. Cette approche remplace l’ancien modèle fondé sur `getAriaValueText` et une fonction de rendu enfant.
+Utilisez `translations.value(details)` pour créer une chaîne de valeur Ark personnalisée. Affichez
+`state.valueAsString` par l’intermédiaire de `ProgressLinear.Context` dans `ValueText` lorsque cette
+chaîne doit être visible ; conservez un `aria-label` ou un `aria-labelledby` sur `Track` pour nommer
+la tâche. Cette approche remplace l’ancien modèle fondé sur `getAriaValueText` et une fonction de
+rendu enfant.
 
 Utilisez `ids` lorsque le libellé, la piste ou la disposition environnante ont besoin d’identifiants explicites et stables dans un arbre plus personnalisé. Utilisez `ProgressLinear.View` lorsque l’interface auxiliaire doit changer avec l’état de progression Ark, au lieu de dupliquer les vérifications d’état en dehors du composant. Utilisez `ProgressLinear.Context` ou `ProgressLinear.useProgressContext()` pour accéder à l’état sous la racine ou le fournisseur. Les imports Ark directs restent une solution de repli pour les surfaces volontairement exclues de l’API moduix.
 
@@ -141,7 +145,8 @@ Utilisez `ProgressLinear.View` lorsque le texte d’aide ou l’interface doiven
 
 ### Texte de la valeur
 
-Utilisez `translations.value(details)` lorsque le pourcentage formaté ne correspond pas à la formulation attendue par les utilisateurs.
+Utilisez `Context` avec `translations.value(details)` lorsque le texte de valeur visible doit employer
+une formulation propre à la tâche.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"
