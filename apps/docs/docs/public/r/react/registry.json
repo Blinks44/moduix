@@ -1723,7 +1723,7 @@
       "name": "simple-grid",
       "type": "registry:item",
       "title": "Simple Grid",
-      "description": "moduix React Simple Grid component.",
+      "description": "Responsive CSS Grid layout with fixed or intrinsic equal-width columns.",
       "dependencies": ["@ark-ui/react", "clsx"],
       "registryDependencies": ["@moduix-react/foundation"],
       "files": [

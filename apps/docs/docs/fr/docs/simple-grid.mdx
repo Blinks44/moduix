@@ -68,7 +68,7 @@ pas `columns` ni `minChildWidth` si `grid-template-columns` est défini dans une
 | Propriété        | Par défaut                | Remarques                                                               |
 | ---------------- | ------------------------- | ----------------------------------------------------------------------- |
 | `columns`        | `1`                       | Nombre entier positif et fini de colonnes égales                        |
-| `minChildWidth`  | -                         | Largeur minimale d’une piste ; les nombres sont convertis en pixels     |
+| `minChildWidth`  | -                         | Largeur minimale d’une piste ; les nombres finis positifs ou nuls deviennent des pixels |
 | `gap`            | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
 | `rowGap`         | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
 | `columnGap`      | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
@@ -79,6 +79,7 @@ pas `columns` ni `minChildWidth` si `grid-template-columns` est défini dans une
 - Si les deux propriétés de mise en page sont transmises, `minChildWidth` prend le pas sur `columns`.
 - `columns={3}` crée trois pistes égales sans ajouter d’enveloppe autour des enfants.
 - `minChildWidth={160}` crée autant de pistes que possible et interprète le nombre comme `160px`.
+- Une valeur numérique de `minChildWidth` doit être finie et positive ou nulle.
 - Le mode auto-fit évite le débordement lorsque la grille devient plus étroite que `minChildWidth`.
 - `gap`, `rowGap` et `columnGap` ne sont écrits dans les styles inline que lorsqu’ils sont transmis.
 - `style` est appliqué en dernier et peut remplacer les valeurs générées de `gridTemplateColumns` ou d’espacement.
