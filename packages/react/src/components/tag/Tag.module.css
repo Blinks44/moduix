@@ -8,10 +8,16 @@
     align-items: center;
     gap: var(--moduix-tag-gap, var(--moduix-spacing-1-5));
     border: var(--moduix-tag-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-tag-border-color, transparent);
+      var(--moduix-tag-border-color, var(--moduix-tag-default-border-color, transparent));
     border-radius: var(--moduix-tag-radius, var(--moduix-radius-full));
-    background-color: var(--moduix-tag-bg, var(--moduix-color-primary));
-    color: var(--moduix-tag-color, var(--moduix-color-primary-foreground));
+    background-color: var(
+      --moduix-tag-bg,
+      var(--moduix-tag-default-bg, var(--moduix-color-primary))
+    );
+    color: var(
+      --moduix-tag-color,
+      var(--moduix-tag-default-color, var(--moduix-color-primary-foreground))
+    );
     font-size: var(--moduix-tag-font-size, var(--moduix-text-xs));
     font-weight: var(--moduix-tag-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-tag-line-height, var(--moduix-line-height-text-xs));
@@ -40,25 +46,54 @@
     }
 
     &[data-variant='secondary'] {
-      background-color: var(--moduix-tag-bg, var(--moduix-color-secondary));
-      border-color: var(--moduix-tag-border-color, transparent);
-      color: var(--moduix-tag-color, var(--moduix-color-secondary-foreground));
-    }
-
-    &[data-variant='outline'],
-    &[data-variant='ghost'] {
-      background-color: var(--moduix-tag-bg, transparent);
-      color: var(--moduix-tag-color, var(--moduix-color-foreground));
+      background-color: var(
+        --moduix-tag-bg,
+        var(--moduix-tag-secondary-bg, var(--moduix-color-secondary))
+      );
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-secondary-border-color, transparent)
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-secondary-color, var(--moduix-color-secondary-foreground))
+      );
     }
 
     &[data-variant='outline'] {
-      border-color: var(--moduix-tag-border-color, var(--moduix-color-border));
+      background-color: var(--moduix-tag-bg, var(--moduix-tag-outline-bg, transparent));
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-outline-border-color, var(--moduix-color-border))
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-outline-color, var(--moduix-color-foreground))
+      );
+    }
+
+    &[data-variant='ghost'] {
+      background-color: var(--moduix-tag-bg, var(--moduix-tag-ghost-bg, transparent));
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-ghost-border-color, transparent)
+      );
+      color: var(--moduix-tag-color, var(--moduix-tag-ghost-color, var(--moduix-color-foreground)));
     }
 
     &[data-variant='destructive'] {
-      background-color: var(--moduix-tag-bg, var(--moduix-color-destructive));
-      border-color: var(--moduix-tag-border-color, transparent);
-      color: var(--moduix-tag-color, var(--moduix-color-destructive-foreground));
+      background-color: var(
+        --moduix-tag-bg,
+        var(--moduix-tag-destructive-bg, var(--moduix-color-destructive))
+      );
+      border-color: var(
+        --moduix-tag-border-color,
+        var(--moduix-tag-destructive-border-color, transparent)
+      );
+      color: var(
+        --moduix-tag-color,
+        var(--moduix-tag-destructive-color, var(--moduix-color-destructive-foreground))
+      );
     }
   }
 

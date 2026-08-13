@@ -2851,20 +2851,35 @@
   --moduix-tag-border-color: initial; /* transparent */
   --moduix-tag-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-tag-color: initial; /* var(--moduix-color-primary-foreground) */
+  --moduix-tag-default-bg: initial; /* var(--moduix-color-primary) */
+  --moduix-tag-default-border-color: initial; /* transparent */
+  --moduix-tag-default-color: initial; /* var(--moduix-color-primary-foreground) */
+  --moduix-tag-destructive-bg: initial; /* var(--moduix-color-destructive) */
+  --moduix-tag-destructive-border-color: initial; /* transparent */
+  --moduix-tag-destructive-color: initial; /* var(--moduix-color-destructive-foreground) */
   --moduix-tag-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-tag-font-size: initial; /* var(--moduix-text-xs) */
   --moduix-tag-font-weight: initial; /* var(--moduix-weight-medium) */
   --moduix-tag-gap: initial; /* var(--moduix-spacing-1-5) */
   --moduix-tag-gap-sm: initial; /* var(--moduix-spacing-1) */
+  --moduix-tag-ghost-bg: initial; /* transparent */
+  --moduix-tag-ghost-border-color: initial; /* transparent */
+  --moduix-tag-ghost-color: initial; /* var(--moduix-color-foreground) */
   --moduix-tag-height-sm: initial; /* 1.25rem */
   --moduix-tag-height-md: initial; /* var(--moduix-size-xs) */
   --moduix-tag-icon-size: initial; /* var(--moduix-spacing-3) */
   --moduix-tag-line-height: initial; /* var(--moduix-line-height-text-xs) */
+  --moduix-tag-outline-bg: initial; /* transparent */
+  --moduix-tag-outline-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-tag-outline-color: initial; /* var(--moduix-color-foreground) */
   --moduix-tag-padding-x-sm: initial; /* var(--moduix-spacing-1-5) */
   --moduix-tag-padding-x-md: initial; /* var(--moduix-spacing-2) */
   --moduix-tag-padding-y-sm: initial; /* 0 */
   --moduix-tag-padding-y-md: initial; /* var(--moduix-spacing-0-5) */
   --moduix-tag-radius: initial; /* var(--moduix-radius-full) */
+  --moduix-tag-secondary-bg: initial; /* var(--moduix-color-secondary) */
+  --moduix-tag-secondary-border-color: initial; /* transparent */
+  --moduix-tag-secondary-color: initial; /* var(--moduix-color-secondary-foreground) */
   --moduix-tag-close-trigger-bg: initial; /* transparent */
   --moduix-tag-close-trigger-bg-hover: initial; /* color-mix(in oklab, currentColor 12%, transparent) */
   --moduix-tag-close-trigger-focus-ring-color: initial; /* var(--moduix-color-ring) */

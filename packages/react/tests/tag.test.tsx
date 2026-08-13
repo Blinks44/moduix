@@ -28,6 +28,19 @@ test('renders the Tag anatomy with stable data hooks and a forwarded ref', () =>
   expect(screen.getByTestId('tag-end')).toHaveAttribute('data-slot', 'tag-end-element');
 });
 
+test('applies the documented root defaults', () => {
+  render(
+    <Tag data-testid="tag">
+      <Tag.Label>TypeScript</Tag.Label>
+    </Tag>,
+  );
+
+  const tag = screen.getByTestId('tag');
+
+  expect(tag).toHaveAttribute('data-size', 'md');
+  expect(tag).toHaveAttribute('data-variant', 'default');
+});
+
 test('uses an accessible close button and prevents disabled activation', () => {
   const handleClick = rs.fn();
   const { rerender } = render(<Tag.CloseTrigger data-testid="close" onClick={handleClick} />);
@@ -51,6 +64,25 @@ test('uses an accessible close button and prevents disabled activation', () => {
   expect(disabledClose).toHaveAttribute('data-disabled');
   expect(fireEvent.click(disabledClose)).toBe(false);
   expect(handleClick).toHaveBeenCalledTimes(1);
+});
+
+test('preserves a semantic close trigger host with asChild', () => {
+  const ref = createRef<HTMLButtonElement>();
+
+  render(
+    <Tag.CloseTrigger ref={ref} asChild aria-label="Remove TypeScript tag">
+      <button type="button" data-owner="consumer">
+        <svg aria-hidden="true" />
+      </button>
+    </Tag.CloseTrigger>,
+  );
+
+  const close = screen.getByRole('button', { name: 'Remove TypeScript tag' });
+
+  expect(ref.current).toBe(close);
+  expect(close).toHaveAttribute('type', 'button');
+  expect(close).toHaveAttribute('data-owner', 'consumer');
+  expect(close).toHaveAttribute('data-slot', 'tag-close-trigger');
 });
 
 test('preserves semantic custom hosts with asChild', () => {

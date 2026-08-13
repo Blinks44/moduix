@@ -3,13 +3,31 @@ import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 const tagCssProperties = (
   [
-    ['--moduix-tag-bg', 'var(--moduix-color-primary)', 'Controls tag background color.'],
-    ['--moduix-tag-border-color', 'transparent', 'Controls tag border color.'],
+    ['--moduix-tag-bg', 'Variant-specific fallback', 'Overrides every tag background color.'],
+    ['--moduix-tag-border-color', 'Variant-specific fallback', 'Overrides every tag border color.'],
     ['--moduix-tag-border-width', 'var(--moduix-border-width-sm)', 'Controls tag border width.'],
+    ['--moduix-tag-color', 'Variant-specific fallback', 'Overrides every tag text and icon color.'],
+    ['--moduix-tag-default-bg', 'var(--moduix-color-primary)', 'Controls default tag background.'],
+    ['--moduix-tag-default-border-color', 'transparent', 'Controls default tag border color.'],
     [
-      '--moduix-tag-color',
+      '--moduix-tag-default-color',
       'var(--moduix-color-primary-foreground)',
-      'Controls tag text and icon color.',
+      'Controls default tag text and icon color.',
+    ],
+    [
+      '--moduix-tag-destructive-bg',
+      'var(--moduix-color-destructive)',
+      'Controls destructive tag background.',
+    ],
+    [
+      '--moduix-tag-destructive-border-color',
+      'transparent',
+      'Controls destructive tag border color.',
+    ],
+    [
+      '--moduix-tag-destructive-color',
+      'var(--moduix-color-destructive-foreground)',
+      'Controls destructive tag text and icon color.',
     ],
     [
       '--moduix-tag-disabled-opacity',
@@ -28,15 +46,44 @@ const tagCssProperties = (
       'var(--moduix-spacing-1)',
       'Controls space between tag children at sm size.',
     ],
+    ['--moduix-tag-ghost-bg', 'transparent', 'Controls ghost tag background.'],
+    ['--moduix-tag-ghost-border-color', 'transparent', 'Controls ghost tag border color.'],
+    [
+      '--moduix-tag-ghost-color',
+      'var(--moduix-color-foreground)',
+      'Controls ghost tag text and icon color.',
+    ],
     ['--moduix-tag-height-sm', '1.25rem', 'Controls sm tag minimum height.'],
     ['--moduix-tag-height-md', 'var(--moduix-size-xs)', 'Controls md tag minimum height.'],
     ['--moduix-tag-icon-size', 'var(--moduix-spacing-3)', 'Controls SVG icon size.'],
     ['--moduix-tag-line-height', 'var(--moduix-line-height-text-xs)', 'Controls tag line-height.'],
+    ['--moduix-tag-outline-bg', 'transparent', 'Controls outline tag background.'],
+    [
+      '--moduix-tag-outline-border-color',
+      'var(--moduix-color-border)',
+      'Controls outline tag border color.',
+    ],
+    [
+      '--moduix-tag-outline-color',
+      'var(--moduix-color-foreground)',
+      'Controls outline tag text and icon color.',
+    ],
     ['--moduix-tag-padding-x-sm', 'var(--moduix-spacing-1-5)', 'Controls sm horizontal padding.'],
     ['--moduix-tag-padding-x-md', 'var(--moduix-spacing-2)', 'Controls md horizontal padding.'],
     ['--moduix-tag-padding-y-sm', '0', 'Controls sm vertical padding.'],
     ['--moduix-tag-padding-y-md', 'var(--moduix-spacing-0-5)', 'Controls md vertical padding.'],
     ['--moduix-tag-radius', 'var(--moduix-radius-full)', 'Controls tag border radius.'],
+    [
+      '--moduix-tag-secondary-bg',
+      'var(--moduix-color-secondary)',
+      'Controls secondary tag background.',
+    ],
+    ['--moduix-tag-secondary-border-color', 'transparent', 'Controls secondary tag border color.'],
+    [
+      '--moduix-tag-secondary-color',
+      'var(--moduix-color-secondary-foreground)',
+      'Controls secondary tag text and icon color.',
+    ],
     ['--moduix-tag-close-trigger-bg', 'transparent', 'Controls close trigger background color.'],
     [
       '--moduix-tag-close-trigger-bg-hover',

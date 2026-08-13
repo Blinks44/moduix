@@ -159,6 +159,8 @@ single child semantic element responsible for keyboard and click behavior.
 ## Styling
 
 Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
+Component-wide color variables take precedence; otherwise each built-in variant resolves its own
+background, border, and foreground variable before falling back to foundation tokens.
 
 ### CSS Properties
 
