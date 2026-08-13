@@ -3,7 +3,19 @@
 Upstream docs:
 
 - Ark UI: no dedicated Stack primitive. Use the Ark composition and factory model: https://ark-ui.com/docs/guides/composition
+- Ark UI ref guidance: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/stack
+- shadcn/ui component catalog (no dedicated Stack): https://ui.shadcn.com/docs/components
+
+Reviewed on 2026-08-13 against Ark UI 5.38.1 and the current Chakra UI and shadcn/ui documentation.
+
+| Upstream difference                                                        | Classification         | Decision                                                                                            |
+| -------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------- |
+| Ark factory `asChild`, prop merging, single-child constraint, and root ref | required correctness   | Preserve through `ark.div`, a forwarded root ref, and focused composition tests.                    |
+| Chakra direction, gap, alignment, wrapping, and responsive direction       | consumer friction      | Keep the small Ark-shaped prop set and the documented two-breakpoint direction object.              |
+| Chakra `HStack`, `VStack`, and `separator` conveniences                    | rejected complexity    | Keep explicit `direction` and ordinary `Separator` children; avoid aliases and child processing.    |
+| Chakra's default `gap: 8px`                                                | intentional difference | Keep gap opt-in so Stack remains a neutral layout primitive and consumer CSS controls defaults.     |
+| shadcn/ui has no dedicated Stack component                                 | intentional difference | Retain the moduix primitive and document its registry installation without inventing shadcn parity. |
 
 ## Purpose
 
@@ -160,6 +172,9 @@ per-instance override escape hatch.
 
 ## Local changelog
 
+- 2026-08-13: Revalidated the release contract against current Ark, Chakra, and shadcn documentation
+  and expanded tests for namespace identity, responsive fallback, styling precedence, and `asChild`
+  prop merging.
 - 2026-07-30: Added reverse flex-direction values, aligned `asChild` refs with the actual rendered
   element, and migrated docs previews to consumer-ready snippets.
 - 2026-07-11: Removed the `separator` prop to keep Stack a thin flex wrapper; compose the moduix

@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Stack: Add reverse directions and improve semantic composition.
+Stack: Finalize responsive directions, semantic composition, and styling overrides.
