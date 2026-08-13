@@ -74,6 +74,7 @@ Utilisez `Editable` au lieu de construire des contrôles personnalisés de lectu
 
 - Utilisez `value` avec le gestionnaire natif `onChange` pour contrôler le texte.
 - Utilisez `name` avec la soumission native du formulaire lorsque la valeur doit seulement être lue depuis `FormData`.
+- La réinitialisation native du formulaire restaure la valeur `defaultValue` d’un champ non contrôlé ; utilisez `form` pour associer la zone de texte à un formulaire situé hors de son sous-arbre DOM.
 - La ref pointe vers le véritable `HTMLTextAreaElement` ; utilisez `asChild` uniquement avec un unique hôte sémantique de zone de texte capable de recevoir les propriétés fusionnées et la ref.
 - Utilisez `autoresize` d’Ark lorsque le champ doit grandir avec son contenu. Ark désactive le redimensionnement manuel tant que cette option est active ; `--moduix-textarea-resize` ne s’applique donc que lorsque `autoresize` vaut `false`.
 - Utilisez `Editable` pour les parcours intégrés de lecture et d’édition avec aperçu du texte, déclencheurs d’édition et contrôles de confirmation ou d’annulation.

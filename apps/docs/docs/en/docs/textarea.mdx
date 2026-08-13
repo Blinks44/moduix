@@ -84,6 +84,8 @@ Use `Editable` instead of composing custom read-only/editing controls around `Te
 
 - Use `value` with native `onChange` for controlled text.
 - Use `name` plus regular form submission when the value only needs to be read from `FormData`.
+- Native form reset restores an uncontrolled `defaultValue`; add `form` to associate the textarea with
+  a form outside its DOM subtree.
 - The ref points to the real `HTMLTextAreaElement`; use `asChild` only with one semantic textarea
   host that can receive the merged props and ref.
 - Use Ark `autoresize` when the field should grow with content. Ark disables manual resizing while

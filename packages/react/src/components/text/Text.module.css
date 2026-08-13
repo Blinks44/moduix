@@ -89,6 +89,8 @@
     }
 
     &[data-line-clamp] {
+      --_text-line-clamp: initial;
+
       display: -webkit-box;
       overflow: hidden;
       white-space: normal;
