@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { Swap, useSwapContext } from '../src';
 
 function ProviderSwapValue() {
@@ -59,16 +59,20 @@ test('preserves Ark lazy mounting and exit unmounting', async () => {
   await waitFor(() => expect(screen.queryByText('Off')).not.toBeInTheDocument());
 });
 
-test('keeps root provider and context composition connected', () => {
+test('keeps root provider, context, refs, and asChild composition connected', () => {
+  const rootProviderRef = createRef<HTMLSpanElement>();
+
   function ProviderSwap() {
     const swap = Swap.useSwap({ swap: true });
 
     return (
-      <Swap.RootProvider value={swap} animation="fade">
-        <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator type="on">
-          <ProviderSwapValue />
-        </Swap.Indicator>
+      <Swap.RootProvider asChild ref={rootProviderRef} value={swap} animation="fade">
+        <button data-testid="provider-root" type="button">
+          <Swap.Indicator type="off">Off</Swap.Indicator>
+          <Swap.Indicator type="on">
+            <ProviderSwapValue />
+          </Swap.Indicator>
+        </button>
       </Swap.RootProvider>
     );
   }
@@ -76,21 +80,27 @@ test('keeps root provider and context composition connected', () => {
   render(<ProviderSwap />);
 
   expect(screen.getByText('Swap: true')).toBeInTheDocument();
+  expect(screen.getByTestId('provider-root')).toHaveAttribute('data-animation', 'fade');
+  expect(screen.getByTestId('provider-root')).toHaveAttribute('data-slot', 'swap-root-provider');
+  expect(rootProviderRef.current).toBe(screen.getByTestId('provider-root'));
 });
 
 test('preserves asChild composition', () => {
+  const rootRef = createRef<HTMLSpanElement>();
+
   render(
-    <Swap asChild animation="rotate" swap>
+    <Swap asChild ref={rootRef} animation="rotate" swap>
       <span data-testid="custom-root">
         <Swap.Indicator type="off">Off</Swap.Indicator>
-        <Swap.Indicator type="on">On</Swap.Indicator>
+        <Swap.Indicator asChild type="on">
+          <output data-testid="custom-indicator">On</output>
+        </Swap.Indicator>
       </span>
     </Swap>,
   );
 
   expect(screen.getByTestId('custom-root')).toHaveAttribute('data-animation', 'rotate');
-  expect(screen.getByText('On').closest('[data-slot="swap-indicator"]')).toHaveAttribute(
-    'data-type',
-    'on',
-  );
+  expect(rootRef.current).toBe(screen.getByTestId('custom-root'));
+  expect(screen.getByTestId('custom-indicator')).toHaveAttribute('data-slot', 'swap-indicator');
+  expect(screen.getByTestId('custom-indicator')).toHaveAttribute('data-type', 'on');
 });

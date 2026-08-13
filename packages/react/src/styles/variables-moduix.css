@@ -2838,6 +2838,11 @@
   --moduix-swap-enter-starting-scale: initial; /* 0.5 */
   --moduix-swap-exit-ending-opacity: initial; /* 0 */
   --moduix-swap-exit-ending-scale: initial; /* 0.5 */
+  --moduix-swap-flip-enter-starting-angle: initial; /* -180deg */
+  --moduix-swap-flip-exit-ending-angle: initial; /* 180deg */
+  --moduix-swap-flip-perspective: initial; /* 24rem */
+  --moduix-swap-rotate-enter-starting-angle: initial; /* -180deg */
+  --moduix-swap-rotate-exit-ending-angle: initial; /* 180deg */
   --moduix-swap-transition: initial; /* var(--moduix-transition-slow) */
 
   /* Tag */

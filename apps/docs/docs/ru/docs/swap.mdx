@@ -41,6 +41,9 @@ Swap / Swap.Root
 | `Swap.RootProvider`  | Использует состояние, созданное с помощью `Swap.useSwap()` вне поддерева. |
 | `Swap.Indicator`     | Отрисовывает одно визуальное состояние `on` или `off` с атрибутами Presence. |
 
+Размещайте оба индикатора как непосредственных потомков корня: так они используют одну ячейку сетки,
+а включённые рецепты анимации не затрагивают вложенный Swap.
+
 ## Композиция
 
 ### Рекомендуемая композиция
@@ -130,5 +133,6 @@ Swap / Swap.Root
 - `Swap.RootProvider` -> `data-slot="swap-root-provider"`
 - `Swap.Indicator` -> `data-slot="swap-indicator"`
 - `animation` предоставляется как `data-animation` на `Swap` и `Swap.RootProvider`.
+- Включённые рецепты анимации нацелены только на непосредственных потомков `Swap.Indicator` этого корня.
 - Ark добавляет `data-scope="swap"` и `data-part="root" | "indicator"`.
 - Ark добавляет `data-state="open" | "closed"` индикаторам; moduix использует эти атрибуты для включённых анимаций.

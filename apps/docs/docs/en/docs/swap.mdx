@@ -41,6 +41,9 @@ Swap / Swap.Root
 | `Swap.RootProvider`  | Uses state created with `Swap.useSwap()` outside the subtree.    |
 | `Swap.Indicator`     | Renders one `on` or `off` visual state with Presence attributes. |
 
+Render both indicators as direct root children so they share the same grid cell and included animation
+recipes cannot reach a nested Swap.
+
 ## Composition
 
 ### Recommended composition
@@ -133,6 +136,7 @@ Create Swap state outside the rendered subtree with `Swap.useSwap()`, then pass 
 - `Swap.RootProvider` -> `data-slot="swap-root-provider"`
 - `Swap.Indicator` -> `data-slot="swap-indicator"`
 - `animation` is exposed as `data-animation` on `Swap` and `Swap.RootProvider`.
+- Included animation recipes target only direct `Swap.Indicator` children of that root.
 - Ark adds `data-scope="swap"` and `data-part="root" | "indicator"`.
 - Ark adds `data-state="open" | "closed"` to indicators; moduix uses those attributes for its
   included animations.

@@ -42,6 +42,9 @@ Swap / Swap.Root
 | `Swap.RootProvider`  | Utilise un état créé avec `Swap.useSwap()` à l’extérieur du sous-arbre.    |
 | `Swap.Indicator`     | Affiche un état visuel `on` ou `off` avec les attributs de Presence.       |
 
+Placez les deux indicateurs comme enfants directs de la racine : ils partagent ainsi la même cellule de
+grille et les animations incluses ne peuvent pas atteindre un Swap imbriqué.
+
 ## Composition
 
 ### Composition recommandée
@@ -136,6 +139,7 @@ de Swap.
 - `Swap.RootProvider` → `data-slot="swap-root-provider"`
 - `Swap.Indicator` → `data-slot="swap-indicator"`
 - `animation` est exposée sous forme de `data-animation` sur `Swap` et `Swap.RootProvider`.
+- Les animations incluses ciblent uniquement les enfants directs `Swap.Indicator` de cette racine.
 - Ark ajoute `data-scope="swap"` et `data-part="root" | "indicator"`.
 - Ark ajoute `data-state="open" | "closed"` aux indicateurs ; moduix utilise ces attributs pour ses animations
   incluses.
