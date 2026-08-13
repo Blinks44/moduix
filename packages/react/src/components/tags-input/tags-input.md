@@ -10,7 +10,9 @@ Upstream docs:
 
 `TagsInput` lets users enter, edit, remove, and submit a list of string tags from one input-like
 control. It is backed by Ark UI `@ark-ui/react/tags-input`; Ark owns the state machine, keyboard
-navigation, focus management, validation hooks, hidden form input, and data attributes.
+navigation, focus management, validation hooks, form-input props, and data attributes. Moduix
+renders the native form input automatically from the Ark state so it remains available for every
+public root composition.
 
 ## Upstream model to preserve
 

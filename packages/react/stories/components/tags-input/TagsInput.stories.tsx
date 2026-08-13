@@ -142,6 +142,29 @@ export const WithFieldValidation: Story = {
   ),
 };
 
+export const DisabledAndReadOnly: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <TagsInput disabled defaultValue={initialTags}>
+        <TagsInput.Label>Disabled frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInput.Items />
+          <TagsInput.Input placeholder="Add framework" />
+          <TagsInput.ClearTrigger aria-label="Clear disabled frameworks" />
+        </TagsInput.Control>
+      </TagsInput>
+      <TagsInput readOnly defaultValue={initialTags}>
+        <TagsInput.Label>Read-only frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInput.Items />
+          <TagsInput.Input placeholder="Add framework" />
+          <TagsInput.ClearTrigger aria-label="Clear read-only frameworks" />
+        </TagsInput.Control>
+      </TagsInput>
+    </div>
+  ),
+};
+
 export const ClearButtonBelow: Story = {
   render: () => (
     <div className={storyStyles.stack}>
