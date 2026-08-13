@@ -1,9 +1,10 @@
 # Skeleton
 
-Upstream docs:
+Upstream docs (reviewed 2026-08-13):
 
 - Ark UI: no dedicated Skeleton primitive exists; use https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/skeleton
+- shadcn/ui: https://ui.shadcn.com/docs/components/skeleton
 
 ## Purpose
 
@@ -25,7 +26,7 @@ revealed with `loading={false}`, and `variant` supports `pulse` and `none`.
 - The root is an `ark.div` by default and forwards refs to that element.
 - `asChild` is supported by the Ark factory path. The child must be a single semantic element.
 - `loading` defaults to `true`. Loading roots get `aria-hidden`, `data-state="loading"`, and
-  `data-loading`.
+  `data-loading` unless the consumer explicitly provides `aria-hidden`.
 - `loading={false}` sets `data-state="loaded"` and lets children use their natural height unless
   `height`, `boxSize`, or `style.height` is set.
 - `variant` defaults to `pulse` and accepts `pulse` and `none`.
@@ -89,8 +90,12 @@ export function LoadedProfile() {
 - Ark ref guide: covered by forwarding refs to the root factory element.
 - Chakra loading model: covered by `loading={true|false}`.
 - Chakra variants: covered by `pulse` and `none`.
+- Chakra's `shine` variant is rejected complexity: it needs a second animation surface but does not
+  improve the primary placeholder composition.
 - Chakra companion `SkeletonCircle` / `SkeletonText`: intentionally not exported as separate
   components; use `boxSize`, `borderRadius`, and surrounding layout instead.
+- shadcn's single-block placeholder supports the same discoverable basic path; moduix keeps Ark
+  factory composition and public styling hooks instead of copying its implementation.
 
 ## Accessibility and state
 

@@ -24,6 +24,18 @@ test('owns stable loading hooks even when passthrough props provide conflicting 
   expect(skeleton).toHaveAttribute('data-variant', 'pulse');
 });
 
+test('preserves an explicit accessibility override and the static variant', () => {
+  const { getByTestId } = render(
+    <Skeleton aria-hidden={false} data-testid="skeleton" variant="none" />,
+  );
+  const skeleton = getByTestId('skeleton');
+
+  expect(skeleton).toHaveAttribute('aria-hidden', 'false');
+  expect(skeleton).toHaveAttribute('data-state', 'loading');
+  expect(skeleton).toHaveAttribute('data-loading');
+  expect(skeleton).toHaveAttribute('data-variant', 'none');
+});
+
 test('reveals content and preserves the custom host when loading finishes', () => {
   const ref = createRef<HTMLDivElement>();
   const { getByRole } = render(
@@ -48,5 +60,23 @@ test('converts numeric dimensions to CSS pixels', () => {
     borderRadius: '8px',
     height: '48px',
     width: '48px',
+  });
+});
+
+test('lets style override generated dimensions', () => {
+  const { getByTestId } = render(
+    <Skeleton
+      data-testid="skeleton"
+      boxSize={48}
+      borderRadius={8}
+      style={{ width: '20px', height: '30px', borderRadius: '12px' }}
+    />,
+  );
+  const skeleton = getByTestId('skeleton');
+
+  expect(skeleton).toHaveStyle({
+    borderRadius: '12px',
+    height: '30px',
+    width: '20px',
   });
 });

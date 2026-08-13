@@ -12,7 +12,9 @@ export default function LoadedSkeletonDemo() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div
+    <section
+      aria-label="Profile"
+      aria-busy={loading}
       style={{
         display: 'grid',
         width: '100%',
@@ -48,6 +50,6 @@ export default function LoadedSkeletonDemo() {
           {loading ? 'Show profile' : 'Show skeleton'}
         </Button>
       </PreviewMeta>
-    </div>
+    </section>
   );
 }
