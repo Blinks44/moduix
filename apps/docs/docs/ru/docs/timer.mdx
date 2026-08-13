@@ -16,6 +16,10 @@ import * as TimerDocs from '@/components/examples/timer';
 часы, минуты и секунды; для другого набора передайте `types`. Если нужны подписи единиц, собственные разделители
 или стилизация отдельных элементов, используйте явные части в стиле Ark.
 
+`Timer.Segments` также принимает атрибуты `Timer.Area`, например `className`, `id` и ARIA-атрибуты, и передаёт ref.
+Он сам создаёт дочерние элементы, поэтому при необходимости `asChild` или собственных дочерних элементов используйте
+`Timer.Area`.
+
 <style>{TimerDocs.timerExampleCss}</style>
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
@@ -98,8 +102,10 @@ Timer.Segments
 поведению кнопки. Ark скрывает зависящие от состояния действия start, pause, resume и reset, когда они недоступны;
 при отрисовке `restart` остаётся доступным. Таймер не использует roving focus или составную клавиатурную навигацию.
 
-Все экспортируемые части поддерживают `asChild` через полиморфную композицию Ark. Сохраняйте семантику заменяющих
-дочерних элементов, особенно для `Timer.ActionTrigger`.
+Обернутые части Ark — `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`, `Timer.Separator`,
+`Timer.Control` и `Timer.ActionTrigger` — поддерживают `asChild` через полиморфную композицию Ark. Сохраняйте
+семантику заменяющих дочерних элементов, особенно для `Timer.ActionTrigger`. `Timer.Segments` намеренно не
+поддерживает `asChild`, поскольку сам создаёт область и дочерние элементы.
 
 `Timer.Item` сохраняет `data-scope="timer"`, `data-part="item"`, `data-type` и `--value` от Ark.
 `Timer.Segments` ограничен стандартными элементами и разделителями; подписи единиц остаются явной композицией

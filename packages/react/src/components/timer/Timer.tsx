@@ -105,8 +105,10 @@ const TimerActionTrigger = forwardRef<
   );
 });
 
-type TimerSegmentsProps = {
-  className?: string;
+type TimerSegmentsProps = Omit<
+  ComponentProps<typeof TimerPrimitive.Area>,
+  'asChild' | 'children'
+> & {
   separator?: ReactNode;
   types?: ComponentProps<typeof TimerPrimitive.Item>['type'][];
 };
@@ -115,22 +117,23 @@ const defaultTimerSegmentTypes = ['hours', 'minutes', 'seconds'] satisfies Compo
   typeof TimerPrimitive.Item
 >['type'][];
 
-function TimerSegments({
-  className,
-  separator = ':',
-  types = defaultTimerSegmentTypes,
-}: TimerSegmentsProps) {
-  return (
-    <TimerArea className={className}>
-      {types.map((type, index) => (
-        <Fragment key={`${type}-${index}`}>
-          <TimerItem type={type} />
-          {index < types.length - 1 && <TimerSeparator>{separator}</TimerSeparator>}
-        </Fragment>
-      ))}
-    </TimerArea>
-  );
-}
+const TimerSegments = forwardRef<ComponentRef<typeof TimerPrimitive.Area>, TimerSegmentsProps>(
+  function TimerSegments(
+    { separator = ':', types = defaultTimerSegmentTypes, ...props }: TimerSegmentsProps,
+    ref,
+  ) {
+    return (
+      <TimerArea ref={ref} {...props}>
+        {types.map((type, index) => (
+          <Fragment key={`${type}-${index}`}>
+            <TimerItem type={type} />
+            {index < types.length - 1 && <TimerSeparator>{separator}</TimerSeparator>}
+          </Fragment>
+        ))}
+      </TimerArea>
+    );
+  },
+);
 
 const Timer = Object.assign(TimerRoot, {
   Root: TimerRoot,

@@ -17,6 +17,10 @@ Il affiche par défaut les heures, les minutes et les secondes ; transmettez `ty
 Si vous avez besoin de libellés d’unité, de séparateurs personnalisés ou de styles propres à chaque élément, utilisez
 les parties explicites dans le style d’Ark.
 
+`Timer.Segments` accepte aussi les attributs de `Timer.Area`, comme `className`, `id` et les attributs ARIA, et
+transmet sa ref. Il crée lui-même les enfants ; utilisez donc `Timer.Area` lorsque `asChild` ou des enfants
+personnalisés sont nécessaires.
+
 <style>{TimerDocs.timerExampleCss}</style>
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
@@ -40,10 +44,10 @@ Timer.Root
    └─ Timer.ActionTrigger
 
 Timer.RootProvider
-└─ same part tree connected to Ark useTimer()
+└─ même arbre de parties connecté à Ark useTimer()
 
 Timer.Segments
-└─ Timer.Area with Timer.Item and Timer.Separator parts
+└─ Timer.Area avec les parties Timer.Item et Timer.Separator
 ```
 
 | Partie | Rôle |
@@ -99,8 +103,11 @@ bouton. Ark masque les actions dépendantes de l’état `start`, `pause`, `resu
 disponibles ; `restart` reste disponible lorsqu’il est rendu. Le minuteur n’utilise ni roving focus ni navigation
 composite au clavier.
 
-Toutes les parties exportées prennent en charge `asChild` via la composition polymorphe d’Ark. Préservez la
-sémantique des enfants de remplacement, en particulier pour `Timer.ActionTrigger`.
+Les parties Ark enveloppées — `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger` — prennent en charge `asChild` via la composition
+polymorphe d’Ark. Préservez la sémantique des enfants de remplacement, en particulier pour
+`Timer.ActionTrigger`. `Timer.Segments` ne prend intentionnellement pas en charge `asChild`, car il crée lui-même
+la zone et les enfants.
 
 `Timer.Item` conserve `data-scope="timer"`, `data-part="item"`, `data-type` et `--value` d’Ark.
 `Timer.Segments` est limité aux éléments et séparateurs standard ; les libellés d’unité restent une composition

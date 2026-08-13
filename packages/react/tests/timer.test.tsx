@@ -27,6 +27,31 @@ test('renders the short root form with default segments, stable hooks, and a for
   expect(container.querySelector('[data-type="seconds"]')).toBeInTheDocument();
 });
 
+test('forwards area props and refs through custom segments', () => {
+  const ref = createRef<HTMLDivElement>();
+
+  const { container } = render(
+    <Timer targetMs={60_000}>
+      <Timer.Segments
+        ref={ref}
+        aria-label="Remaining time"
+        data-testid="custom-segments"
+        separator="·"
+        types={['minutes', 'seconds']}
+      />
+    </Timer>,
+  );
+
+  const area = screen.getByTestId('custom-segments');
+
+  expect(ref.current).toBe(area);
+  expect(area).toHaveAttribute('aria-label', 'Remaining time');
+  expect(container.querySelectorAll('[data-slot="timer-item"]')).toHaveLength(2);
+  expect(container.querySelectorAll('[data-slot="timer-separator"]')).toHaveLength(1);
+  expect(container.querySelector('[data-type="hours"]')).not.toBeInTheDocument();
+  expect(area).toHaveTextContent('·');
+});
+
 test('preserves Ark action visibility and native keyboard semantics', async () => {
   render(
     <Timer targetMs={60_000}>

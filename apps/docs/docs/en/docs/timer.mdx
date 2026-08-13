@@ -16,6 +16,10 @@ import * as TimerDocs from '@/components/examples/timer';
 hours, minutes, and seconds; pass `types` for another set. Use the explicit Ark-style parts when
 unit labels, custom separators, or per-item styling are needed.
 
+`Timer.Segments` also accepts `Timer.Area` attributes such as `className`, `id`, and ARIA attributes,
+and forwards its ref. It owns the generated children, so use `Timer.Area` instead when `asChild` or
+custom children are required.
+
 <style>{TimerDocs.timerExampleCss}</style>
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
@@ -98,8 +102,11 @@ behavior. Ark hides state-dependent start, pause, resume, and reset actions when
 available; `restart` remains available when rendered. Timer does not use roving focus or composite
 keyboard navigation.
 
-All exported parts support `asChild` through Ark polymorphic composition. Keep replacement
-children semantic, especially for `Timer.ActionTrigger`.
+The wrapped Ark parts—`Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`—support `asChild` through Ark
+polymorphic composition. Keep replacement children semantic, especially for `Timer.ActionTrigger`.
+`Timer.Segments` intentionally does not support `asChild` because it owns the generated area and
+children.
 
 `Timer.Item` preserves Ark `data-scope="timer"`, `data-part="item"`, `data-type`, and `--value`.
 `Timer.Segments` is limited to standard items and separators; unit labels remain explicit

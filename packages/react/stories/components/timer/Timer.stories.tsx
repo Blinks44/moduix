@@ -165,7 +165,7 @@ export const CustomStyling: Story = {
   render: () => {
     return (
       <Timer.Root className={styles.customTimer} targetMs={15 * 60 * 1000}>
-        <ShortTimerValue />
+        <Timer.Segments separator="·" types={['minutes', 'seconds']} />
         <TimerControls />
       </Timer.Root>
     );
