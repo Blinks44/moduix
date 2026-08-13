@@ -1,13 +1,24 @@
 # Select
 
-Upstream docs:
+## Upstream reference
+
+Checked 2026-08-13:
 
 - Ark UI: https://ark-ui.com/docs/components/select
 - Chakra UI: https://chakra-ui.com/docs/components/select
+- shadcn/ui: https://ui.shadcn.com/docs/components/select
 
 ## Purpose
 
 `Select` lets users choose one or more known values from a non-searchable popup list.
+
+## Comparison decisions
+
+| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                         |
+| --------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                   |
+| Chakra UI | Its explicit tree separates an `IndicatorGroup` and supports recipe variants.                            | **Intentional difference:** `Select.Field` is the concise default; explicit `Control`, `Trigger`, and visual parts remain available. Do not add a parallel variant API. |
+| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                             |
 
 ## Upstream model to preserve
 

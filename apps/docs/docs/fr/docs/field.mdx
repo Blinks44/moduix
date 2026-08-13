@@ -226,6 +226,6 @@ les hooks moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-
 ### Points d’accroche CSS
 
 Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties correspondantes.
-`Field.ErrorText` est rendu uniquement lorsque le contexte du champ courant est invalide. Les identifiants du texte d’aide
-et du texte d’erreur sont inclus dans l’attribut `aria-describedby` du contrôle lorsque ces parties sont présentes. Chaque partie DOM
-conserve également le hook stable `data-slot="field-*"`.
+`Field.ErrorText` est rendu uniquement lorsque le contexte du champ courant est invalide. L’identifiant du texte d’aide
+est inclus dans `aria-describedby` du contrôle, et celui du texte d’erreur actif dans `aria-errormessage`.
+Chaque partie DOM conserve également le hook stable `data-slot="field-*"`.

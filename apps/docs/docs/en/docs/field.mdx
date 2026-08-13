@@ -229,6 +229,6 @@ moduix `data-slot="field-*"` hooks, and the public `--moduix-field-*` CSS variab
 ### Styling hooks
 
 Ark adds `data-disabled`, `data-invalid`, `data-readonly`, and `data-required` to the relevant
-parts. `Field.ErrorText` is only rendered while the current field context is invalid, and helper or
-error text ids are included in the control's `aria-describedby` when present. Every DOM part also
-keeps a stable `data-slot="field-*"` hook.
+parts. `Field.ErrorText` is only rendered while the current field context is invalid. Helper text is
+included in the control's `aria-describedby`, and active error text is included in
+`aria-errormessage`. Every DOM part also keeps a stable `data-slot="field-*"` hook.

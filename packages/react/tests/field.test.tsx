@@ -20,7 +20,7 @@ test('wires labels, descriptions, errors, and field state to a native control', 
   expect(input).toBeDisabled();
   expect(input).toHaveAttribute('aria-invalid', 'true');
   expect(input.getAttribute('aria-describedby')).toContain(helperText.id);
-  expect(input.getAttribute('aria-describedby')).toContain(errorText.id);
+  expect(input).toHaveAttribute('aria-errormessage', errorText.id);
   expect(input).toBeRequired();
   expect(input).toHaveAttribute('readonly');
   expect(screen.getByText('Email')).toHaveAttribute('for', input.id);

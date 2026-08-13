@@ -96,10 +96,10 @@ Moduix does not implement legacy `validate`, `validationMode`, `match`, `dirty`,
 
 ## Accessibility and state
 
-Ark owns ids and ARIA links. `Field.Label` points to the current control id, helper and error text
-ids are included in `aria-describedby` when present, `Field.ErrorText` renders only when the field is
-invalid, and state is exposed through `data-disabled`, `data-invalid`, `data-readonly`, and
-`data-required`.
+Ark owns ids and ARIA links. `Field.Label` points to the current control id, helper text is included
+in `aria-describedby`, and active error text is included in `aria-errormessage`. `Field.ErrorText`
+renders only when the field is invalid, and state is exposed through `data-disabled`, `data-invalid`,
+`data-readonly`, and `data-required`.
 
 Forwarded refs target the rendered DOM part. `Field.Root` and `Field.RootProvider` forward to the
 root `div`; control parts forward to their native control elements; `Field.Item` forwards to its

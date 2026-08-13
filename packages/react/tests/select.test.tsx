@@ -2,7 +2,7 @@ import { createListCollection } from '@ark-ui/react/collection';
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Select, useSelect, useSelectContext } from '../src';
+import { Field, Select, useSelect, useSelectContext } from '../src';
 
 const fruits = createListCollection({
   items: [
@@ -103,6 +103,25 @@ test('portals popup content by default and forwards root and field refs', () => 
   expect(fieldRef.current).toHaveAttribute('data-slot', 'select-control');
   expect(container.contains(listbox)).toBe(false);
   expect(document.body).toContainElement(listbox);
+});
+
+test('inherits Field state in the trigger and automatic native form control', () => {
+  const { container } = render(
+    <Field.Root disabled invalid required>
+      <FruitSelect defaultValue={['apple']} />
+    </Field.Root>,
+  );
+
+  const trigger = screen.getByRole('combobox', { name: 'Fruit' });
+  const control = container.querySelector('[data-slot="select-control"]');
+  const nativeSelect = container.querySelector('[data-slot="select-hidden-select"]');
+
+  expect(trigger).toBeDisabled();
+  expect(trigger).toHaveAttribute('aria-invalid', 'true');
+  expect(control).toHaveAttribute('data-disabled');
+  expect(control).toHaveAttribute('data-invalid');
+  expect(nativeSelect).toBeDisabled();
+  expect(nativeSelect).toBeRequired();
 });
 
 test('keeps virtualized form controls connected to reset and fieldset state', async () => {
