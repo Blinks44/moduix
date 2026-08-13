@@ -31,6 +31,8 @@ There is no Ark state machine, provider, context hook, controlled state, hidden 
 - `decorative` defaults to `false`.
 - Non-decorative spinners render `role="status"` and default to `aria-label="Loading"` unless `aria-label` or `aria-labelledby` is provided.
 - Decorative default spinners render `role="presentation"` and `aria-hidden="true"`.
+- With `asChild`, `decorative` removes Spinner's status and labelling props but leaves the custom child's
+  semantics untouched; Spinner never sets `aria-hidden` on that child.
 - `Spinner` owns its status semantics and `data-scope`, `data-part`, `data-slot`, and `data-size` styling hooks; native props cannot override them.
 - Custom `children` replace the default ring while keeping the built-in indicator wrapper.
 - `asChild` makes the single child the root; that child must be non-interactive and render its own
@@ -110,7 +112,7 @@ Keep the custom host non-interactive. `asChild` is for a visual host, not for a 
 
 ## Accessibility and state
 
-The default non-decorative path announces a loading status. Prefer `decorative` when adjacent visible text already communicates the pending state. Use `aria-labelledby` when a visible label elsewhere should name the status. Decorative default roots are hidden from assistive technology; with `asChild`, keep the custom visual host non-interactive.
+The default non-decorative path announces a loading status. Prefer `decorative` when adjacent visible text already communicates the pending state. Use `aria-labelledby` when a visible label elsewhere should name the status. Decorative default roots are hidden from assistive technology. With `asChild`, `decorative` preserves the child semantics instead of setting `aria-hidden`; keep that custom visual host non-interactive.
 
 `Spinner` is non-interactive, so it does not manage focus, keyboard input, disabled state, invalid state, read-only state, or field context.
 

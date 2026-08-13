@@ -70,7 +70,7 @@ L’enfant de `asChild` ne doit pas être interactif. Il sert d’hôte visuel a
 | Propriété     | Par défaut  | Remarques                                                                                      |
 | ------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | `size`        | `'md'`      | Accepte `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. `inherit` utilise `1em`.       |
-| `decorative`  | `false`     | Retire la racine par défaut de l’arbre d’accessibilité.                                        |
+| `decorative`  | `false`     | Masque la racine par défaut aux technologies d’assistance ; avec `asChild`, conserve la sémantique de l’enfant. |
 | `asChild`     | `false`     | Fusionne les propriétés de la racine avec l’unique élément enfant.                             |
 | `aria-label`  | `'Loading'` | Appliqué par défaut lorsque le spinner n’est pas décoratif.                                    |
 
@@ -79,7 +79,8 @@ L’enfant de `asChild` ne doit pas être interactif. Il sert d’hôte visuel a
 - La racine par défaut est un `span` avec `data-scope="spinner"`, `data-part="root"`, `data-slot="spinner-root"` et `data-size`.
 - `Spinner.Root` est un alias de compatibilité de `Spinner` ; utilisez `Spinner` dans le nouveau code.
 - Les spinners non décoratifs sont affichés avec `role="status"`.
-- `decorative={true}` retire la racine par défaut de l’arbre d’accessibilité.
+- `decorative={true}` masque la racine par défaut aux technologies d’assistance. Avec `asChild`, il
+  retire plutôt le statut et les propriétés de libellé de Spinner tout en préservant la sémantique de l’enfant.
 - `Spinner` possède cette sémantique et ses hooks `data-scope`, `data-part`, `data-slot` et `data-size` ; les propriétés
   natives ne peuvent donc pas les remplacer.
 - L’enveloppe rotative utilise `data-scope="spinner"`, `data-part="indicator"` et `data-slot="spinner-indicator"`.

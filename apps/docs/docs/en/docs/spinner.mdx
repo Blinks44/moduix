@@ -71,7 +71,7 @@ Keep the `asChild` child non-interactive. It is a visual host for the spinner, n
 | Prop         | Default     | Notes                                                    |
 | ------------ | ----------- | -------------------------------------------------------- |
 | `size`       | `'md'`      | Accepts `'inherit' \| 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`. `inherit` uses `1em`. |
-| `decorative` | `false`     | Removes the default root from the accessibility tree.    |
+| `decorative` | `false`     | Hides the default root from assistive technology; with `asChild`, preserves the child's semantics. |
 | `asChild`    | `false`     | Merges root props into the single child element.         |
 | `aria-label` | `'Loading'` | Applied by default when the spinner is not decorative.   |
 
@@ -81,7 +81,8 @@ Keep the `asChild` child non-interactive. It is a visual host for the spinner, n
   `data-slot="spinner-root"`, and `data-size`.
 - `Spinner.Root` is a compatibility alias for `Spinner`; use `Spinner` in new code.
 - Non-decorative spinners render with `role="status"`.
-- `decorative={true}` removes the default root from the accessibility tree.
+- `decorative={true}` hides the default root from assistive technology. With `asChild`, it instead
+  removes Spinner's status and labelling props while preserving the child semantics.
 - `Spinner` owns these semantics and its `data-scope`, `data-part`, `data-slot`, and `data-size`
   hooks, so native props cannot override them.
 - The rotating wrapper is `data-scope="spinner"`, `data-part="indicator"`, and
