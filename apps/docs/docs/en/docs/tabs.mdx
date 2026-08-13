@@ -95,6 +95,7 @@ tree. Do not render `Tabs` around the same state instance. Use `Tabs.Context` or
 - `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
 - `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
 - `Tabs.List` no longer auto-renders an indicator. Render `Tabs.Indicator` explicitly when needed.
+- `variant="line"` falls back to the filled `default` treatment for vertical `Tabs` and `Tabs.RootProvider`.
 - Ark controls accessibility attributes, tabpanel relationships, roving focus, and disabled trigger behavior.
 
 ## Examples

@@ -230,6 +230,18 @@ export const RootProvider: Story = {
   },
 };
 
+export const RootProviderVertical: Story = {
+  render: () => {
+    const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
+
+    return (
+      <Tabs.RootProvider value={tabs} variant="line" className={styles.demoRoot}>
+        <TabsStoryContent />
+      </Tabs.RootProvider>
+    );
+  },
+};
+
 export const CustomStyling: Story = {
   render: () => {
     return (

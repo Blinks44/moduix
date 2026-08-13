@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Tabs, useTabs, useTabsContext } from '../src';
 
 const items = [
@@ -32,11 +33,17 @@ function TabParts({ disabled = false }: { disabled?: boolean }) {
   );
 }
 
-function ProviderTabs() {
-  const tabs = useTabs({ defaultValue: 'overview' });
+function ProviderTabs({
+  orientation = 'horizontal',
+  variant = 'default',
+}: {
+  orientation?: 'horizontal' | 'vertical';
+  variant?: 'default' | 'line';
+}) {
+  const tabs = useTabs({ defaultValue: 'overview', orientation });
 
   return (
-    <Tabs.RootProvider value={tabs}>
+    <Tabs.RootProvider value={tabs} variant={variant}>
       <TabParts />
       <ContextOutput />
     </Tabs.RootProvider>
@@ -85,6 +92,33 @@ test('uses vertical keyboard navigation and mounts inactive content lazily', asy
   await waitFor(() => expect(screen.getByText('Projects content')).toBeVisible());
 });
 
+test('keeps manual activation focused until Enter selects the tab', async () => {
+  const changes: string[] = [];
+  const user = userEvent.setup();
+  render(
+    <Tabs
+      defaultValue="overview"
+      activationMode="manual"
+      onValueChange={(details) => changes.push(details.value ?? '')}
+    >
+      <TabParts />
+    </Tabs>,
+  );
+
+  const overview = screen.getByRole('tab', { name: 'Overview' });
+  const projects = screen.getByRole('tab', { name: 'Projects' });
+
+  overview.focus();
+  await user.keyboard('{ArrowRight}');
+  await waitFor(() => expect(projects).toHaveFocus());
+  expect(overview).toHaveAttribute('aria-selected', 'true');
+  expect(changes).toEqual([]);
+
+  await user.keyboard('{Enter}');
+  await waitFor(() => expect(projects).toHaveAttribute('aria-selected', 'true'));
+  expect(changes).toEqual(['projects']);
+});
+
 test('preserves asChild and provider context composition', async () => {
   const { rerender } = render(
     <Tabs defaultValue="overview">
@@ -107,4 +141,13 @@ test('preserves asChild and provider context composition', async () => {
   await waitFor(() =>
     expect(screen.getByTestId('tabs-context-value')).toHaveTextContent('projects'),
   );
+
+  rerender(<ProviderTabs orientation="vertical" variant="line" />);
+  const provider = screen
+    .getByRole('tab', { name: 'Overview' })
+    .closest('[data-slot="tabs-root-provider"]');
+
+  expect(provider).toHaveAttribute('data-slot', 'tabs-root-provider');
+  expect(provider).toHaveAttribute('data-orientation', 'vertical');
+  expect(provider).toHaveAttribute('data-variant', 'default');
 });
