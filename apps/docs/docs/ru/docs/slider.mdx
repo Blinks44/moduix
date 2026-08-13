@@ -372,7 +372,10 @@ Ark записывает `data-scope="slider"` и `data-part` во все отр
 `--slider-thumb-transform`, `--slider-range-start`, `--slider-range-end`, `--translate-x` и `--translate-y`.
 
 moduix добавляет `data-readonly` к `Slider`, когда задано свойство `readOnly`. В состоянии ошибки по умолчанию
-используется деструктивный цвет для направляющей, выбранного диапазона и ползунка.
+используется деструктивный цвет для направляющей, выбранного диапазона, ползунка и активных отметок.
+Их можно переопределить по отдельности через `--moduix-slider-track-border-color-invalid`,
+`--moduix-slider-range-bg-invalid`, `--moduix-slider-thumb-border-color-invalid`,
+`--moduix-slider-thumb-focus-ring-color-invalid` и `--moduix-slider-marker-dot-bg-active-invalid`.
 
 Стандартное кольцо фокуса ползунка использует `:focus-visible` для фокуса с клавиатуры и Ark `data-dragging`,
 пока ползунок нажат. После отпускания указателя оно убирается.

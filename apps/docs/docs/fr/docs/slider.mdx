@@ -370,7 +370,10 @@ variables CSS d’exécution d’Ark sont `--slider-thumb-width`, `--slider-thum
 `--slider-range-start`, `--slider-range-end`, `--translate-x` et `--translate-y`.
 
 moduix ajoute `data-readonly` à `Slider` lorsque la propriété `readOnly` est définie. Dans l’état d’erreur, la piste,
-la plage sélectionnée et le curseur utilisent par défaut la couleur destructive.
+la plage sélectionnée, le curseur et les repères actifs utilisent par défaut la couleur destructive. Vous pouvez les
+redéfinir séparément avec `--moduix-slider-track-border-color-invalid`, `--moduix-slider-range-bg-invalid`,
+`--moduix-slider-thumb-border-color-invalid`, `--moduix-slider-thumb-focus-ring-color-invalid` et
+`--moduix-slider-marker-dot-bg-active-invalid`.
 
 L’anneau de focus par défaut du curseur utilise `:focus-visible` pour le focus clavier et `data-dragging` d’Ark tant
 que le curseur est maintenu. Il disparaît après le relâchement du pointeur.

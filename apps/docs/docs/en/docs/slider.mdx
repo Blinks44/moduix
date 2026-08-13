@@ -373,7 +373,11 @@ Important Ark state hooks include `data-orientation`, `data-disabled`, `data-inv
 `--slider-range-end`, `--translate-x`, and `--translate-y`.
 
 moduix adds `data-readonly` to `Slider` when its `readOnly` prop is set. The default invalid state
-uses the destructive color for the rail, selected range, and thumb.
+uses the destructive color for the rail, selected range, thumb, and active markers. Override these
+independently with `--moduix-slider-track-border-color-invalid`,
+`--moduix-slider-range-bg-invalid`, `--moduix-slider-thumb-border-color-invalid`,
+`--moduix-slider-thumb-focus-ring-color-invalid`, and
+`--moduix-slider-marker-dot-bg-active-invalid`.
 
 The default thumb focus ring uses `:focus-visible` for keyboard focus and Ark `data-dragging` while
 the thumb is pressed. It is removed after pointer release.

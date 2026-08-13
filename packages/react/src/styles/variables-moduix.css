@@ -2634,22 +2634,27 @@
   --moduix-slider-marker-color: initial; /* var(--moduix-color-muted-foreground) */
   --moduix-slider-marker-dot-bg: initial; /* var(--moduix-color-border) */
   --moduix-slider-marker-dot-bg-active: initial; /* var(--moduix-slider-range-bg) */
+  --moduix-slider-marker-dot-bg-active-invalid: initial; /* var(--moduix-slider-range-bg-invalid) */
   --moduix-slider-marker-dot-size: initial; /* var(--moduix-spacing-1) */
   --moduix-slider-marker-font-size: initial; /* var(--moduix-text-xs) */
   --moduix-slider-marker-group-margin-inline-start: initial; /* var(--moduix-spacing-2) */
   --moduix-slider-marker-group-margin-top: initial; /* var(--moduix-spacing-2) */
   --moduix-slider-marker-line-height: initial; /* var(--moduix-line-height-text-xs) */
   --moduix-slider-range-bg: initial; /* var(--moduix-color-primary) */
+  --moduix-slider-range-bg-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-slider-range-radius: initial; /* inherit */
   --moduix-slider-thumb-bg: initial; /* var(--moduix-color-background) */
   --moduix-slider-thumb-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-slider-thumb-border-color-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-slider-thumb-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-slider-thumb-radius: initial; /* var(--moduix-radius-full) */
+  --moduix-slider-thumb-focus-ring-color-invalid: initial; /* var(--moduix-slider-thumb-border-color-invalid) */
   --moduix-slider-thumb-shadow: initial; /* var(--moduix-shadow-sm) */
   --moduix-slider-thumb-shadow-dragging: initial; /* var(--moduix-shadow-md) */
   --moduix-slider-thumb-size: initial; /* var(--moduix-spacing-4) */
   --moduix-slider-track-bg: initial; /* var(--moduix-color-muted) */
   --moduix-slider-track-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-slider-track-border-color-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-slider-track-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-slider-track-radius: initial; /* var(--moduix-radius-full) */
   --moduix-slider-track-size: initial; /* var(--moduix-spacing-1-5) */

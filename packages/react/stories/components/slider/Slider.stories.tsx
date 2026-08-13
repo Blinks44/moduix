@@ -225,6 +225,13 @@ export const Invalid: Story = {
           </Slider.Track>
           <Slider.Thumbs />
         </Slider.Control>
+        <Slider.MarkerGroup>
+          {[0, 50, 100].map((value) => (
+            <Slider.Marker key={value} value={value}>
+              {value}
+            </Slider.Marker>
+          ))}
+        </Slider.MarkerGroup>
       </Slider>
     );
   },
@@ -294,6 +301,29 @@ export const RootProvider: Story = {
           </Slider.Control>
         </Slider.RootProvider>
       </div>
+    );
+  },
+};
+
+export const AsChild: Story = {
+  render: () => {
+    return (
+      <Slider asChild defaultValue={[40]}>
+        <section>
+          <div className={styles.header}>
+            <Slider.Label>Volume</Slider.Label>
+            <Slider.ValueText />
+          </div>
+          <Slider.Control>
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb asChild index={0} aria-label="Volume">
+              <span />
+            </Slider.Thumb>
+          </Slider.Control>
+        </section>
+      </Slider>
     );
   },
 };

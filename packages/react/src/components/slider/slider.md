@@ -129,6 +129,10 @@ export function VolumeSlider() {
   disabled, invalid, and read-only visuals.
 - Every rendered wrapper accepts `className` and preserves Ark `data-scope` / `data-part`.
 - Public `--moduix-slider-*` variables are documented in the docs CSS properties table.
+- Invalid rail, range, thumb, focus ring, and active marker colors have independent public overrides:
+  `--moduix-slider-track-border-color-invalid`, `--moduix-slider-range-bg-invalid`,
+  `--moduix-slider-thumb-border-color-invalid`, `--moduix-slider-thumb-focus-ring-color-invalid`,
+  and `--moduix-slider-marker-dot-bg-active-invalid`.
 - Focus styling uses Ark thumb `:focus-visible` for keyboard navigation and `data-dragging` while
   the thumb is pressed; marker styling uses Ark marker `data-state`.
 - Do not position `Thumb` manually. Ark owns thumb transform and range measurement.
@@ -157,6 +161,9 @@ export function VolumeSlider() {
 - Keep docs previews synchronized with `Code`, `CSS`, and `Data` tabs.
 
 ## Local changelog
+
+- 2026-08-13: Added independent invalid-state CSS variables, including active markers, and covered
+  form reset plus `asChild` ref composition.
 
 - 2026-07-30: Added responsive vertical-marker layout, invalid and read-only default states, native
   form coverage, and centered self-contained docs previews.

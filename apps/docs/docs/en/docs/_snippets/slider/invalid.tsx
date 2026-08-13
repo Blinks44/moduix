@@ -20,6 +20,13 @@ export default function InvalidSliderDemo() {
         </Slider.Track>
         <Slider.Thumbs />
       </Slider.Control>
+      <Slider.MarkerGroup>
+        {[0, 50, 100].map((value) => (
+          <Slider.Marker key={value} value={value}>
+            {value}
+          </Slider.Marker>
+        ))}
+      </Slider.MarkerGroup>
     </Slider>
   );
 }

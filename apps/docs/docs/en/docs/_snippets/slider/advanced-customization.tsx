@@ -18,7 +18,9 @@ export default function AdvancedCustomizationSliderDemo() {
         <Slider.Track>
           <Slider.Range />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Volume"></Slider.Thumb>
+        <Slider.Thumb asChild index={0} aria-label="Volume">
+          <span />
+        </Slider.Thumb>
       </Slider.Control>
     </Slider>
   );
