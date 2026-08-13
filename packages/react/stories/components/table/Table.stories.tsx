@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Badge } from '@/components/badge';
+import { Button } from '@/components/button';
 import { Card } from '@/components/card';
 import { Table } from '@/components/table/Table';
 import styles from './Table.stories.module.css';
@@ -121,6 +122,42 @@ export const StripedRows: Story = {
                 <Table.Cell>{project.owner}</Table.Cell>
                 <Table.Cell>{project.updated}</Table.Cell>
                 <Table.Cell numeric>{index + 1}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Table.ScrollArea>
+    </div>
+  ),
+};
+
+export const InteractiveRows: Story = {
+  render: () => (
+    <div className={styles.showcase}>
+      <Table.ScrollArea>
+        <Table interactive className={styles.table}>
+          <Table.Caption side="top">
+            Focus a row action to keep its row context visible for keyboard users.
+          </Table.Caption>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Project</Table.ColumnHeader>
+              <Table.ColumnHeader>Owner</Table.ColumnHeader>
+              <Table.ColumnHeader>Updated</Table.ColumnHeader>
+              <Table.ColumnHeader numeric>Actions</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {projects.map((project) => (
+              <Table.Row key={project.name}>
+                <Table.Cell className={styles.emphasis}>{project.name}</Table.Cell>
+                <Table.Cell>{project.owner}</Table.Cell>
+                <Table.Cell>{project.updated}</Table.Cell>
+                <Table.Cell numeric>
+                  <Button size="sm" variant="ghost">
+                    View
+                  </Button>
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

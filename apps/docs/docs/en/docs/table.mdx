@@ -106,9 +106,12 @@ All parts accept `className` and their matching native element props.
 ### Behavioral notes
 
 - `Table.Empty` renders a full table row for the empty state, so pass the body column count through
-  `colSpan`. Its row exposes `data-empty` and does not receive striped or interactive-hover styles.
+  `colSpan`. Its row exposes `data-empty` and does not receive striped or interactive styles. Its
+  `asChild` escape hatch replaces only the generated cell, so pass one semantic `td`; compose
+  `Table.Row` and `Table.Cell` directly when the row itself needs customization.
 - Header and body rows render a shared bottom divider. The last body row drops its border.
-- Body rows get a subtle hover background only when `interactive` is set.
+- With `interactive`, body rows get a subtle hover background and retain that context when a
+  contained control receives keyboard focus.
 - `Table.Caption` inherits muted typography and adds inline padding so it does not sit flush against
   the table edges.
 

@@ -102,6 +102,13 @@
     background-color: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
   }
 
+  .root[data-interactive] .body .row:not([data-empty]):focus-within {
+    background-color: var(
+      --moduix-table-row-bg-focus,
+      var(--moduix-table-row-bg-hover, var(--moduix-color-muted))
+    );
+  }
+
   .root[data-show-column-border] :is(.columnHeader, .cell):not(:last-child) {
     border-inline-end: var(
         --moduix-table-column-border-width,

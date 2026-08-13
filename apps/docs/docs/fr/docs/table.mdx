@@ -109,10 +109,13 @@ Toutes les parties acceptent `className` et les propriétés natives de l’él�
 ### Comportement
 
 - `Table.Empty` affiche une ligne complète pour l’état vide : transmettez donc le nombre de colonnes du corps via
-  `colSpan`. Sa ligne expose `data-empty` et ne reçoit ni les rayures ni les styles de survol interactifs.
+  `colSpan`. Son échappement `asChild` remplace uniquement la cellule générée : fournissez donc un unique `td`
+  sémantique ; composez directement `Table.Row` et `Table.Cell` lorsque la ligne doit être personnalisée.
+  Sa ligne expose `data-empty` et ne reçoit ni les rayures ni les styles interactifs.
 - Les lignes d’en-tête et de contenu affichent un séparateur inférieur commun. La dernière ligne de contenu n’a pas
   de bordure.
-- Les lignes de contenu reçoivent un arrière-plan discret au survol uniquement lorsque `interactive` est défini.
+- Avec `interactive`, les lignes de contenu reçoivent un arrière-plan discret au survol et conservent ce contexte
+  lorsqu’un contrôle qu’elles contiennent reçoit le focus au clavier.
 - `Table.Caption` hérite d’une typographie atténuée et ajoute un padding inline afin de ne pas toucher les bords du
   tableau.
 

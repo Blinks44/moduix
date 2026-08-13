@@ -2,8 +2,9 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Table primitive. Use https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref.
-- Chakra UI: https://chakra-ui.com/docs/components/table
+- Ark UI: no dedicated Table primitive. Use https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref (accessed 2026-08-13).
+- Chakra UI: https://chakra-ui.com/docs/components/table (accessed 2026-08-13).
+- shadcn/ui: https://ui.shadcn.com/docs/components/table (accessed 2026-08-13).
 
 ## Purpose
 
@@ -29,6 +30,8 @@ part names and visual props: `Root`, `ScrollArea`, `Caption`, `ColumnGroup`, `Co
 - `Table.Caption`, `Header`, `Body`, `Footer`, `Row`, `ColumnHeader`, and `Cell` render their
   matching native table elements by default.
 - `Table.Empty` is the only local sugar part. It renders a full empty row with a required `colSpan`.
+  Its `asChild` escape hatch replaces the generated cell only; use one semantic `td` and compose
+  `Table.Row` plus `Table.Cell` directly when the row itself needs customization.
 - The component does not own sorting, filtering, selection, pagination, virtualization, or row
   action state.
 
@@ -130,6 +133,9 @@ Cell state hooks:
 - `data-sticky="start" | "end"` on sticky column header/data cells
 - `data-empty` on the row created by `Table.Empty`
 
+When `interactive` is set, body rows expose the same background feedback on `:hover` and
+`:focus-within`, preserving row context while keyboard users operate a contained control.
+
 ## Defaults and styling
 
 Public CSS variables are registered in `packages/react/src/styles/variables-moduix.css`. Important variables:
@@ -141,7 +147,8 @@ Public CSS variables are registered in `packages/react/src/styles/variables-modu
 - `--moduix-table-scroll-area-bg`, `--moduix-table-scroll-area-border-color`,
   `--moduix-table-scroll-area-border-width`, `--moduix-table-scroll-area-radius`,
   `--moduix-table-scroll-area-shadow`
-- `--moduix-table-row-bg-hover`, `--moduix-table-row-bg-striped`, `--moduix-table-row-transition`
+- `--moduix-table-row-bg-focus`, `--moduix-table-row-bg-hover`,
+  `--moduix-table-row-bg-striped`, `--moduix-table-row-transition`
 - `--moduix-table-sticky-header-bg`, `--moduix-table-sticky-column-bg`, and sticky z-index variables
 
 `interactive` controls hover highlighting. `striped` controls zebra rows. `variant="outline"` adds
@@ -166,6 +173,9 @@ a border around the table root; `Table.ScrollArea` owns the common outer surface
 
 ## Local changelog
 
+- 2026-08-13: Added keyboard-equivalent row feedback for nested actions through `:focus-within`,
+  with a focused-row CSS variable; documented the narrow `Table.Empty asChild` contract and added
+  focused coverage for it.
 - 2026-07-11: Added the `data-empty` row hook so empty states exclude hover and striped styling, and made numeric alignment direction-aware.
 - 2026-07-03: Simplified the public surface by keeping table part prop aliases private while
   preserving namespace composition, `Table.Empty`, and scroll-area styling affordances.

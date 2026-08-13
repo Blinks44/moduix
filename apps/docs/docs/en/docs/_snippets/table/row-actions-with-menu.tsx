@@ -53,7 +53,7 @@ function RowActionsMenu({ itemName }: { itemName: string }) {
 export default function TableRowActionsDemo() {
   return (
     <Table.ScrollArea>
-      <Table>
+      <Table interactive>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Project</Table.ColumnHeader>

@@ -148,6 +148,7 @@
     }
 
     & > svg {
+      display: block;
       width: var(--moduix-switch-thumb-icon-size, 65%);
       height: var(--moduix-switch-thumb-icon-size, 65%);
       flex-shrink: 0;

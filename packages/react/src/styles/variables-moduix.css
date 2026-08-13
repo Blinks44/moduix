@@ -2968,6 +2968,7 @@
   --moduix-table-line-height: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-table-line-height-lg: initial; /* var(--moduix-line-height-text-md) */
   --moduix-table-line-height-sm: initial; /* var(--moduix-line-height-text-xs) */
+  --moduix-table-row-bg-focus: initial; /* var(--moduix-table-row-bg-hover, var(--moduix-color-muted)) */
   --moduix-table-row-bg-hover: initial; /* var(--moduix-color-muted) */
   --moduix-table-row-bg-striped: initial; /* color-mix(in oklab, var(--moduix-color-muted) 35%, transparent) */
   --moduix-table-row-transition: initial; /* background-color var(--moduix-transition-default) */

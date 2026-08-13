@@ -119,6 +119,11 @@ const tableOverrideCssProperties: CssPropertyInput[] = [
     'Controls small table line height.',
   ],
   [
+    '--moduix-table-row-bg-focus',
+    'var(--moduix-table-row-bg-hover, var(--moduix-color-muted))',
+    'Controls body row background when a contained control receives focus.',
+  ],
+  [
     '--moduix-table-row-bg-hover',
     'var(--moduix-color-muted)',
     'Controls body row hover background.',
