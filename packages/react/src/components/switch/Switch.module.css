@@ -49,7 +49,7 @@
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-switch-border-color-invalid, var(--moduix-color-destructive));
     }
 
     &[data-focus-visible] {
@@ -166,5 +166,12 @@
     font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .control,
+    .thumb {
+      transition: none;
+    }
   }
 }

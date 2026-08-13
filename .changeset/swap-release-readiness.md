@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-Swap: Scope preset animations and add rotate and flip theme controls.
+Swap: Polish preset animation scoping, add rotate and flip theme controls, and preserve custom animation styling hooks.

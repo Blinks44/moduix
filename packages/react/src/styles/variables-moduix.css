@@ -2791,6 +2791,7 @@
   --moduix-switch-bg-hover: initial; /* var(--moduix-color-accent) */
   --moduix-switch-border-color: initial; /* var(--moduix-color-border) */
   --moduix-switch-border-color-checked: initial; /* var(--moduix-color-primary) */
+  --moduix-switch-border-color-invalid: initial; /* var(--moduix-color-destructive) */
   --moduix-switch-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-switch-disabled-opacity: initial; /* var(--moduix-opacity-disabled) */
   --moduix-switch-focus-ring-color: initial; /* var(--moduix-color-ring) */

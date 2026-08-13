@@ -29,6 +29,11 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
     'Controls checked border color.',
   ],
   [
+    '--moduix-switch-border-color-invalid',
+    'var(--moduix-color-destructive)',
+    'Controls invalid border color.',
+  ],
+  [
     '--moduix-switch-border-width',
     'var(--moduix-border-width-sm)',
     'Controls switch border width.',
@@ -138,11 +143,6 @@ const switchOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-switch-thumb-translate',
     'var(--moduix-switch-thumb-translate-default)',
     'Controls checked thumb translation distance.',
-  ],
-  [
-    '--moduix-switch-thumb-translate-default',
-    'Calculated from the switch width, thumb size, padding, and border width',
-    'Provides the size-aware default thumb translation distance.',
   ],
   [
     '--moduix-switch-transition',

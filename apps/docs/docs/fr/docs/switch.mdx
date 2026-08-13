@@ -89,8 +89,10 @@ doit lire ou posséder l’état Ark de l’interrupteur.
 - Utilisez `defaultChecked` pour le mode non contrôlé et `checked` avec `onCheckedChange(details)` pour le mode
   contrôlé.
 - `details.checked` est le prochain état booléen. L’ancien callback recevant directement un booléen a été supprimé.
-- La racine affiche l’input de formulaire natif lorsque l’interrupteur participe aux formulaires natifs ou à leur
-  réinitialisation.
+- La racine affiche toujours l’input de formulaire natif. Configuré avec des props de formulaire, il participe à la
+  soumission et à la réinitialisation natives.
+- `readOnly` préserve l’état actuel et définit `aria-readonly="true"` sur le contrôle natif.
+- La piste et le curseur désactivent leurs transitions lorsque l’utilisateur préfère réduire les animations (`prefers-reduced-motion`).
 - Utilisez `Switch.Context`, `useSwitchContext` ou `useSwitch` depuis `@moduix/react` pour les lectures d’état
   avancées plutôt que des adaptateurs de callback au niveau du wrapper.
 - Utilisez `asChild` pour un hôte racine personnalisé. L’enfant doit rester un unique élément sémantique compatible
@@ -229,7 +231,7 @@ publiques `--moduix-switch-*` présentées ci-dessous.
 - `Switch` et `Switch.RootProvider` exposent `data-slot="switch-root"` / `data-slot="switch-root-provider"` et
   écrivent le `data-size` de moduix.
 - `Switch.Control` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme `data-state`,
-  `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`, `data-invalid` et `data-required`.
+  `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid` et `data-required`.
 - `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour le déplacement du
   curseur et les styles du contenu personnalisé.
 - `Switch.Label` expose `data-slot="switch-label"` pour remplacer les styles typographiques.

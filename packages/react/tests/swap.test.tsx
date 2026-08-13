@@ -19,6 +19,7 @@ test('uses the scale animation by default and supports named presets', () => {
 
   expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'scale');
   expect(screen.getByTestId('swap')).toHaveAttribute('data-swap', 'off');
+  expect(screen.getByTestId('swap')).toHaveAttribute('data-slot', 'swap-root');
 
   rerender(
     <Swap animation="flip" data-testid="swap" swap>
@@ -29,6 +30,15 @@ test('uses the scale animation by default and supports named presets', () => {
 
   expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'flip');
   expect(screen.getByTestId('swap')).toHaveAttribute('data-swap', 'on');
+
+  rerender(
+    <Swap animation="bounce" data-testid="swap" swap>
+      <Swap.Indicator type="off">Off</Swap.Indicator>
+      <Swap.Indicator type="on">On</Swap.Indicator>
+    </Swap>,
+  );
+
+  expect(screen.getByTestId('swap')).toHaveAttribute('data-animation', 'bounce');
 });
 
 test('preserves Ark lazy mounting and exit unmounting', async () => {

@@ -89,7 +89,10 @@ needs to read or own the Ark switch state.
 - Use `defaultChecked` for uncontrolled mode and `checked` with
   `onCheckedChange(details)` for controlled mode.
 - `details.checked` is the next boolean state. The old raw boolean callback is removed.
-- The root renders the native form input when the switch participates in native forms or form reset.
+- The root always renders the native form input. It handles native form participation and reset when
+  configured with form props.
+- `readOnly` preserves the current state and sets `aria-readonly="true"` on the native control.
+- The track and thumb respect `prefers-reduced-motion` by disabling their transitions.
 - Use `Switch.Context`, `useSwitchContext`, or `useSwitch` from `@moduix/react` for advanced state
   reads instead of wrapper-level callback adapters.
 - Use `asChild` for a custom root host. The child must remain a single semantic label-compatible
@@ -226,7 +229,7 @@ Style `Switch` through `className`, public `data-slot` hooks, Ark state attribut
 - `Switch` and `Switch.RootProvider` expose `data-slot="switch-root"` /
   `data-slot="switch-root-provider"` and write moduix `data-size`.
 - `Switch.Control` exposes `data-slot="switch-control"` and receives Ark state attributes such as
-  `data-state`, `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`,
+  `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`,
   `data-invalid`, and `data-required`.
 - `Switch.Thumb` exposes `data-slot="switch-thumb"` and receives the same Ark state attributes for
   thumb movement and custom content styling.

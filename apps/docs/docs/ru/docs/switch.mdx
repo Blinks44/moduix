@@ -40,7 +40,7 @@ Switch
 ├─ Switch.Control
 │  └─ Switch.Thumb
 ├─ Switch.Label
-└─ native input (automatic)
+└─ нативное поле ввода (автоматически)
 ```
 
 | Часть                 | Назначение                                                              |
@@ -85,7 +85,9 @@ Switch
 
 - Для неуправляемого режима используйте `defaultChecked`, а для управляемого — `checked` с `onCheckedChange(details)`.
 - `details.checked` — следующее булево состояние. Старый колбэк с необработанным булевым значением удалён.
-- Корень отрисовывает нативное поле формы, когда переключатель участвует в нативных формах или сбросе формы.
+- Корень всегда отрисовывает нативное поле формы. При настройке свойств формы оно участвует в нативной отправке и сбросе.
+- `readOnly` сохраняет текущее состояние и устанавливает `aria-readonly="true"` на нативном элементе управления.
+- Дорожка и ползунок отключают переходы, если пользователь предпочитает уменьшенное движение (`prefers-reduced-motion`).
 - Для расширенного чтения состояния используйте `Switch.Context`, `useSwitchContext` или `useSwitch` из `@moduix/react`, а не адаптеры колбэков уровня обёртки.
 - Используйте `asChild` для пользовательского корневого host-элемента. Дочерний элемент должен оставаться единственным семантическим элементом, совместимым с `label`.
 
@@ -213,7 +215,7 @@ CSS-переменных `--moduix-switch-*`, показанных ниже.
 ### Хуки стилизации
 
 - `Switch` и `Switch.RootProvider` предоставляют `data-slot="switch-root"` / `data-slot="switch-root-provider"` и записывают `data-size` moduix.
-- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая `data-state`, `data-focus-visible`, `data-hover`, `data-disabled`, `data-readonly`, `data-invalid` и `data-required`.
+- `Switch.Control` предоставляет `data-slot="switch-control"` и получает атрибуты состояния Ark, включая `data-state`, `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid` и `data-required`.
 - `Switch.Thumb` предоставляет `data-slot="switch-thumb"` и получает те же атрибуты состояния Ark для движения ползунка и стилизации пользовательского содержимого.
 - `Switch.Label` предоставляет `data-slot="switch-label"` для переопределения типографики.
 - Нативное поле формы предоставляет `data-slot="switch-hidden-input"` для инспекционных хуков, но должно оставаться визуально скрытым средствами Ark.

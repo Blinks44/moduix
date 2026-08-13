@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/switch
 - Chakra UI: https://chakra-ui.com/docs/components/switch
+- shadcn/ui: https://ui.shadcn.com/docs/components/switch
+
+Sources checked: 2026-08-13.
 
 ## Purpose
 
@@ -132,6 +135,7 @@ export function RootProviderSwitchDemo() {
 - Every switch needs an accessible name. The recommended path is `Switch.Label` inside `Switch`.
 - The root always renders the native form input. `name`, `form`, and validation props configure its
   native form participation.
+- Read-only switches retain their state and mark the native input with `aria-readonly="true"`.
 - Ark `onCheckedChange` receives `{ checked }`. Do not reintroduce a raw boolean adapter.
 - `Field.Root` / `Fieldset.Root` context can provide disabled, invalid, required, and read-only
   state through Ark.
@@ -139,6 +143,7 @@ export function RootProviderSwitchDemo() {
   `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid`, and
   `data-required`.
 - Checked thumbs move toward the inline end, including when the switch inherits RTL direction.
+- The track and thumb disable their transitions when the user prefers reduced motion.
 - `Switch.Control` is the visual focus ring target. Refs are forwarded to the matching Ark DOM part.
 
 ## Defaults and styling
@@ -153,6 +158,7 @@ Public CSS variables:
 | `--moduix-switch-bg-hover`              | `var(--moduix-color-accent)`                                            | Unchecked hover background.          |
 | `--moduix-switch-border-color`          | `var(--moduix-color-border)`                                            | Unchecked border color.              |
 | `--moduix-switch-border-color-checked`  | `var(--moduix-color-primary)`                                           | Checked border color.                |
+| `--moduix-switch-border-color-invalid`  | `var(--moduix-color-destructive)`                                       | Invalid border color.                |
 | `--moduix-switch-border-width`          | `var(--moduix-border-width-sm)`                                         | Control border width.                |
 | `--moduix-switch-disabled-opacity`      | `var(--moduix-opacity-disabled)`                                        | Disabled root opacity.               |
 | `--moduix-switch-focus-ring-color`      | `var(--moduix-color-ring)`                                              | Focus ring color.                    |
@@ -197,6 +203,15 @@ Public CSS variables:
 
 Hover colors apply only when a switch is neither disabled nor read-only.
 
+## Upstream comparison (checked 2026-08-13)
+
+| Source    | Useful difference                                     | moduix decision                                                                                              |
+| --------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Ark UI    | Prescribes state, form, and compositional primitives. | **Required correctness:** preserve the anatomy and expose read-only ARIA semantics on the automatic input.   |
+| Chakra UI | `Control` can render a default thumb.                 | **Optional sugar adopted:** moduix keeps the same narrow default while retaining explicit thumb composition. |
+| Chakra UI | Offers palette and variant props.                     | **Intentional difference:** moduix keeps the public API to `size` and uses CSS variables for visual theming. |
+| shadcn/ui | Promotes a closed single-component composition.       | **Rejected complexity:** keep Ark-shaped explicit parts rather than adding a parallel wrapper API.           |
+
 ## Intentional sugar and differences from upstream
 
 - `size` is moduix-only and scales `Switch.Control` plus the default thumb.
@@ -219,6 +234,10 @@ Hover colors apply only when a switch is neither disabled nor read-only.
 - Keep advanced Ark state APIs available through moduix without wrapping or translating them.
 
 ## Local changelog
+
+- 2026-08-13: Marked read-only native controls with `aria-readonly`, made invalid borders token-
+  overridable, disabled switch transitions for reduced motion, corrected the public CSS-variable
+  reference, and added form-reset, ref, and state-semantics coverage.
 
 - 2026-07-31: Fixed checked-thumb movement in RTL, added invalid control styling, and covered the
   automatic input, `asChild`, and controlled paths with focused tests.
