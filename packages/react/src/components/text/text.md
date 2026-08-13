@@ -1,11 +1,13 @@
 # Text
 
-Upstream docs:
+Upstream docs (accessed 2026-08-13):
 
 - Ark UI: no dedicated Text primitive; use https://ark-ui.com/docs/guides/composition#the-ark-factory,
   https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and
   https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/text
+- shadcn/ui: no dedicated Text primitive; use https://ui.shadcn.com/docs/components/typography for
+  consumer-facing typography examples.
 
 ## Purpose
 
@@ -149,7 +151,7 @@ Public CSS variables:
 | `--moduix-text-font-weight-regular`  | `var(--moduix-weight-regular)`             |
 | `--moduix-text-font-weight-semibold` | `var(--moduix-weight-semibold)`            |
 | `--moduix-text-letter-spacing`       | `0`                                        |
-| `--moduix-text-line-clamp`           | set by `lineClamp`                         |
+| `--moduix-text-line-clamp`           | overrides the `lineClamp` prop fallback    |
 | `--moduix-text-line-height-xs`       | `var(--moduix-line-height-text-xs)`        |
 | `--moduix-text-line-height-sm`       | `var(--moduix-line-height-text-sm)`        |
 | `--moduix-text-line-height-md`       | `var(--moduix-line-height-text-md)`        |
@@ -179,6 +181,8 @@ directly when they need upstream typing helpers.
 
 ## Local changelog
 
+- 2026-08-13: Kept `--moduix-text-line-clamp` as a public cascade override while moving the
+  `lineClamp` prop value to an internal fallback.
 - 2026-07-31: Added logical alignment presets, ignored invalid `lineClamp` values, and made long
   unbroken strings safe in flex and grid layouts.
 - 2026-07-11: Widened the root ref type to `HTMLElement` so it remains accurate for every supported

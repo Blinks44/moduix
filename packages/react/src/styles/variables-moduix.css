@@ -3059,7 +3059,7 @@
   --moduix-text-font-weight-regular: initial; /* var(--moduix-weight-regular) */
   --moduix-text-font-weight-semibold: initial; /* var(--moduix-weight-semibold) */
   --moduix-text-letter-spacing: initial; /* 0 */
-  --moduix-text-line-clamp: initial; /* set by Text lineClamp */
+  --moduix-text-line-clamp: initial; /* overrides Text lineClamp */
   --moduix-text-line-height-xs: initial; /* var(--moduix-line-height-text-xs) */
   --moduix-text-line-height-sm: initial; /* var(--moduix-line-height-text-sm) */
   --moduix-text-line-height-md: initial; /* var(--moduix-line-height-text-md) */

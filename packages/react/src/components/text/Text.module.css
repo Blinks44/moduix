@@ -93,7 +93,7 @@
       overflow: hidden;
       white-space: normal;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: var(--moduix-text-line-clamp);
+      -webkit-line-clamp: var(--moduix-text-line-clamp, var(--_text-line-clamp));
     }
   }
 }
