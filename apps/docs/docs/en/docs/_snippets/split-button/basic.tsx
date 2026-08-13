@@ -23,7 +23,7 @@ export default function SplitButtonDemo() {
 
   return (
     <div className="split-button-stack">
-      <SplitButton>
+      <SplitButton aria-label="Save actions">
         <SplitButton.Action onClick={() => setStatus('Changes saved.')}>
           Save Changes
         </SplitButton.Action>

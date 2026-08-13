@@ -6,12 +6,17 @@ description: Сгруппированное основное действие и
 
 import * as SplitButtonDocs from '@/components/examples/split-button';
 
+`SplitButton` объединяет одно действие по умолчанию с меню тесно связанных альтернатив. Используйте
+его, когда одно действие должно оставаться доступным сразу; для единственного действия выбирайте
+`Button`, а когда ни одно действие не должно быть основным — `Menu`.
+
 ## Справочник API
 
 Ark UI не предоставляет отдельный примитив split button. Moduix строит этот компонент с помощью официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
-[ref](https://ark-ui.com/docs/guides/ref).
+[ref](https://ark-ui.com/docs/guides/ref), сохраняя поведение
+[Ark Menu](https://ark-ui.com/docs/components/menu).
 
 ## Базовый пример
 
@@ -47,7 +52,7 @@ SplitButton
 
 | Часть                     | Назначение                                                                      |
 | ------------------------- | ------------------------------------------------------------------------------- |
-| `SplitButton`             | Владеет корневым состоянием Ark Menu и сгруппированной визуальной обёрткой.     |
+| `SplitButton`             | Владеет корневым состоянием Ark Menu и семантической группой кнопок.           |
 | `SplitButton.Action`      | Основное действие Button. По умолчанию наследует корневые `variant` и `size`.   |
 | `SplitButton.Trigger`     | Триггер Ark Menu, отрендеренный как moduix Button с запасной иконкой шеврона.    |
 | `SplitButton.Positioner`  | Позиционер Ark Menu с переменными размещения и z-index слоя.                    |
@@ -88,12 +93,15 @@ SplitButton
 | `SplitButton`            | `variant`     | `'default'`                             | Общее значение по умолчанию для `Action` и `Trigger`.        |
 | `SplitButton`            | `size`        | `'md'`                                  | Общее значение по умолчанию для `Action` и `Trigger`.        |
 | `SplitButton`            | `positioning` | `{ placement: 'bottom-end', gutter: 4 }` | Сохраняет выравнивание всплывающего окна по краю триггера.    |
+| `SplitButton`            | `aria-label`  | —                                        | Задаёт доступное имя связанной группе кнопок.                 |
 | `SplitButton.Trigger`    | `aria-label`  | `'More actions'` при одной иконке       | Переопределите для более конкретного доступного имени.       |
 | `SplitButton.Trigger`    | `children`    | `ChevronDownIcon`                       | Замените, когда триггеру нужно своё видимое содержимое.      |
 
 ### Особенности поведения
 
 - У `SplitButton` нет устаревшего контракта рендеринга и плоского экспорта частей.
+- `SplitButton` рендерит присоединённые элементы управления внутри `role="group"`. Задавайте группе
+  контекстное доступное имя через `aria-label` или `aria-labelledby`.
 - `SplitButton.Action` следует общему контракту moduix `Button` для `asChild`.
 - `SplitButton.Trigger` рендерит moduix `Button` как host триггера Ark Menu. Он сохраняет `data-slot="split-button-trigger"` и получает ARIA-атрибуты и атрибуты состояния триггера Ark, такие как `aria-expanded`, `aria-controls` и `data-state`. Пользовательское визуальное содержимое триггера передаётся через `children`, а не через второй слой `asChild`.
 - `SplitButton.Positioner` получает CSS-переменные Ark Menu: `--reference-width`, `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`.
@@ -111,6 +119,18 @@ SplitButton
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённое основное действие
+
+Отключайте основное действие, не отключая меню альтернативных действий, когда резервный путь остаётся доступен.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/disabled-action.tsx"
 
   ```
 </PreviewFrame>
@@ -204,7 +224,7 @@ SplitButton
 
 ### Хуки стилизации
 
-- `data-scope="split-button"` и `data-part="root"` нацеливают сгруппированную обёртку.
+- `data-scope="split-button"` и `data-part="root"` нацеливают обёртку `role="group"`.
 - `data-slot="split-button-root"` нацеливает сгруппированную обёртку.
 - `data-slot="split-button-action"` нацеливает сторону основного действия.
 - `data-slot="split-button-trigger"` нацеливает сторону триггера выпадающего списка.

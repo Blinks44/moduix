@@ -14,7 +14,7 @@ export default function SplitButtonVariantsDemo() {
   return (
     <div className="row">
       {variants.map((variant) => (
-        <SplitButton key={variant} variant={variant}>
+        <SplitButton key={variant} aria-label={`${variant} actions`} variant={variant}>
           <SplitButton.Action>{variant}</SplitButton.Action>
           <SplitButton.Trigger />
           <SplitButton.Positioner>

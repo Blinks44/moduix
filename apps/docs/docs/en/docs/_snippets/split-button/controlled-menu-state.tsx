@@ -5,7 +5,12 @@ import { useState } from 'react';
 export default function ControlledSplitButton() {
   const [open, setOpen] = useState(false);
   return (
-    <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
+    <SplitButton
+      aria-label="Share actions"
+      open={open}
+      onOpenChange={(details) => setOpen(details.open)}
+      variant="outline"
+    >
       <SplitButton.Action>Share</SplitButton.Action>
       <SplitButton.Trigger aria-label="More share actions" />
       <SplitButton.Positioner>

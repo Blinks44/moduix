@@ -6,12 +6,17 @@ description: A grouped primary action and Ark Menu dropdown trigger built from m
 
 import * as SplitButtonDocs from '@/components/examples/split-button';
 
+`SplitButton` combines one default action with a menu of closely related alternatives. Use it when
+one action should remain immediately available; use `Button` for a single action or `Menu` when no
+action should be primary.
+
 ## API Reference
 
 Ark UI does not ship a dedicated split-button primitive. Moduix builds this component with the official
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+[ref](https://ark-ui.com/docs/guides/ref) guidance, and preserves the behavior of
+[Ark Menu](https://ark-ui.com/docs/components/menu).
 
 ## Basic
 
@@ -47,7 +52,7 @@ SplitButton
 
 | Part                               | Role                                                                  |
 | ---------------------------------- | --------------------------------------------------------------------- |
-| `SplitButton`                     | Owns Ark Menu root state and the grouped visual wrapper.              |
+| `SplitButton`                     | Owns Ark Menu root state and the semantic button group.               |
 | `SplitButton.Action`               | Primary Button action. Inherits root `variant` and `size` by default. |
 | `SplitButton.Trigger`              | Ark Menu trigger rendered as a moduix Button with a chevron fallback. |
 | `SplitButton.Positioner`           | Ark Menu positioner with placement variables and layer z-index.       |
@@ -89,12 +94,15 @@ When the menu itself needs advanced state access, compose directly with `Menu.Ro
 | `SplitButton`         | `variant`     | `'default'`                              | Shared default for `Action` and `Trigger`.             |
 | `SplitButton`         | `size`        | `'md'`                                   | Shared default for `Action` and `Trigger`.             |
 | `SplitButton`         | `positioning` | `{ placement: 'bottom-end', gutter: 4 }` | Keeps the popup aligned to the trigger edge.           |
+| `SplitButton`         | `aria-label`  | —                                        | Names the related button group for assistive software. |
 | `SplitButton.Trigger` | `aria-label`  | `'More actions'` when icon-only          | Override for a more specific accessible name.          |
 | `SplitButton.Trigger` | `children`    | `ChevronDownIcon`                        | Replace when the trigger needs custom visible content. |
 
 ### Behavioral notes
 
 - `SplitButton` has no legacy render contract and no flat part exports.
+- `SplitButton` renders its attached controls in a `role="group"`. Give the group a contextual
+  accessible name with `aria-label` or `aria-labelledby`.
 - `SplitButton.Action` follows the shared moduix `Button` `asChild` contract.
 - `SplitButton.Trigger` renders a moduix `Button` as the Ark Menu trigger host. It keeps
   `data-slot="split-button-trigger"` and receives Ark trigger ARIA/state attributes such as
@@ -117,6 +125,18 @@ Use the same controlled open-state contract as Ark Menu when outside state shoul
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/split-button/controlled-menu-state.tsx"
+
+  ```
+</PreviewFrame>
+
+### Disabled Action
+
+Disable the primary action without disabling the alternate actions menu when a fallback path remains available.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="./_snippets/split-button/disabled-action.tsx"
 
   ```
 </PreviewFrame>
@@ -211,7 +231,7 @@ so density presets stay aligned with Button while Menu continues to own popup ro
 
 ### Styling hooks
 
-- `data-scope="split-button"` and `data-part="root"` target the grouped wrapper.
+- `data-scope="split-button"` and `data-part="root"` target the `role="group"` wrapper.
 - `data-slot="split-button-root"` targets the grouped wrapper.
 - `data-slot="split-button-action"` targets the primary action side.
 - `data-slot="split-button-trigger"` targets the dropdown trigger side.

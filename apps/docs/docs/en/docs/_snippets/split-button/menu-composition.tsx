@@ -3,7 +3,7 @@ import { SplitButton } from '@moduix/react/split-button';
 
 export default function SplitButtonMenuCompositionDemo() {
   return (
-    <SplitButton variant="outline">
+    <SplitButton aria-label="Copy and export actions" variant="outline">
       <SplitButton.Action>Copy</SplitButton.Action>
       <SplitButton.Trigger aria-label="More copy actions" />
       <SplitButton.Positioner>

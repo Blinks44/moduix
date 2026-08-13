@@ -2,4 +2,4 @@
 '@moduix/react': patch
 ---
 
-SplitButton: Improve documentation previews and interaction coverage.
+SplitButton: Add accessible group semantics and strengthen interaction guidance.

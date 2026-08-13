@@ -4,7 +4,7 @@ import { ArrowUpRight as ArrowUpRightIcon } from 'lucide-react';
 
 export default function SplitButtonLinkActionDemo() {
   return (
-    <SplitButton variant="outline">
+    <SplitButton aria-label="Documentation actions" variant="outline">
       <SplitButton.Action asChild>
         <a href="#split-button">
           Open Docs

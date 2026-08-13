@@ -4,6 +4,7 @@ import { SplitButton } from '@moduix/react/split-button';
 export default function SplitButtonPositioningDemo() {
   return (
     <SplitButton
+      aria-label="Export actions"
       positioning={{
         placement: 'bottom-start',
         gutter: 8,

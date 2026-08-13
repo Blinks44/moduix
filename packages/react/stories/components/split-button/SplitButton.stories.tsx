@@ -30,7 +30,7 @@ const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 export const Basic: Story = {
   render: () => (
-    <SplitButton>
+    <SplitButton aria-label="Save actions">
       <SplitButton.Action onClick={() => undefined}>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
       <SplitButton.Positioner>
@@ -49,7 +49,7 @@ export const Variants: Story = {
   render: () => (
     <div className={styles.row}>
       {variants.map((variant) => (
-        <SplitButton key={variant} variant={variant}>
+        <SplitButton key={variant} aria-label={`${variant} actions`} variant={variant}>
           <SplitButton.Action>{variant}</SplitButton.Action>
           <SplitButton.Trigger />
           <SplitButton.Positioner>
@@ -68,7 +68,7 @@ export const Sizes: Story = {
   render: () => (
     <div className={styles.row}>
       {sizes.map((size) => (
-        <SplitButton key={size} size={size} variant="outline">
+        <SplitButton key={size} aria-label={`${size} create actions`} size={size} variant="outline">
           <SplitButton.Action>{size}</SplitButton.Action>
           <SplitButton.Trigger />
           <SplitButton.Positioner>
@@ -85,7 +85,7 @@ export const Sizes: Story = {
 
 export const WithIcons: Story = {
   render: () => (
-    <SplitButton>
+    <SplitButton aria-label="Create actions">
       <SplitButton.Action>
         <PlusIcon />
         Create Item
@@ -105,9 +105,24 @@ export const WithIcons: Story = {
 
 export const DisabledAction: Story = {
   render: () => (
-    <SplitButton>
+    <SplitButton aria-label="Save actions">
       <SplitButton.Action disabled>Save Changes</SplitButton.Action>
       <SplitButton.Trigger />
+      <SplitButton.Positioner>
+        <SplitButton.Content>
+          <Menu.Item value="save-draft">Save as Draft</Menu.Item>
+          <Menu.Item value="duplicate">Duplicate</Menu.Item>
+        </SplitButton.Content>
+      </SplitButton.Positioner>
+    </SplitButton>
+  ),
+};
+
+export const DisabledTrigger: Story = {
+  render: () => (
+    <SplitButton aria-label="Save actions">
+      <SplitButton.Action>Save Changes</SplitButton.Action>
+      <SplitButton.Trigger disabled aria-label="More save actions" />
       <SplitButton.Positioner>
         <SplitButton.Content>
           <Menu.Item value="save-draft">Save as Draft</Menu.Item>
@@ -123,7 +138,12 @@ export const ControlledMenu: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <SplitButton open={open} onOpenChange={(details) => setOpen(details.open)} variant="outline">
+      <SplitButton
+        aria-label="Share actions"
+        open={open}
+        onOpenChange={(details) => setOpen(details.open)}
+        variant="outline"
+      >
         <SplitButton.Action>Share</SplitButton.Action>
         <SplitButton.Trigger aria-label="More share actions" />
         <SplitButton.Positioner>
@@ -143,7 +163,7 @@ export const ControlledMenu: Story = {
 
 export const MenuComposition: Story = {
   render: () => (
-    <SplitButton variant="outline">
+    <SplitButton aria-label="Copy and export actions" variant="outline">
       <SplitButton.Action>Copy</SplitButton.Action>
       <SplitButton.Trigger aria-label="More copy actions" />
       <SplitButton.Positioner>
@@ -167,7 +187,7 @@ export const MenuComposition: Story = {
 
 export const LinkAction: Story = {
   render: () => (
-    <SplitButton variant="outline">
+    <SplitButton aria-label="Documentation actions" variant="outline">
       <SplitButton.Action asChild>
         <a href="#split-button">
           Open Docs

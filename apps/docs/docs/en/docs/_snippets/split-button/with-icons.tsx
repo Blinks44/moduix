@@ -4,7 +4,7 @@ import { Plus as PlusIcon } from 'lucide-react';
 
 export default function SplitButtonIconsDemo() {
   return (
-    <SplitButton>
+    <SplitButton aria-label="Create actions">
       <SplitButton.Action>
         <PlusIcon />
         Create Item

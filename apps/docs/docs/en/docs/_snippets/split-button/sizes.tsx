@@ -7,7 +7,7 @@ export default function SplitButtonSizesDemo() {
   return (
     <div className="row">
       {sizes.map((size) => (
-        <SplitButton key={size} size={size} variant="outline">
+        <SplitButton key={size} aria-label={`${size} create actions`} size={size} variant="outline">
           <SplitButton.Action>{size}</SplitButton.Action>
           <SplitButton.Trigger />
           <SplitButton.Positioner>
