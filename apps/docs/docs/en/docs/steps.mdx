@@ -91,6 +91,7 @@ Use `asChild` on `Steps.Trigger`, `Steps.PrevTrigger`, or `Steps.NextTrigger` wh
 ### Behavioral notes
 
 - `step`, `defaultStep`, `details.step`, and `Steps.Item index` are zero-based Ark values.
+- In linear flows, `onStepInvalid(details)` reports the blocked `details.step`, the `details.action` (`'next'` or `'set'`), and an optional `details.targetStep`.
 - `Steps.Content` uses `role="tabpanel"` and is hidden when its step is not current.
 - `Steps.List` uses `role="tablist"` with `aria-orientation`; triggers use `role="tab"` and `aria-controls`.
 - `Steps.PrevTrigger` and `Steps.NextTrigger` become disabled when Ark reports no previous or next step.

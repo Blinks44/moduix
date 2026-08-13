@@ -99,6 +99,7 @@ contrôler entièrement le repère.
 ### Comportement
 
 - `step`, `defaultStep`, `details.step` et `Steps.Item index` sont des valeurs Ark indexées à partir de zéro.
+- Dans les parcours linéaires, `onStepInvalid(details)` indique le `details.step` bloqué, `details.action` (`'next'` ou `'set'`) et un `details.targetStep` facultatif.
 - `Steps.Content` utilise `role="tabpanel"` et est masqué lorsque son étape n’est pas l’étape courante.
 - `Steps.List` utilise `role="tablist"` avec `aria-orientation` ; les déclencheurs utilisent `role="tab"` et
   `aria-controls`.

@@ -98,6 +98,7 @@ Steps.RootProvider
 ### Особенности поведения
 
 - `step`, `defaultStep`, `details.step` и `Steps.Item index` — значения Ark с отсчётом от нуля.
+- В линейных сценариях `onStepInvalid(details)` сообщает заблокированный `details.step`, `details.action` (`'next'` или `'set'`) и необязательный `details.targetStep`.
 - `Steps.Content` использует `role="tabpanel"` и скрывается, когда его шаг не текущий.
 - `Steps.List` использует `role="tablist"` с `aria-orientation`; триггеры используют `role="tab"` и `aria-controls`.
 - `Steps.PrevTrigger` и `Steps.NextTrigger` становятся отключёнными, когда Ark сообщает об отсутствии предыдущего или следующего шага.

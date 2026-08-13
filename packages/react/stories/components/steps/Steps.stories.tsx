@@ -124,6 +124,40 @@ export const RootProvider: Story = {
   },
 };
 
+export const Validation: Story = {
+  render: function ValidationStory() {
+    const [isAccountValid, setIsAccountValid] = useState(false);
+    const [message, setMessage] = useState('Verify the account before continuing.');
+
+    return (
+      <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
+        <button
+          type="button"
+          onClick={() => {
+            setIsAccountValid((isValid) => !isValid);
+            setMessage(isAccountValid ? 'Account needs verification.' : 'Account is verified.');
+          }}
+        >
+          {isAccountValid ? 'Mark account unverified' : 'Verify account'}
+        </button>
+        <Steps
+          count={items.length}
+          linear
+          isStepValid={(index) => index !== 0 || isAccountValid}
+          onStepInvalid={(details) => {
+            setMessage(`Step ${details.step + 1} must be valid before moving ${details.action}.`);
+          }}
+        >
+          <StepsList />
+          <StepsPanels />
+          <StepsActions />
+        </Steps>
+        <output>{message}</output>
+      </div>
+    );
+  },
+};
+
 export const Vertical: Story = {
   render: () => (
     <Steps count={items.length} defaultStep={1} orientation="vertical">
