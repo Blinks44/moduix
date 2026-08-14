@@ -23,6 +23,7 @@ export default function TourWithArrowDemo() {
         Upload files
       </Button>
       <Tour tour={tour} lazyMount unmountOnExit>
+        <Tour.Backdrop />
         <Tour.Spotlight />
         <Tour.Positioner>
           <Tour.Content>

@@ -62,6 +62,7 @@
   --percent: initial;
   --scale: initial;
   --tour-layer: initial;
+  --tour-z-index: initial;
   --transition-duration: initial;
   --transition-property: initial;
   --transition-timing-function: initial;

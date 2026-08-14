@@ -165,6 +165,7 @@ tour » sont des descendants `Button` personnalisés, mais chacun reçoit l’ob
 
 Utilisez les hooks moduix `data-slot`, comme `tour-content`, `tour-body` et `tour-action-trigger`, pour une mise en
 forme locale. Ark fournit `data-scope="tour"`, `data-part`, `data-state`, `data-type`, `data-placement`, `data-side`,
-`data-step` et `data-disabled` ; ses variables d’exécution comprennent `--tour-layer`, `--available-width`,
-`--available-height`, `--transform-origin` et les variables de flèche. Passez `className` à `Tour.ActionList` pour
-mettre en forme chaque déclencheur généré.
+`data-step` et `data-disabled` ; ses variables d’exécution comprennent `--tour-layer`, `--tour-z-index`,
+`--available-width`, `--available-height`, `--transform-origin` et les variables de flèche. Passez `className` à `Tour.ActionList` pour
+mettre en forme chaque déclencheur généré. Lorsque l’utilisateur préfère réduire les animations, Tour raccourcit les
+animations de présence de l’overlay et supprime les transitions des boutons d’action.

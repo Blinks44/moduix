@@ -30,6 +30,7 @@
   }
 
   .positioner {
+    --tour-z-index: var(--moduix-tour-z-index, var(--moduix-z-modal));
     --_tour-positioner-z-index: calc(
       var(--moduix-tour-z-index, var(--moduix-z-modal)) + var(--tour-layer, 0) +
         var(--layer-index, 0)
@@ -411,6 +412,18 @@
     &:disabled {
       pointer-events: none;
       opacity: var(--moduix-tour-disabled-opacity, var(--moduix-opacity-disabled));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation-delay: 0ms;
+      animation-duration: 1ms;
+    }
+
+    .actionTrigger {
+      transition: none;
     }
   }
 

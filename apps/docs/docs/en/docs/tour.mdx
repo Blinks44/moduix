@@ -166,5 +166,6 @@ custom `Button` children, but each receives the original Ark action object throu
 Use moduix `data-slot` hooks such as `tour-content`, `tour-body`, and `tour-action-trigger` for
 local styling. Ark exposes `data-scope="tour"`, `data-part`, `data-state`, `data-type`,
 `data-placement`, `data-side`, `data-step`, and `data-disabled`; its runtime variables include
-`--tour-layer`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
-variables. Pass `className` to `Tour.ActionList` to style every generated trigger.
+`--tour-layer`, `--tour-z-index`, `--available-width`, `--available-height`, `--transform-origin`, and the arrow
+variables. Pass `className` to `Tour.ActionList` to style every generated trigger. Tour shortens
+overlay presence animations and removes action-button transitions when the user prefers reduced motion.

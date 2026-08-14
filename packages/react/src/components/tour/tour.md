@@ -116,14 +116,14 @@ Ark owns `role="alertdialog"`, `aria-modal`, live-region attributes, title and d
 
 Styled DOM parts forward refs to their Ark-rendered elements and preserve Ark `asChild`. `CloseTrigger` and `ActionTrigger` omit moduix button visuals when `asChild` is used so the semantic child owns its styling.
 
-Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|closed"`, `data-type="dialog|tooltip|floating|wait"`, `data-placement`, `data-side`, `data-step`, and `data-disabled` on disabled action triggers. Runtime CSS variables include `--tour-layer`, `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, `--transform-origin`, `--arrow-size`, `--arrow-size-half`, `--arrow-background`, `--arrow-offset`, `--layer-index`, and `--nested-layer-count`.
+Relevant attributes include `data-scope="tour"`, `data-part`, `data-state="open|closed"`, `data-type="dialog|tooltip|floating|wait"`, `data-placement`, `data-side`, `data-step`, and `data-disabled` on disabled action triggers. Runtime CSS variables include `--tour-layer`, `--tour-z-index`, `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`, `--z-index`, `--transform-origin`, `--arrow-size`, `--arrow-size-half`, `--arrow-background`, `--arrow-offset`, `--layer-index`, and `--nested-layer-count`.
 
 ## Defaults and styling
 
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-tour-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
-The CSS module provides visual defaults for backdrop, spotlight, positioner, content, arrow, title, description, progress text, close trigger, control, and action triggers. Progress text is visually ordered below the title and description so it does not compete with the absolute close trigger. It styles dialog and floating positioners via `data-type`, and tooltip content through Ark popper positioning. Content animations use the shared `--moduix-transition-default` fallback, matching the dialog-like overlay family. Public theme variables are declared in `variables-moduix.css` with `--moduix-tour-*` names, while Ark runtime variables are initialized to avoid unresolved custom property diagnostics.
+The CSS module provides visual defaults for backdrop, spotlight, positioner, content, arrow, title, description, progress text, close trigger, control, and action triggers. Progress text is visually ordered below the title and description so it does not compete with the absolute close trigger. It styles dialog and floating positioners via `data-type`, and tooltip content through Ark popper positioning. Content animations use the shared `--moduix-transition-default` fallback, matching the dialog-like overlay family; reduced-motion preferences shorten presence animations while preserving Ark's exit lifecycle and remove action-button transitions. Public theme variables are declared in `variables-moduix.css` with `--moduix-tour-*` names, while Ark runtime variables are initialized to avoid unresolved custom property diagnostics.
 
 ## Intentional sugar and differences from upstream
 
@@ -143,6 +143,10 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-14: Initialize Ark's tooltip positioner layer so it remains above the backdrop.
+
+- 2026-08-14: Respect reduced-motion preferences for overlay presence and action transitions.
 
 - 2026-08-11: Made the recommended tour composition arrowless and kept `Tour.Arrow` as an explicit
   visual-anchor option for tooltip steps.
