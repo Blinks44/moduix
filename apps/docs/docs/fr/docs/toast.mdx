@@ -99,6 +99,8 @@ Si une partie enfant personnalisée a besoin d’accéder directement à l’ét
 - Utilisez `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
   `promise()`, `update()`, `dismiss()`, `remove()` et `dismissByPlacement()` directement depuis le gestionnaire
   de notifications Ark.
+- moduix suit la valeur Ark par défaut `type: "info"` ; la surface de carte `info` ainsi que les
+  surfaces `success`, `warning` et `error` sont alignées sur `Alert`.
 - `toast.action` utilise `{ label, onClick }`, rendu par `Toast.ActionTrigger`.
 - `toast.duration` définit la durée d’une notification ; `createToaster({ duration })` définit la valeur par défaut.
 - `toast.onStatusChange(details)` reçoit les changements de statut Ark : `visible`, `dismissing` et `unmounted`.
@@ -169,7 +171,7 @@ Utilisez `toaster.promise()` pour faire passer une même notification du chargem
 ### Types
 
 Utilisez les helpers typés du gestionnaire pour les variantes dépendantes du statut. moduix stylise `info`, `success`,
-`warning`, `error` et `destructive` via `data-type`.
+`warning` et `error` via `data-type`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"

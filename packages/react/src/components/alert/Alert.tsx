@@ -5,14 +5,14 @@ import { forwardRef, type ComponentRef } from 'react';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import styles from './Alert.module.css';
 
-type AlertStatus = 'neutral' | 'info' | 'success' | 'warning' | 'error';
+type AlertStatus = 'info' | 'success' | 'warning' | 'error';
 
 type AlertRootProps = HTMLArkProps<'div'> & {
   status?: AlertStatus;
 };
 
 const AlertRoot = forwardRef<ComponentRef<typeof ark.div>, AlertRootProps>(function AlertRoot(
-  { children, className, role, status = 'neutral', ...props },
+  { children, className, role, status = 'info', ...props },
   ref,
 ) {
   return (

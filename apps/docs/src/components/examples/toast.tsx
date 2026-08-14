@@ -60,8 +60,16 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-radius-sm)',
     'Controls action button border radius.',
   ],
-  ['--moduix-toast-bg', 'var(--moduix-color-popover)', 'Controls toast background color.'],
-  ['--moduix-toast-border-color', 'var(--moduix-color-border)', 'Controls toast border color.'],
+  [
+    '--moduix-toast-bg',
+    'var(--moduix-toast-info-bg, var(--moduix-color-card))',
+    'Controls toast background color.',
+  ],
+  [
+    '--moduix-toast-border-color',
+    'var(--moduix-toast-info-border-color, var(--moduix-color-border))',
+    'Controls toast border color.',
+  ],
   ['--moduix-toast-border-width', 'var(--moduix-border-width-sm)', 'Controls toast border width.'],
   ['--moduix-toast-close-bg', 'transparent', 'Controls close button background.'],
   [
@@ -115,7 +123,11 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-transition-default)',
     'Controls close button transition timing.',
   ],
-  ['--moduix-toast-color', 'var(--moduix-color-popover-foreground)', 'Controls toast text color.'],
+  [
+    '--moduix-toast-color',
+    'var(--moduix-toast-info-color, var(--moduix-color-card-foreground))',
+    'Controls toast text color.',
+  ],
   [
     '--moduix-toast-content-gap',
     'var(--moduix-spacing-1)',
@@ -137,6 +149,21 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'Controls description line height.',
   ],
   [
+    '--moduix-toast-error-bg',
+    'color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background))',
+    'Controls error toast background color.',
+  ],
+  [
+    '--moduix-toast-error-border-color',
+    'color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent)',
+    'Controls error toast border color.',
+  ],
+  [
+    '--moduix-toast-error-color',
+    'var(--moduix-color-foreground)',
+    'Controls error toast text color.',
+  ],
+  [
     '--moduix-toast-focus-ring-color',
     'var(--moduix-color-ring)',
     'Controls action and close focus rings.',
@@ -147,10 +174,36 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-toast-action-border-width, var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)))',
     'Controls action and close focus ring width.',
   ],
+  ['--moduix-toast-info-bg', 'var(--moduix-color-card)', 'Controls info toast background color.'],
+  [
+    '--moduix-toast-info-border-color',
+    'var(--moduix-color-border)',
+    'Controls info toast border color.',
+  ],
+  [
+    '--moduix-toast-info-color',
+    'var(--moduix-color-card-foreground)',
+    'Controls info toast text color.',
+  ],
   ['--moduix-toast-min-height', '0', 'Controls root toast minimum height.'],
   ['--moduix-toast-padding', 'var(--moduix-spacing-4)', 'Controls root toast padding.'],
   ['--moduix-toast-radius', 'var(--moduix-radius-lg)', 'Controls toast border radius.'],
   ['--moduix-toast-shadow', 'var(--moduix-shadow-lg)', 'Controls toast shadow.'],
+  [
+    '--moduix-toast-success-bg',
+    'color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background))',
+    'Controls success toast background color.',
+  ],
+  [
+    '--moduix-toast-success-border-color',
+    'color-mix(in oklab, var(--moduix-color-success) 34%, transparent)',
+    'Controls success toast border color.',
+  ],
+  [
+    '--moduix-toast-success-color',
+    'var(--moduix-color-foreground)',
+    'Controls success toast text color.',
+  ],
   ['--moduix-toast-title-font-size', 'var(--moduix-text-sm)', 'Controls title font size.'],
   ['--moduix-toast-title-gap', 'var(--moduix-spacing-2)', 'Controls spacing inside title content.'],
   [
@@ -170,6 +223,21 @@ const toastOverrideCssProperties: CssPropertyInput[] = [
     '--moduix-toast-viewport-inset',
     'var(--moduix-spacing-4)',
     'Controls toast max-width distance from the window edge.',
+  ],
+  [
+    '--moduix-toast-warning-bg',
+    'color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background))',
+    'Controls warning toast background color.',
+  ],
+  [
+    '--moduix-toast-warning-border-color',
+    'color-mix(in oklab, var(--moduix-color-warning) 38%, transparent)',
+    'Controls warning toast border color.',
+  ],
+  [
+    '--moduix-toast-warning-color',
+    'var(--moduix-color-foreground)',
+    'Controls warning toast text color.',
   ],
   ['--moduix-toast-width', '20rem', 'Controls toast width.'],
   ['--moduix-toast-z-index', 'var(--moduix-z-toast)', 'Controls toast stack z-index.'],

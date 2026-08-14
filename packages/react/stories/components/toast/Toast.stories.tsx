@@ -1,4 +1,4 @@
-import type { CreateToasterReturn, ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
+import type { CreateToasterReturn, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/button';
@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 type ToastToaster = CreateToasterReturn;
-type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
+const toastTypes = ['info', 'success', 'warning', 'error'] as const;
 
 const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const actionToaster = createToaster({ placement: 'bottom-end', gap: 24 });
@@ -188,13 +188,14 @@ export const Types: Story = {
   render: () => (
     <>
       <div className={styles.typedActions}>
-        {(['success', 'error', 'warning', 'info'] as ToastType[]).map((type) => (
+        {toastTypes.map((type) => (
           <Button
             key={type}
             onClick={() =>
-              typeToaster[type]({
+              typeToaster.create({
                 title: type === 'info' ? 'Update available' : `${type} toast`,
                 description: `This notification uses the ${type} status style.`,
+                type,
               })
             }
           >
@@ -327,7 +328,7 @@ function UpdateStory() {
             idRef.current = updateToaster.create({
               title: 'Sending message...',
               description: 'Please wait while we deliver your message.',
-              type: 'loading',
+              type: 'neutral',
             });
           }}
         >

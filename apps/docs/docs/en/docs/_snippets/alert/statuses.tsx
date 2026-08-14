@@ -1,7 +1,7 @@
 import { Alert } from '@moduix/react/alert';
 import { Check as CheckIcon, Info as InfoIcon } from 'lucide-react';
 
-const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
+const statuses = ['info', 'success', 'warning', 'error'] as const;
 
 export default function AlertStatusesDemo() {
   return (

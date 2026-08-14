@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const statuses = ['neutral', 'info', 'success', 'warning', 'error'] as const;
+const statuses = ['info', 'success', 'warning', 'error'] as const;
 
 function DismissibleCustomAlert() {
   const [visible, setVisible] = useState(true);

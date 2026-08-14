@@ -9,11 +9,18 @@
     --_toast-trigger-border-color-default: var(--moduix-color-border);
     --_toast-trigger-color-default: var(--moduix-color-foreground);
     --_toast-trigger-focus-ring-color-default: var(--moduix-color-ring);
+    --_toast-bg-default: var(--moduix-toast-info-bg, var(--moduix-color-card));
+    --_toast-border-color-default: var(
+      --moduix-toast-info-border-color,
+      var(--moduix-color-border)
+    );
+    --_toast-color-default: var(--moduix-toast-info-color, var(--moduix-color-card-foreground));
     box-sizing: border-box;
     display: grid;
     width: var(--moduix-toast-width, 20rem);
     max-width: calc(100vw - (var(--moduix-toast-viewport-inset, var(--moduix-spacing-4)) * 2));
     min-height: var(--moduix-toast-min-height, 0);
+    min-width: 0;
     align-items: start;
     gap: var(--moduix-toast-content-gap, var(--moduix-spacing-1));
     border: var(--moduix-toast-border-width, var(--moduix-border-width-sm)) solid
@@ -58,54 +65,45 @@
     }
 
     &[data-type='success'] {
-      --_toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 10%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-success-bg,
+        color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background))
       );
-      --_toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 34%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-success-border-color,
+        color-mix(in oklab, var(--moduix-color-success) 34%, transparent)
       );
-      --_toast-color-default: var(--moduix-color-foreground);
-      --_toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-success-color, var(--moduix-color-foreground));
     }
 
     &[data-type='warning'] {
-      --_toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 13%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-warning-bg,
+        color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background))
       );
-      --_toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 38%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-warning-border-color,
+        color-mix(in oklab, var(--moduix-color-warning) 38%, transparent)
       );
-      --_toast-color-default: var(--moduix-color-foreground);
-      --_toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-warning-color, var(--moduix-color-foreground));
     }
 
-    &[data-type='destructive'],
     &[data-type='error'] {
-      --_toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 9%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-error-bg,
+        color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background))
       );
-      --_toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 35%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-error-border-color,
+        color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent)
       );
-      --_toast-color-default: var(--moduix-color-foreground);
-      --_toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-error-color, var(--moduix-color-foreground));
     }
   }
 
   .title {
     display: flex;
+    min-width: 0;
     align-items: center;
     gap: var(--moduix-toast-title-gap, var(--moduix-spacing-2));
     margin: 0;
@@ -113,21 +111,26 @@
     font-size: var(--moduix-toast-title-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-toast-title-font-weight, var(--moduix-weight-semibold));
     line-height: var(--moduix-toast-title-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .description {
     margin: 0;
+    min-width: 0;
     color: var(
       --moduix-toast-description-color,
       var(--_toast-description-color-default, var(--moduix-color-muted-foreground))
     );
     font-size: var(--moduix-toast-description-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-toast-description-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .actionTrigger {
     display: inline-flex;
     width: max-content;
+    max-width: 100%;
+    min-width: 0;
     align-items: center;
     justify-content: center;
     gap: var(--moduix-toast-action-gap, var(--moduix-spacing-2));
@@ -148,8 +151,9 @@
     font-weight: var(--moduix-toast-action-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-toast-action-line-height, var(--moduix-line-height-text-xs));
     cursor: pointer;
+    text-align: start;
     user-select: none;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
     transition:
       background var(--moduix-transition-fast),
       border-color var(--moduix-transition-fast),

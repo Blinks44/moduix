@@ -99,6 +99,8 @@ If a custom child part needs direct access to toast state, import `useToastConte
 - Use `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
   `promise()`, `update()`, `dismiss()`, `remove()`, and `dismissByPlacement()` directly from the
   Ark toaster store.
+- moduix follows Ark's default `type: "info"`; the card-based `info`, `success`, `warning`, and
+  `error` surfaces match `Alert`.
 - `toast.action` uses `{ label, onClick }`, rendered by `Toast.ActionTrigger`.
 - `toast.duration` controls one toast; `createToaster({ duration })` controls the default.
 - `toast.onStatusChange(details)` receives Ark status changes for `visible`, `dismissing`, and
@@ -170,7 +172,7 @@ Use `toaster.promise()` to transition one toast from loading to success or error
 ### Types
 
 Use the typed toaster helpers for status-specific variants. moduix styles `info`, `success`,
-`warning`, `error`, and `destructive` through `data-type`.
+`warning`, and `error` through `data-type`.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/toast/types.tsx"

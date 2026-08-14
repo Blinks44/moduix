@@ -100,6 +100,8 @@ createToaster()
 - Используйте `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
   `promise()`, `update()`, `dismiss()`, `remove()` и `dismissByPlacement()` непосредственно из хранилища
   уведомлений Ark.
+- moduix следует значению Ark по умолчанию `type: "info"`; card-поверхность `info` и поверхности
+  `success`, `warning`, `error` согласованы с `Alert`.
 - `toast.action` использует `{ label, onClick }`, отрисовываемый `Toast.ActionTrigger`.
 - `toast.duration` задаёт одно уведомление; `createToaster({ duration })` задаёт значение по умолчанию.
 - `toast.onStatusChange(details)` получает изменения статуса Ark: `visible`, `dismissing` и `unmounted`.
@@ -169,7 +171,7 @@ createToaster()
 ### Типы
 
 Используйте типизированные хелперы хранилища для вариантов, зависящих от статуса. moduix стилизует `info`, `success`,
-`warning`, `error` и `destructive` через `data-type`.
+`warning` и `error` через `data-type`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"

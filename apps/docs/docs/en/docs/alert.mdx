@@ -71,7 +71,7 @@ Alert / Alert.Root
 
 Use `Alert`, `Alert.Title`, and `Alert.Description` directly for the common inline message path.
 
-Use `status` for intent: `neutral`, `info`, `success`, `warning`, or `error`.
+Use `status` for intent: `info`, `success`, `warning`, or `error`.
 
 Add `Alert.Indicator` when the alert needs an explicit visual cue. The component intentionally
 avoids special-purpose action props or slot bags.
@@ -95,7 +95,7 @@ Use `Alert.Title asChild` when the document outline needs a different heading el
 
 | Prop     | Default   | Values / Notes                                                  |
 | -------- | --------- | --------------------------------------------------------------- |
-| `status` | `neutral` | `neutral`, `info`, `success`, `warning`, `error`                |
+| `status` | `info`    | `info`, `success`, `warning`, `error`                           |
 | `role`   | Auto      | `role="status"` by default, `role="alert"` for `status="error"` |
 
 ### Behavioral notes
@@ -143,8 +143,7 @@ emphasis.
 
 ### Statuses
 
-Use `Alert.Indicator` with your chosen icon for neutral, informational, success, warning, and
-error states.
+Use `Alert.Indicator` with your chosen icon for informational, success, warning, and error states.
 
 <style>{AlertDocs.alertStatusesCss}</style>
 
@@ -194,7 +193,7 @@ Built-in statuses also read shared palette tokens:
 
 | Status    | Shared token                 | Default                      |
 | --------- | ---------------------------- | ---------------------------- |
-| `info`    | `--moduix-color-primary`     | theme primary                |
+| `info`    | `--moduix-color-card`        | theme card                   |
 | `success` | `--moduix-color-success`     | `oklch(0.627 0.194 149.214)` |
 | `warning` | `--moduix-color-warning`     | `oklch(0.795 0.184 86.047)`  |
 | `error`   | `--moduix-color-destructive` | theme destructive            |

@@ -3,7 +3,7 @@ import { Toaster, createToaster } from '@moduix/react/toast';
 import { useState } from 'react';
 import { PreviewMeta } from '@/components/mdx/Components';
 
-const types = ['success', 'error', 'warning', 'info'] as const;
+const types = ['info', 'success', 'warning', 'error'] as const;
 const toaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 16 });
 
 export default function App() {
@@ -18,9 +18,10 @@ export default function App() {
           <Button
             key={type}
             onClick={() => {
-              toaster[type]({
+              toaster.create({
                 title: type === 'info' ? 'Update available' : `${type} toast`,
                 description: `This notification uses the ${type} status style.`,
+                type,
               });
               setEvent(`${type} toast created`);
             }}

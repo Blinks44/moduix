@@ -21,42 +21,20 @@
       var(--_alert-color-default, var(--moduix-color-card-foreground))
     );
     box-shadow: var(--moduix-alert-shadow, none);
+    --_alert-bg-default: var(--moduix-alert-info-bg, var(--moduix-color-card));
+    --_alert-border-color-default: var(
+      --moduix-alert-info-border-color,
+      var(--moduix-color-border)
+    );
+    --_alert-color-default: var(--moduix-alert-info-color, var(--moduix-color-card-foreground));
+    --_alert-indicator-color-default: var(
+      --moduix-alert-info-indicator-color,
+      var(--moduix-color-muted-foreground)
+    );
 
     > [data-part='title'],
     > [data-part='description'] {
       grid-column: 2;
-    }
-
-    &[data-status='neutral'] {
-      --_alert-bg-default: var(--moduix-alert-neutral-bg, var(--moduix-color-card));
-      --_alert-border-color-default: var(
-        --moduix-alert-neutral-border-color,
-        var(--moduix-color-border)
-      );
-      --_alert-color-default: var(
-        --moduix-alert-neutral-color,
-        var(--moduix-color-card-foreground)
-      );
-      --_alert-indicator-color-default: var(
-        --moduix-alert-neutral-indicator-color,
-        var(--moduix-color-muted-foreground)
-      );
-    }
-
-    &[data-status='info'] {
-      --_alert-bg-default: var(
-        --moduix-alert-info-bg,
-        color-mix(in oklab, var(--moduix-color-primary) 4%, var(--moduix-color-background))
-      );
-      --_alert-border-color-default: var(
-        --moduix-alert-info-border-color,
-        color-mix(in oklab, var(--moduix-color-primary) 32%, transparent)
-      );
-      --_alert-color-default: var(--moduix-alert-info-color, var(--moduix-color-foreground));
-      --_alert-indicator-color-default: var(
-        --moduix-alert-info-indicator-color,
-        var(--moduix-color-primary)
-      );
     }
 
     &[data-status='success'] {

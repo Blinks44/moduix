@@ -19,7 +19,7 @@ export default function App() {
             idRef.current = toaster.create({
               title: 'Sending message...',
               description: 'Please wait while we deliver your message.',
-              type: 'loading',
+              type: 'info',
             });
             setEvent('Message is sending');
           }}

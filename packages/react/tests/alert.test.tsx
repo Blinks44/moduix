@@ -23,7 +23,7 @@ test('applies status semantics and stable data hooks', () => {
   expect(statusAlert).toHaveAttribute('data-scope', 'alert');
   expect(statusAlert).toHaveAttribute('data-part', 'root');
   expect(statusAlert).toHaveAttribute('data-slot', 'alert-root');
-  expect(statusAlert).toHaveAttribute('data-status', 'neutral');
+  expect(statusAlert).toHaveAttribute('data-status', 'info');
   expect(errorAlert).toHaveAttribute('data-status', 'error');
   expect(container.querySelector('[data-part="indicator"]')).toHaveAttribute('aria-hidden', 'true');
 });
@@ -69,7 +69,7 @@ test('forwards refs and data hooks for every optional part', () => {
     </Alert>,
   );
 
-  expect(screen.getByRole('note')).toHaveAttribute('data-status', 'neutral');
+  expect(screen.getByRole('note')).toHaveAttribute('data-status', 'info');
   expect(indicatorRef.current).toHaveAttribute('data-slot', 'alert-indicator');
   expect(indicatorRef.current).toHaveAttribute('aria-hidden', 'false');
   expect(contentRef.current).toHaveAttribute('data-slot', 'alert-content');

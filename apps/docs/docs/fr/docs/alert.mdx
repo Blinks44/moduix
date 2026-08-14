@@ -71,7 +71,7 @@ Alert / Alert.Root
 
 Utilisez `Alert`, `Alert.Title` et `Alert.Description` directement pour le chemin de message en ligne commun.
 
-Utilisez `status` pour l'intention : `neutral`, `info`, `success`, `warning` ou `error`.
+Utilisez `status` pour l'intention : `info`, `success`, `warning` ou `error`.
 
 Ajoutez `Alert.Indicator` lorsque l’alerte nécessite un repère visuel explicite. Le composant intentionnellement
 évite d’ajouter des propriétés ou des emplacements spéciaux pour les actions.
@@ -95,7 +95,7 @@ Utilisez `Alert.Title asChild` lorsque le plan du document nécessite un éléme
 
 | Accessoire | Par défaut | Valeurs / Remarques |
 | -------- | --------- | --------------------------------------------------------------- |
-| `status` | `neutral` | `neutral`, `info`, `success`, `warning`, `error` |
+| `status` | `info` | `info`, `success`, `warning`, `error` |
 | `role` | Automobile | `role="status"` par défaut, `role="alert"` pour `status="error"` |
 
 ### Comportement
@@ -143,8 +143,8 @@ accent.
 
 ### Statuts
 
-Utilisez `Alert.Indicator` avec l'icône de votre choix pour les messages neutres, informatifs, de réussite, d'avertissement et
-états d’erreur.
+Utilisez `Alert.Indicator` avec l'icône de votre choix pour les messages informatifs, de réussite,
+d'avertissement et d’erreur.
 
 <style>{AlertDocs.alertStatusesCss}</style>
 
@@ -194,7 +194,7 @@ Les statuts intégrés lisent également les jetons de palette partagée :
 
 | Statut | Jeton partagé | Par défaut |
 | --------- | ---------------------------- | ---------------------------- |
-| `info` | `--moduix-color-primary` | thème primaire |
+| `info` | `--moduix-color-card` | carte du thème |
 | `success` | `--moduix-color-success` | `oklch(0.627 0.194 149.214)` |
 | `warning` | `--moduix-color-warning` | `oklch(0.795 0.184 86.047)` |
 | `error` | `--moduix-color-destructive` | thème destructeur |
