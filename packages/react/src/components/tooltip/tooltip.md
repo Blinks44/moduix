@@ -152,8 +152,9 @@ Default trigger styling is applied only when `Tooltip.Trigger` does not use `asC
 
 `Tooltip.Content` uses Moduix tokens for background, foreground, radius, border, shadow, font size,
 and motion. Animations are tied to Ark `data-state` and use Ark `--transform-origin`. It wraps
-long unbroken text, but Tooltip remains for short, non-essential hints; use Popover or HoverCard
-for long or interactive content.
+long unbroken text, and respects `prefers-reduced-motion` by disabling trigger transitions and
+content animations. Tooltip remains for short, non-essential hints; use Popover or HoverCard for
+long or interactive content.
 
 Public CSS variables use the `--moduix-tooltip-*` prefix where Moduix owns the visual contract. Ark runtime
 variables remain available for placement and arrow mechanics. `Tooltip.Body` has no DOM node or
@@ -189,6 +190,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-14: Added reduced-motion handling and coverage for keyboard dismissal, provider state,
+  multiple triggers, portalling, and the default arrow tip.
 
 - 2026-08-11: Made the recommended popup composition arrowless and kept `Tooltip.Arrow` as an
   explicit visual-anchor option.

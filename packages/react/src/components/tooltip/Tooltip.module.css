@@ -145,6 +145,16 @@
       );
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
+  }
+
   @keyframes tooltip-content-in {
     from {
       opacity: var(

@@ -130,6 +130,7 @@ cycle de vie sur `false` que si un rendu initial anticipé est nécessaire.
 - `Tooltip.Body` transmet les props de contenu et les enfants à `Tooltip.Content`. Il ne crée ni nouvelle partie DOM ni surface distincte pour les props de positionnement.
 - `Tooltip.Content` possède la surface visible et le z-index. `Tooltip.Positioner` possède la disposition flottante et fournit les variables Ark comme `--available-width`, `--available-height` et `--transform-origin`.
 - Ark expose `data-state="open" | "closed"` sur le déclencheur et le contenu ; `data-value`, `data-current` et `data-expanded` sur le déclencheur ; ainsi que `data-placement` et `data-side` sur le contenu.
+- Les transitions du déclencheur et les animations du contenu sont désactivées lorsque l’utilisateur préfère réduire les animations.
 - Le contenu du tooltip renvoie à la ligne les longues chaînes insécables, mais les contenus longs ou interactifs doivent être placés dans un Popover ou une HoverCard plutôt que dans un tooltip défilant.
 
 ## Exemples
