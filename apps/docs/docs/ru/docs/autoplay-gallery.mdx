@@ -1,0 +1,48 @@
+---
+title: Автопрокручиваемая галерея
+description: Готовая к копированию Carousel-галерея с боковой навигацией, текстом на слайдах и индикаторами прогресса.
+---
+
+import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+
+# Автопрокручиваемая галерея
+
+Карусель для основного контента с частично видимыми соседними слайдами, боковой навигацией, размытым блоком текста
+и индикаторами, которые заполняются за время автопрокрутки. Используются только части `Carousel`: через
+`Carousel.Context` доступно состояние воспроизведения для CSS-анимации, а переходы стрелками и индикаторами
+перезапускают автопрокрутку без отдельной кнопки запуска.
+
+<ExampleFrame clientOnly>
+  <AutoplayGalleryPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Установка
+
+<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+
+## Использование на странице
+
+Замените изображения и текст слайдов на свой контент. Сохраняйте одинаковую длительность CSS-анимации и
+`autoplay.delay`, чтобы заливка индикатора заканчивалась одновременно с появлением следующего слайда. После ручного
+перехода колбэки откладывают `api.play()` до следующего кадра: Ark успевает обработать смену слайда и поставить
+автопрокрутку на паузу, а затем начинается новый интервал без отдельного элемента управления. Ark ставит autoplay
+на паузу, когда документ скрыт; рецепт вызывает публичный `api.play()`, когда документ снова становится видимым.

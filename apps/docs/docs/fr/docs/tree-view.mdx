@@ -161,11 +161,12 @@ comme `expand()` et `collapse()`. Dans l’aperçu, les deux contrôles et le re
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour la mise en forme structurelle. Ark fournit
-`data-state="open|closed"`, `data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`,
-`data-checked`, `data-indeterminate`, `data-depth`, `data-path` et `data-value`. L’enveloppe respecte les variables
-d’indentation Ark `--depth` et de mesure de réduction `--height`, et désactive l’animation des branches lorsque la
-préférence de réduction des animations est activée.
+Utilisez `className` sur les parties exportées pour la mise en forme structurelle. Les parties de branche exposent
+`data-state="open|closed"`, les parties de case à cocher exposent
+`data-state="checked|unchecked|indeterminate"` et les parties de nœud exposent `data-focus`,
+`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` et `data-value`.
+L’enveloppe respecte les variables d’indentation Ark `--depth` et de mesure de réduction `--height`, et désactive
+l’animation des branches lorsque la préférence de réduction des animations est activée.
 
 <div className="docs-reference">
   <Tabs

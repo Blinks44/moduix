@@ -6,6 +6,7 @@ description: Готовые к копированию примеры интер�
 import { Card, Cards } from '@/components/mdx/Components';
 import {
   AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
   DataTableCardPreview,
   ExpandableAvatarGroupCardPreview,
   FileUploadManagerCardPreview,
@@ -117,6 +118,12 @@ import {
 ## Визуальный контент
 
 <Cards>
+  <Card
+    title="Автопрокручиваемая галерея"
+    description="Карусель для основного контента с боковой навигацией, размытым текстом и заполняемыми индикаторами."
+    href="/docs/autoplay-gallery"
+    preview={<AutoplayGalleryCardPreview />}
+  />
   <Card
     title="Карточка с параллаксом"
     description="Карточка с фотографией на весь фон и лёгким 3D-наклоном, который следует за курсором."

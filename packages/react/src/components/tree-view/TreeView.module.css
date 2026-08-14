@@ -89,7 +89,7 @@
       opacity var(--moduix-tree-view-transition, var(--moduix-transition-default));
     user-select: none;
 
-    &:hover {
+    &:not([data-disabled]):hover {
       background-color: var(--moduix-tree-view-item-hover-bg, var(--moduix-color-accent));
       color: var(--moduix-tree-view-item-hover-color, var(--moduix-color-accent-foreground));
     }

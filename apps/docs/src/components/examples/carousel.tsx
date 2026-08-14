@@ -72,6 +72,7 @@ export const carouselExampleCss = `
     height: 100%;
     object-fit: cover;
   }
+
 `;
 
 export const carouselOverrideCssProperties: CssPropertyInput[] = [

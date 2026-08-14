@@ -145,7 +145,7 @@ Ark управляет паттерном дерева WAI-ARIA: перемещ�
 
 ## Стилизация
 
-Используйте `className` в экспортируемых частях для структурной стилизации. Ark предоставляет `data-state="open|closed"`, `data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-checked`, `data-indeterminate`, `data-depth`, `data-path` и `data-value`. Обёртка учитывает переменные отступа Ark `--depth` и измерения сворачивания `--height`, а также отключает анимацию ветвей при настройке предпочтения уменьшенного движения.
+Используйте `className` в экспортируемых частях для структурной стилизации. Части ветви предоставляют `data-state="open|closed"`, части с флажком — `data-state="checked|unchecked|indeterminate"`, а части узла — `data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path` и `data-value`. Обёртка учитывает переменные отступа Ark `--depth` и измерения сворачивания `--height`, а также отключает анимацию ветвей при настройке предпочтения уменьшенного движения.
 
 <div className="docs-reference">
   <Tabs

@@ -6,6 +6,7 @@ description: Copy-paste interface examples composed from moduix components.
 import { Card, Cards } from '@/components/mdx/Components';
 import {
   AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
   DataTableCardPreview,
   ExpandableAvatarGroupCardPreview,
   FileUploadManagerCardPreview,
@@ -117,6 +118,12 @@ work at both breakpoints. The app header can sit above either shell.
 ## Visual content
 
 <Cards>
+  <Card
+    title="Autoplay gallery"
+    description="A featured-content carousel with side navigation, blurred slide copy, and filling progress indicators."
+    href="/docs/autoplay-gallery"
+    preview={<AutoplayGalleryCardPreview />}
+  />
   <Card
     title="Parallax card"
     description="A full-bleed image Card with a gentle 3D tilt that follows a pointer."

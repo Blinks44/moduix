@@ -1,10 +1,11 @@
 # TreeView
 
-Upstream docs:
+## Upstream reference (reviewed 2026-08-14)
 
 - Ark UI: https://ark-ui.com/docs/components/tree-view
 - Chakra UI: https://chakra-ui.com/docs/components/tree-view
 - Zag: https://zagjs.com/components/react/tree-view
+- shadcn/ui: https://ui.shadcn.com/llms.txt (no first-party tree view)
 
 ## Purpose
 
@@ -35,6 +36,8 @@ objects, `RootProvider`, context hooks, async loading, checkbox trees, and renam
   `TreeViewLoadChildrenDetails` are re-exported from `@moduix/react` with their Ark contracts.
 - `TreeView.Node` provides `{ node, indexPath, state }` to its child function without hiding the
   branch/item composition.
+- `TreeViewNodeProps<T>` describes that generic `TreeView.Node` shortcut, including its required
+  render child; use `TreeViewNodeProviderProps<T>` for a low-level recursive component.
 
 ## Anatomy and exported parts
 
@@ -82,7 +85,7 @@ TreeView / TreeView.Root
 ## Composition
 
 ```tsx
-import { TreeView, createTreeCollection, useTreeViewNodeContext } from '@moduix/react/tree-view';
+import { TreeView, createTreeCollection } from '@moduix/react/tree-view';
 import { File as FileIcon, Folder as FolderIcon, FolderOpen as FolderOpenIcon } from 'lucide-react';
 
 const collection = createTreeCollection({
@@ -97,38 +100,34 @@ const collection = createTreeCollection({
 
 function TreeNode({ node, indexPath }) {
   return (
-    <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <TreeNodeContent node={node} indexPath={indexPath} />
-    </TreeView.NodeProvider>
-  );
-}
-
-function TreeNodeContent({ node, indexPath }) {
-  const state = useTreeViewNodeContext();
-
-  return node.children ? (
-    <TreeView.Branch>
-      <TreeView.BranchControl>
-        <TreeView.BranchIndicator />
-        <TreeView.BranchText>
-          {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-          {node.name}
-        </TreeView.BranchText>
-      </TreeView.BranchControl>
-      <TreeView.BranchContent>
-        <TreeView.BranchIndentGuide />
-        {node.children.map((child, index) => (
-          <TreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-        ))}
-      </TreeView.BranchContent>
-    </TreeView.Branch>
-  ) : (
-    <TreeView.Item>
-      <TreeView.ItemText>
-        <FileIcon />
-        {node.name}
-      </TreeView.ItemText>
-    </TreeView.Item>
+    <TreeView.Node node={node} indexPath={indexPath}>
+      {({ node: currentNode, indexPath: currentIndexPath, state }) =>
+        state.isBranch ? (
+          <TreeView.Branch>
+            <TreeView.BranchControl>
+              <TreeView.BranchIndicator />
+              <TreeView.BranchText>
+                {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                {currentNode.name}
+              </TreeView.BranchText>
+            </TreeView.BranchControl>
+            <TreeView.BranchContent>
+              <TreeView.BranchIndentGuide />
+              {currentNode.children?.map((child, index) => (
+                <TreeNode key={child.id} node={child} indexPath={[...currentIndexPath, index]} />
+              ))}
+            </TreeView.BranchContent>
+          </TreeView.Branch>
+        ) : (
+          <TreeView.Item>
+            <TreeView.ItemText>
+              <FileIcon />
+              {currentNode.name}
+            </TreeView.ItemText>
+          </TreeView.Item>
+        )
+      }
+    </TreeView.Node>
   );
 }
 ```
@@ -148,9 +147,9 @@ function TreeNodeContent({ node, indexPath }) {
   navigation, expand/collapse behavior, checkbox state propagation, and rename keyboard flow.
 - Use `TreeView.Label` to label the tree and `ids` when external composition needs deterministic
   element IDs.
-- Preserve Ark state attributes including `data-state`, `data-focus`, `data-selected`,
-  `data-disabled`, `data-loading`, `data-renaming`, `data-checked`, `data-indeterminate`,
-  `data-depth`, `data-path`, and `data-value`.
+- Branch parts expose `data-state="open|closed"`; checkbox parts expose
+  `data-state="checked|unchecked|indeterminate"`; node parts expose `data-focus`, `data-selected`,
+  `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and `data-value`.
 - `BranchContent` uses Ark's shared collapsible `--height` runtime variable for open/closed
   animation.
 - Branch-content animation respects `prefers-reduced-motion`, and `BranchIndentGuide` remains
@@ -193,6 +192,9 @@ function TreeNodeContent({ node, indexPath }) {
 
 ## Local changelog
 
+- 2026-08-14: Corrected `TreeViewNodeProps<T>` to describe the actual generic `TreeView.Node`
+  render callback, made disabled rows ignore hover styling, and documented the exact Ark state
+  attributes by part.
 - 2026-08-01: Added `TreeView.Node`, reduced-motion-safe branch animation, non-interactive
   indent guides, and a configurable row gap.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

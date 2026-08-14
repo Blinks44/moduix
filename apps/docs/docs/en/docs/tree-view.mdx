@@ -159,11 +159,12 @@ as `expand()` and `collapse()`. The preview keeps both controls and feedback cen
 
 ## Styling
 
-Use `className` on exported parts for structural styling. Ark provides `data-state="open|closed"`,
-`data-focus`, `data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-checked`,
-`data-indeterminate`, `data-depth`, `data-path`, and `data-value`. The wrapper respects Ark’s
-`--depth` indentation and `--height` collapse measurement variables, and disables branch animation
-for reduced-motion preferences.
+Use `className` on exported parts for structural styling. Branch parts expose
+`data-state="open|closed"`; checkbox parts expose
+`data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`,
+`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and
+`data-value`. The wrapper respects Ark’s `--depth` indentation and `--height` collapse measurement
+variables, and disables branch animation for reduced-motion preferences.
 
 <div className="docs-reference">
   <Tabs

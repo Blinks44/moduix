@@ -234,8 +234,28 @@ function ParallaxCardCardPreview() {
   );
 }
 
+function AutoplayGalleryCardPreview() {
+  return (
+    <RecipeCardPreview>
+      <div className={styles.autoplayGallery}>
+        <div className={styles.autoplayGalleryCopy}>
+          <span />
+          <span />
+        </div>
+        <div className={styles.autoplayGalleryIndicators}>
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    </RecipeCardPreview>
+  );
+}
+
 export {
   AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
   DataTableCardPreview,
   ExpandableAvatarGroupCardPreview,
   FileUploadManagerCardPreview,

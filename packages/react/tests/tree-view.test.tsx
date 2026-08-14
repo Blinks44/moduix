@@ -10,6 +10,7 @@ import {
 
 interface FileNode {
   children?: FileNode[];
+  disabled?: boolean;
   id: string;
   name: string;
 }
@@ -116,6 +117,59 @@ test('keeps expansion and Ark callback details controlled by the consumer', asyn
 
   await waitFor(() => expect(screen.getByRole('treeitem', { name: 'App.tsx' })).toBeVisible());
   expect(src).toHaveAttribute('data-state', 'open');
+});
+
+test('preserves Ark keyboard expansion and roving focus', async () => {
+  render(
+    <TreeView collection={collection}>
+      <TreeParts />
+    </TreeView>,
+  );
+
+  const src = screen.getByRole('button', { name: 'src' });
+  src.focus();
+  fireEvent.keyDown(src, { key: 'ArrowRight' });
+
+  const app = await screen.findByRole('treeitem', { name: 'App.tsx' });
+  expect(src).toHaveAttribute('data-state', 'open');
+
+  fireEvent.keyDown(src, { key: 'ArrowDown' });
+
+  await waitFor(() => expect(app).toHaveFocus());
+});
+
+test('preserves disabled node semantics', () => {
+  const disabledCollection = createTreeCollection<FileNode>({
+    isNodeDisabled: (node) => node.disabled === true,
+    nodeToString: (node) => node.name,
+    nodeToValue: (node) => node.id,
+    rootNode: {
+      id: 'ROOT',
+      name: '',
+      children: [{ disabled: true, id: 'archive', name: 'Archived files' }],
+    },
+  });
+
+  render(
+    <TreeView collection={disabledCollection}>
+      <TreeView.Label>Archives</TreeView.Label>
+      <TreeView.Tree>
+        <TreeView.Node node={disabledCollection.rootNode.children![0]} indexPath={[0]}>
+          {({ node }) => (
+            <TreeView.Item>
+              <TreeView.ItemText>{node.name}</TreeView.ItemText>
+            </TreeView.Item>
+          )}
+        </TreeView.Node>
+      </TreeView.Tree>
+    </TreeView>,
+  );
+
+  const archive = screen.getByRole('treeitem', { name: 'Archived files' });
+
+  expect(archive).toHaveAttribute('data-disabled');
+  fireEvent.click(archive);
+  expect(archive).not.toHaveAttribute('data-selected');
 });
 
 test('keeps RootProvider and semantic item composition available', () => {
