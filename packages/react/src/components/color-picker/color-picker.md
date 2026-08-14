@@ -132,6 +132,8 @@ The square trigger, channel inputs, format select, and adjacent action triggers 
 - `Positioner` preserves Ark `--z-index`, and `Content` adds `--layer-index` to the moduix popup
   layer so nested pickers remain above their parent overlay.
 - moduix applies field, popup, color area, slider, swatch, focus ring, shadow, and motion defaults.
+- `FormatSelect` remains Ark's native select for format changes, with the same collapsed-control
+  affordance as moduix `NativeSelect`; its options popup remains browser-native.
 - `--moduix-color-picker-swatch-indicator-shadow` exposes the contrast shadow behind the selected-swatch
   glyph; its default remains a compact `drop-shadow(...)` because it follows the swatch color rather
   than the rectangular surface shadow scale.
@@ -248,6 +250,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-14: Styled the native `FormatSelect` with a moduix chevron and Select-aligned collapsed
+  control while preserving Ark format behavior.
 
 - 2026-08-10: Added motion-safe popup transitions, documented the complete public CSS-variable
   contract, and covered `asChild`, refs, and native form reset behavior.

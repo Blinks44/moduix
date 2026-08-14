@@ -9,7 +9,7 @@ import {
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, ReactElement, ReactNode } from 'react';
 import { Children, cloneElement, forwardRef } from 'react';
-import { CheckIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
+import { CheckIcon, ChevronDownIcon, PipetteIcon } from '@/lib/moduix/icons/ui';
 import { normalizeClassName } from '@/lib/moduix/normalizeClassName';
 import {
   OverlayPortal,
@@ -369,12 +369,17 @@ const ColorPickerFormatSelect = forwardRef<
   ComponentProps<typeof ColorPickerPrimitive.FormatSelect>
 >(function ColorPickerFormatSelect({ className, ...props }, ref) {
   return (
-    <ColorPickerPrimitive.FormatSelect
-      ref={ref}
-      data-slot="color-picker-format-select"
-      className={clsx(styles.formatSelect, normalizeClassName(className))}
-      {...props}
-    />
+    <span className={styles.formatSelectControl}>
+      <ColorPickerPrimitive.FormatSelect
+        ref={ref}
+        data-slot="color-picker-format-select"
+        className={clsx(styles.formatSelect, normalizeClassName(className))}
+        {...props}
+      />
+      <span aria-hidden="true" className={styles.formatSelectIndicator}>
+        <ChevronDownIcon />
+      </span>
+    </span>
   );
 });
 

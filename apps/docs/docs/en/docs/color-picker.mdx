@@ -212,7 +212,9 @@ Use `name` on `ColorPicker`; it renders its native form input automatically.
 ### Format Views
 
 Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users should switch between
-channel input groups without changing the picker structure.
+channel input groups without changing the picker structure. `FormatSelect` preserves Ark's native
+format picker, while its collapsed control matches the moduix Select field and presents the available
+RGBA, HSLA, and HSBA formats consistently; the browser owns the options popup.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
