@@ -47,7 +47,7 @@ Carousel / Carousel.Root
 | ---------------------------- | ------------------------------------------------------------------------------------ |
 | `Carousel` / `Carousel.Root` | Gère l’état du carrousel, la navigation et la collection d’éléments.                 |
 | `Carousel.Control`           | Enveloppe de disposition pour les déclencheurs de navigation et les contrôles associés. |
-| `Carousel.ItemGroup`         | Piste de diapositives contenant les parties `Carousel.Item`.                         |
+| `Carousel.ItemGroup`         | Bande de diapositives contenant les parties `Carousel.Item`.                         |
 | `Carousel.Item`              | Diapositive individuelle dotée d’un `index` stable.                                  |
 | `Carousel.PrevTrigger`       | Déclencheur qui accède à la page précédente.                                         |
 | `Carousel.NextTrigger`       | Déclencheur qui accède à la page suivante.                                           |
@@ -69,7 +69,7 @@ Pour les scénarios avancés, les éléments suivants sont également disponible
 
 ### Composition recommandée
 
-Utilisez `Carousel` comme composant racine, rendez `Carousel.ItemGroup` comme piste, placez les éléments de
+Utilisez `Carousel` comme composant racine, rendez `Carousel.ItemGroup` comme bande, placez les éléments de
 navigation dans `Carousel.Control` et ajoutez `Carousel.Indicators` lorsqu’un indicateur à points standard suffit.
 
 En général, `Carousel.Control` est une barre d’outils voisine de `Carousel.ItemGroup`.
@@ -93,7 +93,7 @@ doivent faire partie de l’interface visible, plutôt que d’être uniquement 
 
 | Propriété    | Valeur par défaut | Remarques                                         |
 | ------------ | ----------------- | ------------------------------------------------- |
-| `slideCount` | —                 | Requis pour `Carousel` / `Carousel.Root`.         |
+| `slideCount` | -                 | Requis pour `Carousel` / `Carousel.Root`.         |
 
 ### Comportement
 

@@ -14,7 +14,6 @@ Skills are intentionally narrow and composable:
 ## Skills
 
 - `engineering-principles` — baseline behavior for all coding work.
-- `component-release-readiness` — end-to-end release audit and polish for one named component.
 - `changeset-workflow` — an explicitly requested `.changeset` entry.
 - `css-authoring` — CSS, CSS Modules, selectors, and public CSS-variable contracts.
 - `js-react-conventions` — React and TypeScript implementation conventions.

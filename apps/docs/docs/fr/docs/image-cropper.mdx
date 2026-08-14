@@ -73,7 +73,7 @@ Utilisez `ImageCropper.Context` pour les barres d’outils situées dans la raci
 
 ### Comportement
 
-Ark gère le glisser au pointeur, le panoramique, le zoom à la molette et par geste, le déplacement au clavier, les identifiants générés, les libellés ARIA et les helpers de résultat du recadrage. Les touches fléchées déplacent la sélection, `Alt` avec les flèches la redimensionne, `Shift` et `Ctrl`/`Cmd` utilisent les propriétés de pas de déplacement, et `+` / `-` contrôlent le zoom. L’état contrôlé conserve les objets de détails Ark via `onCropChange`, `onZoomChange`, `onRotationChange` et `onFlipChange`.
+Ark gère le glisser au pointeur, le panoramique, le zoom à la molette et par geste, le déplacement au clavier, les identifiants générés, les libellés ARIA et les helpers de résultat du recadrage. Les touches fléchées déplacent la sélection, `Alt` avec les flèches la redimensionne, `Shift` et `Ctrl`/`Cmd` utilisent les propriétés de pas de déplacement, et `+` / `-` contrôlent le zoom. L’état contrôlé conserve les objets `details` d’Ark via `onCropChange`, `onZoomChange`, `onRotationChange` et `onFlipChange`.
 
 ## Exemples
 
@@ -119,7 +119,7 @@ Créez le composant de recadrage avec `useImageCropper` d’Ark lorsqu’un autr
 
 ### Événements
 
-Utilisez les objets de détails Ark pour synchroniser l’état du recadrage et du zoom avec une interface externe.
+Utilisez les objets `details` d’Ark pour synchroniser l’état du recadrage et du zoom avec une interface externe.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"

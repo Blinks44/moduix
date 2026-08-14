@@ -103,7 +103,7 @@ export const Compact: Story = {
 export const ScrollableTable: Story = {
   render: () => (
     <Typeset className={styles.article}>
-      <Typeset.Scroll>
+      <Typeset.Scroll aria-label="Content comparison table">
         <table className={styles.wideTable}>
           <thead>
             <tr>

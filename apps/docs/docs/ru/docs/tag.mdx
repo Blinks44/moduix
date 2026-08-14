@@ -8,7 +8,7 @@ import * as TagDocs from '@/components/examples/tag';
 
 ## Справочник API
 
-В Ark UI нет отдельного примитива `tag`. Moduix создаёт этот компонент через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
+В Ark UI нет отдельного примитива `tag`. moduix создаёт этот компонент через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
 
 ## Выбор подходящего компонента
 
@@ -45,7 +45,7 @@ Tag / Tag.Root
 
 | Часть              | Назначение                                                                      |
 | ------------------ | ------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Корень с разметкой, границей, размером, вариантом и поддержкой `asChild`.       |
+| `Tag` / `Tag.Root` | Корневой элемент с разметкой, границей, размером, вариантом и поддержкой `asChild`.       |
 | `Tag.Label`        | Видимый текст метки с поддержкой обрезки.                                      |
 | `Tag.StartElement` | Необязательная начальная область для значка, аватара или индикатора состояния. |
 | `Tag.EndElement`   | Необязательная конечная область для значка или действия.                       |
@@ -55,12 +55,12 @@ Tag / Tag.Root
 
 ### Рекомендуемая композиция
 
-Размещайте текст метки в `Tag.Label`, а декоративные и вспомогательные элементы — в `Tag.StartElement` и
+Размещайте текст метки в `Tag.Label`, а декоративные и вспомогательные элементы - в `Tag.StartElement` и
 `Tag.EndElement`. Если метку можно удалить, поместите `Tag.CloseTrigger` внутрь `Tag.EndElement`.
 
 ### Когда нужна собственная композиция
 
-Используйте `asChild`, если корень должен отображаться как кнопка или ссылка. Передайте один семантический дочерний
+Используйте `asChild`, если корневой элемент должен отображаться как кнопка или ссылка. Передайте один семантический дочерний
 элемент: именно он будет отвечать за взаимодействие.
 
 ### Свойства по умолчанию
@@ -119,7 +119,7 @@ Tag / Tag.Root
 
 ### Размеры
 
-Используйте `size="sm"` для компактных списков меток, а стандартный размер `md` — для отдельных меток.
+Используйте `size="sm"` для компактных списков меток, а стандартный размер `md` - для отдельных меток.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/sizes.tsx"
@@ -167,6 +167,6 @@ Tag / Tag.Root
 ### Хуки стилизации
 
 - Экспортируемые части получают `data-scope="tag"` и соответствующие значения `data-part`: `root`, `label`, `start-element`, `end-element` и `close-trigger`.
-- `data-slot="tag-root"`, `tag-label`, `tag-start-element`, `tag-end-element` и `tag-close-trigger` — стабильные селекторы moduix.
+- `data-slot="tag-root"`, `tag-label`, `tag-start-element`, `tag-end-element` и `tag-close-trigger` - стабильные селекторы moduix.
 - Выбранные размер и вариант записываются в `data-size` и `data-variant`.
 - `Tag.CloseTrigger` получает `data-disabled` в отключённом состоянии или при `aria-disabled` и наследует цвет метки.

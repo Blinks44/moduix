@@ -38,15 +38,15 @@ result, and put retry next to the error so it repeats the same request.
 
 | Prop                    | Purpose                                                     | Default     |
 | ----------------------- | ----------------------------------------------------------- | ----------- |
-| `load`                  | Required async loader.                                      | —           |
-| `sort`                  | Optional client-side async or synchronous sorting function. | —           |
+| `load`                  | Required async loader.                                      | -           |
+| `sort`                  | Optional client-side async or synchronous sorting function. | -           |
 | `autoReload`            | Run the initial load on mount.                              | `false`     |
 | `initialItems`          | Items shown before the first successful load.               | `[]`        |
 | `dependencies`          | Primitive values that trigger a reload when changed.        | `[]`        |
 | `initialFilterText`     | Initial server-side filter text.                            | `''`        |
 | `initialSortDescriptor` | Initial `{ column, direction }` descriptor.                 | `undefined` |
-| `onSuccess`             | Called with `{ items }` after a successful load.             | —           |
-| `onError`               | Called with `{ error }` after a failed load.                 | —           |
+| `onSuccess`             | Called with `{ items }` after a successful load.             | -           |
+| `onError`               | Called with `{ error }` after a failed load.                 | -           |
 
 Dependencies support `string`, `number`, `boolean`, `null`, and `undefined`. Keep object and array
 state out of the dependency list; derive stable primitive values instead.

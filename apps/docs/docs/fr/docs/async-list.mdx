@@ -33,15 +33,15 @@ Gardez les éléments actuels visibles pendant l'actualisation. Remplacez entiè
 
 | Propriété | Objectif | Valeur par défaut |
 | ----------------------- | ----------------------------------------------------------- | ----------- |
-| `load` | Chargeur asynchrone requis. | — |
-| `sort` | Fonction facultative de tri asynchrone ou synchrone côté client. | — |
+| `load` | Chargeur asynchrone requis. | - |
+| `sort` | Fonction facultative de tri asynchrone ou synchrone côté client. | - |
 | `autoReload` | Exécute le chargement initial au montage. | `false` |
 | `initialItems` | Éléments affichés avant le premier chargement réussi. | `[]` |
 | `dependencies` | Valeurs primitives qui déclenchent un rechargement lorsqu'elles sont modifiées. | `[]` |
 | `initialFilterText` | Texte du filtre initial côté serveur. | `''` |
 | `initialSortDescriptor` | Descripteur initial `{ column, direction }`. | `undefined` |
-| `onSuccess` | Appelé avec `{ items }` après un chargement réussi. | — |
-| `onError` | Appelé avec `{ error }` après un échec de chargement. | — |
+| `onSuccess` | Appelé avec `{ items }` après un chargement réussi. | - |
+| `onError` | Appelé avec `{ error }` après un échec de chargement. | - |
 
 Les dépendances prennent en charge `string`, `number`, `boolean`, `null` et `undefined`. Gardez l’état des objets et des tableaux en dehors de la liste des dépendances ; dérivez plutôt des valeurs primitives stables.
 

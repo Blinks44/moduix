@@ -40,7 +40,7 @@ import * as ImageCropperDocs from '@/components/examples/image-cropper';
 | Часть                                | Назначение                                                                               |
 | ------------------------------------ | ---------------------------------------------------------------------------------------- |
 | `ImageCropper` / `ImageCropper.Root` | Корневая группа, управляющая состоянием кадрирования, преобразованиями, ARIA-метками и CSS-переменными времени выполнения. |
-| `ImageCropper.RootProvider`          | Корень, отрисованный из экземпляра `useImageCropper`, созданного вне дерева.             |
+| `ImageCropper.RootProvider`          | Корневой элемент, отрисованный из экземпляра `useImageCropper`, созданного вне дерева.             |
 | `ImageCropper.Viewport`              | Поверхность для перемещения и область просмотра изображения с отсечением.                |
 | `ImageCropper.Image`                 | Преобразуемый элемент изображения под управлением Ark.                                   |
 | `ImageCropper.Selection`             | Фокусируемое выделение кадра и цель для взаимодействия с клавиатурой.                    |
@@ -223,7 +223,7 @@ Ark управляет перетаскиванием указателем, па
 `data-fixed`, `data-shape`, `data-pinch`, `data-ready`, `data-disabled`, `data-measured`,
 `data-dragging`, `data-panning`, `data-axis` и `data-position`.
 
-Ark записывает в корень `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
+Ark записывает в корневой элемент `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x` и `--image-offset-y`. Считайте их доступными только для
 чтения значениями времени выполнения при синхронизации собственного интерфейса; для визуальной
 настройки используйте описанные выше свойства `--moduix-image-cropper-*`.

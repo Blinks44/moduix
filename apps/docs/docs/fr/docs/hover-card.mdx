@@ -74,7 +74,7 @@ Par défaut, le contenu de l’overlay placé dans un portail est monté paresse
 
 ### Comportement
 
-`onOpenChange` reçoit des objets de détails Ark, par exemple `{ open }` ; utilisez `details.open`. Pour plusieurs triggers, utilisez `Trigger value` avec `onTriggerValueChange`. `ids` permet de fixer les ids du trigger, du content, du positioner et de la flèche afin de composer l’accessibilité. Les propriétés de présence Ark, notamment `present`, `immediate` et `onExitComplete`, sont transmises telles quelles.
+`onOpenChange` reçoit des objets `details` d’Ark, par exemple `{ open }` ; utilisez `details.open`. Pour plusieurs triggers, utilisez `Trigger value` avec `onTriggerValueChange`. `ids` permet de fixer les ids du trigger, du content, du positioner et de la flèche afin de composer l’accessibilité. Les propriétés de présence Ark, notamment `present`, `immediate` et `onExitComplete`, sont transmises telles quelles.
 
 Hover Card désactive l’animation du trigger et du contenu lorsque l’utilisateur préfère réduire les animations. Un long mot insécable revient à la ligne dans le contenu au lieu de déborder de la carte.
 

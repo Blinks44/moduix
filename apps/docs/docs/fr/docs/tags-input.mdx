@@ -84,22 +84,22 @@ Utilisez la composition explicite `TagsInput.Context`/`TagsInput.Item` lorsque l
 | Propriété | Valeur par défaut | Remarques |
 | ------------------- | ---------- | ----------------------------------------------------------------------- |
 | `defaultValue` | `[]` | Tableau initial de tags en mode non contrôlé. |
-| `value` | — | Tableau contrôlé de tags. Mettez-le à jour depuis `onValueChange(details).value`. |
+| `value` | - | Tableau contrôlé de tags. Mettez-le à jour depuis `onValueChange(details).value`. |
 | `defaultInputValue` | `''` | Valeur initiale du champ en mode non contrôlé. |
-| `inputValue` | — | Valeur contrôlée du champ de saisie. |
+| `inputValue` | - | Valeur contrôlée du champ de saisie. |
 | `delimiter` | `','` | Chaîne ou expression régulière utilisée pour fractionner le contenu collé et traiter les touches de séparation. |
 | `max` | `Infinity` | Nombre maximal de tags. |
-| `maxLength` | — | Nombre maximal de caractères acceptés dans le champ. |
+| `maxLength` | - | Nombre maximal de caractères acceptés dans le champ. |
 | `allowOverflow` | `false` | Autorise les valeurs au-delà de `max` tout en marquant la racine comme invalide. |
 | `allowDuplicates` | `false` | Permet d’ajouter plusieurs fois la même chaîne. |
 | `editable` | `true` | Permet aux tags sélectionnés ou double-cliqués de passer en mode d’édition. |
 | `addOnPaste` | `false` | Fractionne le contenu collé en tags à l’aide de `delimiter`. |
-| `blurBehavior` | — | Utilisez `"add"` pour ajouter la valeur saisie à la perte de focus, ou `"clear"` pour l’abandonner. |
+| `blurBehavior` | - | Utilisez `"add"` pour ajouter la valeur saisie à la perte de focus, ou `"clear"` pour l’abandonner. |
 | `sanitizeValue` | troncature des espaces | Normalise chaque valeur avant qu’Ark ne la valide et ne l’ajoute. |
 
 ### Comportement
 
-`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` et `onValueInvalid(details)` fournissent les objets de détails Ark. `validate(details)` accepte ou rejette le tag en attente, tandis que `sanitizeValue(value)` normalise chaque tag avant son ajout. Utilisez `translations` pour localiser les libellés par défaut des actions de suppression et d’effacement.
+`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` et `onValueInvalid(details)` fournissent les objets `details` d’Ark. `validate(details)` accepte ou rejette le tag en attente, tandis que `sanitizeValue(value)` normalise chaque tag avant son ajout. Utilisez `translations` pour localiser les libellés par défaut des actions de suppression et d’effacement.
 
 `Field.Root` et `Fieldset.Root` peuvent transmettre, via le contexte Ark, les états désactivé, invalide, obligatoire et en lecture seule. Toutes les parties Ark exportées prennent en charge `asChild` avec un seul enfant sémantique qui relaie les propriétés et la `ref` ; l’enfant racine doit également rendre ses enfants afin que le champ de formulaire natif automatique reste disponible. Le déclencheur d’effacement par défaut utilise `CloseButton.Root` sous `asChild` d’Ark, tandis que la suppression d’un élément conserve un bouton à icône plus petit au niveau du tag.
 

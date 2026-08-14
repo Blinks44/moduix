@@ -47,7 +47,7 @@ Carousel / Carousel.Root
 | ---------------------------- | -------------------------------------------------------------- |
 | `Carousel` / `Carousel.Root` | Управляет состоянием карусели, навигацией и коллекцией элементов. |
 | `Carousel.Control`           | Обёртка для компоновки триггеров навигации и сопутствующих элементов управления. |
-| `Carousel.ItemGroup`         | Дорожка слайдов, содержащая части `Carousel.Item`.              |
+| `Carousel.ItemGroup`         | Лента слайдов, содержащая части `Carousel.Item`.                 |
 | `Carousel.Item`              | Отдельный слайд со стабильным `index`.                          |
 | `Carousel.PrevTrigger`       | Триггер перехода на предыдущую страницу.                       |
 | `Carousel.NextTrigger`       | Триггер перехода на следующую страницу.                        |
@@ -69,10 +69,10 @@ Carousel / Carousel.Root
 
 ### Рекомендуемая композиция
 
-Используйте `Carousel` как корневой компонент, рендерите `Carousel.ItemGroup` как дорожку, размещайте элементы
+Используйте `Carousel` как корневой компонент, рендерите `Carousel.ItemGroup` как ленту, размещайте элементы
 навигации в `Carousel.Control` и добавляйте `Carousel.Indicators`, когда достаточно стандартного точечного индикатора.
 
-Обычно `Carousel.Control` — соседняя с `Carousel.ItemGroup` панель инструментов.
+Обычно `Carousel.Control` - соседняя с `Carousel.ItemGroup` панель инструментов.
 
 `Carousel.Root` остаётся явным алиасом `Carousel`, когда в коде нужно показать пространство имён.
 
@@ -94,7 +94,7 @@ render prop.
 
 | Свойство     | По умолчанию | Примечания                            |
 | ------------ | ------- | ----------------------------------------- |
-| `slideCount` | —       | Обязательно для `Carousel` / `Carousel.Root`. |
+| `slideCount` | -       | Обязательно для `Carousel` / `Carousel.Root`. |
 
 ### Особенности поведения
 
@@ -109,7 +109,7 @@ render prop.
 - `Carousel.ProgressText` сохраняет читаемый порядок чисел «текущий / всего» в RTL-каруселях.
 - `--moduix-carousel-indicator-size` управляет компактной кнопкой индикатора, поэтому focus ring
   повторяет геометрию точки или активной капсулы.
-- При `prefers-reduced-motion: reduce` дорожка прокручивается без плавной анимации, а переходы элементов управления
+- При `prefers-reduced-motion: reduce` лента прокручивается без плавной анимации, а переходы элементов управления
   и индикаторов moduix отключаются.
 
 ## Примеры
@@ -325,11 +325,11 @@ render prop.
 - `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
   `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
   `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` и
-  `carousel-progress-text` — стабильные селекторы экспортируемых частей.
+  `carousel-progress-text` - стабильные селекторы экспортируемых частей.
 - Ark также предоставляет имена `data-scope="carousel"` и `data-part` на отрендеренных узлах.
 - `data-orientation="horizontal" | "vertical"` доступен на корневом компоненте и структурных частях.
 - `Carousel.ItemGroup` предоставляет `data-dragging` во время перетаскивания.
-- `Carousel.Indicator` предоставляет `data-current`, а `Carousel.Item` — `data-index` и
+- `Carousel.Indicator` предоставляет `data-current`, а `Carousel.Item` - `data-index` и
   `data-inview`.
-- `Carousel.Indicator` предоставляет `data-readonly`, а `Carousel.AutoplayTrigger` —
+- `Carousel.Indicator` предоставляет `data-readonly`, а `Carousel.AutoplayTrigger` -
   `data-pressed`.

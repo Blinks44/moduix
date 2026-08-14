@@ -12,7 +12,7 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 
 ## Exemple de base
 
-Utilisez `ScrollArea` comme élément racine Ark et composez explicitement les parties viewport, content, scrollbar, thumb et corner. Le viewport conserve le défilement natif à la molette, au toucher, au pavé tactile et au clavier, tandis que les parties scrollbar fournissent des contrôles personnalisés. Moduix ajoute une petite extension, `fade`, qui applique un masque supérieur et inférieur au viewport à partir des mesures de débordement d’Ark.
+Utilisez `ScrollArea` comme élément racine Ark et composez explicitement les parties viewport, content, scrollbar, thumb et corner. Le viewport conserve le défilement natif à la molette, au toucher, au pavé tactile et au clavier, tandis que les parties scrollbar fournissent des contrôles personnalisés. moduix ajoute une petite extension, `fade`, qui applique un masque supérieur et inférieur au viewport à partir des mesures de débordement d’Ark.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
@@ -148,7 +148,7 @@ Utilisez les variables CSS sur l’élément racine lorsque vous devez modifier 
 
 ### Points d’accroche CSS
 
-- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner` sont des hooks Moduix stables.
+- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner` sont des hooks moduix stables.
 - La propriété `fade` ajoute `data-fade`, tandis que `variant` ajoute `data-variant="hover" | "always"` à `ScrollArea` et `ScrollArea.RootProvider`.
 - Ark ajoute `data-scope="scroll-area"` et `data-part` à chaque partie.
 - `data-overflow-x` et `data-overflow-y` sont présents lorsque le contenu mesuré déborde sur l’axe correspondant.

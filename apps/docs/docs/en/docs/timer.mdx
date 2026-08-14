@@ -88,12 +88,12 @@ Ark interval is `1000`.
 | `autoStart`       | `false`   | Starts the timer on mount.                                          |
 | `countdown`       | `false`   | Counts down instead of up.                                          |
 | `startMs`         | `0`       | Initial duration in milliseconds.                                   |
-| `targetMs`        | —         | Target duration in milliseconds.                                    |
+| `targetMs`        | -         | Target duration in milliseconds.                                    |
 | `interval`        | `1000`    | Tick interval in milliseconds.                                      |
 | `ids`             | generated | Overrides the root and area ids.                                    |
 | `translations`    | built in  | Customizes the accessible area label through `areaLabel`.           |
-| `onTick(details)` | —         | Receives the current value, numeric time, and formatted time parts. |
-| `onComplete()`    | —         | Runs when the timer reaches its target.                             |
+| `onTick(details)` | -         | Receives the current value, numeric time, and formatted time parts. |
+| `onComplete()`    | -         | Runs when the timer reaches its target.                             |
 
 ### Behavioral notes
 
@@ -102,8 +102,8 @@ behavior. Ark hides state-dependent start, pause, resume, and reset actions when
 available; `restart` remains available when rendered. Timer does not use roving focus or composite
 keyboard navigation.
 
-The wrapped Ark parts—`Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`—support `asChild` through Ark
+The wrapped Ark parts-`Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control`, and `Timer.ActionTrigger`-support `asChild` through Ark
 polymorphic composition. Keep replacement children semantic, especially for `Timer.ActionTrigger`.
 `Timer.Segments` intentionally does not support `asChild` because it owns the generated area and
 children.

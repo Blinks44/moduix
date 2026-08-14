@@ -8,7 +8,7 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
 
 ## API Reference
 
-Ark UI does not ship a dedicated `breadcrumbs` primitive. Moduix builds this component with the official
+Ark UI does not ship a dedicated `breadcrumbs` primitive. moduix builds this component with the official
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [ref](https://ark-ui.com/docs/guides/ref) guidance.
@@ -79,7 +79,7 @@ portal boundary.
 
 | Surface                            | Default | Notes                                                  |
 | ---------------------------------- | ------- | ------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | —       | No additional behavioral defaults; Ark defaults apply. |
+| `Breadcrumbs` / `Breadcrumbs.Root` | -       | No additional behavioral defaults; Ark defaults apply. |
 | `Breadcrumbs.Path`                 | chevron | Renders chevron separators unless `separator` is set.  |
 
 ### Behavioral notes
@@ -227,7 +227,7 @@ manually annotated current page label.
 ## Styling
 
 Each exported part has Ark-style `data-scope="breadcrumbs"` and `data-part` attributes plus stable
-Moduix `data-slot` hooks. Public `--moduix-breadcrumbs-*` variables cover layout, text treatment, focus
+moduix `data-slot` hooks. Public `--moduix-breadcrumbs-*` variables cover layout, text treatment, focus
 ring, separators, and ellipsis sizing.
 
 ### CSS Properties
@@ -240,7 +240,7 @@ ring, separators, and ellipsis sizing.
 - `data-part="root"`, `list`, `item`, `link`, `page`, `separator`, and `ellipsis` follow the
   Ark factory contract used by this component.
 - `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`,
-  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable Moduix
+  `breadcrumbs-page`, `breadcrumbs-separator`, and `breadcrumbs-ellipsis` remain stable moduix
   selectors.
 - `Breadcrumbs.Link`, `Breadcrumbs.Page`, and `Breadcrumbs.Ellipsis` share the inline padding from
   `--moduix-breadcrumbs-item-padding-x`.

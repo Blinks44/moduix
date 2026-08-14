@@ -78,23 +78,3 @@ npx shadcn@latest add @moduix-react/theme-soft --diff
 
 Placez les redéfinitions de l’application après l’import du preset. La cascade reste ainsi intacte : si le
 preset en amont reçoit un nouveau token, les choix de votre marque conservent la priorité.
-
-## Migrer vers la v2
-
-Dans la v2, les primitives Base UI ont été remplacées par Ark UI. Il s’agit d’une migration majeure : les
-parties des composants, le contexte et les props de bas niveau suivent désormais les contrats Ark.
-
-1. Installez la v2 et la peer dependency Ark UI correspondante.
-
-   ```bash
-   npm install @moduix/react@2 @ark-ui/react
-   ```
-
-2. Consultez la page de chaque composant utilisé et recomposez les parties explicites lorsque l’ancienne
-   API Base UI présentait une structure plus plate ou des noms différents.
-3. Remplacez les imports des anciennes icônes internes de moduix par des icônes dont l’application possède
-   le code source.
-4. Pour les fichiers du registre, utilisez `add --diff` avant de fusionner l’élément mis à jour.
-
-L’[entrée v2.0.0 du journal des modifications](/docs/changelog#v200--july-19-2026) annonce la
-migration vers Ark UI. La politique de versions et de support actuelle figure sur cette même page.

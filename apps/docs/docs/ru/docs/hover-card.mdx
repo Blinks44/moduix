@@ -13,7 +13,7 @@ import * as HoverCardDocs from '@/components/examples/hover-card';
 ## Базовый пример
 
 Используйте явное дерево частей Ark: разместите `HoverCard.Trigger` рядом с содержимым, на которое наводится
-указатель, затем отрендерите positioner и content. Стандартная композиция — простой попап без стрелки.
+указатель, затем отрендерите positioner и content. Стандартная композиция - простой попап без стрелки.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
@@ -56,7 +56,7 @@ HoverCard.RootProvider
 
 ## Композиция
 
-Корень автоматически портализирует `HoverCard.Positioner`. Установите `portalled={false}`, чтобы отрендерить его
+Корневой элемент автоматически портализирует `HoverCard.Positioner`. Установите `portalled={false}`, чтобы отрендерить его
 встроенно, или передайте `portalRef`, чтобы выбрать пользовательский контейнер. Сохраняйте структурные части
 явными, чтобы размещение, содержимое и стрелка оставались независимо компонуемыми.
 
@@ -65,7 +65,7 @@ HoverCard.RootProvider
 Используйте `asChild` на `HoverCard.Trigger` для настоящей ссылки или собственной семантической кнопки.
 Рендерите `HoverCard.ArrowTip` напрямую только когда нужно изменить его разметку. Используйте
 `HoverCard.RootProvider` с moduix `useHoverCard()`, когда состоянием нужно делиться за пределами отрендеренного
-дерева, а `HoverCard.Context` или `useHoverCardContext()` — для чтения состояния внутри.
+дерева, а `HoverCard.Context` или `useHoverCardContext()` - для чтения состояния внутри.
 
 ### Свойства по умолчанию
 

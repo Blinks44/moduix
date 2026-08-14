@@ -55,7 +55,7 @@ ToggleGroup.RootProvider
 
 ### Рекомендуемая композиция
 
-Используйте `ToggleGroup` как корневой компонент, а `ToggleGroup.Item` — для каждой кнопки. `value` и
+Используйте `ToggleGroup` как корневой компонент, а `ToggleGroup.Item` - для каждой кнопки. `value` и
 `defaultValue` являются массивами строк в режимах одиночного и множественного выбора.
 
 moduix добавляет два визуальных свойства к `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider` и
@@ -104,7 +104,7 @@ moduix добавляет два визуальных свойства к `Toggl
   доступным UI.
 - Группы с одиночным выбором используют семантику `radiogroup`/`radio`; группы с множественным выбором используют
   `group` и `aria-pressed`.
-- Горизонтальные группы используют стрелки влево/вправо, вертикальные — вверх/вниз, а Home/End перемещают к
+- Горизонтальные группы используют стрелки влево/вправо, вертикальные - вверх/вниз, а Home/End перемещают к
   первому/последнему доступному элементу. Space/Enter активируют кнопку в фокусе, а `loopFocus` управляет
   зацикливанием навигации стрелками.
 - Ark записывает `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
@@ -228,15 +228,15 @@ moduix добавляет два визуальных свойства к `Toggl
 
 Таблица содержит свойства уровня группы. Каждый `ToggleGroup.Item` также поддерживает [CSS-свойства
 Toggle](/docs/toggle#css-properties) для цветов и состояний взаимодействия. Задайте свойство
-`--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе — чтобы
+`--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе - чтобы
 переопределить только один контрол.
 
 ### Хуки стилизации
 
-- `data-slot="toggle-group-root"` и `data-slot="toggle-group-root-provider"` — стабильные селекторы корневого элемента.
-- `data-slot="toggle-group-item"` — стабильный селектор элемента.
+- `data-slot="toggle-group-root"` и `data-slot="toggle-group-root-provider"` - стабильные селекторы корневого элемента.
+- `data-slot="toggle-group-item"` - стабильный селектор элемента.
 - `data-scope="toggle-group"` и `data-part="root" | "item"` предоставляются Ark.
 - `data-state="on" | "off"` записывается на каждом элементе.
 - `data-orientation="horizontal" | "vertical"` записывается на корневом и дочерних элементах.
-- `data-disabled` и `data-focus` — атрибуты состояния Ark.
+- `data-disabled` и `data-focus` - атрибуты состояния Ark.
 - `data-variant` и `data-size` отражают визуальные свойства moduix.

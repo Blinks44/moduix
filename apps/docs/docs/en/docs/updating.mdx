@@ -11,7 +11,7 @@ do not overwrite copy-owned files as if they were a package dependency.
 | Installation path       | Update model                                                      |
 | ----------------------- | ----------------------------------------------------------------- |
 | `@moduix/react` package | Your package manager installs the new library version.            |
-| Hosted registry source  | Your app owns the files; inspect and merge each component update. |
+| Registry source         | Your app owns the files; inspect and merge each component update. |
 
 ## Package-managed updates
 
@@ -73,22 +73,3 @@ npx shadcn@latest add @moduix-react/theme-soft --diff
 
 Keep application overrides after the preset import. That preserves the cascade when the upstream
 preset gains a new token while your brand decisions continue to win.
-
-## Migrating to v2
-
-v2 replaces Base UI primitives with Ark UI. It is a major migration: component parts, context, and
-lower-level props now follow Ark contracts.
-
-1. Install v2 and the matching Ark UI peer dependency.
-
-   ```bash
-   npm install @moduix/react@2 @ark-ui/react
-   ```
-
-2. Review every used component page and recompose explicit parts where the old Base UI API had a
-   flatter structure or different names.
-3. Replace imports of moduix's former internal icons with icons owned by your application.
-4. For registry-owned files, use `add --diff` before merging an updated item.
-
-The [v2.0.0 changelog entry](/docs/changelog#v200--july-19-2026) announces the move to Ark UI. The
-same page also records the current version and support policy.

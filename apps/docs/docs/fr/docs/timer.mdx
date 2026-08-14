@@ -89,12 +89,12 @@ l’interface ; la valeur par défaut d’Ark est `1000`.
 | `autoStart` | `false` | Démarre le minuteur au montage. |
 | `countdown` | `false` | Décompte vers le bas au lieu de compter vers le haut. |
 | `startMs` | `0` | Durée initiale en millisecondes. |
-| `targetMs` | — | Durée cible en millisecondes. |
+| `targetMs` | - | Durée cible en millisecondes. |
 | `interval` | `1000` | Intervalle entre les ticks, en millisecondes. |
 | `ids` | générés | Remplace les identifiants de la racine et de la zone. |
 | `translations` | intégré | Personnalise le libellé accessible de la zone avec `areaLabel`. |
-| `onTick(details)` | — | Reçoit la valeur courante, le temps numérique et les parties de temps formatées. |
-| `onComplete()` | — | Appelé lorsque le minuteur atteint sa cible. |
+| `onTick(details)` | - | Reçoit la valeur courante, le temps numérique et les parties de temps formatées. |
+| `onComplete()` | - | Appelé lorsque le minuteur atteint sa cible. |
 
 ### Comportement
 
@@ -103,8 +103,8 @@ bouton. Ark masque les actions dépendantes de l’état `start`, `pause`, `resu
 disponibles ; `restart` reste disponible lorsqu’il est rendu. Le minuteur n’utilise ni roving focus ni navigation
 composite au clavier.
 
-Les parties Ark enveloppées — `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger` — prennent en charge `asChild` via la composition
+Les parties Ark enveloppées - `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger` - prennent en charge `asChild` via la composition
 polymorphe d’Ark. Préservez la sémantique des enfants de remplacement, en particulier pour
 `Timer.ActionTrigger`. `Timer.Segments` ne prend intentionnellement pas en charge `asChild`, car il crée lui-même
 la zone et les enfants.

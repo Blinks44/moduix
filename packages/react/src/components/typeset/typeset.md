@@ -4,8 +4,9 @@
 
 Ark UI does not provide a typesetting primitive. `Typeset` is a moduix-owned semantic HTML contract
 implemented with the [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory).
-Its CSS-first rhythm is informed by [shadcn/typeset](https://ui.shadcn.com/docs/typeset), without
-adding a Markdown renderer, parser, or shadcn-specific wrapper API.
+Its CSS-first rhythm is informed by [Chakra Prose](https://chakra-ui.com/docs/components/prose) and
+[shadcn/typeset](https://ui.shadcn.com/docs/typeset), without adding a Markdown renderer, parser,
+or shadcn-specific wrapper API. These sources were reviewed on 2026-08-14.
 
 ## Purpose
 
@@ -24,8 +25,9 @@ the styles of content already on screen.
 - `asChild` preserves exactly one semantic container such as `article` or `section`.
 - `Typeset.Scroll` is an opt-in horizontal scroller for a wide table or another rendered block. It
   defaults to `tabIndex={0}` so an overflowing static block is keyboard reachable; consumers can
-  pass another `tabIndex` or native ARIA props when needed. A supplied `aria-label` or
-  `aria-labelledby` also adds `role="region"` unless the consumer passes a role explicitly.
+  pass another `tabIndex` or native ARIA props when needed. Give user-facing scrollers an
+  `aria-label` or `aria-labelledby`: this also adds `role="region"` unless the consumer passes a
+  role explicitly.
 - The rhythm controls are `--moduix-typeset-size`, `--moduix-typeset-leading`, and `--moduix-typeset-flow`. Optional
   font variables are `--moduix-typeset-font-body`, `--moduix-typeset-font-heading`, and `--moduix-typeset-font-mono`.
 - Colors, borders, and radius come from existing moduix theme tokens; Typeset has no second palette
@@ -74,7 +76,8 @@ Do not put Markdown parsing, sanitization, or fixed reading width into this comp
 - Task-list checkboxes remain native controls. `details` and `summary` retain native disclosure
   behavior.
 - Refs forward to the rendered root or scroll element through the Ark factory. `Typeset.Scroll` is
-  focusable by default so its native horizontal scrolling works with a keyboard.
+  focusable by default so its native horizontal scrolling works with a keyboard. A user-facing
+  scroller needs an accessible name so assistive technology can identify its region.
 
 ## Defaults and styling
 
@@ -105,6 +108,8 @@ prop-driven.
 
 ## Local changelog
 
+- 2026-08-14: Made named scroll regions the recommended path in stories and runnable docs, and
+  added regression coverage for default and custom scroll semantics.
 - 2026-08-01: Made `Typeset.Scroll` keyboard-focusable by default, locked stable data hooks, widened
   refs to rendered semantic elements, and made the opt-out contract cover nested Typeset parts.
 - 2026-07-22: Moved styles into the namespaced `moduix.components` cascade layer.

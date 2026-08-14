@@ -8,7 +8,7 @@ import * as SkeletonDocs from '@/components/examples/skeleton';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельный примитив skeleton. Moduix строит этот компонент с помощью официальной
+Ark UI не предоставляет отдельный примитив skeleton. moduix строит этот компонент с помощью официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
@@ -71,7 +71,7 @@ Skeleton.Root
 
 ### Особенности поведения
 
-- `Skeleton.Root` — тот же компонент, что и `Skeleton`; он предоставлен для единообразия пространства имён.
+- `Skeleton.Root` - тот же компонент, что и `Skeleton`; он предоставлен для единообразия пространства имён.
 - `loading={true}` задаёт `aria-hidden`, `data-state="loading"` и `data-loading`, если вы явно не задали `aria-hidden`.
 - `loading={false}` задаёт `data-state="loaded"` и позволяет дочерним элементам использовать естественную высоту, если не заданы `height`, `boxSize` или `style.height`.
 - `variant` влияет только на стили; внутренние таймеры и управление состоянием не добавляются.
@@ -161,8 +161,8 @@ Skeleton.Root
 
 ### Хуки стилизации
 
-- `[data-scope="skeleton"][data-part="root"]` нацеливает экспортируемый корень.
-- `data-slot="skeleton-root"` — стабильный селектор moduix для корня.
+- `[data-scope="skeleton"][data-part="root"]` нацеливает экспортируемый корневой элемент.
+- `data-slot="skeleton-root"` - стабильный селектор moduix для корня.
 - `data-state="loading"` и `data-state="loaded"` отражают свойство `loading`.
 - `data-variant="pulse"` и `data-variant="none"` отражают вариант.
 - `data-loading` присутствует, только пока активны стили заполнителя.

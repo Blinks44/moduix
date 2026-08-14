@@ -133,8 +133,8 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 ### Comportement
 
 - `value` et `defaultValue` utilisent des objets Ark `Color`. Pour les chaînes, utilisez `parseColor()`.
-- `onValueChange(details)` et `onValueChangeEnd(details)` conservent les objets de détails Ark.
-- `onFormatChange(details)` et `onOpenChange(details)` conservent les objets de détails Ark.
+- `onValueChange(details)` et `onValueChangeEnd(details)` conservent les objets `details` d’Ark.
+- `onFormatChange(details)` et `onOpenChange(details)` conservent les objets `details` d’Ark.
 - `ids` est transmis à Ark pour partager les identifiants d’accessibilité dans les compositions personnalisées.
 - L’état de Field et Fieldset est transmis avec les props racine compatibles Ark `disabled`, `invalid`, `required` et `readOnly`.
 - Utilisez `positioning`, `initialFocusEl` et `openAutoFocus` pour adapter le placement ou le focus au contexte.

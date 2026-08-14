@@ -65,8 +65,8 @@ Popover / Popover.Root
 | `Popover.Description`        | Accessible description wired to the content.                     |
 | `Popover.CloseTrigger`       | Low-level dismiss trigger.                                       |
 | `Popover.CloseIcon`          | Shared icon-only close helper built on the Ark close trigger.    |
-| `Popover.Header` / `Body`    | Moduix layout wrappers with stable slots.                        |
-| `Popover.Footer`             | Moduix action row wrapper with stable slot.                      |
+| `Popover.Header` / `Body`    | moduix layout wrappers with stable slots.                        |
+| `Popover.Footer`             | moduix action row wrapper with stable slot.                      |
 
 ## Composition
 
@@ -246,7 +246,7 @@ Enable `positioning.sameWidth` and use Ark's `--reference-width` variable on the
 
 ### With Arrow
 
-Render `Arrow` to get the default Moduix-styled `ArrowTip`.
+Render `Arrow` to get the default moduix-styled `ArrowTip`.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/popover/with-arrow.tsx"
@@ -287,7 +287,7 @@ cleaner anchored panel.
 ### Styling hooks
 
 Ark parts retain `data-scope="popover"` and their `data-part` values. Every exported rendered part
-accepts `className`; Moduix adds `data-slot="popover-*"` to rendered wrappers. Target
+accepts `className`; moduix adds `data-slot="popover-*"` to rendered wrappers. Target
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested`, and
 `data-expanded` for state-aware styling.
 When multiple triggers have `value`, use `data-current` to style only the trigger that opened the

@@ -14,8 +14,6 @@
 Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply only the skills that match the changed surface.
 
 - **Any coding task:** `engineering-principles`.
-- **Release audit or final polish of a named component:** `component-release-readiness`; it coordinates the
-  implementation, styling, test, documentation, localization, upstream-research, and registry skills below.
 - **React or TypeScript in `packages/react`:** `js-react-conventions` and `ui-component-workflow`; also use
   `css-authoring` for styles, `upstream-library-docs` for Ark/Chakra/shadcn behavior, and
   `local-component-docs` when component markdown changes.

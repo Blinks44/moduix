@@ -3,7 +3,7 @@ import { Typeset } from '@moduix/react/typeset';
 export default function TypesetScrollableTableDemo() {
   return (
     <Typeset>
-      <Typeset.Scroll>
+      <Typeset.Scroll aria-label="Typeset settings comparison">
         <table style={{ minWidth: '36rem' }}>
           <thead>
             <tr>

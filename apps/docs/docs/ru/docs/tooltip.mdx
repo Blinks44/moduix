@@ -20,7 +20,7 @@ import * as TooltipDocs from '@/components/examples/tooltip';
 
 ## Базовый пример
 
-Начните с `Tooltip`, `Tooltip.Trigger` и `Tooltip.Body`. `Tooltip.Body` — это краткая запись для обычной композиции `Tooltip.Positioner + Tooltip.Content`. Сохраняйте доступное имя у самого триггера: tooltip не заменяет `aria-label` и видимый текст.
+Начните с `Tooltip`, `Tooltip.Trigger` и `Tooltip.Body`. `Tooltip.Body` - это краткая запись для обычной композиции `Tooltip.Positioner + Tooltip.Content`. Сохраняйте доступное имя у самого триггера: tooltip не заменяет `aria-label` и видимый текст.
 
 <PreviewFrame contentWidth="fit-content">
   ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
@@ -70,11 +70,11 @@ Tooltip / Tooltip.Root
 
 ## Композиция
 
-Корневой компонент автоматически портирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга, а `portalRef` — для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
+Корневой компонент автоматически портирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга, а `portalRef` - для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
 
-Для обычного сценария используйте `Tooltip.Trigger` вместе с `Tooltip.Body`. `Tooltip.Body` сохраняет API позиционирования корневого компонента и рендерит за вас `Tooltip.Positioner` с `Tooltip.Content`. Moduix также сохраняет доступными явные части Ark, когда нужен полный контроль над структурой.
+Для обычного сценария используйте `Tooltip.Trigger` вместе с `Tooltip.Body`. `Tooltip.Body` сохраняет API позиционирования корневого компонента и рендерит за вас `Tooltip.Positioner` с `Tooltip.Content`. moduix также сохраняет доступными явные части Ark, когда нужен полный контроль над структурой.
 
 При миграции с shadcn `Tooltip.Body` ближе всего к обычному шагу `TooltipContent`, а явные части Ark остаются доступными для сложной структуры.
 
@@ -110,7 +110,7 @@ Tooltip / Tooltip.Root
 - Свойства присутствия Ark, такие как `present`, `immediate`, `onExitComplete`, `lazyMount` и `unmountOnExit`, передаются без изменений.
 - `Tooltip.RootProvider`, `useTooltip` и `useTooltipContext` доступны из `@moduix/react` для внешнего или встроенного расширенного доступа к состоянию.
 - `Tooltip.Trigger` получает оформление триггера moduix, только если не используется `asChild`. При `asChild` стилизация принадлежит дочернему элементу.
-- `Tooltip.DisabledTrigger` — специализированная обёртка для одного прямого отключённого потомка. Используйте её вместо дублирования `span`, `tabIndex` и переопределения pointer-events в tooltip для каждой отключённой кнопки.
+- `Tooltip.DisabledTrigger` - специализированная обёртка для одного прямого отключённого потомка. Используйте её вместо дублирования `span`, `tabIndex` и переопределения pointer-events в tooltip для каждой отключённой кнопки.
 - `Tooltip.Body` передаёт свойства содержимого и потомков в `Tooltip.Content`. Он не создаёт новую часть DOM или отдельную поверхность свойств позиционирования.
 - `Tooltip.Content` владеет видимой поверхностью и z-index. `Tooltip.Positioner` владеет плавающей компоновкой и предоставляет переменные Ark, такие как `--available-width`, `--available-height` и `--transform-origin`.
 - Ark выставляет `data-state="open" | "closed"` на триггере и содержимом; `data-value`, `data-current` и `data-expanded` на триггере; а также атрибуты размещения `data-placement` и `data-side` на содержимом.
@@ -240,11 +240,11 @@ Tooltip / Tooltip.Root
 Используйте часть, которая отвечает за визуальную задачу:
 
 - `Tooltip.Body` не создаёт собственный DOM-узел; при переходе на явный путь стилизуйте `Tooltip.Positioner` и `Tooltip.Content`.
-- `Tooltip.Trigger` — для оформления триггера, обратной связи при наведении и открытии, а также стилей фокуса.
-- `Tooltip.DisabledTrigger` — для обёртки отключённого элемента управления и её прямого отключённого потомка.
-- `Tooltip.Positioner` — для ограничений плавающей компоновки.
-- `Tooltip.Content` — для переопределений поверхности всплывающего элемента.
-- `Tooltip.Arrow` и `Tooltip.ArrowTip` — для размера стрелки, фона и обводки.
+- `Tooltip.Trigger` - для оформления триггера, обратной связи при наведении и открытии, а также стилей фокуса.
+- `Tooltip.DisabledTrigger` - для обёртки отключённого элемента управления и её прямого отключённого потомка.
+- `Tooltip.Positioner` - для ограничений плавающей компоновки.
+- `Tooltip.Content` - для переопределений поверхности всплывающего элемента.
+- `Tooltip.Arrow` и `Tooltip.ArrowTip` - для размера стрелки, фона и обводки.
 
 Основные публичные хуки: `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`, `data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` и `data-slot="tooltip-arrow-tip"`.
 

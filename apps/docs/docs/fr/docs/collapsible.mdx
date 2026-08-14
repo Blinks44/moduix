@@ -61,7 +61,7 @@ Appliquez les espacements et les styles de surface à `Collapsible.Body`, pas à
 le contenu et fournit `--height`, `--width`, `--collapsed-height` et `--collapsed-width`.
 
 Lors d’une migration depuis shadcn, faites correspondre `CollapsibleTrigger` à `Collapsible.Trigger` et
-`CollapsibleContent` à `Collapsible.Content`. moduix conserve l’objet de détails d’Ark : un état contrôlé lit donc
+`CollapsibleContent` à `Collapsible.Content`. moduix conserve l’objet `details` d’Ark : un état contrôlé lit donc
 `details.open` au lieu de recevoir directement une valeur booléenne.
 
 ### Quand créer une composition personnalisée
@@ -87,7 +87,7 @@ des enfants personnalisés.
 
 ### Comportement
 
-- `onOpenChange` reçoit un objet de détails d’Ark. Lisez l’état suivant dans `details.open`.
+- `onOpenChange` reçoit un objet `details` d’Ark. Lisez l’état suivant dans `details.open`.
 - `open` est l’état cible, tandis que `visible` reste vrai tant que le contenu en cours de fermeture reste monté pour l’animation de sortie.
 - Placez les éléments interactifs imbriqués en dehors de `Collapsible.Trigger`.
 - Les animations du contenu et de l’indicateur respectent `prefers-reduced-motion`.

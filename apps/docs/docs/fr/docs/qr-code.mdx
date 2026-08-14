@@ -62,19 +62,19 @@ Utilisez `asChild` sur les parties Ark lorsque vous remplacez l’élément hôt
 
 | Propriété      | Par défaut | Notes                                                                            |
 | -------------- | ----------- | -------------------------------------------------------------------------------- |
-| `defaultValue` | —           | Valeur encodée initiale non contrôlée.                                           |
-| `value`        | —           | Valeur encodée contrôlée.                                                        |
-| `encoding`     | —           | Options de génération du QR code, comme `ecc` et `boostEcc`.                     |
-| `pixelSize`    | —           | Taille de pixel transmise au générateur Ark/Zag.                                 |
-| `id`           | —           | Identifiant machine stable transmis à Ark.                                       |
-| `ids`          | —           | Identifiants stables pour `root` et `frame`.                                     |
-| `fileName`     | —           | Requis pour `DownloadTrigger`.                                                   |
-| `mimeType`     | —           | Requis pour `DownloadTrigger`, par exemple `image/png` ou `image/svg+xml`.       |
-| `quality`      | —           | Qualité facultative de l’image téléchargée.                                      |
+| `defaultValue` | -           | Valeur encodée initiale non contrôlée.                                           |
+| `value`        | -           | Valeur encodée contrôlée.                                                        |
+| `encoding`     | -           | Options de génération du QR code, comme `ecc` et `boostEcc`.                     |
+| `pixelSize`    | -           | Taille de pixel transmise au générateur Ark/Zag.                                 |
+| `id`           | -           | Identifiant machine stable transmis à Ark.                                       |
+| `ids`          | -           | Identifiants stables pour `root` et `frame`.                                     |
+| `fileName`     | -           | Requis pour `DownloadTrigger`.                                                   |
+| `mimeType`     | -           | Requis pour `DownloadTrigger`, par exemple `image/png` ou `image/svg+xml`.       |
+| `quality`      | -           | Qualité facultative de l’image téléchargée.                                      |
 
 ### Comportement
 
-Utilisez `value` avec `onValueChange(details)` lorsque l’URL ou le texte encodé doit rester synchronisé avec l’état environnant. La signature du callback correspond à l’objet de détails Ark d’origine.
+Utilisez `value` avec `onValueChange(details)` lorsque l’URL ou le texte encodé doit rester synchronisé avec l’état environnant. La signature du callback correspond à l’objet `details` d’Ark d’origine.
 
 `useQrCode()` de `@moduix/react` permet de créer l’état du QR code en dehors de l’arbre affiché. Utilisez `QrCode.Context` ou `useQrCodeContext()` de moduix pour lire l’état du QR code dans un descendant.
 

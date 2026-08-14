@@ -8,7 +8,7 @@ import * as BadgeDocs from '@/components/examples/badge';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельный примитив `badge`. Moduix строит этот компонент с помощью официального
+Ark UI не предоставляет отдельный примитив `badge`. moduix строит этот компонент с помощью официального
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
@@ -22,7 +22,7 @@ Ark UI не предоставляет отдельный примитив `badg
 
 ## Базовый пример
 
-Начните с одного `Badge`. Добавьте `variant`, если тона по умолчанию недостаточно, и `Badge.Dot` — только когда статусу нужен сгруппированный индикатор.
+Начните с одного `Badge`. Добавьте `variant`, если тона по умолчанию недостаточно, и `Badge.Dot` - только когда статусу нужен сгруппированный индикатор.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/badge/basic.tsx"
@@ -189,7 +189,7 @@ Badge / Badge.Root
 
 ## Стилизация
 
-Сначала используйте встроенные варианты, затем — локальные CSS-переменные для разовых изменений размера и тона.
+Сначала используйте встроенные варианты, затем - локальные CSS-переменные для разовых изменений размера и тона.
 Используйте переменные `--moduix-badge-<variant>-*`, чтобы темизировать вариант во всём приложении;
 общие `--moduix-badge-bg`, `--moduix-badge-border-color` и `--moduix-badge-color` сохраняют более
 высокий приоритет для разовых переопределений.
@@ -200,7 +200,7 @@ Badge / Badge.Root
 
 ### Хуки стилизации
 
-- `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` — стабильные селекторы экспортируемых частей.
+- `data-slot="badge-root"`, `data-slot="badge-label"` и `data-slot="badge-dot"` - стабильные селекторы экспортируемых частей.
 - `Badge.Root` также предоставляет `data-scope="badge"` и `data-part="root"`. `Badge.Label` и `Badge.Dot` предоставляют `data-part="label"` и `data-part="dot"`.
 - `Badge.Root` записывает выбранный тон в `data-variant`.
 - Семантические ссылки и кнопки, отрисованные через `Badge asChild` или `Badge.Root asChild`, получают от корневого элемента стандартное оформление видимого фокуса.

@@ -19,7 +19,7 @@ options. Utilisez `Select` lorsque ce même choix prédéfini ne nécessite pas 
 
 Créez une `ListCollection` Ark, transmettez-la à `Combobox` et gardez la structure du popup explicite. Utilisez
 `Combobox.Option` pour les chaînes simples et `Combobox.Item` lorsqu’une ligne exige une structure personnalisée.
-`onInputValueChange` reçoit un objet de détails Ark.
+`onInputValueChange` reçoit un objet `details` d’Ark.
 
 <style>{ComboboxDocs.comboboxExampleCss}</style>
 <PreviewFrame maxWidth="sm">
@@ -113,7 +113,7 @@ function FruitComboboxPopup({ items }: { items: Array<{ label: string; value: st
 
 ### Quand créer une composition personnalisée
 
-Utilisez une `value` contrôlée et les callbacks de détails Ark lorsque l’interface voisine a besoin des valeurs
+Utilisez une `value` contrôlée et les callbacks Ark qui reçoivent `details` lorsque l’interface voisine a besoin des valeurs
 sélectionnées. Si l’état doit être créé hors du sous-arbre rendu, créez-le avec `useCombobox` de `@moduix/react`, puis
 rendez `Combobox.RootProvider`. Pour l’état d’un élément, utilisez `Combobox.ItemContext` ou
 `useComboboxItemContext` de moduix ; n’importez d’Ark que les utilitaires de collection et types absents de moduix.

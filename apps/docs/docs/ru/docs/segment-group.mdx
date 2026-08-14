@@ -84,7 +84,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 | -------------- | ------------ | ------------------------------------------------------------ |
 | `defaultValue` | -            | Начальное неконтролируемое значение.                         |
 | `value`        | -            | Контролируемое выбранное значение.                           |
-| `orientation`  | `horizontal` | Moduix использует горизонтальную ориентацию по умолчанию; явно задайте `vertical`. |
+| `orientation`  | `horizontal` | moduix использует горизонтальную ориентацию по умолчанию; явно задайте `vertical`. |
 | `disabled`     | `false`      | Отключает всю группу при задании на корневом элементе.       |
 | `readOnly`     | `false`      | Предотвращает изменения, сохраняя значение доступным для чтения. |
 | `required`     | `false`      | Помечает скрытые поля ввода обязательными для нативных форм. |
@@ -94,7 +94,7 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 `onValueChange(details)` сохраняет форму обратного вызова Ark. Читайте `details.value`, чтобы получить выбранное значение. Ark управляет roving focus, навигацией стрелками, фокусом, состояниями disabled/read-only/invalid/required, идентификаторами, отправкой формы и синхронизацией её сброса.
 
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` и `Indicator` перенаправляют ref на соответствующие DOM-части Ark. Оберните группу в `Field` или `Fieldset`, когда должно применяться их общее состояние: `Field` предоставляет состояния disabled, invalid, required и read-only, а `Fieldset` — disabled и invalid. Используйте `ids`, когда составным подписям или контролам нужны детерминированные идентификаторы доступности.
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` и `Indicator` перенаправляют ref на соответствующие DOM-части Ark. Оберните группу в `Field` или `Fieldset`, когда должно применяться их общее состояние: `Field` предоставляет состояния disabled, invalid, required и read-only, а `Fieldset` - disabled и invalid. Используйте `ids`, когда составным подписям или контролам нужны детерминированные идентификаторы доступности.
 
 ## Примеры
 

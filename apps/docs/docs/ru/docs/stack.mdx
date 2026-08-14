@@ -8,7 +8,7 @@ import * as StackDocs from '@/components/examples/stack';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельный примитив `stack`. Moduix строит этот компонент с помощью официальной
+Ark UI не предоставляет отдельный примитив `stack`. moduix строит этот компонент с помощью официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref). Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
@@ -82,7 +82,7 @@ Stack / Stack.Root
 - `direction={{ mobile, desktop }}` переключается на `640px` и использует значение другой стороны, когда задано только одно из них.
 - `direction` также принимает `row-reverse` и `column-reverse` для обратного визуального порядка.
 - `fill` влияет на stack как на flex-элемент, а не на его дочерние элементы.
-- `Separator` — обычный дочерний элемент; декоративные разделители помечайте `aria-hidden`.
+- `Separator` - обычный дочерний элемент; декоративные разделители помечайте `aria-hidden`.
 - `gap`, `align`, `justify` и `wrap` записываются inline, только если вы их передали.
 - `Stack` предоставляет `data-scope="stack"`, `data-part="root"` и `data-slot="stack-root"` для стилизации в стиле Ark.
 - `Stack` не добавляет обёрток элементов, поведения клавиатуры, ARIA-семантики, хуков контекста или состояния provider.
@@ -184,6 +184,6 @@ Stack / Stack.Root
 
 - `className` стилизует единственный корневой элемент: ширину, внутренние отступы, границы, фоны и другие поверхностные свойства.
 - `data-scope="stack"` и `data-part="root"` согласуют обёртку с соглашениями стилизации Ark.
-- `data-slot="stack-root"` — стабильный селектор moduix для корневого элемента в локальном CSS.
+- `data-slot="stack-root"` - стабильный селектор moduix для корневого элемента в локальном CSS.
 - `style` применяется последним, поэтому может переопределить вычисляемые `gap`, `alignItems`, `justifyContent`, `flexWrap` и любые переменные `--moduix-stack-*`, записанные свойствами.
 - В публичном контракте нет атрибутов состояния, CSS-переменных анимации или карт `slotProps`.

@@ -1,18 +1,18 @@
 ---
 name: docs-workflow
-description: Use for Rspress documentation content in apps/docs - MDX pages, runnable examples, component-page guidance, CSS-variable references, and registry documentation.
+description: Use for Rspress documentation content in apps/docs across every configured locale - MDX pages, runnable examples, component-page guidance, CSS-variable references, registry documentation, and source-to-locale content consistency.
 ---
 
 # Docs Workflow
 
-Own consumer-facing documentation in `apps/docs`. Keep it truthful to the shipped package and easy to use; prefer the smallest complete example over a configurable demo.
+Own consumer-facing documentation in `apps/docs` across every configured locale. Keep it truthful to the shipped package and easy to use; prefer the smallest complete example over a configurable demo.
 
-This skill does not own Rspress configuration, theme customization, localization, or description-frontmatter work. Apply the corresponding focused skill only when that surface changes.
+This skill owns documentation content and source-to-locale consistency. It does not own Rspress configuration, theme customization, translation implementation, or description-frontmatter work. Apply the corresponding focused skill when that surface changes, especially `rspress-localization` for any localized content.
 
 ## Read first
 
 1. `AGENTS.md` and the affected MDX page.
-2. The equivalent English page when editing a locale; use `rspress-localization` for the translation itself.
+2. The corresponding default-language page (currently English) and the affected locale pages. Use `rspress-localization` for the translation itself.
 3. The shipped component API, its local markdown, and its existing examples when the page documents a component.
 
 ## Documentation contract
@@ -24,40 +24,26 @@ This skill does not own Rspress configuration, theme customization, localization
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
 
-## Component-heading consistency
+## Cross-locale component-page consistency
 
-When editing localized component pages, also use `rspress-localization`. Treat repeated component
-section headings as controlled terminology: keep their information architecture, heading level, and
-canonical wording consistent across all component pages. Do not translate public component names or
-API identifiers merely because they appear in a heading.
+When editing localized component pages, also use `rspress-localization`. Treat the default-language
+page as the canonical source for public API coverage, information architecture, example intent, and
+heading hierarchy. A localized page must preserve that contract unless the task explicitly records an
+intentional product difference.
 
-For Russian component pages, use these canonical equivalents whenever the English source heading is
-the same:
+Treat repeated component section headings as controlled terminology within each locale: use one
+established, idiomatic rendering for the same source heading across matching component pages. Review
+the existing accepted pages in the target locale before introducing a new translation. Do not translate
+public component names or API identifiers merely because they appear in a heading.
 
-| English heading           | Russian heading                      |
-| ------------------------- | ------------------------------------ |
-| `API Reference`           | `Справочник API`                     |
-| `Basic`                   | `Базовый пример`                     |
-| `Install with shadcn`     | `Установка через shadcn`             |
-| `Anatomy`                 | `Анатомия`                           |
-| `Composition`             | `Композиция`                         |
-| `Recommended composition` | `Рекомендуемая композиция`           |
-| `When to go custom`       | `Когда нужна собственная композиция` |
-| `Default props`           | `Свойства по умолчанию`              |
-| `Behavioral notes`        | `Особенности поведения`              |
-| `Examples`                | `Примеры`                            |
-| `Controlled`              | `Управляемое состояние`              |
-| `Advanced Customization`  | `Расширенная настройка`              |
-| `Styling`                 | `Стилизация`                         |
-| `CSS Properties`          | `CSS-свойства`                       |
-| `Styling hooks`           | `Хуки стилизации`                    |
+Apply the same rule to recurring secondary headings and migration guidance. Keep contextual headings
+specific when the same source word has genuinely different meanings, such as `Multiple` in an
+accordion and a date picker. Preserve source-language wording for headings that are established public
+names rather than prose.
 
-Use the same principle for recurring secondary headings: `Root Provider` stays `Root Provider`;
-`Disabled`, `Field State`, `Sizes`, `Lazy Mount`, `Invalid`, `With Field`, and migration headings
-must use one established translation across matching component pages. Keep contextual headings
-specific when the same English word has genuinely different meanings, such as `Multiple` in an
-accordion and a date picker. Before completing a localization change, compare matching English and
-Russian heading sequences and resolve unexplained variants.
+When the default-language page changes, update every affected locale in the same task or explicitly
+report each intentional translation gap. Before completing localized work, compare the matching
+default-language and target-locale heading sequences and resolve unexplained differences.
 
 ## Component pages
 

@@ -8,7 +8,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette';
 
 ## Référence de l’API
 
-Ark UI ne propose pas de primitive `command-palette` dédiée. Moduix construit ce composant avec l’outil officiel
+Ark UI ne propose pas de primitive `command-palette` dédiée. moduix construit ce composant avec l’outil officiel
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), conformément aux recommandations d’Ark sur
 la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et
 les [refs](https://ark-ui.com/docs/guides/ref), et compose Ark [`Dialog`](https://ark-ui.com/docs/components/dialog)
@@ -129,7 +129,7 @@ charge. Lorsqu’il est activé, le gestionnaire ignore les événements keydown
 ouverte. `alt+k` est recommandé dans la documentation, car la recherche utilise `Cmd+K`. Le modificateur `mod` accepte
 Meta ou Control, ce qui rend le composant indépendant de la plateforme. `CommandPalette.ClearTrigger` efface
 `inputValue`, pas la valeur sélectionnée du Combobox, et reste masqué pour une requête vide. `CommandPalette` conserve
-`onOpenChange(details)` d’Ark, et `CommandPalette.Combobox` les objets de détails des callbacks Ark Combobox, notamment
+`onOpenChange(details)` d’Ark, et `CommandPalette.Combobox` les objets `details` des callbacks Ark Combobox, notamment
 `onInputValueChange(details)`, `onSelect(details)` et `onValueChange(details)`.
 
 ## Exemples

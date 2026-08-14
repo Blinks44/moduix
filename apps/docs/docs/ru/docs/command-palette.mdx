@@ -8,7 +8,7 @@ import * as CommandPaletteDocs from '@/components/examples/command-palette';
 
 ## Справочник API
 
-В Ark UI нет отдельного примитива `command-palette`. Moduix строит этот компонент с помощью официального
+В Ark UI нет отдельного примитива `command-palette`. moduix строит этот компонент с помощью официального
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), следуя рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref), а также компонует Ark [`Dialog`](https://ark-ui.com/docs/components/dialog)
@@ -74,13 +74,13 @@ CommandPalette / CommandPalette.Root
 ## Композиция
 
 Корневой компонент автоматически переносит `Backdrop` и `Positioner` в портал. Для встроенного рендеринга используйте
-`portalled={false}`, а для собственного контейнера — `portalRef`; структурные части остаются явными и доступными для стилизации.
+`portalled={false}`, а для собственного контейнера - `portalRef`; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
 
 Используйте `useListCollection` с `itemToString`, `itemToValue` и `groupBy`, затем вызывайте
 `filter(details.inputValue)` из `onInputValueChange` компонента `CommandPalette.Combobox`. Для повторяющейся оболочки
-оверлея используйте `CommandPalette.Panel`, а для стандартной строки поиска с действием очистки — `CommandPalette.Search`.
+оверлея используйте `CommandPalette.Panel`, а для стандартной строки поиска с действием очистки - `CommandPalette.Search`.
 
 ### Когда нужна собственная композиция
 
@@ -122,7 +122,7 @@ DOM-части Ark. Палитра команд не рендерит `HiddenInp
 закрыта, а при повторном нажатии того же сочетания закрывает открытую палитру. Для документации рекомендуется `alt+k`,
 поскольку поиск использует `Cmd+K`. Модификатор `mod` принимает Meta или Control, поэтому компонент не зависит от
 платформы. `CommandPalette.ClearTrigger` очищает `inputValue`, а не выбранное значение Combobox, и остаётся скрытым при
-пустом запросе. `CommandPalette` сохраняет Ark `onOpenChange(details)`, а `CommandPalette.Combobox` — объекты сведений
+пустом запросе. `CommandPalette` сохраняет Ark `onOpenChange(details)`, а `CommandPalette.Combobox` - объекты сведений
 колбэков Ark Combobox, включая `onInputValueChange(details)`, `onSelect(details)` и `onValueChange(details)`.
 
 ## Примеры

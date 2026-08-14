@@ -78,9 +78,9 @@ const collection = createListCollection<Team>({
 | Параметр         | Назначение                                                               |
 | ---------------- | ------------------------------------------------------------------------ |
 | `items`          | Исходный итерируемый объект.                                             |
-| `itemToValue`    | Возвращает стабильное строковое значение элемента. По умолчанию — `item.value`. |
-| `itemToString`   | Возвращает текст для поиска и доступности. По умолчанию — `item.label`. |
-| `isItemDisabled` | Возвращает, отключён ли элемент. По умолчанию — `item.disabled`.        |
+| `itemToValue`    | Возвращает стабильное строковое значение элемента. По умолчанию - `item.value`. |
+| `itemToString`   | Возвращает текст для поиска и доступности. По умолчанию - `item.label`. |
+| `isItemDisabled` | Возвращает, отключён ли элемент. По умолчанию - `item.disabled`.        |
 | `groupBy`        | Возвращает ключ группы для каждого элемента.                             |
 | `groupSort`      | Сортирует ключи групп функцией сравнения, явным порядком, `'asc'` или `'desc'`. |
 
@@ -117,7 +117,7 @@ collection.has('unknown'); // false
 
 ```tsx
 collection.firstValue; // 'platform'
-collection.lastValue; // 'product' — disabled items are skipped
+collection.lastValue; // 'product' - disabled items are skipped
 collection.getNextValue('platform'); // 'product'
 collection.getPreviousValue('design'); // 'product'
 collection.getValueRange('platform', 'product'); // ['platform', 'product']

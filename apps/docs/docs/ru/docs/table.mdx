@@ -8,7 +8,7 @@ import * as TableDocs from '@/components/examples/table';
 
 ## Справочник API
 
-В Ark UI нет отдельного примитива `table`. Moduix создаёт этот компонент через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
+В Ark UI нет отдельного примитива `table`. moduix создаёт этот компонент через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
 
 ## Базовый пример
 
@@ -46,7 +46,7 @@ Table.ScrollArea (optional)
 
 | Часть                | Назначение                                                               |
 | ---------------------- | -------------------------------------------------------------------------- |
-|`Table`|Нативный корень `table` с типографикой, разделителями и атрибутами состояния.|
+|`Table`|Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния.|
 |`Table.ScrollArea`|Необязательная рамка с прокруткой для таблицы внутри отдельного блока.|
 |`Table.ColumnGroup`|Нативный `colgroup` для распределения ширины столбцов.|
 |`Table.Column`|Нативный `col` с поддержкой `htmlWidth`.|
@@ -67,7 +67,7 @@ Table.ScrollArea (optional)
 
 Добавьте `Table.ScrollArea`, если нужна рамка с горизонтальной прокруткой. Указывайте `numeric` у
 `Table.ColumnHeader` и `Table.Cell` для сумм, счётчиков, процентов и других числовых показателей. Используйте
-`Table.Caption` для краткого названия или пояснения, а `Table.Footer` — для итогов. Свойства `striped`,
+`Table.Caption` для краткого названия или пояснения, а `Table.Footer` - для итогов. Свойства `striped`,
 `interactive`, `showColumnBorder`, `stickyHeader`, `size` и `variant` меняют только внешний вид и не добавляют
 состояние таблицы данных.
 
@@ -93,7 +93,7 @@ Table.ScrollArea (optional)
 |`Table`|`striped`|`false`|Чередует фон строк с данными, кроме строки пустого состояния.|
 |`Table`|`variant`|`'line'`|Поддерживает `'line'` и `'outline'`.|
 |`Table.Caption`|`side`|`'bottom'`|Поддерживает `'top'` и `'bottom'`.|
-|`Table.Column`|`htmlWidth`|—|Сопоставляется с собственным атрибутом `width` на `col`.|
+|`Table.Column`|`htmlWidth`|-|Сопоставляется с собственным атрибутом `width` на `col`.|
 |`Table.ColumnHeader`|`numeric`|`false`|Выравнивает содержимое по концу строки и использует табличные числа.|
 |`Table.Cell`|`numeric`|`false`|Выравнивает содержимое по концу строки и использует табличные числа.|
 |`Table.Empty`|`colSpan`|обязательное|Должно совпадать с текущим количеством столбцов.|
@@ -113,7 +113,7 @@ Table.ScrollArea (optional)
 
 ### Подпись и итоги
 
-Используйте `Table.Caption side="top"`, если подпись должна находиться перед данными, а `Table.Footer` — для итогов.
+Используйте `Table.Caption side="top"`, если подпись должна находиться перед данными, а `Table.Footer` - для итогов.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/table/caption-and-footer.tsx"
@@ -168,7 +168,7 @@ Table.ScrollArea (optional)
 
 ### Размеры и варианты
 
-Используйте `size` для выбора плотности, а `variant` — для оформления разделителей. Эти свойства меняют только внешний вид.
+Используйте `size` для выбора плотности, а `variant` - для оформления разделителей. Эти свойства меняют только внешний вид.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/table/sizes-and-variants.tsx"
@@ -234,11 +234,11 @@ Table.ScrollArea (optional)
 
 Используйте ту часть или атрибут, которые отвечают за нужное оформление:
 
-- `className` у `Table.ScrollArea` — граница, радиус и фон всего контейнера;
-- `className` у `Table` — типографика и ограничения ширины;
-- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` и `table-empty` — выбор отдельных частей;
-- `data-side="top" | "bottom"` у `Table.Caption` — положение подписи;
-- `data-numeric` у `Table.ColumnHeader` и `Table.Cell` — числовые столбцы;
-- `data-empty` у строки, созданной `Table.Empty`, — пустое состояние;
-- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` и `data-show-column-border` у `Table` — состояния корня;
-- `data-sticky="start" | "end"` у `Table.ColumnHeader` и `Table.Cell` — закреплённые столбцы.
+- `className` у `Table.ScrollArea` - граница, радиус и фон всего контейнера;
+- `className` у `Table` - типографика и ограничения ширины;
+- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` и `table-empty` - выбор отдельных частей;
+- `data-side="top" | "bottom"` у `Table.Caption` - положение подписи;
+- `data-numeric` у `Table.ColumnHeader` и `Table.Cell` - числовые столбцы;
+- `data-empty` у строки, созданной `Table.Empty`, - пустое состояние;
+- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` и `data-show-column-border` у `Table` - состояния корня;
+- `data-sticky="start" | "end"` у `Table.ColumnHeader` и `Table.Cell` - закреплённые столбцы.

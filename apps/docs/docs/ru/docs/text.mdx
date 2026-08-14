@@ -8,7 +8,7 @@ import * as TextDocs from '@/components/examples/text';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельный примитив `text`. Moduix строит этот компонент с помощью официального
+Ark UI не предоставляет отдельный примитив `text`. moduix строит этот компонент с помощью официального
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
@@ -48,7 +48,7 @@ Text / Text.Root
 
 | Часть                 | Назначение                                                            |
 | --------------------- | --------------------------------------------------------------------- |
-| `Text` / `Text.Root` | Семантический корень текста с типографикой дизайн-системы и data-хуками. |
+| `Text` / `Text.Root` | Семантический корневой элемент текста с типографикой дизайн-системы и data-хуками. |
 
 ## Композиция
 
@@ -70,8 +70,8 @@ Chakra [Text](https://chakra-ui.com/docs/components/text) определяет �
 | ----------- | ----------------- | ------------------------------------------------------------ |
 | `as`        | `p`               | `p`, `span`, `small`, `strong`, `em` или `div`.              |
 | `asChild`   | `false`           | Использует единственный дочерний элемент как хост.           |
-| `size`      | Зависит от элемента | Для `small` по умолчанию — `sm`; для других корней — `md`. |
-| `weight`    | Зависит от элемента | Для `strong` по умолчанию — `semibold`; иначе — `regular`. |
+| `size`      | Зависит от элемента | Для `small` по умолчанию - `sm`; для других корней - `md`. |
+| `weight`    | Зависит от элемента | Для `strong` по умолчанию - `semibold`; иначе - `regular`. |
 | `tone`      | `default`         | `default`, `muted`, `subtle`, `primary`, `destructive`.     |
 | `align`     | Не задано (`start`) | `start`, `center`, `end`, `left`, `right` или `justify`.   |
 | `truncate`  | `false`           | Однострочное CSS-усечение с многоточием.                    |
@@ -80,7 +80,7 @@ Chakra [Text](https://chakra-ui.com/docs/components/text) определяет �
 ### Особенности поведения
 
 У `Text` нет машины состояний, управляемого состояния, поведения клавиатуры, интеграции с `Field`/`Fieldset`,
-`HiddenInput`, идентификаторов, контекстных хуков или `RootProvider`. `truncate` и `lineClamp` — визуальные CSS-ограничения;
+`HiddenInput`, идентификаторов, контекстных хуков или `RootProvider`. `truncate` и `lineClamp` - визуальные CSS-ограничения;
 `lineClamp` принимает только положительные целые числа. Поведение раскрытия содержимого определяет окружающий макет.
 
 ## Примеры
@@ -178,12 +178,12 @@ Chakra [Text](https://chakra-ui.com/docs/components/text) определяет �
 
 ### Хуки стилизации
 
-- `data-scope="text"` и `data-part="root"` обозначают корень в стиле Ark.
-- `data-slot="text-root"` — стабильный селектор moduix на экспортируемом корне.
+- `data-scope="text"` и `data-part="root"` обозначают корневой элемент в стиле Ark.
+- `data-slot="text-root"` - стабильный селектор moduix на экспортируемом корне.
 - `data-size` отражает вычисленный визуальный размер: `xs`, `sm`, `md`, `lg` или `xl`.
 - `data-weight` отражает активную предустановку насыщенности: `regular`, `medium`, `semibold` или `bold`.
 - `data-tone` отражает активную предустановку тона: `default`, `muted`, `subtle`, `primary` или `destructive`.
 - `data-align` появляется, только когда `align` явно задан как `start`, `center`, `end`, `left`, `right` или `justify`.
 - `data-truncate` появляется при активном однострочном усечении с многоточием.
-- `data-line-clamp` появляется, когда `lineClamp` — положительное целое число, и задаёт резервное
+- `data-line-clamp` появляется, когда `lineClamp` - положительное целое число, и задаёт резервное
   значение. Укажите `--moduix-text-line-clamp`, чтобы переопределить его через публичный CSS API.

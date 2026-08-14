@@ -80,14 +80,14 @@ Combobox.Root[collection]
 ## Композиция
 
 Корневой компонент автоматически переносит `Positioner` в портал. Для встроенного рендеринга используйте
-`portalled={false}`, а для собственного контейнера — `portalRef`; структурные части остаются явными и доступными для стилизации.
+`portalled={false}`, а для собственного контейнера - `portalRef`; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
 
 Используйте `createListCollection` для статической коллекции или `useListCollection`, когда фильтрация меняет
 отрендеренные элементы. Для коллекций объектов задайте `itemToString` и `itemToValue`.
 
-Сохраняйте `Combobox.Positioner` и `Combobox.Content` явными. `Content` — фактическая часть содержимого Ark;
+Сохраняйте `Combobox.Positioner` и `Combobox.Content` явными. `Content` - фактическая часть содержимого Ark;
 корневой компонент автоматизирует только границу портала.
 
 Если эта структура всплывающего окна повторяется, используйте небольшой локальный помощник. Для простых строк
@@ -122,7 +122,7 @@ moduix; из Ark импортируйте только отсутствующи�
 Множественный выбор не добавляет отдельный API чипов для Combobox. Рендерите теги или другое представление значений из
 управляемого состояния, а поведение выбора оставляйте на `Combobox multiple`.
 
-Ark не предоставляет часть статуса Combobox. `Combobox.Status` из moduix — стилизованный `div` для сообщений приложения
+Ark не предоставляет часть статуса Combobox. `Combobox.Status` из moduix - стилизованный `div` для сообщений приложения
 о загрузке, ошибке или подсказке; он не управляет состоянием и не задаёт ARIA-роль.
 
 ### Свойства по умолчанию
@@ -143,9 +143,9 @@ Ark не предоставляет часть статуса Combobox. `Combobo
 ### Особенности поведения
 
 - `collection` обязателен.
-- `value` и `defaultValue` — массивы строк, в том числе при одиночном выборе.
+- `value` и `defaultValue` - массивы строк, в том числе при одиночном выборе.
 - `onValueChange(details)` читает текущие значения из `details.value`.
-- `onInputValueChange(details)` читает текст поля из `details.inputValue`, а его источник — из
+- `onInputValueChange(details)` читает текст поля из `details.inputValue`, а его источник - из
   `details.reason`.
 - `onOpenChange`, `onHighlightChange` и `onSelect` сохраняют форму сведений Ark.
 - Все DOM-части Ark сохраняют `asChild`.
@@ -170,7 +170,7 @@ Ark не предоставляет часть статуса Combobox. `Combobo
 | `items` на корневом компоненте | `createListCollection()` или `useListCollection()`, затем `collection` |
 | `itemToStringValue`     | `itemToString` и обычно `itemToValue` на коллекции                   |
 | `showClear`             | При необходимости рендерите `Combobox.ClearTrigger`                  |
-| Обычный `ComboboxItem`  | Используйте `Combobox.Option`; для собственной структуры строки — `Combobox.Item` |
+| Обычный `ComboboxItem`  | Используйте `Combobox.Option`; для собственной структуры строки - `Combobox.Item` |
 | Встроенная область чипов | Управляемое `value` с собственными тегами или композиция `TagsInput` |
 | Обёртка `ComboboxContent` | Явные `Combobox.Positioner` и `Combobox.Content`                    |
 

@@ -37,7 +37,7 @@ moduix utilise généralement le nom de l'interaction sous-jacente plutôt qu'un
 | Breadcrumb | `Breadcrumbs` | Nom de famille au pluriel ; conservez les liens sémantiques et l'état de page courante. |
 | Calendar | `DatePicker` | Utilisez sa vue calendrier sans créer une deuxième famille publique. |
 | Carousel | `Carousel` | Contrôles, indicateurs et groupe d'éléments façon Ark. |
-| Collapsible | `Collapsible` | Utilisez les détails `onOpenChange` plutôt qu'un callback booléen simple. |
+| Collapsible | `Collapsible` | Utilisez l’objet `details` reçu par `onOpenChange` plutôt qu’un callback avec une seule valeur booléenne. |
 | Combobox | `Combobox` | L'état de collection et les valeurs d'éléments suivent les contrats Ark. |
 | Command | `CommandPalette` | Un flux recherche-et-commande prêt à l'emploi, pas un alias de liste générique. |
 | Context Menu | `Menu.ContextTrigger` | La même famille `Menu` avec un déclencheur contextuel. |
@@ -112,7 +112,7 @@ class props pour les exceptions locales.
 
 ## Adaptez les callbacks d'état façon Ark
 
-Les callbacks Ark reçoivent un objet de détails pour que le contrat puisse évoluer sans arguments
+Les callbacks Ark reçoivent un objet `details` pour que le contrat puisse évoluer sans arguments
 positionnels :
 
 ```tsx

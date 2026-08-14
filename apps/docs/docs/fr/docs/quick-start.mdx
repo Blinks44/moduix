@@ -1,6 +1,6 @@
 ---
 title: Démarrage rapide
-description: Installez moduix comme paquet ou copiez des composants depuis le registre shadcn hébergé.
+description: Installez moduix comme paquet ou copiez des composants depuis le registre shadcn.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -164,7 +164,8 @@ nécessite pas son installation. Ses chemins vides et `baseColor` empêchent la 
 Tailwind ou de télécharger une palette de couleurs shadcn.
 
 Conservez `rsc: false` pour les applications rendues côté client. Dans une application React Server Components,
-définissez `rsc` sur `true` pour que shadcn ajoute une directive `use client` aux composants générés qui en ont besoin.
+définissez `rsc: true` : la CLI shadcn conserve les directives `use client` déjà présentes dans les fichiers source du
+registre. Elle ne détermine pas elle-même quels composants en ont besoin.
 
 Assurez-vous que votre projet résout l'alias `@/*` vers son répertoire source. Une structure classique avec `src`
 utilise :
@@ -201,7 +202,7 @@ utiliser le même flux de découverte via shadcn MCP.
 
 ### 3. Ajouter un composant
 
-Ajoutez des éléments du registre hébergé moduix :
+Ajoutez des éléments du registre moduix :
 
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 
@@ -269,9 +270,9 @@ concurrencer les valeurs locales de `z-index`.
 }
 ```
 
-Si votre application prend en charge Safari sur iOS 26, testez une modale défilée avec l'interface du navigateur.
-Lorsque du contenu reste visible sous le fond, maintenez le positionnement du `body` du document afin que les fonds
-absolus puissent couvrir tout le viewport visuel.
+Si votre application prend en charge Safari sur iOS 26, testez une modale défilante avec l’interface du navigateur.
+Si du contenu reste visible sous l’arrière-plan, ne modifiez pas le positionnement du `body` : l’arrière-plan positionné
+absolument pourra ainsi couvrir tout le viewport visible.
 
 ```css title="styles.css"
 body {

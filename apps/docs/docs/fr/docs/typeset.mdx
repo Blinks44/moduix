@@ -8,7 +8,7 @@ import * as TypesetDocs from '@/components/examples/typeset';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée à la composition typographique. Moduix construit `Typeset` avec la
+Ark UI ne fournit pas de primitive dédiée à la composition typographique. moduix construit `Typeset` avec la
 [factory Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) ; son composant racine et son enveloppe de
 défilement facultative conservent donc les props HTML standard, `asChild` et la ref des éléments rendus.
 
@@ -53,8 +53,8 @@ autour d’un tableau large ou d’un autre bloc qui doit défiler horizontaleme
 ### Quand créer une composition personnalisée
 
 Utilisez directement le HTML sémantique lorsque le sous-arbre rendu nécessite un autre contrat visuel, puis ajoutez
-`.not-typeset` ou `data-not-typeset` pour l’exclure avec tous ses descendants. Passez `aria-label` ou `aria-labelledby`
-à `Typeset.Scroll` lorsque sa zone de défilement a besoin d’un nom ; moduix donne alors le rôle `region` à cette
+`.not-typeset` ou `data-not-typeset` pour l’exclure avec tous ses descendants. Donnez un `aria-label` ou un
+`aria-labelledby` à chaque `Typeset.Scroll` visible par l’utilisateur ; moduix donne alors le rôle `region` à cette
 enveloppe nommée. Vous pouvez également passer des valeurs personnalisées pour `role` ou `tabIndex`.
 
 ### Propriétés par défaut
@@ -62,7 +62,7 @@ enveloppe nommée. Vous pouvez également passer des valeurs personnalisées pou
 | Partie | Valeur par défaut | Remarques |
 | --- | --- | --- |
 | `Typeset` | `div` | Utilisez `asChild` avec un seul descendant sémantique pour rendre un autre conteneur. |
-| `Typeset.Scroll` | `div`, `tabIndex={0}` | Le focus par défaut rend un tableau statique débordant accessible au clavier ; un nom accessible transmis ajoute `role="region"`. |
+| `Typeset.Scroll` | `div`, `tabIndex={0}` | Le focus par défaut rend un tableau statique débordant accessible au clavier. Donnez un nom accessible à une zone de défilement visible ; il ajoute `role="region"`. |
 
 ### Comportement
 
@@ -109,8 +109,9 @@ Utilisez les variables CSS pour créer des préréglages plus aérés ou plus de
 ### Tableau défilant
 
 Enveloppez un tableau produit par le moteur de rendu dans `Typeset.Scroll` lorsqu’il doit défiler au lieu de se
-comprimer dans un conteneur étroit. Le tableau de l’exemple conserve une largeur minimale pertinente, tandis que
-`PreviewFrame` maintient l’aperçu de la documentation centré et adaptatif.
+comprimer dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui décrit son contenu. Le
+tableau de l’exemple conserve une largeur minimale pertinente, tandis que `PreviewFrame` maintient l’aperçu de la
+documentation centré et adaptatif.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/typeset/scrollable-table.tsx"

@@ -104,7 +104,7 @@ eager initial rendering is needed.
 
 | Surface                  | Default | Notes                                                  |
 | ------------------------ | ------- | ------------------------------------------------------ |
-| `Dialog`                 | —       | No additional behavioral defaults; Ark defaults apply. |
+| `Dialog`                 | -       | No additional behavioral defaults; Ark defaults apply. |
 
 ### Behavioral notes
 
@@ -119,7 +119,7 @@ eager initial rendering is needed.
 - Keep every rendered close part id unique. The canonical Basic composition uses one
   `Dialog.CloseIcon`; if a dialog needs multiple close controls, give the additional parts explicit
   unique `id` values.
-- Nested content receives `data-has-nested` and `--nested-layer-count`. Moduix uses those hooks to
+- Nested content receives `data-has-nested` and `--nested-layer-count`. moduix uses those hooks to
   scale the parent down and offset it downward so the active nested dialog still reads as layered.
 - Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
   confirmation uses two moduix `useDialog()` stores and intercepts the parent store's `onOpenChange`.
@@ -283,7 +283,7 @@ Ark dialog part.
 
 ### Styling hooks
 
-- Moduix slots: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
+- moduix slots: `dialog-trigger`, `dialog-backdrop`, `dialog-positioner`, `dialog-content`,
   `dialog-title`, `dialog-description`, `dialog-close-trigger`, `dialog-close-icon`,
   `dialog-header`, `dialog-body`, and `dialog-footer`.
 - Ark anatomy: `data-scope="dialog"` with `data-part="trigger|backdrop|positioner|content|title|description|close-trigger"`.

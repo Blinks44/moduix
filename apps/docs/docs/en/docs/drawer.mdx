@@ -117,8 +117,8 @@ eager initial rendering is needed.
 | `preventScroll`          | `true`     | Prevents background scroll while open.                 |
 | `restoreFocus`           | `true`     | Returns focus to the previous active element.          |
 | `trapFocus`              | `true`     | Keeps focus inside modal drawer content.               |
-| `lazyMount`              | `true`     | Moduix default, different from Ark's `false`.          |
-| `unmountOnExit`          | `true`     | Moduix default, different from Ark's `false`.          |
+| `lazyMount`              | `true`     | moduix default, different from Ark's `false`.          |
+| `unmountOnExit`          | `true`     | moduix default, different from Ark's `false`.          |
 | `Content draggable`      | `true`     | The grabber still drags when content is not draggable. |
 | `closeThreshold`         | `0.25`     | Swipe distance ratio required to dismiss the drawer.   |
 | `snapToSequentialPoints` | `false`    | Moves through snap points one step at a time.          |
@@ -140,7 +140,7 @@ eager initial rendering is needed.
 - `immediate` and `skipAnimationOnMount` tune Ark presence timing when custom animation control is
   needed.
 - `present`, `lazyMount`, `unmountOnExit`, and `onExitComplete` control render lifecycle.
-  Moduix defaults `lazyMount` and `unmountOnExit` to `true` so exit animations can finish without
+  moduix defaults `lazyMount` and `unmountOnExit` to `true` so exit animations can finish without
   rendering hidden drawers on initial page load.
 - When `prefers-reduced-motion: reduce` matches, entry, exit, and stack animations take 1ms while
   preserving Ark lifecycle completion.
@@ -291,7 +291,7 @@ the full low-level Drawer anatomy.
 
 ### Styling hooks
 
-- Moduix slots: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
+- moduix slots: `drawer-trigger`, `drawer-backdrop`, `drawer-positioner`, `drawer-content`,
   `drawer-grabber`, `drawer-grabber-indicator`, `drawer-title`, `drawer-description`,
   `drawer-close-trigger`, `drawer-close-icon`, `drawer-swipe-area`, `drawer-indent`,
   `drawer-indent-background`, `drawer-header`, `drawer-body`, and `drawer-footer`.

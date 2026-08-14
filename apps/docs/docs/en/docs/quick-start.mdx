@@ -1,6 +1,6 @@
 ---
 title: Quick start
-description: Install moduix as a package or copy components from the hosted shadcn registry.
+description: Install moduix as a package or copy components from the shadcn registry.
 ---
 
 import { FrameworkGrid } from '@/components/docs/framework-grid';
@@ -163,8 +163,9 @@ The `tailwind` object is required by the shadcn configuration schema, but moduix
 Tailwind and does not require it to be installed. Its empty paths and `baseColor` prevent the CLI
 from looking for Tailwind files or downloading a shadcn color palette.
 
-Keep `rsc: false` for client-rendered applications. Set it to `true` in a React Server Components
-application so shadcn can add a `use client` directive to generated components that need one.
+Keep `rsc: false` for client-rendered applications. In a React Server Components application, set `rsc: true` so the
+shadcn CLI preserves `use client` directives already present in registry source files. The CLI does not infer which
+components need the directive.
 
 Make sure your project resolves the `@/*` alias to its source directory. A typical `src` layout uses:
 
@@ -199,7 +200,7 @@ the same discovery flow through shadcn MCP.
 
 ### 3. Add a component
 
-Add registry items from the moduix hosted registry:
+Add registry items from the moduix registry:
 
 <PackageManagerTabs command="shadcn@latest add @moduix-react/button" dlx />
 

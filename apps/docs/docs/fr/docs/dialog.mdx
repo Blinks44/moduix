@@ -84,7 +84,7 @@ de la bibliothèque.
 
 ### Quand créer une composition personnalisée
 
-Pour un état contrôlé par React, utilisez `open` avec `onOpenChange(details)`. Le callback reçoit l’objet de détails Ark ;
+Pour un état contrôlé par React, utilisez `open` avec `onOpenChange(details)`. Le callback reçoit l’objet `details` d’Ark ;
 lisez donc la valeur dans `details.open`.
 
 Utilisez `useDialog()` de moduix avec `Dialog.RootProvider` lorsque l’état et les méthodes doivent vivre hors de l’arbre
@@ -105,7 +105,7 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 
 | Surface  | Valeur par défaut | Remarques |
 | -------- | ----------------- | --------- |
-| `Dialog` | —                 | Aucun réglage comportemental supplémentaire ; les valeurs Ark s’appliquent. |
+| `Dialog` | -                 | Aucun réglage comportemental supplémentaire ; les valeurs Ark s’appliquent. |
 
 ### Comportement
 
@@ -121,7 +121,7 @@ cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
 - Tous les identifiants des parties de fermeture rendues doivent être uniques. La composition de base canonique utilise
   un seul `Dialog.CloseIcon` ; si plusieurs contrôles de fermeture sont nécessaires, attribuez des `id` explicites et
   uniques aux parties supplémentaires.
-- Le contenu imbriqué reçoit `data-has-nested` et `--nested-layer-count`. Moduix utilise ces points d’accroche pour
+- Le contenu imbriqué reçoit `data-has-nested` et `--nested-layer-count`. moduix utilise ces points d’accroche pour
   réduire le dialogue parent et le décaler vers le bas, tout en préservant l’effet visuel de couches du dialogue imbriqué actif.
 - L’ouverture depuis un menu et les changements rapides d’état utilisent le contrat contrôlé `open`. La confirmation de
   modifications non enregistrées utilise deux stores `useDialog()` de moduix et intercepte le `onOpenChange` du store parent.
@@ -152,7 +152,7 @@ Interceptez la demande de fermeture du dialogue parent lorsqu’il faut d’abor
 
 ### État contrôlé
 
-Utilisez l’objet de détails Ark lorsque vous synchronisez l’état du dialogue avec React.
+Utilisez l’objet `details` d’Ark lorsque vous synchronisez l’état du dialogue avec React.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/dialog/controlled.tsx"

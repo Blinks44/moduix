@@ -84,11 +84,11 @@ ColorPicker
 ## Композиция
 
 Корневой компонент автоматически переносит `Positioner` в портал. Для встроенного рендеринга используйте
-`portalled={false}`, а для собственного контейнера — `portalRef`; структурные части остаются явными и доступными для стилизации.
+`portalled={false}`, а для собственного контейнера - `portalRef`; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
 
-Для выбора цвета во всплывающем окне сохраняйте `ColorPicker.Positioner` и `ColorPicker.Content` явными. `Content` —
+Для выбора цвета во всплывающем окне сохраняйте `ColorPicker.Positioner` и `ColorPicker.Content` явными. `Content` -
 фактическая часть Ark; корневой компонент автоматизирует только границу портала.
 
 Не передавайте дочерние элементы в `Trigger`, `Area`, `ChannelSlider` и `SwatchTrigger`, чтобы использовать стандартную
@@ -372,15 +372,15 @@ ColorPicker
 
 Используйте часть, которая отвечает за нужный визуальный аспект:
 
-- `ColorPicker` — для ширины, интервала, общего цвета и прозрачности отключённого состояния;
-- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect` и `FormatTrigger` — для видимых элементов поля;
-- `ColorPicker.Positioner` и `ColorPicker.Content` — для слоёв всплывающего окна, ширины, отступов, скругления, тени и
+- `ColorPicker` - для ширины, интервала, общего цвета и прозрачности отключённого состояния;
+- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect` и `FormatTrigger` - для видимых элементов поля;
+- `ColorPicker.Positioner` и `ColorPicker.Content` - для слоёв всплывающего окна, ширины, отступов, скругления, тени и
   анимаций состояния;
-- `ColorPicker.Area`, `AreaBackground` и `AreaThumb` — для двумерной цветовой поверхности;
-- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb` и `Sliders` — для слайдеров оттенка,
+- `ColorPicker.Area`, `AreaBackground` и `AreaThumb` - для двумерной цветовой поверхности;
+- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb` и `Sliders` - для слайдеров оттенка,
   альфа-канала и других каналов;
-- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch` и `SwatchIndicator` — для сеток предустановленных цветов;
-- `ColorPicker.ValueSwatch`, `ValueText`, `View` и `TransparencyGrid` — для отображения значения и компоновок
+- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch` и `SwatchIndicator` - для сеток предустановленных цветов;
+- `ColorPicker.ValueSwatch`, `ValueText`, `View` и `TransparencyGrid` - для отображения значения и компоновок
   конкретного формата.
 
 Основные хуки состояния: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,

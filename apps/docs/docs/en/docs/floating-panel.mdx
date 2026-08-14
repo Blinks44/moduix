@@ -64,7 +64,7 @@ FloatingPanel / FloatingPanel.Root
 | `FloatingPanel.Body`                       | Scrollable content region.                                               |
 | `FloatingPanel.Footer`                     | Optional footer region for secondary actions or status text.             |
 | `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                          |
-| `FloatingPanel.ResizeTriggerGroup`         | Moduix helper that renders all or selected resize axes.                  |
+| `FloatingPanel.ResizeTriggerGroup`         | moduix helper that renders all or selected resize axes.                  |
 | `FloatingPanel.RootProvider`               | Connects parts to state created with `FloatingPanel.useFloatingPanel()`. |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer`, and
@@ -82,7 +82,7 @@ place `DragTrigger` around the header so pointer movement starts from a predicta
 Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` for the
 built-in minimize, maximize, and restore icon buttons. Ark hides the restore control until the panel
 is minimized or maximized. When `asChild` is set on a trigger or control, provide a single semantic
-child; default Moduix icons are only added for the default Ark button host.
+child; default moduix icons are only added for the default Ark button host.
 
 ### When to go custom
 
@@ -107,7 +107,7 @@ eager initial rendering is needed.
 | `draggable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `resizable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `strategy`      | Ark     | Passed through unchanged; Ark defaults to fixed positioning.               |
-| Presence props  | Moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
+| Presence props  | moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
 
 ### Behavioral notes
 
@@ -237,7 +237,7 @@ Use individual `ResizeTrigger` parts when each resize axis needs its own placeme
 
 ### Styling hooks
 
-Ark parts retain `data-scope="floating-panel"` and their `data-part` values. Moduix adds
+Ark parts retain `data-scope="floating-panel"` and their `data-part` values. moduix adds
 `data-slot="floating-panel-*"` to rendered wrappers. Target `data-state="open|closed"`,
 `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
 `data-maximized`, `data-staged`, and `data-axis` for state-aware styling.

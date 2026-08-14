@@ -13,13 +13,13 @@ import * as FloatingPanelDocs from '@/components/examples/floating-panel';
 ## Выбор подходящего компонента
 
 Используйте `FloatingPanel` для отсоединяемой немодальной рабочей поверхности. Используйте `Popover` для компактного
-содержимого, привязанного к триггеру, `Dialog` для модальных сценариев, а `Drawer` — для прикреплённых к краю панелей
+содержимого, привязанного к триггеру, `Dialog` для модальных сценариев, а `Drawer` - для прикреплённых к краю панелей
 с жестами или точками привязки.
 
 ## Базовый пример
 
 Явно скомпонуйте структуру Ark. `FloatingPanel.Positioner` владеет измеренным прямоугольником Ark, а
-`FloatingPanel.Content` — это поверхность, которую можно перетаскивать и изменять в размере.
+`FloatingPanel.Content` - это поверхность, которую можно перетаскивать и изменять в размере.
 
 ```tsx preview file="../../en/docs/_snippets/floating-panel/basic.tsx"
 
@@ -68,11 +68,11 @@ FloatingPanel / FloatingPanel.Root
 | `FloatingPanel.RootProvider`              | Подключает части к состоянию, созданному с `FloatingPanel.useFloatingPanel()`. |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer` и
-`FloatingPanel.ResizeTriggerGroup` — помощники moduix. Они не заменяют структурные части Ark.
+`FloatingPanel.ResizeTriggerGroup` - помощники moduix. Они не заменяют структурные части Ark.
 
 ## Композиция
 
-Корень автоматически портализирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга и `portalRef`
+Корневой элемент автоматически портализирует `Positioner`. Используйте `portalled={false}` для встроенного рендеринга и `portalRef`
 для пользовательского контейнера; структурные части остаются явными и доступными для стилизации.
 
 ### Рекомендуемая композиция
@@ -83,7 +83,7 @@ FloatingPanel / FloatingPanel.Root
 Используйте `StageTrigger` с `stage="minimized"`, `stage="maximized"` и `stage="default"` для встроенных кнопок
 сворачивания, разворачивания и восстановления с иконками. Ark скрывает элемент восстановления, пока панель не будет
 свёрнута или развёрнута. Когда `asChild` задан на триггере или элементе управления, передавайте один семантический
-дочерний элемент; стандартные иконки Moduix добавляются только для стандартного хоста кнопки Ark.
+дочерний элемент; стандартные иконки moduix добавляются только для стандартного хоста кнопки Ark.
 
 ### Когда нужна собственная композиция
 
@@ -109,7 +109,7 @@ FloatingPanel / FloatingPanel.Root
 | `draggable`      | Ark          | Передаётся без изменений; Ark по умолчанию задаёт `true`.                |
 | `resizable`      | Ark          | Передаётся без изменений; Ark по умолчанию задаёт `true`.                |
 | `strategy`       | Ark          | Передаётся без изменений; Ark по умолчанию использует fixed-позиционирование. |
-| Свойства presence | Moduix      | `lazyMount` и `unmountOnExit` по умолчанию имеют `true`; остальные свойства передаются дальше. |
+| Свойства presence | moduix      | `lazyMount` и `unmountOnExit` по умолчанию имеют `true`; остальные свойства передаются дальше. |
 
 ### Особенности поведения
 
@@ -236,7 +236,7 @@ FloatingPanel / FloatingPanel.Root
 
 ### Хуки стилизации
 
-Части Ark сохраняют `data-scope="floating-panel"` и свои значения `data-part`. Moduix добавляет
+Части Ark сохраняют `data-scope="floating-panel"` и свои значения `data-part`. moduix добавляет
 `data-slot="floating-panel-*"` к отрисованным обёрткам. Для стилизации по состоянию используйте
 `data-state="open|closed"`, `data-dragging`, `data-disabled`, `data-stage`, `data-topmost`, `data-behind`, `data-minimized`,
 `data-maximized`, `data-staged` и `data-axis`.

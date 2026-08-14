@@ -79,7 +79,7 @@ Le composant racine porte automatiquement `Positioner`. Utilisez `portalled={fal
 ### Composition recommandée
 
 Dans le cas courant, utilisez `Tooltip.Trigger` avec `Tooltip.Body`. `Tooltip.Body` conserve l’API de positionnement
-du composant racine et rend `Tooltip.Positioner` avec `Tooltip.Content` à votre place. Moduix laisse également les
+du composant racine et rend `Tooltip.Positioner` avec `Tooltip.Content` à votre place. moduix laisse également les
 parties Ark explicites disponibles lorsqu’un contrôle complet de la structure est nécessaire.
 
 Lors d’une migration depuis shadcn, `Tooltip.Body` est l’équivalent le plus proche de l’étape habituelle
@@ -261,11 +261,11 @@ N’utilisez pas `Tooltip.Body` si le positioner ou le contenu exige une composi
 Utilisez la partie responsable de la tâche visuelle :
 
 - `Tooltip.Body` ne crée pas de nœud DOM propre ; lorsque vous adoptez la composition explicite, mettez en forme `Tooltip.Positioner` et `Tooltip.Content`.
-- `Tooltip.Trigger` — pour le style du déclencheur, le retour visuel au survol et à l’ouverture, ainsi que les styles de focus.
-- `Tooltip.DisabledTrigger` — pour l’enveloppe du contrôle désactivé et son descendant direct désactivé.
-- `Tooltip.Positioner` — pour les contraintes de la disposition flottante.
-- `Tooltip.Content` — pour les substitutions de la surface de l’élément flottant.
-- `Tooltip.Arrow` et `Tooltip.ArrowTip` — pour la taille, l’arrière-plan et le contour de la flèche.
+- `Tooltip.Trigger` - pour le style du déclencheur, le retour visuel au survol et à l’ouverture, ainsi que les styles de focus.
+- `Tooltip.DisabledTrigger` - pour l’enveloppe du contrôle désactivé et son descendant direct désactivé.
+- `Tooltip.Positioner` - pour les contraintes de la disposition flottante.
+- `Tooltip.Content` - pour les substitutions de la surface de l’élément flottant.
+- `Tooltip.Arrow` et `Tooltip.ArrowTip` - pour la taille, l’arrière-plan et le contour de la flèche.
 
 Les principaux hooks publics sont `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
 `data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` et

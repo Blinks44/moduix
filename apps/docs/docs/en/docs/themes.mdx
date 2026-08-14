@@ -10,8 +10,8 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 moduix themes are plain CSS token layers. `Calm` is the balanced foundation; `Dense`, `Soft`, and
 `Contrast` are optional starting points for a different visual direction. A preset can change the
-palette, radius, spacing, control density, shadows, and Sidebar tokens without changing component
-APIs or adding a theme runtime.
+palette, radius, spacing, control density, and shadows without changing component APIs or adding a
+theme runtime.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -67,7 +67,7 @@ Choose one of these paths instead of `soft.css`:
 @moduix/react/presets/contrast.css
 ```
 
-## Use with the hosted registry
+## Use with the registry
 
 Install one copy-owned preset, then import its generated CSS after the foundation stylesheet.
 
@@ -118,7 +118,7 @@ exceptions.
 Create a stylesheet after the foundation and apply its name on `<html>`. Start with the tokens that
 define your visual direction; omitted tokens keep their foundation values. Add size or spacing
 tokens only when your theme intentionally changes density. Use a preset as a reference when you
-want to replace the complete palette, Sidebar tokens, spacing, and shadows.
+want to replace the complete palette, spacing, and shadows.
 
 ```tsx
 import '@moduix/react/style.css';

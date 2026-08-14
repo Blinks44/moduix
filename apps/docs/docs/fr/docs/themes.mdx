@@ -10,8 +10,8 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 Les thèmes moduix sont de simples couches de tokens CSS. `Calm` est le socle équilibré ; `Dense`,
 `Soft` et `Contrast` sont des points de départ optionnels pour une direction visuelle différente.
-Un préréglage peut modifier la palette, le rayon, l'espacement, la densité des contrôles, les
-ombres et les tokens Sidebar sans modifier les API des composants ni ajouter un runtime de thème.
+Un préréglage peut modifier la palette, le rayon, l'espacement, la densité des contrôles et les
+ombres sans modifier les API des composants ni ajouter un runtime de thème.
 
 <ClientOnly fallback={<ThemePresets />}>
   <ThemePresets />
@@ -70,7 +70,7 @@ Choisissez l'un de ces chemins à la place de `soft.css` :
 @moduix/react/presets/contrast.css
 ```
 
-## Utilisation avec le registre hébergé
+## Utilisation avec le registre
 
 Installez un préréglage avec code source dans le projet, puis importez son CSS généré après la
 feuille de style de base.
@@ -124,8 +124,8 @@ du système, et les alias de composants uniquement pour les exceptions intention
 Créez une feuille de style après le socle et appliquez son nom sur `<html>`. Commencez par les
 tokens qui définissent votre direction visuelle ; les tokens omis conservent leurs valeurs de base.
 N'ajoutez des tokens de taille ou d'espacement que si votre thème modifie intentionnellement la
-densité. Utilisez un préréglage comme référence quand vous voulez remplacer la palette complète, les
-tokens Sidebar, l'espacement et les ombres.
+densité. Utilisez un préréglage comme référence quand vous voulez remplacer la palette complète,
+l'espacement et les ombres.
 
 ```tsx
 import '@moduix/react/style.css';

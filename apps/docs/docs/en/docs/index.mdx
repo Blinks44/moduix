@@ -17,12 +17,11 @@ a Button, and return here when you need the broader system model.
 
 The visual language and source-delivery experience are
 [inspired by shadcn/ui](https://ui.shadcn.com/): components should look considered out of the box,
-remain easy to read, and become application-owned when that is the better workflow. moduix keeps
-its behavior and anatomy Ark-shaped rather than trying to be a drop-in shadcn clone.
+and their source should remain understandable and easy to adapt in your application.
 
 ## Choose how you own it
 
-Choose the npm package for package-managed updates. Choose the hosted shadcn registry when you want
+Choose the npm package for package-managed updates. Choose the shadcn registry when you want
 the component source, styles, and supporting utilities inside your repository.
 
 | Workflow                   | Imports                 | Best fit                                                               |
@@ -52,7 +51,7 @@ The inspiration is practical rather than cosmetic:
 - polished defaults that feel coherent before customization;
 - readable composition instead of configuration-heavy wrappers;
 - open CSS variables and source code that are straightforward to inspect;
-- a hosted shadcn registry for copy-owned installation;
+- a shadcn registry for copy-owned installation;
 - documentation that teaches the common path first and keeps escape hatches visible.
 
 moduix does not require Tailwind CSS and does not replace Ark anatomy with shadcn-specific wrapper
@@ -132,6 +131,6 @@ moduix is possible because of the work and ideas of these projects:
   documentation style centered on practical ownership.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
-- [Rspress](https://rspress.rs/) for the documentation system and component-preview tooling.
-- [Rstack](https://rspack.rs/) for the Rust-powered build foundation behind the docs.
+- [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for library builds, and
+  Rstest for tests.
 - [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.

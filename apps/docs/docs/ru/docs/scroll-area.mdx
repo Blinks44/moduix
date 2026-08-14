@@ -12,7 +12,7 @@ import * as ScrollAreaDocs from '@/components/examples/scroll-area';
 
 ## Базовый пример
 
-Используйте `ScrollArea` как корневой элемент Ark и явно скомпонуйте части viewport, content, scrollbar, thumb и corner. Viewport сохраняет нативную прокрутку колёсиком, касанием, тачпадом и с клавиатуры, а части scrollbar предоставляют стилизованные контролы. Moduix добавляет небольшое дополнение — `fade`, которое применяет к viewport верхнюю и нижнюю маску, используя измерения переполнения Ark.
+Используйте `ScrollArea` как корневой элемент Ark и явно скомпонуйте части viewport, content, scrollbar, thumb и corner. Viewport сохраняет нативную прокрутку колёсиком, касанием, тачпадом и с клавиатуры, а части scrollbar предоставляют стилизованные контролы. moduix добавляет небольшое дополнение - `fade`, которое применяет к viewport верхнюю и нижнюю маску, используя измерения переполнения Ark.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
@@ -50,7 +50,7 @@ ScrollArea
 
 ### Рекомендуемая композиция
 
-`ScrollArea` — стилизованный корневой элемент. Он не отрисовывает за вас viewport, content или scrollbar; явно скомпонуйте части Ark, чтобы каждый структурный узел оставался настраиваемым. Задайте корневому элементу ограниченный размер блока, иначе содержимое расширит viewport вместо прокрутки.
+`ScrollArea` - стилизованный корневой элемент. Он не отрисовывает за вас viewport, content или scrollbar; явно скомпонуйте части Ark, чтобы каждый структурный узел оставался настраиваемым. Задайте корневому элементу ограниченный размер блока, иначе содержимое расширит viewport вместо прокрутки.
 
 ### Когда нужна собственная композиция
 
@@ -140,7 +140,7 @@ ScrollArea
 
 ## Стилизация
 
-Используйте CSS-переменные на корневом элементе, когда толщину полосы прокрутки, оформление кольца фокуса или стилизацию поверхности нужно изменить без замены структуры. Бегунок по умолчанию сохраняет цвет токена границы и увеличивается на `2px` по своей дорожке при наведении или перетаскивании; настройте величину через `--moduix-scroll-area-thumb-hover-increase`, а время — через `--moduix-scroll-area-thumb-hover-transition`.
+Используйте CSS-переменные на корневом элементе, когда толщину полосы прокрутки, оформление кольца фокуса или стилизацию поверхности нужно изменить без замены структуры. Бегунок по умолчанию сохраняет цвет токена границы и увеличивается на `2px` по своей дорожке при наведении или перетаскивании; настройте величину через `--moduix-scroll-area-thumb-hover-increase`, а время - через `--moduix-scroll-area-thumb-hover-transition`.
 
 ### CSS-свойства
 
@@ -148,7 +148,7 @@ ScrollArea
 
 ### Хуки стилизации
 
-- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner` — стабильные хуки Moduix.
+- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner` - стабильные хуки moduix.
 - Свойство `fade` добавляет `data-fade`, а `variant` добавляет `data-variant="hover" | "always"` на `ScrollArea` и `ScrollArea.RootProvider`.
 - Ark добавляет `data-scope="scroll-area"` и `data-part` для каждой части.
 - `data-overflow-x` и `data-overflow-y` присутствуют, когда измеренное содержимое переполняется по соответствующей оси.

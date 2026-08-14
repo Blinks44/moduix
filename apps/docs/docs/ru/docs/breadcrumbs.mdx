@@ -8,7 +8,7 @@ import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
 
 ## Справочник API
 
-Ark UI не предоставляет отдельный примитив `breadcrumbs`. Moduix строит этот компонент с помощью официального
+Ark UI не предоставляет отдельный примитив `breadcrumbs`. moduix строит этот компонент с помощью официального
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
@@ -52,13 +52,13 @@ Breadcrumbs / Breadcrumbs.Root
 | `Breadcrumbs.Separator`            | Презентационный визуальный разделитель, скрытый от вспомогательных технологий. |
 | `Breadcrumbs.Ellipsis`             | Минимальный маркер свёрнутого пути для триггеров меню.             |
 
-`Breadcrumbs.Path` — локальная сокращённая форма, отрисовывающая `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Separator` из массива `items`.
+`Breadcrumbs.Path` - локальная сокращённая форма, отрисовывающая `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`, `Breadcrumbs.Page` и `Breadcrumbs.Separator` из массива `items`.
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Используйте `Breadcrumbs.Path` для простых цепочек на основе якорей. Последний элемент становится текущей страницей, разделитель по умолчанию — шеврон, а `separator` может заменить его в каждом видимом промежутке.
+Используйте `Breadcrumbs.Path` для простых цепочек на основе якорей. Последний элемент становится текущей страницей, разделитель по умолчанию - шеврон, а `separator` может заменить его в каждом видимом промежутке.
 Сокращённая форма сама создаёт дочерние элементы, поэтому не принимает `children` или `asChild`; нативные свойства упорядоченного списка и ref передаются созданному `Breadcrumbs.List`.
 
 ### Когда нужна собственная композиция
@@ -71,7 +71,7 @@ Breadcrumbs / Breadcrumbs.Root
 
 | Поверхность                        | По умолчанию | Примечания                                             |
 | ---------------------------------- | ------------ | ------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | —            | Нет дополнительных поведенческих значений по умолчанию; применяются значения Ark. |
+| `Breadcrumbs` / `Breadcrumbs.Root` | -            | Нет дополнительных поведенческих значений по умолчанию; применяются значения Ark. |
 | `Breadcrumbs.Path`                 | шеврон       | Отрисовывает разделители-шевроны, если не задан `separator`. |
 
 ### Особенности поведения

@@ -8,7 +8,7 @@ import * as SeparatorDocs from '@/components/examples/separator';
 
 ## Справочник API
 
-В Ark UI нет отдельного примитива разделителя. Moduix создаёт этот компонент с помощью официальной
+В Ark UI нет отдельного примитива разделителя. moduix создаёт этот компонент с помощью официальной
 [фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
 [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
 [ref](https://ark-ui.com/docs/guides/ref).
@@ -40,7 +40,7 @@ Separator / Separator.Root
 | ------------------------------ | ----------------------------------------------------------------------------------- |
 | `Separator` / `Separator.Root` | Корневой элемент-разделитель. Управляет ориентацией, метаданными доступности и визуальным рецептом. |
 
-Стилизуйте корень напрямую с помощью `className`, `asChild` или CSS-свойств `--moduix-separator-*`.
+Стилизуйте корневой элемент напрямую с помощью `className`, `asChild` или CSS-свойств `--moduix-separator-*`.
 
 ## Композиция
 
@@ -68,7 +68,7 @@ Separator / Separator.Root
 
 ### Особенности поведения
 
-- `Separator` выводит `aria-orientation` из `orientation`, когда его роль — `separator`, и не
+- `Separator` выводит `aria-orientation` из `orientation`, когда его роль - `separator`, и не
   добавляет атрибут для декоративной роли, поэтому сквозные атрибуты не могут противоречить семантике.
 - Используйте `role="presentation"`, когда линия только декоративная. Это отличается от декоративного
   поведения shadcn по умолчанию: moduix по умолчанию сохраняет значимые разделители содержимого в дереве
@@ -157,7 +157,7 @@ CSS-переменных.
 ### Хуки стилизации
 
 - `data-scope="separator"` и `data-part="root"` определяют корневую часть в стиле Ark.
-- `data-slot="separator-root"` — стабильный селектор moduix.
+- `data-slot="separator-root"` - стабильный селектор moduix.
 - `data-orientation="horizontal"` и `data-orientation="vertical"` нацеливают стили для конкретной оси.
 - `data-size="xs|sm|md|lg"` и `data-variant="solid|dashed|dotted"` раскрывают визуальный рецепт.
 - `className` и `style` применяются непосредственно к корневому элементу разделителя.

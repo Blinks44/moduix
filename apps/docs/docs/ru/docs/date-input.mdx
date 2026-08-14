@@ -90,15 +90,15 @@ DateInput.RootProvider
 
 | Свойство                          | По умолчанию  | Примечания                                                           |
 | --------------------------------- | ------------- | -------------------------------------------------------------------- |
-| `DateInput` / `DateInput.Root`    | —             | Локальных поведенческих значений по умолчанию нет; применяются значения Ark. |
-| `DateInput.Segments`              | —             | Отрисовывает группу сегментов с учётом локали для одного индекса.    |
-| `DateInput.names`                 | —             | Два базовых имени для полей диапазона; Ark добавляет индексы.        |
+| `DateInput` / `DateInput.Root`    | -             | Локальных поведенческих значений по умолчанию нет; применяются значения Ark. |
+| `DateInput.Segments`              | -             | Отрисовывает группу сегментов с учётом локали для одного индекса.    |
+| `DateInput.names`                 | -             | Два базовых имени для полей диапазона; Ark добавляет индексы.        |
 | `DateInput.Separator.aria-hidden` | `true`        | Декоративный текст скрыт от вспомогательных технологий.              |
 | `DateInput.Separator.role`        | `presentation` | Исключает разделители диапазона из дерева доступности.               |
 
 ### Особенности поведения
 
-- Значения — это объекты `DateInputDateValue[]` из Ark / `@internationalized/date`, а не строки.
+- Значения - это объекты `DateInputDateValue[]` из Ark / `@internationalized/date`, а не строки.
 - `onValueChange(details)` сохраняет объект `details` Ark с `details.value` и `details.valueAsString`.
 - `focused`, `defaultFocused` и `onFocusChange(details)` управляют состоянием фокуса корневого компонента.
 - `placeholderValue`, `defaultPlaceholderValue` и `onPlaceholderChange(details)` управляют датой плейсхолдера.
@@ -110,7 +110,7 @@ DateInput.RootProvider
   `"second"`, если дата не нужна.
 - Импортируйте `useDateInput()`, `useDateInputContext()` и `DateInputDateValue` из `@moduix/react`.
   Используйте `DateInput.Context` или `useDateInputContext()` для чтения состояния внутри дерева, а
-  `DateInput.SegmentContext` — для сегментов. Прямые импорты Ark оставлены для низкоуровневых типов и
+  `DateInput.SegmentContext` - для сегментов. Прямые импорты Ark оставлены для низкоуровневых типов и
   вспомогательных функций, которые moduix не экспортирует.
 
 ## Примеры

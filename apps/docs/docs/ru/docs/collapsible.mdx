@@ -60,7 +60,7 @@ Collapsible.Root
 Задавайте отступы и стили поверхности на `Collapsible.Body`, а не на `Collapsible.Content`. Ark измеряет
 содержимое и предоставляет `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
 
-При миграции с shadcn сопоставьте `CollapsibleTrigger` с `Collapsible.Trigger`, а `CollapsibleContent` —
+При миграции с shadcn сопоставьте `CollapsibleTrigger` с `Collapsible.Trigger`, а `CollapsibleContent` -
 с `Collapsible.Content`. moduix сохраняет объект сведений Ark, поэтому управляемое состояние читает
 `details.open`, а не получает логическое значение напрямую.
 
@@ -88,7 +88,7 @@ Collapsible.Root
 ### Особенности поведения
 
 - `onOpenChange` получает объект сведений Ark. Читайте следующее состояние из `details.open`.
-- `open` — целевое состояние, а `visible` остаётся истинным, пока закрывающееся содержимое смонтировано
+- `open` - целевое состояние, а `visible` остаётся истинным, пока закрывающееся содержимое смонтировано
   для анимации выхода.
 - Размещайте вложенные интерактивные элементы за пределами `Collapsible.Trigger`.
 - Анимации содержимого и индикатора учитывают `prefers-reduced-motion`.
