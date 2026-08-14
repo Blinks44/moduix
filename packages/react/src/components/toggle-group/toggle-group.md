@@ -166,6 +166,8 @@ export function RootProviderToggleGroupDemo() {
   `data-slot="toggle-group-root-provider"`.
 - Item writes `data-slot="toggle-group-item"`.
 - `data-variant` and `data-size` are moduix visual hooks.
+- A root/root-provider `variant` and `size` flows to every item unless that item declares its own
+  value.
 - Root CSS variables:
   - `--moduix-toggle-group-bg`
   - `--moduix-toggle-group-border-color`
@@ -180,6 +182,9 @@ export function RootProviderToggleGroupDemo() {
   - `--moduix-toggle-group-padding`
   - `--moduix-toggle-group-radius`
 - Item also supports the public `--moduix-toggle-*` variables from `Toggle`.
+- Group-level overrides take priority across `default`, `outline`, and `ghost`; variant-specific
+  group variables provide the fallback for their corresponding treatment.
+- Set `--moduix-toggle-*` on the root to style all items, or on an item to style only that control.
 
 ## Intentional sugar and differences from upstream
 
@@ -207,6 +212,8 @@ export function RootProviderToggleGroupDemo() {
 
 ## Local changelog
 
+- 2026-08-14: Made group-level token overrides apply consistently across variants and restored
+  root-level Toggle token inheritance for item state customization.
 - 2026-08-01: Made wrapper styling hooks non-overridable, exported the public composition types,
   kept long horizontal groups reachable through inline scrolling, and added Context coverage.
 - 2026-07-12: Restored the Ark-aligned `Context`, `useToggleGroup()`, and

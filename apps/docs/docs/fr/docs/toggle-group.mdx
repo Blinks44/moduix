@@ -66,6 +66,9 @@ moduix ajoute deux props visuelles à `ToggleGroup`, `ToggleGroup.Root`, `Toggle
 | `variant` | `default`         | `default`, `outline`, `ghost`                           |
 | `size`    | `md`              | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
 
+Les éléments héritent de `variant` et de `size` depuis la racine. Définissez l’une de ces props sur
+un élément uniquement lorsqu’un contrôle doit recevoir une personnalisation visuelle intentionnelle.
+
 ### Quand créer une composition personnalisée
 
 Utilisez `asChild` sur `ToggleGroup.Item` lorsqu’un autre bouton sémantique doit posséder l’élément rendu.
@@ -215,6 +218,11 @@ pour la mise en forme fondée sur le comportement.
     </Tab>
   </Tabs>
 </div>
+
+Le tableau couvre les propriétés de groupe. Chaque `ToggleGroup.Item` prend également en charge les
+[propriétés CSS de Toggle](/docs/toggle#css-properties) pour ses couleurs et ses états d’interaction.
+Définissez une propriété `--moduix-toggle-*` sur la racine pour styliser tous les éléments, ou sur un
+élément pour ne remplacer qu’un seul contrôle.
 
 ### Points d’accroche CSS
 

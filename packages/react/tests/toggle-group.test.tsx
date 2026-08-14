@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { ToggleGroup, useToggleGroup, useToggleGroupContext } from '../src';
 
 function ControlledToggleGroup() {
@@ -61,7 +61,9 @@ test('preserves Ark selection details and keyboard navigation', async () => {
   expect(left).toHaveAttribute('data-state', 'on');
   fireEvent.click(center);
   await waitFor(() => expect(center).toHaveAttribute('data-state', 'on'));
-  expect(changes).toEqual([['center']]);
+  fireEvent.click(center);
+  await waitFor(() => expect(center).toHaveAttribute('data-state', 'off'));
+  expect(changes).toEqual([['center'], []]);
 
   center.focus();
   fireEvent.keyDown(center, { key: 'ArrowRight' });
@@ -79,7 +81,7 @@ test('preserves controlled and RootProvider composition paths', async () => {
   expect(screen.getByRole('radio', { name: 'Center' })).toHaveAttribute('data-state', 'on');
 });
 
-test('keeps visual hooks owned by ToggleGroup while allowing item overrides', () => {
+test('keeps visual hooks owned by ToggleGroup while inheriting and allowing item overrides', () => {
   render(
     <ToggleGroup
       defaultValue={['left']}
@@ -100,6 +102,7 @@ test('keeps visual hooks owned by ToggleGroup while allowing item overrides', ()
       >
         Left
       </ToggleGroup.Item>
+      <ToggleGroup.Item value="center">Center</ToggleGroup.Item>
     </ToggleGroup>,
   );
 
@@ -112,6 +115,8 @@ test('keeps visual hooks owned by ToggleGroup while allowing item overrides', ()
   expect(item).toHaveAttribute('data-slot', 'toggle-group-item');
   expect(item).toHaveAttribute('data-variant', 'ghost');
   expect(item).toHaveAttribute('data-size', 'icon-md');
+  expect(screen.getByRole('radio', { name: 'Center' })).toHaveAttribute('data-variant', 'outline');
+  expect(screen.getByRole('radio', { name: 'Center' })).toHaveAttribute('data-size', 'sm');
 });
 
 test('supports disabled groups and asChild items', () => {
@@ -134,6 +139,37 @@ test('supports disabled groups and asChild items', () => {
   const item = screen.getByRole('radio', { name: 'Left' });
   expect(item.tagName).toBe('BUTTON');
   expect(item).toHaveAttribute('data-slot', 'toggle-group-item');
+});
+
+test('supports asChild root composition', () => {
+  render(
+    <ToggleGroup asChild defaultValue={['left']} aria-label="Custom alignment">
+      <section>
+        <ToggleGroup.Item value="left">Left</ToggleGroup.Item>
+      </section>
+    </ToggleGroup>,
+  );
+
+  const root = screen.getByRole('radiogroup', { name: 'Custom alignment' });
+
+  expect(root.tagName).toBe('SECTION');
+  expect(root).toHaveAttribute('data-slot', 'toggle-group-root');
+});
+
+test('forwards refs to the Ark root and item elements', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const itemRef = createRef<HTMLButtonElement>();
+
+  render(
+    <ToggleGroup ref={rootRef} defaultValue={['left']} aria-label="Alignment">
+      <ToggleGroup.Item ref={itemRef} value="left">
+        Left
+      </ToggleGroup.Item>
+    </ToggleGroup>,
+  );
+
+  expect(rootRef.current).toBe(screen.getByRole('radiogroup'));
+  expect(itemRef.current).toBe(screen.getByRole('radio', { name: 'Left' }));
 });
 
 test('exposes current state through useToggleGroupContext', async () => {

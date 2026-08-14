@@ -13,7 +13,11 @@ const toggleGroupOverrideCssProperties: CssPropertyInput[] = [
     'var(--moduix-border-width-sm)',
     'Controls group border width.',
   ],
-  ['--moduix-toggle-group-color', 'var(--moduix-color-foreground)', 'Controls group text color.'],
+  [
+    '--moduix-toggle-group-color',
+    'var(--moduix-color-foreground)',
+    'Controls root and unpressed item text color.',
+  ],
   ['--moduix-toggle-group-gap', 'var(--moduix-border-width-sm)', 'Controls spacing between items.'],
   ['--moduix-toggle-group-ghost-bg', 'transparent', 'Controls ghost variant group background.'],
   [

@@ -66,6 +66,9 @@ moduix adds two visual props on `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.
 | `variant` | `default` | `default`, `outline`, `ghost`                           |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
 
+Items inherit `variant` and `size` from the root. Set either prop on an item only when that control
+needs a deliberate visual override.
+
 ### When to go custom
 
 Use `asChild` on `ToggleGroup.Item` when another semantic button must own the rendered element.
@@ -220,6 +223,10 @@ behavioral styling.
     </Tab>
   </Tabs>
 </div>
+
+The table covers group-level properties. Each `ToggleGroup.Item` also supports the [Toggle CSS
+properties](/docs/toggle#css-properties) for its colors and interaction states. Set a
+`--moduix-toggle-*` property on the root to theme every item, or on an item to override one control.
 
 ### Styling hooks
 
