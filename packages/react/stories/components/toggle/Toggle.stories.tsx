@@ -98,6 +98,22 @@ export const Disabled: Story = {
   },
 };
 
+export const ContentResilience: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.stack}>
+        <Toggle variant="outline">
+          <BellIcon />
+          Receive account-security and sign-in notifications
+        </Toggle>
+        <Toggle size="lg" variant="ghost">
+          Archive 1,248 completed notifications
+        </Toggle>
+      </div>
+    );
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [pressed, setPressed] = useState(false);

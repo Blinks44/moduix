@@ -117,10 +117,7 @@
   .description {
     margin: 0;
     min-width: 0;
-    color: var(
-      --moduix-toast-description-color,
-      var(--_toast-description-color-default, var(--moduix-color-muted-foreground))
-    );
+    color: var(--moduix-toast-description-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-toast-description-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-toast-description-line-height, var(--moduix-line-height-text-sm));
     overflow-wrap: anywhere;

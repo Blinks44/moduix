@@ -1,5 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createRef, useState } from 'react';
 import { Toggle, useToggleContext } from '../src';
 
@@ -73,4 +74,21 @@ test('keeps controlled state, context, disabled, and asChild behavior Ark-shaped
   expect(fireEvent.click(disabledToggle)).toBe(false);
   expect(customToggle).toHaveAttribute('aria-pressed', 'true');
   expect(customToggle).toHaveAttribute('data-slot', 'toggle-root');
+});
+
+test('supports native button keyboard activation', async () => {
+  const user = userEvent.setup();
+
+  render(<Toggle>Notifications</Toggle>);
+
+  const toggle = screen.getByRole('button', { name: 'Notifications' });
+
+  await user.tab();
+  expect(toggle).toHaveFocus();
+
+  await user.keyboard(' ');
+  expect(toggle).toHaveAttribute('aria-pressed', 'true');
+
+  await user.keyboard('{Enter}');
+  expect(toggle).toHaveAttribute('aria-pressed', 'false');
 });
