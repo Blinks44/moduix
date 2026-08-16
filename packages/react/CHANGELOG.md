@@ -1,5 +1,388 @@
 # moduix
 
+## 2.2.5
+
+### Patch Changes
+
+### Alert
+
+- 7e441e3: Add status-specific color variables while preserving component-wide overrides.
+
+### Sidebar
+
+- 7e441e3: Move the divider trigger to the inset topbar intersection, align workspace Select indicators, and clarify Drawer composition.
+
+### Highlight
+
+- 7e441e3: Clarify component documentation and usage guidance.
+  Protect the stable styling hooks on matched marks from consumer-prop overrides.
+
+### Avatar
+
+- 7e441e3: Add a default fallback icon, preserve Unicode initials, and make fallback theming reliable.
+
+### Bleed
+
+- 7e441e3: Align logical-axis guidance, CSS variable references, and root contract coverage.
+
+### Breadcrumbs
+
+- 7e441e3: Forward `Path` refs and prevent unsupported child composition.
+
+### Carousel
+
+- 7e441e3: Refine indicator interaction states, motion preferences, high-contrast styling, and RTL progress readability.
+
+### Clipboard
+
+- 7e441e3: Improve disabled and pressed-state styling, expand public-state coverage, and document context and disabled composition.
+
+### Image
+
+- 7e441e3: Preserve explicit fetch-priority overrides and complete release-readiness coverage.
+
+### Checkbox
+
+- 7e441e3: Improve read-only semantics, interactive-state theming, and group label customization.
+
+### Listbox
+
+- 7e441e3: Improve keyboard-selection coverage and clarify form integration in documentation.
+
+### DateInput
+
+- 7e441e3: Clarify automatic range inputs and protect Ark accessibility semantics.
+
+### Kbd
+
+- 7e441e3: Refine keyboard-key styling and documentation.
+  Expose labelled shortcut groups to assistive technology.
+
+### Popover
+
+- 7e441e3: Preserve modal portal behavior and refine resilient popup styling.
+
+### CloseButton
+
+- 7e441e3: Preserve semantic `asChild` hosts when disabled.
+
+### CommandPalette
+
+- 7e441e3: Strengthen dialog accessibility and default selection behavior coverage.
+
+### InputGroup
+
+- 7e441e3: Refine grouped-input styling and protect component-owned styling hooks.
+
+### Container
+
+- 7e441e3: Complete preset coverage and document uncapped-width composition.
+
+### Dialog
+
+- 7e441e3: Respect reduced-motion preferences and expand coverage for portal, focus, controlled, and provider flows.
+
+### Empty
+
+- 7e441e3: Improve accessibility guidance and per-icon theming.
+
+### FileUpload
+
+- 7e441e3: Fall back safely when an image filename lacks an image MIME type.
+
+### Field
+
+- 7e441e3: Complete native part regression coverage and multiline field guidance.
+
+### Field
+
+- 7e441e3: Improve error-text theming and long-text resilience.
+
+### Fieldset
+
+- 7e441e3: Improve error-text theming and long-text resilience.
+- 7e441e3: Fix QR code sizing and Ark factory rendering across components.
+
+### Marquee
+
+- 7e441e3: Clarify animation styling and accessible playback guidance.
+
+### ScrollArea
+
+- 7e441e3: Improve scroll-area behavior, styling, and documentation.
+
+### PinInput
+
+- 7e441e3: Clarify automatic form submission and keyboard behavior.
+
+### NumberInput
+
+- 7e441e3: Clarify native form submission and external form ownership.
+
+### Heading
+
+- 7e441e3: Preserve component styling hooks when data attributes collide.
+
+### List
+
+- 7e441e3: Clarify list component usage guidance.
+
+### HoverCard
+
+- 7e441e3: Respect reduced-motion preferences and correct styling hooks for non-rendering root APIs.
+
+### ImageCropper
+
+- 7e441e3: Strengthen keyboard and fixed-area release readiness.
+
+### ProgressLinear
+
+- 7e441e3: Add indeterminate theming and clarify custom value-text composition.
+
+### Menu
+
+- 7e441e3: Respect reduced motion, align documented CSS hooks, and cover portal behavior.
+
+### NativeSelect
+
+- 7e441e3: Align indicator spacing and document native form composition.
+
+### Collapsible
+
+- 7e441e3: Respect reduced-motion preferences and harden custom-trigger and partial-collapse accessibility.
+
+### Input
+
+- 7e441e3: Improve input styling and behavior documentation.
+
+### PasswordInput
+
+- 7e441e3: Polish disabled-state styling and correct CSS token documentation.
+
+### Accordion
+
+- 7e441e3: Improve RTL alignment, reduced-motion behavior, and usage guidance.
+
+### AngleSlider
+
+- 7e441e3: Add external form ownership, reset synchronization, and refined interaction states.
+
+### Button
+
+- 7e441e3: Prevent disabled composed hosts from running child click handlers.
+- 7e441e3: Improve component behavior, styling, documentation, and registry output.
+
+### Select
+
+- 7e441e3: Respect reduced-motion preferences and strengthen release coverage for keyboard selection,
+  accessible clearing, portal placement, forwarded refs, states, and long content.
+
+### Steps
+
+- 7e441e3: Improve focus styling, responsive layouts, linear-validation coverage, and documentation examples.
+
+### Badge
+
+- 7e441e3: Expose the label part and harden composition, styling hooks, and interactive states.
+
+### Card
+
+- 7e441e3: Add variant-specific theming hooks and a consistent focus ring for interactive roots.
+
+### Editable
+
+- 7e441e3: Strengthen form and Field integration regression coverage.
+
+### QrCode
+
+- 7e441e3: Improve release-ready examples, accessibility guidance, and disabled download behavior.
+- 7e441e3: Improve layout resilience and interaction styling across the component library.
+  Fix horizontal List spacing, distinguish Splitter keyboard focus from pointer dragging, preserve explicit `asChild` resize triggers, and tighten CSS transitions and token fallbacks.
+
+### RatingGroup
+
+- 7e441e3: Refine styling, focus-ring CSS variable defaults, and usage guidance.
+
+### Slider
+
+- 7e441e3: Improve vertical marks, invalid and read-only states.
+
+### ColorPicker
+
+- 7e441e3: Respect reduced-motion preferences and strengthen form composition support.
+- 7e441e3: Correct Combobox styling documentation and strengthen its accessible interaction coverage.
+
+### DatePicker
+
+- 7e441e3: Inherit field state and preserve convenience input indexes.
+
+### List
+
+- 7e441e3: Correct the font-family styling contract and strengthen release coverage.
+
+### Skeleton
+
+- 7e441e3: Clarify accessible loading and theming guidance.
+
+### Spinner
+
+- 7e441e3: Clarify `decorative` `asChild` accessibility behavior and strengthen composition coverage.
+
+### Switch
+
+- 7e441e3: Improve accessibility, reduced-motion support, and invalid-state theming.
+
+### Toggle
+
+- 7e441e3: Add keyboard interaction and content-resilience coverage.
+
+### Typeset
+
+- 7e441e3: Document named scroll regions and strengthen release coverage.
+
+### TreeView
+
+- 7e441e3: Correct Node helper typings and improve disabled-node interaction feedback.
+
+### ProgressCircular
+
+- 7e441e3: Improve accessible value-text composition and indeterminate motion styling.
+
+### ScrollArea
+
+- 7e441e3: align the documented focus-ring offset default with the shared inset token and strengthen composition coverage.
+
+### PasswordInput
+
+- 7e441e3: Refine password-input styling and usage guidance.
+
+### SegmentGroup
+
+- 7e441e3: Improve segmented-control behavior, styling, and documentation.
+
+### Select
+
+- 7e441e3: Document and validate Field state inheritance for automatic native form controls.
+
+### SignaturePad
+
+- 7e441e3: prevent read-only signatures from being cleared and forward Canvas control props and refs.
+
+  Align stories, tests, localized documentation, styling references, and registry output with the release-ready contract.
+
+### Separator
+
+- 7e441e3: Keep semantic orientation aligned and complete release coverage.
+
+### Slider
+
+- 7e441e3: Add independent CSS variables for invalid-state visuals and active markers.
+
+### Lightbox
+
+- 7e441e3: Improve lightbox layout and interaction behavior.
+  Respect reduced-motion preferences while preserving the close lifecycle.
+
+### AspectRatio
+
+- 7e441e3: Preserve stable root hooks, isolate ratio internals, and normalize media frames.
+
+### FloatingPanel
+
+- 7e441e3: Strengthen lifecycle, controlled-state, provider, and resize composition coverage.
+
+### ImageCropper
+
+- 7e441e3: Improve cropper styling and interaction behavior.
+
+### ScrollArea
+
+- 7e441e3: Preserve content and scrollbar contrast in forced-colors mode and expand RTL guidance.
+
+### SegmentGroup
+
+- 7e441e3: Prevent compounded disabled opacity and strengthen native interaction reliability.
+
+### SignaturePad
+
+- 7e441e3: Fix disabled styling and height customization.
+
+### SplitButton
+
+- 7e441e3: Add accessible group semantics and strengthen interaction guidance.
+
+### Stack
+
+- 7e441e3: Finalize responsive directions, semantic composition, and styling overrides.
+
+### TagsInput
+
+- 7e441e3: Stabilize automatic form submission and reset behavior across root compositions.
+
+### Swap
+
+- 7e441e3: Polish preset animation scoping, add rotate and flip theme controls, and preserve custom animation styling hooks.
+
+### Pagination
+
+- 7e441e3: Stabilize numeric item sizing and improve range navigation coverage and documentation.
+
+### Table
+
+- 7e441e3: Keep interactive row context visible for keyboard actions.
+
+### Tabs
+
+- 7e441e3: Keep vertical root-provider variants aligned with the default filled treatment.
+
+### Tag
+
+- 7e441e3: Add independent color theming hooks for every built-in variant.
+
+### Text
+
+- 7e441e3: Allow the public line-clamp CSS variable to override the component fallback.
+
+### Textarea
+
+- 7e441e3: Clarify native form ownership and protect controlled and reset behavior.
+
+### Drawer
+
+- 7e441e3: Respect reduced-motion preferences and expand island, lifecycle, and close-control coverage.
+
+### Menu
+
+- 7e441e3: Improve menu behavior, styling, and documentation.
+
+### SimpleGrid
+
+- 7e441e3: reject invalid numeric `minChildWidth` values.
+
+### Timer
+
+- 7e441e3: Forward area props and refs through the Segments convenience component.
+
+### Alert and Toast
+
+- 7e441e3: Align status theming on card-based info defaults and improve long-content resilience.
+
+### ToggleGroup
+
+- 7e441e3: Apply group and item styling overrides consistently across variants.
+
+### Tooltip
+
+- 7e441e3: Respect reduced-motion preferences and strengthen interaction coverage.
+
+### Tour
+
+- 7e441e3: Fix tooltip overlay layering and respect reduced-motion preferences.
+
+### RadioGroup
+
+- 7e441e3: Fix group text-color theming and strengthen keyboard and state regression coverage.
+
 ## 2.2.4
 
 ### Patch Changes
