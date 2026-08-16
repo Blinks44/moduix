@@ -1,0 +1,136 @@
+---
+title: Рецепты интерфейсов
+description: Готовые к копированию примеры интерфейсов, составленные из компонентов moduix.
+---
+
+import { Card, Cards } from '@/components/mdx/Components';
+import {
+  AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
+  DataTableCardPreview,
+  ExpandableAvatarGroupCardPreview,
+  FileUploadManagerCardPreview,
+  ForgotPasswordCardPreview,
+  LoginSimpleCardPreview,
+  MobileDrawerNavigationCardPreview,
+  ParallaxCardCardPreview,
+  ResetPasswordCardPreview,
+  SidebarDashboardCardPreview,
+  SignUpCardPreview,
+  VerificationCodeCardPreview,
+} from '@/components/recipes/recipe-card-previews';
+
+# Рецепты
+
+Рецепты - это готовые к копированию примеры распространённых паттернов интерфейса и продуктовых сценариев. Скопируйте компонент
+и CSS со страницы рецепта, установите используемые им компоненты moduix, а затем адаптируйте данные и поведение
+под своё приложение.
+
+## Каркас приложения
+
+<Cards>
+  <Card
+    title="Заголовок приложения"
+    description="Компактный заголовок приложения с навигацией, уведомлениями и действиями с учётной записью."
+    href="/docs/app-header"
+    preview={<AppHeaderCardPreview />}
+  />
+  <Card
+    title="Мобильная навигация с выдвижной панелью"
+    description="Доступный каркас мобильной навигации с панелью, прикреплённой к краю экрана."
+    href="/docs/mobile-drawer-navigation"
+    preview={<MobileDrawerNavigationCardPreview />}
+  />
+  <Card
+    title="Рабочая панель с боковой навигацией"
+    description="Изменяемый по ширине каркас навигации для десктопа с вложенными элементами и меню рабочего пространства."
+    href="/docs/sidebar-dashboard"
+    preview={<SidebarDashboardCardPreview />}
+  />
+</Cards>
+
+Используйте мобильную выдвижную панель отдельно или вместе с боковой панелью для десктопа, если одни и те же пункты назначения
+должны работать на обеих контрольных точках. Заголовок приложения можно расположить над любым из этих каркасов.
+
+## Аутентификация
+
+<Cards>
+  <Card
+    title="Простой вход"
+    description="Вход по электронной почте и паролю. Подключите аутентификацию, состояние ожидания и ошибки сервера."
+    href="/docs/login-simple"
+    preview={<LoginSimpleCardPreview />}
+  />
+  <Card
+    title="Регистрация"
+    description="Создание учётной записи с принятием условий. Добавьте проверку учётной записи и маршрут успешного завершения."
+    href="/docs/sign-up"
+    preview={<SignUpCardPreview />}
+  />
+  <Card
+    title="Восстановление пароля"
+    description="Запросите письмо для сброса пароля, не раскрывая, существует ли учётная запись."
+    href="/docs/forgot-password"
+    preview={<ForgotPasswordCardPreview />}
+  />
+  <Card
+    title="Сброс пароля"
+    description="Выберите новый пароль после того, как сервер подтвердит токен сброса."
+    href="/docs/reset-password"
+    preview={<ResetPasswordCardPreview />}
+  />
+  <Card
+    title="Код подтверждения"
+    description="Введите шестизначный код из письма с автозаполнением OTP на мобильных устройствах и обработкой повторной отправки."
+    href="/docs/verification-code"
+    preview={<VerificationCodeCardPreview />}
+  />
+</Cards>
+
+## Данные и файлы
+
+<Cards>
+  <Card
+    title="Таблица данных"
+    description="Сортировка, фильтрация, выбор и пагинация с TanStack Table. Начните только с тех состояний, которые нужны вашему продукту."
+    href="/docs/data-table"
+    preview={<DataTableCardPreview />}
+  />
+  <Card
+    title="Менеджер загрузки файлов"
+    description="Локальный выбор и проверка файлов. Подключите фактическую загрузку, прогресс, повторную попытку и ошибки сервера."
+    href="/docs/file-upload-manager"
+    preview={<FileUploadManagerCardPreview />}
+  />
+</Cards>
+
+## Люди и идентификация
+
+<Cards>
+  <Card
+    title="Раскрывающаяся группа аватаров"
+    description="Компактный состав команды с подписями для коротких списков. Для больших команд используйте отдельный список людей."
+    href="/docs/expandable-avatar-group"
+    preview={<ExpandableAvatarGroupCardPreview />}
+  />
+</Cards>
+
+## Визуальный контент
+
+<Cards>
+  <Card
+    title="Автопрокручиваемая галерея"
+    description="Карусель для основного контента с боковой навигацией, размытым текстом и заполняемыми индикаторами."
+    href="/docs/autoplay-gallery"
+    preview={<AutoplayGalleryCardPreview />}
+  />
+  <Card
+    title="Карточка с параллаксом"
+    description="Карточка с фотографией на весь фон и лёгким 3D-наклоном, который следует за курсором."
+    href="/docs/parallax-card"
+    preview={<ParallaxCardCardPreview />}
+  />
+</Cards>
+
+Каждый рецепт намеренно заканчивается там, где начинаются ваши маршруты, API, правила авторизации и
+аналитика. На странице отмечены эти связи с продакшеном, чтобы скопированный интерфейс не создавал впечатления, будто он реализует поведение продукта.

@@ -69,6 +69,35 @@ test('renders an indeterminate linear progressbar without an ARIA value', () => 
   expect(progressbar).not.toHaveAttribute('aria-valuenow');
 });
 
+test('preserves custom bounds and accessible value text', () => {
+  render(
+    <ProgressLinear
+      defaultValue={420}
+      min={200}
+      max={800}
+      translations={{
+        value({ value, max }) {
+          return `${value} of ${max} requests completed`;
+        },
+      }}
+    >
+      <ProgressLinear.Context>
+        {(state) => <ProgressLinear.ValueText>{state.valueAsString}</ProgressLinear.ValueText>}
+      </ProgressLinear.Context>
+      <ProgressLinear.Track aria-label="Request migration">
+        <ProgressLinear.Range />
+      </ProgressLinear.Track>
+    </ProgressLinear>,
+  );
+
+  const progressbar = screen.getByRole('progressbar', { name: 'Request migration' });
+
+  expect(progressbar).toHaveAttribute('aria-valuemin', '200');
+  expect(progressbar).toHaveAttribute('aria-valuemax', '800');
+  expect(progressbar).toHaveAttribute('aria-valuenow', '420');
+  expect(screen.getByText('420 of 800 requests completed')).toHaveAttribute('aria-live', 'polite');
+});
+
 function RootProviderProgress() {
   const progress = ProgressLinear.useProgress({ defaultValue: 58 });
 

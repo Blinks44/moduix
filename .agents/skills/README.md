@@ -5,25 +5,28 @@ Local agent skills for maintaining the shipped `moduix` component library and do
 The library is Ark-backed and actively developed. Skills should preserve current public contracts,
 keep package/docs/registry output aligned, and remove stale instructions when behavior changes.
 
-Skills are intentionally composable:
+Skills are intentionally narrow and composable:
 
 - `AGENTS.md` owns routing, repo-wide rules, and validation.
-- Each skill should stay narrow, task-specific, and free of repeated validation checklists.
-- Prefer linking to adjacent skills over copying their instructions.
+- Each skill owns one technical surface; it links to adjacent skills instead of copying their rules.
+- Conditional details live in `references/`, not in every task's initial context.
 
 ## Skills
 
-- `.agents/skills/engineering-principles/SKILL.md` - baseline engineering behavior for coding tasks
-- `.agents/skills/css-authoring/SKILL.md` - CSS, CSS Modules, and selector-structure rules
-- `.agents/skills/js-react-conventions/SKILL.md` - JS/TS React conventions with a simplicity-first bias
-- `.agents/skills/changeset-workflow/SKILL.md` - opt-in workflow for creating or updating `.changeset/*.md` release notes
-- `.agents/skills/rspress-best-practices/SKILL.md` - Rspress 2 conventions for configuration, content, themes, and deployment
-- `.agents/skills/rspress-custom-theme/SKILL.md` - Rspress theme customization through CSS variables, BEM hooks, and layout slots
-- `.agents/skills/rspress-description-generator/SKILL.md` - Rspress page description frontmatter and AI/search metadata
-- `.agents/skills/upstream-library-docs/SKILL.md` - routing for online Ark UI, Chakra UI, and shadcn references
-- `.agents/skills/ui-component-workflow/SKILL.md` - workflow for `packages/react` component implementation and API changes
-- `.agents/skills/local-component-docs/SKILL.md` - rules for component-local markdown and changelog upkeep
-- `.agents/skills/docs-workflow/SKILL.md` - workflow for docs pages, examples, and CSS variable docs in `apps/docs`
+- `engineering-principles` — baseline behavior for all coding work.
+- `changeset-workflow` — an explicitly requested `.changeset` entry.
+- `css-authoring` — CSS, CSS Modules, selectors, and public CSS-variable contracts.
+- `js-react-conventions` — React and TypeScript implementation conventions.
+- `ui-component-workflow` — shipped component behavior, API, stories, exports, and registry synchronization.
+- `local-component-docs` — maintainers' markdown beside a component source file.
+- `upstream-library-docs` — current Ark UI, Chakra UI, and shadcn research.
+- `rstest-best-practices` — Rstest configuration and test design.
+- `rslib-best-practices` — Rslib configuration, outputs, and build troubleshooting.
+- `docs-workflow` — consumer-facing MDX, previews, CSS-variable references, and registry guidance in `website`.
+- `rspress-best-practices` — Rspress configuration, navigation, search, assets, deployment, and debugging.
+- `rspress-custom-theme` — the Rspress visual shell, theme variables, slots, wrappers, and ejection.
+- `rspress-description-generator` — description frontmatter and search/AI metadata.
+- `rspress-localization` — locale structure, translated MDX, runtime text, parity, and localization review.
 
 ## Source Of Truth
 

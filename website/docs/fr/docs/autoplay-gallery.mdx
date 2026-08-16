@@ -1,0 +1,49 @@
+---
+title: Galerie en lecture automatique
+description: Une galerie Carousel à copier-coller avec navigation latérale, texte sur les diapositives et indicateurs temporisés.
+---
+
+import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+
+# Galerie en lecture automatique
+
+Un carrousel de contenu à la une avec diapositives voisines partiellement visibles, navigation latérale, panneau de
+texte flouté et indicateurs qui se remplissent pendant le délai de lecture automatique. Il utilise uniquement les
+parties de `Carousel` : `Carousel.Context` expose l’état de lecture à l’animation CSS, et les flèches comme les
+indicateurs redémarrent la lecture sans ajouter de bouton de lecture distinct.
+
+<ExampleFrame clientOnly>
+  <AutoplayGalleryPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+
+## Utilisation dans une page
+
+Remplacez les images et le texte par votre contenu. Conservez la même durée pour l’animation CSS et
+`autoplay.delay` afin que l’indicateur rempli arrive à son terme lorsque la diapositive suivante apparaît. Après une
+navigation manuelle, les callbacks diffèrent `api.play()` jusqu’à l’image suivante : Ark traite ainsi d’abord le
+changement de diapositive qui met la lecture automatique en pause, puis un nouvel intervalle démarre sans contrôle distinct.
+Ark met la lecture automatique en pause lorsque le document est masqué ; la recette appelle la méthode publique
+`api.play()` lorsque le document redevient visible.

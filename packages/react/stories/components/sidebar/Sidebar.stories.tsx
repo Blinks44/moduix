@@ -2,6 +2,15 @@ import { createListCollection } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { Avatar } from '@/components/avatar';
+import { Button } from '@/components/button';
+import { Collapsible } from '@/components/collapsible';
+import { Drawer } from '@/components/drawer';
+import { Input } from '@/components/input';
+import { Menu } from '@/components/menu';
+import { ScrollArea } from '@/components/scroll-area';
+import { Select } from '@/components/select';
+import { Sidebar } from '@/components/sidebar/Sidebar';
 import {
   ChevronUpDownIcon,
   FileIcon,
@@ -12,14 +21,6 @@ import {
   RestartIcon,
   TrashIcon,
 } from '@/lib/moduix/icons/ui';
-import { Avatar } from '../../../src/components/avatar';
-import { Button } from '../../../src/components/button';
-import { Collapsible } from '../../../src/components/collapsible';
-import { Drawer } from '../../../src/components/drawer';
-import { Menu } from '../../../src/components/menu';
-import { ScrollArea } from '../../../src/components/scroll-area';
-import { Select } from '../../../src/components/select';
-import { Sidebar } from '../../../src/components/sidebar/Sidebar';
 import styles from './Sidebar.stories.module.css';
 
 const meta = {
@@ -45,7 +46,7 @@ const workspaces = createListCollection({
 const customPanels = [
   {
     id: 'sidebar',
-    minSize: '10rem',
+    minSize: '3rem',
     maxSize: '17rem',
     collapsible: true,
     collapsedSize: '3rem',
@@ -88,7 +89,7 @@ function WorkspaceSelect() {
           <Sidebar.Label className={styles.workspaceLabel}>
             <Select.ValueText placeholder="Select workspace" />
           </Sidebar.Label>
-          <Sidebar.Label className={styles.selectIndicator}>
+          <Sidebar.Label>
             <Select.Indicator />
           </Sidebar.Label>
         </Sidebar.MenuButton>
@@ -394,98 +395,75 @@ function ScrollAreaNavigation() {
   );
 }
 
-function MobileDrawerSidebarNavigation() {
+function MobileDrawerNavigation() {
   return (
-    <div className={styles.mobileSurface}>
-      <Sidebar.Header>
-        <div className={styles.headerStack}>
-          <div className={styles.brand}>
-            <span className={styles.brandMark} data-sidebar-icon>
-              M
-            </span>
-            <Sidebar.Label>Moduix</Sidebar.Label>
-          </div>
-          <Sidebar.Input aria-label="Search workspace" placeholder="Search" size="sm" />
-        </div>
-      </Sidebar.Header>
-      <Sidebar.Content>
-        <Sidebar.Group>
-          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-          <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
-            <PlusIcon />
-          </Sidebar.GroupAction>
-          <Sidebar.GroupContent>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton active>
-                  <FolderOpenIcon />
-                  <Sidebar.Label>Overview</Sidebar.Label>
-                </Sidebar.MenuButton>
-                <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Collapsible defaultOpen className={styles.collapsible}>
-                  <Collapsible.Trigger asChild>
-                    <Sidebar.MenuButton>
-                      <FolderIcon />
-                      <Sidebar.Label>Projects</Sidebar.Label>
-                      <Collapsible.Indicator />
-                    </Sidebar.MenuButton>
-                  </Collapsible.Trigger>
-                  <Sidebar.MenuAction
-                    aria-label="Rename project group"
-                    title="Rename project group"
-                  >
-                    <PencilIcon />
-                  </Sidebar.MenuAction>
-                  <Collapsible.Content>
-                    <Sidebar.MenuSub>
-                      <Sidebar.MenuSubItem>
-                        <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
-                      </Sidebar.MenuSubItem>
-                      <Sidebar.MenuSubItem>
-                        <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
-                      </Sidebar.MenuSubItem>
-                    </Sidebar.MenuSub>
-                  </Collapsible.Content>
-                </Collapsible>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
-                  <FileIcon />
-                  <Sidebar.Label>Documents</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
-                  <FolderIcon />
-                  <Sidebar.Label>Team</Sidebar.Label>
-                </Sidebar.MenuButton>
-                <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
-          </Sidebar.GroupContent>
-        </Sidebar.Group>
-        <Sidebar.Group>
-          <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
+    <nav className={styles.mobileNavigation} aria-label="Primary">
+      <Sidebar.Group>
+        <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+        <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
+          <PlusIcon />
+        </Sidebar.GroupAction>
+        <Sidebar.GroupContent>
           <Sidebar.Menu>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton active>
+                <FolderOpenIcon />
+                <Sidebar.Label>Overview</Sidebar.Label>
+              </Sidebar.MenuButton>
+              <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
+            </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Collapsible defaultOpen className={styles.collapsible}>
+                <Collapsible.Trigger asChild>
+                  <Sidebar.MenuButton>
+                    <FolderIcon />
+                    <Sidebar.Label>Projects</Sidebar.Label>
+                    <Collapsible.Indicator />
+                  </Sidebar.MenuButton>
+                </Collapsible.Trigger>
+                <Sidebar.MenuAction aria-label="Rename project group" title="Rename project group">
+                  <PencilIcon />
+                </Sidebar.MenuAction>
+                <Collapsible.Content>
+                  <Sidebar.MenuSub>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                    <Sidebar.MenuSubItem>
+                      <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
+                    </Sidebar.MenuSubItem>
+                  </Sidebar.MenuSub>
+                </Collapsible.Content>
+              </Collapsible>
+            </Sidebar.MenuItem>
             <Sidebar.MenuItem>
               <Sidebar.MenuButton>
                 <FileIcon />
-                <Sidebar.Label>Docs</Sidebar.Label>
+                <Sidebar.Label>Documents</Sidebar.Label>
               </Sidebar.MenuButton>
             </Sidebar.MenuItem>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton>
+                <FolderIcon />
+                <Sidebar.Label>Team</Sidebar.Label>
+              </Sidebar.MenuButton>
+              <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
+            </Sidebar.MenuItem>
           </Sidebar.Menu>
-        </Sidebar.Group>
-      </Sidebar.Content>
-      <Sidebar.Footer className={styles.footerStack}>
+        </Sidebar.GroupContent>
+      </Sidebar.Group>
+      <Sidebar.Group>
+        <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
         <Sidebar.Menu>
           <Sidebar.MenuItem>
-            <AccountMenu />
+            <Sidebar.MenuButton>
+              <FileIcon />
+              <Sidebar.Label>Docs</Sidebar.Label>
+            </Sidebar.MenuButton>
           </Sidebar.MenuItem>
         </Sidebar.Menu>
-      </Sidebar.Footer>
-    </div>
+      </Sidebar.Group>
+    </nav>
   );
 }
 
@@ -718,8 +696,21 @@ export const MobileDrawerComposition: Story = {
             </Drawer.Description>
           </Drawer.Header>
           <Drawer.Body className={styles.mobileDrawerBody}>
-            <MobileDrawerSidebarNavigation />
+            <Input.Root
+              aria-label="Search workspace"
+              className={styles.mobileDrawerSearch}
+              placeholder="Search"
+              size="sm"
+            />
+            <MobileDrawerNavigation />
           </Drawer.Body>
+          <Drawer.Footer className={styles.mobileDrawerFooter}>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem>
+                <AccountMenu />
+              </Sidebar.MenuItem>
+            </Sidebar.Menu>
+          </Drawer.Footer>
         </Drawer.Content>
       </Drawer.Positioner>
     </Drawer.Root>

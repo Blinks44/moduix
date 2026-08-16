@@ -98,6 +98,32 @@ test('synchronizes native form reset through the automatic hidden input', async 
   await waitFor(() => expect(new FormData(container.querySelector('form')!).get('code')).toBe('1'));
 });
 
+test('submits the owning form after completing an auto-submit PinInput', async () => {
+  const user = userEvent.setup();
+  let submittedCode = '';
+
+  render(
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        submittedCode = new FormData(event.currentTarget).get('code') as string;
+      }}
+    >
+      <PinInput autoSubmit count={4} name="code">
+        <PinInput.Label>Verification code</PinInput.Label>
+        <PinInput.Control>
+          <PinInput.Inputs />
+        </PinInput.Control>
+      </PinInput>
+    </form>,
+  );
+
+  await user.click(screen.getAllByRole('textbox')[0]);
+  await user.paste('1234');
+
+  await waitFor(() => expect(submittedCode).toBe('1234'));
+});
+
 test('preserves RootProvider and root asChild composition', async () => {
   const user = userEvent.setup();
   const rootRef = createRef<HTMLDivElement>();

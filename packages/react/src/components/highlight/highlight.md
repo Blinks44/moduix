@@ -139,6 +139,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-11: Protected the stable `data-scope`, `data-part`, and `data-slot` hooks from consumer-prop overrides.
 - 2026-07-27: Documented conditional `matchAll` defaults and the upstream non-ASCII `exactMatch`
   limitation; added regression coverage for the rendered contract.
 - 2026-07-21: Routed Highlight padding and radius fallbacks through foundation tokens.

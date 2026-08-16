@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Separator as SeparatorComponent } from '../../../src/components/separator';
-import { Skeleton } from '../../../src/components/skeleton';
-import { Stack } from '../../../src/components/stack/Stack';
-import { Text } from '../../../src/components/text';
+import { Separator as SeparatorComponent } from '@/components/separator';
+import { Skeleton } from '@/components/skeleton';
+import { Stack } from '@/components/stack/Stack';
+import { Text } from '@/components/text';
 import styles from './Stack.stories.module.css';
 
 const meta = {

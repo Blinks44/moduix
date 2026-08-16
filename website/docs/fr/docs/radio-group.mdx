@@ -1,0 +1,284 @@
+---
+title: Radio Group
+component: radio-group
+description: Composition Ark UI d’un groupe de boutons radio pour sélectionner une valeur dans un ensemble visible.
+---
+
+import * as RadioGroupDocs from '@/components/examples/radio-group';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Exemple de base
+
+Utilisez `RadioGroup.Option` pour une option standard avec libellé. Elle conserve automatiquement le champ natif masqué dans chaque élément.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/basic.tsx"
+
+  ```
+
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="radio-group" />
+
+## Anatomie
+
+```text
+RadioGroup.Root
+├─ RadioGroup.Label
+├─ RadioGroup.Indicator (optional)
+└─ RadioGroup.Item[value]
+   ├─ RadioGroup.ItemControl
+   ├─ RadioGroup.ItemText
+   └─ the native form input
+
+RadioGroup.RootProvider
+└─ same item tree connected to a useRadioGroup() store
+
+RadioGroup.Option
+└─ RadioGroup.Item + ItemControl + ItemText + native input (automatic)
+```
+
+| Partie                     | Rôle                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------ |
+| `RadioGroup` / `.Root`     | Conserve l’état de la valeur, la navigation au clavier, l’orientation et les formulaires. |
+| `RadioGroup.RootProvider`  | Relie les parties à l’état créé par `useRadioGroup()` d’Ark.                  |
+| `RadioGroup.Label`         | Libellé accessible du groupe.                                                  |
+| `RadioGroup.Item`          | Une option sélectionnable ; affiche un `label` par défaut.                     |
+| `RadioGroup.Option`        | Élément simplifié avec contrôle, texte et champ de saisie masqué.              |
+| `RadioGroup.ItemControl`   | Contrôle radio visuel ; prend en charge la propriété moduix `size`.            |
+| `RadioGroup.ItemText`      | Texte visible de l’option.                                                     |
+| `RadioGroup.Indicator`     | Indicateur facultatif de l’élément actif avec les variables de mesure Ark.     |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `RadioGroup` comme forme concise de `RadioGroup.Root`, et `RadioGroup.Option` pour les éléments avec libellé. Option accepte les propriétés d’élément Ark, `size` et `className` ; sa classe est appliquée à l’`Item` sous-jacent, de sorte que les parties imbriquées restent accessibles via les hooks `data-slot`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `RadioGroup.RootProvider` avec `useRadioGroup()` de `@moduix/react` lorsque l’état doit être créé en dehors de l’arbre affiché du groupe. Utilisez l’arbre explicite d’`Item` lorsqu’une disposition personnalisée ou `RadioGroup.Item asChild` doit posséder le nœud DOM de l’élément ; l’enfant direct doit toujours être un `label` sémantique.
+
+### Propriétés par défaut
+
+| Propriété                     | Par défaut | Notes                                                              |
+| ----------------------------- | ----------- | ------------------------------------------------------------------ |
+| `RadioGroup.Option size`      | `md`        | Diamètre du contrôle simplifié et échelle du point indicateur.     |
+| `RadioGroup.ItemControl size` | `md`        | Diamètre du contrôle moduix seul et échelle du point indicateur.   |
+
+### Comportement
+
+`RadioGroup.Root` accepte les propriétés Ark telles que `value`, `defaultValue`, `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`, `required`, `ids` et `asChild`.
+
+Chaque `RadioGroup.Item` affiche automatiquement un champ natif pour l’envoi, la validation et la réinitialisation du formulaire. Ark gère l’état contrôlé ou non contrôlé de la valeur, le roving focus, la navigation au clavier ainsi que la forme du callback `onValueChange(details)`.
+
+`Field.Root` fournit un libellé visible, un texte d’aide et un message d’erreur, mais ne transmet pas son état à `RadioGroup`. Transmettez `disabled`, `invalid`, `readOnly` et `required` au groupe lui-même. `Fieldset.Root` transmet aux groupes radio imbriqués ses états Ark `disabled` et `invalid`. `Item` et `Option` conservent automatiquement le comportement natif d’envoi et de réinitialisation du formulaire.
+
+## Exemples
+
+### asChild
+
+Utilisez `RadioGroup.Item asChild` lorsqu’une disposition personnalisée du libellé doit posséder le nœud DOM de l’élément.
+
+<style>{RadioGroupDocs.radioGroupAsChildCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/aschild.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### État contrôlé
+
+Utilisez `value` avec `onValueChange(details)` lorsque la valeur sélectionnée est gérée par l’interface environnante.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/controlled.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### État désactivé
+
+Définissez `disabled` sur l’élément racine pour rendre tous les éléments indisponibles tout en laissant la valeur sélectionnée visible.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/disabled.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Élément désactivé
+
+Définissez `disabled` sur un `Item` ou une `Option` en particulier lorsque seule cette option est indisponible.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/item-disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### Indicateur
+
+Affichez `RadioGroup.Indicator` lorsque l’élément actif a besoin d’une mise en évidence supplémentaire mesurée au sein du groupe. Ne placez pas de contenu qui n’est pas un élément dans le même contexte de positionnement, afin que l’indicateur suive précisément la géométrie de l’élément.
+
+<style>{RadioGroupDocs.radioGroupIndicatorCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/indicator.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Valeur initiale
+
+Définissez `defaultValue` lorsque l’élément initialement sélectionné est connu, mais que le groupe peut gérer les mises à jour suivantes.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/initial-value.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Orientation
+
+Définissez `orientation="horizontal"` lorsque le comportement des touches fléchées doit suivre un groupe horizontal. Disposez également les éléments en ligne avec un conteneur en ligne si la mise en page doit être horizontale.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/orientation.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `RootProvider` lorsque le store de `useRadioGroup()` doit être mis à la disposition de contrôles situés en dehors de l’arbre des boutons radio.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/root-provider.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Tailles
+
+Utilisez la propriété moduix `size` sur `ItemControl` ou `Option` lorsque le contrôle radio a besoin d’un diamètre différent.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/sizes.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Avec Field
+
+Utilisez `Field.Root` pour ajouter au groupe radio un libellé visible, un texte d’aide et un message de validation. Transmettez `invalid` à `RadioGroup` afin que ses boutons radio reçoivent l’état ARIA et visuel correspondant.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/with-field.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Avec Fieldset
+
+Enveloppez le groupe dans `Fieldset` lorsque plusieurs boutons radio partagent une légende commune pour une section du formulaire.
+
+<style>{`
+  ${RadioGroupDocs.radioGroupExampleCss}
+
+  .centered-fieldset-example {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+`}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/with-fieldset.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Formulaire
+
+Les champs natifs générés pour chaque élément participent à l’envoi et à la réinitialisation du formulaire sans ajout manuel d’une partie de saisie.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/form.tsx"
+  ```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Option` et employez l’arbre complet des éléments Ark lorsque chaque partie imbriquée a besoin de son propre positionnement ou de ses propres styles.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/advanced-customization.tsx"
+
+  ```
+
+</PreviewFrame>
+
+## Styles
+
+Personnalisez `RadioGroup` avec `className`, les hooks stables `data-slot="radio-group-*"`, les attributs Ark `data-scope`, `data-part` et `data-state`, ainsi que les variables CSS publiques `--moduix-radio-*` décrites ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- Hooks d’anatomie Ark : `data-scope="radio-group"` et `data-part` sur root, label, item, item-control, item-text, item-hidden-input et indicator.
+- Hooks d’état Ark : `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active` et `data-orientation`.
+- Variables de l’indicateur Ark : `--transition-property`, `--left`, `--top`, `--width` et `--height`.
+- Hooks moduix : `data-slot="radio-group-root"`, `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, `radio-group-item-hidden-input` et `radio-group-indicator`.

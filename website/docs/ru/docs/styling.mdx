@@ -1,0 +1,294 @@
+---
+title: Стилизация
+description: Стилизуйте компоненты moduix с помощью CSS Modules, Panda CSS или Tailwind CSS.
+---
+
+import { Accordion } from '@moduix/react/accordion';
+import styles from '@/components/examples/styling.module.css';
+
+# Стилизация
+
+moduix поставляет стили компонентов и общую CSS-основу, но не предписывает инструмент для написания стилей.
+Используйте CSS Modules, Panda CSS, Tailwind CSS или другую CSS-стратегию, уже принятую в приложении. API
+компонента остаётся прежним.
+
+Один раз импортируйте таблицу стилей основы в точке входа приложения:
+
+```tsx
+import '@moduix/react/style.css';
+```
+
+Panda CSS и Tailwind CSS не являются зависимостями moduix или этого сайта документации. В примерах ниже один
+и тот же `ProjectChecklist` стилизуется каждым инструментом, поэтому меняется только синтаксис написания
+стилей. Это пользовательские сниппеты для приложений, в которых соответствующий инструмент уже настроен.
+
+## Выберите наименьшее полезное переопределение
+
+| Цель | Предпочтительный способ |
+| --- | --- |
+| Принять целостное визуальное направление | Подготовленный [пресет темы](/docs/themes) |
+| Изменить цвет, размер, радиус или отступ во всей системе | Примитивный или семантический токен из раздела [Токены](/docs/tokens) |
+| Согласовать семейство элементов управления или строки всплывающих компонентов | Общий токен семейства, например `--moduix-popup-item-min-height` |
+| Намеренно выделить один компонент | Документированный алиас `--<component>-*` |
+| Стилизовать одну композицию продукта | `className` на отрисованной части, предпочтительно с локальным CSS |
+
+Этот порядок сохраняет темы компактными, а стилизацию компонентов - предсказуемой. Отдавайте предпочтение
+токену высокого уровня, когда решение должно распространяться дальше; приближайтесь к отрисованной части
+только по мере того, как область действия становится локальной.
+
+## Стилизуйте отрисованные части
+
+Начните с `className` на части, которая отвечает за визуальное изменение. Так анатомия компонента остаётся
+видимой, а стили - локальными для компонента продукта. Используйте документированные атрибуты состояния Ark
+на этой же части для стилизации состояний и публичные CSS-переменные, когда компонент предоставляет
+значение, которое нужно изменить.
+
+Панель ниже использует CSS Modules и напрямую стилизует каждую экспортируемую часть Accordion.
+
+<section className={styles.example}>
+  <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
+    <Accordion.Item className={styles.item} value="outcome">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>01</span>
+          <span className={styles.title}>Определите результат проекта</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>Напишите одно предложение, которое сделает следующее решение очевидным для всех в проекте.</p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+    <Accordion.Item className={styles.item} value="team">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>02</span>
+          <span className={styles.title}>Пригласите людей, которым нужен контекст</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>Дайте участникам общее пространство для обратной связи, решений и работы в процессе.</p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+    <Accordion.Item className={styles.item} value="ritual">
+      <Accordion.ItemTrigger className={styles.trigger}>
+        <span className={styles.triggerCopy}>
+          <span className={styles.step}>03</span>
+          <span className={styles.title}>Создайте еженедельный ритуал выпуска</span>
+        </span>
+        <Accordion.ItemIndicator className={styles.indicator} />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent className={styles.content}>
+        <Accordion.ItemBody className={styles.body}>
+          <p>
+            Превращайте прогресс в короткое обновление, чтобы команда замечала риски до того, как они станут
+            блокерами.
+          </p>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
+  </Accordion>
+</section>
+
+## CSS Modules
+
+CSS Modules - базовый вариант без зависимостей. Этот `ProjectChecklist` сохраняет стили непосредственно
+привязанными к отрисованным им частям.
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
+    <Tab value="ProjectChecklist.tsx">
+
+```tsx file="../../en/docs/_snippets/styling/project-checklist.tsx"
+
+```
+
+    </Tab>
+    <Tab value="ProjectChecklist.module.css">
+
+```css file="../../en/docs/_snippets/styling/project-checklist.module.css"
+
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+### Когда обёртка скрывает часть
+
+Используйте стабильный `data-slot`, только когда обёртка продукта владеет композицией, но не предоставляет
+часть своим вызывающим сторонам. Он всё ещё может настраивать внутренний триггер, не завися от порядка в DOM
+или сгенерированных имён классов:
+
+```css
+.root {
+  [data-slot='accordion-item-trigger'] {
+    padding-inline: var(--moduix-spacing-4);
+
+    &[data-state='open'] {
+      color: var(--moduix-color-primary);
+    }
+  }
+}
+```
+
+Это аварийный выход, а не замена `className`. Для частей, которые автоматически отрисовываются через портал,
+таких как `Dialog.Content` или `Tooltip.Content`, добавляйте `className` к самой части в портале.
+
+## Panda CSS
+
+В приложении, где Panda уже настроен, сгенерируйте классы для тех же частей `ProjectChecklist`. Имена токенов
+ниже принадлежат теме Panda, а не moduix.
+
+```tsx
+import { Accordion } from '@moduix/react/accordion';
+import { css } from '../styled-system/css';
+
+const root = css({
+  maxW: '2xl',
+  p: '3',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'xl',
+  bg: 'blue.50',
+});
+const accordion = css({ display: 'flex', flexDirection: 'column', gap: '3' });
+const item = css({
+  overflow: 'hidden',
+  borderWidth: '1px',
+  borderColor: 'blue.200',
+  borderRadius: 'lg',
+  bg: 'white',
+  transition: 'colors',
+  '&[data-state=open]': { borderColor: 'blue.500', boxShadow: 'lg' },
+});
+const trigger = css({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  gap: '3',
+  alignItems: 'center',
+  w: 'full',
+  px: '4',
+  py: '4',
+  bg: 'blue.50',
+  color: 'gray.950',
+  fontWeight: 'semibold',
+  textAlign: 'left',
+  transition: 'colors',
+  _hover: { bg: 'blue.100' },
+  _focusVisible: { outlineWidth: '2px', outlineColor: 'blue.500', outlineOffset: '-1px' },
+  '&[data-state=open]': { bg: 'blue.100', color: 'blue.700' },
+});
+const triggerCopy = css({ display: 'flex', gap: '3', alignItems: 'center', minW: '0' });
+const step = css({
+  display: 'grid',
+  flexShrink: '0',
+  placeItems: 'center',
+  w: '7',
+  h: '7',
+  borderWidth: '1px',
+  borderColor: 'blue.300',
+  borderRadius: 'xl',
+  bg: 'blue.100',
+  color: 'blue.700',
+  fontSize: 'xs',
+  fontWeight: 'semibold',
+});
+const title = css({ minW: '0' });
+const indicator = css({ flexShrink: '0', color: 'blue.700' });
+const content = css({
+  borderTopWidth: '1px',
+  borderColor: 'blue.200',
+  bg: 'blue.50',
+  color: 'gray.950',
+});
+const body = css({ px: '4', py: '4', color: 'gray.700', lineHeight: '6' });
+
+export function ProjectChecklist() {
+  return (
+    <section className={root}>
+      <Accordion className={accordion} collapsible defaultValue={['outcome']}>
+        <Accordion.Item className={item} value="outcome">
+          <Accordion.ItemTrigger className={trigger}>
+            <span className={triggerCopy}>
+              <span className={step}>01</span>
+              <span className={title}>Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className={indicator} />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className={content}>
+            <Accordion.ItemBody className={body}>
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
+  );
+}
+```
+
+## Tailwind CSS
+
+В приложении, где уже используется Tailwind, применяйте утилиты и варианты состояния к тем же частям
+`ProjectChecklist`. Специальный плагин или конфигурация Tailwind для moduix не требуются.
+
+```tsx
+import { Accordion } from '@moduix/react/accordion';
+
+export function ProjectChecklist() {
+  return (
+    <section className="max-w-2xl rounded-xl border border-blue-200 bg-blue-50 p-3">
+      <Accordion className="flex flex-col gap-3" collapsible defaultValue={['outcome']}>
+        <Accordion.Item
+          className="overflow-hidden rounded-lg border border-blue-200 bg-white transition-[border-color,box-shadow] data-[state=open]:border-blue-500 data-[state=open]:shadow-lg"
+          value="outcome"
+        >
+          <Accordion.ItemTrigger className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 bg-blue-50 p-4 text-left font-semibold text-slate-950 transition-colors hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-1px] data-[state=open]:bg-blue-100 data-[state=open]:text-blue-700">
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-xl border border-blue-300 bg-blue-100 text-xs font-semibold text-blue-700">
+                01
+              </span>
+              <span className="min-w-0">Define the project outcome</span>
+            </span>
+            <Accordion.ItemIndicator className="shrink-0 text-blue-700" />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent className="border-t border-blue-200 bg-blue-50 text-slate-950">
+            <Accordion.ItemBody className="p-4 leading-6 text-slate-700">
+              <p>
+                Write one sentence that makes the next decision obvious to everyone on the project.
+              </p>
+            </Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      </Accordion>
+    </section>
+  );
+}
+```
+
+## Устранение неполадок
+
+| Симптом | Наиболее вероятная проверка |
+| --- | --- |
+| Переменная не действует | Убедитесь, что она предоставлена на странице компонента и ваше правило загружается после `style.css`. |
+| Всплывающий компонент игнорирует значение из области обёртки | Компонент может отрисовываться через портал; поместите значение на его часть, корневой элемент или контейнер портала. |
+| Селектор состояния никогда не совпадает | Проверьте документированные `data-state`, `data-disabled` или другой атрибут Ark. |
+| Класс попадает на корневой элемент, но не на часть | Поместите `className` на экспортируемую часть, которая отвечает за визуальное свойство. |
+| Utility-класс проигрывает CSS компонента | Используйте документированную CSS-переменную или локальный класс с продуманным порядком каскада. |
+
+Прежде чем повышать специфичность селектора, используйте инструменты разработчика браузера, чтобы изучить
+отрисованную часть, её `data-slot`, атрибуты состояния и итоговые пользовательские свойства.
+
+## Связанные материалы
+
+- [Токены](/docs/tokens) объясняют общую CSS-основу и публичные переменные.
+- [Паттерны композиции](/docs/composition-patterns) объясняют, как сохранять обёртки продукта узкими.

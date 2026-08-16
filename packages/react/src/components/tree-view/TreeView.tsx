@@ -6,7 +6,6 @@ import {
   createTreeCollection,
   type TreeNode,
   type TreeViewLoadChildrenDetails,
-  type TreeViewNodeProps as TreeViewPrimitiveNodeProps,
   type TreeViewNodeProviderProps,
   type TreeViewNodeState,
   type TreeViewRootComponent,
@@ -336,8 +335,8 @@ export {
   useTreeViewContext,
   useTreeViewNodeContext,
   type TreeViewLoadChildrenDetails,
+  type TreeViewNodeProps,
   type TreeViewNodeRenderProps,
   type TreeViewNodeState,
-  type TreeViewPrimitiveNodeProps as TreeViewNodeProps,
   type TreeViewNodeProviderProps,
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { ark } from '@ark-ui/react/factory';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Listbox as ListboxPrimitive,
   type CollectionItem,
@@ -226,35 +226,44 @@ const ListboxValueText = forwardRef<
   );
 });
 
-function ListboxItemTextContent({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="listbox-item-text-content"
-      className={clsx(styles.itemTextContent, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const ListboxItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function ListboxItemTextContent({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="listbox-item-text-content"
+        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function ListboxItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="listbox-item-text-icon"
-      className={clsx(styles.itemTextIcon, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const ListboxItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function ListboxItemTextIcon({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="listbox-item-text-icon"
+        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function ListboxItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="listbox-item-text-label"
-      className={clsx(styles.itemTextLabel, normalizeClassName(className))}
-      {...props}
-    />
-  );
-}
+const ListboxItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function ListboxItemTextLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="listbox-item-text-label"
+        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Listbox = Object.assign(ListboxRoot, {
   Root: ListboxRoot,

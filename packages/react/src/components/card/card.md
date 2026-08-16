@@ -6,6 +6,9 @@ Upstream docs:
 - Ark UI styling: https://ark-ui.com/docs/guides/styling
 - Ark UI refs: https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/card
+- shadcn/ui: https://ui.shadcn.com/docs/components/card
+
+Reviewed on 2026-08-09.
 
 ## Purpose
 
@@ -24,10 +27,20 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
 - Keeps Ark-style DOM ownership through `asChild` while leaving card state and workflow logic
   outside the component.
 
+Release comparison:
+
+| Source    | Useful difference                                                                                           | Decision                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Factory parts preserve `asChild`, merged props, and rendered-element refs.                                  | Required correctness; preserved.                                                                         |
+| Chakra UI | `sm` / `md` / `lg` sizes and `elevated` / `outline` / `subtle` variants form a compact recipe contract.     | Consumer friction; preserved with independent variant CSS variables.                                     |
+| shadcn/ui | A header action, shared spacing hook, and explicit image composition are easy to discover.                  | Optional sugar; covered by `Card.Action`, `--moduix-card-spacing*`, `Card.Media`, and `Card.Background`. |
+| moduix    | A namespaced API and `Card.Body` fit adjacent components better than flat shadcn exports and `CardContent`. | Intentional difference.                                                                                  |
+| Chakra UI | An `unstyled` prop would create a parallel styling mode.                                                    | Rejected complexity; use parts, `className`, and CSS variables instead.                                  |
+
 ## Current behavior contract
 
 - Public API is compound-first: `Card.Root`, `Card.Header`, `Card.Body`, `Card.Footer`,
-  `Card.Media`, `Card.Title`, `Card.Description`, `Card.Action`, and `Card.Link`.
+  `Card.Media`, `Card.Background`, `Card.Title`, `Card.Description`, `Card.Action`, and `Card.Link`.
 - The callable `Card` export is the recommended root form; `Card.Root` is the equivalent
   namespaced form.
 - The component keeps the Chakra and shadcn card mental model while renaming shadcn's
@@ -43,6 +56,7 @@ component built with `@ark-ui/react/factory` and Chakra's Card anatomy.
 
 ```text
 Card.Root
+├─ Card.Background (optional)
 ├─ Card.Media (optional)
 ├─ Card.Header
 │  ├─ Card.Title
@@ -57,6 +71,7 @@ Every exported part accepts `className` and keeps stable hooks:
 | Part               | `data-slot`        | Notes                                                  |
 | ------------------ | ------------------ | ------------------------------------------------------ |
 | `Card.Root`        | `card-root`        | Root surface with size, variant, and background.       |
+| `Card.Background`  | `card-background`  | Optional decorative full-card media layer.             |
 | `Card.Media`       | `card-media`       | Optional edge-to-edge media wrapper with top clipping. |
 | `Card.Header`      | `card-header`      | Header grid for title, description, and action.        |
 | `Card.Body`        | `card-body`        | Main body area with content spacing.                   |
@@ -97,6 +112,18 @@ export function CardDemo() {
 ```
 
 Use `Card.Media` when leading media should bleed to the card edges with predictable clipping.
+
+Use `Card.Background` for decorative media behind the whole card. It layers the other direct card
+children above the background, but leaves overlays and contrast styling to the consumer:
+
+```tsx
+<Card>
+  <Card.Background>
+    <img alt="" src="/forest.jpg" />
+  </Card.Background>
+  <Card.Header>{/* readable content with consumer-owned contrast styles */}</Card.Header>
+</Card>
+```
 
 Use `asChild` on the root when the whole card is one link and there are no nested interactive
 controls:
@@ -152,13 +179,14 @@ Decision guide:
 - `Within Form`: supported through `Card asChild` with a semantic `form`.
 - `With Image`, `Horizontal`, and `With Avatar`: supported through normal child composition and
   consumer layout CSS, with `Card.Media` as the recommended leading-media sugar.
+- `Full-card decorative image`: covered by `Card.Background`; consumers own overlays and text contrast.
 - `Overlay-link pattern`: intentionally added by moduix through `Card.Link` and `Card.Action`.
 
 ## Accessibility and state
 
 - Exported parts write Ark-style hooks:
   - `data-scope="card"`
-  - `data-part="root" | "media" | "header" | "body" | "footer" | "title" | "description" | "action" | "link"`
+  - `data-part="root" | "background" | "media" | "header" | "body" | "footer" | "title" | "description" | "action" | "link"`
 - `Card.Root` also writes:
   - `data-slot="card-root"`
   - `data-size="sm" | "md" | "lg"`
@@ -168,9 +196,13 @@ Decision guide:
   changes that element.
 - `asChild` requires one semantic child that can accept the merged props and ref.
 - `Card.Media` is layout-only sugar and does not create ownership or ARIA relationships.
+- `Card.Background` is layout-only sugar for decorative media. Use an empty image alternative text;
+  use `Card.Media` when the image itself conveys required information.
 - `Card.Action` is layout only and does not create ownership or ARIA relationships.
 - `Card.Link` owns the overlay click target and focus ring for the linked-card stretched-link
   pattern.
+- When `Card.Root asChild` renders an interactive anchor, button, role button, or focusable custom
+  element, the root owns the same visible focus-ring contract as `Card.Link`.
 - Card has no managed state, callback details, provider/context API, form context integration,
   `HiddenInput`, or runtime CSS variables because it is not an interactive Ark primitive.
 
@@ -183,41 +215,56 @@ Decision guide:
 
 Public CSS variables:
 
-| Variable                                | Default/fallback                                                                     | Applies to         |
-| --------------------------------------- | ------------------------------------------------------------------------------------ | ------------------ |
-| `--moduix-card-action-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Action`      |
-| `--moduix-card-bg`                      | `var(--moduix-color-card)`                                                           | `Card.Root`        |
-| `--moduix-card-spacing`                 | size-specific fallback                                                               | `Card.Root`        |
-| `--moduix-card-spacing-lg`              | `var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))` | `Card.Root`        |
-| `--moduix-card-spacing-sm`              | `var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))` | `Card.Root`        |
-| `--moduix-card-body-color`              | `var(--moduix-color-muted-foreground)`                                               | `Card.Body`        |
-| `--moduix-card-body-font-size`          | `var(--moduix-text-sm)`                                                              | `Card.Body`        |
-| `--moduix-card-body-line-height`        | `var(--moduix-line-height-text-sm)`                                                  | `Card.Body`        |
-| `--moduix-card-body-padding-top`        | `var(--moduix-spacing-4)`                                                            | `Card.Body`        |
-| `--moduix-card-border-color`            | `var(--moduix-color-border)`                                                         | `Card.Root`        |
-| `--moduix-card-border-width`            | `var(--moduix-border-width-sm)`                                                      | `Card.Root`        |
-| `--moduix-card-color`                   | `var(--moduix-color-card-foreground)`                                                | `Card.Root`        |
-| `--moduix-card-description-color`       | `var(--moduix-color-muted-foreground)`                                               | `Card.Description` |
-| `--moduix-card-description-font-size`   | `var(--moduix-text-sm)`                                                              | `Card.Description` |
-| `--moduix-card-description-line-height` | `var(--moduix-line-height-text-sm)`                                                  | `Card.Description` |
-| `--moduix-card-footer-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Footer`      |
-| `--moduix-card-focus-ring-color`        | `var(--moduix-color-ring)`                                                           | `Card.Link`        |
-| `--moduix-card-focus-ring-offset`       | `var(--moduix-border-width-sm)`                                                      | `Card.Link`        |
-| `--moduix-card-focus-ring-width`        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                      | `Card.Link`        |
-| `--moduix-card-header-gap`              | `var(--moduix-spacing-1)`                                                            | `Card.Header`      |
-| `--moduix-card-padding`                 | `var(--moduix-spacing-6)`                                                            | `Card.Root`        |
-| `--moduix-card-padding-lg`              | `var(--moduix-spacing-8)`                                                            | `Card.Root`        |
-| `--moduix-card-padding-sm`              | `var(--moduix-spacing-4)`                                                            | `Card.Root`        |
-| `--moduix-card-radius`                  | `var(--moduix-radius-lg)`                                                            | `Card.Root`        |
-| `--moduix-card-shadow`                  | `none`                                                                               | `Card.Root`        |
-| `--moduix-card-title-color`             | `currentColor`                                                                       | `Card.Title`       |
-| `--moduix-card-title-font-size`         | `var(--moduix-text-lg)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-size-lg`      | `var(--moduix-text-xl)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-size-sm`      | `var(--moduix-text-md)`                                                              | `Card.Title`       |
-| `--moduix-card-title-font-weight`       | `var(--moduix-weight-semibold)`                                                      | `Card.Title`       |
-| `--moduix-card-title-line-height`       | `var(--moduix-line-height-text-lg)`                                                  | `Card.Title`       |
-| `--moduix-card-title-line-height-lg`    | `var(--moduix-line-height-text-xl)`                                                  | `Card.Title`       |
-| `--moduix-card-title-line-height-sm`    | `var(--moduix-line-height-text-md)`                                                  | `Card.Title`       |
+| Variable                                | Default/fallback                                                                     | Applies to                     |
+| --------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
+| `--moduix-card-action-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Action`                  |
+| `--moduix-card-bg`                      | `var(--moduix-color-card)`                                                           | `Card.Root`                    |
+| `--moduix-card-spacing`                 | size-specific fallback                                                               | `Card.Root`                    |
+| `--moduix-card-spacing-lg`              | `var(--moduix-card-spacing, var(--moduix-card-padding-lg, var(--moduix-spacing-8)))` | `Card.Root`                    |
+| `--moduix-card-spacing-sm`              | `var(--moduix-card-spacing, var(--moduix-card-padding-sm, var(--moduix-spacing-4)))` | `Card.Root`                    |
+| `--moduix-card-subtle-bg`               | `var(--moduix-color-muted)`                                                          | subtle root                    |
+| `--moduix-card-subtle-border-color`     | `transparent`                                                                        | subtle root                    |
+| `--moduix-card-subtle-border-width`     | `0`                                                                                  | subtle root                    |
+| `--moduix-card-subtle-color`            | `var(--moduix-color-card-foreground)`                                                | subtle root                    |
+| `--moduix-card-subtle-shadow`           | `none`                                                                               | subtle root                    |
+| `--moduix-card-body-color`              | `var(--moduix-color-muted-foreground)`                                               | `Card.Body`                    |
+| `--moduix-card-body-font-size`          | `var(--moduix-text-sm)`                                                              | `Card.Body`                    |
+| `--moduix-card-body-line-height`        | `var(--moduix-line-height-text-sm)`                                                  | `Card.Body`                    |
+| `--moduix-card-body-padding-top`        | `var(--moduix-spacing-4)`                                                            | `Card.Body`                    |
+| `--moduix-card-border-color`            | `var(--moduix-color-border)`                                                         | `Card.Root`                    |
+| `--moduix-card-border-width`            | `var(--moduix-border-width-sm)`                                                      | `Card.Root`                    |
+| `--moduix-card-color`                   | `var(--moduix-color-card-foreground)`                                                | `Card.Root`                    |
+| `--moduix-card-description-color`       | `var(--moduix-color-muted-foreground)`                                               | `Card.Description`             |
+| `--moduix-card-description-font-size`   | `var(--moduix-text-sm)`                                                              | `Card.Description`             |
+| `--moduix-card-description-line-height` | `var(--moduix-line-height-text-sm)`                                                  | `Card.Description`             |
+| `--moduix-card-elevated-bg`             | `var(--moduix-color-card)`                                                           | elevated root                  |
+| `--moduix-card-elevated-border-color`   | `transparent`                                                                        | elevated root                  |
+| `--moduix-card-elevated-border-width`   | `0`                                                                                  | elevated root                  |
+| `--moduix-card-elevated-color`          | `var(--moduix-color-card-foreground)`                                                | elevated root                  |
+| `--moduix-card-elevated-shadow`         | `var(--moduix-shadow-md)`                                                            | elevated root                  |
+| `--moduix-card-footer-gap`              | `var(--moduix-spacing-2)`                                                            | `Card.Footer`                  |
+| `--moduix-card-focus-ring-color`        | `var(--moduix-color-ring)`                                                           | interactive root / `Card.Link` |
+| `--moduix-card-focus-ring-offset`       | `var(--moduix-border-width-sm)`                                                      | interactive root / `Card.Link` |
+| `--moduix-card-focus-ring-width`        | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`                      | interactive root / `Card.Link` |
+| `--moduix-card-header-gap`              | `var(--moduix-spacing-1)`                                                            | `Card.Header`                  |
+| `--moduix-card-outline-bg`              | `var(--moduix-color-card)`                                                           | outline root                   |
+| `--moduix-card-outline-border-color`    | `var(--moduix-color-border)`                                                         | outline root                   |
+| `--moduix-card-outline-border-width`    | `var(--moduix-border-width-sm)`                                                      | outline root                   |
+| `--moduix-card-outline-color`           | `var(--moduix-color-card-foreground)`                                                | outline root                   |
+| `--moduix-card-outline-shadow`          | `none`                                                                               | outline root                   |
+| `--moduix-card-padding`                 | `var(--moduix-spacing-6)`                                                            | `Card.Root`                    |
+| `--moduix-card-padding-lg`              | `var(--moduix-spacing-8)`                                                            | `Card.Root`                    |
+| `--moduix-card-padding-sm`              | `var(--moduix-spacing-4)`                                                            | `Card.Root`                    |
+| `--moduix-card-radius`                  | `var(--moduix-radius-lg)`                                                            | `Card.Root`                    |
+| `--moduix-card-shadow`                  | `none`                                                                               | `Card.Root`                    |
+| `--moduix-card-title-color`             | `currentColor`                                                                       | `Card.Title`                   |
+| `--moduix-card-title-font-size`         | `var(--moduix-text-lg)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-size-lg`      | `var(--moduix-text-xl)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-size-sm`      | `var(--moduix-text-md)`                                                              | `Card.Title`                   |
+| `--moduix-card-title-font-weight`       | `var(--moduix-weight-semibold)`                                                      | `Card.Title`                   |
+| `--moduix-card-title-line-height`       | `var(--moduix-line-height-text-lg)`                                                  | `Card.Title`                   |
+| `--moduix-card-title-line-height-lg`    | `var(--moduix-line-height-text-xl)`                                                  | `Card.Title`                   |
+| `--moduix-card-title-line-height-sm`    | `var(--moduix-line-height-text-md)`                                                  | `Card.Title`                   |
 
 ## Intentional sugar and differences from upstream
 
@@ -227,7 +274,8 @@ Public CSS variables:
   variants. Horizontal layout remains composition-driven CSS rather than a root prop.
 - moduix keeps a namespaced compound API instead of shadcn's flat exports and intentionally renames
   `CardContent` to `Card.Body`.
-- moduix adds `Card.Media` as a narrow leading-media helper instead of a presentation prop on the root.
+- moduix adds `Card.Media` as a narrow leading-media helper and `Card.Background` as a decorative
+  full-card-media helper instead of presentation props on the root.
 - `Card.Action` and `Card.Link` remain narrow moduix extensions for header-side actions and the
   stretched overlay-link pattern.
 
@@ -235,12 +283,18 @@ Public CSS variables:
 
 - Keep the exported part names stable and aligned with the card docs page.
 - Preserve `Card.Media` as optional sugar; advanced docs should still show the low-level path without it.
+- Preserve `Card.Background` as decorative media only; keep contrast treatments and overlays consumer-owned.
 - Preserve the distinction between `Card.Root asChild` for single-link cards and `Card.Link` for
   cards that still contain nested actions.
 - Keep `Card.Body` margin-reset and spacing behavior aligned with the CSS contract.
 
 ## Local changelog
 
+- 2026-08-10: Added `Card.Background` for decorative full-card media with stable styling hooks and
+  automatic foreground layering; gradients and contrast remain consumer-owned.
+- 2026-08-09: Added independent background, foreground, border, and shadow variables for every
+  variant, and gave interactive `Card.Root asChild` compositions the same themeable focus-ring
+  contract as `Card.Link`.
 - 2026-07-26: Made every part's public ref polymorphic for `asChild`, added focused root and
   overlay-link regression coverage, and made documentation previews self-contained.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

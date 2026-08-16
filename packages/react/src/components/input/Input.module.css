@@ -1,7 +1,7 @@
 @layer moduix.components {
   .root {
     box-sizing: border-box;
-    width: var(--moduix-input-width, var(--moduix-input-default-width, 100%));
+    width: var(--moduix-input-width, var(--_input-default-width, 100%));
     max-width: var(--moduix-input-max-width, none);
     min-height: var(--moduix-input-height, var(--moduix-input-height-md, var(--moduix-size-md)));
     margin: 0;
@@ -68,7 +68,7 @@
     }
 
     &[data-html-size] {
-      --moduix-input-default-width: auto;
+      --_input-default-width: auto;
     }
 
     &:focus-visible {

@@ -78,6 +78,28 @@ test('preserves a custom content host with asChild', () => {
   expect(screen.getByRole('menu')).toHaveProperty('tagName', 'SECTION');
 });
 
+test('portals Positioner by default', () => {
+  const { container } = render(<TestMenu />);
+
+  expect(container.querySelector('[data-slot="menu-positioner"]')).toBeNull();
+  expect(screen.getByRole('menu')).toBeVisible();
+});
+
+test('supports inline Positioner rendering', () => {
+  const { container } = render(
+    <Menu defaultOpen portalled={false}>
+      <Menu.Trigger>Actions</Menu.Trigger>
+      <Menu.Positioner>
+        <Menu.Content>
+          <Menu.Item value="edit">Edit</Menu.Item>
+        </Menu.Content>
+      </Menu.Positioner>
+    </Menu>,
+  );
+
+  expect(container.querySelector('[data-slot="menu-positioner"]')).toBeInTheDocument();
+});
+
 test('preserves custom context trigger styling', () => {
   render(
     <Menu defaultOpen>

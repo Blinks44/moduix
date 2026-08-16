@@ -1,4 +1,4 @@
-![moduix banner](apps/docs/docs/public/banner.png)
+![moduix banner](website/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
@@ -10,7 +10,7 @@ Polished React components for product interfaces, built on
 [Ark UI](https://ark-ui.com/) and styled with native CSS.
 
 moduix pairs Ark's accessible interaction model with shadcn-inspired clarity: calm defaults,
-explicit composition, a token-first theme contract, and a hosted registry when you want to own the
+explicit composition, a token-first theme contract, and a registry when you want to own the
 source. Use it as the `@moduix/react` package or copy selected components into your application with
 the `shadcn` CLI.
 
@@ -182,7 +182,7 @@ Read [Tokens](https://moduix.dev/docs/tokens) for the full hierarchy and
 | Path             | Purpose                                                        |
 | ---------------- | -------------------------------------------------------------- |
 | `packages/react` | Published React package and registry source files.             |
-| `apps/docs`      | Documentation site, examples, and hosted registry artifacts.   |
+| `website`        | Documentation site, examples, and registry artifacts.          |
 | `registry`       | Source manifest used to build shadcn-compatible registry JSON. |
 
 The workspace uses npm, Turborepo, oxlint, oxfmt, and Changesets.
@@ -227,7 +227,8 @@ moduix is possible because of the work and ideas of these projects:
   documentation.
 - [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) for the foundations
   adapted by the optional reset.
-- [Rspress](https://rspress.rs/) for the documentation experience and application foundation.
+- [Rstack](https://rstack.rs/) for its Rust-based ecosystem: Rspress for documentation, Rslib for library builds, and
+  Rstest for tests.
 - [VoidZero](https://voidzero.dev/) for the JavaScript tooling used throughout the workspace.
 
 ## Contributing

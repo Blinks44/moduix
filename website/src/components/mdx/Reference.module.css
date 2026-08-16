@@ -1,0 +1,49 @@
+.demo {
+  margin-block: 1.5rem;
+  display: flex;
+  min-height: 18.75rem;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--rp-c-divider-light);
+  border-radius: var(--rp-radius);
+  background: var(--moduix-doc-card);
+  padding: 1.5rem;
+}
+
+.demoContent {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.demoContent > * {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--rp-c-divider-light);
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  color: var(--rp-c-text-1);
+  font-weight: 600;
+}

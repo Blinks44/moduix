@@ -26,13 +26,13 @@ const steps = [
   },
 ] satisfies TourStepDetails[];
 
-function TourExample() {
+function TourExample({ portalled }: { portalled?: boolean }) {
   const tour = useTour({ steps });
 
   return (
     <>
       <Button onClick={() => tour.start()}>Start tour</Button>
-      <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
+      <Tour tour={tour} portalled={portalled} lazyMount unmountOnExit>
         <Tour.Backdrop />
         <Tour.Positioner>
           <Tour.Content>
@@ -52,11 +52,40 @@ function TourExample() {
   );
 }
 
+function CustomActionTourExample() {
+  const tour = useTour({ steps });
+
+  return (
+    <>
+      <Button onClick={() => tour.start()}>Start custom action tour</Button>
+      <Tour tour={tour} portalled={false} lazyMount unmountOnExit>
+        <Tour.Positioner>
+          <Tour.Content>
+            <Tour.Title />
+            <Tour.Description />
+            <Tour.Control>
+              <Tour.Actions>
+                {(actions) =>
+                  actions.map((action, index) => (
+                    <Tour.ActionTrigger key={`${action.label}-${index}`} action={action} asChild>
+                      <button type="button">{action.label}</button>
+                    </Tour.ActionTrigger>
+                  ))
+                }
+              </Tour.Actions>
+            </Tour.Control>
+          </Tour.Content>
+        </Tour.Positioner>
+      </Tour>
+    </>
+  );
+}
+
 describe('Tour', () => {
   test('renders an inline dialog with the scrollable body sugar', async () => {
     render(
       <div data-testid="tour-host">
-        <TourExample />
+        <TourExample portalled={false} />
       </div>,
     );
 
@@ -68,13 +97,44 @@ describe('Tour', () => {
     expect(
       screen.getByTestId('tour-host').querySelector('[data-slot="tour-positioner"]'),
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Close tour' })).toHaveAttribute(
+      'data-slot',
+      'tour-close-icon',
+    );
   });
 
-  test('keeps duplicate action labels as separate working triggers', async () => {
-    render(<TourExample />);
+  test('portals overlay parts by default', async () => {
+    render(
+      <div data-testid="tour-host">
+        <TourExample />
+      </div>,
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Start tour' }));
 
-    expect(await screen.findAllByText('Continue')).toHaveLength(2);
+    const content = await screen.findByRole('alertdialog', { name: 'Welcome' });
+    expect(screen.getByTestId('tour-host')).not.toContainElement(content);
+  });
+
+  test('keeps duplicate action labels as separate, correctly disabled action triggers', async () => {
+    render(<TourExample portalled={false} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start tour' }));
+
+    const actions = await screen.findAllByText('Continue');
+    expect(actions).toHaveLength(2);
+    expect(actions[0]).toBeDisabled();
+    expect(actions[1]).not.toBeDisabled();
+  });
+
+  test('preserves Ark action behavior when custom markup is composed with asChild', async () => {
+    render(<CustomActionTourExample />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start custom action tour' }));
+
+    const actions = await screen.findAllByText('Continue');
+    expect(actions[0]).toHaveAttribute('data-slot', 'tour-action-trigger');
+    expect(actions[0]).toBeDisabled();
+    expect(actions[1]).not.toBeDisabled();
   });
 });

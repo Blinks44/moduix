@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Fragment, useState } from 'react';
-import { CheckIcon } from '@/lib/moduix/icons/ui';
 import {
   ToggleGroup,
   useToggleGroup,
   useToggleGroupContext,
-} from '../../../src/components/toggle-group/ToggleGroup';
+} from '@/components/toggle-group/ToggleGroup';
+import { CheckIcon } from '@/lib/moduix/icons/ui';
 import { BellIcon, StarIcon } from '../../icons/demo';
 import storyStyles from './ToggleGroup.stories.module.css';
 

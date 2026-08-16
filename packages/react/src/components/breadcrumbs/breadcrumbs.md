@@ -23,7 +23,8 @@ separators hidden from assistive technology. Collapsed paths are composed explic
 - `Breadcrumbs` renders an Ark factory `nav` with default `aria-label="Breadcrumb"`.
 - `Breadcrumbs.Path` renders `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`, `Breadcrumbs.Page`, and
   `Breadcrumbs.Separator` from an `items` array for the common anchor-based path case, with an optional shared
-  `separator` override.
+  `separator` override. It forwards its ref and native ordered-list props to the generated list, while keeping
+  `children` and `asChild` private because it owns that list's children.
 - `Breadcrumbs.List` renders an ordered list and owns the horizontal layout.
 - `Breadcrumbs.Item` renders a list item for a visible segment.
 - `Breadcrumbs.Link` renders an anchor by default and supports Ark `asChild` for router links.
@@ -92,7 +93,8 @@ Drop to explicit parts when different items need custom markup or framework link
 - Dedicated Ark Breadcrumb docs and React primitive: not present in the current Ark component list, package exports, or
   `https://ark-ui.com/docs/components/breadcrumb.mdx`.
 - Ark factory composition: covered by every part using `ark.*` and `HTMLArkProps`.
-- Ark `asChild`: supported on all parts through `HTMLArkProps`; documented for `Breadcrumbs.Link`.
+- Ark `asChild`: supported on every explicit part through `HTMLArkProps`; documented for `Breadcrumbs.Link`.
+  `Breadcrumbs.Path` intentionally excludes it because the shorthand owns multiple list children.
 - Moduix shorthand path rendering: covered by `Breadcrumbs.Path`, which keeps the semantic `ol > li` structure while
   auto-rendering links, the current page, and separators from `items`.
 - Ark Menu composition for collapsed paths: supported through explicit `Menu`, `Menu.Positioner`,
@@ -102,8 +104,9 @@ Drop to explicit parts when different items need custom markup or framework link
 
 ## Accessibility and state
 
-Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Link` forwards to the anchor by default; with
-`asChild`, the child must be a single semantic link component that preserves link behavior and focusability.
+Refs forward to the rendered Ark factory element for each part. `Breadcrumbs.Path` forwards its ref to the generated
+ordered list. `Breadcrumbs.Link` forwards to the anchor by default; with `asChild`, the child must be a single semantic
+link component that preserves link behavior and focusability.
 
 `Breadcrumbs.Path` does not add interaction state; it only renders the same list semantics as explicit parts. The last
 item is always the only current page, so give that item the current label instead of an `href`. Earlier items render as
@@ -179,6 +182,8 @@ ellipsis text uses `text-overflow: ellipsis`.
 
 ## Local changelog
 
+- 2026-08-09: Made `Breadcrumbs.Path` forward its ref and native list props to the generated `ol`, and removed the
+  unsupported `children` and `asChild` props from its public shorthand contract.
 - 2026-07-26: Ensured `Breadcrumbs.Path` marks only its final item as current, made the default chevron RTL-aware, and
   added focused semantics and composition coverage.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

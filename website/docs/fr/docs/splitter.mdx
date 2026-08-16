@@ -1,0 +1,218 @@
+---
+title: Splitter
+component: splitter
+description: Une primitive de mise en page redimensionnable qui divise l’interface en panneaux.
+---
+
+import * as SplitterDocs from '@/components/examples/splitter';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+
+## Exemple de base
+
+Utilisez les parties inspirées d’Ark : `Splitter`, `Splitter.Panel` et `Splitter.ResizeTrigger`. Le déclencheur affiche
+par défaut l’indicateur de redimensionnement de moduix. `panels` définit les identifiants et les contraintes ; les
+identifiants des panneaux affichés doivent correspondre à ceux de ce tableau.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="splitter" />
+
+## Anatomie
+
+```text
+Splitter
+├─ Splitter.Panel[id]
+├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
+│  └─ Splitter.ResizeTriggerIndicator (par défaut, personnalisable)
+└─ Splitter.Panel[id]
+```
+
+| Partie                              | Rôle                                                                                                                  |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `Splitter` / `Splitter.Root`        | Possède les contraintes et tailles des panneaux, l’orientation, les callbacks et la machine d’état du splitter.      |
+| `Splitter.Panel`                    | Zone redimensionnable. Son `id` doit correspondre à un élément de la propriété `panels`.                             |
+| `Splitter.ResizeTrigger`            | Bouton de manipulation accessible entre deux panneaux adjacents.                                                      |
+| `Splitter.ResizeTriggerIndicator`   | Indicateur visuel par défaut ; transmettez des enfants personnalisés au déclencheur pour le remplacer.                |
+| `Splitter.RootProvider`             | Affiche le même arbre de parties à partir d’un état créé avec `useSplitter()`.                                        |
+
+## Composition
+
+### Composition recommandée
+
+Affichez explicitement les panneaux et les poignées dans leur ordre visuel. Utilisez des identifiants de déclencheur
+au format `"left:right"` afin qu’Ark puisse associer les identifiants des deux panneaux adjacents. Ne transmettez pas
+d’enfants au déclencheur pour conserver l’indicateur de redimensionnement par défaut ; faites-le uniquement pour personnaliser son contenu.
+
+### Quand créer une composition personnalisée
+
+Utilisez `size` de manière contrôlée avec `onResize(details)` lorsque les dimensions des panneaux doivent être
+répercutées dans l’état de l’application. Importez `useSplitter`, `useSplitterContext` et `createSplitterRegistry`
+depuis `@moduix/react` pour le contrôle impératif, l’état externe et les mises en page imbriquées qui permettent de
+faire glisser plusieurs poignées. Associez `useSplitter()` à `Splitter.RootProvider` lorsque l’état doit être créé
+en dehors de l’arbre de parties affiché.
+
+Utilisez `asChild` uniquement lorsqu’un autre élément doit posséder le nœud affiché. Les déclencheurs de
+redimensionnement personnalisés doivent conserver la sémantique de bouton, le comportement du focus et l’interaction clavier.
+Avec `asChild`, fournissez exactement un élément enfant interactif pour la poignée : l’indicateur de redimensionnement
+par défaut n’y est pas ajouté.
+
+### Propriétés par défaut
+
+| Propriété           | Par défaut        | Remarques                                                                 |
+| ------------------- | ----------------- | ------------------------------------------------------------------------- |
+| `orientation`       | `"horizontal"`  | Utilisez `"vertical"` pour des panneaux empilés verticalement.          |
+| `defaultSize`       | Calculé par Ark    | Utilisez des pourcentages pour une taille stable lors du rendu serveur.   |
+| `keyboardResizeBy`  | Valeur Ark         | Définit l’amplitude du redimensionnement avec les touches fléchées.       |
+| `size`              | Non contrôlé       | Transmettez-le avec `onResize(details)` pour contrôler les tailles.       |
+| `disabled`          | `false`            | Définissez-le sur `ResizeTrigger` pour désactiver la poignée.             |
+
+### Comportement
+
+`panels` est une propriété obligatoire qui définit les contraintes `minSize`, `maxSize`, `collapsible` et
+`collapsedSize`. Les valeurs numériques de taille sont exprimées en pourcentage ; Ark accepte également des longueurs
+CSS pour les tailles initiales et les contraintes, mesurées côté client, ce qui peut provoquer un décalage après l’hydratation.
+
+Les callbacks conservent les objets details d’Ark : `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`
+et `onExpand(details)`. `onResizeStart` est appelé au début du redimensionnement.
+
+## Exemples
+
+### Panneaux réductibles
+
+Pour qu'un redimensionnement au pointeur reste continu, définissez `minSize` sur la même valeur que
+`collapsedSize`. Une valeur `minSize` supérieure demande intentionnellement à Zag de basculer entre
+la largeur minimale développée et le rail réduit.
+
+Définissez `collapsible` et `collapsedSize` dans la description du panneau lorsqu’il peut se réduire à une bande repliée.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/collapsible-panels.tsx"
+
+  ```
+</PreviewFrame>
+
+### État contrôlé
+
+Contrôlez les dimensions des panneaux depuis l’état React et mettez-le à jour avec `details.size`.
+
+<style>{SplitterDocs.splitterStackCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Réduction dynamique
+
+Les méthodes programmatiques de réduction et de déploiement conviennent aux panneaux latéraux adaptatifs qui
+réagissent à la largeur disponible mesurée.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/dynamic-collapsible.tsx"
+
+  ```
+</PreviewFrame>
+
+### Plusieurs panneaux
+
+Ajoutez un autre `Panel` et un autre `ResizeTrigger` adjacent pour créer une mise en page à trois panneaux.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/multiple-panels.tsx"
+
+  ```
+</PreviewFrame>
+
+### Mise en page imbriquée
+
+Utilisez un registre partagé pour les composants Splitter imbriqués afin de pouvoir faire glisser plusieurs poignées aux
+intersections des séparateurs horizontaux et verticaux.
+
+<style>{SplitterDocs.splitterNestedCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/nested.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useSplitter()` avec `Splitter.RootProvider` lorsque des contrôles extérieurs à la racine ont besoin
+d’accéder à la même API de splitter.
+
+<style>{SplitterDocs.splitterStackCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` et une hauteur stable sur la racine afin que les panneaux empilés verticalement puissent être redimensionnés.
+
+<style>{SplitterDocs.splitterVerticalCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Splitter` avec `className`, les attributs Ark, les hooks stables `data-slot="splitter-*"` et les variables
+CSS publiques de moduix ci-dessous. `Splitter.Root` et `Splitter.RootProvider` appliquent
+`--moduix-splitter-width` et `--moduix-splitter-height` au moyen du style inline standard ; ces variables peuvent
+donc remplacer la mise en page de la racine Ark. La surface par défaut se trouve sur la racine, tandis que les panneaux
+restent plats et alignés à l’intérieur.
+
+Le déclencheur de redimensionnement ajoute à la mise en page un séparateur de `1px` avec une ligne visuelle plus fine
+de `0.5px`, une zone de survol transparente et un indicateur arrondi en relief. L’indicateur est centré sur le
+séparateur dans les deux orientations. Au survol, sa bordure et son ombre sont renforcées ; pendant le glissement,
+il est légèrement agrandi et son ombre s’accentue. Après le relâchement du pointeur, le déclencheur reprend son aspect
+normal. Remplacez les variables `--moduix-splitter-resize-trigger-*` correspondantes lorsque le thème environnant
+nécessite un autre rendu.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SplitterDocs.SplitterCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Ark écrit `data-scope="splitter"` et `data-part` sur toutes les parties affichées. moduix écrit également les valeurs
+`data-slot` suivantes : `splitter-root`, `splitter-root-provider`, `splitter-panel`, `splitter-resize-trigger` et
+`splitter-resize-trigger-indicator`.
+
+Les principaux hooks d’état d’Ark sont `data-orientation`, `data-dragging`, `data-focus` du déclencheur,
+`data-disabled` du déclencheur, `data-id` du panneau et `data-index` du panneau.

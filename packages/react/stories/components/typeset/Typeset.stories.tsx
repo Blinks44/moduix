@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Typeset } from '../../../src/components/typeset/Typeset';
+import { Typeset } from '@/components/typeset/Typeset';
 import styles from './Typeset.stories.module.css';
 
 const meta = {
@@ -103,7 +103,7 @@ export const Compact: Story = {
 export const ScrollableTable: Story = {
   render: () => (
     <Typeset className={styles.article}>
-      <Typeset.Scroll>
+      <Typeset.Scroll aria-label="Content comparison table">
         <table className={styles.wideTable}>
           <thead>
             <tr>

@@ -1,0 +1,212 @@
+---
+title: Hover Card
+component: hover-card
+description: Композиция hover card из Ark UI для дополнительных предпросмотров, открываемых при наведении или фокусе.
+---
+
+import * as HoverCardDocs from '@/components/examples/hover-card';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/hover-card" />
+
+## Базовый пример
+
+Используйте явное дерево частей Ark: разместите `HoverCard.Trigger` рядом с содержимым, на которое наводится
+указатель, затем отрендерите positioner и content. Стандартная композиция - простой попап без стрелки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="hover-card" />
+
+## Анатомия
+
+```text
+HoverCard
+├─ HoverCard.Trigger
+└─ Overlay subtree (automatically portalled)
+   └─ HoverCard.Positioner
+      └─ HoverCard.Content
+         ├─ HoverCard.Arrow
+         │  └─ HoverCard.ArrowTip
+         └─ content
+
+HoverCard.RootProvider
+└─ same part tree connected to a moduix useHoverCard() store
+```
+
+| Часть                      | Назначение                                                               |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `HoverCard`                | Корневое состояние, задержки, позиционирование, ids, присутствие и взаимодействие снаружи. |
+| `HoverCard.RootProvider`   | Рендерит дерево hover card из состояния, возвращённого moduix `useHoverCard`. |
+| `HoverCard.Trigger`        | Цель для наведения и фокуса. Для ссылок или пользовательских хостов используйте `asChild`. |
+| `HoverCard.Positioner`     | Плавающий слой, предоставляющий CSS-переменные позиционирования Ark.    |
+| `HoverCard.Content`        | Видимая поверхность всплывающего окна и dismissable layer.              |
+| `HoverCard.Arrow`          | Обёртка позиционированной стрелки. По умолчанию содержит `HoverCard.ArrowTip`. |
+| `HoverCard.ArrowTip`       | Наконечник стрелки, стилизуемый через переменные стрелки Ark.           |
+
+`HoverCard.Root` остаётся псевдонимом для совместимости; в пользовательском коде используйте короткую
+корневую форму `HoverCard`.
+
+## Композиция
+
+Корневой элемент автоматически портализирует `HoverCard.Positioner`. Установите `portalled={false}`, чтобы отрендерить его
+встроенно, или передайте `portalRef`, чтобы выбрать пользовательский контейнер. Сохраняйте структурные части
+явными, чтобы размещение, содержимое и стрелка оставались независимо компонуемыми.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild` на `HoverCard.Trigger` для настоящей ссылки или собственной семантической кнопки.
+Рендерите `HoverCard.ArrowTip` напрямую только когда нужно изменить его разметку. Используйте
+`HoverCard.RootProvider` с moduix `useHoverCard()`, когда состоянием нужно делиться за пределами отрендеренного
+дерева, а `HoverCard.Context` или `useHoverCardContext()` - для чтения состояния внутри.
+
+### Свойства по умолчанию
+
+По умолчанию содержимое портализированного оверлея лениво монтируется и демонтируется после анимации закрытия.
+Установите `unmountOnExit={false}`, чтобы сохранять его после первого открытия; устанавливайте оба свойства
+жизненного цикла в `false` только когда нужен нетерпеливый начальный рендеринг.
+
+| Свойство               | По умолчанию | Примечания                                                        |
+| ---------------------- | ------------ | ----------------------------------------------------------------- |
+| `closeDelay`           | `300`        | Время в мс от ухода указателя с триггера или содержимого до закрытия. |
+| `openDelay`            | `600`        | Время в мс от входа указателя на триггер до открытия.            |
+| `lazyMount`            | `true`       | Откладывает монтирование содержимого до первого открытия.        |
+| `unmountOnExit`        | `true`       | Удаляет содержимое после анимации закрытия.                       |
+| `skipAnimationOnMount` | `false`      | По умолчанию разрешает начальную анимацию появления.              |
+
+### Особенности поведения
+
+`onOpenChange` получает объекты деталей Ark, например `{ open }`; используйте `details.open`. Для нескольких
+триггеров применяйте `Trigger value` вместе с `onTriggerValueChange`. `ids` позволяет зафиксировать ids триггера,
+содержимого, positioner и стрелки для составной доступности. Свойства присутствия Ark, включая `present`,
+`immediate` и `onExitComplete`, передаются без изменений.
+
+Hover Card отключает анимацию триггера и содержимого, когда пользователь предпочитает уменьшенное движение.
+Длинный неразрывный текст переносится внутри содержимого и не выходит за границы карточки.
+
+Hover card предназначены только для дополнительных предпросмотров. Информация, необходимая для понимания или
+выполнения задачи, должна быть доступна без открытия карточки.
+
+## Примеры
+
+### Контекст
+
+Используйте `HoverCard.Context` для чтения состояния внутри, не меняя видимое дерево частей.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Управляйте открытым состоянием с помощью `open` и `onOpenChange(details)`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Задержка
+
+Настраивайте время наведения с помощью `openDelay` и `closeDelay` на корневом компоненте.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/delay.tsx"
+
+  ```
+</PreviewFrame>
+
+### Диалог
+
+Рендерите hover card встроенно внутри диалога, когда она должна оставаться в слое оверлея диалога.
+Начальный фокус диалога может открыть сфокусированный триггер hover card после `openDelay`; установите
+`initialFocusEl` на другой элемент, если предпросмотр должен оставаться закрытым до наведения или фокуса.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/dialog.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённое состояние
+
+Установите `disabled`, чтобы запретить открытие карточки, сохранив видимое содержимое триггера.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Несколько триггеров
+
+Разделяйте одну поверхность содержимого между значениями триггеров с помощью `Trigger value` и
+`onTriggerValueChange(details)`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/multiple-triggers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Позиционирование
+
+Передавайте параметры позиционирования Ark через свойство `positioning`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/positioning.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Создавайте состояние с помощью moduix `useHoverCard()`, когда элементы управления или другой UI за пределами
+карточки должны читать или обновлять его.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Со стрелкой
+
+Добавьте `HoverCard.Arrow` в `HoverCard.Content`, когда попапу нужна визуальная привязка. Обёртка по
+умолчанию рендерит `HoverCard.ArrowTip`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/hover-card/with-arrow.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<CssPropertiesSection properties={HoverCardDocs.hoverCardCssProperties} />
+
+### Хуки стилизации
+
+Каждая отрендеренная часть принимает `className`; moduix также добавляет хуки `data-slot="hover-card-*"` для
+триггера, positioner, содержимого, стрелки и наконечника стрелки. `HoverCard` и `HoverCard.RootProvider`
+предоставляют состояние без DOM-элемента, поэтому для них хуков стилизации нет. Ark предоставляет
+на своих частях `data-scope="hover-card"` и `data-part`. Для зависящей от состояния стилизации используйте
+`data-state="open|closed"`, `data-placement`, `data-side`, `data-value`, `data-current`, `data-nested` и
+`data-has-nested`.
+
+`HoverCard.Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+`--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`. `HoverCard.Content` предоставляет
+`--layer-index` и `--nested-layer-count`; `HoverCard.Arrow` предоставляет `--arrow-size`, `--arrow-size-half`,
+`--arrow-background` и `--arrow-offset`.

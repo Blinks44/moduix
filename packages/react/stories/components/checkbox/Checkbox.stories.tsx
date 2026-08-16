@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
-import { Checkbox, useCheckbox } from '../../../src/components/checkbox/index';
-import { Fieldset } from '../../../src/components/fieldset';
+import { Checkbox, useCheckbox } from '@/components/checkbox/index';
+import { Fieldset } from '@/components/fieldset';
 import styles from './Checkbox.stories.module.css';
 
 const meta = {
@@ -154,6 +154,32 @@ export const ReadOnly: Story = {
       <CheckboxItem readOnly>Keep current selection</CheckboxItem>
       <CheckboxItem defaultChecked readOnly>
         Preserve existing setting
+      </CheckboxItem>
+    </div>
+  ),
+};
+
+export const Invalid: Story = {
+  render: () => (
+    <div className={styles.stack}>
+      <CheckboxItem invalid required>
+        Accept the data processing terms
+      </CheckboxItem>
+      <CheckboxItem defaultChecked invalid>
+        Keep the invalid selection
+      </CheckboxItem>
+    </div>
+  ),
+};
+
+export const ContentResilience: Story = {
+  render: () => (
+    <div className={styles.narrow}>
+      <CheckboxItem defaultChecked>
+        Email me a weekly summary of security, billing, and workspace activity
+      </CheckboxItem>
+      <CheckboxItem>
+        Allow administrators to contact me when an account setting needs attention
       </CheckboxItem>
     </div>
   ),

@@ -102,7 +102,7 @@ const CheckboxControl = forwardRef<
 });
 
 function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <CheckboxPrimitive.HiddenInput data-slot="checkbox-hidden-input" />;
+  const hiddenInput = <CheckboxHiddenInput />;
 
   if (!asChild) {
     return (
@@ -116,6 +116,19 @@ function withHiddenInput(children: ReactNode, asChild?: boolean) {
   const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
 
   return cloneElement(child, {}, child.props.children, hiddenInput);
+}
+
+function CheckboxHiddenInput() {
+  const checkbox = useCheckboxContext();
+  const readOnly =
+    (checkbox.getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
+
+  return (
+    <CheckboxPrimitive.HiddenInput
+      aria-readonly={readOnly || undefined}
+      data-slot="checkbox-hidden-input"
+    />
+  );
 }
 
 const CheckboxLabel = forwardRef<

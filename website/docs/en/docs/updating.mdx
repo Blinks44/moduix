@@ -1,0 +1,75 @@
+---
+title: Updating and migration
+description: Update the npm package or copy-owned registry components without losing local work.
+---
+
+# Updating and migration
+
+moduix supports two ownership models, and they update differently. First choose the path you use;
+do not overwrite copy-owned files as if they were a package dependency.
+
+| Installation path       | Update model                                                      |
+| ----------------------- | ----------------------------------------------------------------- |
+| `@moduix/react` package | Your package manager installs the new library version.            |
+| Registry source         | Your app owns the files; inspect and merge each component update. |
+
+## Package-managed updates
+
+Read the [Changelog](/docs/changelog) before changing versions. Use `npm update` only when you want
+the newest releases allowed by the ranges already declared in `package.json`:
+
+```bash
+npm update @moduix/react @ark-ui/react
+```
+
+To choose the current releases explicitly and update the declared ranges, install the latest moduix
+and Ark UI releases together:
+
+```bash
+npm install @moduix/react@latest @ark-ui/react@latest
+```
+
+For a major migration, choose the moduix major deliberately, then follow its changelog entry.
+
+After updating, review the lockfile, run your typecheck and application tests, and exercise the
+components named in the changelog. Component pages document the current composition, exposed parts,
+and styling variables when an update changes a component contract.
+
+## Copy-owned registry updates
+
+Registry components are source in your application. Use the shadcn CLI to inspect the latest item,
+review its diff, and merge it with your local customizations.
+
+```bash
+npx shadcn@latest view @moduix-react/button
+npx shadcn@latest add @moduix-react/button --dry-run
+npx shadcn@latest add @moduix-react/button --diff
+```
+
+After reviewing the diff, install the item into a branch or a clean working tree and merge the
+changes you want to keep:
+
+```bash
+npx shadcn@latest add @moduix-react/button
+```
+
+Repeat this for every component you own. The CLI also resolves the shared moduix foundation files
+and item dependencies, so keep `@/lib/moduix/styles/style.css` imported once in your application
+entry point.
+
+## Theme preset updates
+
+Package-managed presets ship with `@moduix/react`, so the package update also updates their token
+definitions. Review [Themes](/docs/themes) and [Tokens](/docs/tokens) when a release changes density
+or shared visual defaults.
+
+For a copy-owned preset, inspect it like any other registry item before merging the new CSS:
+
+```bash
+npx shadcn@latest view @moduix-react/theme-soft
+npx shadcn@latest add @moduix-react/theme-soft --dry-run
+npx shadcn@latest add @moduix-react/theme-soft --diff
+```
+
+Keep application overrides after the preset import. That preserves the cascade when the upstream
+preset gains a new token while your brand decisions continue to win.

@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--moduix-empty-icon-padding, var(--moduix-spacing-3));
-    border-radius: var(--moduix-radius-full);
+    border-radius: var(--moduix-empty-icon-radius, var(--moduix-radius-full));
     background-color: var(--moduix-empty-icon-bg, var(--moduix-color-muted));
     color: var(--moduix-empty-icon-color, var(--moduix-color-muted-foreground));
 
@@ -64,7 +64,7 @@
     overflow-wrap: anywhere;
 
     & > :first-child {
-      margin-top: 0;
+      margin-block-start: 0;
     }
 
     & > :last-child {

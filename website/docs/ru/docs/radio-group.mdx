@@ -1,0 +1,284 @@
+---
+title: Radio Group
+component: radio-group
+description: Композиция группы радиокнопок Ark UI для выбора одного значения из видимого набора.
+---
+
+import * as RadioGroupDocs from '@/components/examples/radio-group';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/radio-group" />
+
+## Базовый пример
+
+Используйте `RadioGroup.Option` для обычного варианта с подписанным элементом. Он автоматически сохраняет нативное скрытое поле ввода в каждом элементе.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/basic.tsx"
+
+  ```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="radio-group" />
+
+## Анатомия
+
+```text
+RadioGroup.Root
+├─ RadioGroup.Label
+├─ RadioGroup.Indicator (optional)
+└─ RadioGroup.Item[value]
+   ├─ RadioGroup.ItemControl
+   ├─ RadioGroup.ItemText
+   └─ the native form input
+
+RadioGroup.RootProvider
+└─ same item tree connected to a useRadioGroup() store
+
+RadioGroup.Option
+└─ RadioGroup.Item + ItemControl + ItemText + native input (automatic)
+```
+
+| Часть                      | Назначение                                                        |
+| ------------------------- | ----------------------------------------------------------------- |
+| `RadioGroup` / `.Root`    | Хранит состояние значения, клавиатурную навигацию, ориентацию и формы. |
+| `RadioGroup.RootProvider` | Подключает части к состоянию, созданному Ark `useRadioGroup()`.  |
+| `RadioGroup.Label`        | Доступная подпись для группы.                                     |
+| `RadioGroup.Item`         | Один выбираемый вариант; по умолчанию отрисовывает `label`.       |
+| `RadioGroup.Option`       | Упрощённый элемент с контролом, текстом и скрытым полем ввода.    |
+| `RadioGroup.ItemControl`  | Визуальный контрол радиокнопки; поддерживает свойство moduix `size`. |
+| `RadioGroup.ItemText`     | Видимый текст варианта.                                           |
+| `RadioGroup.Indicator`    | Необязательный индикатор активного элемента с переменными измерений Ark. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `RadioGroup` как короткую форму для `RadioGroup.Root`, а `RadioGroup.Option` - для подписанных элементов. Option принимает свойства элемента Ark, `size` и `className`; его класс применяется к базовому `Item`, поэтому вложенные части остаются доступными через хуки `data-slot`.
+
+### Когда нужна собственная композиция
+
+Используйте `RadioGroup.RootProvider` вместе с `useRadioGroup()` из `@moduix/react`, когда состояние должно создаваться вне отрисованного дерева группы. Используйте явное дерево `Item`, когда пользовательская раскладка или `RadioGroup.Item asChild` должны владеть DOM-узлом элемента; прямой дочерний элемент всё равно должен быть семантичным `label`.
+
+### Свойства по умолчанию
+
+| Свойство                      | По умолчанию | Примечания                                                  |
+| ----------------------------- | ------------ | ----------------------------------------------------------- |
+| `RadioGroup.Option size`      | `md`         | Диаметр упрощённого контрола и масштаб точки индикатора.    |
+| `RadioGroup.ItemControl size` | `md`         | Диаметр контрола только для moduix и масштаб точки индикатора. |
+
+### Особенности поведения
+
+`RadioGroup.Root` принимает свойства Ark, такие как `value`, `defaultValue`, `onValueChange(details)`, `name`, `form`, `orientation`, `disabled`, `invalid`, `readOnly`, `required`, `ids` и `asChild`.
+
+Каждый `RadioGroup.Item` автоматически отрисовывает нативное поле ввода для отправки формы, валидации и сброса. Ark управляет контролируемым и неконтролируемым состоянием значения, roving focus, клавиатурной навигацией и формой обратного вызова `onValueChange(details)`.
+
+`Field.Root` предоставляет видимую подпись, вспомогательный текст и сообщение об ошибке, но не передаёт своё состояние в `RadioGroup`. Передавайте `disabled`, `invalid`, `readOnly` и `required` самой группе. `Fieldset.Root` передаёт вложенным группам радиокнопок своё состояние Ark `disabled` и `invalid`. `Item` и `Option` автоматически сохраняют поведение нативной отправки и сброса формы.
+
+## Примеры
+
+### asChild
+
+Используйте `RadioGroup.Item asChild`, когда пользовательская раскладка подписи должна владеть DOM-узлом элемента.
+
+<style>{RadioGroupDocs.radioGroupAsChildCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/aschild.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Управляемое состояние
+
+Используйте `value` с `onValueChange(details)`, когда выбранным значением управляет окружающий интерфейс.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/controlled.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Отключённое состояние
+
+Установите `disabled` на корневом элементе, чтобы сделать недоступными все элементы и при этом оставить выбранное значение видимым.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/disabled.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Отключённый элемент
+
+Установите `disabled` на отдельном `Item` или `Option`, когда недоступен только этот вариант.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/item-disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### Индикатор
+
+Отрисуйте `RadioGroup.Indicator`, когда активному элементу нужно дополнительное выделение, измеряемое в группе. Не размещайте содержимое, не являющееся элементом, в том же контексте позиционирования, чтобы индикатор точно отслеживал геометрию элемента.
+
+<style>{RadioGroupDocs.radioGroupIndicatorCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/indicator.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Начальное значение
+
+Установите `defaultValue`, когда исходный выбранный элемент известен, но группа может управлять дальнейшими обновлениями.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/initial-value.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Ориентация
+
+Установите `orientation="horizontal"`, когда поведение клавиш со стрелками должно следовать горизонтальной группе. Расположите элементы в строку с помощью встроенной обёртки, если раскладка тоже должна быть горизонтальной.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/orientation.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `RootProvider`, когда хранилище `useRadioGroup()` нужно предоставить элементам управления вне дерева радиокнопок.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/root-provider.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Размеры
+
+Используйте свойство moduix `size` на `ItemControl` или `Option`, когда контролу радиокнопки нужен другой диаметр.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/sizes.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### С Field
+
+Используйте `Field.Root`, чтобы добавить группе радиокнопок видимую подпись, вспомогательный текст и сообщение валидации. Передайте `invalid` в `RadioGroup`, чтобы его радиокнопки получили соответствующее ARIA- и визуальное состояние.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/with-field.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### С Fieldset
+
+Оберните группу в `Fieldset`, когда несколько радиокнопок используют общую легенду раздела формы.
+
+<style>{`
+  ${RadioGroupDocs.radioGroupExampleCss}
+
+  .centered-fieldset-example {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+`}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/with-fieldset.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Форма
+
+Нативные поля ввода, создаваемые для каждого элемента, участвуют в отправке и сбросе формы без ручного добавления части ввода.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/form.tsx"
+  ```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Option` и применяйте полное дерево элементов Ark, когда каждой вложенной части нужны собственное размещение или стилизация.
+
+<style>{RadioGroupDocs.radioGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/radio-group/advanced-customization.tsx"
+
+  ```
+
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `RadioGroup` через `className`, стабильные хуки `data-slot="radio-group-*"`, `data-scope`, `data-part`, `data-state` Ark и описанные ниже публичные CSS-переменные `--moduix-radio-*`.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <RadioGroupDocs.RadioGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- Хуки анатомии Ark: `data-scope="radio-group"` и `data-part` на root, label, item, item-control, item-text, item-hidden-input и indicator.
+- Хуки состояний Ark: `data-state="checked|unchecked"`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-focus`, `data-focus-visible`, `data-hover`, `data-active` и `data-orientation`.
+- Переменные индикатора Ark: `--transition-property`, `--left`, `--top`, `--width` и `--height`.
+- Хуки moduix: `data-slot="radio-group-root"`, `radio-group-label`, `radio-group-item`, `radio-group-item-control`, `radio-group-item-text`, `radio-group-item-hidden-input` и `radio-group-indicator`.

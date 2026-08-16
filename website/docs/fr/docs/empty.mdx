@@ -1,0 +1,155 @@
+---
+title: Empty
+component: empty
+description: Surface composable d’état vide pour les écrans sans résultat, sans données ou de première utilisation.
+---
+
+import * as EmptyDocs from '@/components/examples/empty';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive dédiée aux états vides. moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark relatives à la
+[composition](https://ark-ui.com/react/docs/guides/composition), aux [styles](https://ark-ui.com/react/docs/guides/styling) et aux
+[ref](https://ark-ui.com/react/docs/guides/ref). L’[Empty State de Chakra](https://chakra-ui.com/docs/components/empty-state)
+éclaire cette composition explicite ; contrairement à Chakra, moduix conserve `Empty.Icon` et
+`Empty.Actions` facultatifs comme parties sœurs de la racine afin de les placer librement.
+
+## Exemple de base
+
+Commencez par le composant racine appelable `<Empty />` et ses parties nommées. Ajoutez `Empty.Icon` et
+`Empty.Actions` uniquement lorsque l’état nécessite un repère visuel ou une prochaine étape explicite.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/empty/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="empty" />
+
+## Anatomie
+
+```text
+Empty
+├─ Empty.Icon (facultatif)
+├─ Empty.Content
+│  ├─ Empty.Title
+│  └─ Empty.Description
+└─ Empty.Actions (facultatif)
+```
+
+| Partie                 | Rôle                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------- |
+| `Empty` / `Empty.Root` | Surface racine qui définit les espacements, la bordure, l’arrière-plan et l’alignement. |
+| `Empty.Icon`           | Conteneur facultatif pour une icône ou un petit élément visuel.                       |
+| `Empty.Content`        | Regroupe le contenu textuel avec des espacements internes plus compacts.              |
+| `Empty.Title`          | Titre principal de l’état vide.                                                       |
+| `Empty.Description`    | Bloc de description complémentaire pour un ou plusieurs nœuds textuels.              |
+| `Empty.Actions`        | Ligne facultative avec retour à la ligne pour les actions.                            |
+
+## Composition
+
+### Composition recommandée
+
+Pour la plupart des états vides, utilisez les parties exportées :
+
+- `Empty` pour la surface et la mise en page centrée
+- `Empty.Content` pour le groupe de texte
+- `Empty.Title` pour le titre
+- `Empty.Description` pour le texte explicatif
+- `Empty.Icon` et `Empty.Actions` uniquement lorsqu’ils sont réellement nécessaires
+
+Cette approche garde le cas courant explicite tout en permettant des descriptions plus riches, des liens ou des boutons personnalisés sans ajouter d’API de configuration.
+
+### Quand créer une composition personnalisée
+
+`Empty` ne masque pas la couche primitive de bas niveau. La personnalisation consiste généralement à modifier la structure par composition ordinaire :
+
+- omettre `Empty.Icon` ou `Empty.Actions`
+- ajouter une mise en forme plus complexe dans `Empty.Description`
+- modifier le repère environnant ou le niveau du titre avec `Empty asChild` et `Empty.Title asChild`
+- appliquer `className` et les variables `--moduix-empty-*` aux parties responsables de la propriété visuelle concernée
+
+### Propriétés par défaut
+
+| Surface                | Valeur par défaut | Remarques                                                                          |
+| ---------------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| `Empty` / `Empty.Root` | -                 | Aucune valeur comportementale supplémentaire par défaut ; les valeurs Ark s’appliquent. |
+
+### Comportement
+
+- `Empty.Title` rend un `h3` par défaut et accepte `asChild` de la fabrique Ark pour contrôler la structure du document.
+- `Empty.Description` rend un `div`, et non un `p`, afin de pouvoir contenir sans risque du contenu de type bloc.
+- Chaque partie transmet sa ref à l’élément DOM rendu et accepte `asChild` de la fabrique Ark avec un unique enfant sémantiquement correct.
+- Les parties rendent `data-scope="empty"` et les attributs `data-part` correspondants pour les styles dans l’esprit d’Ark, ainsi que les hooks stables `data-slot="empty-*"` pour les surcharges moduix.
+- `Empty.Actions` centre ses enfants et autorise leur retour à la ligne : les paires d’actions et les longs libellés explicites de boutons ou de liens restent ainsi lisibles dans les mises en page étroites.
+- `Empty` est purement présentationnel : ne choisissez un repère environnant, un `role` ou le comportement d’une région live que si le contexte de l’écran l’exige. Utilisez `aria-hidden` pour les icônes décoratives et donnez un nom accessible aux icônes porteuses de sens.
+
+## Exemples
+
+### Sans actions
+
+Omettez `Empty.Actions` lorsque l’état est uniquement informatif.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/empty/without-actions.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Sans icône
+
+L’emplacement visuel est facultatif : les états vides composés uniquement de texte restent donc concis.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/empty/without-icon.tsx"
+
+  ```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `Empty asChild` et `Empty.Title asChild` lorsque la page environnante nécessite un repère et
+un autre niveau de titre. La description accepte une mise en forme ordinaire de type bloc : un texte
+plus riche reste donc sémantiquement correct sans API de configuration distincte.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
+
+  ```
+
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Empty` avec `className`, les sélecteurs Ark `data-scope="empty"` / `data-part`, les hooks stables
+`data-slot="empty-*"` et les variables CSS publiques `--moduix-empty-*` ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <EmptyDocs.EmptyCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Ciblez la partie responsable de la propriété visuelle concernée :
+
+- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` pour surcharger la mise en page de la surface, la bordure, l’arrière-plan et l’ombre
+- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` pour la taille, les espacements et les couleurs du conteneur de l’icône
+- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` pour la largeur et l’espacement du groupe de texte
+- `[data-scope="empty"][data-part="title"]` et `[data-scope="empty"][data-part="description"]` pour la typographie
+- `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` pour l’espacement et l’alignement de la ligne d’actions

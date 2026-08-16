@@ -1,0 +1,53 @@
+---
+title: Verification code
+description: A copy-owned six-digit email verification form built with moduix React components.
+---
+
+import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
+
+# Verification code
+
+Verify an email with a six-digit one-time code. `PinInput` provides the native form input,
+keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the inline field error.
+
+<ExampleFrame clientOnly>
+  <VerificationCodePreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/verification-code.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/verification-code.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
+
+## Use in a route
+
+Render `VerificationCode` after your application sends the email code and pass its real submit
+handler. `onSubmit` receives the native form event, so read `new FormData(event.currentTarget)`
+and verify the `code` value with your server. Replace the default `/sign-in` link with your
+application route.
+
+The preview intentionally has no verification server. After six digits it runs its empty submit
+handler; the copied recipe runs the handler you provide instead.
+
+Disable duplicate verification while the request is pending. For an invalid code, keep the entered
+digits available and attach the error to the field; for an expired code, explain that a new code is
+required. Put resend behind a short cooldown, announce when a new code is sent, and let the server
+enforce the real rate limit. Never treat the client countdown as authorization.

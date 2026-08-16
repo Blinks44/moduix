@@ -30,13 +30,21 @@ const TabsRoot = forwardRef<
 const TabsRootProvider = forwardRef<
   ComponentRef<typeof TabsPrimitive.RootProvider>,
   ComponentProps<typeof TabsPrimitive.RootProvider> & { variant?: TabsVariant }
->(function TabsRootProvider({ className, variant = 'default', ...props }, ref) {
+>(function TabsRootProvider({ className, value, variant = 'default', ...props }, ref) {
+  const orientation = (
+    value.getRootProps() as {
+      'data-orientation'?: 'horizontal' | 'vertical';
+    }
+  )['data-orientation'];
+  const resolvedVariant = orientation === 'vertical' ? 'default' : variant;
+
   return (
     <TabsPrimitive.RootProvider
       ref={ref}
       data-slot="tabs-root-provider"
-      data-variant={variant}
+      data-variant={resolvedVariant}
       className={clsx(styles.root, normalizeClassName(className))}
+      value={value}
       {...props}
     />
   );

@@ -1,0 +1,253 @@
+---
+title: Number Input
+component: number-input
+description: Числовое поле ввода с элементами пошагового изменения Ark UI, форматированием, валидацией и необязательным изменением значения перетаскиванием.
+---
+
+import * as NumberInputDocs from '@/components/examples/number-input';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/number-input" />
+
+## Базовый пример
+
+Используйте `NumberInput` с `NumberInput.Field` для стандартного входа и группы триггеров.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="number-input" />
+
+## Анатомия
+
+```text
+NumberInput.Root
+├─ NumberInput.Label
+├─ NumberInput.Scrubber (optional)
+├─ NumberInput.Field (recommended)
+├─ NumberInput.Control
+│  ├─ NumberInput.DecrementTrigger
+│  ├─ NumberInput.Input
+│  └─ NumberInput.IncrementTrigger
+└─ NumberInput.ValueText (optional)
+
+NumberInput.RootProvider
+└─ same part tree connected to state created with `useNumberInput()`
+```
+
+|Часть|Роль|
+| ---------------------------------- | ---------------------------------------------------------------------- |
+|`NumberInput` / `NumberInput.Root`|Управляет состоянием ввода чисел, синтаксическим анализом, форматированием и поведением клавиатуры.|
+|`NumberInput.RootProvider`|Соединяет детали с состоянием, созданным с помощью `useNumberInput()`.|
+|`NumberInput.Context`|Предоставляет форматированные и числовые значения, а также методы императивного состояния.|
+|`NumberInput.Label`|Доступная метка, связанная с управляемым входом.|
+|`NumberInput.Scrubber`|Необязательная цель перетаскивания, которая меняет значение посредством перемещения указателя.|
+|`NumberInput.Control`|Структурная оболочка для триггеров ввода и увеличения/уменьшения.|
+|`NumberInput.Field`|Отображает элемент управления, ввод и группу триггеров по умолчанию.|
+|`NumberInput.DecrementTrigger`|Кнопка, уменьшающая текущее значение. По умолчанию используется значок минуса moduix.|
+|`NumberInput.Input`|Редактируемый ввод числового текста, управляемый пользовательским интерфейсом Ark.|
+|`NumberInput.IncrementTrigger`|Кнопка, увеличивающая текущее значение. По умолчанию используется значок плюса moduix.|
+|`NumberInput.ValueText`|Текстовая поверхность только для чтения для форматированного значения.|
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`NumberInput` владеет синтаксическим анализом, проверкой диапазона, увеличением/уменьшением клавиатуры, вращением при нажатии, скруббером.
+взаимодействие и форматирование. Установите `allowMouseWheel`, если изменения с помощью колеса являются преднамеренными. Использовать
+`NumberInput.Field` для видимых частей по умолчанию.
+
+Используйте строковые значения для `value` и `defaultValue`. Арк сообщает об изменениях через
+`onValueChange(details)`, где `details.value` - строковое значение, а `details.valueAsNumber` -
+разобранный номер.
+
+### Когда нужна собственная композиция
+
+Используйте `NumberInput.Control` с отдельными частями, когда порядок триггеров, значки или стиль ввода
+должен отличаться от значения по умолчанию `NumberInput.Field`. Используйте `NumberInput.Scrubber` рядом с полем для
+перетаскивание для изменения ввода.
+
+### Свойства по умолчанию
+
+|Опора|По умолчанию|Примечания|
+| ---------------------------------- | ------- | ------------------------------------------------------------ |
+|`NumberInput` / `NumberInput.Root`| -       |Никаких дополнительных поведенческих настроек по умолчанию; Применяются настройки Ark по умолчанию.|
+|`NumberInput.Field`| -       |Отображает элемент управления, ввод и группу триггеров по умолчанию.|
+|`NumberInput.DecrementTrigger`| -       |Отображает значок значок минуса moduix, когда дочерние элементы не указаны.|
+|`NumberInput.IncrementTrigger`| -       |Отображает значок значок плюса moduix, когда дочерние элементы не указаны.|
+
+### Особенности поведения
+
+- Для форматирования локализованных чисел используйте `formatOptions`, а не `format`.
+- Используйте `translations.incrementLabel`, `translations.decrementLabel` и `translations.valueText` для доступа к локализованным меткам.
+- `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode` и `allowMouseWheel` проходят непосредственно в Арк.
+- `onValueInvalid(details)` сообщает `rangeUnderflow` или `rangeOverflow`, когда значение превышает настроенные границы.
+- Установите `clampValueOnBlur={false}`, когда введенные значения за пределами `min` или `max` должны оставаться неизменными при размытии.
+- Используйте `ids`, когда внешним меткам или описаниям требуются стабильные идентификаторы элементов.
+- Части с поддержкой Ark поддерживают `asChild` для пользовательской композиции хоста; `NumberInput.Field` намеренно
+отображает фиксированную трехчастную структуру и пересылает ссылку на `NumberInput.Control`.
+- `useNumberInput`, `useNumberInputContext` и `NumberInput.Context` доступны на сайте `@moduix/react`.
+- `name` и `form` передаются видимому spinbutton для нативной отправки формы. Рендерьте скрытый
+  нативный input из `NumberInput.Context` с `context.valueAsNumber`, только когда форме нужно
+  разобранное числовое значение, а не отображаемая строка.
+
+## Примеры
+
+### Управляемое состояние
+
+Сохраните контролируемое состояние в виде строки и прочитайте `details.value` в `onValueChange`.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Field
+
+Составляйте с помощью `Field`, когда необходимо поделиться состоянием формы, вспомогательным текстом, текстом ошибки и метаданными доступности.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/field.tsx"
+
+```
+</PreviewFrame>
+
+### Форматирование
+
+Передайте `formatOptions`, чтобы отформатировать видимое значение с помощью `Intl.NumberFormat`.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/formatting.tsx"
+
+```
+</PreviewFrame>
+
+### Минимум и максимум
+
+Используйте `min`, `max` и `step`, чтобы ограничить взаимодействие при вводе текста, клавиатуре, триггерах и прокрутке. Набор
+`clampValueOnBlur={false}`, когда введенное значение, выходящее за пределы диапазона, должно оставаться видимым после размытия.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/min-and-max.tsx"
+
+```
+</PreviewFrame>
+
+### Колесо мыши
+
+Установите `allowMouseWheel`, если изменения значений на основе колеса являются преднамеренными для рабочего процесса.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
+
+```
+</PreviewFrame>
+
+### Точность
+
+Используйте `formatOptions` с `Intl.NumberFormatOptions`, когда для видимого значения требуется фиксированное количество
+цифры дробей.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/precision.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useNumberInput()` с `NumberInput.RootProvider`, когда состояние должно быть создано вне
+отображаемое дерево частей.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Изменение перетаскиванием
+
+Перетащите метку ползунка влево или вправо, чтобы изменить значение.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/scrubbing.tsx"
+
+```
+</PreviewFrame>
+
+### Текст значения
+
+Используйте `<output>`, когда текущее значение также должно быть видно за пределами редактируемого ввода.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/value-text.tsx"
+
+```
+</PreviewFrame>
+
+### Отключённое состояние и только для чтения
+
+Используйте `disabled`, чтобы предотвратить любое взаимодействие. Используйте `readOnly`, когда значение остается доступным для выбора, но его необходимо
+не редактироваться.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
+
+```
+</PreviewFrame>
+
+### Нативная отправка формы
+
+Задайте `name`, чтобы нативная форма отправляла значение видимого текстового spinbutton. Рендерьте
+скрытый нативный input через `NumberInput.Context`, только когда форме нужно разобранное числовое
+значение, а не отображаемая строка.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Обходите `NumberInput.Field` и скомпонуйте низкоуровневые части, когда значки триггера или стиль ввода
+должен быть настроен. Передайте `translations`, если для пользовательского содержимого триггера требуются локализованные доступные метки.
+
+<style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/number-input/custom-icons.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <NumberInputDocs.NumberInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="number-input-root"`, `number-input-root-provider`, `number-input-label`,
+`number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
+`number-input-input`, `number-input-increment-trigger` и `number-input-value-text`.
+- Хуки состояния Ark: `data-disabled`, `data-invalid`, `data-focus` и `data-scrubbing`.
+- Хуки частей Ark: значения `data-scope="number-input"` и `data-part` соответствуют анатомии компонента.

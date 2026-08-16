@@ -1,0 +1,264 @@
+---
+title: Checkbox
+component: checkbox
+description: Une primitive de case à cocher composable pour les sélections individuelles et groupées.
+---
+
+import * as CheckboxDocs from '@/components/examples/checkbox';
+
+`Checkbox` permet de sélectionner une ou plusieurs options indépendantes dans les formulaires, les
+réglages et les listes de filtres. Utilisez `RadioGroup` lorsqu’un seul choix est autorisé, ou
+`Switch` lorsqu’un réglage doit s’appliquer immédiatement.
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/checkbox" />
+
+## Exemple de base
+
+Utilisez directement l’arborescence des parties Ark. Dans le cas courant, `Checkbox.Control` rend déjà les indicateurs
+standard des états cochés et indéterminés ; la plupart des cases à cocher ne nécessitent donc que `Checkbox.Control` et
+`Checkbox.Label`. moduix rend automatiquement le champ de formulaire natif.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/basic.tsx"
+
+```
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="checkbox" />
+
+## Anatomie
+
+```text
+Checkbox.Root
+├─ Checkbox.Control
+│  ├─ Checkbox.Indicator
+│  └─ Checkbox.Indicator[indeterminate] (optional)
+├─ Checkbox.Label
+└─ native input (automatic)
+
+Checkbox.RootProvider
+└─ same part tree connected to useCheckbox()
+
+Checkbox.Group
+└─ Checkbox.Root[value]
+   ├─ Checkbox.Control
+   ├─ Checkbox.Label
+   └─ the native form input
+```
+
+| Partie                        | Rôle                                                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `Checkbox` / `Checkbox.Root`  | Possède l’état d’une case à cocher et rend l’élément `label` qui l’enveloppe.                             |
+| `Checkbox.RootProvider`       | Relie les parties à un état Ark créé en dehors du sous-arbre rendu.                                      |
+| `Checkbox.Control`            | Surface visuelle du contrôle. Sans enfant, rend les indicateurs standard des états coché et indéterminé. |
+| `Checkbox.Indicator`          | Slot d’icône facultatif pour une composition personnalisée. Utilisez `indeterminate` si nécessaire.       |
+| `Checkbox.Label`              | Texte visible du libellé à l’intérieur du composant racine.                                              |
+| `Checkbox.Group`              | Partage l’état de la valeur entre plusieurs composants racines de case à cocher.                         |
+
+## Composition
+
+### Composition recommandée
+
+Gardez l’arborescence des parties Ark visible. `Checkbox.Root` accepte les props du composant racine Ark, telles que
+`checked`, `defaultChecked`, `onCheckedChange(details)`, `disabled`, `readOnly`, `invalid`, `required`,
+`name`, `value`, `form`, `ids` et `asChild`.
+
+`Checkbox.Group` accepte `value`, `defaultValue`, `onValueChange(value)`, `disabled`, `readOnly`,
+`invalid`, `maxSelectedValues` et `name`.
+
+`Checkbox.Control` est le raccourci standard de moduix : laissez-le vide pour utiliser les icônes intégrées ou
+transmettez des enfants pour personnaliser la composition de l’indicateur. `size` est la seule prop DX supplémentaire
+de `Checkbox.Root` et `Checkbox.RootProvider`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Checkbox.RootProvider` lorsque l’état de la case à cocher doit être possédé en dehors du sous-arbre rendu. moduix
+réexporte `useCheckbox()` pour ce cas. `Checkbox.Context`, `useCheckboxContext()`,
+`useCheckboxGroup()` et `useCheckboxGroupContext()` préservent l’accès à l’état Ark pour les compositions avancées.
+Ne rendez explicitement `Checkbox.Indicator` que si vous avez besoin d’icônes personnalisées ou d’une disposition
+non standard de l’indicateur.
+
+### Propriétés par défaut
+
+| Surface                       | Valeur par défaut | Remarques                                                          |
+| ----------------------------- | ----------------- | ------------------------------------------------------------------ |
+| `Checkbox` / `Checkbox.Root`  | -                 | Aucune valeur comportementale supplémentaire ; valeurs Ark appliquées. |
+| `size`                        | `md`              | S’applique à `Checkbox.Root` et `Checkbox.RootProvider`.           |
+
+### Comportement
+
+Le composant racine rend automatiquement un champ de formulaire natif afin de participer aux formulaires natifs,
+à la validation, à la réinitialisation et à l’envoi. Pour une case à cocher individuelle, transmettez `name` et `value`
+à `Checkbox.Root`. Pour un groupe, transmettez `name` à `Checkbox.Group` et `value` à chaque `Checkbox.Root`.
+
+Pour les utilisateurs de shadcn qui migrent vers moduix, `Checkbox.Control` inclut déjà la présentation standard
+de l’icône. Les principales parties explicites qui restent dans l’arborescence sont le contrôle et le libellé ;
+le champ de saisie masqué reste interne.
+
+`Checkbox.Root` d’Ark rend un `label`. Avec `asChild`, l’enfant direct doit lui aussi être un `label` sémantique,
+sinon la case à cocher ne disposera plus d’un libellé de formulaire correct.
+
+Lorsque `readOnly` est défini, moduix reflète aussi cet état avec `aria-readonly` sur le champ natif
+automatique, tandis qu’Ark bloque l’interaction.
+
+La ref pointe vers la partie DOM correspondante d’Ark. Une case à cocher qui a le focus bascule avec la touche <kbd>Espace</kbd>.
+
+## Exemples
+
+### État contrôlé
+
+Contrôlez `checked` depuis l’état React lorsque la case à cocher doit se coordonner avec une autre interface ou une logique dérivée.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/controlled.tsx"
+
+```
+
+### Groupe contrôlé
+
+Contrôlez la valeur du groupe depuis l’état React lorsque les options sélectionnées doivent influencer des filtres, des résumés ou des actions.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/controlled-group.tsx"
+
+```
+
+### Indicateur personnalisé
+
+Remplacez la coche standard lorsque le produit nécessite une autre présentation de l’icône tout en conservant le comportement de case à cocher d’Ark.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/custom-indicator.tsx"
+
+```
+
+### Cochée par défaut
+
+Utilisez `defaultChecked` lorsque la case à cocher doit être initialement cochée, puis gérer elle-même son état.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/default-checked.tsx"
+
+```
+
+### État désactivé
+
+Utilisez `disabled` lorsqu’une option est indisponible et ne doit accepter ni focus ni saisie.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/disabled.tsx"
+
+```
+
+### Groupe
+
+Utilisez `Checkbox.Group` lorsque plusieurs options appartiennent au même tableau de valeurs sélectionnées.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/group.tsx"
+
+```
+
+### Groupe avec Fieldset
+
+Enveloppez le groupe dans `Fieldset` lorsque l’ensemble de cases à cocher constitue un seul champ de formulaire sémantique avec une légende commune.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/checkbox/group-with-fieldset.tsx"
+
+```
+</PreviewFrame>
+
+### Groupe dans un formulaire
+
+Utilisez `Checkbox.Group` dans un formulaire et récupérez les valeurs sélectionnées avec `FormData.getAll(name)`.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/group-with-form.tsx"
+
+```
+
+### État indéterminé
+
+Utilisez l’état indéterminé lorsqu’une case à cocher représente une sélection partielle plutôt qu’une simple valeur activée ou désactivée.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/indeterminate.tsx"
+
+```
+
+### Groupe invalide
+
+Marquez le groupe comme invalide lorsque l’ensemble participe à la validation et nécessite un état de sélection valide.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/invalid-group.tsx"
+
+```
+
+### Nombre maximal de sélections
+
+Utilisez `maxSelectedValues` lorsque seul un nombre donné d’options peut être sélectionné.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/max-selected.tsx"
+
+```
+
+### Lecture seule
+
+Utilisez `readOnly` lorsque la valeur doit rester visible sans pouvoir être modifiée par l’utilisateur.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/read-only.tsx"
+
+```
+
+### Root Provider
+
+Utilisez `Checkbox.RootProvider` lorsque l’état de la case à cocher doit se trouver en dehors du sous-arbre rendu. Importez
+le hook d’état depuis `@moduix/react`.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/root-provider.tsx"
+
+```
+
+### Tout sélectionner
+
+Composez une case à cocher parente et un groupe contrôlé lorsqu’un seul élément doit basculer tout l’ensemble.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/select-all.tsx"
+
+```
+
+### Tailles
+
+Définissez la prop `size` de moduix afin que la taille de la case à cocher corresponde au formulaire ou à l’écran de réglages qui l’entoure.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/sizes.tsx"
+
+```
+
+### Avec Field
+
+Enveloppez une case à cocher individuelle dans `Field` si elle nécessite une description, un message de validation ou un état de champ partagé.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/checkbox/with-field.tsx"
+
+```
+</PreviewFrame>
+
+### Dans un formulaire
+
+Transmettez `name` et `value` à `Checkbox.Root` afin que son champ natif automatique soit envoyé avec `FormData`.
+
+```tsx preview file="../../en/docs/_snippets/checkbox/with-form.tsx"
+
+```
+
+## Styles
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={CheckboxDocs.checkboxOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+- `Checkbox.Root` fournit `data-slot="checkbox-root"`, `data-size` et les attributs d’état Ark tels que `data-state`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-hover`, `data-focus` et `data-focus-visible`.
+- `Checkbox.RootProvider` fournit `data-slot="checkbox-root-provider"` et le même contrat de style que le composant racine.
+- `Checkbox.Control` fournit `data-slot="checkbox-control"` et les attributs d’état Ark, notamment `data-state="checked" | "indeterminate" | "unchecked"`.
+- `Checkbox.Indicator` fournit `data-slot="checkbox-indicator"` et hérite des attributs d’état de la case à cocher d’Ark.
+- `Checkbox.Label` fournit `data-slot="checkbox-label"` et les attributs d’état de la case à cocher d’Ark.
+- `Checkbox.Group` fournit `data-slot="checkbox-group"`.

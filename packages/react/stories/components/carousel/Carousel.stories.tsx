@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
+import { Carousel, useCarousel } from '@/components/carousel/Carousel';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Carousel, useCarousel } from '../../../src/components/carousel/Carousel';
 import styles from './Carousel.stories.module.css';
 
 const slides = [
@@ -491,6 +491,32 @@ export const MouseDrag: Story = {
       className={styles.carousel}
     >
       <Carousel.ItemGroup aria-label="Mouse draggable image carousel">
+        {slides.map((slide, index) => (
+          <Carousel.Item key={slide.id} index={index}>
+            <ImageSlide src={slide.image} alt={slide.alt} />
+          </Carousel.Item>
+        ))}
+      </Carousel.ItemGroup>
+      <Carousel.Control className={styles.compactControls}>
+        <Carousel.PrevTrigger />
+        <Carousel.NextTrigger />
+      </Carousel.Control>
+      <Carousel.Indicators />
+      <Carousel.ProgressText />
+    </Carousel>
+  ),
+};
+
+export const Rtl: Story = {
+  args: { slideCount: slides.length },
+  render: () => (
+    <Carousel
+      aria-label="Right-to-left image carousel"
+      dir="rtl"
+      slideCount={slides.length}
+      className={styles.carousel}
+    >
+      <Carousel.ItemGroup aria-label="Right-to-left image carousel">
         {slides.map((slide, index) => (
           <Carousel.Item key={slide.id} index={index}>
             <ImageSlide src={slide.image} alt={slide.alt} />

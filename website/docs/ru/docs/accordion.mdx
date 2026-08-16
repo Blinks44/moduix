@@ -1,0 +1,225 @@
+---
+title: Accordion
+component: accordion
+description: Вертикально расположенный набор интерактивных заголовков, каждый из которых раскрывает раздел содержимого.
+---
+
+import * as AccordionDocs from '@/components/examples/accordion';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/accordion" />
+
+## Базовый пример
+
+`Accordion` группирует связанные разделы под заголовками, которые можно раскрывать на месте.
+Используйте его для часто задаваемых вопросов, групп настроек или фильтров, где может потребоваться
+сравнивать разделы; для одного самостоятельного раскрываемого блока используйте `Collapsible`.
+
+Используйте `Accordion` с частями в стиле Ark: `Accordion.Item`, `Accordion.ItemTrigger`,
+`Accordion.ItemIndicator`, `Accordion.ItemContent` и `Accordion.ItemBody`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="accordion" />
+
+## Анатомия
+
+```text
+Accordion.Root
+└─ Accordion.Item[value]
+ ├─ Accordion.ItemTrigger
+ │  ├─ label
+ │  └─ Accordion.ItemIndicator (необязательно)
+ └─ Accordion.ItemContent
+    └─ Accordion.ItemBody
+       └─ content
+
+Accordion.RootProvider
+└─ то же дерево элементов, подключённое к хранилищу useAccordion()
+```
+
+| Часть                          | Назначение                                                                                |
+| ------------------------------ | ----------------------------------------------------------------------------------------- |
+| `Accordion` / `Accordion.Root` | Управляет состоянием аккордеона и поведением клавиатуры.                                  |
+| `Accordion.RootProvider`       | Подключает части к состоянию, созданному с помощью `useAccordion()`.                      |
+| `Accordion.Item`               | Один сворачиваемый элемент с обязательным `value`.                                        |
+| `Accordion.ItemTrigger`        | Интерактивная кнопка, открывающая или закрывающая элемент.                                |
+| `Accordion.ItemIndicator`      | Визуальный индикатор открытия/закрытия. По умолчанию - иконка плюса moduix без дочерних элементов. |
+| `Accordion.ItemContent`        | Сворачиваемая область содержимого, сохраняющая поведение анимации размера Ark.            |
+| `Accordion.ItemBody`           | Обёртка с внутренними отступами по умолчанию для содержимого панели.                      |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`Accordion` управляет навигацией с клавиатуры, перемещением фокуса и состоянием открытых элементов. Используйте его для
+`value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
+`collapsible`, `orientation`, `lazyMount`, `unmountOnExit` и `ids`.
+
+Для стандартной композиции Ark используйте `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
+`Accordion.ItemContent` и `Accordion.ItemBody`.
+
+### Когда нужна собственная композиция
+
+`value` и `defaultValue` всегда являются массивами, в том числе в режиме с единственным открытым элементом. `onValueChange` соответствует
+форме колбэка Ark и предоставляет текущие значения элементов в `details.value`.
+
+Используйте `Accordion.RootProvider` вместе с `useAccordion()` из `@moduix/react`, если состояние аккордеона нужно создать
+вне отрисовываемого поддерева.
+
+Используйте `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()` и
+`useAccordionItemContext()` из moduix, если окружающему интерфейсу требуется читать состояние корня или элемента.
+Состояние элемента предоставляет булевы значения Ark `expanded`, `focused` и `disabled`.
+
+`Accordion.Item` требует стабильного `value`. Используйте `disabled` для элемента, если раздел должен оставаться
+видимым, но недоступным.
+
+`Accordion.ItemIndicator` необязателен. В moduix по умолчанию он отрисовывает `PlusIcon`, если не переданы дочерние элементы,
+но содержимое индикатора можно полностью заменить.
+
+Используйте `asChild` только тогда, когда другой элемент должен владеть отрисованным узлом. Сохраняйте дерево частей Ark видимым,
+а не скрывайте его за удобными обёртками.
+
+### Свойства по умолчанию
+
+| Свойство              | По умолчанию | Примечания                                                            |
+| --------------------- | ------------ | --------------------------------------------------------------------- |
+| `collapsible`         | `false`      | Удерживает один развёрнутый элемент открытым, пока не будет выбран другой. |
+| `lazyMount`           | `false`      | Сразу монтирует содержимое элемента.                                  |
+| `multiple`            | `false`      | По умолчанию разрешает один развёрнутый элемент.                      |
+| `orientation`         | `vertical`   | Использует вертикальное поведение клавиатуры и раскладки.             |
+| `unmountOnExit`       | `false`      | Сохраняет свёрнутое содержимое смонтированным.                        |
+| `value`/`defaultValue` | `[]`        | Значения - строковые массивы, в том числе в режиме с единственным открытым элементом. |
+
+### Особенности поведения
+
+Задавайте отступы у `Accordion.ItemBody`, а не у `Accordion.ItemContent`. Переменные измерения Ark
+управляют анимацией открытия/закрытия: `--height` для вертикальных аккордеонов и `--width` для горизонтальных
+аккордеонов.
+
+Каждый триггер - нативная кнопка, связанная с содержимым через `aria-expanded`, `aria-controls` и
+соответствующую подпись области содержимого. `Enter` или `Space` переключает элемент. В вертикальной
+ориентации `ArrowDown` и `ArrowUp` перемещают фокус между триггерами, а в горизонтальной используются
+`ArrowRight` и `ArrowLeft`. `Home` и `End` переводят фокус к первому и последнему триггеру.
+
+Каждая стилизованная часть перенаправляет ref и поддерживает `asChild` для случаев, когда отрисованным
+узлом должен владеть другой семантический элемент. Замена триггера должна оставаться фокусируемой с
+клавиатуры и сохранять семантику кнопки.
+
+Если пользователь предпочитает уменьшенное движение, Accordion отключает переходы триггера и
+индикатора, а анимацию панели сокращает до практически мгновенного безопасного для lifecycle пути.
+
+## Примеры
+
+### Сворачиваемый режим
+
+Добавьте `collapsible`, если текущий открытый элемент должен закрываться без предварительного выбора другого элемента.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/collapsible.tsx"
+
+```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Управляйте `value` из состояния React, если открытые элементы должны быть синхронизированы с маршрутизацией, фильтрами или окружающим интерфейсом.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённый элемент
+
+Задайте элементу `disabled`, если он должен оставаться видимым в списке, но быть недоступным для взаимодействия.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/disabled-item.tsx"
+
+```
+</PreviewFrame>
+
+### Горизонтальный вариант
+
+Установите `orientation="horizontal"`, если аккордеон должен следовать горизонтальной модели взаимодействия.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/horizontal.tsx"
+
+```
+
+</PreviewFrame>
+
+### Ленивое монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, если скрытое содержимое панели ресурсоёмко и должно отрисовываться только при необходимости.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/lazy-mount.tsx"
+
+```
+</PreviewFrame>
+
+### Несколько открытых элементов
+
+Используйте `multiple`, если несколько разделов должны оставаться открытыми одновременно, а не сворачиваться до одного активного элемента.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/multiple.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useAccordion()` из `@moduix/react` вместе с `Accordion.RootProvider`, если хранилище состояния должно быть создано вне
+отрисовываемого дерева аккордеона. Не отрисовывайте `Accordion` или `Accordion.Root` для того же хранилища.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/accordion/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+В содержимом аккордеона можно разместить другой составной виджет на основе Ark. Сохраняйте дерево частей каждого примитива
+явным, чтобы обработка клавиатуры и скрытые поля формы оставались в ведении правильного компонента.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/accordion/with-slider.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Используйте `className` на экспортируемых частях для структурных изменений стилей. Для стилизации по состоянию предпочтительны
+атрибуты данных Ark (`data-state`, `data-disabled`, `data-orientation`) и хуки `data-slot` moduix.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={AccordionDocs.accordionOverrideCssProperties} />
+
+### Хуки стилизации
+
+- Селекторы `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
+  `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content` и
+  `accordion-item-body`.
+- Хуки анатомии Ark: `data-scope="accordion"` и `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- Хук удобной части moduix: `data-part="item-body"` на `Accordion.ItemBody`.
+- Хуки состояния Ark: `data-state="open|closed"`, `data-disabled`, `data-focus`,
+  `data-controls` и `data-orientation="horizontal|vertical"`.
+- Переменные содержимого Ark: `--height` для вертикальной анимации и `--width` для горизонтальной анимации.

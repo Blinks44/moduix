@@ -1,0 +1,45 @@
+---
+title: Parallax card
+description: A photo-led moduix Card with a gentle 3D tilt on pointer hover.
+---
+
+import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
+
+# Parallax card
+
+A full-bleed image card with a subtle 3D tilt. `Card.Background` owns the decorative photo layer,
+while `react-parallax-tilt` handles pointer motion and stays still when a precise hover pointer is
+unavailable or reduced motion is requested.
+
+<ExampleFrame clientOnly>
+  <ParallaxCardPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/parallax-card.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/parallax-card.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
+
+## Use in a page
+
+Replace the image URL and copy with your content. Keep the background image decorative with `alt=""`;
+use `Card.Media` when the image itself needs an alternative text. The motion is decorative, so keep
+the card readable and usable without hover; use a regular link or button for the real destination.

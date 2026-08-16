@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { Textarea } from '../../../src/components/textarea/Textarea';
+import { Field } from '@/components/field';
+import { Textarea } from '@/components/textarea/Textarea';
 import storyStyles from './Textarea.stories.module.css';
 
 const meta = {

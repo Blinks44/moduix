@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { LocaleProvider } from '../../../src';
-import { Button } from '../../../src/components/button';
-import { Marquee, useMarquee } from '../../../src/components/marquee/Marquee';
+import { Button } from '@/components/button';
+import { Marquee, useMarquee } from '@/components/marquee/Marquee';
+import { LocaleProvider } from '@/locale';
 import styles from './Marquee.stories.module.css';
 
 const meta = {

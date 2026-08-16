@@ -1,0 +1,168 @@
+---
+title: Skeleton
+component: skeleton
+description: Блок-заполнитель на время загрузки для текста, карточек, медиаобъектов и пользовательских раскладок.
+---
+
+import * as SkeletonDocs from '@/components/examples/skeleton';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив skeleton. moduix строит этот компонент с помощью официальной
+[фабрики Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Базовый пример
+
+Для типичного случая загрузки текста используйте несколько Skeleton, имитирующих строки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="skeleton" />
+
+## Анатомия
+
+`Skeleton` состоит из одной визуальной части. Раскладка остаётся в окружающей разметке.
+
+```text
+Skeleton.Root
+└─ children (необязательно, отображаются при loading={false})
+```
+
+| Часть                        | Назначение                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `Skeleton` / `Skeleton.Root` | Поверхность-заполнитель. Рендерит элемент фабрики Ark и принимает `asChild` для пользовательских host-элементов. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `Skeleton` напрямую для строк текста, карточек, аватаров и медиа-заполнителей. Пока `loading`
+равно `true`, он рендерит один декоративный блок, а при `loading={false}` показывает дочерние элементы.
+
+По умолчанию используется `variant="pulse"`. Используйте `variant="none"`, если анимация не нужна.
+Для пользователей, предпочитающих уменьшенное движение, поверхность всегда остаётся статичной.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, когда другой семантический элемент должен владеть отрендеренным узлом. Дочерний
+элемент должен быть единственным и семантическим, в соответствии с рекомендациями Ark по композиции.
+
+Для распространённых размеров используйте `width`, `height`, `boxSize` и `borderRadius`. Для более
+специализированных поверхностей применяйте `className`, `style` или публичные CSS-переменные.
+
+### Свойства по умолчанию
+
+| Свойство       | По умолчанию                          | Примечания                                                                                                    |
+| -------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `loading`      | `true`                                 | Управляет активностью стилей заполнителя или обычным показом дочерних элементов.                              |
+| `variant`      | `pulse`                                | Поддерживает `pulse` и `none`.                                                                                |
+| `height`       | `var(--moduix-spacing-4)` во время загрузки | CSS загрузки задаёт стандартную высоту заполнителя. Загруженное содержимое использует естественную высоту, если высота не задана. |
+| `width`        | `100%`                                 | CSS задаёт стандартную ширину корня. Числовые значения свойства становятся `px`.                              |
+| `boxSize`      | -                                      | Одновременно задаёт ширину и высоту, если соответствующая ось не указана.                                     |
+| `borderRadius` | `var(--moduix-skeleton-border-radius)` | Числовые значения свойства становятся `px`; переопределения через `style` остаются приоритетными.             |
+
+### Особенности поведения
+
+- `Skeleton.Root` - тот же компонент, что и `Skeleton`; он предоставлен для единообразия пространства имён.
+- `loading={true}` задаёт `aria-hidden`, `data-state="loading"` и `data-loading`, если вы явно не задали `aria-hidden`.
+- `loading={false}` задаёт `data-state="loaded"` и позволяет дочерним элементам использовать естественную высоту, если не заданы `height`, `boxSize` или `style.height`.
+- `variant` влияет только на стили; внутренние таймеры и управление состоянием не добавляются.
+- `asChild` происходит из композиции фабрики Ark и заменяет устаревшую композицию с render prop.
+- `Skeleton` декоративен и не сообщает о загрузке. Задавайте `aria-busy` для области, владеющей состоянием загрузки, или используйте `Spinner`, когда нужно объявить встроенный статус.
+
+## Примеры
+
+### Карточка
+
+Используйте крупный блок и более короткие текстовые строки, чтобы сохранить раскладку карточки во время загрузки содержимого.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/card.tsx"
+
+```
+</PreviewFrame>
+
+### Загруженное содержимое
+
+Используйте `loading`, чтобы сохранить один и тот же host-элемент при переключении заполнителя на реальное содержимое.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
+
+```
+</PreviewFrame>
+
+### Медиаобъект
+
+Используйте `boxSize` с полным скруглением для заполнителя аватара, а затем скомпонуйте рядом строки текста.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/media-object.tsx"
+
+```
+</PreviewFrame>
+
+### Адаптивная раскладка
+
+Оставьте логику адаптивной раскладки в разметке-обёртке, а каждый `Skeleton` используйте как визуальный строительный блок.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
+
+```
+</PreviewFrame>
+
+### Варианты
+
+Используйте `variant`, чтобы выбрать пульсирующее или статичное отображение заполнителя.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/variants.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `asChild`, когда семантический элемент, например `section`, должен владеть DOM-узлом вместо стандартного host-элемента `div`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/skeleton/custom-host.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+`Skeleton` предоставляет хуки частей и состояний в стиле Ark, а также публичные переменные `--moduix-skeleton-*`
+для цвета, радиуса, высоты и движения.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SkeletonDocs.SkeletonCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `[data-scope="skeleton"][data-part="root"]` нацеливает экспортируемый корневой элемент.
+- `data-slot="skeleton-root"` - стабильный селектор moduix для корня.
+- `data-state="loading"` и `data-state="loaded"` отражают свойство `loading`.
+- `data-variant="pulse"` и `data-variant="none"` отражают вариант.
+- `data-loading` присутствует, только пока активны стили заполнителя.

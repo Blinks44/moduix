@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useId, useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { TagsInput, useTagsInput } from '../../../src/components/tags-input/TagsInput';
+import { Field } from '@/components/field';
+import { TagsInput, useTagsInput } from '@/components/tags-input/TagsInput';
 import storyStyles from './TagsInput.stories.module.css';
 
 const initialTags = ['React', 'TypeScript'];
@@ -139,6 +139,29 @@ export const WithFieldValidation: Story = {
       <Field.HelperText>Add at least one topic.</Field.HelperText>
       <Field.ErrorText>Topics are required.</Field.ErrorText>
     </Field>
+  ),
+};
+
+export const DisabledAndReadOnly: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <TagsInput disabled defaultValue={initialTags}>
+        <TagsInput.Label>Disabled frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInput.Items />
+          <TagsInput.Input placeholder="Add framework" />
+          <TagsInput.ClearTrigger aria-label="Clear disabled frameworks" />
+        </TagsInput.Control>
+      </TagsInput>
+      <TagsInput readOnly defaultValue={initialTags}>
+        <TagsInput.Label>Read-only frameworks</TagsInput.Label>
+        <TagsInput.Control>
+          <TagsInput.Items />
+          <TagsInput.Input placeholder="Add framework" />
+          <TagsInput.ClearTrigger aria-label="Clear read-only frameworks" />
+        </TagsInput.Control>
+      </TagsInput>
+    </div>
   ),
 };
 

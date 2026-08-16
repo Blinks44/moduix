@@ -1,0 +1,212 @@
+---
+title: List Collection
+description: Создавайте коллекции на основе массивов и управляйте ими для Select, Combobox, Listbox и пользовательских списков.
+---
+
+# List Collection
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/list-collection" />
+
+Коллекция списка задаёт для каждого элемента стабильное строковое значение, отображаемый текст,
+отключённое состояние и операции в порядке коллекции. Это обычный источник данных для `Select`,
+`Combobox` и `Listbox`.
+
+Импортируйте вспомогательные функции коллекций напрямую из Ark UI:
+
+```tsx
+import { createListCollection, useListCollection } from '@ark-ui/react/collection';
+```
+
+## Создание коллекции
+
+Для элементов со свойствами `label` и `value` Ark определяет необходимое сопоставление автоматически:
+
+```tsx
+const teams = [
+  { label: 'Platform', value: 'platform' },
+  { label: 'Product', value: 'product' },
+  { label: 'Design', value: 'design', disabled: true },
+];
+
+const collection = createListCollection({
+  items: teams,
+});
+```
+
+Передайте тот же объект коллекции в компонент и отрисуйте его элементы:
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+Храните статическую коллекцию за пределами компонента, если её элементы не изменяются. Если элементы
+поступают из props, состояния или запроса, мемоизируйте коллекцию либо используйте `useListCollection`,
+чтобы идентичность коллекции изменялась только вместе с данными.
+
+## Пользовательские структуры элементов
+
+Определите сопоставления значения, текста и отключённого состояния, если в ваших данных не используются
+стандартные ключи Ark:
+
+```tsx
+type Team = {
+  id: number;
+  name: string;
+  archived: boolean;
+};
+
+const customTeams: Team[] = [
+  { id: 1, name: 'Platform', archived: false },
+  { id: 2, name: 'Legacy', archived: true },
+];
+
+const collection = createListCollection<Team>({
+  items: customTeams,
+  itemToValue: (item) => String(item.id),
+  itemToString: (item) => item.name,
+  isItemDisabled: (item) => item.archived,
+});
+```
+
+Значения, предоставляемые компонентами коллекций, всегда являются строками. При необходимости
+преобразуйте числовые идентификаторы на границе приложения.
+
+| Параметр         | Назначение                                                               |
+| ---------------- | ------------------------------------------------------------------------ |
+| `items`          | Исходный итерируемый объект.                                             |
+| `itemToValue`    | Возвращает стабильное строковое значение элемента. По умолчанию - `item.value`. |
+| `itemToString`   | Возвращает текст для поиска и доступности. По умолчанию - `item.label`. |
+| `isItemDisabled` | Возвращает, отключён ли элемент. По умолчанию - `item.disabled`.        |
+| `groupBy`        | Возвращает ключ группы для каждого элемента.                             |
+| `groupSort`      | Сортирует ключи групп функцией сравнения, явным порядком, `'asc'` или `'desc'`. |
+
+## Чтение и запросы
+
+Разделы ниже носят справочный характер. Для большинства возможностей Select и Combobox достаточно
+`items`, `find`, `stringify` и перечисленных выше параметров сопоставления элементов; используйте API
+обхода и изменения, только когда они действительно нужны для взаимодействия в продукте.
+
+| API                                 | Результат                                                              |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| `collection.items`                  | Текущие элементы в порядке коллекции.                                 |
+| `collection.size`                   | Количество элементов.                                                 |
+| `getValues(items?)`                 | Строковые значения для всех или переданных элементов.                 |
+| `find(value)` / `findMany(values)`  | Элементы для одного или нескольких значений.                          |
+| `at(index)`                         | Элемент по индексу или `null`.                                      |
+| `indexOf(value)`                    | Индекс в коллекции или `-1`.                                       |
+| `has(value)` / `hasItem(item)`      | Наличие значения или элемента.                                       |
+| `getItemValue(item)`                | Нормализованное строковое значение.                                  |
+| `stringifyItem(item)`               | Отображаемый текст элемента.                                         |
+| `stringify(value)`                  | Отображаемый текст значения.                                         |
+| `stringifyItems(items, separator?)` | Объединённый текст нескольких элементов.                             |
+| `stringifyMany(values, separator?)` | Объединённый текст нескольких значений.                              |
+| `getItemDisabled(item)`             | Нормализованное отключённое состояние.                               |
+| `group()`                           | Кортежи `[groupKey, items]` с настроенными параметрами группировки. |
+
+```tsx
+collection.find('product'); // { label: 'Product', value: 'product' }
+collection.stringify('product'); // 'Product'
+collection.has('unknown'); // false
+```
+
+## Обход и диапазоны
+
+```tsx
+collection.firstValue; // 'platform'
+collection.lastValue; // 'product' - disabled items are skipped
+collection.getNextValue('platform'); // 'product'
+collection.getPreviousValue('design'); // 'product'
+collection.getValueRange('platform', 'product'); // ['platform', 'product']
+collection.sort(['design', 'platform']); // ['platform', 'design']
+```
+
+`firstValue`, `lastValue`, `getNextValue`, `getPreviousValue` и `getValueRange` пропускают отключённые
+элементы. Методы следующего и предыдущего значения принимают необязательный шаг и флаг `clamp`.
+Без ограничения переход за край возвращает `null`.
+
+`compareValue(a, b)` сравнивает два значения по порядку коллекции. `isEqual(other)` сравнивает элементы
+коллекции. Коллекция итерируема, а `toString()` и `toJSON()` предоставляют компактные представления
+идентичности и сводки.
+
+Метод `search(query, options)` поддерживает поиск по мере ввода. Ему нужны сохраняемое состояние поиска,
+текущее значение и необязательная задержка:
+
+```tsx
+const searchState = { keysSoFar: '', timer: -1 };
+
+const nextValue = collection.search('p', {
+  state: searchState,
+  currentValue: null,
+  timeout: 350,
+});
+```
+
+## Неизменяемые обновления
+
+Методы обновления коллекции возвращают новую коллекцию. Присвойте или сохраните результат: исходная
+коллекция не изменяется.
+
+```tsx
+const nextCollection = collection
+  .append({ label: 'Support', value: 'support' })
+  .remove('design')
+  .reorder(0, 1);
+```
+
+| API                                      | Операция                                        |
+| ---------------------------------------- | ----------------------------------------------- |
+| `copy(items?)` / `setItems(items)`       | Копирует коллекцию или заменяет все элементы.   |
+| `update(value, item)`                    | Заменяет существующий элемент.                  |
+| `upsert(value, item, mode?)`             | Обновляет элемент либо добавляет его в начало или конец. |
+| `insert(index, ...items)`                | Вставляет по индексу.                           |
+| `insertBefore(value, ...items)`          | Вставляет перед значением.                      |
+| `insertAfter(value, ...items)`           | Вставляет после значения.                       |
+| `prepend(...items)` / `append(...items)` | Добавляет элементы с края.                      |
+| `filter(predicate)`                      | Возвращает отфильтрованную коллекцию.           |
+| `remove(...itemsOrValues)`               | Удаляет элементы или значения.                  |
+| `move(value, index)`                     | Перемещает одно значение по индексу.            |
+| `moveBefore(value, ...values)`           | Перемещает значения перед другим значением.     |
+| `moveAfter(value, ...values)`            | Перемещает значения после другого значения.     |
+| `reorder(from, to)`                      | Перемещает элемент между числовыми индексами.   |
+
+## Коллекции под управлением React
+
+Используйте `useListCollection`, когда фильтрация или обновления коллекции должны вызывать рендер:
+
+```tsx
+function useTeams() {
+  return useListCollection({
+    initialItems: teams,
+    filter: (itemText, filterText) =>
+      itemText.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()),
+    limit: 20,
+  });
+}
+```
+
+Хук возвращает активную `collection`, а также `filter`, `set`, `reset`, `clear`, `insert`,
+`insertBefore`, `insertAfter`, `remove`, `move`, `moveBefore`, `moveAfter`, `reorder`, `append`,
+`prepend`, `update` и `upsert`. `filter('')` восстанавливает неотфильтрованные элементы; `reset()`
+восстанавливает `initialItems`.
+
+Для сопоставления с учётом локали используйте `useFilter` из Ark:
+
+```tsx
+import { useFilter } from '@ark-ui/react/locale';
+
+function useFilteredTeams() {
+  const { contains } = useFilter({ sensitivity: 'base' });
+
+  return useListCollection({
+    initialItems: teams,
+    filter: contains,
+  });
+}
+```
+
+Храните статическую `createListCollection` за пределами компонента, если элементы никогда не меняются.
+Используйте хук, только когда фильтрацией или изменением должен управлять React.

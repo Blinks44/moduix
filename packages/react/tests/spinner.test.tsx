@@ -43,6 +43,20 @@ test('keeps decorative default spinners out of the accessibility tree', () => {
   expect(spinner).toHaveAttribute('aria-hidden', 'true');
 });
 
+test('uses an external label instead of the default accessible name', () => {
+  render(
+    <>
+      <span id="spinner-label">Syncing files</span>
+      <Spinner aria-labelledby="spinner-label" />
+    </>,
+  );
+
+  const spinner = screen.getByRole('status', { name: 'Syncing files' });
+
+  expect(spinner).toHaveAttribute('aria-labelledby', 'spinner-label');
+  expect(spinner).not.toHaveAttribute('aria-label');
+});
+
 test('preserves a custom host and its semantics with decorative asChild composition', () => {
   const ref = createRef<HTMLButtonElement>();
 
@@ -58,6 +72,26 @@ test('preserves a custom host and its semantics with decorative asChild composit
   expect(button).not.toHaveAttribute('aria-hidden');
   expect(button).not.toHaveAttribute('role');
   expect(button).toHaveAttribute('data-slot', 'spinner-root');
+});
+
+test('forwards status semantics and the ref to a non-decorative asChild host', () => {
+  const ref = createRef<HTMLSpanElement>();
+
+  render(
+    <Spinner asChild ref={ref} size="lg" aria-label="Loading report">
+      <span>
+        <span data-scope="spinner" data-part="indicator" data-slot="spinner-indicator">
+          <span data-scope="spinner" data-part="ring" data-slot="spinner-ring" />
+        </span>
+      </span>
+    </Spinner>,
+  );
+
+  const spinner = screen.getByRole('status', { name: 'Loading report' });
+
+  expect(ref.current).toBe(spinner);
+  expect(spinner).toHaveAttribute('data-size', 'lg');
+  expect(spinner).toHaveAttribute('data-slot', 'spinner-root');
 });
 
 test('keeps custom indicator content inside the hidden rotating wrapper', () => {

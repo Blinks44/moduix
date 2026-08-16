@@ -27,7 +27,7 @@ factory and Chakra's Alert part contract.
   `Alert.Description`, and `Alert.Actions`.
 - The callable `Alert` export remains the root part itself. Runnable docs/examples use the short
   `<Alert>` root form, while anatomy and API notes may still refer to `Alert.Root`.
-- `Alert.Root` defaults `status` to `'neutral'`.
+- `Alert.Root` defaults `status` to `'info'` and uses the card surface for that default status.
 - `Alert.Root` defaults `role` to `'status'`, and switches to `'alert'` when `status="error"`.
 - `Alert.Content` is optional for the simple title/description path and stays available for grouped
   text and actions.
@@ -104,8 +104,8 @@ different heading element:
 - `Composition`: preserved through Ark factory `asChild` behavior on every exported part.
 - `Refs`: forwarded to the rendered DOM element for every exported part.
 - `Styling`: follows Ark `data-scope` / `data-part` targeting and moduix `data-slot` hooks.
-- `Status semantics`: moduix adds a focused status surface with `neutral`, `info`, `success`,
-  `warning`, and `error`.
+- `Status semantics`: moduix adds a focused status surface with `info`, `success`, `warning`, and
+  `error`.
 - `Action-row sugar`: moduix adds `Alert.Actions` as a thin stylable wrapper for grouped actions.
 - `Heading composition`: preserved through `Alert.Title asChild` for document outline control.
 - `Variants`, `sizes`, and recipe palettes`: intentionally not exposed; moduix keeps one visual
@@ -127,6 +127,10 @@ different heading element:
 - `Alert.Actions` writes `data-part="actions"` and `data-slot="alert-actions"` for targeted action
   row styling.
 - `Alert.Root` defaults to `role="status"` and switches to `role="alert"` for `status="error"`.
+- The automatic roles create live regions. Consumers should mount the root before updating its
+  message when announcement is required; content present on initial page load may not be announced.
+- Consumers can override `role`; static supplementary callouts should use an appropriate non-live
+  role such as `note` instead of the automatic status semantics.
 - All exported parts support Ark `asChild`.
 - `asChild` requires one semantic child; interactive children keep their own native keyboard and
   focus behavior.
@@ -137,44 +141,64 @@ different heading element:
 
 Extends Ark `div` props and supports `asChild`.
 
-| Prop        | Type                                                       | Default     |
-| ----------- | ---------------------------------------------------------- | ----------- |
-| `status`    | `'neutral' \| 'info' \| 'success' \| 'warning' \| 'error'` | `'neutral'` |
-| `role`      | native `div` `role`                                        | auto        |
-| `className` | `string`                                                   | -           |
+| Prop        | Type                                          | Default  |
+| ----------- | --------------------------------------------- | -------- |
+| `status`    | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` |
+| `role`      | native `div` `role`                           | auto     |
+| `className` | `string`                                      | -        |
 
 ### Public CSS variables
 
-| Variable                                 | Default/fallback                                                         |
-| ---------------------------------------- | ------------------------------------------------------------------------ |
-| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                                |
-| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                                |
-| `--moduix-alert-bg`                      | `var(--moduix-alert-bg-default, var(--moduix-color-card))`               |
-| `--moduix-alert-border-color`            | `var(--moduix-alert-border-color-default, var(--moduix-color-border))`   |
-| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                          |
-| `--moduix-alert-color`                   | `var(--moduix-alert-color-default, var(--moduix-color-card-foreground))` |
-| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                                |
-| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                                   |
-| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                                  |
-| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                      |
-| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                                |
-| `--moduix-alert-indicator-color`         | `var(--moduix-alert-indicator-color-default, currentColor)`              |
-| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                              |
-| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                                |
-| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                                |
-| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                                |
-| `--moduix-alert-shadow`                  | `none`                                                                   |
-| `--moduix-alert-title-color`             | `var(--moduix-alert-color, var(--moduix-alert-color-default))`           |
-| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                                  |
-| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                          |
-| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                      |
+| Variable                                 | Default/fallback                                                   |
+| ---------------------------------------- | ------------------------------------------------------------------ |
+| `--moduix-alert-actions-gap`             | `var(--moduix-spacing-2)`                                          |
+| `--moduix-alert-actions-margin-top`      | `var(--moduix-spacing-2)`                                          |
+| `--moduix-alert-bg`                      | Status-dependent; info uses `var(--moduix-color-card)`             |
+| `--moduix-alert-border-color`            | Status-dependent; info uses `var(--moduix-color-border)`           |
+| `--moduix-alert-border-width`            | `var(--moduix-border-width-sm)`                                    |
+| `--moduix-alert-color`                   | Status-dependent; info uses `var(--moduix-color-card-foreground)`  |
+| `--moduix-alert-content-gap`             | `var(--moduix-spacing-1)`                                          |
+| `--moduix-alert-description-color`       | `var(--moduix-color-muted-foreground)`                             |
+| `--moduix-alert-description-font-size`   | `var(--moduix-text-sm)`                                            |
+| `--moduix-alert-description-line-height` | `var(--moduix-line-height-text-sm)`                                |
+| `--moduix-alert-gap`                     | `var(--moduix-spacing-3)`                                          |
+| `--moduix-alert-indicator-color`         | Status-dependent; info uses `var(--moduix-color-muted-foreground)` |
+| `--moduix-alert-indicator-offset`        | `var(--moduix-spacing-0-5)`                                        |
+| `--moduix-alert-indicator-size`          | `var(--moduix-spacing-4)`                                          |
+| `--moduix-alert-info-bg`                 | `var(--moduix-color-card)`                                         |
+| `--moduix-alert-info-border-color`       | `var(--moduix-color-border)`                                       |
+| `--moduix-alert-info-color`              | `var(--moduix-color-card-foreground)`                              |
+| `--moduix-alert-info-indicator-color`    | `var(--moduix-color-muted-foreground)`                             |
+| `--moduix-alert-success-bg`              | Success at 10% over `var(--moduix-color-background)`               |
+| `--moduix-alert-success-border-color`    | Success at 34%                                                     |
+| `--moduix-alert-success-color`           | `var(--moduix-color-foreground)`                                   |
+| `--moduix-alert-success-indicator-color` | `var(--moduix-color-success)`                                      |
+| `--moduix-alert-warning-bg`              | Warning at 13% over `var(--moduix-color-background)`               |
+| `--moduix-alert-warning-border-color`    | Warning at 38%                                                     |
+| `--moduix-alert-warning-color`           | `var(--moduix-color-foreground)`                                   |
+| `--moduix-alert-warning-indicator-color` | `var(--moduix-color-warning)`                                      |
+| `--moduix-alert-error-bg`                | Destructive at 9% over `var(--moduix-color-background)`            |
+| `--moduix-alert-error-border-color`      | Destructive at 35%                                                 |
+| `--moduix-alert-error-color`             | `var(--moduix-color-foreground)`                                   |
+| `--moduix-alert-error-indicator-color`   | `var(--moduix-color-destructive)`                                  |
+| `--moduix-alert-padding`                 | `var(--moduix-spacing-3)`                                          |
+| `--moduix-alert-radius`                  | `var(--moduix-radius-lg)`                                          |
+| `--moduix-alert-shadow`                  | `none`                                                             |
+| `--moduix-alert-title-color`             | `var(--moduix-alert-color)`                                        |
+| `--moduix-alert-title-font-size`         | `var(--moduix-text-sm)`                                            |
+| `--moduix-alert-title-font-weight`       | `var(--moduix-weight-semibold)`                                    |
+| `--moduix-alert-title-line-height`       | `var(--moduix-line-height-text-sm)`                                |
 
 Built-in statuses derive their accents from shared palette tokens:
 
-- `info` -> `--moduix-color-primary`
+- `info` -> card surface tokens
 - `success` -> `--moduix-color-success`
 - `warning` -> `--moduix-color-warning`
 - `error` -> `--moduix-color-destructive`
+
+The component-wide background, border, text, and indicator variables take precedence over their
+status-specific counterparts. Use a status-specific variable to retheme one status without
+changing the others, or a component-wide variable when every status should share that decision.
 
 ## Intentional sugar and differences from upstream
 
@@ -198,6 +222,11 @@ Built-in statuses derive their accents from shared palette tokens:
 
 ## Local changelog
 
+- 2026-08-14: Consolidated statuses on the card-based `info` default shared with Toast and removed
+  the redundant `neutral` status and variables.
+- 2026-08-08: Added independent background, border, text, and indicator variables for every status;
+  preserved component-wide overrides as the highest-priority theming path; and clarified live-region
+  usage in consumer docs.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-09: Added `Alert.Actions` as narrow sugar for wrapped action rows, aligned examples on the
   short `<Alert>` root form, and moved the low-level docs path under `Advanced Customization`.

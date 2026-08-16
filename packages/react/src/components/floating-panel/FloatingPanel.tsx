@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   FloatingPanel as FloatingPanelPrimitive,
   useFloatingPanel,
@@ -254,20 +255,23 @@ const FloatingPanelBody = forwardRef<
   );
 });
 
-function FloatingPanelFooter({ className, ...props }: ComponentProps<'div'>) {
-  const { ['data-minimized']: dataMinimized } = useFloatingPanelContext().getContentProps() as {
-    'data-minimized'?: string;
-  };
+const FloatingPanelFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function FloatingPanelFooter({ className, ...props }, ref) {
+    const { ['data-minimized']: dataMinimized } = useFloatingPanelContext().getContentProps() as {
+      'data-minimized'?: string;
+    };
 
-  return (
-    <div
-      {...props}
-      data-slot="floating-panel-footer"
-      data-minimized={dataMinimized}
-      className={clsx(styles.footer, className)}
-    />
-  );
-}
+    return (
+      <ark.div
+        ref={ref}
+        {...props}
+        data-slot="floating-panel-footer"
+        data-minimized={dataMinimized}
+        className={clsx(styles.footer, normalizeClassName(className))}
+      />
+    );
+  },
+);
 
 const FloatingPanelResizeTrigger = forwardRef<
   ComponentRef<typeof FloatingPanelPrimitive.ResizeTrigger>,

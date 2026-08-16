@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { forwardRef } from 'react';
-import { List } from '../../../src/components/list/List';
+import { List } from '@/components/list/List';
 import storyStyles from './List.stories.module.css';
 
 const defaultItems = [
@@ -88,11 +88,45 @@ export const Markerless: Story = {
   ),
 };
 
+export const Row: Story = {
+  render: () => (
+    <List marker="none" className={storyStyles.rowList}>
+      <List.Item>Semantic HTML</List.Item>
+      <List.Item>Responsive spacing</List.Item>
+      <List.Item>Composable styling</List.Item>
+    </List>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className={storyStyles.stack}>
+      <List size="xs">
+        <List.Item>Compact supporting content.</List.Item>
+        <List.Item>Still uses native list semantics and markers.</List.Item>
+      </List>
+      <List size="md">
+        <List.Item>Default body content for a release summary.</List.Item>
+        <List.Item>
+          Items can wrap across multiple lines without losing their marker alignment.
+        </List.Item>
+      </List>
+      <List size="xl">
+        <List.Item>Large, high-emphasis content.</List.Item>
+        <List.Item>Use this scale sparingly for short, scannable statements.</List.Item>
+      </List>
+    </div>
+  ),
+};
+
 export const Tones: Story = {
   render: () => (
     <div className={storyStyles.stack}>
       <List tone="muted">
         <List.Item>Muted list tone</List.Item>
+      </List>
+      <List tone="subtle">
+        <List.Item>Subtle list tone</List.Item>
       </List>
       <List tone="primary">
         <List.Item>Primary list tone</List.Item>

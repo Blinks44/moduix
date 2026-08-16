@@ -1,0 +1,227 @@
+---
+title: TanStack Form
+description: Intégrez les contrôles natifs et composites de moduix à TanStack Form.
+---
+
+# TanStack Form
+
+La [documentation de TanStack Form](https://tanstack.com/form/latest/docs/framework/react/overview)
+décrit l’ensemble de l’API React et le modèle de validation. Cette page se concentre sur les
+correspondances avec les contrôles moduix.
+
+Les champs TanStack Form sont contrôlés. Transmettez `field.state.value` au composant, puis faites
+correspondre le callback du composant à `field.handleChange`. Les composants composites Ark affichent
+leur propre contrôle de formulaire natif lorsqu’ils en ont besoin ; n’ajoutez donc jamais de champ
+masqué distinct.
+
+```bash
+npm install @tanstack/react-form
+```
+
+## Correspondances
+
+| Contrôle | Intégration à TanStack Form |
+| -------- | --------------------------- |
+| `Input`, `Textarea`, `Field.Select` | Transmettez `field.state.value` et faites correspondre l’événement de changement natif. |
+| `Select` | Convertissez la valeur scalaire du champ en tableau de chaînes `value` d’Ark, et inversement. |
+| `Combobox` | Utilisez la même correspondance de valeurs et conservez le filtrage dans `onInputValueChange`. |
+| `Checkbox` | Faites correspondre `details.checked === true` à la valeur booléenne du champ. |
+| Contrôles natifs automatiques | Transmettez les props sémantiques de l’élément racine, comme `name` ou `form` ; moduix gère le champ. |
+
+Définissez chaque champ dans `defaultValues`. Appelez `field.handleBlur` depuis le point d’interaction
+réel afin que l’état visité et la validation au blur restent corrects.
+
+Abonnez-vous à `state.canSubmit` et `state.isSubmitting` pour le bouton de soumission, comme dans le
+formulaire complet. Gardez les valeurs visibles, bloquez les soumissions non valides et désactivez les
+soumissions répétées jusqu’à la fin du gestionnaire `onSubmit` asynchrone.
+
+## Validation et réinitialisation
+
+Utilisez un validateur de champ pour les règles locales et un validateur Standard Schema au niveau du
+formulaire pour les règles partagées ou portant sur plusieurs champs. Les correspondances des
+composants ci-dessous restent identiques. Dans l’exemple, la validation s’exécute à la soumission ; si
+vous validez au blur ou pendant la saisie, affichez `Field.ErrorText` et définissez `Field invalid`
+après que le champ a été visité, au lieu de marquer d’emblée comme invalides tous les champs
+obligatoires initialement vides.
+
+`noValidate` ne convient que lorsque TanStack Form gère le flux d’erreurs visible. Sinon, laissez la
+validation native des contraintes activée. Utilisez `form.reset()` pour les champs contrôlés afin que
+l’état de la bibliothèque et les contrôles moduix soient réinitialisés ensemble ; une réinitialisation
+du DOM ne peut pas remplacer la valeur contrôlée stockée dans le formulaire.
+
+## Formulaire complet
+
+Cet exemple intègre `Input`, `Select`, `Combobox`, `Textarea` et `Checkbox`, valide à la soumission,
+place le focus sur le premier contrôle non valide et ne s’abonne qu’à la disponibilité de la soumission
+et à l’état d’attente. `noValidate` maintient le flux d’erreurs de la démonstration dans TanStack Form ;
+ne l’utilisez pas si la validation native du navigateur doit s’exécuter en premier.
+
+<style>{`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --moduix-select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --moduix-combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/tanstack-form/complete-form.tsx"
+
+```
+
+## Champs répétés
+
+Utilisez un champ en mode tableau comme propriétaire des opérations d’ajout et de suppression, puis
+affichez un champ imbriqué pour chaque valeur. Un élément créé par l’utilisateur doit lui aussi posséder
+un `id` persistant ; utilisez-le comme clé React et conservez l’index dans le nom du champ imbriqué.
+Enveloppez la liste dans `Fieldset` lorsqu’elle possède un libellé partagé. Cet extrait est affiché dans
+le composant où `form` a été créé.
+
+```tsx
+const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
+
+<form.Field name="emails" mode="array">
+  {(arrayField) => (
+    <>
+      {arrayField.state.value.map((item, index) => (
+        <form.Field key={item.id} name={`emails[${index}].address`}>
+          {(field) => (
+            <Field invalid={!field.state.meta.isValid}>
+              <Field.Label>Email {index + 1}</Field.Label>
+              <Input
+                name={field.name}
+                type="email"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(event) => field.handleChange(event.currentTarget.value)}
+              />
+              <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
+              <Button type="button" onClick={() => arrayField.removeValue(index)}>
+                Remove email
+              </Button>
+            </Field>
+          )}
+        </form.Field>
+      ))}
+
+      <Button type="button" onClick={() => arrayField.pushValue(newEmail())}>
+        Add email
+      </Button>
+    </>
+  )}
+</form.Field>;
+```
+
+Lorsque vous modifiez des éléments enregistrés, utilisez l’ID déjà renvoyé par votre API ;
+`newEmail()` ne sert qu’à créer de nouvelles lignes côté client.
+
+## Erreurs renvoyées par le serveur
+
+Ajoutez au formulaire un validateur de soumission asynchrone. Renvoyez `fields` avec les noms exacts
+des champs refusés par le serveur et un message `form` facultatif pour les erreurs qui ne concernent
+pas un champ précis. L’affichage habituel de `field.state.meta.errors` présentera ensuite les erreurs
+de champ sans stockage d’erreurs distinct.
+
+```tsx
+type ProjectFormValues = {
+  name: string;
+  emails: { address: string; id: string }[];
+};
+
+const form = useForm<ProjectFormValues>({
+  defaultValues: { name: '', emails: [] },
+  validators: {
+    onSubmitAsync: async ({ value }) => {
+      const result = await validateProjectOnServer(value);
+
+      if (!result.ok) {
+        return {
+          form: result.message,
+          // For example: { name: 'Already in use.', 'emails[0].address': 'Cannot be used.' }
+          fields: result.fieldErrors,
+        };
+      }
+
+      return null;
+    },
+  },
+  onSubmit: ({ value }) => saveProject(value),
+});
+
+<form.Subscribe selector={(state) => [state.errorMap.onSubmit] as const}>
+  {([error]) => (error ? <p role="alert">{error}</p> : null)}
+</form.Subscribe>;
+```
+
+## Focus sur le premier champ non valide
+
+TanStack Form ne choisit pas la cible du focus dans le DOM. Utilisez `onSubmitInvalid` pour placer le
+focus sur le premier contrôle affiché que la correspondance `Field invalid` marque avec
+`aria-invalid="true"` :
+
+```tsx
+function focusFirstInvalid(formId: string) {
+  requestAnimationFrame(() => {
+    const formElement = document.getElementById(formId);
+    const control = formElement?.querySelector<HTMLElement>(
+      '[aria-invalid="true"]:not([hidden])',
+    );
+    control?.focus();
+  });
+}
+
+const form = useForm({
+  defaultValues,
+  onSubmit,
+  onSubmitInvalid: () => focusFirstInvalid('project-form'),
+});
+
+<form id="project-form">{/* fields */}</form>;
+```
+
+Placez le focus sur le contrôle réel : un Input natif, `Select.Trigger` ou `Combobox.Input`.
+
+## Comportement
+
+- Enveloppez `form.handleSubmit()` dans le gestionnaire de soumission du formulaire natif après avoir
+  appelé `preventDefault()` ; le formulaire complet rend cette frontière explicite.
+- Pour une sélection unique, transmettez `field.state.value ? [field.state.value] : []` et lisez
+  `details.value[0] ?? ""`.
+- Appelez `field.handleBlur` depuis `Select.onInteractOutside` ou `Combobox.Input.onBlur` afin que
+  TanStack Form puisse mettre à jour l’état visité.
+- `Select` affiche automatiquement un select natif pour la sémantique native et la synchronisation de
+  la réinitialisation.
+- Faites correspondre l’état coché de `Checkbox` à la valeur booléenne du champ ; son élément racine
+  affiche automatiquement un champ natif.
+- `name={field.name}` active la sémantique native de `FormData`, mais ne remplace pas les
+  correspondances contrôlées `state.value` et `handleChange` du champ.
+- Pour les autres contrôles automatiques, conservez la configuration de formulaire particulière sur
+  leurs éléments racines : `DateInput` utilise un tuple `names` de deux éléments pour les clés
+  indexées distinctes d’une plage, `Select` utilise `nativeFormControl="input"` pour les collections
+  virtualisées et `SignaturePad` utilise `getFormValue` pour une sérialisation personnalisée.
+- TanStack Form ne gère volontairement pas le focus dans le DOM. Pour placer le focus sur le premier
+  champ non valide, implémentez ce comportement dans `onSubmitInvalid` à partir des contrôles affichés
+  portant `aria-invalid`.
+- Utilisez `form.Subscribe` pour l’état dérivé du formulaire au lieu de lire `form.state` pendant le
+  rendu.

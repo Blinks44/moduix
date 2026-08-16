@@ -1,0 +1,50 @@
+---
+title: Sign up
+description: A copy-owned account creation form built with moduix React components.
+---
+
+import { SignUpPreview } from '@/components/recipes/sign-up-preview';
+
+# Sign up
+
+Create an account with native validation for name, email, passwords, and terms acceptance. The
+recipe deliberately leaves authentication and matching-password validation to your `onSubmit`
+handler.
+
+<ExampleFrame clientOnly>
+  <SignUpPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/sign-up.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/sign-up.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
+
+## Use in a route
+
+Render `SignUp` in the route that owns registration and pass its real submit handler. Replace the
+default `/terms`, `/privacy`, and `/sign-in` links with your application routes.
+
+Keep password policy text visible before submission and validate the same policy on the server.
+While creating the account, disable duplicate submission. Map field-specific server errors, such as
+an unavailable email, to the relevant field; use a form-level message for network or unexpected
+errors. After success, follow your product's explicit next step: start a session, verify the email,
+or show a confirmation page.

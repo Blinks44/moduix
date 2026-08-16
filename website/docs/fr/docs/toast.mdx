@@ -1,0 +1,240 @@
+---
+title: Toast
+component: toast
+description: Une zone de notifications pour les messages temporaires, les actions et les retours contextuels.
+---
+
+import * as ToastDocs from '@/components/examples/toast';
+
+<style>{ToastDocs.toastExampleCss}</style>
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toast" />
+
+## Exemple de base
+
+Créez un gestionnaire de notifications avec `createToaster()`, ajoutez-y des messages, puis rendez-le avec `Toaster`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/basic.tsx"
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="toast" />
+
+## Anatomie
+
+```text
+createToaster()
+└─ Overlay subtree (automatically portalled)
+   └─ Toaster
+      └─ Toast
+         ├─ Toast.Title
+         ├─ Toast.Description
+         ├─ Toast.ActionTrigger
+         └─ Toast.CloseTrigger
+```
+
+| Partie | Rôle |
+| ---------------------- | --------------------------------------------------------------------------- |
+| `Toast` | Surface visible de la notification, reliée au contexte toast Ark courant. |
+| `Toaster` | Rend le gestionnaire de notifications et possède le groupe toast Ark. |
+| `Toast.Title` | Partie du titre. Sans enfant, utilise la valeur `title` de la notification courante. |
+| `Toast.Description` | Partie de la description. Sans enfant, utilise la valeur `description` de la notification courante. |
+| `Toast.ActionTrigger` | Bouton d’action relié à `toast.action.onClick`. Transmettez `toast.action.label` comme contenu. |
+| `Toast.CloseTrigger` | Bouton de fermeture. Rend `CloseButton.Root` par défaut. |
+
+## Composition
+
+`Toaster` est portalisé automatiquement par défaut. Utilisez `portalled={false}` pour un rendu intégré ou
+`portalRef` pour un conteneur personnalisé ; aucun conteneur `Portal` n’est nécessaire.
+
+### Composition recommandée
+
+Créez un gestionnaire de notifications stable avec `createToaster(options)`, puis rendez-le une seule fois avec
+`Toaster`. Le gestionnaire contrôle le placement, le chevauchement, l’espacement, la taille maximale de la file,
+la durée, le délai de suppression, la pause en cas d’inactivité et le raccourci de focus `Alt+T`.
+
+Par défaut, `Toaster` utilise `document.body`. Pour un rendu intégré, définissez `portalled={false}` ou transmettez
+`portalRef` afin de cibler un autre conteneur.
+
+Dans le code de l’application, utilisez `Toast` comme forme racine. `Toast.Root` reste disponible comme alias de
+compatibilité.
+
+Sans render prop, `Toaster` rend la notification moduix standard : le titre et la description uniquement s’ils
+existent, l’action si elle est définie, et le bouton de fermeture sauf si `closable: false`. C’est la voie
+recommandée pour les retours courants de l’application.
+
+### Quand créer une composition personnalisée
+
+Utilisez la render prop de `Toaster` si chaque notification nécessite sa propre disposition, des icônes ou des
+contrôles différents de ceux fournis par défaut. Elle permet par exemple de remplacer l’icône de fermeture standard.
+Conservez `Toast` comme élément extérieur afin qu’Ark puisse gérer la pile, la mesure de la hauteur, le cycle de
+fermeture, la pause, le focus clavier ainsi que les attributs de type et d’état.
+
+Toutes les parties Ark exportées prennent en charge `asChild` ; les enfants personnalisés de `ActionTrigger` et
+`CloseTrigger` doivent préserver la sémantique et le comportement d’un bouton.
+
+Si une partie enfant personnalisée a besoin d’accéder directement à l’état de la notification, importez
+`useToastContext()` depuis `@moduix/react/toast`.
+
+### Propriétés par défaut
+
+| Propriété | Valeur par défaut | Remarques |
+| ------------------------------ | -------------------- | ------------------------------------------------------------------------------------- |
+| `createToaster.gap` | `16` | Espacement entre les notifications. |
+| `createToaster.max` | `24` | Les nouvelles notifications sont mises en file lorsque la pile visible atteint cette limite. |
+| `createToaster.hotkey` | `["altKey", "KeyT"]` | Déplace le focus vers le groupe de notifications. |
+| `createToaster.offsets` | `"1rem"` | Décalage par rapport au bord sûr du groupe de notifications. |
+| `createToaster.overlap` | `false` | Mode de pile Ark. Utilisez `true` pour des piles qui se chevauchent. |
+| `createToaster.pauseOnPageIdle` | `false` | Définissez `true` pour suspendre les minuteurs lorsque la page est inactive. |
+| `createToaster.placement` | `"bottom"` | Placements Ark disponibles : `top-start`, `top`, `top-end`, `bottom-start`, `bottom`, `bottom-end`. |
+| `createToaster.removeDelay` | `200` | Conserve les notifications fermées dans le DOM assez longtemps pour l’animation de sortie. |
+
+### Comportement
+
+- Utilisez `toaster.create()`, `success()`, `error()`, `warning()`, `info()`, `loading()`,
+  `promise()`, `update()`, `dismiss()`, `remove()` et `dismissByPlacement()` directement depuis le gestionnaire
+  de notifications Ark.
+- moduix suit la valeur Ark par défaut `type: "info"` ; la surface de carte `info` ainsi que les
+  surfaces `success`, `warning` et `error` sont alignées sur `Alert`.
+- `toast.action` utilise `{ label, onClick }`, rendu par `Toast.ActionTrigger`.
+- `toast.duration` définit la durée d’une notification ; `createToaster({ duration })` définit la valeur par défaut.
+- `toast.onStatusChange(details)` reçoit les changements de statut Ark : `visible`, `dismissing` et `unmounted`.
+- Si la notification est créée dans un effet, différez l’appel du gestionnaire avec `queueMicrotask()` afin d’éviter
+  les avertissements React `flushSync`.
+- `Toast` fournit les attributs d’état Ark tels que `data-state`, `data-type`, `data-placement`, `data-side`,
+  `data-mounted`, `data-paused`, `data-first`, `data-sibling`, `data-stack` et `data-overlap`.
+
+## Exemples
+
+### Action
+
+Utilisez `action: { label, onClick }` si la notification doit proposer une action directe.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/action.tsx"
+  ```
+</PreviewFrame>
+
+### Pile toujours déployée
+
+Définissez `overlap: false` si chaque notification doit rester entièrement visible au lieu de se replier dans une
+pile qui se chevauche. Il s’agit d’un réglage facultatif du gestionnaire Ark et non d’un mode distinct du composant.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/always-expanded.tsx"
+  ```
+</PreviewFrame>
+
+### Durée
+
+Définissez `duration` pour chaque notification lorsqu’elle doit se fermer plus vite, plus lentement ou uniquement
+manuellement.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/duration.tsx"
+  ```
+</PreviewFrame>
+
+### Nombre maximal visible
+
+Définissez `max` sur le gestionnaire de notifications si les pics de messages doivent être mis en file plutôt que
+de remplir l’écran.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/max-toasts.tsx"
+  ```
+</PreviewFrame>
+
+### Placement
+
+Choisissez l’un des six placements Ark si le groupe de notifications doit apparaître près d’un bord précis du viewport.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/placement.tsx"
+  ```
+</PreviewFrame>
+
+### Notification d’une Promise
+
+Utilisez `toaster.promise()` pour faire passer une même notification du chargement au succès ou à l’erreur.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/promise-toast.tsx"
+  ```
+</PreviewFrame>
+
+### Types
+
+Utilisez les helpers typés du gestionnaire pour les variantes dépendantes du statut. moduix stylise `info`, `success`,
+`warning` et `error` via `data-type`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/types.tsx"
+  ```
+</PreviewFrame>
+
+### Mise à jour
+
+Conservez l’identifiant de la notification créée et transmettez-le à `toaster.update()` si une notification existante
+doit être modifiée sur place.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/update.tsx"
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Cet exemple contourne le moteur de rendu standard de `Toaster` pour ajouter une icône, remplacer l’icône de fermeture
+et utiliser les variables CSS propres au composant.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/toast/custom-composition.tsx"
+  ```
+</PreviewFrame>
+
+## Styles
+
+Personnalisez `Toast` avec les attributs de parties Ark, les hooks `data-slot` et les variables publiques
+`--moduix-toast-*` de l’API CSS publique.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ToastDocs.ToastCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez `Toast` pour la surface, la bordure, l’animation, les variantes par type et les variables d’exécution Ark.
+Utilisez `Toast.Title`, `Toast.Description`, `Toast.ActionTrigger` et `Toast.CloseTrigger` pour la typographie et les
+contrôles internes.
+
+Hooks Ark importants :
+
+- `[data-scope='toast'][data-part='group']` sur `Toaster`
+- `[data-scope='toast'][data-part='root']` sur `Toast`
+- `[data-scope='toast'][data-part='title']` sur `Toast.Title`
+- `[data-scope='toast'][data-part='description']` sur `Toast.Description`
+- `[data-scope='toast'][data-part='action-trigger']` sur `Toast.ActionTrigger`
+- `[data-scope='toast'][data-part='close-trigger']` sur `Toast.CloseTrigger`
+- `--x`, `--y`, `--scale`, `--z-index`, `--height`, `--opacity` et `--gap` sur `Toast`
+
+moduix ajoute également les hooks stables `data-slot="toast-toaster"`, `toast-root`, `toast-title`,
+`toast-description`, `toast-action-trigger` et `toast-close-trigger`.
+
+Jusqu’à une largeur de viewport de `40rem`, moduix suit les recommandations mobiles d’Ark : le groupe de
+notifications occupe le viewport et chaque élément racine utilise `--gap` comme marge intérieure sûre.

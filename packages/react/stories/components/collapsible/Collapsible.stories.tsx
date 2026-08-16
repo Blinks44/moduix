@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Collapsible, useCollapsible } from '@/components/collapsible/Collapsible';
 import { ChevronDownIcon } from '@/lib/moduix/icons/ui';
-import { Collapsible, useCollapsible } from '../../../src/components/collapsible/Collapsible';
 import styles from './Collapsible.stories.module.css';
 
 const meta = {

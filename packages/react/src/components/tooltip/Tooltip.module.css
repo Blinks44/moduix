@@ -86,7 +86,7 @@
     z-index: var(--moduix-tooltip-z-index, var(--moduix-z-popup));
     max-width: min(var(--moduix-tooltip-max-width, 20rem), var(--available-width));
     max-height: min(var(--moduix-tooltip-max-height, 24rem), var(--available-height, 100dvh));
-    overflow: auto;
+    overflow: visible;
     padding: var(--moduix-tooltip-padding-y, var(--moduix-spacing-1))
       var(--moduix-tooltip-padding-x, var(--moduix-spacing-2));
     border: var(--moduix-tooltip-border-width, var(--moduix-border-width-sm)) solid
@@ -143,6 +143,16 @@
         --moduix-tooltip-arrow-stroke-color,
         var(--moduix-tooltip-border-color, var(--moduix-color-border))
       );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content[data-state] {
+      animation: none;
+    }
   }
 
   @keyframes tooltip-content-in {

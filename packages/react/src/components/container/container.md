@@ -35,7 +35,7 @@ semantic child, forwarded refs to the rendered root, and no legacy `render` or l
 - Defaults to `size="lg"` and `gutter="md"`.
 - Centers itself with `margin-inline: auto`, always keeps `width: 100%`, and applies inline padding
   from the selected gutter.
-- Uses `max-width: calc(var(--moduix-container-max-width) + (var(--moduix-container-gutter) * 2))`, so the
+- Uses the resolved size plus both inline gutters for `max-width`, so the
   constrained width includes the root's left and right padding.
 - `size="full"` removes only the max-width cap. The root still keeps `width: 100%` and the selected
   gutter.
@@ -171,6 +171,8 @@ when a page shell needs different layout math.
 
 ## Local changelog
 
+- 2026-08-10: Added coverage for every `size` and `gutter` preset, protected root hooks, and the
+  documented uncapped-width composition path.
 - 2026-07-26: Restored spacing-token fallbacks for responsive gutters, documented the single-child
   `asChild` and ref contract, and made the site examples self-contained.
 - 2026-07-02: Removed redundant public `Container*` type exports and kept only the callable root

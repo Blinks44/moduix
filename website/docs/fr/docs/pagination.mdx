@@ -1,0 +1,233 @@
+---
+title: Pagination
+component: pagination
+description: Navigation entre les pages fondée sur le composant primitif de pagination Ark UI.
+---
+
+import * as PaginationDocs from '@/components/examples/pagination';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/pagination" />
+
+## Exemple de base
+
+Utilisez `Pagination` comme racine. `Pagination.Items` affiche les boutons de page et les points de suspension calculés.
+
+<style>{PaginationDocs.paginationBasicCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/basic.tsx"
+
+```
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="pagination" />
+
+## Anatomie
+
+```text
+Pagination
+├─ Pagination.FirstTrigger (facultatif)
+├─ Pagination.PrevTrigger
+├─ Pagination.Items (recommandé)
+├─ Pagination.Context (accès avancé par fonction de rendu)
+│  ├─ Pagination.Item
+│  └─ Pagination.Ellipsis
+├─ Pagination.NextTrigger
+└─ Pagination.LastTrigger (facultatif)
+
+Pagination.RootProvider
+└─ mêmes déclencheurs, éléments, points de suspension et contexte connectés à usePagination()
+```
+
+| Partie                            | Rôle                                                                    |
+| --------------------------------- | ----------------------------------------------------------------------- |
+| `Pagination`                      | Racine de navigation qui possède l’état de la page et de sa taille.     |
+| `Pagination.RootProvider`         | Relie les parties à l’état créé avec `Pagination.usePagination()`.      |
+| `Pagination.Items`                | Affiche les éléments de page et les points de suspension calculés.      |
+| `Pagination.Context`              | Lit l’état racine et ses fonctions à l’aide d’une fonction de rendu Ark. |
+| `Pagination.usePagination`        | Crée l’état de pagination Ark en dehors de la racine affichée.          |
+| `Pagination.usePaginationContext` | Lit l’état de pagination Ark depuis un descendant.                      |
+| `Pagination.Item`                 | Élément de page interactif. Reçoit `{ type: 'page', value }`.           |
+| `Pagination.Ellipsis`             | Marqueur non interactif d’une plage repliée, avec un `index` obligatoire. |
+| `Pagination.PrevTrigger`          | Passe à la page précédente et se désactive au début.                    |
+| `Pagination.NextTrigger`          | Passe à la page suivante et se désactive à la fin.                      |
+| `Pagination.FirstTrigger`         | Passe à la première page et se désactive au début.                      |
+| `Pagination.LastTrigger`          | Passe à la dernière page et se désactive à la fin.                      |
+
+## Composition
+
+### Composition recommandée
+
+`Pagination.Root` prend en charge le clavier, la page actuelle, la taille de page, l’état désactivé des déclencheurs,
+le calcul de la plage de pages et les libellés accessibles. Utilisez `count` pour le nombre total d’éléments de données,
+et non pour le nombre de pages. Associez-le à `pageSize` ou `defaultPageSize` afin qu’Ark puisse calculer `totalPages`.
+
+Utilisez `Pagination.Items` pour la liste de pages standard. Il affiche le tableau Ark `pages` actuel avec
+`Pagination.Item` et `Pagination.Ellipsis`, tout en préservant leur état sélectionné, leurs libellés et leurs gestionnaires.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Pagination.Context` lorsque les éléments de page ou les contrôles adjacents nécessitent un rendu personnalisé.
+Si l’état doit être créé en dehors de l’arbre de pagination affiché, utilisez `Pagination.usePagination()` avec
+`Pagination.RootProvider` ; utilisez `Pagination.usePaginationContext()` depuis un descendant qui a besoin du même état.
+Définissez `type="link"` et fournissez `getPageUrl(details)` lorsque la pagination doit afficher des liens de navigation.
+
+### Propriétés par défaut
+
+| Propriété         | Valeur par défaut | Remarques                                                        |
+| ----------------- | ----------------- | ---------------------------------------------------------------- |
+| `aria-label`      | `Pagination`      | Valeur moduix par défaut de la racine pour le repère de navigation. |
+| `defaultPage`     | `1`               | Page active initiale Ark lorsque l’état n’est pas contrôlé.      |
+| `defaultPageSize` | `10`              | Nombre initial d’éléments par page lorsque l’état n’est pas contrôlé. |
+| `siblingCount`    | `1`               | Pages Ark affichées à côté de la page active.                    |
+| `boundaryCount`   | `1`               | Pages Ark affichées au début et à la fin de la plage.            |
+| `type`            | `button`          | Utilisez `link` avec `getPageUrl(details)` pour les ancres.      |
+
+### Comportement
+
+Utilisez `defaultPage` et `defaultPageSize` pour un état non contrôlé. Utilisez `page`, `pageSize`,
+`onPageChange(details)` et `onPageSizeChange(details)` pour un état contrôlé. Les objets de détail des rappels sont
+ceux d’Ark ; lisez `details.page` ou `details.pageSize` sans les remapper. Ark préserve le comportement au clavier,
+la sémantique de l’élément sélectionné, l’état désactivé des déclencheurs, `ids`, `asChild`, les traductions et la
+génération des URL de liens.
+
+## Exemples
+
+### État contrôlé
+
+Contrôlez la page active avec les propriétés Ark `page` et `onPageChange(details)`.
+
+<style>{PaginationDocs.paginationControlledCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/controlled.tsx"
+
+```
+
+### Contexte
+
+Utilisez `Pagination.Context` lorsque des contrôles personnalisés ont besoin de fonctions de page telles que
+`goToFirstPage()` ou `goToLastPage()`.
+
+<style>{PaginationDocs.paginationContextCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/context.tsx"
+
+```
+
+### Découpage des données
+
+Lisez `pagination.slice(data)` depuis le contexte lorsque la page actuelle doit afficher une tranche d’un tableau côté client.
+
+<style>{PaginationDocs.paginationDataSlicingCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/data-slicing.tsx"
+
+```
+
+### Liens
+
+Utilisez `type="link"` avec `getPageUrl(details)` et des ancres `asChild` lorsque les changements de page doivent
+effectuer une véritable navigation.
+
+<style>{PaginationDocs.paginationLinkCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/link.tsx"
+
+```
+
+### Plage de pages
+
+Utilisez `pagination.pageRange` lorsque l’interface adjacente doit décrire la plage d’éléments visible.
+
+<style>{PaginationDocs.paginationPageRangeCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/page-range.tsx"
+
+```
+
+### Contrôle de la taille de page
+
+Appelez `pagination.setPageSize(nextSize)` depuis le contexte pour permettre à un contrôle distinct de modifier la taille de page.
+
+<style>{PaginationDocs.paginationPageSizeControlExampleCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/page-size-control.tsx"
+
+```
+
+### Root Provider
+
+Utilisez `Pagination.usePagination()` avec `Pagination.RootProvider` lorsque l’état doit être géré en dehors de la racine affichée.
+
+<style>{PaginationDocs.paginationRootProviderCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/root-provider.tsx"
+
+```
+
+### Traductions
+
+Utilisez `translations` pour les libellés accessibles et ajustez la fenêtre calculée avec `siblingCount`,
+`boundaryCount` et les propriétés de taille de page.
+
+<style>{PaginationDocs.paginationTranslationsCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/customized.tsx"
+
+```
+
+### Avec les pages extrêmes
+
+Ajoutez `Pagination.FirstTrigger` et `Pagination.LastTrigger` lorsque les utilisateurs ont besoin
+d’accéder explicitement à la première et à la dernière page.
+
+<style>{PaginationDocs.paginationWithEdgesCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/with-edges.tsx"
+
+```
+
+### Personnalisation avancée
+
+Contournez `Pagination.Items` lorsque les boutons de page ou les points de suspension nécessitent un contenu personnalisé ;
+transmettez chaque objet de page inchangé à `Pagination.Item` afin qu’Ark conserve son état et son comportement d’accessibilité.
+
+<style>{PaginationDocs.paginationAdvancedCustomizationCss}</style>
+
+```tsx preview file="../../en/docs/_snippets/pagination/advanced-customization.tsx"
+
+```
+
+## Styles
+
+moduix conserve les attributs d’état Ark et ajoute des hooks `data-slot` stables pour les styles locaux.
+Les éléments de page utilisent des chiffres tabulaires et un espacement horizontal compact : les libellés
+à un ou deux chiffres conservent ainsi leur forme carrée par défaut, tandis que les libellés plus longs
+peuvent s’élargir sans être tronqués.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <PaginationDocs.PaginationCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- `data-scope="pagination"` et `data-part="item"` sur `Pagination.Item`
+- `data-scope="pagination"` et `data-part="prev-trigger"` sur `Pagination.PrevTrigger`
+- `data-scope="pagination"` et `data-part="next-trigger"` sur `Pagination.NextTrigger`
+- `data-scope="pagination"` et les parties des déclencheurs extrêmes sur les premier et dernier déclencheurs
+- `data-selected` sur l’élément de page actif
+- `data-disabled` sur les déclencheurs indisponibles
+- `data-slot="pagination-root"`, `pagination-root-provider`, `pagination-item`,
+  `pagination-ellipsis` et les slots propres aux déclencheurs pour les remplacements moduix

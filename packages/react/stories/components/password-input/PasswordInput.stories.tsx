@@ -1,10 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import {
-  PasswordInput,
-  usePasswordInput,
-} from '../../../src/components/password-input/PasswordInput';
+import { Field } from '@/components/field';
+import { PasswordInput, usePasswordInput } from '@/components/password-input/PasswordInput';
 import styles from './PasswordInput.stories.module.css';
 
 const meta = {

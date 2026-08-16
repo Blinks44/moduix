@@ -49,11 +49,28 @@ test('keeps Ark autoresize behavior and the moduix styling hook', () => {
   expect(textarea).toHaveStyle({ resize: 'none' });
 });
 
-test('participates in native form data with native change events', () => {
+test('keeps controlled textarea values synchronized with external updates', () => {
+  const { rerender } = render(
+    <Textarea aria-label="Summary" onChange={() => undefined} value="Draft" />,
+  );
+
+  const textarea = screen.getByRole('textbox', { name: 'Summary' });
+
+  fireEvent.change(textarea, { target: { value: 'Published' } });
+
+  expect(textarea).toHaveValue('Draft');
+
+  rerender(<Textarea aria-label="Summary" onChange={() => undefined} value="Imported" />);
+
+  expect(textarea).toHaveValue('Imported');
+});
+
+test('preserves native form ownership, data, and reset behavior', () => {
   render(
-    <form aria-label="Project form">
-      <Textarea aria-label="Summary" defaultValue="Draft" name="summary" />
-    </form>,
+    <>
+      <form aria-label="Project form" id="project-form" />
+      <Textarea aria-label="Summary" defaultValue="Draft" form="project-form" name="summary" />
+    </>,
   );
 
   const form = screen.getByRole('form', { name: 'Project form' }) as HTMLFormElement;
@@ -63,4 +80,9 @@ test('participates in native form data with native change events', () => {
 
   expect(textarea).toHaveValue('Published');
   expect(new FormData(form).get('summary')).toBe('Published');
+
+  form.reset();
+
+  expect(textarea).toHaveValue('Draft');
+  expect(new FormData(form).get('summary')).toBe('Draft');
 });

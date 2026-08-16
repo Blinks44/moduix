@@ -1,0 +1,230 @@
+---
+title: Vue d’ensemble des formulaires
+description: Créez des formulaires natifs accessibles avec les champs moduix et les contrôles fondés sur Ark.
+---
+
+import { Card, Cards } from '@/components/mdx/Components';
+
+# Formulaires
+
+moduix ne gère pas l’état du formulaire. Utilisez un élément `<form>` natif lorsque la validation du
+navigateur et `FormData` suffisent. Ajoutez une bibliothèque de formulaires lorsqu’une validation plus
+complexe, l’état des champs ou des scénarios de soumission sont nécessaires.
+
+## Choisir une approche
+
+<Cards>
+  <Card
+    title="Formulaire natif"
+    description="Utilisez la validation du navigateur, la soumission avec FormData et la réinitialisation native pour un petit formulaire."
+    href="/docs/forms#commencer-par-un-formulaire-natif"
+  />
+  <Card
+    title="Formisch"
+    description="Ajoutez une validation Valibot fondée sur un schéma et un état de champ sans rendu."
+    href="/docs/formisch"
+  />
+  <Card
+    title="React Hook Form"
+    description="Intégrez des champs majoritairement non contrôlés et des contrôles composites contrôlés."
+    href="/docs/react-hook-form"
+  />
+  <Card
+    title="TanStack Form"
+    description="Intégrez des champs contrôlés explicites, un état réactif et une validation typée."
+    href="/docs/tanstack-form"
+  />
+</Cards>
+
+## Commencer par un formulaire natif
+
+Commencez par l’état natif du formulaire s’il ne contient que quelques champs et que la validation du
+navigateur suffit. Donnez à chaque contrôle un libellé visible et un attribut `name`, définissez les
+contraintes natives sur le contrôle lui-même, puis lisez les données soumises avec
+`new FormData(event.currentTarget)`. [L’exemple fonctionnel de formulaire natif](#formulaire-natif)
+associe un Input ordinaire à des composants Select et Checkbox fondés sur Ark, sans dupliquer de
+champs masqués.
+
+N’ajoutez une bibliothèque que si le produit nécessite des tableaux de champs, une validation fondée
+sur un schéma ou portant sur plusieurs champs, un état contrôlé utilisé ailleurs dans l’interface, ou
+un cycle de validation que les formulaires natifs ne peuvent pas exprimer clairement.
+
+## Rôle des bibliothèques de formulaires
+
+moduix prend en charge la structure accessible du formulaire : libellés, descriptions, association des
+messages d’erreur au champ, parties sémantiques des contrôles et contrôle natif nécessaire à la
+soumission et à la réinitialisation. La bibliothèque de formulaires prend en charge l’état de
+l’application : valeurs des champs, moment de la validation, états modifié et visité, ainsi que le
+scénario de soumission. Ne mélangez pas ces responsabilités.
+
+| Responsabilité | moduix et le navigateur | Bibliothèque de formulaires |
+| -------------- | ----------------------- | --------------------------- |
+| Sémantique du formulaire | Affichent le contrôle visible, son `name`, son libellé, sa description et le contrôle natif. | N’ajoute pas un autre champ pour la même valeur. |
+| Valeur et validation | Appliquent les contraintes natives et transmettent l’état de `Field` dans l’arbre des contrôles. | Stocke les valeurs, choisit les validateurs et fournit les résultats de validation. |
+| Réinitialisation et focus | La réinitialisation native synchronise les composants fondés sur Ark au moyen de leur contrôle de formulaire. | Réinitialise l’état contrôlé et, si elle le permet, place le focus sur les champs non valides. |
+
+La bibliothèque complète donc un véritable élément `<form>` au lieu de le remplacer. Transmettez le
+résultat de validation courant de la bibliothèque à `Field invalid` et affichez le message avec
+`Field.ErrorText`, tout en conservant les props sémantiques du composant sur son élément racine moduix.
+
+## Règles essentielles
+
+1. Enveloppez un contrôle dans `Field` s’il a besoin d’un libellé, d’un texte d’aide, d’un message
+   d’erreur ou d’un état partagé `disabled`, `invalid`, `required` ou `readOnly`.
+2. Utilisez `Fieldset` lorsque plusieurs contrôles liés partagent une même légende.
+3. Gardez les libellés visibles. Un placeholder est un exemple, pas un substitut au libellé.
+4. Ajoutez un attribut `name` aux contrôles qui doivent être soumis.
+5. Configurez la participation au formulaire au moyen des props de l’élément racine du composant,
+   comme `name`, `form` et l’état de validation. moduix affiche le champ natif requis pour les
+   composants ci-dessous.
+
+Comportement dans un formulaire natif :
+
+| Composant | Comportement |
+| --------- | ------------ |
+| `AngleSlider` | `Root` affiche automatiquement un champ natif. |
+| `Checkbox` | `Root` affiche automatiquement un champ natif. |
+| `ColorPicker` | `Root` affiche automatiquement un champ natif. |
+| `DateInput` | `Root` affiche automatiquement des champs natifs. |
+| `FileUpload` | `Root` affiche automatiquement un champ natif. |
+| `PinInput` | `Root` affiche automatiquement un champ natif. |
+| `RadioGroup` | Chaque `Item` affiche automatiquement un champ natif. |
+| `RatingGroup` | `Root` affiche automatiquement un champ natif. |
+| `SegmentGroup` | Chaque `Item` affiche automatiquement un champ natif. |
+| `Select` | `Root` affiche automatiquement un élément select natif. |
+| `SignaturePad` | `Root` sérialise les tracés et affiche automatiquement un champ natif. |
+| `Slider` | Chaque `Thumb` affiche automatiquement un champ natif. |
+| `Switch` | `Root` affiche automatiquement un champ natif. |
+| `TagsInput` | `Root` affiche automatiquement un champ natif. |
+| `Combobox` | Définissez `name` sur l’élément racine ; aucune partie supplémentaire n’est nécessaire. |
+
+N’ajoutez pas un second champ masqué. Il pourrait soumettre une valeur contradictoire et perturber la
+réinitialisation.
+
+Pour les contrôles dotés d’options liées au formulaire, conservez la configuration sur l’élément
+racine sémantique :
+
+- `DateInput` : une plage avec `name="date"` soumet `date[0]` et `date[1]` ; utilisez
+  `names={['start-date', 'end-date']}` pour obtenir `start-date[0]` et `end-date[1]`.
+- `Select` : le select natif préserve par défaut le remplissage automatique du navigateur et
+  l’amélioration progressive. Utilisez `nativeFormControl="input"` pour une très grande collection
+  virtualisée ; cette option soumet des champs masqués plus légers et renonce volontairement à ces
+  fonctionnalités du select natif.
+- `SignaturePad` : la valeur de formulaire par défaut correspond aux tracés SVG joints par des
+  espaces. Utilisez `getFormValue={(paths) => JSON.stringify(paths)}` lorsque le serveur attend un
+  tableau JSON.
+
+Pour les groupes, par exemple un ensemble de Checkbox, des options Radio ou plusieurs champs liés,
+utilisez `Fieldset` avec un `Fieldset.Legend` visible. Il fournit un libellé, un texte d’aide, un
+message d’erreur et un état partagé au niveau du groupe ; consultez le [guide consacré à Fieldset en
+anglais](https://moduix.dev/docs/fieldset) pour ses modèles de composition.
+
+## Formulaire natif
+
+Les champs natifs et les contrôles fondés sur Ark peuvent être soumis ensemble avec `FormData`. La
+carte ne prend en charge que la présentation ; le formulaire natif continue de gérer la soumission,
+la validation et la réinitialisation.
+
+<style>{`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --moduix-select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --moduix-combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/forms/native-form.tsx"
+
+```
+
+## Validation, réinitialisation et focus
+
+Deux modes de validation sont corrects. Pour un formulaire natif simple, conservez les contraintes
+comme `required`, `minLength`, `pattern`, `min` et `max`, puis laissez le navigateur afficher son
+interface de validation. Lorsque la bibliothèque doit gérer les messages d’erreur visibles, ajoutez
+`noValidate` au formulaire et transmettez son résultat à `Field invalid` avec un `Field.ErrorText`
+explicite. Conservez `Field required` dans les deux cas : les composants qui connaissent Ark héritent
+de l’état sémantique obligatoire par le contexte du champ.
+
+Si vous composez un contrôle personnalisé qui n’est pas fondé sur Ark, appliquez vous-même sa
+contrainte native et l’état `aria-invalid` à l’élément réel pouvant recevoir le focus. N’affichez pas
+une erreur uniquement parce que le champ est obligatoire : attendez que le cycle de validation choisi
+détecte le problème.
+
+Dans un formulaire natif, `type="reset"` ou `form.reset()` restaure les valeurs par défaut des
+contrôles. Les composants fondés sur Ark synchronisent leur état interne au moyen du contrôle natif
+affiché par moduix. Pour les champs contrôlés par une bibliothèque, appelez l’API de réinitialisation
+de cette bibliothèque au lieu de vous fier uniquement à celle du DOM ; sinon, le rendu suivant peut
+restaurer l’ancienne valeur depuis l’état de l’application.
+
+Les bibliothèques de formulaires ont besoin de la ref d’un élément sur lequel le focus peut être placé :
+
+- `Input`, `Textarea` ou `Field.Select` pour les contrôles natifs
+- `Select.Trigger` pour `Select`
+- `Combobox.Input` pour `Combobox`
+
+React Hook Form utilise cette ref pour placer automatiquement le focus sur le premier champ non
+valide. TanStack Form laisse volontairement la gestion du focus à l’application ; si nécessaire,
+placez le focus sur le premier contrôle affiché portant `aria-invalid` dans le gestionnaire d’échec
+de soumission. Les guides d’intégration dédiés présentent les correspondances de valeur, de blur, de
+réinitialisation et de focus appropriées.
+
+## Cycle de soumission
+
+Quelle que soit la bibliothèque d’état, rendez l’état de la requête explicite :
+
+| État | Comportement pour l’utilisateur |
+| ---- | ------------------------------- |
+| Prêt | La soumission est disponible et la validation n’affiche pas d’erreurs prématurées. |
+| Soumission | Empêchez les requêtes en double, gardez les valeurs visibles et indiquez l’action en cours. |
+| Erreur de champ | Associez le message du serveur à ce champ et placez-y le focus si la soumission est invalide. |
+| Erreur de formulaire | Affichez un seul `role="alert"` près du titre ou de l’action de soumission et permettez une nouvelle tentative. |
+| Réussite | Confirmez la fin de l’opération, ne réinitialisez que si nécessaire ou passez à une prochaine étape claire. |
+
+Les valeurs de `FormData` sont des chaînes ou des objets `File`. Des noms répétés produisent des
+entrées répétées, tandis que les Checkbox natives non cochées peuvent être absentes. Lisez les champs
+répétés avec `getAll`, normalisez les valeurs à la frontière du serveur et ne considérez jamais le
+typage ou la validation côté client comme une raison suffisante de faire confiance aux données soumises.
+
+## Champs répétés et erreurs du serveur
+
+Pour une liste modifiable, comme des adresses e-mail de contact, des membres d’équipe ou des lignes de
+commande, laissez la bibliothèque choisie ajouter, supprimer et valider les éléments. Utilisez
+`Fieldset` avec une légende visible pour le groupe ; chaque élément a malgré tout besoin de son propre
+`Field`, de son libellé et de son message d’erreur. Les clés doivent identifier l’élément, et non sa
+position actuelle, afin de préserver sa valeur, son focus et son erreur lorsqu’un élément voisin est
+supprimé ou réordonné.
+
+Séparez les erreurs renvoyées après la requête de la validation côté client. Associez une erreur liée à
+une valeur précise, comme une adresse e-mail déjà utilisée, au `Field.ErrorText` de ce champ ; affichez
+une erreur de requête ou d’autorisation non liée à un champ sous la forme d’un `role="alert"` au niveau
+du formulaire. Gardez les valeurs saisies afin que l’utilisateur puisse les corriger et soumettre à
+nouveau. Les guides d’intégration proposent des recettes concises pour [React Hook
+Form](/docs/react-hook-form#champs-répétés), [TanStack Form](/docs/tanstack-form#champs-répétés) et
+[Formisch](/docs/formisch#champs-répétés).
+
+Pour le comportement des primitives fondamentales, notamment le contexte `Field` et la synchronisation
+de la réinitialisation native, consultez le [guide d’Ark UI sur les
+formulaires](https://ark-ui.com/docs/guides/forms).

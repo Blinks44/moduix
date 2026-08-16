@@ -1,0 +1,213 @@
+---
+title: Signature Pad
+component: signature-pad
+description: Un champ de signature Ark UI pour la saisie manuscrite au pointeur et au toucher.
+---
+
+import * as SignaturePadDocs from '@/components/examples/signature-pad';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+
+## Exemple de base
+
+Utilisez `SignaturePad.Canvas` pour la surface de dessin standard. Il conserve la composition Ark de `Control`, `Segment`, `ClearTrigger` et `Guide`, ainsi que l’icône d’effacement moduix par défaut.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="signature-pad" />
+
+## Anatomie
+
+```text
+SignaturePad / SignaturePad.Root
+├─ SignaturePad.Label
+├─ SignaturePad.Canvas (moduix sugar)
+│  └─ SignaturePad.Control
+│     ├─ SignaturePad.Segment
+│     ├─ SignaturePad.ClearTrigger
+│     └─ SignaturePad.Guide
+└─ native input (automatic)
+
+SignaturePad.RootProvider
+└─ same part tree connected to useSignaturePad()
+```
+
+| Partie                                  | Rôle                                                                                         |
+| --------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root`    | Gère les tracés, les paramètres de dessin, le nom du formulaire, les id et les rappels.     |
+| `SignaturePad.RootProvider`             | Affiche l’arborescence depuis l’état renvoyé par `useSignaturePad()`.                        |
+| `SignaturePad.Label`                    | Libelle la zone de dessin et l’input natif.                                                  |
+| `SignaturePad.Canvas`                   | Surface standard qui transmet les propriétés et la ref du control.                           |
+| `SignaturePad.Control`                  | Zone de dessin au pointeur et au toucher, accessible au focus.                               |
+| `SignaturePad.Segment`                  | Calque SVG pour les tracés enregistrés et le tracé actuel inachevé.                          |
+| `SignaturePad.ClearTrigger`             | Bouton natif qui efface les tracés ; Ark le masque tant que le champ est vide.               |
+| `SignaturePad.Guide`                    | Ligne de base non interactive dans le contrôle.                                              |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `Label` et `Canvas` dans le cas courant. `Canvas` conserve la cible de focus Ark, la capture du pointeur, le comportement accessible du bouton d’effacement et le rendu SVG, tout en supprimant le balisage répétitif de la surface de dessin. Il transmet les propriétés de `Control` et sa ref DOM.
+
+### Quand créer une composition personnalisée
+
+Utilisez explicitement `Control`, `Segment`, `ClearTrigger` et `Guide` lorsque vous devez personnaliser leur structure, leur icône ou leur composition avec `asChild`. Utilisez des `paths` contrôlés si l’état de l’application doit restaurer, effacer, enregistrer automatiquement ou valider la signature hors de l’arborescence Ark. Utilisez `RootProvider` lorsque des contrôles externes au composant nécessitent un accès direct à `paths`, `clear()` ou `getDataUrl()`.
+
+Transmettez `name` si la signature doit participer à la soumission native d’un formulaire. La racine sérialise les tracés actuels et affiche automatiquement un input natif. Transmettez `getFormValue(paths)` si le formulaire nécessite une autre sérialisation.
+
+Utilisez `drawing` pour régler chaque trait. `drawing.size` modifie sa largeur, `drawing.simulatePressure` contrôle la simulation de pression et `drawing.fill` définit sa couleur. `drawing.fill` accepte toute valeur de couleur CSS, y compris une référence à une propriété CSS personnalisée telle que `var(--moduix-color-primary)`.
+
+### Propriétés par défaut
+
+| Propriété        | Valeur par défaut                     | Remarques                                                                 |
+| ---------------- | ------------------------------------- | ------------------------------------------------------------------------- |
+| `defaultPaths`   | -                                     | Tableau initial non contrôlé de tracés SVG.                               |
+| `paths`          | -                                     | Tableau contrôlé de tracés SVG. Utilisez-le avec `onDraw(details)`.       |
+| `drawing`        | `{ size: 2, simulatePressure: false }` | Paramètres de trait Zag ; `fill` accepte toute valeur de couleur CSS.    |
+| `name`           | -                                     | Nom du champ de formulaire natif.                                         |
+| `getFormValue`   | `paths.join(' ')`                     | Sérialisation personnalisée de la valeur du formulaire natif.             |
+| `disabled`       | -                                     | Désactive le dessin et l’interaction avec le bouton d’effacement.         |
+| `readOnly`       | -                                     | Empêche le dessin et désactive le bouton d’effacement.                    |
+| `required`       | -                                     | Rend la signature et l’input natif obligatoires.                          |
+| `ids`            | -                                     | Id stables pour la racine, le control, l’input masqué et le libellé.      |
+| `translations`   | Valeurs Ark par défaut                | Libellés accessibles du control et du bouton d’effacement.                |
+
+Le control de dessin standard mesure `17.5rem` sur `10rem`, soit environ `280px` sur `160px` avec l’échelle de tokens par défaut. Redéfinissez `--moduix-signature-pad-width`, `--moduix-signature-pad-height` ou les variables plus précises `--moduix-signature-pad-control-*` pour modifier la zone de signature. La hauteur minimale par défaut suit la hauteur configurée du control ; une valeur inférieure reste donc effective.
+
+### Comportement
+
+Utilisez `defaultPaths` pour une signature initiale non contrôlée. Utilisez `paths` avec `onDraw(details)` lorsque la signature doit rester dans l’état de l’application. `onDrawEnd(details)` est appelé après la fin d’un trait ou l’effacement de la signature et fournit `details.getDataUrl(type, quality?)`.
+
+Définissez `name` sur la racine pour activer la soumission native du formulaire : l’input est affiché automatiquement. Transmettez `getFormValue(paths)` si le formulaire nécessite une autre sérialisation. Enveloppez le composant dans `Field.Root` lorsque le texte d’aide, le message d’erreur, l’état required ou disabled doivent être partagés avec l’interface de formulaire environnante. L’état invalid de `Field` gère les messages et les descriptions du champ, mais n’ajoute pas `data-invalid` aux parties du champ de signature.
+
+`Control` peut recevoir le focus au clavier et fournit `role="application"` avec `aria-roledescription="signature pad"`. Le dessin s’effectue au pointeur et au toucher, et non avec les flèches. `ClearTrigger` est un bouton natif : son activation avec Entrée et Espace conserve donc le comportement standard d’un bouton. En lecture seule, moduix désactive le bouton d’effacement afin d’éviter toute modification accidentelle de la signature affichée.
+
+## Exemples
+
+### État contrôlé
+
+Contrôlez `paths` lorsque la signature doit se synchroniser avec l’état environnant, des contrôles de réinitialisation ou une logique d’enregistrement automatique.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Dessin
+
+Transmettez `drawing` lorsque la largeur ou la couleur du trait, ou le comportement de la pression, doivent différer des valeurs par défaut.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/drawing.tsx"
+
+  ```
+</PreviewFrame>
+
+### Champ de formulaire
+
+Utilisez `Field` autour du champ de signature lorsque le texte d’aide, le message d’erreur, l’état required ou le message invalid concernent un même contrôle de formulaire.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Sérialisation du formulaire
+
+Utilisez `getFormValue` lorsque le serveur doit recevoir une autre représentation des tracés. Cet exemple envoie un tableau JSON plutôt que la chaîne de tracés SVG séparés par des espaces utilisée par défaut.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/form-serialization.tsx"
+
+  ```
+</PreviewFrame>
+
+### Aperçu de l’image
+
+Utilisez `onDrawEnd` pour exporter la signature et afficher un aperçu avant l’enregistrement.
+
+<style>
+  {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
+</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/image-preview.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useSignaturePad()` avec `RootProvider` lorsque des contrôles hors de l’arborescence du composant nécessitent un accès direct aux tracés, à `clear()` ou à `getDataUrl()`. Transmettez les propriétés racines telles que `translations`, `ids` et `drawing` à `useSignaturePad(...)`.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Canvas` lorsque vous devez contrôler l’arborescence des parties de dessin ou fournir votre propre déclencheur d’effacement.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SignaturePadDocs.SignaturePadCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez `className` sur toute partie exportée pour appliquer des styles locaux. moduix ajoute également des attributs `data-slot` stables :
+
+| Partie                                  | `data-slot`                   |
+| --------------------------------------- | ----------------------------- |
+| `SignaturePad` / `SignaturePad.Root`    | `signature-pad-root`          |
+| `SignaturePad.RootProvider`             | `signature-pad-root-provider` |
+| `SignaturePad.Label`                    | `signature-pad-label`         |
+| `SignaturePad.Control`                  | `signature-pad-control`       |
+| `SignaturePad.Segment`                  | `signature-pad-segment`       |
+| `SignaturePad.Guide`                    | `signature-pad-guide`         |
+| `SignaturePad.ClearTrigger`             | `signature-pad-clear-trigger` |
+
+Les attributs Ark restent disponibles pour cibler les styles. `Root`, `Label`, `Control`, `Segment`, `Guide`, `ClearTrigger` et les tracés internes du segment fournissent `data-scope="signature-pad"` et `data-part` ; `data-disabled` apparaît sur la racine, le libellé, le control et le guide, tandis que `data-required` apparaît sur le libellé.

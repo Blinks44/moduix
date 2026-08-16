@@ -1,0 +1,231 @@
+---
+title: Field
+component: field
+description: Contexte de champ Ark UI pour les libellés, le texte d’aide, les erreurs et l’état du contrôle de formulaire.
+---
+
+import * as FieldDocs from '@/components/examples/field';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/field" />
+
+## Choisir le bon composant
+
+Utilisez `Field` lorsqu'un contrôle nécessite une étiquette visible, un texte explicatif, un texte d'erreur
+ou l'état général des `disabled`, `invalid`, `required` et `readOnly`.
+
+- Sélectionnez **`Field`** pour un seul champ et son libellé ou texte explicatif.
+- Sélectionnez **`Fieldset`** lorsque plusieurs champs associés nécessitent une légende commune.
+- Utilisez un contrôle distinct lorsque les relations ARIA au niveau du champ ou l'état partagé ne sont pas requis.
+
+## Exemple de base
+
+Commencez par `Field`, `Field.Label`, un contrôle moduix et un texte d’aide ou d’erreur facultatif.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/basic.tsx"
+  ```
+
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="field" />
+
+## Anatomie
+
+`Field` suit les composants d’Ark UI et conserve leurs noms dans l’API publique de moduix.
+
+```text
+Field
+├─ Field.Label
+├─ Field.Input | Field.Textarea | Field.Select | custom control
+├─ Field.HelperText
+├─ Field.ErrorText
+└─ Field.RequiredIndicator
+```
+
+| Partie | Rôle |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `Field` / `Field.Root` | Contexte racine et norme `<div role="group">`.                    |
+| `Field.RootProvider` | Racine qui opère sur une instance de `useField()` créée en dehors de l'arborescence.       |
+| `Field.Context` | Accès à l’état actuel du champ sans effectuer de rendu.                   |
+| `Field.Label` | Une étiquette associée à l’ID du contrôle actuel.           |
+| `Field.Input` | Entrée native de bas niveau dans le style Ark. De préférence `Input`.       |
+| `Field.Textarea` | Zone de texte de bas niveau dans le style Ark. De préférence `Textarea`.         |
+| `Field.Select` | Sélection native associée aux propriétés ARIA et d'état de champ.             |
+| `Field.HelperText` | Texte explicatif inclus dans `aria-describedby`.                         |
+| `Field.ErrorText` | Texte d’erreur rendu uniquement lorsque `Field` possède l’état `invalid`.     |
+| `Field.RequiredIndicator` | Marqueur visuel obligatoire avec `fallback` en option.              |
+| `Field.Item` | Contexte de champ pour un contrôle groupé via `value` ; sa ref pointe vers le wrapper de ligne. |
+
+## Composition
+
+### Composition recommandée
+
+Conservez un libellé visible à la racine, rendez exactement un contrôle moduix principal, comme `Input`,
+`Textarea` ou `NativeSelect`, et ajoutez un texte d’aide ou d’erreur si une description ou un retour de validation est nécessaire.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Field.Item value` avec la racine `target` lorsque le champ contient plusieurs contrôles natifs,
+et le libellé doit pointer vers l’un d’eux. `Field.Input`, `Field.Textarea` et `Field.Select` restent disponibles pour
+une composition avancée dans le style Ark, mais le code d’application ordinaire doit utiliser les composants moduix dédiés.
+
+### Propriétés par défaut
+
+| Surfaces | Par défaut | Remarques |
+| ------------------------ | ------------ | --------------------------------------------------------- |
+| `Field` / `Field.Root` | - | Aucun comportement supplémentaire ; les valeurs par défaut d’Ark s’appliquent. |
+
+### Comportement
+
+- `Field.ErrorText` n'est pas dans le DOM sauf si la racine a `invalid`.
+- Les longues étiquettes, le texte explicatif et le texte d’erreur reviennent à la ligne dans le champ au lieu de déborder.
+- `Field.RootProvider` doit recevoir l'état de `useField()` importé de `@moduix/react`,
+  et ne doit pas être imbriqué dans `Field.Root` pour la même instance de champ.
+- Utilisez `Field.Context` ou `useFieldContext` de `@moduix/react` lorsqu’un contrôle personnalisé a besoin de l’état actuel du champ. Un import direct depuis Ark n’est nécessaire que pour les API de bas niveau non exportées par moduix.
+- `Field.Item` transmet sa ref au wrapper de ligne moduix rendu autour de ses enfants.
+- `Field` ne rend pas d’input masqué : les composants composés tels que `Checkbox` et `RadioGroup` possèdent leurs propres parties de formulaire natives.
+
+## Exemples
+
+### Checkbox
+
+Utilisez `Field` avec `Checkbox` lorsque le champ fournit un texte d’aide, un texte d’erreur ou un état obligatoire
+à un unique contrôle de case à cocher.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/checkbox.tsx"
+  ```
+
+</PreviewFrame>
+
+### État invalide contrôlé
+
+Dérivez `invalid` de l’état local lorsque le champ doit se mettre à jour au fil de la saisie.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/controlled-invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### État désactivé
+
+Définissez `disabled` à la racine pour transmettre l’état désactivé aux parties Ark du champ.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/disabled.tsx"
+  ```
+
+</PreviewFrame>
+
+### État invalide
+
+Définissez `invalid` à la racine lorsque la validation est contrôlée par l'état de l'application ou la bibliothèque de formulaires.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/invalid.tsx"
+  ```
+
+</PreviewFrame>
+
+### Select natif
+
+Utilisez `NativeSelect` pour un select natif du navigateur relié au libellé, à l’état et à la description du champ.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/native-select.tsx"
+  ```
+
+</PreviewFrame>
+
+### Zone de texte
+
+Utilisez `Textarea` pour le texte multiligne tout en conservant les associations du champ avec le libellé,
+la description et l’état.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/textarea.tsx"
+  ```
+
+</PreviewFrame>
+
+### RadioGroup
+
+Utilisez `Field` avec `RadioGroup` lorsqu'une seule étiquette de champ, un texte explicatif ou un message d'erreur doit décrire
+l'ensemble des options, plutôt que des entrées radio natives individuelles.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/radiogroup.tsx"
+  ```
+
+</PreviewFrame>
+
+### Lecture seule
+
+Définissez `readOnly` à la racine lorsque la valeur du contrôle peut être copiée mais ne peut pas être modifiée.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/read-only.tsx"
+  ```
+
+</PreviewFrame>
+
+### Select
+
+Utilisez le composant `Select` lorsqu’un contrôle natif ne suffit pas et qu’une recherche ou une interface d’options personnalisée est nécessaire.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/select.tsx"
+  ```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `Field.Item` avec une racine `target` lorsqu'une étiquette doit pointer vers un contrôle au sein d'une ligne de groupe.
+
+<style>{`.inlineControls { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: var(--moduix-spacing-2); }`}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/item-target.tsx"
+  ```
+
+</PreviewFrame>
+
+Utilisez `useField` avec `Field.RootProvider` lorsque l’état doit être créé en dehors de l’arbre rendu.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/field/root-provider.tsx"
+  ```
+
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Field` avec `className`, les attributs Ark `data-scope="field"` / `data-part="..."`,
+les hooks moduix `data-slot="field-*"` et les variables CSS publiques `--moduix-field-*` ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <FieldDocs.FieldCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Ark ajoute `data-disabled`, `data-invalid`, `data-readonly` et `data-required` aux parties correspondantes.
+`Field.ErrorText` est rendu uniquement lorsque le contexte du champ courant est invalide. L’identifiant du texte d’aide
+est inclus dans `aria-describedby` du contrôle, et celui du texte d’erreur actif dans `aria-errormessage`.
+Chaque partie DOM conserve également le hook stable `data-slot="field-*"`.

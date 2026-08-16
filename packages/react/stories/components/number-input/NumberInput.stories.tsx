@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Field } from '@/components/field';
+import { NumberInput, useNumberInput } from '@/components/number-input/NumberInput';
 import { ChevronDownIcon, ChevronUpIcon } from '@/lib/moduix/icons/ui';
-import { Field } from '../../../src/components/field';
-import { NumberInput, useNumberInput } from '../../../src/components/number-input/NumberInput';
 import storyStyles from './NumberInput.stories.module.css';
 
 const meta = {

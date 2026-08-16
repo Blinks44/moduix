@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { CSSProperties } from 'react';
+import { Breadcrumbs } from '@/components/breadcrumbs/Breadcrumbs';
+import { Menu } from '@/components/menu';
 import { SeparatorMarkIcon } from '@/lib/moduix/icons/ui';
-import { Breadcrumbs } from '../../../src/components/breadcrumbs/Breadcrumbs';
-import { Menu } from '../../../src/components/menu';
 
 const defaultItems = [
   { href: '#', label: 'Home' },
@@ -104,6 +104,20 @@ export const CustomSeparator: Story = {
       <Breadcrumbs.Path
         items={defaultItems}
         separator={<SeparatorMarkIcon style={{ width: '0.75rem', height: '0.25rem' }} />}
+      />
+    </Breadcrumbs>
+  ),
+};
+
+export const RightToLeft: Story = {
+  render: () => (
+    <Breadcrumbs dir="rtl" aria-label="مسار التنقل">
+      <Breadcrumbs.Path
+        items={[
+          { href: '#', label: 'الرئيسية' },
+          { href: '#', label: 'الوظائف' },
+          { label: 'مطور Go' },
+        ]}
       />
     </Breadcrumbs>
   ),

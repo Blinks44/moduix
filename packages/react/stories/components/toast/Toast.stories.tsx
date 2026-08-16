@@ -1,9 +1,9 @@
-import type { ToastOptions, ToastPlacement } from '@ark-ui/react/toast';
+import type { CreateToasterReturn, ToastPlacement } from '@ark-ui/react/toast';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+import { Button } from '@/components/button';
+import { Toast, Toaster, createToaster } from '@/components/toast/Toast';
 import { CloseIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Toast, Toaster, createToaster } from '../../../src/components/toast/Toast';
 import { InfoIcon } from '../../icons/demo';
 import styles from './Toast.stories.module.css';
 
@@ -18,8 +18,8 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-type ToastToaster = ReturnType<typeof createToaster>;
-type ToastType = Extract<ToastOptions['type'], 'success' | 'error' | 'warning' | 'info'>;
+type ToastToaster = CreateToasterReturn;
+const toastTypes = ['info', 'success', 'warning', 'error'] as const;
 
 const basicToaster = createToaster({ placement: 'bottom-end', overlap: true, gap: 24 });
 const actionToaster = createToaster({ placement: 'bottom-end', gap: 24 });
@@ -188,13 +188,14 @@ export const Types: Story = {
   render: () => (
     <>
       <div className={styles.typedActions}>
-        {(['success', 'error', 'warning', 'info'] as ToastType[]).map((type) => (
+        {toastTypes.map((type) => (
           <Button
             key={type}
             onClick={() =>
-              typeToaster[type]({
+              typeToaster.create({
                 title: type === 'info' ? 'Update available' : `${type} toast`,
                 description: `This notification uses the ${type} status style.`,
+                type,
               })
             }
           >
@@ -327,7 +328,7 @@ function UpdateStory() {
             idRef.current = updateToaster.create({
               title: 'Sending message...',
               description: 'Please wait while we deliver your message.',
-              type: 'loading',
+              type: 'neutral',
             });
           }}
         >

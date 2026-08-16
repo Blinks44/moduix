@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { Popover as PopoverPrimitive, usePopover, usePopoverContext } from '@ark-ui/react/popover';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
@@ -21,16 +22,20 @@ type PopoverRootProviderProps = ComponentProps<typeof PopoverPrimitive.RootProvi
 
 function PopoverRoot({
   lazyMount = true,
+  modal,
   portalled,
   portalRef,
   unmountOnExit = true,
   ...props
 }: PopoverRootProps) {
+  const resolvedPortalled = modal || portalled;
+
   return (
-    <OverlayPortalProvider portalled={portalled} portalRef={portalRef}>
+    <OverlayPortalProvider portalled={resolvedPortalled} portalRef={portalRef}>
       <PopoverPrimitive.Root
-        portalled={portalled}
         lazyMount={lazyMount}
+        modal={modal}
+        portalled={resolvedPortalled}
         unmountOnExit={unmountOnExit}
         {...props}
       />
@@ -225,17 +230,44 @@ const PopoverCloseIcon = forwardRef<
   );
 });
 
-function PopoverHeader({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="popover-header" className={clsx(styles.header, className)} {...props} />;
-}
+const PopoverHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function PopoverHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="popover-header"
+        className={clsx(styles.header, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function PopoverBody({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="popover-body" className={clsx(styles.body, className)} {...props} />;
-}
+const PopoverBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function PopoverBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="popover-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function PopoverFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="popover-footer" className={clsx(styles.footer, className)} {...props} />;
-}
+const PopoverFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function PopoverFooter({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="popover-footer"
+        className={clsx(styles.footer, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Popover = Object.assign(PopoverRoot, {
   Root: PopoverRoot,

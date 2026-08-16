@@ -84,7 +84,8 @@ surface with edit, submit, and cancel controls.
 - The textarea needs an accessible name from `Field.Label`, a native `<label>`, or `aria-label`.
 - Ark links `Field.Label`, `Field.HelperText`, and `Field.ErrorText` to the textarea through IDs and `aria-describedby`.
 - Ark applies `required`, `disabled`, `readOnly`, `aria-invalid`, `data-required`, `data-disabled`, `data-readonly`, and `data-invalid` from `Field` context.
-- No `HiddenInput` is needed because native `<textarea>` already participates in form submission and form reset.
+- No `HiddenInput` is needed: native `<textarea>` participates in form submission and reset, including
+  association with an external form through `form`; native reset restores an uncontrolled `defaultValue`.
 - `asChild` is inherited from Ark polymorphic props; if used, the child must be a single semantic textarea-compatible element.
 - Ark sets inline `resize: none` while `autoresize` is enabled; `--moduix-textarea-resize` controls only non-autoresizing textareas.
 
@@ -130,6 +131,8 @@ Public CSS variables from `variables-moduix.css`:
 
 ## Local changelog
 
+- 2026-08-13: Documented external form ownership and uncontrolled reset behavior; added regressions
+  for controlled external updates.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-31: Clarified `Textarea` as the recommended multiline control, documented the lower-level `Field.Textarea` escape hatch, and recorded Ark's autoresize resize constraint.
 - 2026-07-11: Corrected the Ark implementation description and synchronized the controlled docs

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ComponentProps } from 'react';
+import { Toggle, useToggleContext } from '@/components/toggle/Toggle';
 import { CheckIcon } from '@/lib/moduix/icons/ui';
-import { Toggle, useToggleContext } from '../../../src/components/toggle/Toggle';
 import { BellIcon, StarIcon } from '../../icons/demo';
 import storyStyles from './Toggle.stories.module.css';
 
@@ -92,6 +92,22 @@ export const Disabled: Story = {
         <Toggle disabled>Disabled</Toggle>
         <Toggle defaultPressed disabled>
           Pressed
+        </Toggle>
+      </div>
+    );
+  },
+};
+
+export const ContentResilience: Story = {
+  render: () => {
+    return (
+      <div className={storyStyles.stack}>
+        <Toggle variant="outline">
+          <BellIcon />
+          Receive account-security and sign-in notifications
+        </Toggle>
+        <Toggle size="lg" variant="ghost">
+          Archive 1,248 completed notifications
         </Toggle>
       </div>
     );

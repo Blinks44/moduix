@@ -120,7 +120,9 @@ Ark provides `role="tablist"` on `Steps.List`, `role="tab"` on triggers, `role="
 
 Use `Steps.useSteps()` for externally owned state. Use `useStepsContext`,
 `useStepsItemContext`, `Steps.Context`, or `Steps.ItemContext` for inline root and item-state
-reads. Callback payloads stay Ark-shaped, such as `onStepChange(details)` with `details.step`.
+reads. Callback payloads stay Ark-shaped: `onStepChange(details)` exposes `details.step`, and
+`onStepInvalid(details)` exposes `details.step`, `details.action` (`'next'` or `'set'`), and the
+optional `details.targetStep`.
 
 Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation`, `data-current`, `data-complete`, `data-incomplete`, `data-state="open" | "closed"` on triggers and content, `data-skippable`, `data-complete` on progress, and Ark `--percent` on the root.
 
@@ -129,6 +131,20 @@ Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation
 The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Vertical layouts place navigation beside content on wide screens and above it below `40rem`. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/react/src/styles/variables-moduix.css`.
 
 Root class names apply to both `Steps.Root` and `Steps.RootProvider`. `Steps.Progress` renders a track/fill through CSS using the Ark `--percent` runtime variable. Incomplete trigger text styles target Ark `data-incomplete`; completed triggers keep normal inherited text color unless consumers override the state hooks.
+
+## Public CSS variable contract
+
+The public `--moduix-steps-*` contract is listed below. Keep it synchronized with
+`Steps.module.css`, `variables-moduix.css`, and the CSS Properties panel in the public docs.
+
+- Layout and state: `--moduix-steps-color`, `--moduix-steps-max-width`, `--moduix-steps-root-gap`, `--moduix-steps-vertical-gap`, `--moduix-steps-gap`, `--moduix-steps-vertical-item-min-height`, `--moduix-steps-trigger-gap`, `--moduix-steps-trigger-radius`, `--moduix-steps-trigger-color-incomplete`, `--moduix-steps-disabled-opacity`
+- Focus ring: `--moduix-steps-focus-ring-width`, `--moduix-steps-focus-ring-color`, `--moduix-steps-focus-ring-offset`
+- Indicator base and dimensions: `--moduix-steps-indicator-size`, `--moduix-steps-indicator-icon-size`, `--moduix-steps-indicator-border-width`, `--moduix-steps-indicator-radius`, `--moduix-steps-indicator-bg`, `--moduix-steps-indicator-border-color`, `--moduix-steps-indicator-color`, `--moduix-steps-indicator-font-size`, `--moduix-steps-indicator-font-weight`
+- Indicator states: `--moduix-steps-indicator-bg-current`, `--moduix-steps-indicator-bg-complete`, `--moduix-steps-indicator-border-color-current`, `--moduix-steps-indicator-border-color-complete`, `--moduix-steps-indicator-border-color-hover`, `--moduix-steps-indicator-color-current`, `--moduix-steps-indicator-color-complete`, `--moduix-steps-indicator-color-hover`
+- Separator: `--moduix-steps-separator-thickness`, `--moduix-steps-separator-min-width`, `--moduix-steps-separator-inset`, `--moduix-steps-separator-color`, `--moduix-steps-separator-color-complete`
+- Content: `--moduix-steps-content-min-height`, `--moduix-steps-content-padding-x`, `--moduix-steps-content-padding-y`, `--moduix-steps-content-radius`, `--moduix-steps-content-bg`, `--moduix-steps-content-color`, `--moduix-steps-content-font-size`, `--moduix-steps-content-line-height`, `--moduix-steps-completed-content-color`, `--moduix-steps-completed-content-font-weight`
+- Previous/next actions: `--moduix-steps-action-height`, `--moduix-steps-action-gap`, `--moduix-steps-action-border-width`, `--moduix-steps-action-border-color`, `--moduix-steps-action-radius`, `--moduix-steps-action-padding-x`, `--moduix-steps-action-padding-y`, `--moduix-steps-action-bg`, `--moduix-steps-action-bg-hover`, `--moduix-steps-action-color`, `--moduix-steps-action-font-size`, `--moduix-steps-action-line-height`, `--moduix-steps-next-action-bg`, `--moduix-steps-next-action-bg-hover`, `--moduix-steps-next-action-border-color`, `--moduix-steps-next-action-color`
+- Progress: `--moduix-steps-progress-height`, `--moduix-steps-progress-radius`, `--moduix-steps-progress-bg`, `--moduix-steps-progress-fill-bg`
 
 ## Intentional sugar and differences from upstream
 
@@ -140,10 +156,11 @@ This migration intentionally removes the old `Stepper` contract: no flat part ex
 
 Do not re-add legacy primitive imports or compatibility aliases. Keep future changes aligned with Ark part names and zero-based state. `Steps.useSteps()` is the moduix-owned state factory for `RootProvider`; the exported context APIs remain low-level Ark-shaped escape hatches. If a new Ark `Steps` part or hook appears upstream, mirror it through `Steps` and the barrel unless there is a documented reason not to.
 
-When changing styling hooks or variables, update `Steps.module.css`, `variables-moduix.css`, stories, docs examples, `apps/docs/docs/en/docs/steps.mdx`, and this file together.
+When changing styling hooks or variables, update `Steps.module.css`, `variables-moduix.css`, stories, docs examples, `website/docs/en/docs/steps.mdx`, and this file together.
 
 ## Local changelog
 
+- 2026-08-13: Documented the complete CSS-variable contract and verified linear-validation behavior for direct and next-step navigation.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-31: Moved the focus ring to the trigger so custom compositions remain visible, made the vertical separator RTL-safe, made narrow layouts scroll or stack safely, and synchronized tests and documentation with the exported context APIs.
 - 2026-07-11: Exposed `Steps.useSteps()` for the documented `RootProvider` path so consumers do not need a mixed moduix/Ark import for externally owned state.

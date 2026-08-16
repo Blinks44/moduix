@@ -1,0 +1,246 @@
+---
+title: Async List
+description: Загружайте, фильтруйте, сортируйте и разбивайте на страницы удалённые данные списка с useAsyncList, включая отмену и повтор запросов.
+---
+
+# Async List
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/async-list" />
+
+`useAsyncList` управляет удалёнными данными списка и жизненным циклом запросов. Он отвечает за загруженные
+элементы, состояние загрузки и сортировки, ошибки, фильтрацию, курсоры разбивки на страницы и отмену запросов.
+
+```tsx
+import { useAsyncList } from '@ark-ui/react/collection';
+```
+
+## Базовая загрузка
+
+Установите `autoReload: true`, если первый запрос должен выполняться при монтировании. Передайте
+предоставленный `signal` в `fetch`, чтобы отменять запросы, потерявшие актуальность.
+
+В интерактивном примере используется небольшая локальная задержка, поэтому состояния загрузки,
+обновления, пустого результата и ошибки видны в одном компоненте. Замените его загрузчик настоящим
+запросом и передайте `signal` в `fetch`.
+
+```tsx preview file="../../en/docs/_snippets/async-list/basic.tsx"
+
+```
+
+`autoReload` по умолчанию имеет значение `false`. Без него вызовите `list.reload()`, когда приложение
+будет готово к загрузке.
+
+Сохраняйте текущие элементы видимыми во время обновления. Полностью заменяйте интерфейс индикатором
+загрузки только до первого результата, а действие повтора размещайте рядом с ошибкой, чтобы оно
+повторяло тот же запрос.
+
+## Конфигурация
+
+| Свойство                | Назначение                                                    | По умолчанию |
+| ----------------------- | ------------------------------------------------------------- | ------------ |
+| `load`                  | Обязательный асинхронный загрузчик.                           | -            |
+| `sort`                  | Необязательная асинхронная или синхронная функция сортировки на клиенте. | -            |
+| `autoReload`            | Запускает начальную загрузку при монтировании.                | `false`      |
+| `initialItems`          | Элементы, отображаемые до первой успешной загрузки.           | `[]`         |
+| `dependencies`          | Примитивные значения, изменение которых запускает перезагрузку. | `[]`         |
+| `initialFilterText`     | Начальный текст фильтра на стороне сервера.                   | `''`         |
+| `initialSortDescriptor` | Начальный дескриптор `{ column, direction }`.                 | `undefined`  |
+| `onSuccess`             | Вызывается с `{ items }` после успешной загрузки.              | -            |
+| `onError`               | Вызывается с `{ error }` после неудачной загрузки.            | -            |
+
+Зависимости поддерживают `string`, `number`, `boolean`, `null` и `undefined`. Не включайте состояние
+объектов и массивов в список зависимостей; вместо этого получайте из него стабильные примитивные значения.
+
+## Контракт загрузки
+
+Каждый вызов `load` получает:
+
+| Значение         | Назначение                                                   |
+| ---------------- | ------------------------------------------------------------ |
+| `signal`         | Сигнал отмены активного запроса.                             |
+| `filterText`     | Текущий текст, установленный через `setFilterText`.          |
+| `cursor`         | Курсор, возвращённый предыдущей загрузкой при дозагрузке.    |
+| `sortDescriptor` | Текущий столбец и направление сортировки.                   |
+
+Верните объект с `items` и необязательным `cursor`:
+
+```tsx
+const list = useAsyncList<User, string>({
+  autoReload: true,
+  async load({ cursor, signal }) {
+    const params = new URLSearchParams();
+
+    if (cursor) params.set('cursor', cursor);
+
+    const response = await fetch(`/api/users?${params}`, { signal });
+    if (!response.ok) throw new Error('Could not load users');
+
+    const data: { users: User[]; nextCursor?: string } = await response.json();
+    return {
+      items: data.users,
+      cursor: data.nextCursor,
+    };
+  },
+});
+```
+
+## Состояние и действия
+
+| Состояние        | Значение                                      |
+| ---------------- | --------------------------------------------- |
+| `items`          | Текущие загруженные элементы.                 |
+| `filterText`     | Текущий текст фильтра.                        |
+| `cursor`         | Курсор для следующей страницы.                |
+| `sortDescriptor` | Текущий дескриптор сортировки.                |
+| `loading`        | Выполняется запрос на загрузку.               |
+| `sorting`        | Выполняется операция сортировки.              |
+| `empty`          | Текущий массив элементов пуст.                |
+| `hasMore`        | Есть курсор для следующей страницы.           |
+| `error`          | Ошибка последнего неудачного запроса.         |
+
+| Действие               | Назначение                                      |
+| ---------------------- | ----------------------------------------------- |
+| `reload()`             | Заменяет элементы результатом новой загрузки.   |
+| `loadMore()`           | Загружает текущий курсор и добавляет результат. |
+| `abort()`              | Отменяет активный запрос.                       |
+| `setFilterText(value)` | Устанавливает текст фильтра и перезагружает.    |
+| `clearFilter()`        | Очищает текст фильтра.                          |
+| `sort(descriptor)`     | Применяет дескриптор сортировки.                |
+
+## Фильтрация
+
+Фильтрация выполняется на сервере через обратный вызов `load`:
+
+```tsx
+import { Input } from '@moduix/react/input';
+
+function UserSearch() {
+  const list = useAsyncList<User>({
+    autoReload: true,
+    async load({ filterText, signal }) {
+      const params = new URLSearchParams({ query: filterText });
+      const response = await fetch(`/api/users?${params}`, { signal });
+
+      if (!response.ok) throw new Error('Search failed');
+      return { items: await response.json() };
+    },
+  });
+
+  return (
+    <Input
+      type="search"
+      aria-label="Search users"
+      value={list.filterText}
+      onChange={(event) => list.setFilterText(event.currentTarget.value)}
+    />
+  );
+}
+```
+
+`useAsyncList` отменяет загрузки, потерявшие актуальность. Приложение определяет, когда и нужно ли
+применять debounce к `setFilterText`; сервер управляет правилами совпадений и ограничениями результата.
+
+## Разбиение на страницы
+
+Возвращайте курсор, пока доступны дополнительные данные, а затем вызывайте `loadMore()`:
+
+```tsx
+import { Button } from '@moduix/react/button';
+
+{
+  list.hasMore && (
+    <Button type="button" onClick={() => list.loadMore()} loading={list.loading}>
+      {list.loading ? 'Loading…' : 'Load more'}
+    </Button>
+  );
+}
+```
+
+Не вычисляйте `hasMore` отдельно: оно показывает, вернул ли последний результат курсор.
+
+## Сортировка
+
+Для сортировки на стороне сервера считывайте `sortDescriptor` в `load`:
+
+```tsx
+function useServerSortedUsers() {
+  return useAsyncList<User>({
+    autoReload: true,
+    async load({ sortDescriptor, signal }) {
+      const params = new URLSearchParams();
+
+      if (sortDescriptor) {
+        params.set('sort', String(sortDescriptor.column));
+        params.set('direction', sortDescriptor.direction);
+      }
+
+      const response = await fetch(`/api/users?${params}`, { signal });
+      if (!response.ok) throw new Error('Could not sort users');
+
+      return { items: await response.json() };
+    },
+  });
+}
+```
+
+Для сортировки на стороне клиента передайте `sort`:
+
+```tsx
+function useClientSortedUsers() {
+  return useAsyncList<User>({
+    autoReload: true,
+    async load({ signal }) {
+      const response = await fetch('/api/users', { signal });
+      if (!response.ok) throw new Error('Could not load users');
+      return { items: await response.json() };
+    },
+    sort({ items, descriptor }) {
+      const direction = descriptor.direction === 'ascending' ? 1 : -1;
+
+      return {
+        items: items.toSorted(
+          (a, b) =>
+            String(a[descriptor.column]).localeCompare(String(b[descriptor.column])) * direction,
+        ),
+      };
+    },
+  });
+}
+```
+
+Столбец дескриптора типизирован как ключ типа элемента. Предпочитайте сортировку на сервере, когда
+сервер также управляет разбиением на страницы: сортировка только загруженной страницы обычно вводит
+в заблуждение.
+
+## Зависимости
+
+Используйте зависимости, когда внешний фильтр должен перезагружать список:
+
+```tsx
+function useDepartmentUsers(department: string) {
+  return useAsyncList<User>({
+    autoReload: true,
+    dependencies: [department],
+    async load({ signal }) {
+      const params = new URLSearchParams({ department });
+      const response = await fetch(`/api/users?${params}`, { signal });
+
+      if (!response.ok) throw new Error('Could not load users');
+      return { items: await response.json() };
+    },
+  });
+}
+```
+
+## Ошибки и отмена запросов
+
+- Проверяйте `response.ok`: `fetch` не отклоняет промис для HTTP-статусов ошибок.
+- Передавайте `signal` в каждый отменяемый запрос.
+- Во время фильтрации и сортировки текущие элементы остаются доступными. `reload()` очищает текущие
+  элементы перед загрузкой нового результата.
+- Используйте `reload()` для действий повтора.
+- Рассматривайте `error` как неизвестный вход приложения и сузьте его тип перед чтением `.message`.
+- Используйте `onSuccess` и `onError` для внешних эффектов, а не для дублирования состояния элементов
+  или ошибки, которым управляет хук.

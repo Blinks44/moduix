@@ -1,0 +1,392 @@
+---
+title: Color Picker
+component: color-picker
+description: Скомпонованный Color Picker из Ark UI для цветовых полей, элементов управления каналами и образцов.
+---
+
+import * as ColorPickerDocs from '@/components/examples/color-picker';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+
+## Выбор подходящего компонента
+
+Используйте `ColorPicker`, когда пользователям нужно выбрать или точно настроить цвет. Используйте `Input`, когда пользователям достаточно
+вставить известное значение цвета и прямое управление цветом не нужно.
+
+## Базовый пример
+
+Начните с компактного поля: корневого компонента, одного поля канала, стандартного образца в триггере, явного всплывающего
+содержимого, стандартных внутренних частей picker и скрытого поля ввода для форм.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="color-picker" />
+
+Этот способ установки также добавляет общие базовые файлы moduix, от которых зависит `ColorPicker`: стили,
+иконки и небольшие утилиты.
+
+## Анатомия
+
+```text
+ColorPicker
+├─ ColorPicker.Label
+├─ ColorPicker.Control
+│  ├─ ColorPicker.ChannelInput[channel]
+│  └─ ColorPicker.Trigger
+│     ├─ ColorPicker.TransparencyGrid
+│     └─ ColorPicker.ValueSwatch
+├─ Поддерево оверлея (автоматически портируется)
+│  └─ ColorPicker.Positioner
+│     └─ ColorPicker.Content
+│        ├─ ColorPicker.Area
+│        │  ├─ ColorPicker.AreaBackground
+│        │  └─ ColorPicker.AreaThumb
+│        ├─ ColorPicker.EyeDropperTrigger
+│        ├─ ColorPicker.ChannelSlider[channel]
+│        │  ├─ ColorPicker.TransparencyGrid
+│        │  ├─ ColorPicker.ChannelSliderTrack
+│        │  └─ ColorPicker.ChannelSliderThumb
+│        ├─ ColorPicker.SwatchGroup
+│        │  └─ ColorPicker.SwatchTrigger[value]
+│        │     └─ ColorPicker.Swatch[value]
+│        │        └─ ColorPicker.SwatchIndicator
+│        └─ ColorPicker.View[format]
+│           └─ ColorPicker.ChannelInput[channel]
+└─ нативное поле ввода (автоматически)
+```
+
+| Часть                              | Назначение                                                             |
+| ---------------------------------- | ---------------------------------------------------------------------- |
+| `ColorPicker`                      | Управляет значением и форматом цвета, состоянием всплывающего окна и интеграцией с формой. |
+| `ColorPicker.Control`              | Группирует видимые поля ввода и триггер.                               |
+| `ColorPicker.Trigger`              | Кнопка, открывающая всплывающее окно и по умолчанию рендерящая текущий образец. |
+| `ColorPicker.Content`              | Фактическая часть содержимого всплывающего окна Ark.                   |
+| `ColorPicker.Area`                 | Двумерная поверхность управления цветом.                               |
+| `ColorPicker.ChannelSlider`        | Одномерный элемент управления оттенком, альфа-каналом или другим каналом. |
+| `ColorPicker.Sliders`              | Стилизованная пара слайдеров оттенка и альфа-канала.                   |
+| `ColorPicker.ChannelInput`         | Текстовое или числовое поле заданного цветового канала.                |
+| `ColorPicker.SwatchTrigger`        | Кнопка выбора предустановленного цвета.                                |
+| `ColorPicker.ValueSwatch`          | Визуальный образец текущего значения.                                  |
+
+`ColorPicker.RootProvider`, `parseColor`, `useColorPicker` и `useColorPickerContext` покрывают стандартный расширенный
+сценарий состояния. При необходимости импортируйте вспомогательные типы Ark напрямую.
+
+## Композиция
+
+Корневой компонент автоматически переносит `Positioner` в портал. Для встроенного рендеринга используйте
+`portalled={false}`, а для собственного контейнера - `portalRef`; структурные части остаются явными и доступными для стилизации.
+
+### Рекомендуемая композиция
+
+Для выбора цвета во всплывающем окне сохраняйте `ColorPicker.Positioner` и `ColorPicker.Content` явными. `Content` -
+фактическая часть Ark; корневой компонент автоматизирует только границу портала.
+
+Не передавайте дочерние элементы в `Trigger`, `Area`, `ChannelSlider` и `SwatchTrigger`, чтобы использовать стандартную
+визуальную композицию. Для обычной пары оттенка и альфа-канала используйте `ColorPicker.Sliders`. Стилизуйте каналы
+через `data-channel` или CSS-переменные; передавайте дочерние элементы только для собственной структуры части. Добавьте
+`data-fit-content`, когда размер триггера должен зависеть от содержимого, например образца вместе с `ValueText`.
+
+Для нативной отправки и сброса формы передайте `name` в `ColorPicker`. Компонент автоматически рендерит и синхронизирует
+нативное поле; `FormData` и `form.reset()` не требуют дополнительной настройки.
+
+### Когда нужна собственная композиция
+
+Используйте `inline` на `ColorPicker`, когда область, слайдеры, поля и образцы должны отображаться как постоянная панель,
+а не всплывающее окно. Используйте `ColorPicker.View`, чтобы показывать поля одного формата за раз.
+
+Используйте `useColorPicker` вместе с `ColorPicker.RootProvider`, когда состояние должно находиться вне отрендеренного
+поддерева. Не рендерите `Root` и `RootProvider` для одного экземпляра состояния.
+
+Используйте `asChild` на экспортируемых частях Ark, когда DOM-узлом должен быть другой семантический элемент. Дочерним
+должен оставаться один элемент, сохраняющий необходимое поведение фокуса и взаимодействия.
+
+### Свойства по умолчанию
+
+По умолчанию содержимое оверлея в портале монтируется лениво и размонтируется после анимации выхода. Задайте
+`unmountOnExit={false}`, чтобы сохранять его после первого открытия; отключайте оба свойства жизненного цикла только
+когда нужен немедленный первоначальный рендеринг.
+
+| Поверхность / свойство                   | По умолчанию            | Примечания                                    |
+| ---------------------------------------- | ----------------------- | --------------------------------------------- |
+| `defaultValue`                           | `parseColor("#000000")` | Стандартное значение цвета Ark.               |
+| `defaultFormat`                          | `"rgba"`                | Стандартный формат Ark.                       |
+| ширина `ColorPicker.Content`             | `16rem`                 | Не позволяет схлопнуться до ширины образца в триггере. |
+| `ColorPicker.EyeDropperTrigger`          | иконка пипетки moduix   | Используется, когда дочерние элементы не переданы. |
+| дочерние элементы `ColorPicker.Trigger`  | текущий образец         | Рендерит `TransparencyGrid` и `ValueSwatch`.  |
+| дочерние элементы `ColorPicker.Area`     | фон и ползунок          | Используются, когда дочерние элементы не переданы. |
+| дочерние элементы `ColorPicker.ChannelSlider` | дорожка и ползунок | Слайдеры альфа-канала также рендерят `TransparencyGrid`. |
+| `ColorPicker.Sliders`                    | пара оттенка и альфа-канала | Стилизуется через `data-channel` или CSS-переменные. |
+| дочерние элементы `ColorPicker.SwatchTrigger` | образец и индикатор | Используют `value` триггера для образца.      |
+| `ColorPicker.SwatchIndicator`            | иконка подтверждения moduix | Используется, когда дочерние элементы не переданы. |
+| ширина `ColorPicker`                     | `16rem` (макс. `100%`)  | Стандартная ширина стилизованного корневого компонента. |
+
+### Особенности поведения
+
+- `value` и `defaultValue` используют объекты Ark `Color`. Для строковых значений используйте `parseColor()`.
+- `onValueChange(details)` и `onValueChangeEnd(details)` сохраняют объекты сведений Ark.
+- `onFormatChange(details)` и `onOpenChange(details)` сохраняют объекты сведений Ark.
+- `ids` передаётся в Ark для общих идентификаторов доступности в собственных композициях.
+- Состояние поля и fieldset передаётся через совместимые с Ark корневые свойства `disabled`, `invalid`, `required` и
+  `readOnly`.
+- Используйте `positioning`, `initialFocusEl` и `openAutoFocus`, когда размещение окна или фокус должны соответствовать
+  окружающему сценарию.
+- `lazyMount` и `unmountOnExit` по умолчанию равны `true`; `present` и `onExitComplete` сохраняют жизненный цикл
+  присутствия Ark для собственного управления монтированием или анимацией выхода.
+- Все DOM-части Ark сохраняют `asChild`.
+
+## Примеры
+
+### Компактный триггер
+
+Используйте `data-fit-content` на `ColorPicker.Trigger`, когда кнопка по размеру содержимого понятнее квадратного
+образца, например при миграции с цветовых полей на основе кнопок.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/compact-trigger.tsx"
+
+```
+
+</PreviewFrame>
+
+### Управляемое состояние
+
+Используйте управляемое состояние, когда выбранный цвет должен синхронизироваться с состоянием приложения.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённое состояние
+
+Задайте `disabled` на корневом компоненте, когда все части выбора цвета должны стать неинтерактивными, но текущий цвет
+должен остаться видимым.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/disabled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Состояние поля
+
+Используйте пропы состояния формы корневого компонента, такие как `required` и `invalid`, когда picker отрисовывается внутри
+контейнера поля и должен отображать то же состояние через атрибуты данных Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/field-state.tsx"
+
+```
+
+</PreviewFrame>
+
+### Использование в форме
+
+Задайте `name` на `ColorPicker`; компонент автоматически рендерит нативное поле формы.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/form-usage.tsx"
+
+```
+
+</PreviewFrame>
+
+### Представления формата
+
+Используйте `format`, `onFormatChange`, `FormatSelect` и `View`, когда пользователи должны переключаться между
+группами полей каналов без изменения структуры picker.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/format-views.tsx"
+
+```
+
+</PreviewFrame>
+
+### Встроенный
+
+Используйте `inline` на панелях настроек, где инструменты цвета должны оставаться видимыми без триггера всплывающего окна.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/inline.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только ввод
+
+Используйте поля каналов с пассивным образцом значения, когда важен ввод цвета с клавиатуры, а всплывающее окно было бы
+слишком громоздким для интерфейса.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/input-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Внутри Dialog
+
+Когда выбор цвета находится внутри модального диалога, рендерите всплывающее окно без портала, чтобы оно использовало
+контекст наложения диалога и оставалось интерактивным над его поверхностью.
+
+<style>{ColorPickerDocs.colorPickerDialogCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/inside-dialog.tsx"
+
+```
+
+</PreviewFrame>
+
+### Управляемое открытие
+
+Используйте управляемое состояние `open`, когда другой элемент управления или сценарий определяет видимость всплывающего окна.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/open-controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useColorPicker` из moduix вместе с `RootProvider`, когда состояние выбора цвета нужно создать вне
+отрендеренного дерева и разделить с соседними элементами управления.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только слайдер
+
+Используйте композицию только со слайдером, когда важно прямое управление, но ввод канала с клавиатуры не нужен.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/slider-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только образец
+
+Используйте композицию только из образцов, когда предустановленной палитры достаточно, а область, слайдеры и поля не нужны.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/swatch-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Образцы цветов
+
+Используйте образцы во всплывающем окне, когда picker должен предлагать отобранный набор цветов в дополнение к свободному
+редактированию. `closeOnSelect` соответствует поведению Ark и закрывает всплывающее окно после выбора образца.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/swatches.tsx"
+
+```
+
+</PreviewFrame>
+
+### Образец значения
+
+Используйте `ValueSwatch` и `ValueText`, когда соседний интерфейс должен показывать выбранный цвет без открытия полного
+компонента выбора.
+
+<style>{ColorPickerDocs.colorPickerValueSwatchCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/value-swatch.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте явные части и дочерние элементы, когда стандартной композиции нужна другая визуальная структура.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `ColorPicker` через `className`, стабильные хуки `data-slot="color-picker-*"`, атрибуты Ark `data-scope` /
+`data-part` и приведённые ниже публичные CSS-переменные `--moduix-color-picker-*`.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+
+### Хуки стилизации
+
+Используйте часть, которая отвечает за нужный визуальный аспект:
+
+- `ColorPicker` - для ширины, интервала, общего цвета и прозрачности отключённого состояния;
+- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect` и `FormatTrigger` - для видимых элементов поля;
+- `ColorPicker.Positioner` и `ColorPicker.Content` - для слоёв всплывающего окна, ширины, отступов, скругления, тени и
+  анимаций состояния;
+- `ColorPicker.Area`, `AreaBackground` и `AreaThumb` - для двумерной цветовой поверхности;
+- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb` и `Sliders` - для слайдеров оттенка,
+  альфа-канала и других каналов;
+- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch` и `SwatchIndicator` - для сеток предустановленных цветов;
+- `ColorPicker.ValueSwatch`, `ValueText`, `View` и `TransparencyGrid` - для отображения значения и компоновок
+  конкретного формата.
+
+Основные хуки состояния: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
+`data-readonly`, `data-required`, `data-channel`, `data-orientation`, `data-value`,
+`data-placement` и `data-side`. Переменные времени выполнения Ark включают `--color`, `--value`,
+`--available-width`, `--available-height` и `--transform-origin`.
+
+При включённом `prefers-reduced-motion` анимации открытия и закрытия popup сокращаются до 1 мс:
+так Ark корректно завершает lifecycle выхода без видимого движения.

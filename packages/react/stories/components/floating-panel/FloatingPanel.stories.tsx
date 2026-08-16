@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactNode } from 'react';
-import { Button } from '../../../src/components/button';
-import { FloatingPanel } from '../../../src/components/floating-panel/FloatingPanel';
+import { Button } from '@/components/button';
+import { FloatingPanel } from '@/components/floating-panel/FloatingPanel';
 import storyStyles from './FloatingPanel.stories.module.css';
 
 const DEFAULT_SIZE = { width: 360, height: 260 };

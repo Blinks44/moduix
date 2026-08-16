@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Kbd } from '../../../src/components/kbd/Kbd';
+import { Kbd } from '@/components/kbd/Kbd';
 import styles from './Kbd.stories.module.css';
 
 const meta = {
@@ -37,6 +37,16 @@ export const AsChild: Story = {
     <Kbd asChild>
       <kbd title="Escape">Esc</kbd>
     </Kbd>
+  ),
+};
+
+export const GroupAsChild: Story = {
+  render: () => (
+    <Kbd.Group asChild aria-label="Command K">
+      <span>
+        <Kbd>Cmd</Kbd>+<Kbd>K</Kbd>
+      </span>
+    </Kbd.Group>
   ),
 };
 

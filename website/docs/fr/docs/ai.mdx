@@ -1,0 +1,160 @@
+---
+title: AI
+description: Donnez à un assistant IA le bon contexte moduix avant qu'il écrive du code.
+---
+
+# AI
+
+moduix est conçu pour rester compréhensible, autant pour les personnes que pour les assistants IA. Donnez d'abord à
+l'assistant la documentation pertinente la plus concise, puis demandez-lui de travailler avec l'API publique des
+composants que votre projet utilise déjà.
+
+## Choisir le bon contexte
+
+| Ce dont vous avez besoin | À donner à l'assistant |
+| --- | --- |
+| Une vue d'ensemble du produit ou une tâche de découverte de composants | [`llms.txt`](/llms.txt) |
+| De l'aide sur un composant, un guide ou une erreur | La fonction **Copy Markdown** de la page |
+| Une revue étendue au niveau du dépôt | [`llms-full.txt`](/llms-full.txt) |
+
+Chaque page de documentation MDX possède une URL Markdown canonique, par exemple
+`https://moduix.dev/docs/button.md`. Elle contient le contenu de la page sans l'interface de documentation ; c'est
+donc le meilleur contexte par défaut pour une tâche ciblée d'implémentation ou de débogage.
+
+## Interroger la page actuelle
+
+Utilisez **Copy Markdown** sous le titre de n'importe quelle page lorsque l'assistant a besoin de son contenu sans
+l'interface de documentation. Les pages de composants proposent également un menu **Open** avec des raccourcis vers
+GitHub, **View as Markdown**, ChatGPT et Claude.
+
+Utilisez l'URL, puis expliquez votre objectif en termes précis. Par exemple :
+
+```text
+Read https://moduix.dev/docs/dialog.md. Add a confirmation dialog to our delete action.
+We use @moduix/react/dialog from the npm package. Keep the Ark composition explicit and make the
+trigger a button.
+```
+
+## Installer des composants avec un assistant IA
+
+Avant que l'assistant n'écrive des imports ou des commandes d'installation, indiquez-lui quel modèle de propriété des
+composants moduix le projet utilise :
+
+| Modèle du projet | À demander à l'assistant d'utiliser |
+| --- | --- |
+| Composants gérés par paquet | Les imports `@moduix/react/*` et `@moduix/react/style.css` |
+| Composants dont le projet possède une copie | Le registre `@moduix-react` configuré, le `components.json` du projet et sa CLI |
+
+Dans un projet qui possède une copie des composants, l'assistant doit lire la page du composant et examiner
+`components.json` avant d'ajouter un élément du registre. Le guide [Démarrage rapide](/docs/quick-start) contient la
+configuration complète du registre.
+
+## Utiliser le Skill moduix
+
+Installez le Skill public avec Skills.sh :
+
+```bash
+npx skills add https://github.com/Blinks44/moduix --skill moduix
+```
+
+L'installateur configure le Skill pour un agent pris en charge. Avant de modifier du code, il examine les imports
+existants et `components.json`, puis utilise la documentation canonique, la découverte shadcn et des vérifications de
+diff sûres pour les mises à jour dont le projet possède une copie. L'installation par gestionnaire de paquets et la
+copie via shadcn restent deux choix équivalents. Dans les agents compatibles avec les Skills, invoquez-le avec
+`$moduix`.
+
+## Utiliser le serveur MCP shadcn
+
+Le serveur MCP shadcn fonctionne avec le registre moduix existant. moduix n'exécute pas de serveur MCP
+distinct : configurez le registre dans le projet consommateur, puis laissez shadcn l'exposer à votre client IA.
+
+### 1. Configurer le registre
+
+Le `components.json` du projet consommateur doit contenir l'URL du registre moduix :
+
+```json
+{
+  "registries": {
+    "@moduix-react": "https://moduix.dev/r/react/{name}.json"
+  }
+}
+```
+
+Consultez [Démarrage rapide](/docs/quick-start) pour la configuration complète de `components.json`.
+
+### 2. Connecter votre client IA
+
+Pour les clients pris en charge par l'initialiseur shadcn, exécutez-le dans le projet consommateur et choisissez le
+client correspondant. Par exemple :
+
+```bash
+npx shadcn@latest mcp init --client cursor
+```
+
+Codex utilise actuellement une configuration MCP manuelle. Ajoutez le serveur à `~/.codex/config.toml`, puis
+redémarrez Codex :
+
+```toml
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+Le [guide MCP de shadcn](https://ui.shadcn.com/docs/mcp) présente la configuration actuelle pour Claude Code,
+Cursor, VS Code, Codex et les autres clients pris en charge.
+
+### 3. Découvrir avant d'installer
+
+Demandez à l'assistant d'examiner l'élément moduix correspondant avant de modifier des fichiers. Ces requêtes
+fonctionnent pour les composants, les blocs et les thèmes :
+
+```text
+Find the moduix component for an editable text field. Show the component documentation and registry
+item before proposing code.
+```
+
+```text
+Find a moduix sign-in block. Show its registry dependencies and responsive behavior, but do not
+install it yet.
+```
+
+```text
+Find a high-contrast moduix theme. Show how it is applied before changing the project.
+```
+
+### 4. Examiner l'alternative CLI
+
+Utilisez la CLI lorsque MCP n'est pas disponible ou lorsque vous souhaitez disposer d'une trace de revue en ligne de
+commande. Dans un projet qui possède une copie des composants, examinez la configuration actuelle, recherchez selon
+le besoin produit, examinez l'élément, puis prévisualisez les changements :
+
+```bash
+npx shadcn@latest info --json
+npx shadcn@latest search @moduix-react -q "confirmation dialog"
+npx shadcn@latest view @moduix-react/dialog
+npx shadcn@latest add @moduix-react/dialog --dry-run
+```
+
+Pour un élément déjà installé, examinez le diff du fichier généré avant de le mettre à jour :
+
+```bash
+npx shadcn@latest add @moduix-react/dialog --diff src/components/moduix/dialog.tsx
+```
+
+Exécutez `add` sans indicateurs de prévisualisation uniquement après avoir vérifié l'élément, les dépendances, les
+chemins cibles et le modèle de propriété. N'utilisez pas `--overwrite` sans avoir explicitement décidé de remplacer
+les modifications locales.
+
+## Examiner le code généré
+
+Considérez le code généré comme un brouillon. Avant de l'intégrer, vérifiez qu'il :
+
+- utilise les parties moduix documentées et les objets de détail des rappels au lieu d'alias inventés ;
+- respecte le bon modèle de propriété, par paquet ou par registre ;
+- passe vos vérifications habituelles de types, vos tests et votre revue d'accessibilité.
+
+MCP peut découvrir les deux modèles de propriété, mais seuls les projets qui possèdent une copie des composants
+doivent utiliser les commandes `add` du registre. Les projets gérés par paquet conservent les imports
+`@moduix/react/*` et effectuent les mises à jour par leur gestionnaire de paquets. Le guide
+[Mise à jour et migration](https://moduix.dev/docs/updating) explique le flux de mise à jour des composants dont le projet possède une
+copie.

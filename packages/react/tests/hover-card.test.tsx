@@ -55,6 +55,39 @@ test('does not mount a disabled hover card before it opens', () => {
   expect(screen.queryByTestId('content')).not.toBeInTheDocument();
 });
 
+test('portals the positioner by default and can render it inline', () => {
+  const { container, unmount } = render(
+    <HoverCard open>
+      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardSurface />
+    </HoverCard>,
+  );
+
+  expect(container).not.toContainElement(screen.getByTestId('content'));
+
+  unmount();
+
+  const inlineHoverCard = render(
+    <HoverCard open portalled={false}>
+      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardSurface />
+    </HoverCard>,
+  );
+
+  expect(inlineHoverCard.container).toContainElement(screen.getByTestId('content'));
+});
+
+test('renders the moduix arrow tip when HoverCard.Arrow has no child', () => {
+  render(
+    <HoverCard open portalled={false}>
+      <HoverCard.Trigger>Profile</HoverCard.Trigger>
+      <HoverCardSurface />
+    </HoverCard>,
+  );
+
+  expect(document.querySelector('[data-slot="hover-card-arrow-tip"]')).toBeInTheDocument();
+});
+
 test('keeps RootProvider state available through the moduix context hook', async () => {
   function ContextValue() {
     const hoverCard = useHoverCardContext();

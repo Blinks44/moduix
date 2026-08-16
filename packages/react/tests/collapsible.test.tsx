@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { Collapsible, useCollapsible, useCollapsibleContext } from '../src';
 
 function ContextCloseButton() {
@@ -84,6 +84,55 @@ test('preserves disabled state', async () => {
 
   await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
   expect(trigger).toHaveAttribute('data-disabled');
+});
+
+test('keeps interactive content inert while partially collapsed', async () => {
+  render(
+    <Collapsible collapsedHeight="2rem">
+      <Collapsible.Trigger>Partial details</Collapsible.Trigger>
+      <Collapsible.Content data-testid="partial-content">
+        <button type="button">Nested action</button>
+      </Collapsible.Content>
+    </Collapsible>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Partial details' });
+  const content = screen.getByTestId('partial-content');
+  const nestedAction = screen.getByText('Nested action');
+
+  expect(content).toHaveAttribute('data-has-collapsed-size');
+  expect(content).not.toHaveAttribute('hidden');
+  await waitFor(() => expect(nestedAction).toHaveAttribute('inert'));
+
+  fireEvent.click(trigger);
+
+  await waitFor(() => expect(nestedAction).not.toHaveAttribute('inert'));
+});
+
+test('preserves consumer-owned trigger refs and behavior with asChild', async () => {
+  const triggerRef = createRef<HTMLButtonElement>();
+
+  render(
+    <Collapsible>
+      <Collapsible.Trigger asChild ref={triggerRef}>
+        <button type="button" className="consumer-trigger">
+          Composed details
+        </button>
+      </Collapsible.Trigger>
+      <Collapsible.Content>Composed content.</Collapsible.Content>
+    </Collapsible>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Composed details' });
+
+  expect(triggerRef.current).toBe(trigger);
+  expect(trigger).toHaveClass('consumer-trigger');
+  expect(trigger).toHaveAttribute('data-slot', 'collapsible-trigger');
+  expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+  fireEvent.click(trigger);
+
+  await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
 });
 
 test('keeps provider and descendant context composition connected', async () => {

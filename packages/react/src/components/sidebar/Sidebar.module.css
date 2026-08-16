@@ -120,10 +120,6 @@
 
   .resizeTrigger {
     z-index: 2;
-
-    &:focus-visible:not([data-dragging])::before {
-      background-color: var(--moduix-sidebar-focus-ring-color, var(--moduix-color-ring));
-    }
   }
 
   .trigger {
@@ -177,9 +173,8 @@
 
   .trigger {
     position: relative;
-    align-self: flex-start;
     z-index: 4;
-    margin-block-start: var(--moduix-sidebar-trigger-offset-y, var(--moduix-spacing-4));
+    margin-block-start: 0;
     margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
     border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
@@ -195,10 +190,16 @@
     > svg {
       transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
     }
+
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
   }
 
-  .label {
+  .label,
+  .groupLabel {
     min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header,
@@ -238,7 +239,6 @@
   }
 
   .groupLabel {
-    min-width: 0;
     margin: 0;
     padding-inline: var(--moduix-sidebar-group-label-padding-x, var(--moduix-spacing-2));
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));

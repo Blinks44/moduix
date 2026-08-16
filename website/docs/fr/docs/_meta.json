@@ -1,0 +1,338 @@
+[
+  {
+    "type": "section-header",
+    "label": "Vue d'ensemble"
+  },
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Introduction",
+    "tag": "book-open"
+  },
+  {
+    "type": "file",
+    "name": "changelog",
+    "label": "Journal des modifications",
+    "tag": "scroll-text"
+  },
+  {
+    "type": "file",
+    "name": "components",
+    "label": "Composants",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "migrate-from-shadcn",
+    "label": "Migration depuis shadcn",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "themes",
+    "label": "Thèmes",
+    "tag": "palette"
+  },
+  {
+    "type": "file",
+    "name": "tokens",
+    "label": "Tokens",
+    "tag": "swatch-book"
+  },
+  {
+    "type": "section-header",
+    "label": "Commencer"
+  },
+  {
+    "type": "file",
+    "name": "quick-start",
+    "label": "Démarrage rapide",
+    "tag": "rocket"
+  },
+  {
+    "type": "dir",
+    "name": "installation",
+    "label": "Configuration des frameworks",
+    "collapsible": true,
+    "collapsed": true
+  },
+  {
+    "type": "section-header",
+    "label": "Composants"
+  },
+  {
+    "type": "file",
+    "name": "accordion",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "alert",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "angle-slider",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "aspect-ratio",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "avatar",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "badge",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "bleed",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "breadcrumbs",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "button",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "card",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "carousel",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "checkbox",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "clipboard",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "close-button",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "collapsible",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "color-picker",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "combobox",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "command-palette",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "container",
+    "tag": "component"
+  },
+  { "type": "file", "name": "date-input", "tag": "component" },
+  { "type": "file", "name": "date-picker", "tag": "component" },
+  { "type": "file", "name": "dialog", "tag": "component" },
+  { "type": "file", "name": "drawer", "tag": "component" },
+  { "type": "file", "name": "editable", "label": "Editable", "tag": "component" },
+  { "type": "file", "name": "empty", "tag": "component" },
+  { "type": "file", "name": "field", "tag": "component" },
+  { "type": "file", "name": "fieldset", "tag": "component" },
+  { "type": "file", "name": "file-upload", "tag": "component" },
+  { "type": "file", "name": "floating-panel", "tag": "component" },
+  { "type": "file", "name": "heading", "tag": "component" },
+  { "type": "file", "name": "highlight", "tag": "component" },
+  { "type": "file", "name": "hover-card", "tag": "component" },
+  { "type": "file", "name": "image", "tag": "component" },
+  { "type": "file", "name": "image-cropper", "tag": "component" },
+  { "type": "file", "name": "input", "tag": "component" },
+  { "type": "file", "name": "input-group", "tag": "component" },
+  { "type": "file", "name": "kbd", "tag": "component" },
+  { "type": "file", "name": "lightbox", "tag": "component" },
+  { "type": "file", "name": "list", "tag": "component" },
+  { "type": "file", "name": "listbox", "tag": "component" },
+  { "type": "file", "name": "marquee", "tag": "component" },
+  { "type": "file", "name": "menu", "tag": "component" },
+  { "type": "file", "name": "native-select", "tag": "component" },
+  { "type": "file", "name": "number-input", "tag": "component" },
+  { "type": "file", "name": "pagination", "tag": "component" },
+  { "type": "file", "name": "password-input", "tag": "component" },
+  { "type": "file", "name": "pin-input", "tag": "component" },
+  { "type": "file", "name": "popover", "tag": "component" },
+  { "type": "file", "name": "progress-circular", "tag": "component" },
+  { "type": "file", "name": "progress-linear", "tag": "component" },
+  { "type": "file", "name": "qr-code", "tag": "component" },
+  { "type": "file", "name": "radio-group", "tag": "component" },
+  { "type": "file", "name": "rating-group", "tag": "component" },
+  { "type": "file", "name": "scroll-area", "tag": "component" },
+  { "type": "file", "name": "segment-group", "tag": "component" },
+  { "type": "file", "name": "select", "tag": "component" },
+  { "type": "file", "name": "separator", "tag": "component" },
+  { "type": "file", "name": "sidebar", "tag": "component" },
+  { "type": "file", "name": "signature-pad", "tag": "component" },
+  { "type": "file", "name": "simple-grid", "tag": "component" },
+  { "type": "file", "name": "skeleton", "tag": "component" },
+  { "type": "file", "name": "slider", "tag": "component" },
+  { "type": "file", "name": "spinner", "tag": "component" },
+  { "type": "file", "name": "split-button", "tag": "component" },
+  { "type": "file", "name": "splitter", "tag": "component" },
+  { "type": "file", "name": "stack", "tag": "component" },
+  { "type": "file", "name": "steps", "tag": "component" },
+  { "type": "file", "name": "swap", "tag": "component" },
+  { "type": "file", "name": "switch", "tag": "component" },
+  { "type": "file", "name": "table", "tag": "component" },
+  { "type": "file", "name": "tabs", "tag": "component" },
+  { "type": "file", "name": "tag", "tag": "component" },
+  { "type": "file", "name": "tags-input", "tag": "component" },
+  { "type": "file", "name": "text", "tag": "component" },
+  { "type": "file", "name": "textarea", "tag": "component" },
+  { "type": "file", "name": "timer", "tag": "component" },
+  { "type": "file", "name": "toast", "tag": "component" },
+  { "type": "file", "name": "toggle", "tag": "component" },
+  { "type": "file", "name": "toggle-group", "tag": "component" },
+  { "type": "file", "name": "tooltip", "tag": "component" },
+  { "type": "file", "name": "tour", "tag": "component" },
+  { "type": "file", "name": "tree-view", "tag": "component" },
+  { "type": "file", "name": "typeset", "tag": "component" },
+  {
+    "type": "section-header",
+    "label": "AI"
+  },
+  {
+    "type": "file",
+    "name": "ai",
+    "label": "Guide de l’IA",
+    "tag": "bot"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms.txt",
+    "link": "https://moduix.dev/llms.txt",
+    "tag": "file-text"
+  },
+  {
+    "type": "custom-link",
+    "label": "llms-full.txt",
+    "link": "https://moduix.dev/llms-full.txt",
+    "tag": "file-text"
+  },
+  {
+    "type": "section-header",
+    "label": "Collections Ark"
+  },
+  {
+    "type": "file",
+    "name": "collections",
+    "label": "Parcourir les collections",
+    "tag": "database"
+  },
+  {
+    "type": "file",
+    "name": "async-list",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "list-collection",
+    "tag": "list"
+  },
+  {
+    "type": "file",
+    "name": "list-selection",
+    "tag": "list-checks"
+  },
+  {
+    "type": "file",
+    "name": "tree-collection",
+    "tag": "git-branch"
+  },
+  {
+    "type": "section-header",
+    "label": "Formulaires"
+  },
+  {
+    "type": "file",
+    "name": "forms",
+    "label": "Parcourir les formulaires",
+    "tag": "clipboard-list"
+  },
+  {
+    "type": "file",
+    "name": "formisch",
+    "tag": "braces"
+  },
+  {
+    "type": "file",
+    "name": "react-hook-form",
+    "tag": "braces"
+  },
+  {
+    "type": "file",
+    "name": "tanstack-form",
+    "tag": "braces"
+  },
+  {
+    "type": "section-header",
+    "label": "Guides"
+  },
+  {
+    "type": "file",
+    "name": "animations",
+    "tag": "orbit"
+  },
+  {
+    "type": "file",
+    "name": "composition-patterns",
+    "tag": "workflow"
+  },
+  {
+    "type": "file",
+    "name": "dark-mode",
+    "tag": "moon"
+  },
+  {
+    "type": "file",
+    "name": "rtl",
+    "tag": "languages"
+  },
+  {
+    "type": "file",
+    "name": "styling",
+    "tag": "paintbrush"
+  },
+  {
+    "type": "file",
+    "name": "updating",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "utilities",
+    "tag": "wrench"
+  }
+]

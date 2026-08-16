@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from '../../../src/components/checkbox';
-import { Field } from '../../../src/components/field';
-import { Fieldset, useFieldset } from '../../../src/components/fieldset/Fieldset';
-import { RadioGroup } from '../../../src/components/radio-group';
+import { Checkbox } from '@/components/checkbox';
+import { Field } from '@/components/field';
+import { Fieldset, useFieldset } from '@/components/fieldset/Fieldset';
+import { RadioGroup } from '@/components/radio-group';
 import styles from './Fieldset.stories.module.css';
 
 const meta = {
@@ -97,6 +97,26 @@ export const WithRadioGroup: Story = {
         ))}
       </RadioGroup>
       <Fieldset.HelperText>Choose the primary storage medium.</Fieldset.HelperText>
+    </Fieldset>
+  ),
+};
+
+export const LongContent: Story = {
+  render: () => (
+    <Fieldset invalid>
+      <Fieldset.Legend>
+        International tax residency and withholding election for non-resident account holders
+      </Fieldset.Legend>
+      <Field.Root invalid>
+        <Field.Label>Tax identification number</Field.Label>
+        <Field.Input />
+      </Field.Root>
+      <Fieldset.HelperText>
+        Enter the tax identification number issued by your country of tax residence.
+      </Fieldset.HelperText>
+      <Fieldset.ErrorText>
+        A tax identification number is required before you can continue.
+      </Fieldset.ErrorText>
     </Fieldset>
   ),
 };

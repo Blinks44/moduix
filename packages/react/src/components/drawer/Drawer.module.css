@@ -141,7 +141,7 @@
   }
 
   .content {
-    --moduix-drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
+    --_drawer-bleed: var(--moduix-drawer-bleed-size, var(--moduix-size-xl));
     --drawer-island-translate-distance: 0px;
     box-sizing: border-box;
     position: relative;
@@ -185,7 +185,7 @@
       position: absolute;
       inset-inline: 0;
       top: 100%;
-      height: var(--moduix-drawer-bleed);
+      height: var(--_drawer-bleed);
       background-color: inherit;
       content: '';
       pointer-events: none;
@@ -246,7 +246,7 @@
         inset-block: 0;
         inset-inline: auto;
         top: 0;
-        width: var(--moduix-drawer-bleed);
+        width: var(--_drawer-bleed);
         height: auto;
       }
     }
@@ -445,7 +445,7 @@
 
   .body {
     min-height: 0;
-    margin-top: var(--moduix-drawer-body-margin-top, var(--moduix-spacing-4));
+    margin-block-start: var(--moduix-drawer-body-margin-top, var(--moduix-spacing-4));
     overflow-y: auto;
   }
 
@@ -453,7 +453,7 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--moduix-drawer-footer-gap, var(--moduix-spacing-2));
-    margin-top: var(--moduix-drawer-footer-margin-top, var(--moduix-spacing-6));
+    margin-block-start: var(--moduix-drawer-footer-margin-top, var(--moduix-spacing-6));
   }
 
   .closeIcon {
@@ -598,7 +598,7 @@
     to {
       transform: translate3d(
         0,
-        calc(-100% - var(--drawer-island-translate-distance) - var(--moduix-drawer-bleed)),
+        calc(-100% - var(--drawer-island-translate-distance) - var(--_drawer-bleed)),
         0
       );
     }
@@ -625,6 +625,21 @@
   @keyframes drawer-content-out-right {
     to {
       transform: translate3d(calc(100% + var(--drawer-island-translate-distance)), 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation-delay: 0ms;
+      animation-duration: 1ms;
+    }
+
+    .backdrop,
+    .content,
+    .indent,
+    .indentBackground {
+      transition-duration: 1ms;
     }
   }
 }

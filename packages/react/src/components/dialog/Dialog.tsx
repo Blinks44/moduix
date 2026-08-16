@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef } from 'react';
 import { forwardRef } from 'react';
@@ -176,17 +177,44 @@ const DialogCloseIcon = forwardRef<
   );
 });
 
-function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="dialog-header" className={clsx(styles.header, className)} {...props} />;
-}
+const DialogHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DialogHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="dialog-header"
+        className={clsx(styles.header, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function DialogBody({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="dialog-body" className={clsx(styles.body, className)} {...props} />;
-}
+const DialogBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DialogBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="dialog-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="dialog-footer" className={clsx(styles.footer, className)} {...props} />;
-}
+const DialogFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function DialogFooter({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="dialog-footer"
+        className={clsx(styles.footer, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Dialog = Object.assign(DialogRoot, {
   Root: DialogRoot,

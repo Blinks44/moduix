@@ -1,9 +1,10 @@
 # Tag
 
-Upstream docs:
+Upstream docs (accessed 2026-08-13):
 
 - Ark UI: no dedicated `Tag` component; use the Ark factory, composition, styling, and ref guides at https://ark-ui.com/docs/guides/composition#the-ark-factory, https://ark-ui.com/docs/guides/composition, https://ark-ui.com/docs/guides/styling, and https://ark-ui.com/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/tag
+- shadcn/ui: no dedicated Tag; Badge sets the compact-token discoverability baseline at https://ui.shadcn.com/docs/components/badge
 
 ## Purpose
 
@@ -123,6 +124,30 @@ colors intentionally match `Badge` so shared variant names carry the same visual
 compact token components. Close-trigger variables use the `--moduix-tag-close-trigger-*` prefix. Consumers
 can style parts through `className`, `data-scope`, `data-part`, and `data-slot`.
 
+For colors, the component-wide `--moduix-tag-bg`, `--moduix-tag-border-color`, and
+`--moduix-tag-color` overrides take precedence. Otherwise, each variant resolves its own background,
+border, and foreground through `--moduix-tag-default-*`, `--moduix-tag-secondary-*`,
+`--moduix-tag-outline-*`, `--moduix-tag-ghost-*`, or `--moduix-tag-destructive-*` before using
+foundation tokens.
+
+| Variable                                | Default                                      | Surface          |
+| --------------------------------------- | -------------------------------------------- | ---------------- |
+| `--moduix-tag-default-bg`               | `var(--moduix-color-primary)`                | default root     |
+| `--moduix-tag-default-border-color`     | `transparent`                                | default root     |
+| `--moduix-tag-default-color`            | `var(--moduix-color-primary-foreground)`     | default root     |
+| `--moduix-tag-secondary-bg`             | `var(--moduix-color-secondary)`              | secondary root   |
+| `--moduix-tag-secondary-border-color`   | `transparent`                                | secondary root   |
+| `--moduix-tag-secondary-color`          | `var(--moduix-color-secondary-foreground)`   | secondary root   |
+| `--moduix-tag-outline-bg`               | `transparent`                                | outline root     |
+| `--moduix-tag-outline-border-color`     | `var(--moduix-color-border)`                 | outline root     |
+| `--moduix-tag-outline-color`            | `var(--moduix-color-foreground)`             | outline root     |
+| `--moduix-tag-ghost-bg`                 | `transparent`                                | ghost root       |
+| `--moduix-tag-ghost-border-color`       | `transparent`                                | ghost root       |
+| `--moduix-tag-ghost-color`              | `var(--moduix-color-foreground)`             | ghost root       |
+| `--moduix-tag-destructive-bg`           | `var(--moduix-color-destructive)`            | destructive root |
+| `--moduix-tag-destructive-border-color` | `transparent`                                | destructive root |
+| `--moduix-tag-destructive-color`        | `var(--moduix-color-destructive-foreground)` | destructive root |
+
 `Tag` writes `data-size` and `data-variant`. `Tag.CloseTrigger` uses the shared `CloseButton` CSS
 contract behind the existing `--moduix-tag-close-trigger-*` variables and retains `data-disabled` for
 disabled or `aria-disabled` states.
@@ -147,6 +172,8 @@ disabled or `aria-disabled` states.
 
 ## Local changelog
 
+- 2026-08-13: Added independent background, border, and foreground variables for every built-in
+  variant while preserving component-wide color overrides.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-17: Composed `Tag.CloseTrigger` with the shared `CloseButton` and mapped the existing
   `--moduix-tag-close-trigger-*` styling contract to CloseButton variables without changing Tag anatomy.

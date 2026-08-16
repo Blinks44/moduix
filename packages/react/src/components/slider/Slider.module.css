@@ -110,7 +110,7 @@
 
     &[data-invalid] {
       box-shadow: inset 0 0 0 var(--moduix-slider-track-border-width, var(--moduix-border-width-sm))
-        var(--moduix-color-destructive);
+        var(--moduix-slider-track-border-color-invalid, var(--moduix-color-destructive));
     }
   }
 
@@ -124,7 +124,7 @@
     }
 
     &[data-invalid] {
-      background-color: var(--moduix-color-destructive);
+      background-color: var(--moduix-slider-range-bg-invalid, var(--moduix-color-destructive));
     }
   }
 
@@ -166,11 +166,17 @@
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(
+        --moduix-slider-thumb-border-color-invalid,
+        var(--moduix-color-destructive)
+      );
 
       &:focus-visible {
         box-shadow: 0 0 0 var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
-          var(--moduix-color-destructive);
+          var(
+            --moduix-slider-thumb-focus-ring-color-invalid,
+            var(--moduix-slider-thumb-border-color-invalid, var(--moduix-color-destructive))
+          );
       }
     }
   }
@@ -191,7 +197,7 @@
   .markerGroup {
     display: flex;
     justify-content: space-between;
-    margin-top: var(--moduix-slider-marker-group-margin-top, var(--moduix-spacing-2));
+    margin-block-start: var(--moduix-slider-marker-group-margin-top, var(--moduix-spacing-2));
 
     &[data-orientation='vertical'] {
       flex-direction: column;
@@ -222,6 +228,13 @@
       background-color: var(
         --moduix-slider-marker-dot-bg-active,
         var(--moduix-slider-range-bg, var(--moduix-color-primary))
+      );
+    }
+
+    .root[data-invalid] &:is([data-state='under-value'], [data-state='at-value'])::before {
+      background-color: var(
+        --moduix-slider-marker-dot-bg-active-invalid,
+        var(--moduix-slider-range-bg-invalid, var(--moduix-color-destructive))
       );
     }
 

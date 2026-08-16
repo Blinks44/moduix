@@ -1,0 +1,199 @@
+---
+title: Steps
+component: steps
+description: Проведите пользователя через многошаговый процесс с состоянием и навигацией Ark UI.
+---
+
+import * as StepsDocs from '@/components/examples/steps';
+
+<style>{StepsDocs.stepsExampleCss}</style>
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/steps" />
+
+## Базовый пример
+
+Используйте `Steps` со свойством `count`, списком `Steps.List` из частей `Steps.Item index={...}` с отсчётом
+от нуля, соответствующими панелями `Steps.Content index={...}` и встроенными триггерами «назад» и «далее».
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="steps" />
+
+## Анатомия
+
+```text
+Steps
+├─ Steps.Progress (необязательно)
+├─ Steps.List
+│  └─ Steps.Item[index]
+│     ├─ Steps.Trigger
+│     │  └─ Steps.Indicator
+│     └─ Steps.Separator
+├─ Steps.Content[index]
+├─ Steps.CompletedContent
+├─ Steps.PrevTrigger
+└─ Steps.NextTrigger
+
+Steps.RootProvider
+└─ то же дерево частей, подключённое к хранилищу Steps.useSteps()
+```
+
+| Часть                              | Назначение                                                                 |
+| ---------------------------------- | -------------------------------------------------------------------------- |
+| `Steps`                            | Управляет состоянием шагов, ориентацией, линейной навигацией, валидацией и ID. |
+| `Steps.RootProvider`               | Подключает части к состоянию, созданному с помощью `Steps.useSteps()`.    |
+| `Steps.Progress`                   | Необязательный progressbar, использующий корневую переменную Ark `--percent`. |
+| `Steps.List`                       | Tablist, содержащий триггеры шагов.                                       |
+| `Steps.Item`                       | Один шаг с отсчётом от нуля и обязательным `index`.                        |
+| `Steps.Trigger`                    | Кнопка вкладки для шага; поддерживает `asChild` для пользовательских семантических host-элементов. |
+| `Steps.Indicator`                  | Визуальная метка шага. По умолчанию - `index + 1` или иконка галочки после завершения. |
+| `Steps.Separator`                  | Декоративный соединитель между элементами.                                |
+| `Steps.Content`                    | Tabpanel одного шага, сопоставленный по `index`.                          |
+| `Steps.CompletedContent`           | Tabpanel, показываемый, когда текущий шаг равен `count`.                   |
+| `Steps.PrevTrigger` / `NextTrigger` | Кнопки, связанные с действиями Ark «назад» и «далее».                    |
+
+Используйте `Steps.useSteps()` с `Steps.RootProvider` для внешнего управления состоянием. `useStepsContext`,
+`useStepsItemContext`, `Steps.Context` и `Steps.ItemContext` также экспортируются из `@moduix/react` как
+низкоуровневые API в стиле Ark.
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`Steps` владеет машиной состояния. Используйте `count`, `defaultStep`, `step`, `onStepChange(details)`,
+`onStepComplete`, `linear`, `isStepValid`, `isStepSkippable`, `onStepInvalid(details)`, `orientation` и `ids`
+непосредственно на корневом элементе. Элементы шагов и панели используют значения `index` с отсчётом от нуля.
+
+Используйте `Steps.RootProvider` с `Steps.useSteps()`, когда внешним элементам управления нужен прямой доступ к
+`value`, `setStep`, `goToNextStep`, `goToPrevStep`, `resetStep`, `percent` и помощникам состояния элементов.
+Не отрисовывайте `Steps.Root` и `Steps.RootProvider` для одного и того же хранилища.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild` на `Steps.Trigger`, `Steps.PrevTrigger` или `Steps.NextTrigger`, когда host-элементом должна
+быть ссылка, ссылка маршрутизатора или кнопка дизайн-системы. Дочерний элемент должен оставаться единственным
+семантическим элементом, способным принять ARIA-свойства Ark, свойства клавиатуры и фокуса.
+
+У `Steps.Indicator` есть одно дополнение moduix: если дочерние элементы не переданы, он отображает `index + 1`
+для незавершённых и текущего шагов, а общую иконку галочки - для завершённых. Передайте дочерние элементы, чтобы
+полностью управлять меткой.
+
+### Свойства по умолчанию
+
+| Свойство      | По умолчанию   | Примечания                                                                  |
+| ------------- | -------------- | --------------------------------------------------------------------------- |
+| `orientation` | `horizontal`   | Ориентация корня Ark. Для вертикальной навигации шагов используйте `vertical`. |
+| `linear`      | `false`        | Задайте `true`, чтобы запретить произвольный переход по триггерам и требовать последовательного движения. |
+| `count`       | `1`            | Общее число шагов Ark. В реальном интерфейсе передавайте длину видимого массива шагов. |
+| `defaultStep` | `0`            | Начальный неуправляемый шаг. `count` означает завершение.                   |
+
+### Особенности поведения
+
+- `step`, `defaultStep`, `details.step` и `Steps.Item index` - значения Ark с отсчётом от нуля.
+- В линейных сценариях `onStepInvalid(details)` сообщает заблокированный `details.step`, `details.action` (`'next'` или `'set'`) и необязательный `details.targetStep`.
+- `Steps.Content` использует `role="tabpanel"` и скрывается, когда его шаг не текущий.
+- `Steps.List` использует `role="tablist"` с `aria-orientation`; триггеры используют `role="tab"` и `aria-controls`.
+- `Steps.PrevTrigger` и `Steps.NextTrigger` становятся отключёнными, когда Ark сообщает об отсутствии предыдущего или следующего шага.
+- `ids` позволяет задавать стабильные ID корня, списка, триггера и содержимого, когда они нужны окружающей композиции.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте `step` из состояния React, когда активный шаг должен синхронизироваться с маршрутизацией, валидацией или окружающим интерфейсом.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Валидация
+
+Используйте `linear`, `isStepValid` и `onStepInvalid`, когда пользователь должен завершить текущий шаг перед переходом дальше.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/validation.tsx"
+
+```
+</PreviewFrame>
+
+### Прогресс
+
+Добавьте `Steps.Progress`, когда процесс должен показывать progressbar в дополнение к списку шагов.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/progress.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `Steps.useSteps()` с `Steps.RootProvider`, когда элементам управления вне отрисованного дерева нужен доступ к тому же хранилищу Ark.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Вертикальная ориентация
+
+Задайте `orientation="vertical"`, когда список шагов должен находиться рядом с активной панелью содержимого на широких экранах и над ней - на узких.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/vertical.tsx"
+
+```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Обойдите стандартный элемент-кнопку с помощью `asChild`, когда триггер должен отрисовываться как ссылка или ссылка маршрутизатора. Сохраните один семантический дочерний элемент, чтобы он получил поведение Ark для ARIA, клавиатуры и фокуса.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/steps/custom-composition.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Steps` с помощью `className`, `data-scope="steps"` / `data-part="..."` Ark, атрибутов состояния Ark,
+хуков moduix `data-slot` и публичных CSS-переменных `--moduix-steps-*`, показанных ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS-переменные' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <StepsDocs.StepsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Полезные публичные хуки:
+
+- `className` на `Steps`, `Steps.RootProvider`, `Steps.List`, `Steps.Item`, `Steps.Trigger`, `Steps.Indicator`, `Steps.Separator`, `Steps.Content`, `Steps.CompletedContent`, `Steps.PrevTrigger`, `Steps.NextTrigger` и `Steps.Progress`
+- `data-slot="steps-root"`, `steps-root-provider`, `steps-list`, `steps-item`, `steps-trigger`, `steps-indicator`, `steps-separator`, `steps-content`, `steps-completed-content`, `steps-prev-trigger`, `steps-next-trigger` и `steps-progress`
+- `data-scope="steps"` Ark и значения `data-part` для каждой примитивной части
+- `data-orientation="horizontal" | "vertical"` на частях root/list/item/trigger/content/separator
+- `data-current`, `data-complete` и `data-incomplete` на поверхностях состояний indicator, separator и trigger
+- `data-state="open" | "closed"` на триггерах и панелях содержимого
+- `data-complete` на `Steps.Progress`
+- `--percent` от Ark на корне, используемая `Steps.Progress`

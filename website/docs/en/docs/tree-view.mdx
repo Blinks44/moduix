@@ -1,0 +1,189 @@
+---
+title: Tree View
+component: tree-view
+description: An accessible Ark UI tree view for hierarchical folders, files, and nested resources.
+---
+
+import * as TreeViewDocs from '@/components/examples/tree-view';
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tree-view" />
+
+## Basic
+
+Pass a `createTreeCollection` result to `TreeView`. `TreeView.Node` removes the repeated provider and
+context plumbing from a recursive renderer while keeping the complete Ark part tree visible.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="tree-view" />
+
+## Anatomy
+
+```text
+TreeView / TreeView.Root
+├─ TreeView.Label
+└─ TreeView.Tree
+   └─ TreeView.Node or TreeView.NodeProvider
+      ├─ TreeView.Branch
+      │  ├─ TreeView.BranchControl
+      │  │  ├─ TreeView.BranchIndicator
+      │  │  └─ TreeView.BranchText
+      │  └─ TreeView.BranchContent
+      │     ├─ TreeView.BranchIndentGuide
+      │     └─ nested nodes
+      └─ TreeView.Item
+         └─ TreeView.ItemText
+```
+
+| Part                             | Role                                                                  |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `TreeView` / `TreeView.Root`     | Owns collection, selection, expansion, focus, checking, and rename. |
+| `TreeView.RootProvider`          | Connects parts to a `useTreeView` instance.                          |
+| `TreeView.Label`                 | Gives the tree its accessible name.                                  |
+| `TreeView.Tree`                  | The ARIA tree container.                                             |
+| `TreeView.Node`                  | Convenience provider with `{ node, indexPath, state }`.              |
+| `TreeView.NodeProvider`          | Low-level Ark context boundary for custom composition.               |
+| `TreeView.Branch*`               | Expandable node, trigger, indicator, label, and children.            |
+| `TreeView.Item*`                 | Leaf tree item and optional selected-state indicator.                |
+| `TreeView.NodeCheckbox*`         | Checkbox tree control and checked/indeterminate indicator.           |
+| `TreeView.NodeRenameInput`       | Inline input rendered while a node is renamed.                       |
+
+## Composition
+
+### Recommended path
+
+Use `TreeView.Node` for ordinary recursive renderers. Its render callback receives the current
+`node`, `indexPath`, and Ark node `state`, so it can choose branch or item markup without a separate
+context component. `NodeProvider` remains available when a custom component tree needs direct control.
+
+### Dedicated expand trigger
+
+`BranchControl` expands the whole row by default. When rendering a separate `BranchTrigger`, set
+`role="none"` on `BranchControl` so the trigger is not nested in another interactive tree item.
+
+### Links and other semantic leaves
+
+Use `asChild` on `TreeView.Item` for a single semantic child such as a link. The replacement element
+must accept Ark props and preserve keyboard and focus behaviour.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/links.tsx"
+
+  ```
+</PreviewFrame>
+
+### State and keyboard behaviour
+
+Ark owns the WAI-ARIA tree pattern: roving focus, arrow-key navigation, Home/End, typeahead,
+selection, checking, disabled nodes, async loading, and rename keys. Keep `expandedValue`,
+`selectedValue`, `checkedValue`, and `focusedValue` controlled through their Ark detail callbacks.
+
+| Prop            | Default    | Notes                                                       |
+| --------------- | ---------- | ----------------------------------------------------------- |
+| `selectionMode` | `"single"` | Use `"multiple"` for range and modifier-key selection.      |
+| `expandOnClick` | `true`     | Clicking a branch row expands or collapses it.              |
+| `typeahead`     | `true`     | Uses `nodeToString` from the collection.                    |
+| `lazyMount`     | `false`    | Defers branch-content rendering until it is first expanded. |
+| `unmountOnExit` | `false`    | Removes closed content after the exit lifecycle.            |
+
+## Examples
+
+### Async loading
+
+Branches with `childrenCount` can fetch their children through `loadChildren`. Replace the collection
+with `details.collection` after `onLoadChildrenComplete`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/async-loading.tsx"
+
+  ```
+</PreviewFrame>
+
+### Checkbox tree
+
+Place `NodeCheckbox` in both branch controls and leaf items. The default indicator already renders
+checked and indeterminate icons.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/checkboxes.tsx"
+
+  ```
+</PreviewFrame>
+
+### File icons
+
+Place decorative file and folder icons inside `BranchText` and `ItemText`. `BranchIndicator` stays
+separate, so it continues to be the only expand/collapse affordance.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/file-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Multiple selection
+
+Set `selectionMode="multiple"`. Use Ctrl/⌘ to add or remove individual items and Shift to extend a
+selection range; the state remains consumer-controlled.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/controlled-selection.tsx"
+
+  ```
+</PreviewFrame>
+
+### Renaming and virtualization
+
+Enable inline rename with `canRename`, render `NodeRenameInput` while `state.renaming` is true, and
+update the collection in `onRenameComplete`. For large trees, use `RootProvider`, `getVisibleNodes()`,
+and `scrollToIndexFn` with a virtualizer; moduix does not add a competing virtualization API.
+
+### Root provider
+
+Create state outside the rendered tree with `useTreeView` when controls elsewhere need methods such
+as `expand()` and `collapse()`. The preview keeps both controls and feedback centered in `PreviewMeta`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/tree-view/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styling
+
+Use `className` on exported parts for structural styling. Branch parts expose
+`data-state="open|closed"`; checkbox parts expose
+`data-state="checked|unchecked|indeterminate"`; and node parts expose `data-focus`,
+`data-selected`, `data-disabled`, `data-loading`, `data-renaming`, `data-depth`, `data-path`, and
+`data-value`. The wrapper respects Ark’s `--depth` indentation and `--height` collapse measurement
+variables, and disables branch animation for reduced-motion preferences.
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TreeViewDocs.TreeViewCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="tree-view-root"`, `tree-view-root-provider`, `tree-view-label`, `tree-view-tree`,
+  `tree-view-branch`, `tree-view-branch-control`, `tree-view-branch-trigger`,
+  `tree-view-branch-indicator`, `tree-view-branch-text`, `tree-view-branch-content`,
+  `tree-view-branch-indent-guide`, `tree-view-item`, `tree-view-item-text`,
+  `tree-view-item-indicator`, `tree-view-node-checkbox`, `tree-view-node-checkbox-indicator`, and
+  `tree-view-node-rename-input`.
+- All visual customisation is available through documented `--moduix-tree-view-*` variables.

@@ -1,0 +1,210 @@
+---
+title: Image Cropper
+component: image-cropper
+description: Composition Image Cropper d’Ark UI pour recadrer et transformer des images.
+---
+
+import * as ImageCropperDocs from '@/components/examples/image-cropper';
+
+<style>{ImageCropperDocs.imageCropperExampleCss}</style>
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/image-cropper" />
+
+## Exemple de base
+
+Utilisez `ImageCropper.CropArea` pour obtenir la sélection, la grille et les poignées de redimensionnement standard.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="image-cropper" />
+
+## Anatomie
+
+```tsx
+<ImageCropper>
+  <ImageCropper.Viewport>
+    <ImageCropper.Image />
+    <ImageCropper.CropArea />
+  </ImageCropper.Viewport>
+</ImageCropper>
+```
+
+| Partie                                | Rôle                                                                                                                   |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ImageCropper` / `ImageCropper.Root` | Groupe racine qui gère l’état de recadrage, les transformations, les libellés ARIA et les variables CSS d’exécution.   |
+| `ImageCropper.RootProvider`          | Racine affichée à partir d’une instance `useImageCropper` créée hors de l’arborescence.                                |
+| `ImageCropper.Viewport`              | Surface de déplacement et zone d’affichage dans laquelle l’image est découpée.                                         |
+| `ImageCropper.Image`                 | Élément d’image transformable contrôlé par Ark.                                                                        |
+| `ImageCropper.Selection`             | Sélection de recadrage pouvant recevoir le focus et cible des interactions clavier.                                    |
+| `ImageCropper.Grid`                  | Guides de recadrage horizontaux ou verticaux.                                                                          |
+| `ImageCropper.Handle`                | Poignée de redimensionnement pour chaque position de `ImageCropper.handles`.                                            |
+| `ImageCropper.CropArea`              | Sélection recommandée comprenant les deux grilles et toutes les poignées de redimensionnement.                          |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `ImageCropper.CropArea` pour l’anatomie de recadrage habituelle. Il préserve l’arborescence des parties Ark tout en supprimant le balisage répétitif de la sélection, des grilles et des poignées. Transmettez `className`, `gridClassName` ou `handleClassName` pour styliser les parties affichées. Comme le composant gère cette structure enfant, utilisez explicitement les parties `Selection`, `Grid` et `Handle` à la place de `children` ou `asChild` si vous avez besoin d’une structure différente.
+
+### Quand créer une composition personnalisée
+
+Utilisez `ImageCropper.Context` pour les barres d’outils situées dans la racine. Utilisez `useImageCropper` de moduix avec `ImageCropper.RootProvider` lorsqu’un contrôle, un aperçu du recadrage ou une intégration de formulaire nécessite l’API de recadrage hors du sous-arbre racine. Pour une même instance d’état, ne combinez pas `RootProvider` avec `ImageCropper.Root`.
+
+### Propriétés par défaut
+
+| Propriété                 | Valeur par défaut                        | Remarques                                                                           |
+| ------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------- |
+| `cropShape`               | `"rectangle"`                            | Utilisez `"circle"` pour un recadrage de type avatar.                               |
+| `defaultZoom`             | `1`                                      | Niveau de zoom initial de l’image.                                                   |
+| `defaultRotation`         | `0`                                      | Rotation initiale de l’image en degrés.                                              |
+| `defaultFlip`             | `{ horizontal: false, vertical: false }` | État initial de retournement.                                                        |
+| `minZoom`                 | `1`                                      | Facteur de zoom minimal.                                                             |
+| `maxZoom`                 | `5`                                      | Facteur de zoom maximal.                                                             |
+| `minWidth` / `minHeight`  | `40`                                     | Taille minimale de la sélection de recadrage.                                        |
+| `fixedCropArea`           | `false`                                  | Si vrai, l’utilisateur déplace l’image sous une sélection fixe.                      |
+
+### Comportement
+
+Ark gère le glisser au pointeur, le panoramique, le zoom à la molette et par geste, le déplacement au clavier, les identifiants générés, les libellés ARIA et les helpers de résultat du recadrage. Les touches fléchées déplacent la sélection, `Alt` avec les flèches la redimensionne, `Shift` et `Ctrl`/`Cmd` utilisent les propriétés de pas de déplacement, et `+` / `-` contrôlent le zoom. L’état contrôlé conserve les objets `details` d’Ark via `onCropChange`, `onZoomChange`, `onRotationChange` et `onFlipChange`.
+
+## Exemples
+
+### Rapport de dimensions
+
+Modifiez `aspectRatio` depuis l’état React lorsque l’utilisateur choisit la forme souhaitée pour le résultat.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/aspect-ratio.tsx"
+
+  ```
+</PreviewFrame>
+
+### Recadrage circulaire
+
+Utilisez `cropShape="circle"` avec un rapport de dimensions carré pour les avatars et les images de profil.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/circle-crop.tsx"
+
+  ```
+</PreviewFrame>
+
+### Zoom contrôlé
+
+Contrôlez `zoom` avec `onZoomChange` et limitez l’interaction avec `minZoom` et `maxZoom`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/controlled-zoom.tsx"
+
+  ```
+</PreviewFrame>
+
+### Aperçu du recadrage
+
+Créez le composant de recadrage avec `useImageCropper` d’Ark lorsqu’un autre contrôle doit appeler `getCroppedImage()`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/crop-preview.tsx"
+
+  ```
+</PreviewFrame>
+
+### Événements
+
+Utilisez les objets `details` d’Ark pour synchroniser l’état du recadrage et du zoom avec une interface externe.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/events.tsx"
+
+  ```
+</PreviewFrame>
+
+### Zone de recadrage fixe
+
+Utilisez `fixedCropArea` lorsque la sélection doit rester immobile pendant que l’image se déplace en dessous.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/fixed-crop-area.tsx"
+
+  ```
+</PreviewFrame>
+
+### Recadrage initial
+
+Transmettez `initialCrop` lorsque le composant doit s’ouvrir avec une sélection connue en pixels.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/initial-crop.tsx"
+
+  ```
+</PreviewFrame>
+
+### Taille minimale et maximale
+
+Limitez le redimensionnement de la sélection avec `minWidth`, `minHeight`, `maxWidth` et `maxHeight`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/min-and-max-size.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `RootProvider` avec une instance `useImageCropper` de moduix lorsqu’une barre d’outils ou un processus contrôle le composant de recadrage hors de la racine affichée.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Rotation, retournement et réinitialisation
+
+Lisez `ImageCropper.Context` dans la racine pour les actions de la barre d’outils : zoom, rotation, retournement et réinitialisation.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/rotation-flip-and-reset.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `CropArea` lorsque la sélection nécessite une structure différente ou des parties enfants personnalisées.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/image-cropper/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ImageCropperDocs.ImageCropperCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez les sélecteurs `data-slot` stables : `image-cropper-root`, `image-cropper-viewport`, `image-cropper-image`, `image-cropper-selection`, `image-cropper-grid` et `image-cropper-handle`. Ark fournit également `data-scope="image-cropper"`, les valeurs `data-part`, `data-fixed`, `data-shape`, `data-pinch`, `data-ready`, `data-disabled`, `data-measured`, `data-dragging`, `data-panning`, `data-axis` et `data-position`.
+
+Ark écrit `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`, `--image-rotation`, `--image-offset-x` et `--image-offset-y` sur la racine. Considérez-les comme des valeurs d’exécution en lecture seule pour synchroniser une interface personnalisée ; pour les surcharges visuelles, utilisez les propriétés `--moduix-image-cropper-*` décrites ci-dessus.

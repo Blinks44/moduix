@@ -1,0 +1,49 @@
+---
+title: Mobile drawer navigation
+description: A copy-owned mobile navigation shell with a side drawer and responsive workspace content.
+---
+
+import { MobileDrawerNavigationPreview } from '@/components/recipes/mobile-drawer-navigation-preview';
+
+# Mobile drawer navigation
+
+Add a compact mobile navigation pattern with an edge-attached drawer. Navigation links close the
+drawer after selection, while the Drawer primitive keeps focus management, Escape, and backdrop
+behavior accessible.
+
+<ExampleFrame clientOnly>
+  <MobileDrawerNavigationPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/mobile-drawer-navigation.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/mobile-drawer-navigation.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName={['button', 'drawer']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+
+## Use in a route
+
+Replace the example anchors and dashboard content with your routes and data. Keep each navigation
+link inside `Drawer.CloseTrigger` so a selection closes the mobile drawer automatically.
+
+Use your router's Link through `asChild` when it must own navigation, and mark the current link with
+`aria-current="page"`. Keep the trigger visible at mobile widths and provide the same destinations
+in a persistent desktop header or [Sidebar dashboard](/docs/sidebar-dashboard) at wider widths.
+Do not render two focusable copies of the same navigation at one breakpoint.

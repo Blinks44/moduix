@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Checkbox } from '../../../src/components/checkbox';
-import { Field, useField } from '../../../src/components/field/Field';
-import { RadioGroup } from '../../../src/components/radio-group';
+import { Checkbox } from '@/components/checkbox';
+import { Field, useField } from '@/components/field/Field';
+import { RadioGroup } from '@/components/radio-group';
 
 const meta = {
   title: 'Components/Field',
@@ -156,6 +156,23 @@ export const WithRadioGroup: Story = {
       </Field>
     );
   },
+};
+
+export const LongContent: Story = {
+  render: () => (
+    <Field invalid>
+      <Field.Label>
+        International tax residency and withholding election for non-resident account holders
+      </Field.Label>
+      <Field.Input />
+      <Field.HelperText>
+        Enter the tax identification number issued by your country of tax residence.
+      </Field.HelperText>
+      <Field.ErrorText>
+        A tax identification number is required before you can continue.
+      </Field.ErrorText>
+    </Field>
+  ),
 };
 
 export const ItemTarget: Story = {

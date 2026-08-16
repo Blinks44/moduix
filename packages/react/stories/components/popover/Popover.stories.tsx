@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Button } from '../../../src/components/button';
-import { Popover, usePopover, usePopoverContext } from '../../../src/components/popover/Popover';
+import { Button } from '@/components/button';
+import { Popover, usePopover, usePopoverContext } from '@/components/popover/Popover';
 import { BellIcon } from '../../icons/demo';
 import storyStyles from './Popover.stories.module.css';
 

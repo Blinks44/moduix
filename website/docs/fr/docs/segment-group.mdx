@@ -1,0 +1,234 @@
+---
+title: Segment Group
+component: segment-group
+description: Une composition segment-group Ark UI pour sélectionner une valeur dans un ensemble compact et visible.
+---
+
+import * as SegmentGroupDocs from '@/components/examples/segment-group';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
+
+## Choisir le bon composant
+
+Utilisez `SegmentGroup` lorsque l’utilisateur choisit une valeur dans un petit ensemble visible.
+
+- Choisissez **`Tabs`** lorsque la sélection change le panneau de contenu visible.
+- Choisissez **`ToggleGroup`** lorsque les éléments se comportent comme des boutons de barre d’outils et peuvent accepter plusieurs valeurs actives.
+- Choisissez **`RadioGroup`** lorsque le contrôle de formulaire doit conserver l’apparence de boutons radio.
+- Choisissez **`SegmentGroup`** lorsque la valeur reste comparable à celle d’un bouton radio, mais que l’interface nécessite un contrôle segmenté compact.
+
+## Exemple de base
+
+Utilisez `SegmentGroup.Items` pour une liste compacte de segments textuels standard. Il affiche les parties Ark item, text et control, ainsi que le champ de saisie masqué de chaque entrée.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="segment-group" />
+
+## Anatomie
+
+```text
+SegmentGroup / SegmentGroup.Root
+├─ SegmentGroup.Label (optional)
+├─ SegmentGroup.Indicator
+└─ SegmentGroup.Item[value]
+   ├─ SegmentGroup.ItemText
+   ├─ SegmentGroup.ItemControl
+   └─ the native form input
+
+SegmentGroup.RootProvider
+└─ same item tree connected to a moduix useSegmentGroup() store
+
+SegmentGroup.Context / SegmentGroup.ItemContext
+└─ advanced render-prop access to Ark state
+```
+
+| Partie                                 | Rôle                                                                                      |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `SegmentGroup` / `SegmentGroup.Root`   | Gère l’état d’une valeur, la navigation au clavier et les formulaires.                   |
+| `SegmentGroup.RootProvider`            | Connecte les parties à l’état créé par `useSegmentGroup()` de moduix.                    |
+| `SegmentGroup.Context`                 | Donne un accès avancé à l’état racine actuel par render prop.                            |
+| `SegmentGroup.ItemContext`             | Donne un accès avancé à l’état actuel de l’élément par render prop.                      |
+| `SegmentGroup.Label`                   | Libellé accessible facultatif du groupe.                                                  |
+| `SegmentGroup.Indicator`               | Met en évidence l’élément actif à partir des mesures et variables CSS d’Ark.             |
+| `SegmentGroup.Items`                   | Moteur de rendu recommandé pour les segments textuels standard.                          |
+| `SegmentGroup.Item`                    | Segment sélectionnable unique ; affiche un `label` par défaut.                           |
+| `SegmentGroup.ItemText`                | Texte visible du segment.                                                                 |
+| `SegmentGroup.ItemControl`             | Partie control d’Ark, masquée visuellement par les styles moduix par défaut.              |
+
+## Composition
+
+### Composition recommandée
+
+Dans le cas courant, utilisez la forme racine courte `<SegmentGroup>` avec `SegmentGroup.Items`. Affichez `Indicator` avant les éléments afin que la mise en évidence mesurée se place derrière le segment sélectionné. `Items` conserve un champ de saisie natif dans chaque élément généré pour la soumission et la réinitialisation des formulaires natifs.
+
+### Quand créer une composition personnalisée
+
+Utilisez `SegmentGroup.Item` lorsque les segments nécessitent un contenu personnalisé, des classes propres à chaque élément ou `asChild`. L’enfant de `asChild` doit malgré tout être un unique `label` sémantique. Utilisez `SegmentGroup.RootProvider` avec `useSegmentGroup()` de `@moduix/react` lorsque des contrôles environnants doivent appeler des méthodes telles que `setValue`, `clearValue` ou `focus`. Pour un rendu personnalisé fondé sur l’état, importez `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` ou `useSegmentGroupItemContext` depuis `@moduix/react`.
+
+`ItemHiddenInput` est volontairement interne à moduix. `SegmentGroup.Item` affiche toujours exactement un champ radio natif synchronisé, y compris avec `asChild` ; ne composez pas une seconde fois l’élément `ItemHiddenInput` d’Ark.
+
+### Propriétés par défaut
+
+| Propriété       | Valeur par défaut | Remarques                                                                                 |
+| --------------- | ----------------- | ----------------------------------------------------------------------------------------- |
+| `defaultValue`  | -                 | Valeur initiale non contrôlée.                                                            |
+| `value`         | -                 | Valeur sélectionnée contrôlée.                                                            |
+| `orientation`   | `horizontal`      | moduix utilise l’orientation horizontale par défaut ; définissez explicitement `vertical`. |
+| `disabled`      | `false`           | Désactive l’ensemble du groupe lorsqu’elle est définie sur la racine.                    |
+| `readOnly`      | `false`           | Empêche les modifications tout en laissant la valeur consultable.                        |
+| `required`      | `false`           | Rend les champs masqués obligatoires dans les formulaires natifs.                         |
+| `invalid`       | `false`           | Ajoute les attributs d’état invalide d’Ark pour le style et ARIA.                         |
+
+### Comportement
+
+`onValueChange(details)` conserve la signature de rappel d’Ark. Lisez `details.value` pour obtenir la valeur sélectionnée. Ark gère le roving focus, la navigation avec les flèches, le focus, les états disabled/read-only/invalid/required, les identifiants, la soumission du formulaire et la synchronisation de sa réinitialisation.
+
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` et `Indicator` transmettent leur ref aux parties DOM Ark correspondantes. Enveloppez le groupe dans `Field` ou `Fieldset` lorsque leur état partagé doit s’appliquer : `Field` fournit les états disabled, invalid, required et read-only, tandis que `Fieldset` fournit disabled et invalid. Utilisez `ids` lorsque des libellés ou contrôles composites nécessitent des identifiants d’accessibilité déterministes.
+
+## Exemples
+
+### Montage conditionnel
+
+Les groupes de segments peuvent être montés conditionnellement ; Ark recalcule la géométrie des éléments destinée à l’indicateur après l’apparition du groupe.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/conditional-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### État contrôlé
+
+Contrôlez la valeur sélectionnée depuis l’état React et mettez-la à jour depuis `details.value`.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Élément désactivé
+
+Définissez `disabled` sur un élément lorsqu’un seul segment est indisponible, ou sur la racine pour
+désactiver tout le groupe. Le style désactivé de la racine atténue le groupe une seule fois, sans
+cumuler l’opacité de chaque élément.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Field
+
+Enveloppez le groupe dans `Field` lorsque son champ natif automatique doit être accompagné d’un texte d’aide ou d’un message d’erreur. Ark hérite des états disabled, invalid, required et read-only du champ.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Soumission du formulaire
+
+Transmettez `name` à l’élément racine pour inclure la valeur sélectionnée dans les données du formulaire natif. `SegmentGroup.Items` ajoute un champ de formulaire natif à chaque élément généré.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/form-submission.tsx"
+
+  ```
+</PreviewFrame>
+
+### État invalide
+
+Définissez `invalid` sur l’élément racine lorsque la validation échoue. Associez-le à `required` et `name` lorsque le groupe participe à la validation native du formulaire.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/invalid.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useSegmentGroup()` avec `RootProvider` lorsque l’état doit être mis à la disposition de contrôles situés hors de l’arborescence des segments.
+
+<style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` lorsque le comportement des touches fléchées et la disposition doivent suivre une liste verticale.
+
+<style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/vertical-orientation.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `SegmentGroup.Items` et préférez `SegmentGroup.Item asChild` lorsque la disposition personnalisée du libellé doit posséder le nœud DOM de l’élément.
+
+<style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/segment-group/aschild.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Stylisez `SegmentGroup` avec `className`, les hooks stables `data-slot="segment-group-*"`, les attributs Ark `data-scope`, `data-part` et `data-state`, ainsi que les variables CSS publiques `--moduix-segment-group-*` décrites ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SegmentGroupDocs.SegmentGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- Hooks d’anatomie Ark : `data-scope="segment-group"` et `data-part` sur root, label, indicator, item, item text, item control et hidden input.
+- Hooks d’état Ark : `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` et `data-focus-visible`.
+- Hooks moduix : `data-slot="segment-group-root"`, `segment-group-root-provider`, `segment-group-label`, `segment-group-indicator`, `segment-group-item`, `segment-group-item-text`, `segment-group-item-control` et `segment-group-item-hidden-input`.
+- Les dimensions de l’indicateur utilisent les variables d’exécution Ark `--left`, `--top`, `--width` et `--height`. Son déplacement utilise `--transition-duration` et `--transition-timing-function` d’Ark, tandis que les valeurs par défaut de moduix correspondent à `--moduix-segment-group-indicator-transition-duration` et `--moduix-segment-group-indicator-transition-timing-function`.

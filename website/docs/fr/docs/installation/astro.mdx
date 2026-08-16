@@ -1,0 +1,66 @@
+---
+title: Astro
+description: Installez moduix sous forme d'îlots React interactifs dans Astro, avec CSS global et directives client.
+---
+
+# Astro
+
+moduix est une bibliothèque React. Dans Astro, affichez les composants interactifs avec l'intégration
+React officielle et hydratez chaque îlot avec une directive client Astro.
+
+## Ajouter l'intégration React
+
+```bash
+npx astro add react
+```
+
+## Installer le paquet
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Importez une seule fois la feuille de style de base depuis votre layout partagé :
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@moduix/react/style.css';
+---
+
+<html lang="en">
+  <body><slot /></body>
+</html>
+```
+
+Créez un composant React, puis hydratez-le depuis une page Astro :
+
+```tsx title="src/components/ContinueButton.tsx"
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+```astro title="src/pages/index.astro"
+---
+import { ContinueButton } from '../components/ContinueButton';
+---
+
+<ContinueButton client:load />
+```
+
+Utilisez la directive la moins impatiente adaptée à l'interaction. Un rendu statique côté serveur ne
+suffit pas pour Dialog, Menu, Select et les autres composants interactifs.
+
+## Installer avec la CLI shadcn
+
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), associez `@/*` à
+`src/*` dans `tsconfig.json`, puis importez `@/lib/moduix/styles/style.css` depuis le layout partagé. Les composants
+React générés nécessitent toujours une directive client Astro là où ils sont utilisés.
+
+## Vérifier
+
+La configuration est terminée lorsque l'îlot est stylé avant l'hydratation et réagit après l'exécution de la
+directive client.
+
+Consultez le [guide d'intégration React d'Astro](https://docs.astro.build/en/guides/integrations-guide/react/)
+pour toutes les options de moteur de rendu et d'hydratation.

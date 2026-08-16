@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
-import { Tabs, useTabs } from '../../../src/components/tabs/Tabs';
+import { Tabs, useTabs } from '@/components/tabs/Tabs';
 import { HandshakeIcon, MapIcon, PresentIcon } from '../../icons/demo';
 import styles from './Tabs.stories.module.css';
 
@@ -226,6 +226,18 @@ export const RootProvider: Story = {
           <TabsStoryContent />
         </Tabs.RootProvider>
       </div>
+    );
+  },
+};
+
+export const RootProviderVertical: Story = {
+  render: () => {
+    const tabs = useTabs({ defaultValue: 'overview', orientation: 'vertical' });
+
+    return (
+      <Tabs.RootProvider value={tabs} variant="line" className={styles.demoRoot}>
+        <TabsStoryContent />
+      </Tabs.RootProvider>
     );
   },
 };

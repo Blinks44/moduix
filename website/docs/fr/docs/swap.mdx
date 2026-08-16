@@ -1,0 +1,145 @@
+---
+title: Swap
+component: swap
+description: Animez le passage entre deux états visuels superposés tout en préservant la sémantique du contrôle environnant.
+---
+
+import * as SwapDocs from '@/components/examples/swap';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/swap" />
+
+## Exemple de base
+
+Utilisez `swap` pour choisir l’indicateur visible. `Swap` utilise par défaut l’animation `scale`, tandis que le
+bouton reste responsable de son nom accessible et de son comportement au clic.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/swap/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="swap" />
+
+Cette méthode d’installation ajoute également les styles de fondation partagés de moduix qui fournissent les
+animations prédéfinies.
+
+## Anatomie
+
+```text
+Swap / Swap.Root
+├─ Swap.Indicator type="off"
+└─ Swap.Indicator type="on"
+```
+
+| Partie               | Rôle                                                                       |
+| -------------------- | -------------------------------------------------------------------------- |
+| `Swap` / `Swap.Root` | Possède l’état Ark `swap` et superpose les deux états visuels.             |
+| `Swap.RootProvider`  | Utilise un état créé avec `Swap.useSwap()` à l’extérieur du sous-arbre.    |
+| `Swap.Indicator`     | Affiche un état visuel `on` ou `off` avec les attributs de Presence.       |
+
+Placez les deux indicateurs comme enfants directs de la racine : ils partagent ainsi la même cellule de
+grille et les animations incluses ne peuvent pas atteindre un Swap imbriqué.
+
+## Composition
+
+### Composition recommandée
+
+Réservez `Swap` au remplacement visuel. Placez-le dans un bouton, un lien ou une surface de statut sémantique ; ce
+parent gère les événements, le focus et le nom accessible. Marquez les indicateurs composés uniquement d’une icône
+avec `aria-hidden="true"` et placez le nom accessible courant sur le contrôle hôte.
+
+### Quand créer une composition personnalisée
+
+Utilisez `animation` pour sélectionner l’une des recettes incluses : `fade`, `scale`, `rotate` ou `flip`. La
+propriété accepte également un nom personnalisé : moduix l’écrit dans `data-animation` et laisse les indicateurs
+sans animation afin que le CSS du consommateur puisse exploiter les attributs `data-state` d’Ark sans entrer en
+conflit avec une animation par défaut.
+
+### Propriétés par défaut
+
+| Propriété       | Par défaut | Remarques                                                                  |
+| --------------- | ---------- | -------------------------------------------------------------------------- |
+| `swap`          | `false`    | Sélectionne l’indicateur `off`.                                            |
+| `animation`     | `scale`    | Animation moduix par défaut conservée, combinant fondu et mise à l’échelle. |
+| `lazyMount`     | `false`    | Diffère le montage d’un indicateur inactif jusqu’à son premier affichage.  |
+| `unmountOnExit` | `false`    | Retire un indicateur inactif après son animation de sortie.                |
+
+### Comportement
+
+- `swap` est contrôlé ; `Swap` ne réagit pas de lui-même au survol ou aux clics.
+- Chaque indicateur reçoit l’attribut Ark `data-state="open" | "closed"` pendant la transition.
+- `Swap.RootProvider` accepte l’état de `Swap.useSwap()`, et `useSwapContext()` lit cet état depuis un descendant
+  lorsqu’une composition personnalisée en a besoin.
+- `asChild` est disponible sur chaque partie. Fournissez exactement un enfant sémantique afin qu’il puisse recevoir
+  les propriétés et refs d’Ark ainsi que les hooks de style de moduix.
+
+## Exemples
+
+### Animations prédéfinies
+
+Choisissez l’une des recettes incluses, puis activez le bouton pour voir la transition sélectionnée. Les contrôles
+et la valeur courante se trouvent dans un bloc `PreviewMeta` centré, distinct de l’anatomie de Swap.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/swap/animation-presets.tsx"
+
+  ```
+</PreviewFrame>
+
+### Animation personnalisée
+
+Fournissez un nom d’`animation` personnalisé et ciblez le `data-animation` de la racine ainsi que le `data-state`
+Ark des indicateurs. Cette animation de rebond utilise volontairement du CSS ordinaire : aucune API Swap ni aucun
+JavaScript supplémentaire n’est nécessaire.
+
+<style>{SwapDocs.swapCustomAnimationCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/swap/custom-animation.tsx"
+
+  ```
+</PreviewFrame>
+
+```css
+.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='open'] {
+  animation: swap-bounce-enter var(--moduix-swap-transition, var(--moduix-transition-slow));
+}
+
+.swap-custom-animation[data-animation='bounce'] [data-slot='swap-indicator'][data-state='closed'] {
+  animation: swap-bounce-exit var(--moduix-swap-transition, var(--moduix-transition-slow));
+}
+```
+
+### Root Provider
+
+Créez l’état Swap en dehors du sous-arbre affiché avec `Swap.useSwap()`, puis transmettez-le à
+`Swap.RootProvider`. Cet exemple utilise également `asChild` afin de faire du bouton sémantique la véritable racine
+de Swap.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/swap/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={SwapDocs.swapOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+- `Swap.Root` → `data-slot="swap-root"`
+- `Swap.RootProvider` → `data-slot="swap-root-provider"`
+- `Swap.Indicator` → `data-slot="swap-indicator"`
+- `animation` est exposée sous forme de `data-animation` sur `Swap` et `Swap.RootProvider`.
+- Les animations incluses ciblent uniquement les enfants directs `Swap.Indicator` de cette racine.
+- Ark ajoute `data-scope="swap"` et `data-part="root" | "indicator"`.
+- Ark ajoute `data-state="open" | "closed"` aux indicateurs ; moduix utilise ces attributs pour ses animations
+  incluses.

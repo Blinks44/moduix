@@ -39,7 +39,7 @@ test('preserves Ark open-change detail objects', async () => {
   await waitFor(() => expect(details).toEqual([{ open: true }]));
 });
 
-test('closes on Escape and restores focus to its trigger', async () => {
+test('lazily mounts, then closes on Escape and restores focus to its trigger', async () => {
   render(
     <Drawer>
       <Drawer.Trigger asChild>
@@ -54,6 +54,8 @@ test('closes on Escape and restores focus to its trigger', async () => {
   );
 
   const trigger = screen.getByRole('button', { name: 'Open drawer' });
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
   fireEvent.click(trigger);
   fireEvent.keyDown(await screen.findByRole('dialog'), { key: 'Escape' });
 
@@ -119,4 +121,29 @@ test('opens a RootProvider drawer from external state', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Open via API' }));
 
   expect(await screen.findByRole('dialog')).toBeInTheDocument();
+});
+
+test('marks an island drawer and closes it through its accessible close icon', async () => {
+  render(
+    <Drawer>
+      <Drawer.Trigger asChild>
+        <Button>Open drawer</Button>
+      </Drawer.Trigger>
+      <Drawer.Positioner>
+        <Drawer.Content variant="island">
+          <Drawer.Title>Preferences</Drawer.Title>
+          <Drawer.CloseIcon />
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </Drawer>,
+  );
+
+  const trigger = screen.getByRole('button', { name: 'Open drawer' });
+  fireEvent.click(trigger);
+
+  expect(await screen.findByRole('dialog')).toHaveAttribute('data-variant', 'island');
+  fireEvent.click(screen.getByRole('button', { name: 'Close drawer' }));
+
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+  expect(trigger).toHaveFocus();
 });

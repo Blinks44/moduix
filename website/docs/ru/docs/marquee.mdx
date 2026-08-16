@@ -1,0 +1,240 @@
+---
+title: Marquee
+component: marquee
+description: Непрерывно прокручиваемый компонент Ark UI для логотипов, объявлений и повторяющегося содержимого.
+---
+
+import * as MarqueeDocs from '@/components/examples/marquee';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/marquee" />
+
+## Базовый пример
+
+Используйте `Marquee` как корневой элемент Ark, затем явно скомпонуйте `Viewport`, `Content` и `Item`. Передавайте
+описательную метку через `aria-label` или `translations.root`, особенно для информационного содержимого.
+По умолчанию корневой элемент визуально нейтрален; `PreviewFrame` ограничивает только ширину примера.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="marquee" />
+
+## Анатомия
+
+```text
+Marquee / Marquee.Root
+├─ Marquee.Edge
+├─ Marquee.Viewport
+│  └─ Marquee.Content
+│     └─ Marquee.Item
+└─ Marquee.Edge
+
+Marquee.RootProvider
+└─ то же дерево частей, подключённое к moduix useMarquee()
+```
+
+| Часть                       | Назначение                                                                  |
+| -------------------------- | --------------------------------------------------------------------------- |
+| `Marquee` / `Marquee.Root` | Корневое состояние, метки, ID, ориентация, состояние паузы и CSS-переменные. |
+| `Marquee.RootProvider`     | Отрисовывает дерево marquee из состояния, возвращённого `useMarquee`.      |
+| `Marquee.Viewport`         | Обрезающая область просмотра прокручиваемого содержимого.                  |
+| `Marquee.Content`          | Обёртка анимированного содержимого. Ark при необходимости клонирует её.    |
+| `Marquee.Item`             | Отдельный повторяемый элемент внутри содержимого.                           |
+| `Marquee.Edge`             | Необязательный оверлей затухания. Передайте `side`, чтобы выбрать край.    |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте краткую корневую форму `Marquee` и сохраняйте дерево частей Ark явным. Библиотека
+предоставляет ключевые кадры анимации и хуки состояния, а визуальное оформление элементов и рамка корня
+остаются в CSS потребителя.
+
+### Когда нужна собственная композиция
+
+Используйте `Marquee.Edge`, когда содержимое должно затухать на фоне страницы. Используйте moduix
+`useMarquee()` с `Marquee.RootProvider`, когда внешним элементам управления нужен API `pause()`, `resume()`,
+`togglePause()` и `restart()`. Не отрисовывайте `Marquee` и `Marquee.RootProvider` для одного объекта состояния.
+
+Используйте `asChild` на частях Ark при замене хост-элемента. Сохраняйте заменяющий дочерний элемент
+семантическим и единственным. Используйте `ids`, когда пользовательскому дереву нужны стабильные ID корня,
+области просмотра или содержимого.
+
+### Пропы и колбэки
+
+| Проп                 | По умолчанию | Примечания                                                            |
+| -------------------- | ------------ | --------------------------------------------------------------------- |
+| `side`               | `start`      | Используйте `start`, `end`, `top` или `bottom`. `top` и `bottom` - вертикальные. |
+| `speed`              | `50`         | Пикселей в секунду. Ark рассчитывает длительность из размера содержимого. |
+| `spacing`            | `1rem`       | Промежуток между экземплярами содержимого и элементами.              |
+| `delay`              | `0`          | Задержка перед началом анимации в секундах.                           |
+| `loopCount`          | `0`          | `0` означает бесконечное число циклов.                               |
+| `autoFill`           | `false`      | Дублирует содержимое до заполнения области просмотра.                |
+| `pauseOnInteraction` | `false`      | Приостанавливает при наведении и фокусе. Рекомендуется для читаемого содержимого. |
+| `reverse`            | `false`      | Меняет направление анимации, не меняя `side`.                         |
+| `defaultPaused`      | `false`      | Начальное состояние паузы в неуправляемом режиме.                    |
+| `paused`             | -            | Управляемое состояние паузы. Используйте вместе с `onPauseChange`.   |
+| `onPauseChange`      | -            | Получает объект `details` со статусом паузы Ark.                               |
+| `onLoopComplete`     | -            | Срабатывает после каждой итерации цикла.                              |
+| `onComplete`         | -            | Срабатывает после последнего цикла при конечном `loopCount`.          |
+| `translations`       | -            | Локализованная метка корня. Используйте её или `aria-label`.         |
+| `ids`                | -            | Стабильные ID для экземпляров корня, области просмотра и содержимого. |
+| `asChild`            | -            | Сохраняется на каждой части Ark для замены хост-элемента.             |
+| `Marquee.Edge side`  | -            | Обязательная сторона края: `start`, `end`, `top` или `bottom`.       |
+| `RootProvider.value` | -            | Обязательный `UseMarqueeReturn` из `useMarquee()`.                   |
+
+### Особенности поведения
+
+Используйте `paused` с `onPauseChange(details)` для управляемого воспроизведения. Используйте `loopCount`,
+`onLoopComplete` и `onComplete`, когда marquee должен остановиться после конечного числа циклов. Сигнатуры
+колбэков остаются исходными сигнатурами Ark.
+
+Ark отрисовывает семантику marquee как подписанный регион и скрывает клонированное содержимое от вспомогательных
+технологий. Передавайте осмысленный `aria-label` или `translations.root`. Предпочитайте `pauseOnInteraction`,
+если содержимое интерактивно или требует времени на чтение, и не используйте marquee для критически важной информации.
+
+Здесь нет блуждающего фокуса и навигации стрелочными клавишами. Когда включён `pauseOnInteraction`, фокус
+приостанавливает marquee, а потеря фокуса возобновляет его.
+
+Когда пользователь предпочитает уменьшенное движение, moduix отключает анимацию содержимого, сохраняя
+содержимое marquee доступным.
+
+## Примеры
+
+### Автозаполнение
+
+Используйте `autoFill`, если доступное содержимое короче области просмотра. `spacing` управляет промежутком
+между продублированными экземплярами содержимого.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/auto-fill.tsx"
+
+```
+</PreviewFrame>
+
+### Края
+
+Добавьте `Marquee.Edge` на стороны, которые должны затухать на фоне страницы. Часть края декоративна и не получает события указателя.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/edges.tsx"
+
+```
+</PreviewFrame>
+
+### Конечное число циклов
+
+Установите `loopCount` для конечного воспроизведения. `onLoopComplete` срабатывает после каждого цикла, а `onComplete` - после последнего.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/finite-loops.tsx"
+
+```
+</PreviewFrame>
+
+### Пауза при взаимодействии
+
+Используйте `pauseOnInteraction`, чтобы приостанавливать marquee, пока пользователь наводит курсор или фокусирует содержимое внутри него.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/pause-on-interaction.tsx"
+
+```
+</PreviewFrame>
+
+### Программное управление
+
+Используйте moduix `useMarquee()` и `Marquee.RootProvider`, когда внешним элементам управления нужно приостанавливать, возобновлять или перезапускать воспроизведение.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/programmatic-control.tsx"
+
+```
+</PreviewFrame>
+
+### Обратное направление
+
+Используйте `reverse`, когда содержимое должно двигаться в направлении, противоположном настроенной стороне, без смены ориентации.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/reverse.tsx"
+
+```
+</PreviewFrame>
+
+### Справа налево
+
+Оберните marquee в `LocaleProvider` с RTL-локалью. Тогда логические края `start` и `end` следуют настроенному направлению.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/rtl.tsx"
+
+```
+</PreviewFrame>
+
+### Скорость
+
+Управляйте движением через `speed`, измеряемый в пикселях в секунду. Меньшие значения легче читать.
+
+<style>{MarqueeDocs.marqueeExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/marquee/speed.tsx"
+
+```
+</PreviewFrame>
+
+### Вертикальная ориентация
+
+Установите `side="top"` или `side="bottom"` для вертикального marquee. По умолчанию корневой элемент использует
+`--moduix-marquee-vertical-height`, поэтому область просмотра имеет стабильный блочный размер.
+
+<style>{MarqueeDocs.marqueeVerticalCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/marquee/vertical.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Для движения Marquee требуются поставляемые ключевые кадры содержимого. Переопределяйте раскладку и визуальное
+оформление через CSS-переменные и классы частей; сохраняйте атрибуты состояния Ark для стилизации поведения.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]} className="docs-reference-tabs" contentItemClassName="docs-reference-panel">
+    <Tab><MarqueeDocs.MarqueeCssPropertiesPanel /></Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="marquee-root"`, `marquee-root-provider`, `marquee-viewport`, `marquee-content`, `marquee-item` и `marquee-edge`.
+- Хуки Ark: `data-scope="marquee"`, `data-part="root|viewport|content|item|edge"`, `data-state="paused|idle"`, `data-orientation`, `data-side`, `data-index`, `data-paused`, `data-reverse` и `data-clone`.
+- CSS-переменные Ark: `--marquee-duration`, `--marquee-spacing`, `--marquee-delay`, `--marquee-loop-count` и `--marquee-translate`.

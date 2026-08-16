@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { Fieldset } from '../../../src/components/fieldset';
-import { RadioGroup, useRadioGroup } from '../../../src/components/radio-group/RadioGroup';
+import { Field } from '@/components/field';
+import { Fieldset } from '@/components/fieldset';
+import { RadioGroup, useRadioGroup } from '@/components/radio-group/RadioGroup';
 import styles from './RadioGroup.stories.module.css';
 
 const meta = {
@@ -160,11 +160,11 @@ export const ReadOnly: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <RadioGroup defaultValue="React" className={styles.customRoot}>
-      <RadioGroup.Label className={styles.customLabel}>Styled Framework</RadioGroup.Label>
+      <RadioGroup.Label>Styled Framework</RadioGroup.Label>
       {frameworks.map((item) => (
         <RadioGroup.Item key={item} value={item} className={styles.customItem}>
           <RadioGroup.ItemControl className={styles.customControl} />
-          <RadioGroup.ItemText className={styles.customText}>{item}</RadioGroup.ItemText>
+          <RadioGroup.ItemText>{item}</RadioGroup.ItemText>
         </RadioGroup.Item>
       ))}
     </RadioGroup>

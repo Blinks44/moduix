@@ -1,0 +1,84 @@
+---
+title: Vite
+description: Установите moduix в React-приложение на Vite с корректной таблицей стилей и алиасом для исходного кода в проекте.
+---
+
+# Vite
+
+Используйте эту настройку со стандартным шаблоном Vite для React или React + TypeScript.
+
+## Установите пакет
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Один раз импортируйте базовую таблицу стилей в `src/main.tsx`:
+
+```tsx title="src/main.tsx"
+import '@moduix/react/style.css';
+```
+
+Теперь можно импортировать компоненты из подпутей пакета:
+
+```tsx title="src/App.tsx"
+import { Button } from '@moduix/react/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Установка через shadcn CLI
+
+Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), затем сопоставьте `@/*` с
+`src/*`. Стандартному шаблону TypeScript нужен алиас в корневой конфигурации, конфигурации приложения и
+конфигурации Vite.
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+```json title="tsconfig.app.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+Вместо таблицы стилей пакета импортируйте сгенерированную таблицу стилей в `src/main.tsx`:
+
+```tsx title="src/main.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+## Проверка
+
+Настройка завершена, когда отображается стилизованный компонент, а `@/components/moduix/*` разрешается без ошибки
+редактора или сборки. Vite не требует отдельной клиентской границы.
+
+Полная настройка фреймворка приведена в [руководстве Vite](https://vite.dev/guide/).

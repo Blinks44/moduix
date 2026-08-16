@@ -1,0 +1,261 @@
+---
+title: Angle Slider
+component: angle-slider
+description: Круглый элемент управления для выбора угла от 0 до 360 градусов.
+---
+
+import * as AngleSliderDocs from '@/components/examples/angle-slider';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/angle-slider" />
+
+## Выбор подходящего компонента
+
+Используйте `AngleSlider`, когда пользователи должны напрямую изменять направление или поворот на круговом регуляторе.
+
+- Выберите **`AngleSlider`** для поворота, курса, направления прожектора и других угловых значений.
+- Выберите **`Slider`**, если значение лучше воспринимается на линейной шкале.
+- Выберите **`NumberInput`**, если точный ввод градусов важнее прямого взаимодействия.
+
+## Базовый пример
+
+Начните с минимально полезной композиции: `Dial`. Позже добавьте видимый `Label` или сохраните
+`aria-label` на корневом элементе, если регулятор может использоваться самостоятельно.
+
+<style>{AngleSliderDocs.angleSliderBasicCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="angle-slider" />
+
+## Анатомия
+
+```text
+AngleSlider.Root
+├─ AngleSlider.Label
+├─ AngleSlider.Control
+│  ├─ AngleSlider.MarkerGroup
+│  │  └─ AngleSlider.Marker[value]
+│  └─ AngleSlider.Thumb
+└─ AngleSlider.ValueText
+```
+
+| Часть                              | Назначение                                                              |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `AngleSlider` / `AngleSlider.Root` | Хранит неуправляемое или управляемое состояние слайдера.                |
+| `AngleSlider.RootProvider`         | Подключает внешнее состояние Ark.                                       |
+| `AngleSlider.Label`                | Связывает видимую метку с бегунком слайдера.                            |
+| `AngleSlider.Control`              | Круглая поверхность для взаимодействия указателем.                      |
+| `AngleSlider.Dial`                 | Удобная обёртка, отрисовывающая `Control` и `Thumb`.                    |
+| `AngleSlider.MarkerGroup`          | Содержит необязательные опорные метки.                                  |
+| `AngleSlider.Marker`               | Размещает числовую метку и предоставляет её связь с текущим значением.  |
+| `AngleSlider.Marks`                | Удобная обёртка, отрисовывающая элементы `MarkerGroup` и `Marker`.      |
+| `AngleSlider.Thumb`                | Фокусируемый бегунок слайдера и поворачивающийся индикатор угла.        |
+| `AngleSlider.ValueText`            | Отрисовывает текущее значение как текст в градусах.                     |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Начните с `Dial`, затем добавляйте только части, соответствующие задаче:
+
+- добавьте `Label` или сохраните `aria-label` для доступного имени
+- добавьте `Marks`, если пользователям нужны опорные точки вокруг регулятора
+- добавьте `ValueText`, если числовое значение угла должно оставаться видимым
+- задайте `name`, если угол должен участвовать в отправке нативной формы
+- задайте `form`, если нативное поле относится к форме, которая не содержит слайдер
+
+### Когда нужна собственная композиция
+
+Используйте явные части `Control`, `Thumb`, `MarkerGroup` и `Marker`, когда регулятору требуются пользовательские
+дочерние элементы, свойства для каждой метки или нестандартный порядок. Используйте `useAngleSlider()` из `@moduix/react`
+вместе с `AngleSlider.RootProvider`, если состояние нужно контролировать вне отрисовываемого поддерева слайдера.
+Для чтения контекста используйте `AngleSlider.Context` и `useAngleSliderContext()` из moduix. Не отрисовывайте
+`Root` и `RootProvider` для одного экземпляра состояния.
+
+DOM-части Ark поддерживают `asChild`; передавайте один совместимый дочерний элемент, способный сохранить их поведение
+клавиатуры, фокуса, ARIA и указателя. `Dial` и `Marks` сохраняют фиксированную композицию из нескольких частей, поэтому
+не принимают `asChild`. С `Root` или `RootProvider` используйте контейнер, который может содержать внутренне
+отрисованное скрытое поле ввода и части слайдера. Используйте `ids` на `Root`, если составным элементам нужны стабильные общие
+идентификаторы. Ref перенаправляются к DOM-элементу, отрисованному каждой обёрнутой частью Ark.
+
+### Свойства по умолчанию
+
+| Свойство       | По умолчанию | Примечания                                      |
+| -------------- | ------------ | ----------------------------------------------- |
+| `defaultValue` | `0`          | Начальный угол в неуправляемом режиме           |
+| `step`         | `1`          | Приращение значения для клавиатуры и указателя  |
+| `disabled`     | `false`      | Запрещает фокус и взаимодействие                |
+| `readOnly`     | `false`      | Оставляет значение видимым, но недоступным для изменения |
+| `invalid`      | `false`      | Открывает недопустимое состояние для ARIA и стилизации |
+
+### Особенности поведения
+
+- `value` - одно число; `onValueChange(details)` и `onValueChangeEnd(details)` сохраняют объекты
+  колбэков Ark с `details.value` и `details.valueAsDegree`.
+- Бегунок поддерживает клавиатурное поведение слайдера Ark и перетаскивание указателем вокруг круглого элемента управления.
+- `AngleSlider.Marks` отрисовывает тот же DOM меток и хуки стилизации, что и явная композиция `MarkerGroup` /
+  `Marker`.
+- `Root` и `RootProvider` автоматически отрисовывают нативное поле формы. Задайте `name` для
+  отправки формы и `form` для внешнего владельца формы. Нативный сброс возвращает неуправляемый
+  `Root` к `defaultValue`, а `RootProvider` - к значению на момент монтирования. Итоговое значение
+  управляемого компонента по-прежнему определяет его внешний владелец.
+- `ValueText` отрисовывает строку с градусами Ark, если не переданы пользовательские дочерние элементы.
+- Для стилизации по-прежнему доступны `data-disabled`, `data-invalid`, `data-readonly`, `data-state` метки, `--value`, `--angle`,
+  `--marker-value` и `--marker-display-value`.
+
+## Примеры
+
+### Управляемое состояние
+
+Используйте управляемое состояние, когда угол должен оставаться синхронизированным с состоянием приложения.
+
+<style>{AngleSliderDocs.angleSliderControlledCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённое состояние
+
+Используйте `disabled`, когда элемент управления должен быть недоступен и исключён из взаимодействия.
+
+<style>{AngleSliderDocs.angleSliderDisabledCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/disabled.tsx"
+
+```
+
+</PreviewFrame>
+
+### В форме
+
+Добавьте `name`, если угол должен участвовать в отправке или сбросе нативной формы. moduix автоматически
+отрисовывает нативное поле формы; используйте `form`, если форма не является предком слайдера.
+
+<style>{AngleSliderDocs.angleSliderFormCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/form.tsx"
+
+```
+
+</PreviewFrame>
+
+### Недопустимое состояние
+
+Используйте `invalid`, если выбранный угол не проходит валидацию и регулятор должен предоставлять стили ошибки и
+состояние ARIA без изменения модели взаимодействия.
+
+<style>{AngleSliderDocs.angleSliderInvalidCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/invalid.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только для чтения
+
+Используйте `readOnly`, если текущее значение должно оставаться фокусируемым и видимым без возможности редактирования.
+
+<style>{AngleSliderDocs.angleSliderReadOnlyCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/read-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useAngleSlider()` из `@moduix/react` вместе с `AngleSlider.RootProvider`, если другому компоненту
+нужен прямой доступ к той же машине состояний. Внешнее состояние остаётся доступным для окружающего интерфейса.
+
+<style>{AngleSliderDocs.angleSliderRootProviderCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Шаги
+
+Используйте `step`, чтобы привязать взаимодействие указателем и клавиатурой к дискретному угловому приращению.
+
+<style>{AngleSliderDocs.angleSliderStepCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/steps.tsx"
+
+```
+
+</PreviewFrame>
+
+### С метками
+
+Используйте `AngleSlider.Marks`, если регулятор должен показывать распространённые опорные углы без повторения
+шаблонного кода `MarkerGroup` и `Marker`. `AngleSlider.Dial` сохраняет композицию `Control` и `Thumb`.
+
+<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/with-marks.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Откажитесь от `AngleSlider.Dial` и `AngleSlider.Marks`, если регулятору требуются пользовательская композиция меток или
+дополнительные дочерние элементы внутри элемента управления.
+
+<style>{AngleSliderDocs.angleSliderWithMarksCss}</style>
+
+<PreviewFrame maxWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/angle-slider/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте компонент через `className`, стабильные хуки `data-slot="angle-slider-*"`, атрибуты Ark
+`data-scope="angle-slider"` / `data-part`, атрибуты состояния и публичные CSS-переменные ниже.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={AngleSliderDocs.angleSliderCssProperties} />
+
+### Хуки стилизации
+
+- `data-slot="angle-slider-root"` и `data-slot="angle-slider-root-provider"` управляют общей раскладкой.
+- `data-slot="angle-slider-control"` управляет регулятором и получает `data-disabled`, `data-invalid`
+  и `data-readonly`.
+- `data-slot="angle-slider-thumb"` управляет фокусируемым поворачивающимся индикатором и может выбираться через
+  `:focus-visible`.
+- `data-slot="angle-slider-marker"` предоставляет `data-value` и
+  `data-state="under-value | at-value | over-value"`.
+- `AngleSlider.Marks` отрисовывает те же хуки `data-slot="angle-slider-marker-group"` и
+  `data-slot="angle-slider-marker"`, что и явные части меток.
+- Сохраняются корневые переменные Ark `--value` и `--angle`, а также переменные меток `--marker-value` и
+  `--marker-display-value`.
+- Цвета кольца при наведении и нажатии применяются только к интерактивному регулятору; при
+  включённом сокращении движения анимация бегунка отключается.

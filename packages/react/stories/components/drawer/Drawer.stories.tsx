@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactNode } from 'react';
-import { Button } from '../../../src/components/button';
-import { Drawer, useDrawer, useDrawerContext } from '../../../src/components/drawer/Drawer';
-import { ScrollArea } from '../../../src/components/scroll-area/ScrollArea';
+import { Button } from '@/components/button';
+import { Drawer, useDrawer, useDrawerContext } from '@/components/drawer/Drawer';
+import { ScrollArea } from '@/components/scroll-area/ScrollArea';
 import { insideScrollSections } from '../../data/insideScrollSections';
 import storyStyles from './Drawer.stories.module.css';
 
@@ -28,18 +28,20 @@ function DrawerSurface({
   children,
   draggable,
   backdrop = true,
+  variant,
 }: {
   title: string;
   description?: string;
   children?: ReactNode;
   draggable?: boolean;
   backdrop?: boolean;
+  variant?: 'island';
 }) {
   return (
     <>
       {backdrop ? <Drawer.Backdrop /> : null}
       <Drawer.Positioner>
-        <Drawer.Content draggable={draggable}>
+        <Drawer.Content draggable={draggable} variant={variant}>
           <Drawer.Grabber>
             <Drawer.GrabberIndicator />
           </Drawer.Grabber>
@@ -104,6 +106,23 @@ export const SnapPoints: Story = {
             </section>
           ))}
         </Drawer.Body>
+      </DrawerSurface>
+    </Drawer.Root>
+  ),
+};
+
+export const Island: Story = {
+  render: () => (
+    <Drawer.Root defaultSnapPoint={DEFAULT_DEMO_SNAP_POINT} snapPoints={DEFAULT_DEMO_SNAP_POINTS}>
+      <Drawer.Trigger asChild>
+        <Button>Open island drawer</Button>
+      </Drawer.Trigger>
+      <DrawerSurface
+        variant="island"
+        title="Floating drawer"
+        description="This compact drawer stays inset from the viewport edge."
+      >
+        <Drawer.Body>Use the island variant for a detached drawer surface.</Drawer.Body>
       </DrawerSurface>
     </Drawer.Root>
   ),

@@ -17,13 +17,13 @@ const AspectRatioRoot = forwardRef<ComponentRef<typeof ark.div>, AspectRatioRoot
 
     return (
       <ark.div
+        {...props}
         ref={ref}
         data-scope="aspect-ratio"
         data-part="root"
         data-slot="aspect-ratio-root"
         className={clsx(styles.root, normalizeClassName(className))}
-        style={{ ...style, '--aspect-ratio-value': ratio } as CSSProperties}
-        {...props}
+        style={{ ...style, '--_aspect-ratio-value': ratio } as CSSProperties}
       />
     );
   },

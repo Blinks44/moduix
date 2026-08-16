@@ -1,144 +1,40 @@
 ---
 name: ui-component-workflow
-description: Use for implementation, UX/API review, behavior, composition, stories, exports, and local docs of components in packages/react.
+description: Use for implementation, UX/API review, behavior, composition, stories, exports, and registry synchronization of components in packages/react.
 ---
 
-# Skill: ui-component-workflow
+# UI Component Workflow
 
-Use this skill for work in `packages/react`.
+Own the shipped component contract in `packages/react`: behavior, public composition, exports, stories, and registry synchronization. Keep Ark behavior intact while making the moduix API smaller and clearer.
 
-## Scope
+## Read first
 
-- new components
-- component API, behavior, and style changes
-- stories, public exports, and local component docs
+1. `AGENTS.md` and the touched component's implementation, styles, story, and local markdown.
+2. The public docs and registry manifest when the change reaches consumers.
+3. Current Ark, Chakra, or shadcn sources only when their behavior materially informs the decision; use `upstream-library-docs` for that research.
 
-## Read First
+## Workflow
 
-1. `AGENTS.md`
-2. The touched component's TSX, CSS module, story, and local markdown
-3. `.agents/skills/js-react-conventions/SKILL.md`
-4. `.agents/skills/upstream-library-docs/SKILL.md` when Ark, Chakra, or shadcn behavior matters
-5. `.agents/skills/local-component-docs/SKILL.md` when component markdown changes
+1. Define the changed public contract: behavior, parts, props, refs, state, accessibility, CSS variables, and migration impact.
+2. Implement the smallest Ark-shaped change. Preserve lower-level composition when adding narrow convenience parts.
+3. Update exports, stories, local markdown, public docs, and registry artifacts that describe the changed contract.
+4. Test the changed behavior and remove obsolete code, examples, and styling paths created by the change.
 
-Before editing an existing component, inspect its implementation, styling, stories, and local
-markdown together. Check public docs/examples when the change is user-facing.
+## API decisions
 
-## Workflow Contract
+- Keep Ark behavior, callback detail objects, accessibility semantics, lifecycle, part names, and state attributes unless a documented product decision changes them.
+- Prefer an explicit part tree and narrow conveniences over prop-heavy wrapper components, aliases, renamed events, value translators, hidden state machines, or shadcn-shaped compatibility trees.
+- Do not add nested prop bags by default. Add one only for a fixed structure and a small recurring subset that explicit composition cannot express clearly.
+- Every convenience part remains stylable and composable: preserve meaningful `className`, `data-slot`, CSS variables, or lower-level parts.
+- For review-only work, report findings by consumer impact and do not edit implementation.
 
-- Keep wrappers thin, explicit, and Ark-shaped.
-- Treat Ark UI as the behavior source for anatomy, lifecycle, state, callback detail objects, accessibility, and part naming.
-- Prefer direct primitive passthrough and explicit composition over prop translation, hidden structural bundles, feature
-  flags, compatibility shims, or extra local state layers.
-- Preserve the current public contract unless the task explicitly changes it: meaningful parts, controlled/uncontrolled
-  behavior, refs, `asChild`, `HiddenInput`, provider/context hooks, and stable `data-slot` hooks should not disappear
-  silently.
-- If consumer-facing stories or docs need an Ark context, item context, state hook, or context hook as part of the
-  normal advanced path, expose that state surface through the moduix component namespace or package barrel instead of
-  teaching consumers to import `ArkComponent.Context` from `@ark-ui/react/*`. Keep direct Ark imports only for rare
-  escape hatches that are intentionally outside the moduix API.
-- When the current moduix API exports `RootProvider`, `Context`, `ItemContext`, `useComponent`, or `use*Context`,
-  keep that surface aligned unless the task intentionally simplifies it everywhere.
-- Preserve the callable `Object.assign` root pattern so both `<Component>` and `<Component.Root>` keep working when
-  that is already part of the contract.
-- Prefer removing duplicated private plumbing before removing meaningful public structure or escape hatches.
+## Native form controls
 
-### Native Form-Control Ownership
+When moduix owns Ark's native hidden control, render it on every public composition path and preserve controlled and uncontrolled state, `name`, `form`, validity, reset synchronization, refs, `ids`, provider/context hooks, and `asChild` validity. Do not scan consumer children or add a compatibility registry. Removing a public hidden-control part is an intentional documented API change.
 
-When moduix intentionally makes Ark's native form-control part an implementation detail:
+## Synchronization
 
-- Render the required native control on every public composition path: `Root`, `RootProvider`, or each `Item` when
-  submission is item-based. Choose placement before editing; do not rely on consumers to add a hidden child.
-- Preserve controlled and uncontrolled state, `name`, `form`, validity, native reset synchronization, refs, `ids`,
-  provider/context hooks, `asChild`, and useful `data-slot` hooks. Verify that automatic insertion still gives
-  `asChild` one valid semantic child.
-- Keep the implementation component-local and Ark-shaped. Do not scan consumer children for a hidden part or add a
-  shared compatibility registry.
-- Move configuration that cannot be inferred into semantic public props: for example, distinct names for range fields,
-  a lightweight form-control mode for virtualized collections, or a serializer for structured values.
-- Remove a public `HiddenInput`, `HiddenSelect`, or `ItemHiddenInput` part only as an intentional documented API
-  change, including its namespace export and obsolete styling when nothing else needs them.
-
-## UX and API Decisions
-
-- For review-only requests, report findings ordered by consumer impact and do not edit files.
-- For implementation requests, make the smallest changes that improve comprehension, composition, styling, or migration
-  ergonomics without weakening Ark contracts.
-- Evaluate upstream references in this order: Ark for behavior, Chakra for Ark-aligned ergonomics, then shadcn for
-  migration friction and example readability. Classify differences as `keep`, `simplify`, `add sugar`, `document`, or
-  `reject` before changing the API.
-- Prefer narrow convenience parts that remove repeated boilerplate while leaving lower-level composition available.
-- Do not add compatibility aliases, renamed event props, value translators, hidden state machines, or shadcn-shaped
-  wrapper trees only to reduce migration effort.
-- Avoid nested prop bags such as `inputProps` or `triggerProps` by default. Use one only for a fixed structure and a
-  small recurring prop subset when explicit composition would be less clear.
-- Reject prop-heavy convenience components that hide portal, positioning, parsing, focus, or other behavior already
-  owned by Ark or Zag.
-- Keep every convenience part stylable: accept `className` on meaningful visual roots and retain useful Ark data
-  attributes, CSS variables, stable `data-slot` hooks, or exported lower-level parts for deeper customization.
-
-## Full Component Reviews
-
-For an implementation-bearing review, inventory the component implementation, styles, exports, stories, tests,
-local markdown, registry entry, documentation page, preview snippets, and relevant sibling components before editing.
-Record the current public contract, simple and advanced composition paths, and intentional moduix sugar.
-
-Use live primary upstream sources when behavior is relevant. Classify each finding as a defect, a low-risk
-evidence-backed parity improvement, an intentional moduix difference, or speculation. Fix defects and justified
-improvements; preserve and document intentional differences; do not implement speculation. New sugar must solve a
-concrete recurring task, preserve the Ark-shaped advanced path, fit sibling patterns, and be simple to document and test.
-
-For responsive or animated primitives, inspect behavior across opening, open, closing, interrupted, and unmounted
-states. Verify mobile and desktop separately, including keyboard and focus behavior, reduced motion, long content,
-overflow, zoom, theme, and RTL when applicable. Keep a compact working evidence matrix and report rejected upstream
-ideas with their moduix rationale.
-
-## Typing Rules
-
-- When wrapping Ark primitive parts, prefer `ComponentRef<typeof Primitive.Part>` for refs and
-  `ComponentProps<typeof Primitive.Part>` for props.
-- When wrapping `ark.*` factory elements such as `ark.div`, `ark.button`, or `ark.a`, prefer
-  `HTMLArkProps<'div'>`, `HTMLArkProps<'button'>`, and the matching intrinsic form for props.
-- Do not rewrite `ark.*` wrappers to `ComponentProps<typeof ark.div>`-style typing only for visual consistency with
-  primitive wrappers.
-- Keep the standard component shape when it already exists: `ComponentName.tsx`, `ComponentName.module.css`,
-  `ComponentName.stories.tsx`, `component-name.md`, and `index.ts`.
-- Accept `className` on meaningful visual roots.
-- Use stable `data-slot` hooks on exported parts.
-- Do not add business logic, extra state layers, speculative APIs, or god components.
-
-## Component Family Contracts
-
-### Popup-like Components
-
-- Prefer the full explicit Ark/Chakra composition path as the public contract.
-- Keep structural parts explicit. `Content` means the real upstream content part, not a hidden bundle such as
-  `Portal + Positioner + Content`.
-- Roots own portal transport through the shared `portalled` and `portalRef` contract.
-- Preserve Ark positioning, accessibility wiring, and runtime CSS variables when the primitive exposes them.
-
-### Dialog-like Components
-
-- Keep the visible content wrapper thin.
-- Export the full explicit Ark/Chakra composition path as the default and documented API.
-- Allow only narrow workflow sugar that removes repeated boilerplate without hiding structure.
-- Preserve Ark focus lifecycle, title/description wiring, context hooks, and controlled/uncontrolled state shape.
-
-## Sync Requirements
-
-- Keep stories, package barrels, local component markdown, public docs, and registry output aligned with the shipped API.
-- Keep Ark-backed parts, refs, `HiddenInput`, form context, callback detail objects, `asChild`, `ids`, context hooks,
-  `RootProvider`, state attributes, and CSS variables consistent across implementation and documentation.
-- If the wrapper exposes provider/context/state surfaces, stories should cover them, not only the happy path.
-- Remove deleted props, obsolete customization paths, and outdated examples in the same task.
-- If API, behavior, styling hooks, or recommended usage changed, update local component markdown in the same task.
-- When public changes affect docs, update site examples, README installation or styling guidance, and supported package
-  imports in the same change. Teach the recommended path first and retain the lower-level composition as the advanced
-  path. When a native form-control part becomes internal, remove it from public anatomy and examples, explain its
-  automatic rendering, and document any semantic migration props that replace manual configuration.
-- If a registry-shipped component changes public styling, import contract, or registry dependencies, update
-  `registry.json` and run `npm run build:registry`.
-- Use `kebab-case` component directories and retain existing implementation filenames. Use relative imports between
-  components within `packages/react/src/components`; use `@/lib/moduix/*` for shared registry-safe utilities, icons,
-  and styles. Keep consumer registry targets namespaced under `@components/moduix/*` and `@lib/moduix/*`. Do not
-  start a development server; use the existing project workflow.
+- Keep stories, package barrels, local markdown, public docs, and registry output aligned with the shipped API.
+- Cover exposed provider, context, and state surfaces in stories when they are consumer contracts.
+- Update `registry/registry.json` and run `npm run build:registry` when a registry-shipped component changes its public import, styling, or dependency contract.
+- Use existing component directory and import conventions; do not start a development server outside the project workflow.

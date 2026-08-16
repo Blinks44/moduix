@@ -1,0 +1,331 @@
+---
+title: Select
+component: select
+description: Композиция Select из Ark UI для выбора одного или нескольких значений из всплывающего списка.
+---
+
+import * as SelectDocs from '@/components/examples/select';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/select" />
+
+## Выбор подходящего компонента
+
+Используйте `Select`, когда пользователь выбирает из фиксированной коллекции, а триггер остаётся
+доступным только для чтения. Используйте `Combobox`, когда ввод помогает найти или создать значение.
+
+## Базовый пример
+
+Передайте коллекцию в `Select`, используйте `Select.Field` для стандартного видимого элемента управления
+и сохраняйте явную структуру всплывающего окна. `clearLabel` добавляет доступное действие очистки.
+Корневой элемент автоматически рендерит нативный элемент формы для отправки, автозаполнения и сброса.
+
+<style>{SelectDocs.selectExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="select" />
+
+## Анатомия
+
+```text
+Select / Select.Root
+├─ Select.Label
+├─ Select.Control / Select.Field
+│  ├─ Select.Trigger
+│  │  ├─ Select.ValueText
+│  │  └─ Select.Indicator
+│  └─ Select.ClearTrigger
+├─ Поддерево оверлея (автоматически портируется)
+│  └─ Select.Positioner
+│     └─ Select.Content
+│        ├─ Select.List
+│        └─ Select.ItemGroup
+│           ├─ Select.ItemGroupLabel
+│           └─ Select.Item[item]
+│              ├─ Select.ItemText
+│              └─ Select.ItemIndicator
+└─ native form control (автоматически)
+```
+
+| Часть                    | Назначение                                                               |
+| ------------------------ | ------------------------------------------------------------------------ |
+| `Select` / `Select.Root` | Корневое состояние, коллекция, выбор, жизненный цикл всплывающего окна и данные формы. |
+| `Select.RootProvider`    | Рендерит дерево Select из состояния, возвращённого `Select.useSelect`.  |
+| `Select.Label`           | Доступная подпись, наследуемая триггером и нативным элементом формы.     |
+| `Select.Control`         | Обёртка видимого поля, получающая состояния фокуса, некорректности и открытия. |
+| `Select.Field`           | Помощник moduix, рендерящий стандартный control, триггер и действия.     |
+| `Select.Trigger`         | Кнопка, открывающая всплывающее окно и принимающая ввод с клавиатуры.    |
+| `Select.ValueText`       | Плейсхолдер или подписи выбранных элементов.                            |
+| `Select.ClearTrigger`    | Кнопка очистки текущего значения.                                       |
+| `Select.Indicator`       | Индикатор триггера со стандартной иконкой стрелки moduix.                |
+| `Select.Positioner`      | Плавающий слой, предоставляющий CSS-переменные позиционирования Ark.     |
+| `Select.Content`         | Поверхность всплывающего окна и контейнер listbox.                       |
+| `Select.List`            | Необязательная обёртка списка для виртуализированных и пользовательских раскладок. |
+| `Select.ItemGroup`       | Обёртка группы связанных элементов коллекции.                           |
+| `Select.ItemGroupLabel`  | Подпись группы коллекции.                                                |
+| `Select.Item`            | Выбираемая строка. Передайте элемент коллекции через `item`.             |
+| `Select.ItemText`        | Текст для отображения и доступности.                                    |
+| `Select.ItemIndicator`   | Индикатор выбранного состояния со стандартной иконкой галочки moduix.    |
+
+## Композиция
+
+Корневой элемент автоматически портирует `Positioner`. Используйте `portalled={false}` для inline-рендеринга и
+`portalRef` для пользовательского контейнера; `Positioner` и `Content` остаются явными и доступными
+для стилизации.
+
+### Рекомендуемая композиция
+
+`Select.Field` рендерит `Control`, `Trigger`, `ValueText` и стандартный индикатор. Передайте
+`clearLabel`, чтобы включить подписанное действие очистки, или `indicator={<Icon />}`, чтобы заменить
+только стрелку. Оставляйте `Positioner`, `Content` и элементы видимыми в композиции.
+
+`Select` - короткая корневая форма; `Select.Root` остаётся её эквивалентным псевдонимом пространства имён.
+
+### Когда нужна собственная композиция
+
+Используйте явные `Control`, `Trigger` и визуальные части, когда их раскладке требуется независимая
+композиция. `asChild` требует одного семантического контейнера, который способен принять автоматический
+нативный элемент формы; используйте контейнер вроде `div` или `section`, а не интерактивный элемент вроде
+`button`. Используйте `Select.List` для пользовательских обёрток списка и путей виртуализации.
+
+### Свойства по умолчанию
+
+Содержимое портированного оверлея по умолчанию лениво монтируется и размонтируется после анимации выхода.
+Задайте `unmountOnExit={false}`, чтобы сохранить его после первого открытия; задавайте оба свойства
+жизненного цикла как `false`, только когда нужен немедленный начальный рендеринг.
+
+| Свойство                   | По умолчанию | Примечания                                                |
+| -------------------------- | ------------ | --------------------------------------------------------- |
+| `closeOnSelect`            | `true`       | Закрывает всплывающее окно после выбора элемента.         |
+| `composite`                | `true`       | Включает клавиатурную композицию listbox.                 |
+| `defaultValue`             | `[]`         | Значения - массивы строк, включая одиночный выбор.        |
+| `lazyMount`                | `true`       | Откладывает монтирование содержимого до открытия.         |
+| `loopFocus`                | `false`      | По умолчанию стрелочная навигация не зацикливается.       |
+| `multiple`                 | `false`      | При включении разрешает несколько значений.               |
+| `unmountOnExit`            | `true`       | Удаляет содержимое после анимации выхода.                 |
+| `ValueText.placeholder`    | -            | Текст при пустом массиве значений.                        |
+
+### Особенности поведения
+
+`value`, `defaultValue` и `onValueChange(details)` используют массивы строк. Читайте выбранные ключи из
+`details.value`, а элементы коллекции - из `details.items`. `onOpenChange(details)`,
+`onHighlightChange(details)` и `onSelect(details)` сохраняют объекты details Ark без изменений.
+
+Используйте `Select.useSelect` с `Select.RootProvider`, когда состояние нужно вне дерева select.
+Для чтения состояния внутри дерева доступны `Select.Context`, `Select.ItemContext`,
+`Select.useSelectContext` и `Select.useSelectItemContext`. `Field.Root` и `Fieldset.Root` передают
+состояния disabled, invalid, required и read-only через контекст Ark.
+
+Стандартный нативный select сохраняет проверку браузера, автозаполнение, сброс и прогрессивное улучшение.
+Для виртуализированной коллекции `nativeFormControl="input"` отправляет один скрытый input для каждого
+выбранного значения вместо option для каждого элемента. Он по-прежнему синхронизирует сброс формы и
+отключённое состояние fieldset, но намеренно не предоставляет нативное автозаполнение select, проверку
+или прогрессивное улучшение.
+
+Select отключает переходы триггера и анимацию появления и закрытия всплывающего окна, когда
+пользователь предпочитает уменьшенное движение; выбор, восстановление фокуса и жизненный цикл
+монтирования при этом не меняются.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте выбранным массивом строк из состояния React и обновляйте его из `details.value`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Пользовательская раскладка элемента
+
+Используйте вспомогательные leaf-компоненты moduix внутри `ItemText`, когда элементу нужны стабильная
+иконка и подпись с сокращением текста.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/custom-item-layout.tsx"
+
+  ```
+</PreviewFrame>
+
+### Динамические элементы
+
+Обновляйте коллекцию при изменении доступных элементов; существующая композиция Select остаётся прежней.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/dynamic-items.tsx"
+
+  ```
+</PreviewFrame>
+
+### Поле формы
+
+Оберните Select в `Field.Root`, когда подпись, текст-подсказка, некорректное, обязательное или отключённое
+состояние относятся к полю формы.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Использование в форме
+
+Автоматический нативный select сохраняет работу нативной отправки формы. Читайте переданные значения из
+`FormData`.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/form-usage.tsx"
+
+  ```
+</PreviewFrame>
+
+### Группировка
+
+Используйте `groupBy` в коллекции и рендерите `collection.group()` с `ItemGroup` и `ItemGroupLabel`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/grouping.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ленивое монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, когда содержимое всплывающего окна должно существовать только
+во время использования Select.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/lazy-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### Максимальное число выбранных элементов
+
+Ограничивайте множественный выбор, отклоняя слишком длинные массивы значений и отключая остальные элементы.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/max-selection.tsx"
+
+  ```
+</PreviewFrame>
+
+### Множественный выбор
+
+Задайте `multiple`, чтобы разрешить несколько выбранных значений. `ValueText` рендерит подписи выбранных
+элементов из коллекции.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/multiple.tsx"
+
+  ```
+</PreviewFrame>
+
+### Нативный элемент формы
+
+Используйте `nativeFormControl="input"` с настоящим виртуализированным списком, когда рендеринг нативного
+option для каждого элемента коллекции слишком затратен. Этот пример посвящён результирующему `FormData`.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/native-form-control.tsx"
+
+  ```
+</PreviewFrame>
+
+### Переполнение
+
+Используйте `positioning.fitViewport` для длинных списков. Содержимое уже ограничивает высоту переменной
+Ark `--available-height` и остаётся прокручиваемым.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/overflow.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `Select.useSelect` с `Select.RootProvider`, когда состояние читается или управляется вне
+отрендеренного дерева Select.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Поиск во всплывающем окне
+
+Разместите элемент управления фильтром рядом с listbox внутри всплывающего окна. Храните состояние запроса
+и отфильтрованную коллекцию в своём компоненте, а не расширяйте API Select.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/search-in-popup.tsx"
+
+  ```
+</PreviewFrame>
+
+### Выбрать все
+
+Держите массовые действия за пределами listbox. `Select.useSelect` сохраняет действие и Select в одном
+экземпляре состояния Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/select-all.tsx"
+
+  ```
+</PreviewFrame>
+
+### Выбор при выделении
+
+Используйте `onHighlightChange(details)`, когда перемещение по вариантам должно сразу обновлять выбор.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/select-on-highlight.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Select.Field`, когда триггер, текст значения или индикатор нуждаются в независимой
+композиции и стилизации.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/select/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте Select с помощью `className`, стабильных хуков `data-slot="select-*"`, атрибутов Ark и
+публичных CSS-переменных `--moduix-select-*`.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={SelectDocs.selectOverrideCssProperties} />
+
+### Хуки стилизации
+
+`Select.Field` рендерит существующие slots `select-control`, `select-trigger`, `select-value-text`,
+`select-indicator` и необязательный `select-clear-trigger`. Его свойство `indicator` передаёт дочерний
+элемент существующего slot индикатора.
+
+- Корни предоставляют `data-slot="select-root"` и `data-slot="select-root-provider"`.
+- Анатомия Ark использует `data-scope="select"` и `data-part`.
+- Стилизация состояния использует `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
+  `data-disabled`, `data-readonly`, `data-placeholder-shown`, `data-highlighted` и состояние элемента
+  `data-state="checked" | "unchecked"`.
+- `Select.Positioner` предоставляет `--reference-width`, `--reference-height`, `--available-width`,
+  `--available-height`, `--x`, `--y`, `--z-index` и `--transform-origin`.

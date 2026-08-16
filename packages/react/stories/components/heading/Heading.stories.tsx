@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Heading } from '../../../src/components/heading/Heading';
+import { Heading } from '@/components/heading/Heading';
 import storyStyles from './Heading.stories.module.css';
 
 const meta = {

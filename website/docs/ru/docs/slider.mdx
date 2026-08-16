@@ -1,0 +1,381 @@
+---
+title: Slider
+component: slider
+description: Элемент управления для выбора одного значения или диапазона значений.
+---
+
+import * as SliderDocs from '@/components/examples/slider';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/slider" />
+
+## Выбор подходящего компонента
+
+Используйте `Slider`, когда пользователь должен напрямую изменить ограниченное числовое значение указателем
+или клавиатурой.
+
+- Выберите **`Slider`** для громкости, яркости, бюджета, пороговых значений и диапазонов с несколькими ползунками.
+- Выберите **`Input`** или **`NumberInput`**, когда точный ввод важнее перетаскивания.
+- Выберите **`ProgressLinear`** или **`ProgressCircular`**, когда значение предназначено только для отображения.
+
+## Базовый пример
+
+`Slider.Thumbs` - рекомендуемый способ отрисовать один стилизованный ползунок для каждого значения. Каждый
+ползунок, включая явный `Slider.Thumb`, автоматически рендерит свой нативный элемент ввода формы.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/basic.tsx"
+
+```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="slider" />
+
+## Анатомия
+
+```text
+Slider / Slider.Root
+├─ Slider.Label
+├─ Slider.ValueText
+├─ Slider.Control
+│  ├─ Slider.Track
+│  │  └─ Slider.Range
+│  └─ Slider.Thumbs
+│     └─ Slider.Thumb[index]
+│        ├─ Slider.DraggingIndicator
+│        └─ native input (автоматически)
+└─ Slider.MarkerGroup
+   └─ Slider.Marker[value]
+```
+
+| Часть                                  | Назначение                                                       |
+| -------------------------------------- | ---------------------------------------------------------------- |
+| `Slider` / `Slider.Root`               | Стилизованный корневой элемент Ark для управляемого и неуправляемого состояния. |
+| `Slider.RootProvider`                  | Корневой элемент, принимающий внешнюю машину `useSlider`.                  |
+| `Slider.Label`                         | Видимая подпись группы slider.                                   |
+| `Slider.ValueText`                     | Текст текущего значения, формируемый Ark.                        |
+| `Slider.Control`                       | Область взаимодействия указателем.                               |
+| `Slider.Track`                         | Полная визуальная направляющая.                                  |
+| `Slider.Range`                         | Заполненный отрезок от заданной точки отсчёта до значения.       |
+| `Slider.Thumb`                         | Ползунок slider, принимающий фокус.                              |
+| `Slider.Thumbs`                        | Помощник moduix, рендерящий ползунок для каждого значения.       |
+| `Slider.MarkerGroup` / `Slider.Marker` | Необязательная группа делений и отдельное деление.               |
+| `Slider.DraggingIndicator`             | Необязательное значение во всплывающей подсказке при перетаскивании. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте дерево частей Ark: корневой элемент, подпись, необязательный текст значения, элемент управления, направляющую,
+диапазон и `Slider.Thumbs`. Он создаёт один ползунок для каждого значения; каждый ползунок автоматически добавляет
+нативный элемент ввода формы.
+
+`Slider` - краткая форма корня, эквивалентная `Slider.Root`.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild`, когда часть должна отрисовать пользовательский host-элемент, но оставляйте единственный
+семантический дочерний элемент, способный принять свойства Ark. Используйте явный `Slider.Thumb` для пользовательских
+дочерних элементов, подписей или порядка ползунков; он сохраняет автоматический нативный элемент ввода формы.
+Для расширенного доступа к состоянию импортируйте `useSliderContext` или `useSlider` из `@moduix/react` и используйте
+их вместе с `Slider.RootProvider`.
+
+### Свойства по умолчанию
+
+| Свойство                 | По умолчанию  | Примечания                                                        |
+| ------------------------ | ------------ | ----------------------------------------------------------------- |
+| `defaultValue`           | `[min]`      | Ark хранит значения slider как `number[]`.                        |
+| `orientation`            | `horizontal` | Используйте `vertical` для вертикальной клавиатурной оси.         |
+| `min`                    | `0`          | Нижняя граница.                                                   |
+| `max`                    | `100`        | Верхняя граница.                                                  |
+| `step`                   | `1`          | Шаг для указателя и клавиатуры.                                   |
+| `minStepsBetweenThumbs`  | `0`          | Минимальный промежуток между ползунками диапазона.                |
+| `origin`                 | `start`      | Начало заполнения для диапазонов с одним значением.               |
+| `thumbAlignment`         | `contain`    | Используйте `center`, чтобы позволить ползунку выходить за края.  |
+| `thumbCollisionBehavior` | `none`       | Используйте `push` или `swap` при перетаскивании диапазона.       |
+| `thumbSize`              | измеряется   | Переопределяет измеренные Ark размеры ползунка.                   |
+
+`value`, `defaultValue`, `onValueChange(details)` и `onValueChangeEnd(details)` используют объекты details Ark.
+Чтобы прочитать массив, используйте `details.value`.
+
+### Особенности поведения
+
+`Slider` следует поведению WAI-ARIA slider из Ark. Каждому ползунку нужно доступное имя через `Slider.Label`,
+`aria-label` или `aria-labelledby`. Горизонтальные slider используют клавиши со стрелками влево и вправо;
+вертикальные - вверх и вниз. Page Up, Page Down, Home и End используют настроенный большой шаг или границы.
+
+Каждый `Slider.Thumb` автоматически рендерит нативный элемент ввода формы для отправки формы, связи с ней и
+синхронизации сброса. `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`, `aria-label`, `aria-labelledby`
+и `getAriaValueText(details)` передаются в Ark.
+
+## Примеры
+
+### Центр как точка отсчёта
+
+Задайте `origin="center"`, когда выбранное значение представляет положительное или отрицательное смещение.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/center-origin.tsx"
+
+```
+
+</PreviewFrame>
+
+### События изменения
+
+Используйте `onValueChange` для обновлений в процессе и `onValueChangeEnd`, когда перетаскивание или взаимодействие
+с клавиатурой завершено.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/change-events.tsx"
+
+```
+
+</PreviewFrame>
+
+### Контекст
+
+Используйте moduix `useSliderContext` внутри дочернего компонента, когда нужно считывать состояние slider прямо в нём,
+например `value`, `dragging` и состояние фокуса.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/context.tsx"
+
+```
+
+</PreviewFrame>
+
+### Управляемое состояние
+
+Управляйте значением из состояния React, сохраняя массив `details.value` Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённый
+
+Используйте `disabled`, чтобы оставить значение видимым, но запретить взаимодействие.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/disabled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Форма
+
+Задайте `name`, чтобы отправлять текущее значение через нативную форму. moduix автоматически рендерит и синхронизирует
+нативный элемент ввода.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/form.tsx"
+
+```
+
+</PreviewFrame>
+
+### Индикатор перетаскивания
+
+Поместите `Slider.DraggingIndicator` внутрь ползунка, чтобы показывать активное значение при перетаскивании.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/dragging-indicator.tsx"
+
+```
+
+</PreviewFrame>
+
+### Некорректное значение
+
+Используйте `invalid`, когда выбранное значение не проходит проверку. Направляющая, диапазон и ползунок показывают
+состояние ошибки, сохраняя обычное взаимодействие со slider.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/invalid.tsx"
+
+```
+
+</PreviewFrame>
+
+### Деления
+
+Используйте `Slider.MarkerGroup` и `Slider.Marker` для отображения делений. Деления Ark предоставляют для стилизации
+`data-state="under-value | at-value | over-value"`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/marks.tsx"
+
+```
+
+</PreviewFrame>
+
+### Минимум и максимум
+
+Используйте `min` и `max` для диапазонов, которые не начинаются с `0` и не заканчиваются на `100`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/min-and-max.tsx"
+
+```
+
+</PreviewFrame>
+
+### Диапазон
+
+Передайте массив с одним значением для каждого ползунка. `Slider.Thumbs` создаёт соответствующие части ползунка и ввода.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/range.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только для чтения
+
+Используйте `readOnly`, когда значение должно оставаться видимым и доступным для фокуса, но не должно изменяться.
+moduix использует стандартный курсор, поэтому это состояние не выглядит интерактивным.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/read-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте moduix `useSlider` с `Slider.RootProvider`, когда состоянием нужно владеть вне отрендеренного дерева.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Шаг
+
+Используйте `step` для дробных или ограниченных приращений.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/step.tsx"
+
+```
+
+</PreviewFrame>
+
+### Выравнивание ползунка
+
+Используйте `thumbAlignment="center"`, когда ползунок должен выходить за края направляющей.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-alignment.tsx"
+
+```
+
+</PreviewFrame>
+
+### Столкновение ползунков
+
+Используйте `thumbCollisionBehavior="push"` или `"swap"`, чтобы изменить поведение ползунков диапазона при встрече.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-collision.tsx"
+
+```
+
+</PreviewFrame>
+
+### Перекрытие ползунков
+
+Используйте `minStepsBetweenThumbs`, чтобы сохранить минимальный промежуток между ползунками диапазона.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/thumb-overlap.tsx"
+
+```
+
+</PreviewFrame>
+
+### Вертикальный
+
+Задайте `orientation="vertical"` и стабильную высоту корню.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/vertical.tsx"
+
+```
+
+</PreviewFrame>
+
+### Вертикальный с делениями
+
+Деления остаются выровненными по направляющей в вертикальной ориентации и используют те же хуки состояния маркеров.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/vertical-with-marks.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Slider.Thumbs`, когда отдельным ползункам нужны пользовательские дочерние элементы, доступные имена или порядок.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/slider/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Slider` через `className`, атрибуты Ark, стабильные хуки `data-slot="slider-*"`, CSS-переменные Ark
+и публичные CSS-переменные moduix ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SliderDocs.SliderCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Ark записывает `data-scope="slider"` и `data-part` во все отрендеренные части. moduix также записывает
+значения `data-slot`: `slider-root`, `slider-root-provider`, `slider-label`, `slider-value-text`,
+`slider-control`, `slider-track`, `slider-range`, `slider-thumb`, `slider-hidden-input`,
+`slider-marker-group`, `slider-marker` и `slider-dragging-indicator`.
+
+К важным хукам состояния Ark относятся `data-orientation`, `data-disabled`, `data-invalid`,
+`data-focus`, `data-dragging`, `data-state` маркера и `data-state="open | closed"` индикатора
+перетаскивания. CSS-переменные среды выполнения Ark: `--slider-thumb-width`, `--slider-thumb-height`,
+`--slider-thumb-transform`, `--slider-range-start`, `--slider-range-end`, `--translate-x` и `--translate-y`.
+
+moduix добавляет `data-readonly` к `Slider`, когда задано свойство `readOnly`. В состоянии ошибки по умолчанию
+используется деструктивный цвет для направляющей, выбранного диапазона, ползунка и активных отметок.
+Их можно переопределить по отдельности через `--moduix-slider-track-border-color-invalid`,
+`--moduix-slider-range-bg-invalid`, `--moduix-slider-thumb-border-color-invalid`,
+`--moduix-slider-thumb-focus-ring-color-invalid` и `--moduix-slider-marker-dot-bg-active-invalid`.
+
+Стандартное кольцо фокуса ползунка использует `:focus-visible` для фокуса с клавиатуры и Ark `data-dragging`,
+пока ползунок нажат. После отпускания указателя оно убирается.

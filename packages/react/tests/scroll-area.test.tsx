@@ -74,3 +74,35 @@ test('keeps RootProvider composition on the moduix surface', () => {
   expect(screen.getByText('Provider content')).toBeInTheDocument();
   expect(screen.getByText('true')).toBeInTheDocument();
 });
+
+test('preserves Ark asChild composition and forwards refs for every visible part', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const viewportRef = createRef<HTMLDivElement>();
+  const contentRef = createRef<HTMLDivElement>();
+  const scrollbarRef = createRef<HTMLDivElement>();
+  const thumbRef = createRef<HTMLDivElement>();
+  const cornerRef = createRef<HTMLDivElement>();
+
+  render(
+    <ScrollArea asChild ref={rootRef}>
+      <div aria-label="Related articles" role="region">
+        <ScrollArea.Viewport ref={viewportRef}>
+          <ScrollArea.Content ref={contentRef}>Article list</ScrollArea.Content>
+        </ScrollArea.Viewport>
+        <ScrollArea.Scrollbar ref={scrollbarRef}>
+          <ScrollArea.Thumb ref={thumbRef} />
+        </ScrollArea.Scrollbar>
+        <ScrollArea.Corner ref={cornerRef} />
+      </div>
+    </ScrollArea>,
+  );
+
+  expect(rootRef.current).toHaveAttribute('data-slot', 'scroll-area-root');
+  expect(rootRef.current).not.toHaveAttribute('data-fade');
+  expect(rootRef.current).toHaveAttribute('data-variant', 'hover');
+  expect(viewportRef.current).toHaveAttribute('data-slot', 'scroll-area-viewport');
+  expect(contentRef.current).toHaveAttribute('data-slot', 'scroll-area-content');
+  expect(scrollbarRef.current).toHaveAttribute('data-slot', 'scroll-area-scrollbar');
+  expect(thumbRef.current).toHaveAttribute('data-slot', 'scroll-area-thumb');
+  expect(cornerRef.current).toHaveAttribute('data-slot', 'scroll-area-corner');
+});

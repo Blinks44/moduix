@@ -10,7 +10,7 @@ Use this skill for CSS, CSS Modules, and styling work in this repo.
 ## Scope
 
 - component CSS Modules in `packages/react`
-- docs example CSS Modules in `apps/docs`
+- docs example CSS Modules in `website`
 - selector structure
 - state styling
 - responsive CSS

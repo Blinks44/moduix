@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { Button } from '@/components/button';
+import { Tooltip, useTooltip, useTooltipContext } from '@/components/tooltip/Tooltip';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button';
-import { Tooltip, useTooltip, useTooltipContext } from '../../../src/components/tooltip/Tooltip';
 import { BellIcon, InfoIcon, ShareIcon } from '../../icons/demo';
 import storyStyles from './Tooltip.stories.module.css';
 
@@ -224,7 +224,6 @@ export const CustomComposition: Story = {
         </Tooltip.Trigger>
         <Tooltip.Positioner className={storyStyles.customPositioner}>
           <Tooltip.Content className={storyStyles.customContent}>
-            <Tooltip.Arrow className={storyStyles.customArrow} />
             Styled through explicit Ark parts
           </Tooltip.Content>
         </Tooltip.Positioner>

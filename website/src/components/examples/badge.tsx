@@ -1,0 +1,135 @@
+import type { CssPropertyInput } from '../mdx/reference';
+
+export const badgeCssProperties: CssPropertyInput[] = [
+  ['--moduix-badge-bg', 'Variant-specific fallback', 'Overrides badge background color.'],
+  ['--moduix-badge-border-color', 'Variant-specific fallback', 'Overrides badge border color.'],
+  ['--moduix-badge-border-width', 'var(--moduix-border-width-sm)', 'Controls badge border width.'],
+  ['--moduix-badge-color', 'Variant-specific fallback', 'Overrides badge text and icon color.'],
+  [
+    '--moduix-badge-default-bg',
+    'var(--moduix-color-primary)',
+    'Controls default badge background.',
+  ],
+  ['--moduix-badge-default-border-color', 'transparent', 'Controls default badge border color.'],
+  [
+    '--moduix-badge-default-color',
+    'var(--moduix-color-primary-foreground)',
+    'Controls default badge text and icon color.',
+  ],
+  [
+    '--moduix-badge-destructive-bg',
+    'var(--moduix-color-destructive)',
+    'Controls destructive badge background.',
+  ],
+  [
+    '--moduix-badge-destructive-border-color',
+    'transparent',
+    'Controls destructive badge border color.',
+  ],
+  [
+    '--moduix-badge-destructive-color',
+    'var(--moduix-color-destructive-foreground)',
+    'Controls destructive badge text and icon color.',
+  ],
+  ['--moduix-badge-dot-size', 'var(--moduix-spacing-1-5)', 'Controls Badge.Dot size.'],
+  ['--moduix-badge-font-size', 'var(--moduix-text-xs)', 'Controls badge font size.'],
+  ['--moduix-badge-font-weight', 'var(--moduix-weight-medium)', 'Controls badge font weight.'],
+  ['--moduix-badge-focus-ring-color', 'var(--moduix-color-ring)', 'Controls focus ring color.'],
+  [
+    '--moduix-badge-focus-ring-offset',
+    'var(--moduix-focus-ring-offset)',
+    'Controls focus ring offset.',
+  ],
+  [
+    '--moduix-badge-focus-ring-width',
+    'var(--moduix-focus-ring-width, var(--moduix-border-width-md))',
+    'Controls focus ring width.',
+  ],
+  ['--moduix-badge-gap', 'var(--moduix-spacing-1-5)', 'Controls space between badge children.'],
+  ['--moduix-badge-ghost-bg', 'transparent', 'Controls ghost badge background.'],
+  ['--moduix-badge-ghost-border-color', 'transparent', 'Controls ghost badge border color.'],
+  [
+    '--moduix-badge-ghost-border-color-hover',
+    'var(--moduix-color-primary)',
+    'Controls ghost badge border color on hover.',
+  ],
+  [
+    '--moduix-badge-ghost-color',
+    'var(--moduix-color-foreground)',
+    'Controls ghost badge text and icon color.',
+  ],
+  [
+    '--moduix-badge-ghost-color-hover',
+    'var(--moduix-color-primary)',
+    'Controls ghost badge text and icon color on hover.',
+  ],
+  ['--moduix-badge-height', '1.25rem', 'Controls badge minimum height.'],
+  ['--moduix-badge-icon-size', 'var(--moduix-spacing-3)', 'Controls direct child SVG icon size.'],
+  [
+    '--moduix-badge-line-height',
+    'var(--moduix-line-height-text-xs)',
+    'Controls badge line-height.',
+  ],
+  ['--moduix-badge-link-bg', 'transparent', 'Controls link badge background.'],
+  ['--moduix-badge-link-border-color', 'transparent', 'Controls link badge border color.'],
+  [
+    '--moduix-badge-link-color',
+    'var(--moduix-color-primary)',
+    'Controls link badge text and icon color.',
+  ],
+  ['--moduix-badge-link-underline-offset', '0.15em', 'Controls link badge underline offset.'],
+  ['--moduix-badge-outline-bg', 'transparent', 'Controls outline badge background.'],
+  [
+    '--moduix-badge-outline-border-color',
+    'var(--moduix-color-border)',
+    'Controls outline badge border color.',
+  ],
+  [
+    '--moduix-badge-outline-border-color-hover',
+    'var(--moduix-color-primary)',
+    'Controls outline badge border color on hover.',
+  ],
+  [
+    '--moduix-badge-outline-color',
+    'var(--moduix-color-foreground)',
+    'Controls outline badge text and icon color.',
+  ],
+  [
+    '--moduix-badge-outline-color-hover',
+    'var(--moduix-color-primary)',
+    'Controls outline badge text and icon color on hover.',
+  ],
+  [
+    '--moduix-badge-opacity-disabled',
+    'var(--moduix-opacity-disabled)',
+    'Controls disabled interactive badge opacity.',
+  ],
+  [
+    '--moduix-badge-opacity-hover',
+    'var(--moduix-opacity-hover)',
+    'Controls filled interactive badge opacity on hover.',
+  ],
+  ['--moduix-badge-padding-x', 'var(--moduix-spacing-2-5)', 'Controls horizontal badge padding.'],
+  ['--moduix-badge-padding-y', '0', 'Controls vertical badge padding.'],
+  ['--moduix-badge-radius', 'var(--moduix-radius-full)', 'Controls badge border radius.'],
+  [
+    '--moduix-badge-secondary-bg',
+    'var(--moduix-color-secondary)',
+    'Controls secondary badge background.',
+  ],
+  [
+    '--moduix-badge-secondary-border-color',
+    'transparent',
+    'Controls secondary badge border color.',
+  ],
+  [
+    '--moduix-badge-secondary-color',
+    'var(--moduix-color-secondary-foreground)',
+    'Controls secondary badge text and icon color.',
+  ],
+  [
+    '--moduix-badge-transition',
+    'var(--moduix-transition-default)',
+    'Controls badge color, background, border, and opacity transitions.',
+  ],
+];

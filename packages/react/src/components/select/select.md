@@ -1,13 +1,24 @@
 # Select
 
-Upstream docs:
+## Upstream reference
+
+Checked 2026-08-13:
 
 - Ark UI: https://ark-ui.com/docs/components/select
 - Chakra UI: https://chakra-ui.com/docs/components/select
+- shadcn/ui: https://ui.shadcn.com/docs/components/select
 
 ## Purpose
 
 `Select` lets users choose one or more known values from a non-searchable popup list.
+
+## Comparison decisions
+
+| Source    | Finding                                                                                                  | moduix decision                                                                                                                                                         |
+| --------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | Collection state, the listbox interaction model, and native form controls define the primitive contract. | **Required correctness:** preserve Ark parts, detail objects, lifecycle, context, and native control synchronization.                                                   |
+| Chakra UI | Its explicit tree separates an `IndicatorGroup` and supports recipe variants.                            | **Intentional difference:** `Select.Field` is the concise default; explicit `Control`, `Trigger`, and visual parts remain available. Do not add a parallel variant API. |
+| shadcn/ui | A compact trigger/content path is easy to discover.                                                      | **Rejected complexity:** keep Ark-shaped collections, item objects, and callbacks instead of compatibility aliases or a second state model.                             |
 
 ## Upstream model to preserve
 
@@ -148,6 +159,7 @@ export function SelectDemo() {
 - Preserve Ark state attributes: `data-state`, `data-focus`, `data-invalid`, `data-disabled`,
   `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`, and item
   `data-state="checked" | "unchecked"`.
+- Disable trigger transitions and popup enter/exit animation when the user requests reduced motion.
 - Use Ark `Field.Root` / `Fieldset.Root` context for disabled, invalid, required, and read-only
   state.
 - Use `Select.Context`, `Select.ItemContext`, `Select.useSelectContext`, and
@@ -177,7 +189,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 - Open/closed animation is tied to Ark `data-state` attributes.
 - Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
   weight, and `--moduix-spacing-1` block padding. Select-specific variables still take precedence.
-- Public theme variables are documented in `apps/docs/src/components/examples/select.tsx`.
+- Public theme variables are documented in `website/src/components/examples/select.tsx`.
 
 ## Intentional sugar and differences from upstream
 
@@ -207,6 +219,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-12: Added reduced-motion styling and release-gate coverage for keyboard selection,
+  accessible clearing, portal placement, forwarded refs, component states, and long content.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

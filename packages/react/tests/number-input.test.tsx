@@ -111,3 +111,20 @@ test('supports numeric form submission through Context', () => {
   expect(form).not.toBeNull();
   expect(new FormData(form!).get('quantity')).toBe('42');
 });
+
+test('preserves native form ownership through name and form', () => {
+  const { container } = render(
+    <>
+      <form id="quantity-form" />
+      <NumberInput defaultValue="42" form="quantity-form" name="quantity">
+        <NumberInput.Label>Quantity</NumberInput.Label>
+        <NumberInput.Field />
+      </NumberInput>
+    </>,
+  );
+
+  const form = container.querySelector('form');
+
+  expect(form).not.toBeNull();
+  expect(new FormData(form!).get('quantity')).toBe('42');
+});

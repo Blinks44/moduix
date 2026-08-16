@@ -1,0 +1,286 @@
+.root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--moduix-spacing-4);
+  width: 100%;
+  min-height: 4.5rem;
+  padding: var(--moduix-spacing-2);
+  border: var(--moduix-border-width-sm) solid
+    color-mix(in oklab, var(--moduix-color-border) 72%, transparent);
+  border-radius: calc(var(--moduix-radius-xl) + var(--moduix-spacing-2));
+  background-color: color-mix(in oklab, var(--moduix-color-card) 96%, transparent);
+  box-shadow: var(--moduix-shadow-sm);
+  color: var(--moduix-color-card-foreground);
+}
+
+.leading,
+.actions {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.leading {
+  gap: var(--moduix-spacing-3);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--moduix-spacing-2);
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+    outline-offset: var(--moduix-focus-ring-offset);
+    border-radius: var(--moduix-radius-md);
+  }
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--moduix-radius-lg);
+  background-color: var(--moduix-color-foreground);
+  box-shadow: var(--moduix-shadow-sm);
+  color: var(--moduix-color-background);
+
+  & > svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    stroke-width: 2.25;
+  }
+}
+
+.brandName {
+  font-size: var(--moduix-text-md);
+  font-weight: var(--moduix-weight-semibold);
+  letter-spacing: -0.025em;
+}
+
+.workspace {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: var(--moduix-spacing-2);
+  padding-inline-start: var(--moduix-spacing-3);
+  border-inline-start: var(--moduix-border-width-sm) solid var(--moduix-color-border);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+  white-space: nowrap;
+}
+
+.statusDot {
+  width: var(--moduix-spacing-2);
+  height: var(--moduix-spacing-2);
+  flex-shrink: 0;
+  border-radius: var(--moduix-radius-full);
+  background-color: var(--moduix-color-primary);
+  box-shadow: 0 0 0 var(--moduix-spacing-0-5)
+    color-mix(in oklab, var(--moduix-color-primary) 18%, transparent);
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-0-5);
+  padding: var(--moduix-spacing-1);
+  border-radius: var(--moduix-radius-full);
+  background-color: color-mix(
+    in oklab,
+    var(--moduix-color-muted) 82%,
+    var(--moduix-color-background) 18%
+  );
+}
+
+.navigationLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding-inline: var(--moduix-spacing-3);
+  border-radius: var(--moduix-radius-full);
+  color: var(--moduix-color-muted-foreground);
+  font-size: var(--moduix-text-sm);
+  font-weight: var(--moduix-weight-medium);
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    color 150ms ease;
+
+  &:hover {
+    color: var(--moduix-color-foreground);
+  }
+
+  &[aria-current='page'] {
+    background-color: var(--moduix-color-card);
+    box-shadow: var(--moduix-shadow-sm);
+    color: var(--moduix-color-foreground);
+  }
+
+  &:focus-visible {
+    outline: var(--moduix-focus-ring-width) solid var(--moduix-color-ring);
+    outline-offset: var(--moduix-focus-ring-offset);
+  }
+}
+
+.actions {
+  justify-content: flex-end;
+  gap: var(--moduix-spacing-1);
+}
+
+.searchTrigger,
+.accountTrigger {
+  border-radius: var(--moduix-radius-full);
+}
+
+.searchTrigger {
+  color: var(--moduix-color-muted-foreground);
+}
+
+.searchTrigger > svg,
+.accountChevron,
+.menuLink > svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.accountTrigger {
+  gap: var(--moduix-spacing-2);
+  height: auto;
+  padding: var(--moduix-spacing-1) var(--moduix-spacing-2) var(--moduix-spacing-1)
+    var(--moduix-spacing-1);
+}
+
+.avatar {
+  flex-shrink: 0;
+  box-shadow: 0 0 0 var(--moduix-border-width-sm) var(--moduix-color-border);
+}
+
+.accountDetails,
+.accountSummary {
+  display: grid;
+  min-width: 0;
+  text-align: start;
+}
+
+.accountDetails {
+  gap: var(--moduix-spacing-0-5);
+
+  strong,
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  strong {
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: 1;
+  }
+
+  span {
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-regular);
+    line-height: 1;
+  }
+}
+
+.accountChevron {
+  color: var(--moduix-color-muted-foreground);
+}
+
+.mobileNavigation {
+  display: none;
+}
+
+.mobileNavigationMenu {
+  --moduix-menu-popup-min-width: 12rem;
+}
+
+.commandPalette {
+  --moduix-command-palette-width: min(34rem, calc(100vw - 2rem));
+}
+
+.accountMenu {
+  --moduix-menu-popup-min-width: 15rem;
+}
+
+.accountSummary {
+  gap: var(--moduix-spacing-0-5);
+  padding-block: var(--moduix-spacing-1);
+
+  strong {
+    color: var(--moduix-color-foreground);
+    font-size: var(--moduix-text-sm);
+    font-weight: var(--moduix-weight-medium);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  span {
+    overflow: hidden;
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-xs);
+    font-weight: var(--moduix-weight-regular);
+    line-height: var(--moduix-line-height-text-xs);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  gap: var(--moduix-spacing-2);
+}
+
+@media (width < 64rem) {
+  .workspace {
+    display: none;
+  }
+}
+
+@media (width < 48rem) {
+  .root {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--moduix-spacing-2);
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .mobileNavigation {
+    display: inline-flex;
+  }
+}
+
+@media (width < 36rem) {
+  .root {
+    border-radius: var(--moduix-radius-xl);
+  }
+
+  .accountDetails,
+  .accountChevron {
+    display: none;
+  }
+
+  .accountTrigger {
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navigationLink {
+    transition: none;
+  }
+}

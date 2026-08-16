@@ -2,7 +2,7 @@ import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { TagsInput } from '../src';
+import { TagsInput, useTagsInput } from '../src';
 
 function Tags({
   defaultValue = ['React'],
@@ -56,6 +56,63 @@ test('keeps automatic form data and reset synchronization', async () => {
     </form>,
   );
 
+  const form = container.querySelector('form')!;
+  const input = screen.getByRole('textbox', { name: 'Frameworks' });
+
+  fireEvent.focus(input);
+  await Promise.resolve();
+  fireEvent.input(input, { inputType: 'insertText', target: { value: 'Vue' } });
+  fireEvent.keyDown(input, { key: 'Enter' });
+
+  await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React, Vue'));
+
+  fireEvent.reset(form);
+
+  await waitFor(() => expect(new FormData(form).get('frameworks')).toBe('React'));
+});
+
+test('keeps automatic form data for asChild roots', () => {
+  const { container } = render(
+    <form>
+      <TagsInput asChild defaultValue={['React']} name="frameworks">
+        <section>
+          <TagsInput.Label>Frameworks</TagsInput.Label>
+          <TagsInput.Control>
+            <TagsInput.Items />
+            <TagsInput.Input />
+          </TagsInput.Control>
+        </section>
+      </TagsInput>
+    </form>,
+  );
+
+  const form = container.querySelector('form')!;
+
+  expect(new FormData(form).get('frameworks')).toBe('React');
+  expect(container.querySelector('[data-slot="tags-input-hidden-input"]')).toHaveAttribute(
+    'name',
+    'frameworks',
+  );
+});
+
+test('keeps automatic form data and reset synchronization for root providers', async () => {
+  function ProviderTags() {
+    const tagsInput = useTagsInput({ defaultValue: ['React'], name: 'frameworks' });
+
+    return (
+      <form>
+        <TagsInput.RootProvider value={tagsInput}>
+          <TagsInput.Label>Frameworks</TagsInput.Label>
+          <TagsInput.Control>
+            <TagsInput.Items />
+            <TagsInput.Input />
+          </TagsInput.Control>
+        </TagsInput.RootProvider>
+      </form>
+    );
+  }
+
+  const { container } = render(<ProviderTags />);
   const form = container.querySelector('form')!;
   const input = screen.getByRole('textbox', { name: 'Frameworks' });
 

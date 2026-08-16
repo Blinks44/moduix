@@ -77,15 +77,16 @@ const SplitterResizeTriggerIndicator = forwardRef<
 const SplitterResizeTrigger = forwardRef<
   ComponentRef<typeof SplitterPrimitive.ResizeTrigger>,
   ComponentProps<typeof SplitterPrimitive.ResizeTrigger>
->(function SplitterResizeTrigger({ children, className, ...props }, ref) {
+>(function SplitterResizeTrigger({ asChild, children, className, ...props }, ref) {
   return (
     <SplitterPrimitive.ResizeTrigger
       ref={ref}
+      asChild={asChild}
       data-slot="splitter-resize-trigger"
       className={clsx(styles.resizeTrigger, normalizeClassName(className))}
       {...props}
     >
-      {children === undefined ? <SplitterResizeTriggerIndicator /> : children}
+      {children === undefined && !asChild ? <SplitterResizeTriggerIndicator /> : children}
     </SplitterPrimitive.ResizeTrigger>
   );
 });

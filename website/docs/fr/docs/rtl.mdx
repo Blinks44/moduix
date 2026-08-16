@@ -1,0 +1,113 @@
+---
+title: De droite à gauche (RTL)
+description: Configurez une seule fois la direction du document et la locale Ark pour les interfaces en arabe, en hébreu et dans les autres langues RTL.
+---
+
+# De droite à gauche (RTL)
+
+Une interface RTL nécessite deux réglages simples : la direction du document dans le navigateur et le
+contexte de locale Ark. Définissez `dir="rtl"` sur la racine du document, puis enveloppez l’application avec
+le `LocaleProvider` de moduix.
+
+```tsx
+import type { ReactNode } from 'react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function Document({ children }: { children: ReactNode }) {
+  return (
+    <html lang="ar" dir="rtl">
+      <body>
+        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+`LocaleProvider` détermine la valeur `dir` d’Ark à partir de la locale. Les primitives sensibles à la
+locale et les formateurs Ark partagent ainsi une même source de vérité. L’attribut natif `dir` reste
+nécessaire : il contrôle la direction du texte et les propriétés CSS logiques dans le navigateur.
+
+## Exemple de composant
+
+Utilisez le fournisseur une seule fois près de la racine de l’application ; les composants moduix
+individuels n’ont pas besoin d’une prop RTL particulière.
+
+```tsx
+import { createListCollection } from '@ark-ui/react/collection';
+import { Button } from '@moduix/react/button';
+import { LocaleProvider } from '@moduix/react/locale';
+import { Select } from '@moduix/react/select';
+
+const cities = createListCollection({
+  items: [
+    { label: 'القاهرة', value: 'cairo' },
+    { label: 'الإسكندرية', value: 'alexandria' },
+  ],
+});
+
+export function ArabicPreferences() {
+  return (
+    <div dir="rtl" lang="ar">
+      <LocaleProvider locale="ar-EG">
+        <Select collection={cities}>
+          <Select.Label>المدينة</Select.Label>
+          <Select.Field placeholder="اختر مدينة" />
+          <Select.Positioner>
+            <Select.Content>
+              <Select.ItemGroup>
+                {cities.items.map((city) => (
+                  <Select.Item key={city.value} item={city}>
+                    <Select.ItemText>{city.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.ItemGroup>
+            </Select.Content>
+          </Select.Positioner>
+        </Select>
+        <Button>حفظ</Button>
+      </LocaleProvider>
+    </div>
+  );
+}
+```
+
+Pour les overlays rendus dans un portail, définissez `dir` sur `<html>` ou utilisez un conteneur de portail
+à l’intérieur du sous-arbre RTL. Le texte de l’overlay, son positionnement dans l’axe inline et ses tokens
+resteront ainsi dans le même contexte que son déclencheur.
+
+Pour le contenu bidirectionnel, conservez la direction de l’application sur le conteneur extérieur et
+appliquez la redéfinition minimale correcte aux valeurs fournies par les utilisateurs. Utilisez `dir="auto"`
+pour du texte ordinaire dont la direction est inconnue et `dir="ltr"` pour les valeurs qui doivent conserver
+leur ordre physique, comme les adresses e-mail, les URL, le code et les numéros de téléphone.
+
+## Contrat de style
+
+Les nouveaux styles moduix emploient des propriétés CSS logiques lorsqu’une règle signifie « début » ou
+« fin » : par exemple `padding-inline`, `inset-inline-end`, `border-inline-start` et `text-align: start`.
+La même mise en page de composant suit ainsi la direction du contexte.
+
+Conservez les propriétés physiques `left` et `right` uniquement lorsqu’elles décrivent la géométrie réelle
+de l’écran, comme les coordonnées d’un indicateur Ark, un bord de redimensionnement ou une direction de
+balayage explicite. Ne les remplacez pas mécaniquement : elles décrivent une position mesurée ou un geste,
+pas l’ordre de lecture.
+
+Inversez les icônes qui expriment une direction dans l’axe inline, par exemple « retour », « suivant »,
+« annuler » ou « rétablir ». N’inversez pas les icônes au sens fixe comme « lire », « valider »,
+« télécharger » ou un logo de marque. Si votre bibliothèque d’icônes fournit une variante RTL, utilisez-la ;
+sinon, appliquez la transformation uniquement dans le contexte RTL.
+
+## Vérifier avant la mise en production
+
+Testez l’interface avec une locale RTL après toute modification de mise en page, en particulier :
+
+- les champs avec des boutons d’effacement ou d’action ;
+- les déclencheurs de select, combobox et date-picker ;
+- les Dialog, Popover, Menu et Tooltip rendus dans un portail ;
+- la navigation au clavier et l’ordre de focus visible ;
+- le texte arabe ou hébreu mêlé à des adresses e-mail, des nombres et du code ;
+- les icônes directionnelles, les gestes de balayage et l’alignement au début ou à la fin sur une faible largeur.
+
+Ark gère le comportement directionnel de ses primitives. L’API du fournisseur et les détails du contexte
+de locale sont décrits dans la [documentation Ark Locale](https://ark-ui.com/docs/utilities/locale).

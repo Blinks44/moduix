@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { InputGroup } from '../../../src/components/input-group/InputGroup';
+import { Field } from '@/components/field';
+import { InputGroup } from '@/components/input-group/InputGroup';
 import storyStyles from './InputGroup.stories.module.css';
 
 const meta = {

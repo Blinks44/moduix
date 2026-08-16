@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
-import { CloseButton } from '../../../src/components/close-button/CloseButton';
+import { CloseButton } from '@/components/close-button/CloseButton';
 import styles from './CloseButton.stories.module.css';
 
 const meta = {
@@ -32,7 +32,7 @@ export const CustomChildren: Story = {
 export const AsChild: Story = {
   render: (args) => (
     <CloseButton asChild {...args}>
-      <button>
+      <button type="button">
         <CircleXIcon />
       </button>
     </CloseButton>
@@ -56,6 +56,16 @@ export const AriaDisabled: Story = {
   args: {
     'aria-disabled': 'true',
   },
+};
+
+export const DisabledAsChild: Story = {
+  render: (args) => (
+    <CloseButton asChild disabled {...args}>
+      <button type="button">
+        <CircleXIcon />
+      </button>
+    </CloseButton>
+  ),
 };
 
 function CircleXIcon(props: ComponentProps<'svg'>) {

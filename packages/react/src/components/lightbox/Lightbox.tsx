@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog as DialogPrimitive, useDialog, useDialogContext } from '@ark-ui/react/dialog';
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import { clsx } from 'clsx';
 import type { ComponentProps, ComponentRef, RefObject } from 'react';
 import { forwardRef, useEffect } from 'react';
@@ -261,31 +262,57 @@ const LightboxImage = forwardRef<HTMLImageElement, LightboxImageProps>(function 
   );
 });
 
-const LightboxGallery = forwardRef<HTMLDivElement, ComponentProps<'div'>>(function LightboxGallery(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <div
-      ref={ref}
-      data-slot="lightbox-gallery"
-      className={clsx(styles.gallery, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const LightboxGallery = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function LightboxGallery({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="lightbox-gallery"
+        className={clsx(styles.gallery, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function LightboxHeader({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="lightbox-header" className={clsx(styles.header, className)} {...props} />;
-}
+const LightboxHeader = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function LightboxHeader({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="lightbox-header"
+        className={clsx(styles.header, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function LightboxBody({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="lightbox-body" className={clsx(styles.body, className)} {...props} />;
-}
+const LightboxBody = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function LightboxBody({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="lightbox-body"
+        className={clsx(styles.body, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function LightboxFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div data-slot="lightbox-footer" className={clsx(styles.footer, className)} {...props} />;
-}
+const LightboxFooter = forwardRef<ComponentRef<typeof ark.div>, HTMLArkProps<'div'>>(
+  function LightboxFooter({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="lightbox-footer"
+        className={clsx(styles.footer, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 function LightboxBind({ onImageSelect, selector, rootRef, rootSelector }: LightboxBindProps) {
   const { setOpen } = useDialogContext();

@@ -1,0 +1,239 @@
+---
+title: Split Button
+component: split-button
+description: Une action principale groupée avec un déclencheur de menu déroulant Ark Menu, composée à partir des parties Button et Menu de moduix.
+---
+
+import * as SplitButtonDocs from '@/components/examples/split-button';
+
+`SplitButton` associe une action par défaut à un menu d’alternatives étroitement liées. Utilisez-le
+lorsqu’une action doit rester immédiatement disponible ; préférez `Button` pour une action unique et
+`Menu` lorsqu’aucune action ne doit être prioritaire.
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive split button dédiée. moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref), tout en
+préservant le comportement d’[Ark Menu](https://ark-ui.com/docs/components/menu).
+
+## Exemple de base
+
+Utilisez `SplitButton` comme forme concise de la racine, puis conservez visible la structure inspirée d’Ark :
+`SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner` et `SplitButton.Content`.
+L’action principale utilise le même contrat `onClick` que `Button`.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="split-button" />
+
+## Anatomie
+
+```text
+SplitButton
+├─ SplitButton.Action
+├─ SplitButton.Trigger
+└─ Sous-arbre de superposition (porté automatiquement dans un portail)
+   └─ SplitButton.Positioner
+      └─ SplitButton.Content
+         ├─ Menu.Item
+         ├─ Menu.Separator
+         └─ autres parties Menu partagées
+```
+
+| Partie                    | Rôle                                                                                                           |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `SplitButton`             | Possède l’état racine Ark Menu et le groupe de boutons sémantique.                                             |
+| `SplitButton.Action`      | Action principale Button. Hérite par défaut des valeurs `variant` et `size` de la racine.                     |
+| `SplitButton.Trigger`     | Déclencheur Ark Menu affiché comme Button moduix, avec une icône de chevron de repli.                          |
+| `SplitButton.Positioner`  | Positionneur Ark Menu avec les variables de placement et le z-index de la couche.                             |
+| `SplitButton.Content`     | Surface de contenu Ark Menu destinée aux lignes `Menu.*` partagées.                                            |
+
+## Composition
+
+`SplitButton` place automatiquement son `Positioner` de menu dans un portail. Utilisez `portalled={false}` pour
+un rendu inline et `portalRef` pour un conteneur personnalisé ; `Positioner` et `Content` restent explicites et stylisables.
+
+### Composition recommandée
+
+`SplitButton` transmet les propriétés de `Menu.Root` d’Ark telles que `open`, `defaultOpen`, `onOpenChange(details)`,
+`onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`, `unmountOnExit` et `typeahead`.
+
+Utilisez `SplitButton.Action` pour le parcours principal. Placez les actions secondaires dans `SplitButton.Content`
+avec les parties partagées `Menu.Item`, `Menu.Separator`, `Menu.ItemGroup`, `Menu.CheckboxItem` et `Menu.RadioItem`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` sur `SplitButton.Action` lorsque l’action principale doit être affichée comme un lien sémantique
+ou un autre élément compatible.
+
+Transmettez un contenu personnalisé au déclencheur par l’intermédiaire des `children` de `SplitButton.Trigger`.
+Le déclencheur conserve un seul hôte Button intégré : les propriétés du déclencheur Ark Menu et les styles du bouton
+moduix se trouvent donc sur le même élément.
+
+Utilisez `positioning` sur `SplitButton` pour placer la fenêtre surgissante. Conservez `SplitButton.Positioner` et
+`SplitButton.Content` explicites afin que les consommateurs puissent styliser ou personnaliser sa structure sans réécrire le composant.
+
+Lorsque le menu lui-même nécessite un accès avancé à l’état, composez-le directement avec `Menu.RootProvider` et
+`useMenu()` depuis l’API `Menu` partagée, plutôt que d’ajouter des enveloppes d’état propres au split button.
+
+### Propriétés par défaut
+
+| Surface                 | Propriété       | Par défaut                              | Remarques                                                         |
+| ----------------------- | --------------- | --------------------------------------- | ----------------------------------------------------------------- |
+| `SplitButton`           | `variant`       | `'default'`                             | Valeur partagée par défaut pour `Action` et `Trigger`.            |
+| `SplitButton`           | `size`          | `'md'`                                  | Valeur partagée par défaut pour `Action` et `Trigger`.            |
+| `SplitButton`           | `positioning`   | `{ placement: 'bottom-end', gutter: 4 }` | Maintient la fenêtre surgissante alignée sur le bord du déclencheur. |
+| `SplitButton`           | `aria-label`    | -                                        | Nomme le groupe de boutons associés pour les technologies d’assistance. |
+| `SplitButton.Trigger`   | `aria-label`    | `'More actions'` avec une icône seule  | Remplacez-la par un nom accessible plus précis.                   |
+| `SplitButton.Trigger`   | `children`      | `ChevronDownIcon`                       | Remplacez-le si le déclencheur nécessite son propre contenu visible. |
+
+### Comportement
+
+- `SplitButton` ne possède ni ancien contrat de rendu ni exportation à plat de ses parties.
+- `SplitButton` affiche ses contrôles joints dans un `role="group"`. Donnez au groupe un nom accessible
+  contextuel avec `aria-label` ou `aria-labelledby`.
+- `SplitButton.Action` suit le contrat `asChild` du composant `Button` partagé de moduix.
+- `SplitButton.Trigger` affiche un `Button` moduix comme hôte du déclencheur Ark Menu. Il conserve
+  `data-slot="split-button-trigger"` et reçoit les attributs ARIA et d’état d’Ark, tels que `aria-expanded`,
+  `aria-controls` et `data-state`. Son contenu visuel personnalisé est transmis avec `children`, sans deuxième couche `asChild`.
+- `SplitButton.Positioner` reçoit les variables CSS d’Ark Menu : `--reference-width`, `--available-height`, `--x`,
+  `--y`, `--z-index` et `--transform-origin`.
+- La propriété racine `variant` exclut la variante de bouton `link`, car des split buttons groupés sous forme de liens
+  ne constituent pas un contrôle visuel cohérent.
+- La propriété racine `size` exclut les tailles réservées aux boutons composés uniquement d’une icône, car le parcours
+  standard suppose que l’action principale possède un libellé visible.
+
+## Exemples
+
+### État contrôlé du menu
+
+Utilisez le même contrat d’état d’ouverture contrôlé qu’Ark Menu lorsque l’état du menu déroulant doit être possédé par un état externe.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/controlled-menu-state.tsx"
+
+  ```
+</PreviewFrame>
+
+### Action principale désactivée
+
+Désactivez l’action principale sans désactiver le menu des actions alternatives lorsqu’une solution de repli reste disponible.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/disabled-action.tsx"
+
+  ```
+</PreviewFrame>
+
+### Action sous forme de lien
+
+Utilisez `asChild` sur `SplitButton.Action` lorsque l’action principale doit être affichée comme un lien.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/link-action.tsx"
+
+  ```
+</PreviewFrame>
+
+### Positionnement
+
+Personnalisez le placement de la fenêtre surgissante avec la propriété racine `positioning` d’Ark tout en conservant ses parties structurelles explicites.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/positioning.tsx"
+
+  ```
+</PreviewFrame>
+
+### Tailles
+
+Utilisez la propriété racine `size` lorsque les deux côtés doivent être redimensionnés ensemble.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/split-button/sizes.tsx"
+
+  ```
+</PreviewFrame>
+
+### Variantes
+
+Utilisez la propriété racine `variant` lorsque les deux boutons groupés doivent partager le même ton visuel.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/split-button/variants.tsx"
+
+  ```
+</PreviewFrame>
+
+### Avec des icônes
+
+Ajoutez une icône au côté principal lorsqu’elle clarifie l’action par défaut sans remplacer le libellé textuel.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/with-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez les parties `Menu.*` partagées dans `SplitButton.Content` lorsque les actions secondaires nécessitent des
+groupes, des séparateurs, des éléments à cocher, des boutons radio ou des lignes sous forme de lien.
+
+<style>{SplitButtonDocs.splitButtonExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/split-button/menu-composition.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+`SplitButton` utilise les styles `Button` et `Menu` de moduix ainsi que des slots propres au split button pour son aspect groupé.
+
+Le séparateur jointif et l’espacement horizontal interne du déclencheur se règlent avec les variables
+`--moduix-split-button-separator-*` et `--moduix-split-button-trigger-padding-x-*`. Leurs valeurs par défaut passent
+par les tokens partagés de bordure et d’espacement : les préréglages de densité restent ainsi cohérents avec `Button`,
+tandis que `Menu` continue de posséder les styles des lignes de la fenêtre surgissante.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={SplitButtonDocs.splitButtonCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-scope="split-button"` et `data-part="root"` ciblent l’enveloppe `role="group"`.
+- `data-slot="split-button-root"` cible l’enveloppe groupée.
+- `data-slot="split-button-action"` cible le côté de l’action principale.
+- `data-slot="split-button-trigger"` cible le côté du déclencheur du menu déroulant.
+- `data-slot="split-button-positioner"` cible l’enveloppe du positionneur Ark Menu.
+- `data-slot="split-button-content"` cible la surface de contenu Ark Menu.
+- `SplitButton.Trigger` est affiché à travers l’hôte `Button` partagé et reçoit les attributs ARIA et d’état du
+  déclencheur Ark Menu, notamment `data-state="open" | "closed"`.
+- `SplitButton.Content` reçoit les attributs de contenu Ark Menu : `data-state`, `data-side`, `data-placement`,
+  `data-nested` et `data-has-nested`.

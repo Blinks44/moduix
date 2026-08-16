@@ -1,0 +1,174 @@
+---
+title: Утилиты
+description: Утилиты Ark UI для поведения, для которого в moduix нет стилизованной обёртки.
+---
+
+# Утилиты
+
+Ark UI предоставляет несколько утилит, которые располагаются рядом со слоем компонентов moduix, а не внутри
+него. Используйте их напрямую, когда приложению нужно поведение примитива, а соответствующая страница
+компонента moduix ещё не документирует обёртку или проп, передающий это поведение дальше.
+
+Многие из этих утилит используют импорты из отдельных подпутей:
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+import { ClientOnly } from '@ark-ui/react/client-only';
+import { EnvironmentProvider } from '@ark-ui/react/environment';
+import { Presence } from '@ark-ui/react/presence';
+```
+
+Точный импорт и полный API приведены на связанной странице Ark.
+
+## Обзор
+
+| Утилита | Используйте, когда | Контекст moduix |
+| --- | --- | --- |
+| [Client Only](https://ark-ui.com/docs/utilities/client-only) | Поддереву после гидратации нужен `window`, измерение макета или другой API, доступный только в браузере. | Полезно в SSR-приложениях и примерах документации. |
+| [Download Trigger](https://ark-ui.com/docs/utilities/download-trigger) | По щелчку должны скачиваться URL, blob, файл или сгенерированные данные. | moduix уже оборачивает этот паттерн в `QrCode.DownloadTrigger` для экспорта QR-кодов. |
+| [Environment](https://ark-ui.com/docs/utilities/environment) | Поддерево moduix или Ark отрисовывается внутри iframe, Shadow DOM, Electron или другого пользовательского корневого документа. | Один раз оберните затронутое поддерево вместо того, чтобы исправлять каждый компонент. |
+| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap) | Вы создаёте пользовательскую модальную поверхность, которая должна удерживать фокус клавиатуры. | Dialog и Drawer уже предоставляют модальное поведение фокуса; всплывающие компоненты используют собственную подходящую модель фокуса. |
+| [Format Byte](https://ark-ui.com/docs/utilities/format-byte) | Нужны локализованные размеры файлов или значения хранилища. | Полезно рядом с загрузками, скачиваниями и телеметрией. |
+| [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | Нужны относительные метки времени для пользователя, например «2 мин назад». | При наличии читает локаль из `LocaleProvider`. |
+| [Format Time](https://ark-ui.com/docs/utilities/format-time) | Нужен локализованный вывод времени из строки `Date` или `HH:mm[:ss]`. | Полезно для планирования, таймеров и лент активности. |
+| [Frame](https://ark-ui.com/docs/utilities/frame) | React-содержимое должно отрисовываться в iframe с внедрением в head и колбэками монтирования. | Часто сочетается с `EnvironmentProvider`, когда в поддереве iframe отрисовываются компоненты Ark или moduix. |
+| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view) | Нужна отладочная или инспекционная структура для JSON-подобных данных. | Не зависит от стилизации moduix; используйте Ark напрямую. |
+| [Locale](https://ark-ui.com/docs/utilities/locale) | Локаль и направление должны передаваться через форматтеры Ark и поведение с поддержкой локали. | Сочетайте с утилитами `Format` и RTL-интерфейсами. |
+| [Presence](https://ark-ui.com/docs/utilities/presence) | Приложение владеет видимостью и жизненным циклом монтирования вне встроенной корневой части moduix. | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox и Tour уже предоставляют пропы присутствия Ark. |
+
+## Рекомендуемые базовые утилиты
+
+### Presence
+
+Используйте `Presence`, когда приложение владеет видимым узлом, но всё равно требуется поведение Ark для
+отложенного размонтирования после выхода.
+
+```tsx
+import { Button } from '@moduix/react/button';
+import { Presence } from '@ark-ui/react/presence';
+import { useState } from 'react';
+
+export function InlinePresenceNotice() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button type="button" onClick={() => setOpen((value) => !value)}>
+        Toggle notice
+      </Button>
+      <Presence present={open} lazyMount unmountOnExit>
+        <div className="notice">Saved filters will apply to the next refresh.</div>
+      </Presence>
+    </>
+  );
+}
+```
+
+Используйте исходную утилиту, когда видимый узел принадлежит вам. Если он уже принадлежит корневой части
+moduix, напрямую используйте пропы этого компонента `lazyMount`, `unmountOnExit`, `present` и
+`onExitComplete`.
+
+Полный API приведён в [документации Ark Presence](https://ark-ui.com/docs/utilities/presence).
+
+### Client Only
+
+Используйте `ClientOnly`, когда поддерево зависит от DOM или API браузера и не должно попадать в серверный
+рендер.
+
+```tsx
+import { ClientOnly } from '@ark-ui/react/client-only';
+
+export function ClientChartShell() {
+  return (
+    <ClientOnly fallback={<div>Loading chart...</div>}>
+      <ChartThatMeasuresContainer />
+    </ClientOnly>
+  );
+}
+```
+
+Это особенно полезно в SSR-приложениях, когда рядом с компонентами макета moduix находится диаграмма,
+редактор или панель с большим количеством измерений.
+
+Полный API приведён в [документации Ark Client Only](https://ark-ui.com/docs/utilities/client-only).
+
+### EnvironmentProvider
+
+Используйте `EnvironmentProvider`, когда поддерево moduix отрисовывается в нестандартном документе или
+корневом узле.
+
+```tsx
+import { EnvironmentProvider } from '@ark-ui/react/environment';
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
+
+export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
+  return (
+    <EnvironmentProvider value={iframeDocument}>
+      <Popover>
+        <Popover.Trigger asChild>
+          <Button>Open preview tools</Button>
+        </Popover.Trigger>
+        <Popover.Positioner>
+          <Popover.Content>Popover queries now target the iframe document.</Popover.Content>
+        </Popover.Positioner>
+      </Popover>
+    </EnvironmentProvider>
+  );
+}
+```
+
+Один раз оберните поддерево рядом с альтернативной средой, и Ark будет корректно ограничивать область
+DOM-запросов.
+
+Полный API приведён в [документации Ark Environment](https://ark-ui.com/docs/utilities/environment).
+
+### LocaleProvider и Format
+
+Используйте `LocaleProvider`, когда локаль и направление должны передаваться через форматтеры Ark и
+примитивы с поддержкой локали. Сочетайте его с `Format`, если UI должен отрисовывать локализованные значения
+без пользовательского кода обёрток.
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function ActivityTimestamp() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.RelativeTime value={-2} unit="day" style="short" />
+    </LocaleProvider>
+  );
+}
+```
+
+Используйте тот же провайдер для RTL-интерфейсов, чтобы компоненты и форматтеры с поддержкой Ark читали один
+источник локали.
+
+См. [документацию Ark Locale](https://ark-ui.com/docs/utilities/locale) и
+[документацию Ark Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time).
+
+## Когда оставаться в moduix
+
+- Используйте `Highlight` из moduix, когда совпадающие диапазоны должны использовать тот же стилизованный
+  контракт `<mark>`, что и остальная библиотека, а не исходную утилиту Ark напрямую.
+- Используйте `QrCode.DownloadTrigger` вместо исходного триггера скачивания Ark, когда пользователь сохраняет
+  изображение QR-кода из компонента QR moduix.
+- Прежде чем использовать отдельную обёртку `Presence`, используйте пропы присутствия на уровне компонента у
+  Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour, Accordion, Tabs и похожих корневых частей.
+- Прежде чем добавлять отдельный `FocusTrap`, используйте встроенное управление фокусом в компонентах moduix,
+  похожих на диалоги и всплывающие окна.
+
+`FocusTrap` - не универсальное решение для клавиатурной навигации. Используйте его только для действительно
+модальной пользовательской поверхности, добавьте доступное имя и действие закрытия, восстанавливайте фокус
+при закрытии и отдавайте предпочтение [Dialog](/docs/dialog) или [Drawer](/docs/drawer), если
+подходит любой из них.
+
+## Граница контракта
+
+Эти утилиты поставляются Ark UI, а не слоем стилизованных компонентов moduix. Ark владеет их пропами,
+деталями жизненного цикла, поведением доступности и периодичностью релизов. `LocaleProvider` также
+повторно экспортируется из `@moduix/react/locale`, поэтому у локали и направления есть единая стабильная
+точка входа moduix. На страницах компонентов moduix указаны случаи, когда утилита уже входит в контракт
+компонента.

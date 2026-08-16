@@ -171,6 +171,9 @@ can tune or remove the selected-state lift without replacing the thumbnail selec
 Content motion falls back to the shared `--moduix-popup-motion-*` tokens; `--moduix-lightbox-*` content-motion
 variables remain the more specific override. Backdrop motion remains separate.
 
+When `prefers-reduced-motion: reduce` is active, backdrop and content animations run for 1ms. This
+keeps Ark's exit lifecycle intact while avoiding visible motion.
+
 Moduix styles a zoom cursor on the trigger, a blurred backdrop, a centered positioner, transparent
 content, constrained image/video media, state-driven motion, and a fixed close icon anchored to the
 viewport corner.
@@ -213,6 +216,9 @@ DOM until first open and is removed after its exit animation. Set `unmountOnExit
 content after the first open; set both props to `false` only when eager initial rendering is needed.
 
 ## Local changelog
+
+- 2026-08-11: Added a reduced-motion animation path and coverage for the accessible close icon's
+  focus restoration.
 
 - 2026-08-01: Defaulted portalled overlay presence to lazy mounting and unmounting after exit.
 

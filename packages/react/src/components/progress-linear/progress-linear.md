@@ -4,6 +4,9 @@ Upstream docs:
 
 - Ark UI: https://ark-ui.com/docs/components/progress-linear
 - Chakra UI: https://chakra-ui.com/docs/components/progress
+- shadcn/ui: https://ui.shadcn.com/docs/components/progress
+
+Reviewed against these sources on 2026-08-12.
 
 ## Purpose
 
@@ -98,8 +101,10 @@ Ark writes `role="progressbar"`, `aria-valuemin`, `aria-valuemax`, `aria-valueno
 value text to `ProgressLinear.Track`. `ProgressLinear.Label` is visual text; pass `aria-label` or
 `aria-labelledby` to `ProgressLinear.Track` to give the progressbar a task-specific accessible name.
 
-`ProgressLinear.ValueText` uses Ark formatting and live-region behavior. Progress is informational
-and has no keyboard interaction or focus management.
+`ProgressLinear.ValueText` uses Ark formatting and live-region behavior. `translations.value(details)`
+creates `state.valueAsString` but does not replace the default visible percentage. Render that string
+inside `ValueText` through `ProgressLinear.Context` when custom visible wording is needed. Progress is
+informational and has no keyboard interaction or focus management.
 
 Ark state attributes are preserved: root has `data-scope="progress"`, `data-part="root"`,
 `data-state`, `data-value`, `data-max`, and `data-orientation`; label, value text, track, range,
@@ -111,7 +116,8 @@ and view keep their Ark `data-scope` / `data-part` hooks. `data-state` can be `i
 The wrapper adds moduix classes and stable `data-slot` hooks, then leaves behavior to Ark. Public
 theme variables use the `--moduix-progress-linear-*` prefix for root color/gap/width/height, label text,
 value text, track color/border/radius/size, range color/radius/transition, and indeterminate
-animations.
+animations. `--moduix-progress-linear-range-indeterminate-bg` changes the indeterminate range color
+without changing determinate progress.
 
 Horizontal range size comes from Ark's inline `width`. Vertical range size comes from Ark's inline
 `height`; the wrapper switches the track to a bottom-aligned, centered flex container when
@@ -126,7 +132,16 @@ focused while preserving Ark's underlying `Progress` API.
 
 The old Base UI names and props are not preserved: `Progress`, `ProgressRoot`, `ProgressLabel`,
 `ProgressValue`, `ProgressTrack`, `ProgressIndicator`, `format`, and `getAriaValueText` were
-replaced by Ark parts, `formatOptions`, and `translations.value(details)`.
+replaced by Ark parts, `formatOptions`, `translations.value(details)`, and `Context` for custom
+visible value text.
+
+## Release comparison (2026-08-12)
+
+| Source    | Relevant pattern                                                                                | moduix decision                                                                                              |
+| --------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Ark UI    | Explicit root, label, value text, track, range, view, provider, and `null` indeterminate state. | Preserve the primitive API and all Ark state, ARIA, ref, and `asChild` behavior.                             |
+| Chakra UI | Adds recipe-level sizes, variants, palette, stripes, and animation controls.                    | Keep the Ark-shaped composition; semantic CSS variables cover visual customization without a broad prop API. |
+| shadcn/ui | Offers a concise closed default and a label/value composition example.                          | Keep the explicit recommended composition so registry users retain Ark escape hatches.                       |
 
 ## Agent notes
 
@@ -138,6 +153,9 @@ escape hatch. When changing styling hooks or CSS variables, update docs examples
 
 ## Local changelog
 
+- 2026-08-12: Added an indeterminate range color token, corrected the custom value-text examples to
+  use Ark state through `Context`, documented the release comparison, and covered custom bounds plus
+  accessible value text in tests.
 - 2026-07-29: Made the default layout safe in narrow containers, centered the vertical track, and
   made horizontal indeterminate motion and value-text alignment RTL-aware. Documented that an
   accessible task name belongs on `Track`, not the visual label alone.

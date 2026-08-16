@@ -11,4 +11,10 @@
   .unstyled {
     width: min(32rem, calc(100vw - var(--moduix-spacing-8)));
   }
+
+  .unstyledImage {
+    inline-size: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
 }

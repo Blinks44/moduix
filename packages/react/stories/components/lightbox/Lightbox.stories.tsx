@@ -1,12 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
-import { Carousel } from '../../../src/components/carousel';
-import type { LightboxImageSelectDetails } from '../../../src/components/lightbox/Lightbox';
-import {
-  Lightbox,
-  useLightbox,
-  useLightboxContext,
-} from '../../../src/components/lightbox/Lightbox';
+import { Carousel } from '@/components/carousel';
+import type { LightboxImageSelectDetails } from '@/components/lightbox/Lightbox';
+import { Lightbox, useLightbox, useLightboxContext } from '@/components/lightbox/Lightbox';
 import styles from './Lightbox.stories.module.css';
 
 const images = [

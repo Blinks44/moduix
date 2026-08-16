@@ -146,6 +146,8 @@ The root defaults to a column layout and switches to row layout for `orientation
 
 ## Local changelog
 
+- 2026-08-13: Kept `Tabs.RootProvider`'s public `data-variant` aligned with `Tabs` for vertical
+  state stores, and added regression coverage for that fallback and manual activation.
 - 2026-07-31: Stabilized the root width, constrained the vertical list on narrow viewports, limited
   the line treatment to horizontal tabs, and documented the public context surfaces.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

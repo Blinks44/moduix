@@ -1,0 +1,62 @@
+---
+title: Next.js
+description: Установите moduix в Next.js App Router с корневым CSS и явными границами клиентских компонентов.
+---
+
+# Next.js
+
+В App Router загружайте CSS moduix из корневого layout и размещайте интерактивные компоненты после клиентской границы.
+
+## Установите пакет
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Один раз импортируйте базовую таблицу стилей в корневом layout:
+
+```tsx title="app/layout.tsx"
+import '@moduix/react/style.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Собирайте интерактивные компоненты moduix в клиентском компоненте:
+
+```tsx title="app/continue-button.tsx"
+'use client';
+
+import { Button } from '@moduix/react/button';
+
+export function ContinueButton() {
+  return <Button>Continue</Button>;
+}
+```
+
+Серверные компоненты могут рендерить обычную разметку вокруг этой границы. Вместо обработчиков событий они должны
+передавать в клиентский компонент сериализуемые данные.
+
+## Установка через shadcn CLI
+
+Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli), указав `rsc: true`. Сохраните
+стандартный алиас `@/*` из стартового шаблона Next.js и импортируйте сгенерированную базовую таблицу стилей из
+корневого layout:
+
+```tsx title="app/layout.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+shadcn CLI добавляет `use client` в сгенерированные компоненты, которым это необходимо. Для собственной составной
+обёртки директива по-прежнему нужна, если она содержит состояние, эффекты или обработчики событий.
+
+## Проверка
+
+Настройка завершена, когда стили присутствуют в первом ответе, а интерактивные компоненты не сообщают об ошибке
+границы сервера и клиента или гидратации.
+
+См. руководства Next.js по [CSS](https://nextjs.org/docs/app/getting-started/css) и
+[директиве `use client`](https://nextjs.org/docs/app/api-reference/directives/use-client).

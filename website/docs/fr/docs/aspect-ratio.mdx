@@ -1,0 +1,159 @@
+---
+title: Aspect Ratio
+component: aspect-ratio
+description: Contraint les médias et intègre le contenu dans une boîte réactive avec un rapport hauteur/largeur fixe.
+---
+
+import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive `aspect-ratio` dédiée. moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d'Ark en matière de
+[composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling) et de
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Exemple de base
+
+Commencez par `AspectRatio`, mettez width ou max-width sur la racine elle-même et transmettez un positif fini
+numérique `ratio`. Les enfants directs `img`, `video`, `iframe`, `canvas` et `svg` remplissent le cadre
+automatiquement. Définissez `object-fit` sur les images et les vidéos lorsque vous avez besoin d'un recadrage ou d'un confinement.
+
+<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="aspect-ratio" />
+
+## Anatomie
+
+```text
+AspectRatio / AspectRatio.Root
+└─ media | iframe | canvas | svg | custom content
+```
+
+| Partie | Rôle |
+| ---------------------------------- | ------------------------------- |
+| `AspectRatio` / `AspectRatio.Root` | Cadre réactif avec découpage. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `AspectRatio` pour la plupart des images multimédias. Placez les classes de dimensionnement, de rayon et de disposition sur la racine elle-même ;
+`AspectRatio.Root` est la même racine exposée pour la cohérence de l'espace de noms.
+
+- `ratio` est obligatoire et numérique ; passer une valeur finie supérieure à zéro pour un comportement CSS valide
+- `asChild` utilise la composition de l'usine Ark et nécessite exactement un élément React
+- Les enfants directs `img`, `video`, `iframe`, `canvas` et `svg` remplissent automatiquement le cadre ; ensemble
+`object-fit` sur les images et vidéos pour choisir le recadrage ou le confinement
+- `className` stylise et dimensionne directement la racine
+- `--moduix-aspect-ratio-radius` contrôle le cadre arrondi par défaut
+
+### Quand créer une composition personnalisée
+
+Entourez `AspectRatio` d’un conteneur lorsque les ombres, les anneaux de focus ou d’autres éléments décoratifs doivent dépasser de la zone recadrée.
+cadre. Conservez le découpage sur la racine elle-même et remplacez la racine `aspect-ratio` dans votre propre CSS
+lorsqu'un point d'arrêt a besoin d'un cadre différent.
+
+### Propriétés par défaut
+
+| Entrée | Par défaut | Valeurs / Remarques |
+| ------------------------------ | ------------------------- | ------------------------------------ |
+| `ratio` | - | Fini positif requis `number` |
+| `className` | `undefined` | Styles et tailles la racine |
+| `style` | `undefined` | Peut remplacer `aspect-ratio` directement |
+| `asChild` | `undefined` | Composition de l'usine d'arche |
+| `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | Longueur CSS ou valeur du jeton |
+
+### Comportement
+
+- La racine s'affiche avec `data-scope="aspect-ratio"`, `data-part="root"` et
+`data-slot="aspect-ratio-root"`.
+- La racine est au niveau du bloc et utilise le dimensionnement de la bordure, y compris lorsque `asChild` change d'hôte
+élément.
+- `position: relative` à la racine est intentionnel et prend en charge les modèles enfants à remplissage absolu tels que
+comme Next.js `Image fill`.
+- Les enfants directs `iframe` remplissent le cadre sans la bordure par défaut du navigateur.
+- Les chaînes prédéfinies précédentes (`square`, `video`, `portrait`, `photo`) ont été supprimées lors de l'Ark.
+migration. Utilisez des nombres tels que `1`, `16 / 9`, `9 / 16` et `4 / 3`.
+
+## Exemples
+
+### Dispositions de cartes
+
+Gardez les cartes répétées visuellement alignées en enveloppant leurs supports dans le même rapport hauteur/largeur, même lorsque le
+les actifs sources diffèrent.
+
+<style>{AspectRatioDocs.aspectRatioGridCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/card-grid.tsx"
+
+```
+</PreviewFrame>
+
+### Contenu intégré
+
+Enveloppez la vidéo ou d'autres intégrations dans `AspectRatio` pour maintenir la stabilité de l'image avant le contenu externe
+termine le chargement.
+
+<style>{AspectRatioDocs.aspectRatioEmbedCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/embedded-content.tsx"
+
+```
+
+</PreviewFrame>
+
+### Migration depuis shadcn
+
+Si vous venez de shadcn, déplacez les classes de largeur et de rayon sur `AspectRatio` lui-même. Le même
+le modèle racine fonctionne avec `next/image fill` dans Next.js.
+
+<style>{AspectRatioDocs.aspectRatioMigrationCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/migrating-from-shadcn.tsx"
+
+```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `asChild` lorsque vous devez contourner l'hôte racine par défaut et laisser un élément sémantique tel que
+`figure` possède le cadre. Ark fusionne les accessoires du composant dans un seul élément enfant.
+
+<style>{AspectRatioDocs.aspectRatioBasicCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/aspect-ratio/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={AspectRatioDocs.aspectRatioCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-scope="aspect-ratio"` et `data-part="root"` sont les crochets racine alignés sur Ark.
+- `data-slot="aspect-ratio-root"` est le hook racine moduix stable.
+- Mettez les styles de largeur, de largeur maximale et de mise en page sur la racine elle-même. Remplacez `aspect-ratio` par le vôtre
+CSS lorsqu'un point d'arrêt nécessite un rapport différent.
+- Les médias directs utilisent le dimensionnement des zones de bordure ; les images et les vidéos conservent leur propre valeur `object-fit` afin que le
+le consommateur choisit entre la culture et le confinement.
+- `overflow: hidden` est intentionnel. Si une décoration visible doit s'échapper du cadre, placez-la
+décoration sur une enveloppe extérieure au lieu de retirer les coupures de racines.

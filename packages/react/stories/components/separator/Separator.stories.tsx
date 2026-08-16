@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Separator } from '../../../src/components/separator/Separator';
+import { Separator } from '@/components/separator/Separator';
 import styles from './Separator.stories.module.css';
 
 const meta = {
@@ -75,6 +75,18 @@ export const Sizes: Story = {
         <Separator size="md" />
         <span className={styles.link}>Large</span>
         <Separator size="lg" />
+      </div>
+    );
+  },
+};
+
+export const Decorative: Story = {
+  render: () => {
+    return (
+      <div className={styles.section}>
+        <span className={styles.link}>Related visual content</span>
+        <Separator role="presentation" />
+        <span className={styles.link}>Hidden from the accessibility tree</span>
       </div>
     );
   },

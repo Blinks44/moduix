@@ -37,13 +37,15 @@ the library `CloseButton` as the default close trigger surface.
   ergonomic imports.
 - `Toaster` renders the standard moduix toast when no render prop is passed: non-null title and
   description, an action when present, and `CloseTrigger` unless `closable: false` is set.
+- `createToaster()` follows Ark's default `type: 'info'`. The card-based `info`, `success`,
+  `warning`, and `error` surfaces match `Alert`.
 - `Toast.Title` renders `toast.title` from Ark context when `children` is omitted. Passing `null`
   intentionally renders no title content.
 - `Toast.Description` renders `toast.description` from Ark context when `children` is omitted.
   Passing `null` intentionally renders no description content.
 - `Toast.CloseTrigger` renders `CloseButton.Root` by default and defaults its accessible label to
   `"Close toast"` when `aria-label` is omitted.
-- All Ark callback details and store method signatures pass through unchanged.
+- All Ark callback details and store methods pass through unchanged.
 
 ## Anatomy and exported parts
 
@@ -103,8 +105,8 @@ export function ToastExample() {
   customization.
 - `Setup`: preserved through `createToaster(options)`.
 - `Basic`: supported through `toaster.create(options)`.
-- `Types`: supported through `success`, `error`, `warning`, and `info` store methods plus
-  `data-type`.
+- `Types`: supports the default `info` type plus `success`, `error`, and `warning` store methods
+  through `data-type`.
 - `Promise Toast`: supported through `toaster.promise()`.
 - `Update`: supported through `toaster.update(id, options)`.
 - `Action`: supported through `toast.action` and `Toast.ActionTrigger`.
@@ -138,32 +140,42 @@ export function ToastExample() {
 
 Primary CSS variables:
 
-| Variable                                | Default                                                         |
-| --------------------------------------- | --------------------------------------------------------------- |
-| `--moduix-toast-width`                  | `20rem`                                                         |
-| `--moduix-toast-viewport-inset`         | `var(--moduix-spacing-4)`                                       |
-| `--moduix-toast-bg`                     | `var(--moduix-color-popover)`                                   |
-| `--moduix-toast-color`                  | `var(--moduix-color-popover-foreground)`                        |
-| `--moduix-toast-border-color`           | `var(--moduix-color-border)`                                    |
-| `--moduix-toast-border-width`           | `var(--moduix-border-width-sm)`                                 |
-| `--moduix-toast-radius`                 | `var(--moduix-radius-lg)`                                       |
-| `--moduix-toast-shadow`                 | `var(--moduix-shadow-lg)`                                       |
-| `--moduix-toast-padding`                | `var(--moduix-spacing-4)`                                       |
-| `--moduix-toast-content-gap`            | `var(--moduix-spacing-1)`                                       |
-| `--moduix-toast-title-font-size`        | `var(--moduix-text-sm)`                                         |
-| `--moduix-toast-title-font-weight`      | `var(--moduix-weight-semibold)`                                 |
-| `--moduix-toast-description-color`      | `var(--moduix-color-muted-foreground)`                          |
-| `--moduix-toast-action-bg-hover`        | `var(--moduix-color-accent)`                                    |
-| `--moduix-toast-action-gap`             | `var(--moduix-spacing-2)`                                       |
-| `--moduix-toast-action-min-height`      | `var(--moduix-size-xs)`                                         |
-| `--moduix-toast-close-bg-hover`         | `var(--moduix-color-muted)`                                     |
-| `--moduix-toast-close-focus-ring-width` | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` |
-| `--moduix-toast-close-size`             | `var(--moduix-spacing-7)`                                       |
-| `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-3)`                                       |
-| `--moduix-toast-transition`             | `400ms`                                                         |
-| `--moduix-toast-transition-out`         | `400ms`                                                         |
-| `--moduix-toast-opacity-transition-out` | `200ms`                                                         |
-| `--moduix-toast-z-index`                | `var(--moduix-z-toast)`                                         |
+| Variable                                | Default                                                               |
+| --------------------------------------- | --------------------------------------------------------------------- |
+| `--moduix-toast-width`                  | `20rem`                                                               |
+| `--moduix-toast-viewport-inset`         | `var(--moduix-spacing-4)`                                             |
+| `--moduix-toast-bg`                     | `var(--moduix-toast-info-bg, var(--moduix-color-card))`               |
+| `--moduix-toast-color`                  | `var(--moduix-toast-info-color, var(--moduix-color-card-foreground))` |
+| `--moduix-toast-border-color`           | `var(--moduix-toast-info-border-color, var(--moduix-color-border))`   |
+| `--moduix-toast-border-width`           | `var(--moduix-border-width-sm)`                                       |
+| `--moduix-toast-radius`                 | `var(--moduix-radius-lg)`                                             |
+| `--moduix-toast-shadow`                 | `var(--moduix-shadow-lg)`                                             |
+| `--moduix-toast-padding`                | `var(--moduix-spacing-4)`                                             |
+| `--moduix-toast-content-gap`            | `var(--moduix-spacing-1)`                                             |
+| `--moduix-toast-title-font-size`        | `var(--moduix-text-sm)`                                               |
+| `--moduix-toast-title-font-weight`      | `var(--moduix-weight-semibold)`                                       |
+| `--moduix-toast-description-color`      | `var(--moduix-color-muted-foreground)`                                |
+| `--moduix-toast-action-bg-hover`        | `var(--moduix-color-accent)`                                          |
+| `--moduix-toast-action-gap`             | `var(--moduix-spacing-2)`                                             |
+| `--moduix-toast-action-min-height`      | `var(--moduix-size-xs)`                                               |
+| `--moduix-toast-close-bg-hover`         | `var(--moduix-color-muted)`                                           |
+| `--moduix-toast-close-focus-ring-width` | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))`       |
+| `--moduix-toast-close-size`             | `var(--moduix-spacing-7)`                                             |
+| `--moduix-toast-close-icon-size`        | `var(--moduix-spacing-3)`                                             |
+| `--moduix-toast-transition`             | `400ms`                                                               |
+| `--moduix-toast-transition-out`         | `400ms`                                                               |
+| `--moduix-toast-opacity-transition-out` | `200ms`                                                               |
+| `--moduix-toast-z-index`                | `var(--moduix-z-toast)`                                               |
+
+Each visual status has its own surface overrides, so consumers can theme an individual status
+without selectors or affecting other toast types:
+
+| Type             | Background variable         | Border variable                       | Color variable                 |
+| ---------------- | --------------------------- | ------------------------------------- | ------------------------------ |
+| default / `info` | `--moduix-toast-info-bg`    | `--moduix-toast-info-border-color`    | `--moduix-toast-info-color`    |
+| `success`        | `--moduix-toast-success-bg` | `--moduix-toast-success-border-color` | `--moduix-toast-success-color` |
+| `warning`        | `--moduix-toast-warning-bg` | `--moduix-toast-warning-border-color` | `--moduix-toast-warning-color` |
+| `error`          | `--moduix-toast-error-bg`   | `--moduix-toast-error-border-color`   | `--moduix-toast-error-color`   |
 
 The CSS keeps Ark `data-scope` and `data-part` attributes intact, styles state through root
 `data-state` and `data-type`, and consumes Ark runtime variables. Moduix `data-slot` hooks are
@@ -199,6 +211,8 @@ viewport and roots use Ark's `--gap` variable for safe inline spacing.
 
 ## Local changelog
 
+- 2026-08-14: Aligned card-based info, success, warning, and error surfaces with Alert; protected
+  long toast content from overflow; and covered action dismissal plus inline rendering.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-31: Documented the `useToastContext` re-export and restored native text selection inside
   toast content.

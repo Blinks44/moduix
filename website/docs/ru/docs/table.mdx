@@ -1,0 +1,244 @@
+---
+title: Table
+component: table
+description: Нативный примитив таблицы с удобными обёртками для границ и прокрутки, числовыми столбцами, подписями и пустыми состояниями.
+---
+
+import * as TableDocs from '@/components/examples/table';
+
+## Справочник API
+
+В Ark UI нет отдельного примитива `table`. moduix создаёт этот компонент через официальную [фабрику Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по [композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и работе с [ref](https://ark-ui.com/docs/guides/ref).
+
+## Базовый пример
+
+Начните с `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body` и нативных частей для строк и ячеек. Такая
+композиция подходит для счетов, сводок и таблиц с данными только для чтения в административных интерфейсах.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/basic.tsx"
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="table" />
+
+## Анатомия
+
+Стандартная композиция остаётся близкой к нативной разметке таблицы:
+
+```text
+Table.ScrollArea (optional)
+└─ Table
+   ├─ Table.ColumnGroup (optional)
+   │  └─ Table.Column
+   ├─ Table.Caption (optional)
+   ├─ Table.Header
+   │  └─ Table.Row
+   │     └─ Table.ColumnHeader
+   ├─ Table.Body
+   │  ├─ Table.Row
+   │  │  └─ Table.Cell
+   │  └─ Table.Empty (optional)
+   └─ Table.Footer (optional)
+```
+
+| Часть                | Назначение                                                               |
+| ---------------------- | -------------------------------------------------------------------------- |
+|`Table`|Нативный корневой элемент `table` с типографикой, разделителями и атрибутами состояния.|
+|`Table.ScrollArea`|Необязательная рамка с прокруткой для таблицы внутри отдельного блока.|
+|`Table.ColumnGroup`|Нативный `colgroup` для распределения ширины столбцов.|
+|`Table.Column`|Нативный `col` с поддержкой `htmlWidth`.|
+|`Table.Caption`|Необязательная подпись над или под таблицей; положение задаёт `side`.|
+|`Table.Header`|Нативный `thead` для заголовков столбцов.|
+|`Table.Body`|Нативный `tbody` для строк с данными.|
+|`Table.Footer`|Нативный `tfoot` для итоговых строк.|
+|`Table.Row`|Нативный `tr` с оформлением разделителя.|
+|`Table.ColumnHeader`|Нативный `th` с поддержкой `numeric`.|
+|`Table.Cell`|Нативный `td` с поддержкой `numeric`.|
+|`Table.Empty`|Готовая строка пустого состояния внутри `Table.Body`.|
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для большинства наборов данных только для чтения используйте `Table.ScrollArea` и семантические части таблицы.
+
+Добавьте `Table.ScrollArea`, если нужна рамка с горизонтальной прокруткой. Указывайте `numeric` у
+`Table.ColumnHeader` и `Table.Cell` для сумм, счётчиков, процентов и других числовых показателей. Используйте
+`Table.Caption` для краткого названия или пояснения, а `Table.Footer` - для итогов. Свойства `striped`,
+`interactive`, `showColumnBorder`, `stickyHeader`, `size` и `variant` меняют только внешний вид и не добавляют
+состояние таблицы данных.
+
+### Когда нужна собственная композиция
+
+Не используйте `Table.ScrollArea`, если прокрутка, отступы, границы и фон уже заданы родительской разметкой.
+Оставьте `Table`, а оформление контейнера перенесите в собственный компонент макета.
+
+`Table` не управляет сортировкой, фильтрацией, выбором, пагинацией или действиями над строками. Это визуальный и
+семантический примитив, на котором можно строить более сложные таблицы. Для управления данными через TanStack Table
+используйте руководство [Data Table](/docs/data-table).
+
+### Свойства по умолчанию
+
+Все части принимают `className` и нативные свойства соответствующего HTML-элемента.
+
+| Компонент            | Свойство           | По умолчанию | Примечание                                              |
+| -------------------- | ------------------ | ---------- | ------------------------------------------------------- |
+|`Table`|`interactive`|`false`|Включает подсветку строк тела при наведении.|
+|`Table`|`showColumnBorder`|`false`|Добавляет границы между видимыми столбцами.|
+|`Table`|`size`|`'md'`|Поддерживает `'sm'`, `'md'` и `'lg'`.|
+|`Table`|`stickyHeader`|`false`|Закрепляет `Table.Header` внутри контейнера прокрутки.|
+|`Table`|`striped`|`false`|Чередует фон строк с данными, кроме строки пустого состояния.|
+|`Table`|`variant`|`'line'`|Поддерживает `'line'` и `'outline'`.|
+|`Table.Caption`|`side`|`'bottom'`|Поддерживает `'top'` и `'bottom'`.|
+|`Table.Column`|`htmlWidth`|-|Сопоставляется с собственным атрибутом `width` на `col`.|
+|`Table.ColumnHeader`|`numeric`|`false`|Выравнивает содержимое по концу строки и использует табличные числа.|
+|`Table.Cell`|`numeric`|`false`|Выравнивает содержимое по концу строки и использует табличные числа.|
+|`Table.Empty`|`colSpan`|обязательное|Должно совпадать с текущим количеством столбцов.|
+
+### Особенности поведения
+
+- `Table.Empty` отображает полноценную строку пустого состояния. Передайте количество столбцов через `colSpan`.
+  Его escape hatch `asChild` заменяет только созданную ячейку, поэтому передавайте один семантический `td`;
+  для настройки самой строки соберите `Table.Row` и `Table.Cell` напрямую.
+- Строка пустого состояния получает `data-empty`; на неё не распространяются чередование фона и интерактивные стили.
+- Строки заголовка и тела имеют общий нижний разделитель, а у последней строки тела граница убирается.
+- При `interactive` строки с данными подсвечиваются при наведении и сохраняют этот контекст, когда
+  фокус с клавиатуры получает вложенный элемент управления.
+- `Table.Caption` использует приглушённую типографику и отступы от краёв таблицы.
+
+## Примеры
+
+### Подпись и итоги
+
+Используйте `Table.Caption side="top"`, если подпись должна находиться перед данными, а `Table.Footer` - для итогов.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/caption-and-footer.tsx"
+  ```
+</PreviewFrame>
+
+### Группа столбцов и границы
+
+Используйте `Table.ColumnGroup` и `Table.Column` для собственной ширины столбцов и `showColumnBorder`, когда разделение столбцов должно быть видимым.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/column-group-and-borders.tsx"
+  ```
+</PreviewFrame>
+
+### Пустое состояние
+
+Используйте `Table.Empty`, если в противном случае тело не отображало бы строки.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/empty-state.tsx"
+  ```
+</PreviewFrame>
+
+### Внутри Card
+
+Размещайте `Table.ScrollArea` в `Card.Body`, если таблица должна находиться внутри карточки.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/inside-card.tsx"
+  ```
+</PreviewFrame>
+
+### Числовые столбцы
+
+Указывайте `numeric` и в заголовке, и в ячейках, чтобы числовые показатели выравнивались одинаково.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/numeric-columns.tsx"
+  ```
+</PreviewFrame>
+
+### Действия со строками с меню
+
+Поместите действия над строкой в последний столбец. `Menu` позволяет добавить компактный список команд, не меняя
+нативную структуру таблицы.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/row-actions-with-menu.tsx"
+  ```
+</PreviewFrame>
+
+### Размеры и варианты
+
+Используйте `size` для выбора плотности, а `variant` - для оформления разделителей. Эти свойства меняют только внешний вид.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/sizes-and-variants.tsx"
+  ```
+</PreviewFrame>
+
+### Закреплённые заголовок и столбец
+
+Используйте `stickyHeader` у корня и `data-sticky="start" | "end"` у ячеек, чтобы при прокрутке заголовок и важный
+столбец оставались видимыми.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/sticky-header-and-column.tsx"
+  ```
+</PreviewFrame>
+
+### Чередование фона строк
+
+Используйте `striped`, чтобы строки длинной таблицы с данными только для чтения легче различались визуально.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/striped-rows.tsx"
+  ```
+</PreviewFrame>
+
+### С ScrollArea
+
+Используйте `ScrollArea` напрямую, если нужны стилизованные полосы прокрутки Ark по обеим осям, эффект затухания
+или API области прокрутки. Сохраняйте структуру `ScrollArea` явной, чтобы `Table` оставался лёгкой обёрткой над
+нативной таблицей.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/with-scrollarea.tsx"
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Table.ScrollArea`, если контейнер и прокрутка уже заданы родительской разметкой. Композиция нативных
+частей таблицы при этом остаётся явной.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/custom-composition.tsx"
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Настраивайте `Table` через `className`, публичные хуки `data-slot`, атрибуты `data-side` и `data-numeric`, а также
+перечисленные ниже CSS-переменные `--moduix-table-*`.
+
+### CSS-свойства
+
+<div className="docs-reference">
+<Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+> <Tab> <TableDocs.TableCssPropertiesPanel /> </Tab> </Tabs>
+</div>
+
+### Хуки стилизации
+
+Используйте ту часть или атрибут, которые отвечают за нужное оформление:
+
+- `className` у `Table.ScrollArea` - граница, радиус и фон всего контейнера;
+- `className` у `Table` - типографика и ограничения ширины;
+- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`, `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` и `table-empty` - выбор отдельных частей;
+- `data-side="top" | "bottom"` у `Table.Caption` - положение подписи;
+- `data-numeric` у `Table.ColumnHeader` и `Table.Cell` - числовые столбцы;
+- `data-empty` у строки, созданной `Table.Empty`, - пустое состояние;
+- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` и `data-show-column-border` у `Table` - состояния корня;
+- `data-sticky="start" | "end"` у `Table.ColumnHeader` и `Table.Cell` - закреплённые столбцы.

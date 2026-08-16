@@ -1,0 +1,207 @@
+---
+title: Avatar
+component: avatar
+description: Une représentation visuelle compacte d'un utilisateur ou d'une entité avec le chargement d'image et le comportement de secours d'Ark UI.
+---
+
+import * as AvatarDocs from '@/components/examples/avatar';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/avatar" />
+
+## Exemple de base
+
+Composez `Avatar`, `Avatar.Fallback` et `Avatar.Image`. Gardez la solution de secours montée pour que l'interface utilisateur d'Ark puisse
+basculez entre celui-ci et l’image à mesure que l’état de chargement change.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="avatar" />
+
+## Anatomie
+
+```text
+Avatar.Root | Avatar.RootProvider
+├─ Avatar.Fallback
+└─ Avatar.Image
+```
+
+| Partie | Rôle |
+| ------------------------ | ----------------------------------------------------------------- |
+| `Avatar` / `Avatar.Root` | Crée et possède l'état de l'avatar Ark UI.                         |
+| `Avatar.RootProvider` | Rend un avatar à partir de l'état de l'interface utilisateur Ark créé en externe.           |
+| `Avatar.Fallback` | Affiche les initiales, une icône ou un contenu personnalisé jusqu'au chargement de l'image. |
+| `Avatar.Image` | Affiche l'image native après un chargement réussi.                   |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `Avatar` pour le chemin normal. `Avatar.Root` reste disponible lorsque vous souhaitez l'explicite
+Espace de noms aligné sur l'arche. `onStatusChange(details)` signale l'état de chargement de l'Ark, tandis que `ids`
+fournit des ID stables pour la racine, l’image et la solution de secours. Toutes les pièces DOM transmettent leurs références et
+Supporte l'arche `asChild`.
+
+`Avatar.Image` restitue un `img`, fournissez donc un texte `alt` significatif lorsque l'image véhicule une identité.
+Utilisez `alt=""` lorsque le lien ou le bouton environnant porte déjà le nom accessible.
+
+`Avatar.Fallback name="Alex T."` dérive le premier graphème du premier et du dernier mot du
+cas courant, les initiales restent donc intactes pour les noms internationaux et les emoji. Dépassez les enfants quand vous
+besoin d'un contenu de secours personnalisé ; les enfants explicites ont priorité sur `name`.
+
+### Quand créer une composition personnalisée
+
+Utilisez `useAvatar` à partir de `@moduix/react` avec `Avatar.RootProvider` lorsque l'état doit être créé à l'extérieur
+l'avatar rendu. Ne restituez pas `Avatar.Root` autour de la même instance d'état `RootProvider`.
+
+Pour les composants d'image framework, utilisez `useAvatarContext()` à partir de `@moduix/react` et préservez celui d'Ark.
+comportement caché/visible. Conservez les surfaces contextuelles Ark uniquement plus rares et tapez des alias
+`@ark-ui/react/avatar`.
+
+Utilisez `asChild` avec un enfant sémantique lorsqu'un lien, un bouton ou un composant de structure doit posséder le nom d'un composant.
+Nœud DOM.
+
+### Propriétés par défaut
+
+| Surfaces | Accessoire | Visuel par défaut | Valeurs |
+| ----------------------------------------------- | ------ | -------------- | ---------------------------- |
+| `Avatar` / `Avatar.Root`, `Avatar.RootProvider` | `size` | `md` | `xs`, `sm`, `md`, `lg`, `xl` |
+
+Lorsque `size` est omis, Avatar utilise les jetons visuels `md` sans définir `data-size`. Passer
+`size="md"` lorsque les sélecteurs ont besoin de l'attribut.
+
+### Comportement
+
+- Ark contrôle `data-state="visible" | "hidden"` sur `Avatar.Image` et `Avatar.Fallback`.
+- `Avatar.Fallback` dérive les initiales sécurisées pour les graphèmes à partir du premier et du dernier mot de `name` uniquement lorsque
+aucun enfant n'est fourni.
+- `Avatar.Fallback` affiche une icône d'utilisateur décorative lorsqu'il n'y a ni enfants ni initiales `name` utilisables
+sont disponibles.
+- `onStatusChange` reçoit un objet détail ; lire la valeur actuelle de `details.status`.
+- Une image manquante ou défaillante maintient la solution de secours visible.
+- `Avatar.RootProvider` nécessite le `value` renvoyé par `useAvatar`.
+- `useAvatar` et `useAvatarContext` sont disponibles auprès de `@moduix/react`.
+- `Avatar.Context` est disponible auprès de `@moduix/react` ; Les alias de type Ark restent sur `@ark-ui/react/avatar`.
+- moduix ajoute uniquement des valeurs visuelles par défaut, des hooks `data-slot` stables, des variables CSS et `size`.
+
+## Exemples
+
+### Contenu de remplacement par défaut
+
+Laissez `Avatar.Fallback` vide pour utiliser l’icône utilisateur décorative intégrée. Fournir le nom accessible
+sur le lien ou le bouton environnant lorsque l'avatar est interactif.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/default-fallback.tsx"
+
+```
+</PreviewFrame>
+
+### Contenu de remplacement personnalisé
+
+Le contenu de secours peut être une icône ou un autre marqueur d’identité compact. Ajoutez un nom accessible lorsque
+la solution de secours elle-même transmet des informations qui ne sont pas disponibles dans le texte à proximité.
+
+<style>{AvatarDocs.avatarFallbackCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-fallback.tsx"
+
+```
+
+</PreviewFrame>
+
+### Image personnalisée
+
+Utilisez `useAvatarContext()` de moduix lorsqu'un composant d'image de framework ou un moteur de rendu personnalisé doit
+participer au cycle de vie de chargement d'Ark.
+
+<style>{AvatarDocs.avatarCustomImageCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-image.tsx"
+
+```
+</PreviewFrame>
+
+### Événements
+
+Utilisez `onStatusChange(details)` lorsque l’interface utilisateur environnante doit réagir au cycle de vie de l’image.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/events.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Créez un état avec `useAvatar` à partir de moduix lorsque les contrôles extérieurs à l'avatar doivent être coordonnés avec
+puis restituez `Avatar.RootProvider` au lieu de `Avatar.Root`.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Tailles et contenu de remplacement uniquement
+
+Le raccourci moduix `size` mappe les tailles courantes de jetons de conception sur l'un ou l'autre composant racine. Une solution de secours uniquement
+l'avatar est valide lorsqu'aucune source d'image n'existe.
+
+<style>{AvatarDocs.avatarExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/sizes-and-fallback-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez `asChild` lorsque l'avatar lui-même est l'élément interactif. Cela contourne le DOM racine par défaut
+nœud tout en gardant l’état d’Ark, le comportement de secours et la composition des pièces explicites.
+
+<style>{AvatarDocs.avatarCompositionCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/avatar/custom-composition.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Utilisez `className` et les variables CSS moduix pour les changements visuels. Utiliser les attributs de données Ark lorsque les styles
+dépendent de l'état de l'image.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={AvatarDocs.avatarCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-slot="avatar-root"`, `avatar-root-provider`, `avatar-image`, `avatar-fallback` et
+`avatar-fallback-icon`.
+- Crochets d'anatomie Ark : `data-scope="avatar"` et
+`data-part="root" | "image" | "fallback"`.
+- État de l'image Ark : `data-state="visible" | "hidden"` sur `Avatar.Image` et
+`Avatar.Fallback`.
+- état de taille du module : `data-size="xs" | "sm" | "md" | "lg" | "xl"` activé
+`Avatar.Root` et `Avatar.RootProvider` lorsque `size` est fourni.

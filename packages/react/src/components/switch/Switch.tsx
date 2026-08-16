@@ -98,7 +98,7 @@ const SwitchLabel = forwardRef<
 });
 
 function withHiddenInput(children: ReactNode, asChild?: boolean) {
-  const hiddenInput = <SwitchPrimitive.HiddenInput data-slot="switch-hidden-input" />;
+  const hiddenInput = <SwitchHiddenInput />;
 
   if (!asChild) {
     return (
@@ -112,6 +112,19 @@ function withHiddenInput(children: ReactNode, asChild?: boolean) {
   const child = Children.only(children) as ReactElement<{ children?: ReactNode }>;
 
   return cloneElement(child, {}, child.props.children, hiddenInput);
+}
+
+function SwitchHiddenInput() {
+  const switchApi = useSwitchContext();
+  const readOnly =
+    (switchApi.getRootProps() as { 'data-readonly'?: string })['data-readonly'] !== undefined;
+
+  return (
+    <SwitchPrimitive.HiddenInput
+      aria-readonly={readOnly || undefined}
+      data-slot="switch-hidden-input"
+    />
+  );
 }
 
 const Switch = Object.assign(SwitchRoot, {

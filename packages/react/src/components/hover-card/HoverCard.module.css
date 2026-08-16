@@ -1,6 +1,6 @@
 @layer moduix.components {
   .trigger {
-    --moduix-hover-card-trigger-current-color: var(
+    --_hover-card-trigger-current-color: var(
       --moduix-hover-card-trigger-color,
       var(--moduix-color-primary)
     );
@@ -9,13 +9,13 @@
     align-items: center;
     gap: var(--moduix-hover-card-trigger-gap, var(--moduix-spacing-1));
     outline: 0;
-    color: var(--moduix-hover-card-trigger-current-color);
+    color: var(--_hover-card-trigger-current-color);
     font: inherit;
     text-decoration-line: underline;
     text-decoration-thickness: var(--moduix-hover-card-trigger-decoration-thickness, 1px);
     text-decoration-color: var(
       --moduix-hover-card-trigger-decoration-color,
-      color-mix(in oklab, var(--moduix-hover-card-trigger-current-color), transparent 40%)
+      color-mix(in oklab, var(--_hover-card-trigger-current-color), transparent 40%)
     );
     text-underline-offset: var(--moduix-hover-card-trigger-underline-offset, 2px);
     cursor: pointer;
@@ -27,7 +27,7 @@
       &:hover {
         text-decoration-color: var(
           --moduix-hover-card-trigger-decoration-color-hover,
-          var(--moduix-hover-card-trigger-current-color)
+          var(--_hover-card-trigger-current-color)
         );
       }
     }
@@ -35,7 +35,7 @@
     &[data-state='open'] {
       text-decoration-color: var(
         --moduix-hover-card-trigger-decoration-color-open,
-        var(--moduix-hover-card-trigger-current-color)
+        var(--_hover-card-trigger-current-color)
       );
     }
 
@@ -75,6 +75,7 @@
     max-width: min(var(--moduix-hover-card-max-width, 24rem), var(--available-width));
     max-height: min(var(--moduix-hover-card-max-height, 24rem), var(--available-height, 100dvh));
     overflow: visible;
+    overflow-wrap: anywhere;
     padding: var(--moduix-hover-card-padding-y, var(--moduix-spacing-2))
       var(--moduix-hover-card-padding-x, var(--moduix-spacing-2));
     border: 0;
@@ -123,6 +124,16 @@
         --moduix-hover-card-arrow-stroke-color,
         var(--moduix-hover-card-border-color, var(--moduix-color-border))
       );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger {
+      transition: none;
+    }
+
+    .content {
+      animation: none;
+    }
   }
 
   @keyframes hover-card-enter {

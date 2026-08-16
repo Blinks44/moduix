@@ -1,0 +1,225 @@
+---
+title: TanStack Form
+description: Интегрируйте нативные и составные элементы управления moduix с TanStack Form.
+---
+
+# TanStack Form
+
+[Документация TanStack Form](https://tanstack.com/form/latest/docs/framework/react/overview) описывает
+полное React API и модель валидации. Эта страница посвящена сопоставлению элементов управления moduix.
+
+Поля TanStack Form контролируются. Передайте `field.state.value` компоненту, затем сопоставьте
+колбэк компонента обратно с `field.handleChange`. Составные компоненты Ark отрисовывают собственный
+нативный элемент управления формы, когда он им нужен, поэтому никогда не добавляйте отдельное скрытое
+поле ввода.
+
+```bash
+npm install @tanstack/react-form
+```
+
+## Сопоставление
+
+| Элемент управления | Подключение TanStack Form |
+| ------------------ | ------------------------- |
+| `Input`, `Textarea`, `Field.Select` | Передайте `field.state.value` и сопоставьте нативное событие изменения. |
+| `Select` | Преобразуйте скалярное значение поля в строковый массив `value` Ark и обратно. |
+| `Combobox` | Используйте то же сопоставление значений и сохраняйте фильтрацию в `onInputValueChange`. |
+| `Checkbox` | Сопоставьте `details.checked === true` с булевым значением поля. |
+| Автоматические нативные элементы управления | Передавайте семантические пропсы корневого элемента, например `name` или `form`; moduix управляет полем ввода. |
+
+Определите каждое поле в `defaultValues`. Вызывайте `field.handleBlur` из фактической точки
+взаимодействия, чтобы состояние посещения и валидация по blur оставались корректными.
+
+Подпишитесь на `state.canSubmit` и `state.isSubmitting` для кнопки отправки, как в полной форме.
+Оставляйте значения видимыми, блокируйте невалидную отправку и отключайте повторную отправку, пока не
+завершится асинхронный обработчик `onSubmit`.
+
+## Валидация и сброс
+
+Используйте валидатор поля для локальных правил и валидатор Standard Schema на уровне формы для общих
+правил или правил между полями. Сопоставление компонентов ниже остаётся тем же. В примере валидация
+выполняется при отправке; когда вы валидируете по blur или при вводе, показывайте `Field.ErrorText` и
+устанавливайте `Field invalid` после того, как поле было посещено, а не помечайте невалидными все
+изначально пустые обязательные поля.
+
+`noValidate` уместен, только когда TanStack Form управляет видимым потоком ошибок. В остальных случаях
+оставьте нативную валидацию ограничений включённой. Используйте `form.reset()` для контролируемых полей,
+чтобы состояние библиотеки и элементы управления moduix сбрасывались вместе; один сброс DOM не может
+заменить контролируемое значение, хранящееся в форме.
+
+## Полная форма
+
+Этот пример интегрирует `Input`, `Select`, `Combobox`, `Textarea` и `Checkbox`, валидирует при отправке,
+переводит фокус на первый невалидный элемент управления и подписывается только на готовность к отправке
+и состояние ожидания. `noValidate` сохраняет поток ошибок демонстрации внутри TanStack Form; не
+используйте его, когда сначала должна сработать нативная валидация браузера.
+
+<style>{`
+      .form {
+        width: min(24rem, 100%);
+        margin-inline: auto;
+      }
+
+      .fields {
+        display: grid;
+        gap: var(--moduix-spacing-4);
+      }
+
+      .fields [data-slot="field-root"],
+      .fields [data-slot="select-root"],
+      .fields [data-slot="combobox-root"] {
+        width: 100%;
+      }
+
+      .fields [data-slot="select-root"] {
+        --moduix-select-width: 100%;
+      }
+
+      .fields [data-slot="combobox-root"] {
+        --moduix-combobox-width: 100%;
+      }
+
+      .submit {
+        width: 100%;
+      }
+    `}</style>
+
+```tsx preview file="../../en/docs/_snippets/tanstack-form/complete-form.tsx"
+
+```
+
+## Повторяющиеся поля
+
+Используйте поле в режиме массива как владельца операций добавления и удаления и отрисовывайте вложенное
+поле для каждого значения. Элемент, созданный пользователем, тоже должен иметь собственный постоянный
+`id`; используйте его как ключ React, а индекс оставьте частью имени вложенного поля. Оберните список
+в `Fieldset`, когда у него есть общая метка. Этот фрагмент отрисовывается в компоненте, где была
+создана `form`.
+
+```tsx
+const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
+
+<form.Field name="emails" mode="array">
+  {(arrayField) => (
+    <>
+      {arrayField.state.value.map((item, index) => (
+        <form.Field key={item.id} name={`emails[${index}].address`}>
+          {(field) => (
+            <Field invalid={!field.state.meta.isValid}>
+              <Field.Label>Email {index + 1}</Field.Label>
+              <Input
+                name={field.name}
+                type="email"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(event) => field.handleChange(event.currentTarget.value)}
+              />
+              <Field.ErrorText>{field.state.meta.errors.join(', ')}</Field.ErrorText>
+              <Button type="button" onClick={() => arrayField.removeValue(index)}>
+                Remove email
+              </Button>
+            </Field>
+          )}
+        </form.Field>
+      ))}
+
+      <Button type="button" onClick={() => arrayField.pushValue(newEmail())}>
+        Add email
+      </Button>
+    </>
+  )}
+</form.Field>;
+```
+
+При редактировании сохранённых элементов используйте ID, уже возвращённый вашим API; `newEmail()`
+нужен только для создания новых строк на клиенте.
+
+## Ошибки, возвращённые сервером
+
+Добавьте в форму асинхронный валидатор отправки. Верните `fields` с точными именами полей, которые
+отклонил сервер, и необязательное сообщение `form` для ошибок, не относящихся к одному полю. Обычная
+отрисовка `field.state.meta.errors` затем покажет ошибки полей без отдельного хранилища ошибок.
+
+```tsx
+type ProjectFormValues = {
+  name: string;
+  emails: { address: string; id: string }[];
+};
+
+const form = useForm<ProjectFormValues>({
+  defaultValues: { name: '', emails: [] },
+  validators: {
+    onSubmitAsync: async ({ value }) => {
+      const result = await validateProjectOnServer(value);
+
+      if (!result.ok) {
+        return {
+          form: result.message,
+          // For example: { name: 'Already in use.', 'emails[0].address': 'Cannot be used.' }
+          fields: result.fieldErrors,
+        };
+      }
+
+      return null;
+    },
+  },
+  onSubmit: ({ value }) => saveProject(value),
+});
+
+<form.Subscribe selector={(state) => [state.errorMap.onSubmit] as const}>
+  {([error]) => (error ? <p role="alert">{error}</p> : null)}
+</form.Subscribe>;
+```
+
+## Фокус на первом невалидном поле
+
+TanStack Form не выбирает цель для фокуса в DOM. Используйте `onSubmitInvalid`, чтобы перевести фокус
+на первый отрисованный элемент управления, который сопоставление `Field invalid` помечает
+`aria-invalid="true"`:
+
+```tsx
+function focusFirstInvalid(formId: string) {
+  requestAnimationFrame(() => {
+    const formElement = document.getElementById(formId);
+    const control = formElement?.querySelector<HTMLElement>(
+      '[aria-invalid="true"]:not([hidden])',
+    );
+    control?.focus();
+  });
+}
+
+const form = useForm({
+  defaultValues,
+  onSubmit,
+  onSubmitInvalid: () => focusFirstInvalid('project-form'),
+});
+
+<form id="project-form">{/* fields */}</form>;
+```
+
+Передавайте фокус на фактический элемент управления: нативный Input, `Select.Trigger` или
+`Combobox.Input`.
+
+## Особенности поведения
+
+- Оберните `form.handleSubmit()` в обработчик отправки нативной формы после вызова `preventDefault()`;
+  полная форма явно показывает эту границу.
+- Для одиночного выбора передайте `field.state.value ? [field.state.value] : []` и прочитайте
+  `details.value[0] ?? ""`.
+- Вызывайте `field.handleBlur` из `Select.onInteractOutside` или `Combobox.Input.onBlur`, чтобы
+  TanStack Form мог обновлять состояние посещения.
+- `Select` автоматически отрисовывает нативный select для нативной семантики и синхронизации сброса.
+- Сопоставляйте отмеченное состояние `Checkbox` с булевым значением поля; его корневой элемент
+  автоматически отрисовывает нативное поле ввода.
+- `name={field.name}` включает нативную семантику `FormData`, но не заменяет контролируемые
+  сопоставления `state.value` и `handleChange` поля.
+- Для остальных автоматических элементов управления сохраняйте нестандартную конфигурацию формы на их
+  корневых элементах: `DateInput` использует кортеж `names` из двух элементов для отдельных
+  индексированных ключей диапазона, `Select` использует `nativeFormControl="input"` для
+  виртуализированных коллекций, а `SignaturePad` использует `getFormValue` для пользовательской
+  сериализации.
+- TanStack Form намеренно не управляет фокусом в DOM. Если вы хотите перевести фокус на первое
+  невалидное поле, реализуйте это в `onSubmitInvalid`, используя отрисованные элементы управления с
+  `aria-invalid`.
+- Используйте `form.Subscribe` для производного состояния формы вместо чтения `form.state` во время
+  рендера.

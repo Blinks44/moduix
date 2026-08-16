@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
+import { Badge } from '@/components/badge/Badge';
 import { ChevronRightIcon } from '@/lib/moduix/icons/ui';
-import { Badge } from '../../../src/components/badge/Badge';
 import styles from './Badge.stories.module.css';
 
 const meta = {
@@ -52,15 +52,15 @@ export const WithDot: Story = {
       <div className={styles.row}>
         <Badge.Root variant="default">
           <Badge.Dot />
-          Online
+          <Badge.Label>Online</Badge.Label>
         </Badge.Root>
         <Badge.Root variant="secondary">
           <Badge.Dot />
-          Draft
+          <Badge.Label>Draft</Badge.Label>
         </Badge.Root>
         <Badge.Root variant="destructive">
           <Badge.Dot />
-          Failed
+          <Badge.Label>Failed</Badge.Label>
         </Badge.Root>
       </div>
     );
@@ -72,20 +72,20 @@ export const WithIcon: Story = {
     return (
       <div className={styles.row}>
         <Badge.Root variant="default">
-          Release
+          <Badge.Label>Release</Badge.Label>
           <ChevronRightIcon />
         </Badge.Root>
         <Badge.Root variant="secondary">
-          Details
+          <Badge.Label>Details</Badge.Label>
           <ChevronRightIcon />
         </Badge.Root>
         <Badge.Root variant="outline">
-          Read more
+          <Badge.Label>Read more</Badge.Label>
           <ChevronRightIcon />
         </Badge.Root>
         <Badge.Root asChild variant="link">
           <a href="#badge-link-story">
-            Styling guide
+            <Badge.Label>Styling guide</Badge.Label>
             <ChevronRightIcon />
           </a>
         </Badge.Root>
@@ -104,6 +104,16 @@ export const Link: Story = {
   },
 };
 
+export const DisabledButton: Story = {
+  render: () => {
+    return (
+      <Badge.Root asChild variant="secondary">
+        <button disabled>Archived</button>
+      </Badge.Root>
+    );
+  },
+};
+
 export const TruncatedLabel: Story = {
   render: () => {
     return (
@@ -111,7 +121,7 @@ export const TruncatedLabel: Story = {
         className={styles.constrained}
         title="Ready for stakeholder review after legal approval"
       >
-        Ready for stakeholder review after legal approval
+        <Badge.Label>Ready for stakeholder review after legal approval</Badge.Label>
       </Badge.Root>
     );
   },
@@ -126,7 +136,7 @@ export const CustomStyling: Story = {
         <Badge.Root className={styles.large}>Large</Badge.Root>
         <Badge.Root className={styles.customBadge}>
           <Badge.Dot />
-          Priority
+          <Badge.Label>Priority</Badge.Label>
         </Badge.Root>
       </div>
     );

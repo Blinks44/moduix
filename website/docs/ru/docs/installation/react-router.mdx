@@ -1,0 +1,57 @@
+---
+title: React Router
+description: Установите moduix в приложение React Router в режиме фреймворка с корневым CSS, SSR-безопасной разметкой и алиасами.
+---
+
+# React Router
+
+Эта настройка рассчитана на React Router в режиме фреймворка. Приложения в режиме данных могут использовать те же
+импорты пакета в своей существующей точке входа Vite.
+
+## Установите пакет
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Один раз импортируйте базовую таблицу стилей из корневого маршрута:
+
+```tsx title="app/root.tsx"
+import '@moduix/react/style.css';
+```
+
+Используйте компоненты в модуле маршрута:
+
+```tsx title="app/routes/home.tsx"
+import { Button } from '@moduix/react/button';
+
+export default function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Установка через shadcn CLI
+
+Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli). Если сгенерированный код
+должен находиться в стандартном каталоге `app`, сопоставьте `@/*` с `app/*` вместо `src/*`:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+В режиме фреймворка React Router использует Vite, поэтому добавьте такой же алиас в `vite.config.ts`, как показано
+в [настройке Vite](/docs/installation/vite#установка-через-shadcn-cli), заменив `./src` на `./app`. Импортируйте
+`@/lib/moduix/styles/style.css` из `app/root.tsx`.
+
+## Проверка
+
+Настройка завершена, когда начальный серверный рендеринг совпадает с гидратированной страницей, а интерактивные
+компоненты работают после гидратации. Не меняйте разметку компонента в зависимости от браузерных глобальных объектов
+во время рендеринга.
+
+Полная настройка фреймворка приведена в [руководстве по установке React Router](https://reactrouter.com/start/framework/installation).

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SimpleGrid } from '../../../src/components/simple-grid/SimpleGrid';
-import { Text } from '../../../src/components/text';
+import { SimpleGrid } from '@/components/simple-grid/SimpleGrid';
+import { Text } from '@/components/text';
 import styles from './SimpleGrid.stories.module.css';
 
 const items = ['Analytics', 'Billing', 'Customers', 'Exports', 'Integrations', 'Reports'];

@@ -1,6 +1,7 @@
 import { CalendarDate } from '@internationalized/date';
 import { expect, test } from '@rstest/core';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { DateInput, useDateInput } from '../src';
 
 function ProviderDateInput() {
@@ -66,4 +67,32 @@ test('keeps automatic inputs inside an asChild root', () => {
     'name',
     'release-date',
   );
+});
+
+test('preserves Ark segment semantics, styling hooks, and root refs', () => {
+  const rootRef = createRef<HTMLDivElement>();
+
+  render(
+    <DateInput
+      ref={rootRef}
+      invalid
+      defaultValue={[new CalendarDate(2026, 6, 22)]}
+      name="release-date"
+    >
+      <DateInput.Label>Release date</DateInput.Label>
+      <DateInput.Control>
+        <DateInput.Segments />
+      </DateInput.Control>
+    </DateInput>,
+  );
+
+  expect(rootRef.current).toHaveAttribute('data-slot', 'date-input-root');
+  expect(rootRef.current).toHaveAttribute('data-scope', 'date-input');
+
+  const control = rootRef.current?.querySelector('[data-slot="date-input-control"]');
+
+  expect(control).toHaveAttribute('data-part', 'control');
+  expect(control).toHaveAttribute('data-invalid');
+  expect(screen.getAllByRole('spinbutton')).toHaveLength(3);
+  expect(screen.getAllByRole('spinbutton')[0]).toHaveAttribute('data-slot', 'date-input-segment');
 });

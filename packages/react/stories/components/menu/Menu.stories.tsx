@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import { Menu, useMenu } from '../../../src/components/menu/Menu';
+import { Button } from '@/components/button';
+import { Menu, useMenu } from '@/components/menu/Menu';
 import { InfoIcon, MapIcon } from '../../icons/demo';
 import storyStyles from './Menu.stories.module.css';
 
@@ -305,7 +305,6 @@ export const CustomStyling: Story = {
       </MenuButtonTrigger>
       <Menu.Positioner>
         <Menu.Content className={storyStyles.customPopup}>
-          <Menu.Arrow />
           <Menu.Item value="png">Export PNG</Menu.Item>
           <Menu.Item value="pdf">Export PDF</Menu.Item>
           <Menu.Separator />

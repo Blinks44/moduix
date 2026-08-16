@@ -32,6 +32,7 @@
   .legend {
     display: inline-block;
     max-inline-size: 100%;
+    overflow-wrap: anywhere;
     margin: var(--moduix-fieldset-legend-margin, 0);
     padding: var(--moduix-fieldset-legend-padding, 0 0 var(--moduix-spacing-3));
     color: var(--moduix-fieldset-legend-color, var(--moduix-color-foreground));
@@ -42,6 +43,7 @@
 
   .helperText,
   .errorText {
+    overflow-wrap: anywhere;
     font-size: var(--moduix-fieldset-message-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-fieldset-message-line-height, var(--moduix-line-height-text-sm));
   }
@@ -52,5 +54,6 @@
 
   .errorText {
     color: var(--moduix-fieldset-error-text-color, var(--moduix-color-destructive));
+    font-weight: var(--moduix-fieldset-error-text-font-weight, var(--moduix-weight-medium));
   }
 }

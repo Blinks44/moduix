@@ -1,0 +1,329 @@
+---
+title: Carousel
+component: carousel
+description: Un carrousel paginé avec composition Ark UI, lecture automatique, état fourni par un provider et diapositives de taille variable.
+---
+
+import * as CarouselDocs from '@/components/examples/carousel';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/carousel" />
+
+## Exemple de base
+
+Commencez par `Carousel` : rendez `Carousel.ItemGroup`, ajoutez un `Carousel.Control` compact pour passer à l’élément
+précédent ou suivant, puis utilisez `Carousel.Indicators` et `Carousel.ProgressText` pour obtenir une interface
+de pagination standard.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="carousel" />
+
+## Anatomie
+
+```text
+Carousel / Carousel.Root
+├─ Carousel.ItemGroup
+│  └─ Carousel.Item[index]
+├─ Carousel.Control
+│  ├─ Carousel.PrevTrigger
+│  └─ Carousel.NextTrigger
+├─ Carousel.Indicators
+│  └─ Carousel.IndicatorGroup
+│     └─ Carousel.Indicator[index]
+└─ Carousel.ProgressText
+```
+
+| Partie                       | Rôle                                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| `Carousel` / `Carousel.Root` | Gère l’état du carrousel, la navigation et la collection d’éléments.                 |
+| `Carousel.Control`           | Enveloppe de disposition pour les déclencheurs de navigation et les contrôles associés. |
+| `Carousel.ItemGroup`         | Bande de diapositives contenant les parties `Carousel.Item`.                         |
+| `Carousel.Item`              | Diapositive individuelle dotée d’un `index` stable.                                  |
+| `Carousel.PrevTrigger`       | Déclencheur qui accède à la page précédente.                                         |
+| `Carousel.NextTrigger`       | Déclencheur qui accède à la page suivante.                                           |
+| `Carousel.Indicators`        | Enveloppe de commodité moduix pour les indicateurs de page standard.                 |
+| `Carousel.IndicatorGroup`    | Enveloppe qui regroupe les indicateurs de page.                                      |
+| `Carousel.Indicator`         | Déclencheur d’indicateur pour un index de diapositive ou de page donné.              |
+| `Carousel.ProgressText`      | Texte indiquant la page actuelle et le nombre total de pages.                        |
+
+Pour les scénarios avancés, les éléments suivants sont également disponibles :
+
+- `Carousel.Context`
+- `Carousel.AutoplayTrigger`
+- `Carousel.AutoplayIndicator`
+- `Carousel.RootProvider`
+
+`useCarousel` et `useCarouselContext` sont disponibles depuis `@moduix/react`.
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `Carousel` comme composant racine, rendez `Carousel.ItemGroup` comme bande, placez les éléments de
+navigation dans `Carousel.Control` et ajoutez `Carousel.Indicators` lorsqu’un indicateur à points standard suffit.
+
+En général, `Carousel.Control` est une barre d’outils voisine de `Carousel.ItemGroup`.
+
+`Carousel.Root` reste un alias explicite de `Carousel` lorsque le code doit faire apparaître l’espace de noms.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Carousel.Context` avec `Carousel.IndicatorGroup` et `Carousel.Indicator` lorsque vous avez besoin d’une
+mise en page personnalisée du paginateur, de miniatures comme indicateurs ou d’un contrôle plus fin de `pageSnapPoints`.
+
+Utilisez `Carousel.RootProvider` de moduix avec `useCarousel()` lorsque l’état du carrousel doit être créé
+en dehors du sous-arbre rendu.
+
+Utilisez `useCarouselContext()` dans les enfants personnalisés qui ont besoin de l’API du carrousel sans render prop.
+
+Utilisez `Carousel.AutoplayTrigger` et `Carousel.AutoplayIndicator` lorsque les contrôles de lecture automatique
+doivent faire partie de l’interface visible, plutôt que d’être uniquement une propriété du composant racine.
+
+### Propriétés par défaut
+
+| Propriété    | Valeur par défaut | Remarques                                         |
+| ------------ | ----------------- | ------------------------------------------------- |
+| `slideCount` | -                 | Requis pour `Carousel` / `Carousel.Root`.         |
+
+### Comportement
+
+- `onPageChange(details)` conserve la forme d’Ark et expose la page active via `details.page`.
+- Attribuez `aria-label` ou `aria-labelledby` à `Carousel` ou `Carousel.RootProvider` afin que le landmark du carrousel possède un nom accessible.
+- `spacing`, `padding`, `slidesPerPage`, `slidesPerMove` et `autoSize` suivent directement les règles d’Ark relatives aux dimensions et aux points d’accroche.
+- Le carrousel vertical utilise la même API publique. Les déclencheurs standard pivotent automatiquement lorsque le composant utilise les chevrons moduix.
+- Les déclencheurs horizontaux standard sont automatiquement inversés avec `dir="rtl"`.
+- `Carousel.ProgressText` conserve l’ordre numérique lisible « actuel / total » dans les carrousels RTL.
+- `--moduix-carousel-indicator-size` contrôle le bouton indicateur compact ; son anneau de focus suit
+  donc la géométrie du point ou de la capsule active.
+- Avec `prefers-reduced-motion: reduce`, la piste défile immédiatement et les transitions des contrôles et
+  indicateurs moduix sont désactivées.
+
+## Exemples
+
+### Lecture automatique
+
+Utilisez la lecture automatique pour les galeries passives et ajoutez des contrôles visibles. Mettez-la en pause
+au survol du pointeur et à la réception du focus ; l’utilisateur pourra la reprendre avec `Carousel.AutoplayTrigger`.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/autoplay.tsx"
+
+```
+</PreviewFrame>
+
+Pour une galerie complète avec navigation latérale, texte sur les diapositives et indicateurs de progression, consultez
+la [recette de galerie en lecture automatique](/docs/autoplay-gallery).
+
+### État contrôlé
+
+Contrôlez la page actuelle lorsque l’état du carrousel doit être synchronisé avec une navigation externe, des filtres ou des données analytiques.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Cartes
+
+Les éléments du carrousel peuvent contenir n’importe quelle composition. Centrez la carte avec les styles de mise en page
+de l’application lorsqu’elle doit rester plus étroite que la diapositive.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/cards.tsx"
+
+```
+</PreviewFrame>
+
+### Boucle
+
+Activez `loop` lorsque le carrousel doit passer en continu de la dernière diapositive à la première.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/loop.tsx"
+
+```
+</PreviewFrame>
+
+### Modification dynamique
+
+Mettez `slideCount` à jour en même temps que les éléments rendus lorsque des diapositives peuvent être ajoutées ou supprimées après le rendu initial.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/dynamic.tsx"
+
+```
+
+</PreviewFrame>
+
+### Glisser à la souris
+
+Autorisez le glissement à la souris lorsque les utilisateurs sur ordinateur doivent parcourir les diapositives avec les mêmes gestes que sur un écran tactile.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/mouse-drag.tsx"
+
+```
+</PreviewFrame>
+
+### Pause au survol
+
+Mettez la lecture automatique en pause tant que le pointeur survole le carrousel. Elle reprend lorsque le pointeur
+le quitte ; la réception du focus continue de la suspendre.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/pause-on-hover.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `Carousel.RootProvider` lorsque le store du carrousel doit être créé en dehors du sous-arbre rendu et
+réutilisé entre plusieurs parties de la composition.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Accéder à une diapositive
+
+Appelez l’API du carrousel depuis le contexte lorsqu’un autre contrôle doit accéder directement à une diapositive donnée.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/scroll-to-slide.tsx"
+
+```
+
+</PreviewFrame>
+
+### Diapositives par page
+
+Augmentez `slidesPerPage` lorsque la mise en page doit afficher plusieurs éléments à la fois plutôt qu’un seul panneau sur toute la largeur.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/slides-per-page.tsx"
+
+```
+</PreviewFrame>
+
+### Espacement
+
+Ajustez `spacing` lorsque les diapositives voisines nécessitent davantage d’espace dans des mises en page éditoriales,
+des flux de produits ou le système d’espacement de la marque.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/spacing.tsx"
+
+```
+
+</PreviewFrame>
+
+### Indicateurs sous forme de miniatures
+
+Rendez un contenu d’indicateur personnalisé lorsque le paginateur doit afficher les miniatures des diapositives plutôt que de simples points.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/thumbnail-indicators.tsx"
+
+```
+</PreviewFrame>
+
+### Tailles variables
+
+Activez `autoSize` lorsque la largeur des diapositives doit dépendre de leur contenu plutôt que d’une grille de page fixe.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/variable-sizes.tsx"
+
+```
+
+</PreviewFrame>
+
+### Orientation verticale
+
+Passez à l’orientation verticale lorsque le carrousel doit disposer le mouvement et les contrôles sur l’axe de bloc.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/vertical.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Carousel.Indicators` si vous devez rendre vous-même les `pageSnapPoints` ou combiner l’interface
+du paginateur avec d’autres contrôles fondés sur le contexte.
+
+<style>{CarouselDocs.carouselExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+```tsx preview file="../../en/docs/_snippets/carousel/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Styles
+
+Utilisez `className` sur les parties exportées pour modifier la structure visuelle. Pour mettre en forme les états,
+préférez les attributs de données d’Ark (`data-part`, `data-orientation`, `data-current`, `data-dragging`) et les hooks
+`data-slot` de moduix.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={CarouselDocs.carouselOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-slot="carousel-root"`, `carousel-control`, `carousel-item-group`, `carousel-item`,
+  `carousel-prev-trigger`, `carousel-next-trigger`, `carousel-indicator-group`,
+  `carousel-indicator`, `carousel-autoplay-trigger`, `carousel-autoplay-indicator` et
+  `carousel-progress-text` sont des sélecteurs stables pour les parties exportées.
+- Ark fournit également `data-scope="carousel"` et les noms `data-part` sur les nœuds rendus.
+- `data-orientation="horizontal" | "vertical"` est disponible sur le composant racine et les parties structurelles.
+- `Carousel.ItemGroup` fournit `data-dragging` pendant le glissement.
+- `Carousel.Indicator` fournit `data-current`, tandis que `Carousel.Item` fournit `data-index` et `data-inview`.
+- `Carousel.Indicator` fournit `data-readonly`, tandis que `Carousel.AutoplayTrigger` fournit `data-pressed`.

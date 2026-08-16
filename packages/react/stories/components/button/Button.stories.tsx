@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useRef, useState } from 'react';
+import { Button } from '@/components/button/Button';
+import { Spinner } from '@/components/spinner';
 import { PlusIcon } from '@/lib/moduix/icons/ui';
-import { Button } from '../../../src/components/button/Button';
-import { Spinner } from '../../../src/components/spinner';
 import { ArrowUpRightIcon, StarIcon } from '../../icons/demo';
 import styles from './Button.stories.module.css';
 
@@ -75,7 +75,7 @@ export const WithIcons: Story = {
   render: () => (
     <div className={styles.row}>
       <Button>
-        <PlusIcon data-icon="inline-start" />
+        <PlusIcon />
         Create Item
       </Button>
       <Button size="icon-sm" variant="outline" aria-label="Small favorite">
@@ -89,7 +89,7 @@ export const WithIcons: Story = {
       </Button>
       <Button variant="link">
         Open Docs
-        <ArrowUpRightIcon data-icon="inline-end" />
+        <ArrowUpRightIcon />
       </Button>
     </div>
   ),
@@ -132,7 +132,7 @@ export const PendingState: Story = {
       >
         {pending ? (
           <>
-            <Spinner decorative size="sm" data-icon="inline-start" />
+            <Spinner decorative size="sm" />
             Saving
           </>
         ) : (
@@ -141,4 +141,17 @@ export const PendingState: Story = {
       </Button>
     );
   },
+};
+
+export const ContentStress: Story = {
+  render: () => (
+    <div className={styles.contentStress}>
+      <Button className={styles.wrappingButton}>
+        Approve the updated account recovery settings
+      </Button>
+      <Button className={styles.wrappingButton} dir="rtl" variant="outline">
+        اعتماد إعدادات استرداد الحساب المحدّثة
+      </Button>
+    </div>
+  ),
 };

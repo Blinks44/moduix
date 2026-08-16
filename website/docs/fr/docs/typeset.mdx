@@ -1,0 +1,159 @@
+---
+title: Typeset
+component: typeset
+description: Un rythme de lecture fondé sur le CSS pour le HTML sémantique, le Markdown rendu et le contenu diffusé en continu.
+---
+
+import * as TypesetDocs from '@/components/examples/typeset';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive dédiée à la composition typographique. moduix construit `Typeset` avec la
+[factory Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) ; son composant racine et son enveloppe de
+défilement facultative conservent donc les props HTML standard, `asChild` et la ref des éléments rendus.
+
+## Exemple de base
+
+Utilisez le composant racine abrégé `<Typeset>` pour le HTML rendu. Ajoutez `asChild` lorsque le conteneur lui-même
+doit être sémantique, par exemple un `article` ou une `section`. Utilisez des éléments `<ul>` et `<ol>` ordinaires :
+Typeset ajoute les puces, la numérotation, les marqueurs imbriqués et le rythme de lecture sans classes utilitaires.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+```bash
+npx shadcn@latest add @moduix-react/typeset
+```
+
+## Anatomie
+
+```text
+Typeset
+└─ Typeset.Scroll (facultatif)
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Typeset` / `Typeset.Root` | Composant racine isolé qui met en forme les descendants sémantiques. |
+| `Typeset.Scroll` | Zone de défilement horizontal focusable pour un large bloc rendu. |
+
+## Composition
+
+### Composition recommandée
+
+Laissez l’analyse du Markdown, le nettoyage, le rendu et la largeur de lecture à l’application. `Typeset` fournit
+uniquement un rythme visuel isolé et ne définit volontairement aucune largeur de lecture. Utilisez `Typeset.Scroll`
+autour d’un tableau large ou d’un autre bloc qui doit défiler horizontalement.
+
+### Quand créer une composition personnalisée
+
+Utilisez directement le HTML sémantique lorsque le sous-arbre rendu nécessite un autre contrat visuel, puis ajoutez
+`.not-typeset` ou `data-not-typeset` pour l’exclure avec tous ses descendants. Donnez un `aria-label` ou un
+`aria-labelledby` à chaque `Typeset.Scroll` visible par l’utilisateur ; moduix donne alors le rôle `region` à cette
+enveloppe nommée. Vous pouvez également passer des valeurs personnalisées pour `role` ou `tabIndex`.
+
+### Propriétés par défaut
+
+| Partie | Valeur par défaut | Remarques |
+| --- | --- | --- |
+| `Typeset` | `div` | Utilisez `asChild` avec un seul descendant sémantique pour rendre un autre conteneur. |
+| `Typeset.Scroll` | `div`, `tabIndex={0}` | Le focus par défaut rend un tableau statique débordant accessible au clavier. Donnez un nom accessible à une zone de défilement visible ; il ajoute `role="region"`. |
+
+### Comportement
+
+`Typeset` n’a ni machine à états, ni état contrôlé, ni comportement clavier, ni intégration aux formulaires, ni
+champ masqué. `Typeset.Scroll` constitue l’exception : il peut recevoir le focus au clavier par défaut afin que le
+navigateur puisse faire défiler un large bloc statique. Ses styles utilisent `margin-block-start` et évitent
+`:last-child`, `:has()` et `:empty` ; l’ajout d’un bloc Markdown diffusé en continu ne modifie donc pas les styles des
+blocs précédents.
+
+## Exemples
+
+### Exclure des surfaces de l’application
+
+Ajoutez `.not-typeset` ou `data-not-typeset` à un sous-arbre imbriqué qui possède son propre contrat visuel. Les deux
+variantes excluent l’élément marqué et tout son contenu, y compris une racine `Typeset` imbriquée.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/excluded-subtree.tsx"
+
+  ```
+</PreviewFrame>
+
+### Extensions Markdown
+
+Les listes de tâches, les blocs repliables, les listes de définitions et les notes de bas de page GFM utilisent les
+mêmes tokens et espacements unidirectionnels entre blocs que les éléments HTML principaux.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/markdown-extensions.tsx"
+
+  ```
+</PreviewFrame>
+
+### Rythme de lecture
+
+Utilisez les variables CSS pour créer des préréglages plus aérés ou plus denses sans ajouter de props au composant.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/reading-rhythm.tsx"
+
+  ```
+</PreviewFrame>
+
+### Tableau défilant
+
+Enveloppez un tableau produit par le moteur de rendu dans `Typeset.Scroll` lorsqu’il doit défiler au lieu de se
+comprimer dans un conteneur étroit. Donnez à la zone de défilement un nom accessible qui décrit son contenu. Le
+tableau de l’exemple conserve une largeur minimale pertinente, tandis que `PreviewFrame` maintient l’aperçu de la
+documentation centré et adaptatif.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/scrollable-table.tsx"
+
+  ```
+</PreviewFrame>
+
+### Contenu diffusé en continu
+
+Utilisez un rythme plus dense pour les messages de chat. À mesure que le flux s’allonge, les nouveaux blocs
+n’ajoutent que leur propre espacement.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/typeset/streaming-content.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TypesetDocs.TypesetCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+Les trois contrôles du rythme sont `--moduix-typeset-size`, `--moduix-typeset-leading` et
+`--moduix-typeset-flow`. Les variables de police sont facultatives ; les couleurs, bordures et rayons proviennent
+directement du thème moduix actif. Les règles des éléments se trouvent dans la couche `moduix.components` et
+emploient des sélecteurs de faible spécificité `:where()` ; le CSS ordinaire de l’application peut donc remplacer
+certains éléments sans `!important`.
+
+### Points d’accroche CSS
+
+- `data-slot="typeset"` cible le conteneur racine.
+- `data-slot="typeset-scroll"` cible l’enveloppe de débordement facultative et son état focus-visible.
+- `[data-scope="typeset"][data-part="root"]` et `[data-part="scroll"]` fournissent des hooks d’anatomie stables.

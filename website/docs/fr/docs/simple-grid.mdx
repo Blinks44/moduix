@@ -1,0 +1,121 @@
+---
+title: Simple Grid
+component: simple-grid
+description: Une grille de colonnes égales inspirée d’Ark UI qui s’adapte automatiquement à la largeur disponible.
+---
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive `simple-grid` dédiée. moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref). Le modèle de
+mise en page fondé sur `columns` et `minChildWidth` s’inspire de
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) de Chakra UI.
+
+## Exemple de base
+
+Utilisez `minChildWidth` lorsque des éléments de même largeur doivent se répartir automatiquement en colonnes
+à mesure que la largeur disponible de la grille évolue. Le composant utilise `auto-fit` et `minmax()` avec une
+protection pour les conteneurs étroits. Si un élément enfant contient du contenu insécable, ajoutez `min-width: 0`
+ou une règle de débordement appropriée.
+
+```tsx preview file="../../en/docs/_snippets/simple-grid/basic.tsx"
+
+```
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="simple-grid" />
+
+## Anatomie
+
+`SimpleGrid` affiche un unique élément racine de grille inspiré d’Ark et n’enveloppe pas ses enfants.
+
+```text
+SimpleGrid
+└─ root[data-scope="simple-grid"][data-part="root"][data-slot="simple-grid-root"]
+   └─ children
+```
+
+| Partie       | Rôle                                                     |
+| ------------ | -------------------------------------------------------- |
+| `SimpleGrid` | Conteneur racine qui crée des colonnes CSS Grid égales. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez `SimpleGrid` comme composant racine. `SimpleGrid.Root` reste un alias de compatibilité.
+
+Choisissez un seul mode de mise en page :
+
+- `minChildWidth` laisse le navigateur placer autant de colonnes égales que la largeur disponible le permet.
+- `columns` crée un nombre exact de colonnes égales.
+
+Définissez toujours un `gap`, `rowGap` ou `columnGap` intentionnel lorsque les éléments de la grille ont besoin
+d’une séparation visuelle. Utilisez `asChild` lorsque la racine doit être un élément sémantique tel que `ul`,
+`section` ou `nav`.
+
+### Quand créer une composition personnalisée
+
+Utilisez du CSS local si la mise en page nécessite des zones nommées, des colonnes de largeurs différentes, des éléments étirés ou
+un nombre précis de colonnes à plusieurs points de rupture de media queries ou de container queries. Ne transmettez
+pas `columns` ni `minChildWidth` si `grid-template-columns` est défini dans une feuille de style.
+
+### Propriétés par défaut
+
+| Propriété        | Par défaut                | Remarques                                                               |
+| ---------------- | ------------------------- | ----------------------------------------------------------------------- |
+| `columns`        | `1`                       | Nombre entier positif et fini de colonnes égales                        |
+| `minChildWidth`  | -                         | Largeur minimale d’une piste ; les nombres finis positifs ou nuls deviennent des pixels |
+| `gap`            | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
+| `rowGap`         | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
+| `columnGap`      | valeur du navigateur      | Longueur CSS (`number` = `px`)                                          |
+| `asChild`        | `false`                   | Composition de la fabrique Ark avec un seul enfant sémantique           |
+
+### Comportement
+
+- Si les deux propriétés de mise en page sont transmises, `minChildWidth` prend le pas sur `columns`.
+- `columns={3}` crée trois pistes égales sans ajouter d’enveloppe autour des enfants.
+- `minChildWidth={160}` crée autant de pistes que possible et interprète le nombre comme `160px`.
+- Une valeur numérique de `minChildWidth` doit être finie et positive ou nulle.
+- Le mode auto-fit évite le débordement lorsque la grille devient plus étroite que `minChildWidth`.
+- `gap`, `rowGap` et `columnGap` ne sont écrits dans les styles inline que lorsqu’ils sont transmis.
+- `style` est appliqué en dernier et peut remplacer les valeurs générées de `gridTemplateColumns` ou d’espacement.
+- La `ref` pointe vers la racine affichée. Avec `asChild`, elle pointe vers l’unique élément enfant.
+- Le composant n’ajoute ni rôle, ni libellé, ni comportement clavier, ni gestion du focus, ni état, ni contexte de fournisseur.
+
+## Exemples
+
+### Nombre fixe de colonnes
+
+Utilisez `columns` lorsqu’un panneau compact doit toujours afficher un nombre précis de pistes égales.
+
+```tsx preview file="../../en/docs/_snippets/simple-grid/fixed-columns.tsx"
+
+```
+
+### Galerie de médias
+
+Associez les colonnes internes à `asChild` d’Ark lorsque la grille de médias doit également avoir la sémantique d’une liste.
+
+```tsx preview file="../../en/docs/_snippets/simple-grid/media-gallery.tsx"
+
+```
+
+## Styles
+
+`SimpleGrid` ne possède pas de variables CSS propres au composant ; une référence CSS dédiée n’est donc pas
+nécessaire. Les propriétés de mise en page sont écrites dans les styles inline de l’élément racine.
+
+### Points d’accroche CSS
+
+- `className` permet de styliser l’unique racine : largeur, positionnement, arrière-plan et mise en page adaptative
+  lorsque `columns` et `minChildWidth` ne sont pas transmis.
+- `data-scope="simple-grid"` et `data-part="root"` alignent l’enveloppe sur les conventions de style d’Ark.
+- `data-slot="simple-grid-root"` est le sélecteur stable de moduix pour cibler la racine dans le CSS local.
+- `columns`, `minChildWidth`, `gap`, `rowGap` et `columnGap` écrivent des styles inline et prennent donc le pas sur
+  les déclarations de `className`.
+- `style` est fusionné après ces propriétés et constitue la dernière possibilité de remplacement pour l’instance.
+- Le composant ne fournit aucun hook de style lié à un état ou à une animation.

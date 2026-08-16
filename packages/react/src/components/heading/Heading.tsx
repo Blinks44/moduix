@@ -33,13 +33,13 @@ const HeadingRoot = forwardRef<HTMLHeadingElement, HeadingRootProps>(function He
     <Element
       ref={ref}
       asChild={asChild}
+      {...props}
       data-scope="heading"
       data-part="root"
       data-slot="heading-root"
       data-size={size}
       data-weight={weight}
       className={clsx(styles.root, normalizeClassName(className))}
-      {...props}
     />
   );
 });

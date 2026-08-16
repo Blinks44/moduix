@@ -17,12 +17,14 @@ factory wrapper with explicit parts.
 ## Upstream model to preserve
 
 - Uses the Ark factory composition model instead of a dedicated Ark primitive.
-- Keeps the public surface intentionally small: `Badge` / `Badge.Root` and `Badge.Dot`.
+- Keeps the public surface intentionally small: `Badge` / `Badge.Root`, `Badge.Label`, and
+  `Badge.Dot`.
 - Keeps Ark-style DOM ownership through `asChild` without adding managed state or behavior.
 
 ## Current behavior contract
 
 - `Badge` is the root shorthand and `Badge.Root` exposes the same root part explicitly.
+- `Badge.Label` is the text slot for explicit compositions and long labels.
 - `Badge.Dot` is the optional decorative indicator part.
 - `Badge.Root` accepts Ark factory span props plus local `variant`.
 - `Badge.Dot` accepts Ark factory span props and renders `aria-hidden="true"` by default.
@@ -36,17 +38,18 @@ factory wrapper with explicit parts.
 
 ```text
 Badge / Badge.Root
-├─ content
+├─ Badge.Label (optional; direct text is wrapped automatically)
 ├─ Badge.Dot (optional)
 └─ svg icon (optional)
 ```
 
 Every exported part accepts `className` and receives stable hooks:
 
-| Part                   | `data-slot`  | Notes                                                    |
-| ---------------------- | ------------ | -------------------------------------------------------- |
-| `Badge` / `Badge.Root` | `badge-root` | Root label with variant colors, spacing, and truncation. |
-| `Badge.Dot`            | `badge-dot`  | Optional decorative dot that inherits `currentColor`.    |
+| Part                   | `data-slot`   | Notes                                                    |
+| ---------------------- | ------------- | -------------------------------------------------------- |
+| `Badge` / `Badge.Root` | `badge-root`  | Root label with variant colors, spacing, and truncation. |
+| `Badge.Label`          | `badge-label` | Explicit truncating text slot.                           |
+| `Badge.Dot`            | `badge-dot`   | Optional decorative dot that inherits `currentColor`.    |
 
 Direct child `svg` icons are styled by the root and inherit `currentColor`.
 
@@ -65,14 +68,14 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 ```tsx
 <Badge variant="default">
   <Badge.Dot />
-  Online
+  <Badge.Label>Online</Badge.Label>
 </Badge>
 ```
 
 ## Upstream feature coverage
 
 - `Composition`: preserved through Ark factory `asChild` behavior on the exported parts.
-- `Refs`: forwarded to the rendered root and dot DOM elements.
+- `Refs`: forwarded to the rendered root, label, and dot DOM elements.
 - `Styling`: follows Ark `data-scope` / `data-part` targeting and accepts `className`.
 - `Chakra Badge examples`: variants and inline icons are covered; sizing remains a CSS-variable
   contract instead of a local `size` prop.
@@ -88,6 +91,10 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
   - `data-part="root"`
   - `data-slot="badge-root"`
   - `data-variant="<variant>"`
+- `Badge.Label` writes:
+  - `data-scope="badge"`
+  - `data-part="label"`
+  - `data-slot="badge-label"`
 - `Badge.Dot` writes:
   - `data-scope="badge"`
   - `data-part="dot"`
@@ -96,10 +103,13 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 - `Badge asChild` and `Badge.Root asChild` require one semantic child. Interactive children keep
   their native keyboard and accessibility behavior while inheriting the badge root's default
   cursor, hover, and focus-visible styling.
+- Disabled buttons and elements with `aria-disabled="true"` keep their semantics, suppress hover
+  styling, and use the public disabled-opacity hook.
 - Long labels stay on one line and are clipped with ellipsis. Add `title` to expose the full value
   on pointer hover; on touch-first interfaces, prefer a label that fits the available space.
-- Direct text children are wrapped internally so this truncation works in the flex layout. Elements
-  supplied as children keep their own layout and truncation behavior.
+- Direct text children are wrapped in `Badge.Label` automatically. Use `Badge.Label` explicitly
+  when composing text with a dot, icon, or other element; other elements keep their own layout and
+  truncation behavior.
 
 ## Defaults and styling
 
@@ -110,26 +120,57 @@ Use `Badge.Dot` or a direct child icon next to the label when a badge needs an e
 
 Public CSS variables:
 
-| Variable                               | Default                                                         | Applies to               |
-| -------------------------------------- | --------------------------------------------------------------- | ------------------------ |
-| `--moduix-badge-bg`                    | variant-specific background                                     | `Badge.Root`             |
-| `--moduix-badge-border-color`          | `transparent`; `var(--moduix-color-border)` for `outline`       | `Badge.Root`             |
-| `--moduix-badge-border-width`          | `var(--moduix-border-width-sm)`                                 | `Badge.Root`             |
-| `--moduix-badge-color`                 | variant-specific foreground                                     | `Badge.Root`             |
-| `--moduix-badge-dot-size`              | `var(--moduix-spacing-1-5)`                                     | `Badge.Dot`              |
-| `--moduix-badge-font-size`             | `var(--moduix-text-xs)`                                         | `Badge.Root`             |
-| `--moduix-badge-font-weight`           | `var(--moduix-weight-medium)`                                   | `Badge.Root`             |
-| `--moduix-badge-focus-ring-color`      | `var(--moduix-color-ring)`                                      | interactive `Badge.Root` |
-| `--moduix-badge-focus-ring-offset`     | `var(--moduix-focus-ring-offset)`                               | interactive `Badge.Root` |
-| `--moduix-badge-focus-ring-width`      | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` | interactive `Badge.Root` |
-| `--moduix-badge-gap`                   | `var(--moduix-spacing-1-5)`                                     | `Badge.Root`             |
-| `--moduix-badge-height`                | `1.25rem`                                                       | `Badge.Root`             |
-| `--moduix-badge-icon-size`             | `var(--moduix-spacing-3)`                                       | child `svg`              |
-| `--moduix-badge-line-height`           | `var(--moduix-line-height-text-xs)`                             | `Badge.Root`             |
-| `--moduix-badge-link-underline-offset` | `0.15em`                                                        | link `Badge.Root`        |
-| `--moduix-badge-padding-x`             | `var(--moduix-spacing-2-5)`                                     | `Badge.Root`             |
-| `--moduix-badge-padding-y`             | `0`                                                             | `Badge.Root`             |
-| `--moduix-badge-radius`                | `var(--moduix-radius-full)`                                     | `Badge.Root`             |
+| Variable                                    | Default                                                         | Applies to                |
+| ------------------------------------------- | --------------------------------------------------------------- | ------------------------- |
+| `--moduix-badge-bg`                         | variant-specific background                                     | `Badge.Root`              |
+| `--moduix-badge-border-color`               | `transparent`; `var(--moduix-color-border)` for `outline`       | `Badge.Root`              |
+| `--moduix-badge-border-width`               | `var(--moduix-border-width-sm)`                                 | `Badge.Root`              |
+| `--moduix-badge-color`                      | variant-specific foreground                                     | `Badge.Root`              |
+| `--moduix-badge-default-bg`                 | `var(--moduix-color-primary)`                                   | default root              |
+| `--moduix-badge-default-border-color`       | `transparent`                                                   | default root              |
+| `--moduix-badge-default-color`              | `var(--moduix-color-primary-foreground)`                        | default root              |
+| `--moduix-badge-destructive-bg`             | `var(--moduix-color-destructive)`                               | destructive root          |
+| `--moduix-badge-destructive-border-color`   | `transparent`                                                   | destructive root          |
+| `--moduix-badge-destructive-color`          | `var(--moduix-color-destructive-foreground)`                    | destructive root          |
+| `--moduix-badge-dot-size`                   | `var(--moduix-spacing-1-5)`                                     | `Badge.Dot`               |
+| `--moduix-badge-font-size`                  | `var(--moduix-text-xs)`                                         | `Badge.Root`              |
+| `--moduix-badge-font-weight`                | `var(--moduix-weight-medium)`                                   | `Badge.Root`              |
+| `--moduix-badge-focus-ring-color`           | `var(--moduix-color-ring)`                                      | interactive `Badge.Root`  |
+| `--moduix-badge-focus-ring-offset`          | `var(--moduix-focus-ring-offset)`                               | interactive `Badge.Root`  |
+| `--moduix-badge-focus-ring-width`           | `var(--moduix-focus-ring-width, var(--moduix-border-width-md))` | interactive `Badge.Root`  |
+| `--moduix-badge-gap`                        | `var(--moduix-spacing-1-5)`                                     | `Badge.Root`              |
+| `--moduix-badge-ghost-bg`                   | `transparent`                                                   | ghost root                |
+| `--moduix-badge-ghost-border-color`         | `transparent`                                                   | ghost root                |
+| `--moduix-badge-ghost-border-color-hover`   | `var(--moduix-color-primary)`                                   | interactive ghost root    |
+| `--moduix-badge-ghost-color`                | `var(--moduix-color-foreground)`                                | ghost root                |
+| `--moduix-badge-ghost-color-hover`          | `var(--moduix-color-primary)`                                   | interactive ghost root    |
+| `--moduix-badge-height`                     | `1.25rem`                                                       | `Badge.Root`              |
+| `--moduix-badge-icon-size`                  | `var(--moduix-spacing-3)`                                       | child `svg`               |
+| `--moduix-badge-line-height`                | `var(--moduix-line-height-text-xs)`                             | `Badge.Root`              |
+| `--moduix-badge-link-bg`                    | `transparent`                                                   | link root                 |
+| `--moduix-badge-link-border-color`          | `transparent`                                                   | link root                 |
+| `--moduix-badge-link-color`                 | `var(--moduix-color-primary)`                                   | link root                 |
+| `--moduix-badge-link-underline-offset`      | `0.15em`                                                        | link `Badge.Root`         |
+| `--moduix-badge-outline-bg`                 | `transparent`                                                   | outline root              |
+| `--moduix-badge-outline-border-color`       | `var(--moduix-color-border)`                                    | outline root              |
+| `--moduix-badge-outline-border-color-hover` | `var(--moduix-color-primary)`                                   | interactive outline root  |
+| `--moduix-badge-outline-color`              | `var(--moduix-color-foreground)`                                | outline root              |
+| `--moduix-badge-outline-color-hover`        | `var(--moduix-color-primary)`                                   | interactive outline root  |
+| `--moduix-badge-opacity-disabled`           | `var(--moduix-opacity-disabled)`                                | disabled interactive root |
+| `--moduix-badge-opacity-hover`              | `var(--moduix-opacity-hover)`                                   | filled interactive root   |
+| `--moduix-badge-padding-x`                  | `var(--moduix-spacing-2-5)`                                     | `Badge.Root`              |
+| `--moduix-badge-padding-y`                  | `0`                                                             | `Badge.Root`              |
+| `--moduix-badge-radius`                     | `var(--moduix-radius-full)`                                     | `Badge.Root`              |
+| `--moduix-badge-secondary-bg`               | `var(--moduix-color-secondary)`                                 | secondary root            |
+| `--moduix-badge-secondary-border-color`     | `transparent`                                                   | secondary root            |
+| `--moduix-badge-secondary-color`            | `var(--moduix-color-secondary-foreground)`                      | secondary root            |
+| `--moduix-badge-transition`                 | `var(--moduix-transition-default)`                              | `Badge.Root`              |
+
+The shared `--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color`
+overrides take precedence for an individual badge. Theme defaults can target a variant with
+`--moduix-badge-<variant>-bg`, `--moduix-badge-<variant>-border-color`, and
+`--moduix-badge-<variant>-color`. `outline` and `ghost` also provide matching `*-hover`
+border and color variables.
 
 ## Intentional sugar and differences from upstream
 
@@ -150,6 +191,10 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-09: Exposed `Badge.Label`, protected stable data and accessibility hooks from rest-prop
+  overrides, and aligned interactive disabled, hover, transition, and constrained sizing behavior.
+- 2026-08-06: Added variant-specific color variables so themes can retune Badge defaults without
+  changing one-off overrides.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Made the interactive `asChild` focus ring fully theme-overridable without changing
   its visual default.

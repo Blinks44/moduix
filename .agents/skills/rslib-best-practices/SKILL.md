@@ -22,18 +22,9 @@ Apply these rules when writing or reviewing Rslib library projects.
 
 ### moduix docs integration
 
-- For this repository's docs development, start the root `npm run dev:docs` workflow instead of an
-  independent Rslib command. It starts `rslib --watch --no-clean` alongside Rspress.
-- `--no-clean` is dev-only: it keeps exported files present while Rspress resolves the package. Do
-  not use it for release, CI, `npm pack`, or a final package check; those must use the normal clean
-  `npm run build:react`.
-- Do not manually invoke `npm run build:react` while `dev:docs` is active, even after React package
-  changes: the watcher already maintains `dist`, and a clean build recreates the transient
-  missing-`dist` window that this workflow avoids.
-- `npm run build:docs` also invokes that clean React dependency build. It is for an explicit
-  production/CI check only, never routine development validation while `dev:docs` is running.
-- `npm run tsc:check` deliberately has no `^build` dependency: it checks the `dist` maintained by
-  `dev:docs` without interrupting the watcher.
+- For docs development, use the root `npm run dev:docs` workflow rather than an independent Rslib command; it owns the `rslib --watch --no-clean` watcher.
+- Treat `--no-clean` as development-only. Release, CI, `npm pack`, and final package checks use the normal clean `npm run build:react`.
+- Do not run `build:react` or `build:docs` while `dev:docs` is active; follow `docs-workflow` for the complete docs-development constraints.
 
 ## Output
 

@@ -21,6 +21,7 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
       children,
       disabled,
       onClick,
+      onClickCapture,
       type,
       'aria-disabled': ariaDisabled,
       'aria-label': ariaLabel,
@@ -35,6 +36,17 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
   ) {
     const isDisabled =
       disabled || ariaDisabled === true || ariaDisabled === 'true' || dataDisabled !== undefined;
+    const nativeDisabled = asChild ? undefined : disabled;
+    const resolvedAriaDisabled = asChild && disabled ? true : ariaDisabled;
+    const handleClickCapture: CloseButtonRootProps['onClickCapture'] = (event) => {
+      if (isDisabled) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+
+      onClickCapture?.(event);
+    };
     const handleClick: CloseButtonRootProps['onClick'] = (event) => {
       if (isDisabled) {
         event.preventDefault();
@@ -51,15 +63,16 @@ const CloseButtonRoot = forwardRef<ComponentRef<typeof ark.button>, CloseButtonR
         asChild={asChild}
         {...props}
         type={asChild ? type : (type ?? 'button')}
-        disabled={disabled}
+        disabled={nativeDisabled}
         data-scope={dataScope ?? 'close-button'}
         data-part={dataPart ?? 'root'}
         data-slot={dataSlot ?? 'close-button-root'}
         data-disabled={dataDisabled ?? (isDisabled ? '' : undefined)}
         className={clsx(styles.root, normalizeClassName(className))}
-        aria-disabled={ariaDisabled}
+        aria-disabled={resolvedAriaDisabled}
         aria-label={ariaLabel ?? (ariaLabelledBy == null ? 'Close' : undefined)}
         aria-labelledby={ariaLabelledBy}
+        onClickCapture={handleClickCapture}
         onClick={handleClick}
       >
         {children || <CloseIcon />}

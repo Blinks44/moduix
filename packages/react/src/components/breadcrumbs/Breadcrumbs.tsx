@@ -11,7 +11,7 @@ type BreadcrumbsPathItem = {
   key?: Key;
   label: ReactNode;
 };
-type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'children'> & {
+type BreadcrumbsPathProps = Omit<HTMLArkProps<'ol'>, 'asChild' | 'children'> & {
   items: readonly BreadcrumbsPathItem[];
   separator?: ReactNode;
 };
@@ -93,28 +93,30 @@ const BreadcrumbsPage = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'
   },
 );
 
-function BreadcrumbsPath({ items, separator, ...props }: BreadcrumbsPathProps) {
-  return (
-    <BreadcrumbsList {...props}>
-      {items.map((item, index) => {
-        const isLastItem = index === items.length - 1;
+const BreadcrumbsPath = forwardRef<ComponentRef<typeof ark.ol>, BreadcrumbsPathProps>(
+  function BreadcrumbsPath({ items, separator, ...props }, ref) {
+    return (
+      <BreadcrumbsList ref={ref} {...props}>
+        {items.map((item, index) => {
+          const isLastItem = index === items.length - 1;
 
-        return (
-          <Fragment key={item.key ?? index}>
-            <BreadcrumbsItem>
-              {isLastItem ? (
-                <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
-              ) : (
-                <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
-              )}
-            </BreadcrumbsItem>
-            {!isLastItem ? <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator> : null}
-          </Fragment>
-        );
-      })}
-    </BreadcrumbsList>
-  );
-}
+          return (
+            <Fragment key={item.key ?? index}>
+              <BreadcrumbsItem>
+                {isLastItem ? (
+                  <BreadcrumbsPage>{item.label}</BreadcrumbsPage>
+                ) : (
+                  <BreadcrumbsLink href={item.href}>{item.label}</BreadcrumbsLink>
+                )}
+              </BreadcrumbsItem>
+              {!isLastItem ? <BreadcrumbsSeparator>{separator}</BreadcrumbsSeparator> : null}
+            </Fragment>
+          );
+        })}
+      </BreadcrumbsList>
+    );
+  },
+);
 
 const BreadcrumbsSeparator = forwardRef<ComponentRef<typeof ark.li>, HTMLArkProps<'li'>>(
   function BreadcrumbsSeparator({ className, children, role = 'presentation', ...props }, ref) {

@@ -10,6 +10,10 @@ Upstream docs:
 `NumberInput` is the moduix wrapper around Ark UI's number input primitive for bounded numeric
 entry, prices, counters, quantities, formatting, stepping, and scrubbing.
 
+## Upstream reference
+
+Ark UI Number Input: https://ark-ui.com/react/docs/components/number-input
+
 ## Upstream model to preserve
 
 Preserve Ark's `NumberInput.Root` composition, string value state, details-object callbacks, parser
@@ -32,8 +36,9 @@ Ark parts exposed by moduix are `Root`, `RootProvider`, `Context`, `Label`, `Scr
   parts when their order, icons, or styles need to differ.
 - `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` keep Ark state access on the
   moduix public surface.
-- `name` does not add a native submission control. Render a hidden `<input>` through
-  `NumberInput.Context` with `context.valueAsNumber` when a form submits a numeric value.
+- `name` and `form` are forwarded to the visible text spinbutton for native form submission. Render a
+  hidden `<input>` through `NumberInput.Context` with `context.valueAsNumber` only when the form
+  needs the parsed numeric representation instead of the displayed string.
 - No legacy aliases, numeric/null value adapters, `format` alias, `allowWheelScrub`,
   `NumberField*` flat exports, or automatic stepper group are preserved.
 
@@ -132,8 +137,9 @@ Important Ark root props include `ids`, `name`, `form`, `disabled`, `readOnly`, 
 `onValueInvalid`, and `onFocusChange`. Keep controlled values as strings, especially with
 locale-specific `formatOptions`.
 
-For native form submission, use `NumberInput.Context` to render a hidden input whose value is
-`context.valueAsNumber`. This keeps the managed visible value as a string while submitting a number.
+`name` and `form` submit the visible spinbutton through a native form. Use `NumberInput.Context` to
+render a hidden input whose value is `context.valueAsNumber` only when the form needs the parsed
+numeric representation instead of the visible string.
 
 The shipped CSS uses `data-disabled`, `data-invalid`, and `data-focus`. Ark also exposes
 `data-scrubbing`, `data-scope="number-input"`, and `data-part` attributes for part-level selectors.
@@ -193,6 +199,10 @@ behavior re-exported by moduix rather than locally adapted. Registry source path
 `packages/react/src/components/number-input`.
 
 ## Local changelog
+
+- 2026-08-11: Restored Ark's native `name` and `form` submission contract in consumer guidance and
+  added coverage for external form ownership. `Context` remains the documented path for submitting
+  the parsed numeric representation.
 
 - 2026-07-29: Added focused keyboard, Field-state, provider, `asChild`, and native form-submission
   coverage; documented the required `Context` hidden-input composition and expanded state examples.

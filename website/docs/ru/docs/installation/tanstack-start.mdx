@@ -1,0 +1,54 @@
+---
+title: TanStack Start
+description: Установите moduix в TanStack Start с глобальным CSS, гидратируемыми компонентами и алиасом для исходного кода в проекте.
+---
+
+# TanStack Start
+
+TanStack Start использует Vite и гидратирует компоненты маршрута на клиенте, поэтому компоненты moduix работают
+в обычном дереве маршрутов без директивы `use client`.
+
+## Установите пакет
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Добавьте базовую таблицу стилей в глобальную таблицу стилей, уже загружаемую корневым маршрутом:
+
+```css title="src/styles.css"
+@import '@moduix/react/style.css';
+```
+
+Используйте компонент в маршруте:
+
+```tsx title="src/routes/index.tsx"
+import { createFileRoute } from '@tanstack/react-router';
+import { Button } from '@moduix/react/button';
+
+export const Route = createFileRoute('/')({
+  component: Home,
+});
+
+function Home() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Установка через shadcn CLI
+
+Завершите [настройку shadcn CLI](/docs/quick-start#установить-через-shadcn-cli). Если стартовый шаблон уже
+сопоставляет `@/*` с `src/*`, сохраните этот алиас. В противном случае добавьте алиасы TypeScript и Vite, показанные
+в [настройке Vite](/docs/installation/vite#установка-через-shadcn-cli).
+
+Замените импорт CSS пакета на сгенерированную таблицу стилей:
+
+```css title="src/styles.css"
+@import '@/lib/moduix/styles/style.css';
+```
+
+## Проверка
+
+Настройка завершена, когда страница с серверным рендерингом гидратируется без несоответствия, а интерактивный
+компонент реагирует после гидратации. Не добавляйте в серверный рендеринг код приложения, выполняемый только
+в браузере, как и в остальных частях TanStack Start.
+
+Полная настройка фреймворка приведена в [быстром старте TanStack Start](https://tanstack.com/start/latest/docs/framework/react/quick-start).

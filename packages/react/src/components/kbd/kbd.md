@@ -42,10 +42,10 @@ Kbd.Group
 └─ Kbd / Kbd.Root
 ```
 
-| Part               | Default element | Data attributes                                                  |
-| ------------------ | --------------- | ---------------------------------------------------------------- |
-| `Kbd` / `Kbd.Root` | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`   |
-| `Kbd.Group`        | `kbd`           | `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
+| Part               | Default element | Data attributes                                                                  |
+| ------------------ | --------------- | -------------------------------------------------------------------------------- |
+| `Kbd` / `Kbd.Root` | `kbd`           | `data-scope="kbd"`, `data-part="root"`, `data-slot="kbd-root"`                   |
+| `Kbd.Group`        | `span`          | `role="group"`, `data-scope="kbd"`, `data-part="group"`, `data-slot="kbd-group"` |
 
 ## Composition
 
@@ -85,7 +85,7 @@ State machines, callbacks, provider/context APIs, `ids`, `present`, `HiddenInput
 ## Accessibility and state
 
 - `<kbd>` preserves native semantics for user-input labels.
-- `Kbd.Group` remains a `<kbd>` by default so the full shortcut is semantically grouped.
+- `Kbd.Group` renders a `<span role="group">` by default so a shortcut can have an accessible group name.
 - Add `aria-label` to a group when abbreviations or symbols need a clearer spoken form.
 - `asChild` consumers must preserve `<kbd>` semantics and provide exactly one child.
 - The component has no focus, disabled, invalid, open/closed, or controlled/uncontrolled state.
@@ -137,6 +137,7 @@ Public CSS variables:
 
 ## Local changelog
 
+- 2026-08-11: Added the default `group` role to `Kbd.Group` so its documented `aria-label` is exposed to assistive technology, corrected the default-element contract, and covered `asChild` composition for both parts.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-06-25: Reconfirmed the component as a moduix-owned Ark factory primitive, aligned the
   no-dedicated-Ark-primitive docs text, and simplified Kbd spacing defaults to existing spacing

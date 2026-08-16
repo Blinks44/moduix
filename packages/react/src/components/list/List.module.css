@@ -15,6 +15,9 @@
     );
 
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_list-gap);
     margin: 0;
     padding: 0;
     color: var(--_list-color);
@@ -48,10 +51,6 @@
 
     &[data-gap='2xl'] {
       --_list-gap: var(--moduix-list-gap, var(--moduix-list-gap-2xl, var(--moduix-spacing-6)));
-    }
-
-    & > li + li {
-      margin-block-start: var(--_list-gap);
     }
 
     & > li::marker {

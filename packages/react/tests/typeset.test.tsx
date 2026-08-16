@@ -63,6 +63,30 @@ test('keeps scrollable content reachable by keyboard by default', () => {
   expect(scroll).toHaveFocus();
 });
 
+test('keeps an unnamed scroller generic and preserves explicit semantics', () => {
+  render(
+    <>
+      <Typeset.Scroll data-testid="unnamed-scroll">Wide content</Typeset.Scroll>
+      <Typeset.Scroll
+        aria-label="Custom scroller"
+        data-testid="custom-scroll"
+        role="group"
+        tabIndex={-1}
+      >
+        Wide content
+      </Typeset.Scroll>
+    </>,
+  );
+
+  const unnamedScroll = screen.getByTestId('unnamed-scroll');
+  const customScroll = screen.getByTestId('custom-scroll');
+
+  expect(unnamedScroll).not.toHaveAttribute('role');
+  expect(unnamedScroll).toHaveAttribute('tabindex', '0');
+  expect(customScroll).toHaveAttribute('role', 'group');
+  expect(customScroll).toHaveAttribute('tabindex', '-1');
+});
+
 test('preserves semantic children and refs with asChild', () => {
   const rootRef = createRef<HTMLElement>();
   const scrollRef = createRef<HTMLElement>();

@@ -172,6 +172,8 @@ export function CheckboxProviderDemo() {
 - `Checkbox.Root` and `Checkbox.RootProvider` render a `label` by default.
 - `Checkbox.Root` and `Checkbox.RootProvider` always render the native form input. `name` and
   related root props opt it into native form participation.
+- The automatic native input mirrors Ark's read-only state with `aria-readonly`; Ark still owns
+  interaction prevention and state synchronization.
 - `Checkbox.RootProvider` pairs with moduix `useCheckbox()` for external state ownership.
 - `Checkbox.Group` also pairs with moduix `useCheckboxGroup()` when group state needs to live
   outside the rendered subtree.
@@ -185,11 +187,15 @@ export function CheckboxProviderDemo() {
 
 - moduix ships styled defaults; Ark is unstyled.
 - Public CSS variables are declared in `packages/react/src/styles/variables-moduix.css` and
-  documented in `apps/docs/docs/en/docs/checkbox.mdx`.
+  documented in `website/docs/en/docs/checkbox.mdx`.
 - Styling uses local classes plus Ark state data attributes. No legacy state selectors are used in
   `Checkbox.module.css`.
 - `Checkbox.Control` owns visual state styles for checked, indeterminate, invalid, disabled, hover,
   and focus-visible states.
+- Checked and invalid hover backgrounds and the invalid focus ring have independent public
+  variables with fallbacks to their broader checked, invalid, and border variables.
+- `--moduix-checkbox-group-color` cascades to nested labels unless an individual
+  `--moduix-checkbox-label-color` overrides it.
 - `Checkbox.Root` and `Checkbox.RootProvider` write `data-size` so size tokens can scale the control
   and default icon.
 - `Checkbox.Indicator` default icon wrappers expose stable checked/indeterminate `data-slot` values.
@@ -222,6 +228,9 @@ export function CheckboxProviderDemo() {
 
 ## Local changelog
 
+- 2026-08-09: Added read-only accessibility semantics, independent checked/invalid hover and invalid
+  focus-ring theming hooks, group label color inheritance, and release-gate coverage for refs, form
+  reset, states, and realistic content.
 - 2026-07-26: Documented the shipped context and state-hook exports, automatic hidden input, and
   ref/keyboard contract.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

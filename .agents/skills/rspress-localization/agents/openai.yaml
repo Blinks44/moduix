@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Rspress Localization'
+  short_description: 'Maintain localized Rspress documentation'
+  default_prompt: 'Use $rspress-localization to update or audit localized Rspress docs.'

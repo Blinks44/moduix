@@ -1,0 +1,215 @@
+---
+title: Splitter
+component: splitter
+description: Примитив раскладки с изменяемым размером для разделения интерфейса на панели.
+---
+
+import * as SplitterDocs from '@/components/examples/splitter';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
+
+## Базовый пример
+
+Используйте части в стиле Ark: `Splitter`, `Splitter.Panel` и `Splitter.ResizeTrigger`. Триггер по
+умолчанию показывает индикатор изменения размера moduix. `panels` задаёт идентификаторы и ограничения;
+идентификаторы отрисованных панелей должны соответствовать этому массиву.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="splitter" />
+
+## Анатомия
+
+```text
+Splitter
+├─ Splitter.Panel[id]
+├─ Splitter.ResizeTrigger[id="panel-a:panel-b"]
+│  └─ Splitter.ResizeTriggerIndicator (по умолчанию, настраивается)
+└─ Splitter.Panel[id]
+```
+
+| Часть                            | Назначение                                                                               |
+| -------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Splitter` / `Splitter.Root`     | Владеет ограничениями и размерами панелей, ориентацией, колбэками и машиной состояния splitter. |
+| `Splitter.Panel`                 | Область с изменяемым размером. Её `id` должен соответствовать одному элементу свойства `panels`. |
+| `Splitter.ResizeTrigger`         | Доступная кнопка-манипулятор между соседними панелями.                                   |
+| `Splitter.ResizeTriggerIndicator` | Стандартный визуальный индикатор; передайте пользовательские дочерние элементы триггера, чтобы заменить его. |
+| `Splitter.RootProvider`          | Рендерит то же дерево частей из состояния, созданного с помощью `useSplitter()`.         |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Явно рендерите панели и манипуляторы в том же порядке, в котором они расположены визуально. Используйте
+идентификаторы триггеров в форме `"left:right"`, чтобы Ark мог связать идентификаторы двух соседних панелей.
+Не передавайте дочерние элементы триггеру для стандартного индикатора изменения размера; передавайте их, только когда нужно настроить содержимое.
+
+### Когда нужна собственная композиция
+
+Используйте управляемое `size` с `onResize(details)`, когда размеры панелей нужно отражать в состоянии приложения.
+Импортируйте `useSplitter`, `useSplitterContext` и `createSplitterRegistry` из `@moduix/react` для
+императивного управления, внешнего состояния и вложенных раскладок с перетаскиванием нескольких манипуляторов.
+Сочетайте `useSplitter()` с `Splitter.RootProvider`, когда состояние нужно создавать вне отрендеренного дерева частей.
+
+Используйте `asChild`, только когда другой элемент должен владеть отрендеренным узлом. Пользовательские триггеры
+изменения размера должны сохранять семантику кнопки, поведение фокуса и взаимодействие с клавиатурой.
+С `asChild` передавайте ровно один интерактивный дочерний элемент-манипулятор: индикатор изменения размера по
+умолчанию для него не добавляется.
+
+### Свойства по умолчанию
+
+| Свойство           | По умолчанию     | Примечания                                                                 |
+| ------------------ | ---------------- | -------------------------------------------------------------------------- |
+| `orientation`      | `"horizontal"` | Используйте `"vertical"` для вертикально расположенных панелей.          |
+| `defaultSize`      | Вычисляется Ark  | Используйте проценты для стабильного размера при серверном рендеринге.     |
+| `keyboardResizeBy` | Значение Ark     | Управляет величиной изменения размера клавишами со стрелками.              |
+| `size`             | Неуправляемое    | Передавайте вместе с `onResize(details)` для управляемых размеров панелей. |
+| `disabled`         | `false`          | Задайте на `ResizeTrigger`, чтобы отключить манипулятор.                   |
+
+### Особенности поведения
+
+`panels` - обязательное свойство, определяющее ограничения: `minSize`, `maxSize`, `collapsible` и
+`collapsedSize`. Числовые значения размеров указываются в процентах; Ark также принимает CSS-длины для
+начальных размеров и ограничений, измеряемые на клиенте, что может вызвать сдвиг после гидратации.
+
+Колбэки сохраняют объекты details Ark: `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`
+и `onExpand(details)`. `onResizeStart` вызывается при начале изменения размера.
+
+## Примеры
+
+### Сворачиваемые панели
+
+Чтобы перетаскивание оставалось плавным, задайте `minSize` равным `collapsedSize`. Большее значение
+`minSize` намеренно заставляет Zag переключаться между минимальным развёрнутым размером и компактной
+панелью.
+
+Задайте `collapsible` и `collapsedSize` в описании панели, когда она может сжиматься до свёрнутой полосы.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/collapsible-panels.tsx"
+
+  ```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Управляйте размерами панелей из состояния React и обновляйте его значением `details.size`.
+
+<style>{SplitterDocs.splitterStackCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Динамическое сворачивание
+
+Программные методы сворачивания и разворачивания хорошо подходят для адаптивных боковых панелей,
+которые реагируют на измеренную доступную ширину.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/dynamic-collapsible.tsx"
+
+  ```
+</PreviewFrame>
+
+### Несколько панелей
+
+Добавьте ещё один `Panel` и ещё один соседний `ResizeTrigger` для раскладок из трёх панелей.
+
+<style>{SplitterDocs.splitterExampleCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/multiple-panels.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вложенная раскладка
+
+Используйте общий реестр для вложенных splitter, чтобы поддержать перетаскивание нескольких манипуляторов
+на пересечениях горизонтальных и вертикальных разделителей.
+
+<style>{SplitterDocs.splitterNestedCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/nested.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useSplitter()` с `Splitter.RootProvider`, когда элементам управления вне корня нужен доступ
+к тому же API splitter.
+
+<style>{SplitterDocs.splitterStackCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вертикальный
+
+Задайте `orientation="vertical"` и стабильную высоту корню, чтобы вертикально расположенным панелям было куда изменять размер.
+
+<style>{SplitterDocs.splitterVerticalCss}</style>
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/splitter/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Стилизуйте `Splitter` через `className`, атрибуты Ark, стабильные хуки `data-slot="splitter-*"` и публичные
+CSS-переменные moduix ниже. `Splitter.Root` и `Splitter.RootProvider` применяют
+`--moduix-splitter-width` и `--moduix-splitter-height` через стандартный inline-стиль, поэтому эти переменные могут
+переопределять раскладку корня Ark. Стандартная поверхность находится на корне, а панели остаются плоскими и выровненными внутри него.
+
+Триггер изменения размера добавляет в раскладку разделитель в `1px` с визуально более тонкой линией `0.5px`, прозрачной областью
+наведения и приподнятым скруглённым индикатором поверх. Индикатор центрируется над разделителем для обеих ориентаций. При наведении
+усиливаются его граница и тень, а при перетаскивании добавляются небольшое масштабирование и более сильная тень. После отпускания
+указателя триггер возвращается к обычному виду. Переопределяйте соответствующие переменные `--moduix-splitter-resize-trigger-*`,
+когда окружающей теме требуется другой вид.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SplitterDocs.SplitterCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Ark записывает `data-scope="splitter"` и `data-part` во все отрендеренные части. moduix также записывает
+значения `data-slot`: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
+`splitter-resize-trigger` и `splitter-resize-trigger-indicator`.
+
+К важным хукам состояния Ark относятся `data-orientation`, `data-dragging`, `data-focus` триггера,
+`data-disabled` триггера, `data-id` панели и `data-index` панели.

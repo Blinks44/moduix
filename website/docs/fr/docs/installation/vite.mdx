@@ -1,0 +1,84 @@
+---
+title: Vite
+description: Installez moduix dans une application React Vite avec la feuille de style et l'alias de code source adaptés.
+---
+
+# Vite
+
+Utilisez cette configuration avec le modèle standard Vite React ou React + TypeScript.
+
+## Installer le paquet
+
+<PackageManagerTabs command="install @moduix/react @ark-ui/react" />
+
+Importez une seule fois la feuille de style de base dans `src/main.tsx` :
+
+```tsx title="src/main.tsx"
+import '@moduix/react/style.css';
+```
+
+Vous pouvez maintenant importer les composants depuis leurs sous-chemins de paquet :
+
+```tsx title="src/App.tsx"
+import { Button } from '@moduix/react/button';
+
+export function App() {
+  return <Button>Continue</Button>;
+}
+```
+
+## Installer avec la CLI shadcn
+
+Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis associez `@/*` à
+`src/*`. Le modèle TypeScript standard nécessite l'alias dans la configuration racine, la configuration de
+l'application et la configuration Vite.
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+```json title="tsconfig.app.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+```ts title="vite.config.ts"
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
+```
+
+Importez la feuille de style générée dans `src/main.tsx` à la place de celle du paquet :
+
+```tsx title="src/main.tsx"
+import '@/lib/moduix/styles/style.css';
+```
+
+## Vérifier
+
+La configuration est terminée lorsqu'un composant stylé s'affiche et que `@/components/moduix/*` est résolu sans
+erreur dans l'éditeur ou la compilation. Vite ne requiert pas de limite client distincte.
+
+Consultez le [guide Vite](https://vite.dev/guide/) pour la configuration complète du framework.

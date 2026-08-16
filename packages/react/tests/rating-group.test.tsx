@@ -108,3 +108,24 @@ test('keeps half-state and keyboard focus Ark-shaped', async () => {
   fireEvent.keyDown(items[2], { key: 'ArrowRight' });
   await waitFor(() => expect(document.activeElement).toBe(items[3]));
 });
+
+test('repeats custom indicators with Ark item state', () => {
+  render(
+    <RatingGroup allowHalf defaultValue={3.5}>
+      <RatingGroup.Label>Rating</RatingGroup.Label>
+      <RatingGroup.Control>
+        <RatingGroup.Items>
+          <RatingGroup.ItemIndicator data-testid="custom-indicator">
+            <span>Star</span>
+          </RatingGroup.ItemIndicator>
+        </RatingGroup.Items>
+      </RatingGroup.Control>
+    </RatingGroup>,
+  );
+
+  const indicators = screen.getAllByTestId('custom-indicator');
+
+  expect(indicators).toHaveLength(5);
+  expect(indicators[2]).toHaveAttribute('data-highlighted');
+  expect(indicators[3]).toHaveAttribute('data-half');
+});

@@ -30,5 +30,10 @@
 }
 
 .customOutline {
-  --moduix-tag-border-color: color-mix(in oklab, var(--moduix-color-foreground) 18%, transparent);
+  --moduix-tag-outline-border-color: color-mix(
+    in oklab,
+    var(--moduix-color-foreground) 18%,
+    transparent
+  );
+  --moduix-tag-outline-color: var(--moduix-color-primary);
 }

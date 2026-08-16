@@ -1,0 +1,239 @@
+---
+title: Switch
+component: switch
+description: Un interrupteur Ark UI composable pour activer ou désactiver un réglage.
+---
+
+import * as SwitchDocs from '@/components/examples/switch';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/switch" />
+
+## Choisir le bon composant
+
+Utilisez `Switch` pour les réglages immédiats d’activation et de désactivation, lorsque modifier le contrôle doit
+basculer un seul état booléen.
+
+- Choisissez **`Switch`** pour des réglages comme les notifications, les rappels ou les feature flags.
+- Choisissez **`Checkbox`** lorsque le contrôle représente une sélection à soumettre plutôt qu’un réglage appliqué
+  immédiatement.
+- Choisissez **`RadioGroup`** lorsque les utilisateurs doivent sélectionner une option parmi plusieurs valeurs
+  mutuellement exclusives.
+
+## Exemple de base
+
+Commencez par l’anatomie Ark : le label racine `Switch`, le contrôle visuel, le curseur, le libellé et l’input
+masqué.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="switch" />
+
+## Anatomie
+
+```text
+Switch
+├─ Switch.Control
+│  └─ Switch.Thumb
+├─ Switch.Label
+└─ input natif (automatique)
+```
+
+| Partie                | Rôle                                                                        |
+| --------------------- | --------------------------------------------------------------------------- |
+| `Switch`              | Élément label racine. Gère l’état checked, les ID, le formulaire et `size`. |
+| `Switch.Control`      | Piste visuelle et cible de l’anneau de focus. Affiche automatiquement `Switch.Thumb`. |
+| `Switch.Thumb`        | Curseur mobile pour l’apparence par défaut ou un contenu personnalisé.      |
+| `Switch.Label`        | Libellé Ark connecté à l’interrupteur.                                       |
+| `Switch.RootProvider` | Label racine piloté par une instance d’état Ark externe `useSwitch()`.      |
+
+`Switch.Context`, `useSwitchContext` et `useSwitch` sont exportés depuis `@moduix/react` avec le composant.
+
+## Composition
+
+### Composition recommandée
+
+Gardez l’arbre de parties Ark visible explicite avec `Switch.Control` et `Switch.Label`. `Switch` affiche
+automatiquement son input de formulaire natif.
+
+`Switch.Control` affiche le `Switch.Thumb` par défaut lorsque ses enfants sont omis. Composez directement
+`Switch.Thumb` lorsque le curseur nécessite un contenu ou des styles personnalisés.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` uniquement lorsque la racine doit afficher un élément hôte personnalisé. Ark affiche la racine
+sous forme de `label` ; l’élément `asChild` direct doit rester compatible avec un label afin que l’interrupteur
+conserve un nom accessible valide.
+
+Utilisez `Switch.Context`, `useSwitchContext` ou `useSwitch` depuis `@moduix/react` lorsque l’interface environnante
+doit lire ou posséder l’état Ark de l’interrupteur.
+
+### Propriétés par défaut
+
+| Propriété   | Par défaut  | Remarques                                                    |
+| ----------- | ----------- | ------------------------------------------------------------ |
+| `size`      | `md`        | Facilitation moduix : `xs`, `sm`, `md`, `lg`, `xl`.          |
+| `value`     | `on`        | Valeur de l’input masqué Ark lors de la soumission du formulaire. |
+| `children`  | `undefined` | Composez explicitement les parties Ark.                       |
+| `className` | `undefined` | Appliquée au label racine Ark.                                |
+
+### Comportement
+
+- Utilisez `defaultChecked` pour le mode non contrôlé et `checked` avec `onCheckedChange(details)` pour le mode
+  contrôlé.
+- `details.checked` est le prochain état booléen. L’ancien callback recevant directement un booléen a été supprimé.
+- La racine affiche toujours l’input de formulaire natif. Configuré avec des props de formulaire, il participe à la
+  soumission et à la réinitialisation natives.
+- `readOnly` préserve l’état actuel et définit `aria-readonly="true"` sur le contrôle natif.
+- La piste et le curseur désactivent leurs transitions lorsque l’utilisateur préfère réduire les animations (`prefers-reduced-motion`).
+- Utilisez `Switch.Context`, `useSwitchContext` ou `useSwitch` depuis `@moduix/react` pour les lectures d’état
+  avancées plutôt que des adaptateurs de callback au niveau du wrapper.
+- Utilisez `asChild` pour un hôte racine personnalisé. L’enfant doit rester un unique élément sémantique compatible
+  avec un label.
+
+## Exemples
+
+### As Child
+
+Utilisez `asChild` lorsqu’un élément racine personnalisé doit posséder le nœud DOM tandis qu’Ark conserve le
+comportement de l’interrupteur.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/as-child.tsx"
+
+  ```
+</PreviewFrame>
+
+### Contexte
+
+Importez `useSwitchContext` depuis `@moduix/react` lorsqu’un libellé proche ou un élément complémentaire doit lire
+l’état courant de l’interrupteur.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### État contrôlé
+
+Utilisez le mode contrôlé lorsque l’interrupteur doit se coordonner avec l’interface environnante.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### État désactivé
+
+Utilisez `disabled` pour empêcher les interactions tout en préservant l’état visuel courant.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Intégration à un formulaire
+
+Utilisez `Field` avec l’input de formulaire natif lorsque l’interrupteur participe au libellé, à la validation ou à
+la soumission d’un formulaire. Cet exemple affiche une erreur uniquement après une soumission sans choix.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/switch/form-integration.tsx"
+
+  ```
+</PreviewFrame>
+
+### État initial activé
+
+Utilisez `defaultChecked` lorsque le premier rendu doit être activé, puis que l’interrupteur peut gérer lui-même son
+état.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/initial-checked.tsx"
+
+  ```
+</PreviewFrame>
+
+### Lecture seule
+
+Utilisez `readOnly` lorsque l’état courant doit rester visible sans pouvoir être modifié par l’utilisateur.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/read-only.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Importez `useSwitch` depuis `@moduix/react` et associez-le à `Switch.RootProvider` lorsque l’état doit être possédé
+en dehors de l’arbre affiché de l’interrupteur.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Tailles
+
+Utilisez la propriété `size` de moduix pour vous adapter à différentes densités de formulaire sans modifier l’arbre
+de parties Ark.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/sizes.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Remplacez le curseur par défaut de `Switch.Control` lorsque celui-ci nécessite un contenu ou des styles
+personnalisés.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/switch/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Switch` avec `className`, les hooks publics `data-slot`, les attributs d’état d’Ark et les variables CSS
+publiques `--moduix-switch-*` présentées ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SwitchDocs.SwitchCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- `Switch` et `Switch.RootProvider` exposent `data-slot="switch-root"` / `data-slot="switch-root-provider"` et
+  écrivent le `data-size` de moduix.
+- `Switch.Control` expose `data-slot="switch-control"` et reçoit les attributs d’état Ark comme `data-state`,
+  `data-focus-visible`, `data-hover`, `data-active`, `data-disabled`, `data-readonly`, `data-invalid` et `data-required`.
+- `Switch.Thumb` expose `data-slot="switch-thumb"` et reçoit les mêmes attributs d’état Ark pour le déplacement du
+  curseur et les styles du contenu personnalisé.
+- `Switch.Label` expose `data-slot="switch-label"` pour remplacer les styles typographiques.
+- L’input de formulaire natif expose `data-slot="switch-hidden-input"` comme hook d’inspection, mais doit rester
+  visuellement masqué par Ark.

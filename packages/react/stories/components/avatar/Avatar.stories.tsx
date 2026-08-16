@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ImgHTMLAttributes, useState } from 'react';
-import { Avatar, useAvatar, useAvatarContext } from '../../../src/components/avatar/index';
+import { Avatar, useAvatar, useAvatarContext } from '@/components/avatar/index';
 import { ComputerIcon } from '../../icons/demo';
 import styles from './Avatar.stories.module.css';
 
@@ -92,6 +92,41 @@ export const FallbackOnly: Story = {
         </Avatar>
         <Avatar size="xl">
           <Avatar.Fallback>XL</Avatar.Fallback>
+        </Avatar>
+      </div>
+    );
+  },
+};
+
+export const DefaultFallback: Story = {
+  render: () => {
+    return (
+      <div className={styles.fallbackRow}>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+          <Avatar key={size} size={size}>
+            <Avatar.Fallback />
+          </Avatar>
+        ))}
+      </div>
+    );
+  },
+};
+
+export const InternationalInitials: Story = {
+  render: () => {
+    return (
+      <div className={styles.fallbackRow}>
+        <Avatar size="lg">
+          <Avatar.Fallback name="Alex Taylor" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="Алексей Смирнов" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="李 小龙" />
+        </Avatar>
+        <Avatar size="lg">
+          <Avatar.Fallback name="👩🏽‍💻 Developer" />
         </Avatar>
       </div>
     );

@@ -16,6 +16,7 @@
     var(--moduix-color-background)
   );
   --moduix-empty-icon-color: var(--moduix-color-primary);
+  --moduix-empty-icon-radius: var(--moduix-radius-lg);
   --moduix-empty-shadow: var(--moduix-shadow-md);
 }
 

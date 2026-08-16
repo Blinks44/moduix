@@ -66,3 +66,16 @@ test('rejects invalid column counts', () => {
     );
   }
 });
+
+test('rejects invalid numeric minimum child widths', () => {
+  for (const minChildWidth of [
+    -1,
+    Number.NaN,
+    Number.NEGATIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+  ]) {
+    expect(() => render(<SimpleGrid minChildWidth={minChildWidth} />)).toThrow(
+      'SimpleGrid `minChildWidth` must be a finite non-negative number.',
+    );
+  }
+});

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { NativeSelect } from '../../../src/components/native-select/NativeSelect';
+import { Field } from '@/components/field';
+import { NativeSelect } from '@/components/native-select/NativeSelect';
 
 const meta = {
   title: 'Components/NativeSelect',
@@ -54,6 +54,20 @@ export const Controlled: Story = {
       </NativeSelect>
     );
   },
+};
+
+export const AsChild: Story = {
+  render: () => (
+    <NativeSelect asChild>
+      <select defaultValue="" aria-label="Framework">
+        <option value="" disabled>
+          Choose framework
+        </option>
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+      </select>
+    </NativeSelect>
+  ),
 };
 
 export const Grouping: Story = {

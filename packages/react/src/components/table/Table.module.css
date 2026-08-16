@@ -21,15 +21,9 @@
   }
 
   .root {
-    --moduix-table-cell-padding-x-default: var(
-      --moduix-table-cell-padding-x,
-      var(--moduix-spacing-4)
-    );
-    --moduix-table-cell-padding-y-default: var(
-      --moduix-table-cell-padding-y,
-      var(--moduix-spacing-3)
-    );
-    --moduix-table-empty-padding-y-default: calc(var(--moduix-table-cell-padding-y-default) * 2);
+    --_table-cell-padding-x-default: var(--moduix-table-cell-padding-x, var(--moduix-spacing-4));
+    --_table-cell-padding-y-default: var(--moduix-table-cell-padding-y, var(--moduix-spacing-3));
+    --_table-empty-padding-y-default: calc(var(--_table-cell-padding-y-default) * 2);
 
     box-sizing: border-box;
     width: 100%;
@@ -43,27 +37,15 @@
     isolation: isolate;
 
     &[data-size='sm'] {
-      --moduix-table-cell-padding-x-default: var(
-        --moduix-table-cell-padding-x,
-        var(--moduix-spacing-3)
-      );
-      --moduix-table-cell-padding-y-default: var(
-        --moduix-table-cell-padding-y,
-        var(--moduix-spacing-2)
-      );
+      --_table-cell-padding-x-default: var(--moduix-table-cell-padding-x, var(--moduix-spacing-3));
+      --_table-cell-padding-y-default: var(--moduix-table-cell-padding-y, var(--moduix-spacing-2));
       font-size: var(--moduix-table-font-size-sm, var(--moduix-text-xs));
       line-height: var(--moduix-table-line-height-sm, var(--moduix-line-height-text-xs));
     }
 
     &[data-size='lg'] {
-      --moduix-table-cell-padding-x-default: var(
-        --moduix-table-cell-padding-x,
-        var(--moduix-spacing-5)
-      );
-      --moduix-table-cell-padding-y-default: var(
-        --moduix-table-cell-padding-y,
-        var(--moduix-spacing-4)
-      );
+      --_table-cell-padding-x-default: var(--moduix-table-cell-padding-x, var(--moduix-spacing-5));
+      --_table-cell-padding-y-default: var(--moduix-table-cell-padding-y, var(--moduix-spacing-4));
       font-size: var(--moduix-table-font-size-lg, var(--moduix-text-md));
       line-height: var(--moduix-table-line-height-lg, var(--moduix-line-height-text-md));
     }
@@ -79,10 +61,7 @@
     color: var(--moduix-table-caption-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-table-caption-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-table-caption-line-height, var(--moduix-line-height-text-sm));
-    padding-inline: var(
-      --moduix-table-caption-padding-x,
-      var(--moduix-table-cell-padding-x-default)
-    );
+    padding-inline: var(--moduix-table-caption-padding-x, var(--_table-cell-padding-x-default));
     text-align: left;
     text-wrap: pretty;
 
@@ -121,6 +100,13 @@
 
   .root[data-interactive] .body .row:not([data-empty]):hover {
     background-color: var(--moduix-table-row-bg-hover, var(--moduix-color-muted));
+  }
+
+  .root[data-interactive] .body .row:not([data-empty]):focus-within {
+    background-color: var(
+      --moduix-table-row-bg-focus,
+      var(--moduix-table-row-bg-hover, var(--moduix-color-muted))
+    );
   }
 
   .root[data-show-column-border] :is(.columnHeader, .cell):not(:last-child) {
@@ -164,8 +150,8 @@
   .cell {
     position: relative;
     z-index: 0;
-    padding-block: var(--moduix-table-cell-padding-y-default);
-    padding-inline: var(--moduix-table-cell-padding-x-default);
+    padding-block: var(--_table-cell-padding-y-default);
+    padding-inline: var(--_table-cell-padding-x-default);
     vertical-align: middle;
 
     &[data-sticky='start'] {
@@ -211,7 +197,7 @@
   }
 
   .empty {
-    padding-block: var(--moduix-table-empty-padding-y, var(--moduix-table-empty-padding-y-default));
+    padding-block: var(--moduix-table-empty-padding-y, var(--_table-empty-padding-y-default));
     color: var(--moduix-table-empty-color, var(--moduix-color-muted-foreground));
     text-align: center;
   }

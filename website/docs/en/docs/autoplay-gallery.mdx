@@ -1,0 +1,47 @@
+---
+title: Autoplay gallery
+description: A copy-paste Carousel gallery with side navigation, slide copy, and timed progress indicators.
+---
+
+import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
+
+# Autoplay gallery
+
+A featured-content carousel with partial neighbouring slides, side navigation, a blurred copy panel, and indicators
+that fill over the autoplay delay. It uses only `Carousel` parts: `Carousel.Context` exposes the playing state for
+the CSS animation, while arrow and indicator clicks restart autoplay without adding a separate play button.
+
+<ExampleFrame clientOnly>
+  <AutoplayGalleryPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/autoplay-gallery.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/autoplay-gallery.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
+
+## Use in a page
+
+Replace the slide images and copy with your content. Keep the CSS animation duration equal to `autoplay.delay` so the
+filled indicator reaches its end as the next slide appears. The navigation callbacks defer `api.play()` to the next
+frame, letting Ark first handle the manual change that pauses autoplay; a fresh interval then starts without exposing
+a separate play control. Ark pauses autoplay while the document is hidden; this recipe uses the public `api.play()`
+method to resume it when the document becomes visible again.

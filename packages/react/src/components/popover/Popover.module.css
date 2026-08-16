@@ -75,20 +75,17 @@
   }
 
   .content {
-    --moduix-popover-close-icon-size-effective: var(
+    --_popover-close-icon-size-effective: var(
       --moduix-popover-close-icon-size,
       var(--moduix-spacing-7)
     );
-    --moduix-popover-close-icon-offset-effective: var(
+    --_popover-close-icon-offset-effective: var(
       --moduix-popover-close-icon-offset,
       var(--moduix-spacing-3)
     );
-    --moduix-popover-header-padding-inline-end-effective: var(
+    --_popover-header-padding-inline-end-effective: var(
       --moduix-popover-header-padding-inline-end,
-      calc(
-        var(--moduix-popover-close-icon-size-effective) +
-          var(--moduix-popover-close-icon-offset-effective)
-      )
+      calc(var(--_popover-close-icon-size-effective) + var(--_popover-close-icon-offset-effective))
     );
     position: relative;
     z-index: calc(var(--moduix-z-popup) + var(--layer-index, 0));
@@ -99,6 +96,7 @@
     max-width: min(var(--moduix-popover-max-width, 28rem), var(--available-width));
     max-height: min(var(--moduix-popover-max-height, 24rem), var(--available-height, 100dvh));
     overflow: visible;
+    overflow-wrap: anywhere;
     padding: var(--moduix-popover-padding-y, var(--moduix-spacing-4))
       var(--moduix-popover-padding-x, var(--moduix-spacing-4));
     border: 0;
@@ -142,7 +140,7 @@
 
     &:has(.closeIcon) {
       .header {
-        padding-inline-end: var(--moduix-popover-header-padding-inline-end-effective);
+        padding-inline-end: var(--_popover-header-padding-inline-end-effective);
       }
     }
   }
@@ -184,7 +182,7 @@
   }
 
   .closeIcon {
-    --moduix-close-button-size: var(--moduix-popover-close-icon-size-effective);
+    --moduix-close-button-size: var(--_popover-close-icon-size-effective);
     --moduix-close-button-radius: var(--moduix-popover-close-icon-radius, var(--moduix-radius-sm));
     --moduix-close-button-icon-size: var(
       --moduix-popover-close-icon-glyph-size,
@@ -208,8 +206,8 @@
       var(--moduix-color-ring)
     );
     position: absolute;
-    inset-block-start: var(--moduix-popover-close-icon-offset-effective);
-    inset-inline-end: var(--moduix-popover-close-icon-offset-effective);
+    inset-block-start: var(--_popover-close-icon-offset-effective);
+    inset-inline-end: var(--_popover-close-icon-offset-effective);
   }
 
   .header {
@@ -227,6 +225,20 @@
     justify-content: var(--moduix-popover-footer-justify, flex-end);
     gap: var(--moduix-popover-footer-gap, var(--moduix-spacing-2));
     margin: var(--moduix-popover-footer-margin, var(--moduix-spacing-3) 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trigger,
+    .closeTrigger {
+      transition: none;
+    }
+
+    .content {
+      &[data-state='open'],
+      &[data-state='closed'] {
+        animation: none;
+      }
+    }
   }
 
   @keyframes popover-enter {

@@ -1,0 +1,158 @@
+---
+title: Scroll Area
+component: scroll-area
+description: Un conteneur de défilement natif avec des barres de défilement Ark UI personnalisées.
+---
+
+import * as ScrollAreaDocs from '@/components/examples/scroll-area';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+
+## Exemple de base
+
+Utilisez `ScrollArea` comme élément racine Ark et composez explicitement les parties viewport, content, scrollbar, thumb et corner. Le viewport conserve le défilement natif à la molette, au toucher, au pavé tactile et au clavier, tandis que les parties scrollbar fournissent des contrôles personnalisés. moduix ajoute une petite extension, `fade`, qui applique un masque supérieur et inférieur au viewport à partir des mesures de débordement d’Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="scroll-area" />
+
+## Anatomie
+
+```text
+ScrollArea
+├─ ScrollArea.Viewport
+│  └─ ScrollArea.Content
+│     └─ children
+├─ ScrollArea.Scrollbar
+│  └─ ScrollArea.Thumb
+└─ ScrollArea.Corner
+```
+
+| Partie                             | Rôle                                                                                                              |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `ScrollArea` / `ScrollArea.Root`   | Conteneur d’état et bloc de positionnement extérieur.                                                            |
+| `ScrollArea.RootProvider`          | Élément racine qui reçoit un objet d’état `ScrollArea.useScrollArea()`.                                           |
+| `ScrollArea.Viewport`              | Zone de défilement native et cible de focus.                                                                      |
+| `ScrollArea.Content`               | Enveloppe interne du contenu mesurée par Ark UI.                                                                  |
+| `ScrollArea.Scrollbar`             | Piste de barre de défilement personnalisée pour un axe.                                                           |
+| `ScrollArea.Thumb`                 | Curseur déplaçable à l’intérieur de la barre de défilement.                                                       |
+| `ScrollArea.Corner`                | Remplissage de l’intersection dans l’angle inférieur de fin lorsque les deux axes débordent.                      |
+
+## Composition
+
+### Composition recommandée
+
+`ScrollArea` est l’élément racine stylisé. Il n’affiche pas le viewport, le content ou la scrollbar à votre place ; composez explicitement les parties Ark afin que chaque nœud structurel reste personnalisable. Donnez à l’élément racine une taille de bloc limitée, sinon le contenu agrandira le viewport au lieu de défiler.
+
+### Quand créer une composition personnalisée
+
+Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des contrôles situés hors de l’élément racine doivent appeler l’API de la zone de défilement. Pour une lecture avancée de l’état, utilisez `ScrollArea.Context` ou `useScrollAreaContext()` de moduix. N’affichez pas à la fois `ScrollArea` et `ScrollArea.RootProvider` pour un même objet d’état.
+
+### Propriétés par défaut
+
+| Propriété                                                | Valeur par défaut | Remarques                                                                                                                      |
+| -------------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `fade` sur `ScrollArea` et `ScrollArea.RootProvider`     | `false`           | Ajoute un masque supérieur et inférieur au viewport, piloté par les valeurs Ark `--scroll-area-overflow-y-*`.                  |
+| `variant` sur `ScrollArea` et `ScrollArea.RootProvider`  | `hover`           | Utilisez `always` pour que les pistes des barres de défilement en débordement restent visibles et interactives.                |
+| `orientation` sur `ScrollArea.Scrollbar`                 | `vertical`        | Définissez `orientation="horizontal"` pour une piste horizontale.                                                            |
+| `asChild`                                                | `false`           | Disponible sur chaque partie Ark pour composer l’élément hôte avec un enfant unique.                                          |
+| `ids` sur `ScrollArea`                                   | generated         | Utilisez cette propriété lorsqu’un autre code a besoin d’identifiants stables pour root, viewport, content, scrollbar ou thumb. |
+
+### Comportement
+
+- Affichez un `ScrollArea.Scrollbar` pour chaque axe que vous souhaitez rendre visible.
+- Passez la propriété Ark `dir="rtl"` à l’élément racine pour le défilement de droite à gauche ; moduix utilise un positionnement logique afin que la barre verticale suive le bord de fin en ligne.
+- Ark ajoute `data-overflow-x` et `data-overflow-y` ; moduix masque les pistes tant que l’axe correspondant ne déborde pas réellement.
+- Définissez `variant="always"` lorsque la barre de défilement en débordement correspondante doit rester visible et interactive à l’état normal.
+- Le CSS du viewport masque les barres de défilement natives du navigateur avec `scrollbar-width: none` et la règle WebKit requise par Ark UI.
+- En mode forced colors, moduix désactive le masque `fade` facultatif afin qu’il ne masque pas le contenu et utilise les couleurs système pour l’anneau de focus du viewport et le curseur de la barre de défilement.
+- La ref de `ScrollArea` pointe vers l’élément racine ; celle de `ScrollArea.Viewport` pointe vers le conteneur de défilement natif.
+
+## Exemples
+
+### Toujours visible
+
+Utilisez `variant="always"` dans les panneaux denses lorsque la barre de défilement doit rester perceptible sans survol.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
+
+```
+</PreviewFrame>
+
+### Dans les deux directions
+
+Affichez des barres de défilement verticale et horizontale lorsque le contenu peut déborder sur les deux axes.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
+
+```
+</PreviewFrame>
+
+### Fondu
+
+Utilisez `fade` lorsqu’un long contenu vertical doit indiquer que d’autres éléments se trouvent au-dessus et au-dessous du viewport actuel, sans ajouter d’enveloppe supplémentaire.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/fade.tsx"
+
+```
+</PreviewFrame>
+
+### Défilement horizontal
+
+Utilisez une barre de défilement horizontale lorsque le contenu est volontairement plus large que son cadre.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
+
+```
+</PreviewFrame>
+
+### Zones imbriquées
+
+Les zones de défilement imbriquées utilisent la même composition. Conservez l’arborescence complète root, viewport, content et scrollbar de chaque zone afin qu’Ark puisse les mesurer indépendamment.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/nested.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `ScrollArea.useScrollArea()` avec `ScrollArea.RootProvider` lorsque des contrôles externes doivent accéder à l’API de défilement.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Utilisez les variables CSS sur l’élément racine lorsque vous devez modifier l’épaisseur de la barre de défilement, l’apparence de l’anneau de focus ou le style de la surface sans remplacer la structure. Par défaut, le curseur conserve la couleur du token de bordure et s’agrandit de `2px` le long de sa piste au survol ou pendant le déplacement ; ajustez cette valeur avec `--moduix-scroll-area-thumb-hover-increase` et la durée avec `--moduix-scroll-area-thumb-hover-transition`.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` et `scroll-area-corner` sont des hooks moduix stables.
+- La propriété `fade` ajoute `data-fade`, tandis que `variant` ajoute `data-variant="hover" | "always"` à `ScrollArea` et `ScrollArea.RootProvider`.
+- Ark ajoute `data-scope="scroll-area"` et `data-part` à chaque partie.
+- `data-overflow-x` et `data-overflow-y` sont présents lorsque le contenu mesuré déborde sur l’axe correspondant.
+- `data-at-top`, `data-at-bottom`, `data-at-left` et `data-at-right` sont disponibles sur le viewport.
+- `data-orientation="vertical"` et `data-orientation="horizontal"` sont disponibles sur les barres de défilement et les curseurs.
+- `data-hover` et `data-dragging` sont disponibles sur les parties scrollbar et thumb ; `data-scrolling` est disponible sur les parties scrollbar.
+- Les variables racines Ark `--corner-width`, `--corner-height`, `--thumb-width` et `--thumb-height` définissent le décalage de l’angle et les dimensions du curseur. Les variables de viewport Ark `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`, `--scroll-area-overflow-y-start` et `--scroll-area-overflow-y-end` indiquent les distances jusqu’aux bords.

@@ -124,13 +124,15 @@ State and attributes to preserve:
 ## Defaults and styling
 
 Page items, ellipses, and icon triggers default to `--moduix-size-md` through `--moduix-pagination-item-size`.
+Page items use tabular figures and compact inline padding, so one- and two-digit labels keep the
+default square footprint. Longer labels can still expand instead of clipping.
 
 Moduix adds visual defaults only:
 
 - default chevrons for previous/next triggers;
 - default double-chevron visuals for first/last triggers;
 - default `...` text for ellipsis;
-- default `aria-label="Pagination"` on root and root provider.
+- default `aria-label="Pagination"` on root and root provider;
 - default trigger icons mirror in RTL contexts.
 
 Public CSS variables:
@@ -155,7 +157,7 @@ Public CSS variables:
 | `--moduix-pagination-item-border-width`          | `var(--moduix-border-width-sm)`                                 |
 | `--moduix-pagination-item-color`                 | `var(--moduix-color-foreground)`                                |
 | `--moduix-pagination-item-color-selected`        | `var(--moduix-color-background)`                                |
-| `--moduix-pagination-item-padding-inline`        | `var(--moduix-spacing-3)`                                       |
+| `--moduix-pagination-item-padding-inline`        | `var(--moduix-spacing-2)`                                       |
 | `--moduix-pagination-item-radius`                | `var(--moduix-radius-md)`                                       |
 | `--moduix-pagination-item-size`                  | `var(--moduix-size-md)`                                         |
 | `--moduix-pagination-line-height`                | `var(--moduix-line-height-text-sm)`                             |
@@ -175,6 +177,13 @@ Keep `Pagination.Context` for custom item rendering and `Pagination.Items` for t
 list. Custom renderers must pass page objects directly into `Pagination.Item`.
 
 ## Local changelog
+
+- 2026-08-12: Stabilized the default footprint across one- and two-digit page labels while
+  preserving expansion for longer numeric content, and added a numeric-content story.
+
+- 2026-08-11: Stabilized standard page-item reconciliation across changing ranges; added
+  long-range edge-navigation test coverage, a link-mode Storybook story, and synchronized
+  reader-facing Pagination documentation across English, Russian, and French.
 
 - 2026-07-29: Mirrored default trigger icons in RTL contexts and constrained the root to prevent
   narrow-container overflow. Updated pagination docs previews to use semantic result output.

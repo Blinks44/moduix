@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
-import { Button } from '../../../src/components/button';
-import { Clipboard } from '../../../src/components/clipboard/Clipboard';
-import { Input } from '../../../src/components/input';
+import { Button } from '@/components/button';
+import { Clipboard } from '@/components/clipboard/Clipboard';
+import { Input } from '@/components/input';
 import styles from './Clipboard.stories.module.css';
 
 const meta = {
@@ -150,6 +150,42 @@ export const RootProvider: Story = {
           </Clipboard.Trigger>
         </Clipboard.Control>
       </Clipboard.RootProvider>
+    );
+  },
+};
+
+export const ContextState: Story = {
+  render: () => {
+    return (
+      <Clipboard className={styles.demo} defaultValue="https://moduix.dev/docs/clipboard">
+        <Clipboard.Control>
+          <Clipboard.ValueText className={styles.valueText} />
+          <Clipboard.Trigger>
+            <Clipboard.Indicator />
+            <Clipboard.CopyText />
+          </Clipboard.Trigger>
+        </Clipboard.Control>
+        <Clipboard.Context>
+          {(clipboard) => <p className={styles.status}>Copied: {String(clipboard.copied)}</p>}
+        </Clipboard.Context>
+      </Clipboard>
+    );
+  },
+};
+
+export const Disabled: Story = {
+  render: () => {
+    return (
+      <Clipboard className={styles.demo} defaultValue="workspace-secret">
+        <Clipboard.Label>Disabled clipboard</Clipboard.Label>
+        <Clipboard.Control>
+          <Clipboard.Input disabled />
+          <Clipboard.Trigger disabled>
+            <Clipboard.Indicator />
+            <Clipboard.CopyText />
+          </Clipboard.Trigger>
+        </Clipboard.Control>
+      </Clipboard>
     );
   },
 };

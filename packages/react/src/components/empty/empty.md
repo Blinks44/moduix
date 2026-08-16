@@ -2,8 +2,8 @@
 
 Upstream docs:
 
-- Ark UI: no dedicated Empty primitive; use https://ark-ui.com/docs/guides/composition and
-  https://ark-ui.com/docs/guides/styling plus https://ark-ui.com/docs/guides/ref
+- Ark UI: no dedicated Empty primitive; use https://ark-ui.com/react/docs/guides/composition and
+  https://ark-ui.com/react/docs/guides/styling plus https://ark-ui.com/react/docs/guides/ref
 - Chakra UI: https://chakra-ui.com/docs/components/empty-state provides an `EmptyState` reference
   composition. Moduix intentionally keeps `Empty.Icon` as a root sibling rather than nesting it in
   `Empty.Content`.
@@ -73,7 +73,7 @@ export function EmptyResults() {
   return (
     <Empty>
       <Empty.Icon>
-        <MapIcon />
+        <MapIcon aria-hidden />
       </Empty.Icon>
       <Empty.Content>
         <Empty.Title>No saved places</Empty.Title>
@@ -142,6 +142,7 @@ Public CSS variables:
 | `--moduix-empty-icon-bg`                 | `var(--moduix-color-muted)`                                                    |
 | `--moduix-empty-icon-color`              | `var(--moduix-color-muted-foreground)`                                         |
 | `--moduix-empty-icon-padding`            | `var(--moduix-spacing-3)`                                                      |
+| `--moduix-empty-icon-radius`             | `var(--moduix-radius-full)`                                                    |
 | `--moduix-empty-icon-size`               | `var(--moduix-spacing-6)`                                                      |
 | `--moduix-empty-padding`                 | `var(--moduix-spacing-8)`                                                      |
 | `--moduix-empty-radius`                  | `var(--moduix-radius-xl)`                                                      |
@@ -174,6 +175,9 @@ Public CSS variables:
   `@ark-ui/react/factory`.
 
 ## Local changelog
+
+- 2026-08-10: Added a per-icon radius styling hook, verified `asChild` across every part, and
+  aligned the decorative-icon guidance and current Ark documentation links.
 
 - 2026-07-27: Kept direct button and link actions within narrow empty-state surfaces when labels are
   long, added focused anatomy and `asChild` tests, and documented the presentational accessibility

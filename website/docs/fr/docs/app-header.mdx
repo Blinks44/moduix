@@ -1,0 +1,66 @@
+---
+title: En-tête d’application
+description: En-tête d’application adaptatif et minimaliste, avec navigation claire, actions principales et menu de compte.
+---
+
+import { AppHeaderPreview } from '@/components/recipes/app-header-preview';
+
+# En-tête d’application
+
+Utilisez cet en-tête lorsqu’une application nécessite un seul niveau de navigation clair et
+quelques actions globales seulement. Sa mise en page aérée permet de repérer facilement l’identité
+du produit, l’espace de travail actuel, la navigation et les contrôles du compte, sans transformer
+l’en-tête en barre d’outils.
+
+<ExampleFrame clientOnly>
+  <AppHeaderPreview />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/app-header.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/app-header.module.css"
+
+```
+
+    </Tab>
+  </Tabs>
+</div>
+
+## Installation
+
+<ShadcnInstall packageName={['avatar', 'button', 'command-palette', 'menu']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
+
+## Adaptation à votre application
+
+La recette utilise de véritables liens pour chaque action de navigation et `aria-current="page"`
+pour la destination active. Remplacez les données d’exemple par les valeurs issues de votre routeur
+et de l’état du compte.
+
+| Remplacez cette donnée d’exemple | Par la valeur de votre application |
+| -------------------------------- | ---------------------------------- |
+| Orbit et Acme Studio | Le lien vers l’accueil du produit et l’espace de travail actuel |
+| Liens de navigation | Les liens du routeur ; définissez `aria-current="page"` selon la route actuelle |
+| Contrôle de recherche | Un déclencheur de Command Palette avec les routes et actions de votre application |
+| Image et informations du compte | Les données de l’utilisateur authentifié et une URL d’image gérée par l’application |
+| Liens du menu du compte | Les routes du profil, des paramètres, de l’aide et toute autre route réellement utile aux utilisateurs |
+
+Si votre routeur fournit un composant Link, transmettez-le via `Button asChild` ou `Menu.Item asChild`
+au lieu d’imbriquer un élément interactif dans un autre. Conservez le contenu de remplacement de l’avatar afin que
+le contrôle du compte reste identifiable pendant le chargement de l’image ou lorsqu’aucune image
+n’est disponible.
+
+## Comportement adaptatif
+
+Sous 48rem, la navigation centrée est déplacée dans un véritable `Menu` au lieu de disparaître.
+Sous 36rem, les libellés de l’espace de travail et du compte sont masqués tandis que les boutons à
+icône conservent un nom accessible. Pour une navigation plus profonde, avec des groupes ou des routes imbriquées, remplacez
+le menu compact par la recette [Navigation mobile avec tiroir](/docs/mobile-drawer-navigation).

@@ -1,0 +1,234 @@
+---
+title: Modèles de composition
+description: Combinez les parties de moduix sans masquer le comportement Ark ni les points de personnalisation de l’application.
+---
+
+# Modèles de composition
+
+moduix garde la composition Ark visible. Au lieu de réduire le comportement à un grand ensemble de props,
+la plupart des composants exposent une partie racine avec état et des parties responsables de la
+sémantique, de la mise en page et du style.
+
+Cela permet une progression prévisible de la personnalisation :
+
+- utilisez directement les parties fournies ;
+- réexportez-les sous des noms propres au produit ;
+- enveloppez uniquement les parties qui nécessitent des styles ou une mise en page récurrents du produit.
+
+Ces modèles sont identiques avec `@moduix/react` et avec le code source installé depuis le registre.
+
+## Installer avec shadcn pour posséder le code
+
+Utilisez le package npm si vous souhaitez des mises à jour par le gestionnaire de paquets, des imports de
+composants depuis `@moduix/react/*` et des styles depuis `@moduix/react/style.css`.
+
+Utilisez le registre `shadcn` si le code source des composants doit vivre dans l’application. Il écrit dans
+votre projet le composant choisi ainsi que les styles, icônes et utilitaires moduix requis. Vous pouvez alors
+les modifier directement et les importer depuis `@/components/moduix/*`.
+
+Les composants dont vous possédez le code source ne reçoivent pas automatiquement les mises à jour du
+package. Lorsqu’une nouvelle version de moduix est disponible, ajoutez-la avec `shadcn`, puis examinez et
+fusionnez le diff selon vos propres règles. La configuration initiale du registre et les commandes des
+composants sont décrites dans le [Démarrage rapide](/docs/quick-start#install-with-the-shadcn-cli).
+
+## Commencer par l’arborescence documentée des parties
+
+Avant de créer des wrappers, partez de l’anatomie présentée sur la page du composant. Utilisez `className`,
+les variables CSS, `data-slot` et les attributs d’état Ark sur les parties qui assument réellement ces
+responsabilités.
+
+Les exports racines comme `Popover`, `Tooltip` et `Select` sont des formes abrégées de `*.Root`. Les racines
+des composants flottants ou similaires à des boîtes de dialogue rendent automatiquement le sous-arbre de
+l’overlay dans un portail. La structure reste donc visible sans wrapper `Portal` distinct.
+
+Par exemple :
+
+```text
+Dialog / Dialog.Root
+├─ Dialog.Trigger
+├─ Overlay subtree (automatically portalled)
+│  ├─ Dialog.Backdrop
+│  └─ Dialog.Positioner
+│     └─ Dialog.Content
+│        ├─ Dialog.Title
+│        ├─ Dialog.Description
+│        └─ Dialog.CloseTrigger
+```
+
+Utilisez `portalled={false}` pour un rendu dans le flux et `portalRef` pour un conteneur personnalisé lorsque
+le composant prend en charge ces props. Utilisez `Dialog.RootProvider` comme point d’entrée alternatif pour
+l’état lorsque l’objet d’état se trouve hors du sous-arbre rendu.
+
+## Rôle des parties structurelles
+
+Toutes les primitives n’exposent pas chacune des parties ci-dessous. Commencez par l’anatomie de la page du
+composant, puis gardez visibles les parties qu’elle documente lorsque le produit doit pouvoir les redéfinir.
+
+| Partie | Responsabilité |
+| --- | --- |
+| `Backdrop` | Assure la séparation modale et sert de cible aux interactions extérieures. |
+| `Positioner` | Gère le placement dans la fenêtre ou par rapport à une ancre, ainsi que le défilement. |
+| `Content` | Rend la surface interactive et reçoit les attributs d’état. |
+| `Arrow` | Relie le contenu flottant ancré à son déclencheur lorsque la primitive prend cette partie en charge. |
+
+Ne masquez pas ces nœuds dans des wrappers du produit, sauf si le contrat du produit supprime
+intentionnellement leurs points de personnalisation.
+
+## Utiliser `asChild` lorsqu’un autre élément doit posséder le nœud DOM
+
+Utilisez `asChild` lorsqu’une partie moduix doit attacher son comportement à un élément sémantique existant.
+
+```tsx
+import { Button } from '@moduix/react/button';
+import { Popover } from '@moduix/react/popover';
+// shadcn copy-owned: import { Button } from '@/components/moduix/button';
+// shadcn copy-owned: import { Popover } from '@/components/moduix/popover';
+
+export function FiltersPopover() {
+  return (
+    <Popover positioning={{ gutter: 8 }}>
+      <Popover.Trigger asChild>
+        <Button variant="outline">Filters</Button>
+      </Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content>Choose one or more filters.</Popover.Content>
+      </Popover.Positioner>
+    </Popover>
+  );
+}
+```
+
+Conservez un seul enfant sémantique capable de recevoir les props Ark. Si le composant enfant absorbe la
+ref, les gestionnaires d’événements ou les attributs, `asChild` ne fonctionnera pas correctement.
+
+## Transmettre `ids` uniquement pour relier des primitives
+
+La plupart des compositions créent automatiquement leurs propres relations. Lorsque deux primitives
+doivent désigner le même déclencheur ou le même nœud de description, transmettez un ID au lieu de définir
+manuellement les relations ARIA.
+
+```tsx
+import { Avatar } from '@moduix/react/avatar';
+import { Tooltip } from '@moduix/react/tooltip';
+import { useId } from 'react';
+
+export function AssigneeTooltip() {
+  const id = useId();
+
+  return (
+    <Tooltip ids={{ trigger: id }}>
+      <Tooltip.Trigger asChild>
+        <Avatar ids={{ root: id }}>
+          <Avatar.Fallback name="Sam Ortiz" />
+        </Avatar>
+      </Tooltip.Trigger>
+      <Tooltip.Body>Sam Ortiz is online</Tooltip.Body>
+    </Tooltip>
+  );
+}
+```
+
+Ark reste ainsi responsable des relations d’accessibilité, sans duplication manuelle des attributs
+`aria-*`.
+
+## Commencer par réexporter l’API du produit
+
+Si le produit a besoin d’imports plus courts ou d’une surface portant sa marque, commencez par des
+réexports avant d’écrire de nouvelles abstractions. Ils préservent le comportement d’origine tout en
+fournissant à l’application une API locale stable.
+
+```tsx
+import { Dialog as DialogBase } from '@moduix/react/dialog';
+// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
+
+export const Dialog = DialogBase;
+export const DialogTrigger = DialogBase.Trigger;
+export const DialogBackdrop = DialogBase.Backdrop;
+export const DialogPositioner = DialogBase.Positioner;
+export const DialogContent = DialogBase.Content;
+export const DialogTitle = DialogBase.Title;
+export const DialogDescription = DialogBase.Description;
+export const DialogCloseTrigger = DialogBase.CloseTrigger;
+```
+
+C’est la voie de personnalisation la moins risquée :
+
+- les consommateurs importent depuis la couche du produit, et non directement depuis `@moduix/react/*`
+  ou `@/components/moduix/*` ;
+- le comportement Ark reste intact ;
+- le passage du package à une installation possédée en code source reste simple ;
+- des wrappers peuvent être ajoutés plus tard uniquement là où ils sont réellement nécessaires.
+
+## Envelopper uniquement les parties qui nécessitent le style du produit
+
+Si les exigences de conception dépassent quelques classes utilitaires, enveloppez seulement les parties
+qui nécessitent un style personnalisé. Gardez la structure visible et transmettez toutes les autres props
+sans les modifier.
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Code', value: 'Code' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Code">
+
+```tsx file="../../en/docs/_snippets/composition-patterns/product-dialog.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../en/docs/_snippets/composition-patterns/product-dialog.module.css"
+
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+Gardez la structure visible et transmettez le comportement sans le modifier. Si un wrapper ne fait que
+renommer une partie et ajouter une classe, cela suffit généralement.
+
+Avant de publier un wrapper, vérifiez qu’il transmet toujours la ref, `className`, les gestionnaires
+d’événements, `asChild`, les objets de détail des callbacks Ark et les attributs d’accessibilité acceptés par
+la partie d’origine. Ne remplacez pas un bouton, un label ou un input natif par un élément générique dans le
+seul but de faciliter le style.
+
+## Extraire l’état de l’arborescence uniquement lorsque sa propriété change
+
+Conservez les objets de détail Ark sans les modifier. Par exemple, l’état d’ouverture d’une boîte de dialogue
+continue d’utiliser `onOpenChange(details)` et de lire `details.open`.
+
+Utilisez les helpers d’état du composant uniquement lorsque l’état doit vivre hors du sous-arbre rendu :
+
+- `Component.Context` pour une lecture ponctuelle dans le JSX ;
+- `useComponentContext()` dans les descendants déjà placés sous la partie racine ;
+- `useComponent()` avec `Component.RootProvider` lorsque l’état est créé hors de l’arborescence rendue.
+
+```tsx
+import { Dialog, useDialog } from '@moduix/react/dialog';
+
+export function DialogFromExternalState() {
+  const dialog = useDialog();
+
+  return (
+    <Dialog.RootProvider value={dialog}>
+      <Dialog.Trigger>Open dialog</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content>State is owned by useDialog().</Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog.RootProvider>
+  );
+}
+```
+
+Ne rendez pas `Root` et `RootProvider` pour une même instance d’état.
+
+## Une règle simple pour choisir le bon niveau
+
+- Vous avez seulement besoin de l’usage prévu ? Restez sur les parties fournies.
+- Vous avez besoin de chemins d’import propres au produit ? Commencez par réexporter.
+- Vous avez besoin d’un système visuel récurrent pour le produit ? Enveloppez les parties précises qui en
+  sont responsables.
+- Vous avez besoin d’un comportement différent ? Utilisez une arborescence explicite de parties au lieu
+  d’inventer de nouvelles props de haut niveau.

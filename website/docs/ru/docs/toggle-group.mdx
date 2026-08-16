@@ -1,0 +1,242 @@
+---
+title: Toggle Group
+component: toggle-group
+description: Набор кнопок с двумя состояниями, использующих общие выбранные значения.
+---
+
+import * as ToggleGroupDocs from '@/components/examples/toggle-group';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toggle-group" />
+
+## Выбор подходящего компонента
+
+Используйте `ToggleGroup`, если несколько нажатых кнопок относятся к одному общему набору значений.
+
+- Выберите **`ToggleGroup`** для сегментированных контролов, компактных наборов фильтров и панелей форматирования.
+- Выберите **`Toggle`** для одного отдельного действия с двумя состояниями.
+- Выберите **`Tabs`**, если выбор также переключает связанные панели.
+- Выберите **`RadioGroup`**, если варианты должны выглядеть как опции формы.
+
+## Базовый пример
+
+Начните с короткой корневой формы `<ToggleGroup>` и добавьте дочерние элементы `ToggleGroup.Item`, выровненные с Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="toggle-group" />
+
+## Анатомия
+
+```text
+ToggleGroup / ToggleGroup.Root
+├─ ToggleGroup.Context (необязательно)
+└─ ToggleGroup.Item[value]
+
+ToggleGroup.RootProvider
+└─ ToggleGroup.Item[value]
+```
+
+| Часть                               | Назначение                                                                    |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| `ToggleGroup` / `ToggleGroup.Root`  | Корневая машина состояний для выбранных значений, roving focus, ориентации и отключения. |
+| `ToggleGroup.Item`                  | Кнопка-элемент с обязательным `value` и состоянием Ark `data-state` вкл./выкл. |
+| `ToggleGroup.RootProvider`          | Корневой компонент, управляемый экземпляром состояния `useToggleGroup()` вне отрисовываемого дерева. |
+| `ToggleGroup.Context`               | Доступ через render prop к текущему состоянию группы.                         |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `ToggleGroup` как корневой компонент, а `ToggleGroup.Item` - для каждой кнопки. `value` и
+`defaultValue` являются массивами строк в режимах одиночного и множественного выбора.
+
+moduix добавляет два визуальных свойства к `ToggleGroup`, `ToggleGroup.Root`, `ToggleGroup.RootProvider` и
+`ToggleGroup.Item`:
+
+| Свойство  | По умолчанию | Значения                                                |
+| --------- | ------------ | ------------------------------------------------------- |
+| `variant` | `default`    | `default`, `outline`, `ghost`                           |
+| `size`    | `md`         | `xs`, `sm`, `md`, `lg`, `icon-sm`, `icon-md`, `icon-lg` |
+
+Элементы наследуют `variant` и `size` от корневого компонента. Задавайте любое из этих свойств на
+элементе только тогда, когда конкретному контролу требуется осознанное визуальное переопределение.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild` на `ToggleGroup.Item`, когда другой семантической кнопке нужно владеть отрисовываемым
+элементом. Сохраняйте дочерний элемент единственным и кнопкоподобным, чтобы Ark мог объединить с ним свойства
+взаимодействия и состояние ARIA.
+
+Используйте `ToggleGroup.RootProvider` с moduix `useToggleGroup()`, когда состояние нужно создать вне
+отрисовываемого корневого компонента. Используйте moduix `useToggleGroupContext()` ниже root/provider, когда
+пользовательскому компоненту необходимо текущее состояние группы. Не отрисовывайте `ToggleGroup.Root` и
+`ToggleGroup.RootProvider` для одного экземпляра состояния. Прямые импорты Ark остаются способом выхода для
+поверхностей, намеренно находящихся вне API moduix.
+
+### Свойства по умолчанию
+
+| Свойство      | По умолчанию | Примечания                                                          |
+| ------------- | ------------ | ------------------------------------------------------------------- |
+| `deselectable`| `true`       | Разрешает пустой выбор, если `multiple` не включён.                 |
+| `loopFocus`   | `true`       | Переносит фокус стрелкой с последнего элемента на первый и обратно. |
+| `orientation` | `horizontal` | Управляет направлением раскладки и соответствующей клавиатурной навигацией. |
+| `rovingFocus` | `true`       | Использует roving tab index, поэтому в порядке Tab участвует один элемент. |
+| `multiple`    | `false`      | Разрешает нескольким элементам оставаться нажатыми одновременно.    |
+| `variant`     | `default`    | Визуальный вариант moduix.                                          |
+| `size`        | `md`         | Размер элемента moduix.                                             |
+
+### Особенности поведения
+
+- `onValueChange` получает сведения Ark: для выбранного массива строк используйте `details.value`.
+- `deselectable` игнорируется, когда включён `multiple`.
+- Группе нужно доступное имя из `aria-label` или `aria-labelledby`.
+- Элементам только с иконками нужно собственное доступное имя, например `aria-label="Align left"`.
+- Используйте `disabled` на группе для всего набора или на одном элементе для отдельного недоступного выбора.
+- Используйте `ids`, чтобы задать стабильные ID корневого элемента и элементов при композиции группы с другим
+  доступным UI.
+- Группы с одиночным выбором используют семантику `radiogroup`/`radio`; группы с множественным выбором используют
+  `group` и `aria-pressed`.
+- Горизонтальные группы используют стрелки влево/вправо, вертикальные - вверх/вниз, а Home/End перемещают к
+  первому/последнему доступному элементу. Space/Enter активируют кнопку в фокусе, а `loopFocus` управляет
+  зацикливанием навигации стрелками.
+- Ark записывает `data-scope="toggle-group"`, `data-part`, `data-orientation`, `data-disabled`,
+  `data-focus` и `data-state="on" | "off"` на элементах для стилизации.
+- Горизонтальные группы прокручиваются, когда они шире контейнера, вместо переноса, который изменил бы раскладку
+  клавиатурной навигации.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте `value` из состояния React, если группа должна оставаться синхронизированной с окружающим UI.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённое состояние
+
+Используйте `disabled` на группе или на конкретном элементе, чтобы предотвратить взаимодействие.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/disabled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Иконки
+
+Передавайте иконки как обычные дочерние элементы. Элементы только с иконками всегда должны иметь доступную метку.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Множественный выбор
+
+Используйте `multiple`, если несколько вариантов могут оставаться нажатыми одновременно.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/multiple-selection.tsx"
+
+  ```
+</PreviewFrame>
+
+### Варианты
+
+Установите `variant` на группе, если все элементы должны использовать одинаковое визуальное оформление.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/variants.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вертикальная ориентация
+
+Установите `orientation="vertical"`, если варианты должны располагаться столбцом.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте `ToggleGroup.RootProvider` с moduix `useToggleGroup`, если экземпляр состояния должен быть общим или
+управляемым до отрисовки корневого компонента.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### asChild
+
+Используйте `asChild` на элементе, когда пользовательская кнопка должна владеть отрисовываемым элементом.
+Сохраняйте ровно одного кнопкоподобного потомка, чтобы Ark мог объединить семантику группы и клавиатурное поведение.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/as-child.tsx"
+
+  ```
+</PreviewFrame>
+
+### Контекст
+
+Используйте `useToggleGroupContext()` в пользовательском элементе, если его содержимому нужно текущее состояние
+группы. `ToggleGroup.Context` предоставляет то же состояние через render prop.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/toggle-group/context.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+`ToggleGroup` предоставляет стабильные хуки `data-slot` для moduix и атрибуты анатомии и состояния Ark для
+поведенческой стилизации.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ToggleGroupDocs.ToggleGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+Таблица содержит свойства уровня группы. Каждый `ToggleGroup.Item` также поддерживает [CSS-свойства
+Toggle](/docs/toggle#css-properties) для цветов и состояний взаимодействия. Задайте свойство
+`--moduix-toggle-*` на корневом компоненте, чтобы оформить все элементы, или на элементе - чтобы
+переопределить только один контрол.
+
+### Хуки стилизации
+
+- `data-slot="toggle-group-root"` и `data-slot="toggle-group-root-provider"` - стабильные селекторы корневого элемента.
+- `data-slot="toggle-group-item"` - стабильный селектор элемента.
+- `data-scope="toggle-group"` и `data-part="root" | "item"` предоставляются Ark.
+- `data-state="on" | "off"` записывается на каждом элементе.
+- `data-orientation="horizontal" | "vertical"` записывается на корневом и дочерних элементах.
+- `data-disabled` и `data-focus` - атрибуты состояния Ark.
+- `data-variant` и `data-size` отражают визуальные свойства moduix.

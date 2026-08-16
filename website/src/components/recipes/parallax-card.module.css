@@ -1,0 +1,63 @@
+.tilt {
+  width: min(100%, 24rem);
+}
+
+.card {
+  min-height: 24rem;
+  overflow: hidden;
+  border: 0;
+  background: var(--moduix-color-muted);
+  box-shadow: var(--moduix-shadow-lg);
+  transform-style: preserve-3d;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
+.overlay {
+  background: linear-gradient(180deg, rgb(0 0 0 / 4%) 24%, rgb(0 0 0 / 78%) 100%);
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-block: var(--moduix-spacing-6);
+  color: #fff;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 32%);
+  transform: translateZ(24px);
+}
+
+.eyebrow {
+  grid-column: 1;
+  color: rgb(255 255 255 / 76%);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-medium);
+  letter-spacing: 0.08em;
+  line-height: var(--moduix-line-height-text-xs);
+  text-transform: uppercase;
+}
+
+.title,
+.description {
+  color: inherit;
+}
+
+.description {
+  color: rgb(255 255 255 / 80%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transform: none;
+  }
+}

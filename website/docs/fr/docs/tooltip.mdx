@@ -1,0 +1,277 @@
+---
+title: Tooltip
+component: tooltip
+description: Un libellé qui fournit des informations au survol ou au focus.
+---
+
+import * as TooltipDocs from '@/components/examples/tooltip';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tooltip" />
+
+## Choisir le bon composant
+
+Utilisez `Tooltip` pour de courts libellés et conseils facultatifs qui apparaissent au survol ou au focus.
+
+- Choisissez **`Tooltip`** pour les libellés compacts et les brèves indications contextuelles.
+- Choisissez **`Popover`** si l’élément flottant nécessite une disposition plus complexe, des actions ou un contenu interactif.
+- Choisissez **`HoverCard`** si l’élément flottant doit présenter un aperçu détaillé lié au déclencheur.
+
+## Exemple de base
+
+Commencez par `Tooltip`, `Tooltip.Trigger` et `Tooltip.Body`. `Tooltip.Body` est une forme abrégée de la composition
+habituelle `Tooltip.Positioner + Tooltip.Content`. Conservez le nom accessible sur le déclencheur lui-même : le
+tooltip ne remplace ni `aria-label` ni un texte visible.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="tooltip" />
+
+## Anatomie
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Sous-arbre de l’overlay (porté automatiquement)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         └─ contenu
+```
+
+Ajoutez `Tooltip.Arrow` et `Tooltip.ArrowTip` dans le contenu lorsque l’élément flottant doit pointer vers le
+déclencheur. Par défaut, `Tooltip.Arrow` rend `Tooltip.ArrowTip`.
+
+```text
+Tooltip / Tooltip.Root
+├─ Tooltip.Trigger
+└─ Sous-arbre de l’overlay (porté automatiquement)
+   └─ Tooltip.Positioner
+      └─ Tooltip.Content
+         ├─ Tooltip.Arrow
+         │  └─ Tooltip.ArrowTip
+         └─ contenu
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `Tooltip` / `Tooltip.Root` | État racine, état d’ouverture contrôlé ou non contrôlé, délais, options de positionnement et cycle de vie. |
+| `Tooltip.RootProvider` | Rend un tooltip depuis un objet d’état `useTooltip()` possédé par une partie externe de l’arbre. |
+| `Tooltip.Body` | Enveloppe pratique qui rend à la fois `Tooltip.Positioner` et `Tooltip.Content`. |
+| `Tooltip.Trigger` | Élément d’ancrage interactif qui ouvre le tooltip au survol ou au focus. |
+| `Tooltip.DisabledTrigger` | Enveloppe focusable pour un contrôle natif désactivé unique qui nécessite tout de même une explication. |
+| `Tooltip.Positioner` | Couche de disposition flottante qui utilise les options de positionnement d’Ark et ses variables CSS d’exécution. |
+| `Tooltip.Content` | Surface visible du tooltip. |
+| `Tooltip.Arrow` | Enveloppe facultative de la flèche. |
+| `Tooltip.ArrowTip` | Pointe de la flèche, rendue par défaut depuis `Tooltip.Arrow`. |
+
+## Composition
+
+Le composant racine porte automatiquement `Positioner`. Utilisez `portalled={false}` pour un rendu dans le flux ou
+`portalRef` pour un conteneur personnalisé ; les parties structurelles restent explicites et disponibles pour la mise en forme.
+
+### Composition recommandée
+
+Dans le cas courant, utilisez `Tooltip.Trigger` avec `Tooltip.Body`. `Tooltip.Body` conserve l’API de positionnement
+du composant racine et rend `Tooltip.Positioner` avec `Tooltip.Content` à votre place. moduix laisse également les
+parties Ark explicites disponibles lorsqu’un contrôle complet de la structure est nécessaire.
+
+Lors d’une migration depuis shadcn, `Tooltip.Body` est l’équivalent le plus proche de l’étape habituelle
+`TooltipContent`, tandis que les parties Ark explicites restent disponibles pour les structures complexes.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` dans `Tooltip.Trigger` lorsque le déclencheur doit être un `Button` moduix, un lien ou un autre
+contrôle sémantique. L’enfant doit rester l’unique élément focusable qui prend en charge les interactions du déclencheur.
+
+Utilisez `Tooltip.DisabledTrigger` pour un contrôle natif désactivé unique qui nécessite une courte explication.
+Donnez un nom accessible à l’enveloppe : elle conserve l’enfant désactivé non interactif, tout en rendant le tooltip
+accessible à la souris et au clavier.
+
+Utilisez `positioning` sur `Tooltip` pour le placement, la stratégie, le décalage, la gestion des collisions et les
+autres options flottantes d’Ark. Utilisez explicitement `Tooltip.Positioner` et `Tooltip.Content` lorsque vous avez
+besoin de styles propres au positioner, de consommateurs de contexte intégrés qui doivent posséder une partie du
+contenu, ou d’une structure Ark de plus bas niveau. Utilisez `ids` lorsque les différentes parties du tooltip ont
+besoin d’ID partagés et stables.
+
+### Propriétés par défaut
+
+Le contenu de l’overlay porté est monté paresseusement par défaut, puis démonté après l’animation de fermeture.
+Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; ne définissez les deux props de
+cycle de vie sur `false` que si un rendu initial anticipé est nécessaire.
+
+| Prop | Valeur par défaut | Remarques |
+| --- | --- | --- |
+| `openDelay` | `400` | Délai avant l’ouverture au survol ou au focus. |
+| `closeDelay` | `150` | Délai avant la fermeture après la fin du survol ou du focus. |
+| `closeOnClick` | `true` | Ferme le tooltip lorsque le déclencheur est activé. |
+| `closeOnEscape` | `true` | Ferme le tooltip lorsque la touche Échap est pressée. |
+| `closeOnPointerDown` | `true` | Ferme le tooltip lors de l’appui du pointeur. |
+| `closeOnScroll` | `true` | Ferme le tooltip lors du défilement. |
+| `interactive` | `false` | Maintient le tooltip ouvert lorsque son contenu est survolé si la valeur est `true`. |
+| `lazyMount` | `true` | Diffère le montage jusqu’à la première ouverture du tooltip. |
+| `unmountOnExit` | `true` | Démonte le contenu après l’animation de fermeture. |
+| `skipAnimationOnMount` | `false` | Autorise la première animation d’apparition sauf désactivation explicite. |
+
+### Comportement
+
+- L’état contrôlé utilise la forme Ark `open` et `onOpenChange(details)`. Lisez `details.open`.
+- `defaultOpen` définit l’état initial non contrôlé, tandis que `disabled` désactive les interactions du tooltip sans modifier la sémantique propre au déclencheur.
+- Les props de présence Ark, comme `present`, `immediate`, `onExitComplete`, `lazyMount` et `unmountOnExit`, sont transmises sans modification.
+- `Tooltip.RootProvider`, `useTooltip` et `useTooltipContext` sont disponibles depuis `@moduix/react` pour un accès avancé externe ou intégré à l’état.
+- `Tooltip.Trigger` reçoit le style de déclencheur moduix uniquement lorsque `asChild` n’est pas utilisé. Avec `asChild`, la mise en forme appartient à l’enfant.
+- `Tooltip.DisabledTrigger` est une enveloppe spécialisée pour un unique descendant direct désactivé. Utilisez-la au lieu de dupliquer un `span`, `tabIndex` et des substitutions de pointer-events dans chaque tooltip de bouton désactivé.
+- `Tooltip.Body` transmet les props de contenu et les enfants à `Tooltip.Content`. Il ne crée ni nouvelle partie DOM ni surface distincte pour les props de positionnement.
+- `Tooltip.Content` possède la surface visible et le z-index. `Tooltip.Positioner` possède la disposition flottante et fournit les variables Ark comme `--available-width`, `--available-height` et `--transform-origin`.
+- Ark expose `data-state="open" | "closed"` sur le déclencheur et le contenu ; `data-value`, `data-current` et `data-expanded` sur le déclencheur ; ainsi que `data-placement` et `data-side` sur le contenu.
+- Les transitions du déclencheur et les animations du contenu sont désactivées lorsque l’utilisateur préfère réduire les animations.
+- Le contenu du tooltip renvoie à la ligne les longues chaînes insécables, mais les contenus longs ou interactifs doivent être placés dans un Popover ou une HoverCard plutôt que dans un tooltip défilant.
+
+## Exemples
+
+### État contrôlé
+
+Contrôlez l’état d’ouverture avec `open` et `onOpenChange(details)`.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Contexte
+
+Utilisez `useTooltipContext()` de moduix lorsque le contenu a besoin d’un accès intégré à l’état actuel du tooltip.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/context.tsx"
+
+  ```
+</PreviewFrame>
+
+### Délai
+
+Utilisez `openDelay` et `closeDelay` sur le composant racine pour régler les délais du survol et du focus.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/delay.tsx"
+
+  ```
+</PreviewFrame>
+
+### Déclencheur désactivé
+
+Utilisez `Tooltip.DisabledTrigger` lorsqu’un contrôle natif désactivé nécessite toujours une courte explication. Il
+conserve un déclencheur focusable autour de l’enfant désactivé sans remplacer la composition Ark explicite.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/disabled-trigger.tsx"
+
+  ```
+</PreviewFrame>
+
+### Plusieurs déclencheurs
+
+Utilisez le `value` du déclencheur et `onTriggerValueChange(details)` pour piloter un même tooltip depuis plusieurs déclencheurs.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/multiple-triggers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Positionnement
+
+Passez à `Tooltip` les options de positionnement d’Ark, notamment les valeurs de placement et de décalage.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/positioning.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useTooltip()` de moduix avec `Tooltip.RootProvider` lorsque l’état du tooltip doit appartenir à une partie
+de l’arbre extérieure au tooltip rendu.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Avec flèche
+
+Rendez `Tooltip.Arrow` comme premier enfant de `Tooltip.Content` lorsque la surface a besoin d’un pointeur. L’enveloppe
+rend `Tooltip.ArrowTip` pour la flèche par défaut.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/with-arrow.tsx"
+
+  ```
+</PreviewFrame>
+
+### Dans des conteneurs fixes
+
+Utilisez `positioning.strategy: "fixed"` pour les déclencheurs placés dans des zones fixes ou adhérentes de
+l’interface. Placez le focus sur le déclencheur, puis faites défiler ce panneau : `closeOnScroll={false}` maintient
+le tooltip ouvert afin de vérifier son alignement pendant le déplacement du déclencheur adhérent.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/within-fixed-containers.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+N’utilisez pas `Tooltip.Body` si le positioner ou le contenu exige une composition ou une mise en forme indépendante.
+
+<PreviewFrame contentWidth="fit-content">
+  ```tsx preview file="../../en/docs/_snippets/tooltip/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+### Propriétés CSS
+
+<div className="not-prose">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TooltipDocs.TooltipCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez la partie responsable de la tâche visuelle :
+
+- `Tooltip.Body` ne crée pas de nœud DOM propre ; lorsque vous adoptez la composition explicite, mettez en forme `Tooltip.Positioner` et `Tooltip.Content`.
+- `Tooltip.Trigger` - pour le style du déclencheur, le retour visuel au survol et à l’ouverture, ainsi que les styles de focus.
+- `Tooltip.DisabledTrigger` - pour l’enveloppe du contrôle désactivé et son descendant direct désactivé.
+- `Tooltip.Positioner` - pour les contraintes de la disposition flottante.
+- `Tooltip.Content` - pour les substitutions de la surface de l’élément flottant.
+- `Tooltip.Arrow` et `Tooltip.ArrowTip` - pour la taille, l’arrière-plan et le contour de la flèche.
+
+Les principaux hooks publics sont `data-slot="tooltip-trigger"`, `data-slot="tooltip-positioner"`,
+`data-slot="tooltip-content"`, `data-slot="tooltip-disabled-trigger"`, `data-slot="tooltip-arrow"` et
+`data-slot="tooltip-arrow-tip"`.
+
+Ark ajoute également `data-scope="tooltip"`, `data-part`, `data-state="open" | "closed"`, `data-value`,
+`data-current`, `data-expanded`, `data-instant`, `data-placement` et `data-side` aux parties concernées. Positioner
+fournit des variables CSS d’exécution, notamment `--available-width`, `--available-height`, `--reference-width`,
+`--reference-height`, `--x`, `--y`, `--z-index` et `--transform-origin`.

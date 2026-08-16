@@ -24,6 +24,10 @@ const SimpleGridRoot = forwardRef<HTMLDivElement, SimpleGridRootProps>(function 
     throw new Error('SimpleGrid `columns` must be a finite positive integer.');
   }
 
+  if (typeof minChildWidth === 'number' && (!Number.isFinite(minChildWidth) || minChildWidth < 0)) {
+    throw new Error('SimpleGrid `minChildWidth` must be a finite non-negative number.');
+  }
+
   let gridTemplateColumns = 'minmax(0, 1fr)';
 
   if (columns != null) {

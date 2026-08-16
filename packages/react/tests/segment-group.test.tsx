@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { Field, Fieldset, SegmentGroup, useSegmentGroup } from '../src';
 
 const frameworks = ['React', 'Solid', 'Vue'];
@@ -92,6 +92,90 @@ test('preserves Ark value change callback details', async () => {
 
   await waitFor(() => expect(solid).toBeChecked());
   expect(changes).toEqual(['Solid']);
+});
+
+test('preserves native radio semantics and disabled items', async () => {
+  render(
+    <SegmentGroup defaultValue="React" name="framework">
+      <SegmentGroup.Indicator />
+      <SegmentGroup.Item value="React">
+        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+      <SegmentGroup.Item value="Solid" disabled>
+        <SegmentGroup.ItemText>Solid</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+      <SegmentGroup.Item value="Vue">
+        <SegmentGroup.ItemText>Vue</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+    </SegmentGroup>,
+  );
+
+  const react = screen.getByRole('radio', { name: 'React' });
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+  const vue = screen.getByRole('radio', { name: 'Vue' });
+
+  expect(react).toHaveAttribute('type', 'radio');
+  expect(react).toHaveAttribute('name', 'framework');
+  expect(react).toBeChecked();
+  expect(solid).toBeDisabled();
+
+  solid.click();
+  expect(react).toBeChecked();
+
+  vue.click();
+  await waitFor(() => expect(vue).toBeChecked());
+});
+
+test('propagates group disabled state to every native input', () => {
+  render(
+    <SegmentGroup defaultValue="React" disabled>
+      <SegmentItems />
+    </SegmentGroup>,
+  );
+
+  expect(screen.getByRole('radiogroup')).toHaveAttribute('data-disabled');
+  for (const radio of screen.getAllByRole('radio')) {
+    expect(radio).toBeDisabled();
+  }
+});
+
+test('forwards refs through the root, item, and indicator wrappers', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const itemRef = createRef<HTMLLabelElement>();
+  const indicatorRef = createRef<HTMLDivElement>();
+
+  render(
+    <SegmentGroup ref={rootRef} defaultValue="React">
+      <SegmentGroup.Indicator ref={indicatorRef} />
+      <SegmentGroup.Item ref={itemRef} value="React">
+        <SegmentGroup.ItemText>React</SegmentGroup.ItemText>
+        <SegmentGroup.ItemControl />
+      </SegmentGroup.Item>
+    </SegmentGroup>,
+  );
+
+  expect(rootRef.current).toBe(screen.getByRole('radiogroup'));
+  expect(itemRef.current?.tagName).toBe('LABEL');
+  expect(indicatorRef.current).toHaveAttribute('data-slot', 'segment-group-indicator');
+});
+
+test('keeps read-only automatic native inputs from changing value', async () => {
+  render(
+    <SegmentGroup defaultValue="React" readOnly>
+      <SegmentItems />
+    </SegmentGroup>,
+  );
+
+  const react = screen.getByRole('radio', { name: 'React' });
+  const solid = screen.getByRole('radio', { name: 'Solid' });
+
+  fireEvent.click(solid);
+
+  await waitFor(() => expect(react).toBeChecked());
+  expect(solid).not.toBeChecked();
 });
 
 test('preserves controlled and provider composition paths', async () => {

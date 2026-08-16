@@ -1,0 +1,171 @@
+.gallery {
+  width: min(100%, 68rem);
+}
+
+.viewport {
+  position: relative;
+  overflow: clip;
+}
+
+.itemGroup {
+  padding-block: var(--moduix-spacing-3);
+}
+
+.item {
+  position: relative;
+  min-height: clamp(22rem, 48vw, 32rem);
+  overflow: hidden;
+  border-radius: var(--moduix-radius-xl);
+  opacity: 0.58;
+  transform: scale(0.96);
+  transition:
+    opacity var(--moduix-transition-slow),
+    transform var(--moduix-transition-slow);
+
+  &[data-active] {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.copy {
+  position: absolute;
+  inset-inline: var(--moduix-spacing-5);
+  inset-block-end: var(--moduix-spacing-5);
+  display: grid;
+  gap: var(--moduix-spacing-1);
+  max-width: min(34rem, calc(100% - var(--moduix-spacing-10)));
+  padding: var(--moduix-spacing-4) var(--moduix-spacing-5);
+  border: var(--moduix-border-width-sm) solid color-mix(in oklab, white 28%, transparent);
+  border-radius: var(--moduix-radius-xl);
+  background: color-mix(in oklab, var(--moduix-color-foreground) 68%, transparent);
+  color: white;
+  backdrop-filter: blur(1rem);
+  box-shadow: var(--moduix-shadow-lg);
+}
+
+.category {
+  color: color-mix(in oklab, white 78%, transparent);
+  font-size: var(--moduix-text-xs);
+  font-weight: var(--moduix-weight-semibold);
+  letter-spacing: 0.08em;
+  line-height: var(--moduix-line-height-text-xs);
+  text-transform: uppercase;
+}
+
+.title,
+.description {
+  margin: 0;
+  color: inherit;
+}
+
+.title {
+  font-size: clamp(var(--moduix-text-xl), 3vw, var(--moduix-text-3xl));
+}
+
+.description {
+  color: color-mix(in oklab, white 84%, transparent);
+  font-size: var(--moduix-text-sm);
+  line-height: var(--moduix-line-height-text-sm);
+}
+
+.control {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  justify-content: space-between;
+  padding-inline: var(--moduix-spacing-4);
+  pointer-events: none;
+}
+
+.prevTrigger,
+.nextTrigger {
+  pointer-events: auto;
+  box-shadow: var(--moduix-shadow-md);
+}
+
+.indicatorGroup {
+  margin-block-start: var(--moduix-spacing-2);
+}
+
+.indicator {
+  position: relative;
+  overflow: hidden;
+  background-color: color-mix(
+    in oklab,
+    var(--moduix-color-muted) 90%,
+    var(--moduix-color-foreground)
+  );
+  opacity: 1;
+
+  &[data-current] {
+    background-color: color-mix(
+      in oklab,
+      var(--moduix-color-muted) 90%,
+      var(--moduix-color-foreground)
+    );
+  }
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    background-color: var(--moduix-carousel-indicator-bg-current, var(--moduix-color-primary));
+    content: '';
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  &[data-current]::before {
+    transform: scaleX(1);
+  }
+
+  &[data-current][data-playing]::before {
+    animation: autoplay-gallery-progress 3.5s linear forwards;
+  }
+}
+
+@keyframes autoplay-gallery-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 40rem) {
+  .copy {
+    inset-inline: var(--moduix-spacing-3);
+    inset-block-end: var(--moduix-spacing-3);
+    max-width: calc(100% - var(--moduix-spacing-6));
+    padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
+  }
+
+  .description {
+    display: none;
+  }
+
+  .control {
+    padding-inline: var(--moduix-spacing-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
+
+  .indicator[data-current]::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

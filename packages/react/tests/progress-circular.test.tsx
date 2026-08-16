@@ -67,6 +67,75 @@ test('renders an indeterminate circular progressbar without an ARIA value', () =
   expect(progressbar).not.toHaveAttribute('aria-valuenow');
 });
 
+test('synchronizes custom circular composition with controlled values and state views', () => {
+  const { rerender } = render(
+    <ProgressCircular
+      value={10}
+      min={10}
+      max={30}
+      translations={{
+        value({ value, max }) {
+          return `Processed ${value} of ${max}`;
+        },
+      }}
+    >
+      <ProgressCircular.Circle>
+        <ProgressCircular.CircleTrack />
+        <ProgressCircular.CircleRange />
+      </ProgressCircular.Circle>
+      <ProgressCircular.Context>
+        {(progress) => (
+          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+        )}
+      </ProgressCircular.Context>
+      <ProgressCircular.View state="loading">Import in progress</ProgressCircular.View>
+      <ProgressCircular.View state="complete">Import complete</ProgressCircular.View>
+    </ProgressCircular>,
+  );
+
+  const progressbar = screen.getByRole('progressbar', { name: 'Processed 10 of 30' });
+
+  expect(progressbar).toHaveAttribute('aria-valuemin', '10');
+  expect(progressbar).toHaveAttribute('aria-valuemax', '30');
+  expect(progressbar).toHaveAttribute('aria-valuenow', '10');
+  expect(progressbar).toHaveAttribute('data-state', 'loading');
+  expect(screen.getByText('Processed 10 of 30')).toHaveAttribute('aria-live', 'polite');
+  expect(screen.getByText('Import in progress')).toBeVisible();
+  expect(screen.getByText('Import complete')).not.toBeVisible();
+
+  rerender(
+    <ProgressCircular
+      value={30}
+      min={10}
+      max={30}
+      translations={{
+        value({ value, max }) {
+          return `Processed ${value} of ${max}`;
+        },
+      }}
+    >
+      <ProgressCircular.Circle>
+        <ProgressCircular.CircleTrack />
+        <ProgressCircular.CircleRange />
+      </ProgressCircular.Circle>
+      <ProgressCircular.Context>
+        {(progress) => (
+          <ProgressCircular.ValueText>{progress.valueAsString}</ProgressCircular.ValueText>
+        )}
+      </ProgressCircular.Context>
+      <ProgressCircular.View state="loading">Import in progress</ProgressCircular.View>
+      <ProgressCircular.View state="complete">Import complete</ProgressCircular.View>
+    </ProgressCircular>,
+  );
+
+  expect(progressbar).toHaveAttribute('aria-valuenow', '30');
+  expect(progressbar).toHaveAttribute('data-state', 'complete');
+  expect(screen.getByRole('progressbar', { name: 'Processed 30 of 30' })).toBe(progressbar);
+  expect(screen.getByText('Processed 30 of 30')).toHaveAttribute('aria-live', 'polite');
+  expect(screen.getByText('Import in progress')).not.toBeVisible();
+  expect(screen.getByText('Import complete')).toBeVisible();
+});
+
 function RootProviderProgress() {
   const progress = ProgressCircular.useProgress({ defaultValue: 58 });
 

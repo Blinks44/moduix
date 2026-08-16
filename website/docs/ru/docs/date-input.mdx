@@ -1,0 +1,310 @@
+---
+title: Date Input
+component: date-input
+description: Сегментированный ввод даты Ark UI для отдельных дат, диапазонов, редактирования с учётом локали и нативных форм.
+---
+
+import * as DateInputDocs from '@/components/examples/date-input';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/date-input" />
+
+## Выбор подходящего компонента
+
+- Выберите **`Input`** для обычных текстовых значений.
+- Выберите **`DateInput`**, когда пользователям нужны удобные для клавиатуры сегменты даты и нативные значения формы.
+- Выберите **`DatePicker`**, когда пользователям нужен всплывающий календарь. `DateInput` намеренно
+  ориентирован на клавиатуру и не добавляет календарь.
+
+## Базовый пример
+
+Отрисуйте сегменты даты с учётом локали с помощью `DateInput.Segments`. Ark управляет порядком
+сегментов, редактированием с клавиатуры, фокусом, плейсхолдерами и синхронизацией с формой, а moduix
+сохраняет стилизованные визуальные части и убирает повторяющийся шаблонный код отрисовки сегментов из обычного сценария.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="date-input" />
+
+## Анатомия
+
+```text
+DateInput.Root
+├─ DateInput.Label
+├─ DateInput.Control
+│  └─ DateInput.Segments
+└─ нативный ввод (автоматически)
+
+Расширенная настройка:
+
+DateInput.SegmentGroup
+└─ DateInput.SegmentContext
+   └─ DateInput.Segment
+
+DateInput.RootProvider
+└─ то же дерево частей, подключённое к хранилищу `useDateInput()`
+```
+
+| Часть                          | Назначение                                                              |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `DateInput` / `DateInput.Root` | Управляет значением даты, форматированием по локали, фокусом сегментов и валидацией. |
+| `DateInput.RootProvider`       | Подключает части к состоянию, созданному `useDateInput()`.             |
+| `DateInput.Label`              | Доступная метка для ввода даты.                                        |
+| `DateInput.Control`            | Визуальная рамка вокруг одной или нескольких групп сегментов.           |
+| `DateInput.SegmentGroup`       | Группирует сегменты для одного индекса даты.                           |
+| `DateInput.Segment`            | Редактируемый или литеральный сегмент даты, возвращаемый Ark.           |
+| `DateInput.Segments`           | Отрисовывает одну группу сегментов с учётом локали для обычного сценария. |
+| `DateInput.Separator`          | Декоративный текст для макетов диапазона.                              |
+| `DateInput.Context`            | Доступ без отрисовки к текущему состоянию ввода даты.                  |
+| `DateInput.SegmentContext`     | Вспомогательный рендерер Ark для отрисовки сегментов с учётом локали.   |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `DateInput` в сокращённой корневой форме. Отрисовывайте `DateInput.Segments` внутри
+`DateInput.Control` для стандартной группы сегментов с учётом локали.
+
+Корневой компонент автоматически отрисовывает нативные поля ввода для отправки и сброса формы. Для диапазонов
+отрисовывайте индексированные `DateInput.Segments`. Общее `name="date"` отправляет `date[0]` и `date[1]`; передайте
+кортеж `names` из двух элементов, когда каждой стороне требуется отдельное базовое имя, например `check-in[0]` и
+`check-out[1]`.
+
+### Когда нужна собственная композиция
+
+Используйте `DateInput.SegmentGroup`, `DateInput.SegmentContext` и `DateInput.Segment` напрямую, когда
+классы или отрисовка должны различаться между сегментами.
+Используйте `asChild` для частей Ark, если нужен пользовательский корневой элемент. Потомок должен быть единственным и семантически корректным.
+Используйте `ids`, когда внешняя метка, вспомогательный текст или другой компонент должны использовать одинаковые ID.
+
+### Свойства по умолчанию
+
+| Свойство                          | По умолчанию  | Примечания                                                           |
+| --------------------------------- | ------------- | -------------------------------------------------------------------- |
+| `DateInput` / `DateInput.Root`    | -             | Локальных поведенческих значений по умолчанию нет; применяются значения Ark. |
+| `DateInput.Segments`              | -             | Отрисовывает группу сегментов с учётом локали для одного индекса.    |
+| `DateInput.names`                 | -             | Два базовых имени для полей диапазона; Ark добавляет индексы.        |
+| `DateInput.Separator.aria-hidden` | `true`        | Декоративный текст скрыт от вспомогательных технологий.              |
+| `DateInput.Separator.role`        | `presentation` | Исключает разделители диапазона из дерева доступности.               |
+
+### Особенности поведения
+
+- Значения - это объекты `DateInputDateValue[]` из Ark / `@internationalized/date`, а не строки.
+- `onValueChange(details)` сохраняет объект `details` Ark с `details.value` и `details.valueAsString`.
+- `focused`, `defaultFocused` и `onFocusChange(details)` управляют состоянием фокуса корневого компонента.
+- `placeholderValue`, `defaultPlaceholderValue` и `onPlaceholderChange(details)` управляют датой плейсхолдера.
+- `selectionMode="range"` включает индексированные группы сегментов и автоматические нативные поля ввода.
+- `shouldForceLeadingZeros` определяет, дополняются ли числовые сегменты ведущими нулями.
+- `min`, `max` и `isDateUnavailable` валидируют подтверждённые даты.
+- `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir` и
+  `createCalendar` передаются в Ark. Используйте форматтер только для времени с `granularity="minute"` или
+  `"second"`, если дата не нужна.
+- Импортируйте `useDateInput()`, `useDateInputContext()` и `DateInputDateValue` из `@moduix/react`.
+  Используйте `DateInput.Context` или `useDateInputContext()` для чтения состояния внутри дерева, а
+  `DateInput.SegmentContext` - для сегментов. Прямые импорты Ark оставлены для низкоуровневых типов и
+  вспомогательных функций, которые moduix не экспортирует.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте массивом выбранных дат и обновляйте его из `details.value`.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/controlled.tsx"
+
+```
+
+</PreviewFrame>
+
+### Отключённое состояние и только для чтения
+
+Используйте `disabled`, чтобы запретить взаимодействие. Используйте `readOnly`, когда значение должно сохранять возможность получения фокуса, но не редактироваться.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/disabled-and-read-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Состояние поля
+
+Используйте `Field` вокруг ввода даты для окружающего текста формы. Передавайте `required`, `disabled` или `invalid`
+в `DateInput`, когда атрибуты состояния Ark должны появляться на самом поле ввода даты.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/field-state.tsx"
+
+```
+
+</PreviewFrame>
+
+### Точность
+
+Задайте `granularity`, когда поле ввода должно включать сегменты времени.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/granularity.tsx"
+
+```
+
+</PreviewFrame>
+
+### Ведущие нули
+
+Установите `shouldForceLeadingZeros={false}`, если числовые сегменты не должны дополняться.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/leading-zeros.tsx"
+
+```
+
+</PreviewFrame>
+
+### Локаль
+
+Задайте `locale`, `timeZone`, `hourCycle` или `granularity` для корневого компонента, когда порядок сегментов и метки
+должны соответствовать региональным ожиданиям.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/locale.tsx"
+
+```
+
+</PreviewFrame>
+
+### Минимальные, максимальные и недоступные даты
+
+Используйте `min`, `max` и `isDateUnavailable`, чтобы помечать подтверждённые даты за пределами бизнес-правил как недопустимые.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/min-max-and-unavailable-dates.tsx"
+
+```
+
+</PreviewFrame>
+
+### Диапазон
+
+Используйте `selectionMode="range"` и передавайте `index` каждой группе сегментов. moduix автоматически
+отрисовывает нативные поля ввода с индексами.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/range.tsx"
+
+```
+
+</PreviewFrame>
+
+### Справа налево
+
+Задайте `dir="rtl"` вместе с RTL-локалью, чтобы сохранить порядок и направление сегментов этой локали.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/right-to-left.tsx"
+
+```
+
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useDateInput()` из `@moduix/react` вместе с `DateInput.RootProvider`, когда действия со состоянием должны
+находиться вне отрисованного корневого дерева.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/root-provider.tsx"
+
+```
+
+</PreviewFrame>
+
+### Только время
+
+Используйте `formatter` только для времени с точностью до минут или секунд, когда дата не входит в значение,
+которое редактируют пользователи.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/time-only.tsx"
+
+```
+
+</PreviewFrame>
+
+### Расширенная настройка
+
+Используйте полную композицию сегментов, когда отрисовка должна различаться в зависимости от данных сегмента Ark.
+`DateInput.Segments` остаётся вариантом по умолчанию для стандартной отрисовки.
+
+<style>{DateInputDocs.dateInputExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/date-input/advanced-customization.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+Большинство изменений стилизации начинаются с `--moduix-date-input-width`, `--moduix-date-input-control-width`,
+`--moduix-date-input-border-color`, `--moduix-date-input-radius`, `--moduix-date-input-focus-ring-color` и
+`--moduix-date-input-segment-bg-focus`. Полный публичный контракт переменных приведён ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <DateInputDocs.DateInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+- `data-slot="date-input-root"` на корневом компоненте.
+- `data-slot="date-input-label"` на метке.
+- `data-slot="date-input-control"` на визуальной рамке.
+- `data-slot="date-input-segment-group"` на каждой группе дат.
+- `data-slot="date-input-segment"` на редактируемых и литеральных сегментах.
+- `data-slot="date-input-hidden-input"` на скрытом нативном поле ввода.
+- `data-slot="date-input-separator"` на вспомогательном разделителе диапазона moduix.
+- Атрибуты состояния Ark включают `data-disabled`, `data-readonly`, `data-invalid`, `data-focus` на
+  группах элементов управления и сегментов, а также `data-type`, `data-editable` и `data-placeholder-shown`.

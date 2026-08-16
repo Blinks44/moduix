@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 import {
   TreeView,
   createTreeCollection,
   type TreeViewNodeProviderProps,
-  useTreeViewNodeContext,
-} from '../../../src/components/tree-view/TreeView';
+} from '@/components/tree-view/TreeView';
+import { FileIcon, FolderIcon, FolderOpenIcon } from '@/lib/moduix/icons/ui';
 import styles from './TreeView.stories.module.css';
 
 interface FileNode {
+  disabled?: boolean;
   id: string;
   name: string;
   children?: FileNode[];
@@ -50,51 +50,91 @@ const collection = createTreeCollection<FileNode>({
 
 function FileTreeNode({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
   return (
-    <TreeView.NodeProvider node={node} indexPath={indexPath}>
-      <FileTreeNodeContent node={node} indexPath={indexPath} />
-    </TreeView.NodeProvider>
+    <TreeView.Node node={node} indexPath={indexPath}>
+      {({ node: currentNode, indexPath: currentIndexPath, state }) =>
+        state.isBranch ? (
+          <TreeView.Branch>
+            <TreeView.BranchControl>
+              <TreeView.BranchIndicator />
+              <TreeView.BranchText>
+                {state.expanded ? <FolderOpenIcon /> : <FolderIcon />}
+                {currentNode.name}
+              </TreeView.BranchText>
+            </TreeView.BranchControl>
+            <TreeView.BranchContent>
+              <TreeView.BranchIndentGuide />
+              {currentNode.children?.map((child, index) => (
+                <FileTreeNode
+                  key={child.id}
+                  node={child}
+                  indexPath={[...currentIndexPath, index]}
+                />
+              ))}
+            </TreeView.BranchContent>
+          </TreeView.Branch>
+        ) : (
+          <TreeView.Item>
+            <TreeView.ItemText>
+              <FileIcon />
+              {currentNode.name}
+            </TreeView.ItemText>
+          </TreeView.Item>
+        )
+      }
+    </TreeView.Node>
   );
 }
 
-function FileTreeNodeContent({ node, indexPath }: TreeViewNodeProviderProps<FileNode>) {
-  const nodeState = useTreeViewNodeContext();
+const contentStressCollection = createTreeCollection<FileNode>({
+  nodeToValue: (node) => node.id,
+  nodeToString: (node) => node.name,
+  rootNode: {
+    id: 'ROOT',
+    name: '',
+    children: [
+      {
+        id: 'configuration',
+        name: 'Configuration files with long descriptive names',
+        children: [
+          {
+            id: 'configuration/environment',
+            name: 'production-environment-overrides-and-secrets.example.ts',
+          },
+        ],
+      },
+      { id: 'readme', name: 'README-with-a-long-but-meaningful-description.md' },
+    ],
+  },
+});
 
-  if (node.children) {
-    return (
-      <TreeView.Branch>
-        <TreeView.BranchControl>
-          <TreeView.BranchIndicator />
-          <TreeView.BranchText>
-            {nodeState.expanded ? <FolderOpenIcon /> : <FolderIcon />}
-            {node.name}
-          </TreeView.BranchText>
-        </TreeView.BranchControl>
-        <TreeView.BranchContent>
-          <TreeView.BranchIndentGuide />
-          {node.children.map((child, index) => (
-            <FileTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
-          ))}
-        </TreeView.BranchContent>
-      </TreeView.Branch>
-    );
-  }
+const disabledCollection = createTreeCollection<FileNode>({
+  isNodeDisabled: (node) => node.disabled === true,
+  nodeToValue: (node) => node.id,
+  nodeToString: (node) => node.name,
+  rootNode: {
+    id: 'ROOT',
+    name: '',
+    children: [
+      { id: 'src', name: 'src', children: [{ id: 'src/App.tsx', name: 'App.tsx' }] },
+      { disabled: true, id: 'archive', name: 'Archived project files' },
+    ],
+  },
+});
 
+function TreeViewDemo({
+  collection: treeCollection = collection,
+}: {
+  collection?: typeof collection;
+}) {
   return (
-    <TreeView.Item>
-      <TreeView.ItemText>
-        <FileIcon />
-        {node.name}
-      </TreeView.ItemText>
-    </TreeView.Item>
-  );
-}
-
-function TreeViewDemo() {
-  return (
-    <TreeView collection={collection} defaultExpandedValue={['src']} className={styles.root}>
+    <TreeView
+      collection={treeCollection}
+      defaultExpandedValue={['src', 'configuration']}
+      className={styles.root}
+    >
       <TreeView.Label>Project files</TreeView.Label>
       <TreeView.Tree>
-        {collection.rootNode.children?.map((node, index) => (
+        {treeCollection.rootNode.children?.map((node, index) => (
           <FileTreeNode key={node.id} node={node} indexPath={[index]} />
         ))}
       </TreeView.Tree>
@@ -111,3 +151,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
+
+export const ContentStress: Story = {
+  args: { collection: contentStressCollection },
+};
+
+export const Disabled: Story = {
+  args: { collection: disabledCollection },
+};

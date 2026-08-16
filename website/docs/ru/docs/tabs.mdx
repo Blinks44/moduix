@@ -1,0 +1,231 @@
+---
+title: Tabs
+component: tabs
+description: Набор вкладок для переключения между связанными панелями содержимого на одной странице.
+---
+
+import * as TabsDocs from '@/components/examples/tabs';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
+
+## Выбор подходящего компонента
+
+Используйте `Tabs`, когда пользователю нужно переключаться между взаимоисключающими представлениями в одной области страницы.
+
+- Выберите **`Tabs`**, если выбранная вкладка должна показывать одну связанную панель содержимого.
+- Выберите **`Accordion`**, если разделы должны располагаться друг под другом и раскрываться независимо.
+- Выберите **`ToggleGroup`**, если элемент управления меняет состояние или режим, но не управляет панелью содержимого.
+
+## Базовый пример
+
+Для стандартного сценария используйте `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator` и `Tabs.Content` внутри `Tabs`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="tabs" />
+
+## Анатомия
+
+```text
+Tabs
+├─ Tabs.List
+│  ├─ Tabs.Trigger[value]
+│  ├─ Tabs.Trigger[value]
+│  └─ Tabs.Indicator (optional)
+└─ Tabs.Content[value]
+
+Tabs.RootProvider
+└─ same part tree connected to a useTabs() store
+
+Tabs.Context
+└─ advanced render-prop access to the current tab state
+```
+
+| Часть                | Назначение                                                                 |
+| -------------------- | -------------------------------------------------------------------------- |
+| `Tabs`               | Управляет выбранным значением, фокусом, ориентацией и режимом активации.   |
+| `Tabs.RootProvider`  | Связывает части с состоянием, созданным через moduix `useTabs()`.          |
+| `Tabs.Context`       | Предоставляет расширенный доступ к текущему состоянию через render prop.   |
+| `Tabs.List`          | Группирует вкладки и управляет перемещением фокуса внутри списка.          |
+| `Tabs.Trigger`       | Интерактивная вкладка или хост `asChild` с обязательным значением.         |
+| `Tabs.Indicator`     | Необязательный индикатор активной вкладки, который позиционирует Ark.      |
+| `Tabs.Content`       | Область содержимого, связанная со вкладкой через совпадающее значение.     |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`Tabs` управляет клавиатурной навигацией, фокусом и выбранным значением. На корневом компоненте доступны `value`,
+`defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`,
+`deselectable`, `lazyMount`, `unmountOnExit`, `ids` и `navigate`.
+
+Сохраняйте структуру частей Ark явной. `Tabs.Indicator` необязателен: добавляйте его только тогда, когда нужен
+визуальный индикатор активной вкладки.
+
+### Когда нужна собственная композиция
+
+Используйте `asChild` у `Tabs.Trigger`, если вкладка должна отображаться как ссылка или компонент маршрутизатора.
+Дочерним должен быть один семантический элемент, способный принять клавиатурное поведение, фокус и ARIA-атрибуты Ark.
+
+Используйте moduix `useTabs()` вместе с `Tabs.RootProvider`, если состояние вкладок нужно создать вне отображаемого
+дерева. Не оборачивайте тот же экземпляр состояния в `Tabs`. Чтобы прочитать текущее состояние в соседнем элементе
+интерфейса, используйте `Tabs.Context` или `useTabsContext()`.
+
+### Свойства по умолчанию
+
+| Свойство                  | По умолчанию | Примечание                                                         |
+| ------------------------- | ------------ | ------------------------------------------------------------------ |
+| `Tabs.variant`            | `default`    | Визуальный вариант moduix: `default` или `line`.                   |
+| `Tabs.activationMode`     | `automatic`  | Фокус сразу выбирает вкладку; `manual` требует отдельной активации. |
+| `Tabs.orientation`        | `horizontal` | Для `horizontal` используются стрелки влево/вправо, для `vertical` - вверх/вниз. |
+| `Tabs.loopFocus`          | `true`       | После последней вкладки фокус переходит к первой, и наоборот.      |
+| `Tabs.lazyMount`          | `false`      | Откладывает монтирование содержимого до выбора вкладки.            |
+| `Tabs.unmountOnExit`      | `false`      | Удаляет неактивное содержимое из DOM при ленивом монтировании.     |
+
+### Особенности поведения
+
+- `onValueChange` получает объект `details`; выбранное значение находится в `details.value`.
+- `Tabs.Trigger` и `Tabs.Content` связываются одинаковыми строковыми значениями свойства `value`.
+- `Tabs.List` не добавляет индикатор автоматически. При необходимости явно отобразите `Tabs.Indicator`.
+- `variant="line"` использует заполненный вариант `default` для вертикальных `Tabs` и `Tabs.RootProvider`.
+- Ark управляет атрибутами доступности, связями с `tabpanel`, перемещением фокуса и поведением отключённых вкладок.
+
+## Примеры
+
+### Управляемое состояние
+
+Храните выбранную вкладку в состоянии React, если активная панель должна быть согласована с другими элементами интерфейса.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+
+  ```
+</PreviewFrame>
+
+### Собственные значки
+
+Размещайте значки и подписи непосредственно внутри `Tabs.Trigger`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Отключённая вкладка
+
+Отключайте вкладки, которые должны оставаться видимыми, но пока недоступны пользователю.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ленивое монтирование
+
+Используйте `lazyMount` и `unmountOnExit`, если неактивное содержимое не должно оставаться в DOM.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вариант с линией
+
+Используйте `variant="line"`, если индикатор должен располагаться у края активной вкладки, а не заполнять её.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ссылки
+
+Используйте `asChild`, чтобы отображать вкладки как обычные ссылки или ссылки маршрутизатора.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ручная активация
+
+Задайте `activationMode="manual"`, если стрелки должны только перемещать фокус, а выбор вкладки должен происходить
+после щелчка, нажатия Enter или пробела.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+
+  ```
+</PreviewFrame>
+
+### Вертикальная ориентация
+
+Используйте `orientation="vertical"`, если список вкладок должен располагаться рядом с активной панелью. В этом
+варианте заполненный индикатор помогает быстрее увидеть выбранный элемент.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Создайте внешнее состояние через moduix `useTabs()`, если выбранное значение нужно прочитать до отображения дерева
+компонентов или изменять из соседнего элемента интерфейса.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+Настраивайте `Tabs` через `className`, стабильные хуки `data-slot="tabs-*"`, атрибуты Ark `data-scope` и `data-part`,
+`data-variant` и перечисленные ниже публичные CSS-переменные `--moduix-tabs-*`.
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TabsDocs.TabsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Настраивайте ту часть, которая отвечает за нужный элемент интерфейса:
+
+- `Tabs` - ширина, общий интервал, ориентация и переопределения варианта;
+- `Tabs.List` - оформление списка, границы, фон и отступы контейнера индикатора;
+- `Tabs.Trigger` - расположение подписи, интервал рядом со значком, выбранное и отключённое состояния, фокус;
+- `Tabs.Indicator` - цвет, размер и анимация индикатора;
+- `Tabs.Content` - фон, внутренние отступы и оформление фокуса панели.
+
+Основные публичные хуки: `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`, `data-slot="tabs-list"`,
+`data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` и `data-slot="tabs-content"`.
+
+Полезные хуки Ark: `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`, `data-disabled`,
+`data-focus`, а также переменные индикатора `--left`, `--top`, `--width` и `--height`.

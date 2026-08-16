@@ -15,7 +15,7 @@ Upstream docs:
 - Preserve Ark visual parts: `Root`, `RootProvider`, `Label`, `Control`, `MarkerGroup`, `Marker`,
   `Thumb`, and `ValueText`. moduix renders Ark's native hidden input internally.
 - Preserve controlled/uncontrolled state, callback detail objects, keyboard behavior, pointer
-  dragging, form behavior, IDs, refs, and `asChild`.
+  dragging, native submission and reset, external form ownership, IDs, refs, and `asChild`.
 - `RootProvider` owns an externally created `useAngleSlider` instance and must not be nested with a
   `Root` for that same instance.
 
@@ -28,7 +28,7 @@ Upstream docs:
 - `AngleSlider.Marks` is narrow sugar for `MarkerGroup` plus repeated `Marker` children from a
   `values` array.
 - `useAngleSlider()` is re-exported from moduix for the normal `RootProvider` path.
-- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `ids`,
+- `value`, `defaultValue`, `step`, `disabled`, `invalid`, `readOnly`, `name`, `form`, `ids`,
   `onValueChange(details)`, and `onValueChangeEnd(details)` pass through unchanged.
 - The lightest recommended composition is `Dial`, with `Label`, `Marks`, and `ValueText` added only
   when that behavior is needed. `Root` and `RootProvider` always render the native form input.
@@ -104,7 +104,9 @@ per-marker props, or custom ordering.
 - `Label` and `aria-label` / `aria-labelledby` preserve Ark slider naming.
 - `Thumb` remains the focusable slider element with Ark keyboard and ARIA behavior.
 - `Root` and `RootProvider` always render Ark's hidden native input. With `name`, it participates in
-  native form submission; it also keeps Ark state synchronized with native form reset.
+  native form submission; `form` supports an external form owner. Reset restores an uncontrolled
+  `Root` to `defaultValue` and a `RootProvider` to its mount-time value. Controlled state remains
+  authoritative in its external owner.
 - `disabled`, `invalid`, and `readOnly` are Ark root props. The wrapper does not add a separate
   moduix form-state adapter.
 - `RootProvider` is the moduix-owned advanced state path; `useAngleSlider()` is re-exported for the
@@ -128,6 +130,8 @@ per-marker props, or custom ordering.
 - Public `--moduix-angle-slider-*` variables are registered in `src/styles/variables-moduix.css`.
 - Focus styling follows `Thumb:focus-visible`; invalid, disabled, read-only, and marker styling use
   Ark state attributes rather than legacy classes or wrapper state.
+- Hover and active ring styling applies only to interactive controls. Thumb and ring transitions
+  are removed under `prefers-reduced-motion`.
 - `AngleSlider.Marks` preserves the same marker styling hooks as explicit `MarkerGroup` /
   `Marker` composition.
 
@@ -163,6 +167,9 @@ per-marker props, or custom ordering.
 
 ## Local changelog
 
+- 2026-08-08: Added external `form` ownership and native reset synchronization, completed
+  asChild/ref/read-only regression coverage, made invalid indicator theming accurate, and added
+  interactive ring plus reduced-motion styling.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-13: Internalized Ark `HiddenInput` in `Root` and `RootProvider`; native submission and
   reset no longer require consumer composition.

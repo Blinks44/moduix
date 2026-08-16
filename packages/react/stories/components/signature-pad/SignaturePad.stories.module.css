@@ -4,6 +4,11 @@
   justify-items: center;
 }
 
+.states {
+  display: grid;
+  gap: var(--moduix-spacing-6);
+}
+
 .preview img {
   display: block;
   width: 17.5rem;

@@ -23,8 +23,8 @@ It has one root part and no provider, context, state machine, or item wrappers.
 - Root accepts Ark factory div props, including `asChild`.
 - `columns` creates a fixed number of equal-width tracks with
   `repeat(columns, minmax(0, 1fr))`.
-- `minChildWidth` creates an intrinsic responsive grid with `auto-fit`. Numeric values are treated
-  as pixels.
+- `minChildWidth` creates an intrinsic responsive grid with `auto-fit`. Numeric values must be
+  finite and non-negative, and are treated as pixels.
 - `minChildWidth` takes priority over `columns` when both are provided.
 - When neither layout prop is provided, the root renders one column.
 - `gap`, `rowGap`, and `columnGap` accept CSS lengths. Numeric values use React's pixel semantics.
@@ -119,6 +119,8 @@ last and remains the final per-instance override.
 
 ## Local changelog
 
+- 2026-08-13: Reject invalid numeric `minChildWidth` values instead of emitting an invalid CSS
+  grid track definition.
 - 2026-07-30: Reject invalid `columns` values instead of emitting an invalid CSS `repeat()` track list.
 - 2026-07-11: Made the `style` prop the final override for generated gaps, and documented that
   `minChildWidth` takes priority when both layout props are supplied.

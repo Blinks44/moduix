@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Spinner } from '../../../src/components/spinner/Spinner';
+import { Spinner } from '@/components/spinner/Spinner';
 import styles from './Spinner.stories.module.css';
 
 const meta = {

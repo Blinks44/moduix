@@ -2,7 +2,17 @@
 
 Upstream docs:
 
-- Ark UI: https://ark-ui.com/docs/utilities/swap
+- Ark UI: https://ark-ui.com/docs/utilities/swap (accessed 2026-08-13)
+- Chakra UI animation: https://chakra-ui.com/docs/components/concepts/animation (accessed 2026-08-13)
+- shadcn/ui registry examples: https://ui.shadcn.com/docs/registry/examples (accessed 2026-08-13)
+
+## Upstream comparison
+
+| Source    | Finding                                                                                                               | Classification         | moduix decision                                                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Ark UI    | `Root`, `Indicator`, controlled `swap`, Presence, `asChild`, and the provider path are the primitive contract.        | Required correctness   | Preserve the Ark anatomy and behavior unchanged.                                                                       |
+| Chakra UI | Enter and exit animation is scoped to `data-state`, and reduced motion must retain the lifecycle.                     | Consumer friction      | Supply small CSS recipes, stable styling hooks, and a `1ms` reduced-motion fallback.                                   |
+| shadcn/ui | There is no dedicated Swap primitive; its registry examples establish the expected self-contained distribution model. | Intentional difference | Do not add a Button alias or interaction state. Keep Swap composable and ship its implementation through the registry. |
 
 ## Purpose
 
@@ -41,6 +51,8 @@ Swap / Swap.Root
 ```
 
 `Swap.RootProvider` accepts the same indicator subtree when state is created outside the tree.
+Render both indicators as direct children of the root so they share its grid cell and their preset
+animations stay scoped to that Swap instance.
 
 | Part                 | `data-slot`          | Notes                                 |
 | -------------------- | -------------------- | ------------------------------------- |
@@ -99,6 +111,10 @@ export function UploadButton() {
 - `--moduix-swap-transition` defaults to `--moduix-transition-slow` and controls both enter and exit timing.
 - `--moduix-swap-enter-starting-opacity`, `--moduix-swap-enter-starting-scale`,
   `--moduix-swap-exit-ending-opacity`, and `--moduix-swap-exit-ending-scale` customise the default keyframes.
+- `--moduix-swap-rotate-enter-starting-angle` and `--moduix-swap-rotate-exit-ending-angle` control
+  the `rotate` recipe direction; `--moduix-swap-flip-perspective`,
+  `--moduix-swap-flip-enter-starting-angle`, and `--moduix-swap-flip-exit-ending-angle` control
+  the 3D `flip` recipe.
 - Override `animation` on `Swap.Indicator[data-state]` for rotate or 3D flip recipes, and keep a
   matching `prefers-reduced-motion` fallback in that custom CSS.
 - `prefers-reduced-motion: reduce` reduces the animation duration to `1ms`.
@@ -120,6 +136,8 @@ expand/collapse behaviour to this primitive.
 
 ## Local changelog
 
+- 2026-08-13: Added upstream comparison notes and regression coverage for the root styling hook and custom animation escape hatch.
+- 2026-08-13: Scoped preset animations to direct indicators and added angle and perspective CSS variables for rotate and flip.
 - 2026-07-31: Added `animation` presets and a custom-name escape hatch without changing Ark state.
 - 2026-07-31: Increased the default scale animation amplitude from `0.92` to `0.8` so it remains distinct from fade.
 - 2026-07-31: Set the preset transition to `--moduix-transition-slow` and the default scale to `0.5`.

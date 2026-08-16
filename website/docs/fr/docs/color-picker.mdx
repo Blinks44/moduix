@@ -1,0 +1,357 @@
+---
+title: Color Picker
+component: color-picker
+description: Un sélecteur de couleur Ark UI composé pour les champs de couleur, les canaux et les nuanciers.
+---
+
+import * as ColorPickerDocs from '@/components/examples/color-picker';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/color-picker" />
+
+## Choisir le bon composant
+
+Utilisez `ColorPicker` lorsque les utilisateurs doivent choisir ou ajuster précisément une couleur. Utilisez `Input`
+lorsqu’il suffit de coller une valeur connue et qu’aucun contrôle direct de la couleur n’est nécessaire.
+
+## Exemple de base
+
+Commencez par un champ compact : le composant racine, un champ de canal, le nuancier standard dans le déclencheur,
+le contenu du popup explicite, les parties internes standard du sélecteur et le champ masqué destiné aux formulaires.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="color-picker" />
+
+Cette installation ajoute également les fichiers de base partagés de moduix dont dépend `ColorPicker` : styles,
+icônes et petits utilitaires.
+
+## Anatomie
+
+```text
+ColorPicker
+├─ ColorPicker.Label
+├─ ColorPicker.Control
+│  ├─ ColorPicker.ChannelInput[channel]
+│  └─ ColorPicker.Trigger
+│     ├─ ColorPicker.TransparencyGrid
+│     └─ ColorPicker.ValueSwatch
+├─ Sous-arbre de l’overlay (placé automatiquement dans un portail)
+│  └─ ColorPicker.Positioner
+│     └─ ColorPicker.Content
+│        ├─ ColorPicker.Area
+│        │  ├─ ColorPicker.AreaBackground
+│        │  └─ ColorPicker.AreaThumb
+│        ├─ ColorPicker.EyeDropperTrigger
+│        ├─ ColorPicker.ChannelSlider[channel]
+│        │  ├─ ColorPicker.TransparencyGrid
+│        │  ├─ ColorPicker.ChannelSliderTrack
+│        │  └─ ColorPicker.ChannelSliderThumb
+│        ├─ ColorPicker.SwatchGroup
+│        │  └─ ColorPicker.SwatchTrigger[value]
+│        │     └─ ColorPicker.Swatch[value]
+│        │        └─ ColorPicker.SwatchIndicator
+│        └─ ColorPicker.View[format]
+│           └─ ColorPicker.ChannelInput[channel]
+└─ champ natif (automatique)
+```
+
+| Partie                           | Rôle |
+| -------------------------------- | ---- |
+| `ColorPicker`                    | Gère la valeur et le format de couleur, l’état du popup et l’intégration au formulaire. |
+| `ColorPicker.Control`            | Regroupe les champs visibles et le déclencheur. |
+| `ColorPicker.Trigger`            | Bouton qui ouvre le popup et rend le nuancier courant par défaut. |
+| `ColorPicker.Content`            | Partie de contenu réelle du popup Ark. |
+| `ColorPicker.Area`               | Surface bidimensionnelle de contrôle de la couleur. |
+| `ColorPicker.ChannelSlider`      | Contrôle unidimensionnel de la teinte, du canal alpha ou d’un autre canal. |
+| `ColorPicker.Sliders`            | Paire stylée de curseurs de teinte et de canal alpha. |
+| `ColorPicker.ChannelInput`       | Champ textuel ou numérique pour un canal de couleur donné. |
+| `ColorPicker.SwatchTrigger`      | Bouton de sélection d’une couleur prédéfinie. |
+| `ColorPicker.ValueSwatch`        | Aperçu visuel de la valeur actuelle. |
+
+`ColorPicker.RootProvider`, `parseColor`, `useColorPicker` et `useColorPickerContext` couvrent le scénario avancé
+standard de gestion d’état. Importez directement les types auxiliaires d’Ark si nécessaire.
+
+## Composition
+
+Le composant racine place automatiquement `Positioner` dans un portail. Utilisez `portalled={false}` pour un rendu
+intégré ou `portalRef` pour un conteneur personnalisé ; les parties structurelles restent explicites et stylables.
+
+### Composition recommandée
+
+Pour un sélecteur dans un popup, conservez `ColorPicker.Positioner` et `ColorPicker.Content` explicites. `Content` est
+la partie Ark réelle ; le composant racine automatise uniquement la limite du portail.
+
+Ne transmettez pas d’enfants à `Trigger`, `Area`, `ChannelSlider` et `SwatchTrigger` pour utiliser leur composition
+visuelle standard. Pour la paire habituelle teinte–canal alpha, utilisez `ColorPicker.Sliders`. Stylez les canaux avec
+`data-channel` ou les variables CSS ; ne fournissez des enfants que pour personnaliser la structure d’une partie.
+Ajoutez `data-fit-content` lorsque la taille du déclencheur doit suivre son contenu, par exemple un nuancier avec `ValueText`.
+
+Pour l’envoi et la réinitialisation natifs du formulaire, transmettez `name` à `ColorPicker`. Le composant rend et
+synchronise automatiquement le champ natif ; `FormData` et `form.reset()` ne demandent aucune configuration supplémentaire.
+
+### Quand créer une composition personnalisée
+
+Utilisez `inline` sur `ColorPicker` lorsque la zone, les curseurs, les champs et les nuanciers doivent rester affichés
+dans un panneau plutôt que dans un popup. Utilisez `ColorPicker.View` pour n’afficher que les champs d’un format à la fois.
+
+Utilisez `useColorPicker` avec `ColorPicker.RootProvider` lorsque l’état doit vivre hors du sous-arbre rendu. Ne rendez
+pas `Root` et `RootProvider` pour une même instance d’état.
+
+Utilisez `asChild` sur les parties Ark exportées lorsqu’un autre élément sémantique doit constituer le nœud DOM.
+L’enfant doit rester unique et préserver le comportement requis pour le focus et les interactions.
+
+### Propriétés par défaut
+
+Par défaut, le contenu de l’overlay dans le portail est monté à la demande et démonté après l’animation de sortie.
+Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; désactivez les deux propriétés de
+cycle de vie uniquement lorsqu’un rendu initial immédiat est nécessaire.
+
+| Surface / propriété                         | Valeur par défaut | Remarques |
+| ------------------------------------------- | ----------------- | --------- |
+| `defaultValue`                              | `parseColor("#000000")` | Valeur de couleur Ark standard. |
+| `defaultFormat`                             | `"rgba"` | Format Ark standard. |
+| largeur de `ColorPicker.Content`            | `16rem` | Évite qu’il se réduise à la largeur du nuancier du déclencheur. |
+| `ColorPicker.EyeDropperTrigger`             | icône de pipette moduix | Utilisée en l’absence d’enfants. |
+| enfants de `ColorPicker.Trigger`            | nuancier actuel | Rend `TransparencyGrid` et `ValueSwatch`. |
+| enfants de `ColorPicker.Area`               | arrière-plan et curseur | Utilisés en l’absence d’enfants. |
+| enfants de `ColorPicker.ChannelSlider`      | piste et curseur | Les curseurs alpha rendent aussi `TransparencyGrid`. |
+| `ColorPicker.Sliders`                       | paire teinte–canal alpha | Stylée via `data-channel` ou les variables CSS. |
+| enfants de `ColorPicker.SwatchTrigger`      | nuancier et indicateur | Utilisent la prop `value` du déclencheur. |
+| `ColorPicker.SwatchIndicator`               | icône de confirmation moduix | Utilisée en l’absence d’enfants. |
+| largeur de `ColorPicker`                    | `16rem` (max. `100%`) | Largeur standard du composant racine stylé. |
+
+### Comportement
+
+- `value` et `defaultValue` utilisent des objets Ark `Color`. Pour les chaînes, utilisez `parseColor()`.
+- `onValueChange(details)` et `onValueChangeEnd(details)` conservent les objets `details` d’Ark.
+- `onFormatChange(details)` et `onOpenChange(details)` conservent les objets `details` d’Ark.
+- `ids` est transmis à Ark pour partager les identifiants d’accessibilité dans les compositions personnalisées.
+- L’état de Field et Fieldset est transmis avec les props racine compatibles Ark `disabled`, `invalid`, `required` et `readOnly`.
+- Utilisez `positioning`, `initialFocusEl` et `openAutoFocus` pour adapter le placement ou le focus au contexte.
+- `lazyMount` et `unmountOnExit` valent `true` par défaut ; `present` et `onExitComplete` conservent le cycle de présence
+  Ark pour contrôler le montage ou l’animation de sortie.
+- Toutes les parties DOM Ark conservent `asChild`.
+
+## Exemples
+
+### Déclencheur compact
+
+Utilisez `data-fit-content` sur `ColorPicker.Trigger` lorsque dimensionner le bouton selon son contenu est plus clair
+qu’un nuancier carré, notamment lors d’une migration depuis des champs de couleur fondés sur des boutons.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/compact-trigger.tsx"
+
+```
+</PreviewFrame>
+
+### État contrôlé
+
+Utilisez un état contrôlé lorsque la couleur sélectionnée doit rester synchronisée avec l’état de l’application.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### État désactivé
+
+Définissez `disabled` sur le composant racine lorsque toutes les parties doivent devenir non interactives tout en
+laissant la couleur actuelle visible.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/disabled.tsx"
+
+```
+</PreviewFrame>
+
+### État du champ
+
+Utilisez les props d’état de formulaire racine, telles que `required` et `invalid`, lorsque le sélecteur est rendu dans
+un conteneur de champ et doit refléter le même état avec les attributs de données Ark.
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/field-state.tsx"
+
+```
+</PreviewFrame>
+
+### Utilisation dans un formulaire
+
+Définissez `name` sur `ColorPicker` ; le composant rend automatiquement le champ de formulaire natif.
+
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/form-usage.tsx"
+
+```
+</PreviewFrame>
+
+### Vues de format
+
+Utilisez `format`, `onFormatChange`, `FormatSelect` et `View` pour permettre de passer d’un groupe de canaux à un autre
+sans modifier la structure du sélecteur.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/format-views.tsx"
+
+```
+</PreviewFrame>
+
+### Intégré
+
+Utilisez `inline` dans les panneaux de réglages où les outils de couleur doivent rester visibles sans déclencheur de popup.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/inline.tsx"
+
+```
+</PreviewFrame>
+
+### Saisie uniquement
+
+Utilisez des champs de canaux avec un nuancier passif lorsque la saisie au clavier prime et qu’un popup serait trop
+encombrant pour l’interface.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/input-only.tsx"
+
+```
+</PreviewFrame>
+
+### Dans un Dialog
+
+Lorsque le sélecteur se trouve dans un dialogue modal, rendez son popup sans portail afin qu’il utilise le contexte de
+superposition du dialogue et reste interactif au-dessus de sa surface.
+
+<style>{ColorPickerDocs.colorPickerDialogCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/inside-dialog.tsx"
+
+```
+</PreviewFrame>
+
+### Ouverture contrôlée
+
+Utilisez l’état contrôlé `open` lorsqu’un autre contrôle ou workflow détermine la visibilité du popup.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/open-controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Utilisez `useColorPicker` de moduix avec `RootProvider` lorsque l’état doit être créé hors de l’arbre rendu et partagé
+avec des contrôles voisins.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Curseur uniquement
+
+Utilisez une composition limitée au curseur lorsque le contrôle direct est important, sans nécessiter la saisie au clavier.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/slider-only.tsx"
+
+```
+</PreviewFrame>
+
+### Nuanciers uniquement
+
+Utilisez une composition limitée aux nuanciers lorsque la palette prédéfinie suffit et que la zone, les curseurs et les champs sont inutiles.
+
+<style>{ColorPickerDocs.colorPickerInlineCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/swatch-only.tsx"
+
+```
+</PreviewFrame>
+
+### Nuanciers
+
+Ajoutez des nuanciers au popup pour proposer une sélection de couleurs en plus de l’édition libre. `closeOnSelect`
+conserve le comportement Ark et ferme le popup après la sélection d’un nuancier.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/swatches.tsx"
+
+```
+</PreviewFrame>
+
+### Nuancier de la valeur
+
+Utilisez `ValueSwatch` et `ValueText` lorsque l’interface voisine doit afficher la couleur choisie sans ouvrir le sélecteur complet.
+
+<style>{ColorPickerDocs.colorPickerValueSwatchCss}</style>
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/value-swatch.tsx"
+
+```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Utilisez des parties et des enfants explicites lorsque la composition standard nécessite une autre structure visuelle.
+
+<style>{ColorPickerDocs.colorPickerExampleCss}</style>
+<PreviewFrame maxWidth="sm">
+```tsx preview file="../../en/docs/_snippets/color-picker/advanced-customization.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Stylez `ColorPicker` avec `className`, les hooks stables `data-slot="color-picker-*"`, les attributs Ark `data-scope` /
+`data-part` et les variables CSS publiques `--moduix-color-picker-*` ci-dessous.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={ColorPickerDocs.colorPickerOverrideCssProperties} />
+
+### Points d’accroche CSS
+
+Utilisez la partie qui contrôle l’aspect visuel concerné :
+
+- `ColorPicker` pour la largeur, les espacements, la couleur générale et l’opacité de l’état désactivé ;
+- `ColorPicker.Control`, `ChannelInput`, `Trigger`, `FormatSelect` et `FormatTrigger` pour les éléments visibles du champ ;
+- `ColorPicker.Positioner` et `ColorPicker.Content` pour les couches, la largeur, les espacements, l’arrondi, l’ombre
+  et les animations d’état du popup ;
+- `ColorPicker.Area`, `AreaBackground` et `AreaThumb` pour la surface de couleur bidimensionnelle ;
+- `ColorPicker.ChannelSlider`, `ChannelSliderTrack`, `ChannelSliderThumb` et `Sliders` pour les curseurs de teinte,
+  de canal alpha et des autres canaux ;
+- `ColorPicker.SwatchGroup`, `SwatchTrigger`, `Swatch` et `SwatchIndicator` pour les grilles de couleurs prédéfinies ;
+- `ColorPicker.ValueSwatch`, `ValueText`, `View` et `TransparencyGrid` pour l’affichage de la valeur et les mises en page propres au format.
+
+Les principaux hooks d’état sont `data-state`, `data-focus`, `data-invalid`, `data-disabled`, `data-readonly`,
+`data-required`, `data-channel`, `data-orientation`, `data-value`, `data-placement` et `data-side`. Les variables Ark
+à l’exécution comprennent `--color`, `--value`, `--available-width`, `--available-height` et `--transform-origin`.
+
+Lorsque `prefers-reduced-motion` est activé, les animations d’ouverture et de fermeture du popup
+sont réduites à 1 ms afin qu’Ark termine son cycle de sortie sans mouvement visible.

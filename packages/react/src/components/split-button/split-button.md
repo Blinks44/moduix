@@ -1,10 +1,12 @@
 # SplitButton
 
-Upstream docs:
+Upstream docs (accessed 2026-08-13):
 
 - Ark UI: no dedicated Split Button primitive; use https://ark-ui.com/docs/components/menu and
   https://ark-ui.com/docs/guides/composition
 - Chakra UI: https://chakra-ui.com/docs/components/button#split-menu
+- shadcn/ui: https://ui.shadcn.com/docs/components/base/button-group and
+  https://ui.shadcn.com/docs/components/base/dropdown-menu
 
 ## Purpose
 
@@ -29,6 +31,8 @@ actions.
   `SplitButton.Root`, `SplitButton.Action`, `SplitButton.Trigger`, `SplitButton.Positioner`, and
   `SplitButton.Content`.
 - `SplitButton` is the short root form and is equivalent to `SplitButton.Root`.
+- The root renders a semantic `role="group"`; `aria-label` and `aria-labelledby` name the related
+  controls without being forwarded into Ark Menu state props.
 - Root props forward `Menu.Root` behavior props, including `open`, `defaultOpen`,
   `onOpenChange(details)`, `onSelect(details)`, `closeOnSelect`, `positioning`, `ids`, `lazyMount`,
   `unmountOnExit`, and `typeahead`.
@@ -59,7 +63,7 @@ Every exported DOM part accepts `className` and receives stable styling hooks:
 
 | Part                     | `data-slot`               | Notes                                           |
 | ------------------------ | ------------------------- | ----------------------------------------------- |
-| `SplitButton.Root`       | `split-button-root`       | Grouped visual wrapper around the two buttons.  |
+| `SplitButton.Root`       | `split-button-root`       | Semantic group around the two attached buttons. |
 | `SplitButton.Action`     | `split-button-action`     | Primary Button action.                          |
 | `SplitButton.Trigger`    | `split-button-trigger`    | Ark Menu trigger rendered through Button.       |
 | `SplitButton.Positioner` | `split-button-positioner` | Ark Menu positioner with runtime CSS variables. |
@@ -91,6 +95,13 @@ export function SplitButtonExample() {
 
 ## Upstream feature coverage
 
+| Evidence                                                                             | Classification       | Moduix decision                                                                           |
+| ------------------------------------------------------------------------------------ | -------------------- | ----------------------------------------------------------------------------------------- |
+| Ark Menu owns trigger, positioning, content, focus, and keyboard behavior.           | Required correctness | Preserve the shared `Menu` contract and explicit `Positioner -> Content` anatomy.         |
+| Chakra composes an attached Button and Menu for its split-menu example.              | Consumer friction    | Keep shared root `variant` and `size` defaults with an attached visual treatment.         |
+| shadcn Button Group uses `role="group"` and recommends a contextual accessible name. | Required correctness | Render a semantic group and accept `aria-label` or `aria-labelledby` on the root.         |
+| shadcn exposes generic group separators and multiple overlay recipes.                | Rejected complexity  | Keep the focused SplitButton API instead of adding generic group or duplicate menu parts. |
+
 - Ark Menu anatomy is preserved for the popup path through `Positioner`, `Content`, and
   shared `Menu.Item`/group/checkbox/radio/separator rows.
 - Ark Menu controlled and uncontrolled open state is preserved through root props and
@@ -110,6 +121,8 @@ export function SplitButtonExample() {
 
 - The primary action is a real button by default and can use `asChild` for a single compatible custom
   child, such as a link.
+- The attached controls are exposed as a semantic group. Consumers should provide `aria-label` or
+  `aria-labelledby` when the surrounding context does not already identify the group.
 - The trigger is a moduix `Button` host wired to Ark `Menu.Trigger`; it receives menu keyboard
   behavior, `aria-expanded`, `aria-controls`, and state attributes from Ark.
 - `SplitButton.Trigger` custom visible content goes through `children` on the built-in Button host
@@ -168,6 +181,8 @@ export function SplitButtonExample() {
 
 ## Local changelog
 
+- 2026-08-13: Added semantic group markup and contextual group naming through `aria-label` and
+  `aria-labelledby`; synchronized interaction coverage, stories, localized docs, and registry output.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Documented that the default `md` action and trigger inherit Button's compact `--moduix-size-md` baseline.
 

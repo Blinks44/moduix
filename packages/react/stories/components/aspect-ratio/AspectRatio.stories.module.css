@@ -6,10 +6,6 @@
   object-fit: cover;
 }
 
-.frame {
-  border: 0;
-}
-
 .fillImage {
   position: absolute;
   inset: 0;

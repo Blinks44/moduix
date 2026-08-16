@@ -1,15 +1,22 @@
 # Input
 
-Upstream docs:
+Upstream review (accessed 2026-08-11):
 
-- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/react/docs/components/field and `Field.Input`
-- Ark UI composition: https://ark-ui.com/react/docs/guides/composition
-- Ark UI styling: https://ark-ui.com/react/docs/guides/styling
-- Ark UI ref: https://ark-ui.com/react/docs/guides/ref
+- Ark UI: no dedicated Input primitive; follows https://ark-ui.com/docs/components/field and `Field.Input`
+- Ark UI composition: https://ark-ui.com/docs/guides/composition
+- Ark UI styling: https://ark-ui.com/docs/guides/styling
+- Ark UI ref: https://ark-ui.com/docs/guides/ref
 - Chakra UI Input: https://chakra-ui.com/docs/components/input
+- shadcn/ui Input: https://ui.shadcn.com/docs/components/input
 
 Ark UI has no standalone `Input` component page. The wrapper uses Ark `Field.Input` as its
 behavioral and accessibility model.
+
+| Source          | Useful difference                                        | moduix decision                                                                                |
+| --------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Ark Field       | Native field state, ids, refs, and `asChild` composition | **Required correctness:** preserve the primitive and native event contract.                    |
+| Chakra Input    | Adds visual variants and color-palette configuration     | **Rejected complexity:** moduix keeps one style recipe and semantic CSS-variable overrides.    |
+| shadcn/ui Input | Makes native and field examples easy to discover         | **Intentional difference:** moduix uses Ark `Field` and keeps standalone native input support. |
 
 ## Purpose
 

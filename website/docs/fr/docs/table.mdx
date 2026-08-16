@@ -1,0 +1,267 @@
+---
+title: Table
+component: table
+description: Une primitive de tableau natif avec des facilités légères pour les surfaces à bordure et débordement, les colonnes numériques, les légendes et les états vides.
+---
+
+import * as TableDocs from '@/components/examples/table';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive `table` dédiée. moduix construit ce composant avec la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
+d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
+
+## Exemple de base
+
+Commencez avec `Table.ScrollArea`, `Table`, `Table.Header`, `Table.Body` et les parties natives de ligne et de
+cellule. C’est la méthode recommandée pour les factures, les synthèses et les jeux de données en lecture seule de
+type interface d’administration.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/basic.tsx"
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="table" />
+
+## Anatomie
+
+Le parcours habituel pour les consommateurs reste proche du balisage natif des tableaux :
+
+```text
+Table.ScrollArea (facultatif)
+└─ Table
+   ├─ Table.ColumnGroup (facultatif)
+   │  └─ Table.Column
+   ├─ Table.Caption (facultatif)
+   ├─ Table.Header
+   │  └─ Table.Row
+   │     └─ Table.ColumnHeader
+   ├─ Table.Body
+   │  ├─ Table.Row
+   │  │  └─ Table.Cell
+   │  └─ Table.Empty (facultatif)
+   └─ Table.Footer (facultatif)
+```
+
+| Partie                 | Rôle                                                                             |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| `Table`                | Racine native `table`. Gère la typographie, les séparateurs et les attributs d’état. |
+| `Table.ScrollArea`     | Surface facultative à bordure et débordement pour le cas courant du tableau encadré. |
+| `Table.ColumnGroup`    | Enveloppe native `colgroup` pour répartir la largeur des colonnes.               |
+| `Table.Column`         | Enveloppe native `col`. Accepte `htmlWidth`.                                      |
+| `Table.Caption`        | Libellé facultatif au-dessus ou au-dessous du tableau via `side`.                 |
+| `Table.Header`         | Enveloppe native `thead` des en-têtes de colonne.                                 |
+| `Table.Body`           | Enveloppe native `tbody` des lignes de contenu.                                   |
+| `Table.Footer`         | Enveloppe native `tfoot` des lignes de synthèse.                                  |
+| `Table.Row`            | Enveloppe native `tr` avec gestion des séparateurs.                               |
+| `Table.ColumnHeader`   | Enveloppe native `th`. Accepte `numeric`.                                         |
+| `Table.Cell`           | Enveloppe native `td`. Accepte `numeric`.                                         |
+| `Table.Empty`          | Ligne d’état vide pratique à l’intérieur de `Table.Body`.                         |
+
+## Composition
+
+### Composition recommandée
+
+Pour la plupart des vues de données en lecture seule, conservez `Table.ScrollArea` avec les parties sémantiques du
+tableau.
+
+Utilisez `Table.ScrollArea` pour obtenir la surface courante à bordure avec défilement horizontal. Utilisez
+`numeric` sur `Table.ColumnHeader` et `Table.Cell` pour les montants, les quantités, les pourcentages et les colonnes
+de latence. Utilisez `Table.Caption` lorsque le tableau nécessite un libellé ou un résumé court, et `Table.Footer`
+lorsque la dernière ligne représente des totaux ou des agrégats. Utilisez `striped`, `interactive`,
+`showColumnBorder`, `stickyHeader` et `size` / `variant` lorsque le tableau nécessite des modes visuels inspirés de
+Chakra sans ajouter l’état d’une data grid.
+
+### Quand créer une composition personnalisée
+
+Omettez `Table.ScrollArea` lorsque la mise en page environnante gère déjà le défilement, le padding, la bordure ou
+les styles de surface. Conservez alors `Table` et déplacez ces responsabilités d’enveloppe dans votre propre
+composant de mise en page ou balisage de surface.
+
+`Table` ne gère volontairement ni le tri, ni le filtrage, ni la sélection, ni la pagination, ni l’état des actions
+de ligne. Considérez-le comme la primitive visuelle et sémantique sur laquelle des abstractions de tableau de plus
+haut niveau peuvent s’appuyer. Pour l’état et le rendu de TanStack Table, consultez le guide de composition
+[Data Table](/docs/data-table).
+
+### Propriétés par défaut
+
+Toutes les parties acceptent `className` et les propriétés natives de l’élément correspondant.
+
+| Composant            | Propriété          | Par défaut | Remarques                                                      |
+| -------------------- | ------------------ | ---------- | -------------------------------------------------------------- |
+| `Table`              | `interactive`      | `false`    | Active la mise en évidence au survol des lignes de contenu.    |
+| `Table`              | `showColumnBorder` | `false`    | Ajoute des bordures entre les colonnes visibles.               |
+| `Table`              | `size`             | `'md'`     | Accepte `'sm'`, `'md'` et `'lg'`.                              |
+| `Table`              | `stickyHeader`     | `false`    | Rend `Table.Header` sticky dans un conteneur défilant.         |
+| `Table`              | `striped`          | `false`    | Alterne le fond des lignes paires, hors lignes vides.          |
+| `Table`              | `variant`          | `'line'`   | Accepte `'line'` et `'outline'`.                               |
+| `Table.Caption`      | `side`             | `'bottom'` | Accepte `'top'` et `'bottom'`.                                 |
+| `Table.Column`       | `htmlWidth`        | -          | Correspond à l’attribut natif `width` de `col`.                |
+| `Table.ColumnHeader` | `numeric`          | `false`    | Aligne le contenu à la fin inline et utilise des chiffres tabulaires. |
+| `Table.Cell`         | `numeric`          | `false`    | Aligne le contenu à la fin inline et utilise des chiffres tabulaires. |
+| `Table.Empty`        | `colSpan`          | obligatoire | Doit correspondre au nombre actuel de colonnes du corps.       |
+
+### Comportement
+
+- `Table.Empty` affiche une ligne complète pour l’état vide : transmettez donc le nombre de colonnes du corps via
+  `colSpan`. Son échappement `asChild` remplace uniquement la cellule générée : fournissez donc un unique `td`
+  sémantique ; composez directement `Table.Row` et `Table.Cell` lorsque la ligne doit être personnalisée.
+  Sa ligne expose `data-empty` et ne reçoit ni les rayures ni les styles interactifs.
+- Les lignes d’en-tête et de contenu affichent un séparateur inférieur commun. La dernière ligne de contenu n’a pas
+  de bordure.
+- Avec `interactive`, les lignes de contenu reçoivent un arrière-plan discret au survol et conservent ce contexte
+  lorsqu’un contrôle qu’elles contiennent reçoit le focus au clavier.
+- `Table.Caption` hérite d’une typographie atténuée et ajoute un padding inline afin de ne pas toucher les bords du
+  tableau.
+
+## Exemples
+
+### Légende et pied de tableau
+
+Utilisez `Table.Caption side="top"` lorsque le libellé se lit mieux avant les données, et `Table.Footer` pour les
+totaux ou les synthèses.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/caption-and-footer.tsx"
+  ```
+</PreviewFrame>
+
+### Groupe de colonnes et bordures
+
+Utilisez `Table.ColumnGroup` et `Table.Column` pour définir les largeurs natives des colonnes, et
+`showColumnBorder` lorsque la séparation des colonnes doit être visible.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/column-group-and-borders.tsx"
+  ```
+</PreviewFrame>
+
+### État vide
+
+Utilisez `Table.Empty` lorsqu’un corps n’afficherait autrement aucune ligne.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/empty-state.tsx"
+  ```
+</PreviewFrame>
+
+### Dans une Card
+
+`Table.ScrollArea` s’intègre naturellement à `Card.Body` lorsque le tableau doit se trouver sur la surface d’une
+card.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/inside-card.tsx"
+  ```
+</PreviewFrame>
+
+### Colonnes numériques
+
+Utilisez `numeric` sur l’en-tête et les cellules pour le cas courant des métriques alignées.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/numeric-columns.tsx"
+  ```
+</PreviewFrame>
+
+### Actions de ligne avec Menu
+
+Utilisez la dernière colonne pour les actions propres à chaque ligne lorsque le jeu de données nécessite des
+commandes légères dans un menu de débordement. `Menu` convient à ce cas sans modifier la structure native du
+tableau.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/row-actions-with-menu.tsx"
+  ```
+</PreviewFrame>
+
+### Tailles et variantes
+
+Utilisez `size` pour la densité et `variant` pour le style des séparateurs. `Table` les conserve comme modes visuels
+sur la racine native sans ajouter d’état supplémentaire.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/sizes-and-variants.tsx"
+  ```
+</PreviewFrame>
+
+### En-tête et colonne sticky
+
+Utilisez `stickyHeader` sur la racine et `data-sticky="start" | "end"` sur les cellules lorsqu’un tableau à
+défilement horizontal ou vertical doit conserver son contexte.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/sticky-header-and-column.tsx"
+  ```
+</PreviewFrame>
+
+### Lignes alternées
+
+Utilisez `striped` lorsque de longs contenus en lecture seule nécessitent une séparation plus marquée des lignes
+sans passer à une abstraction de tableau plus directive.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/striped-rows.tsx"
+  ```
+</PreviewFrame>
+
+### Avec ScrollArea
+
+Utilisez directement `ScrollArea` lorsque le tableau nécessite les parties de scrollbar Ark stylisées sur les deux
+axes, un effet de fondu ou l’API de scroll area. Gardez la structure de `ScrollArea` explicite afin que le tableau
+reste natif et léger.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/with-scrollarea.tsx"
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Omettez `Table.ScrollArea` lorsque la mise en page environnante gère déjà la surface ou le défilement. Vous
+contournez ainsi la surface pratique tout en gardant explicite la composition native du tableau.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table/custom-composition.tsx"
+  ```
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Table` avec `className`, les hooks publics `data-slot`, les attributs `data-side` et `data-numeric`, ainsi
+que les variables CSS `--moduix-table-*` présentées ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TableDocs.TableCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez la partie responsable de l’aspect visuel concerné :
+
+- `className` sur `Table.ScrollArea` pour remplacer la bordure, le rayon et la surface de l’enveloppe entière
+- `className` sur `Table` pour la typographie du tableau et les contraintes de largeur
+- `data-slot="table-root"`, `table-scroll-area`, `table-column-group`, `table-column`, `table-caption`,
+  `table-header`, `table-body`, `table-footer`, `table-row`, `table-column-header`, `table-cell` et `table-empty` pour
+  cibler chaque partie
+- `data-side="top" | "bottom"` sur `Table.Caption` pour styliser la position de la légende
+- `data-numeric` sur `Table.ColumnHeader` et `Table.Cell` pour cibler les colonnes numériques
+- `data-empty` sur la ligne générée par `Table.Empty` pour cibler la ligne vide
+- `data-size`, `data-variant`, `data-striped`, `data-interactive`, `data-sticky-header` et
+  `data-show-column-border` sur `Table` pour les styles d’état au niveau de la racine
+- `data-sticky="start" | "end"` sur `Table.ColumnHeader` et `Table.Cell` pour les colonnes sticky

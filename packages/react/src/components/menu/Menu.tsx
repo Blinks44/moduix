@@ -1,5 +1,6 @@
 'use client';
 
+import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import {
   Menu as MenuPrimitive,
   useMenu,
@@ -355,45 +356,57 @@ const MenuItemText = forwardRef<
   );
 });
 
-function MenuItemTextContent({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="menu-item-text-content"
-      className={clsx(styles.itemTextContent, className)}
-      {...props}
-    />
-  );
-}
+const MenuItemTextContent = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function MenuItemTextContent({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="menu-item-text-content"
+        className={clsx(styles.itemTextContent, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function MenuItemTextIcon({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="menu-item-text-icon"
-      className={clsx(styles.itemTextIcon, className)}
-      {...props}
-    />
-  );
-}
+const MenuItemTextIcon = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function MenuItemTextIcon({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="menu-item-text-icon"
+        className={clsx(styles.itemTextIcon, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function MenuItemTextLabel({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="menu-item-text-label"
-      className={clsx(styles.itemTextLabel, className)}
-      {...props}
-    />
-  );
-}
+const MenuItemTextLabel = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function MenuItemTextLabel({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="menu-item-text-label"
+        className={clsx(styles.itemTextLabel, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-function MenuItemShortcut({ className, ...props }: ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="menu-item-shortcut"
-      className={clsx(styles.itemShortcut, className)}
-      {...props}
-    />
-  );
-}
+const MenuItemShortcut = forwardRef<ComponentRef<typeof ark.span>, HTMLArkProps<'span'>>(
+  function MenuItemShortcut({ className, ...props }, ref) {
+    return (
+      <ark.span
+        ref={ref}
+        data-slot="menu-item-shortcut"
+        className={clsx(styles.itemShortcut, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
 const Menu = Object.assign(MenuRoot, {
   Root: MenuRoot,

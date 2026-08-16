@@ -1,0 +1,56 @@
+---
+title: Expandable avatar group
+description: A stacked avatar group that expands on hover or keyboard focus and labels every member with a tooltip.
+---
+
+import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
+
+# Expandable avatar group
+
+Use this compact team roster when space is limited but every person still needs an identifiable
+label. Hovering or focusing one avatar makes room after it and opens the matching tooltip.
+
+<ExampleFrame clientOnly>
+  <ExpandableAvatarGroup />
+</ExampleFrame>
+
+<div className="docs-reference">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+    <Tab value="Component">
+
+```tsx file="../../../src/components/recipes/expandable-avatar-group.tsx"
+
+```
+
+    </Tab>
+    <Tab value="Styles">
+
+```css file="../../../src/components/recipes/expandable-avatar-group.module.css"
+
+```
+
+    </Tab>
+
+  </Tabs>
+</div>
+
+## Install
+
+<ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
+
+## How it works
+
+The group uses `Avatar.Image` with `Avatar.Fallback` as a loading fallback, and
+`Tooltip.Trigger asChild` so each avatar remains a semantic button. The motion is CSS-only: the
+active button lifts slightly while its following siblings make room for it. Replace the fixture
+image URLs with your application's avatar source before shipping the recipe.
+
+Keep the tooltip content short and non-essential. If selecting a member should navigate or perform
+an action, replace the button with the appropriate semantic control and preserve its accessible
+name.
+
+Use `role="group"` with a useful label for the roster, and include each person's role in the
+button's accessible name when the role helps users distinguish similar names. For a long team, show
+only the first few members and a final `+N` control that opens a complete, searchable people list.
+Keep the list order stable, and preserve the expanded spacing while removing lift and transition
+effects under `prefers-reduced-motion: reduce`.

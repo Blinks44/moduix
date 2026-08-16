@@ -107,7 +107,7 @@
   }
 
   .filter + .content {
-    margin-top: calc(-1 * var(--moduix-listbox-root-gap, var(--moduix-spacing-3)));
+    margin-block-start: calc(-1 * var(--moduix-listbox-root-gap, var(--moduix-spacing-3)));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
@@ -250,7 +250,7 @@
     flex-direction: column;
 
     & + & {
-      margin-top: var(--moduix-listbox-item-group-gap, var(--moduix-spacing-2));
+      margin-block-start: var(--moduix-listbox-item-group-gap, var(--moduix-spacing-2));
     }
   }
 

@@ -1,0 +1,237 @@
+---
+title: Tabs
+component: tabs
+description: Un ensemble de déclencheurs d’onglets permettant de basculer entre des panneaux de contenu associés sur une même page.
+---
+
+import * as TabsDocs from '@/components/examples/tabs';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/tabs" />
+
+## Choisir le bon composant
+
+Utilisez `Tabs` lorsque les utilisateurs basculent entre des vues mutuellement exclusives qui partagent une même
+zone de la page.
+
+- Choisissez **`Tabs`** lorsqu’un déclencheur sélectionné doit révéler un panneau de contenu sélectionné.
+- Choisissez **`Accordion`** lorsque les sections doivent rester empilées et se développer indépendamment.
+- Choisissez **`ToggleGroup`** lorsque le contrôle modifie un état ou un mode, sans posséder le contenu d’un panneau.
+
+## Exemple de base
+
+Utilisez la forme racine courte avec `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator` et `Tabs.Content`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="tabs" />
+
+## Anatomie
+
+```text
+Tabs
+├─ Tabs.List
+│  ├─ Tabs.Trigger[value]
+│  ├─ Tabs.Trigger[value]
+│  └─ Tabs.Indicator (facultatif)
+└─ Tabs.Content[value]
+
+Tabs.RootProvider
+└─ même arbre de parties connecté à un store useTabs()
+
+Tabs.Context
+└─ accès avancé avec une render prop à l’état courant des onglets
+```
+
+| Partie               | Rôle                                                                        |
+| -------------------- | --------------------------------------------------------------------------- |
+| `Tabs`               | Contrôle la valeur sélectionnée, le déplacement du focus, l’orientation et le mode. |
+| `Tabs.RootProvider`  | Connecte les parties à l’état créé avec `useTabs()` de moduix.              |
+| `Tabs.Context`       | Accès avancé avec une render prop à l’état courant des onglets.             |
+| `Tabs.List`          | Regroupe les déclencheurs et possède la sémantique de liste à focus mobile. |
+| `Tabs.Trigger`       | Bouton d’onglet interactif ou hôte `asChild` avec une valeur obligatoire.   |
+| `Tabs.Indicator`     | Indicateur facultatif du déclencheur actif, positionné par les variables d’Ark. |
+| `Tabs.Content`       | Zone de contenu correspondant à la valeur du déclencheur.                   |
+
+## Composition
+
+### Composition recommandée
+
+`Tabs` gère la navigation clavier, le déplacement du focus et la valeur sélectionnée. Utilisez-le pour `value`,
+`defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`,
+`deselectable`, `lazyMount`, `unmountOnExit`, `ids` et `navigate`.
+
+Gardez l’arbre de parties Ark visible. `Tabs.Indicator` est facultatif et doit être affiché explicitement lorsque
+vous souhaitez montrer l’indicateur du déclencheur actif.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` sur `Tabs.Trigger` lorsqu’un déclencheur doit afficher un lien ou un composant de routeur.
+L’enfant doit être un unique élément sémantique capable de préserver les comportements clavier, focus et ARIA
+d’Ark.
+
+Utilisez `useTabs()` de moduix avec `Tabs.RootProvider` lorsque l’état des onglets doit être créé en dehors de
+l’arbre affiché. N’affichez pas `Tabs` autour de la même instance d’état. Utilisez `Tabs.Context` ou
+`useTabsContext()` lorsque l’interface environnante doit lire l’état courant des onglets.
+
+### Propriétés par défaut
+
+| Propriété                    | Par défaut   | Remarques                                                        |
+| ---------------------------- | ------------ | ---------------------------------------------------------------- |
+| `Tabs.variant`               | `default`    | Variante visuelle moduix : `default` ou `line`.                  |
+| `Tabs.activationMode`        | `automatic`  | Le focus sélectionne automatiquement sauf avec `manual`.         |
+| `Tabs.orientation`           | `horizontal` | `horizontal` utilise gauche/droite ; `vertical` utilise haut/bas. |
+| `Tabs.loopFocus`             | `true`       | Le focus mobile boucle dans la liste des déclencheurs.           |
+| `Tabs.lazyMount`             | `false`      | Diffère le montage du contenu jusqu’à sa sélection.              |
+| `Tabs.unmountOnExit`         | `false`      | Retire le contenu inactif lorsqu’il est associé au montage différé. |
+
+### Comportement
+
+- `onValueChange` suit Ark et reçoit `details` ; lisez la valeur sélectionnée depuis `details.value`.
+- `Tabs.Trigger` et `Tabs.Content` sont reliés par des propriétés `value` de type chaîne identiques.
+- `Tabs.List` n’affiche plus automatiquement d’indicateur. Affichez explicitement `Tabs.Indicator` si nécessaire.
+- `variant="line"` utilise le traitement rempli `default` pour les `Tabs` et `Tabs.RootProvider` verticaux.
+- Ark contrôle les attributs d’accessibilité, les relations avec les tabpanels, le focus mobile et le comportement
+  des déclencheurs désactivés.
+
+## Exemples
+
+### Valeur contrôlée
+
+Contrôlez l’onglet sélectionné depuis l’état React lorsque le panneau actif doit se coordonner avec le reste de
+l’interface.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/controlled-value.tsx"
+
+  ```
+</PreviewFrame>
+
+### Icônes personnalisées
+
+Composez directement les icônes et les libellés dans `Tabs.Trigger`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/custom-icons.tsx"
+
+  ```
+</PreviewFrame>
+
+### Onglet désactivé
+
+Désactivez les déclencheurs visibles qui ne sont pas encore disponibles.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/disabled-tab.tsx"
+
+  ```
+</PreviewFrame>
+
+### Montage différé
+
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu inactif ne doit pas rester dans le DOM.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/lazy-mount.tsx"
+
+  ```
+</PreviewFrame>
+
+### Ligne
+
+Utilisez la variante moduix `variant="line"` lorsque l’indicateur doit se placer sur le bord actif au lieu de
+remplir le déclencheur.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/line.tsx"
+
+  ```
+</PreviewFrame>
+
+### Liens
+
+Utilisez `asChild` lorsque les déclencheurs doivent afficher des ancres ou des liens de routeur.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/links.tsx"
+
+  ```
+</PreviewFrame>
+
+### Activation manuelle
+
+Définissez `activationMode="manual"` lorsque le focus avec les touches fléchées doit se déplacer sans effectuer de
+sélection avant un clic, Entrée ou Espace.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/manual-activation.tsx"
+
+  ```
+</PreviewFrame>
+
+### Orientation verticale
+
+Utilisez `orientation="vertical"` lorsque la liste des déclencheurs doit se trouver à côté du contenu actif. Les
+onglets verticaux utilisent l’indicateur plein, ce qui facilite le repérage de l’élément sélectionné.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Créez un état externe avec `useTabs()` de moduix lorsque la valeur sélectionnée doit être lue avant le rendu de
+l’arbre de parties ou contrôlée par l’interface adjacente.
+
+<style>{TabsDocs.tabsExampleCss}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/tabs/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Stylisez `Tabs` avec `className`, les hooks stables `data-slot="tabs-*"`, les attributs Ark `data-scope` et
+`data-part`, `data-variant` et les variables CSS publiques `--moduix-tabs-*` présentées ci-dessous.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TabsDocs.TabsCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+Utilisez la partie responsable de l’aspect visuel concerné :
+
+- `Tabs` pour la largeur de mise en page, l’espacement global, l’orientation et les remplacements liés à la variante
+- `Tabs.List` pour l’apparence de la liste, les bordures, l’arrière-plan et l’espacement du conteneur de l’indicateur
+- `Tabs.Trigger` pour la disposition du libellé, l’espacement de l’icône, l’état sélectionné, l’état désactivé et le
+  style du focus
+- `Tabs.Indicator` pour personnaliser la couleur, la taille et les transitions de l’indicateur
+- `Tabs.Content` pour la surface du contenu, le padding et le style du focus
+
+Les principaux hooks publics comprennent `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
+`data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"` et `data-slot="tabs-content"`.
+
+Les hooks Ark utiles comprennent `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
+`data-disabled`, `data-focus` et les variables d’indicateur `--left`, `--top`, `--width` et `--height`.

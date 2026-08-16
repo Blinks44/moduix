@@ -1,6 +1,6 @@
 ---
 name: rspress-best-practices
-description: Rspress best practices for config, CLI workflow, content organization, frontmatter, MDX, themes, i18n, search, static assets, deployment, and debugging. Use when writing, reviewing, or troubleshooting Rspress documentation sites.
+description: Rspress best practices for config, CLI workflow, content organization, frontmatter, MDX, themes, search, static assets, deployment, and debugging. Use when writing, reviewing, or troubleshooting Rspress documentation sites.
 ---
 
 # Rspress Best Practices
@@ -50,10 +50,10 @@ Apply these rules when writing or reviewing Rspress (v2) sites.
 - In `theme/` files, keep `export * from '@rspress/core/theme-original'` unless intentionally replacing a named export
 - Avoid full component ejection unless config, CSS, and wrapping cannot meet the requirement
 
-## I18n, Search, And AI
+## Search And AI
 
-- For multilingual sites, organize locale content under per-language directories and keep navigation mirrored where practical
-- Keep descriptions and other frontmatter text in the same language as the page content
+- Prefer Rspress public APIs, configuration, theme components, and runtime hooks before custom code. Add a custom
+  implementation only when no suitable public Rspress tool exists.
 - Configure search intentionally: use local search for small or medium sites, and hosted search when scale or cross-version indexing requires it
 - Enable `llms` or `ssgMd` only when the site benefits from machine-readable outputs, and keep descriptions accurate because those outputs surface page summaries
 

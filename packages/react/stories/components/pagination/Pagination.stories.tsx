@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type CSSProperties } from 'react';
-import { Pagination } from '../../../src/components/pagination/Pagination';
+import { Pagination } from '@/components/pagination/Pagination';
 
 type PaginationStoryArgs = {
   count?: number;
@@ -66,6 +66,15 @@ export const End: Story = {
   },
 };
 
+export const NumericContent: Story = {
+  args: {
+    count: 120,
+    defaultPage: 10,
+    pageSize: 1,
+    siblingCount: 2,
+  },
+};
+
 export const Controlled: Story = {
   render: () => {
     const [page, setPage] = useState(5);
@@ -83,6 +92,38 @@ export const Controlled: Story = {
       </Pagination>
     );
   },
+};
+
+export const Link: Story = {
+  render: () => (
+    <Pagination
+      count={200}
+      defaultPage={5}
+      pageSize={10}
+      type="link"
+      getPageUrl={(details) => `?page=${details.page}`}
+    >
+      <Pagination.PrevTrigger asChild>
+        <a>Previous</a>
+      </Pagination.PrevTrigger>
+      <Pagination.Context>
+        {(pagination) =>
+          pagination.pages.map((page, index) =>
+            page.type === 'page' ? (
+              <Pagination.Item key={page.value} asChild {...page}>
+                <a>{page.value}</a>
+              </Pagination.Item>
+            ) : (
+              <Pagination.Ellipsis key={`ellipsis-${index}`} index={index} />
+            ),
+          )
+        }
+      </Pagination.Context>
+      <Pagination.NextTrigger asChild>
+        <a>Next</a>
+      </Pagination.NextTrigger>
+    </Pagination>
+  ),
 };
 
 export const WithEdges: Story = {

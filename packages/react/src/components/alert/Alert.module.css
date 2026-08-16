@@ -11,90 +11,78 @@
     border: var(--moduix-alert-border-width, var(--moduix-border-width-sm)) solid
       var(
         --moduix-alert-border-color,
-        var(--moduix-alert-border-color-default, var(--moduix-color-border))
+        var(--_alert-border-color-default, var(--moduix-color-border))
       );
     border-radius: var(--moduix-alert-radius, var(--moduix-radius-lg));
     padding: var(--moduix-alert-padding, var(--moduix-spacing-3));
-    background-color: var(
-      --moduix-alert-bg,
-      var(--moduix-alert-bg-default, var(--moduix-color-card))
-    );
+    background-color: var(--moduix-alert-bg, var(--_alert-bg-default, var(--moduix-color-card)));
     color: var(
       --moduix-alert-color,
-      var(--moduix-alert-color-default, var(--moduix-color-card-foreground))
+      var(--_alert-color-default, var(--moduix-color-card-foreground))
     );
     box-shadow: var(--moduix-alert-shadow, none);
+    --_alert-bg-default: var(--moduix-alert-info-bg, var(--moduix-color-card));
+    --_alert-border-color-default: var(
+      --moduix-alert-info-border-color,
+      var(--moduix-color-border)
+    );
+    --_alert-color-default: var(--moduix-alert-info-color, var(--moduix-color-card-foreground));
+    --_alert-indicator-color-default: var(
+      --moduix-alert-info-indicator-color,
+      var(--moduix-color-muted-foreground)
+    );
 
     > [data-part='title'],
     > [data-part='description'] {
       grid-column: 2;
     }
 
-    &[data-status='neutral'] {
-      --moduix-alert-bg-default: var(--moduix-color-card);
-      --moduix-alert-border-color-default: var(--moduix-color-border);
-      --moduix-alert-color-default: var(--moduix-color-card-foreground);
-      --moduix-alert-indicator-color-default: var(--moduix-color-muted-foreground);
-    }
-
-    &[data-status='info'] {
-      --moduix-alert-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-primary) 4%,
-        var(--moduix-color-background)
-      );
-      --moduix-alert-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-primary) 32%,
-        transparent
-      );
-      --moduix-alert-color-default: var(--moduix-color-foreground);
-      --moduix-alert-indicator-color-default: var(--moduix-color-primary);
-    }
-
     &[data-status='success'] {
-      --moduix-alert-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 10%,
-        var(--moduix-color-background)
+      --_alert-bg-default: var(
+        --moduix-alert-success-bg,
+        color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background))
       );
-      --moduix-alert-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 34%,
-        transparent
+      --_alert-border-color-default: var(
+        --moduix-alert-success-border-color,
+        color-mix(in oklab, var(--moduix-color-success) 34%, transparent)
       );
-      --moduix-alert-color-default: var(--moduix-color-foreground);
-      --moduix-alert-indicator-color-default: var(--moduix-color-success);
+      --_alert-color-default: var(--moduix-alert-success-color, var(--moduix-color-foreground));
+      --_alert-indicator-color-default: var(
+        --moduix-alert-success-indicator-color,
+        var(--moduix-color-success)
+      );
     }
 
     &[data-status='warning'] {
-      --moduix-alert-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 13%,
-        var(--moduix-color-background)
+      --_alert-bg-default: var(
+        --moduix-alert-warning-bg,
+        color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background))
       );
-      --moduix-alert-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 38%,
-        transparent
+      --_alert-border-color-default: var(
+        --moduix-alert-warning-border-color,
+        color-mix(in oklab, var(--moduix-color-warning) 38%, transparent)
       );
-      --moduix-alert-color-default: var(--moduix-color-foreground);
-      --moduix-alert-indicator-color-default: var(--moduix-color-warning);
+      --_alert-color-default: var(--moduix-alert-warning-color, var(--moduix-color-foreground));
+      --_alert-indicator-color-default: var(
+        --moduix-alert-warning-indicator-color,
+        var(--moduix-color-warning)
+      );
     }
 
     &[data-status='error'] {
-      --moduix-alert-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 9%,
-        var(--moduix-color-background)
+      --_alert-bg-default: var(
+        --moduix-alert-error-bg,
+        color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background))
       );
-      --moduix-alert-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 35%,
-        transparent
+      --_alert-border-color-default: var(
+        --moduix-alert-error-border-color,
+        color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent)
       );
-      --moduix-alert-color-default: var(--moduix-color-foreground);
-      --moduix-alert-indicator-color-default: var(--moduix-color-destructive);
+      --_alert-color-default: var(--moduix-alert-error-color, var(--moduix-color-foreground));
+      --_alert-indicator-color-default: var(
+        --moduix-alert-error-indicator-color,
+        var(--moduix-color-destructive)
+      );
     }
 
     &:not(:has(> [data-part='indicator'])) {
@@ -114,10 +102,7 @@
     height: var(--moduix-alert-indicator-size, var(--moduix-spacing-4));
     align-items: center;
     justify-content: center;
-    color: var(
-      --moduix-alert-indicator-color,
-      var(--moduix-alert-indicator-color-default, currentColor)
-    );
+    color: var(--moduix-alert-indicator-color, var(--_alert-indicator-color-default, currentColor));
     margin-block-start: var(--moduix-alert-indicator-offset, var(--moduix-spacing-0-5));
 
     & :where(svg) {
@@ -137,10 +122,7 @@
   .title {
     margin: 0;
     min-width: 0;
-    color: var(
-      --moduix-alert-title-color,
-      var(--moduix-alert-color, var(--moduix-alert-color-default))
-    );
+    color: var(--moduix-alert-title-color, var(--moduix-alert-color, var(--_alert-color-default)));
     font-size: var(--moduix-alert-title-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-alert-title-font-weight, var(--moduix-weight-semibold));
     line-height: var(--moduix-alert-title-line-height, var(--moduix-line-height-text-sm));
@@ -155,7 +137,7 @@
     overflow-wrap: anywhere;
 
     & > :first-child {
-      margin-top: 0;
+      margin-block-start: 0;
     }
 
     & > :last-child {

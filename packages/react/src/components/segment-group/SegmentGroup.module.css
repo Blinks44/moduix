@@ -23,6 +23,12 @@
       opacity: var(--moduix-segment-group-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
+    &:not([data-disabled]) {
+      .item[data-disabled] {
+        opacity: var(--moduix-segment-group-item-disabled-opacity, var(--moduix-opacity-disabled));
+      }
+    }
+
     &[data-invalid] {
       border-color: var(
         --moduix-segment-group-border-color-invalid,
@@ -96,10 +102,6 @@
     &[data-readonly],
     &[data-disabled] {
       cursor: default;
-    }
-
-    &[data-disabled] {
-      opacity: var(--moduix-segment-group-item-disabled-opacity, var(--moduix-opacity-disabled));
     }
 
     &[data-orientation='vertical'] {

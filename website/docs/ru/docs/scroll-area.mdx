@@ -1,0 +1,158 @@
+---
+title: Scroll Area
+component: scroll-area
+description: Нативный контейнер прокрутки с пользовательскими полосами прокрутки Ark UI.
+---
+
+import * as ScrollAreaDocs from '@/components/examples/scroll-area';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/scroll-area" />
+
+## Базовый пример
+
+Используйте `ScrollArea` как корневой элемент Ark и явно скомпонуйте части viewport, content, scrollbar, thumb и corner. Viewport сохраняет нативную прокрутку колёсиком, касанием, тачпадом и с клавиатуры, а части scrollbar предоставляют стилизованные контролы. moduix добавляет небольшое дополнение - `fade`, которое применяет к viewport верхнюю и нижнюю маску, используя измерения переполнения Ark.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="scroll-area" />
+
+## Анатомия
+
+```text
+ScrollArea
+├─ ScrollArea.Viewport
+│  └─ ScrollArea.Content
+│     └─ children
+├─ ScrollArea.Scrollbar
+│  └─ ScrollArea.Thumb
+└─ ScrollArea.Corner
+```
+
+| Часть                             | Назначение                                                               |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| `ScrollArea` / `ScrollArea.Root` | Хранилище состояния и внешний блок позиционирования.                    |
+| `ScrollArea.RootProvider`        | Корневой элемент, принимающий объект состояния `ScrollArea.useScrollArea()`. |
+| `ScrollArea.Viewport`            | Нативная область прокрутки и цель фокуса.                               |
+| `ScrollArea.Content`             | Внутренняя обёртка содержимого, измеряемая Ark UI.                      |
+| `ScrollArea.Scrollbar`           | Пользовательская дорожка полосы прокрутки для одной оси.                |
+| `ScrollArea.Thumb`               | Перетаскиваемый бегунок внутри полосы прокрутки.                         |
+| `ScrollArea.Corner`              | Заполнитель пересечения в нижнем конечном углу, когда переполняются обе оси. |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+`ScrollArea` - стилизованный корневой элемент. Он не отрисовывает за вас viewport, content или scrollbar; явно скомпонуйте части Ark, чтобы каждый структурный узел оставался настраиваемым. Задайте корневому элементу ограниченный размер блока, иначе содержимое расширит viewport вместо прокрутки.
+
+### Когда нужна собственная композиция
+
+Используйте `ScrollArea.useScrollArea()` с `ScrollArea.RootProvider`, когда элементы управления вне корневого элемента должны вызывать API области прокрутки. Для расширенного чтения состояния используйте `ScrollArea.Context` или `useScrollAreaContext()` из moduix. Не отрисовывайте `ScrollArea` и `ScrollArea.RootProvider` для одного объекта состояния.
+
+### Свойства по умолчанию
+
+| Свойство                                               | По умолчанию | Примечания                                                                       |
+| ------------------------------------------------------ | ------------ | -------------------------------------------------------------------------------- |
+| `fade` на `ScrollArea` и `ScrollArea.RootProvider`    | `false`      | Добавляет верхнюю и нижнюю маску viewport, управляемую значениями Ark `--scroll-area-overflow-y-*`. |
+| `variant` на `ScrollArea` и `ScrollArea.RootProvider` | `hover`      | Используйте `always`, чтобы дорожки переполняющихся полос прокрутки оставались видимыми и интерактивными. |
+| `orientation` на `ScrollArea.Scrollbar`                | `vertical`   | Установите `orientation="horizontal"` для горизонтальной дорожки.             |
+| `asChild`                                              | `false`      | Доступно на каждой части Ark для композиции хост-элемента с единственным потомком. |
+| `ids` на `ScrollArea`                                  | generated    | Используйте, когда отдельному коду нужны стабильные идентификаторы root, viewport, content, scrollbar или thumb. |
+
+### Особенности поведения
+
+- Отрисуйте по одному `ScrollArea.Scrollbar` для каждой оси, которую хотите показать.
+- Передайте корневому элементу свойство Ark `dir="rtl"` для прокрутки справа налево; moduix использует логическое позиционирование, поэтому вертикальная полоса прокрутки следует за конечным краем строки.
+- Ark добавляет `data-overflow-x` и `data-overflow-y`; moduix скрывает дорожки полос прокрутки, пока соответствующая ось действительно не переполнится.
+- Установите `variant="always"`, когда соответствующая переполняющаяся полоса прокрутки должна оставаться видимой и интерактивной в обычном состоянии.
+- CSS viewport скрывает нативные полосы прокрутки браузера с помощью `scrollbar-width: none` и правила WebKit scrollbar, необходимого Ark UI.
+- В режиме forced colors moduix отключает необязательную маску `fade`, чтобы она не скрывала содержимое, и использует системные цвета для кольца фокуса viewport и бегунка полосы прокрутки.
+- Ref на `ScrollArea` указывает на корневой элемент; ref на `ScrollArea.Viewport` указывает на нативный контейнер прокрутки.
+
+## Примеры
+
+### Всегда видима
+
+Используйте `variant="always"` в плотных панелях, когда полоса прокрутки должна быть заметна без наведения.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/always-visible.tsx"
+
+```
+</PreviewFrame>
+
+### В обоих направлениях
+
+Отрисуйте вертикальную и горизонтальную полосы прокрутки, когда содержимое может переполняться по обеим осям.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/both-directions.tsx"
+
+```
+</PreviewFrame>
+
+### Затухание
+
+Используйте `fade`, когда длинное вертикальное содержимое должно подсказывать, что выше и ниже текущего viewport есть ещё содержимое, без добавления другой обёртки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/fade.tsx"
+
+```
+</PreviewFrame>
+
+### Горизонтальная прокрутка
+
+Используйте горизонтальную полосу прокрутки, когда содержимое намеренно шире рамки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/horizontal.tsx"
+
+```
+</PreviewFrame>
+
+### Вложенные области
+
+Вложенные области прокрутки используют ту же композицию. Сохраняйте полным дерево root, viewport, content и scrollbar каждой области, чтобы Ark мог измерять их независимо.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/nested.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `ScrollArea.useScrollArea()` с `ScrollArea.RootProvider`, когда внешним элементам управления нужен доступ к API прокрутки.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/scroll-area/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Используйте CSS-переменные на корневом элементе, когда толщину полосы прокрутки, оформление кольца фокуса или стилизацию поверхности нужно изменить без замены структуры. Бегунок по умолчанию сохраняет цвет токена границы и увеличивается на `2px` по своей дорожке при наведении или перетаскивании; настройте величину через `--moduix-scroll-area-thumb-hover-increase`, а время - через `--moduix-scroll-area-thumb-hover-transition`.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={ScrollAreaDocs.scrollAreaOverrideCssProperties} />
+
+### Хуки стилизации
+
+- `data-slot="scroll-area-root"`, `scroll-area-root-provider`, `scroll-area-viewport`, `scroll-area-content`, `scroll-area-scrollbar`, `scroll-area-thumb` и `scroll-area-corner` - стабильные хуки moduix.
+- Свойство `fade` добавляет `data-fade`, а `variant` добавляет `data-variant="hover" | "always"` на `ScrollArea` и `ScrollArea.RootProvider`.
+- Ark добавляет `data-scope="scroll-area"` и `data-part` для каждой части.
+- `data-overflow-x` и `data-overflow-y` присутствуют, когда измеренное содержимое переполняется по соответствующей оси.
+- `data-at-top`, `data-at-bottom`, `data-at-left` и `data-at-right` доступны на viewport.
+- `data-orientation="vertical"` и `data-orientation="horizontal"` доступны на полосах прокрутки и бегунках.
+- `data-hover` и `data-dragging` доступны на частях scrollbar и thumb; `data-scrolling` доступен на частях scrollbar.
+- Корневые переменные Ark `--corner-width`, `--corner-height`, `--thumb-width` и `--thumb-height` определяют смещение угла и размеры бегунка. Переменные viewport Ark `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end`, `--scroll-area-overflow-y-start` и `--scroll-area-overflow-y-end` показывают расстояния до краёв.

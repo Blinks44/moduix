@@ -1,0 +1,322 @@
+---
+title: Animations
+description: Recettes d’animation pour les overlays, les sélecteurs, les éléments dépliables et les substitutions dans moduix.
+---
+
+import * as AnimationDocs from '@/components/examples/animations';
+
+# Animations
+
+moduix utilise un contrat commun d’animation des popups pour les surfaces flottantes et modales de la
+bibliothèque. Définissez une seule fois ses variables CSS afin que tous les composants pris en charge
+partagent la même durée, la même courbe et les mêmes animations de fondu, d’échelle ou de déplacement.
+Lorsqu’une surface doit se distinguer, les variables d’animation locales du composant restent disponibles.
+
+Les attributs d’état Ark déclenchent les animations et maintiennent la partie sortante montée jusqu’à la fin
+de son animation CSS.
+
+Les tokens partagés `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` et
+`--moduix-scale-*` influencent de nombreuses parties du système. Utilisez `--moduix-popup-motion-*` lorsque
+seul le contenu des composants flottants doit changer dans tout le projet.
+
+Lorsque l’utilisateur active la réduction des mouvements dans le système d’exploitation, les tokens de durée de base sont ramenés
+partagés à `0.01ms` et désactive les animations partagées de pulsation, de fondu, de déplacement et de
+rotation. Les composants dotés d’un mouvement continu spécialisé, comme Marquee et Progress indéterminé,
+conservent leur propre comportement de repli `prefers-reduced-motion`.
+
+## Choisir l’API d’animation
+
+### Animation partagée des composants flottants
+
+Utilisez `*-starting-*` pour l’entrée et `*-ending-*` pour la sortie. Les variables partagées s’appliquent
+aux parties de contenu suivantes : `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
+`FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`,
+`Select.Content`, `Combobox.Content`, `DatePicker.Content` et `ColorPicker.Content`.
+
+Par exemple, ce réglage fait entrer tout le contenu flottant pris en charge depuis la gauche et le fait
+sortir vers la gauche avec la même courbe d’animation :
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+Utilisez `:root` pour la personnalisation habituelle des overlays rendus dans un portail. Une variable
+définie uniquement sur un wrapper local n’atteint pas le contenu rendu dans `document.body` ; elle fonctionne
+pour un composant rendu avec `portalled={false}`.
+
+### Redéfinitions locales d’un composant
+
+Les variables du composant ont priorité sur le repli partagé. Utilisez-les pour une exception unique à la
+règle du projet et ajoutez une classe à la partie visuelle indiquée dans le tableau. Les surfaces ancrées
+conservent l’origine de transformation Ark : leurs recettes fondées sur l’échelle s’ouvrent donc toujours
+depuis le déclencheur.
+
+| Surface | Appliquer la classe à | Préfixe |
+| --- | --- | --- |
+| Popover | `Popover.Content` | `--moduix-popover-content-*` |
+| Menu | `Menu.Content` | `--moduix-menu-popup-*` |
+| Tooltip | `Tooltip.Content` | `--moduix-tooltip-popup-*` |
+| Hover Card | `HoverCard.Content` | `--moduix-hover-card-content-*` |
+| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-*` |
+| Dialog | `Dialog.Content` | `--moduix-dialog-content-*` |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
+| Lightbox | `Lightbox.Content` | `--moduix-lightbox-content-*` |
+| Tour | `Tour.Content` | `--moduix-tour-content-*` |
+
+`Dialog`, `CommandPalette`, `Lightbox` et `Tour` exposent également des variables `*-backdrop-*` sur la
+partie `Backdrop`. Les arrière-plans restent volontairement hors du contrat commun d’animation des popups :
+ils acceptent seulement `opacity` et `blur`, tandis que le contenu flottant partagé accepte `opacity`,
+`scale` et `translate-x` ou `translate-y`.
+
+### Animations d’état propres aux composants
+
+Ces composants conservent des systèmes d’animation distincts et n’acceptent pas
+`--moduix-popup-motion-*` :
+
+| Composant | Partie visuelle | Personnalisation prise en charge |
+| --- | --- | --- |
+| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, opacité des états ouvert et fermé |
+| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, opacité des états ouvert et fermé |
+| Drawer | `Drawer.Content` et `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition` ; la direction et le glissement contrôlent la transformation |
+| Swap | `Swap.Indicator` | variables d’opacité et d’échelle distinctes pour l’entrée et la sortie |
+| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-content-transition-duration` |
+
+Toast utilise les variables d’exécution Ark pour la disposition de la pile et la fermeture. Conservez
+intactes les valeurs `--x`, `--y`, `--scale`, `--height` et `--opacity` ; les recettes de cette page ne
+constituent pas l’API de Toast.
+
+## Recettes prêtes à l’emploi
+
+Choisissez une animation selon son objectif, puis conservez une seule recette cohérente pour les surfaces
+similaires :
+
+| Objectif du produit | Point de départ |
+| --- | --- |
+| Une apparition calme sans signification spatiale | Fondu |
+| Une surface apparaît depuis le bord le plus proche | Déplacement dans la direction correspondante |
+| Un menu ou un sélecteur ancré s’ouvre depuis son déclencheur | Échelle ou élévation |
+| Une confirmation brève et conviviale | Apparition douce, à utiliser avec modération |
+
+Placez ces variables dans `:root` pour appliquer la recette à toutes les surfaces de contenu flottant prises
+en charge. Pour une exception unique, utilisez le préfixe de composant correspondant dans le tableau des
+redéfinitions locales.
+
+### Fondu
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0;
+  --moduix-popup-motion-ending-translate-y: 0;
+}
+```
+
+### Déplacement vers le haut
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0.75rem;
+  --moduix-popup-motion-ending-translate-y: 0.75rem;
+}
+```
+
+### Déplacement vers le bas
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: -0.75rem;
+  --moduix-popup-motion-ending-translate-y: -0.75rem;
+}
+```
+
+### Déplacement vers la gauche
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: 0.75rem;
+  --moduix-popup-motion-ending-translate-x: 0.75rem;
+}
+```
+
+### Déplacement vers la droite
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+### Échelle
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.94;
+  --moduix-popup-motion-ending-scale: 0.94;
+}
+```
+
+### Élévation
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.96;
+  --moduix-popup-motion-ending-scale: 0.96;
+  --moduix-popup-motion-starting-translate-y: 0.5rem;
+  --moduix-popup-motion-ending-translate-y: 0.5rem;
+}
+```
+
+### Apparition depuis le haut
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.98;
+  --moduix-popup-motion-ending-scale: 0.98;
+  --moduix-popup-motion-starting-translate-y: -0.5rem;
+  --moduix-popup-motion-ending-translate-y: -0.5rem;
+}
+```
+
+### Apparition douce
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.88;
+  --moduix-popup-motion-ending-scale: 0.94;
+  --moduix-popup-motion-starting-translate-y: 0.25rem;
+  --moduix-popup-motion-ending-translate-y: 0.25rem;
+}
+```
+
+Utilisez-la pour apporter une touche conviviale volontaire à un menu court, un Tooltip ou une surface de
+confirmation.
+
+## Recettes propres aux composants
+
+### Focus vitré pour les arrière-plans modaux
+
+Ajoutez la première classe à `Dialog.Backdrop` et la seconde à `Dialog.Content`. Pour la famille modale
+correspondante, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
+
+```css
+.glassFocusBackdrop {
+  --moduix-dialog-backdrop-transition: 220ms var(--moduix-ease-out);
+  --moduix-dialog-backdrop-starting-opacity: 0;
+  --moduix-dialog-backdrop-ending-opacity: 0;
+  --moduix-dialog-backdrop-starting-blur: none;
+  --moduix-dialog-backdrop-ending-blur: none;
+}
+
+.glassFocusContent {
+  --moduix-dialog-transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-dialog-content-starting-opacity: 0;
+  --moduix-dialog-content-ending-opacity: 0;
+  --moduix-dialog-content-starting-scale: 0.96;
+  --moduix-dialog-content-ending-scale: 0.98;
+  --moduix-dialog-content-starting-translate-y: 0.75rem;
+  --moduix-dialog-content-ending-translate-y: 0.75rem;
+}
+```
+
+### Mise à l’échelle douce du contenu d’un sélecteur
+
+Ajoutez cette classe à `Select.Content`. Pour `Combobox`, `ColorPicker` ou `DatePicker`, remplacez le préfixe
+`select` par `combobox`, `color-picker` ou `date-picker`.
+
+```css
+.softScalePicker {
+  --moduix-select-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-select-content-closed-opacity: 0;
+  --moduix-select-content-closed-scale: 0.96;
+}
+```
+
+### Déploiement détendu
+
+Ajoutez cette classe à `Accordion.ItemContent`. Pour `Collapsible.Content`, utilisez plutôt le préfixe
+`--moduix-collapsible-content-*`.
+
+```css
+.relaxedDisclosure {
+  --moduix-accordion-item-content-transition: 240ms var(--moduix-ease-out);
+  --moduix-accordion-item-content-closed-opacity: 0;
+}
+```
+
+### Substitution marquée
+
+Ajoutez la classe à `Swap.Indicator` lorsque l’élément sortant doit se retirer tandis que le suivant apparaît
+avec davantage d’énergie.
+
+```css
+.emphasizedSwap {
+  --moduix-swap-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-swap-enter-starting-opacity: 0;
+  --moduix-swap-enter-starting-scale: 0.82;
+  --moduix-swap-exit-ending-opacity: 0;
+  --moduix-swap-exit-ending-scale: 1.08;
+}
+```
+
+### Galerie de recettes
+
+<ExampleFrame>
+  <AnimationDocs.MotionRecipesExample />
+</ExampleFrame>
+
+## Règles d’utilisation
+
+- Placez les variables d’animation locales du composant sur la partie visuelle qui s’anime ; définissez les
+  variables partagées des popups sur `:root` pour les overlays rendus par défaut dans un portail.
+- Gardez les valeurs d’entrée et de sortie symétriques, sauf si l’asymétrie est intentionnelle.
+- Définissez l’échelle à `1` pour une animation de fondu ou de déplacement pure.
+- Utilisez `--moduix-popup-motion-*` pour une règle de contenu flottant commune à tout le projet ; réservez
+  le préfixe local du composant aux exceptions.
+- Ne remplacez ni les transformations de Drawer ni les variables d’exécution de mise en page de Toast :
+  elles sont toutes synchronisées avec l’interaction et la fermeture.
+- L’animation de sortie fonctionne par défaut. Utilisez `present` uniquement si JavaScript doit contrôler
+  explicitement le montage de la partie ; les recettes CSS ordinaires n’en ont pas besoin.
+
+## Ressources associées
+
+- [Tokens](/docs/tokens)
+- [Modèles de composition](/docs/composition-patterns)

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
-import { Field } from '../../../src/components/field';
-import { SignaturePad, useSignaturePad } from '../../../src/components/signature-pad/SignaturePad';
+import { Field } from '@/components/field';
+import { SignaturePad, useSignaturePad } from '@/components/signature-pad/SignaturePad';
 import styles from './SignaturePad.stories.module.css';
 
 const meta = {
@@ -17,10 +17,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
+function SignaturePadParts({
+  label = 'Sign below',
+  ...props
+}: ComponentProps<typeof SignaturePad.Root> & { label?: string }) {
   return (
     <SignaturePad {...props}>
-      <SignaturePad.Label>Sign below</SignaturePad.Label>
+      <SignaturePad.Label>{label}</SignaturePad.Label>
       <SignaturePad.Canvas />
     </SignaturePad>
   );
@@ -28,6 +31,23 @@ function SignaturePadParts(props: ComponentProps<typeof SignaturePad.Root>) {
 
 export const Basic: Story = {
   render: () => <SignaturePadParts />,
+};
+
+export const States: Story = {
+  render: () => (
+    <div className={styles.states}>
+      <SignaturePadParts
+        disabled
+        defaultPaths={['M45,85 C85,25 145,135 235,65']}
+        label="Disabled signature"
+      />
+      <SignaturePadParts
+        readOnly
+        defaultPaths={['M45,85 C85,25 145,135 235,65']}
+        label="Read-only signature"
+      />
+    </div>
+  ),
 };
 
 export const ImagePreview: Story = {

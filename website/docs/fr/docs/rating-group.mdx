@@ -1,0 +1,216 @@
+---
+title: Rating Group
+component: rating-group
+description: Contrôle de notation par étoiles fondé sur le composant rating-group d’Ark UI.
+---
+
+import * as RatingGroupDocs from '@/components/examples/rating-group';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/rating-group" />
+
+## Exemple de base
+
+Utilisez la forme racine concise avec `RatingGroup.Label`, `RatingGroup.Control` et `RatingGroup.Items`.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="rating-group" />
+
+## Anatomie
+
+```text
+RatingGroup.Root
+├─ RatingGroup.Label
+└─ RatingGroup.Control
+   ├─ RatingGroup.Items (recommended)
+   │  └─ RatingGroup.Item[index]
+   │     └─ RatingGroup.ItemIndicator
+   ├─ RatingGroup.Context (advanced, optional)
+   │  └─ RatingGroup.Item[index]
+   │     └─ RatingGroup.ItemIndicator
+   └─ the native form input (automatic)
+
+RatingGroup.RootProvider
+└─ same part tree connected to a moduix useRatingGroup() store
+```
+
+| Partie                               | Rôle                                                                       |
+| ------------------------------------ | -------------------------------------------------------------------------- |
+| `RatingGroup` / `RatingGroup.Root`   | Gère la valeur de notation, le comportement au clavier et l’état du formulaire. |
+| `RatingGroup.RootProvider`           | Relie les parties à l’état créé avec `useRatingGroup()`.                   |
+| `RatingGroup.Context`                | Donne accès à l’état racine actuel via une render prop.                    |
+| `RatingGroup.ItemContext`            | Donne accès à l’état de l’élément actuel via une render prop.              |
+| `RatingGroup.Label`                  | Libellé accessible du groupe de notation.                                  |
+| `RatingGroup.Control`                | Regroupe les éléments interactifs de notation.                             |
+| `RatingGroup.Items`                  | Affiche les éléments Ark et les étoiles par défaut.                        |
+| `RatingGroup.Item`                   | Un élément de notation sélectionnable ; nécessite `index`.                |
+| `RatingGroup.ItemIndicator`          | Étoile visuelle moduix qui suit le contexte de l’élément Ark.              |
+
+## Composition
+
+### Composition recommandée
+
+`RatingGroup` est la forme racine concise. Il gère l’état de la valeur Ark, l’état de survol, le déplacement du focus, les libellés, l’intégration aux formulaires et le comportement au clavier. Utilisez `RatingGroup.Items` pour les étoiles générées standard. L’élément racine affiche automatiquement un champ natif de formulaire synchronisé. Transmettez un `RatingGroup.ItemIndicator` personnalisé comme enfant pour modifier l’icône tout en conservant le même comportement d’élément.
+
+### Quand créer une composition personnalisée
+
+Utilisez `RatingGroup.Context`, `RatingGroup.ItemContext` ou `useRatingGroupItemContext()` de moduix lorsque l’arbre d’éléments personnalisé a besoin des états `highlighted`, `checked` ou `half`. L’élément racine affiche automatiquement un champ natif de formulaire. Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` de moduix lorsque l’état de notation doit être créé en dehors du sous-arbre affiché.
+
+Toutes les parties Ark prennent en charge `asChild`. Conservez un seul enfant sémantique capable de prendre en charge le focus et les interactions de la partie.
+
+### Propriétés par défaut
+
+| Propriété                    | Par défaut | Notes                                                               |
+| ---------------------------- | ----------- | ------------------------------------------------------------------- |
+| `count`                      | `5`         | Nombre d’éléments Ark.                                              |
+| `size`                       | `md`        | Taille moduix : `xs`, `sm`, `md`, `lg` ou `xl`.                    |
+| `RatingGroup.Items`          | -           | Affiche les éléments par défaut.                                    |
+| `RatingGroup.ItemIndicator`  | star        | Affiche par défaut les plans avant et arrière de l’étoile moduix.   |
+
+### Comportement
+
+- `value` et `defaultValue` sont des nombres.
+- `onValueChange` reçoit les détails Ark ; lisez la valeur dans `details.value`.
+- `onHoverChange` reçoit les détails de survol Ark.
+- `allowHalf` active la sélection par demi-pas et l’affichage d’une demi-étoile.
+- `name`, `form` et `required` fonctionnent avec le champ natif du formulaire affiché automatiquement par l’élément racine.
+- Ark gère `disabled` et `readOnly`, et reflète ces états par des attributs de données.
+
+## Exemples
+
+### État contrôlé
+
+Utilisez le mode contrôlé lorsque la note sélectionnée affecte l’interface environnante ou doit pouvoir être réinitialisée par un élément parent.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Icône personnalisée
+
+Transmettez un `RatingGroup.ItemIndicator` personnalisé à `RatingGroup.Items` lorsque chaque élément doit utiliser la même icône. L’indicateur reçoit toujours les attributs Ark `data-highlighted` et `data-half` pour les styles.
+
+<style>{RatingGroupDocs.ratingGroupCustomIconCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/custom-icon.tsx"
+
+  ```
+</PreviewFrame>
+
+### État désactivé et lecture seule
+
+Utilisez `disabled` pour désactiver les interactions. Utilisez `readOnly` pour laisser la note visible sans permettre sa modification.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/disabled-and-readonly.tsx"
+
+  ```
+</PreviewFrame>
+
+### Field
+
+Utilisez `Field` autour du groupe de notation lorsque le texte d’aide ou d’erreur doit être associé à son champ de saisie automatique. Ark hérite de `disabled`, `readOnly` et `required` depuis le champ ; l’état de validation reste géré par `Field` et le code de l’application.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Formulaires
+
+Transmettez `name` lorsque la valeur sélectionnée doit être incluse dans `FormData` ; l’élément racine affiche automatiquement un champ de saisie synchronisé.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/forms.tsx"
+
+  ```
+</PreviewFrame>
+
+### Notation par demi-pas
+
+Définissez `allowHalf` lorsque la notation doit prendre en charge la sélection et l’affichage par demi-pas.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/half-rating.tsx"
+
+  ```
+</PreviewFrame>
+
+### Tailles
+
+Utilisez la propriété moduix `size` lorsque le même comportement de notation Ark doit s’adapter à une autre densité d’interface.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/sizes.tsx"
+
+  ```
+</PreviewFrame>
+
+### Composition avancée
+
+Utilisez `RatingGroup.RootProvider` avec `useRatingGroup()` de moduix lorsque l’état doit être créé en dehors du sous-arbre affiché. Utilisez `RatingGroup.Context` lorsque le chemin fondé sur `RatingGroup.Items` généré nécessite un arbre d’éléments manuel.
+
+<style>{RatingGroupDocs.ratingGroupExampleCss}</style>
+
+<PreviewFrame contentWidth="fit-content" maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/rating-group/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Personnalisez `RatingGroup` avec `className`, les attributs Ark `data-scope="rating-group"` / `data-part`, les attributs d’état Ark, les hooks moduix `data-slot` et les variables CSS enregistrées `--moduix-rating-group-*`.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <RatingGroupDocs.RatingGroupCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- `data-slot="rating-group-root"` et `data-slot="rating-group-root-provider"`
+- `data-slot="rating-group-label"`
+- `data-slot="rating-group-control"`
+- `data-slot="rating-group-item"`
+- `data-slot="rating-group-item-indicator"`
+- `data-slot="rating-group-hidden-input"`
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` sur l’élément racine ou le root provider
+- Attributs Ark du libellé : `data-disabled` et `data-required`
+- Attributs Ark du contrôle : `data-disabled` et `data-readonly`
+- Attributs Ark de l’élément : `data-checked`, `data-highlighted`, `data-half`, `data-disabled` et `data-readonly`

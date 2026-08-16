@@ -3,6 +3,29 @@ import { render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { List } from '../src';
 
+test('renders semantic unordered-list defaults and forwards the item ref', () => {
+  const ref = createRef<HTMLLIElement>();
+
+  render(
+    <List data-testid="list">
+      <List.Item ref={ref}>Keep the item ref on its semantic host.</List.Item>
+    </List>,
+  );
+
+  const list = screen.getByTestId('list');
+  const item = screen.getByText('Keep the item ref on its semantic host.');
+
+  expect(list.tagName).toBe('UL');
+  expect(list).toHaveAttribute('data-gap', 'sm');
+  expect(list).toHaveAttribute('data-marker', 'auto');
+  expect(list).toHaveAttribute('data-size', 'md');
+  expect(list).toHaveAttribute('data-tone', 'default');
+  expect(ref.current).toBe(item);
+  expect(item).toHaveAttribute('data-scope', 'list');
+  expect(item).toHaveAttribute('data-part', 'item');
+  expect(item).toHaveAttribute('data-slot', 'list-item');
+});
+
 test('renders semantic roots with stable hooks and native ordered-list props', () => {
   const ref = createRef<HTMLOListElement>();
 
@@ -37,6 +60,7 @@ test('keeps markerless list semantics and supports custom semantic roots', () =>
   const list = screen.getByRole('list', { name: 'Release tasks' });
 
   expect(ref.current).toBe(list);
+  expect(list).toHaveAttribute('role', 'list');
   expect(list).toHaveAttribute('data-marker', 'none');
   expect(list).toHaveAttribute('data-slot', 'list-root');
   expect(screen.getByText('Publish the package.')).toHaveAttribute('data-slot', 'list-item');

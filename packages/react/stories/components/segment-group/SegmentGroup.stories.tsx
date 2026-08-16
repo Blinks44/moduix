@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { SegmentGroup, useSegmentGroup } from '../../../src/components/segment-group/SegmentGroup';
+import { SegmentGroup, useSegmentGroup } from '@/components/segment-group/SegmentGroup';
 import styles from './SegmentGroup.stories.module.css';
 
 const meta = {
@@ -73,12 +73,18 @@ export const RootProvider: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <SegmentGroup aria-label="Framework" defaultValue="React">
-      <SegmentGroup.Indicator />
-      <SegmentGroup.Items
-        items={frameworkItems.map((item) => ({ ...item, disabled: item.value === 'Svelte' }))}
-      />
-    </SegmentGroup>
+    <div className={styles.stack}>
+      <SegmentGroup aria-label="Framework with unavailable item" defaultValue="React">
+        <SegmentGroup.Indicator />
+        <SegmentGroup.Items
+          items={frameworkItems.map((item) => ({ ...item, disabled: item.value === 'Svelte' }))}
+        />
+      </SegmentGroup>
+      <SegmentGroup aria-label="Disabled framework" defaultValue="React" disabled>
+        <SegmentGroup.Indicator />
+        <SegmentGroup.Items items={frameworkItems} />
+      </SegmentGroup>
+    </div>
   ),
 };
 

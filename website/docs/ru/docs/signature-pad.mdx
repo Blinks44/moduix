@@ -1,0 +1,249 @@
+---
+title: Signature Pad
+component: signature-pad
+description: Поле подписи Ark UI для рукописного ввода указателем и касанием.
+---
+
+import * as SignaturePadDocs from '@/components/examples/signature-pad';
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/signature-pad" />
+
+## Базовый пример
+
+Используйте `SignaturePad.Canvas` для стандартной поверхности рисования. Он сохраняет композицию Ark из
+`Control`, `Segment`, `ClearTrigger` и `Guide` вместе со стандартной иконкой очистки moduix.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="signature-pad" />
+
+## Анатомия
+
+```text
+SignaturePad / SignaturePad.Root
+├─ SignaturePad.Label
+├─ SignaturePad.Canvas (синтаксический сахар moduix)
+│  └─ SignaturePad.Control
+│     ├─ SignaturePad.Segment
+│     ├─ SignaturePad.ClearTrigger
+│     └─ SignaturePad.Guide
+└─ native input (автоматически)
+
+SignaturePad.RootProvider
+└─ то же дерево частей, подключённое к useSignaturePad()
+```
+
+| Часть                                | Назначение                                                      |
+| ------------------------------------ | --------------------------------------------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | Управляет путями, параметрами рисования, именем формы, id и колбэками. |
+| `SignaturePad.RootProvider`          | Рендерит дерево из состояния, возвращённого `useSignaturePad()`. |
+| `SignaturePad.Label`                 | Подписывает область рисования и нативный input.                |
+| `SignaturePad.Canvas`                | Стандартная поверхность; передаёт свойства control и ref.    |
+| `SignaturePad.Control`               | Область рисования указателем и касанием, доступная для фокуса. |
+| `SignaturePad.Segment`               | SVG-слой для сохранённых путей и текущего незавершённого пути. |
+| `SignaturePad.ClearTrigger`          | Нативная кнопка очистки путей; Ark скрывает её, пока поле пусто. |
+| `SignaturePad.Guide`                 | Неинтерактивная базовая линия внутри элемента управления.      |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте `Label` и `Canvas` в обычном случае. `Canvas` сохраняет цель фокуса Ark, захват указателя,
+доступное поведение кнопки очистки и SVG-рендеринг, устраняя повторяющуюся разметку поверхности рисования.
+Он передаёт свойства `Control` и его DOM-ref.
+
+### Когда нужна собственная композиция
+
+Используйте явные `Control`, `Segment`, `ClearTrigger` и `Guide`, когда нужно настроить их структуру,
+иконку или композицию через `asChild`. Используйте управляемый `paths`, если состояние приложения должно
+восстанавливать, очищать, автосохранять или проверять подпись за пределами дерева Ark. Используйте
+`RootProvider`, когда элементам управления вне компонента нужен прямой доступ к `paths`, `clear()` или
+`getDataUrl()`.
+
+Передайте `name`, если подпись должна участвовать в нативной отправке формы. Корневой элемент сериализует текущие
+пути и рендерит нативный input автоматически. Передайте `getFormValue(paths)`, если форме нужна другая
+сериализация.
+
+Используйте `drawing` для настройки на уровне штриха. `drawing.size` меняет ширину штриха,
+`drawing.simulatePressure` управляет имитацией давления, а `drawing.fill` задаёт цвет штриха.
+`drawing.fill` принимает любое значение CSS-цвета, включая ссылку на пользовательское CSS-свойство,
+например `var(--moduix-color-primary)`.
+
+### Свойства по умолчанию
+
+| Свойство        | По умолчанию                          | Примечания                                                        |
+| --------------- | ------------------------------------- | ----------------------------------------------------------------- |
+| `defaultPaths`  | -                                     | Исходный неуправляемый массив SVG-путей.                         |
+| `paths`         | -                                     | Управляемый массив SVG-путей. Используйте вместе с `onDraw(details)`. |
+| `drawing`       | `{ size: 2, simulatePressure: false }` | Параметры штриха Zag; `fill` принимает любое значение CSS-цвета. |
+| `name`          | -                                     | Имя поля нативной формы.                                         |
+| `getFormValue`  | `paths.join(' ')`                     | Пользовательская сериализация значения нативной формы.           |
+| `disabled`      | -                                     | Отключает рисование и взаимодействие с кнопкой очистки.          |
+| `readOnly`      | -                                     | Запрещает рисование и отключает кнопку очистки.                  |
+| `required`      | -                                     | Помечает подпись и нативный input как обязательные.              |
+| `ids`           | -                                     | Стабильные id для корня, control, скрытого input и подписи.      |
+| `translations`  | Значения Ark по умолчанию             | Доступные подписи для control и кнопки очистки.                  |
+
+Стандартный control рисования имеет размер `17.5rem` на `10rem`, то есть приблизительно `280px` на `160px`
+при стандартном масштабе токенов. Переопределите `--moduix-signature-pad-width`,
+`--moduix-signature-pad-height` или более конкретные переменные `--moduix-signature-pad-control-*`, чтобы
+изменить область подписи. Стандартная минимальная высота следует настроенной высоте control, поэтому меньшая
+высота остаётся действующей.
+
+### Особенности поведения
+
+Используйте `defaultPaths` для исходной неуправляемой подписи. Используйте `paths` с `onDraw(details)`,
+когда подпись должна оставаться в состоянии приложения. `onDrawEnd(details)` вызывается после завершения
+штриха или очистки подписи и предоставляет `details.getDataUrl(type, quality?)`.
+
+Задайте `name` корню, когда нужна нативная отправка формы: input будет отрендерен автоматически. Передайте
+`getFormValue(paths)`, если форме нужна другая сериализация. Оберните компонент в `Field.Root`, когда
+текст-подсказка, текст ошибки, обязательность или отключённое состояние должны быть общими с окружающим UI
+формы. Некорректное состояние `Field` управляет сообщениями и описаниями поля, но не добавляет
+`data-invalid` частям поля подписи.
+
+`Control` доступен для фокуса с клавиатуры и предоставляет `role="application"` с
+`aria-roledescription="signature pad"`. Рисование выполняется указателем и касанием, а не навигацией
+стрелками. `ClearTrigger` - нативная кнопка, поэтому активация Enter и Space сохраняет стандартное
+поведение кнопки. В состоянии только для чтения moduix отключает кнопку очистки, чтобы отображаемую
+подпись нельзя было случайно изменить.
+
+## Примеры
+
+### Управляемое состояние
+
+Управляйте `paths`, когда подпись должна синхронизироваться с окружающим состоянием, элементами сброса
+или логикой автосохранения.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Рисование
+
+Передайте `drawing`, если ширина или цвет штриха либо поведение давления должны отличаться от значений
+по умолчанию.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/drawing.tsx"
+
+  ```
+</PreviewFrame>
+
+### Поле формы
+
+Используйте `Field` вокруг поля подписи, когда текст-подсказка, текст ошибки, обязательное состояние
+или сообщение о некорректности относятся к одному элементу формы.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/field.tsx"
+
+  ```
+</PreviewFrame>
+
+### Сериализация формы
+
+Используйте `getFormValue`, когда сервер должен получить другое представление нарисованных путей. Этот
+пример отправляет JSON-массив вместо стандартной строки SVG-путей, разделённых пробелами.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/form-serialization.tsx"
+
+  ```
+</PreviewFrame>
+
+### Предпросмотр изображения
+
+Используйте `onDrawEnd`, чтобы экспортировать подпись и показать предпросмотр до сохранения.
+
+<style>
+  {SignaturePadDocs.signaturePadExampleCss + '\n' + SignaturePadDocs.signaturePadPreviewCss}
+</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/image-preview.tsx"
+
+  ```
+</PreviewFrame>
+
+### Root Provider
+
+Используйте `useSignaturePad()` с `RootProvider`, когда элементам управления вне дерева компонента нужен
+прямой доступ к путям, `clear()` или `getDataUrl()`. Передавайте параметры корня, например `translations`,
+`ids` и `drawing`, в `useSignaturePad(...)`.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+### Расширенная настройка
+
+Не используйте `Canvas`, когда нужно управлять деревом частей рисования или предоставить собственный
+триггер очистки.
+
+<style>{SignaturePadDocs.signaturePadExampleCss}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/signature-pad/advanced-customization.tsx"
+
+  ```
+</PreviewFrame>
+
+## Стилизация
+
+### CSS-свойства
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <SignaturePadDocs.SignaturePadCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Хуки стилизации
+
+Используйте `className` на любой экспортируемой части для локальной стилизации. moduix также добавляет
+стабильные атрибуты `data-slot`:
+
+| Часть                                | `data-slot`                   |
+| ------------------------------------ | ----------------------------- |
+| `SignaturePad` / `SignaturePad.Root` | `signature-pad-root`          |
+| `SignaturePad.RootProvider`          | `signature-pad-root-provider` |
+| `SignaturePad.Label`                 | `signature-pad-label`         |
+| `SignaturePad.Control`               | `signature-pad-control`       |
+| `SignaturePad.Segment`               | `signature-pad-segment`       |
+| `SignaturePad.Guide`                 | `signature-pad-guide`         |
+| `SignaturePad.ClearTrigger`          | `signature-pad-clear-trigger` |
+
+Атрибуты Ark остаются доступны для целевых стилей. `Root`, `Label`, `Control`, `Segment`, `Guide`,
+`ClearTrigger` и внутренние пути сегмента предоставляют `data-scope="signature-pad"` и `data-part`;
+`data-disabled` появляется на корне, подписи, control и guide, а `data-required` - на подписи.

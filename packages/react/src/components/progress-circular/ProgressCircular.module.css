@@ -56,10 +56,16 @@
   .circleRange {
     stroke: var(--moduix-progress-circular-range-bg, var(--moduix-color-primary));
     stroke-linecap: var(--moduix-progress-circular-range-linecap, round);
+    transform-box: fill-box;
+    transform-origin: center;
     transition: stroke-dashoffset
       var(--moduix-progress-circular-range-transition, var(--moduix-transition-default));
 
     &[data-state='indeterminate'] {
+      stroke: var(
+        --moduix-progress-circular-range-indeterminate-bg,
+        var(--moduix-progress-circular-range-bg, var(--moduix-color-primary))
+      );
       animation: var(
         --moduix-progress-circular-range-indeterminate-animation,
         progress-circular-indeterminate 1.4s linear infinite
@@ -68,9 +74,14 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
       &[data-state='indeterminate'] {
         animation: none;
-        stroke-dasharray: 20 200;
+        stroke-dasharray: var(
+          --moduix-progress-circular-range-indeterminate-reduced-motion-dasharray,
+          20 200
+        );
       }
     }
   }

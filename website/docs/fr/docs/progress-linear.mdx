@@ -1,0 +1,198 @@
+---
+title: Progress Linear
+component: progress-linear
+description: Indicateur de progression linéaire avec une valeur déterminée ou indéterminée.
+---
+
+import * as ProgressLinearDocs from '@/components/examples/progress-linear';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/progress-linear" />
+
+## Choisir le bon composant
+
+Choisissez `ProgressLinear` lorsque l’utilisateur doit comparer la progression à une piste clairement visible. Choisissez `ProgressCircular` pour les surfaces d’état compactes en ligne.
+
+## Exemple de base
+
+Utilisez `ProgressLinear` avec les parties explicites `Label`, `ValueText`, `Track` et `Range`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="progress-linear" />
+
+## Anatomie
+
+```text
+ProgressLinear.Root
+├─ ProgressLinear.Label
+├─ ProgressLinear.ValueText
+└─ ProgressLinear.Track
+   └─ ProgressLinear.Range
+
+ProgressLinear.RootProvider
+└─ same part tree connected to ProgressLinear.useProgress()
+```
+
+| Partie                                    | Rôle                                                                       |
+| ----------------------------------------- | -------------------------------------------------------------------------- |
+| `ProgressLinear` / `ProgressLinear.Root`  | Gère l’état de progression, le formatage et les identifiants.              |
+| `ProgressLinear.RootProvider`             | Relie les parties à l’état créé par `ProgressLinear.useProgress()`.        |
+| `ProgressLinear.Context`                  | Donne accès à l’état de progression actuel via une render prop.            |
+| `ProgressLinear.Label`                    | Libellé visible de l’indicateur de progression.                            |
+| `ProgressLinear.ValueText`                | Texte de valeur visible et formaté ; utilisez `Context` pour une chaîne Ark personnalisée. |
+| `ProgressLinear.Track`                    | Piste linéaire portant le rôle d’indicateur et les attributs ARIA de valeur. |
+| `ProgressLinear.Range`                    | Plage remplie reflétant le pourcentage actuel.                             |
+| `ProgressLinear.View`                     | Vue conditionnelle pour `indeterminate`, `loading` ou `complete`.           |
+
+## Composition
+
+### Composition recommandée
+
+`ProgressLinear` est la forme racine concise. Elle équivaut à `ProgressLinear.Root`, tandis que les parties enfants restent explicites afin que l’anatomie affichée corresponde à Ark UI.
+
+Utilisez `defaultValue` pour une progression non contrôlée, `value` avec `onValueChange(details)` pour une progression contrôlée, et `defaultValue={null}` ou `value={null}` pour une progression indéterminée.
+
+### Quand créer une composition personnalisée
+
+Utilisez `ProgressLinear.RootProvider` avec `ProgressLinear.useProgress()` lorsque l’état de progression doit être créé en dehors du sous-arbre affiché.
+
+Utilisez `translations.value(details)` pour créer une chaîne de valeur Ark personnalisée. Affichez
+`state.valueAsString` par l’intermédiaire de `ProgressLinear.Context` dans `ValueText` lorsque cette
+chaîne doit être visible ; conservez un `aria-label` ou un `aria-labelledby` sur `Track` pour nommer
+la tâche. Cette approche remplace l’ancien modèle fondé sur `getAriaValueText` et une fonction de
+rendu enfant.
+
+Utilisez `ids` lorsque le libellé, la piste ou la disposition environnante ont besoin d’identifiants explicites et stables dans un arbre plus personnalisé. Utilisez `ProgressLinear.View` lorsque l’interface auxiliaire doit changer avec l’état de progression Ark, au lieu de dupliquer les vérifications d’état en dehors du composant. Utilisez `ProgressLinear.Context` ou `ProgressLinear.useProgressContext()` pour accéder à l’état sous la racine ou le fournisseur. Les imports Ark directs restent une solution de repli pour les surfaces volontairement exclues de l’API moduix.
+
+### Propriétés par défaut
+
+| Propriété       | Par défaut             | Notes                                                          |
+| --------------- | ---------------------- | -------------------------------------------------------------- |
+| `defaultValue`  | `50`                   | Valeur initiale non contrôlée.                                 |
+| `min`           | `0`                    | Limite inférieure du pourcentage et de la valeur ARIA.         |
+| `max`           | `100`                  | Limite supérieure du pourcentage et de la valeur ARIA.         |
+| `formatOptions` | `{ style: 'percent' }` | Contrôle le formatage de `ValueText`.                          |
+| `locale`        | `'en-US'`              | Locale utilisée par `Intl.NumberFormat`.                       |
+| `orientation`   | `'horizontal'`         | Orientation Ark. Utilisez `vertical` avec une hauteur définie. |
+
+### Comportement
+
+`ProgressLinear.Track` reçoit d’Ark le rôle d’indicateur de progression et les attributs ARIA de valeur. La racine conserve l’état de progression et fournit `data-state="indeterminate|loading|complete"`. Ark définit `data-orientation` sur la racine, le libellé, la piste et la plage afin que les styles horizontaux et verticaux puissent partager le même arbre de parties.
+
+Toutes les parties exportées prennent en charge `asChild` via la composition polymorphe Ark. Préservez la sémantique des enfants de remplacement ainsi que celle de l’indicateur de progression sur la piste.
+
+`ProgressLinear.ValueText` annonce les changements avec `aria-live="polite"`. `ProgressLinear.Label` fournit un texte visible, tandis que `ProgressLinear.Track` a besoin de son propre `aria-label` ou `aria-labelledby` pour recevoir un nom accessible propre à la tâche. En RTL, la plage déterminée se remplit depuis le début de la ligne et le mouvement de la progression indéterminée change de direction.
+
+## Exemples
+
+### État contrôlé
+
+Conservez `value` dans l’état React lorsque la progression reflète l’état d’un autre contrôle ou d’une tâche externe.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/controlled.tsx"
+
+  ```
+</PreviewFrame>
+
+### Progression indéterminée
+
+Transmettez `defaultValue={null}` ou `value={null}` lorsque la progression est en cours, mais que son achèvement est inconnu.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/indeterminate.tsx"
+
+  ```
+</PreviewFrame>
+
+### Valeur initiale
+
+Utilisez `defaultValue` pour définir la valeur initiale d’une progression non contrôlée.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/initial-value.tsx"
+
+  ```
+</PreviewFrame>
+
+### Minimum et maximum
+
+Utilisez `min` et `max` lorsque la valeur ne suit pas la plage par défaut de `0` à `100`.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/min-max.tsx"
+
+  ```
+</PreviewFrame>
+
+### Vues d’état
+
+Utilisez `ProgressLinear.View` lorsque le texte d’aide ou l’interface doivent changer avec l’état de progression Ark, au lieu de dupliquer les vérifications d’état en dehors du composant.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/state-views.tsx"
+
+  ```
+</PreviewFrame>
+
+### Texte de la valeur
+
+Utilisez `Context` avec `translations.value(details)` lorsque le texte de valeur visible doit employer
+une formulation propre à la tâche.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/value-text.tsx"
+
+  ```
+</PreviewFrame>
+
+### Orientation verticale
+
+Définissez `orientation="vertical"` lorsque la piste doit se remplir vers le haut plutôt que de gauche à droite.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/vertical.tsx"
+
+  ```
+</PreviewFrame>
+
+### Personnalisation avancée
+
+Créez un store de progression avec `ProgressLinear.useProgress()` en dehors de l’arbre affiché lorsque l’état doit appartenir à un autre composant. Cette approche contourne la configuration habituelle de l’état racine tout en conservant le même arbre de parties moduix.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/progress-linear/root-provider.tsx"
+
+  ```
+</PreviewFrame>
+
+## Styles
+
+Utilisez `className` sur les parties exportées pour les changements structurels de style. Pour les styles dépendant de l’état, privilégiez les attributs de données Ark et les hooks `data-slot` de moduix.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ProgressLinearDocs.ProgressLinearCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- `data-slot="progress-linear-root"`, `progress-linear-root-provider`, `progress-linear-label`, `progress-linear-value-text`, `progress-linear-track`, `progress-linear-range` et `progress-linear-view`.
+- Hooks Ark : `data-scope="progress"`, `data-part`, `data-state="indeterminate|loading|complete"`, `data-orientation="horizontal|vertical"`, `data-value` et `data-max`.

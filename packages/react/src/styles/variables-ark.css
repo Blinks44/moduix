@@ -3,7 +3,8 @@
  *
  * This file exists solely for CSS language services and IDE inspections.
  * It is deliberately not imported by style.css. Ark UI writes the actual
- * values to the relevant component parts at runtime.
+ * runtime values to the relevant component parts. The Marquee edge aliases
+ * are moduix's documented Chakra-compatible controls in the same namespace.
  *
  * Do not add data-moduix-variables-ark to application markup.
  */
@@ -20,13 +21,18 @@
   --z-index: initial;
 
   /* Dimensions and layout */
-  --aspect-ratio-value: initial;
   --collapsed-height: initial;
   --collapsed-width: initial;
   --column-count: initial;
   --corner-height: initial;
   --corner-width: initial;
+  --crop-height: initial;
+  --crop-width: initial;
+  --crop-x: initial;
+  --crop-y: initial;
   --height: initial;
+  --image-offset-x: initial;
+  --image-offset-y: initial;
   --left: initial;
   --positioner-width: initial;
   --scroll-area-overflow-y-end: initial;
@@ -41,9 +47,14 @@
   --drawer-swipe-progress: initial;
   --drawer-swipe-strength: initial;
   --gap: initial;
+  --image-rotation: initial;
+  --image-zoom: initial;
   --marquee-delay: initial;
   --marquee-duration: initial;
+  --marquee-edge-color: initial;
+  --marquee-edge-size: initial;
   --marquee-loop-count: initial;
+  --marquee-spacing: initial;
   --marquee-translate: initial;
   --nested-drawers: initial;
   --nested-layer-count: initial;
@@ -51,6 +62,7 @@
   --percent: initial;
   --scale: initial;
   --tour-layer: initial;
+  --tour-z-index: initial;
   --transition-duration: initial;
   --transition-property: initial;
   --transition-timing-function: initial;

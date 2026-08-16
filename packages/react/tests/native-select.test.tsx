@@ -55,3 +55,43 @@ test('forwards the native select ref and supports controlled values', () => {
 
   expect(select).toHaveValue('vue');
 });
+
+test('preserves native form submission and reset behavior', () => {
+  render(
+    <form aria-label="Project settings">
+      <NativeSelect defaultValue="react" name="framework" aria-label="Framework">
+        <option value="react">React</option>
+        <option value="vue">Vue</option>
+      </NativeSelect>
+    </form>,
+  );
+
+  const form = screen.getByRole('form', { name: 'Project settings' }) as HTMLFormElement;
+  const select = screen.getByRole('combobox', { name: 'Framework' });
+
+  fireEvent.change(select, { target: { value: 'vue' } });
+
+  expect(new FormData(form).get('framework')).toBe('vue');
+
+  form.reset();
+
+  expect(select).toHaveValue('react');
+});
+
+test('preserves Ark asChild composition with a semantic select element', () => {
+  const selectRef = createRef<HTMLSelectElement>();
+
+  render(
+    <NativeSelect asChild ref={selectRef}>
+      <select aria-label="Framework">
+        <option value="react">React</option>
+      </select>
+    </NativeSelect>,
+  );
+
+  const select = screen.getByRole('combobox', { name: 'Framework' });
+
+  expect(selectRef.current).toBe(select);
+  expect(select).toHaveAttribute('data-slot', 'native-select-root');
+  expect(select.parentElement).toHaveAttribute('data-slot', 'native-select-control');
+});

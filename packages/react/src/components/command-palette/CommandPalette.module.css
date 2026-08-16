@@ -231,9 +231,12 @@
     align-items: center;
     gap: var(--moduix-command-palette-input-gap, var(--moduix-spacing-2));
     min-height: var(--moduix-command-palette-input-height, var(--moduix-size-md));
-    margin: var(--moduix-command-palette-control-margin-y, var(--moduix-spacing-2))
-      var(--moduix-command-palette-control-margin-x, var(--moduix-spacing-4))
-      var(--moduix-command-palette-control-margin-bottom, var(--moduix-spacing-2));
+    margin: var(--moduix-command-palette-control-margin-y, var(--moduix-spacing-3))
+      var(--moduix-command-palette-control-margin-x, var(--moduix-spacing-3))
+      var(
+        --moduix-command-palette-control-margin-bottom,
+        var(--moduix-command-palette-control-margin-y, 0)
+      );
     border: var(--moduix-command-palette-input-border-width, var(--moduix-border-width-sm)) solid
       var(--moduix-command-palette-input-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-command-palette-input-radius, var(--moduix-radius-md));
@@ -307,28 +310,11 @@
 
   .scrollArea {
     --moduix-scroll-area-radius: 0;
-    --moduix-scroll-area-scrollbar-margin: var(
-      --moduix-command-palette-scrollbar-margin,
-      var(--moduix-spacing-1)
-    );
-    --moduix-scroll-area-scrollbar-size: var(
-      --moduix-command-palette-scrollbar-size,
-      var(--moduix-spacing-1-5)
-    );
-    --moduix-scroll-area-thumb-bg: var(
-      --moduix-command-palette-scrollbar-thumb-bg,
-      var(--moduix-color-border)
-    );
     --moduix-scroll-area-content-padding: var(
         --moduix-command-palette-list-padding-y,
-        var(--moduix-spacing-2)
+        var(--moduix-spacing-3)
       )
-      calc(
-        var(--moduix-command-palette-list-padding-x, var(--moduix-spacing-2)) +
-          var(--moduix-scroll-area-scrollbar-size) + var(--moduix-scroll-area-scrollbar-margin)
-      )
-      var(--moduix-command-palette-list-padding-y, var(--moduix-spacing-2))
-      var(--moduix-command-palette-list-padding-x, var(--moduix-spacing-2));
+      var(--moduix-command-palette-list-padding-x, var(--moduix-spacing-3));
     --moduix-scroll-area-height: auto;
     width: 100%;
     min-height: 0;
@@ -349,10 +335,6 @@
     .list[data-empty] & {
       padding: 0;
     }
-  }
-
-  .scrollbar {
-    --moduix-scroll-area-scrollbar-bg: transparent;
   }
 
   .itemGroup {

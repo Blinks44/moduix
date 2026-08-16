@@ -1,0 +1,117 @@
+.canvas {
+  display: grid;
+  width: min(100%, 11rem);
+  min-height: 6rem;
+  place-items: center;
+}
+
+.drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.panel {
+  fill: var(--surface);
+  filter: drop-shadow(0 0.3rem 0.3rem color-mix(in oklab, var(--rp-c-text-1) 5%, transparent));
+  stroke: var(--border);
+  stroke-width: 1;
+
+  &[data-tone='faint'] {
+    fill: var(--faint);
+  }
+
+  &[data-tone='strong'] {
+    fill: var(--strong);
+  }
+
+  &[data-tone='inverse'] {
+    fill: var(--rp-c-bg);
+  }
+}
+
+.shape {
+  fill: var(--line);
+
+  &[data-tone='faint'] {
+    fill: var(--faint);
+  }
+
+  &[data-tone='strong'] {
+    fill: var(--strong);
+  }
+
+  &[data-tone='inverse'] {
+    fill: var(--rp-c-bg);
+  }
+}
+
+.outline {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+
+.rule {
+  stroke: var(--line);
+  stroke-linecap: round;
+
+  &[data-tone='faint'] {
+    stroke: var(--faint);
+  }
+
+  &[data-tone='strong'] {
+    stroke: var(--strong);
+  }
+
+  &[data-tone='inverse'] {
+    stroke: var(--rp-c-bg);
+  }
+}
+
+.glyph {
+  color: var(--line);
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+
+  &[data-tone='faint'] {
+    color: var(--faint);
+  }
+
+  &[data-tone='strong'] {
+    color: var(--strong);
+  }
+
+  &[data-tone='inverse'] {
+    color: var(--rp-c-bg);
+  }
+
+  &[data-filled] {
+    fill: currentcolor;
+  }
+}
+
+.label {
+  fill: var(--line);
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 500;
+
+  &[data-tone='faint'] {
+    fill: var(--faint);
+  }
+
+  &[data-tone='strong'] {
+    fill: var(--strong);
+  }
+
+  &[data-tone='inverse'] {
+    fill: var(--rp-c-bg);
+  }
+}
+
+.dashed {
+  stroke-dasharray: 4 3;
+}

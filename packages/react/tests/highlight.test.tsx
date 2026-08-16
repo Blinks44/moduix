@@ -6,6 +6,9 @@ test('renders matched text as styled marks without a wrapper', () => {
   const { container } = render(
     <Highlight
       className="custom-highlight"
+      data-part="consumer-part"
+      data-scope="consumer-scope"
+      data-slot="consumer-slot"
       data-testid="highlight"
       query="component"
       text="Each component is tested before a component release."

@@ -1,0 +1,208 @@
+---
+title: Badge
+component: badge
+description: Une étiquette d’état compacte pour de courtes métadonnées telles qu’un statut, une catégorie ou un nombre.
+---
+
+import * as BadgeDocs from '@/components/examples/badge';
+
+## Référence de l’API
+
+Ark UI ne fournit pas de primitive `badge` dédiée. moduix construit ce composant avec l’outil officiel
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
+[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
+[ref](https://ark-ui.com/docs/guides/ref).
+
+## Choisir le bon composant
+
+Utilisez `Badge` lorsque l’interface affiche des métadonnées sur un autre objet, plutôt qu’une valeur sélectionnée en tant que telle.
+
+- Choisissez **`Badge`** pour de courtes métadonnées : statut, catégorie, version ou nombre.
+- Choisissez **`Tag`** lorsque l’interface affiche des valeurs sélectionnées, des filtres, des affectations ou des libellés liés à l’état actuel de l’interface.
+
+## Exemple de base
+
+Commencez par un seul `Badge`. Ajoutez `variant` si le ton par défaut ne convient pas, et `Badge.Dot` uniquement lorsque le statut nécessite un indicateur visuellement regroupé.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="badge" />
+
+## Anatomie
+
+`Badge` conserve une surface publique réduite et n’expose que les parties visibles.
+
+```text
+Badge / Badge.Root
+├─ Badge.Label (optional; direct text is wrapped automatically)
+├─ Badge.Dot (optional)
+└─ svg icon (optional)
+```
+
+| Partie                 | Rôle                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------- |
+| `Badge` / `Badge.Root` | Slot racine. Applique la variante, la bordure, les espacements et la troncature du texte. |
+| `Badge.Label`          | Slot de texte explicite. Permet de tronquer les libellés composés.                   |
+| `Badge.Dot`            | Slot d’indicateur facultatif. Affiche un marqueur circulaire avec la couleur de texte actuelle. |
+
+## Composition
+
+### Composition recommandée
+
+Pour la plupart des badges de statut, de catégorie, de version et des compteurs courts, utilisez directement `Badge`.
+
+Utilisez `variant` pour les tons intégrés : `default`, `secondary`, `destructive`, `outline`, `ghost` et `link`.
+
+Placez `Badge.Dot` ou une icône enfant directe à côté de `Badge.Label` lorsqu’un badge composé nécessite un signal visuel supplémentaire. Le texte brut est automatiquement enveloppé dans `Badge.Label`.
+
+`Badge.Root`, `Badge.Label` et `Badge.Dot` transmettent leur ref aux éléments DOM qu’ils affichent.
+
+### Quand créer une composition personnalisée
+
+Utilisez `Badge asChild` lorsqu’un autre élément sémantique doit posséder le nœud DOM. La composition Ark exige exactement un seul enfant. Les enfants interactifs conservent leur sémantique native et héritent des styles par défaut du badge pour le curseur, le survol et le focus clavier.
+
+Utilisez les variables CSS locales ou des remplacements de `className` lorsque la surface nécessite une taille ou un ton personnalisé.
+
+### Propriétés par défaut
+
+| Propriété | Valeur par défaut | Valeurs / remarques                                             |
+| --------- | ----------------- | --------------------------------------------------------------- |
+| `variant` | `default`         | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
+| `asChild` | `false`           | Composition Ark factory avec exactement un enfant               |
+
+### Comportement
+
+- Par défaut, `Badge` est purement présentatif et affiche un `span`.
+- `Badge.Dot` est décoratif et masqué pour les technologies d’assistance ; le texte visible doit donc transmettre la signification du statut.
+- `Badge` n’ajoute aucune interaction contrôlée ni sémantique de lien ou de bouton.
+- Les liens et boutons sémantiques affichés avec `asChild` conservent leur sémantique native et reçoivent les styles par défaut du curseur, du survol et du focus visible.
+- Les boutons désactivés et les éléments avec `aria-disabled="true"` conservent leur sémantique, n’appliquent pas les styles de survol et utilisent la variable publique d’opacité désactivée.
+- Les libellés longs restent sur une seule ligne et sont tronqués par l’élément racine ; `title` affiche la valeur complète au survol, tandis que dans les interfaces tactiles, le libellé doit tenir dans l’espace disponible.
+- Le texte brut est automatiquement enveloppé dans `Badge.Label`. Utilisez explicitement `Badge.Label` lorsque le texte est composé avec un point, une icône ou un autre élément.
+- Les icônes `svg` enfants directes héritent de `currentColor` et utilisent `--moduix-badge-icon-size`.
+- Le contenu numérique utilise des chiffres tabulaires et, par défaut, le texte du badge ne peut pas être sélectionné.
+- La recette de taille Chakra est volontairement exposée sous forme de variables CSS publiques plutôt que par une propriété `size`.
+
+## Exemples
+
+### Styles personnalisés
+
+Utilisez `className` et les variables publiques `--moduix-badge-*` lorsque les variantes intégrées sont proches du résultat souhaité, mais ne suffisent pas.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/custom-styling.tsx"
+
+```
+
+</PreviewFrame>
+
+### Lien
+
+Utilisez `variant="link"` avec `asChild` lorsque le badge doit se présenter comme une navigation intégrée aux métadonnées ou une action secondaire, et que l’enfant doit conserver la sémantique d’un véritable lien.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/link.tsx"
+
+```
+</PreviewFrame>
+
+### Libellés longs
+
+Par défaut, les badges tronquent les libellés longs. Ajoutez `title` pour afficher le libellé complet au survol ; dans les interfaces tactiles, préférez un libellé qui tient dans l’espace disponible.
+
+<style>{`
+      .badge-demo-constrained {
+        inline-size: 100%;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/long-labels.tsx"
+
+```
+
+</PreviewFrame>
+
+### Variantes
+
+Utilisez les variantes intégrées pour les tons visuels courants.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/variants.tsx"
+
+```
+</PreviewFrame>
+
+### Avec un point
+
+Ajoutez `Badge.Dot` lorsque le libellé et l’indicateur d’état doivent rester visuellement regroupés.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/with-dot.tsx"
+
+```
+
+</PreviewFrame>
+
+### Avec une icône
+
+Placez une icône intégrée à côté du libellé lorsque les métadonnées nécessitent un second signal visuel.
+
+<style>{`
+      .badge-demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--moduix-spacing-2);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/badge/with-icon.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Utilisez d’abord les variantes intégrées, puis les variables CSS locales pour les ajustements ponctuels de taille et de ton.
+Utilisez les variables `--moduix-badge-<variant>-*` pour personnaliser une variante dans toute l’application ;
+les variables générales `--moduix-badge-bg`, `--moduix-badge-border-color` et `--moduix-badge-color` conservent une
+priorité supérieure pour les remplacements ponctuels.
+
+### Propriétés CSS
+
+<CssPropertiesSection properties={BadgeDocs.badgeCssProperties} />
+
+### Points d’accroche CSS
+
+- `data-slot="badge-root"`, `data-slot="badge-label"` et `data-slot="badge-dot"` sont des sélecteurs stables pour les parties exportées.
+- `Badge.Root` expose également `data-scope="badge"` et `data-part="root"`. `Badge.Label` et `Badge.Dot` exposent `data-part="label"` et `data-part="dot"`.
+- `Badge.Root` inscrit le ton sélectionné dans `data-variant`.
+- Les liens et boutons sémantiques affichés avec `Badge asChild` ou `Badge.Root asChild` reçoivent de l’élément racine les styles par défaut du focus visible.
+- Les icônes `svg` enfants directes héritent de `currentColor`, ne reçoivent pas les événements du pointeur et utilisent la taille `--moduix-badge-icon-size`.
+- Badge ne dispose ni d’une primitive Ark dédiée ni d’une machine de comportement ; il n’a donc aucun état Ark contrôlé ni variable CSS d’exécution.

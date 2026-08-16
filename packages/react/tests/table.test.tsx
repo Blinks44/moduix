@@ -62,6 +62,28 @@ test('renders an empty row that stays addressable through its cell ref', () => {
   expect(emptyRef.current).toBe(cell);
 });
 
+test('preserves the empty-row contract when its cell uses asChild', () => {
+  const emptyRef = createRef<HTMLTableCellElement>();
+
+  render(
+    <Table>
+      <Table.Body>
+        <Table.Empty asChild ref={emptyRef} colSpan={2} className="custom-empty">
+          <td>No invoices found.</td>
+        </Table.Empty>
+      </Table.Body>
+    </Table>,
+  );
+
+  const cell = screen.getByRole('cell', { name: 'No invoices found.' });
+
+  expect(cell).toHaveAttribute('data-slot', 'table-empty');
+  expect(cell).toHaveAttribute('colspan', '2');
+  expect(cell).toHaveClass('custom-empty');
+  expect(cell.closest('tr')).toHaveAttribute('data-empty');
+  expect(emptyRef.current).toBe(cell);
+});
+
 test('keeps sticky-column hooks on native table cells', () => {
   render(
     <Table.ScrollArea>

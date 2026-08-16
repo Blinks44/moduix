@@ -1,0 +1,259 @@
+---
+title: Bleed
+component: bleed
+description: Примитив макета, позволяющий содержимому намеренно выходить за пределы ограниченного контейнера.
+---
+
+import * as BleedDocs from '@/components/examples/bleed';
+
+## Справочник API
+
+Ark UI не предоставляет отдельный примитив `bleed`. moduix строит этот компонент с помощью официального
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) и следует рекомендациям Ark по
+[композиции](https://ark-ui.com/docs/guides/composition), [стилизации](https://ark-ui.com/docs/guides/styling) и
+[ref](https://ark-ui.com/docs/guides/ref).
+
+Используйте [Container](/docs/container), чтобы ограничить макет; размещайте `Bleed` внутри
+ограниченного содержимого, когда за его границы должны выходить только медиа, фон, разделитель или баннер.
+
+## Базовый пример
+
+Начните с поведения по умолчанию `inline="full"`, когда медиа, баннеры или акценты секций должны выходить за пределы ограниченного контейнера, оставаясь в обычном потоке документа.
+
+<style>{`
+      .bleed-demo-container {
+        display: flex;
+        inline-size: 100%;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+      }
+
+      .bleed-demo-surface {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
+        text-align: center;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/bleed/basic.tsx"
+
+```
+
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="bleed" />
+
+## Анатомия
+
+У `Bleed` один корневой элемент, согласованный с Ark. Он применяет к этому корню отрицательные отступы по строчной и/или блочной оси.
+
+```text
+Bleed.Root
+└─ root[data-scope="bleed"][data-part="root"][data-slot="bleed-root"]
+   └─ children
+```
+
+| Часть                  | Роль                                                        |
+| ---------------------- | ----------------------------------------------------------- |
+| `Bleed` / `Bleed.Root` | Корневая обёртка макета для bleed по строчной и блочной оси. |
+| `Bleed`                | Вызываемый псевдоним `Bleed.Root`.                          |
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Используйте короткую форму `Bleed`, когда макету нужны только контролируемые отрицательные отступы на одной обёртке. `Bleed.Root` - эквивалентная форма пространства имён, согласованная с Ark.
+Это предполагаемый путь для полноширинных медиа, фонов вложенных секций, разделителей и баннеров внутри центрированных или имеющих внутренние отступы оболочек.
+
+### Когда нужна собственная композиция
+
+Используйте `className` и локальные переопределения `--moduix-bleed-*`, когда drawer, вложенной области прокрутки или оболочке приложения нужна иная математика полного bleed, чем в значениях по умолчанию, основанных на viewport.
+
+### Свойства по умолчанию
+
+| Элемент     | По умолчанию | Значения / примечания                          |
+| ----------- | ------------ | ----------------------------------------------- |
+| `inline`    | `full`       | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full`    |
+| `block`     | `none`       | `none`, `xs`, `sm`, `md`, `lg`, `xl`            |
+| `asChild`   | `false`      | Композиция Ark factory                          |
+| `className` | -            | Применяется к корневому элементу                |
+
+### Особенности поведения
+
+- `Bleed.Root` отрисовывает ровно один корневой элемент и передаёт ему свойства `div` из Ark factory.
+- `ref` указывает на отрисованный корневой элемент. С `asChild` он указывает на единственный дочерний элемент.
+- `asChild` требует одного семантического дочернего элемента, способного принять DOM-свойства и ref.
+- Используйте `inline` для выхода за внутренние отступы по строчной оси, а `block` добавляйте, когда
+  поверхности также нужно выйти за отступы по блочной оси. Эти логические оси следуют режиму письма документа.
+- Старое свойство `as` было удалено при миграции на Ark. Используйте `asChild`, когда DOM-узлом должен владеть семантический элемент.
+- Используйте одно из фиксированных значений шкалы, когда содержимому нужно выйти только за пределы внутренних отступов контейнера, а не до края viewport.
+- `inline="full"` использует математику viewport, поэтому вложенным оболочкам могут потребоваться локальные переопределения для `--moduix-bleed-inline-full` и `--moduix-bleed-inline-full-size`.
+- Предки с `overflow: hidden` или `overflow: clip` могут обрезать bleed.
+- В отличие от примитива макета Chakra, moduix намеренно предоставляет основанные на токенах режимы `inline` и `block`, а не односторонние свойства `inlineStart`, `inlineEnd`, `blockStart` и `blockEnd`.
+
+## Примеры
+
+### Bleed по блочной оси
+
+Используйте `block`, когда поверхности также нужно выйти за пределы внутренних отступов контейнера по блочной оси.
+
+<style>{`
+      .bleed-demo-padded-container {
+        display: flex;
+        inline-size: 100%;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-6);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+      }
+
+      .bleed-demo-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
+        text-align: center;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/bleed/block-bleed.tsx"
+
+```
+
+</PreviewFrame>
+
+### Пользовательская стилизация
+
+Используйте локальные переопределения `--moduix-bleed-inline-full`, когда вложенная оболочка должна выходить до границ своего внутреннего содержимого, а не до viewport.
+
+<style>{`
+      .bleed-demo-shell {
+        inline-size: 100%;
+        padding: var(--moduix-spacing-6);
+        background-color: var(--moduix-color-muted);
+      }
+
+      .bleed-demo-shell-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+        background-color: var(--color-bg);
+      }
+
+      .bleed-demo-custom-surface {
+        --moduix-bleed-inline-full: calc(var(--moduix-spacing-4) * -1);
+        --moduix-bleed-inline-full-size: calc(100% + var(--moduix-spacing-8));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-accent);
+        color: var(--moduix-color-accent-contrast);
+        text-align: center;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/bleed/custom-styling.tsx"
+
+```
+
+</PreviewFrame>
+
+### Значения по строчной оси
+
+Используйте `inline`, чтобы выбрать, насколько далеко содержимое выходит за пределы контейнера по строчной оси.
+
+<style>{`
+      .bleed-demo-container {
+        display: flex;
+        inline-size: 100%;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+      }
+
+      .bleed-demo-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
+        text-align: center;
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/bleed/inline-amounts.tsx"
+
+```
+
+</PreviewFrame>
+
+### Семантический элемент
+
+Используйте `asChild`, когда выходящее за пределы содержимое имеет более специфическую семантическую роль.
+
+<style>{`
+      .bleed-demo-container {
+        display: flex;
+        inline-size: 100%;
+        flex-direction: column;
+        gap: var(--moduix-spacing-4);
+        padding: var(--moduix-spacing-4);
+        border: var(--moduix-border-width-sm) dashed var(--moduix-color-border);
+      }
+
+      .bleed-demo-figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--moduix-spacing-3);
+        padding: var(--moduix-spacing-4);
+        background-color: var(--moduix-color-muted);
+        text-align: center;
+      }
+
+      .bleed-demo-media {
+        inline-size: 100%;
+        min-height: 8rem;
+        border-radius: var(--moduix-radius-md);
+        background: linear-gradient(135deg, rgb(0 0 0 / 0.14), transparent 45%), var(--moduix-color-accent);
+      }
+    `}</style>
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/bleed/semantic-element.tsx"
+
+```
+
+</PreviewFrame>
+
+## Стилизация
+
+`Bleed` предоставляет небольшой контракт CSS-переменных и стабильные атрибуты данных корневого элемента. Используйте переменные, когда должна меняться математика макета, а `className` - для визуальной поверхности внутри bleed.
+
+### CSS-свойства
+
+<CssPropertiesSection properties={BleedDocs.bleedCssProperties} />
+
+### Хуки стилизации
+
+- `data-scope="bleed"` и `data-part="root"` предоставляют согласованные с Ark хуки на экспортируемом корневом элементе.
+- `data-slot="bleed-root"` - стабильный селектор moduix на экспортируемом корневом элементе.
+- `data-inline` отражает текущий режим bleed по строчной оси: `none`, `xs`, `sm`, `md`, `lg`, `xl` или `full`.
+- `data-block` отражает текущий режим bleed по блочной оси: `none`, `xs`, `sm`, `md`, `lg` или `xl`.
+- Публичный CSS API `--moduix-bleed-*` покрывает и основанные на шкале значения bleed, и математику viewport, используемую `inline="full"`.

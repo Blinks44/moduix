@@ -1,0 +1,288 @@
+---
+title: Listbox
+component: listbox
+description: Une composition de listbox Ark UI pour la sélection visible simple, multiple et étendue, avec filtrage.
+---
+
+import * as ListboxDocs from '@/components/examples/listbox';
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/listbox" />
+
+## Exemple de base
+
+Utilisez `Listbox` pour afficher une collection dans laquelle l’utilisateur sélectionne un ou plusieurs éléments,
+sans ouvrir de fenêtre contextuelle. Transmettez `collection`, affichez `Content`, puis passez chaque élément à
+`Listbox.Item` avec `item={item}`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="listbox" />
+
+## Anatomie
+
+```text
+Listbox / Listbox.Root
+├─ Listbox.Label
+├─ Listbox.Filter
+│  ├─ Listbox.Input
+│  └─ Listbox.ClearTrigger
+├─ Listbox.Content
+│  ├─ Listbox.Empty
+│  ├─ Listbox.ItemGroup
+│  │  ├─ Listbox.ItemGroupLabel
+│  │  └─ Listbox.Item[item]
+│  │     ├─ Listbox.ItemText
+│  │     └─ Listbox.ItemIndicator
+│  └─ Listbox.Item[item]
+│     ├─ Listbox.ItemText
+│     │  └─ Listbox.ItemTextContent (optional)
+│     │     ├─ Listbox.ItemTextIcon (optional)
+│     │     └─ Listbox.ItemTextLabel (optional)
+│     └─ Listbox.ItemIndicator
+└─ Listbox.ValueText
+```
+
+| Partie | Rôle |
+| -------------------------- | ------------------------------------------------------------------- |
+| `Listbox` / `Listbox.Root` | Gère la collection, les valeurs sélectionnées, l’élément en surbrillance et le mode de sélection. |
+| `Listbox.RootProvider` | Affiche l’arbre de la listbox à partir de l’état renvoyé par `useListbox`. |
+| `Listbox.Label` | Libellé accessible de la listbox.                                |
+| `Listbox.Filter` | Champ de recherche standard avec une icône, à placer avant `Content`.      |
+| `Listbox.Input` | Champ de filtre, généralement placé dans `Filter`.                  |
+| `Listbox.ClearTrigger` | Bouton accessible qui efface la recherche avec une icône de fermeture standard. |
+| `Listbox.Content` | Zone de la liste qui gère le focus et la navigation au clavier.            |
+| `Listbox.Empty` | Contenu affiché lorsque la collection filtrée est vide.             |
+| `Listbox.ItemGroup` | Regroupe des éléments liés.                       |
+| `Listbox.ItemGroupLabel` | Libellé du groupe.                                             |
+| `Listbox.Item` | Ligne sélectionnable qui reçoit un élément de collection dans `item`.      |
+| `Listbox.ItemText` | Texte utilisé pour l’affichage et l’accessibilité.                                |
+| `Listbox.ItemTextContent` | Conteneur facultatif pour disposer une icône et du texte dans `ItemText`. |
+| `Listbox.ItemTextIcon` | Conteneur d’icône facultatif dans `ItemTextContent`.             |
+| `Listbox.ItemTextLabel` | Libellé de `ItemTextContent` qui peut être tronqué proprement.              |
+| `Listbox.ItemIndicator` | Indicateur de sélection avec l’icône de coche moduix standard. |
+| `Listbox.ValueText` | Résumé de la sélection actuelle.                                         |
+
+## Composition
+
+### Composition recommandée
+
+Composez directement l’arbre des parties Ark : `Listbox` gère la collection, `Listbox.Content` le focus et la
+navigation au clavier, et chaque `Listbox.Item` reçoit l’élément de collection d’origine dans `item`.
+Utilisez `Listbox.ItemIndicator` lorsque les lignes doivent réserver de l'espace pour un état sélectionné.
+
+Pour filtrer, placez `Listbox.Input` dans `Listbox.Filter` immédiatement avant `Listbox.Content`.
+`Filter` ajoute une icône de recherche et réunit visuellement le champ et les résultats dans une même surface bordée.
+
+### Quand créer une composition personnalisée
+
+Utilisez `asChild` uniquement si l’élément personnalisé peut conserver la sémantique attendue et recevoir les
+propriétés Ark. Utilisez `ids` lorsque certaines parties nécessitent des identifiants stables pour être composées avec
+l’interface environnante. Associez `useListbox` de moduix à `Listbox.RootProvider` pour contrôler la listbox depuis
+l’extérieur de son arbre ; n’affichez pas `Listbox.Root` autour de la même instance d’état. Affichez
+`Listbox.Input` directement si le filtre doit être visuellement séparé de la liste.
+
+### Propriétés par défaut
+
+| Propriété | Par défaut | Remarques |
+| ------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `collection` | - | Collection Ark obligatoire. Utilisez `createListCollection` ou les utilitaires de collection en grille. |
+| `defaultValue` | `[]` | Valeurs sélectionnées initiales en mode non contrôlé.                 |
+| `defaultHighlightedValue` | - | Élément initialement en surbrillance en mode non contrôlé.      |
+| `deselectable` | - | Permet à Escape d'effacer une sélection non vide.                                  |
+| `disabled` | `false` | Désactive la zone de liste entière.                                                     |
+| `disallowSelectAll` | `false` | Désactive la sélection de `Cmd/Ctrl + A`.                                            |
+| `loopFocus` | `false` | Par défaut, la navigation par flèche ne fait pas de boucle.                         |
+| `orientation` | `vertical` | Contrôle la disposition et la direction des touches fléchées.                      |
+| `selectionMode` | `single` | Prend en charge `single`, `multiple` et `extended`.                            |
+| `selectOnHighlight` | `false` | Sélectionne l’élément lorsque la surbrillance change au clavier.                     |
+| `typeahead` | `true` | Active la recherche par saisie lorsque le texte n’est pas destiné au filtre.        |
+
+### Comportement
+
+`value`, `defaultValue` et `onValueChange(details)` utilisent des tableaux de chaînes. Lisez `details.value`
+pour les clés sélectionnées et `details.items` pour les éléments de collection sélectionnés.
+
+`highlightedValue`, `defaultHighlightedValue` et `onHighlightChange(details)` contrôlent l’élément actif.
+`onSelect(details)` se déclenche lorsqu’un élément est sélectionné, même si sa valeur l’était déjà.
+
+`useListbox`, `useListboxContext`, `useListboxItemContext`, `Listbox.Context` et
+`Listbox.ItemContext` sont exportés par `@moduix/react` pour les compositions avancées. Les refs sont transmises à la
+partie Ark correspondante ; les refs de la racine et du root provider pointent vers les éléments `div` affichés.
+Utilisez `ids` lorsque des parties de la zone de liste nécessitent des ID stables pour la composition avec l'interface environnante.
+
+La Listbox ne crée pas de contrôle de formulaire natif pour les valeurs sélectionnées. Si la sélection doit
+être envoyée, conservez l’état de soumission et de réinitialisation dans le modèle de votre formulaire.
+
+`Listbox.Input` n’est utile que pour le filtrage. Placez-le dans `Listbox.Filter` pour la présentation standard, ou
+affichez-le directement pour un champ séparé. Définissez `typeahead={false}` afin que la recherche par saisie ne
+concurrence pas le filtre. Gardez l’état du filtre explicite : affichez `Listbox.ClearTrigger` lorsque la requête n’est
+pas vide, puis effacez la requête et le filtre de collection dans son gestionnaire `onClick`.
+
+Ark fournit le modèle ARIA listbox, la gestion de l’élément actif, la navigation au clavier, la recherche par saisie,
+les touches Début et Fin, la gestion des éléments désactivés et les flèches adaptées à l’orientation. Conservez
+`Listbox.Label` dans l’arbre lorsque la listbox nécessite un libellé visible.
+
+## Exemples
+
+### État contrôlé
+
+Conservez le tableau des valeurs sélectionnées dans l’état React et mettez-le à jour depuis `details.value`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Élément désactivé
+
+Désactivez les éléments individuels via le champ `disabled` ou `isItemDisabled` de l'élément de collection.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/disabled-item.tsx"
+
+```
+</PreviewFrame>
+
+### Sélection avancée
+
+Utilisez `selectionMode="extended"` pour sélectionner plusieurs éléments avec les touches de modification de la plateforme.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/extended-selection.tsx"
+
+```
+</PreviewFrame>
+
+### Filtrage
+
+Utilisez `Listbox.Filter` avec `useListCollection`. Il ajoute une icône de recherche et forme une surface continue
+avec le `Content` qui suit. Désactivez `typeahead` lorsque le champ de saisie gère la recherche.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/filtering.tsx"
+
+```
+</PreviewFrame>
+
+### Grille
+
+Transmettez une collection en grille pour obtenir la navigation clavier correspondante. Ark ajoute `data-layout="grid"`
+et la variable CSS `--column-count` à `Content`. L’exemple indique la sélection par le fond plutôt que par une coche
+afin de garder les cellules compactes.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/grid.tsx"
+
+```
+</PreviewFrame>
+
+### Regroupement
+
+Utilisez `groupBy` dans la collection, puis affichez `ItemGroup` et `ItemGroupLabel`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/grouping.tsx"
+
+```
+</PreviewFrame>
+
+### Orientation horizontale
+
+Définissez `orientation="horizontal"` pour la disposition horizontale et la navigation gauche/droite.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/listbox/horizontal.tsx"
+
+```
+</PreviewFrame>
+
+### Sélection multiple
+
+Définissez `selectionMode="multiple"` pour basculer plusieurs valeurs sans touches de modification.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/multiple.tsx"
+
+```
+</PreviewFrame>
+
+### Root Provider
+
+Associez `useListbox` de moduix à `Listbox.RootProvider` lorsque des contrôles externes doivent accéder directement à l’API.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Tout sélectionner
+
+Utilisez `useListboxContext` dans un composant enfant pour créer une commande « Tout sélectionner ».
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/select-all.tsx"
+
+```
+</PreviewFrame>
+
+### Champ de filtre séparé
+
+Affichez `Listbox.Input` directement lorsque le filtre et les résultats doivent rester sur des surfaces séparées. Sa
+bordure par défaut correspond à celle de `Listbox.Content` ; au focus clavier, seule la couleur du contour est animée.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/standalone-filter-input.tsx"
+
+```
+</PreviewFrame>
+
+### Texte de la valeur
+
+Affichez `ValueText` lorsque le résumé de la sélection doit rester visible près de la liste.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/listbox/value-text.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Appliquez des styles à `Listbox` avec `className`, les hooks `data-slot="listbox-*"` stables
+et les attributs d’anatomie et d’état Ark `data-scope="listbox"` / `data-part`.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <ListboxDocs.ListboxCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Points d’accroche CSS
+
+- Hooks d'anatomie Ark : `data-scope="listbox"` et `data-part` sur racine, label, champ de saisie, contenu,
+groupe d'éléments, étiquette de groupe, élément, texte d'élément, indicateur d'élément, texte de valeur et état vide.
+- Hooks d’état : `data-orientation`, `data-disabled`, `data-empty`, `data-layout`,
+`data-activedescendant`, `data-value`, `data-selected`, `data-state` et `data-highlighted`.
+- Hooks moduix : `data-slot="listbox-root"`, `listbox-label`, `listbox-filter`,
+  `listbox-filter-icon`, `listbox-input`, `listbox-clear-trigger`, `listbox-content`,
+  `listbox-empty`, `listbox-item-group`, `listbox-item-group-label`, `listbox-item`,
+  `listbox-item-text`, `listbox-item-text-content`, `listbox-item-text-icon`,
+`listbox-item-text-label`, `listbox-item-indicator` et `listbox-value-text`.

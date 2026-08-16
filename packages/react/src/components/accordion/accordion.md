@@ -51,7 +51,7 @@ Accordion.RootProvider
 └─ same item tree connected to a useAccordion() store
 ```
 
-Every exported part accepts `className` and receives a stable `data-slot`:
+Every styled part accepts `className` and receives a stable `data-slot`:
 
 | Part                      | `data-slot`                | Notes                                          |
 | ------------------------- | -------------------------- | ---------------------------------------------- |
@@ -101,7 +101,7 @@ export function AccordionExample() {
 - `Lazy Mount`: preserved through `lazyMount` and `unmountOnExit`.
 - `Context` and `Item State`: use `Accordion.Context`, `Accordion.ItemContext`,
   `useAccordionContext()`, and `useAccordionItemContext()` from moduix. `useAccordion()` remains the
-  `RootProvider` path.
+  `RootProvider` path. Item state exposes Ark's `expanded`, `focused`, and `disabled` booleans.
 - `With Slider`: preserved as normal nested composition; nested Ark widgets keep their own part tree,
   keyboard behavior, and hidden inputs inside `Accordion.ItemContent`.
 - `Content Animation`: preserved through Ark `--height` and `--width` measurement rather than a custom sizing model.
@@ -111,13 +111,16 @@ export function AccordionExample() {
 - Ark state/data attributes remain available to consumers:
   - `data-state="open" | "closed"` on item, trigger, indicator, and content
   - `data-disabled`, `data-focus`, `data-controls`, and `data-orientation` on relevant parts
-- All exported parts support Ark `asChild` for DOM ownership changes.
+- Every styled part forwards its ref and supports Ark `asChild` for DOM ownership changes.
 - Ark callback and focus shapes remain unchanged, including `onValueChange(details)` and
   `onFocusChange(details)`.
 - `useAccordion()` is exported from `@moduix/react` for the recommended `RootProvider` path.
 - `RootProvider` must receive the return value from `useAccordion()` and must not be combined with
   `Accordion.Root` for the same accordion instance.
 - Ark content sizing variables remain available, especially `--height` and `--width`.
+- Trigger alignment uses the logical inline start so labels remain direction-safe in RTL layouts.
+- Content and indicator transitions collapse to an effectively instant path when the user requests
+  reduced motion; the 1ms content animation preserves Ark exit lifecycle handling.
 
 ## Defaults and styling
 
@@ -162,6 +165,9 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-08-07: Added direction-safe trigger alignment and reduced-motion handling, expanded regression
+  coverage for semantics, refs, `asChild`, provider/context composition, and keyboard endpoints, and
+  aligned stories and public docs with the callable root.
 - 2026-07-24: Documented the short `Accordion` root form, corrected context export guidance, and
   added the pressed trigger background token.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.

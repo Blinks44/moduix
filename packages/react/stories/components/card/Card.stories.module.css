@@ -57,6 +57,34 @@
   object-fit: cover;
 }
 
+.backgroundCard {
+  min-height: 24rem;
+  border: 0;
+  background: var(--moduix-color-muted);
+  color: #fff;
+}
+
+.backgroundImage {
+  transform: scale(1.06);
+}
+
+.backgroundOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 4%) 24%, rgb(0 0 0 / 78%) 100%);
+}
+
+.backgroundHeader {
+  margin-top: auto;
+  padding-block: var(--moduix-spacing-6);
+  color: inherit;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 32%);
+}
+
+.backgroundDescription {
+  color: rgb(255 255 255 / 80%);
+}
+
 .horizontalCard {
   display: grid;
   width: min(40rem, calc(100vw - var(--moduix-spacing-8)));

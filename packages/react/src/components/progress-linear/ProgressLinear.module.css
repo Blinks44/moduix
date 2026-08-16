@@ -72,6 +72,10 @@
 
     &[data-state='indeterminate'] {
       width: var(--moduix-progress-linear-range-indeterminate-width, 35%);
+      background-color: var(
+        --moduix-progress-linear-range-indeterminate-bg,
+        var(--moduix-progress-linear-range-bg, var(--moduix-color-primary))
+      );
       animation: var(
         --moduix-progress-linear-range-indeterminate-animation,
         progress-linear-indeterminate 1.5s ease-in-out infinite

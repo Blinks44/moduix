@@ -1,6 +1,6 @@
 import { expect, test } from '@rstest/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
 import { PasswordInput, usePasswordInput } from '../src';
 
 function ControlledPasswordInput() {
@@ -46,9 +46,12 @@ test('toggles controlled visibility through Ark details', async () => {
   render(<ControlledPasswordInput />);
 
   const input = screen.getByLabelText('Password');
-  fireEvent.pointerDown(screen.getByRole('button'), { button: 0 });
+  fireEvent.pointerDown(screen.getByRole('button', { name: /show password/i }), { button: 0 });
 
-  await waitFor(() => expect(input).toHaveAttribute('type', 'text'));
+  await waitFor(() => {
+    expect(input).toHaveAttribute('type', 'text');
+    expect(screen.getByRole('button', { name: /hide password/i })).toBeInTheDocument();
+  });
 });
 
 test('preserves disabled and readonly interaction contracts', () => {
@@ -76,6 +79,50 @@ test('preserves disabled and readonly interaction contracts', () => {
   expect(input).toHaveAttribute('readonly');
   expect(trigger).toHaveAttribute('data-readonly');
   expect(input).toHaveAttribute('type', 'password');
+});
+
+test('uses the native input for form submission and reset', () => {
+  render(
+    <form data-testid="form">
+      <PasswordInput name="password">
+        <PasswordInput.Label>Password</PasswordInput.Label>
+        <PasswordInput.Control>
+          <PasswordInput.Input defaultValue="initial-password" />
+          <PasswordInput.VisibilityTrigger>
+            <PasswordInput.Indicator />
+          </PasswordInput.VisibilityTrigger>
+        </PasswordInput.Control>
+      </PasswordInput>
+    </form>,
+  );
+
+  const form = screen.getByTestId('form') as HTMLFormElement;
+  const input = screen.getByLabelText('Password');
+
+  expect(new FormData(form).get('password')).toBe('initial-password');
+
+  fireEvent.change(input, { target: { value: 'updated-password' } });
+
+  expect(new FormData(form).get('password')).toBe('updated-password');
+
+  form.reset();
+
+  expect(input).toHaveValue('initial-password');
+});
+
+test('forwards root and Field refs to their Ark elements', () => {
+  const rootRef = createRef<HTMLDivElement>();
+  const fieldRef = createRef<HTMLDivElement>();
+
+  render(
+    <PasswordInput ref={rootRef}>
+      <PasswordInput.Label>Password</PasswordInput.Label>
+      <PasswordInput.Field ref={fieldRef} />
+    </PasswordInput>,
+  );
+
+  expect(rootRef.current).toHaveAttribute('data-slot', 'password-input-root');
+  expect(fieldRef.current).toHaveAttribute('data-slot', 'password-input-control');
 });
 
 test('renders the default Field composition through RootProvider', () => {

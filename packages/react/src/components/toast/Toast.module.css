@@ -4,31 +4,35 @@
   }
 
   .root {
-    --moduix-toast-trigger-bg-default: transparent;
-    --moduix-toast-trigger-bg-hover-default: var(--moduix-color-accent);
-    --moduix-toast-trigger-border-color-default: var(--moduix-color-border);
-    --moduix-toast-trigger-color-default: var(--moduix-color-foreground);
-    --moduix-toast-trigger-focus-ring-color-default: var(--moduix-color-ring);
+    --_toast-trigger-bg-default: transparent;
+    --_toast-trigger-bg-hover-default: var(--moduix-color-accent);
+    --_toast-trigger-border-color-default: var(--moduix-color-border);
+    --_toast-trigger-color-default: var(--moduix-color-foreground);
+    --_toast-trigger-focus-ring-color-default: var(--moduix-color-ring);
+    --_toast-bg-default: var(--moduix-toast-info-bg, var(--moduix-color-card));
+    --_toast-border-color-default: var(
+      --moduix-toast-info-border-color,
+      var(--moduix-color-border)
+    );
+    --_toast-color-default: var(--moduix-toast-info-color, var(--moduix-color-card-foreground));
     box-sizing: border-box;
     display: grid;
     width: var(--moduix-toast-width, 20rem);
     max-width: calc(100vw - (var(--moduix-toast-viewport-inset, var(--moduix-spacing-4)) * 2));
     min-height: var(--moduix-toast-min-height, 0);
+    min-width: 0;
     align-items: start;
     gap: var(--moduix-toast-content-gap, var(--moduix-spacing-1));
     border: var(--moduix-toast-border-width, var(--moduix-border-width-sm)) solid
       var(
         --moduix-toast-border-color,
-        var(--moduix-toast-border-color-default, var(--moduix-color-border))
+        var(--_toast-border-color-default, var(--moduix-color-border))
       );
     border-radius: var(--moduix-toast-radius, var(--moduix-radius-lg));
-    background-color: var(
-      --moduix-toast-bg,
-      var(--moduix-toast-bg-default, var(--moduix-color-popover))
-    );
+    background-color: var(--moduix-toast-bg, var(--_toast-bg-default, var(--moduix-color-popover)));
     color: var(
       --moduix-toast-color,
-      var(--moduix-toast-color-default, var(--moduix-color-popover-foreground))
+      var(--_toast-color-default, var(--moduix-color-popover-foreground))
     );
     background-clip: padding-box;
     box-shadow: var(--moduix-toast-shadow, var(--moduix-shadow-lg));
@@ -61,54 +65,45 @@
     }
 
     &[data-type='success'] {
-      --moduix-toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 10%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-success-bg,
+        color-mix(in oklab, var(--moduix-color-success) 10%, var(--moduix-color-background))
       );
-      --moduix-toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-success) 34%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-success-border-color,
+        color-mix(in oklab, var(--moduix-color-success) 34%, transparent)
       );
-      --moduix-toast-color-default: var(--moduix-color-foreground);
-      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-success-color, var(--moduix-color-foreground));
     }
 
     &[data-type='warning'] {
-      --moduix-toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 13%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-warning-bg,
+        color-mix(in oklab, var(--moduix-color-warning) 13%, var(--moduix-color-background))
       );
-      --moduix-toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-warning) 38%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-warning-border-color,
+        color-mix(in oklab, var(--moduix-color-warning) 38%, transparent)
       );
-      --moduix-toast-color-default: var(--moduix-color-foreground);
-      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-warning-color, var(--moduix-color-foreground));
     }
 
-    &[data-type='destructive'],
     &[data-type='error'] {
-      --moduix-toast-bg-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 9%,
-        var(--moduix-color-background)
+      --_toast-bg-default: var(
+        --moduix-toast-error-bg,
+        color-mix(in oklab, var(--moduix-color-destructive) 9%, var(--moduix-color-background))
       );
-      --moduix-toast-border-color-default: color-mix(
-        in oklab,
-        var(--moduix-color-destructive) 35%,
-        transparent
+      --_toast-border-color-default: var(
+        --moduix-toast-error-border-color,
+        color-mix(in oklab, var(--moduix-color-destructive) 35%, transparent)
       );
-      --moduix-toast-color-default: var(--moduix-color-foreground);
-      --moduix-toast-description-color-default: var(--moduix-color-muted-foreground);
+      --_toast-color-default: var(--moduix-toast-error-color, var(--moduix-color-foreground));
     }
   }
 
   .title {
     display: flex;
+    min-width: 0;
     align-items: center;
     gap: var(--moduix-toast-title-gap, var(--moduix-spacing-2));
     margin: 0;
@@ -116,35 +111,36 @@
     font-size: var(--moduix-toast-title-font-size, var(--moduix-text-sm));
     font-weight: var(--moduix-toast-title-font-weight, var(--moduix-weight-semibold));
     line-height: var(--moduix-toast-title-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .description {
     margin: 0;
-    color: var(
-      --moduix-toast-description-color,
-      var(--moduix-toast-description-color-default, var(--moduix-color-muted-foreground))
-    );
+    min-width: 0;
+    color: var(--moduix-toast-description-color, var(--moduix-color-muted-foreground));
     font-size: var(--moduix-toast-description-font-size, var(--moduix-text-sm));
     line-height: var(--moduix-toast-description-line-height, var(--moduix-line-height-text-sm));
+    overflow-wrap: anywhere;
   }
 
   .actionTrigger {
     display: inline-flex;
     width: max-content;
+    max-width: 100%;
+    min-width: 0;
     align-items: center;
     justify-content: center;
     gap: var(--moduix-toast-action-gap, var(--moduix-spacing-2));
     min-height: var(--moduix-toast-action-min-height, var(--moduix-size-xs));
-    margin-top: var(--moduix-toast-action-margin-top, var(--moduix-spacing-2));
+    margin-block-start: var(--moduix-toast-action-margin-top, var(--moduix-spacing-2));
     border: var(
         --moduix-toast-action-border-width,
         var(--moduix-toast-border-width, var(--moduix-border-width-sm))
       )
-      solid
-      var(--moduix-toast-action-border-color, var(--moduix-toast-trigger-border-color-default));
+      solid var(--moduix-toast-action-border-color, var(--_toast-trigger-border-color-default));
     border-radius: var(--moduix-toast-action-radius, var(--moduix-radius-sm));
-    background: var(--moduix-toast-action-bg, var(--moduix-toast-trigger-bg-default));
-    color: var(--moduix-toast-action-color, var(--moduix-toast-trigger-color-default));
+    background: var(--moduix-toast-action-bg, var(--_toast-trigger-bg-default));
+    color: var(--moduix-toast-action-color, var(--_toast-trigger-color-default));
     padding: var(--moduix-toast-action-padding-y, var(--moduix-spacing-1))
       var(--moduix-toast-action-padding-x, var(--moduix-spacing-2));
     font: inherit;
@@ -152,15 +148,16 @@
     font-weight: var(--moduix-toast-action-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-toast-action-line-height, var(--moduix-line-height-text-xs));
     cursor: pointer;
+    text-align: start;
     user-select: none;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
     transition:
       background var(--moduix-transition-fast),
       border-color var(--moduix-transition-fast),
       color var(--moduix-transition-fast);
 
     &:hover {
-      background: var(--moduix-toast-action-bg-hover, var(--moduix-toast-trigger-bg-hover-default));
+      background: var(--moduix-toast-action-bg-hover, var(--_toast-trigger-bg-hover-default));
     }
 
     &:focus-visible {
@@ -171,8 +168,7 @@
             var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
           )
         )
-        solid
-        var(--moduix-toast-focus-ring-color, var(--moduix-toast-trigger-focus-ring-color-default));
+        solid var(--moduix-toast-focus-ring-color, var(--_toast-trigger-focus-ring-color-default));
       outline-offset: var(--moduix-toast-focus-ring-offset, 0);
     }
   }

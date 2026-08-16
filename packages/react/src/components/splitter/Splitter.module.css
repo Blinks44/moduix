@@ -108,19 +108,6 @@
       }
     }
 
-    &[data-dragging] {
-      &::before {
-        background-color: var(
-          --moduix-splitter-resize-trigger-line-color-dragging,
-          color-mix(
-            in oklab,
-            var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
-            var(--moduix-color-muted-foreground)
-          )
-        );
-      }
-    }
-
     &[data-disabled] {
       cursor: default;
       opacity: var(--moduix-splitter-disabled-opacity, var(--moduix-opacity-disabled));
@@ -140,6 +127,17 @@
         );
       }
     }
+  }
+
+  .resizeTrigger[data-dragging]::before {
+    background-color: var(
+      --moduix-splitter-resize-trigger-line-color-dragging,
+      color-mix(
+        in oklab,
+        var(--moduix-splitter-resize-trigger-line-color, var(--moduix-color-border)) 72%,
+        var(--moduix-color-muted-foreground)
+      )
+    );
   }
 
   .resizeTriggerIndicator {
@@ -167,6 +165,7 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
     transition:
+      background-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
       border-color var(--moduix-splitter-transition, var(--moduix-transition-default)),
       box-shadow var(--moduix-splitter-transition, var(--moduix-transition-default)),
       transform var(--moduix-splitter-transition, var(--moduix-transition-default));
@@ -174,6 +173,24 @@
     &[data-orientation='vertical'] {
       width: var(--moduix-splitter-resize-trigger-indicator-height, var(--moduix-size-xs));
       height: var(--moduix-splitter-resize-trigger-indicator-width, var(--moduix-spacing-1-5));
+    }
+  }
+
+  @media (hover: hover) {
+    .resizeTrigger:hover:not(:disabled, [data-disabled]) .resizeTriggerIndicator {
+      border-color: var(
+        --moduix-splitter-resize-trigger-indicator-border-color-hover,
+        color-mix(
+          in oklab,
+          var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
+            72%,
+          var(--moduix-color-muted-foreground)
+        )
+      );
+      box-shadow: var(
+        --moduix-splitter-resize-trigger-indicator-shadow-hover,
+        var(--moduix-shadow-md)
+      );
     }
   }
 
@@ -193,22 +210,16 @@
     transform: translate(-50%, -50%) scale(1.08);
   }
 
-  @media (hover: hover) {
-    .resizeTrigger:hover:not(:disabled, [data-disabled]) .resizeTriggerIndicator {
-      border-color: var(
-        --moduix-splitter-resize-trigger-indicator-border-color-hover,
-        color-mix(
-          in oklab,
-          var(--moduix-splitter-resize-trigger-indicator-border-color, var(--moduix-color-border))
-            72%,
-          var(--moduix-color-muted-foreground)
-        )
-      );
-      box-shadow: var(
-        --moduix-splitter-resize-trigger-indicator-shadow-hover,
-        var(--moduix-shadow-md)
-      );
-    }
+  .resizeTrigger:focus-visible:not([data-dragging]) .resizeTriggerIndicator {
+    outline: var(
+        --moduix-splitter-resize-trigger-focus-ring-width,
+        var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+      )
+      solid var(--moduix-splitter-resize-trigger-focus-ring-color, var(--moduix-color-ring));
+    outline-offset: var(
+      --moduix-splitter-resize-trigger-focus-ring-offset,
+      var(--moduix-border-width-sm)
+    );
   }
 
   .resizeTrigger[data-disabled] .resizeTriggerIndicator {

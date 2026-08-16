@@ -8,10 +8,10 @@ function HighlightRoot({ className, ...props }: ComponentProps<typeof HighlightP
   return (
     <HighlightPrimitive
       className={clsx(styles.root, normalizeClassName(className))}
+      {...props}
       data-scope="highlight"
       data-part="root"
       data-slot="highlight-root"
-      {...props}
     />
   );
 }

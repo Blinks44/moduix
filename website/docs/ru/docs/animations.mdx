@@ -1,0 +1,320 @@
+---
+title: Анимации
+description: Рецепты анимации для оверлеев, средств выбора, раскрывающихся блоков и замен в moduix.
+---
+
+import * as AnimationDocs from '@/components/examples/animations';
+
+# Анимации
+
+moduix использует общий контракт анимации всплывающих окон для поверхностей плавающего и модального контента
+библиотеки. Один раз задайте его CSS-переменные, чтобы все поддерживаемые всплывающие компоненты использовали
+одинаковую длительность, кривую, анимацию затухания, масштаба или сдвига. Когда одна поверхность должна
+отличаться, по-прежнему доступны локальные переменные анимации компонента.
+
+Атрибуты состояния Ark запускают анимации и сохраняют выходящую часть смонтированной до завершения её
+CSS-анимации.
+
+Общие токены `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` и `--moduix-scale-*` влияют
+на многие части системы. Используйте `--moduix-popup-motion-*`, когда во всём проекте должен меняться только
+контент всплывающих компонентов.
+
+Когда пользователь включает уменьшение движения в операционной системе, базовые токены длительности сокращаются до
+`0.01ms` и отключает общие анимации пульсации, затухания, сдвига и вращения. Компоненты со
+специализированным непрерывным движением, такие как marquee и неопределённый progress, сохраняют собственный
+резервный вариант `prefers-reduced-motion`.
+
+## Выберите API анимации
+
+### Общая анимация всплывающих компонентов
+
+Используйте `*-starting-*` для появления и `*-ending-*` для исчезновения. Общие переменные применяются к
+следующим частям контента: `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
+`FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`,
+`Select.Content`, `Combobox.Content`, `DatePicker.Content` и `ColorPicker.Content`.
+
+Например, так весь поддерживаемый контент всплывающих компонентов появляется слева и исчезает влево с одной
+кривой анимации:
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+Используйте `:root` для обычной настройки оверлеев, отрисовываемых через портал. Переменная, заданная
+только на локальной обёртке, не достигает контента, портализированного в `document.body`; она работает для
+компонента, отрисованного с `portalled={false}`.
+
+### Локальные переопределения компонента
+
+Переменные компонента имеют приоритет над общим резервным вариантом. Используйте их для единственного
+исключения из правила всего проекта и добавляйте класс к визуальной части из таблицы. Привязанные к якорю
+поверхности сохраняют origin трансформации Ark, поэтому их рецепты на основе масштаба всё ещё открываются со
+стороны триггера.
+
+| Поверхность | Применяйте класс к | Префикс |
+| --- | --- | --- |
+| Popover | `Popover.Content` | `--moduix-popover-content-*` |
+| Menu | `Menu.Content` | `--moduix-menu-popup-*` |
+| Tooltip | `Tooltip.Content` | `--moduix-tooltip-popup-*` |
+| Hover Card | `HoverCard.Content` | `--moduix-hover-card-content-*` |
+| Floating Panel | `FloatingPanel.Content` | `--moduix-floating-panel-*` |
+| Dialog | `Dialog.Content` | `--moduix-dialog-content-*` |
+| Command Palette | `CommandPalette.Content` | `--moduix-command-palette-content-*` |
+| Lightbox | `Lightbox.Content` | `--moduix-lightbox-content-*` |
+| Tour | `Tour.Content` | `--moduix-tour-content-*` |
+
+`Dialog`, `CommandPalette`, `Lightbox` и `Tour` также предоставляют переменные `*-backdrop-*` на части
+`Backdrop`. Фоны намеренно остаются за пределами общего контракта анимации всплывающих компонентов: они
+принимают только `opacity` и `blur`, тогда как общий контент всплывающих компонентов принимает `opacity`,
+`scale` и `translate-x` или `translate-y`.
+
+### Анимация состояний, специфичная для компонентов
+
+Эти компоненты сохраняют отдельные системы анимации и не принимают `--moduix-popup-motion-*`:
+
+| Компонент | Визуальная часть | Поддерживаемая настройка |
+| --- | --- | --- |
+| Accordion | `Accordion.ItemContent` | `--moduix-accordion-item-content-transition`, opacity для открытого и закрытого состояния |
+| Collapsible | `Collapsible.Content` | `--moduix-collapsible-content-transition`, opacity для открытого и закрытого состояния |
+| Drawer | `Drawer.Content` и `Drawer.Backdrop` | `--moduix-drawer-transition`, `--moduix-drawer-backdrop-transition`; направление и перетаскивание управляют трансформацией |
+| Swap | `Swap.Indicator` | отдельные переменные opacity и scale для появления и исчезновения |
+| Tree View | `TreeView.BranchContent` | `--moduix-tree-view-content-transition-duration` |
+
+Toast использует переменные времени выполнения Ark для макета стопки и закрытия. Сохраняйте значения `--x`,
+`--y`, `--scale`, `--height` и `--opacity` нетронутыми; рецепты на этой странице не являются API Toast.
+
+## Готовые рецепты
+
+Выбирайте анимацию по назначению, затем сохраняйте один согласованный рецепт для похожих поверхностей:
+
+| Задача продукта | Начните с |
+| --- | --- |
+| Спокойное раскрытие без пространственного значения | Затухание |
+| Поверхность появляется с ближайшего края | Сдвиг в соответствующем направлении |
+| Меню или средство выбора, привязанное к якорю, открывается от триггера | Масштабирование или подъём |
+| Короткое дружелюбное подтверждение | Мягкое появление, используйте умеренно |
+
+Размещайте эти переменные в `:root`, чтобы применить рецепт ко всем поддерживаемым поверхностям контента
+всплывающих компонентов. Для одного исключения используйте соответствующий префикс компонента из таблицы
+локальных переопределений.
+
+### Затухание
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0;
+  --moduix-popup-motion-ending-translate-y: 0;
+}
+```
+
+### Сдвиг вверх
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: 0.75rem;
+  --moduix-popup-motion-ending-translate-y: 0.75rem;
+}
+```
+
+### Сдвиг вниз
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-y: -0.75rem;
+  --moduix-popup-motion-ending-translate-y: -0.75rem;
+}
+```
+
+### Сдвиг влево
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: 0.75rem;
+  --moduix-popup-motion-ending-translate-x: 0.75rem;
+}
+```
+
+### Сдвиг вправо
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 1;
+  --moduix-popup-motion-ending-scale: 1;
+  --moduix-popup-motion-starting-translate-x: -0.75rem;
+  --moduix-popup-motion-ending-translate-x: -0.75rem;
+}
+```
+
+### Масштабирование
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.94;
+  --moduix-popup-motion-ending-scale: 0.94;
+}
+```
+
+### Подъём
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.96;
+  --moduix-popup-motion-ending-scale: 0.96;
+  --moduix-popup-motion-starting-translate-y: 0.5rem;
+  --moduix-popup-motion-ending-translate-y: 0.5rem;
+}
+```
+
+### Появление сверху
+
+```css
+:root {
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.98;
+  --moduix-popup-motion-ending-scale: 0.98;
+  --moduix-popup-motion-starting-translate-y: -0.5rem;
+  --moduix-popup-motion-ending-translate-y: -0.5rem;
+}
+```
+
+### Мягкое появление
+
+```css
+:root {
+  --moduix-popup-motion-duration: 220ms;
+  --moduix-popup-motion-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-popup-motion-starting-opacity: 0;
+  --moduix-popup-motion-ending-opacity: 0;
+  --moduix-popup-motion-starting-scale: 0.88;
+  --moduix-popup-motion-ending-scale: 0.94;
+  --moduix-popup-motion-starting-translate-y: 0.25rem;
+  --moduix-popup-motion-ending-translate-y: 0.25rem;
+}
+```
+
+Используйте его для намеренного дружелюбного акцента на коротком меню, tooltip или поверхности подтверждения.
+
+## Рецепты компонентов
+
+### Стеклянный фокус для модальных фонов
+
+Добавьте первый класс к `Dialog.Backdrop`, а второй - к `Dialog.Content`. Для соответствующего семейства
+модальных компонентов замените `dialog` на `command-palette`, `lightbox` или `tour`.
+
+```css
+.glassFocusBackdrop {
+  --moduix-dialog-backdrop-transition: 220ms var(--moduix-ease-out);
+  --moduix-dialog-backdrop-starting-opacity: 0;
+  --moduix-dialog-backdrop-ending-opacity: 0;
+  --moduix-dialog-backdrop-starting-blur: none;
+  --moduix-dialog-backdrop-ending-blur: none;
+}
+
+.glassFocusContent {
+  --moduix-dialog-transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-dialog-content-starting-opacity: 0;
+  --moduix-dialog-content-ending-opacity: 0;
+  --moduix-dialog-content-starting-scale: 0.96;
+  --moduix-dialog-content-ending-scale: 0.98;
+  --moduix-dialog-content-starting-translate-y: 0.75rem;
+  --moduix-dialog-content-ending-translate-y: 0.75rem;
+}
+```
+
+### Мягкое масштабирование содержимого средства выбора
+
+Добавьте этот класс к `Select.Content`. Для `Combobox`, `ColorPicker` или `DatePicker` замените префикс
+`select` на `combobox`, `color-picker` или `date-picker`.
+
+```css
+.softScalePicker {
+  --moduix-select-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-select-content-closed-opacity: 0;
+  --moduix-select-content-closed-scale: 0.96;
+}
+```
+
+### Плавное раскрытие
+
+Добавьте этот класс к `Accordion.ItemContent`. Для `Collapsible.Content` используйте вместо него префикс
+`--moduix-collapsible-content-*`.
+
+```css
+.relaxedDisclosure {
+  --moduix-accordion-item-content-transition: 240ms var(--moduix-ease-out);
+  --moduix-accordion-item-content-closed-opacity: 0;
+}
+```
+
+### Выразительная замена
+
+Добавьте класс к `Swap.Indicator`, когда уходящий элемент должен отступать, а следующий - появляться с
+большей энергией.
+
+```css
+.emphasizedSwap {
+  --moduix-swap-transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --moduix-swap-enter-starting-opacity: 0;
+  --moduix-swap-enter-starting-scale: 0.82;
+  --moduix-swap-exit-ending-opacity: 0;
+  --moduix-swap-exit-ending-scale: 1.08;
+}
+```
+
+### Галерея рецептов
+
+<ExampleFrame>
+  <AnimationDocs.MotionRecipesExample />
+</ExampleFrame>
+
+## Правила использования
+
+- Размещайте локальные переменные анимации компонента на визуальной части, которая отвечает за анимацию;
+  задавайте общие переменные всплывающих компонентов на `:root` для оверлеев, по умолчанию отрисовываемых
+  через портал.
+- Сохраняйте значения появления и исчезновения симметричными, если асимметричная анимация не задумана
+  намеренно.
+- Устанавливайте масштаб `1` для чистой анимации затухания или сдвига.
+- Используйте `--moduix-popup-motion-*` для одного правила контента всплывающих компонентов во всём проекте;
+  используйте локальный префикс компонента только для исключения.
+- Не заменяйте трансформации Drawer или переменные времени выполнения макета Toast: оба согласованы с
+  состоянием взаимодействия и закрытия.
+- Анимация исчезновения работает по умолчанию. Используйте `present`, только если JavaScript должен явно
+  управлять тем, смонтирована ли часть; для обычных CSS-рецептов он не нужен.
+
+## Связанные материалы
+
+- [Токены](/docs/tokens)
+- [Паттерны композиции](/docs/composition-patterns)

@@ -1,9 +1,14 @@
 # FloatingPanel
 
-Upstream docs:
+## Upstream reference
+
+Reviewed on 2026-08-10:
 
 - Ark UI: https://ark-ui.com/docs/components/floating-panel
+- Chakra UI: https://www.chakra-ui.com/docs/components/floating-panel
 - Zag API: https://zagjs.com/api/mdx/components/react/floating-panel
+- shadcn/ui: no matching floating-panel primitive in the component catalog:
+  https://ui.shadcn.com/docs/components
 
 ## Purpose
 

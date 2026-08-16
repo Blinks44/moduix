@@ -194,7 +194,7 @@ function getFileTypeLabel(file: File) {
 }
 
 function isImageFile(file: File) {
-  return file.type.startsWith('image/') || /\.(avif|bmp|gif|jpe?g|png|svg|webp)$/i.test(file.name);
+  return file.type.startsWith('image/');
 }
 
 const FileUploadItemName = forwardRef<

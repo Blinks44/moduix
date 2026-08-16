@@ -220,7 +220,7 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--moduix-dialog-footer-gap, var(--moduix-spacing-2));
-    margin-top: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
+    margin-block-start: var(--moduix-dialog-footer-margin-top, var(--moduix-spacing-6));
   }
 
   .closeIcon {
@@ -309,6 +309,18 @@
         --moduix-dialog-content-ending-scale,
         var(--moduix-popup-motion-ending-scale, var(--moduix-scale-popup))
       );
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop[data-state],
+    .content[data-state] {
+      animation-delay: 0ms;
+      animation-duration: 1ms;
+    }
+
+    .content {
+      transition: none;
     }
   }
 }

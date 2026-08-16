@@ -6,7 +6,7 @@ import {
 } from '@ark-ui/react/collection';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Listbox, useListbox, useListboxContext } from '../../../src/components/listbox/Listbox';
+import { Listbox, useListbox, useListboxContext } from '@/components/listbox/Listbox';
 import styles from './Listbox.stories.module.css';
 
 interface OptionItem {

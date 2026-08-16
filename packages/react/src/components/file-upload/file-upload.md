@@ -91,9 +91,10 @@ export function FileUploadDemo() {
 ## Upstream feature coverage
 
 - Basic upload: supported with `Root`, `Label`, `Trigger`, `ItemGroup`, and `Item`.
-- File previews: `Items` shows image thumbnails and a generic file icon by default. `ItemPreview.type` is a regular
-  expression predicate, so custom composition must render one matching preview per file rather than a matching part
-  plus the `type=".*"` fallback.
+- File previews: `Items` shows image thumbnails only when `file.type` starts with `image/`; otherwise it uses the
+  generic file icon. This prevents Ark `ItemPreviewImage` from receiving a filename-only image without a MIME type.
+  `ItemPreview.type` is a regular expression predicate, so custom composition must render one matching preview per
+  file rather than a matching part plus the `type=".*"` fallback.
 - Clear trigger: supported with `ClearTrigger`; its default path composes Ark behavior with
   `CloseButton` and uses the standard close icon.
 - Dropzone: supported with `Dropzone`; use `disableClick` when a nested `Trigger` is rendered.
@@ -176,6 +177,8 @@ grow with their content.
 
 - 2026-07-27: Added a visible keyboard focus ring for clickable dropzones, corrected the default clear-action name,
   and prevented disabled descendants from receiving compounded opacity.
+- 2026-08-10: Use the generic preview for filename-only images without an `image/*` MIME type, matching Ark
+  `ItemPreviewImage` requirements.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-21: Aligned the default upload trigger with the Button `md` baseline.
 

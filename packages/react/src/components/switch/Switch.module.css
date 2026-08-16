@@ -23,10 +23,10 @@
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
-    width: var(--moduix-switch-width, 3rem);
-    height: var(--moduix-switch-height, var(--moduix-size-xs));
-    --moduix-switch-thumb-translate-default: calc(
-      var(--moduix-switch-width, 3rem) - var(--moduix-switch-thumb-size, var(--moduix-spacing-5)) -
+    width: var(--_switch-width, 3rem);
+    height: var(--_switch-height, var(--moduix-size-xs));
+    --_switch-thumb-translate-default: calc(
+      var(--_switch-width, 3rem) - var(--_switch-thumb-size, var(--moduix-spacing-5)) -
         (var(--moduix-switch-padding, var(--moduix-spacing-0-5)) * 2) -
         (var(--moduix-switch-border-width, var(--moduix-border-width-sm)) * 2)
     );
@@ -49,7 +49,7 @@
     }
 
     &[data-invalid] {
-      border-color: var(--moduix-color-destructive);
+      border-color: var(--moduix-switch-border-color-invalid, var(--moduix-color-destructive));
     }
 
     &[data-focus-visible] {
@@ -76,41 +76,41 @@
   }
 
   .root[data-size='xs'] .control {
-    --moduix-switch-width: var(--moduix-switch-width-xs, 1.75rem);
-    --moduix-switch-height: var(--moduix-switch-height-xs, 1rem);
-    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-xs, var(--moduix-spacing-3));
+    --_switch-width: var(--moduix-switch-width-xs, 1.75rem);
+    --_switch-height: var(--moduix-switch-height-xs, 1rem);
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-xs, var(--moduix-spacing-3));
   }
 
   .root[data-size='sm'] .control {
-    --moduix-switch-width: var(--moduix-switch-width-sm, 2.25rem);
-    --moduix-switch-height: var(--moduix-switch-height-sm, 1.25rem);
-    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-sm, var(--moduix-spacing-4));
+    --_switch-width: var(--moduix-switch-width-sm, 2.25rem);
+    --_switch-height: var(--moduix-switch-height-sm, 1.25rem);
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-sm, var(--moduix-spacing-4));
   }
 
   .root[data-size='md'] .control {
-    --moduix-switch-width: var(--moduix-switch-width-md, 2.75rem);
-    --moduix-switch-height: var(--moduix-switch-height-md, var(--moduix-size-xs));
-    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-md, var(--moduix-spacing-5));
+    --_switch-width: var(--moduix-switch-width-md, 2.75rem);
+    --_switch-height: var(--moduix-switch-height-md, var(--moduix-size-xs));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-md, var(--moduix-spacing-5));
   }
 
   .root[data-size='lg'] .control {
-    --moduix-switch-width: var(--moduix-switch-width-lg, 3.25rem);
-    --moduix-switch-height: var(--moduix-switch-height-lg, 1.75rem);
-    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-lg, var(--moduix-size-xs));
+    --_switch-width: var(--moduix-switch-width-lg, 3.25rem);
+    --_switch-height: var(--moduix-switch-height-lg, 1.75rem);
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-lg, var(--moduix-size-xs));
   }
 
   .root[data-size='xl'] .control {
-    --moduix-switch-width: var(--moduix-switch-width-xl, 3.75rem);
-    --moduix-switch-height: var(--moduix-switch-height-xl, var(--moduix-size-sm));
-    --moduix-switch-thumb-size: var(--moduix-switch-thumb-size-xl, var(--moduix-spacing-7));
+    --_switch-width: var(--moduix-switch-width-xl, 3.75rem);
+    --_switch-height: var(--moduix-switch-height-xl, var(--moduix-size-sm));
+    --_switch-thumb-size: var(--moduix-switch-thumb-size-xl, var(--moduix-spacing-7));
   }
 
   .thumb {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--moduix-switch-thumb-size, var(--moduix-spacing-5));
-    height: var(--moduix-switch-thumb-size, var(--moduix-spacing-5));
+    width: var(--_switch-thumb-size, var(--moduix-spacing-5));
+    height: var(--_switch-thumb-size, var(--moduix-spacing-5));
     border: var(--moduix-switch-thumb-border-width, 0) solid
       var(--moduix-switch-thumb-border-color, transparent);
     border-radius: var(--moduix-switch-thumb-radius, var(--moduix-radius-full));
@@ -143,11 +143,12 @@
         var(--moduix-switch-thumb-color, var(--moduix-color-primary))
       );
       transform: translateX(
-        var(--moduix-switch-thumb-translate, var(--moduix-switch-thumb-translate-default))
+        var(--moduix-switch-thumb-translate, var(--_switch-thumb-translate-default))
       );
     }
 
     & > svg {
+      display: block;
       width: var(--moduix-switch-thumb-icon-size, 65%);
       height: var(--moduix-switch-thumb-icon-size, 65%);
       flex-shrink: 0;
@@ -156,7 +157,7 @@
 
   .root:dir(rtl) .thumb[data-state='checked'] {
     transform: translateX(
-      calc(var(--moduix-switch-thumb-translate, var(--moduix-switch-thumb-translate-default)) * -1)
+      calc(var(--moduix-switch-thumb-translate, var(--_switch-thumb-translate-default)) * -1)
     );
   }
 
@@ -166,5 +167,12 @@
     font-weight: var(--moduix-switch-label-font-weight, var(--moduix-weight-medium));
     line-height: var(--moduix-switch-label-line-height, var(--moduix-line-height-text-sm));
     user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .control,
+    .thumb {
+      transition: none;
+    }
   }
 }

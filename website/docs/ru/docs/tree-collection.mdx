@@ -1,0 +1,244 @@
+---
+title: Tree Collection
+description: Моделируйте, запрашивайте, обходите, фильтруйте и обновляйте иерархические данные для Tree View и пользовательских деревьев.
+---
+
+# Tree Collection
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
+
+Коллекция дерева нормализует иерархические данные для `TreeView` и пользовательских интерфейсов дерева.
+Она предоставляет поиск по значению, запросы родителей и потомков, индексные пути, обход и неизменяемые
+обновления.
+
+```tsx
+import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
+```
+
+## Создание дерева
+
+Стандартная структура использует свойства `value`, `label`, `children` и необязательное `disabled`:
+
+```tsx
+const tree = createTreeCollection({
+  rootNode: {
+    value: 'root',
+    label: 'Project',
+    children: [
+      {
+        value: 'src',
+        label: 'src',
+        children: [
+          { value: 'button', label: 'Button.tsx' },
+          { value: 'input', label: 'Input.tsx' },
+        ],
+      },
+      { value: 'readme', label: 'README.md' },
+    ],
+  },
+});
+```
+
+Корневой узел является контейнером и не включается в `getValues()`. Передайте коллекцию напрямую
+в `TreeView` и отрисовывайте элементы из `collection.rootNode.children`.
+
+## Отрисовка с Tree View
+
+Коллекция управляет иерархией, а Tree View - раскрытием, фокусом, клавиатурной навигацией и выбором.
+Отрисовывайте ветви рекурсивно из того же узла и индексного пути, которые предоставляет коллекция.
+
+```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
+
+```
+
+## Пользовательские структуры узлов
+
+Сопоставьте собственные поля, если они отличаются от стандартных полей Ark:
+
+```tsx
+type NavigationNode = {
+  id: string;
+  name: string;
+  items?: NavigationNode[];
+  unavailable?: boolean;
+};
+
+const tree = createTreeCollection<NavigationNode>({
+  rootNode: navigation,
+  nodeToValue: (node) => node.id,
+  nodeToString: (node) => node.name,
+  nodeToChildren: (node) => node.items ?? [],
+  nodeToChildrenCount: (node) => node.items?.length,
+  isNodeDisabled: (node) => node.unavailable ?? false,
+});
+```
+
+| Параметр              | Назначение                                                          |
+| --------------------- | ------------------------------------------------------------------- |
+| `rootNode`            | Корневой контейнер для всей иерархии.                              |
+| `nodeToValue`         | Возвращает стабильное строковое значение узла.                     |
+| `nodeToString`        | Возвращает отображаемый текст и текст для поиска.                  |
+| `nodeToChildren`      | Возвращает дочерние узлы.                                          |
+| `nodeToChildrenCount` | Возвращает известное число дочерних узлов, включая лениво загружаемые. |
+| `isNodeDisabled`      | Возвращает, отключён ли узел.                                      |
+
+## Поиск и индексные пути
+
+Индексный путь определяет узел по его числовой позиции на каждом уровне дерева:
+
+```tsx
+const path = tree.getIndexPath('input')!; // [0, 1]
+tree.at(path); // Input.tsx node
+tree.getValue(path); // 'input'
+tree.getValuePath(path); // ['src', 'input']
+tree.getDepth('input'); // 2
+```
+
+| API                              | Результат                                                 |
+| -------------------------------- | -------------------------------------------------------- |
+| `findNode(value)`                | Первый узел с этим значением.                            |
+| `findNodes(values)`              | Узлы, соответствующие нескольким значениям.              |
+| `getIndexPath(valueOrValuePath)` | Числовой путь для значения или явного пути значений.     |
+| `at(indexPath)`                  | Узел по индексному пути.                                 |
+| `getValue(indexPath)`            | Значение по индексному пути.                             |
+| `getValuePath(indexPath)`        | Значения предков, за которыми следует целевое значение.  |
+| `getDepth(value)`                | Глубина узла ниже корня.                                 |
+| `getValues(rootNode?)`           | Все значения потомков в порядке обхода.                  |
+| `getNodeChildren(node)`          | Нормализованные дочерние узлы узла.                      |
+| `getNodeChildrenCount(node)`     | Известное число дочерних узлов или `undefined`.          |
+| `getNodeValue(node)`             | Нормализованное значение узла.                           |
+| `stringifyNode(node)`            | Нормализованный текст узла.                              |
+| `stringify(value)`               | Текст узла для значения или `null`.                      |
+| `getNodeDisabled(node)`          | Нормализованное отключённое состояние.                   |
+| `isRootNode(node)`               | Является ли узел корнем коллекции.                       |
+| `isSameNode(node, other)`        | Соответствуют ли два узла одному значению.                |
+
+`sort(values)` упорядочивает значения по их позиции в дереве. `isEqual(other)` сравнивает коллекции,
+а `toJSON()` возвращает значения коллекции.
+
+## Навигация и связи
+
+```tsx
+tree.getFirstNode();
+tree.getLastNode();
+tree.getNextNode('button');
+tree.getPreviousNode('input');
+
+tree.getParentNode('input'); // src node
+tree.getParentNodes('input'); // ancestor nodes
+tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
+tree.getDescendantValues('src'); // ['button', 'input']
+```
+
+`getFirstNode`, `getLastNode`, `getNextNode` и `getPreviousNode` принимают обратный вызов `skip`
+для узлов, которые не должны участвовать в обходе.
+
+API соседних узлов работают с индексными путями:
+
+```tsx
+const path = tree.getIndexPath('button')!;
+
+tree.getNextSibling(path);
+tree.getPreviousSibling(path);
+tree.getSiblingNodes(path);
+```
+
+Используйте `contains(parentPath, valuePath)`, чтобы проверить, содержит ли один индексный путь другой.
+`getDescendantNodes` и `getDescendantValues` принимают `{ withBranch: true }`, когда узлы ветвей
+нужно включить вместе с листьями.
+
+## Ветви и обход
+
+```tsx
+const src = tree.findNode('src');
+
+if (src) tree.isBranchNode(src);
+tree.getBranchValues();
+tree.flatten();
+```
+
+`flatten()` возвращает узлы с метаданными `_index`, `_parent` и `_children`, что полезно для
+виртуализированной или плоской отрисовки.
+
+Используйте `visit`, когда нужно обработать каждый узел:
+
+```tsx
+tree.visit({
+  onEnter(node, indexPath) {
+    console.log(tree.getNodeValue(node), indexPath.length);
+
+    if (tree.getNodeValue(node) === 'src') {
+      return 'skip';
+    }
+  },
+});
+```
+
+## Фильтрация
+
+`filter` возвращает новое дерево с совпадающими узлами, сохраняя иерархию, необходимую для доступа к ним:
+
+```tsx
+const filteredTree = tree.filter((node) =>
+  tree.stringifyNode(node).toLocaleLowerCase().includes('input'),
+);
+```
+
+Используйте возвращённую коллекцию для отрисовки. Исходное дерево не изменяется.
+
+## Неизменяемые обновления
+
+Каждое изменение возвращает новую `TreeCollection`:
+
+```tsx
+const srcPath = tree.getIndexPath('src')!;
+const buttonPath = tree.getIndexPath('button')!;
+const readmePath = tree.getIndexPath('readme')!;
+
+const withFile = tree.insertAfter(buttonPath, [{ value: 'select', label: 'Select.tsx' }]);
+
+const withoutReadme = tree.remove([readmePath]);
+const renamed = tree.replace(buttonPath, {
+  value: 'button',
+  label: 'Button.new.tsx',
+});
+const moved = tree.move([readmePath], srcPath);
+```
+
+Индексные пути описывают позиции в одном снимке коллекции. После вставки, удаления, изменения порядка
+или перемещения отбросьте сохранённые индексные пути и перед следующей операцией заново получите их
+из возвращённой коллекции. Вместо числовых путей храните в состоянии приложения стабильные значения узлов.
+
+`insertBefore` и `insertAfter` могут вернуть `undefined`, если целевой путь недопустим. Проверяйте
+пути, полученные из динамических данных, перед использованием.
+
+| API                         | Операция                                             |
+| --------------------------- | ---------------------------------------------------- |
+| `copy(rootNode)`            | Создаёт коллекцию из заменяющего корня.              |
+| `replace(indexPath, node)`  | Заменяет один узел.                                  |
+| `remove(indexPaths)`        | Удаляет одно или несколько поддеревьев.              |
+| `insertBefore(path, nodes)` | Вставляет соседние узлы перед узлом.                 |
+| `insertAfter(path, nodes)`  | Вставляет соседние узлы после узла.                  |
+| `move(fromPaths, toPath)`   | Перемещает поддеревья в другое место.                |
+| `filter(predicate)`         | Возвращает отфильтрованное дерево.                   |
+
+## Пути файлов
+
+Используйте `createFileTreeCollection`, когда исходные данные уже представлены списком путей:
+
+```tsx
+const files = createFileTreeCollection([
+  'src/components/Button.tsx',
+  'src/components/Input.tsx',
+  'src/utils/format.ts',
+  'README.md',
+]);
+
+files.getBranchValues(); // ['src', 'components', 'utils']
+```
+
+Полную композицию отрисовки, раскрытие, выбор, ленивую загрузку и рекурсивные узлы см. в
+[Tree View](/docs/tree-view). Для удалённых дочерних узлов используйте его пример асинхронной загрузки
+и обновляйте коллекцию только после успешного запроса.

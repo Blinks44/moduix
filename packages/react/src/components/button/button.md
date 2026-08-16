@@ -209,8 +209,6 @@ Primary CSS variables:
 - moduix keeps loading content compositional but adds a narrow `loading` prop for the busy and
   disabled state wiring instead of copying Chakra's managed `loadingText`, `spinner`, and
   `spinnerPlacement` props.
-- moduix accepts optional `data-icon="inline-start|inline-end"` hooks on child icon or spinner
-  elements for explicit inline icon styling without introducing icon props.
 - The old legacy `render`, `nativeButton`, and `focusableWhenDisabled` surface is removed. Use
   `asChild` for polymorphism and native `disabled` or `aria-disabled` depending on the rendered
   element.
@@ -224,6 +222,8 @@ Primary CSS variables:
 - Keep `data-disabled` synchronized with native `disabled`, `aria-disabled`, and `loading`.
 - Keep native `disabled` off `asChild` hosts; preserve `aria-disabled`, `aria-busy`, and
   `data-disabled` there instead.
+- Keep the disabled click capture guard: Ark composes a child's bubble handler before the wrapper's
+  bubble handler, so the guard must stop composed activation before the target phase.
 - Keep `loading` narrow: it owns busy/disabled state only, not spinner structure or loading text.
 - Keep the `data-slot` default as `button-root`, but preserve the narrow override path for composed
   wrappers that need their own stable slot.
@@ -233,6 +233,8 @@ Primary CSS variables:
 
 ## Local changelog
 
+- 2026-08-09: Guarded disabled `asChild` activation before composed child click handlers and added
+  focused composition and content-resilience coverage.
 - 2026-07-29: Added `font-size` and `line-height` theme overrides for `sm` and `md` button sizes.
 - 2026-07-21: Routed shared dimensions, spacing, icon geometry, and focus-ring fallbacks through foundation tokens so density and theme presets can retune the component consistently.
 - 2026-07-26: Added subtle press feedback for enabled button variants while keeping links and
@@ -245,9 +247,10 @@ Primary CSS variables:
 - 2026-07-12: Preserved parent Ark `data-scope` and `data-part` values when Button is composed as a
   trigger child, while retaining passthrough handlers, merged refs, recipe styling, and the stable
   `data-slot` hook.
-- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts, documented the `loading`
-  contract for custom hosts, and added optional `data-icon` styling hooks for inline icons and
-  spinners.
+- 2026-08-06: Removed redundant `data-icon` hooks; child composition and root `gap` determine
+  inline icon placement.
+- 2026-07-09: Stopped forcing native `disabled` onto `asChild` hosts and documented the `loading`
+  contract for custom hosts.
 - 2026-07-07: Added narrow `loading` state sugar that sets `data-loading`, `aria-busy`, and the
   disabled styling path, softened the default hover fallback, and aligned link sizing plus press
   feedback with the recommended usage contract.

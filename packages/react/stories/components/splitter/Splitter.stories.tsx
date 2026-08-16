@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Button } from '../../../src/components/button';
-import {
-  createSplitterRegistry,
-  Splitter,
-  useSplitter,
-} from '../../../src/components/splitter/Splitter';
+import { Button } from '@/components/button';
+import { createSplitterRegistry, Splitter, useSplitter } from '@/components/splitter/Splitter';
 import styles from './Splitter.stories.module.css';
 
 const panels = [
@@ -91,7 +87,7 @@ export const Collapsible: Story = {
   render: () => (
     <Splitter
       panels={[
-        { id: 'sidebar', minSize: 15, maxSize: 40, collapsible: true, collapsedSize: 5 },
+        { id: 'sidebar', minSize: 5, maxSize: 40, collapsible: true, collapsedSize: 5 },
         { id: 'content', minSize: 40 },
       ]}
       defaultSize={[28, 72]}

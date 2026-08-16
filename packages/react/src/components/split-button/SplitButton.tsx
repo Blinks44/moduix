@@ -25,6 +25,8 @@ type SplitButtonContextValue = {
 };
 
 type SplitButtonRootProps = Omit<ComponentProps<typeof Menu.Root>, 'children'> & {
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
   children?: ReactNode;
   className?: string;
   size?: SplitButtonSize;
@@ -57,7 +59,16 @@ function useSplitButtonContext(componentName: string) {
 }
 
 const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(function SplitButtonRoot(
-  { children, className, positioning, size = 'md', variant = 'default', ...props },
+  {
+    children,
+    className,
+    positioning,
+    size = 'md',
+    variant = 'default',
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    ...props
+  },
   ref,
 ) {
   return (
@@ -65,6 +76,9 @@ const SplitButtonRoot = forwardRef<HTMLDivElement, SplitButtonRootProps>(functio
       <Menu.Root positioning={{ placement: 'bottom-end', gutter: 4, ...positioning }} {...props}>
         <div
           ref={ref}
+          role="group"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
           data-scope="split-button"
           data-part="root"
           data-slot="split-button-root"

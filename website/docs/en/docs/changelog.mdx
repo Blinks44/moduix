@@ -1,0 +1,74 @@
+---
+title: Changelog
+description: Product releases, breaking changes, and the supported moduix version policy.
+---
+
+import { LocalizationHero } from '@/components/changelog/localization-hero';
+import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
+import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <LocalizationHero />
+
+  The new sites offer a complete documentation path in Russian and French, so you can explore a
+  component, copy an example, and follow a recipe without changing language halfway through.
+
+  ### What’s included
+
+  - Published the complete component docs, setup guides, API references, and recipes in both languages.
+  - Kept navigation, page metadata, locale-aware routes, and copyable examples aligned across English, Russian, and French.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem>
+  <V2MigrationHero />
+
+  v2 is a deliberate major release, not a cosmetic swap. Ark UI now provides the behavior and
+  accessibility foundation for components with a dedicated primitive, while moduix keeps its native
+  CSS and both installation paths.
+
+  ### What changed in v2
+
+  - Rebuilt component behavior and accessibility on Ark UI primitives.
+  - Aligned public composition, state access, and lower-level props with Ark contracts.
+  - Kept native CSS and both package and copy-owned installation paths.
+</ChangelogNewsItem>
+
+## More updates
+
+### v2.2.4 - August 10, 2026
+
+- `DatePicker` now inherits disabled and invalid state from `Field` and `Fieldset`, plus read-only and required state from `Field`.
+- `DatePicker.Field` and `DatePicker.RangeField` keep stable input indexes, so native form values stay predictable.
+- `DateInput` ranges automatically render indexed native inputs while preserving Ark keyboard and accessibility semantics.
+
+### v2.2.3 - July 24, 2026
+
+- Restored Next.js App Router compatibility for copy-owned components that use local client APIs.
+- Refined the Menu arrow so it stays aligned with the popup border.
+
+### v2.2.2 - July 24, 2026
+
+- Reorganized package sources and dependency paths so shadcn CLI output remains self-contained.
+
+### v2.2.1 - July 23, 2026
+
+- Added the detached `island` Drawer variant and kept its backdrop visible between snap points.
+- Added a non-runtime Ark UI variable-reference stylesheet for repository tooling.
+
+### v2.2.0 - July 22, 2026
+
+- Namespaced public CSS tokens and cascade layers under `moduix`.
+
+### v2.1.0 - July 21, 2026
+
+- Added Typeset and the Calm, Dense, Soft, and Contrast theme presets.
+- Refined primary controls, popup density, Select composition, and theming tokens.
+
+## Version and support policy
+
+moduix follows Semantic Versioning. Major releases may include breaking changes; minor releases add
+backward-compatible features; patch releases contain backward-compatible fixes.
+
+The latest major is actively supported. v2 supports React 18 and 19, and moduix keeps its Ark UI
+integration aligned with current releases. For each major release, this page records affected APIs,
+migration steps, and package or registry implications.

@@ -1,0 +1,167 @@
+---
+title: Textarea
+component: textarea
+description: Нативное многострочное поле ввода с интеграцией Field и стилизацией moduix.
+---
+
+import * as TextareaDocs from '@/components/examples/textarea';
+
+## Справочник API
+
+В Ark UI нет отдельного компонента для многострочного ввода. moduix стилизует и повторно экспортирует
+[Ark Field.Textarea](https://ark-ui.com/docs/components/field), сохраняя нативный API `textarea`, `autoresize`,
+передачу ref, `asChild` и наследование состояния от `Field`.
+
+## Выбор подходящего компонента
+
+Используйте `Textarea`, когда значение представляет собой обычный текст, может занимать несколько строк и должно сохранять поведение текстовой области, характерное для браузера.
+
+- Выбирайте **`Input`** для коротких однострочных значений: имён, URL или компактных фильтров.
+- Выбирайте **`Textarea`** для заметок, комментариев, описаний и другого длинного произвольного текста.
+- Выбирайте **`Editable`** для текста, который сначала показывается, а затем переключается в режим редактирования.
+- Выбирайте **`Field` + `Textarea`**, если метки, описания и валидация должны оставаться декларативными.
+
+## Базовый пример
+
+Для обычных форм, настроек, заметок и описаний используйте `Textarea` внутри `Field`.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Установка через shadcn
+
+<ShadcnInstall packageName="textarea" />
+
+## Анатомия
+
+Структура намеренно остаётся минимальной:
+
+```text
+Field (optional wrapper)
+└─ Textarea
+```
+
+| Часть      | Назначение                                                        |
+| ---------- | ---------------------------------------------------------- |
+|`Textarea`|Нативный элемент `textarea` со стилями moduix и состоянием поля.|
+
+`Textarea` не добавляет контейнеры, вложенные части, provider, контекстные хуки, скрытые поля или дополнительные слоты.
+
+## Композиция
+
+### Рекомендуемая композиция
+
+Для обычного многострочного ввода достаточно `Textarea`.
+
+Передавайте в `Textarea` нативные свойства: `rows`, `name`, `placeholder`, `maxLength`, `readOnly`, `disabled`,
+`required`, `value` и `defaultValue`.
+
+Добавьте `Field`, `Field.Label`, `Field.HelperText` и `Field.ErrorText`, если полю нужны связанные подпись,
+пояснение и сообщение об ошибке.
+
+### Когда нужна собственная композиция
+
+У `Textarea` нет более низкоуровневой композиции: компонент уже представляет собой стилизованный корневой элемент.
+`Field.Textarea` остаётся низкоуровневым вариантом в стиле Ark, но обычно лучше использовать `Textarea`, чтобы все
+многострочные поля следовали одному контракту стилизации moduix.
+
+Если текст должен переключаться между просмотром и редактированием, используйте `Editable` вместо собственной
+композиции поверх `Textarea`.
+
+### Свойства по умолчанию
+
+| Свойство     | По умолчанию | Примечание                                           |
+| ------------ | ------- | ------------------------------------------------ |
+|`autoresize`|`false`|Автоматическое изменение высоты Ark включается явно.|
+
+### Особенности поведения
+
+- Для управляемого поля передавайте `value` и нативный `onChange`.
+- Если значение нужно только получить из `FormData`, задайте `name` и используйте обычную отправку формы.
+- Нативный сброс формы возвращает неуправляемое поле к `defaultValue`; через `form` textarea можно
+  связать с формой вне её DOM-ветки.
+- Ref указывает на настоящий `HTMLTextAreaElement`. С `asChild` передавайте один семантический элемент `textarea`, способный принять объединённые свойства и ref.
+- Включайте `autoresize`, если поле должно расти вместе с содержимым. В этом режиме Ark отключает ручное изменение размера, поэтому `--moduix-textarea-resize` действует только при `autoresize={false}`.
+- Для сценария «просмотр - редактирование» с кнопками подтверждения и отмены используйте `Editable`.
+
+## Примеры
+
+### Автоматическое изменение размера
+
+Включите `autoresize`, чтобы высота поля увеличивалась вместе с содержимым.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/auto-resize.tsx"
+
+```
+</PreviewFrame>
+
+### Управляемое состояние
+
+Передавайте `value` и нативный `onChange`, если значение должно храниться в состоянии React.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/controlled.tsx"
+
+```
+</PreviewFrame>
+
+### Отключённое состояние и режим только для чтения
+
+Используйте `disabled`, чтобы полностью отключить поле, или `readOnly`, чтобы оставить текст доступным для выделения.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/disabled-and-readonly.tsx"
+
+```
+</PreviewFrame>
+
+### Проверка через Field
+
+Задайте недопустимое состояние у `Field`: Ark добавит к `Textarea` атрибуты `aria-invalid` и `data-invalid` и
+свяжет поле с текстом ошибки.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/field-validation.tsx"
+
+```
+</PreviewFrame>
+
+### Нативные атрибуты
+
+Используйте нативные свойства `textarea` для настройки размера, поведения браузера и отправки формы. Пример выводит
+текущее значение из `FormData`, чтобы явно показать участие поля в нативной форме.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/textarea/native-attributes.tsx"
+
+```
+</PreviewFrame>
+
+## Стилизация
+
+Настраивайте `Textarea` через `className`, `data-slot="textarea-root"` и публичные CSS-переменные
+`--moduix-textarea-*`, перечисленные ниже.
+
+### CSS-свойства
+
+<div className="docs-reference">
+<Tabs
+    values={[{ label: 'CSS-переменные', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+> <Tab> <TextareaDocs.TextareaCssPropertiesPanel /> </Tab> </Tabs>
+</div>
+
+### Хуки стилизации
+
+Оформляйте само поле через `Textarea`, а расположение подписи и поясняющего текста - через окружающий `Field`.
+
+- `Textarea` отвечает за границу, фон, placeholder, изменение размера и индикатор фокуса.
+- `Field` задаёт ширину, интервалы и расположение подписи, описания и сообщения об ошибке.
+- `data-slot="textarea-root"` служит стабильным селектором для локальных стилей.
+- `data-autoresize` присутствует, когда включён `autoresize`.
+- Для состояний используйте `data-invalid`, `[aria-invalid='true']`, `[disabled]`, `data-disabled`, `:read-only` и `data-readonly`.
