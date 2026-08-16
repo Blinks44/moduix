@@ -1,6 +1,6 @@
 ---
 name: rspress-localization
-description: Localize, add, review, or troubleshoot multilingual Rspress documentation in apps/docs. Use for Rspress locales, i18n.json, useI18n, useLang, locale-aware links and page lists, translated MDX, navigation parity, or localization audits.
+description: Localize, add, review, or troubleshoot multilingual Rspress documentation in website. Use for Rspress locales, i18n.json, useI18n, useLang, locale-aware links and page lists, translated MDX, navigation parity, or localization audits.
 ---
 
 # Rspress Localization
@@ -9,7 +9,7 @@ Use Rspress's public configuration, runtime hooks, and file-based routes. Keep t
 
 ## Read first
 
-1. Read `apps/docs/rspress.config.ts`, `apps/docs/i18n.json`, and `apps/docs/tsconfig.json`.
+1. Read `website/rspress.config.ts`, `website/i18n.json`, and `website/tsconfig.json`.
 2. Inspect equivalent MDX files and `_nav.json` / `_meta.json` files for every affected locale.
 3. For uncertain API behavior, consult current official Rspress i18n and runtime-hook documentation. Verify options against the installed Rspress version before adding them.
 
@@ -17,7 +17,7 @@ Use Rspress's public configuration, runtime hooks, and file-based routes. Keep t
 
 - Configure every supported language in `locales`; set `lang` to the default language. The default language has no route prefix.
 - Store locale-specific pages under the corresponding language directory in the docs root.
-- Store shared UI phrases for custom React/MDX/theme components in `apps/docs/i18n.json`.
+- Store shared UI phrases for custom React/MDX/theme components in `website/i18n.json`.
 - Configure the TypeScript `i18n` path alias and use typed `useI18n<typeof import('i18n')>()`.
 - Use i18n keys in `_nav.json` and `_meta.json` when one navigation label is intentionally shared. Otherwise keep each locale's navigation content in its own language.
 - Keep prose, frontmatter, titles, descriptions, navigation, and user-visible component data in their locale files or `i18n.json`, according to their scope.
@@ -88,7 +88,7 @@ Locale pages may use a different relative `file` directive solely to reference t
 ## Verification
 
 1. Compare affected locales for route, MDX structure, frontmatter, navigation, links, and shared UI behavior. Report intentional gaps.
-2. Search `apps/docs/src` for manual locale branches and in-component language dictionaries.
+2. Search `website/src` for manual locale branches and in-component language dictionaries.
 3. Confirm every referenced i18n key has text for every configured locale.
 4. Read the translation as a target-language document: verify semantic completeness, preserved identifiers, consistent terminology, grammar, locale formatting, accessible text, and reader-ready language.
 5. Build the docs when the change affects routes, MDX file references, navigation, or links; otherwise run proportionate TypeScript and lint checks.

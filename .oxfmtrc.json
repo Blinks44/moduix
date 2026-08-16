@@ -1,11 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [
-    "**/*.gen.ts",
-    "wrangler.jsonc",
-    "package-lock.json",
-    "apps/docs/docs/**/*.mdx"
-  ],
+  "ignorePatterns": ["**/*.gen.ts", "wrangler.jsonc", "package-lock.json", "website/docs/**/*.mdx"],
   "singleQuote": true,
   "semi": true,
   "sortImports": {

@@ -189,7 +189,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 - Open/closed animation is tied to Ark `data-state` attributes.
 - Group labels inherit the shared `--moduix-popup-group-label-*` defaults: muted `xs` text, regular
   weight, and `--moduix-spacing-1` block padding. Select-specific variables still take precedence.
-- Public theme variables are documented in `apps/docs/src/components/examples/select.tsx`.
+- Public theme variables are documented in `website/src/components/examples/select.tsx`.
 
 ## Intentional sugar and differences from upstream
 

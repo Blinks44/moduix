@@ -9,7 +9,7 @@ Own the visual shell and theme integration of the Rspress site. Choose the least
 
 ## Read first
 
-1. `apps/docs/rspress.config.ts`, `apps/docs/theme/index.tsx`, and the touched page or component.
+1. `website/rspress.config.ts`, `website/theme/index.tsx`, and the touched page or component.
 2. Current official Rspress documentation for uncertain APIs.
 3. The relevant reference below before using slots, ejection, or the theme variable surface.
 

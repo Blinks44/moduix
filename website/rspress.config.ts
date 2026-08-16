@@ -95,7 +95,7 @@ export default defineConfig({
     search: true,
     lastUpdated: true,
     editLink: {
-      docRepoBaseUrl: 'https://github.com/Blinks44/moduix/tree/main/apps/docs/docs',
+      docRepoBaseUrl: 'https://github.com/Blinks44/moduix/tree/main/website/docs',
     },
     footer: {
       message: 'Built with Rspress, Ark UI, and moduix.',

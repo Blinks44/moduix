@@ -1,11 +1,11 @@
 ---
 name: docs-workflow
-description: Use for Rspress documentation content in apps/docs across every configured locale - MDX pages, runnable examples, component-page guidance, CSS-variable references, registry documentation, and source-to-locale content consistency.
+description: Use for Rspress documentation content in website across every configured locale - MDX pages, runnable examples, component-page guidance, CSS-variable references, registry documentation, and source-to-locale content consistency.
 ---
 
 # Docs Workflow
 
-Own consumer-facing documentation in `apps/docs` across every configured locale. Keep it truthful to the shipped package and easy to use; prefer the smallest complete example over a configurable demo.
+Own consumer-facing documentation in `website` across every configured locale. Keep it truthful to the shipped package and easy to use; prefer the smallest complete example over a configurable demo.
 
 This skill owns documentation content and source-to-locale consistency. It does not own Rspress configuration, theme customization, translation implementation, or description-frontmatter work. Apply the corresponding focused skill when that surface changes, especially `rspress-localization` for any localized content.
 

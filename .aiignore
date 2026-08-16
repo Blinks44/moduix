@@ -31,4 +31,4 @@ coverage/
 *.tsbuildinfo
 
 # Documentation/app artifacts
-apps/docs/.wrangler/
+website/.wrangler/

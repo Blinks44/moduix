@@ -13,13 +13,13 @@ npm run tsc:check --workspace moduix-docs
 npm run deploy:docs
 ```
 
-Rspress writes the production site to `apps/docs/doc_build`. The deploy command publishes that
+Rspress writes the production site to `website/doc_build`. The deploy command publishes that
 directory as Cloudflare Workers Static Assets.
 
 ## Structure
 
 ```text
-apps/docs/
+website/
   docs/en/              # English MDX pages, navigation metadata, and snippets
   docs/public/          # Static and hosted registry assets shared by locales
   i18n.json             # Locale-aware UI strings

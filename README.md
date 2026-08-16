@@ -1,4 +1,4 @@
-![moduix banner](apps/docs/docs/public/banner.png)
+![moduix banner](website/docs/public/banner.png)
 
 [![npm](https://img.shields.io/npm/v/@moduix/react?logo=npm&label=npm)](https://www.npmjs.com/package/@moduix/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE.md)
@@ -182,7 +182,7 @@ Read [Tokens](https://moduix.dev/docs/tokens) for the full hierarchy and
 | Path             | Purpose                                                        |
 | ---------------- | -------------------------------------------------------------- |
 | `packages/react` | Published React package and registry source files.             |
-| `apps/docs`      | Documentation site, examples, and registry artifacts.          |
+| `website`        | Documentation site, examples, and registry artifacts.          |
 | `registry`       | Source manifest used to build shadcn-compatible registry JSON. |
 
 The workspace uses npm, Turborepo, oxlint, oxfmt, and Changesets.

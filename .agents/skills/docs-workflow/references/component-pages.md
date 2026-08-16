@@ -1,6 +1,6 @@
 # Component-page contract
 
-Read this reference when creating, migrating, or substantially restructuring a component page in `apps/docs/docs/en/docs`.
+Read this reference when creating, migrating, or substantially restructuring a component page in `website/docs/en/docs`.
 
 ## Section order
 
