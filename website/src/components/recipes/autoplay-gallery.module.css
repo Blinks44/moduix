@@ -26,6 +26,22 @@
     opacity: 1;
     transform: scale(1);
   }
+
+  &::before {
+    position: absolute;
+    z-index: 1;
+    inset: 35% 0 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      to top,
+      color-mix(in oklab, var(--moduix-color-foreground) 68%, transparent),
+      transparent
+    );
+    content: '';
+    pointer-events: none;
+    backdrop-filter: blur(1rem);
+    mask-image: linear-gradient(to top, black 45%, transparent);
+  }
 }
 
 .image {
@@ -38,18 +54,13 @@
 
 .copy {
   position: absolute;
+  z-index: 1;
   inset-inline: var(--moduix-spacing-5);
   inset-block-end: var(--moduix-spacing-5);
   display: grid;
   gap: var(--moduix-spacing-1);
   max-width: min(34rem, calc(100% - var(--moduix-spacing-10)));
-  padding: var(--moduix-spacing-4) var(--moduix-spacing-5);
-  border: var(--moduix-border-width-sm) solid color-mix(in oklab, white 28%, transparent);
-  border-radius: var(--moduix-radius-xl);
-  background: color-mix(in oklab, var(--moduix-color-foreground) 68%, transparent);
   color: white;
-  backdrop-filter: blur(1rem);
-  box-shadow: var(--moduix-shadow-lg);
 }
 
 .category {
@@ -143,6 +154,11 @@
 }
 
 @media (max-width: 40rem) {
+  .item {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
   .copy {
     inset-inline: var(--moduix-spacing-3);
     inset-block-end: var(--moduix-spacing-3);
