@@ -1,6 +1,14 @@
 import { Badge } from '@moduix/react/badge';
 import { Table } from '@moduix/react/table';
-import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from '@tanstack/react-table';
+import {
+  columnVisibilityFeature,
+  flexRender,
+  tableFeatures,
+  useTable,
+  type ColumnDef,
+} from '@tanstack/react-table';
+
+const features = tableFeatures({ columnVisibilityFeature });
 
 type Payment = {
   id: string;
@@ -15,7 +23,7 @@ const payments: Payment[] = [
   { id: 'f47ac10b', status: 'success', email: 'monserrat44@example.com', amount: 837 },
 ];
 
-const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<typeof features, Payment>[] = [
   { accessorKey: 'status', header: 'Status' },
   { accessorKey: 'email', header: 'Email' },
   {
@@ -29,10 +37,10 @@ const columns: ColumnDef<Payment>[] = [
 ];
 
 export default function DataTableDemo() {
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data: payments,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (

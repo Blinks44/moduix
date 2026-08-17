@@ -1,6 +1,6 @@
 ---
 title: Таблица данных
-description: Создавайте таблицы данных для конкретного приложения с сортировкой, фильтрацией и пагинацией с помощью moduix Table и TanStack Table.
+description: Создавайте таблицы данных для конкретного приложения с сортировкой, фильтрацией и пагинацией с помощью moduix Table и TanStack Table v9.
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
@@ -8,7 +8,7 @@ import { DataTable } from '@/components/recipes/data-table';
 # Таблица данных
 
 `Data Table` - это паттерн композиции, а не компонент, экспортируемый moduix. Используйте семантические
-и стилизованные части `Table` для разметки, а TanStack Table - для моделирования состояния таблицы данных. Функциональность продукта
+и стилизованные части `Table` для разметки, а TanStack Table v9 - для моделирования состояния таблицы данных. Функциональность продукта
 владеет своими записями и управляет состоянием таблицы, когда оно определяет маршрут или серверный запрос.
 У каждого продукта разные столбцы, фильтры, действия со строками и серверные контракты, поэтому держите это
 поведение рядом с функциональностью, которой оно нужно.
@@ -58,7 +58,7 @@ import { DataTable } from '@/components/recipes/data-table';
   packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
   itemKind="recipe"
   copiedSource
-  dependencies={['@tanstack/react-table', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.1.2', 'lucide-react']}
 />
 
 ## Соберите паттерн самостоятельно
@@ -66,7 +66,7 @@ import { DataTable } from '@/components/recipes/data-table';
 Установите TanStack Table в приложение, которому принадлежит поведение таблицы данных:
 
 ```bash
-npm install @tanstack/react-table
+npm install @tanstack/react-table@^9
 ```
 
 `Table` уже поставляется из `@moduix/react/table`. Он намеренно не включает TanStack Table, поэтому
@@ -74,9 +74,10 @@ npm install @tanstack/react-table
 
 ## Базовый пример
 
-Определите типизированные записи `ColumnDef`, создайте экземпляр таблицы с `getCoreRowModel()` и сопоставьте его
-группы заголовков и видимые ячейки с анатомией таблицы moduix. Используйте `flexRender` для заголовков и
-ячеек: определения столбцов могут содержать простые значения или функции рендеринга React.
+Определите типизированные записи `ColumnDef<typeof features, Payment>`, объявите необходимые возможности
+через `tableFeatures()`, затем создайте экземпляр таблицы с `useTable`. Сопоставьте его группы заголовков
+и видимые ячейки с анатомией таблицы moduix. Используйте `flexRender` для заголовков и ячеек: определения
+столбцов могут содержать простые значения или функции рендеринга React.
 
 <style>{`
       .data-table {
@@ -89,7 +90,7 @@ npm install @tanstack/react-table
       }
     `}</style>
 
-```tsx preview file="../../en/docs/_snippets/data-table/basic.tsx"
+```tsx preview file="../../en/recipes/_snippets/data-table/basic.tsx"
 
 ```
 
@@ -101,7 +102,7 @@ npm install @tanstack/react-table
 В примерах `payments` и `columns` определены вне компонентов, поэтому TanStack Table получает
 одни и те же ссылки между рендерами. Когда данные или столбцы зависят от props или состояния, используйте `useMemo`
 для итогового массива вместо создания его внутри компонента или передачи `data.filter(...)` напрямую
-в `useReactTable`. Новые ссылки заставляют TanStack Table пересчитываться и могут привести к циклам
+в `useTable`. Новые ссылки заставляют TanStack Table пересчитываться и могут привести к циклам
 рендеринга React. Полное объяснение смотрите в [FAQ](https://tanstack.com/table/latest/docs/faq) TanStack.
 
 ## Стабильная ширина столбцов
@@ -112,9 +113,13 @@ npm install @tanstack/react-table
 
 ## Сортировка, фильтрация, пагинация и выбор
 
-Добавляйте только те модели строк TanStack, которые нужны таблице. В примере ниже сортировка и фильтры столбцов управляются состоянием React,
-фильтруется столбец электронной почты, строки выбираются по стабильным идентификаторам платежей и
-отображается по пять строк на странице.
+Добавляйте только те возможности и модели строк TanStack, которые нужны таблице. В примере ниже сортировка
+и фильтры столбцов управляются состоянием React, фильтруется столбец электронной почты, строки выбираются
+по стабильным идентификаторам платежей и отображается по пять строк на странице.
+
+TanStack Table v9 исключает из бандла неиспользуемые функции фильтрации и сортировки. Регистрируйте в
+`tableFeatures()` только встроенные функции, нужные таблице: этот рецепт добавляет `includesString`,
+`alphanumeric` и `text` вместо полного реестра.
 
 <style>{`
       .data-table {
@@ -160,7 +165,7 @@ npm install @tanstack/react-table
       }
     `}</style>
 
-```tsx preview file="../../en/docs/_snippets/data-table/sorting-filtering-and-pagination.tsx"
+```tsx preview file="../../en/recipes/_snippets/data-table/sorting-filtering-and-pagination.tsx"
 
 ```
 
@@ -175,10 +180,16 @@ npm install @tanstack/react-table
 Эта конфигурация заменяет модели строк на стороне клиента из интерактивного примера:
 
 ```tsx
-const table = useReactTable({
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
   data: response.rows,
   columns,
-  getCoreRowModel: getCoreRowModel(),
   manualFiltering: true,
   manualPagination: true,
   manualSorting: true,
@@ -190,8 +201,8 @@ const table = useReactTable({
 });
 ```
 
-Не добавляйте `getFilteredRowModel`, `getSortedRowModel` или `getPaginationRowModel` для соответствующего поведения,
-которым управляет сервер: TanStack предполагает, что `response.rows` уже отражает запрос. Передавайте
+Не добавляйте `filteredRowModel`, `sortedRowModel` или `paginatedRowModel` в `features` для соответствующего
+поведения, которым управляет сервер: TanStack предполагает, что `response.rows` уже отражает запрос. Передавайте
 `pageCount` вместо `rowCount`, если именно его предоставляет API. `manualPagination` также отключает
 обычный сброс страницы, поэтому сбрасывайте `pagination.pageIndex` на `0` при каждом изменении удалённого фильтра или сортировки;
 иначе API может вернуть пустую страницу. Руководства TanStack по
@@ -224,7 +235,7 @@ TanStack Table не содержит UI. Выбирайте состояние �
 В [руководстве по моделям строк](https://tanstack.com/table/latest/docs/guide/row-models) TanStack Table перечислены
 доступные преобразования на стороне клиента. В [руководстве по выбору строк](https://tanstack.com/table/latest/docs/guide/row-selection)
 объясняются управляемое состояние выбора и выбор на уровне страницы, а в [React adapter](https://tanstack.com/table/latest/docs/framework/react/react-table)
-документирован `useReactTable`. На странице moduix [Table](/docs/table) описаны отрендеренная структура
+документирован `useTable`. На странице moduix [Table](/docs/table) описаны отрендеренная структура
 и хуки стилизации.
 
 С `manualPagination` сохраняйте полное состояние `rowSelection` для действий, охватывающих страницы. Модели выбранных строк TanStack

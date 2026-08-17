@@ -1,6 +1,6 @@
 ---
 title: Data Table
-description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table.
+description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table v9.
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
@@ -8,7 +8,7 @@ import { DataTable } from '@/components/recipes/data-table';
 # Data Table
 
 `Data Table` is a composition pattern, not a component exported by moduix. Use the semantic and
-styled `Table` parts for markup, then use TanStack Table to model the data-grid state. The product
+styled `Table` parts for markup, then use TanStack Table v9 to model the data-grid state. The product
 feature owns its records and controls table state when that state drives a route or server query.
 Each product has different columns, filters, row actions, and server contracts, so keep that
 behavior close to the feature that needs it.
@@ -58,7 +58,7 @@ actions, or pagination when the user cannot use that capability.
   packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
   itemKind="recipe"
   copiedSource
-  dependencies={['@tanstack/react-table', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.1.2', 'lucide-react']}
 />
 
 ## Build the pattern yourself
@@ -66,7 +66,7 @@ actions, or pagination when the user cannot use that capability.
 Install TanStack Table in the application that owns the data-grid behavior:
 
 ```bash
-npm install @tanstack/react-table
+npm install @tanstack/react-table@^9
 ```
 
 `Table` already comes from `@moduix/react/table`. It deliberately does not include TanStack Table, so
@@ -74,9 +74,10 @@ applications that only need a semantic table do not pay for data-grid logic.
 
 ## Basic
 
-Define typed `ColumnDef` entries, create a table instance with `getCoreRowModel()`, and map its
-header groups and visible cells into the moduix table anatomy. Use `flexRender` for headers and
-cells: column definitions may contain plain values or React render functions.
+Define typed `ColumnDef<typeof features, Payment>` entries, declare the required features with
+`tableFeatures()`, then create a table instance with `useTable`. Map its header groups and visible
+cells into the moduix table anatomy. Use `flexRender` for headers and cells: column definitions may
+contain plain values or React render functions.
 
 <style>{`
       .data-table {
@@ -101,7 +102,7 @@ numeric alignment, row actions, and business-specific filter definitions.
 The examples define `payments` and `columns` outside their components, so TanStack Table receives
 the same references between renders. When data or columns depend on props or state, use `useMemo`
 for the resulting array instead of creating it inline in the component or passing `data.filter(...)`
-directly to `useReactTable`. New references make TanStack Table recalculate and can cause React
+directly to `useTable`. New references make TanStack Table recalculate and can cause React
 render loops. See the TanStack [FAQ](https://tanstack.com/table/latest/docs/faq) for the full
 explanation.
 
@@ -113,9 +114,13 @@ available space, while a changing sort icon cannot resize its column.
 
 ## Sorting, filtering, pagination, and selection
 
-Add only the TanStack row models the table needs. The example below controls sorting and column
-filters in React state, filters the email column, selects rows by their stable payment IDs, and
-paginates five rows at a time.
+Add only the TanStack features and row models the table needs. The example below controls sorting
+and column filters in React state, filters the email column, selects rows by their stable payment
+IDs, and paginates five rows at a time.
+
+TanStack Table v9 tree-shakes filter and sort functions. Register the individual built-ins a table
+uses in `tableFeatures()`; this recipe registers `includesString`, `alphanumeric`, and `text` rather
+than a full registry.
 
 <style>{`
       .data-table {
@@ -177,10 +182,16 @@ Pass the returned page to TanStack Table and turn off the corresponding client-s
 This configuration replaces the client-side row models from the interactive example:
 
 ```tsx
-const table = useReactTable({
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
   data: response.rows,
   columns,
-  getCoreRowModel: getCoreRowModel(),
   manualFiltering: true,
   manualPagination: true,
   manualSorting: true,
@@ -192,8 +203,8 @@ const table = useReactTable({
 });
 ```
 
-Do not add `getFilteredRowModel`, `getSortedRowModel`, or `getPaginationRowModel` for the matching
-server-owned behavior: TanStack assumes that `response.rows` already reflects the query. Pass
+Do not add `filteredRowModel`, `sortedRowModel`, or `paginatedRowModel` to `features` for the
+matching server-owned behavior: TanStack assumes that `response.rows` already reflects the query. Pass
 `pageCount` instead of `rowCount` when that is what the API provides. `manualPagination` also turns
 off the usual page reset, so reset `pagination.pageIndex` to `0` whenever a remote filter or sort
 changes; otherwise the API can return an empty page. See TanStack's
@@ -226,7 +237,7 @@ specific data view instead of turning every grid feature on by default.
 The TanStack Table [row models guide](https://tanstack.com/table/latest/docs/guide/row-models) lists
 the available client-side transforms. Their [row selection guide](https://tanstack.com/table/latest/docs/guide/row-selection)
 explains controlled selection state and page-level selection, while the [React adapter](https://tanstack.com/table/latest/docs/framework/react/react-table)
-documents `useReactTable`. The moduix [Table](/docs/table) page documents the rendered structure
+documents `useTable`. The moduix [Table](/docs/table) page documents the rendered structure
 and its styling hooks.
 
 With `manualPagination`, keep the full `rowSelection` state for actions that span pages. TanStack's

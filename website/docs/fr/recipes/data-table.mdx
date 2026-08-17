@@ -1,6 +1,6 @@
 ---
 title: Tableau de données
-description: Créez des tableaux de données propres à votre application, triables, filtrables et paginés, avec moduix Table et TanStack Table.
+description: Créez des tableaux de données propres à votre application, triables, filtrables et paginés, avec moduix Table et TanStack Table v9.
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
@@ -8,7 +8,7 @@ import { DataTable } from '@/components/recipes/data-table';
 # Tableau de données
 
 `Data Table` est un modèle de composition, pas un composant exporté par moduix. Utilisez les parties
-sémantiques et stylées de `Table` pour le balisage, puis TanStack Table pour modéliser l’état de la
+sémantiques et stylées de `Table` pour le balisage, puis TanStack Table v9 pour modéliser l’état de la
 grille de données. La fonctionnalité produit possède ses enregistrements et contrôle l’état du tableau
 lorsque celui-ci pilote une route ou une requête serveur. Chaque produit a des colonnes, des filtres,
 des actions de ligne et des contrats serveur différents : gardez donc ce comportement près de la
@@ -60,7 +60,7 @@ fonctionnalité.
   packageName={['badge', 'button', 'checkbox', 'input-group', 'menu', 'table']}
   itemKind="recipe"
   copiedSource
-  dependencies={['@tanstack/react-table', 'lucide-react']}
+  dependencies={['@tanstack/react-table@^9.1.2', 'lucide-react']}
 />
 
 ## Construisez le modèle vous-même
@@ -68,7 +68,7 @@ fonctionnalité.
 Installez TanStack Table dans l’application qui possède le comportement de la grille de données :
 
 ```bash
-npm install @tanstack/react-table
+npm install @tanstack/react-table@^9
 ```
 
 `Table` provient déjà de `@moduix/react/table`. Il n’inclut volontairement pas TanStack Table, afin
@@ -77,10 +77,11 @@ d’une grille de données.
 
 ## Exemple de base
 
-Définissez des entrées `ColumnDef` typées, créez une instance de tableau avec `getCoreRowModel()`,
-puis projetez ses groupes d’en-têtes et ses cellules visibles dans l’anatomie du tableau moduix.
-Utilisez `flexRender` pour les en-têtes et les cellules : les définitions de colonnes peuvent contenir
-des valeurs simples ou des fonctions de rendu React.
+Définissez des entrées `ColumnDef<typeof features, Payment>` typées, déclarez les fonctionnalités
+requises avec `tableFeatures()`, puis créez une instance de tableau avec `useTable`. Projetez ses
+groupes d’en-têtes et ses cellules visibles dans l’anatomie du tableau moduix. Utilisez `flexRender`
+pour les en-têtes et les cellules : les définitions de colonnes peuvent contenir des valeurs simples
+ou des fonctions de rendu React.
 
 <style>{`
       .data-table {
@@ -93,7 +94,7 @@ des valeurs simples ou des fonctions de rendu React.
       }
     `}</style>
 
-```tsx preview file="../../en/docs/_snippets/data-table/basic.tsx"
+```tsx preview file="../../en/recipes/_snippets/data-table/basic.tsx"
 
 ```
 
@@ -106,7 +107,7 @@ au métier.
 Dans les exemples, `payments` et `columns` sont définis hors des composants, afin que TanStack Table
 reçoive les mêmes références entre les rendus. Lorsque les données ou les colonnes dépendent des
 props ou de l’état, utilisez `useMemo` pour le tableau résultant au lieu de le créer directement dans
-le composant ou de transmettre `data.filter(...)` à `useReactTable`. De nouvelles références forcent
+le composant ou de transmettre `data.filter(...)` à `useTable`. De nouvelles références forcent
 TanStack Table à recalculer et peuvent provoquer des boucles de rendu React. Consultez la
 [FAQ](https://tanstack.com/table/latest/docs/faq) de TanStack pour l’explication complète.
 
@@ -119,10 +120,14 @@ sa colonne.
 
 ## Tri, filtrage, pagination et sélection
 
-Ajoutez uniquement les modèles de lignes TanStack nécessaires au tableau. Dans l’exemple ci-dessous,
-le tri et les filtres de colonnes sont contrôlés dans l’état React, la colonne d’e-mail est filtrée,
-les lignes sont sélectionnées selon leurs identifiants de paiement stables et cinq lignes sont
-affichées par page.
+Ajoutez uniquement les fonctionnalités et les modèles de lignes TanStack nécessaires au tableau. Dans
+l’exemple ci-dessous, le tri et les filtres de colonnes sont contrôlés dans l’état React, la colonne
+d’e-mail est filtrée, les lignes sont sélectionnées selon leurs identifiants de paiement stables et
+cinq lignes sont affichées par page.
+
+TanStack Table v9 supprime les fonctions de filtrage et de tri inutilisées. Enregistrez dans
+`tableFeatures()` uniquement les fonctions intégrées utilisées par le tableau : cette recette ajoute
+`includesString`, `alphanumeric` et `text`, plutôt qu’un registre complet.
 
 <style>{`
       .data-table {
@@ -168,7 +173,7 @@ affichées par page.
       }
     `}</style>
 
-```tsx preview file="../../en/docs/_snippets/data-table/sorting-filtering-and-pagination.tsx"
+```tsx preview file="../../en/recipes/_snippets/data-table/sorting-filtering-and-pagination.tsx"
 
 ```
 
@@ -185,10 +190,16 @@ correspondantes côté client. Cette configuration remplace les modèles de lign
 l’exemple interactif :
 
 ```tsx
-const table = useReactTable({
+const features = tableFeatures({
+  columnFilteringFeature,
+  rowPaginationFeature,
+  rowSortingFeature,
+});
+
+const table = useTable({
+  features,
   data: response.rows,
   columns,
-  getCoreRowModel: getCoreRowModel(),
   manualFiltering: true,
   manualPagination: true,
   manualSorting: true,
@@ -200,8 +211,8 @@ const table = useReactTable({
 });
 ```
 
-N’ajoutez pas `getFilteredRowModel`, `getSortedRowModel` ou `getPaginationRowModel` pour le comportement
-correspondant géré par le serveur : TanStack suppose que `response.rows` reflète déjà la requête.
+N’ajoutez pas `filteredRowModel`, `sortedRowModel` ou `paginatedRowModel` à `features` pour le
+comportement correspondant géré par le serveur : TanStack suppose que `response.rows` reflète déjà la requête.
 Transmettez `pageCount` à la place de `rowCount` si c’est ce que fournit l’API. `manualPagination`
 désactive aussi la réinitialisation habituelle de la page : remettez donc `pagination.pageIndex` à `0`
 chaque fois qu’un filtre ou un tri distant change, sinon l’API peut renvoyer une page vide. Consultez
@@ -237,7 +248,7 @@ Table présente les transformations disponibles côté client. Son
 [guide de sélection des lignes](https://tanstack.com/table/latest/docs/guide/row-selection) explique
 l’état de sélection contrôlé et la sélection au niveau de la page, tandis que
 l’[adaptateur React](https://tanstack.com/table/latest/docs/framework/react/react-table) documente
-`useReactTable`. La page moduix [Table (en anglais)](https://moduix.dev/docs/table) décrit la structure
+`useTable`. La page moduix [Table (en anglais)](https://moduix.dev/docs/table) décrit la structure
 rendue et ses hooks de style.
 
 Avec `manualPagination`, conservez l’état `rowSelection` complet pour les actions portant sur

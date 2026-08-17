@@ -24,7 +24,7 @@ export function Home() {
   const t = useI18n<typeof import('i18n')>();
   const docsPath = useLocalizedPath('/docs/');
   const componentsPath = useLocalizedPath('/docs/components');
-  const dataTablePath = useLocalizedPath('/docs/data-table');
+  const dataTablePath = useLocalizedPath('/recipes/data-table');
   return (
     <main className={`${styles.home} moduix-home`}>
       <div className={styles.spotlight} />

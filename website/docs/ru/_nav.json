@@ -2,15 +2,17 @@
   {
     "text": "navDocs",
     "link": "/docs/",
-    "activeMatch": "^/docs/$"
+    "activeMatch": "^/ru/docs/?$"
   },
   {
     "text": "navComponents",
-    "link": "/docs/components"
+    "link": "/docs/components",
+    "activeMatch": "^/ru/docs/components/?$"
   },
   {
     "text": "navRecipes",
-    "link": "/docs/recipes"
+    "link": "/recipes",
+    "activeMatch": "^/ru/recipes(?:/|$)"
   },
   {
     "text": "navGitHub",
