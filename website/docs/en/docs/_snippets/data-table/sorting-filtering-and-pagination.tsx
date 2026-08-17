@@ -4,12 +4,20 @@ import { Checkbox } from '@moduix/react/checkbox';
 import { Input } from '@moduix/react/input';
 import { Table } from '@moduix/react/table';
 import {
+  columnFilteringFeature,
+  columnVisibilityFeature,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
+  filterFn_includesString,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+  rowPaginationFeature,
+  rowSelectionFeature,
+  rowSortingFeature,
+  sortFn_alphanumeric,
+  sortFn_text,
+  tableFeatures,
+  useTable,
   type ColumnDef,
   type ColumnFiltersState,
   type RowSelectionState,
@@ -17,6 +25,19 @@ import {
 } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { useState } from 'react';
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  filteredRowModel: createFilteredRowModel(),
+  filterFns: { includesString: filterFn_includesString },
+  columnVisibilityFeature,
+  rowPaginationFeature,
+  paginatedRowModel: createPaginatedRowModel(),
+  rowSelectionFeature,
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
+});
 
 type Payment = {
   id: string;
@@ -36,7 +57,7 @@ const payments: Payment[] = [
   { id: '1b78e240', status: 'success', email: 'tina52@example.com', amount: 668 },
 ];
 
-const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<typeof features, Payment>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -120,18 +141,15 @@ export default function InteractiveDataTableDemo() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data: payments,
     columns,
     getRowId: (row) => row.id,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
-    initialState: { pagination: { pageSize: 5 } },
+    initialState: { pagination: { pageIndex: 0, pageSize: 5 } },
     state: { columnFilters, rowSelection, sorting },
   });
 
@@ -217,7 +235,7 @@ export default function InteractiveDataTableDemo() {
 
       <div className="data-table-pagination">
         <span>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Page {table.state.pagination.pageIndex + 1} of {table.getPageCount()}
         </span>
         <div>
           <Button

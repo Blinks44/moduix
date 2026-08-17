@@ -5,12 +5,20 @@ import { InputGroup } from '@moduix/react/input-group';
 import { Menu } from '@moduix/react/menu';
 import { Table } from '@moduix/react/table';
 import {
+  columnFilteringFeature,
+  columnVisibilityFeature,
+  createFilteredRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
+  filterFn_includesString,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+  rowPaginationFeature,
+  rowSelectionFeature,
+  rowSortingFeature,
+  sortFn_alphanumeric,
+  sortFn_text,
+  tableFeatures,
+  useTable,
   type ColumnDef,
   type ColumnFiltersState,
   type RowSelectionState,
@@ -39,6 +47,19 @@ type ComponentRow = {
   status: 'Stable' | 'Preview';
   updated: string;
 };
+
+const features = tableFeatures({
+  columnFilteringFeature,
+  filteredRowModel: createFilteredRowModel(),
+  filterFns: { includesString: filterFn_includesString },
+  columnVisibilityFeature,
+  rowPaginationFeature,
+  paginatedRowModel: createPaginatedRowModel(),
+  rowSelectionFeature,
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text },
+});
 
 const componentRows: ComponentRow[] = [
   {
@@ -235,7 +256,7 @@ const columnWidths = {
   updated: 118,
 };
 
-const columns: ColumnDef<ComponentRow>[] = [
+const columns: ColumnDef<typeof features, ComponentRow>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -343,18 +364,15 @@ function DataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data: componentRows,
     columns,
     getRowId: (row) => row.id,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
-    initialState: { pagination: { pageSize: 6 } },
+    initialState: { pagination: { pageIndex: 0, pageSize: 6 } },
     state: { columnFilters, rowSelection, sorting },
   });
 
@@ -466,7 +484,7 @@ function DataTable() {
             <ArrowLeft size={16} aria-hidden="true" />
           </Button>
           <span className={styles.pageSummary}>
-            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            Page {table.state.pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <Button
             type="button"
@@ -487,7 +505,7 @@ function DataTable() {
 function ColumnVisibilityMenu({
   table,
 }: {
-  table: ReturnType<typeof useReactTable<ComponentRow>>;
+  table: ReturnType<typeof useTable<typeof features, ComponentRow>>;
 }) {
   return (
     <Menu closeOnSelect={false} positioning={{ placement: 'bottom-end', gutter: 8 }}>

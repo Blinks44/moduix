@@ -17,7 +17,7 @@
     "@moduix/react": "*",
     "@rspress/core": "^2.0.18",
     "@tanstack/react-form": "^1.33.0",
-    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-table": "^9.1.2",
     "@tanstack/react-virtual": "^3.13.23",
     "clsx": "^2.1.1",
     "lucide-react": "^1.21.0",
