@@ -11,8 +11,8 @@
   },
   {
     "text": "navRecipes",
-    "link": "/docs/recipes",
-    "activeMatch": "^/fr/docs/recipes/?$"
+    "link": "/recipes",
+    "activeMatch": "^/fr/recipes(?:/|$)"
   },
   {
     "text": "navGitHub",
