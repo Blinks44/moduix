@@ -188,7 +188,7 @@ function TreeNode({ node, indexPath }) {
 - Keep docs imports from `@moduix/react`, including TreeView hooks and types; direct Ark imports are
   escape hatches only.
 - Keep `NodeProvider` unstyled; it is the context boundary and does not render a public styling slot.
-- When registry-shipped tree-view source changes, run `npm run build:registry`.
+- When registry-shipped tree-view source changes, run `pnpm run build:registry`.
 
 ## Local changelog
 

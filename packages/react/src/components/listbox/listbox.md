@@ -193,7 +193,7 @@ and `--moduix-spacing-1` block padding. Listbox-specific variables still take pr
 
 - Keep package barrel exports aligned with the component file.
 - Docs import from `@moduix/react`, not local component paths.
-- When registry-shipped listbox source changes, run `npm run build:registry`.
+- When registry-shipped listbox source changes, run `pnpm run build:registry`.
 
 ## Local changelog
 

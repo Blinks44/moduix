@@ -185,11 +185,11 @@ Read [Tokens](https://moduix.dev/docs/tokens) for the full hierarchy and
 | `website`        | Documentation site, examples, and registry artifacts.          |
 | `registry`       | Source manifest used to build shadcn-compatible registry JSON. |
 
-The workspace uses npm, Turborepo, oxlint, oxfmt, and Changesets.
+The workspace uses pnpm, Turborepo, oxlint, oxfmt, and Changesets.
 
 ```bash
-npm install
-npm run dev:docs
+pnpm install
+pnpm run dev:docs
 ```
 
 `dev:docs` starts Rspress together with the React package watcher. The watcher updates
@@ -199,21 +199,21 @@ are published to npm.
 For a clean CI or release check, with `dev:docs` stopped, run the repository checks in order:
 
 ```bash
-npm run fmt:fix
-npm run lint:check
-npm run build:react
-npm run tsc:check
+pnpm run fmt:fix
+pnpm run lint:check
+pnpm run build:react
+pnpm run tsc:check
 ```
 
-`npm run build:docs` is an optional production/CI check, not a development command: Turbo performs a
-clean React dependency build. Stop `npm run dev:docs` before running it; for normal docs work, keep
+`pnpm run build:docs` is an optional production/CI check, not a development command: Turbo performs a
+clean React dependency build. Stop `pnpm run dev:docs` before running it; for normal docs work, keep
 using the watcher and do not run a separate build.
 
-`npm run tsc:check` intentionally does not trigger a package build. It can run while the docs watcher
+`pnpm run tsc:check` intentionally does not trigger a package build. It can run while the docs watcher
 is active and checks the current `dist`. The full-check sequence above builds React first only for a
 clean CI or release environment.
 
-Run `npm run build:registry` after changing registry-shipped React source.
+Run `pnpm run build:registry` after changing registry-shipped React source.
 
 ## Acknowledgements
 

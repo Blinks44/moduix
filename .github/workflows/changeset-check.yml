@@ -60,5 +60,5 @@ jobs:
           fi
 
           echo "::error::This PR changes releasable files in packages/react but does not include a changeset file in .changeset/*.md"
-          echo "Run 'npm run changeset' and commit the generated file."
+          echo "Run 'pnpm run changeset' and commit the generated file."
           exit 1

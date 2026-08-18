@@ -40,18 +40,18 @@ jobs:
           echo "::error::Tag ${GITHUB_REF_NAME} does not point to a commit on main."
           exit 1
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
+          cache: pnpm
           registry-url: https://registry.npmjs.org
 
-      - name: Setup npm
-        run: npm install --global npm@11.17.0
-
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Validate tag matches package version
         shell: bash
@@ -67,19 +67,19 @@ jobs:
           fi
 
       - name: Check formatting
-        run: npm run fmt:check
+        run: pnpm run fmt:check
 
       - name: Check lint
-        run: npm run lint:check
+        run: pnpm run lint:check
 
       - name: Build React
-        run: npm run build:react
+        run: pnpm run build:react
 
       - name: Check package contract
-        run: npm run check:package
+        run: pnpm run check:package
 
       - name: Check TypeScript
-        run: npm run tsc:check
+        run: pnpm run tsc:check
 
       - name: Check if package version is already published
         id: release-check
@@ -93,7 +93,7 @@ jobs:
           echo "package_name=${package_name}" >> "$GITHUB_OUTPUT"
           echo "package_version=${package_version}" >> "$GITHUB_OUTPUT"
 
-          if npm view "${package_name}@${package_version}" version >/dev/null 2>&1; then
+          if pnpm view "${package_name}@${package_version}" version >/dev/null 2>&1; then
             echo "publish_required=false" >> "$GITHUB_OUTPUT"
             echo "Version ${package_name}@${package_version} already exists on npm. Skipping publish."
             exit 0
@@ -104,4 +104,4 @@ jobs:
 
       - name: Publish packages
         if: steps.release-check.outputs.publish_required == 'true'
-        run: npm run changeset:release
+        run: pnpm run changeset:release

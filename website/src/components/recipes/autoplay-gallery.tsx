@@ -57,10 +57,10 @@ export function AutoplayGallery() {
       autoplay={{ delay: 3500 }}
       className={styles.gallery}
       loop
-      padding="var(--moduix-spacing-8)"
+      padding="var(--autoplay-gallery-padding, var(--moduix-spacing-8))"
       slideCount={slides.length}
       slidesPerPage={1.12}
-      spacing="var(--moduix-spacing-4)"
+      spacing="var(--autoplay-gallery-spacing, var(--moduix-spacing-4))"
     >
       <Carousel.Context>
         {(api) => (

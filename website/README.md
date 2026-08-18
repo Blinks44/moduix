@@ -7,10 +7,10 @@ This is the moduix documentation site built with Rspress.
 Run commands from the monorepo root:
 
 ```bash
-npm run dev --workspace moduix-docs
-npm run build:docs
-npm run tsc:check --workspace moduix-docs
-npm run deploy:docs
+pnpm --filter moduix-docs dev
+pnpm run build:docs
+pnpm run tsc:check --filter moduix-docs
+pnpm run deploy:docs
 ```
 
 Rspress writes the production site to `website/doc_build`. The deploy command publishes that
@@ -39,5 +39,3 @@ English is the default locale. Russian translation is delivered incrementally: u
 Russian counterpart, omit it from Russian navigation and locale-filtered collections. Do not add an
 implicit English fallback or a link that produces a Russian 404. Add the page and its navigation entry
 when its translation is ready, and keep existing locale pairs aligned when the English source changes.
-
-See [MIGRATION.md](./MIGRATION.md) for the implementation report and deployment procedure.

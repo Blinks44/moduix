@@ -33,6 +33,6 @@ relevant documentation skills. `ui-component-workflow` owns the synchronization 
 
 After code changes, run from the repository root:
 
-- `npm run fmt:fix`
-- `npm run lint:check`
-- `npm run tsc:check`
+- `pnpm run fmt:fix`
+- `pnpm run lint:check`
+- `pnpm run tsc:check`

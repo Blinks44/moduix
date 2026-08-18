@@ -2,10 +2,6 @@
   "name": "moduix-monorepo",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "website",
-    "packages/*"
-  ],
   "scripts": {
     "build": "turbo run build",
     "build:docs": "turbo run build -F moduix-docs",
@@ -14,7 +10,7 @@
     "check:package": "publint packages/react && attw --pack packages/react --entrypoints ./button ./locale --profile esm-only",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:release": "npm run build:react && changeset publish",
+    "changeset:release": "pnpm run build:react && changeset publish",
     "deploy:docs": "turbo run deploy -F moduix-docs",
     "dev:docs": "turbo run dev -F moduix-docs...",
     "dev:storybook": "turbo run storybook -F @moduix/react",
@@ -23,7 +19,7 @@
     "lint:check": "oxlint",
     "lint:fix": "oxlint --fix",
     "prepare": "husky",
-    "publish:react": "npm publish -w @moduix/react",
+    "publish:react": "pnpm --filter @moduix/react publish",
     "test": "turbo run test",
     "tsc:check": "turbo run tsc:check"
   },
@@ -40,13 +36,7 @@
   },
   "engines": {
     "node": ">=24",
-    "npm": ">=11"
+    "pnpm": ">=11.20.0"
   },
-  "packageManager": "npm@11.0.0",
-  "allowScripts": {
-    "esbuild": true,
-    "fsevents": true,
-    "sharp": true,
-    "workerd": true
-  }
+  "packageManager": "pnpm@11.20.0"
 }

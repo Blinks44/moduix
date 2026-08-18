@@ -210,7 +210,7 @@ The trigger defaults to `--moduix-size-md`. Single-line popup items default to `
 - Keep `Positioner` and `Content` explicit; only portal transport belongs to the root.
 - Keep package barrel exports aligned with the component file. Docs import from `moduix`, not local
   component paths.
-- When registry-shipped select source changes, run `npm run build:registry`.
+- When registry-shipped select source changes, run `pnpm run build:registry`.
 
 ## Mount lifecycle
 
