@@ -91,6 +91,10 @@
       "types": "./dist/components/carousel/index.d.ts",
       "import": "./dist/components/carousel/index.js"
     },
+    "./chart": {
+      "types": "./dist/components/chart/index.d.ts",
+      "import": "./dist/components/chart/index.js"
+    },
     "./checkbox": {
       "types": "./dist/components/checkbox/index.d.ts",
       "import": "./dist/components/checkbox/index.js"
@@ -418,6 +422,7 @@
     "@rstest/core": "^0.11.6",
     "@storybook/addon-docs": "^10.5.3",
     "@storybook/react": "^10.5.3",
+    "@tanstack/charts": "^0.14.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -434,7 +439,13 @@
   },
   "peerDependencies": {
     "@ark-ui/react": "^5.37.2",
+    "@tanstack/charts": "^0.14.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/charts": {
+      "optional": true
+    }
   }
 }

@@ -11,6 +11,7 @@ export * from './components/bleed';
 export * from './components/breadcrumbs';
 export * from './components/button';
 export * from './components/card';
+export * from './components/chart';
 export * from './components/checkbox';
 export * from './components/clipboard';
 export * from './components/close-button';

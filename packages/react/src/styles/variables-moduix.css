@@ -399,6 +399,35 @@
   --moduix-card-title-line-height-lg: initial; /* var(--moduix-line-height-text-xl) */
   --moduix-card-title-line-height-sm: initial; /* var(--moduix-line-height-text-md) */
 
+  /* Chart */
+  --moduix-chart-axis-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-chart-bg: initial; /* var(--moduix-color-card) */
+  --moduix-chart-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-chart-border-width: initial; /* var(--moduix-border-width-sm) */
+  --moduix-chart-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-chart-focus-ring-offset: initial; /* var(--moduix-focus-ring-offset) */
+  --moduix-chart-focus-ring-width: initial; /* var(--moduix-focus-ring-width, var(--moduix-border-width-md)) */
+  --moduix-chart-gap: initial; /* var(--moduix-spacing-5) */
+  --moduix-chart-padding: initial; /* var(--moduix-spacing-5) */
+  --moduix-chart-plot-radius: initial; /* var(--moduix-radius-md) */
+  --moduix-chart-radius: initial; /* var(--moduix-radius-lg) */
+  --moduix-chart-shadow: initial; /* var(--moduix-shadow-sm) */
+  --moduix-chart-tooltip-bg: initial; /* var(--moduix-color-popover) */
+  --moduix-chart-tooltip-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-chart-tooltip-border-width: initial; /* var(--moduix-border-width-sm) */
+  --moduix-chart-tooltip-column-gap: initial; /* var(--moduix-spacing-2) */
+  --moduix-chart-tooltip-color: initial; /* var(--moduix-color-popover-foreground) */
+  --moduix-chart-tooltip-content-gap: initial; /* var(--moduix-spacing-3) */
+  --moduix-chart-tooltip-font-size: initial; /* var(--moduix-text-xs) */
+  --moduix-chart-tooltip-label-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-chart-tooltip-line-height: initial; /* var(--moduix-line-height-text-xs) */
+  --moduix-chart-tooltip-padding: initial; /* var(--moduix-spacing-3) */
+  --moduix-chart-tooltip-radius: initial; /* var(--moduix-radius-md) */
+  --moduix-chart-tooltip-row-gap: initial; /* var(--moduix-spacing-1) */
+  --moduix-chart-tooltip-shadow: initial; /* var(--moduix-shadow-lg) */
+  --moduix-chart-tooltip-swatch-size: initial; /* var(--moduix-spacing-2-5) */
+  --moduix-chart-tooltip-value-color: initial; /* var(--moduix-color-popover-foreground) */
+
   /* Checkbox */
   --moduix-checkbox-bg: initial; /* var(--moduix-color-background) */
   --moduix-checkbox-bg-checked: initial; /* var(--moduix-color-primary) */

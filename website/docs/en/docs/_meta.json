@@ -112,6 +112,11 @@
   },
   {
     "type": "file",
+    "name": "chart",
+    "tag": "component"
+  },
+  {
+    "type": "file",
     "name": "checkbox",
     "tag": "component"
   },

@@ -36,6 +36,33 @@ function CardDrawing() {
   );
 }
 
+function Chart() {
+  return (
+    <Drawing>
+      <Panel height={64} width={132} x={22} y={16} />
+      <Rule tone="faint" width={1} x1={34} x2={144} y1={68} y2={68} />
+      <Rule tone="faint" width={1} x1={34} x2={34} y1={28} y2={68} />
+      <polyline
+        fill="none"
+        points="38,58 60,47 82,52 104,31 136,38"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+      />
+      {[
+        [38, 58],
+        [60, 47],
+        [82, 52],
+        [104, 31],
+        [136, 38],
+      ].map(([x, y]) => (
+        <Dot radius={3} tone="strong" x={x} y={y} key={`${x}-${y}`} />
+      ))}
+    </Drawing>
+  );
+}
+
 function Heading() {
   return (
     <Drawing>
@@ -274,6 +301,7 @@ const displayContentDrawings = {
   avatar: Avatar,
   badge: Badge,
   card: CardDrawing,
+  chart: Chart,
   heading: Heading,
   highlight: Highlight,
   image: ImageDrawing,

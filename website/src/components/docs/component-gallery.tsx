@@ -99,6 +99,7 @@ const categories = [
       'avatar',
       'badge',
       'card',
+      'chart',
       'heading',
       'highlight',
       'image',
