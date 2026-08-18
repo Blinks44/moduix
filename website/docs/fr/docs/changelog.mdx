@@ -1,6 +1,6 @@
 ---
 title: Journal des modifications
-description: Versions du produit, changements incompatibles et politique de prise en charge des versions de moduix.
+description: Versions de moduix, changements incompatibles et politique de prise en charge des versions.
 ---
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
@@ -10,28 +10,28 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 <ChangelogNewsItem>
   <LocalizationHero />
 
-  Les nouvelles localisations offrent un parcours de documentation complet en français et en russe : vous
-  pouvez découvrir un composant, copier un exemple et suivre une recette sans changer de langue en
-  cours de route.
+Les nouvelles versions du site offrent un parcours de documentation complet en français et en russe :
+vous pouvez découvrir un composant, copier un exemple et suivre une recette sans changer de langue
+en cours de route.
 
   ### Contenu de la localisation
 
-  - La documentation complète des composants, les guides de configuration, les références API et les recettes sont publiés dans les deux langues.
-  - La navigation, les métadonnées de pages, les routes tenant compte de la langue et les exemples copiables restent alignés en anglais, français et russe.
+- La documentation complète des composants, les guides de configuration, les références API et les recettes sont publiés dans les deux langues.
+- La navigation, les métadonnées de pages, les routes adaptées à la langue et les exemples copiables restent cohérents en anglais, français et russe.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-  v2 est une version majeure intentionnelle, et non un simple changement cosmétique. Ark UI fournit
-  désormais le comportement et l’accessibilité des composants disposant d’une primitive dédiée,
-  tandis que moduix conserve son CSS natif et ses deux méthodes d’installation.
+v2 est une version majeure assumée, et non un simple changement cosmétique. Ark UI fournit désormais
+le comportement et l’accessibilité des composants disposant d’une primitive dédiée, tandis que moduix
+conserve son CSS natif et ses deux méthodes d’installation.
 
   ### Changements dans v2
 
   - Le comportement et l’accessibilité des composants reposent désormais sur les primitives Ark UI.
-  - La composition publique, l’accès à l’état et les props bas niveau sont alignés sur les contrats Ark.
-  - Le CSS natif ainsi que les installations par paquet ou par copie du code source sont conservés.
+- La composition publique, l’accès à l’état et les propriétés de bas niveau sont alignés sur les contrats Ark.
+- Le CSS natif ainsi que les installations par paquet ou par ajout du code source au projet sont conservés.
 </ChangelogNewsItem>
 
 ## Autres mises à jour
@@ -40,25 +40,25 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 
 - `DatePicker` hérite désormais de `disabled` et `invalid` depuis `Field` et `Fieldset`, ainsi que de `readOnly` et `required` depuis `Field`.
 - `DatePicker.Field` et `DatePicker.RangeField` conservent des index de champs stables pour que les valeurs de formulaire natives restent prévisibles.
-- Les plages `DateInput` génèrent automatiquement des champs natifs indexés tout en préservant les raccourcis clavier et la sémantique d’accessibilité d’Ark.
+- Les champs de plage `DateInput` génèrent automatiquement des champs natifs indexés tout en préservant le comportement au clavier et la sémantique d’accessibilité d’Ark.
 
 ### v2.2.3 - 24 juillet 2026
 
-- Rétablissement de la compatibilité avec l’App Router de Next.js pour les composants copiés qui utilisent des API client locales.
+- Rétablissement de la compatibilité avec l’App Router de Next.js pour les composants copiés qui utilisent des API locales côté client.
 - La flèche de Menu est désormais correctement alignée avec la bordure de la fenêtre contextuelle.
 
 ### v2.2.2 - 24 juillet 2026
 
-- Réorganisation des sources du paquet et des chemins de dépendances afin que la sortie du CLI shadcn reste autonome.
+- Réorganisation des sources du paquet et des chemins de dépendances afin que le résultat produit par le CLI shadcn reste autonome.
 
 ### v2.2.1 - 23 juillet 2026
 
-- Ajout de la variante `island` détachée de Drawer ; son arrière-plan reste visible entre les points d’ancrage.
-- Ajout d’une feuille de référence des variables Ark UI sans runtime pour les outils du dépôt.
+- Ajout de la variante `island` détachée de Drawer ; sa toile de fond reste visible entre les points d’ancrage.
+- Ajout d’une feuille de référence des variables Ark UI, sans code exécuté à l’exécution, pour les outils du dépôt.
 
 ### v2.2.0 - 22 juillet 2026
 
-- Les tokens CSS publics et les calques en cascade sont préfixés avec l’espace de noms `moduix`.
+- Les tokens CSS publics et les calques de cascade sont placés dans l’espace de noms `moduix`.
 
 ### v2.1.0 - 21 juillet 2026
 
@@ -67,11 +67,11 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 
 ## Politique de versions et de support
 
-moduix suit le versioning sémantique. Les versions majeures peuvent inclure des changements
+moduix suit le versionnement sémantique. Les versions majeures peuvent inclure des changements
 incompatibles, les versions mineures ajoutent des fonctionnalités rétrocompatibles et les correctifs
-contiennent des corrections rétrocompatibles.
+apportent des corrections rétrocompatibles.
 
 La dernière version majeure est activement prise en charge. v2 prend en charge React 18 et 19, et
 l’intégration de moduix à Ark UI reste alignée sur les versions actuelles. Pour chaque version majeure,
-cette page recense les API concernées, les étapes de migration et les conséquences pour le paquet ou
+cette page recense les API concernées, les étapes de migration et les implications pour le paquet ou
 le registre.
