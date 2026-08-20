@@ -4,64 +4,86 @@ description: Exemples d’interface prêts à copier-coller, composés à partir
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
+import {
+  AppHeaderCardPreview,
+  AutoplayGalleryCardPreview,
+  DataTableCardPreview,
+  ExpandableAvatarGroupCardPreview,
+  FileUploadManagerCardPreview,
+  ForgotPasswordCardPreview,
+  LoginSimpleCardPreview,
+  MobileDrawerNavigationCardPreview,
+  ParallaxCardCardPreview,
+  ResetPasswordCardPreview,
+  SidebarDashboardCardPreview,
+  SignUpCardPreview,
+  VerificationCodeCardPreview,
+} from '@/components/recipes/recipe-card-previews';
 
 # Recettes
 
-Les recettes sont des exemples prêts à copier-coller pour des modèles d’interface et des parcours
-produit courants. Copiez le composant et le CSS depuis la page de la recette, installez les composants
-moduix qu’elle utilise, puis adaptez ses données et son comportement à votre application.
+Vous trouverez ici des exemples prêts à copier-coller pour des modèles d’interface et des parcours produit
+courants. Reprenez le composant et le CSS depuis une recette, installez les composants moduix nécessaires,
+puis adaptez les données et le comportement à votre application.
 
 ## Structure de l’application
 
 <Cards>
   <Card
     title="En-tête d’application"
-    description="Un en-tête d’application compact avec navigation, notifications et actions liées au compte."
+    description="Une barre d’en-tête compacte avec navigation, notifications et actions liées au compte."
     href="/recipes/app-header"
+    preview={<AppHeaderCardPreview />}
   />
   <Card
     title="Navigation mobile avec tiroir"
-    description="Une structure de navigation mobile accessible avec un tiroir fixé au bord de l’écran."
+    description="Une navigation mobile accessible avec un tiroir fixé au bord de l’écran."
     href="/recipes/mobile-drawer-navigation"
+    preview={<MobileDrawerNavigationCardPreview />}
   />
   <Card
     title="Tableau de bord avec barre latérale"
-    description="Une structure de navigation redimensionnable pour ordinateur, avec éléments imbriqués et menu d’espace de travail."
+    description="Une navigation de bureau redimensionnable, avec éléments imbriqués et menu d’espace de travail."
     href="/recipes/sidebar-dashboard"
+    preview={<SidebarDashboardCardPreview />}
   />
 </Cards>
 
-Utilisez le tiroir mobile seul ou associez-le à la barre latérale pour ordinateur lorsque les mêmes
-destinations doivent fonctionner aux deux points de rupture. L’en-tête d’application peut se placer
-au-dessus de l’une ou l’autre structure.
+Utilisez le tiroir mobile seul ou avec la barre latérale de bureau si les mêmes destinations doivent être
+proposées à plusieurs tailles d’écran. La barre d’en-tête convient aux deux structures.
 
 ## Authentification
 
 <Cards>
   <Card
     title="Connexion simple"
-    description="Connexion par e-mail et mot de passe. Branchez l’authentification, l’état d’attente et les erreurs du serveur."
+    description="Connexion par e-mail et mot de passe. Branchez l’authentification, l’état de chargement et les erreurs du serveur."
     href="/recipes/login-simple"
+    preview={<LoginSimpleCardPreview />}
   />
   <Card
     title="Inscription"
-    description="Création d’un compte avec acceptation des conditions. Ajoutez les contrôles du compte et une route de réussite."
+    description="Création d’un compte avec acceptation des conditions. Ajoutez les vérifications et une page de confirmation."
     href="/recipes/sign-up"
+    preview={<SignUpCardPreview />}
   />
   <Card
     title="Mot de passe oublié"
-    description="Demandez un e-mail de réinitialisation sans révéler si un compte existe."
+    description="Envoi d’un e-mail de réinitialisation sans révéler si un compte existe."
     href="/recipes/forgot-password"
+    preview={<ForgotPasswordCardPreview />}
   />
   <Card
     title="Réinitialisation du mot de passe"
-    description="Choisissez un nouveau mot de passe après vérification du jeton de réinitialisation par le serveur."
+    description="Définition d’un nouveau mot de passe après vérification du jeton par le serveur."
     href="/recipes/reset-password"
+    preview={<ResetPasswordCardPreview />}
   />
   <Card
     title="Code de vérification"
-    description="Saisissez un code à six chiffres reçu par e-mail, avec remplissage automatique OTP sur mobile et gestion du renvoi."
+    description="Saisie d’un code à six chiffres reçu par e-mail, avec remplissage OTP sur mobile et renvoi du code."
     href="/recipes/verification-code"
+    preview={<VerificationCodeCardPreview />}
   />
 </Cards>
 
@@ -70,23 +92,29 @@ au-dessus de l’une ou l’autre structure.
 <Cards>
   <Card
     title="Tableau de données"
-    description="Tri, filtrage, sélection et pagination avec TanStack Table. Commencez uniquement par les états nécessaires à votre produit."
+    description="Tri, filtrage, sélection et pagination avec TanStack Table. Ajoutez uniquement les états nécessaires à votre produit."
     href="/recipes/data-table"
+    preview={<DataTableCardPreview />}
   />
   <Card
     title="Gestionnaire de téléversement de fichiers"
-    description="Sélection et validation locales des fichiers. Branchez le téléversement réel, la progression, les nouvelles tentatives et les erreurs du serveur."
+    description="Sélection et validation locales des fichiers. Branchez le téléversement, la progression, les nouvelles tentatives et les erreurs du serveur."
     href="/recipes/file-upload-manager"
+    preview={<FileUploadManagerCardPreview />}
   />
 </Cards>
 
-## Personnes et identité
+## Personnes
+
+Ces recettes aident à représenter les personnes et les éléments d’identité dans des listes compactes. Pour une
+équipe plus détaillée ou une liste plus longue, préférez une liste de personnes dédiée.
 
 <Cards>
   <Card
     title="Groupe d’avatars extensible"
-    description="Une liste d’équipe compacte et étiquetée pour les petits groupes. Utilisez une liste distincte pour les grandes équipes."
+    description="Une liste d’équipe compacte avec libellés, adaptée aux petits groupes. Pour une grande équipe, utilisez une liste de personnes distincte."
     href="/recipes/expandable-avatar-group"
+    preview={<ExpandableAvatarGroupCardPreview />}
   />
 </Cards>
 
@@ -95,16 +123,18 @@ au-dessus de l’une ou l’autre structure.
 <Cards>
   <Card
     title="Galerie en lecture automatique"
-    description="Un carrousel de contenu à la une avec navigation latérale, texte flouté et indicateurs de progression."
+    description="Un carrousel de contenu à la une avec navigation latérale, texte flouté sur les diapositives et indicateurs de progression."
     href="/recipes/autoplay-gallery"
+    preview={<AutoplayGalleryCardPreview />}
   />
   <Card
     title="Carte avec parallaxe"
-    description="Une carte avec une image plein fond et une légère inclinaison 3D qui suit le pointeur."
+    description="Une carte à image plein cadre avec une légère inclinaison 3D qui suit le pointeur."
     href="/recipes/parallax-card"
+    preview={<ParallaxCardCardPreview />}
   />
 </Cards>
 
-Chaque recette s’arrête volontairement là où commencent vos routes, votre API, vos règles
-d’autorisation et vos outils d’analyse. La page signale ces raccordements à la production afin que
-l’interface copiée ne prétende pas implémenter le comportement du produit.
+Chaque recette s’arrête là où commencent vos routes, votre API, vos règles d’autorisation et vos outils
+d’analyse. La page indique ce qu’il faut brancher en production afin que l’interface copiée ne laisse pas
+croire que toute la logique produit est déjà implémentée.

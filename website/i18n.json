@@ -132,9 +132,9 @@
     "fr": "Quelques composants qui fonctionnent ensemble."
   },
   "homeCompositionDescription": {
-    "en": "Search, selection, menus, and a wide table stay small and composable—ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и легко сочетаются друг с другом — для продуктового экрана, а не маркетингового макета.",
-    "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner — prêts pour un écran produit plutôt qu’une maquette marketing."
+    "en": "Search, selection, menus, and a wide table stay small and composable-ready for a product screen rather than a marketing mockup.",
+    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и легко сочетаются друг с другом - для продуктового экрана, а не маркетингового макета.",
+    "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner - prêts pour un écran produit plutôt qu’une maquette marketing."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
@@ -608,7 +608,7 @@
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",
-    "ru": "Документация на русском и французском уже доступна. Далее — другие языки.",
+    "ru": "Документация на русском и французском уже доступна. Далее - другие языки.",
     "fr": "La documentation en français et en russe est disponible. D’autres langues suivront."
   },
   "v2MigrationHeroDate": {

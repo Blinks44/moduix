@@ -13,7 +13,7 @@ export default function TypesetDemo() {
         </p>
         <h2>Everyday Markdown</h2>
         <p>
-          Write a normal <code>ul</code> for bullets—no utility class is required. Nested lists use
+          Write a normal <code>ul</code> for bullets-no utility class is required. Nested lists use
           a distinct marker, so their structure stays easy to scan.
         </p>
         <ul>

@@ -171,7 +171,7 @@ Chart / Chart.Root
 ### Горизонтальные столбцы
 
 Используйте `barX`, если подписи категорий длинные или рейтинг должен читаться сверху вниз. Числовое
-значение откладывается по оси x, а категория — по оси y.
+значение откладывается по оси x, а категория - по оси y.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/horizontal-bars.tsx"
@@ -209,7 +209,7 @@ Chart / Chart.Root
 переносит в `header`.
 
 `Chart.Plot` остаётся хостом TanStack, а не слотом: используйте его `className` и `style` для
-внешнего элемента, а `renderTooltipBody` — чтобы дополнить подсказку. Оставляйте `defaultBody` в
+внешнего элемента, а `renderTooltipBody` - чтобы дополнить подсказку. Оставляйте `defaultBody` в
 своём контейнере: TanStack продолжает позиционировать подсказку и рендерить её через портал.
 Интерактивные элементы добавляйте только в закреплённую подсказку.
 
@@ -221,7 +221,7 @@ Chart / Chart.Root
 
 ## Стилизация
 
-Стилизуйте фигуру через `Chart.Root`, а хост TanStack — через `Chart.Plot`. Публичные CSS-свойства
+Стилизуйте фигуру через `Chart.Root`, а хост TanStack - через `Chart.Plot`. Публичные CSS-свойства
 управляют поверхностью, индикатором фокуса, оболочкой подсказки и её стандартной разметкой.
 Геометрия графика остаётся в определении TanStack и настраивается через параметры меток, шкалы и
 цветовые каналы.
@@ -252,7 +252,7 @@ Chart / Chart.Root
 - Стандартная подсказка использует data slots `chart-tooltip-body`,
   `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`,
   `chart-tooltip-label` и `chart-tooltip-value`.
-- Используйте `--moduix-color-chart-1` — `--moduix-color-chart-5` в цветовых шкалах TanStack.
+- Используйте `--moduix-color-chart-1` - `--moduix-color-chart-5` в цветовых шкалах TanStack.
 - Оболочка подсказки стилизуется через документированные переменные `--ts-chart-tooltip-*`,
   связанные со свойствами Moduix. Для собственных CSS-селекторов задайте TanStack
   `tooltip.className`, а для React-содержимого используйте `renderTooltipBody` и нативный

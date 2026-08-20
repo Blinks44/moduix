@@ -33,7 +33,7 @@ import { Presence } from '@ark-ui/react/presence';
 | [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | Нужны относительные даты, например «2 мин назад». | Если есть `LocaleProvider`, берёт локаль из него. |
 | [Format Time](https://ark-ui.com/docs/utilities/format-time) | Нужно локализованно вывести время из `Date` или строки `HH:mm[:ss]`. | Подходит для расписаний, таймеров и лент активности. |
 | [Frame](https://ark-ui.com/docs/utilities/frame) | React-содержимое нужно отрендерить в iframe с доступом к `head` и колбэкам монтирования. | Часто используется вместе с `EnvironmentProvider`, если в iframe есть компоненты Ark или moduix. |
-| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view) | Нужно отладочно просмотреть данные, похожие на JSON. | Не зависит от стилей moduix — используйте Ark напрямую. |
+| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view) | Нужно отладочно просмотреть данные, похожие на JSON. | Не зависит от стилей moduix - используйте Ark напрямую. |
 | [Locale](https://ark-ui.com/docs/utilities/locale) | Локаль и направление должны быть доступны форматтерам Ark и локализуемым примитивам. | Сочетайте с `Format` и RTL-интерфейсами. |
 | [Presence](https://ark-ui.com/docs/utilities/presence) | Приложение само управляет видимостью и монтированием вне готового компонента moduix. | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox и Tour уже поддерживают пропы Presence. |
 
@@ -121,7 +121,7 @@ export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
 }
 ```
 
-Оберните нужное поддерево рядом с альтернативной средой один раз — Ark сам ограничит DOM-запросы правильным
+Оберните нужное поддерево рядом с альтернативной средой один раз - Ark сам ограничит DOM-запросы правильным
 документом.
 
 Полный API приведён в [документации Ark Environment](https://ark-ui.com/docs/utilities/environment).
@@ -163,7 +163,7 @@ export function ActivityTimestamp() {
 - Прежде чем добавлять отдельный `FocusTrap`, воспользуйтесь встроенным управлением фокусом в диалогах и
   всплывающих компонентах moduix.
 
-`FocusTrap` — не универсальное решение для клавиатурной навигации. Он нужен только для по-настоящему
+`FocusTrap` - не универсальное решение для клавиатурной навигации. Он нужен только для по-настоящему
 модального собственного интерфейса. Добавьте доступное имя и действие для закрытия, возвращайте фокус после
 закрытия и выбирайте [Dialog](/docs/dialog) или [Drawer](/docs/drawer), если один из них подходит.
 
