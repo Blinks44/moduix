@@ -67,7 +67,11 @@ export function AutoplayGallery() {
           <>
             <ResumeAutoplayWhenVisible onVisible={api.play} />
             <div className={styles.viewport}>
-              <Carousel.ItemGroup className={styles.itemGroup}>
+              <Carousel.ItemGroup
+                className={styles.itemGroup}
+                onTouchStart={api.pause}
+                onWheel={api.pause}
+              >
                 {slides.map((slide, index) => (
                   <Carousel.Item
                     key={slide.id}
