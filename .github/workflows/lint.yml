@@ -23,41 +23,41 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-
-      - name: Setup npm
-        run: npm install --global npm@11.17.0
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Check formatting
-        run: npm run fmt:check
+        run: pnpm run fmt:check
 
       - name: Check lint
-        run: npm run lint:check
+        run: pnpm run lint:check
 
       - name: Build React
-        run: npm run build:react
+        run: pnpm run build:react
 
       - name: Run tests
-        run: npm run test
+        run: pnpm run test
 
       - name: Check TypeScript
-        run: npm run tsc:check
+        run: pnpm run tsc:check
 
       - name: Build docs
-        run: npm run build:docs
+        run: pnpm run build:docs
 
       - name: Build registry
-        run: npm run build:registry
+        run: pnpm run build:registry
 
       - name: Check generated registry
         run: git diff --exit-code -- website/docs/public/r/react
 
       - name: Check package contract
-        run: npm run check:package
+        run: pnpm run check:package

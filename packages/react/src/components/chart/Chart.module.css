@@ -1,0 +1,151 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    gap: var(--moduix-chart-gap, var(--moduix-spacing-5));
+    margin: 0;
+    padding: var(--moduix-chart-padding, var(--moduix-spacing-5));
+    border: var(--moduix-chart-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-chart-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-chart-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-chart-bg, var(--moduix-color-card));
+    box-shadow: var(--moduix-chart-shadow, var(--moduix-shadow-sm));
+    color: var(--moduix-color-card-foreground);
+  }
+
+  .plot {
+    min-width: 0;
+    border-radius: var(--moduix-chart-plot-radius, var(--moduix-radius-md));
+    color: var(--moduix-chart-axis-color, var(--moduix-color-muted-foreground));
+
+    --ts-chart-tooltip-background: var(--moduix-chart-tooltip-bg, var(--moduix-color-popover));
+    --ts-chart-tooltip-border: var(
+        --moduix-chart-tooltip-border-width,
+        var(--moduix-border-width-sm)
+      )
+      solid var(--moduix-chart-tooltip-border-color, var(--moduix-color-border));
+    --ts-chart-tooltip-border-radius: var(--moduix-chart-tooltip-radius, var(--moduix-radius-md));
+    --ts-chart-tooltip-color: var(
+      --moduix-chart-tooltip-color,
+      var(--moduix-color-popover-foreground)
+    );
+    --ts-chart-tooltip-font: var(--moduix-weight-medium)
+      var(--moduix-chart-tooltip-font-size, var(--moduix-text-xs)) /
+      var(--moduix-chart-tooltip-line-height, var(--moduix-line-height-text-xs))
+      var(--moduix-font-sans);
+    --ts-chart-tooltip-padding: var(--moduix-chart-tooltip-padding, var(--moduix-spacing-3));
+    --ts-chart-tooltip-shadow: var(--moduix-chart-tooltip-shadow, var(--moduix-shadow-lg));
+
+    & :global(.ts-chart) {
+      border-radius: var(--moduix-chart-plot-radius, var(--moduix-radius-md));
+      outline: none;
+    }
+
+    & :global(.ts-chart:focus-visible) {
+      outline: var(
+          --moduix-chart-focus-ring-width,
+          var(--moduix-focus-ring-width, var(--moduix-border-width-md))
+        )
+        solid var(--moduix-chart-focus-ring-color, var(--moduix-color-ring));
+      outline-offset: var(--moduix-chart-focus-ring-offset, var(--moduix-focus-ring-offset));
+    }
+  }
+
+  .header {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .title {
+    margin: 0;
+    color: currentColor;
+    font-size: var(--moduix-text-lg);
+    font-weight: var(--moduix-weight-semibold);
+    line-height: var(--moduix-line-height-text-lg);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--moduix-spacing-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legendItem {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-color-muted-foreground);
+    font-size: var(--moduix-text-sm);
+    line-height: var(--moduix-line-height-text-sm);
+
+    &::before {
+      width: var(--moduix-spacing-2-5);
+      height: var(--moduix-spacing-2-5);
+      flex: none;
+      border-radius: var(--moduix-radius-full);
+      background-color: var(
+        --moduix-chart-legend-indicator-color,
+        var(--moduix-color-muted-foreground)
+      );
+      box-shadow: inset 0 0 0 var(--moduix-border-width-sm) rgb(0 0 0 / 8%);
+      content: '';
+    }
+  }
+
+  .defaultTooltipContent,
+  .tooltipRows {
+    display: grid;
+    gap: var(--moduix-spacing-1);
+  }
+
+  .tooltipTitle {
+    display: flex;
+    align-items: center;
+    gap: var(--moduix-spacing-2);
+    color: var(--moduix-color-popover-foreground);
+    font-weight: var(--moduix-weight-semibold);
+  }
+
+  .tooltipRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--moduix-spacing-2);
+
+    &[data-has-swatch] {
+      grid-template-columns: var(--moduix-spacing-2-5) minmax(0, 1fr) auto;
+    }
+  }
+
+  .tooltipSwatch {
+    width: var(--moduix-spacing-2-5);
+    height: var(--moduix-spacing-2-5);
+    border-radius: var(--moduix-radius-full);
+    box-shadow: inset 0 0 0 var(--moduix-border-width-sm) rgb(0 0 0 / 8%);
+  }
+
+  .tooltipLabel {
+    min-width: 0;
+    color: var(--moduix-color-muted-foreground);
+  }
+
+  .tooltipValue {
+    color: var(--moduix-color-popover-foreground);
+    font-weight: var(--moduix-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+}

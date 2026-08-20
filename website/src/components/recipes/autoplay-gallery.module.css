@@ -57,7 +57,9 @@
   z-index: 1;
   inset-inline: var(--moduix-spacing-5);
   inset-block-end: var(--moduix-spacing-5);
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--moduix-spacing-1);
   max-width: min(34rem, calc(100% - var(--moduix-spacing-10)));
   color: white;
@@ -79,13 +81,18 @@
 }
 
 .title {
+  max-width: 22ch;
   font-size: clamp(var(--moduix-text-xl), 3vw, var(--moduix-text-3xl));
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 .description {
+  max-width: 52ch;
   color: color-mix(in oklab, white 84%, transparent);
   font-size: var(--moduix-text-sm);
   line-height: var(--moduix-line-height-text-sm);
+  text-wrap: pretty;
 }
 
 .control {
@@ -154,16 +161,25 @@
 }
 
 @media (max-width: 40rem) {
+  .gallery {
+    --autoplay-gallery-padding: var(--moduix-spacing-5);
+    --autoplay-gallery-spacing: var(--moduix-spacing-2);
+  }
+
   .item {
     min-height: 0;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 5 / 4;
   }
 
   .copy {
     inset-inline: var(--moduix-spacing-3);
     inset-block-end: var(--moduix-spacing-3);
     max-width: calc(100% - var(--moduix-spacing-6));
-    padding: var(--moduix-spacing-3) var(--moduix-spacing-4);
+  }
+
+  .title {
+    font-size: var(--moduix-text-md);
+    line-height: var(--moduix-line-height-text-md);
   }
 
   .description {

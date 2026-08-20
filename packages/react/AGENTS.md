@@ -4,10 +4,10 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 
 ## Commands
 
-- `npm run build` - Build the library for production
-- `npm run dev` - Turn on watch mode, watch for changes and rebuild the library
-- `npm run test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
+- `pnpm --filter @moduix/react build` - Build the library for production
+- `pnpm --filter @moduix/react dev` - Turn on watch mode, watch for changes and rebuild the library
+- `pnpm --filter @moduix/react test` - Run tests
+- `pnpm --filter @moduix/react test:watch` - Run tests in watch mode
 
 ## Docs
 
@@ -20,5 +20,5 @@ You are an expert in JavaScript, Rspack, Rsbuild, Rslib, and library development
 
 ### Storybook
 
-- Run `npm run storybook` to start Storybook development server
-- Run `npm run build:storybook` to build Storybook for production
+- Run `pnpm --filter @moduix/react storybook` to start Storybook development server
+- Run `pnpm --filter @moduix/react build:storybook` to build Storybook for production

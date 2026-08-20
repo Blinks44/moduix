@@ -6,6 +6,7 @@
     max-inline-size: 100%;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
+    scrollbar-width: none;
     --moduix-toggle-color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
     gap: var(--moduix-toggle-group-gap, var(--moduix-border-width-sm));
     padding: var(--moduix-toggle-group-padding, var(--moduix-border-width-md));
@@ -14,6 +15,10 @@
     border-radius: var(--moduix-toggle-group-radius, var(--moduix-radius-lg));
     background-color: var(--moduix-toggle-group-bg, var(--moduix-color-muted));
     color: var(--moduix-toggle-group-color, var(--moduix-color-foreground));
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &[data-orientation='vertical'] {
       flex-direction: column;

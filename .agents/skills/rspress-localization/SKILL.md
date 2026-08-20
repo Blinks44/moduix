@@ -35,6 +35,25 @@ Treat localization as technical editing, not string substitution.
 - Preserve Markdown/MDX structure, frontmatter field names, links, anchors, fenced-code languages, and syntax. Translate visible link text where appropriate, not the destination unless the locale has a real corresponding route.
 - Review target-language typography, grammar, punctuation, capitalization, terminology, and naturalness. Reject unreviewed, awkward, or incomplete machine translation.
 
+## Required language pass
+
+After translating or editing reader-facing prose, review every changed paragraph as a native reader
+would, independently of the source text. Rephrase it when it sounds translated rather than written
+for that language.
+
+- Translate the meaning and the documentation intent, not the source sentence's word order or
+  grammar. Prefer a short, direct sentence over a literal construction.
+- Preserve public identifiers exactly, but translate surrounding prose into the target language.
+  Do not leave English implementation phrasing such as `layout` or `application-owned` in ordinary
+  reader-facing text when the language has a natural equivalent.
+- Replace calques with idiomatic wording. For example, write «свой контейнер» or «своя разметка»
+  instead of «собственный layout» in Russian, and «un conteneur de votre choix» rather than «votre
+  propre layout» in French.
+- Read changed sentences in their local paragraph, not in isolation. Check that pronouns, article
+  choice, technical terms, and sentence rhythm are natural in the target language.
+- When no idiomatic translation is clear, simplify the explanation. Do not preserve an awkward
+  source-language metaphor or invent a pseudo-technical term.
+
 ## Choose the smallest native mechanism
 
 The best localization solution is the simplest one that meets the reader's need with Rspress's public API. Prefer a locale file, `i18n.json`, or one documented hook over a new abstraction. Add a helper only when those mechanisms genuinely cannot express the requirement; keep it shared, small, and tied to a concrete need.
@@ -90,7 +109,9 @@ Locale pages may use a different relative `file` directive solely to reference t
 1. Compare affected locales for route, MDX structure, frontmatter, navigation, links, and shared UI behavior. Report intentional gaps.
 2. Search `website/src` for manual locale branches and in-component language dictionaries.
 3. Confirm every referenced i18n key has text for every configured locale.
-4. Read the translation as a target-language document: verify semantic completeness, preserved identifiers, consistent terminology, grammar, locale formatting, accessible text, and reader-ready language.
+4. Complete the required language pass. Read the translation as a target-language document: verify
+   semantic completeness, preserved identifiers, consistent terminology, grammar, locale formatting,
+   accessible text, and reader-ready language.
 5. Build the docs when the change affects routes, MDX file references, navigation, or links; otherwise run proportionate TypeScript and lint checks.
 6. If the installed Rspress version supports `languageParity`, consider enabling it with explicit includes/excludes. Do not add unsupported configuration.
 

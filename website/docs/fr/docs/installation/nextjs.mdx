@@ -1,12 +1,12 @@
 ---
 title: Next.js
-description: Installez moduix dans le routeur App de Next.js avec CSS racine et limites explicites de composants client.
+description: "Intégrez moduix à l’App Router de Next.js : CSS partagé dans le layout racine et frontières client explicites."
 ---
 
 # Next.js
 
-Dans l'App Router, chargez le CSS de moduix depuis le layout racine et placez les composants interactifs sous une
-limite client.
+Dans l’App Router, importez le CSS de moduix depuis le layout racine et placez les composants interactifs à
+l’intérieur d’une frontière client.
 
 ## Installer le paquet
 
@@ -38,8 +38,8 @@ export function ContinueButton() {
 }
 ```
 
-Les composants serveur peuvent afficher du balisage ordinaire autour de cette limite. Ils doivent transmettre des
-données sérialisables au composant client plutôt que des gestionnaires d'événements.
+Les composants serveur peuvent afficher du balisage ordinaire autour de cette frontière. Transmettez au composant
+client des données sérialisables plutôt que des gestionnaires d’événements.
 
 ## Installer avec la CLI shadcn
 
@@ -51,13 +51,13 @@ layout racine :
 import '@/lib/moduix/styles/style.css';
 ```
 
-La CLI shadcn ajoute `use client` aux composants générés qui en ont besoin. Votre propre wrapper composé nécessite
-toujours la directive s'il possède un état, des effets ou des gestionnaires d'événements.
+La CLI shadcn ajoute `use client` aux composants générés qui en ont besoin. Ajoutez aussi la directive à votre propre
+wrapper composé s’il contient un état, des effets ou des gestionnaires d’événements.
 
 ## Vérifier
 
-La configuration est terminée lorsque les styles sont présents dans la première réponse et que les composants
-interactifs ne signalent ni erreur de limite serveur/client ni erreur d'hydratation.
+La configuration est prête lorsque les styles sont présents dès la première réponse et que les composants interactifs
+ne provoquent ni erreur de frontière serveur/client ni erreur d’hydratation.
 
 Consultez les guides Next.js sur le [CSS](https://nextjs.org/docs/app/getting-started/css) et la
 [directive `use client`](https://nextjs.org/docs/app/api-reference/directives/use-client).

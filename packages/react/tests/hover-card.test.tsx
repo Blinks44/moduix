@@ -39,7 +39,7 @@ test('opens from a focused trigger and keeps Ark open-change details', async () 
   fireEvent.focus(screen.getByRole('button', { name: 'Profile' }));
 
   await waitFor(() => expect(screen.getByText('open')).toBeVisible());
-  expect(screen.getByTestId('content')).toHaveAttribute('data-state', 'open');
+  expect(await screen.findByTestId('content')).toHaveAttribute('data-state', 'open');
 });
 
 test('does not mount a disabled hover card before it opens', () => {

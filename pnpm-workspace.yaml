@@ -1,0 +1,9 @@
+packages:
+  - website
+  - packages/*
+
+allowBuilds:
+  esbuild: true
+  fsevents: true
+  sharp: true
+  workerd: true

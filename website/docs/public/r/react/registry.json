@@ -453,6 +453,31 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "moduix React Chart component backed by TanStack Charts.",
+      "dependencies": ["@tanstack/charts", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/chart/Chart.tsx",
+          "target": "@components/moduix/chart/Chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/chart/Chart.module.css",
+          "target": "@components/moduix/chart/Chart.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/chart/index.ts",
+          "target": "@components/moduix/chart/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "checkbox",
       "type": "registry:item",
       "title": "Checkbox",

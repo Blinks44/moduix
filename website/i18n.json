@@ -108,8 +108,8 @@
   },
   "homeLead": {
     "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
-    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS-основой на базе токенов, которую можно настраивать темой или хранить в проекте.",
-    "fr": "Des composants React accessibles, des valeurs par défaut réfléchies, une composition explicite et une base CSS fondée sur les tokens, à personnaliser ou à posséder."
+    "ru": "Доступные React-компоненты с выверенными настройками по умолчанию, явной композицией и CSS-основой на токенах, которую можно настраивать темой или включить в код проекта.",
+    "fr": "Des composants React accessibles, avec des valeurs par défaut réfléchies, une composition explicite et une base CSS pilotée par des tokens, que vous pouvez personnaliser par thème ou maîtriser directement dans votre projet."
   },
   "homeGetStarted": {
     "en": "Get started",
@@ -133,13 +133,218 @@
   },
   "homeCompositionDescription": {
     "en": "Search, selection, menus, and a wide table stay small and composable—ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и компонуемыми — готовыми для продуктового экрана, а не маркетингового макета.",
-    "fr": "Recherche, sélection, menus et tableau large restent compacts et composables, prêts pour un écran produit plutôt qu'une maquette marketing."
+    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и легко сочетаются друг с другом — для продуктового экрана, а не маркетингового макета.",
+    "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner — prêts pour un écran produit plutôt qu’une maquette marketing."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
-    "ru": "Изучить паттерн таблицы",
-    "fr": "Explorer le modèle de tableau"
+    "ru": "Посмотреть паттерн таблицы",
+    "fr": "Découvrir le modèle de tableau"
+  },
+  "homeWorkspaceDesignSystem": {
+    "en": "Design system",
+    "ru": "Дизайн-система",
+    "fr": "Système de design"
+  },
+  "homeWorkspaceCheckoutFlow": {
+    "en": "Checkout flow",
+    "ru": "Оформление заказа",
+    "fr": "Parcours de paiement"
+  },
+  "homeWorkspaceMapsWidgets": {
+    "en": "Maps widgets",
+    "ru": "Виджеты карт",
+    "fr": "Widgets cartographiques"
+  },
+  "homeSelectWorkspace": {
+    "en": "Select workspace",
+    "ru": "Выберите рабочее пространство",
+    "fr": "Sélectionnez un espace de travail"
+  },
+  "homeShowcaseActions": {
+    "en": "Actions",
+    "ru": "Действия",
+    "fr": "Actions"
+  },
+  "homeShowcaseStatus": {
+    "en": "Status",
+    "ru": "Статус",
+    "fr": "Statut"
+  },
+  "homeReleaseControls": {
+    "en": "Release controls",
+    "ru": "Управление релизом",
+    "fr": "Contrôles de publication"
+  },
+  "homeFastActions": {
+    "en": "Fast actions with real states",
+    "ru": "Быстрые действия с актуальными статусами",
+    "fr": "Actions rapides avec de vrais états"
+  },
+  "homePublishUpdate": {
+    "en": "Publish update",
+    "ru": "Опубликовать обновление",
+    "fr": "Publier la mise à jour"
+  },
+  "homePreview": {
+    "en": "Preview",
+    "ru": "Предпросмотр",
+    "fr": "Aperçu"
+  },
+  "homeShare": {
+    "en": "Share",
+    "ru": "Поделиться",
+    "fr": "Partager"
+  },
+  "homePrimaryAction": {
+    "en": "Primary CTA",
+    "ru": "Основное действие",
+    "fr": "Action principale"
+  },
+  "homeDefaultVariant": {
+    "en": "Default variant",
+    "ru": "Вариант по умолчанию",
+    "fr": "Variante par défaut"
+  },
+  "homeSecondaryAction": {
+    "en": "Secondary path",
+    "ru": "Альтернативное действие",
+    "fr": "Action secondaire"
+  },
+  "homeOutlineAndGhost": {
+    "en": "Outline and ghost",
+    "ru": "Контурный и прозрачный",
+    "fr": "Contour et transparent"
+  },
+  "homeFlowHealth": {
+    "en": "Flow health",
+    "ru": "Состояние процесса",
+    "fr": "État du flux"
+  },
+  "homeToggleAndProgress": {
+    "en": "Toggle and progress in one pass",
+    "ru": "Переключатель и прогресс в одном интерфейсе",
+    "fr": "Interrupteur et progression dans un même aperçu"
+  },
+  "homeAutoReview": {
+    "en": "Auto-review before release",
+    "ru": "Автопроверка перед релизом",
+    "fr": "Validation automatique avant publication"
+  },
+  "homeReleaseReadiness": {
+    "en": "Release readiness",
+    "ru": "Готовность к релизу",
+    "fr": "Prêt pour la publication"
+  },
+  "homeChecksEnabled": {
+    "en": "Checks enabled",
+    "ru": "Проверки включены",
+    "fr": "Vérifications activées"
+  },
+  "homeManualReview": {
+    "en": "Manual review only",
+    "ru": "Только ручная проверка",
+    "fr": "Révision manuelle uniquement"
+  },
+  "homeAdvance": {
+    "en": "Advance",
+    "ru": "Продолжить",
+    "fr": "Avancer"
+  },
+  "homeApprovalFlow": {
+    "en": "Approval flow",
+    "ru": "Согласование",
+    "fr": "Flux d’approbation"
+  },
+  "homeOpenModal": {
+    "en": "Open the modal directly in the hero",
+    "ru": "Откройте модальное окно прямо в шапке",
+    "fr": "Ouvrez la modale directement dans l’en-tête"
+  },
+  "homeDialogPreviewDescription": {
+    "en": "The preview stays compact, but the interaction is real and uses the shipped dialog API.",
+    "ru": "Предпросмотр остаётся компактным, но взаимодействие в нём настоящее и использует API Dialog из библиотеки.",
+    "fr": "L’aperçu reste compact, mais l’interaction est réelle et utilise l’API Dialog fournie par la bibliothèque."
+  },
+  "homeReviewChanges": {
+    "en": "Review changes",
+    "ru": "Проверить изменения",
+    "fr": "Examiner les modifications"
+  },
+  "homePublishRelease": {
+    "en": "Publish release?",
+    "ru": "Опубликовать релиз?",
+    "fr": "Publier la version ?"
+  },
+  "homePublishReleaseDescription": {
+    "en": "Push the updated components and docs to the shared workspace.",
+    "ru": "Отправьте обновлённые компоненты и документацию в общее рабочее пространство.",
+    "fr": "Envoyez les composants et la documentation mis à jour dans l’espace de travail partagé."
+  },
+  "homeBack": {
+    "en": "Back",
+    "ru": "Назад",
+    "fr": "Retour"
+  },
+  "homeApprove": {
+    "en": "Approve",
+    "ru": "Подтвердить",
+    "fr": "Approuver"
+  },
+  "homeInspectApi": {
+    "en": "Inspect API",
+    "ru": "Открыть API",
+    "fr": "Consulter l’API"
+  },
+  "homeFocusManagement": {
+    "en": "Focus management",
+    "ru": "Управление фокусом",
+    "fr": "Gestion du focus"
+  },
+  "homeBuiltIn": {
+    "en": "Built in",
+    "ru": "Встроено",
+    "fr": "Intégrée"
+  },
+  "homeShowcaseComposition": {
+    "en": "Composition",
+    "ru": "Композиция",
+    "fr": "Composition"
+  },
+  "homeTriggerContentFooter": {
+    "en": "Trigger, content, footer",
+    "ru": "Триггер, содержимое, подвал",
+    "fr": "Déclencheur, contenu, pied de page"
+  },
+  "homeWorkspacePicker": {
+    "en": "Workspace picker",
+    "ru": "Выбор рабочего пространства",
+    "fr": "Sélecteur d’espace de travail"
+  },
+  "homeInteractiveSelect": {
+    "en": "Interactive select with current value",
+    "ru": "Интерактивный Select с текущим значением",
+    "fr": "Select interactif avec valeur actuelle"
+  },
+  "homeActiveWorkspace": {
+    "en": "Active workspace",
+    "ru": "Активное рабочее пространство",
+    "fr": "Espace de travail actif"
+  },
+  "homeSelected": {
+    "en": "Selected",
+    "ru": "Выбрано",
+    "fr": "Sélectionné"
+  },
+  "homePattern": {
+    "en": "Pattern",
+    "ru": "Паттерн",
+    "fr": "Modèle"
+  },
+  "homeFieldTriggerList": {
+    "en": "Field, trigger, list",
+    "ru": "Поле, триггер, список",
+    "fr": "Champ, déclencheur, liste"
   },
   "primitiveReferenceTitle": {
     "en": "Upstream primitive API",
@@ -403,8 +608,8 @@
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",
-    "ru": "Русский и французский уже доступны. Другие языки — скоро.",
-    "fr": "Le français et le russe sont disponibles. D’autres langues arrivent."
+    "ru": "Документация на русском и французском уже доступна. Далее — другие языки.",
+    "fr": "La documentation en français et en russe est disponible. D’autres langues suivront."
   },
   "v2MigrationHeroDate": {
     "en": "July 19, 2026",
@@ -413,13 +618,13 @@
   },
   "v2MigrationHeroTitle": {
     "en": "A new component foundation",
-    "ru": "Новая основа компонентов",
-    "fr": "Une nouvelle fondation pour les composants"
+    "ru": "Новая основа для компонентов",
+    "fr": "Une nouvelle base pour les composants"
   },
   "v2MigrationHeroSummary": {
     "en": "A deliberate Ark UI foundation for accessible components.",
-    "ru": "Осознанная основа на Ark UI для доступных компонентов.",
-    "fr": "Une fondation Ark UI pensée pour des composants accessibles."
+    "ru": "Продуманная основа на базе Ark UI для доступных компонентов.",
+    "fr": "Une base Ark UI pensée pour créer des composants accessibles."
   },
   "componentGalleryCategoryFormInputTitle": {
     "en": "Form & Input",
@@ -428,8 +633,8 @@
   },
   "componentGalleryCategoryFormInputDescription": {
     "en": "Inputs, selection controls, field composition, and form-ready controls.",
-    "ru": "Поля ввода, элементы выбора, композиция полей и элементы управления для форм.",
-    "fr": "Champs de saisie, contrôles de sélection, composition de champs et contrôles prêts pour les formulaires."
+    "ru": "Всё для форм: поля ввода, элементы выбора, композиция полей и готовые элементы управления.",
+    "fr": "Champs de saisie, contrôles de sélection, composition de champs et éléments prêts à l’emploi pour vos formulaires."
   },
   "componentGalleryCategoryLayoutNavigationTitle": {
     "en": "Layout & Navigation",
@@ -438,8 +643,8 @@
   },
   "componentGalleryCategoryLayoutNavigationDescription": {
     "en": "Structure product screens, reveal content, and guide people through them.",
-    "ru": "Структурируйте экраны продукта, открывайте содержимое и направляйте пользователей.",
-    "fr": "Structurez les écrans produit, révélez le contenu et guidez les utilisateurs."
+    "ru": "Компоненты для структуры экранов, раскрытия содержимого и навигации по интерфейсу.",
+    "fr": "Structurez les écrans de votre produit, affichez le bon contenu et guidez les utilisateurs."
   },
   "componentGalleryCategoryOverlaysDialogsTitle": {
     "en": "Overlays & Dialogs",
@@ -448,18 +653,18 @@
   },
   "componentGalleryCategoryOverlaysDialogsDescription": {
     "en": "Focused surfaces for commands, details, help, and temporary workflows.",
-    "ru": "Сфокусированные поверхности для команд, подробностей, помощи и временных сценариев.",
-    "fr": "Surfaces ciblées pour les commandes, les détails, l'aide et les flux temporaires."
+    "ru": "Контекстные поверхности для команд, деталей, подсказок и временных сценариев.",
+    "fr": "Des surfaces contextuelles pour les commandes, les détails, l’aide et les parcours temporaires."
   },
   "componentGalleryCategoryFeedbackStatusTitle": {
     "en": "Feedback & Status",
-    "ru": "Обратная связь и статус",
-    "fr": "Retour et état"
+    "ru": "Состояния и обратная связь",
+    "fr": "États et retours"
   },
   "componentGalleryCategoryFeedbackStatusDescription": {
     "en": "Communicate progress, empty states, loading, and actionable messages.",
-    "ru": "Сообщайте о ходе выполнения, пустых состояниях, загрузке и доступных действиях.",
-    "fr": "Communiquez la progression, les états vides, le chargement et les messages actionnables."
+    "ru": "Показывайте ход выполнения, загрузку, пустые состояния и сообщения с дальнейшими действиями.",
+    "fr": "Indiquez la progression, le chargement, les états vides et les messages qui invitent à agir."
   },
   "componentGalleryCategoryDisplayContentTitle": {
     "en": "Display & Content",
@@ -468,8 +673,8 @@
   },
   "componentGalleryCategoryDisplayContentDescription": {
     "en": "Present identity, media, data, keyboard hints, and supporting information.",
-    "ru": "Представляйте идентификационные данные, медиа, данные, подсказки клавиатуры и дополнительную информацию.",
-    "fr": "Présentez l'identité, les médias, les données, les raccourcis clavier et les informations complémentaires."
+    "ru": "Показывайте идентификационные данные, медиа, данные, сочетания клавиш и дополнительную информацию.",
+    "fr": "Présentez l’identité, les médias, les données, les raccourcis clavier et les informations complémentaires."
   },
   "componentGalleryCategoryActionsUtilitiesTitle": {
     "en": "Actions & Utilities",
@@ -478,8 +683,8 @@
   },
   "componentGalleryCategoryActionsUtilitiesDescription": {
     "en": "Small interaction primitives for common product actions and patterns.",
-    "ru": "Небольшие примитивы взаимодействия для распространённых действий и паттернов продукта.",
-    "fr": "De petits primitifs d'interaction pour les actions et modèles produit courants."
+    "ru": "Компактные примитивы для типовых действий и сценариев в интерфейсе.",
+    "fr": "Des primitives d’interaction compactes pour les actions et les modèles courants de votre produit."
   },
   "componentGalleryMoreTitle": {
     "en": "More components",
@@ -488,8 +693,8 @@
   },
   "componentGalleryMoreDescription": {
     "en": "New components remain visible here until they receive a category.",
-    "ru": "Новые компоненты остаются здесь видимыми, пока не получат категорию.",
-    "fr": "Les nouveaux composants restent visibles ici jusqu'à ce qu'ils reçoivent une catégorie."
+    "ru": "Новые компоненты остаются здесь, пока для них не появится подходящая категория.",
+    "fr": "Les nouveaux composants restent ici tant qu’une catégorie adaptée ne leur a pas été attribuée."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",

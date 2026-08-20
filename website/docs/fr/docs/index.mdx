@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: Ce qu'est moduix, comment il est conçu et quel modèle de possession correspond à votre projet.
+description: Ce qu'est moduix, comment il est conçu et quel mode d’intégration convient à votre projet.
 ---
 
 import { OwnershipLayers } from '@/components/docs/ownership-layers';
@@ -10,68 +10,68 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 moduix est un système de composants React stylisés construit sur [Ark UI](https://ark-ui.com/). Il combine
 les primitives d'interaction accessibles d'Ark avec des valeurs par défaut réfléchies, une composition
-explicite et un socle CSS fondé sur les tokens, conçu pour les interfaces produit.
+explicite et un socle de tokens CSS conçu pour les interfaces produit.
 
 Pour l'essayer dès maintenant, choisissez une méthode d'installation dans le
 [Démarrage rapide](/docs/quick-start), ajoutez `Button` à votre application, puis revenez ici quand vous aurez
 besoin d'une vue d'ensemble plus complète du système.
 
-Le langage visuel et l'expérience de distribution du code source sont
-[inspirés de shadcn/ui](https://ui.shadcn.com/) : les composants doivent avoir un aspect soigné
-sans configuration préalable, et leur code source doit rester lisible et facile à adapter dans votre application.
+Le langage visuel et le mode de distribution du code source sont [inspirés de shadcn/ui](https://ui.shadcn.com/) :
+les composants doivent avoir un aspect soigné sans personnalisation préalable, et leur code source doit
+rester lisible et facile à adapter dans votre application.
 
-## Choisissez votre modèle de possession
+## Choisissez votre mode d’intégration
 
-Choisissez le paquet npm pour des mises à jour gérées par le gestionnaire de paquets. Choisissez
-le registre shadcn quand vous voulez que le code source des composants, les styles et les
-utilitaires soient dans votre dépôt.
+Choisissez le paquet npm pour des mises à jour gérées par votre gestionnaire de paquets. Choisissez
+le registre shadcn si vous voulez conserver le code source des composants, les styles et les
+utilitaires dans votre dépôt.
 
-| Flux de travail | Imports | Meilleur usage |
+| Mode | Imports | Recommandé si |
 | --- | --- | --- |
-| Paquet npm | `@moduix/react/*` | Mises à jour centralisées et volume minimal de code appartenant à l'application. |
-| Registre shadcn avec code source dans le projet | `@/components/moduix/*` | Possession directe du code source et modifications locales intentionnelles. |
+| Paquet npm | `@moduix/react/*` | Vous souhaitez des mises à jour centralisées et réduire au minimum le code géré par l’application. |
+| Registre shadcn avec code source dans le projet | `@/components/moduix/*` | Vous souhaitez contrôler directement le code source et effectuer des modifications locales délibérées. |
 
-Les deux flux de travail livrent les mêmes contrats de composants et le même système de tokens.
-Le [Démarrage rapide](/docs/quick-start) couvre la configuration complète pour chaque approche.
+Les deux approches fournissent les mêmes contrats de composants et le même système de tokens. Le
+[Démarrage rapide](/docs/quick-start) explique la configuration complète de chacune.
 
 <OwnershipLayers />
 
 ## Ce que signifie « basé sur Ark »
 
 Les composants complexes préservent le modèle Ark UI : parties nommées, état contrôlé et non
-contrôlé, objet `details` dans les callbacks, fournisseurs de contexte, composition `asChild`,
-contrôles de formulaire natifs et attributs d'état. moduix ajoute des styles, des valeurs par
-défaut, une composition pratique et des hooks `data-slot` stables, sans masquer la structure des
-primitives nécessaire aux scénarios produit avancés.
+contrôlé, objets `details` transmis aux callbacks, fournisseurs de contexte, composition `asChild`,
+contrôles de formulaire natifs et attributs d'état. moduix ajoute des styles, des valeurs par défaut,
+des compositions pratiques et des hooks `data-slot` stables, sans masquer la structure des primitives
+nécessaire aux scénarios produit avancés.
 
-Ark UI reste la source de vérité pour le comportement des interactions et l'accessibilité. moduix
-est la couche produit orientée qui se pose au-dessus.
+Ark UI reste la référence pour le comportement des interactions et l'accessibilité. moduix ajoute
+par-dessus une couche produit avec des choix assumés.
 
 ## Ce que signifie « inspiré de shadcn »
 
 L'inspiration est pratique, pas seulement cosmétique :
 
 - des valeurs par défaut soignées qui paraissent cohérentes avant toute personnalisation ;
-- une composition lisible plutôt que des wrappers surchargés de configuration ;
-- des variables CSS ouvertes et un code source faciles à inspecter ;
+- une composition lisible plutôt que des composants enveloppes surchargés de configuration ;
+- des variables CSS et un code source ouverts, faciles à inspecter ;
 - un registre shadcn pour installer le code source dans le projet ;
-- une documentation qui présente d'abord le chemin principal sans masquer les possibilités de personnalisation.
+- une documentation qui présente d'abord le chemin principal sans masquer les options de bas niveau.
 
-moduix ne requiert pas Tailwind CSS et ne remplace pas l'anatomie Ark par des contrats de wrappers
-spécifiques à shadcn. Le CSS natif et les CSS Modules restent le socle du style.
+moduix ne requiert pas Tailwind CSS et ne remplace pas l'anatomie Ark par des contrats de composants
+enveloppes propres à shadcn. Le CSS natif et les CSS Modules restent le socle du style.
 
 ## Le contrat de style
 
-La densité par défaut utilise des contrôles principaux de `36px` et des lignes de popup de `32px`
-via `--moduix-size-md` et `--moduix-size-sm`. Les champs de saisie, les boutons, les déclencheurs
-Select et Combobox, les contrôles de date, la pagination, les éléments de menu et les patrons
-associés partagent la même échelle.
+Par défaut, les principaux contrôles font `36px` de haut et les lignes des éléments contextuels
+`32px`, grâce à `--moduix-size-md` et `--moduix-size-sm`. Les champs de saisie, les boutons, les
+déclencheurs Select et Combobox, les contrôles de date, la pagination, les éléments de menu et les
+composants associés partagent la même échelle.
 
 Les couleurs, l'espacement, les rayons, la typographie, les anneaux de focus, les animations, les
-ombres et les décisions propres aux composants sont exprimés en propriétés CSS personnalisées.
-Substituez un token sémantique pour modifier tout le système, un token de famille partagée pour
-ajuster les composants liés, ou une variable `--<component>-*` pour une exception locale. Consultez
-[Tokens](/docs/tokens) pour la hiérarchie complète et [Thèmes](/docs/themes) pour les préréglages
+ombres et les décisions propres aux composants sont définis par des variables CSS personnalisées.
+Remplacez un token sémantique pour modifier tout le système, un token de famille partagé pour ajuster
+les composants liés, ou une variable `--<component>-*` pour une exception locale. Consultez
+[Tokens](/docs/tokens) pour la hiérarchie complète et [Thèmes](/docs/themes) pour des préréglages
 prêts à l'emploi.
 
 ## Par où commencer
@@ -79,7 +79,7 @@ prêts à l'emploi.
 <Cards>
   <Card
     title="Démarrage rapide"
-    description="Choisissez l'installation par paquet ou avec code source dans le projet, et affichez le premier composant."
+    description="Choisissez l’installation par paquet ou ajoutez le code source au projet, puis affichez le premier composant."
     href="/docs/quick-start"
   />
   <Card
@@ -89,53 +89,53 @@ prêts à l'emploi.
   />
   <Card
     title="Tokens"
-    description="Comprenez les tokens globaux, les valeurs par défaut partagées et les portées de substitution locales."
+    description="Comprenez les tokens globaux, les valeurs par défaut partagées et les zones de surcharge locales."
     href="/docs/tokens"
   />
 </Cards>
 
-## Continuer avec
+## À poursuivre avec
 
 <Cards>
   <Card
     title="Animations"
-    description="Ajustez les animations partagées et les transitions au niveau des composants."
-    href="https://moduix.dev/docs/animations"
+    description="Ajustez les animations partagées et les transitions de chaque composant."
+    href="/docs/animations"
   />
   <Card
     title="Collections"
-    description="Modélisez les données pour les sélecteurs, les comboboxes, les arborescences et autres composants de collection."
-    href="https://moduix.dev/docs/collections"
+    description="Modélisez les données pour les sélecteurs, les comboboxes, les arborescences et les autres composants de collection."
+    href="/docs/collections"
   />
   <Card
-    title="Patrons de composition"
-    description="Apprenez les arbres de parties recommandés, les wrappers, les fournisseurs et les points de sortie bas niveau."
-    href="https://moduix.dev/docs/composition-patterns"
+    title="Modèles de composition"
+    description="Découvrez les arbres de parties recommandés, les composants enveloppes, les fournisseurs et les options de bas niveau."
+    href="/docs/composition-patterns"
   />
   <Card
     title="Formulaires"
-    description="Connectez les contrôles aux formulaires natifs et aux bibliothèques de gestion d'état de formulaire."
-    href="https://moduix.dev/docs/forms"
+    description="Connectez les contrôles aux formulaires natifs et aux bibliothèques de gestion de l’état des formulaires."
+    href="/docs/forms"
   />
   <Card
     title="Utilitaires"
-    description="Utilisez directement les utilitaires Ark quand un wrapper stylisé n'est pas nécessaire."
-    href="https://moduix.dev/docs/utilities"
+    description="Utilisez directement les utilitaires Ark lorsqu’un composant enveloppe stylisé n’est pas nécessaire."
+    href="/docs/utilities"
   />
 </Cards>
 
 ## Remerciements
 
-moduix est possible grâce au travail et aux idées de ces projets :
+moduix est rendu possible par le travail et les idées de ces projets :
 
-- [Ark UI](https://ark-ui.com/) pour les primitives accessibles, fondées sur des machines à états,
+- [Ark UI](https://ark-ui.com/) pour les primitives accessibles fondées sur des machines à états,
   qui définissent le socle comportemental.
-- [Chakra UI](https://chakra-ui.com/) pour l'ergonomie de composition alignée sur Ark et le
-  savoir-faire en design system qui continuent d'informer moduix.
-- [shadcn/ui](https://ui.shadcn.com/) pour la distribution en code ouvert, les belles valeurs par
-  défaut et un style de documentation centré sur la possession pratique.
-- [UnoCSS](https://unocss.dev/) et [Tailwind CSS](https://tailwindcss.com/) pour les bases
-  adaptées par le reset optionnel.
-- [Rstack](https://rstack.rs/) pour son écosystème Rust : Rspress pour la documentation, Rslib pour la construction
-  de la bibliothèque et Rstest pour les tests.
-- [VoidZero](https://voidzero.dev/) pour les outils JavaScript utilisés dans tout l'espace de travail.
+- [Chakra UI](https://chakra-ui.com/) pour l’ergonomie de composition alignée sur Ark et le
+  savoir-faire en design system qui continuent d’inspirer moduix.
+- [shadcn/ui](https://ui.shadcn.com/) pour la distribution de code ouvert, les belles valeurs par
+  défaut et un style de documentation centré sur la maîtrise concrète du code.
+- [UnoCSS](https://unocss.dev/) et [Tailwind CSS](https://tailwindcss.com/) pour les bases adaptées
+  par le reset optionnel.
+- [Rstack](https://rstack.rs/) pour son écosystème Rust : Rspress pour la documentation, Rslib pour
+  la construction de la bibliothèque et Rstest pour les tests.
+- [VoidZero](https://voidzero.dev/) pour les outils JavaScript utilisés dans tout l’espace de travail.

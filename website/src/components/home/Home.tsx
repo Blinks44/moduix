@@ -14,12 +14,6 @@ import { DataTable } from '@/components/recipes/data-table';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Home.module.css';
 
-const workspaceOptions = [
-  { label: 'Design system', value: 'design-system' },
-  { label: 'Checkout flow', value: 'checkout-flow' },
-  { label: 'Maps widgets', value: 'maps-widgets' },
-];
-
 export function Home() {
   const t = useI18n<typeof import('i18n')>();
   const docsPath = useLocalizedPath('/docs/');
@@ -99,13 +93,20 @@ export function Home() {
 }
 
 function HomeShowcase() {
+  const t = useI18n<typeof import('i18n')>();
+  const workspaceOptions = [
+    { label: t('homeWorkspaceDesignSystem'), value: 'design-system' },
+    { label: t('homeWorkspaceCheckoutFlow'), value: 'checkout-flow' },
+    { label: t('homeWorkspaceMapsWidgets'), value: 'maps-widgets' },
+  ];
   const workspaceCollection = createListCollection({ items: workspaceOptions });
   const [automationEnabled, setAutomationEnabled] = useState(true);
   const [progressValue, setProgressValue] = useState(72);
   const [workspaceValue, setWorkspaceValue] = useState<string[]>(['design-system']);
 
   const workspaceLabel =
-    workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ?? 'Select workspace';
+    workspaceOptions.find((item) => item.value === workspaceValue[0])?.label ??
+    t('homeSelectWorkspace');
 
   const handleAutomationChange = (details: { checked: boolean }) => {
     setAutomationEnabled(details.checked);
@@ -124,30 +125,30 @@ function HomeShowcase() {
       <Tabs.Content value="button" className={styles.showcasePanel}>
         <Tabs defaultValue="actions" variant="line" className={styles.nestedTabs}>
           <Tabs.List className={styles.nestedTabsList}>
-            <Tabs.Trigger value="actions">Actions</Tabs.Trigger>
-            <Tabs.Trigger value="status">Status</Tabs.Trigger>
+            <Tabs.Trigger value="actions">{t('homeShowcaseActions')}</Tabs.Trigger>
+            <Tabs.Trigger value="status">{t('homeShowcaseStatus')}</Tabs.Trigger>
             <Tabs.Indicator />
           </Tabs.List>
 
           <Tabs.Content value="actions" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>Release controls</span>
-                <strong>Fast actions with real states</strong>
+                <span className={styles.eyebrow}>{t('homeReleaseControls')}</span>
+                <strong>{t('homeFastActions')}</strong>
               </div>
               <div className={styles.buttonRow}>
-                <Button>Publish update</Button>
-                <Button variant="outline">Preview</Button>
-                <Button variant="ghost">Share</Button>
+                <Button>{t('homePublishUpdate')}</Button>
+                <Button variant="outline">{t('homePreview')}</Button>
+                <Button variant="ghost">{t('homeShare')}</Button>
               </div>
               <div className={styles.miniStats}>
                 <div className={styles.metric}>
-                  <span>Primary CTA</span>
-                  <strong>Default variant</strong>
+                  <span>{t('homePrimaryAction')}</span>
+                  <strong>{t('homeDefaultVariant')}</strong>
                 </div>
                 <div className={styles.metric}>
-                  <span>Secondary path</span>
-                  <strong>Outline and ghost</strong>
+                  <span>{t('homeSecondaryAction')}</span>
+                  <strong>{t('homeOutlineAndGhost')}</strong>
                 </div>
               </div>
             </div>
@@ -156,8 +157,8 @@ function HomeShowcase() {
           <Tabs.Content value="status" className={styles.nestedPanel}>
             <div className={styles.previewCard}>
               <div className={styles.previewHeader}>
-                <span className={styles.eyebrow}>Flow health</span>
-                <strong>Toggle and progress in one pass</strong>
+                <span className={styles.eyebrow}>{t('homeFlowHealth')}</span>
+                <strong>{t('homeToggleAndProgress')}</strong>
               </div>
               <Switch
                 checked={automationEnabled}
@@ -165,23 +166,23 @@ function HomeShowcase() {
                 className={styles.switchRow}
               >
                 <Switch.Control />
-                <Switch.Label>Auto-review before release</Switch.Label>
+                <Switch.Label>{t('homeAutoReview')}</Switch.Label>
               </Switch>
               <ProgressLinear value={progressValue} className={styles.heroProgress}>
-                <ProgressLinear.Label>Release readiness</ProgressLinear.Label>
+                <ProgressLinear.Label>{t('homeReleaseReadiness')}</ProgressLinear.Label>
                 <ProgressLinear.ValueText />
                 <ProgressLinear.Track>
                   <ProgressLinear.Range />
                 </ProgressLinear.Track>
               </ProgressLinear>
               <div className={styles.statusRow}>
-                <span>{automationEnabled ? 'Checks enabled' : 'Manual review only'}</span>
+                <span>{automationEnabled ? t('homeChecksEnabled') : t('homeManualReview')}</span>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setProgressValue((value) => Math.min(value + 9, 100))}
                 >
-                  Advance
+                  {t('homeAdvance')}
                 </Button>
               </div>
             </div>
@@ -192,47 +193,43 @@ function HomeShowcase() {
       <Tabs.Content value="dialog" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>Approval flow</span>
-            <strong>Open the modal directly in the hero</strong>
+            <span className={styles.eyebrow}>{t('homeApprovalFlow')}</span>
+            <strong>{t('homeOpenModal')}</strong>
           </div>
-          <p className={styles.previewText}>
-            The preview stays compact, but the interaction is real and uses the shipped dialog API.
-          </p>
+          <p className={styles.previewText}>{t('homeDialogPreviewDescription')}</p>
           <div className={styles.buttonRow}>
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <Button>Review changes</Button>
+                <Button>{t('homeReviewChanges')}</Button>
               </Dialog.Trigger>
               <Dialog.Backdrop />
               <Dialog.Positioner>
                 <Dialog.Content>
                   <Dialog.Header>
-                    <Dialog.Title>Publish release?</Dialog.Title>
-                    <Dialog.Description>
-                      Push the updated components and docs to the shared workspace.
-                    </Dialog.Description>
+                    <Dialog.Title>{t('homePublishRelease')}</Dialog.Title>
+                    <Dialog.Description>{t('homePublishReleaseDescription')}</Dialog.Description>
                   </Dialog.Header>
                   <Dialog.Footer>
                     <Dialog.CloseTrigger asChild>
-                      <Button variant="outline">Back</Button>
+                      <Button variant="outline">{t('homeBack')}</Button>
                     </Dialog.CloseTrigger>
                     <Dialog.CloseTrigger asChild>
-                      <Button>Approve</Button>
+                      <Button>{t('homeApprove')}</Button>
                     </Dialog.CloseTrigger>
                   </Dialog.Footer>
                 </Dialog.Content>
               </Dialog.Positioner>
             </Dialog.Root>
-            <Button variant="outline">Inspect API</Button>
+            <Button variant="outline">{t('homeInspectApi')}</Button>
           </div>
           <div className={styles.miniStats}>
             <div className={styles.metric}>
-              <span>Focus management</span>
-              <strong>Built in</strong>
+              <span>{t('homeFocusManagement')}</span>
+              <strong>{t('homeBuiltIn')}</strong>
             </div>
             <div className={styles.metric}>
-              <span>Composition</span>
-              <strong>Trigger, content, footer</strong>
+              <span>{t('homeShowcaseComposition')}</span>
+              <strong>{t('homeTriggerContentFooter')}</strong>
             </div>
           </div>
         </div>
@@ -241,8 +238,8 @@ function HomeShowcase() {
       <Tabs.Content value="select" className={styles.showcasePanel}>
         <div className={styles.previewCard}>
           <div className={styles.previewHeader}>
-            <span className={styles.eyebrow}>Workspace picker</span>
-            <strong>Interactive select with current value</strong>
+            <span className={styles.eyebrow}>{t('homeWorkspacePicker')}</span>
+            <strong>{t('homeInteractiveSelect')}</strong>
           </div>
           <div className={styles.heroSelect}>
             <Select
@@ -250,10 +247,10 @@ function HomeShowcase() {
               value={workspaceValue}
               onValueChange={(details) => setWorkspaceValue(details.value)}
             >
-              <Select.Label>Active workspace</Select.Label>
+              <Select.Label>{t('homeActiveWorkspace')}</Select.Label>
               <Select.Control>
                 <Select.Trigger>
-                  <Select.ValueText placeholder="Select workspace" />
+                  <Select.ValueText placeholder={t('homeSelectWorkspace')} />
                   <Select.Indicator />
                 </Select.Trigger>
               </Select.Control>
@@ -272,12 +269,12 @@ function HomeShowcase() {
           </div>
           <div className={styles.miniStats}>
             <div className={styles.metric}>
-              <span>Selected</span>
+              <span>{t('homeSelected')}</span>
               <strong>{workspaceLabel}</strong>
             </div>
             <div className={styles.metric}>
-              <span>Pattern</span>
-              <strong>Field, trigger, list</strong>
+              <span>{t('homePattern')}</span>
+              <strong>{t('homeFieldTriggerList')}</strong>
             </div>
           </div>
         </div>
