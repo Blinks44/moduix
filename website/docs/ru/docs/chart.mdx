@@ -87,10 +87,12 @@ Chart / Chart.Root
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-Используйте `renderTooltipBody`, только когда подсказке нужно React-содержимое. Его TanStack
-`defaultBody` сохраняет нативные заголовок, строки, форматирование и цветовые метки; TanStack
-по-прежнему управляет привязкой, позиционированием, рендерингом в портале, закреплённым состоянием
-и закрытием. Интерактивные элементы добавляйте только при `pinned: true`.
+По умолчанию Chart использует компактную разметку подсказки Moduix: строки без цветовой метки не
+оставляют под неё пустую колонку. Используйте `renderTooltipBody`, только если нужно добавить в
+подсказку React-содержимое. `renderTooltipBody` получает нативный TanStack `defaultBody` с
+заголовком, строками, форматированием и цветовыми метками. TanStack по-прежнему отвечает за привязку,
+позиционирование, портал, закрепление и закрытие подсказки. Интерактивные элементы добавляйте
+только при `pinned: true`.
 
 ### Свойства по умолчанию
 
@@ -208,8 +210,8 @@ Chart / Chart.Root
 
 `Chart.Plot` остаётся хостом TanStack, а не слотом: используйте его `className` и `style` для
 внешнего элемента, а `renderTooltipBody` — чтобы дополнить подсказку. Оставляйте `defaultBody` в
-собственном layout: TanStack продолжает позиционировать подсказку и рендерить её через портал.
-Добавлять интерактивные элементы можно только в закреплённую подсказку.
+своём контейнере: TanStack продолжает позиционировать подсказку и рендерить её через портал.
+Интерактивные элементы добавляйте только в закреплённую подсказку.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/advanced-customization.tsx"
@@ -220,8 +222,9 @@ Chart / Chart.Root
 ## Стилизация
 
 Стилизуйте фигуру через `Chart.Root`, а хост TanStack — через `Chart.Plot`. Публичные CSS-свойства
-управляют поверхностью, индикатором фокуса и нативной оболочкой подсказки. Геометрия графика
-остаётся в определении TanStack и настраивается через параметры меток, шкалы и цветовые каналы.
+управляют поверхностью, индикатором фокуса, оболочкой подсказки и её стандартной разметкой.
+Геометрия графика остаётся в определении TanStack и настраивается через параметры меток, шкалы и
+цветовые каналы.
 
 Передайте корневому элементу класс, если графику нужны локальные переопределения:
 
@@ -246,7 +249,11 @@ Chart / Chart.Root
 - `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`,
   и `Chart.LegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
 - `className` на `Chart.Plot` достигает внешнего элемента `.ts-chart-host`.
+- Стандартная подсказка использует data slots `chart-tooltip-body`,
+  `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`,
+  `chart-tooltip-label` и `chart-tooltip-value`.
 - Используйте `--moduix-color-chart-1` — `--moduix-color-chart-5` в цветовых шкалах TanStack.
-- Нативная подсказка стилизуется через документированные переменные `--ts-chart-tooltip-*`,
-  отображённые в свойства Moduix. Для application-owned селекторов используйте TanStack
-  `tooltip.className`, а для React-содержимого — `renderTooltipBody`.
+- Оболочка подсказки стилизуется через документированные переменные `--ts-chart-tooltip-*`,
+  связанные со свойствами Moduix. Для собственных CSS-селекторов задайте TanStack
+  `tooltip.className`, а для React-содержимого используйте `renderTooltipBody` и нативный
+  `defaultBody`.

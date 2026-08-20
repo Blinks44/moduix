@@ -91,10 +91,11 @@ la surface, utilisez directement le rendu Canvas ou le rendu bas niveau de TanSt
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-Utilisez `renderTooltipBody` uniquement si l’info-bulle a besoin de contenu React. Son `defaultBody`
-TanStack préserve le titre, les lignes, le formatage et les pastilles natifs ; TanStack reste
-responsable de l’ancre, du positionnement, du rendu dans un portail, de l’état épinglé et de la
-fermeture. Ne rendez les contrôles interactifs que lorsque `pinned` vaut `true`.
+Par défaut, Chart utilise une mise en page d’info-bulle Moduix compacte : les lignes sans pastille ne
+réservent pas de colonne vide. Utilisez `renderTooltipBody` uniquement pour ajouter du contenu React.
+Le callback reçoit le `defaultBody` natif de TanStack, avec son titre, ses lignes, son formatage et
+ses pastilles. TanStack continue de gérer l’ancrage, le positionnement, le portail, l’épinglage et la
+fermeture de l’info-bulle. Ne rendez les contrôles interactifs que lorsque `pinned` vaut `true`.
 
 ### Propriétés par défaut
 
@@ -216,7 +217,7 @@ la légende dans le `header`.
 
 `Chart.Plot` reste l’hôte TanStack, et non un slot : utilisez `className` et `style` pour son élément
 externe, et `renderTooltipBody` pour enrichir l’info-bulle. Conservez `defaultBody` dans
-votre propre layout ; TanStack continue à la positionner et à la rendre dans un portail. Les
+un conteneur de votre choix ; TanStack continue à la positionner et à la rendre dans un portail. Les
 contrôles interactifs ne sont sûrs que lorsque l’info-bulle est épinglée.
 
 <PreviewFrame maxWidth="lg">
@@ -228,9 +229,9 @@ contrôles interactifs ne sont sûrs que lorsque l’info-bulle est épinglée.
 ## Styles
 
 Stylisez la figure avec `Chart.Root` et l’hôte TanStack avec `Chart.Plot`. Les propriétés CSS
-publiques contrôlent la surface, l’anneau de focus et l’enveloppe native de l’info-bulle. La
-géométrie du graphique reste définie par TanStack, via les options des marques, les échelles et les
-canaux de couleur.
+publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page
+par défaut. La géométrie du graphique reste définie par TanStack, via les options des marques, les
+échelles et les canaux de couleur.
 
 Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustements locaux :
 
@@ -255,7 +256,11 @@ Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustemen
 - `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`,
   et `Chart.LegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
 - `className` sur `Chart.Plot` atteint l’élément externe `.ts-chart-host`.
+- L’info-bulle par défaut utilise les data slots `chart-tooltip-body`,
+  `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`,
+  `chart-tooltip-label` et `chart-tooltip-value`.
 - Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleur TanStack.
-- L’info-bulle native est stylisée par les variables documentées `--ts-chart-tooltip-*`, mappées
-  depuis les propriétés Moduix. Utilisez `tooltip.className` de TanStack pour les sélecteurs de
-  l’application, ou `renderTooltipBody` pour le contenu React.
+- L’enveloppe de l’info-bulle est stylisée par les variables documentées
+  `--ts-chart-tooltip-*`, mappées depuis les propriétés Moduix. Utilisez `tooltip.className` de
+  TanStack pour vos sélecteurs CSS, ou `renderTooltipBody` lorsque vous devez ajouter du contenu
+  React au `defaultBody` natif.

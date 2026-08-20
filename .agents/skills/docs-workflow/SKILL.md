@@ -23,6 +23,9 @@ This skill owns documentation content and source-to-locale consistency. It does 
 - Keep prose and snippets consumer-facing, complete, and production-like. Do not hide required setup, callbacks, collection data, or Ark composition behind docs-only helpers.
 - Prefer a small local helper to repeated visible ceremony, but never a page builder, hidden DSL, or abstraction that hides the documented composition.
 - Keep demo-only styling in the docs app or example CSS module, separate from library styling.
+- When changing reader-facing prose in a locale page, load `rspress-localization` and complete its
+  target-language review before finishing. A literal but awkward translation is not complete
+  documentation.
 
 ## Cross-locale component-page consistency
 

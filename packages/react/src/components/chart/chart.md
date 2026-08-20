@@ -33,6 +33,10 @@ props, `asChild`, `className`, `style`, and an `HTMLElement` ref.
 `renderer` always takes precedence. Definitions, responsiveness, accessibility props, and callbacks
 pass through unchanged, including TanStack's optional `renderTooltipBody`.
 
+By default, `Chart.Plot` uses a compact Moduix tooltip layout, so rows without a swatch do not
+reserve an empty column. When you provide `renderTooltipBody`, its `defaultBody` remains native to
+TanStack.
+
 `Chart.Header` renders `figcaption`. `Chart.Title`, `Chart.Description`, `Chart.Legend`, and
 `Chart.LegendItem` provide the standard figure context. `Chart.LegendItem` accepts an optional
 `color` for its indicator.
@@ -56,8 +60,11 @@ pass through unchanged, including TanStack's optional `renderTooltipBody`.
 
 The root and presentational parts expose stable `data-scope="chart"`, `data-part`, and `data-slot`
 hooks. `className` and `style` on `Chart.Plot` apply to the outer TanStack host. moduix maps its
-tooltip shell variables to TanStack's official `--ts-chart-tooltip-*` contract. Use TanStack's
-`tooltip.className` for application-owned selectors; do not depend on its internal tooltip markup.
+tooltip shell variables to TanStack's official `--ts-chart-tooltip-*` contract. The compact default
+body exposes `chart-tooltip-body`, `chart-tooltip-title`, `chart-tooltip-rows`,
+`chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label`, and `chart-tooltip-value` data
+slots. Use TanStack's `tooltip.className` for custom selectors; do not depend on its
+internal tooltip markup when using `renderTooltipBody`.
 
 Every plot requires a concise `ariaLabel`. Use `ariaDescription` when the visible title and
 description do not fully explain the data. The root is a `figure` and its header is the first
@@ -74,5 +81,5 @@ description do not fully explain the data. The root is a `figure` and its header
 
 ## Local changelog
 
-- 2026-08-20: Restored TanStack's native default tooltip body and removed Moduix tooltip-body parts
-  and row-level CSS properties; `renderTooltipBody` now passes through unchanged.
+- 2026-08-20: Restored the compact Moduix default tooltip body while preserving TanStack's native
+  `defaultBody` for custom `renderTooltipBody` callbacks.

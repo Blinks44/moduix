@@ -89,10 +89,16 @@ test('uses the static SVG renderer when motion is disabled', () => {
   );
 });
 
-test('keeps the native tooltip body when no custom renderer is supplied', () => {
+test('renders the compact Moduix tooltip body by default', () => {
   render(<Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   expect(screen.queryByTestId('tanstack-default-body')).not.toBeInTheDocument();
+  expect(document.querySelector('[data-slot="chart-tooltip-body"]')).toBeInTheDocument();
+  expect(document.querySelector('[data-slot="chart-tooltip-title"]')).toHaveTextContent('March');
+  expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
+  expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
+  expect(document.querySelector('[data-slot="chart-tooltip-label"]')).toHaveTextContent('Revenue');
+  expect(document.querySelector('[data-slot="chart-tooltip-value"]')).toHaveTextContent('76');
 });
 
 test('passes TanStack’s native default body to a custom tooltip renderer', () => {
