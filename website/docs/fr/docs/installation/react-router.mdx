@@ -1,12 +1,12 @@
 ---
 title: React Router
-description: Installez moduix dans une application React Router avec CSS racine, balisage sûr pour SSR et alias.
+description: "Intégrez moduix à React Router en mode framework : CSS partagé, balisage compatible SSR et alias."
 ---
 
 # React Router
 
-Cette configuration cible le mode framework de React Router. Les applications en mode données peuvent utiliser les
-mêmes imports de paquet dans leur point d'entrée Vite existant.
+Cette configuration concerne React Router en mode framework. En mode données, utilisez les mêmes imports de paquet
+dans votre point d’entrée Vite existant.
 
 ## Installer le paquet
 
@@ -44,15 +44,15 @@ Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la
 }
 ```
 
-Le mode framework de React Router utilise Vite ; reproduisez donc l'alias dans `vite.config.ts` comme indiqué dans
-la [configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn), en remplaçant `./src` par `./app`.
-Importez `@/lib/moduix/styles/style.css` depuis `app/root.tsx`.
+Le mode framework de React Router utilise Vite. Reprenez donc l’alias dans `vite.config.ts` comme indiqué dans la
+[configuration Vite](/docs/installation/vite#installer-avec-la-cli-shadcn), en remplaçant `./src` par `./app`.
+Importez ensuite `@/lib/moduix/styles/style.css` depuis `app/root.tsx`.
 
 ## Vérifier
 
-La configuration est terminée lorsque le rendu serveur initial correspond à la page hydratée et que les composants
-interactifs fonctionnent après l'hydratation. Ne faites pas dépendre le balisage d'un composant des globales du
-navigateur pendant le rendu.
+La configuration est prête lorsque le rendu serveur initial correspond à la page hydratée et que les composants
+interactifs fonctionnent après l’hydratation. Pendant le rendu, ne faites pas dépendre le balisage des objets globaux
+du navigateur.
 
 Consultez l'[installation de React Router](https://reactrouter.com/start/framework/installation) pour la
 configuration complète du framework.

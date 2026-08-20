@@ -79,9 +79,9 @@ test('preserves fixed crop area semantics', () => {
   const viewport = container.querySelector('[data-slot="image-cropper-viewport"]');
 
   expect(root).toHaveAttribute('data-fixed');
-  expect(selection).toHaveAttribute('aria-disabled', 'true');
+  expect(selection).not.toHaveAttribute('aria-disabled');
   expect(selection).toHaveAttribute('data-disabled');
-  expect(selection).not.toHaveAttribute('tabindex');
+  expect(selection).toHaveAttribute('tabindex', '0');
   expect(viewport).toHaveAttribute('data-disabled');
   expect(
     container.querySelectorAll('[data-slot="image-cropper-handle"][data-disabled]'),

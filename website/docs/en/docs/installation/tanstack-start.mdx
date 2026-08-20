@@ -5,8 +5,8 @@ description: Install moduix in TanStack Start with global CSS, hydrated componen
 
 # TanStack Start
 
-TanStack Start uses Vite and hydrates route components on the client, so moduix components work in
-the normal route tree without a `use client` directive.
+TanStack Start is bundler-agnostic and hydrates route components on the client, so moduix components work in the
+normal route tree without a `use client` directive. It supports both Vite and Rsbuild.
 
 ## Package install
 
@@ -36,8 +36,9 @@ function Home() {
 ## shadcn CLI install
 
 Complete the [shadcn CLI setup](/docs/quick-start#install-with-the-shadcn-cli). If your starter
-already maps `@/*` to `src/*`, keep that alias. Otherwise add the TypeScript and Vite alias shown in
-the [Vite setup](/docs/installation/vite#shadcn-cli-install).
+already maps `@/*` to `src/*`, keep that alias. Otherwise add the TypeScript and bundler alias from the
+[Vite](/docs/installation/vite#shadcn-cli-install) or [Rsbuild](/docs/installation/rsbuild#shadcn-cli-install)
+setup.
 
 Replace the package CSS import with the generated stylesheet:
 

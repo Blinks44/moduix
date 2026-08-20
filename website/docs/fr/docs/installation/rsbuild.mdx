@@ -1,11 +1,11 @@
 ---
 title: Rsbuild
-description: Installez moduix dans une application React Rsbuild avec un import CSS global et un alias TypeScript.
+description: "Intégrez moduix à une application React avec Rsbuild : un import CSS partagé et un alias TypeScript."
 ---
 
 # Rsbuild
 
-Rsbuild peut charger directement le CSS du paquet moduix et lit automatiquement les alias de chemins TypeScript.
+Rsbuild charge directement le CSS du paquet moduix et lit automatiquement les alias de chemins TypeScript.
 
 ## Installer le paquet
 
@@ -43,8 +43,8 @@ de source à `tsconfig.json` :
 }
 ```
 
-Rsbuild utilise cet alias sans entrée `resolve.alias` correspondante. Importez une seule fois la feuille de style de
-base générée dans le point d'entrée de l'application :
+Rsbuild utilise cet alias sans nécessiter d’entrée `resolve.alias`. Importez une seule fois la feuille de style de base
+générée au point d’entrée de l’application :
 
 ```tsx title="src/index.tsx"
 import '@/lib/moduix/styles/style.css';
@@ -52,7 +52,7 @@ import '@/lib/moduix/styles/style.css';
 
 ## Vérifier
 
-La configuration est terminée lorsqu'un composant stylé s'affiche et que TypeScript comme Rsbuild résolvent
+La configuration est prête lorsqu’un composant stylé s’affiche et que TypeScript comme Rsbuild résolvent correctement
 `@/components/moduix/*`.
 
 Consultez le [démarrage rapide de Rsbuild](https://rsbuild.rs/guide/start/quick-start) pour la configuration

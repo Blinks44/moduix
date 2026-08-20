@@ -1,11 +1,11 @@
 ---
 title: Vite
-description: Installez moduix dans une application React Vite avec la feuille de style et l'alias de code source adaptés.
+description: "Intégrez moduix à une application React avec Vite : CSS partagé et alias de code source."
 ---
 
 # Vite
 
-Utilisez cette configuration avec le modèle standard Vite React ou React + TypeScript.
+Cette configuration convient au modèle standard Vite React ou React + TypeScript.
 
 ## Installer le paquet
 
@@ -17,7 +17,7 @@ Importez une seule fois la feuille de style de base dans `src/main.tsx` :
 import '@moduix/react/style.css';
 ```
 
-Vous pouvez maintenant importer les composants depuis leurs sous-chemins de paquet :
+Vous pouvez ensuite importer les composants depuis leurs sous-chemins de paquet :
 
 ```tsx title="src/App.tsx"
 import { Button } from '@moduix/react/button';
@@ -30,8 +30,8 @@ export function App() {
 ## Installer avec la CLI shadcn
 
 Terminez la [configuration de la CLI shadcn](/docs/quick-start#installer-avec-la-cli-shadcn), puis associez `@/*` à
-`src/*`. Le modèle TypeScript standard nécessite l'alias dans la configuration racine, la configuration de
-l'application et la configuration Vite.
+`src/*`. Dans le modèle TypeScript standard, cet alias doit figurer dans la configuration racine, celle de
+l’application et celle de Vite.
 
 ```json title="tsconfig.json"
 {
@@ -78,7 +78,7 @@ import '@/lib/moduix/styles/style.css';
 
 ## Vérifier
 
-La configuration est terminée lorsqu'un composant stylé s'affiche et que `@/components/moduix/*` est résolu sans
-erreur dans l'éditeur ou la compilation. Vite ne requiert pas de limite client distincte.
+La configuration est prête lorsqu’un composant stylé s’affiche et que `@/components/moduix/*` est résolu sans erreur
+dans l’éditeur comme à la compilation. Vite ne nécessite pas de frontière client distincte.
 
 Consultez le [guide Vite](https://vite.dev/guide/) pour la configuration complète du framework.
