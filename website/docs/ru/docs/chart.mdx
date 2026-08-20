@@ -39,8 +39,6 @@ Chart / Chart.Root
 │  └─ поверхность графика TanStack (по умолчанию SVG)
 └─ Chart.Legend (необязательно)
    └─ Chart.LegendItem
-
-Chart.TooltipContent (внутри renderTooltipBody)
 ```
 
 | Часть | Назначение |
@@ -52,7 +50,6 @@ Chart.TooltipContent (внутри renderTooltipBody)
 | `Chart.Description` | Дополнительный видимый контекст. |
 | `Chart.Legend` | Семантический список видимых серий. |
 | `Chart.LegendItem` | Элемент легенды с необязательным цветом индикатора `color`. |
-| `Chart.TooltipContent` | Контейнер для React-содержимого, которое возвращает `renderTooltipBody`. |
 
 ## Композиция
 
@@ -90,9 +87,10 @@ Chart.TooltipContent (внутри renderTooltipBody)
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-Настраивая подсказку, оставляйте `defaultBody` внутри `Chart.TooltipContent`. TanStack по-прежнему
-управляет привязкой, позиционированием, рендерингом в портале, закреплённым состоянием и закрытием.
-Интерактивные элементы добавляйте только при `pinned: true`.
+Используйте `renderTooltipBody`, только когда подсказке нужно React-содержимое. Его TanStack
+`defaultBody` сохраняет нативные заголовок, строки, форматирование и цветовые метки; TanStack
+по-прежнему управляет привязкой, позиционированием, рендерингом в портале, закреплённым состоянием
+и закрытием. Интерактивные элементы добавляйте только при `pinned: true`.
 
 ### Свойства по умолчанию
 
@@ -210,7 +208,7 @@ Chart.TooltipContent (внутри renderTooltipBody)
 
 `Chart.Plot` остаётся хостом TanStack, а не слотом: используйте его `className` и `style` для
 внешнего элемента, а `renderTooltipBody` — чтобы дополнить подсказку. Оставляйте `defaultBody` в
-`Chart.TooltipContent`: TanStack продолжает позиционировать подсказку и рендерить её через портал.
+собственном layout: TanStack продолжает позиционировать подсказку и рендерить её через портал.
 Добавлять интерактивные элементы можно только в закреплённую подсказку.
 
 <PreviewFrame maxWidth="lg">
@@ -222,8 +220,8 @@ Chart.TooltipContent (внутри renderTooltipBody)
 ## Стилизация
 
 Стилизуйте фигуру через `Chart.Root`, а хост TanStack — через `Chart.Plot`. Публичные CSS-свойства
-управляют поверхностью, индикатором фокуса, оболочкой подсказки и её стандартными строками. Геометрия
-графика остаётся в определении TanStack и настраивается через параметры меток, шкалы и цветовые каналы.
+управляют поверхностью, индикатором фокуса и нативной оболочкой подсказки. Геометрия графика
+остаётся в определении TanStack и настраивается через параметры меток, шкалы и цветовые каналы.
 
 Передайте корневому элементу класс, если графику нужны локальные переопределения:
 
@@ -234,14 +232,8 @@ Chart.TooltipContent (внутри renderTooltipBody)
 ```css
 .sales-chart {
   --moduix-chart-tooltip-bg: var(--moduix-color-card);
-  --moduix-chart-tooltip-column-gap: var(--moduix-spacing-3);
   --moduix-chart-tooltip-font-size: var(--moduix-text-sm);
-  --moduix-chart-tooltip-label-color: var(--moduix-color-foreground);
   --moduix-chart-tooltip-line-height: var(--moduix-line-height-text-sm);
-}
-
-.sales-chart [data-slot='chart-tooltip-value'] {
-  font-weight: var(--moduix-weight-bold);
 }
 ```
 
@@ -252,13 +244,9 @@ Chart.TooltipContent (внутри renderTooltipBody)
 ### Хуки стилизации
 
 - `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`,
-  `Chart.LegendItem` и `Chart.TooltipContent` предоставляют `data-scope="chart"`, `data-part` и
-  `data-slot`.
+  и `Chart.LegendItem` предоставляют `data-scope="chart"`, `data-part` и `data-slot`.
 - `className` на `Chart.Plot` достигает внешнего элемента `.ts-chart-host`.
-- Стандартная подсказка предоставляет data slots `chart-tooltip-body`, `chart-tooltip-title`,
-  `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`, `chart-tooltip-label` и
-  `chart-tooltip-value`.
 - Используйте `--moduix-color-chart-1` — `--moduix-color-chart-5` в цветовых шкалах TanStack.
-- TanStack по-прежнему управляет позиционированием и взаимодействием оболочки подсказки; её тело
-  принадлежит Moduix, не требует переопределения специфичности и полностью заменяется через
-  `renderTooltipBody`.
+- Нативная подсказка стилизуется через документированные переменные `--ts-chart-tooltip-*`,
+  отображённые в свойства Moduix. Для application-owned селекторов используйте TanStack
+  `tooltip.className`, а для React-содержимого — `renderTooltipBody`.

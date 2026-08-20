@@ -61,14 +61,14 @@ export default function AdvancedCustomizationChartDemo() {
           height={320}
           ariaLabel="Monthly revenue"
           renderTooltipBody={({ defaultBody, dismiss, pinned }) => (
-            <Chart.TooltipContent>
+            <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
               {defaultBody}
               {pinned ? (
                 <Button size="sm" variant="outline" onClick={dismiss}>
                   Close
                 </Button>
               ) : null}
-            </Chart.TooltipContent>
+            </div>
           )}
         />
       </section>

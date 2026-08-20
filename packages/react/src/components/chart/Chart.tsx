@@ -4,10 +4,7 @@ import { ark, type HTMLArkProps } from '@ark-ui/react/factory';
 import type { ChartValue } from '@tanstack/charts';
 import { motion as createMotionRenderer } from '@tanstack/charts/motion';
 import { RendererChart as ChartPrimitive } from '@tanstack/charts/react/tooltip';
-import type {
-  ChartTooltipBodyRenderContext,
-  RendererChartProps,
-} from '@tanstack/charts/react/tooltip';
+import type { RendererChartProps } from '@tanstack/charts/react/tooltip';
 import { svgChartRenderer } from '@tanstack/charts/svg/renderer';
 import { clsx } from 'clsx';
 import type { CSSProperties, ForwardedRef } from 'react';
@@ -40,76 +37,6 @@ const ChartRoot = forwardRef<HTMLElement, HTMLArkProps<'figure'>>(function Chart
   );
 });
 
-const ChartTooltipContent = forwardRef<HTMLElement, HTMLArkProps<'div'>>(
-  function ChartTooltipContent({ className, ...props }, ref) {
-    return (
-      <ark.div
-        ref={ref as ForwardedRef<HTMLDivElement>}
-        data-scope="chart"
-        data-part="tooltip-content"
-        data-slot="chart-tooltip-content"
-        className={clsx(styles.tooltipContent, normalizeClassName(className))}
-        {...props}
-      />
-    );
-  },
-);
-
-const renderDefaultTooltipBody = ({ content }: ChartTooltipBodyRenderContext) => {
-  if (typeof content === 'string') {
-    return (
-      <div data-slot="chart-tooltip-body" className={styles.defaultTooltipContent}>
-        <span data-slot="chart-tooltip-text">{content}</span>
-      </div>
-    );
-  }
-
-  return (
-    <div data-slot="chart-tooltip-body" className={styles.defaultTooltipContent}>
-      {content.title ? (
-        <div data-slot="chart-tooltip-title" className={styles.tooltipTitle}>
-          {content.color ? (
-            <span
-              aria-hidden="true"
-              data-slot="chart-tooltip-swatch"
-              className={styles.tooltipSwatch}
-              style={{ backgroundColor: content.color }}
-            />
-          ) : null}
-          {content.title}
-        </div>
-      ) : null}
-      {content.rows.length ? (
-        <div data-slot="chart-tooltip-rows" className={styles.tooltipRows}>
-          {content.rows.map((row, index) => (
-            <div
-              key={`${row.label}-${index}`}
-              data-has-swatch={row.color ? '' : undefined}
-              data-slot="chart-tooltip-row"
-              className={styles.tooltipRow}
-            >
-              {row.color ? (
-                <span
-                  aria-hidden="true"
-                  data-slot="chart-tooltip-swatch"
-                  className={styles.tooltipSwatch}
-                  style={{ backgroundColor: row.color }}
-                />
-              ) : null}
-              <span data-slot="chart-tooltip-label" className={styles.tooltipLabel}>
-                {row.label}
-              </span>
-              <span data-slot="chart-tooltip-value" className={styles.tooltipValue}>
-                {row.value}
-              </span>
-            </div>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  );
-};
-
 const ChartPlot = function ChartPlot<
   TDatum,
   TXValue extends ChartValue = ChartValue,
@@ -117,7 +44,6 @@ const ChartPlot = function ChartPlot<
 >({
   className,
   motion = true,
-  renderTooltipBody,
   renderer,
   ...props
 }: Omit<RendererChartProps<TDatum, TXValue, TYValue>, 'renderer'> & {
@@ -128,15 +54,6 @@ const ChartPlot = function ChartPlot<
     <ChartPrimitive
       {...props}
       renderer={renderer ?? (motion ? defaultChartRenderer : svgChartRenderer)}
-      renderTooltipBody={(context) => {
-        const defaultBody = renderDefaultTooltipBody(context);
-
-        return renderTooltipBody ? (
-          renderTooltipBody({ ...context, defaultBody })
-        ) : (
-          <ChartTooltipContent>{defaultBody}</ChartTooltipContent>
-        );
-      }}
       className={clsx(styles.plot, normalizeClassName(className))}
     />
   );
@@ -237,7 +154,6 @@ const Chart = Object.assign(ChartRoot, {
   Description: ChartDescription,
   Legend: ChartLegend,
   LegendItem: ChartLegendItem,
-  TooltipContent: ChartTooltipContent,
 });
 
 export { Chart };

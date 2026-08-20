@@ -221,14 +221,14 @@ export const CustomTooltip: Story = {
       <Chart.Plot
         {...args}
         renderTooltipBody={({ defaultBody, dismiss, pinned }) => (
-          <Chart.TooltipContent>
+          <div style={{ display: 'grid', gap: 'var(--moduix-spacing-3)' }}>
             {defaultBody}
             {pinned ? (
               <Button size="sm" variant="outline" onClick={dismiss}>
                 Close
               </Button>
             ) : null}
-          </Chart.TooltipContent>
+          </div>
         )}
       />
       <Chart.Legend aria-label="Revenue series">

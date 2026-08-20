@@ -89,20 +89,13 @@ test('uses the static SVG renderer when motion is disabled', () => {
   );
 });
 
-test('renders the Moduix tooltip body with stable styling hooks', () => {
+test('keeps the native tooltip body when no custom renderer is supplied', () => {
   render(<Chart.Plot ariaLabel="Monthly revenue" definition={{} as never} />);
 
   expect(screen.queryByTestId('tanstack-default-body')).not.toBeInTheDocument();
-  expect(document.querySelector('[data-slot="chart-tooltip-content"]')).toBeInTheDocument();
-  expect(document.querySelector('[data-slot="chart-tooltip-body"]')).toBeInTheDocument();
-  expect(document.querySelector('[data-slot="chart-tooltip-title"]')).toHaveTextContent('March');
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-row"]')).toHaveLength(2);
-  expect(document.querySelectorAll('[data-slot="chart-tooltip-swatch"]')).toHaveLength(1);
-  expect(document.querySelector('[data-slot="chart-tooltip-label"]')).toHaveTextContent('Revenue');
-  expect(document.querySelector('[data-slot="chart-tooltip-value"]')).toHaveTextContent('76');
 });
 
-test('supplies the styled default body to a custom tooltip renderer', () => {
+test('passes TanStack’s native default body to a custom tooltip renderer', () => {
   render(
     <Chart.Plot
       ariaLabel="Monthly revenue"
@@ -112,10 +105,8 @@ test('supplies the styled default body to a custom tooltip renderer', () => {
   );
 
   expect(screen.getByTestId('custom-tooltip')).toContainElement(
-    document.querySelector('[data-slot="chart-tooltip-body"]'),
+    screen.getByTestId('tanstack-default-body'),
   );
-  expect(document.querySelector('[data-slot="chart-tooltip-content"]')).not.toBeInTheDocument();
-  expect(screen.queryByTestId('tanstack-default-body')).not.toBeInTheDocument();
 });
 
 test('renders composition parts with semantic defaults and stable hooks', () => {
@@ -130,7 +121,6 @@ test('renders composition parts with semantic defaults and stable hooks', () => 
           Revenue
         </Chart.LegendItem>
       </Chart.Legend>
-      <Chart.TooltipContent data-testid="tooltip-content">May: $81k</Chart.TooltipContent>
     </Chart>,
   );
 
@@ -140,7 +130,6 @@ test('renders composition parts with semantic defaults and stable hooks', () => 
     ['description', 'p'],
     ['legend', 'ul'],
     ['legend-item', 'li'],
-    ['tooltip-content', 'div'],
   ] as const;
 
   for (const [part, tagName] of parts) {

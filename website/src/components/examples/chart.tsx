@@ -77,29 +77,14 @@ export const chartCssProperties: CssProperty[] = [
     description: 'Controls the native TanStack tooltip border width.',
   },
   {
-    name: '--moduix-chart-tooltip-column-gap',
-    defaultValue: 'var(--moduix-spacing-2)',
-    description: 'Controls spacing between the tooltip swatch, label, and value.',
-  },
-  {
     name: '--moduix-chart-tooltip-color',
     defaultValue: 'var(--moduix-color-popover-foreground)',
     description: 'Controls the native TanStack tooltip foreground color.',
   },
   {
-    name: '--moduix-chart-tooltip-content-gap',
-    defaultValue: 'var(--moduix-spacing-3)',
-    description: 'Controls spacing inside custom `Chart.TooltipContent` layouts.',
-  },
-  {
     name: '--moduix-chart-tooltip-font-size',
     defaultValue: 'var(--moduix-text-xs)',
     description: 'Controls the native TanStack tooltip font size.',
-  },
-  {
-    name: '--moduix-chart-tooltip-label-color',
-    defaultValue: 'var(--moduix-color-muted-foreground)',
-    description: 'Controls the default tooltip label color.',
   },
   {
     name: '--moduix-chart-tooltip-line-height',
@@ -117,23 +102,8 @@ export const chartCssProperties: CssProperty[] = [
     description: 'Controls the native TanStack tooltip radius.',
   },
   {
-    name: '--moduix-chart-tooltip-row-gap',
-    defaultValue: 'var(--moduix-spacing-1)',
-    description: 'Controls spacing between default tooltip rows.',
-  },
-  {
     name: '--moduix-chart-tooltip-shadow',
     defaultValue: 'var(--moduix-shadow-lg)',
     description: 'Controls the native TanStack tooltip shadow.',
-  },
-  {
-    name: '--moduix-chart-tooltip-swatch-size',
-    defaultValue: 'var(--moduix-spacing-2-5)',
-    description: 'Controls the default tooltip series swatch size.',
-  },
-  {
-    name: '--moduix-chart-tooltip-value-color',
-    defaultValue: 'var(--moduix-color-popover-foreground)',
-    description: 'Controls the default tooltip title and value color.',
   },
 ];
