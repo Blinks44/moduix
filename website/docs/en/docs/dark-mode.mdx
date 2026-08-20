@@ -14,9 +14,9 @@ resolved theme.
 import '@moduix/react/style.css';
 ```
 
-## Apply the theme at the document root
+## Document root
 
-When your theme solution resolves dark mode, it should put
+For an application-wide theme, put the resolved color scheme on the document root. When your theme solution resolves dark mode, it should put
 `data-moduix-color-scheme="dark"` on `<html>`; use `light` for the light scheme. moduix does not
 require a provider, store a preference, or choose a theme package, so it stays separate from the
 application's existing theme selectors and tokens.
@@ -33,7 +33,7 @@ If your app renders on the server, use its early theme mechanism so the resolved
 before the page becomes visible. It prevents a brief light theme before client JavaScript applies a
 saved preference.
 
-## Add a simple switch
+## Add a switch
 
 Store the user's explicit choice in the application and update the document attribute. If there is
 no saved choice, resolve the operating-system preference with `matchMedia`.
@@ -63,9 +63,9 @@ theme script, before the first paint. Let the visible switch call `saveColorSche
 value. This keeps the operating-system preference as the default until the user makes an explicit
 choice. Give the switch an accessible name that describes the action, such as `Switch to dark mode`.
 
-## Combine dark mode with a preset
+## Use a preset
 
-Color mode and visual presets are separate layers. Keep `data-moduix-color-scheme` and
+Color mode and visual presets are separate layers, so they work together. Keep `data-moduix-color-scheme` and
 `data-moduix-theme` on the same root so regular and portalled components resolve the same palette,
 density, radius, and focus tokens.
 
@@ -83,9 +83,9 @@ import '@moduix/react/presets/dense.css';
 Changing color mode does not change density. The selected preset keeps its control and popup scale
 in both modes. See [Themes](/docs/themes) for the preset comparison and custom theme pattern.
 
-## Scope a preview or embedded surface
+## Scope a surface
 
-You can place `data-moduix-color-scheme="dark"` on a regular wrapper when only that subtree needs
+For a preview or embedded surface, place `data-moduix-color-scheme="dark"` on a regular wrapper when only that subtree needs
 the dark tokens:
 
 ```tsx
@@ -98,9 +98,9 @@ This is useful for a settings preview or an embedded widget. Portalled content i
 wrapper, so keep the attribute on `<html>`, `body`, or your portal container when the subtree opens
 overlays.
 
-## Customize both themes
+## Customize tokens
 
-Override the same semantic tokens in `:root` and `[data-moduix-color-scheme='dark']`. Components read semantic aliases such as
+To customize both schemes, override the same semantic tokens in `:root` and `[data-moduix-color-scheme='dark']`. Components read semantic aliases such as
 `--moduix-color-background`, `--moduix-color-foreground`, and `--moduix-color-border`, so the values stay consistent
 across the library.
 

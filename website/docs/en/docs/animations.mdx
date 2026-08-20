@@ -75,7 +75,7 @@ transform origin, so their scale-based recipes still open from the trigger side.
 only `opacity` and `blur`, while shared popup content accepts `opacity`, `scale`, and `translate-x`
 or `translate-y`.
 
-### Component-specific state motion
+### State motion
 
 These components keep separate motion systems and do not accept `--moduix-popup-motion-*`:
 
@@ -225,9 +225,9 @@ Use this for a deliberate, friendly emphasis on a short menu, tooltip, or confir
 
 ## Component recipes
 
-### Glass focus for modal backdrops
+### Glass focus
 
-Apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. Replace `dialog` with
+For modal backdrops, apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. Replace `dialog` with
 `command-palette`, `lightbox`, or `tour` for the matching modal family.
 
 ```css
@@ -250,9 +250,9 @@ Apply the first class to `Dialog.Backdrop` and the second to `Dialog.Content`. R
 }
 ```
 
-### Soft scale for picker content
+### Soft scale
 
-Apply this class to `Select.Content`. For `Combobox`, `ColorPicker`, or `DatePicker`, replace the
+Use this soft-scale recipe on picker content. Apply the class to `Select.Content`. For `Combobox`, `ColorPicker`, or `DatePicker`, replace the
 `select` prefix with `combobox`, `color-picker`, or `date-picker`.
 
 ```css

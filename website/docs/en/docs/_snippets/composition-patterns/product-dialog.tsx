@@ -1,57 +1,48 @@
-import { Dialog as DialogBase } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
+import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
 import { forwardRef, type ComponentProps, type ComponentRef } from 'react';
 import styles from './product-dialog.module.css';
 
-function mergeClassName(base: string, className: unknown) {
-  return typeof className === 'string' ? `${base} ${className}` : base;
-}
+type DialogProps = ComponentProps<typeof ModuixDialog>;
+type DialogTone = 'default' | 'danger';
 
-export const Dialog = DialogBase;
-export const DialogTrigger = DialogBase.Trigger;
-export const DialogPositioner = DialogBase.Positioner;
-export const DialogTitle = DialogBase.Title;
-export const DialogDescription = DialogBase.Description;
-export const DialogCloseTrigger = DialogBase.CloseTrigger;
+type DialogContentProps = ComponentProps<typeof ModuixDialog.Content> & {
+  tone?: DialogTone;
+};
+
+function DialogRoot(props: DialogProps) {
+  return <ModuixDialog {...props} />;
+}
 
 export const DialogContent = forwardRef<
-  ComponentRef<typeof DialogBase.Content>,
-  ComponentProps<typeof DialogBase.Content>
->(function DialogContent({ className, ...props }, ref) {
+  ComponentRef<typeof ModuixDialog.Content>,
+  DialogContentProps
+>(function DialogContent({ className, tone = 'default', ...props }, ref) {
   return (
-    <DialogBase.Content
-      ref={ref}
-      className={mergeClassName(styles.content, className)}
+    <ModuixDialog.Content
       {...props}
+      ref={ref}
+      data-dialog-tone={tone}
+      className={[styles.content, className].filter(Boolean).join(' ')}
     />
   );
 });
 
-export const DialogBackdrop = forwardRef<
-  ComponentRef<typeof DialogBase.Backdrop>,
-  ComponentProps<typeof DialogBase.Backdrop>
->(function DialogBackdrop({ className, ...props }, ref) {
-  return (
-    <DialogBase.Backdrop
-      ref={ref}
-      className={mergeClassName(styles.backdrop, className)}
-      {...props}
-    />
-  );
+export const Dialog = Object.assign(DialogRoot, {
+  Root: DialogRoot,
+  RootProvider: ModuixDialog.RootProvider,
+  Context: ModuixDialog.Context,
+  Trigger: ModuixDialog.Trigger,
+  Backdrop: ModuixDialog.Backdrop,
+  Positioner: ModuixDialog.Positioner,
+  Content: DialogContent,
+  Title: ModuixDialog.Title,
+  Description: ModuixDialog.Description,
+  CloseTrigger: ModuixDialog.CloseTrigger,
+  CloseIcon: ModuixDialog.CloseIcon,
+  Header: ModuixDialog.Header,
+  Body: ModuixDialog.Body,
+  Footer: ModuixDialog.Footer,
 });
 
-export function DeleteProjectDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger>Delete project</DialogTrigger>
-      <DialogBackdrop />
-      <DialogPositioner>
-        <DialogContent>
-          <DialogTitle>Delete this project?</DialogTitle>
-          <DialogDescription>This cannot be undone.</DialogDescription>
-          <DialogCloseTrigger>Cancel</DialogCloseTrigger>
-        </DialogContent>
-      </DialogPositioner>
-    </Dialog>
-  );
-}
+export type { DialogContentProps, DialogProps, DialogTone };

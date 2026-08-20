@@ -5,18 +5,17 @@ description: Mettez à jour le package npm ou les composants du registre dont vo
 
 # Mise à jour et migration
 
-moduix prend en charge deux modèles de propriété, qui se mettent à jour différemment. Commencez par
-identifier celui que vous utilisez ; n’écrasez pas les fichiers dont vous possédez le code source comme
-s’il s’agissait d’une dépendance de package.
+moduix prend en charge deux modèles de propriété, qui ne se mettent pas à jour de la même façon. Identifiez d’abord
+celui que vous utilisez : n’écrasez pas des fichiers dont vous possédez le code source comme une dépendance de package.
 
 | Mode d’installation | Modèle de mise à jour |
 | --- | --- |
 | Package `@moduix/react` | Le gestionnaire de paquets installe une nouvelle version de la bibliothèque. |
 | Code source du registre publié | L’application possède les fichiers ; examinez et fusionnez les mises à jour de chaque composant. |
 
-## Mises à jour gérées par le package
+## Package
 
-Avant de modifier les versions, consultez le [Journal des modifications](/docs/changelog). Utilisez
+Pour une mise à jour gérée par le package, consultez le [Journal des modifications](/docs/changelog) avant de modifier les versions. Utilisez
 `npm update` uniquement si vous souhaitez les versions les plus récentes autorisées par les plages déjà
 déclarées dans `package.json` :
 
@@ -39,9 +38,9 @@ puis testez les composants cités dans le journal des modifications. Les pages d
 composition actuelle, les parties disponibles et les variables de style lorsqu’une mise à jour modifie le
 contrat d’un composant.
 
-## Mises à jour des composants du registre
+## Registre
 
-Les composants du registre sont du code source présent dans votre application. Utilisez le CLI shadcn pour
+Pour les composants du registre, le code source est présent dans votre application. Utilisez le CLI shadcn pour
 examiner l’élément actuel, consulter son diff et le fusionner avec vos adaptations locales.
 
 ```bash
@@ -61,11 +60,11 @@ Répétez cette opération pour chaque composant que vous possédez. Le CLI rés
 base partagés de moduix et les dépendances des éléments. Importez donc une seule fois
 `@/lib/moduix/styles/style.css` dans le point d’entrée de l’application.
 
-## Mises à jour des presets de thème
+## Presets
 
-Les presets gérés par le package sont fournis avec `@moduix/react` ; la mise à jour du package actualise
-donc aussi leurs définitions de tokens. Consultez [Thèmes](/docs/themes) et [Tokens](/docs/tokens) si une
-version modifie la densité ou les valeurs visuelles globales par défaut.
+Pour les presets fournis avec `@moduix/react`, la mise à jour du package actualise aussi les définitions de tokens.
+Consultez [Thèmes](/docs/themes) et [Tokens](/docs/tokens) si une version modifie la densité ou les valeurs visuelles
+globales par défaut.
 
 Pour un preset dont vous possédez le code source, examinez le nouveau CSS avant de le fusionner, comme pour
 tout autre élément du registre :

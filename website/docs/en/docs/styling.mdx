@@ -22,7 +22,7 @@ Panda CSS and Tailwind CSS are not dependencies of moduix or this documentation 
 below style the same `ProjectChecklist` in each tool, so only the authoring syntax changes. They
 are consumer snippets for applications where the respective tool is already configured.
 
-## Choose the smallest useful override
+## Choose an override
 
 | Goal                                             | Preferred surface                                              |
 | ------------------------------------------------ | -------------------------------------------------------------- |
@@ -32,10 +32,10 @@ are consumer snippets for applications where the respective tool is already conf
 | Make one component intentionally different       | A documented `--<component>-*` alias                           |
 | Style one product composition                    | `className` on the rendered part, preferably with local CSS    |
 
-This order keeps themes compact and component styling predictable. Prefer a high-level token when
+This table keeps themes compact and component styling predictable. Prefer a high-level token when
 the decision should propagate; move closer to the rendered part only as the scope becomes local.
 
-## Style the parts you render
+## Style parts
 
 Start with `className` on the part that owns the visual change. This keeps the component anatomy
 visible and the styles local to the product component. Use the documented Ark state attributes on
@@ -119,11 +119,10 @@ directly to the parts it renders.
   </Tabs>
 </div>
 
-### When a wrapper hides the part
+### Hidden parts
 
-Use a stable `data-slot` only when a product wrapper owns the composition but does not expose the
-part to its callers. It can still tune an internal trigger without depending on DOM order or generated
-class names:
+When a product wrapper owns the composition but does not expose a part to its callers, use a stable `data-slot`. It
+can still tune an internal trigger without depending on DOM order or generated class names:
 
 ```css
 .root {
