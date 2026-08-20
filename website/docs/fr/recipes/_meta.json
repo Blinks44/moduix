@@ -1,0 +1,71 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Parcourir les recettes",
+    "tag": "clipboard-list"
+  },
+  {
+    "type": "section-header",
+    "label": "Application"
+  },
+  { "type": "file", "name": "app-header", "label": "En-tête", "tag": "panel-top" },
+  {
+    "type": "file",
+    "name": "mobile-drawer-navigation",
+    "label": "Menu mobile",
+    "tag": "panel-left-open"
+  },
+  { "type": "file", "name": "sidebar-dashboard", "label": "Tableau latéral", "tag": "panel-left" },
+  {
+    "type": "section-header",
+    "label": "Accès"
+  },
+  { "type": "file", "name": "login-simple", "label": "Connexion", "tag": "log-in" },
+  { "type": "file", "name": "sign-up", "label": "Inscription", "tag": "list-checks" },
+  { "type": "file", "name": "forgot-password", "label": "Mot de passe oublié", "tag": "key-round" },
+  {
+    "type": "file",
+    "name": "reset-password",
+    "label": "Nouveau mot de passe",
+    "tag": "refresh-cw"
+  },
+  {
+    "type": "file",
+    "name": "verification-code",
+    "label": "Code de vérification",
+    "tag": "badge-check"
+  },
+  {
+    "type": "section-header",
+    "label": "Données"
+  },
+  {
+    "type": "file",
+    "name": "data-table",
+    "label": "Tableau de données",
+    "tag": "table-properties"
+  },
+  {
+    "type": "file",
+    "name": "file-upload-manager",
+    "label": "Import de fichiers",
+    "tag": "file-text"
+  },
+  {
+    "type": "section-header",
+    "label": "Personnes"
+  },
+  {
+    "type": "file",
+    "name": "expandable-avatar-group",
+    "label": "Groupe d’avatars",
+    "tag": "users-round"
+  },
+  {
+    "type": "section-header",
+    "label": "Visuels"
+  },
+  { "type": "file", "name": "autoplay-gallery", "label": "Galerie", "tag": "paintbrush" },
+  { "type": "file", "name": "parallax-card", "label": "Carte parallaxe", "tag": "orbit" }
+]
