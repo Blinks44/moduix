@@ -1,5 +1,11 @@
 # moduix
 
+## 2.3.0
+
+### Minor Changes
+
+- 131ab78: Added Chart component, based on Tanstack Charts
+
 ## 2.2.5
 
 ### Patch Changes
