@@ -82,9 +82,14 @@
   height: auto;
 }
 
-.product span {
+.productLabel {
   font-size: clamp(0.75rem, 3vw, 0.95rem);
   font-weight: 700;
+}
+
+.productDescription {
+  color: var(--rp-c-text-2);
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
 }
 
 .arrow {

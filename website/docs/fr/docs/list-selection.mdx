@@ -1,29 +1,36 @@
 ---
 title: List Selection
-description: Gérez la sélection unique, multiple, désélectionnable et par plage pour les interfaces de liste personnalisées.
+description: Ajoutez une sélection simple, multiple, révocable ou par plage à vos listes personnalisées.
 ---
 
 # List Selection
 
-## Référence de l’API
+## API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
-`useListSelection` ajoute l'état de sélection à un `ListCollection`. Utilisez-le pour les listes personnalisées qui n'ont pas encore de comportement de sélection. `Select`, `Combobox` et `Listbox` gèrent leur propre sélection et n'ont normalement pas besoin de ce hook.
+`useListSelection` ajoute un état de sélection à un `ListCollection`. Utilisez-le pour les listes
+personnalisées qui ne gèrent pas encore la sélection. `Select`, `Combobox` et `Listbox` gèrent leur
+propre sélection et n’ont normalement pas besoin de ce hook.
 
 ```tsx
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 ```
 
-## Sélection unique de base
+## Sélection unique
 
 ```tsx preview file="../../en/docs/_snippets/list-selection/basic.tsx"
 
 ```
 
-Le hook gère uniquement les valeurs de sélection. Votre interface reste responsable des rôles sémantiques, des interactions au clavier, du focus et des libellés accessibles. Préférez `Listbox` lorsque vous avez besoin du comportement standard d'une listbox.
+Cet exemple présente une sélection unique. Le hook gère uniquement les valeurs de sélection. Votre
+interface reste en charge des rôles sémantiques, des interactions au clavier, du focus et des
+libellés accessibles. Préférez `Listbox` pour le comportement standard d’une listbox.
 
-L'exemple avec des boutons convient, car chaque option constitue une action de bascule indépendante. N'ajoutez pas `role="listbox"` à un balisage personnalisé sans implémenter également le modèle complet de navigation au clavier et de focus d'une listbox. Pour une sélection d'options standard, utilisez [Listbox](https://moduix.dev/docs/listbox) et laissez-le gérer ce comportement.
+L’exemple avec des boutons convient, car chaque option peut être activée ou désactivée
+indépendamment. N’ajoutez pas `role="listbox"` à une structure personnalisée sans aussi implémenter
+le modèle complet de navigation au clavier et de focus d’une listbox. Pour une liste d’options
+classique, utilisez [Listbox](https://moduix.dev/docs/listbox) et laissez-le gérer ce comportement.
 
 ## Configuration
 
@@ -32,12 +39,13 @@ L'exemple avec des boutons convient, car chaque option constitue une action de b
 | `collection` | Collection dont les valeurs peuvent être sélectionnées. | requis |
 | `selectionMode` | `'single'`, `'multiple'` ou `'none'`. | `'single'` |
 | `deselectable` | Permet de désélectionner la sélection actuelle. | `true` |
-| `initialSelectedValues` | Valeurs de sélection initiales non contrôlées. | `[]` |
+| `initialSelectedValues` | Valeurs initiales pour une sélection non contrôlée. | `[]` |
 | `resetOnCollectionChange` | Efface la sélection lorsque la collection change. | `false` |
 
-`initialSelectedValues` est lu comme état initial. Utilisez `setSelectedValues` lorsque la sélection doit changer après le montage.
+`initialSelectedValues` définit uniquement l’état initial. Utilisez `setSelectedValues` lorsque la
+sélection doit changer après le montage.
 
-## État de la sélection
+## État
 
 | Valeur | Signification |
 | -------------------- | ---------------------------------------------------- |
@@ -46,7 +54,7 @@ L'exemple avec des boutons convient, car chaque option constitue une action de b
 | `firstSelectedValue` | Première valeur sélectionnée dans l'ordre de la collection, ou `null`. |
 | `lastSelectedValue` | Dernière valeur sélectionnée dans l'ordre de la collection, ou `null`. |
 
-## Requêtes
+## Vérifications
 
 | Méthode | Objectif |
 | ------------------- | ------------------------------------------------------------ |
@@ -55,9 +63,10 @@ L'exemple avec des boutons convient, car chaque option constitue une action de b
 | `isAllSelected()` | Vérifie si chaque élément de collection est sélectionné. |
 | `isSomeSelected()` | Vérifie si au moins un élément de collection est sélectionné. |
 
-Utilisez `canSelect` avant d'exposer les actions de sélection personnalisées qui ne sont pas déjà désactivées dans l'interface utilisateur.
+Utilisez `canSelect` avant d’afficher des actions de sélection personnalisées que l’interface ne
+désactive pas déjà.
 
-## Actions de sélection
+## Actions
 
 | Méthode | Objectif |
 | ---------------------------------- | ------------------------------------------------------- |
@@ -99,11 +108,14 @@ function TeamSelectionActions() {
 }
 ```
 
-Les valeurs désactivées ne peuvent pas être sélectionnées via `select` ou `toggle`. Lorsque vous définissez directement des valeurs, filtrez les entrées externes par rapport à `selection.canSelect` si elles ne sont pas déjà fiables.
+Les valeurs désactivées ne peuvent pas être sélectionnées avec `select` ou `toggle`. Lorsque vous
+définissez directement des valeurs, filtrez les données externes avec `selection.canSelect`, sauf si
+elles sont déjà fiables.
 
-## Sélection d'une plage
+## Sélection par plage
 
-Stockez une valeur d'ancrage dans votre couche d'interaction, puis étendez-la à partir de cette ancre :
+Conservez une valeur d’ancrage dans votre logique d’interaction, puis étendez la sélection à partir
+de cette valeur :
 
 ```tsx
 import { useRef } from 'react';
@@ -129,13 +141,18 @@ function useRangeSelection() {
 }
 ```
 
-Dans les interfaces à la souris, `extend` correspond généralement à Maj + clic. La sélection d'une plage au clavier nécessite également de gérer le focus et les raccourcis Maj + flèche ; utilisez un composant de collection lorsque ces interactions correspondent à un modèle ARIA établi.
+Avec une souris, `extend` correspond généralement à Maj + clic. La sélection par plage au clavier
+nécessite aussi de gérer le focus et les touches Maj + flèche ; utilisez un composant de collection
+lorsque cette interaction suit un modèle ARIA établi.
 
-## Modifications de la collection
+## Mise à jour de la collection
 
-Définissez `resetOnCollectionChange: true` lorsqu'une nouvelle collection représente un ensemble de données différent et que les anciennes valeurs ne doivent jamais être conservées.
+Définissez `resetOnCollectionChange: true` lorsqu’une nouvelle collection représente un autre jeu de
+données et que les anciennes valeurs ne doivent jamais être conservées.
 
-Conservez la valeur par défaut `false` lorsque le filtrage ne masque que temporairement les éléments et que la sélection doit survivre au filtre. Si certaines valeurs supprimées doivent être retirées de la sélection, déterminez les valeurs encore valides et appelez `setSelectedValues` :
+Conservez la valeur par défaut `false` lorsque le filtrage ne masque les éléments que temporairement
+et que la sélection doit être conservée malgré le filtre. Si des valeurs supprimées doivent être
+retirées de la sélection, déterminez celles qui restent valides et appelez `setSelectedValues` :
 
 ```tsx
 const validValues = selection.selectedValues.filter((value) => collection.has(value));
@@ -143,4 +160,5 @@ const validValues = selection.selectedValues.filter((value) => collection.has(va
 selection.setSelectedValues(validValues);
 ```
 
-Exécutez cette synchronisation dans un événement ou un effet lorsque la collection change, et non pendant le rendu.
+Exécutez cette synchronisation dans un gestionnaire d’événement ou un effet lorsque la collection
+change, jamais pendant le rendu.

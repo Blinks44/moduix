@@ -6,12 +6,12 @@ description: Intégrez les contrôles natifs et composites de moduix à Formisch
 # Formisch
 
 La [documentation de Formisch](https://formisch.dev) et la [documentation de
-Valibot](https://valibot.dev) décrivent l’ensemble des API de schéma, de stockage et de validation.
-Cette page se concentre sur leur correspondance avec moduix.
+Valibot](https://valibot.dev) détaillent les API de schéma, de stockage et de validation. Cette page
+explique comment les intégrer à moduix.
 
-Formisch repose sur un schéma : transmettez un schéma Valibot à `useForm`, puis affichez les champs
-avec son composant `Field` sans rendu. Passez `field.props` par spread aux contrôles natifs et utilisez
-`field.input` avec `field.onChange` pour les composants composites Ark.
+Formisch est centré sur le schéma : transmettez un schéma Valibot à `useForm`, puis affichez les
+champs avec son composant `Field` non visuel. Passez `field.props` par spread aux contrôles natifs et
+utilisez `field.input` avec `field.onChange` pour les composants composites Ark.
 
 ```bash
 npm install @formisch/react valibot
@@ -48,7 +48,7 @@ navigateur et ajoute `noValidate`, de sorte que Formisch gère le flux de valida
 `initialInput`, appelez `reset(form)` de Formisch et ne vous contentez pas de réinitialiser le formulaire
 DOM natif : son état de champ contrôlé sera ainsi réinitialisé lui aussi.
 
-## Formulaire complet
+## Exemple
 
 Ce formulaire utilise la validation de Formisch à la soumission et revalide les valeurs modifiées à la
 saisie. Les composants natifs `Input` et `Textarea` reçoivent directement les props de Formisch ;
@@ -141,7 +141,7 @@ const form = useForm({
 Dans une application qui importe les deux bibliothèques, donnez au `Field` de Formisch l’alias
 `FormischField` afin de le distinguer du `Field` de moduix, comme dans le formulaire complet ci-dessus.
 
-## Erreurs renvoyées par le serveur
+## Erreurs du serveur
 
 Appelez `setErrors` après la requête : utilisez `path` pour un message lié à un champ précis et
 omettez-le pour un message au niveau du formulaire. Le formulaire ci-dessous utilise le même schéma

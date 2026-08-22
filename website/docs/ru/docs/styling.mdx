@@ -8,21 +8,21 @@ import styles from '@/components/examples/styling.module.css';
 
 # Стилизация
 
-moduix поставляет стили компонентов и общую CSS-основу, но не предписывает инструмент для написания стилей.
-Используйте CSS Modules, Panda CSS, Tailwind CSS или другую CSS-стратегию, уже принятую в приложении. API
-компонента остаётся прежним.
+moduix поставляет стили компонентов и общую CSS-основу, но не навязывает инструмент для работы со стилями.
+Используйте CSS Modules, Panda CSS, Tailwind CSS или другую стратегию, уже принятую в приложении. API компонентов
+при этом не меняется.
 
-Один раз импортируйте таблицу стилей основы в точке входа приложения:
+Один раз импортируйте базовую таблицу стилей в точке входа приложения:
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-Panda CSS и Tailwind CSS не являются зависимостями moduix или этого сайта документации. В примерах ниже один
-и тот же `ProjectChecklist` стилизуется каждым инструментом, поэтому меняется только синтаксис написания
-стилей. Это пользовательские сниппеты для приложений, в которых соответствующий инструмент уже настроен.
+Panda CSS и Tailwind CSS не входят в зависимости moduix или этого сайта документации. В примерах ниже один и тот же
+`ProjectChecklist` оформлен каждым инструментом, поэтому меняется только синтаксис. Эти сниппеты предназначены для
+приложений, в которых соответствующий инструмент уже настроен.
 
-## Выберите наименьшее полезное переопределение
+## Выберите переопределение
 
 | Цель | Предпочтительный способ |
 | --- | --- |
@@ -32,18 +32,17 @@ Panda CSS и Tailwind CSS не являются зависимостями modui
 | Намеренно выделить один компонент | Документированный алиас `--<component>-*` |
 | Стилизовать одну композицию продукта | `className` на отрисованной части, предпочтительно с локальным CSS |
 
-Этот порядок сохраняет темы компактными, а стилизацию компонентов - предсказуемой. Отдавайте предпочтение
-токену высокого уровня, когда решение должно распространяться дальше; приближайтесь к отрисованной части
-только по мере того, как область действия становится локальной.
+Эта таблица помогает сохранять темы компактными, а стилизацию компонентов - предсказуемой. Выбирайте токен высокого
+уровня, если решение должно применяться шире; переходите к отрисованной части только когда область действия
+становится локальной.
 
-## Стилизуйте отрисованные части
+## Стилизуйте части
 
-Начните с `className` на части, которая отвечает за визуальное изменение. Так анатомия компонента остаётся
-видимой, а стили - локальными для компонента продукта. Используйте документированные атрибуты состояния Ark
-на этой же части для стилизации состояний и публичные CSS-переменные, когда компонент предоставляет
-значение, которое нужно изменить.
+Начните с `className` на части, отвечающей за визуальное изменение. Так анатомия компонента остаётся видимой, а стили
+не выходят за пределы продукта. На этой же части используйте документированные атрибуты состояния Ark для стилизации
+состояний и публичные CSS-переменные, если компонент предоставляет нужное значение.
 
-Панель ниже использует CSS Modules и напрямую стилизует каждую экспортируемую часть Accordion.
+Панель ниже использует CSS Modules и напрямую стилизует все экспортируемые части Accordion.
 
 <section className={styles.example}>
   <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
@@ -51,13 +50,13 @@ Panda CSS и Tailwind CSS не являются зависимостями modui
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>01</span>
-          <span className={styles.title}>Определите результат проекта</span>
+          <span className={styles.title}>Define the project outcome</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
-          <p>Напишите одно предложение, которое сделает следующее решение очевидным для всех в проекте.</p>
+          <p>Write one sentence that makes the next decision obvious to everyone on the project.</p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
@@ -65,13 +64,13 @@ Panda CSS и Tailwind CSS не являются зависимостями modui
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>02</span>
-          <span className={styles.title}>Пригласите людей, которым нужен контекст</span>
+          <span className={styles.title}>Invite the people who need context</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
-          <p>Дайте участникам общее пространство для обратной связи, решений и работы в процессе.</p>
+          <p>Give contributors a shared space for feedback, decisions, and the work in progress.</p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
@@ -79,15 +78,15 @@ Panda CSS и Tailwind CSS не являются зависимостями modui
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>03</span>
-          <span className={styles.title}>Создайте еженедельный ритуал выпуска</span>
+          <span className={styles.title}>Create a weekly shipping ritual</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
           <p>
-            Превращайте прогресс в короткое обновление, чтобы команда замечала риски до того, как они станут
-            блокерами.
+            Turn progress into a short update so the team can spot risks before they become
+            blockers.
           </p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
@@ -97,8 +96,8 @@ Panda CSS и Tailwind CSS не являются зависимостями modui
 
 ## CSS Modules
 
-CSS Modules - базовый вариант без зависимостей. Этот `ProjectChecklist` сохраняет стили непосредственно
-привязанными к отрисованным им частям.
+CSS Modules - базовый вариант без зависимостей. В этом `ProjectChecklist` стили привязаны прямо к тем частям, которые
+он отрисовывает.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
@@ -120,11 +119,10 @@ CSS Modules - базовый вариант без зависимостей. Э�
   </Tabs>
 </div>
 
-### Когда обёртка скрывает часть
+### Скрытые части
 
-Используйте стабильный `data-slot`, только когда обёртка продукта владеет композицией, но не предоставляет
-часть своим вызывающим сторонам. Он всё ещё может настраивать внутренний триггер, не завися от порядка в DOM
-или сгенерированных имён классов:
+Если обёртка продукта управляет композицией, но не передаёт часть наружу, используйте стабильный `data-slot`. Так
+можно настроить внутренний триггер, не завися от порядка в DOM или сгенерированных имён классов:
 
 ```css
 .root {
@@ -138,13 +136,13 @@ CSS Modules - базовый вариант без зависимостей. Э�
 }
 ```
 
-Это аварийный выход, а не замена `className`. Для частей, которые автоматически отрисовываются через портал,
-таких как `Dialog.Content` или `Tooltip.Content`, добавляйте `className` к самой части в портале.
+Это запасной вариант, а не замена `className`. Для частей, которые автоматически рендерятся через портал, например
+`Dialog.Content` или `Tooltip.Content`, добавляйте `className` прямо к части в портале.
 
 ## Panda CSS
 
-В приложении, где Panda уже настроен, сгенерируйте классы для тех же частей `ProjectChecklist`. Имена токенов
-ниже принадлежат теме Panda, а не moduix.
+В приложении с уже настроенным Panda сгенерируйте классы для тех же частей `ProjectChecklist`. Имена токенов ниже
+принадлежат теме Panda, а не moduix.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -238,8 +236,8 @@ export function ProjectChecklist() {
 
 ## Tailwind CSS
 
-В приложении, где уже используется Tailwind, применяйте утилиты и варианты состояния к тем же частям
-`ProjectChecklist`. Специальный плагин или конфигурация Tailwind для moduix не требуются.
+В приложении с Tailwind применяйте утилиты и варианты состояния к тем же частям `ProjectChecklist`. Для moduix не
+нужны отдельный плагин или специальная конфигурация Tailwind.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -283,12 +281,12 @@ export function ProjectChecklist() {
 | Всплывающий компонент игнорирует значение из области обёртки | Компонент может отрисовываться через портал; поместите значение на его часть, корневой элемент или контейнер портала. |
 | Селектор состояния никогда не совпадает | Проверьте документированные `data-state`, `data-disabled` или другой атрибут Ark. |
 | Класс попадает на корневой элемент, но не на часть | Поместите `className` на экспортируемую часть, которая отвечает за визуальное свойство. |
-| Utility-класс проигрывает CSS компонента | Используйте документированную CSS-переменную или локальный класс с продуманным порядком каскада. |
+| Утилитарный класс проигрывает CSS компонента | Используйте документированную CSS-переменную или локальный класс с продуманным порядком каскада. |
 
-Прежде чем повышать специфичность селектора, используйте инструменты разработчика браузера, чтобы изучить
-отрисованную часть, её `data-slot`, атрибуты состояния и итоговые пользовательские свойства.
+Прежде чем повышать специфичность селектора, откройте инструменты разработчика браузера и проверьте отрисованную
+часть, её `data-slot`, атрибуты состояния и итоговые пользовательские свойства.
 
 ## Связанные материалы
 
 - [Токены](/docs/tokens) объясняют общую CSS-основу и публичные переменные.
-- [Паттерны композиции](/docs/composition-patterns) объясняют, как сохранять обёртки продукта узкими.
+- [Паттерны композиции](/docs/composition-patterns) объясняют, как не раздувать обёртки продукта.

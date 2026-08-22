@@ -17,12 +17,12 @@ That gives you a predictable customization ladder:
 These patterns stay the same whether you consume `@moduix/react` or install source through the
 registry.
 
-## Install with shadcn when you want to own the code
+## Choose an install
 
-Use the npm package when you want package-managed updates, component imports from
+Use the npm package for package-managed updates, component imports from
 `@moduix/react/*`, and styles from `@moduix/react/style.css`.
 
-Use the `shadcn` registry when you want the component source files inside your application. It writes
+Use the `shadcn` registry when you want to own the component source files inside your application. It writes
 the selected component and its required moduix styles, icons, and utilities into your project, so you
 can change them directly and import them from `@/components/moduix/*`.
 
@@ -31,9 +31,9 @@ available, add it through `shadcn`, then review and merge the resulting diff on 
 [Quick start](/docs/quick-start#install-with-the-shadcn-cli) for the one-time registry setup
 and component commands.
 
-## Start from the documented part tree
+## Use the part tree
 
-Start with the component page's anatomy before creating wrappers. Use `className`, CSS variables,
+Before creating wrappers, start with the part tree documented on the component page. Use `className`, CSS variables,
 `data-slot`, and Ark state attributes on the parts that actually own those responsibilities.
 
 Root-only exports such as `Popover`, `Tooltip`, and `Select` are the short form of `*.Root`.
@@ -58,7 +58,7 @@ Use `portalled={false}` for inline rendering and `portalRef` for a custom contai
 component supports those props. Use `Dialog.RootProvider` as the alternative state entry point when
 the state object lives outside the rendered subtree.
 
-## What the structural parts are for
+## Structural parts
 
 Not every primitive exposes every part below. Start from the component page's anatomy, then keep the
 parts it documents visible when your product needs to override them.
@@ -73,9 +73,9 @@ parts it documents visible when your product needs to override them.
 Do not hide these nodes inside product wrappers unless your product contract intentionally removes
 their override points.
 
-## Use `asChild` when another element should own the DOM node
+## `asChild`
 
-Use `asChild` when a moduix part should attach its behavior to an existing semantic element.
+Use `asChild` when another semantic element should own the DOM node while a moduix part attaches its behavior to it.
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -100,9 +100,9 @@ export function FiltersPopover() {
 Keep a single semantic child that can receive Ark props. If the child component swallows refs,
 event handlers, or attributes, `asChild` will not behave correctly.
 
-## Share `ids` only for cross-primitive relationships
+## `ids`
 
-Most compositions wire their own relationships automatically. When two primitives must point at the
+Most compositions wire their own relationships automatically. Share `ids` only when two primitives must point at the
 same trigger or description node, share IDs instead of hand-writing aria relationships.
 
 ```tsx
@@ -128,24 +128,24 @@ export function AssigneeTooltip() {
 
 This keeps the accessibility wiring in Ark instead of duplicating `aria-*` attributes by hand.
 
-## Re-export the product API first
+## Re-export first
 
-If your product wants shorter imports or a branded surface, start with re-exports before writing
+If your product needs shorter imports or a branded surface, start with re-exports before writing
 new abstractions. Re-exporting keeps the original behavior intact while giving your application a
 stable local API.
 
 ```tsx
-import { Dialog as DialogBase } from '@moduix/react/dialog';
-// shadcn copy-owned: import { Dialog as DialogBase } from '@/components/moduix/dialog';
+import { Dialog as ModuixDialog } from '@moduix/react/dialog';
+// shadcn copy-owned: import { Dialog as ModuixDialog } from '@/components/moduix/dialog';
 
-export const Dialog = DialogBase;
-export const DialogTrigger = DialogBase.Trigger;
-export const DialogBackdrop = DialogBase.Backdrop;
-export const DialogPositioner = DialogBase.Positioner;
-export const DialogContent = DialogBase.Content;
-export const DialogTitle = DialogBase.Title;
-export const DialogDescription = DialogBase.Description;
-export const DialogCloseTrigger = DialogBase.CloseTrigger;
+export const Dialog = ModuixDialog;
+export const DialogTrigger = ModuixDialog.Trigger;
+export const DialogBackdrop = ModuixDialog.Backdrop;
+export const DialogPositioner = ModuixDialog.Positioner;
+export const DialogContent = ModuixDialog.Content;
+export const DialogTitle = ModuixDialog.Title;
+export const DialogDescription = ModuixDialog.Description;
+export const DialogCloseTrigger = ModuixDialog.CloseTrigger;
 ```
 
 This is the lowest-risk customization path:
@@ -156,10 +156,12 @@ This is the lowest-risk customization path:
 - moving from package usage to copy-owned usage stays straightforward
 - wrappers can be added later only where they are actually needed
 
-## Add wrappers only on the parts that need product styling
+## Add a product contract
 
-When design requirements go beyond a few utility classes, wrap only the parts that need custom
-styling. Keep the structure visible, and forward the rest of the props unchanged.
+Give the product contract only to the part that owns the decision. The local `Dialog` is a complete product boundary:
+consumers import one component and use
+`Dialog.Trigger`, `Dialog.Content`, and every other part from it. Internally, only the dialog surface
+adds the small `tone` contract because it owns the visual decision.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'Code', value: 'Code' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
@@ -181,16 +183,45 @@ styling. Keep the structure visible, and forward the rest of the props unchanged
   </Tabs>
 </div>
 
-Keep the structure visible and forward behavior unchanged. If a wrapper only renames the part and
-adds a class, that is usually enough.
+Consumers now import only the product component:
 
-Before shipping a wrapper, confirm that it still forwards the ref, `className`, event handlers,
-`asChild`, Ark callback detail objects, and accessibility attributes accepted by the original part.
-Do not replace a native button, label, or input with a generic element for styling convenience.
+```tsx
+import { Dialog } from '@/components/ui/dialog';
 
-## Move state outside the tree only when ownership changes
+export function DeleteProjectDialog() {
+  return (
+    <Dialog>
+      <Dialog.Trigger>Delete project</Dialog.Trigger>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content tone="danger">
+          <Dialog.Header>
+            <Dialog.Title>Delete this project?</Dialog.Title>
+            <Dialog.CloseIcon />
+            <Dialog.Description>This cannot be undone.</Dialog.Description>
+          </Dialog.Header>
+          <Dialog.Footer>
+            <Dialog.CloseTrigger>Cancel</Dialog.CloseTrigger>
+          </Dialog.Footer>
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog>
+  );
+}
+```
 
-Keep Ark detail objects intact. For example, dialog open state still uses
+The product root preserves the complete moduix API. Its custom `Dialog.Content` forwards `ref`,
+`className`, and every existing content prop. The `data-dialog-tone` attribute is a product styling
+hook; the CSS maps it through public dialog variables instead of copying the component's styles.
+
+Keep the part tree explicit: `Dialog.Backdrop`, `Dialog.Positioner`, and `Dialog.Content` still make
+overlay behavior and styling ownership easy to find. Add a wrapper only when it represents a repeated
+product decision, not for a one-off class name.
+
+## External state
+
+Move state outside the tree only when its ownership changes, and keep Ark detail objects intact. For example, dialog
+open state still uses
 `onOpenChange(details)` and reads `details.open`.
 
 Use component state helpers only when state needs to live outside the rendered subtree:
@@ -219,7 +250,7 @@ export function DialogFromExternalState() {
 
 Do not render `Root` and `RootProvider` for the same state instance.
 
-## A simple rule for choosing the right level
+## Choose a level
 
 - Only need usage? Stay on the shipped parts.
 - Need product import paths? Re-export first.

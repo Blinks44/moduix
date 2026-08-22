@@ -51,8 +51,9 @@ layout racine :
 import '@/lib/moduix/styles/style.css';
 ```
 
-La CLI shadcn ajoute `use client` aux composants générés qui en ont besoin. Ajoutez aussi la directive à votre propre
-wrapper composé s’il contient un état, des effets ou des gestionnaires d’événements.
+Avec `rsc: true`, la CLI shadcn conserve une directive `use client` déjà présente dans le fichier source d’un
+composant du registre ; elle ne détermine pas elle-même si le composant en a besoin. Ajoutez la directive à votre
+propre wrapper composé s’il contient un état, des effets ou des gestionnaires d’événements.
 
 ## Vérifier
 

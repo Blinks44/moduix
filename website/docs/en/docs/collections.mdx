@@ -1,11 +1,11 @@
 ---
-title: Browse Collections
-description: Data structures and React hooks from Ark UI for list, tree, async, and selection workflows.
+title: Collections
+description: Ark UI data structures and React hooks for lists, trees, async data, and selection.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
 
-# Browse Collections
+# Collections
 
 Collections are the data layer behind Ark list-style components. They are not styled moduix
 components; import them directly from Ark UI when working with `Select`, `Combobox`, `Listbox`,
@@ -32,7 +32,7 @@ application items → Ark collection → moduix component → user selection
 The collection normalizes item identity, text, disabled state, and traversal. The moduix component
 renders the accessible interaction and owns focus and selection behavior.
 
-## Browse collection guides
+## Guides
 
 <Cards>
   <Card
@@ -57,10 +57,10 @@ renders the accessible interaction and owns focus and selection behavior.
   />
 </Cards>
 
-## Start with a Select
+## Select
 
-This is the most common collection workflow: create the collection once, pass it to Select, and
-render the same items from `collection.items`.
+Select is the most common collection workflow: create the collection once, pass it to Select, and
+render its items from `collection.items`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/select/basic.tsx"
@@ -68,7 +68,9 @@ render the same items from `collection.items`.
 
 </PreviewFrame>
 
-## Choosing the right collection
+## Choose a collection
+
+Choose the API that matches how your data is stored and updated:
 
 - Start with `createListCollection` for a fixed array of options.
 - Use `useListCollection` when the list must be filtered or changed from React state.
@@ -85,7 +87,7 @@ collection to the relevant moduix component:
 - [Listbox](/docs/listbox)
 - [Tree View](/docs/tree-view)
 
-## Ownership boundary
+## Ownership
 
 Ark UI owns these APIs and their release lifecycle. moduix accepts the resulting collection
 objects without wrapping or re-exporting them. The following pages document the complete workflow

@@ -5,9 +5,8 @@ description: Configurez une seule fois la direction du document et la locale Ark
 
 # De droite à gauche (RTL)
 
-Une interface RTL nécessite deux réglages simples : la direction du document dans le navigateur et le
-contexte de locale Ark. Définissez `dir="rtl"` sur la racine du document, puis enveloppez l’application avec
-le `LocaleProvider` de moduix.
+Une interface RTL demande deux réglages : la direction du document dans le navigateur et le contexte de locale Ark.
+Définissez `dir="rtl"` sur la racine du document, puis enveloppez l’application avec le `LocaleProvider` de moduix.
 
 ```tsx
 import type { ReactNode } from 'react';
@@ -24,14 +23,14 @@ export function Document({ children }: { children: ReactNode }) {
 }
 ```
 
-`LocaleProvider` détermine la valeur `dir` d’Ark à partir de la locale. Les primitives sensibles à la
-locale et les formateurs Ark partagent ainsi une même source de vérité. L’attribut natif `dir` reste
-nécessaire : il contrôle la direction du texte et les propriétés CSS logiques dans le navigateur.
+`LocaleProvider` détermine la valeur `dir` d’Ark à partir de la locale. Les primitives sensibles à la locale et les
+formateurs Ark partagent ainsi une même source de vérité. L’attribut natif `dir` reste nécessaire : il définit la
+direction du texte et le comportement des propriétés CSS logiques dans le navigateur.
 
 ## Exemple de composant
 
-Utilisez le fournisseur une seule fois près de la racine de l’application ; les composants moduix
-individuels n’ont pas besoin d’une prop RTL particulière.
+Ajoutez le fournisseur une seule fois près de la racine de l’application : les composants moduix n’ont pas besoin
+d’une prop RTL particulière.
 
 ```tsx
 import { createListCollection } from '@ark-ui/react/collection';
@@ -73,34 +72,34 @@ export function ArabicPreferences() {
 }
 ```
 
-Pour les overlays rendus dans un portail, définissez `dir` sur `<html>` ou utilisez un conteneur de portail
-à l’intérieur du sous-arbre RTL. Le texte de l’overlay, son positionnement dans l’axe inline et ses tokens
-resteront ainsi dans le même contexte que son déclencheur.
+Pour les overlays rendus dans un portail, définissez `dir` sur `<html>` ou utilisez un conteneur de portail dans le
+sous-arbre RTL. Le texte de l’overlay, son positionnement dans l’axe inline et ses tokens resteront ainsi dans le
+même contexte que son déclencheur.
 
-Pour le contenu bidirectionnel, conservez la direction de l’application sur le conteneur extérieur et
-appliquez la redéfinition minimale correcte aux valeurs fournies par les utilisateurs. Utilisez `dir="auto"`
-pour du texte ordinaire dont la direction est inconnue et `dir="ltr"` pour les valeurs qui doivent conserver
-leur ordre physique, comme les adresses e-mail, les URL, le code et les numéros de téléphone.
+Pour le contenu bidirectionnel, conservez la direction de l’application sur le conteneur extérieur et ne la
+redéfinissez que pour les valeurs fournies par les utilisateurs qui en ont réellement besoin. Utilisez `dir="auto"`
+pour du texte ordinaire dont la direction est inconnue et `dir="ltr"` pour les valeurs qui doivent garder leur ordre
+physique, comme les adresses e-mail, les URL, le code et les numéros de téléphone.
 
-## Contrat de style
+## Styles
 
-Les nouveaux styles moduix emploient des propriétés CSS logiques lorsqu’une règle signifie « début » ou
-« fin » : par exemple `padding-inline`, `inset-inline-end`, `border-inline-start` et `text-align: start`.
-La même mise en page de composant suit ainsi la direction du contexte.
+Pour des styles compatibles RTL, employez des propriétés CSS logiques lorsqu’une règle signifie « début » ou « fin » :
+par exemple `padding-inline`, `inset-inline-end`, `border-inline-start` et `text-align: start`. La même mise en page
+de composant suit ainsi la direction du contexte.
 
-Conservez les propriétés physiques `left` et `right` uniquement lorsqu’elles décrivent la géométrie réelle
-de l’écran, comme les coordonnées d’un indicateur Ark, un bord de redimensionnement ou une direction de
-balayage explicite. Ne les remplacez pas mécaniquement : elles décrivent une position mesurée ou un geste,
-pas l’ordre de lecture.
+Conservez les propriétés physiques `left` et `right` uniquement lorsqu’elles décrivent la géométrie réelle de l’écran,
+comme les coordonnées d’un indicateur Ark, un bord de redimensionnement ou une direction de balayage explicite. Ne
+les remplacez pas mécaniquement : elles décrivent une position mesurée ou un geste, pas l’ordre de lecture.
 
-Inversez les icônes qui expriment une direction dans l’axe inline, par exemple « retour », « suivant »,
-« annuler » ou « rétablir ». N’inversez pas les icônes au sens fixe comme « lire », « valider »,
-« télécharger » ou un logo de marque. Si votre bibliothèque d’icônes fournit une variante RTL, utilisez-la ;
-sinon, appliquez la transformation uniquement dans le contexte RTL.
+Inversez les icônes qui expriment une direction dans l’axe inline, par exemple « retour », « suivant », « annuler »
+ou « rétablir ». N’inversez pas celles au sens fixe comme « lire », « valider », « télécharger » ou un logo de marque.
+Si votre bibliothèque d’icônes fournit une variante RTL, utilisez-la ; sinon, appliquez la transformation uniquement
+dans le contexte RTL.
 
-## Vérifier avant la mise en production
+## Checklist
 
-Testez l’interface avec une locale RTL après toute modification de mise en page, en particulier :
+Avant la mise en production, testez l’interface avec une locale RTL après toute modification de mise en page, en
+particulier :
 
 - les champs avec des boutons d’effacement ou d’action ;
 - les déclencheurs de select, combobox et date-picker ;
@@ -109,5 +108,5 @@ Testez l’interface avec une locale RTL après toute modification de mise en pa
 - le texte arabe ou hébreu mêlé à des adresses e-mail, des nombres et du code ;
 - les icônes directionnelles, les gestes de balayage et l’alignement au début ou à la fin sur une faible largeur.
 
-Ark gère le comportement directionnel de ses primitives. L’API du fournisseur et les détails du contexte
-de locale sont décrits dans la [documentation Ark Locale](https://ark-ui.com/docs/utilities/locale).
+Ark gère la direction dans ses primitives. L’API du fournisseur et le contexte de locale sont décrits dans la
+[documentation Ark Locale](https://ark-ui.com/docs/utilities/locale).

@@ -5,36 +5,54 @@ description: Versions de moduix, changements incompatibles et politique de prise
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
 import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
+import { ChartHero } from '@/components/changelog/chart-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <ChartHero />
+
+[Chart](/docs/chart) apporte à moduix des graphiques de données accessibles et composables, propulsés
+par TanStack Charts. Créez des graphiques en lignes, en aires, en barres, en anneau ou en nuage de
+points, ainsi que des cartes de chaleur, avec les composants moduix pour la figure, la légende,
+l’infobulle et les animations, tout en conservant l’API de définition de TanStack.
+
+  ### Contenu du composant
+
+- Une composition sémantique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
+- Une infobulle compacte par défaut, la navigation au clavier, des indicateurs de focus et des animations qui respectent la préférence de réduction des mouvements.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-Les nouvelles versions du site offrent un parcours de documentation complet en français et en russe :
-vous pouvez découvrir un composant, copier un exemple et suivre une recette sans changer de langue
-en cours de route.
+Les versions française et russe du site permettent de découvrir les composants, de copier des exemples
+et de suivre des recettes sans changer de langue en cours de route.
 
   ### Contenu de la localisation
 
-- La documentation complète des composants, les guides de configuration, les références API et les recettes sont publiés dans les deux langues.
-- La navigation, les métadonnées de pages, les routes adaptées à la langue et les exemples copiables restent cohérents en anglais, français et russe.
+- La documentation complète des composants, les guides de configuration, les références API et les recettes sont disponibles dans les deux langues.
+- La navigation, les métadonnées de page, les routes adaptées à chaque langue et les exemples copiables restent cohérents en anglais, en français et en russe.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-v2 est une version majeure assumée, et non un simple changement cosmétique. Ark UI fournit désormais
-le comportement et l’accessibilité des composants disposant d’une primitive dédiée, tandis que moduix
-conserve son CSS natif et ses deux méthodes d’installation.
+v2 est une version majeure mûrement réfléchie, et non un simple changement cosmétique. Ark UI fournit
+désormais le comportement et l’accessibilité des composants disposant d’une primitive dédiée, tandis que
+moduix conserve son CSS natif et ses deux méthodes d’installation.
 
   ### Changements dans v2
 
   - Le comportement et l’accessibilité des composants reposent désormais sur les primitives Ark UI.
 - La composition publique, l’accès à l’état et les propriétés de bas niveau sont alignés sur les contrats Ark.
-- Le CSS natif ainsi que les installations par paquet ou par ajout du code source au projet sont conservés.
+- Le CSS natif ainsi que les deux méthodes d’installation — par paquet ou par ajout du code source au projet — sont conservés.
 </ChangelogNewsItem>
 
 ## Autres mises à jour
+
+### v2.3.0 - 20 août 2026
+
+- Ajout de `Chart`, basé sur TanStack Charts, avec les composants de composition et les styles par défaut de moduix.
 
 ### v2.2.4 - 10 août 2026
 

@@ -1,21 +1,24 @@
 ---
 title: Tree Collection
-description: Modélisez, interrogez, parcourez, filtrez et mettez à jour les données hiérarchiques pour Tree View et les arbres personnalisés.
+description: "Manipulez des données hiérarchiques pour Tree View et vos propres interfaces arborescentes : recherchez, parcourez, filtrez et mettez-les à jour."
 ---
 
 # Tree Collection
 
-## Référence de l’API
+## API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
-Une collection arborescente normalise les données hiérarchiques pour `TreeView` et les interfaces d'arbre personnalisées. Elle fournit une recherche par valeur, des requêtes sur les parents et les descendants, des chemins d'index, des opérations de parcours et des mises à jour immuables.
+Une collection arborescente normalise les données hiérarchiques pour `TreeView` et vos propres
+interfaces arborescentes. Elle permet de rechercher des nœuds par valeur, d'obtenir leurs parents et
+descendants, d'utiliser des chemins d'index, de parcourir l'arbre et d'effectuer des mises à jour
+immuables.
 
 ```tsx
 import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
 ```
 
-## Créer un arbre
+## Création
 
 La structure par défaut utilise les propriétés `value`, `label`, `children` et, éventuellement, `disabled` :
 
@@ -39,19 +42,22 @@ const tree = createTreeCollection({
 });
 ```
 
-Le nœud racine est un conteneur et n'est pas inclus dans `getValues()`. Passez la collection directement à `TreeView` et effectuez le rendu à partir de `collection.rootNode.children`.
+Le nœud racine sert de conteneur et n'est pas inclus dans `getValues()`. Passez la collection
+directement à `TreeView` et effectuez le rendu à partir de `collection.rootNode.children`.
 
-## L'afficher avec Tree View
+## Tree View
 
-La collection gère la hiérarchie ; Tree View gère le développement, le focus, la navigation au clavier et la sélection. Affichez les branches de manière récursive à partir du même nœud et du même chemin d'index fournis par la collection.
+La collection gère la hiérarchie ; Tree View gère le déploiement, le focus, la navigation au clavier
+et la sélection. Affichez les branches récursivement à partir du nœud et du chemin d'index fournis par
+la collection.
 
 ```tsx preview file="../../en/docs/_snippets/tree-view/basic.tsx"
 
 ```
 
-## Structures de nœuds personnalisées
+## Nœuds personnalisés
 
-Mappez vos propres champs lorsqu'ils diffèrent des valeurs par défaut d'Ark :
+Indiquez la correspondance avec vos champs lorsque leur structure diffère de celle proposée par Ark :
 
 ```tsx
 type NavigationNode = {
@@ -80,9 +86,10 @@ const tree = createTreeCollection<NavigationNode>({
 | `nodeToChildrenCount` | Renvoie un nombre d'enfants connu, y compris pour les nœuds chargés paresseusement. |
 | `isNodeDisabled` | Indique si le nœud est désactivé. |
 
-## Recherche et chemins d'index
+## Recherche
 
-Un chemin d'index identifie un nœud par sa position numérique à chaque niveau de l'arborescence :
+Utilisez la recherche par valeur et les chemins d'index pour retrouver les nœuds. Un chemin d'index
+identifie un nœud par sa position numérique à chaque niveau de l'arborescence :
 
 ```tsx
 const path = tree.getIndexPath('input')!; // [0, 1]
@@ -113,7 +120,9 @@ tree.getDepth('input'); // 2
 
 `sort(values)` classe les valeurs en fonction de leur position dans l'arborescence. `isEqual(other)` compare les collections et `toJSON()` renvoie les valeurs de la collection.
 
-## Navigation et relations
+## Navigation
+
+Naviguez entre les nœuds et interrogez leurs relations parent-enfant et ancêtre-descendant :
 
 ```tsx
 tree.getFirstNode();
@@ -127,7 +136,8 @@ tree.getDescendantNodes('src'); // Button.tsx and Input.tsx nodes
 tree.getDescendantValues('src'); // ['button', 'input']
 ```
 
-`getFirstNode`, `getLastNode`, `getNextNode` et `getPreviousNode` acceptent une fonction de rappel `skip` pour les nœuds qui ne doivent pas participer au parcours.
+`getFirstNode`, `getLastNode`, `getNextNode` et `getPreviousNode` acceptent une fonction `skip` pour
+exclure certains nœuds du parcours.
 
 Les API de nœuds frères utilisent les chemins d'index :
 
@@ -139,9 +149,13 @@ tree.getPreviousSibling(path);
 tree.getSiblingNodes(path);
 ```
 
-Utilisez `contains(parentPath, valuePath)` pour vérifier si un chemin d'index en contient un autre. `getDescendantNodes` et `getDescendantValues` acceptent `{ withBranch: true }` lorsque les nœuds de branche doivent être inclus avec les feuilles.
+Utilisez `contains(parentPath, valuePath)` pour vérifier si un chemin d'index en contient un autre.
+`getDescendantNodes` et `getDescendantValues` acceptent `{ withBranch: true }` pour inclure les
+nœuds de branche avec les feuilles.
 
-## Branches et parcours
+## Parcours
+
+Examinez les branches, aplatissez l'arbre ou parcourez tous les nœuds :
 
 ```tsx
 const src = tree.findNode('src');
@@ -151,7 +165,8 @@ tree.getBranchValues();
 tree.flatten();
 ```
 
-`flatten()` renvoie les nœuds avec les métadonnées `_index`, `_parent` et `_children`, ce qui est utile pour le rendu virtualisé ou plat.
+`flatten()` renvoie les nœuds avec les métadonnées `_index`, `_parent` et `_children`, utiles pour un
+rendu virtualisé ou plat.
 
 Utilisez `visit` lorsque chaque nœud doit être traité :
 
@@ -179,9 +194,9 @@ const filteredTree = tree.filter((node) =>
 
 Utilisez la collection renvoyée pour le rendu. L'arbre d'origine est inchangé.
 
-## Mises à jour immuables
+## Mises à jour
 
-Chaque modification renvoie un nouveau `TreeCollection` :
+Toutes les mises à jour sont immuables et renvoient un nouveau `TreeCollection` :
 
 ```tsx
 const srcPath = tree.getIndexPath('src')!;
@@ -198,9 +213,13 @@ const renamed = tree.replace(buttonPath, {
 const moved = tree.move([readmePath], srcPath);
 ```
 
-Les chemins d'index décrivent les positions dans un instantané de la collection. Après une insertion, une suppression, une réorganisation ou un déplacement, abandonnez les chemins d'index mémorisés et recalculez-les à partir de la collection renvoyée avant l'opération suivante. Stockez des valeurs de nœud stables dans l'état de l'application plutôt que des chemins numériques.
+Les chemins d'index décrivent des positions dans un instantané de la collection. Après une insertion,
+une suppression, une réorganisation ou un déplacement, abandonnez les chemins mémorisés. Recalculez-les
+à partir de la collection renvoyée avant l'opération suivante. Stockez des valeurs de nœud stables dans
+l'état de l'application plutôt que des chemins numériques.
 
-`insertBefore` et `insertAfter` peuvent renvoyer `undefined` lorsque le chemin cible n'est pas valide. Validez les chemins obtenus à partir de données dynamiques avant de les utiliser.
+`insertBefore` et `insertAfter` peuvent renvoyer `undefined` lorsque le chemin cible n'est pas valide.
+Validez les chemins issus de données dynamiques avant de les utiliser.
 
 | API | Fonctionnement |
 | --------------------------- | -------------------------------------------- |
@@ -212,9 +231,9 @@ Les chemins d'index décrivent les positions dans un instantané de la collectio
 | `move(fromPaths, toPath)` | Déplace des sous-arbres vers un autre emplacement. |
 | `filter(predicate)` | Renvoie une arborescence filtrée. |
 
-## Chemins de fichiers
+## Arborescence de fichiers
 
-Utilisez `createFileTreeCollection` lorsque la source est déjà une liste de chemins :
+Utilisez `createFileTreeCollection` lorsque les données source sont déjà une liste de chemins :
 
 ```tsx
 const files = createFileTreeCollection([
@@ -227,4 +246,7 @@ const files = createFileTreeCollection([
 files.getBranchValues(); // ['src', 'components', 'utils']
 ```
 
-Pour la composition complète du rendu, le développement, la sélection, le chargement différé et les nœuds récursifs, consultez [Tree View](https://moduix.dev/docs/tree-view). Pour les enfants distants, utilisez son exemple de chargement asynchrone et mettez à jour la collection uniquement après la réussite de la requête.
+Pour une composition de rendu complète, le déploiement, la sélection, le chargement différé et les
+nœuds récursifs, consultez [Tree View](https://moduix.dev/docs/tree-view). Pour les enfants distants,
+utilisez l'exemple de chargement asynchrone et mettez à jour la collection uniquement après la réussite
+de la requête.

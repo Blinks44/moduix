@@ -1,0 +1,51 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Все рецепты",
+    "tag": "clipboard-list"
+  },
+  {
+    "type": "section-header",
+    "label": "Приложение"
+  },
+  { "type": "file", "name": "app-header", "label": "Шапка", "tag": "panel-top" },
+  {
+    "type": "file",
+    "name": "mobile-drawer-navigation",
+    "label": "Мобильное меню",
+    "tag": "panel-left-open"
+  },
+  { "type": "file", "name": "sidebar-dashboard", "label": "Сайдбар", "tag": "panel-left" },
+  {
+    "type": "section-header",
+    "label": "Доступ"
+  },
+  { "type": "file", "name": "login-simple", "label": "Вход", "tag": "log-in" },
+  { "type": "file", "name": "sign-up", "label": "Регистрация", "tag": "list-checks" },
+  { "type": "file", "name": "forgot-password", "label": "Забыли пароль", "tag": "key-round" },
+  { "type": "file", "name": "reset-password", "label": "Сброс пароля", "tag": "refresh-cw" },
+  { "type": "file", "name": "verification-code", "label": "Код проверки", "tag": "badge-check" },
+  {
+    "type": "section-header",
+    "label": "Данные"
+  },
+  { "type": "file", "name": "data-table", "label": "Таблица", "tag": "table-properties" },
+  { "type": "file", "name": "file-upload-manager", "label": "Загрузка файлов", "tag": "file-text" },
+  {
+    "type": "section-header",
+    "label": "Пользователи"
+  },
+  {
+    "type": "file",
+    "name": "expandable-avatar-group",
+    "label": "Группа аватаров",
+    "tag": "users-round"
+  },
+  {
+    "type": "section-header",
+    "label": "Визуальное"
+  },
+  { "type": "file", "name": "autoplay-gallery", "label": "Галерея", "tag": "paintbrush" },
+  { "type": "file", "name": "parallax-card", "label": "Параллакс-карта", "tag": "orbit" }
+]

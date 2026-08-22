@@ -51,8 +51,9 @@ from the root layout:
 import '@/lib/moduix/styles/style.css';
 ```
 
-The shadcn CLI adds `use client` to generated components that require it. Your own composed wrapper
-still needs the directive when it owns state, effects, or event handlers.
+With `rsc: true`, the shadcn CLI preserves a `use client` directive already present in a registry
+component's source file; it does not infer whether a component needs one. Add the directive to your
+own composed wrapper when it owns state, effects, or event handlers.
 
 ## Verify
 

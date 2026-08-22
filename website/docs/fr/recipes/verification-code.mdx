@@ -1,22 +1,22 @@
 ---
 title: Code de vérification
-description: Formulaire de vérification d’e-mail par code à six chiffres intégré à votre projet avec les composants React moduix.
+description: Un formulaire de vérification d’e-mail par code à six chiffres, construit avec les composants React moduix.
 ---
 
 import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
 
 # Code de vérification
 
-Vérifiez une adresse e-mail avec un code à usage unique de six chiffres. `PinInput` fournit le champ
-de formulaire natif, la navigation au clavier et le remplissage automatique OTP sur mobile. Envoyez
-moins de six chiffres pour afficher l’erreur intégrée au champ.
+Vérifiez une adresse e-mail avec un code à usage unique de six chiffres. `PinInput` apporte le champ de
+formulaire natif, la navigation au clavier et le remplissage automatique OTP sur mobile. Envoyez le formulaire
+avec moins de six chiffres pour afficher l’erreur intégrée au champ.
 
 <ExampleFrame clientOnly>
   <VerificationCodePreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/verification-code.tsx"
@@ -38,19 +38,18 @@ moins de six chiffres pour afficher l’erreur intégrée au champ.
 
 <ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
 
-## Utilisation dans une route
+## Dans une route
 
-Affichez `VerificationCode` après l’envoi du code par e-mail et transmettez-lui le véritable
-gestionnaire d’envoi. `onSubmit` reçoit l’événement natif du formulaire : lisez donc
-`new FormData(event.currentTarget)` et vérifiez la valeur `code` auprès de votre serveur. Remplacez
-le lien `/sign-in` par la route de votre application.
+Affichez `VerificationCode` après l’envoi du code par e-mail et passez-lui le véritable gestionnaire d’envoi
+du formulaire. `onSubmit` reçoit l’événement natif du formulaire : lisez `new FormData(event.currentTarget)`
+et vérifiez la valeur `code` auprès du serveur. Remplacez le lien `/sign-in` par la route de l’application.
 
-La prévisualisation ne contient volontairement aucun serveur de vérification. Après six chiffres,
-elle exécute son gestionnaire d’envoi vide ; la recette copiée exécute à la place le gestionnaire que
-vous fournissez.
+La prévisualisation ne contient volontairement aucun serveur de vérification. Après la saisie de six chiffres,
+elle exécute son gestionnaire d’envoi vide ; dans la recette copiée, c’est le gestionnaire que vous fournissez
+qui sera appelé.
 
-Désactivez les vérifications en double tant que la requête est en attente. Pour un code incorrect,
-conservez les chiffres saisis et associez l’erreur au champ ; pour un code expiré, expliquez qu’un
-nouveau code est nécessaire. Placez le renvoi derrière un court délai, annoncez l’envoi du nouveau
-code et laissez le serveur appliquer la véritable limitation de débit. Ne considérez jamais le
-compte à rebours côté client comme une autorisation.
+Tant que la requête n’est pas terminée, désactivez les envois en double. Si le code est incorrect,
+conservez les chiffres saisis et affichez l’erreur sur le champ ; s’il est expiré, expliquez qu’il faut
+en demander un nouveau. N’autorisez le renvoi qu’après un court délai, annoncez l’envoi du nouveau code
+et laissez le serveur appliquer la véritable limitation de débit. Ne considérez jamais le compte à rebours
+côté client comme une preuve d’autorisation.

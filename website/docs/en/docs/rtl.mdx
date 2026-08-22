@@ -81,9 +81,9 @@ smallest correct override on user-provided values. Use `dir="auto"` for unknown 
 `dir="ltr"` for values that must keep a physical order, such as email addresses, URLs, codes, and
 telephone numbers.
 
-## Styling contract
+## Styles
 
-New moduix styles use logical CSS properties whenever a rule means “start” or “end”: for example,
+For RTL-aware styles, use logical CSS properties whenever a rule means “start” or “end”: for example,
 `padding-inline`, `inset-inline-end`, `border-inline-start`, and `text-align: start`. This lets the
 same component layout follow the surrounding direction.
 
@@ -95,9 +95,9 @@ Mirror icons that express inline direction, such as back, forward, undo, or redo
 icons with a fixed meaning, such as play, check, download, or a brand logo. Prefer an icon library's
 RTL variant when it provides one; otherwise apply the transform only inside an RTL scope.
 
-## Check before release
+## Release checklist
 
-Test the interface with an RTL locale after changing layout code, especially:
+Before release, test the interface with an RTL locale after changing layout code, especially:
 
 - inputs with clear or action buttons;
 - select, combobox, and date-picker triggers;

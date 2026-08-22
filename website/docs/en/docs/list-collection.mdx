@@ -46,9 +46,9 @@ Keep a static collection outside the component when its items do not change. If 
 props, state, or a request, memoize the collection or use `useListCollection` so the collection
 identity changes only when the data changes.
 
-## Custom item shapes
+## Custom items
 
-Define value, text, and disabled mappings when your data does not use Ark's default keys:
+Map the value, text, and disabled state when your data uses fields other than Ark's default keys:
 
 ```tsx
 type Team = {
@@ -111,7 +111,9 @@ collection.stringify('product'); // 'Product'
 collection.has('unknown'); // false
 ```
 
-## Traversal and ranges
+## Navigation
+
+Use these APIs to move through item values and to get ranges in collection order.
 
 ```tsx
 collection.firstValue; // 'platform'
@@ -171,9 +173,9 @@ const nextCollection = collection
 | `moveAfter(value, ...values)`            | Move values after another value.          |
 | `reorder(from, to)`                      | Move an item between numeric indexes.     |
 
-## React-managed collections
+## React state
 
-Use `useListCollection` when filtering or collection updates should trigger a render:
+Use `useListCollection` when filtering or collection updates need to trigger a React render:
 
 ```tsx
 function useTeams() {

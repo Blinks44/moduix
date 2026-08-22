@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: Un ensemble vertical de titres interactifs, chacun révélant sa propre section.
+description: Une liste verticale de titres interactifs qui révèlent chacun une section.
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion';
@@ -12,9 +12,9 @@ import * as AccordionDocs from '@/components/examples/accordion';
 
 ## Exemple de base
 
-`Accordion` regroupe des sections liées sous des titres dépliables. Utilisez-le pour les FAQ, les
-groupes de paramètres ou les filtres, lorsque plusieurs sections doivent pouvoir être comparées.
-Pour une seule zone dépliable autonome, utilisez `Collapsible`.
+`Accordion` réunit des sections liées dans des panneaux dépliables. Utilisez-le pour les FAQ, les
+groupes de paramètres ou les filtres lorsque plusieurs sections doivent être comparées. Pour une
+seule zone dépliable, utilisez `Collapsible`.
 
 Utilisez `Accordion` avec les parties Ark : `Accordion.Item`, `Accordion.ItemTrigger`,
 `Accordion.ItemIndicator`, `Accordion.ItemContent` et `Accordion.ItemBody`.
@@ -66,7 +66,10 @@ Utilisez-le avec `value`, `defaultValue`, `onValueChange(details)`, `onFocusChan
 Pour la composition Ark standard, utilisez `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`,
 `Accordion.ItemIndicator`, `Accordion.ItemContent` et `Accordion.ItemBody`.
 
-### Quand créer une composition personnalisée
+### Composition personnalisée
+
+Utilisez-la lorsque l’état doit être créé hors du sous-arbre rendu, que l’interface environnante doit
+le lire ou que vous devez remplacer les parties par défaut.
 
 `value` et `defaultValue` sont toujours des tableaux, y compris lorsqu'un seul élément peut être
 ouvert. `onValueChange` respecte la signature du callback Ark et expose les valeurs actuelles dans
@@ -199,7 +202,7 @@ créé en dehors de l'arbre de l'accordéon. Ne rendez pas `Accordion` ou `Accor
 ```
 </PreviewFrame>
 
-### Personnalisation avancée
+### Personnalisation
 
 Le contenu d'un accordéon peut accueillir un autre widget composite fondé sur Ark. Gardez l'arbre
 des parties de chaque primitive explicite afin que la gestion du clavier et les champs de formulaire

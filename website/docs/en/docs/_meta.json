@@ -504,7 +504,7 @@
   {
     "type": "file",
     "name": "collections",
-    "label": "Browse Collections",
+    "label": "Collections",
     "tag": "database"
   },
   {
@@ -534,7 +534,7 @@
   {
     "type": "file",
     "name": "forms",
-    "label": "Browse forms",
+    "label": "Forms",
     "tag": "clipboard-list"
   },
   {

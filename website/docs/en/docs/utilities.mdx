@@ -37,7 +37,11 @@ Check the linked Ark page for the exact import and full API.
 | [Locale](https://ark-ui.com/docs/utilities/locale)                             | Locale and direction should flow through Ark formatters and locale-aware behavior.                       | Pair with `Format` utilities and RTL interfaces.                                                  |
 | [Presence](https://ark-ui.com/docs/utilities/presence)                         | Your app owns visibility and mount lifecycle outside a built-in moduix root.                             | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, and Tour already expose Ark presence props.     |
 
-## Recommended first utilities
+## Start here
+
+If you are choosing between several Ark utilities, start with these four. They cover the most
+common cases: controlling presence, deferring browser-only content, changing the document root,
+and formatting locale-aware values.
 
 ### Presence
 
@@ -148,7 +152,10 @@ source.
 See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
 [Ark Format Relative Time docs](https://ark-ui.com/docs/utilities/format-relative-time).
 
-## When to stay in moduix
+## Prefer moduix
+
+Use a moduix component API when it already covers the behavior you need. This keeps the interaction,
+styling, and accessibility contract in one place.
 
 - Use `Highlight` from moduix when matched ranges should share the same styled `<mark>` contract as
   the rest of the library instead of using the raw Ark utility directly.
@@ -163,7 +170,7 @@ See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
 surface, provide an accessible name and close action, restore focus when it closes, and prefer
 [Dialog](/docs/dialog) or [Drawer](/docs/drawer) when either fits.
 
-## Contract boundary
+## Ownership
 
 These utilities come from Ark UI, not from the moduix styled component layer. Ark owns their props,
 lifecycle details, accessibility behavior, and release cadence. `LocaleProvider` is also re-exported

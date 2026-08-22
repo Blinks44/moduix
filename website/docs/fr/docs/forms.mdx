@@ -1,6 +1,6 @@
 ---
-title: Vue d’ensemble des formulaires
-description: Créez des formulaires natifs accessibles avec les champs moduix et les contrôles fondés sur Ark.
+title: Formulaires
+description: Créez des formulaires accessibles avec les champs moduix et les contrôles fondés sur Ark.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
@@ -8,8 +8,8 @@ import { Card, Cards } from '@/components/mdx/Components';
 # Formulaires
 
 moduix ne gère pas l’état du formulaire. Utilisez un élément `<form>` natif lorsque la validation du
-navigateur et `FormData` suffisent. Ajoutez une bibliothèque de formulaires lorsqu’une validation plus
-complexe, l’état des champs ou des scénarios de soumission sont nécessaires.
+navigateur et `FormData` suffisent. Ajoutez une bibliothèque de formulaires si vous avez besoin d’une
+validation plus complexe, de l’état des champs ou d’un processus de soumission particulier.
 
 ## Choisir une approche
 
@@ -17,7 +17,7 @@ complexe, l’état des champs ou des scénarios de soumission sont nécessaires
   <Card
     title="Formulaire natif"
     description="Utilisez la validation du navigateur, la soumission avec FormData et la réinitialisation native pour un petit formulaire."
-    href="/docs/forms#commencer-par-un-formulaire-natif"
+    href="/docs/forms#formulaires-natifs"
   />
   <Card
     title="Formisch"
@@ -36,20 +36,20 @@ complexe, l’état des champs ou des scénarios de soumission sont nécessaires
   />
 </Cards>
 
-## Commencer par un formulaire natif
+## Formulaires natifs
 
-Commencez par l’état natif du formulaire s’il ne contient que quelques champs et que la validation du
+Commencez par un formulaire natif s’il ne contient que quelques champs et que la validation du
 navigateur suffit. Donnez à chaque contrôle un libellé visible et un attribut `name`, définissez les
 contraintes natives sur le contrôle lui-même, puis lisez les données soumises avec
 `new FormData(event.currentTarget)`. [L’exemple fonctionnel de formulaire natif](#formulaire-natif)
-associe un Input ordinaire à des composants Select et Checkbox fondés sur Ark, sans dupliquer de
-champs masqués.
+associe un Input ordinaire à des composants Select et Checkbox fondés sur Ark, sans ajouter de champ
+masqué en double.
 
-N’ajoutez une bibliothèque que si le produit nécessite des tableaux de champs, une validation fondée
-sur un schéma ou portant sur plusieurs champs, un état contrôlé utilisé ailleurs dans l’interface, ou
-un cycle de validation que les formulaires natifs ne peuvent pas exprimer clairement.
+N’ajoutez une bibliothèque que si vous avez besoin de tableaux de champs, d’une validation fondée sur
+un schéma ou portant sur plusieurs champs, d’un état contrôlé partagé dans l’interface ou d’un
+processus de validation qu’un formulaire natif ne permet pas d’exprimer clairement.
 
-## Rôle des bibliothèques de formulaires
+## Bibliothèques de formulaires
 
 moduix prend en charge la structure accessible du formulaire : libellés, descriptions, association des
 messages d’erreur au champ, parties sémantiques des contrôles et contrôle natif nécessaire à la
@@ -159,14 +159,15 @@ la validation et la réinitialisation.
 
 ```
 
-## Validation, réinitialisation et focus
+## Validation et réinitialisation
 
 Deux modes de validation sont corrects. Pour un formulaire natif simple, conservez les contraintes
 comme `required`, `minLength`, `pattern`, `min` et `max`, puis laissez le navigateur afficher son
 interface de validation. Lorsque la bibliothèque doit gérer les messages d’erreur visibles, ajoutez
 `noValidate` au formulaire et transmettez son résultat à `Field invalid` avec un `Field.ErrorText`
-explicite. Conservez `Field required` dans les deux cas : les composants qui connaissent Ark héritent
-de l’état sémantique obligatoire par le contexte du champ.
+explicite. Conservez `Field required` dans les deux cas : les composants fondés sur Ark héritent de
+l’état sémantique obligatoire par le contexte du champ. Ce choix détermine aussi la façon de gérer
+les erreurs de validation et le focus.
 
 Si vous composez un contrôle personnalisé qui n’est pas fondé sur Ark, appliquez vous-même sa
 contrainte native et l’état `aria-invalid` à l’élément réel pouvant recevoir le focus. N’affichez pas
@@ -191,7 +192,7 @@ placez le focus sur le premier contrôle affiché portant `aria-invalid` dans le
 de soumission. Les guides d’intégration dédiés présentent les correspondances de valeur, de blur, de
 réinitialisation et de focus appropriées.
 
-## Cycle de soumission
+## Soumission
 
 Quelle que soit la bibliothèque d’état, rendez l’état de la requête explicite :
 
@@ -208,7 +209,7 @@ entrées répétées, tandis que les Checkbox natives non cochées peuvent être
 répétés avec `getAll`, normalisez les valeurs à la frontière du serveur et ne considérez jamais le
 typage ou la validation côté client comme une raison suffisante de faire confiance aux données soumises.
 
-## Champs répétés et erreurs du serveur
+## Listes et erreurs du serveur
 
 Pour une liste modifiable, comme des adresses e-mail de contact, des membres d’équipe ou des lignes de
 commande, laissez la bibliothèque choisie ajouter, supprimer et valider les éléments. Utilisez

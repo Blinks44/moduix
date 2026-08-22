@@ -131,11 +131,12 @@ const newEmail = () => ({ id: crypto.randomUUID(), address: '' });
 Use an ID already returned by your API when editing persisted items; `newEmail()` is only for
 creating new client-side rows.
 
-## Errors returned by the server
+## Server errors
 
-Put an asynchronous submit validator on the form. Return `fields` with the exact field names that
-the server rejected and an optional `form` message for errors that do not belong to one field. The
-normal `field.state.meta.errors` rendering then shows field errors without a separate error store.
+To display errors returned by the server, put an asynchronous submit validator on the form. Return
+`fields` with the exact rejected field names and an optional `form` message for errors that do not
+belong to one field. The normal `field.state.meta.errors` rendering then shows field errors without a
+separate error store.
 
 ```tsx
 type ProjectFormValues = {
@@ -168,10 +169,10 @@ const form = useForm<ProjectFormValues>({
 </form.Subscribe>;
 ```
 
-## Focus the first invalid field
+## Focus management
 
-TanStack Form does not choose a DOM focus target. Use `onSubmitInvalid` to focus the first rendered
-control that your `Field invalid` mapping marks with `aria-invalid="true"`:
+TanStack Form does not choose a DOM focus target. Use `onSubmitInvalid` to move focus to the first
+rendered control that your `Field invalid` mapping marks with `aria-invalid="true"`:
 
 ```tsx
 function focusFirstInvalid(formId: string) {

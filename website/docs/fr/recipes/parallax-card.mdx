@@ -1,22 +1,22 @@
 ---
 title: Carte avec parallaxe
-description: Une carte moduix avec une image plein fond et une légère inclinaison 3D au survol.
+description: Une carte moduix à image plein fond, avec une légère inclinaison 3D au survol.
 ---
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 
 # Carte avec parallaxe
 
-Une carte à image plein fond avec une légère inclinaison 3D. `Card.Background` gère la couche photo
-décorative et `react-parallax-tilt` gère le mouvement du pointeur ; l’effet reste immobile sans
-pointeur de survol précis ou avec la préférence reduced motion.
+Une carte à image plein fond avec une légère inclinaison 3D. `Card.Background` gère la couche décorative,
+et `react-parallax-tilt` le mouvement du pointeur. L’effet reste immobile sans pointeur précis prenant en
+charge le survol ou lorsque la réduction des animations est activée.
 
 <ExampleFrame clientOnly>
   <ParallaxCardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/parallax-card.tsx"
@@ -38,8 +38,8 @@ pointeur de survol précis ou avec la préférence reduced motion.
 
 <ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
 
-## Utilisation dans une page
+## Dans une page
 
-Remplacez l’URL de l’image et le contenu. Gardez `alt=""` pour l’image de fond décorative ; utilisez
-`Card.Media` lorsqu’une image nécessite un texte alternatif. Le mouvement est décoratif : la carte doit
-rester lisible et utile sans survol ; utilisez un lien ou un bouton classique pour la destination.
+Remplacez l’URL de l’image et le texte de la carte par votre contenu. Conservez `alt=""` sur l’image de fond
+décorative ; utilisez `Card.Media` lorsqu’une image a besoin d’un texte alternatif. Le mouvement est uniquement
+décoratif : la carte doit rester lisible et utile sans survol. Utilisez un lien ou un bouton classique pour la destination.

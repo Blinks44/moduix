@@ -5,7 +5,7 @@ description: Manage single, multiple, deselectable, and range selection for cust
 
 # List Selection
 
-## API reference
+## API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/list-selection" />
 
@@ -17,14 +17,15 @@ normally do not need this hook.
 import { createListCollection, useListSelection } from '@ark-ui/react/collection';
 ```
 
-## Basic single selection
+## Single selection
 
 ```tsx preview file="./_snippets/list-selection/basic.tsx"
 
 ```
 
-The hook manages selection values only. Your UI still owns semantic roles, keyboard interaction,
-focus, and accessible labels. Prefer `Listbox` when you need standard listbox behavior.
+This basic example shows single selection. The hook manages selection values only. Your UI still
+owns semantic roles, keyboard interaction, focus, and accessible labels. Prefer `Listbox` when you
+need standard listbox behavior.
 
 The button example is appropriate because each option is an independent toggle action. Do not add
 `role="listbox"` to custom markup unless you also implement the complete listbox keyboard and focus
@@ -43,7 +44,7 @@ model. For a conventional option picker, use [Listbox](/docs/listbox) and let it
 `initialSelectedValues` is read as initial state. Use `setSelectedValues` when selection must
 change after mount.
 
-## Selection state
+## State
 
 | Value                | Meaning                                              |
 | -------------------- | ---------------------------------------------------- |
@@ -63,7 +64,7 @@ change after mount.
 
 Use `canSelect` before exposing custom selection actions that are not already disabled in the UI.
 
-## Selection actions
+## Actions
 
 | Method                             | Purpose                                                 |
 | ---------------------------------- | ------------------------------------------------------- |

@@ -5,12 +5,11 @@ description: Utilitaires Ark UI pour les comportements auxquels moduix ne fourni
 
 # Utilitaires
 
-Ark UI fournit plusieurs utilitaires qui se placent à côté de la couche de composants moduix, et non à
-l’intérieur de celle-ci. Utilisez-les directement lorsque l’application a besoin du comportement d’une
-primitive et que la page du composant moduix correspondant ne documente pas encore de wrapper ou de prop
-qui transmet ce comportement.
+Ark UI propose plusieurs utilitaires qui complètent les composants moduix sans en faire partie. Utilisez-les
+directement lorsque l’application a besoin d’un comportement de bas niveau et que le composant moduix
+correspondant ne propose ni wrapper ni prop pour le couvrir.
 
-Beaucoup de ces utilitaires s’importent depuis des sous-chemins distincts :
+La plupart de ces utilitaires s’importent depuis des sous-chemins dédiés :
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -20,30 +19,34 @@ import { EnvironmentProvider } from '@ark-ui/react/environment';
 import { Presence } from '@ark-ui/react/presence';
 ```
 
-L’import exact et l’API complète figurent sur la page Ark correspondante.
+Pour le chemin d’import exact et l’API complète, consultez la documentation Ark correspondante.
 
 ## Vue d’ensemble
 
 | Utilitaire | À utiliser lorsque | Contexte moduix |
 | --- | --- | --- |
-| [Client Only](https://ark-ui.com/docs/utilities/client-only) | Un sous-arbre a besoin, après l’hydratation, de `window`, de mesures de mise en page ou d’une autre API disponible uniquement dans le navigateur. | Utile dans les applications SSR et les exemples de documentation. |
-| [Download Trigger](https://ark-ui.com/docs/utilities/download-trigger) | Un clic doit télécharger une URL, un blob, un fichier ou des données générées. | moduix enveloppe déjà ce modèle dans `QrCode.DownloadTrigger` pour l’export d’un QR code. |
-| [Environment](https://ark-ui.com/docs/utilities/environment) | Un sous-arbre moduix ou Ark est rendu dans une iframe, un Shadow DOM, Electron ou un autre document racine personnalisé. | Enveloppez une fois le sous-arbre concerné au lieu de corriger chaque composant. |
-| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap) | Vous créez une surface modale personnalisée qui doit retenir le focus clavier. | Dialog et Drawer fournissent déjà un comportement de focus modal ; les composants flottants utilisent leur propre modèle de focus adapté. |
-| [Format Byte](https://ark-ui.com/docs/utilities/format-byte) | Vous avez besoin de tailles de fichiers ou de valeurs de stockage localisées. | Utile avec les téléversements, les téléchargements et la télémétrie. |
-| [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | Vous avez besoin d’indications temporelles relatives, par exemple « il y a 2 min ». | Lit la locale depuis `LocaleProvider` lorsqu’il est présent. |
-| [Format Time](https://ark-ui.com/docs/utilities/format-time) | Vous devez afficher une heure localisée à partir d’un objet `Date` ou d’une chaîne `HH:mm[:ss]`. | Utile pour la planification, les minuteurs et les flux d’activité. |
-| [Frame](https://ark-ui.com/docs/utilities/frame) | Du contenu React doit être rendu dans une iframe avec injection dans le head et callbacks de montage. | Souvent associé à `EnvironmentProvider` lorsque l’iframe rend des composants Ark ou moduix. |
-| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view) | Vous avez besoin d’une arborescence de débogage ou d’inspection pour des données similaires à du JSON. | Indépendant du style moduix ; utilisez directement Ark. |
-| [Locale](https://ark-ui.com/docs/utilities/locale) | La locale et la direction doivent être transmises aux formateurs Ark et aux comportements sensibles à la locale. | À associer aux utilitaires `Format` et aux interfaces RTL. |
-| [Presence](https://ark-ui.com/docs/utilities/presence) | L’application contrôle la visibilité et le cycle de montage hors d’une partie racine moduix intégrée. | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox et Tour exposent déjà les props de présence Ark. |
+| [Client Only](https://ark-ui.com/docs/utilities/client-only) | Une partie de l’interface a besoin de `window`, de mesures de mise en page ou d’une autre API réservée au navigateur après l’hydratation. | Utile dans les applications SSR et les exemples de documentation. |
+| [Download Trigger](https://ark-ui.com/docs/utilities/download-trigger) | Un clic doit télécharger une URL, un blob, un fichier ou des données générées. | moduix propose déjà `QrCode.DownloadTrigger` pour exporter un QR code. |
+| [Environment](https://ark-ui.com/docs/utilities/environment) | Une partie de l’interface moduix ou Ark est rendue dans une iframe, un Shadow DOM, Electron ou un autre document. | Enveloppez le sous-arbre concerné une fois, plutôt que de configurer chaque composant. |
+| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap) | Vous créez votre propre interface modale, qui doit conserver le focus clavier. | Dialog et Drawer gèrent déjà le focus ; les composants flottants ont leur modèle adapté. |
+| [Format Byte](https://ark-ui.com/docs/utilities/format-byte) | Vous devez afficher une taille de fichier ou un volume de stockage dans la locale de l’utilisateur. | Utile pour les téléversements, téléchargements et données de télémétrie. |
+| [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | Vous devez afficher une date relative, par exemple « il y a 2 min ». | Utilise la locale de `LocaleProvider` lorsqu’il est présent. |
+| [Format Time](https://ark-ui.com/docs/utilities/format-time) | Vous devez formater une heure depuis un `Date` ou une chaîne `HH:mm[:ss]`. | Convient aux plannings, minuteurs et flux d’activité. |
+| [Frame](https://ark-ui.com/docs/utilities/frame) | Du contenu React doit être rendu dans une iframe, avec accès au `head` et aux callbacks de montage. | Souvent associé à `EnvironmentProvider` si l’iframe contient des composants Ark ou moduix. |
+| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view) | Vous devez inspecter ou déboguer des données de type JSON. | Indépendant du style moduix : utilisez Ark directement. |
+| [Locale](https://ark-ui.com/docs/utilities/locale) | La locale et la direction doivent être disponibles aux formateurs Ark et aux primitives sensibles à la locale. | À associer à `Format` et aux interfaces RTL. |
+| [Presence](https://ark-ui.com/docs/utilities/presence) | L’application gère elle-même l’affichage et le montage, hors d’un composant moduix prêt à l’emploi. | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox et Tour prennent déjà en charge les props Presence. |
 
-## Utilitaires fondamentaux recommandés
+## Par où commencer
+
+Si vous hésitez entre plusieurs utilitaires Ark, commencez par ces quatre. Ils couvrent les cas les plus
+courants : contrôler la présence, différer le contenu réservé au navigateur, changer de document racine et
+formater des valeurs selon la locale.
 
 ### Presence
 
-Utilisez `Presence` lorsque l’application possède le nœud visible, mais doit tout de même profiter du
-comportement Ark de démontage différé après la sortie.
+Utilisez `Presence` lorsque l’application contrôle le nœud affiché mais doit attendre la fin de l’animation de
+sortie avant de le démonter.
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -66,16 +69,16 @@ export function InlinePresenceNotice() {
 }
 ```
 
-Utilisez l’utilitaire brut lorsque vous possédez le nœud visible. S’il appartient déjà à une partie racine
-moduix, utilisez directement les props `lazyMount`, `unmountOnExit`, `present` et `onExitComplete` de ce
+Utilisez cet utilitaire directement lorsque vous contrôlez le nœud affiché. S’il fait déjà partie d’un
+composant racine moduix, passez plutôt `lazyMount`, `unmountOnExit`, `present` et `onExitComplete` à ce
 composant.
 
 L’API complète figure dans la [documentation Ark Presence](https://ark-ui.com/docs/utilities/presence).
 
 ### Client Only
 
-Utilisez `ClientOnly` lorsqu’un sous-arbre dépend du DOM ou d’une API du navigateur et ne doit pas faire
-partie du rendu serveur.
+Utilisez `ClientOnly` si une partie de l’interface dépend du DOM ou d’une API du navigateur et ne doit pas
+être rendue côté serveur.
 
 ```tsx
 import { ClientOnly } from '@ark-ui/react/client-only';
@@ -89,15 +92,15 @@ export function ClientChartShell() {
 }
 ```
 
-Cet utilitaire est particulièrement utile dans les applications SSR lorsqu’un graphique, un éditeur ou un
-panneau riche en mesures côtoie les composants de mise en page moduix.
+Il est particulièrement utile dans les applications SSR pour les graphiques, éditeurs et panneaux qui doivent
+mesurer leur mise en page.
 
 L’API complète figure dans la [documentation Ark Client Only](https://ark-ui.com/docs/utilities/client-only).
 
 ### EnvironmentProvider
 
-Utilisez `EnvironmentProvider` lorsqu’un sous-arbre moduix est rendu dans un document ou un nœud racine non
-standard.
+Utilisez `EnvironmentProvider` si une partie de l’interface moduix est rendue dans un document ou un nœud
+racine inhabituel.
 
 ```tsx
 import { EnvironmentProvider } from '@ark-ui/react/environment';
@@ -120,16 +123,15 @@ export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
 }
 ```
 
-Enveloppez une seule fois le sous-arbre près de l’environnement alternatif ; Ark limitera alors
-correctement la portée des requêtes DOM.
+Enveloppez le sous-arbre concerné une seule fois, au plus près de l’environnement alternatif : Ark limitera
+alors les requêtes DOM au bon document.
 
 L’API complète figure dans la [documentation Ark Environment](https://ark-ui.com/docs/utilities/environment).
 
 ### LocaleProvider et Format
 
-Utilisez `LocaleProvider` lorsque la locale et la direction doivent être transmises aux formateurs Ark et
-aux primitives sensibles à la locale. Associez-le à `Format` lorsque l’interface doit afficher des valeurs
-localisées sans code de wrapper personnalisé.
+Utilisez `LocaleProvider` pour transmettre la locale et la direction aux formateurs Ark et aux primitives qui
+en tiennent compte. Ajoutez `Format` si l’interface doit afficher des valeurs localisées sans créer de wrapper.
 
 ```tsx
 import { Format } from '@ark-ui/react';
@@ -144,31 +146,34 @@ export function ActivityTimestamp() {
 }
 ```
 
-Utilisez le même fournisseur pour les interfaces RTL afin que les composants et les formateurs sensibles à
-Ark lisent une source de locale commune.
+Utilisez ce même fournisseur pour les interfaces RTL : composants et formateurs Ark liront ainsi la même
+locale.
 
 Consultez la [documentation Ark Locale](https://ark-ui.com/docs/utilities/locale) et la
 [documentation Ark Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time).
 
-## Quand rester dans moduix
+## Préférez moduix
 
-- Utilisez `Highlight` de moduix lorsque les plages correspondantes doivent employer le même contrat stylisé
-  `<mark>` que le reste de la bibliothèque, plutôt que l’utilitaire Ark brut.
-- Utilisez `QrCode.DownloadTrigger` plutôt que le déclencheur de téléchargement Ark brut lorsqu’une personne
-  enregistre l’image d’un QR code depuis le composant QR de moduix.
-- Avant d’ajouter un wrapper `Presence` distinct, utilisez les props de présence au niveau du composant sur
-  Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour, Accordion, Tabs et les parties racines similaires.
-- Avant d’ajouter un `FocusTrap` distinct, utilisez la gestion du focus intégrée aux composants moduix
-  apparentés aux boîtes de dialogue et aux composants flottants.
+Lorsqu’une API de composant moduix couvre déjà le comportement recherché, utilisez-la. L’interaction, le style
+et l’accessibilité restent ainsi réunis dans un même contrat.
 
-`FocusTrap` n’est pas une solution universelle de navigation au clavier. Réservez-le aux véritables surfaces
-modales personnalisées, fournissez un nom accessible et une action de fermeture, restaurez le focus à la
-fermeture et préférez Dialog ou Drawer lorsque l’un des deux convient.
+- Utilisez `Highlight` de moduix si les fragments mis en évidence doivent respecter le même style que le reste
+  de la bibliothèque, plutôt que l’utilitaire Ark directement.
+- Pour enregistrer un QR code depuis le composant moduix, utilisez `QrCode.DownloadTrigger` plutôt que
+  l’utilitaire Ark.
+- Avant d’ajouter un `Presence` distinct, vérifiez les props Presence de Dialog, Drawer, Popover, Menu,
+  Tooltip, Lightbox, Tour, Accordion, Tabs et des composants racines similaires.
+- Avant d’ajouter un `FocusTrap` distinct, utilisez la gestion du focus intégrée aux boîtes de dialogue et aux
+  composants flottants moduix.
 
-## Limite du contrat
+`FocusTrap` n’est pas une solution universelle pour la navigation au clavier. Réservez-le aux véritables
+interfaces modales personnalisées. Prévoyez un nom accessible et une action de fermeture, restaurez le focus
+à la fermeture et préférez Dialog ou Drawer lorsque l’un des deux convient.
 
-Ces utilitaires sont fournis par Ark UI, et non par la couche de composants stylisés de moduix. Ark possède
-leurs props, les détails de leur cycle de vie, leur comportement d’accessibilité et leur cadence de
-publication. `LocaleProvider` est également réexporté depuis `@moduix/react/locale`, ce qui fournit à la
-locale et à la direction un point d’entrée moduix unique et stable. Les pages des composants moduix indiquent
-les cas où un utilitaire fait déjà partie du contrat du composant.
+## Responsabilités
+
+Ces utilitaires relèvent d’Ark UI, et non de la couche de composants stylisés moduix. Ark définit leurs props,
+leur cycle de vie, leur comportement d’accessibilité et leur cadence de publication. `LocaleProvider` est aussi
+réexporté depuis `@moduix/react/locale`, afin que la locale et la direction disposent d’un point d’entrée
+moduix unique et stable. Les pages des composants moduix précisent lorsqu’un utilitaire fait déjà partie de
+leur contrat.

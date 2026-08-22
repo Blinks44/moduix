@@ -1,6 +1,6 @@
 ---
 title: Verification code
-description: A copy-owned six-digit email verification form built with moduix React components.
+description: A six-digit email-verification form built with moduix React components.
 ---
 
 import { VerificationCodePreview } from '@/components/recipes/verification-code-preview';
@@ -37,7 +37,7 @@ keyboard flow, and mobile OTP autofill. Submit fewer than six digits to see the 
 
 <ShadcnInstall packageName={['button', 'card', 'field', 'pin-input']} itemKind="recipe" copiedSource />
 
-## Use in a route
+## In a route
 
 Render `VerificationCode` after your application sends the email code and pass its real submit
 handler. `onSubmit` receives the native form event, so read `new FormData(event.currentTarget)`

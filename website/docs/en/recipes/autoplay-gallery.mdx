@@ -1,11 +1,11 @@
 ---
-title: Autoplay gallery
-description: A copy-paste Carousel gallery with side navigation, slide copy, and timed progress indicators.
+title: Gallery
+description: A Carousel gallery with side navigation, slide copy, and timed progress indicators.
 ---
 
 import { AutoplayGalleryPreview } from '@/components/recipes/autoplay-gallery-preview';
 
-# Autoplay gallery
+# Gallery
 
 A featured-content carousel with partial neighbouring slides, side navigation, a blurred copy panel, and indicators
 that fill over the autoplay delay. It uses only `Carousel` parts: `Carousel.Context` exposes the playing state for
@@ -38,7 +38,7 @@ the CSS animation, while arrow and indicator clicks restart autoplay without add
 
 <ShadcnInstall packageName="carousel" itemKind="recipe" copiedSource />
 
-## Use in a page
+## In a page
 
 Replace the slide images and copy with your content. Keep the CSS animation duration equal to `autoplay.delay` so the
 filled indicator reaches its end as the next slide appears. The navigation callbacks defer `api.play()` to the next

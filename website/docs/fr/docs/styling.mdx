@@ -8,22 +8,21 @@ import styles from '@/components/examples/styling.module.css';
 
 # Styles
 
-moduix fournit les styles des composants et une base CSS commune, mais n’impose aucun outil de création de
-styles. Utilisez CSS Modules, Panda CSS, Tailwind CSS ou toute autre stratégie CSS déjà adoptée par votre
-application. L’API des composants reste identique.
+moduix fournit les styles des composants et une base CSS commune, sans imposer d’outil de création de styles. Utilisez
+CSS Modules, Panda CSS, Tailwind CSS ou toute autre stratégie déjà adoptée par votre application. L’API des
+composants reste identique.
 
-Importez une seule fois la feuille de styles de base dans le point d’entrée de l’application :
+Importez une seule fois la feuille de styles de base au point d’entrée de l’application :
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-Panda CSS et Tailwind CSS ne sont pas des dépendances de moduix ni de ce site de documentation. Dans les
-exemples ci-dessous, le même `ProjectChecklist` est stylisé avec chaque outil ; seule la syntaxe de création
-des styles change. Ces snippets s’adressent aux applications dans lesquelles l’outil correspondant est déjà
-configuré.
+Panda CSS et Tailwind CSS ne font pas partie des dépendances de moduix ni de ce site de documentation. Dans les
+exemples ci-dessous, le même `ProjectChecklist` est stylisé avec chaque outil ; seule la syntaxe change. Ces snippets
+s’adressent aux applications dans lesquelles l’outil correspondant est déjà configuré.
 
-## Choisir la redéfinition utile la plus limitée
+## Choisir une redéfinition
 
 | Objectif | Méthode recommandée |
 | --- | --- |
@@ -33,18 +32,16 @@ configuré.
 | Distinguer volontairement un composant | Un alias `--<component>-*` documenté |
 | Styliser une composition propre au produit | `className` sur la partie rendue, de préférence avec du CSS local |
 
-Cet ordre maintient des thèmes compacts et un style prévisible des composants. Préférez un token de haut
-niveau lorsque la décision doit s’appliquer largement ; rapprochez-vous de la partie rendue à mesure que la
-portée devient locale.
+Ce tableau maintient des thèmes compacts et un style prévisible des composants. Préférez un token de haut niveau si
+la décision doit s’appliquer largement ; rapprochez-vous de la partie rendue lorsque la portée devient locale.
 
-## Styliser les parties rendues
+## Styliser les parties
 
-Commencez par placer `className` sur la partie responsable du changement visuel. L’anatomie du composant
-reste ainsi visible et les styles restent locaux au composant du produit. Sur cette même partie, utilisez les
-attributs d’état Ark documentés pour les états et les variables CSS publiques lorsque le composant expose
-une valeur à modifier.
+Commencez par placer `className` sur la partie responsable du changement visuel. L’anatomie du composant reste ainsi
+visible et les styles restent locaux au produit. Sur cette même partie, utilisez les attributs d’état Ark documentés
+pour les états et les variables CSS publiques lorsque le composant expose la valeur à modifier.
 
-Le panneau ci-dessous utilise CSS Modules et stylise directement chaque partie exportée d’Accordion.
+Le panneau ci-dessous utilise CSS Modules et stylise directement toutes les parties exportées d’Accordion.
 
 <section className={styles.example}>
   <Accordion className={styles.accordion} collapsible defaultValue={['outcome']}>
@@ -52,13 +49,13 @@ Le panneau ci-dessous utilise CSS Modules et stylise directement chaque partie e
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>01</span>
-          <span className={styles.title}>Définir le résultat du projet</span>
+          <span className={styles.title}>Define the project outcome</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
-          <p>Rédigez une phrase qui rende la prochaine décision évidente pour toute l’équipe du projet.</p>
+          <p>Write one sentence that makes the next decision obvious to everyone on the project.</p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
@@ -66,13 +63,13 @@ Le panneau ci-dessous utilise CSS Modules et stylise directement chaque partie e
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>02</span>
-          <span className={styles.title}>Inviter les personnes qui ont besoin du contexte</span>
+          <span className={styles.title}>Invite the people who need context</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
-          <p>Offrez aux participants un espace commun pour les retours, les décisions et le travail en cours.</p>
+          <p>Give contributors a shared space for feedback, decisions, and the work in progress.</p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
     </Accordion.Item>
@@ -80,15 +77,15 @@ Le panneau ci-dessous utilise CSS Modules et stylise directement chaque partie e
       <Accordion.ItemTrigger className={styles.trigger}>
         <span className={styles.triggerCopy}>
           <span className={styles.step}>03</span>
-          <span className={styles.title}>Créer un rituel de livraison hebdomadaire</span>
+          <span className={styles.title}>Create a weekly shipping ritual</span>
         </span>
         <Accordion.ItemIndicator className={styles.indicator} />
       </Accordion.ItemTrigger>
       <Accordion.ItemContent className={styles.content}>
         <Accordion.ItemBody className={styles.body}>
           <p>
-            Transformez les progrès en une brève mise à jour afin que l’équipe repère les risques avant qu’ils
-            ne deviennent bloquants.
+            Turn progress into a short update so the team can spot risks before they become
+            blockers.
           </p>
         </Accordion.ItemBody>
       </Accordion.ItemContent>
@@ -98,8 +95,8 @@ Le panneau ci-dessous utilise CSS Modules et stylise directement chaque partie e
 
 ## CSS Modules
 
-CSS Modules est l’option de base sans dépendance. Ce `ProjectChecklist` conserve les styles directement liés
-aux parties qu’ils ciblent.
+CSS Modules est l’option de base sans dépendance. Dans ce `ProjectChecklist`, les styles restent directement liés aux
+parties qu’ils ciblent.
 
 <div className="docs-reference">
   <Tabs values={[{ label: 'ProjectChecklist.tsx', value: 'ProjectChecklist.tsx' }, { label: 'ProjectChecklist.module.css', value: 'ProjectChecklist.module.css' }]} className="docs-tabs">
@@ -121,11 +118,11 @@ aux parties qu’ils ciblent.
   </Tabs>
 </div>
 
-### Lorsqu’un wrapper masque une partie
+### Parties masquées
 
-Utilisez un `data-slot` stable uniquement lorsqu’un wrapper du produit possède la composition sans exposer
-la partie à ses appelants. Il peut alors personnaliser le déclencheur interne sans dépendre de l’ordre du DOM
-ni de noms de classes générés :
+Lorsqu’un wrapper du produit possède la composition sans exposer une partie à ses appelants, utilisez un `data-slot`
+stable. Vous pourrez ainsi personnaliser le déclencheur interne sans dépendre de l’ordre du DOM ni de noms de classes
+générés :
 
 ```css
 .root {
@@ -140,13 +137,13 @@ ni de noms de classes générés :
 ```
 
 Il s’agit d’une solution de dernier recours, pas d’un remplacement de `className`. Pour les parties rendues
-automatiquement dans un portail, comme `Dialog.Content` ou `Tooltip.Content`, ajoutez `className` directement
-à la partie placée dans le portail.
+automatiquement dans un portail, comme `Dialog.Content` ou `Tooltip.Content`, ajoutez `className` directement à la
+partie placée dans le portail.
 
 ## Panda CSS
 
-Dans une application où Panda est déjà configuré, générez des classes pour les mêmes parties de
-`ProjectChecklist`. Les noms de tokens ci-dessous appartiennent au thème Panda, pas à moduix.
+Dans une application où Panda est déjà configuré, générez des classes pour les mêmes parties de `ProjectChecklist`.
+Les noms de tokens ci-dessous appartiennent au thème Panda, pas à moduix.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -240,9 +237,8 @@ export function ProjectChecklist() {
 
 ## Tailwind CSS
 
-Dans une application qui utilise déjà Tailwind, appliquez les utilitaires et les variantes d’état aux mêmes
-parties de `ProjectChecklist`. Aucun plugin ni aucune configuration Tailwind spécifique à moduix n’est
-nécessaire.
+Dans une application qui utilise déjà Tailwind, appliquez les utilitaires et les variantes d’état aux mêmes parties
+de `ProjectChecklist`. Aucun plugin ni aucune configuration Tailwind spécifique à moduix n’est nécessaire.
 
 ```tsx
 import { Accordion } from '@moduix/react/accordion';
@@ -288,7 +284,7 @@ export function ProjectChecklist() {
 | La classe atteint la racine, mais pas la partie | Placez `className` sur la partie exportée qui contrôle la propriété visuelle. |
 | Une classe utilitaire est supplantée par le CSS du composant | Utilisez une variable CSS documentée ou une classe locale avec un ordre de cascade maîtrisé. |
 
-Avant d’augmenter la spécificité d’un sélecteur, inspectez avec les outils de développement du navigateur la
+Avant d’augmenter la spécificité d’un sélecteur, utilisez les outils de développement du navigateur pour inspecter la
 partie rendue, son `data-slot`, ses attributs d’état et les propriétés personnalisées calculées.
 
 ## Ressources associées

@@ -1,0 +1,61 @@
+[
+  {
+    "type": "file",
+    "name": "index",
+    "label": "Browse recipes",
+    "tag": "clipboard-list"
+  },
+  {
+    "type": "section-header",
+    "label": "App"
+  },
+  { "type": "file", "name": "app-header", "label": "App header", "tag": "panel-top" },
+  {
+    "type": "file",
+    "name": "mobile-drawer-navigation",
+    "label": "Mobile drawer",
+    "tag": "panel-left-open"
+  },
+  {
+    "type": "file",
+    "name": "sidebar-dashboard",
+    "label": "Sidebar dashboard",
+    "tag": "panel-left"
+  },
+  {
+    "type": "section-header",
+    "label": "Access"
+  },
+  { "type": "file", "name": "login-simple", "label": "Sign in", "tag": "log-in" },
+  { "type": "file", "name": "sign-up", "label": "Sign up", "tag": "list-checks" },
+  { "type": "file", "name": "forgot-password", "label": "Forgot password", "tag": "key-round" },
+  { "type": "file", "name": "reset-password", "label": "Reset password", "tag": "refresh-cw" },
+  {
+    "type": "file",
+    "name": "verification-code",
+    "label": "Verification code",
+    "tag": "badge-check"
+  },
+  {
+    "type": "section-header",
+    "label": "Data"
+  },
+  { "type": "file", "name": "data-table", "label": "Data table", "tag": "table-properties" },
+  { "type": "file", "name": "file-upload-manager", "label": "File upload", "tag": "file-text" },
+  {
+    "type": "section-header",
+    "label": "People"
+  },
+  {
+    "type": "file",
+    "name": "expandable-avatar-group",
+    "label": "Avatar group",
+    "tag": "users-round"
+  },
+  {
+    "type": "section-header",
+    "label": "Visuals"
+  },
+  { "type": "file", "name": "autoplay-gallery", "label": "Gallery", "tag": "paintbrush" },
+  { "type": "file", "name": "parallax-card", "label": "Parallax card", "tag": "orbit" }
+]

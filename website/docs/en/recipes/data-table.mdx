@@ -1,6 +1,6 @@
 ---
 title: Data Table
-description: Build app-specific sortable, filterable, and paginated data tables with moduix Table and TanStack Table v9.
+description: Build sortable, filterable, and paginated tables for your application with moduix Table and TanStack Table v9.
 ---
 
 import { DataTable } from '@/components/recipes/data-table';
@@ -17,7 +17,7 @@ The copy-ready recipe below is the same interactive table shown on the home page
 search, sorting, column visibility, row selection, actions, and pagination; replace its example
 records and actions with your product data.
 
-## Choose the smallest table that works
+## Start simple
 
 | Need                                            | Start with                                                    |
 | ----------------------------------------------- | ------------------------------------------------------------- |
@@ -61,7 +61,7 @@ actions, or pagination when the user cannot use that capability.
   dependencies={['@tanstack/react-table@^9.1.2', 'lucide-react']}
 />
 
-## Build the pattern yourself
+## Setup
 
 Install TanStack Table in the application that owns the data-grid behavior:
 
@@ -97,7 +97,7 @@ contain plain values or React render functions.
 Keep the columns alongside the feature's data type. This is the natural place for formatting,
 numeric alignment, row actions, and business-specific filter definitions.
 
-## Keep data and columns stable
+## Stable references
 
 The examples define `payments` and `columns` outside their components, so TanStack Table receives
 the same references between renders. When data or columns depend on props or state, use `useMemo`
@@ -106,13 +106,13 @@ directly to `useTable`. New references make TanStack Table recalculate and can c
 render loops. See the TanStack [FAQ](https://tanstack.com/table/latest/docs/faq) for the full
 explanation.
 
-## Stable column widths
+## Column widths
 
 Use native `Table.ColumnGroup` and `Table.Column htmlWidth` for columns whose width should stay
 stable. Combine them with `table-layout: fixed` on the table root: the remaining column takes the
 available space, while a changing sort icon cannot resize its column.
 
-## Sorting, filtering, pagination, and selection
+## Table controls
 
 Add only the TanStack features and row models the table needs. The example below controls sorting
 and column filters in React state, filters the email column, selects rows by their stable payment
@@ -221,7 +221,7 @@ Render the request state next to the table, not inside unrelated cells:
 | Empty result  | Explain whether there are no records or filters removed every match.             |
 | Error         | Keep the query controls available and offer a retry that repeats the same query.  |
 
-## Add features deliberately
+## Add features
 
 TanStack Table is headless. Choose the state and row models for the behavior that belongs to this
 specific data view instead of turning every grid feature on by default.
@@ -244,7 +244,7 @@ With `manualPagination`, keep the full `rowSelection` state for actions that spa
 selected-row models can only return records currently supplied to the table, even when the selection
 state also contains IDs from other pages.
 
-## Reuse after the pattern stabilizes
+## Reuse
 
 If the same product table appears in more than one place, extract its columns, toolbar, or
 pagination controls into local feature components. Keep the resulting API product-specific:

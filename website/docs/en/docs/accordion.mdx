@@ -66,7 +66,10 @@ Accordion.RootProvider
 Stay with `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
 `Accordion.ItemContent`, and `Accordion.ItemBody` for the standard Ark composition path.
 
-### When to go custom
+### Custom composition
+
+Use a custom composition when state must live outside the rendered subtree, surrounding UI needs to
+read it, or you need to replace the default parts.
 
 `value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
 the Ark callback shape and exposes the current item values as `details.value`.
@@ -191,7 +194,7 @@ the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for t
 ```
 </PreviewFrame>
 
-### Advanced Customization
+### Customization
 
 Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
 explicit so keyboard handling and hidden form inputs stay owned by the correct component.

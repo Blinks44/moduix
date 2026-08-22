@@ -7,34 +7,33 @@ import * as AnimationDocs from '@/components/examples/animations';
 
 # Animations
 
-moduix utilise un contrat commun d’animation des popups pour les surfaces flottantes et modales de la
-bibliothèque. Définissez une seule fois ses variables CSS afin que tous les composants pris en charge
-partagent la même durée, la même courbe et les mêmes animations de fondu, d’échelle ou de déplacement.
-Lorsqu’une surface doit se distinguer, les variables d’animation locales du composant restent disponibles.
+moduix définit un contrat d’animation commun pour les surfaces flottantes et modales. Configurez ses variables CSS
+une seule fois pour que tous les composants pris en charge partagent la même durée, la même courbe et les mêmes
+effets de fondu, d’échelle ou de déplacement. Si une surface doit se distinguer, utilisez ses variables locales.
 
-Les attributs d’état Ark déclenchent les animations et maintiennent la partie sortante montée jusqu’à la fin
-de son animation CSS.
+Les attributs d’état Ark déclenchent les animations et conservent la partie sortante dans le DOM jusqu’à la fin de son
+animation CSS.
 
 Les tokens partagés `--moduix-duration-*`, `--moduix-ease-*`, `--moduix-transition-*` et
 `--moduix-scale-*` influencent de nombreuses parties du système. Utilisez `--moduix-popup-motion-*` lorsque
 seul le contenu des composants flottants doit changer dans tout le projet.
 
-Lorsque l’utilisateur active la réduction des mouvements dans le système d’exploitation, les tokens de durée de base sont ramenés
-partagés à `0.01ms` et désactive les animations partagées de pulsation, de fondu, de déplacement et de
-rotation. Les composants dotés d’un mouvement continu spécialisé, comme Marquee et Progress indéterminé,
-conservent leur propre comportement de repli `prefers-reduced-motion`.
+Lorsque l’utilisateur demande une réduction des mouvements dans le système d’exploitation, les tokens de durée de
+base passent à `0.01ms` et les animations partagées de pulsation, de fondu, de déplacement et de rotation sont
+désactivées. Les composants à mouvement continu, comme Marquee et Progress indéterminé, conservent leur propre repli
+pour `prefers-reduced-motion`.
 
 ## Choisir l’API d’animation
 
-### Animation partagée des composants flottants
+### Animation des popups
 
 Utilisez `*-starting-*` pour l’entrée et `*-ending-*` pour la sortie. Les variables partagées s’appliquent
 aux parties de contenu suivantes : `Popover.Content`, `Menu.Content`, `Tooltip.Content`, `HoverCard.Content`,
 `FloatingPanel.Content`, `Dialog.Content`, `CommandPalette.Content`, `Lightbox.Content`, `Tour.Content`,
 `Select.Content`, `Combobox.Content`, `DatePicker.Content` et `ColorPicker.Content`.
 
-Par exemple, ce réglage fait entrer tout le contenu flottant pris en charge depuis la gauche et le fait
-sortir vers la gauche avec la même courbe d’animation :
+Par exemple, ce réglage fait entrer tout le contenu flottant pris en charge depuis la gauche et le fait sortir vers la
+gauche avec la même courbe d’animation :
 
 ```css
 :root {
@@ -49,16 +48,15 @@ sortir vers la gauche avec la même courbe d’animation :
 }
 ```
 
-Utilisez `:root` pour la personnalisation habituelle des overlays rendus dans un portail. Une variable
-définie uniquement sur un wrapper local n’atteint pas le contenu rendu dans `document.body` ; elle fonctionne
-pour un composant rendu avec `portalled={false}`.
+Pour les overlays habituellement rendus dans un portail, définissez les variables sur `:root`. Une variable définie
+sur un wrapper local n’atteint pas le contenu rendu dans `document.body` ; elle fonctionne avec un composant rendu
+avec `portalled={false}`.
 
-### Redéfinitions locales d’un composant
+### Redéfinitions locales
 
-Les variables du composant ont priorité sur le repli partagé. Utilisez-les pour une exception unique à la
-règle du projet et ajoutez une classe à la partie visuelle indiquée dans le tableau. Les surfaces ancrées
-conservent l’origine de transformation Ark : leurs recettes fondées sur l’échelle s’ouvrent donc toujours
-depuis le déclencheur.
+Les variables du composant ont priorité sur les valeurs partagées. Utilisez-les pour une exception ponctuelle à la
+règle du projet et ajoutez une classe à la partie visuelle indiquée dans le tableau. Les surfaces ancrées conservent
+leur `transform-origin` Ark : les recettes fondées sur l’échelle s’ouvrent donc toujours depuis le déclencheur.
 
 | Surface | Appliquer la classe à | Préfixe |
 | --- | --- | --- |
@@ -77,10 +75,9 @@ partie `Backdrop`. Les arrière-plans restent volontairement hors du contrat com
 ils acceptent seulement `opacity` et `blur`, tandis que le contenu flottant partagé accepte `opacity`,
 `scale` et `translate-x` ou `translate-y`.
 
-### Animations d’état propres aux composants
+### Animation des états
 
-Ces composants conservent des systèmes d’animation distincts et n’acceptent pas
-`--moduix-popup-motion-*` :
+Ces composants ont leur propre système d’animation et n’acceptent donc pas `--moduix-popup-motion-*` :
 
 | Composant | Partie visuelle | Personnalisation prise en charge |
 | --- | --- | --- |
@@ -90,14 +87,12 @@ Ces composants conservent des systèmes d’animation distincts et n’acceptent
 | Swap | `Swap.Indicator` | variables d’opacité et d’échelle distinctes pour l’entrée et la sortie |
 | Tree View | `TreeView.BranchContent` | `--moduix-tree-view-content-transition-duration` |
 
-Toast utilise les variables d’exécution Ark pour la disposition de la pile et la fermeture. Conservez
-intactes les valeurs `--x`, `--y`, `--scale`, `--height` et `--opacity` ; les recettes de cette page ne
-constituent pas l’API de Toast.
+Toast utilise les variables d’exécution Ark pour la disposition de la pile et la fermeture. Ne modifiez pas `--x`,
+`--y`, `--scale`, `--height` ni `--opacity` : les recettes de cette page ne font pas partie de l’API de Toast.
 
 ## Recettes prêtes à l’emploi
 
-Choisissez une animation selon son objectif, puis conservez une seule recette cohérente pour les surfaces
-similaires :
+Choisissez une animation selon son objectif, puis utilisez la même recette pour les surfaces similaires :
 
 | Objectif du produit | Point de départ |
 | --- | --- |
@@ -106,9 +101,8 @@ similaires :
 | Un menu ou un sélecteur ancré s’ouvre depuis son déclencheur | Échelle ou élévation |
 | Une confirmation brève et conviviale | Apparition douce, à utiliser avec modération |
 
-Placez ces variables dans `:root` pour appliquer la recette à toutes les surfaces de contenu flottant prises
-en charge. Pour une exception unique, utilisez le préfixe de composant correspondant dans le tableau des
-redéfinitions locales.
+Définissez ces variables sur `:root` pour appliquer la recette à toutes les surfaces de contenu flottant prises en
+charge. Pour une exception ponctuelle, utilisez le préfixe correspondant dans le tableau des redéfinitions locales.
 
 ### Fondu
 
@@ -227,15 +221,14 @@ redéfinitions locales.
 }
 ```
 
-Utilisez-la pour apporter une touche conviviale volontaire à un menu court, un Tooltip ou une surface de
-confirmation.
+Utilisez-la pour apporter une touche conviviale assumée à un menu court, un Tooltip ou une surface de confirmation.
 
 ## Recettes propres aux composants
 
-### Focus vitré pour les arrière-plans modaux
+### Focus vitré
 
-Ajoutez la première classe à `Dialog.Backdrop` et la seconde à `Dialog.Content`. Pour la famille modale
-correspondante, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
+Pour les arrière-plans modaux, ajoutez la première classe à `Dialog.Backdrop` et la seconde à `Dialog.Content`. Pour
+la famille modale correspondante, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
 
 ```css
 .glassFocusBackdrop {
@@ -257,10 +250,11 @@ correspondante, remplacez `dialog` par `command-palette`, `lightbox` ou `tour`.
 }
 ```
 
-### Mise à l’échelle douce du contenu d’un sélecteur
+### Échelle douce
 
-Ajoutez cette classe à `Select.Content`. Pour `Combobox`, `ColorPicker` ou `DatePicker`, remplacez le préfixe
-`select` par `combobox`, `color-picker` ou `date-picker`.
+Cette recette applique une échelle douce au contenu d’un sélecteur. Ajoutez la classe à `Select.Content`. Pour
+`Combobox`, `ColorPicker` ou `DatePicker`, remplacez le préfixe `select` par `combobox`, `color-picker` ou
+`date-picker`.
 
 ```css
 .softScalePicker {
@@ -284,8 +278,8 @@ Ajoutez cette classe à `Accordion.ItemContent`. Pour `Collapsible.Content`, uti
 
 ### Substitution marquée
 
-Ajoutez la classe à `Swap.Indicator` lorsque l’élément sortant doit se retirer tandis que le suivant apparaît
-avec davantage d’énergie.
+Ajoutez la classe à `Swap.Indicator` lorsque l’élément sortant doit se retirer et que le suivant apparaît avec plus
+d’énergie.
 
 ```css
 .emphasizedSwap {
@@ -303,7 +297,7 @@ avec davantage d’énergie.
   <AnimationDocs.MotionRecipesExample />
 </ExampleFrame>
 
-## Règles d’utilisation
+## Règles
 
 - Placez les variables d’animation locales du composant sur la partie visuelle qui s’anime ; définissez les
   variables partagées des popups sur `:root` pour les overlays rendus par défaut dans un portail.
