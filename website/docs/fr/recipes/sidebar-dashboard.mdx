@@ -1,23 +1,23 @@
 ---
-title: Tableau de bord avec barre latérale
-description: Structure de tableau de bord intégrée à votre projet, avec navigation moduix réductible et redimensionnable.
+title: Tableau de bord
+description: Une structure de tableau de bord pour ordinateur, avec navigation moduix réductible et redimensionnable.
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 
-# Tableau de bord avec barre latérale
+# Tableau de bord
 
-Créez un espace de travail pour ordinateur avec une barre latérale de navigation redimensionnable et
-une vue d’ensemble simple du tableau de bord. `Sidebar` gère la réduction, le redimensionnement au
-clavier et les infobulles de la navigation réduite. L’élément Projects illustre également une
-navigation imbriquée, tandis que le pied de page contient un menu d’espace de travail.
+Créez un espace de travail pour ordinateur avec une barre latérale réductible et redimensionnable,
+ainsi qu’une vue d’ensemble simple des indicateurs clés. `Sidebar` gère la réduction, le
+redimensionnement au clavier et les infobulles lorsque la navigation est réduite. L’élément Projects
+illustre aussi une navigation imbriquée, et le pied de page contient un menu d’espace de travail.
 
 <ExampleFrame clientOnly>
   <SidebarDashboardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
@@ -39,16 +39,14 @@ navigation imbriquée, tandis que le pied de page contient un menu d’espace de
 
 <ShadcnInstall packageName={['button', 'card', 'collapsible', 'menu', 'sidebar']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
 
-## Utilisation dans une route
+## Dans une route
 
-Remplacez les liens, les libellés et le contenu du tableau de bord d’exemple par vos routes et vos
-données. Cette recette est pensée d’abord pour les ordinateurs : les menus du compte, les
-notifications et la navigation mobile avec tiroir restent des recettes distinctes, afin que vous
-les composiez uniquement lorsque votre application en a besoin.
+Remplacez les liens, les libellés et le contenu de démonstration par vos routes et vos données. Cette
+recette est pensée pour ordinateur : les menus du compte, les notifications et la navigation mobile
+restent des recettes séparées, à ajouter uniquement lorsque l’application en a besoin.
 
-Marquez la destination active avec `aria-current="page"` et utilisez les liens du routeur via
-`asChild` lorsque le routeur doit gérer la navigation. Ne conservez la largeur réduite que si cette
-préférence est utile aux utilisateurs qui reviennent ; lisez le stockage du navigateur après
-l’hydratation et gardez une valeur par défaut utilisable sans celui-ci. Associez cette structure pour
-ordinateur à la [Navigation mobile avec tiroir](/recipes/mobile-drawer-navigation) au lieu de forcer la
-barre latérale redimensionnable dans une fenêtre étroite.
+Marquez la destination active avec `aria-current="page"`. Si le composant Link de votre routeur gère
+la navigation, passez-le via `asChild`. Ne mémorisez la largeur réduite que si elle est utile aux
+personnes qui reviennent ; lisez le stockage du navigateur après l’hydratation et gardez un état par
+défaut utilisable sans lui. Pour mobile, utilisez la [Navigation mobile](/recipes/mobile-drawer-navigation)
+plutôt que de forcer la barre latérale redimensionnable dans un écran étroit.

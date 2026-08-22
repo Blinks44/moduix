@@ -5,7 +5,21 @@ description: Product releases, breaking changes, and the supported moduix versio
 
 import { LocalizationHero } from '@/components/changelog/localization-hero';
 import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
+import { ChartHero } from '@/components/changelog/chart-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <ChartHero />
+
+  [Chart](/docs/chart) brings composable, accessible data visualizations to moduix, powered by
+  TanStack Charts. Build line, area, bar, donut, scatter, and heatmap charts with moduix figure,
+  legend, tooltip, and motion defaults while keeping TanStack’s definition API.
+
+  ### What’s included
+
+  - A semantic figure composition with `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
+  - A compact default tooltip, keyboard navigation, focus styling, and motion that respects reduced-motion preferences.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
@@ -34,6 +48,10 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 </ChangelogNewsItem>
 
 ## More updates
+
+### v2.3.0 - August 20, 2026
+
+- Added `Chart`, based on TanStack Charts, with moduix composition and styling defaults.
 
 ### v2.2.4 - August 10, 2026
 

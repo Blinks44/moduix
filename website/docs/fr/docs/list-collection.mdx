@@ -1,6 +1,6 @@
 ---
 title: List Collection
-description: Créez et gérez des collections basées sur des tableaux pour Select, Combobox, Listbox et des listes personnalisées.
+description: Créez et gérez des collections basées sur des tableaux pour Select, Combobox, Listbox et vos propres listes.
 ---
 
 # List Collection
@@ -43,9 +43,9 @@ Transmettez le même objet de collection au composant et affichez ses éléments
 
 Conservez une collection statique en dehors du composant lorsque ses éléments ne changent pas. Si les éléments proviennent de props, d'un état ou d'une requête, mémorisez la collection ou utilisez `useListCollection` afin que son identité ne change que lorsque les données changent.
 
-## Structures d'éléments personnalisées
+## Éléments personnalisés
 
-Définissez les mappages de valeur, de texte et d'état désactivé lorsque vos données n'utilisent pas les clés par défaut d'Ark :
+Définissez les mappages de valeur, de texte et d'état désactivé lorsque vos données utilisent d'autres clés que celles d'Ark par défaut :
 
 ```tsx
 type Team = {
@@ -105,7 +105,9 @@ collection.stringify('product'); // 'Product'
 collection.has('unknown'); // false
 ```
 
-## Traversée et plages
+## Navigation
+
+Utilisez ces API pour parcourir les valeurs et obtenir des plages dans l'ordre de la collection.
 
 ```tsx
 collection.firstValue; // 'platform'
@@ -159,9 +161,9 @@ const nextCollection = collection
 | `moveAfter(value, ...values)` | Déplace les valeurs après une autre valeur. |
 | `reorder(from, to)` | Déplace un élément entre des index numériques. |
 
-## Collections gérées par React
+## État React
 
-Utilisez `useListCollection` lorsque le filtrage ou les mises à jour de collection doivent déclencher un rendu :
+Utilisez `useListCollection` lorsque le filtrage ou les mises à jour de collection doivent déclencher un rendu React :
 
 ```tsx
 function useTeams() {

@@ -1,22 +1,22 @@
 ---
 title: Карточка с параллаксом
-description: Карточка moduix с фотографией на весь фон и лёгким 3D-наклоном при наведении.
+description: Карточка moduix с изображением на весь фон и лёгким 3D-наклоном при наведении.
 ---
 
 import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview';
 
 # Карточка с параллаксом
 
-Карточка с фотографией на весь фон и лёгким 3D-наклоном. Декоративным слоем фотографии управляет
-`Card.Background`, а для движения курсора используется `react-parallax-tilt`; эффект не включается
-без точного hover-курсора и при настройке reduced motion.
+Карточка с изображением на весь фон и лёгким 3D-наклоном. `Card.Background` управляет декоративным слоем,
+а `react-parallax-tilt` — движением курсора. Эффект не включается без точного указателя с hover и при
+включённом уменьшении анимации.
 
 <ExampleFrame clientOnly>
   <ParallaxCardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Компонент', value: 'Component' }, { label: 'Стили', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/parallax-card.tsx"
@@ -38,8 +38,8 @@ import { ParallaxCardPreview } from '@/components/recipes/parallax-card-preview'
 
 <ShadcnInstall packageName="card" itemKind="recipe" copiedSource dependencies={['react-parallax-tilt']} />
 
-## Использование на странице
+## На странице
 
-Замените URL изображения и содержание карточки. Оставьте у декоративного фона `alt=""`; если
-изображению нужен альтернативный текст, используйте `Card.Media`. Анимация здесь декоративна, поэтому
-карточка должна оставаться читаемой и полезной без hover; для перехода добавьте обычную ссылку или кнопку.
+Замените URL изображения и текст карточки своим контентом. У декоративного фона должен остаться `alt=""`;
+если изображению нужен альтернативный текст, используйте `Card.Media`. Анимация здесь только декоративная,
+поэтому карточка должна быть читаемой и полезной без hover. Для перехода используйте обычную ссылку или кнопку.

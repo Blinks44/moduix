@@ -5,7 +5,7 @@ description: Model, query, traverse, filter, and update hierarchical data for Tr
 
 # Tree Collection
 
-## API reference
+## API
 
 <PrimitiveReference href="https://ark-ui.com/docs/collections/tree-collection" />
 
@@ -17,7 +17,7 @@ updates.
 import { createFileTreeCollection, createTreeCollection } from '@ark-ui/react/collection';
 ```
 
-## Create a tree
+## Create
 
 The default shape uses `value`, `label`, `children`, and optional `disabled` properties:
 
@@ -44,7 +44,7 @@ const tree = createTreeCollection({
 The root node is a container and is not included in `getValues()`. Pass the collection directly to
 `TreeView` and render from `collection.rootNode.children`.
 
-## Render it with Tree View
+## Tree View
 
 The collection owns the hierarchy; Tree View owns expansion, focus, keyboard navigation, and
 selection. Render branches recursively from the same node and index path supplied by the collection.
@@ -53,7 +53,7 @@ selection. Render branches recursively from the same node and index path supplie
 
 ```
 
-## Custom node shapes
+## Custom nodes
 
 Map your own fields when they differ from Ark's defaults:
 
@@ -84,9 +84,10 @@ const tree = createTreeCollection<NavigationNode>({
 | `nodeToChildrenCount` | Returns a known child count, including for lazily loaded nodes. |
 | `isNodeDisabled`      | Returns whether the node is disabled.                           |
 
-## Lookup and index paths
+## Lookup
 
-An index path identifies a node by its numeric position at every tree level:
+Use value-based lookup and index paths. An index path identifies a node by its numeric position at
+every tree level:
 
 ```tsx
 const path = tree.getIndexPath('input')!; // [0, 1]
@@ -118,7 +119,9 @@ tree.getDepth('input'); // 2
 `sort(values)` orders values by their tree position. `isEqual(other)` compares collections, and
 `toJSON()` returns the collection values.
 
-## Navigation and relationships
+## Navigation
+
+Navigate between nodes and query their parent, ancestor, and descendant relationships:
 
 ```tsx
 tree.getFirstNode();
@@ -149,7 +152,9 @@ Use `contains(parentPath, valuePath)` to check whether one index path contains a
 `getDescendantNodes` and `getDescendantValues` accept `{ withBranch: true }` when branch nodes
 should be included with leaves.
 
-## Branches and traversal
+## Traversal
+
+Inspect branches, flatten the tree, or visit every node:
 
 ```tsx
 const src = tree.findNode('src');
@@ -189,9 +194,9 @@ const filteredTree = tree.filter((node) =>
 
 Use the returned collection for rendering. The original tree is unchanged.
 
-## Immutable updates
+## Updates
 
-Every modification returns a new `TreeCollection`:
+Every update is immutable and returns a new `TreeCollection`:
 
 ```tsx
 const srcPath = tree.getIndexPath('src')!;
@@ -225,7 +230,7 @@ obtained from dynamic data before using them.
 | `move(fromPaths, toPath)`   | Move subtrees to another location.           |
 | `filter(predicate)`         | Return a filtered tree.                      |
 
-## File paths
+## File trees
 
 Use `createFileTreeCollection` when the source is already a list of paths:
 

@@ -1,6 +1,6 @@
 ---
 title: AI
-description: Donnez à un assistant IA le bon contexte moduix avant qu'il écrive du code.
+description: Donnez à un assistant IA le contexte moduix dont il a besoin avant qu'il écrive du code.
 ---
 
 # AI
@@ -9,7 +9,7 @@ moduix est conçu pour rester compréhensible, autant pour les personnes que pou
 l'assistant la documentation pertinente la plus concise, puis demandez-lui de travailler avec l'API publique des
 composants que votre projet utilise déjà.
 
-## Choisir le bon contexte
+## Contexte
 
 | Ce dont vous avez besoin | À donner à l'assistant |
 | --- | --- |
@@ -21,7 +21,7 @@ Chaque page de documentation MDX possède une URL Markdown canonique, par exempl
 `https://moduix.dev/docs/button.md`. Elle contient le contenu de la page sans l'interface de documentation ; c'est
 donc le meilleur contexte par défaut pour une tâche ciblée d'implémentation ou de débogage.
 
-## Interroger la page actuelle
+## Page actuelle
 
 Utilisez **Copy Markdown** sous le titre de n'importe quelle page lorsque l'assistant a besoin de son contenu sans
 l'interface de documentation. Les pages de composants proposent également un menu **Open** avec des raccourcis vers
@@ -35,7 +35,7 @@ We use @moduix/react/dialog from the npm package. Keep the Ark composition expli
 trigger a button.
 ```
 
-## Installer des composants avec un assistant IA
+## Installer avec l’IA
 
 Avant que l'assistant n'écrive des imports ou des commandes d'installation, indiquez-lui quel modèle de propriété des
 composants moduix le projet utilise :
@@ -63,12 +63,12 @@ diff sûres pour les mises à jour dont le projet possède une copie. L'installa
 copie via shadcn restent deux choix équivalents. Dans les agents compatibles avec les Skills, invoquez-le avec
 `$moduix`.
 
-## Utiliser le serveur MCP shadcn
+## MCP shadcn
 
 Le serveur MCP shadcn fonctionne avec le registre moduix existant. moduix n'exécute pas de serveur MCP
 distinct : configurez le registre dans le projet consommateur, puis laissez shadcn l'exposer à votre client IA.
 
-### 1. Configurer le registre
+### 1. Registre
 
 Le `components.json` du projet consommateur doit contenir l'URL du registre moduix :
 
@@ -82,7 +82,7 @@ Le `components.json` du projet consommateur doit contenir l'URL du registre modu
 
 Consultez [Démarrage rapide](/docs/quick-start) pour la configuration complète de `components.json`.
 
-### 2. Connecter votre client IA
+### 2. Client IA
 
 Pour les clients pris en charge par l'initialiseur shadcn, exécutez-le dans le projet consommateur et choisissez le
 client correspondant. Par exemple :
@@ -103,7 +103,7 @@ args = ["shadcn@latest", "mcp"]
 Le [guide MCP de shadcn](https://ui.shadcn.com/docs/mcp) présente la configuration actuelle pour Claude Code,
 Cursor, VS Code, Codex et les autres clients pris en charge.
 
-### 3. Découvrir avant d'installer
+### 3. Découvrir
 
 Demandez à l'assistant d'examiner l'élément moduix correspondant avant de modifier des fichiers. Ces requêtes
 fonctionnent pour les composants, les blocs et les thèmes :
@@ -122,7 +122,7 @@ install it yet.
 Find a high-contrast moduix theme. Show how it is applied before changing the project.
 ```
 
-### 4. Examiner l'alternative CLI
+### 4. CLI
 
 Utilisez la CLI lorsque MCP n'est pas disponible ou lorsque vous souhaitez disposer d'une trace de revue en ligne de
 commande. Dans un projet qui possède une copie des composants, examinez la configuration actuelle, recherchez selon
@@ -145,7 +145,7 @@ Exécutez `add` sans indicateurs de prévisualisation uniquement après avoir v�
 chemins cibles et le modèle de propriété. N'utilisez pas `--overwrite` sans avoir explicitement décidé de remplacer
 les modifications locales.
 
-## Examiner le code généré
+## Vérifier le code
 
 Considérez le code généré comme un brouillon. Avant de l'intégrer, vérifiez qu'il :
 

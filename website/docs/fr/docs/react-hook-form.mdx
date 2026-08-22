@@ -128,7 +128,7 @@ const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
 </Button>;
 ```
 
-## Erreurs renvoyées par le serveur
+## Erreurs serveur
 
 Après la requête, utilisez `setError` pour les erreurs liées à un champ et l’espace de noms `root` pour
 l’erreur globale du formulaire. La correspondance existante avec `errors.name` continue de piloter
@@ -167,7 +167,7 @@ const onSubmit = handleSubmit(async (values) => {
 }
 ```
 
-## Comportement
+## À noter
 
 - Ne passez pas l’objet de champ de `Controller` par spread à `Select` ou `Combobox` : la forme de
   leurs callbacks et de leurs valeurs ne correspond pas à celle des événements d’un champ natif.

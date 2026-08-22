@@ -1,11 +1,11 @@
 ---
-title: Expandable avatar group
-description: A stacked avatar group that expands on hover or keyboard focus and labels every member with a tooltip.
+title: Avatar group
+description: A stacked avatar group that expands on hover or keyboard focus and labels each member with a tooltip.
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
 
-# Expandable avatar group
+# Avatar group
 
 Use this compact team roster when space is limited but every person still needs an identifiable
 label. Hovering or focusing one avatar makes room after it and opens the matching tooltip.
@@ -38,7 +38,7 @@ label. Hovering or focusing one avatar makes room after it and opens the matchin
 
 <ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
 
-## How it works
+## Details
 
 The group uses `Avatar.Image` with `Avatar.Fallback` as a loading fallback, and
 `Tooltip.Trigger asChild` so each avatar remains a semantic button. The motion is CSS-only: the

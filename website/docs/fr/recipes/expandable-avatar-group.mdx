@@ -1,22 +1,21 @@
 ---
-title: Groupe d’avatars extensible
-description: Groupe d’avatars superposés qui s’étend au survol ou au focus clavier et identifie chaque membre par une infobulle.
+title: Groupe d’avatars
+description: Des avatars superposés qui s’écartent au survol ou au focus clavier et affichent une infobulle pour chaque membre.
 ---
 
 import { ExpandableAvatarGroup } from '@/components/recipes/expandable-avatar-group';
 
-# Groupe d’avatars extensible
+# Groupe d’avatars
 
-Utilisez cette liste d’équipe compacte lorsque l’espace est limité, mais que chaque personne doit
-rester identifiable par un libellé. Le survol ou le focus d’un avatar libère de la place après
-celui-ci et ouvre l’infobulle correspondante.
+Utilisez cette liste d’équipe compacte lorsque l’espace est limité, mais que chaque personne doit rester
+facile à identifier. Au survol ou au focus, un avatar libère de la place à sa droite et affiche son infobulle.
 
 <ExampleFrame clientOnly>
   <ExpandableAvatarGroup />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/expandable-avatar-group.tsx"
@@ -39,20 +38,18 @@ celui-ci et ouvre l’infobulle correspondante.
 
 <ShadcnInstall packageName={['avatar', 'tooltip']} itemKind="recipe" copiedSource />
 
-## Fonctionnement
+## Détails
 
-Le groupe utilise `Avatar.Image` avec `Avatar.Fallback` comme solution de repli pendant le chargement et
-`Tooltip.Trigger asChild` afin que chaque avatar reste un bouton sémantique. L’animation repose
-uniquement sur le CSS : le bouton actif se soulève légèrement tandis que les éléments qui le suivent
-lui font de la place. Avant de publier la recette, remplacez les URL d’images d’exemple par la source
-d’avatars de votre application.
+Le groupe utilise `Avatar.Image` avec `Avatar.Fallback` pendant le chargement et `Tooltip.Trigger asChild`
+afin que chaque avatar reste un bouton sémantique. L’animation repose uniquement sur le CSS : le bouton actif
+se soulève légèrement et les éléments qui suivent lui font de la place. Avant d’utiliser la recette,
+remplacez les URL d’images de démonstration par la source d’avatars de l’application.
 
-Gardez le contenu de l’infobulle court et non essentiel. Si la sélection d’un membre doit naviguer
-ou déclencher une action, remplacez le bouton par le contrôle sémantique approprié et conservez son
-nom accessible.
+Gardez le texte de l’infobulle court et non indispensable à la compréhension. Si sélectionner un membre doit
+ouvrir un lien ou déclencher une action, remplacez le bouton par le contrôle sémantique approprié et conservez
+son nom accessible.
 
-Utilisez `role="group"` avec un libellé pertinent pour la liste et incluez le rôle de chaque personne
-dans le nom accessible du bouton lorsque cela aide à distinguer des noms similaires. Pour une équipe
-nombreuse, affichez seulement les premiers membres et un dernier contrôle `+N` qui ouvre une liste
-complète et consultable. Gardez un ordre stable et conservez l’espacement étendu tout en supprimant
-le soulèvement et les transitions sous `prefers-reduced-motion: reduce`.
+Utilisez `role="group"` avec un libellé utile pour la liste. Ajoutez le rôle de chaque personne au nom
+accessible du bouton lorsque cela aide à distinguer des noms proches. Pour une grande équipe, affichez seulement
+les premiers membres et un contrôle `+N` qui ouvre une liste complète avec recherche. Gardez un ordre stable.
+Sous `prefers-reduced-motion: reduce`, conservez l’espacement étendu mais supprimez le soulèvement et les transitions.

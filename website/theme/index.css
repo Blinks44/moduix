@@ -125,6 +125,33 @@ body {
 }
 
 .rp-doc {
+  :not(:where(.rp-not-doc, .rp-not-doc *)):where(p, li, td, blockquote) a {
+    color: var(--rp-c-link);
+    border-bottom: 0;
+    font-weight: 500;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklab, currentcolor 62%, transparent);
+    text-decoration-thickness: 0.09375em;
+    text-underline-offset: 0.16em;
+    transition:
+      color 0.2s,
+      text-decoration-color 0.2s;
+
+    &:hover {
+      border-bottom: 0;
+      color: var(--rp-c-text-0);
+      text-decoration-color: currentcolor;
+    }
+
+    &:focus-visible {
+      border-radius: 0.125rem;
+      outline: 2px solid var(--rp-c-text-1);
+      outline-offset: 0.1875rem;
+      text-decoration-color: currentcolor;
+      text-decoration: none;
+    }
+  }
+
   .moduix-doc-title,
   h1:has(+ .moduix-doc-description) {
     margin-bottom: 0.625rem;

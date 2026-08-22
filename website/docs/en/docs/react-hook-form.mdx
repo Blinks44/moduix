@@ -122,7 +122,7 @@ const { fields, append, remove } = useFieldArray({ control, name: 'emails' });
 </Button>;
 ```
 
-## Errors returned by the server
+## Server errors
 
 After a request, use `setError` for errors that belong to a field and the `root` namespace for a
 form-wide error. The existing `errors.name` mapping still drives `Field invalid` and
@@ -160,7 +160,7 @@ const onSubmit = handleSubmit(async (values) => {
 }
 ```
 
-## Behavioral notes
+## Notes
 
 - Do not spread a `Controller` field object onto `Select` or `Combobox`; their callback and value
   shapes are not native input events.

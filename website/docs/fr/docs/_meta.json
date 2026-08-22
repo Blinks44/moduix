@@ -253,7 +253,7 @@
   {
     "type": "file",
     "name": "collections",
-    "label": "Parcourir les collections",
+    "label": "Collections",
     "tag": "database"
   },
   {
@@ -283,7 +283,7 @@
   {
     "type": "file",
     "name": "forms",
-    "label": "Parcourir les formulaires",
+    "label": "Formulaires",
     "tag": "clipboard-list"
   },
   {

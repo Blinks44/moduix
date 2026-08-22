@@ -417,7 +417,7 @@
   {
     "type": "file",
     "name": "collections",
-    "label": "Обзор коллекций",
+    "label": "Коллекции",
     "tag": "database"
   },
   {
@@ -447,7 +447,7 @@
   {
     "type": "file",
     "name": "forms",
-    "label": "Обзор форм",
+    "label": "Формы",
     "tag": "clipboard-list"
   },
   {

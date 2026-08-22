@@ -1,6 +1,6 @@
 ---
-title: Browse forms
-description: Build accessible native forms with moduix fields and Ark-backed controls.
+title: Forms
+description: Build accessible forms with moduix fields and Ark-backed controls.
 ---
 
 import { Card, Cards } from '@/components/mdx/Components';
@@ -16,7 +16,7 @@ enough. Add a form library when you need richer validation, field state, or subm
   <Card
     title="Native form"
     description="Use browser validation, FormData submission, and native reset for a small form."
-    href="/docs/forms#start-with-a-native-form"
+    href="/docs/forms#native-forms"
   />
   <Card
     title="Formisch"
@@ -35,7 +35,7 @@ enough. Add a form library when you need richer validation, field state, or subm
   />
 </Cards>
 
-## Start with a native form
+## Native forms
 
 Choose native form state first when the form has a few fields and the browser's validation is
 enough. Give every control a visible label and `name`, put native constraints on the real control,
@@ -45,7 +45,7 @@ mixes a regular Input with Ark-backed Select and Checkbox controls without dupli
 Add a library only when the product needs field arrays, schema or cross-field validation, controlled
 state shared elsewhere in the UI, or a validation lifecycle that native forms cannot express cleanly.
 
-## How form libraries fit in
+## Form libraries
 
 moduix owns accessible form structure: labels, descriptions, error-message wiring, semantic
 control parts, and the native form control needed for submission and reset. A form library owns
@@ -147,13 +147,14 @@ presentation; the native form still owns submission, validation, and reset behav
 
 ```
 
-## Validation, reset, and focus
+## Validation and reset
 
 There are two valid validation modes. For a simple native form, keep constraints such as
 `required`, `minLength`, `pattern`, `min`, and `max`, and let the browser present its validation
 UI. When a library should control the visible error messages, add `noValidate` to the form and
 pass its result to `Field invalid` with a clear `Field.ErrorText`. Keep `Field required` in both
-cases: Ark-aware controls inherit the semantic required state through field context.
+cases: Ark-aware controls inherit the semantic required state through field context. The same choice
+also determines how validation errors and focus are managed.
 
 If you compose a non-Ark custom control, apply its native constraint and `aria-invalid` state to
 the actual focusable element yourself. Do not show an error merely because a field is required;
@@ -175,7 +176,7 @@ leaves focus management to the application, so focus the first rendered `aria-in
 an invalid-submit handler when that behaviour is needed. The dedicated integration guides show
 the corresponding value, blur, reset, and focus mappings.
 
-## Submission lifecycle
+## Submission
 
 Regardless of the state library, make the request state explicit:
 
@@ -191,7 +192,7 @@ Regardless of the state library, make the request state explicit:
 native checkboxes may be absent. Read repeated fields with `getAll`, normalize values at the server
 boundary, and never assume the client-side type or validation makes submitted data trusted.
 
-## Repeated fields and server errors
+## Lists and server errors
 
 For an editable list such as contact emails, team members, or order lines, let the chosen form
 library add, remove, and validate items. Use a `Fieldset` and its visible legend for the group;

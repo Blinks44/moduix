@@ -1,11 +1,11 @@
 ---
-title: Login simple
-description: A copy-owned email and password sign-in form built with moduix React components.
+title: Sign in
+description: An email and password sign-in form built with moduix React components.
 ---
 
 import { LoginSimplePreview } from '@/components/recipes/login-simple-preview';
 
-# Login simple
+# Sign in
 
 A compact email-and-password form with native validation, a remember-me control, and clear account
 recovery links. It deliberately does not implement authentication: pass `onSubmit` to connect your
@@ -38,7 +38,7 @@ own action or API.
 
 <ShadcnInstall packageName={['button', 'card', 'checkbox', 'field', 'input']} itemKind="recipe" copiedSource />
 
-## Use in a route
+## In a route
 
 Render `LoginSimple` in the route that owns authentication and pass its real submit handler. Replace
 the default `/forgot-password` and `/sign-up` links with your application routes.

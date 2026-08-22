@@ -45,7 +45,7 @@ controls. Formisch's `Form` prevents the browser's default submission and adds `
 Formisch owns the validation flow. To restore `initialInput`, call Formisch's `reset(form)` instead
 of only resetting the native DOM form, so its controlled field state resets too.
 
-## Complete form
+## Example
 
 This form uses Formisch validation on submit and revalidates edited values on input. Native
 `Input` and `Textarea` receive Formisch props directly; `Select`, `Combobox`, and
@@ -136,7 +136,7 @@ const form = useForm({
 In an app that imports both libraries, alias Formisch's `Field` as `FormischField` so it stays
 distinct from moduix `Field`, as in the complete example above.
 
-## Errors returned by the server
+## Server errors
 
 Call `setErrors` after the request: use a `path` for a field-specific message and omit it for a
 form-level message. The form below uses the same schema as the array fragment, so `name` is a valid
@@ -169,7 +169,7 @@ import { Form, setErrors } from '@formisch/react';
 </Form>;
 ```
 
-## Behavioral notes
+## Behavior
 
 - `field.props` is for native input events and attributes. Spread it onto `Input` or `Textarea`,
   then provide `value={field.input}` so the rendered control reflects Formisch state.

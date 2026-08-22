@@ -16,7 +16,9 @@ loading and sorting state, errors, filtering, pagination cursors, and request ca
 import { useAsyncList } from '@ark-ui/react/collection';
 ```
 
-## Basic loading
+## Loading
+
+Use this section for the initial request, refresh behavior, and retry placement.
 
 Set `autoReload: true` when the first request should run on mount. Pass the provided `signal` to
 `fetch` so a superseded request can be cancelled.
@@ -51,7 +53,9 @@ result, and put retry next to the error so it repeats the same request.
 Dependencies support `string`, `number`, `boolean`, `null`, and `undefined`. Keep object and array
 state out of the dependency list; derive stable primitive values instead.
 
-## Load contract
+## `load`
+
+The `load` callback receives the current list state and returns the next items.
 
 Every `load` call receives:
 
@@ -231,7 +235,10 @@ function useDepartmentUsers(department: string) {
 }
 ```
 
-## Error and cancellation behavior
+## Errors
+
+Handle failed and obsolete requests explicitly. Pass `signal` to cancellable requests, and use
+`reload()` when the user retries a failed request.
 
 - Check `response.ok`; `fetch` does not reject for HTTP error statuses.
 - Pass `signal` to every cancellable request.

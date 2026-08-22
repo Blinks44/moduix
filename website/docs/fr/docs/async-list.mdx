@@ -1,6 +1,6 @@
 ---
 title: Async List
-description: Chargez, filtrez, triez et paginez des données de liste distantes avec useAsyncList, y compris l'annulation et les nouvelles tentatives.
+description: Chargez, filtrez, triez et paginez des données de liste distantes avec useAsyncList, avec annulation des requêtes et nouvelles tentatives.
 ---
 
 # Async List
@@ -15,7 +15,9 @@ description: Chargez, filtrez, triez et paginez des données de liste distantes 
 import { useAsyncList } from '@ark-ui/react/collection';
 ```
 
-## Chargement de base
+## Chargement
+
+Cette section couvre la première requête, l'actualisation de la liste et les nouvelles tentatives après une erreur.
 
 Définissez `autoReload: true` lorsque la première requête doit s'exécuter au montage. Transmettez le `signal` fourni à `fetch` afin qu'une requête devenue obsolète puisse être annulée.
 
@@ -45,7 +47,9 @@ Gardez les éléments actuels visibles pendant l'actualisation. Remplacez entiè
 
 Les dépendances prennent en charge `string`, `number`, `boolean`, `null` et `undefined`. Gardez l’état des objets et des tableaux en dehors de la liste des dépendances ; dérivez plutôt des valeurs primitives stables.
 
-## Contrat de chargement
+## `load`
+
+La fonction de rappel `load` reçoit l'état actuel de la liste et renvoie les éléments suivants.
 
 Chaque appel `load` reçoit :
 
@@ -223,7 +227,9 @@ function useDepartmentUsers(department: string) {
 }
 ```
 
-## Erreurs et annulation des requêtes
+## Erreurs
+
+Traitez explicitement les requêtes qui échouent ou deviennent obsolètes. Transmettez `signal` aux requêtes annulables et utilisez `reload()` pour une nouvelle tentative après une erreur.
 
 - Vérifiez `response.ok` ; `fetch` ne rejette pas la promesse pour les statuts d'erreur HTTP.
 - Transmettez `signal` à chaque requête annulable.

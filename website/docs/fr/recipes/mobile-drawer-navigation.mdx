@@ -1,22 +1,22 @@
 ---
-title: Navigation mobile avec tiroir
-description: Structure de navigation mobile intégrée à votre projet, avec tiroir latéral et contenu d’espace de travail adaptatif.
+title: Navigation mobile
+description: Un modèle de navigation mobile avec tiroir latéral et contenu d’espace de travail adaptatif.
 ---
 
 import { MobileDrawerNavigationPreview } from '@/components/recipes/mobile-drawer-navigation-preview';
 
-# Navigation mobile avec tiroir
+# Navigation mobile
 
-Ajoutez un modèle de navigation mobile compact avec un tiroir fixé au bord de l’écran. Les liens de
-navigation ferment le tiroir après la sélection, tandis que le primitif Drawer assure une gestion
-accessible du focus, de la touche Escape et de l’arrière-plan.
+Ajoutez à votre version mobile une navigation compacte avec un tiroir fixé au bord de l’écran. Le tiroir se
+ferme après la sélection d’un lien, tandis que Drawer gère le focus, la touche Escape et l’arrière-plan de
+façon accessible.
 
 <ExampleFrame clientOnly>
   <MobileDrawerNavigationPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/mobile-drawer-navigation.tsx"
@@ -38,14 +38,13 @@ accessible du focus, de la touche Escape et de l’arrière-plan.
 
 <ShadcnInstall packageName={['button', 'drawer']} itemKind="recipe" copiedSource dependencies={['lucide-react']} />
 
-## Utilisation dans une route
+## Dans une route
 
-Remplacez les liens et le contenu du tableau de bord d’exemple par vos routes et vos données. Placez
-chaque lien de navigation dans `Drawer.CloseTrigger` afin que la sélection ferme automatiquement le
-tiroir mobile.
+Remplacez les liens et le contenu de démonstration par vos routes et vos données. Placez chaque lien de
+navigation dans `Drawer.CloseTrigger` afin que le tiroir mobile se ferme automatiquement après la sélection.
 
-Utilisez le composant Link de votre routeur via `asChild` lorsqu’il doit gérer la navigation et
-marquez le lien actuel avec `aria-current="page"`. Gardez le déclencheur visible sur les largeurs
-mobiles et proposez les mêmes destinations dans un en-tête permanent pour ordinateur ou dans le
-[Tableau de bord avec barre latérale](/recipes/sidebar-dashboard) sur les écrans plus larges. N’affichez
-pas deux copies focalisables de la même navigation au même point de rupture.
+Si le composant Link de votre routeur doit gérer la navigation, passez-le via `asChild` et marquez le lien
+actuel avec `aria-current="page"`. Gardez le déclencheur visible sur mobile ; sur les écrans larges,
+proposez les mêmes destinations dans un en-tête permanent ou dans le
+[Tableau de bord avec barre latérale](/recipes/sidebar-dashboard). N’affichez pas deux copies focalisables
+de la même navigation à la même largeur d’écran.

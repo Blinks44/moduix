@@ -108,7 +108,7 @@
   },
   "homeLead": {
     "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
-    "ru": "Доступные React-компоненты с выверенными настройками по умолчанию, явной композицией и CSS-основой на токенах, которую можно настраивать темой или включить в код проекта.",
+    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на токенах — его можно адаптировать под свою тему или полностью взять под контроль.",
     "fr": "Des composants React accessibles, avec des valeurs par défaut réfléchies, une composition explicite et une base CSS pilotée par des tokens, que vous pouvez personnaliser par thème ou maîtriser directement dans votre projet."
   },
   "homeGetStarted": {
@@ -128,17 +128,17 @@
   },
   "homeComponentsTogether": {
     "en": "A few components, working together.",
-    "ru": "Несколько компонентов, работающих вместе.",
+    "ru": "Несколько компонентов, которые работают вместе.",
     "fr": "Quelques composants qui fonctionnent ensemble."
   },
   "homeCompositionDescription": {
     "en": "Search, selection, menus, and a wide table stay small and composable-ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и легко сочетаются друг с другом - для продуктового экрана, а не маркетингового макета.",
+    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и хорошо работают вместе — для настоящего продуктового интерфейса, а не маркетингового макета.",
     "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner - prêts pour un écran produit plutôt qu’une maquette marketing."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
-    "ru": "Посмотреть паттерн таблицы",
+    "ru": "Изучить паттерн таблицы",
     "fr": "Découvrir le modèle de tableau"
   },
   "homeWorkspaceDesignSystem": {
@@ -223,7 +223,7 @@
   },
   "homeToggleAndProgress": {
     "en": "Toggle and progress in one pass",
-    "ru": "Переключатель и прогресс в одном интерфейсе",
+    "ru": "Переключатель и индикатор прогресса в одном интерфейсе",
     "fr": "Interrupteur et progression dans un même aperçu"
   },
   "homeAutoReview": {
@@ -258,12 +258,12 @@
   },
   "homeOpenModal": {
     "en": "Open the modal directly in the hero",
-    "ru": "Откройте модальное окно прямо в шапке",
+    "ru": "Откройте модальное окно прямо в первом экране",
     "fr": "Ouvrez la modale directement dans l’en-tête"
   },
   "homeDialogPreviewDescription": {
     "en": "The preview stays compact, but the interaction is real and uses the shipped dialog API.",
-    "ru": "Предпросмотр остаётся компактным, но взаимодействие в нём настоящее и использует API Dialog из библиотеки.",
+    "ru": "Предпросмотр остаётся компактным, но всё в нём работает по-настоящему — через API Dialog из библиотеки.",
     "fr": "L’aperçu reste compact, mais l’interaction est réelle et utilise l’API Dialog fournie par la bibliothèque."
   },
   "homeReviewChanges": {
@@ -278,7 +278,7 @@
   },
   "homePublishReleaseDescription": {
     "en": "Push the updated components and docs to the shared workspace.",
-    "ru": "Отправьте обновлённые компоненты и документацию в общее рабочее пространство.",
+    "ru": "Опубликуйте обновлённые компоненты и документацию в общем рабочем пространстве.",
     "fr": "Envoyez les composants et la documentation mis à jour dans l’espace de travail partagé."
   },
   "homeBack": {
@@ -591,10 +591,30 @@
     "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений.",
     "fr": "Les tokens sémantiques globaux définissent le langage visuel ; les tokens de famille partagés alignent les contrôles apparentés ; les variables de composant permettent les exceptions délibérées."
   },
+  "chartHeroDate": {
+    "en": "August 20, 2026",
+    "ru": "20 августа 2026 г.",
+    "fr": "20 août 2026"
+  },
+  "chartHeroTitle": {
+    "en": "Chart joins moduix",
+    "ru": "Chart появился в moduix",
+    "fr": "Chart rejoint moduix"
+  },
+  "chartHeroCardDescription": {
+    "en": "Powered by TanStack Charts",
+    "ru": "На базе TanStack Charts",
+    "fr": "Propulsé par TanStack Charts"
+  },
+  "chartHeroSummary": {
+    "en": "Composable, accessible charts powered by TanStack Charts.",
+    "ru": "Компонуемые и доступные графики на базе TanStack Charts.",
+    "fr": "Des graphiques composables et accessibles, propulsés par TanStack Charts."
+  },
   "localizationHeroDate": {
-    "en": "August 2026",
-    "ru": "Август 2026 г.",
-    "fr": "Août 2026"
+    "en": "August 10, 2026",
+    "ru": "10 августа 2026 г.",
+    "fr": "10 août 2026"
   },
   "localizationHeroTitle": {
     "en": "Full documentation in Russian and French",

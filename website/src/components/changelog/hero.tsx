@@ -25,11 +25,20 @@ export function ChangelogHero({
   );
 }
 
-export function ChangelogHeroCard({ label, children }: { label: string; children: ReactNode }) {
+export function ChangelogHeroCard({
+  label,
+  description,
+  children,
+}: {
+  label: string;
+  description?: string;
+  children: ReactNode;
+}) {
   return (
     <div className={styles.product}>
       {children}
-      <span>{label}</span>
+      <span className={styles.productLabel}>{label}</span>
+      {description ? <span className={styles.productDescription}>{description}</span> : null}
     </div>
   );
 }
