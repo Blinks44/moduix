@@ -272,6 +272,11 @@
   },
   {
     "type": "file",
+    "name": "navigation-menu",
+    "tag": "component"
+  },
+  {
+    "type": "file",
     "name": "native-select",
     "tag": "component"
   },

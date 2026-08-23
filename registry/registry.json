@@ -1307,6 +1307,31 @@
       ]
     },
     {
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "Navigation Menu",
+      "description": "moduix React Navigation Menu component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/navigation-menu/NavigationMenu.tsx",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/navigation-menu/NavigationMenu.module.css",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/navigation-menu/index.ts",
+          "target": "@components/moduix/navigation-menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "native-select",
       "type": "registry:item",
       "title": "Native Select",

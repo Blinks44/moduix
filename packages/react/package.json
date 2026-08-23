@@ -219,6 +219,10 @@
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
     },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.js"
+    },
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
       "import": "./dist/components/native-select/index.js"

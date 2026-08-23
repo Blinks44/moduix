@@ -183,6 +183,7 @@
   { "type": "file", "name": "listbox", "tag": "component" },
   { "type": "file", "name": "marquee", "tag": "component" },
   { "type": "file", "name": "menu", "tag": "component" },
+  { "type": "file", "name": "navigation-menu", "tag": "component" },
   {
     "type": "file",
     "name": "native-select",
