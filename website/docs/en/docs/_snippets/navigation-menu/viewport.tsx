@@ -50,11 +50,11 @@ export default function ViewportNavigationMenuDemo() {
               <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
+        </NavigationMenu.List>
+        <NavigationMenu.ViewportPositioner>
           <NavigationMenu.Indicator>
             <NavigationMenu.Arrow />
           </NavigationMenu.Indicator>
-        </NavigationMenu.List>
-        <NavigationMenu.ViewportPositioner>
           <NavigationMenu.Viewport />
         </NavigationMenu.ViewportPositioner>
       </NavigationMenu>

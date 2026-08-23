@@ -1936,7 +1936,6 @@
   --moduix-menu-trigger-padding-x: initial; /* var(--moduix-spacing-4) */
   --moduix-menu-trigger-padding-y: initial; /* var(--moduix-spacing-1) */
   --moduix-menu-trigger-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-navigation-menu-arrow-offset: initial; /* calc(var(--moduix-spacing-1) - var(--moduix-navigation-menu-content-border-width, var(--moduix-border-width-sm))) */
   --moduix-navigation-menu-arrow-size: initial; /* var(--moduix-spacing-2-5) */
   --moduix-navigation-menu-arrow-stroke-color: initial; /* var(--moduix-navigation-menu-content-border-color) */
   --moduix-navigation-menu-color: initial; /* var(--moduix-color-foreground) */
@@ -1991,7 +1990,7 @@
   --moduix-navigation-menu-viewport-motion-distance: initial; /* 12.5rem */
   --moduix-navigation-menu-viewport-offset: initial; /* var(--moduix-spacing-2) */
   --moduix-navigation-menu-viewport-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-navigation-menu-viewport-transition: initial; /* 200ms ease */
+  --moduix-navigation-menu-viewport-transition: initial; /* 300ms ease */
   --moduix-navigation-menu-viewport-z-index: initial; /* var(--moduix-z-popup) */
 
   /* NumberInput */

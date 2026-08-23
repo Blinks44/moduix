@@ -2,11 +2,6 @@ import type { CssPropertyInput } from '../mdx/reference';
 import { CSSPropertiesReferenceTable, normalizeCssProperties } from '../mdx/reference';
 
 const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
-  [
-    '--moduix-navigation-menu-arrow-offset',
-    'calc(var(--moduix-spacing-1) - var(--moduix-navigation-menu-content-border-width, var(--moduix-border-width-sm)))',
-    'Controls the arrow overlap with the popup outline.',
-  ],
   ['--moduix-navigation-menu-arrow-size', 'var(--moduix-spacing-2-5)', 'Controls arrow size.'],
   [
     '--moduix-navigation-menu-arrow-stroke-color',
@@ -259,7 +254,7 @@ const navigationMenuOverrideCssProperties: CssPropertyInput[] = [
   ],
   [
     '--moduix-navigation-menu-viewport-transition',
-    '200ms ease',
+    '300ms ease',
     'Controls viewport size and position transitions.',
   ],
   [

@@ -43,8 +43,9 @@ NavigationMenu
 │     └─ NavigationMenu.Content
 │        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif sans viewport)
 │        └─ NavigationMenu.Link
-│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif avec viewport)
-└─ NavigationMenu.ViewportPositioner (facultatif) > NavigationMenu.Viewport
+└─ NavigationMenu.ViewportPositioner (facultatif)
+   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (facultatif avec viewport)
+   └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
 └─ même arbre de parties connecté à un store useNavigationMenu()
@@ -74,7 +75,7 @@ La racine accepte les propriétés Ark `value`, `defaultValue`, `onValueChange(d
 
 Utilisez `asChild` sur `NavigationMenu.Trigger` ou `NavigationMenu.Link` lorsqu’un lien de routeur ou un hôte sémantique personnalisé doit recevoir le comportement d’Ark. L’enfant doit rester un unique élément interactif et focusable.
 
-Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent partager une surface animée. Si un repère vers le déclencheur actif est utile, placez un `Indicator` avec un `Arrow` dans la `List`. Le viewport anime alors sa largeur et sa hauteur mesurées pendant que le contenu se déplace dans le sens de navigation. Sinon, `Content` reste près de son élément comme panneau compact et peut contenir un indicateur facultatif.
+Ajoutez `NavigationMenu.ViewportPositioner` et `NavigationMenu.Viewport` lorsque plusieurs panneaux doivent partager une surface animée. Si un repère vers le déclencheur actif est utile, placez un `Indicator` avec un `Arrow` avant le `Viewport`, dans `ViewportPositioner`. Le viewport anime alors sa largeur et sa hauteur mesurées pendant que le contenu se déplace dans le sens de navigation. Sinon, `Content` reste près de son élément comme panneau compact et peut contenir un indicateur facultatif.
 
 Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’état de navigation doit exister hors de l’arbre affiché. Utilisez `NavigationMenu.Context` ou `useNavigationMenuContext()` lorsque l’interface environnante doit lire cet état.
 

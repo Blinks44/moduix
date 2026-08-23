@@ -1,30 +1,30 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: A composable navigation bar with links, disclosure panels, and optional shared viewport transitions.
+description: A composable navigation menu for links, disclosure panels, and optional shared viewport transitions.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
 
 ## API Reference
 
-Ark UI does not currently publish a dedicated Navigation Menu page. This component follows the
-[Ark React source](https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu)
-and preserves its parts and state contract.
+Ark UI does not currently publish dedicated documentation for Navigation Menu. This component follows
+the [Ark React source](https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu)
+and preserves its parts and state model.
 
 ## Choosing the right component
 
 Use `NavigationMenu` for primary product or site navigation with a small number of related links and
 disclosure panels.
 
-- Choose **`NavigationMenu`** when a top-level link can reveal a compact navigation panel.
+- Choose **`NavigationMenu`** when a top-level item can reveal a compact panel of related links.
 - Choose **`Menu`** for contextual actions rather than destinations.
-- Choose **`Tabs`** when selected controls own one matching content panel in the current page.
+- Choose **`Tabs`** when each selected control shows its matching content panel on the current page.
 
 ## Basic
 
-Use `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link`, and an explicit trigger/content
-pair for each disclosure panel.
+Use `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link`, and a matching
+trigger/content pair for each disclosure panel.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/navigation-menu/basic.tsx"
@@ -48,8 +48,8 @@ NavigationMenu
 │     └─ NavigationMenu.Content
 │        ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (optional without viewport)
 │        └─ NavigationMenu.Link
-│  └─ NavigationMenu.Indicator > NavigationMenu.Arrow (optional with viewport)
 └─ NavigationMenu.ViewportPositioner (optional)
+   ├─ NavigationMenu.Indicator > NavigationMenu.Arrow (optional with viewport)
    └─ NavigationMenu.Viewport
 
 NavigationMenu.RootProvider
@@ -78,9 +78,9 @@ NavigationMenu.Context
 
 ### Recommended composition
 
-Keep the Ark part tree visible. Give every `NavigationMenu.Item` a stable `value`; its `Trigger` and
-`Content` use that value automatically. Use `NavigationMenu.Link` for both direct destinations and
-links inside a disclosure panel.
+Keep the Ark parts explicit in your markup. Give every `NavigationMenu.Item` a stable `value`; its
+`Trigger` and `Content` use that value automatically. Use `NavigationMenu.Link` for both direct
+destinations and links inside a disclosure panel.
 
 The root accepts Ark's `value`, `defaultValue`, `onValueChange(details)`, `openDelay`, `closeDelay`,
 `orientation`, `disableClickTrigger`, `disableHoverTrigger`, `disablePointerLeaveClose`, `ids`,
@@ -92,9 +92,10 @@ Use `asChild` on `NavigationMenu.Trigger` or `NavigationMenu.Link` when a router
 semantic host must receive Ark's behavior. The child must remain one interactive, focusable element.
 
 Add `NavigationMenu.ViewportPositioner` and `NavigationMenu.Viewport` when several panels should share
-one animated surface. Place one `Indicator` with an `Arrow` in the `List` only when that pointer is useful;
-the viewport then animates its measured width and height while content moves in the navigation direction.
-Otherwise, `Content` stays next to its item as a compact disclosure panel and can own an optional indicator.
+one animated surface. When a pointer to the active trigger is useful, place one `Indicator` with an
+`Arrow` before the `Viewport` inside `ViewportPositioner`. The viewport then animates its measured width
+and height as content moves in the navigation direction. Without it, `Content` remains next to its item
+as a compact disclosure panel and can include an optional indicator.
 
 Use `useNavigationMenu()` with `NavigationMenu.RootProvider` when navigation state must exist outside
 the rendered tree. Use `NavigationMenu.Context` or `useNavigationMenuContext()` when surrounding UI
@@ -103,8 +104,8 @@ needs to read that state.
 ### Behavioral notes
 
 - `onValueChange` receives Ark's detail object; read the open item from `details.value`.
-- `NavigationMenu` renders a semantic `nav`; Ark owns disclosure ARIA attributes, hover/click behavior,
-  and keyboard interaction.
+- `NavigationMenu` renders a semantic `nav`; Ark manages disclosure ARIA attributes, hover and click
+  behavior, and keyboard interaction.
 - `Content` and `Viewport` preserve Ark presence attributes, so `lazyMount` and `unmountOnExit` work
   unchanged with the default exit animation.
 - The wrapper does not add a trigger icon or a viewport. Render both only when the composition needs them.
@@ -145,7 +146,7 @@ Add an indicator and arrow only when the panel needs a visual pointer to its act
 
 ## Styling
 
-Style `NavigationMenu` through `className`, stable `data-slot="navigation-menu-*"` hooks, Ark
+Style `NavigationMenu` with `className`, stable `data-slot="navigation-menu-*"` hooks, Ark's
 `data-scope` and `data-part` attributes, and the public `--moduix-navigation-menu-*` variables below.
 
 ### CSS Properties

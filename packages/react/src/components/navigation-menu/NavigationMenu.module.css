@@ -174,6 +174,8 @@
   }
 
   .contentViewport {
+    position: relative;
+    z-index: 1;
     display: flex;
     max-block-size: min(
       var(--moduix-navigation-menu-content-max-height, 24rem),
@@ -192,7 +194,6 @@
 
   .indicator {
     position: absolute;
-    z-index: calc(var(--moduix-navigation-menu-content-z-index, var(--moduix-z-popup)) + 1);
     inset-block-start: calc(
       -1 * var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))
     );
@@ -227,13 +228,7 @@
 
   .arrow {
     position: relative;
-    inset-block-start: var(
-      --moduix-navigation-menu-arrow-offset,
-      calc(
-        var(--moduix-spacing-1) -
-          var(--moduix-navigation-menu-content-border-width, var(--moduix-border-width-sm))
-      )
-    );
+    inset-block-start: var(--moduix-spacing-1);
     inline-size: var(--moduix-navigation-menu-arrow-size, var(--moduix-spacing-2-5));
     block-size: var(--moduix-navigation-menu-arrow-size, var(--moduix-spacing-2-5));
     border-block-start: var(
@@ -283,6 +278,19 @@
       inset-inline-start: 100%;
       translate: 0 0;
     }
+
+    > .indicator {
+      z-index: 1;
+      inset-block-start: calc(
+        var(--moduix-navigation-menu-viewport-offset, var(--moduix-spacing-2)) -
+          var(--moduix-navigation-menu-indicator-size, var(--moduix-spacing-2-5))
+      );
+      translate: calc(var(--trigger-x, 0px) - var(--viewport-x, 0px)) 0;
+    }
+
+    &[data-orientation='horizontal'] > .indicator {
+      overflow: hidden;
+    }
   }
 
   .viewport {
@@ -331,7 +339,7 @@
       position: absolute;
       inset: 0 auto auto 0;
       margin: 0;
-      border: 0;
+      outline: 0;
       border-radius: 0;
       background: transparent;
       box-shadow: none;
@@ -341,6 +349,7 @@
 
     & .contentViewport {
       max-block-size: none;
+      z-index: 2;
     }
 
     & .content[data-state] {
