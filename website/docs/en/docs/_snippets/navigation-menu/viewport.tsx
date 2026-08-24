@@ -44,7 +44,7 @@ export default function ViewportNavigationMenuDemo() {
               Resources
               <ChevronDownIcon />
             </NavigationMenu.Trigger>
-            <NavigationMenu.Content style={{ width: '18rem' }}>
+            <NavigationMenu.Content style={{ width: '7rem' }}>
               <NavigationMenu.Link href="#blog">Blog</NavigationMenu.Link>
               <NavigationMenu.Link href="#customers">Customer stories</NavigationMenu.Link>
               <NavigationMenu.Link href="#support">Support</NavigationMenu.Link>

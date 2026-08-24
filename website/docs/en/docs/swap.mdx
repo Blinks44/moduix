@@ -1,7 +1,6 @@
 ---
 title: Swap
-component: swap
-description: Animate between two layered visual states while preserving the surrounding control's semantics.
+description: Switch between two visual states with Ark UI state management and moduix animation presets.
 ---
 
 import * as SwapDocs from '@/components/examples/swap';
@@ -12,8 +11,8 @@ import * as SwapDocs from '@/components/examples/swap';
 
 ## Basic
 
-Use `swap` to choose the visible indicator. `Swap` defaults to the `scale` animation, while the
-button remains responsible for its accessible name and click behavior.
+Set `swap` to choose the visible indicator. `Swap` uses the `scale` animation by default; the
+surrounding button still owns its accessible name and click behavior.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/swap/basic.tsx"
@@ -41,8 +40,8 @@ Swap / Swap.Root
 | `Swap.RootProvider`  | Uses state created with `Swap.useSwap()` outside the subtree.    |
 | `Swap.Indicator`     | Renders one `on` or `off` visual state with Presence attributes. |
 
-Render both indicators as direct root children so they share the same grid cell and included animation
-recipes cannot reach a nested Swap.
+Render both indicators as direct children of the root. They then share one grid cell, and the included
+animation recipes stay scoped to this Swap.
 
 ## Composition
 
@@ -63,7 +62,7 @@ so consumer CSS can use Ark's `data-state` attributes without fighting a default
 | Prop              | Default | Notes                                                               |
 | ----------------- | ------- | ------------------------------------------------------------------- |
 | `swap`            | `false` | Selects the `off` indicator.                                       |
-| `animation`       | `scale` | The preserved moduix fade-and-scale default.                        |
+| `animation`       | `scale` | Uses moduix's scale-and-fade animation preset.                      |
 | `lazyMount`       | `false` | Defers mounting an inactive indicator until it is first displayed. |
 | `unmountOnExit`   | `false` | Removes an inactive indicator after its exit animation.            |
 

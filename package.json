@@ -25,14 +25,14 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
-    "@changesets/cli": "^2.31.0",
+    "@changesets/cli": "^2.31.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
-    "oxfmt": "^0.63.0",
-    "oxlint": "^1.71.0",
-    "publint": "^0.3.22",
-    "shadcn": "^4.12.0",
-    "turbo": "^2.10.0"
+    "lint-staged": "^17.3.0",
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0",
+    "publint": "^0.3.24",
+    "shadcn": "^4.19.0",
+    "turbo": "^2.10.11"
   },
   "engines": {
     "node": ">=24",

@@ -1,0 +1,75 @@
+---
+title: Format Time
+description: Affichez des chaînes horaires et des Date selon la locale courante avec Ark UI Format.Time et moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
+
+## Quand l’utiliser
+
+Utilisez `Format.Time` pour afficher une heure selon la locale courante dans les plannings, flux d’activité, horaires
+de support et autres éléments de l’interface. Il accepte un `Date` ou une chaîne `HH:mm` ou `HH:mm:ss`.
+
+Importez `Format` directement depuis Ark UI :
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Exemple de base
+
+Utilisez une chaîne horaire lorsqu’il s’agit d’une heure affichée sur une horloge, et non d’un instant précis dans un
+fuseau horaire. Placez le résultat dans des composants moduix qui donnent le contexte de l’événement.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-time/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Secondes et libellés AM/PM
+
+Activez `withSeconds` lorsque les secondes comptent réellement, par exemple dans un indicateur de synchronisation.
+`amLabel` et `pmLabel` permettent de remplacer les libellés AM/PM dans les locales à 12 heures.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-time/seconds-and-labels.tsx"
+
+  ```
+</PreviewFrame>
+
+N’ajoutez pas les secondes à un planning uniquement parce qu’elles existent dans la donnée source. Choisissez la
+précision qui aide réellement la personne à agir.
+
+## Locale et valeurs Date
+
+`Format.Time` récupère la locale depuis `LocaleProvider`. moduix réexporte ce fournisseur : utilisez-le pour définir
+la locale une seule fois dans toute l’interface.
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedTime() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.Time value="17:15" />
+    </LocaleProvider>
+  );
+}
+```
+
+Utilisez un `Date` lorsque vous disposez déjà d’une valeur date-heure précise. L’heure affichée suit la locale et le
+fuseau horaire de l’utilisateur ; ne remplacez donc pas une heure locale de planning par un `Date` sans le vouloir.
+
+## Utilisation avec moduix
+
+`Format.Time` ne rend que du texte. Utilisez les composants moduix `Card`, `Stack`, `Text` et de statut pour expliquer
+ce que représente l’heure ; ne créez pas un composant juste pour appeler le formateur.
+
+## Responsabilités
+
+Ark UI gère le formatage de l’heure et l’API `Format.Time`. moduix fournit les composants d’interface qui
+l’accompagnent et réexporte `LocaleProvider`, mais ne réexporte pas `Format.Time`.

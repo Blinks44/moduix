@@ -1,0 +1,80 @@
+---
+title: Environment
+description: Configurez les requêtes DOM d’Ark UI dans les iframes, Shadow DOM, Electron et d’autres racines DOM.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/environment" />
+
+## Quand l’utiliser
+
+Utilisez `EnvironmentProvider` lorsque des composants Ark ou moduix sont rendus hors du `document` principal : dans
+une iframe, un Shadow DOM, Electron ou un autre document. Ark interroge le DOM pour les éléments, les ID, le focus et
+les événements ; il doit donc utiliser la racine qui contient le composant.
+
+Importez le fournisseur et le hook de contexte directement depuis Ark UI :
+
+```tsx
+import { EnvironmentProvider, useEnvironmentContext } from '@ark-ui/react/environment';
+```
+
+## Exemple de base
+
+Placez le fournisseur autour du sous-arbre concerné. Sans `value`, il détecte le nœud racine dans lequel il est rendu.
+Le hook de contexte expose des fonctions pour accéder à ce nœud, à son `Document` et à sa `Window`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/environment/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+L’aperçu s’exécute dans le document principal ; sa racine est donc le document de la page. Dans un environnement
+personnalisé, transmettez la véritable racine à `value`.
+
+## iframe et Shadow DOM
+
+Transmettez le `Document`, le `ShadowRoot` ou un autre nœud racine qui contient le sous-arbre rendu. Préférez une
+fonction si la racine n’est disponible qu’après le premier rendu, par exemple au chargement d’une iframe ou à la
+création d’un shadow root.
+
+```tsx
+<EnvironmentProvider value={() => shadowHost.current?.shadowRoot ?? document}>
+  <SettingsPanel />
+</EnvironmentProvider>
+```
+
+Le fournisseur ne modifie que la racine utilisée par Ark pour les API DOM. Il ne déplace pas le contenu React dans une
+iframe ou un Shadow DOM : votre application ou votre bibliothèque d’iframe garde la responsabilité du portail et du
+point de montage. Le fournisseur et son sous-arbre doivent se trouver dans le même environnement.
+
+L’utilitaire Ark `Frame` fournit déjà le document de l’iframe à ses enfants. Avec `Frame`, placez simplement les
+composants moduix à l’intérieur : il n’est pas nécessaire d’ajouter un autre fournisseur.
+
+```tsx
+import { Frame } from '@ark-ui/react/frame';
+import { Button } from '@moduix/react/button';
+
+export function IframeAction() {
+  return (
+    <Frame title="Account settings">
+      <Button type="button">Save settings</Button>
+    </Frame>
+  );
+}
+```
+
+## Utilisation avec moduix
+
+Utilisez les composants moduix dans `EnvironmentProvider` comme d’habitude. Enveloppez une seule fois tout le
+sous-arbre rendu dans un autre document, au lieu de configurer chaque composant. Dialog, Menu, Popover et les autres
+composants fondés sur Ark interrogeront alors la bonne racine pour le focus et leurs relations DOM.
+
+Le fournisseur ne copie pas le CSS dans une iframe ou un Shadow DOM. Chargez aussi la feuille de styles moduix dans
+cet environnement pour que les composants conservent leur apparence.
+
+## Responsabilités
+
+Ark UI gère la résolution de l’environnement et l’API `EnvironmentProvider`. moduix explique comment placer ses
+composants dans un environnement personnalisé, mais ne réexporte pas ce fournisseur.

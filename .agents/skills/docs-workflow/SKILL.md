@@ -61,6 +61,13 @@ For a new, migrated, or substantially restructured component page, read [the com
 
 Read [preview rules](references/previews.md) whenever adding or changing a preview frame, preview metadata, virtual-file import, or a nontrivial snippet.
 
+## Sidebar icons
+
+- Treat each `tag` in `website/docs/<locale>/docs/_meta.json` as a semantic icon for its sidebar entry.
+- Reuse an existing mapping from `website/theme/components/Tag/index.tsx` only when it accurately represents the page. Do not use an unrelated icon merely to avoid changing the shared set.
+- If the set has no suitable icon, add the appropriate named Lucide icon to the shared `Tag` mapping, then use the new tag consistently in every locale.
+- Keep tags in parity between locales. Repeated icons are appropriate for truly equivalent concepts, such as individual components, but review accidental repeats when editing a sidebar.
+
 ## CSS variables and registry docs
 
 - Cover a component's full public `--<component>-*` contract from `packages/react/src/styles/variables-moduix.css` using the shared CSS variables reference UI; do not duplicate it in prose.

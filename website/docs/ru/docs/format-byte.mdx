@@ -1,0 +1,75 @@
+---
+title: Format Byte
+description: Показывайте размер файла в понятном виде с Ark UI Format.Byte и компонентами moduix.
+---
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
+
+## Когда использовать
+
+Используйте `Format.Byte`, чтобы показать число байтов как понятный размер файла: при загрузке, скачивании, в квотах
+хранилища и телеметрии. Передайте число байтов — Ark сам выберет подходящую единицу, например kB, MB или GB.
+
+Импортируйте `Format` напрямую из Ark UI:
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Базовый пример
+
+`Format.Byte` выводит только текст, поэтому расположите его рядом с элементом, который поясняет значение числа. В
+примере размер файла указан рядом с экспортом, к которому относится.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-byte/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Десятичные и двоичные единицы
+
+Укажите `unitSystem="decimal"`, если 1 kB равен 1000 байтов, или `unitSystem="binary"`, если между единицами
+используется множитель 1024. Явно выбирайте систему, когда интерфейс различает заявленный объём диска и технические
+значения хранилища.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-byte/unit-system.tsx"
+
+  ```
+</PreviewFrame>
+
+## Локаль и параметры отображения
+
+`Format.Byte` получает локаль из `LocaleProvider`. moduix переэкспортирует этот провайдер, поэтому его можно
+использовать как единый провайдер локали для всего интерфейса:
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedFileSize() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.Byte value={1_450.45} />
+    </LocaleProvider>
+  );
+}
+```
+
+С `unit="byte"` или `unit="bit"` можно выбрать байты или биты. `unitDisplay="narrow"`, `"short"` или `"long"`
+задаёт способ записи единицы. Для связанных размеров файлов используйте одинаковую систему и формат единиц: так их
+проще сравнивать.
+
+## Использование с moduix
+
+`Format.Byte` намеренно выводит только отформатированный текст. Используйте `Card`, `Stack`, `Text` и компоненты
+статуса moduix, чтобы пояснить, что означает размер. Не создавайте отдельный компонент только для форматирования
+числа.
+
+## Границы ответственности
+
+Ark UI отвечает за форматирование байтов и API `Format.Byte`. moduix предоставляет окружающие компоненты интерфейса
+и переэкспортирует `LocaleProvider`, но не переэкспортирует `Format.Byte`.

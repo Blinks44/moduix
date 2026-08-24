@@ -347,14 +347,19 @@
     "fr": "Champ, déclencheur, liste"
   },
   "primitiveReferenceTitle": {
-    "en": "Upstream primitive API",
-    "ru": "API исходного примитива",
-    "fr": "API du primitif sous-jacent"
+    "en": "Ark UI API reference",
+    "ru": "Документация Ark UI",
+    "fr": "Référence de l’API Ark UI"
   },
   "primitiveReferenceDescription": {
-    "en": "Behavior, accessibility details, and low-level props live in the upstream reference.",
-    "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке.",
-    "fr": "Le comportement, les détails d'accessibilité et les props de bas niveau sont documentés dans la référence en amont."
+    "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
+    "ru": "Описание поведения, требований доступности и низкоуровневых свойств — в документации Ark UI.",
+    "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
+  },
+  "primitiveReferenceLink": {
+    "en": "Open",
+    "ru": "Открыть",
+    "fr": "Ouvrir"
   },
   "shadcnInstallComponent": {
     "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",

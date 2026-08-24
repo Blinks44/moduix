@@ -261,6 +261,7 @@ const layoutNavigationDrawings = {
   stack: StackDrawing,
   steps: StepsDrawing,
   tabs: TabsDrawing,
+  'json-tree-view': TreeView,
   'tree-view': TreeView,
 } as const;
 

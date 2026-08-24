@@ -1,0 +1,64 @@
+---
+title: Hotkeys
+description: Register platform-aware keyboard shortcuts, sequences, and commands with Ark UI Hotkeys and moduix.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
+
+## When to use it
+
+Use Hotkeys to register keyboard commands such as saving a draft, opening search, or navigating a workspace. The hook listens on the document and removes its registration when the component unmounts.
+
+Import the hooks directly from Ark UI:
+
+```tsx
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
+```
+
+## Basic
+
+Use `mod` instead of choosing Control or Command yourself. After the page mounts, `useFormatHotkey` renders the label for the visitor's platform.
+
+<PreviewFrame maxWidth="sm">
+
+```tsx preview file="./_snippets/hotkeys/basic.tsx"
+```
+
+</PreviewFrame>
+
+When an application needs to handle a familiar browser shortcut itself, add `preventDefault`; otherwise the browser may handle it too.
+
+## Multiple shortcuts and sequences
+
+Use `useHotkeys` when a screen has several commands or commands come from data. Separate a sequence with `>`, such as `g > i`. By default, the user has one second to complete it.
+
+<PreviewFrame maxWidth="sm">
+
+```tsx preview file="./_snippets/hotkeys/sequences.tsx"
+```
+
+</PreviewFrame>
+
+## Form fields and scopes
+
+Single-key shortcuts ignore `input`, `textarea`, and `select` elements by default, while shortcuts with a modifier still work. Enable them in form fields only when it is intentional:
+
+```tsx
+useHotkey({
+  action: focusSearch,
+  hotkey: '/',
+  options: { enableOnFormTags: true },
+});
+```
+
+For independent areas of an application, create a stable hotkey store outside the component or memoize it. Scopes activate only the commands relevant to the current area or command palette.
+
+## Using moduix
+
+Use moduix `Kbd` to make shortcuts easy to scan, and place it beside the related action. `Card`, `Stack`, and `Button` keep shortcut hints visually connected to the controls they describe.
+
+## Responsibilities
+
+Hotkeys registers and formats keyboard shortcuts. Build command palettes, persistence, and application navigation in your application.

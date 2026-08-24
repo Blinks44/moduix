@@ -7,88 +7,35 @@ import { Card, Cards } from '@/components/mdx/Components';
 
 # Collections
 
-Les collections forment la couche de données des composants Ark UI qui affichent des listes. Elles ne font pas
-partie des composants moduix stylisés. Pour utiliser `Select`, `Combobox`, `Listbox`, `TreeView` ou une interface
-personnalisée basée sur des collections, importez-les directement depuis Ark UI.
+Les collections Ark UI constituent la couche de données des interfaces à base de listes. Elles décrivent l’identité,
+les libellés, l’état désactivé et l’ordre de parcours des éléments ; les composants moduix affichent l’interaction
+accessible à partir de ces données.
 
-Puisque votre application utilise Ark UI directement, ajoutez-le aux dépendances directes :
-
-```bash
-npm install @ark-ui/react
-```
-
-Toutes les API de collection présentées ici sont disponibles depuis le point d’entrée React des collections :
-
-```tsx
-import { createListCollection } from '@ark-ui/react/collection';
-```
-
-Le flux suit généralement ce chemin :
-
-```text
-éléments de l’application → collection Ark → composant moduix → sélection de l’utilisateur
-```
-
-Une collection unifie l’identité, le texte, l’état désactivé et l’ordre de parcours des éléments. Le composant
-moduix affiche une interface accessible et gère le focus ainsi que la sélection.
+Utilisez une collection lorsque les données sont partagées par `Select`, `Combobox`, `Listbox`, `TreeView` ou une
+liste personnalisée. Ces API s’importent directement depuis Ark UI, et les pages associées montrent comment les
+relier aux composants moduix.
 
 ## Guides
 
 <Cards>
   <Card
     title="Async List"
-    description="Chargez, filtrez, triez et paginez des données distantes, avec annulation des requêtes et gestion des erreurs."
+    description="Chargez, filtrez, triez et paginez des données de liste distantes."
     href="/docs/async-list"
   />
   <Card
     title="List Collection"
-    description="Créez des collections à partir de tableaux, puis recherchez, parcourez, regroupez et mettez à jour leurs éléments sans mutation."
+    description="Modélisez des éléments de tableau, la recherche, le parcours, le regroupement et les mises à jour."
     href="/docs/list-collection"
   />
   <Card
     title="List Selection"
-    description="Gérez une sélection simple ou multiple, avec désélection et sélection par plage."
+    description="Gérez la sélection simple, multiple, désactivable et par plage."
     href="/docs/list-selection"
   />
   <Card
     title="Tree Collection"
-    description="Travaillez avec des données hiérarchiques : parcours, filtrage et mises à jour d’arbres sans mutation."
+    description="Modélisez les données hiérarchiques, le parcours, le filtrage et les mises à jour d’arbres."
     href="/docs/tree-collection"
   />
 </Cards>
-
-## Select
-
-Le cas le plus courant consiste à créer la collection une seule fois, à la passer à Select, puis à afficher
-ses éléments depuis `collection.items`.
-
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="../../en/docs/_snippets/select/basic.tsx"
-  ```
-
-</PreviewFrame>
-
-## Choisir une collection
-
-Choisissez l’API selon la façon dont vos données sont stockées et mises à jour :
-
-- Commencez par `createListCollection` pour un tableau fixe d'options.
-- Utilisez `useListCollection` lorsque la liste doit être filtrée ou modifiée depuis l'état React.
-- Utilisez `createTreeCollection` pour des données imbriquées.
-- Utilisez `useAsyncList` lorsqu'un serveur gère le chargement, le filtrage, le tri ou la pagination.
-- Utilisez `useListSelection` pour la sélection dans une liste personnalisée. Les composants de collection moduix
-  gèrent déjà leur propre état de sélection.
-
-Les collections normalisent l'identité et le texte des éléments, mais n'affichent pas d'interface. Passez la
-collection obtenue au composant moduix correspondant :
-
-- [Select](https://moduix.dev/docs/select)
-- [Combobox](https://moduix.dev/docs/combobox)
-- [Listbox](https://moduix.dev/docs/listbox)
-- [Tree View](https://moduix.dev/docs/tree-view)
-
-## Responsabilités
-
-Ark UI est responsable de ces API et de leur cycle de publication. moduix utilise les objets de collection obtenus
-sans les encapsuler ni les réexporter. Les pages suivantes décrivent les scénarios utiles aux utilisateurs de moduix
-et renvoient en haut de page vers la référence Ark correspondante.

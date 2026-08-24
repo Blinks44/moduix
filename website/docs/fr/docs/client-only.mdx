@@ -1,0 +1,56 @@
+---
+title: Client Only
+description: Affichez après l’hydratation une interface moduix qui dépend du navigateur, avec ClientOnly d’Ark UI et un fallback utile.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
+
+## Quand l’utiliser
+
+Utilisez `ClientOnly` lorsqu’une partie de l’interface a besoin d’API du navigateur : `window`, `navigator`, le
+stockage, des mesures de mise en page ou une bibliothèque qui ne fonctionne que dans le navigateur. Pendant le
+rendu côté serveur, il affiche le `fallback`, puis ses enfants après l’hydratation.
+
+Importez l’utilitaire directement depuis Ark UI : moduix ne fournit pas de wrapper pour celui-ci.
+
+```tsx
+import { ClientOnly } from '@ark-ui/react/client-only';
+```
+
+## Exemple de base
+
+Placez le code qui dépend du navigateur dans `ClientOnly` et utilisez un fallback proche de l’interface moduix
+finale. Le serveur n’affiche ainsi pas de zone vide et la mise en page reste stable jusqu’à l’hydratation.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/client-only/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Contenu de remplacement
+
+Le fallback n’est pas seulement un indicateur de chargement : c’est le seul contenu que le serveur peut afficher
+pour ce sous-arbre. Utilisez un `Skeleton`, un résumé statique ou un autre élément de remplacement utile, de taille
+proche de l’interface cliente. N’accédez pas aux objets globaux du navigateur pour le construire.
+
+## API du navigateur
+
+`ClientOnly` diffère le rendu, mais ne transforme pas un composant SSR en module exclusivement client. Accédez à
+`window`, `document`, `navigator`, `localStorage` et aux mesures de mise en page seulement dans un composant enfant
+qu’il rend, ou dans un effet ou un gestionnaire d’événements. Cette limite indique aussi quelle partie de
+l’interface ne peut pas exister sur le serveur.
+
+## Utilisation avec moduix
+
+Les composants moduix fonctionnent normalement dans le sous-arbre rendu côté client. Par exemple, `Card` peut
+afficher des informations venant du navigateur et `Skeleton` fournir un fallback de structure similaire. Si un
+composant moduix offre déjà le comportement compatible avec le serveur dont vous avez besoin, utilisez son API
+documentée plutôt que d’ajouter une frontière `ClientOnly`.
+
+## Responsabilités
+
+Ark UI est responsable de `ClientOnly`, de son comportement d’hydratation et de l’API `fallback`. moduix montre
+comment l’associer à ses composants, mais ne réexporte pas l’utilitaire et ne lui ajoute pas de styles.

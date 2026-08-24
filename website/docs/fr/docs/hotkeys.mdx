@@ -1,0 +1,64 @@
+---
+title: Hotkeys
+description: Enregistrez des raccourcis clavier, des séquences et des commandes avec Ark UI Hotkeys et moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/hotkeys" />
+
+## Quand l’utiliser
+
+Utilisez Hotkeys pour enregistrer des commandes au clavier, par exemple enregistrer un brouillon, ouvrir la recherche ou naviguer dans un espace de travail. Le hook écoute le document et retire son enregistrement lorsque le composant est démonté.
+
+Importez les hooks directement depuis Ark UI :
+
+```tsx
+import { useFormatHotkey, useHotkey, useHotkeys } from '@ark-ui/react';
+```
+
+## Exemple de base
+
+Utilisez `mod` au lieu de choisir vous-même entre Control et Command. Après le montage, `useFormatHotkey` affiche l’intitulé adapté à la plateforme de l’utilisateur.
+
+<PreviewFrame maxWidth="sm">
+
+```tsx preview file="../../en/docs/_snippets/hotkeys/basic.tsx"
+```
+
+</PreviewFrame>
+
+Lorsque l’application doit intercepter un raccourci habituel du navigateur, ajoutez `preventDefault` ; sinon, l’action du navigateur peut aussi s’exécuter.
+
+## Plusieurs raccourcis et séquences
+
+Utilisez `useHotkeys` lorsqu’un écran a plusieurs commandes ou que les commandes viennent de données. Séparez les touches d’une séquence par `>`, par exemple `g > i`. Par défaut, une seconde est accordée pour la terminer.
+
+<PreviewFrame maxWidth="sm">
+
+```tsx preview file="../../en/docs/_snippets/hotkeys/sequences.tsx"
+```
+
+</PreviewFrame>
+
+## Champs de saisie et portées
+
+Par défaut, les raccourcis à une seule touche sont ignorés dans `input`, `textarea` et `select`, tandis que ceux avec un modificateur continuent de fonctionner. Activez-les dans les champs de formulaire seulement lorsque c’est nécessaire :
+
+```tsx
+useHotkey({
+  action: focusSearch,
+  hotkey: '/',
+  options: { enableOnFormTags: true },
+});
+```
+
+Pour des zones indépendantes de l’application, créez un store de raccourcis stable hors du composant ou mémorisez-le. Les portées n’activent que les commandes pertinentes pour la zone active ou la palette de commandes.
+
+## Utilisation avec moduix
+
+Utilisez `Kbd` de moduix pour rendre les raccourcis faciles à repérer et placez-le près de l’action concernée. `Card`, `Stack` et `Button` relient l’indication au contrôle qu’elle décrit.
+
+## Responsabilités
+
+Hotkeys enregistre et formate les raccourcis clavier. Créez la palette de commandes, la persistance et la navigation dans votre application.

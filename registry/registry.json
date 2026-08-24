@@ -1041,6 +1041,31 @@
       ]
     },
     {
+      "name": "json-tree-view",
+      "type": "registry:item",
+      "title": "JsonTreeView",
+      "description": "moduix React JsonTreeView component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
+      "files": [
+        {
+          "path": "packages/react/src/components/json-tree-view/JsonTreeView.tsx",
+          "target": "@components/moduix/json-tree-view/JsonTreeView.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/json-tree-view/JsonTreeView.module.css",
+          "target": "@components/moduix/json-tree-view/JsonTreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/json-tree-view/index.ts",
+          "target": "@components/moduix/json-tree-view/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "image-cropper",
       "type": "registry:item",
       "title": "ImageCropper",

@@ -61,8 +61,9 @@ dimensions and incoming or outgoing content and disable motion when the user pre
 The root shrink-wraps its list up to the available inline size. Viewport content keeps the same minimum
 and maximum size constraints as standalone content, so Ark measures the actual panel and the viewport
 follows that element through `--viewport-width` and `--viewport-height`. Its size, entrance, and directional
-content motion follow Zag's viewport recipe; the surface and arrow use the moduix `Menu` tokens. The default
-arrow overlaps only the popup outline, not its first item.
+content motion follow Zag's viewport recipe and default to the shared `--moduix-popup-motion-*` tokens; the
+surface and arrow use the moduix `Menu` tokens. The default arrow overlaps only the popup outline, not its first
+item.
 
 ## Differences from upstream
 

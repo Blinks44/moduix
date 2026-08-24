@@ -34,6 +34,7 @@ export * from './components/heading';
 export * from './components/highlight';
 export * from './components/image';
 export * from './components/image-cropper';
+export * from './components/json-tree-view';
 export * from './components/input';
 export * from './components/input-group';
 export * from './components/kbd';

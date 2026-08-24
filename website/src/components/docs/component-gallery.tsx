@@ -101,9 +101,9 @@ const categories = [
       'card',
       'chart',
       'heading',
-      'highlight',
       'image',
       'image-cropper',
+      'json-tree-view',
       'kbd',
       'list',
       'listbox',
@@ -128,7 +128,6 @@ const categories = [
       'close-button',
       'collapsible',
       'split-button',
-      'swap',
     ],
   },
 ] as const;

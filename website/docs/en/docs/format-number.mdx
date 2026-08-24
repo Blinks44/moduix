@@ -1,0 +1,76 @@
+---
+title: Format Number
+description: Format numbers, currencies, percentages, and compact metrics with Ark UI Format.Number and moduix.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
+
+## When to use it
+
+Use `Format.Number` to display a number in the format people expect for their locale: grouped values, currencies,
+percentages, units, or compact metrics. It is display-only; use moduix `NumberInput` for editable values.
+
+Import `Format` directly from Ark UI:
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Basic
+
+Place the formatted value close to UI that explains its meaning. The component renders text, while `Card` and `Stack`
+provide the label and visual hierarchy around it.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/format-number/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Currency, percentage, and compact notation
+
+`Format.Number` accepts standard `Intl.NumberFormat` options. Use `style="currency"` with a currency code, pass a
+fraction to `style="percent"`, and use `notation="compact"` for space-limited metrics such as dashboards.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/format-number/common-styles.tsx"
+
+  ```
+</PreviewFrame>
+
+A percentage value is a fraction: pass `0.0642` for 6.42%, not `6.42`. Use `minimumFractionDigits` and
+`maximumFractionDigits` when the product needs consistent precision.
+
+## Locale and units
+
+`Format.Number` reads its locale from `LocaleProvider`. moduix re-exports that provider, so it can be the shared
+locale provider for your interface:
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedPrice() {
+  return (
+    <LocaleProvider locale="de-DE">
+      <Format.Number currency="EUR" style="currency" value={1234.5} />
+    </LocaleProvider>
+  );
+}
+```
+
+For measurements, use `style="unit"` with a supported `unit`, such as `kilometer`, `celsius`, or `megabyte`.
+`unitDisplay` controls whether the unit is written in narrow, short, or long form.
+
+## Using moduix
+
+Keep `Format.Number` close to the label, status, or metric it describes. Use moduix `Card`, `Stack`, `Text`, and
+data-display components for hierarchy; do not create a wrapper just to call a formatter. For editable amounts,
+`NumberInput` handles formatting and parsing through its `formatOptions` API.
+
+## Ownership
+
+Ark UI handles number formatting and the `Format.Number` API. moduix supplies the surrounding interface components and
+re-exports `LocaleProvider`, but does not re-export `Format.Number`.

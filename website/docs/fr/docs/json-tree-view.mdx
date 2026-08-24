@@ -1,0 +1,106 @@
+---
+title: JSON Tree View
+component: json-tree-view
+description: Inspectez des valeurs JSON et JavaScript dans une arborescence accessible et dépliable avec JsonTreeView de moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/json-tree-view" />
+
+## Choisir le bon composant
+
+Utilisez `JsonTreeView` pour inspecter des données de structure inconnue ou au format JSON sans écrire de moteur de
+rendu récursif. Préférez `TreeView` lorsque votre application nécessite des nœuds typés, des libellés, des icônes,
+des liens, de l’édition ou du contenu de branche personnalisé.
+
+## Exemple de base
+
+Transmettez les données à `JsonTreeView` puis affichez sa partie `Tree`. moduix gère le style des lignes,
+l’indentation, le focus et l’icône d’ouverture par défaut ; Ark construit les nœuds à partir de la valeur fournie.
+
+<PreviewFrame maxWidth="lg">
+
+```tsx preview file="../../en/docs/_snippets/json-tree-view/basic.tsx"
+```
+
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="json-tree-view" />
+
+## Anatomie
+
+```text
+JsonTreeView / JsonTreeView.Root
+└─ JsonTreeView.Tree
+   └─ branches et éléments JSON générés
+```
+
+| Partie | Rôle |
+| --- | --- |
+| `JsonTreeView` / `JsonTreeView.Root` | Gère les données, la collection créée et l’état de l’arbre Ark. |
+| `JsonTreeView.RootProvider` | Connecte l’état `useJsonTreeView` créé hors de l’arbre. |
+| `JsonTreeView.Tree` | Affiche les nœuds générés pour les objets, tableaux et valeurs. |
+
+## Composition
+
+### Composition recommandée
+
+Utilisez la forme abrégée `<JsonTreeView>` avec `<JsonTreeView.Tree />`. Elle est équivalente à
+`<JsonTreeView.Root>` et `Tree` affiche automatiquement les nœuds JSON.
+
+### RootProvider
+
+Utilisez `useJsonTreeView` et `RootProvider` seulement si des éléments en dehors de l’arbre ont besoin de l’état ou
+des méthodes Ark. Ne rendez pas `Root` et `RootProvider` pour la même instance d’état.
+
+```tsx
+import { JsonTreeView, useJsonTreeView } from '@moduix/react/json-tree-view';
+
+function InspectResponse({ data }: { data: unknown }) {
+  const tree = useJsonTreeView({ data });
+
+  return (
+    <JsonTreeView.RootProvider value={tree}>
+      <JsonTreeView.Tree />
+    </JsonTreeView.RootProvider>
+  );
+}
+```
+
+### Comportement
+
+Ark prend en charge les objets, tableaux, primitives et valeurs JavaScript telles que `Date`, `Map`, `Set`, `Error`,
+les fonctions et les expressions régulières. Il implémente aussi le modèle d’arbre WAI-ARIA : déplacement du focus,
+navigation aux flèches, ouverture, sélection et callbacks d’état contrôlé.
+
+## Exemples
+
+### Aperçus compacts
+
+Limitez l’aperçu des longues chaînes et collections lorsque l’arbre sert à inspecter des données plutôt qu’à lire
+chaque valeur. Développez un nœud pour afficher sa valeur complète.
+
+<PreviewFrame maxWidth="lg">
+
+```tsx preview file="../../en/docs/_snippets/json-tree-view/compact-previews.tsx"
+```
+
+</PreviewFrame>
+
+### Profondeur d’ouverture
+
+Utilisez `defaultExpandedDepth` pour définir la profondeur d’ouverture initiale. Un ou deux niveaux suffisent en
+général pour une réponse ou une configuration ; ouvrir davantage de niveaux rend les données volumineuses difficiles à lire.
+
+## Styles
+
+Utilisez `className` sur `Root`, `RootProvider` ou `Tree` pour modifier localement la mise en page. Les nœuds générés
+conservent les attributs Ark `data-scope="json-tree-view"` et `data-part`, tandis que moduix ajoute les repères
+stables `data-slot="json-tree-view-root"`, `json-tree-view-root-provider` et `json-tree-view-tree`.
+
+Le composant utilise directement les tokens de base, sans couche de variables
+`--moduix-json-tree-view-*`. Ajoutez un `className` ou ciblez les attributs de partie Ark lorsqu’une vue
+d’inspection a besoin d’un autre style.

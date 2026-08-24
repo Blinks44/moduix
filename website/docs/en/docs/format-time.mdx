@@ -1,0 +1,75 @@
+---
+title: Format Time
+description: Format time strings and Date values for the current locale with Ark UI Format.Time and moduix.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-time" />
+
+## When to use it
+
+Use `Format.Time` to display a time consistently with the current locale in schedules, activity feeds, support hours,
+and other user-facing UI. It accepts a `Date` or a time string in `HH:mm` or `HH:mm:ss` form.
+
+Import `Format` directly from Ark UI:
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Basic
+
+Use a time string when the value is a clock time rather than a specific moment in a time zone. Place the formatted text
+in moduix components that provide the event and its context.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/format-time/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Seconds and day-period labels
+
+Set `withSeconds` when seconds matter, such as in a recent sync indicator. Use `amLabel` and `pmLabel` to replace
+AM/PM labels in 12-hour locales.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/format-time/seconds-and-labels.tsx"
+
+  ```
+</PreviewFrame>
+
+Do not add seconds to a schedule merely because the source includes them. Choose the precision people need to act on
+the information.
+
+## Locale and Date values
+
+`Format.Time` reads its locale from `LocaleProvider`. moduix re-exports that provider, so it can be the shared locale
+provider for your interface:
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedTime() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.Time value="17:15" />
+    </LocaleProvider>
+  );
+}
+```
+
+Use a `Date` when you already have a date-time value. Its displayed clock time follows the user’s locale and time zone,
+so do not replace a schedule’s plain local time with a `Date` unless that conversion is intended.
+
+## Using moduix
+
+`Format.Time` renders text only. Use moduix `Card`, `Stack`, `Text`, and status components to explain what the time
+means; do not create a component just to call the formatter.
+
+## Ownership
+
+Ark UI handles time formatting and the `Format.Time` API. moduix supplies the surrounding interface components and
+re-exports `LocaleProvider`, but does not re-export `Format.Time`.

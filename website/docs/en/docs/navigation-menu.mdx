@@ -5,6 +5,7 @@ description: A composable navigation menu for links, disclosure panels, and opti
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
+import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## API Reference
 
@@ -26,11 +27,13 @@ disclosure panels.
 Use `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link`, and a matching
 trigger/content pair for each disclosure panel.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/navigation-menu/basic.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="./_snippets/navigation-menu/basic.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Install with shadcn
 
@@ -117,32 +120,38 @@ needs to read that state.
 
 Control the open panel when navigation state also drives nearby application UI.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/navigation-menu/controlled-value.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="./_snippets/navigation-menu/controlled-value.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### Viewport
 
 Use a shared viewport when panels have different sizes but should transition through one surface. The
 example includes a two-column panel so its measured width and height visibly animate between triggers.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/navigation-menu/viewport.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="./_snippets/navigation-menu/viewport.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### With Arrow
 
 Add an indicator and arrow only when the panel needs a visual pointer to its active trigger.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="./_snippets/navigation-menu/with-arrow.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="./_snippets/navigation-menu/with-arrow.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Styling
 

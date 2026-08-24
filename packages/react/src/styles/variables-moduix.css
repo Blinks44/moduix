@@ -1990,7 +1990,7 @@
   --moduix-navigation-menu-viewport-motion-distance: initial; /* 12.5rem */
   --moduix-navigation-menu-viewport-offset: initial; /* var(--moduix-spacing-2) */
   --moduix-navigation-menu-viewport-radius: initial; /* var(--moduix-radius-md) */
-  --moduix-navigation-menu-viewport-transition: initial; /* 300ms ease */
+  --moduix-navigation-menu-viewport-transition: initial; /* var(--moduix-popup-motion-duration, var(--moduix-duration-normal)) var(--moduix-popup-motion-easing, var(--moduix-ease-in-out)) */
   --moduix-navigation-menu-viewport-z-index: initial; /* var(--moduix-z-popup) */
 
   /* NumberInput */

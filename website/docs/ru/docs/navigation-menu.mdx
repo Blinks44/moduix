@@ -5,6 +5,7 @@ description: Компонуемое меню для основной навиг�
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
+import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## Справочник API
 
@@ -22,11 +23,13 @@ import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
 
 Для каждого раскрывающегося раздела используйте `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link` и явную пару `Trigger` и `Content`.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Установка через shadcn
 
@@ -93,32 +96,38 @@ NavigationMenu.Context
 
 Управляйте открытой панелью, когда состояние навигации нужно и соседнему интерфейсу.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### Viewport
 
 Используйте общий viewport, когда панели отличаются по размеру, но должны появляться в одной поверхности.
 Пример с двухколоночной панелью наглядно показывает анимацию измеренных ширины и высоты при смене триггера.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### Со стрелкой
 
 Добавьте индикатор со стрелкой, если панель должна визуально указывать на активный триггер.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Стилизация
 

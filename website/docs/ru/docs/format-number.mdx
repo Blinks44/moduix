@@ -1,0 +1,79 @@
+---
+title: Format Number
+description: Показывайте числа, валюты, проценты и компактные показатели с Ark UI Format.Number и moduix.
+---
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-number" />
+
+## Когда использовать
+
+Используйте `Format.Number`, чтобы показать число в привычном для локали виде: с разделителями разрядов, валютой,
+процентами, единицами измерения или в компактной записи. Это компонент только для отображения; если значение нужно
+редактировать, используйте `NumberInput` из moduix.
+
+Импортируйте `Format` напрямую из Ark UI:
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Базовый пример
+
+Расположите отформатированное значение рядом с элементом, который объясняет его смысл. Компонент выводит текст, а
+`Card` и `Stack` помогают оформить подпись и визуальную иерархию.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-number/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Валюта, проценты и компактная запись
+
+`Format.Number` принимает стандартные опции `Intl.NumberFormat`. Для валюты используйте `style="currency"` вместе с
+кодом валюты, для процентов — дробное значение со `style="percent"`, а `notation="compact"` — для показателей на
+дашборде.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-number/common-styles.tsx"
+
+  ```
+</PreviewFrame>
+
+Значение процентов передаётся как дробь: для 6,42% укажите `0.0642`, а не `6.42`. Если всем значениям нужна одинаковая
+точность, задайте `minimumFractionDigits` и `maximumFractionDigits`.
+
+## Локаль и единицы измерения
+
+`Format.Number` получает локаль из `LocaleProvider`. moduix переэкспортирует этот провайдер, поэтому его можно
+использовать как единый провайдер локали для всего интерфейса:
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedPrice() {
+  return (
+    <LocaleProvider locale="de-DE">
+      <Format.Number currency="EUR" style="currency" value={1234.5} />
+    </LocaleProvider>
+  );
+}
+```
+
+Для измерений используйте `style="unit"` с поддерживаемым `unit`, например `kilometer`, `celsius` или `megabyte`.
+`unitDisplay` задаёт форму записи единицы.
+
+## Использование с moduix
+
+Размещайте `Format.Number` рядом с подписью, статусом или показателем, который он описывает. Для иерархии используйте
+`Card`, `Stack`, `Text` и компоненты для отображения данных из moduix; не создавайте отдельный компонент только для
+вызова форматтера. Для редактируемых сумм `NumberInput` форматирует ввод и преобразует его в число через
+`formatOptions`.
+
+## Границы ответственности
+
+Ark UI отвечает за форматирование чисел и API `Format.Number`. moduix предоставляет окружающие компоненты интерфейса
+и переэкспортирует `LocaleProvider`, но не переэкспортирует `Format.Number`.

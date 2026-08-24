@@ -1,0 +1,79 @@
+---
+title: Locale
+description: Set a locale and text direction for Ark formatters and locale-aware components with moduix.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/locale" />
+
+## When to use it
+
+Use `LocaleProvider` to provide a locale and text direction to part of your application. Ark formatters and
+locale-aware primitives use this context to format values and apply the correct direction. Without a provider, Ark
+uses `en-US` and left-to-right (`ltr`) direction.
+
+moduix re-exports the provider and its context hook from a stable entry point:
+
+```tsx
+import { LocaleProvider, useLocaleContext } from '@moduix/react/locale';
+```
+
+## Basic
+
+Place the provider near the root of the localized part of the interface. The example combines an Ark formatter with
+moduix layout components, so the formatted value and interface remain easy to compose.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/locale/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Reading locale context
+
+`useLocaleContext` returns the active `locale` and derived `dir`. Use them to format values in custom content or
+apply the same direction to its DOM container.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/locale/context.tsx"
+
+  ```
+</PreviewFrame>
+
+## Direction and document language
+
+`LocaleProvider` derives Ark's `dir` value from the locale, but it does not set document attributes. Set `lang` and
+`dir` on the document root for an entire localized application, especially for right-to-left languages.
+
+```tsx
+import type { ReactNode } from 'react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function Document({ children }: { children: ReactNode }) {
+  return (
+    <html dir="rtl" lang="ar">
+      <body>
+        <LocaleProvider locale="ar-EG">{children}</LocaleProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+For a smaller region with a different text direction, read `dir` with `useLocaleContext` and apply it to that
+region's root element.
+See [Right-to-left (RTL)](/docs/rtl) for layout, portal, and directional-icon guidance.
+
+## Using moduix
+
+Use `LocaleProvider` once around the part of the interface that shares a locale. Ark `Format` utilities and
+locale-aware primitives then receive the same context.
+
+`Format.Number`, `Format.Time`, and the other `Format` utilities remain Ark imports. moduix provides interface
+components and re-exports the locale context; it does not create another formatting API.
+
+## Ownership
+
+Ark UI handles locale resolution, text direction, and the provider API. moduix re-exports `LocaleProvider` and
+`useLocaleContext` from `@moduix/react/locale` as a stable locale entry point.

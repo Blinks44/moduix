@@ -5,6 +5,7 @@ description: Barre de navigation composable avec liens, panneaux déroulants et 
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
+import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## Référence de l’API
 
@@ -22,11 +23,13 @@ Utilisez `NavigationMenu` pour la navigation principale d’un produit ou d’un
 
 Utilisez `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link` et une paire explicite de déclencheur et de contenu pour chaque panneau déroulant.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/basic.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Installation avec shadcn
 
@@ -93,32 +96,38 @@ Utilisez `useNavigationMenu()` avec `NavigationMenu.RootProvider` lorsque l’é
 
 Contrôlez le panneau ouvert lorsque l’état de navigation pilote aussi une interface voisine.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/controlled-value.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### Viewport
 
 Utilisez un viewport partagé lorsque les panneaux ont des tailles différentes mais doivent transiter par une même surface.
 L’exemple inclut un panneau à deux colonnes afin de rendre visible l’animation des dimensions mesurées à chaque changement de déclencheur.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/viewport.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ### Avec une flèche
 
 Ajoutez un indicateur avec une flèche uniquement lorsque le panneau doit désigner visuellement son déclencheur actif.
 
-<PreviewFrame maxWidth="lg">
-  ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
+<ClientOnly>
+  <PreviewFrame maxWidth="lg">
+    ```tsx preview file="../../en/docs/_snippets/navigation-menu/with-arrow.tsx"
 
-  ```
-</PreviewFrame>
+    ```
+  </PreviewFrame>
+</ClientOnly>
 
 ## Styles
 
