@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "packages/react/src/internal/normalizeClassName.ts",
-      "content": "export const normalizeClassName = (className: unknown): string | undefined =>\n  typeof className === 'string' ? className : undefined;\n",
+      "content": "export const normalizeClassName = (className: unknown): string | undefined =>\n  typeof className === 'string' ? className : undefined;",
       "type": "registry:lib",
       "target": "@lib/moduix/normalizeClassName.ts"
     },
