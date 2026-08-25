@@ -40,6 +40,14 @@
   --size: initial;
   --thickness: initial;
   --top: initial;
+  --trigger-height: initial;
+  --trigger-width: initial;
+  --trigger-x: initial;
+  --trigger-y: initial;
+  --viewport-height: initial;
+  --viewport-width: initial;
+  --viewport-x: initial;
+  --viewport-y: initial;
   --width: initial;
 
   /* Component state and animation */

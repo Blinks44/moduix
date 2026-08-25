@@ -1,0 +1,63 @@
+---
+title: Focus Trap
+description: Keep keyboard focus in a custom interactive surface with Ark UI Focus Trap and moduix controls.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
+
+## When to use it
+
+Use `FocusTrap` when a custom interactive surface must keep keyboard focus until the user completes or leaves the
+workflow. It is useful for modal-like experiences that moduix does not already provide.
+
+For a conventional modal, use moduix `Dialog` or `Drawer` instead. They already manage focus trapping, focus
+restoration, scroll locking, dismissal, and the appropriate accessibility semantics. Do not place an additional
+`FocusTrap` inside their content.
+
+Import the utility directly from Ark UI:
+
+```tsx
+import { FocusTrap } from '@ark-ui/react/focus-trap';
+```
+
+## Basic
+
+Control the trap with `disabled`. When review mode starts, focus moves to the element returned by `initialFocus`.
+When the user finishes, the trap deactivates and, by default, returns focus to the button that started the workflow.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/focus-trap/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+Try activating review mode, then use Tab and Shift + Tab. Focus stays within the card until **Finish review**
+deactivates the trap.
+
+## Focus lifecycle
+
+By default, the first tabbable element receives focus when the trap activates. Use `initialFocus` for a more useful
+starting point, such as the main input or primary action. An element with the `autofocus` attribute is also respected.
+
+If a trapped surface has no tabbable elements, provide `fallbackFocus` and give that target `tabIndex={-1}` so it can
+receive focus programmatically. Use `returnFocusOnDeactivate={false}` only when another part of the workflow takes
+responsibility for focus after the trap closes. `setReturnFocus` can direct the final focus to a specific element.
+
+## What Focus Trap does not do
+
+`FocusTrap` confines keyboard focus only. It does not render a backdrop, a layer in a portal, a dialog role, an
+accessible name, Escape-key behavior, scroll locking, or dismissal logic. Add those behaviors for a custom surface,
+or use `Dialog` and `Drawer` when their full interaction model fits the task.
+
+## Using moduix
+
+Wrap a custom moduix surface once and make keyboard navigation clear: provide a visible action that releases the trap,
+use a logical heading and description, and avoid trapping focus in content the user cannot dismiss. Buttons, inputs,
+and other moduix controls work normally inside the trap.
+
+## Ownership
+
+Ark UI handles focus trapping and its lifecycle API. moduix documents how to use the utility with its components, but
+does not re-export or style `FocusTrap`.

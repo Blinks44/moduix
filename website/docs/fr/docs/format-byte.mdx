@@ -1,0 +1,76 @@
+---
+title: Format Byte
+description: Affichez des tailles de fichier lisibles avec Ark UI Format.Byte et les composants moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-byte" />
+
+## Quand l’utiliser
+
+Utilisez `Format.Byte` pour afficher un nombre d’octets sous forme de taille de fichier lisible dans les
+téléversements, téléchargements, quotas de stockage et données de télémétrie. Passez le nombre d’octets brut : Ark
+choisit une unité adaptée, comme kB, MB ou GB.
+
+Importez `Format` directement depuis Ark UI :
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Exemple de base
+
+`Format.Byte` ne rend que le texte formaté ; placez-le à côté d’un élément qui donne du contexte à cette valeur. Dans
+cet exemple, la taille est associée à l’export qu’elle décrit.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-byte/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Unités décimales et binaires
+
+Utilisez `unitSystem="decimal"` si 1 kB correspond à 1000 octets, et `unitSystem="binary"` si les unités progressent
+par un facteur de 1024. Faites ce choix explicitement lorsque le produit distingue la capacité annoncée d’un disque de
+ses valeurs techniques de stockage.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-byte/unit-system.tsx"
+
+  ```
+</PreviewFrame>
+
+## Locale et options d’affichage
+
+`Format.Byte` récupère la locale depuis `LocaleProvider`. moduix réexporte ce fournisseur, qui peut servir de
+fournisseur commun pour toute l’interface.
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+export function LocalizedFileSize() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.Byte value={1_450.45} />
+    </LocaleProvider>
+  );
+}
+```
+
+Utilisez `unit="byte"` ou `unit="bit"` pour choisir les octets ou les bits. `unitDisplay="narrow"`, `"short"` ou
+`"long"` contrôle l’écriture de l’unité. Gardez le même système et le même style pour des tailles de fichier
+comparables.
+
+## Utilisation avec moduix
+
+`Format.Byte` ne produit volontairement que le texte formaté. Utilisez les composants moduix `Card`, `Stack`, `Text`
+et les composants de statut pour expliquer ce que représente la taille ; ne créez pas un composant juste pour formater
+un nombre.
+
+## Responsabilités
+
+Ark UI gère le formatage des octets et l’API `Format.Byte`. moduix fournit les composants d’interface qui l’entourent
+et réexporte `LocaleProvider`, mais ne réexporte pas `Format.Byte`.

@@ -187,6 +187,10 @@
       "types": "./dist/components/image-cropper/index.d.ts",
       "import": "./dist/components/image-cropper/index.js"
     },
+    "./json-tree-view": {
+      "types": "./dist/components/json-tree-view/index.d.ts",
+      "import": "./dist/components/json-tree-view/index.js"
+    },
     "./input": {
       "types": "./dist/components/input/index.d.ts",
       "import": "./dist/components/input/index.js"
@@ -218,6 +222,10 @@
     "./menu": {
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/components/navigation-menu/index.d.ts",
+      "import": "./dist/components/navigation-menu/index.js"
     },
     "./native-select": {
       "types": "./dist/components/native-select/index.d.ts",
@@ -412,30 +420,30 @@
     "clsx": "^2.1.1"
   },
   "devDependencies": {
-    "@ark-ui/react": "^5.37.2",
-    "@internationalized/date": "^3.12.2",
-    "@microsoft/api-extractor": "^7.58.12",
-    "@rsbuild/core": "~2.1.4",
+    "@ark-ui/react": "^5.39.0",
+    "@internationalized/date": "^3.12.3",
+    "@microsoft/api-extractor": "^7.59.0",
+    "@rsbuild/core": "~2.1.13",
     "@rsbuild/plugin-react": "^2.1.0",
     "@rslib/core": "^0.23.2",
-    "@rstest/adapter-rslib": "^0.11.6",
-    "@rstest/core": "^0.11.6",
-    "@storybook/addon-docs": "^10.5.3",
-    "@storybook/react": "^10.5.3",
+    "@rstest/adapter-rslib": "^0.11.9",
+    "@rstest/core": "^0.11.9",
+    "@storybook/addon-docs": "^10.5.10",
+    "@storybook/react": "^10.5.10",
     "@tanstack/charts": "^0.14.0",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^6.10.0",
     "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^24.13.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "happy-dom": "^20.10.6",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "storybook": "^10.5.3",
-    "storybook-addon-rslib": "^3.3.4",
-    "storybook-react-rsbuild": "^3.3.4",
+    "@testing-library/user-event": "^14.6.6",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "happy-dom": "^20.11.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "storybook": "^10.5.10",
+    "storybook-addon-rslib": "^3.4.2",
+    "storybook-react-rsbuild": "^3.4.2",
     "typescript": "~6.0.3"
   },
   "peerDependencies": {

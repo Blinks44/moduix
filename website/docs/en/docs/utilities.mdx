@@ -1,178 +1,95 @@
 ---
 title: Utilities
-description: Ark UI utilities that pair with moduix when no styled wrapper owns the behavior.
+description: Ark UI utilities for lower-level behavior that moduix components do not already provide.
 ---
+
+import { Card, Cards } from '@/components/mdx/Components';
 
 # Utilities
 
-Ark UI ships several utilities that sit next to the moduix component layer instead of inside it.
-Use them directly when your application needs the primitive behavior and the relevant moduix
-component page does not already document a wrapper or pass-through prop.
+Ark UI utilities are small building blocks for behavior that does not belong to a specific moduix component: browser
+rendering, document environments, focus management, formatting, and rendering lifecycle.
 
-Many of these utilities use dedicated subpath imports:
+Start with a moduix component when it already owns the interaction. Use a utility directly when your application owns
+the surrounding markup or behavior. Each page below explains the recommended import, provides runnable examples, and
+links to the complete Ark API.
 
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
-import { ClientOnly } from '@ark-ui/react/client-only';
-import { EnvironmentProvider } from '@ark-ui/react/environment';
-import { Presence } from '@ark-ui/react/presence';
-```
+## Guides
 
-Check the linked Ark page for the exact import and full API.
-
-## Overview
-
-| Utility                                                                        | Reach for it when                                                                                        | moduix context                                                                                    |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| [Client Only](https://ark-ui.com/docs/utilities/client-only)                   | A subtree needs `window`, layout measurement, or another browser-only API after hydration.               | Useful in SSR apps and docs examples.                                                             |
-| [Download Trigger](https://ark-ui.com/docs/utilities/download-trigger)         | A click should download a URL, blob, file, or generated payload.                                         | moduix already wraps this pattern as `QrCode.DownloadTrigger` for QR exports.                     |
-| [Environment](https://ark-ui.com/docs/utilities/environment)                   | A moduix or Ark subtree renders inside an iframe, Shadow DOM, Electron, or another custom document root. | Wrap the affected subtree once instead of patching each component.                                |
-| [Focus Trap](https://ark-ui.com/docs/utilities/focus-trap)                     | You are building a custom modal surface that must contain keyboard focus.                                | Dialog and Drawer already provide modal focus behavior; popup components use their own appropriate focus model. |
-| [Format Byte](https://ark-ui.com/docs/utilities/format-byte)                   | You need localized file sizes or storage values.                                                         | Useful around uploads, downloads, and telemetry.                                                  |
-| [Format Relative Time](https://ark-ui.com/docs/utilities/format-relative-time) | You need user-facing relative timestamps such as "2 min ago".                                            | Reads locale from `LocaleProvider` when present.                                                  |
-| [Format Time](https://ark-ui.com/docs/utilities/format-time)                   | You need localized time output from a `Date` or `HH:mm[:ss]` string.                                     | Useful for scheduling, timers, and activity feeds.                                                |
-| [Frame](https://ark-ui.com/docs/utilities/frame)                               | React content should render into an iframe with head injection and mount callbacks.                      | Often paired with `EnvironmentProvider` when the iframe subtree renders Ark or moduix components. |
-| [JSON Tree View](https://ark-ui.com/docs/utilities/json-tree-view)             | You need a debug or inspection tree for JSON-like data.                                                  | Independent from moduix styling; use Ark directly.                                                |
-| [Locale](https://ark-ui.com/docs/utilities/locale)                             | Locale and direction should flow through Ark formatters and locale-aware behavior.                       | Pair with `Format` utilities and RTL interfaces.                                                  |
-| [Presence](https://ark-ui.com/docs/utilities/presence)                         | Your app owns visibility and mount lifecycle outside a built-in moduix root.                             | Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, and Tour already expose Ark presence props.     |
-
-## Start here
-
-If you are choosing between several Ark utilities, start with these four. They cover the most
-common cases: controlling presence, deferring browser-only content, changing the document root,
-and formatting locale-aware values.
-
-### Presence
-
-Use `Presence` when your application owns the visible node and you still want Ark's delayed exit
-unmounting behavior.
-
-```tsx
-import { Button } from '@moduix/react/button';
-import { Presence } from '@ark-ui/react/presence';
-import { useState } from 'react';
-
-export function InlinePresenceNotice() {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <Button type="button" onClick={() => setOpen((value) => !value)}>
-        Toggle notice
-      </Button>
-      <Presence present={open} lazyMount unmountOnExit>
-        <div className="notice">Saved filters will apply to the next refresh.</div>
-      </Presence>
-    </>
-  );
-}
-```
-
-Use the raw utility when the visible node is yours. If the node already belongs to a moduix root,
-prefer that component's `lazyMount`, `unmountOnExit`, `present`, and `onExitComplete` props
-directly.
-
-See the full API in the [Ark Presence docs](https://ark-ui.com/docs/utilities/presence).
-
-### Client Only
-
-Use `ClientOnly` when a subtree depends on the DOM or browser APIs and should stay out of the
-server render.
-
-```tsx
-import { ClientOnly } from '@ark-ui/react/client-only';
-
-export function ClientChartShell() {
-  return (
-    <ClientOnly fallback={<div>Loading chart...</div>}>
-      <ChartThatMeasuresContainer />
-    </ClientOnly>
-  );
-}
-```
-
-This is especially useful in SSR apps when a chart, editor, or measurement-heavy panel sits next to
-moduix layout components.
-
-See the full API in the [Ark Client Only docs](https://ark-ui.com/docs/utilities/client-only).
-
-### EnvironmentProvider
-
-Use `EnvironmentProvider` when a moduix subtree renders in a non-default document or root node.
-
-```tsx
-import { EnvironmentProvider } from '@ark-ui/react/environment';
-import { Button } from '@moduix/react/button';
-import { Popover } from '@moduix/react/popover';
-
-export function FramePreview({ iframeDocument }: { iframeDocument: Document }) {
-  return (
-    <EnvironmentProvider value={iframeDocument}>
-      <Popover>
-        <Popover.Trigger asChild>
-          <Button>Open preview tools</Button>
-        </Popover.Trigger>
-        <Popover.Positioner>
-          <Popover.Content>Popover queries now target the iframe document.</Popover.Content>
-        </Popover.Positioner>
-      </Popover>
-    </EnvironmentProvider>
-  );
-}
-```
-
-Wrap the subtree once, close to the alternate environment, and let Ark keep DOM queries scoped
-correctly.
-
-See the full API in the [Ark Environment docs](https://ark-ui.com/docs/utilities/environment).
-
-### LocaleProvider and Format
-
-Use `LocaleProvider` when locale and direction should flow through Ark formatters and locale-aware
-primitives. Pair it with `Format` when the UI should render localized values without custom wrapper
-code.
-
-```tsx
-import { Format } from '@ark-ui/react';
-import { LocaleProvider } from '@moduix/react/locale';
-
-export function ActivityTimestamp() {
-  return (
-    <LocaleProvider locale="fr-FR">
-      <Format.RelativeTime value={-2} unit="day" style="short" />
-    </LocaleProvider>
-  );
-}
-```
-
-Use the same provider for RTL interfaces so Ark-aware components and formatters read one locale
-source.
-
-See the [Ark Locale docs](https://ark-ui.com/docs/utilities/locale) and
-[Ark Format Relative Time docs](https://ark-ui.com/docs/utilities/format-relative-time).
-
-## Prefer moduix
-
-Use a moduix component API when it already covers the behavior you need. This keeps the interaction,
-styling, and accessibility contract in one place.
-
-- Use `Highlight` from moduix when matched ranges should share the same styled `<mark>` contract as
-  the rest of the library instead of using the raw Ark utility directly.
-- Use `QrCode.DownloadTrigger` instead of the raw Ark download trigger when the user is saving a QR
-  code image from the moduix QR component.
-- Use component-level presence props on Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour,
-  Accordion, Tabs, and similar roots before reaching for a standalone `Presence` wrapper.
-- Use the built-in focus management in dialog-like and popup-like moduix components before adding a
-  separate `FocusTrap`.
-
-`FocusTrap` is not a general fix for keyboard navigation. Use it only for a truly modal custom
-surface, provide an accessible name and close action, restore focus when it closes, and prefer
-[Dialog](/docs/dialog) or [Drawer](/docs/drawer) when either fits.
-
-## Ownership
-
-These utilities come from Ark UI, not from the moduix styled component layer. Ark owns their props,
-lifecycle details, accessibility behavior, and release cadence. `LocaleProvider` is also re-exported
-from `@moduix/react/locale` so locale and direction have one stable moduix entrypoint. moduix component
-pages call out the places where a utility is already part of a component contract.
+<Cards>
+  <Card
+    title="Client Only"
+    description="Render browser-dependent content after hydration while keeping a useful server fallback."
+    href="/docs/client-only"
+  />
+  <Card
+    title="Download Trigger"
+    description="Download a URL, Blob, File, or generated payload from a familiar button."
+    href="/docs/download-trigger"
+  />
+  <Card
+    title="Environment"
+    description="Use Ark and moduix in an iframe, Shadow DOM, Electron, or another document."
+    href="/docs/environment"
+  />
+  <Card
+    title="Focus Trap"
+    description="Keep keyboard focus within a custom modal surface."
+    href="/docs/focus-trap"
+  />
+  <Card
+    title="Format Byte"
+    description="Format file sizes and storage values for the active locale."
+    href="/docs/format-byte"
+  />
+  <Card
+    title="Format Number"
+    description="Format numbers, currencies, percentages, and compact values."
+    href="/docs/format-number"
+  />
+  <Card
+    title="Format Relative Time"
+    description="Show dates as relative time, such as “2 minutes ago”."
+    href="/docs/format-relative-time"
+  />
+  <Card
+    title="Format Time"
+    description="Format clock times and time strings for the active locale."
+    href="/docs/format-time"
+  />
+  <Card
+    title="Frame"
+    description="Render isolated React content in an iframe."
+    href="/docs/frame"
+  />
+  <Card
+    title="Highlight"
+    description="Highlight matching words and phrases with Ark matching and moduix styles."
+    href="/docs/highlight"
+  />
+  <Card
+    title="Hotkeys"
+    description="Register keyboard shortcuts, sequences, and commands."
+    href="/docs/hotkeys"
+  />
+  <Card
+    title="JSON Tree View"
+    description="Inspect JSON and JavaScript values in an accessible, expandable tree."
+    href="/docs/json-tree-view"
+  />
+  <Card
+    title="Locale"
+    description="Share one locale and text direction with Ark formatters and components."
+    href="/docs/locale"
+  />
+  <Card
+    title="Presence"
+    description="Control whether application-owned content mounts, hides, or unmounts."
+    href="/docs/presence"
+  />
+  <Card
+    title="Swap"
+    description="Switch between two visual states with moduix animation presets."
+    href="/docs/swap"
+  />
+</Cards>

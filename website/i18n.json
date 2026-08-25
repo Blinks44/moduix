@@ -347,14 +347,19 @@
     "fr": "Champ, déclencheur, liste"
   },
   "primitiveReferenceTitle": {
-    "en": "Upstream primitive API",
-    "ru": "API исходного примитива",
-    "fr": "API du primitif sous-jacent"
+    "en": "Ark UI API reference",
+    "ru": "Документация Ark UI",
+    "fr": "Référence de l’API Ark UI"
   },
   "primitiveReferenceDescription": {
-    "en": "Behavior, accessibility details, and low-level props live in the upstream reference.",
-    "ru": "Поведение, сведения о доступности и низкоуровневые свойства описаны в исходной справке.",
-    "fr": "Le comportement, les détails d'accessibilité et les props de bas niveau sont documentés dans la référence en amont."
+    "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
+    "ru": "Описание поведения, требований доступности и низкоуровневых свойств — в документации Ark UI.",
+    "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
+  },
+  "primitiveReferenceLink": {
+    "en": "Open",
+    "ru": "Открыть",
+    "fr": "Ouvrir"
   },
   "shadcnInstallComponent": {
     "en": "To add this component to your project source instead of node_modules, install it from the hosted moduix registry:",
@@ -645,76 +650,6 @@
     "en": "A deliberate Ark UI foundation for accessible components.",
     "ru": "Продуманная основа на базе Ark UI для доступных компонентов.",
     "fr": "Une base Ark UI pensée pour créer des composants accessibles."
-  },
-  "componentGalleryCategoryFormInputTitle": {
-    "en": "Form & Input",
-    "ru": "Формы и ввод",
-    "fr": "Formulaires et saisie"
-  },
-  "componentGalleryCategoryFormInputDescription": {
-    "en": "Inputs, selection controls, field composition, and form-ready controls.",
-    "ru": "Всё для форм: поля ввода, элементы выбора, композиция полей и готовые элементы управления.",
-    "fr": "Champs de saisie, contrôles de sélection, composition de champs et éléments prêts à l’emploi pour vos formulaires."
-  },
-  "componentGalleryCategoryLayoutNavigationTitle": {
-    "en": "Layout & Navigation",
-    "ru": "Макет и навигация",
-    "fr": "Mise en page et navigation"
-  },
-  "componentGalleryCategoryLayoutNavigationDescription": {
-    "en": "Structure product screens, reveal content, and guide people through them.",
-    "ru": "Компоненты для структуры экранов, раскрытия содержимого и навигации по интерфейсу.",
-    "fr": "Structurez les écrans de votre produit, affichez le bon contenu et guidez les utilisateurs."
-  },
-  "componentGalleryCategoryOverlaysDialogsTitle": {
-    "en": "Overlays & Dialogs",
-    "ru": "Оверлеи и диалоги",
-    "fr": "Superpositions et dialogues"
-  },
-  "componentGalleryCategoryOverlaysDialogsDescription": {
-    "en": "Focused surfaces for commands, details, help, and temporary workflows.",
-    "ru": "Контекстные поверхности для команд, деталей, подсказок и временных сценариев.",
-    "fr": "Des surfaces contextuelles pour les commandes, les détails, l’aide et les parcours temporaires."
-  },
-  "componentGalleryCategoryFeedbackStatusTitle": {
-    "en": "Feedback & Status",
-    "ru": "Состояния и обратная связь",
-    "fr": "États et retours"
-  },
-  "componentGalleryCategoryFeedbackStatusDescription": {
-    "en": "Communicate progress, empty states, loading, and actionable messages.",
-    "ru": "Показывайте ход выполнения, загрузку, пустые состояния и сообщения с дальнейшими действиями.",
-    "fr": "Indiquez la progression, le chargement, les états vides et les messages qui invitent à agir."
-  },
-  "componentGalleryCategoryDisplayContentTitle": {
-    "en": "Display & Content",
-    "ru": "Отображение и содержимое",
-    "fr": "Affichage et contenu"
-  },
-  "componentGalleryCategoryDisplayContentDescription": {
-    "en": "Present identity, media, data, keyboard hints, and supporting information.",
-    "ru": "Показывайте идентификационные данные, медиа, данные, сочетания клавиш и дополнительную информацию.",
-    "fr": "Présentez l’identité, les médias, les données, les raccourcis clavier et les informations complémentaires."
-  },
-  "componentGalleryCategoryActionsUtilitiesTitle": {
-    "en": "Actions & Utilities",
-    "ru": "Действия и утилиты",
-    "fr": "Actions et utilitaires"
-  },
-  "componentGalleryCategoryActionsUtilitiesDescription": {
-    "en": "Small interaction primitives for common product actions and patterns.",
-    "ru": "Компактные примитивы для типовых действий и сценариев в интерфейсе.",
-    "fr": "Des primitives d’interaction compactes pour les actions et les modèles courants de votre produit."
-  },
-  "componentGalleryMoreTitle": {
-    "en": "More components",
-    "ru": "Другие компоненты",
-    "fr": "Autres composants"
-  },
-  "componentGalleryMoreDescription": {
-    "en": "New components remain visible here until they receive a category.",
-    "ru": "Новые компоненты остаются здесь, пока для них не появится подходящая категория.",
-    "fr": "Les nouveaux composants restent ici tant qu’une catégorie adaptée ne leur a pas été attribuée."
   },
   "tokensOverviewSemanticVariables": {
     "en": "Components read semantic variables while themes override the raw palette.",

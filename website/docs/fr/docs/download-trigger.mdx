@@ -1,0 +1,62 @@
+---
+title: Download Trigger
+description: Téléchargez des fichiers prêts à l’emploi ou générés avec Ark UI Download Trigger et des boutons moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
+
+## Quand l’utiliser
+
+Utilisez `DownloadTrigger` lorsqu’une action de l’utilisateur doit télécharger une URL, un `Blob`, un `File` ou du
+texte généré. Passez les données, le nom du fichier et le type MIME ; les données peuvent aussi provenir d’une
+fonction asynchrone.
+
+Importez l’utilitaire directement depuis Ark UI : moduix n’enveloppe pas ce cas d’usage générique.
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/react/download-trigger';
+```
+
+## Exemple de base
+
+Passez une chaîne, un `Blob` ou un `File` à `data`, puis définissez `fileName` et `mimeType`. Avec `asChild`, le
+bouton conserve l’apparence et la sémantique moduix.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/download-trigger/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Générer les données à la demande
+
+Si la génération de l’export demande du travail supplémentaire, passez une fonction qui renvoie les données ou une
+promesse. Ark ne l’appelle qu’après l’activation du déclencheur : l’export n’est donc pas préparé au rendu initial.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/download-trigger/async-data.tsx"
+
+  ```
+</PreviewFrame>
+
+La fonction doit se limiter à créer le fichier. Gérez l’état de chargement, la validation et les messages d’erreur
+dans l’application ; désactivez ou remplacez le déclencheur si nécessaire.
+
+## Choisir les métadonnées du fichier
+
+Faites correspondre l’extension du fichier à ses données et fournissez le type MIME associé, par exemple
+`application/json`, `text/csv`, `image/svg+xml` ou `application/pdf`. Le navigateur et le système d’exploitation
+pourront ainsi gérer correctement le fichier téléchargé.
+
+## Utilisation avec moduix
+
+`DownloadTrigger` est volontairement sans style. Utilisez-le avec `asChild` et un `Button` moduix pour que l’action
+reste cohérente avec le reste de l’interface. Pour l’image d’un QR code produite par le composant moduix `QrCode`,
+préférez `QrCode.DownloadTrigger` : il sait déjà exporter cette image.
+
+## Responsabilités
+
+Ark UI gère le téléchargement, y compris l’API `data`, `fileName` et `mimeType`. moduix explique comment utiliser
+l’utilitaire avec ses composants, mais ne réexporte ni ne stylise ce déclencheur.

@@ -23,7 +23,7 @@
     "type": "file",
     "name": "migrate-from-shadcn",
     "label": "From shadcn",
-    "tag": "refresh-cw"
+    "tag": "arrow-right-left"
   },
   {
     "type": "file",
@@ -212,11 +212,6 @@
   },
   {
     "type": "file",
-    "name": "highlight",
-    "tag": "component"
-  },
-  {
-    "type": "file",
     "name": "hover-card",
     "tag": "component"
   },
@@ -268,6 +263,11 @@
   {
     "type": "file",
     "name": "menu",
+    "tag": "component"
+  },
+  {
+    "type": "file",
+    "name": "navigation-menu",
     "tag": "component"
   },
   {
@@ -397,11 +397,6 @@
   },
   {
     "type": "file",
-    "name": "swap",
-    "tag": "component"
-  },
-  {
-    "type": "file",
     "name": "switch",
     "tag": "component"
   },
@@ -510,7 +505,7 @@
   {
     "type": "file",
     "name": "async-list",
-    "tag": "refresh-cw"
+    "tag": "loader-circle"
   },
   {
     "type": "file",
@@ -526,6 +521,103 @@
     "type": "file",
     "name": "tree-collection",
     "tag": "git-branch"
+  },
+  {
+    "type": "section-header",
+    "label": "Ark Utilities"
+  },
+  {
+    "type": "file",
+    "name": "utilities",
+    "label": "Utilities",
+    "tag": "wrench"
+  },
+  {
+    "type": "file",
+    "name": "client-only",
+    "label": "Client Only",
+    "tag": "monitor"
+  },
+  {
+    "type": "file",
+    "name": "download-trigger",
+    "label": "Download Trigger",
+    "tag": "download"
+  },
+  {
+    "type": "file",
+    "name": "environment",
+    "label": "Environment",
+    "tag": "panels-top-left"
+  },
+  {
+    "type": "file",
+    "name": "focus-trap",
+    "label": "Focus Trap",
+    "tag": "lock-keyhole"
+  },
+  {
+    "type": "file",
+    "name": "format-byte",
+    "label": "Format Byte",
+    "tag": "hard-drive"
+  },
+  {
+    "type": "file",
+    "name": "format-number",
+    "label": "Format Number",
+    "tag": "calculator"
+  },
+  {
+    "type": "file",
+    "name": "format-time",
+    "label": "Format Time",
+    "tag": "clock"
+  },
+  {
+    "type": "file",
+    "name": "format-relative-time",
+    "label": "Format Relative Time",
+    "tag": "history"
+  },
+  {
+    "type": "file",
+    "name": "frame",
+    "label": "Frame",
+    "tag": "frame"
+  },
+  {
+    "type": "file",
+    "name": "highlight",
+    "tag": "sparkles"
+  },
+  {
+    "type": "file",
+    "name": "hotkeys",
+    "tag": "keyboard"
+  },
+  {
+    "type": "file",
+    "name": "json-tree-view",
+    "label": "JSON Tree View",
+    "tag": "braces"
+  },
+  {
+    "type": "file",
+    "name": "locale",
+    "label": "Locale",
+    "tag": "languages"
+  },
+  {
+    "type": "file",
+    "name": "presence",
+    "label": "Presence",
+    "tag": "eye"
+  },
+  {
+    "type": "file",
+    "name": "swap",
+    "tag": "arrow-left-right"
   },
   {
     "type": "section-header",
@@ -585,10 +677,5 @@
     "type": "file",
     "name": "updating",
     "tag": "refresh-cw"
-  },
-  {
-    "type": "file",
-    "name": "utilities",
-    "tag": "wrench"
   }
 ]

@@ -1,7 +1,6 @@
 ---
 title: Highlight
-component: highlight
-description: Inline text highlighting for matched search terms, keywords, and filtered phrases.
+description: Highlight matching words and phrases with Ark UI matching and moduix styles for native mark elements.
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight';
@@ -12,16 +11,15 @@ import * as HighlightDocs from '@/components/examples/highlight';
 
 ## Choosing the right component
 
-Use `Highlight` when one or more query terms should stay inline with surrounding copy but receive a
-shared visual emphasis.
+Use `Highlight` to emphasize one or more query terms without breaking the surrounding text flow.
 
 - Choose **`Highlight`** when matched ranges inside an existing sentence or label should stand out.
 - Choose **`Text`** when the whole string only needs typography styling and no query-based matching.
 
 ## Basic
 
-Place `Highlight` inside the text container that already owns layout and semantics. `Highlight`
-styles only the matched ranges; it does not render a wrapper element around the whole sentence.
+Use `Highlight` inside the text container that already provides the layout and semantics. It styles
+only matching ranges and does not wrap the whole sentence.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/highlight/basic.tsx"

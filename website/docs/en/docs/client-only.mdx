@@ -1,0 +1,54 @@
+---
+title: Client Only
+description: Render browser-dependent moduix UI after hydration with Ark UI ClientOnly and a useful fallback.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/client-only" />
+
+## When to use it
+
+Use `ClientOnly` when part of the interface needs browser APIs such as `window`, `navigator`, storage, layout
+measurements, or a browser-only library. During server rendering, it renders the `fallback`; after hydration, it
+renders its children.
+
+Import it directly from Ark UI because moduix does not wrap this utility:
+
+```tsx
+import { ClientOnly } from '@ark-ui/react/client-only';
+```
+
+## Basic
+
+Keep browser-only code inside `ClientOnly` and make the fallback resemble the final moduix UI. This prevents an
+empty server render and keeps the layout stable until the client takes over.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/client-only/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Fallbacks
+
+The fallback is more than a loading indicator: it is the only content the server can render for this subtree. Use a
+`Skeleton`, a static summary, or another useful placeholder with roughly the same dimensions as the client-only
+content. Do not read browser globals while constructing it.
+
+## Browser APIs
+
+`ClientOnly` defers rendering; it does not turn an SSR component into a client-only module. Read `window`,
+`document`, `navigator`, `localStorage`, and layout measurements only in a child component it renders, or in an
+effect or event handler. This boundary also makes it clear which part of the interface cannot exist on the server.
+
+## Using moduix
+
+Use moduix components inside the client-only subtree as usual. For example, a `Card` can show browser-derived
+details while a `Skeleton` provides a similarly structured fallback. If a moduix component already provides the
+server-safe behavior you need, use its documented API instead of adding a separate `ClientOnly` boundary.
+
+## Ownership
+
+Ark UI owns `ClientOnly`, including its hydration behavior and `fallback` API. moduix documents how to use it with
+its components, but does not re-export or style the utility.

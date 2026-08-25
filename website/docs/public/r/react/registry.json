@@ -1041,6 +1041,31 @@
       ]
     },
     {
+      "name": "json-tree-view",
+      "type": "registry:item",
+      "title": "JsonTreeView",
+      "description": "moduix React JsonTreeView component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation", "@moduix-react/icons"],
+      "files": [
+        {
+          "path": "packages/react/src/components/json-tree-view/JsonTreeView.tsx",
+          "target": "@components/moduix/json-tree-view/JsonTreeView.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/json-tree-view/JsonTreeView.module.css",
+          "target": "@components/moduix/json-tree-view/JsonTreeView.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/json-tree-view/index.ts",
+          "target": "@components/moduix/json-tree-view/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "image-cropper",
       "type": "registry:item",
       "title": "ImageCropper",
@@ -1302,6 +1327,31 @@
         {
           "path": "packages/react/src/components/menu/index.ts",
           "target": "@components/moduix/menu/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "Navigation Menu",
+      "description": "moduix React Navigation Menu component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/navigation-menu/NavigationMenu.tsx",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/navigation-menu/NavigationMenu.module.css",
+          "target": "@components/moduix/navigation-menu/NavigationMenu.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/navigation-menu/index.ts",
+          "target": "@components/moduix/navigation-menu/index.ts",
           "type": "registry:component"
         }
       ]

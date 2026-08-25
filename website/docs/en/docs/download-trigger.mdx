@@ -1,0 +1,61 @@
+---
+title: Download Trigger
+description: Download ready-made or generated files with Ark UI Download Trigger and moduix buttons.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/download-trigger" />
+
+## When to use it
+
+Use `DownloadTrigger` when a user action should download a URL, `Blob`, `File`, or generated text. Pass the data,
+file name, and MIME type; the data can also come from an asynchronous function.
+
+Import it directly from Ark UI because moduix does not wrap this general-purpose utility:
+
+```tsx
+import { DownloadTrigger } from '@ark-ui/react/download-trigger';
+```
+
+## Basic
+
+Pass a string, `Blob`, or `File` to `data`, then set `fileName` and `mimeType`. Use `asChild` to preserve the
+moduix button’s appearance and semantics.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/download-trigger/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Generate data on demand
+
+If generating an export takes additional work, pass a function that returns the data or a promise. Ark resolves it
+only after the user activates the trigger, so the export is not prepared during the initial render.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/download-trigger/async-data.tsx"
+
+  ```
+</PreviewFrame>
+
+Keep the function focused on creating the file. Manage loading state, validation, and error messages in your
+application; disable or replace the trigger when appropriate.
+
+## Choosing file metadata
+
+Make the file extension match its data and provide the corresponding MIME type, such as `application/json`,
+`text/csv`, `image/svg+xml`, or `application/pdf`. This helps the browser and operating system handle the downloaded
+file correctly.
+
+## Using moduix
+
+`DownloadTrigger` is unstyled by design. Compose it with `asChild` and a moduix `Button` to keep the action
+consistent with the rest of the interface. For QR-code images produced by the moduix `QrCode` component, prefer
+`QrCode.DownloadTrigger`: it already knows how to export that component’s image.
+
+## Ownership
+
+Ark UI handles downloading, including the `data`, `fileName`, and `mimeType` API. moduix documents how to use the
+utility with its components, but does not re-export or style the generic trigger.

@@ -1,0 +1,75 @@
+---
+title: Frame
+description: Render isolated iframe previews with Ark UI Frame and moduix components.
+---
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/frame" />
+
+## When to use it
+
+Use `Frame` to render a preview or embedded experience your application controls in an iframe, while keeping its
+document separate from the surrounding interface. It accepts native iframe attributes and renders React children inside
+the frame.
+
+Import `Frame` directly from Ark UI:
+
+```tsx
+import { Frame } from '@ark-ui/react';
+```
+
+## Basic
+
+Always provide a descriptive `title` for people using assistive technology. Set a deliberate initial size: the example
+fills the available width and keeps a comfortable preview height.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/frame/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+`Frame` also gives nested Ark components the iframe document automatically. This keeps DOM queries, portals, and focus
+behavior in the correct environment when the preview contains Ark UI components.
+
+## Styles in the frame
+
+An iframe has its own document, so host-page styles do not automatically apply to its contents. Pass React nodes
+through `head` to add styles, fonts, or metadata to the iframe document.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/frame/head.tsx"
+
+  ```
+</PreviewFrame>
+
+Use the `onMount` and `onUnmount` callbacks to set up or clean up resources that belong to the embedded experience.
+
+## srcDoc and security
+
+Use `srcDoc` when the frame should start from a complete HTML document instead of React children:
+
+```tsx
+import { Frame } from '@ark-ui/react';
+
+const previewDocument = '<!doctype html><html><body><main><h1>Release notes</h1></main></body></html>';
+
+export function StaticPreview() {
+  return <Frame sandbox="" srcDoc={previewDocument} title="Release notes preview" />;
+}
+```
+
+Treat `srcDoc` as HTML your application controls. For untrusted content, use the native `sandbox` attribute with only
+the permissions the preview needs. Do not combine `allow-scripts` and `allow-same-origin` for untrusted content: that
+can let it remove its own sandbox restrictions.
+
+## Using moduix
+
+Use moduix `Card`, `Stack`, and status components around `Frame` to give an embedded preview a label and context. Keep
+the iframe’s own styles self-contained; its document does not inherit host-page styles.
+
+## Ownership
+
+Ark UI handles the `Frame` component and its iframe lifecycle. moduix supplies the surrounding interface components but
+does not re-export `Frame`.

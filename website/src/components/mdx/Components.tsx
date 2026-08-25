@@ -1,5 +1,6 @@
 import { useI18n } from '@rspress/core/runtime';
 import { Link, PackageManagerTabs, Tab, Tabs } from '@rspress/core/theme';
+import { ArrowUpRight } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { useLocalizedPath } from '@/utils/localized-path';
 import styles from './Components.module.css';
@@ -11,7 +12,7 @@ import {
   type CssPropertyInput,
 } from './reference';
 
-function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; label?: string }) {
+function PrimitiveReference({ href }: { href: string }) {
   const t = useI18n<typeof import('i18n')>();
 
   return (
@@ -20,8 +21,9 @@ function PrimitiveReference({ href, label = 'Ark UI API' }: { href: string; labe
         <strong>{t('primitiveReferenceTitle')}</strong>
         <p>{t('primitiveReferenceDescription')}</p>
       </div>
-      <a href={href} target="_blank" rel="noreferrer">
-        {label}
+      <a className={styles.referenceLink} href={href} target="_blank" rel="noreferrer">
+        {t('primitiveReferenceLink')}
+        <ArrowUpRight aria-hidden="true" />
       </a>
     </aside>
   );

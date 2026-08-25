@@ -1,7 +1,6 @@
 ---
 title: Swap
-component: swap
-description: Animez le passage entre deux états visuels superposés tout en préservant la sémantique du contrôle environnant.
+description: Basculez entre deux états visuels avec l’état d’Ark UI et les préréglages d’animation moduix.
 ---
 
 import * as SwapDocs from '@/components/examples/swap';
@@ -12,8 +11,8 @@ import * as SwapDocs from '@/components/examples/swap';
 
 ## Exemple de base
 
-Utilisez `swap` pour choisir l’indicateur visible. `Swap` utilise par défaut l’animation `scale`, tandis que le
-bouton reste responsable de son nom accessible et de son comportement au clic.
+Passez `swap` pour choisir l’indicateur visible. `Swap` utilise l’animation `scale` par défaut ; le bouton
+environnant reste responsable de son nom accessible et de son comportement au clic.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/swap/basic.tsx"
@@ -38,20 +37,20 @@ Swap / Swap.Root
 
 | Partie               | Rôle                                                                       |
 | -------------------- | -------------------------------------------------------------------------- |
-| `Swap` / `Swap.Root` | Possède l’état Ark `swap` et superpose les deux états visuels.             |
-| `Swap.RootProvider`  | Utilise un état créé avec `Swap.useSwap()` à l’extérieur du sous-arbre.    |
-| `Swap.Indicator`     | Affiche un état visuel `on` ou `off` avec les attributs de Presence.       |
+| `Swap` / `Swap.Root` | Gère l’état Ark `swap` et superpose les deux états visuels.                |
+| `Swap.RootProvider`  | Reçoit l’état créé avec `Swap.useSwap()` hors du sous-arbre.               |
+| `Swap.Indicator`     | Affiche l’état `on` ou `off` avec les attributs de Presence.               |
 
-Placez les deux indicateurs comme enfants directs de la racine : ils partagent ainsi la même cellule de
-grille et les animations incluses ne peuvent pas atteindre un Swap imbriqué.
+Placez les deux indicateurs directement dans la racine. Ils partagent alors la même cellule de grille, et les
+animations incluses restent limitées à ce Swap.
 
 ## Composition
 
 ### Composition recommandée
 
-Réservez `Swap` au remplacement visuel. Placez-le dans un bouton, un lien ou une surface de statut sémantique ; ce
+Réservez `Swap` au remplacement visuel. Placez-le dans un bouton, un lien ou un élément de statut sémantique : le
 parent gère les événements, le focus et le nom accessible. Marquez les indicateurs composés uniquement d’une icône
-avec `aria-hidden="true"` et placez le nom accessible courant sur le contrôle hôte.
+avec `aria-hidden="true"` et définissez le nom accessible sur le contrôle lui-même.
 
 ### Quand créer une composition personnalisée
 
@@ -65,7 +64,7 @@ conflit avec une animation par défaut.
 | Propriété       | Par défaut | Remarques                                                                  |
 | --------------- | ---------- | -------------------------------------------------------------------------- |
 | `swap`          | `false`    | Sélectionne l’indicateur `off`.                                            |
-| `animation`     | `scale`    | Animation moduix par défaut conservée, combinant fondu et mise à l’échelle. |
+| `animation`     | `scale`    | Préréglage moduix combinant fondu et mise à l’échelle.                      |
 | `lazyMount`     | `false`    | Diffère le montage d’un indicateur inactif jusqu’à son premier affichage.  |
 | `unmountOnExit` | `false`    | Retire un indicateur inactif après son animation de sortie.                |
 

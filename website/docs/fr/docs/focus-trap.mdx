@@ -1,0 +1,68 @@
+---
+title: Focus Trap
+description: Gardez le focus clavier dans une surface interactive personnalisée avec Ark UI Focus Trap et moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/focus-trap" />
+
+## Quand l’utiliser
+
+Utilisez `FocusTrap` lorsqu’une surface interactive personnalisée doit garder le focus clavier jusqu’à ce que
+l’utilisateur termine ou quitte le parcours. Il convient aux interfaces proches d’une fenêtre modale que moduix ne
+propose pas déjà.
+
+Pour une fenêtre modale classique, utilisez plutôt `Dialog` ou `Drawer` de moduix. Ils gèrent déjà le confinement et
+le retour du focus, le blocage du défilement, la fermeture et la sémantique d’accessibilité adaptée. N’ajoutez pas un
+second `FocusTrap` dans leur contenu.
+
+Importez l’utilitaire directement depuis Ark UI :
+
+```tsx
+import { FocusTrap } from '@ark-ui/react/focus-trap';
+```
+
+## Exemple de base
+
+Contrôlez le confinement avec `disabled`. Quand le mode de révision démarre, le focus rejoint l’élément renvoyé par
+`initialFocus`. Lorsque l’utilisateur termine, le confinement se désactive et, par défaut, le focus revient au bouton
+qui a lancé le parcours.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/focus-trap/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+Activez le mode de révision, puis utilisez Tab et Shift + Tab. Le focus reste dans la carte jusqu’à ce que le bouton
+**Finish review** désactive le piège.
+
+## Cycle de vie du focus
+
+Par défaut, le premier élément accessible avec Tab reçoit le focus à l’activation. Utilisez `initialFocus` pour choisir
+un point de départ plus utile, par exemple le champ principal ou l’action prioritaire. Un élément portant l’attribut
+`autofocus` est aussi respecté.
+
+Si la surface ne contient aucun élément accessible avec Tab, fournissez `fallbackFocus` et donnez à sa cible
+`tabIndex={-1}` afin qu’elle puisse recevoir le focus par programmation. Utilisez `returnFocusOnDeactivate={false}`
+uniquement si une autre partie du parcours gère le focus après la désactivation. `setReturnFocus` permet de choisir
+l’élément qui recevra le focus final.
+
+## Ce que Focus Trap ne fait pas
+
+`FocusTrap` ne confine que le focus clavier. Il ne crée ni fond, ni couche dans un portail, ni rôle de dialogue, ni nom
+accessible, ni gestion d’Esc, ni blocage du défilement, ni logique de fermeture. Ajoutez ces comportements pour une
+surface personnalisée ou préférez `Dialog` et `Drawer` si leur modèle d’interaction complet convient au besoin.
+
+## Utilisation avec moduix
+
+Enveloppez une fois votre surface moduix personnalisée et rendez la navigation au clavier claire : prévoyez une action
+visible qui libère le confinement, ainsi qu’un titre et une description pertinents. Ne retenez pas le focus dans un
+contenu que l’utilisateur ne peut pas fermer. Les boutons, champs et autres contrôles moduix fonctionnent normalement
+dans le confinement.
+
+## Responsabilités
+
+Ark UI gère le confinement du focus et son API de cycle de vie. moduix explique comment utiliser l’utilitaire avec ses
+composants, mais ne réexporte ni ne stylise `FocusTrap`.

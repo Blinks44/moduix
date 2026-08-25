@@ -1,0 +1,107 @@
+---
+title: Presence
+description: Управляйте монтированием, скрытием и размонтированием содержимого с Ark UI Presence и moduix.
+---
+
+## Справочник API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/presence" />
+
+## Когда использовать
+
+Используйте `Presence`, когда нужно явно управлять жизненным циклом отображаемого содержимого. Он рендерит корневой
+`<div>` вокруг содержимого и добавляет для стилей `data-state="open"` или `data-state="closed"`.
+
+Импортируйте утилиту напрямую из Ark UI:
+
+```tsx
+import { Presence } from '@ark-ui/react/presence';
+```
+
+Для Dialog, Drawer, Popover, Menu, Tooltip, Lightbox, Tour и похожих корневых компонентов moduix используйте
+встроенные свойства Presence. Отдельный `Presence` нужен для содержимого, которым управляет само приложение.
+
+## Базовый пример
+
+Управляйте элементом одним состоянием `present`. С `unmountOnExit` Presence оставляет корень в DOM на время
+закрывающей анимации, а затем удаляет его после её завершения.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/presence/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Монтирование по требованию
+
+Добавьте `lazyMount`, если содержимое не должно монтироваться до первого показа. `unmountOnExit` удаляет его после
+закрытия. В этом примере анимация задана прямо на корне Presence через атрибут `data-state`.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/presence/mount-on-demand.tsx"
+
+  ```
+</PreviewFrame>
+
+## Анимация выхода
+
+`Presence` добавляет на корень `data-state`, поэтому CSS может реагировать на состояния `open` и `closed`. Если другой
+код должен дождаться окончания анимации выхода, используйте `onExitComplete`.
+
+```tsx
+import { Presence } from '@ark-ui/react/presence';
+import { Card } from '@moduix/react/card';
+
+export function ActivityPanel({ open }: { open: boolean }) {
+  return (
+    <Presence className="activity-panel" present={open} unmountOnExit>
+      <Card>Saved filters will apply to the next refresh.</Card>
+    </Presence>
+  );
+}
+```
+
+```css
+@keyframes activity-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+@keyframes activity-panel-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+.activity-panel[data-state='open'] {
+  animation: activity-panel-enter 160ms ease-out;
+}
+
+.activity-panel[data-state='closed'] {
+  animation: activity-panel-exit 120ms ease-in;
+}
+```
+
+## Стратегия скрытия
+
+По умолчанию `hideMode="display-none"` использует атрибут `hidden`, поэтому эффекты в поддереве продолжают работать.
+В React 19 и новее `hideMode="activity"` использует компонент React `Activity`: эффекты скрытого содержимого
+приостанавливаются.
+
+Выбирайте `lazyMount` и `unmountOnExit`, когда содержимое вообще не должно быть смонтировано, а не просто скрыто.
+`hideMode` подходит, когда содержимое должно остаться смонтированным, но его эффекты должны работать иначе.
+
+## Использование с moduix
+
+Внутри `Presence` можно разместить любой интерфейс moduix: карточки, кнопки, формы и собственные панели сохраняют
+обычные стили. Корень Ark отвечает только за видимость и жизненный цикл. Передайте `className` самому `Presence`,
+если его контейнеру нужна анимация или правило компоновки.
+
+## Границы ответственности
+
+Ark UI отвечает за API `Presence`, стратегию монтирования и жизненный цикл анимации. moduix предоставляет
+компоненты интерфейса и добавляет аналогичные свойства Presence в корневые компоненты на базе Ark, если это
+поведение относится к самому компоненту.

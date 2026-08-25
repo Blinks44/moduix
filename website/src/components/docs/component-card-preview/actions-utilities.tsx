@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Clipboard, X, ChevronDown, ArrowLeftRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clipboard, X, ChevronDown } from 'lucide-react';
 import styles from '../component-card-preview.module.css';
 import { Drawing, Panel, Shape, Bar, Dot, Rule, Glyph } from './primitives';
 
@@ -100,21 +100,6 @@ function SplitButton() {
   );
 }
 
-function Swap() {
-  return (
-    <Drawing>
-      <Shape height={42} radius={8} tone="faint" width={48} x={29} y={27} />
-      <Bar width={26} x={40} y={41} />
-      <Bar tone="faint" width={18} x={40} y={51} />
-      <Shape height={42} outline radius={8} width={48} x={99} y={27} />
-      <Bar width={26} x={110} y={41} />
-      <Bar tone="faint" width={18} x={110} y={51} />
-      <Shape height={26} radius={13} tone="strong" width={26} x={75} y={35} />
-      <Glyph icon={ArrowLeftRight} size={14} tone="inverse" x={81} y={41} />
-    </Drawing>
-  );
-}
-
 const actionsUtilitiesDrawings = {
   'angle-slider': AngleSlider,
   button: ButtonDrawing,
@@ -123,7 +108,6 @@ const actionsUtilitiesDrawings = {
   'close-button': CloseButton,
   collapsible: Collapsible,
   'split-button': SplitButton,
-  swap: Swap,
 } as const;
 
 export { actionsUtilitiesDrawings };

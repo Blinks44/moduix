@@ -1,0 +1,76 @@
+---
+title: Format Relative Time
+description: Affichez des dates en temps relatif dans la locale active avec Ark UI Format.RelativeTime et moduix.
+---
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/utilities/format-relative-time" />
+
+## Quand l’utiliser
+
+Utilisez `Format.RelativeTime` lorsque le temps écoulé ou restant est plus utile que l’horodatage exact : flux
+d’activité, état de sauvegarde, échéances et événements à venir. Il accepte un `Date`, le compare à l’heure actuelle au
+rendu et produit un texte comme « dans 12 minutes » ou « hier ».
+
+Importez `Format` directement depuis Ark UI :
+
+```tsx
+import { Format } from '@ark-ui/react';
+```
+
+## Exemple de base
+
+Utilisez `numeric="auto"` lorsque des mots naturels comme « demain » et « hier » sont plus clairs qu’un nombre.
+Placez le texte formaté près du statut ou de l’événement qu’il décrit.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-relative-time/basic.tsx"
+
+  ```
+</PreviewFrame>
+
+## Format court
+
+`style="short"` convient aux interfaces compactes, telles que les listes et les lignes de statut courtes. Conservez
+l’horodatage complet ailleurs lorsqu’une personne doit pouvoir vérifier la date et l’heure exactes.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="../../en/docs/_snippets/format-relative-time/short.tsx"
+
+  ```
+</PreviewFrame>
+
+## Locale et mise à jour
+
+`Format.RelativeTime` récupère sa locale depuis `LocaleProvider`. moduix réexporte ce fournisseur : utilisez-le pour
+définir la locale une seule fois dans toute l’interface.
+
+```tsx
+import { Format } from '@ark-ui/react';
+import { LocaleProvider } from '@moduix/react/locale';
+
+const lastUpdatedAt = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+export function LocalizedUpdate() {
+  return (
+    <LocaleProvider locale="fr-FR">
+      <Format.RelativeTime numeric="auto" value={lastUpdatedAt} />
+    </LocaleProvider>
+  );
+}
+```
+
+Le formateur calcule le texte lors du rendu React ; il ne l’actualise pas seul au fil du temps. Si le libellé doit
+rester à jour, déclenchez un nouveau rendu à la fréquence nécessaire ; pour un compte à rebours en direct, utilisez
+`Timer`.
+
+## Utilisation avec moduix
+
+`Format.RelativeTime` ne rend que du texte. Utilisez les composants moduix `Card`, `Stack`, `Text` et de statut pour
+donner un contexte à l’événement ; ne créez pas de composant juste pour appeler le formateur.
+
+## Responsabilités
+
+Ark UI gère le formatage du temps relatif et l’API `Format.RelativeTime`. moduix fournit les composants d’interface qui
+l’accompagnent et réexporte `LocaleProvider`, mais ne réexporte pas `Format.RelativeTime`.

@@ -1,7 +1,6 @@
 ---
 title: Highlight
-component: highlight
-description: Mise en évidence des fragments de texte correspondant à des requêtes de recherche, des mots-clés et des expressions filtrées.
+description: Mettez en évidence les mots et expressions trouvés par Ark UI avec les styles moduix pour mark.
 ---
 
 import * as HighlightDocs from '@/components/examples/highlight';
@@ -12,14 +11,14 @@ import * as HighlightDocs from '@/components/examples/highlight';
 
 ## Choisir le bon composant
 
-Utilisez `Highlight` lorsqu’un ou plusieurs termes de recherche doivent rester dans leur texte environnant tout en partageant une même mise en évidence visuelle.
+Utilisez `Highlight` pour mettre en évidence un ou plusieurs termes de recherche sans interrompre le flux du texte.
 
-- Choisissez **`Highlight`** pour mettre en évidence les plages correspondantes dans une phrase ou un libellé existant.
-- Choisissez **`Text`** lorsque toute la ligne nécessite uniquement un style typographique, sans recherche de correspondances.
+- Choisissez **`Highlight`** pour mettre en évidence les correspondances dans une phrase ou un libellé existant.
+- Choisissez **`Text`** lorsque la ligne entière a seulement besoin d’un style typographique, sans recherche de correspondances.
 
 ## Exemple de base
 
-Placez `Highlight` dans un conteneur de texte qui gère déjà la mise en page et la sémantique. `Highlight` applique un style uniquement aux plages correspondantes et n’affiche aucun wrapper autour de la phrase entière.
+Utilisez `Highlight` dans un conteneur de texte qui définit déjà la mise en page et la sémantique. Le composant ne stylise que les correspondances et n’ajoute pas de conteneur autour de toute la phrase.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/highlight/basic.tsx"

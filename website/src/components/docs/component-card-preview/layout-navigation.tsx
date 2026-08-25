@@ -82,6 +82,22 @@ function MenuDrawing() {
   );
 }
 
+function NavigationMenu() {
+  return (
+    <Drawing>
+      <Panel height={28} radius={7} width={132} x={24} y={14} />
+      <Shape height={12} radius={3} tone="strong" width={12} x={34} y={22} />
+      <Bar width={22} x={54} y={26} />
+      <Bar width={18} x={88} y={26} />
+      <Glyph icon={ChevronDown} size={10} x={111} y={23} />
+      <Bar width={14} x={128} y={26} />
+      <Panel dashed height={34} radius={6} width={82} x={78} y={51} />
+      <Bar width={40} x={90} y={63} />
+      <Bar tone="faint" width={54} x={90} y={73} />
+    </Drawing>
+  );
+}
+
 function Pagination() {
   return (
     <Drawing>
@@ -252,6 +268,7 @@ const layoutNavigationDrawings = {
   breadcrumbs: Breadcrumbs,
   container: ContainerDrawing,
   menu: MenuDrawing,
+  'navigation-menu': NavigationMenu,
   pagination: Pagination,
   'scroll-area': ScrollArea,
   separator: SeparatorDrawing,
@@ -261,6 +278,7 @@ const layoutNavigationDrawings = {
   stack: StackDrawing,
   steps: StepsDrawing,
   tabs: TabsDrawing,
+  'json-tree-view': TreeView,
   'tree-view': TreeView,
 } as const;
 
