@@ -170,7 +170,7 @@ Styles target Ark state and layout hooks:
 - `--reference-width`, `--available-width`, `--available-height`, `--transform-origin`,
   `--layer-index`, `--arrow-size`, and `--arrow-background`
 
-Public `--moduix-menu-*` variables are declared in `packages/react/src/styles/variables-moduix.css`.
+Public `--moduix-menu-*` variables are declared in `packages/foundation/src/styles/variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 

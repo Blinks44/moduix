@@ -38,67 +38,67 @@
           "type": "registry:lib"
         },
         {
-          "path": "packages/react/src/styles/animations.css",
+          "path": "packages/foundation/src/styles/animations.css",
           "target": "@lib/moduix/styles/animations.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/borders.css",
+          "path": "packages/foundation/src/styles/borders.css",
           "target": "@lib/moduix/styles/borders.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/colors.css",
+          "path": "packages/foundation/src/styles/colors.css",
           "target": "@lib/moduix/styles/colors.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/opacity.css",
+          "path": "packages/foundation/src/styles/opacity.css",
           "target": "@lib/moduix/styles/opacity.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/radius.css",
+          "path": "packages/foundation/src/styles/radius.css",
           "target": "@lib/moduix/styles/radius.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/shadows.css",
+          "path": "packages/foundation/src/styles/shadows.css",
           "target": "@lib/moduix/styles/shadows.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/sizing.css",
+          "path": "packages/foundation/src/styles/sizing.css",
           "target": "@lib/moduix/styles/sizing.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/spacing.css",
+          "path": "packages/foundation/src/styles/spacing.css",
           "target": "@lib/moduix/styles/spacing.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/style.css",
+          "path": "packages/foundation/src/styles/style.css",
           "target": "@lib/moduix/styles/style.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/transforms.css",
+          "path": "packages/foundation/src/styles/transforms.css",
           "target": "@lib/moduix/styles/transforms.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/transitions.css",
+          "path": "packages/foundation/src/styles/transitions.css",
           "target": "@lib/moduix/styles/transitions.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/typography.css",
+          "path": "packages/foundation/src/styles/typography.css",
           "target": "@lib/moduix/styles/typography.css",
           "type": "registry:file"
         },
         {
-          "path": "packages/react/src/styles/z-index.css",
+          "path": "packages/foundation/src/styles/z-index.css",
           "target": "@lib/moduix/styles/z-index.css",
           "type": "registry:file"
         }
@@ -112,7 +112,7 @@
       "docs": "Optional: import the installed reset.css before style.css in your app entry.",
       "files": [
         {
-          "path": "packages/react/src/styles/reset.css",
+          "path": "packages/foundation/src/styles/reset.css",
           "target": "@lib/moduix/styles/reset.css",
           "type": "registry:file"
         }
@@ -166,7 +166,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/presets/contrast.css",
+          "path": "packages/foundation/src/presets/contrast.css",
           "target": "@lib/moduix/presets/contrast.css",
           "type": "registry:file"
         }
@@ -181,7 +181,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/presets/dense.css",
+          "path": "packages/foundation/src/presets/dense.css",
           "target": "@lib/moduix/presets/dense.css",
           "type": "registry:file"
         }
@@ -196,7 +196,7 @@
       "registryDependencies": ["@moduix-react/core"],
       "files": [
         {
-          "path": "packages/react/src/presets/soft.css",
+          "path": "packages/foundation/src/presets/soft.css",
           "target": "@lib/moduix/presets/soft.css",
           "type": "registry:file"
         }
