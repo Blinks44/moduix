@@ -1,5 +1,21 @@
 # moduix
 
+## 2.4.0
+
+### Minor Changes
+
+### Navigation Menu
+
+- 35f0254: new component
+
+### JSON Tree View
+
+- 35f0254: new component
+
+### Patch Changes
+
+- 35f0254: Update deps version
+
 ## 2.3.0
 
 ### Minor Changes
