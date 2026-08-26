@@ -1,0 +1,156 @@
+---
+title: Table of Contents
+component: table-of-contents
+description: Gardez un sommaire accessible synchronisé avec la section que le lecteur consulte.
+---
+
+import * as TocDocs from '@/components/examples/toc';
+
+<style>{TocDocs.tocExampleCss}</style>
+
+## Référence de l’API
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+
+## Exemple de base
+
+Transmettez dans `items` les titres à suivre. Chaque `item.value` doit correspondre à l’attribut `id` d’un titre, et le même élément est utilisé par `Item` et `Link`. L’exemple possède sa propre zone de lecture défilante : grâce à `scrollEl`, le suivi et les liens restent dans l’aperçu.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table-of-contents/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Installation avec shadcn
+
+<ShadcnInstall packageName="table-of-contents" />
+
+## Anatomie
+
+```text
+Toc
+├─ Toc.Content
+└─ Toc.Nav
+   ├─ Toc.Title
+   └─ Toc.List
+      ├─ Toc.Indicator (facultatif)
+      └─ Toc.Item[item]
+         └─ Toc.Link
+            └─ Toc.Rail (facultatif)
+
+Toc.RootProvider
+└─ même arbre de parties connecté à useToc()
+```
+
+| Partie                                   | Rôle                                                                   |
+| ---------------------------------------- | ---------------------------------------------------------------------- |
+| `Toc`                        | Crée l’état Ark qui suit les titres du document.                       |
+| `Toc.Content`                | Contient les titres dont les ID correspondent aux valeurs des éléments. |
+| `Toc.Nav`                    | Zone de navigation reliée au titre du sommaire.                        |
+| `Toc.Title`                  | Titre visible et nom accessible de la navigation.                      |
+| `Toc.List`                   | Liste des liens de titres et indicateur facultatif.                    |
+| `Toc.Item`                   | Élément de titre avec profondeur et attributs d’état actif d’Ark.     |
+| `Toc.Link`                   | Lien interne qui fait défiler la page jusqu’au titre associé.         |
+| `Toc.Indicator`              | Repère discret qui suit l’élément actif de la liste.                   |
+| `Toc.RootProvider`           | Relie les parties à un état créé hors de l’arbre.                      |
+| `Toc.Rail`                   | Ligne SVG facultative entre des niveaux de titres voisins.             |
+
+## Composition
+
+### Composition recommandée
+
+Créez un élément pour chaque titre à suivre. `value` est l’ID du titre sans `#` et `depth` son niveau. Par défaut, la racine observe la fenêtre de la page ; utilisez `scrollEl` lorsque le contenu défile dans un conteneur dédié.
+
+Ark gère `activeIds`, `defaultActiveIds`, `onActiveChange(details)`, `rootMargin`, `threshold`, `autoScroll`, `scrollBehavior` et `ids`. La forme du rappel reste inchangée avec `details.activeIds` et `details.activeItems`.
+
+### Quand personnaliser la composition
+
+Utilisez `asChild` sur `Toc.Link` lorsqu’un lien de routeur doit se comporter comme une ancre dans la page. Gardez un seul élément `<a>` sémantique afin qu’Ark puisse lui transmettre `aria-current`, la gestion du clic et les propriétés de focus.
+
+Utilisez `useToc()` avec `RootProvider` lorsque des contrôles externes ont besoin de `activeIds`, `setActiveIds`, `scrollTo` ou `getItemState`. Dans l’arbre, le même état est disponible avec `Toc.Context` et `useTocContext`.
+
+### Propriétés par défaut
+
+| Propriété         | Valeur par défaut       | Remarque                                                  |
+| ----------------- | ----------------------- | --------------------------------------------------------- |
+| `items`           | obligatoire             | Fournissez les valeurs et niveaux des titres suivis.      |
+| `rootMargin`      | `-20px 0px -40% 0px`   | Modifie la zone d’observation effective.                  |
+| `threshold`       | `0`                     | Active un titre dès sa première intersection.             |
+| `autoScroll`      | `false`                 | Activez-le seulement après avoir vérifié qu’aucun conteneur parent ne défile. |
+| `scrollBehavior`  | `smooth`                | Sert aux liens, à l’API et au défilement de la liste.     |
+
+### Notes de comportement
+
+- Les liens actifs reçoivent `aria-current="location"` et `data-active`.
+- Les éléments exposent `data-depth`, `data-first`, `data-last` et la variable numérique `--depth`.
+- L’indicateur utilise les variables mesurées `--top` et `--height` d’Ark ; il reste masqué tant que la plage active est vide.
+- Par défaut, l’article est placé à côté d’une navigation fixe ; sous 48rem, la mise en page passe sur une seule colonne.
+- Définissez `placement="left"` ou `placement="right"` sur `Toc.Nav` pour choisir le côté de la barre latérale sur grand écran.
+- Moduix ne fait pas défiler automatiquement la liste de navigation : le suivi ne déplace donc ni la page ni un conteneur parent. Activez `autoScroll` uniquement pour un panneau de navigation isolé.
+- Lorsque la préférence de réduction des animations est activée, le défilement fluide CSS et les transitions de l’indicateur sont désactivés. Transmettez aussi `scrollBehavior="auto"` si le défilement lancé par Ark ne doit pas être animé.
+
+### Bonnes pratiques pour la production
+
+- Utilisez des ID de titres stables et uniques sur toute la page. `item.value`, l’attribut `id` du titre et le hash du lien doivent être identiques.
+- Un seul élément doit gérer le défilement d’un lecteur intégré : transmettez-le avec `scrollEl` et ajoutez `overscroll-behavior: contain` si le défilement ne doit pas continuer sur la page.
+- Laissez `autoScroll` désactivé pour une page de documentation ou un lecteur intégré. Activez-le seulement après avoir vérifié que l’affichage du lien actif ne fait pas défiler un conteneur parent.
+- Faites correspondre `depth` aux niveaux de titres sémantiques. La liste standard indente les éléments imbriqués ; ajoutez `Rail` seulement si un connecteur visuel clarifie la hiérarchie.
+- Utilisez `RootProvider` uniquement lorsque des contrôles extérieurs au sommaire ont besoin du même état. Dans les autres cas, `Toc` est la composition la plus simple.
+
+## Exemples
+
+### Root Provider
+
+Utilisez `useToc()` lorsqu’un autre contrôle doit lire ou modifier les titres actifs.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table-of-contents/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Rail
+
+Placez `Toc.Rail` dans chaque lien pour tracer un connecteur SVG entre les niveaux voisins. Transmettez les profondeurs courante, précédente et suivante depuis le même tableau d’éléments. Le connecteur du lien actif reprend la couleur de l’indicateur ; n’ajoutez pas `Indicator` à une liste avec Rail.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table-of-contents/rail.tsx"
+
+```
+</PreviewFrame>
+
+### Avec un panneau repliable
+
+Enveloppez la liste de navigation dans `Collapsible` lorsque le lecteur doit pouvoir masquer le sommaire complet. `Toc.Context` fournit l’élément actif au libellé et à l’anneau de progression, tandis que les liens ciblent toujours la même zone de lecture.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="../../en/docs/_snippets/table-of-contents/with-collapsible.tsx"
+
+```
+</PreviewFrame>
+
+## Styles
+
+Personnalisez le composant avec `className`, les attributs Ark, les hooks moduix `data-slot` et les variables publiques `--moduix-table-of-contents-*`.
+
+### Propriétés CSS
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TocDocs.TocCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Hooks de style
+
+- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`, `toc-item`, `toc-link`, `toc-indicator` et `toc-rail`
+- `data-scope="toc"` et `data-part` d’Ark sur les parties primitives avec état
+- `data-active`, `data-depth`, `data-first`, `data-last` et `--depth` sur les éléments et les liens
+- Les variables d’exécution Ark `--top`, `--left`, `--width` et `--height` sur la racine

@@ -2180,6 +2180,31 @@
       ]
     },
     {
+      "name": "table-of-contents",
+      "type": "registry:item",
+      "title": "Table of Contents",
+      "description": "moduix React Table of Contents component.",
+      "dependencies": ["@ark-ui/react", "clsx"],
+      "registryDependencies": ["@moduix-react/foundation"],
+      "files": [
+        {
+          "path": "packages/react/src/components/toc/Toc.tsx",
+          "target": "@components/moduix/toc/Toc.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "packages/react/src/components/toc/Toc.module.css",
+          "target": "@components/moduix/toc/Toc.module.css",
+          "type": "registry:file"
+        },
+        {
+          "path": "packages/react/src/components/toc/index.ts",
+          "target": "@components/moduix/toc/index.ts",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "tabs",
       "type": "registry:item",
       "title": "Tabs",
