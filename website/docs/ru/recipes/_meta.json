@@ -10,12 +10,6 @@
     "label": "Приложение"
   },
   { "type": "file", "name": "app-header", "label": "Шапка", "tag": "panel-top" },
-  {
-    "type": "file",
-    "name": "mobile-drawer-navigation",
-    "label": "Мобильное меню",
-    "tag": "panel-left-open"
-  },
   { "type": "file", "name": "sidebar-dashboard", "label": "Сайдбар", "tag": "panel-left" },
   {
     "type": "section-header",

@@ -2,23 +2,9 @@ import { Menu } from '@moduix/react/menu';
 import { Sidebar } from '@moduix/react/sidebar';
 import { BarChart3, FileText, FolderOpen, Gauge, MessageSquare, Settings } from 'lucide-react';
 
-const panels = [
-  {
-    id: 'sidebar',
-    minSize: '3rem',
-    maxSize: '17rem',
-    collapsible: true,
-    collapsedSize: '3rem',
-  },
-  {
-    id: 'content',
-  },
-];
-
 export default function SizedSidebar() {
   return (
     <Sidebar
-      panels={panels}
       defaultSize={['14rem']}
       style={{
         borderRadius: 'var(--moduix-radius-lg)',
@@ -121,7 +107,7 @@ export default function SizedSidebar() {
               padding: '1rem',
             }}
           >
-            Resize the sidebar between 10rem and 17rem.
+            Resize the sidebar between 3rem and 18rem.
           </section>
         </main>
       </Sidebar.Inset>

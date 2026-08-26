@@ -91,6 +91,11 @@ test('preserves active link composition for primary and nested navigation', () =
                   <a href="#details">Details</a>
                 </Sidebar.MenuSubButton>
               </Sidebar.MenuSubItem>
+              <Sidebar.MenuSubItem>
+                <Sidebar.MenuSubButton href="#very-long-item">
+                  A very long nested navigation item
+                </Sidebar.MenuSubButton>
+              </Sidebar.MenuSubItem>
             </Sidebar.MenuSub>
           </Sidebar.MenuItem>
         </Sidebar.Menu>
@@ -111,6 +116,10 @@ test('preserves active link composition for primary and nested navigation', () =
   expect(details).toHaveAttribute('aria-current', 'page');
   expect(details).toHaveAttribute('data-slot', 'sidebar-menu-sub-button');
   expect(details).toHaveAttribute('data-active');
+  expect(screen.getByText('A very long nested navigation item')).toHaveAttribute(
+    'data-slot',
+    'sidebar-menu-sub-label',
+  );
 });
 
 test('preserves wrapped Select indicator composition in a menu button', () => {

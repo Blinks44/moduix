@@ -12,7 +12,6 @@ import {
   FileUploadManagerCardPreview,
   ForgotPasswordCardPreview,
   LoginSimpleCardPreview,
-  MobileDrawerNavigationCardPreview,
   ParallaxCardCardPreview,
   ResetPasswordCardPreview,
   SidebarDashboardCardPreview,
@@ -36,12 +35,6 @@ puis adaptez les données et le comportement à votre application.
     preview={<AppHeaderCardPreview />}
   />
   <Card
-    title="Navigation mobile avec tiroir"
-    description="Une navigation mobile accessible avec un tiroir fixé au bord de l’écran."
-    href="/recipes/mobile-drawer-navigation"
-    preview={<MobileDrawerNavigationCardPreview />}
-  />
-  <Card
     title="Tableau de bord avec barre latérale"
     description="Une navigation de bureau redimensionnable, avec éléments imbriqués et menu d’espace de travail."
     href="/recipes/sidebar-dashboard"
@@ -49,8 +42,7 @@ puis adaptez les données et le comportement à votre application.
   />
 </Cards>
 
-Utilisez le tiroir mobile seul ou avec la barre latérale de bureau si les mêmes destinations doivent être
-proposées à plusieurs tailles d’écran. La barre d’en-tête convient aux deux structures.
+La barre d’en-tête convient à cette structure.
 
 ## Authentification
 

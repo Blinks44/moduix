@@ -10,12 +10,6 @@
     "label": "Application"
   },
   { "type": "file", "name": "app-header", "label": "En-tête", "tag": "panel-top" },
-  {
-    "type": "file",
-    "name": "mobile-drawer-navigation",
-    "label": "Menu mobile",
-    "tag": "panel-left-open"
-  },
   { "type": "file", "name": "sidebar-dashboard", "label": "Tableau latéral", "tag": "panel-left" },
   {
     "type": "section-header",

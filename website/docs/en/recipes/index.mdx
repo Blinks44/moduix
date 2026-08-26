@@ -12,7 +12,6 @@ import {
   FileUploadManagerCardPreview,
   ForgotPasswordCardPreview,
   LoginSimpleCardPreview,
-  MobileDrawerNavigationCardPreview,
   ParallaxCardCardPreview,
   ResetPasswordCardPreview,
   SidebarDashboardCardPreview,
@@ -36,12 +35,6 @@ to your application.
     preview={<AppHeaderCardPreview />}
   />
   <Card
-    title="Mobile drawer navigation"
-    description="An accessible mobile navigation shell with an edge-attached drawer."
-    href="/recipes/mobile-drawer-navigation"
-    preview={<MobileDrawerNavigationCardPreview />}
-  />
-  <Card
     title="Sidebar dashboard"
     description="A resizable desktop navigation shell with nested items and a workspace menu."
     href="/recipes/sidebar-dashboard"
@@ -49,8 +42,7 @@ to your application.
   />
 </Cards>
 
-Use the mobile drawer by itself, or pair it with the desktop sidebar when the same destinations must
-work at both breakpoints. The app header can sit above either shell.
+The app header can sit above the sidebar shell.
 
 ## Authentication
 
