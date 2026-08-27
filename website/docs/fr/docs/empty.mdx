@@ -1,24 +1,24 @@
 ---
 title: Empty
 component: empty
-description: Surface composable d’état vide pour les écrans sans résultat, sans données ou de première utilisation.
+description: Composant d’état vide pour les écrans sans résultats, sans données ou de première utilisation.
 ---
 
 import * as EmptyDocs from '@/components/examples/empty';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée aux états vides. moduix construit ce composant avec la
-[fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark relatives à la
-[composition](https://ark-ui.com/react/docs/guides/composition), aux [styles](https://ark-ui.com/react/docs/guides/styling) et aux
-[ref](https://ark-ui.com/react/docs/guides/ref). L’[Empty State de Chakra](https://chakra-ui.com/docs/components/empty-state)
-éclaire cette composition explicite ; contrairement à Chakra, moduix conserve `Empty.Icon` et
-`Empty.Actions` facultatifs comme parties sœurs de la racine afin de les placer librement.
+Ark UI ne propose pas de primitive dédiée aux états vides. `moduix` construit `Empty` avec la
+[fabrique Ark](https://ark-ui.com/react/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/react/docs/guides/composition), les [styles](https://ark-ui.com/react/docs/guides/styling) et les
+[refs](https://ark-ui.com/react/docs/guides/ref). La composition explicite s’inspire de l’[Empty State de Chakra UI](https://chakra-ui.com/docs/components/empty-state).
+Contrairement à Chakra UI, `moduix` expose `Empty.Icon` et `Empty.Actions` comme parties facultatives
+au même niveau que la racine, afin que vous puissiez les placer selon vos besoins.
 
 ## Exemple de base
 
-Commencez par le composant racine appelable `<Empty />` et ses parties nommées. Ajoutez `Empty.Icon` et
-`Empty.Actions` uniquement lorsque l’état nécessite un repère visuel ou une prochaine étape explicite.
+Commencez par la racine `<Empty />` et ses parties nommées. Ajoutez `Empty.Icon` et `Empty.Actions`
+uniquement si l’état nécessite un repère visuel ou une action à proposer à l’utilisateur.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/empty/basic.tsx"
@@ -43,56 +43,63 @@ Empty
 
 | Partie                 | Rôle                                                                                  |
 | ---------------------- | ------------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | Surface racine qui définit les espacements, la bordure, l’arrière-plan et l’alignement. |
-| `Empty.Icon`           | Conteneur facultatif pour une icône ou un petit élément visuel.                       |
-| `Empty.Content`        | Regroupe le contenu textuel avec des espacements internes plus compacts.              |
-| `Empty.Title`          | Titre principal de l’état vide.                                                       |
-| `Empty.Description`    | Bloc de description complémentaire pour un ou plusieurs nœuds textuels.              |
-| `Empty.Actions`        | Ligne facultative avec retour à la ligne pour les actions.                            |
+| `Empty` / `Empty.Root` | Conteneur racine qui définit les espacements, la bordure, l’arrière-plan et l’alignement. |
+| `Empty.Icon`           | Conteneur facultatif pour une icône ou un petit élément visuel.                          |
+| `Empty.Content`        | Regroupe le titre et la description avec des espacements plus compacts.                  |
+| `Empty.Title`          | Titre principal de l’état vide.                                                         |
+| `Empty.Description`    | Bloc de texte complémentaire pouvant contenir plusieurs éléments.                        |
+| `Empty.Actions`        | Ligne facultative d’actions, avec retour à la ligne si nécessaire.                       |
 
 ## Composition
 
 ### Composition recommandée
 
-Pour la plupart des états vides, utilisez les parties exportées :
+Dans la plupart des cas, utilisez les parties exportées :
 
-- `Empty` pour la surface et la mise en page centrée
-- `Empty.Content` pour le groupe de texte
+- `Empty` pour le conteneur et le centrage du contenu
+- `Empty.Content` pour le bloc de texte
 - `Empty.Title` pour le titre
 - `Empty.Description` pour le texte explicatif
 - `Empty.Icon` et `Empty.Actions` uniquement lorsqu’ils sont réellement nécessaires
 
-Cette approche garde le cas courant explicite tout en permettant des descriptions plus riches, des liens ou des boutons personnalisés sans ajouter d’API de configuration.
+Cette structure rend le cas courant facile à comprendre tout en laissant la place à des descriptions
+plus riches, à des liens ou à des boutons personnalisés. Aucune API de configuration distincte n’est nécessaire.
 
 ### Quand créer une composition personnalisée
 
-`Empty` ne masque pas la couche primitive de bas niveau. La personnalisation consiste généralement à modifier la structure par composition ordinaire :
+`Empty` expose directement ses parties. Pour adapter sa structure, composez simplement les composants :
 
-- omettre `Empty.Icon` ou `Empty.Actions`
+- ne pas ajouter `Empty.Icon` ou `Empty.Actions`
 - ajouter une mise en forme plus complexe dans `Empty.Description`
-- modifier le repère environnant ou le niveau du titre avec `Empty asChild` et `Empty.Title asChild`
-- appliquer `className` et les variables `--moduix-empty-*` aux parties responsables de la propriété visuelle concernée
+- modifier la région sémantique parente ou le niveau du titre avec `Empty asChild` et `Empty.Title asChild`
+- appliquer `className` et les variables `--moduix-empty-*` aux parties qui contrôlent la propriété visuelle concernée
 
 ### Propriétés par défaut
 
 | Surface                | Valeur par défaut | Remarques                                                                          |
 | ---------------------- | ----------------- | ---------------------------------------------------------------------------------- |
-| `Empty` / `Empty.Root` | -                 | Aucune valeur comportementale supplémentaire par défaut ; les valeurs Ark s’appliquent. |
+| `Empty` / `Empty.Root` | -                 | Le composant n’ajoute aucun comportement spécifique ; les valeurs par défaut d’Ark s’appliquent. |
 
 ### Comportement
 
-- `Empty.Title` rend un `h3` par défaut et accepte `asChild` de la fabrique Ark pour contrôler la structure du document.
-- `Empty.Description` rend un `div`, et non un `p`, afin de pouvoir contenir sans risque du contenu de type bloc.
-- Chaque partie transmet sa ref à l’élément DOM rendu et accepte `asChild` de la fabrique Ark avec un unique enfant sémantiquement correct.
-- Les parties rendent `data-scope="empty"` et les attributs `data-part` correspondants pour les styles dans l’esprit d’Ark, ainsi que les hooks stables `data-slot="empty-*"` pour les surcharges moduix.
-- `Empty.Actions` centre ses enfants et autorise leur retour à la ligne : les paires d’actions et les longs libellés explicites de boutons ou de liens restent ainsi lisibles dans les mises en page étroites.
-- `Empty` est purement présentationnel : ne choisissez un repère environnant, un `role` ou le comportement d’une région live que si le contexte de l’écran l’exige. Utilisez `aria-hidden` pour les icônes décoratives et donnez un nom accessible aux icônes porteuses de sens.
+- `Empty.Title` rend un élément `h3` par défaut. Utilisez `asChild` de la fabrique Ark si vous avez
+  besoin d’un autre niveau de titre pour la structure du document.
+- `Empty.Description` rend un `div` plutôt qu’un `p`, ce qui lui permet d’accueillir du contenu en bloc.
+- Chaque partie transmet sa ref à l’élément DOM rendu et accepte `asChild` de la fabrique Ark avec un
+  seul enfant sémantiquement correct.
+- Chaque partie ajoute `data-scope="empty"` et l’attribut `data-part` correspondant pour les styles
+  façon Ark, ainsi que les hooks stables `data-slot="empty-*"` pour les surcharges moduix.
+- `Empty.Actions` centre ses enfants et les fait passer à la ligne si nécessaire. Les paires d’actions
+  et les longs libellés de boutons ou de liens restent ainsi lisibles dans les mises en page étroites.
+- `Empty` gère uniquement la présentation : il n’ajoute ni région sémantique, ni `role`, ni comportement
+  de région live. Ajoutez ces sémantiques lorsque le contexte de la page le demande. Utilisez
+  `aria-hidden` pour les icônes décoratives et donnez un nom accessible aux icônes porteuses de sens.
 
 ## Exemples
 
 ### Sans actions
 
-Omettez `Empty.Actions` lorsque l’état est uniquement informatif.
+Ne rendez pas `Empty.Actions` lorsque l’état est informatif et ne nécessite aucune action immédiate.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/empty/without-actions.tsx"
@@ -103,7 +110,7 @@ Omettez `Empty.Actions` lorsque l’état est uniquement informatif.
 
 ### Sans icône
 
-L’emplacement visuel est facultatif : les états vides composés uniquement de texte restent donc concis.
+L’icône est facultative : un état vide composé uniquement de texte peut donc rester compact.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/empty/without-icon.tsx"
@@ -114,9 +121,9 @@ L’emplacement visuel est facultatif : les états vides composés uniquement de
 
 ### Personnalisation avancée
 
-Utilisez `Empty asChild` et `Empty.Title asChild` lorsque la page environnante nécessite un repère et
-un autre niveau de titre. La description accepte une mise en forme ordinaire de type bloc : un texte
-plus riche reste donc sémantiquement correct sans API de configuration distincte.
+Utilisez `Empty asChild` et `Empty.Title asChild` lorsque la section parente a besoin d’une région
+sémantique et d’un autre niveau de titre. `Empty.Description` accepte une mise en forme ordinaire de
+type bloc : un contenu plus riche reste donc sémantiquement correct sans API de configuration distincte.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/empty/advanced-customization.tsx"
@@ -127,8 +134,8 @@ plus riche reste donc sémantiquement correct sans API de configuration distinct
 
 ## Styles
 
-Stylisez `Empty` avec `className`, les sélecteurs Ark `data-scope="empty"` / `data-part`, les hooks stables
-`data-slot="empty-*"` et les variables CSS publiques `--moduix-empty-*` ci-dessous.
+Personnalisez l’apparence de `Empty` avec `className`, les sélecteurs Ark `data-scope="empty"` / `data-part`,
+les hooks stables `data-slot="empty-*"` et les variables CSS publiques `--moduix-empty-*` ci-dessous.
 
 ### Propriétés CSS
 
@@ -146,10 +153,10 @@ Stylisez `Empty` avec `className`, les sélecteurs Ark `data-scope="empty"` / `d
 
 ### Points d’accroche CSS
 
-Ciblez la partie responsable de la propriété visuelle concernée :
+Ciblez la partie qui contrôle la propriété visuelle à modifier :
 
-- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` pour surcharger la mise en page de la surface, la bordure, l’arrière-plan et l’ombre
-- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` pour la taille, les espacements et les couleurs du conteneur de l’icône
-- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` pour la largeur et l’espacement du groupe de texte
+- `[data-scope="empty"][data-part="root"]` / `data-slot="empty-root"` pour la mise en page du conteneur, la bordure, l’arrière-plan et l’ombre
+- `[data-scope="empty"][data-part="icon"]` / `data-slot="empty-icon"` pour les dimensions, les espacements et les couleurs du conteneur de l’icône
+- `[data-scope="empty"][data-part="content"]` / `data-slot="empty-content"` pour la largeur et l’espacement du bloc de texte
 - `[data-scope="empty"][data-part="title"]` et `[data-scope="empty"][data-part="description"]` pour la typographie
 - `[data-scope="empty"][data-part="actions"]` / `data-slot="empty-actions"` pour l’espacement et l’alignement de la ligne d’actions
