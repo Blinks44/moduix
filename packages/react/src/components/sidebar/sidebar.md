@@ -40,17 +40,16 @@ menu button.
 - The sidebar starts at `16rem` (256px), resizes continuously down to its `3rem` (48px) collapsed
   icon rail, and has an `18rem` maximum. The content panel has no imposed minimum so narrow
   containers can still reach the collapsed size.
-- `Sidebar.Label` and `Sidebar.GroupLabel` truncate overflowing text to one line so resizing does
-  not change the sidebar layout.
+- `Sidebar.Label`, `Sidebar.GroupLabel`, `Sidebar.MenuButton`, and `Sidebar.MenuSubButton` truncate
+  overflowing text to one line so resizing does not change the sidebar layout.
 - `side="left" | "right"` selects default panel order, adjacent trigger id, floating trigger
   position, and icon direction. Render sibling parts in matching visual order.
 - `Sidebar.Panel`, `Sidebar.Inset`, and `Sidebar.ResizeTrigger` keep the ids derived from the root
   contract for the selected side.
 - `panelId` changes the default navigation panel id and its adjacent resize trigger while the inset
   remains `content`. Sidebar layout parts intentionally do not accept individual ids, so the
-  rendered panels, resize trigger, and `useSidebar()` always agree. Pass normal Ark `panels`,
-  `defaultSize`, and controlled `size` to replace the constraints; use `Splitter` directly for a
-  custom inset id or more than two panels.
+  rendered panels, resize trigger, and `useSidebar()` always agree. Use `Splitter` directly for
+  different panel constraints, a custom inset id, or more than two panels.
 - `Sidebar.Trigger` is a root-level zero-width flex item that, by default, sits at the intersection
   of the resize line and a typical inset topbar divider. Its `40px` vertical offset is customizable
   with `--moduix-sidebar-trigger-offset-y`. It calls `collapsePanel()` or `expandPanel()` and reads
@@ -64,9 +63,8 @@ menu button.
 - `Sidebar.Input`, `Sidebar.Separator`, `Sidebar.GroupAction`, `Sidebar.GroupContent`,
   `Sidebar.MenuAction`, and `Sidebar.MenuBadge` are thin visual wrappers that match the shipped
   sidebar styling contract.
-- The blessed migration recipes are: collapsed hover labels with `Sidebar.Tooltip`,
-  responsive desktop/mobile composition with `Drawer`, and persisted width through controlled
-  `size`, `onResize(details)`, and `onResizeEnd(details)`.
+- The supported recipes are collapsed hover labels with `Sidebar.Tooltip` and persisted width through
+  controlled `size`, `onResize(details)`, and `onResizeEnd(details)`.
 
 ## Anatomy and exported parts
 
@@ -190,10 +188,8 @@ inside `Sidebar.Content`, then set that outer content part to `overflow: hidden`
 ScrollArea viewport scrolls.
 
 Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and
-`useSidebar()`. Reuse the visual parts (`Header`, `Input`, `Content`, `Footer`, `Group`, `Menu`,
-and the related item parts) inside a `Drawer` when compact screens need overlay navigation instead
-of a collapsible rail. Persisted desktop layout is a controlled-size recipe: mirror live drag
-updates from `onResize(details)` and save the settled width from `onResizeEnd(details)`.
+`useSidebar()`. Persisted desktop layout is a controlled-size recipe: mirror live drag updates from
+`onResize(details)` and save the settled width from `onResizeEnd(details)`.
 
 When `Menu.Trigger asChild` wraps `Sidebar.MenuButton`, render `Menu.Indicator` as the direct
 trailing child. Sidebar aligns it to the inline end and hides it with the rest of the trigger
@@ -225,9 +221,7 @@ content or non-standard positioning. Use `Collapsible.Trigger`/`Content` for nes
 Ark owns `aria-expanded`, ids, keyboard activation, and animation.
 
 `Sidebar.Panel`, `Sidebar.Inset`, `Sidebar.ResizeTrigger`, `Sidebar.Trigger`, and `useSidebar()` all
-require Splitter context. The remaining exported visual parts are plain styled wrappers. When a
-mobile overlay needs the same navigation styling, keep `Drawer.Header`, `Drawer.Body`, and
-`Drawer.Footer` as the layout owners and reuse only the navigation parts inside them.
+require Splitter context. The remaining exported visual parts are plain styled wrappers.
 
 `Sidebar.GroupAction` and `Sidebar.MenuAction` are plain buttons with default `type="button"` and
 the shared sidebar focus ring. `Sidebar.MenuBadge` is presentational and does not add its own
@@ -240,7 +234,7 @@ resize state. Nested Collapsible content and the trigger icon keep their normal 
 ## Defaults and styling
 
 All visual parts accept `className`. Public variables live in
-`packages/react/src/styles/variables-moduix.css`. The panel exposes
+`packages/foundation/src/styles/variables-moduix.css`. The panel exposes
 `data-state="expanded" | "collapsed"` and all side-aware parts expose `data-side`.
 
 Collapsed styling moves `Sidebar.Label` and group labels out of layout with a visually-hidden
@@ -250,11 +244,11 @@ visual anchors such as `Avatar` or a brand mark with `data-sidebar-icon`; Sideba
 element's own size. Collapsed styling also hides trailing group and menu affordances so icon-only
 items stay compact.
 
-Panel constraints are Ark state, not visual CSS. Override `panels`, `defaultSize`, controlled
-`size`, and callbacks for application-specific expanded, minimum, maximum, or collapsed widths.
-`panelId` changes the default navigation id; use `Splitter` directly when a layout also needs a
-custom inset id. CSS-length sizes are measured on the client, so server-rendered layouts can shift
-after hydration; use percentages when stable SSR layout matters.
+Panel constraints are Ark state, not visual CSS. Override `defaultSize`, controlled `size`, and
+callbacks for the Sidebar's current width. Use `Splitter` directly for application-specific expanded,
+minimum, maximum, or collapsed constraints, or a custom inset id. CSS-length sizes are measured on the
+client, so server-rendered layouts can shift after hydration; use percentages when stable SSR layout
+matters.
 Use the public `--moduix-sidebar-*` variables and stable slots for internal spacing, colors, item sizes,
 group-action sizing, menu-action sizing, menu-badge spacing, and the floating trigger's vertical
 offset.
@@ -278,8 +272,8 @@ feedback.
 - Sidebar deliberately omits `ResizeTriggerIndicator`; the neutral line is the complete resize UI.
 - Unlike shadcn, Sidebar does not render a mobile Sheet, persist a cookie, register a global
   shortcut, or own Tooltip/Menu/Collapsible state.
-- Instead of owning those concerns, Sidebar now documents first-class recipes for collapsed hover
-  labels, responsive Drawer composition, and persisted desktop widths.
+- Instead of owning those concerns, Sidebar documents collapsed hover labels and persisted desktop
+  widths while applications choose their own responsive navigation architecture.
 
 ## Agent notes
 
@@ -290,6 +284,10 @@ feedback.
 - Do not restore a Sidebar resize indicator or hide structural parts inside `Root`.
 
 ## Local changelog
+
+- 2026-08-26: Fixed truncation for direct menu and nested-menu labels, made simultaneous menu actions
+  and badges share the trailing space, and fixed the two-panel contract by moving custom panel layouts
+  to `Splitter`.
 
 - 2026-08-12: Centered the floating trigger on the divider, aligned wrapped Select indicators to
   the trailing edge of menu buttons, and made Drawer own mobile navigation layout in examples.

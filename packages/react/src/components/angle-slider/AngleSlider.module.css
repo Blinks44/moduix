@@ -58,7 +58,7 @@
       &:not([data-disabled], [data-readonly]):hover {
         background-color: var(
           --moduix-angle-slider-track-bg-hover,
-          color-mix(in oklab, var(--moduix-color-muted) 92%, var(--moduix-color-foreground))
+          var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
         );
       }
     }
@@ -66,7 +66,7 @@
     &:not([data-disabled], [data-readonly]):active {
       background-color: var(
         --moduix-angle-slider-track-bg-active,
-        color-mix(in oklab, var(--moduix-color-muted) 84%, var(--moduix-color-foreground))
+        var(--moduix-angle-slider-track-bg, var(--moduix-color-muted))
       );
     }
 

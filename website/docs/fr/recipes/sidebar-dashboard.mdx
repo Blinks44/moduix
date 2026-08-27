@@ -42,11 +42,10 @@ illustre aussi une navigation imbriquée, et le pied de page contient un menu d�
 ## Dans une route
 
 Remplacez les liens, les libellés et le contenu de démonstration par vos routes et vos données. Cette
-recette est pensée pour ordinateur : les menus du compte, les notifications et la navigation mobile
-restent des recettes séparées, à ajouter uniquement lorsque l’application en a besoin.
+recette est pensée pour ordinateur ; adaptez la navigation responsive, les menus du compte et les
+notifications à votre application.
 
 Marquez la destination active avec `aria-current="page"`. Si le composant Link de votre routeur gère
 la navigation, passez-le via `asChild`. Ne mémorisez la largeur réduite que si elle est utile aux
 personnes qui reviennent ; lisez le stockage du navigateur après l’hydratation et gardez un état par
-défaut utilisable sans lui. Pour mobile, utilisez la [Navigation mobile](/recipes/mobile-drawer-navigation)
-plutôt que de forcer la barre latérale redimensionnable dans un écran étroit.
+défaut utilisable sans lui.

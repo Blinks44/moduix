@@ -339,6 +339,10 @@
       "types": "./dist/components/table/index.d.ts",
       "import": "./dist/components/table/index.js"
     },
+    "./toc": {
+      "types": "./dist/components/toc/index.d.ts",
+      "import": "./dist/components/toc/index.js"
+    },
     "./tabs": {
       "types": "./dist/components/tabs/index.d.ts",
       "import": "./dist/components/tabs/index.js"

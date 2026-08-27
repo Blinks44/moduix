@@ -14,13 +14,18 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 ## Choisir le bon composant
 
-- Choisissez **`Sidebar`** pour une navigation d’application qui doit être redimensionnable, se replier en barre d’icônes et rester à côté du contenu principal.
-- Choisissez **`Splitter`** lorsque les deux panneaux sont des zones de contenu ordinaires plutôt qu’une paire navigation/inset.
-- Composez un `Dialog` ou un `Drawer` adaptatif autour de la navigation lorsque celle-ci doit devenir un overlay sur les petits écrans plutôt qu’un panneau replié.
+- Choisissez **`Sidebar`** pour une navigation d’application redimensionnable, repliable en rangée
+  d’icônes et placée à côté du contenu principal.
+- Choisissez **`Splitter`** lorsque les deux panneaux sont de simples zones de contenu, et non un duo
+  navigation/contenu principal.
 
 ## Exemple de base
 
-Affichez explicitement le panneau de navigation, un véritable handle de redimensionnement Ark et l’inset principal. Les id et contraintes de panneau par défaut permettent d’utiliser une disposition courante avec une barre latérale gauche sans configuration. L’exemple présente aussi le modèle recommandé pour le panneau replié : composez `Sidebar.Tooltip` autour des boutons de menu à icône au lieu de répéter l’anatomie brute de Tooltip ou de confier à Sidebar la gestion de l’état de la fenêtre contextuelle.
+Affichez séparément le panneau de navigation, la poignée de redimensionnement d’Ark et la zone de
+contenu principale. Les id et contraintes par défaut suffisent pour la disposition classique avec un
+volet à gauche. L’exemple montre aussi comment conserver les libellés des boutons à icône une fois le
+volet replié : enveloppez `Sidebar.MenuButton` dans `Sidebar.Tooltip`. Tooltip garde ainsi la gestion
+de son propre état.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/basic.tsx"
@@ -86,23 +91,40 @@ Sidebar / Sidebar.Root
 
 ### Composition recommandée
 
-Conservez toutes les parties de la disposition comme enfants directs de la racine. Pour une barre latérale gauche, affichez `Panel`, `ResizeTrigger`, `Trigger`, puis `Inset`. Pour une barre latérale droite, affichez `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel`. Le déclencheur a une largeur flex effective nulle et se place par défaut à l’intersection de la ligne de redimensionnement et d’un séparateur de topbar d’inset typique, sans être rogné par les panneaux. Redéfinissez `--moduix-sidebar-trigger-offset-y` pour une autre hauteur d’en-tête d’inset. Utilisez `Collapsible` pour les éléments de menu imbriqués et `Menu + Avatar` pour les actions du compte. Ajoutez `Menu.Indicator` directement dans `Sidebar.MenuButton` ; Sidebar le place à l’extrémité inline et le masque dans le panneau replié. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge` et `Separator` couvrent les éléments récurrents d’une enveloppe d’application sans ajouter d’état propre à Sidebar. Composez `Sidebar.Tooltip` autour des boutons de menu à icône lorsque le panneau replié nécessite des libellés visibles au survol. Considérez les recettes suivantes comme les parcours de migration officiels :
+Gardez chaque partie de la disposition comme enfant direct de la racine. Pour un volet à gauche,
+affichez `Panel`, `ResizeTrigger`, `Trigger`, puis `Inset`. Pour un volet à droite, inversez l’ordre
+visuel : `Inset`, `Trigger`, `ResizeTrigger`, puis `Panel`. Le déclencheur se place au-dessus de la
+ligne de redimensionnement et du séparateur habituel de l’en-tête de contenu ; il n’occupe pas de
+place dans la mise en page et n’est pas rogné par les panneaux. Ajustez
+`--moduix-sidebar-trigger-offset-y` si votre en-tête a une autre hauteur.
+
+Utilisez `Collapsible` pour les éléments de menu imbriqués et `Menu + Avatar` pour les actions du
+compte. Ajoutez `Menu.Indicator` directement dans `Sidebar.MenuButton` : il s’aligne à la fin de la
+ligne et disparaît lorsque le volet est replié. `Input`, `GroupAction`, `GroupContent`, `MenuAction`,
+`MenuBadge` et `Separator` couvrent les éléments courants d’une interface d’application sans ajouter
+un état spécifique à Sidebar.
+
+Pour garder les libellés accessibles au survol des boutons à icône, enveloppez
+`Sidebar.MenuButton` dans `Sidebar.Tooltip`. Les deux usages les plus fréquents sont les suivants :
 
 1. **Libellés du panneau replié :** `Sidebar.Tooltip` autour de `Sidebar.MenuButton`.
-2. **Enveloppe adaptative :** `Sidebar` sur ordinateur + `Drawer` sur les écrans compacts, qui gère sa propre disposition d’overlay.
-3. **Persistance :** conservez la largeur dans un `size` contrôlé, mettez-la à jour depuis `onResize(details)` et enregistrez-la depuis `onResizeEnd(details)` dans l’état ou le stockage de l’application.
+2. **Persistance :** conservez la largeur dans un `size` contrôlé, mettez-la à jour depuis `onResize(details)` et enregistrez-la depuis `onResizeEnd(details)` dans l’état ou le stockage de l’application.
 
-`Sidebar` est la forme racine courte, équivalente à `Sidebar.Root`.
+`Sidebar` est la forme courte de `Sidebar.Root`.
 
 ### Quand créer une composition personnalisée
 
-Transmettez directement `panels`, `defaultSize`, un `size` contrôlé et les rappels Splitter lorsque la disposition standard fondée sur des longueurs CSS ne convient pas. Utilisez `useSidebar()` pour accéder à `collapsed`, `state`, `side` et `toggleSidebar`. Utilisez directement `Splitter` lorsque l’application nécessite les API de bas niveau du provider, du registre, de plusieurs panneaux ou du contexte complet.
+Transmettez `defaultSize`, un `size` contrôlé et les rappels lorsque la disposition par défaut en
+longueurs CSS ne convient pas. `useSidebar()` donne accès à `collapsed`, `state`, `side` et
+`toggleSidebar`. Utilisez directement `Splitter` s’il vous faut d’autres contraintes de panneaux,
+ses API de bas niveau, plus de deux panneaux ou l’API complète du contexte.
 
 `panelId` modifie l’id de navigation par défaut ainsi que le handle de redimensionnement associé ; l’id de l’inset reste `"content"`. Les parties de disposition Sidebar n’acceptent volontairement pas d’id distincts : elles conservent ainsi un contrat de panneau Ark unique entre les panneaux affichés, le déclencheur et `useSidebar()`. Utilisez directement `Splitter` lorsque la disposition exige un id d’inset personnalisé ou plus de deux panneaux.
 
-Utilisez `asChild` sur les boutons de menu et de sous-menu pour composer des liens de routeur. Conservez un seul enfant sémantique capable de recevoir les props et la ref fusionnés.
+Utilisez `asChild` sur les boutons de menu et de sous-menu pour afficher des liens de routeur.
+Transmettez un seul enfant sémantique capable de recevoir les props et la ref fusionnés.
 
-Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()`. Pour un overlay sur écran compact, utilisez `Drawer.Header`, `Drawer.Body` et `Drawer.Footer` pour la disposition. Réutilisez les parties de navigation Sidebar comme `Group` et `Menu` dans ces régions uniquement lorsqu’un style de navigation partagé est utile.
+Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()`.
 
 ### Propriétés par défaut
 
@@ -119,7 +141,11 @@ Gardez dans `Sidebar` les parties liées à Splitter : `Panel`, `Inset`, `Resize
 
 ### Comportement
 
-Ark accepte les pourcentages et les longueurs CSS pour dimensionner les panneaux. Les longueurs CSS sont mesurées côté client ; une disposition rendue sur le serveur peut donc se décaler après l’hydratation. Utilisez des pourcentages lorsqu’une disposition SSR stable est importante. `Trigger` fournit `aria-expanded`, appelle d’abord le gestionnaire `onClick` de l’utilisateur et ignore le basculement par défaut si ce gestionnaire a appelé `preventDefault()`.
+Ark accepte les pourcentages et les longueurs CSS pour dimensionner les panneaux. Les longueurs CSS
+sont mesurées dans le navigateur ; une disposition rendue côté serveur peut donc bouger après
+l’hydratation. Préférez les pourcentages lorsque la stabilité de la mise en page SSR est importante.
+`Trigger` expose `aria-expanded`, appelle d’abord votre `onClick` et ne bascule pas si ce gestionnaire
+appelle `preventDefault()`.
 
 Ark conserve le déplacement au pointeur, le redimensionnement avec les flèches, l’état de focus et les objets details des rappels : `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)` et `onExpand(details)`.
 
@@ -129,7 +155,9 @@ Le repli et le déploiement des panneaux suivent immédiatement les tailles Ark.
 
 ### Zone de défilement personnalisée
 
-Conservez le défilement natif par défaut ou composez `ScrollArea` dans `Sidebar.Content` lorsque l’application nécessite un curseur personnalisé et un fondu de bord facultatif. Désactivez le débordement extérieur afin que `ScrollArea.Viewport` reste l’unique conteneur de défilement.
+Le défilement natif est le choix par défaut. Si vous avez besoin d’un curseur personnalisé ou d’un
+fondu en bordure, placez un `ScrollArea` dans `Sidebar.Content`. Désactivez le débordement de la zone
+extérieure pour que `ScrollArea.Viewport` soit l’unique conteneur de défilement.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/custom-scroll-area.tsx"
@@ -137,19 +165,12 @@ Conservez le défilement natif par défaut ou composez `ScrollArea` dans `Sideba
   ```
 </PreviewFrame>
 
-### Navigation dans un Drawer mobile
-
-Utilisez `Drawer` pour une navigation en overlay sur les écrans compacts. Laissez ses `Header`, `Body` et `Footer` gérer la disposition mobile, et réutilisez les parties de navigation Sidebar dans ces régions uniquement lorsqu’un style partagé est utile. Réservez `Panel`, `Inset`, `ResizeTrigger`, `Trigger` et `useSidebar()` au parcours pour ordinateur.
-
-<PreviewFrame>
-  ```tsx preview file="../../en/docs/_snippets/sidebar/mobile-drawer-navigation.tsx"
-
-  ```
-</PreviewFrame>
-
 ### Disposition persistante sur ordinateur
 
-Conservez la largeur pour ordinateur hors du composant en contrôlant `size`, en répercutant les mises à jour pendant le déplacement depuis `onResize(details)` et en enregistrant la dernière valeur validée depuis `onResizeEnd(details)`. Splitter reste ainsi la source de vérité pour la disposition, et la migration de Sidebar paraît aussi robuste que dans shadcn.
+Conservez la largeur du volet sur ordinateur en dehors du composant. Contrôlez `size`, mettez-le à
+jour pendant le déplacement avec `onResize(details)`, puis enregistrez la valeur finale dans
+`onResizeEnd(details)`. `Splitter` reste responsable de la mise en page et la largeur choisie est
+retrouvée à la prochaine visite.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/persisted-layout.tsx"
@@ -159,7 +180,10 @@ Conservez la largeur pour ordinateur hors du composant en contrôlant `size`, en
 
 ### Enveloppe d’application recommandée
 
-Composez `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible` et `Menu` directement dans les parties sémantiques de Sidebar. Leur état, leur focus, le positionnement de leurs fenêtres contextuelles et leurs animations restent gérés par les primitives moduix correspondantes. La liste étendue des projets et les groupes de navigation supplémentaires illustrent également le défilement dans `Sidebar.Content`. `Sidebar.Tooltip` maintient le parcours du panneau d’icônes replié compact sans introduire de gestionnaire d’infobulles propre à Sidebar.
+Placez `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible` et `Menu` dans les parties
+Sidebar correspondantes. Chaque primitive moduix continue de gérer son état, le focus, le
+positionnement de sa fenêtre contextuelle et ses animations. L’exemple montre aussi une longue liste
+de projets défilant dans `Sidebar.Content` et des infobulles pour la rangée d’icônes repliée.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
@@ -179,7 +203,11 @@ Transmettez `side="right"` et affichez `Inset`, `Trigger`, `ResizeTrigger`, puis
 
 ### Sélection de l’espace de travail
 
-Utilisez `Select.Trigger asChild` avec `Sidebar.MenuButton`. Enveloppez le texte et les indicateurs dans `Sidebar.Label`, puis marquez l’ancre visuelle compacte avec `data-sidebar-icon` afin que le repli ne nécessite aucun JavaScript personnalisé. Le `Select.Indicator` enveloppé s’aligne sur le bord de fin. L’exemple associe un sélecteur d’espace de travail à une navigation classique, une zone de contenu défilable et un menu de compte.
+Utilisez `Select.Trigger asChild` avec `Sidebar.MenuButton`. Placez le texte et les indicateurs dans
+`Sidebar.Label`, puis marquez le repère visuel compact avec `data-sidebar-icon`. Le volet peut alors
+se replier sans JavaScript personnalisé et le `Select.Indicator` enveloppé reste aligné à la fin de
+la ligne. L’exemple associe un sélecteur d’espace de travail à une navigation, une zone de contenu
+défilable et un menu de compte.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
@@ -189,7 +217,7 @@ Utilisez `Select.Trigger asChild` avec `Sidebar.MenuButton`. Enveloppez le texte
 
 ### Personnalisation avancée
 
-Contournez les contraintes de panneau par défaut de Sidebar en transmettant directement `panels` à Ark tout en conservant une composition Sidebar explicite. Utilisez `Splitter` si la disposition nécessite également des id d’inset personnalisés, plus de deux panneaux, ou les API du provider et du registre.
+Utilisez directement `Splitter` lorsque la disposition nécessite d’autres contraintes de panneau, des id d’inset personnalisés, plus de deux panneaux, ou les API du provider et du registre.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/custom-sizes.tsx"
@@ -199,9 +227,9 @@ Contournez les contraintes de panneau par défaut de Sidebar en transmettant dir
 
 ## Styles
 
-Le panneau de navigation utilise les tokens card, tandis que l’inset utilise l’arrière-plan de l’application. Les données de panneau par défaut configurent une barre de `3rem`. Dans les panneaux repliés, `Sidebar.Label` et les libellés de groupe sont retirés de la disposition avec un modèle visuellement masqué, les menus imbriqués et `Sidebar.Input` sont cachés, et les SVG ainsi que les éléments portant `data-sidebar-icon` sont centrés. Les libellés restent accessibles aux technologies d’assistance sans occuper de place dans la disposition flex. Marquez les ancres non SVG, comme Avatar, le libellé d’espace de travail Select ou la marque, avec `data-sidebar-icon` ; leurs dimensions propres sont conservées. Placez dans `Sidebar.Label` le texte, les valeurs, les libellés et les indicateurs repliables qui doivent quitter la disposition visuelle dans le panneau replié. Les éléments terminaux des groupes et des menus sont automatiquement masqués en mode icônes uniquement.
+Le panneau de navigation utilise les tokens card, tandis que l’inset utilise l’arrière-plan de l’application. Les données de panneau par défaut configurent une barre de `3rem`. Dans les panneaux repliés, `Sidebar.Label` et les libellés de groupe sont retirés de la disposition avec un modèle visuellement masqué, les menus imbriqués et `Sidebar.Input` sont cachés, et les SVG ainsi que les éléments portant `data-sidebar-icon` sont centrés. Les libellés restent accessibles aux technologies d’assistance sans occuper de place dans la disposition flex. Marquez les ancres non SVG, comme Avatar, le libellé d’espace de travail Select ou la marque, avec `data-sidebar-icon` ; leurs dimensions propres sont conservées. Placez dans `Sidebar.Label` le texte, les valeurs, les libellés et les indicateurs repliables qui doivent quitter la disposition visuelle dans le panneau replié. Les éléments terminaux des groupes et des menus sont automatiquement masqués en mode icônes uniquement. Les boutons de menu et de sous-menu tronquent leur texte direct à toute largeur de Sidebar. Utilisez `Sidebar.Label` lorsque le texte, les valeurs, les badges ou les indicateurs doivent aussi quitter la barre repliée.
 
-La largeur du panneau relève de l’état Ark et non du CSS visuel. Redéfinissez `panels`, `defaultSize` et le `size` contrôlé pour personnaliser les largeurs déployée, minimale, maximale et repliée. `panelId` modifie l’id de navigation par défaut ; utilisez directement `Splitter` pour un id d’inset personnalisé ou plus de deux panneaux. Utilisez les variables publiques `--moduix-sidebar-*` pour les espacements internes, les dimensions des éléments, les couleurs et le décalage vertical du déclencheur.
+La largeur du panneau relève de l’état Ark et non du CSS visuel. Redéfinissez `defaultSize` et le `size` contrôlé pour modifier la largeur actuelle de Sidebar ; utilisez `Splitter` lorsque les contraintes déployée, minimale, maximale ou repliée doivent différer. `panelId` modifie l’id de navigation par défaut. Utilisez les variables publiques `--moduix-sidebar-*` pour les espacements internes, les dimensions des éléments, les couleurs et le décalage vertical du déclencheur.
 
 Le déclencheur flottant se place à l’intersection de la ligne de redimensionnement et d’un séparateur de topbar d’inset typique, sans recouvrir l’en-tête de navigation. Son décalage par défaut de `40px` convient à un topbar d’inset de `3.5rem` ; redéfinissez `--moduix-sidebar-trigger-offset-y` pour une autre hauteur d’en-tête. L’interface de redimensionnement se limite volontairement à une ligne. Sa couleur au repos correspond à la bordure ; au survol et pendant le déplacement, elle se rapproche légèrement de `--moduix-color-muted-foreground`, tandis que le focus au clavier utilise la couleur focus-ring de Sidebar. Ne redéfinissez les variables `--moduix-splitter-resize-trigger-line-color-*` que si le produit nécessite un retour visuel plus marqué.
 
@@ -221,6 +249,9 @@ Le déclencheur flottant se place à l’intersection de la ligne de redimension
 
 ### Points d’accroche CSS
 
-Chaque partie sémantique accepte `className` et fournit un hook stable `data-slot="sidebar-*"`. Les parties de l’enveloppe appartenant à Sidebar fournissent aussi `data-scope="sidebar"` et `data-part`, tandis que `Sidebar.Input` et `Sidebar.Separator` conservent volontairement les scopes des primitives de base. Les parties de disposition fondées sur Ark conservent les attributs d’état de Splitter.
+Chaque partie sémantique accepte `className` et expose l’attribut stable `data-slot="sidebar-*"`. Les
+parties d’enveloppe de Sidebar exposent aussi `data-scope="sidebar"` et `data-part`. `Sidebar.Input`
+et `Sidebar.Separator` conservent les scopes de leurs primitives de base, et les parties de
+disposition Ark conservent les attributs d’état de Splitter.
 
 `Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`. La racine, le panneau, l’inset, le déclencheur de redimensionnement et le déclencheur flottant fournissent `data-side`. `MenuButton` et `MenuSubButton` fournissent `data-active`, `MenuButton` fournit `data-size`, et les parties d’enveloppe supplémentaires conservent des hooks stables `data-slot="sidebar-*"` pour les dispositions ou thèmes personnalisés. L’état de redimensionnement reste disponible avec les attributs Ark `data-focus`, `data-dragging`, `data-disabled` et `data-orientation`.

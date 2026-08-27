@@ -76,6 +76,7 @@ export * from './components/switch';
 export * from './components/tag';
 export * from './components/tags-input';
 export * from './components/table';
+export * from './components/toc';
 export * from './components/tabs';
 export * from './components/text';
 export * from './components/textarea';

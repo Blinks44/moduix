@@ -180,7 +180,7 @@ up while scaling it down, leaving a visible edge behind the front drawer. Tune t
 Direction-specific `transform-origin` is applied outside the nested state so closing a front drawer
 does not snap the parent between transform origins during its return animation.
 
-Public theme variables are declared in `packages/react/src/styles/variables-moduix.css`.
+Public theme variables are declared in `packages/foundation/src/styles/variables-moduix.css`.
 
 ## Intentional sugar and differences from upstream
 

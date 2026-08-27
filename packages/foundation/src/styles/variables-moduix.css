@@ -3073,6 +3073,43 @@
   --moduix-table-sticky-header-z-index: initial; /* 3 */
   --moduix-table-sticky-intersection-z-index: initial; /* 4 */
 
+  /* TableOfContents */
+  --moduix-table-of-contents-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-table-of-contents-focus-ring-color: initial; /* var(--moduix-color-ring) */
+  --moduix-table-of-contents-focus-ring-width: initial; /* var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm)) */
+  --moduix-table-of-contents-gap: initial; /* var(--moduix-spacing-6) */
+  --moduix-table-of-contents-indicator-bg: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-table-of-contents-indicator-radius: initial; /* var(--moduix-radius-full) */
+  --moduix-table-of-contents-indicator-track-bg: initial; /* var(--moduix-color-border) */
+  --moduix-table-of-contents-indicator-width: initial; /* var(--moduix-border-width-md) */
+  --moduix-table-of-contents-link-color: initial; /* var(--moduix-color-muted-foreground) */
+  --moduix-table-of-contents-link-color-active: initial; /* var(--moduix-color-foreground) */
+  --moduix-table-of-contents-link-color-hover: initial; /* var(--moduix-color-foreground) */
+  --moduix-table-of-contents-link-font-size: initial; /* var(--moduix-text-sm) */
+  --moduix-table-of-contents-link-font-weight-active: initial; /* var(--moduix-weight-medium) */
+  --moduix-table-of-contents-link-indent: initial; /* var(--moduix-spacing-2) */
+  --moduix-table-of-contents-link-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-table-of-contents-link-padding-x: initial; /* var(--moduix-spacing-1) */
+  --moduix-table-of-contents-link-padding-y: initial; /* var(--moduix-spacing-1) */
+  --moduix-table-of-contents-link-radius: initial; /* var(--moduix-radius-sm) */
+  --moduix-table-of-contents-list-gap: initial; /* var(--moduix-spacing-0-5) */
+  --moduix-table-of-contents-list-padding-start: initial; /* var(--moduix-spacing-1) */
+  --moduix-table-of-contents-rail-color: initial; /* var(--moduix-color-border) */
+  --moduix-table-of-contents-nav-bg: initial; /* var(--moduix-color-card) */
+  --moduix-table-of-contents-nav-border-color: initial; /* var(--moduix-color-border) */
+  --moduix-table-of-contents-nav-border-width: initial; /* var(--moduix-border-width-sm) */
+  --moduix-table-of-contents-nav-max-height: initial; /* calc(100dvh - 2rem) */
+  --moduix-table-of-contents-nav-min-width: initial; /* 12rem */
+  --moduix-table-of-contents-nav-padding: initial; /* var(--moduix-spacing-4) */
+  --moduix-table-of-contents-nav-radius: initial; /* var(--moduix-radius-lg) */
+  --moduix-table-of-contents-nav-top: initial; /* var(--moduix-spacing-4) */
+  --moduix-table-of-contents-nav-width: initial; /* 16rem */
+  --moduix-table-of-contents-title-color: initial; /* var(--moduix-color-foreground) */
+  --moduix-table-of-contents-title-font-size: initial; /* var(--moduix-text-sm) */
+  --moduix-table-of-contents-title-font-weight: initial; /* var(--moduix-weight-semibold) */
+  --moduix-table-of-contents-title-line-height: initial; /* var(--moduix-line-height-text-sm) */
+  --moduix-table-of-contents-title-margin-bottom: initial; /* var(--moduix-spacing-2) */
+
   /* Tabs */
   --moduix-tabs-bg: initial; /* var(--moduix-color-background) */
   --moduix-tabs-border-color: initial; /* var(--moduix-color-border) */

@@ -5,8 +5,6 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { Avatar } from '@/components/avatar';
 import { Button } from '@/components/button';
 import { Collapsible } from '@/components/collapsible';
-import { Drawer } from '@/components/drawer';
-import { Input } from '@/components/input';
 import { Menu } from '@/components/menu';
 import { ScrollArea } from '@/components/scroll-area';
 import { Select } from '@/components/select';
@@ -42,17 +40,6 @@ const workspaces = createListCollection({
     { label: 'Personal', value: 'personal' },
   ],
 });
-
-const customPanels = [
-  {
-    id: 'sidebar',
-    minSize: '3rem',
-    maxSize: '17rem',
-    collapsible: true,
-    collapsedSize: '3rem',
-  },
-  { id: 'content' },
-];
 
 type SidebarSize = NonNullable<ComponentProps<typeof Sidebar.Root>['size']>;
 
@@ -395,78 +382,6 @@ function ScrollAreaNavigation() {
   );
 }
 
-function MobileDrawerNavigation() {
-  return (
-    <nav className={styles.mobileNavigation} aria-label="Primary">
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-        <Sidebar.GroupAction aria-label="Create workspace item" title="Create workspace item">
-          <PlusIcon />
-        </Sidebar.GroupAction>
-        <Sidebar.GroupContent>
-          <Sidebar.Menu>
-            <Sidebar.MenuItem>
-              <Sidebar.MenuButton active>
-                <FolderOpenIcon />
-                <Sidebar.Label>Overview</Sidebar.Label>
-              </Sidebar.MenuButton>
-              <Sidebar.MenuBadge>3</Sidebar.MenuBadge>
-            </Sidebar.MenuItem>
-            <Sidebar.MenuItem>
-              <Collapsible defaultOpen className={styles.collapsible}>
-                <Collapsible.Trigger asChild>
-                  <Sidebar.MenuButton>
-                    <FolderIcon />
-                    <Sidebar.Label>Projects</Sidebar.Label>
-                    <Collapsible.Indicator />
-                  </Sidebar.MenuButton>
-                </Collapsible.Trigger>
-                <Sidebar.MenuAction aria-label="Rename project group" title="Rename project group">
-                  <PencilIcon />
-                </Sidebar.MenuAction>
-                <Collapsible.Content>
-                  <Sidebar.MenuSub>
-                    <Sidebar.MenuSubItem>
-                      <Sidebar.MenuSubButton href="#website">Website</Sidebar.MenuSubButton>
-                    </Sidebar.MenuSubItem>
-                    <Sidebar.MenuSubItem>
-                      <Sidebar.MenuSubButton href="#mobile">Mobile app</Sidebar.MenuSubButton>
-                    </Sidebar.MenuSubItem>
-                  </Sidebar.MenuSub>
-                </Collapsible.Content>
-              </Collapsible>
-            </Sidebar.MenuItem>
-            <Sidebar.MenuItem>
-              <Sidebar.MenuButton>
-                <FileIcon />
-                <Sidebar.Label>Documents</Sidebar.Label>
-              </Sidebar.MenuButton>
-            </Sidebar.MenuItem>
-            <Sidebar.MenuItem>
-              <Sidebar.MenuButton>
-                <FolderIcon />
-                <Sidebar.Label>Team</Sidebar.Label>
-              </Sidebar.MenuButton>
-              <Sidebar.MenuBadge>12</Sidebar.MenuBadge>
-            </Sidebar.MenuItem>
-          </Sidebar.Menu>
-        </Sidebar.GroupContent>
-      </Sidebar.Group>
-      <Sidebar.Group>
-        <Sidebar.GroupLabel>Library</Sidebar.GroupLabel>
-        <Sidebar.Menu>
-          <Sidebar.MenuItem>
-            <Sidebar.MenuButton>
-              <FileIcon />
-              <Sidebar.Label>Docs</Sidebar.Label>
-            </Sidebar.MenuButton>
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
-      </Sidebar.Group>
-    </nav>
-  );
-}
-
 export const Basic: Story = {
   args: {
     onCollapse: fn<NonNullable<ComponentProps<typeof Sidebar>['onCollapse']>>(),
@@ -564,7 +479,7 @@ export const CustomStyling: Story = {
 
 export const CustomSizes: Story = {
   render: () => (
-    <Sidebar panels={customPanels} defaultSize={['14rem']} className={styles.demo}>
+    <Sidebar defaultSize={['14rem']} className={styles.demo}>
       <Sidebar.Panel>
         <SidebarNavigation />
       </Sidebar.Panel>
@@ -674,53 +589,6 @@ export const WithScrollArea: Story = {
     await waitFor(() => {
       expect(thumb.getBoundingClientRect().width).toBeGreaterThan(widthBeforeHover);
     });
-  },
-};
-
-export const MobileDrawerComposition: Story = {
-  render: () => (
-    <Drawer.Root swipeDirection="start">
-      <Drawer.Trigger asChild>
-        <Button variant="outline" className={styles.mobileTrigger}>
-          Open mobile navigation
-        </Button>
-      </Drawer.Trigger>
-      <Drawer.Backdrop />
-      <Drawer.Positioner>
-        <Drawer.Content className={styles.mobileDrawer} draggable={false}>
-          <Drawer.Header className={styles.mobileDrawerHeader}>
-            <Drawer.Title>Navigation</Drawer.Title>
-            <Drawer.CloseIcon />
-            <Drawer.Description>
-              Use Drawer for compact-screen overlay navigation.
-            </Drawer.Description>
-          </Drawer.Header>
-          <Drawer.Body className={styles.mobileDrawerBody}>
-            <Input.Root
-              aria-label="Search workspace"
-              className={styles.mobileDrawerSearch}
-              placeholder="Search"
-              size="sm"
-            />
-            <MobileDrawerNavigation />
-          </Drawer.Body>
-          <Drawer.Footer className={styles.mobileDrawerFooter}>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <AccountMenu />
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
-          </Drawer.Footer>
-        </Drawer.Content>
-      </Drawer.Positioner>
-    </Drawer.Root>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Open mobile navigation' }));
-    await expect(
-      await within(canvasElement.ownerDocument.body).findByText('Navigation'),
-    ).toBeVisible();
   },
 };
 

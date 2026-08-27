@@ -407,6 +407,11 @@
   },
   {
     "type": "file",
+    "name": "table-of-contents",
+    "tag": "component"
+  },
+  {
+    "type": "file",
     "name": "tabs",
     "tag": "component"
   },

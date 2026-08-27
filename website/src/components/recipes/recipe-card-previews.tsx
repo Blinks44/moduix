@@ -20,22 +20,6 @@ function AppHeaderCardPreview() {
   );
 }
 
-function MobileDrawerNavigationCardPreview() {
-  return (
-    <RecipeCardPreview>
-      <div className={styles.mobileShell}>
-        <span className={styles.mobileTopBar} />
-        <div className={styles.mobileDrawer}>
-          <span className={styles.drawerLabel} />
-          <span className={styles.drawerLink} />
-          <span className={styles.drawerLink} />
-          <span className={styles.drawerLink} />
-        </div>
-      </div>
-    </RecipeCardPreview>
-  );
-}
-
 function SidebarDashboardCardPreview() {
   return (
     <RecipeCardPreview>
@@ -261,7 +245,6 @@ export {
   FileUploadManagerCardPreview,
   ForgotPasswordCardPreview,
   LoginSimpleCardPreview,
-  MobileDrawerNavigationCardPreview,
   ParallaxCardCardPreview,
   ResetPasswordCardPreview,
   SidebarDashboardCardPreview,

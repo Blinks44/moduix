@@ -337,6 +337,7 @@
     align-items: center;
     width: 100%;
     min-width: 0;
+    overflow: hidden;
     border: var(--moduix-sidebar-menu-button-border-width, 0) solid transparent;
     border-radius: var(--moduix-sidebar-menu-button-radius, var(--moduix-radius-md));
     background-color: transparent;
@@ -345,6 +346,8 @@
     font: inherit;
     text-align: start;
     text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
     transition:
       background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
@@ -501,6 +504,29 @@
       var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs)) +
         var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 2
     );
+
+    > [data-slot='sidebar-menu-sub-label'] {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .menuItem:has(.menuAction):has(.menuBadge) {
+    .menuButton {
+      padding-inline-end: calc(
+        var(--moduix-sidebar-menu-action-size, var(--moduix-size-xs)) +
+          var(--moduix-sidebar-menu-badge-min-width, 1.5rem) +
+          var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 3
+      );
+    }
+
+    .menuAction {
+      inset-inline-end: calc(
+        var(--moduix-sidebar-menu-badge-min-width, 1.5rem) +
+          var(--moduix-sidebar-menu-button-padding-x, var(--moduix-spacing-2)) * 2
+      );
+    }
   }
 
   .panel[data-state='collapsed'] .menuItem:has(.menuAction) .menuButton,

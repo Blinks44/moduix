@@ -20,7 +20,6 @@ type SidebarConfig = {
 };
 type SidebarRootProps = Omit<ComponentProps<typeof Splitter.Root>, 'orientation' | 'panels'> & {
   panelId?: string;
-  panels?: ComponentProps<typeof Splitter.Root>['panels'];
   side?: SidebarSide;
 };
 type SidebarPanelProps = Omit<ComponentProps<typeof Splitter.Panel>, 'id'>;
@@ -73,7 +72,7 @@ function toggleSidebarPanel(splitter: ReturnType<typeof useSplitterContext>, pan
 
 const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootProps>(
   function SidebarRoot(
-    { className, panels, defaultSize, panelId = 'sidebar', side = 'left', ...props },
+    { className, defaultSize, panelId = 'sidebar', side = 'left', ...props },
     ref,
   ) {
     return (
@@ -81,7 +80,7 @@ const SidebarRoot = forwardRef<ComponentRef<typeof Splitter.Root>, SidebarRootPr
         <Splitter.Root
           {...props}
           ref={ref}
-          panels={panels ?? getDefaultPanels(side, panelId)}
+          panels={getDefaultPanels(side, panelId)}
           defaultSize={defaultSize ?? getDefaultSidebarSize(side)}
           orientation="horizontal"
           data-side={side}
@@ -164,7 +163,7 @@ const SidebarResizeTrigger = forwardRef<
       data-slot="sidebar-resize-trigger"
       className={clsx(styles.resizeTrigger, normalizeClassName(className))}
     >
-      {children === undefined ? null : children}
+      {children}
     </Splitter.ResizeTrigger>
   );
 });
@@ -473,7 +472,7 @@ const SidebarMenuSubButton = forwardRef<
     active?: boolean;
   }
 >(function SidebarMenuSubButton(
-  { active = false, className, 'aria-current': ariaCurrent, ...props },
+  { active = false, children, className, 'aria-current': ariaCurrent, ...props },
   ref,
 ) {
   return (
@@ -486,7 +485,13 @@ const SidebarMenuSubButton = forwardRef<
       data-active={active ? '' : undefined}
       className={clsx(styles.menuSubButton, normalizeClassName(className))}
       {...props}
-    />
+    >
+      {typeof children === 'string' ? (
+        <span data-slot="sidebar-menu-sub-label">{children}</span>
+      ) : (
+        children
+      )}
+    </ark.a>
   );
 });
 

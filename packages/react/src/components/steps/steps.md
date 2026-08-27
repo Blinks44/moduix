@@ -128,7 +128,7 @@ Important data/state hooks: `data-scope="steps"`, `data-part`, `data-orientation
 
 ## Defaults and styling
 
-The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Vertical layouts place navigation beside content on wide screens and above it below `40rem`. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/react/src/styles/variables-moduix.css`.
+The CSS keeps Moduix density, tokens, focus rings, rounded indicators, connector behavior, and button styling while using Ark state attributes. Vertical layouts place navigation beside content on wide screens and above it below `40rem`. Public styling uses `data-slot` hooks and `--moduix-steps-*` variables in `packages/foundation/src/styles/variables-moduix.css`.
 
 Root class names apply to both `Steps.Root` and `Steps.RootProvider`. `Steps.Progress` renders a track/fill through CSS using the Ark `--percent` runtime variable. Incomplete trigger text styles target Ark `data-incomplete`; completed triggers keep normal inherited text color unless consumers override the state hooks.
 

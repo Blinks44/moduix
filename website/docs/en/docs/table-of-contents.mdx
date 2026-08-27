@@ -1,0 +1,156 @@
+---
+title: Table of Contents
+component: table-of-contents
+description: Keep an accessible table of contents in sync with the section a reader is viewing.
+---
+
+import * as TocDocs from '@/components/examples/toc';
+
+<style>{TocDocs.tocExampleCss}</style>
+
+## API Reference
+
+<PrimitiveReference href="https://ark-ui.com/docs/components/toc" />
+
+## Basic
+
+Pass the headings you want to track in `items`. Each `item.value` must match a heading `id`, and the same item is rendered by `Item` and `Link`. This example uses its own scrollable reading pane, so `scrollEl` keeps tracking and link navigation inside the preview.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table-of-contents/basic.tsx"
+
+```
+</PreviewFrame>
+
+## Install with shadcn
+
+<ShadcnInstall packageName="table-of-contents" />
+
+## Anatomy
+
+```text
+Toc
+├─ Toc.Content
+└─ Toc.Nav
+   ├─ Toc.Title
+   └─ Toc.List
+      ├─ Toc.Indicator (optional)
+      └─ Toc.Item[item]
+         └─ Toc.Link
+            └─ Toc.Rail (optional)
+
+Toc.RootProvider
+└─ same part tree connected to useToc()
+```
+
+| Part                                   | Role                                                               |
+| -------------------------------------- | ------------------------------------------------------------------ |
+| `Toc`                      | Creates Ark tracking state from the heading items.                 |
+| `Toc.Content`              | Article containing headings whose IDs match item values.           |
+| `Toc.Nav`                  | Navigation region linked to the title.                             |
+| `Toc.Title`                | Accessible name and visible heading for the navigation.            |
+| `Toc.List`                 | List that contains the heading links and optional indicator.       |
+| `Toc.Item`                 | One heading item with Ark depth and active-state attributes.       |
+| `Toc.Link`                 | Same-page link that scrolls to its matching heading.               |
+| `Toc.Indicator`            | Subtle marker that follows the active item in the list.            |
+| `Toc.RootProvider`         | Connects parts to externally created tracking state.               |
+| `Toc.Rail`                 | Optional SVG branch that connects neighbouring heading depths.     |
+
+## Composition
+
+### Recommended composition
+
+Create one item for every heading you want to track. `value` is the heading ID without `#`, and `depth` is its heading level. By default, the root observes the page viewport; use `scrollEl` when the content lives in its own scroll container.
+
+Ark manages `activeIds`, `defaultActiveIds`, `onActiveChange(details)`, `rootMargin`, `threshold`, `autoScroll`, `scrollBehavior`, and `ids`. The callback keeps its Ark shape with `details.activeIds` and `details.activeItems`.
+
+### When to go custom
+
+Use `asChild` on `Toc.Link` when a router link should behave like a same-page anchor. Keep a single semantic anchor as the child so Ark can apply `aria-current`, click handling, and focus props.
+
+Use `useToc()` with `RootProvider` when controls outside the part tree need `activeIds`, `setActiveIds`, `scrollTo`, or `getItemState`. `Toc.Context` and `useTocContext` expose the same state inside the tree.
+
+### Default props
+
+| Prop             | Default                 | Notes                                                     |
+| ---------------- | ----------------------- | --------------------------------------------------------- |
+| `items`          | required                | Pass the tracked heading values and depths.               |
+| `rootMargin`     | `-20px 0px -40% 0px`   | Adjusts the effective observer viewport.                  |
+| `threshold`      | `0`                     | Activates a heading as soon as it intersects.             |
+| `autoScroll`     | `false`                 | Enable only after confirming it cannot scroll an ancestor container. |
+| `scrollBehavior` | `smooth`                | Used for link, API, and navigation-list scrolling.        |
+
+### Behavioral notes
+
+- Active links receive `aria-current="location"` and `data-active`.
+- Items expose `data-depth`, `data-first`, `data-last`, and the numeric `--depth` variable.
+- The indicator uses Ark's measured `--top` and `--height` variables; it is hidden until a non-empty active range exists.
+- By default, the article sits beside a sticky navigation panel; below 48rem, the layout becomes a single column.
+- Set `Toc.Nav` `placement="left"` or `placement="right"` to choose the desktop sidebar side.
+- Moduix disables Ark's automatic scrolling of the navigation list, so tracking does not move the page or an outer container. Turn on `autoScroll` only for a self-contained navigation pane.
+- When reduced motion is enabled, CSS smooth scrolling and indicator transitions are disabled. Also pass `scrollBehavior="auto"` if scrolling triggered by Ark should not animate.
+
+### Production checklist
+
+- Use globally unique, stable heading IDs. Keep every `item.value`, heading `id`, and link hash identical.
+- Let one element own scrolling in an embedded reader, pass it to `scrollEl`, and add `overscroll-behavior: contain` when scrolling must not continue onto the page.
+- Keep `autoScroll` off for document pages and embedded readers. Enable it only after confirming that revealing the active link cannot scroll an ancestor container.
+- Keep `depth` aligned with semantic heading levels. The regular list indents nested items; add `Rail` only when a visual connector makes the hierarchy clearer.
+- Use `RootProvider` only when controls outside the TOC need the same state. Otherwise, `Toc` is the simplest production composition.
+
+## Examples
+
+### Root Provider
+
+Use `useToc()` when another control needs to read or update the current headings.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table-of-contents/root-provider.tsx"
+
+```
+</PreviewFrame>
+
+### Rail
+
+Place `Toc.Rail` inside each link to draw an SVG connector between neighbouring levels. Pass the current, previous, and next depths from the same items array. The active link uses the indicator colour for its connector; do not add `Indicator` to a rail list.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table-of-contents/rail.tsx"
+
+```
+</PreviewFrame>
+
+### With Collapsible
+
+Wrap the navigation list in `Collapsible` when readers should be able to hide the full table of contents. `Toc.Context` supplies the active item for the trigger label and progress ring, while the links continue to target the same reading pane.
+
+<PreviewFrame maxWidth="lg">
+  ```tsx preview file="./_snippets/table-of-contents/with-collapsible.tsx"
+
+```
+</PreviewFrame>
+
+## Styling
+
+Style the component through `className`, Ark attributes, moduix `data-slot` hooks, and the public `--moduix-table-of-contents-*` variables.
+
+### CSS Properties
+
+<div className="docs-reference">
+  <Tabs
+    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    className="docs-reference-tabs"
+    contentItemClassName="docs-reference-panel"
+  >
+    <Tab>
+      <TocDocs.TocCssPropertiesPanel />
+    </Tab>
+  </Tabs>
+</div>
+
+### Styling hooks
+
+- `data-slot="toc-root"`, `toc-root-provider`, `toc-content`, `toc-nav`, `toc-title`, `toc-list`, `toc-item`, `toc-link`, `toc-indicator`, and `toc-rail`
+- Ark `data-scope="toc"` and `data-part` on stateful primitive parts
+- `data-active`, `data-depth`, `data-first`, `data-last`, and `--depth` on items and links
+- Ark runtime `--top`, `--left`, `--width`, and `--height` variables on the root

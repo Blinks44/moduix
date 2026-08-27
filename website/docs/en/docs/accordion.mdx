@@ -1,7 +1,7 @@
 ---
 title: Accordion
 component: accordion
-description: A vertically stacked set of interactive headings that each reveal a section of content.
+description: A vertical list of interactive headings, each revealing a section of content.
 ---
 
 import * as AccordionDocs from '@/components/examples/accordion';
@@ -12,11 +12,11 @@ import * as AccordionDocs from '@/components/examples/accordion';
 
 ## Basic
 
-`Accordion` groups related sections behind headings that can be expanded in place. Use it for FAQs,
-settings groups, or filters where people may need to compare sections; use `Collapsible` for one
-standalone disclosure.
+`Accordion` groups related content into expandable sections. It works well for FAQs, settings, and
+filters when users may need to compare several sections. Use `Collapsible` for a single standalone
+expandable section.
 
-Use `Accordion` with Ark-style parts: `Accordion.Item`, `Accordion.ItemTrigger`,
+Use `Accordion` with these Ark-style parts: `Accordion.Item`, `Accordion.ItemTrigger`,
 `Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
 
 <PreviewFrame maxWidth="sm">
@@ -47,82 +47,82 @@ Accordion.RootProvider
 
 | Part                           | Role                                                                                   |
 | ------------------------------ | -------------------------------------------------------------------------------------- |
-| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard behavior.                                        |
-| `Accordion.RootProvider`       | Connects parts to state created with `useAccordion()`.                                 |
-| `Accordion.Item`               | One collapsible item with a required `value`.                                          |
-| `Accordion.ItemTrigger`        | Interactive button that opens or closes the item.                                      |
-| `Accordion.ItemIndicator`      | Visual open/close cue. Defaults to the moduix plus icon when no children are provided. |
-| `Accordion.ItemContent`        | Collapsible content region that keeps Ark size animation behavior intact.              |
-| `Accordion.ItemBody`           | Default inner spacing wrapper for panel content.                                       |
+| `Accordion` / `Accordion.Root` | Controls accordion state and keyboard interaction.                                      |
+| `Accordion.RootProvider`       | Connects the parts to state created with `useAccordion()`.                              |
+| `Accordion.Item`               | A collapsible item with a required `value`.                                            |
+| `Accordion.ItemTrigger`        | An interactive button that opens or closes the item.                                   |
+| `Accordion.ItemIndicator`      | Visual cue for the item's state. Defaults to the moduix plus icon when no children are provided. |
+| `Accordion.ItemContent`        | Collapsible content region that preserves Ark's size-animation behavior.               |
+| `Accordion.ItemBody`           | Inner wrapper that provides default spacing for panel content.                          |
 
 ## Composition
 
 ### Recommended composition
 
-`Accordion` owns keyboard navigation, focus movement, and open item state. Use it for
+`Accordion` manages keyboard navigation, focus movement, and open-item state. Use it for
 `value`, `defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `multiple`,
 `collapsible`, `orientation`, `lazyMount`, `unmountOnExit`, and `ids`.
 
-Stay with `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`, `Accordion.ItemIndicator`,
-`Accordion.ItemContent`, and `Accordion.ItemBody` for the standard Ark composition path.
+For the standard Ark composition, use `Accordion`, `Accordion.Item`, `Accordion.ItemTrigger`,
+`Accordion.ItemIndicator`, `Accordion.ItemContent`, and `Accordion.ItemBody`.
 
 ### Custom composition
 
-Use a custom composition when state must live outside the rendered subtree, surrounding UI needs to
-read it, or you need to replace the default parts.
+Choose a custom composition when state must be created outside the rendered subtree, other UI needs
+access to it, or you need to replace the default parts.
 
-`value` and `defaultValue` are always arrays, including single-open mode. `onValueChange` follows
-the Ark callback shape and exposes the current item values as `details.value`.
+`value` and `defaultValue` are always arrays, even when only one item can be open. `onValueChange`
+keeps the Ark callback shape and exposes the current item values as `details.value`.
 
-Use `Accordion.RootProvider` together with `useAccordion()` from `@moduix/react` when accordion state must be created
-outside the rendered subtree.
+Use `Accordion.RootProvider` with `useAccordion()` from `@moduix/react` when accordion state must
+be created outside the rendered subtree.
 
 Use `Accordion.Context`, `Accordion.ItemContext`, `useAccordionContext()`, and
-`useAccordionItemContext()` from moduix when surrounding UI needs to read root or item state. Item
-state exposes Ark's `expanded`, `focused`, and `disabled` booleans.
+`useAccordionItemContext()` from moduix when surrounding UI needs access to root or item state. Item
+state includes Ark's `expanded`, `focused`, and `disabled` booleans.
 
-`Accordion.Item` requires a stable `value`. Use `disabled` on the item when one section should stay
-present but unavailable.
+`Accordion.Item` requires a stable `value`. Set `disabled` on an item when its section should stay
+visible but unavailable for interaction.
 
 `Accordion.ItemIndicator` is optional. In moduix it renders `PlusIcon` by default when no children
-are provided, but you can replace the indicator content entirely.
+exist, but you can replace the indicator content entirely.
 
-Use `asChild` only when another element must own the rendered node. Keep the Ark part tree visible
-instead of hiding it behind convenience wrappers.
+Use `asChild` only when another element must own the rendered DOM node. Keep the Ark part tree
+explicit instead of hiding it behind convenience wrappers.
 
 ### Default props
 
 | Prop                   | Default    | Notes                                                 |
 | ---------------------- | ---------- | ----------------------------------------------------- |
-| `collapsible`          | `false`    | Keeps one expanded item open until another is chosen. |
-| `lazyMount`            | `false`    | Mounts item content immediately.                      |
-| `multiple`             | `false`    | Allows a single expanded item by default.             |
-| `orientation`          | `vertical` | Uses vertical keyboard and layout behavior.           |
-| `unmountOnExit`        | `false`    | Keeps collapsed content mounted.                      |
-| `value`/`defaultValue` | `[]`       | Values are string arrays, including single-open mode. |
+| `collapsible`          | `false`    | Prevents the open item from closing without opening another one. |
+| `lazyMount`            | `false`    | Renders item content when the accordion mounts.                 |
+| `multiple`             | `false`    | Allows only one expanded item at a time.                        |
+| `orientation`          | `vertical` | Uses vertical layout and keyboard behavior.                     |
+| `unmountOnExit`        | `false`    | Leaves collapsed content mounted.                               |
+| `value`/`defaultValue` | `[]`       | Values are string arrays, even in single-open mode.              |
 
 ### Behavioral notes
 
-Put spacing on `Accordion.ItemBody` instead of on `Accordion.ItemContent`. Ark measurement variables
-drive the open/close animation: `--height` for vertical accordions and `--width` for horizontal
+Put spacing on `Accordion.ItemBody` rather than `Accordion.ItemContent`. Ark measurement variables
+drive the open and close animation: `--height` for vertical accordions and `--width` for horizontal
 accordions.
 
-Each trigger is a native button connected to its content with `aria-expanded`, `aria-controls`, and
-the matching content label. `Enter` or `Space` toggles an item. In vertical orientation, `ArrowDown`
+Each trigger is a native button linked to its content with `aria-expanded`, `aria-controls`, and the
+matching content label. `Enter` or `Space` toggles the item. In vertical orientation, `ArrowDown`
 and `ArrowUp` move between triggers; horizontal orientation uses `ArrowRight` and `ArrowLeft`.
-`Home` and `End` move to the first and last trigger.
+`Home` and `End` move focus to the first and last trigger.
 
-Every styled part forwards its ref and supports `asChild` for cases where another semantic element
-must own the rendered node. Keep trigger replacements keyboard-focusable and button-like.
+Every styled part forwards its ref and supports `asChild` when another semantic element must own the
+rendered node. Keep custom triggers keyboard-focusable and button-like.
 
-When the user requests reduced motion, Accordion removes trigger and indicator transitions and
-reduces panel motion to an effectively instant lifecycle-safe animation.
+When the user prefers reduced motion, Accordion removes trigger and indicator transitions and reduces
+panel motion to an effectively instant animation that preserves Ark's lifecycle.
 
 ## Examples
 
 ### Collapsible
 
-Add `collapsible` when the currently open item should be allowed to close without selecting another item first.
+Set `collapsible` when the open item should be able to close without opening another item.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/collapsible.tsx"
@@ -132,7 +132,8 @@ Add `collapsible` when the currently open item should be allowed to close withou
 
 ### Controlled
 
-Control `value` from React state when the open items need to stay in sync with routing, filters, or surrounding UI.
+Manage `value` with React state when open items need to stay in sync with routing, filters, or
+surrounding UI.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/controlled.tsx"
@@ -143,7 +144,7 @@ Control `value` from React state when the open items need to stay in sync with r
 
 ### Disabled Item
 
-Set `disabled` on an item when it should stay visible in the list but remain unavailable for interaction.
+Set `disabled` on an item when it should remain visible in the list but unavailable for interaction.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/disabled-item.tsx"
@@ -153,7 +154,7 @@ Set `disabled` on an item when it should stay visible in the list but remain una
 
 ### Horizontal
 
-Switch to `orientation="horizontal"` when the accordion should follow a horizontal interaction pattern.
+Set `orientation="horizontal"` when the accordion should use a horizontal interaction pattern.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/horizontal.tsx"
@@ -164,7 +165,8 @@ Switch to `orientation="horizontal"` when the accordion should follow a horizont
 
 ### Lazy Mount
 
-Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and should only render while needed.
+Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive to render and should only
+be mounted when needed.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/lazy-mount.tsx"
@@ -174,7 +176,8 @@ Use `lazyMount` and `unmountOnExit` when hidden panel content is expensive and s
 
 ### Multiple
 
-Use `multiple` when several sections should stay open at the same time instead of collapsing to a single active item.
+Use `multiple` when several sections should stay open at the same time instead of limiting the
+accordion to one active item.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/multiple.tsx"
@@ -185,8 +188,9 @@ Use `multiple` when several sections should stay open at the same time instead o
 
 ### Root Provider
 
-Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the state store must be created outside
-the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for the same store.
+Use `useAccordion()` from `@moduix/react` with `Accordion.RootProvider` when the state store must be
+created outside the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for the
+same store.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/accordion/root-provider.tsx"
@@ -196,8 +200,8 @@ the rendered accordion tree. Do not render `Accordion` or `Accordion.Root` for t
 
 ### Customization
 
-Accordion content can host another Ark-based composite widget. Keep each primitive's part tree
-explicit so keyboard handling and hidden form inputs stay owned by the correct component.
+Accordion content can contain another Ark-based composite widget. Keep each primitive's part tree
+explicit so the right component owns keyboard handling and hidden form inputs.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="./_snippets/accordion/with-slider.tsx"
@@ -208,8 +212,8 @@ explicit so keyboard handling and hidden form inputs stay owned by the correct c
 
 ## Styling
 
-Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
-data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `data-slot` hooks.
+Use `className` on exported parts to change structural styles. For state-based styles, prefer Ark
+data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `data-slot` selectors.
 
 ### CSS Properties
 
@@ -217,11 +221,11 @@ data attributes (`data-state`, `data-disabled`, `data-orientation`) and moduix `
 
 ### Styling hooks
 
-- `data-slot="accordion-root"`, `accordion-root-provider`, `accordion-item`,
+- Stable `data-slot` selectors: `accordion-root`, `accordion-root-provider`, `accordion-item`,
   `accordion-item-trigger`, `accordion-item-indicator`, `accordion-item-content`, and
   `accordion-item-body`.
-- Ark anatomy hooks: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
-- moduix sugar hook: `data-part="item-body"` on `Accordion.ItemBody`.
-- Ark state hooks: `data-state="open|closed"`, `data-disabled`, `data-focus`,
+- Ark part selectors: `data-scope="accordion"` and `data-part="root|item|item-trigger|item-indicator|item-content"`.
+- moduix-specific selector: `data-part="item-body"` on `Accordion.ItemBody`.
+- Ark state selectors: `data-state="open|closed"`, `data-disabled`, `data-focus`,
   `data-controls`, and `data-orientation="horizontal|vertical"`.
 - Ark content variables: `--height` for vertical animation and `--width` for horizontal animation.

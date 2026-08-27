@@ -12,12 +12,6 @@
   { "type": "file", "name": "app-header", "label": "App header", "tag": "panel-top" },
   {
     "type": "file",
-    "name": "mobile-drawer-navigation",
-    "label": "Mobile drawer",
-    "tag": "panel-left-open"
-  },
-  {
-    "type": "file",
     "name": "sidebar-dashboard",
     "label": "Sidebar dashboard",
     "tag": "panel-left"

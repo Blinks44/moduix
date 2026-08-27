@@ -1,0 +1,214 @@
+@layer moduix.components {
+  .root {
+    box-sizing: border-box;
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(
+        var(--moduix-table-of-contents-nav-min-width, 12rem),
+        var(--moduix-table-of-contents-nav-width, 16rem)
+      );
+    gap: var(--moduix-table-of-contents-gap, var(--moduix-spacing-6));
+    color: var(--moduix-table-of-contents-color, var(--moduix-color-foreground));
+    /* Preserve Ark measurements when nested primitives also use --top or --height. */
+    --_moduix-toc-indicator-top: var(--top);
+    --_moduix-toc-indicator-height: var(--height);
+
+    @media (max-width: 48rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .content {
+    min-width: 0;
+    scroll-behavior: smooth;
+
+    &:has(~ .nav[data-placement='left']) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .nav {
+    position: sticky;
+    top: var(--moduix-table-of-contents-nav-top, var(--moduix-spacing-4));
+    align-self: start;
+    max-height: var(--moduix-table-of-contents-nav-max-height, calc(100dvh - 2rem));
+    overflow: auto;
+    padding: var(--moduix-table-of-contents-nav-padding, var(--moduix-spacing-4));
+    border: var(--moduix-table-of-contents-nav-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-table-of-contents-nav-border-color, var(--moduix-color-border));
+    border-radius: var(--moduix-table-of-contents-nav-radius, var(--moduix-radius-lg));
+    background-color: var(--moduix-table-of-contents-nav-bg, var(--moduix-color-card));
+
+    &[data-placement='left'] {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  .root:has(.nav[data-placement='left']) {
+    grid-template-columns: minmax(
+        var(--moduix-table-of-contents-nav-min-width, 12rem),
+        var(--moduix-table-of-contents-nav-width, 16rem)
+      ) minmax(0, 1fr);
+
+    @media (max-width: 48rem) {
+      .content:has(~ .nav[data-placement='left']),
+      .nav[data-placement='left'] {
+        grid-column: auto;
+        grid-row: auto;
+      }
+    }
+  }
+
+  .title {
+    margin: 0 0 var(--moduix-table-of-contents-title-margin-bottom, var(--moduix-spacing-2));
+    color: var(--moduix-table-of-contents-title-color, var(--moduix-color-foreground));
+    font-size: var(--moduix-table-of-contents-title-font-size, var(--moduix-text-sm));
+    font-weight: var(--moduix-table-of-contents-title-font-weight, var(--moduix-weight-semibold));
+    line-height: var(
+      --moduix-table-of-contents-title-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+  }
+
+  .list {
+    position: relative;
+    display: grid;
+    gap: var(--moduix-table-of-contents-list-gap, var(--moduix-spacing-0-5));
+    margin: 0;
+    padding-block: 0;
+    padding-inline-start: var(
+      --moduix-table-of-contents-list-padding-start,
+      var(--moduix-spacing-1)
+    );
+    list-style: none;
+
+    &:has(.indicator)::before {
+      position: absolute;
+      top: var(--moduix-spacing-0-5);
+      bottom: var(--moduix-spacing-0-5);
+      inset-inline-start: 0;
+      width: var(--moduix-table-of-contents-indicator-width, var(--moduix-border-width-md));
+      border-radius: var(--moduix-radius-full);
+      background-color: var(
+        --moduix-table-of-contents-indicator-track-bg,
+        var(--moduix-color-border)
+      );
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  .item {
+    min-width: 0;
+  }
+
+  .link {
+    position: relative;
+    display: block;
+    min-width: 0;
+    padding-block: var(--moduix-table-of-contents-link-padding-y, var(--moduix-spacing-1));
+    padding-inline-end: var(--moduix-table-of-contents-link-padding-x, var(--moduix-spacing-1));
+    padding-inline-start: calc(
+      var(--moduix-table-of-contents-link-padding-x, var(--moduix-spacing-1)) +
+        var(--moduix-table-of-contents-indicator-width, var(--moduix-border-width-md)) +
+        var(--moduix-spacing-2) +
+        max(
+          0px,
+          calc(
+            (var(--depth) - 2) *
+              var(--moduix-table-of-contents-link-indent, var(--moduix-spacing-2))
+          )
+        )
+    );
+    overflow: hidden;
+    border-radius: var(--moduix-table-of-contents-link-radius, var(--moduix-radius-sm));
+    color: var(--moduix-table-of-contents-link-color, var(--moduix-color-muted-foreground));
+    font-size: var(--moduix-table-of-contents-link-font-size, var(--moduix-text-sm));
+    line-height: var(
+      --moduix-table-of-contents-link-line-height,
+      var(--moduix-line-height-text-sm)
+    );
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    outline: none;
+    transition: color var(--moduix-transition-default);
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--moduix-table-of-contents-link-color-hover, var(--moduix-color-foreground));
+      }
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0
+        var(
+          --moduix-table-of-contents-focus-ring-width,
+          var(--moduix-focus-ring-inset-width, var(--moduix-border-width-sm))
+        )
+        var(--moduix-table-of-contents-focus-ring-color, var(--moduix-color-ring));
+    }
+
+    &[data-active] {
+      color: var(--moduix-table-of-contents-link-color-active, var(--moduix-color-foreground));
+      font-weight: var(
+        --moduix-table-of-contents-link-font-weight-active,
+        var(--moduix-weight-medium)
+      );
+
+      .rail {
+        color: var(--moduix-table-of-contents-indicator-bg, var(--moduix-color-muted-foreground));
+        opacity: 0.7;
+        translate: 0 var(--moduix-spacing-0-5);
+      }
+    }
+
+    &:has(.rail) {
+      overflow: visible;
+    }
+  }
+
+  .indicator {
+    z-index: 1;
+    top: calc(var(--_moduix-toc-indicator-top) + var(--moduix-spacing-0-5));
+    inset-inline-start: 0;
+    width: var(--moduix-table-of-contents-indicator-width, var(--moduix-border-width-md));
+    height: calc(var(--_moduix-toc-indicator-height) - var(--moduix-spacing-1));
+    border-radius: var(--moduix-table-of-contents-indicator-radius, var(--moduix-radius-full));
+    background-color: var(
+      --moduix-table-of-contents-indicator-bg,
+      var(--moduix-color-muted-foreground)
+    );
+    opacity: 0.7;
+    pointer-events: none;
+    transition:
+      top var(--moduix-transition-default),
+      height var(--moduix-transition-default);
+  }
+
+  .rail {
+    position: absolute;
+    top: calc(-1 * var(--moduix-spacing-1-5));
+    inset-inline-start: 0;
+    overflow: visible;
+    color: var(--moduix-table-of-contents-rail-color, var(--moduix-color-border));
+    pointer-events: none;
+
+    & :is(line, path) {
+      stroke-width: var(--moduix-border-width-sm);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content {
+      scroll-behavior: auto;
+    }
+
+    .indicator {
+      transition: none;
+    }
+  }
+}
