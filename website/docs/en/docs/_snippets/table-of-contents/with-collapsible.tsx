@@ -118,7 +118,7 @@ function ProgressRing({ index, total }: { index: number; total: number }) {
         fontWeight="600"
         fill="currentColor"
       >
-        {index >= 0 ? index + 1 : '—'}
+        {index >= 0 ? index + 1 : '-'}
       </text>
     </svg>
   );
