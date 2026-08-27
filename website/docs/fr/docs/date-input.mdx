@@ -1,7 +1,7 @@
 ---
 title: Date Input
 component: date-input
-description: Saisie de date segmentée Ark UI pour les dates, les plages, l’édition localisée et les formulaires natifs.
+description: Saisie de date segmentée basée sur Ark UI pour les dates uniques et les plages, avec édition selon la locale et soumission native des formulaires.
 ---
 
 import * as DateInputDocs from '@/components/examples/date-input';
@@ -13,15 +13,15 @@ import * as DateInputDocs from '@/components/examples/date-input';
 ## Choisir le bon composant
 
 - Choisissez **`Input`** pour les valeurs textuelles ordinaires.
-- Choisissez **`DateInput`** lorsque les utilisateurs ont besoin de segments de date accessibles au clavier et de valeurs de formulaire natives.
-- Choisissez **`DatePicker`** lorsqu’ils ont besoin d’un calendrier contextuel. `DateInput` privilégie volontairement
-  le clavier et n’ajoute pas de calendrier.
+- Choisissez **`DateInput`** lorsque les utilisateurs doivent saisir une date au clavier et envoyer sa valeur dans un formulaire natif.
+- Choisissez **`DatePicker`** lorsqu’ils ont besoin d’un calendrier dans une fenêtre contextuelle. `DateInput` privilégie
+  la saisie au clavier et n’inclut pas de calendrier.
 
 ## Exemple de base
 
-Rendez des segments de date adaptés à la locale avec `DateInput.Segments`. Ark gère leur ordre, l’édition au clavier,
-le focus, les espaces réservés et la synchronisation avec le formulaire, tandis que moduix conserve les parties visuelles
-stylées et évite le code répétitif de rendu des segments dans le scénario courant.
+Utilisez `DateInput.Segments` pour afficher les segments de date dans l’ordre de la locale courante. Ark UI gère leur
+ordre, l’édition au clavier, le focus, les espaces réservés et la synchronisation avec le formulaire. moduix fournit
+les éléments visuels avec leur style et évite le code répétitif nécessaire dans le cas courant.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -42,7 +42,7 @@ DateInput.Root
 ├─ DateInput.Label
 ├─ DateInput.Control
 │  └─ DateInput.Segments
-└─ champ natif (automatique)
+└─ champs natifs (automatiques)
 
 Personnalisation avancée :
 
@@ -51,74 +51,74 @@ DateInput.SegmentGroup
    └─ DateInput.Segment
 
 DateInput.RootProvider
-└─ le même arbre de parties connecté au store `useDateInput()`
+└─ le même arbre de parties relié au store créé par `useDateInput()`
 ```
 
 | Partie                         | Rôle |
 | ------------------------------ | ---- |
-| `DateInput` / `DateInput.Root` | Gère la valeur de date, le formatage localisé, le focus des segments et la validation. |
-| `DateInput.RootProvider`       | Connecte les parties à l’état créé avec `useDateInput()`. |
+| `DateInput` / `DateInput.Root` | Gère la valeur de date, le formatage selon la locale, le focus des segments et la validation. |
+| `DateInput.RootProvider`       | Relie les parties au store créé avec `useDateInput()`. |
 | `DateInput.Label`              | Libellé accessible du champ de date. |
 | `DateInput.Control`            | Cadre visuel autour d’un ou plusieurs groupes de segments. |
 | `DateInput.SegmentGroup`       | Regroupe les segments pour un index de date. |
-| `DateInput.Segment`            | Segment de date modifiable ou littéral renvoyé par Ark. |
-| `DateInput.Segments`           | Rend un groupe de segments adapté à la locale pour le scénario courant. |
-| `DateInput.Separator`          | Texte décoratif pour les mises en page de plage. |
-| `DateInput.Context`            | Accès sans balisage à l’état actuel du champ de date. |
-| `DateInput.SegmentContext`     | Utilitaire de rendu Ark pour afficher des segments adaptés à la locale. |
+| `DateInput.Segment`            | Segment de date modifiable ou texte fixe renvoyé par Ark UI. |
+| `DateInput.Segments`           | Affiche un groupe de segments adapté à la locale pour le cas courant. |
+| `DateInput.Separator`          | Texte présenté entre les groupes d’une plage. |
+| `DateInput.Context`            | Accès à l’état actuel du champ sans ajouter de balisage. |
+| `DateInput.SegmentContext`     | Utilitaire de rendu Ark UI pour afficher des segments adaptés à la locale. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `DateInput` sous sa forme racine abrégée. Rendez `DateInput.Segments` dans `DateInput.Control` pour obtenir
-un groupe de segments standard adapté à la locale.
+Utilisez la forme abrégée du composant racine, `DateInput`, plutôt que `DateInput.Root`. Placez `DateInput.Segments`
+dans `DateInput.Control` pour obtenir un groupe de segments standard adapté à la locale.
 
-Le composant racine rend automatiquement les champs natifs nécessaires à l’envoi et à la réinitialisation du formulaire.
-Pour une plage, rendez des `DateInput.Segments` indexés. Un `name="date"` commun envoie `date[0]` et `date[1]` ;
-transmettez un tuple `names` de deux éléments lorsque chaque côté exige un nom de base distinct, par exemple
-`check-in[0]` et `check-out[1]`.
+Le composant racine ajoute automatiquement les champs natifs nécessaires à la soumission et à la réinitialisation du
+formulaire. Pour une plage, utilisez des `DateInput.Segments` indexés. Avec un `name="date"` commun, les noms envoyés
+sont `date[0]` et `date[1]`. Pour utiliser des noms de base différents, transmettez le tuple `names` à deux éléments,
+par exemple `names={['check-in', 'check-out']}`, qui produit `check-in[0]` et `check-out[1]`.
 
 ### Quand créer une composition personnalisée
 
 Utilisez directement `DateInput.SegmentGroup`, `DateInput.SegmentContext` et `DateInput.Segment` lorsque les classes
-ou le rendu doivent varier selon le segment.
-Utilisez `asChild` sur les parties Ark lorsqu’un élément racine personnalisé est nécessaire. L’enfant doit être unique
-et sémantiquement correct.
+ou l’affichage doivent varier selon le segment.
+Utilisez `asChild` sur les parties Ark lorsqu’un élément hôte personnalisé est nécessaire. L’enfant doit être un élément
+unique et sémantiquement adapté.
 Utilisez `ids` lorsqu’un libellé externe, un texte d’aide ou un autre composant doit partager les mêmes identifiants.
 
 ### Propriétés par défaut
 
 | Propriété                         | Valeur par défaut | Remarques |
 | --------------------------------- | ----------------- | --------- |
-| `DateInput` / `DateInput.Root`    | -                 | Aucun comportement local par défaut ; les valeurs Ark s’appliquent. |
-| `DateInput.Segments`              | -                 | Rend un groupe de segments adapté à la locale pour un index. |
+| `DateInput` / `DateInput.Root`    | -                 | Aucun comportement spécifique par défaut ; les valeurs Ark UI s’appliquent. |
+| `DateInput.Segments`              | -                 | Affiche un groupe de segments adapté à la locale pour un index donné. |
 | `DateInput.names`                 | -                 | Deux noms de base pour les champs d’une plage ; Ark ajoute les index. |
-| `DateInput.Separator.aria-hidden` | `true`            | Le texte décoratif est masqué aux technologies d’assistance. |
-| `DateInput.Separator.role`        | `presentation`    | Retire les séparateurs de plage de l’arbre d’accessibilité. |
+| `DateInput.Separator.aria-hidden` | `true`            | Le texte du séparateur est masqué aux technologies d’assistance. |
+| `DateInput.Separator.role`        | `presentation`    | Garde les séparateurs de plage hors de l’arbre d’accessibilité. |
 
 ### Comportement
 
-- Les valeurs sont des objets `DateInputDateValue[]` d’Ark / `@internationalized/date`, et non des chaînes.
-- `onValueChange(details)` conserve l’objet `details` Ark avec `details.value` et `details.valueAsString`.
-- `focused`, `defaultFocused` et `onFocusChange(details)` contrôlent l’état de focus du composant racine.
-- `placeholderValue`, `defaultPlaceholderValue` et `onPlaceholderChange(details)` contrôlent la date de l’espace réservé.
-- `selectionMode="range"` active les groupes de segments indexés et les champs natifs automatiques.
+- Les valeurs sont des objets `DateInputDateValue[]` provenant d’Ark et de `@internationalized/date`, et non des chaînes.
+- `onValueChange(details)` conserve l’objet `details` d’Ark UI avec `details.value` et `details.valueAsString`.
+- `focused`, `defaultFocused` et `onFocusChange(details)` contrôlent le focus de la racine.
+- `placeholderValue`, `defaultPlaceholderValue` et `onPlaceholderChange(details)` contrôlent la date utilisée pour les segments vides.
+- `selectionMode="range"` active les groupes de segments indexés et les champs natifs ajoutés automatiquement.
 - `shouldForceLeadingZeros` détermine si les segments numériques sont complétés par des zéros initiaux.
-- `min`, `max` et `isDateUnavailable` valident les dates confirmées.
+- `min`, `max` et `isDateUnavailable` valident les dates saisies.
 - `locale`, `timeZone`, `hourCycle`, `granularity`, `formatter`, `format`, `translations`, `dir` et
-  `createCalendar` sont transmis à Ark. Utilisez un formateur limité à l’heure avec `granularity="minute"` ou
-  `"second"` lorsque la date n’est pas nécessaire.
+  `createCalendar` sont transmis à Ark UI. Pour une saisie limitée à l’heure, utilisez un formateur configuré sur
+  `granularity="minute"` ou `"second"` lorsque la date n’est pas nécessaire.
 - Importez `useDateInput()`, `useDateInputContext()` et `DateInputDateValue` depuis `@moduix/react`.
-  Utilisez `DateInput.Context` ou `useDateInputContext()` pour lire l’état dans l’arbre, et
-  `DateInput.SegmentContext` pour les segments. Les imports directs depuis Ark restent réservés aux types bas niveau
-  et aux utilitaires que moduix n’exporte pas.
+  Utilisez `DateInput.Context` ou `useDateInputContext()` pour lire l’état dans l’arbre de composants, et
+  `DateInput.SegmentContext` pour personnaliser les segments. Les imports directs depuis Ark UI sont réservés aux types
+  bas niveau et aux utilitaires que moduix n’exporte pas.
 
 ## Exemples
 
 ### État contrôlé
 
-Contrôlez le tableau des dates sélectionnées et mettez-le à jour depuis `details.value`.
+Contrôlez le tableau des dates sélectionnées en le mettant à jour avec `details.value`.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -129,9 +129,9 @@ Contrôlez le tableau des dates sélectionnées et mettez-le à jour depuis `det
 
 </PreviewFrame>
 
-### État désactivé et lecture seule
+### Champ désactivé et lecture seule
 
-Utilisez `disabled` pour empêcher toute interaction. Utilisez `readOnly` lorsque la valeur doit pouvoir recevoir le
+Utilisez `disabled` pour empêcher toute interaction. Utilisez `readOnly` lorsque la valeur doit rester accessible au
 focus sans être modifiable.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
@@ -145,8 +145,8 @@ focus sans être modifiable.
 
 ### État du champ
 
-Placez le champ de date dans `Field` pour fournir le texte de formulaire environnant. Transmettez `required`, `disabled`
-ou `invalid` à `DateInput` lorsque les attributs d’état Ark doivent apparaître sur le champ de date lui-même.
+Placez `DateInput` dans `Field` pour associer le texte d’aide et le message d’erreur au champ. Transmettez `required`,
+`disabled` ou `invalid` directement à `DateInput` lorsque les attributs d’état Ark UI doivent apparaître sur le champ lui-même.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -159,7 +159,7 @@ ou `invalid` à `DateInput` lorsque les attributs d’état Ark doivent apparaî
 
 ### Granularité
 
-Définissez `granularity` lorsque le champ doit inclure des segments d’heure.
+Définissez `granularity` pour ajouter des segments d’heure au champ.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -172,7 +172,7 @@ Définissez `granularity` lorsque le champ doit inclure des segments d’heure.
 
 ### Zéros initiaux
 
-Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doivent pas être complétés.
+Définissez `shouldForceLeadingZeros={false}` si les segments numériques ne doivent pas commencer par des zéros.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -199,8 +199,8 @@ des segments doivent suivre les conventions régionales.
 
 ### Dates minimale, maximale et indisponibles
 
-Utilisez `min`, `max` et `isDateUnavailable` pour marquer comme non valides les dates confirmées qui ne respectent pas
-les règles métier.
+Utilisez `min`, `max` et `isDateUnavailable` pour marquer comme invalides les dates saisies qui ne respectent pas les
+règles de l’application.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -213,8 +213,8 @@ les règles métier.
 
 ### Plage
 
-Utilisez `selectionMode="range"` et transmettez `index` à chaque groupe de segments. moduix génère
-automatiquement les champs natifs indexés.
+Utilisez `selectionMode="range"` et transmettez `index` à chaque groupe de segments. moduix ajoute automatiquement
+les champs natifs avec les index correspondants.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -227,7 +227,7 @@ automatiquement les champs natifs indexés.
 
 ### De droite à gauche
 
-Définissez `dir="rtl"` avec une locale RTL afin de préserver l’ordre et la direction des segments propres à cette locale.
+Définissez `dir="rtl"` avec une locale RTL afin de conserver l’ordre et la direction des segments définis par cette locale.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -240,8 +240,8 @@ Définissez `dir="rtl"` avec une locale RTL afin de préserver l’ordre et la d
 
 ### Root Provider
 
-Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` lorsque les actions d’état doivent se
-trouver hors de l’arbre racine rendu.
+Utilisez `useDateInput()` depuis `@moduix/react` avec `DateInput.RootProvider` lorsque les actions d’état doivent être
+disponibles en dehors de l’arbre qui contient le composant racine.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -254,8 +254,8 @@ trouver hors de l’arbre racine rendu.
 
 ### Heure uniquement
 
-Utilisez un `formatter` limité à l’heure avec une granularité à la minute ou à la seconde lorsque la date ne fait pas
-partie de la valeur modifiée par les utilisateurs.
+Utilisez un `formatter` configuré pour l’heure uniquement, avec une granularité à la minute ou à la seconde, lorsque
+la date ne fait pas partie de la valeur modifiée.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
 
@@ -268,7 +268,7 @@ partie de la valeur modifiée par les utilisateurs.
 
 ### Personnalisation avancée
 
-Utilisez la composition complète des segments lorsque le rendu doit varier selon les données de segment Ark.
+Utilisez la composition complète des segments lorsque l’affichage doit varier selon les données du segment Ark UI.
 `DateInput.Segments` reste le choix par défaut pour un rendu standard.
 
 <style>{DateInputDocs.dateInputExampleCss}</style>
@@ -282,7 +282,7 @@ Utilisez la composition complète des segments lorsque le rendu doit varier selo
 
 ## Styles
 
-La plupart des personnalisations commencent par `--moduix-date-input-width`, `--moduix-date-input-control-width`,
+Pour la plupart des personnalisations, commencez par `--moduix-date-input-width`, `--moduix-date-input-control-width`,
 `--moduix-date-input-border-color`, `--moduix-date-input-radius`, `--moduix-date-input-focus-ring-color` et
 `--moduix-date-input-segment-bg-focus`. Le contrat public complet des variables figure ci-dessous.
 
@@ -305,9 +305,9 @@ La plupart des personnalisations commencent par `--moduix-date-input-width`, `--
 - `data-slot="date-input-root"` sur le composant racine.
 - `data-slot="date-input-label"` sur le libellé.
 - `data-slot="date-input-control"` sur le cadre visuel.
-- `data-slot="date-input-segment-group"` sur chaque groupe de dates.
-- `data-slot="date-input-segment"` sur les segments modifiables et littéraux.
+- `data-slot="date-input-segment-group"` sur chaque groupe de segments.
+- `data-slot="date-input-segment"` sur les segments modifiables et fixes.
 - `data-slot="date-input-hidden-input"` sur le champ natif masqué.
-- `data-slot="date-input-separator"` sur le séparateur de plage auxiliaire de moduix.
-- Les attributs d’état Ark comprennent `data-disabled`, `data-readonly`, `data-invalid` et `data-focus` sur les
-  groupes de contrôle et de segments, ainsi que `data-type`, `data-editable` et `data-placeholder-shown`.
+- `data-slot="date-input-separator"` sur le séparateur de plage fourni par moduix.
+- Les attributs d’état Ark UI comprennent `data-disabled`, `data-readonly`, `data-invalid` et `data-focus` sur le
+  contrôle et les groupes de segments, ainsi que `data-type`, `data-editable` et `data-placeholder-shown`.

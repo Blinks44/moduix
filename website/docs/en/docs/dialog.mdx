@@ -1,7 +1,7 @@
 ---
 title: Dialog
 component: dialog
-description: A modal window for focused workflows, including destructive alert dialog confirmations.
+description: A modal window for focused tasks, including confirmations for destructive actions.
 ---
 
 import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
@@ -12,13 +12,13 @@ import { DialogCssPropertiesPanel } from '@/components/examples/dialog';
 
 ## Choosing the right component
 
-Use `Dialog` for focused forms, confirmations, details, and secondary workflows that stay in the
-current page context. Use `Drawer` when the surface should remain attached to a viewport edge.
+Use `Dialog` for forms, confirmations, details, and secondary tasks that should keep the user in the
+current page context. Use `Drawer` when the panel should remain attached to an edge of the viewport.
 
 ## Basic
 
-Compose the explicit Ark UI structure: `Dialog`, `Dialog.Backdrop`,
-`Dialog.Positioner`, and `Dialog.Content`.
+Build the Ark UI composition explicitly with `Dialog`, `Dialog.Backdrop`, `Dialog.Positioner`, and
+`Dialog.Content`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/basic.tsx"
@@ -35,16 +35,16 @@ Compose the explicit Ark UI structure: `Dialog`, `Dialog.Backdrop`,
 ```text
 Dialog
 ├─ Dialog.Trigger
-└─ Overlay subtree (automatically portalled)
+└─ Overlay content (automatically portalled)
    ├─ Dialog.Backdrop
    └─ Dialog.Positioner
       └─ Dialog.Content
          ├─ Dialog.CloseTrigger or Dialog.CloseIcon
          ├─ Dialog.Title
          ├─ Dialog.Description
-         ├─ Dialog.Header (moduix layout sugar)
-         ├─ Dialog.Body (moduix layout sugar)
-         └─ Dialog.Footer (moduix layout sugar)
+         ├─ Dialog.Header (moduix layout helper)
+         ├─ Dialog.Body (moduix layout helper)
+         └─ Dialog.Footer (moduix layout helper)
 
 Dialog.RootProvider
 └─ the same automatically portalled content tree connected to moduix useDialog()
@@ -55,52 +55,54 @@ Dialog.Context
 
 | Part                     | Role                                                             |
 | ------------------------ | ---------------------------------------------------------------- |
-| `Dialog`                 | Owns dialog open state, focus lifecycle, and dismissal behavior. |
+| `Dialog`                 | Owns the dialog's open state, focus lifecycle, and dismissal behavior. |
 | `Dialog.Trigger`         | Opens the dialog.                                                |
 | `Dialog.Backdrop`        | Optional modal backdrop layer.                                   |
-| `Dialog.Positioner`      | Floating positioner for content placement.                       |
-| `Dialog.Content`         | Dialog surface container.                                        |
+| `Dialog.Positioner`      | Floating container that positions the content.                   |
+| `Dialog.Content`         | Container for the dialog surface.                                |
 | `Dialog.Title`           | Accessible dialog title.                                         |
 | `Dialog.Description`     | Accessible supporting description.                               |
 | `Dialog.CloseTrigger`    | Closes the dialog.                                               |
 | `Dialog.Context`         | Renders children with the current dialog state and methods.      |
 | `Dialog.RootProvider`    | Connects parts to state created with moduix `useDialog()`.       |
 
-Import `useDialog()` when dialog state must live outside the rendered tree. Read state inside
+Import `useDialog()` when dialog state needs to live outside the rendered tree. Read that state in
 reusable children with `Dialog.Context` or `useDialogContext()` from `@moduix/react`.
 
 ## Composition
 
-The root portals `Backdrop` and `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+The root automatically portals `Backdrop` and `Positioner`. Set `portalled={false}` to render them
+inline, or pass `portalRef` to use a custom container. The structural parts stay explicit and can be
+styled individually.
 
 ### Recommended composition
 
-Keep `Backdrop`, `Positioner`, and `Content` explicit. This preserves structural override
-points and matches Ark UI directly. Omit `Backdrop` for non-modal dialogs.
+Keep `Backdrop`, `Positioner`, and `Content` explicit. This gives you structural override points and
+keeps the composition aligned with Ark UI. Leave out `Backdrop` for non-modal dialogs.
 
-Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with one semantic button child.
-`Dialog.CloseIcon` is moduix sugar that composes Ark `CloseTrigger` with the library close button.
+Use `Dialog.Trigger asChild` and `Dialog.CloseTrigger asChild` with a single semantic button child.
+`Dialog.CloseIcon` is a moduix helper that combines Ark `CloseTrigger` with the library close button.
 
 ### When to go custom
 
-Use `open` with `onOpenChange(details)` for React-controlled state. The callback receives an Ark
-detail object, so read `details.open`.
+Use `open` with `onOpenChange(details)` when React should control the dialog state. The callback
+receives an Ark detail object, so read `details.open`.
 
-Use moduix `useDialog()` with `Dialog.RootProvider` when state and methods must live outside the
-rendered dialog tree. Do not render `Dialog` for the same store.
+Use moduix `useDialog()` with `Dialog.RootProvider` when state and methods need to live outside the
+rendered dialog tree. Do not render a second `Dialog` for the same store.
 
-Use `ids` when separately composed parts need stable shared accessibility IDs. Use
-`initialFocusEl` and `finalFocusEl` for explicit focus targets. `role="alertdialog"` models
-destructive or critical confirmation flows.
+Use `ids` when separately composed parts need stable, shared accessibility IDs. Use `initialFocusEl`
+and `finalFocusEl` to choose explicit focus targets. Use `role="alertdialog"` for destructive or
+critical confirmation flows.
 
-Use `lazyMount` and `unmountOnExit` instead of conditionally rendering the root. Use `present` only
-when JavaScript-driven exit animation needs to control mounted state.
+Use `lazyMount` and `unmountOnExit` instead of conditionally rendering the root. Set `present` only
+when a JavaScript-controlled exit animation needs to control whether the content stays mounted.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+By default, portalled overlay content mounts lazily and unmounts after its exit animation. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to `false`
+only when eager initial rendering is needed.
 
 | Surface                  | Default | Notes                                                  |
 | ------------------------ | ------- | ------------------------------------------------------ |
@@ -108,28 +110,27 @@ eager initial rendering is needed.
 
 ### Behavioral notes
 
-- Modal dialogs trap focus, prevent background scrolling, hide underlying content from assistive
-  technology, and restore focus after close.
-- `modal={false}` disables focus trapping and scroll prevention and should omit the backdrop.
+- Modal dialogs trap focus, prevent background scrolling, hide the content behind the dialog from
+  assistive technology, and restore focus after close.
+- `modal={false}` disables focus trapping and scroll prevention. Leave out the backdrop in this mode.
 - `closeOnEscape`, `closeOnInteractOutside`, `trapFocus`, `preventScroll`, `restoreFocus`,
   `persistentElements`, and the outside-interaction callbacks pass through to Ark UI.
-- `Dialog.Title` or root `aria-label` is required for an accessible name.
-- When the operating system requests reduced motion, Dialog shortens its entry and exit animations
-  while preserving Ark UI's presence lifecycle.
-- Keep every rendered close part id unique. The canonical Basic composition uses one
+- `Dialog.Title` or a root `aria-label` is required to give the dialog an accessible name.
+- When the user prefers reduced motion, Dialog shortens its entry and exit animations while
+  preserving Ark UI's presence lifecycle.
+- Every rendered close part needs a unique ID. The canonical Basic composition uses one
   `Dialog.CloseIcon`; if a dialog needs multiple close controls, give the additional parts explicit
   unique `id` values.
-- Nested content receives `data-has-nested` and `--nested-layer-count`. moduix uses those hooks to
-  scale the parent down and offset it downward so the active nested dialog still reads as layered.
-- Open-from-menu and rapid state changes use the controlled `open` contract. Unsaved-change
+- Nested content receives `data-has-nested` and `--nested-layer-count`. moduix uses these hooks to
+  scale the parent down and offset it downward so the active nested dialog still reads as a separate layer.
+- The menu and rapid-state-change examples use the controlled `open` contract. Unsaved-change
   confirmation uses two moduix `useDialog()` stores and intercepts the parent store's `onOpenChange`.
 
 ## Examples
 
 ### Alert Dialog
 
-Use `role="alertdialog"` for critical decisions and keep the safest action available as a close
-trigger.
+Use `role="alertdialog"` for critical decisions, and make the safest action the close trigger.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/alert-dialog.tsx"
@@ -140,7 +141,7 @@ trigger.
 
 ### Confirmation
 
-Intercept the parent dialog close request when unsaved changes should be confirmed first.
+Intercept a close request from the parent dialog when users must confirm unsaved changes first.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/confirmation.tsx"
@@ -151,7 +152,7 @@ Intercept the parent dialog close request when unsaved changes should be confirm
 
 ### Controlled
 
-Use the Ark detail object when synchronizing dialog state with React.
+Use Ark's detail object to keep dialog state in sync with React.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/controlled.tsx"
@@ -171,10 +172,10 @@ Ark UI supports lazy mounting and explicit initial and final focus targets throu
 
 </PreviewFrame>
 
-### Inside Scroll
+### Scrolling the content
 
-Use `ScrollArea` inside `Dialog.Content` when the title and actions should stay visible while the
-body scrolls.
+Place `ScrollArea` inside `Dialog.Content` when the title and actions should remain visible while
+the main content scrolls.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/inside-scroll.tsx"
@@ -183,9 +184,9 @@ body scrolls.
 
 </PreviewFrame>
 
-### Outside Scroll
+### Scrolling the entire dialog
 
-Let `Dialog.Positioner` scroll the entire dialog when a long document should retain its natural
+Let `Dialog.Positioner` scroll the entire dialog when a long document should keep its natural
 content height.
 
 <PreviewFrame maxWidth="lg">
@@ -197,7 +198,7 @@ content height.
 
 ### Multiple Triggers
 
-Give each trigger a `value` and react to `onTriggerValueChange(details)` when one dialog edits
+Give each trigger a `value` and handle `onTriggerValueChange(details)` when one dialog edits
 different records.
 
 <PreviewFrame maxWidth="lg">
@@ -210,7 +211,7 @@ different records.
 ### Nested
 
 Use separate moduix `useDialog()` stores for nested layers. Ark UI provides stack-aware state and CSS
-variables to the parent content; moduix uses them for a receding parent effect that stacks downward.
+variables on the parent content; moduix uses them to make the parent recede and shift downward.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/nested.tsx"
@@ -221,7 +222,7 @@ variables to the parent content; moduix uses them for a receding parent effect t
 
 ### Non-Modal
 
-Set `modal={false}` and omit the backdrop when outside interaction should remain available.
+Set `modal={false}` and omit the backdrop when users should still be able to interact outside the dialog.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/dialog/non-modal.tsx"
@@ -243,7 +244,7 @@ Control `open` from a menu item when a contextual action needs a confirmation di
 
 ### Root Provider and Context
 
-Create state with moduix `useDialog()` when controls live outside the dialog. Read state with
+Create state with moduix `useDialog()` when controls live outside the dialog. Read it with
 `Dialog.Context`, or use `useDialogContext()` inside a reusable React component.
 
 <PreviewFrame maxWidth="lg">
@@ -255,7 +256,7 @@ Create state with moduix `useDialog()` when controls live outside the dialog. Re
 
 ### Advanced Customization
 
-Bypass `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control of every
+Skip `Header`, `Body`, `Footer`, and `CloseIcon` when a custom layout needs direct control of every
 Ark dialog part.
 
 <PreviewFrame maxWidth="lg">
