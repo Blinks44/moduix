@@ -8,15 +8,15 @@ import * as ChartDocs from '@/components/examples/chart';
 
 ## API Reference
 
-Ark UI does not provide a chart primitive. moduix combines Ark factory parts with the
-[TanStack Charts React host](https://tanstack.com/charts/latest/docs/framework/react/reference/chart),
-keeping TanStack's framework-independent definition, marks, scales, interactions, and callbacks.
-TanStack Charts 0.14 requires React 19.
+Ark UI does not include a chart primitive. moduix provides the figure, title, legend, and tooltip
+around the [TanStack Charts React host](https://tanstack.com/charts/latest/docs/framework/react/reference/chart).
+You still define marks, scales, interactions, and callbacks with TanStack Charts. TanStack Charts
+0.14 requires React 19.
 
 ## Basic
 
-Create a definition with TanStack Charts, then render it in `Chart.Plot`. Keep the visible title,
-description, and legend in the root composition, and give the plot a concise `ariaLabel`.
+Create a TanStack definition and pass it to `Chart.Plot`. Add the visible title, description, and
+legend around the plot, then provide a concise `ariaLabel` for people using assistive technology.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/chart/basic.tsx"
@@ -55,9 +55,9 @@ Chart / Chart.Root
 
 ### Recommended composition
 
-Keep a stable TanStack definition outside the component, then compose `Chart.Header`,
-`Chart.Plot`, and `Chart.Legend` inside the callable root. Use TanStack's `barY`, `areaY`, `lineY`,
-stacking, scales, guides, and color channels directly; moduix does not duplicate them as React
+Keep a stable TanStack definition outside the component, then assemble `Chart.Header`,
+`Chart.Plot`, and `Chart.Legend` in the root component. Define `barY`, `areaY`, `lineY`, stacking,
+scales, guides, and color channels directly with TanStack. moduix does not duplicate them as React
 parts.
 
 Use the definition's `color` scale for marks and tooltip swatches. Reuse the corresponding moduix
@@ -79,19 +79,19 @@ variants use the same `<Chart.Plot definition={definition} />` composition.
 
 ### When to go custom
 
-`Chart.Plot` uses a responsive TanStack `motion()` preset by default. Set `motion={false}` for a
-fully static SVG chart, or pass another `renderer` for a custom motion policy. An explicit
-`renderer` takes precedence over `motion`. Use the TanStack canvas or low-level renderer entry
-directly when the surface itself is application-owned.
+`Chart.Plot` uses TanStack's responsive `motion()` preset by default. Set `motion={false}` for a
+static SVG chart, or pass a different `renderer` to control animation yourself. An explicit
+`renderer` takes precedence over `motion`. If your application owns the rendering surface, use
+TanStack's canvas or low-level renderer directly.
 
 ```tsx
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-By default, Chart uses a compact Moduix tooltip layout, so rows without a swatch do not reserve an
-empty column. Use `renderTooltipBody` only when you need to add React content. The callback receives
-TanStack's native `defaultBody`, including its title, rows, formatting, and swatches. TanStack still
-controls anchoring, placement, portalling, pinning, and dismissal. Render interactive controls only
+Chart uses a compact Moduix tooltip by default, so rows without a swatch do not leave an empty
+column. Use `renderTooltipBody` only to add React content. Its callback receives TanStack's native
+`defaultBody` with the title, rows, formatting, and swatches. TanStack continues to handle the
+tooltip's anchor, position, portal, pinned state, and dismissal. Only render interactive controls
 when `pinned` is true.
 
 ### Default props
@@ -202,14 +202,14 @@ keeps the tooltip and keyboard focus grouped by quarter.
 
 ### Advanced Customization
 
-The Ark factory parts accept `asChild`, so they can style semantic elements owned by your layout.
-This dashboard section combines Chart with Button, replaces the default `figure` and `figcaption`
-with a labelled `section` and `header`, and moves the legend into the header.
+The Ark factory parts accept `asChild`, so they can apply their styles to semantic elements in your
+layout. This dashboard section combines Chart with Button, replaces the default `figure` and
+`figcaption` with a labelled `section` and `header`, and places the legend in the header.
 
-`Chart.Plot` remains the TanStack host rather than a slot: use its `className` and `style` for its
-outer element, and use `renderTooltipBody` to extend the tooltip. Keep `defaultBody` in
-a wrapper you render; TanStack continues to position and portal it. Interactive controls are only
-safe while the tooltip is pinned.
+`Chart.Plot` is still the TanStack host, not a slot. Use its `className` and `style` on the outer
+element, and use `renderTooltipBody` to extend the tooltip. Render `defaultBody` inside your own
+wrapper while TanStack continues to position and portal it. Add interactive controls only to a
+pinned tooltip.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/chart/advanced-customization.tsx"
@@ -219,9 +219,9 @@ safe while the tooltip is pinned.
 
 ## Styling
 
-Style the figure through `Chart.Root` and the TanStack host through `Chart.Plot`. Public CSS
-properties control the surface, focus ring, tooltip shell, and default tooltip layout. Chart geometry
-remains in the TanStack definition through mark options, scales, and color channels.
+Style the figure with `Chart.Root` and the TanStack host with `Chart.Plot`. Public CSS properties
+control the surface, focus ring, tooltip shell, and default tooltip layout. Keep chart geometry in
+the TanStack definition, using mark options, scales, and color channels.
 
 Give the root a class when a chart needs local overrides:
 

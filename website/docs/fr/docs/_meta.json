@@ -88,6 +88,7 @@
   {
     "type": "file",
     "name": "badge",
+    "label": "Badge",
     "tag": "component"
   },
   {

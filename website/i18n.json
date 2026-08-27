@@ -616,6 +616,46 @@
     "ru": "Компонуемые и доступные графики на базе TanStack Charts.",
     "fr": "Des graphiques composables et accessibles, propulsés par TanStack Charts."
   },
+  "navigationMenuHeroDate": {
+    "en": "August 25, 2026",
+    "ru": "25 августа 2026 г.",
+    "fr": "25 août 2026"
+  },
+  "navigationMenuHeroTitle": {
+    "en": "Navigation Menu joins moduix",
+    "ru": "В moduix появился Navigation Menu",
+    "fr": "Navigation Menu rejoint moduix"
+  },
+  "navigationMenuHeroCardDescription": {
+    "en": "Primary navigation with disclosure panels",
+    "ru": "Основная навигация с раскрывающимися панелями",
+    "fr": "Navigation principale et panneaux déroulants"
+  },
+  "navigationMenuHeroSummary": {
+    "en": "Build accessible product navigation with direct links, disclosure panels, and an optional shared viewport.",
+    "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей анимированной областью.",
+    "fr": "Créez une navigation accessible pour un site ou un produit avec des liens directs, des panneaux déroulants et une surface partagée facultative."
+  },
+  "tableOfContentsHeroDate": {
+    "en": "August 27, 2026",
+    "ru": "27 августа 2026 г.",
+    "fr": "27 août 2026"
+  },
+  "tableOfContentsHeroTitle": {
+    "en": "Table of Contents joins moduix",
+    "ru": "В moduix появился Table of Contents",
+    "fr": "Table of Contents rejoint moduix"
+  },
+  "tableOfContentsHeroCardDescription": {
+    "en": "Track the section in view",
+    "ru": "Отслеживает текущий раздел",
+    "fr": "Suit la section consultée"
+  },
+  "tableOfContentsHeroSummary": {
+    "en": "Keep an accessible table of contents in sync with the section your reader is viewing.",
+    "ru": "Создавайте доступное оглавление, которое автоматически отмечает раздел, видимый читателю, и ведёт к нужному заголовку.",
+    "fr": "Gardez un sommaire accessible synchronisé avec la section consultée par le lecteur et reliez chaque entrée au titre correspondant."
+  },
   "localizationHeroDate": {
     "en": "August 10, 2026",
     "ru": "10 августа 2026 г.",

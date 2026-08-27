@@ -1,7 +1,7 @@
 ---
 title: Clipboard
 component: clipboard
-description: Une composition de presse-papiers dans le style d’Ark pour afficher, modifier et copier des chaînes de caractères.
+description: Composants Ark pour afficher, modifier et copier des valeurs textuelles.
 ---
 
 import * as ClipboardDocs from '@/components/examples/clipboard';
@@ -12,9 +12,10 @@ import * as ClipboardDocs from '@/components/examples/clipboard';
 
 ## Exemple de base
 
-Commencez par la forme courte du composant racine `Clipboard`, associez le champ de valeur à `Clipboard.Trigger` et
-utilisez `Clipboard.Indicator` avec `Clipboard.CopyText` pour proposer une action de copie explicite sans ajouter
-une couche de libellé distincte.
+Utilisez `Clipboard` pour afficher une valeur que l’utilisateur peut copier. Ajoutez
+`Clipboard.Input` pour la valeur et `Clipboard.Trigger` pour le bouton de copie.
+`Clipboard.Indicator` et `Clipboard.CopyText` indiquent l’état de la copie avec les icônes et les
+libellés moduix par défaut.
 
 <style>{ClipboardDocs.clipboardExampleCss}</style>
 
@@ -28,8 +29,8 @@ une couche de libellé distincte.
 
 <ShadcnInstall packageName="clipboard" />
 
-Cette méthode d’installation ajoute également les fichiers de base moduix partagés dont dépend `Clipboard` :
-les styles, les icônes et de petits utilitaires.
+Cette commande ajoute aussi les fichiers moduix partagés dont `Clipboard` a besoin, notamment les
+styles, les icônes et quelques utilitaires.
 
 ## Anatomie
 
@@ -43,168 +44,168 @@ Clipboard | Clipboard.RootProvider
 │     └─ Clipboard.CopyText (facultatif)
 ```
 
-| Partie                     | Rôle                                                                                 |
-| -------------------------- | ------------------------------------------------------------------------------------ |
-| `Clipboard`                | Gère l’état du presse-papiers, le cycle de vie de la copie et la valeur.             |
-| `Clipboard.RootProvider`   | Fournit un état `Clipboard.useClipboard()` créé en dehors du sous-arbre.             |
-| `Clipboard.Label`          | Libellé accessible de la valeur du presse-papiers.                                   |
-| `Clipboard.Control`        | Ligne de disposition pour la valeur et le déclencheur.                               |
-| `Clipboard.Input`          | Champ modifiable ou en lecture seule contenant la valeur actuelle.                  |
-| `Clipboard.Trigger`        | Bouton qui copie la valeur actuelle.                                                 |
-| `Clipboard.Indicator`      | Slot d’icône pour l’état de copie. Par défaut, moduix utilise les icônes de copie et de confirmation. |
-| `Clipboard.CopyText`       | Slot de texte pour l’état. Par défaut, moduix utilise `Copy` et `Copied`.            |
-| `Clipboard.ValueText`      | Représentation textuelle de la valeur lorsque l’utilisation d’un champ ne convient pas. |
+| Partie | Rôle |
+| --- | --- |
+| `Clipboard` | Conserve la valeur et gère l’état de copie. |
+| `Clipboard.RootProvider` | Fournit un état créé avec `Clipboard.useClipboard()` hors du sous-arbre. |
+| `Clipboard.Label` | Donne à la valeur un libellé accessible. |
+| `Clipboard.Control` | Regroupe et organise la valeur et le bouton de copie. |
+| `Clipboard.Input` | Affiche la valeur dans un champ modifiable ou en lecture seule. |
+| `Clipboard.Trigger` | Copie la valeur actuelle lorsqu’il est activé. |
+| `Clipboard.Indicator` | Affiche une icône de copie ou de confirmation selon l’état. |
+| `Clipboard.CopyText` | Affiche un libellé d’état. Les valeurs par défaut sont `Copy` et `Copied`. |
+| `Clipboard.ValueText` | Affiche la valeur sous forme de texte lorsqu’un champ ne convient pas. |
 
 ## Composition
 
 ### Composition recommandée
 
-Pour une composition Ark standard, utilisez `Clipboard`, `Clipboard.Label`, `Clipboard.Control`,
-`Clipboard.Input`, `Clipboard.Trigger` et `Clipboard.Indicator`.
+Dans la plupart des cas, combinez `Clipboard`, `Clipboard.Label`, `Clipboard.Control`,
+`Clipboard.Input`, `Clipboard.Trigger` et `Clipboard.Indicator`. Cette structure suit la
+composition Ark standard et permet de personnaliser chaque partie facilement.
 
-Utilisez `value`, `defaultValue`, `onValueChange(details)`, `onStatusChange(details)`, `timeout` et
-`ids` tels qu’Ark les définit. Sur cette surface, moduix ne transforme pas les données des callbacks
-et ne renomme pas les propriétés.
+`value`, `defaultValue`, `onValueChange(details)`, `onStatusChange(details)`, `timeout` et `ids`
+fonctionnent exactement comme dans Ark. moduix conserve les noms des props et les arguments des
+fonctions de rappel.
 
-`Clipboard.Indicator` et `Clipboard.CopyText` sont deux petits ajouts : par défaut, ils rendent les icônes moduix
-de copie et de confirmation ainsi que les textes `Copy`/`Copied`, tout en conservant la structure explicite du déclencheur Ark.
+`Clipboard.Indicator` et `Clipboard.CopyText` sont facultatifs. Sans contenu personnalisé, ils
+affichent les icônes moduix de copie et de confirmation, ainsi que les libellés `Copy` et `Copied`.
 
-### Quand créer une composition personnalisée
+### Quand personnaliser la composition
 
-Utilisez `Clipboard.ValueText` lorsque la valeur doit être affichée comme du texte plutôt que dans un champ.
+Utilisez `Clipboard.ValueText` lorsque la valeur doit ressembler à du texte courant plutôt qu’à un
+champ de saisie.
 
-Utilisez `Clipboard.useClipboard()` avec `Clipboard.RootProvider` lorsque l’état du presse-papiers doit être créé
-en dehors du sous-arbre rendu. Pour lire cet état dans un composant enfant, utilisez `Clipboard.Context` ou
+Utilisez `Clipboard.useClipboard()` avec `Clipboard.RootProvider` lorsque l’état doit être créé hors
+du sous-arbre affiché. Les composants enfants peuvent le lire avec `Clipboard.Context` ou
 `useClipboardContext()` de moduix.
 
-Utilisez `asChild` sur `Clipboard.Input` et `Clipboard.Trigger` lorsqu’un autre élément doit constituer le nœud rendu,
-par exemple `Input` ou `Button` de moduix lors d’une migration depuis une composition champ-bouton dans le style de shadcn.
-Gardez l’arborescence des parties Ark explicite au lieu de la masquer derrière un wrapper utilitaire.
+Utilisez `asChild` sur `Clipboard.Input` et `Clipboard.Trigger` pour rendre un autre élément, par
+exemple `Input` ou `Button` de moduix. Laissez les parties Ark visibles dans le balisage pour
+conserver une structure claire et accessible.
 
 ### Propriétés par défaut
 
-| Propriété            | Valeur par défaut | Valeurs / remarques                                              |
-| -------------------- | ----------------- | ---------------------------------------------------------------- |
-| `timeout`            | `3000`            | Durée de l’état de copie Ark en millisecondes                     |
-| `Indicator.copied`   | -                 | `Clipboard.Indicator` utilise par défaut `CheckIcon` de moduix   |
-| `Indicator.children` | -                 | `Clipboard.Indicator` utilise par défaut `CopyIcon` de moduix    |
-| `CopyText.copied`    | `Copied`          | Libellé de `Clipboard.CopyText` après la copie                    |
-| `CopyText.children`  | `Copy`            | Libellé de `Clipboard.CopyText` dans l’état initial               |
+| Propriété | Valeur par défaut | Valeurs et remarques |
+| --- | --- | --- |
+| `timeout` | `3000` | Durée de l’état copié d’Ark, en millisecondes |
+| `Indicator.copied` | - | Utilise `CheckIcon` de moduix par défaut |
+| `Indicator.children` | - | Utilise `CopyIcon` de moduix par défaut |
+| `CopyText.copied` | `Copied` | Libellé affiché après une copie réussie |
+| `CopyText.children` | `Copy` | Libellé affiché avant la copie |
 
 ### Comportement
 
-- `onValueChange(details)` expose la nouvelle valeur du presse-papiers via `details.value`.
-- `onStatusChange(details)` conserve la structure des détails de copie d’Ark et convient aux données analytiques, aux compteurs ou à un retour supplémentaire.
-- Ark applique `data-copied` aux parties concernées tant que l’état de copie est actif. Par défaut, moduix conserve l’apparence du champ et du déclencheur et remplace uniquement `Indicator` ou `CopyText` ; `data-copied` reste disponible pour les styles personnalisés.
-- Ark ne fournit pas d’état désactivé au niveau de la racine. Passez la prop native `disabled` à la fois à
-  `Clipboard.Input` et à `Clipboard.Trigger` lorsque l’ensemble du contrôle est indisponible.
-- `Clipboard` ne limite plus par défaut la largeur du champ. Définissez `--moduix-clipboard-max-width` lorsqu’une largeur maximale précise fait partie de la mise en page.
-- L’ancienne API `CopyButton` a été supprimée. `Clipboard` ne possède aucune couche d’alias pour `copiedDuration`, `copyLabels`, `onCopy` ou `onCopyError`.
+- `onValueChange(details)` fournit la nouvelle valeur dans `details.value`.
+- Utilisez `onStatusChange(details)` pour mettre à jour une zone voisine, des données analytiques ou
+  un compteur après une copie.
+- Ark ajoute `data-copied` tant que l’état copié est actif. Par défaut, moduix ne modifie pas
+  visuellement le champ ni le bouton, mais vous pouvez utiliser cet attribut dans vos styles.
+- Ark ne propose pas de prop `disabled` sur la racine. Transmettez la prop native `disabled` à
+  `Clipboard.Input` et à `Clipboard.Trigger` lorsque la valeur ne doit être ni modifiée ni copiée.
+- `Clipboard` ne limite pas la largeur du champ par défaut. Définissez
+  `--moduix-clipboard-max-width` si votre mise en page a besoin d’une largeur maximale.
+- L’ancienne API `CopyButton` n’est plus disponible. `Clipboard` ne prend pas en charge
+  `copiedDuration`, `copyLabels`, `onCopy` et `onCopyError`.
 
 ## Exemples
 
 ### État contrôlé
 
-Contrôlez la valeur lorsque le champ de texte doit être synchronisé avec l’interface environnante ou une source externe.
+Contrôlez la valeur lorsque le champ doit rester synchronisé avec une autre partie de l’interface ou
+une source de données externe.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/controlled.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Statut de la copie
 
-Utilisez `onStatusChange(details)` lorsque l’interface environnante doit réagir à une copie réussie sans
-introduire une abstraction supplémentaire pour le presse-papiers.
+Utilisez `onStatusChange(details)` pour afficher une confirmation ailleurs dans l’interface après une
+copie.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/copy-status.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Texte de copie personnalisé
 
-Redéfinissez `Clipboard.CopyText` lorsque le déclencheur nécessite des libellés personnalisés pour les états initial et copié.
+Fournissez votre propre contenu à `Clipboard.CopyText` lorsque le bouton doit employer les libellés
+de votre produit.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/custom-copy-text.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Root Provider
 
-Utilisez `Clipboard.useClipboard()` avec `Clipboard.RootProvider` lorsque l’état du presse-papiers se trouve en dehors
-de l’arborescence rendue, mais que les parties visibles doivent conserver la forme d’Ark.
+Utilisez `Clipboard.useClipboard()` et `Clipboard.RootProvider` lorsque l’état est partagé ou créé
+en dehors de l’arborescence visible.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/root-provider.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Contexte
 
-Utilisez `Clipboard.Context` pour accéder directement à `copied`, `value`, `setValue` et `copy`. Les composants
-enfants personnalisés peuvent lire le même état avec `useClipboardContext()` de moduix.
+`Clipboard.Context` donne au contenu imbriqué accès à `copied`, `value`, `setValue` et `copy`.
+Les composants enfants peuvent lire le même état avec `useClipboardContext()` de moduix.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/context.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Délai
 
-Définissez `timeout` lorsque l’état de copie doit rester visible plus longtemps que la durée Ark standard.
+Définissez `timeout` pour afficher l’état copié plus ou moins longtemps que la durée par défaut.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/timeout.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Texte de la valeur
 
-Utilisez `Clipboard.ValueText` lorsque la valeur copiée doit apparaître comme du contenu en ligne plutôt que comme un champ de saisie.
+Utilisez `Clipboard.ValueText` lorsque la valeur à copier fait partie d’un texte plutôt que d’un
+champ de saisie.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/value-text.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### État désactivé
 
-Désactivez ensemble le champ et le déclencheur natifs lorsque la valeur doit rester visible, mais que la
-modification et la copie ne sont pas disponibles.
+Désactivez le champ et le bouton ensemble lorsque les utilisateurs peuvent voir la valeur, sans
+pouvoir la modifier ni la copier.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/disabled.tsx"
 
 ```
-
 </PreviewFrame>
 
 ### Personnalisation avancée
 
-Utilisez `asChild` pour remplacer les éléments de champ et de déclencheur standard tout en conservant la composition Ark explicite
-et les parties qui représentent l’état de copie dans moduix.
+Utilisez `asChild` pour fournir vos propres éléments de champ et de bouton tout en conservant la
+composition Clipboard et les parties qui indiquent l’état de copie.
 
 <PreviewFrame maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/clipboard/as-child.tsx"
 
 ```
-
 </PreviewFrame>
 
 ## Styles
@@ -224,7 +225,7 @@ et les parties qui représentent l’état de copie dans moduix.
 - `Clipboard.Indicator` -> `data-slot="clipboard-indicator"`
 - `Clipboard.CopyText` -> `data-slot="clipboard-copy-text"`
 - `Clipboard.ValueText` -> `data-slot="clipboard-value-text"`
-- Ark ajoute `data-copied` à `Root`, `Label`, `Control`, `Input` et `Trigger` tant que l’état de copie est actif.
+- Ark ajoute `data-copied` à `Root`, `Label`, `Control`, `Input` et `Trigger` tant que l’état copié est actif.
 - Ark ajoute `data-readonly` à `Clipboard.Input` lorsque le champ est en lecture seule.
 - `Clipboard.Indicator` ajoute `data-slot="clipboard-indicator-idle-icon"` et
-  `data-slot="clipboard-indicator-copied-icon"` aux nœuds des icônes par défaut.
+  `data-slot="clipboard-indicator-copied-icon"` à ses nœuds d’icône par défaut.

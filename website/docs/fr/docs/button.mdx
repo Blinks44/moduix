@@ -1,21 +1,21 @@
 ---
 title: Button
 component: button
-description: Un contrôle d’action stylisé construit sur le modèle de composition Ark factory.
+description: Un contrôle d’action stylisé basé sur le modèle de composition d’Ark factory.
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce composant avec l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[ref](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive `button` dédiée. moduix construit ce composant à partir de l’outil officiel
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la
+[composition](https://ark-ui.com/docs/guides/composition), le [style](https://ark-ui.com/docs/guides/styling) et la
+[gestion des refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Pour les actions courantes, utilisez la forme courte `<Button />`. `Button.Root` est la forme équivalente avec espace de noms.
+Pour les actions courantes, utilisez la forme courte `<Button />`. `Button.Root` est la version équivalente dans l’espace de noms.
 
 ```tsx preview file="../../en/docs/_snippets/button/basic.tsx"
 
@@ -27,7 +27,7 @@ Pour les actions courantes, utilisez la forme courte `<Button />`. `Button.Root`
 
 ## Anatomie
 
-`Button` est un composant constitué d’une seule partie.
+`Button` ne comporte qu’une seule partie.
 
 ```text
 Button.Root
@@ -37,14 +37,14 @@ Button.Root
 
 | Partie                   | Rôle                                                        |
 | ------------------------ | ----------------------------------------------------------- |
-| `Button` / `Button.Root` | Surface interactive racine avec les styles moduix.          |
+| `Button` / `Button.Root` | Élément interactif racine avec les styles moduix.            |
 | `Button`                 | Alias appelable de `Button.Root`.                            |
 
 ## Composition
 
 ### Composition recommandée
 
-Pour les actions, utilisez l’élément racine natif. Sa valeur par défaut est `type="button"` afin d’éviter l’envoi accidentel d’un formulaire ; pour envoyer un formulaire, définissez explicitement `type="submit"`.
+Pour les actions, utilisez l’élément racine natif. Il reçoit `type="button"` par défaut afin d’éviter l’envoi accidentel d’un formulaire. Pour envoyer le formulaire, définissez explicitement `type="submit"`.
 
 ### Propriétés par défaut
 
@@ -55,29 +55,29 @@ Pour les actions, utilisez l’élément racine natif. Sa valeur par défaut est
 | `size`    | `md`              | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                         |
 | `type`    | `button`          | Éléments racine natifs uniquement                                                      |
 
-### Quand créer une composition personnalisée
+### Quand utiliser un élément personnalisé
 
-Utilisez `asChild` lorsqu’un seul enfant sémantique doit posséder le nœud DOM. La composition Ark exige exactement un enfant. La valeur par défaut `type="button"` n’est pas ajoutée à la cible `asChild`.
+Utilisez `asChild` lorsqu’un seul enfant sémantique doit prendre en charge le nœud DOM. La composition Ark exige exactement un enfant. La valeur par défaut `type="button"` n’est pas injectée dans l’élément utilisé avec `asChild`.
 
-Lorsque `Dialog.Trigger`, `Menu.Trigger` ou une autre partie Ark compose Button comme enfant, les `data-scope` et `data-part` de la partie parente ont priorité sur le nœud DOM partagé. Button conserve les classes de sa recette et son `data-slot` stable, tandis qu’Ark continue de fusionner les gestionnaires du déclencheur et la ref.
+Lorsque `Dialog.Trigger`, `Menu.Trigger` ou une autre partie d’Ark compose Button comme enfant, les `data-scope` et `data-part` de la partie parente sont prioritaires sur le nœud DOM partagé. Button conserve les classes produites par sa recette et son `data-slot` stable ; Ark continue de fusionner les gestionnaires du déclencheur et les refs.
 
-Pour la navigation, utilisez un véritable lien. Sur l’hôte `asChild`, les propriétés `disabled`, `loading` et `aria-disabled="true"` ajoutent `aria-disabled`, appliquent les styles de l’état disabled et empêchent l’activation au clic. Elles n’ajoutent pas l’attribut natif `disabled` à un hôte personnalisé.
+Pour la navigation, utilisez un véritable lien. Sur l’élément utilisé avec `asChild`, les propriétés `disabled`, `loading` et `aria-disabled="true"` ajoutent `aria-disabled`, appliquent les styles de l’état désactivé et empêchent l’activation au clic. Elles n’ajoutent pas l’attribut natif `disabled` à cet élément.
 
 ### Comportement
 
-- Les attributs natifs, `className` et `style` sont transmis sans transformer les callbacks. Les clics sur les éléments racine désactivés sont empêchés.
-- La ref transmise pointe vers l’élément racine affiché.
-- Les propriétés natives `disabled`, `aria-disabled="true"` et `loading` ajoutent `data-disabled`.
-- `loading` est un raccourci ciblé : il définit `data-loading`, `aria-busy` et le chemin de style disabled, tandis que le spinner et le libellé restent entièrement composables.
+- Les attributs natifs, `className` et `style` sont transmis tels quels. Les clics sur les éléments racine désactivés sont bloqués.
+- La ref transmise pointe vers l’élément racine rendu.
+- Les propriétés `disabled`, `aria-disabled="true"` et `loading` ajoutent `data-disabled`.
+- `loading` est un raccourci qui configure uniquement l’état : il définit `data-loading`, `aria-busy` et les styles désactivés, tandis que l’indicateur de chargement et le libellé restent entièrement composables.
 - Les éléments `svg` enfants directs héritent de `currentColor` et utilisent `--moduix-button-icon-size`.
-- Les boutons composés uniquement d’une icône nécessitent un nom accessible.
-- Les propriétés Chakra `colorPalette`, les propriétés de recette adaptatives, `ButtonGroup` et les propriétés de chargement contrôlées sont volontairement exclues de ce contrat moduix à élément racine unique.
+- Les boutons composés uniquement d’une icône doivent avoir un nom accessible.
+- Les propriétés propres à Chakra `colorPalette`, les propriétés de recette responsives, `ButtonGroup` et les propriétés de chargement gérées sont volontairement exclues de ce contrat moduix limité à un seul élément racine.
 
 ## Exemples
 
-### Lien avec AsChild
+### Lien avec `asChild`
 
-Utilisez `asChild` pour la navigation afin que l’ancre conserve la sémantique d’un lien tout en recevant les styles du bouton.
+Utilisez `asChild` pour la navigation afin que l’élément `<a>` conserve sa sémantique de lien tout en recevant les styles du bouton.
 
 ```tsx preview file="../../en/docs/_snippets/button/as-child-link.tsx"
 
@@ -85,7 +85,7 @@ Utilisez `asChild` pour la navigation afin que l’ancre conserve la sémantique
 
 ### État désactivé
 
-Utilisez `disabled` pour les boutons natifs et les hôtes `asChild`.
+Utilisez `disabled` avec les boutons natifs et les éléments utilisés avec `asChild`.
 
 ```tsx preview file="../../en/docs/_snippets/button/disabled.tsx"
 
@@ -93,7 +93,7 @@ Utilisez `disabled` pour les boutons natifs et les hôtes `asChild`.
 
 ### Icônes
 
-Les icônes peuvent précéder ou suivre le texte ; leur ordre dans le JSX et le `gap` de l’élément racine Button déterminent la disposition.
+Les icônes peuvent se placer avant ou après le texte. Leur ordre dans le JSX et le `gap` de l’élément racine Button déterminent la disposition.
 
 ```tsx preview file="../../en/docs/_snippets/button/icons.tsx"
 
@@ -101,7 +101,7 @@ Les icônes peuvent précéder ou suivre le texte ; leur ordre dans le JSX et le
 
 ### État d’attente
 
-Utilisez `loading` pour configurer l’état tout en gardant le libellé, le spinner et le cycle de vie asynchrone explicites dans le code du produit. Sur les hôtes `asChild`, il empêche également l’activation au clic.
+Utilisez `loading` pour configurer l’état de chargement, en gardant le libellé, l’indicateur de chargement et le cycle de vie asynchrone explicites dans le code de votre application. Avec `asChild`, cette propriété empêche aussi l’activation au clic.
 
 ```tsx preview file="../../en/docs/_snippets/button/pending-state.tsx"
 
@@ -109,7 +109,7 @@ Utilisez `loading` pour configurer l’état tout en gardant le libellé, le spi
 
 ### Ref
 
-La ref transmise pointe vers l’élément racine affiché et peut servir à lui donner impérativement le focus ou à le mesurer.
+La ref transmise pointe vers l’élément racine rendu ; vous pouvez l’utiliser pour lui donner le focus par programmation ou le mesurer.
 
 ```tsx preview file="../../en/docs/_snippets/button/ref.tsx"
 
@@ -117,7 +117,7 @@ La ref transmise pointe vers l’élément racine affiché et peut servir à lui
 
 ### Tailles
 
-Les tailles des boutons textuels et des boutons composés uniquement d’une icône utilisent la même API d’élément racine.
+Les tailles des boutons avec texte et des boutons composés uniquement d’une icône utilisent la même API racine.
 
 ```tsx preview file="../../en/docs/_snippets/button/sizes.tsx"
 
@@ -125,7 +125,7 @@ Les tailles des boutons textuels et des boutons composés uniquement d’une ic�
 
 ### Variantes
 
-Utilisez les variantes pour exprimer la priorité et la fonction d’une action.
+Utilisez les variantes pour exprimer la priorité et le rôle de l’action.
 
 ```tsx preview file="../../en/docs/_snippets/button/variants.tsx"
 
@@ -137,12 +137,12 @@ Utilisez les variantes pour exprimer la priorité et la fonction d’une action.
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
-### Points d’accroche CSS
+### Sélecteurs de style
 
-- `data-slot="button-root"` est un sélecteur moduix stable.
-- Les éléments racine autonomes utilisent par défaut `data-scope="button"` et `data-part="root"`. Un parent Ark composé peut les remplacer par ses propres valeurs d’anatomie.
-- `data-variant` et `data-size` reflètent la recette visuelle active.
+- `data-slot="button-root"` est le sélecteur moduix stable.
+- Les éléments racine utilisés seuls adoptent par défaut `data-scope="button"` et `data-part="root"`. Un parent Ark qui compose Button peut les remplacer par ses propres valeurs d’anatomie.
+- `data-variant` et `data-size` indiquent la variante et la taille visuelles actives.
 - `data-disabled` est présent pour les propriétés natives `disabled`, `aria-disabled="true"` et `loading`.
 - `data-loading` est présent lorsque `loading={true}`.
-- `[data-disabled]` gère les styles disabled pour les propriétés natives `disabled`, `aria-disabled="true"` et `loading`.
-- Les variantes de boutons actifs utilisent un très léger déplacement lors de l’appui ; `link` conserve uniquement un retour par opacité, et le déplacement n’est pas appliqué lorsque l’utilisateur préfère réduire les animations.
+- `[data-disabled]` contrôle les styles de l’état désactivé pour `disabled`, `aria-disabled="true"` et `loading`.
+- Les variantes actives du bouton utilisent un léger déplacement à l’appui ; `link` ne modifie que l’opacité, et le déplacement est supprimé lorsque l’utilisateur préfère réduire les animations.

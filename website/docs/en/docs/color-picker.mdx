@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 component: color-picker
-description: A composed Ark UI color picker for color fields, channel controls, and swatches.
+description: An Ark UI-based color picker for choosing colors, editing color channels, and selecting swatches.
 ---
 
 import * as ColorPickerDocs from '@/components/examples/color-picker';
@@ -12,13 +12,14 @@ import * as ColorPickerDocs from '@/components/examples/color-picker';
 
 ## Choosing the right component
 
-Use `ColorPicker` when users need to choose or fine-tune a color. Use `Input` when users only need
-to paste a known color value and direct color manipulation is not useful.
+Choose `ColorPicker` when users need to pick or fine-tune a color. Choose `Input` when they only need
+to enter a known value and do not need to manipulate the color directly.
 
 ## Basic
 
-Start with a compact field: a root, one channel input, default trigger swatch, explicit popup
-content, default picker internals, and a hidden input for forms.
+Start with a compact field that combines a root, one channel input, the trigger's default swatch,
+explicit popup content, and the picker's default internal parts. The component also adds a hidden
+native input for form submission.
 
 <style>{ColorPickerDocs.colorPickerExampleCss}</style>
 
@@ -32,8 +33,8 @@ content, default picker internals, and a hidden input for forms.
 
 <ShadcnInstall packageName="color-picker" />
 
-This install path also pulls in the shared moduix foundation files that `ColorPicker` depends on,
-such as styles, icons, and small utilities.
+This also installs the shared moduix foundation files that `ColorPicker` depends on, including
+styles, icons, and small utilities.
 
 ## Anatomy
 
@@ -83,27 +84,31 @@ normal advanced state path. Import Ark-only type helpers directly when needed as
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+The root automatically renders `Positioner` through a portal. Set `portalled={false}` for inline
+rendering or pass `portalRef` to use a custom container. Structural parts remain explicit and
+styleable.
 
 ### Recommended composition
 
-Keep `ColorPicker.Positioner` and `ColorPicker.Content` visible for popup pickers. `Content` is the
-actual Ark part; the root only automates the portal boundary.
+Keep `ColorPicker.Positioner` and `ColorPicker.Content` explicit for popup-based pickers. `Content`
+is the Ark part that contains the popup; the root only manages the portal.
 
-Omit children on `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` for the default visual
-composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style its channels through
-`data-channel` or CSS variables; pass children only when a part needs custom structure. Add
-`data-fit-content` when the trigger should size to custom content such as a swatch plus `ValueText`.
+Leave `Trigger`, `Area`, `ChannelSlider`, and `SwatchTrigger` without children to use their default
+visual composition. Use `ColorPicker.Sliders` for the usual hue and alpha pair. Style its channels
+through `data-channel` or CSS variables, and pass children only when a part needs custom structure.
+Add `data-fit-content` when the trigger should size to custom content such as a swatch plus
+`ValueText`.
 
-For native form submission and reset behavior, pass `name` to `ColorPicker`. It automatically
-renders and synchronizes its native input; `FormData` and `form.reset()` need no extra setup.
+To include the color in native form submission and reset behavior, pass `name` to `ColorPicker`.
+It renders and synchronizes the native input automatically, so `FormData` and `form.reset()` need
+no extra setup.
 
 ### When to go custom
 
-Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should render as a
-permanent panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
+Use `inline` on `ColorPicker` when the area, sliders, inputs, and swatches should stay visible in a
+panel instead of a popup. Use `ColorPicker.View` to show inputs for one format at a time.
 
-Use `useColorPicker` with `ColorPicker.RootProvider` when the state must be owned outside the
+Use `useColorPicker` with `ColorPicker.RootProvider` when the state needs to live outside the
 rendered subtree. Do not render `Root` and `RootProvider` for the same state instance.
 
 Use `asChild` on exported Ark parts when another semantic element must own the DOM node. The child
@@ -111,9 +116,9 @@ must stay a single element and preserve the required focus and interaction behav
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+By default, the portalled overlay content mounts on first open and unmounts after its exit
+animation. Set `unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle
+props to `false` only when eager initial rendering is needed.
 
 | Surface / Prop                           | Default                 | Notes                                         |
 | ---------------------------------------- | ----------------------- | --------------------------------------------- |
@@ -147,8 +152,8 @@ eager initial rendering is needed.
 
 ### Compact Trigger
 
-Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button reads better than a
-square swatch, for example during migration from button-based color fields.
+Use `data-fit-content` on `ColorPicker.Trigger` when a content-sized button is more useful than a
+square swatch, such as when replacing a button-based color field.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -211,10 +216,10 @@ Use `name` on `ColorPicker`; it renders its native form input automatically.
 
 ### Format Views
 
-Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users should switch between
-channel input groups without changing the picker structure. `FormatSelect` preserves Ark's native
-format picker, while its collapsed control matches the moduix Select field and presents the available
-RGBA, HSLA, and HSBA formats consistently; the browser owns the options popup.
+Use `format`, `onFormatChange`, `FormatSelect`, and `View` when users need to switch between channel
+input groups without changing the picker structure. `FormatSelect` keeps Ark's native format
+control, while its collapsed trigger is styled like the moduix Select field and consistently
+presents the RGBA, HSLA, and HSBA options. The browser controls the options popup.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -227,7 +232,7 @@ RGBA, HSLA, and HSBA formats consistently; the browser owns the options popup.
 
 ### Inline
 
-Use `inline` for settings panels where the color tools should stay visible without a popup trigger.
+Use `inline` in settings panels where the color tools should stay visible without a popup trigger.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -240,8 +245,8 @@ Use `inline` for settings panels where the color tools should stay visible witho
 
 ### Input Only
 
-Use channel inputs with a passive value swatch when typed color entry matters and the popup would be
-too heavy for the interface.
+Use channel inputs with a passive swatch when typed color entry is important and a popup would add
+unnecessary complexity to the interface.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -254,8 +259,8 @@ too heavy for the interface.
 
 ### Inside Dialog
 
-When a picker lives inside a modal dialog, render its popup without a portal so it shares the
-dialog's stacking context and remains interactive above the dialog surface.
+When a picker appears inside a modal dialog, render its popup without a portal so it shares the
+dialog's stacking context and stays interactive above the dialog surface.
 
 <style>{ColorPickerDocs.colorPickerDialogCss}</style>
 
@@ -268,7 +273,7 @@ dialog's stacking context and remains interactive above the dialog surface.
 
 ### Open Controlled
 
-Use controlled `open` state when another control or workflow owns whether the popup is visible.
+Use controlled `open` state when another control or workflow owns the popup's visibility.
 
 <style>{ColorPickerDocs.colorPickerExampleCss}</style>
 
@@ -295,7 +300,8 @@ the rendered tree and shared with nearby controls.
 
 ### Slider Only
 
-Use slider-only composition when direct manipulation matters but typed channel input is unnecessary.
+Use slider-only composition when direct manipulation is useful but typed channel input is
+unnecessary.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -308,8 +314,8 @@ Use slider-only composition when direct manipulation matters but typed channel i
 
 ### Swatch Only
 
-Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs would
-be unnecessary.
+Use swatch-only composition when a preset palette is enough and the area, sliders, and inputs are
+unnecessary.
 
 <style>{ColorPickerDocs.colorPickerInlineCss}</style>
 
@@ -322,8 +328,8 @@ be unnecessary.
 
 ### Swatches
 
-Use popup swatches when the picker should offer a curated set of colors in addition to freeform
-editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatch is chosen.
+Use popup swatches when the picker should offer a curated set of colors alongside freeform editing.
+`closeOnSelect` follows Ark behavior and closes the popup after a swatch is chosen.
 
 <style>{ColorPickerDocs.colorPickerExampleCss}</style>
 
@@ -336,7 +342,7 @@ editing. `closeOnSelect` follows Ark behavior and closes the popup after a swatc
 
 ### Value Swatch
 
-Use `ValueSwatch` and `ValueText` when adjacent UI needs to show the selected color without opening
+Use `ValueSwatch` and `ValueText` when nearby UI needs to show the selected color without opening
 the full picker.
 
 <style>{ColorPickerDocs.colorPickerValueSwatchCss}</style>
@@ -350,7 +356,7 @@ the full picker.
 
 ### Advanced Customization
 
-Use explicit parts and children when the default composition needs a different visual structure.
+Use explicit parts and children when the default composition needs a different visual arrangement.
 
 <style>{ColorPickerDocs.colorPickerExampleCss}</style>
 

@@ -6,49 +6,100 @@ description: Versions de moduix, changements incompatibles et politique de prise
 import { LocalizationHero } from '@/components/changelog/localization-hero';
 import { V2MigrationHero } from '@/components/changelog/v2-migration-hero';
 import { ChartHero } from '@/components/changelog/chart-hero';
+import { NavigationMenuHero } from '@/components/changelog/navigation-menu-hero';
+import { TableOfContentsHero } from '@/components/changelog/table-of-contents-hero';
 import { ChangelogNewsItem } from '@/components/changelog/hero';
+
+<ChangelogNewsItem>
+  <TableOfContentsHero />
+
+[Table of Contents](/docs/table-of-contents) aide les lecteurs à parcourir les articles longs.
+Fournissez les titres à suivre : le composant met en évidence la section visible et ses liens
+amènent le lecteur au titre correspondant.
+
+  ### Ce qui est inclus
+
+- `Toc.Content` pour l’article et `Toc.Nav` pour sa zone de navigation.
+- Suivi de la section active, liens vers la même page, `Toc.Indicator` et `Toc.Rail` facultatifs,
+  ainsi que `Toc.RootProvider` pour les contrôles qui doivent accéder au même état.
+</ChangelogNewsItem>
+
+<ChangelogNewsItem>
+  <NavigationMenuHero />
+
+[Navigation Menu](/docs/navigation-menu) structure la navigation principale d’un site ou d’un
+produit. Utilisez des liens directs pour les destinations et des panneaux déroulants pour les liens
+associés. Ajoutez `NavigationMenu.Viewport` lorsque les panneaux doivent s’animer dans une même
+surface.
+
+  ### Ce qui est inclus
+
+- Une composition explicite avec `NavigationMenu.List`, `Item`, `Link`, `Trigger` et `Content`.
+- Un comportement d’ouverture utilisable au clavier, des flèches et indicateurs facultatifs, un
+  état contrôlé et un exemple avec une surface `Viewport` partagée.
+</ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
-[Chart](/docs/chart) apporte à moduix des graphiques de données accessibles et composables, propulsés
+[Chart](/docs/chart) ajoute à moduix des graphiques de données accessibles et composables, propulsés
 par TanStack Charts. Créez des graphiques en lignes, en aires, en barres, en anneau ou en nuage de
-points, ainsi que des cartes de chaleur, avec les composants moduix pour la figure, la légende,
-l’infobulle et les animations, tout en conservant l’API de définition de TanStack.
+points, ainsi que des cartes de chaleur, avec les composants moduix et leurs réglages par défaut pour
+la figure, la légende, l’infobulle et les animations, tout en conservant l’API de configuration de
+TanStack.
 
-  ### Contenu du composant
+  ### Ce qui est inclus
 
 - Une composition sémantique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
-- Une infobulle compacte par défaut, la navigation au clavier, des indicateurs de focus et des animations qui respectent la préférence de réduction des mouvements.
+- Une infobulle compacte par défaut, la navigation au clavier, des styles de focus visibles et la
+  prise en charge des préférences de réduction des mouvements.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-Les versions française et russe du site permettent de découvrir les composants, de copier des exemples
-et de suivre des recettes sans changer de langue en cours de route.
+La documentation française et russe est maintenant complète. Vous pouvez découvrir un composant,
+copier un exemple et suivre une recette sans changer de langue en cours de route.
 
-  ### Contenu de la localisation
+  ### Ce qui est inclus
 
-- La documentation complète des composants, les guides de configuration, les références API et les recettes sont disponibles dans les deux langues.
-- La navigation, les métadonnées de page, les routes adaptées à chaque langue et les exemples copiables restent cohérents en anglais, en français et en russe.
+- La documentation des composants, les guides de configuration, les références API et les recettes
+  sont disponibles dans les deux langues.
+- La navigation, les métadonnées de page, les routes adaptées à chaque langue et les exemples
+  copiables restent cohérents en anglais, en français et en russe.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-v2 est une version majeure mûrement réfléchie, et non un simple changement cosmétique. Ark UI fournit
-désormais le comportement et l’accessibilité des composants disposant d’une primitive dédiée, tandis que
-moduix conserve son CSS natif et ses deux méthodes d’installation.
+v2 est une version majeure qui introduit une nouvelle base pour le comportement et l’accessibilité des
+composants. Lorsqu’un composant dispose d’une primitive dédiée, Ark UI en fournit désormais le
+comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
 
   ### Changements dans v2
 
-  - Le comportement et l’accessibilité des composants reposent désormais sur les primitives Ark UI.
-- La composition publique, l’accès à l’état et les propriétés de bas niveau sont alignés sur les contrats Ark.
-- Le CSS natif ainsi que les deux méthodes d’installation - par paquet ou par ajout du code source au projet - sont conservés.
+- Le comportement et l’accessibilité des composants reposent désormais sur les primitives Ark UI.
+- La composition publique, l’accès à l’état et les propriétés de bas niveau sont alignés sur les
+  contrats Ark.
+- Le CSS natif et les deux modes d’installation restent disponibles : via le paquet ou en copiant le
+  code source dans votre projet.
 </ChangelogNewsItem>
 
 ## Autres mises à jour
+
+### v2.5.0 - 27 août 2026
+
+- Ajout de `Table of Contents`, un sommaire accessible qui suit la section consultée et renvoie vers
+  les titres correspondants.
+- Ajout de `Sidebar`, redimensionnable et rétractable, pour la navigation de l’application.
+- `AngleSlider` conserve désormais l’arrière-plan de sa piste au survol et à l’appui.
+
+### v2.4.0 - 25 août 2026
+
+- Ajout de `Navigation Menu` pour la navigation principale, les panneaux déroulants et les transitions
+  facultatives dans une surface partagée.
+- Ajout de `JSON Tree View` pour afficher des données JSON imbriquées.
+- Mise à jour des versions des dépendances du paquet.
 
 ### v2.3.0 - 20 août 2026
 

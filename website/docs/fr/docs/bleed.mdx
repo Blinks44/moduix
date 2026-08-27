@@ -1,24 +1,25 @@
 ---
 title: Bleed
 component: bleed
-description: Une primitive de mise en page qui permet au contenu de dépasser intentionnellement les limites d’un conteneur contraint.
+description: Une primitive de mise en page qui permet à certains contenus de dépasser les limites d’un conteneur contraint.
 ---
 
 import * as BleedDocs from '@/components/examples/bleed';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `bleed` dédiée. moduix construit ce composant avec l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
+Ark UI ne fournit pas de primitive `bleed` dédiée. Dans moduix, `Bleed` repose sur l’outil officiel
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la
 [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[ref](https://ark-ui.com/docs/guides/ref).
+[refs](https://ark-ui.com/docs/guides/ref).
 
-Utilisez [Container](/docs/container) pour contraindre une mise en page ; placez `Bleed` dans le
-contenu contraint lorsque seuls un média, un arrière-plan, un séparateur ou une bannière doivent dépasser ces limites.
+Utilisez [Container](/docs/container) pour limiter la largeur de la mise en page. Placez `Bleed` à l’intérieur lorsque
+seul un bloc média, un arrière-plan, un séparateur ou une bannière doit dépasser les limites du conteneur.
 
 ## Exemple de base
 
-Commencez par le comportement par défaut `inline="full"` lorsque des médias, des bannières ou des accents de section doivent dépasser un conteneur contraint tout en restant dans le flux normal du document.
+Utilisez le comportement par défaut `inline="full"` lorsqu’un bloc média, une bannière ou un accent de section doit
+s’étendre jusqu’aux bords de la fenêtre, tout en restant dans le flux normal du document.
 
 <style>{`
       .bleed-demo-container {
@@ -53,7 +54,8 @@ Commencez par le comportement par défaut `inline="full"` lorsque des médias, d
 
 ## Anatomie
 
-`Bleed` possède un seul élément racine conforme à Ark. Il applique à cette racine des marges négatives sur l’axe en ligne et/ou l’axe de bloc.
+`Bleed` rend un seul élément racine conforme aux conventions d’Ark. Cet élément reçoit des marges négatives sur l’axe
+en ligne et/ou l’axe de bloc.
 
 ```text
 Bleed.Root
@@ -61,25 +63,29 @@ Bleed.Root
    └─ children
 ```
 
-| Partie                 | Rôle                                                                       |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Enveloppe de mise en page racine pour le bleed sur les axes en ligne et de bloc. |
-| `Bleed`                | Alias appelable de `Bleed.Root`.                                           |
+| Partie                 | Rôle                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `Bleed` / `Bleed.Root` | Enveloppe racine qui permet au contenu de dépasser sur les axes en ligne et de bloc. |
+| `Bleed`                | Forme courte de `Bleed.Root`, utilisable directement comme composant.               |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme courte `Bleed` lorsque la mise en page n’a besoin que de marges négatives contrôlées sur une seule enveloppe. `Bleed.Root` est la forme équivalente avec espace de noms, conforme à Ark.
-C’est le chemin prévu pour les médias pleine largeur, les arrière-plans de sections imbriquées, les séparateurs et les bannières à l’intérieur d’enveloppes centrées ou dotées d’un espacement intérieur.
+Utilisez la forme courte `Bleed` lorsque la mise en page a seulement besoin d’une enveloppe avec des marges négatives
+contrôlées. `Bleed.Root` expose le même composant dans un espace de noms, selon la convention d’Ark.
+C’est l’option recommandée pour les médias pleine largeur, les arrière-plans de sections imbriquées, les séparateurs et
+les bannières à l’intérieur d’enveloppes centrées ou dotées d’un espacement intérieur.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `className` et des remplacements locaux de `--moduix-bleed-*` lorsqu’un drawer, une zone de défilement imbriquée ou l’enveloppe d’une application nécessite un autre calcul du bleed complet que les valeurs par défaut fondées sur le viewport.
+Utilisez `className` et des remplacements locaux de `--moduix-bleed-*` lorsqu’un panneau latéral, une zone de défilement
+imbriquée ou une enveloppe d’application doit étendre le contenu par rapport à ses propres limites plutôt qu’à celles
+de la fenêtre.
 
 ### Propriétés par défaut
 
-| Élément     | Valeur par défaut | Valeurs / remarques                            |
+| Propriété   | Valeur par défaut | Valeurs / remarques                            |
 | ----------- | ----------------- | ---------------------------------------------- |
 | `inline`    | `full`            | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full`  |
 | `block`     | `none`            | `none`, `xs`, `sm`, `md`, `lg`, `xl`          |
@@ -88,22 +94,25 @@ Utilisez `className` et des remplacements locaux de `--moduix-bleed-*` lorsqu’
 
 ### Comportement
 
-- `Bleed.Root` affiche exactement un élément racine et lui transmet les propriétés `div` d’Ark factory.
+- `Bleed.Root` rend un seul élément racine et lui transmet les propriétés `div` prises en charge par l’Ark factory.
 - La `ref` pointe vers l’élément racine affiché. Avec `asChild`, elle pointe vers l’unique élément enfant.
 - `asChild` exige un seul enfant sémantique capable d’accepter les propriétés DOM et une ref.
-- Utilisez `inline` pour dépasser les espacements intérieurs sur l’axe en ligne et ajoutez `block`
-  lorsque la surface doit également dépasser ceux de l’axe de bloc. Ces axes logiques suivent le mode d’écriture du document.
+- Utilisez `inline` pour dépasser l’espacement intérieur sur l’axe en ligne. Ajoutez `block` lorsque la surface doit
+  également dépasser l’espacement de l’axe de bloc. Ces axes logiques suivent le mode d’écriture du document.
 - L’ancienne propriété `as` a été supprimée lors de la migration vers Ark. Utilisez `asChild` lorsqu’un élément sémantique doit posséder le nœud DOM.
-- Utilisez l’une des valeurs fixes de l’échelle lorsque le contenu doit seulement dépasser l’espacement intérieur du conteneur, et non atteindre le bord du viewport.
-- `inline="full"` utilise un calcul fondé sur le viewport ; les enveloppes imbriquées peuvent donc nécessiter des remplacements locaux de `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size`.
+- Utilisez une valeur fixe de l’échelle lorsque le contenu doit seulement dépasser l’espacement intérieur du conteneur,
+  sans aller jusqu’au bord de la fenêtre.
+- `inline="full"` se base sur la fenêtre ; les enveloppes imbriquées peuvent donc nécessiter des remplacements locaux
+  de `--moduix-bleed-inline-full` et `--moduix-bleed-inline-full-size`.
 - Les ancêtres avec `overflow: hidden` ou `overflow: clip` peuvent couper le bleed.
-- Contrairement à la primitive de mise en page Chakra, moduix expose volontairement des modes `inline` et `block` fondés sur les tokens plutôt que les propriétés unilatérales `inlineStart`, `inlineEnd`, `blockStart` et `blockEnd`.
+- Contrairement à la primitive de mise en page Chakra, moduix propose volontairement des modes `inline` et `block`
+  fondés sur les tokens, plutôt que des propriétés distinctes `inlineStart`, `inlineEnd`, `blockStart` et `blockEnd`.
 
 ## Exemples
 
 ### Bleed sur l’axe de bloc
 
-Utilisez `block` lorsque la surface doit également dépasser les espacements intérieurs du conteneur sur l’axe de bloc.
+Ajoutez `block` lorsque la surface doit dépasser l’espacement intérieur du conteneur également sur l’axe de bloc.
 
 <style>{`
       .bleed-demo-padded-container {
@@ -134,7 +143,8 @@ Utilisez `block` lorsque la surface doit également dépasser les espacements in
 
 ### Styles personnalisés
 
-Utilisez des remplacements locaux de `--moduix-bleed-inline-full` lorsqu’une enveloppe imbriquée doit s’étendre jusqu’aux limites de son contenu intérieur plutôt que jusqu’au viewport.
+Utilisez un remplacement local de `--moduix-bleed-inline-full` lorsqu’une enveloppe imbriquée doit s’étendre jusqu’aux
+limites de son propre contenu plutôt que jusqu’aux bords de la fenêtre.
 
 <style>{`
       .bleed-demo-shell {
@@ -174,7 +184,8 @@ Utilisez des remplacements locaux de `--moduix-bleed-inline-full` lorsqu’une e
 
 ### Valeurs sur l’axe en ligne
 
-Utilisez `inline` pour choisir jusqu’où le contenu dépasse le conteneur sur l’axe en ligne.
+Utilisez `inline` pour choisir jusqu’où le contenu dépasse le conteneur sur l’axe en ligne. L’exemple compare les
+valeurs `sm`, `lg` et `full`.
 
 <style>{`
       .bleed-demo-container {
@@ -205,7 +216,8 @@ Utilisez `inline` pour choisir jusqu’où le contenu dépasse le conteneur sur 
 
 ### Élément sémantique
 
-Utilisez `asChild` lorsque le contenu qui dépasse possède un rôle sémantique plus précis.
+Utilisez `asChild` lorsque le contenu doit être rendu avec un élément sémantique plus précis. Dans cet exemple, `Bleed`
+fait de l’élément `figure` l’élément racine.
 
 <style>{`
       .bleed-demo-container {
@@ -244,7 +256,8 @@ Utilisez `asChild` lorsque le contenu qui dépasse possède un rôle sémantique
 
 ## Styles
 
-`Bleed` expose un petit contrat de variables CSS et des attributs de données stables sur l’élément racine. Utilisez les variables lorsque le calcul de la mise en page doit changer, et `className` pour la surface visuelle à l’intérieur du bleed.
+`Bleed` expose un petit ensemble de variables CSS et des attributs de données stables sur son élément racine. Utilisez
+les variables pour ajuster l’extension du composant et `className` pour styliser la surface elle-même.
 
 ### Propriétés CSS
 
@@ -252,8 +265,9 @@ Utilisez `asChild` lorsque le contenu qui dépasse possède un rôle sémantique
 
 ### Points d’accroche CSS
 
-- `data-scope="bleed"` et `data-part="root"` fournissent des hooks conformes à Ark sur l’élément racine exporté.
+- `data-scope="bleed"` et `data-part="root"` fournissent des points d’accroche conformes à Ark sur l’élément racine exporté.
 - `data-slot="bleed-root"` est un sélecteur moduix stable sur l’élément racine exporté.
-- `data-inline` reflète le mode de bleed actuel sur l’axe en ligne : `none`, `xs`, `sm`, `md`, `lg`, `xl` ou `full`.
-- `data-block` reflète le mode de bleed actuel sur l’axe de bloc : `none`, `xs`, `sm`, `md`, `lg` ou `xl`.
-- L’API CSS publique `--moduix-bleed-*` couvre à la fois les valeurs de bleed fondées sur l’échelle et le calcul du viewport utilisé par `inline="full"`.
+- `data-inline` indique le mode de bleed actuel sur l’axe en ligne : `none`, `xs`, `sm`, `md`, `lg`, `xl` ou `full`.
+- `data-block` indique le mode de bleed actuel sur l’axe de bloc : `none`, `xs`, `sm`, `md`, `lg` ou `xl`.
+- L’API CSS publique `--moduix-bleed-*` couvre les valeurs de bleed fondées sur l’échelle ainsi que la largeur calculée
+  jusqu’aux bords de la fenêtre pour `inline="full"`.

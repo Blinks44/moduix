@@ -1,7 +1,7 @@
 ---
 title: Aspect Ratio
 component: aspect-ratio
-description: Constrains media and embed content inside a responsive box with a fixed aspect ratio.
+description: Keeps media and embedded content inside a responsive box with a fixed aspect ratio.
 ---
 
 import * as AspectRatioDocs from '@/components/examples/aspect-ratio';
@@ -15,9 +15,9 @@ Ark UI does not ship a dedicated `aspect-ratio` primitive. moduix builds this co
 
 ## Basic
 
-Start with `AspectRatio`, put width or max-width on the root itself, and pass a finite positive
-numeric `ratio`. Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame
-automatically. Set `object-fit` on images and video when you need cropping or containment.
+Start with `AspectRatio`. Set width or max-width on the root element and pass a finite, positive
+number to `ratio`. Direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame
+automatically. Set `object-fit` on images and videos when you want to crop or contain their content.
 
 <style>{AspectRatioDocs.aspectRatioBasicCss}</style>
 
@@ -40,34 +40,34 @@ AspectRatio / AspectRatio.Root
 
 | Part                               | Role                            |
 | ---------------------------------- | ------------------------------- |
-| `AspectRatio` / `AspectRatio.Root` | Responsive frame with clipping. |
+| `AspectRatio` / `AspectRatio.Root` | Responsive frame that clips its contents. |
 
 ## Composition
 
 ### Recommended composition
 
-Use `AspectRatio` for most media frames. Put sizing, radius, and layout classes on the root itself;
-`AspectRatio.Root` is the same root exposed for namespace consistency.
+Use `AspectRatio` for most media frames. Put sizing, border-radius, and layout classes on the root.
+`AspectRatio.Root` exposes the same root under a namespace for consistency with the rest of the library.
 
 - `ratio` is required and numeric; pass a finite value greater than zero for valid CSS behavior
 - `asChild` uses Ark factory composition and requires exactly one React element
 - direct `img`, `video`, `iframe`, `canvas`, and `svg` children fill the frame automatically; set
-  `object-fit` on images and video to choose cropping or containment
-- `className` styles and sizes the root directly
-- `--moduix-aspect-ratio-radius` controls the default rounded frame
+  `object-fit` on images and videos to choose whether their content is cropped or contained
+- `className` applies styles and sizing directly to the root
+- `--moduix-aspect-ratio-radius` controls the frame's default corner radius
 
-### When to go custom
+### When to add a wrapper
 
-Wrap `AspectRatio` when shadows, focus rings, or layout decoration need to escape the clipped
-frame. Keep the clipping on the root itself, and override the root `aspect-ratio` in your own CSS
-when a breakpoint needs a different frame.
+Wrap `AspectRatio` in another element when shadows, focus rings, or decorative layout elements need
+to extend beyond the clipped frame. Keep clipping on the root, and override its `aspect-ratio` in
+your CSS when the frame needs a different ratio at a particular breakpoint.
 
 ### Default props
 
 | Entry                          | Default                   | Values / Notes                       |
 | ------------------------------ | ------------------------- | ------------------------------------ |
 | `ratio`                        | -                         | Required positive finite `number`    |
-| `className`                    | `undefined`               | Styles and sizes the root            |
+| `className`                    | `undefined`               | Applies styles and sizing to the root |
 | `style`                        | `undefined`               | Can override `aspect-ratio` directly |
 | `asChild`                      | `undefined`               | Ark factory composition              |
 | `--moduix-aspect-ratio-radius` | `var(--moduix-radius-md)` | CSS length or token value            |
@@ -76,10 +76,10 @@ when a breakpoint needs a different frame.
 
 - The root renders with `data-scope="aspect-ratio"`, `data-part="root"`, and
   `data-slot="aspect-ratio-root"`.
-- The root is block-level and uses border-box sizing, including when `asChild` changes the host
-  element.
-- `position: relative` on the root is intentional and supports absolute-fill child patterns such
-  as Next.js `Image fill`.
+- The root is block-level and uses border-box sizing, even when `asChild` changes which element is
+  rendered.
+- `position: relative` on the root is intentional and supports absolutely positioned children that
+  fill the frame, such as Next.js `Image fill`.
 - Direct `iframe` children fill the frame without the browser's default border.
 - The previous preset strings (`square`, `video`, `portrait`, `photo`) were removed during the Ark
   migration. Use numbers such as `1`, `16 / 9`, `9 / 16`, and `4 / 3`.
@@ -88,8 +88,8 @@ when a breakpoint needs a different frame.
 
 ### Card layouts
 
-Keep repeated cards visually aligned by wrapping their media in the same aspect ratio even when the
-source assets differ.
+Use the same aspect ratio for card media to keep repeated cards aligned, even when the source images
+have different dimensions.
 
 <style>{AspectRatioDocs.aspectRatioGridCss}</style>
 
@@ -101,8 +101,8 @@ source assets differ.
 
 ### Embedded content
 
-Wrap video or other embeds in `AspectRatio` to keep the frame stable before the external content
-finishes loading.
+Wrap a video or another embed in `AspectRatio` to keep the frame stable while the external content
+loads.
 
 <style>{AspectRatioDocs.aspectRatioEmbedCss}</style>
 
@@ -115,8 +115,8 @@ finishes loading.
 
 ### Migrating from shadcn
 
-If you are coming from shadcn, move width and radius classes onto `AspectRatio` itself. The same
-root pattern works with `next/image fill` in Next.js.
+If you are migrating from shadcn, move width and radius classes onto `AspectRatio` itself. The same
+root setup also works with Next.js `next/image` using `fill`.
 
 <style>{AspectRatioDocs.aspectRatioMigrationCss}</style>
 
@@ -129,8 +129,8 @@ root pattern works with `next/image fill` in Next.js.
 
 ### Advanced Customization
 
-Use `asChild` when you need to bypass the default root host and let a semantic element such as
-`figure` own the frame. Ark merges the component props into the single child element.
+Use `asChild` when another semantic element, such as `figure`, should be the rendered root. Ark
+merges the component props into its only child element.
 
 <style>{AspectRatioDocs.aspectRatioBasicCss}</style>
 
@@ -149,11 +149,11 @@ Use `asChild` when you need to bypass the default root host and let a semantic e
 
 ### Styling hooks
 
-- `data-scope="aspect-ratio"` and `data-part="root"` are the Ark-aligned root hooks.
+- `data-scope="aspect-ratio"` and `data-part="root"` are Ark-aligned hooks on the root.
 - `data-slot="aspect-ratio-root"` is the stable moduix root hook.
-- Put width, max-width, and layout styles on the root itself. Override `aspect-ratio` from your own
-  CSS when a breakpoint needs a different ratio.
-- Direct media uses border-box sizing; images and videos keep their own `object-fit` value so the
-  consumer chooses between cropping and containment.
-- `overflow: hidden` is intentional. If visible decoration must escape the frame, put that
-  decoration on an outer wrapper instead of removing root clipping.
+- Put width, max-width, and layout styles on the root. Override `aspect-ratio` in your own CSS when
+  the frame needs a different ratio at a particular breakpoint.
+- Direct media uses border-box sizing. Images and videos keep their own `object-fit` value so you
+  can choose between cropping and containment.
+- `overflow: hidden` is intentional. If decoration must extend beyond the frame, put it on an outer
+  wrapper instead of removing clipping from the root.

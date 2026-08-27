@@ -1,23 +1,23 @@
 ---
 title: Chart
 component: chart
-description: Créez des graphiques TanStack Charts accessibles et responsives grâce à une figure moduix composée avec info-bulle, légende et animation.
+description: Créez des graphiques TanStack Charts accessibles et adaptatifs avec le titre, la légende, l’info-bulle et les animations de moduix.
 ---
 
 import * as ChartDocs from '@/components/examples/chart';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitif de graphique. moduix combine les parties de la factory Ark avec
-l’[hôte React TanStack Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart),
-en conservant les définitions, marques, échelles, interactions et callbacks TanStack indépendants
-du framework. TanStack Charts 0.14 nécessite React 19.
+Ark UI ne propose pas de composant de graphique. moduix apporte la figure, le titre, la légende et
+l’info-bulle autour du [composant React de TanStack Charts](https://tanstack.com/charts/latest/docs/framework/react/reference/chart).
+Les éléments graphiques, échelles, interactions et callbacks restent définis avec TanStack Charts.
+TanStack Charts 0.14 nécessite React 19.
 
 ## Exemple de base
 
-Créez une définition avec TanStack Charts, puis transmettez-la à `Chart.Plot`. Placez le titre, la
-description et la légende visibles dans le composant racine, et donnez à la zone du graphique un
-`ariaLabel` concis.
+Créez une définition TanStack et transmettez-la à `Chart.Plot`. Ajoutez le titre, la description et
+la légende autour du graphique, puis donnez-lui un `ariaLabel` concis pour les personnes qui utilisent
+des technologies d’assistance.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/basic.tsx"
@@ -44,11 +44,11 @@ Chart / Chart.Root
 
 | Partie | Rôle |
 | --- | --- |
-| `Chart` / `Chart.Root` | Surface `figure` composée. Accepte les propriétés natives, `asChild` et une ref `HTMLElement`. |
-| `Chart.Plot` | Hôte React TanStack. Nécessite `definition` et `ariaLabel` ; utilise par défaut le préréglage d’animation Moduix et accepte `motion={false}`. |
-| `Chart.Header` | Conteneur `figcaption` pour le titre et la description. |
-| `Chart.Title` | Titre du graphique ; rend un `h3` par défaut. |
-| `Chart.Description` | Contexte visible complémentaire. |
+| `Chart` / `Chart.Root` | Élément racine `figure`. Accepte les propriétés natives, `asChild` et une ref `HTMLElement`. |
+| `Chart.Plot` | Composant React TanStack. Nécessite `definition` et `ariaLabel` ; utilise le préréglage d’animation Moduix par défaut, que `motion={false}` désactive. |
+| `Chart.Header` | Élément `figcaption` qui contient le titre et la description. |
+| `Chart.Title` | Titre du graphique, rendu dans un `h3` par défaut. |
+| `Chart.Description` | Explication visible qui accompagne le graphique. |
 | `Chart.Legend` | Liste sémantique des séries visibles. |
 | `Chart.LegendItem` | Élément de légende avec un `color` facultatif pour l’indicateur. |
 
@@ -56,22 +56,21 @@ Chart / Chart.Root
 
 ### Composition recommandée
 
-Conservez une définition TanStack stable hors du composant, puis assemblez `Chart.Header`,
-`Chart.Plot` et `Chart.Legend` dans le composant racine. Utilisez directement `barY`, `areaY`,
-`lineY`, l’empilement, les échelles, les guides et les canaux de couleur TanStack ; moduix ne les
-duplique pas sous forme de composants React distincts.
+Si votre définition TanStack ne change pas, déclarez-la hors du composant. Assemblez ensuite
+`Chart.Header`, `Chart.Plot` et `Chart.Legend` dans le composant racine. Définissez directement
+`barY`, `areaY`, `lineY`, `stack()`, les échelles, les guides et les canaux de couleur dans TanStack
+Charts. moduix ne les remplace pas par des composants React.
 
-Utilisez l’échelle de couleur de la définition pour les marques et les indicateurs de l’info-bulle.
-Réutilisez les tokens de couleur moduix correspondants dans `Chart.LegendItem` afin d’aligner la
-légende visible sur le graphique.
+L’échelle de couleur de la définition sert aux éléments graphiques comme aux pastilles de l’info-bulle.
+Réutilisez les mêmes tokens moduix dans `Chart.LegendItem` pour que la légende reprenne les couleurs
+du graphique.
 
-### Choisir les marques
+### Choisir les éléments graphiques
 
-`Chart.Plot` sert d’hôte de rendu, tandis que les marques de la `definition` déterminent ce qui est
-dessiné. Toutes les variantes utilisent la même composition :
-`<Chart.Plot definition={definition} />`.
+`Chart.Plot` effectue le rendu, tandis que le contenu de la `definition` détermine la forme du
+graphique. Toutes les variantes utilisent le même composant : `<Chart.Plot definition={definition} />`.
 
-| Objectif | Marques | Exemple |
+| Objectif | Éléments TanStack | Exemple |
 | --- | --- | --- |
 | Barres verticales | `barY` | Exemple de base, Barres empilées |
 | Barres horizontales | `barX` | Barres horizontales |
@@ -80,22 +79,23 @@ dessiné. Toutes les variantes utilisent la même composition :
 | Nuage de points | `dot` | Nuage de points |
 | Carte thermique | `cell` | Carte thermique |
 
-### Quand créer une composition personnalisée
+### Personnaliser le rendu
 
-`Chart.Plot` utilise par défaut le préréglage TanStack adaptatif `motion()`. Définissez `motion={false}`
-pour un graphique SVG entièrement statique, ou transmettez un autre `renderer` pour personnaliser
-l’animation. Un `renderer` explicite est prioritaire sur `motion`. Lorsque l’application contrôle elle-même
-la surface, utilisez directement le rendu Canvas ou le rendu bas niveau de TanStack.
+`Chart.Plot` utilise le préréglage TanStack adaptatif `motion()` par défaut. Définissez
+`motion={false}` pour un graphique SVG statique. Pour gérer les animations vous-même, transmettez un
+autre moteur de rendu avec `renderer`. Un `renderer` défini explicitement est prioritaire sur
+`motion`. Si votre application doit gérer directement la surface de rendu, utilisez le rendu Canvas
+ou bas niveau de TanStack.
 
 ```tsx
 <Chart.Plot definition={definition} ariaLabel="Monthly revenue" motion={false} />
 ```
 
-Par défaut, Chart utilise une mise en page d’info-bulle Moduix compacte : les lignes sans pastille ne
-réservent pas de colonne vide. Utilisez `renderTooltipBody` uniquement pour ajouter du contenu React.
-Le callback reçoit le `defaultBody` natif de TanStack, avec son titre, ses lignes, son formatage et
-ses pastilles. TanStack continue de gérer l’ancrage, le positionnement, le portail, l’épinglage et la
-fermeture de l’info-bulle. Ne rendez les contrôles interactifs que lorsque `pinned` vaut `true`.
+Chart utilise une info-bulle Moduix compacte par défaut : les lignes sans pastille ne laissent pas de
+colonne vide. Utilisez `renderTooltipBody` seulement pour ajouter du contenu React. Son callback
+reçoit le `defaultBody` natif de TanStack avec le titre, les lignes, le formatage et les pastilles.
+TanStack gère toujours l’ancrage, le positionnement, le portail, l’épinglage et la fermeture de
+l’info-bulle. N’ajoutez des contrôles interactifs que si `pinned` vaut `true`.
 
 ### Propriétés par défaut
 
@@ -107,32 +107,30 @@ fermeture de l’info-bulle. Ne rendez les contrôles interactifs que lorsque `p
 | `Chart.Plot` | `motion` | `true` | Définissez `false` pour utiliser le renderer SVG statique de TanStack. |
 | `Chart.Plot` | `renderer` | Préréglage d’animation Moduix | Anime la géométrie et l’info-bulle ; respecte la préférence de réduction des animations. |
 | `Chart.Plot` | `height` | `320` | Utilisé lorsque `aspectRatio` est absent. |
-| `Chart.Plot` | `width` | responsive | S’adapte à la largeur de l’hôte. |
-| `Chart.Plot` | `initialWidth` | `640` | Largeur sur le serveur et avant la mesure. |
-| `Chart.Plot` | `tabIndex` | `0` | Maintient la navigation clavier TanStack dans l’ordre de tabulation. |
+| `Chart.Plot` | `width` | adaptative | S’adapte à la largeur du conteneur. |
+| `Chart.Plot` | `initialWidth` | `640` | Largeur utilisée sur le serveur et avant la première mesure. |
+| `Chart.Plot` | `tabIndex` | `0` | Conserve la navigation au clavier de TanStack dans l’ordre de tabulation. |
 
 ### Comportement
 
-- Conservez une définition statique au niveau du module. Lorsqu’elle dépend de propriétés ou d’état,
-  mémorisez la définition complète avec `useMemo`.
-- Le moteur d’animation par défaut anime la géométrie initiale, les mises à jour de données identifiées
-  par une clé,
-  les guides de focus et l’info-bulle native. Il applique immédiatement les valeurs lorsque
-  `prefers-reduced-motion: reduce` correspond ; `motion={false}` désactive l’animation, quelle que soit
-  la préférence système de l’utilisateur.
-- Le focus par pointeur, la navigation par flèches, l’activation avec Entrée ou Espace,
-  `onFocusChange` et `onSelect` restent gérés par TanStack.
-- Le SVG focalisable du tracé utilise l’anneau de focus moduix. Ne définissez pas
-  `focusRing: false` sauf si une géométrie de focus personnalisée remplace l’indicateur de point TanStack.
-- `ariaDescription` ajoute des détails lorsque le titre et la description visibles ne suffisent pas.
-- `className` et `style` sur `Chart.Plot` ciblent l’hôte TanStack externe. L’hôte n’a pas d’API de ref.
+- Conservez une définition qui ne change pas au niveau du module. Si elle dépend de propriétés ou
+  d’état, mémorisez-la entièrement avec `useMemo`.
+- Le moteur de rendu par défaut anime la géométrie initiale, les mises à jour de données identifiées par une
+  clé, les guides de focus et l’info-bulle native. Avec `prefers-reduced-motion: reduce`, les valeurs
+  changent sans animation. `motion={false}` la désactive quelle que soit la préférence système.
+- TanStack gère le focus au pointeur, la navigation par flèches, l’activation avec Entrée ou Espace,
+  `onFocusChange` et `onSelect`.
+- Le SVG du graphique reçoit l’anneau de focus moduix. Ne définissez pas `focusRing: false`, sauf si
+  votre propre géométrie de focus remplace l’indicateur de point TanStack.
+- Ajoutez `ariaDescription` si le titre et la description visibles n’expliquent pas suffisamment les données.
+- `className` et `style` sur `Chart.Plot` ciblent l’élément externe de TanStack. Il n’expose pas de ref.
 
 ## Exemples
 
 ### Zone animée
 
-La zone, la ligne, les points, le focus groupé et l’animation de l’info-bulle utilisent tous le
-comportement natif de TanStack.
+Dans cet exemple, TanStack gère directement la zone, la ligne, les points, le focus groupé et
+l’animation de l’info-bulle.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/animated-area.tsx"
@@ -142,8 +140,8 @@ comportement natif de TanStack.
 
 ### Couleurs du graphique
 
-Utilisez les tokens de couleur moduix dans l’échelle de couleur TanStack. Les propriétés
-personnalisées CSS sont des valeurs de peinture SVG valides et suivent automatiquement le thème actif.
+Utilisez les tokens de couleur moduix dans l’échelle de couleur TanStack. Les variables CSS peuvent
+servir de valeurs de remplissage SVG et suivent automatiquement le thème actif.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/line-colors.tsx"
@@ -153,9 +151,9 @@ personnalisées CSS sont des valeurs de peinture SVG valides et suivent automati
 
 ### Graphique en anneau
 
-Composez les primitives facultatives `pie`, `polar` et `radialArc` de TanStack pour représenter des
-relations partie-tout. La même composition de `Chart.Plot`, de l’animation, du focus, de l’info-bulle
-et de la légende fonctionne aussi pour les graphiques non cartésiens.
+Les primitives TanStack `pie`, `polar` et `radialArc` sont adaptées aux données qui représentent des
+parties d’un tout. `Chart.Plot`, l’animation, le focus, l’info-bulle et la légende fonctionnent de la
+même façon pour ces graphiques que pour les graphiques avec axes.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/donut.tsx"
@@ -165,9 +163,8 @@ et de la légende fonctionne aussi pour les graphiques non cartésiens.
 
 ### Carte thermique
 
-Utilisez `cell` avec des échelles de bandes sur les deux axes pour construire une matrice
-catégorielle compacte. Le canal de couleur attribue à chaque cellule une couleur du thème selon son
-niveau.
+Associez `cell` à des échelles de bandes sur les deux axes pour créer une matrice de catégories
+compacte. Le canal de couleur attribue à chaque cellule une couleur du thème selon sa valeur.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/heatmap.tsx"
@@ -188,8 +185,8 @@ La valeur numérique se trouve sur l’axe x et la catégorie sur l’axe y.
 
 ### Nuage de points
 
-Utilisez `dot` pour comparer deux valeurs quantitatives. La couleur peut porter une dimension
-catégorielle supplémentaire sans modifier la relation entre x et y.
+Utilisez `dot` pour comparer deux valeurs numériques. La couleur peut indiquer une catégorie
+supplémentaire sans modifier la relation entre les axes x et y.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/scatter.tsx"
@@ -199,8 +196,8 @@ catégorielle supplémentaire sans modifier la relation entre x et y.
 
 ### Barres empilées
 
-Utilisez le canal de couleur ordonné de TanStack et la disposition `stack()` pour les barres à
-plusieurs séries. `focus: 'group-x'` groupe l’info-bulle et le focus clavier par trimestre.
+Pour des barres avec plusieurs séries, utilisez le canal de couleur ordonné de TanStack et la
+disposition `stack()`. `focus: 'group-x'` regroupe l’info-bulle et le focus clavier par trimestre.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/stacked-bars.tsx"
@@ -210,15 +207,15 @@ plusieurs séries. `focus: 'group-x'` groupe l’info-bulle et le focus clavier 
 
 ### Personnalisation avancée
 
-Les parties de la factory Ark acceptent `asChild` : elles peuvent donc styliser les éléments
-sémantiques de votre mise en page. Cette section de tableau de bord associe Chart à Button, remplace
-les éléments `figure` et `figcaption` par un `section` et un `header` associés au titre, puis place
-la légende dans le `header`.
+Les composants créés par la factory Ark acceptent `asChild` et peuvent appliquer leurs styles aux
+éléments sémantiques de votre mise en page. Dans cette section de tableau de bord, Chart fonctionne
+avec Button : les éléments `figure` et `figcaption` sont remplacés par un `section` et un `header`
+associés au titre, et la légende se trouve dans le `header`.
 
-`Chart.Plot` reste l’hôte TanStack, et non un slot : utilisez `className` et `style` pour son élément
-externe, et `renderTooltipBody` pour enrichir l’info-bulle. Conservez `defaultBody` dans
-un conteneur de votre choix ; TanStack continue à la positionner et à la rendre dans un portail. Les
-contrôles interactifs ne sont sûrs que lorsque l’info-bulle est épinglée.
+`Chart.Plot` reste le composant TanStack, et non un slot. Utilisez `className` et `style` sur son
+élément externe, et `renderTooltipBody` pour enrichir l’info-bulle. Rendez `defaultBody` dans votre
+propre conteneur : TanStack continue de le positionner et de le rendre dans un portail. N’ajoutez des
+contrôles interactifs que dans une info-bulle épinglée.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/chart/advanced-customization.tsx"
@@ -228,10 +225,10 @@ contrôles interactifs ne sont sûrs que lorsque l’info-bulle est épinglée.
 
 ## Styles
 
-Stylisez la figure avec `Chart.Root` et l’hôte TanStack avec `Chart.Plot`. Les propriétés CSS
+Stylisez la figure avec `Chart.Root` et l’élément TanStack avec `Chart.Plot`. Les propriétés CSS
 publiques contrôlent la surface, l’anneau de focus, l’enveloppe de l’info-bulle et sa mise en page
-par défaut. La géométrie du graphique reste définie par TanStack, via les options des marques, les
-échelles et les canaux de couleur.
+par défaut. La géométrie du graphique reste dans la définition TanStack, avec les options des
+éléments graphiques, les échelles et les canaux de couleur.
 
 Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustements locaux :
 
@@ -255,8 +252,8 @@ Attribuez une classe à la racine lorsqu’un graphique nécessite des ajustemen
 
 - `Chart.Root`, `Chart.Header`, `Chart.Title`, `Chart.Description`, `Chart.Legend`,
   et `Chart.LegendItem` exposent `data-scope="chart"`, `data-part` et `data-slot`.
-- `className` sur `Chart.Plot` atteint l’élément externe `.ts-chart-host`.
-- L’info-bulle par défaut utilise les data slots `chart-tooltip-body`,
+- `className` sur `Chart.Plot` s’applique à l’élément externe `.ts-chart-host`.
+- L’info-bulle par défaut utilise les slots de données `chart-tooltip-body`,
   `chart-tooltip-title`, `chart-tooltip-rows`, `chart-tooltip-row`, `chart-tooltip-swatch`,
   `chart-tooltip-label` et `chart-tooltip-value`.
 - Utilisez `--moduix-color-chart-1` à `--moduix-color-chart-5` dans les échelles de couleur TanStack.

@@ -1,7 +1,7 @@
 ---
 title: Collapsible
 component: collapsible
-description: Элемент раскрытия, который открывает и закрывает одну область содержимого.
+description: Компонент для показа и скрытия одной области содержимого.
 ---
 
 import * as CollapsibleDocs from '@/components/examples/collapsible';
@@ -12,8 +12,8 @@ import * as CollapsibleDocs from '@/components/examples/collapsible';
 
 ## Базовый пример
 
-Используйте `Collapsible` с частями Ark-формы `Trigger`, `Indicator` и `Content` для одного встроенного
-элемента раскрытия.
+Используйте `Collapsible` с частями `Trigger`, `Indicator` и `Content` из Ark UI, чтобы показывать
+и скрывать одну область содержимого.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -41,39 +41,39 @@ Collapsible.Root
 
 | Часть                              | Назначение                                             |
 | ---------------------------------- | ------------------------------------------------------ |
-| `Collapsible` / `Collapsible.Root` | Управляет открытым состоянием в управляемом или неуправляемом режиме. |
-| `Collapsible.RootProvider`         | Подключает части к состоянию, созданному через `useCollapsible`. |
-| `Collapsible.Trigger`              | Доступная кнопка, переключающая содержимое.            |
-| `Collapsible.Indicator`            | Необязательный индикатор состояния со стандартным шевроном moduix. |
-| `Collapsible.Content`              | Раскрывающаяся область, измеряемая через CSS-переменные Ark. |
-| `Collapsible.Body`                 | Внутренняя обёртка moduix для отступов и компоновки содержимого. |
+| `Collapsible` / `Collapsible.Root` | Управляет состоянием открытия. Его можно задавать извне или оставить под управлением компонента. |
+| `Collapsible.RootProvider`         | Передаёт частям состояние, созданное через `useCollapsible`. |
+| `Collapsible.Trigger`              | Доступная кнопка, которая открывает и закрывает содержимое. |
+| `Collapsible.Indicator`            | Необязательный индикатор состояния с шевроном moduix по умолчанию. |
+| `Collapsible.Content`              | Область содержимого, размер которой Ark вычисляет с помощью CSS-переменных. |
+| `Collapsible.Body`                 | Внутренняя обёртка moduix для отступов и размещения содержимого. |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Используйте `Collapsible`, `Collapsible.Trigger`, необязательный `Collapsible.Indicator`,
-`Collapsible.Content` и `Collapsible.Body`. Свойства корневого компонента включают `open`, `defaultOpen`,
-`onOpenChange(details)`, `disabled`, `collapsedHeight`, `collapsedWidth`, `lazyMount`,
-`unmountOnExit`, `ids` и `onExitComplete`.
+Используйте `Collapsible`, `Collapsible.Trigger`, `Collapsible.Content` и `Collapsible.Body`, а
+`Collapsible.Indicator` добавляйте при необходимости. Корневой компонент поддерживает
+свойства `open`, `defaultOpen`, `onOpenChange(details)`, `disabled`, `collapsedHeight`,
+`collapsedWidth`, `lazyMount`, `unmountOnExit`, `ids` и `onExitComplete`.
 
-Задавайте отступы и стили поверхности на `Collapsible.Body`, а не на `Collapsible.Content`. Ark измеряет
-содержимое и предоставляет `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
+Добавляйте отступы и стили контейнера к `Collapsible.Body`, а не к `Collapsible.Content`. Ark измеряет
+содержимое и делает доступными переменные `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
 
-При миграции с shadcn сопоставьте `CollapsibleTrigger` с `Collapsible.Trigger`, а `CollapsibleContent` -
-с `Collapsible.Content`. moduix сохраняет объект сведений Ark, поэтому управляемое состояние читает
-`details.open`, а не получает логическое значение напрямую.
+При переходе с shadcn замените `CollapsibleTrigger` на `Collapsible.Trigger`, а `CollapsibleContent`
+на `Collapsible.Content`. В moduix сохраняется объект `details` из Ark, поэтому в управляемом режиме
+следующее состояние берите из `details.open`, а не из самого аргумента.
 
-### Когда нужна собственная композиция
+### Когда нужна нестандартная композиция
 
-Используйте `asChild`, когда отрендеренным узлом должен быть другой семантический элемент. В этом режиме Collapsible
-объединяет поведение Ark и атрибуты состояния, но оставляет визуальные стили этому элементу.
+Используйте `asChild`, если отрисованный узел должен быть другим семантическим элементом. В этом режиме
+Collapsible добавляет к нему поведение Ark и атрибуты состояния, а внешний вид остаётся под вашим контролем.
 
-Используйте `useCollapsible` из moduix вместе с `Collapsible.RootProvider`, когда состояние нужно создать вне
-дерева частей. `Collapsible.Context` и `useCollapsibleContext()` также доступны из moduix.
+Используйте `useCollapsible` из moduix вместе с `Collapsible.RootProvider`, когда состояние нужно создать
+за пределами дерева компонента. В moduix также доступны `Collapsible.Context` и `useCollapsibleContext()`.
 
-`Collapsible.Indicator` необязателен. По умолчанию он рендерит направленный вниз шеврон moduix и принимает
-пользовательские дочерние элементы.
+`Collapsible.Indicator` необязателен. Если не передать дочерние элементы, он выводит шеврон moduix,
+направленный вниз. При необходимости можно передать собственное содержимое.
 
 ### Свойства по умолчанию
 
@@ -87,18 +87,19 @@ Collapsible.Root
 
 ### Особенности поведения
 
-- `onOpenChange` получает объект сведений Ark. Читайте следующее состояние из `details.open`.
-- `open` - целевое состояние, а `visible` остаётся истинным, пока закрывающееся содержимое смонтировано
-  для анимации выхода.
-- Размещайте вложенные интерактивные элементы за пределами `Collapsible.Trigger`.
+- `onOpenChange` получает объект `details` от Ark. Следующее состояние находится в `details.open`.
+- `open` описывает целевое состояние. `visible` остаётся равным `true`, пока закрывающееся содержимое
+  смонтировано для анимации выхода.
+- Не помещайте вложенные интерактивные элементы внутрь `Collapsible.Trigger`.
 - Анимации содержимого и индикатора учитывают `prefers-reduced-motion`.
-- Используйте `Accordion`, когда нескольким раскрывающимся областям нужны согласованные клавиатурное поведение или значения.
+- Используйте `Accordion`, если нескольким раскрывающимся секциям нужны единые правила работы с клавиатурой
+  или общие значения.
 
 ## Примеры
 
 ### Управляемое состояние
 
-Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состоянием управляет окружающий интерфейс.
+Используйте `open` с колбэком Ark `onOpenChange(details)`, когда состояние хранится в другой части интерфейса.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -111,7 +112,7 @@ Collapsible.Root
 
 ### Открыт по умолчанию
 
-Задайте `defaultOpen` для неуправляемого элемента раскрытия, который изначально развёрнут.
+Задайте `defaultOpen`, чтобы неуправляемый компонент изначально был открыт.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -122,9 +123,9 @@ Collapsible.Root
 
 </PreviewFrame>
 
-### Отключённое состояние
+### Отключение
 
-Задайте `disabled` на корневом компоненте, чтобы раскрывающаяся область оставалась видимой, но недоступной.
+Задайте `disabled` на корневом компоненте, чтобы запретить открытие и закрытие области.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -135,7 +136,7 @@ Collapsible.Root
 
 </PreviewFrame>
 
-### Ленивое монтирование
+### Отложенное монтирование
 
 Сочетайте `lazyMount` и `unmountOnExit`, когда закрытое содержимое не должно оставаться в DOM.
 
@@ -148,9 +149,9 @@ Collapsible.Root
 
 </PreviewFrame>
 
-### Вложенный
+### Вложенные компоненты
 
-Вкладывайте независимые корневые компоненты, когда раскрытая область содержит ещё одну необязательную деталь.
+Если внутри раскрытой секции нужен ещё один необязательный блок, вкладывайте независимые корневые компоненты.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -163,9 +164,9 @@ Collapsible.Root
 
 ### Частичное сворачивание
 
-Используйте `collapsedHeight` или `collapsedWidth`, чтобы при закрытии оставить часть содержимого видимой.
-Интерактивные элементы управления внутри этой области становятся неактивными в свёрнутом состоянии, поэтому действия, которые должны
-оставаться доступными, размещайте вне `Collapsible.Content`.
+Укажите `collapsedHeight` или `collapsedWidth`, чтобы после закрытия часть содержимого оставалась видимой.
+Интерактивные элементы в этой области не реагируют на взаимодействие, пока компонент свёрнут, поэтому
+действия, которые должны оставаться доступными, размещайте за пределами `Collapsible.Content`.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -178,7 +179,7 @@ Collapsible.Root
 
 ### Частичная ширина
 
-Используйте `collapsedWidth`, когда горизонтальный предпросмотр полезнее области со свёрнутой высотой.
+Используйте `collapsedWidth`, когда удобнее оставлять видимой часть содержимого по ширине, а не по высоте.
 
 <PreviewFrame maxWidth="xs">
 ```tsx preview file="../../en/docs/_snippets/collapsible/partial-collapse-width.tsx"
@@ -189,7 +190,7 @@ Collapsible.Root
 
 ### Контекст
 
-Используйте `useCollapsibleContext()` в дочернем элементе, чтобы получить состояние или закрыть элемент раскрытия.
+Используйте `useCollapsibleContext()` внутри дочернего компонента, чтобы получить состояние или закрыть область.
 
 <PreviewFrame maxWidth="xs">
 ```tsx preview file="../../en/docs/_snippets/collapsible/context.tsx"
@@ -200,8 +201,8 @@ Collapsible.Root
 
 ### Root Provider
 
-Создавайте машину состояний через `useCollapsible` из moduix, когда к состоянию нужен доступ за пределами
-отрендеренного корневого компонента.
+Создайте машину состояний через `useCollapsible` из moduix, если состояние нужно создавать и использовать
+за пределами корневого компонента.
 
 <style>{CollapsibleDocs.collapsibleExampleCss}</style>
 
@@ -214,8 +215,8 @@ Collapsible.Root
 
 ### Расширенная настройка
 
-Используйте `asChild`, чтобы скомпоновать поведение триггера с кнопкой приложения. Это обходит
-стандартную стилизацию `Collapsible.Trigger`, сохраняя поведение Ark и атрибуты состояния.
+Используйте `asChild`, чтобы передать поведение триггера кнопке, которую стилизует ваше приложение.
+Стилизация `Collapsible.Trigger` по умолчанию не применяется, но поведение Ark и атрибуты состояния сохраняются.
 
 <style>{CollapsibleDocs.collapsibleCustomCompositionCss}</style>
 
@@ -232,12 +233,12 @@ Collapsible.Root
 
 <CssPropertiesSection properties={CollapsibleDocs.collapsibleOverrideCssProperties} />
 
-### Хуки стилизации
+### Точки подключения стилей
 
 - Части DOM предоставляют `data-slot="collapsible-root"`, `collapsible-root-provider`,
   `collapsible-trigger`, `collapsible-indicator`, `collapsible-content` и `collapsible-body`.
-- Ark предоставляет `data-state="open" | "closed"` на корневом компоненте, триггере, индикаторе и содержимом.
-- Ark добавляет `data-collapsible` к части содержимого.
-- `data-disabled` помечает отключённые триггер, индикатор и содержимое.
+- Ark добавляет `data-state="open" | "closed"` к корневому компоненту, триггеру, индикатору и содержимому.
+- Ark добавляет `data-collapsible` к части `Content`.
+- `data-disabled` помечает триггер, индикатор и содержимое, если они отключены.
 - `data-has-collapsed-size` помечает содержимое, настроенное через `collapsedHeight` или `collapsedWidth`.
-- Анимация содержимого использует переменные Ark `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
+- Для анимации содержимого используются переменные Ark `--height`, `--width`, `--collapsed-height` и `--collapsed-width`.
