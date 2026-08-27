@@ -114,8 +114,10 @@ test('keeps the RootProvider store and context available to surrounding composit
 
   await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('configuration'));
 
-  expect(screen.getByText('On this page').closest('[data-slot="toc-root-provider"]')).toHaveStyle(
-    '--top: 0px',
+  await waitFor(() =>
+    expect(screen.getByText('On this page').closest('[data-slot="toc-root-provider"]')).toHaveStyle(
+      '--top: 0px',
+    ),
   );
 });
 

@@ -1,5 +1,23 @@
 # moduix
 
+## 2.5.0
+
+### Minor Changes
+
+### Sidebar
+
+- f3a532e: Add a resizable, collapsible application navigation component.
+
+### Table of Contents
+
+- f3a532e: Add a navigation component for page headings.
+
+### Patch Changes
+
+### AngleSlider
+
+- f3a532e: Keep the default track background unchanged on hover and press.
+
 ## 2.4.0
 
 ### Minor Changes
