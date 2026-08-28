@@ -88,11 +88,6 @@
   font-weight: 700;
 }
 
-.productDescription {
-  color: var(--rp-c-text-2);
-  font-size: clamp(0.7rem, 2vw, 0.8rem);
-}
-
 .arrow {
   align-self: center;
   flex: none;

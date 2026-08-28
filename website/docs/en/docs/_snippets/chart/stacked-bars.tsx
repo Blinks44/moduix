@@ -25,15 +25,17 @@ const definition = defineChart({
       inset: 3,
     }),
   ],
-  x: {
-    scale: scaleBand,
-    axis: { label: 'Quarter' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: scaleBand,
+      axis: { label: 'Quarter' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Product', 'Services'],

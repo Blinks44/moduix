@@ -9,13 +9,10 @@ export function TableOfContentsHero() {
     <ChangelogHero
       id="v250--august-27-2026"
       eyebrow={t('tableOfContentsHeroDate')}
-      title={t('tableOfContentsHeroTitle')}
+      title={t('changelogNewComponent')}
       summary={t('tableOfContentsHeroSummary')}
     >
-      <ChangelogHeroCard
-        label="Table of Contents"
-        description={t('tableOfContentsHeroCardDescription')}
-      >
+      <ChangelogHeroCard label="Table of Contents">
         <TableOfContents size={48} aria-hidden="true" />
       </ChangelogHeroCard>
     </ChangelogHero>

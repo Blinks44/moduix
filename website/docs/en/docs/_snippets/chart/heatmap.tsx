@@ -34,13 +34,15 @@ const definition = defineChart({
       radius: 5,
     }),
   ],
-  x: {
-    scale: () => scaleBand<string>().domain(days).padding(0.04),
-    axis: { label: 'Day' },
-  },
-  y: {
-    scale: () => scaleBand<string>().domain(periods).padding(0.04),
-    axis: { label: 'Period' },
+  scales: {
+    x: {
+      scale: () => scaleBand<string>().domain(days).padding(0.04),
+      axis: { label: 'Day' },
+    },
+    y: {
+      scale: () => scaleBand<string>().domain(periods).padding(0.04),
+      axis: { label: 'Period' },
+    },
   },
   color: {
     domain: ['Low', 'Medium', 'High'],

@@ -601,15 +601,20 @@
     "ru": "20 августа 2026 г.",
     "fr": "20 août 2026"
   },
-  "chartHeroTitle": {
-    "en": "Chart joins moduix",
-    "ru": "Chart появился в moduix",
-    "fr": "Chart rejoint moduix"
+  "changelogNewComponent": {
+    "en": "New component",
+    "ru": "Новый компонент",
+    "fr": "Nouveau composant"
   },
-  "chartHeroCardDescription": {
-    "en": "Powered by TanStack Charts",
-    "ru": "На базе TanStack Charts",
-    "fr": "Propulsé par TanStack Charts"
+  "changelogDocumentationUpdate": {
+    "en": "Documentation update",
+    "ru": "Обновление документации",
+    "fr": "Mise à jour de la documentation"
+  },
+  "changelogMajorRelease": {
+    "en": "Major release",
+    "ru": "Мажорный релиз",
+    "fr": "Version majeure"
   },
   "chartHeroSummary": {
     "en": "Composable, accessible charts powered by TanStack Charts.",
@@ -621,16 +626,6 @@
     "ru": "25 августа 2026 г.",
     "fr": "25 août 2026"
   },
-  "navigationMenuHeroTitle": {
-    "en": "Navigation Menu joins moduix",
-    "ru": "В moduix появился Navigation Menu",
-    "fr": "Navigation Menu rejoint moduix"
-  },
-  "navigationMenuHeroCardDescription": {
-    "en": "Primary navigation with disclosure panels",
-    "ru": "Основная навигация с раскрывающимися панелями",
-    "fr": "Navigation principale et panneaux déroulants"
-  },
   "navigationMenuHeroSummary": {
     "en": "Build accessible product navigation with direct links, disclosure panels, and an optional shared viewport.",
     "ru": "Создавайте доступную навигацию по сайту или продукту с прямыми ссылками, раскрывающимися панелями и общей анимированной областью.",
@@ -641,16 +636,6 @@
     "ru": "27 августа 2026 г.",
     "fr": "27 août 2026"
   },
-  "tableOfContentsHeroTitle": {
-    "en": "Table of Contents joins moduix",
-    "ru": "В moduix появился Table of Contents",
-    "fr": "Table of Contents rejoint moduix"
-  },
-  "tableOfContentsHeroCardDescription": {
-    "en": "Track the section in view",
-    "ru": "Отслеживает текущий раздел",
-    "fr": "Suit la section consultée"
-  },
   "tableOfContentsHeroSummary": {
     "en": "Keep an accessible table of contents in sync with the section your reader is viewing.",
     "ru": "Создавайте доступное оглавление, которое автоматически отмечает раздел, видимый читателю, и ведёт к нужному заголовку.",
@@ -660,11 +645,6 @@
     "en": "August 10, 2026",
     "ru": "10 августа 2026 г.",
     "fr": "10 août 2026"
-  },
-  "localizationHeroTitle": {
-    "en": "Full documentation in Russian and French",
-    "ru": "Полная документация на русском и французском",
-    "fr": "Documentation complète en français et en russe"
   },
   "localizationHeroLanguages": {
     "en": "Russian · French",
@@ -680,11 +660,6 @@
     "en": "July 19, 2026",
     "ru": "19 июля 2026 г.",
     "fr": "19 juillet 2026"
-  },
-  "v2MigrationHeroTitle": {
-    "en": "A new component foundation",
-    "ru": "Новая основа для компонентов",
-    "fr": "Une nouvelle base pour les composants"
   },
   "v2MigrationHeroSummary": {
     "en": "A deliberate Ark UI foundation for accessible components.",

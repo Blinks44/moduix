@@ -15,6 +15,10 @@ const definition = defineChart({
     polar({
       inset: 8,
       radiusRatio: 0.82,
+      scales: {
+        angle: null,
+        radius: null,
+      },
       marks: [
         radialArc(pie(revenue, { value: 'value', gapAngle: 0.04 }), {
           innerRadius: ({ radius }) => radius * 0.58,
@@ -25,6 +29,10 @@ const definition = defineChart({
       ],
     }),
   ],
+  scales: {
+    x: null,
+    y: null,
+  },
   color: {
     domain: revenue.map(({ channel }) => channel),
     range: [

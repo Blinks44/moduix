@@ -1,31 +1,35 @@
 ---
 title: Input
 component: input
-description: An Ark Field input wrapper with native events, form semantics, and moduix styling.
+description: Use Input for native single-line fields with Ark Field semantics, native events, and moduix styling.
 ---
 
 import * as InputDocs from '@/components/examples/input';
 
 ## API Reference
 
-Ark UI does not ship a dedicated input primitive. moduix builds on
-[Ark Field.Input](https://ark-ui.com/docs/components/field), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition),
-[styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+`Input` is a styled component built on [Ark Field.Input](https://ark-ui.com/docs/components/field).
+It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [ref forwarding](https://ark-ui.com/docs/guides/ref).
+It renders a native single-line `<input>` and keeps the browser's form behavior and React's native
+event API.
+
+Use `Field` when the control needs a label, helper or error text, generated ids, or shared field
+state.
 
 ## Choosing the right component
 
-- Choose **`Input`** for a plain single-line native input.
-- Choose **`InputGroup`** for inline addons, text, or actions.
-- Choose **`PasswordInput`** for the existing visibility-toggle wrapper.
-- Choose **`NumberInput`** for numeric parsing and stepping.
-- Choose **`Textarea`** for multi-line content.
-- Choose **`Editable`** for preview-first text that switches into edit mode.
+- Use **`Input`** for an ordinary single-line input.
+- Use **`InputGroup`** when the input needs inline content such as a prefix, suffix, or action.
+- Use **`PasswordInput`** for a password field with a visibility toggle.
+- Use **`NumberInput`** when you need numeric parsing and step controls.
+- Use **`Textarea`** for multi-line content.
+- Use **`Editable`** when text should appear as a value first and switch into edit mode on demand.
 
-## Basic
+## Basic usage
 
-Use `Input` inside `Field` so Ark can connect the label, helper text, ids, and form state.
+Place `Input` inside `Field` when you need a label, helper text, or an error message. `Field`
+connects that content to the control and provides its ids and state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/basic.tsx"
@@ -52,40 +56,43 @@ Field.Root (optional)
 
 ### Recommended composition
 
-Render `Input` inside `Field` for labels, helper/error text, ids, and shared `disabled`, `invalid`,
-`required`, or `readOnly` state. `Fieldset` can provide disabled state to nested fields.
+Use `Input` inside `Field` when the field needs a label, helper or error text, generated ids, or
+shared `disabled`, `invalid`, `required`, or `readOnly` state. `Fieldset` can disable several
+nested fields at once.
 
-Use native input props and events. Controlled inputs use `value` and `onChange(event)`;
-uncontrolled inputs use `defaultValue`.
+Pass native input props and events directly to `Input`. For a controlled input, pass `value` and
+update it from `onChange(event)`; for an uncontrolled input, use `defaultValue`.
 
 ### When to go custom
 
-Use `asChild` when one semantic input element must own the rendered node. Ark merges the wrapper
-props, field props, class, and ref into that single child.
+Use `asChild` only when another input-compatible element must be the actual DOM node. Provide one
+semantic, focusable input child. Ark merges the component props, field props, class, and ref into
+that child.
 
-For a control that is not input-compatible, do not force it through `Input`; compose it with a
-component that owns the correct Ark control primitive.
+If the control is not input-compatible, use the component that provides its appropriate Ark
+control primitive instead of forcing it through `Input`.
 
 ### Default props
 
 | Prop       | Default | Notes                                                  |
 | ---------- | ------- | ------------------------------------------------------ |
 | `size`     | `md`    | Visual size: `xs`, `sm`, `md`, `lg`, or `xl`.          |
-| `htmlSize` | -       | Writes the native character-based `input[size]` value and uses its width by default. |
-| `asChild`  | `false` | Merges props into one semantic child through Ark Slot. |
+| `htmlSize` | Not set | Sets the native `input[size]` value in characters. The input width follows it by default. |
+| `asChild`  | `false` | When enabled, passes props into one semantic child through Ark Slot. |
 
 ### Behavioral notes
 
-- The ref points to the real `HTMLInputElement`.
+- `ref` points to the real `HTMLInputElement`.
 - No `HiddenInput` is needed because `Input` is the native form control.
 - Ark `Field` supplies `aria-describedby`, `aria-invalid`, ids, and state props.
-- `Input` does not manage value, validity, focus, or keyboard navigation.
+- `Input` does not manage the value, validity, focus, or keyboard navigation.
 
 ## Examples
 
 ### Controlled
 
-Use the native change event when React owns the current value.
+Use this pattern when React owns the current value. Read the next value from the native
+`onChange(event)` and pass it back through `value`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/controlled.tsx"
@@ -93,9 +100,10 @@ Use the native change event when React owns the current value.
 ```
 </PreviewFrame>
 
-### Disabled and Readonly
+### Disabled and read-only
 
-Use native props directly or place them on `Field.Root` when the full field should share state.
+Set `disabled` and `readOnly` directly on `Input` for one control. Put them on `Field.Root` when
+the label, supporting text, and input should share the same state.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/disabled-and-readonly.tsx"
@@ -105,8 +113,8 @@ Use native props directly or place them on `Field.Root` when the full field shou
 
 ### Field State
 
-Put invalid state on `Field`; Ark applies `aria-invalid` and `data-invalid` to the input and
-connects the error text.
+Set `invalid` on `Field` when validation fails. Ark adds `aria-invalid` and `data-invalid` to the
+input and connects the error text to it.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/field-state.tsx"
@@ -116,8 +124,8 @@ connects the error text.
 
 ### Native Attributes
 
-Native attributes continue to control browser validation, keyboard, autocomplete, and form
-submission. Use `htmlSize` only for character-based width.
+Use native attributes for browser behavior such as validation, input mode, autocomplete, and form
+submission. Use `htmlSize` for a character-based width and `size` for visual density.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/input/native-attributes.tsx"
@@ -127,8 +135,8 @@ submission. Use `htmlSize` only for character-based width.
 
 ### File Input
 
-`Input` keeps the native file chooser available for simple forms. Use `FileUpload` when selection,
-dropzones, or upload lifecycle UI needs to be managed.
+`Input` is enough for a native file chooser in a simple form. Use `FileUpload` when the application
+needs to keep selected files in state or manage a dropzone and upload flow.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/file-input.tsx"
@@ -138,7 +146,8 @@ dropzones, or upload lifecycle UI needs to be managed.
 
 ### Sizes
 
-The moduix `size` prop changes visual density without replacing the native `size` attribute.
+The moduix `size` prop controls visual density. It is separate from `htmlSize`, which controls the
+native character-based width.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/sizes.tsx"
@@ -148,8 +157,9 @@ The moduix `size` prop changes visual density without replacing the native `size
 
 ### Standalone Input
 
-Outside `Field`, provide an accessible name explicitly. Native state props still work, but there is
-no field context to supply ids or helper/error relationships.
+`Field` is optional. When `Input` is used on its own, provide an accessible name with a label,
+`aria-label`, or `aria-labelledby`. Native props still work, but there is no field context to
+generate ids or connect helper and error text.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/standalone-input.tsx"
@@ -159,8 +169,8 @@ no field context to supply ids or helper/error relationships.
 
 ### Advanced Customization
 
-Use `asChild` only when a custom input host must own the rendered node; preserve one semantic,
-focusable input element that can receive the forwarded props and ref.
+Use `asChild` only when a custom input host must be the rendered DOM node. Keep one semantic,
+focusable input element that can receive the merged props and `ref`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/input/as-child.tsx"

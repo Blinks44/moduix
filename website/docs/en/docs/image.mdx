@@ -1,22 +1,23 @@
 ---
 title: Image
 component: image
-description: Responsive CDN-aware images with Unpic's generated srcset and sizes attributes.
+description: Responsive, CDN-aware images with Unpic-generated srcset and sizes attributes.
 ---
 
 import * as ImageDocs from '@/components/examples/image';
 
 ## API Reference
 
-`Image` is a moduix-owned `<img>` wrapper around [Unpic React](https://unpic.pics/img/react/).
-Ark UI has no dedicated image primitive for this component, so it preserves native `<img>` and
-`<picture>` composition rather than adapting an Ark part. See Ark's [Composition
-guide](https://ark-ui.com/react/docs/guides/composition) for its native-element model.
+`Image` is a moduix component built around the `<img>` component from [Unpic React](https://unpic.pics/img/react/).
+Ark UI does not provide a dedicated image primitive, so `Image` keeps the native `<img>` and
+`<picture>` composition instead of replacing it with an Ark part. See Ark's [Composition
+guide](https://ark-ui.com/react/docs/guides/composition) for more on its native-element model.
 
 ## Basic
 
-Use `Image` with a supported image CDN URL and provide dimensions for the default constrained
-layout. Unpic generates responsive `srcSet` and `sizes`, while the browser reserves the image space.
+Use `Image` with a URL from a supported image CDN, and provide `width` and `height` for the default
+constrained layout. Unpic generates responsive `srcSet` and `sizes`, while the browser reserves
+space for the image before it loads.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image/basic.tsx"
@@ -41,54 +42,55 @@ picture (native)
 
 | Part                   | Role                                                                  |
 | ---------------------- | --------------------------------------------------------------------- |
-| `Image` / `Image.Root` | Responsive native image; Unpic creates `srcSet`, `sizes`, and styles. |
-| `Image.Source`         | Responsive `<source>` for a native `<picture>` element.               |
+| `Image` / `Image.Root` | Responsive native `<img>` element; Unpic creates `srcSet`, `sizes`, and styles. |
+| `Image.Source`         | Responsive `<source>` for a native `<picture>` element.                     |
 
 ## Composition
 
 ### Recommended composition
 
 `Image` is the short root form and is equivalent to `Image.Root`. Use `width` and `height` with
-the default `layout="constrained"` to preserve the asset's ratio and avoid layout shifts. For
-remote URLs from supported providers, Unpic detects the provider and generates transformed `srcSet`
-entries automatically.
+the default `layout="constrained"` to preserve the asset's aspect ratio and let the browser reserve
+space before loading, which prevents layout shifts. For URLs from supported providers, Unpic detects
+the provider and generates transformed `srcSet` entries automatically.
 
-Use `priority` only for images that must load immediately, such as the primary above-the-fold hero.
-It sets eager loading and high fetch priority unless native `loading` or React's camel-cased
-`fetchPriority` is passed explicitly.
+Use `priority` only for images that must load immediately, such as the primary hero image visible
+when the page opens. It enables eager loading and a high fetch priority unless native `loading` or
+React's camel-cased `fetchPriority` prop is set explicitly.
 
 ### When to go custom
 
-Use native `<picture>` with `Image.Source` when art direction or media-specific sources are needed.
-Keep `Image` as the last child for the fallback image. Pass `fallback`, `options`, or `operations`
-when an otherwise unrecognized URL should use a specific Unpic provider.
+Use native `<picture>` with `Image.Source` when you need art direction or different sources for
+different media queries. Keep `Image` as the last child; it acts as the fallback image. Pass
+`fallback`, `options`, or `operations` when Unpic cannot recognize a URL and should use a specific
+provider.
 
-For format selection, put a `type`-specific `Image.Source` before an equivalent source without
+For format selection, put an `Image.Source` with a `type` before an equivalent source without
 `type`; the browser uses the first format it supports.
 
 ### Default props
 
-| Prop                    | Default                   | Notes                                            |
-| ----------------------- | ------------------------- | ------------------------------------------------ |
-| `layout`                | `constrained`             | Fits within supplied dimensions and scales down. |
-| `loading`               | `lazy`                    | Becomes `eager` when `priority` is set.          |
-| `decoding`              | `async` for non-priority images | A native value is preserved; absent by default with `priority`. |
-| `fetchPriority`         | `high` with `priority`    | A native value overrides the priority default.    |
-| `objectFit`             | `cover`                   | Applied by Unpic's generated inline styles.      |
-| `--moduix-image-radius` | `var(--moduix-radius-md)` | moduix's default visible radius.                 |
+| Prop                    | Default                        | Notes                                                               |
+| ----------------------- | ------------------------------ | ------------------------------------------------------------------- |
+| `layout`                | `constrained`                  | Fits within the supplied dimensions and scales down if needed.     |
+| `loading`               | `lazy`                         | Becomes `eager` when `priority` is set.                             |
+| `decoding`              | `async` for non-priority images | A native value is preserved; omitted by default with `priority`.   |
+| `fetchPriority`         | `high` with `priority`         | A native value overrides the priority default.                     |
+| `objectFit`             | `cover`                        | Applied through Unpic's generated inline styles.                    |
+| `--moduix-image-radius` | `var(--moduix-radius-md)`     | moduix's default visible radius.                                   |
 
 ### Behavioral notes
 
 - `fixed` keeps the requested pixel dimensions and can overflow a narrower parent, while
   `fullWidth` fills its container width.
-- `alt` is required for meaningful images. Use `alt=""` for decorative images; Unpic then applies
+- `alt` is required for informative images. Use `alt=""` for decorative images; Unpic then applies
   `role="presentation"` unless you override the role.
 - Unpic generates `srcSet` from the source URL. Use `breakpoints` when its standard responsive
-  widths are not appropriate.
+  widths are not a good fit.
 - Native `loading`, `decoding`, and React's camel-cased `fetchPriority` remain available when the
   generated defaults do not match the image's loading needs.
 - `background="auto"` creates a low-resolution background from supported providers. It remains
-  after loading, so use it only for opaque images or provide a deliberate background value instead.
+  after loading, so use it only for opaque images or provide an explicit background value instead.
 - `unstyled` disables Unpic's generated inline layout styles; moduix's display, radius, and
   `data-slot` hooks remain available. Use it when art-directed sources need different responsive
   layout rules, then provide those rules in your own CSS.
@@ -97,10 +99,9 @@ For format selection, put a `type`-specific `Image.Source` before an equivalent 
 
 ### Art Direction
 
-Use `Image.Source` to choose a wider office view on larger screens and the portrait fallback on
-smaller screens. The first desktop source requests AVIF, then the equivalent source provides a
-fallback for browsers without AVIF support. `Image.Source` must stay inside a native `<picture>`
-element.
+Use `Image.Source` to show a wider office view on larger screens and a portrait fallback on smaller
+screens. The first large-screen source requests AVIF; the next source provides a fallback for
+browsers that do not support AVIF. `Image.Source` must stay inside a native `<picture>` element.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image/art-direction.tsx"
@@ -110,8 +111,8 @@ element.
 
 ### Fixed
 
-Use `layout="fixed"` when the image must keep exact CSS-pixel dimensions. Ensure its parent has
-enough room, since fixed images do not shrink to fit a narrower container.
+Use `layout="fixed"` when the image must keep exact dimensions in CSS pixels. Make sure its parent
+has enough room, since fixed images do not shrink to fit a narrower container.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/image/fixed.tsx"
@@ -121,8 +122,8 @@ enough room, since fixed images do not shrink to fit a narrower container.
 
 ### Full Width
 
-Use `layout="fullWidth"` for a hero or media strip that should fill the width of its containing
-layout. Supply `height` when the crop height must remain fixed.
+Use `layout="fullWidth"` for a hero image or media strip that should fill its container's width.
+Supply `height` when the crop height must remain fixed.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image/full-width.tsx"
@@ -138,6 +139,6 @@ layout. Supply `height` when the crop height must remain fixed.
 
 ### Styling hooks
 
-- `data-slot="image-root"` styles the rendered `<img>`.
+- `data-slot="image-root"` targets the rendered `<img>` for styling.
 - `data-slot="image-source"` targets the source node inside a native `<picture>`.
-- `className` on `Image` is the recommended local styling path. The root is block-level by default.
+- `className` on `Image` is the recommended way to apply local styles. The root is block-level by default.

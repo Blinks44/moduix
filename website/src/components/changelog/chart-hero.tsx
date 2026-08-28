@@ -9,10 +9,10 @@ export function ChartHero() {
     <ChangelogHero
       id="v230--august-20-2026"
       eyebrow={t('chartHeroDate')}
-      title={t('chartHeroTitle')}
+      title={t('changelogNewComponent')}
       summary={t('chartHeroSummary')}
     >
-      <ChangelogHeroCard label="Chart" description={t('chartHeroCardDescription')}>
+      <ChangelogHeroCard label="Chart">
         <ChartPie size={48} aria-hidden="true" />
       </ChangelogHeroCard>
     </ChangelogHero>

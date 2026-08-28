@@ -13,88 +13,88 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 <ChangelogNewsItem>
   <TableOfContentsHero />
 
-  [Table of Contents](/docs/table-of-contents) helps readers navigate long articles. Pass the
-  headings you want to track, and it highlights the section in view while its links take readers
-  to the matching heading.
+[Table of Contents](/docs/table-of-contents) helps readers navigate long articles. Pass the
+headings you want to track, and it highlights the section in view while its links take readers
+to the matching heading.
 
-  ### What’s included
+### Highlights
 
-  - `Toc.Content` for the article and `Toc.Nav` for its navigation region.
-  - Active-section tracking, same-page links, optional `Toc.Indicator` and `Toc.Rail`, plus
-    `Toc.RootProvider` for controls that need access to the same state.
+- Compose the article with `Toc.Content` and its navigation region with `Toc.Nav`; each tracked
+  item maps to one stable heading ID.
+- Add `Toc.Indicator` or `Toc.Rail` for visual hierarchy, and use `Toc.RootProvider` when controls
+  outside the component need the same tracking state.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <NavigationMenuHero />
 
-  [Navigation Menu](/docs/navigation-menu) gives product and site navigation a clear structure.
-  Use direct links for destinations, disclosure panels for related links, and a shared
-  `NavigationMenu.Viewport` when panels should transition through one surface.
+[Navigation Menu](/docs/navigation-menu) gives product and site navigation a clear structure. Use
+direct links for destinations, disclosure panels for related links, and a shared
+`NavigationMenu.Viewport` when panels should transition through one surface.
 
-  ### What’s included
+### Highlights
 
-  - Explicit `NavigationMenu.List`, `Item`, `Link`, `Trigger`, and `Content` composition.
-  - Keyboard-friendly disclosure behavior, optional arrows and indicators, controlled state, and a
-    shared viewport example.
+- Use `NavigationMenu.Link` for direct destinations and a `Trigger` / `Content` pair for a group of
+  related links.
+- Ark manages keyboard interaction, focus, and the open value; `Viewport` and `Arrow` remain
+  optional when several panels should share an animated surface.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <ChartHero />
 
-  [Chart](/docs/chart) adds accessible data visualizations that you can compose around TanStack
-  Charts. Create line, area, bar, donut, scatter, and heatmap charts with moduix defaults for
-  figures, legends, tooltips, and motion while keeping TanStack’s configuration API.
+[Chart](/docs/chart) adds accessible data visualizations that you can compose around TanStack Charts.
+Create line, area, bar, donut, scatter, and heatmap charts with moduix defaults for figures,
+legends, tooltips, and motion while keeping TanStack’s configuration API.
 
-  ### What’s included
+### Highlights
 
-  - A semantic figure composition with `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
-  - A compact default tooltip, keyboard navigation, visible focus styles, and motion that respects reduced-motion preferences.
+- Keep marks, scales, interactions, and callbacks in a TanStack definition, then compose it with
+  `Chart.Header`, `Chart.Plot`, and `Chart.Legend`.
+- The default tooltip and motion preset respect keyboard navigation and reduced-motion preferences;
+  pass `motion={false}` when the chart should render statically.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <LocalizationHero />
 
-  The site now has complete Russian and French documentation. You can explore a component, copy an
-  example, and follow a recipe without switching languages halfway through.
+The site now has complete Russian and French documentation. You can explore a component, copy an
+example, and follow a recipe without switching languages halfway through.
 
-  ### What’s included
+### Highlights
 
-  - Complete component documentation, setup guides, API references, and recipes in both languages.
-  - Aligned navigation, page metadata, locale-aware routes, and copyable examples across English,
-    Russian, and French.
+- Component guides, installation instructions, API references, and recipes now have matching
+  Russian and French pages.
+- Navigation, page metadata, locale-aware routes, and copyable examples stay aligned across English,
+  Russian, and French.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
   <V2MigrationHero />
 
-  v2 is a major release with a new foundation for component behavior and accessibility. Components
-  with a dedicated primitive now use Ark UI, while moduix keeps its native CSS and both installation
-  paths.
+v2 is a major release with a new foundation for component behavior and accessibility. Components
+with a dedicated primitive now use Ark UI, while moduix keeps its native CSS and both installation
+paths.
 
-  ### What changed in v2
+### Highlights
 
-  - Built component behavior and accessibility on Ark UI primitives.
-  - Aligned public composition, state access, and lower-level props with Ark contracts.
-  - Kept native CSS and both installation paths: install the package or copy the source into your app.
+- Ark UI primitives now provide state, interaction behavior, and accessibility for components with a
+  dedicated primitive.
+- Public composition and low-level props follow Ark contracts, while moduix retains its native CSS
+  and supports both package installation and copy-owned source.
 </ChangelogNewsItem>
 
 ## More updates
 
 ### v2.5.0 - August 27, 2026
 
-- Added `Table of Contents` for accessible active-section tracking and same-page links.
 - Added a resizable, collapsible `Sidebar` for application navigation.
 - Kept the `AngleSlider` track background stable on hover and press.
 
 ### v2.4.0 - August 25, 2026
 
-- Added `Navigation Menu` for primary navigation, disclosure panels, and optional shared viewport transitions.
 - Added `JSON Tree View` for displaying nested JSON data.
 - Updated package dependency versions.
-
-### v2.3.0 - August 20, 2026
-
-- Added `Chart`, based on TanStack Charts, with moduix composition and styling defaults.
 
 ### v2.2.4 - August 10, 2026
 

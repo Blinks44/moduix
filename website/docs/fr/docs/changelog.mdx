@@ -17,11 +17,12 @@ import { ChangelogNewsItem } from '@/components/changelog/hero';
 Fournissez les titres à suivre : le composant met en évidence la section visible et ses liens
 amènent le lecteur au titre correspondant.
 
-  ### Ce qui est inclus
+### À retenir
 
-- `Toc.Content` pour l’article et `Toc.Nav` pour sa zone de navigation.
-- Suivi de la section active, liens vers la même page, `Toc.Indicator` et `Toc.Rail` facultatifs,
-  ainsi que `Toc.RootProvider` pour les contrôles qui doivent accéder au même état.
+- Composez l’article avec `Toc.Content` et sa zone de navigation avec `Toc.Nav` ; chaque entrée
+  suivie correspond à un ID de titre stable.
+- Ajoutez `Toc.Indicator` ou `Toc.Rail` pour rendre la hiérarchie visible, et utilisez
+  `Toc.RootProvider` lorsque des contrôles externes ont besoin du même état de suivi.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -32,11 +33,12 @@ produit. Utilisez des liens directs pour les destinations et des panneaux dérou
 associés. Ajoutez `NavigationMenu.Viewport` lorsque les panneaux doivent s’animer dans une même
 surface.
 
-  ### Ce qui est inclus
+### À retenir
 
-- Une composition explicite avec `NavigationMenu.List`, `Item`, `Link`, `Trigger` et `Content`.
-- Un comportement d’ouverture utilisable au clavier, des flèches et indicateurs facultatifs, un
-  état contrôlé et un exemple avec une surface `Viewport` partagée.
+- Utilisez `NavigationMenu.Link` pour les destinations directes et une paire `Trigger` / `Content`
+  pour un groupe de liens associés.
+- Ark UI gère le clavier, le focus et l’élément ouvert ; `Viewport` et `Arrow` restent facultatifs
+  lorsque plusieurs panneaux partagent une surface animée.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -48,11 +50,12 @@ points, ainsi que des cartes de chaleur, avec les composants moduix et leurs ré
 la figure, la légende, l’infobulle et les animations, tout en conservant l’API de configuration de
 TanStack.
 
-  ### Ce qui est inclus
+### À retenir
 
-- Une composition sémantique avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
-- Une infobulle compacte par défaut, la navigation au clavier, des styles de focus visibles et la
-  prise en charge des préférences de réduction des mouvements.
+- Définissez les marques, échelles, interactions et fonctions de rappel dans une définition TanStack, puis
+  composez-la avec `Chart.Header`, `Chart.Plot` et `Chart.Legend`.
+- L’infobulle et l’animation par défaut prennent en charge le clavier et la préférence de réduction
+  des mouvements ; passez `motion={false}` pour un rendu statique.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -61,12 +64,12 @@ TanStack.
 La documentation française et russe est maintenant complète. Vous pouvez découvrir un composant,
 copier un exemple et suivre une recette sans changer de langue en cours de route.
 
-  ### Ce qui est inclus
+### À retenir
 
-- La documentation des composants, les guides de configuration, les références API et les recettes
-  sont disponibles dans les deux langues.
-- La navigation, les métadonnées de page, les routes adaptées à chaque langue et les exemples
-  copiables restent cohérents en anglais, en français et en russe.
+- Les guides de composants, l’installation, les références API et les recettes ont désormais leurs
+  pages correspondantes en russe et en français.
+- La navigation, les métadonnées, les routes adaptées à chaque langue et les exemples copiables
+  restent alignés en anglais, en français et en russe.
 </ChangelogNewsItem>
 
 <ChangelogNewsItem>
@@ -76,34 +79,25 @@ v2 est une version majeure qui introduit une nouvelle base pour le comportement 
 composants. Lorsqu’un composant dispose d’une primitive dédiée, Ark UI en fournit désormais le
 comportement ; moduix conserve son CSS natif et ses deux modes d’installation.
 
-  ### Changements dans v2
+### À retenir
 
-- Le comportement et l’accessibilité des composants reposent désormais sur les primitives Ark UI.
-- La composition publique, l’accès à l’état et les propriétés de bas niveau sont alignés sur les
-  contrats Ark.
-- Le CSS natif et les deux modes d’installation restent disponibles : via le paquet ou en copiant le
-  code source dans votre projet.
+- Les primitives Ark UI assurent désormais l’état, les interactions et l’accessibilité des composants
+  qui disposent d’une primitive dédiée.
+- La composition publique et les propriétés de bas niveau suivent les contrats Ark, tandis que moduix
+  conserve son CSS natif et ses deux modes d’installation : paquet ou copie du code source.
 </ChangelogNewsItem>
 
 ## Autres mises à jour
 
 ### v2.5.0 - 27 août 2026
 
-- Ajout de `Table of Contents`, un sommaire accessible qui suit la section consultée et renvoie vers
-  les titres correspondants.
 - Ajout de `Sidebar`, redimensionnable et rétractable, pour la navigation de l’application.
 - `AngleSlider` conserve désormais l’arrière-plan de sa piste au survol et à l’appui.
 
 ### v2.4.0 - 25 août 2026
 
-- Ajout de `Navigation Menu` pour la navigation principale, les panneaux déroulants et les transitions
-  facultatives dans une surface partagée.
 - Ajout de `JSON Tree View` pour afficher des données JSON imbriquées.
 - Mise à jour des versions des dépendances du paquet.
-
-### v2.3.0 - 20 août 2026
-
-- Ajout de `Chart`, basé sur TanStack Charts, avec les composants de composition et les styles par défaut de moduix.
 
 ### v2.2.4 - 10 août 2026
 

@@ -29,15 +29,17 @@ const definition = defineChart({
       strokeWidth: 2,
     }),
   ],
-  x: {
-    scale: () => scalePoint<string>().padding(0.2),
-    axis: { label: 'Month' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: () => scalePoint<string>().padding(0.2),
+      axis: { label: 'Month' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Revenue', 'Target'],

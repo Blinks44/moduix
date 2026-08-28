@@ -1,7 +1,7 @@
 ---
 title: Image Cropper
 component: image-cropper
-description: Ark UI image-cropper composition for cropping and transforming images.
+description: Image Cropper component based on Ark UI for cropping and transforming images.
 ---
 
 import * as ImageCropperDocs from '@/components/examples/image-cropper';
@@ -14,7 +14,7 @@ import * as ImageCropperDocs from '@/components/examples/image-cropper';
 
 ## Basic
 
-Use `ImageCropper.CropArea` for the standard selection, grids, and resize handles.
+Start with `ImageCropper.CropArea` for a ready-made crop area with a grid and resize handles.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/basic.tsx"
@@ -40,55 +40,56 @@ Use `ImageCropper.CropArea` for the standard selection, grids, and resize handle
 | Part                                 | Role                                                                                 |
 | ------------------------------------ | ------------------------------------------------------------------------------------ |
 | `ImageCropper` / `ImageCropper.Root` | Root group that owns crop state, transforms, ARIA labels, and runtime CSS variables. |
-| `ImageCropper.RootProvider`          | Root rendered from a `useImageCropper` instance created outside the tree.            |
-| `ImageCropper.Viewport`              | Panning surface and clipped image viewport.                                          |
-| `ImageCropper.Image`                 | Transformed image element controlled by Ark.                                         |
-| `ImageCropper.Selection`             | Focusable crop selection and keyboard interaction target.                            |
+| `ImageCropper.RootProvider`          | Root rendered from a `useImageCropper` instance created outside the component tree.  |
+| `ImageCropper.Viewport`              | Surface for moving the image and clipping anything outside the viewport.             |
+| `ImageCropper.Image`                 | Image element that Ark transforms as the user edits the crop.                        |
+| `ImageCropper.Selection`             | Focusable crop area and keyboard interaction target.                                 |
 | `ImageCropper.Grid`                  | Horizontal or vertical crop guide lines.                                             |
-| `ImageCropper.Handle`                | Resize handle for each `ImageCropper.handles` position.                              |
-| `ImageCropper.CropArea`              | Recommended selection with both grids and every resize handle.                       |
+| `ImageCropper.Handle`                | Resize handle for each position in `ImageCropper.handles`.                           |
+| `ImageCropper.CropArea`              | Ready-made crop area with both grids and every resize handle.                        |
 
 ## Composition
 
 ### Recommended composition
 
-Use `ImageCropper.CropArea` for the common cropper anatomy. It keeps the Ark part tree intact while
-removing repeated selection, grid, and handle markup. Pass `className`, `gridClassName`, or
-`handleClassName` to style its rendered parts. It owns that child structure, so use the explicit
-`Selection`, `Grid`, and `Handle` parts instead of `children` or `asChild` when the structure differs.
+For most use cases, use `ImageCropper.CropArea`. It keeps the Ark part tree intact and removes the
+repeated markup for the selection, grids, and handles. Pass `className`, `gridClassName`, or
+`handleClassName` to style those parts. `CropArea` creates its child structure itself, so switch to
+the explicit `Selection`, `Grid`, and `Handle` parts when you need a different structure. In that
+case, do not use `children` or `asChild` on `CropArea`.
 
 ### When to go custom
 
-Use `ImageCropper.Context` for toolbars inside the root. Use moduix `useImageCropper` with
-`ImageCropper.RootProvider` when controls, crop preview, or form
-integration need the cropper API outside the root subtree. Keep `RootProvider` separate from
-`ImageCropper.Root` for the same state instance.
+Use `ImageCropper.Context` for a toolbar inside the root. If a toolbar, crop preview, or form
+integration needs the cropper API outside the component tree, create a moduix `useImageCropper`
+instance and pass it to `ImageCropper.RootProvider`. For one state instance, render either `Root` or
+`RootProvider`, not both.
 
 ### Default props
 
 | Prop                     | Default                                  | Notes                                                        |
 | ------------------------ | ---------------------------------------- | ------------------------------------------------------------ |
-| `cropShape`              | `"rectangle"`                            | Use `"circle"` for avatar-style cropping.                    |
+| `cropShape`              | `"rectangle"`                            | Use `"circle"` for avatar crops.                             |
 | `defaultZoom`            | `1`                                      | Initial image zoom.                                          |
 | `defaultRotation`        | `0`                                      | Initial image rotation in degrees.                           |
-| `defaultFlip`            | `{ horizontal: false, vertical: false }` | Initial flip state.                                          |
+| `defaultFlip`            | `{ horizontal: false, vertical: false }` | Initial horizontal and vertical flip state.                  |
 | `minZoom`                | `1`                                      | Minimum zoom factor.                                         |
 | `maxZoom`                | `5`                                      | Maximum zoom factor.                                         |
-| `minWidth` / `minHeight` | `40`                                     | Minimum crop selection size.                                 |
-| `fixedCropArea`          | `false`                                  | When true, users pan the image underneath a fixed selection. |
+| `minWidth` / `minHeight` | `40`                                     | Minimum crop area size.                                      |
+| `fixedCropArea`          | `false`                                  | When true, users move the image beneath a fixed crop area.   |
 
 ### Behavioral notes
 
-Ark manages pointer dragging, panning, wheel zoom, pinch zoom, keyboard movement, generated IDs,
-ARIA labels, and crop output helpers. Arrow keys move the selection, `Alt` plus arrow keys resizes,
-`Shift` and `Ctrl`/`Cmd` use the nudge-step props, and `+` / `-` zoom. Controlled state preserves
-Ark detail objects through `onCropChange`, `onZoomChange`, `onRotationChange`, and `onFlipChange`.
+Ark handles pointer dragging, panning, wheel and pinch zoom, keyboard movement, generated IDs, ARIA
+labels, and crop output helpers. Arrow keys move the crop area, `Alt` plus an arrow key resizes it,
+`Shift` and `Ctrl`/`Cmd` use the nudge-step props, and `+` / `-` change the zoom. In controlled mode,
+`onCropChange`, `onZoomChange`, `onRotationChange`, and `onFlipChange` receive Ark detail objects.
 
 ## Examples
 
 ### Aspect Ratio
 
-Change `aspectRatio` from React state when users choose a required output shape.
+Change `aspectRatio` from React state when users choose the required output shape, such as a square.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/aspect-ratio.tsx"
@@ -98,7 +99,7 @@ Change `aspectRatio` from React state when users choose a required output shape.
 
 ### Circle Crop
 
-Use `cropShape="circle"` with a square aspect ratio for avatars and profile images.
+Combine `cropShape="circle"` with a square aspect ratio for avatars and profile images.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/circle-crop.tsx"
@@ -108,7 +109,7 @@ Use `cropShape="circle"` with a square aspect ratio for avatars and profile imag
 
 ### Controlled Zoom
 
-Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and `maxZoom`.
+Keep `zoom` in your own state with `onZoomChange`, and limit the range with `minZoom` and `maxZoom`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/controlled-zoom.tsx"
@@ -118,7 +119,7 @@ Control `zoom` with `onZoomChange` and bound the interaction with `minZoom` and 
 
 ### Crop Preview
 
-Create the cropper with Ark `useImageCropper` when another control needs to call
+Create the cropper with moduix `useImageCropper` when another control needs to call
 `getCroppedImage()`.
 
 <PreviewFrame maxWidth="lg">
@@ -129,7 +130,7 @@ Create the cropper with Ark `useImageCropper` when another control needs to call
 
 ### Events
 
-Use Ark detail objects to sync crop and zoom state with external UI.
+Use Ark detail objects to keep crop and zoom state in sync with other UI.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/events.tsx"
@@ -139,7 +140,7 @@ Use Ark detail objects to sync crop and zoom state with external UI.
 
 ### Fixed Crop Area
 
-Use `fixedCropArea` when the selection should stay fixed while the image moves underneath.
+Use `fixedCropArea` when the crop area should stay in place while the user moves the image underneath.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/fixed-crop-area.tsx"
@@ -149,7 +150,7 @@ Use `fixedCropArea` when the selection should stay fixed while the image moves u
 
 ### Initial Crop
 
-Pass `initialCrop` when the cropper should open with a known pixel selection.
+Pass `initialCrop` to open the cropper with a predefined crop area in pixels.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/initial-crop.tsx"
@@ -159,7 +160,7 @@ Pass `initialCrop` when the cropper should open with a known pixel selection.
 
 ### Min And Max Size
 
-Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
+Keep the crop area within bounds by setting `minWidth`, `minHeight`, `maxWidth`, and `maxHeight`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/min-and-max-size.tsx"
@@ -169,8 +170,8 @@ Constrain selection resizing with `minWidth`, `minHeight`, `maxWidth`, and `maxH
 
 ### Root Provider
 
-Use `RootProvider` with a moduix `useImageCropper` instance when a toolbar or workflow owns the cropper
-outside the rendered root.
+Use `RootProvider` with a moduix `useImageCropper` instance when a toolbar or workflow lives outside
+the cropper's component tree.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/root-provider.tsx"
@@ -180,7 +181,8 @@ outside the rendered root.
 
 ### Rotation, Flip, And Reset
 
-Read `ImageCropper.Context` inside the root for toolbar actions such as zoom, rotate, flip, and reset.
+Read `ImageCropper.Context` inside the root to connect toolbar actions for zooming, rotating, flipping,
+and resetting the cropper.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/rotation-flip-and-reset.tsx"
@@ -190,7 +192,8 @@ Read `ImageCropper.Context` inside the root for toolbar actions such as zoom, ro
 
 ### Advanced Customization
 
-Bypass `CropArea` when the selection needs a different structure or custom child parts.
+Use the explicit parts instead of `CropArea` when the crop area needs a different structure or custom
+child parts.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/image-cropper/advanced-customization.tsx"
@@ -224,5 +227,5 @@ Target stable `data-slot` hooks such as `image-cropper-root`, `image-cropper-vie
 
 Ark writes `--crop-width`, `--crop-height`, `--crop-x`, `--crop-y`, `--image-zoom`,
 `--image-rotation`, `--image-offset-x`, and `--image-offset-y` on the root. Treat these as
-read-only runtime values when synchronizing custom UI; use the documented `--moduix-image-cropper-*`
+read-only runtime values when synchronizing custom UI. Use the documented `--moduix-image-cropper-*`
 properties above for visual overrides.

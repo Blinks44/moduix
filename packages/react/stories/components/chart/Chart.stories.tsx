@@ -44,15 +44,17 @@ const barDefinition = defineChart({
       radius: 6,
     }),
   ],
-  x: {
-    scale: scaleBand,
-    axis: { label: 'Month' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: scaleBand,
+      axis: { label: 'Month' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Revenue'],
@@ -78,15 +80,17 @@ const areaDefinition = defineChart({
       strokeWidth: 2,
     }),
   ],
-  x: {
-    scale: () => scalePoint<string>().padding(0.2),
-    axis: { label: 'Month' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: () => scalePoint<string>().padding(0.2),
+      axis: { label: 'Month' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Revenue', 'Target'],
@@ -107,15 +111,17 @@ const stackedDefinition = defineChart({
       radius: 4,
     }),
   ],
-  x: {
-    scale: scaleBand,
-    axis: { label: 'Quarter' },
-  },
-  y: {
-    scale: scaleLinear,
-    nice: true,
-    grid: true,
-    axis: { label: 'Revenue ($k)' },
+  scales: {
+    x: {
+      scale: scaleBand,
+      axis: { label: 'Quarter' },
+    },
+    y: {
+      scale: scaleLinear,
+      nice: true,
+      grid: true,
+      axis: { label: 'Revenue ($k)' },
+    },
   },
   color: {
     domain: ['Product', 'Services'],
@@ -130,6 +136,10 @@ const donutDefinition = defineChart({
     polar({
       inset: 8,
       radiusRatio: 0.82,
+      scales: {
+        angle: null,
+        radius: null,
+      },
       marks: [
         radialArc(pie(revenueByChannel, { value: 'value', gapAngle: 0.04 }), {
           innerRadius: ({ radius }) => radius * 0.58,
@@ -140,6 +150,10 @@ const donutDefinition = defineChart({
       ],
     }),
   ],
+  scales: {
+    x: null,
+    y: null,
+  },
   color: {
     domain: revenueByChannel.map(({ channel }) => channel),
     range: [

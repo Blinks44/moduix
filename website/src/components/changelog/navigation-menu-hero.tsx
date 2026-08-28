@@ -9,13 +9,10 @@ export function NavigationMenuHero() {
     <ChangelogHero
       id="v240--august-25-2026"
       eyebrow={t('navigationMenuHeroDate')}
-      title={t('navigationMenuHeroTitle')}
+      title={t('changelogNewComponent')}
       summary={t('navigationMenuHeroSummary')}
     >
-      <ChangelogHeroCard
-        label="Navigation Menu"
-        description={t('navigationMenuHeroCardDescription')}
-      >
+      <ChangelogHeroCard label="Navigation Menu">
         <Navigation size={48} aria-hidden="true" />
       </ChangelogHeroCard>
     </ChangelogHero>
