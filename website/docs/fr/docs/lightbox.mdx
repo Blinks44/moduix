@@ -1,7 +1,7 @@
 ---
 title: Lightbox
 component: lightbox
-description: Une composition de dialogue Ark UI pour l’affichage modal d’images.
+description: Composition de dialogue Ark UI pour afficher des images dans une fenêtre modale.
 ---
 
 import * as LightboxDocs from '@/components/examples/lightbox';
@@ -10,24 +10,24 @@ import * as LightboxDocs from '@/components/examples/lightbox';
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/dialog" />
 
-Ark UI ne fournit pas de primitive `lightbox` distincte. moduix construit ce composant à partir de `Dialog`, suit
-les recommandations d’Ark sur la [composition](https://ark-ui.com/docs/guides/composition), les
-[styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref). La documentation
-de `Dialog` reste la référence pour le comportement de bas niveau.
+Ark UI ne propose pas de primitive `lightbox` dédiée. moduix construit ce composant sur `Dialog`,
+en suivant les recommandations d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition),
+le [style](https://ark-ui.com/docs/guides/styling) et les
+[refs](https://ark-ui.com/docs/guides/ref). `Dialog` reste la référence pour le comportement.
 
 ## Choisir le bon composant
 
-Utilisez `Lightbox` lorsque la fenêtre superposée sert avant tout à afficher des images ou d’autres médias.
+Utilisez `Lightbox` lorsque la fenêtre superposée sert principalement à afficher des images ou d’autres médias.
 
-- Choisissez **`Lightbox`** pour agrandir des images, présenter une galerie de produits ou afficher un média au premier plan.
-- Choisissez **`Dialog`** pour une interface applicative classique : formulaires, actions ou contenu mixte.
+- Choisissez **`Lightbox`** pour agrandir des images, afficher une galerie de produits ou mettre un média au premier plan.
+- Choisissez **`Dialog`** pour une interface applicative générale, par exemple des formulaires, des actions ou du contenu mixte.
 - Placez **`Carousel` dans `Lightbox.Gallery`** si la galerie nécessite des diapositives et des flèches de navigation.
 
 ## Exemple de base
 
-Créez une structure de dialogue Ark UI explicite : `Lightbox`, `Lightbox.Trigger`,
+Reproduisez explicitement la structure de dialogue Ark UI avec `Lightbox`, `Lightbox.Trigger`,
 `Lightbox.Backdrop`, `Lightbox.Positioner` et `Lightbox.Content`. Utilisez `asChild` avec un
-élément déclencheur sémantique.
+seul élément sémantique servant de déclencheur.
 
 <style>{LightboxDocs.lightboxBasicCss}</style>
 
@@ -45,7 +45,7 @@ Créez une structure de dialogue Ark UI explicite : `Lightbox`, `Lightbox.Trigg
 Lightbox / Lightbox.Root
 ├─ Lightbox.Trigger
 ├─ Lightbox.Bind
-└─ Sous-arborescence de superposition (portée automatiquement)
+└─ Sous-arbre de la fenêtre superposée (rendu automatiquement dans un portail)
    ├─ Lightbox.Backdrop
    └─ Lightbox.Positioner
       ├─ Lightbox.CloseTrigger ou Lightbox.CloseIcon
@@ -58,105 +58,112 @@ Lightbox / Lightbox.Root
          └─ Lightbox.Footer (facultatif)
 
 Lightbox.RootProvider
-└─ le même arbre de pièces, connecté à useLightbox()
+└─ le même arbre de composants, relié à useLightbox()
 ```
 
 | Partie | Rôle |
 | ---------------------------- | ------------------------------------------------------------------------------------ |
-| `Lightbox` / `Lightbox.Root` | Racine Ark Dialog : gère l’ouverture, le focus, la fermeture et l’accessibilité. |
-| `Lightbox.RootProvider` | Provider pour l’état créé avec `useLightbox()`.                                  |
-| `Lightbox.Trigger` | Trigger Ark. Utilisez `asChild` pour les boutons ou liens sémantiques personnalisés. |
-| `Lightbox.Backdrop` | Arrière-plan modal avec l’attribut Ark `data-state` et les variables de calque.       |
-| `Lightbox.Positioner` | Conteneur fixe qui centre la fenêtre.                                           |
-| `Lightbox.Content` | Véritable nœud de contenu du dialogue Ark.                                            |
-| `Lightbox.Title` | Titre facultatif.                                                  |
-| `Lightbox.Description` | Description disponible en option.                                                   |
-| `Lightbox.CloseTrigger` | Déclencheur de fermeture Ark de bas niveau.                                                   |
-| `Lightbox.CloseIcon` | Raccourci moduix qui compose `CloseButton.Root` avec le déclencheur de fermeture Ark.                  |
-| `Lightbox.Header` / `Body` | Conteneurs de mise en page facultatifs pour le texte et les médias.          |
-| `Lightbox.Footer` | Conteneur facultatif pour les actions ou l’état affiché sous le média.                |
-| `Lightbox.Image` | Image native stylisée dont la ref pointe vers `HTMLImageElement`.                    |
-| `Lightbox.Gallery` | Conteneur de mise en page et de style pour un `Carousel` composé.                        |
-| `Lightbox.Bind` | Partie invisible qui relie une image issue d’un balisage externe à la racine.        |
+| `Lightbox` / `Lightbox.Root` | Racine du Dialog Ark qui gère l’état d’ouverture, le cycle de vie du focus, la fermeture et l’accessibilité. |
+| `Lightbox.RootProvider` | Fournisseur de l’état créé avec `useLightbox()`. |
+| `Lightbox.Trigger` | Déclencheur Ark. Utilisez `asChild` pour transmettre un bouton ou un lien sémantique personnalisé. |
+| `Lightbox.Backdrop` | Arrière-plan modal avec `data-state` et les variables de calque d’Ark. |
+| `Lightbox.Positioner` | Conteneur fixe qui centre la fenêtre superposée. |
+| `Lightbox.Content` | Nœud qui contient réellement le contenu du dialogue Ark. |
+| `Lightbox.Title` | Titre accessible facultatif. |
+| `Lightbox.Description` | Description accessible facultative. |
+| `Lightbox.CloseTrigger` | Déclencheur de fermeture Ark de bas niveau. |
+| `Lightbox.CloseIcon` | Raccourci moduix qui combine `CloseButton.Root` avec le déclencheur de fermeture Ark. |
+| `Lightbox.Header` / `Body` | Conteneurs de mise en page facultatifs pour le texte et les médias. |
+| `Lightbox.Footer` | Conteneur de mise en page facultatif pour les actions ou l’état sous le média. |
+| `Lightbox.Image` | Image native stylisée qui transmet sa ref à l’`HTMLImageElement`. |
+| `Lightbox.Gallery` | Zone qui définit la mise en page et le style d’un `Carousel` composé. |
+| `Lightbox.Bind` | Partie sans rendu qui relie un balisage d’image externe à la racine. |
 
 ## Composition
 
-La racine place automatiquement `Backdrop` et `Positioner` dans un portail. Utilisez `portalled={false}` pour un
-rendu dans le flux ou `portalRef` pour choisir le conteneur du portail. Les parties structurelles restent explicites
-et personnalisables.
+La racine place automatiquement `Backdrop` et `Positioner` dans un portail. Utilisez `portalled={false}`
+pour un rendu dans le flux normal, ou `portalRef` pour cibler un conteneur personnalisé. Les parties
+structurelles restent explicites et peuvent être stylisées séparément.
 
 ### Composition recommandée
 
-Gardez la structure de la fenêtre explicite. `Lightbox.Content` est le véritable élément de contenu Ark : il
-n’affiche pas automatiquement l’arrière-plan, le positionneur, l’image, la galerie ou le bouton de fermeture.
+Conservez la structure de la fenêtre superposée explicite. `Lightbox.Content` est le véritable élément
+de contenu Ark. Il n’affiche pas automatiquement l’arrière-plan, le positionneur, l’image, la galerie
+ou le bouton de fermeture.
 
-Utilisez `Lightbox.Image` pour une image unique. Il affiche un élément `<img>` natif, accepte ses propriétés et
-transmet la ref au `HTMLImageElement`. `Lightbox.Header`, `Body` et `Footer` sont des conteneurs facultatifs pour
-séparer visuellement le texte, les médias et les actions.
+Utilisez `Lightbox.Image` pour une image unique. Il affiche un élément `<img>` natif, accepte ses
+propriétés et transmet sa ref à l’`HTMLImageElement`. `Lightbox.Header`, `Body` et `Footer` sont des
+conteneurs facultatifs qui séparent visuellement le texte, les médias et les actions.
 
-Entourez `Carousel` avec `Lightbox.Gallery` pour présenter une collection d’images. `Lightbox.Gallery` définit la
-zone d’affichage, l’alignement des flèches, la taille des médias et la disposition des indicateurs ; `Carousel`
-continue de gérer le comportement des diapositives.
+Entourez `Carousel` de `Lightbox.Gallery` pour afficher une collection d’images connue à l’avance.
+Cette zone gère la fenêtre d’affichage propre à la lightbox, l’alignement des flèches, la taille des
+médias et la disposition des indicateurs, tandis que Carousel continue de gérer les diapositives.
 
-Placez `Lightbox.CloseIcon` à côté de `Lightbox.Content`, dans `Lightbox.Positioner`, pour l’ancrer dans un angle de
-la zone d’affichage. S’il se trouve dans `Lightbox.Content`, il suit les transformations du contenu pendant les
-animations d’entrée et de sortie.
+Placez `Lightbox.CloseIcon` à côté de `Lightbox.Content`, dans `Lightbox.Positioner`, pour l’ancrer
+dans un angle de la zone d’affichage. S’il se trouve dans `Lightbox.Content`, il suit les transformations
+du contenu pendant les animations d’entrée et de sortie.
 
 ### Quand créer une composition personnalisée
 
-Affichez directement le contenu personnalisé dans `Lightbox.Content` lorsqu’il ne correspond ni au cadre pour média
-unique ni à la galerie `Carousel`. Réservez `Lightbox.Bind` au balisage externe qui ne peut pas inclure
-`Lightbox.Trigger`. Pour un tableau d’images structuré, préférez des déclencheurs explicites et `Lightbox.Gallery`.
+Affichez directement le contenu personnalisé dans `Lightbox.Content` lorsqu’il ne correspond ni à une
+image unique ni à une galerie `Carousel`. Réservez `Lightbox.Bind` au balisage externe qui ne peut pas
+inclure `Lightbox.Trigger`. Pour un tableau d’images structuré, utilisez des déclencheurs explicites
+et `Lightbox.Gallery`.
 
 ### Propriétés par défaut
 
-Par défaut, le contenu placé dans le portail est monté à la demande, puis démonté après l’animation de fermeture.
-Définissez `unmountOnExit={false}` pour le conserver après la première ouverture. Désactivez les deux propriétés de
-cycle de vie uniquement si le contenu doit être rendu immédiatement dès le chargement de la page.
+Par défaut, le contenu de la fenêtre superposée rendu dans un portail est monté à la demande, puis
+démonté après l’animation de fermeture. Définissez `unmountOnExit={false}` pour le conserver après la
+première ouverture. Désactivez les deux propriétés du cycle de vie uniquement si le contenu doit être
+rendu immédiatement au chargement de la page.
 
-| Accessoire | Par défaut | Remarques |
+| Propriété | Valeur par défaut | Remarques |
 | ------------------------ | ------------ | ------------------------------------------------------------------------ |
-| `closeOnEscape` | `true` | Hérité d'Ark Dialog.                                               |
-| `closeOnInteractOutside` | `true` | Hérité d'Ark Dialog.                                               |
-| `defaultOpen` | `false` | Etat initial en mode non contrôlé.                              |
-| `modal` | `true` | Bloque les interactions externes et masque le contenu sous la lightbox.     |
-| `preventScroll` | `true` | Bloque le défilement de la page lorsque la lightbox est ouverte.                      |
-| `role` | `"dialog"` | Pour un nom accessible, utilisez `aria-label` ou `Lightbox.Title` ; `ids` rend uniquement les connexions stables. |
-| `trapFocus` | `true` | Maintient le focus du clavier à l’intérieur de la lightbox lorsqu’elle est ouverte.           |
-| `lazyMount` | `true` | Retarde la diffusion de supports lourds jusqu'à la première ouverture.                     |
-| `unmountOnExit` | `true` | Supprime les nœuds de superposition après l'animation de fermeture.                            |
+| `closeOnEscape` | `true` | Hérité d’Ark Dialog. |
+| `closeOnInteractOutside` | `true` | Hérité d’Ark Dialog. |
+| `defaultOpen` | `false` | État initial en mode non contrôlé. |
+| `modal` | `true` | Bloque les interactions extérieures et masque le contenu situé sous la lightbox. |
+| `preventScroll` | `true` | Empêche le défilement de la page lorsque la lightbox est ouverte. |
+| `role` | `"dialog"` | Pour donner un nom accessible, utilisez `aria-label` ou `Lightbox.Title`. `ids` stabilise uniquement les relations entre éléments. |
+| `trapFocus` | `true` | Maintient le focus clavier dans la lightbox lorsqu’elle est ouverte. |
+| `lazyMount` | `true` | Diffère le montage des médias lourds jusqu’à la première ouverture. |
+| `unmountOnExit` | `true` | Supprime les nœuds de la fenêtre après l’animation de fermeture. |
 
 ### Comportement
 
-`onOpenChange` et `onTriggerValueChange` suivent la signature Ark et reçoivent un objet `details`. Pour contrôler
+`onOpenChange` et `onTriggerValueChange` utilisent la forme d’objet `details` d’Ark. Pour contrôler
 l’ouverture, lisez `details.open`. Pour une galerie avec plusieurs déclencheurs, lisez `details.value`.
 
-Utilisez `useLightbox()` avec `Lightbox.RootProvider` lorsque les commandes se trouvent hors de la racine affichée.
-Dans un composant enfant, l’état du dialogue est accessible avec `useLightboxContext()`.
-Les deux API sont exportées depuis l'espace de noms `@moduix/react` et l'espace de noms `Lightbox`.
+Utilisez `useLightbox()` avec `Lightbox.RootProvider` lorsque les contrôles se trouvent en dehors de
+la racine rendue. Dans un composant enfant, l’état du dialogue est accessible avec
+`useLightboxContext()`. Les deux API sont exportées par `@moduix/react` et exposées sur l’espace de
+noms `Lightbox`.
 
-`Lightbox.Image closeOnClick` est un raccourci pour fermer la fenêtre en cliquant sur l’image. `Lightbox.Bind` relie
-de façon invisible une image issue d’un CMS ou d’un balisage tiers qui ne peut pas être entouré par
-`Lightbox.Trigger`. Il doit être affiché dans `Lightbox`. `onImageSelect(details)` reçoit l’image choisie : `src`,
-`alt` facultatif et `HTMLImageElement` d’origine dans `element`. Le `selector` est obligatoire et doit désigner un
-bouton ou un lien sémantique afin que chaque aperçu reste accessible au clavier.
+`Lightbox.Image closeOnClick` est le raccourci prévu pour fermer la fenêtre lorsque l’utilisateur
+clique sur l’image. `Lightbox.Bind` est un composant sans rendu qui relie un balisage provenant d’un
+CMS ou d’un service tiers lorsque vous ne pouvez pas l’entourer avec `Lightbox.Trigger`. Il doit être
+rendu dans `Lightbox` et transmet l’image sélectionnée via `onImageSelect(details)`. L’objet contient
+`src`, `alt` s’il est fourni, et l’`HTMLImageElement` d’origine dans `element`. `selector` est obligatoire
+et doit cibler un bouton ou un lien sémantique pour que chaque aperçu reste accessible au clavier.
 
-Les autres propriétés héritées de `Dialog` sont transmises sans modification, notamment `id`, `ids`, `initialFocusEl`,
-`finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
-`skipAnimationOnMount` et les callbacks d’interaction externe.
+Les autres propriétés héritées de `Dialog` sont transmises sans modification, notamment `id`, `ids`,
+`initialFocusEl`, `finalFocusEl`, `persistentElements`, `restoreFocus`, `present`, `immediate`,
+`skipAnimationOnMount` et les callbacks d’interaction extérieure.
 
 ## Exemples
 
-### Liaison de contenu CMS
+### Liaison d’un contenu CMS
 
-Utilisez `Lightbox.Bind` lorsque les images proviennent d’un CMS ou d’un balisage tiers que vous ne pouvez pas
-entourer directement avec `Lightbox.Trigger`. Désignez le conteneur avec `rootRef` ou `rootSelector`, choisissez un
-`selector`, puis traitez le résultat `{ src, alt, element }` dans `onImageSelect`. `Bind` ouvre la Lightbox parente
-sans afficher la fenêtre : l’arrière-plan, le contenu, les commandes de fermeture et la mise en page restent
-entièrement composables. La source est lue dans `data-lightbox-src`, puis `currentSrc`, puis `src`, et préchargée au
-survol ou au focus clavier. Le `selector` doit viser un bouton ou un lien sémantique pour que l’activation au clavier
-ouvre la Lightbox. Si le serveur fournit déjà un tableau d’images structuré, préférez la composition
-`Lightbox.Gallery + Carousel` présentée plus haut.
+Utilisez `Lightbox.Bind` lorsque les images à prévisualiser proviennent d’un CMS ou d’un balisage tiers
+que vous ne rendez pas directement avec `Lightbox.Trigger`. Indiquez le conteneur avec `rootRef` ou
+`rootSelector`, choisissez un `selector`, puis traitez l’objet `{ src, alt, element }` dans
+`onImageSelect`. `Bind` ouvre la Lightbox parente mais ne rend aucun élément de la fenêtre superposée.
+L’arrière-plan, le contenu, les contrôles de fermeture et la mise en page de l’image restent donc
+entièrement sous votre contrôle. Le composant recherche la source dans `data-lightbox-src`, puis dans
+`currentSrc`, puis dans `src`, et la précharge au survol de la souris ou au focus clavier. Utilisez un
+bouton ou un lien sémantique comme élément ciblé par `selector` afin que son activation au clavier
+déclenche le clic qui ouvre la Lightbox. Si votre serveur renvoie déjà un tableau d’images structuré,
+préférez la composition `Lightbox.Gallery + Carousel` présentée plus haut.
 
 <style>{LightboxDocs.lightboxBindCmsContentCss}</style>
 
@@ -164,10 +171,10 @@ ouvre la Lightbox. Si le serveur fournit déjà un tableau d’images structuré
 
 ```
 
-### Fermeture en cliquant sur l’image
+### Fermer en cliquant sur l’image
 
-Utilisez `Lightbox.Image closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de fermeture reste
-disponible et conserve le comportement Ark habituel.
+Utilisez `Lightbox.Image closeOnClick` si un clic sur l’image doit fermer la fenêtre. L’icône de
+fermeture reste disponible et conserve le comportement de fermeture d’Ark.
 
 <style>{LightboxDocs.lightboxClickToCloseImageCss}</style>
 
@@ -177,7 +184,8 @@ disponible et conserve le comportement Ark habituel.
 
 ### État contrôlé
 
-Utilisez le rappel Ark `onOpenChange(details)` lorsque l'état de la lightbox est synchronisé avec React.
+Utilisez le callback Ark `onOpenChange(details)` lorsque l’état de la lightbox doit être synchronisé
+avec React.
 
 <style>{LightboxDocs.lightboxControlledCss}</style>
 
@@ -185,11 +193,12 @@ Utilisez le rappel Ark `onOpenChange(details)` lorsque l'état de la lightbox es
 
 ```
 
-### Focus et identification
+### Focus et identifiants
 
-Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsque la Lightbox nécessite des cibles de focus explicites ou
-des identifiants stables pour une composition d’accessibilité externe. La cible de retour est mise en évidence après
-la fermeture afin de rendre le déplacement du focus visible.
+Utilisez `initialFocusEl`, `finalFocusEl` et `ids` lorsqu’une lightbox nécessite des cibles de focus
+explicites ou des identifiants stables pour des relations d’accessibilité gérées depuis l’extérieur.
+La cible vers laquelle le focus revient est mise en évidence après la fermeture pour rendre ce passage
+visible.
 
 <style>{LightboxDocs.lightboxFocusAndIdsCss}</style>
 
@@ -199,9 +208,9 @@ la fermeture afin de rendre le déplacement du focus visible.
 
 ### Galerie
 
-Si le CMS ou l’API fournit un tableau d’images structuré, conservez-le dans l’état React et placez `Carousel` dans
-`Lightbox.Gallery`. Utilisez `Lightbox.Trigger value` pour choisir la diapositive initiale et synchronisez la page de
-`Carousel` pendant la navigation.
+Si un CMS ou une API fournit un tableau d’images structuré, conservez-le dans l’état React et placez
+`Carousel` dans `Lightbox.Gallery`. Utilisez `Lightbox.Trigger.value` pour choisir la diapositive
+initiale et synchronisez la page courante de Carousel pendant la navigation.
 
 <style>{LightboxDocs.lightboxGalleryExampleCss}</style>
 
@@ -211,8 +220,9 @@ Si le CMS ou l’API fournit un tableau d’images structuré, conservez-le dans
 
 ### Montage différé
 
-Les médias lourds sont montés à la demande et démontés après la fermeture. `lazyMount` retarde le premier rendu et
-`unmountOnExit` supprime la fenêtre une fois l’animation de fermeture terminée.
+Par défaut, les médias lourds sont montés à la demande et démontés après la fermeture. `lazyMount`
+diffère le premier rendu, tandis que `unmountOnExit` supprime la fenêtre après la fin de l’animation
+de fermeture.
 
 <style>{LightboxDocs.lightboxLazyMountCss}</style>
 
@@ -222,8 +232,8 @@ Les médias lourds sont montés à la demande et démontés après la fermeture.
 
 ### Plusieurs déclencheurs
 
-Utilisez `Trigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie. Le composant ne gère
-pas de registre d’images caché.
+Utilisez `Lightbox.Trigger.value` et `onTriggerValueChange(details)` pour les miniatures d’une galerie.
+Le composant ne maintient pas de registre d’images caché.
 
 <style>{LightboxDocs.lightboxMultipleTriggersCss}</style>
 
@@ -233,9 +243,9 @@ pas de registre d’images caché.
 
 ### Mode non modal
 
-Définissez `modal={false}` dans les rares cas où la page doit rester interactive pendant l’aperçu. Ark désactive
-alors le piège de focus et le blocage du défilement. N’ajoutez pas `Backdrop` : les actions en arrière-plan resteront
-accessibles pendant l’affichage de l’image.
+Définissez `modal={false}` dans les rares cas où la page doit rester interactive pendant l’aperçu. Ark
+désactive alors le piège de focus et le blocage du défilement. N’ajoutez pas `Backdrop` afin que les
+actions en arrière-plan restent accessibles pendant l’affichage de l’image.
 
 <style>{LightboxDocs.lightboxNonModalCss}</style>
 
@@ -243,10 +253,11 @@ accessibles pendant l’affichage de l’image.
 
 ```
 
-### Root Provider et contexte
+### RootProvider et contexte
 
-Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve hors de la racine. Dans un composant
-enfant, lisez cet état avec `useLightboxContext()`. Le bouton externe reste un `Button` moduix ordinaire.
+Créez l’état avec `useLightbox()` lorsque le bouton d’ouverture se trouve en dehors de la racine.
+Dans un composant enfant, lisez cet état avec `useLightboxContext()`. Le bouton externe reste un
+`Button` moduix ordinaire.
 
 <style>{LightboxDocs.lightboxRootProviderCss}</style>
 
@@ -256,8 +267,9 @@ enfant, lisez cet état avec `useLightboxContext()`. Le bouton externe reste un 
 
 ### Personnalisation avancée
 
-Omettez les conteneurs de mise en page facultatifs lorsque la surface multimédia nécessite ses propres classes de
-slots ou des tokens personnalisés. `Backdrop`, `Positioner` et `Content` restent explicites.
+N’utilisez pas les conteneurs de mise en page facultatifs lorsque la zone média nécessite ses propres
+classes de slots et des remplacements de tokens. `Backdrop`, `Positioner` et `Content` restent
+explicites.
 
 <style>{LightboxDocs.lightboxAdvancedCustomizationCss}</style>
 
@@ -281,18 +293,18 @@ slots ou des tokens personnalisés. `Backdrop`, `Positioner` et `Content` resten
   </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Points d’accroche pour le style
 
-- Slots moduix : `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`,
-  `lightbox-content`, `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`,
-  `lightbox-close-icon`, `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image`
-et `lightbox-gallery`.
-- Hooks d’état et d’anatomie Ark : `data-scope="dialog"`, `data-part`, `data-state="open|closed"`,
-`data-nested`, `data-has-nested`, `--layer-index` et `--nested-layer-count`.
-- Hooks locaux : `Lightbox.Image` fournit `data-slot="lightbox-image"` et en option
-`data-close-on-click`; `Lightbox.Gallery` fournit `data-slot="lightbox-gallery"` et des styles
-Emplacements de carrousel imbriqués.
-- L'animation est déterminée par Ark `data-state` ; utilisez `present` uniquement lors du contrôle de l'animation en JavaScript
-devrait garder le contenu monté.
-- Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de
-  1 ms : le nettoyage après fermeture reste intact sans mouvement visible.
+- Slots moduix : `lightbox-trigger`, `lightbox-backdrop`, `lightbox-positioner`, `lightbox-content`,
+  `lightbox-title`, `lightbox-description`, `lightbox-close-trigger`, `lightbox-close-icon`,
+  `lightbox-header`, `lightbox-body`, `lightbox-footer`, `lightbox-image` et `lightbox-gallery`.
+- Attributs d’état et d’anatomie Ark : `data-scope="dialog"`, `data-part`,
+  `data-state="open|closed"`, `data-nested`, `data-has-nested`, `--layer-index` et
+  `--nested-layer-count`.
+- Points d’accroche locaux : `Lightbox.Image` expose `data-slot="lightbox-image"` et, en option,
+  `data-close-on-click`. `Lightbox.Gallery` expose `data-slot="lightbox-gallery"` et applique des
+  styles aux slots imbriqués de Carousel.
+- L’animation dépend de l’attribut Ark `data-state`. Utilisez `present` uniquement si le contrôle de
+  l’animation en JavaScript doit maintenir le contenu monté.
+- Avec `prefers-reduced-motion: reduce`, l’arrière-plan et le contenu utilisent une animation de 1 ms.
+  Le nettoyage après la fermeture reste ainsi intact, sans mouvement visible.

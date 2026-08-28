@@ -1,7 +1,7 @@
 ---
 title: List
 component: list
-description: A semantic list wrapper built with Ark-style composition, moduix spacing tokens, and native marker styling.
+description: A semantic list wrapper built with Ark factory composition, moduix spacing tokens, and native marker styling.
 ---
 
 import * as ListDocs from '@/components/examples/list';
@@ -9,13 +9,14 @@ import * as ListDocs from '@/components/examples/list';
 ## API Reference
 
 Ark UI does not ship a dedicated list primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance on
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+[refs](https://ark-ui.com/docs/guides/ref).
 
 ## Basic
 
-Start with `List` and `List.Item`. This is the recommended path when you want native list semantics with moduix spacing, typography, and marker tokens.
+Start with `List` and `List.Item`. This is the recommended option when you need native list semantics together
+with moduix tokens for spacing, typography, and markers.
 
 ```tsx preview file="./_snippets/list/basic.tsx"
 
@@ -27,7 +28,7 @@ Start with `List` and `List.Item`. This is the recommended path when you want na
 
 ## Anatomy
 
-The normal consumer path is short:
+The usual composition is simple:
 
 ```text
 List / List.Root
@@ -36,37 +37,41 @@ List / List.Root
 
 | Part                 | Role                                                               |
 | -------------------- | ------------------------------------------------------------------ |
-| `List` / `List.Root` | Semantic list root that controls marker, spacing, size, and tone.  |
-| `List.Item`          | Optional Ark-style item part for a stable `li` slot and `asChild`. |
+| `List` / `List.Root` | Semantic list root that controls markers, spacing, size, and tone. |
+| `List.Item`          | Optional item part that provides a stable `li` slot and supports `asChild`. |
 
 ## Composition
 
 ### Recommended composition
 
-Stay with `<List>` for unordered content and use `as="ol"` when you need ordered semantics. Use `asChild` only when you need to replace `List` with one semantic `<ul>` or `<ol>`, or `List.Item` with one semantic `<li>`.
+Use `<List>` for unordered content and `as="ol"` when you need ordered semantics. Use `asChild` only when you
+need to replace `List` with a single semantic `<ul>` or `<ol>`, or `List.Item` with a single semantic `<li>`.
 
 ### When to go custom
 
-`List` does not expose an internal state machine, nested structure helpers, or a marker render API. Use `className` and native CSS such as `li::marker` for ordinary item styling. Reserve `asChild` for a caller-owned component that forwards its ref and props and renders the required semantic host.
+`List` does not expose an internal state machine, helpers for nested structures, or a marker rendering API. For
+ordinary item styling, use `className` and native CSS such as `li::marker`. Use `asChild` only with a component
+from your application that forwards its ref and props and renders the required semantic element.
 
-Keep items as direct `li` descendants. The built-in spacing and marker styling apply only to direct list items.
+Keep each item as a direct child of the list. The built-in spacing and marker styling apply only to direct list items.
 
 ### Default props
 
 | Prop      | Default         | Notes                                                                |
 | --------- | --------------- | -------------------------------------------------------------------- |
 | `gap`     | `sm`            | Spacing between direct list items.                                   |
-| `size`    | `md`            | Typography size token.                                               |
-| `tone`    | `default`       | Semantic color path for text and markers.                            |
-| `marker`  | semantic `auto` | `disc` on `ul`, browser-provided ordered markers on `ol`, or `none`. |
-| `as`      | `ul`            | Switches the native list host between `ul` and `ol`.                 |
-| `asChild` | `false`         | Replaces the semantic host with a single caller-owned child element. |
+| `size`    | `md`            | Typography size from the design scale.                               |
+| `tone`    | `default`       | Semantic color used for text and markers.                            |
+| `marker`  | semantic `auto` | `disc` on `ul`, browser defaults on `ol`, or `none`.                 |
+| `as`      | `ul`            | Switches the native list element between `ul` and `ol`.              |
+| `asChild` | `false`         | Uses one child from your code as the semantic list element.           |
 
 ### Behavioral notes
 
-- Ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
-- Use `marker="none"` to hide markers while keeping list semantics. `List` adds `role="list"` on that path unless you explicitly override `role`.
-- `List.Item` is optional. Use plain `li` elements when the exported item slot adds no value.
+- Native ordered-list props such as `start`, `reversed`, and `type` are available when `as="ol"` is used.
+- Use `marker="none"` to hide markers while keeping list semantics. When markers are disabled, `List` adds
+  `role="list"` unless you explicitly override `role`.
+- `List.Item` is optional. Use plain `li` elements when you do not need the exported item slot.
 
 ## Examples
 
@@ -78,7 +83,7 @@ Use `marker="none"` when you need list semantics without visible markers.
 
 ```
 
-### Native Items
+### Native items
 
 Use native `li` elements when you do not need the exported `List.Item` slot.
 
@@ -88,7 +93,7 @@ Use native `li` elements when you do not need the exported `List.Item` slot.
 
 ### Ordered
 
-Use `as="ol"` to render an ordered list while keeping the moduix root styling contract.
+Use `as="ol"` to render an ordered list while keeping the styling applied by the moduix root.
 
 ```tsx preview file="./_snippets/list/ordered.tsx"
 
@@ -96,7 +101,7 @@ Use `as="ol"` to render an ordered list while keeping the moduix root styling co
 
 ### Tone
 
-Use `tone` when the list should inherit a semantic text color.
+Use `tone` when the list should use a semantic text color.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/list/tone.tsx"
@@ -106,7 +111,8 @@ Use `tone` when the list should inherit a semantic text color.
 
 ### Advanced Customization
 
-Use `List.Item asChild` only when a custom component must own the rendered `<li>`. That component must forward its ref and props and preserve the `<li>` host; otherwise, use `List.Item className` directly.
+Use `List.Item asChild` only when a custom component must render the `<li>` itself. It must forward its ref and
+props and preserve the `<li>` element. In other cases, use `List.Item className` directly.
 
 ```tsx preview file="./_snippets/list/custom-composition.tsx"
 
@@ -114,7 +120,8 @@ Use `List.Item asChild` only when a custom component must own the rendered `<li>
 
 ### Custom root
 
-Use `List asChild` when a caller-owned component must render the semantic list host. It must forward its ref and props to a single `<ul>` or `<ol>`.
+Use `List asChild` when a component from your application must render the semantic list element. It must forward
+its ref and props to a single `<ul>` or `<ol>`.
 
 ```tsx preview file="./_snippets/list/root-as-child.tsx"
 
@@ -122,7 +129,8 @@ Use `List asChild` when a caller-owned component must render the semantic list h
 
 ## Styling
 
-Style `List` through `className`, the exported Ark-style `data-*` hooks, native `li::marker`, and the public `--moduix-list-*` CSS variables shown below. The variable list here matches the public CSS API.
+Style `List` with `className`, the exported Ark-style `data-*` attributes, native `li::marker`, and the public
+`--moduix-list-*` CSS variables shown below. This list matches the public CSS API.
 
 ### CSS Properties
 
@@ -140,12 +148,12 @@ Style `List` through `className`, the exported Ark-style `data-*` hooks, native 
 
 ### Styling hooks
 
-`List` exposes a small public styling surface:
+`List` exposes a small set of public styling hooks:
 
 - root: `data-scope="list"`, `data-part="root"`, `data-slot="list-root"`
 - item: `data-scope="list"`, `data-part="item"`, `data-slot="list-item"`
-- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` for spacing-specific styling
-- `data-marker="auto" | "disc" | "decimal" | "none"` for marker-specific styling
-- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for typography size styling
-- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` for semantic color paths
+- `data-gap="xs" | "sm" | "md" | "lg" | "xl" | "2xl"` for styles based on spacing
+- `data-marker="auto" | "disc" | "decimal" | "none"` for styles based on markers
+- `data-size="xs" | "sm" | "md" | "lg" | "xl"` for size-specific typography styles
+- `data-tone="default" | "muted" | "subtle" | "primary" | "destructive"` for semantic color styles
 - native `li::marker` targeting for marker-specific color or weight overrides

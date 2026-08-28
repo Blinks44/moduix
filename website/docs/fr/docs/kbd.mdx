@@ -1,21 +1,21 @@
 ---
 title: Kbd
 component: kbd
-description: Une touche compacte pour représenter les raccourcis clavier et les indications de commandes.
+description: Un élément compact pour afficher des raccourcis clavier, des indications de commande et le nom d’une touche.
 ---
 
 import * as KbdDocs from '@/components/examples/kbd';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive kbd dédiée. moduix construit ce composant avec l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark concernant la
+Ark UI ne fournit pas de primitive dédiée pour afficher les touches du clavier. moduix s’appuie sur la
+[fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark pour la
 [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[ref](https://ark-ui.com/docs/guides/ref).
+[gestion des refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Commencez par `Kbd` pour une seule touche et utilisez `Kbd.Group` lorsque plusieurs touches forment un même raccourci.
+Utilisez `Kbd` pour afficher une seule touche. Pour un raccourci composé de plusieurs touches, regroupez-les dans `Kbd.Group`.
 
 <style>{`
       .kbd-demo-shortcut {
@@ -33,7 +33,7 @@ Commencez par `Kbd` pour une seule touche et utilisez `Kbd.Group` lorsque plusie
 
 ## Anatomie
 
-La composition habituelle côté utilisateur reste concise :
+La composition habituelle est la suivante :
 
 ```text
 Kbd.Group
@@ -44,37 +44,37 @@ Kbd.Group
 
 | Partie              | Rôle                                                               |
 | ------------------- | ------------------------------------------------------------------ |
-| `Kbd` / `Kbd.Root` | Racine polymorphe de la touche ; rend un élément `kbd` par défaut. |
-| `Kbd.Group`         | Conteneur en ligne polymorphe avec le rôle `group` par défaut pour les combinaisons de touches. |
+| `Kbd` / `Kbd.Root` | Racine de la touche ; rend un élément `kbd` par défaut. |
+| `Kbd.Group`         | Conteneur en ligne pour les raccourcis ; utilise le rôle `group` par défaut. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `Kbd` comme raccourci vers la racine et `Kbd.Group` pour les indications de raccourcis, les menus de commandes et l’aide intégrée.
+Dans le cas courant, utilisez `Kbd` comme raccourci vers la racine et `Kbd.Group` pour afficher des indications de raccourci,
+des menus de commandes ou une aide directement dans l’interface.
 
-`Kbd` et `Kbd.Root` acceptent `HTMLArkProps<'kbd'>` ; `Kbd.Group` accepte `HTMLArkProps<'span'>` et s’affiche par
-défaut avec `role="group"`.
-Chaque partie transmet sa ref à l’élément rendu et prend en charge `asChild`.
-Il n’existe aucune API de variantes, de tailles, de séparateurs, de callbacks ou d’état.
+`Kbd` et `Kbd.Root` acceptent `HTMLArkProps<'kbd'>` ; `Kbd.Group` accepte `HTMLArkProps<'span'>` et utilise par défaut
+`role="group"`. Chaque partie prend en charge `asChild` et transmet `ref` à l’élément rendu.
+Le composant ne propose aucune API de variante, de taille, de séparateur, de callback ou d’état.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` lorsqu’un élément sémantique `<kbd>` existant doit recevoir les styles moduix et le comportement de
-composition Ark. L’enfant doit être un élément unique qui conserve la sémantique de saisie au clavier.
+Utilisez `asChild` lorsqu’une autre couche crée déjà un élément sémantique `<kbd>` et que vous souhaitez lui appliquer les styles
+de Kbd ainsi que la composition Ark. Fournissez un seul enfant et conservez la sémantique d’une touche du clavier.
 
 ### Comportement
 
-- `Kbd`, `Kbd.Root` et `Kbd.Group` sont des libellés statiques de raccourcis, et non des contrôles interactifs.
-- Les séparateurs tels que `+`, `/` ou `then` restent du texte ordinaire dans une composition simple.
-- Ajoutez un `aria-label` à `Kbd.Group` lorsque des abréviations ou des symboles nécessitent une formulation orale plus claire.
+- `Kbd`, `Kbd.Root` et `Kbd.Group` affichent des libellés statiques de touches. Ce ne sont pas des contrôles interactifs.
+- Conservez les séparateurs tels que `+`, `/` ou `then` sous forme de texte ordinaire dans la composition qui les entoure.
+- Ajoutez un `aria-label` à `Kbd.Group` lorsque des abréviations ou des symboles risquent d’être mal compris à l’oral.
 - Les parties exposent `data-scope="kbd"`, `data-part` et des attributs `data-slot` stables.
 
 ## Exemples
 
 ### Densité compacte
 
-Utilisez des variables CSS locales pour ajuster ponctuellement la densité ou le ton, plutôt que d’ajouter des propriétés au composant.
+Utilisez des variables CSS locales pour modifier ponctuellement la densité ou la couleur, sans ajouter de propriétés au composant.
 
 <style>{`
       .kbd-demo-row {
@@ -97,7 +97,8 @@ Utilisez des variables CSS locales pour ajuster ponctuellement la densité ou le
 
 ### Élément personnalisé
 
-Utilisez `asChild` pour fusionner les propriétés de Kbd avec un seul enfant sémantique lorsqu’une autre couche contrôle l’élément.
+Utilisez `asChild` lorsqu’une autre couche gère déjà l’élément et que vous devez lui transmettre les styles de Kbd avec un enfant
+sémantique unique.
 
 ```tsx preview file="../../en/docs/_snippets/kbd/custom-element.tsx"
 
@@ -105,7 +106,7 @@ Utilisez `asChild` pour fusionner les propriétés de Kbd avec un seul enfant s�
 
 ### Liste de raccourcis
 
-Utilisez une composition simple lorsque les raccourcis doivent être placés à côté du texte qui les accompagne.
+Utilisez une composition simple lorsque les raccourcis accompagnent un texte explicatif.
 
 <style>{`
       .kbd-demo-shortcut-list {
@@ -130,7 +131,7 @@ Utilisez une composition simple lorsque les raccourcis doivent être placés à 
 
 ### Touche unique
 
-Utilisez `Kbd` directement lorsque l’interface fait référence à une seule touche.
+Utilisez `Kbd` directement lorsque vous devez afficher une seule touche.
 
 ```tsx preview file="../../en/docs/_snippets/kbd/single-key.tsx"
 
@@ -139,7 +140,7 @@ Utilisez `Kbd` directement lorsque l’interface fait référence à une seule t
 ## Styles
 
 Appliquez des styles à `Kbd` et `Kbd.Group` avec `className`, les attributs d’anatomie Ark, les hooks `data-slot` stables et les
-variables CSS publiques `--moduix-kbd-*` répertoriées ci-dessous.
+variables CSS publiques `--moduix-kbd-*` listées ci-dessous.
 
 ### Propriétés CSS
 
@@ -147,7 +148,7 @@ variables CSS publiques `--moduix-kbd-*` répertoriées ci-dessous.
 
 ### Points d’accroche CSS
 
-- `data-slot="kbd-root"` cible un élément de touche individuel
+- `data-slot="kbd-root"` cible chaque touche
 - `data-slot="kbd-group"` cible le conteneur en ligne des raccourcis regroupés
 - `[data-scope="kbd"][data-part="root"]` et `[data-part="group"]` fournissent des sélecteurs d’anatomie dans le style d’Ark
-- `Kbd.Group` hérite des styles de texte pour les séparateurs, tandis que `--moduix-kbd-group-separator-color` contrôle leur couleur
+- `Kbd.Group` reprend le style de texte environnant pour les séparateurs. Utilisez `--moduix-kbd-group-separator-color` pour définir leur couleur
