@@ -1,7 +1,7 @@
 ---
 title: Floating Panel
 component: floating-panel
-description: A non-modal Ark UI window that can be dragged, resized, minimized, and maximized.
+description: A non-modal Ark UI window for content that users can drag, resize, minimize, and maximize.
 ---
 
 import * as FloatingPanelDocs from '@/components/examples/floating-panel';
@@ -12,14 +12,14 @@ import * as FloatingPanelDocs from '@/components/examples/floating-panel';
 
 ## Choosing the right component
 
-Use `FloatingPanel` for a detachable, non-modal workspace surface. Use `Popover` for compact
-trigger-anchored content, `Dialog` for modal workflows, and `Drawer` for edge-attached panels with
-swipe or snap-point behavior.
+Use `FloatingPanel` for a floating, non-modal workspace such as an inspector or utility window.
+Choose `Popover` for compact content anchored to a trigger, `Dialog` for modal tasks, and `Drawer`
+for panels attached to an edge with swipe or snap-point behavior.
 
 ## Basic
 
-Compose the Ark structure explicitly. `FloatingPanel.Positioner` owns Ark's measured rect, while
-`FloatingPanel.Content` is the draggable and resizable surface.
+Build the Ark part tree explicitly. `FloatingPanel.Positioner` manages the position and size
+calculated by Ark, while `FloatingPanel.Content` is the surface users can drag and resize.
 
 ```tsx preview file="./_snippets/floating-panel/basic.tsx"
 
@@ -53,86 +53,92 @@ FloatingPanel / FloatingPanel.Root
 | ------------------------------------------ | ------------------------------------------------------------------------ |
 | `FloatingPanel` / `FloatingPanel.Root`     | Owns open, position, size, drag, resize, and stage state.                |
 | `FloatingPanel.Trigger`                    | Opens or toggles the panel.                                              |
-| `FloatingPanel.Positioner`                 | Applies Ark position, size, transform, and z-index values.               |
+| `FloatingPanel.Positioner`                 | Applies Ark's position, size, transform, and z-index values.             |
 | `FloatingPanel.Content`                    | Visible floating window surface.                                         |
 | `FloatingPanel.DragTrigger`                | Marks the draggable region, usually around the header.                   |
-| `FloatingPanel.Header`                     | Ark header part and recommended drag handle layout.                      |
-| `FloatingPanel.Title`                      | Accessible title target.                                                 |
+| `FloatingPanel.Header`                     | Ark header part and recommended layout for the drag handle.              |
+| `FloatingPanel.Title`                      | Provides the panel's accessible title.                                    |
 | `FloatingPanel.Control`                    | Groups stage and close controls.                                         |
 | `FloatingPanel.StageTrigger`               | Switches to `default`, `minimized`, or `maximized`.                      |
 | `FloatingPanel.CloseTrigger` / `CloseIcon` | Closes the panel.                                                        |
 | `FloatingPanel.Body`                       | Scrollable content region.                                               |
-| `FloatingPanel.Footer`                     | Optional footer region for secondary actions or status text.             |
+| `FloatingPanel.Footer`                     | Optional footer for secondary actions or status text.                   |
 | `FloatingPanel.ResizeTrigger`              | Resize handle for one Ark axis.                                          |
 | `FloatingPanel.ResizeTriggerGroup`         | moduix helper that renders all or selected resize axes.                  |
 | `FloatingPanel.RootProvider`               | Connects parts to state created with `FloatingPanel.useFloatingPanel()`. |
 
 `FloatingPanel.DragIndicator`, `FloatingPanel.CloseIcon`, `FloatingPanel.Footer`, and
-`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They do not replace Ark structural parts.
+`FloatingPanel.ResizeTriggerGroup` are moduix helpers. They complement Ark's structural parts;
+they do not replace them.
 
 ## Composition
 
-The root portals `Positioner` automatically. Use `portalled={false}` for inline rendering and `portalRef` for a custom container; structural parts remain explicit and styleable.
+The root automatically portals `Positioner`. Set `portalled={false}` to render it in place, or use
+`portalRef` to choose a custom container. The structural parts remain explicit and can be styled
+individually.
 
 ### Recommended composition
 
-Use `FloatingPanel` for state and behavior. Render `Positioner` and `Content` explicitly, then
-place `DragTrigger` around the header so pointer movement starts from a predictable region.
+Use `FloatingPanel` to manage state and behavior. Render `Positioner` and `Content` explicitly,
+then wrap the header in `DragTrigger` so dragging starts from a predictable area.
 
-Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` for the
-built-in minimize, maximize, and restore icon buttons. Ark hides the restore control until the panel
-is minimized or maximized. When `asChild` is set on a trigger or control, provide a single semantic
-child; default moduix icons are only added for the default Ark button host.
+Use `StageTrigger` with `stage="minimized"`, `stage="maximized"`, and `stage="default"` to render
+built-in icon buttons for minimizing, maximizing, and restoring the panel. Ark keeps the restore
+button hidden until the panel is minimized or maximized. When `asChild` is set on a trigger or
+control, pass one semantic child. moduix adds default icons only when the trigger uses Ark's default
+button host.
 
 ### When to go custom
 
 Apply `className` directly to any exported part. Use `asChild` with exactly one semantic child for
-custom trigger, close-trigger, or stage-trigger hosts. Pass `axes` to `ResizeTriggerGroup` for a
-subset of default handles, or use individual `ResizeTrigger` parts for distinct styling per axis.
+custom trigger, close trigger, or stage trigger hosts. Pass `axes` to `ResizeTriggerGroup` to render
+only the handles you need, or use individual `ResizeTrigger` parts when each axis needs its own
+styling.
 
-Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside the panel tree, and
-`FloatingPanel.useFloatingPanel()` with `RootProvider` for externally owned state. Do not combine
-`Root` and `RootProvider` for the same state instance.
+Use `FloatingPanel.Context` or `FloatingPanel.useFloatingPanelContext()` inside the panel tree. If
+state is created outside that tree, create it with `FloatingPanel.useFloatingPanel()` and pass it to
+`RootProvider`. Do not render `Root` and `RootProvider` for the same state instance.
 
 ### Default props
 
-The portalled overlay content lazily mounts and unmounts after its exit animation by default. Set
-`unmountOnExit={false}` to retain it after first open; set both lifecycle props to `false` only when
-eager initial rendering is needed.
+By default, overlay content rendered in a portal mounts lazily and unmounts after its exit animation. Set
+`unmountOnExit={false}` to keep it mounted after the first open. Set both lifecycle props to `false`
+only when you need eager initial rendering.
 
 | Prop            | Default | Notes                                                                      |
 | --------------- | ------- | -------------------------------------------------------------------------- |
 | `closeOnEscape` | `true`  | Closes the focused topmost panel; set `false` to opt out.                  |
-| `persistRect`   | `true`  | Keeps the last rect available while close animations finish.               |
+| `persistRect`   | `true`  | Keeps the last position and size available while close animations finish. |
 | `draggable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `resizable`     | Ark     | Passed through unchanged; Ark defaults it to `true`.                       |
 | `strategy`      | Ark     | Passed through unchanged; Ark defaults to fixed positioning.               |
-| Presence props  | moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
+| Lifecycle props | moduix  | `lazyMount` and `unmountOnExit` default to `true`; remaining props pass through. |
 
 ### Behavioral notes
 
-- `onOpenChange(details)` exposes `details.open`.
-- `onPositionChange(details)` and `onPositionChangeEnd(details)` expose `details.position`.
-- `onSizeChange(details)` and `onSizeChangeEnd(details)` expose `details.size`.
-- `onStageChange(details)` exposes the Ark stage details object.
+- `onOpenChange(details)` provides `details.open`.
+- `onPositionChange(details)` and `onPositionChangeEnd(details)` provide `details.position`.
+- `onSizeChange(details)` and `onSizeChangeEnd(details)` provide `details.size`.
+- `onStageChange(details)` provides the Ark stage details object.
 - `position` and `size` are controlled independently; use `defaultPosition` and `defaultSize` for
   uncontrolled initialization.
 - `getAnchorPosition(details)` can derive the initial position from the trigger rect.
-- `closeOnEscape` defaults to `true` on `FloatingPanel`; set it to `false` to opt out. Ark receives Escape
-  from the focused topmost `Content`, so use `autoFocus` when the panel should receive focus on open.
-- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio`, and `gridSize` pass through Ark
+- Ark handles Escape from the focused topmost `Content`. Use `autoFocus` when the panel should
+  receive focus as soon as it opens.
+- `ids`, `translations`, `getBoundaryEl`, `lockAspectRatio`, and `gridSize` pass through to Ark
   unchanged.
-- `Content` has `role="dialog"`. When it has focus, Arrow keys reposition the panel by `gridSize`
-  and honor `dir`; use `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit focus handoff.
-- `persistRect` can be set to `false`, but the default `true` keeps size and position available for
-  close animations.
+- `Content` has `role="dialog"`. When it has focus, Arrow keys move the panel in `gridSize`
+  increments and honor `dir`; use `initialFocusEl`, `finalFocusEl`, and `restoreFocus` for explicit
+  focus handoff.
+- Set `persistRect` to `false` if you do not want the last position and size preserved. It defaults
+  to `true` so close animations can use them.
 - The panel is non-modal and does not trap focus or block outside interaction.
 
 ## Examples
 
 ### Anchor Position
 
-Use `getAnchorPosition` to calculate the initial panel position from the trigger rectangle.
+Use `getAnchorPosition` to calculate the panel's initial position from the trigger rectangle.
 
 ```tsx preview file="./_snippets/floating-panel/anchor-position.tsx"
 
@@ -140,7 +146,7 @@ Use `getAnchorPosition` to calculate the initial panel position from the trigger
 
 ### Boundary
 
-Set `allowOverflow={false}` with `getBoundaryEl` to constrain the panel to a specific container.
+Set `allowOverflow={false}` with `getBoundaryEl` to keep the panel inside a specific container.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/floating-panel/boundary.tsx"
@@ -150,7 +156,7 @@ Set `allowOverflow={false}` with `getBoundaryEl` to constrain the panel to a spe
 
 ### Context
 
-Read the panel API inline with `FloatingPanel.Context`.
+Use `FloatingPanel.Context` to access the panel API inside the component tree.
 
 <PreviewFrame maxWidth="xs">
   ```tsx preview file="./_snippets/floating-panel/context.tsx"
@@ -160,7 +166,7 @@ Read the panel API inline with `FloatingPanel.Context`.
 
 ### Controlled Open
 
-Use Ark's details object to synchronize panel visibility with surrounding UI.
+Use Ark's details object to keep the panel's visibility in sync with the rest of your UI.
 
 ```tsx preview file="./_snippets/floating-panel/controlled-open.tsx"
 
@@ -168,7 +174,7 @@ Use Ark's details object to synchronize panel visibility with surrounding UI.
 
 ### Controlled Position
 
-Control `position` when another part of the application needs the latest panel coordinates.
+Control `position` when another part of the application needs the panel's current coordinates.
 
 ```tsx preview file="./_snippets/floating-panel/controlled-position.tsx"
 
@@ -176,7 +182,7 @@ Control `position` when another part of the application needs the latest panel c
 
 ### Controlled Size
 
-Control `size` when the surrounding UI needs to store or display the current panel dimensions.
+Control `size` when the surrounding UI needs to store or display the panel's current dimensions.
 
 ```tsx preview file="./_snippets/floating-panel/controlled-size.tsx"
 
@@ -185,7 +191,7 @@ Control `size` when the surrounding UI needs to store or display the current pan
 ### Escape Dismiss
 
 `closeOnEscape` is enabled by default. Add `autoFocus` to `Content` when Escape should work
-immediately after opening a non-modal panel.
+immediately after the non-modal panel opens.
 
 ```tsx preview file="./_snippets/floating-panel/escape-dismiss.tsx"
 
@@ -193,17 +199,17 @@ immediately after opening a non-modal panel.
 
 ### Lazy Mount
 
-Use Ark presence props when the panel should mount only after first open and unmount after exit.
+Use Ark lifecycle props when the panel should mount only after its first open and unmount after exit.
 
 ```tsx preview file="./_snippets/floating-panel/lazy-mount.tsx"
 
 ```
 
-### Root Provider
+### RootProvider
 
 Use `FloatingPanel.useFloatingPanel` with `RootProvider` when controls outside the panel tree need
-access to methods like `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to match the
-moduix root default during close animations.
+methods such as `minimize`, `maximize`, and `setOpen`. Pass `persistRect: true` to keep the same
+close-animation behavior as the moduix root default.
 
 ```tsx preview file="./_snippets/floating-panel/root-provider.tsx"
 
@@ -244,5 +250,5 @@ Ark parts retain `data-scope="floating-panel"` and their `data-part` values. mod
 
 `Positioner` exposes `--width`, `--height`, `--x`, `--y`, `--reference-width`,
 `--reference-height`, `--available-width`, `--available-height`, `--z-index`, and
-`--transform-origin`. Keep sizing and transform logic on Ark runtime variables rather than
-duplicating measurements in userland.
+`--transform-origin`. Keep sizing and transform logic in Ark's runtime variables instead of
+duplicating measurements in application code.

@@ -1,7 +1,7 @@
 ---
 title: File Upload
 component: file-upload
-description: Композиция загрузки файлов Ark UI для выбора, перетаскивания, валидации и предварительного просмотра файлов.
+description: Компонент Ark UI для выбора, перетаскивания, проверки и предварительного просмотра файлов.
 ---
 
 import * as FileUploadDocs from '@/components/examples/file-upload';
@@ -12,9 +12,9 @@ import * as FileUploadDocs from '@/components/examples/file-upload';
 
 ## Базовый пример
 
-Используйте `FileUpload` как корневой элемент, отрисуйте `Label`, добавьте `Trigger` или `Dropzone` и выведите принятые
-файлы с помощью `Items`. Корневой элемент автоматически отрисовывает нативный input формы. `Items` показывает миниатюру,
-только когда браузер сообщает MIME-тип `image/*`; для файлов без этого MIME-типа используется универсальное превью.
+Начните с корневого `FileUpload`. Добавьте `Label`, а затем выберите `Trigger` или `Dropzone`. Чтобы показать принятые
+файлы, используйте `Items`. Корневой компонент автоматически добавляет нативное поле формы. `Items` использует
+миниатюру только тогда, когда браузер сообщает MIME-тип `image/*`; для остальных файлов используется универсальное превью.
 
 <style>{FileUploadDocs.fileUploadExampleCss}</style>
 
@@ -53,72 +53,74 @@ FileUpload / FileUpload.Root
 
 | Часть                            | Назначение                                                               |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| `FileUpload` / `FileUpload.Root` | Управляет состоянием файлов, валидацией, перетаскиванием, вставкой и интеграцией с формой. |
-| `FileUpload.RootProvider`        | Отрисовывает дерево загрузки файлов из состояния, возвращённого Ark `useFileUpload`. |
-| `FileUpload.Label`               | Доступная метка для скрытого input и элементов управления загрузкой.     |
-| `FileUpload.Dropzone`            | Цель для перетаскивания. Используйте `disableClick` с вложенным trigger. |
-| `FileUpload.DropzoneIcon`        | Декоративный помощник с иконкой загрузки для поверхностей dropzone.      |
-| `FileUpload.Trigger`             | Кнопка, открывающая нативный выборщик файлов.                            |
-| `FileUpload.ItemGroup`           | Обёртка списка для принятых или отклонённых файлов.                      |
-| `FileUpload.Items`               | Карточки изображений или строки файлов с превью, метаданными и удалением. |
-| `FileUpload.Context`             | Совместимый с Ark контекст render prop для пользовательских строк файлов. |
-| `FileUpload.Item`                | Строка файла. Передайте текущий объект `file`.                           |
-| `FileUpload.ItemPreview`         | Условный слот превью, сопоставляемый по MIME-типу.                       |
-| `FileUpload.ItemPreviewImage`    | Превью изображения внутри `ItemPreview`.                                |
-| `FileUpload.ItemPreviewIcon`     | Универсальная иконка файла для fallback в `ItemPreview`.                 |
-| `FileUpload.ItemName`            | Текст имени файла.                                                       |
-| `FileUpload.ItemMetadata`        | Тип файла и локализованный размер; передайте текущий `file`.             |
-| `FileUpload.ItemSizeText`        | Локализованный текст размера файла.                                      |
-| `FileUpload.ItemDeleteTrigger`   | Удаляет один файл. По умолчанию использует иконку корзины moduix.        |
-| `FileUpload.ClearTrigger`        | Очищает выбранные файлы. По умолчанию использует иконку закрытия moduix. |
+| `FileUpload` / `FileUpload.Root` | Управляет состоянием файлов, проверкой, перетаскиванием, вставкой и работой с формами. |
+| `FileUpload.RootProvider`        | Строит дерево загрузки на основе состояния, возвращённого хуком Ark `useFileUpload`.   |
+| `FileUpload.Label`               | Доступная метка для скрытого input и элементов управления загрузкой.                   |
+| `FileUpload.Dropzone`            | Область для перетаскивания файлов. Если внутри есть отдельный триггер, передайте `disableClick`. |
+| `FileUpload.DropzoneIcon`        | Декоративная иконка загрузки для Dropzone.                                             |
+| `FileUpload.Trigger`             | Кнопка, открывающая системное окно выбора файлов.                                     |
+| `FileUpload.ItemGroup`           | Контейнер списка принятых или отклонённых файлов.                                     |
+| `FileUpload.Items`               | Готовые карточки изображений и строки файлов с превью, метаданными и кнопками удаления. |
+| `FileUpload.Context`             | Совместимый с Ark render prop-контекст для собственных строк файлов.                  |
+| `FileUpload.Item`                | Строка файла. Передайте текущий объект `file`.                                       |
+| `FileUpload.ItemPreview`         | Слот для превью, выбранного по MIME-типу.                                             |
+| `FileUpload.ItemPreviewImage`    | Превью изображения внутри `ItemPreview`.                                              |
+| `FileUpload.ItemPreviewIcon`     | Универсальная иконка файла для запасного варианта превью в `ItemPreview`.              |
+| `FileUpload.ItemName`            | Имя файла.                                                                             |
+| `FileUpload.ItemMetadata`        | Тип и локализованный размер файла. Передайте текущий объект `file`.                   |
+| `FileUpload.ItemSizeText`        | Локализованный размер файла.                                                           |
+| `FileUpload.ItemDeleteTrigger`   | Удаляет один файл. По умолчанию показывает иконку корзины moduix.                     |
+| `FileUpload.ClearTrigger`        | Очищает выбранные файлы. По умолчанию показывает иконку закрытия moduix.              |
 
 ## Композиция
 
 ### Рекомендуемая композиция
 
-Сохраняйте дерево частей Ark видимым. Используйте `Trigger` для компактных элементов управления загрузкой и `Dropzone`
-для поверхностей перетаскивания. Если `Trigger` вложен в `Dropzone`, передайте `disableClick` в `Dropzone`,
-чтобы нативный выборщик файлов не открывался дважды.
+Сохраняйте дерево частей Ark в разметке. Для компактного элемента управления используйте `Trigger`, а для области
+перетаскивания файлов `Dropzone`. Если `Trigger` вложен в `Dropzone`, передайте `Dropzone` свойство `disableClick`,
+чтобы системное окно выбора файлов открылось только один раз.
 
-Корневой элемент всегда отрисовывает нативный input формы. Используйте `Items` для компактных строк принятых файлов. Читайте
-принятые файлы из `FileUpload.Context.acceptedFiles`, а отклонённые - из `FileUpload.Context.rejectedFiles`,
-когда нужны пользовательские строки.
+Корневой компонент всегда добавляет нативное поле формы. Используйте `Items` для компактного списка принятых файлов.
+Если нужны собственные строки, получайте принятые файлы из `FileUpload.Context.acceptedFiles`, а отклонённые из
+`FileUpload.Context.rejectedFiles`.
 
-Импортируйте `FileUpload.Context`, `useFileUpload()` и `useFileUploadContext()` из `@moduix/react`, когда нужен расширенный
-доступ к состоянию. Это прямые реэкспорты Ark, поэтому объекты колбэков и контракты состояния остаются неизменными.
+Импортируйте `FileUpload.Context`, `useFileUpload()` и `useFileUploadContext()` из `@moduix/react`, когда нужен
+расширенный доступ к состоянию. Это прямые реэкспорты Ark, поэтому объекты `details` в колбэках и контракт состояния
+не меняются.
 
 ### Когда нужна собственная композиция
 
-`Items` отрисовывает файлы изображений как компактные вертикальные карточки, а остальные файлы - как горизонтальные строки
-метаданных. Используйте явную композицию `Context` для пользовательских строк. `ItemPreview.type` - предикат с регулярным
-выражением, а не список приоритетов: отрисовывайте ровно одно превью для текущего файла. Например, используйте
-`file.type.startsWith("image/")`, чтобы выбрать `ItemPreviewImage`; иначе отрисуйте `ItemPreviewIcon`, затем скомпонуйте
-`ItemName`, `ItemMetadata file={file}` и `ItemDeleteTrigger`. Используйте `asChild`, только когда дочерний элемент -
-единственный семантический элемент, способный сохранить требуемое поведение кнопки, метки или input.
+`Items` показывает изображения в виде компактных вертикальных карточек, а остальные файлы в виде горизонтальных строк
+с метаданными. Используйте явную композицию `Context`, если нужны собственные строки. `ItemPreview.type` задаёт условие
+на основе регулярного выражения, а не список приоритетов, поэтому для каждого файла нужно показать ровно одно превью.
+Например, используйте `file.type.startsWith("image/")`, чтобы выбрать `ItemPreviewImage`. Для остальных файлов покажите
+`ItemPreviewIcon`, затем добавьте `ItemName`, `ItemMetadata file={file}` и `ItemDeleteTrigger`. Используйте `asChild`,
+только когда дочерний элемент является единственным семантическим элементом и сохраняет нужное поведение кнопки, метки
+или input.
 
 ### Свойства по умолчанию
 
 | Свойство              | По умолчанию | Примечания                                                        |
 | --------------------- | ------------ | ----------------------------------------------------------------- |
-| `allowDrop`           | `true`       | Включает перетаскивание в `Dropzone`.                            |
-| `maxFiles`            | `1`          | Увеличьте или удалите для загрузки нескольких файлов и каталогов. |
-| `minFileSize`         | `0`          | Минимальный размер принимаемого файла в байтах.                   |
-| `maxFileSize`         | `∞`          | Максимальный размер принимаемого файла в байтах.                  |
-| `preventDocumentDrop` | `true`       | Предотвращает случайную навигацию при сбросе вне цели.            |
-| `locale`              | `en-US`      | Используется для форматирования размера файла.                    |
+| `allowDrop`           | `true`       | Разрешает перетаскивать файлы в `Dropzone`.                                      |
+| `maxFiles`            | `1`          | Увеличьте значение или снимите ограничение, чтобы принимать несколько файлов или каталогов. |
+| `minFileSize`         | `0`          | Минимальный размер принимаемого файла в байтах.                                  |
+| `maxFileSize`         | `∞`          | Максимальный размер принимаемого файла в байтах.                                |
+| `preventDocumentDrop` | `true`       | Предотвращает случайную навигацию, если файл сбросили за пределами цели.         |
+| `locale`              | `en-US`      | Локаль для форматирования размера файла.                                       |
 
 ### Особенности поведения
 
-`acceptedFiles`, `defaultAcceptedFiles` и `onFileChange(details)` сохраняют управляемое и неуправляемое состояние Ark.
-`onFileAccept(details)` и `onFileReject(details)` сохраняют объекты деталей Ark. `Field.Root` и `Fieldset.Root` могут
-предоставлять состояния disabled, invalid, required и read-only. Используйте `ids`, когда отдельным меткам или описаниям
-нужны стабильные ссылки доступности.
+`acceptedFiles`, `defaultAcceptedFiles` и `onFileChange(details)` работают по модели управляемого и неуправляемого
+состояния Ark. `onFileAccept(details)` и `onFileReject(details)` получают исходные объекты `details` от Ark. `Field.Root`
+и `Fieldset.Root` могут передавать состояния disabled, invalid, required и read-only. Используйте `ids`, если отдельным
+меткам или описаниям нужны стабильные связи для доступности.
 
 ## Примеры
 
 ### Принимаемые типы файлов
 
-Ограничивайте валидацию выбора и перетаскивания с помощью `accept`. Ark поддерживает и MIME-типы, и расширения.
+Ограничьте выбор файлов и проверку при перетаскивании с помощью `accept`. Ark поддерживает MIME-типы и расширения файлов.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/accepted-file-types.tsx"
@@ -128,7 +130,7 @@ FileUpload / FileUpload.Root
 
 ### Триггер очистки
 
-Используйте `ClearTrigger`, чтобы очистить все принятые файлы за один раз.
+Используйте `ClearTrigger`, чтобы удалить все принятые файлы одним действием.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/clear-trigger.tsx"
@@ -138,7 +140,8 @@ FileUpload / FileUpload.Root
 
 ### Управляемое состояние
 
-Управляйте `acceptedFiles`, когда выбранные файлы должны согласовываться с внешним состоянием или многошаговыми сценариями.
+Управляйте `acceptedFiles`, когда выбранные файлы должны оставаться синхронизированными с внешним состоянием или
+многошаговым сценарием.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/controlled.tsx"
@@ -148,7 +151,8 @@ FileUpload / FileUpload.Root
 
 ### Загрузка каталога
 
-Используйте `directory` для загрузки папки. Браузеры с его поддержкой предоставляют относительные пути в `file.webkitRelativePath`.
+Используйте `directory`, чтобы дать пользователю выбрать папку. В поддерживающих эту возможность браузерах относительный
+путь каждого файла доступен в `file.webkitRelativePath`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/directory-upload.tsx"
@@ -158,7 +162,8 @@ FileUpload / FileUpload.Root
 
 ### Dropzone
 
-Используйте `Dropzone` для загрузок перетаскиванием. Оставьте вложенный `Trigger` для доступа с клавиатуры и через выборщик файлов.
+Используйте `Dropzone` для загрузки перетаскиванием. Оставьте вложенный `Trigger`, чтобы пользователь мог открыть окно
+выбора файлов и с клавиатуры.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/dropzone.tsx"
@@ -168,7 +173,8 @@ FileUpload / FileUpload.Root
 
 ### Обработка ошибок
 
-Используйте `onFileReject(details)` для обратной связи приложения и оставляйте ограничения валидации на корне.
+Используйте `onFileReject(details)`, чтобы показать сообщение, зависящее от логики приложения. Ограничения проверки
+задавайте на корневом компоненте.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/error-handling.tsx"
@@ -178,9 +184,9 @@ FileUpload / FileUpload.Root
 
 ### Превью файлов
 
-Этот пример начинается с SVG-изображения и PDF, поэтому сразу видны макеты карточки изображения и строки файла.
-Блоки превью строк файлов по умолчанию имеют размер 2,5rem, а длинные имена обрезаются до одной строки. Удалите любой
-из элементов или добавьте файлы с устройства, чтобы проверить те же макеты на собственных загрузках.
+В этом примере уже есть SVG-изображение и PDF, поэтому сразу видны оба варианта: карточка изображения и строка файла.
+Блок превью в строке файла по умолчанию занимает квадрат 2,5rem, а длинные имена помещаются в одну строку. Удалите
+один из элементов или добавьте свои файлы, чтобы проверить эти варианты на реальных данных.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/file-previews.tsx"
@@ -190,8 +196,8 @@ FileUpload / FileUpload.Root
 
 ### Использование в форме
 
-Передайте `name` в корневой элемент. Он автоматически отрисует нативный input формы, поэтому нативная отправка и сброс формы
-включают input файла.
+Передайте `name` корневому компоненту. Он автоматически добавит нативное поле формы, поэтому поле с файлами будет
+участвовать в обычной отправке и сбросе формы.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/form-usage.tsx"
@@ -201,7 +207,7 @@ FileUpload / FileUpload.Root
 
 ### Начальные файлы
 
-Используйте `defaultAcceptedFiles`, когда загрузка должна начинаться с существующих файлов, а затем управлять собой самостоятельно.
+Используйте `defaultAcceptedFiles`, чтобы заранее добавить файлы, а затем передать управление выбором компоненту.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/initial-files.tsx"
@@ -211,7 +217,7 @@ FileUpload / FileUpload.Root
 
 ### Захват медиа
 
-Используйте `capture` вместе со значением `accept` для изображения или видео, чтобы подсказать мобильным браузерам открыть камеру.
+Используйте `capture` вместе с `accept` для изображения или видео, чтобы мобильный браузер мог предложить открыть камеру.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/media-capture.tsx"
@@ -221,7 +227,8 @@ FileUpload / FileUpload.Root
 
 ### Отклонённые файлы
 
-Отрисовывайте `rejectedFiles` в отдельной группе `ItemGroup type="rejected"`, когда пользователям нужно видеть ошибки валидации.
+Выводите `rejectedFiles` в отдельной группе `ItemGroup type="rejected"`, если пользователю нужно видеть причины
+отклонения файлов.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/rejected-files.tsx"
@@ -231,8 +238,8 @@ FileUpload / FileUpload.Root
 
 ### Root Provider и вставка
 
-Используйте moduix `useFileUpload` с `RootProvider`, когда состоянием или методами нужно владеть вне
-отрисовываемого дерева загрузки.
+Используйте `useFileUpload` из moduix вместе с `RootProvider`, если состояние или методы должны находиться за пределами
+дерева загрузки.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/root-provider-and-paste.tsx"
@@ -242,7 +249,7 @@ FileUpload / FileUpload.Root
 
 ### Преобразование файлов
 
-Используйте `transformFiles(files)` для асинхронной обработки до того, как файлы попадут в принятое состояние.
+Используйте `transformFiles(files)` для асинхронной обработки файлов до того, как они попадут в `acceptedFiles`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/transform-files.tsx"
@@ -252,7 +259,8 @@ FileUpload / FileUpload.Root
 
 ### С Field
 
-Оберните загрузку в `Field.Root`, когда поясняющий текст, текст ошибки, обязательное или невалидное состояние относятся к полю формы.
+Оберните загрузку в `Field.Root`, когда к полю формы нужно добавить подсказку или сообщение об ошибке либо показать,
+что поле обязательное или содержит ошибку.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/with-field.tsx"
@@ -262,8 +270,9 @@ FileUpload / FileUpload.Root
 
 ### Расширенная настройка
 
-Не используйте `Items`, когда пользовательским строкам нужны превью по MIME-типам, дополнительные метаданные или другой макет.
-Явная композиция `FileUpload.Context` сохраняет видимым состояние Ark и выбирает по одному превью изображения или fallback для файла.
+Замените `Items` собственной композицией, если нужны превью для разных MIME-типов, дополнительные метаданные или другой
+макет. Явная композиция `FileUpload.Context` сохраняет доступ к состоянию Ark и позволяет выбрать для каждого файла либо
+превью изображения, либо запасной вариант.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/file-upload/advanced-customization.tsx"
@@ -291,7 +300,7 @@ FileUpload / FileUpload.Root
 
 ### Хуки стилизации
 
-Используйте стабильные слоты moduix, такие как `[data-slot="file-upload-dropzone"]`,
+Выбирайте стабильные слоты moduix, например `[data-slot="file-upload-dropzone"]`,
 `[data-slot="file-upload-item"]` и `[data-slot="file-upload-item-delete-trigger"]`.
 Ark также предоставляет `data-scope="file-upload"`, `data-part` для конкретной части и атрибуты состояния:
 `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-dragging` и `data-type`.
