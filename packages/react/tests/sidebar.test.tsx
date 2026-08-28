@@ -80,25 +80,25 @@ test('preserves active link composition for primary and nested navigation', () =
   render(
     <Sidebar>
       <Sidebar.Panel>
-        <Sidebar.Menu>
-          <Sidebar.MenuItem>
-            <Sidebar.MenuButton asChild active size="sm">
+        <Sidebar.NavigationList>
+          <Sidebar.NavigationItem>
+            <Sidebar.NavigationButton asChild active size="sm">
               <a href="#overview">Overview</a>
-            </Sidebar.MenuButton>
-            <Sidebar.MenuSub>
-              <Sidebar.MenuSubItem>
-                <Sidebar.MenuSubButton asChild active>
+            </Sidebar.NavigationButton>
+            <Sidebar.NavigationSubList>
+              <Sidebar.NavigationSubItem>
+                <Sidebar.NavigationSubButton asChild active>
                   <a href="#details">Details</a>
-                </Sidebar.MenuSubButton>
-              </Sidebar.MenuSubItem>
-              <Sidebar.MenuSubItem>
-                <Sidebar.MenuSubButton href="#very-long-item">
+                </Sidebar.NavigationSubButton>
+              </Sidebar.NavigationSubItem>
+              <Sidebar.NavigationSubItem>
+                <Sidebar.NavigationSubButton href="#very-long-item">
                   A very long nested navigation item
-                </Sidebar.MenuSubButton>
-              </Sidebar.MenuSubItem>
-            </Sidebar.MenuSub>
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
+                </Sidebar.NavigationSubButton>
+              </Sidebar.NavigationSubItem>
+            </Sidebar.NavigationSubList>
+          </Sidebar.NavigationItem>
+        </Sidebar.NavigationList>
       </Sidebar.Panel>
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
@@ -110,27 +110,27 @@ test('preserves active link composition for primary and nested navigation', () =
   const details = screen.getByRole('link', { name: 'Details' });
 
   expect(overview).toHaveAttribute('aria-current', 'page');
-  expect(overview).toHaveAttribute('data-slot', 'sidebar-menu-button');
+  expect(overview).toHaveAttribute('data-slot', 'sidebar-navigation-button');
   expect(overview).toHaveAttribute('data-active');
   expect(overview).toHaveAttribute('data-size', 'sm');
   expect(details).toHaveAttribute('aria-current', 'page');
-  expect(details).toHaveAttribute('data-slot', 'sidebar-menu-sub-button');
+  expect(details).toHaveAttribute('data-slot', 'sidebar-navigation-sub-button');
   expect(details).toHaveAttribute('data-active');
   expect(screen.getByText('A very long nested navigation item')).toHaveAttribute(
     'data-slot',
-    'sidebar-menu-sub-label',
+    'sidebar-navigation-sub-label',
   );
 });
 
-test('preserves wrapped Select indicator composition in a menu button', () => {
+test('preserves wrapped Select indicator composition in a navigation button', () => {
   const { container } = render(
     <Sidebar>
       <Sidebar.Panel>
-        <Sidebar.Menu>
-          <Sidebar.MenuItem>
+        <Sidebar.NavigationList>
+          <Sidebar.NavigationItem>
             <Select collection={workspaces} defaultValue={['acme']}>
               <Select.Trigger asChild>
-                <Sidebar.MenuButton aria-label="Select workspace">
+                <Sidebar.NavigationButton aria-label="Select workspace">
                   <span data-sidebar-icon>AC</span>
                   <Sidebar.Label>
                     <Select.ValueText placeholder="Select workspace" />
@@ -138,11 +138,11 @@ test('preserves wrapped Select indicator composition in a menu button', () => {
                   <Sidebar.Label data-testid="select-indicator">
                     <Select.Indicator />
                   </Sidebar.Label>
-                </Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
               </Select.Trigger>
             </Select>
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
+          </Sidebar.NavigationItem>
+        </Sidebar.NavigationList>
       </Sidebar.Panel>
       <Sidebar.ResizeTrigger />
       <Sidebar.Trigger />
@@ -154,5 +154,32 @@ test('preserves wrapped Select indicator composition in a menu button', () => {
 
   expect(indicator).toContainElement(
     container.querySelector('[data-scope="select"][data-part="indicator"]'),
+  );
+});
+
+test('allows a navigation list directly below a group action', () => {
+  render(
+    <Sidebar>
+      <Sidebar.Panel>
+        <Sidebar.Group>
+          <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+          <Sidebar.GroupAction aria-label="Create workspace item">+</Sidebar.GroupAction>
+          <Sidebar.NavigationList>
+            <Sidebar.NavigationItem>
+              <Sidebar.NavigationButton>Overview</Sidebar.NavigationButton>
+            </Sidebar.NavigationItem>
+          </Sidebar.NavigationList>
+        </Sidebar.Group>
+      </Sidebar.Panel>
+      <Sidebar.ResizeTrigger />
+      <Sidebar.Trigger />
+      <Sidebar.Inset />
+    </Sidebar>,
+  );
+
+  expect(screen.getByRole('list')).toHaveAttribute('data-slot', 'sidebar-navigation-list');
+  expect(screen.getByRole('button', { name: 'Overview' })).toHaveAttribute(
+    'data-slot',
+    'sidebar-navigation-button',
   );
 });

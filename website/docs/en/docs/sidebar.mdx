@@ -26,7 +26,7 @@ state contract remains Ark-shaped.
 
 Render the navigation panel, Ark’s resize handle, and the main content area as separate parts. The
 default ids and panel constraints cover the usual left-sidebar layout, so no setup is required.
-The example also shows how to label icon-only menu buttons after collapse: wrap the button in
+The example also shows how to label icon-only navigation controls after collapse: wrap the button in
 `Sidebar.Tooltip`. Tooltip keeps ownership of its own popup state.
 
 <PreviewFrame>
@@ -51,16 +51,15 @@ Sidebar / Sidebar.Root
 │  │  └─ Sidebar.Group
 │  │     ├─ Sidebar.GroupLabel
 │  │     ├─ Sidebar.GroupAction
-│  │     └─ Sidebar.GroupContent
-│  │        └─ Sidebar.Menu
-│  │           └─ Sidebar.MenuItem
+│  │     └─ Sidebar.NavigationList
+│  │           └─ Sidebar.NavigationItem
 │  │              ├─ Sidebar.Tooltip
-│  │              │  └─ Sidebar.MenuButton
-│  │              ├─ Sidebar.MenuAction
-│  │              ├─ Sidebar.MenuBadge
-│  │              └─ Sidebar.MenuSub
-│  │                 └─ Sidebar.MenuSubItem
-│  │                    └─ Sidebar.MenuSubButton
+│  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.NavigationAction
+│  │              ├─ Sidebar.NavigationBadge
+│  │              └─ Sidebar.NavigationSubList
+│  │                 └─ Sidebar.NavigationSubItem
+│  │                    └─ Sidebar.NavigationSubButton
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -81,13 +80,13 @@ Sidebar / Sidebar.Root
 | `Sidebar.Separator`                     | Sidebar-tinted divider between sections or footer blocks. |
 | `Sidebar.Group`                         | Semantic navigation section with an optional heading.     |
 | `Sidebar.GroupAction`                   | Compact action button aligned with a group heading.       |
-| `Sidebar.GroupContent`                  | Body wrapper under a group heading.                       |
-| `Sidebar.Menu` / `MenuItem`             | Navigation list and positioned list item.                 |
+| `Sidebar.GroupContent`                  | Optional wrapper for a custom group body.                 |
+| `Sidebar.NavigationList` / `Sidebar.NavigationItem` | Navigation list and positioned list item.               |
 | `Sidebar.Tooltip`                       | Collapsed-only label helper with side-aware placement.    |
-| `Sidebar.MenuButton`                    | Button or `asChild` link with active and size states.     |
-| `Sidebar.MenuAction`                    | Trailing icon action for a menu item.                     |
-| `Sidebar.MenuBadge`                     | Trailing count or status pill for a menu item.            |
-| `Sidebar.MenuSub`                       | Nested navigation list with item and link parts.          |
+| `Sidebar.NavigationButton`                    | Button or `asChild` link with active and size states.     |
+| `Sidebar.NavigationAction`                    | Trailing icon action for a menu item.                     |
+| `Sidebar.NavigationBadge`                     | Trailing count or status pill for a menu item.            |
+| `Sidebar.NavigationSubList`                       | Nested navigation list with item and link parts.          |
 
 ## Composition
 
@@ -100,18 +99,24 @@ and the usual content-header divider; it does not take up layout width or get cl
 panel. Set `--moduix-sidebar-trigger-offset-y` if your content header has a different height.
 
 Use `Collapsible` for nested menu items and `Menu + Avatar` for account actions. Place
-`Menu.Indicator` directly in `Sidebar.MenuButton`; it is aligned at the end of the row and hidden
-in the collapsed rail. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge`, and
-`Separator` cover common app-shell UI without adding another Sidebar state layer.
+`Menu.Indicator` directly in `Sidebar.NavigationButton`; it is aligned at the end of the row and hidden
+in the collapsed rail. `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge`, and
+`Sidebar.Separator` cover common app-shell UI without adding another Sidebar state layer.
 
-For icon-only buttons, wrap `Sidebar.MenuButton` in `Sidebar.Tooltip` so their labels remain
+For icon-only buttons, wrap `Sidebar.NavigationButton` in `Sidebar.Tooltip` so their labels remain
 available on hover. The two usual integration patterns are:
 
-1. **Collapsed rail labels:** `Sidebar.Tooltip` around `Sidebar.MenuButton`.
+1. **Collapsed rail labels:** `Sidebar.Tooltip` around `Sidebar.NavigationButton`.
 2. **Persistence:** keep width in controlled `size`, update it from `onResize(details)`, and persist
    it from `onResizeEnd(details)` in app state or storage.
 
 `Sidebar` is shorthand for `Sidebar.Root`.
+
+`Sidebar.NavigationList` is normally a direct child of `Sidebar.Group`; `Sidebar.GroupContent` is only
+needed when an application needs an additional custom body wrapper. Sidebar never chooses how nested
+links behave in the collapsed rail: when they must stay reachable, use `useSidebar().collapsed` and
+explicitly render the application’s chosen popup `Menu` or another navigation pattern instead of the
+inline `Collapsible` list.
 
 ### When to go custom
 
@@ -125,7 +130,7 @@ remains `"content"`. The Sidebar layout parts intentionally do not accept indivi
 keeps the rendered panels, trigger, and `useSidebar()` on the same Ark panel contract. Use
 `Splitter` directly when a layout needs a custom inset id or more than two panels.
 
-Use `asChild` on menu buttons and sub-buttons to render router links. Pass a single semantic child
+Use `asChild` on navigation buttons and nested navigation buttons to render router links. Pass a single semantic child
 that accepts the merged props and ref.
 
 Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigger`, `Trigger`, and
@@ -142,7 +147,7 @@ Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigge
 | Side                 | `"left"`                                                        |
 | Orientation          | `"horizontal"` (fixed for sidebar/inset layout)                 |
 | Root `panelId`       | `"sidebar"`                                                     |
-| Menu button `size`   | `"md"`                                                          |
+| Navigation button `size` | `"md"`                                                       |
 
 ### Behavioral notes
 
@@ -186,8 +191,9 @@ charge of the layout while letting the width survive the next visit.
 
 ### Recommended App Shell
 
-Place `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible`, and `Menu` directly in their
-matching Sidebar parts. Each moduix primitive continues to manage its own state, focus, popup
+Place `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, and
+`Sidebar.NavigationBadge` directly beside the navigation item they affect. Keep `Collapsible` and popup
+`Menu` explicit: each primitive owns its own state. Each moduix primitive continues to manage its own state, focus, popup
 positioning, and animation. This example also shows a long project list scrolling inside
 `Sidebar.Content` and tooltips for the collapsed icon rail.
 
@@ -211,7 +217,7 @@ Inspector example includes grouped tools, activity links, internal scrolling, an
 
 ### Workspace Select
 
-Use `Select.Trigger asChild` with `Sidebar.MenuButton`. Put the text and indicators in
+Use `Select.Trigger asChild` with `Sidebar.NavigationButton`. Put the text and indicators in
 `Sidebar.Label`, then mark the compact visual anchor with `data-sidebar-icon`. The component can
 now collapse without custom JavaScript, and the wrapped `Select.Indicator` stays aligned to the end
 of the row. The example combines a workspace switcher with navigation, a scrollable content area,
@@ -238,14 +244,18 @@ two panels, or provider and registry APIs.
 
 The navigation panel uses card tokens; the inset uses the application background. The default panel
 data configures a `3rem` rail. Collapsed panels move `Sidebar.Label` and group labels out of layout
-with a visually-hidden pattern, hide nested menus and `Sidebar.Input`, and center SVG and
+with a visually-hidden pattern, hide nested navigation lists and `Sidebar.Input`, and center SVG and
 `data-sidebar-icon` elements. Labels remain available to assistive technology without taking flex
 space. Mark non-SVG anchors such as Avatar, a Select workspace mark, or a brand mark with
 `data-sidebar-icon`; its own dimensions are preserved. Put collapsible text, values, badges, and
 indicators in `Sidebar.Label` when they should leave the visual layout in the collapsed rail.
-Trailing group and menu affordances hide automatically in the collapsed icon-only state.
-Menu buttons and nested menu buttons truncate direct text at any Sidebar width. Use `Sidebar.Label`
+Trailing group and navigation affordances hide automatically in the collapsed icon-only state.
+Navigation buttons and nested navigation buttons truncate direct text at any Sidebar width. Use `Sidebar.Label`
 when text, values, badges, or indicators must also leave the collapsed rail.
+
+At narrow expanded widths (below `7rem`), Sidebar also hides trailing group actions, navigation actions,
+badges, and indicators before they can overlap the leading icon. The panel remains expanded: its Ark state
+and labels are unchanged.
 
 Panel widths are Ark state rather than visual CSS. Override `defaultSize` and controlled `size` for
 the Sidebar's current width; use `Splitter` when the expanded, minimum, maximum, or collapsed
@@ -283,7 +293,7 @@ Sidebar shell parts also expose `data-scope="sidebar"` and `data-part`. `Sidebar
 retain Splitter state attributes.
 
 `Sidebar.Panel` adds `data-state="expanded"` or `"collapsed"`. Root, panel, inset, resize trigger,
-and floating trigger expose `data-side`. `MenuButton` and `MenuSubButton` expose `data-active`,
-`MenuButton` exposes `data-size`, and the extra shell parts keep stable `data-slot="sidebar-*"`
+and floating trigger expose `data-side`. `NavigationButton` and `NavigationSubButton` expose `data-active`,
+`NavigationButton` exposes `data-size`, and the extra shell parts keep stable `data-slot="sidebar-*"`
 hooks for custom layout or theme work. Resize state remains available through Ark's `data-focus`,
 `data-dragging`, `data-disabled`, and `data-orientation`.

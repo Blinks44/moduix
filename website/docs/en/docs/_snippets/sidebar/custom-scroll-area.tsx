@@ -38,33 +38,33 @@ export default function ScrollableSidebar() {
               <ScrollArea.Content>
                 <Sidebar.Group>
                   <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-                  <Sidebar.Menu>
-                    <Sidebar.MenuItem>
-                      <Sidebar.MenuButton active>
+                  <Sidebar.NavigationList>
+                    <Sidebar.NavigationItem>
+                      <Sidebar.NavigationButton active>
                         <Gauge />
                         <Sidebar.Label>Overview</Sidebar.Label>
-                      </Sidebar.MenuButton>
-                    </Sidebar.MenuItem>
-                    <Sidebar.MenuItem>
-                      <Sidebar.MenuButton>
+                      </Sidebar.NavigationButton>
+                    </Sidebar.NavigationItem>
+                    <Sidebar.NavigationItem>
+                      <Sidebar.NavigationButton>
                         <FolderOpen />
                         <Sidebar.Label>Projects</Sidebar.Label>
-                      </Sidebar.MenuButton>
-                    </Sidebar.MenuItem>
-                  </Sidebar.Menu>
+                      </Sidebar.NavigationButton>
+                    </Sidebar.NavigationItem>
+                  </Sidebar.NavigationList>
                 </Sidebar.Group>
                 <Sidebar.Group>
                   <Sidebar.GroupLabel>Recent projects</Sidebar.GroupLabel>
-                  <Sidebar.Menu>
+                  <Sidebar.NavigationList>
                     {projects.map((project) => (
-                      <Sidebar.MenuItem key={project}>
-                        <Sidebar.MenuButton>
+                      <Sidebar.NavigationItem key={project}>
+                        <Sidebar.NavigationButton>
                           <FileText />
                           <Sidebar.Label>{project}</Sidebar.Label>
-                        </Sidebar.MenuButton>
-                      </Sidebar.MenuItem>
+                        </Sidebar.NavigationButton>
+                      </Sidebar.NavigationItem>
                     ))}
-                  </Sidebar.Menu>
+                  </Sidebar.NavigationList>
                 </Sidebar.Group>
               </ScrollArea.Content>
             </ScrollArea.Viewport>

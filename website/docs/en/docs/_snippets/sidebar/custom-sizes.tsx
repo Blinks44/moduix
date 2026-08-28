@@ -21,43 +21,43 @@ export default function SizedSidebar() {
         <Sidebar.Content>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton active>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton active>
                   <Gauge />
                   <Sidebar.Label>Overview</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <FolderOpen />
                   <Sidebar.Label>Projects</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <FileText />
                   <Sidebar.Label>Documents</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Insights</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <BarChart3 />
                   <Sidebar.Label>Analytics</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <MessageSquare />
                   <Sidebar.Label>Messages</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
         <Sidebar.Footer>
@@ -69,10 +69,10 @@ export default function SizedSidebar() {
             }}
           >
             <Menu.Trigger asChild>
-              <Sidebar.MenuButton>
+              <Sidebar.NavigationButton>
                 <Settings />
                 <Sidebar.Label>Settings</Sidebar.Label>
-              </Sidebar.MenuButton>
+              </Sidebar.NavigationButton>
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>

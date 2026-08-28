@@ -27,7 +27,7 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 Отрендерите панель навигации, разделитель для изменения размера из Ark и основную область содержимого
 отдельными частями. Стандартных id и ограничений достаточно для обычной левой боковой панели - настраивать
 ничего не нужно. Пример также показывает, как сохранить подписи у кнопок с иконками в свёрнутом виде:
-оберните `Sidebar.MenuButton` в `Sidebar.Tooltip`. Состоянием всплывающей подсказки при этом управляет
+оберните `Sidebar.NavigationButton` в `Sidebar.Tooltip`. Состоянием всплывающей подсказки при этом управляет
 сам Tooltip.
 
 <PreviewFrame>
@@ -52,16 +52,15 @@ Sidebar / Sidebar.Root
 │  │  └─ Sidebar.Group
 │  │     ├─ Sidebar.GroupLabel
 │  │     ├─ Sidebar.GroupAction
-│  │     └─ Sidebar.GroupContent
-│  │        └─ Sidebar.Menu
-│  │           └─ Sidebar.MenuItem
+│  │     └─ Sidebar.NavigationList
+│  │           └─ Sidebar.NavigationItem
 │  │              ├─ Sidebar.Tooltip
-│  │              │  └─ Sidebar.MenuButton
-│  │              ├─ Sidebar.MenuAction
-│  │              ├─ Sidebar.MenuBadge
-│  │              └─ Sidebar.MenuSub
-│  │                 └─ Sidebar.MenuSubItem
-│  │                    └─ Sidebar.MenuSubButton
+│  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.NavigationAction
+│  │              ├─ Sidebar.NavigationBadge
+│  │              └─ Sidebar.NavigationSubList
+│  │                 └─ Sidebar.NavigationSubItem
+│  │                    └─ Sidebar.NavigationSubButton
 │  └─ Sidebar.Footer
 │     └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -82,13 +81,13 @@ Sidebar / Sidebar.Root
 | `Sidebar.Separator`                    | Разделитель с оттенком Sidebar между секциями или блоками футера. |
 | `Sidebar.Group`                        | Семантическая секция навигации с необязательным заголовком.      |
 | `Sidebar.GroupAction`                  | Компактная кнопка действия, выровненная с заголовком группы.     |
-| `Sidebar.GroupContent`                 | Обёртка содержимого под заголовком группы.                       |
-| `Sidebar.Menu` / `MenuItem`            | Список навигации и позиционированный элемент списка.             |
+| `Sidebar.GroupContent`                 | Необязательная обёртка для нестандартного содержимого группы.    |
+| `Sidebar.NavigationList` / `Sidebar.NavigationItem` | Список навигации и позиционированный элемент списка.          |
 | `Sidebar.Tooltip`                      | Помощник с подписью только в свёрнутом состоянии и размещением с учётом стороны. |
-| `Sidebar.MenuButton`                   | Кнопка или ссылка через `asChild` с состояниями активности и размера. |
-| `Sidebar.MenuAction`                   | Завершающее действие с иконкой для элемента меню.                |
-| `Sidebar.MenuBadge`                    | Завершающий счётчик или статусная метка для элемента меню.       |
-| `Sidebar.MenuSub`                      | Вложенный навигационный список с частями элемента и ссылки.      |
+| `Sidebar.NavigationButton`                   | Кнопка или ссылка через `asChild` с состояниями активности и размера. |
+| `Sidebar.NavigationAction`                   | Завершающее действие с иконкой для элемента меню.                |
+| `Sidebar.NavigationBadge`                    | Завершающий счётчик или статусная метка для элемента меню.       |
+| `Sidebar.NavigationSubList`                      | Вложенный навигационный список с частями элемента и ссылки.      |
 
 ## Композиция
 
@@ -101,18 +100,23 @@ Sidebar / Sidebar.Root
 переопределите `--moduix-sidebar-trigger-offset-y`.
 
 Для вложенных пунктов меню используйте `Collapsible`, а для действий с учётной записью - `Menu + Avatar`.
-`Menu.Indicator` добавляйте прямо в `Sidebar.MenuButton`: он выравнивается по правому краю и скрывается
-при сворачивании панели. `Input`, `GroupAction`, `GroupContent`, `MenuAction`, `MenuBadge` и `Separator`
+`Menu.Indicator` добавляйте прямо в `Sidebar.NavigationButton`: он выравнивается по правому краю и скрывается
+при сворачивании панели. `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge` и `Sidebar.Separator`
 покрывают частые элементы оболочки приложения, не добавляя Sidebar отдельное состояние.
 
-Чтобы подписи были доступны при наведении на кнопки с иконками, оборачивайте `Sidebar.MenuButton` в
+Чтобы подписи были доступны при наведении на кнопки с иконками, оборачивайте `Sidebar.NavigationButton` в
 `Sidebar.Tooltip`. Обычно достаточно двух приёмов:
 
-1. **Подписи свёрнутой панели:** `Sidebar.Tooltip` вокруг `Sidebar.MenuButton`.
+1. **Подписи свёрнутой панели:** `Sidebar.Tooltip` вокруг `Sidebar.NavigationButton`.
 2. **Сохранение:** храните ширину в управляемом `size`, обновляйте её из `onResize(details)` и сохраняйте
    из `onResizeEnd(details)` в состоянии приложения или хранилище.
 
 `Sidebar` - короткая запись для `Sidebar.Root`.
+
+Обычно `Sidebar.NavigationList` является прямым потомком `Sidebar.Group`; `Sidebar.GroupContent` нужен
+только для дополнительного нестандартного контейнера. Sidebar не выбирает поведение вложенных ссылок в
+свёрнутом ряду: если они должны оставаться доступными, используйте `useSidebar().collapsed` и явно
+отрендерите выбранный приложением popup `Menu` либо другой паттерн навигации вместо inline-списка `Collapsible`.
 
 ### Когда нужна собственная композиция
 
@@ -126,7 +130,7 @@ Sidebar / Sidebar.Root
 контракт панели Ark для отрендеренных панелей, триггера и `useSidebar()`. Используйте `Splitter` напрямую,
 когда раскладке нужен пользовательский id inset или более двух панелей.
 
-Используйте `asChild` на кнопках меню и подменю, чтобы отрисовать ссылки роутера. Передавайте один
+Используйте `asChild` на кнопках навигации и вложенной навигации, чтобы отрисовать ссылки роутера. Передавайте один
 семантический дочерний элемент, который принимает объединённые props и ref.
 
 Держите части, связанные со Splitter, внутри `Sidebar`: `Panel`, `Inset`, `ResizeTrigger`, `Trigger` и
@@ -187,7 +191,7 @@ Collapsible, всплывающее содержимое, подсказки и 
 
 ### Рекомендуемая оболочка приложения
 
-Размещайте `Input`, `GroupAction`, `MenuAction`, `MenuBadge`, `Collapsible` и `Menu` в соответствующих
+Размещайте `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge`, `Collapsible` и popup `Menu` в соответствующих
 частях Sidebar. Каждый примитив moduix по-прежнему сам управляет своим состоянием, фокусом, положением
 всплывающего окна и анимацией. В примере также показаны длинный список проектов с прокруткой внутри
 `Sidebar.Content` и подсказки для свёрнутого ряда иконок.
@@ -213,7 +217,7 @@ Sidebar сам подберёт конфигурацию панели, id и п�
 
 ### Выбор рабочего пространства
 
-Используйте `Select.Trigger asChild` с `Sidebar.MenuButton`. Поместите текст и индикаторы в
+Используйте `Select.Trigger asChild` с `Sidebar.NavigationButton`. Поместите текст и индикаторы в
 `Sidebar.Label`, а компактную визуальную опору отметьте атрибутом `data-sidebar-icon`. Тогда панель
 сворачивается без пользовательского JavaScript, а обёрнутый `Select.Indicator` остаётся у правого края.
 Пример сочетает переключатель рабочего пространства с навигацией, прокручиваемой областью содержимого
@@ -240,7 +244,7 @@ inset, более двух панелей или API провайдера и р�
 
 Панель навигации использует токены card, а inset - фон приложения. Стандартные данные панели настраивают
 панель `3rem`. Свёрнутые панели исключают из раскладки `Sidebar.Label` и подписи групп с помощью
-визуально скрытого паттерна, скрывают вложенные меню и `Sidebar.Input`, а SVG и элементы с
+визуально скрытого паттерна, скрывают вложенные списки навигации и `Sidebar.Input`, а SVG и элементы с
 `data-sidebar-icon` центрируют. Подписи остаются доступны вспомогательным технологиям, не занимая место
 во flex-раскладке. Помечайте не-SVG-якоря, например Avatar, метку рабочего пространства Select или метку
 бренда, атрибутом `data-sidebar-icon`; их собственные размеры сохраняются. Помещайте сворачиваемый текст,
@@ -248,6 +252,10 @@ inset, более двух панелей или API провайдера и р�
 панели. Завершающие элементы групп и меню автоматически скрываются в состоянии только с иконками.
 Кнопки меню и вложенного меню сокращают прямой текст с многоточием при любой ширине Sidebar. Используйте
 `Sidebar.Label`, когда текст, значения, метки или индикаторы также должны покидать свёрнутую панель.
+
+При узкой, но ещё развёрнутой панели (меньше `7rem`) Sidebar также скрывает завершающие действия группы,
+действия навигации, счётчики и индикаторы до того, как они наложатся на ведущую иконку. Состояние Ark и
+подписи при этом не меняются.
 
 Ширина панели - состояние Ark, а не визуальный CSS. Переопределяйте `defaultSize` и управляемый `size`
 для текущей ширины Sidebar; если нужны другие развёрнутая, минимальная, максимальная или свёрнутая ширины,
@@ -285,8 +293,8 @@ topbar inset высотой `3.5rem`; для другой высоты заго�
 на Ark - атрибуты состояния Splitter.
 
 `Sidebar.Panel` добавляет `data-state="expanded"` или `"collapsed"`. Корневой элемент, панель, inset, триггер
-изменения размера и плавающий триггер предоставляют `data-side`. `MenuButton` и `MenuSubButton`
-предоставляют `data-active`, `MenuButton` предоставляет `data-size`, а дополнительные части оболочки
+изменения размера и плавающий триггер предоставляют `data-side`. `NavigationButton` и `NavigationSubButton`
+предоставляют `data-active`, `NavigationButton` предоставляет `data-size`, а дополнительные части оболочки
 сохраняют стабильные хуки `data-slot="sidebar-*"` для пользовательской раскладки или темы. Состояние
 изменения размера по-прежнему доступно через Ark `data-focus`, `data-dragging`, `data-disabled` и
 `data-orientation`.

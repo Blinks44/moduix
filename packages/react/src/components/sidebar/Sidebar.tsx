@@ -338,45 +338,43 @@ const SidebarGroupContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
   },
 );
 
-const SidebarMenu = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function SidebarMenu(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <ark.ul
-      ref={ref}
-      data-scope="sidebar"
-      data-part="menu"
-      data-slot="sidebar-menu"
-      className={clsx(styles.menu, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const SidebarNavigationList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
+  function SidebarNavigationList({ className, ...props }, ref) {
+    return (
+      <ark.ul
+        ref={ref}
+        data-scope="sidebar"
+        data-part="navigation-list"
+        data-slot="sidebar-navigation-list"
+        className={clsx(styles.menu, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-const SidebarMenuItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(function SidebarMenuItem(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <ark.li
-      ref={ref}
-      data-scope="sidebar"
-      data-part="menu-item"
-      data-slot="sidebar-menu-item"
-      className={clsx(styles.menuItem, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const SidebarNavigationItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
+  function SidebarNavigationItem({ className, ...props }, ref) {
+    return (
+      <ark.li
+        ref={ref}
+        data-scope="sidebar"
+        data-part="navigation-item"
+        data-slot="sidebar-navigation-item"
+        className={clsx(styles.menuItem, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-const SidebarMenuButton = forwardRef<
+const SidebarNavigationButton = forwardRef<
   HTMLButtonElement,
   HTMLArkProps<'button'> & {
     active?: boolean;
     size?: 'sm' | 'md' | 'lg';
   }
->(function SidebarMenuButton(
+>(function SidebarNavigationButton(
   {
     active = false,
     className,
@@ -393,8 +391,8 @@ const SidebarMenuButton = forwardRef<
       type={type}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       data-scope="sidebar"
-      data-part="menu-button"
-      data-slot="sidebar-menu-button"
+      data-part="navigation-button"
+      data-slot="sidebar-navigation-button"
       data-active={active ? '' : undefined}
       data-size={size}
       className={clsx(styles.menuButton, normalizeClassName(className))}
@@ -403,15 +401,15 @@ const SidebarMenuButton = forwardRef<
   );
 });
 
-const SidebarMenuAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
-  function SidebarMenuAction({ className, type = 'button', ...props }, ref) {
+const SidebarNavigationAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
+  function SidebarNavigationAction({ className, type = 'button', ...props }, ref) {
     return (
       <ark.button
         ref={ref}
         type={type}
         data-scope="sidebar"
-        data-part="menu-action"
-        data-slot="sidebar-menu-action"
+        data-part="navigation-action"
+        data-slot="sidebar-navigation-action"
         className={clsx(styles.menuAction, normalizeClassName(className))}
         {...props}
       />
@@ -419,46 +417,44 @@ const SidebarMenuAction = forwardRef<HTMLButtonElement, HTMLArkProps<'button'>>(
   },
 );
 
-const SidebarMenuBadge = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function SidebarMenuBadge(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <ark.div
-      ref={ref}
-      data-scope="sidebar"
-      data-part="menu-badge"
-      data-slot="sidebar-menu-badge"
-      className={clsx(styles.menuBadge, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const SidebarNavigationBadge = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function SidebarNavigationBadge({ className, ...props }, ref) {
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="sidebar"
+        data-part="navigation-badge"
+        data-slot="sidebar-navigation-badge"
+        className={clsx(styles.menuBadge, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-const SidebarMenuSub = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(function SidebarMenuSub(
-  { className, ...props },
-  ref,
-) {
-  return (
-    <ark.ul
-      ref={ref}
-      data-scope="sidebar"
-      data-part="menu-sub"
-      data-slot="sidebar-menu-sub"
-      className={clsx(styles.menuSub, normalizeClassName(className))}
-      {...props}
-    />
-  );
-});
+const SidebarNavigationSubList = forwardRef<HTMLUListElement, HTMLArkProps<'ul'>>(
+  function SidebarNavigationSubList({ className, ...props }, ref) {
+    return (
+      <ark.ul
+        ref={ref}
+        data-scope="sidebar"
+        data-part="navigation-sub-list"
+        data-slot="sidebar-navigation-sub-list"
+        className={clsx(styles.menuSub, normalizeClassName(className))}
+        {...props}
+      />
+    );
+  },
+);
 
-const SidebarMenuSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
-  function SidebarMenuSubItem({ className, ...props }, ref) {
+const SidebarNavigationSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
+  function SidebarNavigationSubItem({ className, ...props }, ref) {
     return (
       <ark.li
         ref={ref}
         data-scope="sidebar"
-        data-part="menu-sub-item"
-        data-slot="sidebar-menu-sub-item"
+        data-part="navigation-sub-item"
+        data-slot="sidebar-navigation-sub-item"
         className={clsx(styles.menuSubItem, normalizeClassName(className))}
         {...props}
       />
@@ -466,12 +462,12 @@ const SidebarMenuSubItem = forwardRef<HTMLLIElement, HTMLArkProps<'li'>>(
   },
 );
 
-const SidebarMenuSubButton = forwardRef<
+const SidebarNavigationSubButton = forwardRef<
   HTMLAnchorElement,
   HTMLArkProps<'a'> & {
     active?: boolean;
   }
->(function SidebarMenuSubButton(
+>(function SidebarNavigationSubButton(
   { active = false, children, className, 'aria-current': ariaCurrent, ...props },
   ref,
 ) {
@@ -480,14 +476,14 @@ const SidebarMenuSubButton = forwardRef<
       ref={ref}
       aria-current={ariaCurrent ?? (active ? 'page' : undefined)}
       data-scope="sidebar"
-      data-part="menu-sub-button"
-      data-slot="sidebar-menu-sub-button"
+      data-part="navigation-sub-button"
+      data-slot="sidebar-navigation-sub-button"
       data-active={active ? '' : undefined}
       className={clsx(styles.menuSubButton, normalizeClassName(className))}
       {...props}
     >
       {typeof children === 'string' ? (
-        <span data-slot="sidebar-menu-sub-label">{children}</span>
+        <span data-slot="sidebar-navigation-sub-label">{children}</span>
       ) : (
         children
       )}
@@ -568,15 +564,15 @@ const Sidebar = Object.assign(SidebarRoot, {
   GroupLabel: SidebarGroupLabel,
   GroupAction: SidebarGroupAction,
   GroupContent: SidebarGroupContent,
-  Menu: SidebarMenu,
-  MenuItem: SidebarMenuItem,
+  NavigationList: SidebarNavigationList,
+  NavigationItem: SidebarNavigationItem,
   Tooltip: SidebarTooltip,
-  MenuButton: SidebarMenuButton,
-  MenuAction: SidebarMenuAction,
-  MenuBadge: SidebarMenuBadge,
-  MenuSub: SidebarMenuSub,
-  MenuSubItem: SidebarMenuSubItem,
-  MenuSubButton: SidebarMenuSubButton,
+  NavigationButton: SidebarNavigationButton,
+  NavigationAction: SidebarNavigationAction,
+  NavigationBadge: SidebarNavigationBadge,
+  NavigationSubList: SidebarNavigationSubList,
+  NavigationSubItem: SidebarNavigationSubItem,
+  NavigationSubButton: SidebarNavigationSubButton,
 });
 
 export { Sidebar, useSidebar };

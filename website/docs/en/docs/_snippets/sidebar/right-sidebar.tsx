@@ -55,43 +55,43 @@ export default function RightSidebar() {
         <Sidebar.Content>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Tools</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton active>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton active>
                   <PanelRight />
                   <Sidebar.Label>Properties</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <SlidersHorizontal />
                   <Sidebar.Label>Appearance</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <FileSearch />
                   <Sidebar.Label>Accessibility</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
           <Sidebar.Group>
             <Sidebar.GroupLabel>Activity</Sidebar.GroupLabel>
-            <Sidebar.Menu>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+            <Sidebar.NavigationList>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <History />
                   <Sidebar.Label>Version history</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-              <Sidebar.MenuItem>
-                <Sidebar.MenuButton>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+              <Sidebar.NavigationItem>
+                <Sidebar.NavigationButton>
                   <MessageSquare />
                   <Sidebar.Label>Comments</Sidebar.Label>
-                </Sidebar.MenuButton>
-              </Sidebar.MenuItem>
-            </Sidebar.Menu>
+                </Sidebar.NavigationButton>
+              </Sidebar.NavigationItem>
+            </Sidebar.NavigationList>
           </Sidebar.Group>
         </Sidebar.Content>
         <Sidebar.Footer>
@@ -103,10 +103,10 @@ export default function RightSidebar() {
             }}
           >
             <Menu.Trigger asChild>
-              <Sidebar.MenuButton>
+              <Sidebar.NavigationButton>
                 <Settings />
                 <Sidebar.Label>Inspector settings</Sidebar.Label>
-              </Sidebar.MenuButton>
+              </Sidebar.NavigationButton>
             </Menu.Trigger>
             <Menu.Positioner>
               <Menu.Content>

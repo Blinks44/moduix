@@ -27,7 +27,7 @@ Compose nested navigation with moduix `Collapsible` and account or workspace pop
 without repeating its full anatomy around every menu button. Persisted layout belongs in app state
 or storage through normal Splitter callbacks, not in a sidebar-owned provider.
 
-`Select.Trigger asChild` can target `Sidebar.MenuButton`; mark its compact visual anchor with
+`Select.Trigger asChild` can target `Sidebar.NavigationButton`; mark its compact visual anchor with
 `data-sidebar-icon` and wrap values or indicators that should leave the collapsed layout in
 `Sidebar.Label`. A direct `Select.Indicator` inside that label moves to the trailing edge of the
 menu button.
@@ -40,7 +40,7 @@ menu button.
 - The sidebar starts at `16rem` (256px), resizes continuously down to its `3rem` (48px) collapsed
   icon rail, and has an `18rem` maximum. The content panel has no imposed minimum so narrow
   containers can still reach the collapsed size.
-- `Sidebar.Label`, `Sidebar.GroupLabel`, `Sidebar.MenuButton`, and `Sidebar.MenuSubButton` truncate
+- `Sidebar.Label`, `Sidebar.GroupLabel`, `Sidebar.NavigationButton`, and `Sidebar.NavigationSubButton` truncate
   overflowing text to one line so resizing does not change the sidebar layout.
 - `side="left" | "right"` selects default panel order, adjacent trigger id, floating trigger
   position, and icon direction. Render sibling parts in matching visual order.
@@ -56,12 +56,12 @@ menu button.
   the current Ark state at click time. A consumer `onClick` runs first and may cancel the toggle with
   `event.preventDefault()`.
 - `useSidebar()` exposes the sidebar-specific `side`, `collapsed`, `state`, and `toggleSidebar`.
-- `Sidebar.MenuButton` supports `active`, `size`, and `asChild`.
+- `Sidebar.NavigationButton` supports `active`, `size`, and `asChild`.
 - `Sidebar.Tooltip` wraps the shared Tooltip primitive with collapsed-only behavior and side-aware
   placement for menu labels.
-- `Sidebar.MenuSubButton` renders an anchor and supports `active` and `asChild`.
+- `Sidebar.NavigationSubButton` renders an anchor and supports `active` and `asChild`.
 - `Sidebar.Input`, `Sidebar.Separator`, `Sidebar.GroupAction`, `Sidebar.GroupContent`,
-  `Sidebar.MenuAction`, and `Sidebar.MenuBadge` are thin visual wrappers that match the shipped
+  `Sidebar.NavigationAction`, and `Sidebar.NavigationBadge` are thin visual wrappers that match the shipped
   sidebar styling contract.
 - The supported recipes are collapsed hover labels with `Sidebar.Tooltip` and persisted width through
   controlled `size`, `onResize(details)`, and `onResizeEnd(details)`.
@@ -78,16 +78,15 @@ Sidebar / Sidebar.Root
 │  │  └─ Sidebar.Group
 │  │     ├─ Sidebar.GroupLabel
 │  │     ├─ Sidebar.GroupAction
-│  │     └─ Sidebar.GroupContent
-│  │        └─ Sidebar.Menu
-│  │           └─ Sidebar.MenuItem
+│  │     └─ Sidebar.NavigationList
+│  │           └─ Sidebar.NavigationItem
 │  │              ├─ Sidebar.Tooltip
-│  │              │  └─ Sidebar.MenuButton
-│  │              ├─ Sidebar.MenuAction
-│  │              ├─ Sidebar.MenuBadge
-│  │              └─ Sidebar.MenuSub
-│  │                 └─ Sidebar.MenuSubItem
-│  │                    └─ Sidebar.MenuSubButton
+│  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.NavigationAction
+│  │              ├─ Sidebar.NavigationBadge
+│  │              └─ Sidebar.NavigationSubList
+│  │                 └─ Sidebar.NavigationSubItem
+│  │                    └─ Sidebar.NavigationSubButton
 │  ├─ Sidebar.Footer
 │  │  └─ Sidebar.Separator
 ├─ Sidebar.ResizeTrigger
@@ -95,32 +94,32 @@ Sidebar / Sidebar.Root
 └─ Sidebar.Inset[id="content"]
 ```
 
-| Part               | Stable slot               | Behavior                                                   |
-| ------------------ | ------------------------- | ---------------------------------------------------------- |
-| `Sidebar` / `Root` | `sidebar-root`            | Styled Ark Splitter root with side-aware defaults.         |
-| `Panel`            | `sidebar-panel`           | Sidebar panel; exposes `data-state="expanded\|collapsed"`. |
-| `Inset`            | `sidebar-inset`           | Main resizable content panel.                              |
-| `ResizeTrigger`    | `sidebar-resize-trigger`  | Neutral Ark Window Splitter handle line.                   |
-| `Trigger`          | `sidebar-trigger`         | Side-aware floating collapse/expand control.               |
-| `Label`            | `sidebar-label`           | Text removed from layout in the collapsed icon rail.       |
-| `Input`            | `sidebar-input`           | Full-width styled search or filter field.                  |
-| `Header`           | `sidebar-header`          | Non-scrolling top region.                                  |
-| `Content`          | `sidebar-content`         | Scrollable region between header and footer.               |
-| `Footer`           | `sidebar-footer`          | Non-scrolling bottom region.                               |
-| `Separator`        | `sidebar-separator`       | Styled section divider.                                    |
-| `Group`            | `sidebar-group`           | Semantic navigation section.                               |
-| `GroupLabel`       | `sidebar-group-label`     | Heading for a group.                                       |
-| `GroupAction`      | `sidebar-group-action`    | Compact action button aligned with the group heading.      |
-| `GroupContent`     | `sidebar-group-content`   | Body wrapper under the group heading.                      |
-| `Menu`             | `sidebar-menu`            | Navigation list.                                           |
-| `MenuItem`         | `sidebar-menu-item`       | List item for a navigation control.                        |
-| `Sidebar.Tooltip`  | n/a                       | Collapsed-only label helper with side-aware placement.     |
-| `MenuButton`       | `sidebar-menu-button`     | Button/link composition with active and size states.       |
-| `MenuAction`       | `sidebar-menu-action`     | Trailing icon action for a menu item.                      |
-| `MenuBadge`        | `sidebar-menu-badge`      | Trailing count or status pill for a menu item.             |
-| `MenuSub`          | `sidebar-menu-sub`        | Nested navigation list.                                    |
-| `MenuSubItem`      | `sidebar-menu-sub-item`   | Nested list item.                                          |
-| `MenuSubButton`    | `sidebar-menu-sub-button` | Nested anchor/link composition.                            |
+| Part                  | Stable slot                     | Behavior                                                   |
+| --------------------- | ------------------------------- | ---------------------------------------------------------- |
+| `Sidebar` / `Root`    | `sidebar-root`                  | Styled Ark Splitter root with side-aware defaults.         |
+| `Panel`               | `sidebar-panel`                 | Sidebar panel; exposes `data-state="expanded\|collapsed"`. |
+| `Inset`               | `sidebar-inset`                 | Main resizable content panel.                              |
+| `ResizeTrigger`       | `sidebar-resize-trigger`        | Neutral Ark Window Splitter handle line.                   |
+| `Trigger`             | `sidebar-trigger`               | Side-aware floating collapse/expand control.               |
+| `Label`               | `sidebar-label`                 | Text removed from layout in the collapsed icon rail.       |
+| `Input`               | `sidebar-input`                 | Full-width styled search or filter field.                  |
+| `Header`              | `sidebar-header`                | Non-scrolling top region.                                  |
+| `Content`             | `sidebar-content`               | Scrollable region between header and footer.               |
+| `Footer`              | `sidebar-footer`                | Non-scrolling bottom region.                               |
+| `Separator`           | `sidebar-separator`             | Styled section divider.                                    |
+| `Group`               | `sidebar-group`                 | Semantic navigation section.                               |
+| `GroupLabel`          | `sidebar-group-label`           | Heading for a group.                                       |
+| `GroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.      |
+| `GroupContent`        | `sidebar-group-content`         | Optional wrapper for a custom group body.                  |
+| `NavigationList`      | `sidebar-navigation-list`       | Navigation list.                                           |
+| `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.             |
+| `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.     |
+| `NavigationButton`    | `sidebar-navigation-button`     | Button/link composition with active and size states.       |
+| `NavigationAction`    | `sidebar-navigation-action`     | Trailing icon action for a navigation item.                |
+| `NavigationBadge`     | `sidebar-navigation-badge`      | Trailing count or status pill for a navigation item.       |
+| `NavigationSubList`   | `sidebar-navigation-sub-list`   | Nested navigation list.                                    |
+| `NavigationSubItem`   | `sidebar-navigation-sub-item`   | Nested list item.                                          |
+| `NavigationSubButton` | `sidebar-navigation-sub-button` | Nested anchor/link composition.                            |
 
 Advanced provider, complete context, registry, layout, and resize-indicator APIs intentionally
 remain on `Splitter`; Sidebar keeps the application-navigation contract small.
@@ -143,27 +142,25 @@ remain on `Splitter`; Sidebar keeps the application-navigation contract small.
         <Sidebar.GroupAction aria-label="Add workspace item">
           <PlusIcon />
         </Sidebar.GroupAction>
-        <Sidebar.GroupContent>
-          <Sidebar.Menu>
-            <Sidebar.MenuItem>
-              <Collapsible defaultOpen>
-                <Collapsible.Trigger asChild>
-                  <Sidebar.MenuButton>
-                    <ProjectsIcon />
-                    <Sidebar.Label>Projects</Sidebar.Label>
-                    <Collapsible.Indicator />
-                  </Sidebar.MenuButton>
-                </Collapsible.Trigger>
-                <Sidebar.MenuAction aria-label="Rename project group">
-                  <PencilIcon />
-                </Sidebar.MenuAction>
-                <Collapsible.Content>
-                  <Sidebar.MenuSub>{/* project links */}</Sidebar.MenuSub>
-                </Collapsible.Content>
-              </Collapsible>
-            </Sidebar.MenuItem>
-          </Sidebar.Menu>
-        </Sidebar.GroupContent>
+        <Sidebar.NavigationList>
+          <Sidebar.NavigationItem>
+            <Collapsible defaultOpen>
+              <Collapsible.Trigger asChild>
+                <Sidebar.NavigationButton>
+                  <ProjectsIcon />
+                  <Sidebar.Label>Projects</Sidebar.Label>
+                  <Collapsible.Indicator />
+                </Sidebar.NavigationButton>
+              </Collapsible.Trigger>
+              <Sidebar.NavigationAction aria-label="Rename project group">
+                <PencilIcon />
+              </Sidebar.NavigationAction>
+              <Collapsible.Content>
+                <Sidebar.NavigationSubList>{/* project links */}</Sidebar.NavigationSubList>
+              </Collapsible.Content>
+            </Collapsible>
+          </Sidebar.NavigationItem>
+        </Sidebar.NavigationList>
       </Sidebar.Group>
     </Sidebar.Content>
     <Sidebar.Footer>
@@ -191,7 +188,13 @@ Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigge
 `useSidebar()`. Persisted desktop layout is a controlled-size recipe: mirror live drag updates from
 `onResize(details)` and save the settled width from `onResizeEnd(details)`.
 
-When `Menu.Trigger asChild` wraps `Sidebar.MenuButton`, render `Menu.Indicator` as the direct
+`Sidebar.NavigationList` is normally a direct child of `Sidebar.Group`; use `GroupContent` only when
+you need an additional custom body wrapper. Sidebar does not choose a collapsed-rail strategy for
+nested links. If they must remain reachable after collapse, branch explicitly on
+`useSidebar().collapsed` and render your application’s popup `Menu` or another navigation pattern
+instead of the inline `Collapsible` list.
+
+When `Menu.Trigger asChild` wraps `Sidebar.NavigationButton`, render `Menu.Indicator` as the direct
 trailing child. Sidebar aligns it to the inline end and hides it with the rest of the trigger
 affordances in the collapsed rail.
 
@@ -212,10 +215,10 @@ on its neutral resize line. Root callbacks retain Ark detail objects:
 `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`, and `onExpand(details)`.
 
 `Sidebar.Trigger` renders a button, reports `aria-expanded`, and defaults to `"Toggle sidebar"`.
-Active menu buttons set `data-active` and default `aria-current="page"`. `asChild` must receive one
+Active navigation buttons set `data-active` and default `aria-current="page"`. `asChild` must receive one
 semantic child capable of accepting merged props and refs.
 
-When visible hover labels are needed, prefer `Sidebar.Tooltip content="..."` around icon menu
+When visible hover labels are needed, prefer `Sidebar.Tooltip content="..."` around icon navigation
 buttons. Use the shared `Tooltip` primitive directly only when the sidebar needs custom popup
 content or non-standard positioning. Use `Collapsible.Trigger`/`Content` for nested navigation so
 Ark owns `aria-expanded`, ids, keyboard activation, and animation.
@@ -223,8 +226,8 @@ Ark owns `aria-expanded`, ids, keyboard activation, and animation.
 `Sidebar.Panel`, `Sidebar.Inset`, `Sidebar.ResizeTrigger`, `Sidebar.Trigger`, and `useSidebar()` all
 require Splitter context. The remaining exported visual parts are plain styled wrappers.
 
-`Sidebar.GroupAction` and `Sidebar.MenuAction` are plain buttons with default `type="button"` and
-the shared sidebar focus ring. `Sidebar.MenuBadge` is presentational and does not add its own
+`Sidebar.GroupAction` and `Sidebar.NavigationAction` are plain buttons with default `type="button"` and
+the shared sidebar focus ring. `Sidebar.NavigationBadge` is presentational and does not add its own
 interactive semantics.
 
 Ark applies Splitter panel sizes immediately and does not expose a collapse transition lifecycle.
@@ -238,11 +241,15 @@ All visual parts accept `className`. Public variables live in
 `data-state="expanded" | "collapsed"` and all side-aware parts expose `data-side`.
 
 Collapsed styling moves `Sidebar.Label` and group labels out of layout with a visually-hidden
-pattern, hides nested menus and `Sidebar.Input`, and centers SVG or `data-sidebar-icon` elements.
+pattern, hides nested navigation lists and `Sidebar.Input`, and centers SVG or `data-sidebar-icon` elements.
 Labels remain available to assistive technology without creating flex width or gaps. Mark non-SVG
 visual anchors such as `Avatar` or a brand mark with `data-sidebar-icon`; Sidebar preserves that
-element's own size. Collapsed styling also hides trailing group and menu affordances so icon-only
+element's own size. Collapsed styling also hides trailing group and navigation affordances so icon-only
 items stay compact.
+
+At narrow expanded widths (below `7rem`), Sidebar also hides trailing group actions, navigation actions,
+badges, and indicators before they can overlap the leading icon. This is visual collision prevention;
+the panel remains expanded and keeps its Ark state and visible labels.
 
 Panel constraints are Ark state, not visual CSS. Override `defaultSize`, controlled `size`, and
 callbacks for the Sidebar's current width. Use `Splitter` directly for application-specific expanded,
@@ -250,7 +257,7 @@ minimum, maximum, or collapsed constraints, or a custom inset id. CSS-length siz
 client, so server-rendered layouts can shift after hydration; use percentages when stable SSR layout
 matters.
 Use the public `--moduix-sidebar-*` variables and stable slots for internal spacing, colors, item sizes,
-group-action sizing, menu-action sizing, menu-badge spacing, and the floating trigger's vertical
+group-action sizing, navigation-action sizing, navigation-badge spacing, and the floating trigger's vertical
 offset.
 
 The resize line inherits the shared Splitter default: it keeps the normal border color at rest and
@@ -265,7 +272,7 @@ feedback.
 - `side` configures default order and the floating trigger without introducing open state.
 - `Label` supplies a stable collapsed-rail hiding contract.
 - `Trigger` is a side-aware Splitter-context convenience.
-- `Input`, `Separator`, `GroupAction`, `GroupContent`, `MenuAction`, and `MenuBadge` bring the most
+- `Input`, `Separator`, `GroupAction`, `GroupContent`, `NavigationAction`, and `NavigationBadge` bring the most
   common sidebar building blocks into the local styling contract without adding sidebar-owned state.
 - `Tooltip` removes repeated collapsed-label boilerplate while still delegating popup behavior to the
   shared Tooltip primitive.
@@ -306,8 +313,8 @@ feedback.
 - 2026-07-06: Documented the blessed migration recipes explicitly: collapsed-rail tooltip
   composition, Drawer-based mobile overlays, and persisted widths through controlled Splitter size
   callbacks.
-- 2026-07-06: Added `Input`, `Separator`, `GroupAction`, `GroupContent`, `MenuAction`, and
-  `MenuBadge` parts so the Splitter-backed sidebar has more familiar affordances without adding a
+- 2026-07-06: Added `Input`, `Separator`, `GroupAction`, `GroupContent`, `NavigationAction`, and
+  `NavigationBadge` parts so the Splitter-backed sidebar has more familiar affordances without adding a
   second layout state model.
 - 2026-07-03: Kept the visual/navigation parts and `useSidebar()` sugar, but stopped exporting the internal `SidebarSide` type alias from the public package surface.
 - 2026-07-01: Rounded the default expanded and maximum widths to `16rem` and `18rem`, and
