@@ -8,8 +8,8 @@ import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-
 # Dashboard
 
 Start a desktop workspace with a resizable navigation sidebar and a simple dashboard overview.
-`Sidebar` owns the collapse, keyboard resize, and collapsed-nav tooltips. The Projects item also
-demonstrates nested navigation, and the footer includes a workspace menu.
+`Sidebar` handles collapsing, keyboard resizing, and labels for the collapsed navigation. The
+Projects item also demonstrates nested navigation, and the footer contains a workspace menu.
 
 <ExampleFrame clientOnly>
   <SidebarDashboardPreview />
@@ -40,9 +40,10 @@ demonstrates nested navigation, and the footer includes a workspace menu.
 
 ## In a route
 
-Replace the example anchors, labels, and dashboard content with your routes and data. This recipe is
-desktop-first; adapt responsive navigation, account menus, and notifications to your application.
+Replace the example links, labels, and dashboard content with your routes and data. This recipe
+starts with a desktop layout, so adapt responsive navigation, account menus, and notifications to
+your application.
 
-Mark the active destination with `aria-current="page"` and use router links through `asChild` where
-the router must own navigation. Persist the collapsed width only when that preference helps returning
-users; read browser storage after hydration and keep the default usable without it.
+Mark the active destination with `aria-current="page"`. Use router links through `asChild` when
+the router should own navigation. Persist the collapsed width only when it helps returning users;
+read browser storage after hydration and keep the default usable without it.

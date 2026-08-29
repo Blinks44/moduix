@@ -1,23 +1,23 @@
 ---
 title: Tableau de bord
-description: Une structure de tableau de bord pour ordinateur, avec navigation moduix réductible et redimensionnable.
+description: Structure de tableau de bord pour ordinateur, avec navigation moduix repliable et redimensionnable.
 ---
 
 import { SidebarDashboardPreview } from '@/components/recipes/sidebar-dashboard-preview';
 
 # Tableau de bord
 
-Créez un espace de travail pour ordinateur avec une barre latérale réductible et redimensionnable,
-ainsi qu’une vue d’ensemble simple des indicateurs clés. `Sidebar` gère la réduction, le
-redimensionnement au clavier et les infobulles lorsque la navigation est réduite. L’élément Projects
-illustre aussi une navigation imbriquée, et le pied de page contient un menu d’espace de travail.
+Créez un espace de travail sur ordinateur avec une barre latérale redimensionnable et repliable,
+ainsi qu’un aperçu simple des indicateurs. `Sidebar` gère le repli, le redimensionnement au
+clavier et les libellés de la navigation repliée. L’élément Projects illustre aussi une navigation
+imbriquée, et le pied de page contient un menu d’espace de travail.
 
 <ExampleFrame clientOnly>
   <SidebarDashboardPreview />
 </ExampleFrame>
 
 <div className="docs-reference">
-  <Tabs values={[{ label: 'Component', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
+  <Tabs values={[{ label: 'Composant', value: 'Component' }, { label: 'Styles', value: 'Styles' }]} className="docs-tabs">
     <Tab value="Component">
 
 ```tsx file="../../../src/components/recipes/sidebar-dashboard.tsx"
@@ -41,11 +41,11 @@ illustre aussi une navigation imbriquée, et le pied de page contient un menu d�
 
 ## Dans une route
 
-Remplacez les liens, les libellés et le contenu de démonstration par vos routes et vos données. Cette
-recette est pensée pour ordinateur ; adaptez la navigation responsive, les menus du compte et les
-notifications à votre application.
+Remplacez les liens, libellés et contenus de démonstration par vos routes et vos données. Cette
+recette part d’une mise en page pour ordinateur ; adaptez la navigation responsive, les menus du
+compte et les notifications à votre application.
 
-Marquez la destination active avec `aria-current="page"`. Si le composant Link de votre routeur gère
-la navigation, passez-le via `asChild`. Ne mémorisez la largeur réduite que si elle est utile aux
-personnes qui reviennent ; lisez le stockage du navigateur après l’hydratation et gardez un état par
-défaut utilisable sans lui.
+Marquez la destination active avec `aria-current="page"`. Utilisez `asChild` lorsque la navigation
+doit être gérée par un lien de votre routeur. Ne mémorisez la largeur repliée que si cela est utile
+aux personnes qui reviennent ; lisez le stockage du navigateur après l’hydratation et gardez une
+mise en page par défaut utilisable sans cette valeur.
