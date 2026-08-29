@@ -7,7 +7,7 @@ import { Switch } from '@moduix/react/switch';
 import { Tabs } from '@moduix/react/tabs';
 import { useI18n } from '@rspress/core/runtime';
 import { Link } from '@rspress/core/theme';
-import { ArrowRight, Component, Layers3, Sparkles } from 'lucide-react';
+import { ArrowRight, Code2, Component, Layers3, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { FrameworkSupport } from '@/components/home/framework-support';
 import { DataTable } from '@/components/recipes/data-table';
@@ -38,6 +38,10 @@ export function Home() {
               <Layers3 size={14} aria-hidden="true" />
               {t('homeShadcnInspired')}
             </a>
+            <span className={styles.badge}>
+              <Code2 size={14} aria-hidden="true" />
+              {t('homeCssModules')}
+            </span>
           </div>
           <h1 id="home-title" className={styles.title}>
             moduix

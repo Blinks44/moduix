@@ -93,28 +93,33 @@
   },
   "homeDesignFoundations": {
     "en": "Design foundations",
-    "ru": "Основы дизайна",
+    "ru": "Основа библиотеки",
     "fr": "Fondations du design"
   },
   "homeBuiltOnArk": {
     "en": "Built on Ark UI",
-    "ru": "На базе Ark UI",
-    "fr": "Construit sur Ark UI"
+    "ru": "Построено на Ark UI",
+    "fr": "Basé sur Ark UI"
   },
   "homeShadcnInspired": {
     "en": "shadcn-inspired",
-    "ru": "Вдохновлено shadcn",
+    "ru": "В духе shadcn",
     "fr": "Inspiré par shadcn"
   },
+  "homeCssModules": {
+    "en": "CSS Modules",
+    "ru": "CSS Modules",
+    "fr": "CSS Modules"
+  },
   "homeLead": {
-    "en": "Accessible React components with calm defaults, explicit composition, and a token-first CSS foundation you can theme or own.",
-    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на токенах — его можно адаптировать под свою тему или полностью взять под контроль.",
-    "fr": "Des composants React accessibles, avec des valeurs par défaut réfléchies, une composition explicite et une base CSS pilotée par des tokens, que vous pouvez personnaliser par thème ou maîtriser directement dans votre projet."
+    "en": "Accessible React components with calm defaults and explicit composition. Under the hood, moduix uses CSS Modules and shared CSS tokens, so you can theme components with familiar CSS and keep your own styling in your app.",
+    "ru": "Доступные React-компоненты с продуманными настройками по умолчанию и явной композицией. В основе стилей - CSS Modules и общие CSS-токены: тему можно настроить привычным CSS, а собственные стили оставить в приложении.",
+    "fr": "Des composants React accessibles, avec des valeurs par défaut soignées et une composition explicite. Sous le capot, moduix s’appuie sur des CSS Modules et des tokens CSS partagés : vous pouvez personnaliser le thème en CSS tout en gardant vos styles dans l’application."
   },
   "homeGetStarted": {
     "en": "Get started",
-    "ru": "Начать",
-    "fr": "Commencer"
+    "ru": "Начать работу",
+    "fr": "Démarrer"
   },
   "homeComponents": {
     "en": "Components",
@@ -123,23 +128,23 @@
   },
   "homeCompositionInPractice": {
     "en": "Composition in practice",
-    "ru": "Композиция на практике",
-    "fr": "La composition en pratique"
+    "ru": "Композиция в деле",
+    "fr": "La composition en action"
   },
   "homeComponentsTogether": {
-    "en": "A few components, working together.",
-    "ru": "Несколько компонентов, которые работают вместе.",
-    "fr": "Quelques composants qui fonctionnent ensemble."
+    "en": "Components that work together.",
+    "ru": "Компоненты, которые работают вместе",
+    "fr": "Des composants qui s’assemblent naturellement"
   },
   "homeCompositionDescription": {
-    "en": "Search, selection, menus, and a wide table stay small and composable-ready for a product screen rather than a marketing mockup.",
-    "ru": "Поиск, выбор, меню и широкая таблица остаются компактными и хорошо работают вместе — для настоящего продуктового интерфейса, а не маркетингового макета.",
-    "fr": "La recherche, la sélection, les menus et une table large restent compacts et faciles à combiner - prêts pour un écran produit plutôt qu’une maquette marketing."
+    "en": "Search, selection, menus, and a wide data table come together in a compact product screen. Each piece stays easy to compose and replace.",
+    "ru": "Поиск, выбор, меню и широкая таблица собраны в компактный экран продукта. Каждый элемент легко комбинировать и при необходимости заменить.",
+    "fr": "Recherche, sélection, menus et grande table se réunissent dans un écran produit compact. Chaque élément reste facile à composer et à remplacer."
   },
   "homeExploreTable": {
     "en": "Explore the table pattern",
-    "ru": "Изучить паттерн таблицы",
-    "fr": "Découvrir le modèle de tableau"
+    "ru": "Открыть пример таблицы",
+    "fr": "Voir l’exemple de tableau"
   },
   "homeWorkspaceDesignSystem": {
     "en": "Design system",
@@ -157,9 +162,9 @@
     "fr": "Widgets cartographiques"
   },
   "homeSelectWorkspace": {
-    "en": "Select workspace",
-    "ru": "Выберите рабочее пространство",
-    "fr": "Sélectionnez un espace de travail"
+    "en": "Select a workspace",
+    "ru": "Выберите рабочую область",
+    "fr": "Choisir un espace de travail"
   },
   "homeShowcaseActions": {
     "en": "Actions",
@@ -178,8 +183,8 @@
   },
   "homeFastActions": {
     "en": "Fast actions with real states",
-    "ru": "Быстрые действия с актуальными статусами",
-    "fr": "Actions rapides avec de vrais états"
+    "ru": "Быстрые действия и актуальные состояния",
+    "fr": "Actions rapides et états à jour"
   },
   "homePublishUpdate": {
     "en": "Publish update",
@@ -208,8 +213,8 @@
   },
   "homeSecondaryAction": {
     "en": "Secondary path",
-    "ru": "Альтернативное действие",
-    "fr": "Action secondaire"
+    "ru": "Дополнительный сценарий",
+    "fr": "Parcours secondaire"
   },
   "homeOutlineAndGhost": {
     "en": "Outline and ghost",
@@ -218,13 +223,13 @@
   },
   "homeFlowHealth": {
     "en": "Flow health",
-    "ru": "Состояние процесса",
-    "fr": "État du flux"
+    "ru": "Состояние сценария",
+    "fr": "État du parcours"
   },
   "homeToggleAndProgress": {
-    "en": "Toggle and progress in one pass",
-    "ru": "Переключатель и индикатор прогресса в одном интерфейсе",
-    "fr": "Interrupteur et progression dans un même aperçu"
+    "en": "Toggle and progress, side by side",
+    "ru": "Переключатель и прогресс рядом",
+    "fr": "Interrupteur et progression côte à côte"
   },
   "homeAutoReview": {
     "en": "Auto-review before release",
@@ -247,23 +252,23 @@
     "fr": "Révision manuelle uniquement"
   },
   "homeAdvance": {
-    "en": "Advance",
-    "ru": "Продолжить",
-    "fr": "Avancer"
+    "en": "Next step",
+    "ru": "Следующий шаг",
+    "fr": "Étape suivante"
   },
   "homeApprovalFlow": {
     "en": "Approval flow",
-    "ru": "Согласование",
-    "fr": "Flux d’approbation"
+    "ru": "Согласование изменений",
+    "fr": "Validation"
   },
   "homeOpenModal": {
-    "en": "Open the modal directly in the hero",
-    "ru": "Откройте модальное окно прямо в первом экране",
-    "fr": "Ouvrez la modale directement dans l’en-tête"
+    "en": "Open a modal right here",
+    "ru": "Откройте модальное окно прямо здесь",
+    "fr": "Ouvrez une modale ici"
   },
   "homeDialogPreviewDescription": {
-    "en": "The preview stays compact, but the interaction is real and uses the shipped dialog API.",
-    "ru": "Предпросмотр остаётся компактным, но всё в нём работает по-настоящему — через API Dialog из библиотеки.",
+    "en": "The preview is compact, but the interaction is real and uses the shipped Dialog API.",
+    "ru": "Предпросмотр компактный, но взаимодействие работает по-настоящему через API Dialog из библиотеки.",
     "fr": "L’aperçu reste compact, mais l’interaction est réelle et utilise l’API Dialog fournie par la bibliothèque."
   },
   "homeReviewChanges": {
@@ -292,9 +297,9 @@
     "fr": "Approuver"
   },
   "homeInspectApi": {
-    "en": "Inspect API",
-    "ru": "Открыть API",
-    "fr": "Consulter l’API"
+    "en": "View the API",
+    "ru": "Посмотреть API",
+    "fr": "Voir l’API"
   },
   "homeFocusManagement": {
     "en": "Focus management",
@@ -302,9 +307,9 @@
     "fr": "Gestion du focus"
   },
   "homeBuiltIn": {
-    "en": "Built in",
+    "en": "Included",
     "ru": "Встроено",
-    "fr": "Intégrée"
+    "fr": "Intégré"
   },
   "homeShowcaseComposition": {
     "en": "Composition",
@@ -318,28 +323,28 @@
   },
   "homeWorkspacePicker": {
     "en": "Workspace picker",
-    "ru": "Выбор рабочего пространства",
+    "ru": "Выбор рабочей области",
     "fr": "Sélecteur d’espace de travail"
   },
   "homeInteractiveSelect": {
-    "en": "Interactive select with current value",
+    "en": "Interactive select with a live value",
     "ru": "Интерактивный Select с текущим значением",
     "fr": "Select interactif avec valeur actuelle"
   },
   "homeActiveWorkspace": {
     "en": "Active workspace",
-    "ru": "Активное рабочее пространство",
+    "ru": "Текущая рабочая область",
     "fr": "Espace de travail actif"
   },
   "homeSelected": {
     "en": "Selected",
     "ru": "Выбрано",
-    "fr": "Sélectionné"
+    "fr": "Sélection"
   },
   "homePattern": {
-    "en": "Pattern",
-    "ru": "Паттерн",
-    "fr": "Modèle"
+    "en": "Composition",
+    "ru": "Состав",
+    "fr": "Composition"
   },
   "homeFieldTriggerList": {
     "en": "Field, trigger, list",
@@ -353,7 +358,7 @@
   },
   "primitiveReferenceDescription": {
     "en": "For behavior, accessibility guidance, and low-level props, see the Ark UI reference.",
-    "ru": "Описание поведения, требований доступности и низкоуровневых свойств — в документации Ark UI.",
+    "ru": "Описание поведения, требований доступности и низкоуровневых свойств смотрите в документации Ark UI.",
     "fr": "La documentation Ark UI décrit le comportement, l’accessibilité et les propriétés de bas niveau."
   },
   "primitiveReferenceLink": {
@@ -552,14 +557,19 @@
     "fr": "Comportement"
   },
   "ownershipLayersPresentation": {
-    "en": "Presentation",
-    "ru": "Представление",
-    "fr": "Présentation"
+    "en": "Styling",
+    "ru": "Стилизация",
+    "fr": "Styles"
   },
   "ownershipLayersOwnership": {
     "en": "Ownership",
-    "ru": "Владение",
-    "fr": "Propriété"
+    "ru": "Контроль",
+    "fr": "Contrôle"
+  },
+  "ownershipLayersStyling": {
+    "en": "CSS Modules + tokens",
+    "ru": "CSS Modules + токены",
+    "fr": "CSS Modules + tokens"
   },
   "ownershipLayersPackageSource": {
     "en": "Package or source",
@@ -577,14 +587,14 @@
     "fr": "Un système, trois couches claires"
   },
   "ownershipLayersSummary": {
-    "en": "Ark UI owns interaction behavior, moduix supplies the styled component layer, and your application owns the final theme and composition.",
-    "ru": "Ark UI владеет поведением взаимодействий, moduix предоставляет слой стилизованных компонентов, а вашему приложению принадлежат итоговая тема и композиция.",
-    "fr": "Ark UI gère le comportement des interactions, moduix fournit la couche de composants stylés et votre application possède le thème et la composition finaux."
+    "en": "Ark UI owns interaction behavior, moduix supplies styled components through CSS Modules and tokens, and your application owns the final theme and composition.",
+    "ru": "Ark UI отвечает за поведение компонентов, moduix предоставляет стилизованные компоненты на CSS Modules и токенах, а приложение управляет итоговой темой и композицией.",
+    "fr": "Ark UI gère le comportement des interactions, moduix fournit des composants stylés avec des CSS Modules et des tokens, et votre application garde la main sur le thème et la composition finaux."
   },
   "ownershipLayersTokenFirstStyling": {
     "en": "Token-first styling",
     "ru": "Стилизация на основе токенов",
-    "fr": "Style fondé sur les tokens"
+    "fr": "Styles pilotés par des tokens"
   },
   "ownershipLayersThemeable": {
     "en": "themeable",
@@ -593,8 +603,8 @@
   },
   "ownershipLayersNote": {
     "en": "Global semantic tokens establish the visual language; shared family tokens keep related controls aligned; component variables remain available for deliberate exceptions.",
-    "ru": "Глобальные семантические токены задают визуальный язык; общие токены семейства согласуют связанные элементы управления; переменные компонентов остаются доступны для осознанных исключений.",
-    "fr": "Les tokens sémantiques globaux définissent le langage visuel ; les tokens de famille partagés alignent les contrôles apparentés ; les variables de composant permettent les exceptions délibérées."
+    "ru": "Глобальные семантические токены задают визуальный язык. Общие токены семейства удерживают связанные элементы управления в одной системе. Переменные компонентов позволяют сделать осознанное исключение.",
+    "fr": "Les tokens sémantiques globaux définissent le langage visuel. Les tokens de famille partagés gardent les contrôles associés cohérents. Les variables de composant permettent des exceptions ciblées."
   },
   "chartHeroDate": {
     "en": "August 20, 2026",

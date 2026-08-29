@@ -1,7 +1,7 @@
 ---
 title: Splitter
 component: splitter
-description: A resizable layout primitive for dividing an interface into panels.
+description: A resizable layout component for dividing an interface into panels.
 ---
 
 import * as SplitterDocs from '@/components/examples/splitter';
@@ -12,9 +12,9 @@ import * as SplitterDocs from '@/components/examples/splitter';
 
 ## Basic
 
-Use Ark-style parts: `Splitter`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The trigger
-shows the moduix resize indicator by default. `panels` defines ids and constraints; rendered panel
-ids must match that array.
+Build a splitter from three parts: `Splitter`, `Splitter.Panel`, and `Splitter.ResizeTrigger`. The
+`panels` prop lists the panel ids and their size constraints. Each rendered `Splitter.Panel` must use
+one of those ids. When you omit the trigger's children, moduix renders a resize indicator for you.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
@@ -38,59 +38,65 @@ Splitter
 └─ Splitter.Panel[id]
 ```
 
-| Part                              | Role                                                                                   |
-| --------------------------------- | -------------------------------------------------------------------------------------- |
-| `Splitter` / `Splitter.Root`      | Owns panel constraints, sizes, orientation, callbacks, and the splitter state machine. |
-| `Splitter.Panel`                  | Resizable region. Its `id` must match one item in the `panels` prop.                   |
-| `Splitter.ResizeTrigger`          | Accessible handle button between adjacent panels.                                      |
-| `Splitter.ResizeTriggerIndicator` | Default visual indicator; pass custom trigger children to replace it.                  |
-| `Splitter.RootProvider`           | Renders the same part tree from state created with `useSplitter()`.                    |
+| Part                              | Role                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `Splitter` / `Splitter.Root`      | Manages panel definitions, sizes, orientation, callbacks, and splitter state. |
+| `Splitter.Panel`                  | Resizable region whose `id` must match an entry in `panels`.                  |
+| `Splitter.ResizeTrigger`          | Accessible button for resizing the two adjacent panels.                       |
+| `Splitter.ResizeTriggerIndicator` | Default visual handle. Custom trigger children replace it.                   |
+| `Splitter.RootProvider`           | Renders the same parts using state created with `useSplitter()`.              |
 
 ## Composition
 
 ### Recommended composition
 
-Render panels and handles explicitly in the same order they appear visually. Use trigger ids in the
-`"left:right"` form so Ark can connect the two adjacent panel ids. Omit trigger children for the
-default resize indicator; pass children only when its content needs customization.
+Place panels and resize triggers in the same order in which they appear on screen. Give each trigger
+an id in the `"left:right"` format so Ark can connect the two adjacent panels. Leave the trigger's
+children out to use the default resize indicator. Add children only when you need custom content.
 
-### When to go custom
+### When to customize
 
-Use controlled `size` with `onResize(details)` when panel sizes must be mirrored into app state.
-Import `useSplitter`, `useSplitterContext`, and `createSplitterRegistry` from `@moduix/react` for
-imperative controls, externally-owned state, and nested multi-drag layouts. Pair `useSplitter()`
-with `Splitter.RootProvider` when state must be created outside the rendered part tree.
+Use a controlled `size` value with `onResize(details)` when the current panel sizes need to live in
+application state. Use `useSplitterContext()` for imperative methods inside the splitter subtree.
+Create state with `useSplitter()` and pass it to `Splitter.RootProvider` when the state or its controls
+need to live outside the rendered part tree. For nested splitters that should resize together at
+handle intersections, create one registry with `createSplitterRegistry()` and pass it to every root.
 
-Use `asChild` only when another element must own the rendered node. Custom resize triggers must keep
-button semantics, focus behavior, and keyboard interaction intact. With `asChild`, provide exactly one
-interactive trigger child; it does not receive the default resize indicator.
+Choose either `Splitter` or `Splitter.RootProvider` for a splitter instance. Do not render both roots
+for the same state.
+
+Use `asChild` only when another element must be the rendered host. A custom resize trigger must keep
+button semantics, focus behavior, and keyboard interaction. With `asChild`, provide exactly one
+interactive trigger child. The default resize indicator is not added in this mode.
 
 ### Default props
 
-| Prop               | Default        | Notes                                                     |
-| ------------------ | -------------- | --------------------------------------------------------- |
-| `orientation`      | `"horizontal"` | Use `"vertical"` for stacked panels.                      |
-| `defaultSize`      | Ark-calculated | Use percentages for stable server-rendered sizing.        |
-| `keyboardResizeBy` | Ark default    | Controls arrow-key resize distance.                       |
-| `size`             | uncontrolled   | Pass with `onResize(details)` for controlled panel sizes. |
-| `disabled`         | `false`        | Set on `ResizeTrigger` to disable a handle.               |
+| Prop               | Default          | Notes                                                                  |
+| ------------------ | ---------------- | ---------------------------------------------------------------------- |
+| `orientation`      | `"horizontal"`   | Use `"vertical"` for stacked panels.                                  |
+| `defaultSize`      | omitted          | Ark calculates the initial sizes. Percentage values are SSR-friendly. |
+| `keyboardResizeBy` | omitted          | Uses Ark's default number of pixels for keyboard resizing.             |
+| `size`             | omitted          | Uncontrolled mode. Pair it with `onResize(details)` to control sizes.  |
+| `disabled`         | `false`          | Set it on `ResizeTrigger` to disable one resize handle.                |
+| `registry`         | omitted          | Pass a shared registry to nested splitters for multi-drag support.     |
 
-### Behavioral notes
+### Behavior
 
-`panels` is required and defines constraints such as `minSize`, `maxSize`, `collapsible`, and
-`collapsedSize`. Numeric size values are percentages; Ark also accepts CSS lengths for initial and
-constraint sizes, which are measured on the client and can shift after hydration.
+`panels` is required. Each entry can define constraints such as `minSize`, `maxSize`, `collapsible`,
+and `collapsedSize`. Numeric `defaultSize` and controlled `size` values are percentages and should add
+up to `100`. Ark also accepts CSS lengths for initial and constraint sizes. These lengths are measured
+in the browser, so the layout can settle differently after hydration.
 
-Callbacks keep Ark detail objects: `onResize(details)`, `onResizeEnd(details)`, `onCollapse(details)`,
-and `onExpand(details)`. `onResizeStart` is called when a resize begins.
+The callbacks keep Ark's detail objects: `onResize(details)`, `onResizeEnd(details)`,
+`onCollapse(details)`, and `onExpand(details)`. `onResizeStart()` runs when resizing begins.
 
 ## Examples
 
-### Collapsible Panels
+### Collapsible panels
 
-Set `collapsible` and `collapsedSize` on a panel definition when a panel can shrink to a collapsed
-rail. To keep pointer resizing continuous, set `minSize` to the same value as `collapsedSize`; a
-larger `minSize` intentionally makes Zag snap between the expanded minimum and the rail.
+Set `collapsible: true` and choose a `collapsedSize` for a panel that can turn into a narrow rail. Set
+`minSize` to the same value when pointer resizing should remain continuous all the way to the collapsed
+size. If `minSize` is larger, the splitter snaps between the expanded minimum and the collapsed rail.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
@@ -102,7 +108,7 @@ larger `minSize` intentionally makes Zag snap between the expanded minimum and t
 
 ### Controlled
 
-Control panel sizes from React state and update that state from `details.size`.
+Keep panel sizes in React state and update that state from `details.size` in `onResize`.
 
 <style>{SplitterDocs.splitterStackCss}</style>
 
@@ -112,10 +118,10 @@ Control panel sizes from React state and update that state from `details.size`.
   ```
 </PreviewFrame>
 
-### Dynamic Collapsible
+### Responsive collapse
 
-Programmatic collapse and expand methods work well for responsive sidebars that react to measured
-available width.
+Use `collapsePanel()` and `expandPanel()` when a sidebar should react to the available width measured
+by the application.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
@@ -125,9 +131,10 @@ available width.
   ```
 </PreviewFrame>
 
-### Multiple Panels
+### Multiple panels
 
-Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts.
+Add another `Panel` and an adjacent `ResizeTrigger` for a three-panel layout. Every panel needs a
+matching entry in `panels`, and every trigger id must connect its two neighbors.
 
 <style>{SplitterDocs.splitterExampleCss}</style>
 
@@ -139,8 +146,8 @@ Add another `Panel` and another adjacent `ResizeTrigger` for three-panel layouts
 
 ### Nested
 
-Share a registry between nested splitters to support multi-drag behavior at horizontal and vertical
-handle intersections.
+Pass the same registry to nested splitters to support multi-drag at intersections between horizontal
+and vertical handles.
 
 <style>{SplitterDocs.splitterNestedCss}</style>
 
@@ -150,10 +157,11 @@ handle intersections.
   ```
 </PreviewFrame>
 
-### Root Provider
+### RootProvider
 
-Use `useSplitter()` with `Splitter.RootProvider` when controls outside the root need access to the
-same splitter API.
+Use `useSplitter()` with `Splitter.RootProvider` when state or controls need to live outside the
+rendered splitter parts. The returned API includes methods such as `getSizes()`, `setSizes()`,
+`resizePanel()`, `collapsePanel()`, `expandPanel()`, and `resetSizes()`.
 
 <style>{SplitterDocs.splitterStackCss}</style>
 
@@ -175,20 +183,28 @@ Set `orientation="vertical"` and give the root a stable height so stacked panels
   ```
 </PreviewFrame>
 
+## Accessibility
+
+`ResizeTrigger` renders a button and provides pointer and keyboard resizing according to the WAI-ARIA
+Window Splitter pattern. Give each trigger an accessible name, for example with `aria-label="Resize
+panels"`, when its visual handle has no text label. If you use `asChild`, the custom host must keep
+button semantics, focus behavior, and keyboard interaction.
+
+Ark exposes state through attributes such as `data-orientation`, `data-dragging`, `data-focus`, and
+`data-disabled`. Use these attributes when styling interaction states.
+
 ## Styling
 
-Style `Splitter` through `className`, Ark attributes, stable `data-slot="splitter-*"` hooks, and the
-public moduix CSS variables below. `Splitter.Root` and `Splitter.RootProvider` apply
-`--moduix-splitter-width` and `--moduix-splitter-height` through their default inline style so those variables can
-override Ark's root layout style. The default surface lives on the root, while panels stay flat and
-flush inside it.
+Style `Splitter` with `className`, Ark attributes, stable `data-slot="splitter-*"` hooks, and the
+public moduix CSS variables below. `Splitter.Root` and `Splitter.RootProvider` set the default
+`--moduix-splitter-width` and `--moduix-splitter-height` values through inline styles, so those
+variables can override Ark's root layout size. The default surface is applied to the root, while
+panels stay flat and flush inside it.
 
-The resize trigger contributes a `1px` separator to layout with a visually thinner `0.5px` line, a
-transparent hit area, and a raised rounded indicator on top. The indicator is centered over the
-separator for both orientations. Hover strengthens its border and shadow, while dragging adds a
-slight scale and stronger shadow. Releasing the pointer returns the trigger to its idle appearance.
-Override the corresponding `--moduix-splitter-resize-trigger-*` variables when the surrounding theme needs
-a different treatment.
+The resize trigger reserves a `1px` divider in the layout and draws a thinner `0.5px` line over it.
+Its transparent hit area makes the handle easier to use, and the rounded indicator sits on top of the
+line. Hover and dragging states strengthen the line, border, and shadow. Override the corresponding
+`--moduix-splitter-resize-trigger-*` variables when the surrounding theme needs a different treatment.
 
 ### CSS Properties
 
@@ -206,9 +222,9 @@ a different treatment.
 
 ### Styling hooks
 
-Ark writes `data-scope="splitter"` and `data-part` to rendered parts. moduix also writes
+Ark writes `data-scope="splitter"` and `data-part` to the rendered parts. moduix also writes these
 `data-slot` values: `splitter-root`, `splitter-root-provider`, `splitter-panel`,
 `splitter-resize-trigger`, and `splitter-resize-trigger-indicator`.
 
-Important Ark state hooks include `data-orientation`, `data-dragging`, trigger `data-focus`, trigger
-`data-disabled`, panel `data-id`, and panel `data-index`.
+Useful part-specific attributes include `data-id` and `data-index` on panels, plus
+`data-orientation`, `data-dragging`, `data-focus`, and `data-disabled` on the relevant parts.

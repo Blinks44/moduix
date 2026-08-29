@@ -1,23 +1,22 @@
 ---
 title: Stack
 component: stack
-description: A small Ark-aligned flex layout primitive for vertical and horizontal composition.
+description: A lightweight flex layout primitive for arranging content vertically or horizontally.
 ---
 
 import * as StackDocs from '@/components/examples/stack';
 
 ## API Reference
 
-Ark UI does not ship a dedicated `stack` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+Ark UI does not include a dedicated `Stack` primitive. moduix implements this component with Ark's official
+[factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI [Stack](https://chakra-ui.com/docs/components/stack)
-informs only the layout prop vocabulary.
+[refs](https://ark-ui.com/docs/guides/ref). Chakra UI's [Stack](https://chakra-ui.com/docs/components/stack)
+documentation informs the layout prop names only.
 
 ## Basic
 
-Start with `Stack` when one flex container is enough and the layout only needs direction, gap, and
-common alignment.
+Use `Stack` when a single flex container is enough and you only need to control direction, gap, and alignment.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/basic.tsx"
@@ -31,8 +30,8 @@ common alignment.
 
 ## Anatomy
 
-`Stack` renders one Ark-aligned root flex wrapper. It owns direction, gap, common alignment, and a
-small amount of responsive sugar, while broader layout rules stay in local CSS.
+`Stack` renders one flex root that follows Ark's factory model. It controls direction, gap, alignment, wrapping, and
+a simple responsive direction switch. Keep broader layout rules in your local CSS.
 
 ```text
 Stack / Stack.Root
@@ -48,21 +47,20 @@ Stack / Stack.Root
 
 ### Recommended composition
 
-Use the short `<Stack>` form for normal `div` output. Use `Stack.Root` only when namespace
-consistency helps next to multipart components.
+Use the short `<Stack>` form for regular `div` output. Use `Stack.Root` when matching the namespace pattern is useful
+alongside multipart components.
 
-Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layout. Use `fill` when a
-nested stack should grow as a flex item. Compose the moduix `Separator` directly when a layout needs
-a visual divider. Use `asChild` when the stack should render as a semantic element.
+Use `direction`, `gap`, `align`, `justify`, and `wrap` for common flex layouts. Use `fill` when a nested `Stack`
+should grow as a flex item. Add the moduix `Separator` directly as a child when the layout needs a visual divider.
+Use `asChild` when the `Stack` should render as a semantic element.
 
 ### When to go custom
 
-Switch to local CSS when the layout needs more than one flex container, more than the mobile/desktop
-direction switch, per-breakpoint gap changes, item-level layout rules, or styling that reads clearer
-in a stylesheet than in component props.
+Move layout rules to local CSS when you need multiple flex containers, different gaps at different breakpoints,
+item-level rules, or more responsive behavior than the built-in mobile/desktop direction switch. CSS may also be
+clearer than a long combination of component props.
 
-Use `style` when one instance needs to override public `--moduix-stack-*` variables or computed flex
-properties.
+Use `style` for a one-off override of public `--moduix-stack-*` variables or computed flex properties.
 
 ### Default props
 
@@ -73,28 +71,26 @@ properties.
 | `align`     | browser default | Any valid `align-items` value                           |
 | `justify`   | browser default | Any valid `justify-content` value                       |
 | `wrap`      | browser default | Any valid `flex-wrap` value                             |
-| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` also sets `initial`  |
+| `fill`      | `initial`       | `true` sets `flex: 1 1 0`; `false` sets `flex: initial` |
 | `asChild`   | `false`         | Ark factory composition with one semantic child element |
 
 ### Behavioral notes
 
 - `Stack` renders exactly one root and forwards Ark factory DOM props to that root.
-- `direction={{ mobile, desktop }}` switches at `640px` and cross-falls back when only one side is
-  provided.
+- `direction={{ mobile, desktop }}` uses the desktop value from `640px` upward. If only one value is provided,
+  `Stack` uses it at both breakpoints.
 - `direction` also accepts `row-reverse` and `column-reverse` for reversed visual order.
-- `fill` affects the stack as a flex item, not its children.
-- `Separator` is an ordinary child; mark decorative dividers with `aria-hidden`.
+- `fill` affects the `Stack` as a flex item, not its children.
+- `Separator` is an ordinary child. Mark decorative dividers with `aria-hidden`.
 - `gap`, `align`, `justify`, and `wrap` are written inline only when you provide them.
-- `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for
-  Ark-style styling.
-- `Stack` does not add item wrappers, keyboard behavior, ARIA semantics, context hooks, or provider
-  state.
+- `Stack` exposes `data-scope="stack"`, `data-part="root"`, and `data-slot="stack-root"` for Ark-style styling.
+- `Stack` does not add item wrappers, keyboard behavior, ARIA semantics, context, or managed state.
 
 ## Examples
 
 ### Growing Child Stack
 
-Use `fill` when a nested stack should take the remaining space in a flex row.
+Use `fill` when a nested `Stack` should take the remaining space in a flex row.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/growing-child-stack.tsx"
@@ -104,7 +100,7 @@ Use `fill` when a nested stack should take the remaining space in a flex row.
 
 ### Loading Layout
 
-Use `Stack` with `Skeleton` when the loading state only needs flex composition and spacing.
+Combine `Stack` and `Skeleton` for a loading layout that only needs flex composition and spacing.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/loading-layout.tsx"
@@ -114,7 +110,7 @@ Use `Stack` with `Skeleton` when the loading state only needs flex composition a
 
 ### Responsive Direction
 
-Use responsive `direction` when the layout only needs a column-on-mobile and row-on-desktop switch.
+Use responsive `direction` for a simple column-on-mobile, row-on-desktop layout.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/responsive-direction.tsx"
@@ -124,7 +120,7 @@ Use responsive `direction` when the layout only needs a column-on-mobile and row
 
 ### Row Layout
 
-Use `direction="row"` and alignment props for inline layouts.
+Use `direction="row"` with alignment props for inline content.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/row-layout.tsx"
@@ -134,7 +130,7 @@ Use `direction="row"` and alignment props for inline layouts.
 
 ### Semantic Element
 
-Use Ark `asChild` when the layout wrapper should also describe document structure.
+Use Ark's `asChild` when the layout wrapper should also express document structure.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/semantic-element.tsx"
@@ -144,8 +140,8 @@ Use Ark `asChild` when the layout wrapper should also describe document structur
 
 ### Separator
 
-Compose `Separator` directly when a horizontal or vertical stack needs a repeated visual divider
-between children. `gap` applies to every child, including each divider.
+Add `Separator` directly when a horizontal or vertical `Stack` needs a repeated visual divider between children.
+`gap` applies to every child, including dividers.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/separator.tsx"
@@ -155,7 +151,7 @@ between children. `gap` applies to every child, including each divider.
 
 ### Wrapped Items
 
-Use `wrap="wrap"` when items should flow to the next line.
+Use `wrap="wrap"` when items should flow onto the next line.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/stack/wrapped-items.tsx"
@@ -167,9 +163,8 @@ Use `wrap="wrap"` when items should flow to the next line.
 
 ### CSS Properties
 
-`Stack` exposes public CSS variables on its root. They fall back to `column` and `initial`; the
-`direction` and `fill` props write inline values when provided, and `style` can override them per
-instance.
+`Stack` exposes public CSS variables on its root. By default, they use `column` and `initial`; the `direction` and
+`fill` props write inline values when provided, and `style` can override them for a single instance.
 
 <div className="docs-reference">
   <Tabs
@@ -185,11 +180,9 @@ instance.
 
 ### Styling hooks
 
-- `className` styles the single root for width, padding, borders, backgrounds, and other surface
-  concerns.
+- `className` styles the single root for width, padding, borders, backgrounds, and other surface concerns.
 - `data-scope="stack"` and `data-part="root"` align the wrapper with Ark styling conventions.
 - `data-slot="stack-root"` is the stable moduix selector for targeting the root in local CSS.
-- `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`,
-  `flexWrap`, and any `--moduix-stack-*` variables written by props.
-- There are no state attributes, CSS animation variables, or `slotProps` maps in the public
-  contract.
+- `style` is applied last, so it can override computed `gap`, `alignItems`, `justifyContent`, `flexWrap`, and any
+  `--moduix-stack-*` variables written by props.
+- There are no state attributes, CSS animation variables, or `slotProps` maps in the public contract.

@@ -6,27 +6,17 @@
 
 # @moduix/react
 
-Polished React components for product interfaces, built on
-[Ark UI](https://ark-ui.com/) and styled with native CSS.
+React components built on [Ark UI](https://ark-ui.com/), with accessible behavior, explicit
+composition, and CSS Modules styling.
 
-The package combines Ark's accessible interaction model with shadcn-inspired clarity: calm defaults,
-explicit named parts, consistent states, and a token-first theme contract. No styling framework is
-required.
+moduix gives Ark UI primitives a coherent visual system without adding a styling runtime. Components
+are composed from named parts, styled with regular CSS, and customizable through CSS custom
+properties, `className`, stable `data-slot` hooks, and Ark state attributes.
 
 [Documentation](https://moduix.dev/) ·
 [Quick start](https://moduix.dev/docs/quick-start) ·
 [Components](https://moduix.dev/docs/components) ·
 [Tokens](https://moduix.dev/docs/tokens)
-
-## Highlights
-
-- Ark-aligned composition, controlled and uncontrolled state, context, callbacks, and form behavior.
-- Consistent `36px` primary controls and `32px` popup rows through shared size tokens.
-- Native CSS, CSS Modules, cascade layers, semantic tokens, and component-level variables.
-- Stable moduix `data-slot` hooks alongside Ark part and state attributes.
-- Optional reset and curated `dense`, `soft`, and `contrast` presets.
-- React 18 and 19 support.
-- A matching hosted shadcn registry when source ownership is the better workflow.
 
 ## Install
 
@@ -36,42 +26,35 @@ Install the package and its Ark UI peer dependency:
 npm install @moduix/react @ark-ui/react
 ```
 
-`react`, `react-dom`, and `@ark-ui/react` are peer dependencies, so the package does not ship
-duplicate framework or primitive runtimes.
+`react`, `react-dom`, and `@ark-ui/react` are peer dependencies. moduix supports React 18 and 19.
 
-## Compatibility
+The optional `Chart` component also requires its TanStack peer dependency:
 
-| Environment | Supported versions                                                        |
-| ----------- | ------------------------------------------------------------------------- |
-| React       | 18 and 19                                                                 |
-| Browsers    | The latest two stable releases of Chrome, Edge, and Firefox; Safari 16.4+ |
-| SSR         | Node.js 20+ with native ESM imports                                       |
+```bash
+npm install @tanstack/charts
+```
 
-Published JavaScript uses ES2023 syntax. `@moduix/react` is ESM-only: use `import` (or dynamic
-`import()` from CommonJS); `require()` is not supported. Transpile the package in your application
-build if you support an older environment.
+## Add styles
 
-## Add Styles
-
-Import the required foundation stylesheet once in your application entry point:
+Import the shared foundation stylesheet once in your application entry point:
 
 ```tsx
 import '@moduix/react/style.css';
 ```
 
-This entrypoint provides shared design tokens and base styles. Component imports bring along their
-own CSS.
+It provides the shared tokens and base layer styles. Component imports carry their own CSS Modules,
+so their styles follow the components that use them.
 
-The reset is optional and intentionally separate:
+The reset is optional. Import it first when you choose to use it:
 
 ```tsx
 import '@moduix/react/reset.css';
 import '@moduix/react/style.css';
 ```
 
-## Use Components
+## Use components
 
-Import the component subpaths you use and compose their named parts:
+Import component subpaths and compose their named parts:
 
 ```tsx
 import { Button } from '@moduix/react/button';
@@ -79,7 +62,7 @@ import { Dialog } from '@moduix/react/dialog';
 
 export function Example() {
   return (
-    <Dialog.Root>
+    <Dialog>
       <Dialog.Trigger asChild>
         <Button>Open settings</Button>
       </Dialog.Trigger>
@@ -97,52 +80,39 @@ export function Example() {
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>
-    </Dialog.Root>
+    </Dialog>
   );
 }
 ```
 
-moduix keeps important Ark anatomy visible. Higher-level convenience parts are documented as the
-recommended path where they exist, while low-level composition remains available for advanced
-cases.
+Use the short root alias, such as `Dialog`, in application code. The matching `Dialog.Root` export is
+available when an explicit namespace improves a local abstraction, but it is not required.
 
-## Theme the System
+## Customize deliberately
 
-Theme values are CSS custom properties. Change broad semantic decisions first and use component
-aliases for deliberate exceptions:
+CSS Modules keep the package defaults locally scoped while leaving clear extension points for your
+application:
+
+- use `className` on a root or named part for local CSS;
+- use stable moduix `data-slot` hooks and Ark state attributes for structural or state-specific
+  selectors;
+- override public CSS custom properties at the theme, semantic, or component layer.
+
+For example, set product-level theme primitives in your own stylesheet:
 
 ```css
 :root {
-  --moduix-primary: oklch(0.52 0.18 145);
-  --moduix-radius: 0.75rem;
-  --moduix-size-md: 36px;
-  --moduix-size-sm: 32px;
-}
-
-.compact-toolbar {
-  --moduix-button-size-md: 32px;
+  --moduix-primary: oklch(0.5 0.17 285);
+  --moduix-radius: 0.875rem;
 }
 ```
 
-The token hierarchy is:
+See [Tokens](https://moduix.dev/docs/tokens) and [Themes](https://moduix.dev/docs/themes) for the
+token hierarchy and component-specific variables.
 
-1. theme primitives such as `--moduix-primary`, `--moduix-spacing-2`, `--moduix-size-md`, and `--moduix-radius`;
-2. semantic aliases such as `--moduix-color-primary`, `--moduix-spacing-md`, and `--moduix-radius-md`;
-3. shared family defaults such as `--moduix-popup-item-min-height` and `--moduix-focus-ring-width`;
-4. component aliases such as `--moduix-input-height` and `--moduix-select-item-min-height`.
+## Optional presets
 
-Library styles use predictable cascade layers:
-
-```css
-@layer moduix.reset, moduix.tokens, moduix.base, moduix.components;
-```
-
-Components also expose `className`, `data-slot`, and the Ark `data-scope`, `data-part`, and
-state attributes supported by their primitives.
-
-## Optional Presets
-
-Import one preset after `style.css` and activate it on the document root:
+Import one preset after `style.css` and enable it on the document root:
 
 ```tsx
 import '@moduix/react/style.css';
@@ -153,32 +123,20 @@ import '@moduix/react/presets/soft.css';
 <html data-moduix-theme="soft"></html>
 ```
 
-Available presets are `dense`, `soft`, and `contrast`. See
-[Themes](https://moduix.dev/docs/themes) before combining presets or creating a reusable custom
-theme.
+The available presets are `dense`, `soft`, and `contrast`.
 
-## Prefer to Own the Source?
+## Prefer to own the source?
 
-The moduix registry uses the shadcn distribution format while preserving the same Ark-aligned
-component contracts. Create the ready-to-use `components.json` from the
-[complete Quick Start](https://moduix.dev/docs/quick-start), then add the components you need:
+The hosted shadcn-compatible registry provides the same Ark-aligned component contracts in source
+form. Set up `components.json` with the [Quick start](https://moduix.dev/docs/quick-start), then add
+the components you need:
 
 ```bash
 npx shadcn@latest add @moduix-react/button @moduix-react/dialog
 ```
 
-Generated files are installed under `@/components/moduix/*` and `@/lib/moduix/*`. Read the
-[complete Quick Start](https://moduix.dev/docs/quick-start) for alias setup, registry inspection,
-dry runs, and generated stylesheet imports.
-
-## Acknowledgements
-
-- [Ark UI](https://ark-ui.com/) provides the primitive behavior and composition model.
-- [Chakra UI](https://chakra-ui.com/) informs Ark-aligned ergonomics and design-system craft.
-- [shadcn/ui](https://ui.shadcn.com/) inspires open-code delivery, beautiful defaults, and practical
-  documentation.
-- [UnoCSS](https://unocss.dev/) and [Tailwind CSS](https://tailwindcss.com/) provide foundations
-  adapted by the optional reset.
+Generated files include the component source, CSS Modules, and required supporting files. Their
+destination paths are controlled by your `components.json` aliases.
 
 ## Links
 

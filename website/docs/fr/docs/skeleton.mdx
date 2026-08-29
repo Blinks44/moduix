@@ -1,21 +1,21 @@
 ---
 title: Skeleton
 component: skeleton
-description: Un bloc d’attente pour le chargement de textes, de cartes, de médias et de mises en page personnalisées.
+description: Un espace réservé affiché pendant le chargement de textes, de cartes, de médias et de sections personnalisées.
 ---
 
 import * as SkeletonDocs from '@/components/examples/skeleton';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive skeleton dédiée. moduix construit ce composant avec la
+Ark UI ne fournit pas de primitive `Skeleton` dédiée. moduix construit `Skeleton` à partir de la
 [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations
-d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les
+d’Ark pour la [composition](https://ark-ui.com/docs/guides/composition), les
 [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Pour un chargement de texte classique, utilisez plusieurs composants Skeleton pour reproduire des lignes.
+Commencez par quelques lignes `Skeleton` lorsque le texte est encore en cours de chargement.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/skeleton/basic.tsx"
@@ -29,7 +29,7 @@ Pour un chargement de texte classique, utilisez plusieurs composants Skeleton po
 
 ## Anatomie
 
-`Skeleton` se compose d’une seule partie visuelle. La mise en page reste gérée par le balisage environnant.
+`Skeleton` ne comporte qu’une seule partie visuelle. La mise en page se fait dans le balisage qui l’entoure.
 
 ```text
 Skeleton.Root
@@ -38,25 +38,27 @@ Skeleton.Root
 
 | Partie                        | Rôle                                                                                                                  |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `Skeleton` / `Skeleton.Root` | Surface d’attente. Affiche un élément de la fabrique Ark et accepte `asChild` pour des éléments hôtes personnalisés. |
+| `Skeleton` / `Skeleton.Root` | Bloc d’attente. Rend par défaut un élément de la fabrique Ark ; avec `asChild`, un autre élément sémantique peut devenir la racine. |
 
 ## Composition
 
 ### Composition recommandée
 
 Utilisez directement `Skeleton` pour les lignes de texte, les cartes, les avatars et les espaces réservés aux
-médias. Tant que `loading` vaut `true`, il affiche un seul bloc décoratif ; avec `loading={false}`, il affiche ses enfants.
+médias. Pendant le chargement, il affiche un bloc décoratif. Avec `loading={false}`, il affiche ses enfants dans
+le même élément racine.
 
-La variante par défaut est `variant="pulse"`. Utilisez `variant="none"` si aucune animation n’est nécessaire.
-La surface reste toujours statique pour les personnes qui préfèrent réduire les animations.
+La variante par défaut est `variant="pulse"`, qui anime l’espace réservé. Utilisez `variant="none"` pour obtenir
+un espace réservé statique. L’animation est également désactivée lorsque les préférences de l’utilisateur demandent
+de réduire les mouvements.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` lorsqu’un autre élément sémantique doit posséder le nœud affiché. Cet élément doit être l’unique
-enfant et rester sémantique, conformément aux recommandations de composition d’Ark.
+Utilisez `asChild` si la racine doit être un élément sémantique autre que `div`. Dans ce mode, l’enfant devient la
+racine et doit donc être un unique élément sémantique.
 
 Pour les dimensions courantes, utilisez `width`, `height`, `boxSize` et `borderRadius`. Pour les surfaces plus
-spécifiques, utilisez `className`, `style` ou les variables CSS publiques.
+Pour une apparence plus spécifique, utilisez `className`, `style` ou les variables CSS publiques.
 
 ### Propriétés par défaut
 
@@ -64,21 +66,21 @@ spécifiques, utilisez `className`, `style` ou les variables CSS publiques.
 | --------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `loading`       | `true`                                 | Active les styles d’attente ou affiche normalement les enfants.                                                                 |
 | `variant`       | `pulse`                                | Accepte `pulse` et `none`.                                                                                                       |
-| `height`        | `var(--moduix-spacing-4)` pendant le chargement | Le CSS de chargement définit une hauteur standard. Le contenu chargé conserve sa hauteur naturelle si aucune hauteur n’est fixée. |
+| `height`        | `var(--moduix-spacing-4)` (pendant le chargement) | Le CSS définit la hauteur standard de l’espace réservé pendant le chargement. Le contenu chargé conserve sa hauteur naturelle si aucune hauteur n’est fixée. |
 | `width`         | `100%`                                 | Le CSS définit la largeur standard de la racine. Les valeurs numériques sont converties en `px`.                                |
-| `boxSize`       | -                                      | Définit simultanément la largeur et la hauteur si l’axe correspondant n’est pas précisé.                                         |
-| `borderRadius`  | `var(--moduix-skeleton-border-radius)` | Les valeurs numériques sont converties en `px` ; les remplacements via `style` restent prioritaires.                            |
+| `boxSize`       | Non défini                          | Définit simultanément la largeur et la hauteur. Une valeur explicite de `width` ou `height` reste prioritaire pour l’axe concerné. |
+| `borderRadius`  | `var(--moduix-skeleton-border-radius, var(--moduix-radius-md))` | Les valeurs numériques sont converties en `px` ; les styles inline restent prioritaires. |
 
 ### Comportement
 
 - `Skeleton.Root` désigne le même composant que `Skeleton` ; cet alias assure la cohérence de l’espace de noms.
+- Les refs sont transmises à l’élément racine.
 - `loading={true}` définit `aria-hidden`, `data-state="loading"` et `data-loading`, sauf si vous définissez explicitement `aria-hidden`.
 - `loading={false}` définit `data-state="loaded"` et laisse les enfants utiliser leur hauteur naturelle si `height`,
   `boxSize` et `style.height` ne sont pas définis.
 - `variant` agit uniquement sur les styles ; aucun minuteur interne ni gestion d’état n’est ajouté.
-- `asChild` provient de la composition de la fabrique Ark et remplace l’ancienne composition fondée sur une render prop.
-- `Skeleton` est décoratif et n’annonce pas le chargement. Définissez `aria-busy` sur la zone qui possède l’état de
-  chargement, ou utilisez `Spinner` lorsqu’un statut inline doit être annoncé.
+- `Skeleton` est décoratif et n’annonce pas le chargement. Définissez `aria-busy` sur la zone qui porte l’état de
+  chargement, ou utilisez `Spinner` lorsqu’un statut de chargement doit être annoncé dans le flux.
 
 ## Exemples
 
@@ -94,7 +96,7 @@ Utilisez un grand bloc et des lignes de texte plus courtes pour préserver la mi
 
 ### Contenu chargé
 
-Utilisez `loading` pour conserver le même élément hôte lors du passage de l’espace réservé au contenu réel.
+Utilisez `loading` pour conserver le même élément racine lors du remplacement de l’espace réservé par le contenu réel.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/skeleton/loaded-content.tsx"
@@ -104,7 +106,7 @@ Utilisez `loading` pour conserver le même élément hôte lors du passage de l�
 
 ### Objet média
 
-Utilisez `boxSize` avec un arrondi complet pour l’espace réservé d’un avatar, puis composez des lignes de texte à côté.
+Utilisez `boxSize` avec un rayon complet pour l’espace réservé d’un avatar, puis placez les lignes de texte à côté.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/skeleton/media-object.tsx"
@@ -114,7 +116,7 @@ Utilisez `boxSize` avec un arrondi complet pour l’espace réservé d’un avat
 
 ### Mise en page adaptative
 
-Conservez la logique de mise en page adaptative dans le balisage d’enveloppe et utilisez chaque `Skeleton` comme un bloc visuel.
+Laissez la logique de mise en page responsive dans le balisage englobant et utilisez chaque `Skeleton` comme un bloc visuel.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/skeleton/responsive-layout.tsx"
@@ -134,7 +136,7 @@ Utilisez `variant` pour choisir un espace réservé animé par pulsation ou stat
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsqu’un élément sémantique tel que `section` doit posséder le nœud DOM à la place de l’élément hôte `div` par défaut.
+Utilisez `asChild` pour qu’un élément sémantique tel que `section` devienne la racine DOM à la place du `div` par défaut.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/skeleton/custom-host.tsx"
@@ -144,14 +146,14 @@ Utilisez `asChild` lorsqu’un élément sémantique tel que `section` doit poss
 
 ## Styles
 
-`Skeleton` fournit des hooks de parties et d’états inspirés d’Ark ainsi que des variables publiques
-`--moduix-skeleton-*` pour la couleur, le rayon, la hauteur et le mouvement.
+`Skeleton` expose des attributs de partie et d’état inspirés d’Ark ainsi que des variables publiques
+`--moduix-skeleton-*` pour sa couleur, son rayon, sa hauteur et son animation.
 
-### Propriétés CSS
+### Variables CSS
 
 <div className="docs-reference">
   <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
+    values={[{ label: 'Variables CSS', value: 'Variables CSS' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
   >
@@ -161,10 +163,10 @@ Utilisez `asChild` lorsqu’un élément sémantique tel que `section` doit poss
   </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Sélecteurs et attributs de style
 
-- `[data-scope="skeleton"][data-part="root"]` cible la racine exportée.
-- `data-slot="skeleton-root"` est le sélecteur stable de moduix pour la racine.
+- `[data-scope="skeleton"][data-part="root"]` cible l’élément racine exporté.
+- `data-slot="skeleton-root"` est le sélecteur stable de moduix pour cet élément.
 - `data-state="loading"` et `data-state="loaded"` reflètent la propriété `loading`.
-- `data-variant="pulse"` et `data-variant="none"` reflètent la variante.
-- `data-loading` n’est présent que pendant l’activation des styles d’attente.
+- `data-variant="pulse"` et `data-variant="none"` reflètent la variante choisie.
+- `data-loading` n’est présent que lorsque les styles d’attente sont actifs.

@@ -11,21 +11,21 @@ const locales = [
     label: 'English',
     title: `${brandName} - Accessible React Component Library Built on Ark UI`,
     description:
-      'Accessible React components with calm defaults, explicit composition, and token-first CSS.',
+      'Accessible React components with calm defaults, explicit composition, and CSS Modules backed by shared design tokens.',
   },
   {
     lang: 'fr',
     label: 'Français',
     title: `${brandName} - bibliothèque de composants React accessibles, fondée sur Ark UI`,
     description:
-      'Composants React accessibles avec des valeurs par défaut réfléchies, une composition explicite et un CSS fondé sur les tokens.',
+      'Composants React accessibles avec des valeurs par défaut soignées, une composition explicite et des CSS Modules reposant sur des tokens partagés.',
   },
   {
     lang: 'ru',
     label: 'Русский',
     title: `${brandName} - библиотека доступных React-компонентов на базе Ark UI`,
     description:
-      'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS на основе токенов.',
+      'Доступные React-компоненты с продуманными настройками по умолчанию, явной композицией и CSS Modules на основе общих дизайн-токенов.',
   },
 ];
 const socialImage = `${siteOrigin}/banner.png`;

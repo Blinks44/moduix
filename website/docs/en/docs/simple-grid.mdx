@@ -1,23 +1,26 @@
 ---
 title: Simple Grid
 component: simple-grid
-description: An Ark-aligned equal-column grid that can adapt automatically to its available width.
+description: An equal-column CSS Grid that adapts to the available width.
 ---
 
 ## API Reference
 
-Ark UI does not ship a dedicated `simple-grid` primitive. moduix builds this component with the
-official [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
-[composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance. Chakra UI
-[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid) informs the `columns` and
-`minChildWidth` layout model.
+`SimpleGrid` is not an Ark UI primitive. moduix provides it as a small layout wrapper built with
+Ark's factory. It follows Ark's guidance for [composition](https://ark-ui.com/docs/guides/composition),
+[styling](https://ark-ui.com/docs/guides/styling), and [refs](https://ark-ui.com/docs/guides/ref).
+Its `columns` and `minChildWidth` props borrow the layout model from Chakra UI
+[SimpleGrid](https://chakra-ui.com/docs/components/simple-grid), but moduix does not include Chakra's
+responsive style props.
 
 ## Basic
 
-Use `minChildWidth` when equal-width items should automatically move between columns as the grid's
-available width changes. The component uses `auto-fit` and `minmax()` with a narrow-container guard.
-For unbreakable child content, add `min-width: 0` or an appropriate overflow rule to the item.
+Import `SimpleGrid` from `@moduix/react/simple-grid`. Use `minChildWidth` when the number of equal
+columns should follow the available width. The component uses CSS Grid `auto-fit` and `minmax()`;
+numeric values are treated as pixels, while strings can contain any valid CSS length.
+
+The number of columns changes with the root width, and the children remain direct grid items. If a
+child contains unbreakable content, add `min-width: 0` or an appropriate overflow rule to that child.
 
 ```tsx preview file="./_snippets/simple-grid/basic.tsx"
 
@@ -29,7 +32,7 @@ For unbreakable child content, add `min-width: 0` or an appropriate overflow rul
 
 ## Anatomy
 
-`SimpleGrid` renders one Ark-aligned grid root and does not wrap its children.
+`SimpleGrid` renders one CSS Grid root and does not add wrappers around its children.
 
 ```text
 SimpleGrid
@@ -37,61 +40,66 @@ SimpleGrid
    └─ children
 ```
 
-| Part         | Role                                             |
-| ------------ | ------------------------------------------------ |
+| Part         | Role                                                   |
+| ------------ | ------------------------------------------------------ |
 | `SimpleGrid` | Root wrapper that creates equal-width CSS Grid columns. |
 
 ## Composition
 
 ### Recommended composition
 
-Use `SimpleGrid` for the root. `SimpleGrid.Root` remains a compatibility alias.
+Use the short `<SimpleGrid>` form for the root. `SimpleGrid.Root` renders the same component and is
+kept as a compatibility alias.
 
 Choose one layout mode:
 
 - `minChildWidth` lets the browser fit as many equal columns as the available width allows.
 - `columns` creates an exact number of equal columns.
 
-Always provide an intentional `gap`, `rowGap`, or `columnGap` when grid items need visual
-separation. Use `asChild` when the root should be a semantic element such as `ul`, `section`, or
-`nav`.
+If the items need visual separation, set `gap`, `rowGap`, or `columnGap`. Use `asChild` when the
+root should be a semantic element such as `ul`, `section`, or `nav`. `asChild` requires exactly one
+element child, which becomes the rendered root.
 
 ### When to go custom
 
-Use local CSS instead when the layout needs named areas, unequal tracks, item spans, or exact
-column counts at several media or container query breakpoints. Omit `columns` and `minChildWidth`
-when `grid-template-columns` is owned by the stylesheet.
+Use local CSS when the layout needs named grid areas, unequal tracks, items that span tracks, or
+different templates at media or container query breakpoints. Leave both `columns` and
+`minChildWidth` unset, then define `grid-template-columns` in the stylesheet.
 
 ### Default props
 
-| Prop            | Default         | Notes                                                   |
-| --------------- | --------------- | ------------------------------------------------------- |
-| `columns`       | `1`             | Finite positive integer of equal-width columns          |
-| `minChildWidth` | -               | Minimum track width; finite non-negative numbers become pixels |
-| `gap`           | browser default | CSS length (`number` = `px`)                            |
-| `rowGap`        | browser default | CSS length (`number` = `px`)                            |
-| `columnGap`     | browser default | CSS length (`number` = `px`)                            |
-| `asChild`       | `false`         | Ark factory composition with one semantic child element |
+| Prop            | Default         | Notes                                                    |
+| --------------- | --------------- | -------------------------------------------------------- |
+| `columns`       | `1`             | Finite positive integer for equal-width columns          |
+| `minChildWidth` | not set         | CSS length; numbers are treated as pixels                |
+| `gap`           | browser default | CSS length; numbers are treated as pixels                |
+| `rowGap`        | browser default | CSS length; numbers are treated as pixels                |
+| `columnGap`     | browser default | CSS length; numbers are treated as pixels                |
+| `asChild`       | `false`         | Renders the root through Ark's single-child composition |
+| `className`     | not set         | Applied to the rendered root                             |
+| `style`         | not set         | Applied last as the per-instance override                |
 
 ### Behavioral notes
 
-- When both layout props are provided, `minChildWidth` takes priority over `columns`.
-- `columns={3}` creates three equal tracks with no child wrappers.
+- If neither `columns` nor `minChildWidth` is set, the grid has one equal-width column.
+- If both layout props are set, `minChildWidth` takes priority over `columns`.
+- `columns={3}` creates three equal tracks without wrapping the children.
 - `minChildWidth={160}` creates as many tracks as fit and treats the number as `160px`.
-- A numeric `minChildWidth` must be finite and non-negative.
-- The auto-fit mode guards against overflow when the grid becomes narrower than
-  `minChildWidth`.
-- `gap`, `rowGap`, and `columnGap` are written inline only when provided.
-- `style` is applied last and can override the generated `gridTemplateColumns` or gaps.
+- A numeric `columns` value must be a finite positive integer. A numeric `minChildWidth` value must
+  be finite and non-negative.
+- The `auto-fit` mode guards against overflow when the grid is narrower than `minChildWidth`.
+- `gap`, `rowGap`, and `columnGap` are written to inline styles only when provided.
+- `style` is applied last and can override any generated style, including `display`,
+  `gridTemplateColumns`, and the gaps.
 - `ref` targets the rendered root. With `asChild`, it targets the single child element.
 - The component adds no roles, labels, keyboard behavior, focus management, state, or provider
-  context.
+  context. Choose semantic children in your own markup.
 
 ## Examples
 
 ### Fixed Columns
 
-Use `columns` when a compact dashboard should always render an exact number of equal tracks.
+Use `columns` when the number of equal columns should stay fixed, such as in a compact metrics grid.
 
 ```tsx preview file="./_snippets/simple-grid/fixed-columns.tsx"
 
@@ -99,7 +107,8 @@ Use `columns` when a compact dashboard should always render an exact number of e
 
 ### Media Gallery
 
-Combine intrinsic columns with Ark `asChild` when a media grid should also carry list semantics.
+Use `asChild` when the grid itself should carry list semantics. This example renders the root as a
+`ul` and keeps each image in a direct `li` child.
 
 ```tsx preview file="./_snippets/simple-grid/media-gallery.tsx"
 
@@ -107,16 +116,16 @@ Combine intrinsic columns with Ark `asChild` when a media grid should also carry
 
 ## Styling
 
-`SimpleGrid` has no component-specific CSS variables, so there is no separate CSS properties
-reference. Layout props are written as inline styles on the root.
+`SimpleGrid` does not define component-specific CSS variables. Its layout props are written as
+inline styles on the rendered root, so omit `columns` and `minChildWidth` when the stylesheet should
+own `grid-template-columns`.
 
 ### Styling hooks
 
-- `className` styles the single root for width, placement, backgrounds, and responsive layout when
-  `columns` and `minChildWidth` are omitted.
-- `data-scope="simple-grid"` and `data-part="root"` align the wrapper with Ark styling conventions.
-- `data-slot="simple-grid-root"` is the stable moduix selector for targeting the root in local CSS.
-- `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and therefore take
-  precedence over declarations from `className`.
+- `className` styles the rendered root for width, placement, backgrounds, and responsive layout.
+- `data-scope="simple-grid"` and `data-part="root"` follow Ark's styling conventions.
+- `data-slot="simple-grid-root"` is the stable moduix selector for local CSS.
+- `columns`, `minChildWidth`, `gap`, `rowGap`, and `columnGap` write inline styles and take priority
+  over declarations from `className`.
 - `style` is merged after those props and is the final per-instance override.
 - The component exposes no state or animation styling hooks.
