@@ -2532,9 +2532,10 @@
   --moduix-sidebar-navigation-button-radius: initial; /* var(--moduix-radius-md) */
   --moduix-sidebar-navigation-gap: initial; /* var(--moduix-spacing-1) */
   --moduix-sidebar-navigation-action-size: initial; /* var(--moduix-size-xs) */
-  --moduix-sidebar-navigation-badge-font-size: initial; /* 0.6875rem */
-  --moduix-sidebar-navigation-badge-min-width: initial; /* 1.25rem */
-  --moduix-sidebar-navigation-badge-padding-x: initial; /* var(--moduix-spacing-1) */
+  --moduix-sidebar-navigation-badge-font-size: initial; /* 0.625rem */
+  --moduix-sidebar-navigation-badge-font-weight: initial; /* var(--moduix-weight-medium) */
+  --moduix-sidebar-navigation-badge-min-width: initial; /* 1.125rem */
+  --moduix-sidebar-navigation-badge-padding-x: initial; /* var(--moduix-spacing-0-5) */
   --moduix-sidebar-navigation-sub-border-width: initial; /* var(--moduix-border-width-sm) */
   --moduix-sidebar-navigation-sub-button-font-size: initial; /* var(--moduix-text-sm) */
   --moduix-sidebar-navigation-sub-button-gap: initial; /* var(--moduix-spacing-2) */
