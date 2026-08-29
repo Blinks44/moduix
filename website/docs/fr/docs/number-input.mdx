@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: Un champ numérique avec contrôles d’incrémentation Ark UI, formatage, validation et modification facultative par glissement.
+description: Champ numérique avec boutons d’incrémentation et de décrémentation Ark UI, formatage, validation et modification facultative par glissement.
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input';
@@ -12,7 +12,7 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 ## Exemple de base
 
-Utilisez `NumberInput` avec `NumberInput.Field` pour obtenir le champ et le groupe de déclencheurs standard.
+Utilisez `NumberInput` avec `NumberInput.Field` pour afficher un champ standard accompagné de boutons d’incrémentation et de décrémentation.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/basic.tsx"
@@ -29,79 +29,79 @@ Utilisez `NumberInput` avec `NumberInput.Field` pour obtenir le champ et le grou
 ```text
 NumberInput.Root
 ├─ NumberInput.Label
-├─ NumberInput.Scrubber (optional)
-├─ NumberInput.Field (recommended)
+├─ NumberInput.Scrubber (facultatif)
+├─ NumberInput.Field (recommandé)
 ├─ NumberInput.Control
 │  ├─ NumberInput.DecrementTrigger
 │  ├─ NumberInput.Input
 │  └─ NumberInput.IncrementTrigger
-└─ NumberInput.ValueText (optional)
+└─ NumberInput.ValueText (facultatif)
 
 NumberInput.RootProvider
-└─ same part tree connected to state created with `useNumberInput()`
+└─ même arborescence reliée à l’état créé avec `useNumberInput()`
 ```
 
 | Partie                             | Rôle                                                                         |
 | ---------------------------------- | ---------------------------------------------------------------------------- |
-| `NumberInput` / `NumberInput.Root` | Gère l’état du champ numérique, l’analyse, le formatage et le clavier.        |
-| `NumberInput.RootProvider`         | Relie les parties à l’état créé avec `useNumberInput()`.                     |
-| `NumberInput.Context`              | Fournit les valeurs formatée et numérique ainsi que les méthodes impératives. |
-| `NumberInput.Label`                | Libellé accessible associé au champ géré.                                    |
-| `NumberInput.Scrubber`             | Zone de glissement facultative qui modifie la valeur par déplacement du pointeur. |
-| `NumberInput.Control`              | Conteneur structurel du champ et des déclencheurs d’incrémentation et de décrémentation. |
-| `NumberInput.Field`                | Affiche le contrôle, le champ et le groupe de déclencheurs par défaut.       |
-| `NumberInput.DecrementTrigger`     | Bouton qui diminue la valeur actuelle. Utilise par défaut l’icône moins de moduix. |
+| `NumberInput` / `NumberInput.Root` | Gère l’état du champ numérique, l’interprétation de la saisie, le formatage et le comportement au clavier. |
+| `NumberInput.RootProvider`         | Relie les parties à l’état créé avec `useNumberInput()`.                    |
+| `NumberInput.Context`              | Expose la valeur formatée, sa représentation numérique et les méthodes permettant de manipuler l’état. |
+| `NumberInput.Label`                | Libellé accessible associé au champ géré.                                   |
+| `NumberInput.Scrubber`             | Zone de glissement facultative qui modifie la valeur selon le déplacement du pointeur. |
+| `NumberInput.Control`              | Conteneur structurel du champ et des boutons d’incrémentation et de décrémentation. |
+| `NumberInput.Field`                | Affiche la structure standard avec le contrôle, le champ et les boutons.    |
+| `NumberInput.DecrementTrigger`     | Bouton qui diminue la valeur actuelle. Affiche par défaut l’icône moins de moduix. |
 | `NumberInput.Input`                | Champ de texte numérique modifiable géré par Ark UI.                         |
-| `NumberInput.IncrementTrigger`     | Bouton qui augmente la valeur actuelle. Utilise par défaut l’icône plus de moduix. |
-| `NumberInput.ValueText`            | Zone de texte en lecture seule pour la valeur formatée.                      |
+| `NumberInput.IncrementTrigger`     | Bouton qui augmente la valeur actuelle. Affiche par défaut l’icône plus de moduix. |
+| `NumberInput.ValueText`            | Texte en lecture seule qui affiche la valeur formatée.                      |
 
 ## Composition
 
 ### Composition recommandée
 
-`NumberInput` prend en charge l’analyse, les contrôles de plage, l’incrémentation et la décrémentation au clavier,
-la répétition lors d’un appui prolongé, l’interaction par glissement et le formatage. Activez `allowMouseWheel`
-lorsque les modifications à la molette sont intentionnelles. Utilisez `NumberInput.Field` pour les parties visibles
-par défaut.
+`NumberInput` gère l’interprétation de la saisie, les limites de la plage, l’incrémentation et la décrémentation au clavier,
+la répétition lorsqu’un bouton est maintenu, la modification par glissement et le formatage. Activez `allowMouseWheel`
+lorsque la molette doit modifier la valeur dans votre cas d’utilisation. Utilisez `NumberInput.Field` pour afficher
+les parties standard.
 
-Utilisez des chaînes pour `value` et `defaultValue`. Ark signale les modifications avec
-`onValueChange(details)`, où `details.value` est la valeur sous forme de chaîne et `details.valueAsNumber` le nombre analysé.
+Utilisez des chaînes de caractères pour `value` et `defaultValue`. Ark signale les modifications avec
+`onValueChange(details)`, où `details.value` est la valeur sous forme de chaîne et `details.valueAsNumber` le nombre obtenu après conversion.
 
-### Quand créer une composition personnalisée
+### Quand utiliser une composition personnalisée
 
-Utilisez `NumberInput.Control` avec ses parties individuelles lorsque l’ordre des déclencheurs, les icônes ou les
-styles du champ doivent différer de `NumberInput.Field`. Ajoutez `NumberInput.Scrubber` à côté du champ pour permettre
-la modification par glissement.
+Utilisez `NumberInput.Control` avec ses parties individuelles lorsque l’ordre des boutons, les icônes ou les styles
+du champ doivent différer de `NumberInput.Field`. Ajoutez `NumberInput.Scrubber` à côté du champ pour permettre une
+modification par glissement.
 
 ### Propriétés par défaut
 
 | Propriété                          | Valeur par défaut | Remarques                                                        |
 | ---------------------------------- | ----------------- | ---------------------------------------------------------------- |
-| `NumberInput` / `NumberInput.Root` | -                 | Aucun comportement supplémentaire ; les valeurs Ark s’appliquent. |
-| `NumberInput.Field`                | -                 | Affiche le contrôle, le champ et le groupe de déclencheurs par défaut. |
+| `NumberInput` / `NumberInput.Root` | -                 | Aucun comportement supplémentaire. Les valeurs par défaut d’Ark s’appliquent. |
+| `NumberInput.Field`                | -                 | Affiche la structure standard avec le contrôle, le champ et les boutons. |
 | `NumberInput.DecrementTrigger`     | -                 | Affiche l’icône moins de moduix lorsqu’aucun enfant n’est fourni. |
 | `NumberInput.IncrementTrigger`     | -                 | Affiche l’icône plus de moduix lorsqu’aucun enfant n’est fourni.  |
 
 ### Comportement
 
-- Pour le formatage localisé des nombres, utilisez `formatOptions` et non `format`.
-- Utilisez `translations.incrementLabel`, `translations.decrementLabel` et `translations.valueText` pour les libellés accessibles localisés.
+- Pour formater les nombres selon la langue, utilisez `formatOptions` et non `format`.
+- Utilisez `translations.incrementLabel`, `translations.decrementLabel` et `translations.valueText` pour fournir des libellés accessibles dans la langue de l’interface.
 - `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode` et `allowMouseWheel` sont transmis directement à Ark.
 - `onValueInvalid(details)` signale `rangeUnderflow` ou `rangeOverflow` lorsque la valeur dépasse les limites configurées.
 - Définissez `clampValueOnBlur={false}` si les valeurs saisies hors de `min` ou `max` doivent rester inchangées à la perte du focus.
-- Utilisez `ids` lorsque des libellés ou descriptions externes ont besoin d’identifiants d’élément stables.
-- Les parties basées sur Ark prennent en charge `asChild` pour composer un hôte personnalisé ; `NumberInput.Field`
-  affiche volontairement sa structure fixe en trois parties et transmet sa référence à `NumberInput.Control`.
-- `useNumberInput`, `useNumberInputContext` et `NumberInput.Context` sont disponibles depuis `@moduix/react`.
-- `name` et `form` sont transmis au spinbutton visible pour la soumission native du formulaire.
-  Affichez un champ natif masqué depuis `NumberInput.Context` avec `context.valueAsNumber`
-  uniquement lorsque le formulaire attend la représentation numérique analysée plutôt que la chaîne affichée.
+- Utilisez `ids` lorsque des libellés ou des descriptions externes ont besoin d’identifiants d’élément stables.
+- Les parties fournies par Ark acceptent `asChild` pour composer un élément hôte personnalisé. `NumberInput.Field`
+  rend volontairement une structure fixe en trois parties et transmet sa référence à `NumberInput.Control`.
+- `useNumberInput`, `useNumberInputContext` et `NumberInput.Context` sont exportés par `@moduix/react`.
+- `name` et `form` sont transmis au spinbutton visible pour la soumission par un formulaire natif.
+  Rendez un champ natif masqué via `NumberInput.Context` avec `context.valueAsNumber` uniquement lorsque le formulaire
+  attend la représentation numérique obtenue après conversion plutôt que la chaîne affichée.
 
 ## Exemples
 
 ### État contrôlé
 
-Conservez l’état contrôlé sous forme de chaîne et lisez `details.value` dans `onValueChange`.
+Conservez l’état contrôlé sous forme de chaîne et utilisez `details.value` dans `onValueChange`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/controlled.tsx"
@@ -111,7 +111,7 @@ Conservez l’état contrôlé sous forme de chaîne et lisez `details.value` da
 
 ### Field
 
-Composez avec `Field` lorsque l’état du formulaire, le texte d’aide, le message d’erreur et les métadonnées
+Utilisez `Field` lorsque l’état du formulaire, le texte d’aide, le message d’erreur et les métadonnées
 d’accessibilité doivent être partagés.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
@@ -132,8 +132,9 @@ Transmettez `formatOptions` pour formater la valeur visible avec `Intl.NumberFor
 
 ### Minimum et maximum
 
-Utilisez `min`, `max` et `step` pour limiter la saisie, le clavier, les déclencheurs et le glissement. Définissez
-`clampValueOnBlur={false}` si une valeur saisie hors plage doit rester visible après la perte du focus.
+Utilisez `min`, `max` et `step` pour limiter les valeurs saisies et les changements effectués au clavier, avec les boutons
+ou par glissement. Définissez `clampValueOnBlur={false}` si une valeur saisie hors plage doit rester visible après la
+perte du focus.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/min-and-max.tsx"
@@ -143,7 +144,7 @@ Utilisez `min`, `max` et `step` pour limiter la saisie, le clavier, les déclenc
 
 ### Molette de la souris
 
-Activez `allowMouseWheel` lorsque les modifications de valeur à la molette sont intentionnelles dans le flux de travail.
+Activez `allowMouseWheel` lorsque la molette doit modifier la valeur dans votre cas d’utilisation.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/mouse-wheel.tsx"
@@ -153,7 +154,8 @@ Activez `allowMouseWheel` lorsque les modifications de valeur à la molette sont
 
 ### Précision
 
-Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur visible doit avoir un nombre fixe de décimales.
+Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur affichée doit comporter un nombre fixe de
+chiffres après la virgule.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/precision.tsx"
@@ -163,7 +165,8 @@ Utilisez `formatOptions` avec `Intl.NumberFormatOptions` lorsque la valeur visib
 
 ### Root Provider
 
-Utilisez `useNumberInput()` avec `NumberInput.RootProvider` lorsque l’état doit être créé en dehors de l’arbre des parties affichées.
+Utilisez `useNumberInput()` avec `NumberInput.RootProvider` lorsque l’état doit être créé en dehors de l’arbre qui affiche
+les parties du composant.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/root-provider.tsx"
@@ -193,8 +196,8 @@ Utilisez un élément `<output>` lorsque la valeur actuelle doit également êtr
 
 ### État désactivé et lecture seule
 
-Utilisez `disabled` pour empêcher toute interaction. Utilisez `readOnly` lorsque la valeur doit rester sélectionnable
-sans pouvoir être modifiée.
+Utilisez `disabled` pour désactiver toute interaction. Utilisez `readOnly` lorsque la valeur doit rester sélectionnable,
+mais ne doit pas pouvoir être modifiée.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/disabled-and-read-only.tsx"
@@ -204,9 +207,9 @@ sans pouvoir être modifiée.
 
 ### Soumission native du formulaire
 
-Définissez `name` pour soumettre le spinbutton de texte visible avec un formulaire natif. Affichez un
-champ natif masqué depuis `NumberInput.Context` uniquement lorsque le formulaire attend la
-représentation numérique analysée plutôt que la chaîne affichée.
+Définissez `name` pour inclure le spinbutton visible dans la soumission d’un formulaire natif. Ajoutez un champ natif
+masqué via `NumberInput.Context` uniquement lorsque le formulaire attend la représentation numérique obtenue après
+conversion plutôt que la chaîne affichée.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="../../en/docs/_snippets/number-input/form-submission.tsx"
@@ -216,9 +219,9 @@ représentation numérique analysée plutôt que la chaîne affichée.
 
 ### Personnalisation avancée
 
-Contournez `NumberInput.Field` et composez les parties de bas niveau lorsque les icônes des déclencheurs ou le style
-du champ doivent être personnalisés. Transmettez `translations` si un contenu personnalisé des déclencheurs nécessite
-des libellés accessibles localisés.
+Composez directement les parties de bas niveau au lieu d’utiliser `NumberInput.Field` lorsque les icônes des boutons ou
+le style du champ doivent être personnalisés. Transmettez `translations` lorsque le contenu personnalisé des boutons
+nécessite des libellés accessibles dans la langue de l’interface.
 
 <style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
 
@@ -249,5 +252,5 @@ des libellés accessibles localisés.
 - `data-slot="number-input-root"`, `number-input-root-provider`, `number-input-label`,
   `number-input-scrubber`, `number-input-control`, `number-input-decrement-trigger`,
   `number-input-input`, `number-input-increment-trigger` et `number-input-value-text`.
-- Hooks d’état Ark : `data-disabled`, `data-invalid`, `data-focus` et `data-scrubbing`.
-- Hooks de parties Ark : `data-scope="number-input"` et valeurs de `data-part` correspondant à l’anatomie Ark.
+- Attributs d’état Ark : `data-disabled`, `data-invalid`, `data-focus` et `data-scrubbing`.
+- Attributs des parties Ark : `data-scope="number-input"` et valeurs de `data-part` correspondant à l’anatomie Ark.

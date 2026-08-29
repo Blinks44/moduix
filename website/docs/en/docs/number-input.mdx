@@ -1,7 +1,7 @@
 ---
 title: Number Input
 component: number-input
-description: A numeric input with Ark UI stepper controls, formatting, validation, and optional scrub interaction.
+description: A numeric input with Ark UI increment and decrement controls, formatting, validation, and optional drag-to-change interaction.
 ---
 
 import * as NumberInputDocs from '@/components/examples/number-input';
@@ -12,7 +12,7 @@ import * as NumberInputDocs from '@/components/examples/number-input';
 
 ## Basic
 
-Use `NumberInput` with `NumberInput.Field` for the standard input and trigger group.
+Use `NumberInput` with `NumberInput.Field` for a standard input with increment and decrement controls.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/basic.tsx"
@@ -38,70 +38,69 @@ NumberInput.Root
 └─ NumberInput.ValueText (optional)
 
 NumberInput.RootProvider
-└─ same part tree connected to state created with `useNumberInput()`
+└─ same part tree connected to state created by `useNumberInput()`
 ```
 
 | Part                               | Role                                                                   |
 | ---------------------------------- | ---------------------------------------------------------------------- |
-| `NumberInput` / `NumberInput.Root` | Controls number input state, parsing, formatting, keyboard behavior.   |
-| `NumberInput.RootProvider`         | Connects parts to state created with `useNumberInput()`.               |
-| `NumberInput.Context`              | Provides formatted and numeric values plus imperative state methods.   |
-| `NumberInput.Label`                | Accessible label associated with the managed input.                    |
-| `NumberInput.Scrubber`             | Optional drag target that changes the value through pointer movement.  |
-| `NumberInput.Control`              | Structural wrapper for input and increment/decrement triggers.         |
-| `NumberInput.Field`                | Renders the default control, input, and trigger group.                 |
-| `NumberInput.DecrementTrigger`     | Button that decreases the current value. Defaults to the moduix minus. |
+| `NumberInput` / `NumberInput.Root` | Owns number input state, parsing, formatting, and keyboard behavior.   |
+| `NumberInput.RootProvider`         | Connects parts to state created by `useNumberInput()`.                 |
+| `NumberInput.Context`              | Exposes formatted and numeric values plus imperative state methods.    |
+| `NumberInput.Label`                | Accessible label for the managed input.                                |
+| `NumberInput.Scrubber`             | Optional drag target that changes the value as the pointer moves.      |
+| `NumberInput.Control`              | Structural wrapper for the input and increment/decrement triggers.    |
+| `NumberInput.Field`                | Renders the standard control, input, and trigger group.                |
+| `NumberInput.DecrementTrigger`     | Button that decreases the current value. Renders the moduix minus icon by default. |
 | `NumberInput.Input`                | Editable numeric text input managed by Ark UI.                         |
-| `NumberInput.IncrementTrigger`     | Button that increases the current value. Defaults to the moduix plus.  |
-| `NumberInput.ValueText`            | Read-only text surface for the formatted value.                        |
+| `NumberInput.IncrementTrigger`     | Button that increases the current value. Renders the moduix plus icon by default.  |
+| `NumberInput.ValueText`            | Read-only text element for the formatted value.                       |
 
 ## Composition
 
 ### Recommended composition
 
-`NumberInput` owns parsing, range checks, keyboard increment/decrement, spin-on-press, scrubber
-interaction, and formatting. Set `allowMouseWheel` when wheel-based changes are intentional. Use
-`NumberInput.Field` for the default visible parts.
+`NumberInput` handles parsing, range validation, keyboard increment and decrement, repeated changes
+while a trigger is held, drag-to-change interaction, and formatting. Set `allowMouseWheel` when
+wheel-based changes are intentional. Use `NumberInput.Field` for the standard visible parts.
 
-Use string values for `value` and `defaultValue`. Ark reports changes through
-`onValueChange(details)`, where `details.value` is the string value and `details.valueAsNumber` is
-the parsed number.
+Use strings for `value` and `defaultValue`. Ark reports changes through `onValueChange(details)`,
+where `details.value` is the string value and `details.valueAsNumber` is the parsed number.
 
 ### When to go custom
 
 Use `NumberInput.Control` with its individual parts when the trigger order, icons, or input styling
-must differ from the default `NumberInput.Field`. Use `NumberInput.Scrubber` alongside the field for
-drag-to-change input.
+must differ from the standard `NumberInput.Field`. Add `NumberInput.Scrubber` alongside the field
+when users should be able to change the value by dragging.
 
 ### Default props
 
 | Prop                               | Default | Notes                                                        |
 | ---------------------------------- | ------- | ------------------------------------------------------------ |
-| `NumberInput` / `NumberInput.Root` | -       | No additional behavioral defaults; Ark defaults apply.       |
-| `NumberInput.Field`                | -       | Renders the default control, input, and trigger group.       |
+| `NumberInput` / `NumberInput.Root` | -       | No additional behavioral defaults. Ark defaults apply.       |
+| `NumberInput.Field`                | -       | Renders the standard control, input, and trigger group.      |
 | `NumberInput.DecrementTrigger`     | -       | Renders the moduix minus icon when no children are provided. |
 | `NumberInput.IncrementTrigger`     | -       | Renders the moduix plus icon when no children are provided.  |
 
 ### Behavioral notes
 
 - Use `formatOptions`, not `format`, for localized number formatting.
-- Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText` for accessible localized labels.
-- `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` pass directly to Ark.
+- Use `translations.incrementLabel`, `translations.decrementLabel`, and `translations.valueText` for accessible labels in the current language.
+- `min`, `max`, `step`, `allowOverflow`, `clampValueOnBlur`, `spinOnPress`, `inputMode`, and `allowMouseWheel` are passed through to Ark.
 - `onValueInvalid(details)` reports `rangeUnderflow` or `rangeOverflow` when the value exceeds configured bounds.
 - Set `clampValueOnBlur={false}` when typed values outside `min` or `max` should remain unchanged on blur.
 - Use `ids` when external labels or descriptions need stable element IDs.
-- Ark-backed parts support `asChild` for custom host composition; `NumberInput.Field` intentionally
+- Ark-backed parts support `asChild` for custom host elements. `NumberInput.Field` intentionally
   renders its fixed three-part structure and forwards its ref to `NumberInput.Control`.
 - `useNumberInput`, `useNumberInputContext`, and `NumberInput.Context` are available from `@moduix/react`.
 - `name` and `form` are forwarded to the visible spinbutton for native form submission. Render a
-  hidden native input from `NumberInput.Context` with `context.valueAsNumber` only when the form
+  hidden native input through `NumberInput.Context` with `context.valueAsNumber` only when the form
   needs the parsed numeric representation instead of the displayed string.
 
 ## Examples
 
 ### Controlled
 
-Keep controlled state as a string and read `details.value` in `onValueChange`.
+Keep controlled state as a string and use `details.value` in `onValueChange`.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/controlled.tsx"
@@ -111,7 +110,7 @@ Keep controlled state as a string and read `details.value` in `onValueChange`.
 
 ### Field
 
-Compose with `Field` when form state, helper text, error text, and accessibility metadata should be shared.
+Use `Field` when form state, helper text, error text, and accessibility metadata should be shared.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/field.tsx"
@@ -131,8 +130,9 @@ Pass `formatOptions` to format the visible value with `Intl.NumberFormat`.
 
 ### Min and Max
 
-Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub interactions. Set
-`clampValueOnBlur={false}` when an out-of-range typed value should remain visible after blur.
+Use `min`, `max`, and `step` to constrain typed values and changes made with the keyboard, triggers,
+and scrubber. Set `clampValueOnBlur={false}` when an out-of-range typed value should remain visible
+after blur.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/min-and-max.tsx"
@@ -142,7 +142,7 @@ Use `min`, `max`, and `step` to constrain typing, keyboard, trigger, and scrub i
 
 ### Mouse Wheel
 
-Set `allowMouseWheel` when wheel-based value changes are intentional for the workflow.
+Set `allowMouseWheel` when changing the value with the mouse wheel is intentional for the workflow.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/mouse-wheel.tsx"
@@ -194,8 +194,8 @@ Use an `<output>` when the current value should also be visible outside the edit
 
 ### Disabled and read-only
 
-Use `disabled` to prevent all interaction. Use `readOnly` when the value remains selectable but must
-not be edited.
+Use `disabled` to prevent all interaction. Use `readOnly` when the value should remain selectable
+but must not be editable.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
 ```tsx preview file="./_snippets/number-input/disabled-and-read-only.tsx"
@@ -217,7 +217,7 @@ the displayed string.
 
 ### Advanced Customization
 
-Bypass `NumberInput.Field` and compose the low-level parts when the trigger icons or input styling
+Compose the low-level parts instead of `NumberInput.Field` when the trigger icons or input styling
 must be customized. Pass `translations` when custom trigger content needs localized accessible labels.
 
 <style>{NumberInputDocs.numberInputAdvancedCustomizationCss}</style>
