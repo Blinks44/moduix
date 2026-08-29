@@ -1,7 +1,7 @@
 ---
 title: Popover
 component: popover
-description: Une fenêtre contextuelle Ark UI accessible, ancrée à un déclencheur ou à un élément de référence personnalisé.
+description: Une fenêtre contextuelle accessible basée sur Ark UI, ancrée à un déclencheur ou à un élément de référence personnalisé.
 ---
 
 import * as PopoverDocs from '@/components/examples/popover';
@@ -13,12 +13,12 @@ import * as PopoverDocs from '@/components/examples/popover';
 ## Choisir le bon composant
 
 Utilisez `Popover` pour un contenu interactif compact associé à un déclencheur. Utilisez `Tooltip` pour les indications
-non interactives et `Dialog` pour les flux plus importants ou fortement interruptifs.
+non interactives et `Dialog` pour les parcours plus longs qui interrompent la tâche en cours.
 
 ## Exemple de base
 
-Composez explicitement la structure Ark. Les options de positionnement appartiennent à `Popover` et les boutons
-hôtes personnalisés utilisent `asChild`.
+Gardez les parties Ark explicites. Configurez le positionnement sur `Popover` et utilisez `asChild` lorsqu’un bouton
+personnalisé doit servir de déclencheur.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/basic.tsx"
@@ -52,80 +52,83 @@ Popover / Popover.Root
 
 | Partie                       | Rôle                                                                  |
 | ---------------------------- | --------------------------------------------------------------------- |
-| `Popover` / `Popover.Root`   | État racine, cycle de vie, fermeture, focus et positionnement.        |
-| `Popover.RootProvider`       | Affiche un arbre Popover depuis l’état renvoyé par `usePopover`.      |
-| `Popover.Context`            | Lit l’état actuel via une propriété de rendu descendante.             |
-| `Popover.Anchor`             | Référence de positionnement personnalisée facultative.                |
-| `Popover.Trigger`            | Bouton qui ouvre ou ferme le Popover et peut porter une `value`.      |
+| `Popover` / `Popover.Root`   | Gère l’état, le cycle de vie, la fermeture, le focus et le positionnement de la fenêtre. |
+| `Popover.RootProvider`       | Affiche l’arbre Popover à partir de l’état renvoyé par `usePopover`.  |
+| `Popover.Context`            | Lit l’état actuel via le `render prop` d’un descendant.               |
+| `Popover.Anchor`             | Élément de référence de positionnement personnalisé, facultatif.      |
+| `Popover.Trigger`            | Bouton qui ouvre ou ferme la fenêtre et peut recevoir une `value`.    |
 | `Popover.Indicator`          | Indicateur facultatif de l’état du déclencheur.                       |
-| `Popover.Positioner`         | Calque flottant qui expose les variables CSS de positionnement Ark.   |
-| `Popover.Content`            | Surface contextuelle interactive.                                    |
-| `Popover.Arrow` / `ArrowTip` | Flèche positionnée facultative et sa pointe visible.                  |
-| `Popover.Title`              | Titre accessible relié au contenu.                                   |
-| `Popover.Description`        | Description accessible reliée au contenu.                            |
-| `Popover.CloseTrigger`       | Déclencheur de fermeture de bas niveau.                              |
-| `Popover.CloseIcon`          | Aide de fermeture partagée sous forme d’icône, fondée sur le déclencheur Ark. |
-| `Popover.Header` / `Body`    | Conteneurs de mise en page moduix avec slots stables.                 |
+| `Popover.Positioner`         | Élément flottant qui expose les variables CSS de positionnement Ark. |
+| `Popover.Content`            | Surface interactive de la fenêtre contextuelle.                      |
+| `Popover.Arrow` / `ArrowTip` | Flèche facultative et sa pointe visible.                             |
+| `Popover.Title`              | Titre accessible associé au contenu.                                 |
+| `Popover.Description`        | Description accessible associée au contenu.                          |
+| `Popover.CloseTrigger`       | Déclencheur bas niveau qui ferme la fenêtre.                         |
+| `Popover.CloseIcon`          | Bouton de fermeture partagé avec une icône, basé sur le déclencheur Ark. |
+| `Popover.Header` / `Body`    | Conteneurs de mise en page moduix avec des slots stables.             |
 | `Popover.Footer`             | Conteneur moduix de rangée d’actions avec slot stable.                |
 
 ## Composition
 
-La racine place automatiquement `Positioner` dans un portail. Utilisez `portalled={false}` pour un rendu en ligne
-et `portalRef` pour un conteneur personnalisé ; les parties structurelles restent explicites et personnalisables.
+La racine place automatiquement `Positioner` dans un portail. Utilisez `portalled={false}` pour l’afficher dans le
+conteneur courant, ou `portalRef` pour choisir un conteneur de portail personnalisé. Les parties structurelles restent
+explicites et peuvent être stylées.
 
 ### Composition recommandée
 
-Conservez `Popover.Positioner` et `Popover.Content` explicites. `Popover` équivaut à `Popover.Root`. Configurez
-le placement, la gestion des collisions, les décalages et la largeur identique avec `positioning`.
+Conservez `Popover.Positioner` et `Popover.Content` explicites. `Popover` est un alias de `Popover.Root`. Configurez
+le placement, la gestion des collisions et les décalages via `positioning`. Définissez `positioning.sameWidth` pour
+aligner la largeur de la fenêtre sur celle de l’élément de référence.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `Anchor` lorsque la référence de positionnement diffère du déclencheur. Utilisez `asChild` avec un seul
-enfant sémantique pour personnaliser l’hôte du déclencheur, de l’ancre, du contenu ou du déclencheur de fermeture.
-Définissez `portalled={false}` lorsqu’un Popover à l’intérieur d’une autre superposition doit être affiché en ligne.
-Utilisez `lazyMount` et `unmountOnExit` uniquement lorsque le montage différé et le retrait après l’animation de sortie sont utiles.
+Utilisez `Anchor` lorsque l’élément de référence du positionnement diffère du déclencheur. Utilisez `asChild` avec un
+seul enfant sémantique lorsque vous voulez fournir votre propre élément pour le déclencheur, l’ancre, le contenu ou le
+déclencheur de fermeture. Définissez `portalled={false}` lorsqu’une fenêtre contextuelle dans un autre calque doit
+être rendue dans le conteneur courant. Utilisez `lazyMount` et `unmountOnExit` uniquement si le montage différé et le
+retrait après l’animation de sortie sont nécessaires.
 
 ### Propriétés par défaut
 
-Le contenu de la superposition dans le portail est monté à la demande et retiré après son animation de sortie par défaut.
-Définissez `unmountOnExit={false}` pour le conserver après la première ouverture ; définissez les deux propriétés de
-cycle de vie à `false` uniquement si un rendu initial immédiat est nécessaire.
+Par défaut, le contenu de la superposition placé dans un portail est monté à la première ouverture puis démonté après
+l’animation de sortie. Définissez `unmountOnExit={false}` pour le conserver monté après la première ouverture. Définissez
+ces deux propriétés de cycle de vie à `false` uniquement si le contenu doit être rendu dès le départ.
 
 | Propriété                | Valeur par défaut | Remarques                                                        |
 | ------------------------ | ----------------- | ---------------------------------------------------------------- |
-| `autoFocus`              | `true`            | Place le focus sur le premier élément interactif à l’ouverture.  |
-| `closeOnEscape`          | `true`            | Ferme le Popover avec Échap.                                     |
-| `closeOnInteractOutside` | `true`            | Ferme le Popover lors d’une interaction extérieure.              |
+| `autoFocus`              | `true`            | Place le focus sur le premier élément pouvant le recevoir à l’ouverture. |
+| `closeOnEscape`          | `true`            | Ferme le Popover lorsque l’utilisateur appuie sur Échap.          |
+| `closeOnInteractOutside` | `true`            | Ferme le Popover lors d’une interaction en dehors.               |
 | `lazyMount`              | `true`            | Diffère le montage du contenu jusqu’à la première ouverture.     |
-| `modal`                  | `false`           | Active le piège à focus, le verrouillage du défilement et l’isolation extérieure. |
-| `portalled`              | `true`            | Place le positionneur dans un portail et préserve le comportement de tabulation Ark. |
+| `modal`                  | `false`           | Active le piégeage du focus, le verrouillage du défilement et l’isolation du contenu extérieur. |
+| `portalled`              | `true`            | Place le positionneur dans un portail et conserve le comportement de la touche Tab d’Ark. |
 | `portalRef`              | -                 | Cible un conteneur de portail personnalisé.                      |
-| `skipAnimationOnMount`   | `false`           | Conserve l’animation de présence initiale.                       |
+| `skipAnimationOnMount`   | `false`           | Conserve l’animation d’entrée lors du montage initial.            |
 | `unmountOnExit`          | `true`            | Retire le contenu après l’animation de sortie.                   |
 | `defaultOpen`            | -                 | État d’ouverture initial non contrôlé.                           |
 | `open`                   | -                 | État d’ouverture contrôlé.                                       |
 | `ids`                    | -                 | Identifiants stables du déclencheur, du contenu, du titre, de la description et de l’ancre. |
 | `initialFocusEl`         | -                 | Fonction qui renvoie l’élément à cibler à l’ouverture.           |
 | `positioning`            | -                 | Options de positionnement flottant Ark.                          |
-| `present`                | -                 | Présence contrôlée pour les cycles de vie d’animation JavaScript. |
+| `present`                | -                 | Contrôle la présence pour les animations pilotées par JavaScript. |
 
 ### Comportement
 
-- Les références sont transmises aux parties DOM Ark sous-jacentes : `Trigger` et `CloseTrigger` ciblent des boutons,
+- Les `ref` pointent vers les parties DOM Ark sous-jacentes : `Trigger` et `CloseTrigger` pointent vers des boutons,
   tandis que `Anchor`, `Positioner`, `Content`, `Arrow`, `ArrowTip`, `Title`, `Description`, `Indicator`, `Header`,
-  `Body` et `Footer` ciblent leurs éléments affichés.
-- `onOpenChange` reçoit `{ open }` ; les rappels ne sont pas convertis en valeurs positionnelles.
-- `modal` est un booléen qui active le piège à focus, le verrouillage du défilement, le blocage des interactions extérieures
-  et l’isolation pour les lecteurs d’écran. Les Popover modaux sont toujours rendus dans un portail, même lorsque
-  `portalled={false}` est transmis.
-- `RootProvider` reçoit l’objet renvoyé par `usePopover` ; n’enveloppez pas le même état dans `Root`.
-- `Popover.Context` et `usePopoverContext` exposent l’état Ark actuel aux descendants. Le hook est exporté depuis
-  `@moduix/react` ; utilisez `Context` lorsqu’une propriété de rendu est plus lisible.
-- `usePopover` est exporté pour posséder l’état Ark avec `RootProvider`.
-- `Popover.Arrow` affiche l’élément `ArrowTip` par défaut ; affichez `ArrowTip` explicitement uniquement pour le personnaliser.
-- Ark ferme le Popover avec Échap et lors d’une interaction extérieure par défaut. Ces comportements peuvent être désactivés séparément.
+  `Body` et `Footer` pointent vers leurs éléments rendus.
+- `onOpenChange` reçoit `{ open }` ; la fonction de rappel reçoit un objet et non un argument positionnel.
+- La propriété `modal` est booléenne. Lorsqu’elle vaut `true`, elle piège le focus, verrouille le défilement, bloque les
+  interactions extérieures et isole le contenu vis-à-vis des lecteurs d’écran. Un Popover modal est toujours rendu dans
+  un portail, même lorsque `portalled={false}` est transmis.
+- Passez l’objet renvoyé par `usePopover` à `RootProvider`. N’enveloppez pas le même état dans `Root`.
+- `Popover.Context` et `usePopoverContext` donnent aux descendants accès à l’état Ark actuel. Le hook est exporté depuis
+  `@moduix/react` ; utilisez `Context` lorsqu’un `render prop` est plus lisible.
+- Utilisez `usePopover` pour gérer l’état en dehors de l’arbre rendu, puis passez-le à `RootProvider`.
+- `Popover.Arrow` rend `ArrowTip` par défaut ; rendez `ArrowTip` explicitement uniquement pour le personnaliser.
+- Par défaut, Ark ferme le Popover avec Échap et lors d’une interaction extérieure. Ces comportements peuvent être désactivés séparément.
 - Utilisez `ids` lorsque des identifiants stables sont nécessaires pour le déclencheur, le contenu, le titre, la description, l’ancre ou le déclencheur de fermeture.
-- Les animations CSS de sortie utilisent l’état de présence fermé d’Ark. Utilisez `present` pour les cycles de vie pilotés par JavaScript.
+- Les animations CSS de sortie utilisent l’état fermé de la présence Ark. Utilisez `present` pour les cycles de vie pilotés par JavaScript.
 - Pour un contenu qui peut dépasser la hauteur disponible, placez la zone défilable dans `Popover.Body`.
 
 ## Exemples
@@ -142,7 +145,7 @@ Utilisez `Anchor` lorsqu’un autre élément doit servir de référence de posi
 
 ### Comportement de fermeture
 
-Désactivez la fermeture extérieure ou avec Échap uniquement lorsque le flux fournit une action de fermeture explicite.
+Désactivez la fermeture lors d’une interaction extérieure ou avec Échap uniquement lorsque le flux fournit une action de fermeture explicite.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/close-behavior.tsx"
@@ -152,7 +155,7 @@ Désactivez la fermeture extérieure ou avec Échap uniquement lorsque le flux f
 
 ### Contexte
 
-Lisez l’état actuel depuis un descendant avec `usePopoverContext`. `Popover.Context` fournit le même état via une propriété de rendu.
+Dans un descendant, lisez l’état actuel avec `usePopoverContext`. `Popover.Context` fournit le même état via un `render prop`.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/context.tsx"
@@ -162,7 +165,7 @@ Lisez l’état actuel depuis un descendant avec `usePopoverContext`. `Popover.C
 
 ### État contrôlé
 
-Utilisez l’objet de détail Ark pour synchroniser l’état d’ouverture avec l’interface environnante.
+`onOpenChange` reçoit un objet de détails ; utilisez sa propriété `open` pour synchroniser l’état d’ouverture avec l’interface environnante.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/controlled.tsx"
@@ -172,7 +175,7 @@ Utilisez l’objet de détail Ark pour synchroniser l’état d’ouverture avec
 
 ### Montage différé
 
-Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit exister que pendant l’utilisation du Popover.
+Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit exister que pendant l’utilisation de la fenêtre contextuelle.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/lazy-mount.tsx"
@@ -182,8 +185,8 @@ Utilisez `lazyMount` et `unmountOnExit` lorsque le contenu ne doit exister que p
 
 ### Modal
 
-Les Popover modaux piègent le focus et isolent le contenu extérieur. Utilisez `initialFocusEl` pour choisir précisément
-la cible initiale du focus.
+Un Popover modal piège le focus et isole le contenu extérieur. Utilisez `initialFocusEl` pour choisir précisément la
+cible initiale du focus.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/modal.tsx"
@@ -193,7 +196,7 @@ la cible initiale du focus.
 
 ### Plusieurs déclencheurs
 
-Attribuez une `value` à chaque déclencheur lorsqu’une seule surface Popover doit réagir au déclencheur qui l’a ouverte.
+Lorsqu’une même fenêtre doit réagir au déclencheur qui l’a ouverte, attribuez une `value` à chaque déclencheur.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/multiple-triggers.tsx"
@@ -203,8 +206,8 @@ Attribuez une `value` à chaque déclencheur lorsqu’une seule surface Popover 
 
 ### Imbriqué
 
-Les Popover imbriqués conservent des états indépendants et exposent les attributs de données Ark des calques imbriqués.
-Affichez le Popover imbriqué en ligne afin qu’il reste dans la superposition parente.
+Les Popover imbriqués conservent chacun leur état et exposent les attributs de données Ark des calques imbriqués. Affichez
+le Popover imbriqué dans le conteneur courant afin qu’il reste dans la superposition parente.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/nested.tsx"
@@ -224,7 +227,7 @@ Définissez le placement et les décalages avec l’objet `positioning` d’Ark.
 
 ### Root Provider
 
-Utilisez `usePopover` avec `RootProvider` lorsque des contrôles en dehors de l’arbre Popover affiché ont besoin de son état ou de ses méthodes.
+Utilisez `usePopover` avec `RootProvider` lorsque des contrôles placés en dehors de l’arbre affiché doivent accéder à son état ou à ses méthodes.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/root-provider.tsx"
@@ -244,7 +247,7 @@ Activez `positioning.sameWidth` et utilisez la variable Ark `--reference-width` 
 
 ### Avec flèche
 
-Affichez `Arrow` pour obtenir l’élément `ArrowTip` stylisé par moduix par défaut.
+Ajoutez `Arrow` pour utiliser l’élément `ArrowTip` stylisé par moduix par défaut.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/with-arrow.tsx"
@@ -254,9 +257,9 @@ Affichez `Arrow` pour obtenir l’élément `ArrowTip` stylisé par moduix par d
 
 ### Personnalisation avancée
 
-Contournez les aides de mise en page lorsque la fenêtre contextuelle nécessite son propre en-tête compact ; les
-parties Ark restent explicites et personnalisables indépendamment. La flèche est facultative et peut être omise pour
-obtenir un panneau ancré plus épuré.
+Remplacez les aides de mise en page lorsque la fenêtre nécessite son propre en-tête compact. Les parties Ark restent
+explicites et peuvent être stylées séparément. La flèche est facultative ; omettez-la pour obtenir un panneau ancré plus
+épuré.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/popover/advanced-customization.tsx"
@@ -267,6 +270,8 @@ obtenir un panneau ancré plus épuré.
 ## Styles
 
 ### Propriétés CSS
+
+Utilisez ces variables pour personnaliser la fenêtre contextuelle sans remplacer sa structure.
 
 <div className="docs-reference">
   <Tabs
@@ -284,13 +289,13 @@ obtenir un panneau ancré plus épuré.
 
 ### Points d’accroche CSS
 
-Les parties Ark conservent `data-scope="popover"` et leurs valeurs de `data-part`. Chaque partie affichée exportée
-accepte `className` ; moduix ajoute `data-slot="popover-*"` aux conteneurs affichés. Ciblez
+Les parties Ark conservent `data-scope="popover"` et leurs valeurs de `data-part`. Chaque partie exportée et rendue
+accepte `className`, et moduix ajoute `data-slot="popover-*"` aux conteneurs rendus. Ciblez
 `data-state="open|closed"`, `data-placement`, `data-side`, `data-nested`, `data-has-nested` et `data-expanded` pour adapter les styles
-à l’état. Lorsque plusieurs déclencheurs possèdent une `value`, utilisez `data-current` pour ne styliser que celui qui
-a ouvert le Popover.
+à l’état. Lorsque plusieurs déclencheurs possèdent une `value`, utilisez `data-current` pour ne styliser que celui qui a
+ouvert le Popover.
 
 `Positioner` expose `--reference-width`, `--reference-height`, `--available-width`, `--available-height`, `--x`, `--y`,
 `--z-index` et `--transform-origin`. `Content` expose `--layer-index` et `--nested-layer-count` ; `Arrow` expose les
-variables de mesure de la flèche Ark. Le contenu coupe les longues chaînes sans séparateur et désactive ses animations
-lorsque l’utilisateur préfère réduire les animations.
+variables de mesure de la flèche Ark. Le contenu force le retour à la ligne des longues chaînes sans séparateur et
+désactive ses animations lorsque l’utilisateur préfère réduire les animations.

@@ -1,7 +1,7 @@
 ---
 title: Progress Linear
 component: progress-linear
-description: A linear progress indicator for determinate or indeterminate progress.
+description: A linear progress indicator for determinate or indeterminate tasks.
 ---
 
 import * as ProgressLinearDocs from '@/components/examples/progress-linear';
@@ -12,8 +12,8 @@ import * as ProgressLinearDocs from '@/components/examples/progress-linear';
 
 ## Choosing the right component
 
-Choose `ProgressLinear` when the user should compare progress against a clear bar track. Choose
-`ProgressCircular` for compact inline status surfaces.
+Choose `ProgressLinear` when users need to see progress along a linear bar. Choose
+`ProgressCircular` for a compact inline status indicator.
 
 ## Basic
 
@@ -57,27 +57,29 @@ ProgressLinear.RootProvider
 
 ### Recommended composition
 
-`ProgressLinear` is the short root form. It is equivalent to `ProgressLinear.Root`, and the child
-parts stay explicit so the rendered anatomy matches Ark UI.
+`ProgressLinear` is the shorthand root component. It is equivalent to `ProgressLinear.Root`, and
+the child parts stay explicit so the rendered anatomy matches Ark UI.
 
-Use `defaultValue` for uncontrolled progress, `value` with `onValueChange(details)` for controlled
-progress, and `defaultValue={null}` or `value={null}` for indeterminate progress.
+Use `defaultValue` for uncontrolled progress. For controlled progress, use `value` with
+`onValueChange(details)`. For indeterminate progress, set `defaultValue={null}` or `value={null}`.
 
 ### When to go custom
 
-Use `ProgressLinear.RootProvider` with `ProgressLinear.useProgress()` when progress state must be
-created outside the rendered subtree.
+Use `ProgressLinear.RootProvider` with `ProgressLinear.useProgress()` when progress state needs to
+be created outside the component tree that renders it.
 
-Use `translations.value(details)` to create a custom Ark value string. Render `state.valueAsString`
-through `ProgressLinear.Context` inside `ValueText` when that string must be visible; keep an
-`aria-label` or `aria-labelledby` on `Track` to name the task. This replaces the old legacy
-`getAriaValueText` and child render function pattern.
+Use `translations.value(details)` to create a custom value string from the Ark state. To show that
+string, render `state.valueAsString` inside `ValueText` through `ProgressLinear.Context`.
+`translations.value(details)` changes the string available in state, but does not replace the text
+rendered by a default `ValueText` on its own. Add an `aria-label` or `aria-labelledby` to `Track` to
+give the progressbar a task-specific accessible name. This replaces the legacy `getAriaValueText`
+and child render function pattern.
 
-Use `ids` when the label, track, or surrounding layout need stable explicit IDs across a more
-custom tree. Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state
-instead of duplicating state checks outside the component. Use `ProgressLinear.Context` or
-`ProgressLinear.useProgressContext()` for state access below a root/provider. Direct Ark imports
-remain an escape hatch for surfaces intentionally outside the moduix API.
+Use `ids` when a custom tree needs stable, explicit IDs for the label, track, or surrounding layout.
+Use `ProgressLinear.View` when supporting UI should switch with the Ark progress state instead of
+duplicating state checks outside the component. Use `ProgressLinear.Context` or
+`ProgressLinear.useProgressContext()` to access state below a root or provider. Use direct Ark imports
+only for integrations that intentionally sit outside the moduix API.
 
 ### Default props
 
@@ -97,8 +99,8 @@ stores progress state and exposes `data-state="indeterminate|loading|complete"`.
 `data-orientation` on the root, label, track, and range so horizontal and vertical styles can share
 the same part tree.
 
-All exported parts support `asChild` through Ark polymorphic composition. Keep replacement children
-semantic and preserve the progressbar semantics on the track.
+All exported parts support `asChild` through Ark's polymorphic composition. When you replace a
+rendered element, keep it semantic and preserve the progressbar semantics on the track.
 
 `ProgressLinear.ValueText` announces changes with `aria-live="polite"`. `ProgressLinear.Label`
 provides visible text, while `ProgressLinear.Track` needs its own `aria-label` or `aria-labelledby`
@@ -127,7 +129,7 @@ Pass `defaultValue={null}` or `value={null}` when progress is running but comple
   ```
 </PreviewFrame>
 
-### Initial Value
+### Initial value
 
 Use `defaultValue` to set the initial uncontrolled progress value.
 
@@ -137,7 +139,7 @@ Use `defaultValue` to set the initial uncontrolled progress value.
   ```
 </PreviewFrame>
 
-### Min Max
+### Min and max
 
 Use `min` and `max` when the value does not use the default `0` to `100` range.
 
@@ -147,7 +149,7 @@ Use `min` and `max` when the value does not use the default `0` to `100` range.
   ```
 </PreviewFrame>
 
-### State Views
+### State views
 
 Use `ProgressLinear.View` when supporting text or UI should switch with the Ark progress state
 instead of duplicating state checks outside the component.
@@ -158,7 +160,7 @@ instead of duplicating state checks outside the component.
   ```
 </PreviewFrame>
 
-### Value Text
+### Value text
 
 Use `Context` with `translations.value(details)` when visible value text needs task-specific wording.
 
@@ -178,11 +180,11 @@ Set `orientation="vertical"` when the track should fill upward instead of from l
   ```
 </PreviewFrame>
 
-### Advanced Customization
+### Advanced customization
 
-Create the progress store with `ProgressLinear.useProgress()` outside the rendered tree when
-another component needs to own state.
-This bypasses the regular root state setup while preserving the same moduix part tree.
+Create the progress store with `ProgressLinear.useProgress()` outside the component tree when
+another component needs to own the state. This keeps the same moduix part tree while using
+`RootProvider` to connect it to the rendered UI.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/progress-linear/root-provider.tsx"
@@ -195,7 +197,7 @@ This bypasses the regular root state setup while preserving the same moduix part
 Use `className` on exported parts for structural styling changes. For state styling, prefer Ark
 data attributes and moduix `data-slot` hooks.
 
-### CSS Properties
+### CSS properties
 
 <div className="docs-reference">
   <Tabs

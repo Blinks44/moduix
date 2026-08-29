@@ -1,7 +1,7 @@
 ---
 title: Progress Circular
 component: progress-circular
-description: Indicateur de progression circulaire avec une valeur déterminée ou indéterminée.
+description: Indicateur de progression circulaire pour les tâches dont l’avancement est connu ou inconnu.
 ---
 
 import * as ProgressCircularDocs from '@/components/examples/progress-circular';
@@ -12,11 +12,11 @@ import * as ProgressCircularDocs from '@/components/examples/progress-circular';
 
 ## Choisir le bon composant
 
-Choisissez `ProgressCircular` pour les états compacts en ligne, les cartes, les indicateurs de barre d’outils et les petits tableaux de bord. Choisissez `ProgressLinear` lorsqu’une comparaison horizontale avec une piste complète est importante.
+Utilisez `ProgressCircular` pour afficher un état compact dans du contenu en ligne, des cartes, des badges de barre d’outils ou de petits tableaux de bord. Préférez `ProgressLinear` lorsque l’utilisateur doit comparer la progression à une piste horizontale.
 
 ## Exemple de base
 
-Utilisez `ProgressCircular.Ring` pour le sous-arbre SVG circulaire standard et `ProgressCircular.ValueText` pour la valeur de progression visible. Attribuez à l’anneau un `aria-label` correspondant au libellé visible.
+Utilisez `ProgressCircular.Ring` pour le cercle SVG standard, sa piste et son arc de progression. Ajoutez `ProgressCircular.ValueText` si la valeur actuelle doit être visible. Dans cet exemple, l’élément conteneur place la valeur au centre du cercle. Donnez à `Ring` un `aria-label` qui décrit la tâche et correspond au libellé visible.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -35,12 +35,13 @@ Utilisez `ProgressCircular.Ring` pour le sous-arbre SVG circulaire standard et `
 ```text
 ProgressCircular / ProgressCircular.Root
 ├─ ProgressCircular.Label
-├─ ProgressCircular.Ring
-│  └─ fixed Circle, CircleTrack, and CircleRange subtree
 ├─ ProgressCircular.Circle
 │  ├─ ProgressCircular.CircleTrack
 │  └─ ProgressCircular.CircleRange
-└─ ProgressCircular.ValueText
+├─ ProgressCircular.Ring
+│  └─ fixed Circle, CircleTrack, and CircleRange subtree
+├─ ProgressCircular.ValueText
+└─ ProgressCircular.View
 
 ProgressCircular.RootProvider
 └─ same part tree connected to ProgressCircular.useProgress()
@@ -48,46 +49,46 @@ ProgressCircular.RootProvider
 
 | Partie                                        | Rôle                                                                       |
 | --------------------------------------------- | -------------------------------------------------------------------------- |
-| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants.              |
-| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.      |
-| `ProgressCircular.Context`                    | Donne accès à l’état de progression actuel via une render prop.            |
-| `ProgressCircular.Label`                      | Fournit un contexte visible à l’indicateur de progression.                 |
-| `ProgressCircular.Ring`                       | Sous-arbre pratique par défaut comprenant le cercle, la piste et la plage. |
-| `ProgressCircular.Circle`                     | Surface SVG de l’indicateur portant la valeur ARIA.                         |
-| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                      |
-| `ProgressCircular.CircleRange`                | Cercle de premier plan reflétant le pourcentage ou l’état actuel.           |
-| `ProgressCircular.ValueText`                  | Texte visible de la valeur, produit à partir des traductions Ark.           |
-| `ProgressCircular.View`                       | Vue conditionnelle pour `indeterminate`, `loading` ou `complete`.           |
+| `ProgressCircular` / `ProgressCircular.Root`  | Gère l’état de progression, le formatage et les identifiants.                 |
+| `ProgressCircular.RootProvider`               | Relie les parties à l’état créé par `ProgressCircular.useProgress()`.         |
+| `ProgressCircular.Context`                    | Transmet l’état de progression courant à une fonction de rendu.               |
+| `ProgressCircular.Label`                      | Ajoute un contexte visible à l’indicateur de progression.                     |
+| `ProgressCircular.Ring`                       | Raccourci pratique pour le cercle, la piste et l’arc de progression par défaut. |
+| `ProgressCircular.Circle`                     | Surface SVG de l’indicateur avec son rôle et ses attributs de valeur ARIA.    |
+| `ProgressCircular.CircleTrack`                | Cercle d’arrière-plan.                                                        |
+| `ProgressCircular.CircleRange`                | Cercle au premier plan représentant le pourcentage ou l’état courant.         |
+| `ProgressCircular.ValueText`                  | Affiche la valeur formatée et annonce ses changements.                       |
+| `ProgressCircular.View`                       | Affiche du contenu pour `indeterminate`, `loading` ou `complete`.             |
 
 ## Composition
 
 ### Composition recommandée
 
-`ProgressCircular` est la forme racine concise. Elle équivaut à `ProgressCircular.Root`. `ProgressCircular.Ring` est le sous-arbre fixe recommandé pour le cercle SVG, la piste et la plage ; il accepte `className`, les propriétés ARIA et les mêmes variables CSS que `ProgressCircular.Circle`.
+`ProgressCircular` est le composant racine abrégé, équivalent à `ProgressCircular.Root`. Utilisez `ProgressCircular.Ring` pour le cercle, la piste et l’arc de progression standard. Il accepte `className`, les propriétés ARIA et les mêmes variables CSS que `ProgressCircular.Circle`.
 
-Utilisez `defaultValue` pour une progression non contrôlée, `value` avec `onValueChange(details)` pour une progression contrôlée, et `defaultValue={null}` ou `value={null}` pour une progression indéterminée.
+Utilisez `defaultValue` pour une progression non contrôlée. Utilisez `value` avec `onValueChange(details)` pour la contrôler. Définissez `defaultValue={null}` ou `value={null}` lorsque la fin de la tâche est inconnue.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `translations.value(details)` pour le nom accessible généré par Ark lorsque `Ring` ou `Circle` n’a pas d’`aria-label` explicite. Pour afficher la même formulation, rendez `ValueText` dans `ProgressCircular.Context` avec `progress.valueAsString` comme enfant. Enveloppez ensuite le cercle et le texte de la valeur dans votre propre élément de disposition si le nombre doit être centré.
+Utilisez `translations.value(details)` pour personnaliser le nom accessible généré par Ark lorsque `Ring` ou `Circle` n’a pas d’`aria-label` explicite. Pour afficher le même texte dans l’interface, affichez `ValueText` dans `ProgressCircular.Context` et transmettez `progress.valueAsString` comme enfant. Si la valeur doit apparaître au centre du cercle, enveloppez le cercle et le texte dans l’élément de mise en page de votre choix.
 
-Utilisez `Circle`, `CircleTrack` et `CircleRange` lorsque vous devez personnaliser leur structure ou la composition Ark via `asChild`. Utilisez `ids` lorsque le libellé, le cercle ou la disposition environnante ont besoin d’identifiants explicites et stables dans un arbre personnalisé. Utilisez `ProgressCircular.useProgress()` avec `RootProvider` lorsque l’état doit exister en dehors de l’arbre affiché, et `ProgressCircular.useProgressContext()` sous la racine ou le fournisseur lorsqu’un composant personnalisé a besoin de l’état actuel. Les imports Ark directs restent une solution de repli pour les surfaces volontairement exclues de l’API moduix.
+Utilisez `Circle`, `CircleTrack` et `CircleRange` lorsque vous devez modifier la structure SVG ou utiliser la composition Ark `asChild`. Utilisez `ids` lorsque le libellé, le cercle ou la mise en page environnante ont besoin d’identifiants explicites et stables dans un arbre personnalisé. Utilisez `ProgressCircular.useProgress()` avec `RootProvider` lorsqu’un autre composant doit créer ou contrôler l’état en dehors de l’arbre rendu. Utilisez `ProgressCircular.useProgressContext()` sous une racine ou un fournisseur lorsqu’un composant personnalisé doit accéder à l’état courant. Réservez les imports directs d’Ark aux intégrations qui ne peuvent pas utiliser l’API moduix.
 
 ### Propriétés par défaut
 
 | Propriété       | Par défaut             | Notes                                                        |
 | --------------- | ---------------------- | ------------------------------------------------------------ |
-| `defaultValue`  | `50`                   | Valeur initiale non contrôlée.                               |
-| `min`           | `0`                    | Limite inférieure du pourcentage et de la valeur ARIA.       |
-| `max`           | `100`                  | Limite supérieure du pourcentage et de la valeur ARIA.       |
-| `formatOptions` | `{ style: 'percent' }` | Contrôle le formatage de `ValueText`.                        |
-| `locale`        | `'en-US'`              | Locale utilisée par `Intl.NumberFormat`.                     |
+| `defaultValue`  | `50`                   | Valeur de départ d’une progression non contrôlée.              |
+| `min`           | `0`                    | Minimum utilisé pour le pourcentage et la valeur ARIA.         |
+| `max`           | `100`                  | Maximum utilisé pour le pourcentage et la valeur ARIA.         |
+| `formatOptions` | `{ style: 'percent' }` | Options utilisées pour formater `ValueText`.                   |
+| `locale`        | `'en-US'`              | Locale transmise à `Intl.NumberFormat`.                        |
 
 ### Comportement
 
-`ProgressCircular.Circle` reçoit d’Ark le rôle d’indicateur de progression et les attributs ARIA de valeur. Attribuez à `Ring` ou `Circle` un `aria-label` décrivant la tâche ; `ProgressCircular.Label` fournit un contexte visible, mais ne crée pas automatiquement cette association ARIA. Ark gère également les variables SVG de rayon, de circonférence, de pourcentage et de décalage du trait.
+`ProgressCircular.Circle` reçoit d’Ark le rôle d’indicateur de progression et les attributs ARIA de valeur. Donnez à `Ring` ou `Circle` un `aria-label` qui nomme la tâche. `ProgressCircular.Label` ajoute un contexte visible, mais n’associe pas automatiquement ce texte au cercle. Ark gère également les variables SVG de rayon, de circonférence, de pourcentage et de décalage du trait.
 
-Toutes les parties fondées sur Ark, à l’exception de la structure fixe de `Ring`, prennent en charge `asChild` via la composition polymorphe. Préservez la sémantique des enfants de remplacement ainsi que celle de l’indicateur de progression sur le cercle.
+Toutes les parties fournies par Ark, à l’exception de `Ring`, prennent en charge `asChild` via la composition polymorphe. Les enfants de remplacement doivent rester sémantiques et conserver la sémantique de l’indicateur de progression sur le cercle.
 
 `ProgressCircular.ValueText` annonce les changements avec `aria-live="polite"`. Conservez un libellé visible dans l’arbre ou fournissez `aria-label`/`aria-labelledby` lorsque la composition n’inclut pas `ProgressCircular.Label`.
 
@@ -95,7 +96,7 @@ Toutes les parties fondées sur Ark, à l’exception de la structure fixe de `R
 
 ### État contrôlé
 
-Conservez `value` dans l’état React lorsque la progression circulaire reflète l’état d’un autre contrôle ou d’une tâche externe.
+Conservez `value` dans l’état React lorsque la progression doit rester synchronisée avec un autre contrôle ou une tâche externe.
 
 <style>{ProgressCircularDocs.progressCircularControlledExampleCss}</style>
 
@@ -107,7 +108,7 @@ Conservez `value` dans l’état React lorsque la progression circulaire reflèt
 
 ### Progression indéterminée
 
-Transmettez `defaultValue={null}` ou `value={null}` lorsque la progression est en cours, mais que son achèvement est inconnu.
+Utilisez `defaultValue={null}` ou `value={null}` lorsque la tâche est en cours, mais que sa progression ne peut pas encore être mesurée.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -119,7 +120,7 @@ Transmettez `defaultValue={null}` ou `value={null}` lorsque la progression est e
 
 ### Minimum et maximum
 
-Utilisez `min` et `max` lorsque la valeur ne suit pas la plage par défaut de `0` à `100`.
+Utilisez `min` et `max` pour représenter une valeur dans une plage autre que `0` à `100`.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -131,7 +132,7 @@ Utilisez `min` et `max` lorsque la valeur ne suit pas la plage par défaut de `0
 
 ### Texte de la valeur
 
-`translations.value(details)` modifie le nom accessible généré par Ark, et non le pourcentage formaté par défaut de `ValueText`. Rendez `progress.valueAsString` via `ProgressCircular.Context` pour afficher cette même formulation.
+`translations.value(details)` modifie le nom accessible généré par Ark, mais pas le pourcentage que `ValueText` formate par défaut. Affichez `progress.valueAsString` via `ProgressCircular.Context` si le texte personnalisé doit aussi apparaître dans l’interface.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/progress-circular/value-text.tsx"
@@ -141,11 +142,11 @@ Utilisez `min` et `max` lorsque la valeur ne suit pas la plage par défaut de `0
 
 ### Personnalisation avancée
 
-N’utilisez pas `ProgressCircular.Ring` lorsque vous devez modifier l’arbre de cercles Ark ou créer le store de progression en dehors du sous-arbre affiché.
+Utilisez les parties individuelles du cercle à la place de `ProgressCircular.Ring` lorsque vous devez modifier l’arbre SVG ou créer le store de progression en dehors de l’arbre rendu.
 
-#### Root Provider
+#### RootProvider
 
-Créez un store de progression avec `ProgressCircular.useProgress()` en dehors de l’arbre affiché lorsque l’état doit appartenir à un autre composant.
+Créez le store de progression avec `ProgressCircular.useProgress()` en dehors de l’arbre rendu lorsqu’un autre composant ou une autre partie de l’interface doit contrôler l’état.
 
 <style>{ProgressCircularDocs.progressCircularBasicExampleCss}</style>
 
@@ -157,7 +158,7 @@ Créez un store de progression avec `ProgressCircular.useProgress()` en dehors d
 
 #### Vues d’état
 
-Utilisez `ProgressCircular.View` lorsque le texte d’aide ou l’interface doivent changer avec l’état de progression Ark, au lieu de dupliquer les vérifications d’état en dehors du composant.
+Utilisez `ProgressCircular.View` lorsque du texte ou une interface d’accompagnement doit changer avec l’état de progression Ark. Vous évitez ainsi de dupliquer les conditions d’état dans votre propre composant.
 
 <style>{ProgressCircularDocs.progressCircularStateViewsExampleCss}</style>
 
@@ -169,9 +170,9 @@ Utilisez `ProgressCircular.View` lorsque le texte d’aide ou l’interface doiv
 
 ## Styles
 
-Utilisez `className` sur les parties exportées pour les changements structurels de style. Pour les styles dépendant de l’état, privilégiez les attributs de données Ark, les variables SVG Ark et les hooks `data-slot` de moduix.
+Utilisez `className` sur les parties exportées pour les changements structurels de style. Pour les styles qui dépendent de l’état, préférez les attributs de données Ark, les variables SVG Ark et les hooks `data-slot` de moduix.
 
-`--moduix-progress-circular-range-indeterminate-bg` permet de donner aux tâches de durée inconnue une couleur sémantique différente de celle de la progression déterminée. Lorsque la réduction des mouvements est activée, la plage ne tourne pas et n’utilise pas de transition ; utilisez la variable du motif de tirets pour réduction des mouvements afin d’ajuster son repère statique.
+Utilisez `--moduix-progress-circular-range-indeterminate-bg` pour donner à la progression indéterminée une couleur sémantique différente de celle de la progression déterminée. Lorsque l’utilisateur préfère réduire les animations, l’arc n’effectue ni transition ni rotation. Utilisez la variable du motif de tirets prévue pour ce mode afin de conserver un repère statique visible.
 
 ### Propriétés CSS
 
