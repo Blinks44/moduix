@@ -1,27 +1,31 @@
 ---
 title: Segment Group
 component: segment-group
-description: Композиция Ark UI segment-group для выбора одного значения из компактного видимого набора.
+description: Компактный сегментированный элемент управления на базе Ark UI для выбора одного значения из небольшого набора.
 ---
 
 import * as SegmentGroupDocs from '@/components/examples/segment-group';
+import { CssPropertiesSection } from '@/components/mdx/Components';
 
 ## Справочник API
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/segment-group" />
 
-## Выбор подходящего компонента
+## Как выбрать подходящий компонент
 
-Используйте `SegmentGroup`, когда пользователь выбирает одно значение из небольшого видимого набора.
+Используйте `SegmentGroup`, когда пользователь выбирает одно значение из небольшого набора,
+который целиком виден на экране.
 
-- Выбирайте **`Tabs`**, когда выбор меняет видимую панель содержимого.
-- Выбирайте **`ToggleGroup`**, когда элементы ведут себя как кнопки панели инструментов и могут поддерживать несколько активных значений.
-- Выбирайте **`RadioGroup`**, когда форма контрола должна оставаться визуально похожей на радиокнопки.
-- Выбирайте **`SegmentGroup`**, когда значение всё ещё подобно значению радиокнопки, но визуально нужен компактный сегментированный контрол.
+- Выбирайте **`Tabs`**, когда выбор должен менять видимую панель с содержимым.
+- Выбирайте **`ToggleGroup`**, когда элементы работают как кнопки панели инструментов и одновременно могут быть активны несколько значений.
+- Выбирайте **`RadioGroup`**, когда элемент управления должен выглядеть как обычная группа радиокнопок.
+- Выбирайте **`SegmentGroup`**, когда по поведению компонент похож на радиогруппу, но интерфейсу нужен компактный сегментированный вид.
 
 ## Базовый пример
 
-Используйте `SegmentGroup.Items` для компактного списка стандартных текстовых сегментов. Он отрисовывает части Ark item, text, control и скрытое поле ввода для каждой записи.
+Используйте `SegmentGroup.Items`, если каждому сегменту нужна только текстовая подпись. Для каждого
+элемента списка он создаёт части Ark `item`, `text` и `control`, а также одно синхронизированное
+нативное поле формы.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -39,68 +43,92 @@ import * as SegmentGroupDocs from '@/components/examples/segment-group';
 
 ```text
 SegmentGroup / SegmentGroup.Root
-├─ SegmentGroup.Label (optional)
+├─ SegmentGroup.Label (необязательно)
 ├─ SegmentGroup.Indicator
 └─ SegmentGroup.Item[value]
    ├─ SegmentGroup.ItemText
    ├─ SegmentGroup.ItemControl
-   └─ the native form input
+   └─ нативное поле формы
 
 SegmentGroup.RootProvider
-└─ same item tree connected to a moduix useSegmentGroup() store
+└─ то же дерево элементов, подключённое к хранилищу moduix useSegmentGroup()
 
 SegmentGroup.Context / SegmentGroup.ItemContext
-└─ advanced render-prop access to Ark state
+└─ расширенный доступ к состоянию Ark через render prop
 ```
 
-| Часть                                 | Назначение                                                            |
-| ------------------------------------ | --------------------------------------------------------------------- |
-| `SegmentGroup` / `SegmentGroup.Root` | Хранит состояние одного значения, клавиатурную навигацию и формы.    |
-| `SegmentGroup.RootProvider`          | Подключает части к состоянию, созданному moduix `useSegmentGroup()`. |
-| `SegmentGroup.Context`               | Расширенный доступ к текущему состоянию корневого элемента через render prop. |
-| `SegmentGroup.ItemContext`           | Расширенный доступ к текущему состоянию элемента через render prop.  |
-| `SegmentGroup.Label`                 | Необязательная доступная подпись для группы.                          |
-| `SegmentGroup.Indicator`             | Выделение активного элемента по измерениям с CSS-переменными Ark.    |
-| `SegmentGroup.Items`                 | Рекомендуемый рендерер для стандартных текстовых сегментов.          |
-| `SegmentGroup.Item`                  | Один выбираемый сегмент; по умолчанию отрисовывает `label`.          |
-| `SegmentGroup.ItemText`              | Видимый текст сегмента.                                               |
-| `SegmentGroup.ItemControl`           | Часть контрола Ark; визуально скрыта стилями moduix по умолчанию.    |
+| Часть                                 | Назначение                                                               |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| `SegmentGroup` / `SegmentGroup.Root` | Управляет выбранным значением, навигацией с клавиатуры и формами.        |
+| `SegmentGroup.RootProvider`          | Подключает части к состоянию, созданному хуком `useSegmentGroup()` из moduix. |
+| `SegmentGroup.Context`               | Даёт расширенный доступ к состоянию корневого элемента через render prop. |
+| `SegmentGroup.ItemContext`           | Даёт расширенный доступ к состоянию текущего элемента через render prop. |
+| `SegmentGroup.Label`                 | Необязательная доступная подпись группы.                                 |
+| `SegmentGroup.Indicator`             | Размещает выделение активного элемента с помощью CSS-переменных Ark.     |
+| `SegmentGroup.Items`                 | Рекомендуемый способ отрисовать стандартные текстовые сегменты.         |
+| `SegmentGroup.Item`                  | Один выбираемый сегмент; по умолчанию создаёт элемент `label`.           |
+| `SegmentGroup.ItemText`              | Видимая подпись сегмента.                                                  |
+| `SegmentGroup.ItemControl`           | Часть Ark для состояния элемента; по умолчанию скрыта стилями moduix.    |
 
 ## Композиция
 
-### Рекомендуемая композиция
+### Рекомендуемый вариант
 
-Для обычного использования применяйте короткую форму корневого элемента `<SegmentGroup>` вместе с `SegmentGroup.Items`. Отрисовывайте `Indicator` перед элементами, чтобы измеряемое выделение находилось за выбранным сегментом. `Items` сохраняет нативное поле ввода формы в каждом сгенерированном элементе для нативных форм и сброса.
+В обычном случае используйте короткую форму `<SegmentGroup>` вместе с `SegmentGroup.Items`.
+Разместите `SegmentGroup.Indicator` перед элементами, чтобы измеренное выделение находилось под
+выбранным сегментом. `Items` сохраняет нативное поле формы в каждом созданном элементе, поэтому
+работают отправка формы и её сброс.
 
 ### Когда нужна собственная композиция
 
-Используйте `SegmentGroup.Item`, когда сегментам нужны пользовательское содержимое, классы для отдельных элементов или `asChild`. Дочерний элемент `asChild` всё равно должен быть единственным семантичным `label`. Используйте `SegmentGroup.RootProvider` с `useSegmentGroup()` из `@moduix/react`, когда окружающие контролы должны вызывать методы, такие как `setValue`, `clearValue` или `focus`. Для пользовательской визуализации на основе состояния импортируйте `SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` или `useSegmentGroupItemContext` из `@moduix/react`.
+Используйте `SegmentGroup.Item`, если сегменту нужны произвольное содержимое, отдельный класс или
+`asChild`. Прямой дочерний элемент `asChild` всё равно должен быть одним семантическим `label`.
+Используйте `SegmentGroup.RootProvider` вместе с `useSegmentGroup()` из `@moduix/react`, если
+элементам управления за пределами дерева сегментов нужен доступ к методам `setValue`, `clearValue`
+или `focus`. Для собственной разметки, зависящей от состояния, используйте
+`SegmentGroup.Context`, `SegmentGroup.ItemContext`, `useSegmentGroupContext` или
+`useSegmentGroupItemContext` из `@moduix/react`.
 
-`ItemHiddenInput` намеренно является внутренним элементом moduix. `SegmentGroup.Item` всегда отрисовывает ровно одно синхронизированное нативное поле ввода радиокнопки, в том числе с `asChild`; не компонуйте `ItemHiddenInput` Ark второй раз.
+`ItemHiddenInput` является внутренней частью moduix. Каждый `SegmentGroup.Item` уже создаёт ровно
+одно синхронизированное нативное поле радиокнопки, в том числе при использовании `asChild`. Не добавляйте
+`ItemHiddenInput` Ark повторно.
 
 ### Свойства по умолчанию
 
-| Свойство       | По умолчанию | Примечания                                                   |
-| -------------- | ------------ | ------------------------------------------------------------ |
-| `defaultValue` | -            | Начальное неконтролируемое значение.                         |
-| `value`        | -            | Контролируемое выбранное значение.                           |
-| `orientation`  | `horizontal` | moduix использует горизонтальную ориентацию по умолчанию; явно задайте `vertical`. |
-| `disabled`     | `false`      | Отключает всю группу при задании на корневом элементе.       |
-| `readOnly`     | `false`      | Предотвращает изменения, сохраняя значение доступным для чтения. |
-| `required`     | `false`      | Помечает скрытые поля ввода обязательными для нативных форм. |
-| `invalid`      | `false`      | Добавляет атрибуты недопустимого состояния Ark для стилизации/ARIA. |
+| Свойство       | По умолчанию | Примечания                                                          |
+| -------------- | ------------ | ------------------------------------------------------------------- |
+| `defaultValue` | не задано    | Начальное значение неконтролируемой группы.                         |
+| `value`        | не задано    | Выбранное значение управляемой группы.                              |
+| `orientation`  | `horizontal` | Значение moduix по умолчанию; для вертикальной группы укажите `vertical`. |
+| `disabled`     | `false`      | Отключает всю группу, если задано на корневом элементе.             |
+| `readOnly`     | `false`      | Запрещает изменения, но оставляет текущее значение видимым.         |
+| `required`     | `false`      | Делает нативные поля обязательными при проверке формы.              |
+| `invalid`      | `false`      | Добавляет атрибуты недопустимого состояния Ark для стилей и ARIA.   |
 
-### Особенности поведения
+### Поведение
 
-`onValueChange(details)` сохраняет форму обратного вызова Ark. Читайте `details.value`, чтобы получить выбранное значение. Ark управляет roving focus, навигацией стрелками, фокусом, состояниями disabled/read-only/invalid/required, идентификаторами, отправкой формы и синхронизацией её сброса.
+`onValueChange(details)` сохраняет формат обратного вызова Ark. Выбранное значение находится в
+`details.value`. Ark управляет выбранным значением, перемещением фокуса, навигацией стрелками,
+состояниями `disabled`, `readOnly`, `invalid` и `required`, а также отправкой формы и синхронизацией
+при её сбросе.
 
-`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` и `Indicator` перенаправляют ref на соответствующие DOM-части Ark. Оберните группу в `Field` или `Fieldset`, когда должно применяться их общее состояние: `Field` предоставляет состояния disabled, invalid, required и read-only, а `Fieldset` - disabled и invalid. Используйте `ids`, когда составным подписям или контролам нужны детерминированные идентификаторы доступности.
+Клавиша <kbd>Tab</kbd> переводит фокус на выбранный элемент, а если выбор ещё не сделан, на
+первый элемент. Стрелки перемещают фокус и выбирают следующий или предыдущий элемент, а
+<kbd>Space</kbd> выбирает элемент в фокусе. Укажите `name` на корневом элементе, чтобы выбранное
+значение попало в нативный `FormData`.
+
+`Root`, `RootProvider`, `Label`, `Item`, `ItemControl`, `ItemText` и `Indicator` передают ref на
+соответствующие DOM-части Ark. Используйте `Field` или `Fieldset`, если их общее состояние должно
+распространяться на группу: `Field` передаёт состояния `disabled`, `invalid`, `required` и
+`readOnly`, а `Fieldset` передаёт `disabled` и `invalid`. Используйте `ids`, если составным
+подписям или элементам управления нужны предсказуемые идентификаторы доступности.
 
 ## Примеры
 
 ### Условное монтирование
 
-Группы сегментов могут монтироваться условно; Ark пересчитывает геометрию элементов для индикатора после появления группы.
+Группу сегментов можно монтировать условно. Когда она появляется, Ark заново рассчитывает
+геометрию элементов, необходимую индикатору.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -112,7 +140,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Управляемое состояние
 
-Управляйте выбранным значением из состояния React и обновляйте его из `details.value`.
+Храните выбранное значение в состоянии React и обновляйте его из `details.value` в обработчике
+`onValueChange`.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -122,11 +151,11 @@ SegmentGroup.Context / SegmentGroup.ItemContext
   ```
 </PreviewFrame>
 
-### Отключённое состояние
+### Отключённый элемент и группа
 
-Установите `disabled` на элементе, когда недоступен только один сегмент, или на корневом элементе,
-чтобы отключить всю группу. Стили корневого отключённого состояния затемняют группу один раз, не
-перемножая прозрачность элементов.
+Задайте `disabled` на отдельном элементе, если недоступным должен быть только этот сегмент. Чтобы
+отключить всю группу, задайте `disabled` на корневом элементе. Стиль отключённой группы уменьшает
+её непрозрачность один раз, не складывая её с прозрачностью отдельных элементов.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -138,7 +167,9 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Field
 
-Оберните группу в `Field`, когда её автоматическое нативное поле ввода должны сопровождать вспомогательный текст или текст ошибки. Ark наследует состояния поля disabled, invalid, required и read-only.
+Оберните группу в `Field`, если автоматическое нативное поле должно сопровождаться поясняющим
+текстом или сообщением об ошибке. Ark наследует от поля состояния `disabled`, `invalid`, `required`
+и `readOnly`.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -150,7 +181,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Отправка формы
 
-Передайте `name` в корневой элемент, чтобы отправлять выбранное значение с нативными данными формы. `SegmentGroup.Items` добавляет нативное поле ввода формы в каждый сгенерированный элемент.
+Передайте `name` в корневой элемент, чтобы выбранное значение попало в данные нативной формы.
+`SegmentGroup.Items` добавляет нативное поле формы в каждый созданный элемент.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -162,7 +194,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Недопустимое состояние
 
-Установите `invalid` на корневом элементе, когда валидация не пройдена. Сочетайте его с `required` и `name`, когда группа участвует в нативной валидации формы.
+Задайте `invalid` на корневом элементе, если проверка завершилась ошибкой. Сочетайте его с
+`required` и `name`, когда группа участвует в нативной проверке формы.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -174,7 +207,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Root Provider
 
-Используйте `useSegmentGroup()` с `RootProvider`, когда состояние нужно предоставить элементам управления вне дерева сегментов.
+Используйте `useSegmentGroup()` вместе с `RootProvider`, если элементам управления за пределами
+дерева сегментов нужен доступ к тому же состоянию.
 
 <style>{SegmentGroupDocs.segmentGroupExampleCss}</style>
 
@@ -186,7 +220,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Вертикальная ориентация
 
-Установите `orientation="vertical"`, когда поведение клавиш со стрелками и раскладка должны следовать вертикальному списку.
+Укажите `orientation="vertical"`, если группе нужны вертикальная раскладка и навигация стрелками
+вверх и вниз.
 
 <style>{SegmentGroupDocs.segmentGroupVerticalCss}</style>
 
@@ -198,7 +233,8 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ### Расширенная настройка
 
-Не используйте `SegmentGroup.Items` и применяйте `SegmentGroup.Item asChild`, когда пользовательская раскладка подписи должна владеть DOM-узлом элемента.
+Используйте `SegmentGroup.Item asChild` вместо `SegmentGroup.Items`, если собственная разметка
+подписи должна владеть DOM-узлом элемента.
 
 <style>{SegmentGroupDocs.segmentGroupAsChildCss}</style>
 
@@ -210,25 +246,25 @@ SegmentGroup.Context / SegmentGroup.ItemContext
 
 ## Стилизация
 
-Стилизуйте `SegmentGroup` через `className`, стабильные хуки `data-slot="segment-group-*"`, `data-scope`, `data-part`, `data-state` Ark и описанные ниже публичные CSS-переменные `--moduix-segment-group-*`.
+Стилизуйте `SegmentGroup` с помощью `className`, стабильных хуков `data-slot="segment-group-*"`,
+атрибутов Ark `data-scope`, `data-part` и атрибутов состояния, а также публичных CSS-переменных
+`--moduix-segment-group-*`, перечисленных ниже.
 
 ### CSS-свойства
 
-<div className="docs-reference">
-  <Tabs
-    values={[{ label: 'CSS Variables', value: 'CSS Variables' }]}
-    className="docs-reference-tabs"
-    contentItemClassName="docs-reference-panel"
-  >
-    <Tab>
-      <SegmentGroupDocs.SegmentGroupCssPropertiesPanel />
-    </Tab>
-  </Tabs>
-</div>
+<CssPropertiesSection properties={SegmentGroupDocs.segmentGroupOverrideCssProperties} />
 
 ### Хуки стилизации
 
-- Хуки анатомии Ark: `data-scope="segment-group"` и `data-part` на root, label, indicator, item, item text, item control и hidden input.
-- Хуки состояний Ark: `data-state="checked" | "unchecked"`, `data-orientation`, `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` и `data-focus-visible`.
-- Хуки moduix: `data-slot="segment-group-root"`, `segment-group-root-provider`, `segment-group-label`, `segment-group-indicator`, `segment-group-item`, `segment-group-item-text`, `segment-group-item-control` и `segment-group-item-hidden-input`.
-- Размеры индикатора используют переменные времени выполнения Ark `--left`, `--top`, `--width` и `--height`. Движение индикатора использует Ark `--transition-duration` и `--transition-timing-function`, а значения moduix по умолчанию сопоставлены с `--moduix-segment-group-indicator-transition-duration` и `--moduix-segment-group-indicator-transition-timing-function`.
+- Хуки анатомии Ark: `data-scope="segment-group"` и `data-part` на корневом элементе, подписи,
+  индикаторе, элементе, тексте элемента, контроле элемента и скрытом поле ввода.
+- Хуки состояний Ark: `data-state="checked" | "unchecked"`, `data-orientation`,
+  `data-disabled`, `data-readonly`, `data-invalid`, `data-required`, `data-active` и
+  `data-focus-visible`.
+- Хуки moduix: `data-slot="segment-group-root"`, `segment-group-root-provider`,
+  `segment-group-label`, `segment-group-indicator`, `segment-group-item`,
+  `segment-group-item-text`, `segment-group-item-control` и `segment-group-item-hidden-input`.
+- Индикатор использует переменные времени выполнения Ark `--left`, `--top`, `--width` и `--height`
+  для размера. Его анимация использует `--transition-duration` и `--transition-timing-function`,
+  а значения moduix по умолчанию задаются через `--moduix-segment-group-indicator-transition-duration`
+  и `--moduix-segment-group-indicator-transition-timing-function`.

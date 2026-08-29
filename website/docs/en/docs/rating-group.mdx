@@ -14,7 +14,7 @@ Use `RatingGroup` when people need to choose a numeric score from a row of stars
 
 ## Basic
 
-For the common case, use the short root form with `RatingGroup.Label`, `RatingGroup.Control`, and
+For the common case, use the shorthand with `RatingGroup.Label`, `RatingGroup.Control`, and
 `RatingGroup.Items`.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>
@@ -79,7 +79,7 @@ rendered tree.
 
 The Ark DOM parts exposed by the component support `asChild`. Keep the direct child a single semantic
 element that can preserve the part's focus and interaction behavior. `RatingGroup.ItemIndicator` is
-moduix visual sugar and does not replace an Ark DOM part.
+a moduix visual helper and does not replace an Ark DOM part.
 
 ### Default props
 
@@ -201,7 +201,7 @@ Use the moduix `size` prop when the rating needs to keep the same Ark behavior a
 
 ### Advanced Composition
 
-Use `RatingGroup.RootProvider` with `useRatingGroup()` when the store must be created outside the
+Use `RatingGroup.RootProvider` with `useRatingGroup()` when the rating state must be created outside the
 rendered rating tree. Use `RatingGroup.Context` when `RatingGroup.Items` is not enough and you need to
 render each item yourself.
 

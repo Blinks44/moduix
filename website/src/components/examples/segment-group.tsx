@@ -1,5 +1,4 @@
 import type { CssPropertyInput } from '../mdx/reference';
-import { CSSPropertiesReferenceTable } from '../mdx/reference';
 
 export const segmentGroupExampleCss = `
 .segment-stack {
@@ -49,7 +48,7 @@ export const segmentGroupAsChildCss = `
 }
 `;
 
-const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
+export const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
   ['--moduix-segment-group-bg', 'var(--moduix-color-muted)', 'Controls the root background.'],
   [
     '--moduix-segment-group-border-color',
@@ -194,19 +193,3 @@ const segmentGroupOverrideCssProperties: CssPropertyInput[] = [
     'Controls item transitions.',
   ],
 ];
-
-export function SegmentGroupCssPropertiesPanel() {
-  return (
-    <CSSPropertiesReferenceTable
-      properties={segmentGroupOverrideCssProperties.map(normalizeCssProperty)}
-    />
-  );
-}
-
-function normalizeCssProperty(property: CssPropertyInput) {
-  if (!('name' in property)) {
-    return { name: property[0], defaultValue: property[1], description: property[2] };
-  }
-
-  return property;
-}

@@ -81,7 +81,7 @@ doit être créé en dehors de l’arbre rendu.
 
 Les parties DOM Ark exposées par le composant prennent en charge `asChild`. Gardez un seul enfant
 sémantique direct, capable de préserver le focus et les interactions de la partie. `RatingGroup.ItemIndicator`
-est une aide visuelle de moduix et ne remplace pas une partie DOM Ark.
+est un élément visuel fourni par moduix et ne remplace pas une partie DOM Ark.
 
 ### Propriétés par défaut
 
@@ -156,7 +156,7 @@ sans permettre sa modification.
 ### Field
 
 Enveloppez le groupe de notation dans `Field` lorsque le texte d’aide ou de validation doit être associé
-à son champ de formulaire automatique. Ark transmet au groupe les états `disabled`, `readOnly` et
+à son champ de formulaire natif masqué. Ark transmet au groupe les états `disabled`, `readOnly` et
 `required` du champ ; l’état de validation reste géré par `Field` et le code de l’application.
 
 <style>{RatingGroupDocs.ratingGroupExampleCss}</style>

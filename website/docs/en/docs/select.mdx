@@ -51,6 +51,9 @@ Select / Select.Root
 │           ├─ Select.ItemGroupLabel
 │           └─ Select.Item[item]
 │              ├─ Select.ItemText
+│              │  └─ Select.ItemTextContent
+│              │     ├─ Select.ItemTextIcon
+│              │     └─ Select.ItemTextLabel
 │              └─ Select.ItemIndicator
 └─ native form control (automatic)
 ```
@@ -73,6 +76,9 @@ Select / Select.Root
 | `Select.ItemGroupLabel`  | Label for a collection group.                                          |
 | `Select.Item`            | Selectable row. Pass the collection item through `item`.               |
 | `Select.ItemText`        | Text used for display and accessibility.                               |
+| `Select.ItemTextContent` | Layout helper for rich item text.                                     |
+| `Select.ItemTextIcon`    | Icon wrapper for rich item text.                                      |
+| `Select.ItemTextLabel`   | Label wrapper for rich item text.                                    |
 | `Select.ItemIndicator`   | Selected-state indicator with the moduix default check icon.           |
 
 ## Composition
@@ -86,7 +92,7 @@ The root portals `Positioner` automatically. Use `portalled={false}` for inline 
 `clearLabel` to include a labelled clear action, or `indicator={<Icon />}` to replace only the
 chevron. Keep `Positioner`, `Content`, and items visible in the composition.
 
-`Select` is the short root form; `Select.Root` remains its equivalent namespace alias.
+`Select` is the concise root form. `Select.Root` is the equivalent member of the namespace.
 
 ### When to go custom
 
@@ -109,6 +115,7 @@ eager initial rendering is needed.
 | `lazyMount`             | `true`  | Defers popup content mounting until opened.                    |
 | `loopFocus`             | `false` | Keeps arrow navigation from wrapping by default.               |
 | `multiple`              | `false` | Enables multiple values when set.                              |
+| `nativeFormControl`     | `select`| Uses the native `<select>`; use `input` for virtualized lists. |
 | `unmountOnExit`         | `true`  | Removes popup content after its exit animation.                |
 | `ValueText.placeholder` | -       | Text shown when the value array is empty.                      |
 
@@ -146,7 +153,8 @@ Control the selected string array from React state and update it from `details.v
 
 ### Custom Item Layout
 
-Use moduix leaf helpers inside `ItemText` when an item needs a stable icon and ellipsized label.
+Use `Select.ItemTextContent`, `Select.ItemTextIcon`, and `Select.ItemTextLabel` inside `ItemText`
+when an item needs a stable icon and an ellipsized label.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/select/custom-item-layout.tsx"
@@ -230,8 +238,9 @@ collection.
 
 ### Native Form Control
 
-Use `nativeFormControl="input"` with a real virtualized list when rendering a native option for
-every collection item would be too costly. This example focuses on the resulting `FormData`.
+Use `nativeFormControl="input"` for large or virtualized collections when rendering a native
+`option` for every item would be too costly. This example focuses on the submitted `FormData`.
+For a virtualized collection, combine this mode with `Select.List` and your virtualization strategy.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/select/native-form-control.tsx"
@@ -274,8 +283,8 @@ collection in your component rather than extending the Select API.
 
 ### Select All
 
-Keep bulk actions outside the listbox. `Select.useSelect` keeps the action and the Select on the
-same Ark state instance.
+Keep bulk actions outside the listbox. `Select.useSelect` keeps the action and the Select backed by
+the same Ark state instance.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="./_snippets/select/select-all.tsx"
@@ -317,12 +326,13 @@ public `--moduix-select-*` CSS variables.
 
 `Select.Field` renders the existing `select-control`, `select-trigger`, `select-value-text`,
 `select-indicator`, and optional `select-clear-trigger` slots. Its `indicator` prop supplies the
-child of the existing indicator slot.
+child of the existing indicator slot. Rich item text helpers expose `select-item-text-content`,
+`select-item-text-icon`, and `select-item-text-label` slots.
 
 - Roots expose `data-slot="select-root"` and `data-slot="select-root-provider"`.
 - Ark anatomy uses `data-scope="select"` and `data-part`.
 - State styling uses `data-state="open" | "closed"`, `data-focus`, `data-invalid`,
-  `data-disabled`, `data-readonly`, `data-placeholder-shown`, `data-highlighted`, and item
-  `data-state="checked" | "unchecked"`.
+  `data-disabled`, `data-readonly`, `data-required`, `data-placeholder-shown`, `data-highlighted`,
+  and item `data-state="checked" | "unchecked"`.
 - `Select.Positioner` exposes `--reference-width`, `--reference-height`, `--available-width`,
   `--available-height`, `--x`, `--y`, `--z-index`, and `--transform-origin`.
