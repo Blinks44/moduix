@@ -1,7 +1,7 @@
 ---
 title: Toggle
 component: toggle
-description: Un bouton à deux états pour les actions compactes d’activation et de désactivation et les états enregistrés.
+description: Un bouton à deux états pour les actions compactes comme les favoris, la mise en forme et les barres d’outils.
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle';
@@ -12,16 +12,16 @@ import * as ToggleDocs from '@/components/examples/toggle';
 
 ## Choisir le bon composant
 
-Utilisez `Toggle` lorsque le contrôle reste un bouton qui indique un état activé.
+Utilisez `Toggle` lorsque le contrôle doit se comporter comme un bouton et indiquer s’il est activé.
 
-- Choisissez **`Toggle`** pour les favoris, les états enregistrés, les actions de mise en forme et les actions compactes d’une barre d’outils.
-- Choisissez **`Switch`** pour les réglages activés ou désactivés présentés comme une ligne de préférence.
-- Choisissez **`Checkbox`** pour une sélection envoyée dans une liste ou un formulaire.
-- Choisissez **`ToggleGroup`** lorsque plusieurs toggles doivent partager un même modèle de sélection.
+- Choisissez **`Toggle`** pour les favoris, l’enregistrement d’éléments, la mise en forme et les actions compactes d’une barre d’outils.
+- Choisissez **`Switch`** pour les réglages qui s’activent ou se désactivent, présentés comme des préférences.
+- Choisissez **`Checkbox`** pour les sélections envoyées avec une liste ou un formulaire.
+- Choisissez **`ToggleGroup`** lorsque plusieurs boutons `Toggle` doivent partager un même modèle de sélection.
 
 ## Exemple de base
 
-Commencez par un `Toggle` autonome. Il s’agit de la forme abrégée de `Toggle.Root`, qui conserve le comportement d’état activé d’Ark.
+Commencez par un `Toggle` autonome. C’est la forme abrégée de `Toggle.Root` et Ark continue de gérer le comportement lié à l’état activé.
 
 <style>{ToggleDocs.toggleBasicCss}</style>
 
@@ -38,56 +38,61 @@ Commencez par un `Toggle` autonome. Il s’agit de la forme abrégée de `Toggle
 ```text
 Toggle / Toggle.Root
 └─ Toggle.Indicator (facultatif)
+
+Toggle.Context (lecteur d’état, pas une partie du DOM)
 ```
 
 | Partie                    | Rôle                                                                                              |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| `Toggle` / `Toggle.Root`  | Bouton racine à deux états qui gère l’activation, le focus, la désactivation et `asChild`.        |
-| `Toggle.Indicator`        | Affiche le contenu de l’état activé et un `fallback` facultatif lorsque le toggle est désactivé.  |
+| `Toggle` / `Toggle.Root`  | Bouton racine à deux états. Il gère l’état activé, le focus, la désactivation et la composition `asChild`. |
+| `Toggle.Indicator`        | Affiche le contenu de l’état activé et, si besoin, le contenu `fallback` lorsque le bouton n’est pas activé.   |
+| `Toggle.Context`          | Lit l’état du toggle le plus proche pour les descendants personnalisés. Il ne rend pas de partie dans le DOM. |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez `Toggle` comme composant racine standard. Il transmet la ref à la partie bouton d’Ark et prend en charge
-`pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild` et les attributs de bouton habituels.
+Utilisez `Toggle` comme composant racine par défaut. La ref transmise pointe vers le bouton rendu par Ark.
+Le composant prend en charge `pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild`
+et les attributs de bouton habituels.
 
-`Toggle.Indicator` est facultatif. Utilisez-le lorsque l’icône ou le libellé visible doit changer selon l’état activé
-du toggle.
+`Toggle.Indicator` est facultatif. Utilisez-le lorsque le contenu visible du bouton doit changer selon son état activé.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` lorsqu’un autre bouton sémantique doit posséder l’élément rendu. Conservez un seul élément enfant
-assimilable à un bouton afin qu’Ark puisse lui associer les props et le comportement requis.
+Utilisez `asChild` lorsque vous devez appliquer le comportement du toggle à un autre bouton. Passez un seul enfant
+qui se comporte comme un bouton afin qu’Ark puisse lui transmettre les propriétés et le comportement nécessaires.
 
-Pour un descendant personnalisé qui lit l’état, utilisez `Toggle.Context` ou `useToggleContext()` depuis
-`@moduix/react/toggle`. Tous deux récupèrent l’état du toggle le plus proche sans importer Ark directement.
+Pour qu’un descendant personnalisé puisse lire l’état, utilisez `Toggle.Context` ou `useToggleContext()` depuis
+`@moduix/react/toggle`. Tous deux lisent l’état du toggle le plus proche sans importer Ark directement.
 
-Au lieu de coordonner manuellement plusieurs toggles autonomes, utilisez `ToggleGroup` lorsque plusieurs boutons
+Plutôt que de coordonner vous-même plusieurs toggles autonomes, utilisez `ToggleGroup` lorsque plusieurs boutons
 activés appartiennent au même ensemble de sélection.
 
 ### Propriétés par défaut
 
 | Prop      | Valeur par défaut | Remarques                                                                                 |
 | --------- | ----------------- | ----------------------------------------------------------------------------------------- |
-| `variant` | `default`         | Variante visuelle moduix : `default` secondaire, `outline` avec contour ou `ghost` transparent. |
-| `size`    | `md`              | Espacement moduix ou géométrie réservée à une icône.                                      |
+| `variant` | `default`         | Style visuel moduix : `default` avec fond secondaire, `outline` avec bordure ou `ghost` transparent. |
+| `size`    | `md`              | Espacement des toggles avec texte ou géométrie carrée pour les toggles avec icône seule.             |
 
 ### Comportement
 
-- Les toggles qui n’affichent qu’une icône ont besoin d’un nom accessible, par exemple `aria-label="Favorite"`.
+- Les toggles qui n’affichent qu’une icône doivent avoir un nom accessible, par exemple `aria-label="Favorite"`.
 - `disabled` conserve l’état visuel actuel, mais empêche toute interaction.
-- Ark expose `data-state="on" | "off"`, `data-pressed` et `data-disabled` pour la mise en forme.
+- Ark expose `data-state="on" | "off"`, `data-pressed` et `data-disabled` pour le style.
 - Ark Toggle ne fournit ni `RootProvider` ni champ de formulaire masqué.
 - `Toggle.Context` et `useToggleContext()` sont disponibles depuis `@moduix/react/toggle`.
-- Les anciennes props `render` et `nativeButton` ne font pas partie de l’API fondée sur Ark ; utilisez `asChild`.
+- Les anciennes propriétés `render` et `nativeButton` ne font pas partie de l’API basée sur Ark ; utilisez `asChild`.
+- Les refs passées à `Toggle` et `Toggle.Root` ciblent le bouton rendu. La ref passée à `Toggle.Indicator`
+  cible l’élément indicateur rendu.
 
 ## Exemples
 
 ### asChild
 
-Utilisez `asChild` lorsqu’un bouton sémantique doit posséder l’élément rendu. L’enfant reste l’unique bouton et peut
-donc recevoir les props d’état activé et de clavier d’Ark sans styles de composant concurrents.
+Utilisez `asChild` lorsque vous devez appliquer le comportement du toggle à un autre bouton. L’enfant reste
+le seul bouton. Ark peut donc lui ajouter le comportement lié à l’état et au clavier sans conflit de styles.
 
 ```tsx preview file="../../en/docs/_snippets/toggle/aschild.tsx"
 
@@ -95,7 +100,7 @@ donc recevoir les props d’état activé et de clavier d’Ark sans styles de c
 
 ### État contrôlé
 
-Contrôlez `pressed` depuis l’état React lorsque le toggle participe à l’état de l’application ou aux analyses.
+Utilisez un état `pressed` contrôlé lorsque le toggle fait partie de l’état de l’application ou du suivi analytique.
 
 <style>{ToggleDocs.toggleStackCss}</style>
 
@@ -107,7 +112,7 @@ Contrôlez `pressed` depuis l’état React lorsque le toggle participe à l’�
 
 ### État désactivé
 
-Utilisez `disabled` pour empêcher les interactions tout en conservant l’état activé actuel.
+Utilisez `disabled` pour bloquer les interactions tout en conservant l’état activé actuel.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -117,7 +122,8 @@ Utilisez `disabled` pour empêcher les interactions tout en conservant l’état
 
 ### Icônes
 
-Passez les icônes comme des enfants ordinaires. Pour les actions compactes, utilisez les tailles réservées aux icônes.
+Passez les icônes comme des enfants ordinaires. Pour les actions compactes, utilisez une taille réservée aux boutons
+avec icône seule.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -127,7 +133,7 @@ Passez les icônes comme des enfants ordinaires. Pour les actions compactes, uti
 
 ### Indicateur
 
-Utilisez `Toggle.Indicator` si les états activé et désactivé nécessitent des contenus intégrés différents.
+Utilisez `Toggle.Indicator` lorsque le contenu intégré doit différer selon que le toggle est activé ou non.
 
 <style>{ToggleDocs.toggleBasicCss}</style>
 
@@ -137,7 +143,8 @@ Utilisez `Toggle.Indicator` si les états activé et désactivé nécessitent de
 
 ### Tailles
 
-Utilisez les tailles de texte pour les toggles avec libellé et les tailles d’icône pour les rangées d’actions plus denses.
+Utilisez les tailles de texte pour les toggles avec libellé et les tailles réservées aux boutons avec icône seule
+lorsque l’espace est limité.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -148,8 +155,8 @@ Utilisez les tailles de texte pour les toggles avec libellé et les tailles d’
 ### Variantes
 
 Utilisez `default` pour une action secondaire, `outline` pour une surface avec bordure et `ghost` pour les actions
-compactes d’une barre d’outils. Les variantes `default` et `outline` activées emploient la couleur principale ;
-`ghost` utilise la surface d’accentuation pour rester visuellement discret dans les barres d’outils denses.
+compactes d’une barre d’outils. Lorsqu’elles sont activées, `default` et `outline` utilisent la couleur principale ;
+`ghost` utilise la surface d’accent pour rester discret dans une barre d’outils dense.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -159,8 +166,8 @@ compactes d’une barre d’outils. Les variantes `default` et `outline` activé
 
 ### Personnalisation avancée
 
-Si des descendants personnalisés ont besoin de l’état activé, n’utilisez pas `Toggle.Indicator` et lisez l’état du
-toggle le plus proche avec le hook de contexte moduix.
+Pour qu’un descendant personnalisé puisse connaître l’état activé, lisez l’état du toggle le plus proche avec le
+hook de contexte moduix au lieu d’utiliser `Toggle.Indicator`.
 
 <style>{ToggleDocs.toggleBasicCss}</style>
 
@@ -170,7 +177,7 @@ toggle le plus proche avec le hook de contexte moduix.
 
 ## Styles
 
-`Toggle` fournit un élément racine stylisé, une partie indicateur facultative et l’ensemble des tokens
+`Toggle` fournit une racine stylisée, une partie `Indicator` facultative et l’ensemble des tokens
 `--moduix-toggle-*` pour les variantes, les tailles, l’anneau de focus, l’espacement et la taille des icônes.
 
 ### Propriétés CSS
@@ -196,6 +203,6 @@ toggle le plus proche avec le hook de contexte moduix.
 - `data-pressed` est présent lorsque le toggle est activé.
 - `data-variant` reflète la variante visuelle moduix.
 - `data-size` reflète la taille moduix, notamment `icon-sm`, `icon-md` et `icon-lg`.
-- `data-disabled` pilote les styles désactivés ; Ark conserve également l’attribut natif `disabled`.
+- `data-disabled` pilote les styles de l’état désactivé ; Ark conserve également l’attribut natif `disabled`.
 - Les icônes enfants directes et celles placées dans `Toggle.Indicator` sont dimensionnées avec
   `--moduix-toggle-icon-size`.

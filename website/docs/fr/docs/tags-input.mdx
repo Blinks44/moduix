@@ -1,7 +1,7 @@
 ---
 title: Tags Input
 component: tags-input
-description: Une composition de champ Ark UI pour saisir, modifier, valider et envoyer des listes de tags textuels.
+description: Champ de tags modifiable pour saisir, valider et envoyer une liste de chaînes, avec prise en charge des formulaires.
 ---
 
 import * as TagsInputDocs from '@/components/examples/tags-input';
@@ -12,15 +12,19 @@ import * as TagsInputDocs from '@/components/examples/tags-input';
 
 ## Choisir le bon composant
 
-Utilisez `TagsInput` lorsque les utilisateurs doivent créer une liste de valeurs textuelles modifiables dans un même contrôle de formulaire.
+Utilisez `TagsInput` lorsque l’utilisateur doit saisir et modifier une liste de valeurs textuelles
+dans un même contrôle de formulaire.
 
-- Choisissez **`TagsInput`** pour les libellés, compétences, filtres, destinataires, sujets et autres listes de chaînes libres.
+- Choisissez **`TagsInput`** pour des libellés, compétences, filtres, destinataires, sujets et autres listes de chaînes saisies librement.
 - Choisissez **`Tag`** lorsque l’interface affiche seulement un tag existant et peut proposer une action de suppression distincte.
-- Choisissez **`Combobox`** lorsque l’utilisateur doit sélectionner des éléments dans une collection connue et que le filtrage constitue l’interaction principale.
+- Choisissez **`Combobox`** lorsque l’utilisateur doit sélectionner des valeurs dans une collection connue et que le filtrage est l’interaction principale.
 
 ## Exemple de base
 
-Commencez par la racine, le libellé, le contrôle, `Items`, le champ de saisie et le déclencheur d’effacement. La racine ajoute son propre champ natif pour la soumission et la synchronisation de la réinitialisation. `Items` rend l’anatomie modifiable standard des tags ; n’utilisez les parties explicites que lorsque certains tags nécessitent une personnalisation.
+Commencez par la racine, le libellé, `Control`, `Items`, le champ de saisie et le déclencheur
+d’effacement. `Items` génère la structure standard des tags modifiables. La racine ajoute aussi
+automatiquement un champ de formulaire natif masqué. Passez-lui par exemple `name` si les tags
+doivent être envoyés avec le formulaire.
 
 <style>{TagsInputDocs.tagsInputExampleCss}</style>
 
@@ -48,66 +52,100 @@ TagsInput / TagsInput.Root
 │     └─ TagsInput.ItemInput
 │  ├─ TagsInput.Input
 │  └─ TagsInput.ClearTrigger
-└─ native input (automatic)
+└─ champ de formulaire natif masqué (automatique)
 ```
 
-| Partie | Rôle |
-| -------------------------------------- | -------------------------------------------------------------------- |
-| `TagsInput` / `TagsInput.Root` | Machine à états racine, tableau de valeurs, valeur de saisie, validation et intégration aux formulaires. |
-| `TagsInput.RootProvider` | Rend le champ de tags à partir de l’état renvoyé par `useTagsInput` d’Ark. |
-| `TagsInput.Label` | Libellé accessible du champ de tags. |
-| `TagsInput.Control` | Conteneur visible qui regroupe les tags, le champ de saisie et le déclencheur d’effacement. |
-| `TagsInput.Items` | Moteur de rendu par défaut des tags modifiables à partir des valeurs de `TagsInput.Context`. |
-| `TagsInput.Item` | Un élément de tag. Transmettez `index` et `value`. |
-| `TagsInput.ItemContext` | Accès par render prop à l’état de l’élément courant. |
-| `TagsInput.ItemPreview` | Surface visible du tag hors du mode d’édition. |
-| `TagsInput.ItemText` | Texte visible du tag. |
-| `TagsInput.ItemDeleteTrigger` | Supprime un tag ; moduix fournit par défaut une icône de fermeture compacte. |
-| `TagsInput.ItemInput` | Champ d’édition intégré du tag. |
-| `TagsInput.Input` | Champ de saisie des nouveaux tags. |
-| `TagsInput.ClearTrigger` | Efface tous les tags ; moduix utilise par défaut le composant `CloseButton.Root` partagé. |
-| `TagsInput.Context` | Accès intégré à l’état racine Ark. |
-| `useTagsInput` de moduix + `RootProvider` | Gestion externe de l’état et méthodes impératives. |
+| Partie                                  | Rôle                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| `TagsInput` / `TagsInput.Root`          | Gère l’état, les valeurs, la saisie, la validation et l’intégration au formulaire. |
+| `TagsInput.RootProvider`                | Rend le champ à partir de l’état renvoyé par `useTagsInput` d’Ark.      |
+| `TagsInput.Label`                       | Libellé accessible du champ de tags.                                    |
+| `TagsInput.Control`                     | Conteneur visible des tags, du champ de saisie et du déclencheur d’effacement. |
+| `TagsInput.Items`                       | Rendu standard des tags modifiables à partir des valeurs courantes.    |
+| `TagsInput.Item`                        | Un tag. Transmettez `index` et `value`.                                 |
+| `TagsInput.ItemContext`                 | État du tag courant accessible via un render prop.                      |
+| `TagsInput.ItemPreview`                 | Affichage du tag en dehors du mode d’édition.                           |
+| `TagsInput.ItemText`                    | Texte visible du tag.                                                   |
+| `TagsInput.ItemDeleteTrigger`           | Supprime un tag ; moduix fournit par défaut une icône de fermeture compacte. |
+| `TagsInput.ItemInput`                   | Champ utilisé pour modifier un tag sur place.                           |
+| `TagsInput.Input`                       | Champ de saisie des nouveaux tags.                                      |
+| `TagsInput.ClearTrigger`                | Efface tous les tags ; moduix utilise par défaut le `CloseButton.Root` partagé. |
+| `TagsInput.Context`                     | Accès à l’état racine dans l’arborescence du composant via un render prop. |
+| `useTagsInputContext`                   | Donne accès à l’état et aux méthodes de la racine depuis un descendant. |
+| `useTagsInputItemContext`               | Donne accès à l’état du tag courant dans `TagsInput.Item`.              |
+| `useTagsInput` de moduix + `RootProvider` | Gestion externe de l’état et méthodes impératives.                     |
 
 ## Composition
 
 ### Composition recommandée
 
-Utilisez la forme racine courte `<TagsInput>`. Rendez `TagsInput.Items` dans `Control` pour obtenir l’arborescence modifiable standard des tags. La racine rend automatiquement son champ de formulaire natif ; configurez la participation au formulaire avec les propriétés racine telles que `name` et `form`.
+Utilisez la forme courte `<TagsInput>`, équivalente à `<TagsInput.Root>`. Placez
+`TagsInput.Items`, `TagsInput.Input` et `TagsInput.ClearTrigger` dans `TagsInput.Control`.
+Vous obtenez ainsi le comportement standard des tags modifiables et conservez le champ de formulaire
+natif masqué.
 
-### Quand créer une composition personnalisée
+Pour participer à l’envoi d’un formulaire, transmettez `name` à la racine. Utilisez `form` lorsque
+le formulaire associé se trouve en dehors de l’arborescence DOM du composant.
 
-Utilisez la composition explicite `TagsInput.Context`/`TagsInput.Item` lorsque les tags nécessitent du contenu ou des actions personnalisés. Utilisez `TagsInput.RootProvider` avec `useTagsInput` de moduix lorsque l’interface environnante a besoin de méthodes impératives comme `addValue`, `setValue`, `clearValue`, `setInputValue` ou `focus`. Utilisez `ids` quand vous composez `TagsInput` avec une autre primitive Ark, comme `Combobox`, et que les deux primitives doivent partager l’identifiant du champ ou du contrôle.
+### Quand personnaliser la composition
+
+Utilisez `TagsInput.Context` et les parties de bas niveau lorsque les tags nécessitent un contenu ou
+des actions personnalisés. Parcourez `tagsInput.value`, créez un `TagsInput.Item` pour chaque valeur
+en lui passant `index` et `value`, puis conservez `ItemInput` dans l’élément si la modification sur
+place doit rester disponible. Utilisez `ItemContext` ou `useTagsInputItemContext` lorsque le contenu
+personnalisé dépend de l’état du tag courant.
+
+Utilisez `TagsInput.RootProvider` avec `useTagsInput` de moduix lorsque l’état ou des méthodes
+impératives comme `addValue`, `setValue`, `clearValue`, `setInputValue` ou `focus` doivent être
+accessibles en dehors de l’arborescence visible du champ. Utilisez `ids` lorsque `TagsInput` partage
+un champ ou un contrôle avec une autre primitive Ark, comme `Combobox`.
+
+Chaque partie primitive prend en charge `asChild` avec un seul enfant sémantique qui relaie ses
+propriétés et sa `ref`. Lorsque la racine utilise `asChild`, cet enfant doit aussi rendre ses
+`children` afin que moduix puisse ajouter le champ de formulaire natif masqué. `TagsInput.Items`
+est un rendu pratique qui n’accepte pas les propriétés des parties ; utilisez les parties de bas
+niveau pour personnaliser la structure des tags.
 
 ### Propriétés par défaut
 
-| Propriété | Valeur par défaut | Remarques |
-| ------------------- | ---------- | ----------------------------------------------------------------------- |
-| `defaultValue` | `[]` | Tableau initial de tags en mode non contrôlé. |
-| `value` | - | Tableau contrôlé de tags. Mettez-le à jour depuis `onValueChange(details).value`. |
-| `defaultInputValue` | `''` | Valeur initiale du champ en mode non contrôlé. |
-| `inputValue` | - | Valeur contrôlée du champ de saisie. |
-| `delimiter` | `','` | Chaîne ou expression régulière utilisée pour fractionner le contenu collé et traiter les touches de séparation. |
-| `max` | `Infinity` | Nombre maximal de tags. |
-| `maxLength` | - | Nombre maximal de caractères acceptés dans le champ. |
-| `allowOverflow` | `false` | Autorise les valeurs au-delà de `max` tout en marquant la racine comme invalide. |
-| `allowDuplicates` | `false` | Permet d’ajouter plusieurs fois la même chaîne. |
-| `editable` | `true` | Permet aux tags sélectionnés ou double-cliqués de passer en mode d’édition. |
-| `addOnPaste` | `false` | Fractionne le contenu collé en tags à l’aide de `delimiter`. |
-| `blurBehavior` | - | Utilisez `"add"` pour ajouter la valeur saisie à la perte de focus, ou `"clear"` pour l’abandonner. |
-| `sanitizeValue` | troncature des espaces | Normalise chaque valeur avant qu’Ark ne la valide et ne l’ajoute. |
+| Propriété            | Valeur par défaut         | Remarques                                                               |
+| -------------------- | ------------------------- | ----------------------------------------------------------------------- |
+| `defaultValue`       | `[]`                      | Tableau initial de tags en mode non contrôlé.                            |
+| `value`              | -                         | Tableau contrôlé de tags. Mettez-le à jour avec `onValueChange(details).value`. |
+| `defaultInputValue`  | `''`                      | Valeur initiale du champ en mode non contrôlé.                           |
+| `inputValue`         | -                         | Valeur contrôlée du champ de saisie.                                     |
+| `delimiter`          | `','`                     | Chaîne ou expression régulière utilisée pour les touches séparatrices et le fractionnement du texte collé. |
+| `max`                | `Infinity`                | Nombre maximal de tags.                                                  |
+| `maxLength`          | -                         | Nombre maximal de caractères acceptés par le champ de saisie.            |
+| `allowOverflow`      | `false`                   | Autorise le dépassement de `max` tout en marquant la racine comme invalide. |
+| `allowDuplicates`    | `false`                   | Autorise l’ajout plusieurs fois d’une même chaîne.                       |
+| `editable`           | `true`                    | Permet de modifier un tag après lui avoir donné le focus, avec Entrée ou par double-clic. |
+| `addOnPaste`         | `false`                   | Fractionne le texte collé en tags avec `delimiter`.                      |
+| `blurBehavior`       | -                         | Définissez `"add"` pour ajouter la valeur saisie à la perte du focus ou `"clear"` pour l’abandonner. |
+| `sanitizeValue`      | `(value) => value.trim()` | Normalise chaque valeur avant sa validation et son ajout.                |
+
+Les options `disabled`, `invalid`, `readOnly`, `required` et `autoFocus` sont désactivées par défaut.
+Utilisez `placeholder` pour le champ de saisie et `translations` pour
+les libellés accessibles.
 
 ### Comportement
 
-`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` et `onValueInvalid(details)` fournissent les objets `details` d’Ark. `validate(details)` accepte ou rejette le tag en attente, tandis que `sanitizeValue(value)` normalise chaque tag avant son ajout. Utilisez `translations` pour localiser les libellés par défaut des actions de suppression et d’effacement.
+`onValueChange(details)`, `onInputValueChange(details)`, `onHighlightChange(details)` et
+`onValueInvalid(details)` reçoivent les objets `details` d’Ark. `validate(details)` accepte ou rejette
+le nouveau tag, tandis que `sanitizeValue(value)` le normalise avant sa validation et son ajout.
+Les callbacks `onFocusOutside`, `onInteractOutside` et `onPointerDownOutside` reçoivent les événements
+correspondants déclenchés en dehors du composant.
 
-`Field.Root` et `Fieldset.Root` peuvent transmettre, via le contexte Ark, les états désactivé, invalide, obligatoire et en lecture seule. Toutes les parties Ark exportées prennent en charge `asChild` avec un seul enfant sémantique qui relaie les propriétés et la `ref` ; l’enfant racine doit également rendre ses enfants afin que le champ de formulaire natif automatique reste disponible. Le déclencheur d’effacement par défaut utilise `CloseButton.Root` sous `asChild` d’Ark, tandis que la suppression d’un élément conserve un bouton à icône plus petit au niveau du tag.
+`Field.Root` et `Fieldset.Root` peuvent transmettre les états `disabled`, `invalid`, `required` et
+`readOnly` via le contexte Ark. Le déclencheur d’effacement par défaut utilise `CloseButton.Root`
+via la composition `asChild` d’Ark ; la suppression d’un tag conserve un bouton à icône plus compact.
 
 ## Exemples
 
 ### Autoriser les doublons
 
-Activez `allowDuplicates` lorsque les valeurs répétées ont un sens, par exemple pour des destinataires ou des libellés pondérés.
+Activez `allowDuplicates` lorsqu’une même valeur peut apparaître plusieurs fois et que cette
+répétition a un sens dans le scénario.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/allow-duplicates.tsx"
@@ -115,9 +153,10 @@ Activez `allowDuplicates` lorsque les valeurs répétées ont un sens, par exemp
   ```
 </PreviewFrame>
 
-### État contrôlé
+### Liste de tags contrôlée
 
-Contrôlez le tableau de tags lorsque les valeurs sélectionnées doivent piloter l’interface environnante ou être réinitialisées depuis l’état React.
+Conservez le tableau de tags dans l’état React lorsqu’une autre partie de l’écran en dépend ou que
+vous devez le réinitialiser par programmation.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/controlled.tsx"
@@ -127,7 +166,8 @@ Contrôlez le tableau de tags lorsque les valeurs sélectionnées doivent pilote
 
 ### Valeur de saisie contrôlée
 
-Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ.
+Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit préremplir ou effacer le champ de
+saisie.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/controlled-input-value.tsx"
@@ -137,7 +177,8 @@ Contrôlez `inputValue` séparément lorsqu’un autre contrôle doit prérempli
 
 ### Séparateur et collage
 
-Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit créer plusieurs tags.
+Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit produire plusieurs tags. L’exemple
+accepte la virgule, le point-virgule et l’espace comme séparateurs.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/delimiter-and-paste.tsx"
@@ -145,9 +186,10 @@ Utilisez `delimiter` avec `addOnPaste` lorsque le texte collé doit créer plusi
   ```
 </PreviewFrame>
 
-### Désactiver l’édition
+### Désactiver la modification
 
-Définissez `editable={false}` si les tags existants doivent pouvoir être supprimés sans être modifiables sur place.
+Définissez `editable={false}` lorsque les tags existants doivent rester supprimables, sans être
+modifiables sur place.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/disable-editing.tsx"
@@ -157,7 +199,8 @@ Définissez `editable={false}` si les tags existants doivent pouvoir être suppr
 
 ### Désactivé et en lecture seule
 
-Utilisez `disabled` pour un contrôle non interactif et `readOnly` lorsque les valeurs doivent rester visibles sans être modifiables.
+Utilisez `disabled` pour un contrôle non interactif. Utilisez `readOnly` lorsque les tags doivent
+rester visibles, sans pouvoir être ajoutés, supprimés ou modifiés.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/disabled-and-read-only.tsx"
@@ -167,7 +210,8 @@ Utilisez `disabled` pour un contrôle non interactif et `readOnly` lorsque les v
 
 ### Field
 
-Enveloppez `TagsInput` dans `Field` si le libellé, le texte d’aide, l’état invalide et le message d’erreur doivent partager le câblage d’accessibilité d’Ark.
+Enveloppez `TagsInput` dans `Field` lorsque son libellé, son texte d’aide, son état invalide et son
+message d’erreur doivent partager le câblage d’accessibilité des formulaires d’Ark.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/field.tsx"
@@ -177,7 +221,9 @@ Enveloppez `TagsInput` dans `Field` si le libellé, le texte d’aide, l’état
 
 ### Formulaire
 
-Transmettez `name` à la racine pour inclure la liste de tags dans `FormData` ; elle rend automatiquement un champ de formulaire natif et synchronise la réinitialisation du formulaire.
+Transmettez `name` à la racine pour inclure la liste de tags dans `FormData`. moduix ajoute
+automatiquement le champ de formulaire natif masqué et le synchronise avec la réinitialisation du
+formulaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/form.tsx"
@@ -185,9 +231,10 @@ Transmettez `name` à la racine pour inclure la liste de tags dans `FormData` ; 
   ```
 </PreviewFrame>
 
-### Maximum avec dépassement
+### Dépassement du nombre maximal
 
-Utilisez `allowOverflow` avec `max` lorsque les utilisateurs peuvent dépasser la limite tandis que le contrôle signale un état invalide.
+Utilisez `allowOverflow` avec `max` lorsque l’utilisateur peut dépasser temporairement la limite,
+mais que le contrôle doit signaler un état invalide.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/max-with-overflow.tsx"
@@ -195,9 +242,10 @@ Utilisez `allowOverflow` avec `max` lorsque les utilisateurs peuvent dépasser l
   ```
 </PreviewFrame>
 
-### Root Provider
+### RootProvider
 
-Utilisez `useTagsInput` de moduix avec `RootProvider` lorsque l’état et les méthodes impératives doivent être disponibles hors de l’arborescence visible du champ de tags.
+Utilisez `useTagsInput` de moduix avec `RootProvider` lorsque l’état et les méthodes impératives
+doivent être utilisés en dehors de l’arborescence visible du champ.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/root-provider.tsx"
@@ -205,9 +253,10 @@ Utilisez `useTagsInput` de moduix avec `RootProvider` lorsque l’état et les m
   ```
 </PreviewFrame>
 
-### Normalisation et perte de focus
+### Normalisation et perte du focus
 
-Utilisez `sanitizeValue` pour normaliser les tags entrants et `blurBehavior="add"` pour valider la saisie courante lorsque le focus quitte le contrôle.
+Utilisez `sanitizeValue` pour normaliser les tags saisis et `blurBehavior="add"` pour ajouter la
+valeur courante lorsque le focus quitte le contrôle.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/sanitize-and-blur.tsx"
@@ -215,9 +264,11 @@ Utilisez `sanitizeValue` pour normaliser les tags entrants et `blurBehavior="add
   ```
 </PreviewFrame>
 
-### Validation et maximum
+### Validation et nombre maximal
 
-Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs non valides et exposer l’état de validation. Ajoutez `maxLength` lorsque le champ doit cesser d’accepter des tags trop longs avant l’exécution de la validation.
+Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs invalides et savoir pourquoi
+un ajout a été refusé. Ajoutez `maxLength` lorsque le champ ne doit plus accepter les valeurs trop
+longues avant l’exécution de la validation.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/validation-and-max.tsx"
@@ -227,7 +278,9 @@ Utilisez `validate`, `max` et `onValueInvalid` pour rejeter les valeurs non vali
 
 ### Avec Combobox
 
-Composez `TagsInput` avec `Combobox` lorsque le champ doit suggérer des options connues tout en autorisant les tags personnalisés.
+Composez `TagsInput` avec `Combobox` lorsque le champ doit suggérer des options connues tout en
+autorisant les tags personnalisés. L’exemple partage les identifiants des deux composants et compose
+leurs champs avec `asChild`.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/with-combobox.tsx"
@@ -237,7 +290,9 @@ Composez `TagsInput` avec `Combobox` lorsque le champ doit suggérer des options
 
 ### Personnalisation avancée
 
-Contournez `Items` lorsque chaque tag nécessite du contenu ou des actions personnalisés. L’arborescence complète des parties dans le style d’Ark reste disponible pour la personnalisation.
+N’utilisez pas `Items` lorsque chaque tag nécessite un contenu ou des actions personnalisés. Reliez
+les valeurs de la racine à l’arborescence complète des parties Ark et conservez `ItemInput` dans
+chaque tag si la modification sur place reste nécessaire.
 
 <PreviewFrame contentWidth="fit-content" maxWidth="sm">
   ```tsx preview file="../../en/docs/_snippets/tags-input/advanced-customization.tsx"
@@ -247,25 +302,40 @@ Contournez `Items` lorsque chaque tag nécessite du contenu ou des actions perso
 
 ## Styles
 
-### Propriétés CSS
+### Variables CSS
 
 <div className="docs-reference">
-<Tabs
+  <Tabs
     values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
-> <Tab> <TagsInputDocs.TagsInputCssPropertiesPanel /> </Tab> </Tabs>
+  >
+    <Tab>
+      <TagsInputDocs.TagsInputCssPropertiesPanel />
+    </Tab>
+  </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Sélecteurs de style
 
-- La racine et le fournisseur racine exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
-- Les parties Ark conservent les valeurs `data-scope="tags-input"` et `data-part` de l’anatomie ci-dessus.
-- Les styles d’état utilisent `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` sur les parties où Ark les produit.
-- Les déclencheurs de suppression et d’effacement exposent des hooks `data-slot` stables. La suppression d’un élément utilise par défaut une icône de fermeture compacte ; l’effacement complet utilise le style partagé de `CloseButton.Root`.
-- `TagsInput.ClearTrigger` reste ancré à l’extrémité intégrée du contrôle lorsque les lignes de tags passent à la ligne.
-- En lecture seule, moduix masque le champ de saisie et le déclencheur d’effacement afin de n’afficher que les valeurs de tags immuables.
+- La racine et `RootProvider` exposent `data-slot="tags-input-root"` et `data-slot="tags-input-root-provider"`.
+- Les parties Ark conservent `data-scope="tags-input"` et leurs valeurs `data-part` de l’anatomie.
+- Pour cibler les états, utilisez `data-disabled`, `data-readonly`, `data-invalid`, `data-focus`, `data-empty`, `data-required`, `data-value` et `data-highlighted` sur les parties où Ark les émet.
+- Les déclencheurs de suppression et d’effacement exposent des sélecteurs `data-slot` stables. La suppression d’un tag utilise une icône compacte ; l’effacement complet reprend le style partagé de `CloseButton.Root`.
+- `TagsInput.ClearTrigger` reste à l’extrémité du contrôle lorsque les lignes de tags passent à la ligne.
+- En lecture seule, moduix masque le champ de saisie et le déclencheur d’effacement ; seuls les tags en lecture seule restent visibles.
 
 ## Accessibilité
 
-Ark gère le câblage des libellés, la mise en surbrillance des tags, le mode d’édition intégré, la suppression avec Retour arrière/Suppr, la navigation entre les tags avec Flèche gauche et Flèche droite, l’ajout ou l’édition avec Entrée, le fractionnement du contenu collé et l’intégration du champ de formulaire masqué. La racine rend automatiquement son propre champ de formulaire natif ; configurez la participation au formulaire avec les propriétés racine telles que `name` et `form`.
+Ark gère le lien avec le libellé, la mise en évidence et la modification des tags, leur suppression,
+le collage et le champ de formulaire masqué. Le champ masqué de la racine sérialise la liste des tags
+pour l’envoi natif du formulaire ; transmettez `name` et, si nécessaire, `form` pour l’associer au
+bon formulaire.
+
+### Prise en charge du clavier
+
+- `Entrée` dans le champ de saisie ajoute sa valeur courante. `Entrée` sur un tag mis en évidence lance son édition.
+- Un double-clic sur un tag lance également son édition lorsque `editable` vaut `true`.
+- Lorsque le champ de saisie est vide ou que le curseur se trouve au début, `Flèche gauche` et `Flèche droite` déplacent le focus visuel entre les tags.
+- `Retour arrière` et `Suppr` suppriment le tag mis en évidence. `Retour arrière` supprime aussi le dernier tag lorsque le champ est vide.
+- Avec `addOnPaste`, `Control+V` ajoute les valeurs collées après les avoir séparées avec `delimiter`.

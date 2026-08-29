@@ -1,7 +1,7 @@
 ---
 title: Timer
 component: timer
-description: Un chronomètre ou compte à rebours avec des parties et des contrôles Ark explicites.
+description: Un composant pour suivre le temps écoulé ou restant, avec des contrôles explicites.
 ---
 
 import * as TimerDocs from '@/components/examples/timer';
@@ -12,14 +12,14 @@ import * as TimerDocs from '@/components/examples/timer';
 
 ## Exemple de base
 
-`Timer.Segments` est le chemin le plus court pour obtenir un affichage courant avec des deux-points comme séparateurs.
-Il affiche par défaut les heures, les minutes et les secondes ; transmettez `types` pour utiliser un autre ensemble.
-Si vous avez besoin de libellés d’unité, de séparateurs personnalisés ou de styles propres à chaque élément, utilisez
-les parties explicites dans le style d’Ark.
+`Timer.Segments` est la façon la plus simple d’afficher le temps au format courant, avec des deux-points comme
+séparateurs. Par défaut, il affiche les heures, les minutes et les secondes. Passez `types` pour choisir un autre
+ensemble d’unités. Utilisez les éléments de composition détaillés si vous avez besoin de libellés d’unité, de
+séparateurs personnalisés ou d’une mise en forme différente pour chaque valeur.
 
-`Timer.Segments` accepte aussi les attributs de `Timer.Area`, comme `className`, `id` et les attributs ARIA, et
-transmet sa ref. Il crée lui-même les enfants ; utilisez donc `Timer.Area` lorsque `asChild` ou des enfants
-personnalisés sont nécessaires.
+`Timer.Segments` accepte toutes les propriétés de `Timer.Area`, sauf `children` et `asChild`, et transmet la ref de
+la zone. Comme il crée lui-même les éléments et les séparateurs, utilisez `Timer.Area` si vous devez remplacer
+l’élément hôte ou fournir vos propres enfants.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -44,43 +44,44 @@ Timer.Root
    └─ Timer.ActionTrigger
 
 Timer.RootProvider
-└─ même arbre de parties connecté à Ark useTimer()
+└─ même arbre de composition relié à l’état créé par `useTimer()`
 
 Timer.Segments
-└─ Timer.Area avec les parties Timer.Item et Timer.Separator
+└─ Timer.Area avec les éléments Timer.Item et Timer.Separator
 ```
 
-| Partie | Rôle |
+| Élément | Rôle |
 | ----------------------- | ------------------------------------------------------------------------ |
-| `Timer` / `Timer.Root` | Gère l’état du minuteur Ark, les identifiants, l’intervalle et les callbacks. |
-| `Timer.RootProvider` | Relie les parties à l’état du minuteur créé avec `useTimer()` d’Ark. |
-| `Timer.Segments` | Rend les unités de temps courantes avec leurs séparateurs. |
-| `Timer.Area` | Regroupe les parties visibles du temps. |
-| `Timer.Item` | Rend une unité de temps formatée : `hours`, `minutes` ou `seconds`. |
-| `Timer.Separator` | Rend les séparateurs entre les unités de temps. |
+| `Timer` / `Timer.Root` | Gère l’état du minuteur Ark, ses identifiants, l’intervalle et les fonctions de rappel. |
+| `Timer.RootProvider` | Relie les éléments à l’état créé par `useTimer()`. |
+| `Timer.Segments` | Construit les unités de temps standard et leurs séparateurs. |
+| `Timer.Area` | Regroupe les valeurs de temps visibles. |
+| `Timer.Item` | Affiche une unité de temps formatée, comme `hours`, `minutes` ou `seconds`. |
+| `Timer.Separator` | Affiche un séparateur entre les unités de temps. |
 | `Timer.Control` | Regroupe les déclencheurs d’action. |
-| `Timer.ActionTrigger` | Exécute `start`, `pause`, `resume`, `reset` ou `restart`. |
+| `Timer.ActionTrigger` | Déclenche l’action `start`, `pause`, `resume`, `reset` ou `restart`. |
 
 ## Composition
 
 ### Composition recommandée
 
-`Timer` est la forme courte du composant racine. Il équivaut à `Timer.Root` ; utilisez `Timer.Segments` pour afficher
-par défaut les heures, les minutes et les secondes sans répéter manuellement les éléments et les séparateurs.
-Transmettez `types` si vous avez besoin d’un autre ensemble d’unités.
+`Timer` est la forme abrégée du composant racine et équivaut à `Timer.Root`. Utilisez `Timer.Segments` pour afficher
+les heures, les minutes et les secondes sans répéter les éléments et les séparateurs. Passez `types` si vous avez
+besoin d’un autre ensemble d’unités.
 
-Utilisez `targetMs` pour un chronomètre qui s’arrête à un instant donné. Utilisez `startMs` lorsque le temps écoulé
-ou restant initial ne doit pas être nul. Pour un compte à rebours, combinez `countdown` et `startMs`.
+Utilisez `targetMs` pour définir la valeur à laquelle le minuteur se termine. Utilisez `startMs` pour définir la
+valeur initiale, par exemple lorsque le temps écoulé ou restant ne doit pas commencer à zéro. Pour un compte à
+rebours, associez `countdown` et `startMs`.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `Timer.RootProvider` avec `useTimer()` si l’API du minuteur doit être créée hors du sous-arbre rendu.
-Utilisez `Timer.Context` ou `useTimerContext()` si une interface adjacente doit accéder à `running`, `paused`,
-`time`, `formattedTime`, `progressPercent` ou aux méthodes programmatiques `start()`, `pause()`, `resume()`,
-`reset()` et `restart()`.
+Utilisez `Timer.RootProvider` avec `useTimer()` pour créer l’API du minuteur séparément du balisage qui l’utilise.
+Utilisez `Timer.Context` ou `useTimerContext()` si d’autres éléments de l’interface doivent accéder à `running`,
+`paused`, `time`, `formattedTime`, `progressPercent` ou aux méthodes `start()`, `pause()`, `resume()`, `reset()` et
+`restart()`.
 
-Pour afficher des fractions de seconde, utilisez `interval`. Choisissez l’intervalle le plus long compatible avec
-l’interface ; la valeur par défaut d’Ark est `1000`.
+Pour afficher des fractions de seconde, utilisez une valeur plus petite pour `interval`. Gardez l’intervalle le plus
+long compatible avec l’interface ; Ark utilise `1000` millisecondes par défaut.
 
 ### Propriétés par défaut
 
@@ -88,38 +89,38 @@ l’interface ; la valeur par défaut d’Ark est `1000`.
 | ----------------- | ------------ | ----------------------------------------------------------------- |
 | `autoStart` | `false` | Démarre le minuteur au montage. |
 | `countdown` | `false` | Décompte vers le bas au lieu de compter vers le haut. |
-| `startMs` | `0` | Durée initiale en millisecondes. |
-| `targetMs` | - | Durée cible en millisecondes. |
+| `startMs` | `0` | Temps écoulé ou restant initial, en millisecondes. |
+| `targetMs` | - | Valeur à laquelle le minuteur se termine, en millisecondes. |
 | `interval` | `1000` | Intervalle entre les ticks, en millisecondes. |
-| `ids` | générés | Remplace les identifiants de la racine et de la zone. |
-| `translations` | intégré | Personnalise le libellé accessible de la zone avec `areaLabel`. |
-| `onTick(details)` | - | Reçoit la valeur courante, le temps numérique et les parties de temps formatées. |
-| `onComplete()` | - | Appelé lorsque le minuteur atteint sa cible. |
+| `ids` | générés | Remplace les identifiants générés de la racine et de la zone. |
+| `translations` | intégrées | Définit le libellé accessible de la zone, notamment avec `areaLabel`. |
+| `onTick(details)` | - | S’exécute après chaque mise à jour du minuteur. |
+| `onComplete()` | - | S’exécute à la fin du minuteur. |
 
 ### Comportement
 
-Par défaut, `Timer.ActionTrigger` rend un bouton : l’activation au clavier suit donc le comportement natif d’un
-bouton. Ark masque les actions dépendantes de l’état `start`, `pause`, `resume` et `reset` lorsqu’elles ne sont pas
-disponibles ; `restart` reste disponible lorsqu’il est rendu. Le minuteur n’utilise ni roving focus ni navigation
-composite au clavier.
+Par défaut, `Timer.ActionTrigger` génère un bouton : l’activation au clavier suit donc le comportement natif d’un
+bouton. Ark masque les actions `start`, `pause`, `resume` et `reset` lorsqu’elles ne sont pas disponibles ;
+`restart` reste disponible lorsqu’il est rendu. Le minuteur ne met pas en place de navigation composite ni de
+déplacement automatique du focus entre les contrôles.
 
-Les parties Ark enveloppées - `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
-`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger` - prennent en charge `asChild` via la composition
-polymorphe d’Ark. Préservez la sémantique des enfants de remplacement, en particulier pour
-`Timer.ActionTrigger`. `Timer.Segments` ne prend intentionnellement pas en charge `asChild`, car il crée lui-même
+Les éléments Ark repris par moduix, notamment `Timer.Root`, `Timer.RootProvider`, `Timer.Area`, `Timer.Item`,
+`Timer.Separator`, `Timer.Control` et `Timer.ActionTrigger`, prennent en charge `asChild` grâce à la composition
+polymorphe d’Ark. Lorsque vous remplacez l’élément rendu, conservez une sémantique HTML correcte, en particulier
+pour `Timer.ActionTrigger`. `Timer.Segments` ne prend volontairement pas en charge `asChild`, car il crée lui-même
 la zone et les enfants.
 
-`Timer.Item` conserve `data-scope="timer"`, `data-part="item"`, `data-type` et `--value` d’Ark.
-`Timer.Segments` est limité aux éléments et séparateurs standard ; les libellés d’unité restent une composition
-explicite autour de `Timer.Item`. moduix ajoute une disposition racine centrée, une zone temporelle adaptative avec
-retour à la ligne, des hooks `data-slot` stables, la taille des icônes SVG dans les déclencheurs d’action et des
-valeurs CSS par défaut, sans modifier la machine à états du minuteur Ark.
+`Timer.Item` conserve les attributs Ark `data-scope="timer"`, `data-part="item"`, `data-type` et `--value`.
+`Timer.Segments` se limite aux éléments et séparateurs standard ; les libellés d’unité restent donc une composition
+explicite autour de `Timer.Item`. moduix ajoute une disposition racine centrée, une zone temporelle qui revient à la
+ligne si nécessaire, des points d’accroche `data-slot` stables, une taille par défaut pour les icônes SVG des
+déclencheurs d’action et des valeurs CSS par défaut, sans modifier la machine à états du minuteur Ark.
 
 ## Exemples
 
 ### Compte à rebours
 
-Définissez `countdown` et `startMs` si l’affichage doit décroître jusqu’à zéro.
+Définissez `countdown` et `startMs` si l’affichage doit décompter jusqu’à zéro.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -131,7 +132,7 @@ Définissez `countdown` et `startMs` si l’affichage doit décroître jusqu’�
 
 ### Événements
 
-Utilisez `onTick` et `onComplete` pour les effets de bord qui doivent suivre le cycle de vie du minuteur Ark.
+Utilisez `onTick` et `onComplete` pour les effets de bord liés au cycle de vie du minuteur.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -143,7 +144,8 @@ Utilisez `onTick` et `onComplete` pour les effets de bord qui doivent suivre le 
 
 ### Intervalle
 
-Utilisez `interval` avec un élément `milliseconds` si l’interface doit être actualisée à la fraction de seconde.
+Utilisez une valeur plus petite pour `interval` avec un élément `milliseconds` si l’interface doit être actualisée
+plusieurs fois par seconde.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -155,7 +157,7 @@ Utilisez `interval` avec un élément `milliseconds` si l’interface doit être
 
 ### Pomodoro
 
-Alternez les durées de travail et de pause depuis `onComplete` si le cycle du minuteur doit se poursuivre.
+Utilisez `onComplete` pour passer du travail à la pause et inversement lorsque le minuteur doit enchaîner les cycles.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -167,8 +169,9 @@ Alternez les durées de travail et de pause depuis `onComplete` si le cycle du m
 
 ### Personnalisation avancée
 
-Créez le minuteur avec `useTimer()` si l’état et les méthodes doivent être lus hors de l’arborescence des parties
-visibles. C’est également la voie à suivre pour les libellés d’unité et les autres compositions d’éléments personnalisées.
+Utilisez `useTimer()` lorsque l’état et les méthodes du minuteur doivent aussi être disponibles en dehors de l’arbre
+de composition rendu. C’est également la bonne approche pour ajouter des libellés d’unité ou composer des éléments
+personnalisés.
 
 <style>{TimerDocs.timerExampleCss}</style>
 
@@ -180,8 +183,8 @@ visibles. C’est également la voie à suivre pour les libellés d’unité et 
 
 ## Styles
 
-Pour les remplacements structurels, utilisez `className` sur les parties exportées et les variables CSS pour les
-valeurs visuelles par défaut. Les attributs Ark restent disponibles pour cibler chaque partie.
+Pour modifier la structure, utilisez `className` sur les éléments exportés et les variables CSS pour les valeurs
+visuelles par défaut. Les attributs Ark restent disponibles pour cibler chaque élément.
 
 ### Propriétés CSS
 
@@ -197,11 +200,11 @@ valeurs visuelles par défaut. Les attributs Ark restent disponibles pour cibler
   </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Sélecteurs et attributs de style
 
-- `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
+- Sélecteurs `data-slot="timer-root"`, `timer-root-provider`, `timer-area`, `timer-item`,
   `timer-separator`, `timer-control` et `timer-action-trigger`.
-- Hooks d’anatomie Ark : `data-scope="timer"` et
+- Attributs de structure Ark : `data-scope="timer"` et
   `data-part="root|area|item|separator|control|action-trigger"`.
-- `Timer.Item` fournit `data-type` et la variable d’exécution Ark `--value`.
-- Ark applique `hidden` aux déclencheurs d’action qui ne correspondent pas à l’état courant du minuteur.
+- `Timer.Item` expose `data-type` et la variable CSS `--value` mise à jour par Ark.
+- Ark ajoute l’attribut `hidden` aux déclencheurs d’action indisponibles dans l’état courant du minuteur.

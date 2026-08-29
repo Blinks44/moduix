@@ -1,7 +1,7 @@
 ---
 title: Toggle
 component: toggle
-description: A two-state button for compact on/off actions and saved states.
+description: A two-state button for compact actions such as favorites, formatting controls, and toolbar actions.
 ---
 
 import * as ToggleDocs from '@/components/examples/toggle';
@@ -12,16 +12,16 @@ import * as ToggleDocs from '@/components/examples/toggle';
 
 ## Choosing the right component
 
-Use `Toggle` when the control is still a button that exposes a pressed state.
+Use `Toggle` when the control should behave like a button and expose whether it is pressed.
 
-- Choose **`Toggle`** for favorites, saved states, formatting actions, and compact toolbar actions.
-- Choose **`Switch`** for settings-like on/off controls that read as a preference row.
-- Choose **`Checkbox`** for submitted list or form selections.
+- Choose **`Toggle`** for favorites, saved items, formatting controls, and compact toolbar actions.
+- Choose **`Switch`** for settings presented as on/off preference rows.
+- Choose **`Checkbox`** for selections that are submitted with a list or form.
 - Choose **`ToggleGroup`** when several toggles should share one selection model.
 
 ## Basic
 
-Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark pressed-state behavior intact.
+Start with a standalone `Toggle`. It is the short form of `Toggle.Root` and preserves Ark's pressed-state behavior.
 
 <style>{ToggleDocs.toggleBasicCss}</style>
 
@@ -38,41 +38,44 @@ Start with `Toggle` alone. It is the short form for `Toggle.Root` and keeps Ark 
 ```text
 Toggle / Toggle.Root
 └─ Toggle.Indicator (optional)
+
+Toggle.Context (state reader, not a DOM part)
 ```
 
 | Part                     | Role                                                                              |
 | ------------------------ | --------------------------------------------------------------------------------- |
-| `Toggle` / `Toggle.Root` | Two-state button root that handles pressed, focus, disabled, and `asChild` state. |
-| `Toggle.Indicator`       | Renders pressed content and optional `fallback` content when the toggle is off.   |
+| `Toggle` / `Toggle.Root` | Two-state button root that handles pressed, focus, disabled, and `asChild` behavior. |
+| `Toggle.Indicator`       | Renders content when pressed and optional `fallback` content when the toggle is off.   |
+| `Toggle.Context`         | Reads the nearest toggle state for custom descendants; it does not render a DOM part.    |
 
 ## Composition
 
 ### Recommended composition
 
-Use `Toggle` for the standard root. It forwards refs to the Ark button part and supports
+Use `Toggle` for the standard root. It forwards refs to Ark's button element and supports
 `pressed`, `defaultPressed`, `onPressedChange(pressed)`, `disabled`, `asChild`, and regular button
 attributes.
 
-`Toggle.Indicator` is optional. Use it when the visible icon or label should change based on
-whether the toggle is pressed.
+`Toggle.Indicator` is optional. Use it when the content inside the button should change with its
+pressed state.
 
 ### When to go custom
 
-Use `asChild` when another semantic button must own the rendered element. Keep the child a single
-button-like element so Ark can merge the required props and behavior onto it.
+Use `asChild` when you need the toggle behavior on a different button element. Pass a single
+button-like child so Ark can merge its required props and behavior into that element.
 
 For a custom descendant that reads state, use `Toggle.Context` or `useToggleContext()` from
 `@moduix/react/toggle`. Both read the nearest toggle state without a direct Ark import.
 
-Use `ToggleGroup` instead of manually coordinating several standalone toggles when multiple pressed
-buttons belong to one shared choice set.
+Use `ToggleGroup` instead of coordinating standalone toggles yourself when several pressed buttons
+belong to the same choice set.
 
 ### Default props
 
 | Prop      | Default   | Notes                                                                                     |
 | --------- | --------- | ----------------------------------------------------------------------------------------- |
-| `variant` | `default` | moduix visual treatment: secondary `default`, bordered `outline`, or transparent `ghost`. |
-| `size`    | `md`      | moduix spacing or icon-only geometry.                                                     |
+| `variant` | `default` | moduix visual treatment: filled secondary `default`, bordered `outline`, or transparent `ghost`. |
+| `size`    | `md`      | Spacing for text toggles or square geometry for icon-only toggles.                                |
 
 ### Behavioral notes
 
@@ -81,14 +84,16 @@ buttons belong to one shared choice set.
 - Ark writes `data-state="on" | "off"`, `data-pressed`, and `data-disabled` for styling.
 - Ark Toggle does not expose `RootProvider` or a hidden form input.
 - `Toggle.Context` and `useToggleContext()` are available from `@moduix/react/toggle`.
-- legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
+- Legacy `render` and `nativeButton` are not part of the Ark-backed API; use `asChild`.
+- Refs on `Toggle` and `Toggle.Root` target the rendered button. Refs on `Toggle.Indicator` target
+  the rendered indicator element.
 
 ## Examples
 
 ### asChild
 
-Use `asChild` when a semantic button must own the rendered element. The child remains a single
-button so it can receive Ark's pressed-state and keyboard props without competing component styles.
+Use `asChild` when you need toggle behavior on a different button element. The child remains the
+only button, so Ark can add its pressed-state and keyboard behavior without conflicting styles.
 
 ```tsx preview file="./_snippets/toggle/aschild.tsx"
 
@@ -96,7 +101,7 @@ button so it can receive Ark's pressed-state and keyboard props without competin
 
 ### Controlled
 
-Control `pressed` from React state when the toggle participates in app state or analytics.
+Use controlled `pressed` state when the toggle is part of application state or analytics.
 
 <style>{ToggleDocs.toggleStackCss}</style>
 
@@ -108,7 +113,7 @@ Control `pressed` from React state when the toggle participates in app state or 
 
 ### Disabled
 
-Use `disabled` to freeze interaction while preserving the current pressed state.
+Use `disabled` to prevent interaction while preserving the current pressed state.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -118,7 +123,7 @@ Use `disabled` to freeze interaction while preserving the current pressed state.
 
 ### Icons
 
-Pass icons as regular children. Use icon-only sizes for compact actions.
+Pass icons as regular children. Use an icon-only size for compact actions.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -138,7 +143,7 @@ Use `Toggle.Indicator` when pressed and unpressed states need different inline c
 
 ### Sizes
 
-Use text sizes for labeled toggles and icon sizes for denser action rows.
+Use text sizes for labeled toggles and icon-only sizes for denser action rows.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -149,8 +154,8 @@ Use text sizes for labeled toggles and icon sizes for denser action rows.
 ### Variants
 
 Use `default` for a secondary action, `outline` for a bordered surface, and `ghost` for compact
-toolbar actions. `default` and `outline` use the primary color when pressed; `ghost` uses the
-accent surface to stay visually quiet in dense toolbars.
+toolbar actions. When pressed, `default` and `outline` use the primary color; `ghost` uses the
+accent surface to remain visually quiet in a dense toolbar.
 
 <style>{ToggleDocs.toggleRowCss}</style>
 
@@ -160,8 +165,8 @@ accent surface to stay visually quiet in dense toolbars.
 
 ### Advanced Customization
 
-For custom descendants that need pressed state, bypass `Toggle.Indicator` and read the nearest
-toggle state through the moduix context hook.
+For a custom descendant that needs the pressed state, read the nearest toggle state through the
+moduix context hook instead of using `Toggle.Indicator`.
 
 <style>{ToggleDocs.toggleBasicCss}</style>
 
@@ -171,8 +176,8 @@ toggle state through the moduix context hook.
 
 ## Styling
 
-`Toggle` exposes a styled root, an optional indicator part, and the full `--moduix-toggle-*` token surface
-for variants, sizes, focus ring, spacing, and icon sizing.
+`Toggle` exposes a styled root, an optional indicator part, and the full set of
+`--moduix-toggle-*` tokens for variants, sizes, focus ring, spacing, and icon sizing.
 
 ### CSS Properties
 

@@ -1,27 +1,34 @@
 ---
 title: Textarea
 component: textarea
-description: Un champ natif de saisie multiligne avec intégration à Field et styles moduix.
+description: Zone de texte native multiligne, compatible avec Field et stylée par moduix.
 ---
 
 import * as TextareaDocs from '@/components/examples/textarea';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de composant de zone de texte dédié. moduix stylise et réexporte [Ark Field.Textarea](https://ark-ui.com/docs/components/field) tout en conservant sa propre API de zone de texte, `autoresize`, le transfert de ref, `asChild` et l’héritage des états de Field.
+Ark UI ne fournit pas de primitive `Textarea` autonome. Dans moduix, le composant s’appuie sur
+[`Field.Textarea` d’Ark UI](https://ark-ui.com/docs/components/field) et conserve l’API native de
+`textarea`. Il prend en charge `autoresize` et `asChild`, transfère la ref vers l’élément natif et
+hérite de l’état de `Field`.
 
 ## Choisir le bon composant
 
-Utilisez `Textarea` lorsque la valeur est du texte brut, peut s’étendre sur plusieurs lignes et doit conserver le comportement natif d’une zone de texte dans le navigateur.
+Utilisez `Textarea` pour du texte libre qui peut s’étendre sur plusieurs lignes et doit conserver le
+comportement natif d’une zone de texte dans le navigateur.
 
 - Choisissez **`Input`** pour les valeurs courtes sur une ligne : noms, URL ou filtres compacts.
-- Choisissez **`Textarea`** pour les notes, commentaires, descriptions et autres textes longs de forme libre.
-- Choisissez **`Editable`** pour le texte qui est d’abord affiché, puis passe en mode d’édition.
-- Choisissez **`Field` + `Textarea`** lorsque les libellés, les descriptions et la validation doivent rester déclaratifs.
+- Choisissez **`Textarea`** pour les notes, commentaires, descriptions et autres contenus longs saisis librement.
+- Choisissez **`Editable`** pour un texte d’abord affiché, puis modifiable à la demande.
+- Choisissez **`Field` + `Textarea`** lorsque le champ doit exposer de façon déclarative un libellé, une
+  description, son caractère obligatoire ou sa validation.
 
-## Exemple de base
+## Utilisation de base
 
-Commencez par `Textarea` dans un `Field`. C’est la voie recommandée pour les formulaires ordinaires, les réglages et les saisies de tâches ou de notes.
+Placez `Textarea` dans `Field` lorsqu’il faut fournir au champ un libellé accessible ou un texte
+complémentaire. C’est la configuration recommandée pour les commentaires, notes, descriptions de
+tâches et contenus similaires.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/basic.tsx"
@@ -35,34 +42,40 @@ Commencez par `Textarea` dans un `Field`. C’est la voie recommandée pour les 
 
 ## Anatomie
 
-La structure avec état est volontairement réduite :
+La structure publique se limite à une seule partie :
 
 ```text
 Field (optional wrapper)
 └─ Textarea
 ```
 
-| Partie | Rôle |
-| ---------- | ---------------------------------------------------------- |
-| `Textarea` | Élément textarea natif avec les styles moduix et les données de Field. |
+| Partie    | Rôle                                                              |
+| --------- | ----------------------------------------------------------------- |
+| `Textarea` | Élément `textarea` natif avec les styles moduix et l’état de `Field`. |
 
-`Textarea` n’ajoute aucun conteneur, sous-composant, hook de fournisseur ou de contexte, champ masqué ni propriété d’emplacement propre à la zone de texte.
+`Textarea` n’exporte ni conteneur supplémentaire, ni sous-composant, ni provider ou hook de contexte,
+ni champ masqué, ni libellé ou compteur de caractères.
 
 ## Composition
 
 ### Composition recommandée
 
-Conservez `Textarea` pour la saisie de texte multiligne ordinaire.
+Conservez `Textarea` comme contrôle pour la saisie de texte multiligne ordinaire.
 
-Utilisez `Textarea` directement avec les propriétés natives comme `rows`, `name`, `placeholder`, `maxLength`, `readOnly`, `disabled`, `required`, `value` et `defaultValue`.
+Utilisez-le directement avec des propriétés natives comme `rows`, `name`, `placeholder`, `maxLength`,
+`readOnly`, `disabled`, `required`, `value`, `defaultValue` et `form`.
 
-Enveloppez-le dans `Field`, `Field.Label`, `Field.HelperText` et `Field.ErrorText` lorsque le champ doit partager des libellés, du texte d’aide et des messages de validation déclaratifs.
+Placez-le dans `Field`, avec `Field.Label`, `Field.HelperText` et `Field.ErrorText`, lorsque le champ
+doit exposer un libellé, un texte d’aide ou un message de validation de façon déclarative. En dehors
+de `Field`, donnez-lui un nom accessible avec un `<label>` natif ou `aria-label`.
 
 ### Quand créer une composition personnalisée
 
-Il n’existe pas de voie de composition `Textarea` de niveau inférieur au-delà de la racine stylisée. `Field.Textarea` reste disponible comme échappatoire dans le style d’Ark, mais préférez `Textarea` afin que tous les contrôles multiligne partagent le même contrat de style moduix.
+Utilisez `Field.Textarea` uniquement si vous devez composer directement avec l’espace de noms `Field`.
+Pour les cas courants, préférez `Textarea` afin que tous les contrôles multiligne partagent le même
+contrat de styles moduix.
 
-Utilisez `Editable` au lieu de construire des contrôles personnalisés de lecture et d’édition à partir de `Textarea`.
+Pour une interface où le texte est d’abord affiché puis modifié, utilisez `Editable`.
 
 ### Propriétés par défaut
 
@@ -72,18 +85,23 @@ Utilisez `Editable` au lieu de construire des contrôles personnalisés de lectu
 
 ### Comportement
 
-- Utilisez `value` avec le gestionnaire natif `onChange` pour contrôler le texte.
-- Utilisez `name` avec la soumission native du formulaire lorsque la valeur doit seulement être lue depuis `FormData`.
-- La réinitialisation native du formulaire restaure la valeur `defaultValue` d’un champ non contrôlé ; utilisez `form` pour associer la zone de texte à un formulaire situé hors de son sous-arbre DOM.
-- La ref pointe vers le véritable `HTMLTextAreaElement` ; utilisez `asChild` uniquement avec un unique hôte sémantique de zone de texte capable de recevoir les propriétés fusionnées et la ref.
-- Utilisez `autoresize` d’Ark lorsque le champ doit grandir avec son contenu. Ark désactive le redimensionnement manuel tant que cette option est active ; `--moduix-textarea-resize` ne s’applique donc que lorsque `autoresize` vaut `false`.
-- Utilisez `Editable` pour les parcours intégrés de lecture et d’édition avec aperçu du texte, déclencheurs d’édition et contrôles de confirmation ou d’annulation.
+- Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état React doit piloter le contenu.
+- Définissez `name` pour inclure la zone de texte dans la soumission native du formulaire, puis lisez sa valeur via `FormData`.
+- Lors d’une réinitialisation native du formulaire, un champ non contrôlé revient à `defaultValue`.
+  Utilisez `form` pour associer la zone de texte à un formulaire situé en dehors de son sous-arbre DOM.
+- La ref transmise pointe vers le véritable `HTMLTextAreaElement`. Avec `asChild`, fournissez un seul
+  élément sémantique compatible avec `textarea`, capable de recevoir les propriétés fusionnées et la ref.
+- Définissez `autoresize` lorsque la zone de texte doit grandir avec son contenu. Ark désactive le
+  redimensionnement manuel lorsque cette option est active, donc `--moduix-textarea-resize` ne s’applique que lorsque
+  `autoresize` vaut `false`.
+- Pour un parcours où le texte est d’abord consulté puis modifié, utilisez `Editable`.
 
 ## Exemples
 
 ### Redimensionnement automatique
 
-Utilisez `autoresize` d’Ark lorsque la zone de texte doit grandir avec son contenu.
+Définissez `autoresize` lorsque la zone de texte doit grandir au fil de la saisie. Ark désactive le
+redimensionnement manuel lorsque cette option est active.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/auto-resize.tsx"
@@ -91,9 +109,9 @@ Utilisez `autoresize` d’Ark lorsque la zone de texte doit grandir avec son con
 ```
 </PreviewFrame>
 
-### État contrôlé
+### Valeur contrôlée
 
-Utilisez `value` et le gestionnaire natif `onChange` lorsque le contenu doit rester dans l’état React.
+Utilisez `value` et le gestionnaire natif `onChange` lorsque l’état React doit piloter le contenu.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/controlled.tsx"
@@ -103,7 +121,8 @@ Utilisez `value` et le gestionnaire natif `onChange` lorsque le contenu doit res
 
 ### Désactivé et en lecture seule
 
-Définissez `disabled` ou `readOnly` selon les besoins d’interaction.
+Utilisez `disabled` lorsque l’utilisateur ne doit pas interagir avec le contrôle. Utilisez `readOnly`
+lorsqu’il peut lire et sélectionner la valeur, mais pas la modifier.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/disabled-and-readonly.tsx"
@@ -111,9 +130,10 @@ Définissez `disabled` ou `readOnly` selon les besoins d’interaction.
 ```
 </PreviewFrame>
 
-### Validation avec Field
+### Validation du champ
 
-Définissez l’état invalide sur `Field` ; Ark applique `aria-invalid` et `data-invalid` à la zone de texte et relie le message d’erreur.
+Définissez `invalid` sur `Field`. Ark ajoute `aria-invalid` et `data-invalid` à la zone de texte et
+la relie à son message d’erreur.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/field-validation.tsx"
@@ -121,9 +141,11 @@ Définissez l’état invalide sur `Field` ; Ark applique `aria-invalid` et `dat
 ```
 </PreviewFrame>
 
-### Attributs natifs
+### Attributs natifs et soumission du formulaire
 
-Utilisez les propriétés natives de textarea pour le redimensionnement, le comportement du navigateur et la soumission du formulaire. L’aperçu renvoie la valeur actuelle de `FormData` afin de rendre explicite la participation au formulaire natif.
+Utilisez les propriétés natives de `textarea`, comme `rows`, `maxLength` et `spellCheck`, pour le
+comportement du navigateur. Cet exemple soumet également le formulaire et lit la valeur actuelle via
+`FormData`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/textarea/native-attributes.tsx"
@@ -133,7 +155,8 @@ Utilisez les propriétés natives de textarea pour le redimensionnement, le comp
 
 ## Styles
 
-Personnalisez `Textarea` avec `className`, `data-slot="textarea-root"` et les variables publiques `--moduix-textarea-*` documentées par l’API CSS publique.
+Personnalisez le contrôle avec `className`, `data-slot="textarea-root"` et les variables publiques
+`--moduix-textarea-*` documentées par l’API CSS.
 
 ### Propriétés CSS
 
@@ -147,7 +170,8 @@ Personnalisez `Textarea` avec `className`, `data-slot="textarea-root"` et les va
 
 ### Points d’accroche CSS
 
-Utilisez la racine de la zone de texte pour le contrôle visuel lui-même et le `Field` environnant pour la mise en page et le texte associé.
+Utilisez la racine `Textarea` pour l’apparence du contrôle et le `Field` environnant pour la mise en
+page et le texte complémentaire.
 
 - La racine `Textarea` pour la bordure, l’arrière-plan, le placeholder, le comportement de redimensionnement et l’anneau de focus.
 - Le conteneur `Field` pour la largeur, la largeur maximale, l’espacement, la disposition du libellé, la description et le message de validation.
