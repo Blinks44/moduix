@@ -1,7 +1,7 @@
 ---
 title: Tag
 component: tag
-description: A compact token for selected values, filters, and assignments with optional leading, trailing, and close parts.
+description: A compact token for selected values, filters, assignments, and other short interface values, with optional icons and a close action.
 ---
 
 import * as TagDocs from '@/components/examples/tag';
@@ -9,22 +9,22 @@ import * as TagDocs from '@/components/examples/tag';
 ## API Reference
 
 Ark UI does not ship a dedicated `tag` primitive. moduix builds this component with the official
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory), follows Ark's
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
-[ref](https://ark-ui.com/docs/guides/ref) guidance.
+[refs](https://ark-ui.com/docs/guides/ref).
 
 ## Choosing the right component
 
-Use `Tag` when the UI is showing **the selected value itself** and that value may need to be
-removed, reordered, or managed as part of the current interface state.
+Use `Tag` when the UI shows a value or item that belongs to the current interface state and may
+need a local action, such as removal.
 
-- Choose **`Badge`** when the UI is showing short metadata such as status, category, version, or count.
-- Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
+- Choose **`Badge`** for short metadata such as status, category, version, or count.
+- Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
 ## Basic
 
-Start with the short root form and `Tag.Label`. Add other parts only when the token needs icons or
-an inline close action.
+Start with a `Tag` root and `Tag.Label`. Add the other parts only when the token needs an icon,
+supporting content, or an inline close action.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/basic.tsx"
@@ -38,8 +38,7 @@ an inline close action.
 
 ## Anatomy
 
-The root is also exported as `Tag.Root` for namespace consistency with multipart Ark-style
-components.
+The root is also available as `Tag.Root`. The short `<Tag>` form and `<Tag.Root>` are equivalent.
 
 ```text
 Tag / Tag.Root
@@ -49,53 +48,62 @@ Tag / Tag.Root
    └─ Tag.CloseTrigger (optional)
 ```
 
-| Part               | Role                                                                               |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Root slot. Applies token layout, border, size, variant, and `asChild` composition. |
-| `Tag.Label`        | Truncation wrapper for the visible token value.                                    |
-| `Tag.StartElement` | Optional leading slot for icons, avatars, or status markers.                       |
-| `Tag.EndElement`   | Optional trailing slot for icons or actions.                                       |
-| `Tag.CloseTrigger` | Optional button action for dismissing or removing the token.                       |
+| Part               | Role                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag` / `Tag.Root` | Root element. Applies the token layout, border, size, variant, and `asChild` composition. |
+| `Tag.Label`        | Visible value wrapper and truncation boundary.                                            |
+| `Tag.StartElement` | Optional leading area for an icon, avatar, or status indicator.                           |
+| `Tag.EndElement`   | Optional trailing area for an icon or action.                                              |
+| `Tag.CloseTrigger` | Optional button for removing the token.                                                   |
 
 ## Composition
 
 ### Recommended composition
 
-Keep token text in `Tag.Label`. Put decorative or supporting elements in `Tag.StartElement` and
-`Tag.EndElement`, and put `Tag.CloseTrigger` inside `Tag.EndElement` when the token is removable.
+For a simple token, use `Tag` with `Tag.Label`. Keep the visible value in `Tag.Label`, and use
+`Tag.StartElement` and `Tag.EndElement` for inline content. If the token can be removed, place
+`Tag.CloseTrigger` inside `Tag.EndElement`.
+
+All exported parts forward `ref` and `className` and accept the standard props for their rendered
+element.
 
 ### When to go custom
 
-Use `asChild` when the root itself needs native button or link semantics. The child must be a single
-semantic element, and it owns the interaction behavior.
+Use `asChild` on the root when it should render as a semantic element such as a `button` or link
+instead of the default `span`. Pass exactly one child. That child becomes the DOM host and owns its
+semantics and interaction behavior.
+
+Use `Tag.CloseTrigger asChild` only when the close action needs its own semantic child. Provide the
+child's icon and accessible name yourself because the default close icon is not rendered in this mode.
 
 ### Default props
 
-| Surface            | Prop         | Default      | Notes                                                                         |
-| ------------------ | ------------ | ------------ | ----------------------------------------------------------------------------- |
-| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                     |
-| `Tag`              | `size`       | `md`         | `sm`, `md`                                                                    |
-| `Tag.CloseTrigger` | `type`       | `button`     | Prevents accidental form submission when not using `asChild`.                 |
-| `Tag.CloseTrigger` | `children`   | close icon   | Used only when not using `asChild`; replaced by custom children.              |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Applied only with no custom children, no `aria-labelledby`, and no `asChild`. |
+| Surface            | Prop         | Default      | Notes                                                                                  |
+| ------------------ | ------------ | ------------ | -------------------------------------------------------------------------------------- |
+| `Tag`              | `variant`    | `default`    | `default`, `secondary`, `outline`, `ghost`, `destructive`                              |
+| `Tag`              | `size`       | `md`         | `sm`, `md`                                                                             |
+| `Tag`              | `asChild`    | `false`      | Replaces the default `span` with one child element.                                    |
+| `Tag.CloseTrigger` | `type`       | `button`     | Applied to the default native button and prevents accidental form submission.         |
+| `Tag.CloseTrigger` | `asChild`    | `false`      | Replaces the default `button`; the child must provide the close content.               |
+| `Tag.CloseTrigger` | `children`   | close icon   | Used only without `asChild`; custom children replace the default icon.                 |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Used when there are no custom children, no `aria-labelledby`, and no `asChild`.         |
 
 ### Behavioral notes
 
-- `Tag` has no owned state, callbacks, keyboard roving, or form behavior.
-- `Tag.CloseTrigger` is explicit composition, not a root-level `onClose` prop.
-- Built-in variants use the same color semantics as `Badge`; `Tag` differs by part anatomy and close affordance.
+- `Tag` does not own selected, removed, or reordered state. The parent component owns the values and the handler that updates them.
+- `Tag.CloseTrigger` is explicit composition. There is no root-level `onClose` prop.
+- All built-in variants use the same color roles as `Badge`; `Tag` adds token anatomy and an optional inline close action.
 - Give each close trigger a specific accessible name when several removable tags appear together.
-- `asChild` follows Ark factory composition and requires one child element.
-- `Tag.CloseTrigger asChild` requires an explicit semantic child; the default close icon is rendered only by the default button host.
-- The default close trigger composes the shared `CloseButton`; existing `--moduix-tag-close-trigger-*`
-  variables and the `tag-close-trigger` data slot remain the styling API.
+- Without custom children, `Tag.CloseTrigger` uses the moduix close icon and the `Remove tag` fallback label. With custom children and no label, the shared `CloseButton` fallback is `Close`.
+- A disabled or `aria-disabled` close trigger exposes `data-disabled` and does not activate its click handler.
+- `asChild` follows Ark factory composition and requires exactly one child. `Tag.CloseTrigger asChild` also requires an explicit semantic child.
 
 ## Examples
 
 ### Closable
 
-Use `Tag.EndElement` with `Tag.CloseTrigger` for removable values. The parent widget owns removal
-state and click handling.
+The parent component owns the list of values and removes an item after the close trigger is clicked.
+Give each trigger a label that includes the value being removed.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/closable.tsx"
@@ -105,8 +113,8 @@ state and click handling.
 
 ### Icon
 
-Use `Tag.StartElement` and `Tag.EndElement` for icon slots so label truncation and action sizing stay
-independent.
+Use `Tag.StartElement` and `Tag.EndElement` for icons and actions so `Tag.Label` remains the
+truncation boundary and action sizing stays independent.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/icon.tsx"
@@ -116,8 +124,8 @@ independent.
 
 ### Overflow
 
-Use `Tag.Label` as the truncation point for long values. This intentionally narrow example makes
-the ellipsis visible; add `title` when the full text should remain discoverable.
+Constrain the root when long values need to fit a narrow area. `Tag.Label` becomes the truncation
+boundary and shows an ellipsis; add `title` when the full value should remain discoverable.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/overflow.tsx"
@@ -127,7 +135,8 @@ the ellipsis visible; add `title` when the full text should remain discoverable.
 
 ### Sizes
 
-Use `size="sm"` for dense token rows and keep the default `md` size for standalone tokens.
+Use `size="sm"` for dense token rows. Keep the default `md` size for standalone tokens and more
+comfortable spacing.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/sizes.tsx"
@@ -137,7 +146,7 @@ Use `size="sm"` for dense token rows and keep the default `md` size for standalo
 
 ### Variants
 
-Use the built-in variants for common moduix tones while keeping the same part structure.
+Use the built-in variants for common moduix color roles while keeping the same part structure.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/variants.tsx"
@@ -147,8 +156,8 @@ Use the built-in variants for common moduix tones while keeping the same part st
 
 ### Advanced Customization
 
-Use `asChild` when the whole token is an action. This replaces the default `span` host; keep the
-single child semantic element responsible for keyboard and click behavior.
+Use `asChild` when the whole token is an action. This replaces the default `span`; the single child
+becomes the semantic and interactive host, so it must provide the behavior expected from a button or link.
 
 <PreviewFrame>
   ```tsx preview file="./_snippets/tag/render-as-button.tsx"
@@ -158,11 +167,11 @@ single child semantic element responsible for keyboard and click behavior.
 
 ## Styling
 
-Prefer built-in variants first, then local CSS variables for one-off sizing and tone changes.
-Component-wide color variables take precedence; otherwise each built-in variant resolves its own
-background, border, and foreground variable before falling back to foundation tokens.
+Start with a built-in variant. For one-off size or color changes, use local CSS variables or a
+`className` override. The component-wide color variables take precedence over the variables for
+individual variants.
 
-### CSS Properties
+### CSS Variables
 
 <div className="docs-reference">
   <Tabs
@@ -178,7 +187,7 @@ background, border, and foreground variable before falling back to foundation to
 
 ### Styling hooks
 
-- `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"` are emitted on the exported parts.
+- Exported parts emit `data-scope="tag"` and `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"`, and `data-slot="tag-close-trigger"` are stable moduix selectors.
-- `Tag` writes the selected size and tone to `data-size` and `data-variant`.
+- `Tag` writes the selected size and variant to `data-size` and `data-variant`.
 - `Tag.CloseTrigger` exposes `data-disabled` for disabled or `aria-disabled` states and inherits the token color.

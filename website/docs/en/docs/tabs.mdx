@@ -1,7 +1,7 @@
 ---
 title: Tabs
 component: tabs
-description: A set of tab triggers that switch between related content panels on the same page.
+description: Switch between related content panels with accessible keyboard navigation, controlled state, lazy mounting, links, and vertical layouts.
 ---
 
 import * as TabsDocs from '@/components/examples/tabs';
@@ -12,15 +12,17 @@ import * as TabsDocs from '@/components/examples/tabs';
 
 ## Choosing the right component
 
-Use `Tabs` when users switch between mutually exclusive views that share one page region.
+Use `Tabs` to switch between related views in one page region. Selecting a tab shows its matching
+content panel and hides the other panels.
 
-- Choose **`Tabs`** when one selected trigger should reveal one selected content panel.
-- Choose **`Accordion`** when sections should stay stacked and expand independently.
-- Choose **`ToggleGroup`** when the control changes state or mode, but does not own panel content.
+- Choose **`Tabs`** when each tab should reveal one associated content panel.
+- Choose **`Accordion`** when sections should stay stacked and open independently.
+- Choose **`ToggleGroup`** when the control changes a state or mode without owning panel content.
 
 ## Basic
 
-Use the short root form with `Tabs.List`, `Tabs.Trigger`, `Tabs.Indicator`, and `Tabs.Content`.
+Start with `Tabs` and give each `Tabs.Trigger` and `Tabs.Content` the same `value`. Render
+`Tabs.Indicator` explicitly when you want a visual marker for the selected tab.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/basic.tsx"
@@ -39,70 +41,77 @@ Tabs
 ├─ Tabs.List
 │  ├─ Tabs.Trigger[value]
 │  ├─ Tabs.Trigger[value]
-│  └─ Tabs.Indicator (optional)
+│  └─ Tabs.Indicator
 └─ Tabs.Content[value]
 
 Tabs.RootProvider
-└─ same part tree connected to a useTabs() store
+└─ Tabs.* + useTabs()
 
 Tabs.Context
-└─ advanced render-prop access to the current tab state
+└─ render prop
 ```
 
-| Part                 | Role                                                            |
-| -------------------- | --------------------------------------------------------------- |
-| `Tabs`               | Controls selected value, focus movement, orientation, and mode. |
-| `Tabs.RootProvider`  | Connects parts to state created with moduix `useTabs()`.        |
-| `Tabs.Context`       | Advanced render-prop access to the current tab state.           |
-| `Tabs.List`          | Groups tab triggers and owns roving-focus list semantics.       |
-| `Tabs.Trigger`       | Interactive tab button or `asChild` host with a required value. |
-| `Tabs.Indicator`     | Optional active-trigger indicator positioned by Ark variables.  |
-| `Tabs.Content`       | Content region for the matching trigger value.                  |
+| Part                | Role                                                               |
+| ------------------- | ------------------------------------------------------------------ |
+| `Tabs`              | Root that owns the selected value, focus, orientation, and mode.   |
+| `Tabs.RootProvider` | Connects the parts to state created with moduix `useTabs()`.       |
+| `Tabs.Context`      | Exposes the current tab state through a render prop.               |
+| `Tabs.List`         | Groups triggers and manages focus movement between them.          |
+| `Tabs.Trigger`      | Interactive tab button, or an `asChild` host, with a required value. |
+| `Tabs.Indicator`    | Optional indicator for the selected tab.                            |
+| `Tabs.Content`      | Content panel associated with a matching trigger value.            |
 
 ## Composition
 
 ### Recommended composition
 
-`Tabs` owns keyboard navigation, focus movement, and selected value. Use it for `value`,
-`defaultValue`, `onValueChange(details)`, `onFocusChange(details)`, `activationMode`,
-`orientation`, `loopFocus`, `deselectable`, `lazyMount`, `unmountOnExit`, `ids`, and `navigate`.
+Use `<Tabs>` for the common case. It owns keyboard navigation, focus movement, and the selected
+value. Use `defaultValue` for the initial tab, or pass `value` with `onValueChange(details)` when
+React state should control the selection. Read the selected value from `details.value`.
 
-Keep the Ark part tree visible. `Tabs.Indicator` is optional and should be rendered explicitly when
-you want the active-trigger indicator.
+The root also accepts `onFocusChange(details)`, `activationMode`, `orientation`, `loopFocus`,
+`deselectable`, `lazyMount`, `unmountOnExit`, `ids`, and `navigate`, which pass through to Ark UI.
+
+Keep the part tree explicit. `Tabs.List` groups the triggers but does not render an indicator;
+add `Tabs.Indicator` when the selected tab needs a visual marker.
 
 ### When to go custom
 
-Use `asChild` on `Tabs.Trigger` when a trigger should render a link or router component. The child
-must be a single semantic element that can preserve Ark's keyboard, focus, and ARIA behavior.
+Use `asChild` on `Tabs.Trigger` when a tab should render a link or a router component. The child
+must be one semantic element that preserves Ark's keyboard, focus, and ARIA behavior.
 
-Use moduix `useTabs()` with `Tabs.RootProvider` when tab state must be created outside the rendered
-tree. Do not render `Tabs` around the same state instance. Use `Tabs.Context` or
-`useTabsContext()` when surrounding UI needs to read the current tab state.
+Use `useTabs()` or `Tabs.useTabs()` with `Tabs.RootProvider` when the tab state needs to be created
+outside the rendered tree, or when adjacent UI needs to read or update the selection. Do not wrap
+the same state instance in another `Tabs` root.
+
+Use `Tabs.Context` for a render-prop pattern, or `useTabsContext()` to read the current state from
+descendants of `Tabs` or `Tabs.RootProvider`.
 
 ### Default props
 
-| Prop                       | Default      | Notes                                                        |
-| -------------------------- | ------------ | ------------------------------------------------------------ |
-| `Tabs.variant`             | `default`    | moduix visual sugar: `default` or `line`.                    |
-| `Tabs.activationMode`      | `automatic`  | Focus selects automatically unless set to `manual`.          |
-| `Tabs.orientation`         | `horizontal` | `horizontal` uses arrow left/right; `vertical` uses up/down. |
-| `Tabs.loopFocus`           | `true`       | Roving focus wraps around the trigger list.                  |
-| `Tabs.lazyMount`           | `false`      | Defers content mounting until selected.                      |
-| `Tabs.unmountOnExit`       | `false`      | Removes inactive content when combined with lazy paths.      |
+| Prop                   | Default      | Notes                                                        |
+| ---------------------- | ------------ | ------------------------------------------------------------ |
+| `Tabs.variant`         | `default`    | Visual treatment: `default` or `line`.                       |
+| `Tabs.activationMode`  | `automatic`  | Focus selects the tab automatically unless set to `manual`. |
+| `Tabs.orientation`     | `horizontal` | Horizontal tabs use left/right arrows; vertical tabs use up/down arrows. |
+| `Tabs.loopFocus`       | `true`       | Focus wraps from the last trigger back to the first.        |
+| `Tabs.lazyMount`       | `false`      | Mounts a panel only after its tab is selected.               |
+| `Tabs.unmountOnExit`   | `false`      | Unmounts inactive panels, usually with `lazyMount`.          |
 
 ### Behavioral notes
 
-- `onValueChange` follows Ark and receives `details`; read the selected value from `details.value`.
 - `Tabs.Trigger` and `Tabs.Content` connect through matching string `value` props.
-- `Tabs.List` no longer auto-renders an indicator. Render `Tabs.Indicator` explicitly when needed.
-- `variant="line"` falls back to the filled `default` treatment for vertical `Tabs` and `Tabs.RootProvider`.
-- Ark controls accessibility attributes, tabpanel relationships, roving focus, and disabled trigger behavior.
+- With `activationMode="automatic"`, moving focus selects a tab. With `manual`, focus moves first and selection happens on activation.
+- `onValueChange` receives Ark's `details` object; the selected value is `details.value`.
+- A disabled `Tabs.Trigger` stays visible but cannot receive focus or selection.
+- `variant="line"` applies only to horizontal tabs. Vertical `Tabs` and `Tabs.RootProvider` use the filled `default` treatment.
+- Ark UI manages the ARIA attributes, tab and tabpanel relationships, keyboard navigation, focus movement, and disabled behavior.
 
 ## Examples
 
 ### Controlled Value
 
-Control the selected tab from React state when the active panel coordinates with other UI.
+Control the selected tab from React state when the active panel needs to coordinate with other UI.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/controlled-value.tsx"
@@ -112,7 +121,7 @@ Control the selected tab from React state when the active panel coordinates with
 
 ### Custom Icons
 
-Compose icons and labels directly inside `Tabs.Trigger`.
+Place icons and labels directly inside `Tabs.Trigger`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/custom-icons.tsx"
@@ -122,7 +131,7 @@ Compose icons and labels directly inside `Tabs.Trigger`.
 
 ### Disabled Tab
 
-Disable triggers that are visible but not available yet.
+Disable a tab that should remain visible but is not currently available.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/disabled-tab.tsx"
@@ -132,7 +141,8 @@ Disable triggers that are visible but not available yet.
 
 ### Lazy Mount
 
-Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the DOM.
+Use `lazyMount` when inactive panels should not mount until selected. Add `unmountOnExit` to
+remove them from the DOM again after the user leaves them.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/lazy-mount.tsx"
@@ -142,8 +152,8 @@ Use `lazyMount` and `unmountOnExit` when inactive content should not stay in the
 
 ### Line
 
-Use moduix `variant="line"` when the indicator should sit on the active edge instead of filling the
-trigger.
+Use `variant="line"` when the indicator should sit on the active edge instead of filling the
+selected tab. This treatment is available for horizontal tabs.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/line.tsx"
@@ -153,7 +163,7 @@ trigger.
 
 ### Links
 
-Use `asChild` when triggers should render anchors or router links.
+Use `asChild` when tab triggers should render anchors or links managed by your router.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/links.tsx"
@@ -163,8 +173,8 @@ Use `asChild` when triggers should render anchors or router links.
 
 ### Manual Activation
 
-Set `activationMode="manual"` when arrow-key focus should move without selecting until click,
-Enter, or Space.
+Set `activationMode="manual"` when arrow keys should move focus without changing the selected
+tab. Activate it with a click, Enter, or Space.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/manual-activation.tsx"
@@ -174,8 +184,8 @@ Enter, or Space.
 
 ### Vertical
 
-Use `orientation="vertical"` when the trigger list should sit beside the active content. Vertical
-tabs use the filled indicator, which keeps the selected item easy to scan.
+Use `orientation="vertical"` when the tab list should sit beside the active panel. Vertical tabs
+use the filled indicator, which makes the selected item easy to scan.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="./_snippets/tabs/vertical.tsx"
@@ -185,8 +195,8 @@ tabs use the filled indicator, which keeps the selected item easy to scan.
 
 ### Advanced Customization
 
-Create external state with moduix `useTabs()` when the selected value must be read before rendering
-the part tree or controlled by adjacent UI.
+Create the tab state with `useTabs()` when it must exist before the part tree renders or when
+adjacent UI needs to read the selected value.
 
 <style>{TabsDocs.tabsExampleCss}</style>
 
@@ -198,8 +208,9 @@ the part tree or controlled by adjacent UI.
 
 ## Styling
 
-Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-scope` and
-`data-part` attributes, `data-variant`, and the public `--moduix-tabs-*` CSS variables shown below.
+Style `Tabs` with `className`, stable `data-slot="tabs-*"` hooks, Ark's `data-scope` and
+`data-part` attributes, the root's `data-variant`, and the public `--moduix-tabs-*` CSS variables
+listed below.
 
 ### CSS Properties
 
@@ -217,17 +228,18 @@ Style `Tabs` through `className`, stable `data-slot="tabs-*"` hooks, Ark `data-s
 
 ### Styling hooks
 
-Use the part that owns the visual concern:
+Target the part that owns the visual concern:
 
 - `Tabs` for layout width, overall gap, orientation, and variant-level overrides
-- `Tabs.List` for list chrome, borders, background, and indicator container spacing
-- `Tabs.Trigger` for label layout, icon spacing, selected state, disabled state, and focus styling
-- `Tabs.Indicator` for custom indicator color, size, and transition behavior
-- `Tabs.Content` for content surface, padding, and focus styling
+- `Tabs.List` for list chrome, borders, background, and indicator-container spacing
+- `Tabs.Trigger` for label layout, icon spacing, selected and disabled states, and focus styling
+- `Tabs.Indicator` for custom indicator color, size, and transitions
+- `Tabs.Content` for the panel surface, padding, and focus styling
 
-The main public hooks include `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
+The main public hooks are `data-slot="tabs-root"`, `data-slot="tabs-root-provider"`,
 `data-slot="tabs-list"`, `data-slot="tabs-trigger"`, `data-slot="tabs-indicator"`, and
 `data-slot="tabs-content"`.
 
 Useful Ark hooks include `data-scope="tabs"`, `data-part`, `data-orientation`, `data-selected`,
-`data-disabled`, `data-focus`, and indicator variables `--left`, `--top`, `--width`, and `--height`.
+`data-disabled`, `data-focus`, and the indicator variables `--left`, `--top`, `--width`,
+`--height`, and `--transition-property`.

@@ -1,25 +1,27 @@
 ---
 title: Tag
 component: tag
-description: Un libellé compact pour les valeurs sélectionnées, les filtres et les attributions, avec des éléments de début, de fin et de fermeture facultatifs.
+description: Une étiquette compacte pour afficher une valeur sélectionnée, un filtre, une attribution ou une autre information courte, avec des icônes et une action de suppression facultatives.
 ---
 
 import * as TagDocs from '@/components/examples/tag';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive `tag` dédiée. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [ref](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive `tag` dédiée. moduix construit ce composant avec la [fabrique Ark](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark concernant la [composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Choisir le bon composant
 
-Utilisez `Tag` lorsque l’interface affiche **la valeur sélectionnée elle-même** et que cette valeur peut devoir être supprimée, réorganisée ou gérée dans le cadre de l’état actuel de l’interface.
+Utilisez `Tag` lorsque l’interface affiche une valeur ou un élément qui fait partie de son état
+actuel et peut nécessiter une action locale, par exemple une suppression.
 
-- Choisissez **`Badge`** lorsque l’interface affiche de courtes métadonnées : un statut, une catégorie, une version ou un nombre.
-- Choisissez **`Tag`** lorsque l’interface affiche des valeurs sélectionnées, des filtres, des attributions ou des libellés appartenant à l’état actuel.
+- Choisissez **`Badge`** pour de courtes métadonnées : statut, catégorie, version ou nombre.
+- Choisissez **`Tag`** pour les valeurs sélectionnées, les filtres, les attributions ou les libellés qui font partie de l’état actuel de l’interface.
 
 ## Exemple de base
 
-Commencez par la forme racine courte et `Tag.Label`. Ajoutez les autres parties uniquement si le tag nécessite des icônes ou une action de fermeture intégrée.
+Commencez avec un `Tag` et `Tag.Label`. Ajoutez les autres parties uniquement si l’étiquette a
+besoin d’une icône, d’un contenu complémentaire ou d’une action de fermeture intégrée.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/basic.tsx"
@@ -33,7 +35,7 @@ Commencez par la forme racine courte et `Tag.Label`. Ajoutez les autres parties 
 
 ## Anatomie
 
-La racine est également exportée sous le nom `Tag.Root` afin de préserver la cohérence de l’espace de noms avec les composants composés dans le style d’Ark.
+La racine est également disponible sous le nom `Tag.Root`. Les formes courtes `<Tag>` et `<Tag.Root>` sont équivalentes.
 
 ```text
 Tag / Tag.Root
@@ -43,49 +45,63 @@ Tag / Tag.Root
    └─ Tag.CloseTrigger (optional)
 ```
 
-| Partie | Rôle |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `Tag` / `Tag.Root` | Emplacement racine. Applique la disposition du tag, la bordure, la taille, la variante et la composition `asChild`. |
-| `Tag.Label` | Conteneur de troncature pour la valeur visible du tag. |
-| `Tag.StartElement` | Emplacement de début facultatif pour les icônes, les avatars ou les indicateurs de statut. |
-| `Tag.EndElement` | Emplacement de fin facultatif pour les icônes ou les actions. |
-| `Tag.CloseTrigger` | Action de bouton facultative permettant de retirer ou de supprimer le tag. |
+| Partie             | Rôle                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------- |
+| `Tag` / `Tag.Root` | Élément racine. Applique la disposition, la bordure, la taille, la variante et la composition `asChild`. |
+| `Tag.Label`        | Conteneur de la valeur visible et limite de troncature.                                 |
+| `Tag.StartElement` | Zone de début facultative pour une icône, un avatar ou un indicateur d’état.             |
+| `Tag.EndElement`   | Zone de fin facultative pour une icône ou une action.                                    |
+| `Tag.CloseTrigger` | Bouton facultatif pour supprimer l’étiquette.                                            |
 
 ## Composition
 
 ### Composition recommandée
 
-Conservez le texte du tag dans `Tag.Label`. Placez les éléments décoratifs ou auxiliaires dans `Tag.StartElement` et `Tag.EndElement`, puis placez `Tag.CloseTrigger` dans `Tag.EndElement` si le tag peut être supprimé.
+Pour une étiquette simple, utilisez `Tag` avec `Tag.Label`. Conservez la valeur visible dans
+`Tag.Label` et utilisez `Tag.StartElement` ou `Tag.EndElement` pour le contenu intégré. Si
+l’étiquette peut être supprimée, placez `Tag.CloseTrigger` dans `Tag.EndElement`.
+
+Toutes les parties exportées transmettent `ref` et `className` et acceptent les propriétés
+standard de l’élément qu’elles rendent.
 
 ### Quand créer une composition personnalisée
 
-Utilisez `asChild` lorsque la racine elle-même doit adopter la sémantique d’un bouton ou d’un lien. L’enfant doit être un unique élément sémantique qui prend en charge le comportement interactif.
+Utilisez `asChild` sur la racine lorsque celle-ci doit rendre un élément sémantique, comme un
+`button` ou un lien, à la place du `span` par défaut. Fournissez exactement un enfant. Cet enfant
+devient le nœud DOM racine et porte sa propre sémantique ainsi que son comportement interactif.
+
+Utilisez `Tag.CloseTrigger asChild` uniquement lorsque l’action de suppression doit utiliser son
+propre enfant sémantique. Fournissez alors vous-même l’icône et le nom accessible, car l’icône par
+défaut n’est pas rendue dans ce mode.
 
 ### Propriétés par défaut
 
-| Surface | Propriété | Valeur par défaut | Remarques |
-| ------------------ | ------------ | ------------ | ----------------------------------------------------------------------------- |
-| `Tag` | `variant` | `default` | `default`, `secondary`, `outline`, `ghost`, `destructive` |
-| `Tag` | `size` | `md` | `sm`, `md` |
-| `Tag.CloseTrigger` | `type` | `button` | Évite la soumission accidentelle d’un formulaire lorsque `asChild` n’est pas utilisé. |
-| `Tag.CloseTrigger` | `children` | icône de fermeture | Utilisée uniquement sans `asChild` ; remplacée par les enfants personnalisés. |
-| `Tag.CloseTrigger` | `aria-label` | `Remove tag` | Appliqué uniquement en l’absence d’enfants personnalisés, de `aria-labelledby` et de `asChild`. |
+| Surface            | Propriété    | Valeur par défaut  | Remarques                                                                            |
+| ------------------ | ------------ | ------------------ | ------------------------------------------------------------------------------------ |
+| `Tag`              | `variant`    | `default`         | `default`, `secondary`, `outline`, `ghost`, `destructive`                   |
+| `Tag`              | `size`       | `md`              | `sm`, `md`                                                                       |
+| `Tag`              | `asChild`    | `false`           | Remplace le `span` par défaut par un unique élément enfant.                       |
+| `Tag.CloseTrigger` | `type`       | `button`          | S’applique au bouton natif par défaut et évite la soumission accidentelle du formulaire. |
+| `Tag.CloseTrigger` | `asChild`    | `false`           | Remplace le `button` par défaut ; l’enfant doit fournir le contenu de fermeture.   |
+| `Tag.CloseTrigger` | `children`   | icône de fermeture  | Utilisé sans `asChild` ; des enfants personnalisés remplacent l’icône par défaut.   |
+| `Tag.CloseTrigger` | `aria-label` | `Remove tag`      | Utilisé sans enfant personnalisé, sans `aria-labelledby` et sans `asChild`.       |
 
 ### Comportement
 
-- `Tag` ne possède pas d’état, de callbacks, de déplacement au clavier ni de comportement de formulaire propres.
-- `Tag.CloseTrigger` relève d’une composition explicite et non d’une propriété `onClose` au niveau de la racine.
-- Les variantes intégrées utilisent la même sémantique de couleur que `Badge` ; `Tag` s’en distingue par l’anatomie de ses parties et son comportement d’accessibilité.
-- Donnez à chaque déclencheur de fermeture un nom accessible précis lorsque plusieurs tags amovibles sont affichés ensemble.
-- `asChild` suit la composition de la fabrique Ark et exige un seul enfant.
-- `Tag.CloseTrigger asChild` exige un enfant sémantique explicite ; l’icône de fermeture par défaut n’est rendue que par le bouton hôte par défaut.
-- Le déclencheur de fermeture par défaut compose le composant `CloseButton` partagé ; les variables `--moduix-tag-close-trigger-*` et l’emplacement de données `tag-close-trigger` restent des API de style.
+- `Tag` ne gère pas l’état des valeurs sélectionnées, supprimées ou réordonnées. Le composant parent conserve les valeurs et le gestionnaire qui les met à jour.
+- `Tag.CloseTrigger` relève d’une composition explicite. La racine ne fournit pas de propriété `onClose`.
+- Les variantes intégrées utilisent les mêmes rôles de couleur que `Badge` ; `Tag` ajoute une anatomie d’étiquette et une action de fermeture facultative.
+- Donnez à chaque déclencheur de fermeture un nom accessible précis lorsque plusieurs étiquettes amovibles sont affichées ensemble.
+- Sans enfant personnalisé, `Tag.CloseTrigger` utilise l’icône de fermeture moduix et le libellé de remplacement `Remove tag`. Avec des enfants personnalisés et sans libellé, le `CloseButton` partagé utilise `Close`.
+- Un déclencheur de fermeture désactivé ou marqué `aria-disabled` expose `data-disabled` et n’active pas son gestionnaire de clic.
+- `asChild` suit la composition de la fabrique Ark et exige exactement un enfant. `Tag.CloseTrigger asChild` exige également un enfant sémantique explicite.
 
 ## Exemples
 
-### Avec fermeture
+### Avec suppression
 
-Utilisez `Tag.EndElement` avec `Tag.CloseTrigger` pour les valeurs amovibles. Le widget parent gère l’état de suppression et le clic.
+Le composant parent conserve la liste des valeurs et supprime un élément après le clic sur le
+bouton de fermeture. Donnez à chaque bouton un nom qui contient la valeur supprimée.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/closable.tsx"
@@ -93,9 +109,10 @@ Utilisez `Tag.EndElement` avec `Tag.CloseTrigger` pour les valeurs amovibles. Le
   ```
 </PreviewFrame>
 
-### Icône
+### Avec une icône
 
-Utilisez `Tag.StartElement` et `Tag.EndElement` comme emplacements d’icône afin que la troncature du libellé et la taille de l’action restent indépendantes.
+Utilisez `Tag.StartElement` et `Tag.EndElement` pour les icônes et les actions. `Tag.Label` reste
+ainsi la limite de troncature et la taille de l’action reste indépendante.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/icon.tsx"
@@ -103,9 +120,11 @@ Utilisez `Tag.StartElement` et `Tag.EndElement` comme emplacements d’icône af
   ```
 </PreviewFrame>
 
-### Débordement
+### Valeurs longues
 
-Utilisez `Tag.Label` comme point de troncature pour les valeurs longues. Cet exemple volontairement étroit rend les points de suspension visibles ; ajoutez `title` lorsque le texte complet doit rester consultable.
+Limitez la largeur de la racine lorsque les valeurs longues doivent tenir dans un espace étroit.
+`Tag.Label` devient la limite de troncature et affiche des points de suspension ; ajoutez `title`
+pour que la valeur complète reste consultable.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/overflow.tsx"
@@ -115,7 +134,8 @@ Utilisez `Tag.Label` comme point de troncature pour les valeurs longues. Cet exe
 
 ### Tailles
 
-Utilisez `size="sm"` pour les rangées de tags denses et conservez la taille `md` par défaut pour les tags isolés.
+Utilisez `size="sm"` pour les rangées d’étiquettes denses. Conservez la taille `md` par défaut
+pour les étiquettes seules et un espacement plus confortable.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/sizes.tsx"
@@ -125,7 +145,8 @@ Utilisez `size="sm"` pour les rangées de tags denses et conservez la taille `md
 
 ### Variantes
 
-Utilisez les variantes intégrées pour les tonalités moduix courantes tout en conservant la même structure de parties.
+Utilisez les variantes intégrées pour les rôles de couleur courants de moduix tout en conservant
+la même structure de parties.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/variants.tsx"
@@ -135,7 +156,9 @@ Utilisez les variantes intégrées pour les tonalités moduix courantes tout en 
 
 ### Personnalisation avancée
 
-Utilisez `asChild` lorsque le tag entier représente une action. Cette option remplace l’hôte `span` par défaut ; conservez un unique enfant sémantique responsable du comportement au clavier et au clic.
+Utilisez `asChild` lorsque l’étiquette entière est une action. Cette option remplace le `span` par
+défaut ; l’unique enfant devient l’élément sémantique et interactif. Il doit donc fournir le
+comportement attendu d’un bouton ou d’un lien.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/tag/render-as-button.tsx"
@@ -145,23 +168,27 @@ Utilisez `asChild` lorsque le tag entier représente une action. Cette option re
 
 ## Styles
 
-Privilégiez d’abord les variantes intégrées, puis les variables CSS locales pour les ajustements ponctuels de taille et de tonalité.
-Les variables de couleur globales sont prioritaires ; sinon, chaque variante intégrée utilise ses propres variables
-d’arrière-plan, de bordure et de texte avant de recourir aux jetons de base.
+Commencez par une variante intégrée. Pour modifier ponctuellement la taille ou la couleur,
+utilisez des variables CSS locales ou une surcharge `className`. Les variables de couleur globales
+du composant sont prioritaires sur celles des variantes individuelles.
 
-### Propriétés CSS
+### Variables CSS
 
 <div className="docs-reference">
-<Tabs
+  <Tabs
     values={[{ label: 'Variables CSS', value: 'CSS Variables' }]}
     className="docs-reference-tabs"
     contentItemClassName="docs-reference-panel"
-> <Tab> <TagDocs.TagCssPropertiesPanel /> </Tab> </Tabs>
+  >
+    <Tab>
+      <TagDocs.TagCssPropertiesPanel />
+    </Tab>
+  </Tabs>
 </div>
 
-### Points d’accroche CSS
+### Sélecteurs et attributs de style
 
-- `data-scope="tag"` et `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"` sont émis sur les parties exportées.
+- Les parties exportées émettent `data-scope="tag"` et `data-part="root" | "label" | "start-element" | "end-element" | "close-trigger"`.
 - `data-slot="tag-root"`, `data-slot="tag-label"`, `data-slot="tag-start-element"`, `data-slot="tag-end-element"` et `data-slot="tag-close-trigger"` sont des sélecteurs moduix stables.
-- `Tag` inscrit la taille et la tonalité sélectionnées dans `data-size` et `data-variant`.
-- `Tag.CloseTrigger` fournit `data-disabled` pour les états désactivés ou `aria-disabled` et hérite de la couleur du tag.
+- `Tag` inscrit la taille et la variante sélectionnées dans `data-size` et `data-variant`.
+- `Tag.CloseTrigger` expose `data-disabled` lorsqu’il est désactivé ou marqué `aria-disabled` et hérite de la couleur de l’étiquette.
