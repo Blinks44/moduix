@@ -1,28 +1,29 @@
 ---
 title: Native Select
 component: native-select
-description: A styled native select for simple option lists and platform-native selection.
+description: A styled native `<select>` for simple option lists and browser-managed selection.
 ---
 
 import * as NativeSelectDocs from '@/components/examples/native-select';
 
 ## API Reference
 
-`NativeSelect` wraps Ark UI
+`NativeSelect` wraps Ark UI's
 [Field.Select](https://ark-ui.com/docs/components/field) and renders a real HTML `<select>`.
-Chakra UI [Native Select](https://chakra-ui.com/docs/components/native-select) informs its visual
-relationship with custom Select, while moduix keeps the public API to one component.
+It uses the same visual language as the custom `Select`, similar to Chakra UI's
+[Native Select](https://chakra-ui.com/docs/components/native-select), while moduix keeps the public API
+to one component.
 
 ## Choosing the right component
 
-Use `NativeSelect` for straightforward option lists where browser autofill, form reset, native
-keyboard behavior, and mobile platform pickers are desirable. Use [`Select`](/docs/select) when the
-interface needs a custom popup, collection APIs, rich items, clearing, multiple-value presentation,
-or controlled popup behavior.
+Use `NativeSelect` for simple option lists when you want browser autofill, form reset, native keyboard
+behavior, and mobile-native selection UI. Choose [`Select`](/docs/select) when you need a custom popup,
+collection APIs, rich option content, clearing, multiple selected values, or programmatic control of the
+popup.
 
 ## Basic
 
-Render native `option` or `optgroup` children and use normal select props.
+Add native `option` or `optgroup` elements as children and pass the usual `<select>` props.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/native-select/basic.tsx"
@@ -36,8 +37,8 @@ Render native `option` or `optgroup` children and use normal select props.
 
 ## Anatomy
 
-`NativeSelect` keeps the real select as its form control and adds a non-interactive moduix
-`ChevronDownIcon` for consistent alignment with `Select`.
+`NativeSelect` keeps the real `<select>` as the form control and adds a non-interactive moduix
+`ChevronDownIcon` so the closed control stays aligned with `Select`.
 
 ```text
 NativeSelect
@@ -51,53 +52,54 @@ NativeSelect
 
 | Part           | Role                                          |
 | -------------- | --------------------------------------------- |
-| `NativeSelect` | Styled native select with a visual indicator. |
+| `NativeSelect` | Styled native `<select>` with an indicator. |
 
 ## Composition
 
 ### Recommended composition
 
-Use the short `NativeSelect` form with native children and native controlled or uncontrolled props.
-Compose it inside `Field.Root` when the control needs a visible label, helper text, error text, or
-shared required, invalid, or disabled state.
+Use the compact `NativeSelect` form with native children and the usual controlled or uncontrolled
+props. Wrap it in `Field.Root` when the control needs a visible label, helper text, error text, or
+shared `required`, `invalid`, or `disabled` state.
 
-`NativeSelect.Root` is a compatibility alias; prefer `NativeSelect` in application code.
+`NativeSelect.Root` is a compatibility alias. Use `NativeSelect` in application code.
 
 ### When to go custom
 
-Switch to `Select` when option rendering, popup positioning, collection state, or custom indicators
-must be controlled by the application. Keep `NativeSelect` for browser-owned selection behavior.
+Switch to `Select` when the application needs to control option rendering, popup positioning,
+collection state, or custom indicators. Keep `NativeSelect` when you want the browser to manage
+selection.
 
 ### Default props
 
 | Prop           | Default         | Notes                                               |
 | -------------- | --------------- | --------------------------------------------------- |
-| `value`        | -               | Native controlled value                             |
-| `defaultValue` | -               | Native uncontrolled value                           |
-| `onChange`     | -               | Native `ChangeEvent<HTMLSelectElement>`             |
-| `multiple`     | `false`         | Enables native multiple selection                   |
-| `size`         | browser default | Native visible row count, not a visual size variant |
-| `disabled`     | `false`         | Native disabled state                               |
-| `controlProps` | -               | Props for the outer layout span                     |
-| `asChild`      | `false`         | Ark composition; its child must remain a `<select>` |
+| `value`        | -               | Controlled value                               |
+| `defaultValue` | -               | Initial uncontrolled value                     |
+| `onChange`     | -               | Native `ChangeEvent<HTMLSelectElement>`       |
+| `multiple`     | `false`         | Enables multiple selection                    |
+| `size`         | browser default | Visible row count, not a visual size variant  |
+| `disabled`     | `false`         | Disables the control                          |
+| `controlProps` | -               | Props for the outer layout span               |
+| `asChild`      | `false`         | Ark composition; child must remain a `<select>` |
 
 ### Behavioral notes
 
-- The ref targets the real `HTMLSelectElement`.
-- Native submission, autofill, reset, required validation, options, and keyboard behavior are
-  preserved.
-- `multiple` and native `size` values greater than one use an intrinsic list height.
-- `Field.Root` supplies ids, `aria-describedby`, invalid state, and native state props.
+- The ref points to the real `HTMLSelectElement`.
+- Native form submission, autofill, reset, `required` validation, option handling, and keyboard
+  behavior are preserved.
+- With `multiple` or a native `size` greater than one, the browser determines the list's intrinsic height.
+- `Field.Root` supplies ids and `aria-describedby`, and passes through invalid and other native field state.
 - With `asChild`, keep the child as a semantic HTML `<select>`.
-- HTML select does not support a read-only state.
-- `ChevronDownIcon` keeps the collapsed control aligned with `Select`; the browser still owns the
-  popup appearance.
+- HTML `<select>` does not support a read-only mode.
+- `ChevronDownIcon` keeps the closed control aligned with `Select`. The browser still controls the
+  popup's appearance.
 
 ## Examples
 
 ### Controlled
 
-Use the native change event when React owns the selected value.
+Use the native change event when React controls the selected value.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/native-select/controlled.tsx"
@@ -107,7 +109,7 @@ Use the native change event when React owns the selected value.
 
 ### Field Integration
 
-Use `Field` for accessible labels, descriptions, error text, and shared form state.
+Use `Field` to connect the select to an accessible label, description, error message, and shared form state.
 
 <PreviewFrame maxWidth="sm" contentWidth="fit-content">
   ```tsx preview file="./_snippets/native-select/field-integration.tsx"
@@ -117,7 +119,7 @@ Use `Field` for accessible labels, descriptions, error text, and shared form sta
 
 ### Multiple Selection
 
-Native `multiple` and `size` props turn the control into a browser-managed option list.
+The native `multiple` and `size` props turn the control into a list whose selection is managed by the browser.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/native-select/multiple-selection.tsx"
@@ -129,9 +131,9 @@ Native `multiple` and `size` props turn the control into a browser-managed optio
 
 ### CSS Properties
 
-`NativeSelect` reuses the control-level `--moduix-select-*` variables so native and custom selects can
-share dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and
-transitions. Its default padding and indicator geometry follow the shared 4px spacing scale.
+`NativeSelect` uses the same control-level `--moduix-select-*` variables as `Select`, so both controls can
+share dimensions, indicator spacing, borders, colors, radius, focus ring, disabled opacity, and transitions.
+Its default padding and indicator geometry use the shared 4px spacing scale.
 
 <div className="docs-reference">
   <Tabs
@@ -147,12 +149,12 @@ transitions. Its default padding and indicator geometry follow the shared 4px sp
 
 ### Styling hooks
 
-- `className` styles the real select element. Use `controlProps.className` for the outer layout span.
-- Put `--moduix-select-*` variables that affect the indicator in `controlProps.style` so both the select
-  and indicator inherit them.
+- `className` styles the real `<select>`. Use `controlProps.className` for the outer layout span.
+- Set indicator-related `--moduix-select-*` variables in `controlProps.style` so both the select and
+  indicator inherit them.
 - `data-scope="field"` and `data-part="select"` preserve the Ark Field styling contract.
-- `data-slot="native-select-root"` is the stable moduix selector for the control.
+- `data-slot="native-select-root"` is the stable moduix selector for the `<select>` control.
 - `data-slot="native-select-control"` and `data-slot="native-select-indicator"` target the internal
   layout and icon.
 - Native `:focus-visible`, `:disabled`, `[aria-invalid="true"]`, `[multiple]`, and `[size]` selectors
-  drive visual states.
+  control the visual states.

@@ -1,7 +1,7 @@
 ---
 title: Navigation Menu
 component: navigation-menu
-description: A composable navigation menu for links, disclosure panels, and optional shared viewport transitions.
+description: A composable navigation menu for direct links, disclosure panels, and optional shared viewport animations.
 ---
 
 import * as NavigationMenuDocs from '@/components/examples/navigation-menu';
@@ -9,23 +9,23 @@ import { ClientOnly } from '@ark-ui/react/client-only';
 
 ## API Reference
 
-Ark UI does not currently publish dedicated documentation for Navigation Menu. This component follows
+Ark UI does not currently publish dedicated Navigation Menu documentation. This component follows
 the [Ark React source](https://github.com/chakra-ui/ark/tree/main/packages/react/src/components/navigation-menu)
 and preserves its parts and state model.
 
 ## Choosing the right component
 
-Use `NavigationMenu` for primary product or site navigation with a small number of related links and
+Use `NavigationMenu` for primary product or site navigation when a small set of related links includes
 disclosure panels.
 
-- Choose **`NavigationMenu`** when a top-level item can reveal a compact panel of related links.
+- Choose **`NavigationMenu`** when a top-level item can open a compact panel of related links.
 - Choose **`Menu`** for contextual actions rather than destinations.
-- Choose **`Tabs`** when each selected control shows its matching content panel on the current page.
+- Choose **`Tabs`** when each selected control shows its associated content panel on the current page.
 
 ## Basic
 
-Use `NavigationMenu.List`, `NavigationMenu.Item`, `NavigationMenu.Link`, and a matching
-trigger/content pair for each disclosure panel.
+Use `NavigationMenu.List`, `NavigationMenu.Item`, and `NavigationMenu.Link`. For each disclosure panel,
+pair a `NavigationMenu.Trigger` with its `NavigationMenu.Content`.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -64,26 +64,26 @@ NavigationMenu.Context
 
 | Part                                | Role                                                               |
 | ----------------------------------- | ------------------------------------------------------------------ |
-| `NavigationMenu`                    | Root `nav`; controls the open value, delays, focus, and direction. |
-| `NavigationMenu.RootProvider`       | Connects parts to state created with `useNavigationMenu()`.        |
-| `NavigationMenu.Context`            | Advanced render-prop access to the current navigation state.      |
+| `NavigationMenu`                    | Root `nav` that controls the open value, delays, focus, and direction. |
+| `NavigationMenu.RootProvider`       | Connects the parts to a store created with `useNavigationMenu()`. |
+| `NavigationMenu.Context`            | Advanced render-prop access to the current navigation state.     |
 | `NavigationMenu.List`               | Groups top-level navigation items.                                |
-| `NavigationMenu.Item`               | Associates a required `value` with its trigger, link, and content. |
-| `NavigationMenu.Trigger`            | Button that opens its item's navigation panel.                    |
-| `NavigationMenu.Content`            | Disclosure panel for an item; can move into a viewport.           |
-| `NavigationMenu.Link`               | Navigation anchor, including direct top-level destinations.       |
-| `NavigationMenu.Indicator` / `Arrow` | Optional pointer inside standalone content or the viewport list. |
+| `NavigationMenu.Item`               | Requires a `value` and connects it to the item's trigger, link, and content. |
+| `NavigationMenu.Trigger`            | Button that opens the item's panel.                               |
+| `NavigationMenu.Content`            | Disclosure panel for an item; can render in a shared viewport.    |
+| `NavigationMenu.Link`               | Navigation link, including direct top-level destinations.         |
+| `NavigationMenu.Indicator` / `Arrow` | Optional visual pointer in standalone content or a shared viewport. |
 | `NavigationMenu.ItemIndicator`      | Optional visual indicator for the current item.                   |
 | `NavigationMenu.ViewportPositioner` | Positions an optional shared viewport.                            |
-| `NavigationMenu.Viewport`           | Animated shared surface for open content.                         |
+| `NavigationMenu.Viewport`           | Shared animated surface for open content.                         |
 
 ## Composition
 
 ### Recommended composition
 
 Keep the Ark parts explicit in your markup. Give every `NavigationMenu.Item` a stable `value`; its
-`Trigger` and `Content` use that value automatically. Use `NavigationMenu.Link` for both direct
-destinations and links inside a disclosure panel.
+`Trigger` and `Content` use that value automatically. Use `NavigationMenu.Link` for direct destinations
+and for links inside a disclosure panel.
 
 The root accepts Ark's `value`, `defaultValue`, `onValueChange(details)`, `openDelay`, `closeDelay`,
 `orientation`, `disableClickTrigger`, `disableHoverTrigger`, `disablePointerLeaveClose`, `ids`,
@@ -91,34 +91,35 @@ The root accepts Ark's `value`, `defaultValue`, `onValueChange(details)`, `openD
 
 ### When to go custom
 
-Use `asChild` on `NavigationMenu.Trigger` or `NavigationMenu.Link` when a router link or custom
-semantic host must receive Ark's behavior. The child must remain one interactive, focusable element.
+Use `asChild` on `NavigationMenu.Trigger` or `NavigationMenu.Link` when a router link or another
+semantic host should receive Ark's behavior. The child must remain a single interactive, focusable element.
 
-Add `NavigationMenu.ViewportPositioner` and `NavigationMenu.Viewport` when several panels should share
-one animated surface. When a pointer to the active trigger is useful, place one `Indicator` with an
-`Arrow` before the `Viewport` inside `ViewportPositioner`. The viewport then animates its measured width
-and height as content moves in the navigation direction. Without it, `Content` remains next to its item
-as a compact disclosure panel and can include an optional indicator.
+Add `NavigationMenu.ViewportPositioner` and `NavigationMenu.Viewport` when several panels should open
+inside one animated surface. If the active trigger needs a visual pointer, put one `Indicator` with an
+`Arrow` before the `Viewport` inside `ViewportPositioner`. The shared viewport measures each panel and
+animates its width and height as you move between triggers. Without a shared viewport, `Content` stays
+beside its `Item` as a compact disclosure panel and may include its own `Indicator`.
 
-Use `useNavigationMenu()` with `NavigationMenu.RootProvider` when navigation state must exist outside
-the rendered tree. Use `NavigationMenu.Context` or `useNavigationMenuContext()` when surrounding UI
-needs to read that state.
+Use `useNavigationMenu()` with `NavigationMenu.RootProvider` when navigation state needs to live outside
+the rendered component tree. Use `NavigationMenu.Context` or `useNavigationMenuContext()` when surrounding
+UI needs to read that state.
 
 ### Behavioral notes
 
-- `onValueChange` receives Ark's detail object; read the open item from `details.value`.
-- `NavigationMenu` renders a semantic `nav`; Ark manages disclosure ARIA attributes, hover and click
+- `onValueChange` receives Ark's detail object; `details.value` identifies the currently open item.
+- `NavigationMenu` renders a semantic `nav`. Ark manages disclosure ARIA attributes, hover and click
   behavior, and keyboard interaction.
 - `Content` and `Viewport` preserve Ark presence attributes, so `lazyMount` and `unmountOnExit` work
-  unchanged with the default exit animation.
-- The wrapper does not add a trigger icon or a viewport. Render both only when the composition needs them.
+  with the default exit animation.
+- The wrapper does not add a trigger icon or a viewport. Add them only when your composition needs them.
 - Arrows are opt-in and are not part of the recommended basic composition.
 
 ## Examples
 
 ### Controlled Value
 
-Control the open panel when navigation state also drives nearby application UI.
+Use a controlled value when the open panel also drives nearby application UI. The output below shows the
+current open value.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -130,8 +131,9 @@ Control the open panel when navigation state also drives nearby application UI.
 
 ### Viewport
 
-Use a shared viewport when panels have different sizes but should transition through one surface. The
-example includes a two-column panel so its measured width and height visibly animate between triggers.
+Use a shared viewport when panels have different sizes but should animate within one surface. This example
+uses a two-column panel and different panel widths, so switching triggers visibly animates the viewport's
+measured width and height.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -143,7 +145,7 @@ example includes a two-column panel so its measured width and height visibly ani
 
 ### With Arrow
 
-Add an indicator and arrow only when the panel needs a visual pointer to its active trigger.
+Add an `Indicator` and `Arrow` when a panel should point back to its active trigger.
 
 <ClientOnly>
   <PreviewFrame maxWidth="lg">
@@ -156,7 +158,8 @@ Add an indicator and arrow only when the panel needs a visual pointer to its act
 ## Styling
 
 Style `NavigationMenu` with `className`, stable `data-slot="navigation-menu-*"` hooks, Ark's
-`data-scope` and `data-part` attributes, and the public `--moduix-navigation-menu-*` variables below.
+`data-scope` and `data-part` attributes, and the public `--moduix-navigation-menu-*` variables in the
+CSS reference below.
 
 ### CSS Properties
 
@@ -174,14 +177,14 @@ Style `NavigationMenu` with `className`, stable `data-slot="navigation-menu-*"` 
 
 ### Styling hooks
 
-- `NavigationMenu` controls root width, text color, and layout positioning.
-- `NavigationMenu.List` controls top-level spacing and orientation.
-- `NavigationMenu.Trigger` and `NavigationMenu.Link` control navigation controls, current state, and focus.
-- `NavigationMenu.Content` controls disclosure panel surfaces and links.
-- `NavigationMenu.Indicator`, `ItemIndicator`, and `Arrow` control optional active-state decoration.
-- `NavigationMenu.ViewportPositioner` and `Viewport` control a shared animated panel surface.
+- `NavigationMenu` styles the root width, text color, and layout position.
+- `NavigationMenu.List` styles top-level spacing and orientation.
+- Use `NavigationMenu.Trigger` and `NavigationMenu.Link` to style navigation controls, current state, and focus.
+- `NavigationMenu.Content` styles disclosure panel surfaces and their links.
+- `NavigationMenu.Indicator`, `ItemIndicator`, and `Arrow` style optional active-state decoration.
+- `NavigationMenu.ViewportPositioner` and `Viewport` style a shared animated panel surface.
 
-The main public hooks include `data-slot="navigation-menu-root"`,
+The main public hooks are `data-slot="navigation-menu-root"`,
 `data-slot="navigation-menu-root-provider"`, `data-slot="navigation-menu-list"`,
 `data-slot="navigation-menu-item"`, `data-slot="navigation-menu-trigger"`,
 `data-slot="navigation-menu-content"`, `data-slot="navigation-menu-link"`,
@@ -190,6 +193,6 @@ The main public hooks include `data-slot="navigation-menu-root"`,
 `data-slot="navigation-menu-viewport"`.
 
 Useful Ark hooks include `data-scope="navigation-menu"`, `data-part`, `data-state`, `data-current`,
-`data-disabled`, `data-orientation`, and `data-motion`. Ark writes `--trigger-x`, `--trigger-y`,
-`--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`, `--viewport-width`, and
-`--viewport-height` at runtime.
+`data-disabled`, `data-orientation`, and `data-motion`. At runtime, Ark writes `--trigger-x`,
+`--trigger-y`, `--trigger-width`, `--trigger-height`, `--viewport-x`, `--viewport-y`,
+`--viewport-width`, and `--viewport-height`.
