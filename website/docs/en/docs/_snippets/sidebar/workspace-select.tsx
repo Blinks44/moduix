@@ -75,9 +75,7 @@ export default function WorkspaceSidebar() {
                     <Sidebar.Label>
                       <Select.ValueText placeholder="Select workspace" />
                     </Sidebar.Label>
-                    <Sidebar.Label>
-                      <Select.Indicator />
-                    </Sidebar.Label>
+                    <Select.Indicator />
                   </Sidebar.NavigationButton>
                 </Select.Trigger>
                 <Select.Positioner>

@@ -10,7 +10,7 @@ Sources accessed 2026-08-12. Ark and Chakra establish the Splitter behavior; sha
 discoverability and navigation composition only.
 
 Ark UI has no dedicated Sidebar primitive. Moduix uses Ark `Splitter` as the behavioral and
-accessibility foundation and follows shadcn's explicit navigation anatomy.
+accessibility foundation, then supplies its own explicit, stylable navigation parts.
 
 ## Purpose
 
@@ -28,9 +28,9 @@ without repeating its full anatomy around every menu button. Persisted layout be
 or storage through normal Splitter callbacks, not in a sidebar-owned provider.
 
 `Select.Trigger asChild` can target `Sidebar.NavigationButton`; mark its compact visual anchor with
-`data-sidebar-icon` and wrap values or indicators that should leave the collapsed layout in
-`Sidebar.Label`. A direct `Select.Indicator` inside that label moves to the trailing edge of the
-menu button.
+`data-sidebar-icon` and wrap only value text that should leave the collapsed layout in
+`Sidebar.Label`. Keep `Select.Indicator` as a direct child of the navigation button so Select can
+place it at the trailing edge.
 
 ## Current behavior contract
 
@@ -111,6 +111,8 @@ Sidebar / Sidebar.Root
 | `GroupLabel`          | `sidebar-group-label`           | Heading for a group.                                       |
 | `GroupAction`         | `sidebar-group-action`          | Compact action button aligned with the group heading.      |
 | `GroupContent`        | `sidebar-group-content`         | Optional wrapper for a custom group body.                  |
+| `ExpandedContent`     | `sidebar-expanded-content`      | Content visible only while the panel is expanded.          |
+| `CollapsedContent`    | `sidebar-collapsed-content`     | Content visible only while the panel is collapsed.         |
 | `NavigationList`      | `sidebar-navigation-list`       | Navigation list.                                           |
 | `NavigationItem`      | `sidebar-navigation-item`       | Positioned list item for a navigation control.             |
 | `Sidebar.Tooltip`     | n/a                             | Collapsed-only label helper with side-aware placement.     |
@@ -190,9 +192,11 @@ Keep the Splitter-bound pieces inside `Sidebar`: `Panel`, `Inset`, `ResizeTrigge
 
 `Sidebar.NavigationList` is normally a direct child of `Sidebar.Group`; use `GroupContent` only when
 you need an additional custom body wrapper. Sidebar does not choose a collapsed-rail strategy for
-nested links. If they must remain reachable after collapse, branch explicitly on
-`useSidebar().collapsed` and render your application’s popup `Menu` or another navigation pattern
-instead of the inline `Collapsible` list.
+nested links. If they must remain reachable after collapse, compose the inline `Collapsible` in
+`Sidebar.ExpandedContent` and the application’s popup `Menu` or another navigation pattern in
+`Sidebar.CollapsedContent`. These parts only select their children from the panel’s Ark state; they
+do not create popup state or transform one primitive into another. Use `useSidebar().collapsed` when
+the application itself must change its React tree.
 
 When `Menu.Trigger asChild` wraps `Sidebar.NavigationButton`, render `Menu.Indicator` as the direct
 trailing child. Sidebar aligns it to the inline end and hides it with the rest of the trigger
@@ -271,6 +275,8 @@ feedback.
   rail.
 - `side` configures default order and the floating trigger without introducing open state.
 - `Label` supplies a stable collapsed-rail hiding contract.
+- `ExpandedContent` and `CollapsedContent` provide explicit, stylable state branches without
+  making Sidebar own Menu or Collapsible behavior.
 - `Trigger` is a side-aware Splitter-context convenience.
 - `Input`, `Separator`, `GroupAction`, `GroupContent`, `NavigationAction`, and `NavigationBadge` bring the most
   common sidebar building blocks into the local styling contract without adding sidebar-owned state.
@@ -292,6 +298,9 @@ feedback.
 
 ## Local changelog
 
+- 2026-08-29: Added `ExpandedContent` and `CollapsedContent` as stylable, accessibility-safe state
+  branches for explicit nested navigation compositions. Corrected Select guidance so its indicator is
+  a direct trigger child.
 - 2026-08-26: Fixed truncation for direct menu and nested-menu labels, made simultaneous menu actions
   and badges share the trailing space, and fixed the two-panel contract by moving custom panel layouts
   to `Splitter`.

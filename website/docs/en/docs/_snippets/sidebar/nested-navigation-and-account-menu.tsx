@@ -67,34 +67,55 @@ export default function AppSidebar() {
                 <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
-                <Collapsible defaultOpen>
-                  <Sidebar.Tooltip content="Projects">
-                    <Collapsible.Trigger asChild>
-                      <Sidebar.NavigationButton>
+                <Sidebar.ExpandedContent>
+                  <Collapsible defaultOpen>
+                    <Sidebar.Tooltip content="Projects">
+                      <Collapsible.Trigger asChild>
+                        <Sidebar.NavigationButton>
+                          <FolderOpen />
+                          <Sidebar.Label>Projects</Sidebar.Label>
+                          <Collapsible.Indicator />
+                        </Sidebar.NavigationButton>
+                      </Collapsible.Trigger>
+                    </Sidebar.Tooltip>
+                    <Sidebar.NavigationAction aria-label="Rename project group">
+                      <Pencil />
+                    </Sidebar.NavigationAction>
+                    <Collapsible.Content>
+                      <Sidebar.NavigationSubList>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="/projects/website">
+                            Website
+                          </Sidebar.NavigationSubButton>
+                        </Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubItem>
+                          <Sidebar.NavigationSubButton href="/projects/mobile">
+                            Mobile app
+                          </Sidebar.NavigationSubButton>
+                        </Sidebar.NavigationSubItem>
+                      </Sidebar.NavigationSubList>
+                    </Collapsible.Content>
+                  </Collapsible>
+                </Sidebar.ExpandedContent>
+                <Sidebar.CollapsedContent>
+                  <Menu positioning={{ placement: 'right-start', gutter: 8 }}>
+                    <Menu.Trigger asChild>
+                      <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                         <FolderOpen />
-                        <Sidebar.Label>Projects</Sidebar.Label>
-                        <Collapsible.Indicator />
                       </Sidebar.NavigationButton>
-                    </Collapsible.Trigger>
-                  </Sidebar.Tooltip>
-                  <Sidebar.NavigationAction aria-label="Rename project group">
-                    <Pencil />
-                  </Sidebar.NavigationAction>
-                  <Collapsible.Content>
-                    <Sidebar.NavigationSubList>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="/projects/website">
-                          Website
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubItem>
-                        <Sidebar.NavigationSubButton href="/projects/mobile">
-                          Mobile app
-                        </Sidebar.NavigationSubButton>
-                      </Sidebar.NavigationSubItem>
-                    </Sidebar.NavigationSubList>
-                  </Collapsible.Content>
-                </Collapsible>
+                    </Menu.Trigger>
+                    <Menu.Positioner>
+                      <Menu.Content>
+                        <Menu.Item value="website" asChild>
+                          <a href="/projects/website">Website</a>
+                        </Menu.Item>
+                        <Menu.Item value="mobile-app" asChild>
+                          <a href="/projects/mobile">Mobile app</a>
+                        </Menu.Item>
+                      </Menu.Content>
+                    </Menu.Positioner>
+                  </Menu>
+                </Sidebar.CollapsedContent>
               </Sidebar.NavigationItem>
               <Sidebar.NavigationItem>
                 <Sidebar.Tooltip content="Team">

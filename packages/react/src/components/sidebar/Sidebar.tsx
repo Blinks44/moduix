@@ -260,6 +260,42 @@ const SidebarContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(function 
   );
 });
 
+const SidebarExpandedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function SidebarExpandedContent({ className, ...props }, ref) {
+    const { collapsed } = useSidebar();
+
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="sidebar"
+        data-part="expanded-content"
+        data-slot="sidebar-expanded-content"
+        className={normalizeClassName(className)}
+        {...props}
+        hidden={collapsed}
+      />
+    );
+  },
+);
+
+const SidebarCollapsedContent = forwardRef<HTMLDivElement, HTMLArkProps<'div'>>(
+  function SidebarCollapsedContent({ className, ...props }, ref) {
+    const { collapsed } = useSidebar();
+
+    return (
+      <ark.div
+        ref={ref}
+        data-scope="sidebar"
+        data-part="collapsed-content"
+        data-slot="sidebar-collapsed-content"
+        className={normalizeClassName(className)}
+        {...props}
+        hidden={!collapsed}
+      />
+    );
+  },
+);
+
 const SidebarFooter = forwardRef<HTMLElement, HTMLArkProps<'footer'>>(function SidebarFooter(
   { className, ...props },
   ref,
@@ -558,6 +594,8 @@ const Sidebar = Object.assign(SidebarRoot, {
   Input: SidebarInput,
   Header: SidebarHeader,
   Content: SidebarContent,
+  ExpandedContent: SidebarExpandedContent,
+  CollapsedContent: SidebarCollapsedContent,
   Footer: SidebarFooter,
   Separator: SidebarSeparator,
   Group: SidebarGroup,

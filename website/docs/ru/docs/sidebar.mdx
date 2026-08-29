@@ -8,10 +8,9 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 ## Справочник API
 
-`Sidebar` использует [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) для изменения размера,
-состояния сворачивания, взаимодействия с клавиатурой и доступности. Его семантическая анатомия навигации
-основана на [Sidebar из shadcn/ui](https://ui.shadcn.com/docs/components/sidebar), а контракт состояния
-сохраняет форму Ark.
+`Sidebar` - семантическая композиция moduix для навигации приложения. В её основе лежит
+[Ark UI Splitter](https://ark-ui.com/docs/components/splitter): он отвечает за изменение размера,
+состояние сворачивания, взаимодействие с клавиатурой и доступность. API состояния сохраняет контракты Ark.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
 
@@ -54,8 +53,10 @@ Sidebar / Sidebar.Root
 │  │     ├─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │           └─ Sidebar.NavigationItem
-│  │              ├─ Sidebar.Tooltip
-│  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.ExpandedContent
+│  │              │  └─ Collapsible
+│  │              ├─ Sidebar.CollapsedContent
+│  │              │  └─ Menu
 │  │              ├─ Sidebar.NavigationAction
 │  │              ├─ Sidebar.NavigationBadge
 │  │              └─ Sidebar.NavigationSubList
@@ -82,6 +83,8 @@ Sidebar / Sidebar.Root
 | `Sidebar.Group`                        | Семантическая секция навигации с необязательным заголовком.      |
 | `Sidebar.GroupAction`                  | Компактная кнопка действия, выровненная с заголовком группы.     |
 | `Sidebar.GroupContent`                 | Необязательная обёртка для нестандартного содержимого группы.    |
+| `Sidebar.ExpandedContent`              | Содержимое, видимое только в развёрнутой панели.                 |
+| `Sidebar.CollapsedContent`             | Содержимое, видимое только в свёрнутой панели.                   |
 | `Sidebar.NavigationList` / `Sidebar.NavigationItem` | Список навигации и позиционированный элемент списка.          |
 | `Sidebar.Tooltip`                      | Помощник с подписью только в свёрнутом состоянии и размещением с учётом стороны. |
 | `Sidebar.NavigationButton`                   | Кнопка или ссылка через `asChild` с состояниями активности и размера. |
@@ -99,7 +102,7 @@ Sidebar / Sidebar.Root
 области: он не занимает место в раскладке и не обрезается панелями. Если высота заголовка другая,
 переопределите `--moduix-sidebar-trigger-offset-y`.
 
-Для вложенных пунктов меню используйте `Collapsible`, а для действий с учётной записью - `Menu + Avatar`.
+Для вложенных пунктов в развёрнутой панели используйте `Collapsible`, а для действий с учётной записью - `Menu + Avatar`.
 `Menu.Indicator` добавляйте прямо в `Sidebar.NavigationButton`: он выравнивается по правому краю и скрывается
 при сворачивании панели. `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge` и `Sidebar.Separator`
 покрывают частые элементы оболочки приложения, не добавляя Sidebar отдельное состояние.
@@ -114,9 +117,13 @@ Sidebar / Sidebar.Root
 `Sidebar` - короткая запись для `Sidebar.Root`.
 
 Обычно `Sidebar.NavigationList` является прямым потомком `Sidebar.Group`; `Sidebar.GroupContent` нужен
-только для дополнительного нестандартного контейнера. Sidebar не выбирает поведение вложенных ссылок в
-свёрнутом ряду: если они должны оставаться доступными, используйте `useSidebar().collapsed` и явно
-отрендерите выбранный приложением popup `Menu` либо другой паттерн навигации вместо inline-списка `Collapsible`.
+только для дополнительного нестандартного контейнера. У вложенной навигации две явные раскладки:
+разместите `Collapsible` с inline-ссылками в `Sidebar.ExpandedContent`, а popup `Menu` со ссылками — в
+`Sidebar.CollapsedContent`, если дочерние пункты должны оставаться доступными. Эти части только выбирают
+своих потомков по Ark-состоянию панели: они не управляют состоянием Menu или Collapsible и не преобразуют
+один примитив в другой. Используйте `useSidebar().collapsed`, только когда приложению действительно нужно
+изменить React-дерево. Если у родителя есть полезная обзорная страница, в ряду иконок можно отрендерить
+ссылку на неё.
 
 ### Когда нужна собственная композиция
 
@@ -165,6 +172,19 @@ Collapsible, всплывающее содержимое, подсказки и 
 
 ## Примеры
 
+### Вложенная навигация
+
+Держите обе раскладки навигации явными и рядом. `Sidebar.ExpandedContent` оставляет inline-
+`Collapsible` доступным в полной панели, а `Sidebar.CollapsedContent` заменяет его popup `Menu` в ряду
+иконок. Части переключают только видимость, поэтому вся стилизация Menu и Collapsible остаётся в вашей
+композиции.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+
+  ```
+</PreviewFrame>
+
 ### Пользовательская область прокрутки
 
 По умолчанию используйте нативную прокрутку. Если нужен стилизованный ползунок или затухание по краю,
@@ -189,12 +209,16 @@ Collapsible, всплывающее содержимое, подсказки и 
   ```
 </PreviewFrame>
 
-### Рекомендуемая оболочка приложения
+<span id="recommended-app-shell" />
 
-Размещайте `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge`, `Collapsible` и popup `Menu` в соответствующих
-частях Sidebar. Каждый примитив moduix по-прежнему сам управляет своим состоянием, фокусом, положением
-всплывающего окна и анимацией. В примере также показаны длинный список проектов с прокруткой внутри
-`Sidebar.Content` и подсказки для свёрнутого ряда иконок.
+### Полная оболочка приложения
+
+Размещайте `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction` и
+`Sidebar.NavigationBadge` рядом с тем пунктом, к которому они относятся. Обе композиции Projects видны
+прямо в одном примере: `Sidebar.ExpandedContent` выбирает inline-ссылки в `Collapsible`, а
+`Sidebar.CollapsedContent` — popup `Menu`. Каждый примитив по-прежнему сам управляет своим состоянием,
+фокусом, положением всплывающего окна и анимацией. В примере также показаны длинный список проектов с
+прокруткой внутри `Sidebar.Content` и подсказки для свёрнутого ряда иконок.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
@@ -217,11 +241,11 @@ Sidebar сам подберёт конфигурацию панели, id и п�
 
 ### Выбор рабочего пространства
 
-Используйте `Select.Trigger asChild` с `Sidebar.NavigationButton`. Поместите текст и индикаторы в
-`Sidebar.Label`, а компактную визуальную опору отметьте атрибутом `data-sidebar-icon`. Тогда панель
-сворачивается без пользовательского JavaScript, а обёрнутый `Select.Indicator` остаётся у правого края.
-Пример сочетает переключатель рабочего пространства с навигацией, прокручиваемой областью содержимого
-и меню учётной записи.
+Используйте `Select.Trigger asChild` с `Sidebar.NavigationButton`. Поместите текст выбранного значения в
+`Sidebar.Label`, а `Select.Indicator` оставьте прямым потомком триггера; компактную визуальную опору
+отметьте атрибутом `data-sidebar-icon`. Select сам размещает прямой indicator у правого края, а Sidebar
+скрывает его в свёрнутом ряду иконок. Пример сочетает переключатель рабочего пространства с навигацией,
+прокручиваемой областью содержимого и меню учётной записи.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
@@ -247,11 +271,12 @@ inset, более двух панелей или API провайдера и р�
 визуально скрытого паттерна, скрывают вложенные списки навигации и `Sidebar.Input`, а SVG и элементы с
 `data-sidebar-icon` центрируют. Подписи остаются доступны вспомогательным технологиям, не занимая место
 во flex-раскладке. Помечайте не-SVG-якоря, например Avatar, метку рабочего пространства Select или метку
-бренда, атрибутом `data-sidebar-icon`; их собственные размеры сохраняются. Помещайте сворачиваемый текст,
-значения, метки и индикаторы в `Sidebar.Label`, если они должны покинуть визуальную раскладку в свёрнутой
-панели. Завершающие элементы групп и меню автоматически скрываются в состоянии только с иконками.
-Кнопки меню и вложенного меню сокращают прямой текст с многоточием при любой ширине Sidebar. Используйте
-`Sidebar.Label`, когда текст, значения, метки или индикаторы также должны покидать свёрнутую панель.
+бренда, атрибутом `data-sidebar-icon`; их собственные размеры сохраняются. Помещайте текст, значения и
+метки, которые должны покинуть визуальную раскладку, в `Sidebar.Label`; индикаторы оставляйте прямыми
+потомками примитива, который управляет их размещением. Завершающие элементы групп и меню автоматически
+скрываются в состоянии только с иконками. Кнопки меню и вложенного меню сокращают прямой текст с
+многоточием при любой ширине Sidebar. Используйте `Sidebar.Label`, когда текст или значения также должны
+покидать свёрнутую панель.
 
 При узкой, но ещё развёрнутой панели (меньше `7rem`) Sidebar также скрывает завершающие действия группы,
 действия навигации, счётчики и индикаторы до того, как они наложатся на ведущую иконку. Состояние Ark и
@@ -292,7 +317,9 @@ topbar inset высотой `3.5rem`; для другой высоты заго�
 `Sidebar.Input` и `Sidebar.Separator` сохраняют области видимости базовых примитивов, а части раскладки
 на Ark - атрибуты состояния Splitter.
 
-`Sidebar.Panel` добавляет `data-state="expanded"` или `"collapsed"`. Корневой элемент, панель, inset, триггер
+`Sidebar.Panel` добавляет `data-state="expanded"` или `"collapsed"`. `Sidebar.ExpandedContent` и
+`Sidebar.CollapsedContent` предоставляют `data-slot="sidebar-expanded-content"` и
+`data-slot="sidebar-collapsed-content"` для стилизации по состоянию. Корневой элемент, панель, inset, триггер
 изменения размера и плавающий триггер предоставляют `data-side`. `NavigationButton` и `NavigationSubButton`
 предоставляют `data-active`, `NavigationButton` предоставляет `data-size`, а дополнительные части оболочки
 сохраняют стабильные хуки `data-slot="sidebar-*"` для пользовательской раскладки или темы. Состояние

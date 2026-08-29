@@ -76,9 +76,7 @@ function WorkspaceSelect() {
           <Sidebar.Label className={styles.workspaceLabel}>
             <Select.ValueText placeholder="Select workspace" />
           </Sidebar.Label>
-          <Sidebar.Label>
-            <Select.Indicator />
-          </Sidebar.Label>
+          <Select.Indicator />
         </Sidebar.NavigationButton>
       </Select.Trigger>
       <Select.Positioner>
@@ -194,37 +192,58 @@ function SidebarNavigation() {
               <Sidebar.NavigationBadge>3</Sidebar.NavigationBadge>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
-              <Collapsible defaultOpen className={styles.collapsible}>
-                <Sidebar.Tooltip content="Projects">
-                  <Collapsible.Trigger asChild>
-                    <Sidebar.NavigationButton>
+              <Sidebar.ExpandedContent>
+                <Collapsible defaultOpen className={styles.collapsible}>
+                  <Sidebar.Tooltip content="Projects">
+                    <Collapsible.Trigger asChild>
+                      <Sidebar.NavigationButton>
+                        <FolderIcon />
+                        <Sidebar.Label>Projects</Sidebar.Label>
+                        <Collapsible.Indicator />
+                      </Sidebar.NavigationButton>
+                    </Collapsible.Trigger>
+                  </Sidebar.Tooltip>
+                  <Sidebar.NavigationAction
+                    aria-label="Rename project group"
+                    title="Rename project group"
+                  >
+                    <PencilIcon />
+                  </Sidebar.NavigationAction>
+                  <Collapsible.Content>
+                    <Sidebar.NavigationSubList>
+                      <Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubButton href="#website">
+                          Website
+                        </Sidebar.NavigationSubButton>
+                      </Sidebar.NavigationSubItem>
+                      <Sidebar.NavigationSubItem>
+                        <Sidebar.NavigationSubButton href="#mobile">
+                          Mobile app
+                        </Sidebar.NavigationSubButton>
+                      </Sidebar.NavigationSubItem>
+                    </Sidebar.NavigationSubList>
+                  </Collapsible.Content>
+                </Collapsible>
+              </Sidebar.ExpandedContent>
+              <Sidebar.CollapsedContent>
+                <Menu positioning={{ placement: 'right-start', gutter: 8, flip: false }}>
+                  <Menu.Trigger asChild>
+                    <Sidebar.NavigationButton aria-label="Open projects" title="Projects">
                       <FolderIcon />
-                      <Sidebar.Label>Projects</Sidebar.Label>
-                      <Collapsible.Indicator />
                     </Sidebar.NavigationButton>
-                  </Collapsible.Trigger>
-                </Sidebar.Tooltip>
-                <Sidebar.NavigationAction
-                  aria-label="Rename project group"
-                  title="Rename project group"
-                >
-                  <PencilIcon />
-                </Sidebar.NavigationAction>
-                <Collapsible.Content>
-                  <Sidebar.NavigationSubList>
-                    <Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubButton href="#website">
-                        Website
-                      </Sidebar.NavigationSubButton>
-                    </Sidebar.NavigationSubItem>
-                    <Sidebar.NavigationSubItem>
-                      <Sidebar.NavigationSubButton href="#mobile">
-                        Mobile app
-                      </Sidebar.NavigationSubButton>
-                    </Sidebar.NavigationSubItem>
-                  </Sidebar.NavigationSubList>
-                </Collapsible.Content>
-              </Collapsible>
+                  </Menu.Trigger>
+                  <Menu.Positioner>
+                    <Menu.Content>
+                      <Menu.Item asChild value="website">
+                        <a href="#website">Website</a>
+                      </Menu.Item>
+                      <Menu.Item asChild value="mobile">
+                        <a href="#mobile">Mobile app</a>
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Menu>
+              </Sidebar.CollapsedContent>
             </Sidebar.NavigationItem>
             <Sidebar.NavigationItem>
               <Sidebar.Tooltip content="Documents">
@@ -421,6 +440,9 @@ export const Basic: Story = {
     await expect(args.onCollapse).toHaveBeenCalledTimes(1);
     await userEvent.hover(canvas.getByRole('link', { name: 'Overview' }));
     await expect(await page.findByRole('tooltip')).toHaveTextContent('Overview');
+    await userEvent.keyboard('{Escape}');
+    await userEvent.click(canvas.getByRole('button', { name: 'Open projects' }));
+    await expect(await page.findByRole('menuitem', { name: 'Website' })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');

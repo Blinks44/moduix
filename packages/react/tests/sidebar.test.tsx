@@ -122,7 +122,7 @@ test('preserves active link composition for primary and nested navigation', () =
   );
 });
 
-test('preserves wrapped Select indicator composition in a navigation button', () => {
+test('preserves direct Select indicator composition in a navigation button', () => {
   const { container } = render(
     <Sidebar>
       <Sidebar.Panel>
@@ -135,9 +135,7 @@ test('preserves wrapped Select indicator composition in a navigation button', ()
                   <Sidebar.Label>
                     <Select.ValueText placeholder="Select workspace" />
                   </Sidebar.Label>
-                  <Sidebar.Label data-testid="select-indicator">
-                    <Select.Indicator />
-                  </Sidebar.Label>
+                  <Select.Indicator data-testid="select-indicator" />
                 </Sidebar.NavigationButton>
               </Select.Trigger>
             </Select>
@@ -152,9 +150,40 @@ test('preserves wrapped Select indicator composition in a navigation button', ()
 
   const indicator = screen.getByTestId('select-indicator');
 
-  expect(indicator).toContainElement(
-    container.querySelector('[data-scope="select"][data-part="indicator"]'),
+  expect(indicator).toBe(container.querySelector('[data-scope="select"][data-part="indicator"]'));
+});
+
+test('marks collapsed navigation content as hidden by default', () => {
+  render(
+    <Sidebar>
+      <Sidebar.Panel>
+        <Sidebar.NavigationList>
+          <Sidebar.NavigationItem>
+            <Sidebar.ExpandedContent data-testid="expanded-projects">
+              <button type="button">Expanded projects</button>
+            </Sidebar.ExpandedContent>
+            <Sidebar.CollapsedContent data-testid="collapsed-projects">
+              <button type="button">Collapsed projects</button>
+            </Sidebar.CollapsedContent>
+          </Sidebar.NavigationItem>
+        </Sidebar.NavigationList>
+      </Sidebar.Panel>
+      <Sidebar.ResizeTrigger />
+      <Sidebar.Trigger />
+      <Sidebar.Inset />
+    </Sidebar>,
   );
+
+  expect(screen.getByTestId('expanded-projects')).toHaveAttribute(
+    'data-slot',
+    'sidebar-expanded-content',
+  );
+  expect(screen.getByTestId('expanded-projects')).not.toHaveAttribute('hidden');
+  expect(screen.getByTestId('collapsed-projects')).toHaveAttribute(
+    'data-slot',
+    'sidebar-collapsed-content',
+  );
+  expect(screen.getByTestId('collapsed-projects')).toHaveAttribute('hidden');
 });
 
 test('allows a navigation list directly below a group action', () => {

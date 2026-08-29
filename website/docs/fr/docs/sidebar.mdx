@@ -8,7 +8,9 @@ import { SidebarCssPropertiesPanel } from '@/components/examples/sidebar';
 
 ## Référence de l’API
 
-`Sidebar` utilise [Ark UI Splitter](https://ark-ui.com/docs/components/splitter) pour le redimensionnement, l’état replié, les interactions au clavier et l’accessibilité. Son anatomie sémantique de navigation s’inspire du [Sidebar de shadcn/ui](https://ui.shadcn.com/docs/components/sidebar), tandis que son contrat d’état conserve la forme d’Ark.
+`Sidebar` est la composition sémantique de moduix pour la navigation d’une application. Il s’appuie sur
+[Ark UI Splitter](https://ark-ui.com/docs/components/splitter) pour le redimensionnement, l’état replié,
+les interactions au clavier et l’accessibilité ; son API d’état conserve les contrats d’Ark.
 
 <PrimitiveReference href="https://ark-ui.com/docs/components/splitter" />
 
@@ -51,8 +53,10 @@ Sidebar / Sidebar.Root
 │  │     ├─ Sidebar.GroupAction
 │  │     └─ Sidebar.NavigationList
 │  │           └─ Sidebar.NavigationItem
-│  │              ├─ Sidebar.Tooltip
-│  │              │  └─ Sidebar.NavigationButton
+│  │              ├─ Sidebar.ExpandedContent
+│  │              │  └─ Collapsible
+│  │              ├─ Sidebar.CollapsedContent
+│  │              │  └─ Menu
 │  │              ├─ Sidebar.NavigationAction
 │  │              ├─ Sidebar.NavigationBadge
 │  │              └─ Sidebar.NavigationSubList
@@ -79,6 +83,8 @@ Sidebar / Sidebar.Root
 | `Sidebar.Group`                          | Section de navigation sémantique avec titre facultatif.                                                |
 | `Sidebar.GroupAction`                    | Bouton d’action compact aligné sur le titre du groupe.                                                 |
 | `Sidebar.GroupContent`                   | Enveloppe facultative pour un corps de groupe personnalisé.                                            |
+| `Sidebar.ExpandedContent`                | Contenu visible uniquement lorsque le panneau est déployé.                                            |
+| `Sidebar.CollapsedContent`               | Contenu visible uniquement lorsque le panneau est replié.                                             |
 | `Sidebar.NavigationList` / `Sidebar.NavigationItem` | Liste de navigation et élément de liste positionné.                                                   |
 | `Sidebar.Tooltip`                        | Assistant dont le libellé n’apparaît qu’à l’état replié, avec un placement adapté au côté.            |
 | `Sidebar.NavigationButton`                     | Bouton ou lien composé avec `asChild`, avec états actif et de taille.                                  |
@@ -97,7 +103,7 @@ ligne de redimensionnement et du séparateur habituel de l’en-tête de contenu
 place dans la mise en page et n’est pas rogné par les panneaux. Ajustez
 `--moduix-sidebar-trigger-offset-y` si votre en-tête a une autre hauteur.
 
-Utilisez `Collapsible` pour les éléments de menu imbriqués et `Menu + Avatar` pour les actions du
+Utilisez `Collapsible` pour les éléments de menu imbriqués dans le volet déployé et `Menu + Avatar` pour les actions du
 compte. Ajoutez `Menu.Indicator` directement dans `Sidebar.NavigationButton` : il s’aligne à la fin de la
 ligne et disparaît lorsque le volet est replié. `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`,
 `Sidebar.NavigationBadge` et `Sidebar.Separator` couvrent les éléments courants d’une interface d’application sans ajouter
@@ -112,10 +118,13 @@ Pour garder les libellés accessibles au survol des boutons à icône, enveloppe
 `Sidebar` est la forme courte de `Sidebar.Root`.
 
 `Sidebar.NavigationList` est normalement un enfant direct de `Sidebar.Group` ; `Sidebar.GroupContent`
-ne sert qu’à ajouter un conteneur personnalisé. Sidebar ne choisit jamais le comportement des liens
-imbriqués dans la barre repliée : s’ils doivent rester accessibles, utilisez `useSidebar().collapsed`
-et rendez explicitement le popup `Menu` — ou un autre motif choisi par l’application — à la place de
-la liste inline `Collapsible`.
+ne sert qu’à ajouter un conteneur personnalisé. La navigation imbriquée a deux mises en page explicites :
+composez `Collapsible` pour les liens inline dans `Sidebar.ExpandedContent` et un popup `Menu` avec des
+liens dans `Sidebar.CollapsedContent` lorsque les liens enfants doivent rester accessibles. Ces branches
+d’état sélectionnent seulement leurs enfants à partir de l’état Ark du panneau : elles ne gèrent pas
+l’état de Menu ou de Collapsible et ne transforment pas un primitif en un autre. Utilisez
+`useSidebar().collapsed` uniquement lorsque l’application doit réellement modifier son arbre React. Si
+le parent possède une page d’ensemble utile, la rangée d’icônes peut plutôt y mener.
 
 ### Quand créer une composition personnalisée
 
@@ -158,6 +167,20 @@ Le repli et le déploiement des panneaux suivent immédiatement les tailles Ark.
 
 ## Exemples
 
+### Navigation imbriquée
+
+Gardez les deux mises en page de navigation explicites et côte à côte.
+`Sidebar.ExpandedContent` maintient `Collapsible` inline dans le panneau complet, tandis que
+`Sidebar.CollapsedContent` le remplace par un popup `Menu` dans la rangée d’icônes. Ces parties ne
+changent que la visibilité : toute la personnalisation de Menu et de Collapsible reste dans votre
+composition.
+
+<PreviewFrame>
+  ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation.tsx"
+
+  ```
+</PreviewFrame>
+
 ### Zone de défilement personnalisée
 
 Le défilement natif est le choix par défaut. Si vous avez besoin d’un curseur personnalisé ou d’un
@@ -183,12 +206,17 @@ retrouvée à la prochaine visite.
   ```
 </PreviewFrame>
 
-### Enveloppe d’application recommandée
+<span id="recommended-app-shell" />
 
-Placez `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction`, `Sidebar.NavigationBadge`, `Collapsible` et le popup `Menu` dans les parties
-Sidebar correspondantes. Chaque primitive moduix continue de gérer son état, le focus, le
-positionnement de sa fenêtre contextuelle et ses animations. L’exemple montre aussi une longue liste
-de projets défilant dans `Sidebar.Content` et des infobulles pour la rangée d’icônes repliée.
+### Enveloppe d’application complète
+
+Placez `Sidebar.Input`, `Sidebar.GroupAction`, `Sidebar.NavigationAction` et
+`Sidebar.NavigationBadge` près de l’élément auquel ils se rapportent. Les deux compositions de Projects
+restent visibles dans cet exemple unique : `Sidebar.ExpandedContent` sélectionne les liens inline dans
+`Collapsible` et `Sidebar.CollapsedContent` sélectionne le popup `Menu`. Chaque primitif gère toujours
+son propre état, le focus, le positionnement de sa fenêtre contextuelle et ses animations. L’exemple
+montre aussi une longue liste de projets défilant dans `Sidebar.Content` et des infobulles pour la rangée
+d’icônes repliée.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/nested-navigation-and-account-menu.tsx"
@@ -208,11 +236,11 @@ Transmettez `side="right"` et affichez `Inset`, `Trigger`, `ResizeTrigger`, puis
 
 ### Sélection de l’espace de travail
 
-Utilisez `Select.Trigger asChild` avec `Sidebar.NavigationButton`. Placez le texte et les indicateurs dans
-`Sidebar.Label`, puis marquez le repère visuel compact avec `data-sidebar-icon`. Le volet peut alors
-se replier sans JavaScript personnalisé et le `Select.Indicator` enveloppé reste aligné à la fin de
-la ligne. L’exemple associe un sélecteur d’espace de travail à une navigation, une zone de contenu
-défilable et un menu de compte.
+Utilisez `Select.Trigger asChild` avec `Sidebar.NavigationButton`. Placez le texte de la valeur dans
+`Sidebar.Label`, mais gardez `Select.Indicator` comme enfant direct du déclencheur ; marquez ensuite le
+repère visuel compact avec `data-sidebar-icon`. Select place son indicator direct à la fin de la ligne,
+et Sidebar le masque dans la rangée d’icônes repliée. L’exemple associe un sélecteur d’espace de travail
+à une navigation, une zone de contenu défilable et un menu de compte.
 
 <PreviewFrame>
   ```tsx preview file="../../en/docs/_snippets/sidebar/workspace-select.tsx"
@@ -232,7 +260,7 @@ Utilisez directement `Splitter` lorsque la disposition nécessite d’autres con
 
 ## Styles
 
-Le panneau de navigation utilise les tokens card, tandis que l’inset utilise l’arrière-plan de l’application. Les données de panneau par défaut configurent une barre de `3rem`. Dans les panneaux repliés, `Sidebar.Label` et les libellés de groupe sont retirés de la disposition avec un modèle visuellement masqué, les listes de navigation imbriquées et `Sidebar.Input` sont cachées, et les SVG ainsi que les éléments portant `data-sidebar-icon` sont centrés. Les libellés restent accessibles aux technologies d’assistance sans occuper de place dans la disposition flex. Marquez les ancres non SVG, comme Avatar, le libellé d’espace de travail Select ou la marque, avec `data-sidebar-icon` ; leurs dimensions propres sont conservées. Placez dans `Sidebar.Label` le texte, les valeurs, les libellés et les indicateurs repliables qui doivent quitter la disposition visuelle dans le panneau replié. Les éléments terminaux des groupes et des menus sont automatiquement masqués en mode icônes uniquement. Les boutons de menu et de sous-menu tronquent leur texte direct à toute largeur de Sidebar. Utilisez `Sidebar.Label` lorsque le texte, les valeurs, les badges ou les indicateurs doivent aussi quitter la barre repliée.
+Le panneau de navigation utilise les tokens card, tandis que l’inset utilise l’arrière-plan de l’application. Les données de panneau par défaut configurent une barre de `3rem`. Dans les panneaux repliés, `Sidebar.Label` et les libellés de groupe sont retirés de la disposition avec un modèle visuellement masqué, les listes de navigation imbriquées et `Sidebar.Input` sont cachées, et les SVG ainsi que les éléments portant `data-sidebar-icon` sont centrés. Les libellés restent accessibles aux technologies d’assistance sans occuper de place dans la disposition flex. Marquez les ancres non SVG, comme Avatar, le libellé d’espace de travail Select ou la marque, avec `data-sidebar-icon` ; leurs dimensions propres sont conservées. Placez dans `Sidebar.Label` le texte, les valeurs et les libellés qui doivent quitter la disposition visuelle dans le panneau replié ; gardez les indicateurs comme enfants directs du primitif qui gère leur placement. Les éléments terminaux des groupes et des menus sont automatiquement masqués en mode icônes uniquement. Les boutons de menu et de sous-menu tronquent leur texte direct à toute largeur de Sidebar. Utilisez `Sidebar.Label` lorsque le texte ou les valeurs doivent aussi quitter la barre repliée.
 
 À largeur réduite mais encore déployée (moins de `7rem`), Sidebar masque aussi les actions terminales de groupe et de navigation, les badges et les indicateurs avant qu’ils ne recouvrent l’icône principale. L’état Ark et les libellés restent inchangés.
 
@@ -261,4 +289,11 @@ parties d’enveloppe de Sidebar exposent aussi `data-scope="sidebar"` et `data-
 et `Sidebar.Separator` conservent les scopes de leurs primitives de base, et les parties de
 disposition Ark conservent les attributs d’état de Splitter.
 
-`Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`. La racine, le panneau, l’inset, le déclencheur de redimensionnement et le déclencheur flottant fournissent `data-side`. `NavigationButton` et `NavigationSubButton` fournissent `data-active`, `NavigationButton` fournit `data-size`, et les parties d’enveloppe supplémentaires conservent des hooks stables `data-slot="sidebar-*"` pour les dispositions ou thèmes personnalisés. L’état de redimensionnement reste disponible avec les attributs Ark `data-focus`, `data-dragging`, `data-disabled` et `data-orientation`.
+`Sidebar.Panel` ajoute `data-state="expanded"` ou `"collapsed"`. `Sidebar.ExpandedContent` et
+`Sidebar.CollapsedContent` exposent `data-slot="sidebar-expanded-content"` et
+`data-slot="sidebar-collapsed-content"` pour la personnalisation selon l’état. La racine, le panneau,
+l’inset, le déclencheur de redimensionnement et le déclencheur flottant fournissent `data-side`.
+`NavigationButton` et `NavigationSubButton` fournissent `data-active`, `NavigationButton` fournit
+`data-size`, et les parties d’enveloppe supplémentaires conservent des hooks stables
+`data-slot="sidebar-*"` pour les dispositions ou thèmes personnalisés. L’état de redimensionnement reste
+disponible avec les attributs Ark `data-focus`, `data-dragging`, `data-disabled` et `data-orientation`.

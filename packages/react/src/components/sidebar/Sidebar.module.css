@@ -131,18 +131,24 @@
     box-sizing: border-box;
     display: inline-flex;
     flex: none;
+    position: relative;
+    z-index: 4;
     align-items: center;
     justify-content: center;
     width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
     min-width: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
     height: var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7));
+    margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
     padding: 0;
-    border: 0;
+    border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
+      var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
     border-radius: var(--moduix-sidebar-trigger-radius, var(--moduix-radius-full));
-    background-color: transparent;
+    background-color: var(--moduix-sidebar-trigger-bg, var(--moduix-color-background));
     color: var(--moduix-sidebar-muted-color, var(--moduix-color-muted-foreground));
     appearance: none;
     cursor: pointer;
+    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
+    box-shadow: var(--moduix-sidebar-trigger-shadow, var(--moduix-shadow-sm));
     transition:
       background-color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
       color var(--moduix-sidebar-transition, var(--moduix-transition-default)),
@@ -151,6 +157,12 @@
     > svg {
       width: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
       height: var(--moduix-sidebar-icon-size, var(--moduix-spacing-4));
+      transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
+    }
+
+    &[data-side='left'][data-state='collapsed'] > svg,
+    &[data-side='right'][data-state='expanded'] > svg {
+      transform: rotate(180deg);
     }
 
     &:focus-visible {
@@ -174,29 +186,6 @@
         color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
       }
     }
-  }
-
-  .trigger {
-    position: relative;
-    z-index: 4;
-    margin-block-start: 0;
-    margin-inline: calc(var(--moduix-sidebar-trigger-size, var(--moduix-spacing-7)) * -0.5);
-    border: var(--moduix-sidebar-trigger-border-width, var(--moduix-border-width-sm)) solid
-      var(--moduix-sidebar-trigger-border-color, var(--moduix-color-border));
-    border-radius: var(--moduix-sidebar-trigger-radius, var(--moduix-radius-full));
-    background-color: var(--moduix-sidebar-trigger-bg, var(--moduix-color-background));
-    box-shadow: var(--moduix-sidebar-trigger-shadow, var(--moduix-shadow-sm));
-
-    &[data-side='left'][data-state='collapsed'] > svg,
-    &[data-side='right'][data-state='expanded'] > svg {
-      transform: rotate(180deg);
-    }
-
-    > svg {
-      transition: transform var(--moduix-sidebar-transition, var(--moduix-transition-default));
-    }
-
-    translate: 0 var(--moduix-sidebar-trigger-offset-y, 40px);
   }
 
   .label,
@@ -313,6 +302,7 @@
   .group:has(.groupAction) .groupAction {
     grid-column: 2;
     align-self: center;
+    margin-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
   }
 
   .groupContent {
@@ -340,10 +330,17 @@
     list-style: none;
   }
 
-  .menuItem,
-  .menuSubItem {
+  .menuItem {
     position: relative;
     min-width: 0;
+  }
+
+  .menuSubItem {
+    min-width: 0;
+  }
+
+  .menuItem > [data-scope='select'][data-part='root'] {
+    --moduix-select-width: 100%;
   }
 
   .menuButton,
@@ -441,10 +438,10 @@
     > [data-slot='menu-indicator'] {
       margin-inline-start: auto;
     }
-  }
 
-  .panel .menuButton {
-    justify-content: flex-start;
+    > [data-scope='select'][data-part='indicator'] {
+      margin-inline-start: auto;
+    }
   }
 
   .menuAction {
@@ -498,7 +495,7 @@
     position: absolute;
     inset-block-start: calc(
       (var(--moduix-sidebar-navigation-button-height, var(--moduix-size-md)) -
-          var(--moduix-sidebar-navigation-badge-min-width, 1.5rem)) /
+          var(--moduix-sidebar-navigation-badge-min-width, 1.25rem)) /
         2
     );
     inset-inline-end: var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2));
@@ -506,43 +503,43 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--moduix-sidebar-navigation-badge-min-width, 1.5rem);
-    min-height: var(--moduix-sidebar-navigation-badge-min-width, 1.5rem);
+    min-width: var(--moduix-sidebar-navigation-badge-min-width, 1.25rem);
+    min-height: var(--moduix-sidebar-navigation-badge-min-width, 1.25rem);
     padding-inline: var(--moduix-sidebar-navigation-badge-padding-x, var(--moduix-spacing-1));
     border-radius: var(--moduix-radius-full);
     background-color: var(--moduix-sidebar-accent-bg, var(--moduix-color-accent));
     color: var(--moduix-sidebar-accent-color, var(--moduix-color-accent-foreground));
-    font-size: var(--moduix-text-xs);
+    font-size: var(--moduix-sidebar-navigation-badge-font-size, 0.6875rem);
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
 
-  .menuItem:has(.menuAction) .menuButton,
-  .menuItem:has(.menuBadge) .menuButton {
+  .menuItem:has(.menuAction) .menuButton {
     padding-inline-end: calc(
       var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
         var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
     );
+  }
 
-    > [data-slot='sidebar-navigation-sub-label'] {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .menuItem:has(.menuBadge) .menuButton {
+    padding-inline-end: calc(
+      var(--moduix-sidebar-navigation-badge-min-width, 1.25rem) +
+        var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
+    );
   }
 
   .menuItem:has(.menuAction):has(.menuBadge) {
     .menuButton {
       padding-inline-end: calc(
         var(--moduix-sidebar-navigation-action-size, var(--moduix-size-xs)) +
-          var(--moduix-sidebar-navigation-badge-min-width, 1.5rem) +
+          var(--moduix-sidebar-navigation-badge-min-width, 1.25rem) +
           var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 3
       );
     }
 
     .menuAction {
       inset-inline-end: calc(
-        var(--moduix-sidebar-navigation-badge-min-width, 1.5rem) +
+        var(--moduix-sidebar-navigation-badge-min-width, 1.25rem) +
           var(--moduix-sidebar-navigation-button-padding-x, var(--moduix-spacing-2)) * 2
       );
     }
@@ -582,7 +579,8 @@
     .menuAction,
     .menuBadge,
     [data-slot='collapsible-indicator'],
-    [data-slot='menu-indicator'] {
+    [data-slot='menu-indicator'],
+    [data-slot='select-indicator'] {
       display: none;
     }
 
