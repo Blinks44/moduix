@@ -17,6 +17,9 @@ Use project skills from [`.agents/skills/`](.agents/skills/README.md). Apply onl
 - **React or TypeScript in `packages/react`:** `js-react-conventions` and `ui-component-workflow`; also use
   `css-authoring` for styles, `upstream-library-docs` for Ark/Chakra/shadcn behavior, and
   `local-component-docs` when component markdown changes.
+- **React-to-Solid component ports:** `react-to-solid`; additionally use `css-authoring` for styles,
+  `upstream-library-docs` for current Ark Solid behavior, `rstest-best-practices` for tests, and
+  `rslib-best-practices` when creating or changing the Solid package build.
 - **Rspress pages, examples, or CSS-variable documentation in `website`:** `docs-workflow`; additionally use
   `rspress-description-generator` for new-page or description-frontmatter work, `rspress-best-practices` for
   Rspress configuration, navigation, build, deployment, or debugging, `rspress-localization` for any localization

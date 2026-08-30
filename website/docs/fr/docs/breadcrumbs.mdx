@@ -1,22 +1,22 @@
 ---
 title: Breadcrumbs
 component: breadcrumbs
-description: Une navigation sémantique en fil d’Ariane, avec des parties explicites et une API compacte pour les chemins courts.
+description: Navigation sémantique en fil d’Ariane, avec une composition explicite et une API compacte pour les chemins courts.
 ---
 
 import * as BreadcrumbsDocs from '@/components/examples/breadcrumbs';
 
 ## Référence de l’API
 
-Ark UI ne fournit pas de primitive dédiée pour les fils d’Ariane. moduix construit ce composant à l’aide de l’outil officiel
-[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) et suit les recommandations d’Ark pour la
-[composition](https://ark-ui.com/docs/guides/composition), les [styles](https://ark-ui.com/docs/guides/styling) et les
-[refs](https://ark-ui.com/docs/guides/ref).
+Ark UI ne fournit pas de primitive dédiée au fil d’Ariane. moduix s’appuie sur la
+[Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) officielle et suit les recommandations d’Ark
+en matière de [composition](https://ark-ui.com/docs/guides/composition), de [styles](https://ark-ui.com/docs/guides/styling)
+et de gestion des [ref](https://ark-ui.com/docs/guides/ref).
 
 ## Exemple de base
 
-Utilisez `Breadcrumbs.Path` lorsque l’application sait déjà quel chemin afficher. Le composant génère la liste ordonnée,
-les éléments, les liens, la page actuelle et les séparateurs à partir d’un petit tableau `items`.
+Utilisez `Breadcrumbs.Path` lorsque vous disposez déjà des segments du chemin à afficher. Le composant génère la liste
+ordonnée, les éléments, les liens, la page actuelle et les séparateurs à partir d’un simple tableau `items`.
 
 <PreviewFrame maxWidth="lg">
   ```tsx preview file="../../en/docs/_snippets/breadcrumbs/basic.tsx"
@@ -31,7 +31,7 @@ les éléments, les liens, la page actuelle et les séparateurs à partir d’un
 
 ## Anatomie
 
-`Breadcrumbs` expose ses parties dans un espace de noms conforme au modèle d’Ark.
+`Breadcrumbs` expose ses parties dans un espace de noms inspiré du modèle d’Ark.
 
 ```text
 Breadcrumbs / Breadcrumbs.Root
@@ -45,13 +45,13 @@ Breadcrumbs / Breadcrumbs.Root
 
 | Partie                              | Rôle                                                               |
 | ----------------------------------- | ------------------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | Zone de navigation racine avec un `aria-label` par défaut.         |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Zone de navigation avec un `aria-label` par défaut.               |
 | `Breadcrumbs.List`                 | Liste ordonnée des segments du fil d’Ariane.                       |
-| `Breadcrumbs.Item`                 | Élément de liste qui enveloppe un segment.                         |
+| `Breadcrumbs.Item`                 | Élément de liste qui contient un segment.                          |
 | `Breadcrumbs.Link`                 | Ancre stylisée pour les segments navigables ; prend en charge `asChild`. |
 | `Breadcrumbs.Page`                 | Texte de la page actuelle avec `aria-current="page"`.             |
-| `Breadcrumbs.Separator`            | Séparateur visuel sans rôle sémantique, masqué pour les technologies d’assistance. |
-| `Breadcrumbs.Ellipsis`             | Marqueur compact pour un déclencheur de menu qui affiche les segments masqués. |
+| `Breadcrumbs.Separator`            | Séparateur visuel, sans rôle sémantique, masqué pour les technologies d’assistance. |
+| `Breadcrumbs.Ellipsis`             | Marqueur compact pour un déclencheur de menu qui révèle les segments masqués. |
 
 `Breadcrumbs.Path` est un raccourci fourni par moduix. Il génère `Breadcrumbs.List`, `Breadcrumbs.Item`, `Breadcrumbs.Link`,
 `Breadcrumbs.Page` et `Breadcrumbs.Separator` à partir d’un tableau `items`.
@@ -60,48 +60,52 @@ Breadcrumbs / Breadcrumbs.Root
 
 ### Composition recommandée
 
-Utilisez `Breadcrumbs.Path` pour les fils d’Ariane simples composés de liens. Le dernier élément devient la page actuelle.
-Un chevron sépare les éléments par défaut, et `separator` le remplace dans chaque intervalle visible. Le raccourci génère
-lui-même ses enfants et n’accepte donc ni `children` ni `asChild`. Les propriétés natives de la liste ordonnée et la ref
-sont transmises au `Breadcrumbs.List` généré.
+Utilisez `Breadcrumbs.Path` pour les fils d’Ariane simples dont les pages parentes sont des liens. Le dernier élément devient
+la page actuelle, un chevron sépare les éléments par défaut et `separator` le remplace dans chaque intervalle visible.
+Le raccourci génère lui-même ses enfants et n’accepte donc ni `children` ni `asChild`. Les propriétés natives de la liste
+ordonnée et la ref sont transmises au `Breadcrumbs.List` généré.
 
 ### Quand créer une composition personnalisée
 
 Utilisez les parties explicites lorsque vous avez besoin de liens gérés par le routeur de votre framework, de segments
-intermédiaires masqués ou d’un balisage différent selon les éléments. `asChild` d’Ark permet d’utiliser ces liens du routeur.
-L’enfant doit être un seul lien sémantique qui conserve les `href`, le focus et le comportement clavier attendus.
+intermédiaires masqués ou d’un balisage différent pour certains éléments. `asChild` d’Ark permet de remplacer
+`Breadcrumbs.Link` par ce lien. L’enfant doit être un seul lien sémantique qui conserve son `href`, sa gestion du focus
+et son comportement clavier.
 
-Associez le composant à `Menu` lorsque les segments intermédiaires doivent être masqués derrière un déclencheur affichant
-des points de suspension. Conservez la structure de `Menu` explicite : `Menu.Positioner`, `Menu.Content` et
-`Menu.Item asChild`. Menu gère la frontière du portail.
+Associez les parties de Breadcrumbs à `Menu` lorsque les segments intermédiaires doivent être masqués derrière un déclencheur
+affichant des points de suspension. Conservez la structure de `Menu` explicite : `Menu.Positioner`, `Menu.Content` et
+`Menu.Item asChild`. Le composant `Menu` gère le rendu du contenu dans un portail.
 
 ### Propriétés par défaut
 
-| Partie                              | Valeur par défaut | Remarques                                                    |
+| Composant                          | Valeur par défaut | Remarques                                                    |
 | ----------------------------------- | ----------------- | ------------------------------------------------------------ |
-| `Breadcrumbs` / `Breadcrumbs.Root` | -                 | Aucun comportement supplémentaire par défaut ; les valeurs d’Ark s’appliquent. |
+| `Breadcrumbs` / `Breadcrumbs.Root` | Aucun             | Aucun comportement supplémentaire par défaut ; les valeurs d’Ark s’appliquent. |
 | `Breadcrumbs.Path`                 | chevron           | Utilise des chevrons entre les éléments si `separator` n’est pas défini. |
 
 ### Comportement
 
-- `Breadcrumbs` affiche un repère `nav` dont l’`aria-label` par défaut vaut `"Breadcrumb"`.
+- `Breadcrumbs` rend une zone de navigation `nav` dont l’`aria-label` vaut `"Breadcrumb"` par défaut.
 - `Breadcrumbs.Path` génère une liste ordonnée à partir de `items` ; le dernier élément est toujours la page actuelle.
+- Tous les éléments sauf le dernier sont rendus comme des `Breadcrumbs.Link` ; fournissez un `href` aux éléments qui
+  doivent être navigables et laissez le dernier sans `href`.
 - `Breadcrumbs.Path` transmet les propriétés natives de la liste ordonnée et la ref, mais ses enfants sont générés et fixes.
   Il ne prend donc pas en charge `children` ni `asChild`.
 - `Breadcrumbs.Separator` est purement visuel et masqué pour les technologies d’assistance.
-- `Breadcrumbs.Ellipsis` est masqué pour les technologies d’assistance, car le déclencheur porte le libellé.
-- Placez le libellé accessible du chemin condensé sur `Menu.Trigger`.
-- Tout élément visible du fil d’Ariane peut rétrécir lorsque l’espace manque. La page actuelle reste la cible principale de
-  la troncature grâce à `--moduix-breadcrumbs-item-max-width`.
+- `Breadcrumbs.Ellipsis` est purement visuel et masqué pour les technologies d’assistance ; placez-le dans un déclencheur
+  `Menu` et ajoutez le libellé accessible du chemin condensé sur `Menu.Trigger`.
+- Les éléments visibles peuvent rétrécir lorsque l’espace manque. La page actuelle reste la première cible de la troncature
+  grâce à `--moduix-breadcrumbs-item-max-width`.
 - Breadcrumbs ne possède aucune propriété contrôlée, aucun callback, hook de contexte, `RootProvider`, id, `HiddenInput`
   ou intégration avec l’état d’un formulaire, car il ne gère ni état interactif ni état de formulaire.
 
 ## Exemples
 
-### Chemin replié
+### Fil d’Ariane condensé
 
-Utilisez les parties de `Menu` migrées vers Ark lorsque des segments intermédiaires masqués doivent pouvoir être affichés.
-Cet exemple utilise les parties explicites de Breadcrumbs, car le déclencheur et le contenu du menu portent l’interaction.
+Utilisez les parties explicites de Breadcrumbs avec `Menu` lorsque des segments intermédiaires doivent être masqués puis
+révélés à la demande. Le déclencheur et le contenu du menu gèrent l’interaction ; cet exemple utilise donc les parties
+explicites plutôt que `Breadcrumbs.Path`.
 
 <style>{`
       .collapsed-menu-trigger {
@@ -146,8 +150,8 @@ Cet exemple utilise les parties explicites de Breadcrumbs, car le déclencheur e
 
 ### Séparateur personnalisé
 
-Avec `Breadcrumbs.Path`, remplacez le chevron par défaut par une icône ou un symbole lorsque tous les intervalles visibles
-utilisent le même séparateur.
+Avec `Breadcrumbs.Path`, remplacez le chevron par défaut par une icône ou un symbole lorsque le même séparateur doit apparaître
+dans tous les intervalles visibles.
 
 <style>{`
       .separator-icon {
@@ -164,7 +168,7 @@ utilisent le même séparateur.
 
 ### Lien du routeur
 
-Utilisez `asChild` d’Ark lorsque l’application utilise les liens gérés par son routeur.
+Utilisez `asChild` d’Ark pour intégrer un lien fourni par le routeur du framework utilisé par l’application.
 
 <style>{`
       [data-framework-link] {
@@ -182,8 +186,8 @@ Utilisez `asChild` d’Ark lorsque l’application utilise les liens gérés par
 ### Libellé long de la page actuelle
 
 Passez un nœud React comme dernier libellé de `Breadcrumbs.Path` lorsque la page actuelle nécessite des attributs
-supplémentaires, par exemple `title`. Les éléments ancêtres peuvent eux aussi rétrécir, ce qui réduit le risque de voir de
-longs libellés intermédiaires faire déborder le chemin.
+supplémentaires, par exemple `title`. Les éléments parents peuvent eux aussi rétrécir ; les longs libellés intermédiaires
+risquent donc moins de faire déborder le fil d’Ariane.
 
 <style>{`
       .breadcrumbs-long-label {
@@ -200,8 +204,8 @@ longs libellés intermédiaires faire déborder le chemin.
 
 ### Personnalisation avancée
 
-Utilisez les parties explicites à la place de `Breadcrumbs.Path` lorsqu’un même chemin doit combiner des liens gérés par le routeur,
-un séparateur personnalisé et un libellé de page actuelle avec un balisage supplémentaire.
+Utilisez les parties explicites plutôt que `Breadcrumbs.Path` lorsqu’un même fil combine des liens fournis par le routeur du
+framework, un séparateur personnalisé et un libellé de page actuelle enrichi par du balisage.
 
 <style>{`
       [data-framework-link] {
@@ -226,8 +230,8 @@ un séparateur personnalisé et un libellé de page actuelle avec un balisage su
 
 ## Styles
 
-Chaque partie exportée expose les attributs `data-scope="breadcrumbs"` et `data-part` du modèle Ark, ainsi que les hooks
-moduix stables `data-slot`. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, les styles du texte,
+Chaque partie exportée expose les attributs `data-scope="breadcrumbs"` et `data-part` du modèle Ark, ainsi que les sélecteurs
+`data-slot` stables de moduix. Les variables publiques `--moduix-breadcrumbs-*` contrôlent la mise en page, la typographie,
 l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Propriétés CSS
@@ -236,12 +240,12 @@ l’anneau de focus, les séparateurs et la taille des points de suspension.
 
 ### Sélecteurs de style
 
-- `data-scope="breadcrumbs"` est présent sur chaque partie exportée.
+- L’attribut `data-scope="breadcrumbs"` est présent sur chaque partie exportée.
 - Les valeurs `data-part="root"`, `list`, `item`, `link`, `page`, `separator` et `ellipsis` suivent le contrat Ark factory
   utilisé par ce composant.
 - Les valeurs `data-slot="breadcrumbs-root"`, `breadcrumbs-list`, `breadcrumbs-item`, `breadcrumbs-link`, `breadcrumbs-page`,
-  `breadcrumbs-separator` et `breadcrumbs-ellipsis` restent des sélecteurs moduix stables.
-- `Breadcrumbs.Link`, `Breadcrumbs.Page` et `Breadcrumbs.Ellipsis` utilisent le même espacement intérieur horizontal défini
-  par `--moduix-breadcrumbs-item-padding-x`.
-- Les parties visibles de `Breadcrumbs.Item` peuvent rétrécir pour que le fil d’Ariane tienne sur une ligne. La dernière
-  partie visible reste la cible principale de la troncature et utilise `--moduix-breadcrumbs-item-max-width`.
+  `breadcrumbs-separator` et `breadcrumbs-ellipsis` constituent des sélecteurs moduix stables.
+- `Breadcrumbs.Link`, `Breadcrumbs.Page` et `Breadcrumbs.Ellipsis` partagent l’espacement intérieur horizontal défini par
+  `--moduix-breadcrumbs-item-padding-x`.
+- Les éléments visibles de `Breadcrumbs.Item` peuvent rétrécir pour que le fil d’Ariane tienne sur une ligne. Le dernier
+  élément visible reste la première cible de la troncature et utilise `--moduix-breadcrumbs-item-max-width`.

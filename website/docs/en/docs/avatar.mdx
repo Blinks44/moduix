@@ -1,7 +1,7 @@
 ---
 title: Avatar
 component: avatar
-description: A compact representation of a user or entity with Ark UI image loading and fallback behavior.
+description: A compact representation of a user or entity with Ark UI-managed image loading and fallback behavior.
 ---
 
 import * as AvatarDocs from '@/components/examples/avatar';
@@ -12,8 +12,8 @@ import * as AvatarDocs from '@/components/examples/avatar';
 
 ## Basic
 
-Use `Avatar`, `Avatar.Fallback`, and `Avatar.Image` together. Keep `Avatar.Fallback` mounted so
-Ark UI can switch between the fallback and the image as loading state changes.
+Use `Avatar`, `Avatar.Fallback`, and `Avatar.Image` together. Keep `Avatar.Fallback` in the tree so
+Ark UI can switch between the fallback and the image as the loading state changes.
 
 <style>{AvatarDocs.avatarExampleCss}</style>
 
@@ -46,8 +46,8 @@ Avatar.Root | Avatar.RootProvider
 
 ### Recommended composition
 
-Use `Avatar` for the usual case. `Avatar.Root` remains available when you want the explicit,
-Ark-aligned namespace. `onStatusChange(details)` reports the loading state managed by Ark, while
+Use `Avatar` for the usual case. `Avatar.Root` remains available when you want the explicit root
+component used by Ark. `onStatusChange(details)` reports the loading state managed by Ark, while
 `ids` provides stable IDs for the root, image, and fallback. All DOM parts forward their refs and
 support Ark `asChild`.
 
@@ -86,7 +86,7 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
   no children are provided.
 - `Avatar.Fallback` renders a decorative User icon when neither children nor usable `name` initials
   are available.
-- `onStatusChange` receives a detail object; read the current value from `details.status`.
+- `onStatusChange` receives a detail object with `details.status` set to `loaded` or `error`.
 - A missing or failed image keeps the fallback visible.
 - `Avatar.RootProvider` requires the `value` returned by `useAvatar`.
 - `useAvatar` and `useAvatarContext` are available from `@moduix/react`.
@@ -94,17 +94,6 @@ When `size` is omitted, Avatar uses the `md` visual tokens without setting `data
 - moduix adds only visual defaults, stable `data-slot` hooks, CSS variables, and `size`.
 
 ## Examples
-
-### Default Fallback
-
-Leave `Avatar.Fallback` empty to use the built-in decorative User icon. Provide the accessible name
-on the surrounding link or button when the avatar is interactive.
-
-<PreviewFrame maxWidth="sm">
-  ```tsx preview file="./_snippets/avatar/default-fallback.tsx"
-
-```
-</PreviewFrame>
 
 ### Custom Fallback
 
@@ -129,6 +118,17 @@ participate in Ark's loading lifecycle.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/avatar/custom-image.tsx"
+
+```
+</PreviewFrame>
+
+### Default Fallback
+
+Leave `Avatar.Fallback` empty to use the built-in decorative User icon. Provide the accessible name
+on the surrounding link or button when the avatar is interactive.
+
+<PreviewFrame maxWidth="sm">
+  ```tsx preview file="./_snippets/avatar/default-fallback.tsx"
 
 ```
 </PreviewFrame>

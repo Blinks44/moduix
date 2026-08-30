@@ -1,30 +1,30 @@
 ---
 title: Badge
 component: badge
-description: A compact label for short metadata such as status, category, version, or count.
+description: A compact label for brief metadata such as status, category, version, or count.
 ---
 
 import * as BadgeDocs from '@/components/examples/badge';
 
 ## API Reference
 
-Ark UI does not ship a dedicated `Badge` primitive. moduix builds this component with the official
+Ark UI does not provide a dedicated `Badge` primitive. moduix builds `Badge` with the official
 [Ark factory](https://ark-ui.com/docs/guides/composition#the-ark-factory) and follows Ark's guidance for
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
 ## Choosing the right component
 
-Use `Badge` to show brief information about another object, rather than a value selected by the
-user.
+Use `Badge` to show brief information about an item. It is presentational, so it is not a replacement
+for a control that lets the user select or edit a value.
 
 - Choose **`Badge`** for short metadata such as status, category, version, or count.
-- Choose **`Tag`** when the UI is showing selected values, filters, assignments, or labels that belong to the current state of the interface.
+- Choose **`Tag`** for selected values, filters, assignments, or labels that are part of the current interface state.
 
 ## Basic
 
-Start with a plain `Badge`. Add `variant` when the default style is not enough, and add `Badge.Dot`
-only when the status needs a visual indicator.
+Start with a plain `<Badge>`. The component renders a presentational `span` by default. Set `variant`
+to choose a built-in style, and add `Badge.Dot` only when the status benefits from a visual indicator.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/badge/basic.tsx"
@@ -38,7 +38,8 @@ only when the status needs a visual indicator.
 
 ## Anatomy
 
-`Badge` keeps its public API small and exposes only the parts you can see.
+`Badge` is the shorthand for `Badge.Root`. It keeps the public API small and exposes only the parts
+you can see.
 
 ```text
 Badge / Badge.Root
@@ -49,38 +50,41 @@ Badge / Badge.Root
 
 | Part                   | Role                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
-| `Badge` / `Badge.Root` | Root part. Applies the variant, border, spacing, and text truncation.                |
-| `Badge.Label`          | Explicit text part. Keeps a composed label truncatable.                              |
-| `Badge.Dot`            | Optional indicator part. Renders a circular marker that inherits the text color.     |
+| `Badge` / `Badge.Root` | Root part. Applies the variant, border, spacing, and text truncation.             |
+| `Badge.Label`          | Explicit text part. Keeps a composed label truncatable.                           |
+| `Badge.Dot`            | Optional decorative part. Renders a circular marker that inherits the text color. |
 
 ## Composition
 
 ### Recommended composition
 
-For most status labels, categories, version labels, and short counters, use `Badge` directly.
+For most short status labels, categories, version labels, and counters, use `<Badge>` directly.
+`Badge.Root` is the namespaced equivalent.
 
 Use `variant` for the built-in styles: `default`, `secondary`, `destructive`, `outline`, `ghost`,
 and `link`.
 
-Place `Badge.Dot` or a direct child icon next to `Badge.Label` when a composed badge needs an extra
-visual cue. Plain text is wrapped in `Badge.Label` automatically.
+Place `Badge.Dot` or a direct child icon next to `Badge.Label` when the badge needs an extra visual
+cue. Direct text is wrapped in `Badge.Label` automatically.
 
 `Badge.Root`, `Badge.Label`, and `Badge.Dot` forward refs to their rendered DOM elements.
 
 ### When to go custom
 
-Use `Badge asChild` when another semantic element needs to become the root DOM node. Ark composition
-requires exactly one child. Interactive children keep their native semantics and receive the badge's
-default cursor, hover, and keyboard-focus treatment.
+Use `Badge asChild` when a semantic element such as an `<a>` or `<button>` should become the root DOM
+node. Ark composition requires exactly one child. The child keeps its native semantics, and links,
+buttons, and elements with `role="button"` receive the badge's default cursor, hover, and focus-visible
+styles.
 
-Use local CSS variables or `className` overrides when you need a custom size or a different style.
+Use a local CSS variable or `className` override when you need a custom size or a different style.
+There is no `size` prop; adjust the dimensions through the public CSS variables.
 
 ### Default props
 
 | Prop      | Default   | Values / Notes                                                    |
 | --------- | --------- | ----------------------------------------------------------------- |
 | `variant` | `default` | `default`, `secondary`, `destructive`, `outline`, `ghost`, `link` |
-| `asChild` | `false`   | Ark factory composition with exactly one child                    |
+| `asChild` | `false`   | Render exactly one child as the root element                       |
 
 ### Behavioral notes
 
@@ -88,22 +92,20 @@ Use local CSS variables or `className` overrides when you need a custom size or 
 - `Badge.Dot` is decorative and hidden from assistive technology, so the visible text must carry the status meaning.
 - `Badge` does not add interaction or link or button semantics of its own.
 - Semantic links and buttons rendered through `asChild` keep their native semantics and receive the default cursor, hover, and focus-visible styling.
-- Disabled buttons and elements with `aria-disabled="true"` keep their semantics, skip hover styling, and use the public disabled-opacity hook.
-- Long labels stay on one line and are truncated by the root. `title` exposes the complete value on
-  pointer hover; on touch-first interfaces, choose a label that fits the available space.
+- Disabled buttons and elements with `aria-disabled="true"` keep their semantics, skip hover styling, and use the public disabled-opacity variable.
+- Long labels stay on one line and are truncated by the root. Add `title` to expose the complete value
+  on pointer hover. On touch-first interfaces, choose a label that fits the available space.
 - Direct text is wrapped in `Badge.Label` automatically. Use `Badge.Label` explicitly when text is
   composed with a dot, icon, or another element.
 - Direct child `svg` icons inherit `currentColor` and use `--moduix-badge-icon-size`.
 - Numeric content uses tabular figures, and badge text is not selectable by default.
-- Chakra's size recipe is intentionally represented by public CSS variables instead of a `size`
-  prop.
 
 ## Examples
 
 ### Custom Styling
 
-Use `className` and the public `--moduix-badge-*` variables when a built-in variant is close to what
-you need but still needs a small adjustment.
+Use a class or inline CSS variables when a built-in variant is close to what you need but still needs
+a small adjustment.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/badge/custom-styling.tsx"
@@ -114,8 +116,8 @@ you need but still needs a small adjustment.
 
 ### Link
 
-Use `variant="link"` with `asChild` when the badge should act as a small link in a metadata row.
-The child element keeps the semantics of a real link.
+Use `variant="link"` with `asChild` when a badge needs to be a link in a metadata row. The child
+element remains a real link and keeps its native semantics.
 
 <PreviewFrame maxWidth="sm">
   ```tsx preview file="./_snippets/badge/link.tsx"
@@ -162,7 +164,8 @@ Use the built-in variants for common styles.
 
 ### With Dot
 
-Add `Badge.Dot` when the label needs a status indicator that stays visually connected to it.
+Add `Badge.Dot` when the label needs a status indicator that stays visually connected to it. Keep the
+status meaning in the visible text because the dot is decorative.
 
 <style>{`
       .badge-demo-row {
@@ -182,7 +185,7 @@ Add `Badge.Dot` when the label needs a status indicator that stays visually conn
 
 ### With Icon
 
-Place an inline icon next to the label when the metadata needs another visual cue.
+Place a direct child SVG icon next to the label when the metadata needs another visual cue.
 
 <style>{`
       .badge-demo-row {
@@ -201,10 +204,11 @@ Place an inline icon next to the label when the metadata needs another visual cu
 
 ## Styling
 
-Start with a built-in variant. Use local CSS variables for one-off size and style changes.
-Use `--moduix-badge-<variant>-*` variables to theme a variant across the application. The shared
-`--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color` variables have higher
-priority when you need to customize one badge.
+Start with a built-in variant. For a one-off size or style change, set the public
+`--moduix-badge-*` variables on the badge through a class or inline style. Use
+`--moduix-badge-<variant>-*` variables to theme a variant across the application. The shared
+`--moduix-badge-bg`, `--moduix-badge-border-color`, and `--moduix-badge-color` variables override
+the variant-specific values for an individual badge.
 
 ### CSS Properties
 
@@ -217,5 +221,5 @@ priority when you need to customize one badge.
 - `Badge.Root` writes the selected variant to `data-variant`.
 - Semantic links and buttons rendered through `Badge asChild` or `Badge.Root asChild` receive the root's default focus-visible styling.
 - Direct child `svg` icons inherit `currentColor`, do not receive pointer events, and use `--moduix-badge-icon-size`.
-- There are no Ark-managed states or runtime CSS variables because Badge has no dedicated Ark
-  primitive or behavior machine.
+- Badge has no dedicated Ark primitive or behavior machine, so it does not expose Ark-managed states
+  or runtime CSS variables.

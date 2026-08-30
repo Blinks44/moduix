@@ -1097,9 +1097,9 @@
     "fr": "10 août 2026"
   },
   "localizationHeroLanguages": {
-    "en": "Russian · French",
-    "ru": "Русский · Французский",
-    "fr": "Russe · Français"
+    "en": "Russian, French",
+    "ru": "Русский, Французский",
+    "fr": "Russe, Français"
   },
   "localizationHeroSummary": {
     "en": "Russian and French are here. More translations are next.",

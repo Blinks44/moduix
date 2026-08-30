@@ -1,7 +1,7 @@
 ---
 title: Bleed
 component: bleed
-description: A layout primitive for letting selected content extend beyond a constrained container.
+description: Layout primitive that lets selected content extend beyond a constrained container.
 ---
 
 import * as BleedDocs from '@/components/examples/bleed';
@@ -13,13 +13,13 @@ Ark UI does not include a dedicated `bleed` primitive. moduix builds `Bleed` wit
 [composition](https://ark-ui.com/docs/guides/composition), [styling](https://ark-ui.com/docs/guides/styling), and
 [refs](https://ark-ui.com/docs/guides/ref).
 
-Use [Container](/docs/container) to keep the main layout at a readable width. Place `Bleed` inside it when
+Use [Container](/docs/container) to keep the main content at a readable width. Put `Bleed` inside it when
 only a media block, background, divider, or banner should extend beyond the container.
 
 ## Basic
 
-Use the default `inline="full"` when a media block, banner, or section accent should extend to the viewport
-edges while remaining in the normal document flow.
+The default `inline="full"` makes media, banners, and section decorations reach the viewport edges while
+remaining in the normal document flow.
 
 <style>{`
       .bleed-demo-container {
@@ -54,8 +54,8 @@ edges while remaining in the normal document flow.
 
 ## Anatomy
 
-`Bleed` renders one root element that follows Ark's conventions. The root uses negative margins on the
-inline and/or block axis.
+`Bleed` renders one root element that follows Ark's conventions. It uses negative margins on the inline
+and/or block axis, without adding an inner wrapper.
 
 ```text
 Bleed.Root
@@ -63,23 +63,23 @@ Bleed.Root
    └─ children
 ```
 
-| Part                   | Role                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| `Bleed` / `Bleed.Root` | Root layout wrapper that extends content along the inline and block axes.      |
-| `Bleed`                | Short form of `Bleed.Root`, usable directly as a component.                    |
+| Part                   | Role                                                                    |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `Bleed` / `Bleed.Root` | Root component for extending content along the inline and block axes.  |
+| `Bleed`                | Short form of `Bleed.Root`, usable directly as a component.             |
 
 ## Composition
 
 ### Recommended composition
 
-Use the shorter `Bleed` form when the layout only needs one wrapper with controlled negative margins.
-`Bleed.Root` exposes the same root through a namespace form for codebases that prefer Ark's naming pattern.
-Use it for full-width media, section backgrounds, dividers, and banners inside centered or padded shells.
+Use the shorter `Bleed` form when the layout needs one wrapper with controlled negative margins.
+`Bleed.Root` exposes the same root through a namespace form for codebases that follow Ark's naming pattern.
+Use either form for full-width media, section backgrounds, dividers, and banners inside centered or padded shells.
 
 ### When to go custom
 
 Use `className` and local `--moduix-bleed-*` overrides when a side panel, nested scroll area, or application shell
-needs full-bleed behavior relative to its own boundaries rather than the viewport.
+needs the content to extend to its own boundaries rather than the viewport.
 
 ### Default props
 
@@ -88,24 +88,22 @@ needs full-bleed behavior relative to its own boundaries rather than the viewpor
 | `inline`    | `full`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `full` |
 | `block`     | `none`  | `none`, `xs`, `sm`, `md`, `lg`, `xl`         |
 | `asChild`   | `false` | Ark factory composition                      |
-| `className` | -       | Applied to the root                          |
+| `className` | not set | Applied to the root                          |
 
 ### Behavioral notes
 
-- `Bleed.Root` renders a single root element and forwards the supported Ark factory `div` props to it.
+- `Bleed.Root` renders a single root element and accepts the supported Ark factory `div` props.
 - `ref` targets the rendered root element. With `asChild`, it targets the single child element.
 - `asChild` requires a single semantic child that accepts DOM props and a ref.
 - Use `inline` to extend through inline-axis padding. Add `block` when a surface should also extend
   through block-axis padding. These logical axes follow the document's writing mode.
-- The old `as` prop was removed during the Ark migration. Use `asChild` when a semantic element
-  should own the DOM node.
 - Use one of the fixed scale values when content only needs to extend through container padding rather than
   reach the viewport edge.
 - `inline="full"` is viewport-relative, so nested shells may need local overrides for
   `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size`.
 - Ancestors with `overflow: hidden` or `overflow: clip` can crop the bleed.
-- Unlike Chakra's layout primitive, moduix intentionally exposes token-based `inline` and `block`
-  modes instead of separate `inlineStart`, `inlineEnd`, `blockStart`, and `blockEnd` props.
+- `Bleed` is presentational only. It does not manage state, add ARIA behavior, handle keyboard or focus
+  interactions, or portal its content.
 
 ## Examples
 
@@ -142,8 +140,8 @@ Add `block` when a surface should extend through the container's block-axis padd
 
 ### Custom Styling
 
-Override `--moduix-bleed-inline-full` locally when a nested shell should size the bleed to its own
-content area instead of the viewport.
+Override `--moduix-bleed-inline-full` and `--moduix-bleed-inline-full-size` locally when a nested shell
+should size the bleed to its own content area instead of the viewport.
 
 <style>{`
       .bleed-demo-shell {
@@ -183,8 +181,8 @@ content area instead of the viewport.
 
 ### Inline Amounts
 
-Set `inline` to control how far content extends along the inline axis. This example compares small,
-large, and full bleed.
+Set `inline` to control how far content extends along the inline axis. This example compares the fixed
+`sm` and `lg` values with `full`, which reaches the viewport.
 
 <style>{`
       .bleed-demo-container {
@@ -215,8 +213,8 @@ large, and full bleed.
 
 ### Semantic Element
 
-Use `asChild` when the content should render as a more specific semantic element. In this example,
-`Bleed` renders the `figure` element as its root.
+Use `asChild` when the content should use a more specific semantic element. In this example, the `figure`
+element becomes the `Bleed` root.
 
 <style>{`
       .bleed-demo-container {
@@ -255,8 +253,8 @@ Use `asChild` when the content should render as a more specific semantic element
 
 ## Styling
 
-`Bleed` exposes a small set of CSS variables and stable data attributes on its root. Use variables to
-adjust how far it extends, and use `className` to style the surface itself.
+`Bleed` exposes CSS variables and stable data attributes on its root. Use the variables to adjust how far
+it extends, and use `className` to style the surface itself.
 
 ### CSS Properties
 

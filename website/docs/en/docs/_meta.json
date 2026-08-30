@@ -78,6 +78,7 @@
   {
     "type": "file",
     "name": "avatar",
+    "label": "Avatar",
     "tag": "component"
   },
   {

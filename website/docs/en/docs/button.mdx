@@ -1,7 +1,7 @@
 ---
 title: Button
 component: button
-description: A styled action control built on Ark's factory composition model.
+description: A styled button for actions, built with Ark's factory composition model.
 ---
 
 import * as ButtonDocs from '@/components/examples/button';
@@ -15,8 +15,8 @@ Ark UI does not provide a dedicated `button` primitive. moduix builds this compo
 
 ## Basic
 
-Use the short `<Button />` form for everyday actions. `Button.Root` is the equivalent namespaced
-form.
+For most actions, use the short `<Button>...</Button>` form. `Button.Root` is the equivalent
+namespaced form.
 
 ```tsx preview file="./_snippets/button/basic.tsx"
 
@@ -56,11 +56,12 @@ set `type="submit"` explicitly when the button should submit a form.
 | `variant` | `default` | `default`, `outline`, `secondary`, `destructive`, `destructive-outline`, `ghost`, `link` |
 | `size`    | `md`      | `xs`, `sm`, `md`, `lg`, `xl`, `icon-sm`, `icon-md`, `icon-lg`                            |
 | `type`    | `button`  | Native roots only                                                                        |
+| `asChild` | `false`   | Uses the single child as the rendered root                                               |
 
 ### When to use a custom element
 
-Use `asChild` when a single semantic child should own the DOM node. Ark composition requires exactly
-one child. The default `type="button"` is not injected into an `asChild` target.
+Use `asChild` when an existing semantic element should own the rendered DOM node. Ark composition
+requires exactly one child. The default `type="button"` is not injected into an `asChild` target.
 
 When `Dialog.Trigger`, `Menu.Trigger`, or another Ark part composes Button as its child, the parent
 part's `data-scope` and `data-part` take precedence on the shared DOM node. Button retains its
@@ -72,26 +73,18 @@ activation. They do not add a native `disabled` attribute to the custom element.
 
 ### Behavioral notes
 
-- Native attributes, `className`, and `style` pass through unchanged. Clicks on disabled roots are
-  prevented.
+- Native attributes, `style`, and event handlers are forwarded to the root. `className` is merged
+  with the moduix styles, and disabled roots prevent activation.
 - The forwarded ref targets the rendered root.
 - Native `disabled`, `aria-disabled="true"`, and `loading` expose `data-disabled`.
 - `loading` is a small convenience prop: it sets `data-loading`, `aria-busy`, and the disabled styling
   state while the spinner and label remain fully compositional.
 - Direct child `svg` elements inherit `currentColor` and use `--moduix-button-icon-size`.
 - Icon-only buttons require an accessible name.
-- Chakra-only `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading props are
-  intentionally outside this root-only moduix contract.
+- Chakra-only APIs such as `colorPalette`, responsive recipe props, `ButtonGroup`, and managed loading
+  props are intentionally outside moduix's root-only contract.
 
 ## Examples
-
-### Link with `asChild`
-
-Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
-
-```tsx preview file="./_snippets/button/as-child-link.tsx"
-
-```
 
 ### Disabled
 
@@ -110,9 +103,17 @@ layout.
 
 ```
 
-### Pending State
+### Link with `asChild`
 
-Use `loading` to wire the busy state while keeping the label, spinner, and async lifecycle explicit in
+Use `asChild` for navigation so the anchor keeps its link semantics while using button styles.
+
+```tsx preview file="./_snippets/button/as-child-link.tsx"
+
+```
+
+### Loading State
+
+Use `loading` to set the busy state while keeping the label, spinner, and async lifecycle explicit in
 your application code. It also prevents click activation on elements used with `asChild`.
 
 ```tsx preview file="./_snippets/button/pending-state.tsx"
@@ -149,7 +150,7 @@ Use variants to communicate an action's priority and intent.
 
 <CssPropertiesSection properties={ButtonDocs.buttonCssProperties} />
 
-### CSS styling hooks
+### Styling hooks
 
 - `data-slot="button-root"` is the stable moduix selector.
 - Standalone roots default to `data-scope="button"` and `data-part="root"`. A composing Ark parent
